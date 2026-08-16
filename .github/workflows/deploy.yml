@@ -36,12 +36,12 @@ jobs:
         run: python preprocess.py
 
       - name: Render Quarto site
-        run: quarto render _build --output-dir _site
+        run: quarto render _build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '_site'
+          path: '_build/_site'
 
   deploy:
     environment:
