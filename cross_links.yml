@@ -1,12 +1,11 @@
 WP: wp.html
 MF: mf.html
-LR: lr.html
 LR.A: lr-a.html
 LR.B: lr-b.html
+JUR: jur.html
 VAL: val.html
 VAL.A: val-a.html
 VAL.B: val-b.html
-JUR: jur.html
 CORP: corp.html
 CORP.A: corp-a.html
 GOV: gov.html
@@ -14,6 +13,8 @@ GOV.A: gov-a.html
 GOV.B: gov-b.html
 RATES: rates.html
 RATES.A: rates-a.html
+SWEEEPS: sweeps.html
+SWEEPS.A: sweeps-a.html
 BEHAV: behav.html
 CLOSE: close.html
 POL: pol.html
@@ -21,4 +22,3 @@ PHASE1: phase1.html
 ENV: env.html
 FM: fm.html
 MOD: mod.html
-SWEEPS: sweeps.html
