@@ -68,7 +68,7 @@
   output: sweeps-a.qmd
 
 - shortcode: BEHAV
-  source_glob: "10.0_*_WDT_Parameter_Sweeps_Appendix.md"
+  source_glob: "10.0_*_WDT_Behavioural_Robustness_and_Administrative_Experience.md"
   output: behav.qmd
 
 - shortcode: CLOSE

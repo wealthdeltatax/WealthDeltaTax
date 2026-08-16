@@ -15,6 +15,36 @@ website:
             href: wp.html
           - text: "Moral Foundations (MF)"
             href: mf.html
+          - text: "Research Gaps (LR.A)"
+            href: lr-a.html
+          - text: "Intellectual Background (LR.B)"
+            href: lr-b.html
+          - text: "UK Jurisdiction (JUR)"
+            href: jur.html
+          - text: "Valuing Wealth (VAL)"
+            href: val.html
+          - text: "Corporate Architecture (CORP)"
+            href: corp.html
+          - text: "Constitutional Governance (GOV)"
+            href: gov.html
+          - text: "Rates and Revenue (RATES)"
+            href: rates.html
+          - text: "Parameter Sweeps (SWEEPS)"
+            href: sweeps.html
+          - text: "Behavioural Robustness (BEHAV)"
+            href: behav.html
+          - text: "Position Closure (CLOSE)"
+            href: close.html
+          - text: "Political Architecture (POL)"
+            href: pol.html
+          - text: "Phase One (PHASE1)"
+            href: phase1.html
+          - text: "Environmental Effects (ENV)"
+            href: env.html
+          - text: "First Mover (FM)"
+            href: fm.html
+          - text: "Modular Adoption (MOD)"
+            href: mod.html
 
   sidebar:
     style: "docked"
@@ -25,6 +55,62 @@ website:
             href: wp.html
           - text: "Moral Foundations (MF)"
             href: mf.html
+      - section: "Literature"
+        contents:
+          - text: "Research Gaps (LR.A)"
+            href: lr-a.html
+          - text: "Intellectual Background (LR.B)"
+            href: lr-b.html
+          - text: "UK Jurisdiction (JUR)"
+            href: jur.html
+      - section: "Valuation"
+        contents:
+          - text: "Valuing Wealth (VAL)"
+            href: val.html
+          - text: "Mathematical Companion (VAL.A)"
+            href: val-a.html
+          - text: "Worked Examples (VAL.B)"
+            href: val-b.html
+      - section: "Corporate & Governance"
+        contents:
+          - text: "Corporate Architecture (CORP)"
+            href: corp.html
+          - text: "Corporate Appendix (CORP.A)"
+            href: corp-a.html
+          - text: "Constitutional Governance (GOV)"
+            href: gov.html
+          - text: "Governance Appendix (GOV.A)"
+            href: gov-a.html
+          - text: "Operational Appendix (GOV.B)"
+            href: gov-b.html
+      - section: "Revenue & Behaviour"
+        contents:
+          - text: "Rates and Revenue (RATES)"
+            href: rates.html
+          - text: "Rates Appendix (RATES.A)"
+            href: rates-a.html
+          - text: "Parameter Sweeps (SWEEPS)"
+            href: sweeps.html
+          - text: "Sweeps Appendix (SWEEPS.A)"
+            href: sweeps-a.html
+          - text: "Behavioural Robustness (BEHAV)"
+            href: behav.html
+      - section: "Implementation"
+        contents:
+          - text: "Position Closure (CLOSE)"
+            href: close.html
+          - text: "Phase One (PHASE1)"
+            href: phase1.html
+      - section: "Analysis"
+        contents:
+          - text: "Political Architecture (POL)"
+            href: pol.html
+          - text: "Environmental Effects (ENV)"
+            href: env.html
+          - text: "First Mover (FM)"
+            href: fm.html
+          - text: "Modular Adoption (MOD)"
+            href: mod.html
 
 format:
   html:
