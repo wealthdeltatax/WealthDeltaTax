@@ -9,7 +9,7 @@ from pathlib import Path
 import yaml
 
 # ── SET THIS TO YOUR SOURCE FOLDER ──────────────────────────────────────────
-SOURCE_DIR = r"C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\source_md"   # <-- edit this line
+SOURCE_DIR = "source_md"   # <-- edit this line
 BUILD_DIR  = "_build"
 CROSSLINKS = "cross_links.yml"
 # ────────────────────────────────────────────────────────────────────────────
