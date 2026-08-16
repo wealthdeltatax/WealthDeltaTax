@@ -1,0 +1,95 @@
+- shortcode: WP
+  source_glob: "1.0_*_Wealth_Delta_Tax_Whitepaper.md"
+  output: wp.qmd
+
+- shortcode: MF
+  source_glob: "2.0_*_WDT_Moral_and_Philosophical_Foundations.md"
+  output: mf.qmd
+
+- shortcode: LR
+  source_glob: "3.0_*_LR*.md"
+  output: lr.qmd
+
+- shortcode: LR.A
+  source_glob: "3.1_*_LR*.md"
+  output: lr-a.qmd
+
+- shortcode: LR.B
+  source_glob: "3.2_*_LR*.md"
+  output: lr-b.qmd
+
+- shortcode: VAL
+  source_glob: "4.0_*_VAL*.md"
+  output: val.qmd
+
+- shortcode: VAL.A
+  source_glob: "4.1_*_VAL*.md"
+  output: val-a.qmd
+
+- shortcode: VAL.B
+  source_glob: "4.2_*_VAL*.md"
+  output: val-b.qmd
+
+- shortcode: JUR
+  source_glob: "5.0_*_JUR*.md"
+  output: jur.qmd
+
+- shortcode: CORP
+  source_glob: "6.0_*_CORP*.md"
+  output: corp.qmd
+
+- shortcode: CORP.A
+  source_glob: "6.1_*_CORP*.md"
+  output: corp-a.qmd
+
+- shortcode: GOV
+  source_glob: "7.0_*_GOV*.md"
+  output: gov.qmd
+
+- shortcode: GOV.A
+  source_glob: "7.1_*_GOV*.md"
+  output: gov-a.qmd
+
+- shortcode: GOV.B
+  source_glob: "7.2_*_GOV*.md"
+  output: gov-b.qmd
+
+- shortcode: RATES
+  source_glob: "8.0_*_RATES*.md"
+  output: rates.qmd
+
+- shortcode: RATES.A
+  source_glob: "8.1_*_RATES*.md"
+  output: rates-a.qmd
+
+- shortcode: BEHAV
+  source_glob: "9.0_*_BEHAV*.md"
+  output: behav.qmd
+
+- shortcode: CLOSE
+  source_glob: "10.0_*_CLOSE*.md"
+  output: close.qmd
+
+- shortcode: POL
+  source_glob: "11.0_*_POL*.md"
+  output: pol.qmd
+
+- shortcode: PHASE1
+  source_glob: "12.0_*_Phase*.md"
+  output: phase1.qmd
+
+- shortcode: ENV
+  source_glob: "13.0_*_ENV*.md"
+  output: env.qmd
+
+- shortcode: FM
+  source_glob: "14.0_*_FM*.md"
+  output: fm.qmd
+
+- shortcode: MOD
+  source_glob: "15.0_*_MOD*.md"
+  output: mod.qmd
+
+- shortcode: SWEEPS
+  source_glob: "16.0_*_SWEEPS*.md"
+  output: sweeps.qmd

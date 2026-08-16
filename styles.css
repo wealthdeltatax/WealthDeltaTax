@@ -1,0 +1,36 @@
+body {
+  font-family: 'Georgia', serif;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.sidebar-navigation .sidebar-item-text {
+  font-size: 0.9rem;
+}
+
+.internal-bibliography {
+  background-color: #f8f9fa;
+  border-left: 3px solid #dee2e6;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.pdf-download {
+  display: inline-block;
+  margin: 1rem 0;
+  padding: 0.4rem 1rem;
+  background-color: #495057;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.pdf-download:hover {
+  background-color: #343a40;
+  color: white;
+}

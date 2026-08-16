@@ -1,0 +1,40 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "The Wealth Delta Tax"
+  description: "A proposed accrual-basis wealth tax with symmetric loss refunds"
+  navbar:
+    left:
+      - text: "Home"
+        href: index.html
+      - text: "Papers"
+        menu:
+          - text: "White Paper (WP)"
+            href: wp.html
+          - text: "Moral Foundations (MF)"
+            href: mf.html
+
+  sidebar:
+    style: "docked"
+    contents:
+      - section: "Core Papers"
+        contents:
+          - text: "White Paper (WP)"
+            href: wp.html
+          - text: "Moral Foundations (MF)"
+            href: mf.html
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    number-sections: false
+    css: styles.css
+    citations-hover: true
+    footnotes-hover: true
+    csl: apa.csl
+
+bibliography: wdt_references.bib

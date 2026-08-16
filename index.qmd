@@ -1,0 +1,27 @@
+---
+title: "The Wealth Delta Tax"
+---
+
+The Wealth Delta Tax (WDT) is a proposed fiscal mechanism that levies a progressive annual
+charge on changes in individual net worth above an exemption threshold, combined with a
+symmetric loss-refund mechanism and a pre-funded Sovereign Wealth Fund.
+
+This site hosts the full companion paper series. Use the sidebar to navigate by paper.
+
+## About the project
+
+The WDT is designed for developed capitalist democracies. Its governing objective is to
+redesign the fiscal relationship between concentrated private wealth and democratic society
+while preserving productive dynamism and progressively reducing the tax burden on ordinary
+households.
+
+The project currently comprises 24 papers covering mechanism design, valuation, governance,
+rates and revenue, behavioural robustness, political architecture, and strategic adoption
+dynamics.
+
+## Where to start
+
+- **New to the WDT?** Begin with the [White Paper](wp.html) for the mechanism overview.
+- **Want the normative case first?** The [Moral Foundations](mf.html) paper develops
+  the philosophical basis independently of the mechanism.
+- **Returning reader?** Use the sidebar to navigate directly to the paper you want.
