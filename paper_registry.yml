@@ -7,15 +7,15 @@
   output: mf.qmd
 
 - shortcode: LR.A
-  source_glob: "3.1_*_WDT_Intellectual_Background.md"
+  source_glob: "3.0_*_WDT_Research_Gaps.md"
   output: lr-a.qmd
 
 - shortcode: LR.B
-  source_glob: "3.2_*_WDT_UK_Jurisdiction_and_Data_Reference_Paper.md"
+  source_glob: "3.1_*_WDT_Intellectual_Background.md"
   output: lr-b.qmd
 
 - shortcode: JUR
-  source_glob: "4.0_*_WDT_UK_Jurisdiction_and_Data_Reference_Paper"
+  source_glob: "4.0_*_WDT_UK_Jurisdiction_and_Data_Reference_Paper.md"
   output: jur.qmd
 
 
@@ -80,7 +80,7 @@
   output: pol.qmd
 
 - shortcode: PHASE1
-  source_glob: "13.0_*_WDT_Phase_On.md"
+  source_glob: "13.0_*_WDT_Phase_One.md"
   output: phase1.qmd
 
 - shortcode: ENV
