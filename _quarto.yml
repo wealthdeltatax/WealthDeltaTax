@@ -3,8 +3,20 @@ project:
   output-dir: _site
 
 website:
-  title: "The Wealth Delta Tax"
-  description: "A proposed accrual-basis wealth tax with symmetric loss refunds"
+  title: "Wealth Delta Tax (WDT)"
+  description: "The Wealth Delta Tax (WDT) taxes changes in individual net wealth on an accrual basis, with symmetric loss refunds and a pre-funded Sovereign Wealth Fund — a proposed alternative to conventional wealth taxation."
+  site-url: "https://wealthdeltatax.org"
+
+  open-graph:
+    title: "Wealth Delta Tax (WDT)"
+    description: "The Wealth Delta Tax (WDT) taxes changes in individual net wealth on an accrual basis, with symmetric loss refunds and a pre-funded Sovereign Wealth Fund."
+    site-name: "Wealth Delta Tax"
+
+  twitter-card:
+    title: "Wealth Delta Tax (WDT)"
+    description: "The Wealth Delta Tax (WDT) taxes changes in individual net wealth on an accrual basis, with symmetric loss refunds and a pre-funded Sovereign Wealth Fund."
+    card-style: summary
+
   navbar:
     left:
       - text: "Home"
@@ -111,6 +123,10 @@ website:
             href: fm.html
           - text: "Modular Adoption (MOD)"
             href: mod.html
+
+  page-footer:
+    left: "© K. Ogata. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)."
+    right: "DOI: [10.5281/zenodo.21964119](https://doi.org/10.5281/zenodo.21964119)"
 
 format:
   html:
