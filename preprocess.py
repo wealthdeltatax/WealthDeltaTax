@@ -666,12 +666,15 @@ def copy_machine_readable_assets(build, refs_data, anchor_map, contents):
 # File processing
 # ---------------------------------------------------------------------------
 
-def process_file(src_path, dest_path):
+def process_file(src_path, dest_path, shortcode):
     text = src_path.read_text(encoding='utf-8')
     text = LATEX_RE.sub('', text)
     text = convert_crossrefs(text)
     lines = convert_internal_bibliography(text.splitlines(keepends=True))
     text = ''.join(lines)
+    # Steps 4 & 5: inject front matter metadata and JSON-LD structured data
+    text = inject_front_matter(text, shortcode)
+    text = text.rstrip('\n') + '\n' + build_jsonld(shortcode)
     dest_path.parent.mkdir(parents=True, exist_ok=True)
     dest_path.write_text(text, encoding='utf-8')
     print(f'  ✓ {src_path.name} → {dest_path.name}')
@@ -741,7 +744,7 @@ def main():
         if len(matches) > 1:
             print(f'  ! {shortcode}: multiple matches, using {matches[-1].name}')
 
-        process_file(matches[-1], build / output_name)
+        process_file(matches[-1], build / output_name, shortcode)
         found += 1
 
     print(f'\nDone. {found} papers staged, {missing} not yet available.')
