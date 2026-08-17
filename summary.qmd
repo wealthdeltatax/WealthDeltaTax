@@ -1,37 +1,37 @@
-# Wealth Delta Tax (WDT) Project — Summary of Positions and Open Questions
-
-**Purpose.** This document summarises the substantive positions taken across all WDT papers and isolates every open question named as unresolved. It is a map of what exists, not a paper in itself — it does not introduce new positions or resolve any open question.
+---
+title: "Full Overview"
+description: "This document summarises the substantive positions taken across all WDT papers and isolates every open question named as unresolved. It is a map of what exists, not a paper in itself — it does not introduce new positions or resolve any open question."
+author: "K. Ogata"
+---
 
 **Version:** 3.8 — 16 August 2026
 
-*Outstanding flagged items:* (1) CORP.A §C.4 cross-reference still reads "GOV §7.2 clause 4" — should be "GOV §5.2 clause 4" following GOV v2.1 restructuring; author action required. (2) VAL.B is at v1.5 (N = 32); VAL.A is at v3.1 (N = 29). VAL.B worked example figures carry a one-version lag; a VAL.B update to N = 29 is pending.
-
 **Source documents:**
 0. *Wealth Delta Tax: Scope Boundary — Questions Outside This Project* (v0.1, 6 Aug 2026) — **SCOPE**
-1. *The Wealth Delta Tax: The White Paper* (v2.1, 10 Aug 2026) — **WP** *(§1.1 extended: non-interference design constraint added as fourth principle alongside the three cooperative arguments)*
-2. *The Wealth Delta Tax: Moral and Philosophical Foundations* (v1.8, 14 Aug 2026) — **MF** *(Version header corrected; GOV.A §E.2 → GOV.A §E in Glossary and §7)*
-3a. *The Wealth Delta Tax: Research Gaps in the Existing Literature* (v0.1, 2 Aug 2026) — **LR.A**
-3b. *The Wealth Delta Tax: Intellectual Background and Reference Guide* (v0.1, 2 Aug 2026) — **LR.B**
-4. *The Wealth Delta Tax: Valuing Wealth* (v2.10, 15 Aug 2026) — **VAL** *(v2.8: τ₀ = 15%, N = 32; v2.9: Limitations and §9 updated; v2.10: N = 29 following RATES budget_growth correction to 4.51%; figure captions updated throughout)*
-5. *The Wealth Delta Tax: Valuing Wealth — Mathematical and Simulation Companion* (v3.1, 15 Aug 2026) — **VAL.A** *(Python model v1.0 validated; §C figures confirmed at unified parameters k = 0.001, N = 29, τ₀ = 15%; §C.10 added — 2006 historical return series; §G Open Questions removed; Limitations section removed in v2.9; §E = Route Specification Tables; §F = Annual Reporting Requirements; v2.7 rate function formula correction throughout §A.3.1, §A.4.2, §B.2; v2.8 derivation audit corrections to §A.4.2, §A.4.4, §B.4; v2.9 design note added to §A.3.2; v3.0 parameter update τ₀ = 15%, N = 32; v3.1 parameter update N = 29 following RATES budget_growth correction; Tables C.1–C.9 regenerated; §C.4 rate ceiling updated to 60.67%; §C.10 updated)*
-5a. *The Wealth Delta Tax: Valuing Wealth — Worked Examples* (v1.5, 13 Aug 2026) — **VAL.B** *(Python model v1.0 validated; all worked example figures updated to unified parameters k = 0.001, N = 32, τ₀ = 15%; note: VAL.B has not yet been updated to N = 29; figures carry a one-version lag relative to VAL.A v3.1)*
-6. *The Wealth Delta Tax: UK Jurisdiction and Data Reference Paper* (v1.7, 8 Aug 2026) — **JUR**
-7. *The Wealth Delta Tax: Corporate Architecture* (v2.1, 10 Aug 2026) — **CORP** *(Updated Limitations)*
-8. *The Wealth Delta Tax: Corporate Architecture Appendix* (v2.1, 10 Aug 2026) — **CORP.A** *(Removed Limitations)*
-9. *The Wealth Delta Tax: Constitutional Governance* (v2.8, 10 Aug 2026) — **GOV** *(Updated Limitations)*
-10. *The Wealth Delta Tax: Constitutional Governance Appendix* (v2.1, 9 Aug 2026) — **GOV.A**
-10a. *The Wealth Delta Tax: Constitutional Governance — Operational Appendix* (v0.6, 10 Aug 2026) — **GOV.B** *(Removed Limitations)*
-11. *The Wealth Delta Tax: Rates and Revenue* (v2.6, 15 Aug 2026) — **RATES** *(v2.4: τ₀ lowered from 20% to 15%; reference scenario updated to 2007 Balanced — longest LRR fill at 33 yr under those params; all burden, coverage, and revenue figures updated; v2.5: sim year correction and §6.3 window/lifetime direction corrected; v2.6: budget_growth corrected from 5.24% to 4.51% per JUR v1.8 §2.11; all expenditure-denominator figures updated — LRR breakeven 33→29 yr, cap window 29→25 yr, SSM coverage 21.3%, TCM coverage 27.7%, total cap-window revenue £640.7b, sweep TCM range 24.0%–134.5% median 40.3%; max burden 0.75%, max effective rate on gains 22.4%; N=29; RATES.A §B updated in parallel)*
-11a. *The Wealth Delta Tax: Rates and Revenue Appendix* (v1.4, 15 Aug 2026) — **RATES.A** *(v1.3: τ₀ = 15%, model v6, N=33; v1.4: budget_growth corrected to 4.51%, model v7, N=29; Appendix B fully replaced with 2026-08-15 output)*
-12. *The Wealth Delta Tax: Behavioural Robustness and Administrative Experience* (v1.4, 14 Aug 2026) — **BEHAV** *(Full structural rewrite: §6.3 added — interaction structure of membrane health dimensions; §8.12–8.13 added — route distribution of WDT-taxable wealth and structural implications; §9.2 substantially rewritten — six-part cross-base externality response; §10 added — membrane calcification and monitoring architecture; §§10–12 renumbered §§11–13)*
-13. *The Wealth Delta Tax: Position Closure* (v0.7, 8 Aug 2026) — **CLOSE**
-14. *The Wealth Delta Tax: Political Architecture* (v0.3, 8 Aug 2026) — **POL**
-15. *The Wealth Delta Tax: Phase One* (v0.2, 8 Aug 2026) — **PHASE1**
-16. *The Wealth Delta Tax: Parameter Space and Governing Council Calibration* (v0.3, 15 Aug 2026) — **SWEEPS** *(Two sweep datasets: VAL.S on declaration incentive properties; RATES.S on fiscal outcomes; four rate-function parameters characterised; reserve multiplier sweeps confirmed; SWEEPS-1 and SWEEPS-2 added to Open Questions; SWEEPS-3 closed within paper; v0.2: sanity-check corrections — N-crossing disappearance threshold corrected to 29–32%, W_min fiscal figures corrected, k success-rate deterioration added, plateau ceiling N-invariance qualified; v0.3: budget_growth corrected to 4.51%; all RATES.S figures updated; canonical LRR fill range updated to 7–29 yr median 13; k sweep success rate corrected to 100% throughout at 4.51%; N=34 reference line updated to N=29)*
-16a. *The Wealth Delta Tax: Parameter Space and Governing Council Calibration — Appendix Tables* (v0.2, 15 Aug 2026) — **SWEEPS.A** *(budget_growth corrected to 4.51%; all RATES.S tables rerun; k sweep success corrected to 100% throughout; canonical N updated 34→29; B.1.2 and B.7 updated)*
-17. *The Wealth Delta Tax: Environmental Effects and Transmission Channels* (v0.3, 9 Aug 2026) — **ENV** *(§4 subsectioned §4.1–§4.8: new §4.3–§4.8 cover automation and tax-base migration; ENV-4 added to Open Questions)*
-18. *The Wealth Delta Tax: First Mover* (v0.7, 14 Aug 2026) — **FM** *(§3.1 coverage ratio corrected: "across all starting conditions" qualified to worst-case reference scenario; full sweep range and median added)*
-19. *The Wealth Delta Tax: Modular Adoption* (v0.2, 14 Aug 2026) — **MOD** *(Orphaned keywords removed; front matter spacing corrected)*
+1. *The Wealth Delta Tax: The White Paper* (v2.1, 10 Aug 2026) — **WP** 
+2. *The Wealth Delta Tax: Moral and Philosophical Foundations* (v1.8, 14 Aug 2026) — **MF** 
+3.1. *The Wealth Delta Tax: Research Gaps in the Existing Literature* (v0.1, 2 Aug 2026) — **LR.A**
+3.2 *The Wealth Delta Tax: Intellectual Background and Reference Guide* (v0.1, 2 Aug 2026) — **LR.B**
+4. *The Wealth Delta Tax: UK Jurisdiction and Data Reference Paper* (v1.7, 8 Aug 2026) — **JUR**
+5. *The Wealth Delta Tax: Valuing Wealth* (v2.10, 15 Aug 2026) — **VAL** 
+5.1. *The Wealth Delta Tax: Valuing Wealth — Mathematical and Simulation Companion* (v3.1, 15 Aug 2026) — **VAL.A** 
+5.2. *The Wealth Delta Tax: Valuing Wealth — Worked Examples* (v1.5, 13 Aug 2026) — **VAL.B** 
+6. *The Wealth Delta Tax: Corporate Architecture* (v2.1, 10 Aug 2026) — **CORP** 
+6.1. *The Wealth Delta Tax: Corporate Architecture Appendix* (v2.1, 10 Aug 2026) — **CORP.A** 
+7. *The Wealth Delta Tax: Constitutional Governance* (v2.8, 10 Aug 2026) — **GOV** 
+7.1. *The Wealth Delta Tax: Constitutional Governance Appendix* (v2.1, 9 Aug 2026) — **GOV.A**
+7.2. *The Wealth Delta Tax: Constitutional Governance — Operational Appendix* (v0.6, 10 Aug 2026) — **GOV.B** 
+8. *The Wealth Delta Tax: Rates and Revenue* (v2.6, 15 Aug 2026) — **RATES** 
+8a. *The Wealth Delta Tax: Rates and Revenue Appendix* (v1.4, 15 Aug 2026) — **RATES.A**
+9. *The Wealth Delta Tax: Parameter Space and Governing Council Calibration* (v0.3, 15 Aug 2026) — **SWEEPS** 
+9a. *The Wealth Delta Tax: Parameter Space and Governing Council Calibration — Appendix Tables* (v0.2, 15 Aug 2026) — **SWEEPS.A** 
+10. *The Wealth Delta Tax: Behavioural Robustness and Administrative Experience* (v1.4, 14 Aug 2026) — **BEHAV** 
+11. *The Wealth Delta Tax: Position Closure* (v0.7, 8 Aug 2026) — **CLOSE**
+12. *The Wealth Delta Tax: Political Architecture* (v0.3, 8 Aug 2026) — **POL**
+13. *The Wealth Delta Tax: Phase One* (v0.2, 8 Aug 2026) — **PHASE1**
+14. *The Wealth Delta Tax: Environmental Effects and Transmission Channels* (v0.3, 9 Aug 2026) — **ENV** 
+15. *The Wealth Delta Tax: First Mover* (v0.7, 14 Aug 2026) — **FM** 
+16. *The Wealth Delta Tax: Modular Adoption* (v0.2, 14 Aug 2026) — **MOD** 
 
 ---
 
@@ -267,7 +267,27 @@ Once the LRR reaches its floor target, continued accumulation is in tension with
 
 ---
 
-## 9. The Behavioural Robustness Paper (BEHAV)
+## 9. The Parameter Space and Governing Council Calibration Paper (SWEEPS) and Appendix (SWEEPS.A)
+
+SWEEPS is a calibration reference paper. It does not design or modify any WDT mechanism. Its subject is the parameter space the Governing Council inherits: what the four rate-function parameters actually control, how they interact across the two sweep datasets, and what the Council is calibrating when it moves each lever.
+
+The paper draws on two complementary datasets. VAL.S examines how the four rate-function parameters (τ₀, τ_m, k, W_min) affect declaration incentive properties: the tolerant zone width, the N-crossing threshold for aggressive overstaters, and the understater penalty plateau ceiling. RATES.S examines how the same parameters affect fiscal outcomes: TCM coverage ratios and LRR fill year across the 73-year historical start-year sweep. Neither dataset recommends values.
+
+The central finding is parameter separability: the four parameters are doing largely independent jobs across the two dimensions. τ₀ governs entry-rate signalling and overstater self-correction timing (primary fiscal lever at canonical k). τ_m governs tail deterrence for egregious understaters and is fiscally inert for the current modelled population — the clearest instance of complete separability in the sweep. k governs the progressivity of the rate schedule and the width of the tolerant zone; its fiscal consequence is limited within the 100%-success region (k ≤ 0.01) but the success rate falls to 96% at k = 0.05 and 90% at k = 0.1, which bounds how far k can be raised without compromising solvency guarantees. W_min governs the scope of the mechanism (who is subject to it) and has near-zero leverage on declaration incentive properties for taxpayers already above the threshold.
+
+The one genuine cross-dataset tension is τ₀. Higher τ₀ accelerates fiscal capitalisation and shortens the LRR fill period; lower τ₀ preserves and strengthens the self-limiting correction for aggressive overstaters. The crossing disappears entirely for α = 2.0 above approximately τ₀ = 29–32% within realistic holding horizons (Table A.6). There is no setting that simultaneously optimises both: this is the most consequential single calibration the Council faces, and the τ₀ × W_min joint surface (not yet generated) is the minimum further work required to characterise it quantitatively.
+
+Reserve multiplier sweeps (SWEEPS.A §§B.6–B.7) confirm 100% success across all tested srr_ratio (1× to 10×) and lrr_years (0.5 to 8 years) values across all 73 historical start years. The 3× srr_ratio floor is confirmed as appropriately placed: the 2006 scenario first shows a covered SRR breach below 2.5× and no breach from 2.5× onward. The 3× lrr_years floor gives the RATES reference median fill of 13 years (at corrected 4.51% budget growth). At 4.51%, the k sweep achieves 100% success throughout the full k range tested; the 96%/90% deterioration at k = 0.05/0.1 noted in SWEEPS v0.1 was an artefact of the prior 5.24% budget growth rate and does not apply at the corrected value. The residual — empirical confirmation of solvency behaviour under an actual downturn — is a Phase One item.
+
+The paper establishes a secondary finding on canonical parameter origin: in SWEEPS v0.3 figures, the N = 29 reference line is the canonical VAL.S LRR fill year at τ₀ = 15% and the corrected budget growth rate of 4.51%. Earlier SWEEPS versions carried N = 34 (from the prior RATES Balanced scenario at τ₀ = 20%) and N = 32 (from the intermediate parameter pass); both have been corrected to N = 29 throughout.
+
+The three-chamber structure generates appropriate disagreement on every rate-function parameter, with no single chamber or faction able to drive any lever to its logical extreme. The small lever set is framed as a democratic good: calibration decisions whose consequences can be characterised in advance, stated publicly, and evaluated against outcomes.
+
+Two open questions are generated: SWEEPS-1 (revenue frontier — whether a parameter combination dominates on both dimensions simultaneously, or the τ₀ tension produces an irreducible frontier; assigned to RATES.A extension) and SWEEPS-2 (Custodian mandate SRR buffer condition for drawdown acceleration; conditional on Phase One data; amendment, if warranted, in GOV.B). SWEEPS-3 (reserve multiplier sweep) is closed within the paper itself. The canonical LRR fill range across the historical sweep is 7–29 years (median 13) at corrected 4.51% budget growth.
+
+---
+
+## 10. The Behavioural Robustness Paper (BEHAV)
 
 BEHAV is a companion paper (v1.4, 14 August 2026 — full structural rewrite; §6.3, §8.12, §8.13, §10 added; §9.2 substantially rewritten; §§10–12 renumbered §§11–13).
 
@@ -293,7 +313,7 @@ BEHAV does not model behavioural outcomes, does not predict elasticities, and do
 
 ---
 
-## 10. The Position Closure Paper (CLOSE)
+## 11. The Position Closure Paper (CLOSE)
 
 CLOSE is a companion paper (v0.2, 24 July 2026).
 
@@ -311,7 +331,7 @@ CLOSE's stated limitations: it does not quantify the revenue or behavioural cons
 
 ---
 
-## 11. The Political Architecture Paper (POL)
+## 12. The Political Architecture Paper (POL)
 
 POL is a companion paper (v0.3, 03 August 2026).
 
@@ -329,7 +349,7 @@ Four open questions are generated by POL (POL-1 through POL-4), tracked in the r
 
 ---
 
-## 12. The Phase One Paper (PHASE1)
+## 13. The Phase One Paper (PHASE1)
 
 Phase One is a boundary paper. Its central claim is that the WDT's design is complete and internally consistent, and that the following questions are genuine empirical unknowns that only a live system can resolve — not gaps in the design. It closes the series honestly rather than leaving it open-ended.
 
@@ -343,7 +363,7 @@ The evaluation designs are written to be useful independently of whether Phase O
 
 ---
 
-## 13. The Environmental Effects and Transmission Channels Paper (ENV)
+## 14. The Environmental Effects and Transmission Channels Paper (ENV)
 
 ENV is the paper that asks what the WDT does to the economy around it — distinct from the design papers, which ask how it works and why it takes the form it does. It does not produce a formal general equilibrium model and does not estimate magnitudes. Its contribution is to identify the correct transmission channels for this specific mechanism, distinguish them from the channels that standard wealth tax analysis assumes, and be explicit about where direction can be established analytically and where only Phase One can go further.
 
@@ -369,7 +389,7 @@ ENV generates four open questions: ENV-1 (consumption multiplier magnitude and S
 
 ---
 
-## 14. The First Mover Paper (FM)
+## 15. The First Mover Paper (FM)
 
 FM is a strategic analysis paper. It does not design or modify any WDT mechanism. Its subject is the adoption dynamics that follow from the WDT's properties if those properties hold as the companion series claims.
 
@@ -387,7 +407,21 @@ FM generates no open questions and closes none in the consolidated register.
 
 ---
 
-## 15. Consolidated Open Questions Register
+## 16. The Modular Adoption Paper (MOD)
+
+MOD is a strategic analysis paper. It does not design or modify any WDT mechanism. Its subject is the adoption pathway that results from the fact that some WDT enabling infrastructure also attracts independent justification outside the WDT.
+
+The paper begins with a distinction between two categories of WDT institution. Category 1 consists of enabling infrastructure that the WDT requires and that also carries independent justification entirely outside the WDT: a national valuation profession with published standards, a public valuation register, beneficial ownership attribution law, a sovereign wealth fund in the generic sense, and independent fiscal governance in the generic sense. Category 2 consists of mechanisms that are constitutively WDT-specific and have no independent justification outside the full architecture: the symmetric refund at the marginal tax rate, the declaration equilibrium, the Route D auction, the lifetime contribution envelope, and the three-chamber Governing Council structure.
+
+The modular adoption thesis is bounded: it applies to Category 1 only. Non-decomposability (established in FM §2) confirms that the WDT cannot stand without its Category 1 institutions; MOD's claim runs in the opposite direction — some Category 1 institutions can stand without the WDT, and the relationship is asymmetric. A jurisdiction that assembles Category 1 infrastructure through locally rational policy decisions has not adopted the WDT and cannot arrive at it by institutional drift alone. The remaining Category 2 commitment still requires a deliberate political decision. What has changed is the size of that remaining step.
+
+Three independent policy currents produce Category 1 infrastructure without any WDT champion being required. The global push for beneficial ownership transparency builds attribution law and public asset registers for financial crime and anti-corruption reasons. The pursuit of fiscal credibility and intergenerational saving produces sovereign wealth funds and independent fiscal institutions that are formally distinct from but structurally adjacent to the WDT's SWF and Governing Council. Professional reform in the valuation market — driven by property taxation, inheritance tax, and transfer pricing needs — produces the professional valuation infrastructure the WDT's four-route architecture requires. Infrastructure creates interests, and those interests advocate forward. The mechanism that connects all three currents is the same: each produces constituencies that want their infrastructure extended into new applications, regardless of whether those constituencies know the WDT exists.
+
+MOD distinguishes its thesis from FM's binary. FM addresses a government that has evaluated the WDT and is choosing between commit and suppress. MOD addresses governments and policy communities that have not yet evaluated the WDT and are making infrastructure decisions for independent reasons. The modular adoption pathway is not an alternative to the binary; it describes the terrain on which that binary will eventually be confronted. A jurisdiction with mature Category 1 infrastructure faces a smaller remaining commitment when it does evaluate the WDT. Separately, MOD notes that infrastructure accretion is harder to suppress than a single identifiable proposal, since the communities defending each Category 1 institution have reasons to do so unrelated to the WDT. This does not make suppression impossible; it means some of the infrastructure suppression would need to prevent is being built for reasons entirely outside the WDT's intellectual project.
+
+MOD generates no open questions and closes none in the consolidated register.
+
+## 17. Consolidated Open Questions Register
 
 The following questions remain unresolved at the design or empirical level and have no current home in an existing paper. Items are numbered for cross-reference tracking; gaps in the sequence indicate questions closed by earlier paper revisions or removed because they have been received by an existing paper, which are no longer listed here.
 
@@ -403,7 +437,7 @@ Items deferred as outside project scope are recorded in SCOPE (v0.1, 6 Aug 2026)
 
 ---
 
-### 15.1 Summary observations
+### 17.1 Summary observations
 
 Five items remain in this register as of v3.7. All other previously listed items have either been received by an existing paper or formally deferred to SCOPE.
 
@@ -416,37 +450,3 @@ Five items remain in this register as of v3.7. All other previously listed items
 **New papers — no register effect.** FM (First Mover, §18 above), MOD (Modular Adoption, §19 below), and SWEEPS (Parameter Space, §16a — SWEEPS-3 closed within the paper itself) generate open questions as noted but close none already in the register.
 
 ---
-
-## 16a. The Parameter Space and Governing Council Calibration Paper (SWEEPS) and Appendix (SWEEPS.A)
-
-SWEEPS is a calibration reference paper. It does not design or modify any WDT mechanism. Its subject is the parameter space the Governing Council inherits: what the four rate-function parameters actually control, how they interact across the two sweep datasets, and what the Council is calibrating when it moves each lever.
-
-The paper draws on two complementary datasets. VAL.S examines how the four rate-function parameters (τ₀, τ_m, k, W_min) affect declaration incentive properties: the tolerant zone width, the N-crossing threshold for aggressive overstaters, and the understater penalty plateau ceiling. RATES.S examines how the same parameters affect fiscal outcomes: TCM coverage ratios and LRR fill year across the 73-year historical start-year sweep. Neither dataset recommends values.
-
-The central finding is parameter separability: the four parameters are doing largely independent jobs across the two dimensions. τ₀ governs entry-rate signalling and overstater self-correction timing (primary fiscal lever at canonical k). τ_m governs tail deterrence for egregious understaters and is fiscally inert for the current modelled population — the clearest instance of complete separability in the sweep. k governs the progressivity of the rate schedule and the width of the tolerant zone; its fiscal consequence is limited within the 100%-success region (k ≤ 0.01) but the success rate falls to 96% at k = 0.05 and 90% at k = 0.1, which bounds how far k can be raised without compromising solvency guarantees. W_min governs the scope of the mechanism (who is subject to it) and has near-zero leverage on declaration incentive properties for taxpayers already above the threshold.
-
-The one genuine cross-dataset tension is τ₀. Higher τ₀ accelerates fiscal capitalisation and shortens the LRR fill period; lower τ₀ preserves and strengthens the self-limiting correction for aggressive overstaters. The crossing disappears entirely for α = 2.0 above approximately τ₀ = 29–32% within realistic holding horizons (Table A.6). There is no setting that simultaneously optimises both: this is the most consequential single calibration the Council faces, and the τ₀ × W_min joint surface (not yet generated) is the minimum further work required to characterise it quantitatively.
-
-Reserve multiplier sweeps (SWEEPS.A §§B.6–B.7) confirm 100% success across all tested srr_ratio (1× to 10×) and lrr_years (0.5 to 8 years) values across all 73 historical start years. The 3× srr_ratio floor is confirmed as appropriately placed: the 2006 scenario first shows a covered SRR breach below 2.5× and no breach from 2.5× onward. The 3× lrr_years floor gives the RATES reference median fill of 13 years (at corrected 4.51% budget growth). At 4.51%, the k sweep achieves 100% success throughout the full k range tested; the 96%/90% deterioration at k = 0.05/0.1 noted in SWEEPS v0.1 was an artefact of the prior 5.24% budget growth rate and does not apply at the corrected value. The residual — empirical confirmation of solvency behaviour under an actual downturn — is a Phase One item.
-
-The paper establishes a secondary finding on canonical parameter origin: in SWEEPS v0.3 figures, the N = 29 reference line is the canonical VAL.S LRR fill year at τ₀ = 15% and the corrected budget growth rate of 4.51%. Earlier SWEEPS versions carried N = 34 (from the prior RATES Balanced scenario at τ₀ = 20%) and N = 32 (from the intermediate parameter pass); both have been corrected to N = 29 throughout.
-
-The three-chamber structure generates appropriate disagreement on every rate-function parameter, with no single chamber or faction able to drive any lever to its logical extreme. The small lever set is framed as a democratic good: calibration decisions whose consequences can be characterised in advance, stated publicly, and evaluated against outcomes.
-
-Two open questions are generated: SWEEPS-1 (revenue frontier — whether a parameter combination dominates on both dimensions simultaneously, or the τ₀ tension produces an irreducible frontier; assigned to RATES.A extension) and SWEEPS-2 (Custodian mandate SRR buffer condition for drawdown acceleration; conditional on Phase One data; amendment, if warranted, in GOV.B). SWEEPS-3 (reserve multiplier sweep) is closed within the paper itself. The canonical LRR fill range across the historical sweep is 7–29 years (median 13) at corrected 4.51% budget growth.
-
----
-
-## 19. The Modular Adoption Paper (MOD)
-
-MOD is a strategic analysis paper. It does not design or modify any WDT mechanism. Its subject is the adoption pathway that results from the fact that some WDT enabling infrastructure also attracts independent justification outside the WDT.
-
-The paper begins with a distinction between two categories of WDT institution. Category 1 consists of enabling infrastructure that the WDT requires and that also carries independent justification entirely outside the WDT: a national valuation profession with published standards, a public valuation register, beneficial ownership attribution law, a sovereign wealth fund in the generic sense, and independent fiscal governance in the generic sense. Category 2 consists of mechanisms that are constitutively WDT-specific and have no independent justification outside the full architecture: the symmetric refund at the marginal tax rate, the declaration equilibrium, the Route D auction, the lifetime contribution envelope, and the three-chamber Governing Council structure.
-
-The modular adoption thesis is bounded: it applies to Category 1 only. Non-decomposability (established in FM §2) confirms that the WDT cannot stand without its Category 1 institutions; MOD's claim runs in the opposite direction — some Category 1 institutions can stand without the WDT, and the relationship is asymmetric. A jurisdiction that assembles Category 1 infrastructure through locally rational policy decisions has not adopted the WDT and cannot arrive at it by institutional drift alone. The remaining Category 2 commitment still requires a deliberate political decision. What has changed is the size of that remaining step.
-
-Three independent policy currents produce Category 1 infrastructure without any WDT champion being required. The global push for beneficial ownership transparency builds attribution law and public asset registers for financial crime and anti-corruption reasons. The pursuit of fiscal credibility and intergenerational saving produces sovereign wealth funds and independent fiscal institutions that are formally distinct from but structurally adjacent to the WDT's SWF and Governing Council. Professional reform in the valuation market — driven by property taxation, inheritance tax, and transfer pricing needs — produces the professional valuation infrastructure the WDT's four-route architecture requires. Infrastructure creates interests, and those interests advocate forward. The mechanism that connects all three currents is the same: each produces constituencies that want their infrastructure extended into new applications, regardless of whether those constituencies know the WDT exists.
-
-MOD distinguishes its thesis from FM's binary. FM addresses a government that has evaluated the WDT and is choosing between commit and suppress. MOD addresses governments and policy communities that have not yet evaluated the WDT and are making infrastructure decisions for independent reasons. The modular adoption pathway is not an alternative to the binary; it describes the terrain on which that binary will eventually be confronted. A jurisdiction with mature Category 1 infrastructure faces a smaller remaining commitment when it does evaluate the WDT. Separately, MOD notes that infrastructure accretion is harder to suppress than a single identifiable proposal, since the communities defending each Category 1 institution have reasons to do so unrelated to the WDT. This does not make suppression impossible; it means some of the infrastructure suppression would need to prevent is being built for reasons entirely outside the WDT's intellectual project.
-
-MOD generates no open questions and closes none in the consolidated register.
