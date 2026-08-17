@@ -1,0 +1,57 @@
+---
+title: "Start Here"
+description: "A guide to reading the Wealth Delta Tax research programme — from a five-minute introduction to the full 26-paper series."
+author: "K. Ogata"
+---
+
+## What is the Wealth Delta Tax?
+
+The Wealth Delta Tax (WDT) is a proposed alternative to conventional wealth taxation. Instead of taxing stock — the total value of someone's wealth at a point in time — it taxes the *change* in net wealth over an assessment period, on an accrual basis.
+
+The mechanism has three structural components that work together:
+
+- **The delta base.** Tax is levied on the increase in net wealth between two assessment dates. Losses generate refunds at the same rate — the mechanism is fully symmetric.
+- **The Sovereign Wealth Fund (SWF).** Tax receipts flow into a pre-funded SWF rather than general government revenue. Citizens hold units in the fund and receive a labour-tax-relief dividend as the fund grows.
+- **The valuation architecture.** Four routes handle different asset types — from automatically priced listed securities to non-fungible assets subject to a Harberger-style purchase option — with incentive structures that make honest declaration the locally stable strategy.
+
+The project consists of 26 working papers developed between 2025 and 2026.
+
+---
+
+## How to read the WDT — by time available
+
+### 5 minutes
+
+Read the abstract and §1 of the [White Paper (WP)](wp.html). This covers the cooperative basis of the design, why the delta is the right tax base, and how the SWF and loss-refund mechanism work together.
+
+### 20 minutes
+
+Read the full [White Paper (WP)](wp.html). All principal mechanisms, objections, and the implementation pathway are covered in a single document.
+
+### 1–2 hours — the core sequence
+
+The papers that establish the architecture:
+
+1. [White Paper (WP)](wp.html) — mechanism design and overview
+2. [Moral and Philosophical Foundations (MF)](mf.html) — why the delta, and the cooperative architecture
+3. [Valuing Wealth (VAL)](val.html) — how the four valuation routes work
+4. [Constitutional Governance (GOV)](gov.html) — how the SWF is governed and protected from capture
+5. [Rates and Revenue (RATES)](rates.html) — what the WDT raises and under what assumptions
+
+### Full research programme
+
+All 26 papers are listed on the [Papers page](corpus.html), with version history, relationships between papers, and reading dependencies. The sidebar on every page provides direct navigation by theme.
+
+---
+
+## Key terms
+
+A small number of terms recur across the papers. If you encounter an unfamiliar term, the [Glossary](glossary.html) gives a short definition and links to the paper where each concept is developed in full.
+
+---
+
+## Status of the project
+
+The WDT is a working-paper series — all papers are in active development. Version numbers and dates are noted at the top of each paper. The [Papers](corpus.html) page lists current versions and identifies papers under revision.
+
+The papers make no claim to constitute a finished policy proposal. They constitute a research architecture: a set of interlocking formal claims that can be evaluated, modelled, challenged, and refined. Open questions are stated explicitly in each paper's *Limitations* section.

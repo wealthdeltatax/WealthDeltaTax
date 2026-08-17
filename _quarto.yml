@@ -17,11 +17,18 @@ website:
     description: "The Wealth Delta Tax (WDT) taxes changes in individual net wealth on an accrual basis, with symmetric loss refunds and a pre-funded Sovereign Wealth Fund."
     card-style: summary
 
+  search:
+    location: navbar
+    type: overlay
+
   navbar:
     left:
       - text: "Home"
         href: index.html
+      - text: "Start Here"
+        href: start-here.html
       - text: "Papers"
+        href: corpus.html
         menu:
           - text: "White Paper (WP)"
             href: wp.html
@@ -57,6 +64,8 @@ website:
             href: fm.html
           - text: "Modular Adoption (MOD)"
             href: mod.html
+      - text: "Glossary"
+        href: glossary.html
 
   sidebar:
     style: "docked"
