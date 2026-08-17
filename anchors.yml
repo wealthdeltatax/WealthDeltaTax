@@ -93,6 +93,7 @@ CLOSE§8.1: close.html#the-compulsion-objection
 CLOSE§8.2: close.html#the-double-taxation-objection
 CLOSE§8.3: close.html#the-re-entry-asymmetry-objection
 CLOSE§9: close.html#limitations-and-required-further-work
+CORP.A§A: corp-a.html#a.-collection-mechanics-and-worked-illustrations
 CORP.A§A.1: corp-a.html#a.1-the-two-deadline-structure
 CORP.A§A.2: corp-a.html#a.2-shareholders-who-sell-before-the-assessment-date
 CORP.A§A.3: corp-a.html#a.3-partial-year-attribution
@@ -104,15 +105,18 @@ CORP.A§A.8: corp-a.html#a.8-no-minimum-threshold
 CORP.A§A.9: corp-a.html#a.9-intermediary-chain-illustrations
 CORP.A§A.9.1: corp-a.html#a.9.1-broker-nominee-case
 CORP.A§A.9.2: corp-a.html#a.9.2-pooled-fund-case
+CORP.A§B: corp-a.html#b.-corporate-rate-calibration
 CORP.A§B.1: corp-a.html#b.1-anchoring-and-calibration
 CORP.A§B.2: corp-a.html#b.2-the-higher-unresolved-rate
 CORP.A§B.3: corp-a.html#b.3-intermediary-level-provisioning-floor
 CORP.A§B.4: corp-a.html#b.4-the-rejected-pool-average-alternative
+CORP.A§C: corp-a.html#c.-relationship-to-the-companion-papers
 CORP.A§C.1: corp-a.html#c.1-the-whitepaper
 CORP.A§C.2: corp-a.html#c.2-the-valuation-paper
 CORP.A§C.3: corp-a.html#c.3-the-rates-paper
 CORP.A§C.4: corp-a.html#c.4-the-governance-paper
 CORP.A§D: corp-a.html#d.-ownership-structure-classification-under-the-attribution-test
+CORP.A§E: corp-a.html#e.-administrative-burden
 CORP.A§E.1: corp-a.html#e.1-purpose
 CORP.A§E.2: corp-a.html#e.2-shareholder-compliance
 CORP.A§E.3: corp-a.html#e.3-corporate-compliance
@@ -120,6 +124,7 @@ CORP.A§E.4: corp-a.html#e.4-corporate-expertise-and-staffing
 CORP.A§E.5: corp-a.html#e.5-valuation-requirements
 CORP.A§E.6: corp-a.html#e.6-international-and-transitional-considerations
 CORP.A§E.7: corp-a.html#e.7-summary
+CORP.A§F: corp-a.html#f.-non-corporate-instruments-and-the-attribution-test
 CORP.A§F.1: corp-a.html#f.1-purpose
 CORP.A§F.2: corp-a.html#f.2-charitable-vehicles
 CORP.A§F.2.1: corp-a.html#f.2.1-the-attribution-question
@@ -549,6 +554,7 @@ SCOPE§3: scope.html#questions-requiring-legal-or-jurisdictional-expertise
 SCOPE§4: scope.html#questions-requiring-international-coordination
 SCOPE§5: scope.html#questions-sequentially-deferred-to-post-phase-one
 SCOPE§6: scope.html#what-this-document-is-not-doing
+SWEEPS.A§A: sweeps-a.html#a.-appendix-tables
 SWEEPS.A§A.1: sweeps-a.html#a.1-sweep-table-entry-rate
 SWEEPS.A§A.2: sweeps-a.html#a.2-sweep-table-ceiling-rate
 SWEEPS.A§A.3: sweeps-a.html#a.3-sweep-table-steepness-parameter
@@ -558,6 +564,7 @@ SWEEPS.A§A.6: sweeps-a.html#a.6-joint-surface-entry-rate-n
 SWEEPS.A§A.7: sweeps-a.html#a.7-joint-surface-steepness-initial-value
 SWEEPS.A§A.8: sweeps-a.html#a.8-sweep-table-exemption-threshold
 SWEEPS.A§A.9: sweeps-a.html#a.9-figure-index
+SWEEPS.A§B: sweeps-a.html#b.-wdt-rate-parameter-sensitivity-sweep
 SWEEPS.A§B.1: sweeps-a.html#b.1-purpose-and-parameters
 SWEEPS.A§B.2: sweeps-a.html#b.2-rates.s-entry-rate-sweep
 SWEEPS.A§B.3: sweeps-a.html#b.3-rates.s-ceiling-rate-sweep

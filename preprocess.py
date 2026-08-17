@@ -18,14 +18,20 @@ from pathlib import Path
 from datetime import datetime
 import yaml
 import os
-os.chdir(Path(__file__).parent)
+from pathlib import Path
 
 # ── CONFIGURATION ────────────────────────────────────────────────────────────
-SOURCE_DIR      = "source_md"
-BUILD_DIR       = "_build"
-SERIES_YML      = "series.yml"
-ANCHORS_YML     = "anchors.yml"
-REFERENCES_JSON = "wdt_references.json"
+SCRIPT_DIR      = Path(__file__).resolve().parent
+
+STATIC_DIR      = SCRIPT_DIR / 'static'
+SOURCE_DIR      = SCRIPT_DIR / 'source_md'
+BUILD_DIR       = SCRIPT_DIR / '_build'
+
+SERIES_YML      = STATIC_DIR / 'seo' / 'series.yml'
+ANCHORS_YML     = SCRIPT_DIR / 'anchors.yml'
+REFERENCES_JSON = STATIC_DIR / 'wdt_references.json'
+REGISTRY_YML    = SCRIPT_DIR / 'paper_registry.yml'
+
 SITE_URL        = "https://wealthdeltatax.org"
 AUTHOR          = "K. Ogata"
 # ─────────────────────────────────────────────────────────────────────────────
@@ -45,9 +51,6 @@ for shortcode, paper in series.items():
 
 with open(ANCHORS_YML, encoding='utf-8') as f:
     anchor_map = yaml.safe_load(f)
-
-print(f"anchor_map sample: {list(anchor_map.items())[:5]}")
-print(f"anchor_map size: {len(anchor_map)}")
 
 paper_meta = {}
 if Path(REFERENCES_JSON).exists():
@@ -407,28 +410,26 @@ def main():
     build.mkdir(exist_ok=True)
 
     static_files = [
-        '_quarto.yml', 'styles.css', 'wdt_references.bib',
-        'index.qmd', 'apa.csl', 'series.yml',
-        'robots.txt',
-        'start-here.qmd',
-        'glossary.qmd', 'faq.qmd', 'summary.qmd',
+        f
+        for f in STATIC_DIR.rglob("*")
+        if f.is_file()
     ]
-    for fname in static_files:
-        p = Path(fname)
-        if p.exists():
-            shutil.copy(p, build / fname)
-        else:
-            if fname not in ('wdt_references.bib', 'series.yml'):
-                print(f'  ! Missing: {fname}')
+
+    for p in static_files:
+        relative_path = p.relative_to(STATIC_DIR)
+        destination = build / relative_path
+
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(p, destination)
 
     generate_corpus_qmd(build / 'corpus.qmd')
 
-    registry_path = Path('paper_registry.yml')
+    registry_path = REGISTRY_YML
     if not registry_path.exists():
         print('ERROR: paper_registry.yml not found.')
         return
 
-    with open(registry_path, encoding='utf-8') as f:
+    with registry_path.open(encoding='utf-8') as f:
         registry = yaml.safe_load(f)
 
     found, missing = 0, 0

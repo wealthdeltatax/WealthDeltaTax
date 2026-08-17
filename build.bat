@@ -1,8 +1,13 @@
 @echo off
+cd /d "%~dp0"
+
 echo Building WDT site...
+
 python build_anchors.py
+if errorlevel 1 exit /b 1
+
 python preprocess.py
-echo Rendering...
-quarto render _build
-echo Done. Open _build/_site/index.html to preview.
+if errorlevel 1 exit /b 1
+
+echo Build complete.
 pause

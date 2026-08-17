@@ -391,6 +391,7 @@ CORP.A:
   page: corp-a.html
   title: Corporate Architecture Appendix
   sections:
+    "A": Collection Mechanics and Worked Illustrations
     "A.1": The Two-Deadline Structure
     "A.2": Shareholders Who Sell Before the Assessment Date
     "A.3": Partial-Year Attribution
@@ -402,15 +403,18 @@ CORP.A:
     "A.9": Intermediary Chain Illustrations
     "A.9.1": Broker/Nominee Case
     "A.9.2": Pooled Fund Case
+    "B": Corporate Rate Calibration
     "B.1": Anchoring and Calibration
     "B.2": The Higher Unresolved Rate
     "B.3": Intermediary-Level Provisioning Floor
     "B.4": The Rejected Pool-Average Alternative
+    "C": Relationship to the Companion Papers
     "C.1": The Whitepaper
     "C.2": The Valuation Paper
     "C.3": The Rates Paper
     "C.4": The Governance Paper
     "D": Ownership Structure Classification Under the Attribution Test
+    "E": Administrative Burden
     "E.1": Purpose
     "E.2": Shareholder Compliance
     "E.3": Corporate Compliance
@@ -418,6 +422,7 @@ CORP.A:
     "E.5": Valuation Requirements
     "E.6": International and Transitional Considerations
     "E.7": Summary
+    "F": Non-Corporate Instruments and the Attribution Test
     "F.1": Purpose
     "F.2": Charitable Vehicles
     "F.2.1": The Attribution Question
@@ -881,6 +886,7 @@ SWEEPS.A:
   page: sweeps-a.html
   title: Parameter Sweeps — Appendix Tables
   sections:
+    "A": Appendix Tables
     "A.1": Sweep Table — Entry Rate
     "A.2": Sweep Table — Ceiling Rate
     "A.3": Sweep Table — Steepness Parameter
@@ -890,6 +896,7 @@ SWEEPS.A:
     "A.7": Joint Surface — Steepness × Initial Value
     "A.8": Sweep Table — Exemption Threshold
     "A.9": Figure Index
+    "B": WDT Rate Parameter Sensitivity Sweep
     "B.1": Purpose and Parameters
     "B.2": RATES.S — Entry Rate Sweep
     "B.3": RATES.S — Ceiling Rate Sweep
