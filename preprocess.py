@@ -10,7 +10,10 @@ Steps:
   4. Inject per-paper front matter metadata (description, keywords, date, version)
   5. Inject JSON-LD structured data (ScholarlyArticle) into each paper
   6. Auto-generate corpus.qmd from wdt_references.json
-  7. Copy static assets and hand-authored pages into _build/
+  7. Auto-generate references.qmd — flat bibliography with cited-in links
+  8. Copy static assets and hand-authored pages into _build/
+  9. Copy machine-readable data files (wdt_references.json, anchors.yml,
+     wdt-contents.yml) into _build/ as static endpoints
 """
 
 import re, shutil, json
@@ -29,7 +32,7 @@ BUILD_DIR       = SCRIPT_DIR / '_build'
 
 SERIES_YML      = STATIC_DIR / 'seo' / 'series.yml'
 ANCHORS_YML     = SCRIPT_DIR / 'anchors.yml'
-REFERENCES_JSON = STATIC_DIR / 'wdt_references.json'
+REFERENCES_JSON = SCRIPT_DIR / 'wdt_references.json'
 REGISTRY_YML    = SCRIPT_DIR / 'paper_registry.yml'
 
 SITE_URL        = "https://wealthdeltatax.org"
@@ -211,10 +214,14 @@ def build_jsonld(shortcode):
     title     = meta.get('title', shortcode)
     version   = meta.get('version', '')
     iso_date  = _format_date(meta.get('version_date')) or ''
+    status    = meta.get('status', 'active')
 
-    related = meta.get('outbound_internal', [])
+    # Collect all related internal paper URLs: outbound + inbound, deduped
+    related_codes = list(dict.fromkeys(
+        meta.get('outbound_internal', []) + meta.get('inbound_internal', [])
+    ))
     related_urls = []
-    for r in related:
+    for r in related_codes:
         rpage = link_map.get(r)
         if rpage:
             related_urls.append(f'{SITE_URL}/{rpage}')
@@ -234,6 +241,7 @@ def build_jsonld(shortcode):
             "url": SITE_URL
         },
         "version": version,
+        "creativeWorkStatus": status,
         "keywords": ["Wealth Delta Tax", "WDT", "wealth taxation", shortcode],
     }
     if iso_date:
@@ -384,6 +392,185 @@ def generate_corpus_qmd(dest_path):
     print(f'  ✓ Generated corpus.qmd ({len(paper_meta)} papers)')
 
 # ---------------------------------------------------------------------------
+# References page generation
+# ---------------------------------------------------------------------------
+
+def _ref_link(ref):
+    """Return a markdown link string for a reference, or None if no URL/DOI."""
+    doi = ref.get('doi')
+    url = ref.get('url')
+    if doi:
+        return f'https://doi.org/{doi}'
+    if url:
+        return url
+    return None
+
+
+def _format_authors(authors):
+    """Format author list as 'Last, F., Last, F. & Last, F.'"""
+    if not authors:
+        return '—'
+    parts = []
+    for a in authors:
+        last  = a.get('last', '')
+        first = a.get('first', '')
+        if first:
+            parts.append(f'{last}, {first[0]}.')
+        else:
+            parts.append(last)
+    if len(parts) == 1:
+        return parts[0]
+    return ', '.join(parts[:-1]) + ' & ' + parts[-1]
+
+
+def _ref_type_label(ref_type):
+    return {
+        'journal_article':    'Article',
+        'book':               'Book',
+        'book_chapter':       'Book chapter',
+        'working_paper':      'Working paper',
+        'report':             'Report',
+        'institutional_report': 'Institutional report',
+        'preprint':           'Preprint',
+        'misc':               'Misc',
+    }.get(ref_type, ref_type or '—')
+
+
+def _cited_in_labels(ref_id, citations):
+    """Return sorted list of paper shortcodes that cite this reference."""
+    # citation IDs are "{ref_id}__{paper_id}" — extract paper_id from each match
+    paper_ids = sorted({
+        c['paper_id']
+        for c in citations
+        if c['ref_id'] == ref_id
+    })
+    return paper_ids
+
+
+def generate_references_qmd(dest_path, refs_data):
+    """Write references.qmd — flat alphabetical list of all external references."""
+    external_refs = refs_data.get('external_references', [])
+    citations     = refs_data.get('citations', [])
+
+    # Sort alphabetically by first author last name, then year
+    def sort_key(r):
+        authors = r.get('authors', [])
+        first_last = authors[0].get('last', 'ZZZ') if authors else 'ZZZ'
+        return (first_last.lower(), r.get('year', 0))
+
+    sorted_refs = sorted(external_refs, key=sort_key)
+
+    lines = []
+    lines.append('---')
+    lines.append('title: "External References"')
+    lines.append('description: "Complete bibliography of external sources cited across the Wealth Delta Tax research programme."')
+    lines.append(f'author: "{AUTHOR}"')
+    lines.append('---')
+    lines.append('')
+    lines.append(
+        f'This page lists all {len(external_refs)} external sources cited across the '
+        'Wealth Delta Tax research programme. Each entry shows which papers cite it. '
+        'Links go to the DOI or publisher page where available.'
+    )
+    lines.append('')
+    lines.append(
+        'The full reference database including citation relationships is available as '
+        '[machine-readable JSON](/wdt_references.json).'
+    )
+    lines.append('')
+    lines.append('---')
+    lines.append('')
+
+    for ref in sorted_refs:
+        ref_id   = ref['id']
+        authors  = _format_authors(ref.get('authors', []))
+        year     = ref.get('year', '—')
+        title    = ref.get('title', '—')
+        rtype    = _ref_type_label(ref.get('type'))
+        link     = _ref_link(ref)
+        verified = ref.get('verified', False)
+
+        # Journal/publisher info
+        details_parts = []
+        if ref.get('journal'):
+            details_parts.append(f'*{ref["journal"]}*')
+            if ref.get('volume'):
+                vol = ref['volume']
+                iss = ref.get('issue')
+                details_parts.append(f'*{vol}*({iss})' if iss else f'*{vol}*')
+            if ref.get('pages'):
+                details_parts.append(ref['pages'])
+        elif ref.get('publisher'):
+            details_parts.append(ref['publisher'])
+        if ref.get('series') and ref.get('number'):
+            details_parts.append(f'{ref["series"]} No. {ref["number"]}')
+        elif ref.get('series'):
+            details_parts.append(ref['series'])
+        details = ', '.join(details_parts) if details_parts else ''
+
+        # Which WDT papers cite this ref
+        cited_in = _cited_in_labels(ref_id, citations)
+        if cited_in:
+            # Link each shortcode to its page
+            cited_links = []
+            for sc in cited_in:
+                page = link_map.get(sc)
+                if page:
+                    cited_links.append(f'[{sc}]({page})')
+                else:
+                    cited_links.append(sc)
+            cited_str = 'Cited in: ' + ' · '.join(cited_links)
+        else:
+            cited_str = ''
+
+        # Build the entry
+        # Title line: linked if we have a URL, plain otherwise
+        verified_badge = ' ✓' if verified else ''
+        type_badge = f'`{rtype}`'
+
+        if link:
+            title_md = f'[{title}]({link})'
+        else:
+            title_md = title
+
+        lines.append(f'**{authors} ({year}).** {title_md}{verified_badge}  ')
+        if details:
+            lines.append(f'{details}  ')
+        lines.append(f'{type_badge}')
+        if cited_str:
+            lines.append(f'<small>{cited_str}</small>')
+        lines.append('')  # blank line between entries
+
+    dest_path.write_text('\n'.join(lines), encoding='utf-8')
+    print(f'  ✓ Generated references.qmd ({len(sorted_refs)} entries)')
+
+
+# ---------------------------------------------------------------------------
+# Machine-readable asset copy
+# ---------------------------------------------------------------------------
+
+def copy_machine_readable_assets(build):
+    """
+    Copy source-of-truth data files into _build/ so Quarto serves them
+    as static endpoints:
+      /wdt_references.json   — full reference database
+      /anchors.yml           — section-to-URL anchor map
+      /wdt-contents.yml      — paper/section hierarchy
+    """
+    assets = [
+        (REFERENCES_JSON,                build / 'wdt_references.json'),
+        (SCRIPT_DIR / 'anchors.yml',     build / 'anchors.yml'),
+        (SCRIPT_DIR / 'wdt-contents.yml', build / 'wdt-contents.yml'),
+    ]
+    for src, dst in assets:
+        if src.exists():
+            shutil.copy2(src, dst)
+            print(f'  ✓ {src.name} → {dst.name}')
+        else:
+            print(f'  ! {src.name} not found — skipping')
+
+
+# ---------------------------------------------------------------------------
 # File processing
 # ---------------------------------------------------------------------------
 
@@ -423,6 +610,13 @@ def main():
         shutil.copy2(p, destination)
 
     generate_corpus_qmd(build / 'corpus.qmd')
+
+    if Path(REFERENCES_JSON).exists():
+        generate_references_qmd(build / 'references.qmd', refs_data)
+    else:
+        print(f'  ! wdt_references.json not found — skipping references.qmd')
+
+    copy_machine_readable_assets(build)
 
     registry_path = REGISTRY_YML
     if not registry_path.exists():
