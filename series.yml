@@ -1,0 +1,924 @@
+WP:
+  page: wp.html
+  title: The White Paper
+  sections:
+    "1": Introduction
+    "1.1": The Cooperative Basis of the Design
+    "2": Intellectual Context and Prior Literature
+    "2.1": The Haig-Simons Definition and the Comprehensive Income Tradition
+    "2.2": The Empirical Literature on Wealth Taxation
+    "2.3": The Income versus Consumption Debate
+    "2.4": The Wealth Concentration Literature
+    "2.5": The Domar-Musgrave Principle
+    "2.6": Harberger Self-Assessment and the Purchase Option Tradition
+    "2.7": Five Design Problems Unresolved in Prior Literature
+    "3": "The Wealth Delta Tax: Mechanism Design"
+    "3.1": The Tax Base
+    "3.2": The Individual as the Unit of Taxation
+    "3.3": The Progressive Rate Structure
+    "3.4": The Exemption Threshold
+    "3.4.1": Voluntary Participation Below the Threshold
+    "3.5": The Symmetric Loss-Refund Mechanism
+    "3.6": Assessment Windows
+    "3.7": Valuation Architecture
+    "3.8": Valuation Incentives and the Structure of the Problem
+    "4": The Sovereign Wealth Fund
+    "4.1": Why the Fund Is Structurally Necessary
+    "4.2": Governance and Shared Interests
+    "4.3": Route D Auction Mechanism
+    "5": Revenue Properties
+    "6": "Replacing Existing Taxes: Scope and Sequencing"
+    "7": Implementation Pathway
+    "7.1": "Phase One: Infrastructure and Proof of Mechanism"
+    "7.2": "Phase Two: Expansion and Labour Tax Relief"
+    "7.3": International Coordination and Capital Mobility
+    "8": Principal Objections
+    "8.1": The Valuation Problem
+    "8.2": The Liquidity Problem
+    "8.3": Behavioural Responses
+    "8.4": The Consumption Tax Alternative
+    "8.5": Constitutional Entrenchment
+    "8.6": State-Finance Entanglement
+    "8.7": The Complexity Objection
+    "9": Limitations and Required Further Work
+    "10": Conclusion
+    "A.1": The Individual as Moral Subject
+    "A.2": Where Wealth Comes From
+    "A.3": Wealth as Power, Not Deferred Consumption
+    "A.4": The Terminal Goal and the Labour Tax Relief Dividend
+    "A.5": Named Compromises
+    "B.1": Governance Model
+    "B.2": The Consumption Tax Alternative
+
+MF:
+  page: mf.html
+  title: Moral and Philosophical Foundations
+  sections:
+    "1": Introduction
+    "2": The Individual as the Only Legitimate Moral Subject
+    "3": Where Wealth Comes From
+    "3.1": Why the Delta
+    "4": Wealth as Power, Not Deferred Consumption
+    "5": The Cognitive Moral Hazard of the Current System
+    "6": Democratic Flourishing as the Terminal Goal
+    "7": The Cooperative Architecture
+    "8": Tolerance for Imperfect Compliance
+    "9": "Where Theory Meets Practice: Named Compromises"
+    "9.1": The Corporate Instrument
+    "9.2": The Asymmetric Treatment of Corporate Loss Years
+    "9.3": The Exemption Threshold
+    "9.4": International Mobility and Exit
+    "9.5": The Assumption of Functional Democratic Institutions
+    "9.6": The Transition Period
+    "9.7": The Institutional Tiers the Mechanism Produces
+    "10": Perceived Fairness and Democratic Legitimacy
+    "11": Conclusion
+
+LR:
+  page: lr.html
+  title: Systematic Literature Review
+  sections:
+    "1": Introduction
+    "1.1": A Note on Sources
+    "2": The Haig-Simons Tradition and Prior Accrual Proposals
+    "2.1": Contemporary Policy Proposals
+    "2.2": The Contemporary Mark-to-Market Scholarship and the WDT's Relationship to Haig-Simons
+    "3": The Empirical Wealth Tax Literature
+    "3.1": Wealth Concentration Data
+    "4": The Domar-Musgrave Tradition
+    "4.1": Taxation Under Uncertainty and Tax-Induced Risk Sharing
+    "5": The Consumption Tax Tradition and Welfare Comparisons
+    "5.1": Welfare Comparisons Under Heterogeneous Returns
+    "6": The Harberger Self-Assessment Tradition
+    "7": Cooperative Compliance and Procedural Justice
+    "7.1": Collective Action and Institutional Design
+    "8": Sovereign Wealth Fund and Institutional Governance
+    "8.1": Pension Fund Governance
+    "8.2": Taxpayer-Constituency Governance
+    "8.3": Precommitment and Fiscal Rules
+    "9": Valuation Profession and Architecture
+    "10": International Coordination and Exit Taxation
+    "11": Moral and Philosophical Foundations
+    "11.1": Wealth as Institutional Power
+    "11.2": Democratic Legitimacy and Economic Inequality
+    "11.3": Procedural Fairness
+    "12": Research Gaps and Open Questions
+
+LR.A:
+  page: lr-a.html
+  title: Research Gaps in the Existing Literature
+  sections:
+    "1": Introduction
+    "2": Formal Modelling Gaps
+    "2.1": The Domar-Musgrave Extension
+    "2.2": The Welfare Comparison
+    "2.3": Heterogeneous Returns and the Delta Base
+    "3": Compliance and Behavioural Gaps
+    "3.1": Cooperative Compliance at the Ultra-High-Net-Worth Level
+    "3.2": The Cross-Base Migration Externality
+    "3.3": Administrative-Layer Intervention Effects
+    "4": Political and International Gaps
+    "4.1": The Political Durability Causal Framework
+    "4.2": The International Competitive Dynamic at the Political Level
+    "4.3": The Minimum-Tax Interaction
+    "5": Conclusion
+
+LR.B:
+  page: lr-b.html
+  title: Intellectual Background and Reference Guide
+  sections:
+    "1": Introduction and How to Use This Document
+    "2": The Tax Base Question
+    "3": Unrealised Gains and Prior Accrual Proposals
+    "4": Symmetric Loss Treatment and Risk-Sharing
+    "5": Heterogeneous Returns and Efficiency Under a Wealth Tax
+    "6": Welfare Comparisons
+    "7": The Empirical Wealth Tax Record
+    "8": The Valuation Problem
+    "9": Self-Assessment and Deterrence
+    "10": Cooperative Compliance and Procedural Justice
+    "11": Compliance in Professionally Mediated Systems
+    "12": Collective Action and Governance of Multi-Constituency Institutions
+    "13": Mutual and Pension Governance
+    "14": Sovereign Wealth Fund Reference Cases
+    "15": Precommitment and Fiscal Rules
+    "16": Moral Philosophy and the Normative Case
+    "17": Democratic Legitimacy and Wealth Concentration
+    "18": Exit Taxation and International Coordination
+    "19": Orphaned References
+
+VAL:
+  page: val.html
+  title: Valuing Wealth
+  sections:
+    "1": The Valuation Problem
+    "2": Asset Classification
+    "2.1": Automatically Priced Assets
+    "2.2": Fungible Assets
+    "2.3": Non-Fungible Assets
+    "2.4": Why Periodic Valuation and Audit Are Insufficient
+    "3": Assessment Windows
+    "3.1": Annual Reporting and Formal Assessment
+    "3.2": Available Assessment Windows
+    "3.3": Borrowing and Net Worth
+    "4": The Four Valuation Routes
+    "4.1": "Route A: Professional Valuation of Fungible Assets"
+    "4.2": "Route B: Professional Valuation of Non-Fungible Assets"
+    "4.3": "Route C: Self-Declaration of Fungible Assets"
+    "4.4": "Route D: Self-Declaration of Non-Fungible Assets"
+    "5": "The Self-Balancing Mechanism: Fungible Assets"
+    "5.1": The Grandfathering Baseline
+    "5.2": The Must-Transfer Rule
+    "5.3": Delta Continuity at Realisation
+    "6": Non-Fungible Assets and Realisation
+    "6.1": Why Periodic Accrual Is Not Workable for Non-Fungible Assets
+    "6.2": Assessment During the Holding Period
+    "6.3": The Realisation Calculation
+    "6.4": Voluntary Settlement
+    "6.5": Inheritance and the Auction Mechanism
+    "6.5.1": Why Auction Price Discovery Works at Inheritance
+    "6.5.2": The No-Bid Problem
+    "6.6": Destruction, Theft, and Forced Removal
+    "7": Declaration Strategy and Behavioural Responses
+    "7.1": Honest Declaration as the Locally Stable Strategy
+    "7.2": "Understatement: Deferred Liability and Dilution"
+    "7.3": "Overstatement: Signalling and Confidence Effects"
+    "7.4": Boundary Conditions and Limitations
+    "8": The Assessment Window Premium
+    "9": The Public Valuation Register
+    "10": Professional Valuation
+    "10.1": Purpose
+    "10.2": Competitive Tender Model
+    "10.3": Cost Sharing with a Valuation Authority Cap
+    "10.4": The Two-Stage Review Process
+    "10.5": The Valuation Code
+    "10.6": Valuation Governance
+    "11": The Route D Auction Mechanism
+    "11.1": Purpose and Deterrent Logic
+    "11.2": Relationship to Prior Self-Assessment Proposals
+    "11.3": Trigger Conditions and the Auction Process
+    "11.4": Scope and What This Does Not Require
+    "12": Administration and Fraud Detection
+    "12.1": Annual Reporting Requirements
+    "12.2": "The Purpose of Audit: Fraud, Not Valuation"
+    "12.3": Statistical Review
+    "12.4": Penalties
+    "13": The Sovereign Liquidity Facility
+
+VAL.A:
+  page: val-a.html
+  title: Valuing Wealth — Mathematical and Simulation Companion
+  sections:
+    "A": Mathematical Model and Incentive Analysis
+    "A.1": Purpose
+    "A.2": Main Findings
+    "A.2.1": Finding 1
+    "A.2.2": Finding 2
+    "A.2.3": Finding 3
+    "A.2.4": Finding 4
+    "A.2.5": Finding 5
+    "A.3": Model Assumptions and Notation
+    "A.3.1": The Rate Function
+    "A.3.2": The Delta and Tax Calculation
+    "A.3.3": The Basis Update Rule
+    "A.3.4": Net Worth Evolution
+    "A.4": Multi-Period Incentive Model
+    "A.4.1": Additional Notation
+    "A.4.2": Per-Period Sequence
+    "A.4.3": Initialisation
+    "A.4.4": Post-Sale Assessment at Period N+1
+    "A.4.4.1": Post-sale delta
+    "A.4.5": Cumulative Retained Fraction
+    "A.5": Scope of the Arguments
+    "A.5.1": Proposition 1
+    "A.5.2": Proposition 2
+    "A.5.3": Propositions 3a and 3b
+    "A.5.4": Proposition 4
+    "A.5.5": Proposition 5
+    "A.5.6": Cost Functions and Indifference Conditions
+    "A.6": "The Declaration Equilibrium: Mild Overstatement as Population Outcome"
+    "B": Simulation Methodology
+    "B.1": Purpose
+    "B.2": Simulation Algorithm
+    "B.2.1": For each period t = 1 to N
+    "B.2.2": Post-sale assessment at period N+1
+    "B.3": Parameter Table
+    "B.4": Output Metrics
+    "B.5": Scope and Limitations
+    "C": WDT Valuation Analysis — Summary Tables
+    "C.1": Total Tax Paid (TTP) Difference Relative to Honest Declaration
+    "C.2": Effective Lifetime Tax Rate Difference from Honest Declaration
+    "C.3": "Exploratory Extension: Investor Confidence Effects"
+    "C.4": Effective Lifetime Tax Rate by k Parameter and Total Wealth
+    "C.5": Sensitivity of k and Alpha
+    "C.6": Terminal Net Worth After Refunds
+    "C.7": Total Tax Paid Compared to Honest Taxpayer, Adjusted for N
+    "C.8": Terminal Net Worth Compared to Honest Taxpayer, Adjusted for N
+    "C.9": Summary of Declaration Incentives Across Growth Regimes
+    "C.10": Historical Return Series — Reference Scenario Results
+    "D": Mechanism Cases
+    "D.1": Case 1
+    "D.2": Case 2
+    "D.3": Case 3
+    "D.4": Case 4
+    "D.5": Case 5
+    "E": Route Specification Tables
+    "E.1": "Route A: Professional Valuation of Fungible Assets"
+    "E.2": "Route B: Professional Valuation of Non-Fungible Assets"
+    "E.3": "Route C: Self-Declaration of Fungible Assets"
+    "E.4": "Route D: Self-Declaration of Non-Fungible Assets"
+    "E.4.1": Route D Event Table
+    "F": Annual Reporting Requirements
+    "F.1": Taxpayer Annual Return
+    "F.2": Third-Party Reporting
+    "F.3": Route D Asset Reporting
+    "F.4": Public Register Interaction
+
+VAL.B:
+  page: val-b.html
+  title: Valuing Wealth — Worked Examples
+  sections:
+    "J": The Deferred Delta
+    "J.1": Setup
+    "J.2": The Mechanism
+    "J.3": Illustrative Figures
+    "J.4": What the Example Shows
+    "K": Dilution Compounds with Growth
+    "K.1": Setup
+    "K.2": The Mechanism
+    "K.3": Illustrative Figures
+    "K.4": What the Example Shows
+    "L": Why Route D Defers to Realisation
+    "L.1": Setup
+    "L.2": "Timeline A: Annual Cash Settlement (the Design Route D Avoids)"
+    "L.3": "Timeline B: Route D"
+    "L.4": What the Example Shows
+    "M": Voluntary Settlement — Certainty, Not Avoidance
+    "M.1": Setup
+    "M.2": "Option A: Soft Basis Reset"
+    "M.3": "Option B: Hard Basis Reset"
+    "M.4": "Option C: No Voluntary Settlement"
+    "M.5": Comparison
+    "M.6": What the Example Shows
+    "N": Forecast Exposure
+    "N.1": Setup
+    "N.2": What Happens to Each Founder
+    "N.3": Illustrative Figures
+    "N.4": What the Example Shows
+    "N.5": The Signalling Dimension
+    "O": Summary of Design Properties Illustrated
+
+JUR:
+  page: jur.html
+  title: UK Jurisdiction and Data Reference Paper
+  sections:
+    "1": The UK as Reference Jurisdiction
+    "1.1": Why a Reference Jurisdiction at All
+    "1.2": Why the UK
+    "1.2.1": Wealth Data
+    "1.2.2": Administrative Capacity
+    "1.2.3": Constitutional Flexibility
+    "1.2.4": Political Salience
+    "1.2.5": Researcher Familiarity
+    "1.3": What Is and Is Not Being Modelled
+    "1.4": The Wealth Tax Commission Comparison
+    "1.5": UK Institutional Architecture and WDT Requirements
+    "1.5.1": HMRC
+    "1.5.2": The Valuation Office Agency
+    "1.5.3": The Office for Budget Responsibility
+    "1.5.4": The Tax Tribunal System
+    "2": Data Reference
+    "2.1": Population and Economy
+    "2.2": Tax Revenues
+    "2.3": Government Expenditure Breakdown
+    "2.4": Wealth Distribution
+    "2.5": HMRC Institutional Data
+    "2.6": Valuation Office Agency Institutional Data
+    "2.7": OBR Institutional Data
+    "2.8": Tax Tribunal System Data
+    "2.9": "Capital Gains Tax and Inheritance Tax: Baseline Data"
+    "2.10": Data Gaps and Limitations
+    "3": Data Summary
+    "3.1": UK Government Income 2024-25
+    "3.2": UK Government Expenditure 2024-25
+    "3.3": Fiscal Summary
+    "4": Open Questions
+    "4.1": HMRC Administrative Data Access
+    "4.2": VOA Capacity for WDT Property Valuations
+    "4.3": Post-Brexit Information Exchange
+    "4.4": OBR Independence Stress Test
+
+CORP:
+  page: corp.html
+  title: Corporate Architecture
+  sections:
+    "1": Introduction
+    "2": Why Existing Corporate Tax Systems Are Insufficient
+    "2.1": Existing Administrative Analogues
+    "3": The Individual-Centred Logic and Its Limits
+    "4": The Listed/Private Distinction
+    "4.1": Corporate Lifecycle Events
+    "5": The Listed Company Corporate Delta Levy
+    "5.1": Definitions
+    "5.2": Annual Reporting Cycle
+    "5.3": Provisional Levy and the Settlement Account
+    "5.4": Individual Settlement and Credit Release
+    "5.5": Intermediary Pass-Through
+    "5.6": Reconciliation Window and Final Settlement
+    "5.7": Loss Years
+    "5.8": Ownership Table
+    "5.9": Why the Rate Is Flat
+    "5.10": Assessment Date Gaming
+    "5.11": Fund Implications
+    "6": The Corporate Equity Settlement Facility
+    "6.1": Purpose and Scope
+    "6.2": Mechanism
+    "6.3": Relationship to the SWF
+    "6.4": Governing Council Calibration Parameters
+    "7": Institutional Ownership
+    "8": Synthetic Exposure and Derivatives
+    "9": Relationship to Existing Corporate Tax
+    "10": Limitations and Required Further Work
+    "11": Conclusion
+
+CORP.A:
+  page: corp-a.html
+  title: Corporate Architecture Appendix
+  sections:
+    "A.1": The Two-Deadline Structure
+    "A.2": Shareholders Who Sell Before the Assessment Date
+    "A.3": Partial-Year Attribution
+    "A.4": Sequencing
+    "A.5": Loss Years and Private Arrangements
+    "A.6": "Worked Illustration: Standard Shareholders"
+    "A.7": Corporate Entities as Shareholders
+    "A.8": No Minimum Threshold
+    "A.9": Intermediary Chain Illustrations
+    "A.9.1": Broker/Nominee Case
+    "A.9.2": Pooled Fund Case
+    "B.1": Anchoring and Calibration
+    "B.2": The Higher Unresolved Rate
+    "B.3": Intermediary-Level Provisioning Floor
+    "B.4": The Rejected Pool-Average Alternative
+    "C.1": The Whitepaper
+    "C.2": The Valuation Paper
+    "C.3": The Rates Paper
+    "C.4": The Governance Paper
+    "D": Ownership Structure Classification Under the Attribution Test
+    "E.1": Purpose
+    "E.2": Shareholder Compliance
+    "E.3": Corporate Compliance
+    "E.4": Corporate Expertise and Staffing
+    "E.5": Valuation Requirements
+    "E.6": International and Transitional Considerations
+    "E.7": Summary
+    "F.1": Purpose
+    "F.2": Charitable Vehicles
+    "F.2.1": The Attribution Question
+    "F.2.2": Operating Charities
+    "F.2.3": Accumulating Endowments
+    "F.2.4": Refund Direction
+    "F.3": Special Purpose Vehicles and Holding Companies
+    "F.4": Trusts
+    "F.5": Family Limited Partnerships and Similar Structures
+    "F.6": Life Insurance Wrappers
+    "F.7": Carried Interest and Performance Fee Structures
+    "F.8": The General Principle and Its Limits
+    "F.9": Market Manipulation and the Bilateral-Claim Structure of Short Positions
+
+GOV:
+  page: gov.html
+  title: Constitutional Governance
+  sections:
+    "1": Introduction
+    "2": The Standard This Design Is Held To
+    "2.1": The Mechanism-Shaped Test
+    "3": Deriving the Architecture
+    "3.1": The Corrected Derivation
+    "3.2": Closing the Dividend Recipients' Standing
+    "4": Designing Against Capture
+    "5": The Structural Safeguards
+    "5.1": The Anti-Collusion Guarantee
+    "5.2": The Enumerated Structural Clauses
+    "5.3": Tiered Review, Rebalancing, and Transparency
+    "6": The Executive Bodies
+    "6.1": The Valuation Bodies
+    "6.2": The Allocator
+    "6.3": The SWF Custodian
+    "6.4": The Administrator
+    "7": Limitations and Further Work
+    "8": Conclusion
+
+GOV.A:
+  page: gov-a.html
+  title: Constitutional Governance Appendix
+  sections:
+    "A": Failure-Mode Taxonomy
+    "A.1": Oracle Failure
+    "A.2": Self-Referential Power
+    "A.3": Resource-Defines-Truth Degeneration
+    "B": WDT Instrument Audit
+    "B.1": Instruments That Pass Cleanly
+    "B.2": Instruments with Qualified or Partial Status
+    "B.3": Summary of Audit Status
+    "C": The Rejected First Derivation
+    "C.1": "The First Transaction: Delta Measurement and Tax Flow"
+    "C.2": "The Second and Third Transactions: Valuation and Outlier Confirmation"
+    "C.3": "The Fourth Transaction: Surplus Allocation"
+    "C.4": Dividend Receipt and the Solvency-Ratio Check
+    "C.5": Corporate Infrastructure and Rule-Change Proposals
+    "C.6": What the Comparison Shows
+    "D": Explored and Dropped Mechanisms
+    "D.1": Mechanisms That Reproduce the Resource-Defines-Truth Failure
+    "D.2": Mechanisms That Reproduce the Oracle Failure
+    "D.3": Mechanisms That Assume Away the Hardest Cases
+    "D.4": The Veto Holder
+    "D.5": Why a Lottery Specifically
+    "E": "Governance Decay: Four Sub-Forms"
+    "E.1": Definitional Drift
+    "E.2": Procedural Calcification
+    "E.3": Constituency Dissolution
+    "E.4": Role-Fidelity Drift
+    "E.5": The Correct Partition and What Follows From It
+
+GOV.B:
+  page: gov-b.html
+  title: Constitutional Governance — Operational Appendix
+  sections:
+    "A": The Chambers in Full
+    "A.1": The Taxpayer Chamber (TP)
+    "A.1.1": Eligibility and the Self-Evidencing Entry Rule
+    "A.1.2": Intra-Cycle Membership Changes and the Assessment Window as Validation Moment
+    "A.1.3": Internal Vote Share Arithmetic
+    "A.1.4": Proposal Initiation and the Internal Quorum
+    "A.1.5": "TP's Internal Factionalism: What the Architecture Leaves Alone"
+    "A.2": The Fiscal Sovereign Chamber (FS)
+    "A.2.1": "Qualifying Offices: Criteria, Not a List"
+    "A.2.2": Entry and Exit Mechanics
+    "A.2.3": "The Chairman: Role and Selection"
+    "A.2.4": Internal Organisation and Dissent
+    "A.3": The Dividend Recipient Chamber (DR)
+    "A.3.1": "The Lottery Mechanism: Birth-Month Stagger and Draw Count"
+    "A.3.2": "The Volunteer Rate: Definition, Tracking, and Publication"
+    "A.3.3": "The Constituency Dissolution Mechanism: Full Trigger Logic"
+    "A.3.4": "DR Seated Membership: Scale, the Phase Two Problem, and What This Paper Settles"
+    "A.3.5": "Seat-Burn: Mechanics and Share Rebalancing Arithmetic"
+    "A.3.6": "The DR Forums: Access, Verification, and the Administrator's Role"
+    "B": The Executive Bodies in Full
+    "B.1": The Valuation Bodies (VB-1, VB-2, VB-3)
+    "B.1.1": What the Valuation Bodies Must Be
+    "B.1.2": "Appointment: Competitive Tender and Dual-Threshold Confirmation"
+    "B.1.3": Staggered Terms and the Anti-Simultaneous-Reshaping Requirement
+    "B.1.4": "Hard Institutional Separation: What It Requires"
+    "B.1.5": Removal
+    "B.2": The Allocator
+    "B.2.1": "Appointment: Either-Chamber Proposal, T1 Confirmation"
+    "B.2.2": Tenure, Removal, and the Capture-as-Feature Framing
+    "B.2.3": Publication Requirements Before the Governing Council Votes
+    "B.2.4": The Allocator as Public Figure
+    "B.3": The SWF Custodian
+    "B.4": The Administrator
+    "B.4.1": What the Administrator Must Be
+    "B.4.2": Appointment and Constitutional Insulation
+    "B.4.3": The Format-Consistency Requirement
+    "B.4.4": Mandatory Outputs and Publication Cycle
+    "B.4.5": The Internal Communications System
+    "B.4.6": "Data Architecture: The Credential-Issuance Model"
+    "B.4.7": "Privacy Election: Binary Disclosure and Rate Differential"
+    "C": Voting Mechanics in Full
+    "C.1": "The Dual-Threshold Calculation: Worked Arithmetic"
+    "C.2": "Tier 1 Voting: Schedule, Cycle Length, and the Administrator's Logistical Discretion"
+    "C.3": "Tier 2 Timing: Two Triggers, Two Moments, Three Cases"
+    "C.4": "The Classification Veto: Mechanics, Real-Time Publication, and the Label Distribution Baseline"
+    "C.5": "Proposal Initiation Quorum: Chamber-Level Mechanics"
+    "C.6": "Withdrawal: The Single Unilateral Act and Its Timing Constraints"
+    "C.7": "Missed Tier 2 Votes: Consequences by Chamber"
+    "D": The Rebalancing Mechanism in Full
+    "D.1": "Conservation Arithmetic: How Vote Share Moves"
+    "D.2": "No Floor: The Cost Is Unconditional"
+    "D.3": TP/FS Split Dynamics Over Time
+    "D.4": "Self-Policing and Its Conditions: Why Fixed Chamber Structure Is Load-Bearing"
+    "E": "The SWF: Operational Detail"
+    "E.1": "The Solvency Floor: Definition and the Automatic-Consequence Principle"
+    "E.2": "Drawdown Conditions: Pre-Crisis Commitment and the Annual Publication Cycle"
+    "E.3": "The Bridging Facility: Bond Posting Sequence and Settlement"
+    "E.4": "Unit-Holder Rights: Financial Rights, Investment Input, and the Solvency-Trigger Threshold"
+    "E.5": "Stewardship Statements: Annual Cycle, Mandatory Content, and the Ratcheting Commitment"
+    "E.6": "Institutional Mapping: Mandate Extension Process (UK Reference)"
+    "E.7": "Custodian Inflationary Rotation Mandate: Parameters and Trigger Conditions"
+    "F": Per-Actor Cost Mechanisms
+    "F.1": "Patient Wealth (TP and FS): Vote-Share Rebalancing"
+    "F.2": "Short-Horizon Political Actors: Public Valuation Register Disclosure"
+    "F.3": "Diffuse Citizens: Visibility of Foregone Benefit"
+    "F.4": "Future Citizens: Solvency-Ratio Collapse of the Future-Generations Interest"
+    "F.5": "The Visibility/Cost Distinction: Why Both Axes Are Required"
+    "G": The Route D Auction Process in Full
+    "G.1": "Sealed-Estimate Protocol: Sequencing and the Non-Anchoring Requirement"
+    "G.2": "The Unanimity Requirement: Why Majority Agreement Is Insufficient"
+    "G.3": "Auction Conduct: Notice, Marketing Period, and Bidding Rules"
+    "G.4": Basis-Reset Documentation and the Assessment-Year Delta Calculation
+    "G.5": "Published Record: Flag Events, Corroboration Rates, and Drift Visibility"
+    "G.6": "Administrative Fee Schedule: Cost Recovery Without Penalty Calibration"
+    "H": "Corporate Equity Settlement Facility: Mandate Extension"
+    "H.1": Purpose and Relationship to the Existing SWF Mandate
+    "H.2": "Two New Custodian Exposure Categories: Secured Corporate Lending and Corporate Equity Portfolio"
+    "H.3": Stewardship Statement Requirements for the Facility
+    "H.4": Governing Council Calibration Parameters
+
+RATES:
+  page: rates.html
+  title: Rates and Revenue
+  sections:
+    "1": The Question This Paper Answers
+    "2": What Taxpayers Actually Pay
+    "3": The Revenue Claim
+    "3.1": Direction of Conservatism
+    "4": The Rate Function
+    "5": Modelling Wealth and Its Growth
+    "5.1": The Wealth Distribution
+    "5.2": The Growth Model
+    "6": The Two Models and How They Connect
+    "6.1": Sizing the SRR
+    "6.2": Sizing the LRR
+    "6.3": The Two Internal Milestones and What They Gate
+    "7": Revenue Results
+    "7.1": Revenue Results and Coverage
+    "7.2": Historical Starting-Year Sensitivity
+    "7.3": SRR and LRR Milestones
+    "8": What Is Not in the Central Claim
+    "8.1": The Corporate Levy
+    "8.2": The Ultra-High-Net-Worth Tail
+    "9": What Remains Open
+    "9.1": Behavioural Responses
+    "9.2": Phase One Transition Costs
+    "9.3": Parameter Calibration
+    "10": Limitations and Further Work
+    "11": Conclusion
+
+RATES.A:
+  page: rates-a.html
+  title: Rates and Revenue Appendix
+  sections:
+    "A": Model Specification
+    "A.1": Purpose
+    "A.2": Architecture
+    "A.3": Inputs
+    "A.4": SSM Mechanics
+    "A.5": TCM Mechanics
+    "A.6": Coverage Metrics
+    "A.7": Reproducibility
+    "B": Model Output
+    "B.1": Active Parameters
+    "B.2": SSM Results — Active Scenario
+    "B.3": TCM Results
+    "B.4": Start-Year Sweep
+    "B.5": Statistical Pass — P(success) Across Economic Cycles
+
+BEHAV:
+  page: behav.html
+  title: Behavioural Robustness and Administrative Experience
+  sections:
+    "1": Introduction
+    "2": Why Behaviour Cannot Be Predicted
+    "2.1": What the Evidence Shows
+    "2.2": Why the Numbers Don't Travel
+    "2.3": The Design Implication
+    "3": Behavioural Robustness as a Design Objective
+    "3.1": The Concept Defined
+    "3.2": What Robustness Is Not
+    "3.3": The Same Logic Applied Twice
+    "4": Sources of Behavioural Friction
+    "4.1": Type I — Information Friction
+    "4.2": Type II — Visibility Friction
+    "4.3": Type III — Legitimacy Friction
+    "4.4": Type IV — Feedback Friction
+    "4.5": Type V — Compliance Friction
+    "4.6": The Design Implication
+    "5": Design Principles for Behavioural Robustness
+    "5.1": The Clarity Principle
+    "5.2": The Reciprocity Principle
+    "5.3": The Fairness Principle
+    "5.4": The Responsiveness Principle
+    "5.5": The Accessibility Principle
+    "6": The Membrane
+    "6.1": Definition
+    "6.2": Membrane Health
+    "6.3": The Interaction Structure of Membrane Health Dimensions
+    "6.4": The Membrane and the WDT
+    "6.5": Privacy Compatibility as a Membrane Property
+    "7": How the WDT Satisfies the Five Principles
+    "7.1": The Clarity Principle
+    "7.2": The Reciprocity Principle
+    "7.3": The Fairness Principle
+    "7.4": The Responsiveness Principle
+    "7.5": The Accessibility Principle
+    "8": The Nine Behavioural Shapes
+    "8.1": Shape 1 — Full Cooperative Compliance
+    "8.2": Shape 2 — Passive Non-Optimisation
+    "8.3": Shape 3 — Active Optimisation Within the Rules
+    "8.4": Shape 4 — Avoidance Through Restructuring
+    "8.5": Shape 5 — Deferral and Timing Manipulation
+    "8.6": Shape 6 — Migration of Assets Without Personal Exit
+    "8.7": Shape 7 — Personal Exit
+    "8.8": Shape 8 — Partial Exit
+    "8.9": Shape 9 — Active Resistance and Non-Compliance
+    "8.10": The Distribution as a Whole
+    "8.11": The Enforcement Paradigm Shift
+    "8.12": The Route Distribution of WDT-Taxable Wealth
+    "8.13": Why the Bias Toward Routes A and B Is Structurally Positive
+    "9": Principal Objections
+    "9.1": The Wealthy Will Leave
+    "9.2": The Cross-Base Fiscal Externality
+    "9.3": The Complexity Objection
+    "9.4": The Membrane Is Undeliverable
+    "9.5": Robustness Is Rebranding Failure
+    "10": Membrane Calcification and the Monitoring Architecture
+    "10.1": The Nature of the Problem
+    "10.2": The Monitoring Instrument
+    "10.3": The Taxpayer Chamber as Monitor
+    "10.4": The Internal TP Voting Structure Hypothesis
+    "10.5": The Allocator as Fairness Signal
+    "10.6": The TP/DR Coalition and the FS Constraint
+    "10.7": The Honest Limit
+    "11": Phase Sequencing and Behavioural Evolution
+    "11.1": Phase One — Implementation
+    "11.2": Phase Two — Stabilisation
+    "11.3": Phase Three — Maturity
+    "11.4": Sequencing as a Design Variable
+    "12": Limitations and Further Work
+    "13": Conclusion
+    "A.1": A Healthy Membrane — Retail Banking
+    "A.2": Monopoly-Induced Degradation — Water Utilities
+    "A.3": Interest-Aligned Degradation — Mandatory Insurance Markets
+
+CLOSE:
+  page: close.html
+  title: Position Closure
+  sections:
+    "1": Intellectual Context and Prior Literature
+    "1.1": Conventional Exit Tax Design
+    "1.2": The Wealth Tax Migration Literature
+    "1.3": Insolvency and Taxation
+    "1.4": What the Literature Leaves Unresolved
+    "2": The General Theory of Position Closure
+    "3": What the Mechanism Owes at Closure
+    "4": The Four Closure Event Types
+    "4.1": Death
+    "4.2": Jurisdictional Exit
+    "4.3": Threshold Fall-Through
+    "4.4": Bankruptcy
+    "5": The Bridging Facility
+    "6": The Re-entry Rule
+    "7": Phase Sequencing
+    "7.1": Phase One
+    "7.2": Phase Two
+    "8": Principal Objections
+    "8.1": The Compulsion Objection
+    "8.2": The Double Taxation Objection
+    "8.3": The Re-entry Asymmetry Objection
+    "9": Limitations and Required Further Work
+    "10": Conclusion
+
+POL:
+  page: pol.html
+  title: Political Architecture
+  sections:
+    "1": Introduction
+    "2": Intellectual Context and Prior Literature
+    "3": Why Wealth Taxes Fail Politically
+    "3.1": The Empirical Pattern
+    "3.2": Three Structural Mechanisms
+    "3.3": "Mechanism One: Legitimacy Collapse"
+    "3.4": "Mechanism Two: Organised Opposition Advantage"
+    "3.5": "Mechanism Three: Institutional Brittleness"
+    "3.6": The Spiral
+    "3.7": Why Revenue Is Not the Failure Mode
+    "4": Political Durability as a Design Property
+    "5": The WDT's Political Architecture
+    "5.1": The Symmetric Loss-Refund Mechanism
+    "5.2": The Sovereign Wealth Fund
+    "5.3": The Labour Relief Dividend
+    "5.4": The Taxpayer Chamber
+    "5.5": The Dividend Recipient Chamber
+    "5.6": The Enumerated Structural Clauses
+    "5.7": Redundancy and the Failure Rate
+    "6": The Credibility Bootstrapping Problem
+    "6.1": The Vulnerability Window
+    "6.2": The Accidental Hostage and the Deliberate Stake
+    "6.3": The Thought Experiment
+    "6.4": Phase One Parameters as Politically Determined
+    "6.5": The SRR Milestone as Political Threshold
+    "6.6": Phase One as a Political Term
+    "6.7": The Calcification Ceiling and the Honest Limitation
+    "7": The Self-Shaping Problem
+    "8": Principal Objections
+    "8.1": The Political Durability Claim Is Unfalsifiable
+    "8.2": The Redundancy Argument Proves Too Much
+    "8.3": The Bootstrapping Problem Is Fatal
+    "8.4": The Tiered Citizenship Risk Is the Point
+    "8.5": The Existing-Tiers Argument Is a Deflection
+    "8.6": Democratic Flourishing as the Terminal Goal Is Circular
+    "9": Limitations and Required Further Work
+    "9.1": No Empirical Validation
+    "9.2": The Causal Framework Is the Paper's Own Construction
+    "9.3": The Bootstrapping Problem Has No Clean Resolution
+    "9.4": The Tiered Citizenship Risk Has No Mechanism-Shaped Answer
+    "9.5": The International Competitive Dynamic Is Underdeveloped
+    "9.6": Phase One Calibration Is Outside Scope
+    "9.7": The Paper Cannot Speak to Timing
+    "10": Conclusion
+    "A.1": We Already Live in a Tiered Society
+    "A.2": The Tiered Citizenship Risk
+    "A.3": Why the WDT Is Not Feudalism
+    "A.4": Equality of Outcome Is the Wrong Goal
+    "A.5": The Small Community Illustration
+    "A.6": The Limits of Mechanism
+    "A.7": A Remarkable Problem
+
+PHASE1:
+  page: phase1.html
+  title: The Phase One Paper
+  sections:
+    "1": Introduction
+    "2": The Boundary of Desk Research
+    "3": The Working Assumptions Currently in Force
+    "4": The Empirical Clusters
+    "4.1": Behavioural Response to Cooperative Architecture
+    "4.2": Avoidance Under Imperfect Compliance
+    "4.3": Migration and the Cross-Base Externality
+    "4.4": Valuation Route and Assessment Window Adoption
+    "4.5": Administrative Intervention Effects
+    "4.6": OBR Independence — Empirical Assessment
+    "4.7": Corporate Instrument Transition
+    "5": What Phase One Would Need to Measure
+    "5.1": Measuring Behavioural Response to the Cooperative Architecture
+    "5.2": Measuring Avoidance Under Imperfect Compliance
+    "5.3": Measuring the Cross-Base Externality
+    "5.4": Measuring Valuation Route and Assessment Window Adoption
+    "5.5": Measuring Administrative Intervention Effects
+    "5.6": Measuring OBR Independence
+    "5.7": Measuring the Corporate Instrument Transition
+    "6": Named Limitations Inherited
+    "7": Conclusion
+
+ENV:
+  page: env.html
+  title: Environmental Effects and Transmission Channels
+  sections:
+    "1": The Paper's Place in the Series
+    "2": The Predicted Rational Equilibrium
+    "3": Capital Allocation and Velocity
+    "4": The Displacement Channel and Labour Markets
+    "4.1": Staged Displacement
+    "4.2": The NICs Case
+    "4.3": Automation and the Labour Tax Base
+    "4.4": What Existing Responses Address
+    "4.5": Tax-Base Migration
+    "4.6": Displacement Effects on Households
+    "4.7": Extreme Automation as a Stress Test
+    "4.8": What the WDT Does Not Solve
+    "5": The Consumption Multiplier and Growth Feedback
+    "6": Financial System Stability
+    "7": Inflation Response and Countercyclical Architecture
+    "8": Housing and Distributional Consequences
+    "9": Limitations and Further Work
+    "9.1": Formal modelling gaps
+    "9.2": Phase One empirical unknowns
+    "9.3": Jurisdiction-specific legal and implementation work
+    "9.4": Structural and irreducible limits of the design
+    "9.5": Governing Council calibration parameters
+    "10": Conclusion
+    "A": Relationship to the Open Questions Register
+
+SWEEPS:
+  page: sweeps.html
+  title: Parameter Space and Governing Council Calibration
+  sections:
+    "1": Introduction
+    "2": What the Sweeps Are Measuring
+    "2.1": The Tolerant Zone and Fiscal Coverage
+    "2.2": The N-Crossing Threshold and LRR Fill Year
+    "2.3": The Understater Penalty Plateau and What It Indicates
+    "2.4": Reading the Two Datasets in Parallel
+    "3": The Entry Rate
+    "3.1": What Controls on the Declaration Mechanism (VAL.S)
+    "3.2": What Controls on Fiscal Outcomes (RATES.S)
+    "3.3": What the Council Is Calibrating
+    "4": The Ceiling Rate
+    "4.1": What Controls on the Declaration Mechanism (VAL.S)
+    "4.2": What Controls on Fiscal Outcomes (RATES.S)
+    "4.3": What the Council Is Calibrating
+    "5": The Steepness Parameter
+    "5.1": What Controls on the Declaration Mechanism (VAL.S)
+    "5.2": What Controls on Fiscal Outcomes (RATES.S)
+    "5.3": What the Council Is Calibrating
+    "6": The Exemption Threshold
+    "6.1": What Controls on the Declaration Mechanism (VAL.S)
+    "6.2": What Controls on Fiscal Outcomes (RATES.S)
+    "6.3": What the Council Is Calibrating
+    "7": The Parameter Hierarchy and Its Two Faces
+    "7.1": The Two Hierarchies
+    "7.2": Chamber Positions and the Stabilising Effect of Disagreement
+    "8": The Operational Parameters
+    "8.1": The Assessment Window Premium
+    "8.2": The Ramp
+    "8.3": The LRR Drawdown Pace
+    "8.4": Route C Rotation Pace
+    "8.5": The Privacy Rate Differential
+    "8.6": Corporate Facility Parameters
+    "9": The Small Lever Set as a Design Feature
+    "10": What Phase One Needs to Measure for Calibration
+    "11": Limitations
+    "12": Conclusion
+
+SWEEPS.A:
+  page: sweeps-a.html
+  title: Parameter Sweeps — Appendix Tables
+  sections:
+    "A.1": Sweep Table — Entry Rate
+    "A.2": Sweep Table — Ceiling Rate
+    "A.3": Sweep Table — Steepness Parameter
+    "A.4": Sweep Table — N
+    "A.5": Sweep Table — Initial Value
+    "A.6": Joint Surface — Entry Rate × N
+    "A.7": Joint Surface — Steepness × Initial Value
+    "A.8": Sweep Table — Exemption Threshold
+    "A.9": Figure Index
+    "B.1": Purpose and Parameters
+    "B.2": RATES.S — Entry Rate Sweep
+    "B.3": RATES.S — Ceiling Rate Sweep
+    "B.4": RATES.S — Steepness Parameter Sweep
+    "B.5": RATES.S — Exemption Threshold Sweep
+    "B.6": RATES.S — SRR Ratio Sweep
+    "B.7": RATES.S — LRR Years Sweep
+
+FM:
+  page: fm.html
+  title: First Mover
+  sections:
+    "1": The Binary
+    "2": Why The Middle Option Doesn't Exist
+    "3": What Each Strategy Delivers
+    "3.1": "The First Strategy: Commit and Compound"
+    "3.2": "The Second Strategy: Suppress Before Demonstration"
+    "4": The Record
+
+MOD:
+  page: mod.html
+  title: Modular Adoption
+  sections:
+    "1": The Two Categories
+    "2": Why Infrastructure Accrues
+    "3": What Accretion Delivers
+    "4": The Relationship to the Binary
+
+SCOPE:
+  page: scope.html
+  title: "Scope Boundary: Questions Outside This Project"
+  sections:
+    "1": Purpose
+    "2": Modelling Tasks Left to Future Researchers
+    "3": Questions Requiring Legal or Jurisdictional Expertise
+    "4": Questions Requiring International Coordination
+    "5": Questions Sequentially Deferred to Post-Phase One
+    "6": What This Document Is Not Doing
