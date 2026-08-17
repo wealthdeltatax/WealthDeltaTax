@@ -23,6 +23,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 import yaml
 import os
+from pathlib import Path
 
 # ── CONFIGURATION ────────────────────────────────────────────────────────────
 SCRIPT_DIR      = Path(__file__).resolve().parent
@@ -688,7 +689,7 @@ def main():
     build.mkdir(exist_ok=True)
 
     # Directories whose contents are copied flat to _build/ root
-    FLATTEN_DIRS = {'pages', 'seo', 'style'}
+    FLATTEN_DIRS = {'pages', 'seo'}
 
     static_files = [f for f in STATIC_DIR.rglob("*") if f.is_file()]
     for p in static_files:
