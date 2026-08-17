@@ -7,6 +7,8 @@ Run this before every `quarto render _build`.
 import re, shutil
 from pathlib import Path
 import yaml
+import os
+os.chdir(Path(__file__).parent)
 
 # ── CONFIGURATION ────────────────────────────────────────────────────────────
 SOURCE_DIR   = "source_md"
@@ -33,6 +35,10 @@ for shortcode, paper in series.items():
 with open(ANCHORS_YML, encoding='utf-8') as f:
     anchor_map = yaml.safe_load(f)   # "WP§3.7" → "wp.html#valuation-architecture"
 
+# Temporarily add this right after loading anchors.yml
+print(f"anchor_map sample: {list(anchor_map.items())[:5]}")
+print(f"anchor_map size: {len(anchor_map)}")
+
 # ---------------------------------------------------------------------------
 # Cross-reference conversion
 # Matches: (WP), (VAL §3.7), (CORP.A §F.9), (GOV.B §E.3), etc.
@@ -40,28 +46,29 @@ with open(ANCHORS_YML, encoding='utf-8') as f:
 
 CROSSREF_RE = re.compile(
     r'\(([A-Z][A-Z0-9]*(?:\.[A-Z][A-Z0-9]*)?)(?:\s+§([\d.A-Za-z]+))?\)'
+    r'|'
+    r'\b([A-Z][A-Z0-9]*(?:\.[A-Z][A-Z0-9]*)?)\s+§([\d.A-Za-z]+)'
 )
 
 
 def convert_crossrefs(text):
     def replace(m):
-        full      = m.group(0)   # e.g. "(VAL §3.7)"
-        shortcode = m.group(1)   # e.g. "VAL"
-        section   = m.group(2)   # e.g. "3.7" or None
+        # Handle both regex branches
+        shortcode = m.group(1) or m.group(3)
+        section = (m.group(2) or m.group(4) or '').rstrip('.')
+        full      = m.group(0)
 
         if shortcode not in link_map:
-            return full          # unknown shortcode — leave as-is
+            return full
 
         if section:
             key = f'{shortcode}§{section}'
             url = anchor_map.get(key)
             if url:
                 return f'[{full}]({url})'
-            # Section not in anchors.yml — fall back to page-level link
             print(f'  ⚠ section not in anchors.yml: {key}')
             return f'[{full}]({link_map[shortcode]})'
 
-        # Paper-level reference only
         return f'[{full}]({link_map[shortcode]})'
 
     return CROSSREF_RE.sub(replace, text)

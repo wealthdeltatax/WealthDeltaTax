@@ -51,9 +51,9 @@ def make_anchor(section_key: str, section_title: str) -> str:
       letter_only       e.g. "A", "J", "B"      → keep prefix + title together
       letter_dot_numeric e.g. "A.1", "B.2.3"    → keep prefix + title together
     """
-    # Pure integer top-level: no anchor (Quarto treats as page title level)
+    # Pure integer top-level: Anchor 
     if re.match(r"^\d+$", section_key):
-        return None
+        return slugify(section_title) 
 
     # Numeric sub-section: strip the number prefix, slugify title only
     if re.match(r"^\d+\.", section_key):
