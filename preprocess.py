@@ -688,7 +688,7 @@ def main():
     build.mkdir(exist_ok=True)
 
     # Directories whose contents are copied flat to _build/ root
-    FLATTEN_DIRS = {'pages', 'seo'}
+    FLATTEN_DIRS = {'pages', 'seo', 'style'}
 
     static_files = [f for f in STATIC_DIR.rglob("*") if f.is_file()]
     for p in static_files:
