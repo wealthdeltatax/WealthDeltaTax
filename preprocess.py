@@ -411,7 +411,7 @@ def main():
         'index.qmd', 'apa.csl', 'series.yml',
         'robots.txt',
         'start-here.qmd',
-        'glossary.qmd',
+        'glossary.qmd', 'faq.qmd',
     ]
     for fname in static_files:
         p = Path(fname)
