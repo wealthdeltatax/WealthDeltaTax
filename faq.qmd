@@ -3,7 +3,6 @@ title: "FAQ"
 description: "A guide to reading the Wealth Delta Tax research programme — from a five-minute introduction to the full 26-paper series."
 author: "K. Ogata"
 ---
-# WDT Q&A
 
 Imagine owning a tree as an investment. If it grows, you share a small portion of that year's growth through tax. If a storm damages it and its value falls, the government shares part of the loss. That is the basic idea behind the Wealth Delta Tax (WDT). Instead of taxing what people earn, spend, or choose to sell, it taxes only the annual change in a person's net worth. The government becomes a passive partner: it shares in gains, shares in losses, and because the economy's wealth tends to grow over time, it receives a positive return overall.
 
