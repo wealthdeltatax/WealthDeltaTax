@@ -687,16 +687,18 @@ def main():
         shutil.rmtree(build, ignore_errors=True)
     build.mkdir(exist_ok=True)
 
-    static_files = [
-        f
-        for f in STATIC_DIR.rglob("*")
-        if f.is_file()
-    ]
+    # Directories whose contents are copied flat to _build/ root
+    FLATTEN_DIRS = {'pages', 'seo'}
 
+    static_files = [f for f in STATIC_DIR.rglob("*") if f.is_file()]
     for p in static_files:
         relative_path = p.relative_to(STATIC_DIR)
-        destination = build / relative_path
-
+        parts = relative_path.parts
+        # If the file is inside a flattened directory, strip that prefix
+        if parts[0] in FLATTEN_DIRS:
+            destination = build / Path(*parts[1:])
+        else:
+            destination = build / relative_path
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(p, destination)
 
