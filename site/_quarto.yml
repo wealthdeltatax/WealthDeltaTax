@@ -154,4 +154,4 @@ format:
     footnotes-hover: true
     csl: style/apa.csl
 
-bibliography: wdt_references.bib
+bibliography: references.bib

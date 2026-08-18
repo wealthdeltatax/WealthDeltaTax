@@ -9,10 +9,10 @@ Steps:
   3. Convert internal bibliography lines to styled divs
   4. Inject per-paper front matter metadata (description, keywords, date, version)
   5. Inject JSON-LD structured data (ScholarlyArticle) into each paper
-  6. Auto-generate corpus.qmd from wdt_references.json
+  6. Auto-generate corpus.qmd from references.json
   7. Auto-generate references.qmd — flat bibliography with cited-in links
   8. Copy static assets and hand-authored pages into _build/
-  9. Copy machine-readable data files (wdt_references.json, anchors.yml,
+  9. Copy machine-readable data files (references.json, anchors.yml,
      contents.yml) into _build/ as static endpoints
  10. Generate site-index.json — merged single-fetch navigation index
      (papers + sections + anchor URLs + relationships)
@@ -45,7 +45,7 @@ AUTHOR          = "K. Ogata"
 # Load registry/contents.yml    contents[SHORTCODE] = {page, title, sections}
 #                                link_map[SHORTCODE] = "page.html"
 # Load registry/anchors.yml     anchor_map[SHORTCODE§X.Y] = "page.html#anchor-id"
-# Load registry/wdt_references.json  paper_meta[SHORTCODE] = {...}
+# Load registry/references.json  paper_meta[SHORTCODE] = {...}
 
 if not CONTENTS_YML.exists():
     raise FileNotFoundError(f"contents.yml not found at {CONTENTS_YML}")
@@ -479,7 +479,7 @@ def generate_references_qmd(dest_path, refs_data):
     lines.append('')
     lines.append(
         'The full reference database including citation relationships is available as '
-        '[machine-readable JSON](/wdt_references.json).'
+        '[machine-readable JSON](/references.json).'
     )
     lines.append('')
     lines.append('---')
@@ -644,13 +644,13 @@ def copy_machine_readable_assets(build, refs_data, anchor_map, contents):
     """
     Copy source-of-truth data files into _build/ so Quarto serves them
     as static endpoints:
-      /wdt_references.json   — full reference database
+      /references.json   — full reference database
       /anchors.yml           — section-to-URL anchor map
       /wdt-contents.yml      — paper/section hierarchy
       /site-index.json       — merged single-fetch navigation index
     """
     assets = [
-        (REFERENCES_JSON,                              build / 'wdt_references.json'),
+        (REFERENCES_JSON,                              build / 'references.json'),
         (ROOT_DIR / 'registry' / 'anchors.yml',        build / 'anchors.yml'),
         (ROOT_DIR / 'registry' / 'contents.yml',       build / 'wdt-contents.yml'),
     ]
@@ -848,7 +848,7 @@ def main():
     if Path(REFERENCES_JSON).exists():
         generate_references_qmd(build / 'references.qmd', refs_data)
     else:
-        print(f'  ! wdt_references.json not found in registry/ — skipping references.qmd')
+        print(f'  ! references.json not found in registry/ — skipping references.qmd')
 
     copy_machine_readable_assets(build, refs_data, anchor_map, contents)
 
