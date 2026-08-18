@@ -67,8 +67,8 @@ REGISTER[9. Public register updated Taxpayer history recorded]:::step --> SWF
 SWF[10. Net revenue to SWF Refund reserve · labour relief reserve]:::refund --> LOOP
 
 LOOP{Window closed?}:::decision
-LOOP -->|No: file annual report| LOOP
-LOOP -->|Yes: new window| WIN
+LOOP -->|No — file annual report| LOOP
+LOOP -->|Yes — new window| WIN
 
 LOOP --> CLOSE
 
@@ -78,6 +78,6 @@ CLOSE -->|Exit| CL2[Bridging facility Depart before settlement]:::closure
 CLOSE -->|Fall-through| CL3[Final delta Envelope preserved]:::closure
 CLOSE -->|Bankruptcy| CL4[Final delta Refund fires]:::closure
 
-CL1 & CL2 & CL3 & CL4 --> END
+CL1 & CL2 & CL3 & CL4 --> END_POS
 
-END([Position closed Lifetime envelope persists]):::end1
+END_POS([Position closed Lifetime envelope persists]):::end1

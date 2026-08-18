@@ -262,4 +262,4 @@ NXT[Tax year complete No carry-forward of positions or wealth trajectory Each ye
 LOOP_Q{Another tax year?}:::decision
 LOOP_Q -->|Yes| START
 LOOP_Q -->|No| EXIT_UK[Final year: split-year rules apply CGT deemed disposal on some assets IHT domicile may persist 3 years]:::status
-EXIT_UK --> END([UK tax position closed]):::endnode
+EXIT_UK --> END_UK([UK tax position closed]):::endnode
