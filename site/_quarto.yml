@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: _site
+  render:
+    - "*.qmd"
 
 website:
   title: "Wealth Delta Tax (WDT)"
@@ -149,7 +151,7 @@ format:
     toc: true
     toc-depth: 3
     number-sections: false
-    css: styles.css
+    css: style/styles.css
     citations-hover: true
     footnotes-hover: true
     csl: style/apa.csl
