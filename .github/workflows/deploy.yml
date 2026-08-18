@@ -34,8 +34,8 @@ jobs:
 
       - name: Run preprocessing
         run: |
-          python build_anchors.py
-          python preprocess.py
+          python pipeline/build_anchors.py
+          python pipeline/preprocess.py
 
       - name: Debug _build structure and generated _quarto.yml
         if: failure()

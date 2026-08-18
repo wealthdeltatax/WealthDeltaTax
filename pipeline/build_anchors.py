@@ -20,8 +20,9 @@ import re
 import yaml
 from pathlib import Path
 
-CONTENTS_FILE = "wdt-contents.yml"
-OUTPUT_FILE   = "anchors.yml"
+ROOT_DIR     = Path(__file__).resolve().parent.parent
+CONTENTS_YML = ROOT_DIR / 'registry' / 'contents.yml'
+ANCHORS_YML  = ROOT_DIR / 'registry' / 'anchors.yml'
 
 
 def slugify(text: str) -> str:
@@ -140,4 +141,4 @@ def build_anchors(contents_path: str, output_path: str) -> None:
 
 
 if __name__ == "__main__":
-    build_anchors(CONTENTS_FILE, OUTPUT_FILE)
+    build_anchors(CONTENTS_YML, ANCHORS_YML)

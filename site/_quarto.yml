@@ -149,9 +149,9 @@ format:
     toc: true
     toc-depth: 3
     number-sections: false
-    css: style/styles.css
+    css: styles.css
     citations-hover: true
     footnotes-hover: true
-    csl: style/apa.csl
+    csl: apa.csl
 
 bibliography: wdt_references.bib

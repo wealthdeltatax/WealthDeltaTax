@@ -13,7 +13,7 @@ Steps:
   7. Auto-generate references.qmd — flat bibliography with cited-in links
   8. Copy static assets and hand-authored pages into _build/
   9. Copy machine-readable data files (wdt_references.json, anchors.yml,
-     wdt-contents.yml) into _build/ as static endpoints
+     contents.yml) into _build/ as static endpoints
  10. Generate site-index.json — merged single-fetch navigation index
      (papers + sections + anchor URLs + relationships)
 """
@@ -26,28 +26,29 @@ import os
 from pathlib import Path
 
 # ── CONFIGURATION ────────────────────────────────────────────────────────────
-SCRIPT_DIR      = Path(__file__).resolve().parent
+SCRIPT_DIR      = Path(__file__).resolve().parent   # wdt-site/pipeline/
+ROOT_DIR        = SCRIPT_DIR.parent                  # wdt-site/
 
-STATIC_DIR      = SCRIPT_DIR / 'static'
-SOURCE_DIR      = SCRIPT_DIR / 'source_md'
-BUILD_DIR       = SCRIPT_DIR / '_build'
+SITE_DIR        = ROOT_DIR / 'site'                  # hand-authored pages, style, _quarto.yml
+SOURCE_DIR      = ROOT_DIR / 'source'                # paper .md source files
+BUILD_DIR       = ROOT_DIR / '_build'                # fully generated; never edit directly
 
-CONTENTS_YML    = SCRIPT_DIR / 'wdt-contents.yml'
-ANCHORS_YML     = SCRIPT_DIR / 'anchors.yml'
-REFERENCES_JSON = SCRIPT_DIR / 'wdt_references.json'
-REGISTRY_YML    = SCRIPT_DIR / 'paper_registry.yml'
+CONTENTS_YML    = ROOT_DIR / 'registry' / 'contents.yml'
+ANCHORS_YML     = ROOT_DIR / 'registry' / 'anchors.yml'
+REFERENCES_JSON = ROOT_DIR / 'registry' / 'references.json'
+REGISTRY_YML    = ROOT_DIR / 'registry' / 'papers.yml'
 
 SITE_URL        = "https://wealthdeltatax.org"
 AUTHOR          = "K. Ogata"
 # ─────────────────────────────────────────────────────────────────────────────
 
-# Load wdt-contents.yml  contents[SHORTCODE] = {page, title, sections}
-#                         link_map[SHORTCODE] = "page.html"
-# Load anchors.yml        anchor_map[SHORTCODE§X.Y] = "page.html#anchor-id"
-# Load wdt_references.json paper_meta[SHORTCODE] = {...}
+# Load registry/contents.yml    contents[SHORTCODE] = {page, title, sections}
+#                                link_map[SHORTCODE] = "page.html"
+# Load registry/anchors.yml     anchor_map[SHORTCODE§X.Y] = "page.html#anchor-id"
+# Load registry/wdt_references.json  paper_meta[SHORTCODE] = {...}
 
 if not CONTENTS_YML.exists():
-    raise FileNotFoundError(f"wdt-contents.yml not found at {CONTENTS_YML}")
+    raise FileNotFoundError(f"contents.yml not found at {CONTENTS_YML}")
 with open(CONTENTS_YML, encoding='utf-8') as f:
     contents = yaml.safe_load(f)
 
@@ -649,9 +650,9 @@ def copy_machine_readable_assets(build, refs_data, anchor_map, contents):
       /site-index.json       — merged single-fetch navigation index
     """
     assets = [
-        (REFERENCES_JSON,                 build / 'wdt_references.json'),
-        (SCRIPT_DIR / 'anchors.yml',      build / 'anchors.yml'),
-        (SCRIPT_DIR / 'wdt-contents.yml', build / 'wdt-contents.yml'),
+        (REFERENCES_JSON,                              build / 'wdt_references.json'),
+        (ROOT_DIR / 'registry' / 'anchors.yml',        build / 'anchors.yml'),
+        (ROOT_DIR / 'registry' / 'contents.yml',       build / 'wdt-contents.yml'),
     ]
     for src, dst in assets:
         if src.exists():
@@ -823,12 +824,14 @@ def main():
         shutil.rmtree(build, ignore_errors=True)
     build.mkdir(exist_ok=True)
 
-    # Subdirectories of static/ whose contents are copied flat to _build/ root.
-    FLATTEN_DIRS = {'pages', 'seo', 'style'}
+    # Copy site/ assets into _build/.
+    # pages/ is flattened to _build/ root (strips the pages/ prefix).
+    # style/ and _quarto.yml preserve their paths (_build/style/, _build/_quarto.yml).
+    FLATTEN_DIRS = {'pages'}
 
-    static_files = [f for f in STATIC_DIR.rglob("*") if f.is_file()]
+    static_files = [f for f in SITE_DIR.rglob("*") if f.is_file()]
     for p in static_files:
-        relative_path = p.relative_to(STATIC_DIR)
+        relative_path = p.relative_to(SITE_DIR)
         parts = relative_path.parts
         if parts[0] in FLATTEN_DIRS:
             destination = build / Path(*parts[1:])
@@ -845,13 +848,13 @@ def main():
     if Path(REFERENCES_JSON).exists():
         generate_references_qmd(build / 'references.qmd', refs_data)
     else:
-        print(f'  ! wdt_references.json not found — skipping references.qmd')
+        print(f'  ! wdt_references.json not found in registry/ — skipping references.qmd')
 
     copy_machine_readable_assets(build, refs_data, anchor_map, contents)
 
     registry_path = REGISTRY_YML
     if not registry_path.exists():
-        print('ERROR: paper_registry.yml not found.')
+        print('ERROR: registry/papers.yml not found.')
         return
 
     with registry_path.open(encoding='utf-8') as f:
