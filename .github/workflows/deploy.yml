@@ -35,24 +35,28 @@ jobs:
       - name: Run preprocessing
         run: python preprocess.py
 
-      - name: Debug output structure
-        run: |
-          echo "=== _build contents ==="
-          find _build -type f | head -60
-          echo "=== _quarto.yml location ==="
-          find . -name "_quarto.yml" | head -10
+      - name: Debug _build structure and generated _quarto.yml
         if: always()
+        run: |
+          echo "=== _build file list ==="
+          find _build -type f | sort | head -80
+
+          echo ""
+          echo "=== _quarto.yml content ==="
+          cat _build/_quarto.yml || echo "  (_quarto.yml not found)"
+
+          echo ""
+          echo "=== Quarto version ==="
+          quarto --version
 
       - name: Render Quarto site
-        run: quarto render _build
+        run: quarto render _build --verbose 2>&1
 
       - name: Debug after render
+        if: always()
         run: |
           echo "=== _build/_site contents ==="
-          find _build/_site -type f | head -60 || echo "_build/_site does not exist"
-          echo "=== full _build tree ==="
-          find _build -type d | head -30
-        if: always()
+          find _build/_site -type f | sort | head -80 || echo "_build/_site does not exist"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
