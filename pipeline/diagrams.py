@@ -230,11 +230,13 @@ def generate_flowcharts_qmd(
     uk_full      = _load_mmd("260812_UK_Tax_Flowchart_LR.mmd", False, link_map, anchor_map)
     uk_skeleton  = _load_mmd("260812_UK_Skeleton_LR.mmd",      False, link_map, anchor_map)
 
-    def mermaid_block(mmd_text: str, label: str, width: int = 14) -> str:
+    def mermaid_block(mmd_text: str) -> str:
+        # Note: %%| chunk-option lines are intentionally omitted here.
+        # They interact with the %%{init}%%  directive and cause parse
+        # failures in some Quarto versions.  Width is controlled via CSS
+        # on the .wdt-diagram-full / .wdt-diagram-skeleton wrapper divs.
         lines = [
             "```{mermaid}",
-            f"%%| label: {label}",
-            f"%%| fig-width: {width}",
             mmd_text.strip(),
             "```",
         ]
@@ -268,14 +270,14 @@ The WDT journey begins when an assessment window opens and ends when a closure e
 
 The full chart covers: window election and deferral premiums, route assignment (A–D), privacy elections, all valuation sub-routes and dispute resolution paths, net worth calculation and threshold check, rate computation and delta sign, the WDT charge and symmetric refund with lifetime envelope check, settlement by route, corporate levy credits, administrator credentialling, the Sovereign Wealth Fund allocation, Route D auction enforcement, the annual reporting loop, and all four closure events.
 
-::: {{.wdt-diagram #wdt-full}}
-{mermaid_block(wdt_full, "wdt-full-chart", width=14)}
+::: {{.wdt-diagram .wdt-diagram-full #wdt-full}}
+{mermaid_block(wdt_full)}
 :::
 
 ### Skeleton Overview
 
-::: {{.wdt-diagram #wdt-skeleton}}
-{mermaid_block(wdt_skeleton, "wdt-skeleton-chart", width=10)}
+::: {{.wdt-diagram .wdt-diagram-skeleton #wdt-skeleton}}
+{mermaid_block(wdt_skeleton)}
 :::
 
 :::
@@ -290,14 +292,14 @@ The current UK system is shown as a structural comparator. Unlike the WDT, the U
 
 ### Full Detail
 
-::: {{.wdt-diagram #uk-full}}
-{mermaid_block(uk_full, "uk-full-chart", width=14)}
+::: {{.wdt-diagram .wdt-diagram-full #uk-full}}
+{mermaid_block(uk_full)}
 :::
 
 ### Skeleton Overview
 
-::: {{.wdt-diagram #uk-skeleton}}
-{mermaid_block(uk_skeleton, "uk-skeleton-chart", width=10)}
+::: {{.wdt-diagram .wdt-diagram-skeleton #uk-skeleton}}
+{mermaid_block(uk_skeleton)}
 :::
 
 :::

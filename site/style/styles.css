@@ -40,6 +40,11 @@ h1, h2, h3, h4 {
  * Container for all WDT flowchart diagrams.
  * Applied via ::: {.wdt-diagram} divs in flowcharts.qmd.
  *
+ * Two size variants are used:
+ *  - .wdt-diagram-full     — full-detail charts; forces min-width so the
+ *                            SVG stays legible and triggers horizontal scroll
+ *  - .wdt-diagram-skeleton — overview charts; fits the container width
+ *
  * Stage 2 styling notes:
  *  - To change node colours: edit classDef lines in site/diagrams/*.mmd
  *  - To change fonts/sizes: override .mermaid text, .mermaid .nodeLabel below
@@ -57,8 +62,18 @@ h1, h2, h3, h4 {
   border-radius: 4px;
 }
 
-/* Ensure the SVG produced by Mermaid scales with its container */
-.wdt-diagram svg {
+/* Full-detail charts: enforce a readable minimum width.
+   Mermaid renders these as tall narrow SVGs by default; min-width keeps
+   node text legible and lets overflow-x: auto do the scrolling work. */
+.wdt-diagram-full svg {
+  min-width: 860px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Skeleton / overview charts: scale to fit the container */
+.wdt-diagram-skeleton svg {
   max-width: 100%;
   height: auto;
   display: block;
@@ -78,10 +93,3 @@ h1, h2, h3, h4 {
   filter: brightness(1.15);
   transition: filter 0.15s ease;
 }
-
-/* ── Skeleton / overview diagram variant ────────────────────────────────── */
-/*
- * The skeleton diagrams use lighter pastel fills (defined in their .mmd classDefs).
- * No extra CSS needed currently, but this selector is available for future use.
- */
-/* .wdt-diagram[id$="-skeleton"] { } */
