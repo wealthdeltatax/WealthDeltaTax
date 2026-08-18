@@ -653,6 +653,7 @@ def copy_machine_readable_assets(build, refs_data, anchor_map, contents):
         (REFERENCES_JSON,                              build / 'references.json'),
         (ROOT_DIR / 'registry' / 'anchors.yml',        build / 'anchors.yml'),
         (ROOT_DIR / 'registry' / 'contents.yml',       build / 'wdt-contents.yml'),
+        (ROOT_DIR / 'registry' / 'references.bib', build / 'references.bib'),
     ]
     for src, dst in assets:
         if src.exists():

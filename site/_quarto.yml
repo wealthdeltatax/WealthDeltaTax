@@ -154,4 +154,4 @@ format:
     footnotes-hover: true
     csl: style/apa.csl
 
-bibliography: registry/references.bib
+bibliography: references.bib
