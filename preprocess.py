@@ -32,7 +32,7 @@ STATIC_DIR      = SCRIPT_DIR / 'static'
 SOURCE_DIR      = SCRIPT_DIR / 'source_md'
 BUILD_DIR       = SCRIPT_DIR / '_build'
 
-SERIES_YML      = STATIC_DIR / 'seo' / 'series.yml'
+CONTENTS_YML    = SCRIPT_DIR / 'wdt-contents.yml'
 ANCHORS_YML     = SCRIPT_DIR / 'anchors.yml'
 REFERENCES_JSON = SCRIPT_DIR / 'wdt_references.json'
 REGISTRY_YML    = SCRIPT_DIR / 'paper_registry.yml'
@@ -41,17 +41,18 @@ SITE_URL        = "https://wealthdeltatax.org"
 AUTHOR          = "K. Ogata"
 # ─────────────────────────────────────────────────────────────────────────────
 
-# ---------------------------------------------------------------------------
-# Load series.yml  link_map[SHORTCODE] = "page.html"
-# Load anchors.yml  anchor_map[SHORTCODE§X.Y] = "page.html#anchor-id"
-# Load wdt_references.json  paper_meta[SHORTCODE] = {...}
-# ---------------------------------------------------------------------------
+# Load wdt-contents.yml  contents[SHORTCODE] = {page, title, sections}
+#                         link_map[SHORTCODE] = "page.html"
+# Load anchors.yml        anchor_map[SHORTCODE§X.Y] = "page.html#anchor-id"
+# Load wdt_references.json paper_meta[SHORTCODE] = {...}
 
-with open(SERIES_YML, encoding='utf-8') as f:
-    series = yaml.safe_load(f)
+if not CONTENTS_YML.exists():
+    raise FileNotFoundError(f"wdt-contents.yml not found at {CONTENTS_YML}")
+with open(CONTENTS_YML, encoding='utf-8') as f:
+    contents = yaml.safe_load(f)
 
 link_map = {}
-for shortcode, paper in series.items():
+for shortcode, paper in contents.items():
     link_map[shortcode] = paper['page']
 
 with open(ANCHORS_YML, encoding='utf-8') as f:
@@ -835,15 +836,6 @@ def main():
             destination = build / relative_path
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(p, destination)
-
-    # Load wdt-contents.yml for sidebar generation and site-index
-    contents_path = SCRIPT_DIR / 'wdt-contents.yml'
-    if contents_path.exists():
-        with contents_path.open(encoding='utf-8') as f:
-            contents = yaml.safe_load(f)
-    else:
-        print('  ! wdt-contents.yml not found — site-index.json will be incomplete')
-        contents = {}
 
     # Generate _quarto.yml: nested sidebar (2 levels deep) + toc: false
     generate_quarto_yml(build, contents, anchor_map)
