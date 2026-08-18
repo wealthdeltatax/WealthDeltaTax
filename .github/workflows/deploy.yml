@@ -33,7 +33,9 @@ jobs:
         run: pip install pyyaml
 
       - name: Run preprocessing
-        run: python preprocess.py
+        run: |
+          python build_anchors.py
+          python preprocess.py
 
       - name: Debug _build structure and generated _quarto.yml
         if: always()
