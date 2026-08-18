@@ -224,7 +224,7 @@ Key configuration:
 - Open Graph and Twitter Card metadata
 - Search: overlay, navbar location
 - **Navbar** (hand-maintained, not generated): Home, Start Here, FAQ, Full Overview, Papers, References (with dropdown of 17 main papers), Glossary
-- **Sidebar** (flat fallback, overwritten by `preprocess.py`): 7 sections matching the `SIDEBAR_SECTION_ORDER` in `preprocess.py` — Core Papers, Literature, Valuation, Corporate & Governance, Revenue & Behaviour, Implementation, Analysis. The generated version adds two-level nesting (section titles as sub-items) and sets `collapse-level: 1`.
+- **Sidebar** (flat fallback, overwritten by `preprocess.py`): 7 sections matching the `SIDEBAR_SECTION_ORDER` in `preprocess.py` — Core Papers, Literature, Valuation, Corporate & Governance, Revenue & Behaviour, Implementation, Analysis. The generated version adds two-level nesting (section titles as sub-items) and sets `collapse-level: 2`.
 - `page-footer`: CC BY 4.0 licence left, Zenodo DOI right
 - `format.html`: theme `cosmo`, `toc: true` (overridden to `false` by `preprocess.py`), `toc-depth: 3`, `css: styles.css`, `citations-hover: true`, `footnotes-hover: true`, `csl: apa.csl`
 - `bibliography: wdt_references.bib`
