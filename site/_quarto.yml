@@ -152,6 +152,6 @@ format:
     css: styles.css
     citations-hover: true
     footnotes-hover: true
-    csl: apa.csl
+    csl: style/apa.csl
 
 bibliography: wdt_references.bib
