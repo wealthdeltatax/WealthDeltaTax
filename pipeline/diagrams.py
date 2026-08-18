@@ -264,22 +264,20 @@ The full detail charts are large — use your browser's **zoom** (Ctrl +/−) to
 
 The WDT journey begins when an assessment window opens and ends when a closure event fires the final delta calculation. Each asset is assigned a valuation route; the taxpayer's net worth delta determines whether tax or a symmetric refund is owed; settlement follows the asset's route.
 
+::: {{.wdt-diagram-tabset}}
 ::: {{.panel-tabset}}
 
 ### Full Detail
 
 The full chart covers: window election and deferral premiums, route assignment (A–D), privacy elections, all valuation sub-routes and dispute resolution paths, net worth calculation and threshold check, rate computation and delta sign, the WDT charge and symmetric refund with lifetime envelope check, settlement by route, corporate levy credits, administrator credentialling, the Sovereign Wealth Fund allocation, Route D auction enforcement, the annual reporting loop, and all four closure events.
 
-::: {{.wdt-diagram .wdt-diagram-full #wdt-full}}
 {mermaid_block(wdt_full)}
-:::
 
 ### Skeleton Overview
 
-::: {{.wdt-diagram .wdt-diagram-skeleton #wdt-skeleton}}
 {mermaid_block(wdt_skeleton)}
-:::
 
+:::
 :::
 
 ---
@@ -288,20 +286,18 @@ The full chart covers: window election and deferral premiums, route assignment (
 
 The current UK system is shown as a structural comparator. Unlike the WDT, the UK system assesses each tax year independently with no carry-forward of wealth position. Income, capital gains, inheritance, and corporate profits are taxed under separate regimes with distinct administrative calendars.
 
+::: {{.wdt-diagram-tabset}}
 ::: {{.panel-tabset}}
 
 ### Full Detail
 
-::: {{.wdt-diagram .wdt-diagram-full #uk-full}}
 {mermaid_block(uk_full)}
-:::
 
 ### Skeleton Overview
 
-::: {{.wdt-diagram .wdt-diagram-skeleton #uk-skeleton}}
 {mermaid_block(uk_skeleton)}
-:::
 
+:::
 :::
 
 ---

@@ -37,13 +37,12 @@ h1, h2, h3, h4 {
 
 /* ── Mermaid diagrams ───────────────────────────────────────────────────── */
 /*
- * Container for all WDT flowchart diagrams.
- * Applied via ::: {.wdt-diagram} divs in flowcharts.qmd.
+ * .wdt-diagram-tabset wraps the entire panel-tabset for each diagram group.
+ * The {mermaid} blocks must be direct children of a tab panel — no inner
+ * ::: div wrapper — or Quarto 1.10+ will not recognise them as Mermaid.
  *
- * Two size variants are used:
- *  - .wdt-diagram-full     — full-detail charts; forces min-width so the
- *                            SVG stays legible and triggers horizontal scroll
- *  - .wdt-diagram-skeleton — overview charts; fits the container width
+ * Scroll, border, and sizing are applied here via the tabset wrapper and
+ * the .tab-pane children that Quarto generates for each panel-tabset tab.
  *
  * Stage 2 styling notes:
  *  - To change node colours: edit classDef lines in site/diagrams/*.mmd
@@ -52,44 +51,48 @@ h1, h2, h3, h4 {
  *  - Mermaid theme variables can be set in the %%{init: {...}}%% block in .mmd
  */
 
-.wdt-diagram {
-  overflow-x: auto;          /* allow horizontal scroll on narrow screens */
-  overflow-y: hidden;
+.wdt-diagram-tabset {
   margin: 1.5rem 0;
-  padding: 1rem;
-  background: #f8f9fa;
   border: 1px solid #dee2e6;
   border-radius: 4px;
+  background: #f8f9fa;
 }
 
-/* Full-detail charts: enforce a readable minimum width.
-   Mermaid renders these as tall narrow SVGs by default; min-width keeps
-   node text legible and lets overflow-x: auto do the scrolling work. */
-.wdt-diagram-full svg {
+/* Each tab panel gets horizontal scroll so large diagrams don't overflow */
+.wdt-diagram-tabset .tab-pane {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 1rem;
+}
+
+/* All diagrams: let SVG fill horizontally but scroll rather than squash */
+.wdt-diagram-tabset svg {
+  display: block;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* Full-detail tabs (1st tab in each tabset): enforce a legible minimum width.
+   Target the first tab panel — full-detail is always the first tab. */
+.wdt-diagram-tabset .tab-pane:first-of-type svg {
   min-width: 860px;
-  height: auto;
-  display: block;
-  margin: 0 auto;
 }
 
-/* Skeleton / overview charts: scale to fit the container */
-.wdt-diagram-skeleton svg {
+/* Skeleton tabs (2nd tab): scale to fit */
+.wdt-diagram-tabset .tab-pane:nth-of-type(2) svg {
   max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
 }
 
 /* Clickable node cursor affordance */
-.wdt-diagram .node a,
-.wdt-diagram a.clickable {
+.wdt-diagram-tabset .node a,
+.wdt-diagram-tabset a.clickable {
   cursor: pointer;
 }
 
-/* Hover highlight on clickable nodes — colour matched to the dark WDT palette */
-.wdt-diagram .node:has(a):hover rect,
-.wdt-diagram .node:has(a):hover polygon,
-.wdt-diagram .node:has(a):hover circle {
+/* Hover highlight on clickable nodes */
+.wdt-diagram-tabset .node:has(a):hover rect,
+.wdt-diagram-tabset .node:has(a):hover polygon,
+.wdt-diagram-tabset .node:has(a):hover circle {
   filter: brightness(1.15);
   transition: filter 0.15s ease;
 }
