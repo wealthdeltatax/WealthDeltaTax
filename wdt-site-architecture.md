@@ -295,3 +295,79 @@ Copied into `_build/` at each build and served as static files:
 - Donations, contact, newsletter — reserved at `/about/` and `/contribute/`
 - Citation key conversion (source files use prose APA; `@key` format is a future stage)
 - PDF pipeline — separate, uses pandoc + LaTeX, entirely independent of this build
+
+---
+
+## Assessment and recommended changes
+
+### What is working well
+
+The preprocessing pipeline is clean and well-scoped. The separation of concerns — source files never touched, `_build/` fully regenerated on every run, static endpoints committed alongside HTML — is the right architecture for a reproducible research project. `wdt_references.json` as a normalised database with a citation junction table is more rigorous than most solo projects achieve. The JSON-LD injection and `site-index.json` are forward-thinking: useful now for search, useful later if tooling is built on top of the content. Having `apa.csl` and `bibliography: wdt_references.bib` already wired into `_quarto.yml` means Stage 1.5 is a preprocessing change only, not a configuration change.
+
+---
+
+### Issues and recommended fixes
+
+#### 1. `series.yml` / `wdt-contents.yml` duplication — fix immediately
+
+These two files are structurally identical and carry the same data. `preprocess.py` loads `series.yml` for link resolution and sidebar generation, and `wdt-contents.yml` separately for site-index generation. They must be kept manually in sync and will eventually diverge — this is the only real fragility in the project.
+
+**Fix:** Delete `series.yml`. In `preprocess.py`, change the `SERIES_YML` constant to point at `wdt-contents.yml`. Adjust any path references. One file, one update point, zero sync burden. After this change, `series.yml` can also be removed from the `_build/` static endpoint copy list since `wdt-contents.yml` is already served there.
+
+**Effort:** ~10 minutes. No behaviour change.
+
+---
+
+#### 2. `build_anchors.py` not run in CI — silent failure mode
+
+`deploy.yml` runs `preprocess.py` but not `build_anchors.py`. The committed `anchors.yml` is whatever was last generated locally. If a section is added to `wdt-contents.yml`, the developer forgets to regenerate anchors, and pushes — cross-links to that section silently fall back to the page root with no CI error.
+
+**Fix:** Add `python build_anchors.py` as a step in `deploy.yml` immediately before `python preprocess.py`. Then `anchors.yml` is always freshly generated in CI and does not need to be committed. Add `anchors.yml` to `.gitignore` (it is already commented out there — uncomment it).
+
+**Effort:** 2 lines in `deploy.yml`, uncomment one line in `_gitignore`. No behaviour change under normal operation; prevents silent failures on section additions.
+
+---
+
+#### 3. Possible live bug: `css: styles.css` path mismatch
+
+`_quarto.yml` specifies `css: styles.css` and `csl: apa.csl`. These files live at `static/style/styles.css` and `static/style/apa.csl`, which `preprocess.py` copies to `_build/style/styles.css` and `_build/style/apa.csl`. Quarto is therefore looking for `_build/styles.css` but the file is at `_build/style/styles.css`.
+
+**Verify:** Check the rendered site to confirm custom styles (Georgia serif body, `.internal-bibliography` box) are actually applying. If they are not, the fix is either to change `_quarto.yml` to `css: style/styles.css` and `csl: style/apa.csl`, or to move `styles.css` and `apa.csl` to `static/` root so they copy to `_build/` root.
+
+**Effort:** One line change in `_quarto.yml` if the bug is confirmed.
+
+---
+
+#### 4. `LR` in contents files but marked superseded — potential dead link
+
+`wdt-contents.yml` and `series.yml` both include `LR` with `page: lr.html`. `wdt_references.json` marks LR as `status: superseded`. If no `lr.md` source file exists, `preprocess.py` skips it silently. However, `_quarto.yml` does not include `lr.html` in the navbar or sidebar, so no generated navigation links to it. **But** `index.qmd` does not list LR either. Check whether any hand-authored page or source file contains a bare `(LR)` cross-reference that would generate a dead link to `lr.html`.
+
+**Fix:** If LR is not being built, remove it from `wdt-contents.yml` and `series.yml` (and from `paper_registry.yml` if it has an entry there) to eliminate the ambiguity. If it is being built as a legacy page, add a deprecation notice.
+
+**Effort:** Small. Mainly a clarity/correctness issue.
+
+---
+
+#### 5. Debug steps in `deploy.yml` run on every successful build
+
+The two debug steps (`find _build`, `find _build/_site`) use `if: always()`, meaning they run on every push including successful ones. This adds noise to CI logs.
+
+**Fix:** Change both to `if: failure()`. They will then only run when a build step has already failed, which is the only time the output is useful.
+
+**Effort:** Two character changes in `deploy.yml`.
+
+---
+
+### Adding a new paper — checklist
+
+The current architecture requires touching multiple files when a new paper is added. In the absence of automation, this checklist prevents the inevitable "why isn't this rendering" debugging session:
+
+1. Add source `.md` file to `source_md/`
+2. Add entry to `paper_registry.yml` (shortcode, source glob, output filename)
+3. Add entry to `wdt-contents.yml` (shortcode, page, title, sections)
+4. Add entry to `series.yml` with identical content *(until the duplication is resolved — see issue 1 above)*
+5. Add paper record to `wdt_references.json` (internal\_papers array)
+6. Run `build_anchors.py` locally → commit updated `anchors.yml` *(until CI fix is applied — see issue 2 above)*
+7. Add the paper to the navbar dropdown in `static/_quarto.yml` if it should appear there
+8. Add the paper to `static/pages/index.qmd` paper listing
+9. Update `static/pages/summary.qmd` if the summary document covers the new paper
