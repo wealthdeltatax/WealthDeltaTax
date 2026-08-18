@@ -34,3 +34,54 @@ h1, h2, h3, h4 {
   background-color: #343a40;
   color: white;
 }
+
+/* ── Mermaid diagrams ───────────────────────────────────────────────────── */
+/*
+ * Container for all WDT flowchart diagrams.
+ * Applied via ::: {.wdt-diagram} divs in flowcharts.qmd.
+ *
+ * Stage 2 styling notes:
+ *  - To change node colours: edit classDef lines in site/diagrams/*.mmd
+ *  - To change fonts/sizes: override .mermaid text, .mermaid .nodeLabel below
+ *  - To add dark-mode variants: add a [data-bs-theme=dark] media query here
+ *  - Mermaid theme variables can be set in the %%{init: {...}}%% block in .mmd
+ */
+
+.wdt-diagram {
+  overflow-x: auto;          /* allow horizontal scroll on narrow screens */
+  overflow-y: hidden;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+}
+
+/* Ensure the SVG produced by Mermaid scales with its container */
+.wdt-diagram svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Clickable node cursor affordance */
+.wdt-diagram .node a,
+.wdt-diagram a.clickable {
+  cursor: pointer;
+}
+
+/* Hover highlight on clickable nodes — colour matched to the dark WDT palette */
+.wdt-diagram .node:has(a):hover rect,
+.wdt-diagram .node:has(a):hover polygon,
+.wdt-diagram .node:has(a):hover circle {
+  filter: brightness(1.15);
+  transition: filter 0.15s ease;
+}
+
+/* ── Skeleton / overview diagram variant ────────────────────────────────── */
+/*
+ * The skeleton diagrams use lighter pastel fills (defined in their .mmd classDefs).
+ * No extra CSS needed currently, but this selector is available for future use.
+ */
+/* .wdt-diagram[id$="-skeleton"] { } */

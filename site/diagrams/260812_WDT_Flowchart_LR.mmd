@@ -1,0 +1,181 @@
+%%{init: {
+  "flowchart": {
+    "nodeSpacing": 12,
+    "rankSpacing": 28,
+    "padding": 4,
+    "curve": "linear"
+  },
+  "themeVariables": {
+    "fontSize": "9px",
+    "fontFamily": "Arial, sans-serif"
+  }
+}}%%
+flowchart LR
+
+%% ── STYLES ──────────────────────────────────────────────
+classDef start    fill:#1a1a2e,stroke:#1a1a2e,color:#fff,rx:12
+classDef decision fill:#16213e,stroke:#0f3460,color:#fff
+classDef setup    fill:#0f3460,stroke:#0f3460,color:#fff
+classDef routeA   fill:#1b4332,stroke:#1b4332,color:#fff
+classDef routeB   fill:#2d6a4f,stroke:#2d6a4f,color:#fff
+classDef routeC   fill:#40916c,stroke:#40916c,color:#fff
+classDef routeD   fill:#52b788,stroke:#52b788,color:#1a1a2e
+classDef calc     fill:#7b2d8b,stroke:#7b2d8b,color:#fff
+classDef settle   fill:#c77dff,stroke:#9d4edd,color:#1a1a2e
+classDef admin    fill:#e0aaff,stroke:#9d4edd,color:#1a1a2e
+classDef swf      fill:#f72585,stroke:#f72585,color:#fff
+classDef closure  fill:#4cc9f0,stroke:#4361ee,color:#1a1a2e
+classDef endnode  fill:#4361ee,stroke:#4361ee,color:#fff,rx:12
+classDef none     fill:#555,stroke:#555,color:#fff,rx:12
+
+%% ── START ───────────────────────────────────────────────
+
+START([Assessment window opens]):::start --> WIN
+
+%% ── STEP 1: WINDOW ──────────────────────────────────────
+
+WIN[Elect assessment window 1–7 years · applies to whole portfolio]:::setup --> WIN_Q
+
+WIN_Q{Window length?}:::decision
+WIN_Q -->|1 year| WIN_A[No premium]:::setup
+WIN_Q -->|2–7 years| WIN_B[Deferral charge + flexibility levy]:::setup
+WIN_A & WIN_B --> ROUTE_ASSIGN
+
+%% ── STEP 2: ROUTE ASSIGNMENT ────────────────────────────
+
+ROUTE_ASSIGN[Assign each asset to Route A / B / C / D Assets may switch routes between windows]:::setup --> PRIV
+
+%% ── STEP 3: PRIVACY ─────────────────────────────────────
+
+PRIV[Privacy election per asset Fungible assets: partial disclosure allowed]:::setup --> PRIV_Q
+
+PRIV_Q{Disclosed or private?}:::decision
+PRIV_Q -->|Disclosed| PRIV_DISC[Rate discount Enters public register]:::setup
+PRIV_Q -->|Private| PRIV_PRIV[Rate premium Revenue-neutral in expectation]:::setup
+PRIV_DISC & PRIV_PRIV --> VAL_ROUTE
+
+%% ── STEP 4: VALUATION ───────────────────────────────────
+
+VAL_ROUTE{Which route?}:::decision
+
+%% Route A
+VAL_ROUTE -->|Route A Professional · fungible| A_Q{Auto-priced or professionally valued?}:::decision
+A_Q -->|Auto-priced cash · listed equity · ETFs| A_AUTO[Market price on assessment date]:::routeA
+A_Q -->|Professionally valued private equity · fund units| A_PROF[Competitive-tender valuation Risk sits with valuator]:::routeA
+A_PROF --> A_DISP{Accepts valuation?}:::decision
+A_DISP -->|Yes| TOTAL
+A_DISP -->|No| A_REVIEW[Independent review At Valuation Authority cost]:::routeA
+A_REVIEW --> A_RQ{Outcome?}:::decision
+A_RQ -->|Supports valuator| A_ORIG[Original stands TP bears both costs]:::routeA
+A_RQ -->|Supports TP| A_TP[TP position accepted Valuator contract terminated]:::routeA
+A_RQ -->|Neither| A_REDIR[Reclassified to Route C until next window]:::routeA
+A_AUTO & A_ORIG & A_TP & A_REDIR --> TOTAL
+
+%% Route B
+VAL_ROUTE -->|Route B Professional · non-fungible| B_PROF[Professional valuation Deferred settlement as lien]:::routeB
+B_PROF --> B_DISP{Accepts valuation?}:::decision
+B_DISP -->|Yes| TOTAL
+B_DISP -->|No| B_REVIEW[Independent review Same process as Route A]:::routeB
+B_REVIEW --> B_RQ{Outcome?}:::decision
+B_RQ -->|Supports valuator| B_ORIG[Original stands]:::routeB
+B_RQ -->|Supports TP| B_TP[TP position accepted]:::routeB
+B_RQ -->|Neither| B_REDIR[Reclassified to Route D until next window]:::routeB
+B_ORIG & B_TP & B_REDIR --> TOTAL
+
+%% Route C
+VAL_ROUTE -->|Route C Self-declared · fungible| C_SELF[Taxpayer self-declares value Settlement must be in-kind equity transfer]:::routeC
+C_SELF --> TOTAL
+
+%% Route D
+VAL_ROUTE -->|Route D Self-declared · non-fungible| D_SELF[Self-declared entry basis No periodic liability · annual reporting continues]:::routeD
+D_SELF --> D_VOL{Voluntary settlement?}:::decision
+D_VOL -->|No — defer| D_DEFER[Deferred to realisation or inheritance auction]:::routeD
+D_VOL -->|Soft reset| D_SOFT[Self-declare current value Pay on gain · basis resets]:::routeD
+D_VOL -->|Hard reset| D_HARD[Public auction establishes price Taxpayer retains · basis resets]:::routeD
+D_DEFER & D_SOFT & D_HARD --> TOTAL
+
+%% ── STEP 5: NET WORTH ───────────────────────────────────
+
+TOTAL[Total all assets Calculate net worth]:::calc --> THRESH
+
+THRESH{Above exemption threshold?}:::decision
+THRESH -->|No| BELOW[No WDT due Annual report still filed]:::none
+THRESH -->|Yes| RATE
+
+%% ── STEP 6: RATE & DELTA ────────────────────────────────
+
+RATE[Marginal rate τ: progressive logistic of net worth τ₀ = 20% · τ_m = 70% · k = 0.001]:::calc --> DELTA
+
+DELTA[Wealth delta = current net worth − prior assessment net worth]:::calc --> SIGN
+
+SIGN{Delta?}:::decision
+
+%% ── STEP 7A: TAX ────────────────────────────────────────
+
+SIGN -->|Positive — gain| TAX[WDT = τ × delta Progressive marginal rates apply]:::calc
+
+%% ── STEP 7B: REFUND ─────────────────────────────────────
+
+SIGN -->|Negative — loss| REFUND[Symmetric refund = τ × delta SWF Refund Reserve pre-funds obligation]:::swf
+REFUND --> ENVELOPE{Lifetime envelope check}:::decision
+ENVELOPE -->|Within limit| REFUND_OK[Refund confirmed]:::swf
+ENVELOPE -->|Exceeds limit| REFUND_CAP[Refund capped at envelope balance]:::swf
+REFUND_OK & REFUND_CAP --> SETTLE
+TAX --> SETTLE
+
+%% ── STEP 8: SETTLEMENT ──────────────────────────────────
+
+SETTLE{Settlement route}:::decision
+SETTLE -->|Route A| SA[Cash settlement Liquidity facility available]:::settle
+SETTLE -->|Route B| SB[Cash settlement Lien on asset]:::settle
+SETTLE -->|Route C| SC[Automatic in-kind equity transfer No cash option]:::settle
+SETTLE -->|Route D| SD[No settlement this cycle Deferred to realisation]:::settle
+
+%% ── CORPORATE LEVY CREDITS ──────────────────────────────
+
+SA --> CREDIT_Q{Listed equity on Route A?}:::decision
+CREDIT_Q -->|No| DEADLINES
+CREDIT_Q -->|Yes| CREDIT[Claim corporate levy credits Within 1 year to register attribution]:::settle
+CREDIT --> CREDIT_USE{Credit disposition}:::decision
+CREDIT_USE -->|Apply now| CREDIT_APPLY[Reduces cash tax this cycle]:::settle
+CREDIT_USE -->|Carry forward| CREDIT_CARRY[Held for future cycles Dissolve on death]:::settle
+CREDIT_USE -->|Return to company| CREDIT_RETURN[Reduces company's corporate levy]:::settle
+CREDIT_APPLY & CREDIT_CARRY & CREDIT_RETURN --> DEADLINES
+SB & SC & SD --> DEADLINES
+
+%% ── STEP 9: ADMINISTRATOR ───────────────────────────────
+
+DEADLINES[Administrator issues consistency credential 6 months: submit · 1 year: settle cash]:::admin --> REGISTER
+
+%% ── STEP 10: REGISTER & SWF ─────────────────────────────
+
+REGISTER[Public Valuation Register updated Longitudinal taxpayer history record maintained]:::admin --> SWF
+
+SWF[Net revenue → SWF SRR: refund floor 3× · LRR: labour relief reserve]:::swf
+
+%% ── STEP 11: ROUTE D AUCTION ────────────────────────────
+
+SWF --> AUCTION_Q{Egregious Route D understatement confirmed by Valuation Body consensus?}:::decision
+AUCTION_Q -->|No| ANNUAL
+AUCTION_Q -->|Yes| AUCTION[Asset auctioned at taxpayer's declared price Winning price becomes new basis · delta taxed]:::routeD
+
+AUCTION --> ANNUAL
+
+%% ── STEP 12: ANNUAL LOOP ────────────────────────────────
+
+ANNUAL[Annual report filed All assets · ownership · material changes]:::admin --> LOOP
+
+LOOP{End of elected window?}:::decision
+LOOP -->|No| ANNUAL
+LOOP -->|Yes| WIN
+
+%% ── CLOSURE EVENTS ──────────────────────────────────────
+
+ANNUAL --> CLOSURE_Q{Position closure event?}:::decision
+CLOSURE_Q -->|Death| DEATH[Final delta · refund fires if negative Route D: inheritance auction triggered]:::closure
+CLOSURE_Q -->|Exit| EXIT[Final delta · bridging facility bonds Departure decoupled from settlement]:::closure
+CLOSURE_Q -->|Fall-through| FALLTHROUGH[Final delta · refund if applicable Envelope history preserved]:::closure
+CLOSURE_Q -->|Bankruptcy| BANKRUPT[Final delta · refund fires if negative Envelope history preserved]:::closure
+DEATH & EXIT & FALLTHROUGH & BANKRUPT --> END_CLOSE
+
+END_CLOSE([Position closed Lifetime envelope persists across closures and re-entries]):::endnode

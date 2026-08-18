@@ -1,0 +1,162 @@
+%%{init: {
+  "flowchart": {
+    "nodeSpacing": 10,
+    "rankSpacing": 30,
+    "padding": 4,
+    "curve": "linear"
+  },
+  "themeVariables": {
+    "fontSize": "10px",
+    "fontFamily": "Arial, sans-serif"
+  }
+}}%%
+
+flowchart TD
+
+classDef start    fill:#fef3e8,stroke:#C47A1E,color:#1a1a2e,rx:12
+classDef step     fill:#fef9c3,stroke:#C47A1E,color:#1a1a2e
+classDef decision fill:#fef3c7,stroke:#b45309,color:#1a1a2e
+classDef income   fill:#fee2e2,stroke:#991b1b,color:#1a1a2e
+classDef relief   fill:#dcfce7,stroke:#166534,color:#1a1a2e
+classDef cgt      fill:#ede9fe,stroke:#5b21b6,color:#1a1a2e
+classDef iht      fill:#fae8ff,stroke:#86198f,color:#1a1a2e
+classDef corp     fill:#fff1f2,stroke:#be123c,color:#1a1a2e
+classDef filing   fill:#e0f2fe,stroke:#0369a1,color:#1a1a2e
+classDef end1      fill:#C47A1E,stroke:#C47A1E,color:#fff,rx:12
+classDef none     fill:#f3f4f6,stroke:#9ca3af,color:#374151,rx:12
+
+START([Tax year begins]):::start --> RES
+
+RES{UK resident?}:::decision
+RES -->|Uncertain| SRT[Statutory Residence Test]:::step
+RES -->|Yes| DOM
+SRT --> DOM
+
+DOM{Domicile?}:::decision
+DOM -->|UK domiciled: worldwide basis| INC
+DOM -->|Non-dom: remittance or arising basis| REM[Remittance basis election]:::step
+REM --> INC
+
+INC{Income sources?}:::decision
+
+INC -->|Employment| E1[Salary · bonuses · benefits]:::income
+E1 --> E2[PAYE at source]:::income
+E2 --> E3[NIC Class 1]:::income
+E3 --> E4{Share schemes?}:::decision
+E4 -->|Approved| E5[EMI / CSOP / SAYE / SIP tax-advantaged]:::relief
+E4 -->|Unapproved| E6[RSUs: IT + NIC on vest]:::income
+E4 -->|None| POOL
+E5 & E6 --> POOL
+
+INC -->|Self-employment| S1[Profits minus expenses]:::income
+S1 --> S2[NIC Class 2 + 4]:::income
+S2 --> S3{Trading loss?}:::decision
+S3 -->|Yes| S4[Offset · carry back · forward]:::relief
+S3 -->|No| POOL
+S4 --> POOL
+
+INC -->|Savings interest| I1{Within savings allowance?}:::decision
+I1 -->|Yes| I2[Tax-free]:::relief
+I1 -->|No| I3[Taxed at marginal rate]:::income
+I2 & I3 --> POOL
+
+INC -->|Dividends| D1{Within £500 allowance?}:::decision
+D1 -->|Yes| D2[Tax-free]:::relief
+D1 -->|No| D3[8.75 / 33.75 / 39.35 pct]:::income
+D2 & D3 --> POOL
+
+INC -->|Rental| R1[Income minus expenses Mortgage: basic rate only]:::income
+R1 --> R2{Rental loss?}:::decision
+R2 -->|Yes| R3[Carry forward against future rental only]:::relief
+R2 -->|No| POOL
+R3 --> POOL
+
+INC -->|Pension| P1[State · occupational · drawdown 25 pct lump sum at crystallisation]:::income
+P1 --> POOL
+
+POOL[Income pool Ordering: non-savings · savings · dividends]:::step --> PA
+
+PA{Above personal allowance?}:::decision
+PA -->|No| BELOW([No income tax NIC may still apply]):::none
+PA -->|Yes| TAPER
+
+TAPER{ANI above 100k?}:::decision
+TAPER -->|Yes| PTAPER[PA tapers to zero at 125k]:::relief
+TAPER -->|No| BANDS
+PTAPER --> BANDS
+
+BANDS[Income tax bands 20 / 40 / 45 pct]:::step --> WRAPPERS
+
+WRAPPERS[Gift Aid · pension relief · ISA]:::relief --> CGT_Q
+
+CGT_Q{Chargeable disposals?}:::decision
+CGT_Q -->|No| IHT_Q
+CGT_Q -->|Yes| CGT_TYPE{Asset type?}:::decision
+
+CGT_TYPE -->|Residential property| CG1[Gain minus cost PPR may apply]:::cgt
+CGT_TYPE -->|Shares / other| CG2[Gain minus cost Share matching rules]:::cgt
+CGT_TYPE -->|Cryptoassets| CG3[Each disposal taxable Pooling rules]:::cgt
+CGT_TYPE -->|Private co / business| CG4[BADR · Investors Relief Rollover · hold-over]:::cgt
+
+CG1 & CG2 & CG3 & CG4 --> CGTL
+
+CGTL{Losses?}:::decision
+CGTL -->|Yes| CGTLA[Offset current year then carry forward]:::relief
+CGTL -->|No| CGTA
+CGTLA --> CGTA
+
+CGTA[Annual exempt amount: 3k Rates: 18-24 pct property · 10-20 pct other]:::cgt --> IHT_Q
+
+IHT_Q{Death or chargeable transfer?}:::decision
+IHT_Q -->|No| CORP_Q
+IHT_Q -->|Yes| IHT1[Value estate All UK assets]:::iht
+IHT1 --> IHT2[NRB 325k + TNRB + RNRB 175k PETs within 7 years]:::iht
+IHT2 --> IHT3{BPR / APR?}:::decision
+IHT3 -->|Yes| IHT4[100 or 50 pct relief Capped 1m from 2026]:::relief
+IHT3 -->|No| IHT5
+IHT4 --> IHT5
+IHT5[40 pct above nil rate bands]:::iht --> CORP_Q
+
+CORP_Q{Own a company?}:::decision
+CORP_Q -->|No| VAT_Q
+CORP_Q -->|Yes| CT1[Taxable profits Capital allowances · RD · Patent Box]:::corp
+CT1 --> CT2{Loss?}:::decision
+CT2 -->|Yes| CT3[Offset · carry back · forward]:::relief
+CT2 -->|No| CT4
+CT3 --> CT4
+CT4[19 pct up to 50k · 25 pct above 250k]:::corp --> CT5{Extract profits?}:::decision
+CT5 -->|Salary| CT6[Deductible · IT + NIC]:::corp
+CT5 -->|Dividends| CT7[Not deductible · dividend rates]:::corp
+CT5 -->|Director loan| CT8[S455 tax if not repaid]:::corp
+CT6 & CT7 & CT8 --> VAT_Q
+
+VAT_Q{Turnover above 90k?}:::decision
+VAT_Q -->|No| SDLT_Q
+VAT_Q -->|Yes| VAT1[Register · quarterly returns Output minus input · MTD]:::corp
+VAT1 --> SDLT_Q
+
+SDLT_Q{Property acquired?}:::decision
+SDLT_Q -->|No| SA
+SDLT_Q -->|Yes| SDLT1[SDLT / LBTT / LTT 0-12 pct + surcharges]:::filing
+SDLT1 --> SA
+
+SA{Self-assessment required?}:::decision
+SA -->|PAYE only| NONE([No filing required]):::none
+SA -->|Yes| SA1[Complete return All income · gains · reliefs]:::filing
+SA1 --> SA2[Deadlines: 31 Jan online 31 Oct paper · POA Jan + Jul]:::filing
+SA2 --> SA3{On time?}:::decision
+SA3 -->|No| SA4[Penalties: 100 immediate 10 per day after 3 months]:::filing
+SA3 -->|Yes| ENQ
+SA4 --> ENQ
+
+ENQ{HMRC enquiry?}:::decision
+ENQ -->|No| PAY
+ENQ -->|Yes| ENQ1[Enquiry · discovery · penalties Careless 0-30 pct · deliberate 20-70 pct]:::filing
+ENQ1 --> APP{Appeal?}:::decision
+APP -->|Yes| APP1[FTT · Upper Tribunal · Courts]:::filing
+APP -->|No| PAY
+APP1 --> PAY
+
+PAY[Pay balance Reclaim overpayment]:::filing --> END
+
+END([Year complete No carry-forward of wealth position Each year assessed from scratch]):::end1
