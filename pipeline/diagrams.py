@@ -226,7 +226,7 @@ def generate_flowcharts_qmd(
     UK comparison diagrams are embedded as-is.
     """
     wdt_full     = _load_mmd("260812_WDT_Flowchart_LR.mmd",    True,  link_map, anchor_map)
-    wdt_skeleton = _load_mmd("260812_WDT_Skeleton_LR.mmd",     True,  link_map, anchor_map)
+    wdt_skeleton = _load_mmd("260812_WDT_Skeleton_LR.mmd",     False,  link_map, anchor_map)
     uk_full      = _load_mmd("260812_UK_Tax_Flowchart_LR.mmd", False, link_map, anchor_map)
     uk_skeleton  = _load_mmd("260812_UK_Skeleton_LR.mmd",      False, link_map, anchor_map)
 
