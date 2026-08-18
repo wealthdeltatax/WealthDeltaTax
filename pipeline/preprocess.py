@@ -854,6 +854,7 @@ def main():
     copy_machine_readable_assets(build, refs_data, anchor_map, contents)
 
     registry_path = REGISTRY_YML
+    print(f'  Looking for papers.yml at: {registry_path.resolve()}')
     if not registry_path.exists():
         print('ERROR: registry/papers.yml not found.')
         return
