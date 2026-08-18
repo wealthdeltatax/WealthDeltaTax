@@ -785,7 +785,7 @@ def generate_quarto_yml(build: Path, contents: dict, anchor_map: dict) -> None:
     # config.setdefault('website', {}).setdefault('sidebar', {})['contents'] = sidebar_contents
 
     sidebar = config.setdefault('website', {}).setdefault('sidebar', {})
-    sidebar['collapse-level'] = 1
+    sidebar['collapse-level'] = 2
     sidebar['contents'] = sidebar_contents
 
     # 3. Write

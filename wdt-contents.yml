@@ -79,36 +79,6 @@ MF:
     "10": Perceived Fairness and Democratic Legitimacy
     "11": Conclusion
 
-LR:
-  page: lr.html
-  title: Systematic Literature Review
-  sections:
-    "1": Introduction
-    "1.1": A Note on Sources
-    "2": The Haig-Simons Tradition and Prior Accrual Proposals
-    "2.1": Contemporary Policy Proposals
-    "2.2": The Contemporary Mark-to-Market Scholarship and the WDT's Relationship to Haig-Simons
-    "3": The Empirical Wealth Tax Literature
-    "3.1": Wealth Concentration Data
-    "4": The Domar-Musgrave Tradition
-    "4.1": Taxation Under Uncertainty and Tax-Induced Risk Sharing
-    "5": The Consumption Tax Tradition and Welfare Comparisons
-    "5.1": Welfare Comparisons Under Heterogeneous Returns
-    "6": The Harberger Self-Assessment Tradition
-    "7": Cooperative Compliance and Procedural Justice
-    "7.1": Collective Action and Institutional Design
-    "8": Sovereign Wealth Fund and Institutional Governance
-    "8.1": Pension Fund Governance
-    "8.2": Taxpayer-Constituency Governance
-    "8.3": Precommitment and Fiscal Rules
-    "9": Valuation Profession and Architecture
-    "10": International Coordination and Exit Taxation
-    "11": Moral and Philosophical Foundations
-    "11.1": Wealth as Institutional Power
-    "11.2": Democratic Legitimacy and Economic Inequality
-    "11.3": Procedural Fairness
-    "12": Research Gaps and Open Questions
-
 LR.A:
   page: lr-a.html
   title: Research Gaps in the Existing Literature
