@@ -663,15 +663,149 @@ def copy_machine_readable_assets(build, refs_data, anchor_map, contents):
 
 
 # ---------------------------------------------------------------------------
+# _quarto.yml generation
+# ---------------------------------------------------------------------------
+
+SIDEBAR_SECTION_ORDER = [
+    ("Core Papers",            ["WP", "MF"]),
+    ("Literature",             ["LR", "LR.A", "LR.B", "JUR"]),
+    ("Valuation",              ["VAL", "VAL.A", "VAL.B"]),
+    ("Corporate & Governance", ["CORP", "CORP.A", "GOV", "GOV.A", "GOV.B"]),
+    ("Revenue & Behaviour",    ["RATES", "RATES.A", "SWEEPS", "SWEEPS.A", "BEHAV"]),
+    ("Implementation",         ["CLOSE", "PHASE1"]),
+    ("Analysis",               ["POL", "ENV", "FM", "MOD"]),
+]
+
+SIDEBAR_LABELS = {
+    "WP":       "White Paper (WP)",
+    "MF":       "Moral Foundations (MF)",
+    "LR":       "Systematic Literature Review (LR)",
+    "LR.A":     "Research Gaps (LR.A)",
+    "LR.B":     "Intellectual Background (LR.B)",
+    "JUR":      "UK Jurisdiction (JUR)",
+    "VAL":      "Valuing Wealth (VAL)",
+    "VAL.A":    "Mathematical Companion (VAL.A)",
+    "VAL.B":    "Worked Examples (VAL.B)",
+    "CORP":     "Corporate Architecture (CORP)",
+    "CORP.A":   "Corporate Appendix (CORP.A)",
+    "GOV":      "Constitutional Governance (GOV)",
+    "GOV.A":    "Governance Appendix (GOV.A)",
+    "GOV.B":    "Operational Appendix (GOV.B)",
+    "RATES":    "Rates and Revenue (RATES)",
+    "RATES.A":  "Rates Appendix (RATES.A)",
+    "SWEEPS":   "Parameter Sweeps (SWEEPS)",
+    "SWEEPS.A": "Sweeps Appendix (SWEEPS.A)",
+    "BEHAV":    "Behavioural Robustness (BEHAV)",
+    "CLOSE":    "Position Closure (CLOSE)",
+    "PHASE1":   "Phase One (PHASE1)",
+    "POL":      "Political Architecture (POL)",
+    "ENV":      "Environmental Effects (ENV)",
+    "FM":       "First Mover (FM)",
+    "MOD":      "Modular Adoption (MOD)",
+}
+
+
+def _section_depth(key: str) -> int:
+    return str(key).count('.') + 1
+
+
+def _build_paper_sidebar_contents(shortcode: str, contents: dict,
+                                   anchor_map: dict) -> list:
+    """Return sidebar content list for one paper, two levels deep."""
+    paper    = contents.get(shortcode, {})
+    page     = paper.get('page', f'{shortcode.lower()}.html')
+    sections = paper.get('sections', {})
+
+    result      = []
+    current_l1  = None
+
+    for key, title in sections.items():
+        depth      = _section_depth(str(key))
+        anchor_key = f'{shortcode}§{key}'
+        url        = anchor_map.get(anchor_key, page)
+
+        if depth == 1:
+            if current_l1 is not None:
+                result.append(current_l1)
+            current_l1 = {'text': str(title), 'href': url, 'contents': []}
+        elif depth == 2:
+            if current_l1 is None:
+                result.append({'text': str(title), 'href': url})
+            else:
+                current_l1['contents'].append({'text': str(title), 'href': url})
+        # depth >= 3: omitted
+
+    if current_l1 is not None:
+        result.append(current_l1)
+
+    # Remove empty contents lists
+    for item in result:
+        if isinstance(item, dict) and not item.get('contents'):
+            item.pop('contents', None)
+
+    return result
+
+
+def generate_quarto_yml(build: Path, contents: dict, anchor_map: dict) -> None:
+    """
+    Overwrite _build/_quarto.yml with:
+      - toc: false in format.html
+      - generated nested sidebar contents (two levels deep)
+    The file must already exist in _build/ from the static copy step.
+    """
+    dest = build / '_quarto.yml'
+    if not dest.exists():
+        print('  ! _quarto.yml not found in _build/ — skipping sidebar generation')
+        return
+
+    with dest.open(encoding='utf-8') as f:
+        config = yaml.safe_load(f)
+
+    # 1. Disable right-hand TOC globally
+    config.setdefault('format', {}).setdefault('html', {})['toc'] = False
+
+    # 2. Build nested sidebar
+    sidebar_contents = []
+    for section_name, shortcodes in SIDEBAR_SECTION_ORDER:
+        present = [sc for sc in shortcodes if sc in contents]
+        if not present:
+            continue
+        section_items = []
+        for sc in present:
+            page   = contents[sc].get('page', f'{sc.lower()}.html')
+            label  = SIDEBAR_LABELS.get(sc, sc)
+            nested = _build_paper_sidebar_contents(sc, contents, anchor_map)
+            entry  = {'text': label, 'href': page}
+            if nested:
+                entry['contents'] = nested
+            section_items.append(entry)
+        sidebar_contents.append({'section': section_name, 'contents': section_items})
+
+    # config.setdefault('website', {}).setdefault('sidebar', {})['contents'] = sidebar_contents
+
+    sidebar = config.setdefault('website', {}).setdefault('sidebar', {})
+    sidebar['collapse-level'] = 1
+    sidebar['contents'] = sidebar_contents
+
+    # 3. Write
+    with dest.open('w', encoding='utf-8') as f:
+        yaml.dump(config, f, default_flow_style=False, allow_unicode=True,
+                  sort_keys=False)
+    print('  ✓ _quarto.yml — nested sidebar generated, toc: false')
+
+
+# ---------------------------------------------------------------------------
 # File processing
 # ---------------------------------------------------------------------------
 
-def process_file(src_path, dest_path):
+def process_file(src_path, dest_path, shortcode):
     text = src_path.read_text(encoding='utf-8')
     text = LATEX_RE.sub('', text)
     text = convert_crossrefs(text)
     lines = convert_internal_bibliography(text.splitlines(keepends=True))
     text = ''.join(lines)
+    text = inject_front_matter(text, shortcode)
+    text = text.rstrip('\n') + '\n' + build_jsonld(shortcode)
     dest_path.parent.mkdir(parents=True, exist_ok=True)
     dest_path.write_text(text, encoding='utf-8')
     print(f'  ✓ {src_path.name} → {dest_path.name}')
@@ -688,14 +822,13 @@ def main():
         shutil.rmtree(build, ignore_errors=True)
     build.mkdir(exist_ok=True)
 
-    # Directories whose contents are copied flat to _build/ root
+    # Subdirectories of static/ whose contents are copied flat to _build/ root.
     FLATTEN_DIRS = {'pages', 'seo'}
 
     static_files = [f for f in STATIC_DIR.rglob("*") if f.is_file()]
     for p in static_files:
         relative_path = p.relative_to(STATIC_DIR)
         parts = relative_path.parts
-        # If the file is inside a flattened directory, strip that prefix
         if parts[0] in FLATTEN_DIRS:
             destination = build / Path(*parts[1:])
         else:
@@ -703,7 +836,7 @@ def main():
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(p, destination)
 
-    # Load wdt-contents.yml for site-index generation
+    # Load wdt-contents.yml for sidebar generation and site-index
     contents_path = SCRIPT_DIR / 'wdt-contents.yml'
     if contents_path.exists():
         with contents_path.open(encoding='utf-8') as f:
@@ -711,6 +844,9 @@ def main():
     else:
         print('  ! wdt-contents.yml not found — site-index.json will be incomplete')
         contents = {}
+
+    # Generate _quarto.yml: nested sidebar (2 levels deep) + toc: false
+    generate_quarto_yml(build, contents, anchor_map)
 
     generate_corpus_qmd(build / 'corpus.qmd')
 
@@ -743,7 +879,7 @@ def main():
         if len(matches) > 1:
             print(f'  ! {shortcode}: multiple matches, using {matches[-1].name}')
 
-        process_file(matches[-1], build / output_name)
+        process_file(matches[-1], build / output_name, shortcode)
         found += 1
 
     print(f'\nDone. {found} papers staged, {missing} not yet available.')
