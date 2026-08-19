@@ -33,7 +33,9 @@ _LATEX_PATTERNS = [
     r"\\noindent", r"\\clearpage",
     r"\\vspace\*?\{[^}]+\}", r"\\hspace\*?\{[^}]+\}",
     r"\\setcounter\{[^}]+\}\{[^}]+\}",
+    r"\\{\.appendix\}",
 ]
+
 _LATEX_RE = re.compile("|".join(_LATEX_PATTERNS))
 
 
