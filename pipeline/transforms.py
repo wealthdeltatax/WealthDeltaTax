@@ -33,13 +33,13 @@ _LATEX_PATTERNS = [
     r"\\noindent", r"\\clearpage",
     r"\\vspace\*?\{[^}]+\}", r"\\hspace\*?\{[^}]+\}",
     r"\\setcounter\{[^}]+\}\{[^}]+\}",
-    r"\\{\.appendix\}",
 ]
 
 _LATEX_RE = re.compile("|".join(_LATEX_PATTERNS))
 
 
 def strip_latex(text: str) -> str:
+    text = re.sub(r'\s*\{\.appendix\}', '', text)
     return _LATEX_RE.sub("", text)
 
 
