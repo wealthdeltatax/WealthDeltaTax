@@ -226,7 +226,7 @@ def generate_flowcharts_qmd(
     UK comparison diagrams are embedded as-is.
     """
     wdt_full     = _load_mmd("260812_WDT_Flowchart_LR.mmd",    True,  link_map, anchor_map)
-    wdt_skeleton = _load_mmd("260812_WDT_Skeleton_LR.mmd",     False,  link_map, anchor_map)
+    wdt_skeleton = _load_mmd("260812_WDT_Skeleton_LR.mmd",     True,  link_map, anchor_map)
     uk_full      = _load_mmd("260812_UK_Tax_Flowchart_LR.mmd", False, link_map, anchor_map)
     uk_skeleton  = _load_mmd("260812_UK_Skeleton_LR.mmd",      False, link_map, anchor_map)
 
@@ -249,56 +249,99 @@ description: "Interactive flowcharts mapping the WDT taxpayer journey and the cu
 author: "{AUTHOR}"
 ---
 
-These diagrams map the taxpayer journey under the Wealth Delta Tax and, for comparison, under the current UK tax system. Two versions are provided for each: a **full detail** chart covering every decision branch and mechanism, and a **skeleton overview** suitable for orientation.
+```{{=html}}
+<style>
+/* Scrollable diagram container — no JS required.
+   The SVG is wider than the viewport so scroll to navigate;
+   right-click → open image in new tab for full browser zoom. */
+.diagram-scroll {{
+  width: 100%;
+  height: 620px;
+  overflow: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fafafa;
+  margin: 1rem 0 0.25rem;
+}}
+.diagram-scroll svg {{
+  min-width: 1800px;
+  height: auto;
+  display: block;
+}}
+.diagram-hint {{
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0 0 1.5rem;
+}}
+</style>
+```
 
-WDT nodes are clickable: hover over a node to see where it links, and click to navigate to the relevant section of the research papers.
+These diagrams map the taxpayer journey under the Wealth Delta Tax and, for comparison, under the current UK tax system. Two versions of each are provided: a **full detail** chart covering every decision branch, and a **skeleton overview** for orientation.
+
+WDT nodes are clickable: hover to see where a node links, click to navigate to the relevant paper section.
 
 ::: {{.callout-tip}}
 ## Navigating these diagrams
-The full detail charts are large — use your browser's **zoom** (Ctrl +/−) to read node text comfortably. All labelled nodes in the WDT diagrams link to the relevant paper section. The UK diagrams are shown for structural comparison only.
+Scroll inside the diagram box to pan vertically. Mouse button 3 to pan. All labelled nodes in the WDT diagrams link to the relevant paper section.
 :::
 
 ---
 
-## WDT Taxpayer Journey
+## WDT Taxpayer Journey — Full Detail
 
 The WDT journey begins when an assessment window opens and ends when a closure event fires the final delta calculation. Each asset is assigned a valuation route; the taxpayer's net worth delta determines whether tax or a symmetric refund is owed; settlement follows the asset's route.
 
-::: {{.wdt-diagram-tabset}}
-::: {{.panel-tabset}}
-
-### Full Detail
-
 The full chart covers: window election and deferral premiums, route assignment (A–D), privacy elections, all valuation sub-routes and dispute resolution paths, net worth calculation and threshold check, rate computation and delta sign, the WDT charge and symmetric refund with lifetime envelope check, settlement by route, corporate levy credits, administrator credentialling, the Sovereign Wealth Fund allocation, Route D auction enforcement, the annual reporting loop, and all four closure events.
 
+```{{=html}}
+<div class="diagram-scroll">
+```
 {mermaid_block(wdt_full)}
-
-### Skeleton Overview
-
-{mermaid_block(wdt_skeleton)}
-
-:::
-:::
+```{{=html}}
+</div>
+<p class="diagram-hint">Scroll to pan &middot; Mouse button 3 to pan</p>
+```
 
 ---
 
-## UK Tax System (Comparison)
+## WDT Taxpayer Journey — Overview
+
+```{{=html}}
+<div class="diagram-scroll">
+```
+{mermaid_block(wdt_skeleton)}
+```{{=html}}
+</div>
+<p class="diagram-hint">Scroll to pan &middot; Mouse button 3 to pan</p>
+```
+
+---
+
+## UK Tax System (Comparison) — Full Detail
 
 The current UK system is shown as a structural comparator. Unlike the WDT, the UK system assesses each tax year independently with no carry-forward of wealth position. Income, capital gains, inheritance, and corporate profits are taxed under separate regimes with distinct administrative calendars.
 
-::: {{.wdt-diagram-tabset}}
-::: {{.panel-tabset}}
-
-### Full Detail
-
+```{{=html}}
+<div class="diagram-scroll">
+```
 {mermaid_block(uk_full)}
+```{{=html}}
+</div>
+<p class="diagram-hint">Scroll to pan &middot; Mouse button 3 to pan</p>
+```
 
-### Skeleton Overview
+---
 
+## UK Tax System (Comparison) — Overview
+
+```{{=html}}
+<div class="diagram-scroll">
+```
 {mermaid_block(uk_skeleton)}
-
-:::
-:::
+```{{=html}}
+</div>
+<p class="diagram-hint">Scroll to pan &middot; Mouse button 3 to pan</p>
+```
 
 ---
 
@@ -306,9 +349,8 @@ The current UK system is shown as a structural comparator. Unlike the WDT, the U
 
 These diagrams are generated at each site build by `pipeline/preprocess.py`. Clickable links in the WDT diagrams are injected automatically from `registry/anchors.yml` — the same cross-reference registry used throughout the paper series. Source `.mmd` files live in `site/diagrams/`.
 
-To add or update a click link, edit `DIAGRAM_CLICK_MAP` in `pipeline/diagrams.py`. To restyle the diagrams, edit the `classDef` blocks in the relevant `.mmd` file or add CSS to `site/style/styles.css` under the `/* ── Mermaid diagrams ── */` section.
-"""
+To add or update a click link, edit `DIAGRAM_CLICK_MAP` in `pipeline/diagrams.py`. To restyle the diagrams, edit the `classDef` blocks in the relevant `.mmd` file or add CSS to `site/style/styles.css` under the `/* ── Mermaid diagrams ── */` section."""
 
     dest = build / "flowcharts.qmd"
     dest.write_text(qmd, encoding="utf-8")
-    print("  ✓ Generated flowcharts.qmd (4 diagrams, click directives injected)")
+    print("  ✓ Generated flowcharts.qmd (4 diagrams, sequential layout, CSS scroll containers)")

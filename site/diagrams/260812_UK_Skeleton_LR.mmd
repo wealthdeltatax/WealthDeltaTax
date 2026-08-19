@@ -1,12 +1,15 @@
 %%{init: {
   "flowchart": {
-    "nodeSpacing": 10,
-    "rankSpacing": 30,
-    "padding": 4,
-    "curve": "linear"
+    "nodeSpacing": 0,
+    "rankSpacing": 0,
+    "padding": 0,
+    "diagramPadding": 100,
+    "htmlLabels": true,
+    "useMaxWidth": true,
+    "curve": "linear",
   },
   "themeVariables": {
-    "fontSize": "10px",
+    "fontSize": "40px",
     "fontFamily": "Arial, sans-serif"
   }
 }}%%
@@ -22,7 +25,7 @@ classDef cgt      fill:#ede9fe,stroke:#5b21b6,color:#1a1a2e
 classDef iht      fill:#fae8ff,stroke:#86198f,color:#1a1a2e
 classDef corp     fill:#fff1f2,stroke:#be123c,color:#1a1a2e
 classDef filing   fill:#e0f2fe,stroke:#0369a1,color:#1a1a2e
-classDef end1      fill:#C47A1E,stroke:#C47A1E,color:#fff,rx:12
+classDef terminal  fill:#C47A1E,stroke:#C47A1E,color:#fff,rx:12
 classDef none     fill:#f3f4f6,stroke:#9ca3af,color:#374151,rx:12
 
 START([Tax year begins]):::start --> RES
@@ -141,7 +144,7 @@ SDLT_Q -->|Yes| SDLT1[SDLT / LBTT / LTT 0-12 pct + surcharges]:::filing
 SDLT1 --> SA
 
 SA{Self-assessment required?}:::decision
-SA -->|PAYE only| NONE([No filing required]):::none
+SA -->|PAYE only| NO_FILING([No filing required]):::none
 SA -->|Yes| SA1[Complete return All income · gains · reliefs]:::filing
 SA1 --> SA2[Deadlines: 31 Jan online 31 Oct paper · POA Jan + Jul]:::filing
 SA2 --> SA3{On time?}:::decision
@@ -159,4 +162,4 @@ APP1 --> PAY
 
 PAY[Pay balance Reclaim overpayment]:::filing --> END_UK
 
-END_UK([Year complete No carry-forward of wealth position Each year assessed from scratch]):::end1
+END_UK([Year complete No carry-forward of wealth position Each year assessed from scratch]):::terminal

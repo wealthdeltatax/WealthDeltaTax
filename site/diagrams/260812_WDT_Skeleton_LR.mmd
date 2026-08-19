@@ -1,12 +1,15 @@
 %%{init: {
   "flowchart": {
-    "nodeSpacing": 10,
-    "rankSpacing": 30,
-    "padding": 4,
-    "curve": "linear"
+    "nodeSpacing": 0,
+    "rankSpacing": 0,
+    "padding": 0,
+    "diagramPadding": 100,
+    "htmlLabels": true,
+    "useMaxWidth": true,
+    "curve": "linear",
   },
   "themeVariables": {
-    "fontSize": "10px",
+    "fontSize": "40px",
     "fontFamily": "Arial, sans-serif"
   }
 }}%%
@@ -20,7 +23,7 @@ classDef calc     fill:#ede9fe,stroke:#5b21b6,color:#1a1a2e
 classDef refund   fill:#fce7f3,stroke:#9d174d,color:#1a1a2e
 classDef settle   fill:#e0e7ff,stroke:#3730a3,color:#1a1a2e
 classDef closure  fill:#cffafe,stroke:#0e7490,color:#1a1a2e
-classDef end1      fill:#2C5F8A,stroke:#2C5F8A,color:#fff,rx:12
+classDef terminal  fill:#2C5F8A,stroke:#2C5F8A,color:#fff,rx:12
 classDef none     fill:#f3f4f6,stroke:#9ca3af,color:#374151,rx:12
 
 START([Window opens]):::start --> WIN
@@ -80,4 +83,4 @@ CLOSE -->|Bankruptcy| CL4[Final delta Refund fires]:::closure
 
 CL1 & CL2 & CL3 & CL4 --> END_POS
 
-END_POS([Position closed Lifetime envelope persists]):::end1
+END_POS([Position closed Lifetime envelope persists]):::terminal
