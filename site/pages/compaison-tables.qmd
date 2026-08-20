@@ -1,7 +1,3 @@
-I need to check the contents structure carefully to pull accurate section links for each WDT cell.Good. I have everything I need. I'll now construct the links using the page filenames and section anchors from the contents, keeping them tight — one to three per WDT cell, pointing to the most precise section.
-
----
-
 ## WDT vs Current Realisation-Based System and Stock Wealth Tax
 
 | Criterion | Current realisation-based system | Stock wealth tax | **WDT** | Judgement |
