@@ -37,63 +37,63 @@ description: "The Wealth Delta Tax (WDT) is a proposed reform that taxes changes
 
 # Wealth Delta Tax
 
-## What is the Wealth Delta Tax?
+Imagine owning a tree as an investment. If it grows, you share a small portion of that year's growth through tax. If a storm damages it and its value falls, the government shares part of the loss. That is the basic idea behind the Wealth Delta Tax — a proposed reform that taxes only the annual *change* in a person's net worth, above a high exemption threshold, with symmetric refunds when wealth falls.
 
-The **Wealth Delta Tax (WDT)** is a proposed alternative to conventional wealth taxation. Rather than taxing a snapshot of total wealth at a point in time, the WDT taxes the *change* in individual net wealth over a period — the delta — on an accrual basis, above an exemption threshold.
+Under the current system, a wage earner pays tax on every pound they earn, immediately, before they see the money. An investor whose portfolio grows by the same amount often pays nothing — the tax is triggered only when they choose to sell, sometimes never. The WDT exists to close that gap.
 
-It has three defining features:
+**New to this?** [Start Here](start-here.html) — a plain-English introduction to the mechanism, what the money is for, and where to read next.
 
-- **Accrual basis** — tax is assessed annually on the change in net worth, whether or not assets are sold
-- **Symmetric loss refunds** — when net wealth falls, the taxpayer receives a refund at the same rate, eliminating the asymmetric treatment that makes conventional wealth taxes punitive in downturns
-- **Sovereign Wealth Fund** — revenues flow into a pre-funded SWF with constitutional constraints on drawdown, separating fiscal policy from electoral cycles
+---
 
-This design directly addresses the three core objections to conventional wealth taxes: valuation uncertainty, liquidity pressure on illiquid asset holders, and the asymmetric gain/loss treatment that discourages risk-taking.
+## How the WDT differs from a conventional wealth tax
 
-## How is the WDT different from a wealth tax?
-
-A conventional wealth tax levies a charge on total net worth each year. This creates liquidity problems (you may owe tax on illiquid assets), valuation problems (private businesses and real assets are hard to value annually), and asymmetry problems (you pay tax when wealth rises but get nothing back when it falls).
-
-The WDT addresses all three:
+A conventional wealth tax levies a charge on total net worth each year, creating liquidity problems, valuation pressure, and no protection when wealth falls. The WDT is built differently on all three dimensions:
 
 | Problem | Conventional wealth tax | Wealth Delta Tax |
 |---|---|---|
-| Liquidity | Tax on total stock; can force asset sales | Tax only on the *increase*; smaller base |
-| Valuation | Full portfolio valued annually | Delta valued annually; errors partially cancel |
-| Asymmetry | Gains taxed; losses ignored | Gains taxed; losses refunded symmetrically |
+| Liquidity | Tax on total stock; can force asset sales | Tax only on the *increase*; smaller base, settlement options |
+| Valuation | Full portfolio valued annually | Declared values become future tax basis; understatement is self-correcting |
+| Asymmetry | Gains taxed; losses ignored | Gains taxed; losses refunded at the same rate |
 
-For a full comparison, see the [White Paper](wp.html).
+For the full mechanism, see the [White Paper (WP)](wp.html).
+
+---
 
 ## About this project
 
-The WDT is designed for developed capitalist democracies. Its governing objective is to redesign the fiscal relationship between concentrated private wealth and democratic society — preserving productive dynamism while progressively reducing the tax burden on ordinary households.
+The WDT is a 26-paper working-paper series authored by K. Ogata, covering the complete architecture of the proposal: mechanism design, moral foundations, valuation methodology, corporate and governance structures, revenue modelling, behavioural robustness, political architecture, and strategic adoption dynamics. The governing objective is to redesign the fiscal relationship between concentrated private wealth and democratic society — preserving productive dynamism while progressively reducing the tax burden on ordinary households.
 
-The project is authored by K. Ogata and currently comprises 24 working papers covering the complete architecture of the proposal: mechanism design, moral foundations, valuation methodology, corporate and governance structures, revenue modelling, behavioural robustness, political architecture, and strategic adoption dynamics.
+All papers are pre-peer review and represent work in progress. The full series is available for download at [Zenodo](https://doi.org/10.5281/zenodo.21964119) (DOI: 10.5281/zenodo.21964119).
 
-All papers are pre-peer review working papers and represent work in progress. The full series is also available for download at [Zenodo](https://doi.org/10.5281/zenodo.21964119) (DOI: 10.5281/zenodo.21964119).
+---
 
 ## Where to start
 
-- **New to the WDT?** Begin with the [White Paper (WP)](wp.html) for the full mechanism overview.
-- **Want the normative case first?** [Moral Foundations (MF)](mf.html) develops the philosophical basis independently of the mechanism.
-- **Interested in implementation?** [UK Jurisdiction (JUR)](jur.html) and [Phase One (PHASE1)](phase1.html) cover the practical pathway.
-- **Interested in revenue?** [Rates and Revenue (RATES)](rates.html) and [Parameter Sweeps (SWEEPS)](sweeps.html) cover the fiscal modelling.
-- **Returning reader?** Use the sidebar to navigate directly to the paper you want.
+- **New to the WDT?** [Start Here](start-here.html) — the plain-English introduction.
+- **Arriving with a specific objection?** The [FAQ](faq.html) addresses twelve common objections directly.
+- **Want the full mechanism?** The [White Paper (WP)](wp.html) covers mechanism design, principal objections, and implementation pathway.
+- **Want the normative case?** [Moral Foundations (MF)](mf.html) develops the philosophical basis.
+- **Want to know if the numbers work?** [Rates and Revenue (RATES)](rates.html) covers the fiscal modelling.
+- **Researcher or returning reader?** The [Project Map](summary.html) traces all 26 papers, their relationships, and every open question the series has and hasn't yet closed.
+
+---
 
 ## Full paper series
 
-### Core Papers
+### Core
 
 | Shortcode | Title |
 |---|---|
 | [WP](wp.html) | White Paper — mechanism overview |
 | [MF](mf.html) | Moral and Philosophical Foundations |
+| [SCOPE](scope.html) | Scope Boundary — questions outside this project |
 
 ### Literature
 
 | Shortcode | Title |
 |---|---|
 | [LR.A](lr-a.html) | Research Gaps in Existing Wealth Tax Literature |
-| [LR.B](lr-b.html) | Intellectual Background |
+| [LR.B](lr-b.html) | Intellectual Background and Reference Guide |
 | [JUR](jur.html) | UK Jurisdiction and Data Reference |
 
 ### Valuation
@@ -120,8 +120,8 @@ All papers are pre-peer review working papers and represent work in progress. Th
 |---|---|
 | [RATES](rates.html) | Rates and Revenue |
 | [RATES.A](rates-a.html) | Rates and Revenue Appendix |
-| [SWEEPS](sweeps.html) | Parameter Sweeps |
-| [SWEEPS.A](sweeps-a.html) | Parameter Sweeps Appendix |
+| [SWEEPS](sweeps.html) | Parameter Space and Governing Council Calibration |
+| [SWEEPS.A](sweeps-a.html) | Parameter Space — Appendix Tables |
 | [BEHAV](behav.html) | Behavioural Robustness and Administrative Experience |
 
 ### Implementation

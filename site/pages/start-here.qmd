@@ -6,9 +6,7 @@ author: "K. Ogata"
 
 ## The idea in one minute
 
-Imagine owning a tree as an investment. If it grows, you share a small portion of that year's growth through tax. If a storm damages it and its value falls, the government shares part of the loss. That is the basic idea behind the Wealth Delta Tax.
-
-To make it concrete: imagine three people, each worth £100 million at the start of the year.
+Imagine three people, each worth £100 million at the start of the year.
 
 - **Alice** is still worth £100 million at the end of the year. She pays nothing.
 - **Ben** is worth £120 million. He pays tax on the £20 million increase.
