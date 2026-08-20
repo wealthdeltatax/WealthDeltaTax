@@ -31,6 +31,8 @@ website:
         href: start-here.html
       - text: "FAQ"
         href: faq.html
+      - text: "Comparison Tables"
+        href: compaison-tables.html
       - text: "Project Map"
         href: summary.html
       - text: "Papers"
