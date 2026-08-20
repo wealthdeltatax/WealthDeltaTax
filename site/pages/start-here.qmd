@@ -1,36 +1,72 @@
 ---
 title: "Start Here"
-description: "A guide to reading the Wealth Delta Tax research programme — from a five-minute introduction to the full 26-paper series."
+description: "A guide to the Wealth Delta Tax research programme — from a one-minute introduction to the full 26-paper series."
 author: "K. Ogata"
 ---
 
-## What is the Wealth Delta Tax?
+## The idea in one minute
 
-The Wealth Delta Tax (WDT) is a proposed alternative to conventional wealth taxation. Instead of taxing stock — the total value of someone's wealth at a point in time — it taxes the *change* in net wealth over an assessment period, on an accrual basis.
+Imagine owning a tree as an investment. If it grows, you share a small portion of that year's growth through tax. If a storm damages it and its value falls, the government shares part of the loss. That is the basic idea behind the Wealth Delta Tax.
 
-The mechanism has three structural components that work together:
+To make it concrete: imagine three people, each worth £100 million at the start of the year.
 
-- **The delta base.** Tax is levied on the increase in net wealth between two assessment dates. Losses generate refunds at the same rate — the mechanism is fully symmetric.
-- **The Sovereign Wealth Fund (SWF).** Tax receipts flow into a pre-funded SWF rather than general government revenue. Citizens hold units in the fund and receive a labour-tax-relief dividend as the fund grows.
-- **The valuation architecture.** Four routes handle different asset types — from automatically priced listed securities to non-fungible assets subject to a Harberger-style purchase option — with incentive structures that make honest declaration the locally stable strategy.
+- **Alice** is still worth £100 million at the end of the year. She pays nothing.
+- **Ben** is worth £120 million. He pays tax on the £20 million increase.
+- **Charlie** is worth £90 million. He receives a refund on part of the £10 million fall.
 
-The project consists of 26 working papers developed between 2025 and 2026.
+Under the current system, Ben could make that £20 million gain, never sell the asset, and pay no tax on it at all — not this year, not next year, possibly never. The WDT exists because it treats that increase in wealth as economically real whether or not Ben chooses to sell.
 
 ---
 
-## How to read the WDT — by time available
+## Why the current system falls short
 
-### 5 minutes
+Most people already accept that wages should be taxed. But if your investment portfolio grows by the same amount as your colleague's salary, you often pay nothing. The tax is triggered only when you sell — and in some cases is eliminated entirely at death.
 
-Read the abstract and §1 of the [White Paper (WP)](wp.html). This covers the cooperative basis of the design, why the delta is the right tax base, and how the SWF and loss-refund mechanism work together.
+Consider a strategy sometimes called "buy, borrow, die." An investor holds an asset worth £10 million that has appreciated substantially but has never been sold, so has never been taxed. Rather than selling, they borrow £10 million against it and live off the loan. Their net worth is unchanged — the new cash and the new debt cancel out — and no taxable event has occurred. The asset appreciated for decades. The state saw none of it.
 
-### 20 minutes
+The WDT closes this automatically. Because the tax base is net worth (assets minus liabilities), borrowing against an asset is neutral by construction. But the asset's annual appreciation enters the tax base each year as it accrues — so there is nothing left to defer by borrowing against it. The loophole closes not through a new rule, but because the thing the loophole was exploiting no longer exists.
 
-Read the full [White Paper (WP)](wp.html). All principal mechanisms, objections, and the implementation pathway are covered in a single document.
+---
 
-### 1–2 hours — the core sequence
+## What the money is for
 
-The papers that establish the architecture:
+WDT revenue is dedicated to reducing taxes on wages and consumption — income tax, National Insurance, and VAT. The people benefiting most from long-run wealth accumulation bear a greater share of the cost of maintaining the systems that made that accumulation possible.
+
+Consider Sarah, who earns £38,000 a year. The WDT threshold is in the region of £5 million in net worth. She would need to save every penny of her salary for over a century to reach it. She will never pay the WDT. But she currently pays income tax and National Insurance on every pound she earns, and VAT on most of what she spends. Under a mature WDT, those are the taxes that fall. The people above the threshold pay the WDT; Sarah gets the relief.
+
+---
+
+## How it works
+
+The mechanism has three structural components that work together:
+
+- **The delta base.** Tax is levied on the increase in net wealth between two assessment dates. Losses generate refunds at the same rate — the mechanism is fully symmetric. This symmetry is not a concession. It is what makes the system a partnership rather than an extraction, and it is what changes the rational calculus of the people best positioned to resist it.
+
+- **The Sovereign Wealth Fund (SWF).** Tax receipts flow into a pre-funded SWF rather than general government revenue. Without it, a government facing a crash could simply not pay the refunds. The fund exists so that promise is mechanically credible, not just aspirational. As the fund grows, citizens receive a labour-tax-relief dividend — the mechanism through which the burden on wages and consumption is actually reduced.
+
+- **The valuation architecture.** Four routes handle different asset types, from automatically priced listed securities to privately held assets. Because a declared value establishes the recognised basis for all future calculations, understating an asset defers tax rather than eliminating it — and the deferred amount grows with the asset. The mechanism is largely self-policing.
+
+---
+
+## Where to go next
+
+The right starting point depends on what you want:
+
+**New to this entirely?** Read the full [White Paper (WP)](wp.html). All principal mechanisms, objections, and the implementation pathway are covered in a single document — about twenty minutes.
+
+**Sceptical, or arriving with a specific objection?** The [FAQ](faq.html) addresses twelve common objections directly, with links to the papers where each is developed in full.
+
+**Interested in the underlying philosophy?** [Moral and Philosophical Foundations (MF)](mf.html) develops why the delta base is the right tax base, what the cooperative architecture requires, and what the proposal's stated trade-offs are.
+
+**Want to know if the numbers work?** [Rates and Revenue (RATES)](rates.html) answers whether a progressive tax on annual wealth changes can fund modern government at a meaningful scale, modelled against UK data across every historical starting year since 1947.
+
+**Researcher or returning reader?** The [Project Map](summary.html) traces all 26 papers, their relationships, version history, and the consolidated register of every open question the series has and hasn't yet closed.
+
+---
+
+### If you have 1–2 hours — the core sequence
+
+These five papers establish the full architecture:
 
 1. [White Paper (WP)](wp.html) — mechanism design and overview
 2. [Moral and Philosophical Foundations (MF)](mf.html) — why the delta, and the cooperative architecture
@@ -38,20 +74,8 @@ The papers that establish the architecture:
 4. [Constitutional Governance (GOV)](gov.html) — how the SWF is governed and protected from capture
 5. [Rates and Revenue (RATES)](rates.html) — what the WDT raises and under what assumptions
 
-### Full research programme
-
-All 26 papers are listed on the [Papers page](corpus.html), with version history, relationships between papers, and reading dependencies. The sidebar on every page provides direct navigation by theme.
-
 ---
 
-## Key terms
+## Status
 
-A small number of terms recur across the papers. If you encounter an unfamiliar term, the [Glossary](glossary.html) gives a short definition and links to the paper where each concept is developed in full.
-
----
-
-## Status of the project
-
-The WDT is a working-paper series — all papers are in active development. Version numbers and dates are noted at the top of each paper. The [Papers](corpus.html) page lists current versions and identifies papers under revision.
-
-The papers make no claim to constitute a finished policy proposal. They constitute a research architecture: a set of interlocking formal claims that can be evaluated, modelled, challenged, and refined. Open questions are stated explicitly in each paper's *Limitations* section.
+The WDT is a working-paper series — 26 papers in active development as of mid-2026. Version numbers and dates are noted at the top of each paper. The project does not claim to constitute a finished policy proposal. It is a research architecture: a set of interlocking formal claims that can be evaluated, modelled, challenged, and refined. Open questions are stated explicitly in each paper's *Limitations* section, and collected in the [Project Map](summary.html).

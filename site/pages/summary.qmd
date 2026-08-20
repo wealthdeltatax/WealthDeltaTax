@@ -1,7 +1,13 @@
 ---
-title: "Full Overview"
-description: "This document summarises the substantive positions taken across all WDT papers and isolates every open question named as unresolved. It is a map of what exists, not a paper in itself — it does not introduce new positions or resolve any open question."
+title: "Project Map"
+description: "Per-paper position summaries, version history, and the consolidated register of open questions across the full WDT research programme. Written for researchers and returning readers."
 author: "K. Ogata"
+---
+
+This document is the project's internal map — per-paper summaries of every settled position, and the consolidated register of every question the series has and has not yet closed. It is written for researchers and returning readers who want to understand how the papers relate, what version each is at, and where the open edges of the argument are. It does not introduce new positions or resolve any open question.
+
+First-time readers should start with [Start Here](start-here.html) instead.
+
 ---
 
 **Version:** 3.8 — 16 August 2026
