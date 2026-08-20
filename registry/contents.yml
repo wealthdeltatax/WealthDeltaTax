@@ -430,6 +430,29 @@ CORP.A:
     F.7: Carried Interest and Performance Fee Structures
     F.8: The General Principle and Its Limits
     F.9: Market Manipulation and the Bilateral-Claim Structure of Short Positions
+    B.1.1: Phase One data requirement
+    B.2.1: The deterrence condition
+    B.2.2: The refund-forfeiture effect
+    B.2.3: The revenue-recovery ceiling
+    B.2.4: The legal proportionality constraint, and why it is weaker than it appears
+    B.2.5: One carve-out applies
+    B.2.6: The resulting calibration range
+    B.2.7: Phase One data requirement
+    B.2.8: The ramp structure
+    B.2.9: The joint-calibration constraint
+    D.1: Purpose
+    D.2: Shareholder Compliance
+    D.3: Automatability and Corporate Compliance
+    D.4: "Comparative Burden: Companies"
+    D.5: Valuation Requirements
+    D.6: Transitional Considerations and the Parallel-Running Risk
+    D.7: Summary
+    E.2.1: The Attribution Question
+    E.2.2: Operating Charities
+    E.2.3: Accumulating Endowments
+    E.2.4: Refund Direction
+    E.8: The General Principle and Its Limits
+    E.9: Market Manipulation and the Bilateral-Claim Structure of Short Positions
 GOV:
   page: gov.html
   title: Constitutional Governance
@@ -873,6 +896,10 @@ ENV:
     A.3: Net bias direction of RATES estimates
     A.4: Automation and tax-base migration
     B: Relationship to the Open Questions Register
+    9.2.1: Consumption multiplier magnitude and SRR calibration
+    9.2.2: Housing price net effect
+    9.2.3: Net bias direction of RATES estimates
+    9.2.4: Automation and tax-base migration
 SWEEPS:
   page: sweeps.html
   title: Parameter Space and Governing Council Calibration

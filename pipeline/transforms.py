@@ -28,7 +28,7 @@ from config import AUTHOR, SITE_URL
 
 _LATEX_PATTERNS = [
     r"\\newpage", r"\\medskip", r"\\bigskip", r"\\smallskip",
-    r"\\tableofcontents", r"\\appendix", r"\\maketitle",
+    r"\\tableofcontents", r"\s*\{\.appendix\}", r"\\maketitle",
     r"\\begin\{center\}", r"\\end\{center\}",
     r"\\noindent", r"\\clearpage",
     r"\\vspace\*?\{[^}]+\}", r"\\hspace\*?\{[^}]+\}",
@@ -39,7 +39,6 @@ _LATEX_RE = re.compile("|".join(_LATEX_PATTERNS))
 
 
 def strip_latex(text: str) -> str:
-    text = re.sub(r'\s*\{\.appendix\}', '', text)
     return _LATEX_RE.sub("", text)
 
 

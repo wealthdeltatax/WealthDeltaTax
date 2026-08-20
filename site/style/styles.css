@@ -96,3 +96,69 @@ h1, h2, h3, h4 {
   filter: brightness(1.15);
   transition: filter 0.15s ease;
 }
+
+/* ── External references page ───────────────────────────────────────────── */
+/*
+ * .wdt-references      — outer wrapper for the bibliography list
+ * .wdt-ref-entry       — one reference entry (card-style)
+ * .wdt-ref-type        — pill badge showing entry type (Article, Book, etc.)
+ * .wdt-ref-cited       — "Cited in: WP · MF · ..." row
+ * .wdt-ref-verified    — ✓ checkmark on verified entries
+ *
+ * Layout: each entry is a lightly bordered block. Type badge and cited-in
+ * sit below the bibliographic line, separated visually from the title/authors.
+ */
+
+.wdt-references {
+  margin-top: 1rem;
+}
+
+.wdt-ref-entry {
+  border-left: 3px solid #dee2e6;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1.25rem;
+  background-color: #fafafa;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.wdt-ref-entry p {
+  margin: 0 0 0.35rem 0;
+}
+
+.wdt-ref-type {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #e9ecef;
+  color: #495057;
+  border-radius: 3px;
+  padding: 0.1rem 0.45rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.wdt-ref-cited {
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.wdt-ref-cited a {
+  color: #495057;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.wdt-ref-cited a:hover {
+  text-decoration: underline;
+  color: #212529;
+}
+
+.wdt-ref-verified {
+  color: #28a745;
+  font-size: 0.8rem;
+  margin-left: 0.2rem;
+  vertical-align: middle;
+}

@@ -3,6 +3,13 @@ cd /d "%~dp0.."
 
 echo Building WDT site...
 
+python pipeline\scrape_contents.py --write
+if errorlevel 1 (
+    echo FAILED: scrape_contents.py 
+    pause
+    exit /b 1
+)
+
 python pipeline\build_anchors.py
 if errorlevel 1 (
     echo FAILED: build_anchors.py
@@ -17,7 +24,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-quarto render _build/flowcharts.qmd
+quarto render _build
 if errorlevel 1 (
     echo FAILED: quarto render _build  
     pause
