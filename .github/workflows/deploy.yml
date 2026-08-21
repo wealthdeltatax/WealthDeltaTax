@@ -32,6 +32,9 @@ jobs:
       - name: Install Python dependencies
         run: pip install pyyaml
 
+      - name: Install bibtex dependencies
+        run: pip install bibtexparser     
+
       - name: Scrape contents
         run: python pipeline/scrape_contents.py --write
 
