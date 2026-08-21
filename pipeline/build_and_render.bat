@@ -15,6 +15,7 @@ if errorlevel 1 (
     echo FAILED: build_glossary.py
     pause
     exit /b 1
+)
 
 python pipeline\build_anchors.py
 if errorlevel 1 (

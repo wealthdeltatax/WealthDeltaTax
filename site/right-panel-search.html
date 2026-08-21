@@ -1,0 +1,289 @@
+<!-- WDT right-panel search widget -->
+<!-- Injected via format.html.include-after-body in _quarto.yml -->
+<!-- Mounts itself into #quarto-margin-sidebar (the empty right column when toc: false) -->
+
+<div id="wdt-search-panel" style="display:none">
+  <div class="wdt-search-header">Search</div>
+  <div class="wdt-search-input-wrap">
+    <input
+      id="wdt-search-input"
+      type="search"
+      placeholder="Search all papers…"
+      autocomplete="off"
+      spellcheck="false"
+      aria-label="Search all papers"
+    />
+  </div>
+  <div id="wdt-search-results" role="listbox" aria-label="Search results"></div>
+  <div id="wdt-search-status" class="wdt-search-status" aria-live="polite"></div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ── Configuration ────────────────────────────────────────────────────────
+  var INDEX_URL = "/search.json";   // Quarto-generated index; served as static file
+  var MIN_CHARS = 2;                // don't search until user types at least this many chars
+  var MAX_RESULTS = 12;             // results to show per query
+  var DEBOUNCE_MS = 180;            // ms to wait after last keystroke before searching
+
+  // ── State ────────────────────────────────────────────────────────────────
+  var index = null;        // raw array from search.json once loaded
+  var loadError = false;
+  var debounceTimer = null;
+  var lastQuery = "";
+
+  // ── DOM refs (populated in mount()) ─────────────────────────────────────
+  var panel, input, results, status;
+
+  // ── Mount into right column ──────────────────────────────────────────────
+  // Quarto renders #quarto-margin-sidebar as the right-column container.
+  // It exists on paper/content pages but not on narrow landing pages.
+  // We wait for DOMContentLoaded and check; do nothing if the slot isn't present.
+  function mount() {
+    var sidebar = document.getElementById("quarto-margin-sidebar");
+    if (!sidebar) return;   // not a content page — leave the overlay search alone
+
+    panel = document.getElementById("wdt-search-panel");
+    if (!panel) return;
+
+    input   = document.getElementById("wdt-search-input");
+    results = document.getElementById("wdt-search-results");
+    status  = document.getElementById("wdt-search-status");
+
+    // Move the widget into the right-column slot and show it
+    sidebar.innerHTML = "";
+    sidebar.appendChild(panel);
+    panel.style.display = "block";
+
+    // Kick off index load immediately (fire-and-forget; results wait for it)
+    loadIndex();
+
+    input.addEventListener("input", onInput);
+    input.addEventListener("keydown", onKeydown);
+  }
+
+  // ── Index loading ────────────────────────────────────────────────────────
+  function loadIndex() {
+    fetch(INDEX_URL)
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        index = data;
+        // If the user already typed something while we were loading, search now
+        if (input && input.value.trim().length >= MIN_CHARS) {
+          runSearch(input.value.trim());
+        }
+      })
+      .catch(function () {
+        loadError = true;
+        if (status) status.textContent = "Search index unavailable.";
+      });
+  }
+
+  // ── Input handler ────────────────────────────────────────────────────────
+  function onInput() {
+    clearTimeout(debounceTimer);
+    var q = input.value.trim();
+
+    if (q.length < MIN_CHARS) {
+      clearResults();
+      status.textContent = q.length > 0 ? "Keep typing…" : "";
+      lastQuery = "";
+      return;
+    }
+
+    if (q === lastQuery) return;
+
+    debounceTimer = setTimeout(function () {
+      runSearch(q);
+    }, DEBOUNCE_MS);
+  }
+
+  // ── Keyboard nav (up/down/enter/escape) ──────────────────────────────────
+  function onKeydown(e) {
+    var items = results.querySelectorAll(".wdt-result-item");
+    if (!items.length) return;
+
+    var active = results.querySelector(".wdt-result-item.is-active");
+    var idx = active ? Array.prototype.indexOf.call(items, active) : -1;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActive(items, idx < items.length - 1 ? idx + 1 : 0);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActive(items, idx > 0 ? idx - 1 : items.length - 1);
+    } else if (e.key === "Enter") {
+      if (active) {
+        e.preventDefault();
+        window.location.href = active.getAttribute("data-href");
+      }
+    } else if (e.key === "Escape") {
+      clearResults();
+      input.value = "";
+      status.textContent = "";
+      lastQuery = "";
+    }
+  }
+
+  function setActive(items, nextIdx) {
+    Array.prototype.forEach.call(items, function (el) { el.classList.remove("is-active"); });
+    items[nextIdx].classList.add("is-active");
+    items[nextIdx].scrollIntoView({ block: "nearest" });
+  }
+
+  // ── Search ───────────────────────────────────────────────────────────────
+  function runSearch(q) {
+    lastQuery = q;
+
+    if (loadError) {
+      status.textContent = "Search index unavailable.";
+      return;
+    }
+    if (!index) {
+      // Still loading — show a transient status; the load callback will re-run
+      status.textContent = "Loading index…";
+      return;
+    }
+
+    status.textContent = "";
+
+    var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+    var scored = [];
+
+    for (var i = 0; i < index.length; i++) {
+      var entry = index[i];
+      var titleRaw   = entry.title   || "";
+      var sectionRaw = entry.section || "";
+      var textRaw    = entry.text    || "";
+
+      var titleL   = titleRaw.toLowerCase();
+      var sectionL = sectionRaw.toLowerCase();
+      var textL    = textRaw.toLowerCase();
+
+      var score = 0;
+      var allMatch = true;
+
+      for (var t = 0; t < terms.length; t++) {
+        var term = terms[t];
+        var inTitle   = titleL.indexOf(term)   !== -1;
+        var inSection = sectionL.indexOf(term) !== -1;
+        var inText    = textL.indexOf(term)    !== -1;
+
+        if (!inTitle && !inSection && !inText) {
+          allMatch = false;
+          break;
+        }
+
+        // Weight: title match >> section match >> body text match
+        if (inTitle)   score += 10;
+        if (inSection) score += 5;
+        if (inText)    score += 1;
+      }
+
+      if (allMatch && score > 0) {
+        scored.push({ entry: entry, score: score });
+      }
+    }
+
+    scored.sort(function (a, b) { return b.score - a.score; });
+    var hits = scored.slice(0, MAX_RESULTS);
+
+    clearResults();
+
+    if (!hits.length) {
+      status.textContent = "No results for "" + escHtml(q) + "".";
+      return;
+    }
+
+    status.textContent = "";
+
+    // Deduplicate by page (href without anchor), grouping sections under their paper
+    // But keep individual section links — the grouping is visual only.
+    var frag = document.createDocumentFragment();
+
+    for (var h = 0; h < hits.length; h++) {
+      var hit  = hits[h].entry;
+      var href = hit.href || "#";
+
+      // Build snippet: prefer section title, fall back to truncated body text
+      var snippet = "";
+      if (hit.section && hit.section !== hit.title) {
+        snippet = hit.section;
+      } else if (hit.text) {
+        snippet = hit.text.replace(/\s+/g, " ").slice(0, 100);
+        if (hit.text.length > 100) snippet += "…";
+      }
+
+      var item = document.createElement("a");
+      item.className = "wdt-result-item";
+      item.setAttribute("href", href);
+      item.setAttribute("data-href", href);
+      item.setAttribute("role", "option");
+
+      var titleEl = document.createElement("div");
+      titleEl.className = "wdt-result-title";
+      titleEl.innerHTML = highlightTerms(escHtml(hit.title || href), terms);
+
+      item.appendChild(titleEl);
+
+      if (snippet) {
+        var snippetEl = document.createElement("div");
+        snippetEl.className = "wdt-result-snippet";
+        snippetEl.innerHTML = highlightTerms(escHtml(snippet), terms);
+        item.appendChild(snippetEl);
+      }
+
+      frag.appendChild(item);
+    }
+
+    results.appendChild(frag);
+
+    // Highlight search terms on the destination page via ?q= param (Quarto native)
+    // We append it to each href so clicking a result highlights matches on arrival
+    var qParam = "?q=" + encodeURIComponent(q);
+    var anchors = results.querySelectorAll(".wdt-result-item");
+    Array.prototype.forEach.call(anchors, function (a) {
+      var rawHref = a.getAttribute("data-href") || "";
+      var parts   = rawHref.split("#");
+      var withQ   = parts[0] + qParam + (parts[1] ? "#" + parts[1] : "");
+      a.setAttribute("href", withQ);
+    });
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function clearResults() {
+    if (results) results.innerHTML = "";
+  }
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function highlightTerms(html, terms) {
+    // Wrap each matched term in <mark>; operate on the escaped HTML string
+    // to avoid injecting into tags. Only highlights whole-word-ish matches.
+    var out = html;
+    for (var i = 0; i < terms.length; i++) {
+      var t = terms[i].replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      out = out.replace(new RegExp("(" + t + ")", "gi"), "<mark>$1</mark>");
+    }
+    return out;
+  }
+
+  // ── Boot ─────────────────────────────────────────────────────────────────
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mount);
+  } else {
+    mount();
+  }
+}());
+</script>

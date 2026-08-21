@@ -156,6 +156,7 @@ format:
     toc-depth: 3
     number-sections: false
     css: style/styles.css
+    include-after-body: right-panel-search.html
     citations-hover: true
     footnotes-hover: true
     csl: style/apa.csl

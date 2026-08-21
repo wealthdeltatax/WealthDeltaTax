@@ -32,6 +32,16 @@ jobs:
       - name: Install Python dependencies
         run: pip install pyyaml
 
+      - name: Scrape contents
+        run: python pipeline/scrape_contents.py --write
+
+      - name: Build glossary
+        run: |
+          python pipeline/build_glossary.py \
+            --papers source \
+            --contents registry/contents.yml \
+            --out site/pages/glossary.md
+
       - name: Run preprocessing
         run: |
           python pipeline/build_anchors.py
