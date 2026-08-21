@@ -903,7 +903,7 @@ ENV:
     9.2.4: Automation and tax-base migration
 SWEEPS:
   page: sweeps.html
-  title: Parameter Space and Governing Council Calibration
+  title: Parameter Sweeps and Governing Council Calibration
   sections:
     '1': Introduction
     '2': What the Sweeps Are Measuring
@@ -946,7 +946,7 @@ SWEEPS:
     '13.2': "Custodian Mandate: SRR Buffer Condition for Drawdown Acceleration"
 SWEEPS.A:
   page: sweeps-a.html
-  title: Parameter Sweeps — Appendix Tables
+  title: Parameter Sweeps and Governing Council Calibration — Appendix Tables
   sections:
     A: Appendix Tables
     A.1: Sweep Table — Entry Rate
