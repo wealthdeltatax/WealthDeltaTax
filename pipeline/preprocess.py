@@ -4,6 +4,7 @@ Reads .md source files, processes them for HTML rendering, writes .qmd to _build
 Run this before every `quarto render _build`.
 
 Steps:
+  0.    Generate references.json from references.bib + internal.json  (bib_to_json.py)
   1–5.  Per-paper text transforms        (transforms.py)
   6.    corpus.qmd                        (pages/corpus.py)
   7.    references.qmd                    (pages/references.py)
@@ -20,6 +21,7 @@ from pathlib import Path
 import yaml
 
 import config as cfg
+from bib_to_json import run as generate_references_json
 from diagrams import generate_flowcharts_qmd
 from pages.corpus import generate_corpus_qmd
 from pages.references import generate_references_qmd
@@ -27,7 +29,12 @@ from pages.site_index import copy_machine_readable_assets
 from quarto_config import generate_quarto_yml
 from transforms import process_file, strip_latex, convert_crossrefs
 
+
 def main() -> None:
+    # ── Step 0: generate references.json from .bib + internal.json ───────
+    # Must run before cfg.load() so the loaded refs_data is fresh.
+    generate_references_json()
+
     site_cfg = cfg.load()
 
     build  = cfg.BUILD_DIR
@@ -40,12 +47,16 @@ def main() -> None:
 
     # ── Copy site/ assets into _build/ ───────────────────────────────────
     # site/pages/ is flattened to _build/ root (strips the pages/ prefix).
-    # All other site/ contents preserve their relative paths.
+    # .md files in pages/ get crossref transforms applied and are written
+    # as .qmd so Quarto renders them.  All other assets are copied verbatim.
     FLATTEN_DIRS = {"pages"}
 
     for p in [f for f in cfg.SITE_DIR.rglob("*") if f.is_file()]:
         parts = p.relative_to(cfg.SITE_DIR).parts
         destination = build / Path(*parts[1:]) if parts[0] in FLATTEN_DIRS else build / Path(*parts)
+
+
+        
         destination.parent.mkdir(parents=True, exist_ok=True)
 
         if parts[0] in FLATTEN_DIRS and p.suffix == ".md":

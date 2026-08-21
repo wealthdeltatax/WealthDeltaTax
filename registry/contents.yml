@@ -141,10 +141,10 @@ VAL:
     '3.2': Available Assessment Windows
     '3.3': Borrowing and Net Worth
     '4': The Four Valuation Routes
-    '4.1': "Route A: Professional Valuation of Fungible Assets"
-    '4.2': "Route B: Professional Valuation of Non-Fungible Assets"
-    '4.3': "Route C: Self-Declaration of Fungible Assets"
-    '4.4': "Route D: Self-Declaration of Non-Fungible Assets"
+    '4.1': "Route 'A': Professional Valuation of Fungible Assets"
+    '4.2': "Route 'B': Professional Valuation of Non-Fungible Assets"
+    '4.3': "Route 'C': Self-Declaration of Fungible Assets"
+    '4.4': "Route 'D': Self-Declaration of Non-Fungible Assets"
     '5': "The Self-Balancing Mechanism: Fungible Assets"
     '5.1': The Grandfathering Baseline
     '5.2': The Must-Transfer Rule
@@ -248,10 +248,10 @@ VAL.A:
     D.4: Case 4
     D.5: Case 5
     E: Route Specification Tables
-    E.1: "Route A: Professional Valuation of Fungible Assets"
-    E.2: "Route B: Professional Valuation of Non-Fungible Assets"
-    E.3: "Route C: Self-Declaration of Fungible Assets"
-    E.4: "Route D: Self-Declaration of Non-Fungible Assets"
+    E.1: "Route 'A': Professional Valuation of Fungible Assets"
+    E.2: "Route 'B': Professional Valuation of Non-Fungible Assets"
+    E.3: "Route 'C': Self-Declaration of Fungible Assets"
+    E.4: "Route 'D': Self-Declaration of Non-Fungible Assets"
     E.4.1: Route D Event Table
     F: Annual Reporting Requirements
     F.1: Taxpayer Annual Return
@@ -276,14 +276,14 @@ VAL.B:
     K.4: What the Example Shows
     L: Why Route D Defers to Realisation
     L.1: Setup
-    L.2: "Timeline A: Annual Cash Settlement (the Design Route D Avoids)"
-    L.3: "Timeline B: Route D"
+    L.2: "Timeline 'A': Annual Cash Settlement (the Design Route D Avoids)"
+    L.3: "Timeline 'B': Route D"
     L.4: What the Example Shows
     M: Voluntary Settlement — Certainty, Not Avoidance
     M.1: Setup
-    M.2: "Option A: Soft Basis Reset"
-    M.3: "Option B: Hard Basis Reset"
-    M.4: "Option C: No Voluntary Settlement"
+    M.2: "Option 'A': Soft Basis Reset"
+    M.3: "Option 'B': Hard Basis Reset"
+    M.4: "Option 'C': No Voluntary Settlement"
     M.5: Comparison
     M.6: What the Example Shows
     N: Forecast Exposure
@@ -298,8 +298,8 @@ VAL.B:
     K.3.1: Period-by-period accumulation
     K.3.2: Summary at period N = 3
     K.3.3: "Key mechanism: underpriced equity transfer"
-    L.3.1: "Timeline A: Annual Cash Settlement (what Route D avoids)"
-    L.3.2: "Timeline B: Route D (deferred to inheritance at year 15)"
+    L.3.1: "Timeline 'A': Annual Cash Settlement (what Route D avoids)"
+    L.3.2: "Timeline 'B': Route D (deferred to inheritance at year 15)"
     L.3.3: Comparison
     N.3.1: "Period-by-period: All three founders"
     N.3.2: Key findings
