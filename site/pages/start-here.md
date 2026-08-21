@@ -50,13 +50,13 @@ The mechanism has three structural components that work together:
 
 The right starting point depends on what you want:
 
-**New to this entirely?** Read the full [White Paper (WP)](wp.html). All principal mechanisms, objections, and the implementation pathway are covered in a single document — about twenty minutes.
+**New to this entirely?** Read the full (WP). All principal mechanisms, objections, and the implementation pathway are covered in a single document — about twenty minutes.
 
 **Sceptical, or arriving with a specific objection?** The [FAQ](faq.html) addresses twelve common objections directly, with links to the papers where each is developed in full.
 
-**Interested in the underlying philosophy?** [Moral and Philosophical Foundations (MF)](mf.html) develops why the delta base is the right tax base, what the cooperative architecture requires, and what the proposal's stated trade-offs are.
+**Interested in the underlying philosophy?** Moral and Philosophical Foundations (MF) develops why the delta base is the right tax base, what the cooperative architecture requires, and what the proposal's stated trade-offs are.
 
-**Want to know if the numbers work?** [Rates and Revenue (RATES)](rates.html) answers whether a progressive tax on annual wealth changes can fund modern government at a meaningful scale, modelled against UK data across every historical starting year since 1947.
+**Want to know if the numbers work?** Rates and Revenue (RATES) answers whether a progressive tax on annual wealth changes can fund modern government at a meaningful scale, modelled against UK data across every historical starting year since 1947.
 
 **Researcher or returning reader?** The [Project Map](summary.html) traces all 26 papers, their relationships, version history, and the consolidated register of every open question the series has and hasn't yet closed.
 
@@ -66,11 +66,11 @@ The right starting point depends on what you want:
 
 These five papers establish the full architecture:
 
-1. [White Paper (WP)](wp.html) — mechanism design and overview
-2. [Moral and Philosophical Foundations (MF)](mf.html) — why the delta, and the cooperative architecture
-3. [Valuing Wealth (VAL)](val.html) — how the four valuation routes work
-4. [Constitutional Governance (GOV)](gov.html) — how the SWF is governed and protected from capture
-5. [Rates and Revenue (RATES)](rates.html) — what the WDT raises and under what assumptions
+1. White Paper (WP) — mechanism design and overview
+2. Moral and Philosophical Foundations (MF) — why the delta, and the cooperative architecture
+3. Valuing Wealth (VAL) — how the four valuation routes work
+4. Constitutional Governance (GOV) — how the SWF is governed and protected from capture
+5. Rates and Revenue (RATES) — what the WDT raises and under what assumptions
 
 ---
 

@@ -55,7 +55,7 @@ A conventional wealth tax levies a charge on total net worth each year, creating
 | Valuation | Full portfolio valued annually | Declared values become future tax basis; understatement is self-correcting |
 | Asymmetry | Gains taxed; losses ignored | Gains taxed; losses refunded at the same rate |
 
-For the full mechanism, see the [White Paper (WP)](wp.html).
+For the full mechanism, see the White Paper (WP)
 
 ---
 
@@ -71,9 +71,9 @@ All papers are pre-peer review and represent work in progress. The full series i
 
 - **New to the WDT?** [Start Here](start-here.html) — the plain-English introduction.
 - **Arriving with a specific objection?** The [FAQ](faq.html) addresses twelve common objections directly.
-- **Want the full mechanism?** The [White Paper (WP)](wp.html) covers mechanism design, principal objections, and implementation pathway.
-- **Want the normative case?** [Moral Foundations (MF)](mf.html) develops the philosophical basis.
-- **Want to know if the numbers work?** [Rates and Revenue (RATES)](rates.html) covers the fiscal modelling.
+- **Want the full mechanism?** The White Paper (WP) covers mechanism design, principal objections, and implementation pathway.
+- **Want the normative case?** Moral Foundations (MF) develops the philosophical basis.
+- **Want to know if the numbers work?** Rates and Revenue (RATES) covers the fiscal modelling.
 - **Researcher or returning reader?** The [Project Map](summary.html) traces all 26 papers, their relationships, and every open question the series has and hasn't yet closed.
 
 ---

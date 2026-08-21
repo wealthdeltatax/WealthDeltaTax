@@ -40,7 +40,7 @@ website:
       - text: "Flowcharts"
         href: flowcharts.html  
       - text: "References"
-        href: references.qmd
+        href: references.html
         menu:
           - text: "White Paper (WP)"
             href: wp.html
