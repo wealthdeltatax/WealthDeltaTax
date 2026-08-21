@@ -152,9 +152,7 @@ website:
 format:
   html:
     theme: cosmo
-    toc: true
-    toc-depth: 3
-    number-sections: false
+    toc: false
     css: style/styles.css
     include-after-body: right-panel-search.html
     citations-hover: true
