@@ -21,7 +21,7 @@ from typing import Any
 
 import yaml
 
-from config import AUTHOR, SITE_URL
+from config import AUTHOR, SITE_URL, _format_date
 
 
 # ── 1. LaTeX artifact stripping ───────────────────────────────────────────────
@@ -111,18 +111,6 @@ def convert_internal_bibliography(lines: list[str]) -> list[str]:
 # ── 4. Front matter injection ─────────────────────────────────────────────────
 
 _YAML_FENCE_RE = re.compile(r"^---\s*\n(.*?)^---\s*\n", re.DOTALL | re.MULTILINE)
-
-
-def _format_date(raw_date: Any) -> str | None:
-    """Convert YYMMDD int/str (e.g. 260815) → ISO date string (e.g. 2026-08-15)."""
-    if not raw_date or len(str(raw_date)) != 6:
-        return None
-    s = str(raw_date)
-    try:
-        return f"20{s[0:2]}-{s[2:4]}-{s[4:6]}"
-    except Exception:
-        return None
-
 
 def inject_front_matter(
     text: str,

@@ -45,13 +45,7 @@ _ABBREV_TO_CANONICAL: dict[str, str] = {
 }
 
 # Refs with only references_only citations, pending author decisions on
-# flags 04, 06, 09. Excluded from the public page until resolved.
-_PENDING_ORPHANS: frozenset[str] = frozenset({
-    "PikettyEtAl2014",        # flag_04: WP orphan
-    "ResolutionFoundation2020", # flag_06: JUR orphan
-    "TaxWatch2025",            # flag_06: JUR orphan
-})
-
+_PENDING_ORPHANS: frozenset[str] = frozenset({})
 
 # ── Author formatting ─────────────────────────────────────────────────────────
 

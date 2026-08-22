@@ -1,6 +1,6 @@
-# WDT Project Summary — 0.0
+# WDT Project Map
 **Last updated:** 20 August 2026  
-**Papers covered:** WP, MF, LR.A, LR.B, JUR, VAL, VAL.A, VAL.B, CORP, CORP.A, GOV, GOV.A, GOV.B, RATES, RATES.A, SWEEPS, SWEEPS.A, BEHAV, CLOSE, POL, PHASE1, ENV, FM, MOD  
+**Papers covered:** (WP), (MF), (LR.A), (LR.B), (JUR), (VAL), (VAL.A), (VAL.B), (CORP), (CORP.A), (GOV), (GOV.A), (GOV.B), (RATES), (RATES.A), (SWEEPS), (SWEEPS.A), (BEHAV), (CLOSE), (POL), (PHASE1), (ENV), (FM), (MOD)  
 **Papers not yet in project:** *(none)*
 
 ---
@@ -19,17 +19,17 @@
 
 **Assessment windows.** Taxpayers elect a formal assessment interval of 1, 2, 3, 5, or 7 years. Annual reporting continues throughout. Longer windows carry an assessment window premium (deferral charge plus flexibility levy), which is excluded from the RATES reference revenue model — the mechanism functions without it (WP §3.6).
 
-**Valuation.** The architecture is organised around the question: under what conditions does honest declaration become the rational strategy? A declared value establishes the recognised basis from which future deltas are measured; understatement defers rather than eliminates tax, and the cost compounds with growth. The four-route architecture (A/B/C/D) and the Route D auction mechanism are addressed in VAL (WP §3.7).
+**Valuation.** The architecture is organised around the question: under what conditions does honest declaration become the rational strategy? A declared value establishes the recognised basis from which future deltas are measured; understatement defers rather than eliminates tax, and the cost compounds with growth. The four-route architecture (A/B/C/D) and the Route D auction mechanism are addressed in (VAL §4).
 
-**SWF.** The SWF pre-funds the refund obligation the symmetric loss mechanism creates. It also gives taxpayers institutional voice in the fund their contributions capitalise. The refund drawdown is mechanical and constitutionally guaranteed, not subject to governance discretion (WP §4). Investment mandate, reserve sizing (SRR/LRR), and governance architecture are assigned to papers not yet in this project (GOV, RATES).
+**Sovereign Wealth Fund.** The SWF pre-funds the refund obligation the symmetric loss mechanism creates. It also gives taxpayers institutional voice in the fund their contributions capitalise. The refund drawdown is mechanical and constitutionally guaranteed, not subject to governance discretion (WP §4). Investment mandate, reserve sizing (SRR/LRR), and governance architecture are covered in (GOV) and (RATES).
 
-**Revenue.** Revenue figures from RATES are pre-behavioural and are not in this project's documents. WP §5 summarises the structural claim: under any calibration sufficient to generate meaningful WDT revenue, the LRR eventually fills given historical wealth growth rates. The pro-cyclical base is the most significant structural difference from existing instruments.
+**Revenue.** Revenue figures are pre-behavioural; see RATES for full modelling. WP §5 summarises the structural claim: under any calibration sufficient to generate meaningful WDT revenue, the LRR eventually fills given historical wealth growth rates. The pro-cyclical base is the most significant structural difference from existing instruments.
 
 **Tax replacement.** Full replacement of existing taxes is a long-run outcome, not a premise. The displacement case is strongest for income tax and National Insurance (the labour tax relief dividend). VAT, CIT, and other instruments are staged against named preconditions rather than abolished on a fixed date (WP §6).
 
 **Implementation.** Phase One operates at a high threshold with a small population; primary objectives are infrastructure and institutional legitimacy, not revenue. Phase Two lowers the threshold and delivers the labour tax relief dividend as revenue demonstrates durability. The threshold for moving between phases is condition-based, not calendar-based (WP §7).
 
-**Principal objections and their design responses.** The valuation problem is addressed by the delta architecture (deferral, not elimination) and the Route D auction mechanism. The liquidity problem is addressed by the route structure: Routes C and D do not require cash. Behavioural responses are addressed in BEHAV (not yet in project). Constitutional entrenchment starts with strong ordinary legislation and is deepened as Phase One builds a track record (WP §8).
+**Principal objections and their design responses.** The valuation problem is addressed by the delta architecture (deferral, not elimination) and the Route D auction mechanism. The liquidity problem is addressed by the route structure: Routes C and D do not require cash. Behavioural responses are addressed in BEHAV. Constitutional entrenchment starts with strong ordinary legislation and is deepened as Phase One builds a track record (WP §8).
 
 **Open items in WP.** Domar-Musgrave formal extension to a progressive delta base; welfare comparison against consumption tax; quantitative macroeconomic modelling; microsimulation on HMRC administrative data; jurisdiction-specific legal analysis of the Route D compelled-auction trigger (WP §9).
 
@@ -57,7 +57,7 @@
 
 **Purpose.** LR.A is a diagnostic document that identifies nine confirmed gaps in the existing academic literature that bear directly on the WDT's design and evaluation. It distinguishes genuine literature gaps from fresh questions (created by the WDT's own novelty) and Phase One empirical questions (answerable only by a live system). Only the first category is addressed here (LR.A §1).
 
-**Formal modelling gaps.** (1) The Domar-Musgrave framework has not been extended to a progressive delta-based wealth tax: the three complications (net worth base, progressive rates, multi-period asymmetry between gain- and loss-year rates) are unresolved. (2) No welfare comparison model includes the delta base alongside existing candidates; the Guvenen et al. use-it-or-lose-it result is calibrated to a stock wealth tax. (3) The distributional arithmetic of delta base concentration under persistent return heterogeneity (the Fagereng et al. findings) has not been formalised (LR.A §2).
+**Formal modelling gaps.** (1) The Domar-Musgrave framework has not been extended to a progressive delta-based wealth tax: the three complications (net worth base, progressive rates, multi-period asymmetry between gain- and loss-year rates) are unresolved. (2) No welfare comparison model includes the delta base alongside existing candidates; the GuvenonEtAl2023 use-it-or-lose-it result is calibrated to a stock wealth tax. (3) The distributional arithmetic of delta base concentration under persistent return heterogeneity (the Fagereng et al. findings) has not been formalised (LR.A §2).
 
 **Compliance and behavioural gaps.** (4) Cooperative compliance literature is built on individuals as direct decision-makers; at WDT-relevant wealth levels the compliance decision is made within professional intermediary networks — whether cooperative design alters adviser norms is unaddressed. (5) The cross-base migration externality (Agrawal et al. 2025: income tax and VAT losses six times the direct wealth tax loss) has not been incorporated into any existing behavioural model. (6) Whether specific administrative-layer interventions (entitlement statements, provisional refund notifications, safe harbours) produce measurable compliance effects is a literature gap, not only a Phase One empirical question (LR.A §3).
 
@@ -69,7 +69,7 @@
 
 **Purpose.** LR.B is the reference guide to the intellectual ancestry of the WDT across nineteen sections. It states what each body of literature says, where findings are robust, where they are contested, and where they stop. It does not advocate for the WDT. Forward notes at the end of each section point to the companion paper that develops or responds to the ideas covered (LR.B §1).
 
-**Key traditions surveyed.** The Haig-Simons definition and comprehensive income tradition (§2); prior accrual proposals and where they stopped (§3); Domar-Musgrave symmetric loss treatment (§4); heterogeneous returns and welfare (§5–§6); the empirical wealth tax record (§7); the valuation problem in the prior literature (§8); Harberger self-assessment and the purchase option tradition (§9); cooperative compliance and procedural justice (§10–§11); collective action and governance (§12–§13); SWF reference cases (§14); precommitment and fiscal rules (§15); moral philosophy (§16); democratic legitimacy and wealth concentration (§17); exit taxation and international coordination (§18).
+**Key traditions surveyed.** The Haig-Simons definition and comprehensive income tradition (LR.B §2); prior accrual proposals and where they stopped (LR.B §3); Domar-Musgrave symmetric loss treatment (LR.B §4); heterogeneous returns and welfare (LR.B §5–§6); the empirical wealth tax record (LR.B §7); the valuation problem in the prior literature (LR.B §8); Harberger self-assessment and the purchase option tradition (LR.B §9); cooperative compliance and procedural justice (LR.B §10–§11); collective action and governance (LR.B §12–§13); SWF reference cases (LR.B §14); precommitment and fiscal rules (LR.B §15); moral philosophy (LR.B §16); democratic legitimacy and wealth concentration (LR.B §17); exit taxation and international coordination (LR.B §18).
 
 **Most directly relevant findings for the WDT.** The prior accrual literature (Cnossen-Bovenberg, Shakow, OECD 2018 "wealth accretion tax" paragraph) reached the delta concept and stopped at valuation difficulty for illiquid assets. No prior proposal takes the individual's annual net worth delta as the organising unit of a complete tax-and-fiscal architecture. The WDT's second departure is the symmetric refund: the prior literature acknowledged loss treatment as unresolved and set it aside; the WDT derives symmetry as a foundational property. The cross-base externality finding (Agrawal et al. 2025) is the dominant qualification on the Norwegian 22-cent migration estimate and has not been incorporated into any existing behavioural model (LR.B §18).
 
@@ -87,7 +87,7 @@
 
 **Data gaps.** WAS undersamples above ~£3m; WDT taxable population starts above that. Private company ownership and valuation data from Companies House and HMRC CGT/IHT returns are not publicly available at required granularity. Post-Brexit DAC gaps concentrated in EU-domiciled holding structures. VOA capacity breakdown by asset type does not map cleanly to WDT route architecture. HMRC data access arrangement is a precondition for microsimulation rather than a Phase One output (JUR §2.10).
 
-**Model input data provenance.** JUR §2.11 anchors each primary data input in the RATES and VAL models against its source. The equity return series (JST dataset, column `capital_tr`, GBR, 1947–2019, 73 observations) uses capital gains only, not total return. Budget base (£1,157.4bn) from PESA 2024 Table 10, FY 2022-23 outturn. Budget growth rate corrected to 4.51% (CAGR 1999-2019, excluding COVID year). WDT bracket populations via Pareto extrapolation at α=2.25 above ~£3m; the tail is lighter than the true distribution.
+**Model input data provenance.** JUR §2.11 anchors each primary data input in the RATES and VAL models against its source. The equity return series (JST dataset, column `capital_tr`, GBR, 1947–2019, 73 observations) uses capital gains only, not total return. Budget base (£1,157.4bn) from PESA 2024 Table 10, FY 2022-23 outturn. Budget growth rate corrected to 4.51% (CAGR 1999-2019, excluding COVID year). WDT bracket populations via Pareto extrapolation at $\alpha$=2.25 above ~£3m; the tail is lighter than the true distribution.
 
 ---
 
@@ -97,9 +97,9 @@
 
 **Four-route architecture.** Assets are classified by two variables — fungible/non-fungible, and professionally valued/self-declared — producing four routes. Settlement must match the valuation route that produced the liability; a self-declared liability cannot be settled with a professionally valued asset. Full route specifications are in VAL.A §E (VAL §4).
 
-**Route A (professional, fungible):** Competitive tender, valuator bears risk of overturned assessment (loses fee). Cash or professionally valued assets in settlement. Route B (professional, non-fungible): Same professional structure; deferred settlement carries a running lien, forced at every ownership change. Route B carries a lien because periodic assessment generates real periodic liabilities; Route D does not. Route C (self-declared, fungible): No professional certification; settlement in kind only by must-transfer of proportional equity interest at declared value. Route D (self-declared, non-fungible): No periodic formal assessment; annual reporting continues; no liability accrues during holding period; settlement at realisation only (VAL §4.1–4.4).
+**Route A (professional, fungible):** Competitive tender, valuator bears risk of overturned assessment (loses fee). Cash or professionally valued assets in settlement. Route B (professional, non-fungible): Same professional structure; deferred settlement carries a running lien, forced at every ownership change. Route B carries a lien because periodic assessment generates real periodic liabilities; Route D does not. Route C (self-declared, fungible): No professional certification; settlement in kind only by must-transfer of proportional equity interest at declared value. Route D (self-declared, non-fungible): No periodic formal assessment; annual reporting continues; no liability accrues during holding period; settlement at realisation only (VAL §4.1) (VAL §4.4).
 
-**Self-balancing mechanism (Routes C/D).** Understatement on Route C: must-transfer at declared value means the state acquires equity at underpriced rates, which then appreciates at the true rate — a direct and compounding cost. Overstatement on Route C: higher declared net worth enters higher marginal brackets, raising liabilities. The rational equilibrium is mild overstatement (α ≈ 1.2–1.5), not honest declaration — a norm that is forecast-independent and self-reinforcing. Aggressive overstatement (α ≥ 1.8) faces a net-cost corridor at g ≈ 9–17% and an N-crossing threshold at canonical parameters (VAL §5), (VAL.A §A.6).
+**Self-balancing mechanism (Routes C/D).** Understatement on Route C: must-transfer at declared value means the state acquires equity at underpriced rates, which then appreciates at the true rate — a direct and compounding cost. Overstatement on Route C: higher declared net worth enters higher marginal brackets, raising liabilities. The rational equilibrium is mild overstatement ($\alpha$ ≈ 1.2–1.5), not honest declaration — a norm that is forecast-independent and self-reinforcing. Aggressive overstatement ($\alpha$ ≥ 1.8) faces a net-cost corridor at g ≈ 9–17% and an N-crossing threshold at canonical parameters (VAL §5), (VAL.A §A.6).
 
 **Route D deferral.** No periodic formal assessment for non-fungible assets because (a) periodic cash settlement would recreate forced-realisation pressure and (b) in-kind settlement is impossible for assets that cannot be divided. Deferral to realisation is the only coherent design — it concentrates taxation at the one point where an observable, arm's-length price exists. The argument is not administrative convenience; it is structural (VAL §6.1).
 
@@ -109,11 +109,11 @@
 
 **Assessment window premium.** Two components: deferral charge (time value of delayed settlement) and flexibility levy (state's share of valuation cost saving). Premium is symmetric — where delayed assessment produces a refund, the taxpayer receives an equivalent upward adjustment. Both components are Governing Council parameters; excluded from RATES reference revenue model (VAL §8).
 
-**Public register.** Taxpayers tag each asset as disclosed (rate discount) or private (rate premium). Only disclosed assets appear at figure level in the public register; private assets do not. Full privacy is compatible with the mechanism functioning identically on revenue, refund symmetry, and Route D auction deterrence. Privacy election mechanics are in GOV.B §B.4.7 (not yet in project). The mild-overstatement equilibrium means register entries for disclosed assets are systematically above true values during holding periods; periodic hard price discovery at inheritance and Route D auctions anchors the register back to market values (VAL §9).
+**Public register.** Taxpayers tag each asset as disclosed (rate discount) or private (rate premium). Only disclosed assets appear at figure level in the public register; private assets do not. Full privacy is compatible with the mechanism functioning identically on revenue, refund symmetry, and Route D auction deterrence. Privacy election mechanics are in (GOV.B §B.4.7). The mild-overstatement equilibrium means register entries for disclosed assets are systematically above true values during holding periods; periodic hard price discovery at inheritance and Route D auctions anchors the register back to market values (VAL §9).
 
-**Professional valuation.** Competitive tender selects the lowest qualified bid to remove the client-relationship pressure the Pereira Gray 2021 review identified. Cost split: state and taxpayer share below a defined cap; above it the taxpayer bears marginal cost. Two-stage review: on taxpayer rejection, the Authority funds independent review; if it supports the original valuator, the original valuation stands; if it supports the taxpayer, the original valuator loses their fee. The Valuation Code Board is an independent statutory body; it is distinct from the three Valuation Bodies that handle audit, disputes, and Route D outlier investigation under GOV §6.1 (not yet in project) (VAL §10).
+**Professional valuation.** Competitive tender selects the lowest qualified bid to remove the client-relationship pressure the Pereira Gray 2021 review identified. Cost split: state and taxpayer share below a defined cap; above it the taxpayer bears marginal cost. Two-stage review: on taxpayer rejection, the Authority funds independent review; if it supports the original valuator, the original valuation stands; if it supports the taxpayer, the original valuator loses their fee. The Valuation Code Board is an independent statutory body; it is distinct from the three Valuation Bodies that handle audit, disputes, and Route D outlier investigation under (GOV §6.1) (VAL §10).
 
-**Route D auction (enforced trigger).** Draws on Harberger self-assessment deterrence: a taxpayer who declares below true value risks losing the asset at their own declared price through competitive bidding. The enforced trigger fires only on three-body Valuation Body unanimous agreement that the declared value is a statistical outlier. The mechanism is narrow and infrequent by design; its deterrent effect depends on credibility, not frequency. Full architecture in GOV.B §G (not yet in project) (VAL §11).
+**Route D auction (enforced trigger).** Draws on Harberger self-assessment deterrence: a taxpayer who declares below true value risks losing the asset at their own declared price through competitive bidding. The enforced trigger fires only on three-body Valuation Body unanimous agreement that the declared value is a statistical outlier. The mechanism is narrow and infrequent by design; its deterrent effect depends on credibility, not frequency. Full architecture in (GOV.B §G) (VAL §11).
 
 **Boundary conditions and limitations.** Three named: the inception basis vulnerability (Route D basis is weakest at entry; no prior committed value to self-correct against); the reclassification boundary (an asset shifting from A/B to D carries a correct prior basis but loses ongoing self-correction); the auction market maturation boundary (competitive bidding may eventually reflect auction-market dynamics rather than underlying economic value). Phase One data on declared values versus subsequent realisation prices is the primary detection instrument (VAL §14.4).
 
@@ -125,13 +125,13 @@
 
 **Rate function.** $\tau(W)$ = $\tau_m$ / (1 + A·exp(−k·(W − W_min))), where A = ($\tau_m$ − $\tau_0$)/$\tau_0$. Properties: $\tau(W_{min})$ = $\tau_0$; strictly increasing; bounded above by $\tau_m$; inflects at W_min + (1/k)·ln(($\tau_m$ − $\tau_0$)/$\tau_0$). k governs steepness. Canonical parameters: $\tau_0$ = 15%, $\tau_m$ = 70%, k = 0.001, W_min = £2m (VAL.A §A.3.1).
 
-**Core propositions.** (1) Local convexity around α = 1: small deviations create offsetting costs through basis and rate effects. (2) Overstatement cost diverges as k increases; higher k causes inflated declarations to enter higher brackets sooner. (3a/3b) Understatement cost increases with growth and holding period until tax saturation at g ≈ 17.3%. (4) Understater penalties plateau at the rate ceiling (g ≈ 17.3%, N-invariant above plateau); aggressive overstatement is self-limiting through a temporal N-crossing mechanism at canonical parameters (α=2.0 crosses at N≈30, α=1.8 at N≈32), but this is $\tau_0$-sensitive — crossing disappears above $\tau_0$ ≈ 29–32%. (5) Optimal declaration strategy is horizon-dependent. (6) Stable equilibrium zone is mild overstatement (α ≈ 1.2–1.5), not honest declaration (VAL.A §A.5), (VAL.A §A.6).
+**Core propositions.** (1) Local convexity around $\alpha$ = 1: small deviations create offsetting costs through basis and rate effects. (2) Overstatement cost diverges as k increases; higher k causes inflated declarations to enter higher brackets sooner. (3a/3b) Understatement cost increases with growth and holding period until tax saturation at g ≈ 17.3%. (4) Understater penalties plateau at the rate ceiling (g ≈ 17.3%, N-invariant above plateau); aggressive overstatement is self-limiting through a temporal N-crossing mechanism at canonical parameters ($\alpha$=2.0 crosses at N≈30, $\alpha$=1.8 at N≈32), but this is $\tau_0$-sensitive — crossing disappears above $\tau_0$ ≈ 29–32%. (5) Optimal declaration strategy is horizon-dependent. (6) Stable equilibrium zone is mild overstatement ($\alpha$ ≈ 1.2–1.5), not honest declaration (VAL.A §A.5), (VAL.A §A.6).
 
-**Mild overstatement as stable equilibrium.** Mild overstatement (α ≤ 1.5) produces a permanent, forecast-independent TW advantage across the full tested growth range; no N-crossing occurs within realistic horizons at canonical parameters. The tolerant zone (|C.1| < 2pp around honest declaration at canonical growth) is a design feature governed primarily by k. The population-level prediction is systematic mild overstatement; this is more robust than exact honesty because the norm emerges from self-interest rather than requiring enforcement (VAL.A §A.6).
+**Mild overstatement as stable equilibrium.** Mild overstatement ($\alpha$ ≤ 1.5) produces a permanent, forecast-independent TW advantage across the full tested growth range; no N-crossing occurs within realistic horizons at canonical parameters. The tolerant zone (|C.1| < 2pp around honest declaration at canonical growth) is a design feature governed primarily by k. The population-level prediction is systematic mild overstatement; this is more robust than exact honesty because the norm emerges from self-interest rather than requiring enforcement (VAL.A §A.6).
 
-**Three practical consequences of the mild-overstatement equilibrium.** First, the declared tax base slightly exceeds true values, partially offsetting pre-behavioural overstatement in RATES from migration and avoidance. Second, refund exposure in loss years is correspondingly larger than RATES assumes; the SRR floor calibration implication is identified as an open item (ENV.A §A.1, assigned to a paper not yet in project). Third, the public register carries systematically inflated declared values during holding periods; the Administrator holds no instrument for signalling drift in the population distribution of α (VAL.A §A.2.5).
+**Three practical consequences of the mild-overstatement equilibrium.** First, the declared tax base slightly exceeds true values, partially offsetting pre-behavioural overstatement in RATES from migration and avoidance. Second, refund exposure in loss years is correspondingly larger than RATES assumes; the SRR floor calibration implication is identified as an open item (ENV §A.1). Third, the public register carries systematically inflated declared values during holding periods; the Administrator holds no instrument for signalling drift in the population distribution of $\alpha$ (VAL.A §A.2.5).
 
-**Simulation tables.** C.1: total tax paid difference relative to honest declaration as share of TW (primary incentive metric). C.2: effective lifetime tax rate difference from honest. C.3: exploratory β extension (investor confidence effects; no empirical calibration; exploratory only). C.4: effective lifetime tax rate by k and V₀. C.5: TW difference by k and α. C.6: refund protection ratio in negative growth scenarios. C.7/C.8: tax paid and TW comparisons adjusted for holding period N. C.9: summary across growth regimes. C.10: 2006 historical return series scenario results at N = 29. All tables validated at 0 FAILs, Python model v1.0, unified parameters k = 0.001, N = 29, $\tau_0$ = 15% (VAL.A §C).
+**Simulation tables.** C.1: total tax paid difference relative to honest declaration as share of TW (primary incentive metric). C.2: effective lifetime tax rate difference from honest. C.3: exploratory β extension (investor confidence effects; no empirical calibration; exploratory only). C.4: effective lifetime tax rate by k and V₀. C.5: TW difference by k and $\alpha$. C.6: refund protection ratio in negative growth scenarios. C.7/C.8: tax paid and TW comparisons adjusted for holding period N. C.9: summary across growth regimes. C.10: 2006 historical return series scenario results at N = 29. All tables validated at 0 FAILs, Python model v1.0, unified parameters k = 0.001, N = 29, $\tau_0$ = 15% (VAL.A §C).
 
 **Mechanism cases.** D.1: persistent understatement without realisation (Route C, tax collected through dilution). D.2: understatement then asset failure (refund protection loss proportional to understatement). D.3: aggressive overstatement on Route C (self-defeating at any scale through rate bracket effects). D.4: oscillating declarations (basis memory prevents oscillation gaming). D.5: Route D voluntary settlement vs inheritance (present value revenue comparison; Scenario A often worth more to state at stable rates) (VAL.A §D).
 
@@ -143,13 +143,13 @@
 
 **Purpose.** Five worked examples, each tethered to a specific claim in VAL. They are not a comprehensive catalogue; they exist to make five arguments concrete. All figures from Python model v1.0, validated against Excel 27 July 2026. Sections lettered §J through §N, continuing from VAL.A §F (VAL.B Reader's Guide).
 
-**§J: The deferred delta.** FTSE 250 portfolio, three declaration strategies (α = 1.0, 0.8, 0.5), Route C, N = 5, g = 7%. The α = 0.8 understater saved £0.218m in years 1–5 but paid £0.829m more at sale — net cost £0.611m. The α = 0.5 understater saved £0.543m but paid £2.073m more — net cost £1.530m. Key mechanism: suppressed basis compounds; realisation assessment applies the full rate with no smoothing, recovering the accumulated gap in a single calculation (VAL.B §J).
+**§J: The deferred delta.** FTSE 250 portfolio, three declaration strategies ($\alpha$ = 1.0, 0.8, 0.5), Route C, N = 5, g = 7%. The $\alpha$ = 0.8 understater saved £0.218m in years 1–5 but paid £0.829m more at sale — net cost £0.611m. The $\alpha$ = 0.5 understater saved £0.543m but paid £2.073m more — net cost £1.530m. Key mechanism: suppressed basis compounds; realisation assessment applies the full rate with no smoothing, recovering the accumulated gap in a single calculation (VAL.B §J).
 
-**§K: Dilution compounds with growth.** 60% founder stake, software company, g = 15%, α = 0.6, N = 3 (annual periods as proxy for three-year window). At α = 0.6 the understater transfers equity at a 40% discount to true value; after 3 periods, net implicit cost of understatement vs honest: £1.228m. The dilution cost operates even without a sale; understatement under Route C does not defer the cost, it accelerates it (VAL.B §K).
+**§K: Dilution compounds with growth.** 60% founder stake, software company, g = 15%, $\alpha$ = 0.6, N = 3 (annual periods as proxy for three-year window). At $\alpha$ = 0.6 the understater transfers equity at a 40% discount to true value; after 3 periods, net implicit cost of understatement vs honest: £1.228m. The dilution cost operates even without a sale; understatement under Route C does not defer the cost, it accelerates it (VAL.B §K).
 
 **§M: Voluntary settlement gives certainty, not avoidance.** Commercial property, B₀ = £5m, g = 5%. Option A (soft basis reset at year 10, declared £7.688m): WDT liability £0.405m, unverified basis. Option B (hard basis reset at year 10, auction £8.144m): WDT liability £0.474m, plus auction costs £0.163m, market-verified basis. Option C (no reset, inheritance at year 15, £10.395m): WDT liability £0.815m, market-verified basis. None avoids the WDT; options differ in timing, certainty, and refund basis quality (VAL.B §M).
 
-**§N: Forecast exposure.** Three founders, identical stakes in same company, Route C, N = 10, g = 7%. Founder A (α = 1.0, honest): total net WDT £1.122m, TW £15.287m. Founder B (pessimist, α = 0.6): total net WDT £1.607m (+43.2%), TW £14.409m (−5.7%). Founder C (optimist, α = 1.4): total net WDT £0.640m (−43.0%), TW £16.164m (+5.7%). Key finding: honest declaration has no directional forecast exposure; both B and C end worse than A because neither forecast matched reality (VAL.B §N).
+**§N: Forecast exposure.** Three founders, identical stakes in same company, Route C, N = 10, g = 7%. Founder A ($\alpha$ = 1.0, honest): total net WDT £1.122m, TW £15.287m. Founder B (pessimist, $\alpha$ = 0.6): total net WDT £1.607m (+43.2%), TW £14.409m (−5.7%). Founder C (optimist, $\alpha$ = 1.4): total net WDT £0.640m (−43.0%), TW £16.164m (+5.7%). Key finding: honest declaration has no directional forecast exposure; both B and C end worse than A because neither forecast matched reality (VAL.B §N).
 
 **§L: Why Route D defers to realisation.** Sculpture collection, B₀ = £8m, g = 5%. Timeline A (annual cash settlement): year 1–5 cumulative liability £0.333m, forced realisation risk high, collateral problems. Timeline B (Route D, deferred to inheritance at year 15): £0 annual cash demand, total WDT £1.310m on full 15-year gain. Route D collects more tax and eliminates the cash-demand problem; annual settlement on non-fungible assets does not fail because of administrative complexity — it fails because it recreates the economic harm it is trying to tax (VAL.B §L).
 
@@ -167,7 +167,7 @@
 
 **The levy mechanism.** Three ownership tranches: (1) native WDT shareholders — provisional levy ($\tau_{prov}$) held in settlement account, released as credit on confirmed individual settlement within one-year reconciliation window; (2) identified intermediaries — provisional $\tau_0$ at company level, with downstream pass-through where attribution test is met; (3) unidentified beneficial owners — final $\tau_h$ charge. The operative question for tranche two is whether a continuous attribution chain exists to an underlying economic beneficiary (CORP §5.1).
 
-**Annual cycle.** On assessment date: corporation calculates corporate delta (change in market cap); pays provisional levy into settlement account at rate ≥ $\tau_0$; issues delta statements to registered shareholders within 60 days. Settlement account closes one year after assessment date: tranche-one credits claimed by confirmed individual settlers; unclaimed credits (lapsed or waived) refunded to corporation; intermediary final charges settled; $\tau_h$ applied to tranche three. Corporation's rate-setting choice is a governance signal: provisioning at $\tau_0$ signals low uncertainty, higher rate signals reverse; corporation bears shortfall risk of its own choice (CORP §5.2–5.4).
+**Annual cycle.** On assessment date: corporation calculates corporate delta (change in market cap); pays provisional levy into settlement account at rate ≥ $\tau_0$; issues delta statements to registered shareholders within 60 days. Settlement account closes one year after assessment date: tranche-one credits claimed by confirmed individual settlers; unclaimed credits (lapsed or waived) refunded to corporation; intermediary final charges settled; $\tau_h$ applied to tranche three. Corporation's rate-setting choice is a governance signal: provisioning at $\tau_0$ signals low uncertainty, higher rate signals reverse; corporation bears shortfall risk of its own choice (CORP §5.2) and (CORP §5.4).
 
 **Loss years.** No levy; no refund. Shareholders experiencing losses receive individual WDT refunds through personal assessment. The corporate instrument is uninvolved. Asymmetry is principled: corporations do not experience losses in any humanly meaningful sense (CORP §5.5).
 
@@ -191,19 +191,19 @@
 
 **$\tau_h$ ramp structure.** Pre-announced rising schedule from initial level toward [deterrence floor, $\tau_m$] ceiling over a defined transition window, paced by aggregate tranche-three share of listed corporate ownership (aggregate observable, not company-specific, to prevent gaming). Joint-calibration constraint: the $\tau_h$ ramp must be co-designed with the CIT/dividend displacement schedule — independently calibrating the two creates arbitrage between transparent and opaque ownership structures. TP members with transparent ownership and TP members with structurally harder attribution have directly opposing interests; the Governing Council negotiation is the design mechanism for calibrating this parameter (CORP.A §B.2.8–9).
 
-**Ownership structure classification.** Single attribution test applied to all tranche-two entities regardless of label. Key classifications: broker/custodian nominee (usually pass-through), ETF/mutual fund (pass-through via unit register proportional allocation), DC pension fund (policy exclusion, not attribution failure), DB pension fund (final $\tau_0$ — beneficiary claim is to a promised benefit, not a share of fund NAV), insurance company (final $\tau_0$ — contingent claim), endowment/charity (final $\tau_0$ — no individual claimant), foreign sovereign wealth fund (final $\tau_0$), employee share trust (vested: pass-through; unvested: final $\tau_0$), WDT SWF itself (final $\tau_0$ — stated circularity, recorded transparently rather than netted out silently) (CORP.A §C).
+**Ownership structure classification.** Single attribution test applied to all tranche-two entities regardless of label. Key classifications: broker/custodian nominee (usually pass-through), ETF/mutual fund (pass-through via unit register proportional allocation), DC pension fund (policy exclusion, not attribution failure), DB pension fund (final $\tau_0$ — beneficiary claim is to a promised benefit, not a share of fund NAV), insurance company (final $\tau_0$ — contingent claim), endowment/charity (final $\tau_0$ — no individual claimant), foreign sovereign wealth fund (final $\tau_0$), employee share trust (vested: pass-through; unvested: final $\tau_0$), WDT SWF itself (final $\tau_0$ — stated circularity, recorded transparently rather than netted out silently) (CORP.A §D).
 
-**Administrative burden comparison.** Retail shareholders: categorically lower under mature WDT — transaction tracking eliminated, annual filing reduced to year-end wealth data already held by brokers. Listed companies: substantially lower in mature implementation — delta calculation and tranche classification replace a substantially more complex CIT compliance regime. Intermediaries with maintained attribution infrastructure: modest increase on existing KYC obligations, largely automatable. Structures dependent on opacity: material increase by design. Maximum overhead period is the transition, where WDT and existing CIT/CGT/dividend tax run in parallel; minimising parallel-running duration is an explicit implementation design objective (CORP.A §D).
+**Administrative burden comparison.** Retail shareholders: categorically lower under mature WDT — transaction tracking eliminated, annual filing reduced to year-end wealth data already held by brokers. Listed companies: substantially lower in mature implementation — delta calculation and tranche classification replace a substantially more complex CIT compliance regime. Intermediaries with maintained attribution infrastructure: modest increase on existing KYC obligations, largely automatable. Structures dependent on opacity: material increase by design. Maximum overhead period is the transition, where WDT and existing CIT/CGT/dividend tax run in parallel; minimising parallel-running duration is an explicit implementation design objective (CORP.A §E).
 
-**Non-corporate instruments and the attribution test.** All entity types resolved through neutral application of the attribution test and the delta mechanic, without special regimes. Key results: charitable vehicles (operating charities: no positive delta from deploying; accumulating endowments: $\tau_m$ on net asset growth, asymmetric — no refund); SPV/holding companies (interposition achieves nothing — delta flows to the individual regardless of layers); trusts (attribution test inverts the incentive — deliberate opacity is now expensive, not free); family limited partnerships (valuation discounts defer, do not eliminate; income-shifting function collapses because WDT tracks net worth, not income flows); life insurance wrappers (policy cash value is in taxpayer's net worth; death benefit excess enters recipient's delta in year of payout; insurance wrapper changes nothing); carried interest (WDT taxes net worth change, not income characterisation; recharacterisation produces no saving) (CORP.A §E).
+**Non-corporate instruments and the attribution test.** All entity types resolved through neutral application of the attribution test and the delta mechanic, without special regimes. Key results: charitable vehicles (operating charities: no positive delta from deploying; accumulating endowments: $\tau_m$ on net asset growth, asymmetric — no refund); SPV/holding companies (interposition achieves nothing — delta flows to the individual regardless of layers); trusts (attribution test inverts the incentive — deliberate opacity is now expensive, not free); family limited partnerships (valuation discounts defer, do not eliminate; income-shifting function collapses because WDT tracks net worth, not income flows); life insurance wrappers (policy cash value is in taxpayer's net worth; death benefit excess enters recipient's delta in year of payout; insurance wrapper changes nothing); carried interest (WDT taxes net worth change, not income characterisation; recharacterisation produces no saving) (CORP.A §F).
 
-**Market manipulation.** Short positions are bilateral claims between counterparties; the reference company is not a party; corporate fate after the short does not alter the bilateral claim. The "short → destroy company → resurrect elsewhere" strategy fails because the short seller's wealth moved when the position was valued across assessment dates, not when the corporate structure changed. Reverse attack (inflate target before assessment date): self-correcting through the delta mechanism — artificial positive delta is followed by refund-generating reversal. Assessment-date price depression gaming: accepted imperfection present in any annual measurement system. Weaponised attribution attack (hostile actor acquires stake through opaque structure to impose $\tau_h$ on target company): structurally self-limiting because strategic opacity and effective shareholder activism are mutually exclusive under the WDT; the $\tau_h$ ramp makes multi-year attacks progressively more expensive (CORP.A §E.9).
+**Market manipulation.** Short positions are bilateral claims between counterparties; the reference company is not a party; corporate fate after the short does not alter the bilateral claim. The "short → destroy company → resurrect elsewhere" strategy fails because the short seller's wealth moved when the position was valued across assessment dates, not when the corporate structure changed. Reverse attack (inflate target before assessment date): self-correcting through the delta mechanism — artificial positive delta is followed by refund-generating reversal. Assessment-date price depression gaming: accepted imperfection present in any annual measurement system. Weaponised attribution attack (hostile actor acquires stake through opaque structure to impose $\tau_h$ on target company): structurally self-limiting because strategic opacity and effective shareholder activism are mutually exclusive under the WDT; the $\tau_h$ ramp makes multi-year attacks progressively more expensive (CORP.A §F.9).
 
-**$\tau_f$ (foreign attribution).** Foreign entities bear $\tau_f$ set by bilateral/multilateral diplomatic agreement, not a WDT calibration parameter. Any portion a foreign entity can attribute to named beneficial owners passes through at $\tau_0$; the unattributed residue bears $\tau_f$. Absent an agreement, $\tau_f$ defaults to $\tau_h$. A low $\tau_f$ is a genuine coverage gap: the mechanism cannot compel more information. The gap is nonetheless visible — the decision to accept a low $\tau_f$ is a public act in Governing Council deliberations and the Administrator's published attribution data — and politically accountable in a way pre-WDT offshore sheltering was not (CORP.A §F).
+**$\tau_f$ (foreign attribution).** Foreign entities bear $\tau_f$ set by bilateral/multilateral diplomatic agreement, not a WDT calibration parameter. Any portion a foreign entity can attribute to named beneficial owners passes through at $\tau_0$; the unattributed residue bears $\tau_f$. Absent an agreement, $\tau_f$ defaults to $\tau_h$. A low $\tau_f$ is a genuine coverage gap: the mechanism cannot compel more information. The gap is nonetheless visible — the decision to accept a low $\tau_f$ is a public act in Governing Council deliberations and the Administrator's published attribution data — and politically accountable in a way pre-WDT offshore sheltering was not (CORP.A §F.9).
 
 ---
 
-## 12 GOV: Constitutional Governance
+## 11 GOV: Constitutional Governance
 
 **The governance problem.** Setting WDT parameters requires operational knowledge held almost entirely by the taxable population itself. Conventional democratic governance excludes that population from the formal process; their knowledge reaches decision-makers only through lobbying. The Governing Council resolves this by giving formal standing to those with the best operational knowledge while structurally preventing that advantage from becoming a decision advantage (GOV §1.1).
 
@@ -217,7 +217,7 @@
 
 ---
 
-## 13 GOV.A: Constitutional Governance Intellectual Appendix
+## 12 GOV.A: Constitutional Governance Intellectual Appendix
 
 **Failure-mode taxonomy.** Three failure modes underlie the mechanism-shaped test in GOV §2.1: oracle failure (the mechanism depends on an external report of what happened that whoever controls it can redirect), self-referential power (the actor being scored holds enough influence over the outcome to affect their own score), and resource-defines-truth degeneration (removing discretion merely redefines capture as acquiring enough of whatever the mechanism counts) (GOV.A §A).
 
@@ -231,7 +231,7 @@
 
 ---
 
-## 14 GOV.B: Constitutional Governance Operational Appendix
+## 13 GOV.B: Constitutional Governance Operational Appendix
 
 **Chamber mechanics in full.** TP membership is a byproduct of WDT filing; no separate registration is required. Membership changes take effect at assessment window boundaries. Each member holds an equal fractional share of the chamber's total external vote regardless of wealth. A proposal becomes the chamber's proposal only once it clears the internal dual-threshold quorum; prior to that it carries no cost or obligation (GOV.B §A.1).
 
@@ -247,7 +247,7 @@
 
 ---
 
-## 15 RATES: Rates and Revenue
+## 14 RATES: Rates and Revenue
 
 **The question this paper answers.** The companion papers establish mechanism and governance; RATES asks whether the arithmetic works at individual burdens that remain proportionate, across a range of historical starting conditions. The answer is yes, without qualification, across all 73 viable starting years in the 1947–2019 UK equity return series at Balanced parameters ($\tau_0$=15%, $\tau_m$=70%, k=0.001, W_min=£2m) (RATES §1).
 
@@ -265,11 +265,11 @@
 
 ---
 
-## 16 RATES.A: Rates and Revenue Appendix
+## 15 RATES.A: Rates and Revenue Appendix
 
 **Model specification.** A single Python script reads all inputs from a TOML parameter file; no input is hardcoded. Execution sequence: TOML validation → SSM on the active scenario → TCM calibrated to SSM's LRR breakeven year → 73-year historical sweep → statistical pass. The SSM uses a marginal cohort approach: year N income is extracted as the difference between cumulative simulations at N and N−1, so the terminal sell year appears in every year's marginal calculation (RATES.A §A.2).
 
-**Key model inputs.** Budget base £1,157.4b from PESA 2024 Table 10 (FY 2022–23 outturn); budget growth rate 4.51% CAGR (1999–2019, corrected derivation); equity return series from Jordà et al. 2019 JST dataset (GBR, 1947–2019, 73 observations, capital gains only). Growth tier differentials derived from Fagereng et al. 2020: −4.55pp (Poor, 10%), −2.05pp (Ok, 30%), +0.95pp (Good, 40%), +3.45pp (Great, 20%). Wealth brackets combine WAS 2018–20 data for the bottom 99% with Pareto extrapolation (α=2.25) above £3.6m (RATES.A §A.3).
+**Key model inputs.** Budget base £1,157.4b from PESA 2024 Table 10 (FY 2022–23 outturn); budget growth rate 4.51% CAGR (1999–2019, corrected derivation); equity return series from Jordà et al. 2019 JST dataset (GBR, 1947–2019, 73 observations, capital gains only). Growth tier differentials derived from Fagereng et al. 2020: −4.55pp (Poor, 10%), −2.05pp (Ok, 30%), +0.95pp (Good, 40%), +3.45pp (Great, 20%). Wealth brackets combine WAS 2018–20 data for the bottom 99% with Pareto extrapolation ($\alpha$=2.25) above £3.6m (RATES.A §A.3).
 
 **Known boundary-alignment bug.** The SSM capitalisation window (SRR fill year to LRR fill year) and the TCM budget denominator in the sweep are computed over slightly different year sets — a one-year offset at each boundary. The effect is small but means the two coverage ratios are not as cleanly comparable as they appear; both should be read as order-of-magnitude indicators (RATES.A §A.6).
 
@@ -277,7 +277,7 @@
 
 ---
 
-## 17 SWEEPS: Parameter Sweeps and Governing Council Calibration
+## 16 SWEEPS: Parameter Sweeps and Governing Council Calibration
 
 **Purpose.** The architecture is fixed; the parameters are the Governing Council's to move. SWEEPS characterises the parameter space through two complementary datasets: VAL.S examines how each rate-function parameter affects declaration incentive properties (tolerant zone width, N-crossing threshold, understater penalty plateau ceiling); RATES.S examines how the same parameters affect fiscal outcomes (LRR fill year, TCM coverage ratio). Neither recommends values; both show what the Council controls when it adjusts a given lever (SWEEPS §1).
 
@@ -293,29 +293,29 @@
 
 ---
 
-## 18 SWEEPS.A: Parameter Sweeps Appendix Tables
+## 17 SWEEPS.A: Parameter Sweeps Appendix Tables
 
 **Purpose.** SWEEPS.A contains all raw numerical output from the VAL.S and RATES.S sweep programmes: C.1 heatmaps for each parameter variant, N-crossing threshold tables, joint surfaces for the $\tau_0$×N and k×V₀ interactions, and the full RATES.S sensitivity tables for $\tau_0$, $\tau_m$, k, W_min, srr_ratio, and lrr_years (SWEEPS.A §A, §B, §D).
 
-**VAL.S tables (declaration incentive dimension).** Nine C.1 heatmaps for the $\tau_0$ sweep (10%–50%); four for $\tau_m$ (50%–80%); nine for k (0.0001–0.1, log-spaced); six for W_min (£0m–£50m); four N-sweep summaries (N=10, 20, 29, 50); seven V₀-sweep summaries (£5m–£50,000m). Joint surfaces: $\tau_0$×N N-crossing for α=2.0; k×V₀ bracket penalty for α=1.8. The $\tau_0$×W_min joint surface — the direct quantification of the primary cross-dataset tension — is not yet generated (SWEEPS.A §B).
+**VAL.S tables (declaration incentive dimension).** Nine C.1 heatmaps for the $\tau_0$ sweep (10%–50%); four for $\tau_m$ (50%–80%); nine for k (0.0001–0.1, log-spaced); six for W_min (£0m–£50m); four N-sweep summaries (N=10, 20, 29, 50); seven V₀-sweep summaries (£5m–£50,000m). Joint surfaces: $\tau_0$×N N-crossing for $\alpha$=2.0; k×V₀ bracket penalty for $\alpha$=1.8. The $\tau_0$×W_min joint surface — the direct quantification of the primary cross-dataset tension — is not yet generated (SWEEPS.A §B).
 
 **RATES.S tables (fiscal dimension).** Each rate parameter is swept across 73 historical start years, reporting success rate, SSM and TCM coverage distributions, LRR fill year distributions, and the 2006 worst-case row in detail. The SWF sizing sweeps (srr_ratio 1×–10×, lrr_years 0.5–8 years) confirm 100% success throughout; the 3× srr_ratio floor is the threshold below which the 2006 scenario first shows SRR breach (SWEEPS.A §D).
 
-**Figure index.** Twenty VAL.S figures are catalogued with filename, axis specifications, fixed parameters, and cross-references to VAL.A. The calibration summary figure (SS4.3) collects all three mechanism-integrity properties — tolerant-zone width, N-crossing for α=1.8, and understater plateau ceiling — across all parameter variants in a single three-panel chart (SWEEPS.A §B.9).
+**Figure index.** Twenty VAL.S figures are catalogued with filename, axis specifications, fixed parameters, and cross-references to VAL.A. The calibration summary figure (SS4.3) collects all three mechanism-integrity properties — tolerant-zone width, N-crossing for $\alpha$=1.8, and understater plateau ceiling — across all parameter variants in a single three-panel chart (SWEEPS.A §B.9).
 
 ---
 
-## 19 BEHAV: Behavioural Robustness and Administrative Experience
+## 18 BEHAV: Behavioural Robustness and Administrative Experience
 
 **The central reframe.** Behavioural robustness — the degree to which the mechanism's effectiveness is independent of any particular assumption about taxpayer behaviour — is a design property derivable from first principles, not a behavioural prediction. The existing tax architecture actively engineers stagnation and misdirection through lock-in distortions, basis step-up, and debt preferences; the WDT removes those distortions first, before any claim about Domar-Musgrave or compliance psychology (BEHAV §3).
 
-**Five friction types.** Type I (information): uncertainty about liability drives route-shopping independently of the rate. Type II (visibility): invisible reciprocity causes the tax to be experienced as confiscation. Type III (legitimacy): perceived procedural unfairness erodes compliance even among those who would benefit from continuation. Type IV (feedback): slow, unpredictable responses cause the institution to be experienced as unresponsive. Type V (compliance): the direct cost of honest compliance must not exceed the cost of avoidance strategies it competes with. Five design principles follow directly from this taxonomy (BEHAV §4–5).
+**Five friction types.** Type I (information): uncertainty about liability drives route-shopping independently of the rate. Type II (visibility): invisible reciprocity causes the tax to be experienced as confiscation. Type III (legitimacy): perceived procedural unfairness erodes compliance even among those who would benefit from continuation. Type IV (feedback): slow, unpredictable responses cause the institution to be experienced as unresponsive. Type V (compliance): the direct cost of honest compliance must not exceed the cost of avoidance strategies it competes with. Five design principles follow directly from this taxonomy (BEHAV §4) and (BEHAV §5).
 
 **The Membrane.** The permeable boundary between the institution and taxpayers — the layer of procedures, communications, defaults, and feedback loops through which taxpayers experience the system. A mechanism can be sound while the Membrane is degraded. Five membrane health dimensions have a specific interaction structure: Clarity and Accessibility are most complementary; Reciprocity and Fairness require independent maintenance; Fairness is downstream of all four other dimensions and is the leading indicator of membrane failure (BEHAV §6.3).
 
 **Nine behavioural shapes.** Shape 1 (full cooperative compliance) through Shape 9 (active resistance) are a complete map of the range against which robustness is evaluated, not predictions about frequency. Shapes 4–6 (restructuring, timing manipulation, cross-border asset migration without personal exit) generate most of the value at risk from avoidance; Shapes 7–8 (personal exit, partial exit) generate most political visibility. The mechanism must remain functional across all nine simultaneously (BEHAV §8).
 
-**The enforcement paradigm shift and route distribution.** Under the WDT, the state does not need to discover true values — unattributed ownership faces $\tau_h$ by default, and surfacing hidden assets compounds the concealment cost. Route A (listed equities, bonds, pensions) is estimated at 40–55% of WDT-taxable wealth; Route B (property, agricultural land) at 20–30%; Route C (self-declared fungibles) at 5–10%; Route D (private company equity, illiquid non-fungibles) at 10–20%. The enforcement residual identified in Route D applies to a minority of WDT-taxable wealth by volume, though its revenue concentration at the very top is higher (BEHAV §8.11–8.12).
+**The enforcement paradigm shift and route distribution.** Under the WDT, the state does not need to discover true values — unattributed ownership faces $\tau_h$ by default, and surfacing hidden assets compounds the concealment cost. Route A (listed equities, bonds, pensions) is estimated at 40–55% of WDT-taxable wealth; Route B (property, agricultural land) at 20–30%; Route C (self-declared fungibles) at 5–10%; Route D (private company equity, illiquid non-fungibles) at 10–20%. The enforcement residual identified in Route D applies to a minority of WDT-taxable wealth by volume, though its revenue concentration at the very top is higher (BEHAV §8.11) and (BEHAV §8.12).
 
 **Membrane calcification.** The tendency of a mature institution to preserve Membrane processes calibrated to Phase One even when the taxpayer population has changed. The monitoring architecture proposed — mandatory publication of membrane health observables, TP as institutional monitor via one-member-one-vote majority coalition interest, the Allocator as Fairness signal through lobbying intensity — is the best available response within the existing institutional design, not a self-executing prevention mechanism (BEHAV §10).
 
@@ -323,7 +323,7 @@
 
 ---
 
-## 20 CLOSE: Position Closure
+## 19 CLOSE: Position Closure
 
 **Central claim.** Death, jurisdictional exit, threshold fall-through, and bankruptcy are structurally the same kind of event: the WDT assessment position closes. In each case the mechanism owes the individual a correct final delta calculation and honours the symmetric refund on any negative final delta; the individual owes the mechanism a correct accounting regardless of why the position is closing. The abstraction is not conceptual tidiness — it closes the loophole that separate event-specific regimes would create (CLOSE §2).
 
@@ -337,11 +337,11 @@
 
 ---
 
-## 21 POL: Political Architecture
+## 20 POL: Political Architecture
 
 **Why wealth taxes fail politically.** By 1990 twelve OECD countries levied individual net wealth taxes; most had abolished them by 2020. The standard account emphasises economic factors, but the evidence (Perret 2021) shows abolition occurred for political reasons through three structural mechanisms: legitimacy collapse (invisible reciprocity; no visible benefit to defend), organised opposition advantage (small concentrated taxed population vs. large diffuse beneficiaries), and institutional brittleness (individually defensible exemptions accumulating invisibly into structural hollowing) (POL §3).
 
-**Political durability as a design property.** The three failure mechanisms generate three design criteria: visible reciprocity, organised constituencies with stakes in continuation, and constitutional protection against institutional erosion. The WDT was not designed against these criteria — it was designed from first principles. That the political durability properties resulted is a consequence of deriving the mechanism correctly. An institution that serves political functions as a byproduct of serving other functions is more robust than one whose survival depends on those political functions being valued (POL §4–5).
+**Political durability as a design property.** The three failure mechanisms generate three design criteria: visible reciprocity, organised constituencies with stakes in continuation, and constitutional protection against institutional erosion. The WDT was not designed against these criteria — it was designed from first principles. That the political durability properties resulted is a consequence of deriving the mechanism correctly. An institution that serves political functions as a byproduct of serving other functions is more robust than one whose survival depends on those political functions being valued (POL §4) and (POL §5).
 
 **Institutional redundancy.** Each WDT institution serves multiple independent functions simultaneously. The symmetric refund addresses Domar-Musgrave risk-sharing, the cooperative moral commitment, and taxpayer incentives before it addresses political reciprocity. The SWF addresses fiscal pre-funding before it addresses constituency-building. The labour dividend addresses the terminal goal before it addresses organised counter-interests. Because each feature exists for three independent reasons, an opponent must pay three separate costs to remove it (POL §5.7).
 
@@ -351,7 +351,7 @@
 
 ---
 
-## 22 PHASE1: Phase One
+## 21 PHASE1: Phase One
 
 **The empirical boundary.** The companion papers establish a complete design. PHASE1 draws the line between what that design establishes and what only implementation can answer. Seven empirical clusters are identified — coherent groups of questions unanswerable at the design stage because the data they require does not yet exist (PHASE1 §1–2).
 
@@ -361,7 +361,7 @@
 
 ---
 
-## 23 ENV: Environmental Effects and Transmission Channels
+## 22 ENV: Environmental Effects and Transmission Channels
 
 **The paper's place.** ENV asks what the WDT does to the economy around it. The standard efficiency critique of wealth taxation rests on the assumption that the tax is a friction on a capital stock; that assumption fails for a tax on the annual change in net worth with a symmetric loss refund. The correct starting point is that the existing architecture actively engineers capital stagnation through lock-in distortions, basis step-up, and debt preferences — the WDT removes those frictions rather than adding new ones (ENV §1), (ENV §3).
 
@@ -369,15 +369,15 @@
 
 **Displacement channel: bilateral NICs removal as the cleanest case.** Staged replacement of labour taxation through constitutionally committed LRR accumulation delivers demand stimulus at a pace that reduces transition-shock risk. Bilateral employer and employee NICs removal is the cleanest single case: both sides see the benefit directly, the incidence question that makes unilateral employer-side removal complicated disappears, and labour becomes cheaper to supply and hire simultaneously. Concerns that NICs removal accelerates substitution toward gig arrangements or toward capital over labour both run the direction of the effect backwards (ENV §4.2).
 
-**Automation and tax-base migration.** The WDT tax base tracks wealth delta regardless of whether that appreciation was generated by human labour or capital deployment. As automation increases the productive value of capital, WDT revenue increases automatically without legislative change, and the displacement channel then progressively shifts the fiscal base toward the asset class growing in relative importance. This is categorically different from robot taxes (definitional problem), capital income taxes (realisation-event problem), and stock wealth taxes (holding-cost objection) (ENV §4.3–4.5).
+**Automation and tax-base migration.** The WDT tax base tracks wealth delta regardless of whether that appreciation was generated by human labour or capital deployment. As automation increases the productive value of capital, WDT revenue increases automatically without legislative change, and the displacement channel then progressively shifts the fiscal base toward the asset class growing in relative importance. This is categorically different from robot taxes (definitional problem), capital income taxes (realisation-event problem), and stock wealth taxes (holding-cost objection) (ENV §4.3) and (ENV §4.5).
 
-**Financial system stability.** The symmetric refund reaches the population whose portfolio decisions move asset markets — the population whose selling behaviour amplifies liquidity spirals in downturns — at exactly the moment when liquidation pressure is highest. This dampens the forced-selling mechanism that turns valuation problems into systemic crises; conventional automatic stabilisers (unemployment insurance, consumption credits) do not reach this population. The SWF's countercyclical deployment capacity and the DR chamber's pre-commitment capacity on disbursement pace are two independent countercyclical instruments requiring no discretionary intervention to activate (ENV §6–7).
+**Financial system stability.** The symmetric refund reaches the population whose portfolio decisions move asset markets — the population whose selling behaviour amplifies liquidity spirals in downturns — at exactly the moment when liquidation pressure is highest. This dampens the forced-selling mechanism that turns valuation problems into systemic crises; conventional automatic stabilisers (unemployment insurance, consumption credits) do not reach this population. The SWF's countercyclical deployment capacity and the DR chamber's pre-commitment capacity on disbursement pace are two independent countercyclical instruments requiring no discretionary intervention to activate (ENV §6)  and (ENV §7).
 
 **Phase One measurement agenda.** Four questions are added to the consolidated register: consumption multiplier magnitude and SRR calibration implications (Phase One empirical); housing price net effect (Phase One empirical); net bias direction of RATES estimates (assigned to MACRO, a Phase One successor paper); automation and tax-base migration under different automation trajectories (assigned to MACRO) (ENV §9).
 
 ---
 
-## 24 FM: First Mover
+## 23 FM: First Mover
 
 **The binary.** If the WDT's properties are as described, any jurisdiction that has concluded this is likely true faces a choice with no stable middle option: commit before first-mover advantages begin accruing elsewhere, or ensure they never begin accruing anywhere. Every year spent observing is a year of compounding first-mover advantage permanently gone. The binary follows from four independently evaluable premises: first-mover gains compound in ways late movers cannot recover; partial adoption is not available (FM §2); the mechanism works as described; and the implementation minimum is real (FM §1).
 
@@ -389,21 +389,21 @@
 
 ---
 
-## 25 MOD: Modular Adoption
+## 24 MOD: Modular Adoption
 
 **Two categories of WDT institution.** Category 1 is enabling infrastructure that has independent justification outside the WDT: a professional valuation system with published standards, a public valuation register, beneficial ownership attribution law, a sovereign wealth fund in the generic sense, and independent fiscal governance in the generic sense. Category 2 consists of constitutively WDT-specific mechanisms with no independent justification: the symmetric refund at the marginal rate, the declaration equilibrium, the Route D auction, the lifetime contribution envelope, and the three-chamber Governing Council structure. Non-decomposability applies to the full architecture; the asymmetry is that some Category 1 institutions can stand without the WDT even though the WDT cannot stand without them (MOD §1).
 
 **Why infrastructure accrues.** Three independent policy currents produce Category 1 infrastructure without WDT intent: the global push for beneficial ownership transparency (anti-money-laundering, financial crime enforcement) builds attribution law; the pursuit of fiscal credibility builds independent fiscal institutions and sovereign wealth funds; valuation market reform builds the professional infrastructure VAL's four-route architecture requires. Infrastructure creates interests — practitioners, custodians, and revenue authorities that advocate forward for continued use of what they have built (MOD §2).
 
-**What accretion delivers and its ceiling.** A government that has assembled Category 1 infrastructure through locally rational policy decisions faces a smaller remaining commitment when it evaluates the WDT — not a decision that has been made for it, but a practical barrier that is lower. The modular adoption pathway is not an alternative to FM's binary; it describes the terrain on which that binary will eventually be confronted. Accretion reaches the Category 1 boundary and stops; Category 2 mechanisms do not accrue and require deliberate political commitment (MOD §3–4).
+**What accretion delivers and its ceiling.** A government that has assembled Category 1 infrastructure through locally rational policy decisions faces a smaller remaining commitment when it evaluates the WDT — not a decision that has been made for it, but a practical barrier that is lower. The modular adoption pathway is not an alternative to FM's binary; it describes the terrain on which that binary will eventually be confronted. Accretion reaches the Category 1 boundary and stops; Category 2 mechanisms do not accrue and require deliberate political commitment (MOD §3)  and (MOD §4).
 
 ---
 
-## 26 Open Questions Register
+## 25 Open Questions Register
 
 Items in this register are questions not resolved within the current paper set. All 24 papers are now in the project.
 
-### 26.1 Confirmed Literature Gaps (formal modelling required; separable from Phase One)
+### 25.1 Confirmed Literature Gaps (formal modelling required; separable from Phase One)
 
 | # | Question | Assigned to |
 |---|---|---|
@@ -414,7 +414,7 @@ Items in this register are questions not resolved within the current paper set. 
 | 8 | International competitive dynamic at the political level | POL §7; FM §1 |
 | 9 | Minimum-tax floor interaction with refund-based systems | LR.A §4.3 |
 
-### 26.2 Phase One Empirical Questions (unanswerable before a live system)
+### 25.2 Phase One Empirical Questions (unanswerable before a live system)
 
 | # | Question | Assigned to |
 |---|---|---|
@@ -426,17 +426,17 @@ Items in this register are questions not resolved within the current paper set. 
 | 15 | Corporate instrument transition: conditions for CIT displacement question to become a policy decision | PHASE1 §4.7; Phase One cluster 7 |
 | 16 | Housing price net effect (demand composition shift; net price level ambiguous) | ENV §9.2.2; Phase One |
 | 18 | SRR floor calibration implication of mild-overstatement equilibrium | ENV §2; Phase One |
-| 29 | Monitoring instrument for population distribution of α (mild-overstatement drift) | VAL.A §A.6; BEHAV §10.2 |
+| 29 | Monitoring instrument for population distribution of $\alpha$ (mild-overstatement drift) | VAL.A §A.6; BEHAV §10.2 |
 | 30 | Bootstrapping problem: Phase One vulnerability window mitigation sufficiency | POL §6; Phase One |
 
-### 26.3 Assigned to MACRO (Phase One successor; requires live data before modelling can be calibrated)
+### 25.3 Assigned to MACRO (Phase One successor; requires live data before modelling can be calibrated)
 
 | # | Question | Assigned to |
 |---|---|---|
 | 11 | Consumption multiplier magnitude and net bias direction of RATES estimates | ENV §9.2.3; MACRO |
 | 12 | Automation and tax-base migration under different automation trajectories | ENV §9.2.4; MACRO |
 
-### 26.4 Governing Council Calibration Parameters (settled in kind, open in value; all Phase One data dependent)
+### 25.4 Governing Council Calibration Parameters (settled in kind, open in value; all Phase One data dependent)
 
 | # | Question | Assigned to |
 |---|---|---|
@@ -445,25 +445,25 @@ Items in this register are questions not resolved within the current paper set. 
 | 19 | Liquidity threshold for thinly traded companies | CORP §4.1 |
 | 20 | τ₀ exact calibration (collection-security floor; 1–2 cycles) | CORP.A §B.1 |
 | 21 | τ_h exact calibration within [deterrence floor, τ_m]; ramp pace; joint calibration with CIT/dividend displacement (3–5 cycles) | CORP.A §B.2 |
-| 24 | Assessment window premium exact calibration | VAL §8; RATES §4 |
+| 24 | Assessment window premium exact calibration | VAL §8; RATES §9.3 |
 
-### 26.5 Jurisdiction-Specific and Institutional Preconditions (not design gaps)
+### 25.5 Jurisdiction-Specific and Institutional Preconditions (not design gaps)
 
 | # | Question | Assigned to |
 |---|---|---|
-| 22 | τ_f diplomatic rate-setting (bilateral/multilateral agreement; not a WDT parameter) | CORP.A §F |
+| 22 | τ_f diplomatic rate-setting (bilateral/multilateral agreement; not a WDT parameter) | CORP.A §F.9 |
 | 23 | Route D auction implementation details (conduct rules, no-bid fallback, timeline, international assets) | GOV.B §G |
 | 25 | Derivatives valuation methodology for illiquid positions | Future VAL methodology work |
 | 26 | HMRC data access agreement for microsimulation | JUR §4.3 |
 | 27 | Post-Brexit information exchange gaps (DAC loss, EU-domiciled structures) | JUR §4.3 |
 | 28 | Constitutional/legal analysis of Route D auction trigger in specific jurisdictions | WP §8.5; JUR |
 
-### 26.6 Summary observations
+### 25.6 Summary observations
 
-- **6 confirmed literature gaps** (Group 1) require formal modelling or comparative case study work; most are separable from Phase One.
-- **10 Phase One empirical questions** (Group 2) cannot be resolved without live system data; PHASE1 specifies evaluation designs for items 4–6, 13–16. Items 4–6 and 30 are the most consequential.
-- **2 items** (Group 3) are assigned to MACRO, a Phase One successor paper; Phase One data is required before the modelling can be calibrated.
-- **6 Governing Council calibration parameters** (Group 4) are settled in kind but open in value. Item 17 (the τ₀ × W_min joint surface) is the most analytically urgent — it is the only item in this group resolvable without Phase One data, requiring only a second-order sweep extension.
-- **6 jurisdiction-specific and institutional preconditions** (Group E) are not design gaps; resolution depends on legal analysis, diplomatic process, or institutional negotiation.
-- **The τ₀ cross-dataset tension** cuts across Groups B, C, and D (items 11, 17, 18): higher τ₀ accelerates LRR fill while weakening the overstater self-correction mechanism, and no setting simultaneously optimises both. It is the most consequential unresolved calibration problem.
-- **The most consequential outstanding deliverable** is Phase One implementation itself: Group B items 4–6, 29, and 30 cannot be resolved by any further desk research regardless of how much additional modelling is done.
+- **6 confirmed literature gaps** (§25.1) require formal modelling or comparative case study work; most are separable from Phase One.
+- **10 Phase One empirical questions** (§25.2) cannot be resolved without live system data; PHASE1 specifies evaluation designs for items 4–6, 13–16. Items 4–6 and 30 are the most consequential.
+- **2 items** (§25.3) are assigned to MACRO, a Phase One successor paper; Phase One data is required before the modelling can be calibrated.
+- **6 Governing Council calibration parameters** (§25.4) are settled in kind but open in value. Item 17 (the τ₀ × W_min joint surface) is the most analytically urgent — it is the only item in §25.4 resolvable without Phase One data, requiring only a second-order sweep extension.
+- **6 jurisdiction-specific and institutional preconditions** (§25.5) are not design gaps; resolution depends on legal analysis, diplomatic process, or institutional negotiation.
+- **The τ₀ cross-dataset tension** cuts across §25.2, §25.3, and §25.4 (items 11, 17, 18): higher τ₀ accelerates LRR fill while weakening the overstater self-correction mechanism, and no setting simultaneously optimises both. It is the most consequential unresolved calibration problem.
+- **The most consequential outstanding deliverable** is Phase One implementation itself: §25.2 items 4–6, 29, and 30 cannot be resolved by any further desk research regardless of how much additional modelling is done.

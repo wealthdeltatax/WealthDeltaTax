@@ -30,7 +30,6 @@ if errorlevel 1 (
     pause
     exit /b 1
 )
-)
 
 quarto render _build
 if errorlevel 1 (

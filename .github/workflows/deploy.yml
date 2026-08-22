@@ -45,10 +45,11 @@ jobs:
             --contents registry/contents.yml \
             --out site/pages/glossary.md
 
+      - name: Run build anchors
+        run: python pipeline/build_anchors.py
+
       - name: Run preprocessing
-        run: |
-          python pipeline/build_anchors.py
-          python pipeline/preprocess.py
+        run: python pipeline/preprocess.py
 
       - name: Debug _build structure and generated _quarto.yml
         if: failure()

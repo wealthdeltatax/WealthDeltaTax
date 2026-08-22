@@ -26,7 +26,6 @@ from diagrams import generate_flowcharts_qmd
 from pages.corpus import generate_corpus_qmd
 from pages.references import generate_references_qmd
 from pages.site_index import copy_machine_readable_assets
-from quarto_config import generate_quarto_yml
 from transforms import process_file, strip_latex, convert_crossrefs
 
 
@@ -70,9 +69,6 @@ def main() -> None:
             destination.write_text(text, encoding="utf-8")
         else:
             shutil.copy2(p, destination)
-
-    # ── _quarto.yml: nested sidebar + toc: false ─────────────────────────
-    generate_quarto_yml(build, site_cfg.contents, site_cfg.anchor_map)
 
     # ── Auto-generated pages ──────────────────────────────────────────────
     generate_corpus_qmd(build / "corpus.qmd", site_cfg.link_map, site_cfg.paper_meta)

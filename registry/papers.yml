@@ -94,3 +94,7 @@
 - shortcode: MOD
   source_glob: "16.0_*_WDT_Modular_Adoption.md"
   output: mod.qmd
+
+- shortcode: SCOPE
+  source_glob: "17.0_*_WDT_Scope_Boundary.md"
+  output: scope.qmd

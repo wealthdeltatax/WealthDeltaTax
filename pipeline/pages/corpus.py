@@ -12,13 +12,13 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from config import AUTHOR, SITE_URL
+from config import AUTHOR, SITE_URL, _format_date
 
 # ── Section ordering for the index table ─────────────────────────────────────
 
 SECTION_ORDER: list[tuple[str, list[str]]] = [
     ("Core Papers",              ["WP", "MF"]),
-    ("Literature",               ["LR", "LR.A", "LR.B", "JUR"]),
+    ("Literature",               ["LR.A", "LR.B", "JUR"]),
     ("Valuation",                ["VAL", "VAL.A", "VAL.B"]),
     ("Corporate & Governance",   ["CORP", "CORP.A", "GOV", "GOV.A", "GOV.B"]),
     ("Revenue & Behaviour",      ["RATES", "RATES.A", "SWEEPS", "SWEEPS.A", "BEHAV"]),
@@ -35,16 +35,6 @@ _STATUS_LABEL: dict[str, str] = {
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
-
-def _format_date(raw_date: Any) -> str | None:
-    if not raw_date or len(str(raw_date)) != 6:
-        return None
-    s = str(raw_date)
-    try:
-        return f"20{s[0:2]}-{s[2:4]}-{s[4:6]}"
-    except Exception:
-        return None
-
 
 def _yymmdd_to_display(raw: Any) -> str:
     """Convert YYMMDD → human-readable date string, e.g. '15 Aug 2026'."""
@@ -136,14 +126,14 @@ def generate_corpus_qmd(
         "",
         "## Reading dependencies",
         "",
-        "Most papers assume familiarity with the [White Paper (WP)](wp.html). "
-        "The valuation appendices (VAL.A, VAL.B) assume familiarity with [VAL](val.html). "
-        "The governance appendices (GOV.A, GOV.B) assume familiarity with [GOV](gov.html). "
-        "The rates appendix (RATES.A) assumes familiarity with [RATES](rates.html).",
+        "Most papers assume familiarity with the [White Paper (WP)]."
+        "The valuation appendices (VAL.A), (VAL.B) assume familiarity with (VAL)."
+        "The governance appendices (GOV.A), (GOV.B) assume familiarity with (GOV)."
+        "The rates appendix (RATES.A) assumes familiarity with (RATES).",
         "",
         "For first-time readers, the recommended sequence is: "
-        "[WP](wp.html) → [MF](mf.html) → [VAL](val.html) → "
-        "[GOV](gov.html) → [RATES](rates.html). "
+        "(WP) → (MF) → (VAL)→ "
+        "(GOV) → (RATES). "
         "See also the [Start Here](start-here.html) guide.",
         "",
         "---",

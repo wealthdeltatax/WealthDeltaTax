@@ -28,6 +28,7 @@ from config import (
     REFERENCES_JSON,
     ROOT_DIR,
     SITE_URL,
+    _format_date,
 )
 
 try:
@@ -39,16 +40,6 @@ except ImportError:  # pragma: no cover
 _HEADING_RE = re.compile(r"^(#{1,6})[ \t]+(.+?)[ \t]*$", re.MULTILINE)
 _HTML_RE = re.compile(r"<[^>]+>")
 _FENCE_RE = re.compile(r"^(```|~~~)", re.MULTILINE)
-
-
-def _format_date(raw_date: Any) -> str | None:
-    if not raw_date or len(str(raw_date)) != 6:
-        return None
-    s = str(raw_date)
-    try:
-        return f"20{s[0:2]}-{s[2:4]}-{s[4:6]}"
-    except Exception:
-        return None
 
 
 def _normalise_heading(text: str) -> str:
