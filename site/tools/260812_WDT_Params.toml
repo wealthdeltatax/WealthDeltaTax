@@ -1,0 +1,425 @@
+# WDT Rates and Revenue — Parameters File
+# =========================================
+# This file is the single source of truth for all model inputs.
+# The Excel workbook (7_1_260726_Rates_Analysis.xlsx) is now treated as a
+# frozen checker only; Python reads nothing from it at runtime except for
+# validation comparisons.
+#
+# TOML type rules relied on here:
+#   integers  : no quotes, no decimal point   (e.g. 1947)
+#   floats    : no quotes, must have decimal  (e.g. 0.001)
+#   strings   : double-quoted
+#   arrays    : [[double-bracket section headers]] for array-of-tables
+
+
+# ─────────────────────────────────────────────────────────────
+# [meta] — run identity
+# ─────────────────────────────────────────────────────────────
+[meta]
+version        = "v7"
+date           = "2026-08-15"
+scenario_label = "2007 Balanced"   # human-readable label for outputs
+excel_checker  = "7.1_260725_Rates_Analysis.xlsx"   # frozen; for validation only
+
+[output]
+generate_charts = true
+
+# ─────────────────────────────────────────────────────────────
+# [rate] — WDT logistic rate function parameters
+#
+# tau(W) = tau_m / (1 + ((tau_m - tau_0) / tau_0) * exp(-k * (W - W_min)))
+#        = 0  if W < W_min
+#
+# tau_0  : floor rate at W = W_min (fraction, e.g. 0.15 = 15%)
+# tau_m  : asymptotic ceiling rate (fraction, e.g. 0.70 = 70%)
+# k      : steepness parameter (per £m); controls how fast rates rise
+# W_min  : wealth level at which the rate function begins to apply (£m)
+#           — a rate design parameter, not a population boundary
+# ─────────────────────────────────────────────────────────────
+[rate]
+tau_0 = 0.15   # Balanced scenario floor rate
+tau_m = 0.70    # ceiling rate (held constant across all scenarios)
+k     = 0.001   # Balanced scenario steepness (per £m)
+W_min = 2.0     # Balanced scenario entry point (£m)
+
+
+# ─────────────────────────────────────────────────────────────
+# [swf] — Sovereign Wealth Fund sizing parameters
+#
+# srr_ratio  : SRR target = srr_ratio × (cumulative net income / N)
+#              Working value 3×; recommended Governing Council floor 3×
+# lrr_years  : LRR floor expressed as N years of prevailing government
+#              expenditure; recommended minimum 3 years
+# ─────────────────────────────────────────────────────────────
+[swf]
+srr_ratio = 3.0   # SRR capitalisation ratio (× average net annual income)
+lrr_years = 3.0   # LRR floor (years of government expenditure)
+
+
+# ─────────────────────────────────────────────────────────────
+# [budget] — UK government expenditure model
+#
+# budget_base   : OBR total managed expenditure base year (£b)
+#                 Source: OBR 2022–23 outturn = £1,157.4b
+# budget_growth : nominal expenditure growth rate per annum (fraction)
+#                 Source: UK historical public expenditure 1999–2019 = 4.51%
+# ─────────────────────────────────────────────────────────────
+[budget]
+budget_base   = 1157.4   # £b (2022–23 OBR total managed expenditure)
+budget_growth = 0.0451   # 4.51% p.a. nominal growth
+
+
+# ─────────────────────────────────────────────────────────────
+# [returns] — UK equity return series
+#
+# series_base_year : the calendar year corresponding to index 0 of the
+#                    returns array below; all other years are offsets from it.
+#                    The sweep rotates this series to test all start years.
+# values           : 73 annual total-return figures (fraction, e.g. 0.1045)
+#                    Source: UK equity capital total return data 1947–2019
+#                    Order: 1947, 1948, … 2019  (index 0 = 1947)
+# ─────────────────────────────────────────────────────────────
+[returns]
+series_base_year = 1947
+
+# Annual returns 1947–2019 inclusive (73 values).
+# These are the same values used in the Excel model UK Fiscal Growth sheet,
+# re-ordered to canonical calendar order (1947 first).
+# IMPORTANT: if the Excel sheet's WDT Year 0 differs from 1947, update
+# series_base_year above and reorder accordingly.
+values = [
+  0.0168,   # 1947
+ -0.0050,   # 1948
+ -0.0016,   # 1949
+  0.0438,   # 1950
+  0.0199,   # 1951
+  0.0033,   # 1952
+  0.0970,   # 1953
+  0.1349,   # 1954
+  0.0295,   # 1955
+  0.0290,   # 1956
+  0.0140,   # 1957
+  0.1869,   # 1958
+  0.1948,   # 1959
+  0.0276,   # 1960
+  0.0392,   # 1961
+  0.0939,   # 1962
+  0.1108,   # 1963
+  0.0224,   # 1964
+  0.0960,   # 1965
+  0.0404,   # 1966
+  0.1527,   # 1967
+  0.2110,   # 1968
+  0.0096,   # 1969
+  0.0413,   # 1970
+  0.2722,   # 1971
+  0.2117,   # 1972
+  0.1546,   # 1973
+  0.0168,   # 1974
+  0.4071,   # 1975
+  0.1118,   # 1976
+  0.2301,   # 1977
+  0.1333,   # 1978
+  0.2292,   # 1979
+  0.2508,   # 1980
+  0.1070,   # 1981
+  0.1719,   # 1982
+  0.1747,   # 1983
+  0.1662,   # 1984
+  0.1563,   # 1985
+  0.1963,   # 1986
+  0.1588,   # 1987
+  0.2086,   # 1988
+  0.2590,   # 1989
+ -0.0015,   # 1990
+  0.0863,   # 1991
+  0.0777,   # 1992
+  0.1295,   # 1993
+  0.0091,   # 1994
+  0.1307,   # 1995
+  0.0856,   # 1996
+  0.1655,   # 1997
+  0.1305,   # 1998
+  0.1639,   # 1999
+  0.0599,   # 2000
+  0.0242,   # 2001
+  0.0642,   # 2002
+  0.1961,   # 2003
+  0.1503,   # 2004
+  0.1237,   # 2005
+  0.0977,   # 2006
+  0.0845,   # 2007
+ -0.0578,   # 2008
+  0.0345,   # 2009
+  0.0953,   # 2010
+  0.0131,   # 2011
+  0.0526,   # 2012
+  0.0865,   # 2013
+  0.0876,   # 2014
+  0.0544,   # 2015
+  0.1022,   # 2016
+  0.0817,   # 2017
+ -0.0105,   # 2018
+  0.0884,   # 2019
+]
+
+
+# ─────────────────────────────────────────────────────────────
+# [tcm] — Taxpayer Cohort Model settings
+#
+# snapshot_N    : the horizon year at which TCM is evaluated, equal to the
+#                 LRR breakeven year from the SSM for the active scenario.
+#                 Update this after each SSM run if the breakeven year changes.
+#                 (This is the only value that requires manual update between runs.)
+# hist_mean     : historical mean return used as the tier differential baseline
+#                 (fraction); derived from the returns series above = 10.45% p.a.
+# ─────────────────────────────────────────────────────────────
+[tcm]
+snapshot_N          = 29     # LRR breakeven year for 2007 Balanced scenario
+hist_mean           = 0.1045 # 10.45% p.a. — population-weighted mean of the returns series
+scenario_start_year = 2007   # Calendar year at which the active scenario begins.
+                              # load_params() rotates the canonical returns series so that
+                              # this year sits at index 0, matching the Excel "WDT Year 0"
+                              # convention. The sweep re-rotates independently per year.
+
+
+# ─────────────────────────────────────────────────────────────
+# [[tiers]] — growth tier definitions (array of tables)
+#
+# Each tier represents a persistent return differential relative to hist_mean.
+# Source: Fagereng, Guiso, Malacrino and Pistaferri (2020).
+# weight       : population share of active taxpayers assigned to this tier
+# differential : additive return differential vs hist_mean (fraction)
+#
+# Constraint: sum of weights must equal 1.0
+# Constraint: population-weighted mean of differentials must equal 0.0
+#             (so weighted-average return recovers hist_mean)
+# ─────────────────────────────────────────────────────────────
+[[tiers]]
+label        = "Poor"
+weight       = 0.10
+differential = -0.0455   # −4.55pp below mean → ~5.90% real return
+
+[[tiers]]
+label        = "Ok"
+weight       = 0.30
+differential = -0.0205   # −2.05pp below mean → ~8.40% real return
+
+[[tiers]]
+label        = "Good"
+weight       = 0.40
+differential =  0.0095   # +0.95pp above mean → ~11.40% real return
+
+[[tiers]]
+label        = "Great"
+weight       = 0.20
+differential =  0.0345   # +3.45pp above mean → ~13.90% real return
+
+
+# ─────────────────────────────────────────────────────────────
+# [[brackets]] — wealth brackets
+#
+# Source: ONS Wealth and Assets Survey 2018–20 (below top 1%);
+#         Pareto extrapolation at α = 2.25 (top 1% and above).
+# label  : human-readable percentile label
+# N_pop  : number of individuals in bracket
+# V0_m   : mean wealth of bracket in £m (used as starting wealth in TCM)
+#
+# NOTE: V0_m for Pareto brackets (top 1% and above) are model-implied,
+# not directly observed. WAS undersamples above £3m so the modelled tail
+# is lighter than the true distribution.
+# ─────────────────────────────────────────────────────────────
+[[brackets]]
+label = "50%"
+N_pop = 6920000
+V0_m  = 0.401789   # £401,789
+
+[[brackets]]
+label = "60%"
+N_pop = 6920000
+V0_m  = 0.569543   # £569,543
+
+[[brackets]]
+label = "70%"
+N_pop = 6920000
+V0_m  = 0.782141   # £782,141
+
+[[brackets]]
+label = "80%"
+N_pop = 6920000
+V0_m  = 1.108535   # £1,108,535
+
+[[brackets]]
+label = "90%"
+N_pop = 3460000
+V0_m  = 1.629190   # £1,629,190
+
+[[brackets]]
+label = "95%"
+N_pop = 2768000
+V0_m  = 2.858347   # £2,858,347
+
+[[brackets]]
+label = "99%"
+N_pop = 622800
+V0_m  = 7.135016   # £7,135,016
+
+[[brackets]]
+label = "99.9%"
+N_pop = 62280
+V0_m  = 19.853605  # £19,853,605
+
+[[brackets]]
+label = "99.99%"
+N_pop = 6228
+V0_m  = 53.384707  # £53,384,707
+
+[[brackets]]
+label = "99.99%+"
+N_pop = 692
+V0_m  = 139.607368  # £139,607,368
+
+
+# ─────────────────────────────────────────────────────────────
+# [val] — VAL reference scenario parameters
+#
+# These are used by the VAL output scripts (3.4.1–3.4.4) only.
+# They are not RATES model inputs.
+#
+# V0_m : reference scenario entry wealth (£m). A round number
+#         chosen for illustration across VAL, VAL.A, and VAL.B.
+#         Not a bracket mean; not a population figure.
+# ─────────────────────────────────────────────────────────────
+[val]
+V0_m = 20.0     # £20m — VAL reference entry wealth
+
+
+# ─────────────────────────────────────────────────────────────
+# [sweep] — shared analytical grids and canonical reference values
+#
+# All hardcoded constants in VAL.S and RATES.S scripts are sourced
+# from here.  Scripts read these via p['sweep'] after load_params().
+#
+# CANONICAL BASELINE
+# ------------------
+# These are the reference parameter values used as the "held-constant"
+# point in all single-parameter sweeps, and as the make_p() defaults
+# in VAL.S scripts.
+#
+# tau_0_canon  : canonical floor rate (τ₀)  — updated to 15%
+# tau_m_canon  : canonical ceiling rate (τ_m)
+# k_canon      : canonical steepness (per £m)
+# W_min_canon  : canonical entry point (£m)
+# N_canon      : canonical holding period (years) — LRR fill year at 2006 start
+# V0_canon     : canonical entry wealth for VAL reference scenarios (£m)
+# g_canon      : canonical growth rate = hist_mean (fraction)
+#
+# ANALYSIS CONSTANTS
+# ------------------
+# tzone_threshold : |C.1| below this is "negligible" for tolerant-zone analysis
+#
+# SHARED ANALYTICAL GRIDS (VAL and VAL.S)
+# ----------------------------------------
+# g_vals         : growth sweep used in C.1 heatmaps (VAL.A Data Tables order)
+# alpha_vals     : declaration-ratio rows for heatmaps and comparison tables
+# over_alphas    : overstater subset used in N-crossing analysis
+# under_alphas   : understater subset used in penalty analysis
+# n_sweep        : full N sweep range for crossing detection [min, max, step]
+#                  scripts reconstruct: list(range(n_sweep[0], n_sweep[1]+1, n_sweep[2]))
+# n_panel_vals   : N values used in 4-panel horizon figures
+# n_actual_vals  : N values for Tables C.7/C.8 (actual simulation N, not Excel offset)
+# v0_sweep_vals  : V₀ levels for VAL.S horizon/wealth sweeps
+#
+# VAL.S PARAMETER SWEEP PANELS
+# -----------------------------
+# tau0_panel_vals  : τ₀ values for 4-panel VAL.S figures (§2.1)
+# taum_panel_vals  : τ_m values for 4-panel VAL.S figures (§2.2)
+# k_panel_vals     : k values for 4-panel VAL.S figures (§2.3)
+# wmin_panel_vals  : W_min values for 4-panel VAL.S figures (§2.4)
+#
+# VAL.S INTERACTION SURFACE GRIDS
+# --------------------------------
+# tau0_n_surface_tau0  : τ₀ axis for the §4.1 joint surface (fraction)
+#                        encoded as [start_pct, stop_pct, step_pct] → /100
+# tau0_n_surface_nceil : N-ceiling axis for §4.1 surface [min, max, step]
+# k_v0_surface_k       : k axis for §4.2 surface
+# k_v0_surface_v0      : V₀ axis for §4.2 surface (£m)
+#
+# VAL.A APPENDIX C TABLE GRIDS (appc_full, generate_figures)
+# -----------------------------------------------------------
+# appc_k_vals    : k values for Table C.4 (9 values, wider range than panels)
+# appc_v0_vals   : V₀ values for Table C.4 (£m, integer)
+# appc_over_vals : α values for Table C.3 overstatement extension
+#
+# RATES.S SWEEP GRIDS
+# -------------------
+# rates_tau_0_sweep  : τ₀ sweep for RATES.S single-parameter sensitivity
+# rates_tau_m_sweep  : τ_m sweep
+# rates_k_sweep      : k sweep (log-spaced)
+# rates_wmin_sweep   : W_min sweep (£m)
+# ─────────────────────────────────────────────────────────────
+[sweep]
+
+# ── Canonical baseline ────────────────────────────────────────
+tau_0_canon = 0.15     # 15% — canonical floor rate
+tau_m_canon = 0.70     # 70% — canonical ceiling rate
+k_canon     = 0.001    # steepness per £m
+W_min_canon = 2.0      # £2m — entry point
+N_canon     = 29       # canonical holding period (LRR fill year, 2007 start)
+V0_canon    = 20.0     # £20m — VAL reference entry wealth
+g_canon     = 0.1045   # 10.45% p.a. — hist_mean alias
+
+# ── Analysis constants ────────────────────────────────────────
+tzone_threshold = 0.02   # 2pp — |C.1| threshold for tolerant-zone analysis
+
+# ── Shared analytical grids ───────────────────────────────────
+g_vals = [
+  -0.0455, 0.00449, 0.059, 0.084, 0.1045,
+   0.114,  0.139,   0.1645, 0.2045, 0.2545,
+]
+alpha_vals   = [0.1, 0.2, 0.5, 0.8, 1.0, 1.2, 1.5, 1.8, 2.0]
+over_alphas  = [1.5, 1.8, 2.0]
+under_alphas = [0.1, 0.2, 0.5, 0.8]
+
+# n_sweep: [min, max, step] — scripts do list(range(min, max+1, step))
+n_sweep = [5, 65, 1]
+
+# n_panel_vals: 4 N values for horizon panel figures (§3.1b)
+n_panel_vals  = [10, 20, 29, 50]
+
+# n_actual_vals: Tables C.7/C.8 — actual simulation N (Excel offset corrected)
+n_actual_vals = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
+
+# v0_sweep_vals: VAL.S §3.2 wealth-level sweep
+v0_sweep_vals = [5.0, 20.0, 100.0, 500.0, 1000, 5000, 10000, 50000]
+
+# ── VAL.S parameter sweep panels ─────────────────────────────
+tau0_panel_vals = [0.10, 0.15, 0.20, 0.30, 0.40, 0.50]
+taum_panel_vals = [0.50, 0.60, 0.70, 0.80]
+k_panel_vals    = [0.0001, 0.0002, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.05, 0.1]
+wmin_panel_vals = [0.5, 1.0, 2.0, 5.0, 10.0, 50]
+
+# ── VAL.S interaction surface grids ──────────────────────────
+# tau0_n_surface_tau0: [start_pct, stop_pct, step_pct] — divide by 100 for fraction
+tau0_n_surface_tau0  = [5, 41, 3]
+tau0_n_surface_nceil = [10, 70, 5]   # [min, max, step]
+
+k_v0_surface_k  = [0.0001, 0.0002, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.05, 0.1]
+k_v0_surface_v0 = [5.0, 10.0, 20.0, 50.0, 100.0, 200.0, 500.0]
+
+# ── VAL.A Appendix C table grids ─────────────────────────────
+appc_k_vals   = [0.0001, 0.0002, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.05, 0.1]
+appc_v0_vals  = [1, 10, 50, 100, 250, 500, 1000, 2500, 5000, 10000]
+appc_over_vals = [1.0, 1.2, 1.5, 1.8, 2.0]
+
+# ── RATES.S sweep grids ───────────────────────────────────────
+rates_tau_0_sweep    = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50]
+rates_tau_m_sweep    = [0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00]
+rates_k_sweep        = [0.0001, 0.0002, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.05, 0.1]
+rates_wmin_sweep     = [0.1, 0.25, 0.5, 1.0, 2.0, 3.0, 5.0, 7.5, 10.0]
+
+# SWF sizing sweeps — vary capitalisation parameters, not rate parameters.
+# Individual taxpayer burden is unaffected by these; only milestone timing changes.
+# Baseline: srr_ratio = 3.0x,  lrr_years = 3.0 years of expenditure.
+rates_srr_ratio_sweep = [1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0]
+rates_lrr_years_sweep = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 8.0]

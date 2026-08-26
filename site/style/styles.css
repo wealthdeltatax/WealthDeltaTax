@@ -1,61 +1,497 @@
+/* ============================================================
+   WDT Site Styles
+   Deliberately geocities-era aesthetic, circa 1999–2003.
+   Royal purple + gold palette. Pure CSS, no JS required.
+   Drop-in replacement for site/style/styles.css
+   ============================================================ */
+
+
+/* ── Reset / base ─────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
+/* ── Tiled background ─────────────────────────────────────── */
+/* Diagonal purple stripe pattern — swap for a real .gif tile  */
+/* by replacing background-image with: url('../img/tile.gif')  */
+
 body {
-  font-family: 'Georgia', serif;
-  font-size: 16px;
-  line-height: 1.7;
+  background-color: #2B0055;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #2B0055,
+    #2B0055 6px,
+    #1A0033 6px,
+    #1A0033 18px
+  );
+  background-attachment: fixed;
+  color: #000000;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 0;
+  padding: 0;
 }
 
-h1, h2, h3, h4 {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+
+/* ── Content panel — the silver box floating on the purple ── */
+/* Targets the main Quarto layout wrapper                      */
+
+.page-layout-article,
+.page-layout-full,
+#quarto-content {
+  background-color: #C0C0C0;
+  border: 3px double #FFD700;
+  outline: 1px solid #000000;
+  max-width: 900px;
+  margin: 1rem auto;
+  padding: 0;
 }
 
-.sidebar-navigation .sidebar-item-text {
-  font-size: 0.9rem;
+/* Inner content gets white background for readability */
+.quarto-container,
+#quarto-document-content,
+.content {
+  background-color: #FFFFFF;
+  padding: 1.25rem 1.5rem;
+  border: 2px inset #808080;
+  margin: 6px;
 }
+
+
+/* ── Navbar ───────────────────────────────────────────────── */
+
+.navbar {
+  background-color: #2B0055 !important;
+  border-bottom: 3px solid #FFD700;
+  padding: 0.4rem 0.75rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+}
+
+.navbar-brand,
+.navbar .nav-link,
+.navbar-nav .nav-link {
+  color: #FFD700 !important;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  padding: 0.2rem 0.5rem;
+}
+
+.navbar .nav-link:hover,
+.navbar-nav .nav-link:hover {
+  color: #FFFFFF !important;
+  text-decoration: underline;
+  background-color: transparent;
+}
+
+.navbar-brand {
+  font-size: 15px;
+  letter-spacing: 0.03em;
+}
+
+/* Dropdown menus */
+.dropdown-menu {
+  background-color: #1A0033;
+  border: 2px solid #FFD700;
+  border-radius: 0;
+  padding: 0;
+  min-width: 220px;
+}
+
+.dropdown-item {
+  color: #FFD700 !important;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  padding: 0.3rem 0.75rem;
+  border-bottom: 1px solid #2B0055;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: #2B0055;
+  color: #FFFFFF !important;
+  text-decoration: underline;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+
+/* ── Sidebar ──────────────────────────────────────────────── */
+
+#quarto-sidebar,
+.sidebar,
+.sidebar-navigation {
+  background-color: #2B0055 !important;
+  border-right: 2px solid #FFD700;
+}
+
+.sidebar-navigation .sidebar-item-text,
+.sidebar-navigation a,
+.sidebar .nav-link {
+  color: #FFD700 !important;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+.sidebar-navigation a:hover,
+.sidebar .nav-link:hover {
+  color: #FFFFFF !important;
+  text-decoration: underline;
+}
+
+.sidebar-navigation .sidebar-section-item,
+.sidebar-navigation .sidebar-item {
+  border-bottom: 1px solid #3d0080;
+  padding: 0.1rem 0;
+}
+
+.sidebar-navigation .active > .nav-link,
+.sidebar-navigation .active > .sidebar-item-text {
+  color: #FFFFFF !important;
+  font-weight: bold;
+}
+
+/* Sidebar section headers */
+.sidebar-navigation .sidebar-section > .sidebar-item-text {
+  color: #FFD700 !important;
+  font-weight: bold;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid #FFD700;
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
+}
+
+
+/* ── TOC (right panel) ────────────────────────────────────── */
+
+#quarto-margin-sidebar,
+.toc-active #TOC,
+nav#TOC {
+  background-color: #1A0033;
+  border-left: 2px solid #FFD700;
+  padding: 0.75rem;
+}
+
+nav#TOC a,
+.toc-active #TOC a {
+  color: #FFD700 !important;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  text-decoration: none;
+  display: block;
+  padding: 0.1rem 0;
+}
+
+nav#TOC a:hover {
+  color: #FFFFFF !important;
+  text-decoration: underline;
+}
+
+nav#TOC .toc-section-number {
+  color: #C0C0C0;
+  font-size: 11px;
+}
+
+
+/* ── Typography ───────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #2B0055;
+  margin-top: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 22px;
+  text-align: center;
+  border-bottom: 3px double #FFD700;
+  padding-bottom: 0.4rem;
+  color: #2B0055;
+  background-color: #C0C0C0;
+  margin: -1.25rem -1.5rem 1.25rem;
+  padding: 0.75rem 1.5rem 0.5rem;
+}
+
+h2 {
+  font-size: 18px;
+  border-bottom: 2px solid #2B0055;
+  padding-bottom: 0.2rem;
+}
+
+h3 {
+  font-size: 15px;
+  color: #3d0080;
+}
+
+h4 {
+  font-size: 14px;
+  color: #2B0055;
+  font-style: italic;
+}
+
+
+/* ── Links — period-authentic, no suppression ─────────────── */
+
+a {
+  color: #0000EE;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #000080;
+}
+
+a:hover {
+  color: #CC0000;
+  text-decoration: underline;
+}
+
+a:active {
+  color: #FF0000;
+}
+
+
+/* ── Horizontal rules — decorative period dividers ─────────── */
+
+hr {
+  border: none;
+  border-top: 2px solid #2B0055;
+  border-bottom: 1px solid #808080;
+  margin: 1.5rem 0;
+}
+
+
+/* ── Tables ───────────────────────────────────────────────── */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+  font-size: 14px;
+  border: 2px solid #2B0055;
+}
+
+th {
+  background-color: #2B0055;
+  color: #FFD700;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #1A0033;
+  text-align: left;
+}
+
+td {
+  padding: 0.35rem 0.6rem;
+  border: 1px solid #C0C0C0;
+  vertical-align: top;
+}
+
+tr:nth-child(even) {
+  background-color: #F0F0F0;
+}
+
+tr:hover {
+  background-color: #E8E0FF;
+}
+
+
+/* ── Blockquotes ──────────────────────────────────────────── */
+
+blockquote {
+  border-left: 4px solid #FFD700;
+  background-color: #F5F0FF;
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  font-style: italic;
+  color: #2B0055;
+}
+
+
+/* ── Code ─────────────────────────────────────────────────── */
+
+code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  background-color: #F0F0F0;
+  border: 1px solid #C0C0C0;
+}
+
+code {
+  padding: 0.1rem 0.3rem;
+}
+
+pre {
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  border-left: 3px solid #2B0055;
+}
+
+
+/* ── Callout boxes (Quarto) ───────────────────────────────── */
+
+.callout {
+  border: 2px solid #2B0055;
+  border-left-width: 5px;
+  border-radius: 0;
+  background-color: #F5F0FF;
+  margin: 1.25rem 0;
+}
+
+.callout-header {
+  background-color: #2B0055;
+  color: #FFD700;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 13px;
+  padding: 0.4rem 0.75rem;
+}
+
+.callout-note {
+  border-color: #2B0055;
+}
+
+.callout-tip {
+  border-color: #006600;
+}
+
+.callout-warning {
+  border-color: #CC6600;
+}
+
+.callout-important {
+  border-color: #CC0000;
+}
+
+
+/* ── Page footer ──────────────────────────────────────────── */
+
+#quarto-footer,
+.nav-footer {
+  background-color: #1A0033;
+  border-top: 3px solid #FFD700;
+  color: #C0C0C0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+
+#quarto-footer a,
+.nav-footer a {
+  color: #FFD700;
+}
+
+#quarto-footer a:visited,
+.nav-footer a:visited {
+  color: #C0A000;
+}
+
+
+/* ── Search (Quarto built-in) ─────────────────────────────── */
+
+.quarto-search input {
+  background-color: #1A0033;
+  color: #FFD700;
+  border: 1px solid #FFD700;
+  border-radius: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+.quarto-search input::placeholder {
+  color: #C0A000;
+}
+
+
+/* ── WDT: internal bibliography ───────────────────────────── */
 
 .internal-bibliography {
-  background-color: #f8f9fa;
-  border-left: 3px solid #dee2e6;
-  padding: 1rem 1.5rem;
+  background-color: #F5F0FF;
+  border-left: 4px solid #2B0055;
+  border-top: 1px solid #C0C0C0;
+  border-bottom: 1px solid #C0C0C0;
+  border-right: 1px solid #C0C0C0;
+  padding: 0.75rem 1.25rem;
   margin: 1.5rem 0;
-  font-size: 0.9rem;
+  font-size: 13px;
+  font-family: "Times New Roman", Times, serif;
 }
+
+
+/* ── WDT: PDF download button ─────────────────────────────── */
 
 .pdf-download {
   display: inline-block;
   margin: 1rem 0;
-  padding: 0.4rem 1rem;
-  background-color: #495057;
-  color: white;
-  border-radius: 4px;
+  padding: 0.35rem 1rem;
+  background-color: #2B0055;
+  color: #FFD700 !important;
+  border: 2px outset #808080;
   text-decoration: none;
-  font-size: 0.9rem;
-}
-.pdf-download:hover {
-  background-color: #343a40;
-  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-/* ── Mermaid diagrams ───────────────────────────────────────────────────── */
+.pdf-download:hover {
+  background-color: #3d0080;
+  color: #FFFFFF !important;
+  border-style: inset;
+  text-decoration: none;
+}
+
+
+/* ── WDT: Mermaid diagram containers ─────────────────────── */
 /*
- * .wdt-diagram-tabset wraps the entire panel-tabset for each diagram group.
- * The {mermaid} blocks must be direct children of a tab panel — no inner
- * ::: div wrapper — or Quarto 1.10+ will not recognise them as Mermaid.
- *
- * Scroll, border, and sizing are applied here via the tabset wrapper and
- * the .tab-pane children that Quarto generates for each panel-tabset tab.
- *
  * Stage 2 styling notes:
  *  - To change node colours: edit classDef lines in site/diagrams/*.mmd
- *  - To change fonts/sizes: override .mermaid text, .mermaid .nodeLabel below
- *  - To add dark-mode variants: add a [data-bs-theme=dark] media query here
+ *  - To change fonts/sizes: override .mermaid text, .mermaid .nodeLabel
  *  - Mermaid theme variables can be set in the %%{init: {...}}%% block in .mmd
  */
 
 .wdt-diagram-tabset {
   margin: 1.5rem 0;
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
-  background: #f8f9fa;
+  border: 2px solid #2B0055;
+  background: #F5F0FF;
+}
+
+/* Period-authentic tab styling */
+.wdt-diagram-tabset .nav-tabs {
+  background-color: #2B0055;
+  border-bottom: 2px solid #FFD700;
+}
+
+.wdt-diagram-tabset .nav-tabs .nav-link {
+  color: #FFD700;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  border-radius: 0;
+  border: 1px solid #3d0080;
+  margin-right: 2px;
+  background-color: #1A0033;
+}
+
+.wdt-diagram-tabset .nav-tabs .nav-link.active {
+  background-color: #C0C0C0;
+  color: #2B0055;
+  font-weight: bold;
+  border-bottom-color: #C0C0C0;
 }
 
 /* Each tab panel gets horizontal scroll so large diagrams don't overflow */
@@ -72,13 +508,12 @@ h1, h2, h3, h4 {
   margin: 0 auto;
 }
 
-/* Full-detail tabs (1st tab in each tabset): enforce a legible minimum width.
-   Target the first tab panel — full-detail is always the first tab. */
+/* Full-detail tabs: enforce a legible minimum width */
 .wdt-diagram-tabset .tab-pane:first-of-type svg {
   min-width: 860px;
 }
 
-/* Skeleton tabs (2nd tab): scale to fit */
+/* Skeleton tabs: scale to fit */
 .wdt-diagram-tabset .tab-pane:nth-of-type(2) svg {
   max-width: 100%;
 }
@@ -97,16 +532,14 @@ h1, h2, h3, h4 {
   transition: filter 0.15s ease;
 }
 
-/* ── External references page ───────────────────────────────────────────── */
+
+/* ── WDT: External references page ───────────────────────── */
 /*
  * .wdt-references      — outer wrapper for the bibliography list
- * .wdt-ref-entry       — one reference entry (card-style)
- * .wdt-ref-type        — pill badge showing entry type (Article, Book, etc.)
+ * .wdt-ref-entry       — one reference entry
+ * .wdt-ref-type        — pill badge showing entry type
  * .wdt-ref-cited       — "Cited in: WP · MF · ..." row
  * .wdt-ref-verified    — ✓ checkmark on verified entries
- *
- * Layout: each entry is a lightly bordered block. Type badge and cited-in
- * sit below the bibliographic line, separated visually from the title/authors.
  */
 
 .wdt-references {
@@ -114,177 +547,169 @@ h1, h2, h3, h4 {
 }
 
 .wdt-ref-entry {
-  border-left: 3px solid #dee2e6;
-  padding: 0.75rem 1.25rem;
-  margin-bottom: 1.25rem;
-  background-color: #fafafa;
-  border-radius: 0 4px 4px 0;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  border-left: 4px solid #2B0055;
+  border-top: 1px solid #C0C0C0;
+  border-right: 1px solid #C0C0C0;
+  border-bottom: 1px solid #C0C0C0;
+  padding: 0.65rem 1.1rem;
+  margin-bottom: 1rem;
+  background-color: #FAFAFA;
+  border-radius: 0;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.wdt-ref-entry:hover {
+  background-color: #F5F0FF;
+  border-left-color: #FFD700;
 }
 
 .wdt-ref-entry p {
-  margin: 0 0 0.35rem 0;
+  margin: 0 0 0.3rem 0;
 }
 
 .wdt-ref-type {
   display: inline-block;
-  font-size: 0.75rem;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  background-color: #e9ecef;
-  color: #495057;
-  border-radius: 3px;
+  font-size: 11px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #2B0055;
+  color: #FFD700;
+  border: 1px solid #1A0033;
+  border-radius: 0;
   padding: 0.1rem 0.45rem;
   margin-right: 0.5rem;
   vertical-align: middle;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .wdt-ref-cited {
-  font-size: 0.8rem;
-  color: #6c757d;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+  color: #2B0055;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .wdt-ref-cited a {
-  color: #495057;
-  text-decoration: none;
-  font-weight: 600;
+  color: #2B0055;
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 .wdt-ref-cited a:hover {
-  text-decoration: underline;
-  color: #212529;
+  color: #CC0000;
+}
+
+.wdt-ref-cited a:visited {
+  color: #000080;
 }
 
 .wdt-ref-verified {
-  color: #28a745;
-  font-size: 0.8rem;
+  color: #006600;
+  font-size: 12px;
   margin-left: 0.2rem;
   vertical-align: middle;
+  font-weight: bold;
 }
 
-/* ── Panel container ──────────────────────────────────────── */
-#wdt-search-panel {
-  padding: 0.5rem 0 1rem;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.85rem;
+
+/* ── Visitor counter — the signature element ──────────────── */
+/*
+ * Drop this HTML anywhere on the page (e.g. index.qmd footer):
+ *
+ *   <div class="wdt-counter">
+ *     <div class="wdt-counter-label">VISITORS SINCE 2024</div>
+ *     <div class="wdt-counter-digits">004719</div>
+ *   </div>
+ *
+ * Update the number by hand. The joke is that it never changes.
+ */
+
+.wdt-counter {
+  display: inline-block;
+  background-color: #000000;
+  border: 3px inset #808080;
+  padding: 0.4rem 0.75rem;
+  margin: 1rem 0;
+  text-align: center;
 }
 
-.wdt-search-header {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+.wdt-counter-label {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  color: #C0C0C0;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #888;
-  padding: 0 0 0.5rem;
-  border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.2rem;
 }
 
-/* ── Input ────────────────────────────────────────────────── */
-.wdt-search-input-wrap {
-  position: relative;
-  margin-bottom: 0.5rem;
+.wdt-counter-digits {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 24px;
+  color: #00FF00;
+  letter-spacing: 0.1em;
+  font-weight: bold;
 }
 
-#wdt-search-input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0.38rem 0.6rem;
-  font-size: 0.83rem;
-  font-family: inherit;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  background: #fff;
-  color: #222;
-  outline: none;
-  transition: border-color 0.15s;
+
+/* ── Under construction banner — optional ─────────────────── */
+/*
+ * Add to any page with:
+ *   <div class="wdt-under-construction">
+ *     🚧 This section is under construction 🚧
+ *   </div>
+ */
+
+.wdt-under-construction {
+  background-color: #FFD700;
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.35rem 0;
+  border-top: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  margin: 1rem 0;
+  letter-spacing: 0.05em;
 }
 
-#wdt-search-input:focus {
-  border-color: #888;
-  box-shadow: 0 0 0 2px rgba(0,0,0,0.06);
+
+/* ── Responsive — preserve readability on mobile ──────────── */
+
+@media (max-width: 768px) {
+  .page-layout-article,
+  .page-layout-full,
+  #quarto-content {
+    margin: 0;
+    border-left: none;
+    border-right: none;
+    max-width: 100%;
+  }
+
+  .quarto-container,
+  #quarto-document-content,
+  .content {
+    padding: 0.75rem;
+    margin: 3px;
+  }
+
+  h1 {
+    font-size: 18px;
+    margin: -0.75rem -0.75rem 1rem;
+    padding: 0.5rem 0.75rem 0.4rem;
+  }
+
+  table {
+    font-size: 12px;
+  }
 }
 
-/* Hide the browser's native clear (×) button — we handle clearing via Escape */
-#wdt-search-input::-webkit-search-cancel-button { display: none; }
 
-/* ── Status line ──────────────────────────────────────────── */
-.wdt-search-status {
-  font-size: 0.78rem;
-  color: #888;
-  padding: 0.1rem 0;
-  min-height: 1.2em;
-}
+/* ── Reduced motion ───────────────────────────────────────── */
 
-/* ── Results list ─────────────────────────────────────────── */
-#wdt-search-results {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  max-height: 60vh;
-  overflow-y: auto;
-  /* Thin scrollbar on supporting browsers */
-  scrollbar-width: thin;
-  scrollbar-color: #ccc transparent;
-}
-
-/* ── Individual result ────────────────────────────────────── */
-.wdt-result-item {
-  display: block;
-  padding: 0.42rem 0.5rem;
-  border-radius: 3px;
-  text-decoration: none;
-  color: inherit;
-  border-bottom: 1px solid #f0f0f0;
-  transition: background 0.1s;
-  cursor: pointer;
-}
-
-.wdt-result-item:last-child {
-  border-bottom: none;
-}
-
-.wdt-result-item:hover,
-.wdt-result-item.is-active {
-  background: #f5f5f5;
-  color: inherit;
-  text-decoration: none;
-}
-
-.wdt-result-title {
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: #1a1a1a;
-  line-height: 1.35;
-  margin-bottom: 0.15rem;
-}
-
-.wdt-result-snippet {
-  font-size: 0.75rem;
-  color: #666;
-  line-height: 1.4;
-  /* Clamp to two lines */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* ── Highlighted match terms ──────────────────────────────── */
-.wdt-result-title mark,
-.wdt-result-snippet mark {
-  background: #fff3b0;
-  color: inherit;
-  border-radius: 2px;
-  padding: 0 1px;
-}
-
-/* ── Ensure the margin sidebar doesn't collapse ───────────── */
-/* Quarto hides the right column below a breakpoint (~992px);
-   we respect that — the panel just won't be visible on mobile. */
-@media (max-width: 991.98px) {
-  #wdt-search-panel {
-    display: none !important;
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
   }
 }

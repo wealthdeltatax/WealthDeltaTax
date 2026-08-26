@@ -153,6 +153,28 @@ def inject_front_matter(
     )
     return f"---\n{new_fm}---\n{body}"
 
+def inject_under_construction(text: str, shortcode: str, paper_meta: dict) -> str:
+    """Prepend an under-construction banner if paper version < 1.0."""
+    meta = paper_meta.get(shortcode)
+    if not meta:
+        return text
+    version = str(meta.get("version", "1.0"))
+    if version.startswith("0."):
+        banner = (
+            '\n```{=html}\n'
+            '<div class="wdt-under-construction">\n'
+            '  🚧 &nbsp; THIS PAPER IS UNDER CONSTRUCTION &nbsp; 🚧\n'
+            '</div>\n'
+            '```\n\n'
+        )
+        # Insert after the YAML front matter block
+        import re
+        fm_end = re.search(r'^---\s*\n.*?^---\s*\n', text, re.DOTALL | re.MULTILINE)
+        if fm_end:
+            insert_pos = fm_end.end()
+            return text[:insert_pos] + banner + text[insert_pos:]
+    return text
+
 
 # ── 5. JSON-LD injection ──────────────────────────────────────────────────────
 
@@ -228,6 +250,7 @@ def process_file(
     lines = convert_internal_bibliography(text.splitlines(keepends=True))
     text  = "".join(lines)
     text  = inject_front_matter(text, shortcode, paper_meta)
+    text = inject_under_construction(text, shortcode, paper_meta)
     text  = text.rstrip("\n") + "\n" + build_jsonld(shortcode, paper_meta, link_map)
 
     dest_path.parent.mkdir(parents=True, exist_ok=True)

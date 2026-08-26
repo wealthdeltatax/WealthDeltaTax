@@ -260,6 +260,13 @@ VAL.A:
     F.4: Public Register Interaction
     C.10.1: Declaration strategy comparison (α sweep, N = 29)
     C.10.2: Honest declarer trajectory by N (α = 1.0)
+    G: Derivatives Valuation Under the Transfer-Value Principle
+    G.1: The Apparent Problem
+    G.2: The Transfer-Value Principle Applied to Derivatives
+    G.3: Route Assignment
+    G.4: Portfolio Positions, Cash Flows, and Manufactured Neutrality
+    G.5: Notional Exposure and Leveraged Positions
+    G.6: Scope Boundary
 VAL.B:
   page: val-b.html
   title: Valuing Wealth — Worked Examples
@@ -1052,3 +1059,8 @@ SCOPE:
     '4': Questions Requiring International Coordination
     '5': Questions Sequentially Deferred to Post-Phase One
     '6': What This Document Is Not Doing
+    '4.1': Compliance and Behavioural Questions
+    '4.2': Institutional and Operational Questions
+    '4.3': Systemic Risk Question
+    '7': Jurisdiction-Specific and Institutional Preconditions
+    '8': What This Document Is Not Doing

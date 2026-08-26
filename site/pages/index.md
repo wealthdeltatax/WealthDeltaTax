@@ -29,6 +29,174 @@ description: "The Wealth Delta Tax (WDT) is a proposed reform that taxes changes
       },
       "url": "https://wealthdeltatax.org/",
       "sameAs": "https://doi.org/10.5281/zenodo.21964119"
+
+    <!-- ══════════════════════════════════════════════════════════
+     1. VISITOR COUNTER
+     Place near the bottom of the page, or centred under the
+     main intro paragraph. The number never changes. That's
+     the joke. 001998 = the year geocities peaked.
+     ══════════════════════════════════════════════════════════ -->
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <div class="wdt-counter">
+        <div class="wdt-counter-label">VISITORS SINCE 2024</div>
+        <div class="wdt-counter-digits">001998</div>
+      </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+        2. WEB RING
+        Place at the very bottom of the page, above the footer.
+        The arrows link back to the home page. The joke is
+        self-contained — you are the entire ring.
+        ══════════════════════════════════════════════════════════ -->
+
+    <div style="
+      text-align: center;
+      border: 2px solid #2B0055;
+      background-color: #F5F0FF;
+      padding: 0.6rem 1rem;
+      margin: 2rem 0;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+    ">
+      <span style="color: #808080;">⬡ ⬡ ⬡</span>
+      &nbsp;&nbsp;
+      <a href="/" style="
+        font-size: 16px;
+        color: #2B0055;
+        text-decoration: none;
+        font-weight: bold;
+      ">◀</a>
+      &nbsp;
+      <span style="
+        color: #2B0055;
+        font-weight: bold;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      ">MEMBER OF THE FISCAL POLICY WEB RING</span>
+      &nbsp;
+      <a href="/" style="
+        font-size: 16px;
+        color: #2B0055;
+        text-decoration: none;
+        font-weight: bold;
+      ">▶</a>
+      &nbsp;&nbsp;
+      <span style="color: #808080;">⬡ ⬡ ⬡</span>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+        3. BEST VIEWED IN BADGE
+        Place in the page footer or bottom of index.qmd.
+        Pure CSS recreation of the classic badge format.
+        ══════════════════════════════════════════════════════════ -->
+
+    <div style="text-align: center; margin: 1rem 0;">
+      <div style="
+        display: inline-block;
+        border: 2px outset #C0C0C0;
+        background-color: #000080;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0;
+        line-height: 0;
+      ">
+        <div style="
+          background-color: #FFFFFF;
+          color: #000080;
+          font-size: 8px;
+          font-weight: bold;
+          padding: 1px 4px;
+          letter-spacing: 0.05em;
+          text-align: center;
+        ">BEST VIEWED IN</div>
+        <div style="
+          background-color: #000080;
+          color: #FFFFFF;
+          font-size: 11px;
+          font-weight: bold;
+          padding: 2px 6px;
+          text-align: center;
+          letter-spacing: 0.08em;
+        ">NETSCAPE NAVIGATOR</div>
+        <div style="
+          background-color: #C0C0C0;
+          color: #000000;
+          font-size: 8px;
+          padding: 1px 4px;
+          text-align: center;
+          letter-spacing: 0.05em;
+        ">800×600 · 256 COLOURS</div>
+      </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+        4. MARQUEE
+        Place at the top of index.qmd, just after the YAML
+        front matter, before any other content. The <marquee>
+        tag is deprecated but works in every browser. Scrolls
+        right to left continuously. No CSS class needed.
+        ══════════════════════════════════════════════════════════ -->
+
+    <marquee
+      behavior="scroll"
+      direction="left"
+      scrollamount="3"
+      style="
+        background-color: #1A0033;
+        color: #FFD700;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        font-weight: bold;
+        padding: 0.3rem 0;
+        border-top: 1px solid #FFD700;
+        border-bottom: 1px solid #FFD700;
+        letter-spacing: 0.08em;
+        display: block;
+        width: 100%;
+      "
+    >
+    &nbsp;&nbsp;&nbsp;
+    ★ THE WEALTH DELTA TAX ★
+    &nbsp;&nbsp;&nbsp;
+    ACCRUAL-BASIS WEALTH TAXATION WITH SYMMETRIC LOSS REFUNDS
+    &nbsp;&nbsp;&nbsp;
+    ★ SOVEREIGN WEALTH FUND ★
+    &nbsp;&nbsp;&nbsp;
+    26 WORKING PAPERS · FREELY AVAILABLE
+    &nbsp;&nbsp;&nbsp;
+    ★ EST. 2024 ★
+    &nbsp;&nbsp;&nbsp;
+    THE ONLY WEALTH TAX THAT PAYS YOU BACK WHEN MARKETS CRASH
+    &nbsp;&nbsp;&nbsp;
+    ★ K. OGATA ★
+    &nbsp;&nbsp;&nbsp;
+    </marquee>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+        5. EMAIL LINK — period authentic, no mailto: obfuscation
+        Place in the footer or contact section.
+        ══════════════════════════════════════════════════════════ -->
+
+    <div style="
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      color: #2B0055;
+      margin: 1rem 0;
+    ">
+      ✉ CONTACT THE WEBMASTER:
+      <a href="mailto:webmaster@wealthdeltatax.org"
+        style="color: #0000EE; font-weight: bold;">
+        webmaster@wealthdeltatax.org
+      </a>
+    </div>
     }
   ]
 }
@@ -139,3 +307,4 @@ All papers are pre-peer review and represent work in progress. The full series i
 | [ENV](env.html) | Environmental Effects and Transmission Channels |
 | [FM](fm.html) | First Mover Dynamics |
 | [MOD](mod.html) | Modular Adoption |
+

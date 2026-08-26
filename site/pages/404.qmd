@@ -1,0 +1,72 @@
+---
+title: "404"
+format:
+  html:
+    toc: false
+---
+
+```{=html}
+<div style="
+  text-align: center;
+  padding: 3rem 1rem;
+  background-color: #000000;
+  border: 3px inset #808080;
+  margin: 2rem 0;
+">
+  <div style="
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 72px;
+    font-weight: bold;
+    color: #FF0000;
+    text-shadow: 3px 3px #800000;
+    margin-bottom: 0.5rem;
+  ">404</div>
+
+  <div style="
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    color: #FFD700;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+  ">THIS PAGE DOES NOT EXIST</div>
+
+  <div style="
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14px;
+    color: #C0C0C0;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+  ">
+    The page you requested could not be found.<br>
+    It may have been moved, deleted, or never existed.<br>
+    Please check the URL and try again.<br>
+    <br>
+    <em>We apologise for any inconvenience.</em>
+  </div>
+
+  <div style="margin-bottom: 2rem;">
+    <a href="/" style="
+      display: inline-block;
+      background-color: #2B0055;
+      color: #FFD700;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 0.4rem 1.25rem;
+      border: 2px outset #808080;
+      text-decoration: none;
+    ">⬅ RETURN TO HOME PAGE</a>
+  </div>
+
+  <div style="
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 11px;
+    color: #808080;
+    border-top: 1px solid #333333;
+    padding-top: 1rem;
+  ">
+    ERROR 404 · NOT FOUND · HTTP/1.1
+  </div>
+</div>
+```

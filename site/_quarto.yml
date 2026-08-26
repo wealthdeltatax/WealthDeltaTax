@@ -37,6 +37,8 @@ website:
         href: summary.html
       - text: "Papers"
         href: corpus.html
+      - text: "Tools"
+        href: tools/index.html
       - text: "Flowcharts"
         href: flowcharts.html  
       - text: "References"
