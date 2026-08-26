@@ -12,6 +12,7 @@ Steps:
   9.    Copy machine-readable data        (pages/site_index.py)
   10.   site-index.json                   (pages/site_index.py)
   11.   flowcharts.qmd                    (diagrams.py)
+  12.   Tool pages + runtime files        (tools.py)
   --.   _quarto.yml sidebar + toc: false  (quarto_config.py)
 """
 
@@ -26,6 +27,7 @@ from diagrams import generate_flowcharts_qmd
 from pages.corpus import generate_corpus_qmd
 from pages.references import generate_references_qmd
 from pages.site_index import copy_machine_readable_assets
+from tools import generate_tools
 from transforms import process_file, strip_latex, convert_crossrefs
 
 
@@ -54,8 +56,6 @@ def main() -> None:
         parts = p.relative_to(cfg.SITE_DIR).parts
         destination = build / Path(*parts[1:]) if parts[0] in FLATTEN_DIRS else build / Path(*parts)
 
-
-        
         destination.parent.mkdir(parents=True, exist_ok=True)
 
         if parts[0] in FLATTEN_DIRS and p.suffix == ".md":
@@ -93,6 +93,9 @@ def main() -> None:
         site_cfg.contents,
         site_cfg.link_map,
     )
+
+    # ── Step 12: Tool pages ───────────────────────────────────────────────
+    generate_tools(cfg.TOOLS_DIR, build)
 
     # ── Per-paper processing ──────────────────────────────────────────────
     registry_path = cfg.REGISTRY_YML

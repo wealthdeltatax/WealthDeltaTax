@@ -12,7 +12,6 @@
   box-sizing: border-box;
 }
 
-
 /* ── Tiled background ─────────────────────────────────────── */
 /* Diagonal purple stripe pattern — swap for a real .gif tile  */
 /* by replacing background-image with: url('../img/tile.gif')  */
@@ -712,4 +711,582 @@ pre {
     transition: none !important;
     animation: none !important;
   }
+}
+
+/* ============================================================
+   WDT Tool Pages
+   Append this block to site/style/styles.css.
+
+   Covers all classes used by tools/revenue.html and
+   tools/taxpayer.html after their inline <style> blocks are
+   removed.  Body, table, th, td, tr, hr, code, select, h1–h6,
+   a, details, summary are already declared above — only
+   tool-specific overrides or additions appear here.
+
+   CSS custom properties used below are declared in the main
+   :root block above.  Two new tokens are added to :root:
+     --wdt-green: #16a34a;
+     --wdt-red:   #c00;
+   Add those two lines to the existing :root {} block.
+   ============================================================ */
+
+
+/* ── Tool content panel ───────────────────────────────────── */
+/* The silver outer frame + white inner content area that wraps
+   each tool page's interactive content.                       */
+
+.wdt-tool-panel {
+  background-color: var(--wdt-silver);
+  border: 3px double var(--wdt-gold);
+  outline: 1px solid #000;
+  max-width: 1200px;
+  margin: 1rem auto;
+}
+
+.wdt-tool-inner {
+  background-color: #fff;
+  border: 2px inset #808080;
+  margin: 6px;
+  padding: 1.25rem 1.5rem;
+}
+
+/* Tool page h1 — matches the paper page h1 but uses the panel
+   silver as background instead of the page-level silver.      */
+.wdt-tool-inner h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--wdt-purple);
+  text-align: center;
+  border-bottom: 3px double var(--wdt-gold);
+  background-color: var(--wdt-silver);
+  margin: -1.25rem -1.5rem 1.25rem;
+  padding: 0.75rem 1.5rem 0.5rem;
+}
+
+.wdt-tool-inner .subtitle {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ── Loading / progress ───────────────────────────────────── */
+
+.wdt-tool-inner #loading {
+  padding: 2rem;
+  background: var(--wdt-lavender);
+  border: 2px solid var(--wdt-purple);
+  margin-bottom: 1rem;
+}
+
+.wdt-tool-inner #loading h2 {
+  font-size: 1rem;
+  margin: 0 0 0.75rem;
+  color: var(--wdt-purple);
+  font-family: Arial, Helvetica, sans-serif;
+  /* override the site h2 rule */
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+#progress-bar-wrap {
+  background: var(--wdt-silver);
+  border: 1px solid var(--wdt-purple);
+  height: 8px;
+  margin-bottom: 0.5rem;
+}
+
+#progress-bar {
+  background: var(--wdt-purple);
+  height: 8px;
+  width: 0%;
+  transition: width 0.3s;
+}
+
+#progress-label {
+  font-size: 0.85rem;
+  color: #555;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#error-msg {
+  color: var(--wdt-red);
+  margin-top: 0.5rem;
+  display: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ── Controls — shared ────────────────────────────────────── */
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.control-group label {
+  font-size: 0.82rem;
+  font-weight: bold;
+  color: var(--wdt-purple);
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.control-group .note {
+  font-size: 0.75rem;
+  color: #888;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.slider-row input[type=range] {
+  flex: 1;
+  accent-color: var(--wdt-purple);
+}
+
+.slider-row .val {
+  font-size: 0.85rem;
+  min-width: 65px;
+  text-align: right;
+  color: var(--wdt-purple);
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ── Mode toggle ──────────────────────────────────────────── */
+
+.mode-toggle {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.mode-toggle button {
+  padding: 3px 10px;
+  border: 2px outset var(--wdt-silver);
+  background: var(--wdt-silver);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: var(--wdt-purple);
+}
+
+.mode-toggle button.active {
+  background: var(--wdt-purple);
+  color: var(--wdt-gold);
+  border-style: inset;
+}
+
+/* ── Advanced panel ───────────────────────────────────────── */
+
+.wdt-tool-inner details {
+  margin-top: 0.75rem;
+}
+
+.wdt-tool-inner summary {
+  cursor: pointer;
+  color: var(--wdt-purple);
+  font-size: 0.85rem;
+  font-weight: bold;
+  padding: 0.25rem 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.advanced-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.75rem 2rem;
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: var(--wdt-lavender);
+  border-left: 4px solid var(--wdt-purple);
+}
+
+/* taxpayer.html uses a 2-column advanced grid */
+.advanced-grid.two-col {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* ── Run button ───────────────────────────────────────────── */
+
+button#run-btn {
+  margin-top: 1rem;
+  padding: 6px 20px;
+  background: var(--wdt-purple);
+  color: var(--wdt-gold);
+  border: 2px outset var(--wdt-silver);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+}
+
+button#run-btn:hover {
+  background: var(--wdt-purple-mid);
+  border-style: inset;
+}
+
+button#run-btn:disabled {
+  background: #808080;
+  color: var(--wdt-silver);
+  cursor: default;
+}
+
+.running-msg {
+  font-size: 0.85rem;
+  color: var(--wdt-purple);
+  margin-left: 0.5rem;
+  display: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ── Revenue calculator — primary controls grid ───────────── */
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem 2rem;
+  margin-bottom: 1rem;
+}
+
+/* ── Revenue calculator — summary boxes ──────────────────── */
+
+.summary-boxes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.box {
+  border: 2px solid var(--wdt-purple);
+  border-top: 4px solid var(--wdt-gold);
+  padding: 0.75rem 1rem;
+  background: var(--wdt-lavender);
+}
+
+.box .box-label {
+  font-size: 0.72rem;
+  color: var(--wdt-purple);
+  margin-bottom: 0.25rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.box .box-val {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--wdt-purple);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.box .box-sub {
+  font-size: 0.72rem;
+  color: #666;
+  margin-top: 0.15rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ── Revenue calculator — comparison bar chart ────────────── */
+
+.comparison-section {
+  margin-top: 2rem;
+}
+
+.comparison-section h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--wdt-purple);
+  border-bottom: 2px solid var(--wdt-purple);
+  padding-bottom: 0.2rem;
+}
+
+.comparison-section .cite-note {
+  font-size: 0.75rem;
+  color: #888;
+  margin-bottom: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.bar-label {
+  min-width: 180px;
+  text-align: right;
+  color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.bar-track {
+  flex: 1;
+  background: #e8e0ff;
+  border: 1px solid var(--wdt-silver);
+  height: 22px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+.bar-fill.wdt-avg  { background: var(--wdt-purple); }
+.bar-fill.wdt-pf   { background: var(--wdt-purple-mid); }
+.bar-fill.hmrc     { background: var(--wdt-silver); border-right: 1px solid #999; }
+
+.bar-amount {
+  min-width: 60px;
+  font-weight: bold;
+  color: #333;
+  font-size: 0.82rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ── Revenue calculator — breakdown table section ─────────── */
+
+.breakdown-section {
+  margin-top: 2rem;
+}
+
+.breakdown-section h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--wdt-purple);
+  border-bottom: 2px solid var(--wdt-purple);
+  padding-bottom: 0.2rem;
+}
+
+/* The breakdown table uses .total-row for the footer row */
+.total-row {
+  font-weight: bold;
+  background: var(--wdt-lavender) !important;
+  border-top: 2px solid var(--wdt-purple);
+}
+
+
+/* ── Revenue calculator — SWF milestones ─────────────────── */
+
+.swf-section {
+  margin-top: 2rem;
+}
+
+.swf-section h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--wdt-purple);
+  border-bottom: 2px solid var(--wdt-purple);
+  padding-bottom: 0.2rem;
+}
+
+.swf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.swf-box {
+  border: 1px solid var(--wdt-silver);
+  border-left: 4px solid var(--wdt-gold);
+  padding: 0.6rem 0.9rem;
+  background: var(--wdt-lavender);
+}
+
+.swf-box .swf-lbl {
+  font-size: 0.72rem;
+  color: var(--wdt-purple);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.swf-box .swf-val {
+  font-weight: bold;
+  font-size: 1.05rem;
+  color: var(--wdt-purple);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ── Taxpayer calculator — controls ───────────────────────── */
+
+/* Two-column layout used by taxpayer.html primary controls */
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+}
+
+/* ── Taxpayer calculator — results panels ─────────────────── */
+
+.results {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.panel {
+  border: 2px solid var(--wdt-purple);
+  padding: 1rem;
+  background: var(--wdt-lavender);
+}
+
+.panel.honest      { border-left: 5px solid var(--wdt-green); }
+.panel.alpha-panel { border-left: 5px solid var(--wdt-purple); }
+
+.panel h3 {
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--wdt-purple);
+  /* override site h3 rule */
+  border-bottom: none;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--wdt-silver);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-row .lbl { color: #555; }
+.stat-row .num { font-weight: bold; }
+.stat-row .num.positive { color: var(--wdt-red); }
+.stat-row .num.negative { color: var(--wdt-green); }
+.stat-row .num.neutral  { color: #333; }
+
+
+/* ── Taxpayer calculator — detail table ───────────────────── */
+
+.table-wrap {
+  margin-top: 1.5rem;
+  overflow-x: auto;
+}
+
+.table-wrap h3 {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--wdt-purple);
+  border-bottom: 2px solid var(--wdt-purple);
+  padding-bottom: 0.2rem;
+}
+
+/* Colouring helpers used by JS-rendered table rows */
+.pos  { color: var(--wdt-red); }
+.neg  { color: var(--wdt-green); }
+.zero { color: #888; }
+
+tr.sell-row {
+  background: #fffbeb;
+  font-style: italic;
+}
+
+
+/* ── Tools index page ─────────────────────────────────────── */
+
+.tool-card {
+  border: 2px solid var(--wdt-silver);
+  border-left: 4px solid var(--wdt-gold);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+  background: var(--wdt-lavender);
+}
+
+.tool-card:hover {
+  border-color: var(--wdt-purple);
+  background: #ede9fe;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tool-card h2 {
+  font-size: 1rem;
+  margin: 0 0 0.4rem;
+  /* override site h2 border */
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.tool-card p {
+  font-size: 0.85rem;
+  color: #555;
+  margin: 0;
+}
+
+.tool-card .tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.tag-blue   { background: #dbeafe; color: #1e40af; }
+.tag-purple { background: #ede9fe; color: #5b21b6; }
+
+
+/* ── Responsive — tools ───────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .controls-grid    { grid-template-columns: 1fr 1fr; }
+  .summary-boxes    { grid-template-columns: 1fr 1fr; }
+  .swf-grid         { grid-template-columns: 1fr 1fr; }
+  .wdt-tool-panel   { margin: 0; border-left: none; border-right: none; }
+}
+
+@media (max-width: 700px) {
+  .controls         { grid-template-columns: 1fr; }
+  .results          { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .controls-grid    { grid-template-columns: 1fr; }
+  .summary-boxes    { grid-template-columns: 1fr; }
+  .swf-grid         { grid-template-columns: 1fr; }
+  .bar-label        { min-width: 110px; font-size: 0.75rem; }
 }

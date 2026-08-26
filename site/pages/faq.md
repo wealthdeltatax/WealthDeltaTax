@@ -8,8 +8,6 @@ The following objections come up most often. Each has a direct answer in the res
 
 The answers below distinguish between three things: propositions the WDT's architecture establishes, propositions supported by modelling, and propositions that can only be settled empirically through implementation. Where an objection identifies an unresolved empirical question, the WDT does not claim otherwise.
 
-I'll rewrite the FAQ from table format into paragraph format, converting the cross-references into proper section links using the contents.yml.Now I have everything I need. Here is the FAQ rewritten in paragraph format with proper cross-links:
-
 ---
 
 **1. "If gains and losses are symmetrical, won't it raise no money?"**
