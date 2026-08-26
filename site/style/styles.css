@@ -5,6 +5,20 @@
    Drop-in replacement for site/style/styles.css
    ============================================================ */
 
+:root {
+  --wdt-purple-deep:   #1A0033;
+  --wdt-purple:        #2B0055;
+  --wdt-purple-mid:    #3d0080;
+  --wdt-gold:          #FFD700;
+  --wdt-gold-dim:      #C0A000;
+  --wdt-silver:        #C0C0C0;
+  --wdt-lavender:      #F5F0FF;
+  --wdt-accent:        #7c3aed;
+  --wdt-accent-dark:   #6d28d9;
+  --wdt-accent-light:  #c4b5fd;
+  --wdt-green:         #16a34a;
+  --wdt-red:           #c00;
+}
 
 /* ── Reset / base ─────────────────────────────────────────── */
 
