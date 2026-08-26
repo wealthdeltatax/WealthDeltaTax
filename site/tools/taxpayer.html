@@ -1,3 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WDT Individual Taxpayer Calculator</title>
+<style>
+  /* ── WDT palette tokens ─────────────────────────────────── */
+  :root {
+    --wdt-purple-deep:   #1A0033;
+    --wdt-purple:        #2B0055;
+    --wdt-purple-mid:    #3d0080;
+    --wdt-gold:          #FFD700;
+    --wdt-gold-dim:      #C0A000;
+    --wdt-silver:        #C0C0C0;
+    --wdt-lavender:      #F5F0FF;
+    --wdt-green:         #16a34a;
+    --wdt-red:           #c00;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    background-color: var(--wdt-purple);
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--wdt-purple),
+      var(--wdt-purple) 6px,
+      var(--wdt-purple-deep) 6px,
+      var(--wdt-purple-deep) 18px
+    );
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  /* ── Site header bar ───────────────────────────────────── */
+  .wdt-tool-header {
+    background-color: var(--wdt-purple);
+    border-bottom: 3px solid var(--wdt-gold);
+    padding: 0.4rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .wdt-tool-header .brand {
+    color: var(--wdt-gold);
+    font-weight: bold;
+    font-size: 15px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+  }
+  .wdt-tool-header .brand:hover { color: #fff; text-decoration: underline; }
+  .wdt-tool-header .sep { color: var(--wdt-gold-dim); font-size: 12px; }
+  .wdt-tool-header .page-title { color: var(--wdt-gold); font-size: 13px; font-weight: bold; }
+  .wdt-tool-header .back-link {
+    margin-left: auto;
+    color: var(--wdt-gold);
+    font-size: 12px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 1px solid var(--wdt-purple-mid);
+    padding: 0.15rem 0.5rem;
+  }
+  .wdt-tool-header .back-link:hover { color: #fff; border-color: var(--wdt-gold); }
+
+  /* ── Content panel ─────────────────────────────────────── */
+  .wdt-tool-panel {
+    background-color: var(--wdt-silver);
+    border: 3px double var(--wdt-gold);
+    outline: 1px solid #000;
+    max-width: 1050px;
+    margin: 1rem auto;
+  }
+  .wdt-tool-inner {
+    background-color: #fff;
+    border: 2px inset #808080;
+    margin: 6px;
+    padding: 1.25rem 1.5rem;
+  }
+  .wdt-tool-inner h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--wdt-purple);
+    text-align: center;
+    border-bottom: 3px double var(--wdt-gold);
+    background-color: var(--wdt-silver);
+    margin: -1.25rem -1.5rem 1.25rem;
+    padding: 0.75rem 1.5rem 0.5rem;
+  }
+
+  .subtitle { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; font-family: Arial, Helvetica, sans-serif; }
+
+  /* ── Loading ───────────────────────────────────────────── */
+  #loading { padding: 2rem; background: var(--wdt-lavender); border: 2px solid var(--wdt-purple); margin-bottom: 1rem; }
+  #loading h2 { font-size: 1rem; margin: 0 0 0.75rem; color: var(--wdt-purple); font-family: Arial, Helvetica, sans-serif; }
+  #progress-bar-wrap { background: var(--wdt-silver); border: 1px solid var(--wdt-purple); height: 8px; margin-bottom: 0.5rem; }
+  #progress-bar { background: var(--wdt-purple); height: 8px; width: 0%; transition: width 0.3s; }
+  #progress-label { font-size: 0.85rem; color: #555; font-family: Arial, Helvetica, sans-serif; }
+  #error-msg { color: var(--wdt-red); margin-top: 0.5rem; display: none; font-family: Arial, Helvetica, sans-serif; }
+
+  #main { display: none; }
+
+  /* ── Controls ──────────────────────────────────────────── */
+  .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 2rem; }
+  .control-group { display: flex; flex-direction: column; gap: 0.25rem; }
+  .control-group label {
+    font-size: 0.82rem;
+    font-weight: bold;
+    color: var(--wdt-purple);
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .control-group .note { font-size: 0.75rem; color: #888; font-family: Arial, Helvetica, sans-serif; }
+  .slider-row { display: flex; align-items: center; gap: 0.5rem; }
+  .slider-row input[type=range] { flex: 1; accent-color: var(--wdt-purple); }
+  .slider-row .val { font-size: 0.85rem; min-width: 60px; text-align: right; color: var(--wdt-purple); font-weight: bold; font-family: Arial, Helvetica, sans-serif; }
+
+  /* ── Mode toggle ───────────────────────────────────────── */
+  .mode-toggle { margin: 0; display: flex; gap: 0.5rem; align-items: center; }
+  .mode-toggle button {
+    padding: 3px 10px;
+    border: 2px outset var(--wdt-silver);
+    background: var(--wdt-silver);
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: var(--wdt-purple);
+  }
+  .mode-toggle button.active { background: var(--wdt-purple); color: var(--wdt-gold); border-style: inset; }
+  select { padding: 2px 4px; border: 1px solid var(--wdt-purple); font-size: 0.85rem; font-family: Arial, Helvetica, sans-serif; }
+
+  #year-select-row { display: none; align-items: center; gap: 0.5rem; font-size: 0.85rem; }
+  #year-select-row.visible { display: flex; }
+
+  /* ── Advanced panel ────────────────────────────────────── */
+  details { margin-top: 0.75rem; font-size: 0.85rem; }
+  summary { cursor: pointer; color: var(--wdt-purple); font-weight: bold; padding: 0.25rem 0; font-family: Arial, Helvetica, sans-serif; }
+  .advanced-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 2rem;
+    margin-top: 0.5rem; padding: 0.75rem;
+    background: var(--wdt-lavender);
+    border-left: 4px solid var(--wdt-purple);
+  }
+
+  /* ── Run button ────────────────────────────────────────── */
+  button#run-btn {
+    margin-top: 1rem; padding: 6px 20px;
+    background: var(--wdt-purple); color: var(--wdt-gold);
+    border: 2px outset var(--wdt-silver); cursor: pointer;
+    font-size: 0.9rem; font-family: Arial, Helvetica, sans-serif; font-weight: bold; letter-spacing: 0.04em;
+  }
+  button#run-btn:hover { background: var(--wdt-purple-mid); border-style: inset; }
+  button#run-btn:disabled { background: #808080; color: var(--wdt-silver); cursor: default; }
+  .running-msg { font-size: 0.85rem; color: var(--wdt-purple); margin-left: 0.5rem; display: none; font-family: Arial, Helvetica, sans-serif; }
+
+  /* ── Results panels ────────────────────────────────────── */
+  .results { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+  .panel { border: 2px solid var(--wdt-purple); padding: 1rem; background: var(--wdt-lavender); }
+  .panel.honest { border-left: 5px solid var(--wdt-green); }
+  .panel.alpha-panel { border-left: 5px solid var(--wdt-purple); }
+  .panel h3 { font-size: 0.9rem; margin: 0 0 0.75rem; font-family: Arial, Helvetica, sans-serif; color: var(--wdt-purple); }
+  .stat-row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 0.85rem; border-bottom: 1px solid var(--wdt-silver); font-family: Arial, Helvetica, sans-serif; }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row .lbl { color: #555; }
+  .stat-row .num { font-weight: bold; }
+  .stat-row .num.positive { color: var(--wdt-red); }
+  .stat-row .num.negative { color: var(--wdt-green); }
+  .stat-row .num.neutral  { color: #333; }
+
+  /* ── Detail table ──────────────────────────────────────── */
+  .table-wrap { margin-top: 1.5rem; overflow-x: auto; }
+  .table-wrap h3 { font-size: 0.9rem; margin-bottom: 0.5rem; font-family: Arial, Helvetica, sans-serif; color: var(--wdt-purple); border-bottom: 2px solid var(--wdt-purple); padding-bottom: 0.2rem; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.82rem; border: 2px solid var(--wdt-purple); }
+  th { background: var(--wdt-purple); color: var(--wdt-gold); padding: 4px 8px; text-align: right; font-weight: bold; border: 1px solid var(--wdt-purple-deep); font-family: Arial, Helvetica, sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  th:first-child { text-align: left; }
+  td { padding: 3px 8px; text-align: right; border: 1px solid var(--wdt-silver); font-family: Arial, Helvetica, sans-serif; }
+  td:first-child { text-align: left; }
+  tr:nth-child(even) { background: #f8f4ff; }
+  tr.sell-row { background: #fffbeb; font-style: italic; }
+  .pos { color: var(--wdt-red); }
+  .neg { color: var(--wdt-green); }
+  .zero { color: #888; }
+
+  hr { border: none; border-top: 2px solid var(--wdt-purple); border-bottom: 1px solid var(--wdt-silver); margin: 1.5rem 0; }
+
+  /* ── Responsive ────────────────────────────────────────── */
+  @media (max-width: 700px) {
+    .controls { grid-template-columns: 1fr; }
+    .results { grid-template-columns: 1fr; }
+    .wdt-tool-panel { margin: 0; border-left: none; border-right: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<!-- Site header bar -->
+<div class="wdt-tool-header">
+  <a class="brand" href="../index.html">Wealth Delta Tax</a>
+  <span class="sep">▶</span>
+  <span class="page-title">Individual Taxpayer Calculator</span>
+  <a class="back-link" href="index.html">◀ All Tools</a>
+</div>
+
+<!-- Content panel -->
 <div class="wdt-tool-panel">
 <div class="wdt-tool-inner">
 
@@ -265,9 +478,19 @@ def sim_to_rows(r):
     s = r['sell']
     rows.append({'t': s['t'], 'V': s['V_sell'], 'W': s['W_sell'], 'L': s['L_sell'], 'cum': s['cum_after'], 'rate': s['rate_sell'], 'delta': s['delta_sell'], 'f': s['f_N'], 'q': None, 'sell': True})
     return rows
+def make_entry(r, g_use):
+    return {
+        'TW': r['TW'],
+        'TTP': r['TTP'],
+        'Refunds': r['Refunds'],
+        'Net': r['Net'],
+        'g_use': g_use,
+        'cum_after': r['sell']['cum_after'],
+        'rows': sim_to_rows(r),
+    }
 result = {
-    'honest': {'TW': r_honest['TW'], 'TTP': r_honest['TTP'], 'Refunds': r_honest['Refunds'], 'Net': r_honest['Net'], 'g_use': g_use_honest, 'rows': sim_to_rows(r_honest)},
-    'alpha':  {'TW': r_alpha['TW'],  'TTP': r_alpha['TTP'],  'Refunds': r_alpha['Refunds'],  'Net': r_alpha['Net'],  'g_use': g_use_alpha,  'rows': sim_to_rows(r_alpha)}
+    'honest': make_entry(r_honest, g_use_honest),
+    'alpha':  make_entry(r_alpha,  g_use_alpha),
 }
 json.dumps(result)
 `;
@@ -285,15 +508,42 @@ function fmt_pct(v) { return (v*100).toFixed(2) + '%'; }
 function fmt_rate(v) { return v === null ? '—' : (v*100).toFixed(2) + '%'; }
 
 function renderStats(container, d, V0) {
+  // cum_after is the net cumulative tax balance after the sell year.
+  //   cum_after > 0: taxpayer has overpaid — a refund is still owed to them.
+  //                  TW is understated; settled TW = TW + cum_after.
+  //   cum_after < 0: taxpayer holds a refund credit to be clawed back.
+  //                  TW is overstated; settled TW = TW + cum_after.
+  // In both cases settled_TW = TW + cum_after.
+  // Honest/understaters oscillate tax-first then refund, so may have cum_after > 0
+  // at the snapshot point. Overstaters oscillate refund-first then tax, so may
+  // have cum_after < 0. Either way the settled figure is the fair comparison.
+  const overhang   = d.cum_after;                      // signed; 0 = fully settled
+  const settled_TW = d.TW + overhang;
+  const twDiffers  = Math.abs(overhang) > 0.0001;
+
+  const overhangLabel = overhang > 0
+    ? '  Refund still owed to taxpayer'
+    : '  Refund credit owed back to SWF';
+  const overhangCls = overhang > 0 ? 'negative' : 'positive'; // owed to them = reduces net tax (green); owed back = adds to net tax (red)
+  const settledLabel = overhang > 0
+    ? '  Settled TW (TW + refund due)'
+    : '  Settled TW (TW − credit owed)';
+
   const rows = [
-    ['Starting wealth (V₀)',    fmt_m(V0),       'neutral'],
-    ['Terminal net worth (TW)', fmt_m(d.TW),     'neutral'],
-    ['Gross taxes paid (TTP)',  fmt_m(d.TTP),    d.TTP > 0  ? 'positive' : 'zero'],
-    ['Gross refunds received',  fmt_m(d.Refunds),d.Refunds < 0 ? 'negative' : 'zero'],
-    ['Net lifetime tax',        fmt_m(d.Net),    d.Net > 0  ? 'positive' : (d.Net < 0 ? 'negative' : 'zero')],
-    ['Eff. rate (Net / TW)',    fmt_pct(d.Net / d.TW), d.Net > 0 ? 'positive' : 'zero'],
-    ['Mean return used',        fmt_pct(d.g_use),'neutral'],
+    ['Starting wealth (V₀)',        fmt_m(V0),         'neutral'],
+    ['Terminal net worth (TW)',      fmt_m(d.TW),       'neutral'],
   ];
+  if (twDiffers) {
+    rows.push([overhangLabel,  fmt_m(overhang),   overhangCls]);
+    rows.push([settledLabel,   fmt_m(settled_TW), 'neutral']);
+  }
+  rows.push(
+    ['Gross taxes paid (TTP)',       fmt_m(d.TTP),      d.TTP > 0  ? 'positive' : 'zero'],
+    ['Gross refunds received',       fmt_m(d.Refunds),  d.Refunds < 0 ? 'negative' : 'zero'],
+    ['Net lifetime tax',             fmt_m(d.Net),      d.Net > 0  ? 'positive' : (d.Net < 0 ? 'negative' : 'zero')],
+    ['Eff. rate (Net / settled TW)', fmt_pct(d.Net / settled_TW), d.Net > 0 ? 'positive' : 'zero'],
+    ['Mean return used',             fmt_pct(d.g_use),  'neutral'],
+  );
   container.innerHTML = rows.map(([lbl, num, cls]) =>
     `<div class="stat-row"><span class="lbl">${lbl}</span><span class="num ${cls}">${num}</span></div>`
   ).join('');
@@ -357,3 +607,5 @@ function renderResults(data, V0, alpha, N, mode, startYear) {
 
 initPyodide();
 </script>
+</body>
+</html>

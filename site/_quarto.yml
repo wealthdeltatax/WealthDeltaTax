@@ -85,6 +85,8 @@ website:
             href: fm.html
           - text: "Modular Adoption (MOD)"
             href: mod.html
+          - text: "Scope Boundary (SCOPE)"
+            href: scope.html
       - text: "Glossary"
         href: glossary.html
 
@@ -153,6 +155,8 @@ website:
             href: fm.html
           - text: "Modular Adoption (MOD)"
             href: mod.html
+          - text: "Scope Boundaries (SCOPE)"
+            href: scope.html
 
   page-footer:
     left: "© K. Ogata. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)."
