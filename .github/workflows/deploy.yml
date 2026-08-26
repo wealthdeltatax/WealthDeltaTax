@@ -68,11 +68,25 @@ jobs:
       - name: Render Quarto site
         run: quarto render _build --verbose 2>&1
 
+      - name: Copy tool runtime files to _site
+        run: |
+          mkdir -p _build/_site/tools
+          cp _build/tools/wdt_core.py _build/_site/tools/ 2>/dev/null || true
+          cp _build/tools/rates_model.py _build/_site/tools/ 2>/dev/null || true
+          cp _build/tools/260812_WDT_Params.toml _build/_site/tools/ 2>/dev/null || true
+
       - name: Debug after render
         if: failure()
         run: |
           echo "=== _build/_site contents ==="
           find _build/_site -type f | sort | head -80 || echo "_build/_site does not exist"
+
+      - name: Debug _build/tools structure
+        run: |
+          echo "=== _build/tools ==="
+          find _build/tools -type f | sort
+          echo "=== _build/_site/tools ==="
+          find _build/_site/tools -type f | sort 2>/dev/null || echo "tools/ not in _site"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
