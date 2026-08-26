@@ -3,6 +3,11 @@ project:
   output-dir: _site
   render:
     - "*.qmd"
+    - "tools/*.qmd"
+  resources:
+    - tools/wdt_core.py
+    - tools/rates_model.py
+    - tools/260812_WDT_Params.toml
 
 website:
   title: "Wealth Delta Tax (WDT)"
@@ -43,6 +48,8 @@ website:
         href: flowcharts.html  
       - text: "References"
         href: references.html
+      - text: "Revision History"
+        href: revision_history.html
         menu:
           - text: "White Paper (WP)"
             href: wp.html

@@ -1,0 +1,32 @@
+<h1>WDT — Interactive Tools</h1>
+<p class="subtitle">
+  Computational tools for exploring the Wealth Delta Tax mechanism.
+  Both calculators run the Python model directly in your browser via Pyodide —
+  no data is sent to any server.
+</p>
+
+<a class="tool-card" href="taxpayer.html">
+  <span class="tag tag-blue">Individual</span>
+  <h2>Taxpayer Calculator</h2>
+  <p>
+    Simulate the WDT tax profile for a single taxpayer under Route C (equity-transfer mechanism).
+    Set starting wealth, growth rate or historical series, holding period, and declaration ratio α.
+    Always shows the honest-declaration (α = 1) baseline alongside the selected scenario.
+  </p>
+</a>
+
+<a class="tool-card" href="revenue.html">
+  <span class="tag tag-purple">National</span>
+  <h2>Revenue Calculator</h2>
+  <p>
+    Aggregate revenue across the full UK taxable wealth distribution (10 brackets, 4 return tiers).
+    Set rate parameters, growth scenario, budget baseline, and SWF sizing.
+    Compare modelled WDT revenue against current UK tax receipts.
+  </p>
+</a>
+
+<p class="note">
+  Tools use <code>wdt_core.py</code> and <code>rates_model.py</code> from the WDT research codebase,
+  loaded unmodified at runtime. First load requires ~10s to initialise the Python runtime;
+  subsequent runs in the same session are fast.
+</p>

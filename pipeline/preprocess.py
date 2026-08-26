@@ -12,8 +12,6 @@ Steps:
   9.    Copy machine-readable data        (pages/site_index.py)
   10.   site-index.json                   (pages/site_index.py)
   11.   flowcharts.qmd                    (diagrams.py)
-  12.   Tool pages + runtime files        (tools.py)
-  --.   _quarto.yml sidebar + toc: false  (quarto_config.py)
 """
 
 import shutil
@@ -27,8 +25,56 @@ from diagrams import generate_flowcharts_qmd
 from pages.corpus import generate_corpus_qmd
 from pages.references import generate_references_qmd
 from pages.site_index import copy_machine_readable_assets
-from tools import generate_tools
 from transforms import process_file, strip_latex, convert_crossrefs
+
+
+# ── Tool metadata ─────────────────────────────────────────────────────────────
+# Maps source filename stem → (title, description)
+# Source files live at site/tools/<stem>.html as body-fragment HTML (no skeleton).
+# Runtime files (.py, .toml) in site/tools/ are copied verbatim.
+_TOOL_META: dict[str, tuple[str, str]] = {
+    "index": (
+        "WDT — Interactive Tools",
+        "Computational tools for exploring the Wealth Delta Tax mechanism. "
+        "Both calculators run the Python model directly in your browser via Pyodide — "
+        "no data is sent to any server.",
+    ),
+    "revenue": (
+        "WDT — National Revenue Calculator",
+        "Aggregate WDT revenue modelled across the full UK taxable wealth distribution "
+        "(Taxpayer Cohort Model). Four return tiers (Fagereng et al. 2020). "
+        "UK equity return series 1947–2019.",
+    ),
+    "taxpayer": (
+        "WDT — Individual Taxpayer Calculator",
+        "Route C simulation: equity-transfer mechanism over N holding periods plus "
+        "terminal sell year. Results always shown alongside the honest-declaration "
+        "(α = 1) baseline.",
+    ),
+}
+
+# File extensions in site/tools/ that are runtime assets (copied verbatim, not wrapped)
+_TOOL_RUNTIME_SUFFIXES = {".py", ".toml"}
+
+
+def _wrap_tool_html(html: str, title: str, description: str) -> str:
+    """Wrap a body-fragment HTML file in Quarto front matter + raw HTML pass-through.
+
+    The sentinel comment on the first line of the block tells Quarto's Lua filter
+    to skip all processing of this block entirely — including the table-parse pass
+    that fires on <table> strings inside JS template literals and logs a warning.
+    """
+    return (
+        f'---\n'
+        f'title: "{title}"\n'
+        f'description: "{description}"\n'
+        f'toc: false\n'
+        f'---\n\n'
+        f'```{{=html}}\n'
+        f'<!-- quarto-disable-processing=true -->\n'
+        f'{html.strip()}\n'
+        f'```\n'
+    )
 
 
 def main() -> None:
@@ -47,27 +93,61 @@ def main() -> None:
     build.mkdir(exist_ok=True)
 
     # ── Copy site/ assets into _build/ ───────────────────────────────────
-    # site/pages/ is flattened to _build/ root (strips the pages/ prefix).
-    # .md files in pages/ get crossref transforms applied and are written
-    # as .qmd so Quarto renders them.  All other assets are copied verbatim.
+    # Handling per directory:
+    #
+    #   site/pages/   → flattened to _build/ root
+    #                   .md files get crossref transforms + renamed to .qmd
+    #                   all other files copied verbatim
+    #
+    #   site/tools/   → path preserved as _build/tools/
+    #                   .html files wrapped in Quarto front matter → .qmd
+    #                   .py / .toml runtime files copied verbatim
+    #                   (no crossref transforms — these are interactive tool fragments)
+    #
+    #   everything else → path preserved, copied verbatim
+
     FLATTEN_DIRS = {"pages"}
+    TOOL_DIR     = "tools"
 
     for p in [f for f in cfg.SITE_DIR.rglob("*") if f.is_file()]:
         parts = p.relative_to(cfg.SITE_DIR).parts
-        destination = build / Path(*parts[1:]) if parts[0] in FLATTEN_DIRS else build / Path(*parts)
 
-        destination.parent.mkdir(parents=True, exist_ok=True)
+        if parts[0] in FLATTEN_DIRS:
+            # Flatten pages/ to _build/ root
+            destination = build / Path(*parts[1:])
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            if p.suffix == ".md":
+                destination = destination.with_suffix(".qmd")
+                text = p.read_text(encoding="utf-8")
+                text = strip_latex(text)
+                text = convert_crossrefs(text, site_cfg.link_map, site_cfg.anchor_map)
+                destination.write_text(text, encoding="utf-8")
+            else:
+                shutil.copy2(p, destination)
 
-        if parts[0] in FLATTEN_DIRS and p.suffix == ".md":
-            # Run crossref transforms on hand-authored pages before copying.
-            # strip_latex and convert_crossrefs are safe on any Markdown text.
-            # inject_front_matter and build_jsonld are paper-specific — skip.
-            destination = destination.with_suffix(".qmd")
-            text = p.read_text(encoding="utf-8")
-            text = strip_latex(text)
-            text = convert_crossrefs(text, site_cfg.link_map, site_cfg.anchor_map)
-            destination.write_text(text, encoding="utf-8")
+        elif parts[0] == TOOL_DIR:
+            # Preserve tools/ path
+            destination = build / Path(*parts)
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            if p.suffix == ".html":
+                # Wrap body-fragment HTML in Quarto front matter
+                stem = p.stem
+                title, description = _TOOL_META.get(stem, (stem, ""))
+                html = p.read_text(encoding="utf-8")
+                qmd  = _wrap_tool_html(html, title, description)
+                destination = destination.with_suffix(".qmd")
+                destination.write_text(qmd, encoding="utf-8")
+                print(f"  ✓ site/tools/{p.name} → _build/tools/{destination.name}")
+            elif p.suffix in _TOOL_RUNTIME_SUFFIXES:
+                # Runtime files: copy verbatim so browser fetch() calls resolve
+                shutil.copy2(p, destination)
+                print(f"  ✓ site/tools/{p.name} → _build/tools/{p.name} (runtime)")
+            else:
+                shutil.copy2(p, destination)
+
         else:
+            destination = build / Path(*parts)
+            destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(p, destination)
 
     # ── Auto-generated pages ──────────────────────────────────────────────
@@ -93,9 +173,6 @@ def main() -> None:
         site_cfg.contents,
         site_cfg.link_map,
     )
-
-    # ── Step 12: Tool pages ───────────────────────────────────────────────
-    generate_tools(cfg.TOOLS_DIR, build)
 
     # ── Per-paper processing ──────────────────────────────────────────────
     registry_path = cfg.REGISTRY_YML

@@ -58,7 +58,7 @@ body {
   background-color: #C0C0C0;
   border: 3px double #FFD700;
   outline: 1px solid #000000;
-  max-width: 900px;
+  max-width: min(1400px, 100vw);
   margin: 1rem auto;
   padding: 0;
 }
