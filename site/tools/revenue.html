@@ -5,21 +5,124 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WDT National Revenue Calculator</title>
 <style>
-  body { font-family: sans-serif; max-width: 1100px; margin: 0 auto; padding: 1rem 1.5rem; }
-  h1 { font-size: 1.3rem; margin-bottom: 0.25rem; }
+  /* ── WDT palette tokens ─────────────────────────────────── */
+  :root {
+    --wdt-purple-deep:   #1A0033;
+    --wdt-purple:        #2B0055;
+    --wdt-purple-mid:    #3d0080;
+    --wdt-gold:          #FFD700;
+    --wdt-gold-dim:      #C0A000;
+    --wdt-silver:        #C0C0C0;
+    --wdt-lavender:      #F5F0FF;
+    --wdt-accent:        #7c3aed;
+    --wdt-accent-dark:   #6d28d9;
+    --wdt-accent-light:  #c4b5fd;
+  }
+
+  /* ── Tiled body — matches main site ───────────────────── */
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    background-color: var(--wdt-purple);
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--wdt-purple),
+      var(--wdt-purple) 6px,
+      var(--wdt-purple-deep) 6px,
+      var(--wdt-purple-deep) 18px
+    );
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  /* ── Site header bar ───────────────────────────────────── */
+  .wdt-tool-header {
+    background-color: var(--wdt-purple);
+    border-bottom: 3px solid var(--wdt-gold);
+    padding: 0.4rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .wdt-tool-header .brand {
+    color: var(--wdt-gold);
+    font-weight: bold;
+    font-size: 15px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+  }
+  .wdt-tool-header .brand:hover { color: #fff; text-decoration: underline; }
+  .wdt-tool-header .sep {
+    color: var(--wdt-gold-dim);
+    font-size: 12px;
+  }
+  .wdt-tool-header .page-title {
+    color: var(--wdt-gold);
+    font-size: 13px;
+    font-weight: bold;
+  }
+  .wdt-tool-header .back-link {
+    margin-left: auto;
+    color: var(--wdt-gold);
+    font-size: 12px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 1px solid var(--wdt-purple-mid);
+    padding: 0.15rem 0.5rem;
+  }
+  .wdt-tool-header .back-link:hover { color: #fff; border-color: var(--wdt-gold); }
+
+  /* ── Content panel — silver box on purple ──────────────── */
+  .wdt-tool-panel {
+    background-color: var(--wdt-silver);
+    border: 3px double var(--wdt-gold);
+    outline: 1px solid #000;
+    max-width: 1200px;
+    margin: 1rem auto;
+  }
+  .wdt-tool-inner {
+    background-color: #fff;
+    border: 2px inset #808080;
+    margin: 6px;
+    padding: 1.25rem 1.5rem;
+  }
+
+  /* ── Page title inside panel ───────────────────────────── */
+  .wdt-tool-inner h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--wdt-purple);
+    text-align: center;
+    border-bottom: 3px double var(--wdt-gold);
+    background-color: var(--wdt-silver);
+    margin: -1.25rem -1.5rem 1.25rem;
+    padding: 0.75rem 1.5rem 0.5rem;
+  }
+
   .subtitle { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
 
-  /* Loading */
-  #loading { padding: 2rem; background: #f5f5f5; border-radius: 6px; margin-bottom: 1rem; }
-  #loading h2 { font-size: 1rem; margin: 0 0 0.75rem; }
-  #progress-bar-wrap { background: #ddd; border-radius: 4px; height: 8px; margin-bottom: 0.5rem; }
-  #progress-bar { background: #7c3aed; border-radius: 4px; height: 8px; width: 0%; transition: width 0.3s; }
-  #progress-label { font-size: 0.85rem; color: #555; }
-  #error-msg { color: #c00; margin-top: 0.5rem; display: none; }
+  /* ── Loading ───────────────────────────────────────────── */
+  #loading {
+    padding: 2rem;
+    background: var(--wdt-lavender);
+    border: 2px solid var(--wdt-purple);
+    margin-bottom: 1rem;
+  }
+  #loading h2 { font-size: 1rem; margin: 0 0 0.75rem; color: var(--wdt-purple); font-family: Arial, Helvetica, sans-serif; }
+  #progress-bar-wrap { background: var(--wdt-silver); border: 1px solid var(--wdt-purple); height: 8px; margin-bottom: 0.5rem; }
+  #progress-bar { background: var(--wdt-purple); height: 8px; width: 0%; transition: width 0.3s; }
+  #progress-label { font-size: 0.85rem; color: #555; font-family: Arial, Helvetica, sans-serif; }
+  #error-msg { color: #c00; margin-top: 0.5rem; display: none; font-family: Arial, Helvetica, sans-serif; }
 
   #main { display: none; }
 
-  /* Controls layout */
+  /* ── Controls ──────────────────────────────────────────── */
   .controls-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -27,96 +130,206 @@
     margin-bottom: 1rem;
   }
   .control-group { display: flex; flex-direction: column; gap: 0.25rem; }
-  .control-group label { font-size: 0.85rem; font-weight: 600; color: #333; }
-  .control-group .note { font-size: 0.75rem; color: #888; }
+  .control-group label {
+    font-size: 0.82rem;
+    font-weight: bold;
+    color: var(--wdt-purple);
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .control-group .note { font-size: 0.75rem; color: #888; font-family: Arial, Helvetica, sans-serif; }
   .slider-row { display: flex; align-items: center; gap: 0.5rem; }
-  .slider-row input[type=range] { flex: 1; }
-  .slider-row .val { font-size: 0.85rem; min-width: 65px; text-align: right; color: #7c3aed; font-weight: 600; }
+  .slider-row input[type=range] { flex: 1; accent-color: var(--wdt-purple); }
+  .slider-row .val {
+    font-size: 0.85rem;
+    min-width: 65px;
+    text-align: right;
+    color: var(--wdt-purple);
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+  }
 
-  /* Mode toggle */
+  /* ── Mode toggle ───────────────────────────────────────── */
   .mode-toggle { display: flex; gap: 0.5rem; align-items: center; }
   .mode-toggle button {
-    padding: 3px 12px; border: 1px solid #ccc; border-radius: 4px;
-    background: #fff; cursor: pointer; font-size: 0.85rem;
+    padding: 3px 10px;
+    border: 2px outset var(--wdt-silver);
+    background: var(--wdt-silver);
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: var(--wdt-purple);
   }
-  .mode-toggle button.active { background: #7c3aed; color: #fff; border-color: #7c3aed; }
-  select { padding: 2px 6px; border: 1px solid #ccc; border-radius: 3px; font-size: 0.85rem; }
+  .mode-toggle button.active {
+    background: var(--wdt-purple);
+    color: var(--wdt-gold);
+    border-style: inset;
+  }
+  select {
+    padding: 2px 6px;
+    border: 1px solid var(--wdt-purple);
+    font-size: 0.85rem;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fff;
+    color: var(--wdt-purple);
+  }
 
   #year-select-row { display: none; align-items: center; gap: 0.5rem; font-size: 0.85rem; margin-top: 0.4rem; }
   #year-select-row.visible { display: flex; }
   #g-steady-row { display: flex; }
 
-  /* Advanced panel */
+  /* ── Advanced panel ────────────────────────────────────── */
   details { margin-top: 0.75rem; }
-  summary { cursor: pointer; color: #555; font-size: 0.85rem; font-weight: 600; padding: 0.25rem 0; }
+  summary {
+    cursor: pointer;
+    color: var(--wdt-purple);
+    font-size: 0.85rem;
+    font-weight: bold;
+    padding: 0.25rem 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
   .advanced-grid {
     display: grid; grid-template-columns: 1fr 1fr 1fr;
     gap: 0.75rem 2rem; margin-top: 0.5rem;
-    padding: 0.75rem; background: #f9f9f9; border-radius: 4px;
+    padding: 0.75rem;
+    background: var(--wdt-lavender);
+    border-left: 4px solid var(--wdt-purple);
   }
 
-  /* Run button */
+  /* ── Run button ────────────────────────────────────────── */
   button#run-btn {
-    margin-top: 1rem; padding: 6px 20px; background: #7c3aed; color: #fff;
-    border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;
+    margin-top: 1rem;
+    padding: 6px 20px;
+    background: var(--wdt-purple);
+    color: var(--wdt-gold);
+    border: 2px outset var(--wdt-silver);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.04em;
   }
-  button#run-btn:hover { background: #6d28d9; }
-  button#run-btn:disabled { background: #c4b5fd; cursor: default; }
-  .running-msg { font-size: 0.85rem; color: #555; margin-left: 0.5rem; display: none; }
+  button#run-btn:hover { background: var(--wdt-purple-mid); border-style: inset; }
+  button#run-btn:disabled { background: #808080; color: var(--wdt-silver); cursor: default; }
+  .running-msg { font-size: 0.85rem; color: var(--wdt-purple); margin-left: 0.5rem; display: none; font-family: Arial, Helvetica, sans-serif; }
 
-  /* Summary boxes */
+  /* ── Summary boxes ─────────────────────────────────────── */
   .summary-boxes {
     display: grid; grid-template-columns: repeat(4, 1fr);
     gap: 0.75rem; margin-top: 1.5rem;
   }
   .box {
-    border: 1px solid #ddd; border-radius: 6px; padding: 0.75rem 1rem;
-    border-top: 4px solid #7c3aed;
+    border: 2px solid var(--wdt-purple);
+    border-top: 4px solid var(--wdt-gold);
+    padding: 0.75rem 1rem;
+    background: var(--wdt-lavender);
   }
-  .box .box-label { font-size: 0.75rem; color: #666; margin-bottom: 0.25rem; }
-  .box .box-val { font-size: 1.3rem; font-weight: 700; color: #1e1b4b; }
-  .box .box-sub { font-size: 0.75rem; color: #888; margin-top: 0.15rem; }
+  .box .box-label { font-size: 0.72rem; color: var(--wdt-purple); margin-bottom: 0.25rem; font-family: Arial, Helvetica, sans-serif; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; }
+  .box .box-val { font-size: 1.3rem; font-weight: bold; color: var(--wdt-purple); font-family: Arial, Helvetica, sans-serif; }
+  .box .box-sub { font-size: 0.72rem; color: #666; margin-top: 0.15rem; font-family: Arial, Helvetica, sans-serif; }
 
-  /* Comparison chart */
+  /* ── Comparison bar chart ──────────────────────────────── */
   .comparison-section { margin-top: 2rem; }
-  .comparison-section h3 { font-size: 0.95rem; margin-bottom: 0.25rem; }
-  .comparison-section .cite-note {
-    font-size: 0.75rem; color: #888; margin-bottom: 1rem;
+  .comparison-section h3 {
+    font-size: 0.95rem; margin-bottom: 0.25rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--wdt-purple);
+    border-bottom: 2px solid var(--wdt-purple);
+    padding-bottom: 0.2rem;
   }
+  .comparison-section .cite-note { font-size: 0.75rem; color: #888; margin-bottom: 1rem; font-family: Arial, Helvetica, sans-serif; }
   .bar-chart { display: flex; flex-direction: column; gap: 0.5rem; }
   .bar-row { display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; }
-  .bar-label { min-width: 160px; text-align: right; color: #333; }
-  .bar-track { flex: 1; background: #f0f0f0; border-radius: 3px; height: 22px; position: relative; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
-  .bar-fill.wdt-avg   { background: #7c3aed; }
-  .bar-fill.wdt-pf    { background: #a78bfa; }
-  .bar-fill.hmrc      { background: #d1d5db; }
-  .bar-amount { min-width: 60px; font-weight: 600; color: #333; font-size: 0.82rem; }
+  .bar-label { min-width: 180px; text-align: right; color: #333; font-family: Arial, Helvetica, sans-serif; }
+  .bar-track { flex: 1; background: #e8e0ff; border: 1px solid var(--wdt-silver); height: 22px; position: relative; overflow: hidden; }
+  .bar-fill { height: 100%; transition: width 0.4s ease; }
+  .bar-fill.wdt-avg   { background: var(--wdt-purple); }
+  .bar-fill.wdt-pf    { background: var(--wdt-purple-mid); }
+  .bar-fill.hmrc      { background: var(--wdt-silver); border-right: 1px solid #999; }
+  .bar-amount { min-width: 60px; font-weight: bold; color: #333; font-size: 0.82rem; font-family: Arial, Helvetica, sans-serif; }
 
-  /* Revenue breakdown table */
+  /* ── Breakdown table ───────────────────────────────────── */
   .breakdown-section { margin-top: 2rem; }
-  .breakdown-section h3 { font-size: 0.95rem; margin-bottom: 0.5rem; }
-  table { border-collapse: collapse; width: 100%; font-size: 0.82rem; }
-  th { background: #f0f0f0; padding: 5px 8px; text-align: right; font-weight: 600; border: 1px solid #ddd; }
+  .breakdown-section h3 {
+    font-size: 0.95rem; margin-bottom: 0.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--wdt-purple);
+    border-bottom: 2px solid var(--wdt-purple);
+    padding-bottom: 0.2rem;
+  }
+  table { border-collapse: collapse; width: 100%; font-size: 0.82rem; border: 2px solid var(--wdt-purple); }
+  th {
+    background: var(--wdt-purple);
+    color: var(--wdt-gold);
+    padding: 5px 8px;
+    text-align: right;
+    font-weight: bold;
+    border: 1px solid var(--wdt-purple-deep);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
   th:first-child, th:nth-child(2) { text-align: left; }
-  td { padding: 4px 8px; text-align: right; border: 1px solid #ddd; }
+  td { padding: 4px 8px; text-align: right; border: 1px solid var(--wdt-silver); font-family: Arial, Helvetica, sans-serif; }
   td:first-child, td:nth-child(2) { text-align: left; }
-  tr:nth-child(even) { background: #fafafa; }
-  .total-row { font-weight: 700; background: #f0ecff !important; }
+  tr:nth-child(even) { background: #f8f4ff; }
+  tr:hover { background: var(--wdt-lavender); }
+  .total-row { font-weight: bold; background: var(--wdt-lavender) !important; border-top: 2px solid var(--wdt-purple); }
 
-  /* SWF status */
+  /* ── SWF section ───────────────────────────────────────── */
   .swf-section { margin-top: 2rem; }
-  .swf-section h3 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .swf-section h3 {
+    font-size: 0.95rem; margin-bottom: 0.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--wdt-purple);
+    border-bottom: 2px solid var(--wdt-purple);
+    padding-bottom: 0.2rem;
+  }
   .swf-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; }
-  .swf-box { border: 1px solid #e0e0e0; border-radius: 5px; padding: 0.6rem 0.9rem; font-size: 0.85rem; }
-  .swf-box .swf-lbl { font-size: 0.75rem; color: #888; }
-  .swf-box .swf-val { font-weight: 700; font-size: 1.05rem; color: #1e1b4b; }
+  .swf-box {
+    border: 1px solid var(--wdt-silver);
+    border-left: 4px solid var(--wdt-gold);
+    padding: 0.6rem 0.9rem;
+    background: var(--wdt-lavender);
+  }
+  .swf-box .swf-lbl { font-size: 0.72rem; color: var(--wdt-purple); font-family: Arial, Helvetica, sans-serif; font-weight: bold; text-transform: uppercase; letter-spacing: 0.04em; }
+  .swf-box .swf-val { font-weight: bold; font-size: 1.05rem; color: var(--wdt-purple); font-family: Arial, Helvetica, sans-serif; }
 
-  /* Tier detail table toggle */
-  .tier-toggle { font-size: 0.8rem; color: #7c3aed; cursor: pointer; margin-top: 0.4rem; display: inline-block; }
+  /* ── Section dividers ──────────────────────────────────── */
+  hr { border: none; border-top: 2px solid var(--wdt-purple); border-bottom: 1px solid var(--wdt-silver); margin: 1.5rem 0; }
+
+  /* ── Responsive ────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .controls-grid { grid-template-columns: 1fr 1fr; }
+    .summary-boxes { grid-template-columns: 1fr 1fr; }
+    .swf-grid { grid-template-columns: 1fr 1fr; }
+    .wdt-tool-panel { margin: 0; border-left: none; border-right: none; }
+  }
+  @media (max-width: 600px) {
+    .controls-grid { grid-template-columns: 1fr; }
+    .summary-boxes { grid-template-columns: 1fr; }
+    .swf-grid { grid-template-columns: 1fr; }
+    .bar-label { min-width: 110px; font-size: 0.75rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
+
+<!-- Site header bar -->
+<div class="wdt-tool-header">
+  <a class="brand" href="../index.html">Wealth Delta Tax</a>
+  <span class="sep">▶</span>
+  <span class="page-title">National Revenue Calculator</span>
+  <a class="back-link" href="index.html">◀ All Tools</a>
+</div>
+
+<!-- Content panel -->
+<div class="wdt-tool-panel">
+<div class="wdt-tool-inner">
 
 <h1>WDT — National Revenue Calculator</h1>
 <p class="subtitle">
@@ -236,7 +449,7 @@
   </div><!-- /controls-grid -->
 
   <div style="display:flex;align-items:center;">
-    <button id="run-btn" onclick="runCalc()">Calculate</button>
+    <button id="run-btn" onclick="runCalc()">▶ Calculate</button>
     <span class="running-msg" id="running-msg">Running SSM + TCM…</span>
   </div>
 
@@ -278,7 +491,7 @@
   <!-- Revenue breakdown by bracket and tier -->
   <div class="breakdown-section" id="breakdown-section" style="display:none">
     <h3>Revenue breakdown by wealth bracket</h3>
-    <p style="font-size:0.78rem;color:#888;margin-bottom:0.5rem" id="breakdown-subtitle"></p>
+    <p style="font-size:0.78rem;color:#888;margin-bottom:0.5rem;font-family:Arial,Helvetica,sans-serif;" id="breakdown-subtitle"></p>
     <table id="breakdown-table"></table>
   </div>
 
@@ -290,20 +503,22 @@
 
 </div><!-- /main -->
 
+</div><!-- /wdt-tool-inner -->
+</div><!-- /wdt-tool-panel -->
+
 <script src="https://cdn.jsdelivr.net/pyodide/v0.27.5/full/pyodide.js"></script>
 <script>
 // ── HMRC reference figures (2023–24 outturn / OBR March 2024 projection, £b) ──
 const HMRC_TAXES = [
-  { label: 'Income Tax',      amount: 268, color: '#d1d5db' },
-  { label: 'NICs',            amount: 175, color: '#d1d5db' },
-  { label: 'VAT',             amount: 167, color: '#d1d5db' },
-  { label: 'Corporation Tax', amount:  89, color: '#d1d5db' },
-  { label: 'Council Tax',     amount:  47, color: '#d1d5db' },
-  { label: 'Stamp Duties',    amount:  19, color: '#d1d5db' },
-  { label: 'CGT',             amount:  16, color: '#d1d5db' },
+  { label: 'Income Tax',      amount: 268 },
+  { label: 'NICs',            amount: 175 },
+  { label: 'VAT',             amount: 167 },
+  { label: 'Corporation Tax', amount:  89 },
+  { label: 'Council Tax',     amount:  47 },
+  { label: 'Stamp Duties',    amount:  19 },
+  { label: 'CGT',             amount:  16 },
 ];
 
-// ── Progress ─────────────────────────────────────────────────────────────────
 function setProgress(pct, label) {
   document.getElementById('progress-bar').style.width = pct + '%';
   document.getElementById('progress-label').textContent = label;
@@ -313,7 +528,6 @@ function showError(msg) {
   el.textContent = msg; el.style.display = 'block';
 }
 
-// ── Slider helpers ────────────────────────────────────────────────────────────
 function bindSlider(id, displayId, fmt) {
   const sl = document.getElementById(id);
   const dp = document.getElementById(displayId);
@@ -321,18 +535,17 @@ function bindSlider(id, displayId, fmt) {
   return sl;
 }
 
-const wminSl   = bindSlider('wmin-slider',          'wmin-display',          v => '£' + parseFloat(v).toFixed(1) + 'm');
-const tau0Sl   = bindSlider('tau0-slider',           'tau0-display',          v => (parseFloat(v)*100).toFixed(1) + '%');
-const taumSl   = bindSlider('taum-slider',           'taum-display',          v => (parseFloat(v)*100).toFixed(1) + '%');
-const kSl      = bindSlider('k-slider',              'k-display',             v => Math.pow(10, parseFloat(v)).toFixed(4));
-const gSl      = bindSlider('g-slider',              'g-display',             v => (parseFloat(v)*100).toFixed(2) + '%');
-const nSl      = bindSlider('n-slider',              'n-display',             v => v + ' years');
-const budgetSl = bindSlider('budget-base-slider',    'budget-base-display',   v => '£' + parseInt(v).toLocaleString() + 'b');
-const budgetGSl= bindSlider('budget-growth-slider',  'budget-growth-display', v => (parseFloat(v)*100).toFixed(2) + '%');
-const srrSl    = bindSlider('srr-slider',            'srr-display',           v => parseFloat(v).toFixed(1) + '×');
-const lrrSl    = bindSlider('lrr-slider',            'lrr-display',           v => parseFloat(v).toFixed(1) + ' yrs');
+const wminSl   = bindSlider('wmin-slider',         'wmin-display',         v => '£' + parseFloat(v).toFixed(1) + 'm');
+const tau0Sl   = bindSlider('tau0-slider',          'tau0-display',         v => (parseFloat(v)*100).toFixed(1) + '%');
+const taumSl   = bindSlider('taum-slider',          'taum-display',         v => (parseFloat(v)*100).toFixed(1) + '%');
+const kSl      = bindSlider('k-slider',             'k-display',            v => Math.pow(10, parseFloat(v)).toFixed(4));
+const gSl      = bindSlider('g-slider',             'g-display',            v => (parseFloat(v)*100).toFixed(2) + '%');
+const nSl      = bindSlider('n-slider',             'n-display',            v => v + ' years');
+const budgetSl = bindSlider('budget-base-slider',   'budget-base-display',  v => '£' + parseInt(v).toLocaleString() + 'b');
+const budgetGSl= bindSlider('budget-growth-slider', 'budget-growth-display',v => (parseFloat(v)*100).toFixed(2) + '%');
+const srrSl    = bindSlider('srr-slider',           'srr-display',          v => parseFloat(v).toFixed(1) + '×');
+const lrrSl    = bindSlider('lrr-slider',           'lrr-display',          v => parseFloat(v).toFixed(1) + ' yrs');
 
-// ── Mode toggle ───────────────────────────────────────────────────────────────
 let mode = 'steady';
 function setMode(m) {
   mode = m;
@@ -345,9 +558,7 @@ function setMode(m) {
     : 'Historical UK equity return series; tier differentials applied on top';
 }
 
-// ── Year selector ─────────────────────────────────────────────────────────────
 const yearSel = document.getElementById('start-year-select');
-// Max start year: need N+1 returns, N up to 65, series is 73 values. Cap at 2006 to always have room.
 Array.from({length: 60}, (_, i) => 1947 + i).forEach(y => {
   const opt = document.createElement('option');
   opt.value = y; opt.textContent = y;
@@ -355,52 +566,36 @@ Array.from({length: 60}, (_, i) => 1947 + i).forEach(y => {
 });
 yearSel.value = 2007;
 
-// ── Pyodide init ──────────────────────────────────────────────────────────────
 let pyodide = null;
 let pyReady = false;
 
 async function initPyodide() {
   try {
     setProgress(5, 'Loading Pyodide runtime (first load ~10s, cached thereafter)…');
-    pyodide = await loadPyodide({
-      indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.27.5/full/'
-    });
-
+    pyodide = await loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.27.5/full/' });
     setProgress(40, 'Runtime loaded. Fetching model files…');
-
     const [coreText, ratesText, tomlText] = await Promise.all([
       fetch('wdt_core.py').then(r => { if (!r.ok) throw new Error('wdt_core.py not found'); return r.text(); }),
       fetch('rates_model.py').then(r => { if (!r.ok) throw new Error('rates_model.py not found'); return r.text(); }),
       fetch('260812_WDT_Params.toml').then(r => { if (!r.ok) throw new Error('TOML not found'); return r.text(); }),
     ]);
-
     setProgress(65, 'Writing files to virtual filesystem…');
-
-    pyodide.FS.writeFile('/wdt_core.py',              coreText);
-    pyodide.FS.writeFile('/rates_model.py',           ratesText);
-    pyodide.FS.writeFile('/260812_WDT_Params.toml',   tomlText);
-
+    pyodide.FS.writeFile('/wdt_core.py',            coreText);
+    pyodide.FS.writeFile('/rates_model.py',         ratesText);
+    pyodide.FS.writeFile('/260812_WDT_Params.toml', tomlText);
     setProgress(75, 'Importing modules…');
-
     await pyodide.runPythonAsync(`
 import sys
 sys.path.insert(0, '/')
 from wdt_core   import load_params, run_sim, run_sim_hist, simulate, simulate_sell
 from rates_model import run_tcm, run_ssm
 `);
-
-    setProgress(90, 'Loading parameters (running SSM for LRR fill year)…');
-
-    await pyodide.runPythonAsync(`
-p_base = load_params('/260812_WDT_Params.toml')
-`);
-
+    setProgress(90, 'Loading parameters…');
+    await pyodide.runPythonAsync(`p_base = load_params('/260812_WDT_Params.toml')`);
     setProgress(100, 'Ready.');
-
     pyReady = true;
     document.getElementById('loading').style.display = 'none';
     document.getElementById('main').style.display = 'block';
-
   } catch (err) {
     setProgress(0, 'Failed.');
     showError('Error: ' + err.message);
@@ -408,7 +603,6 @@ p_base = load_params('/260812_WDT_Params.toml')
   }
 }
 
-// ── Run ───────────────────────────────────────────────────────────────────────
 async function runCalc() {
   if (!pyReady) return;
   const btn = document.getElementById('run-btn');
@@ -430,8 +624,6 @@ async function runCalc() {
   try {
     const pyCode = `
 import json, math
-
-# ── Build UI parameter dict ─────────────────────────────────────────────────
 p = dict(p_base)
 p['tau_0']         = ${tau0}
 p['tau_m']         = ${taum}
@@ -441,148 +633,59 @@ p['budget_base']   = ${budgetBase}
 p['budget_growth'] = ${budgetGrowth}
 p['srr_ratio']     = ${srrRatio}
 p['lrr_years']     = ${lrrYears}
-
-# ── Rotate returns if hist mode ─────────────────────────────────────────────
 ${mode === 'hist' ? `
 base_year = p['series_base_year']
 canon = p['canonical_returns']
 offset = (${startYear} - base_year) % len(canon)
 p['returns'] = canon[offset:] + canon[:offset]
-` : `
-# Steady g: replace returns series with constant g
-# tiers still apply their differentials on top
-p['returns'] = [${g}] * 73
-`}
-
-# ── SSM: find SRR fill year and LRR fill year ───────────────────────────────
+` : `p['returns'] = [${g}] * 73`}
 ssm_rows = run_ssm(p, max_N=71)
-
-srr_fill = None
-for row in ssm_rows:
-    if row['srr_target'] > 0 and row['srr_balance'] >= row['srr_target'] * 0.9999:
-        srr_fill = row['year']
-        break
-
-lrr_fill = None
-for row in ssm_rows:
-    if row['lrr_filled']:
-        lrr_fill = row['year']
-        break
-
-# Use UI N; fall back to lrr_fill if set, else default
-N_use    = ${N}
-N_fill   = srr_fill if srr_fill is not None else 1
-
-# ── TCM ─────────────────────────────────────────────────────────────────────
+srr_fill = next((r['year'] for r in ssm_rows if r['srr_target'] > 0 and r['srr_balance'] >= r['srr_target'] * 0.9999), None)
+lrr_fill = next((r['year'] for r in ssm_rows if r['lrr_filled']), None)
+N_use  = ${N}
+N_fill = srr_fill if srr_fill is not None else 1
 tcm = run_tcm(p, N=N_use, N_fill=N_fill)
-
-# Aggregate revenue across all tier × bracket cells
 total_avg_rev_m = 0.0
 total_pf_rev_m  = 0.0
-bracket_totals  = {}   # label -> {avg_rev_m, pf_rev_m, cell_pop, V0_m, TW}
-
+bracket_totals  = {}
 for diff, rows in tcm.items():
     for row in rows:
         total_avg_rev_m += row['revenue_m']
         total_pf_rev_m  += row['post_fill_revenue_m']
         lbl = row['label']
         if lbl not in bracket_totals:
-            bracket_totals[lbl] = {
-                'avg_rev_m': 0.0, 'pf_rev_m': 0.0,
-                'cell_pop': 0.0,  'V0_m': row['V0_m'],
-                'TW': row['TW'],  'N_pop': row['N_pop']
-            }
+            bracket_totals[lbl] = {'avg_rev_m': 0.0, 'pf_rev_m': 0.0, 'cell_pop': 0.0, 'V0_m': row['V0_m'], 'N_pop': row['N_pop']}
         bracket_totals[lbl]['avg_rev_m'] += row['revenue_m']
         bracket_totals[lbl]['pf_rev_m']  += row['post_fill_revenue_m']
         bracket_totals[lbl]['cell_pop']  += row['cell_pop']
-
-# Convert £m -> £b for summary
-total_avg_rev_b = total_avg_rev_m / 1000.0
-total_pf_rev_b  = total_pf_rev_m  / 1000.0
-
-# Tier breakdown for table
 tier_rows = []
 for diff, rows in tcm.items():
     tier_label = next((t['label'] for t in p['tiers'] if abs(t['differential'] - diff) < 1e-9), str(diff))
     for row in rows:
-        tier_rows.append({
-            'tier':    tier_label,
-            'bracket': row['label'],
-            'N_pop':   row['N_pop'],
-            'cell_pop':row['cell_pop'],
-            'V0_m':    row['V0_m'],
-            'TW':      row['TW'],
-            'avg_net_gbp':   row['avg_net_gbp'],
-            'wealth_burden': row['wealth_burden'],
-            'eff_rate':      row['eff_rate'],
-            'revenue_m':     row['revenue_m'],
-            'post_fill_revenue_m': row['post_fill_revenue_m'],
-        })
-
-# SWF milestones from SSM
+        tier_rows.append({'tier': tier_label, 'bracket': row['label'], 'N_pop': row['N_pop'], 'cell_pop': row['cell_pop'], 'V0_m': row['V0_m'], 'revenue_m': row['revenue_m'], 'post_fill_revenue_m': row['post_fill_revenue_m']})
 ssm_last = ssm_rows[-1]
-srr_target_final  = ssm_last['srr_target']
-srr_balance_final = ssm_last['srr_balance']
-lrr_target_final  = ssm_last['lrr_target']
-lrr_balance_final = ssm_last['lrr_balance']
-
 result = {
-    'total_avg_rev_b': total_avg_rev_b,
-    'total_pf_rev_b':  total_pf_rev_b,
-    'srr_fill': srr_fill,
-    'lrr_fill': lrr_fill,
-    'N_use':    N_use,
-    'N_fill':   N_fill,
-    'tier_rows': tier_rows,
-    'swf': {
-        'srr_target_final':  srr_target_final,
-        'srr_balance_final': srr_balance_final,
-        'lrr_target_final':  lrr_target_final,
-        'lrr_balance_final': lrr_balance_final,
-        'srr_fill': srr_fill,
-        'lrr_fill': lrr_fill,
-    },
-    'mode': '${mode}',
-    'start_year': ${startYear},
-    'g_steady': ${g},
+    'total_avg_rev_b': total_avg_rev_m / 1000.0,
+    'total_pf_rev_b':  total_pf_rev_m  / 1000.0,
+    'swf': {'srr_fill': srr_fill, 'lrr_fill': lrr_fill, 'srr_target_final': ssm_last['srr_target'], 'srr_balance_final': ssm_last['srr_balance'], 'lrr_target_final': ssm_last['lrr_target'], 'lrr_balance_final': ssm_last['lrr_balance']},
+    'tier_rows': tier_rows, 'mode': '${mode}', 'start_year': ${startYear}, 'g_steady': ${g}, 'N_use': N_use,
 }
 json.dumps(result)
 `;
-
     const jsonStr = await pyodide.runPythonAsync(pyCode);
-    const data = JSON.parse(jsonStr);
-    renderResults(data);
-
+    renderResults(JSON.parse(jsonStr));
   } catch (err) {
     alert('Model error: ' + err.message);
     console.error(err);
   }
-
   btn.disabled = false; msg.style.display = 'none';
 }
 
-// ── Rendering ─────────────────────────────────────────────────────────────────
-function fmtB(v, dp=1) {
-  if (v === null || v === undefined) return '—';
-  return '£' + v.toFixed(dp) + 'b';
-}
-function fmtM(v, dp=1) {
-  if (v === null || v === undefined) return '—';
-  if (Math.abs(v) >= 1000) return '£' + (v/1000).toFixed(dp) + 'b';
-  return '£' + v.toFixed(dp) + 'm';
-}
-function fmtPct(v, dp=2) {
-  if (v === null || v === undefined) return '—';
-  return (v * 100).toFixed(dp) + '%';
-}
-function fmtPop(v) {
-  if (v >= 1e6) return (v/1e6).toFixed(2) + 'm';
-  if (v >= 1e3) return (v/1e3).toFixed(0) + 'k';
-  return v.toFixed(0);
-}
+function fmtB(v, dp=1) { return v === null || v === undefined ? '—' : '£' + v.toFixed(dp) + 'b'; }
+function fmtM(v, dp=1) { if (v === null || v === undefined) return '—'; if (Math.abs(v) >= 1000) return '£' + (v/1000).toFixed(dp) + 'b'; return '£' + v.toFixed(dp) + 'm'; }
+function fmtPop(v) { if (v >= 1e6) return (v/1e6).toFixed(2) + 'm'; if (v >= 1e3) return (v/1e3).toFixed(0) + 'k'; return v.toFixed(0); }
 
 function renderResults(d) {
-  // Summary boxes
   document.getElementById('summary-boxes').style.display = 'grid';
   document.getElementById('box-avg-rev').textContent = fmtB(d.total_avg_rev_b);
   document.getElementById('box-pf-rev').textContent  = fmtB(d.total_pf_rev_b);
@@ -590,115 +693,63 @@ function renderResults(d) {
   document.getElementById('box-lrr-fill').textContent = d.swf.lrr_fill !== null ? 'Year ' + d.swf.lrr_fill : 'Not reached';
   document.getElementById('box-srr-year').textContent = d.swf.srr_fill !== null ? d.swf.srr_fill : '—';
 
-  // Comparison bar chart
   document.getElementById('comparison-section').style.display = 'block';
   const allAmounts = [d.total_avg_rev_b, d.total_pf_rev_b, ...HMRC_TAXES.map(t => t.amount)];
   const maxAmt = Math.max(...allAmounts);
-
-  const wdtBars = [
+  const barItems = [
     { label: 'WDT — avg annual revenue', amount: d.total_avg_rev_b, cls: 'wdt-avg' },
     { label: 'WDT — post-SRR revenue',   amount: d.total_pf_rev_b,  cls: 'wdt-pf'  },
+    ...HMRC_TAXES.map(t => ({ label: t.label, amount: t.amount, cls: 'hmrc' }))
   ];
-
-  const barItems = [...wdtBars, ...HMRC_TAXES.map(t => ({ label: t.label, amount: t.amount, cls: 'hmrc' }))];
-
   document.getElementById('bar-chart').innerHTML = barItems.map(item => {
     const pct = (item.amount / maxAmt * 100).toFixed(1);
-    const amtLabel = item.amount >= 1 ? fmtB(item.amount) : fmtM(item.amount * 1000);
     return `<div class="bar-row">
       <span class="bar-label">${item.label}</span>
-      <div class="bar-track">
-        <div class="bar-fill ${item.cls}" style="width:${pct}%"></div>
-      </div>
+      <div class="bar-track"><div class="bar-fill ${item.cls}" style="width:${pct}%"></div></div>
       <span class="bar-amount">${fmtB(item.amount)}</span>
     </div>`;
   }).join('');
 
-  // Breakdown table — aggregate per bracket across tiers (summarised view)
   document.getElementById('breakdown-section').style.display = 'block';
-  const modeLabel = d.mode === 'hist'
-    ? `Historical series from ${d.start_year}, N=${d.N_use}`
-    : `Steady g=${(d.g_steady*100).toFixed(2)}%, N=${d.N_use}`;
-  document.getElementById('breakdown-subtitle').textContent =
-    modeLabel + ' · Revenue = avg annual net tax × population × tier weight · Weighted across 4 return tiers';
+  const modeLabel = d.mode === 'hist' ? `Historical series from ${d.start_year}, N=${d.N_use}` : `Steady g=${(d.g_steady*100).toFixed(2)}%, N=${d.N_use}`;
+  document.getElementById('breakdown-subtitle').textContent = modeLabel + ' · Weighted across 4 return tiers';
 
-  // Aggregate tier_rows by bracket for the summary table
   const byBracket = {};
   for (const row of d.tier_rows) {
-    if (!byBracket[row.bracket]) {
-      byBracket[row.bracket] = { V0_m: row.V0_m, N_pop: row.N_pop, rev_m: 0, pf_rev_m: 0, cell_pop: 0 };
-    }
+    if (!byBracket[row.bracket]) byBracket[row.bracket] = { V0_m: row.V0_m, N_pop: row.N_pop, rev_m: 0, pf_rev_m: 0 };
     byBracket[row.bracket].rev_m    += row.revenue_m;
     byBracket[row.bracket].pf_rev_m += row.post_fill_revenue_m;
-    byBracket[row.bracket].cell_pop += row.cell_pop;
   }
-
   const brackets = Object.entries(byBracket);
-  const totalRevM  = brackets.reduce((s, [, v]) => s + v.rev_m,    0);
-  const totalPfRevM= brackets.reduce((s, [, v]) => s + v.pf_rev_m, 0);
+  const totalRevM = brackets.reduce((s, [, v]) => s + v.rev_m, 0);
+  const totalPfRevM = brackets.reduce((s, [, v]) => s + v.pf_rev_m, 0);
 
-  const tableHTML = `
-    <thead>
-      <tr>
-        <th>Bracket</th>
-        <th>Population</th>
-        <th>Entry wealth V₀</th>
-        <th>Avg annual revenue</th>
-        <th>As % of total</th>
-        <th>Post-SRR revenue</th>
-      </tr>
-    </thead>
+  document.getElementById('breakdown-table').innerHTML = `
+    <thead><tr>
+      <th>Bracket</th><th>Population</th><th>Entry wealth V₀</th>
+      <th>Avg annual revenue</th><th>% of total</th><th>Post-SRR revenue</th>
+    </tr></thead>
     <tbody>
-      ${brackets.map(([label, v]) => `
-        <tr>
-          <td>${label}</td>
-          <td>${fmtPop(v.N_pop)}</td>
-          <td>${fmtM(v.V0_m)}</td>
-          <td>${fmtM(v.rev_m)}</td>
-          <td>${totalRevM > 0 ? (v.rev_m / totalRevM * 100).toFixed(1) + '%' : '—'}</td>
-          <td>${fmtM(v.pf_rev_m)}</td>
-        </tr>`).join('')}
-      <tr class="total-row">
-        <td colspan="3">Total</td>
-        <td>${fmtM(totalRevM)}</td>
-        <td>100%</td>
-        <td>${fmtM(totalPfRevM)}</td>
-      </tr>
+      ${brackets.map(([label, v]) => `<tr>
+        <td>${label}</td><td>${fmtPop(v.N_pop)}</td><td>${fmtM(v.V0_m)}</td>
+        <td>${fmtM(v.rev_m)}</td>
+        <td>${totalRevM > 0 ? (v.rev_m / totalRevM * 100).toFixed(1) + '%' : '—'}</td>
+        <td>${fmtM(v.pf_rev_m)}</td>
+      </tr>`).join('')}
+      <tr class="total-row"><td colspan="3">Total</td><td>${fmtM(totalRevM)}</td><td>100%</td><td>${fmtM(totalPfRevM)}</td></tr>
     </tbody>`;
-  document.getElementById('breakdown-table').innerHTML = tableHTML;
 
-  // SWF milestones
   document.getElementById('swf-section').style.display = 'block';
   const swf = d.swf;
   document.getElementById('swf-grid').innerHTML = `
-    <div class="swf-box">
-      <div class="swf-lbl">SRR fill year</div>
-      <div class="swf-val">${swf.srr_fill !== null ? 'Year ' + swf.srr_fill : 'Not reached'}</div>
-    </div>
-    <div class="swf-box">
-      <div class="swf-lbl">LRR fill year</div>
-      <div class="swf-val">${swf.lrr_fill !== null ? 'Year ' + swf.lrr_fill : 'Not reached'}</div>
-    </div>
-    <div class="swf-box">
-      <div class="swf-lbl">SRR target at year 71</div>
-      <div class="swf-val">${fmtB(swf.srr_target_final)}</div>
-    </div>
-    <div class="swf-box">
-      <div class="swf-lbl">SRR balance at year 71</div>
-      <div class="swf-val">${fmtB(swf.srr_balance_final)}</div>
-    </div>
-    <div class="swf-box">
-      <div class="swf-lbl">LRR target at year 71</div>
-      <div class="swf-val">${fmtB(swf.lrr_target_final)}</div>
-    </div>
-    <div class="swf-box">
-      <div class="swf-lbl">LRR balance at year 71</div>
-      <div class="swf-val">${fmtB(swf.lrr_balance_final)}</div>
-    </div>
-  `;
+    <div class="swf-box"><div class="swf-lbl">SRR fill year</div><div class="swf-val">${swf.srr_fill !== null ? 'Year ' + swf.srr_fill : 'Not reached'}</div></div>
+    <div class="swf-box"><div class="swf-lbl">LRR fill year</div><div class="swf-val">${swf.lrr_fill !== null ? 'Year ' + swf.lrr_fill : 'Not reached'}</div></div>
+    <div class="swf-box"><div class="swf-lbl">SRR target at year 71</div><div class="swf-val">${fmtB(swf.srr_target_final)}</div></div>
+    <div class="swf-box"><div class="swf-lbl">SRR balance at year 71</div><div class="swf-val">${fmtB(swf.srr_balance_final)}</div></div>
+    <div class="swf-box"><div class="swf-lbl">LRR target at year 71</div><div class="swf-val">${fmtB(swf.lrr_target_final)}</div></div>
+    <div class="swf-box"><div class="swf-lbl">LRR balance at year 71</div><div class="swf-val">${fmtB(swf.lrr_balance_final)}</div></div>`;
 }
 
-// ── Boot ──────────────────────────────────────────────────────────────────────
 initPyodide();
 </script>
 </body>
