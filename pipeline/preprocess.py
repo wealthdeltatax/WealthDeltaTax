@@ -150,6 +150,18 @@ def main() -> None:
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(p, destination)
 
+    # ── Copy image outputs into _build/figures/ ───────────────────────────────
+    OUTPUTS_DIR = cfg.SITE_DIR / "tools" / "OUTPUTS"
+    if OUTPUTS_DIR.exists():
+        figures_dest = build / "figures"
+        figures_dest.mkdir(exist_ok=True)
+        for img in OUTPUTS_DIR.rglob("*"):
+            if img.is_file():
+                shutil.copy2(img, figures_dest / img.name)
+        print(f"  ✓ Copied image outputs → _build/figures/ ({sum(1 for _ in OUTPUTS_DIR.rglob('*') if _.is_file())} files)")
+    else:
+        print(f"  ! site/tools/OUTPUTS/ not found — skipping figure copy")
+
     # ── Auto-generated pages ──────────────────────────────────────────────
     generate_corpus_qmd(build / "corpus.qmd", site_cfg.link_map, site_cfg.paper_meta)
 

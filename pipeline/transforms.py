@@ -2,14 +2,15 @@
 transforms.py — per-paper text processing pipeline.
 
 Each function is a pure(-ish) transform: text in, text out.
-process_file() applies all five steps in order and writes the result.
+process_file() applies all six steps in order and writes the result.
 
 Steps:
   1. strip_latex        — remove LaTeX spacing/layout commands
-  2. convert_crossrefs  — (PAPER §X.Y) / PAPER §X.Y  →  markdown hyperlink
-  3. convert_internal_bibliography — [CODE] lines → styled ::: div
-  4. inject_front_matter — enrich YAML front matter from paper_meta
-  5. build_jsonld       — append JSON-LD ScholarlyArticle block
+  2. fix_image_paths    — rewrite image src paths to figures/ (flat build directory)
+  3. convert_crossrefs  — (PAPER §X.Y) / PAPER §X.Y  →  markdown hyperlink
+  4. convert_internal_bibliography — [CODE] lines → styled ::: div
+  5. inject_front_matter — enrich YAML front matter from paper_meta
+  6. build_jsonld       — append JSON-LD ScholarlyArticle block
 """
 
 from __future__ import annotations
@@ -42,7 +43,76 @@ def strip_latex(text: str) -> str:
     return _LATEX_RE.sub("", text)
 
 
-# ── 2. Cross-reference conversion ─────────────────────────────────────────────
+# ── 2. Image path normalisation ───────────────────────────────────────────────
+#
+# Source .md files reference images with paths like:
+#   ../figures/rates_fig_03.png
+#   figures/rates_fig_03.png
+#   site/tools/OUTPUTS/RATES/rates_fig_03.png
+#
+# All of these must become simply:
+#   figures/rates_fig_03.png
+#
+# Quarto renders papers at the _build/ root, and preprocess.py copies all
+# images from site/tools/OUTPUTS/**/* into _build/figures/ (flat), so
+# `figures/<filename>` is always the correct relative path.
+#
+# The regex matches Markdown image syntax:  ![alt](path)
+# It captures everything inside the parens and rewrites it to just the
+# bare filename under figures/, preserving any trailing title string
+# e.g.  ![](../figures/foo.png "Fig 1")  →  ![](figures/foo.png "Fig 1")
+
+_IMG_RE = re.compile(
+    r'!\[([^\]]*)\]\(([^)]+)\)'
+)
+
+
+def _rewrite_image_src(src: str) -> str:
+    """
+    Given the raw src string from inside ![alt](SRC), return the corrected
+    figures/-relative path.
+
+    Handles:
+      ../figures/foo.png          → figures/foo.png
+      ../../figures/foo.png       → figures/foo.png
+      figures/foo.png             → figures/foo.png   (already correct)
+      site/tools/OUTPUTS/X/foo.png → figures/foo.png
+      foo.png                     → figures/foo.png   (bare filename)
+
+    Preserves any trailing title token, e.g. `foo.png "My title"`.
+    """
+    # Split off an optional title token: `path "title"` or `path 'title'`
+    title_match = re.search(r'\s+(["\'].+["\'])\s*$', src)
+    if title_match:
+        title_token = " " + title_match.group(1)
+        src_path = src[:title_match.start()].strip()
+    else:
+        title_token = ""
+        src_path = src.strip()
+
+    # Extract bare filename regardless of leading path components
+    filename = Path(src_path).name
+
+    return f"figures/{filename}{title_token}"
+
+
+def fix_image_paths(text: str) -> str:
+    """Rewrite all Markdown image paths to figures/<filename>."""
+    def replace(m: re.Match) -> str:
+        alt = m.group(1)
+        src = m.group(2)
+
+        # Skip external URLs — http/https/data URIs stay untouched
+        if re.match(r'https?://', src) or src.startswith('data:'):
+            return m.group(0)
+
+        new_src = _rewrite_image_src(src)
+        return f"![{alt}]({new_src})"
+
+    return _IMG_RE.sub(replace, text)
+
+
+# ── 3. Cross-reference conversion ─────────────────────────────────────────────
 
 _CROSSREF_RE = re.compile(
     r"\(([A-Z][A-Z0-9]*(?:\.[A-Z][A-Z0-9]*)?)(?:\s+§([\d.A-Za-z]+))?\)"
@@ -65,7 +135,7 @@ def convert_crossrefs(
             return full
 
         if section:
-            key = f"{shortcode}§{section}"
+            key = f"{shortcode}\u00a7{section}"  # §
             url = anchor_map.get(key)
             if url:
                 return f"[{full}]({url})"
@@ -77,7 +147,7 @@ def convert_crossrefs(
     return _CROSSREF_RE.sub(replace, text)
 
 
-# ── 3. Internal bibliography conversion ───────────────────────────────────────
+# ── 4. Internal bibliography conversion ───────────────────────────────────────
 
 _INTBIB_LINE_RE = re.compile(
     r"^\[([A-Z][A-Z0-9]*(?:\.[A-Z][A-Z0-9]*)?)\]\s+(.+)$"
@@ -108,7 +178,7 @@ def convert_internal_bibliography(lines: list[str]) -> list[str]:
     return result
 
 
-# ── 4. Front matter injection ─────────────────────────────────────────────────
+# ── 5. Front matter injection ─────────────────────────────────────────────────
 
 _YAML_FENCE_RE = re.compile(r"^---\s*\n(.*?)^---\s*\n", re.DOTALL | re.MULTILINE)
 
@@ -153,6 +223,7 @@ def inject_front_matter(
     )
     return f"---\n{new_fm}---\n{body}"
 
+
 def inject_under_construction(text: str, shortcode: str, paper_meta: dict) -> str:
     """Prepend an under-construction banner if paper version < 1.0."""
     meta = paper_meta.get(shortcode)
@@ -167,8 +238,6 @@ def inject_under_construction(text: str, shortcode: str, paper_meta: dict) -> st
             '</div>\n'
             '```\n\n'
         )
-        # Insert after the YAML front matter block
-        import re
         fm_end = re.search(r'^---\s*\n.*?^---\s*\n', text, re.DOTALL | re.MULTILINE)
         if fm_end:
             insert_pos = fm_end.end()
@@ -176,7 +245,7 @@ def inject_under_construction(text: str, shortcode: str, paper_meta: dict) -> st
     return text
 
 
-# ── 5. JSON-LD injection ──────────────────────────────────────────────────────
+# ── 6. JSON-LD injection ──────────────────────────────────────────────────────
 
 def build_jsonld(
     shortcode: str,
@@ -242,15 +311,16 @@ def process_file(
     anchor_map: dict[str, str],
     paper_meta: dict[str, Any],
 ) -> None:
-    """Apply all five transforms to one source file and write the result."""
+    """Apply all six transforms to one source file and write the result."""
     text = src_path.read_text(encoding="utf-8")
 
     text  = strip_latex(text)
+    text  = fix_image_paths(text)
     text  = convert_crossrefs(text, link_map, anchor_map)
     lines = convert_internal_bibliography(text.splitlines(keepends=True))
     text  = "".join(lines)
     text  = inject_front_matter(text, shortcode, paper_meta)
-    text = inject_under_construction(text, shortcode, paper_meta)
+    text  = inject_under_construction(text, shortcode, paper_meta)
     text  = text.rstrip("\n") + "\n" + build_jsonld(shortcode, paper_meta, link_map)
 
     dest_path.parent.mkdir(parents=True, exist_ok=True)
