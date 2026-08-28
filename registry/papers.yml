@@ -98,3 +98,7 @@
 - shortcode: SCOPE
   source_glob: "17.0_*_WDT_Scope_Boundary.md"
   output: scope.qmd
+
+- shortcode: ADD
+  source_glob: "18.0_*_WDT_Addendums.md"
+  output: add.qmd

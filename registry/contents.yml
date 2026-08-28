@@ -1064,3 +1064,39 @@ SCOPE:
     '4.3': Systemic Risk Question
     '7': Jurisdiction-Specific and Institutional Preconditions
     '8': What This Document Is Not Doing
+ADD:
+  page: add.html
+  title: "Addendum: Implementation Calibration Examples"
+  sections:
+    '1': Introduction
+    '2': The Nature of Implementation Calibration
+    '3': "Calibration Question One: Exemption Threshold Indexation"
+    '3.1': The Problem
+    '3.2': The Specification
+    '4': "Calibration Question Two: TP Chamber Conflict of Interest Visibility"
+    '4.1': The Problem
+    '4.2': The Specification
+    '5': "Calibration Question Three: External Chamber Communication Rules"
+    '5.1': The Problem
+    '5.2': The Specification
+    '6': "Calibration Question Four: DR Chamber Eligible Pool Monitoring"
+    '6.1': The Problem
+    '6.2': The Specification
+    '7': "Calibration Question Five: The Consumption Delta"
+    '7.1': The Question
+    '7.2': The Resolution
+    '7.3': The Qualifications
+    '7.4': The Implementation Implication
+    '8': "Calibration Question Six: SWF Asset Composition Monitoring"
+    '8.1': The Problem
+    '8.2': The Specification
+    '9': "Calibration Question Seven: Phase One Measurement Framework as Binding Standard"
+    '9.1': The Problem
+    '9.2': The Specification
+    '10': "Calibration Question Eight: The Bootstrapping Facility"
+    '10.1': The Problem
+    '10.2': The Architectural Resolution
+    '10.3': The Governance Requirement
+    '11': The Relationship Between These Questions
+    '12': Limitations and Further Work
+    '13': Conclusion

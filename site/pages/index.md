@@ -109,71 +109,11 @@ All papers are pre-peer review and represent work in progress. The full series i
 - **Want the full mechanism?** The [White Paper (WP)](wp.html) covers mechanism design, principal objections, and implementation pathway.
 - **Want the normative case?** [Moral Foundations (MF)](mf.html) develops the philosophical basis.
 - **Want to know if the numbers work?** [Rates and Revenue (RATES)](rates.html) covers the fiscal modelling.
-- **Researcher or returning reader?** The [Project Map](summary.html) traces all 26 papers, their relationships, and every open question the series has and hasn't yet closed.
+- **Researcher or returning reader?** The [Project Map](Project-Map.html) traces all 26 papers, their relationships, and every open question the series has and hasn't yet closed.
 
 ---
 
-## Full paper series
-
-### Core
-
-| Shortcode | Title |
-|---|---|
-| [WP](wp.html) | White Paper — mechanism overview |
-| [MF](mf.html) | Moral and Philosophical Foundations |
-| [SCOPE](scope.html) | Scope Boundary — questions outside this project |
-
-### Literature
-
-| Shortcode | Title |
-|---|---|
-| [LR.A](lr-a.html) | Research Gaps in Existing Wealth Tax Literature |
-| [LR.B](lr-b.html) | Intellectual Background and Reference Guide |
-| [JUR](jur.html) | UK Jurisdiction and Data Reference |
-
-### Valuation
-
-| Shortcode | Title |
-|---|---|
-| [VAL](val.html) | Valuing Wealth |
-| [VAL.A](val-a.html) | Mathematical and Simulation Appendix |
-| [VAL.B](val-b.html) | Worked Examples |
-
-### Corporate & Governance
-
-| Shortcode | Title |
-|---|---|
-| [CORP](corp.html) | Corporate Architecture |
-| [CORP.A](corp-a.html) | Corporate Architecture Appendix |
-| [GOV](gov.html) | Constitutional Governance |
-| [GOV.A](gov-a.html) | Governance — Intellectual Appendix |
-| [GOV.B](gov-b.html) | Governance — Operational Appendix |
-
-### Revenue & Behaviour
-
-| Shortcode | Title |
-|---|---|
-| [RATES](rates.html) | Rates and Revenue |
-| [RATES.A](rates-a.html) | Rates and Revenue Appendix |
-| [SWEEPS](sweeps.html) | Parameter Space and Governing Council Calibration |
-| [SWEEPS.A](sweeps-a.html) | Parameter Space — Appendix Tables |
-| [BEHAV](behav.html) | Behavioural Robustness and Administrative Experience |
-
-### Implementation
-
-| Shortcode | Title |
-|---|---|
-| [CLOSE](close.html) | Position Closure |
-| [PHASE1](phase1.html) | Phase One |
-
-### Analysis
-
-| Shortcode | Title |
-|---|---|
-| [POL](pol.html) | Political Architecture |
-| [ENV](env.html) | Environmental Effects and Transmission Channels |
-| [FM](fm.html) | First Mover Dynamics |
-| [MOD](mod.html) | Modular Adoption |
+The complete list of all 26 papers with version history and status is on the [Papers index](corpus.html).
 
 ```{=html}
 <hr>

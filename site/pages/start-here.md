@@ -58,7 +58,7 @@ The right starting point depends on what you want:
 
 **Want to know if the numbers work?** Rates and Revenue (RATES) answers whether a progressive tax on annual wealth changes can fund modern government at a meaningful scale, modelled against UK data across every historical starting year since 1947.
 
-**Researcher or returning reader?** The [Project Map](summary.html) traces all 26 papers, their relationships, version history, and the consolidated register of every open question the series has and hasn't yet closed.
+**Researcher or returning reader?** The [Project Map](Project-Map.html) traces all 26 papers, their relationships, version history, and the consolidated register of every open question the series has and hasn't yet closed.
 
 ---
 
@@ -76,4 +76,4 @@ These five papers establish the full architecture:
 
 ## Status
 
-The WDT is a working-paper series — 26 papers in active development as of mid-2026. Version numbers and dates are noted at the top of each paper. The project does not claim to constitute a finished policy proposal. It is a research architecture: a set of interlocking formal claims that can be evaluated, modelled, challenged, and refined. Open questions are stated explicitly in each paper's *Limitations* section, and collected in the [Project Map](summary.html).
+The WDT is a working-paper series — 26 papers in active development as of mid-2026. Version numbers and dates are noted at the top of each paper. The project does not claim to constitute a finished policy proposal. It is a research architecture: a set of interlocking formal claims that can be evaluated, modelled, challenged, and refined. Open questions are stated explicitly in each paper's *Limitations* section, and collected in the [Project Map](Project-Map.html).

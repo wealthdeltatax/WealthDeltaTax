@@ -399,11 +399,53 @@
 
 ---
 
-## 25 Open Questions Register
+## 25 SCOPE: Scope Boundary
+
+**Purpose.** SCOPE records which of the 30 open questions register items fall outside the project's scope and why. Different reasons for deferral carry different implications for what a subsequent researcher should do with each item (SCOPE §1).
+
+**Formal modelling tasks.** Items #1–3 require economic modelling expertise and peer-review infrastructure a single-author policy design project does not carry. The Domar-Musgrave extension (#1), the welfare comparison including the delta base (#2), and the distributional arithmetic of delta-base concentration under persistent return heterogeneity (#3) are characterised as literature gaps in LR.A; their absence is stated rather than deferred behind forward references (SCOPE §2).
+
+**Comparative political economy and international coordination.** Items #7–9 require comparative case-study depth or treaty-law analysis across jurisdictions. The three-mechanism abolition framework in POL §3 (#7) is an analytical construction, not a validated comparative result. The international competitive dynamic at the political level (#8) is underdeveloped. The minimum-tax floor interaction with a refund-based system (#9) is novel in treaty law; no prior refund-based wealth tax has existed as a coordination reference point (SCOPE §3).
+
+**Phase One empirical questions.** Items #4–6, #13–16, #18, #29, and #30 cannot be resolved by further desk research. The bootstrapping vulnerability (#30) and compliance and behavioural questions (#4–6) are the most consequential. SCOPE records the evaluation designs PHASE1 specifies for each cluster and assigns #18, #29, and #30 to ENV, VAL.A, and POL respectively (SCOPE §4).
+
+**Phase One successor tasks.** Items #11 and #12 belong to MACRO. They are not outside scope in principle; calibration data does not yet exist (SCOPE §5).
+
+**Governing Council calibration parameters.** Items #10, #17, #19–21, and #24 are settled in kind but open in value; Phase One observation closes the value questions. Item #17 (the τ₀ × W_min joint surface) is the only item in this group resolvable without Phase One data (SCOPE §6).
+
+**Jurisdiction-specific and institutional preconditions.** Items #22–23 and #25–28 are not design gaps. Resolution depends on legal analysis, diplomatic process, or institutional negotiation specific to a jurisdiction (SCOPE §7).
+
+---
+
+## 26 ADD: Implementation Calibration Examples
+
+**Purpose.** ADD examines eight implementation questions the design papers leave open but do not name as calibration variables: monitoring triggers, review thresholds, and operational infrastructure requirements. For each question a possible approach is sketched. The sketches show the shape of what a genuine answer would need to address; they are not specifications for adoption (ADD §1–2).
+
+**Exemption threshold indexation.** A fixed nominal threshold produces threshold drift through asset appreciation. The governance consequences exceed the fiscal ones: mass enrolment through drift shifts the TP chamber's vote arithmetic and primes the legitimacy-collapse failure mode POL §3 identifies. The approach sketched: automatic indexation to a composite wealth appreciation index maintaining the threshold's real position relative to a defined wealth-distribution percentile, plus a mandatory extraordinary review trigger when enrolled TP population exceeds a defined share of adults (ADD §3).
+
+**TP chamber conflict of interest visibility.** The Allocator's pre-vote publication does not require disclosure of an initiating coalition's direct financial interest in a proposal's outcome. DR members, unlikely to have independent knowledge of TP coalition business characteristics, should receive this information before voting. The approach sketched: a standing Allocator section assessing the initiating coalition's interest distribution, as a visibility mechanism, not a disqualification (ADD §4).
+
+**External chamber communication rules.** Organised TP campaigns directed at DR members are the resource-defines-truth pressure GOV.A §A identifies as a governance failure mode, without being prohibited speech. The approach sketched: a mandatory Administrator clarification at the opening of each proposal period establishing the formal information hierarchy for DR members, combined with a DR forum quality standard tracked as a membrane health observable (ADD §5).
+
+**DR-eligible pool monitoring.** The volunteer rate is a lagging indicator of pool health; it does not measure pool size or representativeness. A pool contracted through threshold drift can remain above the dissolution floor while becoming unrepresentative of the constituency DR was designed to embody. The approach sketched: mandatory quarterly pool-size publication as a proportion of the adult population, with a secondary monitoring trigger firing when the pool falls below a defined floor (ADD §6).
+
+**The consumption delta.** The apparent gap — high earners who consume rather than accumulate escaping WDT — dissolves under precise analysis. Consumption expenditure flows either to an above-threshold recipient (enters their delta; loop closes through the mechanism) or to a below-threshold recipient (the terminal goal's expression at the individual level). Two qualifications survive: import leakage on purely offshore transactions, and foreign sovereign enterprises where the attribution chain terminates at a foreign state. Both point toward diplomatic expansion of τ_f agreements rather than a new domestic instrument (ADD §7).
+
+**SWF asset composition monitoring.** Each individual extension of the investment mandate is defensible; the cumulative effect can produce a portfolio the original mandate did not contemplate through good-faith mission creep. The approach sketched: mandatory quarterly composition publication against a Governing Council-voted Phase One baseline, with a composition review trigger when any single non-traditional asset category exceeds a defined proportion of total assets (ADD §8).
+
+**Phase One measurement framework as binding standard.** The PHASE1 evaluation designs are currently proposals. Without prior agreement on interpretive standards, ambiguous Phase One data will be read through chamber interests rather than resolved empirically. The approach sketched: formal Governing Council adoption of the evaluation designs as binding interpretive standards before Phase One data begins accumulating, including explicit separation of revenue improvement attributable to enrolled population growth from revenue improvement attributable to multiplier effects (ADD §9).
+
+**The bootstrapping facility.** POL §6 names the Phase One vulnerability window as the mechanism's most dangerous period but specifies no resolution. A time-limited, interest-bearing bridge loan to the SWF Custodian is compatible with the enumerated structural clauses if three conditions are met simultaneously: the facility is interest-bearing (not grant-funded), contractually subordinated to refund obligations, and the SWF's net position published separately from gross assets throughout. Maximum facility size and all three conditions require a single Governing Council vote before any drawdown (ADD §10).
+
+**Interactions and limitations.** Threshold indexation and DR pool monitoring are directly linked; the Phase One measurement framework and conflict-of-interest visibility interact through the governance process for using Phase One data; the bootstrapping facility interacts with SWF composition monitoring and threshold indexation through timing. Several approaches require institutional infrastructure that does not yet exist. The consumption delta analysis is a hypothesis requiring formal validation. A jurisdiction substituting these sketches for proper expert work would be worse positioned than one that knew the questions existed and commissioned the analysis needed to answer them (ADD §11–13).
+
+---
+
+## 27 Open Questions Register
 
 Items in this register are questions not resolved within the current paper set. All 24 papers are now in the project.
 
-### 25.1 Confirmed Literature Gaps (formal modelling required; separable from Phase One)
+### 27.1 Confirmed Literature Gaps (formal modelling required; separable from Phase One)
 
 | # | Question | Assigned to |
 |---|---|---|
@@ -414,7 +456,7 @@ Items in this register are questions not resolved within the current paper set. 
 | 8 | International competitive dynamic at the political level | POL §7; FM §1 |
 | 9 | Minimum-tax floor interaction with refund-based systems | LR.A §4.3 |
 
-### 25.2 Phase One Empirical Questions (unanswerable before a live system)
+### 27.2 Phase One Empirical Questions (unanswerable before a live system)
 
 | # | Question | Assigned to |
 |---|---|---|
@@ -429,14 +471,14 @@ Items in this register are questions not resolved within the current paper set. 
 | 29 | Monitoring instrument for population distribution of $\alpha$ (mild-overstatement drift) | VAL.A §A.6; BEHAV §10.2 |
 | 30 | Bootstrapping problem: Phase One vulnerability window mitigation sufficiency | POL §6; Phase One |
 
-### 25.3 Assigned to MACRO (Phase One successor; requires live data before modelling can be calibrated)
+### 27.3 Assigned to MACRO (Phase One successor; requires live data before modelling can be calibrated)
 
 | # | Question | Assigned to |
 |---|---|---|
 | 11 | Consumption multiplier magnitude and net bias direction of RATES estimates | ENV §9.2.3; MACRO |
 | 12 | Automation and tax-base migration under different automation trajectories | ENV §9.2.4; MACRO |
 
-### 25.4 Governing Council Calibration Parameters (settled in kind, open in value; all Phase One data dependent)
+### 27.4 Governing Council Calibration Parameters (settled in kind, open in value; all Phase One data dependent)
 
 | # | Question | Assigned to |
 |---|---|---|
@@ -447,7 +489,7 @@ Items in this register are questions not resolved within the current paper set. 
 | 21 | τ_h exact calibration within [deterrence floor, τ_m]; ramp pace; joint calibration with CIT/dividend displacement (3–5 cycles) | CORP.A §B.2 |
 | 24 | Assessment window premium exact calibration | VAL §8; RATES §9.3 |
 
-### 25.5 Jurisdiction-Specific and Institutional Preconditions (not design gaps)
+### 27.5 Jurisdiction-Specific and Institutional Preconditions (not design gaps)
 
 | # | Question | Assigned to |
 |---|---|---|
@@ -458,7 +500,7 @@ Items in this register are questions not resolved within the current paper set. 
 | 27 | Post-Brexit information exchange gaps (DAC loss, EU-domiciled structures) | JUR §4.3 |
 | 28 | Constitutional/legal analysis of Route D auction trigger in specific jurisdictions | WP §8.5; JUR |
 
-### 25.6 Summary observations
+### 27.6 Summary observations
 
 - **6 confirmed literature gaps** (§25.1) require formal modelling or comparative case study work; most are separable from Phase One.
 - **10 Phase One empirical questions** (§25.2) cannot be resolved without live system data; PHASE1 specifies evaluation designs for items 4–6, 13–16. Items 4–6 and 30 are the most consequential.

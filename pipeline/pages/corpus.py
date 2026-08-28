@@ -24,7 +24,7 @@ SECTION_ORDER: list[tuple[str, list[str]]] = [
     ("Revenue & Behaviour",      ["RATES", "RATES.A", "SWEEPS", "SWEEPS.A", "BEHAV"]),
     ("Implementation",           ["CLOSE", "PHASE1"]),
     ("Analysis",                 ["POL", "ENV", "FM", "MOD"]),
-    ("Reference",                ["SCOPE"]),
+    ("Reference",                ["SCOPE", "ADD"]),
 ]
 
 _STATUS_LABEL: dict[str, str] = {
@@ -32,6 +32,11 @@ _STATUS_LABEL: dict[str, str] = {
     "superseded": "↩ Superseded",
     "draft":      "⚙ Draft",
 }
+
+# Shortcodes that have no rendered paper page on the site.
+# These appear in the corpus table but their links go nowhere (404 or redirect).
+# They are rendered as plain text rather than hyperlinks.
+_NO_PAGE: frozenset[str] = frozenset()
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -117,7 +122,12 @@ def generate_corpus_qmd(
             date   = _yymmdd_to_display(meta.get("version_date"))
             status = meta.get("status", "—")
             status_label = _STATUS_LABEL.get(status, status)
-            lines.append(f"| [{sc}]({page}) | {title} | v{ver} | {date} | {status_label} |")
+            # Papers with no rendered page: plain text shortcode, no link
+            if sc in _NO_PAGE:
+                sc_cell = f"{sc} *(no page)*"
+            else:
+                sc_cell = f"[{sc}]({page})"
+            lines.append(f"| {sc_cell} | {title} | v{ver} | {date} | {status_label} |")
 
         lines.append("")
 
@@ -126,14 +136,14 @@ def generate_corpus_qmd(
         "",
         "## Reading dependencies",
         "",
-        "Most papers assume familiarity with the [White Paper (WP)]."
-        "The valuation appendices (VAL.A), (VAL.B) assume familiarity with (VAL)."
-        "The governance appendices (GOV.A), (GOV.B) assume familiarity with (GOV)."
+        "Most papers assume familiarity with the [White Paper (WP)](wp.html). "
+        "The valuation appendices (VAL.A), (VAL.B) assume familiarity with (VAL). "
+        "The governance appendices (GOV.A), (GOV.B) assume familiarity with (GOV). "
         "The rates appendix (RATES.A) assumes familiarity with (RATES).",
         "",
         "For first-time readers, the recommended sequence is: "
-        "(WP) → (MF) → (VAL)→ "
-        "(GOV) → (RATES). "
+        "[WP](wp.html) → [MF](mf.html) → [VAL](val.html) → "
+        "[GOV](gov.html) → [RATES](rates.html). "
         "See also the [Start Here](start-here.html) guide.",
         "",
         "---",

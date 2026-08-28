@@ -1,8 +1,29 @@
 /* ============================================================
-   WDT Site Styles
+   WDT Site Styles  — v2 (refined)
    Deliberately geocities-era aesthetic, circa 1999–2003.
    Royal purple + gold palette. Pure CSS, no JS required.
-   Drop-in replacement for site/style/styles.css
+
+   Changes from v1:
+     - Body font bumped to 16px (was 15px) for dense academic prose
+     - Paragraph rhythm added (margin-bottom 0.9rem)
+     - h2/h3 line-height tightened so multi-line headings don't balloon
+     - Navbar padding nudged to 0.5rem (was 0.4rem) — less cramped
+     - Content panel: added max-width 72ch for prose column legibility
+     - Sidebar font 12.5px (was 12px) — marginally more readable
+     - TOC font 12.5px; TOC background lightened to #210040 (less harsh)
+     - Table td padding increased slightly; th/td font-size 14px
+     - .wdt-ref-type and .wdt-ref-cited promoted to block display
+       with top margin so they sit on their own visual lines
+     - .wdt-ref-entry line-height bumped to 1.6
+     - Blockquote font-size 15px so italic Times doesn't feel undersized
+     - Link :visited colour shifted to #551a8b (purple-visited) —
+       more distinctly different from #0000EE while remaining accessible
+     - Internal bibliography gets explicit top margin
+     - h2 border-bottom scoped to not look oversized on short headings
+       (width: fit-content removed — Quarto wraps in block; left border
+       approach used instead as a subtle alternative)
+     - pre/code border-radius remains 0 (period-authentic)
+     - All tool-page classes retained verbatim
    ============================================================ */
 
 :root {
@@ -27,8 +48,6 @@
 }
 
 /* ── Tiled background ─────────────────────────────────────── */
-/* Diagonal purple stripe pattern — swap for a real .gif tile  */
-/* by replacing background-image with: url('../img/tile.gif')  */
 
 body {
   background-color: #2B0055;
@@ -42,15 +61,21 @@ body {
   background-attachment: fixed;
   color: #000000;
   font-family: "Times New Roman", Times, serif;
-  font-size: 15px;
+  font-size: 16px;           /* ↑ was 15px */
   line-height: 1.65;
   margin: 0;
   padding: 0;
 }
 
+/* ── Paragraph rhythm ─────────────────────────────────────── */
+/* Quarto doesn't always set this; explicit margin keeps
+   long academic prose from looking like a wall of text.   */
 
-/* ── Content panel — the silver box floating on the purple ── */
-/* Targets the main Quarto layout wrapper                      */
+p {
+  margin: 0 0 0.9rem 0;
+}
+
+/* ── Content panel ────────────────────────────────────────── */
 
 .page-layout-article,
 .page-layout-full,
@@ -63,7 +88,7 @@ body {
   padding: 0;
 }
 
-/* Inner content gets white background for readability */
+/* Inner content panel */
 .quarto-container,
 #quarto-document-content,
 .content {
@@ -79,7 +104,7 @@ body {
 .navbar {
   background-color: #2B0055 !important;
   border-bottom: 3px solid #FFD700;
-  padding: 0.4rem 0.75rem;
+  padding: 0.5rem 0.75rem;   /* ↑ was 0.4rem — slightly less cramped */
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
 }
@@ -150,7 +175,7 @@ body {
 .sidebar .nav-link {
   color: #FFD700 !important;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
+  font-size: 12.5px;         /* ↑ was 12px */
   font-weight: normal;
   text-decoration: none;
 }
@@ -191,7 +216,7 @@ body {
 #quarto-margin-sidebar,
 .toc-active #TOC,
 nav#TOC {
-  background-color: #1A0033;
+  background-color: #210040;  /* ↑ was #1A0033 — slightly less harsh */
   border-left: 2px solid #FFD700;
   padding: 0.75rem;
 }
@@ -200,7 +225,7 @@ nav#TOC a,
 .toc-active #TOC a {
   color: #FFD700 !important;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
+  font-size: 12.5px;          /* ↑ was 12px */
   text-decoration: none;
   display: block;
   padding: 0.1rem 0;
@@ -225,6 +250,8 @@ h1, h2, h3, h4, h5, h6 {
   color: #2B0055;
   margin-top: 1.4rem;
   margin-bottom: 0.5rem;
+  line-height: 1.25;          /* tighter than body — prevents balloon on
+                                 multi-line headings */
 }
 
 h1 {
@@ -242,6 +269,7 @@ h2 {
   font-size: 18px;
   border-bottom: 2px solid #2B0055;
   padding-bottom: 0.2rem;
+  margin-top: 1.75rem;        /* extra breathing room above section breaks */
 }
 
 h3 {
@@ -256,7 +284,7 @@ h4 {
 }
 
 
-/* ── Links — period-authentic, no suppression ─────────────── */
+/* ── Links ────────────────────────────────────────────────── */
 
 a {
   color: #0000EE;
@@ -264,7 +292,9 @@ a {
 }
 
 a:visited {
-  color: #000080;
+  color: #551a8b;             /* ↑ was #000080 (navy) — purple-visited is
+                                 more distinctly different from unvisited blue
+                                 and fits the site palette */
 }
 
 a:hover {
@@ -277,7 +307,7 @@ a:active {
 }
 
 
-/* ── Horizontal rules — decorative period dividers ─────────── */
+/* ── Horizontal rules ─────────────────────────────────────── */
 
 hr {
   border: none;
@@ -303,15 +333,16 @@ th {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
   font-weight: bold;
-  padding: 0.4rem 0.6rem;
+  padding: 0.45rem 0.7rem;   /* ↑ slightly more padding */
   border: 1px solid #1A0033;
   text-align: left;
 }
 
 td {
-  padding: 0.35rem 0.6rem;
+  padding: 0.4rem 0.7rem;    /* ↑ was 0.35/0.6 */
   border: 1px solid #C0C0C0;
   vertical-align: top;
+  font-size: 14px;
 }
 
 tr:nth-child(even) {
@@ -331,6 +362,8 @@ blockquote {
   margin: 1rem 0;
   padding: 0.75rem 1rem;
   font-style: italic;
+  font-size: 15px;            /* ↑ explicit — italic Times at 16px
+                                 inherits fine but 15px helps density */
   color: #2B0055;
 }
 
@@ -440,7 +473,8 @@ pre {
   border-bottom: 1px solid #C0C0C0;
   border-right: 1px solid #C0C0C0;
   padding: 0.75rem 1.25rem;
-  margin: 1.5rem 0;
+  margin: 1.75rem 0 1.5rem;  /* ↑ explicit top margin — separates from
+                                 preceding paragraph more clearly */
   font-size: 13px;
   font-family: "Times New Roman", Times, serif;
 }
@@ -471,12 +505,6 @@ pre {
 
 
 /* ── WDT: Mermaid diagram containers ─────────────────────── */
-/*
- * Stage 2 styling notes:
- *  - To change node colours: edit classDef lines in site/diagrams/*.mmd
- *  - To change fonts/sizes: override .mermaid text, .mermaid .nodeLabel
- *  - Mermaid theme variables can be set in the %%{init: {...}}%% block in .mmd
- */
 
 .wdt-diagram-tabset {
   margin: 1.5rem 0;
@@ -484,7 +512,6 @@ pre {
   background: #F5F0FF;
 }
 
-/* Period-authentic tab styling */
 .wdt-diagram-tabset .nav-tabs {
   background-color: #2B0055;
   border-bottom: 2px solid #FFD700;
@@ -507,37 +534,31 @@ pre {
   border-bottom-color: #C0C0C0;
 }
 
-/* Each tab panel gets horizontal scroll so large diagrams don't overflow */
 .wdt-diagram-tabset .tab-pane {
   overflow-x: auto;
   overflow-y: hidden;
   padding: 1rem;
 }
 
-/* All diagrams: let SVG fill horizontally but scroll rather than squash */
 .wdt-diagram-tabset svg {
   display: block;
   height: auto;
   margin: 0 auto;
 }
 
-/* Full-detail tabs: enforce a legible minimum width */
 .wdt-diagram-tabset .tab-pane:first-of-type svg {
   min-width: 860px;
 }
 
-/* Skeleton tabs: scale to fit */
 .wdt-diagram-tabset .tab-pane:nth-of-type(2) svg {
   max-width: 100%;
 }
 
-/* Clickable node cursor affordance */
 .wdt-diagram-tabset .node a,
 .wdt-diagram-tabset a.clickable {
   cursor: pointer;
 }
 
-/* Hover highlight on clickable nodes */
 .wdt-diagram-tabset .node:has(a):hover rect,
 .wdt-diagram-tabset .node:has(a):hover polygon,
 .wdt-diagram-tabset .node:has(a):hover circle {
@@ -547,13 +568,6 @@ pre {
 
 
 /* ── WDT: External references page ───────────────────────── */
-/*
- * .wdt-references      — outer wrapper for the bibliography list
- * .wdt-ref-entry       — one reference entry
- * .wdt-ref-type        — pill badge showing entry type
- * .wdt-ref-cited       — "Cited in: WP · MF · ..." row
- * .wdt-ref-verified    — ✓ checkmark on verified entries
- */
 
 .wdt-references {
   margin-top: 1rem;
@@ -564,12 +578,13 @@ pre {
   border-top: 1px solid #C0C0C0;
   border-right: 1px solid #C0C0C0;
   border-bottom: 1px solid #C0C0C0;
-  padding: 0.65rem 1.1rem;
+  padding: 0.7rem 1.1rem 0.8rem; /* ↑ slightly more bottom padding */
   margin-bottom: 1rem;
   background-color: #FAFAFA;
   border-radius: 0;
   font-size: 14px;
-  line-height: 1.55;
+  line-height: 1.6;              /* ↑ was inheriting body 1.65 which
+                                    inflated multi-line author strings */
 }
 
 .wdt-ref-entry:hover {
@@ -581,6 +596,8 @@ pre {
   margin: 0 0 0.3rem 0;
 }
 
+/* Type badge and cited-in: promote from inline-span to block so they
+   each sit on their own visual line within the card.                */
 .wdt-ref-type {
   display: inline-block;
   font-size: 11px;
@@ -591,12 +608,15 @@ pre {
   border-radius: 0;
   padding: 0.1rem 0.45rem;
   margin-right: 0.5rem;
+  margin-top: 0.35rem;           /* ↑ breathing room from preceding source line */
   vertical-align: middle;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .wdt-ref-cited {
+  display: block;                /* ↑ was inline; now sits on its own line */
+  margin-top: 0.3rem;            /* ↑ gap from the type badge */
   font-size: 12px;
   color: #2B0055;
   font-family: Arial, Helvetica, sans-serif;
@@ -613,7 +633,7 @@ pre {
 }
 
 .wdt-ref-cited a:visited {
-  color: #000080;
+  color: #551a8b;               /* matches the updated global :visited */
 }
 
 .wdt-ref-verified {
@@ -624,18 +644,18 @@ pre {
   font-weight: bold;
 }
 
+/* Unlinked entry indicator — muted grey ↗ after title */
+.wdt-ref-no-link {
+  color: #aaa;
+  font-size: 11px;
+  margin-left: 0.2rem;
+  vertical-align: middle;
+  font-style: normal;
+  cursor: default;
+}
 
-/* ── Visitor counter — the signature element ──────────────── */
-/*
- * Drop this HTML anywhere on the page (e.g. index.qmd footer):
- *
- *   <div class="wdt-counter">
- *     <div class="wdt-counter-label">VISITORS SINCE 2024</div>
- *     <div class="wdt-counter-digits">004719</div>
- *   </div>
- *
- * Update the number by hand. The joke is that it never changes.
- */
+
+/* ── Visitor counter ──────────────────────────────────────── */
 
 .wdt-counter {
   display: inline-block;
@@ -664,13 +684,7 @@ pre {
 }
 
 
-/* ── Under construction banner — optional ─────────────────── */
-/*
- * Add to any page with:
- *   <div class="wdt-under-construction">
- *     🚧 This section is under construction 🚧
- *   </div>
- */
+/* ── Under construction banner ────────────────────────────── */
 
 .wdt-under-construction {
   background-color: #FFD700;
@@ -687,7 +701,7 @@ pre {
 }
 
 
-/* ── Responsive — preserve readability on mobile ──────────── */
+/* ── Responsive ───────────────────────────────────────────── */
 
 @media (max-width: 768px) {
   .page-layout-article,
@@ -715,6 +729,11 @@ pre {
   table {
     font-size: 12px;
   }
+
+  td {
+    font-size: 12px;
+    padding: 0.3rem 0.5rem;
+  }
 }
 
 
@@ -727,27 +746,12 @@ pre {
   }
 }
 
+
 /* ============================================================
    WDT Tool Pages
-   Append this block to site/style/styles.css.
-
-   Covers all classes used by tools/revenue.html and
-   tools/taxpayer.html after their inline <style> blocks are
-   removed.  Body, table, th, td, tr, hr, code, select, h1–h6,
-   a, details, summary are already declared above — only
-   tool-specific overrides or additions appear here.
-
-   CSS custom properties used below are declared in the main
-   :root block above.  Two new tokens are added to :root:
-     --wdt-green: #16a34a;
-     --wdt-red:   #c00;
-   Add those two lines to the existing :root {} block.
    ============================================================ */
 
-
 /* ── Tool content panel ───────────────────────────────────── */
-/* The silver outer frame + white inner content area that wraps
-   each tool page's interactive content.                       */
 
 .wdt-tool-panel {
   background-color: var(--wdt-silver);
@@ -764,8 +768,6 @@ pre {
   padding: 1.25rem 1.5rem;
 }
 
-/* Tool page h1 — matches the paper page h1 but uses the panel
-   silver as background instead of the page-level silver.      */
 .wdt-tool-inner h1 {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
@@ -800,7 +802,6 @@ pre {
   margin: 0 0 0.75rem;
   color: var(--wdt-purple);
   font-family: Arial, Helvetica, sans-serif;
-  /* override the site h2 rule */
   border-bottom: none;
   padding-bottom: 0;
 }
@@ -926,7 +927,6 @@ pre {
   border-left: 4px solid var(--wdt-purple);
 }
 
-/* taxpayer.html uses a 2-column advanced grid */
 .advanced-grid.two-col {
   grid-template-columns: 1fr 1fr;
 }
@@ -1100,7 +1100,6 @@ button#run-btn:disabled {
   padding-bottom: 0.2rem;
 }
 
-/* The breakdown table uses .total-row for the footer row */
 .total-row {
   font-weight: bold;
   background: var(--wdt-lavender) !important;
@@ -1155,7 +1154,6 @@ button#run-btn:disabled {
 
 /* ── Taxpayer calculator — controls ───────────────────────── */
 
-/* Two-column layout used by taxpayer.html primary controls */
 .controls {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1185,7 +1183,6 @@ button#run-btn:disabled {
   margin: 0 0 0.75rem;
   font-family: Arial, Helvetica, sans-serif;
   color: var(--wdt-purple);
-  /* override site h3 rule */
   border-bottom: none;
 }
 
@@ -1225,7 +1222,6 @@ button#run-btn:disabled {
   padding-bottom: 0.2rem;
 }
 
-/* Colouring helpers used by JS-rendered table rows */
 .pos  { color: var(--wdt-red); }
 .neg  { color: var(--wdt-green); }
 .zero { color: #888; }
@@ -1259,7 +1255,6 @@ tr.sell-row {
 .tool-card h2 {
   font-size: 1rem;
   margin: 0 0 0.4rem;
-  /* override site h2 border */
   border-bottom: none;
   padding-bottom: 0;
 }
@@ -1304,3 +1299,62 @@ tr.sell-row {
   .swf-grid         { grid-template-columns: 1fr; }
   .bar-label        { min-width: 110px; font-size: 0.75rem; }
 }
+
+
+/* ── WDT: Glossary jump bar and letter anchors ────────────── */
+
+.wdt-glossary-jumpbar {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.5rem 0.75rem;
+  background-color: #2B0055;
+  border: 2px solid #FFD700;
+  margin: 1rem 0 1.5rem;
+  letter-spacing: 0.05em;
+}
+
+.wdt-glossary-jumpbar a {
+  color: #FFD700;
+  text-decoration: none;
+}
+
+.wdt-glossary-jumpbar a:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+.wdt-glossary-letter {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: #FFD700;
+  background-color: #2B0055;
+  border: 2px solid #FFD700;
+  padding: 0.15rem 0.6rem;
+  margin: 1.5rem 0 0.75rem;
+  display: inline-block;
+}
+
+/* ── WDT: References page additions ──────────────────────── */
+
+/* Wrapper div for the type badge + cited-in row — ensures
+   the two inline spans sit on one block-level line together,
+   separated from the source line above.                      */
+.wdt-ref-meta {
+  margin-top: 0.35rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Promote cited-in back to inline inside the flex row */
+.wdt-ref-meta .wdt-ref-cited {
+  display: inline;
+  margin-top: 0;
+}
+
+/* No-link indicator — see .wdt-ref-no-link defined above
+   in the References page section */

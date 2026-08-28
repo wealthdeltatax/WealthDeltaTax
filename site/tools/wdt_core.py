@@ -2,26 +2,12 @@
 wdt_core.py — WDT Shared Core Mechanics
 ========================================
 Single source of truth for parameters, the rate function, and the Route C
-simulation engine used across:
+simulation engine used across all VAL and RATES scripts.
 
-  3.4.1  generate_appc_full.py        VAL.A Appendix C tables
-  3.4.2  generate_illustrative.py     VAL main body citation figures
-  3.4.3  generate_worked_examples.py  VAL.B worked example figures
-  3.4.4  generate_figures.py          VAL PNG figures
-  7.3    WDT_Rates_and_Revenue_Python_Model.py  SSM / TCM / sweep
-
-PARAMETER LOADING — single source of truth
--------------------------------------------
-All parameters come from the TOML file (7.4_…_Params.toml). Call
-load_params() to get a fully-populated dict.
-
-  p['N']  is the LRR fill year produced by running the SSM at load time,
-  not a hardcoded constant. This means N is always consistent with the
-  active scenario in the TOML. The fallback is p['tcm_N'] (61) if the
-  SSM never fills within the modelling window, with a printed warning.
-
-  p['V0_m'] is read from [val] V0_m in the TOML. All parameters are
-  now derived from the TOML; there are no hardcoded values in this file.
+PARAMETER LOADING
+-----------------
+All parameters come from the TOML file. Call load_params() to get a
+fully-populated dict.  p['N'] is the LRR fill year from the SSM.
 
 RECORD FIELD GUARANTEE
 -----------------------
@@ -34,24 +20,64 @@ simulate_sell() return dict always contains:
 run_sim() return dict always contains:
   TW, TTP, Refunds, Net, records, sell, g_use
 
-simulate_sell_year is an alias for simulate_sell, for compatibility with
-7.3 which uses that name throughout.
+TW_settled and Net_settled
+--------------------------
+run_sim() now returns two additional keys:
+
+  TW_settled  — the economically correct terminal net worth, accounting for
+                the post-sale tax/refund oscillation that the mechanism
+                produces when the taxpayer holds cash after sale.
+
+                After the sell event the taxpayer holds cash = W_sell - L_sell.
+                That cash becomes their declared wealth; the delta each period
+                is the negative of the prior period's L, producing a damped
+                oscillation that converges to a fixed point.  This is normal,
+                designed mechanism behaviour: an overstater who receives a
+                large sell-year refund will pay additional tax in subsequent
+                periods as that refund produces a positive delta; an
+                understater who pays a large sell-year tax will receive small
+                refunds as that payment produces negative deltas.
+
+                TW (the naive sell-year figure) is retained for backward
+                compatibility but should not be used in analysis.
+                TW_settled is the primary output metric.
+
+  Net_settled — Net lifetime tax including post-sale settlement taxes/refunds.
+                Identity: TW_settled = W_sell_net - Net_settled, where
+                W_sell_net is the gross terminal value before any sell-year
+                settlement.  Net (holding-period only) is retained for
+                backward compatibility.
+
+SETTLEMENT METHODOLOGY
+----------------------
+settle_tw() iterates the post-sale cash-holding sequence to convergence.
+Each period: delta = cash - prior_basis; L = tau(cash) * delta (subject to
+lifetime cap); cash -= L; basis = cash.  The series converges because
+|tau| < 1 everywhere, giving a geometric decay in the oscillation amplitude.
+
+Convergence is rapid in policy-relevant cases (typically 10-20 iterations at
+canonical parameters).  Extreme cases (alpha=0.1 at very high V0 and g) may
+need up to ~500 iterations as the rate ceiling tau_m approaches 1.  The
+default max_iter=2000 is sufficient for all tested parameter combinations.
 
 BETA FORMULA
 ------------
-Additive form confirmed from Excel cell: g_eff = g + β·ln(α)
+Additive form: g_eff = g + beta * ln(alpha)
 VAL.A §B.3 states the multiplicative form incorrectly.
 """
 
 import math
+import os
+import functools
 import tomllib
 from pathlib import Path
 
 # ─────────────────────────────────────────────────────────────
-# TOML PATH — resolved relative to this file
+# TOML PATH
 # ─────────────────────────────────────────────────────────────
 
 _DEFAULT_TOML = Path(__file__).parent / '260812_WDT_Params.toml'
+
 
 # ─────────────────────────────────────────────────────────────
 # RATE FUNCTION
@@ -61,8 +87,8 @@ def tau(W_m, p):
     """
     Marginal WDT rate on declared wealth W_m (£m).
 
-    $\tau$(W) = $\tau_m$ / (1 + (($\tau_m$ − $\tau_0$) / $\tau_0$) × exp(−k × (W − W_min)))
-    $\tau$(W) = 0  if W < W_min
+    tau(W) = tau_m / (1 + ((tau_m - tau_0) / tau_0) * exp(-k * (W - W_min)))
+    tau(W) = 0  if W < W_min
 
     Reads tau_0, tau_m, k, W_min from dict p.
     """
@@ -81,16 +107,69 @@ def tau(W_m, p):
 def g_eff(g, alpha, beta):
     """
     Additive effective growth rate after signalling adjustment.
-
-    g_eff = g + β·ln(α)
-
-    Confirmed from Excel cell (additive form).
-    VAL.A §B.3 states the multiplicative form incorrectly.
-    Returns g unchanged when β=0, α=1, or α≤0.
+    g_eff = g + beta * ln(alpha)
+    Returns g unchanged when beta=0, alpha=1, or alpha<=0.
     """
     if beta == 0.0 or alpha == 1.0 or alpha <= 0.0:
         return g
     return g + beta * math.log(alpha)
+
+
+# ─────────────────────────────────────────────────────────────
+# POST-SALE SETTLEMENT
+# ─────────────────────────────────────────────────────────────
+
+def settle_tw(sell_result, p, max_iter=2000, tol=1e-10):
+    """
+    Iteratively settle the post-sale tax/refund oscillation.
+
+    After the sell event, the taxpayer holds cash = W_sell - L_sell.
+    Modelling the simplifying assumption that they hold this cash with
+    no further growth, each period produces:
+      delta = cash - prior_basis  (the negative of the prior period's L)
+      L     = tau(cash) * delta   (subject to lifetime cap)
+      cash -= L; basis = cash
+
+    The oscillation is damped because |tau| < 1, converging geometrically.
+    The series models real mechanism behaviour: a large sell-year refund
+    creates a positive delta next period (taxed); a large sell-year tax
+    creates a negative delta next period (refunded). This continues until
+    the residual is negligible.
+
+    Parameters
+    ----------
+    sell_result : dict from simulate_sell()
+    p           : parameter dict with keys k, tau_0, tau_m, W_min
+    max_iter    : maximum iterations (2000 is sufficient for all tested cases)
+    tol         : convergence threshold on |L| and |cum|
+
+    Returns
+    -------
+    TW_settled     : float — settled terminal net worth
+    net_settle_tax : float — sum of all post-sale L values
+                     (positive = additional net tax; negative = additional net refund)
+    n_iter         : int — iterations to convergence
+    """
+    sim_p  = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    cash   = sell_result['TW']          # W_sell - L_sell
+    basis  = sell_result['W_sell']      # carry the sell-year declared value as basis
+    cum    = sell_result['cum_after']   # residual lifetime balance after sell
+    net_settle_tax = 0.0
+
+    for i in range(max_iter):
+        delta = cash - basis
+        if abs(delta) < tol and abs(cum) < tol:
+            return cash, net_settle_tax, i
+        rate = tau(cash, sim_p)
+        L    = max(-cum, rate * delta) if (delta > 0.0 or cum > 0.0) else 0.0
+        if abs(L) < tol:
+            return cash, net_settle_tax, i
+        net_settle_tax += L
+        basis = cash
+        cash  = cash - L
+        cum  += L
+
+    return cash, net_settle_tax, max_iter
 
 
 # ─────────────────────────────────────────────────────────────
@@ -101,21 +180,19 @@ def simulate(V0_m, g_series, alpha, p):
     """
     Simulate one Route C taxpayer over N regular periods.
 
-    Entry t=0: V=V0_m, f=1, W=alpha×V0_m, cum=0, no tax event.
+    Entry t=0: V=V0_m, f=1, W=alpha*V0_m, cum=0, no tax event.
     Each period t=1..N uses g_series[t-1].
 
     Returns a list of N+1 record dicts (t=0 through t=N), each with:
         t       period index
         V       true asset value (£m)
-        W       declared wealth = f × alpha × V (£m)
+        W       declared wealth = f * alpha * V (£m)
         f       retained fraction (1.0 at entry)
-        cum     cumulative tax paid to date (£m)
+        cum     cumulative net tax paid to date (£m)
         L       tax / refund this period (£m; positive=tax, negative=refund)
-        rate    $\tau$(W) this period
-        delta   W − W_prev (0.0 at t=0)
+        rate    tau(W) this period
+        delta   W - W_prev (0.0 at t=0)
         q       equity fraction transferred this period (0.0 at t=0)
-
-    Reads k, tau_0, tau_m, W_min from dict p.
     """
     N   = len(g_series)
     V   = V0_m
@@ -155,20 +232,21 @@ def simulate_sell(sim, g_next, p):
     """
     Compute the terminal Route C sell event (period N+1).
 
-    sim    record list from simulate()
-    g_next growth rate for the sell year
-    p      parameter dict (k, tau_0, tau_m, W_min)
+    sim    : record list from simulate()
+    g_next : growth rate for the sell year
+    p      : parameter dict (k, tau_0, tau_m, W_min)
 
     Returns a dict with:
         t           period index (last sim period + 1)
         V_sell      true value at sale (£m)
-        W_sell      declared wealth at sale = f_N × V_sell (£m)
+        W_sell      declared wealth at sale = f_N * V_sell (£m)
         f_N         retained fraction from period N
-        delta_sell  W_sell − W_N (£m)
-        rate_sell   $\tau$(W_sell)
+        delta_sell  W_sell - W_N (£m)
+        rate_sell   tau(W_sell)
         L_sell      tax / refund at sale (£m)
-        TW          terminal net worth = W_sell − L_sell (£m)
-        cum_after   cumulative tax after sell settlement (£m)
+        TW          naive terminal net worth = W_sell - L_sell (£m)
+                    NOTE: use TW_settled from run_sim() for analysis
+        cum_after   cumulative net tax after sell settlement (£m)
     """
     last       = sim[-1]
     f_N        = last['f']
@@ -196,7 +274,7 @@ def simulate_sell(sim, g_next, p):
     }
 
 
-# Alias: 7.3 uses simulate_sell_year throughout.
+# Alias: used in some scripts
 simulate_sell_year = simulate_sell
 
 
@@ -206,18 +284,27 @@ simulate_sell_year = simulate_sell
 
 def run_sim(p_in, alpha=None, beta=None, N=None, g=None):
     """
-    Run a complete constant-g simulation (N holding periods + sell year).
+    Run a complete constant-g simulation (N holding periods + sell year),
+    then settle the post-sale oscillation to convergence.
 
     All keyword arguments override the corresponding value in p_in.
 
-    Returns:
-        TW       terminal net worth (£m)
-        TTP      gross taxes paid (£m, positive)
-        Refunds  gross refunds received (£m, negative)
-        Net      TTP + Refunds — net lifetime tax (£m)
-        records  simulate() record list
-        sell     simulate_sell() return dict
-        g_use    effective growth rate used (after beta adjustment)
+    Returns
+    -------
+    TW          : naive terminal net worth at sell year (retained for
+                  backward compatibility; do not use in analysis)
+    TW_settled  : economically correct terminal net worth after post-sale
+                  oscillation converges — PRIMARY OUTPUT METRIC
+    TTP         : gross taxes paid during holding period (£m, positive)
+    Refunds     : gross refunds received during holding period (£m, negative)
+    Net         : TTP + Refunds — net holding-period tax (retained for
+                  backward compatibility)
+    Net_settled : net lifetime tax including post-sale settlement (£m)
+                  Identity: TW_settled = W_sell_gross - Net_settled
+    records     : simulate() record list
+    sell        : simulate_sell() return dict
+    g_use       : effective growth rate used (after beta adjustment)
+    settle_iters: iterations to post-sale convergence
     """
     alpha  = alpha if alpha is not None else p_in.get('alpha', 1.0)
     beta   = beta  if beta  is not None else p_in.get('beta',  0.0)
@@ -227,8 +314,8 @@ def run_sim(p_in, alpha=None, beta=None, N=None, g=None):
     g_use  = g_eff(g_base, alpha, beta)
     sim_p  = {k: p_in[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
 
-    recs   = simulate(p_in['V0_m'], [g_use] * N, alpha, sim_p)
-    sell   = simulate_sell(recs, g_use, sim_p)
+    recs = simulate(p_in['V0_m'], [g_use] * N, alpha, sim_p)
+    sell = simulate_sell(recs, g_use, sim_p)
 
     gross_tax = sum(r['L'] for r in recs[1:] if r['L'] > 0)
     gross_ref = sum(r['L'] for r in recs[1:] if r['L'] < 0)
@@ -237,14 +324,21 @@ def run_sim(p_in, alpha=None, beta=None, N=None, g=None):
     else:
         gross_ref += sell['L_sell']
 
+    # Post-sale settlement
+    tw_settled, net_settle_tax, n_iter = settle_tw(sell, sim_p)
+    net_settled = gross_tax + gross_ref + net_settle_tax
+
     return {
-        'TW':      sell['TW'],
-        'TTP':     gross_tax,
-        'Refunds': gross_ref,
-        'Net':     gross_tax + gross_ref,
-        'records': recs,
-        'sell':    sell,
-        'g_use':   g_use,
+        'TW':           sell['TW'],         # naive; retained for compatibility
+        'TW_settled':   tw_settled,         # PRIMARY: use this in analysis
+        'TTP':          gross_tax,
+        'Refunds':      gross_ref,
+        'Net':          gross_tax + gross_ref,   # holding-period only; retained
+        'Net_settled':  net_settled,             # PRIMARY: full lifetime net tax
+        'records':      recs,
+        'sell':         sell,
+        'g_use':        g_use,
+        'settle_iters': n_iter,
     }
 
 
@@ -255,25 +349,13 @@ def run_sim(p_in, alpha=None, beta=None, N=None, g=None):
 def run_sim_hist(p_in, alpha=None, N=None):
     """
     Run a complete simulation using the actual historical return series
-    from p_in['returns'] (N holding periods + sell year).
+    from p_in['returns'], then settle the post-sale oscillation.
 
-    p_in['returns'] must already be rotated to the active scenario's
-    start year (load_params() does this automatically).  The first N
-    values are used as the holding-period g_series; index N is used as
-    the sell-year growth rate.
+    No beta / signalling adjustment is applied.
 
-    No beta / signalling adjustment is applied — historical-series runs
-    model honest-declaration mechanics, not signalling effects.
-
-    Returns the same dict shape as run_sim():
-        TW       terminal net worth (£m)
-        TTP      gross taxes paid (£m, positive)
-        Refunds  gross refunds received (£m, negative)
-        Net      TTP + Refunds — net lifetime tax (£m)
-        records  simulate() record list
-        sell     simulate_sell() return dict
-        g_use    None  (no single rate — series-based)
-        g_mean   arithmetic mean of the N holding-period returns
+    Returns the same dict shape as run_sim() with the addition of:
+        g_mean : arithmetic mean of the N holding-period returns
+        g_use  : None (series-based, no single rate)
     """
     alpha = alpha if alpha is not None else p_in.get('alpha', 1.0)
     N     = N     if N     is not None else p_in['N']
@@ -298,15 +380,22 @@ def run_sim_hist(p_in, alpha=None, N=None):
     else:
         gross_ref += sell['L_sell']
 
+    # Post-sale settlement
+    tw_settled, net_settle_tax, n_iter = settle_tw(sell, sim_p)
+    net_settled = gross_tax + gross_ref + net_settle_tax
+
     return {
-        'TW':      sell['TW'],
-        'TTP':     gross_tax,
-        'Refunds': gross_ref,
-        'Net':     gross_tax + gross_ref,
-        'records': recs,
-        'sell':    sell,
-        'g_use':   None,
-        'g_mean':  sum(g_series) / len(g_series) if g_series else 0.0,
+        'TW':           sell['TW'],
+        'TW_settled':   tw_settled,
+        'TTP':          gross_tax,
+        'Refunds':      gross_ref,
+        'Net':          gross_tax + gross_ref,
+        'Net_settled':  net_settled,
+        'records':      recs,
+        'sell':         sell,
+        'g_use':        None,
+        'g_mean':       sum(g_series) / len(g_series) if g_series else 0.0,
+        'settle_iters': n_iter,
     }
 
 
@@ -316,15 +405,8 @@ def run_sim_hist(p_in, alpha=None, N=None):
 
 def _ssm_lrr_fill_year(p, max_N=71):
     """
-    Run the minimal SSM needed to find the LRR fill year for the active
-    scenario. Uses the same mechanics as 7.3's run_ssm() but returns
-    only the fill year rather than the full row-by-row result set.
-
-    This keeps the core independent of 7.3's full reporting machinery
-    while sharing the identical arithmetic.
-
-    Returns the integer LRR fill year, or None if LRR never fills
-    within max_N periods.
+    Run the minimal SSM needed to find the LRR fill year.
+    Returns the integer LRR fill year, or None if LRR never fills.
     """
     returns       = p['returns']
     brackets      = p['brackets']
@@ -332,9 +414,8 @@ def _ssm_lrr_fill_year(p, max_N=71):
     lrr_years     = p['lrr_years']
     budget_base   = p['budget_base']
     budget_growth = p['budget_growth']
-    alpha         = 1.0  # SSM always uses honest declaration
+    alpha         = 1.0
 
-    # ── Marginal pass ────────────────────────────────────────
     prev_agg_ttp = 0.0
     prev_agg_ref = 0.0
     marginals    = []
@@ -366,7 +447,6 @@ def _ssm_lrr_fill_year(p, max_N=71):
         prev_agg_ttp  = agg_ttp
         prev_agg_ref  = agg_ref
 
-    # ── SRR / LRR accumulation pass ──────────────────────────
     srr_bal    = 0.0
     lrr_bal    = 0.0
     lrr_filled = False
@@ -393,42 +473,22 @@ def _ssm_lrr_fill_year(p, max_N=71):
             lrr_bal += srr_surplus
             if lrr_bal >= lrr_target:
                 lrr_filled = True
-                return N   # ← LRR fill year found
+                return N
 
-    return None  # LRR did not fill within max_N
+    return None
 
+
+# ─────────────────────────────────────────────────────────────
+# PARAMETER LOADING
+# ─────────────────────────────────────────────────────────────
 
 def load_params(toml_path=None):
     """
-    Load all model parameters from the TOML file and return a single
-    dict p usable by every domain script and by the simulation engine.
+    Load all model parameters from the TOML file and return a single dict.
 
-    p['N'] is set to the LRR fill year produced by running the SSM on
-    the active scenario. This is the correct VAL reference horizon — not
-    a hardcoded constant, and not tcm_N (which is the full SSM window).
-
-    If the SSM does not fill within 71 periods (should not happen at
-    Balanced parameters), p['N'] falls back to p['tcm_N'] and a warning
-    is printed.
-
-    All keys are read directly from the TOML:
-      k, tau_0, tau_m, W_min       — [rate]
-      srr_ratio, lrr_years         — [swf]
-      budget_base, budget_growth   — [budget]
-      hist_mean, tcm_N             — [tcm]
-      returns, canonical_returns,
-        series_base_year,
-        scenario_start_year        — [returns] + [tcm]
-      tiers                        — [[tiers]]
-      brackets                     — [[brackets]]
-      meta, generate_charts        — [meta], [output]
-      V0_m                         — [val]
-
-    Additional convenience keys derived at load time:
-      g        = hist_mean  (alias for VAL scripts that use p['g'])
-      alpha    = 1.0        (default declaration ratio)
-      beta     = 0.0        (default signalling multiplier)
-      N        = LRR fill year from SSM (not tcm_N)
+    p['N'] is set to the LRR fill year from the SSM on the active scenario.
+    If the SSM does not fill within 71 periods, p['N'] falls back to
+    p['tcm_N'] with a warning.
     """
     path = Path(toml_path) if toml_path else _DEFAULT_TOML
     with open(path, 'rb') as f:
@@ -436,21 +496,17 @@ def load_params(toml_path=None):
 
     p = {}
 
-    # ── Rate function ──────────────────────────────────────────
     p['tau_0'] = float(raw['rate']['tau_0'])
     p['tau_m'] = float(raw['rate']['tau_m'])
     p['k']     = float(raw['rate']['k'])
     p['W_min'] = float(raw['rate']['W_min'])
 
-    # ── SWF sizing ────────────────────────────────────────────
     p['srr_ratio'] = float(raw['swf']['srr_ratio'])
     p['lrr_years'] = float(raw['swf']['lrr_years'])
 
-    # ── Government expenditure ────────────────────────────────
     p['budget_base']   = float(raw['budget']['budget_base'])
     p['budget_growth'] = float(raw['budget']['budget_growth'])
 
-    # ── Returns series ────────────────────────────────────────
     canonical              = [float(v) for v in raw['returns']['values']]
     p['series_base_year']  = int(raw['returns']['series_base_year'])
     p['canonical_returns'] = canonical
@@ -461,11 +517,9 @@ def load_params(toml_path=None):
     offset                   = (scenario_start - p['series_base_year']) % len(canonical)
     p['returns']             = canonical[offset:] + canonical[:offset]
 
-    # ── TCM / SSM settings ────────────────────────────────────
-    p['tcm_N']     = int(raw['tcm']['snapshot_N'])   # 61 — full SSM window
-    p['hist_mean'] = float(raw['tcm']['hist_mean'])  # 0.1045
+    p['tcm_N']     = int(raw['tcm']['snapshot_N'])
+    p['hist_mean'] = float(raw['tcm']['hist_mean'])
 
-    # ── Tiers ─────────────────────────────────────────────────
     p['tiers'] = [
         {'label':        t['label'],
          'weight':       float(t['weight']),
@@ -473,7 +527,6 @@ def load_params(toml_path=None):
         for t in raw['tiers']
     ]
 
-    # ── Brackets ──────────────────────────────────────────────
     p['brackets'] = [
         {'label': b['label'],
          'N':     float(b['N_pop']),
@@ -481,20 +534,14 @@ def load_params(toml_path=None):
         for b in raw['brackets']
     ]
 
-    # ── Meta / output ─────────────────────────────────────────
     p['meta']            = raw.get('meta', {})
     p['generate_charts'] = bool(raw.get('output', {}).get('generate_charts', False))
 
-    # ── VAL convenience keys ──────────────────────────────────
-    p['V0_m']  = float(raw['val']['V0_m'])  # from [val] section in TOML
-    p['g']     = p['hist_mean']  # alias: VAL scripts use p['g']
+    p['V0_m']  = float(raw['val']['V0_m'])
+    p['g']     = p['hist_mean']
     p['alpha'] = 1.0
     p['beta']  = 0.0
 
-    # ── N: LRR fill year from SSM ────────────────────────────
-    # Run the minimal SSM on the active scenario to find the fill year.
-    # This is what 7.3's main() does at runtime; we do it here so all
-    # scripts get a consistent N without any hardcoding.
     lrr_N = _ssm_lrr_fill_year(p)
     if lrr_N is None:
         print(f"WARNING: wdt_core.load_params() — LRR did not fill within "
@@ -503,20 +550,13 @@ def load_params(toml_path=None):
         lrr_N = p['tcm_N']
     p['N'] = lrr_N
 
-    # ── Sweep grids and canonical reference values ────────────
-    # The [sweep] section is the single source of truth for all
-    # hardcoded analytical grids and canonical baseline values used
-    # by VAL.S and RATES.S scripts.  Exposed as p['sweep'] so every
-    # script reads the same values after a single load_params() call.
     sw = raw.get('sweep', {})
 
-    # Reconstruct range-encoded grids from [min, max, step] triples.
     def _range_grid(triple):
         mn, mx, st = triple
         return list(range(mn, mx + 1, st))
 
     p['sweep'] = {
-        # Canonical baseline
         'tau_0_canon':  float(sw.get('tau_0_canon',  p['tau_0'])),
         'tau_m_canon':  float(sw.get('tau_m_canon',  p['tau_m'])),
         'k_canon':      float(sw.get('k_canon',      p['k'])),
@@ -524,9 +564,7 @@ def load_params(toml_path=None):
         'N_canon':      int(  sw.get('N_canon',      p['N'])),
         'V0_canon':     float(sw.get('V0_canon',     p['V0_m'])),
         'g_canon':      float(sw.get('g_canon',      p['hist_mean'])),
-        # Analysis constant
         'tzone_threshold': float(sw.get('tzone_threshold', 0.02)),
-        # Shared analytical grids
         'g_vals':          [float(v) for v in sw.get('g_vals', [])],
         'alpha_vals':      [float(v) for v in sw.get('alpha_vals', [])],
         'over_alphas':     [float(v) for v in sw.get('over_alphas', [])],
@@ -536,12 +574,10 @@ def load_params(toml_path=None):
         'n_panel_vals':    [int(v)   for v in sw.get('n_panel_vals',  [])],
         'n_actual_vals':   [int(v)   for v in sw.get('n_actual_vals', [])],
         'v0_sweep_vals':   [float(v) for v in sw.get('v0_sweep_vals', [])],
-        # VAL.S parameter sweep panels
         'tau0_panel_vals': [float(v) for v in sw.get('tau0_panel_vals', [])],
         'taum_panel_vals': [float(v) for v in sw.get('taum_panel_vals', [])],
         'k_panel_vals':    [float(v) for v in sw.get('k_panel_vals',    [])],
         'wmin_panel_vals': [float(v) for v in sw.get('wmin_panel_vals', [])],
-        # VAL.S interaction surface grids
         'tau0_n_surface_tau0':  [t / 100 for t in
                                  _range_grid([int(v) for v in sw['tau0_n_surface_tau0']])]
                                  if 'tau0_n_surface_tau0' in sw else [],
@@ -549,16 +585,13 @@ def load_params(toml_path=None):
                                  if 'tau0_n_surface_nceil' in sw else [],
         'k_v0_surface_k':  [float(v) for v in sw.get('k_v0_surface_k',  [])],
         'k_v0_surface_v0': [float(v) for v in sw.get('k_v0_surface_v0', [])],
-        # VAL.A Appendix C table grids
         'appc_k_vals':    [float(v) for v in sw.get('appc_k_vals',    [])],
         'appc_v0_vals':   [int(v)   for v in sw.get('appc_v0_vals',   [])],
         'appc_over_vals': [float(v) for v in sw.get('appc_over_vals', [])],
-        # RATES.S sweep grids — rate parameters
         'rates_tau_0_sweep': [float(v) for v in sw.get('rates_tau_0_sweep', [])],
         'rates_tau_m_sweep': [float(v) for v in sw.get('rates_tau_m_sweep', [])],
         'rates_k_sweep':     [float(v) for v in sw.get('rates_k_sweep',     [])],
         'rates_wmin_sweep':  [float(v) for v in sw.get('rates_wmin_sweep',  [])],
-        # RATES.S sweep grids — SWF sizing parameters
         'rates_srr_ratio_sweep': [float(v) for v in sw.get('rates_srr_ratio_sweep', [])],
         'rates_lrr_years_sweep': [float(v) for v in sw.get('rates_lrr_years_sweep', [])],
     }

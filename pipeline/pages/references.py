@@ -266,7 +266,11 @@ def generate_references_qmd(
         link     = _ref_link(ref)
         verified = ref.get("verified", False)
 
-        title_md = f"[{title}]({link})" if link else title
+        # Title: linked if DOI/URL available; plain text with muted indicator if not
+        if link:
+            title_md = f"[{title}]({link})"
+        else:
+            title_md = f"{title} <span class='wdt-ref-no-link' title='No DOI or URL available'>∅</span>"
         verified_badge = " <span class='wdt-ref-verified' title='Bibliographic details verified'>✓</span>" if verified else ""
 
         # Cited-in links
@@ -290,7 +294,10 @@ def generate_references_qmd(
                 lines += [source, ""]
             else:
                 lines += [f"*{source}*", ""]
+        # Use divs (not spans) so these are reliably block-level regardless of
+        # how Quarto wraps surrounding markdown paragraphs.
         lines += [
+            f'<div class="wdt-ref-meta">',
             f'<span class="wdt-ref-type">{rtype}</span>',
         ]
         if cited_str:
@@ -298,6 +305,7 @@ def generate_references_qmd(
                 f'<span class="wdt-ref-cited">{cited_str}</span>',
             ]
         lines += [
+            '</div>',
             "",
             "</div>",
             "",

@@ -316,6 +316,29 @@ def build_glossary(papers_dir: str, contents_path: str, out_path: str):
     # Step 4: render
     sorted_keys = sorted(all_entries.keys(), key=lambda k: all_entries[k]["term"].lstrip("$").lower())
 
+    # Build the set of first letters that actually appear, for the jump bar
+    first_letters: list[str] = []
+    seen_letters: set[str] = set()
+    for key in sorted_keys:
+        term = all_entries[key]["term"].lstrip("$")
+        fl = term[0].upper() if term else ""
+        if fl and fl.isalpha() and fl not in seen_letters:
+            first_letters.append(fl)
+            seen_letters.add(fl)
+
+    # Build jump bar HTML — only letters that have entries get links
+    jump_links = " &nbsp; ".join(
+        f'<a href="#glossary-{letter.lower()}">{letter}</a>'
+        for letter in first_letters
+    )
+    jump_bar = (
+        "\n```{=html}\n"
+        '<div class="wdt-glossary-jumpbar">\n'
+        f"{jump_links}\n"
+        "</div>\n"
+        "```\n"
+    )
+
     lines = [
         "---",
         'title: "Glossary"',
@@ -325,15 +348,29 @@ def build_glossary(papers_dir: str, contents_path: str, out_path: str):
         "This glossary defines terms that recur across the WDT paper series. "
         "Each entry links to every section where the term appears.",
         "",
+        jump_bar,
+        "",
         "---",
         "",
     ]
 
+    current_letter = ""
     for key in sorted_keys:
         entry = all_entries[key]
         term = entry["term"]
         defn = entry["definition"]
         xrefs = term_xrefs.get(key, [])
+
+        # Emit a letter heading anchor when the first letter changes
+        fl = term.lstrip("$")[0].upper() if term.lstrip("$") else ""
+        if fl.isalpha() and fl != current_letter:
+            current_letter = fl
+            # Raw HTML anchor so Quarto doesn't mangle it
+            lines.append(
+                f'\n```{{=html}}\n'
+                f'<h3 id="glossary-{fl.lower()}" class="wdt-glossary-letter">{fl}</h3>\n'
+                f'```\n'
+            )
 
         lines.append(f"**{term}**")
         if defn and xrefs:

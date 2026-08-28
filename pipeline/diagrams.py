@@ -282,7 +282,7 @@ WDT nodes are clickable: hover to see where a node links, click to navigate to t
 
 ::: {{.callout-tip}}
 ## Navigating these diagrams
-Scroll inside the diagram box to pan vertically. Mouse button 3 to pan. All labelled nodes in the WDT diagrams link to the relevant paper section.
+Scroll inside the diagram box to pan. On touch devices, drag to pan. On desktop, use the scroll bar or click-and-drag. All labelled nodes in the WDT diagrams are clickable and link to the relevant paper section.
 :::
 
 ---
@@ -299,7 +299,7 @@ The full chart covers: window election and deferral premiums, route assignment (
 {mermaid_block(wdt_full)}
 ```{{=html}}
 </div>
-<p class="diagram-hint">Scroll to pan &middot; Mouse button 3 to pan</p>
+<p class="diagram-hint">Scroll or drag to pan &middot; click any node to open the relevant paper section</p>
 ```
 
 ---
@@ -312,7 +312,7 @@ The full chart covers: window election and deferral premiums, route assignment (
 {mermaid_block(wdt_skeleton)}
 ```{{=html}}
 </div>
-<p class="diagram-hint">Scroll to pan &middot; Mouse button 3 to pan</p>
+<p class="diagram-hint">Scroll or drag to pan &middot; click any node to open the relevant paper section</p>
 ```
 
 ---
@@ -327,7 +327,7 @@ The current UK system is shown as a structural comparator. Unlike the WDT, the U
 {mermaid_block(uk_full)}
 ```{{=html}}
 </div>
-<p class="diagram-hint">Scroll to pan &middot; Mouse button 3 to pan</p>
+<p class="diagram-hint">Scroll or drag to pan &middot; click any node to open the relevant paper section</p>
 ```
 
 ---
@@ -340,7 +340,7 @@ The current UK system is shown as a structural comparator. Unlike the WDT, the U
 {mermaid_block(uk_skeleton)}
 ```{{=html}}
 </div>
-<p class="diagram-hint">Scroll to pan &middot; Mouse button 3 to pan</p>
+<p class="diagram-hint">Scroll or drag to pan &middot; click any node to open the relevant paper section</p>
 ```
 
 ---

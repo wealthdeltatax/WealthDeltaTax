@@ -39,59 +39,66 @@ website:
       - text: "Comparison Tables"
         href: comparison-tables.html
       - text: "Project Map"
-        href: summary.html
+        href: Project-Map.html
       - text: "Papers"
         href: corpus.html
-      - text: "Tools"
-        href: tools/index.html
-      - text: "Flowcharts"
-        href: flowcharts.html  
-      - text: "References"
-        href: references.html
-      - text: "Revision History"
-        href: revision_history.html
         menu:
+          - text: "— Core —"
           - text: "White Paper (WP)"
             href: wp.html
           - text: "Moral Foundations (MF)"
             href: mf.html
+          - text: "— Literature —"
           - text: "Research Gaps (LR.A)"
             href: lr-a.html
           - text: "Intellectual Background (LR.B)"
             href: lr-b.html
           - text: "UK Jurisdiction (JUR)"
             href: jur.html
+          - text: "— Valuation —"
           - text: "Valuing Wealth (VAL)"
             href: val.html
           - text: "Corporate Architecture (CORP)"
             href: corp.html
           - text: "Constitutional Governance (GOV)"
             href: gov.html
+          - text: "— Revenue & Behaviour —"
           - text: "Rates and Revenue (RATES)"
             href: rates.html
           - text: "Parameter Sweeps (SWEEPS)"
             href: sweeps.html
           - text: "Behavioural Robustness (BEHAV)"
             href: behav.html
+          - text: "— Implementation & Analysis —"
           - text: "Position Closure (CLOSE)"
             href: close.html
-          - text: "Political Architecture (POL)"
-            href: pol.html
           - text: "Phase One (PHASE1)"
             href: phase1.html
+          - text: "Political Architecture (POL)"
+            href: pol.html
           - text: "Environmental Effects (ENV)"
             href: env.html
           - text: "First Mover (FM)"
             href: fm.html
           - text: "Modular Adoption (MOD)"
             href: mod.html
-          - text: "Scope Boundary (SCOPE)"
-            href: scope.html
+          - text: "Addendums (ADD)"
+            href: add.html
+          - text: "---"
+          - text: "All Papers Index"
+            href: corpus.html
+      - text: "Tools"
+        href: tools/index.html
+      - text: "Flowcharts"
+        href: flowcharts.html
+      - text: "References"
+        href: references.html
       - text: "Glossary"
         href: glossary.html
 
   sidebar:
     style: "docked"
+    collapse-level: 1
     contents:
       - section: "Core Papers"
         contents:
@@ -157,6 +164,8 @@ website:
             href: mod.html
           - text: "Scope Boundaries (SCOPE)"
             href: scope.html
+          - text: "Addendums (ADD)"
+            href: add.html
 
   page-footer:
     left: "© K. Ogata. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)."
@@ -166,7 +175,7 @@ format:
   html:
     theme: cosmo
     toc: True
-    toc-depth: 3
+    toc-depth: 2
     number-sections: false
     css: style/styles.css
     citations-hover: true
