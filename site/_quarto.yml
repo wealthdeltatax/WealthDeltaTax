@@ -82,6 +82,8 @@ website:
             href: fm.html
           - text: "Modular Adoption (MOD)"
             href: mod.html
+          - text: "Scope and Boundaries (SCOPE)"
+            href: scope.html
           - text: "Addendums (ADD)"
             href: add.html
           - text: "---"
