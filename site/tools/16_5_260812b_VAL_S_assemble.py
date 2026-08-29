@@ -130,7 +130,7 @@ def section_a4_n():
     lines.append('## A.4  N Sweep — C.1 metric at four holding periods')
     lines.append('')
     lines.append(
-        f'**Metric:** (Net(α,N) − Net(1,N)) / TW(α,N)  ·  '
+        f'**Metric:** (Net_settled(α,N) − Net_settled(1,N)) / TW_settled(α,N)  ·  '
         f'τ₀ = {CANON_TAU0*100:.0f}%, τ_m = {CANON_TAUM*100:.0f}%, k = {CANON_K}, '
         f'V₀ = £{CANON_V0:.0f}m, g = {CANON_G*100:.2f}% throughout.  '
         'α = 1.0 row is zero by construction.'
@@ -142,16 +142,16 @@ def section_a4_n():
         canon_mark = '  *(canonical)*' if n == CANON_N else ''
         lines.append(f'### A.4.{N_VALS.index(n)+1}  N = {n}{canon_mark}')
         lines.append('')
-        headers = ['α', 'C.1 at g = 10.45%', 'TW (£m)', 'Net (£m)', 'Eff rate']
+        headers = ['α', 'C.1 at g = 10.45%', 'TW_settled (£m)', 'Net_settled (£m)', 'Eff rate']
         rows = []
         for alpha in ALPHA_VALS:
             r = run_sim(p, alpha=alpha, g=CANON_G, N=n)
             b = run_sim(p, alpha=1.0,   g=CANON_G, N=n)
-            c1_val = (r['Net'] - b['Net']) / r['TW'] if abs(r['TW']) > 1e-12 else 0.0
-            eff = r['Net'] / r['TW'] if abs(r['TW']) > 1e-12 else 0.0
+            c1_val = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] if abs(r['TW_settled']) > 1e-12 else 0.0
+            eff = r['Net_settled'] / r['TW_settled'] if abs(r['TW_settled']) > 1e-12 else 0.0
             rows.append([
                 f'**{alpha}**', pct(c1_val),
-                f'{r["TW"]:.2f}', f'{r["Net"]:.2f}', pct(eff)
+                f'{r["TW_settled"]:.2f}', f'{r["Net_settled"]:.2f}', pct(eff)
             ])
         lines.append(md_table(headers, rows))
         lines.append('')
@@ -160,7 +160,7 @@ def section_a4_n():
     lines.append('### A.4.5  N-crossing thresholds at canonical parameters')
     lines.append('')
     lines.append(
-        f'First N at which overstater Net > honest Net, at g = {CANON_G*100:.1f}%. '
+        f'First N at which overstater Net_settled > honest Net_settled, at g = {CANON_G*100:.1f}%. '
         'Interpolated to one decimal place; "—" = no crossing within N = 5–65.'
     )
     lines.append('')
@@ -180,7 +180,7 @@ def section_a5_v0():
     lines.append('## A.5  V₀ Sweep — C.1 metric at four wealth levels')
     lines.append('')
     lines.append(
-        f'**Metric:** (Net(α) − Net(1)) / TW(α) at g = {CANON_G*100:.2f}%.  '
+        f'**Metric:** (Net_settled(α) − Net_settled(1)) / TW_settled(α) at g = {CANON_G*100:.2f}%.  '
         f'τ₀ = {CANON_TAU0*100:.0f}%, τ_m = {CANON_TAUM*100:.0f}%, k = {CANON_K}, N = {CANON_N}.'
     )
     lines.append('')
@@ -190,16 +190,16 @@ def section_a5_v0():
         lines.append(f'### A.5.{V0_VALS.index(v0)+1}  V₀ = £{v0:.0f}m{canon_mark}')
         lines.append('')
         p = make_p(V0_m=v0)
-        headers = ['α', 'C.1', 'TW (£m)', 'Net (£m)', 'Eff rate']
+        headers = ['α', 'C.1', 'TW_settled (£m)', 'Net_settled (£m)', 'Eff rate']
         rows = []
         for alpha in ALPHA_VALS:
             r = run_sim(p, alpha=alpha, g=CANON_G, N=CANON_N)
             b = run_sim(p, alpha=1.0,   g=CANON_G, N=CANON_N)
-            c1_val = (r['Net'] - b['Net']) / r['TW'] if abs(r['TW']) > 1e-12 else 0.0
-            eff = r['Net'] / r['TW'] if abs(r['TW']) > 1e-12 else 0.0
+            c1_val = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] if abs(r['TW_settled']) > 1e-12 else 0.0
+            eff = r['Net_settled'] / r['TW_settled'] if abs(r['TW_settled']) > 1e-12 else 0.0
             rows.append([
                 f'**{alpha}**', pct(c1_val),
-                f'{r["TW"]:.2f}', f'{r["Net"]:.2f}', pct(eff)
+                f'{r["TW_settled"]:.2f}', f'{r["Net_settled"]:.2f}', pct(eff)
             ])
         lines.append(md_table(headers, rows))
         lines.append('')
@@ -212,7 +212,7 @@ def section_a6_tau0_n_surface():
     lines.append('## A.6  τ₀ × N Joint Surface — N-crossing for α = 2.0')
     lines.append('')
     lines.append(
-        f'**Metric:** First N at which Net(α=2.0) > Net(α=1.0) at g = {CANON_G*100:.1f}%.  '
+        f'**Metric:** First N at which Net_settled(α=2.0) > Net_settled(α=1.0) at g = {CANON_G*100:.1f}%.  '
         f'τ_m = {CANON_TAUM*100:.0f}%, k = {CANON_K}, V₀ = £{CANON_V0:.0f}m.  '
         '"—" = no crossing found within N sweep ceiling.'
     )
@@ -244,7 +244,7 @@ def section_a7_k_v0_surface():
     lines.append('## A.7  k × V₀ Joint Surface — C.1 Bracket Penalty for α = 1.8')
     lines.append('')
     lines.append(
-        f'**Metric:** (Net(1.8) − Net(1.0)) / TW(1.8) at g = {CANON_G*100:.1f}%, N = {CANON_N}.  '
+        f'**Metric:** (Net_settled(1.8) − Net_settled(1.0)) / TW_settled(1.8) at g = {CANON_G*100:.1f}%, N = {CANON_N}.  '
         f'τ₀ = {CANON_TAU0*100:.0f}%, τ_m = {CANON_TAUM*100:.0f}%.  '
         'Negative = overstater pays less than honest.'
     )
@@ -299,7 +299,7 @@ def section_a8_wmin():
     lines.append('### A.8.5  N-crossing thresholds by W_min at canonical parameters')
     lines.append('')
     lines.append(
-        f'First N at which overstater Net > honest Net, at g = {CANON_G*100:.1f}%. '
+        f'First N at which overstater Net_settled > honest Net_settled, at g = {CANON_G*100:.1f}%. '
         'Interpolated to one decimal place; "—" = no crossing within N = 5–65.'
     )
     lines.append('')
@@ -400,7 +400,7 @@ FIGURE_REGISTRY = [
         'ref':   'S3.1a',
         'file':  'val_s_fig_s3_1a_n_crossing_annotated.png',
         'title': 'Overstater advantage erosion and N-crossing thresholds (two-panel)',
-        'axes':  'Left: x = N, y = Net(α)−Net(honest) £m, line per α. Right: bar chart of crossing N per α.',
+        'axes':  'Left: x = N, y = Net_settled(α)−Net_settled(honest) £m, line per α. Right: bar chart of crossing N per α.',
         'params': f'τ₀={CANON_TAU0*100:.0f}%, τ_m={CANON_TAUM*100:.0f}%, k={CANON_K}, V₀=£{CANON_V0:.0f}m, g={CANON_G*100:.1f}%',
         'val_a': 'C.7, A.6, Fig 7.1 in VAL',
     },
@@ -591,9 +591,10 @@ def main():
     )
     lines.append('')
     lines.append(
-        '**Metric (all tables unless stated):** C.1 = (Net(α) − Net(1)) / TW(α).  '
-        'Positive = α pays more net tax than honest declaration.  '
-        'α = 1.0 row is zero by construction.'
+        '**Metric (all tables unless stated):** C.1 = (Net_settled(α) − Net_settled(1)) / TW_settled(α).  '
+        'Positive = α pays more net lifetime tax than honest declaration.  '
+        'α = 1.0 row is zero by construction.  '
+        'All metrics use post-sale settlement correction (see wdt_core.py §settle_tw).'
     )
     lines.append('')
     lines.append(

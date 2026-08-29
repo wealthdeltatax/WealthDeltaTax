@@ -414,7 +414,7 @@ async function initPyodide() {
     await pyodide.runPythonAsync(`
 import sys
 sys.path.insert(0, '/')
-from wdt_core import load_params, run_sim, run_sim_hist, tau, simulate, simulate_sell
+from wdt_core import load_params, run_sim, run_sim_hist
 `);
     setProgress(90, 'Loading parameters…');
     await pyodide.runPythonAsync(`p = load_params('/260812_WDT_Params.toml')`);
@@ -478,33 +478,17 @@ def sim_to_rows(r):
     s = r['sell']
     rows.append({'t': s['t'], 'V': s['V_sell'], 'W': s['W_sell'], 'L': s['L_sell'], 'cum': s['cum_after'], 'rate': s['rate_sell'], 'delta': s['delta_sell'], 'f': s['f_N'], 'q': None, 'sell': True})
     return rows
-def settle(sell, sp, max_iter=200, tol=1e-6):
-    V = sell['V_sell']
-    f = sell['f_N']
-    W = sell['W_sell']
-    cum = sell['cum_after']
-    if abs(cum) < tol:
-        return W, 0
-    for i in range(1, max_iter + 1):
-        W_new = f * V
-        rate  = tau(W_new, sp)
-        delta = W_new - W
-        L     = max(-cum, rate * delta) if (delta > 0.0 or cum > 0.0) else 0.0
-        q     = (L / W_new) if W_new != 0.0 else 0.0
-        f     = f * (1.0 - q)
-        cum  += L
-        W     = W_new
-        if abs(cum) < tol:
-            return W, i
-    return W, max_iter
 def make_entry(r, g_use):
-    s  = r['sell']
-    sp = {'k': p_ui['k'], 'tau_0': p_ui['tau_0'], 'tau_m': p_ui['tau_m'], 'W_min': p_ui['W_min']}
-    settled_TW, settle_n = settle(s, sp)
     return {
-        'TW': r['TW'], 'settled_TW': settled_TW, 'settle_n': settle_n,
-        'TTP': r['TTP'], 'Refunds': r['Refunds'], 'Net': r['Net'],
-        'g_use': g_use, 'cum_after': s['cum_after'], 'rows': sim_to_rows(r),
+        'TW':         r['TW'],
+        'TW_settled': r['TW_settled'],
+        'settle_n':   r['settle_iters'],
+        'TTP':        r['TTP'],
+        'Refunds':    r['Refunds'],
+        'Net':        r['Net'],
+        'Net_settled':r['Net_settled'],
+        'g_use':      g_use,
+        'rows':       sim_to_rows(r),
     }
 result = {
     'honest': make_entry(r_honest, g_use_honest),
@@ -526,22 +510,21 @@ function fmt_pct(v) { return (v*100).toFixed(2) + '%'; }
 function fmt_rate(v) { return v === null ? '—' : (v*100).toFixed(2) + '%'; }
 
 function renderStats(container, d, V0) {
-  // settled_TW: model ran g=0 periods from sell-year state until |cum| < 1e-6,
-  // draining any residual tax/refund oscillation for a fair cross-alpha comparison.
-  const settled_TW = d.settled_TW;
+  // TW_settled: post-sale oscillation converged by wdt_core.settle_tw()
+  const settled_TW = d.TW_settled;
   const settleNote = d.settle_n === 0 ? 'already settled at sell'
-                   : d.settle_n >= 200 ? 'cap reached (200 periods)'
-                   : `settled after ${d.settle_n} period${d.settle_n === 1 ? '' : 's'} at g=0`;
+                   : d.settle_n >= 2000 ? 'cap reached (2000 periods)'
+                   : `settled after ${d.settle_n} period${d.settle_n === 1 ? '' : 's'}`;
 
   const rows = [
-    ['Starting wealth (V₀)',          fmt_m(V0),           'neutral'],
-    ['TW at sell year',               fmt_m(d.TW),         'neutral'],
-    [`Settled TW (${settleNote})`,     fmt_m(settled_TW),   'neutral'],
-    ['Gross taxes paid (TTP)',         fmt_m(d.TTP),        d.TTP > 0  ? 'positive' : 'zero'],
-    ['Gross refunds received',         fmt_m(d.Refunds),    d.Refunds < 0 ? 'negative' : 'zero'],
-    ['Net lifetime tax',               fmt_m(d.Net),        d.Net > 0  ? 'positive' : (d.Net < 0 ? 'negative' : 'zero')],
-    ['Eff. rate (Net / settled TW)',   fmt_pct(d.Net / settled_TW), d.Net > 0 ? 'positive' : 'zero'],
-    ['Mean return used',               fmt_pct(d.g_use),    'neutral'],
+    ['Starting wealth (V₀)',              fmt_m(V0),                 'neutral'],
+    ['TW at sell year',                   fmt_m(d.TW),               'neutral'],
+    [`TW_settled (${settleNote})`,         fmt_m(settled_TW),         'neutral'],
+    ['Gross taxes paid (TTP)',             fmt_m(d.TTP),              d.TTP > 0  ? 'positive' : 'zero'],
+    ['Gross refunds received',             fmt_m(d.Refunds),          d.Refunds < 0 ? 'negative' : 'zero'],
+    ['Net lifetime tax (settled)',         fmt_m(d.Net_settled),      d.Net_settled > 0 ? 'positive' : (d.Net_settled < 0 ? 'negative' : 'zero')],
+    ['Eff. rate (Net_settled/TW_settled)', fmt_pct(d.Net_settled / settled_TW), d.Net_settled > 0 ? 'positive' : 'zero'],
+    ['Mean return used',                   fmt_pct(d.g_use),          'neutral'],
   ];
   container.innerHTML = rows.map(([lbl, num, cls]) =>
     `<div class="stat-row"><span class="lbl">${lbl}</span><span class="num ${cls}">${num}</span></div>`

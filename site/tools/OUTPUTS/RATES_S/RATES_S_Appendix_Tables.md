@@ -1,6 +1,6 @@
 # B. WDT Rate Parameter Sensitivity Sweep
 
-**Run date:** 2026-08-17  
+**Run date:** 2026-08-29  
 **Model version:** v6 (rates_model.py / wdt_core.py)  
 **Parameters file:** `260812_WDT_Params.toml`  
 

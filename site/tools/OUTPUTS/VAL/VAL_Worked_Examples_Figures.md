@@ -1,6 +1,6 @@
 # VAL.B Worked Examples — Numerical Figures
 
-**Generated:** 2026-08-17  
+**Generated:** 2026-08-29  
 **Model:** Python v1.0 standalone · Route C simulation throughout  
 **Parameters:** $	au_0$=15%, $	au_m$=70%, k=0.001, W_min=£2m (all examples unless stated)  
 **Option A convention:** N annual periods used as assessment windows throughout.  
@@ -23,10 +23,10 @@ expected to produce variance from a window-aware model; directional claims unaff
 | Tax paid years 1–5 | £1.077m | £0.859m | £0.534m |
 | Final delta on sale (year 6) | £1.641m | £7.053m | £15.175m |
 | Tax on final delta | £0.251m | £1.080m | £2.324m |
-| Total lifetime WDT (Net) | £1.328m | £1.939m | £2.858m |
-| Terminal net worth (TW) | £28.444m | £27.620m | £26.382m |
-| TW vs honest | — | -2.90% | -7.25% |
-| Net tax vs honest | — | +45.99% | +115.21% |
+| Total lifetime WDT (Net_settled) | £1.295m | £1.796m | £2.550m |
+| Terminal net worth (TW_settled) | £28.478m | £27.763m | £26.690m |
+| TW_settled vs honest | — | -2.51% | -6.28% |
+| Net_settled vs honest | — | +38.68% | +96.95% |
 
 ### Period-by-period: Honest declarer (α=1.0)
 
@@ -47,8 +47,8 @@ At the sell year, the final delta differs by declaration strategy:
 - α=0.8: final delta = £7.053m → tax = £1.080m (larger by £5.413m due to suppressed basis)
 - α=0.5: final delta = £15.175m → tax = £2.324m (larger by £13.534m due to suppressed basis)
 
-The α=0.8 understater saved £0.218m in years 1–5 but paid £0.829m more at sale — net cost of understatement: £0.611m.
-The α=0.5 understater saved £0.543m in years 1–5 but paid £2.073m more at sale — net cost of understatement: £1.530m.
+The α=0.8 understater saved £0.218m in years 1–5 but paid £0.829m more at sale — net cost of understatement (settled): £0.501m.
+The α=0.5 understater saved £0.543m in years 1–5 but paid £2.073m more at sale — net cost of understatement (settled): £1.255m.
 
 ## §K: Dilution Compounds with Growth
 
@@ -83,9 +83,9 @@ representing the stake value directly, not the company valuation.
 | State equity stake | 5.379% | 5.339% |
 | True value of state stake (£m) | £1.636m | £1.624m |
 | True value of founder stake (£m) | £28.781m | £28.793m |
-| Tax paid (Net) (£m) | £2.006m | £3.233m |
-| Terminal net worth TW (£m) | £32.515m | £30.726m |
-| Implicit cost of understatement vs honest (£m) | — | £1.228m |
+| Net_settled (£m) | £1.928m | £2.916m |
+| TW_settled (£m) | £32.592m | £31.043m |
+| Implicit cost of understatement vs honest (£m) | — | £0.988m |
 
 ### Key mechanism: underpriced equity transfer
 
@@ -97,7 +97,7 @@ the true rate (15% per year). After 3 periods:
 
 The understater's state stake is worth £1.624m vs £1.636m for the honest
 declarer — the understater has transferred more economic value per unit of tax paid.
-This gap is the 'implicit cost of understatement' under Route C: £1.228m extra net tax.
+This gap is the 'implicit cost of understatement' under Route C: £0.988m extra net tax (settled).
 
 ## §L: Why Route D Defers to Realisation
 
@@ -214,11 +214,11 @@ reference k=0.0001 (the rate function is relatively flat in this range).
 | Refunds received years 1–10 | £0.000m | £0.000m | £0.000m |
 | Post-sale delta (year 11) | £0.883m | £6.700m | £-4.932m |
 | Tax/refund on post-sale delta | £0.134m | £1.016m | £-0.748m |
-| Total lifetime WDT (Net) | £1.122m | £1.607m | £0.640m |
-| Terminal net worth (TW) | £15.287m | £14.409m | £16.164m |
-| TW vs Founder A | — | -5.74% | +5.74% |
-| Net tax vs Founder A | — | +43.21% | -42.95% |
-| Effective rate (Net/TW) | 7.34% | 11.15% | 3.96% |
+| Total lifetime WDT (Net_settled) | £1.104m | £1.473m | £0.738m |
+| Terminal net worth (TW_settled) | £15.304m | £14.543m | £16.065m |
+| TW_settled vs Founder A | — | -4.98% | +4.97% |
+| Net_settled vs Founder A | — | +33.39% | -33.13% |
+| Effective rate (Net_settled/TW_settled) | 7.22% | 10.13% | 4.60% |
 
 ### Period-by-period: All three founders
 
@@ -241,16 +241,16 @@ reference k=0.0001 (the rate function is relatively flat in this range).
 
 **Founder B (pessimist, α=0.6):** Paid £0.591m in years 1–10 vs £0.988m for Founder A.
 At sale, the suppressed basis produced a large positive delta (£6.700m).
-Total net tax: £1.607m vs £1.122m for Founder A — +43.2% more despite lower annual payments.
-Terminal wealth: £14.409m vs £15.287m — -5.7%.
+Total net tax (settled): £1.473m vs £1.104m for Founder A — +33.4% more despite lower annual payments.
+Terminal wealth (settled): £14.543m vs £15.304m — -5.0%.
 
 **Founder C (optimist, α=1.4):** Paid £1.388m in years 1–10 vs £0.988m for Founder A.
 At sale, the inflated basis produced a negative delta (£-4.932m) → refund of £0.748m.
-Total net tax: £0.640m vs £1.122m for Founder A — -43.0% relative to honest.
-Terminal wealth: £16.164m vs £15.287m — +5.7%.
+Total net tax (settled): £0.738m vs £1.104m for Founder A — -33.1% relative to honest.
+Terminal wealth (settled): £16.065m vs £15.304m — +5.0%.
 
 **Founder A (honest, α=1.0):** No directional forecast exposure. Paid exactly
-the tax on the wealth actually accumulated — £1.122m net, retaining £15.287m.
+the tax on the wealth actually accumulated — £1.104m net (settled), retaining £15.304m.
 Neither Founder B nor C improves on this outcome at g=7%, N=10.
 
 *VAL.B §N.5 note on signalling: Founder C's overstatement may generate real

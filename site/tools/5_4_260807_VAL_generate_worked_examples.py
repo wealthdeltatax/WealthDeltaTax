@@ -68,10 +68,10 @@ def example_j(base_p):
     lines.append(f"| Tax paid years 1–5 | {fm(tax_10_15)} | {fm(tax_08_15)} | {fm(tax_05_15)} |")
     lines.append(f"| Final delta on sale (year 6) | {fm(sell10['delta_sell'])} | {fm(sell08['delta_sell'])} | {fm(sell05['delta_sell'])} |")
     lines.append(f"| Tax on final delta | {fm(max(0,sell10['L_sell']))} | {fm(max(0,sell08['L_sell']))} | {fm(max(0,sell05['L_sell']))} |")
-    lines.append(f"| Total lifetime WDT (Net) | {fm(r10['Net'])} | {fm(r08['Net'])} | {fm(r05['Net'])} |")
-    lines.append(f"| Terminal net worth (TW) | {fm(r10['TW'])} | {fm(r08['TW'])} | {fm(r05['TW'])} |")
-    lines.append(f"| TW vs honest | — | {(r08['TW']-r10['TW'])/r10['TW']*100:+.2f}% | {(r05['TW']-r10['TW'])/r10['TW']*100:+.2f}% |")
-    lines.append(f"| Net tax vs honest | — | {(r08['Net']-r10['Net'])/r10['Net']*100:+.2f}% | {(r05['Net']-r10['Net'])/r10['Net']*100:+.2f}% |")
+    lines.append(f"| Total lifetime WDT (Net_settled) | {fm(r10['Net_settled'])} | {fm(r08['Net_settled'])} | {fm(r05['Net_settled'])} |")
+    lines.append(f"| Terminal net worth (TW_settled) | {fm(r10['TW_settled'])} | {fm(r08['TW_settled'])} | {fm(r05['TW_settled'])} |")
+    lines.append(f"| TW_settled vs honest | — | {(r08['TW_settled']-r10['TW_settled'])/r10['TW_settled']*100:+.2f}% | {(r05['TW_settled']-r10['TW_settled'])/r10['TW_settled']*100:+.2f}% |")
+    lines.append(f"| Net_settled vs honest | — | {(r08['Net_settled']-r10['Net_settled'])/r10['Net_settled']*100:+.2f}% | {(r05['Net_settled']-r10['Net_settled'])/r10['Net_settled']*100:+.2f}% |")
     lines.append("")
 
     # Period-by-period detail for honest (α=1.0) only to show mechanism
@@ -100,10 +100,10 @@ def example_j(base_p):
     lines.append("")
     lines.append(f"The α=0.8 understater saved {fm(tax_10_15-tax_08_15)} in years 1–5 but paid "
                  f"{fm(max(0,sell08['L_sell'])-max(0,sell10['L_sell']))} more at sale — "
-                 f"net cost of understatement: {fm(r08['Net']-r10['Net'])}.")
+                 f"net cost of understatement (settled): {fm(r08['Net_settled']-r10['Net_settled'])}.")
     lines.append(f"The α=0.5 understater saved {fm(tax_10_15-tax_05_15)} in years 1–5 but paid "
                  f"{fm(max(0,sell05['L_sell'])-max(0,sell10['L_sell']))} more at sale — "
-                 f"net cost of understatement: {fm(r05['Net']-r10['Net'])}.")
+                 f"net cost of understatement (settled): {fm(r05['Net_settled']-r10['Net_settled'])}.")
     lines.append("")
     return '\n'.join(lines)
 
@@ -175,9 +175,9 @@ def example_k(base_p):
     lines.append(f"| State equity stake | {(1-r10['records'][N]['f'])*100:.3f}% | {(1-r06['records'][N]['f'])*100:.3f}% |")
     lines.append(f"| True value of state stake (£m) | {fm(state_true_h)} | {fm(state_true_u)} |")
     lines.append(f"| True value of founder stake (£m) | {fm(founder_true_h)} | {fm(founder_true_u)} |")
-    lines.append(f"| Tax paid (Net) (£m) | {fm(r10['Net'])} | {fm(r06['Net'])} |")
-    lines.append(f"| Terminal net worth TW (£m) | {fm(r10['TW'])} | {fm(r06['TW'])} |")
-    lines.append(f"| Implicit cost of understatement vs honest (£m) | — | {fm(r06['Net']-r10['Net'])} |")
+    lines.append(f"| Net_settled (£m) | {fm(r10['Net_settled'])} | {fm(r06['Net_settled'])} |")
+    lines.append(f"| TW_settled (£m) | {fm(r10['TW_settled'])} | {fm(r06['TW_settled'])} |")
+    lines.append(f"| Implicit cost of understatement vs honest (£m) | — | {fm(r06['Net_settled']-r10['Net_settled'])} |")
     lines.append("")
 
     # Key mechanism explanation
@@ -191,7 +191,7 @@ def example_k(base_p):
     lines.append(f"")
     lines.append(f"The understater's state stake is worth {fm(state_true_u)} vs {fm(state_true_h)} for the honest")
     lines.append(f"declarer — the understater has transferred more economic value per unit of tax paid.")
-    lines.append(f"This gap is the 'implicit cost of understatement' under Route C: {fm(r06['Net']-r10['Net'])} extra net tax.")
+    lines.append(f"This gap is the 'implicit cost of understatement' under Route C: {fm(r06['Net_settled']-r10['Net_settled'])} extra net tax (settled).")
     lines.append("")
     return '\n'.join(lines)
 
@@ -422,11 +422,11 @@ def example_n(base_p):
     lines.append(f"| Refunds received years 1–10 | {fm(abs(ref_A_110))} | {fm(abs(ref_B_110))} | {fm(abs(ref_C_110))} |")
     lines.append(f"| Post-sale delta (year 11) | {fm(sellA['delta_sell'])} | {fm(sellB['delta_sell'])} | {fm(sellC['delta_sell'])} |")
     lines.append(f"| Tax/refund on post-sale delta | {fm(sellA['L_sell'])} | {fm(sellB['L_sell'])} | {fm(sellC['L_sell'])} |")
-    lines.append(f"| Total lifetime WDT (Net) | {fm(rA['Net'])} | {fm(rB['Net'])} | {fm(rC['Net'])} |")
-    lines.append(f"| Terminal net worth (TW) | {fm(rA['TW'])} | {fm(rB['TW'])} | {fm(rC['TW'])} |")
-    lines.append(f"| TW vs Founder A | — | {(rB['TW']-rA['TW'])/rA['TW']*100:+.2f}% | {(rC['TW']-rA['TW'])/rA['TW']*100:+.2f}% |")
-    lines.append(f"| Net tax vs Founder A | — | {(rB['Net']-rA['Net'])/rA['Net']*100:+.2f}% | {(rC['Net']-rA['Net'])/rA['Net']*100:+.2f}% |")
-    lines.append(f"| Effective rate (Net/TW) | {rA['Net']/rA['TW']*100:.2f}% | {rB['Net']/rB['TW']*100:.2f}% | {rC['Net']/rC['TW']*100:.2f}% |")
+    lines.append(f"| Total lifetime WDT (Net_settled) | {fm(rA['Net_settled'])} | {fm(rB['Net_settled'])} | {fm(rC['Net_settled'])} |")
+    lines.append(f"| Terminal net worth (TW_settled) | {fm(rA['TW_settled'])} | {fm(rB['TW_settled'])} | {fm(rC['TW_settled'])} |")
+    lines.append(f"| TW_settled vs Founder A | — | {(rB['TW_settled']-rA['TW_settled'])/rA['TW_settled']*100:+.2f}% | {(rC['TW_settled']-rA['TW_settled'])/rA['TW_settled']*100:+.2f}% |")
+    lines.append(f"| Net_settled vs Founder A | — | {(rB['Net_settled']-rA['Net_settled'])/rA['Net_settled']*100:+.2f}% | {(rC['Net_settled']-rA['Net_settled'])/rA['Net_settled']*100:+.2f}% |")
+    lines.append(f"| Effective rate (Net_settled/TW_settled) | {rA['Net_settled']/rA['TW_settled']*100:.2f}% | {rB['Net_settled']/rB['TW_settled']*100:.2f}% | {rC['Net_settled']/rC['TW_settled']*100:.2f}% |")
     lines.append("")
 
     # Period-by-period for all three founders
@@ -455,22 +455,22 @@ def example_n(base_p):
     lines.append("")
     lines.append(f"**Founder B (pessimist, α=0.6):** Paid {fm(tax_B_110)} in years 1–10 vs {fm(tax_A_110)} for Founder A.")
     lines.append(f"At sale, the suppressed basis produced a large positive delta ({fm(sellB['delta_sell'])}).")
-    lines.append(f"Total net tax: {fm(rB['Net'])} vs {fm(rA['Net'])} for Founder A — "
-                 f"{(rB['Net']-rA['Net'])/rA['Net']*100:+.1f}% more despite lower annual payments.")
-    lines.append(f"Terminal wealth: {fm(rB['TW'])} vs {fm(rA['TW'])} — "
-                 f"{(rB['TW']-rA['TW'])/rA['TW']*100:+.1f}%.")
+    lines.append(f"Total net tax (settled): {fm(rB['Net_settled'])} vs {fm(rA['Net_settled'])} for Founder A — "
+                 f"{(rB['Net_settled']-rA['Net_settled'])/rA['Net_settled']*100:+.1f}% more despite lower annual payments.")
+    lines.append(f"Terminal wealth (settled): {fm(rB['TW_settled'])} vs {fm(rA['TW_settled'])} — "
+                 f"{(rB['TW_settled']-rA['TW_settled'])/rA['TW_settled']*100:+.1f}%.")
     lines.append("")
     lines.append(f"**Founder C (optimist, α=1.4):** Paid {fm(tax_C_110)} in years 1–10 vs {fm(tax_A_110)} for Founder A.")
     lines.append(f"At sale, the inflated basis produced a {'positive' if sellC['delta_sell'] > 0 else 'negative'} "
                  f"delta ({fm(sellC['delta_sell'])}) → "
                  f"{'tax' if sellC['L_sell'] > 0 else 'refund'} of {fm(abs(sellC['L_sell']))}.")
-    lines.append(f"Total net tax: {fm(rC['Net'])} vs {fm(rA['Net'])} for Founder A — "
-                 f"{(rC['Net']-rA['Net'])/rA['Net']*100:+.1f}% relative to honest.")
-    lines.append(f"Terminal wealth: {fm(rC['TW'])} vs {fm(rA['TW'])} — "
-                 f"{(rC['TW']-rA['TW'])/rA['TW']*100:+.1f}%.")
+    lines.append(f"Total net tax (settled): {fm(rC['Net_settled'])} vs {fm(rA['Net_settled'])} for Founder A — "
+                 f"{(rC['Net_settled']-rA['Net_settled'])/rA['Net_settled']*100:+.1f}% relative to honest.")
+    lines.append(f"Terminal wealth (settled): {fm(rC['TW_settled'])} vs {fm(rA['TW_settled'])} — "
+                 f"{(rC['TW_settled']-rA['TW_settled'])/rA['TW_settled']*100:+.1f}%.")
     lines.append("")
     lines.append(f"**Founder A (honest, α=1.0):** No directional forecast exposure. Paid exactly")
-    lines.append(f"the tax on the wealth actually accumulated — {fm(rA['Net'])} net, retaining {fm(rA['TW'])}.")
+    lines.append(f"the tax on the wealth actually accumulated — {fm(rA['Net_settled'])} net (settled), retaining {fm(rA['TW_settled'])}.")
     lines.append(f"Neither Founder B nor C improves on this outcome at g=7%, N=10.")
     lines.append("")
     lines.append("*VAL.B §N.5 note on signalling: Founder C's overstatement may generate real")

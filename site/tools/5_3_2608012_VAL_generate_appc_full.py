@@ -59,51 +59,52 @@ def compute_all_tables(p):
     base_pos   = {g: base_by_g[g] for g in g_pos}
     base_ref   = run_sim(p, alpha=1.0, beta=0.0)  # at params g
 
-    # Table 1: (Net(a) - Net(1)) / TW(a) by alpha x g
+    # Table 1: (Net_settled(a) - Net_settled(1)) / TW_settled(a) by alpha x g
     t1 = {}
     for alpha in ALPHA_VALS:
         row = []
         for g in G_VALS:
             r = run_sim(p, alpha=alpha, beta=0.0, g=g)
             b = base_by_g[g]
-            row.append((r['Net'] - b['Net']) / r['TW'] if abs(r['TW']) > 1e-12 else 0.0)
+            row.append((r['Net_settled'] - b['Net_settled']) / r['TW_settled'] if abs(r['TW_settled']) > 1e-12 else 0.0)
         t1[alpha] = row
 
-    # Table 2: Net(a)/TW(a) - Net(1)/TW(1) by alpha x g
+    # Table 2: Net_settled(a)/TW_settled(a) - Net_settled(1)/TW_settled(1) by alpha x g
     t2 = {}
     for alpha in ALPHA_VALS:
         row = []
         for g in G_VALS:
             r = run_sim(p, alpha=alpha, beta=0.0, g=g)
             b = base_by_g[g]
-            val = (r['Net'] / r['TW'] - b['Net'] / b['TW']
-                   if abs(r['TW']) > 1e-12 and abs(b['TW']) > 1e-12 else 0.0)
+            val = (r['Net_settled'] / r['TW_settled'] - b['Net_settled'] / b['TW_settled']
+                   if abs(r['TW_settled']) > 1e-12 and abs(b['TW_settled']) > 1e-12 else 0.0)
             row.append(val)
         t2[alpha] = row
 
-    # Table 3: (Net(a,beta) - Net(1,beta=0)) / TW(a,beta), overstaters only
+    # Table 3: (Net_settled(a,beta) - Net_settled(1,beta=0)) / TW_settled(a,beta), overstaters only
     # beta swept over same numeric values as G_VALS; g fixed at params g
     t3 = {}
     for alpha in OVER_VALS:
         row = []
         for beta_col in G_VALS:
             r = run_sim(p, alpha=alpha, beta=beta_col, g=p['g'])
-            val = ((r['Net'] - base_ref['Net']) / r['TW']
-                   if abs(r['TW']) > 1e-12 else 0.0)
+            val = ((r['Net_settled'] - base_ref['Net_settled']) / r['TW_settled']
+                   if abs(r['TW_settled']) > 1e-12 else 0.0)
             row.append(val)
         t3[alpha] = row
 
-    # Table 4: TTP(a=1)/TW(a=1) by k x V0
+    # Table 4: TTP(a=1)/TW_settled(a=1) by k x V0
+    # TTP is a holding-period quantity; denominator uses settled TW
     t4 = {}
     for k in K_VALS:
         row = []
         for v0 in V0_VALS:
             tp = dict(p); tp['k'] = k; tp['V0_m'] = float(v0)
             r = run_sim(tp, alpha=1.0, beta=0.0)
-            row.append(r['TTP'] / r['TW'] if abs(r['TW']) > 1e-12 else 0.0)
+            row.append(r['TTP'] / r['TW_settled'] if abs(r['TW_settled']) > 1e-12 else 0.0)
         t4[k] = row
 
-    # Table 5: (TW(a,k) - TW(1,k)) / TW(1,k) by alpha x k
+    # Table 5: (TW_settled(a,k) - TW_settled(1,k)) / TW_settled(1,k) by alpha x k
     t5 = {}
     for alpha in ALPHA_VALS:
         row = []
@@ -111,17 +112,17 @@ def compute_all_tables(p):
             tp = dict(p); tp['k'] = k
             r = run_sim(tp, alpha=alpha, beta=0.0)
             b = run_sim(tp, alpha=1.0, beta=0.0)
-            row.append((r['TW'] - b['TW']) / b['TW'] if abs(b['TW']) > 1e-12 else 0.0)
+            row.append((r['TW_settled'] - b['TW_settled']) / b['TW_settled'] if abs(b['TW_settled']) > 1e-12 else 0.0)
         t5[alpha] = row
 
-    # Table 6: TW(a)/TW(1) by alpha x g (positive g only)
+    # Table 6: TW_settled(a)/TW_settled(1) by alpha x g (positive g only)
     t6 = {}
     for alpha in ALPHA_VALS:
         row = []
         for g in g_pos:
             r = run_sim(p, alpha=alpha, beta=0.0, g=g)
             b = base_pos[g]
-            row.append(r['TW'] / b['TW'] if abs(b['TW']) > 1e-12 else 0.0)
+            row.append(r['TW_settled'] / b['TW_settled'] if abs(b['TW_settled']) > 1e-12 else 0.0)
         t6[alpha] = row
 
     # Tables 7 and 8: N sweep at params g
@@ -132,24 +133,24 @@ def compute_all_tables(p):
         for n_act in N_ACTUAL_VALS:
             r = run_sim(p, alpha=alpha, beta=0.0, N=n_act)
             b = run_sim(p, alpha=1.0,   beta=0.0, N=n_act)
-            v7 = (r['Net'] - b['Net']) / b['Net'] if abs(b['Net']) > 1e-12 else 0.0
-            v8 = (r['TW']  - b['TW'])  / b['TW']  if abs(b['TW'])  > 1e-12 else 0.0
+            v7 = (r['Net_settled'] - b['Net_settled']) / b['Net_settled'] if abs(b['Net_settled']) > 1e-12 else 0.0
+            v8 = (r['TW_settled']  - b['TW_settled'])  / b['TW_settled']  if abs(b['TW_settled'])  > 1e-12 else 0.0
             row7.append(v7); row8.append(v8)
         t7[alpha] = row7; t8[alpha] = row8
 
-    # Table 9: Summary — TW at alpha∈{2,1,0.1} and refund ratio by g
+    # Table 9: Summary — TW_settled at alpha∈{2,1,0.1} and refund ratio by g
     t9 = []
     for g in sorted([g for g in G_VALS if g >= 0], reverse=True):
         r2  = run_sim(p, alpha=2.0, beta=0.0, g=g)
         r1  = run_sim(p, alpha=1.0, beta=0.0, g=g)
         r01 = run_sim(p, alpha=0.1, beta=0.0, g=g)
-        # Refund ratio: Net(0.1)/Net(1) where Net is negative (refund scenario)
-        # Only meaningful at negative g; for positive g Net > 0, ratio not applicable
-        refund_ratio = (r01['Net'] / r1['Net']
-                        if r1['Net'] < 0 and abs(r1['Net']) > 1e-12 else None)
-        t9.append({'g': g, 'TW_a2': r2['TW'], 'TW_a1': r1['TW'],
-                   'TW_a01': r01['TW'], 'Net_a2': r2['Net'],
-                   'Net_a1': r1['Net'], 'Net_a01': r01['Net'],
+        # Refund ratio: Net_settled(0.1)/Net_settled(1) where Net_settled < 0 (refund scenario)
+        # Only meaningful at negative g; for positive g Net_settled > 0, ratio not applicable
+        refund_ratio = (r01['Net_settled'] / r1['Net_settled']
+                        if r1['Net_settled'] < 0 and abs(r1['Net_settled']) > 1e-12 else None)
+        t9.append({'g': g, 'TW_a2': r2['TW_settled'], 'TW_a1': r1['TW_settled'],
+                   'TW_a01': r01['TW_settled'], 'Net_a2': r2['Net_settled'],
+                   'Net_a1': r1['Net_settled'], 'Net_a01': r01['Net_settled'],
                    'refund_ratio': refund_ratio})
 
     # Table 10: 2006 historical return series — α sweep at N=34 + N trajectory at α=1
@@ -172,16 +173,16 @@ def compute_all_tables(p):
     t10_alpha = []
     for alpha in ALPHA_VALS:
         r = run_sim_hist(p, alpha=alpha)
-        tw_vs_honest  = ((r['TW']  - base_hist['TW'])  / base_hist['TW']
-                         if abs(base_hist['TW'])  > 1e-12 else 0.0)
-        net_vs_honest = ((r['Net'] - base_hist['Net']) / base_hist['Net']
-                         if abs(base_hist['Net']) > 1e-12 else 0.0)
-        eff_rate      = r['Net'] / r['TW'] if abs(r['TW']) > 1e-12 else 0.0
+        tw_vs_honest  = ((r['TW_settled']  - base_hist['TW_settled'])  / base_hist['TW_settled']
+                         if abs(base_hist['TW_settled'])  > 1e-12 else 0.0)
+        net_vs_honest = ((r['Net_settled'] - base_hist['Net_settled']) / base_hist['Net_settled']
+                         if abs(base_hist['Net_settled']) > 1e-12 else 0.0)
+        eff_rate      = r['Net_settled'] / r['TW_settled'] if abs(r['TW_settled']) > 1e-12 else 0.0
         t10_alpha.append({
             'alpha':         alpha,
-            'TW':            r['TW'],
+            'TW':            r['TW_settled'],
             'TTP':           r['TTP'],
-            'Net':           r['Net'],
+            'Net':           r['Net_settled'],
             'eff_rate':      eff_rate,
             'tw_vs_honest':  tw_vs_honest,
             'net_vs_honest': net_vs_honest,
@@ -194,8 +195,8 @@ def compute_all_tables(p):
         r = run_sim_hist(p, alpha=1.0, N=n)
         t10_n.append({
             'N':      n,
-            'TW':     r['TW'],
-            'Net':    r['Net'],
+            'TW':     r['TW_settled'],
+            'Net':    r['Net_settled'],
             'g_mean': r['g_mean'],
         })
 
@@ -218,7 +219,7 @@ def write_appc_md(tables, p):
     lines.append(f"**Generated:** {date.today().isoformat()}  ")
     lines.append(f"**Model version:** Python v1.0 (standalone, no Excel dependency)  ")
     lines.append(f"**Parameters:** $V_0$ = £{p['V0_m']:.0f}m · $\tau_0$ = {p['tau_0']*100:.0f}% · $\tau_m$ = {p['tau_m']*100:.0f}% · k = {p['k']} · W_min = £{p['W_min']:.0f}m · N = {p['N']} · g = {p['g']*100:.2f}%  ")
-    lines.append(f"**Validation status:** 0 FAILs across all primary matrices (confirmed against Excel 27 July 2026)  ")
+    lines.append(f"**Validation status:** 0 FAILs across all primary matrices (confirmed against Excel 27 July 2026). All metrics updated to TW_settled / Net_settled (post-sale settlement correction; see wdt_core.py §settle_tw).  ")
     lines.append(f"**N-offset:** Tables C.7/C.8 show actual simulation N; Excel displayed N-5 in column headers — corrected here.  ")
     lines.append(f"**Beta formula:** Additive g_eff = g + β·ln(α); VAL.A §B.3 shows multiplicative form — that section requires update.  ")
     lines.append(f"**Table C.4 note:** Max 2.67% deviation from Excel (known snapshot issue); Python values used throughout.  ")
@@ -227,7 +228,7 @@ def write_appc_md(tables, p):
     # ── C.1 ────────────────────────────────────────────────────
     lines.append(f"## C.1 Total Tax Paid Difference Relative to Honest Declaration, as Share of Terminal Net Worth")
     lines.append(f"")
-    lines.append(f"**Formula:** (Net(α) − Net(1)) / TW(α)  ·  Positive = α pays more than honest; negative = pays less.")
+    lines.append(f"**Formula:** (Net_settled(α) − Net_settled(1)) / TW_settled(α)  ·  Positive = α pays more than honest; negative = pays less.")
     lines.append(f"")
     t1 = tables['t1']
     headers = ['α \\ g'] + G_LABELS
@@ -243,7 +244,7 @@ def write_appc_md(tables, p):
     # ── C.2 ────────────────────────────────────────────────────
     lines.append(f"## C.2 Effective Lifetime Tax Rate Difference from Honest Declaration")
     lines.append(f"")
-    lines.append(f"**Formula:** Net(α)/TW(α) − Net(1)/TW(1)  ·  Positive = α has higher effective rate than honest.")
+    lines.append(f"**Formula:** Net_settled(α)/TW_settled(α) − Net_settled(1)/TW_settled(1)  ·  Positive = α has higher effective rate than honest.")
     lines.append(f"")
     t2 = tables['t2']
     rows = []
@@ -258,7 +259,7 @@ def write_appc_md(tables, p):
     # ── C.3 ────────────────────────────────────────────────────
     lines.append(f"## C.3 Exploratory Extension: Investor Confidence Effects β (Overstatement Only)")
     lines.append(f"")
-    lines.append(f"**Formula:** (Net(α,β) − Net(1,β=0)) / TW(α,β)  ·  β swept over same numeric values as g columns; g fixed at 10.45%.")
+    lines.append(f"**Formula:** (Net_settled(α,β) − Net_settled(1,β=0)) / TW_settled(α,β)  ·  β swept over same numeric values as g columns; g fixed at 10.45%.")
     lines.append(f"**Beta formula:** g_eff = g + β·ln(α) [additive — confirmed from Excel; VAL.A §B.3 states multiplicative form incorrectly].")
     lines.append(f"**Scope:** Overstatement only (α ≥ 1.0). Understater cells omitted — analytical scope for signalling is overstatement.")
     lines.append(f"")
@@ -277,7 +278,7 @@ def write_appc_md(tables, p):
     # ── C.4 ────────────────────────────────────────────────────
     lines.append(f"## C.4 Effective Lifetime Tax Rate by k Parameter and Initial Wealth ($V_0$)")
     lines.append(f"")
-    lines.append(f"**Formula:** TTP(α=1) / TW(α=1)  ·  Honest declaration throughout. Rows = k; columns = $V_0$ (£m).")
+    lines.append(f"**Formula:** TTP(α=1) / TW_settled(α=1)  ·  Honest declaration throughout. TTP is a holding-period quantity; denominator is settled TW. Rows = k; columns = $V_0$ (£m).")
     lines.append(f"**Note:** Max 2.67% deviation from Excel (known snapshot — Excel AppC cells computed at different params state). Python values used.")
     lines.append(f"")
     t4 = tables['t4']
@@ -295,7 +296,7 @@ def write_appc_md(tables, p):
     # ── C.5 ────────────────────────────────────────────────────
     lines.append(f"## C.5 Sensitivity of k and Alpha: Terminal Net Worth Difference vs Honest")
     lines.append(f"")
-    lines.append(f"**Formula:** (TW(α,k) − TW(1,k)) / TW(1,k)  ·  Positive = α retains more TW than honest; negative = less.")
+    lines.append(f"**Formula:** (TW_settled(α,k) − TW_settled(1,k)) / TW_settled(1,k)  ·  Positive = α retains more settled TW than honest; negative = less.")
     lines.append(f"")
     t5 = tables['t5']
     k_labels = [f"{k:.0e}" for k in K_VALS]
@@ -312,7 +313,7 @@ def write_appc_md(tables, p):
     # ── C.6 ────────────────────────────────────────────────────
     lines.append(f"## C.6 Terminal Net Worth After Refunds: Refund Protection Ratio")
     lines.append(f"")
-    lines.append(f"**Formula:** TW(α) / TW(1)  ·  Values below 100% = reduced TW relative to honest. Negative g scenarios only.")
+    lines.append(f"**Formula:** TW_settled(α) / TW_settled(1)  ·  Values below 100% = reduced settled TW relative to honest. Negative g scenarios only.")
     lines.append(f"")
     t6 = tables['t6']
     # Table 6 uses positive g only — for refund protection we want negative g
@@ -327,7 +328,7 @@ def write_appc_md(tables, p):
         for g in neg_g_vals:
             r = run_sim(p, alpha=alpha, beta=0.0, g=g)
             b = base_neg[g]
-            row.append(r['TW'] / b['TW'] if abs(b['TW']) > 1e-12 else 0.0)
+            row.append(r['TW_settled'] / b['TW_settled'] if abs(b['TW_settled']) > 1e-12 else 0.0)
         t6_neg[alpha] = row
     headers6 = ['α \\ g'] + neg_g_labels
     rows = []
@@ -342,7 +343,7 @@ def write_appc_md(tables, p):
     # ── C.7 ────────────────────────────────────────────────────
     lines.append(f"## C.7 Total Tax Paid Compared to Honest Taxpayer, Adjusted for N")
     lines.append(f"")
-    lines.append(f"**Formula:** (Net(α,N) − Net(1,N)) / Net(1,N)  ·  Positive = α pays more net tax than honest.")
+    lines.append(f"**Formula:** (Net_settled(α,N) − Net_settled(1,N)) / Net_settled(1,N)  ·  Positive = α pays more net tax than honest.")
     lines.append(f"**N correction:** Values shown are actual simulation N (5 to 60). Excel headers showed N-5 (0 to 55) — corrected here.")
     lines.append(f"")
     t7 = tables['t7']
@@ -359,7 +360,7 @@ def write_appc_md(tables, p):
     # ── C.8 ────────────────────────────────────────────────────
     lines.append(f"## C.8 Terminal Net Worth Compared to Honest Taxpayer, Adjusted for N")
     lines.append(f"")
-    lines.append(f"**Formula:** (TW(α,N) − TW(1,N)) / TW(1,N)  ·  Negative = α retains less TW than honest.")
+    lines.append(f"**Formula:** (TW_settled(α,N) − TW_settled(1,N)) / TW_settled(1,N)  ·  Negative = α retains less settled TW than honest.")
     lines.append(f"**N correction:** As C.7 — actual N shown.")
     lines.append(f"")
     t8 = tables['t8']
@@ -378,9 +379,9 @@ def write_appc_md(tables, p):
     lines.append(f"**Columns:** TW(£m) and Net tax (£m) at α∈{{2.0, 1.0, 0.1}}; ratios vs honest. N = 34 throughout.")
     lines.append(f"")
     t9 = tables['t9']
-    headers9 = ['g', 'TW(α=2) £m', 'TW(α=1) £m', 'TW(α=0.1) £m',
-                'Net(α=2) £m', 'Net(α=1) £m', 'Net(α=0.1) £m',
-                'TW(0.1)/TW(1)', 'Net(0.1)/Net(1)']
+    headers9 = ['g', 'TW_s(α=2) £m', 'TW_s(α=1) £m', 'TW_s(α=0.1) £m',
+                'Net_s(α=2) £m', 'Net_s(α=1) £m', 'Net_s(α=0.1) £m',
+                'TW_s(0.1)/TW_s(1)', 'Net_s(0.1)/Net_s(1)']
     lines.append('| ' + ' | '.join(headers9) + ' |')
     lines.append('|' + '|'.join(':---:' for _ in headers9) + '|')
     for row in t9:
@@ -396,7 +397,7 @@ def write_appc_md(tables, p):
                   if row['refund_ratio'] is not None else "—")
         lines.append(f"| {g_disp} | {tw2} | {tw1} | {tw01} | {net2} | {net1} | {net01} | {tw_r} | {net_r} |")
     lines.append(f"")
-    lines.append(f"*Net(α=0.1)/Net(α=1) shown only where Net < 0 (refund scenario, negative g). '—' at positive g where both Net values are positive.*")
+    lines.append(f"*Net_s = Net_settled; TW_s = TW_settled. Net_s(α=0.1)/Net_s(α=1) shown only where Net_settled < 0 (refund scenario, negative g). '—' at positive g where both Net_settled values are positive.*")
     lines.append(f"")
 
     # ── C.10 ───────────────────────────────────────────────────

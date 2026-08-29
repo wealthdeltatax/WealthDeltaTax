@@ -42,8 +42,8 @@ def pct_str(v, decimals=2):
 
 
 def eff_rate(r):
-    """Effective lifetime tax rate = Net / TW."""
-    return r['Net'] / r['TW'] if abs(r['TW']) > 1e-12 else 0.0
+    """Effective lifetime tax rate = Net_settled / TW_settled."""
+    return r['Net_settled'] / r['TW_settled'] if abs(r['TW_settled']) > 1e-12 else 0.0
 
 
 def fmt_val(v, as_pct=True, decimals=2):

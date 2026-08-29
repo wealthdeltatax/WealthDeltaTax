@@ -146,19 +146,19 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
     A(f'**Parameters file:** `{DEFAULT_PARAMS.name}`  ')
     A('')
 
-    # ── 1. Active parameters ──────────────────────────────────
-    A('## 1. Active Parameters')
+    # ── B.1 Active parameters ─────────────────────────────────
+    A('## B.1 Active Parameters')
     A('')
     A('| Parameter | Value |')
     A('|---|---|')
-    A(f'| $\tau_0$ (floor rate) | {p["tau_0"]:.0%} |')
-    A(f'| $\tau_m$ (ceiling rate) | {p["tau_m"]:.0%} |')
-    A(f'| k (steepness, per £m) | {p["k"]} |')
-    A(f'| W_min (£m) | £{p["W_min"]}m |')
+    A(f'| $\\tau_0$ (floor rate) | {p["tau_0"]:.0%} |')
+    A(f'| $\\tau_m$ (ceiling rate) | {p["tau_m"]:.0%} |')
+    A(f'| $k$ (steepness, per £m) | {p["k"]} |')
+    A(f'| $W_{{min}}$ (£m) | £{p["W_min"]}m |')
     A(f'| SRR capitalisation ratio | {p["srr_ratio"]}× |')
     A(f'| LRR floor (years of expenditure) | {p["lrr_years"]} years |')
     A(f'| Budget base (£b) | £{p["budget_base"]:,.1f}b |')
-    A(f'| Budget growth (p.a.) | {p["budget_growth"]:.2%} |')
+    A(f'| Budget growth (p.a). | {p["budget_growth"]:.2%} |')
     A(f'| Historical mean return | {p["hist_mean"]:.2%} |')
     A('')
     A('**Growth tiers:**')
@@ -170,8 +170,8 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
         A(f'| {t["label"]} | {t["weight"]:.0%} | {t["differential"]:+.2%} | {implied:.2%} |')
     A('')
 
-    # ── 2. SSM summary ────────────────────────────────────────
-    A('## 2. SSM Results — Active Scenario')
+    # ── B.2 SSM summary ───────────────────────────────────────
+    A('## B.2 SSM Results — Active Scenario')
     A('')
     py_srr_fill = next((r for r in py_ssm
                         if r['srr_target'] > 0
@@ -208,15 +208,15 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
         A('*SSM coverage ratio: average annual SSM net income over the capitalisation window '
           '(SRR fill to LRR breakeven) divided by average annual expenditure over the same '
           'window. The SSM applies uniform historical returns across the population '
-          '(correlated-shock assumption); TCM coverage appears in §3.*')
+          '(correlated-shock assumption); TCM coverage appears in (RATES.A §B.3).*')
     A('')
 
-    # ── 3. TCM matrices ───────────────────────────────────────
-    A(f'## 3. TCM Results — N={tcm_N} periods')
+    # ── B.3 TCM matrices ──────────────────────────────────────
+    A(f'## B.3 TCM Results — N={tcm_N} periods')
     A('')
 
-    # 3a. Net worth
-    A('### 3a. Net worth — start ($V_0$) and year N (£m)')
+    # B.3.1 Net worth
+    A('### B.3.1 Net worth — start ($V_0$) and year N (£m)')
     A('')
     A('*$V_0$ is the bracket mean wealth (£m) at entry, identical across tiers within a '
       'bracket. V_N is the true wealth (before tax settlement) at the end of period N '
@@ -234,8 +234,8 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
         A(f'| **V_N {tlabels[i]}** |' + ''.join(f' £{v:,.2f}m |' for v in vals))
     A('')
 
-    # 3b. Net per taxpayer — capitalisation window
-    A('### 3b. Net per taxpayer per year — capitalisation window average (£/yr)')
+    # B.3.2 Net per taxpayer — capitalisation window
+    A('### B.3.2 Net per taxpayer per year — capitalisation window average (£/yr)')
     A('')
     A('*Average annual net tax per representative taxpayer over the capitalisation '
       'window (SRR fill year to LRR breakeven year). Zeros suppressed.*')
@@ -247,8 +247,8 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
         A(f'| {tlabels[i]} |' + ''.join(f' {_fmt_gbp(v)} |' for v in vals))
     A('')
 
-    # 3c. Annual wealth burden
-    A('### 3c. Annual wealth burden (tax as % of net worth)')
+    # B.3.3 Annual wealth burden
+    A('### B.3.3 Annual wealth burden (tax as % of net worth)')
     A('')
     A('| Tier \\ Bracket |' + ''.join(f' {b} |' for b in blabels))
     A('|---|' + '---|' * len(blabels))
@@ -257,8 +257,8 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
         A(f'| {tlabels[i]} |' + ''.join(f' {v:.2%} |' for v in vals))
     A('')
 
-    # 3d. Effective rate on gains
-    A('### 3d. Effective rate on gains (tax as % of annual gain)')
+    # B.3.4 Effective rate on gains
+    A('### B.3.4 Effective rate on gains (tax as % of annual gain)')
     A('')
     A('| Tier \\ Bracket |' + ''.join(f' {b} |' for b in blabels))
     A('|---|' + '---|' * len(blabels))
@@ -267,8 +267,8 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
         A(f'| {tlabels[i]} |' + ''.join(f' {v:.1%} |' for v in vals))
     A('')
 
-    # 3e. Lifetime average net tax
-    A('### 3e. Average annual net tax per taxpayer — lifetime average (£/yr)')
+    # B.3.5 Lifetime average net tax
+    A('### B.3.5 Average annual net tax per taxpayer — lifetime average (£/yr)')
     A('')
     A('| Tier \\ Bracket |' + ''.join(f' {b} |' for b in blabels))
     A('|---|' + '---|' * len(blabels))
@@ -277,8 +277,8 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
         A(f'| {tlabels[i]} |' + ''.join(f' {_fmt_gbp(v)} |' for v in vals))
     A('')
 
-    # 3f. Population distribution
-    A('### 3f. Population distribution (taxpayers per bracket per tier)')
+    # B.3.6 Population distribution
+    A('### B.3.6 Population distribution (taxpayers per bracket per tier)')
     A('')
     A('*Cell population = bracket population × tier weight. '
       'Bracket population is constant within a bracket across tiers.*')
@@ -291,8 +291,8 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
           + ''.join(f' {int(round(v)):,} |' for v in pop_vals))
     A('')
 
-    # 3g. Tax collected per year — capitalisation window
-    A('### 3g. Tax collected per year — capitalisation window average (£m/yr)')
+    # B.3.7 Tax collected per year — capitalisation window
+    A('### B.3.7 Tax collected per year — capitalisation window average (£m/yr)')
     A('')
     A('*Average annual revenue per bracket-tier cell over the capitalisation window. '
       'Row total is the sum across all brackets for that tier. '
@@ -327,8 +327,8 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
     A(f'| **Grand total** | **£{grand_total / 1000:,.2f}b** |')
     A('')
 
-    # 3h. Cohort proportion
-    A('### 3h. Cohort proportion of total tax paid (%)')
+    # B.3.8 Cohort proportion
+    A('### B.3.8 Cohort proportion of total tax paid (%)')
     A('')
     A('*Each cell\'s capitalisation-window revenue as a percentage of the grand total. '
       'Row total is the tier\'s share; column total is the bracket\'s share across all tiers.*')
@@ -354,8 +354,8 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
       + ' **100.0%** |')
     A('')
 
-    # 3i. Revenue by tier
-    A('### 3i. Revenue by tier (£b/yr)')
+    # B.3.9 Revenue by tier
+    A('### B.3.9 Revenue by tier (£b/yr)')
     A('')
     A('| Tier | Lifetime avg (£b/yr) | Capitalisation window avg (£b/yr) |')
     A('|---|---|---|')
@@ -387,21 +387,21 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
               'divided by average annual expenditure over the same window. The TCM applies '
               'heterogeneous tier differentials to the actual historical return series, '
               'producing higher revenue than the SSM\'s uniform-return assumption. The SSM '
-              'coverage ratio (solvency/stress-test perspective) appears in §2.*')
+              'coverage ratio (solvency/stress-test perspective) appears in (RATES.A §B.2).*')
             A('')
         else:
             A('*TCM coverage not available — LRR fill not reached within modelling window.*')
         A('')
 
-    # ── 4. Sweep ──────────────────────────────────────────────
-    A('## 4. Start-Year Sweep')
+    # ── B.4 Sweep ─────────────────────────────────────────────
+    A('## B.4 Start-Year Sweep')
     A('')
-    A(f'All figures at $\tau_0$={p["tau_0"]:.0%}, $\tau_m$={p["tau_m"]:.0%}, '
-      f'k={p["k"]}, W_min=£{p["W_min"]}m.')
+    A(f'All figures at $\\tau_0$={p["tau_0"]:.0%}, $\\tau_m$={p["tau_m"]:.0%}, '
+      f'k={p["k"]}, $W_{{min}}$=£{p["W_min"]}m.')
     A('')
 
     if sweep_extremals:
-        A('### Extremals — three dimensions')
+        A('### B.4.1 Extremals — three dimensions')
         A('')
         A('| Dimension | Start year | LRR breakeven | LRR surplus (£b) '
           '| LRR breach lag | Peak LRR deficit (£b) |')
@@ -430,7 +430,7 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
 
         scenario_start = p.get('scenario_start_year')
         all_rows = sweep_extremals.get('all', [])
-        A(f'### Full sweep table (all {len(all_rows)} calendar years)')
+        A(f'### B.4.2 Full sweep table (all {len(all_rows)} calendar years)')
         A('')
         A('| Start | SRR fill | LRR breakeven | LRR surplus (£b) | SRR at breakeven (£b) '
           '| LRR breach | Breach lag | Peak LRR deficit (£b) | SRR breach | SRR deficit (£b) '
@@ -468,15 +468,15 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
           '(SRR fill to LRR breakeven).*')
         A('')
 
-    # ── 5. Statistical pass ───────────────────────────────────
-    A('## 5. Statistical Pass — P(success) Across Economic Cycles')
+    # ── B.5 Statistical pass ──────────────────────────────────
+    A('## B.5 Statistical Pass — P(success) Across Economic Cycles')
     A('')
     A('**Success definition:** LRR fills within the 71-year window AND '
       '(SRR never breaches OR SRR breach is fully covered by LRR balance at time of breach).')
     A('')
     if stats:
         ov = stats['overall']
-        A(f'### Overall (all {ov["n_total"]} start years)')
+        A(f'### B.5.2 Overall (all {ov["n_total"]} start years)')
         A('')
         A('| Metric | Value |')
         A('|---|---|')
@@ -488,14 +488,14 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
         A(f'| — of which uncovered | {ov["n_srr_uncovered"]} |')
         A(f'| No SRR breach | {cb["no_srr_breach"]} |')
         A('')
-        A('### By economic cycle')
+        A('### B.5.3 By economic cycle')
         A('')
         A('| Period | N | Success% | LRR fill% |')
         A('|---|:---:|:---:|:---:|')
         for b in stats['by_bucket']:
             A(f'| {b["label"]} | {b["n"]} | {b["success_rate"]:.1f}% | {b["lrr_fill_rate"]:.1f}% |')
         A('')
-        A('### Key metric distributions')
+        A('### B.5.4 Key metric distributions')
         A('')
         A('| Metric | N | Min | Median | Mean | Max |')
         A('|---|:---:|---:|---:|---:|---:|')

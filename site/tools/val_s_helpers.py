@@ -121,15 +121,16 @@ def make_p(tau_0=CANON_TAU0, tau_m=CANON_TAUM, k=CANON_K,
 
 def c1(p, alpha, g, N=None):
     """
-    C.1 metric: (Net(α) − Net(1)) / TW(α).
+    C.1 metric: (Net_settled(α) − Net_settled(1)) / TW_settled(α).
     Positive = α pays more net tax than honest; negative = pays less.
+    Uses settled values to account for post-sale tax/refund oscillation.
     """
     N = N if N is not None else p['N']
     r = run_sim_p(p, alpha=alpha, g=g, N=N)
     b = run_sim_p(p, alpha=1.0,   g=g, N=N)
-    if abs(r['TW']) < 1e-12:
+    if abs(r['TW_settled']) < 1e-12:
         return 0.0
-    return (r['Net'] - b['Net']) / r['TW']
+    return (r['Net_settled'] - b['Net_settled']) / r['TW_settled']
 
 
 def c1_matrix(p, alpha_vals=None, g_vals=None):
@@ -163,7 +164,7 @@ def n_crossing(p, alpha, g=None, N_sweep=None):
     for n in N_sweep:
         r = run_sim_p(p, alpha=alpha, g=g, N=n)
         b = run_sim_p(p, alpha=1.0,   g=g, N=n)
-        diffs.append(r['Net'] - b['Net'])
+        diffs.append(r['Net_settled'] - b['Net_settled'])
     for i in range(len(diffs) - 1):
         if diffs[i] < 0 and diffs[i + 1] >= 0:
             frac = -diffs[i] / (diffs[i + 1] - diffs[i])
@@ -196,7 +197,6 @@ def tolerant_zone_width(p, g=None, threshold=None):
     Width (hi − lo) of the |C.1| < threshold zone.
     Returns 0.0 if no zone found.
     """
-    print(p)
     lo, hi = tolerant_zone_bounds(p, g=g, threshold=threshold)
     if lo is not None and hi is not None:
         return hi - lo

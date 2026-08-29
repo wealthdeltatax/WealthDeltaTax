@@ -46,11 +46,11 @@ def section_reference(p):
     lines.append(f"| $V_0$ (entry value) | £20.00m |")
     lines.append(f"| V_sell (true value at sale) | £{sell['V_sell']:.2f}m |")
     lines.append(f"| W_sell (declared at sale) | £{sell['W_sell']:.2f}m |")
-    lines.append(f"| TW (post-tax terminal wealth) | £{r['TW']:.2f}m |")
+    lines.append(f"| TW_settled (post-tax terminal wealth) | £{r['TW_settled']:.2f}m |")
     lines.append(f"| TTP (total taxes paid) | £{r['TTP']:.2f}m |")
     lines.append(f"| Refunds received | £{r['Refunds']:.2f}m |")
-    lines.append(f"| Net tax | £{r['Net']:.2f}m |")
-    lines.append(f"| Effective lifetime rate (Net/TW) | {eff_rate(r)*100:.2f}% |")
+    lines.append(f"| Net_settled (lifetime net tax) | £{r['Net_settled']:.2f}m |")
+    lines.append(f"| Effective lifetime rate (Net_settled/TW_settled) | {eff_rate(r)*100:.2f}% |")
     lines.append(f"| Retained fraction f_N | {sell['f_N']*100:.2f}% |")
     lines.append(f"| τ at W_sell | {sell['rate_sell']*100:.2f}% |")
     lines.append("")
@@ -71,17 +71,17 @@ def section_strategy_comparison(p):
     lines.append("")
     lines.append(f"g = {p['g']*100:.2f}%, N = {p['N']}, $V_0$ = £{p['V0_m']:.0f}m. All figures £m except percentages.")
     lines.append("")
-    lines.append("| α | TW £m | TTP £m | Net £m | Eff rate | TW vs honest | Net vs honest |")
+    lines.append("| α | TW_settled £m | TTP £m | Net_settled £m | Eff rate | TW_settled vs honest | Net_settled vs honest |")
     lines.append("|:---:|---:|---:|---:|---:|---:|---:|")
     for alpha in alphas:
         r = run_sim(p, alpha=alpha, g=p["g"], N=p["N"])
-        tw_diff  = (r['TW']  - base['TW'])  / base['TW']  * 100
-        net_diff = (r['Net'] - base['Net']) / base['Net'] * 100 if abs(base['Net']) > 1e-12 else 0.0
+        tw_diff  = (r['TW_settled']  - base['TW_settled'])  / base['TW_settled']  * 100
+        net_diff = (r['Net_settled'] - base['Net_settled']) / base['Net_settled'] * 100 if abs(base['Net_settled']) > 1e-12 else 0.0
         marker = " ← reference" if alpha == 1.0 else ""
-        lines.append(f"| {alpha} | {r['TW']:.1f} | {r['TTP']:.1f} | {r['Net']:.1f} | "
+        lines.append(f"| {alpha} | {r['TW_settled']:.1f} | {r['TTP']:.1f} | {r['Net_settled']:.1f} | "
                      f"{eff_rate(r)*100:.2f}% | {tw_diff:+.2f}% | {net_diff:+.2f}%{marker} |")
     lines.append("")
-    lines.append("*TW vs honest: negative = understater retains less wealth. Net vs honest: positive = understater pays more tax.*")
+    lines.append("*TW_settled vs honest: negative = understater retains less settled wealth. Net_settled vs honest: positive = understater pays more lifetime tax.*")
     lines.append("")
     # Key callouts for prose citation
     r01 = run_sim(p, alpha=0.1,  g=p["g"], N=p["N"])
@@ -91,16 +91,16 @@ def section_strategy_comparison(p):
     r20 = run_sim(p, alpha=2.0,  g=p["g"], N=p["N"])
     lines.append("### Key figures for prose citation")
     lines.append("")
-    lines.append(f"- Severe understater (α=0.1): pays {(r01['Net']-base['Net'])/base['Net']*100:.1f}% more net tax than honest; retains "
-                 f"{(r01['TW']-base['TW'])/base['TW']*100:.1f}% less terminal wealth.")
-    lines.append(f"- Moderate understater (α=0.5): pays {(r05['Net']-base['Net'])/base['Net']*100:.1f}% more net tax; retains "
-                 f"{(r05['TW']-base['TW'])/base['TW']*100:.1f}% less TW.")
-    lines.append(f"- Mild understater (α=0.8): pays {(r08['Net']-base['Net'])/base['Net']*100:.1f}% more net tax; retains "
-                 f"{(r08['TW']-base['TW'])/base['TW']*100:.1f}% less TW.")
-    lines.append(f"- Moderate overstater (α=1.5): pays {(r15['Net']-base['Net'])/base['Net']*100:.1f}% net tax relative to honest; retains "
-                 f"{(r15['TW']-base['TW'])/base['TW']*100:.1f}% {'more' if r15['TW']>base['TW'] else 'less'} TW.")
-    lines.append(f"- Strong overstater (α=2.0): pays {(r20['Net']-base['Net'])/base['Net']*100:.1f}% net tax relative to honest; retains "
-                 f"{(r20['TW']-base['TW'])/base['TW']*100:.1f}% {'more' if r20['TW']>base['TW'] else 'less'} TW.")
+    lines.append(f"- Severe understater (α=0.1): pays {(r01['Net_settled']-base['Net_settled'])/base['Net_settled']*100:.1f}% more net tax than honest; retains "
+                 f"{(r01['TW_settled']-base['TW_settled'])/base['TW_settled']*100:.1f}% less terminal wealth (settled).")
+    lines.append(f"- Moderate understater (α=0.5): pays {(r05['Net_settled']-base['Net_settled'])/base['Net_settled']*100:.1f}% more net tax; retains "
+                 f"{(r05['TW_settled']-base['TW_settled'])/base['TW_settled']*100:.1f}% less TW_settled.")
+    lines.append(f"- Mild understater (α=0.8): pays {(r08['Net_settled']-base['Net_settled'])/base['Net_settled']*100:.1f}% more net tax; retains "
+                 f"{(r08['TW_settled']-base['TW_settled'])/base['TW_settled']*100:.1f}% less TW_settled.")
+    lines.append(f"- Moderate overstater (α=1.5): pays {(r15['Net_settled']-base['Net_settled'])/base['Net_settled']*100:.1f}% net tax relative to honest; retains "
+                 f"{(r15['TW_settled']-base['TW_settled'])/base['TW_settled']*100:.1f}% {'more' if r15['TW_settled']>base['TW_settled'] else 'less'} TW_settled.")
+    lines.append(f"- Strong overstater (α=2.0): pays {(r20['Net_settled']-base['Net_settled'])/base['Net_settled']*100:.1f}% net tax relative to honest; retains "
+                 f"{(r20['TW_settled']-base['TW_settled'])/base['TW_settled']*100:.1f}% {'more' if r20['TW_settled']>base['TW_settled'] else 'less'} TW_settled.")
     lines.append("")
     return '\n'.join(lines)
 
@@ -138,19 +138,19 @@ def section_saturation_reversal(p):
     lines.append("")
 
     # C.1 values at selected g — show where it crosses 100%
-    lines.append("### C.1 metric (excess tax / understater TW) at α=0.1, N=34")
+    lines.append("### C.1 metric (excess tax / understater TW_settled) at α=0.1, N=34")
     lines.append("")
-    lines.append("| g | Net(α=0.1) £m | Net(α=1) £m | TW(α=0.1) £m | TW(α=1) £m | C.1 value |")
+    lines.append("| g | Net_settled(α=0.1) £m | Net_settled(α=1) £m | TW_settled(α=0.1) £m | TW_settled(α=1) £m | C.1 value |")
     lines.append("|:---:|---:|---:|---:|---:|:---:|")
     g_show = [0.07, 0.10, 0.139, 0.16, 0.20, 0.25]
     c1_cross_g = None
     for g in g_show:
         r01 = run_sim(p, alpha=0.1, g=g, N=p["N"])
         r1  = run_sim(p, alpha=1.0, g=g, N=p["N"])
-        c1  = (r01['Net'] - r1['Net']) / r01['TW'] if abs(r01['TW']) > 1e-12 else 0.0
+        c1  = (r01['Net_settled'] - r1['Net_settled']) / r01['TW_settled'] if abs(r01['TW_settled']) > 1e-12 else 0.0
         marker = " ← **>100%**" if c1 > 1.0 else ""
-        lines.append(f"| {g*100:.1f}% | {r01['Net']:.0f} | {r1['Net']:.0f} | "
-                     f"{r01['TW']:.0f} | {r1['TW']:.0f} | {c1*100:.1f}%{marker} |")
+        lines.append(f"| {g*100:.1f}% | {r01['Net_settled']:.0f} | {r1['Net_settled']:.0f} | "
+                     f"{r01['TW_settled']:.0f} | {r1['TW_settled']:.0f} | {c1*100:.1f}%{marker} |")
         if c1_cross_g is None and c1 > 1.0:
             c1_cross_g = g
     lines.append("")
@@ -161,7 +161,7 @@ def section_saturation_reversal(p):
     for g in g_fine:
         r01 = run_sim(p, alpha=0.1, g=g, N=p["N"])
         r1  = run_sim(p, alpha=1.0, g=g, N=p["N"])
-        c1  = (r01['Net'] - r1['Net']) / r01['TW'] if abs(r01['TW']) > 1e-12 else 0.0
+        c1  = (r01['Net_settled'] - r1['Net_settled']) / r01['TW_settled'] if abs(r01['TW_settled']) > 1e-12 else 0.0
         if c1 > 1.0:
             c1_cross = g
             break
@@ -174,20 +174,20 @@ def section_saturation_reversal(p):
     lines.append("")
 
     # C.8 peak widening then narrowing
-    lines.append("### C.8 metric (TW gap vs honest) at α=0.1, N=34 — convergence at high g")
+    lines.append("### C.8 metric (TW_settled gap vs honest) at α=0.1, N=34 — convergence at high g")
     lines.append("")
-    lines.append("| g | TW(α=0.1) £m | TW(α=1) £m | C.8 value (gap) |")
+    lines.append("| g | TW_settled(α=0.1) £m | TW_settled(α=1) £m | C.8 value (gap) |")
     lines.append("|:---:|---:|---:|:---:|")
     for g in [0.07, 0.10, 0.139, 0.16, 0.20, 0.25, 0.50]:
         r01 = run_sim(p, alpha=0.1, g=g, N=p["N"])
         r1  = run_sim(p, alpha=1.0, g=g, N=p["N"])
-        c8  = (r01['TW'] - r1['TW']) / r1['TW'] * 100 if abs(r1['TW']) > 1e-12 else 0.0
-        lines.append(f"| {g*100:.1f}% | {r01['TW']:.0f} | {r1['TW']:.0f} | {c8:.1f}% |")
+        c8  = (r01['TW_settled'] - r1['TW_settled']) / r1['TW_settled'] * 100 if abs(r1['TW_settled']) > 1e-12 else 0.0
+        lines.append(f"| {g*100:.1f}% | {r01['TW_settled']:.0f} | {r1['TW_settled']:.0f} | {c8:.1f}% |")
     lines.append("")
-    lines.append("*The TW gap widens through moderate growth (honest wealth compounds faster) then")
+    lines.append("*The TW_settled gap widens through moderate growth (honest wealth compounds faster) then")
     lines.append("narrows at extreme growth as $\tau_m$ constrains both strategies. This is the")
     lines.append("'saturation convergence' described in VAL.A §A.5.4 (Proposition 4). The gap")
-    lines.append("remains negative (understater retains less TW) at all tested growth rates.*")
+    lines.append("remains negative (understater retains less TW_settled) at all tested growth rates.*")
     lines.append("")
     return '\n'.join(lines)
 
@@ -235,11 +235,11 @@ def section_refund_protection(p):
         for g in pos_g_vals:
             r = run_sim(p, alpha=alpha, g=g, N=p["N"])
             b = run_sim(p, alpha=1.0,   g=g, N=p["N"])
-            ratio = r['TW'] / b['TW'] * 100 if abs(b['TW']) > 1e-12 else 0.0
+            ratio = r['TW_settled'] / b['TW_settled'] * 100 if abs(b['TW_settled']) > 1e-12 else 0.0
             row += f" {ratio:.1f}% |"
         lines.append(row)
     lines.append("")
-    lines.append("*TW ratio is stable across positive growth rates for each α — determined")
+    lines.append("*TW_settled ratio is stable across positive growth rates for each α — determined")
     lines.append("primarily by the entry basis declaration, not by subsequent growth.*")
     lines.append("")
 
@@ -251,18 +251,18 @@ def section_refund_protection(p):
 
     lines.append("### Key figures for prose citation (g = 7%, N = 34)")
     lines.append("")
-    lines.append(f"- α=0.1 (severe understatement): retains {r01_7['TW']/b_7['TW']*100:.1f}% of honest TW "
-                 f"(£{r01_7['TW']:.1f}m vs £{b_7['TW']:.1f}m). Protection shortfall: "
-                 f"£{b_7['TW']-r01_7['TW']:.1f}m.")
-    lines.append(f"- α=0.5 (moderate understatement): retains {r05_7['TW']/b_7['TW']*100:.1f}% of honest TW.")
-    lines.append(f"- α=0.8 (mild understatement): retains {r08_7['TW']/b_7['TW']*100:.1f}% of honest TW.")
+    lines.append(f"- α=0.1 (severe understatement): retains {r01_7['TW_settled']/b_7['TW_settled']*100:.1f}% of honest TW_settled "
+                 f"(£{r01_7['TW_settled']:.1f}m vs £{b_7['TW_settled']:.1f}m). Protection shortfall: "
+                 f"£{b_7['TW_settled']-r01_7['TW_settled']:.1f}m.")
+    lines.append(f"- α=0.5 (moderate understatement): retains {r05_7['TW_settled']/b_7['TW_settled']*100:.1f}% of honest TW_settled.")
+    lines.append(f"- α=0.8 (mild understatement): retains {r08_7['TW_settled']/b_7['TW_settled']*100:.1f}% of honest TW_settled.")
     lines.append(f"- The ratio is nearly identical at g=1% and g=10%, confirming the protection")
     lines.append(f"  loss is set by the entry declaration, not by subsequent growth.")
     lines.append("")
     lines.append("*VAL.A §C.6 narrative claim — 'understaters receive materially smaller refund")
-    lines.append("entitlement' — is confirmed by the TW shortfall. The protection cost is")
+    lines.append("entitlement' — is confirmed by the TW_settled shortfall. The protection cost is")
     lines.append("stable, not growth-dependent, and runs in both directions: understaters pay")
-    lines.append("more tax on gains and retain less wealth throughout the holding period.*")
+    lines.append("more tax on gains and retain less settled wealth throughout the holding period.*")
     lines.append("")
     return '\n'.join(lines)
 
@@ -284,7 +284,7 @@ def section_indifference_horizon(p):
     lines.append("horizon exists at which the understater's premium over honest falls below a")
     lines.append("threshold — useful for characterising the 'deferred delta' mechanism.")
     lines.append("")
-    lines.append("**Metric:** (Net(α,N) − Net(1,N)) / Net(1,N) — the relative premium over honest. g = 10.45%.")
+    lines.append("**Metric:** (Net_settled(α,N) − Net_settled(1,N)) / Net_settled(1,N) — the relative premium over honest. g = 10.45%.")
     lines.append("")
 
     alphas_under = [0.1, 0.2, 0.5, 0.8]
@@ -299,8 +299,8 @@ def section_indifference_horizon(p):
         for n in n_vals:
             r = run_sim(p, alpha=alpha, g=p["g"], N=n)
             b = run_sim(p, alpha=1.0,   g=p["g"], N=n)
-            if abs(b['Net']) > 1e-12:
-                premium = (r['Net'] - b['Net']) / b['Net'] * 100
+            if abs(b['Net_settled']) > 1e-12:
+                premium = (r['Net_settled'] - b['Net_settled']) / b['Net_settled'] * 100
                 row += f" {premium:.1f}% |"
             else:
                 row += " — |"
@@ -314,8 +314,8 @@ def section_indifference_horizon(p):
     for n in n_vals:
         r08 = run_sim(p, alpha=0.8, g=p["g"], N=n)
         b   = run_sim(p, alpha=1.0, g=p["g"], N=n)
-        if abs(b['Net']) > 1e-12:
-            prem = (r08['Net'] - b['Net']) / b['Net'] * 100
+        if abs(b['Net_settled']) > 1e-12:
+            prem = (r08['Net_settled'] - b['Net_settled']) / b['Net_settled'] * 100
             if min_premium is None or prem < min_premium:
                 min_premium = prem; min_n = n
     lines.append(f"- At α=0.8 (mild understatement), the premium over honest is lowest at N={min_n} "

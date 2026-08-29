@@ -50,7 +50,7 @@ import matplotlib.colors as mcolors
 import matplotlib.ticker
 import numpy as np
 from datetime import date
-from wdt_core import load_params, tau, simulate, simulate_sell, run_sim
+from wdt_core import load_params, tau, run_sim, run_sim_hist
 
 from val_helpers import OUT_DIR as _VAL_OUT_DIR
 
@@ -186,7 +186,7 @@ def fig_02_c1_heatmap(p):
         for g in G_VALS:
             r = run_sim(p, alpha=alpha, g=g)
             b = base_by_g[g]
-            val = (r['Net'] - b['Net']) / r['TW'] * 100 if abs(r['TW']) > 1e-12 else 0.0
+            val = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
             row.append(val)
         matrix.append(row)
     matrix = np.array(matrix)
@@ -266,36 +266,25 @@ def fig_03_equilibrium_cost_curve(p):
         net_diffs = []
         for alpha in alpha_fine:
             r = run_sim(p, alpha=alpha, g=g_val)
-            if abs(base['Net']) > 1e-12:
-                net_diffs.append((r['Net'] - base['Net']) / base['Net'] * 100)
+            if abs(base['Net_settled']) > 1e-12:
+                net_diffs.append((r['Net_settled'] - base['Net_settled']) / base['Net_settled'] * 100)
             else:
                 net_diffs.append(0.0)
         ax.plot(alpha_fine, net_diffs, color=col, linewidth=lw,
                 linestyle=ls, label=g_label)
 
-    # 2006 historical series (actual return sequence, not constant g)
+    # 2006 historical series — use run_sim_hist for consistent settled metrics
     returns_2006 = p['returns']  # already rotated to 2006 start
     N = p['N']
     g_series_2006 = returns_2006[:N]
-    g_sell_2006   = returns_2006[N]
     mean_g_2006   = sum(g_series_2006) / len(g_series_2006)
-    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
 
-    def run_hist(alpha_val):
-        recs = simulate(p['V0_m'], g_series_2006, alpha_val, sim_p)
-        sell = simulate_sell(recs, g_sell_2006, sim_p)
-        gross_tax = sum(r['L'] for r in recs[1:] if r['L'] > 0)
-        gross_ref = sum(r['L'] for r in recs[1:] if r['L'] < 0)
-        if sell['L_sell'] > 0: gross_tax += sell['L_sell']
-        else:                   gross_ref += sell['L_sell']
-        return {'Net': gross_tax + gross_ref, 'TW': sell['TW']}
-
-    base_hist = run_hist(1.0)
+    base_hist = run_sim_hist(p, alpha=1.0)
     hist_diffs = []
     for alpha in alpha_fine:
-        r = run_hist(alpha)
-        if abs(base_hist['Net']) > 1e-12:
-            hist_diffs.append((r['Net'] - base_hist['Net']) / base_hist['Net'] * 100)
+        r = run_sim_hist(p, alpha=alpha)
+        if abs(base_hist['Net_settled']) > 1e-12:
+            hist_diffs.append((r['Net_settled'] - base_hist['Net_settled']) / base_hist['Net_settled'] * 100)
         else:
             hist_diffs.append(0.0)
     ax.plot(alpha_fine, hist_diffs, color='#7b2d8b', linewidth=2.0,
@@ -309,12 +298,6 @@ def fig_03_equilibrium_cost_curve(p):
     ax.axvspan(0.5, 1.0, alpha=0.04, color='#d73027')
     ax.axvspan(1.0, 2.0, alpha=0.04, color='#4393c3')
 
-    # Expand y range so top-left (α~0.5, high cost) doesn't crop
-    all_vals = [v for lst in [
-        [(run_sim(p, alpha=a, g=g_val)['Net'] - run_sim(p, alpha=1.0, g=g_val)['Net'])
-         / run_sim(p, alpha=1.0, g=g_val)['Net'] * 100
-         for a in [0.5]] for g_val, *_ in g_scenarios
-    ] for v in lst]
     ax.set_ylim(bottom=-20, top=25)
 
     ax.set_xlabel("Declaration ratio α  (α < 1 = understatement, α > 1 = overstatement)")
@@ -346,23 +329,16 @@ def fig_04_tw_gap_by_n(p):
 
     returns_2006 = p['returns']
     N_max  = max(N_ACTUAL_VALS)
-    sim_p  = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
 
     def tw_gap_const(alpha, n):
         r = run_sim(p, alpha=alpha, g=p['g'], N=n)
         b = run_sim(p, alpha=1.0,   g=p['g'], N=n)
-        return (r['TW'] - b['TW']) / b['TW'] * 100 if abs(b['TW']) > 1e-12 else 0.0
+        return (r['TW_settled'] - b['TW_settled']) / b['TW_settled'] * 100 if abs(b['TW_settled']) > 1e-12 else 0.0
 
     def tw_gap_hist(alpha, n):
-        g_ser  = returns_2006[:n]
-        g_sell = returns_2006[n]
-        def _run(a):
-            recs = simulate(p['V0_m'], g_ser, a, sim_p)
-            sell = simulate_sell(recs, g_sell, sim_p)
-            return sell['TW']
-        tw_a = _run(alpha)
-        tw_1 = _run(1.0)
-        return (tw_a - tw_1) / tw_1 * 100 if abs(tw_1) > 1e-12 else 0.0
+        r = run_sim_hist(p, alpha=alpha, N=n)
+        b = run_sim_hist(p, alpha=1.0,   N=n)
+        return (r['TW_settled'] - b['TW_settled']) / b['TW_settled'] * 100 if abs(b['TW_settled']) > 1e-12 else 0.0
 
     set_style()
     fig, ax = plt.subplots(figsize=(10, 5.5))
@@ -449,7 +425,7 @@ def fig_05_saturation_reversal(p):
         for g in g_sweep:
             r  = run_sim(p, alpha=alpha, g=g, N=p['N'])
             b  = run_sim(p, alpha=1.0,   g=g, N=p['N'])
-            c1 = (r['Net'] - b['Net']) / r['TW'] * 100 if abs(r['TW']) > 1e-12 else 0.0
+            c1 = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
             vals.append(c1)
         c1_curves[alpha] = vals
 
@@ -560,7 +536,7 @@ def fig_06_overstatement_reversal(p):
         for idx, g in enumerate(g_sweep):
             r  = run_sim(p, alpha=alpha, g=g, N=p['N'])
             b  = run_sim(p, alpha=1.0,   g=g, N=p['N'])
-            c1 = (r['Net'] - b['Net']) / r['TW'] * 100 if abs(r['TW']) > 1e-12 else 0.0
+            c1 = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
             vals.append(c1)
             if c1 > 0 and found_fwd is None:
                 found_fwd = g * 100
@@ -693,7 +669,7 @@ def fig_07_overstatement_coherence(p):
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6.5))
 
     # ── LEFT: C.1 surface heatmap ────────────────────────────
-    alphas_grid = np.linspace(1.0, 2.0, 41)
+    alphas_grid = np.linspace(0.1, 2.0, 41)
     g_grid      = np.linspace(0.0, 0.25, 101)
     g_pct_grid  = g_grid * 100
 
@@ -702,7 +678,7 @@ def fig_07_overstatement_coherence(p):
         for j, g in enumerate(g_grid):
             r  = run_sim(p, alpha=alpha, g=g, N=N)
             b  = run_sim(p, alpha=1.0,   g=g, N=N)
-            c1 = (r['Net'] - b['Net']) / r['TW'] * 100 if abs(r['TW']) > 1e-12 else 0.0
+            c1 = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
             c1_matrix[i, j] = c1
 
     ax1.grid(False)
@@ -772,7 +748,7 @@ def fig_07_overstatement_coherence(p):
         fontsize=10
     )
     ax1.set_xlim(0, 25)
-    ax1.set_ylim(1.0, 2.0)
+    ax1.set_ylim(0.1, 2.0)
     ax1.legend(loc='lower right', fontsize=8, framealpha=0.9)
 
     # ── RIGHT: Net tax diff vs holding period N ──────────────
@@ -785,7 +761,7 @@ def fig_07_overstatement_coherence(p):
         for n in n_vals:
             r = run_sim(p, alpha=alpha, g=hist_mean, N=n)
             b = run_sim(p, alpha=1.0,   g=hist_mean, N=n)
-            diffs.append(r['Net'] - b['Net'])
+            diffs.append(r['Net_settled'] - b['Net_settled'])
         all_series[alpha] = diffs
         cross = []
         for k in range(len(diffs) - 1):
@@ -794,8 +770,8 @@ def fig_07_overstatement_coherence(p):
                 cross.append(n_cross)
         crossings[alpha] = cross
 
-    Y_CLIP = -15.0
-    Y_HI   =  4.0
+    Y_CLIP = -3
+    Y_HI   =  15
 
     ax2.set_ylim(Y_CLIP, Y_HI)
     ax2.axhline(0, color='#333333', linewidth=1.2, linestyle='-',
