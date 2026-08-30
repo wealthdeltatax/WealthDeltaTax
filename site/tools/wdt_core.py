@@ -597,3 +597,53 @@ def load_params(toml_path=None):
     }
 
     return p
+
+def decompose_tw_advantage(p, alpha, g):
+    """
+    Split the TW_settled advantage of declaration strategy alpha over honest
+    (alpha=1) at growth rate g into three mechanical components.
+
+    Returns a dict with keys:
+        excess_periodic  — holding-period net tax delta (£m); +ve = overstater paid more
+        refund_delta     — sell-year settlement delta (£m); −ve = overstater got bigger refund
+        settle_delta     — post-sale oscillation delta (£m); +ve = more taxed back
+        tw_advantage     — TW_settled(alpha) − TW_settled(1) (£m)
+        f_ratio          — f_N(alpha) / f_N(1) (dimensionless)
+        tw_honest        — TW_settled(1) (£m), denominator for percentage tables
+    """
+    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    N     = p['N']
+    g_ser = [g] * N
+
+    # honest
+    recs_h = simulate(p['V0_m'], g_ser, 1.0, sim_p)
+    sell_h = simulate_sell(recs_h, g, sim_p)
+    tw_h, net_settle_h, _ = settle_tw(sell_h, sim_p)
+    gross_tax_h   = sum(r['L'] for r in recs_h[1:] if r['L'] > 0)
+    gross_ref_h   = sum(r['L'] for r in recs_h[1:] if r['L'] < 0)
+    holding_net_h = gross_tax_h + gross_ref_h
+    f_N_h         = recs_h[-1]['f']
+
+    # overstater
+    recs_a = simulate(p['V0_m'], g_ser, alpha, sim_p)
+    sell_a = simulate_sell(recs_a, g, sim_p)
+    tw_a, net_settle_a, _ = settle_tw(sell_a, sim_p)
+    gross_tax_a   = sum(r['L'] for r in recs_a[1:] if r['L'] > 0)
+    gross_ref_a   = sum(r['L'] for r in recs_a[1:] if r['L'] < 0)
+    holding_net_a = gross_tax_a + gross_ref_a
+    f_N_a         = recs_a[-1]['f']
+
+    excess_periodic = holding_net_a - holding_net_h
+    refund_delta    = sell_a['L_sell'] - sell_h['L_sell']
+    settle_delta    = net_settle_a - net_settle_h
+    tw_advantage    = tw_a - tw_h
+    f_ratio         = f_N_a / f_N_h if abs(f_N_h) > 1e-12 else 0.0
+
+    return {
+        'excess_periodic': excess_periodic,
+        'refund_delta':    refund_delta,
+        'settle_delta':    settle_delta,
+        'tw_advantage':    tw_advantage,
+        'f_ratio':         f_ratio,
+        'tw_honest':       tw_h,
+    }

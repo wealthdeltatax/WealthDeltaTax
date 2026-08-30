@@ -1,22 +1,22 @@
 # WDT Rates and Revenue — Model Output
 
-**Run date:** 2026-08-29  
+**Run date:** 2026-08-30  
 **Scenario:** 2007 Balanced  
 **Model version:** v7  
 **Parameters file:** `260812_WDT_Params.toml`  
 
-## 1. Active Parameters
+## B.1 Active Parameters
 
 | Parameter | Value |
 |---|---|
-| $	au_0$ (floor rate) | 15% |
-| $	au_m$ (ceiling rate) | 70% |
-| k (steepness, per £m) | 0.001 |
-| W_min (£m) | £2.0m |
+| $\tau_0$ (floor rate) | 15% |
+| $\tau_m$ (ceiling rate) | 70% |
+| $k$ (steepness, per £m) | 0.001 |
+| $W_{min}$ (£m) | £2.0m |
 | SRR capitalisation ratio | 3.0× |
 | LRR floor (years of expenditure) | 3.0 years |
 | Budget base (£b) | £1,157.4b |
-| Budget growth (p.a.) | 4.51% |
+| Budget growth (p.a). | 4.51% |
 | Historical mean return | 10.45% |
 
 **Growth tiers:**
@@ -28,7 +28,7 @@
 | Good | 40% | +0.95% | 11.40% |
 | Great | 20% | +3.45% | 13.90% |
 
-## 2. SSM Results — Active Scenario
+## B.2 SSM Results — Active Scenario
 
 | Metric | Value |
 |---|---|
@@ -44,11 +44,11 @@
 | Avg expenditure — capitalisation window (£b/yr) | £2,336.9b |
 | **SSM coverage ratio** | **21.3%** |
 
-*SSM coverage ratio: average annual SSM net income over the capitalisation window (SRR fill to LRR breakeven) divided by average annual expenditure over the same window. The SSM applies uniform historical returns across the population (correlated-shock assumption); TCM coverage appears in §3.*
+*SSM coverage ratio: average annual SSM net income over the capitalisation window (SRR fill to LRR breakeven) divided by average annual expenditure over the same window. The SSM applies uniform historical returns across the population (correlated-shock assumption); TCM coverage appears in (RATES.A §B.3).*
 
-## 3. TCM Results — N=29 periods
+## B.3 TCM Results — N=29 periods
 
-### 3a. Net worth — start ($V_0$) and year N (£m)
+### B.3.1 Net worth — start ($V_0$) and year N (£m)
 
 *$V_0$ is the bracket mean wealth (£m) at entry, identical across tiers within a bracket. V_N is the true wealth (before tax settlement) at the end of period N for a representative taxpayer, varying by tier due to persistent return differentials. Figures are for a single representative taxpayer; they do not reflect aggregate portfolio wealth.*
 
@@ -60,7 +60,7 @@
 | **V_N +0.95% (Good)** | £2.52m | £3.57m | £4.91m | £6.95m | £10.22m | £17.93m | £44.75m | £124.53m | £334.84m | £875.65m |
 | **V_N +3.45% (Great)** | £4.94m | £7.01m | £9.62m | £13.64m | £20.04m | £35.16m | £87.77m | £244.22m | £656.69m | £1,717.31m |
 
-### 3b. Net per taxpayer per year — capitalisation window average (£/yr)
+### B.3.2 Net per taxpayer per year — capitalisation window average (£/yr)
 
 *Average annual net tax per representative taxpayer over the capitalisation window (SRR fill year to LRR breakeven year). Zeros suppressed.*
 
@@ -71,7 +71,7 @@
 | +0.95% (Good) | £1,672 | £6,754 | £12,453 | £20,368 | £32,694 | £58,587 | £147,405 | £419,808 | £1,197,675 | £3,595,026 |
 | +3.45% (Great) | £11,919 | £19,840 | £29,992 | £44,565 | £66,777 | £116,605 | £294,830 | £851,591 | £2,511,228 | £7,979,372 |
 
-### 3c. Annual wealth burden (tax as % of net worth)
+### B.3.3 Annual wealth burden (tax as % of net worth)
 
 | Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -80,7 +80,7 @@
 | +0.95% (Good) | 0.12% | 0.23% | 0.30% | 0.35% | 0.39% | 0.42% | 0.42% | 0.43% | 0.47% | 0.56% |
 | +3.45% (Great) | 0.31% | 0.36% | 0.40% | 0.43% | 0.46% | 0.47% | 0.48% | 0.50% | 0.57% | 0.75% |
 
-### 3d. Effective rate on gains (tax as % of annual gain)
+### B.3.4 Effective rate on gains (tax as % of annual gain)
 
 | Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -89,7 +89,7 @@
 | +0.95% (Good) | 3.5% | 7.0% | 9.1% | 10.6% | 11.8% | 12.5% | 12.6% | 13.0% | 14.0% | 16.7% |
 | +3.45% (Great) | 9.2% | 10.8% | 12.1% | 13.0% | 13.8% | 14.1% | 14.4% | 15.1% | 17.1% | 22.4% |
 
-### 3e. Average annual net tax per taxpayer — lifetime average (£/yr)
+### B.3.5 Average annual net tax per taxpayer — lifetime average (£/yr)
 
 | Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -98,7 +98,7 @@
 | +0.95% (Good) | £2,841 | £7,731 | £13,266 | £21,025 | £33,082 | £59,493 | £149,755 | £427,038 | £1,221,581 | £3,676,976 |
 | +3.45% (Great) | £13,714 | £21,809 | £32,057 | £46,864 | £69,476 | £122,020 | £308,933 | £895,554 | £2,659,203 | £8,471,582 |
 
-### 3f. Population distribution (taxpayers per bracket per tier)
+### B.3.6 Population distribution (taxpayers per bracket per tier)
 
 *Cell population = bracket population × tier weight. Bracket population is constant within a bracket across tiers.*
 
@@ -109,7 +109,7 @@
 | 40% (Good) | 2,768,000 | 2,768,000 | 2,768,000 | 2,768,000 | 1,384,000 | 1,107,200 | 249,120 | 24,912 | 2,491 | 277 |
 | 20% (Great) | 1,384,000 | 1,384,000 | 1,384,000 | 1,384,000 | 692,000 | 553,600 | 124,560 | 12,456 | 1,246 | 138 |
 
-### 3g. Tax collected per year — capitalisation window average (£m/yr)
+### B.3.7 Tax collected per year — capitalisation window average (£m/yr)
 
 *Average annual revenue per bracket-tier cell over the capitalisation window. Row total is the sum across all brackets for that tier. Column total is the sum across all tiers for that bracket. Grand total is in the bottom-right cell.*
 
@@ -131,7 +131,7 @@
 | 20% (Great) | £309.47b |
 | **Grand total** | **£640.73b** |
 
-### 3h. Cohort proportion of total tax paid (%)
+### B.3.8 Cohort proportion of total tax paid (%)
 
 *Each cell's capitalisation-window revenue as a percentage of the grand total. Row total is the tier's share; column total is the bracket's share across all tiers.*
 
@@ -143,7 +143,7 @@
 | 20% (Great) | 2.6% | 4.3% | 6.5% | 9.6% | 7.2% | 10.1% | 5.7% | 1.7% | 0.5% | 0.2% | **48.3%** |
 | **Column total** | **3.3%** | **7.2%** | **11.9%** | **20.0%** | **16.1%** | **23.2%** | **13.2%** | **3.8%** | **1.1%** | **0.4%** | **100.0%** |
 
-### 3i. Revenue by tier (£b/yr)
+### B.3.9 Revenue by tier (£b/yr)
 
 | Tier | Lifetime avg (£b/yr) | Capitalisation window avg (£b/yr) |
 |---|---|---|
@@ -164,14 +164,14 @@
 | Capitalisation window (years) | 25 |
 | **TCM coverage ratio** | **27.4%** |
 
-*TCM coverage ratio: average annual TCM revenue over the capitalisation window divided by average annual expenditure over the same window. The TCM applies heterogeneous tier differentials to the actual historical return series, producing higher revenue than the SSM's uniform-return assumption. The SSM coverage ratio (solvency/stress-test perspective) appears in §2.*
+*TCM coverage ratio: average annual TCM revenue over the capitalisation window divided by average annual expenditure over the same window. The TCM applies heterogeneous tier differentials to the actual historical return series, producing higher revenue than the SSM's uniform-return assumption. The SSM coverage ratio (solvency/stress-test perspective) appears in (RATES.A §B.2).*
 
 
-## 4. Start-Year Sweep
+## B.4 Start-Year Sweep
 
-All figures at $	au_0$=15%, $	au_m$=70%, k=0.001, W_min=£2.0m.
+All figures at $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{min}$=£2.0m.
 
-### Extremals — three dimensions
+### B.4.1 Extremals — three dimensions
 
 | Dimension | Start year | LRR breakeven | LRR surplus (£b) | LRR breach lag | Peak LRR deficit (£b) |
 |---|---|---|---|---|---|
@@ -184,7 +184,7 @@ All figures at $	au_0$=15%, $	au_m$=70%, k=0.001, W_min=£2.0m.
 
 *41 start years produce no LRR breach within the 71-year modelling window.*
 
-### Full sweep table (all 73 calendar years)
+### B.4.2 Full sweep table (all 73 calendar years)
 
 | Start | SRR fill | LRR breakeven | LRR surplus (£b) | SRR at breakeven (£b) | LRR breach | Breach lag | Peak LRR deficit (£b) | SRR breach | SRR deficit (£b) | LRR at SRR breach (£b) | SRR breach covered | SSM coverage | TCM coverage |
 |:---:|:---:|:---:|---:|---:|:---:|:---:|---:|:---:|---:|---:|:---:|---:|---:|
@@ -264,11 +264,11 @@ All figures at $	au_0$=15%, $	au_m$=70%, k=0.001, W_min=£2.0m.
 
 *Active scenario shown in bold. SRR breach covered: LRR balance at SRR breach year ≥ SRR deficit. Peak LRR deficit: worst LRR balance in the 71-year window under the zero-governance assumption. Coverage ratios: capitalisation window averages (SRR fill to LRR breakeven).*
 
-## 5. Statistical Pass — P(success) Across Economic Cycles
+## B.5 Statistical Pass — P(success) Across Economic Cycles
 
 **Success definition:** LRR fills within the 71-year window AND (SRR never breaches OR SRR breach is fully covered by LRR balance at time of breach).
 
-### Overall (all 73 start years)
+### B.5.2 Overall (all 73 start years)
 
 | Metric | Value |
 |---|---|
@@ -279,7 +279,7 @@ All figures at $	au_0$=15%, $	au_m$=70%, k=0.001, W_min=£2.0m.
 | — of which uncovered | 0 |
 | No SRR breach | 32 |
 
-### By economic cycle
+### B.5.3 By economic cycle
 
 | Period | N | Success% | LRR fill% |
 |---|:---:|:---:|:---:|
@@ -288,7 +288,7 @@ All figures at $	au_0$=15%, $	au_m$=70%, k=0.001, W_min=£2.0m.
 | Liberalisation   1980–99 | 20 | 100.0% | 100.0% |
 | Crisis decade    2000–19 | 20 | 100.0% | 100.0% |
 
-### Key metric distributions
+### B.5.4 Key metric distributions
 
 | Metric | N | Min | Median | Mean | Max |
 |---|:---:|---:|---:|---:|---:|
