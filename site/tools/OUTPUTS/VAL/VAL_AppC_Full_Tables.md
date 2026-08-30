@@ -244,25 +244,25 @@ Table C.10.2: Honest declarer trajectory under 2006 historical return series by 
 
 **Purpose:** Identifies the three mechanical sources of the overstater TW advantage shown in C.8. For each ($\alpha$, $g$) cell the TW advantage relative to honest declaration is split into: (1) excess periodic net tax paid during the holding period, (2) the sell-year settlement delta, and (3) the post-sale oscillation delta. These three terms sum to the C.8 figure (sign-adjusted). An additional sub-table shows $f_N$ — the retained equity fraction at end of holding period — as a ratio to the honest declarer's $f_N$, quantifying the dilution cost of overstatement.
 
-**Identity:** TW_settled($\alpha$) $-$ TW_settled(1) $= -$ExcessPeriodic $-$ RefundDelta $-$ SettleDelta  (paying more tax reduces TW; a larger sell-year refund increases it).
+**Identity (corrected):** TW_settled($\alpha$) $-$ TW_settled(1) $=$ W_sell_delta $-$ RefundDelta $-$ SettleDelta  (verified to machine precision across all tested $(\alpha, g)$ pairs).  W_sell_delta $\leq 0$: f_N erosion reduces sell-year proceeds.  RefundDelta $\leq 0$: overstater receives a larger sell-year refund.  SettleDelta $\geq 0$: post-sale oscillation taxes back part of the refund.  Note: ExcessPeriodic (holding-period net tax difference) is **not** additive in this identity — it feeds into TW_advantage indirectly through f_N erosion and is shown in C.11a for reference only.
 
 **Scope:** Overstaters only ($\alpha$ ≥ 1.0). All values at canonical N = 29, $k$ = 0.001, $V_0$ = £20m. Rows = $\alpha$; columns = $g$ (same grid as C.1). Sub-tables C.11a–C.11d expressed as % of TW_settled(1); C.11e is dimensionless.
 
-### C.11a — Excess Periodic Net Tax as % of Honest TW_settled
+### C.11a — W_sell_delta as % of Honest TW_settled  [Additive Term 1]
 
-**Formula:** (Net_holding($\alpha$) $-$ Net_holding(1)) / TW_settled(1)  · Positive = overstater paid more net tax during holding period. This is the *cost* of overstatement: positive at moderate-to-high $g$.
+**Formula:** (W_sell($\alpha$) $-$ W_sell(1)) / TW_settled(1)  $\leq 0$ for $\alpha > 1$.  W_sell $= f_N \times V_{sell}$; the overstater's f_N is depleted faster by higher periodic tax, reducing the sell-year declared value.  This is the f_N erosion cost of overstatement: the overstater owns a smaller fraction of the asset at sale.  Note: ExcessPeriodic (holding-period net tax difference) is related but **not** equal to W_sell_delta — the excess periodic tax is approximately 6× larger than |W_sell_delta| at canonical parameters because most of the excess is returned via the sell-year refund (C.11b).  ExcessPeriodic is shown separately in C.11f for reference.
 
 | $\alpha$ \ $g$ | -4.5% | 0.4% | 5.9% | 8.4% | 10.4% | 11.4% | 13.9% | 16.4% | 20.4% | 25.4% |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | **1.0** | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% |
-| **1.2** | 0.00% | 0.33% | 2.38% | 2.80% | 3.13% | 3.30% | 3.89% | 4.83% | 6.92% | 8.33% |
-| **1.5** | 0.00% | 0.83% | 6.01% | 7.11% | 7.98% | 8.45% | 10.06% | 12.55% | 17.47% | 20.15% |
-| **1.8** | 0.00% | 1.33% | 9.71% | 11.55% | 13.04% | 13.84% | 16.62% | 20.73% | 27.99% | 31.29% |
-| **2.0** | 0.00% | 1.67% | 12.22% | 14.57% | 16.52% | 17.57% | 21.18% | 26.39% | 34.93% | 38.39% |
+| **1.2** | 0.00% | -0.00% | -0.14% | -0.29% | -0.51% | -0.65% | -1.20% | -2.14% | -4.31% | -5.91% |
+| **1.5** | 0.00% | -0.01% | -0.35% | -0.74% | -1.27% | -1.62% | -2.97% | -5.21% | -9.87% | -12.77% |
+| **1.8** | 0.00% | -0.02% | -0.56% | -1.18% | -2.03% | -2.58% | -4.70% | -8.10% | -14.51% | -18.04% |
+| **2.0** | 0.00% | -0.03% | -0.70% | -1.47% | -2.53% | -3.22% | -5.83% | -9.91% | -17.20% | -20.96% |
 
-Table C.11a: Excess periodic net tax as % of honest TW_settled. Positive = overstater paid more net tax during holding period. $V_0$ = £20m, $k$ = 0.001, N = 29.
+Table C.11a: W_sell_delta as % of honest TW_settled (additive term 1). Always $\leq 0$ for $\alpha > 1$: f_N erosion reduces sell-year proceeds. $V_0$ = £20m, $k$ = 0.001, N = 29.
 
-*Positive throughout at $g$ ≥ ~8%: the overstater pays more every period due to a larger declared delta and higher progressive rate. The penalty grows with both $\alpha$ and $g$.*
+*Always $\leq 0$ for $\alpha > 1$: the overstater surrenders more equity as periodic tax, depressing the sell-year declared value.  The magnitude grows with both $\alpha$ and $g$ but is much smaller than the refund benefit (C.11b) — this is why the net TW advantage (C.11d) remains positive across the tested range.*
 
 ### C.11b — Sell-Year Settlement Delta as % of Honest TW_settled
 
@@ -328,4 +328,20 @@ Table C.11e: Retained equity fraction ratio $f_N$($\alpha$) / $f_N$(1). Values b
 
 *Always < 1.0 for $\alpha$ > 1: the overstater's retained fraction is lower at every $g$. The ratio shrinks with $\alpha$ (more dilution) and with $g$ (higher declared wealth pushes the rate function higher, increasing $q$ each period). The $f_N$ ratio is the mechanism through which the declared basis at sale falls below $\alpha \times$ true value — it is not $\alpha \times f_N$(honest) $\times V_{sell}$ but rather $f_N$($\alpha$) $\times V_{sell}$, where $f_N$($\alpha$) < $f_N$(honest).*
 
-*Key design implication: the overstater cannot manufacture a TW advantage by overstatement alone. The advantage in C.11d / C.8 persists because the sell-year refund (C.11b), net of the damping cost (C.11c), exceeds the periodic excess tax paid (C.11a) across all tested ($\alpha$, $g$). Whether this relationship holds beyond the tested range — particularly at very high $g$ where $f_N$ is heavily depleted — requires extension of the $g$ sweep above 25%.*
+*Key design implication: the overstater cannot manufacture a TW advantage by overstatement alone. The advantage in C.11d / C.8 persists because the sell-year refund benefit (C.11b) swamps the f_N erosion cost (C.11a) and the damping cost (C.11c) across all tested ($\alpha$, $g$) — by a factor of approximately 6:1 at canonical parameters. Whether this relationship holds beyond the tested range — particularly at very high $g$ where $f_N$ is heavily depleted — requires extension of the $g$ sweep above 25%.*
+
+### C.11f — Excess Periodic Net Tax as % of Honest TW_settled  [Informational]
+
+**Formula:** (Net_holding($\alpha$) $-$ Net_holding(1)) / TW_settled(1)  · Positive = overstater paid more net tax during the holding period.  **This term is NOT additive in the C.11 identity** — it is shown for reference only.  ExcessPeriodic feeds into tw_advantage indirectly through f_N erosion (higher periodic tax depletes f faster, reducing W_sell), but ExcessPeriodic $\gg$ |W_sell_delta| because most of the excess is returned as a sell-year refund (C.11b).  The correct additive decomposition uses W_sell_delta (C.11a), not ExcessPeriodic.
+
+| $\alpha$ \ $g$ | -4.5% | 0.4% | 5.9% | 8.4% | 10.4% | 11.4% | 13.9% | 16.4% | 20.4% | 25.4% |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **1.0** | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% |
+| **1.2** | 0.00% | 0.33% | 2.38% | 2.80% | 3.13% | 3.30% | 3.89% | 4.83% | 6.92% | 8.33% |
+| **1.5** | 0.00% | 0.83% | 6.01% | 7.11% | 7.98% | 8.45% | 10.06% | 12.55% | 17.47% | 20.15% |
+| **1.8** | 0.00% | 1.33% | 9.71% | 11.55% | 13.04% | 13.84% | 16.62% | 20.73% | 27.99% | 31.29% |
+| **2.0** | 0.00% | 1.67% | 12.22% | 14.57% | 16.52% | 17.57% | 21.18% | 26.39% | 34.93% | 38.39% |
+
+Table C.11f: Excess periodic net tax as % of honest TW_settled (informational). Positive = overstater paid more net tax during holding period. Compare with C.11a (W_sell_delta): ExcessPeriodic is approximately 6× larger in magnitude, confirming that most of the periodic overpayment is recovered via the sell-year refund. $V_0$ = £20m, $k$ = 0.001, N = 29.
+
+*Positive throughout at $g$ \geq ~8\%: the overstater pays more every period due to a larger declared delta and higher progressive rate. Despite this persistent periodic cost, the sell-year refund (C.11b) exceeds both the erosion cost (C.11a) and the damping cost (C.11c), producing the net TW advantage shown in C.11d.*

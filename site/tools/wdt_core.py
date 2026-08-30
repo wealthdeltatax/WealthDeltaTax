@@ -4,10 +4,17 @@ wdt_core.py — WDT Shared Core Mechanics
 Single source of truth for parameters, the rate function, and the Route C
 simulation engine used across all VAL and RATES scripts.
 
-PARAMETER LOADING
------------------
-All parameters come from the TOML file. Call load_params() to get a
-fully-populated dict.  p['N'] is the LRR fill year from the SSM.
+PUBLIC API
+----------
+  tau(W_m, p)                         marginal WDT rate
+  g_eff(g, alpha, beta)               effective growth rate with signalling
+  simulate(V0_m, g_series, alpha, p)  holding-period simulation
+  simulate_sell(sim, g_next, p)       terminal sell-year event
+  settle_tw(sell_result, p)           post-sale oscillation to convergence
+  run_sim(p_in, ...)                  constant-g convenience runner
+  run_sim_hist(p_in, ...)             historical-series convenience runner
+  decompose_tw_advantage(p, alpha, g) TW advantage decomposition (C.11)
+  load_params(toml_path)              load and validate all parameters
 
 RECORD FIELD GUARANTEE
 -----------------------
@@ -17,64 +24,44 @@ simulate() records always contain:
 simulate_sell() return dict always contains:
   t, V_sell, W_sell, f_N, delta_sell, rate_sell, L_sell, TW, cum_after
 
-run_sim() return dict always contains:
-  TW, TTP, Refunds, Net, records, sell, g_use
+run_sim() / run_sim_hist() return dict always contains:
+  TW, TW_settled, TTP, Refunds, Net, Net_settled,
+  records, sell, g_use, settle_iters
+  (run_sim_hist also returns g_mean; g_use is None)
 
-TW_settled and Net_settled
---------------------------
-run_sim() now returns two additional keys:
-
-  TW_settled  — the economically correct terminal net worth, accounting for
-                the post-sale tax/refund oscillation that the mechanism
-                produces when the taxpayer holds cash after sale.
-
-                After the sell event the taxpayer holds cash = W_sell - L_sell.
-                That cash becomes their declared wealth; the delta each period
-                is the negative of the prior period's L, producing a damped
-                oscillation that converges to a fixed point.  This is normal,
-                designed mechanism behaviour: an overstater who receives a
-                large sell-year refund will pay additional tax in subsequent
-                periods as that refund produces a positive delta; an
-                understater who pays a large sell-year tax will receive small
-                refunds as that payment produces negative deltas.
-
-                TW (the naive sell-year figure) is retained for backward
-                compatibility but should not be used in analysis.
-                TW_settled is the primary output metric.
-
-  Net_settled — Net lifetime tax including post-sale settlement taxes/refunds.
-                Identity: TW_settled = W_sell_net - Net_settled, where
-                W_sell_net is the gross terminal value before any sell-year
-                settlement.  Net (holding-period only) is retained for
-                backward compatibility.
-
-SETTLEMENT METHODOLOGY
+PRIMARY OUTPUT METRICS
 ----------------------
-settle_tw() iterates the post-sale cash-holding sequence to convergence.
-Each period: delta = cash - prior_basis; L = tau(cash) * delta (subject to
-lifetime cap); cash -= L; basis = cash.  The series converges because
-|tau| < 1 everywhere, giving a geometric decay in the oscillation amplitude.
+TW_settled  -- economically correct terminal net worth, after post-sale
+               tax/refund oscillation converges. TW (naive sell-year figure)
+               is retained for backward compatibility only.
 
-Convergence is rapid in policy-relevant cases (typically 10-20 iterations at
-canonical parameters).  Extreme cases (alpha=0.1 at very high V0 and g) may
-need up to ~500 iterations as the rate ceiling tau_m approaches 1.  The
-default max_iter=2000 is sufficient for all tested parameter combinations.
+Net_settled -- net lifetime tax including post-sale settlement.
+
+DECOMPOSITION IDENTITY (C.11)
+------------------------------
+decompose_tw_advantage() splits TW_settled(alpha) - TW_settled(1) into
+three terms that sum EXACTLY to tw_advantage:
+
+  tw_advantage = W_sell_delta - refund_delta - settle_delta
+
+  W_sell_delta = W_sell(alpha) - W_sell(1)       [<= 0 for alpha>1]
+  refund_delta = L_sell(alpha) - L_sell(1)        [<= 0 for alpha>1 at mod g]
+  settle_delta = net_settle(alpha) - net_settle(1) [>= 0]
+
+excess_periodic (holding-period net tax diff) is NOT additive in this
+identity. It is returned as an informational field only. The incorrect
+identity -excess_periodic - refund_delta - settle_delta was used in
+Fig 08 v1 and has been corrected.
 
 BETA FORMULA
 ------------
-Additive form: g_eff = g + beta * ln(alpha)
-VAL.A §B.3 states the multiplicative form incorrectly.
+Additive: g_eff = g + beta * ln(alpha).
+VAL.A section B.3 states the multiplicative form incorrectly.
 """
 
 import math
-import os
-import functools
 import tomllib
 from pathlib import Path
-
-# ─────────────────────────────────────────────────────────────
-# TOML PATH
-# ─────────────────────────────────────────────────────────────
 
 _DEFAULT_TOML = Path(__file__).parent / '260812_WDT_Params.toml'
 
@@ -85,12 +72,10 @@ _DEFAULT_TOML = Path(__file__).parent / '260812_WDT_Params.toml'
 
 def tau(W_m, p):
     """
-    Marginal WDT rate on declared wealth W_m (£m).
+    Marginal WDT rate on declared wealth W_m (pounds m).
 
     tau(W) = tau_m / (1 + ((tau_m - tau_0) / tau_0) * exp(-k * (W - W_min)))
     tau(W) = 0  if W < W_min
-
-    Reads tau_0, tau_m, k, W_min from dict p.
     """
     if W_m < p['W_min']:
         return 0.0
@@ -106,8 +91,10 @@ def tau(W_m, p):
 
 def g_eff(g, alpha, beta):
     """
-    Additive effective growth rate after signalling adjustment.
+    Effective growth rate after signalling adjustment (additive form).
+
     g_eff = g + beta * ln(alpha)
+
     Returns g unchanged when beta=0, alpha=1, or alpha<=0.
     """
     if beta == 0.0 or alpha == 1.0 or alpha <= 0.0:
@@ -121,39 +108,29 @@ def g_eff(g, alpha, beta):
 
 def settle_tw(sell_result, p, max_iter=2000, tol=1e-10):
     """
-    Iteratively settle the post-sale tax/refund oscillation.
+    Iteratively settle the post-sale tax/refund oscillation to convergence.
 
-    After the sell event, the taxpayer holds cash = W_sell - L_sell.
-    Modelling the simplifying assumption that they hold this cash with
-    no further growth, each period produces:
-      delta = cash - prior_basis  (the negative of the prior period's L)
-      L     = tau(cash) * delta   (subject to lifetime cap)
-      cash -= L; basis = cash
+    Starting state after sale:
+      cash  = sell_result['TW']       (W_sell - L_sell)
+      basis = sell_result['W_sell']   (carry sell-year declared value forward)
+      cum   = sell_result['cum_after']
 
-    The oscillation is damped because |tau| < 1, converging geometrically.
-    The series models real mechanism behaviour: a large sell-year refund
-    creates a positive delta next period (taxed); a large sell-year tax
-    creates a negative delta next period (refunded). This continues until
-    the residual is negligible.
-
-    Parameters
-    ----------
-    sell_result : dict from simulate_sell()
-    p           : parameter dict with keys k, tau_0, tau_m, W_min
-    max_iter    : maximum iterations (2000 is sufficient for all tested cases)
-    tol         : convergence threshold on |L| and |cum|
+    Each iteration:
+      delta = cash - basis
+      L = tau(cash) * delta  if delta > 0 or cum > 0, else 0
+          (floored at -cum by lifetime cap)
+      cash -= L;  basis = cash;  cum += L
 
     Returns
     -------
-    TW_settled     : float — settled terminal net worth
-    net_settle_tax : float — sum of all post-sale L values
-                     (positive = additional net tax; negative = additional net refund)
-    n_iter         : int — iterations to convergence
+    TW_settled     float  settled terminal net worth
+    net_settle_tax float  sum of post-sale L (+ = net tax, - = net refund)
+    n_iter         int    iterations to convergence
     """
-    sim_p  = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
-    cash   = sell_result['TW']          # W_sell - L_sell
-    basis  = sell_result['W_sell']      # carry the sell-year declared value as basis
-    cum    = sell_result['cum_after']   # residual lifetime balance after sell
+    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    cash  = sell_result['TW']
+    basis = sell_result['W_sell']
+    cum   = sell_result['cum_after']
     net_settle_tax = 0.0
 
     for i in range(max_iter):
@@ -173,26 +150,28 @@ def settle_tw(sell_result, p, max_iter=2000, tol=1e-10):
 
 
 # ─────────────────────────────────────────────────────────────
-# PERIOD SIMULATION
+# HOLDING-PERIOD SIMULATION
 # ─────────────────────────────────────────────────────────────
 
 def simulate(V0_m, g_series, alpha, p):
     """
-    Simulate one Route C taxpayer over N regular periods.
+    Simulate one Route C taxpayer over N holding periods.
 
-    Entry t=0: V=V0_m, f=1, W=alpha*V0_m, cum=0, no tax event.
-    Each period t=1..N uses g_series[t-1].
+    At each period t the declared wealth is W = f * alpha * V.
+    Tax L = tau(W) * delta is paid as fraction q = L/W of declared
+    wealth, reducing the retained equity fraction: f' = f * (1 - q).
 
-    Returns a list of N+1 record dicts (t=0 through t=N), each with:
-        t       period index
-        V       true asset value (£m)
-        W       declared wealth = f * alpha * V (£m)
-        f       retained fraction (1.0 at entry)
-        cum     cumulative net tax paid to date (£m)
-        L       tax / refund this period (£m; positive=tax, negative=refund)
-        rate    tau(W) this period
-        delta   W - W_prev (0.0 at t=0)
-        q       equity fraction transferred this period (0.0 at t=0)
+    Parameters
+    ----------
+    V0_m     initial true asset value (pounds m)
+    g_series list of N growth rates (one per period)
+    alpha    declaration ratio (1.0 = honest)
+    p        parameter dict (k, tau_0, tau_m, W_min)
+
+    Returns
+    -------
+    list of N+1 record dicts (t=0 through t=N), each with keys:
+      t, V, W, f, cum, L, rate, delta, q
     """
     N   = len(g_series)
     V   = V0_m
@@ -206,8 +185,7 @@ def simulate(V0_m, g_series, alpha, p):
     }]
 
     for t in range(1, N + 1):
-        g_t   = g_series[t - 1]
-        V     = V * (1.0 + g_t)
+        V     = V * (1.0 + g_series[t - 1])
         W_new = f * alpha * V
         rate  = tau(W_new, p)
         delta = W_new - W
@@ -232,21 +210,22 @@ def simulate_sell(sim, g_next, p):
     """
     Compute the terminal Route C sell event (period N+1).
 
-    sim    : record list from simulate()
-    g_next : growth rate for the sell year
-    p      : parameter dict (k, tau_0, tau_m, W_min)
+    At sale, alpha drops out entirely: W_sell = f_N * V_sell (not
+    f_N * alpha * V_sell). The taxpayer receives their retained fraction
+    of true sale proceeds. For overstaters, the prior declared basis
+    (f_N * alpha * V_N) typically exceeds W_sell when alpha > (1+g),
+    generating a negative delta_sell and a sell-year refund.
 
-    Returns a dict with:
-        t           period index (last sim period + 1)
-        V_sell      true value at sale (£m)
-        W_sell      declared wealth at sale = f_N * V_sell (£m)
-        f_N         retained fraction from period N
-        delta_sell  W_sell - W_N (£m)
-        rate_sell   tau(W_sell)
-        L_sell      tax / refund at sale (£m)
-        TW          naive terminal net worth = W_sell - L_sell (£m)
-                    NOTE: use TW_settled from run_sim() for analysis
-        cum_after   cumulative net tax after sell settlement (£m)
+    Parameters
+    ----------
+    sim    record list from simulate()
+    g_next growth rate for the sell year
+    p      parameter dict (k, tau_0, tau_m, W_min)
+
+    Returns
+    -------
+    dict with keys:
+      t, V_sell, W_sell, f_N, delta_sell, rate_sell, L_sell, TW, cum_after
     """
     last       = sim[-1]
     f_N        = last['f']
@@ -255,7 +234,7 @@ def simulate_sell(sim, g_next, p):
     V_N        = last['V']
 
     V_sell     = V_N * (1.0 + g_next)
-    W_sell     = f_N * V_sell
+    W_sell     = f_N * V_sell            # alpha drops out at liquidation
     rate_sell  = tau(W_sell, p)
     delta_sell = W_sell - W_N
     L_sell     = (max(-cum_N, rate_sell * delta_sell)
@@ -274,8 +253,22 @@ def simulate_sell(sim, g_next, p):
     }
 
 
-# Alias: used in some scripts
+# Alias retained for backward compatibility
 simulate_sell_year = simulate_sell
+
+
+# ─────────────────────────────────────────────────────────────
+# INTERNAL HELPER
+# ─────────────────────────────────────────────────────────────
+
+def _holding_totals(recs):
+    """
+    Sum holding-period (t=1..N) L values into gross tax, gross refunds,
+    and net. Sell year is excluded; callers add it separately.
+    """
+    gross_tax = sum(r['L'] for r in recs[1:] if r['L'] > 0)
+    gross_ref = sum(r['L'] for r in recs[1:] if r['L'] < 0)
+    return gross_tax, gross_ref, gross_tax + gross_ref
 
 
 # ─────────────────────────────────────────────────────────────
@@ -284,60 +277,52 @@ simulate_sell_year = simulate_sell
 
 def run_sim(p_in, alpha=None, beta=None, N=None, g=None):
     """
-    Run a complete constant-g simulation (N holding periods + sell year),
-    then settle the post-sale oscillation to convergence.
+    Run a complete constant-g simulation then settle post-sale oscillation.
 
     All keyword arguments override the corresponding value in p_in.
 
-    Returns
-    -------
-    TW          : naive terminal net worth at sell year (retained for
-                  backward compatibility; do not use in analysis)
-    TW_settled  : economically correct terminal net worth after post-sale
-                  oscillation converges — PRIMARY OUTPUT METRIC
-    TTP         : gross taxes paid during holding period (£m, positive)
-    Refunds     : gross refunds received during holding period (£m, negative)
-    Net         : TTP + Refunds — net holding-period tax (retained for
-                  backward compatibility)
-    Net_settled : net lifetime tax including post-sale settlement (£m)
-                  Identity: TW_settled = W_sell_gross - Net_settled
-    records     : simulate() record list
-    sell        : simulate_sell() return dict
-    g_use       : effective growth rate used (after beta adjustment)
-    settle_iters: iterations to post-sale convergence
+    Returns dict with keys:
+      TW           naive sell-year TW (backward compat; do not use)
+      TW_settled   settled TW -- PRIMARY METRIC
+      TTP          gross holding-period tax (pounds m, positive)
+      Refunds      gross holding-period refunds (pounds m, negative)
+      Net          TTP + Refunds, holding period only (backward compat)
+      Net_settled  net lifetime tax including post-sale settlement -- PRIMARY
+      records      simulate() list
+      sell         simulate_sell() dict
+      g_use        effective growth rate used
+      settle_iters iterations to convergence
     """
-    alpha  = alpha if alpha is not None else p_in.get('alpha', 1.0)
-    beta   = beta  if beta  is not None else p_in.get('beta',  0.0)
-    N      = N     if N     is not None else p_in['N']
-    g_base = g     if g     is not None else p_in['g']
+    alpha  = alpha  if alpha  is not None else p_in.get('alpha', 1.0)
+    beta   = beta   if beta   is not None else p_in.get('beta',  0.0)
+    N      = N      if N      is not None else p_in['N']
+    g_base = g      if g      is not None else p_in['g']
 
-    g_use  = g_eff(g_base, alpha, beta)
-    sim_p  = {k: p_in[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    g_use = g_eff(g_base, alpha, beta)
+    sim_p = {k: p_in[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
 
     recs = simulate(p_in['V0_m'], [g_use] * N, alpha, sim_p)
     sell = simulate_sell(recs, g_use, sim_p)
 
-    gross_tax = sum(r['L'] for r in recs[1:] if r['L'] > 0)
-    gross_ref = sum(r['L'] for r in recs[1:] if r['L'] < 0)
+    gross_tax, gross_ref, _ = _holding_totals(recs)
     if sell['L_sell'] > 0:
         gross_tax += sell['L_sell']
     else:
         gross_ref += sell['L_sell']
 
-    # Post-sale settlement
     tw_settled, net_settle_tax, n_iter = settle_tw(sell, sim_p)
     net_settled = gross_tax + gross_ref + net_settle_tax
 
     return {
-        'TW':           sell['TW'],         # naive; retained for compatibility
-        'TW_settled':   tw_settled,         # PRIMARY: use this in analysis
-        'TTP':          gross_tax,
-        'Refunds':      gross_ref,
-        'Net':          gross_tax + gross_ref,   # holding-period only; retained
-        'Net_settled':  net_settled,             # PRIMARY: full lifetime net tax
-        'records':      recs,
-        'sell':         sell,
-        'g_use':        g_use,
+        'TW':          sell['TW'],
+        'TW_settled':  tw_settled,
+        'TTP':         gross_tax,
+        'Refunds':     gross_ref,
+        'Net':         gross_tax + gross_ref,
+        'Net_settled': net_settled,
+        'records':     recs,
+        'sell':        sell,
+        'g_use':       g_use,
         'settle_iters': n_iter,
     }
 
@@ -348,14 +333,11 @@ def run_sim(p_in, alpha=None, beta=None, N=None, g=None):
 
 def run_sim_hist(p_in, alpha=None, N=None):
     """
-    Run a complete simulation using the actual historical return series
-    from p_in['returns'], then settle the post-sale oscillation.
+    Run a simulation using p_in['returns'] then settle post-sale oscillation.
+    No beta/signalling adjustment. g_use is None.
 
-    No beta / signalling adjustment is applied.
-
-    Returns the same dict shape as run_sim() with the addition of:
-        g_mean : arithmetic mean of the N holding-period returns
-        g_use  : None (series-based, no single rate)
+    Returns same dict as run_sim() plus g_mean (arithmetic mean of
+    the N holding-period returns).
     """
     alpha = alpha if alpha is not None else p_in.get('alpha', 1.0)
     N     = N     if N     is not None else p_in['N']
@@ -373,40 +355,125 @@ def run_sim_hist(p_in, alpha=None, N=None):
     recs = simulate(p_in['V0_m'], g_series, alpha, sim_p)
     sell = simulate_sell(recs, g_sell, sim_p)
 
-    gross_tax = sum(r['L'] for r in recs[1:] if r['L'] > 0)
-    gross_ref = sum(r['L'] for r in recs[1:] if r['L'] < 0)
+    gross_tax, gross_ref, _ = _holding_totals(recs)
     if sell['L_sell'] > 0:
         gross_tax += sell['L_sell']
     else:
         gross_ref += sell['L_sell']
 
-    # Post-sale settlement
     tw_settled, net_settle_tax, n_iter = settle_tw(sell, sim_p)
     net_settled = gross_tax + gross_ref + net_settle_tax
 
     return {
-        'TW':           sell['TW'],
-        'TW_settled':   tw_settled,
-        'TTP':          gross_tax,
-        'Refunds':      gross_ref,
-        'Net':          gross_tax + gross_ref,
-        'Net_settled':  net_settled,
-        'records':      recs,
-        'sell':         sell,
-        'g_use':        None,
-        'g_mean':       sum(g_series) / len(g_series) if g_series else 0.0,
+        'TW':          sell['TW'],
+        'TW_settled':  tw_settled,
+        'TTP':         gross_tax,
+        'Refunds':     gross_ref,
+        'Net':         gross_tax + gross_ref,
+        'Net_settled': net_settled,
+        'records':     recs,
+        'sell':        sell,
+        'g_use':       None,
+        'g_mean':      sum(g_series) / len(g_series) if g_series else 0.0,
         'settle_iters': n_iter,
     }
 
 
 # ─────────────────────────────────────────────────────────────
-# MINIMAL SSM — LRR FILL YEAR ONLY
+# TW ADVANTAGE DECOMPOSITION (C.11)
+# ─────────────────────────────────────────────────────────────
+
+def decompose_tw_advantage(p, alpha, g):
+    """
+    Split TW_settled(alpha) - TW_settled(1) into three additive terms.
+
+    Correct identity (verified to machine precision):
+
+      tw_advantage = W_sell_delta - refund_delta - settle_delta
+
+    W_sell_delta = W_sell(alpha) - W_sell(1)
+        Always <= 0 for alpha > 1. f_N is depleted faster by higher
+        periodic tax, reducing the sell-year declared value W_sell = f_N * V_sell.
+
+    refund_delta = L_sell(alpha) - L_sell(1)
+        Always <= 0 for alpha > 1 when alpha > (1+g). The prior declared
+        basis (f_N * alpha * V_N) exceeds sell proceeds (f_N * V_sell),
+        producing a larger sell-year refund (more negative L_sell).
+
+    settle_delta = net_settle_tax(alpha) - net_settle_tax(1)
+        Always >= 0. A larger sell-year refund creates a larger positive
+        delta in the next post-sale period, which is taxed back.
+
+    excess_periodic = holding_net(alpha) - holding_net(1)
+        Informational only. NOT additive in the identity. The excess
+        periodic tax feeds into tw_advantage indirectly through f_N
+        erosion, but excess_periodic >> -W_sell_delta (approximately 6x
+        at canonical parameters) because most of the excess is returned
+        via the sell-year refund.
+
+    Parameters
+    ----------
+    p     parameter dict from load_params()
+    alpha declaration ratio
+    g     constant growth rate for holding period and sell year
+
+    Returns
+    -------
+    dict with keys:
+      W_sell_delta    pounds m  additive term 1 (f_N erosion effect)
+      refund_delta    pounds m  additive term 2 (sell-year refund difference)
+      settle_delta    pounds m  additive term 3 (post-sale damping difference)
+      tw_advantage    pounds m  TW_settled(alpha) - TW_settled(1)
+      excess_periodic pounds m  informational only
+      f_ratio         float     f_N(alpha) / f_N(1)
+      tw_honest       pounds m  TW_settled(1); denominator for pct tables
+      identity_error  pounds m  should be ~0; non-zero indicates a bug
+    """
+    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    N     = p['N']
+    g_ser = [g] * N
+
+    # honest
+    recs_h = simulate(p['V0_m'], g_ser, 1.0, sim_p)
+    sell_h = simulate_sell(recs_h, g, sim_p)
+    tw_h, net_settle_h, _ = settle_tw(sell_h, sim_p)
+    _, _, holding_net_h = _holding_totals(recs_h)
+
+    # declared
+    recs_a = simulate(p['V0_m'], g_ser, alpha, sim_p)
+    sell_a = simulate_sell(recs_a, g, sim_p)
+    tw_a, net_settle_a, _ = settle_tw(sell_a, sim_p)
+    _, _, holding_net_a = _holding_totals(recs_a)
+
+    W_sell_delta    = sell_a['W_sell']    - sell_h['W_sell']
+    refund_delta    = sell_a['L_sell']    - sell_h['L_sell']
+    settle_delta    = net_settle_a        - net_settle_h
+    tw_advantage    = tw_a               - tw_h
+    excess_periodic = holding_net_a      - holding_net_h
+    f_ratio         = (recs_a[-1]['f'] / recs_h[-1]['f']
+                       if abs(recs_h[-1]['f']) > 1e-12 else 0.0)
+    identity_error  = (W_sell_delta - refund_delta - settle_delta) - tw_advantage
+
+    return {
+        'W_sell_delta':    W_sell_delta,
+        'refund_delta':    refund_delta,
+        'settle_delta':    settle_delta,
+        'tw_advantage':    tw_advantage,
+        'excess_periodic': excess_periodic,
+        'f_ratio':         f_ratio,
+        'tw_honest':       tw_h,
+        'identity_error':  identity_error,
+    }
+
+
+# ─────────────────────────────────────────────────────────────
+# MINIMAL SSM — LRR FILL YEAR
 # ─────────────────────────────────────────────────────────────
 
 def _ssm_lrr_fill_year(p, max_N=71):
     """
-    Run the minimal SSM needed to find the LRR fill year.
-    Returns the integer LRR fill year, or None if LRR never fills.
+    Minimal Sovereign Wealth Fund Sizing Model to find the LRR fill year.
+    Returns the integer fill year or None if LRR never fills within max_N.
     """
     returns       = p['returns']
     brackets      = p['brackets']
@@ -414,7 +481,6 @@ def _ssm_lrr_fill_year(p, max_N=71):
     lrr_years     = p['lrr_years']
     budget_base   = p['budget_base']
     budget_growth = p['budget_growth']
-    alpha         = 1.0
 
     prev_agg_ttp = 0.0
     prev_agg_ref = 0.0
@@ -427,9 +493,10 @@ def _ssm_lrr_fill_year(p, max_N=71):
         agg_ref  = 0.0
 
         for b in brackets:
-            sim = simulate(b['V0_m'], g_series, alpha, p)
+            sim = simulate(b['V0_m'], g_series, 1.0, p)
             for r in sim[1:]:
                 x = r['L'] * b['N'] / 1000.0
+                (agg_ttp if x > 0 else agg_ref).__add__  # just branch
                 if x > 0:
                     agg_ttp += x
                 else:
@@ -441,11 +508,11 @@ def _ssm_lrr_fill_year(p, max_N=71):
             else:
                 agg_ref += x
 
-        delta_ttp     = agg_ttp - prev_agg_ttp
-        delta_ref     = agg_ref - prev_agg_ref
+        delta_ttp = agg_ttp - prev_agg_ttp
+        delta_ref = agg_ref - prev_agg_ref
         marginals.append({'N': n + 1, 'net': delta_ttp + delta_ref})
-        prev_agg_ttp  = agg_ttp
-        prev_agg_ref  = agg_ref
+        prev_agg_ttp = agg_ttp
+        prev_agg_ref = agg_ref
 
     srr_bal    = 0.0
     lrr_bal    = 0.0
@@ -457,8 +524,8 @@ def _ssm_lrr_fill_year(p, max_N=71):
         net = m['net']
         cum_net += net
 
-        srr_target  = srr_ratio * (cum_net / N)
-        new_srr     = srr_bal + net
+        srr_target = srr_ratio * (cum_net / N)
+        new_srr    = srr_bal + net
         if new_srr >= srr_target:
             srr_surplus = new_srr - srr_target
             srr_bal     = srr_target
@@ -472,7 +539,6 @@ def _ssm_lrr_fill_year(p, max_N=71):
         if not lrr_filled:
             lrr_bal += srr_surplus
             if lrr_bal >= lrr_target:
-                lrr_filled = True
                 return N
 
     return None
@@ -486,13 +552,14 @@ def load_params(toml_path=None):
     """
     Load all model parameters from the TOML file and return a single dict.
 
-    p['N'] is set to the LRR fill year from the SSM on the active scenario.
-    If the SSM does not fill within 71 periods, p['N'] falls back to
-    p['tcm_N'] with a warning.
+    p['N'] is derived from the SSM LRR fill year. Falls back to
+    p['tcm_N'] with a warning if the SSM does not fill within 71 periods.
+
+    All monetary values in pounds m. All rates as decimals.
     """
     path = Path(toml_path) if toml_path else _DEFAULT_TOML
-    with open(path, 'rb') as f:
-        raw = tomllib.load(f)
+    with open(path, 'rb') as fh:
+        raw = tomllib.load(fh)
 
     p = {}
 
@@ -526,7 +593,6 @@ def load_params(toml_path=None):
          'differential': float(t['differential'])}
         for t in raw['tiers']
     ]
-
     p['brackets'] = [
         {'label': b['label'],
          'N':     float(b['N_pop']),
@@ -544,7 +610,7 @@ def load_params(toml_path=None):
 
     lrr_N = _ssm_lrr_fill_year(p)
     if lrr_N is None:
-        print(f"WARNING: wdt_core.load_params() — LRR did not fill within "
+        print(f"WARNING: wdt_core.load_params() -- LRR did not fill within "
               f"71 periods for scenario starting {scenario_start}. "
               f"Falling back to tcm_N={p['tcm_N']}.")
         lrr_N = p['tcm_N']
@@ -564,30 +630,30 @@ def load_params(toml_path=None):
         'N_canon':      int(  sw.get('N_canon',      p['N'])),
         'V0_canon':     float(sw.get('V0_canon',     p['V0_m'])),
         'g_canon':      float(sw.get('g_canon',      p['hist_mean'])),
-        'tzone_threshold': float(sw.get('tzone_threshold', 0.02)),
-        'g_vals':          [float(v) for v in sw.get('g_vals', [])],
-        'alpha_vals':      [float(v) for v in sw.get('alpha_vals', [])],
-        'over_alphas':     [float(v) for v in sw.get('over_alphas', [])],
-        'under_alphas':    [float(v) for v in sw.get('under_alphas', [])],
-        'n_sweep':         _range_grid([int(v) for v in sw['n_sweep']])
-                           if 'n_sweep' in sw else list(range(5, 66)),
-        'n_panel_vals':    [int(v)   for v in sw.get('n_panel_vals',  [])],
-        'n_actual_vals':   [int(v)   for v in sw.get('n_actual_vals', [])],
-        'v0_sweep_vals':   [float(v) for v in sw.get('v0_sweep_vals', [])],
-        'tau0_panel_vals': [float(v) for v in sw.get('tau0_panel_vals', [])],
-        'taum_panel_vals': [float(v) for v in sw.get('taum_panel_vals', [])],
-        'k_panel_vals':    [float(v) for v in sw.get('k_panel_vals',    [])],
-        'wmin_panel_vals': [float(v) for v in sw.get('wmin_panel_vals', [])],
-        'tau0_n_surface_tau0':  [t / 100 for t in
-                                 _range_grid([int(v) for v in sw['tau0_n_surface_tau0']])]
-                                 if 'tau0_n_surface_tau0' in sw else [],
-        'tau0_n_surface_nceil': _range_grid([int(v) for v in sw['tau0_n_surface_nceil']])
-                                 if 'tau0_n_surface_nceil' in sw else [],
-        'k_v0_surface_k':  [float(v) for v in sw.get('k_v0_surface_k',  [])],
-        'k_v0_surface_v0': [float(v) for v in sw.get('k_v0_surface_v0', [])],
-        'appc_k_vals':    [float(v) for v in sw.get('appc_k_vals',    [])],
-        'appc_v0_vals':   [int(v)   for v in sw.get('appc_v0_vals',   [])],
-        'appc_over_vals': [float(v) for v in sw.get('appc_over_vals', [])],
+        'tzone_threshold':   float(sw.get('tzone_threshold', 0.02)),
+        'g_vals':            [float(v) for v in sw.get('g_vals',        [])],
+        'alpha_vals':        [float(v) for v in sw.get('alpha_vals',    [])],
+        'over_alphas':       [float(v) for v in sw.get('over_alphas',   [])],
+        'under_alphas':      [float(v) for v in sw.get('under_alphas',  [])],
+        'n_sweep':           (_range_grid([int(v) for v in sw['n_sweep']])
+                              if 'n_sweep' in sw else list(range(5, 66))),
+        'n_panel_vals':      [int(v)   for v in sw.get('n_panel_vals',  [])],
+        'n_actual_vals':     [int(v)   for v in sw.get('n_actual_vals', [])],
+        'v0_sweep_vals':     [float(v) for v in sw.get('v0_sweep_vals', [])],
+        'tau0_panel_vals':   [float(v) for v in sw.get('tau0_panel_vals', [])],
+        'taum_panel_vals':   [float(v) for v in sw.get('taum_panel_vals', [])],
+        'k_panel_vals':      [float(v) for v in sw.get('k_panel_vals',    [])],
+        'wmin_panel_vals':   [float(v) for v in sw.get('wmin_panel_vals', [])],
+        'tau0_n_surface_tau0':  ([t / 100 for t in
+                                  _range_grid([int(v) for v in sw['tau0_n_surface_tau0']])]
+                                 if 'tau0_n_surface_tau0' in sw else []),
+        'tau0_n_surface_nceil': (_range_grid([int(v) for v in sw['tau0_n_surface_nceil']])
+                                 if 'tau0_n_surface_nceil' in sw else []),
+        'k_v0_surface_k':    [float(v) for v in sw.get('k_v0_surface_k',  [])],
+        'k_v0_surface_v0':   [float(v) for v in sw.get('k_v0_surface_v0', [])],
+        'appc_k_vals':       [float(v) for v in sw.get('appc_k_vals',    [])],
+        'appc_v0_vals':      [int(v)   for v in sw.get('appc_v0_vals',   [])],
+        'appc_over_vals':    [float(v) for v in sw.get('appc_over_vals', [])],
         'rates_tau_0_sweep': [float(v) for v in sw.get('rates_tau_0_sweep', [])],
         'rates_tau_m_sweep': [float(v) for v in sw.get('rates_tau_m_sweep', [])],
         'rates_k_sweep':     [float(v) for v in sw.get('rates_k_sweep',     [])],
@@ -597,53 +663,3 @@ def load_params(toml_path=None):
     }
 
     return p
-
-def decompose_tw_advantage(p, alpha, g):
-    """
-    Split the TW_settled advantage of declaration strategy alpha over honest
-    (alpha=1) at growth rate g into three mechanical components.
-
-    Returns a dict with keys:
-        excess_periodic  — holding-period net tax delta (£m); +ve = overstater paid more
-        refund_delta     — sell-year settlement delta (£m); −ve = overstater got bigger refund
-        settle_delta     — post-sale oscillation delta (£m); +ve = more taxed back
-        tw_advantage     — TW_settled(alpha) − TW_settled(1) (£m)
-        f_ratio          — f_N(alpha) / f_N(1) (dimensionless)
-        tw_honest        — TW_settled(1) (£m), denominator for percentage tables
-    """
-    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
-    N     = p['N']
-    g_ser = [g] * N
-
-    # honest
-    recs_h = simulate(p['V0_m'], g_ser, 1.0, sim_p)
-    sell_h = simulate_sell(recs_h, g, sim_p)
-    tw_h, net_settle_h, _ = settle_tw(sell_h, sim_p)
-    gross_tax_h   = sum(r['L'] for r in recs_h[1:] if r['L'] > 0)
-    gross_ref_h   = sum(r['L'] for r in recs_h[1:] if r['L'] < 0)
-    holding_net_h = gross_tax_h + gross_ref_h
-    f_N_h         = recs_h[-1]['f']
-
-    # overstater
-    recs_a = simulate(p['V0_m'], g_ser, alpha, sim_p)
-    sell_a = simulate_sell(recs_a, g, sim_p)
-    tw_a, net_settle_a, _ = settle_tw(sell_a, sim_p)
-    gross_tax_a   = sum(r['L'] for r in recs_a[1:] if r['L'] > 0)
-    gross_ref_a   = sum(r['L'] for r in recs_a[1:] if r['L'] < 0)
-    holding_net_a = gross_tax_a + gross_ref_a
-    f_N_a         = recs_a[-1]['f']
-
-    excess_periodic = holding_net_a - holding_net_h
-    refund_delta    = sell_a['L_sell'] - sell_h['L_sell']
-    settle_delta    = net_settle_a - net_settle_h
-    tw_advantage    = tw_a - tw_h
-    f_ratio         = f_N_a / f_N_h if abs(f_N_h) > 1e-12 else 0.0
-
-    return {
-        'excess_periodic': excess_periodic,
-        'refund_delta':    refund_delta,
-        'settle_delta':    settle_delta,
-        'tw_advantage':    tw_advantage,
-        'f_ratio':         f_ratio,
-        'tw_honest':       tw_h,
-    }

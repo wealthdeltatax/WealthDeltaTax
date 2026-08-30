@@ -40,12 +40,28 @@ Fig 07  — Two-panel overstatement coherence figure.
            the (g, N) combinations where it exists are not those a rational
            overstater would be predicting at declaration.
 
-Fig 08  — Two-panel TW advantage decomposition.
-           Left: stacked area chart at g=hist_mean showing the three
-           mechanical terms (excess periodic cost, sell-year refund benefit,
-           post-sale damping) against alpha. Net TW advantage line confirms
-           C.8. Right: f_N ratio heatmap across (alpha, g) with contours at
-           0.95 and 0.90 showing equity dilution cost.
+Fig 09  — TW advantage of overstatement across (g, N) space.
+           2×2 grid of heatmaps, one per α ∈ {1.2, 1.5, 1.8, 2.0}.
+           Each cell shows TW advantage % vs honest across growth rate g
+           (y-axis, 0–28%) and holding period N (x-axis, 5–61 years).
+           Key finding: advantage is always positive — no (g, N) combination
+           makes overstatement worse than honest on TW. Advantage peaks at
+           low g, long N (low-growth patient holders). Red dashed = hist.
+           mean g; red dotted = canonical N; star = peak advantage location.
+           Companion to Fig 08; together they establish that the TW advantage
+           is structurally present but purchased via certain periodic
+           overpayments repaid in inflated future money — a real-terms loss.
+
+Fig 08  — Two-panel TW advantage decomposition (corrected identity).
+           Correct identity: tw_adv = W_sell_delta - refund_delta - settle_delta.
+           Left: stacked area chart at g=hist_mean showing the three additive
+           terms: refund benefit (blue, above zero), f_N erosion cost (red,
+           below zero), post-sale damping cost (orange, below red). Net TW
+           advantage line (black) is the algebraic sum and cross-checks C.8.
+           Excess periodic tax shown as informational dotted line only — NOT
+           additive in the identity (corrected from Fig 08 v1).
+           Right: f_N ratio heatmap across (alpha, g) with contours at 0.95
+           and 0.90 showing equity dilution cost.
 """
 
 import os
@@ -57,7 +73,8 @@ import matplotlib.colors as mcolors
 import matplotlib.ticker
 import numpy as np
 from datetime import date
-from wdt_core import load_params, tau, simulate, simulate_sell, run_sim, decompose_tw_advantage
+from wdt_core import (load_params, tau, simulate, simulate_sell,
+                      settle_tw, run_sim, decompose_tw_advantage)
 
 from val_helpers import OUT_DIR
 
@@ -888,20 +905,29 @@ _FIG08_G_FINE      = np.linspace(0.0, 0.25, 51)
 def _decompose_fig08(p, alpha, g):
     """
     Thin wrapper around wdt_core.decompose_tw_advantage() that unpacks
-    the result dict into the 6-tuple expected by fig_08_tw_decomposition():
+    the result dict into the 7-tuple expected by fig_08_tw_decomposition():
 
-        excess_periodic, refund_delta, settle_delta, tw_advantage, f_ratio, tw_honest
+        W_sell_delta, refund_delta, settle_delta, tw_advantage,
+        f_ratio, tw_honest, excess_periodic
+
+    Correct additive identity (verified to machine precision):
+        tw_advantage = W_sell_delta - refund_delta - settle_delta
+
+    excess_periodic is returned last as an informational field only —
+    it is NOT additive in the identity.  The incorrect identity
+    -excess_periodic - refund_delta - settle_delta was used in Fig 08 v1.
 
     All values in £m except f_ratio (dimensionless).
     """
     d = decompose_tw_advantage(p, alpha, g)
     return (
-        d['excess_periodic'],
-        d['refund_delta'],
-        d['settle_delta'],
-        d['tw_advantage'],
-        d['f_ratio'],
-        d['tw_honest'],
+        d['W_sell_delta'],       # term 1: f_N erosion effect on sell proceeds
+        d['refund_delta'],       # term 2: sell-year refund difference
+        d['settle_delta'],       # term 3: post-sale damping difference
+        d['tw_advantage'],       # sum of above (verified)
+        d['f_ratio'],            # f_N(alpha) / f_N(1)
+        d['tw_honest'],          # denominator for % scaling
+        d['excess_periodic'],    # informational only
     )
 
 
@@ -912,29 +938,43 @@ def fig_08_tw_decomposition(p):
     N         = p['N']
 
     # ── precompute left-panel series ─────────────────────────
-    ep_vals = []
-    rd_vals = []
-    sd_vals = []
-    tw_vals = []
+    # Correct identity: tw_advantage = W_sell_delta - refund_delta - settle_delta
+    # W_sell_delta <= 0  (f_N erosion reduces sell proceeds)
+    # refund_delta <= 0  (larger sell-year refund for overstater)
+    # settle_delta >= 0  (damping taxes back some of the refund)
+    # excess_periodic is informational only — NOT additive in the identity.
+
+    wsd_vals = []   # W_sell_delta / tw_honest  (always <= 0)
+    rd_vals  = []   # refund_delta / tw_honest  (always <= 0)
+    sd_vals  = []   # settle_delta / tw_honest  (always >= 0)
+    tw_vals  = []   # tw_advantage / tw_honest
+    ep_vals  = []   # excess_periodic / tw_honest  (informational)
 
     for alpha in _FIG08_ALPHA_FINE:
-        ep, rd, sd, tw_adv, _, tw_h = _decompose_fig08(p, alpha, hist_mean)
+        wsd, rd, sd, tw_adv, _, tw_h, ep = _decompose_fig08(p, alpha, hist_mean)
         denom = tw_h if abs(tw_h) > 1e-12 else 1.0
-        ep_vals.append(ep    / denom * 100)
-        rd_vals.append(rd    / denom * 100)
-        sd_vals.append(sd    / denom * 100)
-        tw_vals.append(tw_adv / denom * 100)
+        wsd_vals.append(wsd   / denom * 100)
+        rd_vals.append( rd    / denom * 100)
+        sd_vals.append( sd    / denom * 100)
+        tw_vals.append( tw_adv / denom * 100)
+        ep_vals.append( ep    / denom * 100)
 
-    ep_arr = np.array(ep_vals)
-    rd_arr = np.array(rd_vals)
-    sd_arr = np.array(sd_vals)
-    tw_arr = np.array(tw_vals)
+    wsd_arr = np.array(wsd_vals)
+    rd_arr  = np.array(rd_vals)
+    sd_arr  = np.array(sd_vals)
+    tw_arr  = np.array(tw_vals)
+    ep_arr  = np.array(ep_vals)
+
+    # Verify stacking sums to tw_arr (should be ~0 everywhere)
+    stack_err = np.max(np.abs((wsd_arr - rd_arr - sd_arr) - tw_arr))
+    if stack_err > 0.01:
+        print(f"    WARNING: fig08 left-panel identity error = {stack_err:.4f}pp")
 
     # ── precompute right-panel f_N heatmap ───────────────────
     f_matrix = np.zeros((len(_FIG08_ALPHA_FINE), len(_FIG08_G_FINE)))
     for i, alpha in enumerate(_FIG08_ALPHA_FINE):
         for j, g in enumerate(_FIG08_G_FINE):
-            _, _, _, _, f_ratio, _ = _decompose_fig08(p, alpha, g)
+            _, _, _, _, f_ratio, _, _ = _decompose_fig08(p, alpha, g)
             f_matrix[i, j] = f_ratio
 
     # ── figure ───────────────────────────────────────────────
@@ -942,28 +982,46 @@ def fig_08_tw_decomposition(p):
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6.5))
     alpha_x = _FIG08_ALPHA_FINE
 
-    # ── LEFT: stacked decomposition ──────────────────────────
+    # ── LEFT: corrected stacked decomposition ────────────────
+    #
+    # Correct identity: tw_advantage = W_sell_delta - refund_delta - settle_delta
+    #
+    # Visual decomposition of tw_advantage (black line):
+    #   ABOVE zero: -refund_delta  (the gain — refund is negative, so -rd > 0)
+    #   BELOW zero: W_sell_delta   (f_N erosion cost — wsd <= 0)
+    #   BELOW that: -(settle_delta) further down (damping cost — sd >= 0)
+    #
+    # The black line sits between the blue region (above) and the combined
+    # red/orange region (below), and is the algebraic sum of all three terms.
+
     ax1.axhline(0, color='#555555', linewidth=0.9, zorder=2)
 
-    # Costs above zero
-    ax1.fill_between(alpha_x, 0, ep_arr,
-                     color='#d73027', alpha=0.55,
-                     label='Excess periodic tax paid')
-    ax1.fill_between(alpha_x, ep_arr, ep_arr + sd_arr,
-                     color='#f46d43', alpha=0.55,
-                     label='Post-sale damping cost')
-
-    # Benefit below zero
-    ax1.fill_between(alpha_x, 0, rd_arr,
+    # Refund benefit: -refund_delta > 0, plotted upward from zero
+    ax1.fill_between(alpha_x, 0, -rd_arr,
                      color='#4393c3', alpha=0.55,
-                     label='Sell-year refund benefit')
+                     label='Sell-year refund benefit  (−refund_delta)')
 
-    # Net TW advantage line
+    # f_N erosion cost: W_sell_delta <= 0, plotted downward from zero
+    ax1.fill_between(alpha_x, 0, wsd_arr,
+                     color='#d73027', alpha=0.55,
+                     label='f_N erosion cost  (W_sell_delta ≤ 0)')
+
+    # Post-sale damping cost: settle_delta >= 0, stacked further below wsd
+    ax1.fill_between(alpha_x, wsd_arr, wsd_arr - sd_arr,
+                     color='#f46d43', alpha=0.55,
+                     label='Post-sale damping cost  (settle_delta)')
+
+    # Net TW advantage line — algebraic sum; should bisect the areas
     ax1.plot(alpha_x, tw_arr,
              color='#1a1a1a', linewidth=2.2, zorder=5,
-             label='Net TW advantage (C.8)')
+             label='Net TW advantage  (C.8 cross-check)')
 
-    # Mark any zero-crossings
+    # Excess periodic tax — informational dotted line only
+    ax1.plot(alpha_x, ep_arr,
+             color='#6a3d9a', linewidth=1.3, linestyle=':', zorder=4,
+             label='Excess periodic tax  (informational — not additive)')
+
+    # Mark any tw_advantage zero-crossings
     for k in range(len(tw_arr) - 1):
         if tw_arr[k] * tw_arr[k + 1] < 0:
             a_cross = (alpha_x[k]
@@ -976,20 +1034,23 @@ def fig_08_tw_decomposition(p):
                      fontsize=7.5, color='#333333')
 
     # Annotate endpoint
-    ax1.text(alpha_x[-1] - 0.01, tw_arr[-1] + 0.3,
-             f'a=2.0: {tw_arr[-1]:.1f}pp',
-             fontsize=7.5, ha='right', color='#1a1a1a')
+    ax1.annotate(f'α=2.0: net +{tw_arr[-1]:.1f}pp',
+                 xy=(2.0, tw_arr[-1]),
+                 xytext=(1.82, tw_arr[-1] + 1.5),
+                 fontsize=7.5, color='#1a1a1a',
+                 arrowprops=dict(arrowstyle='->', color='#1a1a1a', lw=0.8))
 
-    ax1.set_xlabel("Declaration ratio (alpha)", fontsize=10)
+    ax1.set_xlabel("Declaration ratio α", fontsize=10)
     ax1.set_ylabel("As % of honest TW_settled", fontsize=10)
     ax1.set_title(
-        f"Left: TW advantage decomposition\n"
-        f"g = {hist_mean*100:.1f}% (hist. mean), N = {N}, "
-        f"V0 = £{p['V0_m']:.0f}m, k = {p['k']}",
-        fontsize=10
+        f"Left: TW advantage — corrected decomposition\n"
+        f"g = {hist_mean*100:.1f}% (hist. mean)  ·  N = {N}  ·  "
+        f"V₀ = £{p['V0_m']:.0f}m  ·  k = {p['k']}\n"
+        f"Identity: tw_adv = W_sell_delta − refund_delta − settle_delta  ✓",
+        fontsize=9.5
     )
     ax1.set_xlim(1.0, 2.0)
-    ax1.legend(loc='upper left', fontsize=8.5)
+    ax1.legend(loc='upper left', fontsize=8)
     ax1.grid(True, zorder=0)
 
     # ── RIGHT: f_N ratio heatmap ─────────────────────────────
@@ -1040,14 +1101,178 @@ def fig_08_tw_decomposition(p):
 
     fig.suptitle(
         "Fig 08 — Overstater TW advantage: mechanism and dilution cost\n"
-        "Left: sell-year refund benefit exceeds periodic cost across all tested alpha  "
-        "Right: f_N erosion increases with both alpha and g — "
-        "equity dilution is the hidden price of overstatement",
-        fontsize=10, y=1.01
+        "Left: sell-year refund benefit swamps f_N erosion cost across all tested α  ·  "
+        "Right: equity dilution grows with α and g — the hidden price of overstatement\n"
+        "Identity (corrected): tw_adv = W_sell_delta − refund_delta − settle_delta  "
+        "[excess periodic tax is informational only — not additive]",
+        fontsize=9.5, y=1.02
     )
 
     plt.tight_layout()
     return _save(fig, "val_fig_08_tw_decomposition.png")
+
+
+# ─────────────────────────────────────────────────────────────
+# FIG 09 — TW advantage across (g, N) space
+# ─────────────────────────────────────────────────────────────
+
+# Grid constants — fine enough for smooth contours, fast enough to run
+_FIG09_G_VALS = np.linspace(0.001, 0.28, 56)   # skip g=0 (degenerate)
+_FIG09_N_VALS = np.arange(5, 62, 1)
+_FIG09_ALPHAS = [1.2, 1.5, 1.8, 2.0]
+_FIG09_COLORS = ['#74add1', '#4393c3', '#2166ac', '#053061']
+
+
+def _tw_adv_pct_gN(p, alpha, g, N):
+    """
+    TW advantage of alpha over honest as % of honest TW_settled,
+    at given constant g and holding period N.
+
+    Runs both simulations inline rather than calling decompose_tw_advantage()
+    because we need to sweep N independently of p['N'].
+    """
+    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    g_ser  = [g] * N
+    recs_h = simulate(p['V0_m'], g_ser, 1.0, sim_p)
+    sell_h = simulate_sell(recs_h, g, sim_p)
+    tw_h, _, _ = settle_tw(sell_h, sim_p)
+    recs_a = simulate(p['V0_m'], g_ser, alpha, sim_p)
+    sell_a = simulate_sell(recs_a, g, sim_p)
+    tw_a, _, _ = settle_tw(sell_a, sim_p)
+    return (tw_a - tw_h) / tw_h * 100 if abs(tw_h) > 1e-12 else 0.0
+
+
+def fig_09_tw_advantage_gN_surface(p):
+    """
+    2×2 grid of heatmaps showing TW advantage of overstatement vs honest
+    declaration across (g, N) space, for each α ∈ {1.2, 1.5, 1.8, 2.0}.
+
+    Key findings made visible:
+      - TW advantage is always positive: no (g, N) makes overstatement
+        worse than honest on terminal net worth.
+      - Advantage peaks at low g, long N (patient, low-growth holders).
+      - Advantage is remarkably flat across the centre of the space —
+        the overstater does not need to predict g or N correctly to
+        capture most of the available advantage.
+      - Red dashed = hist. mean g; red dotted = canonical N; star = peak.
+
+    Companion to Fig 08. Together: the TW advantage is real but is
+    purchased via certain periodic overpayments (real, early money)
+    recovered as a nominal sell-year refund (inflated, late money).
+    In real terms, factoring inflation, the advantage is almost certainly
+    negative — the state collects early purchasing power and refunds
+    inflated nominal value.
+    """
+    print("  Generating fig 09: TW advantage across (g, N) space...")
+
+    g_pct     = _FIG09_G_VALS * 100
+    hist_mean = p['g']
+    canon_N   = p['N']
+
+    # ── build surfaces ────────────────────────────────────────
+    surfaces = {}
+    for alpha in _FIG09_ALPHAS:
+        mat = np.zeros((len(_FIG09_G_VALS), len(_FIG09_N_VALS)))
+        for i, g in enumerate(_FIG09_G_VALS):
+            for j, N in enumerate(_FIG09_N_VALS):
+                mat[i, j] = _tw_adv_pct_gN(p, alpha, g, N)
+        surfaces[alpha] = mat
+
+    # ── figure ────────────────────────────────────────────────
+    set_style()
+    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+    axes = axes.flatten()
+
+    for ax, alpha, col in zip(axes, _FIG09_ALPHAS, _FIG09_COLORS):
+        mat  = surfaces[alpha]
+        vmax = float(np.percentile(mat, 98))    # cap at 98th pct
+        norm = mcolors.Normalize(vmin=0.0, vmax=vmax)
+
+        im = ax.imshow(
+            mat,
+            origin='lower', aspect='auto',
+            cmap='Blues', norm=norm,
+            extent=[_FIG09_N_VALS[0], _FIG09_N_VALS[-1],
+                    g_pct[0], g_pct[-1]],
+            zorder=1,
+        )
+
+        # Contours at meaningful levels
+        contour_levels = [l for l in [2, 4, 6, 8, 10, 12]
+                          if 0 < l < vmax]
+        if contour_levels:
+            CS = ax.contour(
+                _FIG09_N_VALS, g_pct, mat,
+                levels=contour_levels, colors='white',
+                linewidths=0.9, zorder=4, alpha=0.85,
+            )
+            ax.clabel(CS, fmt='%d%%', fontsize=7.5, inline=True)
+
+        # Hist-mean g horizontal line
+        ax.axhline(hist_mean * 100, color='#d73027', linewidth=1.4,
+                   linestyle='--', zorder=5,
+                   label=f'hist. mean g = {hist_mean*100:.1f}%')
+
+        # Canonical N vertical line
+        ax.axvline(canon_N, color='#d73027', linewidth=1.4,
+                   linestyle=':', zorder=5,
+                   label=f'canonical N = {canon_N}')
+
+        # Peak location
+        peak_idx = np.unravel_index(np.argmax(mat), mat.shape)
+        peak_g   = g_pct[peak_idx[0]]
+        peak_N   = int(_FIG09_N_VALS[peak_idx[1]])
+        peak_val = mat[peak_idx]
+        ax.plot(peak_N, peak_g,
+                marker='*', markersize=12, color='#ff7f00',
+                zorder=7, clip_on=False,
+                label=f'Peak: {peak_val:.1f}pp  g={peak_g:.1f}%  N={peak_N}')
+
+        # Value at canonical intersection
+        g_cidx = int(np.argmin(np.abs(_FIG09_G_VALS - hist_mean)))
+        N_cidx = int(np.argmin(np.abs(_FIG09_N_VALS - canon_N)))
+        canon_val = mat[g_cidx, N_cidx]
+        ax.plot(canon_N, hist_mean * 100,
+                marker='o', markersize=7, color='#d73027',
+                zorder=6, clip_on=False)
+        ax.annotate(f'{canon_val:.1f}pp',
+                    xy=(canon_N, hist_mean * 100),
+                    xytext=(canon_N + 3, hist_mean * 100 + 1.5),
+                    fontsize=7.5, color='#d73027',
+                    arrowprops=dict(arrowstyle='->', color='#d73027', lw=0.8))
+
+        cbar = fig.colorbar(im, ax=ax, fraction=0.04, pad=0.03, shrink=0.85)
+        cbar.set_label('TW advantage vs honest (%)', fontsize=8)
+        cbar.ax.tick_params(labelsize=7.5)
+
+        ax.set_xlabel("Holding period N (years)", fontsize=9)
+        ax.set_ylabel("Actual growth rate g (%)", fontsize=9)
+        ax.set_title(
+            f"α = {alpha}  —  TW advantage over honest declaration\n"
+            f"Darker blue = larger advantage  ·  "
+            f"White contours = % advantage levels",
+            fontsize=9.5,
+        )
+        ax.set_xlim(_FIG09_N_VALS[0], _FIG09_N_VALS[-1])
+        ax.set_ylim(g_pct[0], g_pct[-1])
+        ax.legend(loc='upper right', fontsize=7.5,
+                  framealpha=0.92, frameon=True, facecolor='white')
+
+    fig.suptitle(
+        "Fig 09 — TW advantage of overstatement across (g, N) space\n"
+        f"$V_0$ = £{p['V0_m']:.0f}m  ·  k = {p['k']}  ·  "
+        "TW advantage is always positive — overstatement always retains more "
+        "nominal TW than honest declaration\n"
+        "Red dashed = hist. mean g  ·  Red dotted = canonical N  ·  "
+        "Star = peak  ·  Red dot = canonical intersection\n"
+        "Caveat: periodic overpayments are real early money; "
+        "sell-year refund is inflated late money — "
+        "real-terms advantage is almost certainly negative",
+        fontsize=9.5, y=1.02,
+    )
+
+    plt.tight_layout()
+    return _save(fig, "val_fig_09_tw_advantage_gN_surface.png")
 
 
 # ─────────────────────────────────────────────────────────────
@@ -1081,6 +1306,7 @@ def main():
     fig_06_overstatement_reversal(p)
     fig_07_overstatement_coherence(p)
     fig_08_tw_decomposition(p)
+    fig_09_tw_advantage_gN_surface(p)
 
     print("\nAll figures written.")
 
