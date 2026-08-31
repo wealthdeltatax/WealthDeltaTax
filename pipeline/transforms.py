@@ -28,11 +28,19 @@ from config import AUTHOR, SITE_URL, _format_date
 # ── 1. LaTeX artifact stripping ───────────────────────────────────────────────
 
 _LATEX_PATTERNS = [
-    r"\\newpage", r"\\medskip", r"\\bigskip", r"\\smallskip",
-    r"\", r"\s*\{\.appendix\}", r"\\maketitle",
-    r"\\begin\{center\}", r"\\end\{center\}",
-    r"\\noindent", r"\\clearpage",
-    r"\\vspace\*?\{[^}]+\}", r"\\hspace\*?\{[^}]+\}",
+    r"\\newpage",
+    r"\\medskip",
+    r"\\bigskip",
+    r"\\smallskip",
+    r"\\",
+    r"\\*s\{\.appendix\}",
+    r"\\maketitle",
+    r"\\begin\{center\}",
+    r"\\end\{center\}",
+    r"\\noindent",
+    r"\\clearpage",
+    r"\\vspace\*?\{[^}]+\}",
+    r"\\hspace\*?\{[^}]+\}",
     r"\\setcounter\{[^}]+\}\{[^}]+\}",
 ]
 
