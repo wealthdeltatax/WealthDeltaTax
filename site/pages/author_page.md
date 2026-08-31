@@ -2,8 +2,6 @@
 title: "Author"
 ---
 
-# K. Ogata
-
 K. Ogata is a UK-based independent scholar with a background in engineering and education.
 
 The Wealth Delta Tax is an interdisciplinary project, drawing on economics, law, moral philosophy, and constitutional governance — fields the author approached without institutional affiliation, funding, or sponsorship of any kind. That independence is not incidental: it is the condition under which this kind of work can be done without constraint.
