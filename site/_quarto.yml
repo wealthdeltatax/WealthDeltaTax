@@ -99,6 +99,8 @@ website:
         href: glossary.html
       - text: "Internal Bibliography"
         href: internal_bibliography.html
+      - text: "Revision History"
+        href: revision_history.html
 
   sidebar:
     style: "docked"
