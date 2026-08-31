@@ -34,6 +34,7 @@ Correspondence via [wealthdeltatax@gmail.com](mailto:wealthdeltatax@gmail.com)
 - [GitHub (wealthdeltatax)](https://github.com/wealthdeltatax)
 - [Twitter / X (@wealthdeltatax)](https://x.com/wealthdeltatax)
 - [YouTube (@wealthdeltatax)](https://youtube.com/@wealthdeltatax)
+- [Instagram (@wealthdeltatax)](https://www.instagram.com/wealthdeltatax/)
 
 ---
 
