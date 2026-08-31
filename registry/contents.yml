@@ -85,6 +85,8 @@ MF:
     '9.5': Governing Council calibration parameters
     '10': Perceived Fairness and Democratic Legitimacy
     '11': Conclusion
+    '3.2': Collective Inputs to Accumulation
+    '3.3': Why the Delta
 LR.A:
   page: lr-a.html
   title: Research Gaps in the Existing Literature
@@ -190,6 +192,7 @@ VAL:
     '14.4': Structural and Irreducible Limits of the Design
     '14.5': Governing Council Calibration Parameters
     '15': Conclusion
+    '11.5': Scope
 VAL.A:
   page: val-a.html
   title: Valuing Wealth — Mathematical and Simulation Companion
@@ -267,6 +270,8 @@ VAL.A:
     G.4: Portfolio Positions, Cash Flows, and Manufactured Neutrality
     G.5: Notional Exposure and Leveraged Positions
     G.6: Scope Boundary
+    A.4.4.2: TW_settled and the decomposition identity
+    C.11: Overstater TW Advantage Decomposition
 VAL.B:
   page: val-b.html
   title: Valuing Wealth — Worked Examples
@@ -1031,6 +1036,7 @@ SWEEPS.A:
     D.7: LRR Floor (lrr_years)
     D.7.1: lrr_years sweep
     E: Reading Notes
+    C: Reading Notes
 FM:
   page: fm.html
   title: First Mover
