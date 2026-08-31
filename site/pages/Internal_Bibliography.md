@@ -56,3 +56,4 @@ This page lists all papers in the Wealth Delta Tax series with their current Zen
 [SCOPE] Ogata, K. (2026). *The Wealth Delta Tax: Scope Boundary — Questions Outside This Project*. Unpublished.
 
 [ADD] Ogata, K. (2026). *The Wealth Delta Tax: Addendum: Implementation Calibration Examples*. Unpublished.
+ 
