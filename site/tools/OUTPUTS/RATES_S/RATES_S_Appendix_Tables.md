@@ -1,14 +1,14 @@
-# D. WDT Rate Parameter Sensitivity Sweep
+# B. WDT Rate Parameter Sensitivity Sweep
 
-**Run date:** 2026-08-30  
+**Run date:** 2026-08-31  
 **Model version:** v6 (rates_model.py / wdt_core.py)  
 **Parameters file:** `260812_WDT_Params.toml`  
 
-## D.1. Purpose
+## B.1. Purpose
 
 This document sweeps each of the four WDT rate-function parameters independently, holding the other three at Balanced baseline values, and reports how key transition metrics vary across the full 73-year historical start-year sweep (1947–2019 UK equity return series). It is intended as orientation material for future Governing Council calibration work, not as a scenario recommendation. Parameter interactions are not modelled here; joint sweeps are a natural second-order extension.
 
-### D.1.1 The Rate Function
+### B.1.1 The Rate Function
 
 The WDT logistic marginal rate function is:
 
@@ -16,7 +16,7 @@ $$\tau(W) = \frac{\tau_m}{1 + \left(\frac{\tau_m - \tau_0}{\tau_0}\right)e^{-k(W
 
 Note: the docstring in `rates_model.py` contains a typographical error writing $(1-\tau_0)/\tau_0$ as the denominator coefficient. The implementation in `wdt_core.tau()` correctly uses $(\tau_m - \tau_0)/\tau_0$. All results here use the correct formula.
 
-### D.1.2 Balanced Baseline Parameters
+### B.1.2 Balanced Baseline Parameters
 
 | Parameter | Baseline value | Role |
 |---|---|---|
@@ -42,7 +42,7 @@ Note: the docstring in `rates_model.py` contains a typographical error writing $
 | Wealth brackets | 10 |
 | Growth tiers | 4 |
 
-### D.1.3 Metrics
+### B.1.3 Metrics
 
 **Success:** LRR fills within the 71-year modelling window AND (SRR never breaches OR SRR breach is fully covered by LRR balance at time of breach).
 
@@ -54,11 +54,11 @@ Note: the docstring in `rates_model.py` contains a typographical error writing $
 
 **SRR fill year:** First year the SRR reaches its capitalisation target. Should be invariant at ~3 across most calibrations.
 
-**LRR surplus at fill:** LRR balance minus LRR target at the fill year, in £D. Safety margin above the floor at the breakeven point.
+**LRR surplus at fill:** LRR balance minus LRR target at the fill year, in £b. Safety margin above the floor at the breakeven point.
 
 *All distributions are across the 73 historical start years 1947–2019. The 2006 start year is extracted separately as the worst-case historical scenario (longest LRR fill time at Balanced parameters).*
 
-## D.2. Floor Rate (τ_0)
+## B.2. Floor Rate (τ_0)
 
 τ_0 sets the marginal rate at W = W_min. A higher floor raises effective rates across the entire taxable population (since every taxpayer above W_min pays at least τ_0 on their first pound of delta); a lower floor concentrates the rate gradient in the upper distribution.
 
@@ -98,7 +98,7 @@ Other parameters held at Balanced baseline: τ_m = 70%,  k = 0.001,  W_min = £2
 | 45% | 39.5% | 35.1% | 21 | 2075 | YES |
 | 50% | 38.0% | 31.2% | 20 | 434 | YES |
 
-## D.3. Ceiling Rate (τ_m)
+## B.3. Ceiling Rate (τ_m)
 
 τ_m is the asymptotic ceiling the marginal rate approaches but never reaches. Its primary effect is on the top brackets where W >> W_min; the logistic function brings effective rates close to τ_m only at very high declared wealth levels. Raising τ_m increases revenue from the highest-wealth, highest-growth cells disproportionately, since those cells also generate the largest absolute deltas.
 
@@ -140,7 +140,7 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  k = 0.001,  W_min = £2
 | 95% | 20.8% | 27.1% | 29 | 528 | — (no breach) |
 | 100% | 20.8% | 27.1% | 29 | 529 | — (no breach) |
 
-## D.4. Steepness (k)
+## B.4. Steepness (k)
 
 k (per £m) controls how rapidly the marginal rate climbs from τ_0 toward τ_m through the wealth distribution. Low k produces a shallow gradient — most taxpayers face rates close to τ_0 even at high wealth levels, with τ_m approached only at very large holdings. High k produces a steep step — the rate reaches τ_m quickly above W_min, compressing the gradient into a narrow wealth band.
 
@@ -180,7 +180,7 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  W_min = £
 | 0.0500 | 21.3% | 28.1% | 26 | 1442 | YES |
 | 0.1000 | 25.3% | 31.8% | 26 | 2820 | YES |
 
-## D.5. Entry Point (W_min)
+## B.5. Entry Point (W_min)
 
 W_min (£m) is the wealth level below which the rate function produces zero liability. It is a rate design parameter, not a population boundary — all UK adults are within the taxable population regardless of W_min. Lower W_min pulls more of the 50th–80th percentile brackets into material liability; higher W_min concentrates the tax on the top percentiles. W_min also affects refund exposure in loss years, since a taxpayer below W_min receives no refund even if their delta is negative.
 
@@ -218,7 +218,7 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001.
 | £7.5m | 14.2% | 26.4% | 35 | 115 | — (no breach) |
 | £10.0m | 14.0% | 30.1% | 38 | 2710 | — (no breach) |
 
-## D.6. SRR Capitalisation Ratio (srr_ratio)
+## B.6. SRR Capitalisation Ratio (srr_ratio)
 
 srr_ratio sets the SRR capitalisation target as a multiple of average annual net WDT income. A higher ratio means the SRR must accumulate more before it is considered fully capitalised, which delays SRR fill and thereby reduces the flow into the LRR during the early accumulation period. A lower ratio allows faster SRR fill and faster LRR accumulation, but at the cost of a thinner refund buffer. The Governing Council recommended floor is 3×; the working SSM-derived value is 3×.
 
@@ -260,7 +260,7 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001,
 | 8.0× | 24.0% | 33.2% | 32 | 768 | — (no breach) |
 | 10.0× | 26.1% | 36.4% | 34 | 2489 | — (no breach) |
 
-## D.7. LRR Floor (lrr_years)
+## B.7. LRR Floor (lrr_years)
 
 lrr_years sets the LRR floor as a multiple of prevailing government expenditure. The LRR target therefore grows over time as nominal expenditure grows at 4.51% p.a. A higher floor requires the LRR to accumulate more before Phase Two becomes viable, directly extending the LRR fill year. A lower floor brings LRR fill earlier but with a thinner buffer against sustained drawdown post-fill. The recommended minimum is 3 years.
 

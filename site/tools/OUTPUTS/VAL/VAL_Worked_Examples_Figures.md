@@ -1,6 +1,6 @@
 # VAL.B Worked Examples — Numerical Figures
 
-**Generated:** 2026-08-30  
+**Generated:** 2026-08-31  
 **Model:** Python v1.0 standalone · Route C simulation throughout. All figures use TW_settled/Net_settled (post-sale settlement correction). Presented as TW/Net in table labels to match VAL.B nomenclature.  
 **Parameters:** $\tau_0$=15%, $\tau_m$=70%, $k$=0.001, $W_{min}$=£2m (all examples unless stated).  
 **Option A convention:** N annual periods used as assessment windows throughout.  §K limitation: 3 annual periods used as proxy for 3 multi-year windows — expected to produce variance from a window-aware model; directional claims unaffected.  §L and §M: bespoke closed-form arithmetic, not run_val_sim.  

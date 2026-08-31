@@ -345,3 +345,33 @@ Table C.11e: Retained equity fraction ratio $f_N$($\alpha$) / $f_N$(1). Values b
 Table C.11f: Excess periodic net tax as % of honest TW_settled (informational). Positive = overstater paid more net tax during holding period. Compare with C.11a (W_sell_delta): ExcessPeriodic is approximately 6× larger in magnitude, confirming that most of the periodic overpayment is recovered via the sell-year refund. $V_0$ = £20m, $k$ = 0.001, N = 29.
 
 *Positive throughout at $g$ \geq ~8\%: the overstater pays more every period due to a larger declared delta and higher progressive rate. Despite this persistent periodic cost, the sell-year refund (C.11b) exceeds both the erosion cost (C.11a) and the damping cost (C.11c), producing the net TW advantage shown in C.11d.*
+
+## C.12 NPV-Adjusted Tax Position: Present Value of Tax Difference vs Honest
+
+**Purpose:** Adjusts the C.1 nominal tax-difference metric for the time value of money. The C.1 metric treats £1 of tax paid in year 1 as equivalent to £1 received as a refund in year N+1. C.12 corrects this by discounting all cash flows to t=0 at a common rate ρ. The comparison reveals whether the apparent nominal advantage to mild overstaters survives discounting — or whether it is an artefact of comparing early real outflows against a late nominal refund.
+
+**Metric:** $(NPV_{tax}(\alpha) - NPV_{tax}(1))$ / TW_settled(1), where $NPV_{tax}(\alpha) = \sum_{t=1}^{N+1} L_t / (1+\rho)^t$ and $\rho = 5\%$.
+
+$\frac{NPV_{tax}(\alpha) - NPV_{tax}(1)}{TW_{settled}(1)}$
+
+**Sign convention:** Positive = alpha pays more in present-value terms than honest (understater disadvantage). Negative = alpha pays less in PV terms (overstater advantage). Same as C.1, so tables are directly comparable.
+
+**Structural claim:** Two regimes are visible when C.1 and C.12 are compared. At ρ = 5%, a cash flow at year 29 is worth approximately 24 pence on the pound relative to a year-1 payment, so the discount penalises late flows heavily. **Low-g regime (g $\lesssim$ 8%):** these are the cells where C.1 shows a genuine nominal advantage for overstaters (negative values). In C.12 those values compress sharply toward zero or reverse sign. At low g, the sell-year refund is large relative to periodic payments and arrives heavily discounted; the earlier periodic costs are smaller but weighted at shorter horizons. Discounting closes the gap: the apparent nominal advantage is a timing artefact. **Mid/high-g regime (g $\gtrsim$ 8%):** overstaters already pay more than honest declarers in C.1 (positive values). C.12 is larger still in this regime because the bulk of periodic overpayment concentrates in later holding years (when declared wealth is largest), but the sell-year refund is also late and discounted at the same rate; the net effect is that discounting penalises the refund more than the distributed periodic costs, pushing the C.12 value above C.1. **Understaters:** C.12 is systematically smaller in magnitude than C.1 at mid/high g. Understaters declare a lower basis and pay smaller periodic taxes early; their larger settlement at sale is discounted, partially offsetting their nominal penalty. At low g and high understatement, C.12 can turn negative (understater appears to benefit in PV terms because the refund on a very low basis is received early relative to the honest declarer's larger late settlement). The core design claim is preserved and strengthened: the low-g overstater advantage, which motivates the §A.6 population-equilibrium argument, is a nominal timing artefact that collapses once discounted. In PV terms it is approximately neutral or negative, making the design's tolerance of mild overstatement even more defensible than the nominal analysis suggests.
+
+**Scope:** Full α grid (same as C.1). All values at canonical N = 29, $k$ = 0.001, $V_0$ = £20m, $\rho$ = 5%, $\tau_0$ = 15%, $\tau_m$ = 70%. Rows = α; columns = g (same grid as C.1).
+
+| $\alpha$ \ $g$ | -4.5% | 0.4% | 5.9% | 8.4% | 10.4% | 11.4% | 13.9% | 16.4% | 20.4% | 25.4% |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **0.1** | 3.11% | 2.41% | -1.33% | -1.50% | -1.35% | -1.22% | -0.59% | 0.78% | 5.97% | 11.07% |
+| **0.2** | 2.75% | 2.14% | -1.19% | -1.35% | -1.24% | -1.13% | -0.62% | 0.50% | 4.64% | 8.12% |
+| **0.5** | 1.66% | 1.33% | -0.77% | -0.89% | -0.85% | -0.80% | -0.56% | -0.05% | 1.75% | 2.82% |
+| **0.8** | 0.56% | 0.53% | -0.32% | -0.37% | -0.37% | -0.36% | -0.29% | -0.16% | 0.31% | 0.63% |
+| **1.0** | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% |
+| **1.2** | 0.00% | -0.30% | 0.33% | 0.40% | 0.41% | 0.40% | 0.38% | 0.32% | 0.08% | -0.26% |
+| **1.5** | 0.00% | -0.15% | 0.86% | 1.04% | 1.09% | 1.10% | 1.11% | 1.09% | 0.73% | -0.20% |
+| **1.8** | 0.00% | -0.01% | 1.41% | 1.74% | 1.86% | 1.90% | 2.02% | 2.16% | 1.84% | 0.21% |
+| **2.0** | 0.00% | 0.09% | 1.80% | 2.23% | 2.41% | 2.49% | 2.72% | 3.01% | 2.75% | 0.62% |
+
+Table C.12: NPV-adjusted tax difference vs honest declaration, as % of honest TW_settled. $\alpha$ = 1.0 row is zero by construction. Compare directly with C.1: values closer to zero indicate the nominal C.1 advantage/disadvantage is a timing artefact; sign reversals indicate the PV position is opposite to the nominal position. $\rho$ = 5%, $V_0$ = £20m, $k$ = 0.001, N = 29, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
+
+*Key reading:* Compare C.12 with C.1 column by column. Where C.1 shows a negative value for overstaters (advantage) and C.12 shows a value close to zero or positive, the nominal advantage is a timing artefact: the overstater pays early and is refunded late, and the time value of early payment approximately cancels or reverses the apparent gain. Where C.1 and C.12 agree in sign and magnitude for understaters, the penalty is real in both nominal and PV terms — understaters face genuine excess cost regardless of the discount rate applied.

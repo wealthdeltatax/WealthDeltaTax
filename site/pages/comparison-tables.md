@@ -1,4 +1,7 @@
-## WDT vs Current Realisation-Based System and Stock Wealth Tax
+---
+title: "Comparison Tables"
+description: "WDT vs Current Realisation-Based System and Stock Wealth Tax."
+---
 
 | Criterion | Current realisation-based system | Stock wealth tax | **WDT** |
 |---|---|---|---|

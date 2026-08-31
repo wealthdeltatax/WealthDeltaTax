@@ -217,7 +217,7 @@ def load() -> SiteConfig: ...
 The five per-paper text transforms, applied in order by `process_file()`.
 
 **Functions:**
-- `strip_latex(text)` — removes `\newpage`, `\medskip`, `\tableofcontents`, and other LaTeX layout commands
+- `strip_latex(text)` — removes `\newpage`, `\medskip`, ``, and other LaTeX layout commands
 - `convert_crossrefs(text, link_map, anchor_map)` — converts `(PAPER §X.Y)` and `PAPER §X.Y` patterns to markdown hyperlinks
 - `convert_internal_bibliography(lines)` — converts `[CODE] ...` bibliography lines to styled `:::` divs
 - `inject_front_matter(text, shortcode, paper_meta)` — enriches or creates YAML front matter (description, author, date, version, keywords)

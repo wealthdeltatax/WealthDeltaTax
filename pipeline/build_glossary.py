@@ -112,7 +112,7 @@ def extract_glossary_entries(md_text: str) -> list[dict]:
             defn = " ".join(current_def_lines).strip()
             # Strip trailing cross-link arrows already in source
             defn = re.sub(r'\s*→\s*[\(\[].*', '', defn).strip()
-            # Strip LaTeX commands (e.g. \newpage \tableofcontents)
+            # Strip LaTeX commands (e.g. \newpage )
             defn = re.sub(r'\\[a-zA-Z]+\*?(\{[^}]*\})?', '', defn).strip()
             entries.append({"term": current_term, "definition": defn})
 

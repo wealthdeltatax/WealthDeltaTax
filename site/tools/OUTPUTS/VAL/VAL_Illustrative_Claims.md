@@ -1,6 +1,6 @@
 # VAL Illustrative Claims — Key Figures for Main Body Citation
 
-**Generated:** 2026-08-30  
+**Generated:** 2026-08-31  
 **Model:** Python v1.0 standalone · Parameters: $V_0$=£20m, $\tau_0$=15%, $\tau_m$=70%, $k$=0.001, $W_{min}$=£2m, $g$=10.45%, N=29  
 **Source:** See limitation notes in §7 before citing any figure.
 

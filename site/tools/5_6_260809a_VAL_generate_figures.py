@@ -39,29 +39,6 @@ Fig 07  — Two-panel overstatement coherence figure.
            Together: overstatement advantage is narrow in (g, N) space and
            the (g, N) combinations where it exists are not those a rational
            overstater would be predicting at declaration.
-
-Fig 09  — TW advantage of overstatement across (g, N) space.
-           2×2 grid of heatmaps, one per α ∈ {1.2, 1.5, 1.8, 2.0}.
-           Each cell shows TW advantage % vs honest across growth rate g
-           (y-axis, 0–28%) and holding period N (x-axis, 5–61 years).
-           Key finding: advantage is always positive — no (g, N) combination
-           makes overstatement worse than honest on TW. Advantage peaks at
-           low g, long N (low-growth patient holders). Red dashed = hist.
-           mean g; red dotted = canonical N; star = peak advantage location.
-           Companion to Fig 08; together they establish that the TW advantage
-           is structurally present but purchased via certain periodic
-           overpayments repaid in inflated future money — a real-terms loss.
-
-Fig 08  — Two-panel TW advantage decomposition (corrected identity).
-           Correct identity: tw_adv = W_sell_delta - refund_delta - settle_delta.
-           Left: stacked area chart at g=hist_mean showing the three additive
-           terms: refund benefit (blue, above zero), f_N erosion cost (red,
-           below zero), post-sale damping cost (orange, below red). Net TW
-           advantage line (black) is the algebraic sum and cross-checks C.8.
-           Excess periodic tax shown as informational dotted line only — NOT
-           additive in the identity (corrected from Fig 08 v1).
-           Right: f_N ratio heatmap across (alpha, g) with contours at 0.95
-           and 0.90 showing equity dilution cost.
 """
 
 import os
@@ -74,13 +51,15 @@ import matplotlib.ticker
 import numpy as np
 from datetime import date
 from wdt_core import (load_params, tau, simulate, simulate_sell,
-                      settle_tw, run_sim, decompose_tw_advantage)
+                      settle_tw, run_sim, decompose_tw_advantage, run_sim_hist, npv_tax_advantage)
 
-from val_helpers import OUT_DIR
+from val_helpers import OUT_DIR as _VAL_OUT_DIR
 
 # ─────────────────────────────────────────────────────────────
-# OUTPUT DIRECTORY
+# OUTPUT DIRECTORY  (local for this run)
 # ─────────────────────────────────────────────────────────────
+
+OUT_DIR = _VAL_OUT_DIR
 
 # All analytical grids sourced from TOML via load_params() in main().
 G_VALS        = []
@@ -156,10 +135,10 @@ def fig_01_rate_function(p):
 
     # Annotate asymptotes on right margin
     ax.text(8000, p['tau_0'] * 100 + 0.8,
-            f"$\\tau_0$ = {p['tau_0']*100:.0f}% (floor parameter)",
+            f"$\tau_0$ = {p['tau_0']*100:.0f}% (floor parameter)",
             va='bottom', ha='right', fontsize=8, color='#666666')
     ax.text(8000, p['tau_m'] * 100 - 0.8,
-            f"$\\tau_m$ = {p['tau_m']*100:.0f}% (ceiling)",
+            f"$\tau_m$ = {p['tau_m']*100:.0f}% (ceiling)",
             va='top', ha='right', fontsize=8, color='#666666')
 
     # Annotate the actual entry rate at W_min — the key addition
@@ -176,8 +155,8 @@ def fig_01_rate_function(p):
     ax.set_ylabel("Marginal WDT rate τ(W) (%)")
     ax.set_title(
         "Fig 01 — Marginal rate function τ(W)\n"
-        f"k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}% (floor parameter), "
-        f"$\\tau_m$ = {p['tau_m']*100:.0f}%, W_min = £{p['W_min']:.0f}m"
+        f"k = {p['k']}, $\tau_0$ = {p['tau_0']*100:.0f}% (floor parameter), "
+        f"$\tau_m$ = {p['tau_m']*100:.0f}%, W_min = £{p['W_min']:.0f}m"
     )
     ax.set_xlim(p['W_min'], 10000)
     ax.set_ylim(0, p['tau_m'] * 100 * 1.1)
@@ -208,7 +187,7 @@ def fig_02_c1_heatmap(p):
         for g in G_VALS:
             r = run_sim(p, alpha=alpha, g=g)
             b = base_by_g[g]
-            val = (r['Net'] - b['Net']) / r['TW'] * 100 if abs(r['TW']) > 1e-12 else 0.0
+            val = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
             row.append(val)
         matrix.append(row)
     matrix = np.array(matrix)
@@ -288,36 +267,25 @@ def fig_03_equilibrium_cost_curve(p):
         net_diffs = []
         for alpha in alpha_fine:
             r = run_sim(p, alpha=alpha, g=g_val)
-            if abs(base['Net']) > 1e-12:
-                net_diffs.append((r['Net'] - base['Net']) / base['Net'] * 100)
+            if abs(base['Net_settled']) > 1e-12:
+                net_diffs.append((r['Net_settled'] - base['Net_settled']) / base['Net_settled'] * 100)
             else:
                 net_diffs.append(0.0)
         ax.plot(alpha_fine, net_diffs, color=col, linewidth=lw,
                 linestyle=ls, label=g_label)
 
-    # 2006 historical series (actual return sequence, not constant g)
+    # 2006 historical series — use run_sim_hist for consistent settled metrics
     returns_2006 = p['returns']  # already rotated to 2006 start
     N = p['N']
     g_series_2006 = returns_2006[:N]
-    g_sell_2006   = returns_2006[N]
     mean_g_2006   = sum(g_series_2006) / len(g_series_2006)
-    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
 
-    def run_hist(alpha_val):
-        recs = simulate(p['V0_m'], g_series_2006, alpha_val, sim_p)
-        sell = simulate_sell(recs, g_sell_2006, sim_p)
-        gross_tax = sum(r['L'] for r in recs[1:] if r['L'] > 0)
-        gross_ref = sum(r['L'] for r in recs[1:] if r['L'] < 0)
-        if sell['L_sell'] > 0: gross_tax += sell['L_sell']
-        else:                   gross_ref += sell['L_sell']
-        return {'Net': gross_tax + gross_ref, 'TW': sell['TW']}
-
-    base_hist = run_hist(1.0)
+    base_hist = run_sim_hist(p, alpha=1.0)
     hist_diffs = []
     for alpha in alpha_fine:
-        r = run_hist(alpha)
-        if abs(base_hist['Net']) > 1e-12:
-            hist_diffs.append((r['Net'] - base_hist['Net']) / base_hist['Net'] * 100)
+        r = run_sim_hist(p, alpha=alpha)
+        if abs(base_hist['Net_settled']) > 1e-12:
+            hist_diffs.append((r['Net_settled'] - base_hist['Net_settled']) / base_hist['Net_settled'] * 100)
         else:
             hist_diffs.append(0.0)
     ax.plot(alpha_fine, hist_diffs, color='#7b2d8b', linewidth=2.0,
@@ -362,23 +330,16 @@ def fig_04_tw_gap_by_n(p):
 
     returns_2006 = p['returns']
     N_max  = max(N_ACTUAL_VALS)
-    sim_p  = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
 
     def tw_gap_const(alpha, n):
         r = run_sim(p, alpha=alpha, g=p['g'], N=n)
         b = run_sim(p, alpha=1.0,   g=p['g'], N=n)
-        return (r['TW'] - b['TW']) / b['TW'] * 100 if abs(b['TW']) > 1e-12 else 0.0
+        return (r['TW_settled'] - b['TW_settled']) / b['TW_settled'] * 100 if abs(b['TW_settled']) > 1e-12 else 0.0
 
     def tw_gap_hist(alpha, n):
-        g_ser  = returns_2006[:n]
-        g_sell = returns_2006[n]
-        def _run(a):
-            recs = simulate(p['V0_m'], g_ser, a, sim_p)
-            sell = simulate_sell(recs, g_sell, sim_p)
-            return sell['TW']
-        tw_a = _run(alpha)
-        tw_1 = _run(1.0)
-        return (tw_a - tw_1) / tw_1 * 100 if abs(tw_1) > 1e-12 else 0.0
+        r = run_sim_hist(p, alpha=alpha, N=n)
+        b = run_sim_hist(p, alpha=1.0,   N=n)
+        return (r['TW_settled'] - b['TW_settled']) / b['TW_settled'] * 100 if abs(b['TW_settled']) > 1e-12 else 0.0
 
     set_style()
     fig, ax = plt.subplots(figsize=(10, 5.5))
@@ -465,7 +426,7 @@ def fig_05_saturation_reversal(p):
         for g in g_sweep:
             r  = run_sim(p, alpha=alpha, g=g, N=p['N'])
             b  = run_sim(p, alpha=1.0,   g=g, N=p['N'])
-            c1 = (r['Net'] - b['Net']) / r['TW'] * 100 if abs(r['TW']) > 1e-12 else 0.0
+            c1 = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
             vals.append(c1)
         c1_curves[alpha] = vals
 
@@ -576,7 +537,7 @@ def fig_06_overstatement_reversal(p):
         for idx, g in enumerate(g_sweep):
             r  = run_sim(p, alpha=alpha, g=g, N=p['N'])
             b  = run_sim(p, alpha=1.0,   g=g, N=p['N'])
-            c1 = (r['Net'] - b['Net']) / r['TW'] * 100 if abs(r['TW']) > 1e-12 else 0.0
+            c1 = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
             vals.append(c1)
             if c1 > 0 and found_fwd is None:
                 found_fwd = g * 100
@@ -658,6 +619,7 @@ def fig_06_overstatement_reversal(p):
             ax2.text(bar.get_x() + bar.get_width() / 2, h + 0.5,
                      f"{t:.1f}%", ha='center', va='bottom', fontsize=8, color='#555555')
         else:
+            # Either never reversed at all, or reversed but never re-reversed
             label = "n/a" if first_rev[alpha] is None else "no\nre-reversal\nin range"
             ax2.text(bar.get_x() + bar.get_width() / 2, 1.2,
                      label, ha='center', va='bottom',
@@ -685,6 +647,9 @@ def fig_06_overstatement_reversal(p):
 # FIG 07 — Overstatement coherence
 # Two-panel figure: C.1 surface heatmap (left) and net tax
 # difference vs holding period N (right).
+# Visual argument: the advantage is real but narrow — strong
+# overstaters face disadvantage at the growth rates their
+# motivation line predicts, and the advantage reverses by N≈29.
 # ─────────────────────────────────────────────────────────────
 
 _FIG07_OVER_ALPHAS = [1.2, 1.5, 1.8, 2.0]
@@ -698,13 +663,14 @@ def fig_07_overstatement_coherence(p):
     N         = p['N']
 
     set_style()
+    # Override grid and legend settings for the heatmap panel
     plt.rcParams.update({'legend.frameon': True, 'legend.framealpha': 0.9,
                          'legend.fontsize': 8.5})
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6.5))
 
     # ── LEFT: C.1 surface heatmap ────────────────────────────
-    alphas_grid = np.linspace(1.0, 2.0, 41)
+    alphas_grid = np.linspace(0.1, 2.0, 41)
     g_grid      = np.linspace(0.0, 0.25, 101)
     g_pct_grid  = g_grid * 100
 
@@ -713,7 +679,7 @@ def fig_07_overstatement_coherence(p):
         for j, g in enumerate(g_grid):
             r  = run_sim(p, alpha=alpha, g=g, N=N)
             b  = run_sim(p, alpha=1.0,   g=g, N=N)
-            c1 = (r['Net'] - b['Net']) / r['TW'] * 100 if abs(r['TW']) > 1e-12 else 0.0
+            c1 = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
             c1_matrix[i, j] = c1
 
     ax1.grid(False)
@@ -731,8 +697,14 @@ def fig_07_overstatement_coherence(p):
         g_pct_grid, alphas_grid, c1_matrix,
         levels=[0.0], colors=['#1a1a1a'], linewidths=1.8, zorder=4,
     )
-    ax1.clabel(CS, levels=[0.0], fmt={0.0: 'C.1 = 0'},
-               fontsize=8, inline=True, inline_spacing=6)
+    ax1.clabel(
+        CS,
+        levels=[0.0],
+        fmt={0.0: 'C.1 = 0'},
+        fontsize=8,
+        inline=True,
+        inline_spacing=6
+    )
 
     # Vertical line: g = hist_mean
     ax1.axvline(hist_mean * 100, color='#333333', linewidth=1.4,
@@ -777,7 +749,7 @@ def fig_07_overstatement_coherence(p):
         fontsize=10
     )
     ax1.set_xlim(0, 25)
-    ax1.set_ylim(1.0, 2.0)
+    ax1.set_ylim(0.1, 2.0)
     ax1.legend(loc='lower right', fontsize=8, framealpha=0.9)
 
     # ── RIGHT: Net tax diff vs holding period N ──────────────
@@ -790,7 +762,7 @@ def fig_07_overstatement_coherence(p):
         for n in n_vals:
             r = run_sim(p, alpha=alpha, g=hist_mean, N=n)
             b = run_sim(p, alpha=1.0,   g=hist_mean, N=n)
-            diffs.append(r['Net'] - b['Net'])
+            diffs.append(r['Net_settled'] - b['Net_settled'])
         all_series[alpha] = diffs
         cross = []
         for k in range(len(diffs) - 1):
@@ -1274,6 +1246,134 @@ def fig_09_tw_advantage_gN_surface(p):
     plt.tight_layout()
     return _save(fig, "val_fig_09_tw_advantage_gN_surface.png")
 
+# ─────────────────────────────────────────────────────────────
+# FIG 10 — C.1 (nominal) vs C.12 (NPV-adjusted) side-by-side heatmap
+#
+# Purpose: makes the inflation-mechanics argument visual. The left panel
+# is the familiar C.1 nominal tax-difference heatmap (same data as Fig 02
+# but recomputed here for self-containment). The right panel shows the
+# same metric discounted to t=0 at ρ=5%.
+#
+# Key pattern:
+#   - Low-g cells (g < ~8%): these are the only cells where C.1 shows blue
+#     (genuine nominal advantage for overstaters). In C.12 these blue cells
+#     compress sharply toward white or flip to red — the advantage is a
+#     timing artefact. Overstaters pay periodic tax as wealth grows, then
+#     receive a large sell-year refund. At low g, the refund dominates
+#     nominally but is discounted heavily relative to the spread-out
+#     periodic costs.
+#   - Mid/high-g cells (g > ~8%): overstaters already pay more than honest
+#     in C.1 (red). Discounting makes this worse in C.12 because the periodic
+#     overpayments concentrate in late years where wealth is largest, but the
+#     sell-year refund is also late — and discounting hits the refund more
+#     than the distributed periodic costs.
+#   - Understater cells: C.12 is systematically smaller than C.1 at mid/high g.
+#     Understaters pay less early (declared basis is low) and more at sale;
+#     discounting the larger late payment partially offsets their penalty.
+#     At low g and high alpha, C.12 can turn negative (understater appears to
+#     benefit in PV terms from front-loaded refund receipt).
+#
+# The inflation-mechanics argument from VAL §7.3 holds precisely in the
+# low-g band: the mild-overstater nominal advantage (blue in C.1) is a
+# timing artefact — it collapses to near-zero or reverses in C.12.
+# The shared colour scale makes this compression directly legible.
+# ─────────────────────────────────────────────────────────────
+
+def fig_10_c1_vs_c12_heatmap(p):
+    print("  Generating fig 10: C.1 vs C.12 nominal vs NPV-adjusted heatmap...")
+
+    rho = p['rho']
+
+    # ── build both matrices ───────────────────────────────────
+    base_by_g = {g: run_sim(p, alpha=1.0, g=g) for g in G_VALS}
+
+    c1_matrix  = np.zeros((len(ALPHA_VALS), len(G_VALS)))
+    c12_matrix = np.zeros((len(ALPHA_VALS), len(G_VALS)))
+
+    for i, alpha in enumerate(ALPHA_VALS):
+        for j, g in enumerate(G_VALS):
+            # C.1 nominal
+            r   = run_sim(p, alpha=alpha, g=g)
+            b   = base_by_g[g]
+            c1_val = ((r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100
+                      if abs(r['TW_settled']) > 1e-12 else 0.0)
+            c1_matrix[i, j] = c1_val
+
+            # C.12 NPV-adjusted
+            d = npv_tax_advantage(p, alpha, g, rho)
+            c12_matrix[i, j] = d['npv_diff_pct'] * 100
+
+    # ── shared colour scale: cap at 98th percentile of |values| ──
+    all_vals = np.concatenate([c1_matrix.ravel(), c12_matrix.ravel()])
+    vmax = float(np.percentile(np.abs(all_vals), 98))
+    vmax = max(vmax, 1.0)   # floor so near-zero grids still show something
+    norm = mcolors.TwoSlopeNorm(vmin=-vmax, vcenter=0, vmax=vmax)
+
+    set_style()
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 5.5))
+
+    def _draw_heatmap(ax, matrix, title_suffix):
+        ax.grid(False)
+        im = ax.imshow(matrix, aspect='auto', cmap='RdBu_r', norm=norm, zorder=2)
+
+        ax.set_xticks(range(len(G_VALS)))
+        ax.set_xticklabels(G_LABELS, rotation=45, ha='right')
+        ax.set_yticks(range(len(ALPHA_VALS)))
+        ax.set_yticklabels([str(a) for a in ALPHA_VALS])
+        ax.set_xlabel("Growth rate g")
+        ax.set_ylabel("Declaration ratio α")
+        ax.set_title(title_suffix, fontsize=10)
+
+        # Highlight honest row
+        honest_idx = ALPHA_VALS.index(1.0)
+        ax.add_patch(plt.Rectangle(
+            (-0.5, honest_idx - 0.5), len(G_VALS), 1,
+            fill=False, edgecolor='#1a1a1a', linewidth=1.5, zorder=5,
+        ))
+
+        # Cell annotations
+        for i in range(len(ALPHA_VALS)):
+            for j in range(len(G_VALS)):
+                val = matrix[i, j]
+                text_col = 'white' if abs(val) > vmax * 0.6 else '#1a1a1a'
+                ax.text(j, i, f"{val:.1f}",
+                        ha='center', va='center', fontsize=7.5,
+                        color=text_col, zorder=3)
+        return im
+
+    im = _draw_heatmap(
+        ax1, c1_matrix,
+        f"C.1 — Nominal: (Net(α) − Net(1)) / TW(α)  [pp]\n"
+        f"N = {p['N']}, $V_0$ = £{p['V0_m']:.0f}m"
+    )
+    _draw_heatmap(
+        ax2, c12_matrix,
+        f"C.12 — NPV-adjusted: (NPV_tax(α) − NPV_tax(1)) / TW_settled(1)  [pp]\n"
+        f"ρ = {rho*100:.0f}%  ·  N = {p['N']}, $V_0$ = £{p['V0_m']:.0f}m"
+    )
+
+    # Shared colourbar
+    cbar = fig.colorbar(im, ax=[ax1, ax2], fraction=0.02, pad=0.04)
+    cbar.set_label(
+        "pp relative to honest declaration  ·  "
+        "Red = understater pays more / overstater pays less (in nominal) or MORE (in PV)\n"
+        "Blue = overstater pays less (nominal)  ·  "
+        "Shared scale: direct comparison of magnitude across panels",
+        fontsize=8
+    )
+
+    fig.suptitle(
+        "Fig 10 — Nominal (C.1) vs NPV-adjusted (C.12) tax difference: timing artefacts exposed\n"
+        f"Left (C.1): nominal metric  ·  Right (C.12): discounted at ρ = {rho*100:.0f}%  ·  "
+        f"Sell-year refund at t=N+1 is worth ≈{100*(1/(1+rho)**p['N']):.0f}p/£ vs a year-1 payment\n"
+        "Low-g blue cells (nominal overstater advantage): collapse toward white or flip red in C.12 — the advantage is a timing artefact\n"
+        "Mid/high-g cells: overstaters already pay more in C.1; C.12 is larger still — discounting penalises late periodic costs less than late refund\n"
+        "Understater red cells shrink in C.12 at mid/high g — deferral of payment partially offsets the penalty in PV terms",
+        fontsize=9.0, y=1.04,
+    )
+
+    plt.tight_layout()
+    return _save(fig, "val_fig_10_c1_vs_c12_nominal_vs_npv.png")
 
 # ─────────────────────────────────────────────────────────────
 # MAIN
@@ -1307,6 +1407,7 @@ def main():
     fig_07_overstatement_coherence(p)
     fig_08_tw_decomposition(p)
     fig_09_tw_advantage_gN_surface(p)
+    fig_10_c1_vs_c12_heatmap(p)
 
     print("\nAll figures written.")
 

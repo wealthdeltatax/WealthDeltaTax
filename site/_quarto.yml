@@ -172,6 +172,7 @@ website:
   page-footer:
     left: "© K. Ogata. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)."
     right: "DOI: [10.5281/zenodo.21964119](https://doi.org/10.5281/zenodo.21964119)"
+    
 
 format:
   html:

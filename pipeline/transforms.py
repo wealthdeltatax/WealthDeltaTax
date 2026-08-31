@@ -29,7 +29,7 @@ from config import AUTHOR, SITE_URL, _format_date
 
 _LATEX_PATTERNS = [
     r"\\newpage", r"\\medskip", r"\\bigskip", r"\\smallskip",
-    r"\\tableofcontents", r"\s*\{\.appendix\}", r"\\maketitle",
+    r"\", r"\s*\{\.appendix\}", r"\\maketitle",
     r"\\begin\{center\}", r"\\end\{center\}",
     r"\\noindent", r"\\clearpage",
     r"\\vspace\*?\{[^}]+\}", r"\\hspace\*?\{[^}]+\}",

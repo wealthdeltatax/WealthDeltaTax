@@ -12,7 +12,6 @@ cd
 for %%f in (
     "5_3_2608012_VAL_generate_appc_full.py"
     "5_4_260807_VAL_generate_worked_examples.py"
-    "5_5_60807_VAL_generate_illustrative.py"
     "5_6_260809a_VAL_generate_figures.py"
     "8_3_260812_RATES_output.py"
     "16_2_260812b_VAL_S_rate_sweeps.py"

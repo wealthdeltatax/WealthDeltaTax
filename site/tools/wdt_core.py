@@ -14,6 +14,8 @@ PUBLIC API
   run_sim(p_in, ...)                  constant-g convenience runner
   run_sim_hist(p_in, ...)             historical-series convenience runner
   decompose_tw_advantage(p, alpha, g) TW advantage decomposition (C.11)
+  npv_tax(records, sell, rho)         PV of all tax cash flows for one run
+  npv_tax_advantage(p, alpha, g, rho) C.12 NPV tax difference vs honest
   load_params(toml_path)              load and validate all parameters
 
 RECORD FIELD GUARANTEE
@@ -465,6 +467,90 @@ def decompose_tw_advantage(p, alpha, g):
         'identity_error':  identity_error,
     }
 
+# ─────────────────────────────────────────────────────────────
+# NPV TAX CALCULATION (C.12)
+# ─────────────────────────────────────────────────────────────
+
+def npv_tax(records, sell, rho):
+    """
+    Compute the present value of all tax cash flows for one simulation run.
+
+    Discounts each holding-period payment L_t at period t and the sell-year
+    payment L_sell at period N+1, all to t=0 using discount rate rho.
+
+    Sign convention matches the rest of the model: positive L = tax paid,
+    negative L = refund received. NPV_tax > 0 means a net tax position in
+    PV terms.
+
+    Parameters
+    ----------
+    records  list of N+1 record dicts from simulate() (t=0..N)
+    sell     result dict from simulate_sell() (contains L_sell and t)
+    rho      annual discount rate (fraction, e.g. 0.05)
+
+    Returns
+    -------
+    float  NPV of all tax cash flows (£m, t=0 present value)
+    """
+    pv = 0.0
+    for rec in records[1:]:          # t=1..N, skip t=0 (no payment)
+        t   = rec['t']
+        pv += rec['L'] / (1.0 + rho) ** t
+    t_sell = sell['t']               # always N+1
+    pv    += sell['L_sell'] / (1.0 + rho) ** t_sell
+    return pv
+
+
+def npv_tax_advantage(p, alpha, g, rho):
+    """
+    NPV tax difference: NPV_tax(alpha) - NPV_tax(1), as fraction of
+    honest TW_settled (the C.12 metric).
+
+    Positive = alpha pays MORE in PV terms than honest (disadvantage).
+    Negative = alpha pays LESS in PV terms than honest (advantage).
+
+    Sign convention is consistent with C.1: positive = understater pays more;
+    negative = overstater pays less.
+
+    Parameters
+    ----------
+    p     parameter dict from load_params()
+    alpha declaration ratio
+    g     constant growth rate for holding period and sell year
+    rho   annual discount rate (fraction)
+
+    Returns
+    -------
+    dict with keys:
+      npv_alpha     float  NPV_tax(alpha) in £m
+      npv_honest    float  NPV_tax(1) in £m
+      npv_diff      float  npv_alpha - npv_honest in £m
+      npv_diff_pct  float  npv_diff / TW_settled(1)  — the C.12 metric
+      tw_honest     float  TW_settled(1) for the denominator
+    """
+    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    N     = p['N']
+    g_ser = [g] * N
+
+    recs_h = simulate(p['V0_m'], g_ser, 1.0, sim_p)
+    sell_h = simulate_sell(recs_h, g, sim_p)
+    tw_h, _, _ = settle_tw(sell_h, sim_p)
+
+    recs_a = simulate(p['V0_m'], g_ser, alpha, sim_p)
+    sell_a = simulate_sell(recs_a, g, sim_p)
+
+    npv_h = npv_tax(recs_h, sell_h, rho)
+    npv_a = npv_tax(recs_a, sell_a, rho)
+    npv_diff = npv_a - npv_h
+    denom    = tw_h if abs(tw_h) > 1e-12 else 1.0
+
+    return {
+        'npv_alpha':    npv_a,
+        'npv_honest':   npv_h,
+        'npv_diff':     npv_diff,
+        'npv_diff_pct': npv_diff / denom,
+        'tw_honest':    tw_h,
+    }
 
 # ─────────────────────────────────────────────────────────────
 # MINIMAL SSM — LRR FILL YEAR
@@ -604,6 +690,7 @@ def load_params(toml_path=None):
     p['generate_charts'] = bool(raw.get('output', {}).get('generate_charts', False))
 
     p['V0_m']  = float(raw['val']['V0_m'])
+    p['rho']   = float(raw['val']['rho'])
     p['g']     = p['hist_mean']
     p['alpha'] = 1.0
     p['beta']  = 0.0
