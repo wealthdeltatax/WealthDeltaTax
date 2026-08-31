@@ -154,7 +154,7 @@ The complete list of all 26 papers with version history and status is on the [Pa
 </div>
 
 <div style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #2B0055; margin: 1rem 0;">
-  ✉ CONTACT THE WEBMASTER:
-  <a href="mailto:webmaster@wealthdeltatax.org" style="color: #0000EE; font-weight: bold;">webmaster@wealthdeltatax.org</a>
+  ✉ CONTACT THE Author:
+  <a href="mailto:wealthdeltatax@gmail.com" style="color: #0000EE; font-weight: bold;">mailto:wealthdeltatax@gmail.com</a>
 </div>
 ```
