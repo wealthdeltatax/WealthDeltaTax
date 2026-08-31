@@ -26,6 +26,13 @@ The WDT is an attempt to rebuild the mechanism from first principles — one tha
 
 Correspondence via [wealthdeltatax@gmail.com](mailto:wealthdeltatax@gmail.com)
 
+## Find the project
+
+- [Bluesky (@wealthdeltatax)](https://bsky.app/profile/wealthdeltatax.bsky.social)
+- [GitHub (wealthdeltatax)](https://github.com/wealthdeltatax)
+- [Twitter / X (@wealthdeltatax)](https://x.com/wealthdeltatax)
+- [YouTube (@wealthdeltatax)](https://youtube.com/@wealthdeltatax)
+
 ---
 
 *The WDT is an independent research project. It is not affiliated with any institution, political party, think tank, or funding body.*
