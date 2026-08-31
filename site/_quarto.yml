@@ -101,6 +101,8 @@ website:
         href: internal_bibliography.html
       - text: "Revision History"
         href: revision_history.html
+      - text: "About the Author"
+        href: author_page.html
 
   sidebar:
     style: "docked"
