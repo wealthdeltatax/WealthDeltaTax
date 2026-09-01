@@ -42,6 +42,13 @@ jobs:
           echo '{"args":["--no-sandbox","--disable-setuid-sandbox"]}' > /home/runner/.puppeteer.json
           echo "PUPPETEER_CONFIG=/home/runner/.puppeteer.json" >> $GITHUB_ENV
 
+      - name: Verify Mermaid CLI
+        run: |
+          mmdc --version
+          echo "Test rendering one diagram..."
+          mmdc -i wdt-site/site/diagrams/260812_WDT_Skeleton_LR.mmd -o /tmp/test.png --width 800 --backgroundColor white
+          ls -la /tmp/test.png || echo "FAILED: test.png not created"
+
       - name: Scrape contents
         run: python pipeline/scrape_contents.py --write
 
@@ -74,6 +81,13 @@ jobs:
 
       - name: Render Quarto site
         run: quarto render _build --verbose 2>&1
+
+      - name: Verify diagrams in _site
+        run: |
+          echo "=== _build/diagrams/ ==="
+          ls -la _build/diagrams/ || echo "diagrams/ missing from _build"
+          echo "=== _build/_site/diagrams/ ==="
+          ls -la _build/_site/diagrams/ || echo "diagrams/ missing from _site"
 
       - name: Copy tool runtime files to _site
         run: |
