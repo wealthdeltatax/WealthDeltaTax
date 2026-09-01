@@ -29,7 +29,7 @@ keywords:
 
 \newpage
 
-# A. Appendix Tables {.appendix}
+# A. Appendix Tables
 
 This appendix is in two parts. Part 1 (this section) describes each table group: what it measures, how its axes are structured, and the key pattern visible in the data. Part 2 contains the tables themselves; it is assembled separately and appended manually.
 

@@ -33,6 +33,7 @@ This paper proposes the Wealth Delta Tax (WDT), a fiscal mechanism that levies a
 The paper surveys relevant literature to identify established findings, contested issues, and design gaps, and derives the WDT's components from that survey. It is framed generically for developed capitalist democracies because the contribution is mechanism design rather than jurisdiction-specific calibration. It does not provide microsimulation, formal behavioural modelling, or constitutional analysis. Its purpose is to establish the mechanism's internal coherence, locate its contribution in the literature, and identify the empirical work required before it can become policy-ready.
 
 \newpage
+\medspace
 
 # Glossary {.unnumbered .unlisted}
 
@@ -492,7 +493,7 @@ The WDT is the first serious attempt to build a fiscal institution that the peop
 
 \newpage
 
-# A. Philosophical and Moral Foundations {.appendix}
+# A. Philosophical and Moral Foundations
 
 Full treatment in (MF). What follows is a summary for readers who want the logical scaffolding without the full treatment.
 
@@ -534,7 +535,7 @@ The WDT depends on functioning democratic institutions as a boundary condition i
 
 \newpage
 
-# B. Institutional Design Extensions {.appendix}
+# B. Institutional Design Extensions
 
 ## B.1 Governance Model
 

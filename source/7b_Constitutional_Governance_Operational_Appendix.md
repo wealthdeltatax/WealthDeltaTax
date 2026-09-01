@@ -28,7 +28,7 @@ keywords:
 
 \newpage
 
-# A. The Chambers in Full {.appendix}
+# A. The Chambers in Full
 
 ## A.1 The Taxpayer Chamber (TP)
 
@@ -140,7 +140,7 @@ Neither forum is mandatory. The only communications carrying constitutional vali
 
 \newpage
 
-# B. The Executive Bodies in Full {.appendix}
+# B. The Executive Bodies in Full
 
 This section specifies the institutional requirements each executive body must satisfy: appointment conditions, independence properties, and removal and tenure principles. It does not specify what kind of organisation fills each role, how many staff it carries, or how it is funded in detail. Those questions can only be answered with access to the actual operational environment. What this section settles is the constraint space any valid implementation must satisfy.
 
@@ -296,7 +296,7 @@ Taxpayers with documented personal security concerns (credible threats, witness-
 
 \newpage
 
-# C. Voting Mechanics in Full {.appendix}
+# C. Voting Mechanics in Full
 
 ## C.1 The Dual-Threshold Calculation: Worked Arithmetic
 
@@ -413,7 +413,7 @@ For FS, Tier 2 non-participation carries no WDT-specific individual consequence.
 
 \newpage
 
-# D. The Rebalancing Mechanism in Full {.appendix}
+# D. The Rebalancing Mechanism in Full
 
 ## D.1 Conservation Arithmetic: How Vote Share Moves
 
@@ -455,7 +455,7 @@ TP's large and diffuse membership means the first condition holds only weakly fo
 
 \newpage
 
-# E. The SWF: Operational Detail {.appendix}
+# E. The SWF: Operational Detail
 
 ## E.1 The Solvency Floor: Definition and the Automatic-Consequence Principle
 
@@ -537,7 +537,7 @@ A parallel execution-discretion principle applies to the Custodian's rotation ma
 
 \newpage
 
-# F. Per-Actor Cost Mechanisms {.appendix}
+# F. Per-Actor Cost Mechanisms
 
 ## F.1 Patient Wealth (TP and FS): Vote-Share Rebalancing
 
@@ -587,7 +587,7 @@ The visibility axis serves a function the cost axis cannot: it creates the recor
 
 \newpage
 
-# G. The Route D Auction Process in Full {.appendix}
+# G. The Route D Auction Process in Full
 
 The structural rationale for the auction mechanism is in (GOV §6.1) and (VAL §11). This appendix specifies the operational sequence for all three Route D auction pathways.
 
@@ -701,7 +701,7 @@ Conduct rules, timeline, and the estate's retention right follow the §G.3 mecha
 
 \newpage
 
-# H. The Corporate Equity Settlement Facility: Mandate Extension {.appendix}
+# H. The Corporate Equity Settlement Facility: Mandate Extension
 
 ## H.1 Purpose and Relationship to CORP
 

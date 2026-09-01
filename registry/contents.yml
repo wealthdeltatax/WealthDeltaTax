@@ -1045,6 +1045,22 @@ SWEEPS.A:
     D.7.1: lrr_years sweep
     E: Reading Notes
     C: Reading Notes
+    C.1: Purpose
+    C.1.1: The Rate Function
+    C.1.2: Balanced Baseline Parameters
+    C.1.3: Metrics
+    C.2: Floor Rate (τ_0)
+    C.2.1: τ_0 sweep
+    C.3: Ceiling Rate (τ_m)
+    C.3.1: τ_m sweep
+    C.4: Steepness (k)
+    C.4.1: k sweep (log-spaced)
+    C.5: Entry Point (W_min)
+    C.5.1: W_min sweep
+    C.6: SRR Capitalisation Ratio (srr_ratio)
+    C.6.1: srr_ratio sweep
+    C.7: LRR Floor (lrr_years)
+    C.7.1: lrr_years sweep
 FM:
   page: fm.html
   title: First Mover

@@ -794,7 +794,7 @@ The folk knowledge was earned. It does not have to be permanent.
 
 \newpage
 
-# A. The Membrane in Practice {.appendix}
+# A. The Membrane in Practice
 
 This appendix illustrates the membrane concept through three institutional examples. The first demonstrates a healthy membrane functioning as designed. The second and third demonstrate two distinct failure modes that produce degraded membranes through different mechanisms and for different structural reasons.
 

@@ -33,7 +33,7 @@ keywords:
 
 \newpage
 
-# A. Mathematical Model and Incentive Analysis {.appendix}
+# A. Mathematical Model and Incentive Analysis
 
 ## A.1 Purpose
 
@@ -369,7 +369,7 @@ To summarise the revised equilibrium claim across (VAL.A §A.2.1) and (VAL.A §A
 
 \newpage
 
-# B. Simulation Methodology {.appendix}
+# B. Simulation Methodology
 
 ## B.1 Purpose
 
@@ -498,7 +498,7 @@ The Route D auction mechanism (VAL.A §D), the public register, and professional
 
 \newpage
 
-# C. WDT Valuation Analysis: Summary Tables {.appendix}
+# C. WDT Valuation Analysis: Summary Tables
 
 **Validation status:** All figures in this section are from Python model v1.0 (standalone, no Excel dependency), confirmed 0 FAILs across all primary matrices. Parameters unified to $k$ = 0.001, N = 29, $\tau_0$ = 15% across all companion papers. Table C.3 carries deviations up to 13% at extreme $\alpha$×β values (threshold 15%; 0 FAILs); see (VAL.A §C.3) note.
 

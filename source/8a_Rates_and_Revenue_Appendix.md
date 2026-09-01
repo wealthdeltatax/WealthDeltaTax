@@ -28,7 +28,7 @@ keywords:
 
 \newpage
 
-# A. Model Specification {.appendix}
+# A. Model Specification
 
 ## A.1 Purpose
 
@@ -120,7 +120,7 @@ To vary a scenario, modify the TOML and rerun. Only the `scenario_start_year` fi
 
 \newpage
 
-# B. Model Output {.appendix}
+# B. Model Output
 
 **Run date:** 2026-08-30  
 **Scenario:** 2007 Balanced  

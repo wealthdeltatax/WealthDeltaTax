@@ -27,7 +27,7 @@ keywords:
 
 \newpage
 
-# A. Failure-Mode Taxonomy {.appendix}
+# A. Failure-Mode Taxonomy
 
 (GOV §2.1) derives its mechanism-shaped test from three named failure modes observed in real governance systems. This appendix develops each with real-world instances, so that the test's underlying logic is auditable rather than asserted. The three modes are oracle failure, self-referential power, and resource-defines-truth degeneration.
 
@@ -61,7 +61,7 @@ Making a mechanism non-discretionary does not by itself make it capture-resistan
 
 \newpage
 
-# B. WDT Instrument Audit {.appendix}
+# B. WDT Instrument Audit
 
 The mechanism-shaped test in (GOV §2.1) derives five conditions that a proposed deterrent mechanism must satisfy. This appendix audits the WDT's existing instruments against those five conditions, organised around which failure mode each instrument is designed against.
 
@@ -85,7 +85,7 @@ The Allocator requires separate treatment following the redesign in GOV v2.7. Th
 
 \newpage
 
-# C. The Rejected First Derivation {.appendix}
+# C. The Rejected First Derivation
 
 (GOV §3.1) describes briefly an earlier attempt at the lever-test derivation that started from the inherited government/capital/public frame and mostly confirmed that frame rather than testing it independently. This appendix preserves that attempt transaction by transaction, alongside the corrected derivation (GOV §3.2) actually relies on, so the comparison is auditable rather than asserted. The failure is part of the record, not a discarded draft.
 
@@ -133,7 +133,7 @@ A note on instantiation. The Valuer and the Adjudicator named as this derivation
 
 \newpage
 
-# D. Explored and Dropped Mechanisms {.appendix}
+# D. Explored and Dropped Mechanisms
 
 This appendix exists so that none of the mechanisms below get reproposed without the objection already recorded against them being addressed first. The objections are organised by the failure mode each proposed mechanism ultimately reproduces, because the underlying pattern matters more than the surface form of any individual proposal. None of these mechanisms are live in the architecture described in (GOV §3), (GOV §4), (GOV §5) and (GOV §6). None should be reproposed without addressing the specific objection recorded here.
 
@@ -185,7 +185,7 @@ The monthly birth-month stagger follows from the rotation requirement. A single 
 
 \newpage
 
-# E. Governance Decay: Four Sub-Forms {.appendix}
+# E. Governance Decay: Four Sub-Forms
 
 Governance decay is the gradual degradation of an institution's capacity to perform its intended function, without any single discrete act causing it. It bypasses the mechanism's formal amendment process: no structural clause is touched, no Tier 2 vote is triggered, and no rebalancing cost attaches. The institution continues to operate in its formal structure while its substantive capacity erodes beneath the surface.
 

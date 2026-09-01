@@ -415,7 +415,7 @@ The political question the WDT ultimately poses is not whether wealth should be 
 
 \newpage
 
-# A. The Tiered Citizenship Problem {.appendix}
+# A. The Tiered Citizenship Problem
 
 The self-shaping problem introduced in (POL §7) has a specific and uncomfortable form when the WDT succeeds at scale. This appendix develops it.
 

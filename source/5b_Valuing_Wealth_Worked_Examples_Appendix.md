@@ -53,7 +53,7 @@ All figures are from Python model v1.0, validated against Excel 27 July 2026. §
 
 \newpage
 
-# J. The Deferred Delta {.appendix}
+# J. The Deferred Delta
 
 **Claim illustrated:** A declared value establishes the recognised basis from which all future changes are measured. Understatement reduces current tax but enlarges the future delta; the deferral is recovered in full at realisation. (VAL §1), (VAL.B §J)
 
@@ -117,7 +117,7 @@ The result holds at any positive growth rate. For the quantitative relationship 
 
 \newpage
 
-# K. Dilution Compounds with Growth {.appendix}
+# K. Dilution Compounds with Growth
 
 **Claim illustrated:** For fungible assets under Route C, the must-transfer rule creates a cost that tracks the asset's trajectory. The faster the asset grows, the more expensive the understatement becomes; the dilution is an ongoing transfer at an underpriced rate, not a one-off payment. (VAL §5.2)
 
@@ -187,7 +187,7 @@ The dilution operates even without a sale. A taxpayer holding a Route C asset in
 
 \newpage
 
-# L. Why Route D Defers to Realisation {.appendix}
+# L. Why Route D Defers to Realisation
 
 **Claim illustrated:** Route D defers taxation not for administrative convenience but because periodic cash settlement on illiquid non-fungible assets would recreate forced-realisation pressure, and in-kind settlement is structurally impossible for assets that cannot be divided. Deferral to realisation is the only coherent design. (VAL §6.1)
 
@@ -260,7 +260,7 @@ The argument applies equally to property, art, jewellery, and any non-fungible a
 
 \newpage
 
-# M. Voluntary Settlement — Certainty, Not Avoidance {.appendix}
+# M. Voluntary Settlement — Certainty, Not Avoidance
 
 **Claim illustrated:** Soft and hard basis resets allow a Route D taxpayer to crystallise their liability before a forced realisation event, giving a chosen liability at a chosen time rather than an uncertain future one. They are not escape hatches: the liability is paid in full at the declared or market-established value, and the reset basis governs all future delta calculations, including refund entitlements in loss years. (VAL §6.4)
 
@@ -315,7 +315,7 @@ The corrective auction (VAL §11.3) remains available as a backstop if the soft 
 
 \newpage
 
-# N. Forecast Exposure {.appendix}
+# N. Forecast Exposure
 
 **Claim illustrated:** Honest declaration is not mechanically optimal in every possible future — it is the only strategy whose outcome does not depend on forecast accuracy. Understatement and overstatement are directional bets on the asset's trajectory; the mechanism penalises being wrong regardless of intent. (VAL §7.1)
 
@@ -402,7 +402,7 @@ At the system level, if mild overstatement is the rational equilibrium, declared
 
 \newpage
 
-# O. Summary of Design Properties Illustrated {.appendix}
+# O. Summary of Design Properties Illustrated
 
 | **Appendix** | **Claim** | **Key mechanism** | **VAL reference** |
 |:---|:---|:---|:---|

@@ -28,7 +28,7 @@ keywords:
 
 \newpage
 
-# A. Collection Mechanics and Worked Illustrations {.appendix}
+# A. Collection Mechanics and Worked Illustrations
 
 ## A.1 The Two-Deadline Structure
 
@@ -112,7 +112,7 @@ The mechanism is identical in structure to the broker case. Only the allocation 
 
 \newpage
 
-# B. Corporate Rate Calibration {.appendix}
+# B. Corporate Rate Calibration
 
 $\tau_0$ and $\tau_h$ are calibrated against structurally distinct failure modes of the corporate instrument. $\tau_0$ addresses the case where attribution succeeds but settlement does not: the identified person who fails to reconcile within the window. $\tau_h$ addresses the case where attribution itself fails: the position that cannot be resolved to an identified individual at any level of the chain. Because the failure modes are different, the calibration logic is different in kind, and the two parameters cannot be derived from a single optimisation.
 
@@ -196,7 +196,7 @@ An alternative approach, anchoring the corporate rate to the average effective W
 
 \newpage
 
-# C. Ownership Structure Classification Under the Attribution Test {.appendix}
+# C. Ownership Structure Classification Under the Attribution Test
 
 (CORP §6) establishes a single operative test for every tranche-two holder: can the intermediary identify and attribute its underlying beneficiaries to a degree that supports individual WDT reconciliation? This appendix applies that test to the specific entity types most likely to arise in practice. The classification, not the entity's label, determines treatment.
 
@@ -284,7 +284,7 @@ The one period of elevated burden is the transition, during which parallel runni
 
 \newpage
 
-# E. Non-Corporate Instruments and the Attribution Test {.appendix}
+# E. Non-Corporate Instruments and the Attribution Test
 
 ## E.1 Purpose
 
