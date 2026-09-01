@@ -37,6 +37,7 @@ SITE_URL     = "https://wealthdeltatax.org"
 AUTHOR       = "K. Ogata"
 AFFILIATION  = "Independent Researcher"
 DISCLOSURE   = (
+    "### Author Disclosure {.unnumbered .unlisted}\n\n"
     "Portions of the drafting, editing, literature organisation, and structural "
     "review of this paper were assisted by publicly available large language models, "
     "including Anthropic's Claude and OpenAI's ChatGPT. These tools were used as aids "

@@ -59,7 +59,7 @@ def render_pngs(build: Path) -> None:
     Render each .mmd file to PNG via mmdc and write to _build/diagrams/.
     Called once per build from generate_flowcharts_qmd().
     """
-    out_dir = build / "diagrams"
+    out_dir = build.parent / "site" / "diagrams"   # wdt-site/site/diagrams/
     out_dir.mkdir(parents=True, exist_ok=True)
 
     for filename, title, _ in DIAGRAMS:
