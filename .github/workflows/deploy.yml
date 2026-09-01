@@ -46,7 +46,7 @@ jobs:
         run: |
           mmdc --version
           echo "Test rendering one diagram..."
-          mmdc -i wdt-site/site/diagrams/260812_WDT_Skeleton_LR.mmd -o /tmp/test.png --width 800 --backgroundColor white
+          mmdc -i site/diagrams/260812_WDT_Skeleton_LR.mmd -o /tmp/test.png --width 800 --backgroundColor white
           ls -la /tmp/test.png || echo "FAILED: test.png not created"
 
       - name: Scrape contents

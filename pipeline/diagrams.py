@@ -61,6 +61,8 @@ def render_pngs(build: Path) -> None:
     """
     out_dir = build / "diagrams" # wdt-site/site/diagrams/
     out_dir.mkdir(parents=True, exist_ok=True)
+    print(f"  DIAGRAMS_DIR: {DIAGRAMS_DIR.resolve()}")
+    print(f"  out_dir: {out_dir.resolve()}")
 
     for filename, title, _ in DIAGRAMS:
         src = DIAGRAMS_DIR / filename
