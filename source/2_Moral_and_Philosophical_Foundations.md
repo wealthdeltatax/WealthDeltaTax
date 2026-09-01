@@ -1,46 +1,27 @@
 ---
 title: "The Wealth Delta Tax: The Moral and Philosophical Foundations of the WDT"
-author: "K. Ogata"
-date: "July 2026"
-toc: true
-numbersections: false
-documentclass: article
-fontsize: 11pt
-geometry: margin=1in
----
-
-**K. Ogata**  
-Independent Researcher  
-
-\medskip
-
-**Version:** 1.03  
-**Date:** 29 August 2026  
-
-\medskip
-
-**Word count:** 5757  
-
-\medskip
-
----
-
-### Keywords {.unnumbered .unlisted}
-Wealth taxation · distributive justice · economic power · wealth concentration · fiscal legitimacy · reciprocity · tax fairness · democratic legitimacy · property rights · social contract · political equality · intergenerational wealth
-
----
-
-### Author Disclosure {.unnumbered .unlisted}
-Portions of the drafting, editing, literature organisation, and structural review of this paper were assisted by publicly available large language models, including Anthropic's Claude and OpenAI's ChatGPT. These tools were used as aids to the author's research and writing process; the substantive arguments, analysis, interpretations, and conclusions are the author's own.
-
-This work received no external funding, sponsorship, or other financial support. The author is solely responsible for the content of the paper and for any errors that remain.
-
+shortcode: "MF"
+status: "active"
+keywords:
+    - Wealth Delta Tax
+    - wealth taxation
+    - distributive justice
+    - economic power
+    - wealth concentration
+    - fiscal legitimacy
+    - reciprocity
+    - tax fairness
+    - democratic legitimacy
+    - property rights
+    - social contract
+    - political equality
+    - intergenerational wealth
 ---
 
 ### Revision History {.unnumbered .unlisted}
 
-| Revision | Date| Details|
-|:--------:|:---------------:|----------------------|
+| Revision | Date            | Details                  |
+|:--------:|:---------------:|--------------------------|
 | 0.01      | 28 May 2026     | First Draft          |
 | 1.01      | 15 August 2026  | Published to website |
 | 1.02      | 29 August 2026  | Added architectural stability argument to §2; restructured §3 to distinguish ontological and causal collective production claims; clarified procedural limits of prospective participation in §3.1; updated abstract and glossary |

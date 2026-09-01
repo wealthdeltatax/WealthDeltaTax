@@ -39,7 +39,6 @@ EDGE CASE — flagged for manual review:
 """
 
 import argparse
-import glob
 import re
 import sys
 from dataclasses import dataclass, field
@@ -110,18 +109,22 @@ SKIP_TEXTS = {
 def strip_attrs(text: str) -> str:
     return RE_ATTRS.sub("", text).strip()
 
-def parse_headings(md_text: str) -> tuple[str | None, list[HeadingEntry]]:
-    """Return (front_matter_title, list[HeadingEntry])."""
+def parse_headings(md_text: str) -> tuple[str | None, str | None, list[HeadingEntry]]:
+    """Return (front_matter_title, shortcode, list[HeadingEntry])."""
     entries: list[HeadingEntry] = []
 
-    # Extract YAML front matter title if present
-    fm_title: str | None = None
+    # Extract YAML front matter title and shortcode if present
+    fm_title:     str | None = None
+    fm_shortcode: str | None = None
     fm_match = re.match(r"^---\s*\n(.*?)\n---", md_text, re.DOTALL)
     if fm_match:
         fm_block = fm_match.group(1)
         t = re.search(r'^title:\s*["\']?(.+?)["\']?\s*$', fm_block, re.M)
         if t:
             fm_title = t.group(1).strip().strip('"\'')
+        s = re.search(r'^shortcode:\s*["\']?(.+?)["\']?\s*$', fm_block, re.M)
+        if s:
+            fm_shortcode = s.group(1).strip().strip('"\'')
 
     for line in md_text.splitlines():
         m = re.match(r"^(#{1,4})\s+(.*)", line)
@@ -155,7 +158,7 @@ def parse_headings(md_text: str) -> tuple[str | None, list[HeadingEntry]]:
                 is_edge=True, edge_reason=reason,
             ))
 
-    return fm_title, entries
+    return fm_title, fm_shortcode, entries
 
 
 def _extract_key(text: str) -> tuple[str | None, str | None]:
@@ -188,13 +191,10 @@ def load_papers() -> list[dict]:
         sys.exit(f"ERROR: {PAPERS_YML} should be a YAML list.")
     return data
 
-def resolve_source(glob_pat: str) -> Path | None:
-    matches = glob.glob(str(SOURCE_DIR / glob_pat))
-    if not matches:
-        return None
-    if len(matches) > 1:
-        print(f"  WARNING: multiple matches for '{glob_pat}', using {Path(matches[0]).name}")
-    return Path(matches[0])
+def resolve_source(source_name: str) -> Path | None:
+    """Resolve exact source filename. Returns None if file does not exist."""
+    path = SOURCE_DIR / source_name
+    return path if path.exists() else None
 
 # ---------------------------------------------------------------------------
 # Classify headings into clean / edge / skipped
@@ -381,22 +381,32 @@ def main():
     results: list[PaperResult] = []
 
     for paper in papers:
-        shortcode = paper["shortcode"]
-        if filter_set and shortcode not in filter_set:
-            continue
+        source_name = paper["source"]
+        src = resolve_source(source_name)
 
-        src = resolve_source(paper["source_glob"])
         if src is None:
-            results.append(PaperResult(shortcode=shortcode, source_file=None,
-                                       front_matter_title=None))
+            # Shortcode unknown until we read the file — use filename as fallback label
+            results.append(PaperResult(
+                shortcode=source_name,
+                source_file=None,
+                front_matter_title=None,
+            ))
             continue
 
         text = src.read_text(encoding="utf-8")
-        fm_title, entries = parse_headings(text)
+        fm_title, fm_shortcode, entries = parse_headings(text)
+
+        if not fm_shortcode:
+            print(f"  ! {source_name}: no shortcode in front matter — skipping")
+            continue
+
+        if filter_set and fm_shortcode not in filter_set:
+            continue
+
         clean, edge, skipped = classify(fm_title, entries)
 
         results.append(PaperResult(
-            shortcode=shortcode,
+            shortcode=fm_shortcode,
             source_file=src,
             front_matter_title=fm_title,
             clean=clean,

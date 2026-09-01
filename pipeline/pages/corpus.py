@@ -8,11 +8,10 @@ Call generate_corpus_qmd(dest_path, cfg).
 from __future__ import annotations
 
 import json
-from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from config import AUTHOR, SITE_URL, _format_date
+from config import AUTHOR, SITE_URL
 
 # ── Section ordering for the index table ─────────────────────────────────────
 
@@ -34,27 +33,7 @@ _STATUS_LABEL: dict[str, str] = {
 }
 
 # Shortcodes that have no rendered paper page on the site.
-# These appear in the corpus table but their links go nowhere (404 or redirect).
-# They are rendered as plain text rather than hyperlinks.
 _NO_PAGE: frozenset[str] = frozenset()
-
-
-# ── Helpers ───────────────────────────────────────────────────────────────────
-
-def _yymmdd_to_display(raw: Any) -> str:
-    """Convert YYMMDD → human-readable date string, e.g. '15 Aug 2026'."""
-    iso = _format_date(raw)
-    if not iso:
-        return "—"
-    try:
-        dt = datetime.strptime(iso, "%Y-%m-%d")
-        return dt.strftime("%-d %b %Y")
-    except Exception:
-        try:
-            dt = datetime.strptime(iso, "%Y-%m-%d")
-            return dt.strftime("%d %b %Y").lstrip("0")
-        except Exception:
-            return iso
 
 
 # ── Generator ─────────────────────────────────────────────────────────────────
@@ -119,10 +98,11 @@ def generate_corpus_qmd(
             meta   = paper_meta.get(sc, {})
             title  = meta.get("title", sc).replace("The Wealth Delta Tax: ", "")
             ver    = meta.get("version", "—")
-            date   = _yymmdd_to_display(meta.get("version_date"))
+            # Use pre-formatted display date from extraction; fall back gracefully
+            date   = meta.get("version_date_display", "—")
             status = meta.get("status", "—")
             status_label = _STATUS_LABEL.get(status, status)
-            # Papers with no rendered page: plain text shortcode, no link
+
             if sc in _NO_PAGE:
                 sc_cell = f"{sc} *(no page)*"
             else:

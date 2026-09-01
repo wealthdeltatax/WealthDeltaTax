@@ -1,18 +1,18 @@
-%%{init: {
-  "flowchart": {
-    "nodeSpacing": 0,
-    "rankSpacing": 0,
-    "padding": 0,
-    "diagramPadding": 100,
+%%{init: {}}
+  "flowchart": {}
+    "nodeSpacing": 40,
+    "rankSpacing": 50,
+    "padding": 20,
     "htmlLabels": true,
     "useMaxWidth": true,
-    "curve": "linear",
+    "curve": "linear"
   },
-  "themeVariables": {
-    "fontSize": "40px",
+  "themeVariables": {}
+    "fontSize": "16px",
     "fontFamily": "Arial, sans-serif"
   }
 }}%%
+
 flowchart TD
 
 %% ── STYLES ──────────────────────────────────────────────
@@ -107,7 +107,7 @@ THRESH -->|Yes| RATE
 
 %% ── STEP 6: RATE & DELTA ────────────────────────────────
 
-RATE[Marginal rate τ: progressive logistic of net worth τ₀ = 20% · τ_m = 70% · k = 0.001]:::calc --> DELTA
+RATE["Marginal rate τ: progressive logistic of net worth τ₀ = 20% · τ_m = 70% · k = 0.001"]:::calc --> DELTA
 
 DELTA[Wealth delta = current net worth − prior assessment net worth]:::calc --> SIGN
 

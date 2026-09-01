@@ -1,46 +1,27 @@
 ---
 title: "The Wealth Delta Tax: Rates and Revenue Appendix"
-author: "K. Ogata"
-date: "July 2026"
-toc: true
-numbersections: false
-documentclass: article
-fontsize: 11pt
-geometry: margin=1in
----
-
-**K. Ogata**  
-Independent Researcher  
-
-\medskip
-
-**Version:** 1.01  
-**Date:** 31 August 2026  
-
-\medskip
-
-**Word count:** 2785
-
-\medskip
-
----
-
-### Keywords {.unnumbered .unlisted}
-Wealth taxation · revenue modelling · accrual taxation · fiscal simulation · Sovereign Wealth Fund solvency · reserve capitalisation · historical return simulation · correlated shocks · heterogeneous returns · taxpayer cohort model · reproducible modelling · Python simulation
-
----
-
-### Author Disclosure {.unnumbered .unlisted}
-Portions of the drafting, editing, literature organisation, and structural review of this paper were assisted by publicly available large language models, including Anthropic's Claude and OpenAI's ChatGPT. These tools were used as aids to the author's research and writing process; the substantive arguments, analysis, interpretations, and conclusions are the author's own.
-
-This work received no external funding, sponsorship, or other financial support. The author is solely responsible for the content of the paper and for any errors that remain.
-
+shortcode: "RATES.A"
+status: "active"
+keywords:
+    - Wealth Delta Tax
+    - wealth taxation
+    - revenue modelling
+    - accrual taxation
+    - fiscal simulation
+    - Sovereign Wealth Fund solvency
+    - reserve capitalisation
+    - historical return simulation
+    - correlated shocks
+    - heterogeneous returns
+    - taxpayer cohort model
+    - reproducible modelling
+    - Python simulation
 ---
 
 ### Revision History {.unnumbered .unlisted}
 
-| Revision | Date| Details|
-|:--------:|:---------------:|----------------------|
+| Revision | Date            | Details                  |
+|:--------:|:---------------:|--------------------------|
 | 0.01      | 31 July 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 31 August 2026  | Corrected TCM coverage ratio prose (27.7% → 27.4%) and minimum-coverage start-year attribution (2003 → 2005) in §A.6 to match §B.3.9 model output |

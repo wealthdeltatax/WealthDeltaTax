@@ -1,6 +1,6 @@
 # WDT Project Map
 **Last updated:** 20 August 2026  
-**Papers covered:** (WP), (MF), (LR.A), (LR.B), (JUR), (VAL), (VAL.A), (VAL.B), (CORP), (CORP.A), (GOV), (GOV.A), (GOV.B), (RATES), (RATES.A), (SWEEPS), (SWEEPS.A), (BEHAV), (CLOSE), (POL), (PHASE1), (ENV), (FM), (MOD)  
+**Papers covered:** (WP), (MF), (LR.A), (LR.B), (JUR), (VAL), (VAL.A), (VAL.B), (CORP), (CORP.A), (GOV), (GOV.A), (GOV.B), (RATES), (RATES.A), (SWEEPS), (SWEEPS.A), (BEHAV), (CLOSE), (POL), (PHASE1), (ENV), (FM), (MOD), (SCOPE), (ADD)
 **Papers not yet in project:** *(none)*
 
 ---
@@ -9,7 +9,7 @@
 
 **Core mechanism.** The WDT levies a progressive annual charge on the change in an individual's net worth above an exemption threshold. The three interdependent components — accrual-basis delta tax, symmetric loss-refund mechanism, and Sovereign Wealth Fund — plus a fourth element of governance participation by taxpayers in the SWF, are designed as a system: each exists because the others require it (WP §1).
 
-**Tax base.** The taxable delta is net worth at the end of one assessment year minus net worth at the end of the prior year, assessed at fair market value. The WDT does not wait for a realisation event. Assessment occurs at a taxpayer-elected window (1–7 years); annual reporting continues regardless of window. The delta base removes the lock-in distortion and the debt-preference incentive that realisation-based systems create (WP §3.1).
+**Tax base.** The taxable delta is net worth at the end of one assessment year minus net worth at the end of the prior year, assessed at fair market value. The WDT does not wait for a realisation event. Assessment occurs at a taxpayer-elected window (1, 2, 3, 5, or 7 years); annual reporting continues regardless of window. The delta base removes the lock-in distortion and the debt-preference incentive that realisation-based systems create (WP §3.1).
 
 **Individual as unit.** The WDT taxes individuals, not legal entities. Listed companies require a corporate collection mechanism because individual attribution at dispersed scale is impractical; private companies remain within individual assessment. The corporate instrument is a collection mechanism, not a tax on corporations as taxable subjects (WP §3.2).
 

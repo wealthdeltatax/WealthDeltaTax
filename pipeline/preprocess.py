@@ -5,6 +5,7 @@ Run this before every `quarto render _build`.
 
 Steps:
   0.    Generate references.json from references.bib + internal.json  (bib_to_json.py)
+  0.5.  Extract paper metadata from source .md front matter + revision history
   1–5.  Per-paper text transforms        (transforms.py)
   6.    corpus.qmd                        (pages/corpus.py)
   7.    references.qmd                    (pages/references.py)
@@ -30,8 +31,6 @@ from transforms import process_file, strip_latex, convert_crossrefs
 
 # ── Tool metadata ─────────────────────────────────────────────────────────────
 # Maps source filename stem → (title, description)
-# Source files live at site/tools/<stem>.html as body-fragment HTML (no skeleton).
-# Runtime files (.py, .toml) in site/tools/ are copied verbatim.
 _TOOL_META: dict[str, tuple[str, str]] = {
     "index": (
         "WDT — Interactive Tools",
@@ -53,17 +52,11 @@ _TOOL_META: dict[str, tuple[str, str]] = {
     ),
 }
 
-# File extensions in site/tools/ that are runtime assets (copied verbatim, not wrapped)
 _TOOL_RUNTIME_SUFFIXES = {".py", ".toml"}
 
 
 def _wrap_tool_html(html: str, title: str, description: str) -> str:
-    """Wrap a body-fragment HTML file in Quarto front matter + raw HTML pass-through.
-
-    The sentinel comment on the first line of the block tells Quarto's Lua filter
-    to skip all processing of this block entirely — including the table-parse pass
-    that fires on <table> strings inside JS template literals and logs a warning.
-    """
+    """Wrap a body-fragment HTML file in Quarto front matter + raw HTML pass-through."""
     return (
         f'---\n'
         f'title: "{title}"\n'
@@ -79,13 +72,57 @@ def _wrap_tool_html(html: str, title: str, description: str) -> str:
 
 def main() -> None:
     # ── Step 0: generate references.json from .bib + internal.json ───────
-    # Must run before cfg.load() so the loaded refs_data is fresh.
     generate_references_json()
 
-    site_cfg = cfg.load()
-
-    build  = cfg.BUILD_DIR
     source = cfg.SOURCE_DIR
+
+    # ── Step 0.5: extract metadata from all source .md files ─────────────
+    # Read papers.yml for the source→output mapping.
+    # Shortcode is now read from each file's front matter, not from papers.yml.
+    registry_path = cfg.REGISTRY_YML
+    print(f"  Looking for papers.yml at: {registry_path.resolve()}")
+    if not registry_path.exists():
+        print("ERROR: registry/papers.yml not found.")
+        return
+
+    with registry_path.open(encoding="utf-8") as fh:
+        registry = yaml.safe_load(fh)
+
+    # Build paper_meta by extracting from each source file.
+    # Also build a lookup: shortcode → output filename (still needed by the pipeline).
+    paper_meta:      dict[str, dict] = {}
+    shortcode_to_output: dict[str, str] = {}
+    shortcode_to_src:    dict[str, Path] = {}
+
+    for entry in registry:
+        source_name = entry["source"]
+        output_name = entry["output"]
+        src_path    = source / source_name
+
+        if not src_path.exists():
+            print(f"  – {source_name}: file not found (skipped)")
+            continue
+
+        meta = cfg.extract_paper_meta(src_path)
+        if not meta:
+            print(f"  ! {source_name}: metadata extraction failed (skipped)")
+            continue
+
+        shortcode = meta["shortcode"]
+        paper_meta[shortcode]           = meta
+        shortcode_to_output[shortcode]  = output_name
+        shortcode_to_src[shortcode]     = src_path
+        print(
+            f"  ✓ {source_name}: [{shortcode}] v{meta['version']} "
+            f"({meta['word_count']:,} words)"
+        )
+
+    print(f"  Extracted metadata for {len(paper_meta)} papers.\n")
+
+    # ── Load site config (now receives paper_meta from extraction above) ──
+    site_cfg = cfg.load(paper_meta=paper_meta)
+
+    build = cfg.BUILD_DIR
 
     # ── Clean and recreate _build/ ────────────────────────────────────────
     if build.exists():
@@ -93,19 +130,6 @@ def main() -> None:
     build.mkdir(exist_ok=True)
 
     # ── Copy site/ assets into _build/ ───────────────────────────────────
-    # Handling per directory:
-    #
-    #   site/pages/   → flattened to _build/ root
-    #                   .md files get crossref transforms + renamed to .qmd
-    #                   all other files copied verbatim
-    #
-    #   site/tools/   → path preserved as _build/tools/
-    #                   .html files wrapped in Quarto front matter → .qmd
-    #                   .py / .toml runtime files copied verbatim
-    #                   (no crossref transforms — these are interactive tool fragments)
-    #
-    #   everything else → path preserved, copied verbatim
-
     FLATTEN_DIRS = {"pages"}
     TOOL_DIR     = "tools"
 
@@ -113,7 +137,6 @@ def main() -> None:
         parts = p.relative_to(cfg.SITE_DIR).parts
 
         if parts[0] in FLATTEN_DIRS:
-            # Flatten pages/ to _build/ root
             destination = build / Path(*parts[1:])
             destination.parent.mkdir(parents=True, exist_ok=True)
             if p.suffix == ".md":
@@ -126,11 +149,9 @@ def main() -> None:
                 shutil.copy2(p, destination)
 
         elif parts[0] == TOOL_DIR:
-            # Preserve tools/ path
             destination = build / Path(*parts)
             destination.parent.mkdir(parents=True, exist_ok=True)
             if p.suffix == ".html":
-                # Wrap body-fragment HTML in Quarto front matter
                 stem = p.stem
                 title, description = _TOOL_META.get(stem, (stem, ""))
                 html = p.read_text(encoding="utf-8")
@@ -139,7 +160,6 @@ def main() -> None:
                 destination.write_text(qmd, encoding="utf-8")
                 print(f"  ✓ site/tools/{p.name} → _build/tools/{destination.name}")
             elif p.suffix in _TOOL_RUNTIME_SUFFIXES:
-                # Runtime files: copy verbatim so browser fetch() calls resolve
                 shutil.copy2(p, destination)
                 print(f"  ✓ site/tools/{p.name} → _build/tools/{p.name} (runtime)")
             else:
@@ -150,7 +170,7 @@ def main() -> None:
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(p, destination)
 
-    # ── Copy image outputs into _build/figures/ ───────────────────────────────
+    # ── Copy image outputs into _build/figures/ ───────────────────────────
     OUTPUTS_DIR = cfg.SITE_DIR / "tools" / "OUTPUTS"
     if OUTPUTS_DIR.exists():
         figures_dest = build / "figures"
@@ -158,9 +178,12 @@ def main() -> None:
         for img in OUTPUTS_DIR.rglob("*"):
             if img.is_file():
                 shutil.copy2(img, figures_dest / img.name)
-        print(f"  ✓ Copied image outputs → _build/figures/ ({sum(1 for _ in OUTPUTS_DIR.rglob('*') if _.is_file())} files)")
+        print(
+            f"  ✓ Copied image outputs → _build/figures/ "
+            f"({sum(1 for _ in OUTPUTS_DIR.rglob('*') if _.is_file())} files)"
+        )
     else:
-        print(f"  ! site/tools/OUTPUTS/ not found — skipping figure copy")
+        print("  ! site/tools/OUTPUTS/ not found — skipping figure copy")
 
     # ── Auto-generated pages ──────────────────────────────────────────────
     generate_corpus_qmd(build / "corpus.qmd", site_cfg.link_map, site_cfg.paper_meta)
@@ -170,12 +193,12 @@ def main() -> None:
             build / "references.qmd", site_cfg.refs_data, site_cfg.link_map
         )
     else:
-        print(f"  ! references.json not found — skipping references.qmd")
+        print("  ! references.json not found — skipping references.qmd")
 
     if cfg.DIAGRAMS_DIR.exists():
-        generate_flowcharts_qmd(build, site_cfg.link_map, site_cfg.anchor_map)
+        generate_flowcharts_qmd(build)
     else:
-        print(f"  ! site/diagrams/ not found — skipping flowcharts.qmd")
+        print("  ! site/diagrams/ not found — skipping flowcharts.qmd")
 
     # ── Machine-readable static endpoints + site-index.json ──────────────
     copy_machine_readable_assets(
@@ -187,31 +210,11 @@ def main() -> None:
     )
 
     # ── Per-paper processing ──────────────────────────────────────────────
-    registry_path = cfg.REGISTRY_YML
-    print(f"  Looking for papers.yml at: {registry_path.resolve()}")
-    if not registry_path.exists():
-        print("ERROR: registry/papers.yml not found.")
-        return
-
-    with registry_path.open(encoding="utf-8") as fh:
-        registry = yaml.safe_load(fh)
-
     found = missing = 0
-    for entry in registry:
-        shortcode   = entry["shortcode"]
-        source_glob = entry["source_glob"]
-        output_name = entry["output"]
-
-        matches = sorted(source.glob(source_glob))
-        if not matches:
-            print(f"  – {shortcode}: no file found (skipped)")
-            missing += 1
-            continue
-        if len(matches) > 1:
-            print(f"  ! {shortcode}: multiple matches, using {matches[-1].name}")
-
+    for shortcode, src_path in shortcode_to_src.items():
+        output_name = shortcode_to_output[shortcode]
         process_file(
-            matches[-1],
+            src_path,
             build / output_name,
             shortcode,
             site_cfg.link_map,
@@ -220,7 +223,8 @@ def main() -> None:
         )
         found += 1
 
-    print(f"\nDone. {found} papers staged, {missing} not yet available.")
+    skipped = len(registry) - found - missing
+    print(f"\nDone. {found} papers staged, {len(registry) - found} not available.")
     print(f"Run: quarto render {cfg.BUILD_DIR}")
 
 

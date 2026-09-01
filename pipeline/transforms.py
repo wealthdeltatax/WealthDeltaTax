@@ -9,7 +9,7 @@ Steps:
   2. fix_image_paths    — rewrite image src paths to figures/ (flat build directory)
   3. convert_crossrefs  — (PAPER §X.Y) / PAPER §X.Y  →  markdown hyperlink
   4. convert_internal_bibliography — [CODE] lines → styled ::: div
-  5. inject_front_matter — enrich YAML front matter from paper_meta
+  5. inject_front_matter — enrich YAML front matter from paper_meta (derived from file)
   6. build_jsonld       — append JSON-LD ScholarlyArticle block
 """
 
@@ -22,7 +22,7 @@ from typing import Any
 
 import yaml
 
-from config import AUTHOR, SITE_URL, _format_date
+from config import AUTHOR, AFFILIATION, DISCLOSURE, SITE_URL
 
 
 # ── 1. LaTeX artifact stripping ───────────────────────────────────────────────
@@ -32,7 +32,7 @@ _LATEX_PATTERNS = [
     r"\\medskip",
     r"\\bigskip",
     r"\\smallskip",
-    r"\\",
+    r"\\\\",
     r"\\*s\{\.appendix\}",
     r"\\maketitle",
     r"\\begin\{center\}",
@@ -64,11 +64,6 @@ def strip_latex(text: str) -> str:
 # Quarto renders papers at the _build/ root, and preprocess.py copies all
 # images from site/tools/OUTPUTS/**/* into _build/figures/ (flat), so
 # `figures/<filename>` is always the correct relative path.
-#
-# The regex matches Markdown image syntax:  ![alt](path)
-# It captures everything inside the parens and rewrites it to just the
-# bare filename under figures/, preserving any trailing title string
-# e.g.  ![](../figures/foo.png "Fig 1")  →  ![](figures/foo.png "Fig 1")
 
 _IMG_RE = re.compile(
     r'!\[([^\]]*)\]\(([^)]+)\)'
@@ -79,17 +74,7 @@ def _rewrite_image_src(src: str) -> str:
     """
     Given the raw src string from inside ![alt](SRC), return the corrected
     figures/-relative path.
-
-    Handles:
-      ../figures/foo.png          → figures/foo.png
-      ../../figures/foo.png       → figures/foo.png
-      figures/foo.png             → figures/foo.png   (already correct)
-      site/tools/OUTPUTS/X/foo.png → figures/foo.png
-      foo.png                     → figures/foo.png   (bare filename)
-
-    Preserves any trailing title token, e.g. `foo.png "My title"`.
     """
-    # Split off an optional title token: `path "title"` or `path 'title'`
     title_match = re.search(r'\s+(["\'].+["\'])\s*$', src)
     if title_match:
         title_token = " " + title_match.group(1)
@@ -98,9 +83,7 @@ def _rewrite_image_src(src: str) -> str:
         title_token = ""
         src_path = src.strip()
 
-    # Extract bare filename regardless of leading path components
     filename = Path(src_path).name
-
     return f"figures/{filename}{title_token}"
 
 
@@ -109,11 +92,8 @@ def fix_image_paths(text: str) -> str:
     def replace(m: re.Match) -> str:
         alt = m.group(1)
         src = m.group(2)
-
-        # Skip external URLs — http/https/data URIs stay untouched
         if re.match(r'https?://', src) or src.startswith('data:'):
             return m.group(0)
-
         new_src = _rewrite_image_src(src)
         return f"![{alt}]({new_src})"
 
@@ -190,12 +170,23 @@ def convert_internal_bibliography(lines: list[str]) -> list[str]:
 
 _YAML_FENCE_RE = re.compile(r"^---\s*\n(.*?)^---\s*\n", re.DOTALL | re.MULTILINE)
 
+
 def inject_front_matter(
     text: str,
     shortcode: str,
     paper_meta: dict[str, Any],
 ) -> str:
-    """Enrich or create YAML front matter with metadata from paper_meta."""
+    """
+    Enrich the file's existing YAML front matter with computed fields from
+    paper_meta (which was itself extracted from this file by extract_paper_meta).
+
+    Fields always injected (overwriting any existing value):
+        author, description, date, version, word_count
+
+    Fields left as-is if already present in the file's YAML:
+        title, shortcode, status, keywords
+        (these came from the file; paper_meta has the same values)
+    """
     meta = paper_meta.get(shortcode)
     if not meta:
         return text
@@ -211,20 +202,21 @@ def inject_front_matter(
         fm = {}
         body = text
 
-    if "description" not in fm:
-        fm["description"] = meta.get("title", "")
-    if "author" not in fm:
-        fm["author"] = AUTHOR
-    if "date" not in fm:
-        iso = _format_date(meta.get("version_date"))
-        if iso:
-            fm["date"] = iso
-    if "version" not in fm:
-        fm["version"] = meta.get("version", "")
-    if "keywords" not in fm:
-        related = meta.get("outbound_internal", [])[:4]
-        kws = ["Wealth Delta Tax", "WDT", shortcode] + related
-        fm["keywords"] = ", ".join(kws)
+    # Always inject computed/shared fields
+    fm["author"]      = AUTHOR
+    fm["description"] = meta.get("title", shortcode)
+
+    version_date = meta.get("version_date")   # ISO string or None
+    if version_date:
+        fm["date"] = version_date
+
+    fm["version"]    = meta.get("version", "")
+    fm["word_count"] = meta.get("word_count", 0)
+
+    # Ensure keywords are present; use what's already in the file's YAML
+    # (paper_meta carries the same list, but the file's YAML is authoritative)
+    if "keywords" not in fm and meta.get("keywords"):
+        fm["keywords"] = meta["keywords"]
 
     new_fm = yaml.dump(
         fm, default_flow_style=False, allow_unicode=True, sort_keys=False
@@ -269,8 +261,12 @@ def build_jsonld(
     url       = f"{SITE_URL}/{page_html}"
     title     = meta.get("title", shortcode)
     version   = meta.get("version", "")
-    iso_date  = _format_date(meta.get("version_date")) or ""
+    iso_date  = meta.get("version_date") or ""   # already ISO from extract_paper_meta
     status    = meta.get("status", "active")
+    keywords  = meta.get("keywords", [])
+
+    # Merge explicit keywords with standard WDT tags, deduplicated
+    kw_list = list(dict.fromkeys(["Wealth Delta Tax", "WDT"] + keywords))
 
     related_codes = list(dict.fromkeys(
         meta.get("outbound_internal", []) + meta.get("inbound_internal", [])
@@ -294,7 +290,7 @@ def build_jsonld(
         },
         "version": version,
         "creativeWorkStatus": status,
-        "keywords": ["Wealth Delta Tax", "WDT", "wealth taxation", shortcode],
+        "keywords": kw_list,
     }
     if iso_date:
         ld["dateModified"] = iso_date

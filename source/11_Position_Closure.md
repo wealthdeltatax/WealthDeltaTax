@@ -1,47 +1,28 @@
 ---
 title: "The Wealth Delta Tax: Position Closure"
-author: "K. Ogata"
-date: "July 2026"
-toc: true
-numbersections: false
-documentclass: article
-fontsize: 11pt
-geometry: margin=1in
----
-
-**K. Ogata**  
-Independent Researcher  
-
-\medskip
-
-**Version:** 1.00  
-**Date:** 14 August 2026  
-
-\medskip
-
-**Word count:** 5013
-
-\medskip
-
----
-
-### Keywords {.unnumbered .unlisted}
-
-Wealth Delta Tax · wealth taxation · position closure · tax assessment closure · death taxation · exit taxation · bankruptcy taxation · threshold exit · jurisdictional exit · re-entry · bridging facility · lifetime tax account · lifetime contribution envelope · tax settlement
-
----
-
-### Author Disclosure {.unnumbered .unlisted}
-Portions of the drafting, editing, literature organisation, and structural review of this paper were assisted by publicly available large language models, including Anthropic's Claude and OpenAI's ChatGPT. These tools were used as aids to the author's research and writing process; the substantive arguments, analysis, interpretations, and conclusions are the author's own.
-
-This work received no external funding, sponsorship, or other financial support. The author is solely responsible for the content of the paper and for any errors that remain.
-
+shortcode: "CLOSE"
+status: "active"
+keywords:
+    - Wealth Delta Tax
+    - wealth taxation
+    - position closure
+    - tax assessment closure
+    - death taxation
+    - exit taxation
+    - bankruptcy taxation
+    - threshold exit
+    - jurisdictional exit
+    - re-entry
+    - bridging facility
+    - lifetime tax account
+    - lifetime contribution envelope
+    - tax settlement
 ---
 
 ### Revision History {.unnumbered .unlisted}
 
-| Revision | Date| Details|
-|:--------:|:---------------:|----------------------|
+| Revision | Date            | Details                  |
+|:--------:|:---------------:|--------------------------|
 | 0.01      | 24 July 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 

@@ -1,43 +1,24 @@
 ---
 title: "The Wealth Delta Tax: Scope Boundary — Questions Outside This Project"
-author: "K. Ogata"
-date: "August 2026"
-toc: false
-numbersections: false
-documentclass: article
-fontsize: 11pt
-geometry: margin=1in
+shortcode: "SCOPE"
+status: "draft"
+keywords:
+    - Wealth Delta Tax
+    - research scope
+    - research boundaries
+    - methodological scope
+    - open research questions
+    - model limitations
+    - deferred questions
+    - legal questions
+    - empirical questions
+    - future research
 ---
-
-**K. Ogata**  
-Independent Researcher  
-
-\medskip
-
-**Version:** 0.2  
-**Date:** 21 August 2026  
-
-\medskip
-
-**Word Count:** n/a
-
-\medskip
-
----
-
-### Keywords {.unnumbered .unlisted}
-
-Wealth Delta Tax · research scope · research boundaries · methodological scope · open research questions · model limitations · deferred questions · legal questions · empirical questions · future research
-
-### Author Disclosure {.unnumbered .unlisted}
-Portions of the drafting, editing, literature organisation, and structural review of this paper were assisted by publicly available large language models, including Anthropic's Claude and OpenAI's ChatGPT. These tools were used as aids to the author's research and writing process; the substantive arguments, analysis, interpretations, and conclusions are the author's own.
-
-This work received no external funding, sponsorship, or other financial support. The author is solely responsible for the content of the paper and for any errors that remain.
 
 ### Revision History {.unnumbered .unlisted}
 
-| Revision | Date | Details |
-|:--------:|:-------------:|-----------------|
+| Revision | Date            | Details                  |
+|:--------:|:---------------:|--------------------------|
 | 0.1 | 6 August 2026 | First draft. Twelve items from the consolidated open questions register formally acknowledged as outside project scope, with reasons. |
 | 0.2 | 21 August 2026 | Full revision against the completed 30-item open questions register (0.0 §26). All items categorised and absorbed. Section taxonomy restructured to match register groupings. Internal bibliography extended. |
 

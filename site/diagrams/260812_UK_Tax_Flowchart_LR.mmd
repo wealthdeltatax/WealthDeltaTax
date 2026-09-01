@@ -1,18 +1,18 @@
-%%{init: {
-  "flowchart": {
-    "nodeSpacing": 0,
-    "rankSpacing": 0,
-    "padding": 0,
-    "diagramPadding": 100,
+%%{init: {}}
+  "flowchart": {}
+    "nodeSpacing": 40,
+    "rankSpacing": 50,
+    "padding": 20,
     "htmlLabels": true,
     "useMaxWidth": true,
-    "curve": "linear",
+    "curve": "linear"
   },
-  "themeVariables": {
-    "fontSize": "40px",
+  "themeVariables": {}
+    "fontSize": "16px",
     "fontFamily": "Arial, sans-serif"
   }
 }}%%
+
 flowchart TD
 
 %% ── STYLES ──────────────────────────────────────────────
@@ -58,7 +58,7 @@ INCOME{What income this year?}:::decision
 %% Employment
 INCOME -->|Employment| EMP[Employment income Salary · bonuses · benefits in kind]:::income
 EMP --> PAYE[PAYE deducted at source]:::income
-PAYE --> EMP_NIC[Employee NIC Class 1 8% / 2% above £50,270]:::income
+PAYE --> EMP_NIC["Employee NIC Class 1 8% / 2% above £50,270"]:::income
 EMP_NIC --> BENEFITS_Q{Benefits in kind?}:::decision
 BENEFITS_Q -->|Yes| P11D[P11D: benefit value added to income]:::income
 BENEFITS_Q -->|No| SHARE_Q
@@ -71,7 +71,7 @@ SHARE_A & SHARE_U --> INCOME_POOL
 
 %% Self-employment
 INCOME -->|Self-employment| SELF[Profits = income minus allowable expenses]:::income
-SELF --> SELF_NIC[NIC Class 2 flat + Class 4 6% / 2%]:::income
+SELF --> SELF_NIC["NIC Class 2 flat + Class 4 6% / 2%"]:::income
 SELF_NIC --> SELF_LQ{Trading loss?}:::decision
 SELF_LQ -->|Yes| SELF_LOSS[Offset same year · carry back · carry forward]:::relief
 SELF_LQ -->|No| INCOME_POOL
@@ -81,14 +81,14 @@ SELF_LOSS --> INCOME_POOL
 INCOME -->|Savings interest| INT[Bank · gilt · P2P interest]:::income
 INT --> INT_Q{Within personal savings allowance?}:::decision
 INT_Q -->|Yes| INT_FREE[Tax-free £1,000 / £500 / £0 by rate band]:::relief
-INT_Q -->|No| INT_TAX[Taxed at marginal rate 20% / 40% / 45%]:::income
+INT_Q -->|No| INT_TAX["Taxed at marginal rate 20% / 40% / 45%"]:::income
 INT_FREE & INT_TAX --> INCOME_POOL
 
 %% Dividends
 INCOME -->|Dividends| DIV[UK and foreign dividends]:::income
 DIV --> DIV_Q{Within £500 allowance?}:::decision
 DIV_Q -->|Yes| DIV_FREE[Tax-free]:::relief
-DIV_Q -->|No| DIV_TAX[8.75% / 33.75% / 39.35% Sit at top of income stack]:::income
+DIV_Q -->|No| DIV_TAX["8.75% / 33.75% / 39.35% Sit at top of income stack"]:::income
 DIV_FREE & DIV_TAX --> INCOME_POOL
 
 %% Rental
@@ -100,7 +100,7 @@ RENT_LQ -->|No| INCOME_POOL
 RENT_LOSS --> INCOME_POOL
 
 %% Pension income
-INCOME -->|Pension| PEN_INC[State · occupational · drawdown 25% tax-free lump sum at crystallisation]:::income
+INCOME -->|Pension| PEN_INC["State · occupational · drawdown 25% tax-free lump sum at crystallisation"]:::income
 PEN_INC --> INCOME_POOL
 
 %% ── INCOME POOL ─────────────────────────────────────────
@@ -118,7 +118,7 @@ PA_TAPER --> PA_APPLY
 
 PA_APPLY[Apply personal allowance Blind person's · marriage allowance available]:::relief --> BANDS
 
-BANDS[Income tax bands 20% / 40% / 45% · Scottish rates differ]:::status
+BANDS["Income tax bands 20% / 40% / 45% · Scottish rates differ"]:::status
 
 BANDS --> GIFT_AID_Q{Gift Aid?}:::decision
 GIFT_AID_Q -->|Yes| GIFT_AID[Extends basic rate band Higher-rate relief via SA]:::relief
@@ -155,7 +155,7 @@ CGT_LOSS --> CGT_AEA
 
 CGT_AEA[Apply AEA: £3,000 Cannot carry forward if unused]:::relief --> CGT_RATES
 
-CGT_RATES[18%/24% residential · 10%/20% other BADR/IR: 10% up to £1m/£10m lifetime]:::cgt --> CGT_30_Q
+CGT_RATES["18%/24% residential · 10%/20% other BADR/IR: 10% up to £1m/£10m lifetime"]:::cgt --> CGT_30_Q
 
 CGT_30_Q{UK residential property sold?}:::decision
 CGT_30_Q -->|Yes| CGT_30[Report and pay within 60 days Separate online return]:::cgt
@@ -170,13 +170,13 @@ IHT_Q -->|Yes| IHT_ESTATE[Value entire estate All UK assets · joint assets by s
 
 IHT_ESTATE --> IHT_EXEMPT[Apply exemptions Spouse · charity · annual £3,000]:::iht
 IHT_EXEMPT --> NRB[NRB £325,000 + TNRB + RNRB £175,000 RNRB tapers above £2m net estate]:::iht
-NRB --> GIFTS_7[Add back PETs within 7 years Taper relief 3–7 years · CLTs: 20% on entry]:::iht
+NRB --> GIFTS_7["Add back PETs within 7 years Taper relief 3–7 years · CLTs: 20% on entry"]:::iht
 GIFTS_7 --> BPR_Q{BPR or APR available?}:::decision
-BPR_Q -->|Yes| BPR[100% or 50% relief Capped at £1m combined from April 2026]:::relief
+BPR_Q -->|Yes| BPR["100% or 50% relief Capped at £1m combined from April 2026"]:::relief
 BPR_Q -->|No| IHT_RATE
 BPR --> IHT_RATE
 
-IHT_RATE[40% above nil rate bands 36% if 10%+ to charity]:::iht --> CORP_Q
+IHT_RATE["40% above nil rate bands 36% if 10%+ to charity"]:::iht --> CORP_Q
 
 %% ── CORPORATION TAX ─────────────────────────────────────
 
@@ -189,12 +189,12 @@ CORP_LQ -->|Yes| CORP_LOSS[Offset same period · carry back 12 months Carry forw
 CORP_LQ -->|No| CORP_RATE
 CORP_LOSS --> CORP_RATE
 
-CORP_RATE[19% up to £50k · 25% above £250k Marginal relief between]:::corp --> DIVS_Q
+CORP_RATE["19% up to £50k · 25% above £250k Marginal relief between"]:::corp --> DIVS_Q
 
 DIVS_Q{Extracting profits?}:::decision
 DIVS_Q -->|Salary| CORP_SAL[Deductible · subject to IT + NIC]:::corp
 DIVS_Q -->|Dividends| CORP_DIV[Not deductible · dividend rates in hands No NIC]:::corp
-DIVS_Q -->|Director loan| DIR_LOAN[S455 tax 33.75% if not repaid within 9 months]:::corp
+DIVS_Q -->|Director loan| DIR_LOAN["S455 tax 33.75% if not repaid within 9 months"]:::corp
 CORP_SAL & CORP_DIV & DIR_LOAN --> VAT_Q
 
 %% ── VAT ─────────────────────────────────────────────────
@@ -209,7 +209,7 @@ VAT_VOL_Q -->|No| SDLT_Q
 
 VAT_REG --> VAT_SQ{Accounting scheme?}:::decision
 VAT_SQ -->|Standard| VAT_STD[Quarterly returns Output minus input tax · MTD required]:::corp
-VAT_SQ -->|Flat rate| VAT_FRS[Fixed % of gross turnover No input tax recovery]:::corp
+VAT_SQ -->|Flat rate| VAT_FRS["Fixed % of gross turnover No input tax recovery"]:::corp
 VAT_SQ -->|Cash| VAT_CASH[Accounted on cash received/paid Automatic bad debt relief]:::corp
 VAT_STD & VAT_FRS & VAT_CASH --> SDLT_Q
 
@@ -218,9 +218,9 @@ VAT_STD & VAT_FRS & VAT_CASH --> SDLT_Q
 SDLT_Q{UK land or property acquired?}:::decision
 SDLT_Q -->|No| SA
 SDLT_Q -->|Yes| SDLT_JQ{Jurisdiction?}:::decision
-SDLT_JQ -->|England/NI| SDLT[SDLT: 0–12% residential +3% additional dwellings · file within 14 days]:::filing
-SDLT_JQ -->|Scotland| LBTT[LBTT: 0–12% +6% additional dwellings · 30 days]:::filing
-SDLT_JQ -->|Wales| LTT[LTT: 0–12% +4% additional dwellings · 30 days]:::filing
+SDLT_JQ -->|England/NI| SDLT["SDLT: 0–12% residential +3% additional dwellings · file within 14 days"]:::filing
+SDLT_JQ -->|Scotland| LBTT["LBTT: 0–12% +6% additional dwellings · 30 days"]:::filing
+SDLT_JQ -->|Wales| LTT["LTT: 0–12% +4% additional dwellings · 30 days"]:::filing
 SDLT & LBTT & LTT --> SA
 
 %% ── SELF-ASSESSMENT ─────────────────────────────────────
@@ -233,7 +233,7 @@ SA_RETURN --> SA_DEADLINE[Online: 31 Jan · Paper: 31 Oct Payment: 31 Jan · POA
 
 SA_DEADLINE --> SA_PQ{On time?}:::decision
 SA_PQ -->|Yes| SA_IQ
-SA_PQ -->|No| SA_PENALTY[£100 immediate · £10/day after 3 months 5% surcharges at 6 and 12 months]:::filing
+SA_PQ -->|No| SA_PENALTY["£100 immediate · £10/day after 3 months 5% surcharges at 6 and 12 months"]:::filing
 SA_PENALTY --> SA_IQ
 
 SA_IQ{HMRC enquiry?}:::decision
@@ -245,7 +245,7 @@ DQ -->|No| PQ
 DISCOVERY --> PQ
 
 PQ{Error penalties?}:::decision
-PQ -->|Yes| PENALTIES[Careless 0–30% · Deliberate 20–70% Concealed 30–100% · Reduction for disclosure]:::filing
+PQ -->|Yes| PENALTIES["Careless 0–30% · Deliberate 20–70% Concealed 30–100% · Reduction for disclosure"]:::filing
 PQ -->|No| AQ
 PENALTIES --> AQ
 

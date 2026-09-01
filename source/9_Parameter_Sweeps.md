@@ -1,50 +1,32 @@
 ---
-title: "Parameter Sweeps and Governing Council Calibration"
-author: "K. Ogata"
-date: "August 2026"
-toc: true
-numbersections: false
-documentclass: article
-fontsize: 11pt
-geometry: margin=1in
----
-
-**K. Ogata**  
-Independent Researcher  
-
-\medskip
-
-**Version:** 1.01  
-**Date:** 31 August 2026  
-
-\medskip
-
-**Word count:** 8071  
-
-\medskip
-
----
-
-### Keywords {.unnumbered .unlisted}
-
-Wealth taxation · parameter calibration · parameter sensitivity · tax-rate calibration · declaration incentives · numerical parameter sweeps · fiscal simulation · robustness analysis · Governing Council · parameter space · sensitivity analysis · joint parameter surfaces · Phase One calibration
-
----
-
-### Author Disclosure {.unnumbered .unlisted}
-Portions of the drafting, editing, literature organisation, and structural review of this paper were assisted by publicly available large language models, including Anthropic's Claude and OpenAI's ChatGPT. These tools were used as aids to the author's research and writing process; the substantive arguments, analysis, interpretations, and conclusions are the author's own.
-
-This work received no external funding, sponsorship, or other financial support. The author is solely responsible for the content of the paper and for any errors that remain.
-
+title: "The Wealth Delta Tax: Parameter Sweeps and Governing Council Calibration"
+shortcode: "SWEEPS"
+status: "active"
+keywords:
+    - Wealth Delta Tax
+    - wealth taxation
+    - parameter calibration
+    - parameter sensitivity
+    - tax-rate calibration
+    - declaration incentives
+    - numerical parameter sweeps
+    - fiscal simulation
+    - robustness analysis
+    - Governing Council
+    - parameter space
+    - sensitivity analysis
+    - joint parameter surfaces
+    - Phase One calibration
 ---
 
 ### Revision History {.unnumbered .unlisted}
 
-| Revision | Date| Details|
-|:--------:|:---------------:|----------------------|
+| Revision | Date            | Details                  |
+|:--------:|:---------------:|--------------------------|
 | 0.01      | 12 August 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01 | 31 August 2026 | Numerical and argumentative update to match confirmed SWEEPS.A canonical tables |
+| 1.02 | 31 August 2026 | Glossary declaration equilibrium definition corrected to reflect refund-protection-asymmetry rationale (α ≈ 1.1) rather than stable TW advantage (α ≈ 1.2–1.5); §2.2 N-crossing paragraph extended with clarification that NPV-adjusted C.12 eliminates mild-overstater advantage prior to the nominal N-crossing point |
 
 \newpage
 
@@ -60,7 +42,7 @@ The parameters are doing largely separable jobs. $\tau_0$ governs both fiscal ca
 
 **C.1 metric:** The total-tax-paid difference relative to honest declaration, expressed as a percentage of the honest taxpayer's terminal wealth, used in VAL.S as the primary measure of declaration incentive consequences across parameter values.
 
-**Declaration equilibrium:** The population-level stable declaration strategy under the WDT's incentive structure; established in VAL.A as mild overstatement at $\alpha$ ≈ 1.2–1.5 rather than exact honest declaration.
+**Declaration equilibrium:** The population-level stable declaration strategy under the WDT's incentive structure; established in VAL.A as mild overstatement near $\alpha$ ≈ 1.1 rather than exact honest declaration. The rationale is refund-protection asymmetry under valuation uncertainty, not a genuine economic return to overstatement: the nominal TW_settled advantage of mild overstatement does not survive NPV adjustment (VAL.A §C.12).
 
 **k:** The steepness parameter of the logistic rate function; controls how rapidly the rate rises from $\tau_0$ toward $\tau_m$ as wealth increases above $W_{min}$.
 
@@ -122,7 +104,9 @@ The fiscal counterpart is the TCM coverage ratio: average annual TCM net revenue
 
 ## 2.2 The N-Crossing Threshold and LRR Fill Year
 
-The N-crossing threshold is the holding period at which a given degree of aggressive overstatement first becomes more expensive than honest declaration. At canonical parameters all three tracked overstater levels cross well before the capitalisation horizon: $\alpha$ = 1.5 at approximately N = 21, $\alpha$ = 1.8 at N = 20, $\alpha$ = 2.0 at N = 20 (Table B.4.5). By the canonical N = 29 horizon the correction has been active for roughly nine years — overstaters are not approaching the crossing point at N = 29, they passed it early in the second decade of holding. This is a property of moderate-growth assets with holding periods of fifteen to twenty-five years, not only of the most illiquid long-held positions.
+The N-crossing threshold is the holding period at which a given degree of aggressive overstatement first becomes more expensive than honest declaration in nominal C.1 terms. At canonical parameters all three tracked overstater levels cross well before the capitalisation horizon: $\alpha$ = 1.5 at approximately N = 21, $\alpha$ = 1.8 at N = 20, $\alpha$ = 2.0 at N = 20 (Table B.4.5). By the canonical N = 29 horizon the correction has been active for roughly nine years — overstaters are not approaching the crossing point at N = 29, they passed it early in the second decade of holding. This is a property of moderate-growth assets with holding periods of fifteen to twenty-five years, not only of the most illiquid long-held positions.
+
+A further qualification applies specifically to mild overstatement ($\alpha$ = 1.5): while the nominal C.1 advantage is eliminated at the N-crossing, the NPV-adjusted C.12 metric established in (VAL.A §C.12) shows that the advantage does not survive discounting even before the crossing — periodic outflows are real early money while the sell-year refund is inflated late money. The N-crossing tracks the nominal incentive landscape; the economic conclusion (no genuine TW advantage from mild overstatement) holds at all N and all g, not only after the crossing point.
 
 The N = 29 reference line used throughout the VAL.S figures is the LRR fill horizon for the 2006 worst-case start year at canonical parameters ($\tau_0$ = 15%, budget_growth = 4.51%), confirmed in SWEEPS.A Table B.2. It appears on the charts as a temporal anchor, not a pass/fail threshold. The prior N = 34 reference was derived at $\tau_0$ = 20% and the since-corrected budget_growth figure; the corrected canonical figure is N = 29.
 

@@ -1,46 +1,26 @@
 ---
 title: "The Wealth Delta Tax: Modular Adoption"
-author: "K. Ogata"
-date: "August 2026"
-toc: true
-numbersections: false
-documentclass: article
-fontsize: 11pt
-geometry: margin=1in
----
-
-**K. Ogata**  
-Independent Researcher  
-
-\medskip
-
-**Version:** 1.00  
-**Date:** 14 August 2026 
-
-\medskip
-
-**Word Count:** 1405  
-
-\medskip
-
----
-
-### Keywords {.unnumbered .unlisted}
-Wealth Delta Tax · modular tax reform · modular adoption · incremental institutional change · institutional accretion · enabling infrastructure · policy sequencing · tax-system transition · path dependence · scrutiny period · implementation strategy · institutional adoption
-
----
-
-### Author Disclosure {.unnumbered .unlisted}
-Portions of the drafting, editing, literature organisation, and structural review of this paper were assisted by publicly available large language models, including Anthropic's Claude and OpenAI's ChatGPT. These tools were used as aids to the author's research and writing process; the substantive arguments, analysis, interpretations, and conclusions are the author's own.
-
-This work received no external funding, sponsorship, or other financial support. The author is solely responsible for the content of the paper and for any errors that remain.
-
+shortcode: "MOD"
+status: "active"
+keywords:
+    - Wealth Delta Tax
+    - modular tax reform
+    - modular adoption
+    - incremental institutional change
+    - institutional accretion
+    - enabling infrastructure
+    - policy sequencing
+    - tax-system transition
+    - path dependence
+    - scrutiny period
+    - implementation strategy
+    - institutional adoption
 ---
 
 ### Revision History {.unnumbered .unlisted}
 
-| Revision | Date| Details|
-|:--------:|:---------------:|----------------------|
+| Revision | Date            | Details                  |
+|:--------:|:---------------:|--------------------------|
 | 0.01      | 6 August 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 

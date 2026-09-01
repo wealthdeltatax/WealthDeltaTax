@@ -1,47 +1,28 @@
 ---
-title: "Parameter Sweeps and Governing Council Calibration — Appendix Tables"
-author: "K. Ogata"
-date: "August 2026"
-toc: true
-numbersections: false
-documentclass: article
-fontsize: 11pt
-geometry: margin=1in
----
-
-**K. Ogata**  
-Independent Researcher  
-
-\medskip
-
-**Version:** 1.01  
-**Date:** 31 August 2026  
-
-\medskip
-
-**Word count:** n/a  
-
-\medskip
-
----
-
-### Keywords {.unnumbered .unlisted}
-
-Wealth taxation · parameter sweeps · parameter sensitivity · tax-rate calibration · numerical simulation · declaration incentives · fiscal outcomes · sensitivity analysis · joint parameter surface · N-crossing · tolerant zone · Sovereign Wealth Fund capitalisation · reproducible research
-
----
-
-### Author Disclosure {.unnumbered .unlisted}
-Portions of the drafting, editing, literature organisation, and structural review of this paper were assisted by publicly available large language models, including Anthropic's Claude and OpenAI's ChatGPT. These tools were used as aids to the author's research and writing process; the substantive arguments, analysis, interpretations, and conclusions are the author's own.
-
-This work received no external funding, sponsorship, or other financial support. The author is solely responsible for the content of the paper and for any errors that remain.
-
+title: "The Wealth Delta Tax: Parameter Sweeps and Governing Council Calibration — Appendix"
+shortcode: "SWEEPS.A"
+status: "active"
+keywords:
+    - Wealth Delta Tax
+    - wealth taxation
+    - parameter sweeps
+    - parameter sensitivity
+    - tax-rate calibration
+    - numerical simulation
+    - declaration incentives
+    - fiscal outcomes
+    - sensitivity analysis
+    - joint parameter surface
+    - N-crossing
+    - tolerant zone
+    - Sovereign Wealth Fund capitalisation
+    - reproducible research
 ---
 
 ### Revision History {.unnumbered .unlisted}
 
-| Revision | Date| Details|
-|:--------:|:---------------:|----------------------|
+| Revision | Date            | Details                  |
+|:--------:|:---------------:|--------------------------|
 | 0.01      | 12 August 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01 | 31 August 2026 | Numerical and argumentative update to match confirmed SWEEPS.A canonical tables |
@@ -154,10 +135,11 @@ The VAL.A cross-reference column directs the reader to the canonical-parameter t
 
 Figures are grouped by the parameter swept: SS2.x for rate parameters ($\tau_0$, $\tau_m$, k, $W_{min}$), SS3.x for horizon and wealth parameters (N, $V_0$), SS4.x for joint surfaces. Within each group, the suffix letter distinguishes the visualisation type: (a) heatmap grids, (b) line charts of a derived quantity across the swept parameter, (c) tolerant-zone or bracket-penalty overlays. The calibration summary figure (SS4.3) collects all three mechanism-integrity properties — tolerant-zone width, N-crossing threshold for $\alpha = 1.8$, and understater plateau ceiling at $\alpha = 0.1$ — across all parameter variants in a single three-panel chart, providing the unified cross-parameter view that the individual sweep figures distribute across eight table groups.
 
-# VAL.S — Appendix Tables
+**VAL.S — Appendix Tables**
 
 **Generated:** 2026-08-30
-**Model:** Python v1.0 standalone via wdt_core.py  ·  Canonical: $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{min}$=£2m, N=29, $V_0$=£20m, $g$=10.45%
+**Model:** Python v1.0 standalone via wdt_core.py 
+    -  Canonical: $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{min}$=£2m, N=29, $V_0$=£20m, $g$=10.45%
 
 **Metric (all tables unless stated):** C.1 = (Net($\alpha$) − Net(1) / TW($\alpha$).  Positive = $\alpha$ pays more net tax than honest declaration.  $\alpha$ = 1.0 row is zero by construction.
 
@@ -168,7 +150,8 @@ Figures are grouped by the parameter swept: SS2.x for rate parameters ($\tau_0$,
 
 ## B.1  $\tau_0$ Sweep — C.1 metric across $\alpha$ and $g$
 
-**Metric:** (Net($\alpha$) − Net(1) / TW($\alpha$)  ·  $\tau_m$ = 70%, $k$ = 0.001, N = 29, $V_0$ = £20m.  $\alpha$ = 1.0 row is zero by construction.
+**Metric:** (Net($\alpha$) − Net(1) / TW($\alpha$) 
+    -  $\tau_m$ = 70%, $k$ = 0.001, N = 29, $V_0$ = £20m.  $\alpha$ = 1.0 row is zero by construction.
 
 ### B.1.1  $\tau_0$ = 10%
 
@@ -256,7 +239,8 @@ Figures are grouped by the parameter swept: SS2.x for rate parameters ($\tau_0$,
 
 ## B.2  $\tau_m$ Sweep — C.1 metric across $\alpha$ and $g$
 
-**Metric:** (Net($\alpha$) − Net(1) / TW($\alpha$)  ·  $\tau_0$ = 15%, $k$ = 0.001, N = 29, $V_0$ = £20m.
+**Metric:** (Net($\alpha$) − Net(1) / TW($\alpha$) 
+    -  $\tau_0$ = 15%, $k$ = 0.001, N = 29, $V_0$ = £20m.
 
 ### B.2.1  $\tau_m$ = 50%
 
@@ -316,7 +300,8 @@ Figures are grouped by the parameter swept: SS2.x for rate parameters ($\tau_0$,
 
 ## B.3  $k$ Sweep — C.1 metric across $\alpha$ and $g$
 
-**Metric:** (Net($\alpha$) − Net(1) / TW($\alpha$)  ·  $\tau_0$ = 15%, $\tau_m$ = 70%, N = 29, $V_0$ = £20m.
+**Metric:** (Net($\alpha$) − Net(1) / TW($\alpha$) 
+    -  $\tau_0$ = 15%, $\tau_m$ = 70%, N = 29, $V_0$ = £20m.
 
 ### B.3.1  $k$ = 0.0001
 
@@ -446,7 +431,8 @@ Figures are grouped by the parameter swept: SS2.x for rate parameters ($\tau_0$,
 
 ## B.4  N Sweep — C.1 metric at four holding periods
 
-**Metric:** (Net($\alpha$,N) − Net(1,N) / TW($\alpha$,N)  ·  $\tau_0$ = 15%, $\tau_m$ = 70%, $k$ = 0.001, $V_0$ = £20m, $g$ = 10.45% throughout.  $\alpha$ = 1.0 row is zero by construction.
+**Metric:** (Net($\alpha$,N) − Net(1,N) / TW($\alpha$,N) 
+    -  $\tau_0$ = 15%, $\tau_m$ = 70%, $k$ = 0.001, $V_0$ = £20m, $g$ = 10.45% throughout.  $\alpha$ = 1.0 row is zero by construction.
 
 ### B.4.1  N = 10
 
@@ -672,7 +658,8 @@ First N at which overstater Net > honest Net, at $g$ = 10.4%. Interpolated to on
 
 ## B.8  $W_{min}$ Sweep — C.1 metric across $\alpha$ and $g$
 
-**Metric:** (Net($\alpha$) − Net(1) / TW($\alpha$))  ·  $\tau_0$ = 15%, $\tau_m$ = 70%, $k$ = 0.001, N = 29, $V_0$ = £20m, $g$ = 10.45% throughout.  $W_{min}$ is the entry threshold of the logistic rate function; below this wealth level $\tau$ = 0.  $\alpha$ = 1.0 row is zero by construction.
+**Metric:** (Net($\alpha$) − Net(1) / TW($\alpha$)) 
+    -  $\tau_0$ = 15%, $\tau_m$ = 70%, $k$ = 0.001, N = 29, $V_0$ = £20m, $g$ = 10.45% throughout.  $W_{min}$ is the entry threshold of the logistic rate function; below this wealth level $\tau$ = 0.  $\alpha$ = 1.0 row is zero by construction.
 
 ### B.8.1  $W_{min}$ = £0m
 
@@ -805,7 +792,7 @@ All figures are generated by the VAL.S output scripts (`val_s_rate_sweeps.py`, `
 **Model version:** v6 (rates_model.py / wdt_core.py)  
 **Parameters file:** `260812_WDT_Params.toml`  
 
-## D.1. Purpose
+## D.1 Purpose
 
 This document sweeps each of the four WDT rate-function parameters independently, holding the other three at Balanced baseline values, and reports how key transition metrics vary across the full 73-year historical start-year sweep (1947–2019 UK equity return series). It is intended as orientation material for future Governing Council calibration work, not as a scenario recommendation. Parameter interactions are not modelled here; joint sweeps are a natural second-order extension.
 
@@ -859,11 +846,11 @@ Note: the docstring in `rates_model.py` contains a typographical error writing $
 
 *All distributions are across the 73 historical start years 1947–2019. The 2006 start year is extracted separately as the worst-case historical scenario (longest LRR fill time at Balanced parameters).*
 
-## D.2. Floor Rate (τ_0)
+## D.2 Floor Rate (τ_0)
 
 τ_0 sets the marginal rate at W = W_min. A higher floor raises effective rates across the entire taxable population (since every taxpayer above W_min pays at least τ_0 on their first pound of delta); a lower floor concentrates the rate gradient in the upper distribution.
 
-### τ_0 sweep
+### D.2.1 τ_0 sweep
 
 Other parameters held at Balanced baseline: τ_m = 70%,  k = 0.001,  W_min = £2.0m.
 
@@ -899,11 +886,11 @@ Other parameters held at Balanced baseline: τ_m = 70%,  k = 0.001,  W_min = £2
 | 45% | 39.5% | 35.1% | 21 | 2075 | YES |
 | 50% | 38.0% | 31.2% | 20 | 434 | YES |
 
-## D.3. Ceiling Rate (τ_m)
+## D.3 Ceiling Rate (τ_m)
 
 τ_m is the asymptotic ceiling the marginal rate approaches but never reaches. Its primary effect is on the top brackets where W >> W_min; the logistic function brings effective rates close to τ_m only at very high declared wealth levels. Raising τ_m increases revenue from the highest-wealth, highest-growth cells disproportionately, since those cells also generate the largest absolute deltas.
 
-### τ_m sweep
+### D.3.1 τ_m sweep
 
 Other parameters held at Balanced baseline: τ_0 = 15%,  k = 0.001,  W_min = £2.0m.
 
@@ -941,13 +928,13 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  k = 0.001,  W_min = £2
 | 95% | 20.8% | 27.1% | 29 | 528 | — (no breach) |
 | 100% | 20.8% | 27.1% | 29 | 529 | — (no breach) |
 
-## D.4. Steepness (k)
+## D.4 Steepness (k)
 
 k (per £m) controls how rapidly the marginal rate climbs from τ_0 toward τ_m through the wealth distribution. Low k produces a shallow gradient — most taxpayers face rates close to τ_0 even at high wealth levels, with τ_m approached only at very large holdings. High k produces a steep step — the rate reaches τ_m quickly above W_min, compressing the gradient into a narrow wealth band.
 
 *Sweep is log-spaced: 0.0001, 0.0002, 0.0005, 0.0010, 0.0020, 0.0050, 0.0100, 0.0500, 0.1000*
 
-### k sweep (log-spaced)
+### D.4.1 k sweep (log-spaced)
 
 Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  W_min = £2.0m.
 
@@ -981,11 +968,11 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  W_min = £
 | 0.0500 | 21.3% | 28.1% | 26 | 1442 | YES |
 | 0.1000 | 25.3% | 31.8% | 26 | 2820 | YES |
 
-## D.5. Entry Point (W_min)
+## D.5 Entry Point (W_min)
 
 W_min (£m) is the wealth level below which the rate function produces zero liability. It is a rate design parameter, not a population boundary — all UK adults are within the taxable population regardless of W_min. Lower W_min pulls more of the 50th–80th percentile brackets into material liability; higher W_min concentrates the tax on the top percentiles. W_min also affects refund exposure in loss years, since a taxpayer below W_min receives no refund even if their delta is negative.
 
-### W_min sweep
+### D.5.1 W_min sweep
 
 Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001.
 
@@ -1019,13 +1006,13 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001.
 | £7.5m | 14.2% | 26.4% | 35 | 115 | — (no breach) |
 | £10.0m | 14.0% | 30.1% | 38 | 2710 | — (no breach) |
 
-## D.6. SRR Capitalisation Ratio (srr_ratio)
+## D.6 SRR Capitalisation Ratio (srr_ratio)
 
 srr_ratio sets the SRR capitalisation target as a multiple of average annual net WDT income. A higher ratio means the SRR must accumulate more before it is considered fully capitalised, which delays SRR fill and thereby reduces the flow into the LRR during the early accumulation period. A lower ratio allows faster SRR fill and faster LRR accumulation, but at the cost of a thinner refund buffer. The Governing Council recommended floor is 3×; the working SSM-derived value is 3×.
 
 *Note: srr_ratio does not affect the rate function or individual taxpayer burden — it affects only the milestone timing (SRR fill year and LRR fill year). The burden distribution panel in the chart companion is flat across this sweep.*
 
-### srr_ratio sweep
+### D.6.1 srr_ratio sweep
 
 Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001,  W_min = £2.0m,  lrr_years = 3.0.
 
@@ -1061,13 +1048,13 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001,
 | 8.0× | 24.0% | 33.2% | 32 | 768 | — (no breach) |
 | 10.0× | 26.1% | 36.4% | 34 | 2489 | — (no breach) |
 
-## D.7. LRR Floor (lrr_years)
+## D.7 LRR Floor (lrr_years)
 
 lrr_years sets the LRR floor as a multiple of prevailing government expenditure. The LRR target therefore grows over time as nominal expenditure grows at 4.51% p.a. A higher floor requires the LRR to accumulate more before Phase Two becomes viable, directly extending the LRR fill year. A lower floor brings LRR fill earlier but with a thinner buffer against sustained drawdown post-fill. The recommended minimum is 3 years.
 
 *Note: lrr_years does not affect the rate function or individual taxpayer burden — it affects only the LRR milestone timing and the safety margin above the floor. The burden distribution panel in the chart companion is flat across this sweep.*
 
-### lrr_years sweep
+### D.7.1 lrr_years sweep
 
 Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001,  W_min = £2.0m,  srr_ratio = 3.0×.
 

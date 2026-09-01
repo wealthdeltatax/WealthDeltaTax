@@ -1,46 +1,27 @@
 ---
 title: "The Wealth Delta Tax: Constitutional Governance"
-author: "K. Ogata"
-date: "July 2026"
-toc: true
-numbersections: false
-documentclass: article
-fontsize: 11pt
-geometry: margin=1in
----
-
-**K. Ogata**  
-Independent Researcher  
-
-\medskip
-
-**Version:** 1.01  
-**Date:** 29 August 2026  
-
-\medskip
-
-**Word count:** 6959  
-
-\medskip
-
----
-
-### Keywords {.unnumbered .unlisted}
-Wealth taxation · constitutional governance · fiscal institutions · institutional design · democratic accountability · taxpayer governance · Sovereign Wealth Fund governance · constitutional entrenchment · institutional capture · anti-capture mechanisms · public finance governance · tax administration
-
----
-
-### Author Disclosure {.unnumbered .unlisted}
-Portions of the drafting, editing, literature organisation, and structural review of this paper were assisted by publicly available large language models, including Anthropic's Claude and OpenAI's ChatGPT. These tools were used as aids to the author's research and writing process; the substantive arguments, analysis, interpretations, and conclusions are the author's own.
-
-This work received no external funding, sponsorship, or other financial support. The author is solely responsible for the content of the paper and for any errors that remain.
-
+shortcode: "GOV"
+status: "active"
+keywords:
+    - Wealth Delta Tax
+    - wealth taxation
+    - constitutional governance
+    - fiscal institutions
+    - institutional design
+    - democratic accountability
+    - taxpayer governance
+    - Sovereign Wealth Fund governance
+    - constitutional entrenchment
+    - institutional capture
+    - anti-capture mechanisms
+    - public finance governance
+    - tax administration
 ---
 
 ### Revision History {.unnumbered .unlisted}
 
-| Revision | Date| Details|
-|:--------:|:---------------:|----------------------|
+| Revision | Date            | Details                  |
+|:--------:|:---------------:|--------------------------|
 | 0.01      | 03 July 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01 | 29 August 2026 | Glossary entry for Route D auction mechanism replaced to reflect three-pathway architecture (corrective, voluntary hard-reset, inheritance) with summary of distinct tax treatment by pathway and direction; §6.1 second paragraph extended with two sentences confirming corrective trigger operates in both directions, distinguishing tax treatment by direction, and stating taxpayer non-notification rule |
@@ -360,7 +341,7 @@ The inflationary rotation trigger threshold and accelerated holding period (GOV.
 
 The corporate equity settlement facility (GOV.B §H) introduces five Governing Council calibration parameters: the pre-assessment volume-weighted average window length; the loan interest rate; the minimum annual repayment schedule; the margin call threshold as a percentage of outstanding loan; and the maximum holding period before mandatory sale. All five are named in the Custodian's mandate instrument before the facility opens and published in the first annual stewardship statement. Subsequent revisions follow the (GOV.B §E.2) commitment discipline.
 
-/newpage
+\newpage
 
 # 8. Conclusion
 

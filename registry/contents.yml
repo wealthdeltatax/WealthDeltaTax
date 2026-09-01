@@ -272,6 +272,12 @@ VAL.A:
     G.6: Scope Boundary
     A.4.4.2: TW_settled and the decomposition identity
     C.11: Overstater TW Advantage Decomposition
+    C.11.1: — W_sell_delta as % of Honest TW_settled  [Additive Term 1]
+    C.11.2: — Sell-Year Settlement Delta as % of Honest TW_settled
+    C.11.3: — Post-Sale Settlement Delta as % of Honest TW_settled
+    C.11.4: — Total TW Advantage as % of Honest TW_settled (Cross-Check)
+    C.11.5: — Retained Equity Fraction Ratio at End of Holding Period
+    C.11.6: — Excess Periodic Net Tax as % of Honest TW_settled  [Informational]
 VAL.B:
   page: val-b.html
   title: Valuing Wealth — Worked Examples
@@ -610,6 +616,8 @@ GOV.B:
     H.4: Governing Council Calibration Parameters
     B.2.5: Adviser Corps as Structured TP Intelligence Source
     H.5: Governing Council Calibration Parameters
+    G.7: Voluntary Hard-Reset Auction
+    G.8: Inheritance Auction
 RATES:
   page: rates.html
   title: Rates and Revenue

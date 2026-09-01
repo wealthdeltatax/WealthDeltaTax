@@ -1,52 +1,29 @@
 ---
 title: "The Wealth Delta Tax: Constitutional Governance Intellectual Appendix"
-author: "K. Ogata"
-date: "July 2026"
-toc: true
-numbersections: false
-documentclass: article
-fontsize: 11pt
-geometry: margin=1in
----
-
-**K. Ogata**  
-Independent Researcher  
-
-\medskip
-
-**Version:** 1.00  
-**Date:** 13 August 2026  
-
-\medskip
-
-**Word count:** 7013  
-
-\medskip
-
----
-
-### Keywords {.unnumbered .unlisted}
-Constitutional governance · institutional failure · institutional capture · governance failure modes · anti-capture design · constitutional design · incentive compatibility · institutional decay · mechanism design · fiscal governance · taxpayer-state relations · governance robustness
-
----
-
-### Author Disclosure  {.unnumbered .unlisted}
-Portions of the drafting, editing, literature organisation, and structural review of this paper were assisted by publicly available large language models, including Anthropic's Claude and OpenAI's ChatGPT. These tools were used as aids to the author's research and writing process; the substantive arguments, analysis, interpretations, and conclusions are the author's own.
-
-This work received no external funding, sponsorship, or other financial support. The author is solely responsible for the content of the paper and for any errors that remain.
-
+shortcode: "GOV.A"
+status: "active"
+keywords:
+    - Wealth Delta Tax
+    - constitutional governance
+    - institutional failure
+    - institutional capture
+    - governance failure modes
+    - anti-capture design
+    - constitutional design
+    - incentive compatibility
+    - institutional decay
+    - mechanism design
+    - fiscal governance
+    - taxpayer-state relations
+    - governance robustness
 ---
 
 ### Revision History {.unnumbered .unlisted}
 
-| Revision | Date| Details|
-|:--------:|:---------------:|----------------------|
+| Revision | Date            | Details                  |
+|:--------:|:---------------:|--------------------------|
 | 0.01      | 03 July 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
-
-\newpage
-
-**Structural note on this appendix.** This document is the intellectual appendix to GOV. It contains the failure-mode taxonomy the main paper's mechanism-shaped test is built on (GOV.A §A), the audit of existing WDT instruments against that taxonomy (GOV.A §B), the rejected first derivation in full (GOV.A §C), the explored-and-dropped mechanisms with objections recorded against each (GOV.A §D), and the governance decay analysis (GOV.A §E). Material on the full operational treatment of the governing bodies and executive functions (composition, appointment, tenure, and mechanics) is in the operational appendix (GOV.B). The Mode B governance failure and the state/taxpayer relational framing now appears in (GOV §4), where it belongs alongside the paper's motivation for structural safeguards.
 
 \newpage
 

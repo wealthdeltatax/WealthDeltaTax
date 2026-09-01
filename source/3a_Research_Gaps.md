@@ -1,46 +1,27 @@
 ---
 title: "The Wealth Delta Tax: Research Gaps in the Existing Literature"
-author: "K. Ogata"
-date: "August 2026"
-toc: true
-numbersections: false
-documentclass: article
-fontsize: 11pt
-geometry: margin=1in
----
-
-**K. Ogata**  
-Independent Researcher  
-
-\medskip
-
-**Version:** 1.00  
-**Date:** 10 August 2026  
-
-\medskip
-
-**Word count:** 2992  
-
-\medskip
-
----
-
-### Keywords {.unnumbered .unlisted}
-Wealth taxation · wealth tax literature · research gaps · tax policy · behavioural responses to taxation · valuation of illiquid assets · loss offsets · cooperative compliance · political economy of taxation · international tax coordination · empirical identification · tax design
-
----
-
-### Author Disclosure {.unnumbered .unlisted}
-Portions of the drafting, editing, literature organisation, and structural review of this paper were assisted by publicly available large language models, including Anthropic's Claude and OpenAI's ChatGPT. These tools were used as aids to the author's research and writing process; the substantive arguments, analysis, interpretations, and conclusions are the author's own.
-
-This work received no external funding, sponsorship, or other financial support. The author is solely responsible for the content of the paper and for any errors that remain.
-
+shortcode: "LR.A"
+status: "active"
+keywords:
+    - Wealth Delta Tax
+    - wealth taxation
+    - wealth tax literature
+    - research gaps
+    - tax policy
+    - behavioural responses to taxation
+    - valuation of illiquid assets
+    - loss offsets
+    - cooperative compliance
+    - political economy of taxation
+    - international tax coordination
+    - empirical identification
+    - tax design
 ---
 
 ### Revision History {.unnumbered .unlisted}
 
-| Revision | Date| Details|
-|:--------:|:---------------:|----------------------|
+| Revision | Date            | Details                  |
+|:--------:|:---------------:|--------------------------|
 | 0.01      | 2 August 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 

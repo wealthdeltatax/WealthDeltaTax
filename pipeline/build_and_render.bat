@@ -1,6 +1,9 @@
 @echo off
 cd /d "%~dp0.."
 
+:: Ensure Quarto is on PATH for cmd.exe
+set PATH=%PATH%;C:\Users\kyleo\AppData\Local\Programs\Quarto\bin
+
 echo Building WDT site...
 
 python pipeline\scrape_contents.py --write

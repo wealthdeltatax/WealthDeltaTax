@@ -1,104 +1,77 @@
-- shortcode: WP
-  source_glob: "1.0_*_Wealth_Delta_Tax_Whitepaper.md"
+- source: 1_Wealth_Delta_Tax_Whitepaper.md
   output: wp.qmd
 
-- shortcode: MF
-  source_glob: "2.0_*_WDT_Moral_and_Philosophical_Foundations.md"
+- source: 2_Moral_and_Philosophical_Foundations.md
   output: mf.qmd
 
-- shortcode: LR.A
-  source_glob: "3.0_*_WDT_Research_Gaps.md"
+- source: 3a_Research_Gaps.md
   output: lr-a.qmd
 
-- shortcode: LR.B
-  source_glob: "3.1_*_WDT_Intellectual_Background.md"
+- source: 3b_Intellectual_Background.md
   output: lr-b.qmd
 
-- shortcode: JUR
-  source_glob: "4.0_*_WDT_UK_Jurisdiction_and_Data_Reference_Paper.md"
+- source: 4_UK_Jurisdiction_and_Data_Reference_Paper.md
   output: jur.qmd
 
-
-- shortcode: VAL
-  source_glob: "5.0_*_WDT_Valuing_Wealth.md"
+- source: 5_Valuing_Wealth.md
   output: val.qmd
 
-- shortcode: VAL.A
-  source_glob: "5.1_*_WDT_Valuing_Wealth_Mathematical_and_Simulation_Appendix_A.md"
+- source: 5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md
   output: val-a.qmd
 
-- shortcode: VAL.B
-  source_glob: "5.2_*_WDT_Valuing_Wealth_Worked_Examples_Appendix_B.md"
+- source: 5b_Valuing_Wealth_Worked_Examples_Appendix.md
   output: val-b.qmd
 
-- shortcode: CORP
-  source_glob: "6.0_*_WDT_Corporate_Architecture.md"
+- source: 6_Corporate_Architecture.md
   output: corp.qmd
 
-- shortcode: CORP.A
-  source_glob: "6.1_*_WDT_Corporate_Architecture_Appendix.md"
+- source: 6a_Corporate_Architecture_Appendix.md
   output: corp-a.qmd
 
-- shortcode: GOV
-  source_glob: "7.0_*_WDT_Constitutional_Governance.md"
+- source: 7_Constitutional_Governance.md
   output: gov.qmd
 
-- shortcode: GOV.A
-  source_glob: "7.1_*_WDT_Constitutional_Governance_Intellectual_Appendix.md"
+- source: 7a_WDT_Constitutional_Governance_Intellectual_Appendix.md
   output: gov-a.qmd
 
-- shortcode: GOV.B
-  source_glob: "7.2_*_WDT_Constitutional_Governance_Operational_Appendix.md"
+- source: 7b_Constitutional_Governance_Operational_Appendix.md
   output: gov-b.qmd
 
-- shortcode: RATES
-  source_glob: "8.0_*_WDT_Rates_and_Revenue.md"
+- source: 8_Rates_and_Revenue.md
   output: rates.qmd
 
-- shortcode: RATES.A
-  source_glob: "8.1_*_WDT_Rates_and_Revenue_Appendix.md"
+- source: 8a_Rates_and_Revenue_Appendix.md
   output: rates-a.qmd
 
-- shortcode: SWEEPS
-  source_glob: "9.0_*_WDT_Parameter_Sweeps.md"
+- source: 9_Parameter_Sweeps.md
   output: sweeps.qmd
 
-- shortcode: SWEEPS.A
-  source_glob: "9.1_*_WDT_Parameter_Sweeps_Appendix.md"
+- source: 9a_Parameter_Sweeps_Appendix.md
   output: sweeps-a.qmd
 
-- shortcode: BEHAV
-  source_glob: "10.0_*_WDT_Behavioural_Robustness_and_Administrative_Experience.md"
+- source: 10_Behavioural_Robustness_and_Administrative_Experience.md
   output: behav.qmd
 
-- shortcode: CLOSE
-  source_glob: "11.0_*_WDT_Position_Closure*.md"
+- source: 11_Position_Closure.md
   output: close.qmd
 
-- shortcode: POL
-  source_glob: "12.0_*_WDT_Political_Architecture.md"
+- source: 12_Political_Architecture.md
   output: pol.qmd
 
-- shortcode: PHASE1
-  source_glob: "13.0_*_WDT_Phase_One.md"
+- source: 13_Phase_One.md
   output: phase1.qmd
 
-- shortcode: ENV
-  source_glob: "14.0_*_Environmental_Effects_and_Transmission_Channels.md"
+- source: 14_Environmental_Effects_and_Transmission_Channels.md
   output: env.qmd
 
-- shortcode: FM
-  source_glob: "15.0_*_WDT_First_Mover.md"
+- source: 15_First_Mover.md
   output: fm.qmd
 
-- shortcode: MOD
-  source_glob: "16.0_*_WDT_Modular_Adoption.md"
+- source: 16_Modular_Adoption.md
   output: mod.qmd
 
-- shortcode: SCOPE
-  source_glob: "17.0_*_WDT_Scope_Boundary.md"
+- source: 17_Scope_Boundary.md
   output: scope.qmd
 
-- shortcode: ADD
-  source_glob: "18.0_*_WDT_Addendums.md"
+- source: 18_Addendums.md
   output: add.qmd

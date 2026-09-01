@@ -1,46 +1,28 @@
 ---
-title: "The Wealth Delta Tax: Valuing Wealth — Worked Examples"
-author: "K. Ogata"
-date: "July 2026"
-toc: true
-numbersections: false
-documentclass: article
-fontsize: 11pt
-geometry: margin=1in
----
-
-**K. Ogata**  
-Independent Researcher  
-
-\medskip
-
-**Version:** 1.03  
-**Date:** 29 August 2026  
-
-\medskip
-
-**Word count:** 2740
-
-\medskip
-
----
-
-### Keywords {.unnumbered .unlisted}
-Wealth taxation · wealth valuation · self-assessment · valuation examples · declaration incentives · understatement · overstatement · basis effects · tax deferral · Route C · Route D · auction mechanism · worked examples
-
----
-
-### Author Disclosure {.unnumbered .unlisted}
-Portions of the drafting, editing, literature organisation, and structural review of this paper were assisted by publicly available large language models, including Anthropic's Claude and OpenAI's ChatGPT. These tools were used as aids to the author's research and writing process; the substantive arguments, analysis, interpretations, and conclusions are the author's own.
-
-This work received no external funding, sponsorship, or other financial support. The author is solely responsible for the content of the paper and for any errors that remain.
-
+title: "The Wealth Delta Tax: Valuing Wealth — Worked Examples Appendix"
+shortcode: "VAL.B"
+status: "active"
+keywords:
+    - Wealth Delta Tax
+    - wealth taxation
+    - wealth valuation
+    - self-assessment
+    - valuation examples
+    - declaration incentives
+    - understatement
+    - overstatement
+    - basis effects
+    - tax deferral
+    - Route C
+    - Route D
+    - auction mechanism
+    - worked examples
 ---
 
 ### Revision History {.unnumbered .unlisted}
 
-| Revision | Date| Details|
-|:--------:|:---------------:|----------------------|
+| Revision | Date            | Details                  |
+|:--------:|:---------------:|--------------------------|
 | 0.01      | 25 July 2026     | First Draft          |
 | 1.01      | 15 August 2026  | Published to website |
 | 1.02 | 29 August 2026 | §M.1 clarifying paragraph added distinguishing voluntary hard-reset from corrective auction and stating lock-point rule; §M.3 no-bid outcome paragraph added for voluntary hard-reset pathway; §M.6 final sentence replaced to distinguish corrective and voluntary pathways and their respective refund treatment; §O summary table §M row updated to reflect three-pathway classification |

@@ -33,7 +33,14 @@ jobs:
         run: pip install pyyaml
 
       - name: Install bibtex dependencies
-        run: pip install bibtexparser     
+        run: pip install bibtexparser
+
+      - name: Install Mermaid CLI
+        run: |
+          npm install -g @mermaid-js/mermaid-cli
+          # Puppeteer needs a no-sandbox flag on GitHub Actions (no root sandbox available)
+          echo '{"args":["--no-sandbox","--disable-setuid-sandbox"]}' > /home/runner/.puppeteer.json
+          echo "PUPPETEER_CONFIG=/home/runner/.puppeteer.json" >> $GITHUB_ENV
 
       - name: Scrape contents
         run: python pipeline/scrape_contents.py --write

@@ -1,57 +1,30 @@
 ---
 title: "The Wealth Delta Tax: Constitutional Governance Operational Appendix"
-author: "K. Ogata"
-date: "July 2026"
-toc: true
-numbersections: false
-documentclass: article
-fontsize: 11pt
-geometry: margin=1in
----
-
-**K. Ogata**  
-Independent Researcher  
-
-\medskip
-
-**Version:** 1.01  
-**Date:** 29 August 2026  
-
-\medskip
-
-**Word count:** 17866  
-
-\medskip
-
----
-
-### Keywords {.unnumbered .unlisted}
-Constitutional governance · institutional implementation · Governing Council · taxpayer chamber · voting systems · Sovereign Wealth Fund governance · reserve management · institutional safeguards · Route D auction · auction governance · appointment mechanisms · fiscal administration
-
----
-
-### Author Disclosure {.unnumbered .unlisted}
-Portions of the drafting, editing, literature organisation, and structural review of this paper were assisted by publicly available large language models, including Anthropic's Claude and OpenAI's ChatGPT. These tools were used as aids to the author's research and writing process; the substantive arguments, analysis, interpretations, and conclusions are the author's own.
-
-This work received no external funding, sponsorship, or other financial support. The author is solely responsible for the content of the paper and for any errors that remain.
-
+shortcode: "GOV.B"
+status: "active"
+keywords:
+    - Wealth Delta Tax
+    - constitutional governance
+    - institutional implementation
+    - Governing Council
+    - taxpayer chamber
+    - voting systems
+    - Sovereign Wealth Fund governance
+    - reserve management
+    - institutional safeguards
+    - Route D auction
+    - auction governance
+    - appointment mechanisms
+    - fiscal administration
 ---
 
 ### Revision History {.unnumbered .unlisted}
 
-| Revision | Date| Details|
-|:--------:|:---------------:|----------------------|
+| Revision | Date            | Details                  |
+|:--------:|:---------------:|--------------------------|
 | 0.01      | 28 July 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01 | 29 August 2026 | §G opening restructured to name three Route D auction pathways and direct readers to pathway-specific subsections; §G.1 two paragraphs added stating taxpayer non-notification rule and lock-point at sealed estimate submission; §G.3 replaced in full to cover corrective under-declaration, corrective over-declaration, and no-bid outcomes with distinct treatment for each; §G.4 paragraph added covering over-declaration and no-bid basis-reset documentation; §G.5 sentence added confirming flag direction not disclosed at flag stage; §G.7 new section added specifying voluntary hard-reset auction mechanics and refund treatment; §G.8 new section added specifying inheritance auction mechanics and confirmation that corrective no-refund rule does not import into inheritance pathway |
-
-\newpage
-
-# Purpose and Relationship to GOV and GOV.A {.unnumbered .unlisted}
-
-This appendix is the operational specification for the institutions GOV derives and GOV.A examines. (GOV.B §A) establish why each body exists; (GOV.B §B) introduces them; (GOV.B §C) TO (GOV.B §G) cover the voting system, rebalancing mechanism, SWF, per-actor costs, and Route D auction at the level needed to establish structural properties. GOV.B contains everything required to implement each section of GOV operationally, in GOV's order.
-
-Where a parameter is a Phase One calibration item, this appendix names it, states the constraints any valid calibration must satisfy, and identifies the Phase One data that will determine it. Where it is a Governing Council decision, this appendix records the decision boundary rather than the value.
 
 \newpage
 
@@ -700,7 +673,7 @@ The Governing Council sets the fee schedule at Phase One. Three constraints any 
 
 The deterrent function of the auction mechanism rests entirely on the threat of market-price discovery at the declared value. A fee schedule large enough to deter participation by third parties would undermine the mechanism's credibility. The administrative fee is cost recovery; the deterrent is the auction itself.
 
-## §G.7 Voluntary Hard-Reset Auction
+## G.7 Voluntary Hard-Reset Auction
 
 A taxpayer may request a voluntary hard-reset auction at any time during the holding period without Valuation Body involvement. The taxpayer applies through the Administrator, which manages the auction using the same mechanics as the corrective pathway: the asset is offered at the most recent recognised declared basis as the opening price, the mandatory marketing period applies, third parties bid, and the taxpayer holds a right of first refusal at the highest third-party bid price.
 
@@ -714,7 +687,7 @@ Auction costs are borne by the taxpayer. Administrative fees apply on the same c
 
 The lock-point rule applies in one direction: a voluntary hard-reset initiated before two non-flagging Valuation Bodies have submitted sealed estimates in a corrective process is valid and closes the corrective process. Once sealed estimates have been submitted, the voluntary pathway is unavailable for that assessment cycle.
 
-## §G.8 Inheritance Auction
+## G.8 Inheritance Auction
 
 The inheritance auction fires automatically when a Route D asset passes to an heir. No taxpayer election, no Valuation Body consensus, and no Administrator discretion is required; the transfer event is the trigger. The auction uses the same mechanics as the other pathways: the asset is offered at the most recent recognised declared basis as the opening price, any willing buyer may bid, and the estate holds the right to retain at the highest third-party bid price.
 

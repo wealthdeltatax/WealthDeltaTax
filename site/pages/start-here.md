@@ -30,7 +30,7 @@ The WDT closes this automatically. Because the tax base is net worth (assets min
 
 WDT revenue is dedicated to reducing taxes on wages and consumption — income tax, National Insurance, and VAT. The people benefiting most from long-run wealth accumulation bear a greater share of the cost of maintaining the systems that made that accumulation possible.
 
-Consider Sarah, who earns £38,000 a year. The WDT threshold is in the region of £5 million in net worth. She would need to save every penny of her salary for over a century to reach it. She will never pay the WDT. But she currently pays income tax and National Insurance on every pound she earns, and VAT on most of what she spends. Under a mature WDT, those are the taxes that fall. The people above the threshold pay the WDT; Sarah gets the relief.
+Consider Sarah, who earns £38,000 a year. The WDT threshold is in the region of £2 million in net worth. She would need to save every penny of her salary for over a century to reach it. She will never pay the WDT. But she currently pays income tax and National Insurance on every pound she earns, and VAT on most of what she spends. Under a mature WDT, those are the taxes that fall. The people above the threshold pay the WDT; Sarah gets the relief.
 
 ---
 
