@@ -1358,3 +1358,35 @@ tr.sell-row {
 
 /* No-link indicator — see .wdt-ref-no-link defined above
    in the References page section */
+
+   /* ── WDT: Per-paper metadata bar ─────────────────────────── */
+
+.paper-meta {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: #2B0055;
+  background-color: #F5F0FF;
+  border: 1px solid #C0C0C0;
+  border-left: 4px solid #FFD700;
+  padding: 0.4rem 1rem;
+  margin: 0.75rem 0 0.5rem;
+}
+
+.paper-meta strong {
+  color: #2B0055;
+}
+
+
+/* ── WDT: Author disclosure block ────────────────────────── */
+
+.paper-disclosure {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: #555555;
+  background-color: #FAFAFA;
+  border: 1px solid #C0C0C0;
+  border-left: 4px solid #C0C0C0;
+  padding: 0.6rem 1rem;
+  margin: 0.5rem 0 1rem;
+  line-height: 1.5;
+}

@@ -204,7 +204,6 @@ def inject_front_matter(
 
     # Always inject computed/shared fields
     fm["author"]      = AUTHOR
-    fm["description"] = meta.get("title", shortcode)
 
     version_date = meta.get("version_date")   # ISO string or None
     if version_date:
@@ -217,6 +216,48 @@ def inject_front_matter(
     # (paper_meta carries the same list, but the file's YAML is authoritative)
     if "keywords" not in fm and meta.get("keywords"):
         fm["keywords"] = meta["keywords"]
+
+    # ── Inject metadata + disclosure into the body ────────────────────────
+    # Insert after the revision history table, before \newpage / Abstract.
+    # These fields are not rendered by Quarto from YAML, so must be in the body.
+
+    version          = meta.get("version", "—")
+    word_count       = meta.get("word_count", 0)
+    date_display     = meta.get("version_date_display", "—")
+
+    meta_block = (
+        f"\n::: {{.paper-meta}}\n"
+        f"**Version:** {version}"
+        f" &ensp;|&ensp; **Date:** {date_display}"
+        f" &ensp;|&ensp; **Word count:** {word_count:,} (numbered sections)\n"
+        f":::\n"
+    )
+
+    disclosure_block = (
+        f"\n::: {{.paper-disclosure}}\n"
+        f"{DISCLOSURE}\n"
+        f":::\n"
+    )
+
+    # Find the revision history table end — look for the blank line after
+    # the last table row, which precedes \newpage or the Abstract heading.
+    # Strategy: find the revision history heading, then skip past the table.
+    rev_heading_match = re.search(
+        r"(### Revision History.*?\n(?:\|.*\n)+)",
+        body,
+        re.IGNORECASE,
+    )
+    if rev_heading_match:
+        insert_at = rev_heading_match.start()
+        body = (
+            body[:insert_at]
+            + meta_block
+            + disclosure_block
+            + body[insert_at:]
+        )
+    else:
+        # Fallback: prepend to body if revision history not found
+        body = meta_block + disclosure_block + body
 
     new_fm = yaml.dump(
         fm, default_flow_style=False, allow_unicode=True, sort_keys=False
