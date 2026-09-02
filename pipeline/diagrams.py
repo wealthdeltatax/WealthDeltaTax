@@ -58,11 +58,11 @@ DIAGRAMS = [
 
 # ── PNG rendering ─────────────────────────────────────────────────────────────
 
-def render_pngs() -> None:
+def render_pngs(build: Path) -> None:
     """
-    Render each .mmd file to PNG via mmdc and write to site/diagrams/.
+    Render each .mmd file to PNG via mmdc and write to _build/diagrams/.
     """
-    out_dir = Path("site") / "diagrams"
+    out_dir = build / "diagrams"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     for filename, title, _ in DIAGRAMS:
@@ -103,7 +103,7 @@ def generate_flowcharts_qmd(build: Path) -> None:
     Render all diagrams to PNG, then write _build/flowcharts.qmd
     referencing those PNGs as standard Quarto figures.
     """
-    render_pngs()
+    render_pngs(build)
 
     lines = [
         "---",
