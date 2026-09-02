@@ -1815,6 +1815,24 @@ tr.sell-row {
   font-weight: bold;
 }
 
+/* FAQ navigation links — appears after each answer's ref line */
+p.wdt-faq-nav {
+  font-size: 0.85em;
+  color: #555;
+  margin-top: 0.25em;
+  margin-bottom: 0;
+  font-style: normal;
+}
+
+p.wdt-faq-nav a {
+  color: #2B0055;
+  text-decoration: none;
+}
+
+p.wdt-faq-nav a:hover {
+  text-decoration: underline;
+}
+
 
 /* ── WDT: Author disclosure block ────────────────────────── */
 
@@ -1947,22 +1965,4 @@ tr.sell-row {
 .wdt-counter-wrap {
   text-align: center;
   margin: 2rem 0 1rem;
-}
-
-/* FAQ navigation links — appears after each answer's ref line */
-p.wdt-faq-nav {
-  font-size: 0.85em;
-  color: #555;
-  margin-top: 0.25em;
-  margin-bottom: 0;
-  font-style: normal;
-}
-
-p.wdt-faq-nav a {
-  color: #2B0055;
-  text-decoration: none;
-}
-
-p.wdt-faq-nav a:hover {
-  text-decoration: underline;
 }
