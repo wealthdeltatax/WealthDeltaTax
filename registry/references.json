@@ -1,11 +1,11 @@
 {
   "meta": {
     "version": "0.1",
-    "date": "260901",
+    "date": "260902",
     "generated_by": "pipeline/bib_to_json.py",
     "source_bib": "registry/references.bib",
     "source_internal": "registry/internal.json",
-    "total_external_refs": 131,
+    "total_external_refs": 133,
     "total_internal_papers": 26,
     "total_citations": 387,
     "total_flags": 28
@@ -3720,6 +3720,33 @@
       "flag_ids": []
     },
     {
+      "id": "Searle1995",
+      "type": "book",
+      "authors": [
+        {
+          "last": "Searle",
+          "first": "John R."
+        }
+      ],
+      "year": 1995,
+      "title": "The Construction of Social Reality",
+      "publisher": "Free Press",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": null,
+      "verified": false,
+      "verified_date": null,
+      "verification_notes": "Used in MF 3.1. Grounds the ontological claim that money, property, and corporate equity are institutional facts constituted by collective frameworks of status-assignment, not by physical properties of objects or private mental states. Supports the argument that large-scale wealth is constituted by, not merely supported by, the collective systems the WDT concerns itself with.",
+      "alt_author_forms": [],
+      "citation_ids": [],
+      "flag_ids": []
+    },
+    {
       "id": "Seim2017",
       "type": "journal_article",
       "authors": [
@@ -4395,6 +4422,33 @@
       "flag_ids": [
         "flag_21"
       ]
+    },
+    {
+      "id": "Wittgenstein1953",
+      "type": "book",
+      "authors": [
+        {
+          "last": "Wittgenstein",
+          "first": "Ludwig"
+        }
+      ],
+      "year": 1953,
+      "title": "Philosophical Investigations",
+      "publisher": "Blackwell",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": null,
+      "verified": false,
+      "verified_date": null,
+      "verification_notes": "Used in MF 3.1. The private language argument establishes that rule-following requires a community of practice against which correctness is measured; there can be no purely private rule. Applied here to support the claim that the complex reasoning underlying wealth accumulation draws on language and conceptual frameworks that are irreducibly collective, grounding the cooperative-framework premise.",
+      "alt_author_forms": [],
+      "citation_ids": [],
+      "flag_ids": []
     },
     {
       "id": "Wyplosz2005",

@@ -3,6 +3,12 @@ title: "Comparison Tables"
 description: "WDT vs Current Realisation-Based System and Stock Wealth Tax."
 ---
 
+*This page is for readers who want a systematic, criterion-by-criterion comparison across three systems. If you're new to the proposal, [start with the plain-English overview](index.html) first. If you're arriving with a specific objection, the [FAQ](faq.html) addresses twelve common ones directly.*
+
+The table below compares the WDT against the current realisation-based system and a conventional stock wealth tax across ten criteria. Each WDT cell includes the companion paper references where the relevant design claim is established.
+
+---
+
 | Criterion | Current realisation-based system | Stock wealth tax | **WDT** |
 |---|---|---|---|
 | **Tax base** | Taxes gains when realised — unrealised appreciation can compound untaxed indefinitely. | Taxes the stock of wealth owned, regardless of whether it changed or produced a return. | Taxes the annual change in net wealth, capturing accretion when it occurs and eliminating the realisation trigger entirely. (WP §3.1) · (MF §3.1) · (LR.B §2) | 
@@ -15,3 +21,7 @@ description: "WDT vs Current Realisation-Based System and Stock Wealth Tax."
 | **Countercyclical behaviour** | Revenue falls during downturns while expenditure rises; stabilisation requires discretionary intervention. No tax-linked mechanism for accumulating assets during booms. | Wealth-tax receipts are somewhat more stable, but the state has no automatic refund obligation and no pre-funded reserve. | Wealth losses automatically generate refunds; the SWF is constitutionally required to hold liquid assets against that obligation. Route C and adjustable labour-relief release provide additional boom/bust levers. (WP §4.1) · (ENV §7) · (GOV.B §E.1) · (GOV.B §E.7) |
 | **Revenue use and distributional objective** | Revenue enters general government expenditure; the link between the tax and any specific burden-shift is indirect and reversible. | Same — revenue is not structurally committed to any particular use. | Revenue is constitutionally committed: first to pre-funding the refund liability, then to reducing taxes on labour and consumption. The burden-shift is architecturally locked rather than politically promised. (WP §6) · (GOV §5.2) · (RATES §6.3) |
 | **Empirical standing** | Extensive — the system is operational and its behavioural properties are well-documented, including its distortions. | Mixed — historical evidence exists but the record is largely one of avoidance, erosion, and repeal. | Limited to modelling and indirect evidence. Behavioural response, migration effects, and administrative costs remain empirically untested at scale. (PHASE1 §2) · (RATES §9.1) · (LR.B §7) |
+
+---
+
+→ [Read the full mechanism](wp.html) &nbsp;·&nbsp; → [Twelve common objections answered](faq.html) &nbsp;·&nbsp; → [All 26 papers](research.html)

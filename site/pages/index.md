@@ -1,160 +1,153 @@
 ---
-title: "Wealth Delta Tax (WDT)"
-description: "The Wealth Delta Tax (WDT) is a proposed reform that taxes changes in individual net wealth on an accrual basis, with symmetric loss refunds and a pre-funded Sovereign Wealth Fund."
+title: "Welcome"
+description: "The Wealth Delta Tax: what it is, how it works, and where to read next."
+author: "K. Ogata"
 ---
+
+<!-- SCREEN 1 — The idea, before anything else -->
 
 ```{=html}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "name": "Wealth Delta Tax",
-      "alternateName": "WDT",
-      "url": "https://wealthdeltatax.org/",
-      "description": "The Wealth Delta Tax (WDT) is a proposed reform that taxes changes in individual net wealth on an accrual basis, with symmetric loss refunds and a pre-funded Sovereign Wealth Fund."
-    },
-    {
-      "@type": "ScholarlyArticle",
-      "name": "The Wealth Delta Tax: A Working Paper Series",
-      "author": {
-        "@type": "Person",
-        "name": "K. Ogata"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Wealth Delta Tax Project",
-        "url": "https://wealthdeltatax.org/"
-      },
-      "url": "https://wealthdeltatax.org/",
-      "sameAs": "https://doi.org/10.5281/zenodo.21964119"
-    }
-  ]
-}
-</script>
-
-<marquee
-  behavior="scroll"
-  direction="left"
-  scrollamount="3"
-  style="
-    background-color: #1A0033;
-    color: #FFD700;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 13px;
-    font-weight: bold;
-    padding: 0.3rem 0;
-    border-top: 1px solid #FFD700;
-    border-bottom: 1px solid #FFD700;
-    letter-spacing: 0.08em;
-    display: block;
-    width: 100%;
-  "
->
-&nbsp;&nbsp;&nbsp;
-★ THE WEALTH DELTA TAX ★
-&nbsp;&nbsp;&nbsp;
-ACCRUAL-BASIS WEALTH TAXATION WITH SYMMETRIC LOSS REFUNDS
-&nbsp;&nbsp;&nbsp;
-★ SOVEREIGN WEALTH FUND ★
-&nbsp;&nbsp;&nbsp;
-26 WORKING PAPERS · FREELY AVAILABLE
-&nbsp;&nbsp;&nbsp;
-★ EST. 2024 ★
-&nbsp;&nbsp;&nbsp;
-THE ONLY WEALTH TAX THAT PAYS YOU BACK WHEN MARKETS CRASH
-&nbsp;&nbsp;&nbsp;
-★ K. OGATA ★
-&nbsp;&nbsp;&nbsp;
-</marquee>
+<div class="wdt-hero">
+  <p class="wdt-hero-tagline">
+    <em>Wealth Delta Tax taxes wealth when it rises, refunds when it falls,
+    and invests the proceeds in a public wealth fund.</em>
+  </p>
+  <p class="wdt-hero-tagline">
+    <em>The aim is to make the state a symmetric partner in changes in
+    private wealth — not simply a claimant on income or assets.</em>
+  </p>
+  <a class="wdt-hero-prompt" href="#the-idea-in-one-minute">See how it works ↓</a>
+  <p class="wdt-hero-meta">Independent research &nbsp;·&nbsp; 26 working papers &nbsp;·&nbsp; open to challenge</p>
+</div>
 ```
-
-# Wealth Delta Tax
-
-Imagine owning a tree as an investment. If it grows, you share a small portion of that year's growth through tax. If a storm damages it and its value falls, the government shares part of the loss. That is the basic idea behind the Wealth Delta Tax — a proposed reform that taxes only the annual *change* in a person's net worth, above a high exemption threshold, with symmetric refunds when wealth falls.
-
-Under the current system, a wage earner pays tax on every pound they earn, immediately, before they see the money. An investor whose portfolio grows by the same amount often pays nothing — the tax is triggered only when they choose to sell, sometimes never. The WDT exists to close that gap.
-
-**New to this?** [Start Here](start-here.html) — a plain-English introduction to the mechanism, what the money is for, and where to read next.
 
 ---
 
-## How the WDT differs from a conventional wealth tax
+<!-- SCREEN 2 — Three people, concrete immediately -->
 
-A conventional wealth tax levies a charge on total net worth each year, creating liquidity problems, valuation pressure, and no protection when wealth falls. The WDT is built differently on all three dimensions:
+## The idea in one minute {#the-idea-in-one-minute}
 
-| Problem | Conventional wealth tax | Wealth Delta Tax |
+Imagine three people, each worth £100 million at the start of the year.
+
+- **Alice** is still worth £100 million at the end of the year. She pays nothing.
+- **Ben** is worth £120 million. He pays tax on the £20 million increase.
+- **Charlie** is worth £90 million. He receives a refund on part of the £10 million fall.
+
+Under the current system, Ben could make that £20 million gain, never sell the asset, and pay no tax on it at all — not this year, not next year, possibly never. The WDT exists because it treats that increase in wealth as economically real whether or not Ben chooses to sell.
+
+---
+
+<!-- SCREEN 3 — The diagram (now the reader understands what it shows) -->
+
+## How the system works {#how-it-works}
+
+![WDT bidirectional flow](diagrams/260812_WDT_Bidirectional_LR.png){fig-alt="Diagram showing private wealth connecting bidirectionally to a public wealth fund, which distributes to citizen dividends, public investment, and a loss reserve." width=60% fig-align="center"}
+
+The system is bidirectional. Private wealth does not simply flow to government — the connection runs both ways.
+
+---
+
+<!-- SCREEN 4 — The symmetry, reinforcing what they just saw -->
+
+## The symmetry
+
+Most taxes move in one direction: private wealth to government. WDT moves in both.
+
+| | |
+|---|---|
+| ↑ your wealth rises | You contribute |
+| ↓ your wealth falls | You receive a refund |
+| → your wealth is unchanged | Nothing happens |
+
+```{=html}
+<p class="wdt-anchor-sentence">WDT is better understood as a fiscal participation rule than as a tax on being wealthy.</p>
+```
+
+---
+
+<!-- SCREEN 5 — Why does this exist? The loophole, not an abstraction -->
+
+## Why the current system falls short
+
+Most people already accept that wages should be taxed. But if your investment portfolio grows by the same amount as your colleague's salary, you often pay nothing. The tax is triggered only when you sell — and in some cases is eliminated entirely at death.
+
+Consider a strategy sometimes called "buy, borrow, die." An investor holds an asset worth £10 million that has appreciated substantially but has never been sold, so has never been taxed. Rather than selling, they borrow £10 million against it and live off the loan. Their net worth is unchanged — the new cash and the new debt cancel out — and no taxable event has occurred. The asset appreciated for decades. The state saw none of it.
+
+The WDT closes this automatically. Because the tax base is net worth (assets minus liabilities), borrowing against an asset is neutral by construction. But the asset's annual appreciation enters the tax base each year as it accrues — so there is nothing left to defer by borrowing against it. The loophole closes not through a new rule, but because the thing the loophole was exploiting no longer exists.
+
+---
+
+<!-- SCREEN 6 — Who benefits -->
+
+## What the money is for
+
+WDT revenue is dedicated to reducing taxes on wages and consumption — income tax, National Insurance, and VAT. The people benefiting most from long-run wealth accumulation bear a greater share of the cost of maintaining the systems that made that accumulation possible.
+
+Consider Sarah, who earns £38,000 a year. The WDT threshold is in the region of £2 million in net worth. She would need to save every penny of her salary for over a century to reach it. She will never pay the WDT. But she currently pays income tax and National Insurance on every pound she earns, and VAT on most of what she spends. Under a mature WDT, those are the taxes that fall. The people above the threshold pay the WDT; Sarah gets the relief.
+
+---
+
+<!-- SCREEN 7 — The public wealth fund -->
+
+## The public wealth fund
+
+The WDT does not merely finance today's government. It builds an asset. Contributions accumulate in a public wealth fund, managed at arm's length from the Treasury, invested on long horizons. The fund pre-funds the refund obligation and generates returns that can be distributed as citizen dividends or reinvested in public capital.
+
+```{=html}
+<div class="wdt-flow">WDT contributions → PUBLIC WEALTH FUND → loss reserve
+                                       → citizen dividends
+                                       → public investment</div>
+```
+
+The fund is what makes the refund promise mechanically credible rather than aspirational. Without it, a government facing a crash could simply not pay. With it, the obligation is backed by an asset.
+
+---
+
+<!-- SCREEN 8 — The obvious objection, answered -->
+
+## "Isn't this just a wealth tax?"
+
+| | Conventional wealth tax | WDT |
 |---|---|---|
-| Liquidity | Tax on total stock; can force asset sales | Tax only on the *increase*; smaller base, settlement options |
-| Valuation | Full portfolio valued annually | Declared values become future tax basis; understatement is self-correcting |
-| Asymmetry | Gains taxed; losses ignored | Gains taxed; losses refunded at the same rate |
+| What is taxed | The stock of wealth | The annual change in wealth |
+| Direction | One-way | Symmetric: up and down |
+| What happens to the money | General revenues | Dedicated public wealth fund |
+| When wealth falls | Nothing — you still owe tax on the stock | You receive a refund |
+| Conceptual frame | Revenue extraction | Shared exposure to wealth movement |
 
-For the full mechanism, see the [White Paper (WP)](wp.html).
-
----
-
-## About this project
-
-The WDT is a 26-paper working-paper series authored by K. Ogata, covering the complete architecture of the proposal: mechanism design, moral foundations, valuation methodology, corporate and governance structures, revenue modelling, behavioural robustness, political architecture, and strategic adoption dynamics. The governing objective is to redesign the fiscal relationship between concentrated private wealth and democratic society — preserving productive dynamism while progressively reducing the tax burden on ordinary households.
-
-All papers are pre-peer review and represent work in progress. The full series is available for download at [Zenodo](https://doi.org/10.5281/zenodo.21964119) (DOI: 10.5281/zenodo.21964119).
+→ [See the full list of objections and answers](faq.html) &nbsp;·&nbsp; → [Detailed three-way comparison](comparison-tables.html)
 
 ---
 
-## Where to start
-
-- **New to the WDT?** [Start Here](start-here.html) — the plain-English introduction.
-- **Arriving with a specific objection?** The [FAQ](faq.html) addresses twelve common objections directly.
-- **Want the full mechanism?** The [White Paper (WP)](wp.html) covers mechanism design, principal objections, and implementation pathway.
-- **Want the normative case?** [Moral Foundations (MF)](mf.html) develops the philosophical basis.
-- **Want to know if the numbers work?** [Rates and Revenue (RATES)](rates.html) covers the fiscal modelling.
-- **Researcher or returning reader?** The [Project Map](Project-Map.html) traces all 26 papers, their relationships, and every open question the series has and hasn't yet closed.
-
----
-
-The complete list of all 26 papers with version history and status is on the [Papers index](corpus.html).
+<!-- SCREEN 9 — The sceptic pathway -->
 
 ```{=html}
-<hr>
-
-<div style="text-align: center; margin: 2rem 0 1rem;">
-  <div class="wdt-counter">
-    <div class="wdt-counter-label">VISITORS SINCE 2024</div>
-    <div class="wdt-counter-digits">001998</div>
-  </div>
-</div>
-
-<div style="
-  text-align: center;
-  border: 2px solid #2B0055;
-  background-color: #F5F0FF;
-  padding: 0.6rem 1rem;
-  margin: 1rem 0 2rem;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-">
-  <span style="color: #808080;">⬡ ⬡ ⬡</span>
-  &nbsp;&nbsp;
-  <a href="/" style="font-size: 16px; color: #2B0055; text-decoration: none; font-weight: bold;">◀</a>
-  &nbsp;
-  <span style="color: #2B0055; font-weight: bold; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">MEMBER OF THE FISCAL POLICY WEB RING</span>
-  &nbsp;
-  <a href="/" style="font-size: 16px; color: #2B0055; text-decoration: none; font-weight: bold;">▶</a>
-  &nbsp;&nbsp;
-  <span style="color: #808080;">⬡ ⬡ ⬡</span>
-</div>
-
-<div style="text-align: center; margin: 1rem 0;">
-  <div style="display: inline-block; border: 2px outset #C0C0C0; background-color: #000080; padding: 0; font-family: Arial, Helvetica, sans-serif; font-size: 0; line-height: 0;">
-    <div style="background-color: #FFFFFF; color: #000080; font-size: 8px; font-weight: bold; padding: 1px 4px; letter-spacing: 0.05em; text-align: center;">BEST VIEWED IN</div>
-    <div style="background-color: #000080; color: #FFFFFF; font-size: 11px; font-weight: bold; padding: 2px 6px; text-align: center; letter-spacing: 0.08em;">NETSCAPE NAVIGATOR</div>
-    <div style="background-color: #C0C0C0; color: #000000; font-size: 8px; padding: 1px 4px; text-align: center; letter-spacing: 0.05em;">800×600 · 256 COLOURS</div>
-  </div>
-</div>
-
-<div style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #2B0055; margin: 1rem 0;">
-  ✉ CONTACT THE Author:
-  <a href="mailto:wealthdeltatax@gmail.com" style="color: #0000EE; font-weight: bold;">mailto:wealthdeltatax@gmail.com</a>
+<div class="wdt-skeptic-box">
+  <h3>Sceptical?</h3>
+  <ul>
+    <li>How do you value assets that don't trade publicly? → <a href="faq.html#val">FAQ Q3</a> · <a href="val.html">VAL</a></li>
+    <li>What stops the wealthy from leaving? → <a href="faq.html#close">FAQ Q4</a> · <a href="close.html">CLOSE</a></li>
+    <li>Wouldn't this destroy investment incentives? → <a href="faq.html#behav">FAQ Q7</a> · <a href="behav.html">BEHAV</a></li>
+    <li>What stops government from raiding the fund? → <a href="faq.html#gov">FAQ Q10</a> · <a href="gov.html">GOV</a></li>
+    <li>How does this work for private companies? → <a href="faq.html#corp">FAQ Q4</a> · <a href="corp.html">CORP</a></li>
+    <li>Why would this ever become law? → <a href="faq.html#pol">FAQ Q8</a> · <a href="pol.html">POL</a></li>
+  </ul>
 </div>
 ```
+
+---
+
+<!-- SCREEN 10 — Entry points into the research -->
+
+## Where to go next
+
+| If you want… | Start with… |
+|---|---|
+| The full mechanism | [White Paper (WP)](wp.html) |
+| The moral case | [Moral Foundations (MF)](mf.html) |
+| The numbers | [Rates and Revenue (RATES)](rates.html) |
+| The hardest objections | [FAQ](faq.html) |
+| All 26 papers | [Research Programme](research.html) |
+| Everything | [Project Map](Project-Map.html) |
+
+*26 working papers in active development as of mid-2026. Pre-peer review. Open questions are stated explicitly throughout and collected in the [Project Map](Project-Map.html).*

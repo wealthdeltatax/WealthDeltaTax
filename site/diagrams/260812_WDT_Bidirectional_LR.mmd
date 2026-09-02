@@ -1,0 +1,33 @@
+%%{init: {
+  "flowchart": {
+    "nodeSpacing": 40,
+    "rankSpacing": 50,
+    "padding": 20,
+    "htmlLabels": true,
+    "useMaxWidth": true,
+    "curve": "linear"
+  },
+  "themeVariables": {
+    "fontSize": "16px",
+    "fontFamily": "Arial, sans-serif"
+  }
+}}%%
+
+flowchart TD
+
+classDef wealth  fill:#1b4332,stroke:#1b4332,color:#fff
+classDef move    fill:#2d6a4f,stroke:#2d6a4f,color:#fff
+classDef fund    fill:#0f3460,stroke:#0f3460,color:#fff
+classDef out     fill:#16213e,stroke:#16213e,color:#fff
+
+WEALTH([Private wealth]):::wealth
+
+WEALTH -->|Rises| CONTRIB[WDT contribution]:::move
+WEALTH -->|Falls| REFUND[WDT refund]:::move
+
+CONTRIB --> FUND[Public wealth fund]:::fund
+REFUND  --> FUND
+
+FUND --> DIV[Citizen dividends]:::out
+FUND --> INV[Public investment]:::out
+FUND --> RES[Loss reserve]:::out

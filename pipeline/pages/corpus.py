@@ -124,7 +124,7 @@ def generate_corpus_qmd(
         "For first-time readers, the recommended sequence is: "
         "[WP](wp.html) → [MF](mf.html) → [VAL](val.html) → "
         "[GOV](gov.html) → [RATES](rates.html). "
-        "See also the [Start Here](start-here.html) guide.",
+        "See also the [Welcome](index.l) guide.",
         "",
         "---",
         "",

@@ -31,10 +31,10 @@ website:
 
   navbar:
     left:
-      - text: "Home"
+      - text: "Welcome to the WDT"
         href: index.html
-      - text: "Start Here"
-        href: start-here.html
+      - text: "Research"
+        href: research.html
       - text: "FAQ"
         href: faq.html
       - text: "Comparison Tables"
@@ -91,7 +91,7 @@ website:
           - text: "All Papers Index"
             href: corpus.html
       - text: "Tools"
-        href: tools/index.html
+        href: tools/research.html
       - text: "Flowcharts"
         href: flowcharts.html
       - text: "References"

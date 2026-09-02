@@ -19,7 +19,7 @@ The current system is essentially *unidirectional and local*. A cross-link tells
 
 *2. Section-level dependency markers.* For the technically dense papers (VAL.A, SWEEPS, RATES.A), a brief note at the start of each major section — "This section depends on (VAL §4) and (GOV §5.1); it is used in (BEHAV §7.1) and (RATES §5.2)" — would let a reader orient without reading everything.
 
-*3. A topic index across the series.* A standalone document mapping key concepts — symmetric refund, declaration equilibrium, attribution gap, membrane, Route D auction, lifetime envelope, constituency dissolution — to every section where each is substantially discussed, distinguished from sections where it's merely mentioned. This is what a reader actually needs when approaching a specific question.
+*3. A topic researchacross the series.* A standalone document mapping key concepts — symmetric refund, declaration equilibrium, attribution gap, membrane, Route D auction, lifetime envelope, constituency dissolution — to every section where each is substantially discussed, distinguished from sections where it's merely mentioned. This is what a reader actually needs when approaching a specific question.
 
 *4. Link-type annotation.* A light convention distinguishing `(VAL §4)` as a definitional source from `(VAL §4)` as a worked example. Even a simple suffix — `(VAL §4, defn)`, `(VAL.B §K, eg)` — would let a reader decide whether to follow the link immediately or defer it.
 
@@ -27,8 +27,8 @@ The current system is essentially *unidirectional and local*. A cross-link tells
 
 **What would give you the most return for effort**
 
-If I had to prioritise: the topic index across the series and the navigational front matter in each paper. Together they address the two most common failure modes — a reader who knows what question they have but can't find where it's answered, and a reader who is partway through a paper and doesn't know what they're missing from upstream.
+If I had to prioritise: the topic researchacross the series and the navigational front matter in each paper. Together they address the two most common failure modes — a reader who knows what question they have but can't find where it's answered, and a reader who is partway through a paper and doesn't know what they're missing from upstream.
 
 The cross-link corrections just completed are necessary but not sufficient. They ensure that when a link exists it points correctly. They don't ensure that the right links exist, or that a reader without a specific section in mind can find their way in.
 
-Would you like me to draft any of these — the topic index, front matter templates, or a dependency map — as working documents?
+Would you like me to draft any of these — the topic research front matter templates, or a dependency map — as working documents?

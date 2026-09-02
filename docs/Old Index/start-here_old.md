@@ -1,5 +1,5 @@
 ---
-title: "Start Here"
+title: "Welcome"
 description: "A guide to the Wealth Delta Tax research programme — from a one-minute introduction to the full 26-paper series."
 author: "K. Ogata"
 ---

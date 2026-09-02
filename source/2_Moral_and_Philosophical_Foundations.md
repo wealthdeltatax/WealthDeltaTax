@@ -270,36 +270,3 @@ The moral architecture follows from that claim, not from any hostility to accumu
 The named compromises in §9 are not failures of the theory. They are the theory meeting the world it must operate within, and naming them honestly is part of what makes the framework credible. The constitutional features of the design — the governance structure, the pre-funded commitment, the entrenchment — were not designed in. They emerged because successive mechanical requirements needed them: cooperative architecture because extraction fails operationally; pre-funding because symmetric refunds create contingent liabilities; governance participation because a pre-funded institution needs protection from capture. The aggregate looks constitutional because the underlying problem has that shape.
 
 The tension the WDT manages will not be resolved. It will require managing again, in every generation, under whatever conditions advanced capitalist democracies produce. The WDT is one attempt to build an institution capable of doing that work durably.
-\newpage
-
-## References {.unnumbered}
-
-Bartels, L. M. (2008). *Unequal democracy: The political economy of the new gilded age*. Princeton University Press.
-
-Bradford, D. F. (1986). *Untangling the income tax*. Harvard University Press.
-
-Dahl, R. A. (1985). *A preface to economic democracy*. University of California Press.
-
-Gilens, M. (2012). *Affluence and influence: Economic inequality and political power in America*. Princeton University Press.
-
-Kaldor, N. (1955). *An expenditure tax*. George Allen & Unwin.
-
-Murphy, L., & Nagel, T. (2002). *The myth of ownership: Taxes and justice*. Oxford University Press.
-
-Searle, J. R. (1995). *The construction of social reality*. Free Press.
-
-Wittgenstein, L. (1953). *Philosophical investigations* (G. E. M. Anscombe, Trans.). Blackwell.
-
----
-
-### New references added in version 2.1 {.unnumbered .unlisted}
-
-The following two entries are new to this version and require manual addition to the project bibliography system.
-
-**Cite key: Searle1995**
-Searle, J. R. (1995). *The construction of social reality*. Free Press.
-*Used in §3.1. Searle's account of institutional facts establishes that money, property, and corporate equity exist only because a collective practice of treating certain things as having certain statuses is maintained. The value represented by an equity stake is a feature of the collective framework, not a property of any physical object or individual mental state. This grounds the ontological claim that large-scale wealth is constituted by, not merely supported by, collective frameworks.*
-
-**Cite key: Wittgenstein1953**
-Wittgenstein, L. (1953). *Philosophical investigations* (G. E. M. Anscombe, Trans.). Blackwell.
-*Used in §3.1. The private language argument establishes that there can be no purely private rule-following: the concept of applying a rule correctly requires a community of practice against which correctness is measured. Applied here to support the claim that complex reasoning — including the cognitive labour underlying wealth accumulation — draws on language and conceptual frameworks that are irreducibly collective. No purely private framework of meaning is possible at the level of complexity required for the kinds of value-creation the WDT concerns itself with.*

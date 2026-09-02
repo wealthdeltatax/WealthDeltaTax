@@ -5,7 +5,6 @@ Renders .mmd source files from site/diagrams/ to PNG via mmdc,
 then generates flowcharts.qmd in _build/ referencing those PNGs.
 
 To add a diagram: add a .mmd to site/diagrams/ and an entry to DIAGRAMS.
-To restyle: edit classDef lines in the .mmd file directly.
 """
 
 from __future__ import annotations
@@ -16,7 +15,6 @@ from pathlib import Path
 
 from config import AUTHOR, DIAGRAMS_DIR
 
-# On Windows, npm .cmd files need shell=True to resolve correctly.
 _SHELL = sys.platform == "win32"
 
 
@@ -49,6 +47,12 @@ DIAGRAMS = [
         "UK Tax System (Comparison) — Overview",
         "Skeleton overview of the UK system for side-by-side comparison with the WDT.",
     ),
+    (
+    "260812_WDT_Bidirectional_LR.mmd",
+    "WDT — Bidirectional Flow",
+    "The core mechanic: private wealth rising triggers a contribution; "
+    "falling triggers a symmetric refund. Both flow through the public wealth fund.",
+    ),
 ]
 
 
@@ -57,12 +61,9 @@ DIAGRAMS = [
 def render_pngs(build: Path) -> None:
     """
     Render each .mmd file to PNG via mmdc and write to _build/diagrams/.
-    Called once per build from generate_flowcharts_qmd().
     """
-    out_dir = build / "diagrams" # wdt-site/site/diagrams/
+    out_dir = build / "diagrams"
     out_dir.mkdir(parents=True, exist_ok=True)
-    print(f"  DIAGRAMS_DIR: {DIAGRAMS_DIR.resolve()}")
-    print(f"  out_dir: {out_dir.resolve()}")
 
     for filename, title, _ in DIAGRAMS:
         src = DIAGRAMS_DIR / filename
@@ -71,20 +72,28 @@ def render_pngs(build: Path) -> None:
             continue
 
         out = out_dir / Path(filename).with_suffix(".png").name
-        print(f"  Rendering {filename} → diagrams/{out.name}")
+
+        cmd = [
+            "mmdc",
+            "-i", str(src),
+            "-o", str(out),
+            "--width", "3600",
+            "--backgroundColor", "white",
+        ]
 
         result = subprocess.run(
-            f'mmdc -i "{src}" -o "{out}" --width 3600 --backgroundColor white',
+            cmd,
             capture_output=True,
             text=True,
-            shell=True,
+            shell=_SHELL,
         )
 
         if result.returncode != 0:
             print(f"  ! mmdc failed for {filename}:")
-            print(result.stderr)
+            print(result.stderr or result.stdout)
         else:
-            print(f"  ✓ {out.name}")
+            size = out.stat().st_size if out.exists() else 0
+            print(f"  ✓ {out.name} ({size:,} bytes)")
 
 
 # ── flowcharts.qmd generation ─────────────────────────────────────────────────
@@ -92,7 +101,7 @@ def render_pngs(build: Path) -> None:
 def generate_flowcharts_qmd(build: Path) -> None:
     """
     Render all diagrams to PNG, then write _build/flowcharts.qmd
-    referencing those PNGs as plain images.
+    referencing those PNGs as standard Quarto figures.
     """
     render_pngs(build)
 
@@ -107,20 +116,17 @@ def generate_flowcharts_qmd(build: Path) -> None:
         "decision branch, and a skeleton overview for orientation. "
         "The WDT and UK diagrams are shown side by side for structural comparison.",
         "",
-        "---",
-        "",
     ]
 
     for filename, title, description in DIAGRAMS:
         png_name = Path(filename).with_suffix(".png").name
+        # Use Quarto figure syntax so the asset is tracked by Quarto's pipeline
         lines += [
             f"## {title}",
             "",
             description,
             "",
-            f"![{title}](diagrams/{png_name})",
-            "",
-            "---",
+            f"![](diagrams/{png_name}){{fig-alt=\"{title}\" width=100%}}",
             "",
         ]
 

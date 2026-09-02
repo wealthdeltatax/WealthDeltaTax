@@ -1377,6 +1377,445 @@ tr.sell-row {
 }
 
 
+/* ── WDT: Welcome — hero (Screen 1) ───────────────────── */
+
+.wdt-hero {
+  text-align: center;
+  padding: 3.5rem 1rem 2.5rem;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.wdt-hero-tagline {
+  font-size: 1.15rem;
+  line-height: 1.65;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.wdt-hero-tagline em {
+  font-style: normal;
+  font-weight: bold;
+}
+
+.wdt-hero-prompt {
+  display: inline-block;
+  margin: 1.5rem 0 1rem;
+  padding: 0.45rem 1.1rem;
+  border: 2px solid var(--wdt-purple);
+  background: transparent;
+  color: var(--wdt-purple);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.95rem;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.wdt-hero-prompt:hover {
+  background: var(--wdt-purple);
+  color: var(--wdt-gold);
+  text-decoration: none;
+}
+
+.wdt-hero-meta {
+  font-size: 0.78rem;
+  color: #666;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.03em;
+  margin-top: 0.5rem;
+}
+
+
+/* ── WDT: Welcome — diagram placeholder (Screen 2) ────── */
+
+.wdt-diagram-placeholder {
+  background: var(--wdt-purple-deep);
+  color: var(--wdt-gold);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  padding: 1.8rem 2rem;
+  white-space: pre;
+  overflow-x: auto;
+  border: 2px solid var(--wdt-gold);
+  margin: 1.5rem 0;
+}
+
+.wdt-diagram-caption {
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 0.4rem;
+}
+
+
+/* ── WDT: Welcome — anchor sentence (Screen 3) ────────── */
+
+.wdt-anchor-sentence {
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--wdt-purple);
+  border-left: 3px solid var(--wdt-gold);
+  padding-left: 0.9rem;
+  margin: 1.4rem 0 0;
+  font-family: "Times New Roman", Times, serif;
+}
+
+
+/* ── WDT: Welcome — SWF flow (Screen 5) ───────────────── */
+
+.wdt-flow {
+  background: var(--wdt-lavender);
+  border: 1px solid var(--wdt-purple);
+  border-left: 4px solid var(--wdt-gold);
+  padding: 1rem 1.5rem;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  line-height: 1.9;
+  margin: 1.2rem 0;
+  color: #1a1a1a;
+}
+
+
+/* ── WDT: Welcome — numbered reasons (Screen 6) ───────── */
+
+.wdt-reasons {
+  margin: 1.2rem 0;
+}
+
+.wdt-reason {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.1rem;
+}
+
+.wdt-reason-num {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--wdt-purple);
+  min-width: 1.6rem;
+  padding-top: 0.1rem;
+  flex-shrink: 0;
+}
+
+.wdt-reason-text {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  font-family: "Times New Roman", Times, serif;
+}
+
+
+/* ── WDT: Welcome — skeptic box (Screen 7) ────────────── */
+
+.wdt-skeptic-box {
+  border: 3px solid var(--wdt-purple);
+  background: var(--wdt-purple-deep);
+  color: var(--wdt-gold);
+  padding: 1.6rem 1.8rem;
+  margin: 2rem 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.wdt-skeptic-box h3 {
+  color: var(--wdt-gold);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  border-bottom: 1px solid var(--wdt-purple-mid);
+  padding-bottom: 0.5rem;
+}
+
+.wdt-skeptic-box ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wdt-skeptic-box li {
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--wdt-purple-mid);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.wdt-skeptic-box li:last-child {
+  border-bottom: none;
+}
+
+.wdt-skeptic-box a {
+  color: var(--wdt-gold);
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.wdt-skeptic-box a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.wdt-skeptic-box a:visited {
+  color: var(--wdt-gold-dim);
+}
+
+
+/* ── WDT: Index — programme header ───────────────────────── */
+
+.wdt-programme-header {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.wdt-programme-header strong {
+  color: #1a1a1a;
+}
+
+
+/* ── WDT: Index — argument spine ─────────────────────────── */
+
+.wdt-argument-spine {
+  background: var(--wdt-lavender);
+  border-left: 4px solid var(--wdt-purple);
+  padding: 1.4rem 1.6rem;
+  margin: 1.5rem 0 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.wdt-spine-intro {
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.wdt-spine-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+  flex-wrap: wrap;
+}
+
+.wdt-spine-if {
+  color: #555;
+  font-size: 13px;
+}
+
+.wdt-spine-arrow {
+  color: var(--wdt-purple);
+  font-weight: bold;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.wdt-spine-then {
+  font-weight: bold;
+  color: #1a1a1a;
+  font-size: 13px;
+}
+
+.wdt-spine-domain {
+  color: var(--wdt-purple);
+  font-size: 12px;
+  font-style: italic;
+  margin-left: 0.3rem;
+}
+
+
+/* ── WDT: Index — domain headers and paper list ──────────── */
+
+.wdt-domain-header {
+  background: var(--wdt-purple);
+  color: var(--wdt-gold);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.8rem;
+  margin: 2rem 0 0;
+}
+
+.wdt-paper-list {
+  margin: 0 0 0.5rem;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--wdt-silver);
+  border-top: none;
+}
+
+.wdt-paper-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.65rem 0.8rem;
+  border-bottom: 1px solid #eee;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.wdt-paper-item:last-child {
+  border-bottom: none;
+}
+
+.wdt-paper-item:nth-child(even) {
+  background: var(--wdt-lavender);
+}
+
+.wdt-paper-question {
+  font-size: 14px;
+  color: #1a1a1a;
+  line-height: 1.4;
+  flex: 1 1 280px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.wdt-paper-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-shrink: 0;
+}
+
+.wdt-paper-code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  color: #666;
+  white-space: nowrap;
+}
+
+.wdt-paper-link {
+  font-size: 12px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--wdt-purple);
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid var(--wdt-purple);
+  padding: 0.15rem 0.5rem;
+}
+
+.wdt-paper-link:hover {
+  background: var(--wdt-purple);
+  color: var(--wdt-gold);
+  text-decoration: none;
+}
+
+.wdt-paper-link:visited {
+  color: var(--wdt-purple);
+}
+
+
+/* ── WDT: Index — open questions ─────────────────────────── */
+
+.wdt-open-questions {
+  border: 2px solid var(--wdt-purple);
+  border-left: 4px solid var(--wdt-gold);
+  padding: 1.4rem 1.6rem;
+  margin: 2.5rem 0 1rem;
+  background: #FDFBFF;
+}
+
+.wdt-oq-header {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--wdt-purple);
+  margin: 0 0 0.3rem;
+}
+
+.wdt-oq-intro {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 1rem;
+  font-style: italic;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.wdt-oq-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wdt-oq-item {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid #e0dce8;
+  font-size: 14px;
+  line-height: 1.5;
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.wdt-oq-item:last-child {
+  border-bottom: none;
+}
+
+.wdt-oq-marker {
+  color: var(--wdt-purple);
+  font-weight: bold;
+  flex-shrink: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.wdt-oq-item a {
+  color: var(--wdt-purple);
+  font-size: 12px;
+  margin-left: 0.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+}
+
+.wdt-oq-item a:visited {
+  color: #551a8b;
+}
+
+
+/* ── WDT: FAQ — question headings ────────────────────────── */
+
+.wdt-faq-question {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--wdt-purple);
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  border-left: 4px solid var(--wdt-gold);
+  padding-left: 0.75rem;
+  line-height: 1.3;
+}
+
+.wdt-faq-refs {
+  font-size: 13px;
+  color: #555;
+  font-family: Arial, Helvetica, sans-serif;
+  border-top: 1px solid #e0dce8;
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.wdt-faq-refs a {
+  color: var(--wdt-purple);
+  font-weight: bold;
+}
+
+
 /* ── WDT: Author disclosure block ────────────────────────── */
 
 .paper-disclosure {
@@ -1389,4 +1828,123 @@ tr.sell-row {
   padding: 0.6rem 1rem;
   margin: 0.5rem 0 1rem;
   line-height: 1.5;
+}
+
+/* ── WDT: Marquee banner ──────────────────────────────────── */
+
+.wdt-marquee {
+  background-color: var(--wdt-purple-deep);
+  color: var(--wdt-gold);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 0.3rem 0;
+  border-top: 1px solid var(--wdt-gold);
+  border-bottom: 1px solid var(--wdt-gold);
+  letter-spacing: 0.08em;
+  display: block;
+  width: 100%;
+}
+
+
+/* ── WDT: Footer — webring ────────────────────────────────── */
+
+.wdt-webring {
+  text-align: center;
+  border: 2px solid var(--wdt-purple);
+  background-color: var(--wdt-lavender);
+  padding: 0.6rem 1rem;
+  margin: 1rem 0 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+.wdt-webring-hex {
+  color: #808080;
+}
+
+.wdt-webring-nav {
+  font-size: 16px;
+  color: var(--wdt-purple);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.wdt-webring-nav:hover {
+  color: var(--wdt-gold);
+}
+
+.wdt-webring-label {
+  color: var(--wdt-purple);
+  font-weight: bold;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+
+/* ── WDT: Footer — Netscape badge ────────────────────────── */
+
+.wdt-netscape-wrap {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.wdt-netscape {
+  display: inline-block;
+  border: 2px outset #C0C0C0;
+  background-color: #000080;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: normal;
+}
+
+.wdt-netscape-top {
+  background-color: #FFFFFF;
+  color: #000080;
+  font-size: 8px;
+  font-weight: bold;
+  padding: 1px 4px;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.wdt-netscape-mid {
+  background-color: #000080;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 6px;
+  text-align: center;
+  letter-spacing: 0.08em;
+}
+
+.wdt-netscape-bot {
+  background-color: #C0C0C0;
+  color: #000000;
+  font-size: 8px;
+  padding: 1px 4px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+
+/* ── WDT: Footer — contact line ──────────────────────────── */
+
+.wdt-contact {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: var(--wdt-purple);
+  margin: 1rem 0;
+}
+
+.wdt-contact a {
+  color: #0000EE;
+  font-weight: bold;
+}
+
+.wdt-counter-wrap {
+  text-align: center;
+  margin: 2rem 0 1rem;
 }
