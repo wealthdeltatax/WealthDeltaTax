@@ -35,8 +35,9 @@ _TOOL_META: dict[str, tuple[str, str]] = {
     "tools_index": (
         "WDT — Interactive Tools",
         "Computational tools for exploring the Wealth Delta Tax mechanism. "
-        "Both calculators run the Python model directly in your browser via Pyodide — "
-        "no data is sent to any server.",
+        "Both tools run the WDT Python model unmodified in your browser via Pyodide — "
+        "no data leaves your machine. The first load takes around 10 seconds to initialise "
+        "the runtime; subsequent calculations are fast.",
     ),
     "revenue": (
         "WDT — National Revenue Calculator",
