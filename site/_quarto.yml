@@ -90,6 +90,8 @@ website:
           - text: "---"
           - text: "All Papers Index"
             href: corpus.html
+      - text: "Avoidance"
+        href: tools/avoidance.html    
       - text: "Tools"
         href: tools/tools_index.html
       - text: "Flowcharts"
@@ -187,7 +189,10 @@ format:
     toc: True
     toc-depth: 2
     number-sections: false
-    css: style/styles.css
+    css:
+      - style/styles.css
+      - style/tools.css
+      - style/page-components.css
     citations-hover: true
     footnotes-hover: true
     csl: style/apa.csl
