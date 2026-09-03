@@ -788,6 +788,81 @@ pre {
 }
 
 
+/* ── Tool standalone page — site header bar ───────────────── */
+/* Used by standalone tool pages (taxpayer.html etc.) that are
+   served outside the Quarto layout and need their own nav bar. */
+
+.wdt-tool-header {
+  background-color: var(--wdt-purple);
+  border-bottom: 3px solid var(--wdt-gold);
+  padding: 0.4rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.wdt-tool-header .brand {
+  color: var(--wdt-gold);
+  font-weight: bold;
+  font-size: 15px;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+}
+
+.wdt-tool-header .brand:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.wdt-tool-header .sep {
+  color: var(--wdt-gold-dim);
+  font-size: 12px;
+}
+
+.wdt-tool-header .page-title {
+  color: var(--wdt-gold);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.wdt-tool-header .back-link {
+  margin-left: auto;
+  color: var(--wdt-gold);
+  font-size: 12px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid var(--wdt-purple-mid);
+  padding: 0.15rem 0.5rem;
+}
+
+.wdt-tool-header .back-link:hover {
+  color: #fff;
+  border-color: var(--wdt-gold);
+}
+
+
+/* ── Tool standalone page — main content visibility ──────────*/
+/* #main starts hidden; JS reveals it after Pyodide is ready.  */
+
+#main {
+  display: none;
+}
+
+/* Year-select row: hidden until historical-series mode active */
+
+#year-select-row {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+#year-select-row.visible {
+  display: flex;
+}
+
+
 /* ── Loading / progress ───────────────────────────────────── */
 
 .wdt-tool-inner #loading {

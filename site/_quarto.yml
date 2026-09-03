@@ -91,7 +91,7 @@ website:
           - text: "All Papers Index"
             href: corpus.html
       - text: "Tools"
-        href: tools/research.html
+        href: tools/tools_index.html
       - text: "Flowcharts"
         href: flowcharts.html
       - text: "References"
