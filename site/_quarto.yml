@@ -91,7 +91,7 @@ website:
           - text: "All Papers Index"
             href: corpus.html
       - text: "Avoidance"
-        href: tools/avoidance.html    
+        href: avoidance.html    
       - text: "Tools"
         href: tools/tools_index.html
       - text: "Flowcharts"

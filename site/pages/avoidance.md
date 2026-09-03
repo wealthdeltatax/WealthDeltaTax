@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How to Avoid Tax Under the WDT — Wealth Delta Tax</title>
-<link rel="stylesheet" href="../styles/styles.css">
-<link rel="stylesheet" href="../styles/tools.css">
-<link rel="stylesheet" href="../styles/page-components.css">
+---
+title: "How to Legally Avoid Tax Under the WDT"
+description: >
+  A taxpayer's guide to minimising lifetime WDT liability under Route C.
+  Five optimisation strategies examined with live calculator to test each one.
+toc: true
+---
+
+```{=html}
 <style>
 /* ── Avoidance page — local additions ───────────────────────
    Tool panel, controls, sliders, results: tools.css
@@ -117,22 +117,11 @@
   .avoid-intro { padding: 0.9rem; }
 }
 </style>
-</head>
-<body>
+```
 
-<div class="wdt-tool-header">
-  <a class="brand" href="/">Wealth Delta Tax</a>
-  <span class="sep">▶</span>
-  <span class="page-title">How to Avoid Tax Under the WDT</span>
-  <a class="back-link" href="/">◀ Home</a>
-</div>
+*A taxpayer's guide to minimising lifetime WDT liability — with a live calculator to test every strategy.*
 
-<div class="wdt-tool-panel">
-<div class="wdt-tool-inner">
-
-<h1>How to Legally Avoid Tax Under the WDT</h1>
-<p class="subtitle">A taxpayer's guide to minimising lifetime WDT liability — with a live calculator to test every strategy</p>
-
+```{=html}
 <div class="avoid-intro">
 <p>This is a serious instruction manual.</p>
 <p>If you are a taxpayer subject to the Wealth Delta Tax and your objective is to minimise
@@ -147,33 +136,27 @@ produces a meaningful economic advantage, that is a defect in the mechanism — 
 publishing this page is how we find it.</p>
 <p style="margin-bottom:0"><em>If you find something we have missed: <a href="mailto:contact@wealthdeltatax.org">we want to know</a>.</em></p>
 </div>
+```
 
-<h2>How the WDT is calculated</h2>
+## How the WDT is calculated
 
-<p>The WDT taxes changes in declared net wealth, not wealth itself. In each period, you
-declare a wealth figure W. The tax due is:</p>
+The WDT taxes changes in declared net wealth, not wealth itself. In each period, you declare a wealth figure W. The tax due is:
 
-<pre>L = τ(W) × ΔW    where ΔW = W_current − W_previous</pre>
+```
+L = τ(W) × ΔW    where ΔW = W_current − W_previous
+```
 
-<p>The rate function τ(W) is a logistic curve rising from a floor τ₀ (15% at canonical
-parameters) toward a ceiling τ_m (70%), above an entry threshold W_min (£2m). It is
-calibrated so that the effective rate on any given pound of wealth increase rises continuously
-with declared wealth — there are no bands or cliff edges.</p>
+The rate function τ(W) is a logistic curve rising from a floor τ₀ (15% at canonical parameters) toward a ceiling τ_m (70%), above an entry threshold W_min (£2m). It is calibrated so that the effective rate on any given pound of wealth increase rises continuously with declared wealth — there are no bands or cliff edges.
 
-<p>When wealth falls, ΔW is negative. The system pays you a refund at the same rate. This
-symmetry is not a loophole: it is load-bearing. The refund is what makes honest declaration
-incentive-compatible over a full market cycle. Any strategy that generates a large refund
-will also trigger a tax when the position subsequently recovers.</p>
+When wealth falls, ΔW is negative. The system pays you a refund at the same rate. This symmetry is not a loophole: it is load-bearing. The refund is what makes honest declaration incentive-compatible over a full market cycle. Any strategy that generates a large refund will also trigger a tax when the position subsequently recovers.
 
-<p>At the terminal sell year, alpha drops out entirely: W_sell = f_N × V_sell, where f_N
-is the retained equity fraction accumulated over the holding period. The declaration ratio
-cannot influence the sell-year basis.</p>
+At the terminal sell year, alpha drops out entirely: W_sell = f_N × V_sell, where f_N is the retained equity fraction accumulated over the holding period. The declaration ratio cannot influence the sell-year basis.
 
-<hr class="section-divider">
-<h2>The optimisation variables</h2>
+## The optimisation variables
 
-<p>A taxpayer under Route C has five levers. The strategies below work through each one.</p>
+A taxpayer under Route C has five levers. The strategies below work through each one.
 
+```{=html}
 <!-- ── Strategy 1 ── -->
 <div class="strategy-block">
   <div class="wdt-domain-header">
@@ -217,7 +200,7 @@ cannot influence the sell-year basis.</p>
       entirely if the WDT is applied with a valuation purchase option (Route A/B),
       which anchors W to a third-party-agreed value.
     </div>
-    <a class="pdf-download" href="#calculator">Simulate α &lt; 1 in the calculator ↓</a>
+    <a class="pdf-download" href="#the-calculator">Simulate α &lt; 1 in the calculator ↓</a>
   </div>
 </div>
 
@@ -263,7 +246,7 @@ cannot influence the sell-year basis.</p>
       benefit that makes hold-to-death strategies valuable under realisation-based
       capital gains tax.
     </div>
-    <a class="pdf-download" href="#calculator">Simulate holding period in the calculator ↓</a>
+    <a class="pdf-download" href="#the-calculator">Simulate holding period in the calculator ↓</a>
   </div>
 </div>
 
@@ -311,7 +294,7 @@ cannot influence the sell-year basis.</p>
       position toward the honest outcome. At high growth rates, overstatement
       is a net disadvantage. This is not a viable avoidance strategy.
     </div>
-    <a class="pdf-download" href="#calculator">Simulate α &gt; 1 in the calculator ↓</a>
+    <a class="pdf-download" href="#the-calculator">Simulate α &gt; 1 in the calculator ↓</a>
   </div>
 </div>
 
@@ -388,49 +371,28 @@ cannot influence the sell-year basis.</p>
       exceed cumulative contributions. The symmetry between taxes and refunds
       is the mechanism, not a limitation to be gamed.
     </div>
-    <a class="pdf-download" href="#calculator">Switch to historical series from 2000 or 2007 ↓</a>
+    <a class="pdf-download" href="#the-calculator">Switch to historical series from 2000 or 2007 ↓</a>
   </div>
 </div>
+```
 
-<hr class="section-divider">
+## What you cannot avoid — and why
 
-<div class="wdt-open-questions">
-  <h3 class="wdt-oq-header">What you cannot avoid — and why</h3>
-  <p>Across all five strategies, the pattern is the same. Every mechanism that reduces
-  tax payments in growth years also reduces the value recovered at the terminal event.
-  The WDT is a tax on the increment of wealth, not on its stock. Reducing the declared
-  increment reduces both the tax and the basis — you pay less, but you also walk away
-  with less. The net lifetime position, expressed as Net_settled / TW_settled, is
-  substantially more stable across declaration strategies than either figure alone.</p>
+Across all five strategies, the pattern is the same. Every mechanism that reduces tax payments in growth years also reduces the value recovered at the terminal event. The WDT is a tax on the increment of wealth, not on its stock. Reducing the declared increment reduces both the tax and the basis — you pay less, but you also walk away with less. The net lifetime position, expressed as Net_settled / TW_settled, is substantially more stable across declaration strategies than either figure alone.
 
-  <p>This is not accidental. The retained equity fraction f, which links declaration
-  history to sell-year proceeds, is what closes the loop. A taxpayer who understates
-  throughout accumulates a depleted f. At the sell year, alpha drops out and the
-  depletion is fully exposed. There is no way to understate during the holding period
-  and then declare honestly at sale — the basis is already set.</p>
+This is not accidental. The retained equity fraction f, which links declaration history to sell-year proceeds, is what closes the loop. A taxpayer who understates throughout accumulates a depleted f. At the sell year, alpha drops out and the depletion is fully exposed. There is no way to understate during the holding period and then declare honestly at sale — the basis is already set.
 
-  <p>The residual advantage of understating (low single digits as a percentage of
-  effective rate) is real, but it shrinks under realistic return volatility and
-  disappears when valuation is anchored by a third-party purchase option. The model
-  shows the mechanism is robust to the strategies most likely to be attempted.</p>
+The residual advantage of understating (low single digits as a percentage of effective rate) is real, but it shrinks under realistic return volatility and disappears when valuation is anchored by a third-party purchase option. The model shows the mechanism is robust to the strategies most likely to be attempted.
 
-  <p>If you find a strategy that produces a meaningful and durable advantage under
-  canonical parameters — one that survives volatile returns and does not depend on
-  implausible inputs — <a href="mailto:contact@wealthdeltatax.org">that is a design
-  defect and we want to know about it</a>. This page is the mechanism by which that
-  finding reaches us.</p>
-</div>
+If you find a strategy that produces a meaningful and durable advantage under canonical parameters — one that survives volatile returns and does not depend on implausible inputs — [that is a design defect and we want to know about it](mailto:contact@wealthdeltatax.org). This page is the mechanism by which that finding reaches us.
 
-<hr class="section-divider">
+## The calculator
 
-<h2 id="calculator">The calculator</h2>
-<p>Set your parameters and run the simulation. The honest baseline (α = 1) is always
-shown alongside your chosen scenario so the comparison is immediate. Use the
-period-by-period table to trace exactly where the tax and refund flows occur.</p>
-<p>The model runs the full Route C simulation from <code>wdt_core.py</code> —
-the same code used in the research papers, loaded unmodified in your browser.</p>
+Set your parameters and run the simulation. The honest baseline (α = 1) is always shown alongside your chosen scenario so the comparison is immediate. Use the period-by-period table to trace exactly where the tax and refund flows occur.
 
-<!-- Content panel -->
+The model runs the full Route C simulation from `wdt_core.py` — the same code used in the research papers, loaded unmodified in your browser.
+
+```{=html}
 <div class="wdt-tool-panel">
 <div class="wdt-tool-inner">
 
@@ -729,7 +691,6 @@ function fmt_pct(v) { return (v*100).toFixed(2) + '%'; }
 function fmt_rate(v) { return v === null ? '—' : (v*100).toFixed(2) + '%'; }
 
 function renderStats(container, d, V0) {
-  // TW_settled: post-sale oscillation converged by wdt_core.settle_tw()
   const settled_TW = d.TW_settled;
   const settleNote = d.settle_n === 0 ? 'already settled at sell'
                    : d.settle_n >= 2000 ? 'cap reached (2000 periods)'
@@ -808,16 +769,8 @@ function renderResults(data, V0, alpha, N, mode, startYear) {
 
 initPyodide();
 </script>
+```
 
-<div class="wdt-faq-refs">
-  Found a strategy this page does not cover? Identified a parameter combination that
-  produces a surprising result?
-  <a href="mailto:contact@wealthdeltatax.org">Contact the project</a> — this page
-  is maintained as a live document and will be updated as new strategies are identified.
-</div>
+---
 
-</div><!-- /wdt-tool-inner -->
-</div><!-- /wdt-tool-panel -->
-
-</body>
-</html>
+Found a strategy this page does not cover? Identified a parameter combination that produces a surprising result? [Contact the project](mailto:contact@wealthdeltatax.org) — this page is maintained as a live document and will be updated as new strategies are identified.
