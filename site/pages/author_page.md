@@ -16,7 +16,7 @@ My deeper concern is structural. Automation is accelerating. Democratic expressi
 
 I also reject the implicit alternative. If the current trajectory continues uncorrected — demographic collapse, climate overshoot, resource monopolisation — the pressure for redistribution by other means grows. A workable fiscal mechanism is not just preferable to that outcome. It may be the only durable alternative to it.
 
-The WDT is my attempt to rebuild the mechanism from first principles — one that does not require privacy violations to function, does not punish wealth destruction, and does not depend on the goodwill of the institutions it is meant to reform.
+The WDT is my attempt to rebuild the mechanism from first principles — one that does not require privacy violations to function, does not punish wealth accumulation, and does not depend on the goodwill of the institutions it is meant to reform, nor the taxpayers onto whom the burden falls.
 
 I invite criticism. There is only so much that one person can consider, and the WDT cannot be built by a single person. But I ask that criticism be precise. Is the disagreement with my moral premises? With the fundamental principles on which the WDT is built? With a particular mechanism, assumption, or result? Or is the problem simply with how I have expressed the argument?
 
