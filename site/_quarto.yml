@@ -185,6 +185,7 @@ website:
 
 format:
   html:
+    include-in-header: style/geocities.html
     theme: cosmo
     toc: True
     toc-depth: 2

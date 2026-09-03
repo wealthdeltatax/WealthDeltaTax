@@ -1,0 +1,148 @@
+<!--
+  _includes/geocities.html
+  ========================
+  Standalone module for the WDT site's Geocities-era decorative elements.
+
+  LOADING — two approaches, pick one:
+  ─────────────────────────────────────────────────────────────────────
+  A) Global (all pages): add this file to _quarto.yml so preprocess.py
+     copies it into _build/ and Quarto loads it site-wide:
+
+       format:
+         html:
+           include-in-header: _includes/geocities.html
+
+     Then in any .md that wants the elements, add a raw HTML call block:
+
+       ```{=html}
+       <script>
+         document.addEventListener("DOMContentLoaded", function () {
+           WDTGeocities.inject(["counter", "webring", "netscape", "contact"]);
+         });
+       </script>
+       ```
+
+  B) Per-page (single page only): paste the entire contents of this file
+     into a ```{=html} block at the bottom of that .md, then immediately
+     follow it with the inject call above. No _quarto.yml change needed.
+  ─────────────────────────────────────────────────────────────────────
+
+  API
+  ---
+  WDTGeocities.inject(keys, target?)
+    Appends named elements in order to target (default: document.body).
+    keys — array of: "counter", "webring", "netscape", "contact"
+
+  WDTGeocities.injectAll(target?)
+    Appends all four in canonical order: counter → webring → netscape → contact.
+
+  WDTGeocities.html(key)
+    Returns the raw HTML string for one element (for Lua filters / SSR).
+
+  ELEMENTS
+  --------
+  counter   — visitor hit counter (static display)
+  webring   — Fiscal Policy Web Ring nav block
+  netscape  — "Best Viewed in Netscape Navigator" badge
+  contact   — mailto contact footer line
+
+  CUSTOMISATION
+  -------------
+  To change the visitor count, edit COUNTER_VALUE below.
+  To change the contact address, edit CONTACT_EMAIL below.
+-->
+
+<script id="wdt-geocities-module">
+(function () {
+
+  /* ── configurable values ───────────────────────────────────────────── */
+  var COUNTER_VALUE = "001998";
+  var CONTACT_EMAIL = "wealthdeltatax@gmail.com";
+  /* ─────────────────────────────────────────────────────────────────── */
+
+  var TEMPLATES = {
+
+    counter: [
+      '<div class="wdt-counter-wrap">',
+      '  <div class="wdt-counter">',
+      '    <div class="wdt-counter-label">VISITORS SINCE 2024</div>',
+      '    <div class="wdt-counter-digits">' + COUNTER_VALUE + '</div>',
+      '  </div>',
+      '</div>'
+    ].join("\n"),
+
+    webring: [
+      '<div class="wdt-webring">',
+      '  <span class="wdt-webring-hex">⬡ ⬡ ⬡</span>',
+      '  &nbsp;&nbsp;',
+      '  <a href="/" class="wdt-webring-nav">◀</a>',
+      '  &nbsp;',
+      '  <span class="wdt-webring-label">MEMBER OF THE FISCAL POLICY WEB RING</span>',
+      '  &nbsp;',
+      '  <a href="/" class="wdt-webring-nav">▶</a>',
+      '  &nbsp;&nbsp;',
+      '  <span class="wdt-webring-hex">⬡ ⬡ ⬡</span>',
+      '</div>'
+    ].join("\n"),
+
+    netscape: [
+      '<div class="wdt-netscape-wrap">',
+      '  <div class="wdt-netscape">',
+      '    <div class="wdt-netscape-top">BEST VIEWED IN</div>',
+      '    <div class="wdt-netscape-mid">NETSCAPE NAVIGATOR</div>',
+      '    <div class="wdt-netscape-bot">800×600 · 256 COLOURS</div>',
+      '  </div>',
+      '</div>'
+    ].join("\n"),
+
+    contact: [
+      '<div class="wdt-contact">',
+      '  ✉ CONTACT THE Author:',
+      '  <a href="mailto:' + CONTACT_EMAIL + '">mailto:' + CONTACT_EMAIL + '</a>',
+      '</div>'
+    ].join("\n")
+
+  };
+
+  /* ── public API ────────────────────────────────────────────────────── */
+  window.WDTGeocities = {
+
+    /**
+     * inject(keys, target?)
+     * Appends the named elements, in order, to `target` (default: document.body).
+     * keys — array of strings from: "counter", "webring", "netscape", "contact"
+     */
+    inject: function (keys, target) {
+      var el = target || document.body;
+      keys.forEach(function (key) {
+        if (!TEMPLATES[key]) {
+          console.warn("WDTGeocities: unknown element key '" + key + "'");
+          return;
+        }
+        var wrapper = document.createElement("div");
+        wrapper.innerHTML = TEMPLATES[key];
+        el.appendChild(wrapper.firstChild);
+      });
+    },
+
+    /**
+     * injectAll(target?)
+     * Appends all four elements in canonical order: counter → webring → netscape → contact.
+     */
+    injectAll: function (target) {
+      this.inject(["counter", "webring", "netscape", "contact"], target);
+    },
+
+    /**
+     * html(key)
+     * Returns the raw HTML string for a single element (useful for server-side
+     * templating or Quarto Lua filters).
+     */
+    html: function (key) {
+      return TEMPLATES[key] || "";
+    }
+
+  };
+
+})();
+</script>
