@@ -144,7 +144,7 @@ The fund is what makes the refund promise mechanically credible rather than aspi
 | If you want… | Start with… |
 |---|---|
 | The full mechanism | White Paper (WP)|
-| The moral case | [Moral Foundations (MF)](mf.html) |
+| The moral case | Moral Foundations (MF) |
 | The numbers | [Rates and Revenue (RATES)](rates.html) |
 | The hardest objections | [FAQ](faq.html) |
 | All 26 papers | [Research Programme](research.html) |

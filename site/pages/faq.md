@@ -16,7 +16,7 @@ Symmetry means individuals are treated fairly, not that aggregate revenue is zer
 
 See: mechanism overview (WP §3) · revenue modelling (RATES §3) · simulation models (RATES.A §B) · reciprocal partnership principle (MF §7) · economic transmission channels (ENV §5).
 
-→ [Rates and Revenue (RATES)](rates.html) · [Back to the overview](index.html#the-idea-in-one-minute)
+→ Rates and Revenue (RATES) · [Back to the overview](index.html#the-idea-in-one-minute)
 
 ---
 
@@ -26,7 +26,7 @@ Refunds are pre-funded from zero. All WDT revenue capitalises the SRR before any
 
 See: SWF role (WP §4) · SRR capitalisation (RATES §7) · SWF Solvency Model (RATES.A §B) · Custodian mandate and solvency floor (GOV §6.3) · operational SWF specification (GOV.B §E.1).
 
-→ [Constitutional Governance (GOV)](gov.html) · [Rates and Revenue (RATES)](rates.html)
+→ Constitutional Governance (GOV) · Rates and Revenue (RATES)
 
 ---
 
@@ -36,17 +36,17 @@ The objection targets the wrong problem. The WDT does not require the state to d
 
 See: valuation architecture (VAL §7) · mathematical validation (VAL.A §A) · worked examples (VAL.B) · behavioural robustness (BEHAV §3) · Valuation Body governance (GOV §6.1).
 
-→ [Valuing Wealth (VAL)](val.html) · [Three-way comparison table](comparison-tables.html)
+→ Valuing Wealth (VAL) · [Three-way comparison table](comparison-tables.html)
 
 ---
 
-### "Won't people just hide or move their wealth?" {#close} {#corp}
+### "Won't people just hide or move their wealth?" {#corp}
 
 The objection covers three distinct things with different implications: concealment, legal restructuring, and physical migration. On concealment: opacity is expensive by design. Unattributed corporate ownership bears τ_h, which exceeds individual marginal rates for most of the taxable population, making non-disclosure cost more than declaration. Foreign companies holding WDT-jurisdiction assets face a graduated τ_foreign on any portion they cannot attribute to named beneficial owners, calibrated to the host jurisdiction's attribution compliance. The structure itself becomes expensive unless ownership can be established; the state does not need to identify who is hiding. On restructuring: the delta base asks where wealth went rather than what legal form was used, removing most of the gaps conventional avoidance exploits. On migration: the Agrawal et al. (2025) finding that wealth-tax-driven migration can generate income tax and VAT losses several times the direct revenue loss is a serious transitional risk, concentrated in Phase One. The WDT's cooperative features change the rational calculus around departure, but whether they change it enough is a Phase One empirical question.
 
 See: avoidance taxonomy, enforcement paradigm, migration analysis (BEHAV §8) · declaration incentives (VAL §7) · corporate attribution, τ_foreign mechanism (CORP §4) · exit framework (CLOSE §4.2) · PHASE1 §4.3 (empirical questions).
 
-→ [Behavioural Robustness (BEHAV)](behav.html) · [Position Closure (CLOSE)](close.html) · [Corporate Architecture (CORP)](corp.html)
+→ Behavioural Robustness (BEHAV) · Position Closure (CLOSE) · Corporate Architecture (CORP)
 
 ---
 
@@ -66,7 +66,7 @@ Avoiding forced realisation is a design requirement, not a secondary considerati
 
 See: asset routes and settlement architecture (VAL §4) · mechanical validation (VAL.A §A) · settlement at closure events (CLOSE §3) · listed-company treatment (CORP §5).
 
-→ [Valuing Wealth (VAL)](val.html) · [White Paper (WP)](wp.html)
+→ Valuing Wealth (VAL) · White Paper (WP)
 
 ---
 
@@ -76,7 +76,7 @@ Because wealth generates economic and political advantages in the present regard
 
 See: tax base rationale (WP §3.1) · wealth as present power, not deferred consumption (MF §4) · lock-in and efficiency analysis (ENV §3) · intellectual background (LR.B §3).
 
-→ [Moral Foundations (MF)](mf.html) · [Why the current system falls short](index.html#why-the-current-system-falls-short)
+→ Moral Foundations (MF) · [Why the current system falls short](index.html#why-the-current-system-falls-short)
 
 ---
 
@@ -86,7 +86,7 @@ The argument is about reciprocity, not risk management. Large private fortunes d
 
 See: reciprocity as foundational axiom · collective basis of large wealth (MF §3) · cooperative architecture (WP §1.1) · institutional expression of reciprocity (GOV §1) · Domar-Musgrave and risk-sharing background (LR.B §4).
 
-→ [Moral Foundations (MF)](mf.html) · [Constitutional Governance (GOV)](gov.html)
+→ Moral Foundations (MF) · Constitutional Governance (GOV)
 
 ---
 
@@ -96,7 +96,7 @@ Revenue falls, as it does under any tax system in a downturn. The WDT is calibra
 
 See: historical sensitivity testing (RATES §7.2) · 73-start-year simulations and stress testing (RATES.A §B.4) · macroeconomic transmission (ENV §5) · SWF resilience mechanisms (GOV.B §E.1).
 
-→ [Rates and Revenue (RATES)](rates.html) · [Open questions](research.html#what-the-project-does-not-yet-know)
+→ Rates and Revenue (RATES) · [Open questions](research.html#what-the-project-does-not-yet-know)
 
 ---
 
@@ -106,7 +106,7 @@ Because the refund obligation is contractual and cannot be honoured on a pay-as-
 
 See: SWF purpose (WP §4.1) · SRR/LRR structure (RATES §6.1) · constitutional constraints (GOV §5.2) · operational mandate (GOV.B §E).
 
-→ [Constitutional Governance (GOV)](gov.html) · [The public wealth fund](index.html#the-public-wealth-fund)
+→ Constitutional Governance (GOV) · [The public wealth fund](index.html#the-public-wealth-fund)
 
 ---
 
@@ -116,7 +116,7 @@ Because that is the proposal's objective. The WDT is designed to shift the tax b
 
 See: labour relief dividend (WP §7.2) · terminal goal (MF §6) · capacity-to-bear rationale (MF §4) · LRR and transition model (RATES §6.2) · enumerated clause committing revenue use (GOV §5.2) · labour and consumption transmission channels (ENV §4).
 
-→ [Moral Foundations (MF)](mf.html) · [What the money is for](index.html#what-the-money-is-for)
+→ Moral Foundations (MF) · [What the money is for](index.html#what-the-money-is-for)
 
 ---
 
@@ -124,6 +124,6 @@ See: labour relief dividend (WP §7.2) · terminal goal (MF §6) · capacity-to-
 
 No. The high exemption threshold reflects two distinct arguments, not one. The administrative argument: the cost of operating annual net worth tracking infrastructure is justified only where the revenue it generates is proportionate to that cost. The normative argument: the threshold reflects a judgment about differential capacity to bear bad years. Below a certain wealth level, a loss year is a genuine hardship; above it, a financial inconvenience. The threshold is not an objectively discoverable number — it is a political and ethical calibration of where reciprocal participation becomes appropriate, and saying so explicitly makes it harder to attack than pretending economics has produced a magic figure. In the UK reference jurisdiction, approximately 32,000 individuals hold wealth above £10 million. Phase One begins at an even higher threshold. The threshold is a Governing Council calibration parameter and can be lowered as the system matures; the rationale for a high threshold is not political convenience.
 
-See: scope and exemption (WP §3.4) · capacity-to-bear rationale (MF §4) · threshold modelling (RATES §7.1) · PHASE1 §7 (implementation pathway).
+See: scope and exemption (WP §3.4) · capacity-to-bear rationale (MF §4) · threshold modelling (RATES §7.1) · implementation pathway (PHASE1 §7).
 
-→ [White Paper (WP)](wp.html) · [Phase One (PHASE1)](phase1.html) · [Back to the overview](index.html#the-idea-in-one-minute)
+→ White Paper (WP) · Phase One (PHASE1) · [Back to the overview](index.html#the-idea-in-one-minute)
