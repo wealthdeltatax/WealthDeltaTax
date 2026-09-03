@@ -14,10 +14,8 @@ The answers below distinguish between three things: propositions the WDT's archi
 
 Symmetry means individuals are treated fairly, not that aggregate revenue is zero. Positive expected revenue is an empirical claim about the long-run distribution of wealth changes: because private wealth has grown over long historical periods, gains have exceeded losses in aggregate. The SWF exists because this is a long-run expectation, not a year-by-year guarantee. Revenue figures in RATES are pre-behavioural starting points. How well the expectation holds under the WDT specifically is a question Phase One settles.
 
-```{=html}
-<p class="wdt-faq-refs">See: mechanism overview (WP §3) · revenue modelling (RATES §3) · simulation models (RATES.A §B) · reciprocal partnership principle (MF §7) · economic transmission channels (ENV §5).</p>
-<p class="wdt-faq-nav">→ <a href="rates.html">Rates and Revenue (RATES)</a> · <a href="index.html#the-idea-in-one-minute">Back to the overview</a></p>
-```
+See: mechanism overview (WP §3) · revenue modelling (RATES §3) · simulation models (RATES.A §B) · reciprocal partnership principle (MF §7) · economic transmission channels (ENV §5).
+Rates and Revenue (RATES) <a href="index.html#the-idea-in-one-minute">Back to the overview</a></p>
 
 ---
 
