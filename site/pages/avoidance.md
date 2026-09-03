@@ -6,119 +6,6 @@ description: >
 toc: true
 ---
 
-```{=html}
-<style>
-/* ── Avoidance page — local additions ───────────────────────
-   Tool panel, controls, sliders, results: tools.css
-   Typography, palette tokens, base layout: styles.css
-   These rules cover only prose sections unique to this page:
-   strategy blocks, verdict boxes, mechanic callouts, etc.
-   ──────────────────────────────────────────────────────── */
-
-.avoid-intro {
-  border-left: 6px solid var(--wdt-gold);
-  background: #fffde7;
-  padding: 1.25rem 1.5rem;
-  margin: 1.5rem 0 2rem;
-  font-size: 1rem;
-  font-family: "Times New Roman", Times, serif;
-  line-height: 1.7;
-}
-
-.avoid-intro strong {
-  color: var(--wdt-purple);
-}
-
-.strategy-block {
-  border: 2px solid var(--wdt-silver);
-  border-left: 5px solid var(--wdt-purple);
-  background: var(--wdt-lavender);
-  margin: 2rem 0;
-  padding: 0;
-}
-
-.strategy-number {
-  background: var(--wdt-gold);
-  color: var(--wdt-purple);
-  font-size: 0.7rem;
-  font-weight: bold;
-  padding: 0.1rem 0.45rem;
-  letter-spacing: 0;
-}
-
-.strategy-body {
-  padding: 1rem 1.25rem;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: #111;
-}
-
-.strategy-body p {
-  margin: 0 0 0.75rem;
-}
-
-.strategy-body p:last-child {
-  margin-bottom: 0;
-}
-
-.strategy-body .mechanic {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 0.82rem;
-  background: #fff;
-  border: 1px solid var(--wdt-silver);
-  border-left: 3px solid var(--wdt-gold);
-  padding: 0.6rem 0.9rem;
-  margin: 0.75rem 0;
-  color: #333;
-}
-
-.strategy-body .mechanic strong {
-  color: var(--wdt-purple);
-  display: block;
-  margin-bottom: 0.2rem;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.verdict-box {
-  border: 2px solid var(--wdt-purple);
-  border-top: 4px solid var(--wdt-gold);
-  background: #fff;
-  padding: 1rem 1.25rem;
-  margin: 0.75rem 0 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 0.82rem;
-  line-height: 1.6;
-}
-
-.verdict-box .verdict-label {
-  font-size: 0.7rem;
-  font-weight: bold;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--wdt-purple);
-  margin-bottom: 0.3rem;
-}
-
-.verdict-box.limited   { border-top-color: var(--wdt-green); }
-.verdict-box.moderate  { border-top-color: #b45309; }
-.verdict-box.blocked   { border-top-color: var(--wdt-red); }
-
-.section-divider {
-  border: none;
-  border-top: 3px double var(--wdt-gold);
-  margin: 2.5rem 0;
-}
-
-@media (max-width: 700px) {
-  .strategy-body { padding: 0.75rem; }
-  .avoid-intro { padding: 0.9rem; }
-}
-</style>
-```
-
 *A taxpayer's guide to minimising lifetime WDT liability — with a live calculator to test every strategy.*
 
 ```{=html}
@@ -156,225 +43,219 @@ At the terminal sell year, alpha drops out entirely: W_sell = f_N × V_sell, whe
 
 A taxpayer under Route C has five levers. The strategies below work through each one.
 
-```{=html}
-<!-- ── Strategy 1 ── -->
-<div class="strategy-block">
-  <div class="wdt-domain-header">
-    <span class="strategy-number">1</span>
-    Declaration ratio α — understating wealth each period
-  </div>
-  <div class="strategy-body">
-    <p>The declaration ratio α scales your declared wealth relative to true wealth.
-    At α = 1 you are honest. At α = 0.5 you declare half your true wealth each period.
-    This reduces ΔW in growth years, cutting the tax due. It looks like the obvious
-    play.</p>
+---
 
-    <div class="mechanic">
-      <strong>What actually happens</strong>
-      Understatement depletes your retained equity fraction f. Each period you
-      hold back declaration, the system records a lower basis — but your true asset
-      value has grown. When you sell, W_sell = f_N × V_sell with alpha removed.
-      You receive a smaller fraction of sale proceeds because f_N has been eroded
-      by the cumulative under-declaration. The sell-year refund (which would have
-      partially compensated you for prior overpayment) is also smaller.
-    </div>
+### Strategy 1 — Declaration ratio α: understating wealth each period {#strategy-1}
 
-    <p>The net result across a full holding period: understaters pay less in annual
-    taxes but also receive smaller refunds, and their sell proceeds are reduced by
-    the f erosion. The model shows the advantage is real but modest — typically
-    low single-digit percentage points of lifetime effective rate at α = 0.5,
-    narrowing further for shorter holding periods and negative-growth years.</p>
+::: strategy-block
 
-    <div class="mechanic">
-      <strong>Try it in the calculator below</strong>
-      Set α to 0.5. Compare Net_settled and TW_settled against the honest baseline.
-      Then switch to a historical series that includes a market crash (try 2000 or 2007)
-      and observe how the refund asymmetry behaves when growth turns negative.
-    </div>
+::: wdt-domain-header
+[1]{.strategy-number} Declaration ratio α — understating wealth each period
+:::
 
-    <div class="verdict-box moderate">
-      <div class="verdict-label">Verdict — limited advantage</div>
-      Understating declaration produces a real but self-limiting tax reduction.
-      The mechanism that cuts your tax payments also cuts your sell-year proceeds.
-      The advantage erodes further under volatile returns and disappears almost
-      entirely if the WDT is applied with a valuation purchase option (Route A/B),
-      which anchors W to a third-party-agreed value.
-    </div>
-    <a class="pdf-download" href="#the-calculator">Simulate α &lt; 1 in the calculator ↓</a>
-  </div>
-</div>
+::: strategy-body
 
-<!-- ── Strategy 2 ── -->
-<div class="strategy-block">
-  <div class="wdt-domain-header">
-    <span class="strategy-number">2</span>
-    Holding period N — how long you hold before selling
-  </div>
-  <div class="strategy-body">
-    <p>The WDT is a flow tax. You only pay when declared wealth increases. If you never
-    sell and never grow, you pay nothing. The question is how holding period length
-    interacts with the rate function.</p>
+The declaration ratio α scales your declared wealth relative to true wealth. At α = 1 you are honest. At α = 0.5 you declare half your true wealth each period. This reduces ΔW in growth years, cutting the tax due. It looks like the obvious play.
 
-    <div class="mechanic">
-      <strong>What actually happens</strong>
-      At steady growth, extending N increases cumulative tax roughly linearly — each
-      additional period adds another year of taxable growth. There is no bunching
-      advantage from selling late, because the basis carried forward at the sell year
-      is the prior declared value, not the original purchase price. You cannot defer
-      a large one-time gain and benefit from a low rate on the total — each year's
-      increment is taxed as it accrues.
-    </div>
+::: mechanic
 
-    <p>Under volatile historical returns, holding period selection matters differently:
-    a holding period that ends during a market trough generates a large refund at the
-    sell year (negative ΔW = large negative L_sell). But you cannot know in advance
-    when the trough will be, and deliberately timing a sale to a crash year means
-    accepting depressed proceeds.</p>
+**What actually happens**
 
-    <div class="mechanic">
-      <strong>Try it in the calculator below</strong>
-      Hold all other parameters constant and sweep N from 10 to 50. Observe that
-      effective rate (Net_settled / TW_settled) is relatively stable across N —
-      the flow structure prevents the accumulation effect that makes deferral
-      valuable under capital gains tax.
-    </div>
+Understatement depletes your retained equity fraction f. Each period you hold back declaration, the system records a lower basis — but your true asset value has grown. When you sell, W_sell = f_N × V_sell with alpha removed. You receive a smaller fraction of sale proceeds because f_N has been eroded by the cumulative under-declaration. The sell-year refund (which would have partially compensated you for prior overpayment) is also smaller.
 
-    <div class="verdict-box limited">
-      <div class="verdict-label">Verdict — not a useful lever</div>
-      Holding period length does not produce a systematic tax advantage under
-      the WDT. This is by design: the flow structure eliminates the deferral
-      benefit that makes hold-to-death strategies valuable under realisation-based
-      capital gains tax.
-    </div>
-    <a class="pdf-download" href="#the-calculator">Simulate holding period in the calculator ↓</a>
-  </div>
-</div>
+:::
 
-<!-- ── Strategy 3 ── -->
-<div class="strategy-block">
-  <div class="wdt-domain-header">
-    <span class="strategy-number">3</span>
-    Overstatement α &gt; 1 — declaring more wealth than you own
-  </div>
-  <div class="strategy-body">
-    <p>This sounds counterintuitive, but the mathematics make it worth examining.
-    If you declare more wealth than you actually own in years of high growth, you
-    pay more tax — but you also accumulate a larger negative cumulative position,
-    which generates a larger refund when growth turns negative or at sale.</p>
+The net result across a full holding period: understaters pay less in annual taxes but also receive smaller refunds, and their sell proceeds are reduced by the f erosion. The model shows the advantage is real but modest — typically low single-digit percentage points of lifetime effective rate at α = 0.5, narrowing further for shorter holding periods and negative-growth years.
 
-    <div class="mechanic">
-      <strong>What actually happens</strong>
-      At the sell year, alpha drops out. If you have been overstating by α = 1.5
-      throughout, your prior declared basis (f_N × α × V_N) typically exceeds your
-      true sell proceeds (f_N × V_sell) when growth is moderate. This generates a
-      large negative delta_sell — a substantial refund. Post-sale, the settlement
-      mechanism iterates on the resulting cash position, taxing back the refund if
-      it produces a positive delta again, until convergence.
-    </div>
+::: mechanic
 
-    <p>The net effect is that overstatement provides a very small advantage for
-    specific return profiles, and a disadvantage for others. The settle_tw()
-    function converges this residual within a few iterations for honest and
-    moderate overstaters; large overstaters at high growth see more iterations.
-    In all cases the lifetime advantage is economically small — well under 1%
-    of TW_settled at canonical parameters.</p>
+**Try it in the calculator below**
 
-    <div class="mechanic">
-      <strong>Try it in the calculator below</strong>
-      Set α to 1.5 at steady g = 10%. Compare Net_settled to the honest baseline.
-      Then try α = 1.5 at g = 5%. Note how the advantage/disadvantage reverses.
-      The settle_n counter shows how many post-sale settlement iterations
-      convergence required.
-    </div>
+Set α to 0.5. Compare Net_settled and TW_settled against the honest baseline. Then switch to a historical series that includes a market crash (try 2000 or 2007) and observe how the refund asymmetry behaves when growth turns negative.
 
-    <div class="verdict-box blocked">
-      <div class="verdict-label">Verdict — negligible and unreliable</div>
-      Overstatement does not produce a reliable tax advantage. The sell-year
-      alpha drop-out and the post-sale settlement mechanism converge the
-      position toward the honest outcome. At high growth rates, overstatement
-      is a net disadvantage. This is not a viable avoidance strategy.
-    </div>
-    <a class="pdf-download" href="#the-calculator">Simulate α &gt; 1 in the calculator ↓</a>
-  </div>
-</div>
+:::
 
-<!-- ── Strategy 4 ── -->
-<div class="strategy-block">
-  <div class="wdt-domain-header">
-    <span class="strategy-number">4</span>
-    Staying below W_min — keeping declared wealth under the entry threshold
-  </div>
-  <div class="strategy-body">
-    <p>The WDT applies only above W_min (£2m at canonical parameters). Wealth
-    below this threshold pays nothing. If you can keep declared wealth below
-    W_min every period, your liability is zero.</p>
+::: {.verdict-box .moderate}
 
-    <div class="mechanic">
-      <strong>What actually happens</strong>
-      This is a real and intentional feature, not a gap. The W_min threshold is
-      a design choice: the WDT is not intended to reach small wealth holders.
-      The question is whether a wealth holder above the threshold can restructure
-      to move below it. Under Route C (equity transfer), W reflects retained
-      equity in underlying assets. Splitting holdings across multiple structures
-      does not reduce the attribution — the WDT consolidates beneficial ownership,
-      not legal title. A £10m holding split across five entities is still
-      attributed to one person as £10m.
-    </div>
+**Verdict — limited advantage**
 
-    <p>For genuine wealth just above the threshold (£2–5m), moderate growth
-    volatility can produce years where declared wealth dips below W_min — paying
-    no tax in that period. This is mechanically correct behaviour, not avoidance.
-    The rate function is continuous at W_min (it returns zero below, and τ₀ ≈ 0
-    just above), so there is no cliff-edge incentive to manipulate.</p>
+Understating declaration produces a real but self-limiting tax reduction. The mechanism that cuts your tax payments also cuts your sell-year proceeds. The advantage erodes further under volatile returns and disappears almost entirely if the WDT is applied with a valuation purchase option (Route A/B), which anchors W to a third-party-agreed value.
 
-    <div class="verdict-box limited">
-      <div class="verdict-label">Verdict — applies only to genuine boundary cases</div>
-      Sub-threshold status is real zero tax. But it requires actually having
-      sub-threshold wealth on a beneficial-ownership basis. Attribution rules
-      prevent artificial fragmentation. For taxpayers well above W_min, this
-      strategy is unavailable.
-    </div>
-  </div>
-</div>
+:::
 
-<!-- ── Strategy 5 ── -->
-<div class="strategy-block">
-  <div class="wdt-domain-header">
-    <span class="strategy-number">5</span>
-    Timing losses — selling or declaring in crash years
-  </div>
-  <div class="strategy-body">
-    <p>If your wealth falls in a given year, the WDT pays you a refund. A strategy
-    that concentrates declarations of wealth in years of negative return — and avoids
-    triggering taxable events in growth years — would, in principle, extract refunds
-    without paying commensurate taxes.</p>
+[Simulate α < 1 in the calculator ↓](#the-calculator){.pdf-download}
 
-    <div class="mechanic">
-      <strong>What actually happens</strong>
-      The cumulative position prevents this. The refund in a crash year is bounded
-      by the cumulative tax paid to date (the lifetime cap). If you have paid very
-      little tax — because you understated in growth years — your refund capacity
-      is correspondingly small. The system does not pay refunds that exceed what
-      you have contributed. A taxpayer who paid nothing throughout cannot extract a
-      refund at a crash.
-    </div>
+:::
 
-    <p>What you can do: hold through a cycle and receive a natural refund when
-    the next decline arrives. But the refund is automatically netted against
-    the taxes already paid on the prior growth. The symmetry is exact: you are
-    returned, at the same marginal rate, the same amount you paid on the gain.
-    The refund is a reversal, not a bonus.</p>
+:::
 
-    <div class="verdict-box blocked">
-      <div class="verdict-label">Verdict — blocked by the cumulative cap</div>
-      Loss-timing strategies are structurally prevented. Refunds cannot
-      exceed cumulative contributions. The symmetry between taxes and refunds
-      is the mechanism, not a limitation to be gamed.
-    </div>
-    <a class="pdf-download" href="#the-calculator">Switch to historical series from 2000 or 2007 ↓</a>
-  </div>
-</div>
-```
+---
+
+### Strategy 2 — Holding period N: how long you hold before selling {#strategy-2}
+
+::: strategy-block
+
+::: wdt-domain-header
+[2]{.strategy-number} Holding period N — how long you hold before selling
+:::
+
+::: strategy-body
+
+The WDT is a flow tax. You only pay when declared wealth increases. If you never sell and never grow, you pay nothing. The question is how holding period length interacts with the rate function.
+
+::: mechanic
+
+**What actually happens**
+
+At steady growth, extending N increases cumulative tax roughly linearly — each additional period adds another year of taxable growth. There is no bunching advantage from selling late, because the basis carried forward at the sell year is the prior declared value, not the original purchase price. You cannot defer a large one-time gain and benefit from a low rate on the total — each year's increment is taxed as it accrues.
+
+:::
+
+Under volatile historical returns, holding period selection matters differently: a holding period that ends during a market trough generates a large refund at the sell year (negative ΔW = large negative L_sell). But you cannot know in advance when the trough will be, and deliberately timing a sale to a crash year means accepting depressed proceeds.
+
+::: mechanic
+
+**Try it in the calculator below**
+
+Hold all other parameters constant and sweep N from 10 to 50. Observe that effective rate (Net_settled / TW_settled) is relatively stable across N — the flow structure prevents the accumulation effect that makes deferral valuable under capital gains tax.
+
+:::
+
+::: {.verdict-box .limited}
+
+**Verdict — not a useful lever**
+
+Holding period length does not produce a systematic tax advantage under the WDT. This is by design: the flow structure eliminates the deferral benefit that makes hold-to-death strategies valuable under realisation-based capital gains tax.
+
+:::
+
+[Simulate holding period in the calculator ↓](#the-calculator){.pdf-download}
+
+:::
+
+:::
+
+---
+
+### Strategy 3 — Overstatement α > 1: declaring more wealth than you own {#strategy-3}
+
+::: strategy-block
+
+::: wdt-domain-header
+[3]{.strategy-number} Overstatement α > 1 — declaring more wealth than you own
+:::
+
+::: strategy-body
+
+This sounds counterintuitive, but the mathematics make it worth examining. If you declare more wealth than you actually own in years of high growth, you pay more tax — but you also accumulate a larger negative cumulative position, which generates a larger refund when growth turns negative or at sale.
+
+::: mechanic
+
+**What actually happens**
+
+At the sell year, alpha drops out. If you have been overstating by α = 1.5 throughout, your prior declared basis (f_N × α × V_N) typically exceeds your true sell proceeds (f_N × V_sell) when growth is moderate. This generates a large negative delta_sell — a substantial refund. Post-sale, the settlement mechanism iterates on the resulting cash position, taxing back the refund if it produces a positive delta again, until convergence.
+
+:::
+
+The net effect is that overstatement provides a very small advantage for specific return profiles, and a disadvantage for others. The settle_tw() function converges this residual within a few iterations for honest and moderate overstaters; large overstaters at high growth see more iterations. In all cases the lifetime advantage is economically small — well under 1% of TW_settled at canonical parameters.
+
+::: mechanic
+
+**Try it in the calculator below**
+
+Set α to 1.5 at steady g = 10%. Compare Net_settled to the honest baseline. Then try α = 1.5 at g = 5%. Note how the advantage/disadvantage reverses. The settle_n counter shows how many post-sale settlement iterations convergence required.
+
+:::
+
+::: {.verdict-box .blocked}
+
+**Verdict — negligible and unreliable**
+
+Overstatement does not produce a reliable tax advantage. The sell-year alpha drop-out and the post-sale settlement mechanism converge the position toward the honest outcome. At high growth rates, overstatement is a net disadvantage. This is not a viable avoidance strategy.
+
+:::
+
+[Simulate α > 1 in the calculator ↓](#the-calculator){.pdf-download}
+
+:::
+
+:::
+
+---
+
+### Strategy 4 — Staying below W_min: keeping declared wealth under the entry threshold {#strategy-4}
+
+::: strategy-block
+
+::: wdt-domain-header
+[4]{.strategy-number} Staying below W_min — keeping declared wealth under the entry threshold
+:::
+
+::: strategy-body
+
+The WDT applies only above W_min (£2m at canonical parameters). Wealth below this threshold pays nothing. If you can keep declared wealth below W_min every period, your liability is zero.
+
+::: mechanic
+
+**What actually happens**
+
+This is a real and intentional feature, not a gap. The W_min threshold is a design choice: the WDT is not intended to reach small wealth holders. The question is whether a wealth holder above the threshold can restructure to move below it. Under Route C (equity transfer), W reflects retained equity in underlying assets. Splitting holdings across multiple structures does not reduce the attribution — the WDT consolidates beneficial ownership, not legal title. A £10m holding split across five entities is still attributed to one person as £10m.
+
+:::
+
+For genuine wealth just above the threshold (£2–5m), moderate growth volatility can produce years where declared wealth dips below W_min — paying no tax in that period. This is mechanically correct behaviour, not avoidance. The rate function is continuous at W_min (it returns zero below, and τ₀ ≈ 0 just above), so there is no cliff-edge incentive to manipulate.
+
+::: {.verdict-box .limited}
+
+**Verdict — applies only to genuine boundary cases**
+
+Sub-threshold status is real zero tax. But it requires actually having sub-threshold wealth on a beneficial-ownership basis. Attribution rules prevent artificial fragmentation. For taxpayers well above W_min, this strategy is unavailable.
+
+:::
+
+:::
+
+:::
+
+---
+
+### Strategy 5 — Timing losses: selling or declaring in crash years {#strategy-5}
+
+::: strategy-block
+
+::: wdt-domain-header
+[5]{.strategy-number} Timing losses — selling or declaring in crash years
+:::
+
+::: strategy-body
+
+If your wealth falls in a given year, the WDT pays you a refund. A strategy that concentrates declarations of wealth in years of negative return — and avoids triggering taxable events in growth years — would, in principle, extract refunds without paying commensurate taxes.
+
+::: mechanic
+
+**What actually happens**
+
+The cumulative position prevents this. The refund in a crash year is bounded by the cumulative tax paid to date (the lifetime cap). If you have paid very little tax — because you understated in growth years — your refund capacity is correspondingly small. The system does not pay refunds that exceed what you have contributed. A taxpayer who paid nothing throughout cannot extract a refund at a crash.
+
+:::
+
+What you can do: hold through a cycle and receive a natural refund when the next decline arrives. But the refund is automatically netted against the taxes already paid on the prior growth. The symmetry is exact: you are returned, at the same marginal rate, the same amount you paid on the gain. The refund is a reversal, not a bonus.
+
+::: {.verdict-box .blocked}
+
+**Verdict — blocked by the cumulative cap**
+
+Loss-timing strategies are structurally prevented. Refunds cannot exceed cumulative contributions. The symmetry between taxes and refunds is the mechanism, not a limitation to be gamed.
+
+:::
+
+[Switch to historical series from 2000 or 2007 ↓](#the-calculator){.pdf-download}
+
+:::
+
+:::
+
+---
 
 ## What you cannot avoid — and why
 
@@ -386,7 +267,7 @@ The residual advantage of understating (low single digits as a percentage of eff
 
 If you find a strategy that produces a meaningful and durable advantage under canonical parameters — one that survives volatile returns and does not depend on implausible inputs — [that is a design defect and we want to know about it](mailto:contact@wealthdeltatax.org). This page is the mechanism by which that finding reaches us.
 
-## The calculator
+## The calculator {#the-calculator}
 
 Set your parameters and run the simulation. The honest baseline (α = 1) is always shown alongside your chosen scenario so the comparison is immediate. Use the period-by-period table to trace exactly where the tax and refund flows occur.
 
@@ -585,8 +466,8 @@ async function initPyodide() {
     pyodide = await loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.27.5/full/' });
     setProgress(40, 'Runtime loaded. Fetching model files…');
     const [coreText, tomlText] = await Promise.all([
-      fetch('wdt_core.py').then(r => { if (!r.ok) throw new Error('wdt_core.py not found'); return r.text(); }),
-      fetch('260812_WDT_Params.toml').then(r => { if (!r.ok) throw new Error('TOML not found'); return r.text(); }),
+      fetch('tools/wdt_core.py').then(r => { if (!r.ok) throw new Error('wdt_core.py not found'); return r.text(); }),
+      fetch('tools/260812_WDT_Params.toml').then(r => { if (!r.ok) throw new Error('TOML not found'); return r.text(); }),
     ]);
     setProgress(65, 'Writing files to virtual filesystem…');
     pyodide.FS.writeFile('/wdt_core.py',            coreText);

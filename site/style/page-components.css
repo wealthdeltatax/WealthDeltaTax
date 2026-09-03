@@ -674,3 +674,121 @@ p.wdt-faq-nav a:hover {
   text-align: center;
   margin: 2rem 0 1rem;
 }
+
+
+/* ── WDT: Avoidance page ──────────────────────────────────── */
+
+.avoid-intro {
+  border-left: 6px solid var(--wdt-gold);
+  background: #fffde7;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0 2rem;
+  font-size: 1rem;
+  font-family: "Times New Roman", Times, serif;
+  line-height: 1.7;
+}
+
+.avoid-intro strong {
+  color: var(--wdt-purple);
+}
+
+/* Strategy container */
+.strategy-block {
+  border: 2px solid var(--wdt-silver);
+  border-left: 5px solid var(--wdt-purple);
+  background: var(--wdt-lavender);
+  margin: 2rem 0;
+  padding: 0;
+}
+
+.strategy-block > .wdt-domain-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.strategy-number {
+  background: var(--wdt-gold);
+  color: var(--wdt-purple);
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 0.1rem 0.45rem;
+  letter-spacing: 0;
+  flex-shrink: 0;
+}
+
+/* Prose body inside a strategy block */
+.strategy-body {
+  padding: 1rem 1.25rem;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #111;
+}
+
+.strategy-body > p {
+  margin: 0 0 0.75rem;
+}
+
+.strategy-body > p:last-child {
+  margin-bottom: 0;
+}
+
+/* "What actually happens" / "Try it" callout inside strategy */
+.mechanic {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.82rem;
+  background: #fff;
+  border: 1px solid var(--wdt-silver);
+  border-left: 3px solid var(--wdt-gold);
+  padding: 0.6rem 0.9rem;
+  margin: 0.75rem 0;
+  color: #333;
+}
+
+.mechanic > p:first-child {
+  font-weight: bold;
+  color: var(--wdt-purple);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.3rem;
+}
+
+.mechanic > p {
+  margin: 0;
+}
+
+/* Verdict box at the foot of each strategy */
+.verdict-box {
+  border: 2px solid var(--wdt-purple);
+  border-top: 4px solid var(--wdt-gold);
+  background: #fff;
+  padding: 1rem 1.25rem;
+  margin: 0.75rem 0 0.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.verdict-box > p:first-child {
+  font-size: 0.7rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--wdt-purple);
+  margin: 0 0 0.3rem;
+}
+
+.verdict-box > p {
+  margin: 0;
+}
+
+.verdict-box.limited  { border-top-color: var(--wdt-green); }
+.verdict-box.moderate { border-top-color: #b45309; }
+.verdict-box.blocked  { border-top-color: var(--wdt-red); }
+
+@media (max-width: 700px) {
+  .strategy-body  { padding: 0.75rem; }
+  .avoid-intro    { padding: 0.9rem; }
+}
