@@ -4,6 +4,17 @@ pages/references.py — generate the External References bibliography page.
 Reads external_references and citations from refs_data; writes references.qmd.
 Call generate_references_qmd(dest_path, refs_data, link_map).
 
+Changes from v2:
+  - Alphabetical letter subdivisions: entries are grouped under ## A, ## B, …
+    headings by first letter of the first author's last name (or the
+    institutional name). Each letter group is wrapped in its own
+    wdt-references div so Quarto can parse the headings as real document
+    headings for TOC purposes.
+  - TOC enabled via front matter (toc: true, toc-depth: 2). This file is
+    generated directly into _build/ as .qmd, so preprocess's TOC injection
+    does not touch it — front matter is the correct mechanism here.
+  - Letter anchor IDs follow Quarto's heading convention (lowercase): #a, #b.
+
 Changes from v1:
   - Fix paper_id normalisation: abbreviated IDs (LRA, LRB, CORPA, GOVA, RATESA)
     are mapped to their dotted canonical forms before link_map lookup, so
@@ -21,6 +32,7 @@ Changes from v1:
 
 from __future__ import annotations
 
+import itertools
 from pathlib import Path
 from typing import Any
 
@@ -212,6 +224,89 @@ def _sort_key(ref: dict[str, Any]) -> tuple[str, int]:
 
 # ── Generator ─────────────────────────────────────────────────────────────────
 
+def _letter_key(ref: dict[str, Any]) -> str:
+    """
+    Return the upper-case first letter used to group this reference
+    alphabetically (first letter of first author's last name, or '?' if none).
+    """
+    authors = ref.get("authors", [])
+    if not authors:
+        return "?"
+    last = authors[0].get("last", "")
+    return last[0].upper() if last else "?"
+
+
+def _render_ref_entry(
+    ref: dict[str, Any],
+    citations: list[dict[str, Any]],
+    link_map: dict[str, str],
+) -> list[str]:
+    """
+    Render a single reference entry as a list of markdown/HTML lines.
+    Does not include the surrounding wdt-references div — that is managed
+    by the letter-grouping loop in generate_references_qmd.
+    """
+    ref_id   = ref["id"]
+    authors  = _format_authors(ref.get("authors", []))
+    year     = ref.get("year", "—")
+    title    = ref.get("title", "—")
+    rtype    = _ref_type_label(ref.get("type"))
+    source   = _format_source(ref)
+    link     = _ref_link(ref)
+    verified = ref.get("verified", False)
+
+    # Title: linked if DOI/URL available; plain text with muted indicator if not
+    if link:
+        title_md = f"[{title}]({link})"
+    else:
+        title_md = (
+            f"{title} <span class='wdt-ref-no-link' "
+            f"title='No DOI or URL available'>∅</span>"
+        )
+    verified_badge = (
+        " <span class='wdt-ref-verified' "
+        "title='Bibliographic details verified'>✓</span>"
+        if verified else ""
+    )
+
+    # Cited-in links
+    cited_pairs = _cited_in(ref_id, citations, link_map)
+    if cited_pairs:
+        cited_links = [f"[{sc}]({url})" for sc, url in cited_pairs]
+        cited_str = "Cited in: " + " · ".join(cited_links)
+    else:
+        cited_str = ""
+
+    out: list[str] = [
+        '<div class="wdt-ref-entry">',
+        "",
+        f"{authors} ({year}). {title_md}{verified_badge}",
+        "",
+    ]
+    if source:
+        # Journal articles: source already contains markdown italic markers.
+        # All other types: wrap in italics.
+        if ref.get("type") == "journal_article":
+            out += [source, ""]
+        else:
+            out += [f"*{source}*", ""]
+    # Use divs (not spans) so these are reliably block-level regardless of
+    # how Quarto wraps surrounding markdown paragraphs.
+    out += [
+        '<div class="wdt-ref-meta">',
+        f'<span class="wdt-ref-type">{rtype}</span>',
+    ]
+    if cited_str:
+        out += [f'<span class="wdt-ref-cited">{cited_str}</span>']
+    out += [
+        "</div>",
+        "",
+        "</div>",
+        "",
+    ]
+    return out
+
+
 def generate_references_qmd(
     dest_path: Path,
     refs_data: dict[str, Any],
@@ -220,6 +315,11 @@ def generate_references_qmd(
     """
     Write references.qmd — alphabetical bibliography of all external references
     with type badges, DOI/URL links, and per-paper "cited in" links.
+
+    Entries are grouped under ## A, ## B, … headings so Quarto's right-hand
+    TOC sidebar shows letter jump-links.  toc: true is set in front matter
+    because this file is generated directly into _build/ as .qmd and is not
+    touched by preprocess's TOC injection (which operates on .md source files).
 
     Three pending-decision orphans (flags 04, 06, 09) are excluded until the
     author resolves whether they belong in the bibliography.
@@ -239,6 +339,8 @@ def generate_references_qmd(
         'description: "Complete bibliography of external sources cited across'
         " the Wealth Delta Tax research programme.\"",
         f'author: "{AUTHOR}"',
+        "toc: true",
+        "toc-depth: 2",
         "---",
         "",
         f"All {len(refs)} external sources cited across the Wealth Delta Tax "
@@ -252,66 +354,25 @@ def generate_references_qmd(
         "",
         "---",
         "",
-        '<div class="wdt-references">',
-        "",
     ]
 
-    for ref in sorted_refs:
-        ref_id   = ref["id"]
-        authors  = _format_authors(ref.get("authors", []))
-        year     = ref.get("year", "—")
-        title    = ref.get("title", "—")
-        rtype    = _ref_type_label(ref.get("type"))
-        source   = _format_source(ref)
-        link     = _ref_link(ref)
-        verified = ref.get("verified", False)
-
-        # Title: linked if DOI/URL available; plain text with muted indicator if not
-        if link:
-            title_md = f"[{title}]({link})"
-        else:
-            title_md = f"{title} <span class='wdt-ref-no-link' title='No DOI or URL available'>∅</span>"
-        verified_badge = " <span class='wdt-ref-verified' title='Bibliographic details verified'>✓</span>" if verified else ""
-
-        # Cited-in links
-        cited_pairs = _cited_in(ref_id, citations, link_map)
-        if cited_pairs:
-            cited_links = [f"[{sc}]({url})" for sc, url in cited_pairs]
-            cited_str = "Cited in: " + " · ".join(cited_links)
-        else:
-            cited_str = ""
-
+    # Group entries by first letter and emit one ## heading per letter.
+    # Each letter group gets its own wdt-references div so the ## heading
+    # sits outside any div and Quarto can register it as a real document
+    # heading for the TOC sidebar.
+    for letter, group in itertools.groupby(sorted_refs, key=_letter_key):
         lines += [
-            '<div class="wdt-ref-entry">',
+            f"## {letter}",
             "",
-            f"{authors} ({year}). {title_md}{verified_badge}",
+            '<div class="wdt-references">',
             "",
         ]
-        if source:
-            # Journal articles: source already contains markdown italic markers.
-            # All other types: wrap in italics.
-            if ref.get("type") == "journal_article":
-                lines += [source, ""]
-            else:
-                lines += [f"*{source}*", ""]
-        # Use divs (not spans) so these are reliably block-level regardless of
-        # how Quarto wraps surrounding markdown paragraphs.
+        for ref in group:
+            lines.extend(_render_ref_entry(ref, citations, link_map))
         lines += [
-            f'<div class="wdt-ref-meta">',
-            f'<span class="wdt-ref-type">{rtype}</span>',
-        ]
-        if cited_str:
-            lines += [
-                f'<span class="wdt-ref-cited">{cited_str}</span>',
-            ]
-        lines += [
-            '</div>',
-            "",
             "</div>",
             "",
         ]
-
-    lines.append("</div>")
 
     # Note excluded entries for transparency
     if excluded:
