@@ -6,8 +6,6 @@ description: >
 toc: true
 ---
 
-*A taxpayer's guide to minimising lifetime WDT liability — with a live calculator to test every strategy.*
-
 ```{=html}
 <div class="avoid-intro">
 <p>This is a serious instruction manual.</p>
@@ -21,7 +19,7 @@ Here is what each one actually produces. Here is what you cannot avoid, and why.
 The purpose is to make that claim falsifiable. If a strategy we have not anticipated
 produces a meaningful economic advantage, that is a defect in the mechanism — and
 publishing this page is how we find it.</p>
-<p style="margin-bottom:0"><em>If you find something we have missed: <a href="mailto:contact@wealthdeltatax.org">we want to know</a>.</em></p>
+<p style="margin-bottom:0"><em>If you find something we have missed: <a href="mailto:wealthdeltatax@gmail.com">we want to know</a>.</em></p>
 </div>
 ```
 

@@ -32,7 +32,7 @@ from transforms import process_file, strip_latex, convert_crossrefs
 # ── Tool metadata ─────────────────────────────────────────────────────────────
 # Maps source filename stem → (title, description)
 _TOOL_META: dict[str, tuple[str, str]] = {
-    "index": (
+    "tools_index": (
         "WDT — Interactive Tools",
         "Computational tools for exploring the Wealth Delta Tax mechanism. "
         "Both calculators run the Python model directly in your browser via Pyodide — "
