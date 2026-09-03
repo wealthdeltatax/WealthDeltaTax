@@ -1,14 +1,15 @@
 """
 diagrams.py — Mermaid diagram rendering and flowcharts.qmd generation.
-
+ 
 Renders .mmd source files from site/diagrams/ to PNG via mmdc,
 then generates flowcharts.qmd in _build/ referencing those PNGs.
-
+ 
 To add a diagram: add a .mmd to site/diagrams/ and an entry to DIAGRAMS.
 """
 
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -61,9 +62,20 @@ DIAGRAMS = [
 def render_pngs(build: Path) -> None:
     """
     Render each .mmd file to PNG via mmdc and write to _build/diagrams/.
+ 
+    In CI (GitHub Actions), the PUPPETEER_CONFIG env var points at a JSON file
+    that disables the Chrome sandbox (required on Linux runners). mmdc does not
+    read this env var automatically, so we pass it explicitly via
+    --puppeteerConfigFile when the env var is set and the file exists.
+    On Windows (local builds) the env var is not set, so the flag is omitted.
     """
+    import os
+
     out_dir = build / "diagrams"
     out_dir.mkdir(parents=True, exist_ok=True)
+
+    # Read puppeteer config path from env (set by CI); only pass if file exists
+    puppeteer_config = os.environ.get("PUPPETEER_CONFIG")
 
     for filename, title, _ in DIAGRAMS:
         src = DIAGRAMS_DIR / filename
@@ -81,6 +93,9 @@ def render_pngs(build: Path) -> None:
             "--backgroundColor", "white",
         ]
 
+        if puppeteer_config and Path(puppeteer_config).exists():
+            cmd += ["--puppeteerConfigFile", puppeteer_config]
+
         result = subprocess.run(
             cmd,
             capture_output=True,
@@ -89,11 +104,17 @@ def render_pngs(build: Path) -> None:
         )
 
         if result.returncode != 0:
-            print(f"  ! mmdc failed for {filename}:")
-            print(result.stderr or result.stdout)
+            print(f"  ✗ mmdc FAILED for {filename}:")
+            if result.stderr:
+                print(f"    stderr: {result.stderr[:500]}")
+            if result.stdout:
+                print(f"    stdout: {result.stdout[:500]}")
         else:
             size = out.stat().st_size if out.exists() else 0
-            print(f"  ✓ {out.name} ({size:,} bytes)")
+            if size == 0:
+                print(f"  ✗ mmdc produced empty output for {filename}")
+            else:
+                print(f"  ✓ {out.name} ({size:,} bytes)")
 
 
 # ── flowcharts.qmd generation ─────────────────────────────────────────────────
