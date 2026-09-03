@@ -263,7 +263,7 @@ This is not accidental. The retained equity fraction f, which links declaration 
 
 The residual advantage of understating (low single digits as a percentage of effective rate) is real, but it shrinks under realistic return volatility and disappears when valuation is anchored by a third-party purchase option. The model shows the mechanism is robust to the strategies most likely to be attempted.
 
-If you find a strategy that produces a meaningful and durable advantage under canonical parameters — one that survives volatile returns and does not depend on implausible inputs — [that is a design defect and we want to know about it](mailto:contact@wealthdeltatax.org). This page is the mechanism by which that finding reaches us.
+If you find a strategy that produces a meaningful and durable advantage under canonical parameters — one that survives volatile returns and does not depend on implausible inputs — [that is a design defect and we want to know about it](mailto:wealthdeltatax@gmail.com). This page is the mechanism by which that finding reaches us.
 
 ## The calculator {#the-calculator}
 
@@ -652,4 +652,4 @@ initPyodide();
 
 ---
 
-Found a strategy this page does not cover? Identified a parameter combination that produces a surprising result? [Contact the project](mailto:contact@wealthdeltatax.org) — this page is maintained as a live document and will be updated as new strategies are identified.
+Found a strategy this page does not cover? Identified a parameter combination that produces a surprising result? [Contact the project](mailto:wealthdeltatax@gmail.com) — this page is maintained as a live document and will be updated as new strategies are identified.
