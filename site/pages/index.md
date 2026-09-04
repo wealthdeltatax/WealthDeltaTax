@@ -8,29 +8,16 @@ author: "K. Ogata"
 
 ```{=html}
 <div class="wdt-hero">
-
-  <p class="wdt-hero-kicker">
-    WEALTH DELTA TAX
+  <p class="wdt-hero-tagline">
+    <em>The Wealth Delta Tax taxes wealth when it rises, refunds when it falls.
+    </em>
   </p>
-
-  <h1 class="wdt-hero-title">
-    Tax wealth when it rises.<br>
-    Refund when it falls.
-  </h1>
-
-  <p class="wdt-hero-subtitle">
-    Wealth Delta Tax taxes annual changes in net wealth
-    and invests the proceeds in a public wealth fund.
+  <p class="wdt-hero-tagline">
+    <em> The Wealth Delta Tax taxes annual changes in net wealth
+    and invests the proceeds in a public wealth fund.</em>
   </p>
-
-  <a class="wdt-hero-prompt" href="#the-idea-in-one-minute">
-    See how WDT works →
-  </a>
-
-  <p class="wdt-hero-meta">
-    Independent research &nbsp;·&nbsp; 26 working papers &nbsp;·&nbsp; Open to challenge
-  </p>
-
+  <a class="wdt-hero-prompt" href="#the-idea-in-one-minute">See how it works ↓</a>
+  <p class="wdt-hero-meta">Independent research &nbsp;·&nbsp; 26 working papers &nbsp;·&nbsp; open to challenge</p>
 </div>
 ```
 
