@@ -13,8 +13,7 @@ author: "K. Ogata"
     </em>
   </p>
   <p class="wdt-hero-tagline">
-    <em> The Wealth Delta Tax taxes annual changes in net wealth
-    and invests the proceeds in a public wealth fund.</em>
+    <em> All exisitng concepts about traditional taxation do not apply because of this single property</em>
   </p>
   <a class="wdt-hero-prompt" href="#the-idea-in-one-minute">See how it works ↓</a>
   <p class="wdt-hero-meta">Independent research &nbsp;·&nbsp; 26 working papers &nbsp;·&nbsp; open to challenge</p>
