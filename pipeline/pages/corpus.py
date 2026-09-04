@@ -37,45 +37,24 @@ _NO_PAGE: frozenset[str] = frozenset()
 
 
 # ── Table column widths ───────────────────────────────────────────────────────
-# Fixed character widths so all sections render with uniform column proportions.
-# Title width is set to the longest paper title:
-#   "Parameter Sweeps and Governing Council Calibration — Appendix" (61 chars)
-# Paper width covers the longest markdown link: [SWEEPS.A](sweeps_a.html) etc.
-# Right-align Words (numeric); left-align everything else.
+# Percentage widths passed to Quarto's tbl-colwidths attribute.
+# This is the only reliable way to get uniform column widths across separate
+# tables — Pandoc ignores raw character padding and sizes each table
+# independently from its content.
+#
+# Proportions derived from character widths:
+#   Paper:25, Title:61, Version:9, Updated:13, Words:7, Status:14  (total 129)
+# Words column is right-aligned (trailing colon on its separator cell).
 
-_COL: dict[str, int] = {
-    "Paper":   10,
-    "Title":   61,
-    "Version":  9,
-    "Updated": 13,
-    "Words":    7,
-    "Status":  14,
-}
+_TABLE_COLWIDTHS = "[19,48,7,10,5,11]"
 
-_TABLE_HEADER = (
-    "| "
-    + " | ".join(f"{k:{w}}" for k, w in _COL.items())
-    + " |"
-)
-# Words column is right-aligned; all others left-aligned.
-_TABLE_SEP = (
-    "| "
-    + " | ".join(
-        ("-" * (w - 1) + ":" if k == "Words" else "-" * w)
-        for k, w in _COL.items()
-    )
-    + " |"
-)
+_TABLE_HEADER = "| Paper | Title | Version | Updated | Words | Status |"
+_TABLE_SEP    = "|-------|-------|---------|---------|------:|--------|"
+_TABLE_ATTR   = f'{{tbl-colwidths="{_TABLE_COLWIDTHS}"}}'
 
 
 def _row(*cells: str) -> str:
-    """Format one table row with fixed-width padding per column."""
-    widths = list(_COL.values())
-    padded = [
-        cell.ljust(w) if len(cell) <= w else cell
-        for cell, w in zip(cells, widths)
-    ]
-    return "| " + " | ".join(padded) + " |"
+    return "| " + " | ".join(cells) + " |"
 
 
 # ── Generator ─────────────────────────────────────────────────────────────────
@@ -150,6 +129,7 @@ def generate_corpus_qmd(
             sc_cell = f"{sc} *(no page)*" if sc in _NO_PAGE else f"[{sc}]({page})"
             lines.append(_row(sc_cell, title, f"v{ver}", date, words, status_label))
 
+        lines.append(_TABLE_ATTR)
         lines.append("")
 
     lines += [
