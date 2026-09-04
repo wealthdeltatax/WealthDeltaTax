@@ -1,5 +1,5 @@
-%%{init: {
-  "flowchart": {
+%%{init: {}}
+  "flowchart": {}
     "nodeSpacing": 40,
     "rankSpacing": 50,
     "padding": 20,
@@ -7,7 +7,7 @@
     "useMaxWidth": true,
     "curve": "linear"
   },
-  "themeVariables": {
+  "themeVariables": {}
     "fontSize": "16px",
     "fontFamily": "Arial, sans-serif"
   }
@@ -23,11 +23,11 @@ classDef out     fill:#16213e,stroke:#16213e,color:#fff
 WEALTH([Private wealth]):::wealth
 
 WEALTH -->|Rises| CONTRIB[WDT contribution]:::move
-WEALTH -->|Falls| REFUND[WDT refund]:::move
 
-CONTRIB --> FUND[Public wealth fund]:::fund
-REFUND  --> FUND
+CONTRIB --> FUND["Sovereign Wealth Fund (SWF)"]:::fund
 
-FUND --> DIV[Citizen dividends]:::out
-FUND --> INV[Public investment]:::out
-FUND --> RES[Loss reserve]:::out
+FUND --> RES[Refund guarantee]:::out
+RES  -->|Falls| REFUND[WDT refund]:::move
+REFUND  --> WEALTH
+RES  --> DIV[Labour tax relief]:::out
+DIV  --> INV[Public investment]:::out
