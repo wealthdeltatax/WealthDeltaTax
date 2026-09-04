@@ -36,6 +36,48 @@ _STATUS_LABEL: dict[str, str] = {
 _NO_PAGE: frozenset[str] = frozenset()
 
 
+# ── Table column widths ───────────────────────────────────────────────────────
+# Fixed character widths so all sections render with uniform column proportions.
+# Title width is set to the longest paper title:
+#   "Parameter Sweeps and Governing Council Calibration — Appendix" (61 chars)
+# Paper width covers the longest markdown link: [SWEEPS.A](sweeps_a.html) etc.
+# Right-align Words (numeric); left-align everything else.
+
+_COL: dict[str, int] = {
+    "Paper":   10,
+    "Title":   61,
+    "Version":  9,
+    "Updated": 13,
+    "Words":    7,
+    "Status":  14,
+}
+
+_TABLE_HEADER = (
+    "| "
+    + " | ".join(f"{k:{w}}" for k, w in _COL.items())
+    + " |"
+)
+# Words column is right-aligned; all others left-aligned.
+_TABLE_SEP = (
+    "| "
+    + " | ".join(
+        ("-" * (w - 1) + ":" if k == "Words" else "-" * w)
+        for k, w in _COL.items()
+    )
+    + " |"
+)
+
+
+def _row(*cells: str) -> str:
+    """Format one table row with fixed-width padding per column."""
+    widths = list(_COL.values())
+    padded = [
+        cell.ljust(w) if len(cell) <= w else cell
+        for cell, w in zip(cells, widths)
+    ]
+    return "| " + " | ".join(padded) + " |"
+
+
 # ── Generator ─────────────────────────────────────────────────────────────────
 
 def generate_corpus_qmd(
@@ -90,8 +132,8 @@ def generate_corpus_qmd(
 
         lines.append(f"## {section_name}")
         lines.append("")
-        lines.append("| Paper | Title | Version | Updated | Words | Status |")
-        lines.append("|-------|-------|---------|---------|------:|--------|")
+        lines.append(_TABLE_HEADER)
+        lines.append(_TABLE_SEP)
 
         for sc in present:
             page   = link_map[sc]
@@ -105,11 +147,8 @@ def generate_corpus_qmd(
             wc           = meta.get("word_count", 0)
             words        = f"{wc:,}" if wc else "—"
 
-            if sc in _NO_PAGE:
-                sc_cell = f"{sc} *(no page)*"
-            else:
-                sc_cell = f"[{sc}]({page})"
-            lines.append(f"| {sc_cell} | {title} | v{ver} | {date} | {words} | {status_label} |")
+            sc_cell = f"{sc} *(no page)*" if sc in _NO_PAGE else f"[{sc}]({page})"
+            lines.append(_row(sc_cell, title, f"v{ver}", date, words, status_label))
 
         lines.append("")
 
