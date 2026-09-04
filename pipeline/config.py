@@ -140,7 +140,18 @@ def _format_date(raw_date: Any) -> str | None:
 
 # ── Paper metadata extraction ─────────────────────────────────────────────────
 
-# Matches the last data row of the revision history table.
+# Step 1: match the entire revision history block (heading + all pipe rows).
+# This scopes extraction to the right table before we look at individual rows,
+# preventing _REVHISTORY_ROW_RE from matching rows in later tables and causing
+# all_rows[-1] to return the last row of the last table in the document.
+_REVHISTORY_BLOCK_RE = re.compile(
+    r"###\s+Revision\s+History[^\n]*\n"  # heading line (any trailing text)
+    r"(?:[^\n]*\n)*?"                    # optional blank / caption lines (non-greedy)
+    r"((?:\|[^\n]*\n)+)",                # capture group: all consecutive pipe rows
+    re.IGNORECASE,
+)
+
+# Step 2: within the captured block, match data rows (not separator rows like |---|).
 # Table format:  | 1.00  | 15 August 2026  | Published to website |
 _REVHISTORY_ROW_RE = re.compile(
     r"^\|\s*([\d.]+)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|",
@@ -228,7 +239,14 @@ def extract_paper_meta(src_path: Path) -> dict[str, Any] | None:
 
     # ── Extract version and date from revision history table ──────────────
     body = text[fm_match.end():]
-    all_rows = _REVHISTORY_ROW_RE.findall(body)
+
+    # Scope to the revision history block first, then extract rows from within
+    # it.  Without this, findall over the full body returns rows from every
+    # pipe table in the document, and [-1] picks the last row of the last
+    # table rather than the last revision entry.
+    revhist_block_match = _REVHISTORY_BLOCK_RE.search(body)
+    block = revhist_block_match.group(1) if revhist_block_match else body
+    all_rows = _REVHISTORY_ROW_RE.findall(block)
 
     version              = "—"
     version_date         = None   # ISO string
