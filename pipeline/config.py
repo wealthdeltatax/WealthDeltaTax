@@ -168,24 +168,38 @@ _NUMBERED_HEADING_RE = re.compile(
 _YAML_FENCE_RE = re.compile(r"^---\s*\n(.*?)^---\s*\n", re.DOTALL | re.MULTILINE)
 
 
+# Matches lettered appendix headings: # A, ## A.1, # B … (standalone appendix papers)
+_LETTERED_HEADING_RE = re.compile(
+    r"^#{1,6}\s+[A-Z][\s.]",
+    re.MULTILINE,
+)
+
+
 def _count_words_body_sections(body: str) -> int:
     """
-    Count words from the first numbered heading to the end of the body.
+    Count words from the first content heading to the end of the body.
 
-    Includes: numbered sections (Introduction through Conclusion) and lettered
-              appendix sections (A, B, …).
+    For regular papers: starts at the first numbered heading (# 1, ## 1.1 …).
+    For standalone appendix papers (no numbered sections): starts at the first
+    lettered heading (# A, ## A.1 …).
+
     Excludes: YAML front matter, Abstract, Glossary, and any unnumbered
-              preamble before section 1.
+              preamble before the first heading.
 
     Side effect: papers with an internal appendix (e.g. WP) will have those
     words included in the total.  This is acceptable — the count covers all
     substantive authored content.
     """
     first_num = _NUMBERED_HEADING_RE.search(body)
-    if not first_num:
-        return 0
+    if first_num:
+        return len(body[first_num.start():].split())
 
-    return len(body[first_num.start():].split())
+    # Standalone appendix paper — no numbered sections at all
+    first_letter = _LETTERED_HEADING_RE.search(body)
+    if first_letter:
+        return len(body[first_letter.start():].split())
+
+    return 0
 
 
 def extract_paper_meta(src_path: Path) -> dict[str, Any] | None:
