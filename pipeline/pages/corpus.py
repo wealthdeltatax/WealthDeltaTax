@@ -90,8 +90,8 @@ def generate_corpus_qmd(
 
         lines.append(f"## {section_name}")
         lines.append("")
-        lines.append("| Paper | Title | Version | Updated | Status |")
-        lines.append("|-------|-------|---------|---------|--------|")
+        lines.append("| Paper | Title | Version | Updated | Words | Status |")
+        lines.append("|-------|-------|---------|---------|------:|--------|")
 
         for sc in present:
             page   = link_map[sc]
@@ -99,15 +99,17 @@ def generate_corpus_qmd(
             title  = meta.get("title", sc).replace("The Wealth Delta Tax: ", "")
             ver    = meta.get("version", "—")
             # Use pre-formatted display date from extraction; fall back gracefully
-            date   = meta.get("version_date_display", "—")
-            status = meta.get("status", "—")
+            date         = meta.get("version_date_display", "—")
+            status       = meta.get("status", "—")
             status_label = _STATUS_LABEL.get(status, status)
+            wc           = meta.get("word_count", 0)
+            words        = f"{wc:,}" if wc else "—"
 
             if sc in _NO_PAGE:
                 sc_cell = f"{sc} *(no page)*"
             else:
                 sc_cell = f"[{sc}]({page})"
-            lines.append(f"| {sc_cell} | {title} | v{ver} | {date} | {status_label} |")
+            lines.append(f"| {sc_cell} | {title} | v{ver} | {date} | {words} | {status_label} |")
 
         lines.append("")
 
