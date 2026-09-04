@@ -229,7 +229,7 @@ def inject_front_matter(
         f"\n::: {{.paper-meta}}\n"
         f"**Version:** {version}"
         f" &ensp;|&ensp; **Date:** {date_display}"
-        f" &ensp;|&ensp; **Word count:** {word_count:,} (numbered sections)\n"
+        f" &ensp;|&ensp; **Word count:** {word_count:,} (excl. front matter)\n"
         f":::\n"
     )
 

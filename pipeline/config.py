@@ -165,36 +165,27 @@ _NUMBERED_HEADING_RE = re.compile(
     re.MULTILINE,
 )
 
-# Matches any heading that starts with # (to detect appendix boundary A, B …)
-_APPENDIX_HEADING_RE = re.compile(
-    r"^#{1,6}\s+[A-Z][\s.]",
-    re.MULTILINE,
-)
-
 _YAML_FENCE_RE = re.compile(r"^---\s*\n(.*?)^---\s*\n", re.DOTALL | re.MULTILINE)
 
 
-def _count_words_numbered_sections(body: str) -> int:
+def _count_words_body_sections(body: str) -> int:
     """
-    Count words in numbered sections only (Introduction through Conclusion).
+    Count words from the first numbered heading to the end of the body.
 
-    Includes: heading text, body paragraphs, figure captions within those sections.
-    Excludes: YAML front matter, Abstract, Glossary, unnumbered sections,
-              lettered appendix sections (A, B, …) and everything after them.
+    Includes: numbered sections (Introduction through Conclusion) and lettered
+              appendix sections (A, B, …).
+    Excludes: YAML front matter, Abstract, Glossary, and any unnumbered
+              preamble before section 1.
+
+    Side effect: papers with an internal appendix (e.g. WP) will have those
+    words included in the total.  This is acceptable — the count covers all
+    substantive authored content.
     """
-    # Find where the first numbered heading starts
     first_num = _NUMBERED_HEADING_RE.search(body)
     if not first_num:
         return 0
 
-    text = body[first_num.start():]
-
-    # Truncate at first lettered appendix heading if present
-    first_app = _APPENDIX_HEADING_RE.search(text)
-    if first_app:
-        text = text[:first_app.start()]
-
-    return len(text.split())
+    return len(body[first_num.start():].split())
 
 
 def extract_paper_meta(src_path: Path) -> dict[str, Any] | None:
@@ -266,8 +257,8 @@ def extract_paper_meta(src_path: Path) -> dict[str, Any] | None:
     else:
         print(f"  ! {src_path.name}: no revision history rows found")
 
-    # ── Word count (numbered sections only) ───────────────────────────────
-    word_count = _count_words_numbered_sections(body)
+    # ── Word count (numbered + appendix sections) ────────────────────────
+    word_count = _count_words_body_sections(body)
 
     return {
         "shortcode":            shortcode,
