@@ -13,7 +13,7 @@ author: "K. Ogata"
     </em>
   </p>
   <p class="wdt-hero-tagline">
-    <em> All existing concepts about traditional taxation do not apply because of this single property</em>
+    <em> All existing concepts about traditional taxation do not apply because of this single property.</em>
   </p>
   <a class="wdt-hero-prompt" href="#the-idea-in-one-minute">See how it works ↓</a>
   <p class="wdt-hero-meta">Independent research &nbsp;·&nbsp; 26 working papers &nbsp;·&nbsp; open to challenge</p>
