@@ -22,12 +22,12 @@ classDef out     fill:#16213e,stroke:#16213e,color:#fff
 
 WEALTH([Private wealth]):::wealth
 
-WEALTH -->|Rises| CONTRIB[WDT contribution]:::move
+WEALTH -->|Net Worth Rises| CONTRIB[WDT contribution]:::move
 
 CONTRIB --> FUND["Sovereign Wealth Fund (SWF)"]:::fund
 
 FUND --> RES[Refund guarantee]:::out
-RES  -->|Falls| REFUND[WDT refund]:::move
+RES  -->|Net Worth Falls| REFUND[WDT refund]:::move
 REFUND  --> WEALTH
 RES  --> DIV[Labour tax relief]:::out
 DIV  --> INV[Public investment]:::out
