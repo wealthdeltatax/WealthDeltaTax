@@ -36,25 +36,49 @@ _STATUS_LABEL: dict[str, str] = {
 _NO_PAGE: frozenset[str] = frozenset()
 
 
-# ── Table column widths ───────────────────────────────────────────────────────
-# Percentage widths passed to Quarto's tbl-colwidths attribute.
-# This is the only reliable way to get uniform column widths across separate
-# tables — Pandoc ignores raw character padding and sizes each table
-# independently from its content.
+# ── Table rendering ──────────────────────────────────────────────────────────
+# Emit raw HTML tables so column widths are enforced via <col style="width:X%">.
+# Pandoc sizes markdown tables independently per-table from content width, so
+# no markdown approach (padding, tbl-colwidths) produces uniform columns across
+# separate tables. Raw HTML is the only reliable mechanism.
 #
-# Proportions derived from character widths:
-#   Paper:25, Title:61, Version:9, Updated:13, Words:7, Status:14  (total 129)
-# Words column is right-aligned (trailing colon on its separator cell).
+# Column percentages (must sum to 100):
+#   Paper 10%, Title 48%, Version 8%, Updated 11%, Words 7%, Status 16%
 
-_TABLE_COLWIDTHS = "[19,48,7,10,5,11]"
-
-_TABLE_HEADER = "| Paper | Title | Version | Updated | Words | Status |"
-_TABLE_SEP    = "|-------|-------|---------|---------|------:|--------|"
-_TABLE_ATTR   = f'{{tbl-colwidths="{_TABLE_COLWIDTHS}"}}'
+_COL_WIDTHS = [10, 48, 8, 11, 7, 16]   # percentages, must sum to 100
+_COL_HEADERS = ["Paper", "Title", "Version", "Updated", "Words", "Status"]
+_COL_ALIGN   = ["left", "left", "left", "left", "right", "left"]
 
 
-def _row(*cells: str) -> str:
-    return "| " + " | ".join(cells) + " |"
+def _html_table(rows: list[tuple[str, ...]]) -> str:
+    """Return a raw HTML table with fixed column widths and an HTML passthrough fence."""
+    col_tags = "".join(
+        f'    <col style="width:{w}%">\n'
+        for w in _COL_WIDTHS
+    )
+    header_cells = "".join(
+        f"      <th>{h}</th>\n" for h in _COL_HEADERS
+    )
+    body_rows = ""
+    for row in rows:
+        cells = ""
+        for cell, align in zip(row, _COL_ALIGN):
+            style = f' style="text-align:{align}"' if align != "left" else ""
+            cells += f"      <td{style}>{cell}</td>\n"
+        body_rows += f"    <tr>\n{cells}    </tr>\n"
+
+    html = (
+        '<table style="width:100%; table-layout:fixed; border-collapse:collapse">\n'
+        f"{col_tags}"
+        "  <thead>\n"
+        f"    <tr>\n{header_cells}    </tr>\n"
+        "  </thead>\n"
+        "  <tbody>\n"
+        f"{body_rows}"
+        "  </tbody>\n"
+        "</table>"
+    )
+    return f"```{{=html}}\n{html}\n```"
 
 
 # ── Generator ─────────────────────────────────────────────────────────────────
@@ -111,25 +135,26 @@ def generate_corpus_qmd(
 
         lines.append(f"## {section_name}")
         lines.append("")
-        lines.append(_TABLE_HEADER)
-        lines.append(_TABLE_SEP)
 
+        table_rows = []
         for sc in present:
             page   = link_map[sc]
             meta   = paper_meta.get(sc, {})
             title  = meta.get("title", sc).replace("The Wealth Delta Tax: ", "")
             ver    = meta.get("version", "—")
-            # Use pre-formatted display date from extraction; fall back gracefully
             date         = meta.get("version_date_display", "—")
             status       = meta.get("status", "—")
             status_label = _STATUS_LABEL.get(status, status)
             wc           = meta.get("word_count", 0)
             words        = f"{wc:,}" if wc else "—"
 
-            sc_cell = f"{sc} *(no page)*" if sc in _NO_PAGE else f"[{sc}]({page})"
-            lines.append(_row(sc_cell, title, f"v{ver}", date, words, status_label))
+            if sc in _NO_PAGE:
+                sc_cell = f"{sc} <em>(no page)</em>"
+            else:
+                sc_cell = f'<a href="{page}">{sc}</a>'
+            table_rows.append((sc_cell, title, f"v{ver}", date, words, status_label))
 
-        lines.append(_TABLE_ATTR)
+        lines.append(_html_table(table_rows))
         lines.append("")
 
     lines += [
