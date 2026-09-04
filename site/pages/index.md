@@ -1,6 +1,6 @@
 ---
-title: "Welcome"
-description: "The Wealth Delta Tax: what it is, how it works, and where to read next."
+title: "Wealth Delta Tax"
+description: "A proposal for taxing changes in private wealth rather than income or assets."
 author: "K. Ogata"
 ---
 
@@ -8,16 +8,29 @@ author: "K. Ogata"
 
 ```{=html}
 <div class="wdt-hero">
-  <p class="wdt-hero-tagline">
-    <em>Wealth Delta Tax taxes wealth when it rises, refunds when it falls,
-    and invests the proceeds in a public wealth fund.</em>
+
+  <p class="wdt-hero-kicker">
+    WEALTH DELTA TAX
   </p>
-  <p class="wdt-hero-tagline">
-    <em>The aim is to make the state a symmetric partner in changes in
-    private wealth — not simply a claimant on income or assets.</em>
+
+  <h1 class="wdt-hero-title">
+    Tax wealth when it rises.<br>
+    Refund when it falls.
+  </h1>
+
+  <p class="wdt-hero-subtitle">
+    Wealth Delta Tax taxes annual changes in net wealth
+    and invests the proceeds in a public wealth fund.
   </p>
-  <a class="wdt-hero-prompt" href="#the-idea-in-one-minute">See how it works ↓</a>
-  <p class="wdt-hero-meta">Independent research &nbsp;·&nbsp; 26 working papers &nbsp;·&nbsp; open to challenge</p>
+
+  <a class="wdt-hero-prompt" href="#the-idea-in-one-minute">
+    See how WDT works →
+  </a>
+
+  <p class="wdt-hero-meta">
+    Independent research &nbsp;·&nbsp; 26 working papers &nbsp;·&nbsp; Open to challenge
+  </p>
+
 </div>
 ```
 
