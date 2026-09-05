@@ -296,8 +296,19 @@ V0_m  = 139.607368  # £139,607,368
 #         Not a bracket mean; not a population figure.
 # ─────────────────────────────────────────────────────────────
 [val]
-V0_m = 20.0     # £20m — VAL reference entry wealth
-rho = 0.05      # 5% default assuption
+V0_m   = 20.0   # £20m — VAL reference entry wealth
+rho    = 0.05   # 5% discount rate
+N_demo = 30     # Illustrative demographic holding period (years).
+                # Rationale: WDT entry is typically triggered by an inheritance
+                # event; median UK inheritance receipt age ≈ 57, life expectancy
+                # ≈ 85, implying N ≈ 28. N = 30 is a round central estimate.
+                # Range is wide (startup founder entering at 35 → N ≈ 50;
+                # late inheritor at 70 → N ≈ 15). Robustness across the full
+                # range is shown in Fig 09 (g, N) surface.
+                # This N is used for all individual-level VAL figures (02–08, 10)
+                # and all VAL.A appendix C tables. It is deliberately decoupled
+                # from p['N'] (the SSM-derived LRR fill year), which is a fund
+                # mechanics output, not a taxpayer lifecycle parameter.
 
 
 # ─────────────────────────────────────────────────────────────

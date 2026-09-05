@@ -182,7 +182,7 @@ def fig_02_c1_heatmap(p):
     ax.set_title(
         "Fig 02 — C.1 metric: (Net(α) − Net(1)) / TW(α)  [percentage points]\n"
         f"Red = pays more · Blue = pays less · "
-        f"N = {p['N']}, $V_0$ = £{p['V0_m']:.0f}m"
+        f"N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m"
     )
 
     cbar = fig.colorbar(im, ax=ax, fraction=0.03, pad=0.04)
@@ -236,7 +236,7 @@ def fig_03_equilibrium_cost_curve(p):
                 linestyle=ls, label=f'g = {g_val*100:.1f}% (constant)')
 
     scen_year   = p['scenario_start_year']
-    N           = p['N']
+    N           = p['N_demo']
     g_series    = p['returns'][:N]
     mean_g_hist = sum(g_series) / len(g_series)
 
@@ -263,7 +263,7 @@ def fig_03_equilibrium_cost_curve(p):
     ax.set_ylabel("Net tax vs honest declaration (%)")
     ax.set_title(
         "Fig 03 — Declaration equilibrium: net tax cost relative to honest\n"
-        f"N = {p['N']}, $V_0$ = £{p['V0_m']:.0f}m, "
+        f"N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m, "
         f"k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%  ·  "
         f"Dash-dot = {scen_year} historical return series (mean g = {mean_g_hist*100:.1f}%"
     )
@@ -315,7 +315,7 @@ def fig_04_tw_gap_by_n(p):
                 linestyle=':', alpha=0.8)
 
     ax.axhline(0, color=C_HONEST, linewidth=1.0, linestyle='-', label='α = 1.0 (honest)')
-    scen_N = p['N']
+    scen_N = p['N_demo']
     ax.axvline(scen_N, color=C_ANNOTATION, linewidth=0.8, linestyle=':')
     # inject N into the existing x-axis ticks as a small labelled tick
     existing_ticks = list(ax.get_xticks())
@@ -370,7 +370,7 @@ def fig_05_saturation_reversal(p):
 
     alpha_under = [0.1, 0.2, 0.5, 0.8]
 
-    g_sweep = [g_int / 1000.0 for g_int in range(0, 410)]
+    g_sweep = [g_int / 1000.0 for g_int in range(0, 1001)]
     g_pct   = [g * 100 for g in g_sweep]
 
     c1_curves      = {}
@@ -381,8 +381,8 @@ def fig_05_saturation_reversal(p):
     for alpha in alpha_under:
         vals = []
         for g in g_sweep:
-            r  = run_sim(p, alpha=alpha, g=g, N=p['N'])
-            b  = run_sim(p, alpha=1.0,   g=g, N=p['N'])
+            r  = run_sim(p, alpha=alpha, g=g, N=p['N_demo'])
+            b  = run_sim(p, alpha=1.0,   g=g, N=p['N_demo'])
             c1 = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
             vals.append(c1)
         c1_curves[alpha] = vals
@@ -399,35 +399,39 @@ def fig_05_saturation_reversal(p):
         if plateau_onset[alpha] is None:
             plateau_onset[alpha] = 40.0
 
-        plateau_height[alpha] = max(vals[:350])
+        plateau_height[alpha] = max(vals)
+        
 
     mean_inflection = sum(inflection_g[a]  for a in alpha_under) / len(alpha_under)
     mean_plateau    = sum(plateau_onset[a] for a in alpha_under) / len(alpha_under)
+    cutoff = int(50 / 0.1)   # index corresponding to g=50%
+    y_max = max(max(c1_curves[a][:cutoff]) for a in alpha_under)
 
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE_W)
 
-    ax.axvspan(mean_plateau, 40, alpha=0.08, color=C_ANNOTATION, zorder=0,
+    ax.set_xlim(0, 50)
+    ax.axvspan(mean_plateau, 50, alpha=0.08, color=C_ANNOTATION, zorder=0,
                label=f'Plateau zone (g > {mean_plateau:.0f}%)')
-    ax.text(mean_plateau + 0.3, 108,
-            f'Plateau\n(g ≥ {mean_plateau:.0f}%)',
+    ax.text(mean_plateau + 1, y_max * 1.05, f'Plateau\n(g ≥ {mean_plateau:.0f}%)',
             fontsize=7.5, color='#555555', va='top')
 
     ax.axvline(mean_inflection, color='#333333', linewidth=1.1,
                linestyle='--', zorder=3,
                label=f'Inflection g ≈ {mean_inflection:.1f}% (rate fn property)')
-    ax.text(mean_inflection + 0.3, 2,
+    ax.text(mean_inflection + 1, 2,
             f'Inflection\n≈ {mean_inflection:.1f}%',
             fontsize=7.5, color='#333333', va='bottom')
 
     for alpha, col in zip(alpha_under, C_UNDER):
-        curve_x = g_pct[:300]
-        curve_y = c1_curves[alpha][:300]
+        curve_x = g_pct           # full range
+        curve_y = c1_curves[alpha]
         ax.plot(curve_x, curve_y, color=col, linewidth=2.0)
 
         ph = plateau_height[alpha]
-        ax.text(31, ph,
-                f"α = {alpha}  ({ph:.0f}%)",
+        x_label = ax.get_xlim()[1] * 0.82
+        ax.text(x_label, ph,
+                f"α = {alpha}  (plateau ≈ {ph:.0f}%)",
                 color=col, fontsize=8, va='center', ha='left',
                 fontweight='bold' if alpha == 0.1 else 'normal')
 
@@ -439,13 +443,16 @@ def fig_05_saturation_reversal(p):
         "as % of understater's terminal wealth TW(α)"
     )
     ax.set_title(
-        f"Fig 05 — Understater penalty structure: inflection and plateau (N = {p['N']}, $V_0$ = £{p['V0_m']:.0f}m)\n"
+        f"Fig 05 — Understater penalty structure: inflection and plateau (N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m)\n"
         f"k = {p['k']} · Dashed line = inflection g ≈ {mean_inflection:.1f}% (rate fn property) · "
         f"Grey = plateau zone (g ≥ {mean_plateau:.0f}%) · Labels show plateau ceiling per α"
     )
-    ax.set_xlim(0, 35)
-    ax.set_ylim(-5, 120)
-
+    ax.text(0.98, 0.04,
+        f"All understaters (α < 1) face a positive tax burden\nrelative to honest declaration at N = {p['N_demo']}",
+        transform=ax.transAxes, fontsize=8.5, va='top', ha='right',
+        bbox=dict(boxstyle='round,pad=0.3', facecolor='#fff8e7', edgecolor='#ccaa00', alpha=0.85))
+    
+    ax.set_ylim(-5, y_max * 1.12)   # 12% buffer above the true peak
 
     legend_handles = [
         Line2D([0], [0], color='#333333', lw=1.1, linestyle='--',
@@ -472,47 +479,38 @@ def fig_06_overstatement_reversal(p):
 
     g_sweep  = [g_int / 1000.0 for g_int in range(0, 400)]
     g_pct    = [g * 100 for g in g_sweep]
-    c1_curves  = {}
-    first_rev  = {}
-    re_rev     = {}
+    c1_curves = {}
+    first_rev = {}
 
     for alpha in alpha_over:
-        vals       = []
-        found_fwd  = None
-        found_back = None
-        peaked     = False
-        peak_val   = -999
-        for idx, g in enumerate(g_sweep):
-            r  = run_sim(p, alpha=alpha, g=g, N=p['N'])
-            b  = run_sim(p, alpha=1.0,   g=g, N=p['N'])
+        vals      = []
+        found_fwd = None
+        peaked    = False
+        peak_val  = -999
+        for g in g_sweep:
+            r  = run_sim(p, alpha=alpha, g=g, N=p['N_demo'])
+            b  = run_sim(p, alpha=1.0,   g=g, N=p['N_demo'])
             c1 = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
             vals.append(c1)
             if c1 > 0 and found_fwd is None:
                 found_fwd = g * 100
-            if c1 > peak_val:
-                peak_val = c1
-                peaked   = False
-            elif c1 < peak_val - 0.5:
-                peaked = True
-            if peaked and c1 < 0 and found_back is None and found_fwd is not None:
-                found_back = g * 100
         c1_curves[alpha] = vals
         first_rev[alpha] = found_fwd
-        re_rev[alpha]    = found_back
 
     apply_style()
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13, 5.5))   # no exact named match
+    fig, ax = plt.subplots(figsize=FIG_SINGLE_W)
 
     for alpha, col in zip(alpha_over, C_OVER):
-        ax1.plot(g_pct, c1_curves[alpha], color=col, linewidth=1.8,
-                 label=f"α = {alpha}")
+        ax.plot(g_pct, c1_curves[alpha], color=col, linewidth=1.8,
+                label=f"α = {alpha}")
 
-    vals_12 = c1_curves[1.2]
+    # α=1.2 nearest-approach annotation
+    vals_12     = c1_curves[1.2]
     nearest_idx = max(range(len(vals_12)), key=lambda i: vals_12[i])
     nearest_g   = g_pct[nearest_idx]
     nearest_val = vals_12[nearest_idx]
     if nearest_val < 0:
-        ax1.annotate(
+        ax.annotate(
             f"α=1.2 peak ≈ {nearest_val:.1f}pp\n(never crosses zero)",
             xy=(nearest_g, nearest_val),
             xytext=(nearest_g + 3, nearest_val + 2.5),
@@ -520,66 +518,32 @@ def fig_06_overstatement_reversal(p):
             arrowprops=dict(arrowstyle='->', color=C_OVER[0], lw=0.8)
         )
 
-    ax1.axhline(0, color=C_ANNOTATION, linewidth=0.8, linestyle='--',
-                label='zero (honest baseline)')
-    ax1.set_xlabel("Growth rate g (%)")
-    ax1.set_ylabel("C.1 metric (%) — negative = overstater pays less than honest")
-    ax1.set_title(f"Overstater C.1 by g — N = {p['N']}")
-    ax1.set_xlim(0, 40)
-    ax1.legend(fontsize=8)
-
-    labels     = [f"α = {a}" for a in alpha_over]
-    x_pos      = list(range(len(alpha_over)))
-    bar_width  = 0.38
-
-    fwd_vals = [first_rev[a] if first_rev[a] is not None else 0 for a in alpha_over]
-    bwd_vals = [re_rev[a]    if re_rev[a]    is not None else 0 for a in alpha_over]
-
-    bars_fwd = ax2.bar([i - bar_width/2 for i in x_pos],
-                       fwd_vals, width=bar_width, color=C_OVER,
-                       edgecolor='white', label='First reversal: overstater first pays more')
-    bars_bwd = ax2.bar([i + bar_width/2 for i in x_pos],
-                       bwd_vals, width=bar_width, color=C_OVER, alpha=0.4,
-                       edgecolor='white', label='Re-reversal: overstater cheap again')
-
-    for bar, alpha in zip(bars_fwd, alpha_over):
+    # first-reversal markers
+    y_lo = ax.get_ylim()[0]
+    for idx, (alpha, col) in enumerate(zip(alpha_over, C_OVER)):
         t = first_rev[alpha]
-        h = bar.get_height()
         if t is not None:
-            ax2.text(bar.get_x() + bar.get_width() / 2, h + 0.5,
-                     f"{t:.1f}%", ha='center', va='bottom', fontsize=8.5,
-                     fontweight='bold')
-        else:
-            ax2.text(bar.get_x() + bar.get_width() / 2, 1.2,
-                     "never\nreverses", ha='center', va='bottom',
-                     fontsize=8, color=C_DARK)
+            ax.axvline(t, color=col, linewidth=0.8, linestyle=':', alpha=0.6)
+            y_pos = y_lo * (0.95 - idx * 0.15)   # stagger downward per alpha
+            ax.text(t + 0.3, y_pos,
+                    f'{t:.1f}%', fontsize=7.5, color=col, va='bottom')
 
-    for bar, alpha in zip(bars_bwd, alpha_over):
-        t = re_rev[alpha]
-        h = bar.get_height()
-        if t is not None:
-            ax2.text(bar.get_x() + bar.get_width() / 2, h + 0.5,
-                     f"{t:.1f}%", ha='center', va='bottom', fontsize=8, color='#555555')
-        else:
-            label = "n/a" if first_rev[alpha] is None else "no\nre-reversal\nin range"
-            ax2.text(bar.get_x() + bar.get_width() / 2, 1.2,
-                     label, ha='center', va='bottom',
-                     fontsize=7.5, color=C_ANNOTATION)
+    ax.axhline(0, color=C_ANNOTATION, linewidth=0.8, linestyle='--',
+               label='zero (honest baseline)')
+    ax.axvline(p['g'] * 100, color=C_DARK, linewidth=1.0, linestyle=':',
+               label=f"hist. mean g = {p['g']*100:.1f}%")
 
-    ax2.set_ylabel("g (%) at threshold")
-    ax2.set_title(f"Reversal and re-reversal thresholds by α — N = {p['N']}")
-    ax2.set_xticks(x_pos)
-    ax2.set_xticklabels(labels)
-    ax2.set_ylim(0, 50)
-    ax2.legend(fontsize=8, loc='upper right')
-
-    fig.suptitle(
-        "Fig 06 — Overstatement reversal: when overstater C.1 crosses zero (and back)\n"
-        f"$V_0$ = £{p['V0_m']:.0f}m, k = {p['k']}  ·  "
-        "Dark bar = first reversal (overstater starts paying more)  ·  "
-        "Light bar = re-reversal (overstater cheap again at high g)",
-        fontsize=10
+    ax.set_xlabel("Growth rate g (%)")
+    ax.set_ylabel("C.1 metric (pp) — negative = overstater pays less than honest")
+    ax.set_title(
+        f"Fig 06 — Overstater C.1 by growth rate\n"
+        f"N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m, "
+        f"k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%  ·  "
+        f"Dotted verticals = g at which each α first pays more than honest"
     )
+    ax.set_xlim(0, 40)
+    ax.legend(fontsize=8)
+
     plt.tight_layout()
     return _save(fig, "val_fig_06_overstatement_reversal_boundary.png")
 
@@ -605,7 +569,7 @@ def fig_07_overstatement_coherence(p):
 
     # ── LEFT: C.1 surface heatmap ────────────────────────────
     alphas_grid = np.linspace(0.1, 2.0, 41)
-    g_grid      = np.linspace(0.0, 0.25, 101)
+    g_grid      = np.linspace(0.0, 0.40, 101)
     g_pct_grid  = g_grid * 100
 
     c1_matrix = np.zeros((len(alphas_grid), len(g_grid)))
@@ -616,7 +580,7 @@ def fig_07_overstatement_coherence(p):
             c1 = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
             c1_matrix[i, j] = c1
 
-    vmax = 6.0
+    vmax = 10.0
     norm = mcolors.TwoSlopeNorm(vmin=-vmax, vcenter=0, vmax=vmax)
     ax1.imshow(
         c1_matrix,
@@ -632,6 +596,15 @@ def fig_07_overstatement_coherence(p):
     ax1.clabel(CS, levels=[0.0], fmt={0.0: 'C.1 = 0'},
                fontsize=8, inline=True, inline_spacing=6)
 
+    CS_band = ax1.contour(
+        g_pct_grid, alphas_grid, c1_matrix,
+        levels=[-1.0, 1.0], colors=[C_ANNOTATION, C_ANNOTATION],
+        linewidths=1.0, linestyles='--', zorder=3, alpha=0.7,
+    )
+    ax1.clabel(CS_band, levels=[-1.0, 1.0],
+            fmt={-1.0: '−1pp', 1.0: '+1pp'},
+            fontsize=7, inline=True, inline_spacing=4)
+
     ax1.axvline(hist_mean * 100, color='#333333', linewidth=1.4,
                 linestyle='--', zorder=5,
                 label=f'Hist. mean g = {hist_mean*100:.1f}%')
@@ -639,23 +612,12 @@ def fig_07_overstatement_coherence(p):
              f'{hist_mean*100:.1f}%\n(mean)', fontsize=7.5,
              color='#333333', va='center', ha='right')
 
-    motiv_alphas = alphas_grid
-    motiv_g      = hist_mean * motiv_alphas * 100
-    mask = motiv_g <= 25.0
-    ax1.plot(motiv_g[mask], motiv_alphas[mask],
-             color='#b8860b', linewidth=2.0, linestyle='-.',
-             zorder=6, label='Implied growth expectation\n(g = mean × α)')
-    mid_idx = np.searchsorted(motiv_alphas[mask], 1.38)
-    ax1.text(motiv_g[mask][mid_idx] + 0.5, motiv_alphas[mask][mid_idx] - 0.06,
-             'Motivation\nline', fontsize=7.5, color='#b8860b',
-             va='top', ha='left')
-
-    ax1.text(13, 1.9, 'DISADVANTAGE\n(overstater pays more)',
-             ha='center', va='center', fontsize=7.5, color='#8b0000',
-             fontweight='bold', zorder=7)
-    ax1.text(3.5, 1.13, 'ADVANTAGE\n(overstater pays less)',
-             ha='center', va='center', fontsize=7.5, color='#08306b',
-             fontweight='bold', zorder=7)
+    ax1.text(0.02, 0.97, 'ADVANTAGE\n(overstater pays less)',
+            transform=ax1.transAxes, fontsize=7.5, color="#000000",
+            fontweight='bold', va='top', ha='left', zorder=7)
+    ax1.text(0.98, 0.97, 'DISADVANTAGE\n(overstater pays more)',
+            transform=ax1.transAxes, fontsize=7.5, color="#000000",
+            fontweight='bold', va='top', ha='right', zorder=7)
 
     cbar = fig.colorbar(
         plt.cm.ScalarMappable(norm=norm, cmap='RdBu_r'),
@@ -671,7 +633,7 @@ def fig_07_overstatement_coherence(p):
         "Blue = advantage · Red = disadvantage · Black = indifference boundary",
         fontsize=10
     )
-    ax1.set_xlim(0, 25)
+    ax1.set_xlim(0, 40)
     ax1.set_ylim(0.1, 2.0)
     ax1.legend(loc='lower right', fontsize=8.5, frameon=True, framealpha=0.9)
 
@@ -697,8 +659,8 @@ def fig_07_overstatement_coherence(p):
                 cross.append(n_cross)
         crossings[alpha] = cross
 
-    Y_CLIP = -15.0
-    Y_HI   =  4.0
+    Y_CLIP = -3.0
+    Y_HI   =  40.0
 
     ax2.set_ylim(Y_CLIP, Y_HI)
     ax2.axhline(0, color='#333333', linewidth=1.2, linestyle='-',
@@ -706,49 +668,17 @@ def fig_07_overstatement_coherence(p):
     ax2.axhspan(Y_CLIP, 0,    alpha=0.04, color='#2166ac', zorder=0)
     ax2.axhspan(0,      Y_HI, alpha=0.04, color='#d73027', zorder=0)
 
-    ax2.text(7, -13, 'ADVANTAGE\n(pays less than honest)',
-             fontsize=7.5, color='#08306b', va='bottom', fontweight='bold')
-    ax2.text(7,  3.5, 'DISADVANTAGE\n(pays more than honest)',
-             fontsize=7.5, color='#8b0000', va='top', fontweight='bold')
-
     for alpha, col in zip(_FIG07_OVER_ALPHAS, _FIG07_OVER_COLS):
         diffs         = all_series[alpha]
-        clipped_mask  = [d < Y_CLIP for d in diffs]
+        ax2.plot(n_vals, diffs, color=col, linewidth=2.0, label=f'α = {alpha}')
 
-        seg_x, seg_y = [], []
-        for k, (n, d, clip) in enumerate(zip(n_vals, diffs, clipped_mask)):
-            if not clip:
-                seg_x.append(n); seg_y.append(d)
-            else:
-                if seg_x:
-                    ax2.plot(seg_x, seg_y, color=col, linewidth=2.0)
-                    seg_x, seg_y = [], []
-        if seg_x:
-            ax2.plot(seg_x, seg_y, color=col, linewidth=2.0, label=f'α = {alpha}')
-        else:
-            ax2.plot([], [], color=col, linewidth=2.0, label=f'α = {alpha}')
-
-        first_clip = next((k for k, c in enumerate(clipped_mask) if c), None)
-        if first_clip and first_clip > 0:
-            ax2.plot([n_vals[first_clip - 1], n_vals[first_clip]],
-                     [diffs[first_clip - 1], Y_CLIP],
-                     color=col, linewidth=1.2, linestyle='--', alpha=0.6)
-            ax2.annotate('', xy=(n_vals[first_clip], Y_CLIP),
-                         xytext=(n_vals[first_clip], Y_CLIP + 1.5),
-                         arrowprops=dict(arrowstyle='->', color=col, lw=1.0))
-
+    for idx, (alpha, col) in enumerate(zip(_FIG07_OVER_ALPHAS, _FIG07_OVER_COLS)):
         for n_cross in crossings[alpha]:
-            ax2.plot(n_cross, 0, marker='o', markersize=6,
-                     color=col, zorder=6, clip_on=False)
-            label_y = 1.0 if alpha == 1.8 else (-2.5 if alpha == 2.0 else 1.0)
-            ax2.annotate(
-                f'α={alpha}: crosses N≈{n_cross:.0f}',
-                xy=(n_cross, 0),
-                xytext=(n_cross + 3, label_y),
-                fontsize=7.5, color=col,
-                arrowprops=dict(arrowstyle='->', color=col, lw=0.8),
-                zorder=7,
-            )
+            ax2.axvline(n_cross, color=col, linewidth=0.8, linestyle=':', alpha=0.6)
+            y_pos = Y_HI * (0.55 - idx * 0.07)
+            ax2.text(n_cross + 0.3, y_pos,
+                    f'α={alpha}, N≈{n_cross:.0f}',
+                    fontsize=7.5, color=col, va='top')
 
     ax2.axvline(N, color='#555555', linewidth=1.0, linestyle='--', zorder=2)
     ax2.text(N + 0.4, Y_CLIP + 0.5,
@@ -764,13 +694,21 @@ def fig_07_overstatement_coherence(p):
         f"Dashed arrows = line continues below clip at £{abs(Y_CLIP):.0f}m",
         fontsize=10
     )
-    ax2.legend(loc='lower left', fontsize=8.5, frameon=True, framealpha=0.9)
+    ax2.legend(loc='upper left', fontsize=8.5, frameon=True, framealpha=0.9)
+
+    # compute crossing Ns for the suptitle — reuse crossings dict already built above
+    cross_strs = ', '.join(
+        f'α={a}: N≈{crossings[a][0]:.0f}' 
+        for a in _FIG07_OVER_ALPHAS 
+        if crossings[a]
+    )
 
     fig.suptitle(
-        "Fig 07 — Overstatement: the advantage is real but narrow\n"
-        "Left: advantage landscape across (g_actual, α) — strong overstaters face "
-        "disadvantage at moderate growth (9–17%)  ·  "
-        "Right: advantage erodes and reverses by N≈29 for α ≥ 1.8 at hist. mean growth",
+        f"Fig 07 — Overstatement: the advantage is real but narrow\n"
+        f"Left: C.1 advantage landscape across (g_actual, α)  ·  "
+        f"Right: net tax diff at g = {hist_mean*100:.1f}% (hist. mean), "
+        f"$V_0$ = £{p['V0_m']:.0f}m, N = {N}, k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%\n"
+        f"Zero crossings: {cross_strs if cross_strs else 'none in range'}",
         fontsize=10, y=1.01
     )
 
@@ -814,7 +752,7 @@ def fig_08_tw_decomposition(p):
     print("  Generating fig 08: TW advantage decomposition...")
 
     hist_mean = p['g']
-    N         = p['N']
+    N         = p['N_demo']
 
     wsd_vals = []
     rd_vals  = []
@@ -974,7 +912,7 @@ def _tw_adv_pct_gN(p, alpha, g, N):
     """
     TW advantage of alpha over honest as % of honest TW_settled,
     at given constant g and holding period N.
-    Runs both simulations inline to sweep N independently of p['N'].
+    Runs both simulations inline to sweep N independently of p['N_demo'].
     """
     sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
     g_ser  = [g] * N
@@ -1105,29 +1043,18 @@ def fig_10_c1_vs_c12_heatmap(p):
 
     rho = p['rho']
 
-    base_by_g = {g: run_sim(p, alpha=1.0, g=g) for g in G_VALS}
-
-    c1_matrix  = np.zeros((len(ALPHA_VALS), len(G_VALS)))
     c12_matrix = np.zeros((len(ALPHA_VALS), len(G_VALS)))
 
     for i, alpha in enumerate(ALPHA_VALS):
         for j, g in enumerate(G_VALS):
-            r      = run_sim(p, alpha=alpha, g=g)
-            b      = base_by_g[g]
-            c1_val = ((r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100
-                      if abs(r['TW_settled']) > 1e-12 else 0.0)
-            c1_matrix[i, j] = c1_val
-
             d = npv_tax_advantage(p, alpha, g, rho)
             c12_matrix[i, j] = d['npv_diff_pct'] * 100
 
-    all_vals = np.concatenate([c1_matrix.ravel(), c12_matrix.ravel()])
-    vmax = float(np.percentile(np.abs(all_vals), 98))
-    vmax = max(vmax, 1.0)
+    vmax = min(max(abs(c12_matrix.min()), abs(c12_matrix.max())), 25)
     norm = mcolors.TwoSlopeNorm(vmin=-vmax, vcenter=0, vmax=vmax)
 
     apply_style_nogrid()
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=FIG_PAIR_XW)
+    fig, ax = plt.subplots(1, 1, figsize=FIG_SINGLE_W)
 
     def _draw_heatmap(ax, matrix, title_suffix):
         im = ax.imshow(matrix, aspect='auto', cmap='RdBu_r', norm=norm, zorder=2)
@@ -1156,33 +1083,25 @@ def fig_10_c1_vs_c12_heatmap(p):
         return im
 
     im = _draw_heatmap(
-        ax1, c1_matrix,
-        f"C.1 — Nominal: (Net(α) − Net(1)) / TW(α)  [pp]\n"
-        f"N = {p['N']}, $V_0$ = £{p['V0_m']:.0f}m"
-    )
-    _draw_heatmap(
-        ax2, c12_matrix,
-        f"C.12 — NPV-adjusted: (NPV_tax(α) − NPV_tax(1)) / TW_settled(1)  [pp]\n"
-        f"ρ = {rho*100:.0f}%  ·  N = {p['N']}, $V_0$ = £{p['V0_m']:.0f}m"
+        ax, c12_matrix,
+        f"C.12 — NPV-adjusted tax difference: (NPV_tax(α) − NPV_tax(1)) / TW_settled(1)  [pp]\n"
+        f"ρ = {rho*100:.0f}%,  N = {p['N_demo']},  $V_0$ = £{p['V0_m']:.0f}m,  "
+        f"k = {p['k']},  $\\tau_0$ = {p['tau_0']*100:.0f}%"
     )
 
-    cbar = fig.colorbar(im, ax=[ax1, ax2], fraction=0.02, pad=0.04)
+    cbar = fig.colorbar(im, ax=ax, fraction=0.03, pad=0.04)
     cbar.set_label(
-        "pp relative to honest declaration  ·  "
-        "Red = understater pays more / overstater pays less (in nominal) or MORE (in PV)\n"
-        "Blue = overstater pays less (nominal)  ·  "
-        "Shared scale: direct comparison of magnitude across panels",
+        "pp relative to honest declaration\n"
+        "Negative (Blue) pays less (nominal)\n"
+        "Positive (Red) pays more (nominal)",
         fontsize=8
     )
 
     fig.suptitle(
-        "Fig 10 — Nominal (C.1) vs NPV-adjusted (C.12) tax difference: timing artefacts exposed\n"
-        f"Left (C.1): nominal metric  ·  Right (C.12): discounted at ρ = {rho*100:.0f}%  ·  "
-        f"Sell-year refund at t=N+1 is worth ≈{100*(1/(1+rho)**p['N']):.0f}p/£ vs a year-1 payment\n"
-        "Low-g blue cells (nominal overstater advantage): collapse toward white or flip red in C.12 — the advantage is a timing artefact\n"
-        "Mid/high-g cells: overstaters already pay more in C.1; C.12 is larger still — discounting penalises late periodic costs less than late refund\n"
-        "Understater red cells shrink in C.12 at mid/high g — deferral of payment partially offsets the penalty in PV terms",
-        fontsize=9.0, y=1.04,
+        f"Fig 10 — C.12: NPV-adjusted tax difference (ρ = {rho*100:.0f}%)  ·  "
+        f"Sell-year refund discounted to {100*(1/(1+rho)**p['N_demo']):.0f}p/£ at t=N+1  ·  "
+        "Blue = overstater advantage collapses in PV terms — timing artefact",
+        fontsize=10,
     )
 
     plt.tight_layout()
@@ -1195,7 +1114,7 @@ def fig_10_c1_vs_c12_heatmap(p):
 
 def main():
     p = load_params()
-    print(f"Parameters loaded: k={p['k']}, N={p['N']} (SSM-derived), g={p['g']:.4f}")
+    print(f"Parameters loaded: k={p['k']}, N={p['N']} (SSM-derived), N_demo={p['N_demo']} (demographic), g={p['g']:.4f}")
 
     global G_VALS, G_LABELS, ALPHA_VALS, N_ACTUAL_VALS
     sw = p['sweep']

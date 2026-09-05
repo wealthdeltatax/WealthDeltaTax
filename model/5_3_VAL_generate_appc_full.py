@@ -9,7 +9,7 @@ No Excel dependency. Uses confirmed simulation conventions and formulas througho
 Output matches the formatting of VAL.A §C exactly:
   - Table captions below each table in the form "Table C.N: description. params."
   - Section headers: ## C.N Title
-  - Subsection headers: ### C.10.1 / ### C.10.2 / ### C.11a–C.11e
+  - Subsection headers: ### C.10.1 / ### C.10.2 / ### C.11.1–C.11.5
   - Column headers use LaTeX math: $\\alpha$, $g$, $\\tau$, etc.
   - Metric formula displayed on its own line as $\\frac{...}{...}$
   - **Metric:** label followed by formula line
@@ -23,7 +23,7 @@ C.11 — Overstater TW Advantage Decomposition:
   (1) W_sell_delta: f_N erosion reduces sell-year declared value [<= 0]
   (2) refund_delta: overstater receives larger sell-year refund [<= 0]
   (3) settle_delta: post-sale oscillation damps the refund [>= 0]
-  Plus f_N ratio sub-table (C.11e) and excess_periodic reference (C.11f).
+  Plus f_N ratio sub-table (C.11.5) and excess_periodic reference (C.11.6).
   Note: excess_periodic is NOT additive in the identity; it is ~6x larger
   than |W_sell_delta| because most periodic overpayment is recovered at sale.
   Overstaters only (α ≥ 1.0); same g-grid as C.1.
@@ -119,10 +119,10 @@ def compute_c11(p, over_vals, g_vals):
 def write_c11_md(tables, p, over_vals, g_vals, g_labels):
     """
     Format C.11 as a markdown section matching VAL.A §C conventions:
-    sub-table headers as ### C.11a, captions below each table,
+    sub-table headers as ### C.11.1, captions below each table,
     LaTeX notation throughout.
     """
-    N  = p['N']
+    N  = p['N_demo']
     k  = p['k']
     V0 = p['V0_m']
 
@@ -151,7 +151,7 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
         "SettleDelta $\\geq 0$: post-sale oscillation taxes back part of the refund.  "
         "Note: ExcessPeriodic (holding-period net tax difference) is **not** additive "
         "in this identity — it feeds into TW_advantage indirectly through f_N erosion "
-        "and is shown in C.11a for reference only."
+        "and is shown in C.11.1 for reference only."
     )
     lines.append("")
     lines.append(
@@ -159,15 +159,15 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
         f"All values at canonical N = {N}, $k$ = {k}, "
         f"$V_0$ = £{V0:.0f}m. "
         f"Rows = $\\alpha$; columns = $g$ (same grid as C.1). "
-        f"Sub-tables C.11a–C.11d expressed as % of TW_settled(1); "
-        f"C.11e is dimensionless."
+        f"Sub-tables C.11.1–C.11.4 expressed as % of TW_settled(1); "
+        f"C.11.5 is dimensionless."
     )
     lines.append("")
 
     headers = ['$\\alpha$ \\ $g$'] + g_labels
 
-    # ── C.11a ────────────────────────────────────────────────
-    lines.append("### C.11a — W_sell_delta as % of Honest TW_settled  [Additive Term 1]")
+    # ── C.11.1 ────────────────────────────────────────────────
+    lines.append("### C.11.1 — W_sell_delta as % of Honest TW_settled  [Additive Term 1]")
     lines.append("")
     lines.append(
         "**Formula:** (W_sell($\\alpha$) $-$ W_sell(1)) / TW_settled(1)  "
@@ -179,15 +179,15 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
         "Note: ExcessPeriodic (holding-period net tax difference) is related but "
         "**not** equal to W_sell_delta — the excess periodic tax is approximately "
         "6× larger than |W_sell_delta| at canonical parameters because most of "
-        "the excess is returned via the sell-year refund (C.11b).  "
-        "ExcessPeriodic is shown separately in C.11f for reference."
+        "the excess is returned via the sell-year refund (C.11.2).  "
+        "ExcessPeriodic is shown separately in C.11.6 for reference."
     )
     lines.append("")
     rows = [[f"**{a}**"] + tables['c11a'][a] for a in over_vals]
     lines.append(md_table(headers, rows, fmt_fn=lambda v: pct_str(v, 2)))
     lines.append("")
     lines.append(
-        f"Table C.11a: W_sell_delta as % of honest TW_settled (additive term 1). "
+        f"Table C.11.1: W_sell_delta as % of honest TW_settled (additive term 1). "
         f"Always $\\leq 0$ for $\\alpha > 1$: f_N erosion reduces sell-year proceeds. "
         f"$V_0$ = £{V0:.0f}m, $k$ = {k}, N = {N}."
     )
@@ -196,13 +196,13 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
         "*Always $\\leq 0$ for $\\alpha > 1$: the overstater surrenders more equity "
         "as periodic tax, depressing the sell-year declared value.  "
         "The magnitude grows with both $\\alpha$ and $g$ but is much smaller than "
-        "the refund benefit (C.11b) — this is why the net TW advantage (C.11d) "
+        "the refund benefit (C.11.2) — this is why the net TW advantage (C.11.4) "
         "remains positive across the tested range.*"
     )
     lines.append("")
 
-    # ── C.11b ────────────────────────────────────────────────
-    lines.append("### C.11b — Sell-Year Settlement Delta as % of Honest TW_settled")
+    # ── C.11.2 ────────────────────────────────────────────────
+    lines.append("### C.11.2 — Sell-Year Settlement Delta as % of Honest TW_settled")
     lines.append("")
     lines.append(
         "**Formula:** ($L_{sell}$($\\alpha$) $-$ $L_{sell}$(1)) / TW_settled(1)  "
@@ -215,7 +215,7 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
     lines.append(md_table(headers, rows, fmt_fn=lambda v: pct_str(v, 2)))
     lines.append("")
     lines.append(
-        f"Table C.11b: Sell-year settlement delta as % of honest TW_settled. "
+        f"Table C.11.2: Sell-year settlement delta as % of honest TW_settled. "
         f"Negative = overstater received a larger refund at sale. "
         f"$V_0$ = £{V0:.0f}m, $k$ = {k}, N = {N}."
     )
@@ -228,8 +228,8 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
     )
     lines.append("")
 
-    # ── C.11c ────────────────────────────────────────────────
-    lines.append("### C.11c — Post-Sale Settlement Delta as % of Honest TW_settled")
+    # ── C.11.3 ────────────────────────────────────────────────
+    lines.append("### C.11.3 — Post-Sale Settlement Delta as % of Honest TW_settled")
     lines.append("")
     lines.append(
         "**Formula:** (net_settle_tax($\\alpha$) $-$ net_settle_tax(1)) / TW_settled(1)  "
@@ -243,7 +243,7 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
     lines.append(md_table(headers, rows, fmt_fn=lambda v: pct_str(v, 2)))
     lines.append("")
     lines.append(
-        f"Table C.11c: Post-sale settlement delta as % of honest TW_settled. "
+        f"Table C.11.3: Post-sale settlement delta as % of honest TW_settled. "
         f"Positive = oscillation recovered more from overstater's refund. "
         f"$V_0$ = £{V0:.0f}m, $k$ = {k}, N = {N}."
     )
@@ -251,26 +251,26 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
     lines.append(
         "*Positive throughout for $\\alpha$ > 1: the settle_tw() oscillation always "
         "recovers some of the sell-year refund via subsequent tax. "
-        "The damping cost is smaller than the refund benefit (C.11b) in all "
+        "The damping cost is smaller than the refund benefit (C.11.2) in all "
         "tested cases — the net refund position remains favourable.*"
     )
     lines.append("")
 
-    # ── C.11d ────────────────────────────────────────────────
-    lines.append("### C.11d — Total TW Advantage as % of Honest TW_settled (Cross-Check)")
+    # ── C.11.4 ────────────────────────────────────────────────
+    lines.append("### C.11.4 — Total TW Advantage as % of Honest TW_settled (Cross-Check)")
     lines.append("")
     lines.append(
         "**Formula:** (TW_settled($\\alpha$) $-$ TW_settled(1)) / TW_settled(1)  "
         "· Should equal C.8 at the canonical N column. "
         "Values here are computed from the full decomposition and serve as "
-        "an internal consistency check on C.11a–C.11c."
+        "an internal consistency check on C.11.1–C.11.3."
     )
     lines.append("")
     rows = [[f"**{a}**"] + tables['c11d'][a] for a in over_vals]
     lines.append(md_table(headers, rows, fmt_fn=lambda v: pct_str(v, 2)))
     lines.append("")
     lines.append(
-        f"Table C.11d: Total TW advantage as % of honest TW_settled. "
+        f"Table C.11.4: Total TW advantage as % of honest TW_settled. "
         f"Should match C.5 (at canonical $k$) and C.8 (at canonical N) for each $\\alpha$. "
         f"$V_0$ = £{V0:.0f}m, $k$ = {k}, N = {N}."
     )
@@ -281,8 +281,8 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
     )
     lines.append("")
 
-    # ── C.11e ────────────────────────────────────────────────
-    lines.append("### C.11e — Retained Equity Fraction Ratio at End of Holding Period")
+    # ── C.11.5 ────────────────────────────────────────────────
+    lines.append("### C.11.5 — Retained Equity Fraction Ratio at End of Holding Period")
     lines.append("")
     lines.append(
         "**Formula:** $f_N$($\\alpha$) / $f_N$(1)  · Values below 1.0 indicate the "
@@ -299,7 +299,7 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
     lines.append(md_table(headers, rows, fmt_fn=lambda v: f"{v:.4f}"))
     lines.append("")
     lines.append(
-        f"Table C.11e: Retained equity fraction ratio $f_N$($\\alpha$) / $f_N$(1). "
+        f"Table C.11.5: Retained equity fraction ratio $f_N$($\\alpha$) / $f_N$(1). "
         f"Values below 1.0 = overstater surrendered more equity during holding period. "
         f"$V_0$ = £{V0:.0f}m, $k$ = {k}, N = {N}."
     )
@@ -317,9 +317,9 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
     lines.append("")
     lines.append(
         "*Key design implication: the overstater cannot manufacture a "
-        "TW advantage by overstatement alone. The advantage in C.11d / C.8 "
-        "persists because the sell-year refund benefit (C.11b) swamps the "
-        "f_N erosion cost (C.11a) and the damping cost (C.11c) across "
+        "TW advantage by overstatement alone. The advantage in C.11.4 / C.8 "
+        "persists because the sell-year refund benefit (C.11.2) swamps the "
+        "f_N erosion cost (C.11.1) and the damping cost (C.11.3) across "
         "all tested ($\\alpha$, $g$) — by a factor of approximately 6:1 at "
         "canonical parameters. Whether this relationship holds beyond the "
         "tested range — particularly at very high $g$ where $f_N$ is heavily "
@@ -327,8 +327,8 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
     )
     lines.append("")
 
-    # ── C.11f — excess_periodic (informational) ───────────────
-    lines.append("### C.11f — Excess Periodic Net Tax as % of Honest TW_settled  [Informational]")
+    # ── C.11.6 — excess_periodic (informational) ───────────────
+    lines.append("### C.11.6 — Excess Periodic Net Tax as % of Honest TW_settled  [Informational]")
     lines.append("")
     lines.append(
         "**Formula:** (Net_holding($\\alpha$) $-$ Net_holding(1)) / TW_settled(1)  "
@@ -337,8 +337,8 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
         "reference only.  ExcessPeriodic feeds into tw_advantage indirectly "
         "through f_N erosion (higher periodic tax depletes f faster, reducing "
         "W_sell), but ExcessPeriodic $\\gg$ |W_sell_delta| because most of the "
-        "excess is returned as a sell-year refund (C.11b).  "
-        "The correct additive decomposition uses W_sell_delta (C.11a), not ExcessPeriodic."
+        "excess is returned as a sell-year refund (C.11.2).  "
+        "The correct additive decomposition uses W_sell_delta (C.11.1), not ExcessPeriodic."
     )
     lines.append("")
 
@@ -348,7 +348,7 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
     for alpha in over_vals:
         row = []
         for g in g_vals:
-            g_ser  = [g] * p['N']
+            g_ser  = [g] * p['N_demo']
             recs_h = simulate(p['V0_m'], g_ser, 1.0, sim_p)
             recs_a = simulate(p['V0_m'], g_ser, alpha, sim_p)
             sell_h = simulate_sell(recs_h, g, sim_p)
@@ -363,9 +363,9 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
     lines.append(md_table(headers, rows, fmt_fn=lambda v: pct_str(v, 2)))
     lines.append("")
     lines.append(
-        f"Table C.11f: Excess periodic net tax as % of honest TW_settled (informational). "
+        f"Table C.11.6: Excess periodic net tax as % of honest TW_settled (informational). "
         f"Positive = overstater paid more net tax during holding period. "
-        f"Compare with C.11a (W_sell_delta): ExcessPeriodic is approximately 6× larger "
+        f"Compare with C.11.1 (W_sell_delta): ExcessPeriodic is approximately 6× larger "
         f"in magnitude, confirming that most of the periodic overpayment is recovered "
         f"via the sell-year refund. "
         f"$V_0$ = £{V0:.0f}m, $k$ = {k}, N = {N}."
@@ -374,9 +374,9 @@ def write_c11_md(tables, p, over_vals, g_vals, g_labels):
     lines.append(
         "*Positive throughout at $g$ \\geq ~8\\%: the overstater pays more every period "
         "due to a larger declared delta and higher progressive rate. "
-        "Despite this persistent periodic cost, the sell-year refund (C.11b) "
-        "exceeds both the erosion cost (C.11a) and the damping cost (C.11c), "
-        "producing the net TW advantage shown in C.11d.*"
+        "Despite this persistent periodic cost, the sell-year refund (C.11.2) "
+        "exceeds both the erosion cost (C.11.1) and the damping cost (C.11.3), "
+        "producing the net TW advantage shown in C.11.4.*"
     )
     lines.append("")
 
@@ -415,7 +415,7 @@ def write_c12_md(c12, p, alpha_vals, g_vals, g_labels):
     """
     Format C.12 as a markdown section matching VAL.A §C conventions.
     """
-    N   = p['N']
+    N   = p['N_demo']
     k   = p['k']
     V0  = p['V0_m']
     rho = p['rho']
@@ -628,7 +628,7 @@ def compute_all_tables(p):
             'g_mean':        r['g_mean'],
         })
 
-    n_traj_vals = sorted({5, 10, 15, 20, 25, 30, p['N']})
+    n_traj_vals = sorted({5, 10, 15, 20, 25, 30, p['N_demo']})
     t10_n = []
     for n in n_traj_vals:
         r = run_sim_hist(p, alpha=1.0, N=n)
@@ -664,7 +664,7 @@ _build_pct_table = pct_table
 # ─────────────────────────────────────────────────────────────
 
 def write_appc_md(tables, p):
-    N   = p['N']
+    N   = p['N_demo']
     k   = p['k']
     t0  = p['tau_0'] * 100
     tm  = p['tau_m'] * 100
@@ -1068,7 +1068,7 @@ def write_appc_md(tables, p):
     lines.append('| ' + ' | '.join(h10b) + ' |')
     lines.append('|' + '|'.join(':---:' for _ in h10b) + '|')
     for row in tables['t10_n']:
-        is_ref = row['N'] == p['N']
+        is_ref = row['N'] == p['N_demo']
         n_str  = f"**{row['N']}**" if is_ref else str(row['N'])
         tw_str = f"**{row['TW']:.2f}**" if is_ref else f"{row['TW']:.2f}"
         net_str = f"**{row['Net']:.2f}**" if is_ref else f"{row['Net']:.2f}"
@@ -1109,7 +1109,7 @@ def write_appc_md(tables, p):
 
 def main():
     p = load_params()
-    print(f"Parameters loaded: k={p['k']}, N={p['N']} (SSM-derived), g={p['g']:.4f}")
+    print(f"Parameters loaded: k={p['k']}, N={p['N']} (SSM-derived), N_demo={p['N_demo']} (demographic), g={p['g']:.4f}")
 
     global G_VALS, G_LABELS, ALPHA_VALS, K_VALS, V0_VALS, N_ACTUAL_VALS, OVER_VALS
     sw = p['sweep']

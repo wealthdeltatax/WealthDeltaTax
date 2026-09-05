@@ -691,6 +691,7 @@ def load_params(toml_path=None):
 
     p['V0_m']  = float(raw['val']['V0_m'])
     p['rho']   = float(raw['val']['rho'])
+    p['N_demo'] = int(raw['val'].get('N_demo', 30))
     p['g']     = p['hist_mean']
     p['alpha'] = 1.0
     p['beta']  = 0.0
