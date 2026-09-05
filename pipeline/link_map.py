@@ -338,7 +338,7 @@ let frozen = false;
 let animId = null;
 
 const NODE_W = 72, NODE_H = 32;
-const REPEL = 500, ATTRACT = 0.012, DAMP = 0.94, CENTER_F = 0.006;
+const ATTRACT = 0.004, DAMP = 0.97, CENTER_F = 0.003;
 
 // ── Build links ───────────────────────────────────────────────────────────
 function buildLinks() {
@@ -397,7 +397,8 @@ function tick() {
       const a = vn[i], b = vn[j];
       const dx = b.x - a.x, dy = b.y - a.y;
       const dist = Math.sqrt(dx*dx + dy*dy) || 1;
-      const f = REPEL / (dist * dist);
+      const IDEAL_DIST = 130;
+      const f = Math.max(0, IDEAL_DIST - dist) * 0.4;
       const fx = (dx/dist)*f, fy = (dy/dist)*f;
       a.vx -= fx; a.vy -= fy;
       b.vx += fx; b.vy += fy;
