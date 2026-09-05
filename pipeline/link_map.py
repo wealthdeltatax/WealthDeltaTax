@@ -338,7 +338,7 @@ let frozen = false;
 let animId = null;
 
 const NODE_W = 72, NODE_H = 32;
-const REPEL = 1800, ATTRACT = 0.012, DAMP = 0.94, CENTER_F = 0.006;
+const REPEL = 500, ATTRACT = 0.012, DAMP = 0.94, CENTER_F = 0.006;
 
 // ── Build links ───────────────────────────────────────────────────────────
 function buildLinks() {

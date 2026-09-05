@@ -27,7 +27,7 @@ from pages.corpus import generate_corpus_qmd
 from pages.references import generate_references_qmd
 from pages.site_index import copy_machine_readable_assets
 from transforms import process_file, strip_latex, convert_crossrefs
-
+from link_map import generate_link_map_html
 
 # ── Tool metadata ─────────────────────────────────────────────────────────────
 # Maps source filename stem → (title, description)
@@ -200,6 +200,8 @@ def main() -> None:
         generate_flowcharts_qmd(build)
     else:
         print("  ! site/diagrams/ not found — skipping flowcharts.qmd")
+
+    generate_link_map_html(build / "link-map.html", site_cfg.refs_data, site_cfg.link_map)
 
     # ── Machine-readable static endpoints + site-index.json ──────────────
     copy_machine_readable_assets(

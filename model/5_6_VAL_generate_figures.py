@@ -53,6 +53,8 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import matplotlib.ticker
 import numpy as np
+from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
 
 from wdt_core import (load_params, tau, simulate, simulate_sell,
                       settle_tw, run_sim, decompose_tw_advantage,
@@ -313,22 +315,32 @@ def fig_04_tw_gap_by_n(p):
                 linestyle=':', alpha=0.8)
 
     ax.axhline(0, color=C_HONEST, linewidth=1.0, linestyle='-', label='α = 1.0 (honest)')
-    ax.axvline(p['N'], color=C_ANNOTATION, linewidth=0.8, linestyle=':')
-    ylo = ax.get_ylim()[0]
-    ax.text(p['N'] + 0.5, ylo * 0.88,
-            f'N = {p["N"]}\n(RATES ref)', fontsize=8, color='#666666', va='bottom')
+    scen_N = p['N']
+    ax.axvline(scen_N, color=C_ANNOTATION, linewidth=0.8, linestyle=':')
+    # inject N into the existing x-axis ticks as a small labelled tick
+    existing_ticks = list(ax.get_xticks())
+    if scen_N not in existing_ticks:
+        existing_ticks = sorted(existing_ticks + [scen_N])
+        ax.set_xticks(existing_ticks)
+    tick_labels = [
+        f'{int(t)}\n(N)' if t == scen_N else (str(int(t)) if t == int(t) else '')
+        for t in ax.get_xticks()
+    ]
+    ax.set_xticklabels(tick_labels, fontsize=8)
+    ax.tick_params(axis='x', which='major')
 
-    from matplotlib.lines import Line2D
+    scen_year = p['scenario_start_year']
     style_handles = [
         Line2D([0], [0], color='#555555', lw=1.8, linestyle='-',
-               label='Solid = constant g (10.45%)'),
+            label=f'Solid = constant g ({p["g"]*100:.2f}%)'),
         Line2D([0], [0], color='#555555', lw=1.4, linestyle='-.',
-               label='Dash-dot = 2006 hist. series (understaters)'),
+            label=f'Dash-dot = {scen_year} hist. series (understaters)'),
         Line2D([0], [0], color='#555555', lw=1.8, linestyle='--',
-               label='Dashed = constant g (overstaters)'),
+            label=f'Dashed = constant g ({p["g"]*100:.2f}%) (overstaters)'),
         Line2D([0], [0], color='#555555', lw=1.4, linestyle=':',
-               label='Dotted = 2006 hist. series (overstaters)'),
+            label=f'Dotted = {scen_year} hist. series (overstaters)'),
     ]
+
     h1, l1 = ax.get_legend_handles_labels()
     ax.legend(handles=h1 + style_handles,
               loc='lower left', ncol=2, fontsize=7.5)
@@ -337,8 +349,10 @@ def fig_04_tw_gap_by_n(p):
     ax.set_ylabel("TW vs honest declaration (%)")
     ax.set_title(
         "Fig 04 — C.8: terminal net worth gap vs honest, by holding period\n"
-        "Solid/dashed = constant g (10.45%)  ·  Dash-dot/dotted = 2006 historical series  "
-        "·  Red = understaters  ·  Blue = overstaters"
+        f"Solid/dashed = constant g ({p['g']*100:.2f}%)  ·  "
+        f"Dash-dot/dotted = {scen_year} hist. series  ·  "
+        f"Red = understaters  ·  Blue = overstaters  ·  "
+        f"$V_0$ = £{p['V0_m']:.0f}m, k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%"
     )
     ax.set_xlim(N_ACTUAL_VALS[0], N_ACTUAL_VALS[-1])
 
@@ -432,8 +446,7 @@ def fig_05_saturation_reversal(p):
     ax.set_xlim(0, 35)
     ax.set_ylim(-5, 120)
 
-    from matplotlib.lines import Line2D
-    from matplotlib.patches import Patch
+
     legend_handles = [
         Line2D([0], [0], color='#333333', lw=1.1, linestyle='--',
                label=f'Inflection ≈ {mean_inflection:.1f}% (rate fn property)'),

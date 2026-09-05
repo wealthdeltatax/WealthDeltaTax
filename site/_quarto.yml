@@ -5,9 +5,9 @@ project:
     - "*.qmd"
     - "model*.qmd"
   resources:
-    - modelwdt_core.py
-    - modelrates_model.py
-    - model260812_WDT_Params.toml
+    - model/wdt_core.py
+    - model/rates_model.py
+    - model/WDT_Params.toml
     - diagrams/
     - link-map.html
 
@@ -95,7 +95,7 @@ website:
       - text: "Tools"
         menu:
           - text: "Calculators"
-            href: modeltools_index.html
+            href: model/tools_index.html
           - text: "Flowcharts"
             href: flowcharts.html
           - text: "Link Map"
@@ -184,7 +184,7 @@ website:
 
   page-footer:
     left: "© K. Ogata. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)."
-    right: "DOI: [10.5281/zenodo.21964119](https://doi.org/10.5281/zenodo.21964119)
+    right: "DOI: [10.5281/zenodo.21964119](https://doi.org/10.5281/zenodo.21964119)"
 
 format:
   html:

@@ -121,10 +121,9 @@ def write_output_md(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
     4.  Start-year sweep
     5.  Statistical pass
     """
-    run_date = datetime.date.today().strftime('%y%m%d')
     meta     = p.get('meta', {})
     scenario = meta.get('scenario_label', 'unknown')
-    fname    = f"7_5_{run_date}_WDT_Rates_Revenue_Output.md"
+    fname    = f"7_5_WDT_Rates_Revenue_Output.md"
     _out     = Path(output_dir) if output_dir else OUTPUT_DIR
     _out.mkdir(parents=True, exist_ok=True)
     out_path = _out / fname
