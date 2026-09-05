@@ -3,12 +3,13 @@ project:
   output-dir: _site
   render:
     - "*.qmd"
-    - "tools/*.qmd"
+    - "model*.qmd"
   resources:
-    - tools/wdt_core.py
-    - tools/rates_model.py
-    - tools/260812_WDT_Params.toml
+    - modelwdt_core.py
+    - modelrates_model.py
+    - model260812_WDT_Params.toml
     - diagrams/
+    - link-map.html
 
 website:
   title: "Wealth Delta Tax (WDT)"
@@ -31,7 +32,7 @@ website:
 
   navbar:
     left:
-      - text: "Welcome to the WDT"
+      - text: "Welcome"
         href: index.html
       - text: "Research"
         href: research.html
@@ -42,7 +43,6 @@ website:
       - text: "Project Map"
         href: Project-Map.html
       - text: "Papers"
-        href: corpus.html
         menu:
           - text: "— Core —"
           - text: "White Paper (WP)"
@@ -91,11 +91,15 @@ website:
           - text: "All Papers Index"
             href: corpus.html
       - text: "Avoidance"
-        href: avoidance.html    
+        href: avoidance.html
       - text: "Tools"
-        href: tools/tools_index.html
-      - text: "Flowcharts"
-        href: flowcharts.html
+        menu:
+          - text: "Calculators"
+            href: modeltools_index.html
+          - text: "Flowcharts"
+            href: flowcharts.html
+          - text: "Link Map"
+            href: link-map.html
       - text: "References"
         href: references.html
       - text: "Glossary"
@@ -180,14 +184,13 @@ website:
 
   page-footer:
     left: "© K. Ogata. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)."
-    right: "DOI: [10.5281/zenodo.21964119](https://doi.org/10.5281/zenodo.21964119)"
-    
+    right: "DOI: [10.5281/zenodo.21964119](https://doi.org/10.5281/zenodo.21964119)
 
 format:
   html:
     include-in-header: style/geocities.html
     theme: cosmo
-    toc: True
+    toc: true
     toc-depth: 2
     number-sections: false
     css:

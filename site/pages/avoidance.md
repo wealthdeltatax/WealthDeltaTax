@@ -464,8 +464,8 @@ async function initPyodide() {
     pyodide = await loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.27.5/full/' });
     setProgress(40, 'Runtime loaded. Fetching model files…');
     const [coreText, tomlText] = await Promise.all([
-      fetch('tools/wdt_core.py').then(r => { if (!r.ok) throw new Error('wdt_core.py not found'); return r.text(); }),
-      fetch('tools/260812_WDT_Params.toml').then(r => { if (!r.ok) throw new Error('TOML not found'); return r.text(); }),
+      fetch('model/wdt_core.py').then(r => { if (!r.ok) throw new Error('wdt_core.py not found'); return r.text(); }),
+      fetch('model/260812_WDT_Params.toml').then(r => { if (!r.ok) throw new Error('TOML not found'); return r.text(); }),
     ]);
     setProgress(65, 'Writing files to virtual filesystem…');
     pyodide.FS.writeFile('/wdt_core.py',            coreText);

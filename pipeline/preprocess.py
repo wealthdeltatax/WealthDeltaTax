@@ -132,7 +132,7 @@ def main() -> None:
 
     # ── Copy site/ assets into _build/ ───────────────────────────────────
     FLATTEN_DIRS = {"pages"}
-    TOOL_DIR     = "tools"
+    TOOL_DIR     = "model"
 
     for p in [f for f in cfg.SITE_DIR.rglob("*") if f.is_file()]:
         parts = p.relative_to(cfg.SITE_DIR).parts
@@ -159,10 +159,10 @@ def main() -> None:
                 qmd  = _wrap_tool_html(html, title, description)
                 destination = destination.with_suffix(".qmd")
                 destination.write_text(qmd, encoding="utf-8")
-                print(f"  ✓ site/tools/{p.name} → _build/tools/{destination.name}")
+                print(f"  ✓ site/model/{p.name} → _build/model/{destination.name}")
             elif p.suffix in _TOOL_RUNTIME_SUFFIXES:
                 shutil.copy2(p, destination)
-                print(f"  ✓ site/tools/{p.name} → _build/tools/{p.name} (runtime)")
+                print(f"  ✓ site/model/{p.name} → _build/model/{p.name} (runtime)")
             else:
                 shutil.copy2(p, destination)
 
@@ -172,7 +172,7 @@ def main() -> None:
             shutil.copy2(p, destination)
 
     # ── Copy image outputs into _build/figures/ ───────────────────────────
-    OUTPUTS_DIR = cfg.SITE_DIR / "tools" / "OUTPUTS"
+    OUTPUTS_DIR = cfg.SITE_DIR / "model" / "OUTPUTS"
     if OUTPUTS_DIR.exists():
         figures_dest = build / "figures"
         figures_dest.mkdir(exist_ok=True)
@@ -184,7 +184,7 @@ def main() -> None:
             f"({sum(1 for _ in OUTPUTS_DIR.rglob('*') if _.is_file())} files)"
         )
     else:
-        print("  ! site/tools/OUTPUTS/ not found — skipping figure copy")
+        print("  ! site/model/OUTPUTS/ not found — skipping figure copy")
 
     # ── Auto-generated pages ──────────────────────────────────────────────
     generate_corpus_qmd(build / "corpus.qmd", site_cfg.link_map, site_cfg.paper_meta)
