@@ -254,12 +254,12 @@ async function initPyodide() {
     const [coreText, ratesText, tomlText] = await Promise.all([
       fetch('wdt_core.py').then(r => { if (!r.ok) throw new Error('wdt_core.py not found'); return r.text(); }),
       fetch('rates_model.py').then(r => { if (!r.ok) throw new Error('rates_model.py not found'); return r.text(); }),
-      fetch('260812_WDT_Params.toml').then(r => { if (!r.ok) throw new Error('TOML not found'); return r.text(); }),
+      fetch('WDT_Params.toml').then(r => { if (!r.ok) throw new Error('TOML not found'); return r.text(); }),
     ]);
     setProgress(65, 'Writing files to virtual filesystem…');
     pyodide.FS.writeFile('/wdt_core.py',            coreText);
     pyodide.FS.writeFile('/rates_model.py',         ratesText);
-    pyodide.FS.writeFile('/260812_WDT_Params.toml', tomlText);
+    pyodide.FS.writeFile('/WDT_Params.toml', tomlText);
     setProgress(75, 'Importing modules…');
     await pyodide.runPythonAsync(`
 import sys
@@ -268,7 +268,7 @@ from wdt_core   import load_params, run_sim, run_sim_hist, simulate, simulate_se
 from rates_model import run_tcm, run_ssm
 `);
     setProgress(90, 'Loading parameters…');
-    await pyodide.runPythonAsync(`p_base = load_params('/260812_WDT_Params.toml')`);
+    await pyodide.runPythonAsync(`p_base = load_params('/WDT_Params.toml')`);
     setProgress(100, 'Ready.');
     pyReady = true;
     document.getElementById('loading').style.display = 'none';
