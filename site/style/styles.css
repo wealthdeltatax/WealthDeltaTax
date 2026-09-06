@@ -226,7 +226,6 @@ nav#TOC {
   background-color: #210040;  /* ↑ was #1A0033 — slightly less harsh */
   border-left: 2px solid #FFD700;
   padding: 0.75rem;
-  padding-left: 1.25rem;
 }
 
 nav#TOC a,
@@ -249,6 +248,15 @@ nav#TOC .toc-section-number {
   font-size: 11px;
 }
 
+nav#TOC .nav-link {
+  border-left: 2px solid transparent;  /* reserve the space so text doesn't jump */
+  padding-left: 0.5rem;                /* gap between line and text */
+}
+
+nav#TOC .nav-link.active {
+  border-left-color: #FFD700;           /* your gold when active */
+  color: #FFFFFF !important;
+}
 
 /* ── Typography ───────────────────────────────────────────── */
 
