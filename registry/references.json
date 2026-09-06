@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": "0.1",
-    "date": "260905",
+    "date": "260906",
     "generated_by": "pipeline/bib_to_json.py",
     "source_bib": "registry/references.bib",
     "source_internal": "registry/internal.json",
