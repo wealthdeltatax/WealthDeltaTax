@@ -157,7 +157,7 @@ These are questions the papers have identified as unresolved. They are stated he
 - Optimal rate design for the progressive delta schedule under behavioural responses has not been solved. → (RATES)
 - The valuation protocol for illiquid partnership interests and carried interest has not been finalised. → (VAL)
 - The constitutional entrenchment mechanisms for the SWF have not been stress-tested against UK parliamentary sovereignty doctrine. → (GOV)
-- The interaction between WDT and existing pension tax relief structures has not been modelled. [→ SCOPE](scope.html)
+- The interaction between WDT and existing pension tax relief structures has not been modelled. → (SCOPE)
 - The minimum fund capitalisation required to maintain refund credibility through a 2008-scale crash has not been formally derived. → (RATES)
 
 The complete register of open questions across all papers is in the [Project Map](Project-Map.html). Version history and paper status are on the [Papers index](corpus.html).

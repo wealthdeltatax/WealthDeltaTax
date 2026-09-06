@@ -458,7 +458,7 @@ def generate_flowcharts_qmd(build: Path) -> None:
         "through a public fund that pre-finances the refund obligation.",
         "",
         _solo_html(
-            "260812_WDT_Bidirectional_LR.png",
+            "WDT_Bidirectional_LR.png",
             "WDT bidirectional flow — private wealth ↔ public wealth fund",
         ),
         "",

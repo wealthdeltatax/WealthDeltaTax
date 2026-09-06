@@ -498,7 +498,7 @@ Items in this register are questions not resolved within the current paper set. 
 | 25 | Derivatives valuation methodology for illiquid positions | Future VAL methodology work |
 | 26 | HMRC data access agreement for microsimulation | JUR §4.3 |
 | 27 | Post-Brexit information exchange gaps (DAC loss, EU-domiciled structures) | JUR §4.3 |
-| 28 | Constitutional/legal analysis of Route D auction trigger in specific jurisdictions | WP §8.5; JUR |
+| 28 | Constitutional/legal analysis of Route D auction trigger in specific jurisdictions | WP §8.5; (JUR) |
 
 ### 27.6 Summary observations
 

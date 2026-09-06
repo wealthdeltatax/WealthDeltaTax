@@ -62,11 +62,11 @@ wdt-site/
 │   │   ├── svg-pan-zoom.min.js (vendored JS — may be unused since PNG migration; verify)
 │   │   └── geocities.html      (opt-in Geocities widget module — not auto-copied to _build/)
 │   ├── diagrams/
-│   │   ├── 260812_WDT_Flowchart_LR.mmd
-│   │   ├── 260812_WDT_Skeleton_LR.mmd
-│   │   ├── 260812_WDT_Bidirectional_LR.mmd
-│   │   ├── 260812_UK_Tax_Flowchart_LR.mmd
-│   │   └── 260812_UK_Skeleton_LR.mmd
+│   │   ├── WDT_Flowchart_LR.mmd
+│   │   ├── WDT_Skeleton_LR.mmd
+│   │   ├── WDT_Bidirectional_LR.mmd
+│   │   ├── UK_Tax_Flowchart_LR.mmd
+│   │   └── UK_Skeleton_LR.mmd
 │   └── tools/
 │       ├── tools_index.html            (tools landing page — hand-authored)
 │       ├── taxpayer.html               (taxpayer journey interactive tool)
@@ -437,11 +437,11 @@ Renders `.mmd` diagram sources to PNG via `mmdc` (Mermaid CLI), then generates `
 **Key exports:**
 
 **`DIAGRAMS`** — ordered list of `(filename, section_title, prose_description)` tuples, one per diagram. All five diagrams are registered:
-- `260812_WDT_Flowchart_LR.mmd` — WDT full detail
-- `260812_WDT_Skeleton_LR.mmd` — WDT overview
-- `260812_UK_Tax_Flowchart_LR.mmd` — UK full detail
-- `260812_UK_Skeleton_LR.mmd` — UK overview
-- `260812_WDT_Bidirectional_LR.mmd` — core mechanic (solo)
+- `WDT_Flowchart_LR.mmd` — WDT full detail
+- `WDT_Skeleton_LR.mmd` — WDT overview
+- `UK_Tax_Flowchart_LR.mmd` — UK full detail
+- `UK_Skeleton_LR.mmd` — UK overview
+- `WDT_Bidirectional_LR.mmd` — core mechanic (solo)
 
 To add a diagram: add the `.mmd` file to `site/diagrams/` and add an entry to `DIAGRAMS`.
 

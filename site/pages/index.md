@@ -40,7 +40,7 @@ Under the current system, Ben could make that £20 million gain, never sell the 
 
 ## How the system works {#how-it-works}
 
-![WDT bidirectional flow](diagrams/260812_WDT_Bidirectional_LR.png){fig-alt="Diagram showing private wealth connecting bidirectionally to a public wealth fund, which distributes to citizen dividends, public investment, and a loss reserve." width=60% fig-align="center"}
+![WDT bidirectional flow](diagrams/WDT_Bidirectional_LR.png){fig-alt="Diagram showing private wealth connecting bidirectionally to a public wealth fund, which distributes to citizen dividends, public investment, and a loss reserve." width=60% fig-align="center"}
 
 The system is bidirectional. Private wealth does not simply flow to government — the connection runs both ways.
 
@@ -86,16 +86,16 @@ Consider Sarah, who earns £38,000 a year. The WDT threshold is in the region of
 
 ---
 
-<!-- SCREEN 7 — The public wealth fund -->
+<!-- SCREEN 7 — The Soveriegn Wealth Fund -->
 
-## The public wealth fund
+## The Sovereign Wealth Fund
 
-The WDT does not merely finance today's government. It builds an asset. Contributions accumulate in a public wealth fund, managed at arm's length from the Treasury, invested on long horizons. The fund pre-funds the refund obligation and generates returns that can be distributed as citizen dividends or reinvested in public capital.
+The WDT does not merely finance today's government. It builds an asset. Contributions accumulate in a Sovereign Wealth Fund, managed at arm's length from the Treasury, invested on long horizons. The fund pre-funds the refund gaurentee and generates returns that can be distributed as cLabour Tax Relief or reinvested in public capital.
 
 ```{=html}
-<div class="wdt-flow">WDT contributions → PUBLIC WEALTH FUND → loss reserve
-                                       → citizen dividends
-                                       → public investment</div>
+<div class="wdt-flow">WDT contributions → SOVEREIGN WEALTH FUND → Refund Gaurentee
+                                       → Labour Tax Relief
+                                       → Public Investment</div>
 ```
 
 The fund is what makes the refund promise mechanically credible rather than aspirational. Without it, a government facing a crash could simply not pay. With it, the obligation is backed by an asset.
@@ -110,7 +110,7 @@ The fund is what makes the refund promise mechanically credible rather than aspi
 |---|---|---|
 | What is taxed | The stock of wealth | The annual change in wealth |
 | Direction | One-way | Symmetric: up and down |
-| What happens to the money | General revenues | Dedicated public wealth fund |
+| What happens to the money | General revenues | Dedicated Sovereign Wealth Fund |
 | When wealth falls | Nothing — you still owe tax on the stock | You receive a refund |
 | Conceptual frame | Revenue extraction | Shared exposure to wealth movement |
 
