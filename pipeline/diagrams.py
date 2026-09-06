@@ -1,8 +1,16 @@
 """
 diagrams.py — Mermaid diagram rendering and flowcharts.qmd generation.
 
-Renders .mmd source files from site/diagrams/ to PNG via mmdc,
-then generates flowcharts.qmd in _build/ referencing those PNGs.
+Populates _build/diagrams/ with PNGs, then generates flowcharts.qmd.
+
+Cache-aware rendering: if a PNG already exists in site/diagrams/ alongside
+its .mmd source, it is copied directly to _build/diagrams/ without invoking
+mmdc.  If the PNG is absent, mmdc renders it, saves it back into
+site/diagrams/ (so it can be committed), then copies it to _build/diagrams/.
+
+To regenerate a diagram locally: delete its PNG from site/diagrams/ and run
+`python pipeline/diagrams.py` (or the full build).  Commit the new PNG to
+deploy the update via CI.
 
 To add a diagram: add a .mmd to site/diagrams/ and an entry to DIAGRAMS.
 """
@@ -10,6 +18,7 @@ To add a diagram: add a .mmd to site/diagrams/ and an entry to DIAGRAMS.
 from __future__ import annotations
 
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -24,7 +33,7 @@ _SHELL = sys.platform == "win32"
 
 DIAGRAMS = [
     (
-        "260812_WDT_Flowchart_LR.mmd",
+        "WDT_Flowchart_LR.mmd",
         "WDT Taxpayer Journey — Full Detail",
         "Every decision branch: window election, route assignment, privacy election, "
         "valuation sub-routes and disputes, net worth and threshold, rate and delta, "
@@ -33,23 +42,23 @@ DIAGRAMS = [
         "and all four closure events.",
     ),
     (
-        "260812_WDT_Skeleton_LR.mmd",
+        "WDT_Skeleton_LR.mmd",
         "WDT Taxpayer Journey — Overview",
         "Ten-step skeleton of the WDT journey for orientation before reading the full chart.",
     ),
     (
-        "260812_UK_Tax_Flowchart_LR.mmd",
+        "UK_Tax_Flowchart_LR.mmd",
         "UK Tax System (Comparison) — Full Detail",
         "The current UK system shown as a structural comparator. "
         "Each tax year is assessed independently with no carry-forward of wealth position.",
     ),
     (
-        "260812_UK_Skeleton_LR.mmd",
+        "UK_Skeleton_LR.mmd",
         "UK Tax System (Comparison) — Overview",
         "Skeleton overview of the UK system for side-by-side comparison with the WDT.",
     ),
     (
-        "260812_WDT_Bidirectional_LR.mmd",
+        "WDT_Bidirectional_LR.mmd",
         "WDT — Bidirectional Flow",
         "The core mechanic: private wealth rising triggers a contribution; "
         "falling triggers a symmetric refund. Both flow through the public wealth fund.",
@@ -73,13 +82,27 @@ _METRICS = {
 
 def render_pngs(build: Path) -> None:
     """
-    Render each .mmd file to PNG via mmdc and write to _build/diagrams/.
+    Populate _build/diagrams/ with PNGs for each diagram in DIAGRAMS.
 
-    In CI (GitHub Actions), the PUPPETEER_CONFIG env var points at a JSON file
-    that disables the Chrome sandbox (required on Linux runners). mmdc does not
-    read this env var automatically, so we pass it explicitly via
-    --puppeteerConfigFile when the env var is set and the file exists.
-    On Windows (local builds) the env var is not set, so the flag is omitted.
+    Cache-aware: if a PNG already exists alongside its .mmd source in
+    site/diagrams/, it is copied directly to _build/diagrams/ without
+    invoking mmdc.  If the PNG is absent, mmdc renders it, saves it back
+    into site/diagrams/ (so it can be committed and reused next time),
+    and copies it to _build/diagrams/.
+
+    To force a regeneration locally, delete the PNG from site/diagrams/
+    and run `python pipeline/diagrams.py` (or the full build).  Commit
+    the updated PNG to deploy it.
+
+    CI note: on a fresh clone no PNGs are committed yet, so mmdc runs for
+    every missing diagram.  Once the locally-generated PNGs are committed
+    to site/diagrams/, CI switches to the fast copy path.
+
+    PUPPETEER_CONFIG env var: in GitHub Actions this points at a JSON file
+    that disables the Chrome sandbox (required on Linux runners).  mmdc does
+    not read it automatically, so we pass it via --puppeteerConfigFile when
+    the env var is set and the file exists.  On Windows the env var is unset
+    and the flag is omitted.
     """
     out_dir = build / "diagrams"
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -92,12 +115,24 @@ def render_pngs(build: Path) -> None:
             print(f"  ! diagram source not found: {src} — skipping")
             continue
 
-        out = out_dir / Path(filename).with_suffix(".png").name
+        png_name   = Path(filename).with_suffix(".png").name
+        cached_png = DIAGRAMS_DIR / png_name   # site/diagrams/<name>.png
+        build_png  = out_dir / png_name         # _build/diagrams/<name>.png
+
+        # ── Fast path: PNG already exists in site/diagrams/ ──────────────
+        if cached_png.exists() and cached_png.stat().st_size > 0:
+            shutil.copy2(cached_png, build_png)
+            size = build_png.stat().st_size
+            print(f"  ✓ {png_name} (cached, {size:,} bytes)")
+            continue
+
+        # ── Slow path: render via mmdc, save back to site/diagrams/ ──────
+        print(f"  … rendering {filename} via mmdc (no cached PNG found)")
 
         cmd = [
             "mmdc",
             "-i", str(src),
-            "-o", str(out),
+            "-o", str(cached_png),   # write directly to site/diagrams/
             "--width", "3600",
             "--backgroundColor", "white",
         ]
@@ -118,12 +153,16 @@ def render_pngs(build: Path) -> None:
                 print(f"    stderr: {result.stderr[:500]}")
             if result.stdout:
                 print(f"    stdout: {result.stdout[:500]}")
-        else:
-            size = out.stat().st_size if out.exists() else 0
-            if size == 0:
-                print(f"  ✗ mmdc produced empty output for {filename}")
-            else:
-                print(f"  ✓ {out.name} ({size:,} bytes)")
+            continue
+
+        size = cached_png.stat().st_size if cached_png.exists() else 0
+        if size == 0:
+            print(f"  ✗ mmdc produced empty output for {filename}")
+            continue
+
+        # Copy the freshly rendered PNG into _build/
+        shutil.copy2(cached_png, build_png)
+        print(f"  ✓ {png_name} (rendered + cached, {size:,} bytes)")
 
 
 # ── flowcharts.qmd generation ─────────────────────────────────────────────────
@@ -379,9 +418,9 @@ def generate_flowcharts_qmd(build: Path) -> None:
         "understand the shape before the detail becomes legible.",
         "",
         _pair_html(
-            "260812_WDT_Skeleton_LR.png",
+            "WDT_Skeleton_LR.png",
             f"WDT overview — {m['wdt_skel']['nodes']} nodes",
-            "260812_UK_Skeleton_LR.png",
+            "UK_Skeleton_LR.png",
             f"UK system overview — {m['uk_skel']['nodes']} nodes",
         ),
         "",
@@ -404,9 +443,9 @@ def generate_flowcharts_qmd(build: Path) -> None:
         "full HMRC enquiry and penalty ladder on the UK side.",
         "",
         _pair_html(
-            "260812_WDT_Flowchart_LR.png",
+            "WDT_Flowchart_LR.png",
             f"WDT full detail — {wdt['nodes']} nodes · {wdt['decisions']} decisions · {wdt['edges']} edges · {wdt['regimes']} tax",
-            "260812_UK_Tax_Flowchart_LR.png",
+            "UK_Tax_Flowchart_LR.png",
             f"UK system full detail — {uk['nodes']} nodes · {uk['decisions']} decisions · {uk['edges']} edges · {uk['regimes']} tax regimes",
         ),
         "",
