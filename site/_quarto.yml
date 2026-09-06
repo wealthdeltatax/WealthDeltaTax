@@ -3,7 +3,7 @@ project:
   output-dir: _site
   render:
     - "*.qmd"
-    - "model/*.html"
+    - "model/*.qmd"
   resources:
     - model/wdt_core.py
     - model/rates_model.py

@@ -71,6 +71,30 @@ def _wrap_tool_html(html: str, title: str, description: str) -> str:
     )
 
 
+def _strip_html_shell(html: str) -> str:
+    """
+    Remove the outer <!DOCTYPE>/<html>/<head>/<body> shell from a complete
+    HTML page, leaving only the body content as a fragment.
+
+    Used on taxpayer.html which ships as a full standalone page.
+    revenue.html and tools_index.html are already fragments and pass through
+    unchanged (no shell found → original text returned).
+    """
+    import re as _re
+
+    # Drop everything up to and including the closing </head> tag (and
+    # the optional <body> tag immediately after).
+    stripped = _re.sub(
+        r"(?is)^.*?</head>\s*(?:<body[^>]*>)?",
+        "",
+        html,
+        count=1,
+    )
+    # Drop the trailing </body> and </html> tags.
+    stripped = _re.sub(r"(?is)\s*</body>\s*</html>\s*$", "", stripped)
+    return stripped.strip()
+
+
 def main() -> None:
     # ── Step 0: generate references.json from .bib + internal.json ───────
     generate_references_json()
@@ -154,6 +178,10 @@ def main() -> None:
             shutil.copy2(p, destination)
 
     # ── Copy model/ assets into _build/model/ ────────────────────────────
+    # .html tool pages are wrapped as .qmd via _wrap_tool_html so that Quarto
+    # renders them inside the site layout (navbar, sidebar, CSS).
+    # Runtime files (.py, .toml) are copied verbatim — Pyodide loads them
+    # client-side at runtime.  Everything else is copied verbatim too.
     MODEL_DIR = cfg.ROOT_DIR / "model"
     if MODEL_DIR.exists():
         for p in [f for f in MODEL_DIR.rglob("*") if f.is_file()]:
@@ -162,11 +190,35 @@ def main() -> None:
                 continue  # handled separately below
             destination = build / "model" / rel
             destination.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(p, destination)
+
             if p.suffix == ".html":
-                print(f"  ✓ model/{p.name} → _build/model/{p.name}")
-            elif p.suffix in _TOOL_RUNTIME_SUFFIXES:
-                print(f"  ✓ model/{p.name} → _build/model/{p.name} (runtime)")
+                stem = p.stem  # e.g. "taxpayer", "revenue", "tools_index"
+                meta = _TOOL_META.get(stem)
+                if meta is None:
+                    # No metadata entry — copy verbatim and warn
+                    shutil.copy2(p, destination)
+                    print(f"  ! model/{p.name} has no _TOOL_META entry — copied verbatim")
+                    continue
+
+                title, description = meta
+                html = p.read_text(encoding="utf-8")
+
+                # taxpayer.html ships as a complete standalone page with
+                # <!DOCTYPE html>/<html>/<head>/<body> wrapper.  Strip the
+                # shell so _wrap_tool_html receives a clean body fragment,
+                # matching revenue.html and tools_index.html which are already
+                # fragments.
+                html = _strip_html_shell(html)
+
+                qmd_text = _wrap_tool_html(html, title, description)
+                qmd_dest = destination.with_suffix(".qmd")
+                qmd_dest.write_text(qmd_text, encoding="utf-8")
+                print(f"  ✓ model/{p.name} → _build/model/{p.stem}.qmd (wrapped)")
+
+            else:
+                shutil.copy2(p, destination)
+                if p.suffix in _TOOL_RUNTIME_SUFFIXES:
+                    print(f"  ✓ model/{p.name} → _build/model/{p.name} (runtime)")
     else:
         print("  ! model/ not found — skipping model asset copy")
 
