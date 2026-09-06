@@ -9,7 +9,6 @@ project:
     - model/rates_model.py
     - model/WDT_Params.toml
     - diagrams/
-    - link-map.html
 
 website:
   title: "Wealth Delta Tax (WDT)"
