@@ -5,7 +5,7 @@ toc: false
 ---
 
 Both calculators load `wdt_core.py` and `rates_model.py` directly from the
-research codebase. Parameters are read from `260812_WDT_Params.toml`. No
+research codebase. Parameters are read from `WDT_Params.toml`. No
 server-side computation — all model code runs locally via
 [Pyodide](https://pyodide.org). The first load takes around 10 seconds to
 initialise the runtime; subsequent calculations are fast.

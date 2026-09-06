@@ -125,7 +125,7 @@ To vary a scenario, modify the TOML and rerun. Only the `scenario_start_year` fi
 **Run date:** 2026-08-30  
 **Scenario:** 2007 Balanced  
 **Model version:** v7  
-**Parameters file:** `260812_WDT_Params.toml`  
+**Parameters file:** `WDT_Params.toml`  
 
 ## B.1 Active Parameters
 

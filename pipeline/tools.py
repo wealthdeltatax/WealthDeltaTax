@@ -16,7 +16,7 @@ Calculator fragments (site/tools/*_calc.html) are pure HTML body content:
   - CSS classes come from the global site theme (tools.css, styles.css)
 
 The Pyodide fetch() calls inside each fragment use bare filenames
-('wdt_core.py', '260812_WDT_Params.toml').  These resolve correctly because
+('wdt_core.py', 'WDT_Params.toml').  These resolve correctly because
 the runtime files are deployed alongside the rendered pages in _site/model/.
 """
 

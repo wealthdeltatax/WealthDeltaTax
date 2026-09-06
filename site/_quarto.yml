@@ -7,7 +7,7 @@ project:
   resources:
     - model/wdt_core.py
     - model/rates_model.py
-    - model/260812_WDT_Params.toml
+    - model/WDT_Params.toml
     - diagrams/
 
 website:

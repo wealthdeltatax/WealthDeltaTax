@@ -14,10 +14,10 @@ The codebase has two layers that are kept deliberately separate.
 
 **The output layer** consists of four infrastructure modules (`wdt_fmt.py`, `wdt_md.py`, `wdt_style.py`, `wdt_analytics.py`) and ten output scripts. The output scripts call into both the computational layer and the infrastructure modules to produce the actual figures and tables.
 
-The single source of truth for all parameters is `260812_WDT_Params.toml`. Nothing is hardcoded in the Python files that belongs in the TOML.
+The single source of truth for all parameters is `WDT_Params.toml`. Nothing is hardcoded in the Python files that belongs in the TOML.
 
 ```
-260812_WDT_Params.toml
+WDT_Params.toml
         │
         ▼
   wdt_core.load_params()          ← TOML → unified params dict p
