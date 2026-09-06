@@ -24,6 +24,7 @@ wdt-site/
 │   ├── transforms.py           (6-step per-paper transforms: LaTeX strip, image paths, cross-refs, biblio, front matter, JSON-LD)
 │   ├── diagrams.py             (DIAGRAMS registry, render_pngs() via mmdc, generate_flowcharts_qmd())
 │   ├── link_map.py             (generate_link_map_html() — generates _build/link-map.html)
+│   ├── tools.py                (TOOLS registry, generate_tool_pages() — generates _build/model/*.qmd from site/tools/*_calc.html)
 │   └── pages/
 │       ├── __init__.py
 │       ├── corpus.py           (generate_corpus_qmd())
@@ -53,41 +54,43 @@ wdt-site/
 │   │   ├── comparison-tables.md
 │   │   ├── avoidance.md
 │   │   ├── revision_history.md
+│   │   ├── calculator_index.md (static calculator index page)
 │   │   └── BingSiteAuth.xml    (Bing webmaster verification — static passthrough, not processed)
 │   ├── style/
 │   │   ├── styles.css          (main site-wide CSS)
 │   │   ├── page-components.css (reusable page component styles)
-│   │   ├── tools.css           (styles specific to the /tools/ pages)
+│   │   ├── tools.css           (styles specific to the calculator pages)
 │   │   ├── apa.csl             (APA citation style — referenced by _quarto.yml)
 │   │   ├── svg-pan-zoom.min.js (vendored JS — may be unused since PNG migration; verify)
 │   │   └── geocities.html      (opt-in Geocities widget module — not auto-copied to _build/)
 │   ├── diagrams/
-│   │   ├── WDT_Flowchart_LR.mmd
-│   │   ├── WDT_Skeleton_LR.mmd
-│   │   ├── WDT_Bidirectional_LR.mmd
-│   │   ├── UK_Tax_Flowchart_LR.mmd
-│   │   └── UK_Skeleton_LR.mmd
+│   │   ├── 260812_WDT_Flowchart_LR.mmd
+│   │   ├── 260812_WDT_Skeleton_LR.mmd
+│   │   ├── 260812_WDT_Bidirectional_LR.mmd
+│   │   ├── 260812_UK_Tax_Flowchart_LR.mmd
+│   │   └── 260812_UK_Skeleton_LR.mmd
 │   └── tools/
-│       ├── tools_index.html            (tools landing page — hand-authored)
-│       ├── taxpayer.html               (taxpayer journey interactive tool)
-│       ├── revenue.html                (revenue modeller interactive tool)
-│       ├── run_all.bat                 (batch script: regenerates all tool output files)
-│       ├── WDT_Params.toml      (shared WDT model parameter file)
-│       ├── wdt_core.py                 (core WDT model: WDTModel class, simulation engine)
-│       ├── rates_model.py              (rates model)
-│       ├── val_helpers.py              (VAL paper output helpers)
-│       ├── val_s_helpers.py            (VAL sensitivity output helpers)
-│       ├── rates_s_helpers.py          (RATES sensitivity output helpers)
-│       ├── 5_3_2608012_VAL_generate_appc_full.py
-│       ├── 5_4_260807_VAL_generate_worked_examples.py
-│       ├── 5_6_260809a_VAL_generate_figures.py
-│       ├── 8_3_260812_RATES_output.py
-│       ├── 16_2_260812b_VAL_S_rate_sweeps.py
-│       ├── 16_3_260812a_VAL_S_horizon_sweeps.py
-│       ├── 16_4_260812b_VAL_S_interactions.py
-│       ├── 16_5_260812b_VAL_S_assemble.py
-│       ├── 16_6_260813_RATES_S_tables.py
-│       └── 16_7_260813_RATES_S_charts.py
+│       ├── taxpayer_calc.html  (taxpayer calculator — pure body fragment, no shell or nav)
+│       └── revenue_calc.html   (revenue calculator — pure body fragment, no shell or nav)
+├── model/
+│   ├── 260812_WDT_Params.toml  (shared WDT model parameter file)
+│   ├── wdt_core.py             (core WDT model: WDTModel class, simulation engine)
+│   ├── rates_model.py          (rates model)
+│   ├── val_helpers.py          (VAL paper output helpers)
+│   ├── val_s_helpers.py        (VAL sensitivity output helpers)
+│   ├── rates_s_helpers.py      (RATES sensitivity output helpers)
+│   ├── 5_3_2608012_VAL_generate_appc_full.py
+│   ├── 5_4_260807_VAL_generate_worked_examples.py
+│   ├── 5_6_260809a_VAL_generate_figures.py
+│   ├── 8_3_260812_RATES_output.py
+│   ├── 16_2_260812b_VAL_S_rate_sweeps.py
+│   ├── 16_3_260812a_VAL_S_horizon_sweeps.py
+│   ├── 16_4_260812b_VAL_S_interactions.py
+│   ├── 16_5_260812b_VAL_S_assemble.py
+│   ├── 16_6_260813_RATES_S_tables.py
+│   ├── 16_7_260813_RATES_S_charts.py
+│   ├── run_all.bat             (batch script: regenerates all tool output files)
+│   └── OUTPUTS/                (generated figures — gitignored; copied to _build/figures/ at build time)
 ├── docs/
 │   ├── wdt-site-architecture.md
 │   ├── navigation_suggestions.md
@@ -125,6 +128,8 @@ source/*.md ──────────────────────�
 registry/papers.yml ────────────────────────────────►         │
 registry/references.json ───────────────────────────►         │
 site/ ──────────────────────────────────────────────►         │
+site/tools/*_calc.html ─────────────────────────────►         │
+model/*.py, model/*.toml ───────────────────────────►         │
 ```
 
 Run order (full): `pipeline/build_and_render.bat` → `scrape_contents.py --write` → `build_glossary.py` → `build_anchors.py` → `preprocess.py` → `quarto render _build`
@@ -140,7 +145,8 @@ Run order (anchors + preprocess only): `pipeline/build.bat` → `build_anchors.p
 - **step (8)** — copy static assets from `site/` into `_build/` (inline in `preprocess.py`)
 - **`pages/site_index.py`** — steps (9)–(10): copy machine-readable data, site-index.json
 - **`diagrams.py`** — step (11): render `.mmd` → PNG via `mmdc`, then write flowcharts.qmd referencing the PNGs
-- **`link_map.py (in pipeline/)`** — step (12): generate `_build/link-map.html` from `internal_papers` in `refs_data`
+- **`link_map.py`** — step (12): generate `_build/link-map.html` from `internal_papers` in `refs_data`
+- **`tools.py`** — step (13): read calc fragments from `site/tools/`, wrap as `.qmd`, write to `_build/model/`
 - **`config.py`** — path constants, `extract_paper_meta()`, `parse_human_date()`, `load(paper_meta)`
 
 ---
@@ -318,9 +324,10 @@ Thin orchestrator. Run order inside `main()`:
 4. Calls `cfg.load(paper_meta=paper_meta)` to build the `SiteConfig`.
 5. Deletes and recreates `_build/`.
 6. Copies `site/` assets into `_build/` (step 8 — see asset copy rules below).
-7. Copies `site/model/OUTPUTS/` → `_build/figures/` (if the directory exists).
-8. Calls the auto-generated page generators: `corpus.qmd`, `references.qmd`, `flowcharts.qmd`, machine-readable assets + `site-index.json`.
-9. Calls `process_file()` on each paper.
+7. Copies `model/OUTPUTS/` → `_build/figures/` (if the directory exists).
+8. Calls the auto-generated page generators: `corpus.qmd`, `references.qmd`, `flowcharts.qmd`, `link-map.html`, machine-readable assets + `site-index.json`.
+9. Calls `tools.generate_tool_pages()` (step 13) to generate calculator `.qmd` pages in `_build/model/`.
+10. Calls `process_file()` on each paper.
 
 **Asset copy rules (step 8):**
 
@@ -328,16 +335,21 @@ Thin orchestrator. Run order inside `main()`:
 |-------------|-----------|
 | `site/pages/*.md` | Flattened to `_build/` root; `.md` → `.qmd`; `strip_latex` + `convert_crossrefs` applied |
 | `site/pages/*.qmd` or other | Flattened to `_build/` root; copied verbatim |
-| `site/model/*.html` | Copied to `_build/model/`; **wrapped in Quarto front matter** via `_wrap_tool_html()`, saved as `.qmd` |
-| `site/model/*.py` or `*.toml` | Copied to `_build/model/` verbatim — these are **runtime files** that Pyodide loads in the browser |
-| `site/model/` other files | Copied to `_build/model/` verbatim |
+| `site/tools/` | **Not copied here** — handled exclusively by `tools.generate_tool_pages()` (step 13) |
 | Everything else in `site/` | Copied preserving relative path |
 
-**`_TOOL_META`:** A dict in `preprocess.py` mapping tool HTML stem → `(title, description)`. These become the Quarto front matter `title` and `description` for each tool page. When adding a new tool, add an entry here.
+**Model runtime copy (separate loop):**
 
-**`_wrap_tool_html(html, title, description)`:** Wraps a body-fragment HTML file in Quarto front matter (`title`, `description`, `toc: false`) and a `{=html}` raw pass-through block with `<!-- quarto-disable-processing=true -->`. This is how HTML tools are rendered by Quarto without Quarto modifying their content.
+| Source path | Behaviour |
+|-------------|-----------|
+| `model/*.py` or `*.toml` | Copied verbatim to `_build/model/` — runtime files loaded by Pyodide client-side |
+| `model/*.html` | **Skipped** — calculator HTML now lives in `site/tools/` and is handled by `tools.py` |
+| `model/OUTPUTS/` | Skipped (handled separately — copied to `_build/figures/`) |
+| `model/` other files | Copied verbatim to `_build/model/` |
 
-**Inputs:** `registry/papers.yml`, source `.md` files, all `site/` assets
+`_TOOL_RUNTIME_SUFFIXES = {".py", ".toml"}` controls which model files are copied.
+
+**Inputs:** `registry/papers.yml`, source `.md` files, all `site/` assets, `site/tools/*_calc.html`, `model/` runtime files
 **Outputs:** `_build/` (complete Quarto project)
 **Dependencies:** all modules in `pipeline/`, PyYAML
 
@@ -348,7 +360,7 @@ Path constants, the shared `format_date()` utility, and registry loading. No sid
 
 **Key exports:**
 ```python
-SCRIPT_DIR, ROOT_DIR, SITE_DIR, TOOLS_DIR, SOURCE_DIR, BUILD_DIR
+SCRIPT_DIR, ROOT_DIR, SITE_DIR, SOURCE_DIR, BUILD_DIR
 DIAGRAMS_DIR, CONTENTS_YML, ANCHORS_YML, REFERENCES_JSON, REGISTRY_YML
 SITE_URL    = "https://wealthdeltatax.org"
 AUTHOR      = "K. Ogata"
@@ -397,8 +409,6 @@ def load(paper_meta: dict | None = None) -> SiteConfig: ...
     # If omitted (e.g. in tests), uses empty dict and prints a warning.
 ```
 
-**`TOOLS_DIR`:** `ROOT_DIR / "tools"` — this path constant exists in `config.py` but the `tools/` directory at the repo root does not currently exist. It is likely reserved for a future standalone tools directory separate from `site/model/`. Do not confuse with `site/model/`.
-
 **Dependencies:** `registry/contents.yml`, `registry/anchors.yml`, `registry/references.json`, PyYAML
 **Dependants:** `preprocess.py` (calls `extract_paper_meta()` then `load(paper_meta=...)`); `transforms.py` (imports `AUTHOR`, `AFFILIATION`, `DISCLOSURE`, `SITE_URL`); `diagrams.py` (imports `AUTHOR`, `DIAGRAMS_DIR`)
 
@@ -411,7 +421,7 @@ Six per-paper text transforms applied in order by `process_file()`.
 
 1. **`strip_latex(text)`** — removes `\newpage`, `\medskip`, `\bigskip`, `\\`, `\vspace{...}`, `\hspace{...}`, `\setcounter{...}`, and other LaTeX layout/spacing commands.
 
-2. **`fix_image_paths(text)`** — rewrites all Markdown image paths to `figures/<filename>`. Source files may reference images as `../figures/foo.png`, `figures/foo.png`, or `site/model/OUTPUTS/RATES/foo.png` — all become `figures/foo.png`. This is correct because `preprocess.py` copies all images from `site/model/OUTPUTS/**/*` into `_build/figures/` (flat), and Quarto renders papers at the `_build/` root. HTTP/data URLs are left unchanged.
+2. **`fix_image_paths(text)`** — rewrites all Markdown image paths to `figures/<filename>`. Source files may reference images as `../figures/foo.png`, `figures/foo.png`, or `site/model/OUTPUTS/RATES/foo.png` — all become `figures/foo.png`. This is correct because `preprocess.py` copies all images from `model/OUTPUTS/**/*` into `_build/figures/` (flat), and Quarto renders papers at the `_build/` root. HTTP/data URLs are left unchanged.
 
 3. **`convert_crossrefs(text, link_map, anchor_map)`** — converts `(PAPER §X.Y)` and `PAPER §X.Y` patterns to Markdown hyperlinks. Resolves deep links via `anchor_map`; falls back to page root with a warning if section not found.
 
@@ -437,11 +447,11 @@ Renders `.mmd` diagram sources to PNG via `mmdc` (Mermaid CLI), then generates `
 **Key exports:**
 
 **`DIAGRAMS`** — ordered list of `(filename, section_title, prose_description)` tuples, one per diagram. All five diagrams are registered:
-- `WDT_Flowchart_LR.mmd` — WDT full detail
-- `WDT_Skeleton_LR.mmd` — WDT overview
-- `UK_Tax_Flowchart_LR.mmd` — UK full detail
-- `UK_Skeleton_LR.mmd` — UK overview
-- `WDT_Bidirectional_LR.mmd` — core mechanic (solo)
+- `260812_WDT_Flowchart_LR.mmd` — WDT full detail
+- `260812_WDT_Skeleton_LR.mmd` — WDT overview
+- `260812_UK_Tax_Flowchart_LR.mmd` — UK full detail
+- `260812_UK_Skeleton_LR.mmd` — UK overview
+- `260812_WDT_Bidirectional_LR.mmd` — core mechanic (solo)
 
 To add a diagram: add the `.mmd` file to `site/diagrams/` and add an entry to `DIAGRAMS`.
 
@@ -486,9 +496,77 @@ Reads `internal_papers[]` from `refs_data`, builds a record per paper with short
 - Drag nodes to reposition; scroll to zoom; drag canvas to pan.
 - Superseded papers marked with a red dot.
 
-**Deployment:** The file is written directly to `_build/link-map.html`. `preprocess.py` does not need to copy it — `generate_link_map_html()` writes to `_build/` directly. It is served at `/link-map.html`. Add it to the navbar in `_quarto.yml` and to `research.md` if desired.
+**Deployment:** The file is written directly to `_build/link-map.html`. `preprocess.py` does not need to copy it — `generate_link_map_html()` writes to `_build/` directly. It is served at `/link-map.html`.
 
 **Key exports:** `generate_link_map_html(dest_path, refs_data, link_map)`
+
+---
+
+### `pipeline/tools.py`
+Generates calculator pages in `_build/model/` from pure HTML fragments in `site/tools/`. Called by `preprocess.py` as step (13). Can also be run standalone for debugging: `python pipeline/tools.py`.
+
+**Architecture:** Calculators and their hosting pages are separated into distinct concerns:
+
+- **`site/tools/*_calc.html`** — pure calculator fragments. No `<!DOCTYPE>`/`<html>`/`<head>`/`<body>` shell, no `.wdt-tool-header` nav bar, no `.wdt-tool-panel`/`.wdt-tool-inner` frame. Contains only the functional UI (`#loading`, `#main`, controls, results) and `<script>` tags including the Pyodide `<script src>`. CSS classes come from the global site theme. These files are self-contained components, not pages.
+
+- **`pipeline/tools.py`** — reads each calc fragment, strips any accidental HTML shell (safety measure), wraps it in Quarto front matter + `{=html}` pass-through block, writes `_build/model/{stem}.qmd`. Quarto then renders each `.qmd` into a full site page with navbar, sidebar, and footer.
+
+- **`site/pages/calculator_index.md`** — static index page listing both calculators. Goes through the normal `pages/` flatten pipeline (renamed to `.qmd`, flattened to `_build/` root). Served at `/calculator_index.html`.
+
+**`TOOLS` registry** — list of dicts, one per calculator:
+
+```python
+TOOLS = [
+    {
+        "source":      "taxpayer_calc.html",   # filename in site/tools/
+        "output":      "taxpayer",             # stem for _build/model/taxpayer.qmd
+        "title":       "WDT — Individual Taxpayer Calculator",
+        "description": "...",
+    },
+    {
+        "source":      "revenue_calc.html",
+        "output":      "revenue",
+        "title":       "WDT — National Revenue Calculator",
+        "description": "...",
+    },
+]
+```
+
+**`_strip_html_shell(html)`** — removes `<!DOCTYPE>`/`<html>`/`<head>`/`<body>` shell if present. Fragments without a shell pass through unchanged. Safety measure so calc files can be opened standalone in a browser for development without affecting the build.
+
+**`_wrap_as_qmd(fragment, title, description)`** — wraps a body fragment in:
+```
+---
+title: "..."
+description: "..."
+toc: false
+---
+
+```{=html}
+<!-- quarto-disable-processing=true -->
+{fragment}
+` `` `
+```
+`toc: false` is set because calculators have no section hierarchy. The `{=html}` block with `quarto-disable-processing=true` tells Quarto to pass the HTML through verbatim.
+
+**`generate_tool_pages(tools_src_dir, build_model_dir)`** — public entry point called by `preprocess.py`. Iterates `TOOLS`, reads each source, calls `_strip_html_shell` + `_wrap_as_qmd`, writes to `build_model_dir/{output}.qmd`.
+
+**Pyodide `fetch()` paths:** The calc JS fetches runtime files by bare filename (`fetch('wdt_core.py')`). These resolve relative to the page's URL — i.e. relative to `/model/` — which is where `preprocess.py` copies `model/*.py` and `model/*.toml`. No path changes are needed in the calc JS.
+
+**To add a new calculator:**
+1. Create `site/tools/{name}_calc.html` as a clean body fragment
+2. Add an entry to `TOOLS` in `pipeline/tools.py`
+3. Add the output page to the navbar/sidebar in `site/_quarto.yml` if needed
+4. Link to it from `site/pages/calculator_index.md`
+
+**Inputs:** `site/tools/*_calc.html`
+**Outputs:** `_build/model/*.qmd`
+**Dependencies:** standard library only (`re`, `pathlib`)
+**Dependants:** `preprocess.py` (calls `generate_tool_pages()` as step 13)
+
+---
+
+### `pipeline/pages/corpus.py`
 Generates `corpus.qmd` — the Papers index page.
 
 **`generate_corpus_qmd(dest_path, link_map, paper_meta)`**
@@ -729,32 +807,34 @@ The Quarto project configuration. `preprocess.py` copies this to `_build/` verba
 
 **`project:`**
 - `type: website`, `output-dir: _site`
-- `render: ["*.qmd", "model/*.qmd"]` — `model/*.qmd` must be listed explicitly; Quarto does not recurse into subdirectories automatically
+- `render: ["*.qmd", "model/*.qmd"]` — `model/*.qmd` must be listed explicitly; Quarto does not recurse into subdirectories automatically. The pattern is `model/*.qmd` (not `model/*.html`) because `tools.py` generates `.qmd` files, not raw HTML.
 - `resources:` — copies runtime files as static assets into `_site/`:
-  - `model/wdt_core.py`, `model/rates_model.py`, `model/WDT_Params.toml`
+  - `model/wdt_core.py`, `model/rates_model.py`, `model/260812_WDT_Params.toml`
   - `diagrams/` (entire directory — PNGs served at `/diagrams/`)
-  - `link-map.html` (ensures Quarto includes it in `_site/` even though written directly to `_build/`)
 
-**Note on `resources:` vs `preprocess.py` copying:** Both are active. `preprocess.py` copies Python/TOML files into `_build/model/` during preprocessing; `resources:` tells Quarto to additionally include them in `_site/` during rendering. The `resources:` block is the authoritative deployment mechanism.
+**Note on `resources:` TOML filename:** The parameter file is `260812_WDT_Params.toml` (date-prefixed). The `resources:` entry must use this exact filename. The Pyodide `fetch()` calls in the calc JS must also use this exact filename.
+
+**Note on `resources:` vs `preprocess.py` copying:** Both are active. `preprocess.py` copies Python/TOML files from `model/` into `_build/model/` during preprocessing; `resources:` tells Quarto to additionally include them in `_site/` during rendering. The `resources:` block is the authoritative deployment mechanism.
 
 **`website:`**
 - `title`, `description`, `site-url: https://wealthdeltatax.org`
 - `open-graph:` and `twitter-card:` — both configured with title, description, `card-style: summary`
 - `search: location: sidebar, type: textbox`
 
-**Navbar** (left-aligned, 14 top-level items):
+**Navbar** (left-aligned):
 
 | Item | href |
 |------|------|
-| Welcome to the WDT | `index.html` |
+| Welcome | `index.html` |
 | Research | `research.html` |
 | FAQ | `faq.html` |
 | Comparison Tables | `comparison-tables.html` |
 | Project Map | `Project-Map.html` |
-| Papers *(dropdown → `corpus.html`)* | see below |
+| Papers *(dropdown)* | see below |
 | Avoidance | `avoidance.html` |
-| Tools | `tools/tools_index.html` |
-| Flowcharts | `flowcharts.html` |
+| Tools → Calculators | `calculator_index.html` |
+| Tools → Flowcharts | `flowcharts.html` |
+| Tools → Link Map | `link-map.html` |
 | References | `references.html` |
 | Glossary | `glossary.html` |
 | Internal Bibliography | `internal_bibliography.html` |
@@ -793,8 +873,9 @@ LR (superseded) does not appear in sidebar or navbar. All appendix papers appear
 
 **Maintenance notes:**
 - When adding a new paper: update both the sidebar and (if it's a main paper, not appendix) the navbar dropdown.
-- LR and SCOPE appear in `corpus.html` but not in nav — intentional.
+- LR appears in `corpus.html` but not in nav — intentional.
 - `toc-depth: 2` means only `##` headings appear in the right-panel TOC; `###` and below are excluded.
+- When adding a new calculator: update `TOOLS` in `pipeline/tools.py`; link to it from `site/pages/calculator_index.md`.
 
 ---
 
@@ -814,16 +895,18 @@ Hand-authored pages. **Flattened** into the `_build/` root by `preprocess.py` (t
 | `avoidance.md` | `/avoidance.html` | Taxpayer's guide to legally minimising WDT liability | 654 lines; `toc: true` in front matter; includes live Pyodide calculator; uses `.avoid-intro`, `.strategy-block`, `.verdict-box` classes |
 | `revision_history.md` | `/revision_history.html` | Pre-publication revision history for all papers | Section headings use `{.unnumbered .unlisted}` — correctly skipped by `scrape_contents.py` |
 | `glossary.md` | `/glossary.html` | Master WDT glossary | **Generated** by `build_glossary.py` — never edit directly; 738 lines; jump bar covers A–W and Z (letters with no entries are omitted) |
-| `link-map.html` | `/link-map.html` | Interactive paper cross-reference graph | **Generated** by `pipeline/link_map.py` — never edit directly; written to `_build/` not `site/pages/` |
+| `calculator_index.md` | `/calculator_index.html` | Calculator index page | Static markdown; `.tool-card` links in a `{=html}` block; linked from navbar Tools → Calculators |
 | `BingSiteAuth.xml` | `/BingSiteAuth.xml` | Bing webmaster verification | Static passthrough — copied unchanged, not renamed to `.qmd` |
 
 Hand-authored pages do not go through paper preprocessing steps. `glossary.md` is overwritten on every full build — edit per-paper `# Glossary` sections in source to change its content.
 
-**Note on `index.md`:** This is the site's welcome/landing page (`/index.html`), not `start-here`. The navbar item "Welcome to the WDT" links here. It contains the 7-screen structure using `page-components.css` hero components and calls `WDTGeocities.inject(["counter", "webring", "netscape", "contact"])` at the bottom.
+**Note on `index.md`:** This is the site's welcome/landing page (`/index.html`). The navbar item "Welcome" links here. It contains the 7-screen structure using `page-components.css` hero components and calls `WDTGeocities.inject(["counter", "webring", "netscape", "contact"])` at the bottom.
 
 **Note on `Project-Map.md`:** Has no YAML front matter — begins directly with a `# WDT Project Map` heading. `preprocess.py` handles this as a plain copy (flattened and renamed to `.qmd`); Quarto generates the title from the first heading.
 
-**Note on `avoidance.md`:** Contains a Pyodide-powered live calculator. The calculator loads `wdt_core.py` and `rates_model.py` from `/tools/` at runtime.
+**Note on `avoidance.md`:** Contains a Pyodide-powered live calculator. The calculator loads `wdt_core.py` and `rates_model.py` from `/model/` at runtime.
+
+**Note on `calculator_index.md`:** The tool card `<a href>` links use `model/taxpayer.html` and `model/revenue.html` — the paths where Quarto renders the generated `.qmd` files. These links are correct and require no maintenance unless the output stems in `TOOLS` change.
 
 **Note on `BingSiteAuth.xml`:** Copied unchanged (not renamed to `.qmd`).
 
@@ -836,7 +919,7 @@ All CSS, CSL, and vendored JS assets for the site. The CSS is structured across 
 |------|---------|
 | `styles.css` | Base layout, typography, global components — v2 Geocities aesthetic |
 | `page-components.css` | Per-page classes: glossary, references, paper metadata bar, welcome, index, FAQ, author, footer widgets, avoidance page |
-| `tools.css` | Classes for interactive tool pages: revenue modeller, taxpayer calculator, tools index |
+| `tools.css` | Classes for the calculator pages |
 | `apa.csl` | APA citation style sheet — referenced by `_quarto.yml` as `csl: style/apa.csl` |
 | `svg-pan-zoom.min.js` | Vendored JS library, previously used for Mermaid SVG zoom. The diagram pipeline now renders PNGs with a custom lightbox — verify whether this file is still referenced before removing it |
 
@@ -941,11 +1024,11 @@ Per-page component classes. Depends on `styles.css :root` custom properties. Org
 ---
 
 #### `site/style/tools.css`
-Classes for the interactive tool pages. Depends on `styles.css :root`. Tool HTML pages are wrapped as `.qmd` by `preprocess.py` and rendered inside the Quarto layout — but some tool pages (`taxpayer.html`, `revenue.html`) may also be served standalone (outside Quarto), in which case `.wdt-tool-header` provides a minimal nav bar.
+Classes for the interactive calculator pages. Depends on `styles.css :root`. Calculator pages are generated as `.qmd` by `pipeline/tools.py` and rendered inside the Quarto layout — the classes in this file provide all the UI styling; no standalone nav bar or outer panel frame is needed.
 
-**Layout:**
-- `.wdt-tool-panel` / `.wdt-tool-inner` — outer silver/gold panel and white inner content area, matching the main site's content panel aesthetic
-- `.wdt-tool-header` — standalone nav bar (brand, page title, back link) for pages served outside the Quarto layout
+**Removed classes (no longer used):**
+- `.wdt-tool-panel` / `.wdt-tool-inner` — the outer silver/gold panel frame. Calculators now flow directly into Quarto's content area.
+- `.wdt-tool-header` — the standalone mini nav bar. Quarto's navbar provides site navigation.
 
 **Pyodide loading states:**
 - `#main { display: none }` — JS reveals after Pyodide is ready
@@ -958,7 +1041,7 @@ Classes for the interactive tool pages. Depends on `styles.css :root`. Tool HTML
 - `.advanced-grid` / `.advanced-grid.two-col` — collapsible advanced parameter grid (inside `<details>`)
 - `button#run-btn` — primary run button; `:disabled` state
 
-**Revenue modeller:**
+**Revenue calculator:**
 - `.controls-grid` — 3-col controls layout
 - `.summary-boxes` — 4-col result summary boxes (`.box`, `.box-label`, `.box-val`, `.box-sub`)
 - `.comparison-section` / `.bar-chart` / `.bar-row` / `.bar-label` / `.bar-track` / `.bar-fill` — horizontal bar chart comparing WDT vs HMRC revenue; fill classes `.wdt-avg`, `.wdt-pf`, `.hmrc`
@@ -971,7 +1054,7 @@ Classes for the interactive tool pages. Depends on `styles.css :root`. Tool HTML
 - `.stat-row` / `.lbl` / `.num` / `.num.positive` / `.num.negative` / `.num.neutral` — key-value stat rows
 - `.table-wrap` — scrollable detail table; `.pos` / `.neg` / `.zero` cell colours; `tr.sell-row`
 
-**Tools index:**
+**Calculator index:**
 - `.tool-card` — linked card block (gold left border, lavender bg, hover highlight)
 - `.tag` / `.tag-blue` / `.tag-purple` — pill badges on tool cards
 
@@ -981,18 +1064,6 @@ Classes for the interactive tool pages. Depends on `styles.css :root`. Tool HTML
 
 #### `site/style/geocities.html`
 Self-contained JS module (`WDTGeocities`) for the site's decorative Geocities-era footer elements. **Not automatically copied into `_build/`.** Must be loaded explicitly, per the two options documented in the file header.
-
-**Loading options:**
-
-*Option A — Global (all pages):* Reference it in `site/_quarto.yml`:
-```yaml
-format:
-  html:
-    include-in-header: _includes/geocities.html
-```
-Then call `WDTGeocities.inject([...])` in a `{=html}` block on any page that wants the elements.
-
-*Option B — Per-page:* Paste the file contents into a `{=html}` block at the bottom of the target `.md`, followed immediately by the inject call. No `_quarto.yml` change needed.
 
 **Currently:** Loaded globally via `include-in-header: style/geocities.html` in `_quarto.yml`. The `WDTGeocities` object is available on every page; individual pages call `WDTGeocities.inject([...])` in a `{=html}` block to render the elements they want. The file is not processed by `preprocess.py` — Quarto's `include-in-header` mechanism handles it directly.
 
@@ -1026,35 +1097,39 @@ To add a diagram: add the `.mmd` file here and add an entry to `DIAGRAMS` in `pi
 
 ---
 
-### `site/model/`
-Self-contained interactive tools and the Python model scripts that generate their data. **This directory is not processed by `preprocess.py`.** HTML tool pages are pre-built and served as static files; Python scripts are run locally (via `run_all.bat`) to regenerate output data that the HTML pages consume.
+### `site/tools/`
+Pure HTML calculator fragments. These are the source files for the interactive calculators. Each file is a clean body fragment — no `<!DOCTYPE>`/`<html>`/`<head>`/`<body>` shell, no site nav bar, no outer panel frame. They contain only the functional UI and `<script>` tags.
 
-#### HTML tool pages (wrapped as `.qmd` by `preprocess.py`)
+| File | Purpose |
+|------|---------|
+| `taxpayer_calc.html` | Individual Taxpayer Calculator fragment |
+| `revenue_calc.html` | National Revenue Calculator fragment |
 
-| File | Served at | Purpose |
-|------|-----------|---------|
-| `tools_index.html` | `/tools/tools_index.html` | Tools landing page |
-| `taxpayer.html` | `/tools/taxpayer.html` | Taxpayer journey interactive tool |
-| `revenue.html` | `/tools/revenue.html` | Revenue modeller interactive tool |
+**Design principle:** These files do exactly one thing — implement the calculator. They have no knowledge of the site structure. They can be opened directly in a browser for development (the Pyodide CDN `<script src>` makes them self-contained for testing), but in production they are processed by `pipeline/tools.py` which wraps them in a Quarto page.
 
-These are body-fragment HTML files with embedded JS. `preprocess.py` does **not** copy them as static HTML — it wraps each one in Quarto front matter + a `{=html}` raw pass-through block (via `_wrap_tool_html()`) and saves the result as a `.qmd` file in `_build/model/`. Quarto then renders the `.qmd` into the site, giving each tool page a proper Quarto layout (navbar, sidebar, footer) while passing the HTML body through unmodified.
+**CSS:** All classes (`.controls`, `.controls-grid`, `.results`, `.panel`, etc.) come from `site/style/tools.css`, which is loaded globally by Quarto on every page. No `<link>` tags are needed in the fragment.
 
-`_TOOL_META` in `preprocess.py` maps each HTML stem → `(title, description)` for the Quarto front matter. Add an entry here when adding a new tool page.
+**Pyodide runtime files:** The `fetch()` calls use bare filenames (`fetch('wdt_core.py')`, `fetch('260812_WDT_Params.toml')`). These resolve relative to `/model/` where the runtime files are deployed.
 
-#### Python model scripts (runtime files — deployed to `_build/model/`)
+**Adding a new calculator:** Create `{name}_calc.html` here as a clean fragment, then add an entry to `TOOLS` in `pipeline/tools.py`.
 
-The Python scripts in `site/model/` **are copied into `_build/model/`**. They are loaded at runtime in the browser by **Pyodide** (a Python interpreter compiled to WebAssembly). No Python execution happens on the server — the scripts run client-side when the user interacts with a tool page. `_TOOL_RUNTIME_SUFFIXES = {".py", ".toml"}` in `preprocess.py` controls which suffixes are treated as runtime files and copied verbatim.
+---
 
-The numbered output scripts (`5_3`, `5_4`, `5_6`, `8_3`, `16_2`–`16_7`) are run **locally** (via `run_all.bat`) to regenerate static output data (figures, tables). They are not loaded by Pyodide. Their outputs land in `site/model/OUTPUTS/`, which `preprocess.py` copies to `_build/figures/`.
+## `model/`
+Python model scripts and runtime files. This directory is at the repo root (not inside `site/`). `preprocess.py` copies all `.py` and `.toml` files into `_build/model/` so Quarto can declare them as `resources:` and deploy them alongside the rendered calculator pages.
 
-#### `site/model/OUTPUTS/`
-Generated image and data outputs from the local model scripts. **Not committed to the repo** (in `.gitignore`). `preprocess.py` copies everything in this directory to `_build/figures/` at build time. If the directory does not exist, the figure copy step is skipped with a warning.
+**Runtime files (loaded by Pyodide client-side):**
 
 | File | Role |
 |------|------|
-| `WDT_Params.toml` | Shared parameter file for the WDT simulation model |
+| `260812_WDT_Params.toml` | Shared parameter file for the WDT simulation model |
 | `wdt_core.py` | Core WDT model: `WDTModel` class and simulation engine |
 | `rates_model.py` | Rates model |
+
+**Output scripts (run locally to regenerate figures):**
+
+| File | Role |
+|------|------|
 | `val_helpers.py` | VAL paper output helpers |
 | `val_s_helpers.py` | VAL sensitivity analysis helpers |
 | `rates_s_helpers.py` | RATES sensitivity analysis helpers |
@@ -1070,7 +1145,9 @@ Generated image and data outputs from the local model scripts. **Not committed t
 | `16_7_260813_RATES_S_charts.py` | RATES sensitivity: charts |
 | `run_all.bat` | Batch script: runs all output scripts in sequence |
 
-The numbering convention (`5_3`, `8_3`, `16_2`, etc.) matches section numbers in the VAL and RATES papers where the output appears.
+The numbering convention (`5_3`, `8_3`, `16_2`, etc.) matches section numbers in the VAL and RATES papers where the output appears. These scripts are **not** loaded by Pyodide — they run locally and their outputs land in `model/OUTPUTS/`, which `preprocess.py` copies to `_build/figures/`.
+
+**`model/OUTPUTS/`:** Generated image and data outputs. **Not committed to the repo** (in `.gitignore`). `preprocess.py` copies everything in this directory to `_build/figures/` at build time. If the directory does not exist, the figure copy step is skipped with a warning.
 
 ---
 
@@ -1138,16 +1215,17 @@ After `preprocess.py` completes, `_build/` contains a complete Quarto project:
 - `references.json`, `wdt-contents.yml`, `anchors.yml`, `references.bib` — static endpoints
 - `site-index.json` — generated navigation index
 - `research.qmd`, `index.qmd`, `faq.qmd`, `Project-Map.qmd`, `404.qmd` — from `site/pages/` (`.md` → `.qmd`), flattened; `strip_latex` + `convert_crossrefs` applied
-- `internal_bibliography.qmd`, `author_page.qmd`, `comparison-tables.qmd`, `avoidance.qmd`, `revision_history.qmd` — from `site/pages/`, flattened
+- `internal_bibliography.qmd`, `author_page.qmd`, `comparison-tables.qmd`, `avoidance.qmd`, `revision_history.qmd`, `calculator_index.qmd` — from `site/pages/`, flattened
 - `glossary.qmd` — from `site/pages/glossary.md` (generated by `build_glossary.py`), flattened and renamed to `.qmd`
 - `BingSiteAuth.xml` — from `site/pages/`, copied unchanged (not renamed to `.qmd`)
 - `style/styles.css`, `style/page-components.css`, `style/tools.css`, `style/apa.csl`, `style/svg-pan-zoom.min.js` — from `site/style/`, path preserved
-- `tools/tools_index.qmd`, `tools/taxpayer.qmd`, `tools/revenue.qmd` — HTML tool pages **wrapped as `.qmd`** by `_wrap_tool_html()`; not raw HTML
-- `tools/*.py`, `tools/*.toml` — runtime files (loaded by Pyodide client-side); copied verbatim from `site/model/`
-- `link-map.html` — generated directly to `_build/` by `pipeline/link_map.py` (not copied from `site/pages/`)
+- `model/taxpayer.qmd`, `model/revenue.qmd` — **generated by `pipeline/tools.py`** from `site/tools/*_calc.html`; wrapped in Quarto front matter + `{=html}` block
+- `model/wdt_core.py`, `model/rates_model.py`, `model/260812_WDT_Params.toml` — runtime files copied verbatim from `model/`; also declared in `resources:` so Quarto includes them in `_site/model/`
+- `model/` other scripts — copied verbatim from `model/`; inert on the server (not loaded by Pyodide)
+- `link-map.html` — generated directly to `_build/` by `pipeline/link_map.py`
 - `diagrams/` — PNG renders of all five `.mmd` diagrams at 3600px width, output by `render_pngs()`; also declared in `resources:` so Quarto includes them in `_site/`
 - `style/geocities.html` — copied by Quarto (via `include-in-header`) from `site/style/`; not copied by `preprocess.py`
-- `figures/` — image outputs copied from `site/model/OUTPUTS/` (if directory exists)
+- `figures/` — image outputs copied from `model/OUTPUTS/` (if directory exists)
 
 After `quarto render _build`, the rendered site appears at `_build/_site/`. This is the directory uploaded to GitHub Pages.
 
@@ -1169,7 +1247,7 @@ In-text cross-references in source files use two syntactic patterns:
 
 ## Sidebar behaviour
 
-The left sidebar is hand-maintained in `site/_quarto.yml` and copied to `_build/_quarto.yml` unchanged by `preprocess.py`. It has two levels of nesting (section groups → papers). The right-hand TOC panel is enabled (`toc: true`, `toc-depth: 2`) — only `##` level headings appear in the per-page TOC; `###` and below are excluded.
+The left sidebar is hand-maintained in `site/_quarto.yml` and copied to `_build/_quarto.yml` unchanged by `preprocess.py`. It has two levels of nesting (section groups → papers). The right-hand TOC panel is enabled (`toc: true`, `toc-depth: 2`) — only `##` level headings appear in the per-page TOC; `###` and below are excluded. Calculator pages have `toc: false` set in their generated front matter.
 
 **Known constraint:** Quarto sidebar section links are only interactively expandable when on that paper's page. This is a Quarto JS constraint, not a configuration issue.
 
@@ -1183,19 +1261,14 @@ Generated from `registry/references.json` and `registry/contents.yml`. Lists all
 ### `references.qmd` (External bibliography)
 Generated from `registry/references.json`. Entries grouped under `## A`, `## B`, … letter headings with per-letter TOC links (enabled via `toc: true` in generated front matter). Each entry shows APA-style citation, type badge, DOI/URL link, verified badge, and "cited in" links to WDT papers. Pending-decision entries (currently none) appear in a collapsed callout. Served at `/references.html`.
 
+### `model/taxpayer.qmd`, `model/revenue.qmd` (Calculator pages)
+Generated by `pipeline/tools.py` from `site/tools/*_calc.html`. Each is a thin Quarto wrapper: front matter (`title`, `description`, `toc: false`) + `{=html}` block containing the calculator fragment verbatim. Quarto renders them as full site pages with navbar, sidebar, and footer. Served at `/model/taxpayer.html` and `/model/revenue.html`.
+
 ### `site-index.json`
 Single-fetch index combining paper metadata, full section hierarchy, resolved anchor URLs, and a flat searchable section text corpus. Four top-level keys: `meta`, `papers`, `anchors`, `search`. The `search` array powers the right-panel search widget — one record per paper (title search) and one per section (body text search). Text is extracted from generated `.qmd` files in `_build/`, not from source `.md`. Served at `/site-index.json`.
 
 ### `flowcharts.qmd` (Diagram page)
-Generated by `generate_flowcharts_qmd(build)` in `pipeline/diagrams.py`. Renders `.mmd` sources to PNG via `mmdc`, then writes a prose-framed `.qmd` page embedding those PNGs with a client-side lightbox (click to expand; ESC to close).
-
-Page structure:
-- **§complexity** — editorial framing and a structural metrics table comparing WDT vs UK chart complexity (nodes, decisions, edges, tax regimes)
-- **§overview** — WDT skeleton and UK skeleton diagrams side-by-side
-- **§full-detail** — WDT full chart and UK full chart side-by-side
-- **§core-mechanic** — Bidirectional diagram (solo), with framing prose
-
-All five `.mmd` diagrams are now included. PNG outputs land in `_build/diagrams/` at 3600px width. Served at `/flowcharts.html`.
+Generated by `generate_flowcharts_qmd(build)` in `pipeline/diagrams.py`. Renders `.mmd` sources to PNG via `mmdc`, then writes a prose-framed `.qmd` page embedding those PNGs with a client-side lightbox (click to expand; ESC to close). Served at `/flowcharts.html`.
 
 ---
 
@@ -1217,17 +1290,17 @@ Copied into `_build/` at each build and served as static files.
 
 **Sidebar cross-page expansion is not supported by Quarto.** Section links in the sidebar are only interactively expandable when on that paper's page. This is a Quarto JS constraint, not a configuration issue.
 
-**`site/model/` `.py` and `.toml` files are deployed to `_build/model/`** and served publicly. This is intentional — they are loaded client-side by Pyodide. The numbered output scripts (`5_3`, `5_4`, etc.) are also deployed but are not called by Pyodide; they are inert on the server. `.bat` files are not in `_TOOL_RUNTIME_SUFFIXES` and fall through to the verbatim-copy else branch — verify whether they should be excluded.
+**`model/` `.py` and `.toml` files are deployed to `_build/model/`** and served publicly. This is intentional — the runtime files (`wdt_core.py`, `rates_model.py`, `260812_WDT_Params.toml`) are loaded client-side by Pyodide. The numbered output scripts (`5_3`, `5_4`, etc.) are also deployed but are not called by Pyodide; they are inert on the server.
 
 **`mmdc` is installed on the CI runner** via the Install Mermaid CLI step in `deploy.yml`. The Puppeteer sandbox config is correctly set up. On local Windows builds, `mmdc` must be installed separately: `npm install -g @mermaid-js/mermaid-cli`.
 
-**`svg-pan-zoom.min.js` may now be unused.** The diagrams pipeline has moved from browser-side Mermaid SVG rendering (which used this library for zoom) to static PNGs with a custom lightbox. Verify whether this file is still referenced anywhere in `site/style/` or `site/_quarto.yml` before removing it.
+**`svg-pan-zoom.min.js` may now be unused.** The diagrams pipeline has moved from browser-side Mermaid SVG rendering (which used this library for zoom) to static PNGs with a custom lightbox. Verify whether this file is still referenced anywhere before removing it.
 
 ---
 
 ## What is not yet in scope
 
-- Additional interactive tools — `site/model/` is active and wired into the build; new tools follow the same pattern as `taxpayer.html` / `revenue.html`.
+- Additional interactive calculators — add a `*_calc.html` to `site/tools/` and an entry to `TOOLS` in `pipeline/tools.py`.
 - Right-hand panel content (live parameters, diagrams, search) — TOC panel is active; right panel available for future use.
 - Donations, contact, newsletter — reserved at `/about/` and `/contribute/`.
 - PDF pipeline — separate, uses pandoc + LaTeX, entirely independent of this build.
@@ -1237,7 +1310,7 @@ Copied into `_build/` at each build and served as static files.
 ## Adding a new paper — checklist
 
 1. Add source `.md` file to `source/` with a YAML front matter block containing at minimum: `shortcode`, `title`, `status`, `keywords`
-2. Add a revision history table (` ### Revision History`) with at least one data row — `extract_paper_meta()` reads version and date from here
+2. Add a revision history table (`### Revision History`) with at least one data row — `extract_paper_meta()` reads version and date from here
 3. Add entry to `registry/papers.yml` — `source` (exact filename) and `output` (e.g. `wp.qmd`). Shortcode is not needed here; it is read from the file's front matter.
 4. Run `python pipeline/scrape_contents.py --dry-run` to preview what would be written, then `--write` to add the paper's sections to `registry/contents.yml`
 5. Run `python pipeline/build_anchors.py` to regenerate `registry/anchors.yml`
@@ -1248,12 +1321,12 @@ Copied into `_build/` at each build and served as static files.
 10. Update `site/pages/Project-Map.md` if the summary document covers the new paper
 11. Add the shortcode and group to `_GROUPS` in `pipeline/link_map.py`
 
-## Adding a new tool page — checklist
+## Adding a new calculator — checklist
 
-1. Author the HTML tool page (body fragment, no `<html>`/`<head>`) in `site/model/`
-2. Add an entry to `_TOOL_META` in `pipeline/preprocess.py` — `"stem": ("Page title", "Description string")` — so the Quarto front matter is populated correctly
-3. If the tool uses Pyodide to run Python, add the required `.py` and `.toml` model files to `site/model/` — they will be copied to `_build/model/` automatically
-4. If the tool requires locally-generated static outputs (figures, tables), add the corresponding output script(s) to `site/model/` and add the run command to `site/model/run_all.bat`; outputs go to `site/model/OUTPUTS/` and are copied to `_build/figures/`
-5. Add any tool-specific CSS to `site/style/tools.css`
-6. Link to the new tool from `site/model/tools_index.html`
-7. Add a navbar or sidebar entry in `site/_quarto.yml` if the tool should be discoverable from navigation
+1. Create `site/tools/{name}_calc.html` as a clean body fragment — no `<!DOCTYPE>`/`<html>`/`<head>`/`<body>` shell, no `.wdt-tool-header`, no `.wdt-tool-panel`/`.wdt-tool-inner`
+2. Add an entry to `TOOLS` in `pipeline/tools.py` — `source`, `output`, `title`, `description`
+3. If the calculator uses Pyodide to run Python, ensure the required `.py` and `.toml` model files are in `model/` — they are copied to `_build/model/` automatically and declared in `resources:` for deployment
+4. If the calculator requires locally-generated static outputs (figures, tables), add the corresponding output script(s) to `model/` and add the run command to `model/run_all.bat`; outputs go to `model/OUTPUTS/` and are copied to `_build/figures/`
+5. Add any calculator-specific CSS to `site/style/tools.css`
+6. Link to the new calculator from `site/pages/calculator_index.md`
+7. Add a navbar or sidebar entry in `site/_quarto.yml` if the calculator should be discoverable from navigation beyond the index page

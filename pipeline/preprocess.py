@@ -29,9 +29,16 @@ from pages.references import generate_references_qmd
 from pages.site_index import copy_machine_readable_assets
 from transforms import process_file, strip_latex, convert_crossrefs
 from link_map import generate_link_map_html
-from tools import generate_tool_pages
+from tools import generate_tool_pages, _strip_html_shell
 
 _TOOL_RUNTIME_SUFFIXES = {".py", ".toml"}
+
+# Sentinel used in avoidance.md (and any future page) to mark where a
+# calculator fragment should be injected at build time.
+# Format: <!-- WDT_CALC_INJECT: {filename} -->
+# Filename is resolved relative to site/tools/.
+import re as _re
+_CALC_INJECT_RE = _re.compile(r'<!--\s*WDT_CALC_INJECT:\s*(\S+?)\s*-->')
 
 
 def main() -> None:
@@ -107,6 +114,26 @@ def main() -> None:
                 text = p.read_text(encoding="utf-8")
                 text = strip_latex(text)
                 text = convert_crossrefs(text, site_cfg.link_map, site_cfg.anchor_map)
+                # Inject calculator fragments at sentinel comments.
+                # <!-- WDT_CALC_INJECT: filename --> is replaced with a
+                # {=html} pass-through block containing the named fragment
+                # from site/tools/, shell-stripped by tools._strip_html_shell.
+                tools_src = cfg.ROOT_DIR / "site" / "tools"
+                def _inject_calc(m: "_re.Match") -> str:
+                    calc_name = m.group(1)
+                    calc_path = tools_src / calc_name
+                    if not calc_path.exists():
+                        print(f"  ! WDT_CALC_INJECT: {calc_name} not found — sentinel left in place")
+                        return m.group(0)
+                    fragment = _strip_html_shell(calc_path.read_text(encoding="utf-8"))
+                    print(f"  ✓ Injected {calc_name} into {p.name}")
+                    return (
+                        "```{=html}\n"
+                        "<!-- quarto-disable-processing=true -->\n"
+                        f"{fragment}\n"
+                        "```"
+                    )
+                text = _CALC_INJECT_RE.sub(_inject_calc, text)
                 destination.write_text(text, encoding="utf-8")
             else:
                 shutil.copy2(p, destination)

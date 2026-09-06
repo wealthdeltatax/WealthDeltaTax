@@ -271,34 +271,7 @@ Set your parameters and run the simulation. The honest baseline (α = 1) is alwa
 
 The model runs the full Route C simulation from `wdt_core.py` — the same code used in the research papers, loaded unmodified in your browser.
 
-```{=html}
-<style>
-  .avoid-calc-frame {
-    width: 100%;
-    height: 900px;
-    border: 2px inset var(--wdt-gold-dim);
-    display: block;
-    background: var(--wdt-purple-deep);
-  }
-  .avoid-calc-fallback {
-    font-size: 0.8rem;
-    color: var(--wdt-silver);
-    margin-top: 0.5rem;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-</style>
-<iframe
-  src="tools/taxpayer.html"
-  class="avoid-calc-frame"
-  title="WDT Individual Taxpayer Calculator"
-  loading="lazy"
-  sandbox="allow-scripts allow-same-origin">
-</iframe>
-<p class="avoid-calc-fallback">
-  Calculator not loading?
-  <a href="tools/taxpayer.html" target="_blank">Open it in a new tab &#x2197;</a>
-</p>
-```
+<!-- WDT_CALC_INJECT: taxpayer_calc.html -->
 
 ---
 
