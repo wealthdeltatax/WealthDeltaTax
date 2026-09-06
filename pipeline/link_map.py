@@ -552,10 +552,10 @@ function lmRender() {
     linksLayer.appendChild(lmEl("path", {
       d: `M${sx},${sy} Q${mx},${my} ${ex},${ey}`,
       class: "lm-link-line",
-      stroke: isHov ? "#FFD700" : "#888",
+      stroke: isHov ? "#FFD700" : (l.type === "out" ? "#C0A000" : "#888"),
       "stroke-width": isHov ? 2.5 : 1.5,
       opacity: isDim ? 0.06 : isHov ? 1 : 0.4,
-      "marker-end": isHov ? "url(#lm-arrow-highlight)" : "url(#lm-arrow-silver)",
+      "marker-end": isHov ? "url(#lm-arrow-highlight)" : (l.type === "out" ? "url(#lm-arrow-gold)" : "url(#lm-arrow-silver)"),
     }));
   }
 
