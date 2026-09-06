@@ -255,7 +255,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   color: #2B0055;
-  margin-top: 1.4rem;
+  margin-top: 2.0rem;
   margin-bottom: 0.5rem;
   line-height: 1.25;          /* tighter than body — prevents balloon on
                                  multi-line headings */
