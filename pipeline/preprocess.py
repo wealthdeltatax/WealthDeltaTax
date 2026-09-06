@@ -132,7 +132,6 @@ def main() -> None:
 
     # ── Copy site/ assets into _build/ ───────────────────────────────────
     FLATTEN_DIRS = {"pages"}
-    TOOL_DIR     = "model"
 
     for p in [f for f in cfg.SITE_DIR.rglob("*") if f.is_file()]:
         parts = p.relative_to(cfg.SITE_DIR).parts
@@ -149,30 +148,30 @@ def main() -> None:
             else:
                 shutil.copy2(p, destination)
 
-        elif parts[0] == TOOL_DIR:
-            destination = build / Path(*parts)
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            if p.suffix == ".html":
-                stem = p.stem
-                title, description = _TOOL_META.get(stem, (stem, ""))
-                html = p.read_text(encoding="utf-8")
-                qmd  = _wrap_tool_html(html, title, description)
-                destination = destination.with_suffix(".qmd")
-                destination.write_text(qmd, encoding="utf-8")
-                print(f"  ✓ site/model/{p.name} → _build/model/{destination.name}")
-            elif p.suffix in _TOOL_RUNTIME_SUFFIXES:
-                shutil.copy2(p, destination)
-                print(f"  ✓ site/model/{p.name} → _build/model/{p.name} (runtime)")
-            else:
-                shutil.copy2(p, destination)
-
         else:
             destination = build / Path(*parts)
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(p, destination)
 
+    # ── Copy model/ assets into _build/model/ ────────────────────────────
+    MODEL_DIR = cfg.ROOT_DIR / "model"
+    if MODEL_DIR.exists():
+        for p in [f for f in MODEL_DIR.rglob("*") if f.is_file()]:
+            rel = p.relative_to(MODEL_DIR)
+            if rel.parts[0] == "OUTPUTS":
+                continue  # handled separately below
+            destination = build / "model" / rel
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(p, destination)
+            if p.suffix == ".html":
+                print(f"  ✓ model/{p.name} → _build/model/{p.name}")
+            elif p.suffix in _TOOL_RUNTIME_SUFFIXES:
+                print(f"  ✓ model/{p.name} → _build/model/{p.name} (runtime)")
+    else:
+        print("  ! model/ not found — skipping model asset copy")
+
     # ── Copy image outputs into _build/figures/ ───────────────────────────
-    OUTPUTS_DIR = cfg.SITE_DIR / "model" / "OUTPUTS"
+    OUTPUTS_DIR = MODEL_DIR / "OUTPUTS"
     if OUTPUTS_DIR.exists():
         figures_dest = build / "figures"
         figures_dest.mkdir(exist_ok=True)
@@ -184,7 +183,7 @@ def main() -> None:
             f"({sum(1 for _ in OUTPUTS_DIR.rglob('*') if _.is_file())} files)"
         )
     else:
-        print("  ! site/model/OUTPUTS/ not found — skipping figure copy")
+        print("  ! model/OUTPUTS/ not found — skipping figure copy")
 
     # ── Auto-generated pages ──────────────────────────────────────────────
     generate_corpus_qmd(build / "corpus.qmd", site_cfg.link_map, site_cfg.paper_meta)
