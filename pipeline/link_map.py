@@ -257,28 +257,59 @@ _BODY_TEMPLATE = r"""
   }
   .lm-link-line { stroke-width: 1.5; fill: none; }
 
-  /* Info panel */
+  /* Info panel — docked right column, always visible */
   #lm-info-panel {
-    position: absolute; right: 12px; top: 12px; width: 210px;
-    background: var(--wdt-purple); border: 2px inset var(--wdt-gold-dim);
-    padding: 10px 12px; display: none;
+    width: 220px;
+    min-width: 220px;
+    background: var(--wdt-purple);
+    border-left: 2px solid var(--wdt-gold-dim);
+    padding: 12px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    overflow-y: auto;
+    flex-shrink: 0;
     font-family: Arial, Helvetica, sans-serif;
   }
-  #lm-info-panel.visible { display: block; }
+  #lm-info-panel-header {
+    font-size: 0.68rem;
+    color: var(--wdt-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 8px 0;
+    border-bottom: 1px solid var(--wdt-gold-dim);
+    padding-bottom: 3px;
+    font-weight: bold;
+  }
+  #lm-info-placeholder {
+    font-size: 0.7rem;
+    color: var(--wdt-silver);
+    font-style: italic;
+    line-height: 1.65;
+    padding: 4px 0;
+  }
+  #lm-info-placeholder p {
+    margin: 0 0 10px 0;
+  }
+  #lm-info-placeholder p:last-child {
+    margin-bottom: 0;
+  }
+  #lm-info-detail { display: none; }
+  #lm-info-detail.visible { display: block; }
   #lm-info-title {
-    color: var(--wdt-gold); font-size: 0.85rem; font-weight: bold;
+    color: var(--wdt-gold); font-size: 0.82rem; font-weight: bold;
     border-bottom: 1px solid var(--wdt-gold-dim); padding-bottom: 5px; margin-bottom: 8px;
   }
   #lm-info-body { font-size: 0.72rem; line-height: 1.6; color: var(--wdt-silver); }
-  #lm-info-body .lm-info-row { margin-bottom: 5px; }
+  #lm-info-body .lm-info-row { margin-bottom: 6px; }
   #lm-info-body .lm-info-lbl {
     color: var(--wdt-gold-dim); display: block;
     font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em;
   }
   #lm-info-link {
-    display: block; margin-top: 10px;
+    display: block; margin-top: 12px;
     color: var(--wdt-gold); font-size: 0.72rem; text-align: center;
-    border: 1px solid var(--wdt-gold-dim); padding: 4px;
+    border: 1px solid var(--wdt-gold-dim); padding: 5px 4px;
     text-decoration: none; background: var(--wdt-purple-deep);
   }
   #lm-info-link:hover { background: var(--wdt-purple-mid); color: #fff; }
@@ -386,12 +417,24 @@ _BODY_TEMPLATE = r"""
     <div id="lm-zoom-hint">scroll to zoom &middot; drag to pan &middot; drag nodes to reposition</div>
   </div><!-- /#lm-canvas-wrap -->
 
-  <!-- ── Info panel ─────────────────────────────────────────────────── -->
+  <!-- ── Info panel (docked right column) ───────────────────────────── -->
   <div id="lm-info-panel">
-    <div id="lm-info-title">&#x2014;</div>
-    <div id="lm-info-body"></div>
-    <a id="lm-info-link" href="#" target="_blank">Open paper &#x2192;</a>
-  </div>
+    <div id="lm-info-panel-header">Paper Detail</div>
+
+    <!-- Placeholder: shown when nothing is selected -->
+    <div id="lm-info-placeholder">
+      <p>Click any node to see details about that paper.</p>
+      <p>Hover to highlight its connections. Drag nodes to reposition them.</p>
+      <p>Let the map settle &mdash; it will freeze automatically once it finds a stable layout.</p>
+    </div>
+
+    <!-- Detail: shown when a node is selected -->
+    <div id="lm-info-detail">
+      <div id="lm-info-title"></div>
+      <div id="lm-info-body"></div>
+      <a id="lm-info-link" href="#" target="_blank">Open paper &#x2192;</a>
+    </div>
+  </div><!-- /#lm-info-panel -->
 
 </div><!-- /#lm-wrap -->
 
@@ -710,8 +753,13 @@ document.getElementById("lm-canvas-wrap").addEventListener("mousemove", e => {
 function lmOnClick(n) {
   lmSelectedSc = lmSelectedSc === n.sc ? null : n.sc;
   if (lmSelectedSc) lmShowInfo(n);
-  else document.getElementById("lm-info-panel").classList.remove("visible");
+  else lmShowPlaceholder();
   if (lmFrozen) lmRender();
+}
+
+function lmShowPlaceholder() {
+  document.getElementById("lm-info-placeholder").style.display = "";
+  document.getElementById("lm-info-detail").classList.remove("visible");
 }
 
 function lmShowInfo(n) {
@@ -723,13 +771,14 @@ function lmShowInfo(n) {
   if (n.status === "superseded") html += `<div class="lm-info-row" style="color:#cc4444">\u26A0 Superseded</div>`;
   document.getElementById("lm-info-body").innerHTML = html;
   document.getElementById("lm-info-link").href = n.url;
-  document.getElementById("lm-info-panel").classList.add("visible");
+  document.getElementById("lm-info-placeholder").style.display = "none";
+  document.getElementById("lm-info-detail").classList.add("visible");
 }
 
 document.getElementById("lm-graph-svg").addEventListener("click", e => {
   if (e.target.id === "lm-graph-svg") {
     lmSelectedSc = null;
-    document.getElementById("lm-info-panel").classList.remove("visible");
+    lmShowPlaceholder();
     if (lmFrozen) lmRender();
   }
 });
