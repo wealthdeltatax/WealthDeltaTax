@@ -223,24 +223,46 @@ p {
 #quarto-margin-sidebar,
 .toc-active #TOC,
 nav#TOC {
-  background-color: #210040;  /* ↑ was #1A0033 — slightly less harsh */
+  background-color: #210040;
   border-left: 2px solid #FFD700;
   padding: 0.75rem;
+}
+
+/* "On this page" heading */
+#quarto-margin-sidebar .toc-actions,
+nav#TOC > h2,
+#quarto-margin-sidebar p.sidebar-title {
+  color: #FFD700 !important;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
 }
 
 nav#TOC a,
 .toc-active #TOC a {
   color: #FFD700 !important;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 12.5px;          /* ↑ was 12px */
+  font-size: 12.5px;
   text-decoration: none;
   display: block;
-  padding: 0.1rem 0;
+  padding: 0.1rem 0 0.1rem 0.6rem;  /* left padding creates gap from border */
+  border-left: 2px solid transparent; /* reserve space — prevents text jump */
+  margin-left: -0.75rem;             /* pull to container edge */
 }
 
 nav#TOC a:hover {
   color: #FFFFFF !important;
   text-decoration: underline;
+}
+
+/* Active link — gold indicator, white text */
+nav#TOC a.active,
+nav#TOC a:focus {
+  color: #FFFFFF !important;
+  border-left-color: #FFD700 !important;
 }
 
 nav#TOC .toc-section-number {
