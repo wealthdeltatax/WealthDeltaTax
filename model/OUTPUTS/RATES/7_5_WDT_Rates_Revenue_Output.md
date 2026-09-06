@@ -1,6 +1,6 @@
 # WDT Rates and Revenue — Model Output
 
-**Run date:** 2026-09-05  
+**Run date:** 2026-09-06  
 **Scenario:** 2007 Balanced  
 **Model version:** v7  
 **Parameters file:** `WDT_Params.toml`  
@@ -8,21 +8,21 @@
 ## B.1 Active Parameters
 
 | Parameter | Value |
-|---|---|
+|:---|:---|
 | $\tau_0$ (floor rate) | 15% |
 | $\tau_m$ (ceiling rate) | 70% |
 | $k$ (steepness, per £m) | 0.001 |
-| $W_{min}$ (£m) | £2.0m |
+| $W_{\min}$ (£m) | £2.0m |
 | SRR capitalisation ratio | 3.0× |
 | LRR floor (years of expenditure) | 3.0 years |
 | Budget base (£b) | £1,157.4b |
-| Budget growth (p.a). | 4.51% |
+| Budget growth (p.a.) | 4.51% |
 | Historical mean return | 10.45% |
 
 **Growth tiers:**
 
 | Tier | Weight | Differential | Implied return |
-|---|---|---|---|
+|:---|---:|---:|---:|
 | Poor | 10% | -4.55% | 5.90% |
 | Ok | 30% | -2.05% | 8.40% |
 | Good | 40% | +0.95% | 11.40% |
@@ -31,7 +31,7 @@
 ## B.2 SSM Results — Active Scenario
 
 | Metric | Value |
-|---|---|
+|:---|:---|
 | SRR fill year | 3 |
 | LRR breakeven year | 19 |
 | Annual expenditure at LRR breakeven (£b) | £2,560b |
@@ -44,7 +44,7 @@
 **SSM Step-5 coverage fraction by window (average % of annual expenditure available for labour tax relief):**
 
 | Window | SSM coverage | Zero-coverage years | Min LRR balance (£b) | Years LRR below floor |
-|---|---:|---:|---:|---:|
+|:---|---:|---:|---:|---:|
 | 5 years | 0.0% | 5 | £7,858b | 5 |
 | 10 years | 6.4% | 7 | £7,858b | 7 |
 | 20 years | 21.3% | 10 | £7,858b | 10 |
@@ -71,7 +71,7 @@
 *Average annual net tax per representative taxpayer over the capitalisation window (SRR fill year to LRR breakeven year). Zeros suppressed.*
 
 | Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
-|---|---|---|---|---|---|---|---|---|---|---|
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | -4.55% (Poor) | £— | £— | £— | £— | £4,897 | £11,854 | £29,698 | £83,531 | £230,983 | £647,561 |
 | -2.05% (Ok) | £— | £— | £— | £5,341 | £16,508 | £28,670 | £71,890 | £202,722 | £564,248 | £1,605,704 |
 | +0.95% (Good) | £— | £3,143 | £8,653 | £18,646 | £34,334 | £59,282 | £148,894 | £421,881 | £1,188,304 | £3,470,065 |
@@ -80,7 +80,7 @@
 ### B.3.3 Annual wealth burden (tax as % of net worth)
 
 | Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
-|---|---|---|---|---|---|---|---|---|---|---|
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | -4.55% (Poor) | 0.00% | 0.00% | 0.00% | 0.00% | 0.17% | 0.25% | 0.25% | 0.25% | 0.26% | 0.28% |
 | -2.05% (Ok) | 0.00% | 0.00% | 0.00% | 0.20% | 0.40% | 0.42% | 0.42% | 0.42% | 0.44% | 0.49% |
 | +0.95% (Good) | 0.00% | 0.18% | 0.29% | 0.42% | 0.53% | 0.56% | 0.56% | 0.57% | 0.61% | 0.70% |
@@ -89,7 +89,7 @@
 ### B.3.4 Effective rate on gains (tax as % of annual gain)
 
 | Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
-|---|---|---|---|---|---|---|---|---|---|---|
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | -4.55% (Poor) | 0.0% | 0.0% | 0.0% | 0.0% | 3.4% | 5.0% | 5.0% | 5.0% | 5.2% | 5.6% |
 | -2.05% (Ok) | 0.0% | 0.0% | 0.0% | 4.0% | 8.0% | 8.3% | 8.4% | 8.5% | 8.8% | 9.8% |
 | +0.95% (Good) | 0.0% | 3.6% | 5.9% | 8.4% | 10.7% | 11.1% | 11.2% | 11.4% | 12.1% | 13.9% |
@@ -98,7 +98,7 @@
 ### B.3.5 Average annual net tax per taxpayer — lifetime average (£/yr)
 
 | Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
-|---|---|---|---|---|---|---|---|---|---|---|
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | -4.55% (Poor) | £— | £— | £— | £— | £4,186 | £10,338 | £25,901 | £72,866 | £201,606 | £566,034 |
 | -2.05% (Ok) | £— | £— | £— | £5,389 | £14,746 | £26,634 | £66,794 | £188,436 | £525,086 | £1,498,335 |
 | +0.95% (Good) | £— | £4,373 | £9,398 | £18,270 | £32,128 | £57,757 | £145,120 | £411,665 | £1,162,873 | £3,416,433 |
@@ -108,8 +108,8 @@
 
 *Cell population = bracket population × tier weight. Bracket population is constant within a bracket across tiers.*
 
-| Tier (weight) \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
-|---|---|---|---|---|---|---|---|---|---|---|
+| Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | 10% (Poor) | 692,000 | 692,000 | 692,000 | 692,000 | 346,000 | 276,800 | 62,280 | 6,228 | 623 | 69 |
 | 30% (Ok) | 2,076,000 | 2,076,000 | 2,076,000 | 2,076,000 | 1,038,000 | 830,400 | 186,840 | 18,684 | 1,868 | 208 |
 | 40% (Good) | 2,768,000 | 2,768,000 | 2,768,000 | 2,768,000 | 1,384,000 | 1,107,200 | 249,120 | 24,912 | 2,491 | 277 |
@@ -120,7 +120,7 @@
 *Average annual revenue per bracket-tier cell over the capitalisation window. Row total is the sum across all brackets for that tier. Column total is the sum across all tiers for that bracket. Grand total is in the bottom-right cell.*
 
 | Tier (weight) \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ | **Row total** |
-|---|---|---|---|---|---|---|---|---|---|---|---|
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | 10% (Poor) | £— | £— | £— | £— | £1,694 | £3,281 | £1,850 | £520 | £144 | £45 | **£7,534.3m** |
 | 30% (Ok) | £— | £— | £— | £11,089 | £17,135 | £23,808 | £13,432 | £3,788 | £1,054 | £333 | **£70,638.5m** |
 | 40% (Good) | £— | £8,699 | £23,950 | £51,613 | £47,518 | £65,637 | £37,093 | £10,510 | £2,960 | £961 | **£248,940.9m** |
@@ -130,7 +130,7 @@
 *Row totals in £b/yr:*
 
 | Tier (weight) | £b/yr |
-|---|---|
+|:---|---:|
 | 10% (Poor) | £7.53b |
 | 30% (Ok) | £70.64b |
 | 40% (Good) | £248.94b |
@@ -142,7 +142,7 @@
 *Each cell's capitalisation-window revenue as a percentage of the grand total. Row total is the tier's share; column total is the bracket's share across all tiers.*
 
 | Tier (weight) \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ | **Row total** |
-|---|---|---|---|---|---|---|---|---|---|---|---|
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | 10% (Poor) | 0.0% | 0.0% | 0.0% | 0.0% | 0.3% | 0.6% | 0.3% | 0.1% | 0.0% | 0.0% | **1.3%** |
 | 30% (Ok) | 0.0% | 0.0% | 0.0% | 2.0% | 3.0% | 4.2% | 2.4% | 0.7% | 0.2% | 0.1% | **12.5%** |
 | 40% (Good) | 0.0% | 1.5% | 4.3% | 9.2% | 8.4% | 11.7% | 6.6% | 1.9% | 0.5% | 0.2% | **44.2%** |
@@ -152,19 +152,19 @@
 ### B.3.9 Revenue by tier (£b/yr)
 
 | Tier | Lifetime avg (£b/yr) | Capitalisation window avg (£b/yr) |
-|---|---|---|
+|:---|---:|---:|
 | -4.55% (Poor) | £6.5b | £7.5b |
 | -2.05% (Ok) | £65.9b | £70.6b |
 | +0.95% (Good) | £247.4b | £248.9b |
 | +3.45% (Great) | £240.5b | £236.1b |
-| **Total** | **£560.3b** | **£563.3b** |
+| **Total** | **£560.3b** | **£563.26b** |
 
 *TCM horizon N is derived from the SSM LRR breakeven year, not the TOML snapshot_N.*
 
 **TCM Step-5 coverage fraction by window:**
 
 | Window | TCM coverage | TCM failure year (LRR) | TCM failure year (SRR) |
-|---|---:|---:|---:|
+|:---|---:|---:|---:|
 | 5 years | 15.9% | None | None |
 | 10 years | 14.6% | None | None |
 | 20 years | 35.8% | None | None |
@@ -174,12 +174,12 @@
 
 ## B.4 Start-Year Sweep
 
-All figures at $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{min}$=£2.0m.
+All figures at $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{\min}$=£2.0m.
 
 ### B.4.1 Extremals — four dimensions
 
 | Dimension | Start year | LRR breakeven | LRR surplus (£b) | LRR failure year | SRR failure year | SSM cov 50yr |
-|---|:---:|:---:|---:|:---:|:---:|---:|
+|:---|:---:|:---:|---:|:---:|:---:|---:|
 | Speed — slowest LRR fill | 2006 | 29 | £523b | none | none | 593.9% |
 | Speed — fastest LRR fill | 1970 | 7 | £402b | none | none | 397.5% |
 | Margin — thinnest surplus | 1996 | 11 | £6b | none | none | 156.0% |
@@ -278,7 +278,7 @@ All figures at $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{min}$=£2.0m.
 ### B.5.1 Overall (all 73 start years)
 
 | Metric | Value |
-|---|---|
+|:---|:---|
 | Success rate | 100.0% (73/73) |
 | LRR fills | 100.0% (73/73) |
 | LRR failures | 0.0% (0/73) |
@@ -287,7 +287,7 @@ All figures at $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{min}$=£2.0m.
 ### B.5.2 By economic cycle
 
 | Period | N | Success% | LRR fill% |
-|---|:---:|:---:|:---:|
+|:---|:---:|:---:|:---:|
 | Post-war growth  1947–59 | 13 | 100.0% | 100.0% |
 | Long boom        1960–79 | 20 | 100.0% | 100.0% |
 | Liberalisation   1980–99 | 20 | 100.0% | 100.0% |
@@ -296,7 +296,7 @@ All figures at $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{min}$=£2.0m.
 ### B.5.3 Key metric distributions
 
 | Metric | N | Min | Median | Mean | Max |
-|---|:---:|---:|---:|---:|---:|
+|:---|:---:|---:|---:|---:|---:|
 | LRR breakeven year | 73 | 7 | 13 | 15 | 29 |
 | SRR fill year | 73 | 3 | 3 | 3 | 3 |
 | LRR failure year | 0 | — | — | — | — |

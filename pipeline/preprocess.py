@@ -13,6 +13,7 @@ Steps:
   9.    Copy machine-readable data        (pages/site_index.py)
   10.   site-index.json                   (pages/site_index.py)
   11.   flowcharts.qmd                    (diagrams.py)
+  12.   Calculator .qmd pages             (tools.py)
 """
 
 import shutil
@@ -28,71 +29,9 @@ from pages.references import generate_references_qmd
 from pages.site_index import copy_machine_readable_assets
 from transforms import process_file, strip_latex, convert_crossrefs
 from link_map import generate_link_map_html
-
-# ── Tool metadata ─────────────────────────────────────────────────────────────
-# Maps source filename stem → (title, description)
-_TOOL_META: dict[str, tuple[str, str]] = {
-    "tools_index": (
-        "WDT — Interactive Tools",
-        "Computational tools for exploring the Wealth Delta Tax mechanism. "
-        "Both tools run the WDT Python model unmodified in your browser via Pyodide — "
-        "no data leaves your machine. The first load takes around 10 seconds to initialise "
-        "the runtime; subsequent calculations are fast.",
-    ),
-    "revenue": (
-        "WDT — National Revenue Calculator",
-        "Aggregate WDT revenue modelled across the full UK taxable wealth distribution "
-        "(Taxpayer Cohort Model). Four return tiers (Fagereng et al. 2020). "
-        "UK equity return series 1947–2019.",
-    ),
-    "taxpayer": (
-        "WDT — Individual Taxpayer Calculator",
-        "Route C simulation: equity-transfer mechanism over N holding periods plus "
-        "terminal sell year. Results always shown alongside the honest-declaration "
-        "(α = 1) baseline.",
-    ),
-}
+from tools import generate_tool_pages
 
 _TOOL_RUNTIME_SUFFIXES = {".py", ".toml"}
-
-
-def _wrap_tool_html(html: str, title: str, description: str) -> str:
-    """Wrap a body-fragment HTML file in Quarto front matter + raw HTML pass-through."""
-    return (
-        f'---\n'
-        f'title: "{title}"\n'
-        f'description: "{description}"\n'
-        f'toc: false\n'
-        f'---\n\n'
-        f'```{{=html}}\n'
-        f'<!-- quarto-disable-processing=true -->\n'
-        f'{html.strip()}\n'
-        f'```\n'
-    )
-
-
-def _strip_html_shell(html: str) -> str:
-    """
-    Remove the outer <!DOCTYPE>/<html>/<head>/<body> shell from a complete
-    HTML page, leaving only the body content as a fragment.
-
-    Used on taxpayer.html which ships as a full standalone page.
-    revenue.html and tools_index.html are already fragments and pass through
-    unchanged (no shell found → original text returned).
-    """
-    import re as _re
-
-    # Drop everything up to and including the closing </head> tag (and
-    # the optional <body> tag immediately after).
-    stripped = _re.sub(
-        r"(?is)^.*?</head>\s*(?:<body[^>]*>)?",
-        "",
-        html,
-        count=1,
-    )
-    # Drop the trailing </body> and </html> tags.
-    stripped = _re.sub(r"(?is)\s*</body>\s*</html>\s*$", "", stripped)
-    return stripped.strip()
 
 
 def main() -> None:
@@ -177,48 +116,24 @@ def main() -> None:
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(p, destination)
 
-    # ── Copy model/ assets into _build/model/ ────────────────────────────
-    # .html tool pages are wrapped as .qmd via _wrap_tool_html so that Quarto
-    # renders them inside the site layout (navbar, sidebar, CSS).
-    # Runtime files (.py, .toml) are copied verbatim — Pyodide loads them
-    # client-side at runtime.  Everything else is copied verbatim too.
+    # ── Copy model/ runtime assets into _build/model/ ────────────────────
+    # HTML tool pages are NOT copied here — they are generated as .qmd files
+    # by tools.generate_tool_pages() (step 12 below).
+    # This loop copies only runtime files (.py, .toml) that Pyodide loads
+    # client-side, plus any other non-HTML files in model/.
     MODEL_DIR = cfg.ROOT_DIR / "model"
     if MODEL_DIR.exists():
         for p in [f for f in MODEL_DIR.rglob("*") if f.is_file()]:
             rel = p.relative_to(MODEL_DIR)
             if rel.parts[0] == "OUTPUTS":
                 continue  # handled separately below
+            if p.suffix == ".html":
+                continue  # calc pages come from site/tools/ via tools.py
             destination = build / "model" / rel
             destination.parent.mkdir(parents=True, exist_ok=True)
-
-            if p.suffix == ".html":
-                stem = p.stem  # e.g. "taxpayer", "revenue", "tools_index"
-                meta = _TOOL_META.get(stem)
-                if meta is None:
-                    # No metadata entry — copy verbatim and warn
-                    shutil.copy2(p, destination)
-                    print(f"  ! model/{p.name} has no _TOOL_META entry — copied verbatim")
-                    continue
-
-                title, description = meta
-                html = p.read_text(encoding="utf-8")
-
-                # taxpayer.html ships as a complete standalone page with
-                # <!DOCTYPE html>/<html>/<head>/<body> wrapper.  Strip the
-                # shell so _wrap_tool_html receives a clean body fragment,
-                # matching revenue.html and tools_index.html which are already
-                # fragments.
-                html = _strip_html_shell(html)
-
-                qmd_text = _wrap_tool_html(html, title, description)
-                qmd_dest = destination.with_suffix(".qmd")
-                qmd_dest.write_text(qmd_text, encoding="utf-8")
-                print(f"  ✓ model/{p.name} → _build/model/{p.stem}.qmd (wrapped)")
-
-            else:
-                shutil.copy2(p, destination)
-                if p.suffix in _TOOL_RUNTIME_SUFFIXES:
-                    print(f"  ✓ model/{p.name} → _build/model/{p.name} (runtime)")
+            shutil.copy2(p, destination)
+            if p.suffix in _TOOL_RUNTIME_SUFFIXES:
+                print(f"  ✓ model/{p.name} → _build/model/{p.name} (runtime)")
     else:
         print("  ! model/ not found — skipping model asset copy")
 
@@ -253,6 +168,13 @@ def main() -> None:
         print("  ! site/diagrams/ not found — skipping flowcharts.qmd")
 
     generate_link_map_html(build / "link-map.html", site_cfg.refs_data, site_cfg.link_map)
+
+    # ── Step 12: Calculator .qmd pages ────────────────────────────────────
+    tools_src = cfg.ROOT_DIR / "site" / "tools"
+    if tools_src.exists():
+        generate_tool_pages(tools_src, build / "model")
+    else:
+        print("  ! site/tools/ not found — skipping calculator page generation")
 
     # ── Machine-readable static endpoints + site-index.json ──────────────
     copy_machine_readable_assets(

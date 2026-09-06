@@ -7,7 +7,7 @@ project:
   resources:
     - model/wdt_core.py
     - model/rates_model.py
-    - model/WDT_Params.toml
+    - model/260812_WDT_Params.toml
     - diagrams/
 
 website:
@@ -94,7 +94,7 @@ website:
       - text: "Tools"
         menu:
           - text: "Calculators"
-            href: model/tools_index.html
+            href: calculator_index.html
           - text: "Flowcharts"
             href: flowcharts.html
           - text: "Link Map"
