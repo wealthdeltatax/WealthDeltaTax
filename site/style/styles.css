@@ -268,8 +268,13 @@ h1 {
   padding-bottom: 0.4rem;
   color: #2B0055;
   background-color: #C0C0C0;
-  margin: -1.25rem -1.5rem 1.25rem;
+  margin: 2rem -1.5rem 1.25rem;   /* positive top margin for mid-page h1s */
   padding: 0.75rem 1.5rem 0.5rem;
+}
+
+/* Only the page title h1 bleeds flush to the top of the content panel */
+#quarto-document-content > h1:first-of-type {
+  margin-top: -1.25rem;
 }
 
 h2 {
