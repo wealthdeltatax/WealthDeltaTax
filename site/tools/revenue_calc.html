@@ -199,7 +199,7 @@ function bindSlider(id, displayId, fmt) {
   return sl;
 }
 
-const wminSl   = bindSlider('wmin-slider',         'wmin-display',         v => '£' + parseFloat(v).toFixed(1) + 'm');
+const wminSl   = bindSlider('wmin-slider',          'wmin-display',         v => '£' + parseFloat(v).toFixed(1) + 'm');
 const tau0Sl   = bindSlider('tau0-slider',          'tau0-display',         v => (parseFloat(v)*100).toFixed(1) + '%');
 const taumSl   = bindSlider('taum-slider',          'taum-display',         v => (parseFloat(v)*100).toFixed(1) + '%');
 const kSl      = bindSlider('k-slider',             'k-display',            v => Math.pow(10, parseFloat(v)).toFixed(4));
