@@ -1,8 +1,8 @@
 """
 WDT Rate Parameter Sensitivity Sweep — Charts
 ===============================================
-Companion to 16_6_260813_RATES_S_tables.py.  Re-runs the same sweeps
-and produces eight publication-quality PNG figures.
+Loads all sweep and burden data from OUTPUTS/sweep_cache.json (produced
+by 16_0_compute.py) and produces ten publication-quality PNG figures.
 
 Figures produced:
   sweep_fig_01  τ_0 sensitivity — 4-panel
@@ -13,35 +13,20 @@ Figures produced:
   sweep_fig_06  Relative sensitivity synthesis
   sweep_fig_07  srr_ratio sensitivity — 4-panel (SWF sizing)
   sweep_fig_08  lrr_years sensitivity — 4-panel (SWF sizing)
-  sweep_fig_09  Coverage fan — SSM 5yr to TCM 50yr across all rate parameters [NEW v8]
-  sweep_fig_10  LRR failure year — SWF sizing sweeps srr_ratio and lrr_years [NEW v8]
-
-v8 changes:
-  Panel [0,0] axis titles now show HEADLINE_WINDOW (default 10yr).
-  Coverage fan (Fig 09) shows full temporal profile: outer band SSM 5yr–TCM 50yr,
-  inner band SSM HW–TCM HW, for all four rate parameters on one normalised axis.
-  Failure year (Fig 10) shows LRR failure year distribution across SWF sweeps;
-  exercises the v8 failure mechanics and shows post-fill buffer margin.
-  Change HEADLINE_WINDOW in wdt_analytics.py to update all labels simultaneously.
-
-Shared infrastructure (path resolution, statistical helpers, sweep
-runner) comes from rates_s_helpers.py.
-
-USAGE
-  python3 16_7_260813_RATES_S_charts.py [params.toml] [output_dir]
+  sweep_fig_09  Coverage fan — SSM 5yr to TCM 50yr across all rate parameters
+  sweep_fig_10  LRR failure year — SWF sizing sweeps srr_ratio and lrr_years
 """
 
-import sys
+import json
 import math
-import datetime
 from pathlib import Path
 from copy import deepcopy
 
 from wdt_analytics import (
-    model, DEFAULT_PARAMS,
-    run_param_sweep, median, mean, success, summarise, HEADLINE_WINDOW,
+    model, DEFAULT_PARAMS, init, HEADLINE_WINDOW,
 )
-from wdt_fmt import fmt_pct1, out_dir
+from wdt_core import load_params, synthetic_returns
+from wdt_fmt import fmt_pct1, out_dir, ensure_dir
 from wdt_style import (apply_style, save_fig,
                         C_SSM, C_TCM, C_LRR, C_SURPLUS, C_BASELINE,
                         PARAM_COLOURS)
@@ -53,8 +38,15 @@ import matplotlib.ticker as mticker
 import numpy as np
 
 OUTPUT_DIR = out_dir('RATES_S')
+_CACHE     = out_dir('.').parent / 'OUTPUTS' / 'sweep_cache.json'
 
-# ── Sweep grids and baseline — populated from TOML in main() ─────────────────
+
+def _load_cache():
+    with open(_CACHE, encoding='utf-8') as fh:
+        return json.load(fh)
+
+
+# ── Sweep grids and baseline — populated from p_base in main() ───────────────
 BASELINE        = {}
 SWEEP_TAU_0     = []
 SWEEP_TAU_M     = []
@@ -162,60 +154,7 @@ def _weighted_quantiles(vals, weights, quantiles):
     return results
 
 
-def _tcm_burden_sweep(p_base, param_key, values):
-    """
-    For each parameter value in `values`, run run_tcm() at fixed N=p_base['N']
-    and N_fill=1 (lifetime averages over the full N-year window), then compute
-    population-weighted quantiles of wealth_burden and eff_rate across all
-    4-tier × 10-bracket cells.
-
-    Returns a list of dicts, one per non-skipped value:
-      {
-        'value'  : float,
-        'x_raw'  : float (same as value, for log-transform at call site),
-        'wb_min' : float,  'wb_q25': float, 'wb_med': float,
-        'wb_q75' : float,  'wb_max': float,   # wealth_burden, fraction
-        'er_min' : float,  'er_q25': float, 'er_med': float,
-        'er_q75' : float,  'er_max': float,   # eff_rate, fraction
-      }
-
-    Cells where wealth_burden == 0.0 (taxpayer below W_min threshold) are
-    included as genuine zeros — they represent no-liability cells and
-    correctly drag the lower quantiles toward zero when W_min is high.
-    """
-    N = p_base['N']
-    results = []
-    for v in values:
-        p = deepcopy(p_base)
-        p[param_key] = v
-        if p['tau_0'] >= p['tau_m'] or p['W_min'] < 0:
-            continue
-        try:
-            tcm = model.run_tcm(p, N=N, N_fill=1)
-        except Exception:
-            continue
-
-        wb_vals, er_vals, pops = [], [], []
-        for tier in p['tiers']:
-            diff = tier['differential']
-            for cell in tcm[diff]:
-                wb_vals.append(cell['wealth_burden'])
-                er_vals.append(cell['eff_rate'])
-                pops.append(cell['cell_pop'])
-
-        wb_q = _weighted_quantiles(wb_vals, pops, [0.0, 0.25, 0.50, 0.75, 1.0])
-        er_q = _weighted_quantiles(er_vals, pops, [0.0, 0.25, 0.50, 0.75, 1.0])
-
-        results.append({
-            'value':  v,
-            'x_raw':  v,
-            'wb_min': wb_q[0], 'wb_q25': wb_q[1], 'wb_med': wb_q[2],
-            'wb_q75': wb_q[3], 'wb_max': wb_q[4],
-            'er_min': er_q[0], 'er_q25': er_q[1], 'er_med': er_q[2],
-            'er_q75': er_q[3], 'er_max': er_q[4],
-        })
-
-    return results
+# _tcm_burden_sweep was moved to 16_0_compute.py; burden data is loaded from cache.
 
 
 def _shade_band(ax, xs, mins, maxs, color, alpha=0.15):
@@ -764,104 +703,393 @@ def _coverage_fan(all_sweeps, sweep_labels, sweep_colours, output_dir):
 
 # ── FIGURE 10: LRR failure year for SWF sweeps ───────────────────────────────
 
-def _failure_year_swf(sw_srr_ratio, sw_lrr_years, output_dir):
+def _swf_stress_margins(sw_srr_ratio, sw_lrr_years, output_dir):
     """
-    Figure 10 — LRR failure year distribution across SWF sizing sweeps.
+    Figure 10 — SWF stress margins across srr_ratio and lrr_years sweeps.
 
-    1×2 panel: one panel per SWF parameter (srr_ratio, lrr_years).
-    X-axis = parameter value.  Y-axis = LRR failure year (median, min, max
-    across the 73 historical start years that produce a failure).
+    2×2 panel layout:
+      [0,0]  Zero-coverage years (10yr window, 2006 worst case) vs srr_ratio
+      [0,1]  Zero-coverage years (10yr window, 2006 worst case) vs lrr_years
+      [1,0]  Min LRR balance at fill (2006 worst case, £b) vs srr_ratio
+      [1,1]  Min LRR balance at fill (2006 worst case, £b) vs lrr_years
 
-    At Balanced parameters lrr_failure_year is None for all 73 start years,
-    so n=0 in the dist and the series is absent — the panel renders cleanly
-    as an empty plot with only the baseline marker and a "no failures at
-    baseline" annotation.  As parameters stress the SWF, failure years
-    appear and the series fills in from the right (most-stressed end).
+    Zero-coverage years = years in the post-fill window where cov_frac = 0,
+    meaning WDT revenue does not fully cover Step-5 expenditure and the LRR
+    buffer must absorb the shortfall.  The LRR exists precisely for this
+    purpose; the question is whether the buffer is sized adequately.
 
-    This figure exercises the v8 failure mechanics and shows the parameter
-    margin available before the LRR buffer is exhausted post-fill.
+    No failure occurs at Balanced parameters because the LRR buffer is never
+    exhausted — this figure shows the stress margin (how much headroom exists)
+    rather than a binary failure indicator.  If the 2006 worst case still shows
+    zero-coverage years, those are years the LRR absorbs; the min LRR balance
+    panel confirms the buffer was never drained.
+
+    Distribution bands (min/max across 73 start years) are shown where the
+    cache provides the full distribution via zero_cov_W keys; otherwise the
+    2006 worst-case single value is plotted as a point series.
     """
     _base_style()
-    fig, (ax_srr, ax_lrr) = plt.subplots(1, 2, figsize=(14, 6))
+    fig, axes = plt.subplots(2, 2, figsize=(14, 9))
     fig.suptitle(
-        'LRR failure year across SWF sizing parameters\n'
-        'LRR failure = LRR buffer hits zero post-fill (refund guarantee at risk)\n'
-        'Empty series at a parameter value = no LRR failure across all 73 start years',
+        'Fig 10 — SWF stress margins: zero-coverage years and LRR buffer headroom\n'
+        'Zero-coverage years = years post-fill where WDT net revenue < Step-5 expenditure '
+        '(LRR absorbs shortfall)\n'
+        'No LRR buffer exhaustion occurs at Balanced parameters across all 73 start years',
         fontsize=10, y=1.02,
     )
 
-    C_FAIL = '#e15759'   # red — failure year
+    W = 10   # headline coverage window for zero-cov metric
+    C_ZCOV  = '#e15759'   # red — stress signal
+    C_HDROOM = C_LRR      # reuse LRR colour for headroom/balance
 
-    configs = [
-        (ax_srr, sw_srr_ratio, BASELINE.get('srr_ratio', 3.0),
-         'srr_ratio (×)', 'SRR capitalisation ratio'),
-        (ax_lrr, sw_lrr_years, BASELINE.get('lrr_years', 3.0),
-         'lrr_years (years)', 'LRR floor (years of expenditure)'),
-    ]
+    srr_bl = BASELINE.get('srr_ratio', 3.0)
+    lrr_bl = BASELINE.get('lrr_years', 3.0)
 
-    for ax, sweep_results, baseline_v, x_label, title in configs:
-        xs_fail, meds, mins_, maxs_ = [], [], [], []
-
+    def _zero_cov_series(sweep_results, window):
+        """Extract zero-cov-year series from summary, using dist if available."""
+        xs, meds, mins_, maxs_ = [], [], [], []
+        key_dist = f'zero_cov_{window}'
+        key_wc   = f'ssm_zero_cov_years_{window}'
         for r in sweep_results:
             if r['skipped'] or r['summary'] is None:
                 continue
-            d = r['summary']['lrr_failure']
-            if d['n'] == 0:
-                continue   # no failures at this parameter value — skip point
-            xs_fail.append(r['value'])
-            meds.append(d['median'])
-            mins_.append(d['min'])
-            maxs_.append(d['max'])
+            s = r['summary']
+            if key_dist in s and s[key_dist]['n'] > 0:
+                d = s[key_dist]
+                xs.append(r['value'])
+                meds.append(d['median'])
+                mins_.append(d['min'])
+                maxs_.append(d['max'])
+            elif s.get('worst_case_2006') and s['worst_case_2006'].get(key_wc) is not None:
+                v = s['worst_case_2006'][key_wc]
+                xs.append(r['value'])
+                meds.append(v)
+                mins_.append(v)
+                maxs_.append(v)
+        return xs, meds, mins_, maxs_
 
-        if xs_fail:
-            _shade_band(ax, xs_fail, mins_, maxs_, C_FAIL, alpha=0.20)
-            ax.plot(xs_fail, meds, color=C_FAIL, linewidth=2.2,
+    def _min_lrr_series(sweep_results):
+        """Extract min LRR balance at fill from worst_case_2006 (£b)."""
+        xs, ys = [], []
+        for r in sweep_results:
+            if r['skipped'] or r['summary'] is None:
+                continue
+            wc = r['summary'].get('worst_case_2006')
+            if wc and wc.get('lrr_surplus_at_fill') is not None:
+                xs.append(r['value'])
+                ys.append(wc['lrr_surplus_at_fill'])
+        return xs, ys
+
+    # ── Row 0: zero-coverage years ──────────────────────────────────────────
+    for col, (sweep, baseline_v, xlabel, title) in enumerate([
+        (sw_srr_ratio, srr_bl, 'srr_ratio (×)',
+         f'Zero-coverage years ({W}yr window)\nvs SRR capitalisation ratio'),
+        (sw_lrr_years, lrr_bl, 'lrr_years (years)',
+         f'Zero-coverage years ({W}yr window)\nvs LRR floor'),
+    ]):
+        ax = axes[0, col]
+        xs, meds, mins_, maxs_ = _zero_cov_series(sweep, W)
+        if xs:
+            has_band = any(lo != hi for lo, hi in zip(mins_, maxs_))
+            if has_band:
+                _shade_band(ax, xs, mins_, maxs_, C_ZCOV, alpha=0.18)
+            ax.plot(xs, meds, color=C_ZCOV, linewidth=2.2,
                     marker='o', markersize=5, zorder=3,
-                    label='LRR failure year (median)')
-            ax.fill_between(xs_fail, mins_, maxs_,
-                            color=C_FAIL, alpha=0.12, linewidth=0)
-
+                    label=f'Zero-cov yrs {W}yr'
+                          + (' (median)' if has_band else ' (2006 worst case)'))
+            if has_band:
+                ax.fill_between(xs, mins_, maxs_, color=C_ZCOV, alpha=0.10, linewidth=0)
         _mark_baseline(ax, baseline_v)
+        ax.set_xlabel(xlabel, fontsize=10)
+        ax.set_ylabel(f'Zero-coverage years ({W}yr window)', fontsize=10)
+        ax.set_title(title, fontsize=10)
+        ax.yaxis.set_major_locator(mticker.MaxNLocator(integer=True))
+        ax.legend(fontsize=8)
+        # Annotate what zero-cov years mean
+        ax.text(0.02, 0.97,
+                'Each zero-cov year drains the LRR buffer;\nsee lower panels for buffer size.',
+                transform=ax.transAxes, fontsize=7, va='top', color='#555555',
+                style='italic')
 
-        # Annotate baseline if no failures there
-        baseline_row = next(
-            (r for r in sweep_results
-             if not r['skipped'] and r['summary'] is not None
-             and abs(r['value'] - baseline_v) < 1e-9),
-            None,
-        )
-        if baseline_row and baseline_row['summary']['lrr_failure']['n'] == 0:
-            y_mid = 50   # midpoint annotation
-            ax.text(baseline_v, y_mid,
-                    f'Baseline ({baseline_v})\nno LRR failures',
-                    ha='center', va='center', fontsize=8,
-                    color=C_BASELINE, style='italic',
-                    bbox=dict(boxstyle='round,pad=0.3', fc='white',
-                              ec=C_BASELINE, alpha=0.8))
-
-        ax.set_xlabel(x_label, fontsize=10)
-        ax.set_ylabel('LRR failure year', fontsize=10)
-        ax.set_title(f'{title}\nLRR failure year distribution', fontsize=10)
-        ax.set_ylim(0, 75)
-        if xs_fail:
-            ax.legend(fontsize=8)
+    # ── Row 1: min LRR balance at fill ──────────────────────────────────────
+    for col, (sweep, baseline_v, xlabel, title) in enumerate([
+        (sw_srr_ratio, srr_bl, 'srr_ratio (×)',
+         'LRR surplus at fill (£b, 2006 worst case)\nvs SRR capitalisation ratio'),
+        (sw_lrr_years, lrr_bl, 'lrr_years (years)',
+         'LRR surplus at fill (£b, 2006 worst case)\nvs LRR floor'),
+    ]):
+        ax = axes[1, col]
+        xs, ys = _min_lrr_series(sweep)
+        if xs:
+            ax.plot(xs, ys, color=C_HDROOM, linewidth=2.2,
+                    marker='o', markersize=5, zorder=3,
+                    label='LRR surplus at fill — 2006 (£b)')
+            ax.fill_between(xs, 0, ys, color=C_HDROOM, alpha=0.12, linewidth=0)
+        _mark_baseline(ax, baseline_v)
+        ax.axhline(0, color='#333333', linewidth=0.8, linestyle='--', alpha=0.5)
+        ax.set_xlabel(xlabel, fontsize=10)
+        ax.set_ylabel('LRR surplus at fill (£b)', fontsize=10)
+        ax.set_title(title, fontsize=10)
+        ax.legend(fontsize=8)
 
     plt.tight_layout()
-    return _save(fig, output_dir, 'sweep_fig_10_failure_years.png')
+    return _save(fig, output_dir, 'sweep_fig_10_swf_stress_margins.png')
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+# ── FIGURE 11: g sensitivity ──────────────────────────────────────────────────
+
+def _g_sensitivity(sweep_results, output_dir):
+    """
+    Figure 11 — Deterministic g sweep: LRR fill year and coverage vs growth rate.
+
+    2-panel figure:
+      Left:  LRR fill year vs g.  Shows how transition speed varies with the
+             underlying economic growth rate.  Lower g → slower fill because
+             the WDT revenue base compounds more slowly.
+      Right: SSM and TCM headline-window coverage vs g.  Shows the post-fill
+             fiscal headroom as a function of growth.
+
+    Unlike the historical start-year sweeps, each point here is a single
+    deterministic run with a constant g series — no distribution band.
+    """
+    _base_style()
+    fig, (ax_fill, ax_cov) = plt.subplots(1, 2, figsize=(14, 6))
+    fig.suptitle(
+        'Fig 11 — Constant-g sensitivity: LRR fill year and coverage\n'
+        'Each point = one deterministic SSM run with g applied uniformly. '
+        'No start-year distribution.',
+        fontsize=11, y=1.01,
+    )
+
+    valid = [r for r in sweep_results if not r['skipped'] and r['summary']]
+    xs    = [r['value'] * 100 for r in valid]
+
+    # Left: LRR fill year
+    lrr_fills = [r['summary']['lrr_fill']['median'] for r in valid]
+    ax_fill.plot(xs, lrr_fills, color=C_LRR, linewidth=2.2,
+                 marker='o', markersize=6, zorder=3)
+    _mark_baseline(ax_fill, BASELINE.get('hist_mean',
+                   valid[0]['value'] * 100 if valid else 10) * 100 / 100 * 100)
+    ax_fill.set_xlabel('Growth rate g (%)', fontsize=10)
+    ax_fill.set_ylabel('LRR fill year', fontsize=10)
+    ax_fill.set_title('LRR fill year\n(transition speed vs growth rate)', fontsize=10)
+
+    # Annotate hist_mean
+    hist_mean = BASELINE.get('hist_mean', None)
+    if hist_mean:
+        ax_fill.axvline(hist_mean * 100, color=C_BASELINE, linewidth=1.0,
+                        linestyle=':', label=f'hist_mean = {hist_mean:.2%}')
+        ax_fill.legend(fontsize=8)
+
+#Traceback (most recent call last):
+#   File "c:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\model\16_7_RATES_S_charts.py", line 1227, in <module>
+#     main()
+#     ~~~~^^
+#   File "c:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\model\16_7_RATES_S_charts.py", line 1218, in main
+#     _g_sensitivity(sw_g_sweep, _out)
+#     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+#   File "c:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\model\16_7_RATES_S_charts.py", line 887, in _g_sensitivity
+#     ssm_cov = [r['summary']['ssm_cov']['median'] * 100 for r in valid]
+#                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+# TypeError: unsupported operand type(s) for *: 'NoneType' and 'int'
+
+    # Right: SSM and TCM coverage
+    ssm_cov = [r['summary']['ssm_cov']['median'] * 100 for r in valid]
+    tcm_cov = [r['summary']['tcm_cov']['median'] * 100 for r in valid]
+    ax_cov.plot(xs, ssm_cov, color=C_SSM, linewidth=2.2, marker='o', markersize=5,
+                label=f'SSM {HEADLINE_WINDOW}yr (correlated-shock floor)')
+    ax_cov.plot(xs, tcm_cov, color=C_TCM, linewidth=2.2, marker='o', markersize=5,
+                label=f'TCM {HEADLINE_WINDOW}yr (heterogeneity ceiling)')
+    ax_cov.axhline(100, color='black', linewidth=0.8, linestyle='--', alpha=0.5,
+                   label='100% expenditure coverage')
+    if hist_mean:
+        ax_cov.axvline(hist_mean * 100, color=C_BASELINE, linewidth=1.0, linestyle=':')
+    ax_cov.yaxis.set_major_formatter(
+        mticker.FuncFormatter(lambda v, _: f'{v:.0f}%'))
+    ax_cov.set_xlabel('Growth rate g (%)', fontsize=10)
+    ax_cov.set_ylabel(f'Coverage fraction (%)', fontsize=10)
+    ax_cov.set_title(f'SSM & TCM {HEADLINE_WINDOW}yr coverage\n(post-fill, Step-5 avg)',
+                     fontsize=10)
+    ax_cov.legend(fontsize=8, loc='upper left')
+
+    plt.tight_layout()
+    return _save(fig, output_dir, 'sweep_fig_11_g_sensitivity.png')
+
+
+# ── FIGURE 12: synthetic scenario ─────────────────────────────────────────────
+
+def _synthetic_scenario(amp_results, per_results, canonical_series,
+                         syn_params, output_dir):
+    """
+    Figure 12 — Synthetic stress-test scenario: mu = inflation floor, A dips negative.
+
+    Purpose: address the criticism that the WDT is not stress-tested under
+    negative growth.  mu is set to 2% (UK CPI inflation floor) so the
+    mean growth rate is barely positive.  Amplitude A then drives g negative
+    for part of each cycle.  At canonical A = 4%, g oscillates between -2%
+    and +6% — more adverse than any recorded decade of UK equity returns.
+
+    2×2 panel layout:
+      [0,0]  Canonical synthetic series shape (first 50 years), overlaid with
+             multiple amplitude values to show the negative-growth excursions.
+      [0,1]  Zero-coverage years (10yr window) vs amplitude A.
+             Shows how many post-fill years the LRR buffer must absorb as
+             the stress severity increases.
+      [1,0]  LRR fill year vs period T (A fixed at canonical).
+             Flat/near-flat line demonstrates cycle-length insensitivity.
+      [1,1]  Per-year cov_frac trajectory post-fill for each amplitude value.
+             x = years post-fill; y = cov_frac.  100% line = Governing Council
+             recalibration trigger.  Shows the system recovering to steady-state
+             coverage even after deep negative-growth years.
+    """
+    _base_style()
+    fig, axes = plt.subplots(2, 2, figsize=(14, 9))
+    mu_pct = syn_params['mu'] * 100
+    A_pct  = syn_params['amplitude'] * 100
+    T      = syn_params['period']
+    fig.suptitle(
+        r'Fig 12 — Synthetic stress-test: $g(t) = \mu + A \sin(2\pi t / T)$, '
+        r'$\lambda = 0$'
+        '\n'
+        f'μ = {mu_pct:.0f}% (inflation floor)  |  '
+        f'Canonical A = {A_pct:.0f}% (g oscillates {mu_pct - A_pct:.0f}% to {mu_pct + A_pct:.0f}%)  |  '
+        f'T = {T:.0f} yr',
+        fontsize=10, y=1.02,
+    )
+
+    # Colour ramp for amplitude values — darker = more stress
+    AMP_COLOURS = [
+        '#b2df8a', '#78c679', '#41ab5d', '#238b45',
+        '#006d2c', '#00441b', '#1a1a1a', '#888888',
+    ]
+
+    amp_valid = [r for r in amp_results
+                 if not r['skipped'] and r['summary']]
+
+    # ── Panel [0,0]: canonical series shape with amplitude overlays ───────────
+    ax = axes[0, 0]
+    # Show multiple amplitude curves so the reader sees negative-growth excursions
+    t_plot = list(range(min(50, len(canonical_series))))
+    for idx, r in enumerate(amp_valid):
+        raw = r['summary'].get('_raw', {})
+        ssm_full = raw.get('ssm_full', [])
+        if not ssm_full:
+            continue
+        g_series = [row['g'] * 100 for row in ssm_full[:50]]
+        t_series = list(range(len(g_series)))
+        A_val = r['value']
+        color = AMP_COLOURS[idx % len(AMP_COLOURS)]
+        lw    = 2.0 if abs(A_val - syn_params['amplitude']) < 1e-9 else 1.0
+        label = f'A = {A_val:.0%}' + (' ◄ canonical' if lw == 2.0 else '')
+        ax.plot(t_series, g_series, color=color, linewidth=lw,
+                label=label, alpha=0.85)
+    ax.axhline(mu_pct, color='#888888', linewidth=0.9, linestyle='--',
+               label=f'μ = {mu_pct:.0f}%')
+    ax.axhline(0, color='#333333', linewidth=0.7, linestyle=':',
+               label='g = 0', alpha=0.7)
+    ax.fill_between(t_plot,
+                    [0] * len(t_plot),
+                    [min(0, canonical_series[t] * 100) for t in t_plot],
+                    color='#e15759', alpha=0.18, label='Negative growth region')
+    ax.set_xlabel('Year t', fontsize=10)
+    ax.set_ylabel('Growth rate g(t) (%)', fontsize=10)
+    ax.set_title('Synthetic stress series — amplitude overlay\n'
+                 '(red shading = negative growth years)', fontsize=10)
+    ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f'{v:.0f}%'))
+    ax.legend(fontsize=7, loc='upper right', ncol=2)
+
+    # ── Panel [0,1]: zero-coverage years vs amplitude ────────────────────────
+    ax = axes[0, 1]
+    W = 10
+    amp_xs_zcov, amp_zcov = [], []
+    for r in amp_valid:
+        s   = r['summary']
+        raw = s.get('_raw', {})
+        # Prefer aggregated distribution; fall back to single-run value from _raw
+        dist = s.get(f'zero_cov_{W}')
+        if dist and dist['n'] > 0:
+            amp_xs_zcov.append(r['value'] * 100)
+            amp_zcov.append(dist['median'])
+        else:
+            zc = raw.get(f'ssm_zero_cov_years_{W}')
+            if zc is not None:
+                amp_xs_zcov.append(r['value'] * 100)
+                amp_zcov.append(zc)
+    if amp_xs_zcov:
+        ax.bar(amp_xs_zcov, amp_zcov, width=0.8,
+               color='#e15759', alpha=0.75, edgecolor='#333333', linewidth=0.5,
+               label=f'Zero-cov years ({W}yr window)')
+        ax.axvline(A_pct, color=C_BASELINE, linewidth=1.2, linestyle=':',
+                   label=f'Canonical A = {A_pct:.0f}%')
+    ax.set_xlabel('Amplitude A (%)', fontsize=10)
+    ax.set_ylabel(f'Zero-coverage years ({W}yr window)', fontsize=10)
+    ax.set_title('Years LRR buffer must absorb shortfall\nvs stress amplitude',
+                 fontsize=10)
+    ax.yaxis.set_major_locator(mticker.MaxNLocator(integer=True))
+    ax.legend(fontsize=8)
+    ax.text(0.02, 0.97,
+            'LRR exists to cover these years.\nBuffer sizing shown in Fig 10.',
+            transform=ax.transAxes, fontsize=7, va='top',
+            color='#555555', style='italic')
+
+    # ── Panel [1,0]: LRR fill year vs period T ───────────────────────────────
+    ax = axes[1, 0]
+    per_valid = [r for r in per_results if not r['skipped'] and r['summary']
+                 and r['summary'].get('lrr_fill', {}).get('median') is not None]
+    if per_valid:
+        per_xs   = [r['value'] for r in per_valid]
+        per_fill = [r['summary']['lrr_fill']['median'] for r in per_valid]
+        ax.plot(per_xs, per_fill, color=C_LRR, linewidth=2.2,
+                marker='o', markersize=6)
+        ax.axvline(T, color=C_BASELINE, linewidth=1.2, linestyle=':',
+                   label=f'Canonical T = {T:.0f} yr')
+        ax.legend(fontsize=8)
+    ax.set_xlabel('Period T (years)', fontsize=10)
+    ax.set_ylabel('LRR fill year', fontsize=10)
+    ax.set_title('LRR fill year vs cycle period\n'
+                 '(A = canonical; near-flat = cycle-length insensitivity)', fontsize=10)
+
+    # ── Panel [1,1]: per-year cov_frac trajectory post-fill ──────────────────
+    ax = axes[1, 1]
+    for idx, r in enumerate(amp_valid):
+        raw      = r['summary'].get('_raw', {})
+        ssm_full = raw.get('ssm_full', [])
+        lrr_fill = raw.get('lrr_fill_year')
+        if not ssm_full or lrr_fill is None:
+            continue
+        # Extract post-fill rows only; x = years since fill
+        post = [(row['year'] - lrr_fill, row['cov_frac'] * 100)
+                for row in ssm_full
+                if row.get('lrr_filled') and row['year'] > lrr_fill]
+        if not post:
+            continue
+        t_post, cov_post = zip(*post)
+        A_val  = r['value']
+        color  = AMP_COLOURS[idx % len(AMP_COLOURS)]
+        lw     = 2.2 if abs(A_val - syn_params['amplitude']) < 1e-9 else 1.2
+        label  = f'A = {A_val:.0%}' + (' ◄' if lw == 2.2 else '')
+        ax.plot(t_post, cov_post, color=color, linewidth=lw, label=label, alpha=0.85)
+
+    ax.axhline(100, color='black', linewidth=1.0, linestyle='--', alpha=0.6,
+               label='100% expenditure coverage\n(Governing Council recalibration trigger)')
+    ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f'{v:.0f}%'))
+    ax.set_xlabel('Years post-LRR fill', fontsize=10)
+    ax.set_ylabel('Step-5 coverage fraction (%)', fontsize=10)
+    ax.set_title(f'10yr TCM coverage trajectory post-fill\n'
+                 f'by amplitude (x = years since LRR fill)', fontsize=10)
+    ax.legend(fontsize=7, loc='upper left', ncol=2)
+
+    plt.tight_layout()
+    return _save(fig, output_dir, 'sweep_fig_12_synthetic_scenario.png')
+
+
 def main():
-    toml_path  = sys.argv[1] if len(sys.argv) > 1 else None
-    output_dir = sys.argv[2] if len(sys.argv) > 2 else None
-
-    effective_toml = toml_path or str(DEFAULT_PARAMS)
-    print(f'Loading parameters from: {effective_toml}')
-    p_base = model.load_params(effective_toml)
+    p_base = load_params()
     model.validate_params(p_base)
+    init(p_base)
 
-    # Populate module-level BASELINE and sweep grids from TOML.
     global BASELINE, SWEEP_TAU_0, SWEEP_TAU_M, SWEEP_K, SWEEP_WMIN, \
            SWEEP_SRR_RATIO, SWEEP_LRR_YEARS
     sw = p_base['sweep']
@@ -880,57 +1108,41 @@ def main():
     SWEEP_SRR_RATIO = sw['rates_srr_ratio_sweep']
     SWEEP_LRR_YEARS = sw['rates_lrr_years_sweep']
 
-    _out = Path(output_dir) if output_dir else OUTPUT_DIR
-    _out.mkdir(parents=True, exist_ok=True)
+    _out = OUTPUT_DIR
+    ensure_dir(_out)
 
-    print(f'\nBaseline (from TOML): τ_0={p_base["tau_0"]:.0%}  τ_m={p_base["tau_m"]:.0%}  '
+    print(f'16_7 RATES_S charts — loading from cache')
+    print(f'Baseline: τ_0={p_base["tau_0"]:.0%}  τ_m={p_base["tau_m"]:.0%}  '
           f'k={p_base["k"]}  W_min=£{p_base["W_min"]}m  '
           f'srr_ratio={p_base["srr_ratio"]}×  lrr_years={p_base["lrr_years"]}\n')
 
-    # ── Run sweeps ─────────────────────────────────────────────
-    print('=' * 60)
-    print('SWEEP 1/4: τ_0')
-    print('=' * 60)
-    sw_tau0 = run_param_sweep(p_base, 'tau_0', SWEEP_TAU_0)
+    # ── Load all pre-computed data from cache ─────────────────
+    d = _load_cache()
+    rs = d['rates_s']
 
-    print('\n' + '=' * 60)
-    print('SWEEP 2/4: τ_m')
-    print('=' * 60)
-    sw_taum = run_param_sweep(p_base, 'tau_m', SWEEP_TAU_M)
+    sw_tau0      = rs['rates_tau0_sweep']
+    sw_taum      = rs['rates_taum_sweep']
+    sw_k         = rs['rates_k_sweep']
+    sw_wmin      = rs['rates_wmin_sweep']
+    sw_srr_ratio = rs['rates_srr_sweep']
+    sw_lrr_years = rs['rates_lrr_sweep']
 
-    print('\n' + '=' * 60)
-    print('SWEEP 3/4: k (log-spaced)')
-    print('=' * 60)
-    sw_k = run_param_sweep(p_base, 'k', SWEEP_K)
+    burden_tau0  = rs['burden_tau0']
+    burden_taum  = rs['burden_taum']
+    burden_k     = rs['burden_k']
+    burden_wmin  = rs['burden_wmin']
 
-    print('\n' + '=' * 60)
-    print('SWEEP 4/4: W_min')
-    print('=' * 60)
-    sw_wmin = run_param_sweep(p_base, 'W_min', SWEEP_WMIN)
+    sw_g_sweep           = rs['rates_g_sweep']
+    sw_amp_sweep         = rs['synthetic_amplitude_sweep']
+    sw_per_sweep         = rs['synthetic_period_sweep']
+    canonical_syn_series = rs['synthetic_canonical_series']
+    syn_params           = rs['synthetic_params']
 
-    print('\n' + '=' * 60)
-    print('SWEEP 5/6: srr_ratio (SRR capitalisation ratio)')
-    print('=' * 60)
-    sw_srr_ratio = run_param_sweep(p_base, 'srr_ratio', SWEEP_SRR_RATIO)
+    # Store hist_mean in BASELINE for use by _g_sensitivity
+    BASELINE['hist_mean'] = p_base['hist_mean']
 
-    print('\n' + '=' * 60)
-    print('SWEEP 6/6: lrr_years (LRR floor, years of expenditure)')
-    print('=' * 60)
-    sw_lrr_years = run_param_sweep(p_base, 'lrr_years', SWEEP_LRR_YEARS)
-
-    # ── Compute taxpayer burden sweeps (cheap: one run_tcm per value) ──────────
-    # Note: burden is invariant across srr_ratio and lrr_years sweeps — the rate
-    # function is unchanged.  No burden sweep is computed for those two parameters;
-    # their fourth panel uses the dual-milestone design instead.
-    print('\nComputing taxpayer burden sweeps (fixed N={})...'.format(p_base['N']))
-    burden_tau0 = _tcm_burden_sweep(p_base, 'tau_0', SWEEP_TAU_0)
-    burden_taum = _tcm_burden_sweep(p_base, 'tau_m', SWEEP_TAU_M)
-    burden_k    = _tcm_burden_sweep(p_base, 'k',     SWEEP_K)
-    burden_wmin = _tcm_burden_sweep(p_base, 'W_min', SWEEP_WMIN)
-    print('  Burden sweeps complete.')
-
-    # ── Generate figures ───────────────────────────────────────
-    print('\nGenerating figures...')
+    # ── Generate figures ──────────────────────────────────────
+    print('Generating figures...')
 
     _four_panel(
         sw_tau0,
@@ -1013,7 +1225,12 @@ def main():
         output_dir=_out,
     )
 
-    _failure_year_swf(sw_srr_ratio, sw_lrr_years, _out)
+    _swf_stress_margins(sw_srr_ratio, sw_lrr_years, _out)
+
+    _g_sensitivity(sw_g_sweep, _out)
+
+    _synthetic_scenario(sw_amp_sweep, sw_per_sweep,
+                        canonical_syn_series, syn_params, _out)
 
     print('\nAll figures complete.')
 

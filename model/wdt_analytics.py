@@ -708,8 +708,10 @@ def summarise(sweep_results: list) -> dict:
     wc = next((r for r in sweep_results if r.get('calendar_year') == 2006), None)
 
     # Per-window dists for all four windows
-    ssm_w = {W: _dist(f'ssm_cov_{W}') for W in (5, 10, 20, 50)}
-    tcm_w = {W: _dist(f'tcm_cov_{W}') for W in (5, 10, 20, 50)}
+    ssm_w    = {W: _dist(f'ssm_cov_{W}')                   for W in (5, 10, 20, 50)}
+    tcm_w    = {W: _dist(f'tcm_cov_{W}')                   for W in (5, 10, 20, 50)}
+    zcov_w   = {W: _dist(f'ssm_zero_cov_years_{W}')        for W in (5, 10, 20, 50)}
+    bfloor_w = {W: _dist(f'ssm_lrr_below_floor_years_{W}') for W in (5, 10, 20, 50)}
 
     return {
         'n_total':         n_total,
@@ -718,7 +720,7 @@ def summarise(sweep_results: list) -> dict:
         # Headline aliases — point at HEADLINE_WINDOW; 16_6/16_7 read these
         'ssm_cov':         ssm_w[HEADLINE_WINDOW],
         'tcm_cov':         tcm_w[HEADLINE_WINDOW],
-        # Full per-window dists
+        # Full per-window coverage dists
         'ssm_cov_5':       ssm_w[5],
         'ssm_cov_10':      ssm_w[10],
         'ssm_cov_20':      ssm_w[20],
@@ -727,6 +729,17 @@ def summarise(sweep_results: list) -> dict:
         'tcm_cov_10':      tcm_w[10],
         'tcm_cov_20':      tcm_w[20],
         'tcm_cov_50':      tcm_w[50],
+        # Zero-coverage year dists across all 73 start years
+        # Each value = years post-fill where cov_frac = 0 (LRR absorbs shortfall)
+        'zero_cov_5':      zcov_w[5],
+        'zero_cov_10':     zcov_w[10],
+        'zero_cov_20':     zcov_w[20],
+        'zero_cov_50':     zcov_w[50],
+        # Years LRR balance was below the floor (additional stress indicator)
+        'lrr_below_floor_5':  bfloor_w[5],
+        'lrr_below_floor_10': bfloor_w[10],
+        'lrr_below_floor_20': bfloor_w[20],
+        'lrr_below_floor_50': bfloor_w[50],
         # Failure year dists (v8)
         'lrr_failure':     _dist('lrr_failure_year'),
         'srr_failure':     _dist('srr_failure_year'),
@@ -835,5 +848,204 @@ def run_param_sweep(
             f"LRR_med={s['lrr_fill']['median']}  "
             f"LRRfail={n_fail}/{s['n_total']}"
         )
+
+    return results
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DETERMINISTIC SCENARIO SWEEPS
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _summarise_single(result):
+    """
+    Wrap a single run_single_scenario() result in the same shell structure
+    that run_param_sweep() uses, so downstream formatters work unchanged.
+
+    For a deterministic scenario there is no distribution across start years,
+    so every 'dist' field contains the single value in all four slots and n=1.
+    The 'worst_case_2006' key is set to None (no historical anchor).
+    The 'success_rate' is 100.0 if lrr_fill_year is not None and
+    lrr_failure_year is None, else 0.0.
+    """
+    def _point(v):
+        """Wrap a single value as a minimal dist dict."""
+        return {'min': v, 'median': v, 'mean': v, 'max': v, 'n': 1 if v is not None else 0}
+
+    lrr_fill = result.get('lrr_fill_year')
+    lrr_fail = result.get('lrr_failure_year')
+    succeeded = (lrr_fill is not None) and (lrr_fail is None)
+
+    ssm_w = {W: _point(result.get(f'ssm_cov_{W}')) for W in (5, 10, 20, 50)}
+    tcm_w = {W: _point(result.get(f'tcm_cov_{W}')) for W in (5, 10, 20, 50)}
+
+    return {
+        'n_total':         1,
+        'success_rate':    100.0 if succeeded else 0.0,
+        'n_lrr_failure':   0 if lrr_fail is None else 1,
+        # Headline aliases
+        'ssm_cov':         ssm_w[HEADLINE_WINDOW],
+        'tcm_cov':         tcm_w[HEADLINE_WINDOW],
+        # Full per-window dists
+        'ssm_cov_5':       ssm_w[5],
+        'ssm_cov_10':      ssm_w[10],
+        'ssm_cov_20':      ssm_w[20],
+        'ssm_cov_50':      ssm_w[50],
+        'tcm_cov_5':       tcm_w[5],
+        'tcm_cov_10':      tcm_w[10],
+        'tcm_cov_20':      tcm_w[20],
+        'tcm_cov_50':      tcm_w[50],
+        'lrr_failure':     _point(lrr_fail),
+        'srr_failure':     _point(result.get('srr_failure_year')),
+        'lrr_fill':        _point(lrr_fill),
+        'srr_fill':        _point(result.get('srr_fill_year')),
+        'lrr_surplus':     _point(result.get('lrr_surplus_at_fill', 0.0)),
+        'worst_case_2006': None,
+        # Pass through raw single-scenario metrics for bespoke chart use
+        '_raw': result,
+    }
+
+
+def _series_long_enough(series, max_n=71):
+    """
+    A synthetic series needs at least max_n + 1 entries so the SSM marginal
+    pass can index returns[0] through returns[max_n].  If the series is shorter,
+    extend it cyclically (safe for periodic series; noted as an approximation
+    for non-periodic ones).
+    """
+    needed = max_n + 1
+    if len(series) >= needed:
+        return series[:needed + 2]   # small headroom
+    reps = (needed // len(series)) + 2
+    extended = (series * reps)[:needed + 2]
+    return extended
+
+
+def run_g_sweep(
+    p_base: dict,
+    g_values: Optional[Sequence[float]] = None,
+) -> list:
+    """
+    Run one deterministic SSM + TCM pass per g value in g_values.
+
+    Each run replaces the historical return series with a constant series
+    [g, g, g, ...] of the required length.  There is no start-year
+    rotation and no 73-run distribution — one result per g value.
+
+    Parameters
+    ----------
+    p_base   : dict   base parameter dict from load_params()
+    g_values : list   growth rates to sweep; defaults to
+                      p_base['sweep']['rates_g_sweep']
+
+    Returns
+    -------
+    list of dicts, one per g value — same {value, label, summary, skipped,
+    skip_reason} structure as run_param_sweep(), so the same downstream
+    formatters (16_6 tables, 16_7 charts) work unchanged.
+
+    The summary dict produced by _summarise_single() has identical top-level
+    keys to summarise(), with every distribution field collapsed to a single
+    point.  Callers reading s['ssm_cov']['median'] etc. work unchanged.
+    """
+    from wdt_fmt import fmt_pct1
+
+    if g_values is None:
+        g_values = p_base['sweep'].get('rates_g_sweep', [])
+
+    results = []
+    for g in g_values:
+        label = f'g={g:.2%}'
+        print(f'  [g_sweep g={g:.4f}]  running...', end='', flush=True)
+
+        series = _series_long_enough([g] * 80)
+        result = model.run_single_scenario(p_base, series)
+        s = _summarise_single(result)
+
+        lrr = result.get('lrr_fill_year')
+        print(
+            f'  done  LRRfill={lrr}  '
+            f'SSMcov{HEADLINE_WINDOW}={fmt_pct1(s["ssm_cov"]["median"])}  '
+            f'TCMcov{HEADLINE_WINDOW}={fmt_pct1(s["tcm_cov"]["median"])}'
+        )
+        results.append({
+            'value':       g,
+            'label':       label,
+            'summary':     s,
+            'skipped':     False,
+            'skip_reason': None,
+        })
+
+    return results
+
+
+def run_synthetic_sweep(
+    p_base: dict,
+    sweep_param: str,
+    values: Sequence,
+    mu: Optional[float] = None,
+    lam: Optional[float] = None,
+    amplitude: Optional[float] = None,
+    period: Optional[float] = None,
+) -> list:
+    """
+    Run one deterministic SSM + TCM pass per value of one synthetic scenario
+    parameter (amplitude or period), holding the others fixed.
+
+    The return series for each run is built by synthetic_returns() from
+    wdt_core.  The series length is extended cyclically to at least 72 entries
+    before being passed to run_single_scenario().
+
+    Parameters
+    ----------
+    p_base      : dict   base parameter dict from load_params()
+    sweep_param : str    which parameter to sweep: 'amplitude' or 'period'
+    values      : list   values to sweep over
+    mu          : float  mean growth rate; defaults to p_base['synthetic_scenario']['mu']
+    lam         : float  linear drift; defaults from synthetic_scenario
+    amplitude   : float  sine amplitude; defaults from synthetic_scenario
+    period      : float  sine period; defaults from synthetic_scenario
+
+    Returns
+    -------
+    list of dicts — same {value, label, summary, skipped, skip_reason}
+    structure as run_param_sweep() and run_g_sweep().
+    """
+    from wdt_core import synthetic_returns
+    from wdt_fmt import fmt_pct1
+
+    syn  = p_base.get('synthetic_scenario', {})
+    _mu  = mu        if mu        is not None else syn.get('mu',        0.1045)
+    _lam = lam       if lam       is not None else syn.get('lam',       0.0)
+    _amp = amplitude if amplitude is not None else syn.get('amplitude', 0.05)
+    _per = period    if period    is not None else syn.get('period',    10.0)
+
+    results = []
+    for v in values:
+        # Build the specific series for this sweep point
+        kw = {'mu': _mu, 'lam': _lam, 'amplitude': _amp, 'period': _per}
+        kw[sweep_param] = v
+        label = f'{sweep_param}={v}'
+
+        print(f'  [synthetic {label}]  running...', end='', flush=True)
+        raw_series = synthetic_returns(n=80, **kw)
+        series     = _series_long_enough(raw_series)
+        result     = model.run_single_scenario(p_base, series)
+        s          = _summarise_single(result)
+
+        lrr = result.get('lrr_fill_year')
+        print(
+            f'  done  LRRfill={lrr}  '
+            f'SSMcov{HEADLINE_WINDOW}={fmt_pct1(s["ssm_cov"]["median"])}  '
+            f'TCMcov{HEADLINE_WINDOW}={fmt_pct1(s["tcm_cov"]["median"])}'
+        )
+        results.append({
+            'value':       v,
+            'label':       label,
+            'summary':     s,
+            'skipped':     False,
+            'skip_reason': None,
+            # Store the actual series so 16_7 can plot it
+            '_series':     raw_series,
+        })
 
     return results

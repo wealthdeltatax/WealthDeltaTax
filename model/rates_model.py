@@ -127,14 +127,22 @@ def load_params(toml_path=None):
     return _core_load_params(path)
 
 
-def validate_params(p):
+def validate_params(p, strict=True):
     """
     Structural sanity checks on loaded parameters.
     Raises ValueError / AssertionError on hard errors;
     prints warnings for soft issues.
+
+    Parameters
+    ----------
+    strict : bool
+        When True (default), assert that p['returns'] has exactly 73 values.
+        Pass strict=False for synthetic or custom-length series where the
+        73-value historical constraint does not apply.
     """
-    assert len(p['returns']) == 73, \
-        f"Expected 73 return values, got {len(p['returns'])}"
+    if strict:
+        assert len(p['returns']) == 73, \
+            f"Expected 73 return values, got {len(p['returns'])}"
     assert len(p['tiers']) >= 1,    "No tier definitions found"
     assert len(p['brackets']) >= 1, "No bracket definitions found"
 
@@ -154,6 +162,79 @@ def validate_params(p):
         raise ValueError(f"W_min={p['W_min']} must be non-negative")
 
     print("  Parameter validation: OK")
+
+
+# ─────────────────────────────────────────────────────────────
+# SECTION 1b — SINGLE DETERMINISTIC SCENARIO
+# ─────────────────────────────────────────────────────────────
+
+def run_single_scenario(p_base, returns_series):
+    """
+    Run one complete SSM + TCM pass on an arbitrary return series.
+
+    Unlike run_start_year_sweep(), this does not rotate the series or
+    iterate over calendar start years.  It runs the SSM once using
+    returns_series directly, then runs _tcm_coverage_windows once using
+    the same series.  This is the right primitive for deterministic
+    scenarios (constant-g, synthetic growth paths) where the concept of
+    a "start year distribution" does not apply.
+
+    Parameters
+    ----------
+    p_base        : dict   base parameter dict from load_params()
+    returns_series: list   annual return values; must have at least max_N+1=72
+                           entries (the SSM marginal pass reads returns[0..N]).
+                           Longer series are silently truncated at the call site.
+
+    Returns
+    -------
+    dict with the same keys as one row of run_start_year_sweep(), plus:
+      'ssm_full' : full run_ssm() result list (year-by-year dicts)
+
+    The 'calendar_year' key is set to None (no historical anchor).
+
+    Notes
+    -----
+    validate_params() is NOT called here; the caller is responsible for
+    ensuring rate/SWF parameters are valid.  Use validate_params(p, strict=False)
+    before calling this function when working with synthetic series.
+    """
+    from copy import deepcopy
+    p = deepcopy(p_base)
+    p['returns'] = list(returns_series)
+
+    # Full SSM for year-by-year detail
+    ssm = run_ssm(p, max_N=71)
+    last = ssm[-1]
+
+    lrr_N = last.get('lrr_fill_year')
+    srr_N = last.get('srr_fill_year') or 1
+
+    metrics = {
+        'calendar_year':           None,
+        'srr_fill_year':           last.get('srr_fill_year'),
+        'lrr_fill_year':           lrr_N,
+        'lrr_surplus_at_fill':     last.get('lrr_surplus_at_fill', 0.0),
+        'srr_balance_at_lrr_fill': last.get('srr_balance_at_lrr_fill', 0.0),
+        'lrr_failure_year':        last.get('lrr_failure_year'),
+        'srr_failure_year':        last.get('srr_failure_year'),
+        'lrr_srr_failure_gap':     last.get('lrr_srr_failure_gap'),
+        'ssm_full':                ssm,
+    }
+
+    # SSM coverage windows
+    for W in COVERAGE_WINDOWS:
+        metrics[f'ssm_cov_{W}'] = last.get(f'ssm_cov_{W}')
+
+    # TCM coverage windows (independent pass on the same series)
+    if lrr_N is not None:
+        tcm_win = _tcm_coverage_windows(p, lrr_N, srr_N)
+        metrics.update(tcm_win)
+    else:
+        for W in COVERAGE_WINDOWS:
+            metrics[f'tcm_cov_{W}'] = None
+
+    return metrics
 
 
 # ─────────────────────────────────────────────────────────────

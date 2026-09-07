@@ -1,39 +1,37 @@
 # B. WDT Rate Parameter Sensitivity Sweep
 
-**Run date:** 2026-09-05  
+**Run date:** 2026-09-07  
 **Model version:** v8 (rates_model.py / wdt_core.py)  
 **Headline coverage window:** 10 years (SSMcov10/TCMcov10 columns; change HEADLINE_WINDOW in wdt_analytics.py)  
 **Parameters file:** `WDT_Params.toml`  
 
-## B.1. Purpose
+## ## B.1. Purpose
 
 This document sweeps each of the four WDT rate-function parameters independently, holding the other three at Balanced baseline values, and reports how key transition metrics vary across the full 73-year historical start-year sweep (1947–2019 UK equity return series). It is intended as orientation material for future Governing Council calibration work, not as a scenario recommendation. Parameter interactions are not modelled here; joint sweeps are a natural second-order extension.
 
-### B.1.1 The Rate Function
-
-The WDT logistic marginal rate function is:
+### ### B.1.1 The Rate Function
 
 $$\tau(W) = \frac{\tau_m}{1 + \left(\frac{\tau_m - \tau_0}{\tau_0}\right)e^{-k(W - W_{\min})}}, \quad \tau(W) = 0 \text{ if } W < W_{\min}$$
 
-Note: the docstring in `rates_model.py` contains a typographical error writing $(1-\tau_0)/\tau_0$ as the denominator coefficient. The implementation in `wdt_core.tau()` correctly uses $(\tau_m - \tau_0)/\tau_0$. All results here use the correct formula.
+Note: the docstring in `rates_model.py` contains a typographical error writing $(1-\tau_0)/\tau_0$ as the denominator coefficient. The implementation in `wdt_core.tau()` correctly uses $(\tau_m - \tau_0)/\tau_0$.
 
-### B.1.2 Balanced Baseline Parameters
+### ### B.1.2 Balanced Baseline Parameters
 
 | Parameter | Baseline value | Role |
 |---|---|---|
-| $\tau_0$ (floor rate) | 15% | Marginal rate at W = W_min; determines tax on the smallest deltas |
-| $\tau_m$ (ceiling rate) | 70% | Asymptotic ceiling; determines the maximum rate as W → ∞ |
-| k (steepness, per £m) | 0.001 | Controls how rapidly the rate climbs through the wealth distribution |
-| W_min (£m) | £2.0m | Entry point; below this the rate is zero regardless of δ |
+| $\tau_0$ (floor rate) | 15% | Marginal rate at W = W_min |
+| $\tau_m$ (ceiling rate) | 70% | Asymptotic ceiling |
+| k (steepness, per £m) | 0.001 | Controls rate climb speed |
+| W_min (£m) | £2.0m | Entry point; below this rate = 0 |
 
 **SWF sizing parameters (Balanced baseline; swept in §§5–6):**
 
 | Parameter | Baseline value | Role |
 |---|---|---|
-| SRR capitalisation ratio | 3.0× | SRR target = ratio × (cumulative net income / N); sets how long before the refund guarantee is credible |
-| LRR floor | 3.0 years of expenditure | LRR target = lrr_years × prevailing government expenditure; sets the Phase Two viability threshold |
+| SRR capitalisation ratio | 3.0× | SRR target sizing |
+| LRR floor | 3.0 years of expenditure | Phase Two viability threshold |
 
-**Non-SWF parameters (held constant throughout all sweeps):**
+**Non-SWF parameters (held constant throughout):**
 
 | Parameter | Value |
 |---|---|
@@ -43,31 +41,23 @@ Note: the docstring in `rates_model.py` contains a typographical error writing $
 | Wealth brackets | 10 |
 | Growth tiers | 4 |
 
-### B.1.3 Metrics
+### ### B.1.3 Metrics
 
-**Success (v8):** LRR fills within the 71-year modelling window AND the LRR buffer never hits zero (lrr_failure_year is None). At Balanced parameters, success rate is 100% across all 73 start years.
+**Success (v8):** LRR fills within the 71-year modelling window AND the LRR buffer never hits zero (lrr_failure_year is None).
 
-**SSMcov10 / TCMcov10 (headline window):** Average Step-5 coverage fraction (labour-tax-relief surplus / annual expenditure) over the first 10 post-fill years. SSM applies uniform historical returns (correlated-shock, worst-case floor); TCM applies heterogeneous tier differentials (persistent-heterogeneity ceiling). Zero in any year where the LRR or SRR balance hits zero drags the average down. The headline window is 10 years; change HEADLINE_WINDOW in wdt_analytics.py to switch all tables and charts simultaneously.
+**SSMcov10 / TCMcov10 (headline window):** Average Step-5 coverage fraction over the first 10 post-fill years. SSM applies uniform historical returns (worst-case floor); TCM applies heterogeneous tier differentials (ceiling). The headline window is 10 years; change HEADLINE_WINDOW in wdt_analytics.py to switch all tables and charts simultaneously.
 
-**SSMcov50:** Same metric averaged over 50 post-fill years. Shows long-run trajectory: rising values indicate WDT revenue compounds faster than expenditure; falling values indicate the coverage promise weakens with time.
+**SSMcov50:** Same metric averaged over 50 post-fill years. Rising values indicate WDT revenue compounds faster than expenditure.
 
-**LRR fail n:** Count of the 73 historical start years where the LRR balance reaches zero within the 71-year modelling window (lrr_failure_year is not None). At Balanced parameters this is 0. Non-zero values under stressed parameters indicate the post-fill buffer is insufficient for some historical return sequences.
+**LRR fail n:** Count of the 73 historical start years where the LRR balance reaches zero within the 71-year modelling window. At Balanced parameters this is 0.
 
-**LRR failure year:** First year the LRR balance hits zero post-fill. The LRR failing means the political buffer is exhausted; any further SRR deficit has no backstop. The SRR failure year (when the refund guarantee itself breaks) follows later.
+*All distributions are across the 73 historical start years 1947–2019. The 2006 start year is extracted separately as the worst-case historical scenario.*
 
-**LRR fill year:** First year the LRR balance reaches the floor target. The primary transition-speed metric; gates full Phase Two fiscal replacement.
+## ## B.2. Floor Rate (τ_0)
 
-**SRR fill year:** First year the SRR reaches its capitalisation target. Should be invariant at ~3 across most calibrations.
+τ_0 sets the marginal rate at W = W_min. A higher floor raises effective rates across the entire taxable population; a lower floor concentrates the rate gradient in the upper distribution.
 
-**LRR surplus at fill:** LRR balance minus LRR target at the fill year, in £b. Safety margin above the floor at the breakeven point.
-
-*All distributions are across the 73 historical start years 1947–2019. The 2006 start year is extracted separately as the worst-case historical scenario (longest LRR fill time at Balanced parameters).*
-
-## B.2. Floor Rate (τ_0)
-
-τ_0 sets the marginal rate at W = W_min. A higher floor raises effective rates across the entire taxable population (since every taxpayer above W_min pays at least τ_0 on their first pound of delta); a lower floor concentrates the rate gradient in the upper distribution.
-
-### τ_0 sweep
+### ### τ_0 sweep
 
 Other parameters held at Balanced baseline: τ_m = 70%,  k = 0.001,  W_min = £2.0m.
 
@@ -86,7 +76,7 @@ Other parameters held at Balanced baseline: τ_m = 70%,  k = 0.001,  W_min = £2
 | 45% | 100% | 15.6% / 139.8% / 184.0% / 431.7% | 28.8% / 158.4% / 201.7% / 497.2% | 1.3% / 3.9% | 0 | 5 / 9 / 10 / 21 | 3 | 8 / 849 |
 | 50% | 100% | 20.6% / 135.9% / 187.0% / 451.5% | 33.9% / 167.0% / 208.6% / 474.6% | 1.3% / 3.8% | 0 | 5 / 9 / 10 / 20 | 3 | 24 / 688 |
 
-*◄ = Balanced baseline value. SSMcov10/TCMcov10: Step-5 coverage fraction averaged over 10 post-fill years (headline window; set HEADLINE_WINDOW in wdt_analytics.py to change). SSMcov50: 50yr window showing long-run trajectory. LRR fail n: start years where LRR buffer hits zero within 71-year window. Distributions across all 73 historical start years 1947–2019.*
+*◄ = Balanced baseline value. SSMcov10/TCMcov10: Step-5 coverage fraction averaged over 10 post-fill years. SSMcov50: 50yr window showing long-run trajectory. LRR fail n: start years where LRR buffer hits zero within 71-year window. Distributions across all 73 historical start years 1947–2019.*
 
 **2006 start year (worst-case historical scenario)**
 
@@ -103,11 +93,11 @@ Other parameters held at Balanced baseline: τ_m = 70%,  k = 0.001,  W_min = £2
 | 45% | 56.4% | 81.6% | 21 | 2075 | — (no failure) |
 | 50% | 64.5% | 59.8% | 20 | 434 | — (no failure) |
 
-## B.3. Ceiling Rate (τ_m)
+## ## B.3. Ceiling Rate (τ_m)
 
-τ_m is the asymptotic ceiling the marginal rate approaches but never reaches. Its primary effect is on the top brackets where W >> W_min; the logistic function brings effective rates close to τ_m only at very high declared wealth levels. Raising τ_m increases revenue from the highest-wealth, highest-growth cells disproportionately, since those cells also generate the largest absolute deltas.
+τ_m is the asymptotic ceiling the marginal rate approaches but never reaches. Its primary effect is on the top brackets where W >> W_min.
 
-### τ_m sweep
+### ### τ_m sweep
 
 Other parameters held at Balanced baseline: τ_0 = 15%,  k = 0.001,  W_min = £2.0m.
 
@@ -127,7 +117,7 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  k = 0.001,  W_min = £2
 | 95% | 100% | 6.4% / 122.3% / 126.2% / 288.4% | 14.7% / 125.7% / 139.1% / 322.0% | 1.0% / 4.4% | 0 | 7 / 13 / 15 / 29 | 3 | 8 / 924 |
 | 100% | 100% | 6.4% / 122.4% / 126.2% / 288.4% | 14.7% / 125.8% / 139.1% / 322.0% | 1.0% / 4.4% | 0 | 7 / 13 / 15 / 29 | 3 | 8 / 925 |
 
-*◄ = Balanced baseline value. SSMcov10/TCMcov10: Step-5 coverage fraction averaged over 10 post-fill years (headline window; set HEADLINE_WINDOW in wdt_analytics.py to change). SSMcov50: 50yr window showing long-run trajectory. LRR fail n: start years where LRR buffer hits zero within 71-year window. Distributions across all 73 historical start years 1947–2019.*
+*◄ = Balanced baseline value. SSMcov10/TCMcov10: Step-5 coverage fraction averaged over 10 post-fill years. SSMcov50: 50yr window showing long-run trajectory. LRR fail n: start years where LRR buffer hits zero within 71-year window. Distributions across all 73 historical start years 1947–2019.*
 
 **2006 start year (worst-case historical scenario)**
 
@@ -145,13 +135,11 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  k = 0.001,  W_min = £2
 | 95% | 58.0% | 54.8% | 29 | 528 | — (no failure) |
 | 100% | 58.1% | 54.8% | 29 | 529 | — (no failure) |
 
-## B.4. Steepness (k)
+## ## B.4. Steepness (k)
 
-k (per £m) controls how rapidly the marginal rate climbs from τ_0 toward τ_m through the wealth distribution. Low k produces a shallow gradient — most taxpayers face rates close to τ_0 even at high wealth levels, with τ_m approached only at very large holdings. High k produces a steep step — the rate reaches τ_m quickly above W_min, compressing the gradient into a narrow wealth band.
+k (per £m) controls how rapidly the marginal rate climbs from τ_0 toward τ_m. Low k produces a shallow gradient; high k produces a steep step.
 
-*Sweep is log-spaced: 0.0001, 0.0002, 0.0005, 0.0010, 0.0020, 0.0050, 0.0100, 0.0500, 0.1000*
-
-### k sweep (log-spaced)
+### ### k sweep (log-spaced)
 
 Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  W_min = £2.0m.
 
@@ -169,7 +157,7 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  W_min = £
 | 0.0500 | 100% | 11.2% / 152.4% / 155.9% / 342.1% | 24.7% / 155.5% / 179.1% / 468.9% | 1.7% / 6.6% | 0 | 6 / 12 / 14 / 27 | 3 | 3 / 845 |
 | 0.1000 | 100% | 13.8% / 170.8% / 174.9% / 396.1% | 21.9% / 164.9% / 196.9% / 446.6% | 1.7% / 6.1% | 0 | 6 / 12 / 14 / 27 | 3 | 70 / 1067 |
 
-*◄ = Balanced baseline value. SSMcov10/TCMcov10: Step-5 coverage fraction averaged over 10 post-fill years (headline window; set HEADLINE_WINDOW in wdt_analytics.py to change). SSMcov50: 50yr window showing long-run trajectory. LRR fail n: start years where LRR buffer hits zero within 71-year window. Distributions across all 73 historical start years 1947–2019.*
+*◄ = Balanced baseline value. SSMcov10/TCMcov10: Step-5 coverage fraction averaged over 10 post-fill years. SSMcov50: 50yr window showing long-run trajectory. LRR fail n: start years where LRR buffer hits zero within 71-year window. Distributions across all 73 historical start years 1947–2019.*
 
 **2006 start year (worst-case historical scenario)**
 
@@ -185,11 +173,11 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  W_min = £
 | 0.0500 | 44.4% | 88.4% | 26 | 1442 | — (no failure) |
 | 0.1000 | 55.2% | 105.0% | 26 | 2820 | — (no failure) |
 
-## B.5. Entry Point (W_min)
+## ## B.5. Entry Point (W_min)
 
-W_min (£m) is the wealth level below which the rate function produces zero liability. It is a rate design parameter, not a population boundary — all UK adults are within the taxable population regardless of W_min. Lower W_min pulls more of the 50th–80th percentile brackets into material liability; higher W_min concentrates the tax on the top percentiles. W_min also affects refund exposure in loss years, since a taxpayer below W_min receives no refund even if their delta is negative.
+W_min (£m) is the wealth level below which the rate function produces zero liability. It is a rate design parameter, not a population boundary.
 
-### W_min sweep
+### ### W_min sweep
 
 Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001.
 
@@ -207,7 +195,7 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001.
 | £7.5m | 100% | 11.7% / 225.9% / 194.9% / 392.8% | 24.8% / 206.3% / 210.5% / 453.0% | 1.5% / 5.7% | 0 | 10 / 21 / 22 / 37 | 3 | 12 / 1001 |
 | £10.0m | 100% | 11.1% / 249.0% / 217.6% / 431.2% | 25.4% / 229.1% / 231.1% / 506.6% | 1.9% / 6.4% | 0 | 11 / 22 / 24 / 39 | 3 | 79 / 1250 |
 
-*◄ = Balanced baseline value. SSMcov10/TCMcov10: Step-5 coverage fraction averaged over 10 post-fill years (headline window; set HEADLINE_WINDOW in wdt_analytics.py to change). SSMcov50: 50yr window showing long-run trajectory. LRR fail n: start years where LRR buffer hits zero within 71-year window. Distributions across all 73 historical start years 1947–2019.*
+*◄ = Balanced baseline value. SSMcov10/TCMcov10: Step-5 coverage fraction averaged over 10 post-fill years. SSMcov50: 50yr window showing long-run trajectory. LRR fail n: start years where LRR buffer hits zero within 71-year window. Distributions across all 73 historical start years 1947–2019.*
 
 **2006 start year (worst-case historical scenario)**
 
@@ -223,15 +211,13 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001.
 | £7.5m | 142.3% | 166.1% | 35 | 115 | — (no failure) |
 | £10.0m | 241.3% | 228.4% | 38 | 2710 | — (no failure) |
 
-## B.6. SRR Capitalisation Ratio (srr_ratio)
+## ## B.6. SRR Capitalisation Ratio (srr_ratio)
 
-srr_ratio sets the SRR capitalisation target as a multiple of average annual net WDT income. A higher ratio means the SRR must accumulate more before it is considered fully capitalised, which delays SRR fill and thereby reduces the flow into the LRR during the early accumulation period. A lower ratio allows faster SRR fill and faster LRR accumulation, but at the cost of a thinner refund buffer. The Governing Council recommended floor is 3×; the working SSM-derived value is 3×.
+srr_ratio sets the SRR capitalisation target as a multiple of average annual net WDT income. Affects milestone timing only; does not alter individual taxpayer burden.
 
-*Note: srr_ratio does not affect the rate function or individual taxpayer burden — it affects only the milestone timing (SRR fill year and LRR fill year). The burden distribution panel in the chart companion is flat across this sweep.*
+### ### srr_ratio sweep
 
-### srr_ratio sweep
-
-Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001,  W_min = £2.0m,  lrr_years = 3.0.
+Other parameters held at Balanced baseline: τ_0=15%, τ_m=70%, k=0.001, W_min=£2.0m, lrr_years=3.0.
 
 **Sweep summary — distributions across 73 historical start years**
 
@@ -248,7 +234,7 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001,
 | 8.0× | 100% | 15.1% / 119.1% / 134.8% / 297.6% | 21.7% / 139.7% / 151.4% / 382.6% | 1.3% / 4.3% | 0 | 11 / 17 / 19 / 33 | 8 | 4 / 1026 |
 | 10.0× | 100% | 16.7% / 125.2% / 135.0% / 297.0% | 24.1% / 143.5% / 158.1% / 370.4% | 1.4% / 4.3% | 0 | 13 / 19 / 21 / 34 | 10 | 2 / 1073 |
 
-*◄ = Balanced baseline value. SSMcov10/TCMcov10: Step-5 coverage fraction averaged over 10 post-fill years (headline window; set HEADLINE_WINDOW in wdt_analytics.py to change). SSMcov50: 50yr window showing long-run trajectory. LRR fail n: start years where LRR buffer hits zero within 71-year window. Distributions across all 73 historical start years 1947–2019.*
+*◄ = Balanced baseline value. SSMcov10/TCMcov10: Step-5 coverage fraction averaged over 10 post-fill years. SSMcov50: 50yr window showing long-run trajectory. LRR fail n: start years where LRR buffer hits zero within 71-year window. Distributions across all 73 historical start years 1947–2019.*
 
 **2006 start year (worst-case historical scenario)**
 
@@ -265,15 +251,13 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001,
 | 8.0× | 86.8% | 62.6% | 32 | 768 | — (no failure) |
 | 10.0× | 108.9% | 71.6% | 34 | 2489 | — (no failure) |
 
-## B.7. LRR Floor (lrr_years)
+## ## B.7. LRR Floor (lrr_years)
 
-lrr_years sets the LRR floor as a multiple of prevailing government expenditure. The LRR target therefore grows over time as nominal expenditure grows at 4.51% p.a. A higher floor requires the LRR to accumulate more before Phase Two becomes viable, directly extending the LRR fill year. A lower floor brings LRR fill earlier but with a thinner buffer against sustained drawdown post-fill. The recommended minimum is 3 years.
+lrr_years sets the LRR floor as a multiple of prevailing government expenditure (growing at 4.51% p.a.). Affects LRR milestone timing only.
 
-*Note: lrr_years does not affect the rate function or individual taxpayer burden — it affects only the LRR milestone timing and the safety margin above the floor. The burden distribution panel in the chart companion is flat across this sweep.*
+### ### lrr_years sweep
 
-### lrr_years sweep
-
-Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001,  W_min = £2.0m,  srr_ratio = 3.0×.
+Other parameters held at Balanced baseline: τ_0=15%, τ_m=70%, k=0.001, W_min=£2.0m, srr_ratio=3.0×.
 
 **Sweep summary — distributions across 73 historical start years**
 
@@ -290,7 +274,7 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001,
 | 6.0 yrs | 100% | 8.0% / 207.1% / 179.9% / 329.5% | 19.6% / 203.4% / 201.4% / 373.3% | 1.2% / 4.9% | 0 | 9 / 20 / 22 / 39 | 3 | 62 / 1383 |
 | 8.0 yrs | 100% | 4.2% / 234.8% / 216.4% / 407.0% | 13.4% / 292.6% / 244.0% / 476.8% | 1.3% / 5.3% | 0 | 10 / 24 / 25 / 42 | 3 | 20 / 2037 |
 
-*◄ = Balanced baseline value. SSMcov10/TCMcov10: Step-5 coverage fraction averaged over 10 post-fill years (headline window; set HEADLINE_WINDOW in wdt_analytics.py to change). SSMcov50: 50yr window showing long-run trajectory. LRR fail n: start years where LRR buffer hits zero within 71-year window. Distributions across all 73 historical start years 1947–2019.*
+*◄ = Balanced baseline value. SSMcov10/TCMcov10: Step-5 coverage fraction averaged over 10 post-fill years. SSMcov50: 50yr window showing long-run trajectory. LRR fail n: start years where LRR buffer hits zero within 71-year window. Distributions across all 73 historical start years 1947–2019.*
 
 **2006 start year (worst-case historical scenario)**
 
@@ -307,26 +291,76 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001,
 | 6.0 yrs | 202.0% | 193.2% | 38 | 5138 | — (no failure) |
 | 8.0 yrs | 210.7% | 349.1% | 39 | 150 | — (no failure) |
 
+## ## B.8. Mean Growth Rate (g)
+
+Each row is a single deterministic run with a constant growth rate replacing the historical return series. There is no start-year distribution; the columns show point values from one SSM pass. The hist_mean value (10.45%) appears in the table as the canonical historical baseline.
+
+**g sweep — deterministic constant-g scenarios**
+
+*◄ = hist_mean (canonical). No start-year distribution; one SSM/TCM run per value.*
+
+| Value | LRR fill yr | LRR surplus £b | SSMcov10 | TCMcov10 | SSMcov50 | LRR failure yr |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 3.00% | — | 0 | — | — | — | — (none) |
+| 5.00% | 35 | 24 | 8.7% | 21.4% | 8.6% | — (none) |
+| 7.00% | 20 | 487 | 33.0% | 45.0% | 53.2% | — (none) |
+| 8.45% | 16 | 684 | 53.2% | 65.8% | 117.2% | — (none) |
+| 10.45% ◄ | 12 | 103 | 77.4% | 95.5% | 290.2% | — (none) |
+| 12.00% | 11 | 663 | 110.8% | 131.1% | 609.4% | — (none) |
+| 15.00% | 9 | 1007 | 177.7% | 199.3% | 2371.0% | — (none) |
+| 20.00% | 7 | 751 | 322.7% | 349.4% | 17959.0% | — (none) |
+| 25.00% | 6 | 979 | 547.5% | 715.4% | 83131.7% | — (none) |
+
+## ## B.9. Synthetic Growth Scenario
+
+Growth path: $g(t) = \mu + \lambda t + A \sin(2\pi t / T)$  ·  Canonical: μ=2.00%, λ=0.0000/yr, A=4.00%, T=10 yr.
+
+### ### B.9.1  Amplitude sweep (μ, λ, T fixed at canonical)
+λ=0.0000, μ=2.00%, T=10 yr.
+
+**Amplitude sweep**
+
+*A=0 degenerates to a linear-trend-only scenario.*
+
+| Value | LRR fill yr | LRR surplus £b | SSMcov10 | TCMcov10 | SSMcov50 | LRR failure yr |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 0.00% | — | 0 | — | — | — | — (none) |
+| 1.00% | — | 0 | — | — | — | — (none) |
+| 2.00% | — | 0 | — | — | — | — (none) |
+| 3.00% | — | 0 | — | — | — | — (none) |
+| 4.00% ◄ | — | 0 | — | — | — | — (none) |
+| 5.00% | — | 0 | — | — | — | — (none) |
+| 6.00% | — | 0 | — | — | — | — (none) |
+| 8.00% | — | 0 | — | — | — | — (none) |
+
+### ### B.9.2  Period sweep (μ, λ, A fixed at canonical)
+λ=0.0000, μ=2.00%, A=4.00%.
+
+**Period sweep**
+
+*Shorter periods produce more volatile annual revenue; longer periods approach the linear-trend limit.*
+
+| Value | LRR fill yr | LRR surplus £b | SSMcov10 | TCMcov10 | SSMcov50 | LRR failure yr |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 5 yr | — | 0 | — | — | — | — (none) |
+| 7 yr | — | 0 | — | — | — | — (none) |
+| 10 yr ◄ | — | 0 | — | — | — | — (none) |
+| 15 yr | — | 0 | — | — | — | — (none) |
+| 20 yr | — | 0 | — | — | — | — (none) |
+| 30 yr | — | 0 | — | — | — | — (none) |
+
 # C. Reading Notes
 
-**Coverage window direction.** SSMcov and TCMcov move together when a parameter raises or lowers revenue across the distribution. The SSM–TCM gap measures sensitivity to persistent growth heterogeneity; a wide gap means higher-tier taxpayers contribute disproportionately more than the correlated-shock assumption. The 50yr window is larger than the headline window because WDT revenue compounds on a growing wealth base; falling 50yr values relative to the headline signal that the coverage promise weakens in the long run for that calibration.
+**Coverage window direction.** SSMcov and TCMcov move together when a parameter raises or lowers revenue. The SSM–TCM gap measures sensitivity to persistent growth heterogeneity. The 50yr window is typically larger than the headline window because WDT revenue compounds on a growing wealth base.
 
-**LRR failure vs. non-fill.** Two distinct failure modes: (1) LRR never fills (success_rate < 100%) — the mechanism does not reach Phase Two at all for some start years; (2) LRR fails post-fill (LRR fail n > 0) — Phase Two begins but the post-fill buffer is later exhausted. Both are solvency constraints, but at Balanced parameters only stressed SWF sizing parameters (high srr_ratio or lrr_years) or very low rate parameters produce non-zero LRR fail n.
+**LRR failure vs. non-fill.** Two distinct failure modes: (1) LRR never fills — the mechanism does not reach Phase Two; (2) LRR fails post-fill — the buffer is later exhausted. Both are solvency constraints.
 
-**Success rate at 100%.** The Balanced baseline achieves 100% success across all 73 start years. Parameters that reduce revenue significantly may bring the success rate below 100%, meaning the LRR fails to fill within the 71-year window for some historical starting conditions. This is the primary solvency constraint.
+**Success rate at 100%.** The Balanced baseline achieves 100% success across all 73 start years. Parameters that reduce revenue may bring the success rate below 100%.
 
-**SRR fill year.** Should remain ~3 across most calibrations. If it rises significantly, the refund guarantee becomes credible only after more than one political cycle, which is a materially different political position.
+**Pre-behavioural baseline.** All figures are pre-behavioural. Behavioural responses — migration, restructuring, avoidance — are not modelled. See RATES §9.1 and BEHAV.
 
-**LRR surplus.** A near-zero surplus at fill (see e.g. the 1953 start year at Balanced parameters, £28b surplus) indicates the mechanism passed its solvency test narrowly. A calibration that systematically reduces surplus increases the risk that a slightly worse return sequence would cause LRR non-fill.
-
-**Pre-behavioural baseline.** All figures are pre-behavioural. Behavioural responses — migration, restructuring, avoidance — are not modelled and will reduce actual revenue by an unknown amount. See RATES §9.1 and BEHAV.
-
-**Joint calibration.** These sweeps vary one parameter at a time. In practice, τ_0 and τ_m jointly determine both the level and shape of revenue; W_min and k jointly determine where in the wealth distribution the gradient falls. A second-order analysis (e.g. a τ_0 × τ_m grid, or a k × W_min grid) would capture interaction effects but is outside this document.
-
-**SRR and LRR interaction.** The SRR and LRR sizing parameters interact: a higher srr_ratio diverts more net income into SRR accumulation before any surplus flows to the LRR, so rising srr_ratio extends the LRR fill year even when lrr_years is held constant. Conversely, a lower srr_ratio accelerates LRR accumulation but leaves a thinner refund buffer. The single-parameter-at-a-time sweeps in §§5–6 capture the first-order effect of each; a joint srr_ratio × lrr_years grid would expose the interaction surface and is a natural second-order extension.
-
-**Rate parameters vs. SWF sizing parameters.** The sweeps in §§1–4 vary the rate function and therefore affect both revenue generation and individual taxpayer burden. The sweeps in §§5–6 vary only the capitalisation thresholds for the SRR and LRR; they do not alter the rate function or any individual tax liability. The burden distribution is therefore invariant across §§5–6 — those panels are flat by design, not an artefact. The sole effect is on when the SWF milestones are reached.
+**Joint calibration.** These sweeps vary one parameter at a time. In practice, τ_0 and τ_m jointly determine revenue level and shape; W_min and k jointly determine the gradient location.
 
 ---
 
-*Generated by `rates_param_sweep.py`. Source: `rates_model.py` / `wdt_core.py` / `7_4_…_Params.toml`. No existing project files were modified.*
+*Generated by `16_6_RATES_S_tables.py` from `sweep_cache.json`. Source: `rates_model.py` / `wdt_core.py` / `WDT_Params.toml`. No existing project files were modified.*

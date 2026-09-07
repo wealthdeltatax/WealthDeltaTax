@@ -553,6 +553,41 @@ def npv_tax_advantage(p, alpha, g, rho):
     }
 
 # ─────────────────────────────────────────────────────────────
+# SYNTHETIC RETURN SERIES
+# ─────────────────────────────────────────────────────────────
+
+def synthetic_returns(n, mu, lam=0.0, amplitude=0.0, period=10):
+    """
+    Generate a list of n annual return values following a stylised growth path:
+
+        g(t) = mu + lam * t + amplitude * sin(2 * pi * t / period)
+
+    Parameters
+    ----------
+    n         : int    number of values to generate (t = 0 .. n-1)
+    mu        : float  mean growth rate (fraction, e.g. 0.1045)
+    lam       : float  linear drift per year (default 0 → no trend)
+    amplitude : float  sine wave amplitude (default 0 → constant + trend only)
+    period    : float  sine period in years (default 10)
+
+    Returns
+    -------
+    list of n floats
+
+    Special cases
+    -------------
+    lam=0, amplitude=0  →  constant-g series: [mu] * n
+    lam=0               →  sine-only cycle around mu
+    amplitude=0         →  linear trend only: mu + lam * t
+    """
+    import math as _math
+    return [
+        mu + lam * t + amplitude * _math.sin(2.0 * _math.pi * t / period)
+        for t in range(n)
+    ]
+
+
+# ─────────────────────────────────────────────────────────────
 # MINIMAL SSM — LRR FILL YEAR
 # ─────────────────────────────────────────────────────────────
 
@@ -748,6 +783,18 @@ def load_params(toml_path=None):
         'rates_wmin_sweep':  [float(v) for v in sw.get('rates_wmin_sweep',  [])],
         'rates_srr_ratio_sweep': [float(v) for v in sw.get('rates_srr_ratio_sweep', [])],
         'rates_lrr_years_sweep': [float(v) for v in sw.get('rates_lrr_years_sweep', [])],
+        'rates_g_sweep':     [float(v) for v in sw.get('rates_g_sweep',     [])],
+    }
+
+    # ── Synthetic scenario parameters ─────────────────────────
+    syn = raw.get('synthetic_scenario', {})
+    p['synthetic_scenario'] = {
+        'mu':              float(syn.get('mu',              p['hist_mean'])),
+        'lam':             float(syn.get('lam',             0.0)),
+        'amplitude':       float(syn.get('amplitude',       0.0)),
+        'period':          float(syn.get('period',          10.0)),
+        'amplitude_sweep': [float(v) for v in syn.get('amplitude_sweep', [])],
+        'period_sweep':    [float(v) for v in syn.get('period_sweep',    [])],
     }
 
     return p

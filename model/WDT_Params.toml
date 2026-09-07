@@ -440,3 +440,40 @@ rates_wmin_sweep     = [0.1, 0.25, 0.5, 1.0, 2.0, 3.0, 5.0, 7.5, 10.0]
 # Baseline: srr_ratio = 3.0x,  lrr_years = 3.0 years of expenditure.
 rates_srr_ratio_sweep = [1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0]
 rates_lrr_years_sweep = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 8.0]
+
+# g sweep — deterministic constant-g scenarios, one SSM run per value.
+# Each value replaces the historical return series with a constant series of
+# that growth rate (extended to 74 entries so the SSM marginal pass has
+# enough headroom).  No start-year rotation; one result per g value.
+# hist_mean (10.45%) is included so the canonical historical baseline appears.
+rates_g_sweep = [0.03, 0.05, 0.07, 0.0845, 0.1045, 0.12, 0.15, 0.20, 0.25]
+
+# Synthetic scenario — linear trend plus sine wave.
+# g(t) = mu + lam * t + amplitude * sin(2 * pi * t / period)
+#
+# Stress-test framing: mu is set to UK long-run CPI inflation (2%), so the
+# mean growth rate is barely positive.  The sine amplitude then drives g
+# negative for roughly half of each cycle.  This directly addresses the
+# criticism that the WDT is not tested under sustained low/negative growth.
+# No linear trend (lam = 0): conservative, no structural improvement assumed.
+#
+# Canonical scenario: g oscillates between −2% and +6% with a 10-year cycle.
+# Central banks historically respond to negative equity growth with inflation
+# (QE, rate cuts), so multi-decade negative equity is not a realistic baseline;
+# the scenario is therefore already more adverse than any recorded UK experience.
+#
+# Sweep axes: amplitude_sweep varies the depth of the negative dip (A=0 →
+# flat 2%, A=0.04 → dips to -2%, A=0.08 → dips to -6%).
+# period_sweep varies cycle length with A fixed at canonical.
+[synthetic_scenario]
+mu        = 0.02     # mean growth rate = UK CPI inflation floor (2%)
+lam       = 0.0      # no structural trend; conservative stress-test baseline
+amplitude = 0.04     # canonical: g oscillates between -2% and +6%
+period    = 10       # 10-year cycle (typical business cycle length)
+
+# amplitude_sweep: A=0 is flat 2% growth; A=0.04 is canonical (-2% to +6%);
+# A=0.08 is severe (-6% to +10%); values above 0.02 produce negative g years.
+amplitude_sweep = [0.0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.08]
+
+# period_sweep: canonical amplitude (A=0.04) held fixed; cycle length varies.
+period_sweep    = [5, 7, 10, 15, 20, 30]

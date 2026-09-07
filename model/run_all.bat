@@ -15,6 +15,7 @@ for %%f in (
     "5_6_VAL_generate_figures.py"
     "8_3a_RATES_report.py"
     "8_3b_RATES_figures.py"
+    "16_0_compute.py"
     "16_2_VAL_S_rate_sweeps.py"
     "16_3_VAL_S_horizon_sweeps.py"
     "16_4_VAL_S_interactions.py"
