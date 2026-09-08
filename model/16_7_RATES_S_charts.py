@@ -311,17 +311,12 @@ def _four_panel(sweep_results, param_label, baseline_v, x_label,
                     bbox=dict(boxstyle='round,pad=0.15', fc='white',
                               ec='none', alpha=0.75))
 
-        ax1.text(rx, wb_med[-1],  'median',    color=C_WB, va='bottom', **_lkw)
-        ax1.text(rx, wb_q75[-1],  '75th pct',  color=C_WB, va='bottom', **_lkw)
-        ax1.text(rx, wb_q25[-1],  '25th pct',  color=C_WB, va='top',    **_lkw)
-        ax1.text(rx, wb_max[-1],  'max',        color=C_WB, va='bottom', **_lkw)
-        ax1.text(rx, wb_min[-1],  'min',        color=C_WB, va='top',    **_lkw)
-
-        ax2.text(rx, er_med[-1],  'median',    color=C_ER, va='top',    **_lkw)
-        ax2.text(rx, er_q75[-1],  '75th pct',  color=C_ER, va='top',    **_lkw)
-        ax2.text(rx, er_q25[-1],  '25th pct',  color=C_ER, va='bottom', **_lkw)
-        ax2.text(rx, er_max[-1],  'max',        color=C_ER, va='top',    **_lkw)
-        ax2.text(rx, er_min[-1],  'min',        color=C_ER, va='bottom', **_lkw)
+        # One set of quantile labels only (ax1/blue); colour distinguishes series.
+        ax1.text(rx, wb_med[-1],  'median',   color=C_WB, va='bottom', **_lkw)
+        ax1.text(rx, wb_q75[-1],  '75th pct', color=C_WB, va='bottom', **_lkw)
+        ax1.text(rx, wb_q25[-1],  '25th pct', color=C_WB, va='top',    **_lkw)
+        ax1.text(rx, wb_max[-1],  'max',       color=C_WB, va='bottom', **_lkw)
+        ax1.text(rx, wb_min[-1],  'min',       color=C_WB, va='top',    **_lkw)
 
         if is_log:
             _set_log_xticks(ax1, bd_xs_raw)
@@ -694,6 +689,7 @@ def _coverage_fan(all_sweeps, sweep_labels, sweep_colours, output_dir):
     ax.set_xlabel('Normalised parameter value (0 = min, 1 = max)', fontsize=11)
     ax.set_ylabel('Coverage fraction (%)', fontsize=11)
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(_pct_formatter))
+    ax.set_yscale('log')
     ax.legend(fontsize=9, loc='upper left',
               title=f'Parameter  (solid = SSM {HEADLINE_WINDOW}yr, dashed = TCM {HEADLINE_WINDOW}yr)',
               title_fontsize=8)
@@ -863,15 +859,24 @@ def _g_sensitivity(sweep_results, output_dir):
         fontsize=11, y=1.01,
     )
 
-    valid = [r for r in sweep_results if not r['skipped'] and r['summary']]
-    xs    = [r['value'] * 100 for r in valid]
+    fill_valid = [r for r in sweep_results
+                  if not r['skipped']
+                  and r['summary']
+                  and r['summary'].get('lrr_fill', {}).get('median') is not None]
+    cov_valid = [r for r in sweep_results
+                 if not r['skipped']
+                 and r['summary']
+                 and r['summary'].get('ssm_cov', {}).get('median') is not None
+                 and r['summary'].get('tcm_cov', {}).get('median') is not None]
 
     # Left: LRR fill year
-    lrr_fills = [r['summary']['lrr_fill']['median'] for r in valid]
-    ax_fill.plot(xs, lrr_fills, color=C_LRR, linewidth=2.2,
+    xs_fill   = [r['value'] * 100 for r in fill_valid]
+    lrr_fills = [r['summary']['lrr_fill']['median'] for r in fill_valid]
+    
+    ax_fill.plot(xs_fill, lrr_fills, color=C_LRR, linewidth=2.2,
                  marker='o', markersize=6, zorder=3)
     _mark_baseline(ax_fill, BASELINE.get('hist_mean',
-                   valid[0]['value'] * 100 if valid else 10) * 100 / 100 * 100)
+                   fill_valid[0]['value'] * 100 if fill_valid else 10) * 100 / 100 * 100)
     ax_fill.set_xlabel('Growth rate g (%)', fontsize=10)
     ax_fill.set_ylabel('LRR fill year', fontsize=10)
     ax_fill.set_title('LRR fill year\n(transition speed vs growth rate)', fontsize=10)
@@ -883,24 +888,13 @@ def _g_sensitivity(sweep_results, output_dir):
                         linestyle=':', label=f'hist_mean = {hist_mean:.2%}')
         ax_fill.legend(fontsize=8)
 
-#Traceback (most recent call last):
-#   File "c:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\model\16_7_RATES_S_charts.py", line 1227, in <module>
-#     main()
-#     ~~~~^^
-#   File "c:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\model\16_7_RATES_S_charts.py", line 1218, in main
-#     _g_sensitivity(sw_g_sweep, _out)
-#     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
-#   File "c:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\model\16_7_RATES_S_charts.py", line 887, in _g_sensitivity
-#     ssm_cov = [r['summary']['ssm_cov']['median'] * 100 for r in valid]
-#                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
-# TypeError: unsupported operand type(s) for *: 'NoneType' and 'int'
-
     # Right: SSM and TCM coverage
-    ssm_cov = [r['summary']['ssm_cov']['median'] * 100 for r in valid]
-    tcm_cov = [r['summary']['tcm_cov']['median'] * 100 for r in valid]
-    ax_cov.plot(xs, ssm_cov, color=C_SSM, linewidth=2.2, marker='o', markersize=5,
+    xs_cov = [r['value'] * 100 for r in cov_valid]
+    ssm_cov = [r['summary']['ssm_cov']['median'] * 100 for r in cov_valid]
+    tcm_cov = [r['summary']['tcm_cov']['median'] * 100 for r in cov_valid]
+    ax_cov.plot(xs_cov, ssm_cov, color=C_SSM, linewidth=2.2, marker='o', markersize=5,
                 label=f'SSM {HEADLINE_WINDOW}yr (correlated-shock floor)')
-    ax_cov.plot(xs, tcm_cov, color=C_TCM, linewidth=2.2, marker='o', markersize=5,
+    ax_cov.plot(xs_cov, tcm_cov, color=C_TCM, linewidth=2.2, marker='o', markersize=5,
                 label=f'TCM {HEADLINE_WINDOW}yr (heterogeneity ceiling)')
     ax_cov.axhline(100, color='black', linewidth=0.8, linestyle='--', alpha=0.5,
                    label='100% expenditure coverage')
@@ -1007,7 +1001,8 @@ def _synthetic_scenario(amp_results, per_results, canonical_series,
     for r in amp_valid:
         s   = r['summary']
         raw = s.get('_raw', {})
-        # Prefer aggregated distribution; fall back to single-run value from _raw
+        # Prefer aggregated distribution; fall back to single-run value from _raw;
+        # final fallback: compute directly from ssm_full post-fill rows.
         dist = s.get(f'zero_cov_{W}')
         if dist and dist['n'] > 0:
             amp_xs_zcov.append(r['value'] * 100)
@@ -1017,6 +1012,16 @@ def _synthetic_scenario(amp_results, per_results, canonical_series,
             if zc is not None:
                 amp_xs_zcov.append(r['value'] * 100)
                 amp_zcov.append(zc)
+            else:
+                ssm_full = raw.get('ssm_full', [])
+                fill_yr  = raw.get('lrr_fill_year')
+                if ssm_full and fill_yr is not None:
+                    post_window = [row for row in ssm_full
+                                   if row['year'] > fill_yr][:W]
+                    zc_computed = sum(1 for row in post_window
+                                      if row.get('cov_frac', 1.0) == 0.0)
+                    amp_xs_zcov.append(r['value'] * 100)
+                    amp_zcov.append(zc_computed)
     if amp_xs_zcov:
         ax.bar(amp_xs_zcov, amp_zcov, width=0.8,
                color='#e15759', alpha=0.75, edgecolor='#333333', linewidth=0.5,
@@ -1045,6 +1050,7 @@ def _synthetic_scenario(amp_results, per_results, canonical_series,
                 marker='o', markersize=6)
         ax.axvline(T, color=C_BASELINE, linewidth=1.2, linestyle=':',
                    label=f'Canonical T = {T:.0f} yr')
+        ax.set_ylim(0, max(per_fill) * 1.5)   # prevent line sitting at bottom edge
         ax.legend(fontsize=8)
     ax.set_xlabel('Period T (years)', fontsize=10)
     ax.set_ylabel('LRR fill year', fontsize=10)
@@ -1053,32 +1059,40 @@ def _synthetic_scenario(amp_results, per_results, canonical_series,
 
     # ── Panel [1,1]: per-year cov_frac trajectory post-fill ──────────────────
     ax = axes[1, 1]
+    drew_any = False
     for idx, r in enumerate(amp_valid):
         raw      = r['summary'].get('_raw', {})
         ssm_full = raw.get('ssm_full', [])
         lrr_fill = raw.get('lrr_fill_year')
         if not ssm_full or lrr_fill is None:
             continue
-        # Extract post-fill rows only; x = years since fill
+        # Extract post-fill rows; x = years since fill, y = cov_frac %
         post = [(row['year'] - lrr_fill, row['cov_frac'] * 100)
                 for row in ssm_full
-                if row.get('lrr_filled') and row['year'] > lrr_fill]
+                if row.get('lrr_filled') and row['year'] > lrr_fill
+                and row.get('cov_frac') is not None]
         if not post:
             continue
-        t_post, cov_post = zip(*post)
+        t_post   = list(t for t, _ in post)
+        cov_post = list(c for _, c in post)
         A_val  = r['value']
         color  = AMP_COLOURS[idx % len(AMP_COLOURS)]
         lw     = 2.2 if abs(A_val - syn_params['amplitude']) < 1e-9 else 1.2
         label  = f'A = {A_val:.0%}' + (' ◄' if lw == 2.2 else '')
         ax.plot(t_post, cov_post, color=color, linewidth=lw, label=label, alpha=0.85)
+        drew_any = True
 
     ax.axhline(100, color='black', linewidth=1.0, linestyle='--', alpha=0.6,
                label='100% expenditure coverage\n(Governing Council recalibration trigger)')
+    if not drew_any:
+        ax.text(0.5, 0.5, 'Regenerate cache with updated TOML\n(mu=2% stress-test scenario)',
+                transform=ax.transAxes, ha='center', va='center',
+                fontsize=9, color='#888888', style='italic')
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f'{v:.0f}%'))
     ax.set_xlabel('Years post-LRR fill', fontsize=10)
     ax.set_ylabel('Step-5 coverage fraction (%)', fontsize=10)
-    ax.set_title(f'10yr TCM coverage trajectory post-fill\n'
-                 f'by amplitude (x = years since LRR fill)', fontsize=10)
+    ax.set_title('Coverage trajectory post-fill by amplitude\n'
+                 '(x = years since LRR fill; 100% = recalibration trigger)', fontsize=10)
     ax.legend(fontsize=7, loc='upper left', ncol=2)
 
     plt.tight_layout()

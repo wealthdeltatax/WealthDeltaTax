@@ -17,6 +17,8 @@ Structure
 6.  Diagnostics             — summary tables printed to stdout
 """
 
+from __future__ import annotations
+
 import os
 import math
 import tomllib
@@ -30,24 +32,94 @@ from typing import Optional
 # ─────────────────────────────────────────────────────────────────────────────
 
 def load_params(toml_path: str) -> dict:
-    """
-    Load WDT_Params.toml and return the full parameter dictionary.
-    Validates that the returns array has the expected length.
-    """
     with open(toml_path, "rb") as f:
         p = tomllib.load(f)
 
     returns = np.array(p["returns"]["values"], dtype=float)
     if len(returns) != 73:
-        raise ValueError(
-            f"Expected 73 return observations (1947–2019), got {len(returns)}."
-        )
-    p["returns"]["array"] = returns          # attach numpy array for convenience
-    p["returns"]["years"]  = list(range(
+        raise ValueError(...)
+    
+    p["returns"]["array"] = returns
+    p["returns"]["years"] = list(range(
         p["returns"]["series_base_year"],
         p["returns"]["series_base_year"] + len(returns)
     ))
+
+    # NEW: compute rotation offset from scenario_start_year
+    base_year  = p["returns"]["series_base_year"]          # 1947
+    start_year = p["tcm"].get("scenario_start_year", base_year)
+    offset     = start_year - base_year                    # e.g. 2000-1947 = 53
+    if not (0 <= offset < len(returns)):
+        raise ValueError(
+            f"scenario_start_year {start_year} out of range "
+            f"[{base_year}, {base_year + len(returns) - 1}]"
+        )
+    p["returns"]["offset"] = offset
+
     return p
+
+def make_scenario_sequence(p: dict, N: int) -> tuple[np.ndarray, list]:
+    """
+    Return the N-year return sequence starting at scenario_start_year.
+    Wraps around the canonical 73-year series if N exceeds remaining years.
+    Returns (returns_array, years_list).
+    
+    Wrap-around rationale: the 73-year series is treated as a representative
+    sample of the return distribution, not a unique historical path. Wrapping
+    is equivalent to recycling the same empirical distribution — consistent
+    with the equal-probability assumption in make_empirical_distribution.
+    Years list is synthetic beyond the end of the observed series.
+    """
+    full    = p["returns"]["array"]
+    offset  = p["returns"]["offset"]
+    base    = p["returns"]["series_base_year"]
+    start_y = p["tcm"].get("scenario_start_year", base)
+    total   = len(full)
+
+    indices = [(offset + i) % total for i in range(N)]
+    seq     = full[indices]
+    years   = list(range(start_y, start_y + N))
+    return seq, years
+
+
+def make_empirical_distribution_scenario(p: dict, N: int) -> ReturnDistribution:
+    """
+    Version A built from the N-year scenario sequence starting at
+    scenario_start_year. Equal probability 1/N per year.
+    """
+    seq, years = make_scenario_sequence(p, N)
+    gross = 1.0 + seq
+    probs = np.full(N, 1.0 / N)
+    start = p["tcm"].get("scenario_start_year", p["returns"]["series_base_year"])
+    return ReturnDistribution(
+        returns=gross,
+        probs=probs,
+        label=f"Version A — UK Equity {start}–{start+N-1} ({N} obs, scenario)"
+    )
+
+
+def make_idealised_distribution_scenario(p: dict, N: int) -> ReturnDistribution:
+    """
+    Version B re-calibrated to the scenario sequence's μ and σ.
+    Keeps the two-state symmetric structure but uses scenario moments,
+    not the full 73-year moments.
+    """
+    seq, _ = make_scenario_sequence(p, N)
+    mu     = float(np.mean(seq))
+    sigma  = float(np.std(seq, ddof=0))
+    R_good = 1.0 + mu + sigma
+    R_bad  = 1.0 + mu - sigma
+    if R_bad <= 0:
+        raise ValueError(f"Scenario bad-state return non-positive: {R_bad:.4f}")
+    start = p["tcm"].get("scenario_start_year", p["returns"]["series_base_year"])
+    return ReturnDistribution(
+        returns=np.array([R_good, R_bad]),
+        probs=np.array([0.5, 0.5]),
+        label=(
+            f"Version B — Idealised Two-State, scenario {start}–{start+N-1} "
+            f"(R_good={R_good:.4f}, R_bad={R_bad:.4f})"
+        )
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────────

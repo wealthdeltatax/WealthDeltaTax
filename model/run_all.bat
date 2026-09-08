@@ -22,6 +22,11 @@ for %%f in (
     "16_5_VAL_S_assemble.py"
     "16_6_RATES_S_tables.py"
     "16_7_RATES_S_charts.py"
+    "module1_baseline.py"
+    "module2_progression.py"
+    "module3_lockin.py"
+    "module4_heterogeneous.py"
+    "wdt_welfare_tables.py"
 ) do (
     echo.
     echo ========================================

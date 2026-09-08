@@ -41,15 +41,17 @@ from wdt_welfare_core import (
     get_tax_fn,
     SYSTEM_LABELS,
     tax_symmetric_flat,
+    make_empirical_distribution_scenario,
+    make_idealised_distribution_scenario
 )
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CONFIG
 # ─────────────────────────────────────────────────────────────────────────────
 
-TOML_PATH  = os.path.join(os.path.dirname(__file__), "WDT_Params.toml")
-OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "outputs", "WFR", "module1")
-Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
+from wdt_welfare_paths import TOML_PATH, module_output_dir
+
+OUTPUT_DIR = module_output_dir("module1")
 
 W0          = 1.0          # normalised initial wealth
 TARGET_ET   = 0.02         # 2% of W0 — consistent with toy model experiments
@@ -193,34 +195,42 @@ def chart_variance(all_results: dict):
 # CHART 3: Year-by-year tax burden (Version A only)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def chart_yearby_year(dist_A, results_A_gamma2: dict):
+def chart_yearby_year(dist_A, results_A_gamma2: dict, scenario_years: list):
     """
-    For Version A at γ=2, show the annual tax/refund in each of the 73 years
-    for the three most distinct systems: symmetric WDT, stock wealth tax,
-    and income tax.
+    For Version A at γ=2, show the annual tax/refund for each year in the
+    scenario window for the three most distinct systems: symmetric WDT,
+    stock wealth tax, and income tax.
+
+    years and R_vals are derived from the distribution and scenario_years,
+    not hardcoded — so this works for any N-year scenario window.
     """
-    years  = list(range(1947, 2020))
-    R_vals = dist_A.returns
+    years  = scenario_years                     # length N, matches dist_A
+    R_vals = dist_A.returns                     # length N gross returns
+    N      = len(years)
+
+    neg_year_note = ", ".join(
+        str(years[i]) for i in range(N) if R_vals[i] < 1.0
+    ) or "none in this window"
 
     systems_to_show = ["symmetric_wdt", "stock_wealth", "income"]
 
     fig, axes = plt.subplots(3, 1, figsize=(14, 9), sharex=True)
     fig.suptitle(
-        "Module 1: Annual Tax Paid (+) / Refund Received (−) per £1 of W₀\n"
-        "Version A — UK Historical Equity (1947–2019)",
+        f"Module 1: Annual Tax Paid (+) / Refund Received (−) per £1 of W₀\n"
+        f"Version A — UK Equity {years[0]}–{years[-1]} ({N} obs, scenario)",
         fontsize=12, fontweight="bold"
     )
 
     for ax, name in zip(axes, systems_to_show):
         r      = results_A_gamma2[name]
-        taxes  = r.state_taxes if r.state_taxes is not None else np.zeros(len(years))
+        taxes  = r.state_taxes if r.state_taxes is not None else np.zeros(N)
         colors = ["#c0392b" if t < 0 else COLOURS[name] for t in taxes]
 
         ax.bar(years, taxes, color=colors, width=0.8, alpha=0.85)
         ax.axhline(0, color="black", linewidth=0.8)
 
-        # Mark the 5 negative return years
-        neg_years = [years[i] for i in range(len(years)) if R_vals[i] < 1.0]
+        # Mark negative return years within the scenario window
+        neg_years = [years[i] for i in range(N) if R_vals[i] < 1.0]
         for ny in neg_years:
             ax.axvline(ny, color="grey", linestyle=":", linewidth=0.8, alpha=0.6)
 
@@ -231,7 +241,7 @@ def chart_yearby_year(dist_A, results_A_gamma2: dict):
         ax.spines["right"].set_visible(False)
 
     axes[-1].set_xlabel("Year", fontsize=9)
-    fig.text(0.01, 0.5, "Dotted lines = negative return years (1948, 1949, 1990, 2008, 2018)",
+    fig.text(0.01, 0.5, f"Dotted lines = negative return years: {neg_year_note}",
              va="center", rotation="vertical", fontsize=7, color="grey")
     fig.tight_layout(rect=[0.02, 0, 1, 1])
     _save(fig, "m1_chart3_annual_tax.png")
@@ -447,10 +457,10 @@ def main():
     print("MODULE 1: Baseline Single-Agent Welfare Comparison")
     print("=" * 70)
 
-    # Load parameters
-    p      = load_params(TOML_PATH)
-    dist_A = make_empirical_distribution(p)
-    dist_B = make_idealised_distribution(p)
+    p   = load_params(TOML_PATH)
+    N   = p["tcm"]["canonical_N"] 
+    dist_A = make_empirical_distribution_scenario(p, N)
+    dist_B = make_idealised_distribution_scenario(p, N)
 
     _dists[dist_A.label] = dist_A
     _dists[dist_B.label] = dist_B
@@ -479,7 +489,10 @@ def main():
     print("\n--- Generating charts ---")
     chart_cew_by_gamma(all_results)
     chart_variance(all_results)
-    chart_yearby_year(dist_A, all_results[dist_A.label][2.0])
+    # Scenario years (length N) — consistent with dist_A, not the full 73-year series
+    from wdt_welfare_core import make_scenario_sequence
+    _, scenario_years = make_scenario_sequence(p, N)
+    chart_yearby_year(dist_A, all_results[dist_A.label][2.0], scenario_years)
     chart_wdt_advantage(all_results)
 
     # D-M table

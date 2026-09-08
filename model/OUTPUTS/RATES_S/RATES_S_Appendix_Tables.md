@@ -1,6 +1,6 @@
 # B. WDT Rate Parameter Sensitivity Sweep
 
-**Run date:** 2026-09-07  
+**Run date:** 2026-09-08  
 **Model version:** v8 (rates_model.py / wdt_core.py)  
 **Headline coverage window:** 10 years (SSMcov10/TCMcov10 columns; change HEADLINE_WINDOW in wdt_analytics.py)  
 **Parameters file:** `WDT_Params.toml`  

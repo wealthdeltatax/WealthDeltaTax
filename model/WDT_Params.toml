@@ -17,8 +17,8 @@
 # ─────────────────────────────────────────────────────────────
 [meta]
 version        = "v7"
-date           = "2026-08-15"
-scenario_label = "2007 Balanced"   # human-readable label for outputs
+date           = "2026-09-08"
+scenario_label = "2000 Balanced"   # human-readable label for outputs
 excel_checker  = "7.1_260725_Rates_Analysis.xlsx"   # frozen; for validation only
 
 [output]
@@ -175,7 +175,8 @@ values = [
 #                 (fraction); derived from the returns series above = 10.45% p.a.
 # ─────────────────────────────────────────────────────────────
 [tcm]
-snapshot_N          = 29     # LRR breakeven year for 2007 Balanced scenario
+snapshot_N          = 30     # LRR breakeven year for 2007 Balanced scenario
+canonical_N         = 30 
 hist_mean           = 0.1045 # 10.45% p.a. — population-weighted mean of the returns series
 # Candidate active scenarios:
                               #   2006 — worst LRR fill speed (N=29)
@@ -382,7 +383,7 @@ tau_0_canon = 0.15     # 15% — canonical floor rate
 tau_m_canon = 0.70     # 70% — canonical ceiling rate
 k_canon     = 0.001    # steepness per £m
 W_min_canon = 2.0      # £2m — entry point
-N_canon     = 29       # canonical holding period (LRR fill year, 2007 start)
+N_canon     = 30       # canonical holding period (LRR fill year, 2000 start)
 V0_canon    = 20.0     # £20m — VAL reference entry wealth
 g_canon     = 0.1045   # 10.45% p.a. — hist_mean alias
 
@@ -402,7 +403,7 @@ under_alphas = [0.1, 0.2, 0.5, 0.8]
 n_sweep = [5, 65, 1]
 
 # n_panel_vals: 4 N values for horizon panel figures (§3.1b)
-n_panel_vals  = [10, 20, 29, 50]
+n_panel_vals  = [10, 20, 30, 50]
 
 # n_actual_vals: Tables C.7/C.8 — actual simulation N (Excel offset corrected)
 n_actual_vals = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
@@ -466,9 +467,9 @@ rates_g_sweep = [0.03, 0.05, 0.07, 0.0845, 0.1045, 0.12, 0.15, 0.20, 0.25]
 # flat 2%, A=0.04 → dips to -2%, A=0.08 → dips to -6%).
 # period_sweep varies cycle length with A fixed at canonical.
 [synthetic_scenario]
-mu        = 0.02     # mean growth rate = UK CPI inflation floor (2%)
+mu        = 0.07     # mean growth rate = UK CPI inflation floor (2%)
 lam       = 0.0      # no structural trend; conservative stress-test baseline
-amplitude = 0.04     # canonical: g oscillates between -2% and +6%
+amplitude = 0.08     # canonical: g oscillates between -2% and +6%
 period    = 10       # 10-year cycle (typical business cycle length)
 
 # amplitude_sweep: A=0 is flat 2% growth; A=0.04 is canonical (-2% to +6%);
