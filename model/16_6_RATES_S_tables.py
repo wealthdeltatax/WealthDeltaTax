@@ -25,7 +25,7 @@ from wdt_analytics import (
 import wdt_analytics as _A
 
 import importlib, sys
-_mod = importlib.import_module('8_3a_RATES_report')
+_mod = importlib.import_module('8_2_RATES_report')
 write_report = _mod.write_report
 
 _OUT   = out_dir('RATES_S')

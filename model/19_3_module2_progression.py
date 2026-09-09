@@ -37,8 +37,8 @@ from pathlib import Path
 from dataclasses import dataclass
 from typing import Optional
 
-from wdt_welfare_paths import TOML_PATH, module_output_dir
-from wdt_welfare_core import (
+from welfare_paths import TOML_PATH, module_output_dir
+from welfare_core import (
     load_params,
     make_empirical_distribution,
     make_idealised_distribution,
@@ -228,7 +228,7 @@ def run_c1_analysis(
 
     Returns dict of key metrics.
     """
-    from wdt_welfare_core import solve_revenue_equivalent_rate, get_tax_fn
+    from welfare_core import solve_revenue_equivalent_rate, get_tax_fn
 
     flat_fn  = get_tax_fn("symmetric_wdt")
     eu_notax = expected_utility(W0, dist, flat_fn, 0.0, gamma)
@@ -844,7 +844,7 @@ def main():
 
     W0_vals = [vp["W_min"] * m for m in [1.5, 2, 5, 10, 20, 50, 100]]
 
-    from wdt_welfare_core import solve_revenue_equivalent_rate, get_tax_fn
+    from welfare_core import solve_revenue_equivalent_rate, get_tax_fn
     flat_fn  = get_tax_fn("symmetric_wdt")
     tau_flat = solve_revenue_equivalent_rate(
         vp["W_min"] * 5, dist_A, flat_fn, TARGET_ET * vp["W_min"] * 5

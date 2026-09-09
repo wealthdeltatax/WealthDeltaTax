@@ -29,7 +29,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 from pathlib import Path
 
-from wdt_welfare_core import (
+from welfare_core import (
     load_params,
     make_empirical_distribution,
     make_idealised_distribution,
@@ -49,7 +49,7 @@ from wdt_welfare_core import (
 # CONFIG
 # ─────────────────────────────────────────────────────────────────────────────
 
-from wdt_welfare_paths import TOML_PATH, module_output_dir
+from welfare_paths import TOML_PATH, module_output_dir
 
 OUTPUT_DIR = module_output_dir("module1")
 
@@ -490,7 +490,7 @@ def main():
     chart_cew_by_gamma(all_results)
     chart_variance(all_results)
     # Scenario years (length N) — consistent with dist_A, not the full 73-year series
-    from wdt_welfare_core import make_scenario_sequence
+    from welfare_core import make_scenario_sequence
     _, scenario_years = make_scenario_sequence(p, N)
     chart_yearby_year(dist_A, all_results[dist_A.label][2.0], scenario_years)
     chart_wdt_advantage(all_results)

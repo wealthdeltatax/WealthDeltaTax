@@ -30,14 +30,14 @@ Figure inventory
 
 Usage
 -----
-  python3 8_3b_RATES_figures.py [params.toml] [output_dir]
+  python3 8_3_RATES_figures.py [params.toml] [output_dir]
 
   params.toml  defaults to WDT_Params.toml in the same directory.
   output_dir   defaults to ./OUTPUTS/RATES/
 
 Can also be imported and called directly:
 
-    from 8_3b_RATES_figures import generate_figures
+    from 8_3_RATES_figures import generate_figures
     generate_figures(p, py_ssm, py_tcm, sweep_results, tcm_N=N)
 """
 
@@ -103,7 +103,7 @@ def generate_figures(p, py_ssm, py_tcm, sweep_results,
     out = ensure_dir(Path(output_dir) if output_dir else _OUT)
     if tcm_N is None:
         py_lrr_fill = next((r for r in py_ssm if r.get('lrr_filled')), None)
-        tcm_N = py_lrr_fill['year'] if py_lrr_fill else p['tcm_N']
+        tcm_N = p['tcm_N']
 
     print('\nGenerating RATES figures...')
     _fig01(p, sweep_results, out)
@@ -234,7 +234,7 @@ def _fig02(p, py_tcm, out_dir):
     ax.set_ylabel('Growth tier', fontsize=10)
     ax.set_title(
         'Revenue concentration: cohort share of total capitalisation-window revenue (%)\n'
-        'RATES.A §B.3h  |  Revenue dip at 90th pct reflects population-weight step: '
+        'RATES.A §B.3.8  |  Revenue dip at 90th pct reflects population-weight step: '
         'bracket population halves at 90th percentile boundary',
         fontsize=9, pad=12)
     for i in range(len(diffs)):
@@ -282,7 +282,7 @@ def _fig03(p, py_tcm, tcm_N, out_dir):
     ax.set_title(
         f'Terminal net worth at year N={tcm_N}: $V_0$ (starting) and '
         f'V_N (pre-settlement) by tier\n'
-        'RATES.A §B.3a — WDT paid throughout; compounding base intact',
+        'RATES.A §B.3.1 — WDT paid throughout; compounding base intact',
         fontsize=11, pad=12)
     ax.legend(fontsize=9, loc='upper left')
     ax.yaxis.set_major_formatter(
@@ -441,8 +441,8 @@ def _fig06(p, py_tcm, out_dir):
 
     fig.suptitle(
         f'Individual burden matrices — {p["scenario_start_year"]} '
-        f'Balanced scenario, N={p["N"]}\n'
-        'RATES.A §B.3c (left) and §B.3d (right)  |  '
+        f'Balanced scenario, N={p["tcm_N"]}\n'
+        'RATES.A §B.3.3 (left) and §B.3.4 (right)  |  '
         '0.00% = genuine zero liability (exemption threshold + refund offset); '
         'not missing data',
         fontsize=9, y=1.06)
@@ -497,8 +497,7 @@ def _fig07(p, sweep_results, out_dir):
     ax.set_title(
         'SSM/TCM 10yr coverage range by start year\n'
         'Circles = SSM floor (correlated-shock)  |  '
-        'Triangles = TCM ceiling (persistent heterogeneity)  |  '
-        '5-step post-fill priority mechanic (v8)',
+        'Triangles = TCM ceiling (persistent heterogeneity)',
         fontsize=9, pad=12)
 
     handles = [mpatches.Patch(color=c, label=l) for l, _, _, c in CYCLE_BUCKETS]
@@ -535,7 +534,7 @@ def _fig08(p, py_tcm, out_dir):
                 else p['tiers'][-1]
     good_diff = good_tier['differential']
 
-    N       = p['N']
+    N       = p['tcm_N']
     returns = p['returns']
     g_series = [returns[t] + good_diff for t in range(1, N + 1)]
     g_sell   = returns[N + 1] + good_diff
@@ -629,7 +628,7 @@ def _fig08(p, py_tcm, out_dir):
 # ─────────────────────────────────────────────────────────────
 
 def _fig09(p, py_ssm, out_dir):
-    """Two-panel: LRR balance vs target (top) + Step-5 coverage fraction (bottom)."""
+    """Two-panel: LRR balance vs target (top) + coverage fraction (bottom)."""
     apply_style()
 
     lrr_fill_yr = next((r['year'] for r in py_ssm if r.get('lrr_filled')), None)
@@ -720,8 +719,7 @@ def _fig09(p, py_ssm, out_dir):
     blue_patch = mpatches.Patch(color=C_SSM, alpha=0.85,
                                 label='Labour-relief surplus (£b)')
     red_patch  = mpatches.Patch(color=_C_ZONE_RED, alpha=0.35,
-                                label=f'Zero coverage ({n_zero_cov} years — '
-                                      'all surplus consumed by Steps 1–4)')
+                                label=f'Zero coverage ({n_zero_cov} years')
     ax_bot.legend(
         handles=[blue_patch, red_patch,
                  plt.Line2D([0], [0], color='black', linestyle='--', alpha=0.5,
@@ -732,12 +730,9 @@ def _fig09(p, py_ssm, out_dir):
     fig.suptitle(
         f'Phase Two stress profile — full 71-year window, {scenario_yr} Balanced scenario\n'
         f'Top: LRR balance vs 3× floor target  |  '
-        f'Amber shading = {n_below_floor} years below floor (stressed, not failed)  |  '
         f'Min balance £{min_bal:,.0f}b (never zero)\n'
-        f'Bottom: Step-5 labour-relief surplus (£b)  |  '
         f'Red bars = {n_zero_cov} zero-coverage years  |  '
-        f'Dashed line = annual expenditure; bars above it = coverage > 100%  |  '
-        'Growth in later decades reflects compounding wealth base, not a modelling error',
+        f'Dashed line = annual expenditure; bars above it = coverage > 100%  |  ',
         fontsize=8.5, y=1.01)
     plt.tight_layout()
     return _save(fig, out_dir, 'rates_fig_09_phase_two_transition.png')

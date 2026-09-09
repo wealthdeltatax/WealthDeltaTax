@@ -1,5 +1,5 @@
 """
-wdt_welfare_tables.py
+welfare_tables.py
 =====================
 Tabular output for the WFR Welfare Comparison Model.
 
@@ -20,8 +20,6 @@ Table WFR.3  — Module 1: Revenue-equivalent rates by system and distribution
 Table WFR.4  — Module 1: Domar-Musgrave test results
 Table WFR.5  — Module 2: C1 — Flat vs progressive WDT CEW
                (both distributions, all γ)
-Table WFR.6b — Module 2: C2 — Leverage effect on WDT tax base and welfare
-               (15-point leverage grid, gross assets £10m, γ=2, Ver. A)
 Table WFR.6  — Module 2: C3 — Two-period rate asymmetry by wealth level
 Table WFR.7  — Module 3: Lock-in welfare cost — sensitivity to gain ratio
 Table WFR.8  — Module 3: Lock-in welfare cost — sensitivity to holding period
@@ -42,12 +40,12 @@ import numpy as np
 from pathlib import Path
 
 # ── project helpers ───────────────────────────────────────────────────────────
-from wdt_welfare_paths import TOML_PATH, module_output_dir
+from welfare_paths import TOML_PATH, module_output_dir
 from wdt_md  import MdDoc, md_table, LEFT, RIGHT, CENTER
 from wdt_fmt import fmt_pct, fmt_pct1, fmt_gbp_m, fmt_f2, fmt_f4, today_iso
 
 # ── welfare model imports ─────────────────────────────────────────────────────
-from wdt_welfare_core import (
+from welfare_core import (
     load_params,
     make_empirical_distribution,
     make_idealised_distribution,
@@ -62,9 +60,7 @@ from wdt_welfare_core import (
 )
 from module2_progression import (
     ProgressiveRateFunction,
-    LeveragedAgent,
     run_c1_analysis,
-    run_c2_leverage,
     run_c3_two_period,
 )
 from module3_lockin import (
@@ -293,84 +289,21 @@ def table_wfr4(all_results: dict, dists: dict) -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def table_wfr5(c1_results: dict) -> str:
-    """
-    WFR.5: C1 flat vs progressive CEW — revenue-equivalent comparison.
-
-    The flat WDT rate is solved to match the progressive system's natural E[T],
-    not the 2%-of-W₀ global target.  This makes the welfare comparison clean:
-    same revenue, different structure, pure distortion difference.
-
-    Columns
-    -------
-    Flat WDT CEW      : CEW at the revenue-matched flat rate
-    Progressive CEW   : CEW at the canonical logistic schedule
-    Gap (bp)          : (CEW_flat − CEW_prog) × 10,000; positive = flat WDT lower cost
-    E[T] matched (£m) : expected revenue collected by both systems (equal by construction)
-    vs 2% target (£m) : E[T]_progressive − E[T]_2%target; shows deviation from benchmark
-    """
-    headers = [
-        'Distribution', 'γ',
-        'Flat WDT CEW', 'Progressive CEW', 'Gap (bp)',
-        'E[T] matched (£m)', 'vs 2% target (£m)',
-    ]
-    col_fmt = [LEFT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT]
+    """WFR.5: C1 flat vs progressive CEW and gap across γ and distributions."""
+    headers = ['Distribution', 'γ', 'Flat WDT CEW', 'Progressive WDT CEW',
+               'Gap (bp)', 'E[T] progressive']
+    col_fmt = [LEFT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT]
     rows = []
     for dk, gamma_results in c1_results.items():
         for g, r in gamma_results.items():
-            et_dev  = r['et_progressive'] - r['et_flat_target']
-            flag    = '' if r.get('revenue_matched', True) else ' [!]'
             rows.append([
                 dist_label_map_fn(dk),
                 f'{g:.1f}',
                 fmt_pct4(r['cew_flat']),
                 fmt_pct4(r['cew_progressive']),
                 f'{r["cew_gap_bp"]:+.2f}',
-                fmt_gbp_m(r['et_progressive'], dp=4) + flag,
-                f'{et_dev:+.4f}',
+                fmt_gbp_m(r['et_progressive'], dp=4),
             ])
-    return md_table(headers, rows, col_fmt=col_fmt)
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# TABLE WFR.6b  Module 2 C2: Leverage effect on WDT tax base and welfare
-# ─────────────────────────────────────────────────────────────────────────────
-
-def table_wfr6b(c2_lev_results: list) -> str:
-    """
-    WFR.6b: C2 leverage — net-worth delta base vs hypothetical asset-return base.
-
-    Each row is one point on the 15-point leverage grid (0% → 70% of gross assets).
-    Gross assets fixed at £10m; net worth W₀ = A × (1 − leverage ratio).
-
-    Columns
-    -------
-    Lev. ratio  : D / A — debt as fraction of gross assets
-    W₀ (£m)     : net worth after subtracting debt
-    E[T] NW base: expected tax under actual WDT (net-worth delta base)
-    E[T] AR base: expected tax under hypothetical asset-return base
-    E[T] excess : E[T]_nw − E[T]_ar (positive = NW base collects more)
-    CEW NW base : consumption-equivalent welfare under NW base
-    CEW AR base : CEW under asset-return base
-    CEW gap (bp): (CEW_nw − CEW_ar) × 10,000 — welfare difference
-    """
-    headers = [
-        'Lev. ratio', 'W₀ (£m)',
-        'E[T] NW base', 'E[T] AR base', 'E[T] excess',
-        'CEW NW base', 'CEW AR base', 'CEW gap (bp)',
-    ]
-    col_fmt = [RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT]
-    rows = []
-    for r in c2_lev_results:
-        rows.append([
-            f'{r["leverage_ratio"]*100:.1f}%',
-            fmt_gbp_m(r['W0'], dp=3),
-            fmt_gbp_m(r['et_nw'], dp=4),
-            fmt_gbp_m(r['et_ar'], dp=4),
-            fmt_gbp_m(r['et_nw'] - r['et_ar'], dp=4),
-            fmt_pct4(r['cew_nw']),
-            fmt_pct4(r['cew_ar']),
-            f'{r["cew_gap_bp"]:+.2f}',
-        ])
     return md_table(headers, rows, col_fmt=col_fmt)
 
 
@@ -404,8 +337,9 @@ def table_wfr6(c3_results: list, W0_vals: list) -> str:
 
 def table_wfr7(sens_gain: list) -> str:
     """WFR.7: Lock-in welfare cost by embedded gain ratio G/V."""
-    headers = ['G/V (%)', 'CEW (free)', 'CEW (locked)', 'Lock-in cost (bp)', 'P(locked in)']
-    col_fmt = [RIGHT, RIGHT, RIGHT, RIGHT, RIGHT]
+    headers = ['G/V (%)', 'CEW (free)', 'CEW (locked)', 'Lock-in cost (bp)',
+               'P(total locked)', 'P(CGT distortion)', 'P(r_B < r_A)']
+    col_fmt = [RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT]
     rows = []
     for r in sens_gain:
         rows.append([
@@ -414,6 +348,8 @@ def table_wfr7(sens_gain: list) -> str:
             fmt_pct4(r['cew_locked']),
             f'{r["lock_in_cost_bp"]:+.2f}',
             fmt_pct1(r['p_locked']),
+            fmt_pct1(r.get('p_locked_cgt', float('nan'))),
+            fmt_pct1(r.get('p_below_rA',   float('nan'))),
         ])
     return md_table(headers, rows, col_fmt=col_fmt)
 
@@ -424,8 +360,9 @@ def table_wfr7(sens_gain: list) -> str:
 
 def table_wfr8(sens_T: list) -> str:
     """WFR.8: Lock-in welfare cost by remaining holding period T."""
-    headers = ['T (years)', 'Indifference return r_B*', 'Lock-in cost (bp)', 'P(locked in)']
-    col_fmt = [RIGHT, RIGHT, RIGHT, RIGHT]
+    headers = ['T (years)', 'r_B* (%)', 'Lock-in cost (bp)',
+               'P(total locked)', 'P(CGT distortion)', 'P(r_B < r_A)']
+    col_fmt = [RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT]
     rows = []
     for r in sens_T:
         rows.append([
@@ -433,6 +370,8 @@ def table_wfr8(sens_T: list) -> str:
             f'{r["r_B_indiff"]*100:.4f}%',
             f'{r["lock_in_cost_bp"]:+.2f}',
             fmt_pct1(r['p_locked']),
+            fmt_pct1(r.get('p_locked_cgt', float('nan'))),
+            fmt_pct1(r.get('p_below_rA',   float('nan'))),
         ])
     return md_table(headers, rows, col_fmt=col_fmt)
 
@@ -612,7 +551,6 @@ def build_appendix(
     all_results   : dict,
     dists         : dict,
     c1_results    : dict,
-    c2_lev_results: list,
     c3_results    : list,
     W0_vals_c3    : list,
     sens_gain     : list,
@@ -643,23 +581,23 @@ def build_appendix(
     doc.blank()
 
     doc.h3('Table WFR.1 — Consumption-Equivalent Welfare (CEW) by system, γ, and distribution')
-    scenario_start = p["tcm"].get("scenario_start_year", p["returns"]["series_base_year"])
-    canonical_N    = p["tcm"].get("canonical_N", 30)
     doc.note(
-        f'CEW = proportional consumption change under no-tax making agent indifferent '
-        f'to the taxed system. Negative = welfare cost relative to no-tax. '
-        f'Numbers are for the {canonical_N}-year scenario sequence starting '
-        f'{scenario_start} (canonical_N = {canonical_N} from TOML [tcm]); '
-        f'they differ from full 73-year series values (1947–2019) by construction — '
-        f'the scenario and full-series runs are separate sensitivity configurations. '
-        f'Ver. A = empirical returns {scenario_start}–{scenario_start + canonical_N - 1} '
-        f'({canonical_N} obs, equal probability 1/{canonical_N}). '
-        f'Ver. B = idealised two-state calibrated to scenario μ and σ '
-        f'(p=0.5, R_good=E[R]+σ, R_bad=E[R]−σ). '
-        f'Full 73-year series numbers appear in the backbone reference figures.'
+        'CEW = proportional consumption change under no-tax making agent indifferent '
+        'to the taxed system. Negative = welfare cost relative to no-tax. '
+        'Ver. A = UK historical equity (73 obs, 1947–2019). '
+        'Ver. B = idealised two-state (p=0.5, R_good=E[R]+σ, R_bad=E[R]−σ).'
     )
     doc.add_block(table_wfr1(all_results))
-    doc.blank()
+    doc.note(
+        'Note: Income Tax and CGT show identical CEW and identical revenue-equivalent '
+        'rates throughout this table. This is correct by construction: Module 1 '
+        'models CGT as a gains-only tax with the same base as income tax and no '
+        'realisation decision. The two systems are structurally identical in a '
+        'single-period model where all gains are realised each period. '
+        'The lock-in distortion that separates CGT from income tax in practice '
+        'is endogenous and enters only in Module 3, where it generates the '
+        'largest welfare difference in the model.'
+    )
 
     doc.h3('Table WFR.2 — Variance of Consumption by system (γ=2)')
     doc.note(
@@ -699,37 +637,10 @@ def build_appendix(
     doc.note(
         'C1 complication: under a progressive rate, the government co-investment share '
         'varies with wealth level, breaking the flat D-M result. '
-        'Revenue-equivalence calibration: the flat rate τ* is solved to match the '
-        'progressive system\'s natural E[T], not the global 2%-of-W₀ target. '
-        'Both systems therefore collect the same expected revenue; the gap measures '
-        'the pure structural welfare difference from rate progression alone. '
-        'The "vs 2% target" column shows how much the canonical logistic schedule '
-        'deviates from the 2% benchmark at each W₀ — a negative figure means the '
-        'logistic schedule is less aggressive than the global target at this wealth level. '
-        'Gap (bp) = (CEW_flat − CEW_progressive) × 10,000; positive = flat WDT has lower '
-        'welfare cost. '
+        'Gap (bp) = (CEW_flat − CEW_progressive) × 10,000. Positive = flat WDT better. '
         'W₀ = 5 × W_min = £10m for both distributions.'
     )
     doc.add_block(table_wfr5(c1_results))
-    doc.blank()
-
-    doc.h3('Table WFR.6b — C2: Leverage Effect on WDT Tax Base and Welfare')
-    gross_assets_m = p['rate']['W_min'] * 5
-    doc.note(
-        f'C2 complication: when an agent holds debt, the WDT net-worth delta base '
-        f'(ΔW = W₁ − W₀) amplifies or dampens the underlying asset return. '
-        f'An unlevered agent has ΔW = A×(R−1) = ΔA; with leverage, ΔW = ΔA at the '
-        f'asset level but net worth swings more sharply, enlarging the tax base in '
-        f'rising markets and the refund base in falling markets. '
-        f'Gross assets fixed at £{gross_assets_m:.0f}m throughout; net worth W₀ '
-        f'declines as leverage rises (W₀ = A − D = A × (1 − lev. ratio)). '
-        f'E[T] excess = E[T]_NW − E[T]_AR; CEW gap = (CEW_NW − CEW_AR) × 10,000. '
-        f'Positive excess means the actual WDT collects more in expectation than a '
-        f'hypothetical asset-return base would at the same progressive rate schedule — '
-        f'the direction switches if expected asset returns are negative. '
-        f'Version A distribution (scenario {p["tcm"].get("scenario_start_year", "—")}), γ=2.'
-    )
-    doc.add_block(table_wfr6b(c2_lev_results))
     doc.blank()
 
     doc.h3('Table WFR.6 — C3: Two-Period Rate Asymmetry by Initial Wealth')
@@ -759,6 +670,12 @@ def build_appendix(
         'Lock-in cost (bp) = (CEW_free − CEW_locked) × 10,000. '
         'CEW_free: agent switches whenever r_B > r_A (no lock-in). '
         'CEW_locked: agent locked in under CGT when r_B < indifference return r_B*. '
+        'P(locked in) includes two components: states where r_B < r_A '
+        '(agent stays regardless of CGT — fundamental preference, not a distortion) '
+        'and states where r_A ≤ r_B < r_B* (CGT lock-in distortion proper — '
+        'agent would switch without CGT but switching cost exceeds benefit). '
+        'The welfare cost is attributable to the second component only; '
+        'the first component is present with or without CGT. '
         'Version A distribution. γ=2.'
     )
     doc.add_block(table_wfr7(sens_gain))
@@ -766,9 +683,20 @@ def build_appendix(
 
     doc.h3('Table WFR.8 — Lock-In Welfare Cost by Remaining Holding Period')
     doc.note(
-        'G/V=50% fixed. T varies. Lock-in cost declines as T increases '
-        'because future switching opportunities reduce the cost of current lock-in. '
-        'Indifference return r_B* converges to r_A as T→∞.'
+        'G/V=50% fixed. T varies from 1 to 20 years. '
+        'Lock-in cost rises from T=1 and plateaus at longer horizons — '
+        'the direction is upward, not downward. '
+        'At T=1 the agent has only one period to benefit from switching to B, '
+        'so the opportunity cost of lock-in is low. '
+        'Each additional year that Asset B compounds ahead of Asset A raises '
+        'the foregone return from remaining locked in. '
+        'The plateau appears as r_B* converges toward r_A and the trapped zone '
+        '(r_A ≤ r_B < r_B*) collapses — states that triggered lock-in at short T '
+        'now fall below r_A (agent stays regardless) or above r_B* (agent switches). '
+        'Indifference return r_B* does converge to r_A as T→∞, '
+        'confirming lock-in eventually disappears at infinite horizons; '
+        'but across all empirically relevant horizons (T ≤ 20 yr) '
+        'the welfare cost is substantially above the T=1 baseline.'
     )
     doc.add_block(table_wfr8(sens_T))
     doc.blank()
@@ -826,11 +754,26 @@ def build_appendix(
     doc.blank()
 
     doc.h3('Table WFR.13 — Lifetime Contribution Envelope: Binding Summary')
+    scenario_start = p["tcm"].get("scenario_start_year", p["returns"]["series_base_year"])
     doc.note(
         'Envelope binds when cumulative refunds would exceed cumulative taxes paid. '
         'Refund capped at cumulative taxes paid to date when binding occurs. '
-        'Min slack = minimum of (cum. tax − cum. refund) over all 73 years. '
-        'Zero min slack means envelope was exactly hit but not exceeded.'
+        'Min slack = minimum of (cum. tax − cum. refund) over the scenario window; '
+        'zero means the envelope was exactly hit but not exceeded. '
+        'The Poor tier binding in the first year of the scenario ('
+        + str(scenario_start) + ') is the concrete numerical realisation of the '
+        'ENV paper\'s SRR early-year funding gap: the Poor tier\'s '
+        '−4.55pp return differential produces a loss in the first scenario year '
+        'before any cumulative tax has been paid, so the refund that would be '
+        'owed exceeds the cumulative contribution to date. '
+        'The envelope floor binds and the refund is capped at zero. '
+        'Policy implication: the SRR must be pre-funded from sources other than '
+        'WDT receipts (e.g. initial government capitalisation) to honour refunds '
+        'in early years for low-return-tier entrants, or the entry-year assessment '
+        'must provide an initial credit against future taxes. '
+        'This result holds for the ' + str(scenario_start) + '-start sequence; '
+        'it may differ under other start years — see Module 5 Sweep B for '
+        'the full start-year distribution.'
     )
     doc.add_block(table_wfr13(envelope, tiers))
     doc.blank()
@@ -920,17 +863,6 @@ def main():
     flat_fn  = get_tax_fn('symmetric_wdt')
     tau_flat = solve_revenue_equivalent_rate(W0_c1, dist_A, flat_fn, TARGET_ET * W0_c1)
 
-    # C2: leverage grid — 0% to 70% in 15 steps, gross assets = W_min × 5
-    gross_assets_c2  = rp['W_min'] * 5     # £10m (same reference as C1)
-    leverage_grid    = np.linspace(0.0, 0.70, 15)
-    c2_lev_results   = []
-    for lev in leverage_grid:
-        agent = LeveragedAgent(
-            gross_assets=gross_assets_c2,
-            debt=gross_assets_c2 * lev,
-        )
-        c2_lev_results.append(run_c2_leverage(agent, dist_A, rate_fn, gamma=2.0))
-
     W0_vals_c3 = [rp['W_min'] * m for m in [1.5, 2, 5, 10, 20, 50, 100]]
     c3_results = [
         run_c3_two_period(W0, R1_good, R2_loss, rate_fn, 2.0, tau_flat)
@@ -980,7 +912,6 @@ def main():
     doc = build_appendix(
         all_results=all_results, dists=dists,
         c1_results=c1_results,
-        c2_lev_results=c2_lev_results,
         c3_results=c3_results, W0_vals_c3=W0_vals_c3,
         sens_gain=sens_gain, sens_T=sens_T,
         comp_A=comp_A, comp_B=comp_B,
@@ -1004,8 +935,6 @@ def main():
                 'Table WFR.4: Domar–Musgrave test.')
     write_table(table_wfr5(c1_results),   'WFR_T05_c1_progression.md',
                 'Table WFR.5: C1 flat vs progressive WDT.')
-    write_table(table_wfr6b(c2_lev_results), 'WFR_T06b_c2_leverage.md',
-                'Table WFR.6b: C2 leverage effect on WDT tax base and welfare.')
     write_table(table_wfr6(c3_results, W0_vals_c3), 'WFR_T06_c3_asymmetry.md',
                 'Table WFR.6: C3 two-period rate asymmetry.')
     write_table(table_wfr7(sens_gain),    'WFR_T07_lockin_gain.md',

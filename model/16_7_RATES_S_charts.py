@@ -190,7 +190,7 @@ def _four_panel(sweep_results, param_label, baseline_v, x_label,
       [1,0] LRR surplus at fill — median + min/max band
       [1,1] Taxpayer burden distribution — population-weighted quantiles of
             wealth_burden (left y-axis, %) and eff_rate (right y-axis, %)
-            across all 4-tier × 10-bracket cells at fixed N=p_base['N'].
+            across all 4-tier × 10-bracket cells at fixed N=p_base['tcm_N'].
 
     burden_data : list of dicts from _tcm_burden_sweep(), one per parameter
                   value.  If None the panel is left blank.
@@ -337,7 +337,7 @@ def _four_panel(sweep_results, param_label, baseline_v, x_label,
         mticker.FuncFormatter(lambda v, _: f'{v:.1f}%'))
     ax1.set_title(
         f'Taxpayer burden — population-weighted distribution\n'
-        f'All cohorts, fixed N={p_base["N"]}  |  '
+        f'All cohorts, fixed N={p_base["tcm_N"]}  |  '
         f'Bands: min–max (outer) and 25th–75th percentile (inner)',
         fontsize=9)
 
@@ -1101,6 +1101,7 @@ def _synthetic_scenario(amp_results, per_results, canonical_series,
 
 def main():
     p_base = load_params()
+    print(p_base)
     model.validate_params(p_base)
     init(p_base)
 

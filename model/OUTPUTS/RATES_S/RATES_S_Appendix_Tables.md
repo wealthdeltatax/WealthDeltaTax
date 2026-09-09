@@ -1,6 +1,6 @@
 # B. WDT Rate Parameter Sensitivity Sweep
 
-**Run date:** 2026-09-08  
+**Run date:** 2026-09-09  
 **Model version:** v8 (rates_model.py / wdt_core.py)  
 **Headline coverage window:** 10 years (SSMcov10/TCMcov10 columns; change HEADLINE_WINDOW in wdt_analytics.py)  
 **Parameters file:** `WDT_Params.toml`  
@@ -313,10 +313,10 @@ Each row is a single deterministic run with a constant growth rate replacing the
 
 ## ## B.9. Synthetic Growth Scenario
 
-Growth path: $g(t) = \mu + \lambda t + A \sin(2\pi t / T)$  ·  Canonical: μ=2.00%, λ=0.0000/yr, A=4.00%, T=10 yr.
+Growth path: $g(t) = \mu + \lambda t + A \sin(2\pi t / T)$  ·  Canonical: μ=7.00%, λ=0.0000/yr, A=8.00%, T=10 yr.
 
 ### ### B.9.1  Amplitude sweep (μ, λ, T fixed at canonical)
-λ=0.0000, μ=2.00%, T=10 yr.
+λ=0.0000, μ=7.00%, T=10 yr.
 
 **Amplitude sweep**
 
@@ -324,17 +324,17 @@ Growth path: $g(t) = \mu + \lambda t + A \sin(2\pi t / T)$  ·  Canonical: μ=2.
 
 | Value | LRR fill yr | LRR surplus £b | SSMcov10 | TCMcov10 | SSMcov50 | LRR failure yr |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 0.00% | — | 0 | — | — | — | — (none) |
-| 1.00% | — | 0 | — | — | — | — (none) |
-| 2.00% | — | 0 | — | — | — | — (none) |
-| 3.00% | — | 0 | — | — | — | — (none) |
-| 4.00% ◄ | — | 0 | — | — | — | — (none) |
-| 5.00% | — | 0 | — | — | — | — (none) |
-| 6.00% | — | 0 | — | — | — | — (none) |
-| 8.00% | — | 0 | — | — | — | — (none) |
+| 0.00% | 20 | 487 | 33.0% | 45.0% | 53.2% | — (none) |
+| 1.00% | 20 | 466 | 33.1% | 45.7% | 53.7% | — (none) |
+| 2.00% | 20 | 399 | 33.1% | 42.7% | 54.1% | — (none) |
+| 3.00% | 20 | 451 | 33.8% | 43.7% | 54.3% | — (none) |
+| 4.00% | 20 | 378 | 33.7% | 42.5% | 54.4% | — (none) |
+| 5.00% | 20 | 356 | 33.7% | 44.2% | 54.2% | — (none) |
+| 6.00% | 20 | 271 | 33.4% | 43.4% | 54.0% | — (none) |
+| 8.00% ◄ | 20 | 74 | 33.5% | 42.7% | 54.8% | — (none) |
 
 ### ### B.9.2  Period sweep (μ, λ, A fixed at canonical)
-λ=0.0000, μ=2.00%, A=4.00%.
+λ=0.0000, μ=7.00%, A=8.00%.
 
 **Period sweep**
 
@@ -342,12 +342,12 @@ Growth path: $g(t) = \mu + \lambda t + A \sin(2\pi t / T)$  ·  Canonical: μ=2.
 
 | Value | LRR fill yr | LRR surplus £b | SSMcov10 | TCMcov10 | SSMcov50 | LRR failure yr |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 5 yr | — | 0 | — | — | — | — (none) |
-| 7 yr | — | 0 | — | — | — | — (none) |
-| 10 yr ◄ | — | 0 | — | — | — | — (none) |
-| 15 yr | — | 0 | — | — | — | — (none) |
-| 20 yr | — | 0 | — | — | — | — (none) |
-| 30 yr | — | 0 | — | — | — | — (none) |
+| 5 yr | 20 | 47 | 31.8% | 47.1% | 52.2% | — (none) |
+| 7 yr | 17 | 398 | 23.9% | 38.5% | 52.0% | — (none) |
+| 10 yr ◄ | 20 | 74 | 33.5% | 42.7% | 54.8% | — (none) |
+| 15 yr | 18 | 1154 | 35.5% | 50.8% | 64.8% | — (none) |
+| 20 yr | 11 | 54 | 4.3% | 11.7% | 45.5% | — (none) |
+| 30 yr | 10 | 585 | 46.2% | 56.6% | 49.9% | — (none) |
 
 # C. Reading Notes
 

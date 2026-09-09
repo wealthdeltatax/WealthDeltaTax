@@ -36,8 +36,8 @@ from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Optional
 
-from wdt_welfare_paths import TOML_PATH, module_output_dir
-from wdt_welfare_core import (
+from welfare_paths import TOML_PATH, module_output_dir
+from welfare_core import (
     load_params,
     make_empirical_distribution,
     make_idealised_distribution,
@@ -56,12 +56,13 @@ from wdt_welfare_core import (
     make_idealised_distribution_scenario,
     make_scenario_sequence,
 )
-from module2_progression import (
-    ProgressiveRateFunction,
-    tax_progressive_wdt,
-    expected_utility_progressive,
-    expected_tax_progressive,
-)
+
+import importlib, sys
+_mod = importlib.import_module('19_3_module2_progression')
+ProgressiveRateFunction = _mod.ProgressiveRateFunction
+tax_progressive_wdt = _mod.tax_progressive_wdt
+expected_utility_progressive = _mod.expected_utility_progressive
+expected_tax_progressive = _mod.expected_tax_progressive
 
 OUTPUT_DIR = module_output_dir("module4")
 
@@ -224,7 +225,7 @@ def run_tier_comparison(
 
     Returns: {tier_name: {system_name: SystemResult-like dict}}
     """
-    from wdt_welfare_core import SystemResult, SYSTEM_LABELS as _SL
+    from welfare_core import SystemResult, SYSTEM_LABELS as _SL
 
     # Population-weighted aggregate revenue target
     agg_W0     = sum(t.pop_share * t.W0 for t in tiers)

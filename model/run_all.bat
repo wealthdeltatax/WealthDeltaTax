@@ -13,8 +13,8 @@ for %%f in (
     "5_3_VAL_generate_appc_full.py"
     "5_4_VAL_generate_worked_examples.py"
     "5_6_VAL_generate_figures.py"
-    "8_3a_RATES_report.py"
-    "8_3b_RATES_figures.py"
+    "8_2_RATES_report.py"
+    "8_3_RATES_figures.py"
     "16_0_compute.py"
     "16_2_VAL_S_rate_sweeps.py"
     "16_3_VAL_S_horizon_sweeps.py"
@@ -22,11 +22,12 @@ for %%f in (
     "16_5_VAL_S_assemble.py"
     "16_6_RATES_S_tables.py"
     "16_7_RATES_S_charts.py"
-    "module1_baseline.py"
-    "module2_progression.py"
-    "module3_lockin.py"
-    "module4_heterogeneous.py"
-    "wdt_welfare_tables.py"
+    "19_2_module1_baseline.py"
+    "19_3_module2_progression.py"
+    "19_4_module3_lockin.py"
+    "19_5_module4_heterogeneous.py"
+    "19_6_module_5_sweeps"
+    "welfare_tables.py"
 ) do (
     echo.
     echo ========================================

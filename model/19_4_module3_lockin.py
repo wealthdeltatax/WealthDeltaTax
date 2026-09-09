@@ -41,8 +41,8 @@ from pathlib import Path
 from dataclasses import dataclass
 from typing import Optional
 
-from wdt_welfare_paths import TOML_PATH, module_output_dir
-from wdt_welfare_core import (
+from welfare_paths import TOML_PATH, module_output_dir
+from welfare_core import (
     load_params,
     make_empirical_distribution,
     make_idealised_distribution,
@@ -249,7 +249,18 @@ def compute_lock_in_welfare_cost(
     cew_locked = consumption_equiv_welfare(eu_locked, eu_notax, gamma)
     lock_in_cost_bp = (cew_free - cew_locked) * 10000
 
-    p_locked = sum(s["prob"] for s in costs_by_state if s["locked_in"])
+    # P(locked in) decomposition:
+    #   p_below_rA      : agent would stay in A even without CGT (r_B < r_A)
+    #                     — not a CGT distortion, a fundamental preference
+    #   p_locked_cgt    : r_A ≤ r_B < r_B* — agent would switch without CGT
+    #                     but stays because CGT switching cost exceeds benefit
+    #                     — this is the CGT lock-in distortion proper
+    #   p_locked        : total = p_below_rA + p_locked_cgt (all locked states)
+    r_B_indiff = asset.indifference_return()
+    p_below_rA   = sum(s["prob"] for s in costs_by_state if s["r_B"] <  asset.r_A)
+    p_locked_cgt = sum(s["prob"] for s in costs_by_state
+                       if asset.r_A <= s["r_B"] < r_B_indiff)
+    p_locked     = p_below_rA + p_locked_cgt   # = all locked states
 
     return {
         "eu_free"          : eu_free,
@@ -259,7 +270,9 @@ def compute_lock_in_welfare_cost(
         "cew_locked"       : cew_locked,
         "lock_in_cost_bp"  : lock_in_cost_bp,
         "p_locked"         : p_locked,
-        "r_B_indiff"       : asset.indifference_return(),
+        "p_locked_cgt"     : p_locked_cgt,   # CGT distortion proper
+        "p_below_rA"       : p_below_rA,     # fundamental preference (not CGT)
+        "r_B_indiff"       : r_B_indiff,
         "switch_cost"      : asset.switch_cost_pv(),
         "states"           : costs_by_state,
     }
@@ -373,6 +386,8 @@ def full_comparison_with_lockin(
         "wdt_adv_no_lock_bp"  : adv_no_lock,
         "wdt_adv_with_lock_bp": adv_with_lock,
         "p_locked"            : lock["p_locked"],
+        "p_locked_cgt"        : lock["p_locked_cgt"],
+        "p_below_rA"          : lock["p_below_rA"],
         "r_B_indiff"          : lock["r_B_indiff"],
         "m1_cgt_tau"          : m1_results["cgt"].tau,
         "m1_wdt_tau"          : m1_results["symmetric_wdt"].tau,
@@ -469,8 +484,9 @@ def chart_sensitivity_T(sens_T: list):
              linewidth=2, markersize=6)
     ax1.set_xlabel("Remaining holding period T (years)", fontsize=9)
     ax1.set_ylabel("Lock-in welfare cost (basis points)", fontsize=9)
-    ax1.set_title("Welfare cost rises then plateaus as T increases\n"
-                  "(trapped zone shrinks; CGT-on-switch cost becomes dominant)", fontsize=9)
+    ax1.set_title("Welfare cost rises from T=1 then plateaus\n"
+                  "(each extra year of B's compounding raises the opportunity cost of lock-in;\n"
+                  "plateau when r_B* ≈ r_A and trapped zone collapses)", fontsize=9)
     ax1.grid(axis="y", linestyle="--", alpha=0.4)
     ax1.spines["top"].set_visible(False); ax1.spines["right"].set_visible(False)
 
@@ -581,11 +597,14 @@ def print_findings(comp_A: dict, sens_gain: list, sens_T: list):
         f"Lock-in is therefore the {'primary' if comp_A['lock_in_cost_bp'] > abs(comp_A['wdt_adv_no_lock_bp']) else 'secondary'} "
         f"channel through which WDT welfare-dominates CGT.",
 
-        f"2. PROBABILITY OF LOCK-IN: In {comp_A['p_locked']*100:.1f}% of return states "
-        f"the agent is locked into the inferior asset under CGT. "
-        f"The indifference return is {comp_A['r_B_indiff']*100:.2f}% — "
-        f"any Asset B with a return below this is rejected despite being superior "
-        f"to Asset A on fundamentals.",
+        f"2. PROBABILITY OF LOCK-IN (decomposed): In {comp_A['p_locked']*100:.1f}% of return "
+        f"states the agent stays in Asset A under CGT. This has two components: "
+        f"{comp_A['p_below_rA']*100:.1f}% of states have r_B < r_A — the agent "
+        f"would stay regardless of CGT (fundamental preference, not a distortion). "
+        f"The CGT lock-in distortion proper affects {comp_A['p_locked_cgt']*100:.1f}% "
+        f"of states — those where r_A ≤ r_B < r_B* = {comp_A['r_B_indiff']*100:.2f}%: "
+        f"the agent would switch without CGT but the switching cost exceeds the benefit. "
+        f"The welfare cost is attributable to this second component only.",
 
         f"3. GAIN RATIO SENSITIVITY: Lock-in cost rises with the embedded gain G/V. "
         f"At G/V = 80%, the lock-in cost reaches {max_lock_gain:.2f} bp — "
@@ -593,15 +612,18 @@ def print_findings(comp_A: dict, sens_gain: list, sens_T: list):
         f"Long-held concentrated positions (high G/V) face the most severe lock-in.",
 
         f"4. HOLDING PERIOD SENSITIVITY: Lock-in cost rises from "
-        f"{min_lock_T:.2f} bp (shortest horizon) and plateaus near "
+        f"{min_lock_T:.2f} bp at T=1 and plateaus near "
         f"{max_lock_T:.2f} bp at longer horizons. "
-        f"At short T the trapped zone (r_A < r_B < r_B*) is large but few "
-        f"switches occur; as T increases r_B* falls toward r_A, the trapped zone "
-        f"shrinks, and states above r_B* now pay CGT on switching — this "
-        f"switching cost then dominates and the total welfare cost plateaus. "
-        f"The indifference return r_B* converges to r_A as T→∞, "
-        f"so lock-in eventually disappears — but within empirically relevant "
-        f"horizons (T ≤ 20 yr) the CGT switching cost keeps welfare costs elevated.",
+        f"The direction is upward, not downward: at short T the agent has "
+        f"only one period to benefit from switching, so the opportunity cost "
+        f"is low. As T increases, each additional year that Asset B compounds "
+        f"ahead of Asset A raises the foregone return from staying locked in. "
+        f"The plateau appears once r_B* converges toward r_A and the trapped "
+        f"zone between them collapses — states that triggered lock-in at short "
+        f"T now fall below r_A entirely (agent stays regardless of CGT) or "
+        f"above r_B* (agent switches despite CGT). "
+        f"Within empirically relevant horizons (T ≤ 20 yr) the welfare cost "
+        f"is substantially above the T=1 baseline.",
 
         f"5. WDT STRUCTURAL ADVANTAGE: Under the WDT, the tax on gain G has "
         f"already been accruing annually — switching assets is costless on the "
@@ -714,6 +736,8 @@ def main():
     print_comparison_table(comp_B, dist_B.label)
 
     chart_full_comparison(comp_A, dist_A.label)
+
+    print(comp_A)
 
     print_findings(comp_A, sens_gain, sens_T)
     print(f"\n✓ Module 3 complete. Outputs in: {OUTPUT_DIR}")

@@ -1,6 +1,6 @@
 # VAL.S — Appendix Tables
 
-**Generated:** 2026-09-08
+**Generated:** 2026-09-09
 **Model:** Python v1.0 via wdt_core.py  ·  Canonical: $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{min}$=£2m, N=30, $V_0$=£20m, $g$=10.45%
 
 **Metric (all tables unless stated):** C.1 = (Net($\alpha$) − Net(1)) / TW($\alpha$).  Positive = $\alpha$ pays more net tax than honest.  $\alpha$ = 1.0 row is zero by construction.

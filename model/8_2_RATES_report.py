@@ -24,14 +24,14 @@ Sections
 
 Usage
 -----
-  python3 8_3a_RATES_report.py [params.toml] [output_dir]
+  python3 8_2_RATES_report.py [params.toml] [output_dir]
 
   params.toml  defaults to WDT_Params.toml in the same directory.
   output_dir   defaults to ./OUTPUTS/RATES/
 
 Can also be imported and called directly:
 
-    from 8_3a_RATES_report import write_report
+    from 8_2_RATES_report import write_report
     out_path = write_report(p, py_ssm, py_tcm, ssm_lrr_N,
                             sweep_extremals, stats, tcm_win=tcm_win)
 """

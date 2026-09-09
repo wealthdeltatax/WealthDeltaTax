@@ -1,5 +1,5 @@
 """
-wdt_welfare_core.py
+welfare_core.py
 ===================
 Shared computation core for the WDT Welfare Comparison Model.
 

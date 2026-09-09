@@ -129,7 +129,7 @@ def fig_01_rate_function(p):
     ax.set_xlabel("Declared net worth W (£m, log scale)")
     ax.set_ylabel("Marginal WDT rate τ(W) (%)")
     ax.set_title(
-        "Fig 01 — Marginal rate function τ(W)\n"
+        "Marginal rate function τ(W)\n"
         f"k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}% (floor parameter), "
         f"$\\tau_m$ = {p['tau_m']*100:.0f}%, W_min = £{p['W_min']:.0f}m"
     )
@@ -180,7 +180,7 @@ def fig_02_c1_heatmap(p):
     ax.set_xlabel("Growth rate g")
     ax.set_ylabel("Declaration ratio α")
     ax.set_title(
-        "Fig 02 — C.1 metric: (Net(α) − Net(1)) / TW(α)  [percentage points]\n"
+        "C.1 metric: (Net(α) − Net(1)) / TW(α)  [percentage points]\n"
         f"Red = pays more · Blue = pays less · "
         f"N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m"
     )
@@ -262,7 +262,7 @@ def fig_03_equilibrium_cost_curve(p):
     ax.set_xlabel("Declaration ratio α  (α < 1 = understatement, α > 1 = overstatement)")
     ax.set_ylabel("Net tax vs honest declaration (%)")
     ax.set_title(
-        "Fig 03 — Declaration equilibrium: net tax cost relative to honest\n"
+        "Declaration equilibrium: net tax cost relative to honest\n"
         f"N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m, "
         f"k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%  ·  "
         f"Dash-dot = {scen_year} historical return series (mean g = {mean_g_hist*100:.1f}%"
@@ -348,7 +348,7 @@ def fig_04_tw_gap_by_n(p):
     ax.set_xlabel("Holding period N (years)")
     ax.set_ylabel("TW vs honest declaration (%)")
     ax.set_title(
-        "Fig 04 — C.8: terminal net worth gap vs honest, by holding period\n"
+        "C.8: terminal net worth gap vs honest, by holding period\n"
         f"Solid/dashed = constant g ({p['g']*100:.2f}%)  ·  "
         f"Dash-dot/dotted = {scen_year} hist. series  ·  "
         f"Red = understaters  ·  Blue = overstaters  ·  "
@@ -443,7 +443,7 @@ def fig_05_saturation_reversal(p):
         "as % of understater's terminal wealth TW(α)"
     )
     ax.set_title(
-        f"Fig 05 — Understater penalty structure: inflection and plateau (N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m)\n"
+        f"Understater penalty structure: inflection and plateau (N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m)\n"
         f"k = {p['k']} · Dashed line = inflection g ≈ {mean_inflection:.1f}% (rate fn property) · "
         f"Grey = plateau zone (g ≥ {mean_plateau:.0f}%) · Labels show plateau ceiling per α"
     )
@@ -536,7 +536,7 @@ def fig_06_overstatement_reversal(p):
     ax.set_xlabel("Growth rate g (%)")
     ax.set_ylabel("C.1 metric (pp) — negative = overstater pays less than honest")
     ax.set_title(
-        f"Fig 06 — Overstater C.1 by growth rate\n"
+        f"Overstater C.1 by growth rate\n"
         f"N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m, "
         f"k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%  ·  "
         f"Dotted verticals = g at which each α first pays more than honest"
@@ -704,7 +704,7 @@ def fig_07_overstatement_coherence(p):
     )
 
     fig.suptitle(
-        f"Fig 07 — Overstatement: the advantage is real but narrow\n"
+        f"Overstatement: the advantage is real but narrow\n"
         f"Left: C.1 advantage landscape across (g_actual, α)  ·  "
         f"Right: net tax diff at g = {hist_mean*100:.1f}% (hist. mean), "
         f"$V_0$ = £{p['V0_m']:.0f}m, N = {N}, k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%\n"
@@ -885,11 +885,10 @@ def fig_08_tw_decomposition(p):
     ax2.legend(loc='upper left', fontsize=8, framealpha=0.9)
 
     fig.suptitle(
-        "Fig 08 — Overstater TW advantage: mechanism and dilution cost\n"
+        "Overstater TW advantage: mechanism and dilution cost\n"
         "Left: sell-year refund benefit swamps f_N erosion cost across all tested α  ·  "
         "Right: equity dilution grows with α and g — the hidden price of overstatement\n"
-        "Identity (corrected): tw_adv = W_sell_delta − refund_delta − settle_delta  "
-        "[excess periodic tax is informational only — not additive]",
+        "Identity: tw_adv = W_sell_delta − refund_delta − settle_delta",
         fontsize=9.5, y=1.02
     )
 
@@ -1006,9 +1005,7 @@ def fig_09_tw_advantage_gN_surface(p):
         ax.set_xlabel("Holding period N (years)", fontsize=9)
         ax.set_ylabel("Actual growth rate g (%)", fontsize=9)
         ax.set_title(
-            f"α = {alpha}  —  TW advantage over honest declaration\n"
-            f"Darker blue = larger advantage  ·  "
-            f"White contours = % advantage levels",
+            f"α = {alpha}",
             fontsize=9.5,
         )
         ax.set_xlim(_FIG09_N_VALS[0], _FIG09_N_VALS[-1])
@@ -1017,15 +1014,14 @@ def fig_09_tw_advantage_gN_surface(p):
                   framealpha=0.92, frameon=True, facecolor='white')
 
     fig.suptitle(
-        "Fig 09 — TW advantage of overstatement across (g, N) space\n"
+        "TW advantage of overstatement across (g, N) space\n"
         f"$V_0$ = £{p['V0_m']:.0f}m  ·  k = {p['k']}  ·  "
         "TW advantage is always positive — overstatement always retains more "
         "nominal TW than honest declaration\n"
         "Red dashed = hist. mean g  ·  Red dotted = canonical N  ·  "
         "Star = peak  ·  Red dot = canonical intersection\n"
-        "Caveat: periodic overpayments are real early money; "
-        "sell-year refund is inflated late money — "
-        "real-terms advantage is almost certainly negative",
+        f"Darker blue = larger advantage  ·  "
+        f"White contours = % advantage levels",
         fontsize=9.5, y=1.02,
     )
 
@@ -1091,16 +1087,13 @@ def fig_10_c1_vs_c12_heatmap(p):
 
     cbar = fig.colorbar(im, ax=ax, fraction=0.03, pad=0.04)
     cbar.set_label(
-        "pp relative to honest declaration\n"
-        "Negative (Blue) pays less (nominal)\n"
-        "Positive (Red) pays more (nominal)",
+        "pp relative to honest declaration\n",
         fontsize=8
     )
 
     fig.suptitle(
-        f"Fig 10 — C.12: NPV-adjusted tax difference (ρ = {rho*100:.0f}%)  ·  "
-        f"Sell-year refund discounted to {100*(1/(1+rho)**p['N_demo']):.0f}p/£ at t=N+1  ·  "
-        "Blue = overstater advantage collapses in PV terms — timing artefact",
+        f"C.12: NPV-adjusted tax difference (ρ = {rho*100:.0f}%)  ·  "
+        f"Sell-year refund discounted to {100*(1/(1+rho)**p['N_demo']):.0f}p/£ at t=N+1",
         fontsize=10,
     )
 

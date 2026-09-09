@@ -1,5 +1,5 @@
 """
-wdt_welfare_paths.py
+welfare_paths.py
 ====================
 Single source of truth for all paths in the WFR model.
 Every module imports from here. Changing the directory layout

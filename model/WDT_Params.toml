@@ -175,14 +175,14 @@ values = [
 #                 (fraction); derived from the returns series above = 10.45% p.a.
 # ─────────────────────────────────────────────────────────────
 [tcm]
-snapshot_N          = 30     # LRR breakeven year for 2007 Balanced scenario
+snapshot_N          = 30     # LRR breakeven year for 2000 Balanced scenario
 canonical_N         = 30 
 hist_mean           = 0.1045 # 10.45% p.a. — population-weighted mean of the returns series
 # Candidate active scenarios:
                               #   2006 — worst LRR fill speed (N=29)
                               #   2000 — worst 10yr SSM/TCM coverage (2008 shock in post-fill window)
                               #   1996 — thinnest LRR surplus at fill (£6b)
-                              #   2007 — current: near-worst speed, avoids exact 2006 worst
+                              #   2007 — near-worst speed, avoids exact 2006 worst
 scenario_start_year = 2000    # Calendar year at which the active scenario begins.
                               # load_params() rotates the canonical returns series so that
                               # this year sits at index 0, matching the Excel "WDT Year 0"
@@ -441,6 +441,53 @@ rates_wmin_sweep     = [0.1, 0.25, 0.5, 1.0, 2.0, 3.0, 5.0, 7.5, 10.0]
 # Baseline: srr_ratio = 3.0x,  lrr_years = 3.0 years of expenditure.
 rates_srr_ratio_sweep = [1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0]
 rates_lrr_years_sweep = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 8.0]
+
+# ── Welfare model sweep grids (module5_sweeps.py) ────────────────────────────
+#
+# wfr_target_et_pct : revenue target sweep — E[T] as % of W₀.
+#   Range 1–5% spans CGT-deferral-equivalent (1%) through income-tax-equivalent
+#   (4–5%) for a wealth holder earning 10.45% on equity.  The canonical 2% sits
+#   near the CGT-with-moderate-deferral level; 3% is the blended effective rate
+#   for mixed income/gains; 5% approximates full income-tax treatment.
+#
+# wfr_tau_0_sweep  : τ₀ sweep for welfare parameter sensitivity.
+#   Narrower than rates_tau_0_sweep — welfare model is expensive per point.
+#   Includes 0.05 (very low entry) and 0.30 (high entry) to show failure modes.
+#
+# wfr_tau_m_sweep  : τ_m sweep for welfare parameter sensitivity.
+#   Includes 0.40 (low ceiling, moderate progression) and 0.90 (near-confiscatory).
+#
+# wfr_k_sweep      : k steepness sweep (per £m).
+#   Log-spaced; 0.0001 is almost flat (near-proportional), 0.05 rises steeply.
+#
+# wfr_wmin_sweep   : W_min entry-point sweep (£m).
+#   Ranges from £0.5m (broad base) to £10m (narrow top-wealth base).
+#
+# wfr_start_years  : start-year sweep for worst-case scenario analysis.
+#   All 73 possible start years 1947–2019 for the full sweep; a curated
+#   subset of historically adverse years for the worst-case table.
+#   The full sweep is run once and cached; only the curated subset appears
+#   in the paper's worst-case table.
+#   Curated adverse years: 2000 (dot-com + GFC in window), 2006 (worst LRR
+#   speed), 1999 (GFC hits early in window), 1972 (oil shock), 1987 (Black
+#   Monday), 1946 (post-war austerity start).
+#
+# wfr_W0_sweep     : wealth level sweep for within-system welfare comparison.
+#   Spans Poor-tier W₀ (£3m) through Great-tier W₀ (£150m) and beyond.
+#   Allows the C1 progressive-vs-flat gap to be shown as a function of W₀.
+#
+# wfr_gamma_vals   : risk aversion sweep (consistent with Modules 1–4).
+#
+# wfr_start_years_full: full 73-year start-year sweep (1947–2019 inclusive).
+#   Used to generate the complete CEW-by-start-year surface.
+wfr_target_et_pct  = [1.0, 2.0, 3.0, 4.0, 5.0]
+wfr_tau_0_sweep    = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30]
+wfr_tau_m_sweep    = [0.40, 0.50, 0.60, 0.70, 0.80, 0.90]
+wfr_k_sweep        = [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05]
+wfr_wmin_sweep     = [0.5, 1.0, 2.0, 5.0, 10.0]
+wfr_W0_sweep       = [3.0, 5.0, 8.0, 10.0, 20.0, 30.0, 50.0, 100.0, 150.0]
+wfr_gamma_vals     = [1.0, 2.0, 4.0]
+wfr_start_years_curated = [1946, 1972, 1987, 1999, 2000, 2006]
 
 # g sweep — deterministic constant-g scenarios, one SSM run per value.
 # Each value replaces the historical return series with a constant series of
