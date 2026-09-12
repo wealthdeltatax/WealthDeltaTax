@@ -30,7 +30,7 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Install Python dependencies
-        run: pip install pyyaml bibtexparser
+        run: pip install pyyaml bibtexparser==1.4.3
 
       - name: Install Mermaid CLI
         run: |
