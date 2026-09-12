@@ -25,6 +25,7 @@ keywords:
 |:--------:|:---------------:|--------------------------|
 | 0.01      | 24 July 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
+| 1.01      | 11 September 2026 | Added §8.4: beyond-lifetime-cap exploitation surface and rationale for the cap |
 
 \newpage
 
@@ -233,9 +234,17 @@ The asymmetry is real and is a named feature, not an oversight. A first-time ent
 
 The practical consequence is that a re-entrant who has exhausted their envelope through prior refunds enters the new position with less refund headroom than a first-time entrant of identical wealth. This is correct: they have already received refunds up to their prior contribution level. Treating them identically would allow a re-entrant to claim refunds on losses that duplicate refunds already received on prior closures.
 
-\newpage
+## 8.4 The Beyond-Lifetime-Cap Objection
 
-# 9. Limitations and Further Work
+An objection sometimes raised against the lifetime contribution envelope is that it is overly restrictive: a taxpayer who has paid little tax to date — because they are new to the system, because prior years were predominantly gain years with small assessed amounts, or because the mechanism was recently introduced — may face a large refund entitlement in a bad loss year that the envelope cap prevents them from receiving in full. The objection asks why the refund should be bounded by prior contributions rather than by the loss itself.
+
+The answer is that the cap closes a specific exploitation surface that would otherwise exist. If refunds could exceed the cumulative lifetime contribution — that is, if the state could pay out more in refunds than it had collected from a given taxpayer — the following attack becomes viable: a taxpayer accumulates a modest tax history, engineers a large paper loss through inflated basis, related-party transactions, or other valuation manipulation, receives a refund that exceeds their cumulative contribution (a net transfer from state to taxpayer), and then exits under the position closure framework with the position legally settled and no recourse available to the mechanism. The net result is that the taxpayer has extracted money from the SWF using a manufactured loss, departed, and left the state holding no claim.
+
+The lifetime cap makes this impossible by construction. A refund can never exceed cumulative taxes paid by that taxpayer. The mechanism can only return what it has received. A taxpayer who has paid nothing into the system has no refund entitlement regardless of how large a loss their position records.
+
+This is not a restriction on the symmetric refund commitment. The commitment is honoured in full for every taxpayer within the envelope. What the cap does is remove the incentive to manufacture losses beyond that amount. A taxpayer whose genuine loss is smaller than their cumulative contribution receives the full symmetric refund. A taxpayer whose genuine loss exceeds their cumulative contribution receives refunds up to the cap, which represents the full amount the mechanism has collected from them — the state is returning everything it has taken, which is a complete settlement of its downside commitment given the history of the position.
+
+The Governing Council may in future consider extending refund availability beyond the lifetime cap — for example, to attract entrants with short tax histories, to provide relief in exceptional circumstances, or to offer an entry-year credit to new taxpayers who experience early losses. Any such extension is a named trade-off under the MF §9 framework: the benefit (more generous refund commitment, lower barrier to entry) must be weighed against the fact that it reopens the exploitation surface described above, and the enforcement mechanism required to close that surface must be specified before the extension is offered. The cap in its current form reflects the cooperative architecture's preference for incentive alignment over enforcement: it removes the motivation to manufacture losses rather than requiring the mechanism to detect and challenge them after the fact.
 
 ## 9.1 Formal modelling gaps
 

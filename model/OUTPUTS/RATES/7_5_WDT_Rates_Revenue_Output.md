@@ -1,6 +1,6 @@
 # WDT Rates and Revenue — Model Output
 
-**Run date:** 2026-09-09  
+**Run date:** 2026-09-12  
 **Scenario:** 2000 Balanced  
 **Model version:** v7  
 **Parameters file:** `WDT_Params.toml`  
@@ -52,7 +52,10 @@
 
 *SSM applies uniform historical returns across the population (correlated-shock assumption — worst-case floor). Coverage fraction = Step-5 remainder / annual expenditure; zero in any year where LRR or SRR balance hits zero. TCM coverage (heterogeneous-tier ceiling) appears in §B.3.*
 
-## B.3 TCM Results — N=19 periods
+## B.3 TCM Results — snapshot N=19 (cap. window) / N=30 (lifetime)
+
+*Two TCM horizons are used in this section. Capitalisation-window tables (§B.3.1, §B.3.2, §B.3.6–§B.3.9 cap-window column) use N=19 — the SSM LRR breakeven year. Lifetime and burden tables (§B.3.3, §B.3.4, §B.3.5, §B.3.9 lifetime column) use N=30 — the canonical taxpayer horizon declared across VAL, RATES, SWEEPS, and WFR. Using N=19 for those tables would understate the burden by averaging tax over too few years and anchoring terminal wealth too early.*
+
 
 ### B.3.1 Net worth — start ($V_0$) and year N (£m)
 
@@ -77,32 +80,52 @@
 | +0.95% (Good) | £— | £3,143 | £8,653 | £18,646 | £34,334 | £59,282 | £148,894 | £421,881 | £1,188,304 | £3,470,065 |
 | +3.45% (Great) | £4,468 | £11,740 | £21,216 | £35,314 | £56,583 | £97,252 | £244,752 | £697,543 | £1,992,762 | £5,985,093 |
 
-### B.3.3 Annual wealth burden (tax as % of net worth)
+### B.3.3 Annual wealth burden (tax as % of net worth) — N=30
+
+*Average annual net tax as a percentage of terminal settlement wealth. Computed at N=30 (canonical 30-year horizon): avg_net = total_net / (N+1); wealth_burden = avg_net / TW_settled. TW_settled is the post-settlement terminal wealth at year N=30.*
 
 | Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| -4.55% (Poor) | 0.00% | 0.00% | 0.00% | 0.00% | 0.17% | 0.25% | 0.25% | 0.25% | 0.26% | 0.28% |
-| -2.05% (Ok) | 0.00% | 0.00% | 0.00% | 0.20% | 0.40% | 0.42% | 0.42% | 0.42% | 0.44% | 0.49% |
-| +0.95% (Good) | 0.00% | 0.18% | 0.29% | 0.42% | 0.53% | 0.56% | 0.56% | 0.57% | 0.61% | 0.70% |
-| +3.45% (Great) | 0.24% | 0.37% | 0.47% | 0.55% | 0.62% | 0.64% | 0.65% | 0.67% | 0.72% | 0.87% |
+| -4.55% (Poor) | 0.00% | 0.00% | 0.00% | 0.00% | 0.12% | 0.17% | 0.17% | 0.17% | 0.18% | 0.20% |
+| -2.05% (Ok) | 0.00% | 0.00% | 0.13% | 0.21% | 0.31% | 0.32% | 0.32% | 0.33% | 0.34% | 0.39% |
+| +0.95% (Good) | 0.18% | 0.27% | 0.31% | 0.36% | 0.40% | 0.41% | 0.42% | 0.43% | 0.47% | 0.59% |
+| +3.45% (Great) | 0.33% | 0.37% | 0.40% | 0.42% | 0.44% | 0.45% | 0.46% | 0.49% | 0.57% | 0.79% |
 
-### B.3.4 Effective rate on gains (tax as % of annual gain)
+| Aggregation | Value | Interpretation |
+|:---|---:|:---|
+| Population-weighted avg burden | 0.24% | Σ(burden × headcount) / Σ headcount — each taxpayer counts once; lower-wealth brackets dominate numerically |
+| Revenue-weighted (wealth-weighted) burden | 0.35% | Σ(avg_net_m × headcount) / Σ(TW × headcount) — burden as fraction of aggregate terminal wealth; higher-wealth brackets dominate |
+
+*Both figures computed at N=30. The gap between them reflects wealth concentration: if returns were homogeneous the two would be equal; the higher-wealth tiers' larger TW pulls the revenue-weighted figure relative to the headcount figure.*
+
+### B.3.4 Effective rate on lifetime gains (income-tax analogue) — N=30
+
+*income_tax_rate = total_net_settled / (TW_settled − V₀). Numerator: total lifetime net WDT (including post-sale settlement oscillations). Denominator: net lifetime wealth gain — what the taxpayer ended up with above what they started with, after all tax cash flows have resolved. Directly comparable to an income or CGT rate. Cells showing "—" have TW_settled ≤ V₀ (net loss over the horizon; WDT issued net refunds, so no positive effective rate is defined). Computed at N=30.*
 
 | Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| -4.55% (Poor) | 0.0% | 0.0% | 0.0% | 0.0% | 3.4% | 5.0% | 5.0% | 5.0% | 5.2% | 5.6% |
-| -2.05% (Ok) | 0.0% | 0.0% | 0.0% | 4.0% | 8.0% | 8.3% | 8.4% | 8.5% | 8.8% | 9.8% |
-| +0.95% (Good) | 0.0% | 3.6% | 5.9% | 8.4% | 10.7% | 11.1% | 11.2% | 11.4% | 12.1% | 13.9% |
-| +3.45% (Great) | 4.9% | 7.4% | 9.4% | 11.1% | 12.3% | 12.8% | 12.9% | 13.3% | 14.4% | 17.4% |
+| -4.55% (Poor) | 0.0% | 0.0% | 0.0% | 0.0% | 10.9% | 15.6% | 15.7% | 15.9% | 16.5% | 18.2% |
+| -2.05% (Ok) | 0.0% | 0.0% | 5.7% | 9.7% | 14.7% | 15.0% | 15.2% | 15.5% | 16.3% | 18.6% |
+| +0.95% (Good) | 6.3% | 9.7% | 11.2% | 13.1% | 14.7% | 15.1% | 15.3% | 15.9% | 17.5% | 21.9% |
+| +3.45% (Great) | 11.0% | 12.3% | 13.3% | 14.2% | 14.9% | 15.2% | 15.6% | 16.6% | 19.5% | 27.2% |
 
-### B.3.5 Average annual net tax per taxpayer — lifetime average (£/yr)
+| Aggregation | Value | Interpretation |
+|:---|---:|:---|
+| Population-weighted avg effective rate | 9.1% | Σ(income_tax_rate × headcount) / Σ headcount — cells with net loss excluded; lower-wealth brackets dominate numerically |
+| Gain-weighted effective rate | 13.0% | Σ(total_net_settled × headcount) / Σ(lifetime_gain × headcount) — tax as fraction of aggregate lifetime wealth created; higher-wealth brackets dominate |
+
+*Both figures computed at N=30, excluding cells where TW_settled ≤ V₀. The gain-weighted figure is the closer analogue to a statutory income tax rate applied to aggregate gains.*
+
+### B.3.5 Average annual net tax per taxpayer — lifetime average (£/yr) — N=30
+
+*Average annual net tax (total_net / (N+1)) per representative taxpayer over the full N=30-year horizon. Distinct from §B.3.2 (capitalisation-window average at N=19): this figure reflects the long-run per-taxpayer cost across all years including pre-SRR-fill periods where rates are lower.*
 
 | Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| -4.55% (Poor) | £— | £— | £— | £— | £4,186 | £10,338 | £25,901 | £72,866 | £201,606 | £566,034 |
-| -2.05% (Ok) | £— | £— | £— | £5,389 | £14,746 | £26,634 | £66,794 | £188,436 | £525,086 | £1,498,335 |
-| +0.95% (Good) | £— | £4,373 | £9,398 | £18,270 | £32,128 | £57,757 | £145,120 | £411,665 | £1,162,873 | £3,416,433 |
-| +3.45% (Great) | £6,348 | £13,173 | £21,963 | £35,023 | £54,786 | £97,542 | £245,690 | £701,918 | £2,016,927 | £6,122,031 |
+| -4.55% (Poor) | £— | £— | £— | £— | £3,121 | £7,393 | £18,530 | £52,181 | £144,753 | £409,119 |
+| -2.05% (Ok) | £— | £— | £3,243 | £7,445 | £14,989 | £26,752 | £67,160 | £190,045 | £533,644 | £1,549,590 |
+| +0.95% (Good) | £5,462 | £11,288 | £17,341 | £27,067 | £41,975 | £74,185 | £187,066 | £536,151 | £1,552,524 | £4,782,591 |
+| +3.45% (Great) | £19,018 | £28,851 | £41,045 | £59,090 | £86,700 | £151,887 | £385,789 | £1,128,445 | £3,416,036 | £11,137,038 |
 
 ### B.3.6 Population distribution (taxpayers per bracket per tier)
 
@@ -151,13 +174,15 @@
 
 ### B.3.9 Revenue by tier (£b/yr)
 
-| Tier | Lifetime avg (£b/yr) | Capitalisation window avg (£b/yr) |
+*Lifetime avg column: revenue_m = (total_net / (N+1)) × bracket_pop × tier_weight, computed at N=30 (canonical 30-year horizon). Capitalisation window avg column: post_fill_revenue_m averaged over the SRR→LRR window, computed at N=19 (SSM LRR breakeven year).*
+
+| Tier | Lifetime avg N=30 (£b/yr) | Cap. window N=19 (£b/yr) |
 |:---|---:|---:|
-| -4.55% (Poor) | £6.5b | £7.5b |
-| -2.05% (Ok) | £65.9b | £70.6b |
-| +0.95% (Good) | £247.4b | £248.9b |
-| +3.45% (Great) | £240.5b | £236.1b |
-| **Total** | **£560.3b** | **£563.26b** |
+| -4.55% (Poor) | £4.7b | £7.5b |
+| -2.05% (Ok) | £77.4b | £70.6b |
+| +0.95% (Good) | £374.7b | £248.9b |
+| +3.45% (Great) | £416.8b | £236.1b |
+| **Total** | **£873.6b** | **£563.26b** |
 
 *TCM horizon N is derived from the SSM LRR breakeven year, not the TOML snapshot_N.*
 

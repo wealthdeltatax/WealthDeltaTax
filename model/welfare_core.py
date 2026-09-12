@@ -122,6 +122,43 @@ def make_idealised_distribution_scenario(p: dict, N: int) -> ReturnDistribution:
     )
 
 
+def make_empirical_distribution_for_start(
+    p          : dict,
+    start_year : int,
+    N          : int,
+):
+    """
+    Build a Version A ReturnDistribution for an explicit start_year, without
+    mutating p.  Used by Module 5 Sweep B which iterates over all 73 start
+    years independently of the canonical scenario_start_year setting.
+
+    Mirrors the wrap-around logic of make_scenario_sequence but accepts an
+    explicit start_year rather than reading p["returns"]["offset"].  All other
+    callers should continue to use make_empirical_distribution_scenario, which
+    is anchored to p["tcm"]["scenario_start_year"].
+
+    Returns (dist, seq) where seq is the raw net-return array (no +1 shift).
+    Returns (None, None) if start_year is outside the valid base-year range.
+    """
+    base  = p["returns"]["series_base_year"]
+    full  = p["returns"]["array"]
+    total = len(full)
+    offset = start_year - base
+    if not (0 <= offset < total):
+        return None, None
+
+    indices = [(offset + i) % total for i in range(N)]
+    seq     = full[indices]
+    gross   = 1.0 + seq
+    probs   = np.full(N, 1.0 / N)
+    dist    = ReturnDistribution(
+        returns=gross,
+        probs=probs,
+        label=f"Version A — UK Equity {start_year}–{start_year + N - 1} ({N} obs)"
+    )
+    return dist, seq
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # 2. RETURN DISTRIBUTIONS
 # ─────────────────────────────────────────────────────────────────────────────

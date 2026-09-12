@@ -122,29 +122,29 @@ To vary a scenario, modify the TOML and rerun. Only the `scenario_start_year` fi
 
 # B. Model Output
 
-**Run date:** 2026-08-30  
-**Scenario:** 2007 Balanced  
+**Run date:** 2026-09-12  
+**Scenario:** 2000 Balanced  
 **Model version:** v7  
 **Parameters file:** `WDT_Params.toml`  
 
 ## B.1 Active Parameters
 
 | Parameter | Value |
-|---|---|
+|:---|:---|
 | $\tau_0$ (floor rate) | 15% |
 | $\tau_m$ (ceiling rate) | 70% |
 | $k$ (steepness, per £m) | 0.001 |
-| $W_{min}$ (£m) | £2.0m |
+| $W_{\min}$ (£m) | £2.0m |
 | SRR capitalisation ratio | 3.0× |
 | LRR floor (years of expenditure) | 3.0 years |
 | Budget base (£b) | £1,157.4b |
-| Budget growth (p.a). | 4.51% |
+| Budget growth (p.a.) | 4.51% |
 | Historical mean return | 10.45% |
 
 **Growth tiers:**
 
 | Tier | Weight | Differential | Implied return |
-|---|---|---|---|
+|:---|---:|---:|---:|
 | Poor | 10% | -4.55% | 5.90% |
 | Ok | 30% | -2.05% | 8.40% |
 | Good | 40% | +0.95% | 11.40% |
@@ -153,22 +153,31 @@ To vary a scenario, modify the TOML and rerun. Only the `scenario_start_year` fi
 ## B.2 SSM Results — Active Scenario
 
 | Metric | Value |
-|---|---|
+|:---|:---|
 | SRR fill year | 3 |
-| LRR breakeven year | 29 |
-| Annual expenditure at LRR breakeven (£b) | £3,980b |
-| SRR balance at LRR breakeven (£b) | £1,498b |
-| LRR surplus at breakeven (£b) | £1,041b |
-| LRR first breach year | 35 |
-| LRR breach lag (years) | 6 |
-| Minimum LRR balance in window (£b) | £-6,333b |
-| Capitalisation window (years) | 25 |
-| Avg expenditure — capitalisation window (£b/yr) | £2,336.9b |
-| **SSM coverage ratio** | **21.3%** |
+| LRR breakeven year | 19 |
+| Annual expenditure at LRR breakeven (£b) | £2,560b |
+| SRR balance at LRR breakeven (£b) | £1,460b |
+| LRR surplus at breakeven (£b) | £104b |
+| LRR failure year | no failure within 71-year window |
+| SRR failure year | no failure within 71-year window |
+| LRR→SRR failure gap (years) | — |
 
-*SSM coverage ratio: average annual SSM net income over the capitalisation window (SRR fill to LRR breakeven) divided by average annual expenditure over the same window. The SSM applies uniform historical returns across the population (correlated-shock assumption); TCM coverage appears in (RATES.A §B.3).*
+**SSM Step-5 coverage fraction by window (average % of annual expenditure available for labour tax relief):**
 
-## B.3 TCM Results — N=29 periods
+| Window | SSM coverage | Zero-coverage years | Min LRR balance (£b) | Years LRR below floor |
+|:---|---:|---:|---:|---:|
+| 5 years | 0.0% | 5 | £7,858b | 5 |
+| 10 years | 6.4% | 7 | £7,858b | 7 |
+| 20 years | 21.3% | 10 | £7,858b | 10 |
+| 50 years | 307.1% | 14 | £7,858b | 14 |
+
+*SSM applies uniform historical returns across the population (correlated-shock assumption — worst-case floor). Coverage fraction = Step-5 remainder / annual expenditure; zero in any year where LRR or SRR balance hits zero. TCM coverage (heterogeneous-tier ceiling) appears in §B.3.*
+
+## B.3 TCM Results — snapshot N=19 (cap. window) / N=30 (lifetime)
+
+*Two TCM horizons are used in this section. Capitalisation-window tables (§B.3.1, §B.3.2, §B.3.6–§B.3.9 cap-window column) use N=19 — the SSM LRR breakeven year. Lifetime and burden tables (§B.3.3, §B.3.4, §B.3.5, §B.3.9 lifetime column) use N=30 — the canonical taxpayer horizon declared across VAL, RATES, SWEEPS, and WFR. Using N=19 for those tables would understate the burden by averaging tax over too few years and anchoring terminal wealth too early.*
+
 
 ### B.3.1 Net worth — start ($V_0$) and year N (£m)
 
@@ -177,55 +186,75 @@ To vary a scenario, modify the TOML and rerun. Only the `scenario_start_year` fi
 | Net worth (£m) | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
 |---|---|---|---|---|---|---|---|---|---|---|
 | **$V_0$ (start, all tiers)** | £0.402m | £0.570m | £0.782m | £1.109m | £1.629m | £2.858m | £7.135m | £19.854m | £53.385m | £139.607m |
-| **V_N -4.55% (Poor)** | £0.54m | £0.77m | £1.05m | £1.49m | £2.19m | £3.85m | £9.60m | £26.71m | £71.82m | £187.83m |
-| **V_N -2.05% (Ok)** | £1.10m | £1.56m | £2.14m | £3.03m | £4.46m | £7.82m | £19.52m | £54.33m | £146.08m | £382.01m |
-| **V_N +0.95% (Good)** | £2.52m | £3.57m | £4.91m | £6.95m | £10.22m | £17.93m | £44.75m | £124.53m | £334.84m | £875.65m |
-| **V_N +3.45% (Great)** | £4.94m | £7.01m | £9.62m | £13.64m | £20.04m | £35.16m | £87.77m | £244.22m | £656.69m | £1,717.31m |
+| **V_N -4.55% (Poor)** | £0.64m | £0.91m | £1.25m | £1.77m | £2.61m | £4.57m | £11.41m | £31.75m | £85.36m | £223.23m |
+| **V_N -2.05% (Ok)** | £1.02m | £1.44m | £1.98m | £2.80m | £4.12m | £7.23m | £18.05m | £50.21m | £135.02m | £353.10m |
+| **V_N +0.95% (Good)** | £1.74m | £2.46m | £3.38m | £4.79m | £7.04m | £12.36m | £30.84m | £85.82m | £230.76m | £603.47m |
+| **V_N +3.45% (Great)** | £2.68m | £3.80m | £5.23m | £7.41m | £10.88m | £19.10m | £47.67m | £132.63m | £356.64m | £932.65m |
 
 ### B.3.2 Net per taxpayer per year — capitalisation window average (£/yr)
 
 *Average annual net tax per representative taxpayer over the capitalisation window (SRR fill year to LRR breakeven year). Zeros suppressed.*
 
 | Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
-|---|---|---|---|---|---|---|---|---|---|---|
-| -4.55% (Poor) | £— | £— | £— | £— | £2,045 | £5,636 | £14,115 | £39,665 | £109,451 | £305,443 |
-| -2.05% (Ok) | £— | £— | £— | £4,744 | £10,360 | £21,446 | £53,787 | £151,765 | £423,099 | £1,209,253 |
-| +0.95% (Good) | £1,672 | £6,754 | £12,453 | £20,368 | £32,694 | £58,587 | £147,405 | £419,808 | £1,197,675 | £3,595,026 |
-| +3.45% (Great) | £11,919 | £19,840 | £29,992 | £44,565 | £66,777 | £116,605 | £294,830 | £851,591 | £2,511,228 | £7,979,372 |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| -4.55% (Poor) | £— | £— | £— | £— | £4,897 | £11,854 | £29,698 | £83,531 | £230,983 | £647,561 |
+| -2.05% (Ok) | £— | £— | £— | £5,341 | £16,508 | £28,670 | £71,890 | £202,722 | £564,248 | £1,605,704 |
+| +0.95% (Good) | £— | £3,143 | £8,653 | £18,646 | £34,334 | £59,282 | £148,894 | £421,881 | £1,188,304 | £3,470,065 |
+| +3.45% (Great) | £4,468 | £11,740 | £21,216 | £35,314 | £56,583 | £97,252 | £244,752 | £697,543 | £1,992,762 | £5,985,093 |
 
-### B.3.3 Annual wealth burden (tax as % of net worth)
+### B.3.3 Annual wealth burden (tax as % of net worth) — N=30
 
-| Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
-|---|---|---|---|---|---|---|---|---|---|---|
-| -4.55% (Poor) | 0.00% | 0.00% | 0.00% | 0.00% | 0.10% | 0.15% | 0.15% | 0.15% | 0.16% | 0.17% |
-| -2.05% (Ok) | 0.00% | 0.00% | 0.04% | 0.18% | 0.26% | 0.31% | 0.31% | 0.31% | 0.33% | 0.36% |
-| +0.95% (Good) | 0.12% | 0.23% | 0.30% | 0.35% | 0.39% | 0.42% | 0.42% | 0.43% | 0.47% | 0.56% |
-| +3.45% (Great) | 0.31% | 0.36% | 0.40% | 0.43% | 0.46% | 0.47% | 0.48% | 0.50% | 0.57% | 0.75% |
-
-### B.3.4 Effective rate on gains (tax as % of annual gain)
+*Average annual net tax as a percentage of terminal settlement wealth. Computed at N=30 (canonical 30-year horizon): avg_net = total_net / (N+1); wealth_burden = avg_net / TW_settled. TW_settled is the post-settlement terminal wealth at year N=30.*
 
 | Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
-|---|---|---|---|---|---|---|---|---|---|---|
-| -4.55% (Poor) | 0.0% | 0.0% | 0.0% | 0.0% | 2.9% | 4.5% | 4.5% | 4.5% | 4.7% | 5.0% |
-| -2.05% (Ok) | 0.0% | 0.0% | 1.1% | 5.3% | 7.7% | 9.2% | 9.3% | 9.4% | 9.8% | 10.9% |
-| +0.95% (Good) | 3.5% | 7.0% | 9.1% | 10.6% | 11.8% | 12.5% | 12.6% | 13.0% | 14.0% | 16.7% |
-| +3.45% (Great) | 9.2% | 10.8% | 12.1% | 13.0% | 13.8% | 14.1% | 14.4% | 15.1% | 17.1% | 22.4% |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| -4.55% (Poor) | 0.00% | 0.00% | 0.00% | 0.00% | 0.12% | 0.17% | 0.17% | 0.17% | 0.18% | 0.20% |
+| -2.05% (Ok) | 0.00% | 0.00% | 0.13% | 0.21% | 0.31% | 0.32% | 0.32% | 0.33% | 0.34% | 0.39% |
+| +0.95% (Good) | 0.18% | 0.27% | 0.31% | 0.36% | 0.40% | 0.41% | 0.42% | 0.43% | 0.47% | 0.59% |
+| +3.45% (Great) | 0.33% | 0.37% | 0.40% | 0.42% | 0.44% | 0.45% | 0.46% | 0.49% | 0.57% | 0.79% |
 
-### B.3.5 Average annual net tax per taxpayer — lifetime average (£/yr)
+| Aggregation | Value | Interpretation |
+|:---|---:|:---|
+| Population-weighted avg burden | 0.24% | Σ(burden × headcount) / Σ headcount — each taxpayer counts once; lower-wealth brackets dominate numerically |
+| Revenue-weighted (wealth-weighted) burden | 0.35% | Σ(avg_net_m × headcount) / Σ(TW × headcount) — burden as fraction of aggregate terminal wealth; higher-wealth brackets dominate |
+
+*Both figures computed at N=30. The gap between them reflects wealth concentration: if returns were homogeneous the two would be equal; the higher-wealth tiers' larger TW pulls the revenue-weighted figure relative to the headcount figure.*
+
+### B.3.4 Effective rate on lifetime gains (income-tax analogue) — N=30
+
+*income_tax_rate = total_net_settled / (TW_settled − V₀). Numerator: total lifetime net WDT (including post-sale settlement oscillations). Denominator: net lifetime wealth gain — what the taxpayer ended up with above what they started with, after all tax cash flows have resolved. Directly comparable to an income or CGT rate. Cells showing "—" have TW_settled ≤ V₀ (net loss over the horizon; WDT issued net refunds, so no positive effective rate is defined). Computed at N=30.*
 
 | Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
-|---|---|---|---|---|---|---|---|---|---|---|
-| -4.55% (Poor) | £— | £— | £— | £— | £2,024 | £5,319 | £13,319 | £37,416 | £103,146 | £287,076 |
-| -2.05% (Ok) | £— | £— | £773 | £5,041 | £10,292 | £21,000 | £52,670 | £148,629 | £414,423 | £1,184,033 |
-| +0.95% (Good) | £2,841 | £7,731 | £13,266 | £21,025 | £33,082 | £59,493 | £149,755 | £427,038 | £1,221,581 | £3,676,976 |
-| +3.45% (Great) | £13,714 | £21,809 | £32,057 | £46,864 | £69,476 | £122,020 | £308,933 | £895,554 | £2,659,203 | £8,471,582 |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| -4.55% (Poor) | 0.0% | 0.0% | 0.0% | 0.0% | 10.9% | 15.6% | 15.7% | 15.9% | 16.5% | 18.2% |
+| -2.05% (Ok) | 0.0% | 0.0% | 5.7% | 9.7% | 14.7% | 15.0% | 15.2% | 15.5% | 16.3% | 18.6% |
+| +0.95% (Good) | 6.3% | 9.7% | 11.2% | 13.1% | 14.7% | 15.1% | 15.3% | 15.9% | 17.5% | 21.9% |
+| +3.45% (Great) | 11.0% | 12.3% | 13.3% | 14.2% | 14.9% | 15.2% | 15.6% | 16.6% | 19.5% | 27.2% |
+
+| Aggregation | Value | Interpretation |
+|:---|---:|:---|
+| Population-weighted avg effective rate | 9.1% | Σ(income_tax_rate × headcount) / Σ headcount — cells with net loss excluded; lower-wealth brackets dominate numerically |
+| Gain-weighted effective rate | 13.0% | Σ(total_net_settled × headcount) / Σ(lifetime_gain × headcount) — tax as fraction of aggregate lifetime wealth created; higher-wealth brackets dominate |
+
+*Both figures computed at N=30, excluding cells where TW_settled ≤ V₀. The gain-weighted figure is the closer analogue to a statutory income tax rate applied to aggregate gains.*
+
+### B.3.5 Average annual net tax per taxpayer — lifetime average (£/yr) — N=30
+
+*Average annual net tax (total_net / (N+1)) per representative taxpayer over the full N=30-year horizon. Distinct from §B.3.2 (capitalisation-window average at N=19): this figure reflects the long-run per-taxpayer cost across all years including pre-SRR-fill periods where rates are lower.*
+
+| Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| -4.55% (Poor) | £— | £— | £— | £— | £3,121 | £7,393 | £18,530 | £52,181 | £144,753 | £409,119 |
+| -2.05% (Ok) | £— | £— | £3,243 | £7,445 | £14,989 | £26,752 | £67,160 | £190,045 | £533,644 | £1,549,590 |
+| +0.95% (Good) | £5,462 | £11,288 | £17,341 | £27,067 | £41,975 | £74,185 | £187,066 | £536,151 | £1,552,524 | £4,782,591 |
+| +3.45% (Great) | £19,018 | £28,851 | £41,045 | £59,090 | £86,700 | £151,887 | £385,789 | £1,128,445 | £3,416,036 | £11,137,038 |
 
 ### B.3.6 Population distribution (taxpayers per bracket per tier)
 
 *Cell population = bracket population × tier weight. Bracket population is constant within a bracket across tiers.*
 
-| Tier (weight) \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
-|---|---|---|---|---|---|---|---|---|---|---|
+| Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | 10% (Poor) | 692,000 | 692,000 | 692,000 | 692,000 | 346,000 | 276,800 | 62,280 | 6,228 | 623 | 69 |
 | 30% (Ok) | 2,076,000 | 2,076,000 | 2,076,000 | 2,076,000 | 1,038,000 | 830,400 | 186,840 | 18,684 | 1,868 | 208 |
 | 40% (Good) | 2,768,000 | 2,768,000 | 2,768,000 | 2,768,000 | 1,384,000 | 1,107,200 | 249,120 | 24,912 | 2,491 | 277 |
@@ -236,197 +265,198 @@ To vary a scenario, modify the TOML and rerun. Only the `scenario_start_year` fi
 *Average annual revenue per bracket-tier cell over the capitalisation window. Row total is the sum across all brackets for that tier. Column total is the sum across all tiers for that bracket. Grand total is in the bottom-right cell.*
 
 | Tier (weight) \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ | **Row total** |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| 10% (Poor) | £— | £— | £— | £— | £707 | £1,560 | £879 | £247 | £68 | £21 | **£3,482.7m** |
-| 30% (Ok) | £— | £— | £— | £9,849 | £10,754 | £17,809 | £10,050 | £2,836 | £791 | £251 | **£52,338.1m** |
-| 40% (Good) | £4,629 | £18,694 | £34,469 | £56,379 | £45,249 | £64,867 | £36,722 | £10,458 | £2,984 | £995 | **£275,445.4m** |
-| 20% (Great) | £16,496 | £27,458 | £41,509 | £61,679 | £46,210 | £64,553 | £36,724 | £10,607 | £3,128 | £1,104 | **£309,468.7m** |
-| **Column total** | **£21,125.0m** | **£46,152.1m** | **£75,978.2m** | **£127,906.3m** | **£102,920.3m** | **£148,788.6m** | **£84,374.2m** | **£24,148.3m** | **£6,970.3m** | **£2,371.6m** | **£640,735.0m** |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 10% (Poor) | £— | £— | £— | £— | £1,694 | £3,281 | £1,850 | £520 | £144 | £45 | **£7,534.3m** |
+| 30% (Ok) | £— | £— | £— | £11,089 | £17,135 | £23,808 | £13,432 | £3,788 | £1,054 | £333 | **£70,638.5m** |
+| 40% (Good) | £— | £8,699 | £23,950 | £51,613 | £47,518 | £65,637 | £37,093 | £10,510 | £2,960 | £961 | **£248,940.9m** |
+| 20% (Great) | £6,184 | £16,249 | £29,362 | £48,874 | £39,155 | £53,839 | £30,486 | £8,689 | £2,482 | £828 | **£236,148.9m** |
+| **Column total** | **£6,184.2m** | **£24,947.8m** | **£53,312.7m** | **£111,576.1m** | **£105,502.7m** | **£146,564.9m** | **£82,860.3m** | **£23,506.4m** | **£6,640.6m** | **£2,167.0m** | **£563,262.6m** |
 
 *Row totals in £b/yr:*
 
 | Tier (weight) | £b/yr |
-|---|---|
-| 10% (Poor) | £3.48b |
-| 30% (Ok) | £52.34b |
-| 40% (Good) | £275.45b |
-| 20% (Great) | £309.47b |
-| **Grand total** | **£640.73b** |
+|:---|---:|
+| 10% (Poor) | £7.53b |
+| 30% (Ok) | £70.64b |
+| 40% (Good) | £248.94b |
+| 20% (Great) | £236.15b |
+| **Grand total** | **£563.26b** |
 
 ### B.3.8 Cohort proportion of total tax paid (%)
 
 *Each cell's capitalisation-window revenue as a percentage of the grand total. Row total is the tier's share; column total is the bracket's share across all tiers.*
 
 | Tier (weight) \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ | **Row total** |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| 10% (Poor) | 0.0% | 0.0% | 0.0% | 0.0% | 0.1% | 0.2% | 0.1% | 0.0% | 0.0% | 0.0% | **0.5%** |
-| 30% (Ok) | 0.0% | 0.0% | 0.0% | 1.5% | 1.7% | 2.8% | 1.6% | 0.4% | 0.1% | 0.0% | **8.2%** |
-| 40% (Good) | 0.7% | 2.9% | 5.4% | 8.8% | 7.1% | 10.1% | 5.7% | 1.6% | 0.5% | 0.2% | **43.0%** |
-| 20% (Great) | 2.6% | 4.3% | 6.5% | 9.6% | 7.2% | 10.1% | 5.7% | 1.7% | 0.5% | 0.2% | **48.3%** |
-| **Column total** | **3.3%** | **7.2%** | **11.9%** | **20.0%** | **16.1%** | **23.2%** | **13.2%** | **3.8%** | **1.1%** | **0.4%** | **100.0%** |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 10% (Poor) | 0.0% | 0.0% | 0.0% | 0.0% | 0.3% | 0.6% | 0.3% | 0.1% | 0.0% | 0.0% | **1.3%** |
+| 30% (Ok) | 0.0% | 0.0% | 0.0% | 2.0% | 3.0% | 4.2% | 2.4% | 0.7% | 0.2% | 0.1% | **12.5%** |
+| 40% (Good) | 0.0% | 1.5% | 4.3% | 9.2% | 8.4% | 11.7% | 6.6% | 1.9% | 0.5% | 0.2% | **44.2%** |
+| 20% (Great) | 1.1% | 2.9% | 5.2% | 8.7% | 7.0% | 9.6% | 5.4% | 1.5% | 0.4% | 0.1% | **41.9%** |
+| **Column total** | **1.1%** | **4.4%** | **9.5%** | **19.8%** | **18.7%** | **26.0%** | **14.7%** | **4.2%** | **1.2%** | **0.4%** | **100.0%** |
 
 ### B.3.9 Revenue by tier (£b/yr)
 
-| Tier | Lifetime avg (£b/yr) | Capitalisation window avg (£b/yr) |
-|---|---|---|
-| -4.55% (Poor) | £3.3b | £3.5b |
-| -2.05% (Ok) | £53.8b | £52.3b |
-| +0.95% (Good) | £287.8b | £275.4b |
-| +3.45% (Great) | £328.1b | £309.5b |
-| **Total** | **£673.1b** | **£640.7b** |
+*Lifetime avg column: revenue_m = (total_net / (N+1)) × bracket_pop × tier_weight, computed at N=30 (canonical 30-year horizon). Capitalisation window avg column: post_fill_revenue_m averaged over the SRR→LRR window, computed at N=19 (SSM LRR breakeven year).*
+
+| Tier | Lifetime avg N=30 (£b/yr) | Cap. window N=19 (£b/yr) |
+|:---|---:|---:|
+| -4.55% (Poor) | £4.7b | £7.5b |
+| -2.05% (Ok) | £77.4b | £70.6b |
+| +0.95% (Good) | £374.7b | £248.9b |
+| +3.45% (Great) | £416.8b | £236.1b |
+| **Total** | **£873.6b** | **£563.26b** |
 
 *TCM horizon N is derived from the SSM LRR breakeven year, not the TOML snapshot_N.*
 
-**TCM coverage ratio:**
+**TCM Step-5 coverage fraction by window:**
 
-| Metric | Value |
-|---|---|
-| Avg revenue — capitalisation window (£b/yr) | £640.7b |
-| Avg expenditure — capitalisation window (£b/yr) | £2,336.9b |
-| Capitalisation window (years) | 25 |
-| **TCM coverage ratio** | **27.4%** |
+| Window | TCM coverage | TCM failure year (LRR) | TCM failure year (SRR) |
+|:---|---:|---:|---:|
+| 5 years | 15.9% | None | None |
+| 10 years | 14.6% | None | None |
+| 20 years | 35.8% | None | None |
+| 50 years | 655.6% | None | None |
 
-*TCM coverage ratio: average annual TCM revenue over the capitalisation window divided by average annual expenditure over the same window. The TCM applies heterogeneous tier differentials to the actual historical return series, producing higher revenue than the SSM's uniform-return assumption. The SSM coverage ratio (solvency/stress-test perspective) appears in (RATES.A §B.2).*
-
+*TCM applies heterogeneous tier differentials to the actual historical return series, producing higher revenue than the SSM uniform-return assumption. The SSM forms the solvency/stress-test floor; the TCM ceiling bounds the plausible range. TCM and SSM run independent SRR/LRR balance trackers.*
 
 ## B.4 Start-Year Sweep
 
-All figures at $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{min}$=£2.0m.
+All figures at $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{\min}$=£2.0m.
 
-### B.4.1 Extremals — three dimensions
+### B.4.1 Extremals — four dimensions
 
-| Dimension | Start year | LRR breakeven | LRR surplus (£b) | LRR breach lag | Peak LRR deficit (£b) |
-|---|---|---|---|---|---|
-| Speed — slowest LRR breakeven | 2006 | 29 | £523b | 5 years | £-9,139b |
-| Speed — fastest LRR breakeven | 1970 | 7 | £402b | no breach | £0b |
-| Safety — thinnest surplus | 1996 | 11 | £6b | 4 years | £-64,851b |
-| Safety — largest surplus | 1963 | 12 | £4,336b | no breach | £0b |
-| Durability — shortest breach lag | 2000 | 19 | £104b | 3 years | £-52,429b |
-| Durability — longest breach lag | 1970 | 7 | £402b | no breach | £0b |
+| Dimension | Start year | LRR breakeven | LRR surplus (£b) | LRR failure year | SRR failure year | SSM cov 50yr |
+|:---|:---:|:---:|---:|:---:|:---:|---:|
+| Speed — slowest LRR fill | 2006 | 29 | £523b | none | none | 593.9% |
+| Speed — fastest LRR fill | 1970 | 7 | £402b | none | none | 397.5% |
+| Margin — thinnest surplus | 1996 | 11 | £6b | none | none | 156.0% |
+| Margin — largest surplus | 1963 | 12 | £4,336b | none | none | 459.1% |
+| Durability — lowest 50yr SSMcov | 1984 | 9 | £77b | none | none | 95.6% |
+| Durability — highest 50yr SSMcov | 1952 | 16 | £2,274b | none | none | 656.3% |
+| Resilience — earliest LRR failure | — | — | — | — | — | — |
+| Resilience — latest/no LRR failure | 1970 | 7 | £402b | none | none | 397.5% |
 
-*41 start years produce no LRR breach within the 71-year modelling window.*
+*73 start years produce no LRR failure within the 71-year modelling window.*
 
 ### B.4.2 Full sweep table (all 73 calendar years)
 
-| Start | SRR fill | LRR breakeven | LRR surplus (£b) | SRR at breakeven (£b) | LRR breach | Breach lag | Peak LRR deficit (£b) | SRR breach | SRR deficit (£b) | LRR at SRR breach (£b) | SRR breach covered | SSM coverage | TCM coverage |
-|:---:|:---:|:---:|---:|---:|:---:|:---:|---:|:---:|---:|---:|:---:|---:|---:|
-| 1947 | 3 | 21 | 1,934 | 1,721 | — | — | 0 | 61 | 77,564 | 1,734,108 | YES | 25.5% | 31.3% |
-| 1948 | 3 | 20 | 2,454 | 1,850 | — | — | 0 | 60 | 76,197 | 1,753,102 | YES | 28.4% | 33.3% |
-| 1949 | 3 | 18 | 152 | 1,500 | — | — | 0 | 59 | 74,492 | 1,764,594 | YES | 25.0% | 29.6% |
-| 1950 | 3 | 18 | 2,153 | 1,901 | — | — | 0 | 58 | 68,594 | 1,692,959 | YES | 30.8% | 35.7% |
-| 1951 | 3 | 17 | 2,126 | 1,963 | — | — | 0 | 57 | 64,885 | 1,662,643 | YES | 32.2% | 36.8% |
-| 1952 | 3 | 16 | 2,274 | 2,078 | — | — | 0 | 56 | 62,629 | 1,664,778 | YES | 33.5% | 38.2% |
-| 1953 | 3 | 15 | 1,115 | 1,889 | — | — | 0 | 55 | 53,880 | 1,515,837 | YES | 31.6% | 36.3% |
-| 1954 | 3 | 17 | 3,266 | 2,207 | — | — | 0 | 54 | 43,723 | 1,322,578 | YES | 37.1% | 38.0% |
-| 1955 | 3 | 16 | 3,113 | 2,271 | — | — | 0 | 53 | 40,260 | 1,283,865 | YES | 39.9% | 38.8% |
-| 1956 | 3 | 15 | 2,704 | 2,286 | — | — | 0 | 52 | 37,213 | 1,256,768 | YES | 39.3% | 38.4% |
-| 1957 | 3 | 14 | 2,681 | 2,411 | — | — | 0 | 51 | 34,694 | 1,242,379 | YES | 39.7% | 38.2% |
-| 1958 | 3 | 13 | 360 | 1,877 | — | — | 0 | 50 | 25,959 | 1,032,518 | YES | 28.8% | 33.2% |
-| 1959 | 3 | 13 | 586 | 1,944 | — | — | 0 | 49 | 18,878 | 845,983 | YES | 38.7% | 41.5% |
-| 1960 | 3 | 12 | 482 | 2,041 | — | — | 0 | 48 | 16,739 | 823,703 | YES | 41.5% | 43.8% |
-| 1961 | 3 | 11 | 227 | 2,109 | — | — | 0 | 47 | 14,432 | 792,626 | YES | 43.6% | 44.4% |
-| 1962 | 3 | 11 | 662 | 2,272 | — | — | 0 | 46 | 11,358 | 722,735 | YES | 53.7% | 55.8% |
-| 1963 | 3 | 12 | 4,336 | 3,326 | — | — | 0 | 45 | 8,444 | 649,330 | YES | 48.8% | 51.8% |
-| 1964 | 3 | 11 | 4,047 | 3,541 | — | — | 0 | 44 | 6,831 | 636,275 | YES | 54.6% | 56.5% |
-| 1965 | 3 | 10 | 2,813 | 3,419 | — | — | 0 | 43 | 4,586 | 575,700 | YES | 51.6% | 51.9% |
-| 1966 | 3 | 9 | 2,328 | 3,635 | — | — | 0 | 42 | 2,971 | 552,108 | YES | 51.5% | 51.3% |
-| 1967 | 3 | 8 | 320 | 3,029 | — | — | 0 | 41 | 1,020 | 474,542 | YES | 48.2% | 49.6% |
-| 1968 | 3 | 9 | 1,906 | 3,424 | — | — | 0 | — | 0 | — | — | 80.4% | 80.2% |
-| 1969 | 3 | 8 | 1,623 | 3,811 | — | — | 0 | — | 0 | — | — | 85.9% | 84.5% |
-| 1970 | 3 | 7 | 402 | 3,694 | — | — | 0 | — | 0 | — | — | 80.4% | 89.3% |
-| 1971 | 3 | 8 | 1,978 | 4,024 | — | — | 0 | — | 0 | — | — | 92.8% | 93.3% |
-| 1972 | 3 | 8 | 2,189 | 4,150 | — | — | 0 | — | 0 | — | — | 103.4% | 105.2% |
-| 1973 | 3 | 7 | 445 | 3,727 | — | — | 0 | — | 0 | — | — | 86.9% | 86.0% |
-| 1974 | 3 | 7 | 1,138 | 4,247 | — | — | 0 | — | 0 | — | — | 130.5% | 134.5% |
-| 1975 | 3 | 8 | 1,284 | 3,607 | — | — | 0 | — | 0 | — | — | 90.2% | 91.4% |
-| 1976 | 3 | 8 | 1,663 | 3,835 | — | — | 0 | — | 0 | — | — | 97.5% | 100.4% |
-| 1977 | 3 | 8 | 1,057 | 3,471 | — | — | 0 | — | 0 | — | — | 87.9% | 90.2% |
-| 1978 | 3 | 8 | 1,669 | 3,839 | — | — | 0 | — | 0 | — | — | 85.4% | 87.8% |
-| 1979 | 3 | 8 | 1,141 | 3,521 | — | — | 0 | — | 0 | — | — | 90.1% | 91.0% |
-| 1980 | 3 | 8 | 498 | 3,136 | — | — | 0 | — | 0 | — | — | 74.8% | 79.6% |
-| 1981 | 3 | 8 | 2,172 | 4,140 | — | — | 0 | — | 0 | — | — | 92.8% | 94.0% |
-| 1982 | 3 | 7 | 243 | 3,575 | 42 | 35 | -13,035 | — | 0 | — | — | 85.9% | 82.8% |
-| 1983 | 3 | 9 | 363 | 2,652 | 39 | 30 | -24,319 | — | 0 | — | — | 73.4% | 75.5% |
-| 1984 | 3 | 9 | 77 | 2,509 | 36 | 27 | -35,169 | — | 0 | — | — | 59.4% | 61.5% |
-| 1985 | 3 | 11 | 586 | 2,244 | 33 | 22 | -39,333 | — | 0 | — | — | 53.7% | 57.8% |
-| 1986 | 3 | 11 | 453 | 2,194 | 25 | 14 | -48,594 | — | 0 | — | — | 42.4% | 46.0% |
-| 1987 | 3 | 11 | 63 | 2,048 | 22 | 11 | -53,007 | — | 0 | — | — | 40.4% | 43.8% |
-| 1988 | 3 | 12 | 318 | 1,986 | 21 | 9 | -64,382 | — | 0 | — | — | 49.1% | 52.7% |
-| 1989 | 3 | 14 | 509 | 1,819 | 20 | 6 | -76,943 | — | 0 | — | — | 33.5% | 37.1% |
-| 1990 | 3 | 13 | 645 | 1,962 | 19 | 6 | -68,921 | — | 0 | — | — | 36.9% | 40.3% |
-| 1991 | 3 | 13 | 1,302 | 2,159 | 19 | 6 | -67,786 | — | 0 | — | — | 44.1% | 48.8% |
-| 1992 | 3 | 12 | 522 | 2,054 | 17 | 5 | -67,930 | 71 | 75,261 | 2,838,385 | YES | 46.1% | 49.0% |
-| 1993 | 3 | 12 | 588 | 2,076 | 17 | 5 | -69,711 | 70 | 57,259 | 2,464,401 | YES | 48.1% | 49.6% |
-| 1994 | 3 | 11 | 539 | 2,226 | 16 | 5 | -64,044 | 69 | 54,367 | 2,461,654 | YES | 53.1% | 53.7% |
-| 1995 | 3 | 11 | 133 | 2,074 | 15 | 4 | -65,815 | 68 | 40,020 | 2,139,957 | YES | 49.0% | 51.7% |
-| 1996 | 3 | 11 | 6 | 2,026 | 15 | 4 | -64,851 | 67 | 31,602 | 1,963,419 | YES | 48.1% | 52.6% |
-| 1997 | 3 | 16 | 191 | 1,597 | 21 | 5 | -59,722 | 66 | 19,932 | 1,643,781 | YES | 37.6% | 34.1% |
-| 1998 | 3 | 18 | 1,141 | 1,698 | 23 | 5 | -56,299 | 65 | 12,583 | 1,437,646 | YES | 35.1% | 35.7% |
-| 1999 | 3 | 18 | 48 | 1,480 | 22 | 4 | -58,810 | 64 | 5,905 | 1,205,031 | YES | 32.9% | 34.2% |
-| 2000 | 3 | 19 | 104 | 1,460 | 22 | 3 | -52,429 | 63 | 3,103 | 1,135,687 | YES | 33.8% | 31.4% |
-| 2001 | 3 | 18 | 242 | 1,518 | 21 | 3 | -49,123 | 62 | 1,347 | 1,110,214 | YES | 33.6% | 30.3% |
-| 2002 | 3 | 25 | 1,395 | 1,555 | 31 | 6 | -25,262 | — | 0 | — | — | 24.5% | 27.5% |
-| 2003 | 3 | 28 | 1,456 | 1,546 | 34 | 6 | -17,020 | — | 0 | — | — | 19.9% | 24.5% |
-| 2004 | 3 | 28 | 2,287 | 1,645 | 33 | 5 | -16,933 | — | 0 | — | — | 20.6% | 26.9% |
-| 2005 | 3 | 27 | 605 | 1,442 | 32 | 5 | -19,286 | — | 0 | — | — | 19.0% | 24.0% |
-| 2006 | 3 | 29 | 523 | 1,438 | 34 | 5 | -9,139 | — | 0 | — | — | 20.8% | 27.1% |
-| **2007** | **3** | **29** | **1,041** | **1,498** | **35** | **6** | **-6,333** | **—** | **0** | **—** | **—** | **21.3%** | **27.7%** |
-| 2008 | 3 | 27 | 998 | 1,491 | 34 | 7 | -6,736 | — | 0 | — | — | 22.4% | 28.1% |
-| 2009 | 3 | 26 | 815 | 1,471 | 33 | 7 | -6,539 | — | 0 | — | — | 21.9% | 28.4% |
-| 2010 | 3 | 26 | 919 | 1,484 | 32 | 6 | -4,589 | 71 | 185,031 | 3,067,036 | YES | 21.8% | 29.0% |
-| 2011 | 3 | 25 | 1,152 | 1,522 | 31 | 6 | -3,730 | 70 | 179,559 | 3,035,855 | YES | 22.8% | 29.6% |
-| 2012 | 3 | 24 | 747 | 1,475 | 30 | 6 | -4,165 | 69 | 166,111 | 2,878,532 | YES | 22.4% | 28.5% |
-| 2013 | 3 | 25 | 877 | 1,484 | — | — | 0 | 68 | 147,433 | 2,636,197 | YES | 22.3% | 28.7% |
-| 2014 | 3 | 24 | 120 | 1,385 | 29 | 5 | -17 | 67 | 130,254 | 2,399,534 | YES | 21.1% | 26.7% |
-| 2015 | 3 | 25 | 1,774 | 1,607 | — | — | 0 | 66 | 120,197 | 2,284,071 | YES | 22.0% | 28.3% |
-| 2016 | 3 | 24 | 419 | 1,428 | — | — | 0 | 65 | 104,456 | 2,053,723 | YES | 20.2% | 26.5% |
-| 2017 | 3 | 24 | 2,653 | 1,747 | — | — | 0 | 64 | 92,489 | 1,883,467 | YES | 23.8% | 29.5% |
-| 2018 | 3 | 22 | 289 | 1,430 | — | — | 0 | 63 | 92,106 | 1,919,817 | YES | 21.2% | 26.3% |
-| 2019 | 3 | 22 | 2,017 | 1,703 | — | — | 0 | 62 | 81,057 | 1,756,079 | YES | 24.7% | 30.2% |
+| Start | SRR fill | LRR fill | LRR surplus (£b) | LRR failure | SRR failure | gap | SSMcov5 | SSMcov10 | SSMcov20 | SSMcov50 | TCMcov10 | TCMcov50 |
+|:---:|:---:|:---:|---:|:---:|:---:|:---:|---:|---:|---:|---:|---:|---:|
+| 1947 | 3 | 21 | 1,934 | — | — | — | 92.0% | 131.8% | 286.2% | 559.7% | 158.1% | 1321.8% |
+| 1948 | 3 | 20 | 2,454 | — | — | — | 97.1% | 139.8% | 300.9% | 587.6% | 164.4% | 1355.1% |
+| 1949 | 3 | 18 | 152 | — | — | — | 86.5% | 132.9% | 271.6% | 615.8% | 170.2% | 1385.3% |
+| 1950 | 3 | 18 | 2,153 | — | — | — | 101.5% | 146.3% | 315.7% | 615.8% | 166.2% | 1355.4% |
+| 1951 | 3 | 17 | 2,126 | — | — | — | 103.7% | 149.9% | 323.2% | 630.2% | 167.7% | 1358.0% |
+| 1952 | 3 | 16 | 2,274 | — | — | — | 107.7% | 156.7% | 336.7% | 656.3% | 171.9% | 1381.8% |
+| 1953 | 3 | 15 | 1,115 | — | — | — | 97.2% | 145.4% | 321.1% | 627.0% | 176.9% | 1288.5% |
+| 1954 | 3 | 17 | 3,266 | — | — | — | 151.2% | 218.8% | 379.3% | 605.3% | 156.6% | 1160.7% |
+| 1955 | 3 | 16 | 3,113 | — | — | — | 152.9% | 221.5% | 384.3% | 612.8% | 154.7% | 1153.4% |
+| 1956 | 3 | 15 | 2,704 | — | — | — | 153.3% | 223.7% | 391.3% | 624.9% | 248.8% | 1246.8% |
+| 1957 | 3 | 14 | 2,681 | — | — | — | 157.3% | 230.1% | 402.6% | 643.2% | 271.6% | 1279.4% |
+| 1958 | 3 | 13 | 360 | — | — | — | 128.9% | 195.5% | 353.5% | 565.7% | 229.7% | 1093.3% |
+| 1959 | 3 | 13 | 586 | — | — | — | 142.4% | 194.1% | 321.8% | 491.2% | 228.6% | 943.0% |
+| 1960 | 3 | 12 | 482 | — | — | — | 143.3% | 196.4% | 326.4% | 498.5% | 228.2% | 937.3% |
+| 1961 | 3 | 11 | 227 | — | — | — | 141.1% | 195.9% | 327.5% | 500.5% | 224.2% | 920.2% |
+| 1962 | 3 | 11 | 662 | — | — | — | 144.0% | 212.1% | 340.6% | 487.6% | 244.6% | 897.1% |
+| 1963 | 3 | 12 | 4,336 | — | — | — | 207.9% | 250.9% | 349.4% | 459.1% | 288.1% | 844.5% |
+| 1964 | 3 | 11 | 4,047 | — | — | — | 211.4% | 255.6% | 356.3% | 468.5% | 291.1% | 845.6% |
+| 1965 | 3 | 10 | 2,813 | — | — | — | 201.6% | 244.2% | 338.9% | 446.0% | 275.6% | 789.1% |
+| 1966 | 3 | 9 | 2,328 | — | — | — | 201.5% | 243.2% | 339.1% | 446.6% | 270.4% | 775.3% |
+| 1967 | 3 | 8 | 320 | — | — | — | 172.2% | 212.3% | 306.0% | 406.4% | 282.7% | 732.3% |
+| 1968 | 3 | 9 | 1,906 | — | — | — | 183.9% | 241.1% | 305.2% | 380.3% | 269.0% | 664.1% |
+| 1969 | 3 | 8 | 1,623 | — | — | — | 189.5% | 247.9% | 315.1% | 393.3% | 273.4% | 673.6% |
+| 1970 | 3 | 7 | 402 | — | — | — | 179.3% | 242.5% | 315.5% | 397.5% | 321.4% | 666.0% |
+| 1971 | 3 | 8 | 1,978 | — | — | — | 191.8% | 287.9% | 307.2% | 327.9% | 316.5% | 551.4% |
+| 1972 | 3 | 8 | 2,189 | — | — | — | 173.5% | 235.4% | 268.6% | 282.5% | 257.1% | 472.7% |
+| 1973 | 3 | 7 | 445 | — | — | — | 148.3% | 204.7% | 239.8% | 254.4% | 223.3% | 418.1% |
+| 1974 | 3 | 7 | 1,138 | — | — | — | 197.1% | 229.7% | 248.3% | 281.8% | 244.8% | 469.6% |
+| 1975 | 3 | 8 | 1,284 | — | — | — | 187.4% | 187.6% | 213.1% | 221.7% | 207.1% | 376.9% |
+| 1976 | 3 | 8 | 1,663 | — | — | — | 223.9% | 167.7% | 216.9% | 211.0% | 181.7% | 358.5% |
+| 1977 | 3 | 8 | 1,057 | — | — | — | 164.6% | 151.5% | 194.9% | 184.6% | 166.6% | 315.6% |
+| 1978 | 3 | 8 | 1,669 | — | — | — | 154.2% | 141.6% | 187.8% | 176.1% | 154.0% | 302.8% |
+| 1979 | 3 | 8 | 1,141 | — | — | — | 126.6% | 130.7% | 163.8% | 147.5% | 141.4% | 253.1% |
+| 1980 | 3 | 8 | 498 | — | — | — | 99.9% | 107.1% | 129.6% | 126.5% | 121.1% | 220.4% |
+| 1981 | 3 | 8 | 2,172 | — | — | — | 66.0% | 113.8% | 122.4% | 118.9% | 126.2% | 207.0% |
+| 1982 | 3 | 7 | 243 | — | — | — | 50.2% | 92.1% | 104.7% | 104.3% | 108.9% | 223.5% |
+| 1983 | 3 | 9 | 363 | — | — | — | 80.9% | 82.5% | 97.8% | 106.7% | 95.1% | 192.9% |
+| 1984 | 3 | 9 | 77 | — | — | — | 71.9% | 84.8% | 88.6% | 95.6% | 116.9% | 208.4% |
+| 1985 | 3 | 11 | 586 | — | — | — | 80.2% | 105.4% | 89.8% | 114.9% | 124.0% | 226.2% |
+| 1986 | 3 | 11 | 453 | — | — | — | 58.6% | 89.7% | 77.0% | 98.0% | 107.3% | 192.3% |
+| 1987 | 3 | 11 | 63 | — | — | — | 65.6% | 72.0% | 65.0% | 110.2% | 85.1% | 228.4% |
+| 1988 | 3 | 12 | 318 | — | — | — | 73.2% | 62.4% | 54.4% | 111.0% | 74.7% | 239.1% |
+| 1989 | 3 | 14 | 509 | — | — | — | 56.2% | 45.9% | 37.4% | 129.9% | 62.8% | 299.4% |
+| 1990 | 3 | 13 | 645 | — | — | — | 60.3% | 49.3% | 39.9% | 136.6% | 64.9% | 306.4% |
+| 1991 | 3 | 13 | 1,302 | — | — | — | 50.4% | 47.6% | 35.6% | 137.8% | 57.0% | 286.9% |
+| 1992 | 3 | 12 | 522 | — | — | — | 42.8% | 42.6% | 32.7% | 132.9% | 55.8% | 289.9% |
+| 1993 | 3 | 12 | 588 | — | — | — | 39.7% | 35.6% | 26.9% | 137.2% | 48.0% | 304.4% |
+| 1994 | 3 | 11 | 539 | — | — | — | 41.3% | 37.0% | 28.1% | 142.7% | 47.6% | 307.7% |
+| 1995 | 3 | 11 | 133 | — | — | — | 23.5% | 32.8% | 24.0% | 145.7% | 44.4% | 314.8% |
+| 1996 | 3 | 11 | 6 | — | — | — | 14.4% | 30.3% | 24.1% | 156.0% | 42.2% | 337.2% |
+| 1997 | 3 | 16 | 191 | — | — | — | 30.6% | 20.2% | 26.7% | 267.4% | 30.5% | 646.9% |
+| 1998 | 3 | 18 | 1,141 | — | — | — | 22.2% | 13.5% | 27.3% | 305.2% | 23.0% | 659.7% |
+| 1999 | 3 | 18 | 48 | — | — | — | 7.1% | 10.2% | 20.4% | 272.1% | 17.9% | 681.6% |
+| **2000** | **3** | **19** | **104** | **—** | **—** | **—** | **0.0%** | **6.4%** | **21.3%** | **307.1%** | **14.6%** | **655.6%** |
+| 2001 | 3 | 18 | 242 | — | — | — | 0.0% | 7.1% | 22.2% | 312.4% | 20.5% | 650.8% |
+| 2002 | 3 | 25 | 1,395 | — | — | — | 44.4% | 34.0% | 62.3% | 442.9% | 17.0% | 745.8% |
+| 2003 | 3 | 28 | 1,456 | — | — | — | 43.9% | 49.4% | 105.0% | 407.7% | 45.6% | 1140.6% |
+| 2004 | 3 | 28 | 2,287 | — | — | — | 27.8% | 38.8% | 112.4% | 448.0% | 44.1% | 1557.9% |
+| 2005 | 3 | 27 | 605 | — | — | — | 18.5% | 32.1% | 102.8% | 634.1% | 62.3% | 1366.8% |
+| 2006 | 3 | 29 | 523 | — | — | — | 32.8% | 58.0% | 145.0% | 593.9% | 54.7% | 1383.7% |
+| 2007 | 3 | 29 | 1,041 | — | — | — | 46.3% | 63.5% | 157.5% | 607.7% | 48.3% | 1284.6% |
+| 2008 | 3 | 27 | 998 | — | — | — | 38.3% | 64.0% | 156.5% | 597.9% | 56.8% | 1342.8% |
+| 2009 | 3 | 26 | 815 | — | — | — | 37.3% | 64.2% | 158.2% | 602.0% | 54.3% | 1241.3% |
+| 2010 | 3 | 26 | 919 | — | — | — | 50.5% | 69.1% | 170.6% | 461.3% | 48.1% | 1256.7% |
+| 2011 | 3 | 25 | 1,152 | — | — | — | 53.7% | 72.3% | 176.5% | 576.1% | 48.5% | 1263.8% |
+| 2012 | 3 | 24 | 747 | — | — | — | 50.3% | 70.4% | 174.9% | 591.1% | 45.0% | 1227.8% |
+| 2013 | 3 | 25 | 877 | — | — | — | 44.5% | 104.2% | 211.9% | 495.2% | 82.8% | 1299.6% |
+| 2014 | 3 | 24 | 120 | — | — | — | 37.2% | 97.5% | 202.5% | 539.2% | 89.8% | 1291.0% |
+| 2015 | 3 | 25 | 1,774 | — | — | — | 92.3% | 130.5% | 258.6% | 591.7% | 85.4% | 1251.7% |
+| 2016 | 3 | 24 | 419 | — | — | — | 81.1% | 120.8% | 244.7% | 561.0% | 123.8% | 1271.7% |
+| 2017 | 3 | 24 | 2,653 | — | — | — | 88.8% | 126.6% | 273.5% | 521.9% | 125.5% | 1302.8% |
+| 2018 | 3 | 22 | 289 | — | — | — | 79.9% | 122.1% | 249.5% | 579.6% | 131.0% | 1344.4% |
+| 2019 | 3 | 22 | 2,017 | — | — | — | 89.6% | 128.1% | 278.3% | 562.3% | 156.2% | 1317.2% |
 
-*Active scenario shown in bold. SRR breach covered: LRR balance at SRR breach year ≥ SRR deficit. Peak LRR deficit: worst LRR balance in the 71-year window under the zero-governance assumption. Coverage ratios: capitalisation window averages (SRR fill to LRR breakeven).*
+*Active scenario shown in bold. Coverage fractions = Step-5 remainder / annual expenditure, averaged over each window. Zero in failure years drags the average. LRR failure: buffer exhausted (lrr_bal = 0). SRR failure: refund guarantee broken (srr_bal = 0). Gap: years between LRR and SRR failure. SSM = correlated-shock floor; TCM = heterogeneous-tier ceiling.*
 
 ## B.5 Statistical Pass — P(success) Across Economic Cycles
 
-**Success definition:** LRR fills within the 71-year window AND (SRR never breaches OR SRR breach is fully covered by LRR balance at time of breach).
+**Success definition (v8):** LRR fills within the 71-year window AND LRR never fails (lrr_failure_year is None).
 
-### B.5.2 Overall (all 73 start years)
+### B.5.1 Overall (all 73 start years)
 
 | Metric | Value |
-|---|---|
+|:---|:---|
 | Success rate | 100.0% (73/73) |
 | LRR fills | 100.0% (73/73) |
-| SRR breaches | 56.2% (41/73) |
-| — of which covered | 41 |
-| — of which uncovered | 0 |
-| No SRR breach | 32 |
+| LRR failures | 0.0% (0/73) |
+| SRR failures | 0.0% (0/73) |
 
-### B.5.3 By economic cycle
+### B.5.2 By economic cycle
 
 | Period | N | Success% | LRR fill% |
-|---|:---:|:---:|:---:|
+|:---|:---:|:---:|:---:|
 | Post-war growth  1947–59 | 13 | 100.0% | 100.0% |
 | Long boom        1960–79 | 20 | 100.0% | 100.0% |
 | Liberalisation   1980–99 | 20 | 100.0% | 100.0% |
 | Crisis decade    2000–19 | 20 | 100.0% | 100.0% |
 
-### B.5.4 Key metric distributions
+### B.5.3 Key metric distributions
 
 | Metric | N | Min | Median | Mean | Max |
-|---|:---:|---:|---:|---:|---:|
+|:---|:---:|---:|---:|---:|---:|
 | LRR breakeven year | 73 | 7 | 13 | 15 | 29 |
 | SRR fill year | 73 | 3 | 3 | 3 | 3 |
+| LRR failure year | 0 | — | — | — | — |
+| SRR failure year | 0 | — | — | — | — |
+| LRR→SRR failure gap (yrs) | 0 | — | — | — | — |
 | LRR surplus at breakeven (£b) | 73 | 6 | 919 | 1,198 | 4,336 |
-| LRR breach lag (yrs) | 32 | 3 | 6 | 9 | 35 |
-| Peak LRR deficit (£b) | 73 | -76,943 | 0 | -16,712 | 0 |
-| SRR deficit at breach (£b) | 73 | 0 | 4,586 | 32,129 | 185,031 |
-| SSM coverage ratio | 73 | 19.0% | 39.7% | 47.0% | 130.5% |
-| TCM coverage ratio | 73 | 24.0% | 40.3% | 50.0% | 134.5% |
+| SSM coverage 5yr avg | 73 | 0.0% | 86.5% | 97.4% | 223.9% |
+| TCM coverage 5yr avg | 73 | 5.5% | 93.5% | 106.8% | 239.0% |
+| SSM coverage 10yr avg | 73 | 6.4% | 122.1% | 126.0% | 287.9% |
+| TCM coverage 10yr avg | 73 | 14.6% | 125.5% | 138.8% | 321.4% |
+| SSM coverage 20yr avg | 73 | 20.4% | 202.5% | 198.4% | 402.6% |
+| TCM coverage 20yr avg | 73 | 35.7% | 233.7% | 234.9% | 515.7% |
+| SSM coverage 50yr avg | 73 | 95.6% | 442.9% | 386.2% | 656.3% |
+| TCM coverage 50yr avg | 73 | 192.3% | 775.3% | 810.4% | 1557.9% |
 
-
-
-# C. References {.unnumbered .unlisted}
-
-HM Treasury. (2024). *Public spending statistics: May 2024* [Data set, Table 10: Total expenditure on services]. GOV.UK. https://www.gov.uk/government/statistics/public-spending-statistics-release-may-2024
-
-Jordà, Ò., Knoll, K., Kuvshinov, D., Schularick, M., & Taylor, A. M. (2019). The rate of return on everything, 1870–2015. *Quarterly Journal of Economics*, *134*(3), 1225–1298. https://doi.org/10.1093/qje/qjy032
+*Coverage fractions: Step-5 remainder / annual expenditure, averaged over each window length. Zero in any failure year. SSM = correlated-shock floor; TCM = heterogeneous-tier ceiling.*

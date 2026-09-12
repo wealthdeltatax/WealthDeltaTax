@@ -87,23 +87,44 @@ _C_ZONE_RED   = '#e15759'   # zero-coverage bars in fig 09 (= C_BASELINE)
 # ─────────────────────────────────────────────────────────────
 
 def generate_figures(p, py_ssm, py_tcm, sweep_results,
-                     output_dir=None, tcm_N=None):
+                     output_dir=None, tcm_N=None,
+                     py_tcm_burden=None, burden_N=30):
     """
     Generate all nine RATES figures and save to output_dir.
 
     Parameters
     ----------
-    p            : dict   loaded params (wdt_core.load_params())
-    py_ssm       : list   run_ssm() result
-    py_tcm       : dict   run_tcm() result (keyed by tier differential)
-    sweep_results: list   run_start_year_sweep() result
-    output_dir   : Path   override; defaults to OUTPUTS/RATES/
-    tcm_N        : int    TCM horizon (SSM LRR fill year); needed for fig 03
+    p              : dict   loaded params (wdt_core.load_params())
+    py_ssm         : list   run_ssm() result
+    py_tcm         : dict   run_tcm() result at N=tcm_N (SSM LRR fill year);
+                            used by figs 02, 03, 08 and the report tables.
+    sweep_results  : list   run_start_year_sweep() result
+    output_dir     : Path   override; defaults to OUTPUTS/RATES/
+    tcm_N          : int    TCM snapshot horizon (SSM LRR fill year ≈ 19);
+                            used by figs 03, 08 and the suptitle of those figures.
+    py_tcm_burden  : dict   run_tcm() result at N=burden_N; used exclusively by
+                            fig 06 (burden matrix).  If None, computed here from p
+                            using the same N_fill as tcm_N implies.
+    burden_N       : int    Horizon for the burden matrix (default 30), representing
+                            a taxpayer who has been in the WDT system for ~30 years.
     """
     out = ensure_dir(Path(output_dir) if output_dir else _OUT)
     if tcm_N is None:
         py_lrr_fill = next((r for r in py_ssm if r.get('lrr_filled')), None)
-        tcm_N = p['tcm_N']
+        tcm_N = py_lrr_fill['year'] if py_lrr_fill else p['N']
+
+    # Derive N_fill (SRR fill year) from the SSM for use in the burden TCM.
+    py_srr_fill = next(
+        (r for r in py_ssm if r['srr_target'] > 0
+         and r['srr_balance'] >= r['srr_target'] * 0.9999),
+        None,
+    )
+    burden_N_fill = py_srr_fill['year'] if py_srr_fill else 1
+
+    if py_tcm_burden is None:
+        import rates_model as _model
+        print(f'  Computing burden TCM at N={burden_N} (N_fill={burden_N_fill})...')
+        py_tcm_burden = _model.run_tcm(p, N=burden_N, N_fill=burden_N_fill)
 
     print('\nGenerating RATES figures...')
     _fig01(p, sweep_results, out)
@@ -111,9 +132,9 @@ def generate_figures(p, py_ssm, py_tcm, sweep_results,
     _fig03(p, py_tcm, tcm_N, out)
     _fig04(p, py_ssm, out)
     _fig05(sweep_results, out)
-    _fig06(p, py_tcm, out)
+    _fig06(p, py_tcm_burden, burden_N, out)
     _fig07(p, sweep_results, out)
-    _fig08(p, py_tcm, out)
+    _fig08(p, py_tcm, tcm_N, out)
     _fig09(p, py_ssm, out)
     print('  All figures complete.')
 
@@ -399,8 +420,15 @@ def _fig05(sweep_results, out_dir):
 # FIG 06 — Burden matrix heatmap
 # ─────────────────────────────────────────────────────────────
 
-def _fig06(p, py_tcm, out_dir):
-    """Two-panel heatmap: annual wealth burden and effective rate on gains."""
+def _fig06(p, py_tcm_burden, burden_N, out_dir):
+    """Two-panel heatmap: annual wealth burden and effective rate on gains.
+
+    Uses py_tcm_burden, which is run_tcm() computed at N=burden_N (default 30)
+    rather than the snapshot N (LRR fill year ≈ 19).  This gives a fair
+    representation of an assumed average taxpayer who has been in the WDT
+    system for approximately 30 years — matching the canonical N=30 horizon
+    used across VAL, RATES, SWEEPS, and WFR.
+    """
     apply_style()
     diffs   = [t['differential'] for t in p['tiers']]
     tlabels = [f"{t['differential']:+.2%}\n({t['label']})" for t in p['tiers']]
@@ -411,7 +439,7 @@ def _fig06(p, py_tcm, out_dir):
     burden_matrix  = np.zeros((n_tiers, n_bkts))
     effrate_matrix = np.zeros((n_tiers, n_bkts))
     for i, diff in enumerate(diffs):
-        for j, r in enumerate(py_tcm[diff]):
+        for j, r in enumerate(py_tcm_burden[diff]):
             burden_matrix[i, j]  = r['wealth_burden'] * 100
             effrate_matrix[i, j] = r['eff_rate']      * 100
 
@@ -441,7 +469,7 @@ def _fig06(p, py_tcm, out_dir):
 
     fig.suptitle(
         f'Individual burden matrices — {p["scenario_start_year"]} '
-        f'Balanced scenario, N={p["tcm_N"]}\n'
+        f'Balanced scenario, N={burden_N} (canonical 30-year taxpayer horizon)\n'
         'RATES.A §B.3.3 (left) and §B.3.4 (right)  |  '
         '0.00% = genuine zero liability (exemption threshold + refund offset); '
         'not missing data',
@@ -520,7 +548,7 @@ def _fig07(p, sweep_results, out_dir):
 # FIG 08 — Loss-year mechanics
 # ─────────────────────────────────────────────────────────────
 
-def _fig08(p, py_tcm, out_dir):
+def _fig08(p, py_tcm, tcm_N, out_dir):
     """Symmetric refund in the worst return year, 95th pct bracket, Good tier."""
     apply_style()
 
@@ -534,7 +562,7 @@ def _fig08(p, py_tcm, out_dir):
                 else p['tiers'][-1]
     good_diff = good_tier['differential']
 
-    N       = p['tcm_N']
+    N       = tcm_N
     returns = p['returns']
     g_series = [returns[t] + good_diff for t in range(1, N + 1)]
     g_sell   = returns[N + 1] + good_diff
@@ -761,15 +789,20 @@ def main():
     ssm_srr_N = py_srr_fill['year'] if py_srr_fill else 1
     print(f"  LRR fill year: {ssm_lrr_N}")
 
-    print(f'\nRunning TCM (N={ssm_lrr_N})...')
+    print(f'\nRunning TCM (N={ssm_lrr_N}, snapshot / LRR fill year)...')
     py_tcm = model.run_tcm(p, N=ssm_lrr_N, N_fill=ssm_srr_N)
+
+    _BURDEN_N = 30
+    print(f'\nRunning TCM for burden matrix (N={_BURDEN_N}, canonical 30-year horizon)...')
+    py_tcm_burden = model.run_tcm(p, N=_BURDEN_N, N_fill=ssm_srr_N)
 
     print(f'\nRunning start-year sweep ({len(p["returns"])} calendar years)...')
     sweep = model.run_start_year_sweep(p)
 
     _out = ensure_dir(Path(output_dir) if output_dir else _OUT)
     generate_figures(p, py_ssm, py_tcm, sweep,
-                     output_dir=_out, tcm_N=ssm_lrr_N)
+                     output_dir=_out, tcm_N=ssm_lrr_N,
+                     py_tcm_burden=py_tcm_burden, burden_N=_BURDEN_N)
     print('\nDone.')
 
 

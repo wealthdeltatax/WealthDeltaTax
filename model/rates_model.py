@@ -103,7 +103,7 @@ import math
 from pathlib import Path
 
 from wdt_core import (load_params as _core_load_params,
-                      tau, simulate, simulate_sell_year)
+                      tau, simulate, simulate_sell_year, settle_tw)
 
 DEFAULT_PARAMS = Path(__file__).parent / 'WDT_Params.toml'
 
@@ -1135,9 +1135,14 @@ def run_tcm(p, N=None, N_fill=None):
 
     Returns a dict keyed by tier differential (float) mapping to a list
     of bracket dicts. Each bracket dict contains:
-      label, N_pop, cell_pop, V0_m, V_at_N, TW,
-      avg_net_gbp, wealth_burden, eff_rate,
+      label, N_pop, cell_pop, V0_m, V_at_N, TW, TW_settled,
+      avg_net_gbp, wealth_burden, eff_rate, income_tax_rate,
       revenue_m, post_fill_net_m, post_fill_revenue_m, post_fill_net_gbp.
+
+    income_tax_rate = total_net / (TW_settled - V0_m): total lifetime net tax
+    as a fraction of net lifetime wealth gain (post-settlement). Directly
+    comparable to an income tax rate. None when TW_settled <= V0_m (negative
+    or zero net gain — suppressed to avoid division by zero or sign flip).
     """
     returns   = p['returns']
     brackets  = p['brackets']
@@ -1170,10 +1175,24 @@ def run_tcm(p, N=None, N_fill=None):
             TW = (W_sell - L_sell / tau_sell) \
                  if (tau_sell > 0.0 and L_sell > 0.0) else W_sell
 
-            avg_net_m           = total_net / N_periods
-            avg_net_gbp         = avg_net_m * 1e6
-            wealth_burden       = avg_net_m / TW if TW != 0.0 else 0.0
-            eff_rate            = total_net / TW if TW != 0.0 else 0.0
+            # Post-sale oscillation to convergence — economically correct
+            # terminal wealth.  settle_tw() returns (TW_settled, net_settle_tax,
+            # n_iter); we absorb net_settle_tax into total_net so the income tax
+            # rate denominator and numerator are fully consistent.
+            TW_settled, net_settle_tax, _ = settle_tw(sy, p)
+            total_net_settled = total_net + net_settle_tax
+
+            avg_net_m     = total_net_settled / N_periods
+            avg_net_gbp   = avg_net_m * 1e6
+            wealth_burden = avg_net_m / TW_settled if TW_settled != 0.0 else 0.0
+            eff_rate      = total_net_settled / TW_settled if TW_settled != 0.0 else 0.0
+
+            # income_tax_rate: lifetime net tax / net lifetime wealth gain.
+            # None when gain is zero or negative (suppress rather than mislead).
+            lifetime_gain = TW_settled - b['V0_m']
+            income_tax_rate = (total_net_settled / lifetime_gain
+                               if lifetime_gain > 0.0 else None)
+
             revenue_m           = avg_net_m * b['N'] * weight
             post_fill_net_m     = (post_fill_net / post_fill_periods
                                     if post_fill_periods > 0 else 0.0)
@@ -1187,9 +1206,11 @@ def run_tcm(p, N=None, N_fill=None):
                 'V0_m':                b['V0_m'],
                 'V_at_N':              V_at_N,
                 'TW':                  TW,
+                'TW_settled':          TW_settled,
                 'avg_net_gbp':         avg_net_gbp,
                 'wealth_burden':       wealth_burden,
                 'eff_rate':            eff_rate,
+                'income_tax_rate':     income_tax_rate,
                 'revenue_m':           revenue_m,
                 'post_fill_net_m':     post_fill_net_m,
                 'post_fill_revenue_m': post_fill_revenue_m,

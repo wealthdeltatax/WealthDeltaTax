@@ -1,21 +1,21 @@
-# B. WDT Rate Parameter Sensitivity Sweep
+# C. WDT Rate Parameter Sensitivity Sweep
 
 **Run date:** 2026-09-09  
 **Model version:** v8 (rates_model.py / wdt_core.py)  
 **Headline coverage window:** 10 years (SSMcov10/TCMcov10 columns; change HEADLINE_WINDOW in wdt_analytics.py)  
 **Parameters file:** `WDT_Params.toml`  
 
-## ## B.1. Purpose
+## ## C.1. Purpose
 
 This document sweeps each of the four WDT rate-function parameters independently, holding the other three at Balanced baseline values, and reports how key transition metrics vary across the full 73-year historical start-year sweep (1947–2019 UK equity return series). It is intended as orientation material for future Governing Council calibration work, not as a scenario recommendation. Parameter interactions are not modelled here; joint sweeps are a natural second-order extension.
 
-### ### B.1.1 The Rate Function
+### ### C.1.1 The Rate Function
 
 $$\tau(W) = \frac{\tau_m}{1 + \left(\frac{\tau_m - \tau_0}{\tau_0}\right)e^{-k(W - W_{\min})}}, \quad \tau(W) = 0 \text{ if } W < W_{\min}$$
 
 Note: the docstring in `rates_model.py` contains a typographical error writing $(1-\tau_0)/\tau_0$ as the denominator coefficient. The implementation in `wdt_core.tau()` correctly uses $(\tau_m - \tau_0)/\tau_0$.
 
-### ### B.1.2 Balanced Baseline Parameters
+### ### C.1.2 Balanced Baseline Parameters
 
 | Parameter | Baseline value | Role |
 |---|---|---|
@@ -41,7 +41,7 @@ Note: the docstring in `rates_model.py` contains a typographical error writing $
 | Wealth brackets | 10 |
 | Growth tiers | 4 |
 
-### ### B.1.3 Metrics
+### ### C.1.3 Metrics
 
 **Success (v8):** LRR fills within the 71-year modelling window AND the LRR buffer never hits zero (lrr_failure_year is None).
 
@@ -53,7 +53,7 @@ Note: the docstring in `rates_model.py` contains a typographical error writing $
 
 *All distributions are across the 73 historical start years 1947–2019. The 2006 start year is extracted separately as the worst-case historical scenario.*
 
-## ## B.2. Floor Rate (τ_0)
+## ## C.2. Floor Rate (τ_0)
 
 τ_0 sets the marginal rate at W = W_min. A higher floor raises effective rates across the entire taxable population; a lower floor concentrates the rate gradient in the upper distribution.
 
@@ -93,7 +93,7 @@ Other parameters held at Balanced baseline: τ_m = 70%,  k = 0.001,  W_min = £2
 | 45% | 56.4% | 81.6% | 21 | 2075 | — (no failure) |
 | 50% | 64.5% | 59.8% | 20 | 434 | — (no failure) |
 
-## ## B.3. Ceiling Rate (τ_m)
+## ## C.3. Ceiling Rate (τ_m)
 
 τ_m is the asymptotic ceiling the marginal rate approaches but never reaches. Its primary effect is on the top brackets where W >> W_min.
 
@@ -135,7 +135,7 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  k = 0.001,  W_min = £2
 | 95% | 58.0% | 54.8% | 29 | 528 | — (no failure) |
 | 100% | 58.1% | 54.8% | 29 | 529 | — (no failure) |
 
-## ## B.4. Steepness (k)
+## ## C.4. Steepness (k)
 
 k (per £m) controls how rapidly the marginal rate climbs from τ_0 toward τ_m. Low k produces a shallow gradient; high k produces a steep step.
 
@@ -173,7 +173,7 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  W_min = £
 | 0.0500 | 44.4% | 88.4% | 26 | 1442 | — (no failure) |
 | 0.1000 | 55.2% | 105.0% | 26 | 2820 | — (no failure) |
 
-## ## B.5. Entry Point (W_min)
+## ## C.5. Entry Point (W_min)
 
 W_min (£m) is the wealth level below which the rate function produces zero liability. It is a rate design parameter, not a population boundary.
 
@@ -211,7 +211,7 @@ Other parameters held at Balanced baseline: τ_0 = 15%,  τ_m = 70%,  k = 0.001.
 | £7.5m | 142.3% | 166.1% | 35 | 115 | — (no failure) |
 | £10.0m | 241.3% | 228.4% | 38 | 2710 | — (no failure) |
 
-## ## B.6. SRR Capitalisation Ratio (srr_ratio)
+## ## C.6. SRR Capitalisation Ratio (srr_ratio)
 
 srr_ratio sets the SRR capitalisation target as a multiple of average annual net WDT income. Affects milestone timing only; does not alter individual taxpayer burden.
 
@@ -251,7 +251,7 @@ Other parameters held at Balanced baseline: τ_0=15%, τ_m=70%, k=0.001, W_min=�
 | 8.0× | 86.8% | 62.6% | 32 | 768 | — (no failure) |
 | 10.0× | 108.9% | 71.6% | 34 | 2489 | — (no failure) |
 
-## ## B.7. LRR Floor (lrr_years)
+## ## C.7. LRR Floor (lrr_years)
 
 lrr_years sets the LRR floor as a multiple of prevailing government expenditure (growing at 4.51% p.a.). Affects LRR milestone timing only.
 
@@ -291,7 +291,7 @@ Other parameters held at Balanced baseline: τ_0=15%, τ_m=70%, k=0.001, W_min=�
 | 6.0 yrs | 202.0% | 193.2% | 38 | 5138 | — (no failure) |
 | 8.0 yrs | 210.7% | 349.1% | 39 | 150 | — (no failure) |
 
-## ## B.8. Mean Growth Rate (g)
+## ## C.8. Mean Growth Rate (g)
 
 Each row is a single deterministic run with a constant growth rate replacing the historical return series. There is no start-year distribution; the columns show point values from one SSM pass. The hist_mean value (10.45%) appears in the table as the canonical historical baseline.
 
@@ -311,11 +311,11 @@ Each row is a single deterministic run with a constant growth rate replacing the
 | 20.00% | 7 | 751 | 322.7% | 349.4% | 17959.0% | — (none) |
 | 25.00% | 6 | 979 | 547.5% | 715.4% | 83131.7% | — (none) |
 
-## ## B.9. Synthetic Growth Scenario
+## ## C.9. Synthetic Growth Scenario
 
 Growth path: $g(t) = \mu + \lambda t + A \sin(2\pi t / T)$  ·  Canonical: μ=7.00%, λ=0.0000/yr, A=8.00%, T=10 yr.
 
-### ### B.9.1  Amplitude sweep (μ, λ, T fixed at canonical)
+### ### C.9.1  Amplitude sweep (μ, λ, T fixed at canonical)
 λ=0.0000, μ=7.00%, T=10 yr.
 
 **Amplitude sweep**
@@ -333,7 +333,7 @@ Growth path: $g(t) = \mu + \lambda t + A \sin(2\pi t / T)$  ·  Canonical: μ=7.
 | 6.00% | 20 | 271 | 33.4% | 43.4% | 54.0% | — (none) |
 | 8.00% ◄ | 20 | 74 | 33.5% | 42.7% | 54.8% | — (none) |
 
-### ### B.9.2  Period sweep (μ, λ, A fixed at canonical)
+### ### C.9.2  Period sweep (μ, λ, A fixed at canonical)
 λ=0.0000, μ=7.00%, A=8.00%.
 
 **Period sweep**

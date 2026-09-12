@@ -33,7 +33,8 @@ Can also be imported and called directly:
 
     from 8_2_RATES_report import write_report
     out_path = write_report(p, py_ssm, py_tcm, ssm_lrr_N,
-                            sweep_extremals, stats, tcm_win=tcm_win)
+                            sweep_extremals, stats, tcm_win=tcm_win,
+                            py_tcm_burden=py_tcm_30, burden_N=30)
 """
 
 import sys
@@ -63,7 +64,8 @@ def _fmt_m(v, threshold=5e-4):
 # ─────────────────────────────────────────────────────────────
 
 def write_report(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
-                 tcm_win=None, output_dir=None):
+                 tcm_win=None, output_dir=None,
+                 py_tcm_burden=None, burden_N=30):
     """
     Write the full Markdown run report and return the output Path.
 
@@ -71,21 +73,37 @@ def write_report(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
     ----------
     p               : dict   loaded params (wdt_core.load_params())
     py_ssm          : list   run_ssm() result (list of year dicts)
-    py_tcm          : dict   run_tcm() result (keyed by tier differential)
-    tcm_N           : int    horizon used for TCM (SSM LRR fill year)
+    py_tcm          : dict   run_tcm() result at N=tcm_N (SSM LRR fill year).
+                             Used for capitalisation-window tables: B.3.1, B.3.2,
+                             B.3.6, B.3.7, B.3.8, and the cap-window column of B.3.9.
+    tcm_N           : int    SSM LRR fill year (snapshot horizon, ≈19).
     sweep_extremals : dict   report_start_year_sweep() return value
     stats           : dict   compute_statistics() return value
     tcm_win         : dict   _tcm_coverage_windows() return value, or None
     output_dir      : Path   override output directory; defaults to OUTPUTS/RATES/
+    py_tcm_burden   : dict   run_tcm() result at N=burden_N.  Used for the
+                             lifetime/burden tables: B.3.3, B.3.4, B.3.5, and the
+                             lifetime column of B.3.9.  If None, computed here.
+    burden_N        : int    Canonical taxpayer horizon for burden metrics (default 30).
     """
     _out = ensure_dir(Path(output_dir) if output_dir else _OUT)
     out_path = _out / '7_5_WDT_Rates_Revenue_Output.md'
+
+    # Derive N_fill from the SSM so the burden TCM uses the correct cap boundary.
+    if py_tcm_burden is None:
+        py_srr_fill = next(
+            (r for r in py_ssm if r['srr_target'] > 0
+             and r['srr_balance'] >= r['srr_target'] * 0.9999),
+            None,
+        )
+        burden_N_fill = py_srr_fill['year'] if py_srr_fill else 1
+        py_tcm_burden = model.run_tcm(p, N=burden_N, N_fill=burden_N_fill)
 
     doc = MdDoc()
     _header(doc, p)
     _b1_params(doc, p)
     _b2_ssm(doc, p, py_ssm)
-    _b3_tcm(doc, p, py_ssm, py_tcm, tcm_N, tcm_win)
+    _b3_tcm(doc, p, py_ssm, py_tcm, tcm_N, tcm_win, py_tcm_burden, burden_N)
     _b4_sweep(doc, p, sweep_extremals)
     _b5_stats(doc, stats)
     doc.write(out_path)
@@ -214,7 +232,112 @@ def _b2_ssm(doc, p, py_ssm):
     )
 
 
-def _b3_tcm(doc, p, py_ssm, py_tcm, tcm_N, tcm_win):
+def _pop_weighted_burden(py_tcm_burden, p, burden_N):
+    """
+    Compute population-aggregated burden and effective-rate summaries.
+
+    Two aggregation methods for each metric:
+
+      Population-weighted (Option A):
+          Each taxpayer counts once (weight = cell_pop = bracket_N × tier_weight).
+          Lower-wealth brackets dominate numerically.
+
+      Revenue/wealth-weighted (Option B):
+          Ratio of population-weighted totals: Σ(metric_numerator × cell_pop)
+          divided by Σ(metric_denominator × cell_pop).
+          Higher-wealth brackets dominate.
+
+    Wealth burden (annual):
+      A: Σ(wealth_burden_ij × cell_pop_ij) / Σ cell_pop_ij
+      B: Σ(avg_net_m_ij × cell_pop_ij) / Σ(TW_settled_ij × cell_pop_ij)
+
+    Income-tax-analogue effective rate:
+      A: Σ(income_tax_rate_ij × cell_pop_ij) / Σ cell_pop_ij  [cells with gain > 0 only]
+      B: Σ(total_net_settled_ij × cell_pop_ij) / Σ(lifetime_gain_ij × cell_pop_ij)
+
+    All denominators use TW_settled (post-oscillation) for consistency with run_tcm.
+
+    Returns
+    -------
+    dict with keys:
+      pop_burden : float   Option A wealth burden
+      rev_burden : float   Option B wealth burden
+      pop_itr    : float   Option A income-tax-analogue rate (None if all cells suppressed)
+      rev_itr    : float   Option B income-tax-analogue rate (None if all cells suppressed)
+    All values are plain fractions (multiply by 100 for %).
+    """
+    n_periods = burden_N + 1   # same as N_periods in run_tcm
+
+    total_pop       = 0.0
+    weighted_burden = 0.0   # A: Σ wealth_burden × cell_pop
+    total_net_agg   = 0.0   # B numerator:   Σ avg_net_m × cell_pop
+    total_tw_agg    = 0.0   # B denominator: Σ TW_settled × cell_pop
+
+    for tier in p['tiers']:
+        diff   = tier['differential']
+        weight = tier['weight']
+        for b_idx, b in enumerate(p['brackets']):
+            r         = py_tcm_burden[diff][b_idx]
+            cell_pop  = b['N'] * weight
+            avg_net_m = r['avg_net_gbp'] / 1e6   # £ → £m
+
+            total_pop       += cell_pop
+            weighted_burden += r['wealth_burden']  * cell_pop
+            total_net_agg   += avg_net_m           * cell_pop
+            total_tw_agg    += r['TW_settled']     * cell_pop
+
+    # Income tax rate aggregates — only include cells where income_tax_rate
+    # is defined (lifetime_gain > 0).  Population and gain totals are tracked
+    # separately so suppressed cells don't distort the averages.
+    it_pop_total        = 0.0   # headcount of cells with valid income_tax_rate
+    it_weighted         = 0.0   # A: Σ income_tax_rate × cell_pop
+    it_total_net_agg    = 0.0   # B numerator:   Σ total_net_settled × cell_pop
+    it_lifetime_gain    = 0.0   # B denominator: Σ lifetime_gain × cell_pop
+
+    for tier in p['tiers']:
+        diff   = tier['differential']
+        weight = tier['weight']
+        for b_idx, b in enumerate(p['brackets']):
+            r         = py_tcm_burden[diff][b_idx]
+            cell_pop  = b['N'] * weight
+            itr       = r.get('income_tax_rate')
+            if itr is None:
+                continue   # suppress negative/zero-gain cells
+            avg_net_m     = r['avg_net_gbp'] / 1e6
+            total_net_m   = avg_net_m * n_periods
+            lifetime_gain = r['TW_settled'] - b['V0_m']
+
+            it_pop_total     += cell_pop
+            it_weighted      += itr        * cell_pop
+            it_total_net_agg += total_net_m * cell_pop
+            it_lifetime_gain += lifetime_gain * cell_pop
+
+    pop_itr = it_weighted      / it_pop_total     if it_pop_total     > 0 else None
+    rev_itr = it_total_net_agg / it_lifetime_gain if it_lifetime_gain > 0 else None
+
+    pop_burden = weighted_burden / total_pop    if total_pop    > 0 else 0.0
+    rev_burden = total_net_agg   / total_tw_agg if total_tw_agg > 0 else 0.0
+
+    return {
+        'pop_burden': pop_burden,
+        'rev_burden': rev_burden,
+        'pop_itr':    pop_itr,
+        'rev_itr':    rev_itr,
+    }
+
+
+def _b3_tcm(doc, p, py_ssm, py_tcm, tcm_N, tcm_win, py_tcm_burden, burden_N):
+    """
+    B.3 TCM section.
+
+    Two TCM datasets are used:
+      py_tcm        — run_tcm at N=tcm_N (SSM LRR fill year, ≈19).
+                      Drives capitalisation-window tables: B.3.1, B.3.2,
+                      B.3.6, B.3.7, B.3.8, cap-window column of B.3.9.
+      py_tcm_burden — run_tcm at N=burden_N (canonical 30-year horizon).
+                      Drives lifetime/burden tables: B.3.3, B.3.4, B.3.5,
+                      lifetime column of B.3.9.
+    """
     py_lrr_fill = next((r for r in py_ssm if r.get('lrr_filled')), None)
 
     diffs    = [t['differential'] for t in p['tiers']]
@@ -222,7 +345,16 @@ def _b3_tcm(doc, p, py_ssm, py_tcm, tcm_N, tcm_win):
     blabels  = [b['label'] for b in p['brackets']]
     tweights = [t['weight'] for t in p['tiers']]
 
-    doc.h2(f'B.3 TCM Results — N={tcm_N} periods')
+    doc.h2(f'B.3 TCM Results — snapshot N={tcm_N} (cap. window) / N={burden_N} (lifetime)')
+    doc.note(
+        f'Two TCM horizons are used in this section. '
+        f'Capitalisation-window tables (§B.3.1, §B.3.2, §B.3.6–§B.3.9 cap-window column) '
+        f'use N={tcm_N} — the SSM LRR breakeven year. '
+        f'Lifetime and burden tables (§B.3.3, §B.3.4, §B.3.5, §B.3.9 lifetime column) '
+        f'use N={burden_N} — the canonical taxpayer horizon declared across VAL, RATES, '
+        f'SWEEPS, and WFR. Using N={tcm_N} for those tables would understate the burden '
+        f'by averaging tax over too few years and anchoring terminal wealth too early.'
+    )
     doc.blank()
 
     # B.3.1 — Net worth
@@ -259,24 +391,90 @@ def _b3_tcm(doc, p, py_ssm, py_tcm, tcm_N, tcm_win):
                         fmt=lambda v: _fmt_gbp(v))
 
     # B.3.3 — Annual wealth burden
-    doc.h3('B.3.3 Annual wealth burden (tax as % of net worth)')
-    doc.blank()
+    doc.h3(f'B.3.3 Annual wealth burden (tax as % of net worth) — N={burden_N}')
+    doc.note(
+        f'Average annual net tax as a percentage of terminal settlement wealth. '
+        f'Computed at N={burden_N} (canonical 30-year horizon): '
+        f'avg_net = total_net / (N+1); wealth_burden = avg_net / TW_settled. '
+        f'TW_settled is the post-settlement terminal wealth at year N={burden_N}.'
+    )
     _tier_bracket_table(doc, diffs, tlabels, blabels,
-                        field='wealth_burden', py_tcm=py_tcm,
+                        field='wealth_burden', py_tcm=py_tcm_burden,
                         fmt=lambda v: f'{v:.2%}')
 
-    # B.3.4 — Effective rate on gains
-    doc.h3('B.3.4 Effective rate on gains (tax as % of annual gain)')
-    doc.blank()
+    # Population-weighted burden summaries (computed once; reused at B.3.4)
+    _agg = _pop_weighted_burden(py_tcm_burden, p, burden_N)
+    doc.table(
+        ['Aggregation', 'Value', 'Interpretation'],
+        [
+            ['Population-weighted avg burden',
+             f'{_agg["pop_burden"]:.2%}',
+             'Σ(burden × headcount) / Σ headcount — each taxpayer counts once; '
+             'lower-wealth brackets dominate numerically'],
+            ['Revenue-weighted (wealth-weighted) burden',
+             f'{_agg["rev_burden"]:.2%}',
+             'Σ(avg_net_m × headcount) / Σ(TW × headcount) — burden as fraction '
+             'of aggregate terminal wealth; higher-wealth brackets dominate'],
+        ],
+        col_fmt=[LEFT, RIGHT, LEFT],
+    )
+    doc.note(
+        f'Both figures computed at N={burden_N}. '
+        f'The gap between them reflects wealth concentration: if returns were '
+        f'homogeneous the two would be equal; the higher-wealth tiers\' larger TW '
+        f'pulls the revenue-weighted figure relative to the headcount figure.'
+    )
+
+    # B.3.4 — Income-tax-analogue effective rate
+    doc.h3(f'B.3.4 Effective rate on lifetime gains (income-tax analogue) — N={burden_N}')
+    doc.note(
+        f'income_tax_rate = total_net_settled / (TW_settled − V₀). '
+        f'Numerator: total lifetime net WDT (including post-sale settlement oscillations). '
+        f'Denominator: net lifetime wealth gain — what the taxpayer ended up with above '
+        f'what they started with, after all tax cash flows have resolved. '
+        f'Directly comparable to an income or CGT rate. '
+        f'Cells showing "—" have TW_settled ≤ V₀ (net loss over the horizon; '
+        f'WDT issued net refunds, so no positive effective rate is defined). '
+        f'Computed at N={burden_N}.'
+    )
     _tier_bracket_table(doc, diffs, tlabels, blabels,
-                        field='eff_rate', py_tcm=py_tcm,
-                        fmt=lambda v: f'{v:.1%}')
+                        field='income_tax_rate', py_tcm=py_tcm_burden,
+                        fmt=lambda v: f'{v:.1%}' if v is not None else '—')
+
+    # Aggregated summary (reuses _agg computed at B.3.3)
+    def _fmt_itr(v): return f'{v:.1%}' if v is not None else '—'
+    doc.table(
+        ['Aggregation', 'Value', 'Interpretation'],
+        [
+            ['Population-weighted avg effective rate',
+             _fmt_itr(_agg['pop_itr']),
+             'Σ(income_tax_rate × headcount) / Σ headcount — cells with net '
+             'loss excluded; lower-wealth brackets dominate numerically'],
+            ['Gain-weighted effective rate',
+             _fmt_itr(_agg['rev_itr']),
+             'Σ(total_net_settled × headcount) / Σ(lifetime_gain × headcount) — '
+             'tax as fraction of aggregate lifetime wealth created; '
+             'higher-wealth brackets dominate'],
+        ],
+        col_fmt=[LEFT, RIGHT, LEFT],
+    )
+    doc.note(
+        f'Both figures computed at N={burden_N}, excluding cells where '
+        f'TW_settled ≤ V₀. The gain-weighted figure is the closer analogue '
+        f'to a statutory income tax rate applied to aggregate gains.'
+    )
 
     # B.3.5 — Lifetime average net tax
-    doc.h3('B.3.5 Average annual net tax per taxpayer — lifetime average (£/yr)')
-    doc.blank()
+    doc.h3(f'B.3.5 Average annual net tax per taxpayer — lifetime average (£/yr) — N={burden_N}')
+    doc.note(
+        f'Average annual net tax (total_net / (N+1)) per representative taxpayer '
+        f'over the full N={burden_N}-year horizon. '
+        f'Distinct from §B.3.2 (capitalisation-window average at N={tcm_N}): '
+        f'this figure reflects the long-run per-taxpayer cost across all years '
+        f'including pre-SRR-fill periods where rates are lower.'
+    )
     _tier_bracket_table(doc, diffs, tlabels, blabels,
-                        field='avg_net_gbp', py_tcm=py_tcm,
+                        field='avg_net_gbp', py_tcm=py_tcm_burden,
                         fmt=lambda v: _fmt_gbp(v))
 
     # B.3.6 — Population distribution
@@ -375,18 +573,23 @@ def _b3_tcm(doc, p, py_ssm, py_tcm, tcm_N, tcm_win):
 
     # B.3.9 — Revenue by tier
     doc.h3('B.3.9 Revenue by tier (£b/yr)')
-    doc.blank()
+    doc.note(
+        f'Lifetime avg column: revenue_m = (total_net / (N+1)) × bracket_pop × tier_weight, '
+        f'computed at N={burden_N} (canonical 30-year horizon). '
+        f'Capitalisation window avg column: post_fill_revenue_m averaged over the '
+        f'SRR→LRR window, computed at N={tcm_N} (SSM LRR breakeven year).'
+    )
     total_rev = 0.0
     rev_rows  = []
     for i, diff in enumerate(diffs):
-        subtotal    = sum(r['revenue_m']           for r in py_tcm[diff]) / 1000
-        pf_subtotal = sum(r['post_fill_revenue_m'] for r in py_tcm[diff]) / 1000
+        subtotal    = sum(r['revenue_m']           for r in py_tcm_burden[diff]) / 1000
+        pf_subtotal = sum(r['post_fill_revenue_m'] for r in py_tcm[diff])        / 1000
         total_rev  += subtotal
         rev_rows.append([tlabels[i], f'£{subtotal:,.1f}b', f'£{pf_subtotal:,.1f}b'])
     rev_rows.append(['**Total**', f'**£{total_rev:,.1f}b**',
                      f'**£{total_pf_rev:,.2f}b**'])
     doc.table(
-        ['Tier', 'Lifetime avg (£b/yr)', 'Capitalisation window avg (£b/yr)'],
+        ['Tier', f'Lifetime avg N={burden_N} (£b/yr)', f'Cap. window N={tcm_N} (£b/yr)'],
         rev_rows,
         col_fmt=[LEFT, RIGHT, RIGHT],
     )
@@ -668,8 +871,12 @@ def main():
     print(f"  SRR fill year: {py_srr_fill['year'] if py_srr_fill else '—'}")
     print(f"  LRR fill year: {ssm_lrr_N}  (used as TCM N)")
 
-    print(f'\nRunning TCM (N={ssm_lrr_N})...')
+    print(f'\nRunning TCM (N={ssm_lrr_N}, snapshot / LRR fill year)...')
     py_tcm = model.run_tcm(p, N=ssm_lrr_N, N_fill=ssm_srr_N)
+
+    _BURDEN_N = 30
+    print(f'\nRunning TCM for burden/lifetime tables (N={_BURDEN_N}, canonical horizon)...')
+    py_tcm_burden = model.run_tcm(p, N=_BURDEN_N, N_fill=ssm_srr_N)
 
     print('  Computing TCM coverage windows...')
     tcm_win = _tcm_coverage_windows(p, ssm_lrr_N, ssm_srr_N) if py_lrr_fill else None
@@ -690,7 +897,8 @@ def main():
     _out     = ensure_dir(Path(output_dir) if output_dir else _OUT)
     out_path = write_report(p, py_ssm, py_tcm, ssm_lrr_N,
                             sweep_extremals, stats,
-                            tcm_win=tcm_win, output_dir=_out)
+                            tcm_win=tcm_win, output_dir=_out,
+                            py_tcm_burden=py_tcm_burden, burden_N=_BURDEN_N)
     print(f'  Written: {out_path}')
     print('\nDone.')
 

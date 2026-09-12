@@ -16,12 +16,12 @@ The three complications (from LR.A §2.1):
 
 Structure
 ---------
-Part A  — Progressive rate function (logistic, from TOML)
-Part B  — C1: welfare cost of progression alone (single period)
-Part C  — C2: leverage extension — how debt changes the effective base
-Part D  — C3: two-period rate asymmetry — gain then loss
-Part E  — Combined: all three complications together
-Part F  — Comparison: progressive WDT vs flat WDT vs stock wealth tax
+Part B.1  — Progressive rate function (logistic, from TOML)
+Part B.2  — Welfare cost of progression alone (single period)
+Part B.3  — Leverage extension — how debt changes the effective base
+Part B.4  — Two-period rate asymmetry — gain then loss
+Part B.5  — Combined: all three complications together
+Part B.6  — Comparison: progressive WDT vs flat WDT vs stock wealth tax
 
 Outputs → model/OUTPUTS/WFR/module2/
 """
@@ -38,6 +38,13 @@ from dataclasses import dataclass
 from typing import Optional
 
 from welfare_paths import TOML_PATH, module_output_dir
+from wdt_fmt import fmt_pct, fmt_pct0, fmt_pct4, fmt_gbp_m
+from wdt_style import (
+    apply_style, save_fig,
+    FIG_SINGLE, FIG_PAIR, FIG_WIDE,
+    DPI_SCREEN,
+)
+
 from welfare_core import (
     load_params,
     make_empirical_distribution,
@@ -129,14 +136,14 @@ class ProgressiveRateFunction:
     def describe(self) -> str:
         return (
             f"Progressive Rate Function:\n"
-            f"  τ₀ = {self.tau0*100:.1f}%  (entry rate at W_min)\n"
-            f"  τ_m = {self.taum*100:.1f}%  (asymptotic ceiling)\n"
+            f"  τ₀ = {fmt_pct(self.tau0, dp=1)}  (entry rate at W_min)\n"
+            f"  τ_m = {fmt_pct(self.taum, dp=1)}  (asymptotic ceiling)\n"
             f"  k = {self.k}  (steepness)\n"
-            f"  W_min = £{self.W_min:,.0f}m\n"
-            f"  Rate at W_min:        {self.rate(self.W_min)*100:.2f}%\n"
-            f"  Rate at 2×W_min:      {self.rate(2*self.W_min)*100:.2f}%\n"
-            f"  Rate at 10×W_min:     {self.rate(10*self.W_min)*100:.2f}%\n"
-            f"  Rate at 100×W_min:    {self.rate(100*self.W_min)*100:.2f}%"
+            f"  W_min = {fmt_gbp_m(self.W_min, dp=0)}\n"
+            f"  Rate at W_min:        {fmt_pct(self.rate(self.W_min))}\n"
+            f"  Rate at 2×W_min:      {fmt_pct(self.rate(2*self.W_min))}\n"
+            f"  Rate at 10×W_min:     {fmt_pct(self.rate(10*self.W_min))}\n"
+            f"  Rate at 100×W_min:    {fmt_pct(self.rate(100*self.W_min))}"
         )
 
 
@@ -490,10 +497,9 @@ def run_c3_two_period(
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _save(fig, name: str):
-    path = os.path.join(OUTPUT_DIR, name)
-    fig.savefig(path, dpi=150, bbox_inches="tight")
-    plt.close(fig)
-    print(f"  Saved: {path}")
+    # DPI_SCREEN (150) is intentional for WFR preview outputs.
+    # Use save_fig(fig, path) directly (default DPI_PRINT=300) for publication.
+    save_fig(fig, OUTPUT_DIR / name, dpi=DPI_SCREEN)
 
 
 def chart_rate_function(rate_fn: ProgressiveRateFunction, W_min_m: float):
@@ -502,33 +508,35 @@ def chart_rate_function(rate_fn: ProgressiveRateFunction, W_min_m: float):
     rates  = [rate_fn.rate(W) * 100 for W in W_vals]
     W_plot = W_vals / W_min_m    # express as multiples of W_min
 
-    fig, ax = plt.subplots(figsize=(8, 5))
+    apply_style()
+    fig, ax = plt.subplots(figsize=FIG_SINGLE)
     ax.plot(W_plot, rates, color=COLOURS["progressive_wdt"], linewidth=2.5)
     ax.axhline(rate_fn.tau0 * 100, color="grey", linestyle="--", linewidth=1,
-               label=f"τ₀ = {rate_fn.tau0*100:.0f}% (entry rate)")
-    ax.axhline(rate_fn.taum * 100, color="#c0392b", linestyle="--", linewidth=1,
-               label=f"τ_m = {rate_fn.taum*100:.0f}% (ceiling)")
+               label=f"τ₀ = {fmt_pct0(rate_fn.tau0)} (entry rate)")
+    ax.axhline(rate_fn.taum * 100, color=COLOURS["stock_wealth"], linestyle="--", linewidth=1,
+               label=f"τ_m = {fmt_pct0(rate_fn.taum)} (ceiling)")
     ax.set_xlabel("Wealth as multiple of W_min (£2m threshold)", fontsize=9)
     ax.set_ylabel("Marginal WDT rate (%)", fontsize=9)
-    ax.set_title("Module 2, Part A: Progressive WDT Rate Function (Logistic)\n"
-                 f"τ₀={rate_fn.tau0*100:.0f}%, τ_m={rate_fn.taum*100:.0f}%, k={rate_fn.k}",
+    ax.set_title("Progressive WDT Rate Function (Logistic)\n"
+                 f"τ₀={fmt_pct0(rate_fn.tau0)}, τ_m={fmt_pct0(rate_fn.taum)}, k={rate_fn.k}",
                  fontsize=11, fontweight="bold")
     ax.yaxis.set_major_formatter(mtick.PercentFormatter())
     ax.legend(fontsize=8)
     ax.grid(axis="y", linestyle="--", alpha=0.4)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    _save(fig, "m2_chartA_rate_function.png")
+    _save(fig, "m2_fig_b0_rate_function.png")
 
 
 def chart_c1_welfare_gap(c1_results: dict):
     """Chart B: Flat vs progressive WDT CEW gap across γ and distributions."""
+    apply_style()
     dist_labels = list(c1_results.keys())
-    fig, axes = plt.subplots(1, len(dist_labels), figsize=(6 * len(dist_labels), 5), sharey=True)
+    fig, axes = plt.subplots(1, len(dist_labels), figsize=FIG_PAIR, sharey=True)
     if len(dist_labels) == 1:
         axes = [axes]
 
-    fig.suptitle("Module 2, C1: CEW — Flat WDT vs Progressive WDT\n"
+    fig.suptitle("B.1 CEW — Flat WDT vs Progressive WDT\n"
                  "(gap in basis points; positive = flat WDT better welfare)",
                  fontsize=11, fontweight="bold")
 
@@ -554,7 +562,7 @@ def chart_c1_welfare_gap(c1_results: dict):
 
     axes[-1].legend(fontsize=8)
     fig.tight_layout()
-    _save(fig, "m2_chartB_c1_flat_vs_progressive.png")
+    _save(fig, "m2_fig_b1_flat_vs_progressive.png")
 
 
 def chart_c2_leverage(leverage_results: list):
@@ -564,8 +572,9 @@ def chart_c2_leverage(leverage_results: list):
     et_nw      = [r["et_nw"] for r in leverage_results]
     et_ar      = [r["et_ar"] for r in leverage_results]
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-    fig.suptitle("Module 2, C2: Leverage Effect on WDT Tax Base\n"
+    apply_style()
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=FIG_WIDE)
+    fig.suptitle("B.2 Leverage Effect on WDT Tax Base\n"
                  "(Net-worth base vs hypothetical asset-return base)",
                  fontsize=11, fontweight="bold")
 
@@ -592,17 +601,20 @@ def chart_c2_leverage(leverage_results: list):
     ax2.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "m2_chartC_c2_leverage.png")
+    _save(fig, "m2_fig_b2_leverage.png")
 
 
 def chart_c3_asymmetry(c3_results: list, W0_vals: list):
-    """Chart D: C3 rate asymmetry — net tax excess over flat, by initial wealth."""
+    """Chart D: C3 rate asymmetry — net tax excess over flat, by initial wealth.
+    W0_vals is already in £m (W_min * multiplier, W_min = 2.0 £m).
+    """
     excess = [r["net_tax_excess"] for r in c3_results]
     asym   = [r["rate_asymmetry"] * 100 for r in c3_results]
-    W_plot = [w / 1e6 for w in W0_vals]    # express in £m
+    W_plot = list(W0_vals)    # already in £m — no unit conversion needed
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-    fig.suptitle("Module 2, C3: Two-Period Rate Asymmetry\n"
+    apply_style()
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=FIG_WIDE)
+    fig.suptitle("B.3 Two-Period Rate Asymmetry\n"
                  "(Gain in period 1, loss in period 2)",
                  fontsize=11, fontweight="bold")
 
@@ -610,7 +622,7 @@ def chart_c3_asymmetry(c3_results: list, W0_vals: list):
              linewidth=2, markersize=7)
     ax1.axhline(0, color="black", linewidth=0.8, linestyle="--", alpha=0.5)
     ax1.set_xlabel("Initial wealth W₀ (£m)", fontsize=9)
-    ax1.set_ylabel("Net tax excess vs flat rate (£)", fontsize=9)
+    ax1.set_ylabel("Net tax excess vs flat rate (£m)", fontsize=9)
     ax1.set_title("Extra tax from progression (gain-then-loss path)", fontsize=9)
     ax1.grid(axis="y", linestyle="--", alpha=0.4)
     ax1.spines["top"].set_visible(False)
@@ -627,7 +639,7 @@ def chart_c3_asymmetry(c3_results: list, W0_vals: list):
     ax2.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "m2_chartD_c3_asymmetry.png")
+    _save(fig, "m2_fig_b3_asymmetry.png")
 
 
 def chart_combined_comparison(
@@ -644,7 +656,8 @@ def chart_combined_comparison(
     values = [cew_flat_wdt * 100, cew_prog_wdt * 100, cew_stock * 100]
     colors = [COLOURS["flat_wdt"], COLOURS["progressive_wdt"], COLOURS["stock_wealth"]]
 
-    fig, ax = plt.subplots(figsize=(8, 5))
+    apply_style()
+    fig, ax = plt.subplots(figsize=FIG_SINGLE)
     bars = ax.bar(labels, values, color=colors, edgecolor="white",
                   linewidth=0.8, alpha=0.88, width=0.5)
 
@@ -657,7 +670,7 @@ def chart_combined_comparison(
     ax.axhline(0, color="black", linewidth=0.8)
     ax.set_ylabel("CEW vs No-Tax (%)", fontsize=9)
     ax.set_title(
-        f"Module 2, Part F: Progressive WDT vs Flat WDT vs Stock Wealth Tax\n"
+        f"B.4 Progressive WDT vs Flat WDT vs Stock Wealth Tax\n"
         f"γ = {gamma} | {dist_label[:50]}",
         fontsize=10, fontweight="bold"
     )
@@ -666,7 +679,7 @@ def chart_combined_comparison(
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     fig.tight_layout()
-    _save(fig, f"m2_chartE_combined_gamma{int(gamma)}.png")
+    _save(fig, f"m2_fig_b4_combined_gamma{int(gamma)}.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -675,7 +688,7 @@ def chart_combined_comparison(
 
 def print_c1_table(c1_results: dict):
     print("\n" + "=" * 80)
-    print("C1: PROGRESSION — Flat WDT vs Progressive WDT (revenue-equivalent comparison)")
+    print("PROGRESSION — Flat WDT vs Progressive WDT (revenue-equivalent comparison)")
     print("Flat rate solved to match progressive E[T], not the 2%-of-W₀ global target.")
     print("=" * 80)
     print(f"{'Distribution':38s} {'γ':>4} {'Flat CEW':>10} {'Prog CEW':>10} "
@@ -687,10 +700,10 @@ def print_c1_table(c1_results: dict):
             flag   = "" if r.get("revenue_matched", True) else " [!]"
             print(
                 f"{dist_label[:38]:38s} {g:>4.1f} "
-                f"{r['cew_flat']*100:>9.4f}% "
-                f"{r['cew_progressive']*100:>9.4f}% "
+                f"{fmt_pct4(r['cew_flat']):>10} "
+                f"{fmt_pct4(r['cew_progressive']):>10} "
                 f"{r['cew_gap_bp']:>+10.2f} "
-                f"{r['et_progressive']:>12.4f}m "
+                f"{fmt_gbp_m(r['et_progressive'], dp=4):>13} "
                 f"{et_dev:>+12.4f}m{flag}"
             )
     print("  [!] = et_prog <= 0; flat calibrated to 2% target instead (comparison not clean)")
@@ -699,20 +712,21 @@ def print_c1_table(c1_results: dict):
 
 def print_c3_table(c3_results: list, W0_vals: list, gamma: float):
     print("\n" + "=" * 70)
-    print(f"C3: TWO-PERIOD ASYMMETRY (γ={gamma})")
+    print(f"TWO-PERIOD ASYMMETRY (γ={gamma})")
     print("Sequence: +11.5% gain then −8.3% loss (empirical mean ± 1σ)")
     print("=" * 70)
     print(f"{'W₀ (£m)':>10} {'τ_gain':>8} {'τ_refund':>10} {'Asym (pp)':>10} "
           f"{'Net tax prog':>14} {'Net tax flat':>14} {'Excess':>10}")
     print("-" * 70)
     for W0, r in zip(W0_vals, c3_results):
+        # W0 is already in £m (W_min * multiplier, W_min = 2.0 £m)
         print(
-            f"{W0/1e6:>10.1f} "
-            f"{r['tau1_progressive']*100:>7.2f}% "
-            f"{r['tau2_progressive']*100:>9.2f}% "
+            f"{W0:>10.1f} "
+            f"{fmt_pct(r['tau1_progressive']):>8} "
+            f"{fmt_pct(r['tau2_progressive']):>10} "
             f"{r['rate_asymmetry']*100:>+9.2f}pp "
-            f"{r['net_tax_prog']:>14.4f} "
-            f"{r['net_tax_flat']:>14.4f} "
+            f"{fmt_gbp_m(r['net_tax_prog'], dp=4):>14} "
+            f"{fmt_gbp_m(r['net_tax_flat'], dp=4):>14} "
             f"{r['net_tax_excess']:>+10.4f}"
         )
     print()
@@ -724,13 +738,13 @@ def print_findings(c1_results, c3_results, W0_vals, p):
     print("=" * 70)
 
     findings = [
-        "1. C1 (PROGRESSION EFFECT): The progressive rate function reduces the "
+        "1. (PROGRESSION EFFECT): The progressive rate function reduces the "
         "symmetric WDT's welfare advantage by a small but measurable amount "
         "relative to the flat-rate benchmark from Module 1. The gap grows "
         "with γ — more risk-averse agents are more affected by the reduced "
         "variance-compression efficiency under progressive rates.",
 
-        "2. C2 (LEVERAGE): The net-worth delta base and the asset-return base "
+        "2. (LEVERAGE): The net-worth delta base and the asset-return base "
         "diverge as leverage increases. For unlevered agents they are identical. "
         "For agents with significant debt (e.g. property developers, LBO "
         "structures), the WDT taxes a larger effective base in rising markets "
@@ -738,7 +752,7 @@ def print_findings(c1_results, c3_results, W0_vals, p):
         "The direction of the welfare effect depends on the correlation between "
         "asset returns and debt servicing costs.",
 
-        "3. C3 (RATE ASYMMETRY): In a gain-then-loss sequence, the progressive "
+        "3. (RATE ASYMMETRY): In a gain-then-loss sequence, the progressive "
         "WDT taxes at a high rate in the gain period and refunds at a lower rate "
         "in the loss period. The net tax exceeds the flat-rate equivalent, and "
         "the excess grows with initial wealth (higher bracket entry). This is "
@@ -750,10 +764,10 @@ def print_findings(c1_results, c3_results, W0_vals, p):
         "attenuated by progression but not eliminated. The progressive WDT sits "
         "between the flat WDT (best) and the stock wealth tax (worst) on CEW.",
 
-        "5. MODULE 3 IMPLICATION: The C3 asymmetry is largest for agents at "
+        "5. (WFR.A §C) IMPLICATION: The (RATE ASYMMETRY) is largest for agents at "
         "the top of the wealth distribution — the same agents who face the most "
         "concentrated single-asset exposure (private company equity, Route D). "
-        "This connects to the Module 3 lock-in analysis: the C3 asymmetry "
+        "This connects to the Module 3 lock-in analysis: the (RATE ASYMMETRY) "
         "strengthens the case for Route D deferral for non-fungible assets.",
     ]
 
@@ -825,7 +839,7 @@ def main():
         )
         r = run_c2_leverage(agent, dist_A, rate_fn, gamma=2.0)
         lev_results.append(r)
-        print(f"  Leverage {lev*100:4.0f}%: W₀=£{r['W0']/1e6:.2f}m  "
+        print(f"  Leverage {lev*100:4.0f}%: W₀={fmt_gbp_m(r['W0']/1e6)}  "
               f"E[T]_nw={r['et_nw']:.4f}  E[T]_ar={r['et_ar']:.4f}  "
               f"CEW gap={r['cew_gap_bp']:+.2f}bp")
 

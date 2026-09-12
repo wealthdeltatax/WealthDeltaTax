@@ -104,6 +104,11 @@ def fmt_pct0(v) -> str:
     return fmt_pct(v, dp=0)
 
 
+def fmt_pct4(v) -> str:
+    """fmt_pct(v, dp=4) — shorthand for 4dp CEW/welfare values."""
+    return fmt_pct(v, dp=4)
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # CURRENCY FORMATTING
 # ─────────────────────────────────────────────────────────────────────────────

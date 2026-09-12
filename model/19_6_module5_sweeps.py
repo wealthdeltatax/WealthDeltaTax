@@ -5,15 +5,14 @@ Module 5: Welfare Sweep Analysis
 
 Three independent sweep axes, each isolating a distinct source of
 variation in the welfare comparison:
-
-Sweep A — Revenue target (E[T] as % of W₀)
+E.1 Revenue target (E[T] as % of W₀)
     Question: how sensitive are the welfare rankings and magnitudes to
     the assumed revenue level? Runs the full Module 1 comparison at
     E[T] = 1%, 2%, 3%, 4%, 5% of W₀. All five systems. Both distributions.
     γ = 1, 2, 4. This sweep is parameter-free — it establishes the structural
     result across the realistic range of real-world effective tax burdens.
 
-Sweep B — Start year (worst-case scenario analysis)
+E.2 Start year (worst-case scenario analysis)
     Question: which historical sequences are worst-case for each system,
     and does the WDT's structural advantage survive them? Runs the Module 1
     comparison for every possible 30-year window within the 73-year series
@@ -22,7 +21,7 @@ Sweep B — Start year (worst-case scenario analysis)
     for the six historically adverse start years identified in the TOML.
     Revenue target fixed at 2% of W₀ (canonical). γ = 2 (central case).
 
-Sweep C — Rate parameter sensitivity
+E.3 Rate parameter sensitivity
     Question: across the feasible parameter space (τ₀, τ_m, k, W_min), when
     does the progressive WDT have materially higher welfare cost than the
     revenue-equivalent flat WDT, and when does it not? Single-parameter
@@ -32,16 +31,15 @@ Sweep C — Rate parameter sensitivity
     is always revenue-equivalent.
 
 Outputs → OUTPUTS/WFR/module5/
-    Charts:  m5_sweepA_revenue_target.png
-             m5_sweepB_start_year_distribution.png
-             m5_sweepB_worst_case_table.png
-             m5_sweepC_tau0.png
-             m5_sweepC_taum.png
-             m5_sweepC_k.png
-             m5_sweepC_wmin.png
-    Tables:  WFR_S1_revenue_sweep.md
-             WFR_S2_start_year_worst_case.md
-             WFR_S3_parameter_sensitivity.md
+    Charts:  E.1   m5_fig_e1_revenue_target.png
+             E.1b  m5_fig_e1b_w0_sensitivity.png
+             E.2.1 m5_fig_e2a_start_year_distribution.png
+             E.2.2 m5_fig_e2b_timeseries.png
+             E.3.1 m5_fig_e3a_tau0.png
+             E.3.2 m5_fig_e3b_taum.png
+             E.3.3 m5_fig_e3c_k.png
+             E.3.4 m5_fig_e3d_wmin.png
+
 """
 
 import os
@@ -62,6 +60,7 @@ from welfare_core import (
     ReturnDistribution,
     make_empirical_distribution_scenario,
     make_idealised_distribution_scenario,
+    make_empirical_distribution_for_start,
     make_scenario_sequence,
     run_welfare_comparison,
     consumption_equiv_welfare,
@@ -73,14 +72,19 @@ from welfare_core import (
     solve_revenue_equivalent_rate,
 )
 
-import importlib, sys
-_mod = importlib.import_module('19_3_module2_progression')
-ProgressiveRateFunction = _mod.ProgressiveRateFunction
-expected_utility_progressive = _mod.expected_utility_progressive
-expected_tax_progressive = _mod.expected_tax_progressive
+from welfare_progressive import (
+    ProgressiveRateFunction,
+    expected_utility_progressive,
+    expected_tax_progressive,
+)
 
 from wdt_md import MdDoc, md_table, LEFT, RIGHT, CENTER
-from wdt_fmt import fmt_pct, today_iso
+from wdt_fmt import fmt_pct, fmt_pct0, fmt_pct4, fmt_gbp_m, today_iso
+from wdt_style import (
+    apply_style, save_fig,
+    FIG_PAIR, FIG_WIDE, FIG_WIDE_L, FIG_QUAD,
+    DPI_SCREEN,
+)
 
 OUTPUT_DIR = module_output_dir("module5")
 
@@ -107,12 +111,6 @@ MARKERS = {
     "cgt"           : "D",
     "consumption"   : "P",
 }
-
-try:
-    from wdt_fmt import fmt_pct4
-except ImportError:
-    def fmt_pct4(v):
-        return "—" if v is None else f"{v*100:.4f}%"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -228,10 +226,9 @@ def run_progressive_cew(
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _save(fig, name):
-    path = os.path.join(OUTPUT_DIR, name)
-    fig.savefig(path, dpi=150, bbox_inches="tight")
-    plt.close(fig)
-    print(f"  Saved: {path}")
+    # DPI_SCREEN (150) is intentional for WFR preview outputs.
+    # Use save_fig(fig, path) directly (default DPI_PRINT=300) for publication.
+    save_fig(fig, OUTPUT_DIR / name, dpi=DPI_SCREEN)
 
 
 def _style_ax(ax, title="", xlabel="", ylabel=""):
@@ -246,26 +243,12 @@ def _style_ax(ax, title="", xlabel="", ylabel=""):
 
 def _make_dist_for_start(p, start_year, N):
     """
-    Build a ReturnDistribution for a given start year by temporarily
-    overriding the scenario_start_year in p, without mutating p permanently.
+    Build a ReturnDistribution for a given start year.
+    Delegates to welfare_core.make_empirical_distribution_for_start so the
+    rotation logic is not duplicated here.
+    Returns (dist, seq) or (None, None) if start_year is out of range.
     """
-    base = p["returns"]["series_base_year"]
-    offset = start_year - base
-    if not (0 <= offset < len(p["returns"]["array"])):
-        return None, None
-
-    full  = p["returns"]["array"]
-    total = len(full)
-    indices = [(offset + i) % total for i in range(N)]
-    seq = full[indices]
-    gross = 1.0 + seq
-    probs = np.full(N, 1.0 / N)
-    dist = ReturnDistribution(
-        returns=gross,
-        probs=probs,
-        label=f"Ver. A — {start_year}–{start_year+N-1} ({N} obs)"
-    )
-    return dist, seq
+    return make_empirical_distribution_for_start(p, start_year, N)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -316,9 +299,10 @@ def chart_sweep_a(results):
     dist_names  = {"A": "Ver. A (Empirical)", "B": "Ver. B (Idealised)"}
     target_pcts = sorted(results.keys())
 
-    fig, axes = plt.subplots(1, 2, figsize=(14, 5), sharey=True)
+    apply_style()
+    fig, axes = plt.subplots(1, 2, figsize=FIG_PAIR, sharey=True)
     fig.suptitle(
-        "Module 5, Sweep A: CEW vs Revenue Target (E[T] as % of W₀)\n"
+        "E.1 CEW vs Revenue Target (E[T] as % of W₀)\n"
         f"γ = {gamma} | All systems revenue-equivalent",
         fontsize=11, fontweight="bold"
     )
@@ -343,32 +327,7 @@ def chart_sweep_a(results):
 
     axes[1].legend(fontsize=8, loc="lower left")
     fig.tight_layout()
-    _save(fig, "m5_sweepA_revenue_target.png")
-
-
-def table_sweep_a(results):
-    """
-    Markdown table: rows = (dist, system), columns = revenue target %.
-    γ = 2 only to keep the table readable.
-    """
-    gamma       = GAMMA_CEN
-    target_pcts = sorted(results.keys())
-    headers     = ["Distribution", "System"] + [f"E[T]={p:.0f}%" for p in target_pcts]
-    col_fmt     = [LEFT, LEFT] + [RIGHT] * len(target_pcts)
-    rows        = []
-
-    for dlabel in ["A", "B"]:
-        dist_name = "Ver. A" if dlabel == "A" else "Ver. B"
-        for name in SYSTEMS_ORD:
-            row = [dist_name, SYSTEM_LABELS[name]]
-            for pct in target_pcts:
-                v = results[pct][dlabel][gamma].get(name)
-                row.append(fmt_pct4(v))
-            rows.append(row)
-        rows.append([""] * len(headers))  # blank separator row
-
-    return md_table(headers, rows[:-1], col_fmt=col_fmt)
-
+    _save(fig, "m5_fig_e1_revenue_target.png")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # SWEEP B — Start year
@@ -420,9 +379,10 @@ def chart_sweep_b_distribution(full_results):
     Shows the full range of welfare outcomes the model produces across all
     historical sequences — the key robustness chart.
     """
-    fig, ax = plt.subplots(figsize=(12, 6))
+    apply_style()
+    fig, ax = plt.subplots(figsize=FIG_WIDE)
     fig.suptitle(
-        "Module 5, Sweep B: CEW Distribution Across All Start Years (1947–2019)\n"
+        "E.2.1 CEW Distribution Across All Start Years (1947–2019)\n"
         f"30-year windows with wrap-around | E[T] = 2% of W₀ | γ = {GAMMA_CEN}",
         fontsize=11, fontweight="bold"
     )
@@ -473,7 +433,7 @@ def chart_sweep_b_distribution(full_results):
             color=COLOURS["symmetric_wdt"])
 
     fig.tight_layout()
-    _save(fig, "m5_sweepB_start_year_distribution.png")
+    _save(fig, "m5_fig_e2a_start_year_distribution.png")
 
 
 def chart_sweep_b_timeseries(full_results):
@@ -482,10 +442,11 @@ def chart_sweep_b_timeseries(full_results):
     Shows how welfare costs track historical return sequences.
     Highlights curated worst-case years.
     """
+    apply_style()
     years    = sorted(full_results.keys())
-    fig, ax  = plt.subplots(figsize=(14, 6))
+    fig, ax  = plt.subplots(figsize=FIG_WIDE_L)
     fig.suptitle(
-        "Module 5, Sweep B: CEW by Start Year — All Historical Windows\n"
+        "E.2.2 CEW by Start Year — All Historical Windows\n"
         f"E[T] = 2% of W₀ | γ = {GAMMA_CEN} | 30-year windows",
         fontsize=11, fontweight="bold"
     )
@@ -511,82 +472,7 @@ def chart_sweep_b_timeseries(full_results):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     fig.tight_layout()
-    _save(fig, "m5_sweepB_timeseries.png")
-
-
-def table_sweep_b_worst_case(full_results, curated_years):
-    """
-    Table: curated worst-case start years. Rows = start year.
-    Columns = system CEW + WDT advantage over stock wealth tax.
-    Includes the canonical 2000 for reference even if not in curated list.
-    """
-    all_display = sorted(set(curated_years) | {2000})
-    headers = (
-        ["Start year"]
-        + [SYSTEM_LABELS[n].replace(" (flat)", "").replace(" (no refund)", "")
-           for n in SYSTEMS_ORD]
-        + ["WDT adv. vs Stock (bp)"]
-    )
-    col_fmt = [LEFT] + [RIGHT] * (len(SYSTEMS_ORD) + 1)
-    rows    = []
-
-    for yr in all_display:
-        if yr not in full_results:
-            continue
-        yr_res = full_results[yr]
-        wdt_c  = yr_res.get("symmetric_wdt")
-        sw_c   = yr_res.get("stock_wealth")
-        adv    = ((wdt_c - sw_c) * 10000) if (wdt_c and sw_c) else None
-
-        row = [str(yr) + (" ◄ canonical" if yr == 2000 else "")]
-        for name in SYSTEMS_ORD:
-            row.append(fmt_pct4(yr_res.get(name)))
-        row.append(f"{adv:+.1f}" if adv is not None else "—")
-        rows.append(row)
-
-    return md_table(headers, rows, col_fmt=col_fmt)
-
-
-def table_sweep_b_summary(full_results):
-    """
-    Summary statistics: min, median, mean, max CEW per system across all start years.
-    Plus: fraction of start years where WDT is ranked best.
-    """
-    headers = ["System", "Min CEW", "Median CEW", "Mean CEW", "Max CEW",
-               "WDT best? (% of years)"]
-    col_fmt = [LEFT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT]
-    rows    = []
-
-    all_years = sorted(full_results.keys())
-    wdt_best_count = 0
-    for yr in all_years:
-        yr_res = full_results[yr]
-        valid  = {n: yr_res[n] for n in SYSTEMS_ORD if yr_res.get(n) is not None}
-        if valid:
-            best = max(valid, key=valid.get)
-            if best == "symmetric_wdt":
-                wdt_best_count += 1
-
-    wdt_best_pct = wdt_best_count / len(all_years) * 100 if all_years else 0
-
-    for name in SYSTEMS_ORD:
-        vals = [full_results[yr].get(name)
-                for yr in all_years
-                if full_results[yr].get(name) is not None]
-        if not vals:
-            rows.append([SYSTEM_LABELS[name]] + ["—"] * 5)
-            continue
-
-        rows.append([
-            SYSTEM_LABELS[name],
-            fmt_pct4(min(vals)),
-            fmt_pct4(float(np.median(vals))),
-            fmt_pct4(float(np.mean(vals))),
-            fmt_pct4(max(vals)),
-            f"{wdt_best_pct:.1f}%" if name == "symmetric_wdt" else "—",
-        ])
-
-    return md_table(headers, rows, col_fmt=col_fmt)
+    _save(fig, "m5_fig_e2b_timeseries.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -640,7 +526,20 @@ def chart_sweep_c_param(sweep_results, param_name, param_vals, W0_vals, param_la
     Line chart: progressive-vs-flat CEW gap (bp) vs parameter value.
     One line per W₀. Positive gap = flat WDT has lower welfare cost.
     """
-    fig, ax = plt.subplots(figsize=(9, 5))
+    # Canonical filename and chart-number for each parameter — matches docstring.
+    _PARAM_META = {
+        "tau_0": ("m5_fig_e3a_tau0.png",  "E.3.1"),
+        "tau_m": ("m5_fig_e3b_taum.png",  "E.3.2"),
+        "k":     ("m5_fig_e3c_k.png",     "E.3.3"),
+        "W_min": ("m5_fig_e3d_wmin.png",  "E.3.4"),
+    }
+    filename, chart_num = _PARAM_META.get(
+        param_name,
+        (f"m5_fig_e3x_{param_name}.png", "E.3.x"),
+    )
+
+    apply_style()
+    fig, ax = plt.subplots(figsize=FIG_WIDE)
 
     W0_colours = {
         3.0:   "#c0392b",
@@ -662,7 +561,7 @@ def chart_sweep_c_param(sweep_results, param_name, param_vals, W0_vals, param_la
     ax.set_xlabel(param_label, fontsize=9)
     ax.set_ylabel("Flat WDT − Progressive WDT (basis points)\nPositive = flat cheaper", fontsize=9)
     ax.set_title(
-        f"Module 5, Sweep C: Progressive vs Flat WDT — {param_label} sensitivity\n"
+        f"{chart_num} Progressive vs Flat WDT — {param_label} sensitivity\n"
         f"Revenue-equivalent comparison | E[T] = 2% of W₀ | γ = {GAMMA_CEN}",
         fontsize=10, fontweight="bold"
     )
@@ -671,32 +570,8 @@ def chart_sweep_c_param(sweep_results, param_name, param_vals, W0_vals, param_la
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     fig.tight_layout()
-    _save(fig, f"m5_sweepC_{param_name.replace('_','')}.png")
+    _save(fig, filename)
 
-
-def table_sweep_c(all_param_results, param_configs, W0_vals):
-    """
-    One table per parameter: gap_bp at each (param_val, W0) combination.
-    Returns dict: {param_name: markdown_table_str}
-    """
-    tables = {}
-    for param_name, param_vals, param_label in param_configs:
-        headers = [param_label] + [f"W₀=£{W0:.0f}m" for W0 in W0_vals]
-        col_fmt = [LEFT] + [RIGHT] * len(W0_vals)
-        rows    = []
-        for pval in param_vals:
-            row = [f"{pval}"]
-            for W0 in W0_vals:
-                gap = all_param_results[param_name][W0].get(pval)
-                row.append(f"{gap:+.2f}" if gap is not None else "—")
-            rows.append(row)
-        tables[param_name] = md_table(headers, rows, col_fmt=col_fmt)
-    return tables
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# SWEEP A — additional: W0 sensitivity at canonical target
-# ─────────────────────────────────────────────────────────────────────────────
 
 def run_sweep_a_w0(p):
     """
@@ -727,9 +602,10 @@ def run_sweep_a_w0(p):
 
 def chart_sweep_a_w0(w0_results, W0_vals):
     """CEW vs W₀ for all systems. Shows wealth-level dependence."""
-    fig, ax = plt.subplots(figsize=(10, 5))
+    apply_style()
+    fig, ax = plt.subplots(figsize=FIG_WIDE)
     fig.suptitle(
-        "Module 5, Sweep A: CEW vs Initial Wealth W₀\n"
+        "E.1.1 CEW vs Initial Wealth W₀\n"
         f"E[T] = 2% of W₀ | γ = {GAMMA_CEN} | Ver. A distribution",
         fontsize=11, fontweight="bold"
     )
@@ -750,7 +626,7 @@ def chart_sweep_a_w0(w0_results, W0_vals):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     fig.tight_layout()
-    _save(fig, "m5_sweepA_w0_sensitivity.png")
+    _save(fig, "m5_fig_e1b_w0_sensitivity.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -870,10 +746,10 @@ def write_tables(
     rp = p["rate"]
     doc.add("| Parameter | Canonical value |")
     doc.add("|:---|---:|")
-    doc.add(f"| τ₀ | {rp['tau_0']*100:.0f}% |")
-    doc.add(f"| τ_m | {rp['tau_m']*100:.0f}% |")
+    doc.add(f"| τ₀ | {fmt_pct0(rp['tau_0'])} |")
+    doc.add(f"| τ_m | {fmt_pct0(rp['tau_m'])} |")
     doc.add(f"| k | {rp['k']} per £m |")
-    doc.add(f"| W_min | £{rp['W_min']:.0f}m |")
+    doc.add(f"| W_min | {fmt_gbp_m(rp['W_min'], dp=0)} |")
     doc.add(f"| canonical_N | {p['tcm']['canonical_N']} years |")
     doc.add(f"| scenario_start_year | {p['tcm']['scenario_start_year']} |")
     doc.add(f"| γ (central) | {GAMMA_CEN} |")
@@ -943,19 +819,8 @@ def main():
         all_param_results[param_name] = res
         chart_sweep_c_param(res, param_name, param_vals, W0_sweep_c, param_label)
 
-    sweep_c_tables = table_sweep_c(
-        all_param_results, param_configs, W0_sweep_c
-    )
-
-    # ── Write tables ──────────────────────────────────────────────────────────
-    print("\n--- Writing tables ---")
-    out_path = write_tables(
-        sweep_a_results, sweep_b_full, sweep_b_curated,
-        sweep_c_tables, p
-    )
 
     print(f"\n✓ Module 5 complete.")
-    print(f"  Tables:  {out_path}")
     print(f"  Charts:  {OUTPUT_DIR}")
 
 

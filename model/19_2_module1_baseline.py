@@ -29,6 +29,13 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 from pathlib import Path
 
+from wdt_fmt import fmt_pct, fmt_pct0
+from wdt_style import (
+    apply_style, save_fig,
+    FIG_PAIR, FIG_WIDE_L, FIG_QUAD,
+    DPI_SCREEN,
+)
+
 from welfare_core import (
     load_params,
     make_empirical_distribution,
@@ -81,10 +88,9 @@ MARKERS = {
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _save(fig, name: str):
-    path = os.path.join(OUTPUT_DIR, name)
-    fig.savefig(path, dpi=150, bbox_inches="tight")
-    plt.close(fig)
-    print(f"  Saved: {path}")
+    # DPI_SCREEN (150) is intentional for WFR preview outputs.
+    # Use save_fig(fig, path) directly (default DPI_PRINT=300) for publication.
+    save_fig(fig, OUTPUT_DIR / name, dpi=DPI_SCREEN)
 
 
 def _style_ax(ax, title: str, xlabel: str = "", ylabel: str = ""):
@@ -108,13 +114,14 @@ def chart_cew_by_gamma(all_results: dict):
     dist_labels = list(all_results.keys())
     n_panels = len(dist_labels)
 
-    fig, axes = plt.subplots(1, n_panels, figsize=(6 * n_panels, 5), sharey=True)
+    apply_style()
+    fig, axes = plt.subplots(1, n_panels, figsize=FIG_PAIR, sharey=True)
     if n_panels == 1:
         axes = [axes]
 
     fig.suptitle(
-        "Module 1: CEW vs No-Tax Benchmark — by Risk Aversion (γ)\n"
-        f"Revenue target E[T] = {TARGET_ET*100:.0f}% of W₀",
+        "A.1 CEW vs No-Tax Benchmark — by Risk Aversion (γ)\n"
+        f"Revenue target E[T] = {fmt_pct0(TARGET_ET)} of W₀",
         fontsize=12, fontweight="bold"
     )
 
@@ -139,7 +146,7 @@ def chart_cew_by_gamma(all_results: dict):
 
     axes[-1].legend(fontsize=8, loc="lower right")
     fig.tight_layout()
-    _save(fig, "m1_chart1_cew_by_gamma.png")
+    _save(fig, "m1_fig_a1_cew_by_gamma.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -151,13 +158,14 @@ def chart_variance(all_results: dict):
     dist_labels = list(all_results.keys())
     gamma = 2.0
 
-    fig, axes = plt.subplots(1, len(dist_labels), figsize=(6 * len(dist_labels), 5), sharey=False)
+    apply_style()
+    fig, axes = plt.subplots(1, len(dist_labels), figsize=FIG_PAIR, sharey=False)
     if len(dist_labels) == 1:
         axes = [axes]
 
     fig.suptitle(
-        "Module 1: Variance of Consumption by Tax System\n"
-        f"(γ = {gamma}, E[T] = {TARGET_ET*100:.0f}% of W₀)",
+        "A.2 Variance of Consumption by Tax System\n"
+        f"(γ = {gamma}, E[T] = {fmt_pct0(TARGET_ET)} of W₀)",
         fontsize=12, fontweight="bold"
     )
 
@@ -188,7 +196,7 @@ def chart_variance(all_results: dict):
         _style_ax(ax, dist_label[:55], ylabel="Var(consumption)")
 
     fig.tight_layout()
-    _save(fig, "m1_chart2_variance.png")
+    _save(fig, "m1_fig_a2_variance.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -214,9 +222,10 @@ def chart_yearby_year(dist_A, results_A_gamma2: dict, scenario_years: list):
 
     systems_to_show = ["symmetric_wdt", "stock_wealth", "income"]
 
-    fig, axes = plt.subplots(3, 1, figsize=(14, 9), sharex=True)
+    apply_style()
+    fig, axes = plt.subplots(3, 1, figsize=FIG_QUAD, sharex=True)
     fig.suptitle(
-        f"Module 1: Annual Tax Paid (+) / Refund Received (−) per £1 of W₀\n"
+        f"A.3 Annual Tax Paid (+) / Refund Received (−) per £1 of W₀\n"
         f"Version A — UK Equity {years[0]}–{years[-1]} ({N} obs, scenario)",
         fontsize=12, fontweight="bold"
     )
@@ -244,7 +253,7 @@ def chart_yearby_year(dist_A, results_A_gamma2: dict, scenario_years: list):
     fig.text(0.01, 0.5, f"Dotted lines = negative return years: {neg_year_note}",
              va="center", rotation="vertical", fontsize=7, color="grey")
     fig.tight_layout(rect=[0.02, 0, 1, 1])
-    _save(fig, "m1_chart3_annual_tax.png")
+    _save(fig, "m1_fig_a3_annual_tax.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -260,12 +269,13 @@ def chart_wdt_advantage(all_results: dict):
     dist_labels = list(all_results.keys())
     competitors = ["stock_wealth", "income", "cgt", "consumption"]
 
-    fig, axes = plt.subplots(1, len(dist_labels), figsize=(6 * len(dist_labels), 5), sharey=True)
+    apply_style()
+    fig, axes = plt.subplots(1, len(dist_labels), figsize=FIG_PAIR, sharey=True)
     if len(dist_labels) == 1:
         axes = [axes]
 
     fig.suptitle(
-        "Module 1: WDT Welfare Advantage over Competitors\n"
+        "A.4 WDT Welfare Advantage over Competitors\n"
         "(CEW_WDT − CEW_competitor, in basis points; positive = WDT better)",
         fontsize=12, fontweight="bold"
     )
@@ -301,7 +311,7 @@ def chart_wdt_advantage(all_results: dict):
 
     axes[-1].legend(fontsize=8, loc="upper left")
     fig.tight_layout()
-    _save(fig, "m1_chart4_wdt_advantage.png")
+    _save(fig, "m1_fig_a4_wdt_advantage.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -434,7 +444,7 @@ def print_findings(all_results: dict):
     print("LIMITATIONS (stated in paper)")
     limits = [
         "- Single-period model: no saving decision, no multi-period optimisation.",
-        "- CGT = income tax in Module 1: lock-in distortion enters in Module 3.",
+        "- CGT = income tax in (WFR.A §A) lock-in distortion enters in (WFR.A §C).",
         "- Single asset class: UK equity only; WDT population holds illiquid assets.",
         "- Two-state Version B understates variance (compresses fat right tail).",
         "- No general equilibrium: asset returns treated as exogenous.",
