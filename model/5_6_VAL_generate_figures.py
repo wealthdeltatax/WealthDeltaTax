@@ -129,7 +129,7 @@ def fig_01_rate_function(p):
     ax.set_xlabel("Declared net worth W (£m, log scale)")
     ax.set_ylabel("Marginal WDT rate τ(W) (%)")
     ax.set_title(
-        "Figure §5.1 - Marginal rate function τ(W)\n"
+        "Figure §5 - Marginal rate function τ(W)\n"
         f"k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}% (floor parameter), "
         f"$\\tau_m$ = {p['tau_m']*100:.0f}%, W_min = £{p['W_min']:.0f}m"
     )
@@ -143,7 +143,7 @@ def fig_01_rate_function(p):
                         rotation=45, ha='right', fontsize=8)
 
     plt.tight_layout()
-    return _save(fig, "val_fig_5_1_rate_function_tau_w.png")
+    return _save(fig, "val_fig_5_rate_function_tau_w.png")
 
 
 # ─────────────────────────────────────────────────────────────
