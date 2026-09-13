@@ -28,7 +28,7 @@ import importlib, sys
 _mod = importlib.import_module('8_2_RATES_report')
 write_report = _mod.write_report
 
-_OUT   = out_dir('RATES_S')
+_OUT   = out_dir('SWEEPS_R')
 _CACHE = out_dir('.').parent / 'OUTPUTS' / 'sweep_cache.json'
 
 
@@ -47,7 +47,7 @@ def _param_section(doc, sweep_results, param_label, baseline_v,
     """
     hw = HEADLINE_WINDOW
 
-    doc.h3(f'### {param_label}').blank()
+    doc.h3(f'{param_label}').blank()
     doc.add(f'Other parameters held at Balanced baseline: {other_params_str}.').blank()
 
     # ── Summary table ────────────────────────────────────────────────────────
@@ -172,7 +172,7 @@ def build_rates_s_doc(d, p_base):
     doc.add(f'**Parameters file:** `{DEFAULT_PARAMS.name}`  ').blank()
 
     # ── Purpose ──────────────────────────────────────────────────────────────
-    doc.h2('## B.1. Purpose').blank()
+    doc.h2('B.1. Purpose').blank()
     doc.add(
         'This document sweeps each of the four WDT rate-function parameters independently, '
         'holding the other three at Balanced baseline values, and reports how key transition '
@@ -182,7 +182,7 @@ def build_rates_s_doc(d, p_base):
         'modelled here; joint sweeps are a natural second-order extension.'
     ).blank()
 
-    doc.h3('### B.1.1 The Rate Function').blank()
+    doc.h3('B.1.1 The Rate Function').blank()
     doc.add(
         r'$$\tau(W) = \frac{\tau_m}{1 + \left(\frac{\tau_m - \tau_0}{\tau_0}\right)'
         r'e^{-k(W - W_{\min})}}, \quad \tau(W) = 0 \text{ if } W < W_{\min}$$'
@@ -193,7 +193,7 @@ def build_rates_s_doc(d, p_base):
         '`wdt_core.tau()` correctly uses $(\\tau_m - \\tau_0)/\\tau_0$.'
     ).blank()
 
-    doc.h3('### B.1.2 Balanced Baseline Parameters').blank()
+    doc.h3('B.1.2 Balanced Baseline Parameters').blank()
     doc.add('| Parameter | Baseline value | Role |').add('|---|---|---|')
     doc.add(f'| $\\tau_0$ (floor rate) | {bl["tau_0"]:.0%} | Marginal rate at W = W_min |')
     doc.add(f'| $\\tau_m$ (ceiling rate) | {bl["tau_m"]:.0%} | Asymptotic ceiling |')
@@ -211,7 +211,7 @@ def build_rates_s_doc(d, p_base):
     doc.add(f'| Wealth brackets | {len(bl["brackets"])} |')
     doc.add(f'| Growth tiers | {len(bl["tiers"])} |').blank()
 
-    doc.h3('### B.1.3 Metrics').blank()
+    doc.h3('B.1.3 Metrics').blank()
     doc.add(
         f'**Success (v8):** LRR fills within the 71-year modelling window AND '
         'the LRR buffer never hits zero (lrr_failure_year is None).'
@@ -238,7 +238,7 @@ def build_rates_s_doc(d, p_base):
     ).blank()
 
     # ── Sweep sections ────────────────────────────────────────────────────────
-    doc.h2('## B.2. Floor Rate (τ_0)').blank()
+    doc.h2('B.2. Floor Rate (τ_0)').blank()
     doc.add(
         'τ_0 sets the marginal rate at W = W_min. A higher floor raises effective rates '
         'across the entire taxable population; a lower floor concentrates the rate gradient '
@@ -248,7 +248,7 @@ def build_rates_s_doc(d, p_base):
                    lambda v: f'{v:.0%}',
                    f'τ_m = {bl["tau_m"]:.0%},  k = {bl["k"]},  W_min = £{bl["W_min"]}m')
 
-    doc.h2('## B.3. Ceiling Rate (τ_m)').blank()
+    doc.h2('B.3. Ceiling Rate (τ_m)').blank()
     doc.add(
         'τ_m is the asymptotic ceiling the marginal rate approaches but never reaches. '
         'Its primary effect is on the top brackets where W >> W_min.'
@@ -257,7 +257,7 @@ def build_rates_s_doc(d, p_base):
                    lambda v: f'{v:.0%}',
                    f'τ_0 = {bl["tau_0"]:.0%},  k = {bl["k"]},  W_min = £{bl["W_min"]}m')
 
-    doc.h2('## B.4. Steepness (k)').blank()
+    doc.h2('B.4. Steepness (k)').blank()
     doc.add(
         'k (per £m) controls how rapidly the marginal rate climbs from τ_0 toward τ_m. '
         'Low k produces a shallow gradient; high k produces a steep step.'
@@ -266,7 +266,7 @@ def build_rates_s_doc(d, p_base):
                    lambda v: f'{v:.4f}',
                    f'τ_0 = {bl["tau_0"]:.0%},  τ_m = {bl["tau_m"]:.0%},  W_min = £{bl["W_min"]}m')
 
-    doc.h2('## B.5. Entry Point (W_min)').blank()
+    doc.h2('B.5. Entry Point (W_min)').blank()
     doc.add(
         'W_min (£m) is the wealth level below which the rate function produces zero liability. '
         'It is a rate design parameter, not a population boundary.'
@@ -275,7 +275,7 @@ def build_rates_s_doc(d, p_base):
                    lambda v: f'£{v}m',
                    f'τ_0 = {bl["tau_0"]:.0%},  τ_m = {bl["tau_m"]:.0%},  k = {bl["k"]}')
 
-    doc.h2('## B.6. SRR Capitalisation Ratio (srr_ratio)').blank()
+    doc.h2('B.6. SRR Capitalisation Ratio (srr_ratio)').blank()
     doc.add(
         'srr_ratio sets the SRR capitalisation target as a multiple of average annual net '
         'WDT income. Affects milestone timing only; does not alter individual taxpayer burden.'
@@ -285,7 +285,7 @@ def build_rates_s_doc(d, p_base):
                    f'τ_0={bl["tau_0"]:.0%}, τ_m={bl["tau_m"]:.0%}, '
                    f'k={bl["k"]}, W_min=£{bl["W_min"]}m, lrr_years={bl["lrr_years"]}')
 
-    doc.h2('## B.7. LRR Floor (lrr_years)').blank()
+    doc.h2('B.7. LRR Floor (lrr_years)').blank()
     doc.add(
         f'lrr_years sets the LRR floor as a multiple of prevailing government expenditure '
         f'(growing at {bl["budget_growth"]:.2%} p.a.). Affects LRR milestone timing only.'
@@ -295,7 +295,7 @@ def build_rates_s_doc(d, p_base):
                    f'τ_0={bl["tau_0"]:.0%}, τ_m={bl["tau_m"]:.0%}, '
                    f'k={bl["k"]}, W_min=£{bl["W_min"]}m, srr_ratio={bl["srr_ratio"]}×')
 
-    doc.h2('## B.8. Mean Growth Rate (g)').blank()
+    doc.h2('B.8. Mean Growth Rate (g)').blank()
     doc.add(
         'Each row is a single deterministic run with a constant growth rate '
         'replacing the historical return series. There is no start-year '
@@ -311,7 +311,7 @@ def build_rates_s_doc(d, p_base):
         note='◄ = hist_mean (canonical). No start-year distribution; one SSM/TCM run per value.',
     )
 
-    doc.h2('## B.9. Synthetic Growth Scenario').blank()
+    doc.h2('B.9. Synthetic Growth Scenario').blank()
     syn = p_base.get('synthetic_scenario', {})
     doc.add(
         r'Growth path: $g(t) = \mu + \lambda t + A \sin(2\pi t / T)$  ·  '
@@ -321,7 +321,7 @@ def build_rates_s_doc(d, p_base):
         f'T={syn.get("period", 10):.0f} yr.'
     ).blank()
 
-    doc.h3('### B.9.1  Amplitude sweep (μ, λ, T fixed at canonical)')
+    doc.h3('B.9.1  Amplitude sweep (μ, λ, T fixed at canonical)')
     doc.add(
         f'λ={syn.get("lam",0.0):.4f}, μ={syn.get("mu",0.1045):.2%}, '
         f'T={syn.get("period",10):.0f} yr.'
@@ -334,7 +334,7 @@ def build_rates_s_doc(d, p_base):
         note='A=0 degenerates to a linear-trend-only scenario.',
     )
 
-    doc.h3('### B.9.2  Period sweep (μ, λ, A fixed at canonical)')
+    doc.h3('B.9.2  Period sweep (μ, λ, A fixed at canonical)')
     doc.add(
         f'λ={syn.get("lam",0.0):.4f}, μ={syn.get("mu",0.1045):.2%}, '
         f'A={syn.get("amplitude",0.05):.2%}.'

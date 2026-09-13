@@ -23,7 +23,7 @@ from wdt_style import apply_style, apply_style_nogrid, save_fig, FIG_SINGLE, FIG
 from wdt_analytics import init, draw_c1_heatmap
 import wdt_analytics as _A
 
-_OUT   = out_dir('VAL_S')
+_OUT   = out_dir('SWEEPS_V')
 _CACHE = out_dir('.').parent / 'OUTPUTS' / 'sweep_cache.json'
 
 
@@ -87,13 +87,13 @@ def fig_n_crossing_annotated(d):
     ax2.legend(); ax2.set_ylim(0, 70)
 
     fig.suptitle(
-        f'Fig S3.1a — Overstater advantage erosion and N-crossing thresholds\n'
+        f'Figure §2.2a — Overstater advantage erosion and N-crossing thresholds\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}, '
         f'V₀=£{_A.CANON_V0:.0f}m',
         fontsize=10
     )
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s3_1a_n_crossing_annotated.png')
+    _save(fig, 'sweeps_v_fig_s2_2a_n_crossing_annotated.png')
 
 
 def fig_n_understater_panels(d):
@@ -120,13 +120,13 @@ def fig_n_understater_panels(d):
         ax.set_xlim(0, 35); ax.legend(fontsize=7.5)
 
     fig.suptitle(
-        'Fig S3.1b — Understater penalty profile across holding periods\n'
+        'Figure §2.3 — Understater penalty profile across holding periods\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
         f'k={_A.CANON_K}, V₀=£{_A.CANON_V0:.0f}m  ·  Bold = canonical',
         fontsize=10
     )
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s3_1b_n_understater_panels.png')
+    _save(fig, 'sweeps_v_fig_s2_3_n_understater_panels.png')
 
 
 def fig_n_tolerant_zone(d):
@@ -150,13 +150,13 @@ def fig_n_tolerant_zone(d):
     ax.set_xlabel('Holding period N (years)')
     ax.set_ylabel('Declaration ratio α')
     ax.set_title(
-        f'Fig S3.1c — Tolerant zone stability across N\n'
+        f'Figure §2.2b — Tolerant zone stability across N\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
         f'k={_A.CANON_K}, g={_A.CANON_G*100:.1f}%'
     )
     ax.legend(fontsize=7.5); ax.set_xlim(5, 65); ax.set_ylim(0.5, 2.2)
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s3_1c_n_tolerant_zone.png')
+    _save(fig, 'sweeps_v_fig_s2_2b_n_tolerant_zone.png')
 
 
 # ── §3.2  V₀ sweep ────────────────────────────────────────────────────────────
@@ -178,13 +178,13 @@ def fig_v0_c1_curves(d):
     ax.set_xlabel('Declaration ratio α (%)  — 100% = honest')
     ax.set_ylabel('C.1 (pp)  +positive = pays more than honest')
     ax.set_title(
-        f'Fig S3.2a — C.1 incentive structure by V₀ entry wealth\n'
+        f'Figure §11b — C.1 incentive structure by V₀ entry wealth\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
         f'k={_A.CANON_K}, N={_A.CANON_N}, g={_A.CANON_G*100:.1f}%'
     )
     ax.legend(fontsize=8); ax.set_xlim(10, 200); ax.set_ylim(-25, 30)
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s3_2a_v0_c1_curves.png')
+    _save(fig, 'sweeps_v_fig_s11b_v0_c1_curves.png')
 
 
 def fig_v0_entry_rate(p):
@@ -207,7 +207,7 @@ def fig_v0_entry_rate(p):
     ax.set_xlabel('Declared net worth W (£m, log scale)')
     ax.set_ylabel('Marginal WDT rate τ(W) (%)')
     ax.set_title(
-        f'Fig S3.2b — Entry rate τ(V₀) at four wealth levels\n'
+        f'Figure §11a — Entry rate τ(V₀) at four wealth levels\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
         f'k={_A.CANON_K}, W_min=£{_A.CANON_WMIN:.0f}m'
     )
@@ -217,7 +217,7 @@ def fig_v0_entry_rate(p):
                         '£100m', '£200m', '£500m', '£1bn', '£2bn'],
                        rotation=45, ha='right', fontsize=7.5)
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s3_2b_v0_entry_rate.png')
+    _save(fig, 'sweeps_v_fig_s11a_v0_entry_rate.png')
 
 
 def fig_v0_heatmaps(d):
@@ -225,11 +225,11 @@ def fig_v0_heatmaps(d):
         d['val_s']['v0_c1_matrices'][:4], _A.V0_VALS[:4], _A.CANON_V0,
         _v0_labels()[:4],
         suptitle=(
-            'Fig S3.2c — C.1 advantage landscape across V₀ wealth levels\n'
+            'Figure §11c — C.1 advantage landscape across V₀ wealth levels\n'
             f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
             f'k={_A.CANON_K}, N={_A.CANON_N}  ·  Bold = canonical'
         ),
-        fname='val_s_fig_s3_2c_v0_heatmaps.png',
+        fname='sweeps_v_fig_s11c_v0_heatmaps.png',
     )
 
 

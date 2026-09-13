@@ -26,7 +26,7 @@ from wdt_style import apply_style, apply_style_nogrid, save_fig
 from wdt_analytics import init, tolerant_zone_width, understater_plateau
 import wdt_analytics as _A
 
-_OUT   = out_dir('VAL_S')
+_OUT   = out_dir('SWEEPS_V')
 _CACHE = out_dir('.').parent / 'OUTPUTS' / 'sweep_cache.json'
 
 
@@ -84,7 +84,7 @@ def fig_tau0_n_surface(d):
     ax.set_xlabel('Entry rate τ₀ (%)')
     ax.set_ylabel('Maximum holding period (N sweep ceiling, years)')
     ax.set_title(
-        'Fig S4.1 — Joint surface: N-crossing for α=2.0 across (τ₀, N)\n'
+        'Figure §3.1d — Joint surface: N-crossing for α=2.0 across (τ₀, N)\n'
         f'τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}, V₀=£{_A.CANON_V0:.0f}m, '
         f'g={_A.CANON_G*100:.1f}%\n'
         'Green = early crossing  ·  Red = late  ·  Grey = never',
@@ -92,7 +92,7 @@ def fig_tau0_n_surface(d):
     )
     ax.legend(fontsize=8)
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s4_1_tau0_n_surface.png')
+    _save(fig, 'sweeps_v_fig_s3_1d_tau0_n_surface.png')
 
 
 # ── §4.2  k × V₀ surface ─────────────────────────────────────────────────────
@@ -132,14 +132,14 @@ def fig_k_v0_surface(d):
     fig.colorbar(im, ax=ax, fraction=0.04, pad=0.02).set_label(
         'C.1 (pp) at α=1.8  — negative = overstater pays less', fontsize=8)
     ax.set_title(
-        'Fig S4.2 — Joint surface: bracket penalty (C.1) for α=1.8 across (k, V₀)\n'
+        'Figure §5.1b — Joint surface: bracket penalty (C.1) for α=1.8 across (k, V₀)\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
         f'N={_A.CANON_N}, g={_A.CANON_G*100:.1f}%\n'
         'Red = overstater pays more  ·  Blue = overstater pays less  ·  Bold = canonical',
         fontsize=9
     )
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s4_2_k_v0_surface.png')
+    _save(fig, 'sweeps_v_fig_s5_1b_k_v0_surface.png')
 
 
 # ── §4.3  Calibration summary ─────────────────────────────────────────────────
@@ -197,14 +197,14 @@ def fig_calibration_summary(d):
     axes[0].legend(handles=legend_elements, loc='upper right', fontsize=7.5)
 
     fig.suptitle(
-        'Fig S4.3 — Governing Council calibration summary\n'
+        'Figure §7.1 — Governing Council calibration summary\n'
         'How each rate-function parameter moves the three key mechanism boundaries\n'
         f'Bold borders = canonical  ·  N={_A.CANON_N}, V₀=£{int(_A.CANON_V0)}m, '
         f'g={_A.CANON_G*100:.1f}%',
         fontsize=10
     )
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s4_3_calibration_summary.png')
+    _save(fig, 'sweeps_v_fig_s7_1_calibration_summary.png')
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────

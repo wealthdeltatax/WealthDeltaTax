@@ -37,7 +37,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import numpy as np
 
-OUTPUT_DIR = out_dir('RATES_S')
+OUTPUT_DIR = out_dir('SWEEPS_R')
 _CACHE     = out_dir('.').parent / 'OUTPUTS' / 'sweep_cache.json'
 
 
@@ -198,7 +198,7 @@ def _four_panel(sweep_results, param_label, baseline_v, x_label,
     _base_style()
     fig, axes = plt.subplots(2, 2, figsize=(14, 9))
     fig.suptitle(
-        f'Parameter sensitivity: {param_label}\n'
+        f'{param_label}\n'
         f'Shaded band = min–max across 73 historical start years  |  '
         f'Line = median  |  Baseline marked in red',
         fontsize=11, y=1.01
@@ -370,7 +370,7 @@ def _four_panel_swf(sweep_results, param_label, baseline_v, x_label,
     _base_style()
     fig, axes = plt.subplots(2, 2, figsize=(14, 9))
     fig.suptitle(
-        f'SWF sizing sensitivity: {param_label}\n'
+        f'{param_label}\n'
         f'Shaded band = min–max across 73 historical start years  |  '
         f'Line = median  |  Baseline marked in red  |  '
         f'Individual taxpayer burden is invariant across this sweep',
@@ -486,7 +486,7 @@ def _rate_function_shapes(p_base, output_dir):
 
     fig, axes = plt.subplots(2, 2, figsize=(14, 9))
     fig.suptitle(
-        'Rate function shape: τ(W) across the wealth range\n'
+        'Figure §2.4 - Rate function shape: τ(W) across the wealth range\n'
         'Each line = one parameter value; other three parameters held at Balanced baseline',
         fontsize=11, y=1.01
     )
@@ -536,7 +536,7 @@ def _rate_function_shapes(p_base, output_dir):
         ax.legend(fontsize=7, loc='lower right', ncol=2)
 
     plt.tight_layout()
-    return _save(fig, output_dir, 'sweep_fig_05_rate_function_shapes.png')
+    return _save(fig, output_dir, 'sweeps_r_fig_s2_4_rate_function_shapes.png')
 
 
 # ── FIGURE 6: relative sensitivity synthesis ─────────────────────────────────
@@ -556,7 +556,7 @@ def _relative_sensitivity(all_sweeps, output_dir):
     _base_style()
     fig, (ax_cov, ax_lrr) = plt.subplots(1, 2, figsize=(14, 6))
     fig.suptitle(
-        'Relative parameter sensitivity: normalised parameter value (0–1) vs key metrics\n'
+        'Figure §7.2 - Relative parameter sensitivity: normalised parameter value (0–1) vs key metrics\n'
         'Each line = one parameter swept from its minimum to maximum value  |  '
         'Vertical dashed = Balanced baseline position',
         fontsize=11, y=1.01
@@ -617,7 +617,7 @@ def _relative_sensitivity(all_sweeps, output_dir):
     ax_lrr.legend(fontsize=9)
 
     plt.tight_layout()
-    return _save(fig, output_dir, 'sweep_fig_06_relative_sensitivity.png')
+    return _save(fig, output_dir, 'sweeps_r_fig_s7_2_relative_sensitivity.png')
 
 
 # ── FIGURE 9: coverage fan ────────────────────────────────────────────────────
@@ -639,7 +639,7 @@ def _coverage_fan(all_sweeps, sweep_labels, sweep_colours, output_dir):
     _base_style()
     fig, ax = plt.subplots(figsize=(14, 7))
     fig.suptitle(
-        f'Coverage fan: SSM 5yr to TCM 50yr across rate parameters\n'
+        f'Figure 09 - Coverage fan: SSM 5yr to TCM 50yr across rate parameters\n'
         f'Outer band = SSM 5yr–TCM 50yr  |  '
         f'Inner band = SSM {HEADLINE_WINDOW}yr–TCM {HEADLINE_WINDOW}yr  |  '
         f'Lines = SSM/TCM {HEADLINE_WINDOW}yr median  |  '
@@ -727,7 +727,7 @@ def _swf_stress_margins(sw_srr_ratio, sw_lrr_years, output_dir):
     _base_style()
     fig, axes = plt.subplots(2, 2, figsize=(14, 9))
     fig.suptitle(
-        'Fig 10 — SWF stress margins: zero-coverage years and LRR buffer headroom\n'
+        'Figure 10 — SWF stress margins: zero-coverage years and LRR buffer headroom\n'
         'Zero-coverage years = years post-fill where WDT net revenue < Step-5 expenditure '
         '(LRR absorbs shortfall)\n'
         'No LRR buffer exhaustion occurs at Balanced parameters across all 73 start years',
@@ -1161,49 +1161,49 @@ def main():
 
     _four_panel(
         sw_tau0,
-        param_label='τ_0 (floor rate)',
+        param_label='Figure §3.2 - τ_0 (floor rate)',
         baseline_v=BASELINE['tau_0'],
         x_label='τ_0 (floor rate)',
         p_base=p_base,
         is_log=False,
         output_dir=_out,
-        fname='sweep_fig_01_tau0_sensitivity.png',
+        fname='sweeps_r_fig_s3_2_tau0_sensitivity.png',
         burden_data=burden_tau0,
     )
 
     _four_panel(
         sw_taum,
-        param_label='τ_m (ceiling rate)',
+        param_label='Figure §4.2 - τ_m (ceiling rate)',
         baseline_v=BASELINE['tau_m'],
         x_label='τ_m (ceiling rate)',
         p_base=p_base,
         is_log=False,
         output_dir=_out,
-        fname='sweep_fig_02_taum_sensitivity.png',
+        fname='sweeps_r_fig_s4_2_taum_sensitivity.png',
         burden_data=burden_taum,
     )
 
     _four_panel(
         sw_k,
-        param_label='k (steepness, per £m) — log x-axis',
+        param_label='Figure §5.2 - k (steepness, per £m) — log x-axis',
         baseline_v=BASELINE['k'],
         x_label='k (log scale)',
         p_base=p_base,
         is_log=True,
         output_dir=_out,
-        fname='sweep_fig_03_k_sensitivity.png',
+        fname='sweeps_r_fig_s5_2_k_sensitivity.png',
         burden_data=burden_k,
     )
 
     _four_panel(
         sw_wmin,
-        param_label='W_min (entry point, £m)',
+        param_label='Figure §6.2 - W_min (entry point, £m)',
         baseline_v=BASELINE['W_min'],
         x_label='W_min (£m)',
         p_base=p_base,
         is_log=False,
         output_dir=_out,
-        fname='sweep_fig_04_wmin_sensitivity.png',
+        fname='sweeps_r_fig_s6_2_wmin_sensitivity.png',
         burden_data=burden_wmin,
     )
 
@@ -1213,22 +1213,22 @@ def main():
 
     _four_panel_swf(
         sw_srr_ratio,
-        param_label='srr_ratio (SRR capitalisation ratio)',
+        param_label='Figure §8.3a - srr_ratio (SRR capitalisation ratio)',
         baseline_v=BASELINE['srr_ratio'],
         x_label='srr_ratio (×)',
         p_base=p_base,
         output_dir=_out,
-        fname='sweep_fig_07_srr_ratio_sensitivity.png',
+        fname='sweeps_r_fig_s8_3a_srr_ratio_sensitivity.png',
     )
 
     _four_panel_swf(
         sw_lrr_years,
-        param_label='lrr_years (LRR floor, years of expenditure)',
+        param_label='Figure §8.3b - lrr_years (LRR floor, years of expenditure)',
         baseline_v=BASELINE['lrr_years'],
         x_label='lrr_years (years)',
         p_base=p_base,
         output_dir=_out,
-        fname='sweep_fig_08_lrr_years_sensitivity.png',
+        fname='sweeps_r_fig_s8_3b_lrr_years_sensitivity.png',
     )
 
     _coverage_fan(

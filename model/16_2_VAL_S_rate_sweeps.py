@@ -23,7 +23,7 @@ from wdt_style import (apply_style, apply_style_nogrid, save_fig,
 from wdt_analytics import init, draw_c1_heatmap
 import wdt_analytics as _A
 
-_OUT   = out_dir('VAL_S')
+_OUT   = out_dir('SWEEPS_V')
 _CACHE = out_dir('.').parent / 'OUTPUTS' / 'sweep_cache.json'
 
 
@@ -71,11 +71,11 @@ def fig_tau0_heatmaps(d):
     _heatmap_4panel(
         d['val_s']['tau0_c1_matrices'], _A.TAU0_VALS, _A.CANON_TAU0, labels,
         suptitle=(
-            'Fig S2.1a — C.1 advantage landscape across τ₀ values\n'
+            'Figure §3.1a — C.1 advantage landscape across τ₀ values\n'
             f'τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}, N={_A.CANON_N}, '
             f'V₀=£{_A.CANON_V0:.0f}m  ·  Bold panel = canonical'
         ),
-        fname='val_s_fig_s2_1a_tau0_heatmaps.png',
+        fname='sweeps_v_fig_s3_1a_tau0_heatmaps.png',
     )
 
 
@@ -98,13 +98,13 @@ def fig_tau0_n_crossings(d):
     ax.set_xlabel('Entry rate τ₀ (%)')
     ax.set_ylabel('N at which overstater first pays more than honest')
     ax.set_title(
-        f'Fig S2.1b — N-crossing thresholds by τ₀\n'
+        f'Figure §3.1b — N-crossing thresholds by τ₀\n'
         f'τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}, V₀=£{_A.CANON_V0:.0f}m, '
         f'g={_A.CANON_G*100:.1f}%'
     )
     ax.legend(); ax.set_xlim(8, 33)
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s2_1b_tau0_n_crossings.png')
+    _save(fig, 'sweeps_v_fig_s3_1b_tau0_n_crossings.png')
 
 
 def fig_tau0_tolerant_zone(d):
@@ -125,12 +125,12 @@ def fig_tau0_tolerant_zone(d):
     ax.set_xlabel('Entry rate τ₀ (%)')
     ax.set_ylabel('Declaration ratio α')
     ax.set_title(
-        f'Fig S2.1c — Tolerant zone (|C.1| < {_A.TZONE_THRESHOLD*100:.0f}pp) boundaries by τ₀\n'
+        f'Figure §3.1c — Tolerant zone (|C.1| < {_A.TZONE_THRESHOLD*100:.0f}pp) boundaries by τ₀\n'
         f'τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}, N={_A.CANON_N}, g={_A.CANON_G*100:.1f}%'
     )
     ax.legend(); ax.set_xlim(5, 44)
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s2_1c_tau0_tolerant_zone.png')
+    _save(fig, 'sweeps_v_fig_s3_1c_tau0_tolerant_zone.png')
 
 
 # ── §2.2  τ_m sweep ───────────────────────────────────────────────────────────
@@ -141,11 +141,11 @@ def fig_taum_heatmaps(d):
     _heatmap_4panel(
         d['val_s']['taum_c1_matrices'], _A.TAUM_VALS, _A.CANON_TAUM, labels,
         suptitle=(
-            'Fig S2.2a — C.1 advantage landscape across τ_m values\n'
+            'Figure §3.1a — C.1 advantage landscape across τ_m values\n'
             f'τ₀={_A.CANON_TAU0*100:.0f}%, k={_A.CANON_K}, N={_A.CANON_N}, '
             f'V₀=£{_A.CANON_V0:.0f}m  ·  Bold = canonical'
         ),
-        fname='val_s_fig_s2_2a_taum_heatmaps.png',
+        fname='sweeps_v_fig_s4_1a_taum_heatmaps.png',
     )
 
 
@@ -165,12 +165,12 @@ def fig_taum_penalty_plateaus(d):
     ax.set_xlabel('Declaration ratio α (understatement region)')
     ax.set_ylabel('Plateau ceiling of C.1 (pp)')
     ax.set_title(
-        f'Fig S2.2b — Understater penalty plateau ceiling by α and τ_m\n'
+        f'Figure §4.1b — Understater penalty plateau ceiling by α and τ_m\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, k={_A.CANON_K}, N={_A.CANON_N}, g sweep 18–40%'
     )
     ax.legend(); ax.set_xlim(5, 85)
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s2_2b_taum_penalty_plateaus.png')
+    _save(fig, 'sweeps_v_fig_s4_1b_taum_penalty_plateaus.png')
 
 
 def fig_taum_n_crossings(d):
@@ -192,13 +192,13 @@ def fig_taum_n_crossings(d):
     ax.set_xlabel('Ceiling rate τ_m (%)')
     ax.set_ylabel('N at crossing (overstater first pays more than honest)')
     ax.set_title(
-        f'Fig S2.2c — N-crossing thresholds by τ_m\n'
+        f'Figure §4.1c — N-crossing thresholds by τ_m\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, k={_A.CANON_K}, V₀=£{_A.CANON_V0:.0f}m, '
         f'g={_A.CANON_G*100:.1f}%'
     )
     ax.legend()
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s2_2c_taum_n_crossings.png')
+    _save(fig, 'sweeps_v_fig_s4_1c_taum_n_crossings.png')
 
 
 # ── §2.3  k sweep ─────────────────────────────────────────────────────────────
@@ -224,7 +224,7 @@ def fig_k_rate_curves(p):
     ax.set_xlabel('Declared net worth W (£m, log scale)')
     ax.set_ylabel('Marginal WDT rate τ(W) (%)')
     ax.set_title(
-        f'Fig S2.3a — Rate curve τ(W) across k values\n'
+        f'Figure §5a — Rate curve τ(W) across k values\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, W_min=£{_A.CANON_WMIN:.0f}m'
     )
     ax.set_xlim(_A.CANON_WMIN, 5000)
@@ -235,7 +235,7 @@ def fig_k_rate_curves(p):
                         '£200m', '£500m', '£1bn', '£2bn', '£5bn'],
                        rotation=45, ha='right', fontsize=7.5)
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s2_3a_k_rate_curves.png')
+    _save(fig, 'sweeps_v_fig_s5_k_rate_curves.png')
 
 
 def fig_k_heatmaps(d):
@@ -244,11 +244,11 @@ def fig_k_heatmaps(d):
     _heatmap_4panel(
         d['val_s']['k_c1_matrices'][:4], _A.K_VALS[:4], _A.CANON_K, labels[:4],
         suptitle=(
-            'Fig S2.3b — C.1 advantage landscape across k values\n'
+            'Figure §5.1a — C.1 advantage landscape across k values\n'
             f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
             f'N={_A.CANON_N}, V₀=£{_A.CANON_V0:.0f}m  ·  Bold = canonical'
         ),
-        fname='val_s_fig_s2_3b_k_heatmaps.png',
+        fname='sweeps_v_fig_s5_1a_k_heatmaps.png',
     )
 
 
@@ -267,13 +267,13 @@ def fig_k_bracket_penalty(d):
     ax.set_xlabel('k (steepness parameter)')
     ax.set_ylabel('C.1 at α=1.8 (pp)  — negative = overstater advantage')
     ax.set_title(
-        f'Fig S2.3c — Bracket penalty for α=1.8 by k and V₀\n'
+        f'Figure §5.1c — Bracket penalty for α=1.8 by k and V₀\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, N={_A.CANON_N}, '
         f'g={_A.CANON_G*100:.1f}%'
     )
     ax.legend()
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s2_3c_k_bracket_penalty.png')
+    _save(fig, 'sweeps_v_fig_s5_1c_k_bracket_penalty.png')
 
 
 # ── §2.4  W_min sweep ─────────────────────────────────────────────────────────
@@ -297,7 +297,7 @@ def fig_wmin_rate_curves(p):
     ax.set_xlabel('Declared net worth W (£m, log scale)')
     ax.set_ylabel('Marginal WDT rate τ(W) (%)')
     ax.set_title(
-        f'Fig S2.4a — Rate curve τ(W) across W_min values\n'
+        f'Figure §6 — Rate curve τ(W) across W_min values\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}'
     )
     ax.set_xlim(0.5, 5000); ax.set_ylim(0, _A.CANON_TAUM * 100 * 1.12)
@@ -307,7 +307,7 @@ def fig_wmin_rate_curves(p):
                         '£200m', '£500m', '£1bn', '£2bn', '£5bn'],
                        rotation=45, ha='right', fontsize=7.5)
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s2_4a_wmin_rate_curves.png')
+    _save(fig, 'sweeps_v_fig_s6_wmin_rate_curves.png')
 
 
 def fig_wmin_heatmaps(d):
@@ -316,11 +316,11 @@ def fig_wmin_heatmaps(d):
     _heatmap_4panel(
         d['val_s']['wmin_c1_matrices'][:4], _A.WMIN_VALS[:4], _A.CANON_WMIN, labels[:4],
         suptitle=(
-            'Fig S2.4b — C.1 advantage landscape across W_min values\n'
+            'Figure §6.1a — C.1 advantage landscape across W_min values\n'
             f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}, '
             f'N={_A.CANON_N}, V₀=£{_A.CANON_V0:.0f}m  ·  Bold = canonical'
         ),
-        fname='val_s_fig_s2_4b_wmin_heatmaps.png',
+        fname='sweeps_v_fig_s6_1a_wmin_heatmaps.png',
     )
 
 
@@ -344,13 +344,13 @@ def fig_wmin_n_crossings(d):
     ax.set_xlabel('Entry threshold W_min (£m)')
     ax.set_ylabel('N at which overstater first pays more than honest')
     ax.set_title(
-        f'Fig S2.4c — N-crossing thresholds by W_min\n'
+        f'Figure §6.1b — N-crossing thresholds by W_min\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}, '
         f'V₀=£{_A.CANON_V0:.0f}m, g={_A.CANON_G*100:.1f}%'
     )
     ax.legend(); ax.set_xlim(0.5, 11)
     plt.tight_layout()
-    _save(fig, 'val_s_fig_s2_4c_wmin_n_crossings.png')
+    _save(fig, 'sweeps_v_fig_s6_1b_wmin_n_crossings.png')
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────

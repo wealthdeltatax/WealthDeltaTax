@@ -54,20 +54,20 @@
 
 ## B.3 TCM Results — snapshot N=19 (cap. window) / N=30 (lifetime)
 
-*Two TCM horizons are used in this section. Capitalisation-window tables (§B.3.1, §B.3.2, §B.3.6–§B.3.9 cap-window column) use N=19 — the SSM LRR breakeven year. Lifetime and burden tables (§B.3.3, §B.3.4, §B.3.5, §B.3.9 lifetime column) use N=30 — the canonical taxpayer horizon declared across VAL, RATES, SWEEPS, and WFR. Using N=19 for those tables would understate the burden by averaging tax over too few years and anchoring terminal wealth too early.*
+*Two TCM horizons are used in this section. Capitalisation-window tables (§B.3.2, §B.3.6–§B.3.9 cap-window column) use N=19 — the SSM LRR breakeven year. Terminal net worth (§B.3.1) and lifetime/burden tables (§B.3.3, §B.3.4, §B.3.5, §B.3.9 lifetime column) use N=30 — the canonical taxpayer horizon declared across VAL, RATES, SWEEPS, and WFR. Using N=19 for terminal wealth would anchor V_N too early and understate the burden by averaging tax over too few years.*
 
 
-### B.3.1 Net worth — start ($V_0$) and year N (£m)
+### B.3.1 Net worth — start ($V_0$) and year N=30 (£m)
 
-*$V_0$ is the bracket mean wealth (£m) at entry, identical across tiers within a bracket. V_N is the true wealth (before tax settlement) at the end of period N for a representative taxpayer, varying by tier due to persistent return differentials. Figures are for a single representative taxpayer; they do not reflect aggregate portfolio wealth.*
+*$V_0$ is the bracket mean wealth (£m) at entry, identical across tiers within a bracket. V_N is the true wealth (before tax settlement) at the end of period N=30 (canonical 30-year horizon) for a representative taxpayer, varying by tier due to persistent return differentials. N=30 is used here — rather than the SSM LRR breakeven year N=19 — so that terminal wealth is anchored at the same horizon as the burden and lifetime metrics in §B.3.3–§B.3.5. Figures are for a single representative taxpayer; they do not reflect aggregate portfolio wealth.*
 
 | Net worth (£m) | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
 |---|---|---|---|---|---|---|---|---|---|---|
 | **$V_0$ (start, all tiers)** | £0.402m | £0.570m | £0.782m | £1.109m | £1.629m | £2.858m | £7.135m | £19.854m | £53.385m | £139.607m |
-| **V_N -4.55% (Poor)** | £0.64m | £0.91m | £1.25m | £1.77m | £2.61m | £4.57m | £11.41m | £31.75m | £85.36m | £223.23m |
-| **V_N -2.05% (Ok)** | £1.02m | £1.44m | £1.98m | £2.80m | £4.12m | £7.23m | £18.05m | £50.21m | £135.02m | £353.10m |
-| **V_N +0.95% (Good)** | £1.74m | £2.46m | £3.38m | £4.79m | £7.04m | £12.36m | £30.84m | £85.82m | £230.76m | £603.47m |
-| **V_N +3.45% (Great)** | £2.68m | £3.80m | £5.23m | £7.41m | £10.88m | £19.10m | £47.67m | £132.63m | £356.64m | £932.65m |
+| **V_N -4.55% (Poor)** | £0.56m | £0.80m | £1.10m | £1.56m | £2.29m | £4.02m | £10.03m | £27.91m | £75.04m | £196.24m |
+| **V_N -2.05% (Ok)** | £1.18m | £1.67m | £2.29m | £3.24m | £4.77m | £8.37m | £20.89m | £58.11m | £156.27m | £408.65m |
+| **V_N +0.95% (Good)** | £2.77m | £3.93m | £5.39m | £7.65m | £11.24m | £19.72m | £49.21m | £136.94m | £368.22m | £962.93m |
+| **V_N +3.45% (Great)** | £5.56m | £7.88m | £10.82m | £15.34m | £22.54m | £39.54m | £98.71m | £274.65m | £738.52m | £1,931.32m |
 
 ### B.3.2 Net per taxpayer per year — capitalisation window average (£/yr)
 

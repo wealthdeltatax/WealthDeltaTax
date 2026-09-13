@@ -10,7 +10,7 @@ Sections
   B.1  Active parameters
   B.2  SSM results — active scenario (failure years + coverage windows)
   B.3  TCM results — N periods
-         B.3.1  Net worth at start and year N
+         B.3.1  Net worth at start and year N (N=30, canonical horizon)
          B.3.2  Net per taxpayer (capitalisation window)
          B.3.3  Annual wealth burden
          B.3.4  Effective rate on gains
@@ -74,16 +74,17 @@ def write_report(p, py_ssm, py_tcm, tcm_N, sweep_extremals, stats,
     p               : dict   loaded params (wdt_core.load_params())
     py_ssm          : list   run_ssm() result (list of year dicts)
     py_tcm          : dict   run_tcm() result at N=tcm_N (SSM LRR fill year).
-                             Used for capitalisation-window tables: B.3.1, B.3.2,
+                             Used for capitalisation-window tables: B.3.2,
                              B.3.6, B.3.7, B.3.8, and the cap-window column of B.3.9.
     tcm_N           : int    SSM LRR fill year (snapshot horizon, ≈19).
     sweep_extremals : dict   report_start_year_sweep() return value
     stats           : dict   compute_statistics() return value
     tcm_win         : dict   _tcm_coverage_windows() return value, or None
     output_dir      : Path   override output directory; defaults to OUTPUTS/RATES/
-    py_tcm_burden   : dict   run_tcm() result at N=burden_N.  Used for the
-                             lifetime/burden tables: B.3.3, B.3.4, B.3.5, and the
-                             lifetime column of B.3.9.  If None, computed here.
+    py_tcm_burden   : dict   run_tcm() result at N=burden_N.  Used for terminal
+                             net worth (B.3.1) and lifetime/burden tables:
+                             B.3.3, B.3.4, B.3.5, and the lifetime column of B.3.9.
+                             If None, computed here.
     burden_N        : int    Canonical taxpayer horizon for burden metrics (default 30).
     """
     _out = ensure_dir(Path(output_dir) if output_dir else _OUT)
@@ -332,11 +333,11 @@ def _b3_tcm(doc, p, py_ssm, py_tcm, tcm_N, tcm_win, py_tcm_burden, burden_N):
 
     Two TCM datasets are used:
       py_tcm        — run_tcm at N=tcm_N (SSM LRR fill year, ≈19).
-                      Drives capitalisation-window tables: B.3.1, B.3.2,
+                      Drives capitalisation-window tables: B.3.2,
                       B.3.6, B.3.7, B.3.8, cap-window column of B.3.9.
       py_tcm_burden — run_tcm at N=burden_N (canonical 30-year horizon).
-                      Drives lifetime/burden tables: B.3.3, B.3.4, B.3.5,
-                      lifetime column of B.3.9.
+                      Drives terminal net worth (B.3.1), lifetime/burden
+                      tables: B.3.3, B.3.4, B.3.5, lifetime column of B.3.9.
     """
     py_lrr_fill = next((r for r in py_ssm if r.get('lrr_filled')), None)
 
@@ -348,23 +349,27 @@ def _b3_tcm(doc, p, py_ssm, py_tcm, tcm_N, tcm_win, py_tcm_burden, burden_N):
     doc.h2(f'B.3 TCM Results — snapshot N={tcm_N} (cap. window) / N={burden_N} (lifetime)')
     doc.note(
         f'Two TCM horizons are used in this section. '
-        f'Capitalisation-window tables (§B.3.1, §B.3.2, §B.3.6–§B.3.9 cap-window column) '
+        f'Capitalisation-window tables (§B.3.2, §B.3.6–§B.3.9 cap-window column) '
         f'use N={tcm_N} — the SSM LRR breakeven year. '
-        f'Lifetime and burden tables (§B.3.3, §B.3.4, §B.3.5, §B.3.9 lifetime column) '
+        f'Terminal net worth (§B.3.1) and lifetime/burden tables '
+        f'(§B.3.3, §B.3.4, §B.3.5, §B.3.9 lifetime column) '
         f'use N={burden_N} — the canonical taxpayer horizon declared across VAL, RATES, '
-        f'SWEEPS, and WFR. Using N={tcm_N} for those tables would understate the burden '
-        f'by averaging tax over too few years and anchoring terminal wealth too early.'
+        f'SWEEPS, and WFR. Using N={tcm_N} for terminal wealth would anchor V_N too early '
+        f'and understate the burden by averaging tax over too few years.'
     )
     doc.blank()
 
     # B.3.1 — Net worth
-    doc.h3('B.3.1 Net worth — start ($V_0$) and year N (£m)')
+    doc.h3(f'B.3.1 Net worth — start ($V_0$) and year N={burden_N} (£m)')
     doc.note(
-        '$V_0$ is the bracket mean wealth (£m) at entry, identical across tiers within a '
-        'bracket. V_N is the true wealth (before tax settlement) at the end of period N '
-        'for a representative taxpayer, varying by tier due to persistent return '
-        'differentials. Figures are for a single representative taxpayer; they do not '
-        'reflect aggregate portfolio wealth.'
+        f'$V_0$ is the bracket mean wealth (£m) at entry, identical across tiers within a '
+        f'bracket. V_N is the true wealth (before tax settlement) at the end of period '
+        f'N={burden_N} (canonical 30-year horizon) for a representative taxpayer, varying '
+        f'by tier due to persistent return differentials. N={burden_N} is used here — '
+        f'rather than the SSM LRR breakeven year N={tcm_N} — so that terminal wealth '
+        f'is anchored at the same horizon as the burden and lifetime metrics in §B.3.3–§B.3.5. '
+        f'Figures are for a single representative taxpayer; they do not reflect aggregate '
+        f'portfolio wealth.'
     )
     # This table has a non-uniform header (V_0 row differs from tier rows),
     # so we build it with MdDoc.add() rather than md_table().
@@ -375,7 +380,7 @@ def _b3_tcm(doc, p, py_ssm, py_tcm, tcm_N, tcm_win, py_tcm_burden, burden_N):
     doc.add('| **$V_0$ (start, all tiers)** |'
             + ''.join(f' £{b["V0_m"]:,.3f}m |' for b in p['brackets']))
     for i, diff in enumerate(diffs):
-        vals = [r['V_at_N'] for r in py_tcm[diff]]
+        vals = [r['V_at_N'] for r in py_tcm_burden[diff]]
         doc.add(f'| **V_N {tlabels[i]}** |'
                 + ''.join(f' £{v:,.2f}m |' for v in vals))
     doc.blank()
