@@ -56,6 +56,7 @@ WP:
     B.2: The Consumption Tax Alternative
     A: Philosophical and Moral Foundations
     B: Institutional Design Extensions
+    '5.1': Parameter Selection and the N = 30 Working Assumption
 MF:
   page: mf.html
   title: Moral and Philosophical Foundations
@@ -278,6 +279,7 @@ VAL.A:
     C.11.4: — Total TW Advantage as % of Honest TW_settled (Cross-Check)
     C.11.5: — Retained Equity Fraction Ratio at End of Holding Period
     C.11.6: — Excess Periodic Net Tax as % of Honest TW_settled  [Informational]
+    C.12: "NPV-Adjusted Tax Position: Present Value of Tax Difference vs Honest"
 VAL.B:
   page: val-b.html
   title: Valuing Wealth — Worked Examples
@@ -649,6 +651,7 @@ RATES:
     '11': Conclusion
     '9.4': Structural and irreducible limits of the design
     '9.5': Governing Council calibration parameters
+    '8.3': Combined Pre-Behavioural Estimate
 RATES.A:
   page: rates-a.html
   title: Rates and Revenue Appendix
@@ -681,6 +684,7 @@ RATES.A:
     B.5.2: Overall (all 73 start years)
     B.5.3: By economic cycle
     B.5.4: Key metric distributions
+    B.5.1: Overall (all 73 start years)
 BEHAV:
   page: behav.html
   title: Behavioural Robustness and Administrative Experience
@@ -796,6 +800,7 @@ CLOSE:
     '9.3': Jurisdiction-specific legal and implementation work
     '9.4': Structural and irreducible limits of the design
     '9.5': Governing Council calibration parameters
+    '8.4': The Beyond-Lifetime-Cap Objection
 POL:
   page: pol.html
   title: Political Architecture
@@ -1061,6 +1066,10 @@ SWEEPS.A:
     C.6.1: srr_ratio sweep
     C.7: LRR Floor (lrr_years)
     C.7.1: lrr_years sweep
+    C.9.1: Amplitude sweep (μ, λ, T fixed at canonical)
+    C.9.2: Period sweep (μ, λ, A fixed at canonical)
+    C.8: Mean Growth Rate (g)
+    C.9: Synthetic Growth Scenario
 FM:
   page: fm.html
   title: First Mover
