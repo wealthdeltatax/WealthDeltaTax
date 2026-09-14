@@ -54,4 +54,8 @@ description: "Full citation list for the Wealth Delta Tax working paper series. 
 [SCOPE] Ogata, K. (2026). *The Wealth Delta Tax: Scope Boundary — Questions Outside This Project*. Unpublished.
 
 [ADD] Ogata, K. (2026). *The Wealth Delta Tax: Addendum: Implementation Calibration Examples*. Unpublished.
+
+[WFR] Ogata, K. (2026). *The Wealth Delta Tax: Welfare Comparison Across Tax Systems at Revenue Equivalence*. Unpublished.
+
+[WFR.A] Ogata, K. (2026). *The Wealth Delta Tax: Welfare Comparison Appendix Tables*. Unpublished.
  

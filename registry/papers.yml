@@ -75,3 +75,9 @@
 
 - source: 18_Addendums.md
   output: add.qmd
+
+- source: 19_Welfare.md
+  output: wfr.qmd
+
+- source: 19a_Welfare_Appendix.md
+  output: wfr-a.qmd

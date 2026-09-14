@@ -1,269 +1,157 @@
 ---
-title: "How to Legally Avoid Tax Under the WDT"
+title: "How to Minimise Your WDT Liability"
 description: >
-  A taxpayer's guide to minimising lifetime WDT liability under Route C.
-  Five optimisation strategies examined with live calculator to test each one.
+  The designer's guide to paying as little Wealth Delta Tax as possible.
+  Six decisions, in order, with honest analysis of what each one delivers.
 toc: true
 ---
 
 ```{=html}
 <div class="avoid-intro">
-<p>This is a serious instruction manual.</p>
-<p>If you are a taxpayer subject to the Wealth Delta Tax and your objective is to minimise
-the amount of WDT you pay, this page tells you how to do it. We will not conceal strategies,
-cite anti-avoidance provisions as a substitute for analysis, or ask you to trust enforcement
-to close gaps we have not thought through.</p>
-<p>Instead: here are the equations, the optimisation variables, and the known strategies.
-Here is what each one actually produces. Here is what you cannot avoid, and why.</p>
-<p><strong>The purpose is not to claim the WDT makes avoidance impossible.</strong>
-The purpose is to make that claim falsifiable. If a strategy we have not anticipated
-produces a meaningful economic advantage, that is a defect in the mechanism — and
-publishing this page is how we find it.</p>
-<p style="margin-bottom:0"><em>If you find something we have missed: <a href="mailto:wealthdeltatax@gmail.com">we want to know</a>.</em></p>
+<p>This is the cheat sheet.</p>
+<p>Every tax system in history has fought two battles simultaneously: implementation and information. Governments design the tax, then spend considerable effort making sure the strategies for minimising it are not written down anywhere convenient. The gap between what a sophisticated adviser knows and what a taxpayer without one can find is treated as a feature, not a bug.</p>
+<p>This page declines to play that game.</p>
+<p>What follows is the designer's honest account of the best strategies available to a taxpayer subject to the Wealth Delta Tax. No anti-avoidance throat-clearing. No "consult a professional." Just the analysis, in order, with the numbers where the numbers exist and an honest "we don't know" where they don't.</p>
+<p>The reason this page can exist is also the most important thing on it: the optimal strategy under the WDT turns out to be close to honest participation. That is not an accident and it is not a moral argument. It follows from the mechanism. Read to the end and you will see why.</p>
+<p style="margin-bottom:0"><em>If you find a strategy this page misses — one that produces a meaningful, durable advantage — <a href="mailto:wealthdeltatax@gmail.com">that is a design defect and we want to know about it</a>.</em></p>
 </div>
 ```
 
-## How the WDT is calculated
+## How your liability is calculated
 
-The WDT taxes changes in declared net wealth, not wealth itself. In each period, you declare a wealth figure W. The tax due is:
+The WDT taxes changes in declared net worth, not net worth itself. Each period, you declare a wealth figure W. If it has risen since last period, you pay:
 
 ```
 L = τ(W) × ΔW    where ΔW = W_current − W_previous
 ```
 
-The rate function τ(W) is a logistic curve rising from a floor τ₀ (15% at canonical parameters) toward a ceiling τ_m (70%), above an entry threshold W_min (£2m). It is calibrated so that the effective rate on any given pound of wealth increase rises continuously with declared wealth — there are no bands or cliff edges.
+If it has fallen, the state pays you a refund at the same rate. Total lifetime refunds cannot exceed total lifetime taxes paid — this is the lifetime contribution envelope, and it matters for two of the strategies below.
 
-When wealth falls, ΔW is negative. The system pays you a refund at the same rate. This symmetry is not a loophole: it is load-bearing. The refund is what makes honest declaration incentive-compatible over a full market cycle. Any strategy that generates a large refund will also trigger a tax when the position subsequently recovers.
+The rate function τ(W) is a logistic curve rising from a floor of 15% to a ceiling of 70%, above an entry threshold of £2m at canonical parameters. The curve is nearly flat through the first several hundred million pounds of wealth: at £20m you are paying close to the floor rate. The ceiling only bites at extreme wealth and over long holding periods. This shape is load-bearing for understanding where the real costs concentrate.
 
-At the terminal sell year, alpha drops out entirely: W_sell = f_N × V_sell, where f_N is the retained equity fraction accumulated over the holding period. The declaration ratio cannot influence the sell-year basis.
-
-## The optimisation variables
-
-A taxpayer under Route C has five levers. The strategies below work through each one.
+One more thing before the strategies: the assessment is on *declared* net worth, not independently verified net worth. What you declare establishes the legally recognised basis from which all future deltas are calculated. This is intentional. It is also the source of most of what follows.
 
 ---
 
-### Strategy 1 — Declaration ratio α: understating wealth each period {#strategy-1}
+## The six decisions, in order
 
-::: strategy-block
+### Decision 1 — Choose Route D if your assets permit it
 
-::: wdt-domain-header
-[1]{.strategy-number} Declaration ratio α — understating wealth each period
-:::
+The single most consequential decision you make under the WDT is which valuation route you are on. For illiquid non-fungible assets — private company stakes, real estate, art, family enterprises — Route D is almost certainly the right choice.
 
-::: strategy-body
+Route D generates no periodic liability at all. You declare an entry basis, file annual reports (which don't generate tax bills), and pay nothing until a realisation event. Every year between entry and realisation you are holding a deferred liability, but you are holding it interest-free and at your own pace. No cash is leaving your hands.
 
-The declaration ratio α scales your declared wealth relative to true wealth. At α = 1 you are honest. At α = 0.5 you declare half your true wealth each period. This reduces ΔW in growth years, cutting the tax due. It looks like the obvious play.
+Route C, by contrast, settles in equity. When a liability crystallises, you transfer a proportional stake in the asset at your declared value. That stake then appreciates alongside the remainder of your holding. Understatement on Route C costs you equity immediately — the must-transfer rule is a direct dilution mechanism that operates without any enforcement action. Route D has no equivalent intermediate cost.
 
-::: mechanic
+Routes A and B involve professional valuers and produce periodic assessments. They are appropriate where methodology is established and the cost of assessment is proportionate to the liability. For complex illiquid positions they are usually not.
 
-**What actually happens**
-
-Understatement depletes your retained equity fraction f. Each period you hold back declaration, the system records a lower basis — but your true asset value has grown. When you sell, W_sell = f_N × V_sell with alpha removed. You receive a smaller fraction of sale proceeds because f_N has been eroded by the cumulative under-declaration. The sell-year refund (which would have partially compensated you for prior overpayment) is also smaller.
-
-:::
-
-The net result across a full holding period: understaters pay less in annual taxes but also receive smaller refunds, and their sell proceeds are reduced by the f erosion. The model shows the advantage is real but modest — typically low single-digit percentage points of lifetime effective rate at α = 0.5, narrowing further for shorter holding periods and negative-growth years.
-
-::: mechanic
-
-**Try it in the calculator below**
-
-Set α to 0.5. Compare Net_settled and TW_settled against the honest baseline. Then switch to a historical series that includes a market crash (try 2000 or 2007) and observe how the refund asymmetry behaves when growth turns negative.
-
-:::
-
-::: {.verdict-box .moderate}
-
-**Verdict — limited advantage**
-
-Understating declaration produces a real but self-limiting tax reduction. The mechanism that cuts your tax payments also cuts your sell-year proceeds. The advantage erodes further under volatile returns and disappears almost entirely if the WDT is applied with a valuation purchase option (Route A/B), which anchors W to a third-party-agreed value.
-
-:::
-
-[Simulate α < 1 in the calculator ↓](#the-calculator){.pdf-download}
-
-:::
-
-:::
+**The route is selected per asset and can differ across your portfolio.** You are not forced to apply one route to everything. A portfolio of listed equities, a private company stake, and a country estate can each sit on its own appropriate route.
 
 ---
 
-### Strategy 2 — Holding period N: how long you hold before selling {#strategy-2}
+### Decision 2 — Set your entry basis as close to true value as you can assess it
 
-::: strategy-block
+This is where the page should tell you to declare as low as possible. It isn't going to, and the reason is worth understanding carefully.
 
-::: wdt-domain-header
-[2]{.strategy-number} Holding period N — how long you hold before selling
-:::
+Route D has a deterrence mechanism for egregious understatement: the Route D auction. If two independent Valuation Bodies, working without knowledge of each other's findings, both conclude that your declared value is a statistical outlier, an auction is triggered. Your asset is offered to competitive bidders at your own declared price as the floor. You then face a choice: retain the asset at the highest third-party bid (paying WDT on the full gap from your original declared basis to the auction price), or sell and lose the asset entirely.
 
-::: strategy-body
+The critical word is *egregious*. The trigger requires three-body unanimous consensus on a statistical outlier. Nobody publishes the threshold. Nobody can tell you what "defensible" looks like for your specific asset. The mechanism is deliberately opaque about where the line sits.
 
-The WDT is a flow tax. You only pay when declared wealth increases. If you never sell and never grow, you pay nothing. The question is how holding period length interacts with the rate function.
+This opacity produces an asymmetric risk structure. If you declare at α=1 (honest declaration) and the auction fires, the market confirms your number and nothing happens. If you declare low and the auction fires, you face a tax bill you didn't plan for or you lose the asset. The downside of being wrong is not just financial — for a founder whose company is the asset, compelled sale or an unplanned large tax event are qualitatively different kinds of bad.
 
-::: mechanic
+There is a further problem: you cannot know whether your low declaration will attract attention. The Valuation Bodies are looking at the distribution of declarations across comparable assets. What looks defensible in isolation may be a clear outlier in population context.
 
-**What actually happens**
+**The recommendation is α≈1.** Not because honesty is virtuous — because under genuine uncertainty about where the auction trigger sits, honest declaration is the dominant strategy. If your declared value is accurate, competitive bidding at that price produces no price change and no consequences. The mechanism designed to deter understatement has no bite against a declaration that reflects true value.
 
-At steady growth, extending N increases cumulative tax roughly linearly — each additional period adds another year of taxable growth. There is no bunching advantage from selling late, because the basis carried forward at the sell year is the prior declared value, not the original purchase price. You cannot defer a large one-time gain and benefit from a low rate on the total — each year's increment is taxed as it accrues.
-
-:::
-
-Under volatile historical returns, holding period selection matters differently: a holding period that ends during a market trough generates a large refund at the sell year (negative ΔW = large negative L_sell). But you cannot know in advance when the trough will be, and deliberately timing a sale to a crash year means accepting depressed proceeds.
-
-::: mechanic
-
-**Try it in the calculator below**
-
-Hold all other parameters constant and sweep N from 10 to 50. Observe that effective rate (Net_settled / TW_settled) is relatively stable across N — the flow structure prevents the accumulation effect that makes deferral valuable under capital gains tax.
-
-:::
-
-::: {.verdict-box .limited}
-
-**Verdict — not a useful lever**
-
-Holding period length does not produce a systematic tax advantage under the WDT. This is by design: the flow structure eliminates the deferral benefit that makes hold-to-death strategies valuable under realisation-based capital gains tax.
-
-:::
-
-[Simulate holding period in the calculator ↓](#the-calculator){.pdf-download}
-
-:::
-
-:::
+Set your entry basis at your genuine best estimate of fair market value. If that estimate has a range, declare at the centre of it.
 
 ---
 
-### Strategy 3 — Overstatement α > 1: declaring more wealth than you own {#strategy-3}
+### Decision 3 — Elect the longest available assessment window
 
-::: strategy-block
+The WDT allows you to choose how frequently formal assessment crystallises into a tax or refund event. Windows of one, two, three, five, and seven years are available. Annual reporting continues regardless of which you choose — you still file each year — but the settlement event, when cash moves, occurs only at the end of your elected window.
 
-::: wdt-domain-header
-[3]{.strategy-number} Overstatement α > 1 — declaring more wealth than you own
-:::
+Longer windows carry a premium: a deferral charge (the time value of delayed collection) and a flexibility levy (a payment for the optionality you gain by being able to observe conditions before settlement). The premium is a Governing Council parameter and is intended to be modest — the mechanism is designed to make longer windows genuinely available rather than prohibitively expensive.
 
-::: strategy-body
+The optionality is real. A seven-year window means you observe seven years of economic conditions before a liability crystallises. If those years include a significant market decline, the refund in the final assessment may substantially offset earlier gain-year liabilities. You cannot predict when declines will occur, but you benefit from the ability to time the settlement conversation across a longer window of outcomes.
 
-This sounds counterintuitive, but the mathematics make it worth examining. If you declare more wealth than you actually own in years of high growth, you pay more tax — but you also accumulate a larger negative cumulative position, which generates a larger refund when growth turns negative or at sale.
-
-::: mechanic
-
-**What actually happens**
-
-At the sell year, alpha drops out. If you have been overstating by α = 1.5 throughout, your prior declared basis (f_N × α × V_N) typically exceeds your true sell proceeds (f_N × V_sell) when growth is moderate. This generates a large negative delta_sell — a substantial refund. Post-sale, the settlement mechanism iterates on the resulting cash position, taxing back the refund if it produces a positive delta again, until convergence.
-
-:::
-
-The net effect is that overstatement provides a very small advantage for specific return profiles, and a disadvantage for others. The settle_tw() function converges this residual within a few iterations for honest and moderate overstaters; large overstaters at high growth see more iterations. In all cases the lifetime advantage is economically small — well under 1% of TW_settled at canonical parameters.
-
-::: mechanic
-
-**Try it in the calculator below**
-
-Set α to 1.5 at steady g = 10%. Compare Net_settled to the honest baseline. Then try α = 1.5 at g = 5%. Note how the advantage/disadvantage reverses. The settle_n counter shows how many post-sale settlement iterations convergence required.
-
-:::
-
-::: {.verdict-box .blocked}
-
-**Verdict — negligible and unreliable**
-
-Overstatement does not produce a reliable tax advantage. The sell-year alpha drop-out and the post-sale settlement mechanism converge the position toward the honest outcome. At high growth rates, overstatement is a net disadvantage. This is not a viable avoidance strategy.
-
-:::
-
-[Simulate α > 1 in the calculator ↓](#the-calculator){.pdf-download}
-
-:::
-
-:::
+**Elect the longest window your liquidity position permits.** The premium prices the optionality; the optionality is worth the premium for any taxpayer holding volatile or illiquid assets.
 
 ---
 
-### Strategy 4 — Staying below W_min: keeping declared wealth under the entry threshold {#strategy-4}
+### Decision 4 — Declare at α≈1.1 on ongoing assessments, for one specific reason
 
-::: strategy-block
+Route C is the self-declaration route for fungible assets — company equity, fund units, partnership interests. You declare your own value each period with no professional certification required. The trade-off is that settlement must be in kind: when a liability crystallises, you transfer a proportional equity stake at your declared price rather than paying cash. That stake then appreciates alongside the remainder of your holding. The declared price is not just a valuation — it is a transaction price you are committing to stand behind.
 
-::: wdt-domain-header
-[4]{.strategy-number} Staying below W_min — keeping declared wealth under the entry threshold
-:::
+This is subtle and easy to get wrong, so the reasoning matters.
 
-::: strategy-body
+The simulations show that across declaration ratios from approximately α=0.8 to α=1.5, lifetime tax outcomes are close to what honest declaration would produce. This is called the tolerant zone, and it is a deliberate design feature. The mechanism does not need precision from you — it needs the tails to be expensive. Within the zone, it is relatively indifferent.
 
-The WDT applies only above W_min (£2m at canonical parameters). Wealth below this threshold pays nothing. If you can keep declared wealth below W_min every period, your liability is zero.
+Within that zone, however, understatement and overstatement are not symmetric in their consequences. The refund you receive in a bad year is proportional to your *declared basis*, not your true asset value. An understater who has been declaring at α=0.8 receives 80% of the refund an honest declarer would receive when growth turns negative. That shortfall is real money at the moment you most need the protection.
 
-::: mechanic
+This asymmetry — not any genuine wealth advantage from overstatement — is the rational basis for declaring slightly above your central estimate. If you have genuine valuation uncertainty (and for illiquid private assets, ±10–20% is normal), the cost of landing slightly on the overstatement side of your uncertainty band is small. The cost of landing on the understatement side, in a loss year, is a materially smaller refund.
 
-**What actually happens**
+Note carefully what this is not. The simulations also show that the nominal terminal wealth advantage of mild overstatement does not survive NPV adjustment. Periodic tax outflows are real early money; the sell-year refund generated by overstatement is inflated late money. There is no genuine economic return to overstatement. The recommendation is α≈1.1 not because it makes you wealthier but because it makes the mechanism more symmetrical in protecting you when conditions turn against you.
 
-This is a real and intentional feature, not a gap. The W_min threshold is a design choice: the WDT is not intended to reach small wealth holders. The question is whether a wealth holder above the threshold can restructure to move below it. Under Route C (equity transfer), W reflects retained equity in underlying assets. Splitting holdings across multiple structures does not reduce the attribution — the WDT consolidates beneficial ownership, not legal title. A £10m holding split across five entities is still attributed to one person as £10m.
+**A note on what looks like an opportunity.** The declaration incentive simulations show one genuinely blue corner: low asset growth combined with aggressive overstatement within the tolerant zone (α up to ~1.5). In that specific combination, the overstater pays materially less net tax than honest declaration. The sell-year refund on the inflated basis exceeds the accumulated periodic costs, and at low growth rates the bracket penalty that punishes overstatement at moderate-to-high growth simply doesn't fire. It looks, on paper, like a real arbitrage.
 
-:::
+The problem is what you would have to do to exploit it. You would need to deliberately hold a low-growth asset on Route C rather than a higher-growth one. But the WDT removes the lock-in distortion that makes holding suboptimal assets rational under capital gains tax. Under CGT you stay in a winner because selling crystallises a large tax bill regardless of whether you reinvest. Under the WDT there is no equivalent cost — you pay tax on gains as they accrue whether you sell or not, so switching to a better asset costs you nothing extra in tax terms. A rational investor under the WDT holds whatever maximises risk-adjusted returns.
 
-For genuine wealth just above the threshold (£2–5m), moderate growth volatility can produce years where declared wealth dips below W_min — paying no tax in that period. This is mechanically correct behaviour, not avoidance. The rate function is continuous at W_min (it returns zero below, and τ₀ ≈ 0 just above), so there is no cliff-edge incentive to manipulate.
+Deliberately choosing a low-growth asset to sit in the blue corner of the declaration landscape means accepting a lower expected return specifically to capture a tax advantage that is marginal to begin with. The opportunity cost dominates. The only version of this that makes sense is if you already hold a low-growth asset for reasons unconnected to tax — illiquidity, business necessity, personal reasons — in which case overstatement within the tolerant zone is an incidental optimisation on a position you'd hold regardless, not a strategy you'd construct from scratch.
 
-::: {.verdict-box .limited}
-
-**Verdict — applies only to genuine boundary cases**
-
-Sub-threshold status is real zero tax. But it requires actually having sub-threshold wealth on a beneficial-ownership basis. Attribution rules prevent artificial fragmentation. For taxpayers well above W_min, this strategy is unavailable.
-
-:::
-
-:::
-
-:::
+**Declare at or slightly above your genuine central estimate.** Not to gain an advantage. To ensure the refund protection you are entitled to actually materialises when you need it.
 
 ---
 
-### Strategy 5 — Timing losses: selling or declaring in crash years {#strategy-5}
+### Decision 5 — Emigration plus full divestment, before Phase Two, if your wealth is portable
 
-::: strategy-block
+This is the most powerful lever on the list. It is also the most demanding, and the qualification matters: emigration alone does not close your exposure. Emigration paired with full divestment of WDT-jurisdiction assets does.
 
-::: wdt-domain-header
-[5]{.strategy-number} Timing losses — selling or declaring in crash years
-:::
+The WDT applies to UK residents for individual assessment. A taxpayer who emigrates removes themselves from future individual liability accumulation. The bridging facility decouples physical departure from settlement completion: at the point of exit, both parties post bonds proportional to the expected settlement value, you depart, and settlement occurs later through a structured process. There is no liquidity-detention mechanism forcing you to remain until tax is paid. The mechanism is designed to allow departure without penalising it, on the view that punitive exit taxation is both legally vulnerable and counterproductive to the cooperative architecture.
 
-::: strategy-body
+The complication is the corporate delta levy. The WDT applies a levy to listed companies operating in the jurisdiction, on the portion of equity appreciation not attributable to identified individual taxpayers. If you emigrate but retain a stake in a UK-incorporated operating company, that stake does not disappear from the system — it moves into the unattributable tranche and is charged at τ_h, which sits between τ_0 and τ_m. Depending on your prior individual rate, this may be *more* expensive than remaining in the individual assessment system would have been, and you no longer receive the symmetric refund protections that individual assessment carries.
 
-If your wealth falls in a given year, the WDT pays you a refund. A strategy that concentrates declarations of wealth in years of negative return — and avoids triggering taxable events in growth years — would, in principle, extract refunds without paying commensurate taxes.
+The honest conclusion is that emigration is only a clean strategy if paired with divestment of all WDT-jurisdiction business interests and assets. A founder with a controlling stake in a UK operating company cannot emigrate their way out of the system. Their wealth is not portable in the relevant sense. The population for whom this strategy is genuinely available is narrower than it first appears: internationally diversified financial assets, foreign-held positions, and holdings with no structural dependency on the jurisdiction. If that describes your portfolio, emigration before Phase Two is the most significant reduction in lifetime WDT exposure available. If it doesn't, this decision is not yours to make.
 
-::: mechanic
+The lifetime contribution envelope persists across closures and re-entries. If you emigrate and later return, your prior tax history carries forward and your prior refund entitlements are not reset. This limits cycling strategies but does not change the core calculus for a genuine clean exit.
 
-**What actually happens**
+The Norwegian evidence suggests migration responses to wealth taxation are real but fiscally modest in aggregate — roughly 22 cents of revenue lost per pound raised. That is a population-level finding. For an individual taxpayer the personal calculus is different, which is why the mechanism accepts this outcome rather than trying to prevent it.
 
-The cumulative position prevents this. The refund in a crash year is bounded by the cumulative tax paid to date (the lifetime cap). If you have paid very little tax — because you understated in growth years — your refund capacity is correspondingly small. The system does not pay refunds that exceed what you have contributed. A taxpayer who paid nothing throughout cannot extract a refund at a crash.
-
-:::
-
-What you can do: hold through a cycle and receive a natural refund when the next decline arrives. But the refund is automatically netted against the taxes already paid on the prior growth. The symmetry is exact: you are returned, at the same marginal rate, the same amount you paid on the gain. The refund is a reversal, not a bonus.
-
-::: {.verdict-box .blocked}
-
-**Verdict — blocked by the cumulative cap**
-
-Loss-timing strategies are structurally prevented. Refunds cannot exceed cumulative contributions. The symmetry between taxes and refunds is the mechanism, not a limitation to be gamed.
-
-:::
-
-[Switch to historical series from 2000 or 2007 ↓](#the-calculator){.pdf-download}
-
-:::
-
-:::
+**If your wealth is genuinely portable and your circumstances permit international mobility, emigration paired with full divestment of WDT-jurisdiction interests before Phase Two is the most significant reduction in lifetime exposure available.** This is an accepted consequence of a system that does not use coercion as its primary instrument. It is also, for most people reading this page, not available.
 
 ---
 
-## What you cannot avoid — and why
+### Decision 6 — Trigger a voluntary hard-reset auction before death on Route D assets
 
-Across all five strategies, the pattern is the same. Every mechanism that reduces tax payments in growth years also reduces the value recovered at the terminal event. The WDT is a tax on the increment of wealth, not on its stock. Reducing the declared increment reduces both the tax and the basis — you pay less, but you also walk away with less. The net lifetime position, expressed as Net_settled / TW_settled, is substantially more stable across declaration strategies than either figure alone.
+If you hold Route D assets and you die without triggering a voluntary hard-reset, the inheritance auction fires automatically. The estate loses control of the timing. The opening price is your most recent declared value. Third parties bid. The estate then chooses to retain at the winning price (paying WDT on the full gain from entry basis to auction price) or allow the sale. The heir's entry basis is set at the auction price regardless.
 
-This is not accidental. The retained equity fraction f, which links declaration history to sell-year proceeds, is what closes the loop. A taxpayer who understates throughout accumulates a depleted f. At the sell year, alpha drops out and the depletion is fully exposed. There is no way to understate during the holding period and then declare honestly at sale — the basis is already set.
+You can control all of this by initiating a voluntary hard-reset auction yourself before the transfer event. The mechanics are identical, but you choose when it happens. This matters for two reasons. First, you choose the market conditions under which your asset is offered — you are not forced to an auction in an estate administration context, where timing is not your friend. Second, if the auction establishes a value below your declared basis, the symmetric refund mechanism applies: you receive a refund on the downward delta, subject to the lifetime contribution envelope. On an inheritance auction, the same applies but the refund flows into estate administration rather than directly to you.
 
-The residual advantage of understating (low single digits as a percentage of effective rate) is real, but it shrinks under realistic return volatility and disappears when valuation is anchored by a third-party purchase option. The model shows the mechanism is robust to the strategies most likely to be attempted.
+The heir's position is not improved by the voluntary versus automatic distinction — they inherit the auction price as their basis either way. The improvement is yours: better timing, better market conditions, and the refund entitlement flows while you are alive to use it.
 
-If you find a strategy that produces a meaningful and durable advantage under canonical parameters — one that survives volatile returns and does not depend on implausible inputs — [that is a design defect and we want to know about it](mailto:wealthdeltatax@gmail.com). This page is the mechanism by which that finding reaches us.
+**If you are on Route D and anticipate a transfer event, initiate a voluntary hard-reset auction at a time and in conditions you control.** The cost is the auction fees, borne by you. The benefit is control over what is otherwise an automatic and potentially poorly timed process.
+
+---
+
+## What you cannot change
+
+The lifetime contribution envelope is a constraint, not a strategy. Total refunds across your lifetime cannot exceed total taxes paid. A taxpayer who has paid nothing cannot receive a refund in a crash year regardless of how large the loss was. There is no way to enter the system specifically to extract a net refund — the mechanism prevents it structurally.
+
+The declared basis commits you. Whatever you declare, that figure becomes the recognised basis from which all future deltas are calculated. You cannot understate during the holding period and then declare honestly at sale. The basis is already set, the gap between your declaration and true value accrues as deferred liability, and it surfaces in full at the realisation event. The only moment you control this is the declaration itself.
+
+Attribution does not follow legal title. Splitting holdings across entities does not reduce your assessed wealth. The WDT consolidates beneficial ownership, not legal structure. A £20m stake held through five nominee companies is attributed to one person as £20m.
+
+---
+
+## What this tells you
+
+If you followed this guide — Route D where applicable, honest entry declaration, longest window, α≈1.1 ongoing, emigration if feasible and top-bracket, voluntary reset before death — you would be minimising your WDT liability by every lever the mechanism makes available.
+
+And the result looks a lot like honest, considered participation in the system.
+
+That is the point. A mechanism whose optimal evasion strategy produces outcomes close to honest declaration has done something that most tax systems have not: it has aligned what is good for the taxpayer with what the mechanism wants from them. The cheat sheet and the compliance manual are the same document.
+
+Whether you find that reassuring or annoying probably depends on your starting position.
 
 ## The calculator {#the-calculator}
 
@@ -275,4 +163,4 @@ The model runs the full Route C simulation from `wdt_core.py` — the same code 
 
 ---
 
-Found a strategy this page does not cover? Identified a parameter combination that produces a surprising result? [Contact the project](mailto:wealthdeltatax@gmail.com) — this page is maintained as a live document and will be updated as new strategies are identified.
+Found a strategy this page does not cover? Identified a parameter combination that produces a meaningful durable advantage under canonical parameters? [Contact the project](mailto:wealthdeltatax@gmail.com) — this page is maintained as a live document and will be updated as new strategies are identified.

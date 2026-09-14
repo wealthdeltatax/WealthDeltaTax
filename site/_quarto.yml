@@ -69,6 +69,8 @@ website:
             href: sweeps.html
           - text: "Behavioural Robustness (BEHAV)"
             href: behav.html
+          - text: "Welfare (WFR)"
+            href: wfr.html
           - text: "— Implementation & Analysis —"
           - text: "Position Closure (CLOSE)"
             href: close.html
@@ -160,6 +162,10 @@ website:
             href: sweeps-a.html
           - text: "Behavioural Robustness (BEHAV)"
             href: behav.html
+          - text: "Welfare (WFR)"
+            href: wfr.html
+          - text: "Welfare Appendix (WFR.A)"
+            href: wfr-a.html
       - section: "Implementation"
         contents:
           - text: "Position Closure (CLOSE)"

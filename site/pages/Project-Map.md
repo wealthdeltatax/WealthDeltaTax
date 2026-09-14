@@ -1,7 +1,7 @@
 # WDT Project Map
 **Last updated:** 13 September 2026  
-**Papers covered:** (WP), (MF), (LR.A), (LR.B), (JUR), (VAL), (VAL.A), (VAL.B), (CORP), (CORP.A), (GOV), (GOV.A), (GOV.B), (RATES), (RATES.A), (SWEEPS), (SWEEPS.A), (BEHAV), (CLOSE), (POL), (PHASE1), (ENV), (FM), (MOD), (SCOPE), (ADD)  
-**Papers not yet in project:** *(WFR)*
+**Papers covered:** (WP), (MF), (LR.A), (LR.B), (JUR), (VAL), (VAL.A), (VAL.B), (CORP), (CORP.A), (GOV), (GOV.A), (GOV.B), (RATES), (RATES.A), (SWEEPS), (SWEEPS.A), (WFR), (WFR.A), (BEHAV), (CLOSE), (POL), (PHASE1), (ENV), (FM), (MOD), (SCOPE), (ADD)  
+**Papers not yet in project:** *None*
 
 ---
 
@@ -139,7 +139,31 @@ Three ownership tranches: (1) native WDT shareholders — provisional levy held 
 
 ---
 
-## 10 BEHAV: Behavioural Robustness
+## 10 WFR: Welfare Comparison Across Tax Systems
+
+WFR is a Level 1 theoretical paper. It compares six tax systems — flat symmetric WDT, progressive symmetric WDT, income tax, CGT, stock wealth tax, and consumption tax — on welfare grounds at genuine revenue equivalence (numerical solve for E[T] = 2% of W₀), against a common empirical return distribution, admitting welfare mechanisms one at a time in a controlled sequence. It closes three confirmed literature gaps from LR.A §2.1–2.3 simultaneously and positions the delta instrument in the active Guvenen / Gerritsen-Jacobs-Spiritus dispute without adjudicating it. The companion appendix paper WFR.A contains the full simulation tables underlying all results.
+
+**The three-category framework.** WFR's argument rests on an epistemic taxonomy that must be held throughout. Category 1 findings are welfare costs of existing systems established by the model — they do not require the WDT to exist. Category 2 findings are properties of the WDT that follow from the design of the delta base and the symmetric refund, independently of implementation outcomes. Category 3 findings are prospective implementation costs of the WDT that are real but not currently quantifiable. The standard objection to any unimplemented instrument — "you haven't shown it has no costs" — conflates Category 2 and Category 3. WFR is precise about the distinction from the outset.
+
+**The controlled baseline (Part I).** With distortions suppressed and all systems at revenue equivalence, flat WDT leads by 17.4 basis points over income tax and CGT, and by 133.1 basis points over stock wealth and consumption tax. Neither advantage is the paper's primary result. The baseline's job is to confirm the WDT does not win through a mechanical rate advantage. The flat WDT satisfies Domar-Musgrave to floating-point precision across all tested γ and both return distributions — the government's proportional co-investment contracts the consumption distribution without altering risk rankings — but D-M is established here as a mechanism result, not a welfare verdict. The welfare translation is the subject of Part II (WFR §3).
+
+**Progressive rate complications (Part II §4.1).** A progressive rate schedule introduces three complications to the D-M architecture: the progression effect itself (C1), the leverage and net-worth base interaction (C2), and the intertemporal rate asymmetry from gain-loss sequences (C3). All three are real features of the logistic schedule. All three are second-order at canonical parameters across the tested population — the gap between flat and progressive WDT on welfare remains below 0.05 basis points up to £100m initial wealth. The progressive schedule has not risen far enough above τ₀ in the canonical population to compound a material D-M divergence. This is an honest constraint on the progressive rate claim, not a suppressed finding (WFR §4.1; WFR.A §B).
+
+**CGT lock-in (Part II §4.2).** When portfolio choice is endogenous and the realisation decision is modelled, CGT imposes a switching wedge between the gross return differential and the after-tax cost of moving to a superior asset. At the reference calibration (G/V = 50%, T = 5 years, τ_cgt = 24%, empirical distribution, γ = 2), the lock-in welfare cost is 141–143 basis points — approximately 82 times the baseline welfare difference between systems. This is a Category 1 finding: it is a cost of an existing, operating system, established without requiring WDT implementation data. The WDT eliminates lock-in by construction — the switching decision is not tax-relevant under the delta base — which is a Category 2 property. The Arachi et al. (2022) objection that accrual taxation creates intertemporal consumption distortions in loss years is addressed directly: the symmetric refund restores consumption capacity at exactly the moment the Arachi mechanism would otherwise be most acute, making the WDT structurally distinct from all prior accrual proposals that do not include full symmetric loss relief. The Arachi objection applies at the envelope binding boundary (Poor-tier entrants in the first loss year before any cumulative contribution) but not in the general case (WFR §4.2; WFR.A §C).
+
+**Heterogeneous returns and concentration (Part II §4.3).** Using the four-tier Fagereng calibration (Poor/Ok/Good/Great, outer-tier return differential ≈ 8pp — conservative against Fagereng's observed 18pp gap), WFR tracks wealth concentration over 30 years. At N = 30 the dominant axis is accrual basis versus stock base, not flat versus progressive rate: both WDT variants reach approximately 286–288× Great/Poor concentration; income tax reaches 320×; both stock-base systems reach 479×. Stock wealth and consumption taxes levy proportionally on the wealth stock regardless of return performance, leaving the full Fagereng differential to compound unattenuated. The delta base attenuates it by construction. The progressive WDT advantage over flat WDT on concentration is not visible at N = 30 — the logistic has not compounded enough above τ₀ at canonical parameters over this horizon — though it would emerge at longer horizons as accumulated wealth moves up the logistic curve. This scope limitation is stated, not suppressed. The lifetime contribution envelope binds for the Poor tier in the first scenario year (before any cumulative contribution), which is the correct boundary condition: it is a liquidity timing question for SRR capitalisation, not a structural funding shortfall. The 479× result for stock-base systems is a Category 1 finding (WFR §4.3; WFR.A §D).
+
+**Stock wealth and consumption tax equivalence (Part II §4.4).** Both systems produce exactly −1.8870% CEW across all γ values and both return distributions — γ-invariance is a structural property of bases applying a fixed proportional wedge to a stock that does not condition on return performance. Both reach exactly 479× at N = 30 for the same reason. The equivalence holds under the model's simplifying assumptions and breaks once labour income, heterogeneous saving rates, liquidity constraints, or life-cycle structure are introduced. The paper presents it as a clean theoretical result, not a general policy claim (WFR §4.4).
+
+**Literature positioning (Part III).** WFR closes three confirmed gaps simultaneously: the D-M extension to a progressive delta base (LR.A gap #1); the welfare comparison including the delta base alongside existing candidates (LR.A gap #2); and the distributional arithmetic of delta-base concentration under persistent return heterogeneity (LR.A gap #3). The paper enters but does not adjudicate the active dispute between Guvenen et al. (2023, QJE) — use-it-or-lose-it efficiency case for wealth taxation under heterogeneous returns — and Gerritsen, Jacobs, Spiritus & Rusu (2025, Economic Journal) — Pareto-efficient positive capital income taxation under the same premise. Both papers compare stock wealth tax and capital income tax; WFR adds the delta instrument to a comparison that has not previously included it. The 141–143 bp lock-in cost and the 479× concentration path are Category 1 findings referenced in this dispute; where WFR sits relative to each side's mechanism is noted without claiming to resolve it (WFR §5).
+
+**Conclusion and companion relationship.** The burden-of-consideration conclusion: a decision to maintain CGT or a stock wealth tax after this analysis is a decision to accept known welfare costs. Whether any Category 3 prospective implementation cost plausibly exceeds 141–143 basis points — the current CGT lock-in cost the WDT eliminates by construction — is the question EVAL is designed to answer using WFR's welfare baseline. WFR does not pre-empt EVAL's findings. The paper is pre-behavioural throughout; BEHAV, VAL, and CLOSE address the Category 3 costs WFR names but does not quantify (WFR §6–§7).
+
+**Relationship to other papers.** LR.A §2.1–2.3 identifies the three gaps WFR closes. RATES §10 provides the pre-behavioural revenue baseline WFR takes as given. BEHAV characterises the behavioural shapes and the mild-overstatement equilibrium; EVAL (forthcoming) produces break-even thresholds for each Category 3 cost against the WFR welfare baseline. Open questions register items #1–3 close on WFR completion; items #4–6 remain Phase One empirical questions.
+
+---
+
+## 11 BEHAV: Behavioural Robustness
 
 Behavioural robustness is a design property derivable from first principles, not a behavioural prediction. The existing architecture actively engineers stagnation through lock-in distortions, basis step-up, and debt preferences; the WDT removes those frictions before claiming any compliance improvement.
 
@@ -151,7 +175,7 @@ Behavioural robustness is a design property derivable from first principles, not
 
 ---
 
-## 11 CLOSE: Position Closure
+## 12 CLOSE: Position Closure
 
 Death, jurisdictional exit, threshold fall-through, and bankruptcy are the same kind of event: the WDT assessment position closes. The mechanism owes a correct final delta calculation and honours the symmetric refund on any negative final delta; the individual owes a correct final accounting regardless of why the position closes.
 
@@ -159,7 +183,7 @@ The bridging facility decouples physical departure from settlement completion: w
 
 ---
 
-## 12 POL: Political Architecture
+## 13 POL: Political Architecture
 
 **Why wealth taxes fail.** Twelve OECD countries levied individual net wealth taxes by 1990; most abolished them by 2020. Three structural failure mechanisms: legitimacy collapse (invisible reciprocity — taxpayers experience the tax as confiscation with no visible benefit to defend); organised opposition advantage (small concentrated taxed population versus large diffuse beneficiaries); and institutional brittleness (individually defensible exemptions accumulating invisibly into structural hollowing).
 
@@ -169,7 +193,7 @@ The bridging facility decouples physical departure from settlement completion: w
 
 ---
 
-## 13 PHASE1: Phase One
+## 14 PHASE1: Phase One
 
 Draws the line between what the design establishes and what only implementation can answer. Seven empirical clusters are identified — coherent groups of questions unanswerable at the design stage:
 
@@ -185,7 +209,7 @@ Phase One that confirms working assumptions and one that requires design revisio
 
 ---
 
-## 14 ENV: Environmental Effects
+## 15 ENV: Environmental Effects
 
 The standard efficiency critique rests on the assumption that wealth taxation is a friction on a capital stock — a framing that fails for a tax on the annual change in net worth with a symmetric loss refund. The WDT removes capital allocation frictions (lock-in distortion, debt preference, basis step-up) rather than adding new ones.
 
@@ -197,7 +221,7 @@ The standard efficiency critique rests on the assumption that wealth taxation is
 
 ---
 
-## 15 FM / MOD / SCOPE / ADD
+## 16 FM / MOD / SCOPE / ADD
 
 **FM (First Mover).** Any jurisdiction that has concluded the WDT's properties are likely true faces commit-or-suppress, with no stable middle option. Partial adoption is not available: removing the symmetric refund collapses the valuation architecture and breaks the Domar-Musgrave logic; removing the constitutional governance makes the mechanism vulnerable to the same incremental erosion that ended every prior OECD wealth tax.
 
@@ -209,17 +233,22 @@ The standard efficiency critique rests on the assumption that wealth taxation is
 
 ---
 
-## 16 Open Questions Register
+## 17 Open Questions Register
 
-Items not listed here are settled. The register has four sub-categories.
+Items not listed here are settled. Items listed under **Closed** have been resolved by a completed paper and are retained for audit trail only.
+
+### Closed Literature Gaps (resolved by completed papers)
+
+| # | Question | Closed by |
+|---|---|---|
+| 1 | Domar-Musgrave formal extension to a progressive delta base (three complications: net worth base, progressive rates, multi-period rate asymmetry) | WFR §3.2, §4.1; WFR.A §A.4, §B |
+| 2 | Welfare comparison including delta base alongside existing candidates | WFR §3–§4; WFR.A §A–§D |
+| 3 | Distributional arithmetic of delta-base concentration under persistent return heterogeneity | WFR §4.3; WFR.A §D |
 
 ### Confirmed Literature Gaps (formal modelling required; separable from Phase One)
 
 | # | Question |
 |---|---|
-| 1 | Domar-Musgrave formal extension to a progressive delta base (three complications: net worth base, progressive rates, multi-period rate asymmetry) |
-| 2 | Welfare comparison including delta base alongside existing candidates |
-| 3 | Distributional arithmetic of delta-base concentration under persistent return heterogeneity |
 | 7 | Causal framework for wealth tax abolition (three-mechanism framework not yet independently validated as political economy model) |
 | 8 | International competitive dynamic at the political level |
 | 9 | Minimum-tax floor interaction with refund-based systems in treaty law |
@@ -270,7 +299,7 @@ Items not listed here are settled. The register has four sub-categories.
 
 ### Summary observations
 
-- **6 confirmed literature gaps** require formal modelling or comparative case study work; most are separable from Phase One.
+- **3 confirmed literature gaps** remain open, requiring formal modelling or comparative case study work. Gaps #1–3 (D-M extension, welfare comparison, concentration arithmetic) are closed by WFR.
 - **10 Phase One empirical questions** cannot be resolved without live system data. Items 4–6 and 30 are the most consequential. The Agrawal cross-base externality (#5) is the dominant empirical qualification on all pre-behavioural revenue figures.
 - **2 MACRO items** require Phase One data before modelling can be calibrated.
 - **6 Governing Council calibration parameters** are settled in kind, open in value. Item #17 (the τ_0 × W_min joint surface) is the only one resolvable without Phase One data.
