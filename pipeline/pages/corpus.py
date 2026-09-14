@@ -20,7 +20,7 @@ SECTION_ORDER: list[tuple[str, list[str]]] = [
     ("Literature",               ["LR.A", "LR.B", "JUR"]),
     ("Valuation",                ["VAL", "VAL.A", "VAL.B"]),
     ("Corporate & Governance",   ["CORP", "CORP.A", "GOV", "GOV.A", "GOV.B"]),
-    ("Revenue & Behaviour",      ["RATES", "RATES.A", "SWEEPS", "SWEEPS.A", "BEHAV"]),
+    ("Revenue & Behaviour",      ["RATES", "RATES.A", "SWEEPS", "SWEEPS.A", "BEHAV", "WFR", "WFR.A"]),
     ("Implementation",           ["CLOSE", "PHASE1"]),
     ("Analysis",                 ["POL", "ENV", "FM", "MOD"]),
     ("Reference",                ["SCOPE", "ADD"]),
