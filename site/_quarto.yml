@@ -101,14 +101,16 @@ website:
             href: flowcharts.html
           - text: "Link Map"
             href: link-map.html
-      - text: "References"
-        href: references.html
-      - text: "Glossary"
-        href: glossary.html
-      - text: "Internal Bibliography"
-        href: internal_bibliography.html
-      - text: "Revision History"
-        href: revision_history.html
+      - text: "Resources"
+        menu:
+          - text: "References"
+            href: references.html
+          - text: "Glossary"
+            href: glossary.html
+          - text: "Internal Bibliography"
+            href: internal_bibliography.html
+          - text: "Revision History"
+            href: revision_history.html
       - text: "About the Author and Contacts"
         href: author_page.html
 
