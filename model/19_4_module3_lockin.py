@@ -41,7 +41,6 @@ from pathlib import Path
 from dataclasses import dataclass
 from typing import Optional
 
-from welfare_paths import TOML_PATH, module_output_dir
 from wdt_fmt import fmt_pct, fmt_pct0, fmt_pct1, fmt_pct4, fmt_gbp_m
 from wdt_style import (
     apply_style, save_fig,
@@ -63,6 +62,8 @@ from welfare_core import (
     SYSTEM_LABELS,
     make_empirical_distribution_scenario,
     make_idealised_distribution_scenario,
+    module_output_dir, 
+    TOML_PATH
 )
 
 OUTPUT_DIR = module_output_dir("module3")

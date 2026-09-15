@@ -49,14 +49,14 @@ from welfare_core import (
     SYSTEM_LABELS,
     tax_symmetric_flat,
     make_empirical_distribution_scenario,
-    make_idealised_distribution_scenario
+    make_idealised_distribution_scenario,
+    module_output_dir, 
+    TOML_PATH
 )
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CONFIG
 # ─────────────────────────────────────────────────────────────────────────────
-
-from welfare_paths import TOML_PATH, module_output_dir
 
 OUTPUT_DIR = module_output_dir("module1")
 

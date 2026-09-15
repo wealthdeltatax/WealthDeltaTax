@@ -1,11 +1,11 @@
 {
   "meta": {
     "version": "0.1",
-    "date": "260913",
+    "date": "260915",
     "generated_by": "pipeline/bib_to_json.py",
     "source_bib": "registry/references.bib",
     "source_internal": "registry/internal.json",
-    "total_external_refs": 133,
+    "total_external_refs": 138,
     "total_internal_papers": 26,
     "total_citations": 387,
     "total_flags": 28
@@ -196,6 +196,37 @@
       "flag_ids": [
         "flag_06"
       ]
+    },
+    {
+      "id": "ArachiDAntoni2022",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Arachi",
+          "first": "Giampaolo"
+        },
+        {
+          "last": "D'Antoni",
+          "first": "Massimo"
+        }
+      ],
+      "year": 2022,
+      "title": "Taxation of Capital Gains upon Accrual: Is It Really More Efficient than Realisation?",
+      "publisher": null,
+      "journal": "Fiscal Studies",
+      "volume": "43",
+      "issue": "1",
+      "pages": "39–61",
+      "series": null,
+      "number": null,
+      "doi": "10.1111/1475-5890.12255",
+      "url": null,
+      "verified": true,
+      "verified_date": "260914",
+      "verification_notes": "Online first 2021; journal volume dated January 2022. The paper the WFR draft cites as @Arachi2022 -- key should be updated to ArachiDAntoni2022 throughout.",
+      "alt_author_forms": [],
+      "citation_ids": [],
+      "flag_ids": []
     },
     {
       "id": "Atkinson2015",
@@ -552,6 +583,37 @@
       "flag_ids": []
     },
     {
+      "id": "BoadwaySpiritusEtAl2025",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Boadway",
+          "first": "Robin"
+        },
+        {
+          "last": "Spiritus",
+          "first": "Kevin"
+        }
+      ],
+      "year": 2025,
+      "title": "Optimal Taxation of Normal and Excess Returns to Risky Assets",
+      "publisher": null,
+      "journal": "Scandinavian Journal of Economics",
+      "volume": "127",
+      "issue": "2",
+      "pages": "366–389",
+      "series": null,
+      "number": null,
+      "doi": "10.1111/sjoe.12566",
+      "url": null,
+      "verified": true,
+      "verified_date": "260914",
+      "verification_notes": "Companion paper to GerritsenEtAl2025. Both are relevant to the §5.5 literature dispute — the author should confirm which paper is the operative citation.",
+      "alt_author_forms": [],
+      "citation_ids": [],
+      "flag_ids": []
+    },
+    {
       "id": "BollEtAl2026",
       "type": "working_paper",
       "authors": [
@@ -839,6 +901,49 @@
         "Dahl1985__LRB",
         "Dahl1985__MF"
       ],
+      "flag_ids": []
+    },
+    {
+      "id": "DalleLucheEtAl2026",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Dalle Luche",
+          "first": "Matteo"
+        },
+        {
+          "last": "Guzzardi",
+          "first": "Demetrio"
+        },
+        {
+          "last": "Palagi",
+          "first": "Elisa"
+        },
+        {
+          "last": "Roventini",
+          "first": "Andrea"
+        },
+        {
+          "last": "Santoro",
+          "first": "Alessandro"
+        }
+      ],
+      "year": 2026,
+      "title": "Tackling the Regressivity at the Top of the Italian Tax System: An Optimal Taxation Framework with Heterogeneous Returns to Capital",
+      "publisher": null,
+      "journal": "Review of Income and Wealth",
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": "10.1111/roiw.70086",
+      "url": null,
+      "verified": true,
+      "verified_date": "260914",
+      "verification_notes": "Article number e70086. Volume and issue numbers not yet assigned at verification date; update on journal publication. The WFR plan §7.5 attributes this paper to \"Dalle Luche, Garbinti, and Goupille-Lebret\" -- the correct authors are as given here. Garbinti and Goupille-Lebret are distinct researchers whose names appear together in other papers.",
+      "alt_author_forms": [],
+      "citation_ids": [],
       "flag_ids": []
     },
     {
@@ -1205,6 +1310,37 @@
       ]
     },
     {
+      "id": "FlavinYamashita2002",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Flavin",
+          "first": "Marjorie"
+        },
+        {
+          "last": "Yamashita",
+          "first": "Takashi"
+        }
+      ],
+      "year": 2002,
+      "title": "Owner-Occupied Housing and the Composition of the Household Portfolio",
+      "publisher": null,
+      "journal": "American Economic Review",
+      "volume": "92",
+      "issue": "1",
+      "pages": "345–362",
+      "series": null,
+      "number": null,
+      "doi": "10.1257/000282802760015775",
+      "url": null,
+      "verified": true,
+      "verified_date": "260914",
+      "verification_notes": "Used in WFR as the calibration source for the central-case risk-aversion parameter γ=2.",
+      "alt_author_forms": [],
+      "citation_ids": [],
+      "flag_ids": []
+    },
+    {
       "id": "Frankel2010",
       "type": "working_paper",
       "authors": [
@@ -1458,6 +1594,45 @@
         "GarbintiEtAl2026__VAL",
         "GarbintiEtAl2026__WP"
       ],
+      "flag_ids": []
+    },
+    {
+      "id": "GerritsenEtAl2025",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Gerritsen",
+          "first": "Aart"
+        },
+        {
+          "last": "Jacobs",
+          "first": "Bas"
+        },
+        {
+          "last": "Spiritus",
+          "first": "Kevin"
+        },
+        {
+          "last": "Rusu",
+          "first": "Alexandra V."
+        }
+      ],
+      "year": 2025,
+      "title": "Optimal Taxation of Capital Income with Heterogeneous Rates of Return",
+      "publisher": null,
+      "journal": "The Economic Journal",
+      "volume": "135",
+      "issue": "665",
+      "pages": "180–211",
+      "series": null,
+      "number": null,
+      "doi": "10.1093/ej/ueae083",
+      "url": null,
+      "verified": true,
+      "verified_date": "260914",
+      "verification_notes": "This is the paper the WFR plan (§7.5) attributes to \"Boadway and Spiritus (2025, Economic Journal)\" -- the correct authors are Gerritsen, Jacobs, Spiritus, and Rusu. Boadway and Spiritus's 2025 paper appears in the Scandinavian Journal of Economics (see BoadwaySpiritusEtAl2025). Author to verify which paper is the intended citation in §5.5.",
+      "alt_author_forms": [],
+      "citation_ids": [],
       "flag_ids": []
     },
     {

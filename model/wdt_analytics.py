@@ -440,7 +440,7 @@ def tolerant_zone_bounds(
         g = CANON_G
     if threshold is None:
         threshold = TZONE_THRESHOLD
-    alphas = [a / 100 for a in range(10, 251, 5)]
+    alphas = [a / 100 for a in range(10, 751, 5)]
     c1_vals = [c1(p, a, g) for a in alphas]
     lo = hi = None
     for a, v in zip(alphas, c1_vals):

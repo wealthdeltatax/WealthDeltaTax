@@ -54,7 +54,6 @@ from scipy.optimize import brentq
 from dataclasses import dataclass
 from typing import Optional
 
-from welfare_paths import TOML_PATH, module_output_dir
 from welfare_core import (
     load_params,
     ReturnDistribution,
@@ -70,9 +69,8 @@ from welfare_core import (
     SYSTEM_LABELS,
     get_tax_fn,
     solve_revenue_equivalent_rate,
-)
-
-from welfare_progressive import (
+    module_output_dir, 
+    TOML_PATH,
     ProgressiveRateFunction,
     expected_utility_progressive,
     expected_tax_progressive,

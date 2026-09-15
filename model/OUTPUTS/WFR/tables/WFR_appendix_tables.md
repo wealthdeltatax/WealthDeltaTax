@@ -1,6 +1,6 @@
 # WFR Welfare Comparison Model — Appendix Tables
 
-*Generated: 2026-09-10*
+*Generated: 2026-09-15*
 *Revenue target: E[T] = 2% of W₀ across all systems.*
 *All CEW values relative to no-tax benchmark. Positive = welfare-superior to no-tax.*
 

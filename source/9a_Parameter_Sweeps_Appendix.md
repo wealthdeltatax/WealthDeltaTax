@@ -804,7 +804,7 @@ $$\tau(W) = \frac{\tau_m}{1 + \left(\frac{\tau_m - \tau_0}{\tau_0}\right)e^{-k(W
 | k (steepness, per £m) | 0.001 | Controls rate climb speed |
 | W_min (£m) | £2.0m | Entry point; below this rate = 0 |
 
-**SWF sizing parameters (Balanced baseline; swept in (SWEEPS §A.5 TO SWEEPS §A.6):**
+**SWF sizing parameters (Balanced baseline; swept in (SWEEPS.A §A.5 TO SWEEPS.A §A.6):**
 
 | Parameter | Baseline value | Role |
 |---|---|---|

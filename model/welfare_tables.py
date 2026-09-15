@@ -55,7 +55,6 @@ import numpy as np
 from pathlib import Path
 
 # ── project helpers ───────────────────────────────────────────────────────────
-from welfare_paths import TOML_PATH, module_output_dir
 from wdt_md  import MdDoc, md_table, LEFT, RIGHT, CENTER
 from wdt_fmt import fmt_pct, fmt_pct0, fmt_pct1, fmt_pct4, fmt_gbp_m, today_iso
 
@@ -74,11 +73,13 @@ from welfare_core import (
     SYSTEM_LABELS,
     make_empirical_distribution_scenario,
     make_idealised_distribution_scenario,
+    module_output_dir,
+    TOML_PATH
 )
 
 import importlib as _il
 
-from welfare_progressive import ProgressiveRateFunction
+from welfare_core import ProgressiveRateFunction
 
 _m2 = _il.import_module('19_3_module2_progression')
 run_c1_analysis   = _m2.run_c1_analysis

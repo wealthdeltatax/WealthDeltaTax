@@ -13,7 +13,7 @@ Output
 
 What is cached
 --------------
-  VAL.S (16_2, 16_3, 16_4, 16_5)
+  VAL.S (16_1, 16_2)
     tau0_c1_matrices    c1_matrix() for each TAU0_VALS entry
     taum_c1_matrices    c1_matrix() for each TAUM_VALS entry
     k_c1_matrices       c1_matrix() for each K_VALS entry
@@ -33,7 +33,7 @@ What is cached
     k_v0_surface        c1() surface [k_grid × v0_grid] at alpha=1.8
     calibration         tzone_width, n_crossing, understater_plateau per variant
 
-  RATES.S (16_6, 16_7)
+  RATES.S (16_3, 16_4)
     rates_tau0_sweep    run_param_sweep() for tau_0
     rates_taum_sweep    run_param_sweep() for tau_m
     rates_k_sweep       run_param_sweep() for k
@@ -69,9 +69,7 @@ import wdt_analytics as _A
 import rates_model as model
 
 # ── Output path ───────────────────────────────────────────────────────────────
-_ROOT_OUT = out_dir('.')          # OUTPUTS/
 _CACHE    = Path(__file__).parent / 'OUTPUTS' / 'sweep_cache.json'
-
 
 # ── JSON serialisation helpers ────────────────────────────────────────────────
 

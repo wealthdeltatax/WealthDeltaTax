@@ -227,7 +227,7 @@ def _fig01(p, sweep_results, out_dir):
                               alpha=0.5, linewidth=0.9, label='100% TCM coverage'))
     ax1.legend(handles=handles, fontsize=9, loc='upper left')
     plt.tight_layout()
-    return _save(fig, out_dir, 'rates_fig_s7_2_sweep_breakeven_coverage.png')
+    return _save(fig, out_dir, 'rates_fig_7_2_sweep_breakeven_coverage.png')
 
 
 # ─────────────────────────────────────────────────────────────
@@ -267,7 +267,7 @@ def _fig02(p, py_tcm, out_dir):
                     color='white' if val > 6 else 'black', fontweight='bold')
     fig.colorbar(im, ax=ax, shrink=0.8).set_label('Share of total revenue (%)', fontsize=9)
     plt.tight_layout()
-    return _save(fig, out_dir, 'rates_fig_s5_1_revenue_concentration_heatmap.png')
+    return _save(fig, out_dir, 'rates_fig_5_1_revenue_concentration_heatmap.png')
 
 
 # ─────────────────────────────────────────────────────────────
@@ -315,7 +315,7 @@ def _fig03(p, py_tcm_burden, burden_N, out_dir):
     ax.yaxis.set_major_formatter(
         matplotlib.ticker.FuncFormatter(lambda v, _: f'£{v:,.0f}m'))
     plt.tight_layout()
-    return _save(fig, out_dir, 'rates_fig_s2a_terminal_wealth_by_tier.png')
+    return _save(fig, out_dir, 'rates_fig_2a_terminal_wealth_by_tier.png')
 
 
 # ─────────────────────────────────────────────────────────────
@@ -379,7 +379,7 @@ def _fig04(p, py_ssm, out_dir):
     ax.yaxis.set_major_formatter(
         matplotlib.ticker.FuncFormatter(lambda v, _: f'£{v:,.0f}b'))
     plt.tight_layout()
-    return _save(fig, out_dir, 'rates_fig_s7_3a_srr_lrr_trajectory.png')
+    return _save(fig, out_dir, 'rates_fig_7_3a_srr_lrr_trajectory.png')
 
 
 # ─────────────────────────────────────────────────────────────
@@ -419,7 +419,7 @@ def _fig05(sweep_results, out_dir):
     ax.yaxis.set_major_formatter(
         matplotlib.ticker.FuncFormatter(lambda v, _: f'{v:.0f}%'))
     plt.tight_layout()
-    return _save(fig, out_dir, 'rates_fig_s7_1b_coverage_by_cycle.png')
+    return _save(fig, out_dir, 'rates_fig_7_1b_coverage_by_cycle.png')
 
 
 # ─────────────────────────────────────────────────────────────
@@ -481,7 +481,7 @@ def _fig06(p, py_tcm_burden, burden_N, out_dir):
         'not missing data',
         fontsize=9, y=1.06)
     plt.tight_layout()
-    return _save(fig, out_dir, 'rates_fig_s2b_burden_matrix_heatmap.png')
+    return _save(fig, out_dir, 'rates_fig_2b_burden_matrix_heatmap.png')
 
 
 # ─────────────────────────────────────────────────────────────
@@ -547,7 +547,7 @@ def _fig07(p, sweep_results, out_dir):
     ax.yaxis.set_major_formatter(
         matplotlib.ticker.FuncFormatter(lambda v, _: f'{v:.0f}%'))
     plt.tight_layout()
-    return _save(fig, out_dir, 'rates_fig_s7_1a_ssm_tcm_coverage_range.png')
+    return _save(fig, out_dir, 'rates_fig_7_1a_ssm_tcm_coverage_range.png')
 
 
 # ─────────────────────────────────────────────────────────────
@@ -654,7 +654,7 @@ def _fig08(p, py_tcm, tcm_N, out_dir):
     h2, l2 = ax2.get_legend_handles_labels()
     ax1.legend(h1 + h2, l1 + l2, fontsize=8.5, loc='upper left')
     plt.tight_layout()
-    return _save(fig, out_dir, 'rates_fig_s4a_loss_year_mechanics.png')
+    return _save(fig, out_dir, 'rates_fig_4a_loss_year_mechanics.png')
 
 
 # ─────────────────────────────────────────────────────────────
@@ -769,7 +769,7 @@ def _fig09(p, py_ssm, out_dir):
         f'Dashed line = annual expenditure; bars above it = coverage > 100%  |  ',
         fontsize=8.5, y=1.01)
     plt.tight_layout()
-    return _save(fig, out_dir, 'rates_fig_s7_3b_phase_two_transition.png')
+    return _save(fig, out_dir, 'rates_fig_7_3b_phase_two_transition.png')
 
 
 # ─────────────────────────────────────────────────────────────
