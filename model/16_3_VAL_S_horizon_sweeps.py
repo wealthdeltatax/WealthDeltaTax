@@ -63,8 +63,9 @@ def fig_n_crossing_annotated(d):
                 label=f'N={_A.CANON_N} (RATES ref)')
     ax1.set_xlabel('Holding period N (years)')
     ax1.set_ylabel('Net(α) − Net(honest)  [£m]\n− = overstater pays less')
+    ax1.set_ylim(-5, 20)
     ax1.set_title(f'Overstater net-tax advantage by N\ng={_A.CANON_G*100:.1f}% (canonical)')
-    ax1.legend(fontsize=8); ax1.set_xlim(5, 65)
+    ax1.legend(fontsize=8); ax1.set_xlim(5, 35)
 
     # Right: bar chart of crossing N
     crossing_ns = [d['val_s']['n_crossing_vals'][str(a)] for a in _A.OVER_ALPHAS]
@@ -103,7 +104,18 @@ def fig_n_understater_panels(d):
     labels     = [f'N={n}' + (' (canonical)' if n == _A.CANON_N else '')
                   for n in _A.N_PANEL_VALS]
     fig, axes  = plt.subplots(2, 2, figsize=FIG_QUAD)
-
+ 
+    # Compute shared y-axis limits across all panels for direct comparison
+    all_vals = []
+    for n in _A.N_PANEL_VALS:
+        c1_data = d['val_s']['n_understater_c1'][str(n)]
+        for alpha in _A.UNDER_ALPHAS:
+            all_vals.extend(c1_data[str(alpha)])
+    y_lo = min(all_vals)
+    y_hi = max(all_vals)
+    y_pad = (y_hi - y_lo) * 0.08
+    shared_ylim = (y_lo - y_pad, y_hi + y_pad)
+ 
     for ax, n, label in zip(axes.flat, _A.N_PANEL_VALS, labels):
         c1_data = d['val_s']['n_understater_c1'][str(n)]
         for alpha, col in zip(_A.UNDER_ALPHAS, under_cols):
@@ -111,14 +123,14 @@ def fig_n_understater_panels(d):
                     color=col, linewidth=1.8, label=f'α={alpha}')
         ax.axhline(0, color='#1a1a1a', linewidth=0.8, linestyle=':')
         ax.axvline(_A.CANON_G * 100, color='#888888', linewidth=0.8, linestyle='--')
-        ax.text(_A.CANON_G * 100 + 0.2, 2, f'g={_A.CANON_G*100:.1f}%',
-                fontsize=7.5, color='#666666')
+        ax.text(_A.CANON_G * 100 + 0.2, shared_ylim[0] + y_pad * 2,
+                f'g={_A.CANON_G*100:.1f}%', fontsize=7.5, color='#666666')
         ax.set_xlabel('g (%)')
         ax.set_ylabel('C.1 (pp)')
         ax.set_title(label, fontsize=10,
                      fontweight='bold' if n == _A.CANON_N else 'normal')
-        ax.set_xlim(0, 35); ax.legend(fontsize=7.5)
-
+        ax.set_xlim(0, 35); ax.set_ylim(*shared_ylim); ax.legend(fontsize=7.5)
+ 
     fig.suptitle(
         'Figure §2.3 — Understater penalty profile across holding periods\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
@@ -154,7 +166,7 @@ def fig_n_tolerant_zone(d):
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
         f'k={_A.CANON_K}, g={_A.CANON_G*100:.1f}%'
     )
-    ax.legend(fontsize=7.5); ax.set_xlim(5, 65); ax.set_ylim(0.5, 2.2)
+    ax.legend(fontsize=7.5); ax.set_xlim(5, 65); ax.set_ylim(0.1, 3)
     plt.tight_layout()
     _save(fig, 'sweeps_v_fig_s2_2b_n_tolerant_zone.png')
 
