@@ -24,7 +24,7 @@ Note: the docstring in `rates_model.py` contains a typographical error writing $
 | k (steepness, per £m) | 0.001 | Controls rate climb speed |
 | W_min (£m) | £2.0m | Entry point; below this rate = 0 |
 
-**SWF sizing parameters (Balanced baseline; swept in §§5–6):**
+**SWF sizing parameters (Balanced baseline; swept in (RATES §5) to (RATES §6)):**
 
 | Parameter | Baseline value | Role |
 |---|---|---|
@@ -357,7 +357,7 @@ Growth path: $g(t) = \mu + \lambda t + A \sin(2\pi t / T)$  ·  Canonical: μ=7.
 
 **Success rate at 100%.** The Balanced baseline achieves 100% success across all 73 start years. Parameters that reduce revenue may bring the success rate below 100%.
 
-**Pre-behavioural baseline.** All figures are pre-behavioural. Behavioural responses — migration, restructuring, avoidance — are not modelled. See RATES §9.1 and BEHAV.
+**Pre-behavioural baseline.** All figures are pre-behavioural. Behavioural responses — migration, restructuring, avoidance — are not modelled. See (RATES §9.1) and (BEHAV).
 
 **Joint calibration.** These sweeps vary one parameter at a time. In practice, τ_0 and τ_m jointly determine revenue level and shape; W_min and k jointly determine the gradient location.
 

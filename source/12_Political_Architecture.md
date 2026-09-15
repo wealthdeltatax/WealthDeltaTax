@@ -78,9 +78,8 @@ That gap is not accidental. The companion papers assume that if the mechanism is
 
 Political durability is a design property, not a political outcome. It can be built in or left out, evaluated against explicit criteria before implementation rather than observed only in retrospect. A wealth tax designed for political durability looks structurally different from one designed for revenue optimisation: not because durability and efficiency conflict, but because they require attention to different properties of the institution.
 
-§2 surveys the political economy literature on institutional (durability. §3) examines the empirical record of wealth tax abolition across the OECD and derives three structural failure (mechanisms. §4) establishes political durability as a design (criterion. §5) evaluates the WDT's institutional architecture institution by (institution. §6) addresses the credibility bootstrapping (problem. §7) names the self-shaping problem the WDT's own success (produces. §8) addresses principal (objections. §9) states (limitations. §10) concludes.
-
 Two scope points require early statement. The paper does not ask whether the WDT should be implemented, when, or under what political conditions; (POL §9.7) explains why. It asks only whether the WDT's design gives it better prospects for political survival than the wealth taxes that preceded it, and argues that it does. The companion papers are treated as settled background: the mechanism as described in WP, the governance architecture as specified in GOV, the valuation framework as developed in VAL. This paper takes them as given and asks what they imply for political durability.
+
 \newpage
 
 # 2. Intellectual Context and Prior Literature
@@ -367,7 +366,7 @@ The more direct answer is that the governance structure's apparent radicalism is
 
 ### 8.7 The Cross-Base Externality Makes the Emigration Risk Unmanageable
 
-Agrawal is the most empirically grounded objection; directional risk is real; but the WDT is not a stock wealth tax and the ratio was calibrated to structurally different systems; BEHAV §9.2 addresses the six responses; POL's contribution is the political framing: the Governing Council's rate lever is the politically distinctive response, because no prior wealth tax could reduce rates in response to observed departure without abandoning the instrument.
+Agrawal is the most empirically grounded objection; directional risk is real; but the WDT is not a stock wealth tax and the ratio was calibrated to structurally different systems; (BEHAV §9.2) addresses the six responses; POL's contribution is the political framing: the Governing Council's rate lever is the politically distinctive response, because no prior wealth tax could reduce rates in response to observed departure without abandoning the instrument.
 
 \newpage
 

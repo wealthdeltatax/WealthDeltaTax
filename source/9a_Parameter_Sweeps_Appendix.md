@@ -36,67 +36,67 @@ This appendix is in two parts. Part 1 (this section) describes each table group:
 
 **Part 1 — Table Descriptions**
 
-This section describes each table group in the appendix. For each rate-function parameter, the VAL.S and RATES.S tables are treated together so that the declaration-incentive and fiscal dimensions of the same lever are visible side by side. Tables with no RATES.S counterpart — the N sweep, $V_0$ sweep, joint surfaces, and figure index — are described individually.
+This section describes each table group in the appendix. For each rate-function parameter, the SWEEPS.V and SWEEPS.R tables are treated together so that the declaration-incentive and fiscal dimensions of the same lever are visible side by side. Tables with no SWEEPS.R counterpart — the N sweep, $V_0$ sweep, joint surfaces, and figure index — are described individually.
 
 **Metrics and Canonical Parameters**
 
-The metric throughout VAL.S is the C.1 statistic: $(Net(\alpha) - Net(1) / TW(\alpha)$, where $Net(\alpha)$ is total lifetime tax paid net of refunds under declaration ratio $\alpha$, and $TW(\alpha)$ is terminal wealth under $\alpha$. A positive C.1 value means the $\alpha$ strategy results in more net tax paid than honest declaration, relative to terminal wealth; a negative value means less. The $\alpha = 1.0$ row is zero by construction. Understater rows ($\alpha < 1.0$) are positive when the mechanism is working as intended; overstater rows ($\alpha > 1.0$) are positive when the self-limiting correction has activated (overstater pays more than honest), and near-zero or negative at short holding horizons when the advantage is still active.
+The metric throughout SWEEPS.V is the C.1 statistic: $(Net(\alpha) - Net(1) / TW(\alpha)$, where $Net(\alpha)$ is total lifetime tax paid net of refunds under declaration ratio $\alpha$, and $TW(\alpha)$ is terminal wealth under $\alpha$. A positive C.1 value means the $\alpha$ strategy results in more net tax paid than honest declaration, relative to terminal wealth; a negative value means less. The $\alpha = 1.0$ row is zero by construction. Understater rows ($\alpha < 1.0$) are positive when the mechanism is working as intended; overstater rows ($\alpha > 1.0$) are positive when the self-limiting correction has activated (overstater pays more than honest), and near-zero or negative at short holding horizons when the advantage is still active.
 
-The metric throughout RATES.S is the set of transition outcomes across 73 historical start years (1947–2019 UK equity return series): SSM coverage ratio, TCM coverage ratio, LRR fill year, SRR fill year, and LRR surplus at fill. The SSM applies the correlated-shock assumption — all taxpayers experience the same return simultaneously — producing the worst-case revenue floor. The TCM applies four persistent heterogeneous growth tier differentials, producing the persistent-heterogeneity ceiling. Together they bracket the plausible revenue range.
+The metric throughout SWEEPS.R is the set of transition outcomes across 73 historical start years (1947–2019 UK equity return series): SSM coverage ratio, TCM coverage ratio, LRR fill year, SRR fill year, and LRR surplus at fill. The SSM applies the correlated-shock assumption — all taxpayers experience the same return simultaneously — producing the worst-case revenue floor. The TCM applies four persistent heterogeneous growth tier differentials, producing the persistent-heterogeneity ceiling. Together they bracket the plausible revenue range.
 
-All VAL.S tables use the canonical parameters $\tau_0$ = 15%, $\tau_m$ = 70%, $k$ = 0.001, $W_{min}$ = £2m, N = 29, $V_0$ = £20m, $g$ = 10.45%, except for the parameter being swept. All RATES.S tables hold the non-swept parameters at the Balanced baseline: $\tau_0$ = 15%, $\tau_m$ = 70%, $k$ = 0.001, $W_{min}$ = £2m.
+All SWEEPS.V tables use the canonical parameters $\tau_0$ = 15%, $\tau_m$ = 70%, $k$ = 0.001, $W_{min}$ = £2m, N = 29, $V_0$ = £20m, $g$ = 10.45%, except for the parameter being swept. All SWEEPS.R tables hold the non-swept parameters at the Balanced baseline: $\tau_0$ = 15%, $\tau_m$ = 70%, $k$ = 0.001, $W_{min}$ = £2m.
 
 \newpage
 
-## A.1 RATES.S §1 — $\tau_0$ Sweep
+## A.1 SWEEPS.R — $\tau_0$ Sweep
 
-**What the tables show.** A.1 contains six C.1 heatmaps (sub-tables A.1.1–A.1.6) at $\tau_0$ values of 10%, 15%, 20%, 30%, 40%, and 50%. Each sub-table holds $\alpha$ (declaration ratio, rows) against $g$ (growth rate, columns), with all other parameters at canonical values. (RATES.S §1) contains the 73-year distribution summary and 2006 worst-case row for ten $\tau_0$ values swept from 5% to 50%.
+**What the tables show.** A.1 contains six C.1 heatmaps (sub-tables A.1.1–A.1.6) at $\tau_0$ values of 10%, 15%, 20%, 30%, 40%, and 50%. Each sub-table holds $\alpha$ (declaration ratio, rows) against $g$ (growth rate, columns), with all other parameters at canonical values. (SWEEPS.A §A.1) contains the 73-year distribution summary and 2006 worst-case row for ten $\tau_0$ values swept from 5% to 50%.
 
-**VAL.S key pattern.** The most consequential effect of $\tau_0$ is on the overstater rows ($\alpha \geq 1.5$) at moderate-to-high growth rates. At all tested $\tau_0$ values, the $\alpha = 2.0$ row at $g = 10.4\%$ shows positive C.1 values at $N = 29$: the self-limiting correction is active throughout the sweep. At $\tau_0$ = 10%, the cell reads +1.51%; as $\tau_0$ rises to 30% it reaches +4.54%, and at 50% it reaches +7.97%. The correction intensifies as $\tau_0$ rises, consistent with the joint surface showing the N-crossing arriving earlier at higher floor rates. Understater rows ($\alpha < 1.0$) also intensify monotonically with $\tau_0$: higher $\tau_0$ raises the floor from which the understater's deferred penalty compounds, producing larger positive C.1 values throughout. At high $\tau_0$ and negative or low growth rates, understater rows in the leftmost columns turn negative — reflecting the rate compression at the floor producing over-correction relative to honest declaration in loss scenarios.
+**SWEEPS.V key pattern.** The most consequential effect of $\tau_0$ is on the overstater rows ($\alpha \geq 1.5$) at moderate-to-high growth rates. At all tested $\tau_0$ values, the $\alpha = 2.0$ row at $g = 10.4\%$ shows positive C.1 values at $N = 29$: the self-limiting correction is active throughout the sweep. At $\tau_0$ = 10%, the cell reads +1.51%; as $\tau_0$ rises to 30% it reaches +4.54%, and at 50% it reaches +7.97%. The correction intensifies as $\tau_0$ rises, consistent with the joint surface showing the N-crossing arriving earlier at higher floor rates. Understater rows ($\alpha < 1.0$) also intensify monotonically with $\tau_0$: higher $\tau_0$ raises the floor from which the understater's deferred penalty compounds, producing larger positive C.1 values throughout. At high $\tau_0$ and negative or low growth rates, understater rows in the leftmost columns turn negative — reflecting the rate compression at the floor producing over-correction relative to honest declaration in loss scenarios.
 
-**RATES.S key pattern.** $\tau_0$ dominates the fiscal outcome hierarchy. Median TCM coverage rises from 26.8% at $\tau_0$ = 5% to 64.4% at $\tau_0$ = 50% — a 37.6pp range driven by a single parameter. The median LRR fill year falls from 22 years at $\tau_0$ = 5% to 9 years at $\tau_0$ = 50%. The SRR fill year is invariant at 3 across the full sweep, confirming that the refund reserve capitalises quickly regardless of floor rate. In the 2006 worst-case scenario, LRR fill ranges from 39 years at $\tau_0$ = 5% to 20 years at $\tau_0$ = 50%; the SRR breach flag first appears at $\tau_0$ = 25%. At $\tau_0$ = 20% the 2006 LRR surplus is £1,999b, dropping to £973b at $\tau_0$ = 25% — a compression that reflects the capitalisation window closing into a lower-return portion of the 2006 sequence without substantially advancing fill timing.
+**SWEEPS.R key pattern.** $\tau_0$ dominates the fiscal outcome hierarchy. Median TCM coverage rises from 26.8% at $\tau_0$ = 5% to 64.4% at $\tau_0$ = 50% — a 37.6pp range driven by a single parameter. The median LRR fill year falls from 22 years at $\tau_0$ = 5% to 9 years at $\tau_0$ = 50%. The SRR fill year is invariant at 3 across the full sweep, confirming that the refund reserve capitalises quickly regardless of floor rate. In the 2006 worst-case scenario, LRR fill ranges from 39 years at $\tau_0$ = 5% to 20 years at $\tau_0$ = 50%; the SRR breach flag first appears at $\tau_0$ = 25%. At $\tau_0$ = 20% the 2006 LRR surplus is £1,999b, dropping to £973b at $\tau_0$ = 25% — a compression that reflects the capitalisation window closing into a lower-return portion of the 2006 sequence without substantially advancing fill timing.
 
 **Cross-dataset reading.** The two datasets are broadly aligned on $\tau_0$: higher floor rates accelerate both fiscal capitalisation and the self-limiting correction for overstaters. The residual calibration question is about pace and entry burden — higher $\tau_0$ compresses both timelines and raises the cost to taxpayers throughout the distribution. There is no setting where the fiscal and mechanism-integrity dimensions pull in opposite directions; rather, both dimensions favour higher $\tau_0$ while the cooperative-entry rationale favours lower. That is the trade-off the Council faces.
 
 \newpage
 
-## A.2 RATES.S §2 — $\tau_m$ Sweep
+## A.2 SWEEPS.R — $\tau_m$ Sweep
 
-**What the tables show.** A.2 contains four C.1 heatmaps (sub-tables A.2.1–A.2.4) at $\tau_m$ values of 50%, 60%, 70% (canonical), and 80%. (RATES.S §2) contains the 73-year distribution summary and 2006 worst-case row for eleven $\tau_m$ values swept from 50% to 100%.
+**What the tables show.** A.2 contains four C.1 heatmaps (sub-tables A.2.1–A.2.4) at $\tau_m$ values of 50%, 60%, 70% (canonical), and 80%. (SWEEPS.A §A.2) contains the 73-year distribution summary and 2006 worst-case row for eleven $\tau_m$ values swept from 50% to 100%.
 
-**VAL.S key pattern.** $\tau_m$ has a concentrated effect on the extreme understater rows ($\alpha = 0.1$, $\alpha = 0.2$) at high growth rates, and near-zero effect on everything else. At $g = 20.4\%$, the $\alpha = 0.1$ penalty rises from 11.86% at $\tau_m$ = 50% to 34.54% at $\tau_m$ = 80%; at the highest tested growth rate ($g = 25.4\%$) the corresponding values are 9.89% and 62.50% — a pronounced amplification of the plateau ceiling at very high growth. The $\alpha = 0.8$ row (mild understatement) is barely affected across the full $\tau_m$ range at any growth rate, confirming that the ceiling rate operates specifically at the egregious tail. Overstater rows ($\alpha \geq 1.2$) show almost no response to $\tau_m$ changes, and the tolerant zone boundaries are stable across all four panels. The N-crossing threshold for $\alpha = 2.0$ shifts by approximately 4 years across the full $\tau_m$ sweep from 50% to 80%, confirming that $\tau_m$ has substantially less leverage on overstater self-correction timing than $\tau_0$.
+**SWEEPS.V key pattern.** $\tau_m$ has a concentrated effect on the extreme understater rows ($\alpha = 0.1$, $\alpha = 0.2$) at high growth rates, and near-zero effect on everything else. At $g = 20.4\%$, the $\alpha = 0.1$ penalty rises from 11.86% at $\tau_m$ = 50% to 34.54% at $\tau_m$ = 80%; at the highest tested growth rate ($g = 25.4\%$) the corresponding values are 9.89% and 62.50% — a pronounced amplification of the plateau ceiling at very high growth. The $\alpha = 0.8$ row (mild understatement) is barely affected across the full $\tau_m$ range at any growth rate, confirming that the ceiling rate operates specifically at the egregious tail. Overstater rows ($\alpha \geq 1.2$) show almost no response to $\tau_m$ changes, and the tolerant zone boundaries are stable across all four panels. The N-crossing threshold for $\alpha = 2.0$ shifts by approximately 4 years across the full $\tau_m$ sweep from 50% to 80%, confirming that $\tau_m$ has substantially less leverage on overstater self-correction timing than $\tau_0$.
 
-**RATES.S key pattern.** $\tau_m$ is fiscally inert across the full sweep. SSM and TCM coverage ratios, LRR fill year, SRR fill year, and LRR surplus are essentially unchanged from $\tau_m$ = 50% to $\tau_m$ = 100% — coverage moves by less than 0.1pp and the LRR fill year does not move in the distribution medians. The 2006 LRR surplus rises from £471b at $\tau_m$ = 50% to £494b at $\tau_m$ = 100%, a 5% change negligible relative to the surplus magnitude. This reflects canonical $k$ placing all modelled wealth brackets far below the logistic midpoint during the capitalisation window; no bracket approaches wealth levels where $\tau_m$ constrains the effective rate.
+**SWEEPS.R key pattern.** $\tau_m$ is fiscally inert across the full sweep. SSM and TCM coverage ratios, LRR fill year, SRR fill year, and LRR surplus are essentially unchanged from $\tau_m$ = 50% to $\tau_m$ = 100% — coverage moves by less than 0.1pp and the LRR fill year does not move in the distribution medians. The 2006 LRR surplus rises from £471b at $\tau_m$ = 50% to £494b at $\tau_m$ = 100%, a 5% change negligible relative to the surplus magnitude. This reflects canonical $k$ placing all modelled wealth brackets far below the logistic midpoint during the capitalisation window; no bracket approaches wealth levels where $\tau_m$ constrains the effective rate.
 
 **Cross-dataset reading.** $\tau_m$ is the one rate parameter where the two datasets give non-conflicting guidance. On the declaration side it is the egregious-understater deterrence lever, with a clean, monotonic effect concentrated entirely at the extreme tail. On the fiscal side it is inert for the current modelled population. A Council adjusting $\tau_m$ is setting tail deterrence strength at essentially zero fiscal cost or benefit — the clearest instance of parameter separability in the sweep results.
 
 \newpage
 
-## A.3 RATES.S §3 — $k$ Sweep
+## A.3 SWEEPS.R — $k$ Sweep
 
-**What the tables show.** A.3 contains nine C.1 heatmaps (sub-tables A.3.1–A.3.9) at $k$ values of 0.0001, 0.0002, 0.0005, 0.001 (canonical), 0.002, 0.005, 0.01, 0.05, and 0.1 — log-spaced across three orders of magnitude. (RATES.S §3) contains the 73-year distribution summary and 2006 worst-case row for the same nine $k$ values.
+**What the tables show.** A.3 contains nine C.1 heatmaps (sub-tables A.3.1–A.3.9) at $k$ values of 0.0001, 0.0002, 0.0005, 0.001 (canonical), 0.002, 0.005, 0.01, 0.05, and 0.1 — log-spaced across three orders of magnitude. (SWEEPS.A §A.3) contains the 73-year distribution summary and 2006 worst-case row for the same nine $k$ values.
 
-**VAL.S key pattern.** $k$ is the primary lever for the width and depth of the declaration incentive landscape. At $k$ = 0.0001 the heatmap is nearly flat: interior cells are close to zero throughout, and even the largest understater penalty at $g = 25.4\%$ and $\alpha = 0.1$ is only 3.28%. As $k$ rises, the tails intensify first. By $k$ = 0.005 the $\alpha = 0.1$ penalty at $g = 25.4\%$ has reached 19.16%, and the overstater at $\alpha = 2.0$ and $g = 10.4\%$ shows +8.50% (correction fully active at $N = 29$ and intensifying). At $k$ = 0.05 and $k$ = 0.1 the $\alpha = 0.1$ row reaches C.1 values above 40% at moderate growth rates, and overstater rows show strongly positive C.1 values across almost all growth rates — the rate curve is steep enough that the correction operates throughout the distribution rather than only at extreme wealth. The $k$ × $V_0$ joint surface (A.8) shows that this intensification is wealth-dependent: near-threshold taxpayers at $V_0$ = £20m are substantially less affected by $k$ changes than wealthy taxpayers at $V_0$ = £500m, where the rate curve's slope is encountered.
+**SWEEPS.V key pattern.** $k$ is the primary lever for the width and depth of the declaration incentive landscape. At $k$ = 0.0001 the heatmap is nearly flat: interior cells are close to zero throughout, and even the largest understater penalty at $g = 25.4\%$ and $\alpha = 0.1$ is only 3.28%. As $k$ rises, the tails intensify first. By $k$ = 0.005 the $\alpha = 0.1$ penalty at $g = 25.4\%$ has reached 19.16%, and the overstater at $\alpha = 2.0$ and $g = 10.4\%$ shows +8.50% (correction fully active at $N = 29$ and intensifying). At $k$ = 0.05 and $k$ = 0.1 the $\alpha = 0.1$ row reaches C.1 values above 40% at moderate growth rates, and overstater rows show strongly positive C.1 values across almost all growth rates — the rate curve is steep enough that the correction operates throughout the distribution rather than only at extreme wealth. The $k$ × $V_0$ joint surface (A.8) shows that this intensification is wealth-dependent: near-threshold taxpayers at $V_0$ = £20m are substantially less affected by $k$ changes than wealthy taxpayers at $V_0$ = £500m, where the rate curve's slope is encountered.
 
-**RATES.S key pattern.** $k$ has limited fiscal consequence within the policy-relevant range. From $k$ = 0.0001 to $k$ = 0.01, median TCM coverage moves from 40.1% to 40.7% — a 0.6pp shift across two orders of magnitude. LRR fill year medians are stable at 13 years throughout this range. Success remains 100% across all nine tested $k$ values; the prior finding of reduced success at $k$ = 0.05 (96%) and $k$ = 0.1 (90%) was an artefact of the since-corrected budget_growth = 4.51%. The 2006 LRR fill year falls from 29 years at $k$ = 0.0001 to 26 years at $k$ = 0.1, and an SRR breach flag appears from $k$ = 0.005 onward in the 2006 scenario.
+**SWEEPS.R key pattern.** $k$ has limited fiscal consequence within the policy-relevant range. From $k$ = 0.0001 to $k$ = 0.01, median TCM coverage moves from 40.1% to 40.7% — a 0.6pp shift across two orders of magnitude. LRR fill year medians are stable at 13 years throughout this range. Success remains 100% across all nine tested $k$ values; the prior finding of reduced success at $k$ = 0.05 (96%) and $k$ = 0.1 (90%) was an artefact of the since-corrected budget_growth = 4.51%. The 2006 LRR fill year falls from 29 years at $k$ = 0.0001 to 26 years at $k$ = 0.1, and an SRR breach flag appears from $k$ = 0.005 onward in the 2006 scenario.
 
 **Cross-dataset reading.** k's mechanism-integrity effects are substantial within the policy-relevant range, while its fiscal effects are modest until $k$ reaches values that begin to compromise the 100% success rate. Within the canonical neighbourhood the parameter is doing largely separable work on the two dimensions: a Council raising $k$ to sharpen the tails is not simultaneously making a fiscal bet. The exception is at the upper extreme (k ≥ 0.05), where fiscal reliability begins to deteriorate — but that range lies well above canonical values.
 
 \newpage
 
-## A.4 RATES.S §4 — $W_{min}$ Sweep
+## A.4 SWEEPS.R — $W_{min}$ Sweep
 
-**What the tables show.** A.8 contains six C.1 heatmaps (sub-tables A.8.1–A.8.6) at $W_{min}$ values of £0m, £1m, £2m (canonical), £5m, £10m, and £50m, plus a summary N-crossing threshold table (A.8.5) comparing crossing times across five $W_{min}$ values for $\alpha \in \{1.5, 1.8, 2.0\}$. (RATES.S §4) contains the 73-year distribution summary and 2006 worst-case row for nine $W_{min}$ values from £0.1m to £10m.
+**What the tables show.** A.8 contains six C.1 heatmaps (sub-tables A.8.1–A.8.6) at $W_{min}$ values of £0m, £1m, £2m (canonical), £5m, £10m, and £50m, plus a summary N-crossing threshold table (A.8.5) comparing crossing times across five $W_{min}$ values for $\alpha \in \{1.5, 1.8, 2.0\}$. (SWEEPS.A §A.4) contains the 73-year distribution summary and 2006 worst-case row for nine $W_{min}$ values from £0.1m to £10m.
 
-**VAL.S key pattern.** $W_{min}$ has near-zero leverage on the C.1 landscape for a taxpayer with $V_0$ = £20m across most of the sweep range. Sub-tables A.8.1 through A.8.5 ($W_{min}$ = £0m to £10m) are nearly identical — C.1 values differ only in the second decimal place, and the N-crossing thresholds in the summary table (B.8.5) are stable at approximately 20.8 years for $\alpha = 1.5$, 20.0 years for $\alpha = 1.8$, and 19.5 years for $\alpha = 2.0$ across all five values. The mechanism does the same thing to the same taxpayer regardless of where the threshold sits, because $V_0$ = £20m is already well above any of these $W_{min}$ values and the rate curve's shape above $W_{min}$ is unchanged. The exception is A.8.6 ($W_{min}$ = £50m), where the taxpayer at $V_0$ = £20m pays nothing under negative-growth scenarios (C.1 = 0% in the left columns), because $V_0$ falls below $W_{min}$. Within the in-scope cells at $W_{min}$ = £50m, understater penalties at high growth are amplified and the N-crossing pattern differs, reflecting the different position on the logistic curve when the taxpayer enters at the top of the logistic function's near-flat region.
+**SWEEPS.V key pattern.** $W_{min}$ has near-zero leverage on the C.1 landscape for a taxpayer with $V_0$ = £20m across most of the sweep range. Sub-tables A.8.1 through A.8.5 ($W_{min}$ = £0m to £10m) are nearly identical — C.1 values differ only in the second decimal place, and the N-crossing thresholds in the summary table (B.8.5) are stable at approximately 20.8 years for $\alpha = 1.5$, 20.0 years for $\alpha = 1.8$, and 19.5 years for $\alpha = 2.0$ across all five values. The mechanism does the same thing to the same taxpayer regardless of where the threshold sits, because $V_0$ = £20m is already well above any of these $W_{min}$ values and the rate curve's shape above $W_{min}$ is unchanged. The exception is A.8.6 ($W_{min}$ = £50m), where the taxpayer at $V_0$ = £20m pays nothing under negative-growth scenarios (C.1 = 0% in the left columns), because $V_0$ falls below $W_{min}$. Within the in-scope cells at $W_{min}$ = £50m, understater penalties at high growth are amplified and the N-crossing pattern differs, reflecting the different position on the logistic curve when the taxpayer enters at the top of the logistic function's near-flat region.
 
-**RATES.S key pattern.** $W_{min}$ is the second fiscal lever after $\tau_0$. Median TCM coverage falls from 45.1% at $W_{min}$ = £0.1m to approximately 33% at $W_{min}$ = £7.5m, with a slight recovery to 34.3% at $W_{min}$ = £10m. The partial recovery reflects concentration of the remaining taxable population in upper brackets with high per-taxpayer revenue, combined with a later capitalisation window that shifts the denominator. Median LRR fill year rises from 10 years at $W_{min}$ = £0.1m to 22 years at $W_{min}$ = £10m — the single largest horizon range of any parameter sweep. The 2006 LRR fill year rises from 25 years at $W_{min}$ = £0.1m to 38 years at $W_{min}$ = £10m; the SRR breach flag does not appear in the 2006 scenario at any $W_{min}$ value in this sweep. LRR surplus at fill is very large at high $W_{min}$ values (£2,710b at $W_{min}$ = £10m, 2006), reflecting concentrated revenue landing in a capitalisation window that opens later in the return sequence.
+**SWEEPS.R key pattern.** $W_{min}$ is the second fiscal lever after $\tau_0$. Median TCM coverage falls from 45.1% at $W_{min}$ = £0.1m to approximately 33% at $W_{min}$ = £7.5m, with a slight recovery to 34.3% at $W_{min}$ = £10m. The partial recovery reflects concentration of the remaining taxable population in upper brackets with high per-taxpayer revenue, combined with a later capitalisation window that shifts the denominator. Median LRR fill year rises from 10 years at $W_{min}$ = £0.1m to 22 years at $W_{min}$ = £10m — the single largest horizon range of any parameter sweep. The 2006 LRR fill year rises from 25 years at $W_{min}$ = £0.1m to 38 years at $W_{min}$ = £10m; the SRR breach flag does not appear in the 2006 scenario at any $W_{min}$ value in this sweep. LRR surplus at fill is very large at high $W_{min}$ values (£2,710b at $W_{min}$ = £10m, 2006), reflecting concentrated revenue landing in a capitalisation window that opens later in the return sequence.
 
-**Cross-dataset reading.** $W_{min}$ is the scope lever. It has the largest effect on LRR fill speed of any parameter in the RATES.S sweep, and almost no effect on the C.1 incentive landscape for taxpayers already comfortably above the threshold. The two datasets are not in tension here: a Council moving $W_{min}$ is making a decision about how broadly to draw the taxable population and how quickly to fill the LRR, without materially altering what the mechanism does to those it covers.
+**Cross-dataset reading.** $W_{min}$ is the scope lever. It has the largest effect on LRR fill speed of any parameter in the SWEEPS.R sweep, and almost no effect on the C.1 incentive landscape for taxpayers already comfortably above the threshold. The two datasets are not in tension here: a Council moving $W_{min}$ is making a decision about how broadly to draw the taxable population and how quickly to fill the LRR, without materially altering what the mechanism does to those it covers.
 
 \newpage
 
-## A.5 VAL.S §1 — N Sweep
+## A.5 SWEEPS.V — N Sweep
 
 **What the tables show.** A.4 contains four per-taxpayer summary tables (A.4.1–A.4.4) at holding periods N = 10, 20, 34 (canonical), and 50 years, each reporting C.1, terminal wealth, net tax, and effective rate at $g = 10.45\%$ for the full $\alpha$ range. A.4.5 is a summary table of N-crossing thresholds for $\alpha \in \{1.5, 1.8, 2.0\}$ at canonical parameters.
 
@@ -104,7 +104,7 @@ All VAL.S tables use the canonical parameters $\tau_0$ = 15%, $\tau_m$ = 70%, $k
 
 \newpage
 
-## A.6 VAL.S §2 — $V_0$ Sweep
+## A.6 SWEEPS.V — $V_0$ Sweep
 
 **What the tables show.** A.5 contains seven per-taxpayer summary tables (A.5.1–A.5.7) at entry wealth $V_0$ = £5m, £20m (canonical), £100m, £500m, £1,000m, £5,000m, and £10,000m, each at $g = 10.45\%$ and $N = 29$ for the full $\alpha$ range.
 
@@ -112,7 +112,7 @@ All VAL.S tables use the canonical parameters $\tau_0$ = 15%, $\tau_m$ = 70%, $k
 
 \newpage
 
-## A.7 VAL.S §3 — $\tau_0$ × N Joint Surface
+## A.7 SWEEPS.V — $\tau_0$ × N Joint Surface
 
 **What the table shows.** A.6 is a two-dimensional grid with $\tau_0$ on the column axis (5% to 41% in 3pp steps) and N sweep ceiling on the row axis (10 to 70 years in 5-year steps). Each cell contains the first N at which $Net(\alpha = 2.0)$ exceeds $Net(\alpha = 1.0)$ at $g = 10.4\%$ — the N-crossing threshold for aggressive overstatement — or "—" where no crossing is found within the sweep ceiling.
 
@@ -120,7 +120,7 @@ All VAL.S tables use the canonical parameters $\tau_0$ = 15%, $\tau_m$ = 70%, $k
 
 \newpage
 
-## A.8 VAL.S §5 — $k$ × $V_0$ Joint Surface
+## A.8 SWEEPS.V — $k$ × $V_0$ Joint Surface
 
 **What the table shows.** A.7 is a two-dimensional grid with $V_0$ on the column axis (£5m to £500m) and $k$ on the row axis (0.0001 to 0.1, log-spaced). Each cell contains C.1 for $\alpha = 1.8$ at $g = 10.4\%$, $N = 29$ — the correction penalty for aggressive overstatement at the interaction of steepness and entry wealth. Positive values indicate the correction is active (overstater pays more than honest declaration); values near zero indicate the correction is negligible at this horizon.
 
@@ -128,22 +128,22 @@ All VAL.S tables use the canonical parameters $\tau_0$ = 15%, $\tau_m$ = 70%, $k
 
 \newpage
 
-## B. VAL.S Figure Index
+## B. SWEEPS.V Figure Index
 
-Section B lists the twenty figures generated by the VAL.S output scripts, each identified by filename, title, axis specifications, fixed parameter values, and a cross-reference to the corresponding VAL.A section. The figures visualise the same data as tables A.1–A.8 in heatmap, line-chart, and joint-surface formats that make distributional patterns and boundary regions visible at a glance.
+Section B lists the twenty figures generated by the SWEEPS.V output scripts, each identified by filename, title, axis specifications, fixed parameter values, and a cross-reference to the corresponding VAL.A section. The figures visualise the same data as tables A.1–A.8 in heatmap, line-chart, and joint-surface formats that make distributional patterns and boundary regions visible at a glance.
 
 The VAL.A cross-reference column directs the reader to the canonical-parameter treatment of the same metric in the mathematical companion paper. Where a figure overlays VAL.A reference values (e.g. SS2.1c and SS3.1c annotate the tolerant-zone boundaries from (VAL.A §A.6) as reference lines), the underlying simulation engine is shared and the canonical cell in the sweep figure should reproduce the VAL.A value to within floating-point rounding.
 
 Figures are grouped by the parameter swept: SS2.x for rate parameters ($\tau_0$, $\tau_m$, k, $W_{min}$), SS3.x for horizon and wealth parameters (N, $V_0$), SS4.x for joint surfaces. Within each group, the suffix letter distinguishes the visualisation type: (a) heatmap grids, (b) line charts of a derived quantity across the swept parameter, (c) tolerant-zone or bracket-penalty overlays. The calibration summary figure (SS4.3) collects all three mechanism-integrity properties — tolerant-zone width, N-crossing threshold for $\alpha = 1.8$, and understater plateau ceiling at $\alpha = 0.1$ — across all parameter variants in a single three-panel chart, providing the unified cross-parameter view that the individual sweep figures distribute across eight table groups.
 
-**VAL.S — Appendix Tables**
+**SWEEPS.V — Appendix Tables**
 
 **Generated:** 2026-09-09
 **Model:** Python v1.0 via wdt_core.py  ·  Canonical: $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{min}$=£2m, N=30, $V_0$=£20m, $g$=10.45%
 
 **Metric (all tables unless stated):** C.1 = (Net($\alpha$) − Net(1)) / TW($\alpha$).  Positive = $\alpha$ pays more net tax than honest.  $\alpha$ = 1.0 row is zero by construction.
 
-**Note on VAL.A alignment:** the live TOML canonical values may differ slightly from the VAL.A §C.1 printed snapshot (generated at a different TOML state). VAL.S uses the live TOML as its reference throughout.
+**Note on VAL.A alignment:** the live TOML canonical values may differ slightly from the VAL.A §C.1 printed snapshot (generated at a different TOML state). SWEEPS.V uses the live TOML as its reference throughout.
 
 ---
 
@@ -754,7 +754,7 @@ First N at which overstater Net > honest Net, at $g$ = 10.4%. Interpolated to on
 
 ## B.9  Figure Index
 
-All figures are generated by the VAL.S output scripts and share `wdt_core.py` as the simulation engine with no modifications.  VAL.A cross-references indicate which (SWEEPS.A §A) or (SWEEPS.A §B) subsection covers the same metric at canonical parameters.
+All figures are generated by the SWEEPS.V output scripts and share `wdt_core.py` as the simulation engine with no modifications.  VAL.A cross-references indicate which (SWEEPS.A §A) or (SWEEPS.A §B) subsection covers the same metric at canonical parameters.
 
 | Fig | File | Title | Axes | Parameters | VAL.A ref |
 |:---:|:---:|:---:|:---:|:---:|:---:|
@@ -804,7 +804,7 @@ $$\tau(W) = \frac{\tau_m}{1 + \left(\frac{\tau_m - \tau_0}{\tau_0}\right)e^{-k(W
 | k (steepness, per £m) | 0.001 | Controls rate climb speed |
 | W_min (£m) | £2.0m | Entry point; below this rate = 0 |
 
-**SWF sizing parameters (Balanced baseline; swept in §§5–6):**
+**SWF sizing parameters (Balanced baseline; swept in (SWEEPS §A.5 TO SWEEPS §A.6):**
 
 | Parameter | Baseline value | Role |
 |---|---|---|
