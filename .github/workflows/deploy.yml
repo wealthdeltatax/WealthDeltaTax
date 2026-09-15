@@ -61,6 +61,11 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: '_build/_site'
+          
+      - name: Inspect build output
+        run: |
+          echo "=== WFR figures ==="
+          find _build/figures -type f -name 'wfr_*' | sort
 
   deploy:
     environment:
