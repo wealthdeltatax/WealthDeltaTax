@@ -57,6 +57,9 @@ jobs:
       - name: Render Quarto site
         run: quarto render _build
 
+      - name: Copy generated figures into site
+        run: cp -r _build/figures/. _build/_site/figures/
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
