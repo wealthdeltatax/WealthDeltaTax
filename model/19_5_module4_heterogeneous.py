@@ -675,7 +675,7 @@ def chart_tier_cew(tier_results: dict, gamma: float, dist_label: str):
     ax_bar.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "m4_fig_d1_tier_cew.png")
+    _save(fig, "wfr_fig_d1_tier_cew.png")
 
 
 def chart_incidence(tier_results: dict):
@@ -717,7 +717,7 @@ def chart_incidence(tier_results: dict):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     fig.tight_layout()
-    _save(fig, "m4_fig_d2_incidence.png")
+    _save(fig, "wfr_fig_d2_incidence.png")
 
 
 def chart_concentration_path(paths: dict, tiers: list, years: list):
@@ -777,7 +777,7 @@ def chart_concentration_path(paths: dict, tiers: list, years: list):
     ax2.spines["top"].set_visible(False); ax2.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "m4_fig_d3_concentration_path.png")
+    _save(fig, "wfr_fig_d3_concentration_path.png")
 
 
 def chart_envelope(envelope_results: dict, years: list):
@@ -829,7 +829,7 @@ def chart_envelope(envelope_results: dict, years: list):
         ax.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "m4_fig_d4_envelope_binding.png")
+    _save(fig, "wfr_fig_d4_envelope_binding.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1251,7 +1251,7 @@ def chart_corner_check(corner_results: dict, tier_results: dict, gamma: float):
         ax.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "m4_fig_d5_corner_check.png")
+    _save(fig, "wfr_fig_d5_corner_check.png")
 
 
 def print_corner_findings(corner_results: dict, tier_results: dict):

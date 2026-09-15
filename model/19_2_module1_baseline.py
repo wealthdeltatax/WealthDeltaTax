@@ -146,7 +146,7 @@ def chart_cew_by_gamma(all_results: dict):
 
     axes[-1].legend(fontsize=8, loc="lower right")
     fig.tight_layout()
-    _save(fig, "m1_fig_a1_cew_by_gamma.png")
+    _save(fig, "wfr_fig_a1_cew_by_gamma.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -196,7 +196,7 @@ def chart_variance(all_results: dict):
         _style_ax(ax, dist_label[:55], ylabel="Var(consumption)")
 
     fig.tight_layout()
-    _save(fig, "m1_fig_a2_variance.png")
+    _save(fig, "wfr_fig_a2_variance.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -253,7 +253,7 @@ def chart_yearby_year(dist_A, results_A_gamma2: dict, scenario_years: list):
     fig.text(0.01, 0.5, f"Dotted lines = negative return years: {neg_year_note}",
              va="center", rotation="vertical", fontsize=7, color="grey")
     fig.tight_layout(rect=[0.02, 0, 1, 1])
-    _save(fig, "m1_fig_a3_annual_tax.png")
+    _save(fig, "wfr_fig_a3_annual_tax.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -311,7 +311,7 @@ def chart_wdt_advantage(all_results: dict):
 
     axes[-1].legend(fontsize=8, loc="upper left")
     fig.tight_layout()
-    _save(fig, "m1_fig_a4_wdt_advantage.png")
+    _save(fig, "wfr_fig_a4_wdt_advantage.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────

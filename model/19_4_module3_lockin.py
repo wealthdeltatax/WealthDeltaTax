@@ -437,7 +437,7 @@ def chart_lock_in_threshold(asset: AssetSwitchDecision):
     ax.grid(axis="y", linestyle="--", alpha=0.4)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    _save(fig, "m3_fig_c1_lock_in_threshold.png")
+    _save(fig, "wfr_fig_c1_lock_in_threshold.png")
 
 
 def chart_sensitivity_gain(sens_gain: list):
@@ -469,7 +469,7 @@ def chart_sensitivity_gain(sens_gain: list):
     ax2.spines["top"].set_visible(False); ax2.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "m3_fig_c2_sensitivity_gain.png")
+    _save(fig, "wfr_fig_c2_sensitivity_gain.png")
 
 
 def chart_sensitivity_T(sens_T: list):
@@ -503,7 +503,7 @@ def chart_sensitivity_T(sens_T: list):
     ax2.spines["top"].set_visible(False); ax2.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "m3_fig_c3_sensitivity_T.png")
+    _save(fig, "wfr_fig_c3_sensitivity_T.png")
 
 
 def chart_full_comparison(comp: dict, dist_label: str):
@@ -560,7 +560,7 @@ def chart_full_comparison(comp: dict, dist_label: str):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     fig.tight_layout()
-    _save(fig, "m3_fig_c4_full_comparison.png")
+    _save(fig, "wfr_fig_c4_full_comparison.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────

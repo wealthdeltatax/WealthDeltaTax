@@ -31,14 +31,14 @@ E.3 Rate parameter sensitivity
     is always revenue-equivalent.
 
 Outputs → OUTPUTS/WFR/module5/
-    Charts:  E.1   m5_fig_e1_revenue_target.png
-             E.1b  m5_fig_e1b_w0_sensitivity.png
-             E.2.1 m5_fig_e2a_start_year_distribution.png
-             E.2.2 m5_fig_e2b_timeseries.png
-             E.3.1 m5_fig_e3a_tau0.png
-             E.3.2 m5_fig_e3b_taum.png
-             E.3.3 m5_fig_e3c_k.png
-             E.3.4 m5_fig_e3d_wmin.png
+    Charts:  E.1   wfr_fig_e1_revenue_target.png
+             E.1b  wfr_fig_e1b_w0_sensitivity.png
+             E.2.1 wfr_fig_e2a_start_year_distribution.png
+             E.2.2 wfr_fig_e2b_timeseries.png
+             E.3.1 wfr_fig_e3a_tau0.png
+             E.3.2 wfr_fig_e3b_taum.png
+             E.3.3 wfr_fig_e3c_k.png
+             E.3.4 wfr_fig_e3d_wmin.png
 
 """
 
@@ -325,7 +325,7 @@ def chart_sweep_a(results):
 
     axes[1].legend(fontsize=8, loc="lower left")
     fig.tight_layout()
-    _save(fig, "m5_fig_e1_revenue_target.png")
+    _save(fig, "wfr_fig_e1_revenue_target.png")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # SWEEP B — Start year
@@ -431,7 +431,7 @@ def chart_sweep_b_distribution(full_results):
             color=COLOURS["symmetric_wdt"])
 
     fig.tight_layout()
-    _save(fig, "m5_fig_e2a_start_year_distribution.png")
+    _save(fig, "wfr_fig_e2a_start_year_distribution.png")
 
 
 def chart_sweep_b_timeseries(full_results):
@@ -470,7 +470,7 @@ def chart_sweep_b_timeseries(full_results):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     fig.tight_layout()
-    _save(fig, "m5_fig_e2b_timeseries.png")
+    _save(fig, "wfr_fig_e2b_timeseries.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -526,14 +526,14 @@ def chart_sweep_c_param(sweep_results, param_name, param_vals, W0_vals, param_la
     """
     # Canonical filename and chart-number for each parameter — matches docstring.
     _PARAM_META = {
-        "tau_0": ("m5_fig_e3a_tau0.png",  "E.3.1"),
-        "tau_m": ("m5_fig_e3b_taum.png",  "E.3.2"),
-        "k":     ("m5_fig_e3c_k.png",     "E.3.3"),
-        "W_min": ("m5_fig_e3d_wmin.png",  "E.3.4"),
+        "tau_0": ("wfr_fig_e3a_tau0.png",  "E.3.1"),
+        "tau_m": ("wfr_fig_e3b_taum.png",  "E.3.2"),
+        "k":     ("wfr_fig_e3c_k.png",     "E.3.3"),
+        "W_min": ("wfr_fig_e3d_wmin.png",  "E.3.4"),
     }
     filename, chart_num = _PARAM_META.get(
         param_name,
-        (f"m5_fig_e3x_{param_name}.png", "E.3.x"),
+        (f"wfr_fig_e3x_{param_name}.png", "E.3.x"),
     )
 
     apply_style()
@@ -624,7 +624,7 @@ def chart_sweep_a_w0(w0_results, W0_vals):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     fig.tight_layout()
-    _save(fig, "m5_fig_e1b_w0_sensitivity.png")
+    _save(fig, "wfr_fig_e1b_w0_sensitivity.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────

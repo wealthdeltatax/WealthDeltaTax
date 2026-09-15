@@ -414,7 +414,7 @@ def chart_rate_function(rate_fn: ProgressiveRateFunction, W_min_m: float):
     ax.grid(axis="y", linestyle="--", alpha=0.4)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    _save(fig, "m2_fig_b0_rate_function.png")
+    _save(fig, "wfr_fig_b0_rate_function.png")
 
 
 def chart_c1_welfare_gap(c1_results: dict):
@@ -451,7 +451,7 @@ def chart_c1_welfare_gap(c1_results: dict):
 
     axes[-1].legend(fontsize=8)
     fig.tight_layout()
-    _save(fig, "m2_fig_b1_flat_vs_progressive.png")
+    _save(fig, "wfr_fig_b1_flat_vs_progressive.png")
 
 
 def chart_c2_leverage(leverage_results: list):
@@ -490,7 +490,7 @@ def chart_c2_leverage(leverage_results: list):
     ax2.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "m2_fig_b2_leverage.png")
+    _save(fig, "wfr_fig_b2_leverage.png")
 
 
 def chart_c3_asymmetry(c3_results: list, W0_vals: list):
@@ -528,7 +528,7 @@ def chart_c3_asymmetry(c3_results: list, W0_vals: list):
     ax2.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "m2_fig_b3_asymmetry.png")
+    _save(fig, "wfr_fig_b3_asymmetry.png")
 
 
 def chart_combined_comparison(
@@ -568,7 +568,7 @@ def chart_combined_comparison(
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     fig.tight_layout()
-    _save(fig, f"m2_fig_b4_combined_gamma{int(gamma)}.png")
+    _save(fig, f"wfr_fig_b4_combined_gamma{int(gamma)}.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
