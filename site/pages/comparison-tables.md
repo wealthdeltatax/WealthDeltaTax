@@ -5,23 +5,75 @@ description: "WDT vs Current Realisation-Based System and Stock Wealth Tax."
 
 *This page is for readers who want a systematic, criterion-by-criterion comparison across three systems. If you're new to the proposal, [start with the plain-English overview](index.html) first. If you're arriving with a specific objection, the [FAQ](faq.html) addresses twelve common ones directly.*
 
-The table below compares the WDT against the current realisation-based system and a conventional stock wealth tax across eleven criteria. Each WDT cell includes the companion paper references where the relevant design claim is established. Quantitative results marked (WFR) come from the welfare simulation paper, which compares all systems at revenue equivalence — the same expected tax collected as 2% of initial wealth — using 73 years of UK historical equity returns.
+Each WDT cell includes companion paper references where the relevant design claim is established. Quantitative results marked (WFR) come from the welfare simulation paper, comparing all systems at revenue equivalence — the same expected tax collected as 2% of initial wealth — using 73 years of UK historical equity returns.
 
 ---
 
-| Criterion | Current realisation-based system | Stock wealth tax | **WDT** |
-|---|---|---|---|
-| **Tax base** | Taxes gains when realised — unrealised appreciation can compound untaxed indefinitely. | Taxes the stock of wealth owned, regardless of whether it changed or produced a return. | Taxes the annual change in net wealth, capturing accretion when it occurs and eliminating the realisation trigger entirely. (WP §3.1) · (MF §3.1) · (LR.B §2) |
-| **Lock-in and neutrality** | Significant — selling crystallises tax, creating a persistent incentive to hold rather than redeploy. At a 50% embedded-gain ratio with five years remaining, the CGT switching wedge imposes a **141–143 basis-point welfare cost**, approximately 82× the baseline difference between systems. 90% of the modelled population is locked in at this calibration. (WFR §4.2) | Low lock-in, but neutrality is undermined by exemptions and valuation inconsistencies. | No tax event is created by selling; the annual delta is taxable regardless, eliminating the hold-to-defer incentive. Lock-in cannot arise under the WDT by construction — not by calibration. (WP §8.4) · (ENV §3) · (LR.B §5) · (WFR §4.2.4) |
-| **Treatment of losses** | Capital-loss offsets exist but are not symmetric — the state does not share proportionally in wealth declines. In loss years, income tax collects nothing but also provides nothing. | Tax continues regardless of direction; falling wealth does not generate a corresponding state obligation. | Losses generate symmetric refunds at the same marginal rate, making the state a proportional risk-sharing partner in both directions. The flat-rate WDT satisfies the Domar-Musgrave condition to floating-point precision — consumption variance is halved relative to stock-base systems at revenue equivalence (0.0013 vs 0.0027, γ=2). The low-return tier receives a 38 basis-point welfare advantage over income tax, driven by refunds in the years when losses are most acute. (WP §3.5) · (MF §7) · (LR.B §4) · (WFR §3.2) · (WFR §4.3.3) |
-| **Wealth concentration over time** | Return heterogeneity compounds into concentration unchecked — income tax conditions on gains but not on a net-return benchmark, producing **320× Great/Poor wealth concentration** at the 30-year horizon under Fagereng-calibrated persistent return differences. | The stock base levies proportionally regardless of return performance, leaving the full return differential to compound unattenuated: **479× Great/Poor concentration** at the same 30-year horizon — the worst outcome of all systems tested. | The delta base conditions on net return above a cost-of-capital allowance, attenuating the compounding of persistent return differences: **286–288× concentration** at N=30 (flat and progressive variants respectively). The relevant axis is accrual base vs stock base, not flat vs progressive rate. (WFR §4.3.2) · (WFR §4.4) · (WFR.A §D.3) |
-| **Valuation and administration** | Apparent simplicity conceals accumulated complexity: acquisition-cost tracking, disposal rules, classification disputes, exemptions, and anti-avoidance machinery. | Requires annual valuation of the full wealth stock — a recurring, government-led process for all asset types. | Self-declaration establishes the operative basis; the government need not discover the "correct" value. Valuation disputes become less central to routine operation. (VAL §1) · (VAL §7.1) · (VAL §7.2) · (WP §8.1) |
-| **Avoidance and concealment** | Substantial — different assets and structures receive different treatment, creating incentives to reclassify returns and defer realisation. Opacity is often rewarded. | Broad base reduces some avoidance, but exemptions and valuation gaps remain exploitable. | Net wealth change is the target regardless of legal form. Understatement defers rather than eliminates liability. Opacity carries higher default charges and future consequences. (WP §8.7) · (BEHAV §8.11) · (CORP.A §F.8) |
-| **Migration incentive** | Departing removes future exposure with no offsetting financial cost — no reciprocal benefit is forfeited. | Same: jurisdictional arbitrage is straightforward and financially unambiguous. | Departing still reduces future WDT exposure, but also forfeits the loss-sharing claim and governance participation rights. Existing migration evidence from stock wealth taxes cannot be assumed to transfer directly. (BEHAV §9.1) · (BEHAV §9.2) · (CLOSE §4.2) |
-| **Political durability** | Vulnerable to lobbying for exemptions, preferential rates, and realisation-timing rules. Avoidance reduces the base over time without formal repeal. | Historically poor — most OECD systems repealed amid valuation disputes, avoidance, and opposition from taxed populations with strong organising capacity. | Attempts to make principal taxpayers stakeholders in institutional continuation through refund rights, governance participation, and the labour-relief dividend. Opponents must pay multiple independent costs to remove any single feature. (POL §3) · (POL §5) · (GOV §5.2) |
-| **Countercyclical behaviour** | Revenue falls during downturns while expenditure rises; stabilisation requires discretionary intervention. No tax-linked mechanism for accumulating assets during booms. | Wealth-tax receipts are somewhat more stable, but the state has no automatic refund obligation and no pre-funded reserve. | Wealth losses automatically generate refunds; the SWF is constitutionally required to hold liquid assets against that obligation. Route C and adjustable labour-relief release provide additional boom/bust levers. (WP §4.1) · (ENV §7) · (GOV.B §E.1) · (GOV.B §E.7) |
-| **Revenue use and distributional objective** | Revenue enters general government expenditure; the link between the tax and any specific burden-shift is indirect and reversible. | Same — revenue is not structurally committed to any particular use. | Revenue is constitutionally committed: first to pre-funding the refund liability, then to reducing taxes on labour and consumption. The burden-shift is architecturally locked rather than politically promised. The WDT's delta base produces a **6.6:1 Great/Poor incidence ratio** versus 3.2:1 for income tax and ~1.1:1 for stock-base systems, at the same aggregate revenue target. (WP §6) · (GOV §5.2) · (RATES §6.3) · (WFR §4.3.4) · (WFR.A §D.2) |
-| **Empirical standing** | Extensive — the system is operational and its behavioural properties are well-documented, including its distortions. The 141 bp lock-in welfare cost is a measured property of this system, not a modelling assumption. | Mixed — historical evidence exists but the record is largely one of avoidance, erosion, and repeal. The 479× concentration path is a measured consequence of the stock base under empirically calibrated return heterogeneity. | Limited to modelling and indirect evidence. Behavioural response, migration effects, and administrative costs remain empirically untested at scale. These are Category 3 costs — real but not yet quantifiable. Whether any plausibly exceeds the 141 bp welfare advantage established by WFR is the question the companion break-even paper (EVAL) is designed to answer. (PHASE1 §2) · (RATES §9.1) · (LR.B §7) · (WFR §6.1.3) · (WFR §6.2) |
+## Tax base
+
+| Current realisation-based system | Stock wealth tax | **WDT** |
+|---|---|---|
+| Taxes gains when realised — unrealised appreciation can compound untaxed indefinitely. | Taxes the stock of wealth owned, regardless of whether it changed or produced a return. | Taxes the annual change in net wealth, capturing accretion when it occurs and eliminating the realisation trigger. (WP §3.1) · (MF §3.1) · (LR.B §2) |
+
+## Lock-in and neutrality
+
+| Current realisation-based system | Stock wealth tax | **WDT** |
+|---|---|---|
+| Significant — selling crystallises tax, creating a persistent incentive to hold rather than redeploy. At a 50% embedded-gain ratio with five years remaining, the CGT switching wedge imposes a **141–143 basis-point welfare cost** (≈82× the baseline difference between systems); 90% of the modelled population is locked in at this calibration. (WFR §4.2) | Low lock-in, but neutrality is undermined by exemptions and valuation inconsistencies. | No tax event is created by selling; the annual delta is taxable regardless. Lock-in cannot arise under the WDT by construction — not by calibration. (WP §8.4) · (ENV §3) · (LR.B §5) · (WFR §4.2.4) |
+
+## Treatment of losses
+
+| Current realisation-based system | Stock wealth tax | **WDT** |
+|---|---|---|
+| Capital-loss offsets exist but are not symmetric — the state does not share proportionally in wealth declines. In loss years, income tax collects nothing but also provides nothing. | Tax continues regardless of direction; falling wealth generates no corresponding state obligation. | Losses generate symmetric refunds at the same marginal rate, making the state a proportional risk-sharing partner in both directions. The flat-rate WDT satisfies the Domar-Musgrave condition — consumption variance is halved relative to stock-base systems at revenue equivalence (0.0013 vs 0.0027, γ=2). (WP §3.5) · (MF §7) · (LR.B §4) · (WFR §3.2) · (WFR §4.3.3) |
+
+## Wealth concentration over time
+
+| Current realisation-based system | Stock wealth tax | **WDT** |
+|---|---|---|
+| Return heterogeneity compounds unchecked — income tax conditions on gains but not on a net-return benchmark, producing **320× Great/Poor wealth concentration** at the 30-year horizon under Fagereng-calibrated persistent return differences. | Levies proportionally regardless of return performance, leaving the full return differential to compound unattenuated: **479× Great/Poor concentration** at 30 years — the worst outcome of all systems tested. | The delta base conditions on net return above a cost-of-capital allowance, attenuating the compounding of persistent return differences: **286–288× concentration** at N=30. The relevant axis is accrual base vs stock base, not flat vs progressive rate. (WFR §4.3.2) · (WFR §4.4) · (WFR.A §D.3) |
+
+## Valuation and administration
+
+| Current realisation-based system | Stock wealth tax | **WDT** |
+|---|---|---|
+| Apparent simplicity conceals accumulated complexity: acquisition-cost tracking, disposal rules, classification disputes, exemptions, and anti-avoidance machinery. | Requires annual government-led valuation of the full wealth stock across all asset types. | Self-declaration establishes the operative basis; the government need not discover the "correct" value. Valuation disputes become less central to routine operation. (VAL §1) · (VAL §7.1) · (VAL §7.2) · (WP §8.1) |
+
+## Avoidance and concealment
+
+| Current realisation-based system | Stock wealth tax | **WDT** |
+|---|---|---|
+| Substantial — different assets and structures receive different treatment, creating incentives to reclassify returns and defer realisation. Opacity is often rewarded. | Broad base reduces some avoidance, but exemptions and valuation gaps remain exploitable. | Net wealth change is the target regardless of legal form. Understatement defers rather than eliminates liability; opacity carries higher default charges and future consequences. (WP §8.7) · (BEHAV §8.11) · (CORP.A §F.8) |
+
+## Migration incentive
+
+| Current realisation-based system | Stock wealth tax | **WDT** |
+|---|---|---|
+| Departing removes future exposure with no offsetting financial cost — no reciprocal benefit is forfeited. | Same: jurisdictional arbitrage is straightforward and financially unambiguous. | Departing reduces future WDT exposure, but also forfeits the loss-sharing claim and governance participation rights. Existing migration evidence from stock wealth taxes cannot be assumed to transfer directly. (BEHAV §9.1) · (BEHAV §9.2) · (CLOSE §4.2) |
+
+## Political durability
+
+| Current realisation-based system | Stock wealth tax | **WDT** |
+|---|---|---|
+| Vulnerable to lobbying for exemptions, preferential rates, and realisation-timing rules. Avoidance erodes the base over time without formal repeal. | Historically poor — most OECD systems repealed amid valuation disputes, avoidance, and opposition from taxed populations with strong organising capacity. | Designed to make principal taxpayers stakeholders in continuation through refund rights, governance participation, and the labour-relief dividend. Opponents must pay multiple independent costs to remove any single feature. (POL §3) · (POL §5) · (GOV §5.2) |
+
+## Countercyclical behaviour
+
+| Current realisation-based system | Stock wealth tax | **WDT** |
+|---|---|---|
+| Revenue falls during downturns while expenditure rises; stabilisation requires discretionary intervention. No tax-linked mechanism for accumulating assets during booms. | Receipts are somewhat more stable, but the state has no automatic refund obligation and no pre-funded reserve. | Wealth losses automatically generate refunds; the SWF is constitutionally required to hold liquid assets against that obligation. Route C and adjustable labour-relief provide additional boom/bust levers. (WP §4.1) · (ENV §7) · (GOV.B §E.1) · (GOV.B §E.7) |
+
+## Revenue use and distributional objective
+
+| Current realisation-based system | Stock wealth tax | **WDT** |
+|---|---|---|
+| Revenue enters general expenditure; the link between the tax and any specific burden-shift is indirect and reversible. | Same — revenue is not structurally committed to any particular use. | Revenue is constitutionally committed: first to pre-funding the refund liability, then to reducing taxes on labour and consumption. The burden-shift is architecturally locked rather than politically promised. The delta base produces a **6.6:1 Great/Poor incidence ratio** versus 3.2:1 for income tax and ~1.1:1 for stock-base systems. (WP §6) · (GOV §5.2) · (RATES §6.3) · (WFR §4.3.4) · (WFR.A §D.2) |
+
+## Empirical standing
+
+| Current realisation-based system | Stock wealth tax | **WDT** |
+|---|---|---|
+| Extensive — the system is operational and its behavioural properties are well-documented. The 141 bp lock-in welfare cost is a measured property of this system, not a modelling assumption. | Mixed — historical evidence exists but the record is largely one of avoidance, erosion, and repeal. The 479× concentration path is a measured consequence of the stock base under empirically calibrated return heterogeneity. | Limited to modelling and indirect evidence. Behavioural response, migration effects, and administrative costs remain empirically untested at scale — real but not yet quantifiable. Whether any plausibly exceeds the 141 bp welfare advantage is the question the break-even paper (EVAL) is designed to answer. (PHASE1 §2) · (RATES §9.1) · (LR.B §7) · (WFR §6.1.3) · (WFR §6.2) |
 
 ---
 
