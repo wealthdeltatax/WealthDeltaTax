@@ -2,11 +2,12 @@
 pipeline/link_map.py
 
 Generates _build/link-map.qmd — the interactive WDT paper cross-reference
-graph, embedded within the Quarto site frame (navbar, footer, etc.).
+graph, embedded within the Quarto site frame (navbar always present).
 
-The output is a .qmd file using page-layout: full so the graph canvas
-gets the full viewport width without Quarto's sidebar or TOC competing
-for space. The Quarto navbar and footer are always present.
+The output is a .qmd file using page-layout: full. The graph itself uses
+position:fixed (top:56px, full viewport width/height) so it escapes
+Quarto's content column entirely and fills the screen below the navbar.
+Quarto's h1, sidebar, and TOC are suppressed for this page.
 
 Called by preprocess.py as step (12), after all other page generators.
 preprocess.py passes dest_path as _build/link-map.html; this module
@@ -139,14 +140,32 @@ _BODY_TEMPLATE = r"""
   /* site-wide styles.css because they target IDs / classes unique to this */
   /* page. The :root vars are already defined by styles.css.               */
 
+  /* Hide Quarto's injected h1 — the map IS the page, no title needed above it */
+  #quarto-document-content > h1:first-child,
+  .quarto-title-block,
+  .content > h1:first-child {
+    display: none !important;
+  }
+
+  /* Remove Quarto content-area padding so the fixed overlay sits flush */
+  #quarto-document-content,
+  .page-columns,
+  .quarto-container {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
   #lm-wrap {
+    position: fixed;
+    /* Sit just below the Quarto navbar. 56px covers the standard navbar
+       height; increase to 64px if the site uses a taller variant. */
+    top: 56px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
-    /* Full viewport height minus Quarto navbar (~56px) and a small gap.
-       Adjust the offset if the navbar height changes. */
-    height: calc(100vh - 70px);
-    min-height: 500px;
-    margin: 0 -1.5rem -1.25rem; /* bleed to content panel edges */
     overflow: hidden;
+    z-index: 100;
   }
 
   /* Graph controls sidebar */
@@ -332,14 +351,7 @@ _BODY_TEMPLATE = r"""
     white-space: nowrap;
   }
 
-  /* Quarto's content panel adds padding we bleed into above;
-     ensure the h1 injected by Quarto from the front matter title
-     still looks right — it sits above #lm-wrap. */
-  #quarto-document-content > h1:first-child,
-  .content > h1:first-child {
-    /* Quarto already styles this; no override needed.
-       Left here as an anchor comment in case tweaks are required. */
-  }
+  /* (h1 hide rule is above with the #lm-wrap block) */
 </style>
 
 <div id="lm-wrap">
@@ -465,7 +477,11 @@ let lmFrozen = false;
 let lmAnimId = null;
 
 const LM_NODE_W = 72, LM_NODE_H = 32;
-const LM_ATTRACT = 0.004, LM_DAMP = 0.97, LM_CENTER_F = 0.003;
+// LM_ATTRACT: spring pull along edges (lower = looser, more spread)
+// LM_DAMP: velocity damping per tick (higher = slower to settle)
+// LM_CENTER_F: weak gravity toward canvas centre (lower = more spread)
+// LM_IDEAL_DIST: target separation between any two nodes (px in graph space)
+const LM_ATTRACT = 0.003, LM_DAMP = 0.97, LM_CENTER_F = 0.0008, LM_IDEAL_DIST = 200;
 
 // ── Build links ───────────────────────────────────────────────────────────
 function lmBuildLinks() {
@@ -499,10 +515,13 @@ function lmVisibleLinks() {
 // ── Layout: force simulation ──────────────────────────────────────────────
 function lmInitLayout() {
   const svg = document.getElementById("lm-graph-svg");
-  const W = svg.clientWidth || 900, H = svg.clientHeight || 600;
+  const W = svg.clientWidth || window.innerWidth  || 1200;
+  const H = svg.clientHeight || window.innerHeight || 800;
   const vn = lmVisibleNodes();
   const step = (2 * Math.PI) / vn.length;
-  const r = Math.min(W, H) * 0.35;
+  // Use the larger dimension so the initial ring fills the canvas on
+  // both landscape and portrait viewports. 0.42 leaves a comfortable margin.
+  const r = Math.max(W, H) * 0.42;
   vn.forEach((n, i) => {
     n.x = W/2 + r * Math.cos(i * step);
     n.y = H/2 + r * Math.sin(i * step);
@@ -513,19 +532,21 @@ function lmInitLayout() {
 function lmTick() {
   if (lmFrozen) return;
   const svg = document.getElementById("lm-graph-svg");
-  const W = svg.clientWidth || 900, H = svg.clientHeight || 600;
+  // Use clientWidth/Height of the SVG element; fall back to window dimensions
+  // so the simulation knows the true available canvas space from the start.
+  const W = svg.clientWidth  || window.innerWidth  || 1200;
+  const H = svg.clientHeight || window.innerHeight || 800;
   const cx = W/2, cy = H/2;
   const vn = lmVisibleNodes();
   const vl = lmVisibleLinks();
 
-  // Repulsion
+  // Repulsion — push nodes apart up to LM_IDEAL_DIST
   for (let i = 0; i < vn.length; i++) {
     for (let j = i+1; j < vn.length; j++) {
       const a = vn[i], b = vn[j];
       const dx = b.x - a.x, dy = b.y - a.y;
       const dist = Math.sqrt(dx*dx + dy*dy) || 1;
-      const IDEAL_DIST = 130;
-      const f = Math.max(0, IDEAL_DIST - dist) * 0.4;
+      const f = Math.max(0, LM_IDEAL_DIST - dist) * 0.4;
       const fx = (dx/dist)*f, fy = (dy/dist)*f;
       a.vx -= fx; a.vy -= fy;
       b.vx += fx; b.vy += fy;
@@ -539,7 +560,9 @@ function lmTick() {
     l.target.vx -= dx * LM_ATTRACT; l.target.vy -= dy * LM_ATTRACT;
   }
 
-  // Centre pull + integrate
+  // Weak centre gravity + integrate velocity
+  // No hard positional clamp — nodes are free to spread beyond the visible
+  // viewport; the user can pan/zoom to reach them, and Reset recentres.
   let energy = 0;
   for (const n of vn) {
     n.vx += (cx - n.x) * LM_CENTER_F;
@@ -547,8 +570,6 @@ function lmTick() {
     n.vx *= LM_DAMP; n.vy *= LM_DAMP;
     n.x  += n.vx; n.y  += n.vy;
     energy += n.vx*n.vx + n.vy*n.vy;
-    n.x = Math.max(LM_NODE_W/2+10, Math.min(W-LM_NODE_W/2-10, n.x));
-    n.y = Math.max(LM_NODE_H/2+10, Math.min(H-LM_NODE_H/2-10, n.y));
   }
 
   lmRender();
