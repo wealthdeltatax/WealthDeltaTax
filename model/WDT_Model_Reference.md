@@ -505,7 +505,7 @@ Summary table gains two new columns: `SSMcov50 (min/med)` for long-run trajector
 
 Panel [0,0] labels in `_four_panel` and `_four_panel_swf` now read `SSM {HW}yr coverage` and `TCM {HW}yr coverage` where HW = `HEADLINE_WINDOW`. The `_relative_sensitivity` y-axis label similarly updates. Two new figures added:
 
-**`sweep_fig_09_coverage_fan.png`** — all four rate parameters on one normalised-x-axis chart. Two shaded bands per parameter: outer from SSM 5yr to TCM 50yr; inner from SSM HW to TCM HW. Shows the full temporal profile of the coverage promise across the rate-parameter space in a single view.
+**`sweeps_r_fig_7_4_coverage_fan.png`** — all four rate parameters on one normalised-x-axis chart. Two shaded bands per parameter: outer from SSM 5yr to TCM 50yr; inner from SSM HW to TCM HW. Shows the full temporal profile of the coverage promise across the rate-parameter space in a single view.
 
 **`sweep_fig_10_failure_years.png`** — 1×2 panel, one per SWF sizing parameter (`srr_ratio`, `lrr_years`). Y-axis = LRR failure year (median, min, max across start years that produce a failure). At Balanced parameters renders with "no failures at baseline" annotations. Populates as SWF parameters are stressed. This is the figure that exercises the v8 failure mechanics and answers how much SWF slack exists before the post-fill buffer exhausts.
 
@@ -561,7 +561,7 @@ The following changes were made in the v8 update (this session). `wdt_core.py` w
 
 **`16_6_260813_RATES_S_tables.py`** — summary table gains `SSMcov50` and `LRR fail n` columns. Worst-case table shows `LRR failure yr` (not `SRR breach covered`). Metrics glossary rewritten. Model version string updated to v8. `HEADLINE_WINDOW` imported and embedded in column headers.
 
-**`16_7_260813_RATES_S_charts.py`** — panel [0,0] axis titles updated for `HEADLINE_WINDOW`. `_relative_sensitivity` y-axis label updated. Two new figures: `sweep_fig_09_coverage_fan.png` and `sweep_fig_10_failure_years.png`. Figure count increases from 8 to 10.
+**`16_7_260813_RATES_S_charts.py`** — panel [0,0] axis titles updated for `HEADLINE_WINDOW`. `_relative_sensitivity` y-axis label updated. Two new figures: `sweeps_r_fig_7_4_coverage_fan.png` and `sweep_fig_10_failure_years.png`. Figure count increases from 8 to 10.
 
 ---
 

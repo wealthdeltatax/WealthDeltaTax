@@ -41,12 +41,12 @@ def _save(fig, name):
 """
 VAL.S Output Script 1 — Rate Function Parameter Sweeps
 ========================================================
-Generates figures for §2 of VAL.S.  All simulation data is loaded from
+Generates figures for 2 of VAL.S.  All simulation data is loaded from
 OUTPUTS/sweep_cache.json (produced by 16_0_compute.py).
 
 Figures
 -------
-  §2.1  τ₀ sweep   §2.2  τ_m sweep   §2.3  k sweep   §2.4  W_min sweep
+  2.1  τ₀ sweep   2.2  τ_m sweep   2.3  k sweep   2.4  W_min sweep
 """
 
 # ── Shared heatmap 4-panel builder ────────────────────────────────────────────
@@ -76,15 +76,15 @@ def _heatmap_4panel(matrices, param_vals, canon_val, labels, suptitle, fname):
     _save(fig, fname)
 
 
-# ── §2.1  τ₀ sweep ────────────────────────────────────────────────────────────
+# ── 3.1  τ₀ sweep ────────────────────────────────────────────────────────────
 
-def fig_tau0_heatmaps(d):
+def fig_3_1a_tau0_heatmaps(d):
     labels = [f'τ₀ = {v*100:.0f}%' + (' (canonical)' if v == _A.CANON_TAU0 else '')
               for v in _A.TAU0_VALS]
     _heatmap_4panel(
         d['val_s']['tau0_c1_matrices'], _A.TAU0_VALS, _A.CANON_TAU0, labels,
         suptitle=(
-            'Figure §3.1a — C.1 advantage landscape across τ₀ values\n'
+            'Figure 3.1a — C.1 advantage landscape across τ₀ values\n'
             f'τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}, N={_A.CANON_N}, '
             f'V₀=£{_A.CANON_V0:.0f}m  ·  Bold panel = canonical'
         ),
@@ -92,7 +92,7 @@ def fig_tau0_heatmaps(d):
     )
 
 
-def fig_tau0_n_crossings(d):
+def fig_3_1b_tau0_n_crossings(d):
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE)
     tau0_fine = d['val_s']['tau0_fine']
@@ -111,7 +111,7 @@ def fig_tau0_n_crossings(d):
     ax.set_xlabel('Entry rate τ₀ (%)')
     ax.set_ylabel('N at which overstater first pays more than honest')
     ax.set_title(
-        f'Figure §3.1b — N-crossing thresholds by τ₀\n'
+        f'Figure 3.1b — N-crossing thresholds by τ₀\n'
         f'τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}, V₀=£{_A.CANON_V0:.0f}m, '
         f'g={_A.CANON_G*100:.1f}%'
     )
@@ -120,7 +120,7 @@ def fig_tau0_n_crossings(d):
     _save(fig, 'SWEEPS_v_fig_3_1b_tau0_n_crossings.png')
 
 
-def fig_tau0_tolerant_zone(d):
+def fig_3_1c_tau0_tolerant_zone(d):
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE)
     tau0_fine = d['val_s']['tau0_fine']
@@ -138,7 +138,7 @@ def fig_tau0_tolerant_zone(d):
     ax.set_xlabel('Entry rate τ₀ (%)')
     ax.set_ylabel('Declaration ratio α')
     ax.set_title(
-        f'Figure §3.1c — Tolerant zone (|C.1| < {_A.TZONE_THRESHOLD*100:.0f}pp) boundaries by τ₀\n'
+        f'Figure 3.1c — Tolerant zone (|C.1| < {_A.TZONE_THRESHOLD*100:.0f}pp) boundaries by τ₀\n'
         f'τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}, N={_A.CANON_N}, g={_A.CANON_G*100:.1f}%'
     )
     ax.legend(); ax.set_xlim(5, 44)
@@ -146,15 +146,15 @@ def fig_tau0_tolerant_zone(d):
     _save(fig, 'SWEEPS_v_fig_3_1c_tau0_tolerant_zone.png')
 
 
-# ── §2.2  τ_m sweep ───────────────────────────────────────────────────────────
+# ── 2.2  τ_m sweep ───────────────────────────────────────────────────────────
 
-def fig_taum_heatmaps(d):
+def fig_4_1a_taum_heatmaps(d):
     labels = [f'τ_m = {v*100:.0f}%' + (' (canonical)' if v == _A.CANON_TAUM else '')
               for v in _A.TAUM_VALS]
     _heatmap_4panel(
         d['val_s']['taum_c1_matrices'], _A.TAUM_VALS, _A.CANON_TAUM, labels,
         suptitle=(
-            'Figure §3.1a — C.1 advantage landscape across τ_m values\n'
+            'Figure 3.1a — C.1 advantage landscape across τ_m values\n'
             f'τ₀={_A.CANON_TAU0*100:.0f}%, k={_A.CANON_K}, N={_A.CANON_N}, '
             f'V₀=£{_A.CANON_V0:.0f}m  ·  Bold = canonical'
         ),
@@ -162,7 +162,7 @@ def fig_taum_heatmaps(d):
     )
 
 
-def fig_taum_penalty_plateaus(d):
+def fig_4_1b_taum_penalty_plateaus(d):
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE)
     under_alphas = [0.1, 0.2, 0.5, 0.8]
@@ -178,7 +178,7 @@ def fig_taum_penalty_plateaus(d):
     ax.set_xlabel('Declaration ratio α (understatement region)')
     ax.set_ylabel('Plateau ceiling of C.1 (pp)')
     ax.set_title(
-        f'Figure §4.1b — Understater penalty plateau ceiling by α and τ_m\n'
+        f'Figure 4.1b — Understater penalty plateau ceiling by α and τ_m\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, k={_A.CANON_K}, N={_A.CANON_N}, g sweep 18–40%'
     )
     ax.legend(); ax.set_xlim(5, 85)
@@ -186,7 +186,7 @@ def fig_taum_penalty_plateaus(d):
     _save(fig, 'SWEEPS_v_fig_4_1b_taum_penalty_plateaus.png')
 
 
-def fig_taum_n_crossings(d):
+def fig_4_1c_taum_n_crossings(d):
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE)
     taum_fine = d['val_s']['taum_fine']
@@ -205,7 +205,7 @@ def fig_taum_n_crossings(d):
     ax.set_xlabel('Ceiling rate τ_m (%)')
     ax.set_ylabel('N at crossing (overstater first pays more than honest)')
     ax.set_title(
-        f'Figure §4.1c — N-crossing thresholds by τ_m\n'
+        f'Figure 4.1c — N-crossing thresholds by τ_m\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, k={_A.CANON_K}, V₀=£{_A.CANON_V0:.0f}m, '
         f'g={_A.CANON_G*100:.1f}%'
     )
@@ -214,9 +214,9 @@ def fig_taum_n_crossings(d):
     _save(fig, 'SWEEPS_v_fig_4_1c_taum_n_crossings.png')
 
 
-# ── §2.3  k sweep ─────────────────────────────────────────────────────────────
+# ── 2.3  k sweep ─────────────────────────────────────────────────────────────
 
-def fig_k_rate_curves(p):
+def fig_5_k_rate_curves(p):
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE)
     W_vals = np.logspace(np.log10(_A.CANON_WMIN), np.log10(5000), 400)
@@ -237,7 +237,7 @@ def fig_k_rate_curves(p):
     ax.set_xlabel('Declared net worth W (£m, log scale)')
     ax.set_ylabel('Marginal WDT rate τ(W) (%)')
     ax.set_title(
-        f'Figure §5a — Rate curve τ(W) across k values\n'
+        f'Figure 5a — Rate curve τ(W) across k values\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, W_min=£{_A.CANON_WMIN:.0f}m'
     )
     ax.set_xlim(_A.CANON_WMIN, 5000)
@@ -251,13 +251,13 @@ def fig_k_rate_curves(p):
     _save(fig, 'SWEEPS_v_fig_5_k_rate_curves.png')
 
 
-def fig_k_heatmaps(d):
+def fig_5_1a_k_heatmaps(d):
     labels = [f'k = {v}' + (' (canonical)' if v == _A.CANON_K else '')
               for v in _A.K_VALS]
     _heatmap_4panel(
         d['val_s']['k_c1_matrices'][:4], _A.K_VALS[:4], _A.CANON_K, labels[:4],
         suptitle=(
-            'Figure §5.1a — C.1 advantage landscape across k values\n'
+            'Figure 5.1a — C.1 advantage landscape across k values\n'
             f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
             f'N={_A.CANON_N}, V₀=£{_A.CANON_V0:.0f}m  ·  Bold = canonical'
         ),
@@ -265,7 +265,7 @@ def fig_k_heatmaps(d):
     )
 
 
-def fig_k_bracket_penalty(d):
+def fig_5_1c_k_bracket_penalty(d):
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE)
     k_fine     = d['val_s']['k_fine']
@@ -280,7 +280,7 @@ def fig_k_bracket_penalty(d):
     ax.set_xlabel('k (steepness parameter)')
     ax.set_ylabel('C.1 at α=1.8 (pp)  — negative = overstater advantage')
     ax.set_title(
-        f'Figure §5.1c — Bracket penalty for α=1.8 by k and V₀\n'
+        f'Figure 5.1c — Bracket penalty for α=1.8 by k and V₀\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, N={_A.CANON_N}, '
         f'g={_A.CANON_G*100:.1f}%'
     )
@@ -289,9 +289,9 @@ def fig_k_bracket_penalty(d):
     _save(fig, 'SWEEPS_v_fig_5_1c_k_bracket_penalty.png')
 
 
-# ── §2.4  W_min sweep ─────────────────────────────────────────────────────────
+# ── 2.4  W_min sweep ─────────────────────────────────────────────────────────
 
-def fig_wmin_rate_curves(p):
+def fig_6_wmin_rate_curves(p):
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE)
     W_vals    = np.logspace(np.log10(0.5), np.log10(5000), 600)
@@ -310,7 +310,7 @@ def fig_wmin_rate_curves(p):
     ax.set_xlabel('Declared net worth W (£m, log scale)')
     ax.set_ylabel('Marginal WDT rate τ(W) (%)')
     ax.set_title(
-        f'Figure §6 — Rate curve τ(W) across W_min values\n'
+        f'Figure 6 — Rate curve τ(W) across W_min values\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}'
     )
     ax.set_xlim(0.5, 5000); ax.set_ylim(0, _A.CANON_TAUM * 100 * 1.12)
@@ -323,13 +323,13 @@ def fig_wmin_rate_curves(p):
     _save(fig, 'SWEEPS_v_fig_6_wmin_rate_curves.png')
 
 
-def fig_wmin_heatmaps(d):
+def fig_6_1a_wmin_heatmaps(d):
     labels = [f'W_min=£{v:.0f}m' + (' (canonical)' if v == _A.CANON_WMIN else '')
               for v in _A.WMIN_VALS]
     _heatmap_4panel(
         d['val_s']['wmin_c1_matrices'][:4], _A.WMIN_VALS[:4], _A.CANON_WMIN, labels[:4],
         suptitle=(
-            'Figure §6.1a — C.1 advantage landscape across W_min values\n'
+            'Figure 6.1a — C.1 advantage landscape across W_min values\n'
             f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}, '
             f'N={_A.CANON_N}, V₀=£{_A.CANON_V0:.0f}m  ·  Bold = canonical'
         ),
@@ -337,7 +337,7 @@ def fig_wmin_heatmaps(d):
     )
 
 
-def fig_wmin_n_crossings(d):
+def fig_6_1b_wmin_n_crossings(d):
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE)
     wmin_fine = d['val_s']['wmin_fine']
@@ -357,7 +357,7 @@ def fig_wmin_n_crossings(d):
     ax.set_xlabel('Entry threshold W_min (£m)')
     ax.set_ylabel('N at which overstater first pays more than honest')
     ax.set_title(
-        f'Figure §6.1b — N-crossing thresholds by W_min\n'
+        f'Figure 6.1b — N-crossing thresholds by W_min\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}, '
         f'V₀=£{_A.CANON_V0:.0f}m, g={_A.CANON_G*100:.1f}%'
     )
@@ -370,18 +370,18 @@ def fig_wmin_n_crossings(d):
 """
 VAL.S Output Script 2 — Horizon and Wealth-Level Sweeps
 =========================================================
-Generates figures for §3 of VAL.S.  All simulation data is loaded from
+Generates figures for 3 of VAL.S.  All simulation data is loaded from
 OUTPUTS/sweep_cache.json (produced by 16_0_compute.py).
 
 Figures
 -------
-  §3.1  N sweep (holding period)
-  §3.2  V₀ sweep (entry wealth level)
+  3.1  N sweep (holding period)
+  3.2  V₀ sweep (entry wealth level)
 """
 
-# ── §3.1  N sweep ─────────────────────────────────────────────────────────────
+# ── 3.1  N sweep ─────────────────────────────────────────────────────────────
 
-def fig_n_crossing_annotated(d):
+def fig_2_2a_n_crossing_annotated(d):
     apply_style()
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5.5))
 
@@ -423,7 +423,7 @@ def fig_n_crossing_annotated(d):
     ax2.legend(); ax2.set_ylim(0, 70)
 
     fig.suptitle(
-        f'Figure §2.2a — Overstater advantage erosion and N-crossing thresholds\n'
+        f'Figure 2.2a — Overstater advantage erosion and N-crossing thresholds\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}, '
         f'V₀=£{_A.CANON_V0:.0f}m',
         fontsize=10
@@ -432,7 +432,7 @@ def fig_n_crossing_annotated(d):
     _save(fig, 'SWEEPS_v_fig_2_2a_n_crossing_annotated.png')
 
 
-def fig_n_understater_panels(d):
+def fig_2_3_n_understater_panels(d):
     apply_style()
     under_cols = ['#b30000', '#d73027', '#f46d43', '#fdae61']
     g_fine     = d['val_s']['g_fine']
@@ -467,7 +467,7 @@ def fig_n_understater_panels(d):
         ax.set_xlim(0, 35); ax.set_ylim(*shared_ylim); ax.legend(fontsize=7.5)
  
     fig.suptitle(
-        'Figure §2.3 — Understater penalty profile across holding periods\n'
+        'Figure 2.3 — Understater penalty profile across holding periods\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
         f'k={_A.CANON_K}, V₀=£{_A.CANON_V0:.0f}m  ·  Bold = canonical',
         fontsize=10
@@ -476,7 +476,7 @@ def fig_n_understater_panels(d):
     _save(fig, 'SWEEPS_v_fig_2_3_n_understater_panels.png')
 
 
-def fig_n_tolerant_zone(d):
+def fig_2_2b_n_tolerant_zone(d):
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE)
     n_fine = d['val_s']['n_fine']
@@ -497,7 +497,7 @@ def fig_n_tolerant_zone(d):
     ax.set_xlabel('Holding period N (years)')
     ax.set_ylabel('Declaration ratio α')
     ax.set_title(
-        f'Figure §2.2b — Tolerant zone stability across N\n'
+        f'Figure 2.2b — Tolerant zone stability across N\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
         f'k={_A.CANON_K}, g={_A.CANON_G*100:.1f}%'
     )
@@ -506,9 +506,9 @@ def fig_n_tolerant_zone(d):
     _save(fig, 'SWEEPS_v_fig_2_2b_n_tolerant_zone.png')
 
 
-# ── §3.2  V₀ sweep ────────────────────────────────────────────────────────────
+# ── 3.2  V₀ sweep ────────────────────────────────────────────────────────────
 
-def fig_v0_c1_curves(d):
+def fig_11b_v0_c1_curves(d):
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE)
     alpha_fine = d['val_s']['alpha_fine']
@@ -525,7 +525,7 @@ def fig_v0_c1_curves(d):
     ax.set_xlabel('Declaration ratio α (%)  — 100% = honest')
     ax.set_ylabel('C.1 (pp)  +positive = pays more than honest')
     ax.set_title(
-        f'Figure §11b — C.1 incentive structure by V₀ entry wealth\n'
+        f'Figure 11b — C.1 incentive structure by V₀ entry wealth\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
         f'k={_A.CANON_K}, N={_A.CANON_N}, g={_A.CANON_G*100:.1f}%'
     )
@@ -534,7 +534,7 @@ def fig_v0_c1_curves(d):
     _save(fig, 'SWEEPS_v_fig_11b_v0_c1_curves.png')
 
 
-def fig_v0_entry_rate(p):
+def fig_11a_v0_entry_rate(p):
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE)
     W_range = np.logspace(np.log10(_A.CANON_WMIN), np.log10(2000), 500)
@@ -554,7 +554,7 @@ def fig_v0_entry_rate(p):
     ax.set_xlabel('Declared net worth W (£m, log scale)')
     ax.set_ylabel('Marginal WDT rate τ(W) (%)')
     ax.set_title(
-        f'Figure §11a — Entry rate τ(V₀) at four wealth levels\n'
+        f'Figure 11a — Entry rate τ(V₀) at four wealth levels\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
         f'k={_A.CANON_K}, W_min=£{_A.CANON_WMIN:.0f}m'
     )
@@ -567,12 +567,12 @@ def fig_v0_entry_rate(p):
     _save(fig, 'SWEEPS_v_fig_11a_v0_entry_rate.png')
 
 
-def fig_v0_heatmaps(d):
+def fig_11c_v0_heatmaps(d):
     _heatmap_4panel_nogrid(
         d['val_s']['v0_c1_matrices'][:4], _A.V0_VALS[:4], _A.CANON_V0,
         _v0_labels()[:4],
         suptitle=(
-            'Figure §11c — C.1 advantage landscape across V₀ wealth levels\n'
+            'Figure 11c — C.1 advantage landscape across V₀ wealth levels\n'
             f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
             f'k={_A.CANON_K}, N={_A.CANON_N}  ·  Bold = canonical'
         ),
@@ -602,19 +602,19 @@ def _heatmap_4panel_nogrid(matrices, param_vals, canon_val, labels, suptitle, fn
 """
 VAL.S Output Script 3 — Parameter Interaction Surfaces
 ========================================================
-Generates figures for §4 of VAL.S.  All simulation data is loaded from
+Generates figures for 4 of VAL.S.  All simulation data is loaded from
 OUTPUTS/sweep_cache.json (produced by 16_0_compute.py).
 
 Figures
 -------
-  §4.1  τ₀ × N joint surface — N-crossing threshold for α=2.0
-  §4.2  k × V₀ joint surface — bracket penalty for α=1.8
-  §4.3  Governing Council calibration summary
+  4.1  τ₀ × N joint surface — N-crossing threshold for α=2.0
+  4.2  k × V₀ joint surface — bracket penalty for α=1.8
+  4.3  Governing Council calibration summary
 """
 
-# ── §4.1  τ₀ × N surface ─────────────────────────────────────────────────────
+# ── 4.1  τ₀ × N surface ─────────────────────────────────────────────────────
 
-def fig_tau0_n_surface(d):
+def fig_3_1d_tau0_n_surface(d):
     apply_style_nogrid()
     tau0_grid   = d['val_s']['tau0_n_surface_tau0_grid']
     n_ceil_grid = d['val_s']['tau0_n_surface_nceil_grid']
@@ -657,7 +657,7 @@ def fig_tau0_n_surface(d):
     ax.set_xlabel('Entry rate τ₀ (%)')
     ax.set_ylabel('Maximum holding period (N sweep ceiling, years)')
     ax.set_title(
-        'Figure §3.1d — Joint surface: N-crossing for α=2.0 across (τ₀, N)\n'
+        'Figure 3.1d — Joint surface: N-crossing for α=2.0 across (τ₀, N)\n'
         f'τ_m={_A.CANON_TAUM*100:.0f}%, k={_A.CANON_K}, V₀=£{_A.CANON_V0:.0f}m, '
         f'g={_A.CANON_G*100:.1f}%\n'
         'Green = early crossing  ·  Red = late  ·  Grey = never',
@@ -668,9 +668,9 @@ def fig_tau0_n_surface(d):
     _save(fig, 'SWEEPS_v_fig_3_1d_tau0_n_surface.png')
 
 
-# ── §4.2  k × V₀ surface ─────────────────────────────────────────────────────
+# ── 4.2  k × V₀ surface ─────────────────────────────────────────────────────
 
-def fig_k_v0_surface(d):
+def fig_5_1b_k_v0_surface(d):
     apply_style_nogrid()
     k_grid  = d['val_s']['k_v0_surface_k_grid']
     v0_grid = d['val_s']['k_v0_surface_v0_grid']
@@ -705,7 +705,7 @@ def fig_k_v0_surface(d):
     fig.colorbar(im, ax=ax, fraction=0.04, pad=0.02).set_label(
         'C.1 (pp) at α=1.8  — negative = overstater pays less', fontsize=8)
     ax.set_title(
-        'Figure §5.1b — Joint surface: bracket penalty (C.1) for α=1.8 across (k, V₀)\n'
+        'Figure 5.1b — Joint surface: bracket penalty (C.1) for α=1.8 across (k, V₀)\n'
         f'τ₀={_A.CANON_TAU0*100:.0f}%, τ_m={_A.CANON_TAUM*100:.0f}%, '
         f'N={_A.CANON_N}, g={_A.CANON_G*100:.1f}%\n'
         'Red = overstater pays more  ·  Blue = overstater pays less  ·  Bold = canonical',
@@ -715,9 +715,9 @@ def fig_k_v0_surface(d):
     _save(fig, 'SWEEPS_v_fig_5_1b_k_v0_surface.png')
 
 
-# ── §4.3  Calibration summary ─────────────────────────────────────────────────
+# ── 4.3  Calibration summary ─────────────────────────────────────────────────
 
-def fig_calibration_summary(d):
+def fig_7_1_calibration_summary(d):
     apply_style()
     cal      = d['val_s']['calibration']
     labels   = list(cal.keys())
@@ -770,7 +770,7 @@ def fig_calibration_summary(d):
     axes[0].legend(handles=legend_elements, loc='upper right', fontsize=7.5)
 
     fig.suptitle(
-        'Figure §7.1 — Governing Council calibration summary\n'
+        'Figure 7.1 — Governing Council calibration summary\n'
         'How each rate-function parameter moves the three key mechanism boundaries\n'
         f'Bold borders = canonical  ·  N={_A.CANON_N}, V₀=£{int(_A.CANON_V0)}m, '
         f'g={_A.CANON_G*100:.1f}%',
@@ -787,44 +787,44 @@ def main():
     ensure_dir(_OUT)
     d = _load()
 
-    print('\n§3.1  N sweep...')
-    fig_n_crossing_annotated(d)
-    fig_n_understater_panels(d)
-    fig_n_tolerant_zone(d)
+    print('\n3.1  N sweep...')
+    fig_2_2a_n_crossing_annotated(d)
+    fig_2_3_n_understater_panels(d)
+    fig_2_2b_n_tolerant_zone(d)
 
-    print('\n§3.2  V₀ sweep...')
-    fig_v0_c1_curves(d)
-    fig_v0_entry_rate(p)
-    fig_v0_heatmaps(d)
+    print('\n3.2  V₀ sweep...')
+    fig_11b_v0_c1_curves(d)
+    fig_11a_v0_entry_rate(p)
+    fig_11c_v0_heatmaps(d)
 
-    print('\n§4.1  τ₀ × N surface...')
-    fig_tau0_n_surface(d)
+    print('\n4.1  τ₀ × N surface...')
+    fig_3_1d_tau0_n_surface(d)
 
-    print('\n§4.2  k × V₀ surface...')
-    fig_k_v0_surface(d)
+    print('\n4.2  k × V₀ surface...')
+    fig_5_1b_k_v0_surface(d)
 
-    print('\n§4.3  Calibration summary...')
-    fig_calibration_summary(d)
+    print('\n4.3  Calibration summary...')
+    fig_7_1_calibration_summary(d)
 
-    print('\n§2.1  τ₀ sweep...')
-    fig_tau0_heatmaps(d)
-    fig_tau0_n_crossings(d)
-    fig_tau0_tolerant_zone(d)
+    print('\n2.1  τ₀ sweep...')
+    fig_3_1a_tau0_heatmaps(d)
+    fig_3_1b_tau0_n_crossings(d)
+    fig_3_1c_tau0_tolerant_zone(d)
 
-    print('\n§2.2  τ_m sweep...')
-    fig_taum_heatmaps(d)
-    fig_taum_penalty_plateaus(d)
-    fig_taum_n_crossings(d)
+    print('\n2.2  τ_m sweep...')
+    fig_4_1a_taum_heatmaps(d)
+    fig_4_1b_taum_penalty_plateaus(d)
+    fig_4_1c_taum_n_crossings(d)
 
-    print('\n§2.3  k sweep...')
-    fig_k_rate_curves(p)
-    fig_k_heatmaps(d)
-    fig_k_bracket_penalty(d)
+    print('\n2.3  k sweep...')
+    fig_5_k_rate_curves(p)
+    fig_5_1a_k_heatmaps(d)
+    fig_5_1c_k_bracket_penalty(d)
 
-    print('\n§2.4  W_min sweep...')
-    fig_wmin_rate_curves(p)
-    fig_wmin_heatmaps(d)
-    fig_wmin_n_crossings(d)
+    print('\n2.4  W_min sweep...')
+    fig_6_wmin_rate_curves(p)
+    fig_6_1a_wmin_heatmaps(d)
+    fig_6_1b_wmin_n_crossings(d)
 
 if __name__ == '__main__':
     main()

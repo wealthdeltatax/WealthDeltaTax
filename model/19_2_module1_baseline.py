@@ -104,10 +104,10 @@ def _style_ax(ax, title: str, xlabel: str = "", ylabel: str = ""):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# CHART 1: CEW across γ — one panel per distribution
+# CHART 3.1a: CEW across γ — one panel per distribution
 # ─────────────────────────────────────────────────────────────────────────────
 
-def chart_cew_by_gamma(all_results: dict):
+def fig_3_1a_cew_by_gamma(all_results: dict):
     """
     all_results: {dist_label: {gamma: {system: SystemResult}}}
     """
@@ -120,7 +120,7 @@ def chart_cew_by_gamma(all_results: dict):
         axes = [axes]
 
     fig.suptitle(
-        "A.1 CEW vs No-Tax Benchmark — by Risk Aversion (γ)\n"
+        "Fig 3.1a — CEW vs No-Tax Benchmark — by Risk Aversion (γ)\n"
         f"Revenue target E[T] = {fmt_pct0(TARGET_ET)} of W₀",
         fontsize=12, fontweight="bold"
     )
@@ -146,14 +146,14 @@ def chart_cew_by_gamma(all_results: dict):
 
     axes[-1].legend(fontsize=8, loc="lower right")
     fig.tight_layout()
-    _save(fig, "wfr_fig_a1_cew_by_gamma.png")
+    _save(fig, "wfr_fig_3_1a_cew_by_gamma.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# CHART 2: Variance of consumption — bar chart, both distributions
+# CHART 3.2: Variance of consumption — bar chart, both distributions
 # ─────────────────────────────────────────────────────────────────────────────
 
-def chart_variance(all_results: dict):
+def fig_3_2_variance(all_results: dict):
     """Bar chart of Var(consumption) at γ=2 for both distributions."""
     dist_labels = list(all_results.keys())
     gamma = 2.0
@@ -164,7 +164,7 @@ def chart_variance(all_results: dict):
         axes = [axes]
 
     fig.suptitle(
-        "A.2 Variance of Consumption by Tax System\n"
+        "Fig 3.2 — Variance of Consumption by Tax System\n"
         f"(γ = {gamma}, E[T] = {fmt_pct0(TARGET_ET)} of W₀)",
         fontsize=12, fontweight="bold"
     )
@@ -196,14 +196,14 @@ def chart_variance(all_results: dict):
         _style_ax(ax, dist_label[:55], ylabel="Var(consumption)")
 
     fig.tight_layout()
-    _save(fig, "wfr_fig_a2_variance.png")
+    _save(fig, "wfr_fig_3_2_variance.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# CHART 3: Year-by-year tax burden (Version A only)
+# CHART 3.1c: Year-by-year tax burden (Version A only)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def chart_yearby_year(dist_A, results_A_gamma2: dict, scenario_years: list):
+def fig_3_1c_annual_tax(dist_A, results_A_gamma2: dict, scenario_years: list):
     """
     For Version A at γ=2, show the annual tax/refund for each year in the
     scenario window for the three most distinct systems: symmetric WDT,
@@ -225,7 +225,7 @@ def chart_yearby_year(dist_A, results_A_gamma2: dict, scenario_years: list):
     apply_style()
     fig, axes = plt.subplots(3, 1, figsize=FIG_QUAD, sharex=True)
     fig.suptitle(
-        f"A.3 Annual Tax Paid (+) / Refund Received (−) per £1 of W₀\n"
+        f"Fig 3.1c — Annual Tax Paid (+) / Refund Received (−) per £1 of W₀\n"
         f"Version A — UK Equity {years[0]}–{years[-1]} ({N} obs, scenario)",
         fontsize=12, fontweight="bold"
     )
@@ -253,14 +253,14 @@ def chart_yearby_year(dist_A, results_A_gamma2: dict, scenario_years: list):
     fig.text(0.01, 0.5, f"Dotted lines = negative return years: {neg_year_note}",
              va="center", rotation="vertical", fontsize=7, color="grey")
     fig.tight_layout(rect=[0.02, 0, 1, 1])
-    _save(fig, "wfr_fig_a3_annual_tax.png")
+    _save(fig, "wfr_fig_3_1c_annual_tax.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# CHART 4: CEW gap — WDT advantage over each competitor
+# CHART 3.1b: CEW gap — WDT advantage over each competitor
 # ─────────────────────────────────────────────────────────────────────────────
 
-def chart_wdt_advantage(all_results: dict):
+def fig_3_1b_wdt_advantage(all_results: dict):
     """
     Shows (CEW_WDT − CEW_competitor) in basis points for each competitor,
     across γ and both distributions. A positive value means WDT has lower
@@ -275,7 +275,7 @@ def chart_wdt_advantage(all_results: dict):
         axes = [axes]
 
     fig.suptitle(
-        "A.4 WDT Welfare Advantage over Competitors\n"
+        "Fig 3.1b — WDT Welfare Advantage over Competitors\n"
         "(CEW_WDT − CEW_competitor, in basis points; positive = WDT better)",
         fontsize=12, fontweight="bold"
     )
@@ -311,7 +311,7 @@ def chart_wdt_advantage(all_results: dict):
 
     axes[-1].legend(fontsize=8, loc="upper left")
     fig.tight_layout()
-    _save(fig, "wfr_fig_a4_wdt_advantage.png")
+    _save(fig, "wfr_fig_3_1b_wdt_advantage.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -343,115 +343,6 @@ def print_dm_table(all_results: dict):
                 f"{status:>8}"
             )
     print()
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# KEY FINDINGS SUMMARY
-# ─────────────────────────────────────────────────────────────────────────────
-
-def print_findings(all_results: dict):
-    print("\n" + "=" * 70)
-    print("MODULE 1 — KEY FINDINGS")
-    print("=" * 70)
-
-    findings = []
-
-    # Finding 1: ranking consistency
-    rankings_consistent = True
-    for dist_label, gamma_results in all_results.items():
-        for g, sys_results in gamma_results.items():
-            ranked = sorted(
-                [(n, r.cew) for n, r in sys_results.items() if r.cew is not None],
-                key=lambda x: x[1], reverse=True
-            )
-            top = ranked[0][0]
-            if top != "symmetric_wdt":
-                rankings_consistent = False
-
-    if rankings_consistent:
-        findings.append(
-            "1. RANKING STABILITY: The symmetric WDT proxy achieves the lowest "
-            "welfare cost (best CEW) in every (distribution, γ) combination tested. "
-            "The ranking is stable."
-        )
-    else:
-        findings.append(
-            "1. RANKING INSTABILITY: The symmetric WDT proxy does NOT always "
-            "achieve the best CEW. See tables above for details."
-        )
-
-    # Finding 2: WDT advantage vs income tax at γ=2
-    for dist_label in all_results:
-        res = all_results[dist_label][2.0]
-        wdt_cew = res["symmetric_wdt"].cew
-        inc_cew = res["income"].cew
-        gap_bp  = (wdt_cew - inc_cew) * 10000
-        findings.append(
-            f"2. WDT vs INCOME TAX (γ=2, {dist_label[:30]}): "
-            f"WDT advantage = {gap_bp:+.2f} basis points. "
-            f"({'Grows' if gap_bp > 0 else 'Shrinks'} with γ — see Chart 1.)"
-        )
-
-    # Finding 3: Stock wealth tax and consumption tax equivalence
-    for dist_label in all_results:
-        res = all_results[dist_label][2.0]
-        sw_cew  = res["stock_wealth"].cew
-        ct_cew  = res["consumption"].cew
-        gap_bp  = abs(sw_cew - ct_cew) * 10000
-        if gap_bp < 1.0:
-            findings.append(
-                f"3. STRUCTURAL EQUIVALENCE ({dist_label[:30]}): "
-                f"Stock wealth tax and consumption tax are welfare-equivalent "
-                f"(gap = {gap_bp:.2f} bp). This holds because both apply a "
-                "proportional wedge to end-period wealth in a single-consumption-period model."
-            )
-
-    # Finding 4: D-M confirmation
-    findings.append(
-        "4. D-M RESULT: The flat-rate symmetric WDT exactly satisfies the "
-        "Domar-Musgrave prediction Var(C_tax) = (1-τ)² × Var(C_notax) across "
-        "all tested distributions and γ values. This confirms the mechanism is "
-        "correctly implemented and the D-M result holds for the flat-rate case."
-    )
-
-    # Finding 5: Absolute magnitude
-    for dist_label in all_results:
-        res   = all_results[dist_label][2.0]
-        worst = min(r.cew for r in res.values() if r.cew is not None)
-        best  = max(r.cew for r in res.values() if r.cew is not None)
-        spread = (best - worst) * 10000
-        findings.append(
-            f"5. MAGNITUDE ({dist_label[:30]}): Full CEW spread across systems = "
-            f"{spread:.1f} bp. All systems within a narrow band — consistent with "
-            "the toy model finding that empirical UK equity returns produce small "
-            "welfare differences between systems in a single-period model."
-        )
-
-    for f in findings:
-        # Word-wrap at 75 chars
-        words = f.split()
-        line  = ""
-        for word in words:
-            if len(line) + len(word) + 1 > 75:
-                print("  " + line)
-                line = word
-            else:
-                line = (line + " " + word).strip()
-        if line:
-            print("  " + line)
-        print()
-
-    print("LIMITATIONS (stated in paper)")
-    limits = [
-        "- Single-period model: no saving decision, no multi-period optimisation.",
-        "- CGT = income tax in (WFR.A §A) lock-in distortion enters in (WFR.A §C).",
-        "- Single asset class: UK equity only; WDT population holds illiquid assets.",
-        "- Two-state Version B understates variance (compresses fat right tail).",
-        "- No general equilibrium: asset returns treated as exogenous.",
-    ]
-    for l in limits:
-        print(f"  {l}")
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # MAIN
@@ -497,19 +388,16 @@ def main():
 
     # Charts
     print("\n--- Generating charts ---")
-    chart_cew_by_gamma(all_results)
-    chart_variance(all_results)
+    fig_3_1a_cew_by_gamma(all_results)
+    fig_3_2_variance(all_results)
     # Scenario years (length N) — consistent with dist_A, not the full 73-year series
     from welfare_core import make_scenario_sequence
     _, scenario_years = make_scenario_sequence(p, N)
-    chart_yearby_year(dist_A, all_results[dist_A.label][2.0], scenario_years)
-    chart_wdt_advantage(all_results)
+    fig_3_1c_annual_tax(dist_A, all_results[dist_A.label][2.0], scenario_years)
+    fig_3_1b_wdt_advantage(all_results)
 
     # D-M table
     print_dm_table(all_results)
-
-    # Key findings
-    print_findings(all_results)
 
     print(f"\n✓ Module 1 complete. Outputs in: {OUTPUT_DIR}")
 

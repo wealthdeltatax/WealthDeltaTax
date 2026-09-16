@@ -129,15 +129,15 @@ def generate_figures(p, py_ssm, py_tcm, sweep_results,
         py_tcm_burden = _model.run_tcm(p, N=burden_N, N_fill=burden_N_fill)
 
     print('\nGenerating RATES figures...')
-    _fig01(p, sweep_results, out)
-    _fig02(p, py_tcm, out)
-    _fig03(p, py_tcm_burden, burden_N, out)
-    _fig04(p, py_ssm, out)
-    _fig05(sweep_results, out)
-    _fig06(p, py_tcm_burden, burden_N, out)
-    _fig07(p, sweep_results, out)
-    _fig08(p, py_tcm, tcm_N, out)
-    _fig09(p, py_ssm, out)
+    fig_7_2_sweep_breakeven_coverage(p, sweep_results, out)
+    fig_5_1_revenue_concentration_heatmap(p, py_tcm, out)
+    fig_2a_terminal_wealth_by_tier(p, py_tcm_burden, burden_N, out)
+    fig_7_3a_srr_lrr_trajectory(p, py_ssm, out)
+    fig_7_1b_coverage_by_cycle(sweep_results, out)
+    fig_2b_burden_matrix_heatmap(p, py_tcm_burden, burden_N, out)
+    fig_7_1a_ssm_tcm_coverage_range(p, sweep_results, out)
+    fig_4_loss_year_mechanics(p, py_tcm, tcm_N, out)
+    fig_7_3b_phase_two_transition(p, py_ssm, out)
     print('  All figures complete.')
 
 
@@ -150,10 +150,10 @@ def _save(fig, out_dir, name):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 01 — Start-year sweep scatter
+# FIG 7.2 — Start-year sweep scatter
 # ─────────────────────────────────────────────────────────────
 
-def _fig01(p, sweep_results, out_dir):
+def fig_7_2_sweep_breakeven_coverage(p, sweep_results, out_dir):
     """Scatter: LRR breakeven year (left axis) and 10yr TCM coverage (right axis)."""
     apply_style()
     fig, ax1 = plt.subplots(figsize=_FIG_SWEEP)
@@ -214,7 +214,7 @@ def _fig01(p, sweep_results, out_dir):
     ax1.set_ylabel('LRR breakeven year', fontsize=11)
     ax2.set_ylabel('TCM 10yr coverage (%)', fontsize=11)
     ax1.set_title(
-        'Figure §7.2 - Start-year sweep: LRR breakeven and 10yr TCM coverage\n'
+        'Figure 7.2 - Start-year sweep: LRR breakeven and 10yr TCM coverage\n'
         'Circles = breakeven year (left axis)  |  '
         'Triangles = TCM 10yr coverage (right axis)',
         fontsize=11, pad=12)
@@ -231,10 +231,10 @@ def _fig01(p, sweep_results, out_dir):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 02 — Revenue concentration heatmap
+# FIG 5.1 — Revenue concentration heatmap
 # ─────────────────────────────────────────────────────────────
 
-def _fig02(p, py_tcm, out_dir):
+def fig_5_1_revenue_concentration_heatmap(p, py_tcm, out_dir):
     """Heatmap of cohort share of capitalisation-window revenue (%)."""
     apply_style()
     diffs   = [t['differential'] for t in p['tiers']]
@@ -256,7 +256,7 @@ def _fig02(p, py_tcm, out_dir):
     ax.set_xlabel('Wealth percentile bracket', fontsize=10)
     ax.set_ylabel('Growth tier', fontsize=10)
     ax.set_title(
-        'Figure §5.1 - Revenue concentration: cohort share of total capitalisation-window revenue (%)\n'
+        'Figure 5.1 - Revenue concentration: cohort share of total capitalisation-window revenue (%)\n'
         'RATES.A §B.3.8  |  Revenue dip at 90th pct reflects population-weight step: '
         'bracket population halves at 90th percentile boundary',
         fontsize=9, pad=12)
@@ -271,10 +271,10 @@ def _fig02(p, py_tcm, out_dir):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 03 — Terminal wealth by tier
+# FIG 2a — Terminal wealth by tier
 # ─────────────────────────────────────────────────────────────
 
-def _fig03(p, py_tcm_burden, burden_N, out_dir):
+def fig_2a_terminal_wealth_by_tier(p, py_tcm_burden, burden_N, out_dir):
     """Bar chart of V0 and V_N for upper brackets by growth tier (log scale).
 
     Uses py_tcm_burden (N=burden_N, canonical 30-year horizon) so that terminal
@@ -307,7 +307,7 @@ def _fig03(p, py_tcm_burden, burden_N, out_dir):
     ax.set_xlabel('Wealth percentile bracket', fontsize=11)
     ax.set_ylabel('Wealth (£m, log scale)', fontsize=11)
     ax.set_title(
-        f'Figure §2a - Terminal net worth at year N={burden_N}: $V_0$ (starting) and '
+        f'Figure 2a - Terminal net worth at year N={burden_N}: $V_0$ (starting) and '
         f'V_N (pre-settlement) by tier\n'
         'RATES.A §B.3.1 — WDT paid throughout; compounding base intact',
         fontsize=11, pad=12)
@@ -319,10 +319,10 @@ def _fig03(p, py_tcm_burden, burden_N, out_dir):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 04 — SRR/LRR reserve trajectories
+# FIG 7.3a — SRR/LRR reserve trajectories
 # ─────────────────────────────────────────────────────────────
 
-def _fig04(p, py_ssm, out_dir):
+def fig_7_3a_srr_lrr_trajectory(p, py_ssm, out_dir):
     """SRR and LRR balance vs target over the capitalisation window."""
     apply_style()
     lrr_fill_yr = next((r['year'] for r in py_ssm if r.get('lrr_filled')), len(py_ssm))
@@ -370,7 +370,7 @@ def _fig04(p, py_ssm, out_dir):
     ax.set_xlabel('Year from launch', fontsize=11)
     ax.set_ylabel('Reserve balance (£b)', fontsize=11)
     ax.set_title(
-        f'Figure §7.3a - SRR and LRR reserve trajectories — {p["scenario_start_year"]} '
+        f'Figure 7.3a - SRR and LRR reserve trajectories — {p["scenario_start_year"]} '
         f'Balanced scenario\n'
         f'Capitalisation window (years 1–{lrr_fill_yr}) '
         '| Solid = balance  |  Dashed = target',
@@ -383,10 +383,10 @@ def _fig04(p, py_ssm, out_dir):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 05 — Coverage by economic cycle
+# FIG 7.1b — Coverage by economic cycle
 # ─────────────────────────────────────────────────────────────
 
-def _fig05(sweep_results, out_dir):
+def fig_7_1b_coverage_by_cycle(sweep_results, out_dir):
     """Box plots of SSM 10yr coverage by economic cycle."""
     apply_style()
     cycle_data, cycle_labels, cycle_cols = [], [], []
@@ -410,7 +410,7 @@ def _fig05(sweep_results, out_dir):
     ax.set_xticklabels(cycle_labels, fontsize=9)
     ax.set_ylabel('SSM 10yr coverage (%)', fontsize=11)
     ax.set_title(
-        'Figure §7.1b - SSM 10yr coverage distribution by economic cycle  |  '
+        'Figure 7.1b - SSM 10yr coverage distribution by economic cycle  |  '
         'All 73 start years — Balanced parameters\n'
         'SSM = correlated-shock floor; pairs with TCM ceiling (see Fig 07)  |  '
         '5-step post-fill priority mechanic (v8)',
@@ -423,10 +423,10 @@ def _fig05(sweep_results, out_dir):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 06 — Burden matrix heatmap
+# FIG 2b — Burden matrix heatmap
 # ─────────────────────────────────────────────────────────────
 
-def _fig06(p, py_tcm_burden, burden_N, out_dir):
+def fig_2b_burden_matrix_heatmap(p, py_tcm_burden, burden_N, out_dir):
     """Two-panel heatmap: annual wealth burden and effective rate on gains.
 
     Uses py_tcm_burden, which is run_tcm() computed at N=burden_N (default 30)
@@ -474,7 +474,7 @@ def _fig06(p, py_tcm_burden, burden_N, out_dir):
         cb.set_label('%', fontsize=8)
 
     fig.suptitle(
-        f'Figure §2b - Individual burden matrices — {p["scenario_start_year"]} '
+        f'Figure 2b - Individual burden matrices — {p["scenario_start_year"]} '
         f'Balanced scenario, N={burden_N} (canonical 30-year taxpayer horizon)\n'
         'RATES.A §B.3.3 (left) and §B.3.4 (right)  |  '
         '0.00% = genuine zero liability (exemption threshold + refund offset); '
@@ -485,10 +485,10 @@ def _fig06(p, py_tcm_burden, burden_N, out_dir):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 07 — SSM/TCM coverage range
+# FIG 7.1a — SSM/TCM coverage range
 # ─────────────────────────────────────────────────────────────
 
-def _fig07(p, sweep_results, out_dir):
+def fig_7_1a_ssm_tcm_coverage_range(p, sweep_results, out_dir):
     """Per-start-year SSM floor / TCM ceiling band, coloured by economic cycle."""
     apply_style()
     active_year = p['scenario_start_year']
@@ -529,7 +529,7 @@ def _fig07(p, sweep_results, out_dir):
     ax.set_xlabel('Start year', fontsize=11)
     ax.set_ylabel('10yr coverage fraction (%)', fontsize=11)
     ax.set_title(
-        'Figure §7.1a - SSM/TCM 10yr coverage range by start year\n'
+        'Figure 7.1a - SSM/TCM 10yr coverage range by start year\n'
         'Circles = SSM floor (correlated-shock)  |  '
         'Triangles = TCM ceiling (persistent heterogeneity)',
         fontsize=9, pad=12)
@@ -551,10 +551,10 @@ def _fig07(p, sweep_results, out_dir):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 08 — Loss-year mechanics
+# FIG 4 — Loss-year mechanics
 # ─────────────────────────────────────────────────────────────
 
-def _fig08(p, py_tcm, tcm_N, out_dir):
+def fig_4_loss_year_mechanics(p, py_tcm, tcm_N, out_dir):
     """Symmetric refund in the worst return year, 95th pct bracket, Good tier."""
     apply_style()
 
@@ -642,7 +642,7 @@ def _fig08(p, py_tcm, tcm_N, out_dir):
     crash_note = (f'Red shading = {crash_cal_yr} crash year ({crash_pct:+.2f}%)'
                   if crash_pct < 0 else 'No negative return year in display window')
     fig.suptitle(
-        f'Figure §4a - Loss-year mechanics: symmetric refund in the worst return year\n'
+        f'Figure 4 - Loss-year mechanics: symmetric refund in the worst return year\n'
         f'95th percentile bracket ($V_0$ = £{b95["V0_m"]:.3f}m), '
         f'{good_tier["label"]} tier ({good_diff * 100:+.2f}pp), '
         f'{cal_start} Balanced scenario — simulation years 1–{window_end}\n'
@@ -654,20 +654,20 @@ def _fig08(p, py_tcm, tcm_N, out_dir):
     h2, l2 = ax2.get_legend_handles_labels()
     ax1.legend(h1 + h2, l1 + l2, fontsize=8.5, loc='upper left')
     plt.tight_layout()
-    return _save(fig, out_dir, 'rates_fig_4a_loss_year_mechanics.png')
+    return _save(fig, out_dir, 'rates_fig_4_loss_year_mechanics.png')
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 09 — Phase Two stress profile
+# FIG 7.3b — Phase Two stress profile
 # ─────────────────────────────────────────────────────────────
 
-def _fig09(p, py_ssm, out_dir):
+def fig_7_3b_phase_two_transition(p, py_ssm, out_dir):
     """Two-panel: LRR balance vs target (top) + coverage fraction (bottom)."""
     apply_style()
 
     lrr_fill_yr = next((r['year'] for r in py_ssm if r.get('lrr_filled')), None)
     if lrr_fill_yr is None:
-        print('  Fig 09 skipped: LRR did not fill within modelling window.')
+        print('  Fig 7.3b skipped: LRR did not fill within modelling window.')
         return None
 
     years    = [r['year']        for r in py_ssm]
@@ -762,7 +762,7 @@ def _fig09(p, py_ssm, out_dir):
 
     scenario_yr = p['scenario_start_year']
     fig.suptitle(
-        f'Figure §7.3b - Phase Two stress profile — full 71-year window, {scenario_yr} Balanced scenario\n'
+        f'Figure 7.3b - Phase Two stress profile — full 71-year window, {scenario_yr} Balanced scenario\n'
         f'Top: LRR balance vs 3× floor target  |  '
         f'Min balance £{min_bal:,.0f}b (never zero)\n'
         f'Red bars = {n_zero_cov} zero-coverage years  |  '

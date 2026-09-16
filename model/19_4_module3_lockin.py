@@ -405,8 +405,8 @@ def _save(fig, name: str):
     save_fig(fig, OUTPUT_DIR / name, dpi=DPI_SCREEN)
 
 
-def chart_lock_in_threshold(asset: AssetSwitchDecision):
-    """Chart A: NPV(stay) - NPV(switch) as r_B varies."""
+def fig_4_2_1_lock_in_threshold(asset: AssetSwitchDecision):
+    """: NPV(stay) - NPV(switch) as r_B varies."""
     r_B_grid = np.linspace(asset.r_A * 0.5, asset.r_A * 2.5, 300)
     npv_diff = asset.value_of_stay(r_B_grid)
     r_B_indiff = asset.indifference_return()
@@ -428,7 +428,7 @@ def chart_lock_in_threshold(asset: AssetSwitchDecision):
     ax.set_xlabel("Asset B expected return r_B (%)", fontsize=9)
     ax.set_ylabel("NPV preference for Asset A (£m)", fontsize=9)
     ax.set_title(
-        f"C.1 CGT Lock-In Threshold\n"
+        f"Figure 4.2.1 — CGT Lock-In Threshold\n"
         f"V={fmt_gbp_m(asset.V, dp=0)}, G/V={fmt_pct0(asset.gain_ratio)}, "
         f"τ_cgt={fmt_pct0(asset.tau_cgt)}, T={asset.T}yr",
         fontsize=10, fontweight="bold"
@@ -437,18 +437,18 @@ def chart_lock_in_threshold(asset: AssetSwitchDecision):
     ax.grid(axis="y", linestyle="--", alpha=0.4)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    _save(fig, "wfr_fig_c1_lock_in_threshold.png")
+    _save(fig, "wfr_fig_4_2_1_lock_in_threshold.png")
 
 
-def chart_sensitivity_gain(sens_gain: list):
-    """C.2 Lock-in welfare cost vs embedded gain ratio."""
+def fig_4_2_2b_sensitivity_gain(sens_gain: list):
+    """Figure 4.2.2b: Lock-in welfare cost vs embedded gain ratio."""
     gr    = [r["gain_ratio"] * 100 for r in sens_gain]
     costs = [r["lock_in_cost_bp"] for r in sens_gain]
     p_loc = [r["p_locked"] * 100 for r in sens_gain]
 
     apply_style()
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=FIG_WIDE)
-    fig.suptitle("C.2 Sensitivity — Embedded Gain Ratio G/V",
+    fig.suptitle("Figure 4.2.2b — Sensitivity — Embedded Gain Ratio G/V",
                  fontsize=11, fontweight="bold")
 
     ax1.plot(gr, costs, color=COLOURS["lockin_cost"], marker="o",
@@ -469,18 +469,18 @@ def chart_sensitivity_gain(sens_gain: list):
     ax2.spines["top"].set_visible(False); ax2.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "wfr_fig_c2_sensitivity_gain.png")
+    _save(fig, "wfr_fig_4_2_2b_sensitivity_gain.png")
 
 
-def chart_sensitivity_T(sens_T: list):
-    """Chart C.3: Lock-in welfare cost vs remaining holding period T."""
+def fig_4_2_2c_sensitivity_T(sens_T: list):
+    """Figure 4.2.2c: Lock-in welfare cost vs remaining holding period T."""
     T_vals = [r["T"] for r in sens_T]
     costs  = [r["lock_in_cost_bp"] for r in sens_T]
     indiff = [r["r_B_indiff"] * 100 for r in sens_T]
 
     apply_style()
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=FIG_WIDE)
-    fig.suptitle("C.3 Sensitivity — Remaining Holding Period T",
+    fig.suptitle("Figure 4.2.2c — Sensitivity — Remaining Holding Period T",
                  fontsize=11, fontweight="bold")
 
     ax1.plot(T_vals, costs, color=COLOURS["lockin_cost"], marker="o",
@@ -503,11 +503,11 @@ def chart_sensitivity_T(sens_T: list):
     ax2.spines["top"].set_visible(False); ax2.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "wfr_fig_c3_sensitivity_T.png")
+    _save(fig, "wfr_fig_4_2_2c_sensitivity_T.png")
 
 
-def chart_full_comparison(comp: dict, dist_label: str):
-    """Chart C.4: WDT vs CGT (no lock-in) vs CGT (with lock-in)."""
+def fig_4_2_2a_full_comparison(comp: dict, dist_label: str):
+    """Figure 4.2.2a: WDT vs CGT (no lock-in) vs CGT (with lock-in)."""
     labels = [
         "WDT\n(Module 1)",
         "CGT\n(no lock-in,\nModule 1)",
@@ -549,7 +549,7 @@ def chart_full_comparison(comp: dict, dist_label: str):
     ax.axhline(0, color="black", linewidth=0.8)
     ax.set_ylabel("CEW vs No-Tax (%)", fontsize=9)
     ax.set_title(
-        f"C.4 Full Welfare Comparison — WDT vs CGT\n"
+        f"Figure 4.2.2a — Full Welfare Comparison — WDT vs CGT\n"
         f"γ = {GAMMA} | {dist_label[:50]}\n"
         f"P(locked in) = {fmt_pct1(comp['p_locked'])}  |  "
         f"WDT advantage (with lock-in) = {comp['wdt_adv_with_lock_bp']:.2f} bp",
@@ -560,7 +560,7 @@ def chart_full_comparison(comp: dict, dist_label: str):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     fig.tight_layout()
-    _save(fig, "wfr_fig_c4_full_comparison.png")
+    _save(fig, "wfr_fig_4_2_2a_full_comparison.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -580,81 +580,6 @@ def print_comparison_table(comp: dict, dist_label: str):
     print(f"  {'WDT advantage vs CGT (with lock-in)':40s} {comp['wdt_adv_with_lock_bp']:>+10.2f} bp")
     print(f"  {'P(agent locked in)':40s} {fmt_pct1(comp['p_locked']):>10}")
     print(f"  {'CGT indifference return r_B*':40s} {fmt_pct(comp['r_B_indiff']):>10}")
-
-
-def print_findings(comp_A: dict, sens_gain: list, sens_T: list):
-    print(f"\n{'='*70}")
-    print("MODULE 3 — KEY FINDINGS")
-    print(f"{'='*70}")
-
-    max_lock_gain = max(s["lock_in_cost_bp"] for s in sens_gain)
-    min_lock_T    = min(s["lock_in_cost_bp"] for s in sens_T)
-    max_lock_T    = max(s["lock_in_cost_bp"] for s in sens_T)
-
-    findings = [
-        f"C.1 LOCK-IN COST MAGNITUDE: The CGT lock-in distortion adds "
-        f"{comp_A['lock_in_cost_bp']:.2f} basis points of welfare cost "
-        f"at the reference parameters (G/V=50%, T=5yr, τ_cgt=24%). "
-        f"This is {'larger' if comp_A['lock_in_cost_bp'] > abs(comp_A['wdt_adv_no_lock_bp']) else 'smaller'} "
-        f"than the WDT risk-sharing advantage from Module 1 "
-        f"({comp_A['wdt_adv_no_lock_bp']:.2f} bp). "
-        f"Lock-in is therefore the {'primary' if comp_A['lock_in_cost_bp'] > abs(comp_A['wdt_adv_no_lock_bp']) else 'secondary'} "
-        f"channel through which WDT welfare-dominates CGT.",
-
-        f"C.2 PROBABILITY OF LOCK-IN (decomposed): In {fmt_pct1(comp_A['p_locked'])} of return "
-        f"states the agent stays in Asset A under CGT. This has two components: "
-        f"{fmt_pct1(comp_A['p_below_rA'])} of states have r_B < r_A — the agent "
-        f"would stay regardless of CGT (fundamental preference, not a distortion). "
-        f"The CGT lock-in distortion proper affects {fmt_pct1(comp_A['p_locked_cgt'])} "
-        f"of states — those where r_A ≤ r_B < r_B* = {fmt_pct(comp_A['r_B_indiff'])}: "
-        f"the agent would switch without CGT but the switching cost exceeds the benefit. "
-        f"The welfare cost is attributable to this second component only.",
-
-        f"C.3 GAIN RATIO SENSITIVITY: Lock-in cost rises with the embedded gain G/V. "
-        f"At G/V = 80%, the lock-in cost reaches {max_lock_gain:.2f} bp — "
-        f"substantially larger than the risk-sharing differential from Module 1. "
-        f"Long-held concentrated positions (high G/V) face the most severe lock-in.",
-
-        f"C.4 HOLDING PERIOD SENSITIVITY: Lock-in cost rises from "
-        f"{min_lock_T:.2f} bp at T=1 and plateaus near "
-        f"{max_lock_T:.2f} bp at longer horizons. "
-        f"The direction is upward, not downward: at short T the agent has "
-        f"only one period to benefit from switching, so the opportunity cost "
-        f"is low. As T increases, each additional year that Asset B compounds "
-        f"ahead of Asset A raises the foregone return from staying locked in. "
-        f"The plateau appears once r_B* converges toward r_A and the trapped "
-        f"zone between them collapses — states that triggered lock-in at short "
-        f"T now fall below r_A entirely (agent stays regardless of CGT) or "
-        f"above r_B* (agent switches despite CGT). "
-        f"Within empirically relevant horizons (T ≤ 20 yr) the welfare cost "
-        f"is substantially above the T=1 baseline.",
-
-        f"C.5 WDT STRUCTURAL ADVANTAGE: Under the WDT, the tax on gain G has "
-        f"already been accruing annually — switching assets is costless on the "
-        f"margin. The full indifference return is r_A (switch whenever r_B > r_A). "
-        f"The WDT therefore eliminates the lock-in distortion structurally, "
-        f"not through a behavioural or administrative fix.",
-
-        f"C.6 MODULE 1 CORRECTION: Module 1 showed WDT and CGT at near-identical "
-        f"CEW because it modelled CGT as a lower-rate income tax without a "
-        f"realisation decision. This module corrects that: once the realisation "
-        f"decision is endogenous, CGT's welfare cost increases by the lock-in "
-        f"amount, reversing the apparent near-equivalence.",
-    ]
-
-    for f in findings:
-        words = f.split()
-        line  = ""
-        for word in words:
-            if len(line) + len(word) + 1 > 74:
-                print("  " + line)
-                line = word
-            else:
-                line = (line + " " + word).strip()
-        if line:
-            print("  " + line)
-        print()
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # MAIN
@@ -695,7 +620,7 @@ def main():
 
     # ── Part A: Lock-in threshold chart ─────────────────────────────────────
     print("\n--- Part A: Lock-in threshold ---")
-    chart_lock_in_threshold(asset_ref)
+    fig_4_2_1_lock_in_threshold(asset_ref)
 
     # ── Parts B/C: Welfare cost of lock-in at reference parameters ───────────
     print("\n--- Part B: Welfare cost of lock-in ---")
@@ -719,13 +644,13 @@ def main():
     sens_gain   = sensitivity_gain_ratio(
         V_ref, r_A, 5, tau_cgt_ref, dist_A, GAMMA, gain_ratios
     )
-    chart_sensitivity_gain(sens_gain)
+    fig_4_2_2b_sensitivity_gain(sens_gain)
 
     T_vals  = list(range(1, 21))
     sens_T  = sensitivity_holding_period(
         V_ref, G_ref, r_A, tau_cgt_ref, dist_A, GAMMA, T_vals
     )
-    chart_sensitivity_T(sens_T)
+    fig_4_2_2c_sensitivity_T(sens_T)
 
     # ── Part E: Full comparison ───────────────────────────────────────────────
     print("\n--- Part E: Full welfare comparison ---")
@@ -739,9 +664,8 @@ def main():
     print_comparison_table(comp_A, dist_A.label)
     print_comparison_table(comp_B, dist_B.label)
 
-    chart_full_comparison(comp_A, dist_A.label)
+    fig_4_2_2a_full_comparison(comp_A, dist_A.label)
 
-    print_findings(comp_A, sens_gain, sens_T)
     print(f"\n✓ Module 3 complete. Outputs in: {OUTPUT_DIR}")
 
 

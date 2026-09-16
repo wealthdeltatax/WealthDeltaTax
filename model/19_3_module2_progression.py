@@ -391,8 +391,8 @@ def _save(fig, name: str):
     save_fig(fig, OUTPUT_DIR / name, dpi=DPI_SCREEN)
 
 
-def chart_rate_function(rate_fn: ProgressiveRateFunction, W_min_m: float):
-    """Chart A: The logistic rate function across wealth levels."""
+def chart_rate_fig_4_1a_rate_functionunction(rate_fn: ProgressiveRateFunction, W_min_m: float):
+    """Chart 4.1a: The logistic rate function across wealth levels."""
     W_vals = np.linspace(W_min_m, W_min_m * 50, 500)
     rates  = [rate_fn.rate(W) * 100 for W in W_vals]
     W_plot = W_vals / W_min_m    # express as multiples of W_min
@@ -406,7 +406,7 @@ def chart_rate_function(rate_fn: ProgressiveRateFunction, W_min_m: float):
                label=f"τ_m = {fmt_pct0(rate_fn.taum)} (ceiling)")
     ax.set_xlabel("Wealth as multiple of W_min (£2m threshold)", fontsize=9)
     ax.set_ylabel("Marginal WDT rate (%)", fontsize=9)
-    ax.set_title("Progressive WDT Rate Function (Logistic)\n"
+    ax.set_title("Figure 4.1a — Progressive WDT Rate Function (Logistic)\n"
                  f"τ₀={fmt_pct0(rate_fn.tau0)}, τ_m={fmt_pct0(rate_fn.taum)}, k={rate_fn.k}",
                  fontsize=11, fontweight="bold")
     ax.yaxis.set_major_formatter(mtick.PercentFormatter())
@@ -414,18 +414,18 @@ def chart_rate_function(rate_fn: ProgressiveRateFunction, W_min_m: float):
     ax.grid(axis="y", linestyle="--", alpha=0.4)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    _save(fig, "wfr_fig_b0_rate_function.png")
+    _save(fig, "wfr_fig_4_1a_rate_function.png")
 
 
-def chart_c1_welfare_gap(c1_results: dict):
-    """Chart B: Flat vs progressive WDT CEW gap across γ and distributions."""
+def fig_4_1b_flat_vs_progressive(c1_results: dict):
+    """Chart 4.1b: Flat vs progressive WDT CEW gap across γ and distributions."""
     apply_style()
     dist_labels = list(c1_results.keys())
     fig, axes = plt.subplots(1, len(dist_labels), figsize=FIG_PAIR, sharey=True)
     if len(dist_labels) == 1:
         axes = [axes]
 
-    fig.suptitle("B.1 CEW — Flat WDT vs Progressive WDT\n"
+    fig.suptitle("Figure 4.1b — Flat WDT vs Progressive WDT\n"
                  "(gap in basis points; positive = flat WDT better welfare)",
                  fontsize=11, fontweight="bold")
 
@@ -451,11 +451,11 @@ def chart_c1_welfare_gap(c1_results: dict):
 
     axes[-1].legend(fontsize=8)
     fig.tight_layout()
-    _save(fig, "wfr_fig_b1_flat_vs_progressive.png")
+    _save(fig, "wfr_fig_4_1b_flat_vs_progressive.png")
 
 
-def chart_c2_leverage(leverage_results: list):
-    """Chart C: How leverage ratio affects CEW gap (NW base vs asset-return base)."""
+def fig_4_1c_leverage(leverage_results: list):
+    """Chart 4.1c: How leverage ratio affects CEW gap (NW base vs asset-return base)."""
     lev_ratios = [r["leverage_ratio"] * 100 for r in leverage_results]
     cew_gaps   = [r["cew_gap_bp"] for r in leverage_results]
     et_nw      = [r["et_nw"] for r in leverage_results]
@@ -463,7 +463,7 @@ def chart_c2_leverage(leverage_results: list):
 
     apply_style()
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=FIG_WIDE)
-    fig.suptitle("B.2 Leverage Effect on WDT Tax Base\n"
+    fig.suptitle("Figure 4.1c — Leverage Effect on WDT Tax Base\n"
                  "(Net-worth base vs hypothetical asset-return base)",
                  fontsize=11, fontweight="bold")
 
@@ -490,11 +490,11 @@ def chart_c2_leverage(leverage_results: list):
     ax2.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "wfr_fig_b2_leverage.png")
+    _save(fig, "wfr_fig_4_1c_leverage.png")
 
 
-def chart_c3_asymmetry(c3_results: list, W0_vals: list):
-    """Chart D: C3 rate asymmetry — net tax excess over flat, by initial wealth.
+def fig_4_1d_asymmetry(c3_results: list, W0_vals: list):
+    """Chart 4.1d: C3 rate asymmetry — net tax excess over flat, by initial wealth.
     W0_vals is already in £m (W_min * multiplier, W_min = 2.0 £m).
     """
     excess = [r["net_tax_excess"] for r in c3_results]
@@ -503,7 +503,7 @@ def chart_c3_asymmetry(c3_results: list, W0_vals: list):
 
     apply_style()
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=FIG_WIDE)
-    fig.suptitle("B.3 Two-Period Rate Asymmetry\n"
+    fig.suptitle("Figure 4.1d — Two-Period Rate Asymmetry\n"
                  "(Gain in period 1, loss in period 2)",
                  fontsize=11, fontweight="bold")
 
@@ -528,17 +528,20 @@ def chart_c3_asymmetry(c3_results: list, W0_vals: list):
     ax2.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "wfr_fig_b3_asymmetry.png")
+    _save(fig, "wfr_fig_4_1d_asymmetry.png")
 
 
-def chart_combined_comparison(
+def fig_4_1_combined_gamma(
     dist_label: str,
     gamma: float,
     cew_flat_wdt   : float,
     cew_prog_wdt   : float,
     cew_stock      : float,
+    fig_index      : int,                          # 0 → e, 1 → f, 2 → g
 ):
-    """Chart E: Final comparison — progressive WDT vs flat WDT vs stock wealth tax."""
+    """Chart 4.1E/4.1F/4.1G: Final comparison — progressive WDT vs flat WDT vs stock wealth tax."""
+    fig_letter = ["e", "f", "g"][fig_index]
+
     labels = ["Flat WDT\n(Module 1\nbenchmark)",
               "Progressive WDT\n(with all three\ncomplications)",
               "Stock Wealth Tax\n(Module 1\nbenchmark)"]
@@ -559,7 +562,7 @@ def chart_combined_comparison(
     ax.axhline(0, color="black", linewidth=0.8)
     ax.set_ylabel("CEW vs No-Tax (%)", fontsize=9)
     ax.set_title(
-        f"B.4 Progressive WDT vs Flat WDT vs Stock Wealth Tax\n"
+        f"4.1{fig_letter} — Progressive WDT vs Flat WDT vs Stock Wealth Tax\n"
         f"γ = {gamma} | {dist_label[:50]}",
         fontsize=10, fontweight="bold"
     )
@@ -568,7 +571,7 @@ def chart_combined_comparison(
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     fig.tight_layout()
-    _save(fig, f"wfr_fig_b4_combined_gamma{int(gamma)}.png")
+    _save(fig, f"wfr_fig_4_1{fig_letter}_combined_gamma{int(gamma)}.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -620,60 +623,6 @@ def print_c3_table(c3_results: list, W0_vals: list, gamma: float):
         )
     print()
 
-
-def print_findings(c1_results, c3_results, W0_vals, p):
-    print("\n" + "=" * 70)
-    print("MODULE 2 — KEY FINDINGS")
-    print("=" * 70)
-
-    findings = [
-        "1. (PROGRESSION EFFECT): The progressive rate function reduces the "
-        "symmetric WDT's welfare advantage by a small but measurable amount "
-        "relative to the flat-rate benchmark from Module 1. The gap grows "
-        "with γ — more risk-averse agents are more affected by the reduced "
-        "variance-compression efficiency under progressive rates.",
-
-        "2. (LEVERAGE): The net-worth delta base and the asset-return base "
-        "diverge as leverage increases. For unlevered agents they are identical. "
-        "For agents with significant debt (e.g. property developers, LBO "
-        "structures), the WDT taxes a larger effective base in rising markets "
-        "and a smaller base in falling markets relative to an asset-return tax. "
-        "The direction of the welfare effect depends on the correlation between "
-        "asset returns and debt servicing costs.",
-
-        "3. (RATE ASYMMETRY): In a gain-then-loss sequence, the progressive "
-        "WDT taxes at a high rate in the gain period and refunds at a lower rate "
-        "in the loss period. The net tax exceeds the flat-rate equivalent, and "
-        "the excess grows with initial wealth (higher bracket entry). This is "
-        "the most consequential of the three complications for high-wealth agents "
-        "with volatile returns.",
-
-        "4. RESIDUAL D-M: Even with all three complications, the progressive WDT "
-        "remains welfare-superior to the stock wealth tax. The D-M advantage is "
-        "attenuated by progression but not eliminated. The progressive WDT sits "
-        "between the flat WDT (best) and the stock wealth tax (worst) on CEW.",
-
-        "5. (WFR.A §C) IMPLICATION: The (RATE ASYMMETRY) is largest for agents at "
-        "the top of the wealth distribution — the same agents who face the most "
-        "concentrated single-asset exposure (private company equity, Route D). "
-        "This connects to the Module 3 lock-in analysis: the (RATE ASYMMETRY) "
-        "strengthens the case for Route D deferral for non-fungible assets.",
-    ]
-
-    for f in findings:
-        words = f.split()
-        line  = ""
-        for word in words:
-            if len(line) + len(word) + 1 > 74:
-                print("  " + line)
-                line = word
-            else:
-                line = (line + " " + word).strip()
-        if line:
-            print("  " + line)
-        print()
-
-
 # ─────────────────────────────────────────────────────────────────────────────
 # MAIN
 # ─────────────────────────────────────────────────────────────────────────────
@@ -700,7 +649,7 @@ def main():
 
     # ── Part A: Rate function chart ──────────────────────────────────────────
     print("--- Part A: Rate function ---")
-    chart_rate_function(rate_fn, vp["W_min"])
+    chart_rate_fig_4_1a_rate_functionunction(rate_fn, vp["W_min"])
 
     # ── Part B: C1 — Flat vs progressive (single period) ────────────────────
     print("\n--- Part B: C1 — Progression effect ---")
@@ -714,7 +663,7 @@ def main():
             c1_results[dist.label][gamma] = r
 
     print_c1_table(c1_results)
-    chart_c1_welfare_gap(c1_results)
+    fig_4_1b_flat_vs_progressive(c1_results)
 
     # ── Part C: C2 — Leverage ────────────────────────────────────────────────
     print("--- Part C: C2 — Leverage ---")
@@ -732,7 +681,7 @@ def main():
               f"E[T]_nw={r['et_nw']:.4f}  E[T]_ar={r['et_ar']:.4f}  "
               f"CEW gap={r['cew_gap_bp']:+.2f}bp")
 
-    chart_c2_leverage(lev_results)
+    fig_4_1c_leverage(lev_results)
 
     # ── Part D: C3 — Two-period rate asymmetry ───────────────────────────────
     print("\n--- Part D: C3 — Rate asymmetry (gain then loss) ---")
@@ -759,11 +708,11 @@ def main():
         c3_results.append(r)
 
     print_c3_table(c3_results, W0_vals, gamma=2.0)
-    chart_c3_asymmetry(c3_results, W0_vals)
+    fig_4_1d_asymmetry(c3_results, W0_vals)
 
     # ── Part E/F: Combined comparison ────────────────────────────────────────
     print("--- Part F: Combined comparison ---")
-    for gamma in GAMMA_VALS:
+    for fig_index, gamma in enumerate(GAMMA_VALS):
         W0_ref = vp["W_min"] * 5
         # Flat WDT CEW from Module 1 results (recompute for this W0)
         flat_results = run_welfare_comparison(
@@ -782,11 +731,11 @@ def main():
               f"Progressive WDT CEW={cew_prog*100:.4f}%  "
               f"Stock WTax CEW={cew_stock*100:.4f}%")
 
-        chart_combined_comparison(
-            dist_A.label, gamma, cew_flat, cew_prog, cew_stock
+        fig_4_1_combined_gamma(
+            dist_A.label, gamma, cew_flat, cew_prog, cew_stock,
+            fig_index=fig_index,
         )
 
-    print_findings(c1_results, c3_results, W0_vals, p)
     print(f"\n✓ Module 2 complete. Outputs in: {OUTPUT_DIR}")
 
 

@@ -474,11 +474,11 @@ def _four_panel_swf(sweep_results, param_label, baseline_v, x_label,
     return _save(fig, output_dir, fname)
 
 
-# ── FIGURE 5: rate function shapes ───────────────────────────────────────────
+# ── FIGURE 2.4: rate function shapes ───────────────────────────────────────────
 
-def _rate_function_shapes(p_base, output_dir):
+def fig_2_4_rate_function_shapes(p_base, output_dir):
     """
-    Figure 5: 4-panel — τ(W) curve across the wealth range for each swept
+    Figure 2.4: 4-panel — τ(W) curve across the wealth range for each swept
     value of each parameter.  Uses a shared W axis 0–20 £m.
     """
     _base_style()
@@ -486,7 +486,7 @@ def _rate_function_shapes(p_base, output_dir):
 
     fig, axes = plt.subplots(2, 2, figsize=(14, 9))
     fig.suptitle(
-        'Figure §2.4 - Rate function shape: τ(W) across the wealth range\n'
+        'Figure 2.4 - Rate function shape: τ(W) across the wealth range\n'
         'Each line = one parameter value; other three parameters held at Balanced baseline',
         fontsize=11, y=1.01
     )
@@ -536,14 +536,14 @@ def _rate_function_shapes(p_base, output_dir):
         ax.legend(fontsize=7, loc='lower right', ncol=2)
 
     plt.tight_layout()
-    return _save(fig, output_dir, 'sweeps_r_fig_s2_4_rate_function_shapes.png')
+    return _save(fig, output_dir, 'sweeps_r_fig_2_4_rate_function_shapes.png')
 
 
-# ── FIGURE 6: relative sensitivity synthesis ─────────────────────────────────
+# ── FIGURE 7.2: relative sensitivity synthesis ─────────────────────────────────
 
-def _relative_sensitivity(all_sweeps, output_dir):
+def fig_7_2_relative_sensitivity(all_sweeps, output_dir):
     """
-    Figure 6: normalised sensitivity comparison.
+    Figure 7.2: normalised sensitivity comparison.
 
     For each parameter, normalise the parameter value to [0,1] across its
     sweep range and plot:
@@ -556,7 +556,7 @@ def _relative_sensitivity(all_sweeps, output_dir):
     _base_style()
     fig, (ax_cov, ax_lrr) = plt.subplots(1, 2, figsize=(14, 6))
     fig.suptitle(
-        'Figure §7.2 - Relative parameter sensitivity: normalised parameter value (0–1) vs key metrics\n'
+        'Figure 7.2 - Relative parameter sensitivity: normalised parameter value (0–1) vs key metrics\n'
         'Each line = one parameter swept from its minimum to maximum value  |  '
         'Vertical dashed = Balanced baseline position',
         fontsize=11, y=1.01
@@ -617,14 +617,14 @@ def _relative_sensitivity(all_sweeps, output_dir):
     ax_lrr.legend(fontsize=9)
 
     plt.tight_layout()
-    return _save(fig, output_dir, 'sweeps_r_fig_s7_2_relative_sensitivity.png')
+    return _save(fig, output_dir, 'sweeps_r_fig_7_2_relative_sensitivity.png')
 
 
-# ── FIGURE 9: coverage fan ────────────────────────────────────────────────────
+# ── FIGURE 7.4: coverage fan ────────────────────────────────────────────────────
 
-def _coverage_fan(all_sweeps, sweep_labels, sweep_colours, output_dir):
+def fig_7_4_coverage_fan(all_sweeps, sweep_labels, sweep_colours, output_dir):
     """
-    Figure 9 — Coverage fan: SSM 5yr to TCM 50yr across all four rate parameters.
+    Figure 7.4 — Coverage fan: SSM 5yr to TCM 50yr across all four rate parameters.
 
     Normalised x-axis (0 = min, 1 = max parameter value), one colour per
     parameter.  Each parameter contributes two shaded bands:
@@ -639,7 +639,7 @@ def _coverage_fan(all_sweeps, sweep_labels, sweep_colours, output_dir):
     _base_style()
     fig, ax = plt.subplots(figsize=(14, 7))
     fig.suptitle(
-        f'Figure 09 - Coverage fan: SSM 5yr to TCM 50yr across rate parameters\n'
+        f'Figure 7.4 - Coverage fan: SSM 5yr to TCM 50yr across rate parameters\n'
         f'Outer band = SSM 5yr–TCM 50yr  |  '
         f'Inner band = SSM {HEADLINE_WINDOW}yr–TCM {HEADLINE_WINDOW}yr  |  '
         f'Lines = SSM/TCM {HEADLINE_WINDOW}yr median  |  '
@@ -694,14 +694,14 @@ def _coverage_fan(all_sweeps, sweep_labels, sweep_colours, output_dir):
               title=f'Parameter  (solid = SSM {HEADLINE_WINDOW}yr, dashed = TCM {HEADLINE_WINDOW}yr)',
               title_fontsize=8)
     plt.tight_layout()
-    return _save(fig, output_dir, 'sweep_fig_09_coverage_fan.png')
+    return _save(fig, output_dir, 'sweeps_r_fig_7_4_coverage_fan.png')
 
 
-# ── FIGURE 10: LRR failure year for SWF sweeps ───────────────────────────────
+# ── FIGURE 8.3: LRR failure year for SWF sweeps ───────────────────────────────
 
-def _swf_stress_margins(sw_srr_ratio, sw_lrr_years, output_dir):
+def fig_8_3_swf_stress_margins(sw_srr_ratio, sw_lrr_years, output_dir):
     """
-    Figure 10 — SWF stress margins across srr_ratio and lrr_years sweeps.
+    Figure 8.3 — SWF stress margins across srr_ratio and lrr_years sweeps.
 
     2×2 panel layout:
       [0,0]  Zero-coverage years (10yr window, 2006 worst case) vs srr_ratio
@@ -727,7 +727,7 @@ def _swf_stress_margins(sw_srr_ratio, sw_lrr_years, output_dir):
     _base_style()
     fig, axes = plt.subplots(2, 2, figsize=(14, 9))
     fig.suptitle(
-        'Figure 10 — SWF stress margins: zero-coverage years and LRR buffer headroom\n'
+        'Figure 8.3 — SWF stress margins: zero-coverage years and LRR buffer headroom\n'
         'Zero-coverage years = years post-fill where WDT net revenue < Step-5 expenditure '
         '(LRR absorbs shortfall)\n'
         'No LRR buffer exhaustion occurs at Balanced parameters across all 73 start years',
@@ -829,16 +829,16 @@ def _swf_stress_margins(sw_srr_ratio, sw_lrr_years, output_dir):
         ax.legend(fontsize=8)
 
     plt.tight_layout()
-    return _save(fig, output_dir, 'sweep_fig_10_swf_stress_margins.png')
+    return _save(fig, output_dir, 'sweeps_r_fig_8_3_swf_stress_margins.png')
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
-# ── FIGURE 11: g sensitivity ──────────────────────────────────────────────────
+# ── FIGURE 7.3: g sensitivity ──────────────────────────────────────────────────
 
-def _g_sensitivity(sweep_results, output_dir):
+def fig_7_3_g_sensitivity(sweep_results, output_dir):
     """
-    Figure 11 — Deterministic g sweep: LRR fill year and coverage vs growth rate.
+    Figure 7.3 — Deterministic g sweep: LRR fill year and coverage vs growth rate.
 
     2-panel figure:
       Left:  LRR fill year vs g.  Shows how transition speed varies with the
@@ -853,7 +853,7 @@ def _g_sensitivity(sweep_results, output_dir):
     _base_style()
     fig, (ax_fill, ax_cov) = plt.subplots(1, 2, figsize=(14, 6))
     fig.suptitle(
-        'Fig 11 — Constant-g sensitivity: LRR fill year and coverage\n'
+        'Fig 7.3 — Constant-g sensitivity: LRR fill year and coverage\n'
         'Each point = one deterministic SSM run with g applied uniformly. '
         'No start-year distribution.',
         fontsize=11, y=1.01,
@@ -909,15 +909,15 @@ def _g_sensitivity(sweep_results, output_dir):
     ax_cov.legend(fontsize=8, loc='upper left')
 
     plt.tight_layout()
-    return _save(fig, output_dir, 'sweep_fig_11_g_sensitivity.png')
+    return _save(fig, output_dir, 'sweeps_r_fig_7_3_g_sensitivity.png')
 
 
-# ── FIGURE 12: synthetic scenario ─────────────────────────────────────────────
+# ── FIGURE 7.5: synthetic scenario ─────────────────────────────────────────────
 
-def _synthetic_scenario(amp_results, per_results, canonical_series,
+def fig_7_5_synthetic_scenario(amp_results, per_results, canonical_series,
                          syn_params, output_dir):
     """
-    Figure 12 — Synthetic stress-test scenario: mu = inflation floor, A dips negative.
+    Figure 7.5 — Synthetic stress-test scenario: mu = inflation floor, A dips negative.
 
     Purpose: address the criticism that the WDT is not stress-tested under
     negative growth.  mu is set to 2% (UK CPI inflation floor) so the
@@ -944,7 +944,7 @@ def _synthetic_scenario(amp_results, per_results, canonical_series,
     A_pct  = syn_params['amplitude'] * 100
     T      = syn_params['period']
     fig.suptitle(
-        r'Fig 12 — Synthetic stress-test: $g(t) = \mu + A \sin(2\pi t / T)$, '
+        r'Fig 7.5 — Synthetic stress-test: $g(t) = \mu + A \sin(2\pi t / T)$, '
         r'$\lambda = 0$'
         '\n'
         f'μ = {mu_pct:.0f}% (inflation floor)  |  '
@@ -1035,7 +1035,7 @@ def _synthetic_scenario(amp_results, per_results, canonical_series,
     ax.yaxis.set_major_locator(mticker.MaxNLocator(integer=True))
     ax.legend(fontsize=8)
     ax.text(0.02, 0.97,
-            'LRR exists to cover these years.\nBuffer sizing shown in Fig 10.',
+            'LRR exists to cover these years.\nBuffer sizing shown in Fig 8.3c.',
             transform=ax.transAxes, fontsize=7, va='top',
             color='#555555', style='italic')
 
@@ -1096,7 +1096,7 @@ def _synthetic_scenario(amp_results, per_results, canonical_series,
     ax.legend(fontsize=7, loc='upper left', ncol=2)
 
     plt.tight_layout()
-    return _save(fig, output_dir, 'sweep_fig_12_synthetic_scenario.png')
+    return _save(fig, output_dir, 'sweeps_r_fig_7_5_synthetic_scenario.png')
 
 
 def main():
@@ -1161,77 +1161,77 @@ def main():
 
     _four_panel(
         sw_tau0,
-        param_label='Figure §3.2 - τ_0 (floor rate)',
+        param_label='Figure 3.2 - τ_0 (floor rate)',
         baseline_v=BASELINE['tau_0'],
         x_label='τ_0 (floor rate)',
         p_base=p_base,
         is_log=False,
         output_dir=_out,
-        fname='sweeps_r_fig_s3_2_tau0_sensitivity.png',
+        fname='sweeps_r_fig_3_2_tau0_sensitivity.png',
         burden_data=burden_tau0,
     )
 
     _four_panel(
         sw_taum,
-        param_label='Figure §4.2 - τ_m (ceiling rate)',
+        param_label='Figure 4.2 - τ_m (ceiling rate)',
         baseline_v=BASELINE['tau_m'],
         x_label='τ_m (ceiling rate)',
         p_base=p_base,
         is_log=False,
         output_dir=_out,
-        fname='sweeps_r_fig_s4_2_taum_sensitivity.png',
+        fname='sweeps_r_fig_4_2_taum_sensitivity.png',
         burden_data=burden_taum,
     )
 
     _four_panel(
         sw_k,
-        param_label='Figure §5.2 - k (steepness, per £m) — log x-axis',
+        param_label='Figure 5.2 - k (steepness, per £m) — log x-axis',
         baseline_v=BASELINE['k'],
         x_label='k (log scale)',
         p_base=p_base,
         is_log=True,
         output_dir=_out,
-        fname='sweeps_r_fig_s5_2_k_sensitivity.png',
+        fname='sweeps_r_fig_5_2_k_sensitivity.png',
         burden_data=burden_k,
     )
 
     _four_panel(
         sw_wmin,
-        param_label='Figure §6.2 - W_min (entry point, £m)',
+        param_label='Figure 6.2 - W_min (entry point, £m)',
         baseline_v=BASELINE['W_min'],
         x_label='W_min (£m)',
         p_base=p_base,
         is_log=False,
         output_dir=_out,
-        fname='sweeps_r_fig_s6_2_wmin_sensitivity.png',
+        fname='sweeps_r_fig_6_2_wmin_sensitivity.png',
         burden_data=burden_wmin,
     )
 
-    _rate_function_shapes(p_base, _out)
+    fig_2_4_rate_function_shapes(p_base, _out)
 
-    _relative_sensitivity([sw_tau0, sw_taum, sw_k, sw_wmin], _out)
+    fig_7_2_relative_sensitivity([sw_tau0, sw_taum, sw_k, sw_wmin], _out)
 
     _four_panel_swf(
         sw_srr_ratio,
-        param_label='Figure §8.3a - srr_ratio (SRR capitalisation ratio)',
+        param_label='Figure 8.3a - srr_ratio (SRR capitalisation ratio)',
         baseline_v=BASELINE['srr_ratio'],
         x_label='srr_ratio (×)',
         p_base=p_base,
         output_dir=_out,
-        fname='sweeps_r_fig_s8_3a_srr_ratio_sensitivity.png',
+        fname='sweeps_r_fig_8_3a_srr_ratio_sensitivity.png',
     )
 
     _four_panel_swf(
         sw_lrr_years,
-        param_label='Figure §8.3b - lrr_years (LRR floor, years of expenditure)',
+        param_label='Figure 8.3b - lrr_years (LRR floor, years of expenditure)',
         baseline_v=BASELINE['lrr_years'],
         x_label='lrr_years (years)',
         p_base=p_base,
         output_dir=_out,
-        fname='sweeps_r_fig_s8_3b_lrr_years_sensitivity.png',
+        fname='sweeps_r_fig_8_3b_lrr_years_sensitivity.png',
     )
 
-    _coverage_fan(
+    fig_7_4_coverage_fan(
         all_sweeps   = [sw_tau0, sw_taum, sw_k, sw_wmin],
         sweep_labels = ['τ_0 (floor rate)', 'τ_m (ceiling rate)',
                         'k (steepness)', 'W_min (entry £m)'],
@@ -1240,11 +1240,11 @@ def main():
         output_dir=_out,
     )
 
-    _swf_stress_margins(sw_srr_ratio, sw_lrr_years, _out)
+    fig_8_3_swf_stress_margins(sw_srr_ratio, sw_lrr_years, _out)
 
-    _g_sensitivity(sw_g_sweep, _out)
+    fig_7_3_g_sensitivity(sw_g_sweep, _out)
 
-    _synthetic_scenario(sw_amp_sweep, sw_per_sweep,
+    fig_7_5_synthetic_scenario(sw_amp_sweep, sw_per_sweep,
                         canonical_syn_series, syn_params, _out)
 
     print('\nAll figures complete.')

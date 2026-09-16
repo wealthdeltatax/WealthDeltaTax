@@ -87,11 +87,11 @@ def _save(fig, name):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 01 — Rate function τ(W)
+# FIG 05 — Rate function τ(W)
 # ─────────────────────────────────────────────────────────────
 
-def fig_01_rate_function(p):
-    print("  Generating fig 01: rate function τ(W)...")
+def fig_5_rate_function(p):
+    print("  Generating fig 05: rate function τ(W)...")
     sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
 
     W_vals   = np.logspace(np.log10(p['W_min']), np.log10(10000), 500)
@@ -129,7 +129,7 @@ def fig_01_rate_function(p):
     ax.set_xlabel("Declared net worth W (£m, log scale)")
     ax.set_ylabel("Marginal WDT rate τ(W) (%)")
     ax.set_title(
-        "Figure §5 - Marginal rate function τ(W)\n"
+        "Figure 5 - Marginal rate function τ(W)\n"
         f"k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}% (floor parameter), "
         f"$\\tau_m$ = {p['tau_m']*100:.0f}%, W_min = £{p['W_min']:.0f}m"
     )
@@ -147,12 +147,12 @@ def fig_01_rate_function(p):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 02 — C.1 heatmap
+# FIG 5.2a — C.1 heatmap
 # Pure heatmap: apply_style_nogrid(); no per-axes grid override needed.
 # ─────────────────────────────────────────────────────────────
 
-def fig_02_c1_heatmap(p):
-    print("  Generating fig 02: C.1 heatmap...")
+def fig_5_2a_c1_heatmap(p):
+    print("  Generating fig 5.2a: C.1 heatmap...")
     base_by_g = {g: run_sim(p, alpha=1.0, g=g) for g in G_VALS}
 
     matrix = []
@@ -180,7 +180,7 @@ def fig_02_c1_heatmap(p):
     ax.set_xlabel("Growth rate g")
     ax.set_ylabel("Declaration ratio α")
     ax.set_title(
-        "Figure §5.2a - C.1 metric: (Net(α) − Net(1)) / TW(α)  [percentage points]\n"
+        "Figure 5.2a - C.1 metric: (Net(α) − Net(1)) / TW(α)  [percentage points]\n"
         f"Red = pays more · Blue = pays less · "
         f"N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m"
     )
@@ -205,11 +205,11 @@ def fig_02_c1_heatmap(p):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 03 — Declaration equilibrium cost curve
+# FIG 7.1b — Declaration equilibrium cost curve
 # ─────────────────────────────────────────────────────────────
 
-def fig_03_equilibrium_cost_curve(p):
-    print("  Generating fig 03: declaration equilibrium cost curve...")
+def fig_7_1b_equilibrium_cost_curve(p):
+    print("  Generating fig 7.1b: declaration equilibrium cost curve...")
 
     alpha_fine = [a / 100 for a in range(50, 205, 5)]
 
@@ -262,7 +262,7 @@ def fig_03_equilibrium_cost_curve(p):
     ax.set_xlabel("Declaration ratio α  (α < 1 = understatement, α > 1 = overstatement)")
     ax.set_ylabel("Net tax vs honest declaration (%)")
     ax.set_title(
-        "Figure §7.2b - Declaration equilibrium: net tax cost relative to honest\n"
+        "Figure 7.1b - Declaration equilibrium: net tax cost relative to honest\n"
         f"N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m, "
         f"k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%  ·  "
         f"Dash-dot = {scen_year} historical return series (mean g = {mean_g_hist*100:.1f}%"
@@ -275,12 +275,12 @@ def fig_03_equilibrium_cost_curve(p):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 04 — C.8 TW gap by N (overlaid)
+# FIG 7.2a — C.8 TW gap by N (overlaid)
 # Colour lists replaced by C_UNDER / C_OVER.
 # ─────────────────────────────────────────────────────────────
 
-def fig_04_tw_gap_by_n(p):
-    print("  Generating fig 04: C.8 TW gap by N (overlaid)...")
+def fig_7_2a_tw_gap_by_n(p):
+    print("  Generating fig 7.2a: C.8 TW gap by N (overlaid)...")
 
     alpha_under = [0.1, 0.2, 0.5, 0.8]
     alpha_over  = [1.2, 1.5, 1.8, 2.0]
@@ -348,7 +348,7 @@ def fig_04_tw_gap_by_n(p):
     ax.set_xlabel("Holding period N (years)")
     ax.set_ylabel("TW vs honest declaration (%)")
     ax.set_title(
-        "Figure §7.2a - C.8: terminal net worth gap vs honest, by holding period\n"
+        "Figure 7.2a - Terminal Net Worth Gap vs Honest, by holding period\n"
         f"Solid/dashed = constant g ({p['g']*100:.2f}%)  ·  "
         f"Dash-dot/dotted = {scen_year} hist. series  ·  "
         f"Red = understaters  ·  Blue = overstaters  ·  "
@@ -361,12 +361,12 @@ def fig_04_tw_gap_by_n(p):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 05 — Saturation reversal boundary (understaters)
+# FIG 7.2b — Saturation reversal boundary (understaters)
 # Colour list replaced by C_UNDER.
 # ─────────────────────────────────────────────────────────────
 
-def fig_05_saturation_reversal(p):
-    print("  Generating fig 05: saturation reversal boundary (single panel)...")
+def fig_7_2b_saturation_reversal(p):
+    print("  Generating fig 7.2b: saturation reversal boundary (single panel)...")
 
     alpha_under = [0.1, 0.2, 0.5, 0.8]
 
@@ -443,7 +443,7 @@ def fig_05_saturation_reversal(p):
         "as % of understater's terminal wealth TW(α)"
     )
     ax.set_title(
-        f"Figure §7.2b - Understater penalty structure: inflection and plateau (N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m)\n"
+        f"Figure 7.2b - Understater penalty structure: inflection and plateau (N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m)\n"
         f"k = {p['k']} · Dashed line = inflection g ≈ {mean_inflection:.1f}% (rate fn property) · "
         f"Grey = plateau zone (g ≥ {mean_plateau:.0f}%) · Labels show plateau ceiling per α"
     )
@@ -467,13 +467,13 @@ def fig_05_saturation_reversal(p):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 06 — Overstatement reversal boundary
+# FIG 7.2c — Overstatement reversal boundary
 # Colour list replaced by C_OVER.
 # figsize (13, 5.5) kept as custom: nearest named constant FIG_WIDE is (13, 6).
 # ─────────────────────────────────────────────────────────────
 
-def fig_06_overstatement_reversal(p):
-    print("  Generating fig 06: overstatement reversal boundary...")
+def fig_7_2c_overstatement_reversal(p):
+    print("  Generating fig 7.2c: overstatement reversal boundary...")
 
     alpha_over = [1.2, 1.5, 1.8, 2.0]
 
@@ -536,7 +536,7 @@ def fig_06_overstatement_reversal(p):
     ax.set_xlabel("Growth rate g (%)")
     ax.set_ylabel("C.1 metric (pp) — negative = overstater pays less than honest")
     ax.set_title(
-        f"Figure §7.3 - Overstater C.1 by growth rate\n"
+        f"Figure 7.3 - Overstater C.1 by growth rate\n"
         f"N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m, "
         f"k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%  ·  "
         f"Dotted verticals = g at which each α first pays more than honest"
@@ -549,7 +549,7 @@ def fig_06_overstatement_reversal(p):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 07 — Overstatement coherence
+# FIG 7.1a — Overstatement coherence
 # apply_style_nogrid() for both panels (left is a heatmap; right re-enables
 # grid explicitly). rcParams mutation removed — legend kwargs per-axes.
 # ─────────────────────────────────────────────────────────────
@@ -558,8 +558,8 @@ _FIG07_OVER_ALPHAS = [1.2, 1.5, 1.8, 2.0]
 _FIG07_OVER_COLS   = C_OVER_LIGHT
 
 
-def fig_07_overstatement_coherence(p):
-    print("  Generating fig 07: overstatement coherence...")
+def fig_7_1a_overstatement_coherence(p):
+    print("  Generating fig 7.1a: overstatement coherence...")
 
     hist_mean = p['g']
     N         = p['N']
@@ -704,7 +704,7 @@ def fig_07_overstatement_coherence(p):
     )
 
     fig.suptitle(
-        f"Figure §7.1a - Overstatement: the advantage is real but narrow\n"
+        f"Figure 7.1a - Overstatement: the advantage is real but narrow\n"
         f"Left: C.1 advantage landscape across (g_actual, α)  ·  "
         f"Right: net tax diff at g = {hist_mean*100:.1f}% (hist. mean), "
         f"$V_0$ = £{p['V0_m']:.0f}m, N = {N}, k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%\n"
@@ -717,7 +717,7 @@ def fig_07_overstatement_coherence(p):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 08 — TW advantage decomposition
+# FIG 5.2b — TW advantage decomposition
 # apply_style_nogrid(); ax1 re-enables grid explicitly (line plot);
 # ax2 stays nogrid (heatmap).
 # ─────────────────────────────────────────────────────────────
@@ -726,7 +726,7 @@ _FIG08_ALPHA_FINE = np.linspace(1.0, 2.0, 41)
 _FIG08_G_FINE     = np.linspace(0.0, 0.25, 51)
 
 
-def _decompose_fig08(p, alpha, g):
+def _decompose_fig_5_2b(p, alpha, g):
     """
     Thin wrapper around decompose_tw_advantage() returning a 7-tuple:
         W_sell_delta, refund_delta, settle_delta, tw_advantage,
@@ -748,8 +748,8 @@ def _decompose_fig08(p, alpha, g):
     )
 
 
-def fig_08_tw_decomposition(p):
-    print("  Generating fig 08: TW advantage decomposition...")
+def fig_5_2b_tw_decomposition(p):
+    print("  Generating fig 5.2b: TW advantage decomposition...")
 
     hist_mean = p['g']
     N         = p['N_demo']
@@ -761,7 +761,7 @@ def fig_08_tw_decomposition(p):
     ep_vals  = []
 
     for alpha in _FIG08_ALPHA_FINE:
-        wsd, rd, sd, tw_adv, _, tw_h, ep = _decompose_fig08(p, alpha, hist_mean)
+        wsd, rd, sd, tw_adv, _, tw_h, ep = _decompose_fig_5_2b(p, alpha, hist_mean)
         denom = tw_h if abs(tw_h) > 1e-12 else 1.0
         wsd_vals.append(wsd    / denom * 100)
         rd_vals.append( rd     / denom * 100)
@@ -782,7 +782,7 @@ def fig_08_tw_decomposition(p):
     f_matrix = np.zeros((len(_FIG08_ALPHA_FINE), len(_FIG08_G_FINE)))
     for i, alpha in enumerate(_FIG08_ALPHA_FINE):
         for j, g in enumerate(_FIG08_G_FINE):
-            _, _, _, _, f_ratio, _, _ = _decompose_fig08(p, alpha, g)
+            _, _, _, _, f_ratio, _, _ = _decompose_fig_5_2b(p, alpha, g)
             f_matrix[i, j] = f_ratio
 
     apply_style_nogrid()
@@ -885,7 +885,7 @@ def fig_08_tw_decomposition(p):
     ax2.legend(loc='upper left', fontsize=8, framealpha=0.9)
 
     fig.suptitle(
-        "Figure §5.2b - Overstater TW advantage: mechanism and dilution cost\n"
+        "Figure 5.2b - Overstater TW advantage: mechanism and dilution cost\n"
         "Left: sell-year refund benefit swamps f_N erosion cost across all tested α  ·  "
         "Right: equity dilution grows with α and g — the hidden price of overstatement\n"
         "Identity: tw_adv = W_sell_delta − refund_delta − settle_delta",
@@ -897,7 +897,7 @@ def fig_08_tw_decomposition(p):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 09 — TW advantage across (g, N) space
+# FIG 7.1c — TW advantage across (g, N) space
 # apply_style_nogrid(); all four panels are heatmaps.
 # _FIG09_COLORS replaced by C_OVER_LIGHT.
 # ─────────────────────────────────────────────────────────────
@@ -924,12 +924,12 @@ def _tw_adv_pct_gN(p, alpha, g, N):
     return (tw_a - tw_h) / tw_h * 100 if abs(tw_h) > 1e-12 else 0.0
 
 
-def fig_09_tw_advantage_gN_surface(p):
+def fig_7_1c_tw_advantage_gN_surface(p):
     """
     2×2 grid of heatmaps: TW advantage of overstatement vs honest across
     (g, N) space for each α ∈ {1.2, 1.5, 1.8, 2.0}.
     """
-    print("  Generating fig 09: TW advantage across (g, N) space...")
+    print("  Generating fig 7.1c: TW advantage across (g, N) space...")
 
     g_pct     = _FIG09_G_VALS * 100
     hist_mean = p['g']
@@ -1014,7 +1014,7 @@ def fig_09_tw_advantage_gN_surface(p):
                   framealpha=0.92, frameon=True, facecolor='white')
 
     fig.suptitle(
-        "Figure §7.1c - TW advantage of overstatement across (g, N) space\n"
+        "Figure 7.1c - TW advantage of overstatement across (g, N) space\n"
         f"$V_0$ = £{p['V0_m']:.0f}m  ·  k = {p['k']}  ·  "
         "TW advantage is always positive — overstatement always retains more "
         "nominal TW than honest declaration\n"
@@ -1030,12 +1030,12 @@ def fig_09_tw_advantage_gN_surface(p):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 10 — C.1 (nominal) vs C.12 (NPV-adjusted) heatmaps
+# FIG 7.1d — C.1 (nominal) vs C.12 (NPV-adjusted) heatmaps
 # Pure heatmaps: apply_style_nogrid().
 # ─────────────────────────────────────────────────────────────
 
-def fig_10_c1_vs_c12_heatmap(p):
-    print("  Generating fig 10: C.1 vs C.12 nominal vs NPV-adjusted heatmap...")
+def fig_7_1d_c1_vs_c12_heatmap(p):
+    print("  Generating fig 7.1d: C.1 vs C.12 nominal vs NPV-adjusted heatmap...")
 
     rho = p['rho']
 
@@ -1092,7 +1092,7 @@ def fig_10_c1_vs_c12_heatmap(p):
     )
 
     fig.suptitle(
-        f"Figure §7.1d - C.12: NPV-adjusted tax difference (ρ = {rho*100:.0f}%)  ·  "
+        f"Figure 7.1d - NPV-adjusted tax difference (ρ = {rho*100:.0f}%)  ·  "
         f"Sell-year refund discounted to {100*(1/(1+rho)**p['N_demo']):.0f}p/£ at t=N+1",
         fontsize=10,
     )
@@ -1123,16 +1123,16 @@ def main():
     print(f"Parameters: N={p['N']}, g={p['g']*100:.2f}%, V0=£{p['V0_m']:.0f}m, "
           f"k={p['k']}, tau_0={p['tau_0']*100:.0f}%, tau_m={p['tau_m']*100:.0f}%\n")
 
-    fig_01_rate_function(p)
-    fig_02_c1_heatmap(p)
-    fig_03_equilibrium_cost_curve(p)
-    fig_04_tw_gap_by_n(p)
-    fig_05_saturation_reversal(p)
-    fig_06_overstatement_reversal(p)
-    fig_07_overstatement_coherence(p)
-    fig_08_tw_decomposition(p)
-    fig_09_tw_advantage_gN_surface(p)
-    fig_10_c1_vs_c12_heatmap(p)
+    fig_5_rate_function(p)
+    fig_5_2a_c1_heatmap(p)
+    fig_7_1b_equilibrium_cost_curve(p)
+    fig_7_2a_tw_gap_by_n(p)
+    fig_7_2b_saturation_reversal(p)
+    fig_7_2c_overstatement_reversal(p)
+    fig_7_1a_overstatement_coherence(p)
+    fig_5_2b_tw_decomposition(p)
+    fig_7_1c_tw_advantage_gN_surface(p)
+    fig_7_1d_c1_vs_c12_heatmap(p)
 
     print("\nAll figures written.")
 

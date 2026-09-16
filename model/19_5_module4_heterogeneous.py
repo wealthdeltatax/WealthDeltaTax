@@ -546,9 +546,9 @@ def _save(fig, name: str):
     save_fig(fig, OUTPUT_DIR / name, dpi=DPI_SCREEN)
 
 
-def chart_tier_cew(tier_results: dict, gamma: float, dist_label: str):
+def fig_4_3_3_tier_cew(tier_results: dict, gamma: float, dist_label: str):
     """
-    D.1 CEW by tier x tax system - heatmap matrix + grouped bar comparison.
+    Figure 4.3.3 — CEW by tier x tax system - heatmap matrix + grouped bar comparison.
 
     Two panels:
       Left  - Heatmap: systems (rows) x tiers (columns), cells show CEW (%).
@@ -592,7 +592,7 @@ def chart_tier_cew(tier_results: dict, gamma: float, dist_label: str):
     ax_bar  = fig.add_subplot(gs[1])
 
     fig.suptitle(
-        f"D.1 CEW by Tier and Tax System - {dist_label[:40]}\n"
+        f"Figure 4.3.3 — CEW by Tier and Tax System - {dist_label[:40]}\n"
         f"gamma = {gamma} | Revenue target = {fmt_pct0(TARGET_ET)} of aggregate W0 | "
         f"W0 from ONS/WAS brackets",
         fontsize=11, fontweight="bold"
@@ -675,11 +675,11 @@ def chart_tier_cew(tier_results: dict, gamma: float, dist_label: str):
     ax_bar.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "wfr_fig_d1_tier_cew.png")
+    _save(fig, "wfr_fig_4_3_3_tier_cew.png")
 
 
-def chart_incidence(tier_results: dict):
-    """Chart B: Tax burden as % of W0 by tier (incidence chart)."""
+def fig_4_3_4_incidence(tier_results: dict):
+    """Chart 4.3.4: Tax burden as % of W0 by tier (incidence chart)."""
     tiers_ordered   = ["Poor", "Ok", "Good", "Great"]
     systems_ordered = ["symmetric_wdt", "stock_wealth", "income", "cgt", "consumption"]
 
@@ -707,7 +707,7 @@ def chart_incidence(tier_results: dict):
     ax.set_xlabel("Tier", fontsize=9)
     ax.set_ylabel("Expected tax as % of W₀", fontsize=9)
     ax.set_title(
-        "D.2 Distributional Incidence — Tax Burden by Tier\n"
+        "Figure 4.3.4 — Distributional Incidence — Tax Burden by Tier\n"
         "(All systems revenue-equivalent at 2% of Good-tier W₀)",
         fontsize=10, fontweight="bold"
     )
@@ -717,11 +717,11 @@ def chart_incidence(tier_results: dict):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     fig.tight_layout()
-    _save(fig, "wfr_fig_d2_incidence.png")
+    _save(fig, "wfr_fig_4_3_4_incidence.png")
 
 
-def chart_concentration_path(paths: dict, tiers: list, years: list):
-    """Chart D.4: Wealth ratio (Great / Poor) over 30 years by system."""
+def fig_4_3_2_concentration_path(paths: dict, tiers: list, years: list):
+    """Chart 4.3.2: Wealth ratio (Great / Poor) over 30 years by system."""
     years_full = [years[0] - 1] + list(years)   # include year 0
 
     systems_to_plot = ["symmetric_wdt", "progressive_wdt", "stock_wealth", "income"]
@@ -729,7 +729,7 @@ def chart_concentration_path(paths: dict, tiers: list, years: list):
     apply_style()
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=FIG_PAIR_T)
     fig.suptitle(
-        "D.3 Wealth Concentration Path — 73-Year Empirical Sequence\n"
+        "Figure 4.3.2 — Wealth Concentration Path — 73-Year Empirical Sequence\n"
         "(Great-tier / Poor-tier wealth ratio; higher = more concentrated)",
         fontsize=11, fontweight="bold"
     )
@@ -777,18 +777,18 @@ def chart_concentration_path(paths: dict, tiers: list, years: list):
     ax2.spines["top"].set_visible(False); ax2.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "wfr_fig_d3_concentration_path.png")
+    _save(fig, "wfr_fig_4_3_2_concentration_path.png")
 
 
-def chart_envelope(envelope_results: dict, years: list):
-    """Chart D.5 Cumulative tax vs cumulative refund by tier — envelope slack."""
+def fig_4_3_5_envelope_binding(envelope_results: dict, years: list):
+    """Chart 4.3.5 Cumulative tax vs cumulative refund by tier — envelope slack."""
     tiers_ordered = ["Poor", "Ok", "Good", "Great"]
     years_full    = list(years)
 
     apply_style()
     fig, axes = plt.subplots(2, 2, figsize=FIG_QUAD, sharey=False)
     fig.suptitle(
-        "D.4 Lifetime Contribution Envelope — Slack Over Time\n"
+        "Figure 4.3.5 — Lifetime Contribution Envelope — Slack Over Time\n"
         "(Slack = cumulative tax paid − cumulative refunds received; "
         "zero = envelope binds)",
         fontsize=11, fontweight="bold"
@@ -829,7 +829,7 @@ def chart_envelope(envelope_results: dict, years: list):
         ax.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "wfr_fig_d4_envelope_binding.png")
+    _save(fig, "wfr_fig_4_3_5_envelope_binding.png")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -896,86 +896,6 @@ def print_envelope_summary(envelope_results: dict, tiers: list = None):
             f"{'YES ⚠' if er['ever_binds'] else 'No':>8}"
         )
     print()
-
-
-def print_findings(tier_results: dict, envelope_results: dict, paths: dict, tiers: list):
-    print(f"\n{'='*70}")
-    print("MODULE 4 — KEY FINDINGS")
-    print(f"{'='*70}")
-
-    # WDT advantage over stock wealth tax by tier
-    wdt_advantages = {}
-    for tier in tiers:
-        wdt_cew = tier_results[tier.name]["systems"]["symmetric_wdt"].cew
-        sw_cew  = tier_results[tier.name]["systems"]["stock_wealth"].cew
-        print(f"  {tier.name} tier: WDT CEW = {wdt_cew}, Stock Wealth CEW = {sw_cew}")
-        wdt_advantages[tier.name] = (wdt_cew - sw_cew) * 10000
-
-    ever_binds = any(r["ever_binds"] for r in envelope_results.values())
-
-    findings = [
-        f"D.1 TIER ORDERING: The WDT welfare advantage over the stock wealth tax "
-        f"varies by tier: "
-        + ", ".join(
-            f"{t.name}: {wdt_advantages[t.name]:+.2f}bp"
-            for t in tiers
-        ) + ". "
-        f"The advantage is {'largest for the Great tier' if wdt_advantages['Great'] == max(wdt_advantages.values()) else 'not monotone in wealth'}. "
-        f"This follows from risk aversion: higher-return tiers have more "
-        f"variance to insure, making the symmetric mechanism more valuable.",
-
-        f"D.2 PROGRESSIVE INCIDENCE: The progressive WDT imposes a higher "
-        f"effective burden on the Great tier (higher marginal rate) and a lower "
-        f"burden on the Poor tier (near-entry-rate region of the logistic). "
-        f"This is the intended distributional property. The welfare cost "
-        f"(CEW) is highest for the Great tier in absolute terms, but lower "
-        f"relative to wealth — the tax is progressive in burden but the "
-        f"greater wealth of the Great tier cushions the utility impact.",
-
-        f"D.3 CONCENTRATION PATH: Under all systems, the Great tier accumulates "
-        f"more wealth than the Poor tier over 30 years due to the persistent "
-        f"return differential (+3.45pp vs −4.55pp). The WDT's progressive "
-        f"rate slows this accumulation relative to flat-rate systems, but does "
-        f"not reverse it. The Fagereng et al. return heterogeneity is the "
-        f"dominant driver of concentration — tax system choice affects the "
-        f"rate of concentration, not its direction.",
-
-        f"D.4 ENVELOPE BINDING: {'The envelope BINDS for at least one tier. ' if ever_binds else 'The envelope does not bind for any tier over the 73-year empirical sequence. '}"
-        f"{'This is an open item — the SRR calibration implication identified in ENV §2 requires attention.' if ever_binds else 'Minimum slack across all tiers is positive, consistent with ENV §2 working assumption that the SRR floor calibration is adequate for the empirical return sequence.'} "
-        f"This result is for the specific empirical sequence 1947–2019; a "
-        f"more adverse sequence (starting 2006, as the RATES worst case) "
-        f"may produce different binding behaviour.",
-
-        f"D.5 STOCK WEALTH TAX INCIDENCE: The stock wealth tax applies the same "
-        f"rate to end-period wealth regardless of return. Under the Fagereng "
-        f"tier structure, this means it collects disproportionately more from "
-        f"the Great tier in absolute terms (higher W₁) but applies the same "
-        f"effective rate — it is proportional rather than progressive. "
-        f"The WDT's progressive structure is more redistributive within the "
-        f"taxable population on this dimension.",
-
-        f"D.6 OPTION B DIMENSION (non-standard): The concentration path charts "
-        f"(Part D) show the implied wealth distribution after 30 years. "
-        f"The standard CEW metric is silent on this. The consumption tax "
-        f"and flat-rate income tax produce higher final concentration than "
-        f"the progressive WDT. This is the dimension flagged in LR.A §2.2 "
-        f"as unresolved in the welfare comparison literature — the paper "
-        f"presents it as a named limitation of the standard metric rather "
-        f"than as a welfare result.",
-    ]
-
-    for f in findings:
-        words = f.split()
-        line  = ""
-        for word in words:
-            if len(line) + len(word) + 1 > 74:
-                print("  " + line)
-                line = word
-            else:
-                line = (line + " " + word).strip()
-        if line:
-            print("  " + line)
-        print()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1166,9 +1086,9 @@ def print_corner_table(
     print()
 
 
-def chart_corner_check(corner_results: dict, tier_results: dict, gamma: float):
+def fig_4_3_6_corner_check(corner_results: dict, tier_results: dict, gamma: float):
     """
-    Chart E: Off-diagonal corners vs diagonal — CEW comparison.
+    Figure 4.3.6: Off-diagonal corners vs diagonal — CEW comparison.
 
     Two-panel chart.  Each panel is one corner.  Within each panel, grouped
     bars show CEW for: the corner cell, the diagonal cell with the same W₀,
@@ -1201,7 +1121,7 @@ def chart_corner_check(corner_results: dict, tier_results: dict, gamma: float):
     apply_style()
     fig, axes = plt.subplots(1, 2, figsize=FIG_PAIR_T, sharey=False)
     fig.suptitle(
-        f"D.5 Off-Diagonal Spot Check — Decoupling W₀ from Return Differential\n"
+        f"Figure 4.3.6 — Off-Diagonal Spot Check — Decoupling W₀ from Return Differential\n"
         f"γ = {gamma} | Revenue target = {fmt_pct0(TARGET_ET)} of corner W₀ | "
         f"Dark = corner, mid-grey = diagonal (same W₀), light-grey = diagonal (same diff)",
         fontsize=10, fontweight="bold"
@@ -1251,84 +1171,7 @@ def chart_corner_check(corner_results: dict, tier_results: dict, gamma: float):
         ax.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "wfr_fig_d5_corner_check.png")
-
-
-def print_corner_findings(corner_results: dict, tier_results: dict):
-    """Print the analytical interpretation of the off-diagonal spot check."""
-    print(f"\n{'='*70}")
-    print("PART F — OFF-DIAGONAL SPOT CHECK: KEY FINDINGS")
-    print(f"{'='*70}")
-
-    # Extract WDT vs stock wealth advantage for each cell
-    def _wdt_adv(sys_dict, cew_prog_key=None):
-        """WDT CEW minus stock wealth CEW, in bp."""
-        wdt_cew = sys_dict.get("symmetric_wdt")
-        sw_cew  = sys_dict.get("stock_wealth")
-        if wdt_cew is None or sw_cew is None:
-            return None
-        wdt_v = wdt_cew.cew if hasattr(wdt_cew, "cew") else wdt_cew
-        sw_v  = sw_cew.cew  if hasattr(sw_cew, "cew")  else sw_cew
-        if wdt_v is None or sw_v is None:
-            return None
-        return (wdt_v - sw_v) * 10000
-
-    adv_A_corner = _wdt_adv(corner_results["corner_A"]["systems"])
-    adv_B_corner = _wdt_adv(corner_results["corner_B"]["systems"])
-    adv_poor_diag = _wdt_adv(tier_results["Poor"]["systems"])
-    adv_great_diag = _wdt_adv(tier_results["Great"]["systems"])
-
-    def _fmt_adv(v):
-        return f"{v:+.2f}bp" if v is not None else "—"
-
-    findings = [
-        f"F.1  DESIGN CONFIRMATION: The off-diagonal corners test whether the "
-        f"main result (WDT welfare advantage varies by tier) is driven by the "
-        f"return differential, by the wealth level, or by both jointly. "
-        f"WDT advantage vs stock wealth tax: diagonal Poor={_fmt_adv(adv_poor_diag)}, "
-        f"diagonal Great={_fmt_adv(adv_great_diag)}, "
-        f"corner A (Great diff, Poor W₀)={_fmt_adv(adv_A_corner)}, "
-        f"corner B (Poor diff, Great W₀)={_fmt_adv(adv_B_corner)}.",
-
-        f"F.2  W₀ EFFECT vs DIFFERENTIAL EFFECT: Corner A holds the Poor tier's "
-        f"W₀ fixed but replaces the return differential with the Great tier's "
-        f"(+3.45pp). Corner B holds the Great tier's W₀ fixed but uses the "
-        f"Poor tier's differential (−4.55pp). If the rankings are robust to this "
-        f"swap, the Fagereng empirical correlation is not the sole driver — "
-        f"both dimensions matter independently. If rankings change, the "
-        f"interpretation shifts: the main diagonal result is an interaction "
-        f"effect, not a pure return-heterogeneity effect.",
-
-        f"F.3  PROGRESSIVE RATE INTERACTION: The progressive WDT applies higher "
-        f"rates at higher W₀, so corner B (Poor diff, Great W₀) faces the "
-        f"heaviest progressive burden despite a low return differential. "
-        f"This is the tax design tension: the progressive schedule is calibrated "
-        f"to wealth level, not to ability to pay (return), so a low-return agent "
-        f"at high wealth faces a higher rate than a high-return agent at low wealth. "
-        f"The corner results make this asymmetry legible without requiring the "
-        f"full 4×5 grid.",
-
-        f"F.4  SCOPE LIMITATION: Only the two extreme corners are evaluated. "
-        f"The remaining 14 interior cells of the 4×5 (tier × bracket) grid are "
-        f"not computed. This is intentional: the extreme corners bound the "
-        f"interaction effect. If the ranking is robust at both corners, it is "
-        f"likely robust throughout. Interior cells would add precision without "
-        f"changing the qualitative conclusion.",
-    ]
-
-    for f in findings:
-        words = f.split()
-        line  = ""
-        for word in words:
-            if len(line) + len(word) + 1 > 74:
-                print("  " + line)
-                line = word
-            else:
-                line = (line + " " + word).strip()
-        if line:
-            print("  " + line)
-        print()
-
+    _save(fig, "wfr_fig_4_3_6_corner_check.png")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # MAIN
@@ -1366,8 +1209,8 @@ def main():
     print(f"\n--- Parts B & C: Tier-by-tier welfare and incidence ---")
     tier_results = run_tier_comparison(tiers, dist_A, GAMMA, rate_fn)
     print_tier_table(tier_results, GAMMA)
-    chart_tier_cew(tier_results, GAMMA, dist_A.label)
-    chart_incidence(tier_results)
+    fig_4_3_3_tier_cew(tier_results, GAMMA, dist_A.label)
+    fig_4_3_4_incidence(tier_results)
 
     # ── Part D: Concentration path ───────────────────────────────────────────
     print("--- Part D: Concentration path (73-year projection) ---")
@@ -1384,7 +1227,7 @@ def main():
     paths, conc_years = run_concentration_analysis(
         tiers, p, rate_fn, systems_to_project, precomputed_taus=agg_taus
     )
-    chart_concentration_path(paths, tiers, conc_years)
+    fig_4_3_2_concentration_path(paths, tiers, conc_years)
 
     # Quick summary of final wealth ratios
     print(f"\n  Final wealth ratios (Great / Poor) after 30 years:")
@@ -1403,16 +1246,13 @@ def main():
     print_envelope_summary(envelope_results, tiers)
     # Use scenario years (length N), not the full 73-year series
     _, envelope_years = make_scenario_sequence(p, N)
-    chart_envelope(envelope_results, envelope_years)
-
-    print_findings(tier_results, envelope_results, paths, tiers)
+    fig_4_3_5_envelope_binding(envelope_results, envelope_years)
 
     # ── Part F: Off-diagonal spot check ─────────────────────────────────────
     print("\n--- Part F: Off-diagonal spot check (2 corner cells) ---")
     corner_results = run_corner_check(tiers, dist_A, GAMMA, rate_fn)
     print_corner_table(corner_results, tier_results, GAMMA)
-    chart_corner_check(corner_results, tier_results, GAMMA)
-    print_corner_findings(corner_results, tier_results)
+    fig_4_3_6_corner_check(corner_results, tier_results, GAMMA)
 
     print(f"\n✓ Module 4 complete. Outputs in: {OUTPUT_DIR}")
 
