@@ -147,6 +147,18 @@ _BODY_TEMPLATE = r"""
     display: none !important;
   }
 
+  /* Hide Quarto's nav sidebar and its toggle button on this page only.
+     The link map is a full-canvas tool; the sidebar adds nothing and
+     would overlap the fixed overlay at its own high z-index. */
+  #quarto-sidebar,
+  #quarto-sidebar-glass,
+  .quarto-sidebar,
+  #quarto-content-sidebar-left,
+  .sidebar.sidebar-navigation,
+  button.quarto-sidebar-toggle {
+    display: none !important;
+  }
+
   /* Remove Quarto content-area padding so the fixed overlay sits flush */
   #quarto-document-content,
   .page-columns,
@@ -157,15 +169,15 @@ _BODY_TEMPLATE = r"""
 
   #lm-wrap {
     position: fixed;
-    /* Sit just below the Quarto navbar. 56px covers the standard navbar
-       height; increase to 64px if the site uses a taller variant. */
+    /* Sit just below the Quarto navbar (~56px). Raise to 64px if your
+       navbar is taller. z-index 1100 sits above Quarto's sidebar (up to ~1020). */
     top: 56px;
     left: 0;
     right: 0;
     bottom: 0;
     display: flex;
     overflow: hidden;
-    z-index: 100;
+    z-index: 1100;
   }
 
   /* Graph controls sidebar */
@@ -481,7 +493,7 @@ const LM_NODE_W = 72, LM_NODE_H = 32;
 // LM_DAMP: velocity damping per tick (higher = slower to settle)
 // LM_CENTER_F: weak gravity toward canvas centre (lower = more spread)
 // LM_IDEAL_DIST: target separation between any two nodes (px in graph space)
-const LM_ATTRACT = 0.003, LM_DAMP = 0.97, LM_CENTER_F = 0.0008, LM_IDEAL_DIST = 200;
+const LM_ATTRACT = 0.003, LM_DAMP = 0.97, LM_CENTER_F = 0.003, LM_IDEAL_DIST = 130;
 
 // ── Build links ───────────────────────────────────────────────────────────
 function lmBuildLinks() {
@@ -521,7 +533,7 @@ function lmInitLayout() {
   const step = (2 * Math.PI) / vn.length;
   // Use the larger dimension so the initial ring fills the canvas on
   // both landscape and portrait viewports. 0.42 leaves a comfortable margin.
-  const r = Math.max(W, H) * 0.42;
+  const r = Math.max(W, H) * 0.35;
   vn.forEach((n, i) => {
     n.x = W/2 + r * Math.cos(i * step);
     n.y = H/2 + r * Math.sin(i * step);
