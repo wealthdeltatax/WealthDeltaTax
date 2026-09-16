@@ -871,14 +871,50 @@ function lmUpdateStats() {
     `${lmNodes.length} papers \u00B7 ${lmLinks.length} links \u00B7 hover to explore \u00B7 click to open`;
 }
 
+// ── Fit wrap below actual navbar height ──────────────────────────────────
+// Quarto's navbar height varies by theme and window width. Rather than
+// hardcoding a pixel value, we measure the tallest fixed/sticky element
+// at the top of the page and set #lm-wrap's top offset to match.
+function lmFitToNavbar() {
+  const wrap = document.getElementById("lm-wrap");
+  if (!wrap) return;
+
+  // Try the known Quarto navbar selectors in order of specificity.
+  const navSelectors = [
+    "#quarto-header",
+    "nav.navbar",
+    "header.navbar",
+    "#navbar",
+    "header[role='banner']",
+  ];
+
+  let navH = 0;
+  for (const sel of navSelectors) {
+    const el = document.querySelector(sel);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      // getBoundingClientRect().bottom gives the bottom edge in viewport coords —
+      // exactly where our fixed overlay should start.
+      navH = Math.max(navH, Math.ceil(rect.bottom));
+    }
+  }
+
+  // Fallback: if nothing matched or measured zero, keep 56px.
+  wrap.style.top = (navH > 0 ? navH : 56) + "px";
+}
+
 // ── Init ──────────────────────────────────────────────────────────────────
 window.addEventListener("load", () => {
+  lmFitToNavbar();
   lmBuildLinks();
   lmBuildFilters();
   lmUpdateStats();
   lmInitLayout();
   lmAnimId = requestAnimationFrame(lmTick);
 });
+
+// Re-measure on resize in case the navbar reflows (e.g. mobile breakpoint).
+window.addEventListener("resize", lmFitToNavbar);
 </script>
 ```
 """
