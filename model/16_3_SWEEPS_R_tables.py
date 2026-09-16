@@ -19,13 +19,13 @@ from wdt_md import MdDoc
 
 from wdt_analytics import (
     init, HEADLINE_WINDOW,
-    model, DEFAULT_PARAMS,
+    DEFAULT_PARAMS,
     run_g_sweep, run_synthetic_sweep,
 )
-import wdt_analytics as _A
 
+import rates_core
 import importlib, sys
-_mod = importlib.import_module('8_2_RATES_report')
+_mod = importlib.import_module('8_2_RATES_tables')
 write_report = _mod.write_report
 
 _OUT   = out_dir('SWEEPS_R')
@@ -385,7 +385,7 @@ def build_rates_s_doc(d, p_base):
 def main():
     print('16_6 RATES_S tables (from cache)')
     p_base = load_params()
-    model.validate_params(p_base)
+    rates_core.validate_params(p_base)
     init(p_base)
     ensure_dir(_OUT)
     d = _load()

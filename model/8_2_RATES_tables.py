@@ -40,8 +40,8 @@ Can also be imported and called directly:
 import sys
 from pathlib import Path
 
-import rates_model as model
-from rates_model import COVERAGE_WINDOWS, _tcm_coverage_windows
+import rates_core
+from rates_core import COVERAGE_WINDOWS, _tcm_coverage_windows
 
 from wdt_fmt import fmt_gbp_yr, today_iso, ensure_dir, out_dir  # fmt_rev_m intentionally not used — see _fmt_m below
 from wdt_md  import MdDoc, LEFT, RIGHT, CENTER
@@ -849,8 +849,8 @@ def main():
     output_dir = sys.argv[2] if len(sys.argv) > 2 else None
 
     print(f'Loading parameters from: {toml_path or DEFAULT_PARAMS}')
-    p = model.load_params(toml_path)
-    model.validate_params(p)
+    p = rates_core.load_params(toml_path)
+    rates_core.validate_params(p)
 
     meta = p.get('meta', {})
     print()
@@ -864,7 +864,7 @@ def main():
     print(f"  SRR={p['srr_ratio']}×  LRR={p['lrr_years']} yrs")
 
     print('\nRunning SSM (active scenario, N=1..71)...')
-    py_ssm = model.run_ssm(p, max_N=71)
+    py_ssm = rates_core.run_ssm(p, max_N=71)
 
     py_lrr_fill = next((r for r in py_ssm if r.get('lrr_filled')), None)
     py_srr_fill = next((r for r in py_ssm
@@ -877,26 +877,26 @@ def main():
     print(f"  LRR fill year: {ssm_lrr_N}  (used as TCM N)")
 
     print(f'\nRunning TCM (N={ssm_lrr_N}, snapshot / LRR fill year)...')
-    py_tcm = model.run_tcm(p, N=ssm_lrr_N, N_fill=ssm_srr_N)
+    py_tcm = rates_core.run_tcm(p, N=ssm_lrr_N, N_fill=ssm_srr_N)
 
     _BURDEN_N = 30
     print(f'\nRunning TCM for burden/lifetime tables (N={_BURDEN_N}, canonical horizon)...')
-    py_tcm_burden = model.run_tcm(p, N=_BURDEN_N, N_fill=ssm_srr_N)
+    py_tcm_burden = rates_core.run_tcm(p, N=_BURDEN_N, N_fill=ssm_srr_N)
 
     print('  Computing TCM coverage windows...')
     tcm_win = _tcm_coverage_windows(p, ssm_lrr_N, ssm_srr_N) if py_lrr_fill else None
 
     print(f'\nRunning start-year sweep ({len(p["returns"])} calendar years)...')
-    sweep           = model.run_start_year_sweep(p)
-    sweep_extremals = model.report_start_year_sweep(sweep, p)
+    sweep           = rates_core.run_start_year_sweep(p)
+    sweep_extremals = rates_core.report_start_year_sweep(sweep, p)
 
     print('\nRunning extremal scenario profiles...')
-    profiles = model.run_scenario_profiles(sweep_extremals, p)
-    model.report_scenario_profiles(profiles, p)
+    profiles = rates_core.run_scenario_profiles(sweep_extremals, p)
+    rates_core.report_scenario_profiles(profiles, p)
 
     print('\nRunning statistical pass...')
-    stats = model.compute_statistics(sweep)
-    model.report_statistics(stats, p)
+    stats = rates_core.compute_statistics(sweep)
+    rates_core.report_statistics(stats, p)
 
     print('\nWriting markdown report...')
     _out     = ensure_dir(Path(output_dir) if output_dir else _OUT)

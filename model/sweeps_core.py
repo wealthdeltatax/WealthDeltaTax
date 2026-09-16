@@ -66,7 +66,7 @@ from wdt_analytics import (
     run_param_sweep, run_g_sweep, run_synthetic_sweep,
 )
 import wdt_analytics as _A
-import rates_model as model
+import rates_core as model
 
 # ── Output path ───────────────────────────────────────────────────────────────
 _CACHE    = Path(__file__).parent / 'OUTPUTS' / 'sweep_cache.json'

@@ -44,7 +44,7 @@ Can also be imported and called directly:
 import sys
 from pathlib import Path
 
-import rates_model as model
+import rates_core
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -124,7 +124,7 @@ def generate_figures(p, py_ssm, py_tcm, sweep_results,
     burden_N_fill = py_srr_fill['year'] if py_srr_fill else 1
 
     if py_tcm_burden is None:
-        import rates_model as _model
+        import rates_core as _model
         print(f'  Computing burden TCM at N={burden_N} (N_fill={burden_N_fill})...')
         py_tcm_burden = _model.run_tcm(p, N=burden_N, N_fill=burden_N_fill)
 
@@ -781,11 +781,11 @@ def main():
     output_dir = sys.argv[2] if len(sys.argv) > 2 else None
 
     print(f'Loading parameters from: {toml_path or DEFAULT_PARAMS}')
-    p = model.load_params(toml_path)
-    model.validate_params(p)
+    p = rates_core.load_params(toml_path)
+    rates_core.validate_params(p)
 
     print('\nRunning SSM (active scenario, N=1..71)...')
-    py_ssm = model.run_ssm(p, max_N=71)
+    py_ssm = rates_core.run_ssm(p, max_N=71)
 
     py_lrr_fill = next((r for r in py_ssm if r.get('lrr_filled')), None)
     py_srr_fill = next((r for r in py_ssm
@@ -796,14 +796,14 @@ def main():
     print(f"  LRR fill year: {ssm_lrr_N}")
 
     print(f'\nRunning TCM (N={ssm_lrr_N}, snapshot / LRR fill year)...')
-    py_tcm = model.run_tcm(p, N=ssm_lrr_N, N_fill=ssm_srr_N)
+    py_tcm = rates_core.run_tcm(p, N=ssm_lrr_N, N_fill=ssm_srr_N)
 
     _BURDEN_N = 30
     print(f'\nRunning TCM for burden matrix (N={_BURDEN_N}, canonical 30-year horizon)...')
-    py_tcm_burden = model.run_tcm(p, N=_BURDEN_N, N_fill=ssm_srr_N)
+    py_tcm_burden = rates_core.run_tcm(p, N=_BURDEN_N, N_fill=ssm_srr_N)
 
     print(f'\nRunning start-year sweep ({len(p["returns"])} calendar years)...')
-    sweep = model.run_start_year_sweep(p)
+    sweep = rates_core.run_start_year_sweep(p)
 
     _out = ensure_dir(Path(output_dir) if output_dir else _OUT)
     generate_figures(p, py_ssm, py_tcm, sweep,

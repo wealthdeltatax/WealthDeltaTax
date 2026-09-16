@@ -99,7 +99,7 @@ from wdt_core import load_params as _core_load_params, run_sim, tau
 # ── rates_model re-export ────────────────────────────────────────────────────
 # Imported here so 16_6/16_7 can replace `from rates_s_helpers import model`
 # with `from wdt_analytics import model`.
-import rates_model as model
+import rates_core
 
 # Default TOML path — mirrors rates_s_helpers.DEFAULT_PARAMS resolution
 DEFAULT_PARAMS: Path = Path(__file__).parent / 'WDT_Params.toml'
@@ -834,7 +834,7 @@ def run_param_sweep(
 
         # ── run ──────────────────────────────────────────────────────────────
         print(f"  [{label}={v:.5g}]  sweeping...", end='', flush=True)
-        sweep = model.run_start_year_sweep(p)
+        sweep = rates_core.run_start_year_sweep(p)
         s = summarise(sweep)
         results.append({
             'value': v, 'label': label,
@@ -958,7 +958,7 @@ def run_g_sweep(
         print(f'  [g_sweep g={g:.4f}]  running...', end='', flush=True)
 
         series = _series_long_enough([g] * 80)
-        result = model.run_single_scenario(p_base, series)
+        result = rates_core.run_single_scenario(p_base, series)
         s = _summarise_single(result)
 
         lrr = result.get('lrr_fill_year')
@@ -1029,7 +1029,7 @@ def run_synthetic_sweep(
         print(f'  [synthetic {label}]  running...', end='', flush=True)
         raw_series = synthetic_returns(n=80, **kw)
         series     = _series_long_enough(raw_series)
-        result     = model.run_single_scenario(p_base, series)
+        result     = rates_core.run_single_scenario(p_base, series)
         s          = _summarise_single(result)
 
         lrr = result.get('lrr_fill_year')

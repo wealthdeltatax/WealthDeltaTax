@@ -23,14 +23,14 @@ from pathlib import Path
 from copy import deepcopy
 
 from wdt_analytics import (
-    model, DEFAULT_PARAMS, init, HEADLINE_WINDOW,
+    DEFAULT_PARAMS, init, HEADLINE_WINDOW,
 )
 from wdt_core import load_params, synthetic_returns
 from wdt_fmt import fmt_pct1, out_dir, ensure_dir
 from wdt_style import (apply_style, save_fig,
                         C_SSM, C_TCM, C_LRR, C_SURPLUS, C_BASELINE,
                         PARAM_COLOURS)
-
+import rates_core
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -1102,7 +1102,7 @@ def fig_7_5_synthetic_scenario(amp_results, per_results, canonical_series,
 def main():
     p_base = load_params()
     print(p_base)
-    model.validate_params(p_base)
+    rates_core.validate_params(p_base)
     init(p_base)
 
     global BASELINE, SWEEP_TAU_0, SWEEP_TAU_M, SWEEP_K, SWEEP_WMIN, \
