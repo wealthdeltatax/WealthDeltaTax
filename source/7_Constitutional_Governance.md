@@ -131,7 +131,7 @@ The standard applied throughout is comparative rather than absolute: harder to c
 
 # 1. Introduction
 
-The Wealth Delta Tax proposes to tax the annual change in individual net worth on an accrual basis, with a symmetric loss-refund mechanism, a pre-funded Sovereign Wealth Fund, and a cooperative architecture that treats taxpayers as participants rather than subjects. WP sets out the mechanism. MF grounds it normatively. VAL addresses asset assessment. CORP closes the attribution gap for listed equity. LR surveys the evidence base. BEHAV establishes the behavioural robustness framework. CLOSE settles the general theory of position closure.
+The Wealth Delta Tax proposes to tax the annual change in individual net worth on an accrual basis, with a symmetric loss-refund mechanism, a pre-funded Sovereign Wealth Fund, and a cooperative architecture that treats taxpayers as participants rather than subjects. WP sets out the mechanism. MF grounds it normatively. VAL addresses asset assessment. CORP closes the attribution gap for listed equity. LR.B surveys the evidence base. BEHAV establishes the behavioural robustness framework. CLOSE settles the general theory of position closure.
 
 This paper addresses what none of them does: how the institution governing the WDT should itself be governed.
 

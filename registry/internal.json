@@ -13,8 +13,8 @@
       "id": "WP",
       "shortcode": "WP",
       "title": "The Wealth Delta Tax: The White Paper",
-      "version": "2.1",
-      "version_date": "260810",
+      "version": "1.02",
+      "version_date": "260913",
       "status": "active",
       "outbound_ext_citation_ids": [
         "Auerbach1991__WP",
@@ -51,7 +51,6 @@
       ],
       "outbound_internal": [
         "MF",
-        "LR",
         "VAL",
         "CORP",
         "GOV",
@@ -60,25 +59,25 @@
       ],
       "inbound_internal": [
         "MF",
-        "LR",
         "CORP",
         "CORP.A",
         "JUR",
-        "FM"
+        "FM",
+        "WFR"
       ],
       "open_question_ids": [],
       "flag_ids": [
         "flag_03",
         "flag_04"
       ],
-      "notes": "§1.1 extended v2.1: non-interference design constraint added as fourth principle. Flag 3: Londoño-Vélez cited as 2024 NBER WP — update to 2025 journal. Flag 4: orphan references (SaezSlemrodGiertz2012) in WP References await author decision."
+      "notes": "v1.01 (260912): §8.2 reframed — liquidity management through self-declaration is intended design feature, not concession; mechanism agnostic about declaration motive; Route C/D liquidity costs distinguished (dilution vs deferral); boundary condition on omitted assets added. v1.02 (260913): §3.7 rewritten — state enforces consequences of declared values, not correct values; §3.8 rewritten — tolerant zone (α ≈ 0.8–1.5) as primary result, mild upward bias (α ≈ 1.1) as conditional behavioural prediction not dominant strategy; §5 fully rewritten — 2000 reference scenario, correct burden figures (0.35% revenue-weighted annual wealth burden, 13.0% gain-weighted effective rate, 0.79% maximum, 27.2% maximum effective rate on gains), four RATES properties, burden-of-proof inversion; §6 TCM figure replaced with post-fill framing; §8.1 rewritten — tolerant zone as primary answer to valuation objection, three-layer structure from VAL §7.1; §9.2 floor-not-ceiling framing; §9.3 closing sentence confirms arithmetic holds across all 73 start years; §10 names four RATES properties explicitly. Flag 3: Londoño-Vélez cited as 2024 NBER WP — update to 2025 journal. Flag 4: orphan references (SaezSlemrodGiertz2012) in WP References await author decision."
     },
     {
       "id": "MF",
       "shortcode": "MF",
       "title": "The Wealth Delta Tax: Moral and Philosophical Foundations",
-      "version": "1.8",
-      "version_date": "260814",
+      "version": "1.04",
+      "version_date": "260916",
       "status": "active",
       "outbound_ext_citation_ids": [
         "Bartels2008__MF",
@@ -87,7 +86,12 @@
         "Gilens2012__MF",
         "Kaldor1955__MF",
         "MurphyNagel2002__MF",
-        "Tyler1990__MF"
+        "Tyler1990__MF",
+        "Pettit1997__MF",
+        "Pettit2012__MF",
+        "Scanlon1998__MF",
+        "Wittgenstein1953__MF",
+        "Searle1995__MF"
       ],
       "outbound_internal": [
         "GOV",
@@ -99,143 +103,14 @@
       ],
       "open_question_ids": [],
       "flag_ids": [],
-      "notes": "v1.8: version header corrected; GOV.A §E.2 → GOV.A §E in Glossary and §7."
-    },
-    {
-      "id": "LR",
-      "shortcode": "LR",
-      "title": "The Wealth Delta Tax: Systematic Literature Review",
-      "version": "1.5",
-      "version_date": null,
-      "status": "superseded",
-      "outbound_ext_citation_ids": [
-        "AgrawalEtAl2025__LR",
-        "AizenmanGlick2009__LR",
-        "Atkinson2015__LR",
-        "Auerbach1991__LR",
-        "AviYonahMazzoni2019__LR",
-        "AyresBraithwaite1992__LR",
-        "Bartels2008__LR",
-        "BastaniWaldenstrom2020__LR",
-        "BatchelderKamin2019__LR",
-        "BlanchetMartinezToledano2023__LR",
-        "BollEtAl2026__LR",
-        "Bradford1986__LR",
-        "BrickerEtAl2016__LR",
-        "BrulhartEtAl2022__LR",
-        "Chamley1986__LR",
-        "Dahl1985__LR",
-        "DebrunEtAl2008__LR",
-        "Delmotte2024__LR",
-        "DiasEtAl2025__LR",
-        "DomarMusgrave1944__LR",
-        "Elster2000__LR",
-        "Erard1993__LR",
-        "EuropeanCommission2026__LR",
-        "FagerengEtAl2020__LR",
-        "Fishkin2009__LR",
-        "FitzRoyKraft2005__LR",
-        "Frankel2010__LR",
-        "Freeman1984__LR",
-        "FungWright2003__LR",
-        "Galbraith1952__LR",
-        "Gangl2015a__LR",
-        "GarbintiEtAl2026__LR",
-        "Gilens2012__LR",
-        "GuvenonEtAl2023__LR",
-        "HackerPierson2010__LR",
-        "Haig1921__LR",
-        "Hansmann2022__LR",
-        "Harberger1965__LR",
-        "IAIS2017__LR",
-        "IacononoSmedsvik2024__LR",
-        "ICMIF2020__LR",
-        "IVSC2022__LR",
-        "JakobsenEtAl2020__LR",
-        "JakobsenEtAl2024__LR",
-        "JordaEtAl2019__LR",
-        "Judd1985__LR",
-        "Kaldor1955__LR",
-        "King1977__LR",
-        "Kirchler2007__LR",
-        "Klepper1989__LR",
-        "KlevenEtAl2024__LR",
-        "Kopczuk2015__LR",
-        "KopitsSymansky1998__LR",
-        "Kornhauser2007__LR",
-        "KydlandPrescott1977__LR",
-        "Levi1988__LR",
-        "LondonoVelezAvilaMahecha2025__LR",
-        "MacMinnRen2011__LR",
-        "Mills1956__LR",
-        "MurphyNagel2002__LR",
-        "OECD2025__LR",
-        "OSullivan1998__LR",
-        "Olson1965__LR",
-        "Ostrom1990__LR",
-        "PereiraGray2021__LR",
-        "Perret2021__LR",
-        "Piketty2014__LR",
-        "PikettyEtAl2023__LR",
-        "PosnerWeyl2018__LR",
-        "Rawls1971__LR",
-        "Richardson2008__LR",
-        "Rothstein2001__LR",
-        "RothsteinUslaner2005__LR",
-        "SaezSlemrodGiertz2012__LR",
-        "SaezZucman2016__LR",
-        "SaezZucman2019__LR",
-        "SakuraiBraithwaite2003__LR",
-        "Sandmo1977__LR",
-        "Seim2017__LR",
-        "Shakow1986__LR",
-        "Shaviro2000__LR",
-        "Shaviro2021__LR",
-        "Simons1938__LR",
-        "Stiglitz1969__LR",
-        "StraubWerning2020__LR",
-        "Truman2008__LR",
-        "Tyler1990__LR",
-        "ViardCarroll2012__LR",
-        "Vickrey1939__LR",
-        "Weisbach2000__LR",
-        "WeylZhang2022__LR",
-        "Wyplosz2005__LR",
-        "Zelenak2021__LR",
-        "Zucman2024__LR",
-        "Zucman2026__LR",
-        "BollEtAl2026__LR",
-        "KlevenEtAl2011__LR",
-        "BlairStout1999__LR",
-        "Addison2009__LR",
-        "FitzRoyKraft2005__LR",
-        "Freeman1984__LR",
-        "HackerPierson2010__LR",
-        "IacononoSmedsvik2024__LR"
-      ],
-      "outbound_internal": [
-        "LR.A",
-        "LR.B"
-      ],
-      "inbound_internal": [
-        "WP"
-      ],
-      "open_question_ids": [],
-      "flag_ids": [
-        "flag_01",
-        "flag_02",
-        "flag_03",
-        "flag_13",
-        "flag_14"
-      ],
-      "notes": "Superseded as standalone survey by LR.A + LR.B companion pair. Flags 1 (Brülhart year/journal), 2 (Jakobsen first author), 3 (Londoño-Vélez journal version), 13 (Rothstein year), 14 (Kornhauser year) all require paper revision."
+      "notes": "v1.02 (260829): architectural stability argument added to §2; §3 restructured to distinguish ontological and causal collective production claims; §3.1 procedural limits of prospective participation clarified; abstract and glossary updated. v1.03 (260829): temporal seams eliminated; §2.3 uses administrative-capacity framing; §3.1 ontological claim narrowed to forms of wealth WDT targets; Wittgenstein material reduced; labour-theory-adjacent language removed from §3.2; §5 renamed; §6 rewritten around mutual-dependency framing; glossary and conclusion updated. v1.04 (260916): stale cross-reference in §9.2 fixed (MF §4 → MF §7); ontological/causal independence clarified in §1; Scanlon contractualist framing added to §3.3; Pettit non-domination framework and dependency-control characterisation added to §6; three convergent arguments made explicit in §7; continuously-reproduced contract framing added to §7; non-domination added to glossary. New citations in v1.04: Pettit1997, Pettit2012, Scanlon1998, Wittgenstein1953, Searle1995."
     },
     {
       "id": "LR.A",
       "shortcode": "LR.A",
       "title": "The Wealth Delta Tax: Research Gaps in the Existing Literature",
-      "version": "0.1",
-      "version_date": "260802",
+      "version": "1.00",
+      "version_date": "260815",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AgrawalEtAl2025__LRA",
@@ -286,8 +161,8 @@
       "id": "LR.B",
       "shortcode": "LR.B",
       "title": "The Wealth Delta Tax: Intellectual Background and Reference Guide",
-      "version": "0.1",
-      "version_date": "260802",
+      "version": "1.00",
+      "version_date": "260815",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AdvaniEtAl2020__LRB",
@@ -412,8 +287,8 @@
       "id": "VAL",
       "shortcode": "VAL",
       "title": "The Wealth Delta Tax: Valuing Wealth",
-      "version": "2.10",
-      "version_date": "260815",
+      "version": "1.07",
+      "version_date": "260912",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AviYonahMazzoni2019__VAL",
@@ -430,7 +305,6 @@
       "outbound_internal": [
         "WP",
         "MF",
-        "LR",
         "VAL.A",
         "VAL.B",
         "JUR",
@@ -451,20 +325,19 @@
       "flag_ids": [
         "flag_12"
       ],
-      "notes": "v2.10: N=29 following RATES budget_growth correction to 4.51%. Flag 12: SaezZucman2019 in VAL References with no in-text citation — author decision pending."
+      "notes": "v1.07 (260912): tolerant zone (α ≈ 0.8–1.5) promoted as primary result throughout abstract, §7.1, §7.3, §9, §14.2, §15; mild upward declaration bias (α ≈ 1.1) characterised as conditional model-implied behavioural prediction from refund-protection asymmetry, not population equilibrium or dominant strategy; overstatement side of tolerant zone (α = 1.2, 1.5) characterised as illustrative points within zone; §7.1 rewritten to lead with three-layer structure; §7.3 corrected — at N=30 all four overstater levels cross into nominal net-cost territory above g≈7%, including α=1.2 and α=1.5; 'population equilibrium' replaced throughout with 'model-implied behavioural centre'."
     },
     {
       "id": "VAL.A",
       "shortcode": "VAL.A",
       "title": "The Wealth Delta Tax: Valuing Wealth — Mathematical and Simulation Companion",
-      "version": "3.1",
-      "version_date": "260815",
+      "version": "1.04",
+      "version_date": "260830",
       "status": "active",
       "outbound_ext_citation_ids": [],
       "outbound_internal": [
         "WP",
         "MF",
-        "LR",
         "VAL",
         "VAL.B",
         "JUR",
@@ -488,14 +361,13 @@
       "id": "VAL.B",
       "shortcode": "VAL.B",
       "title": "The Wealth Delta Tax: Valuing Wealth — Worked Examples",
-      "version": "1.5",
-      "version_date": "260813",
+      "version": "1.03",
+      "version_date": "260830",
       "status": "active",
       "outbound_ext_citation_ids": [],
       "outbound_internal": [
         "WP",
         "MF",
-        "LR",
         "VAL",
         "VAL.A",
         "JUR",
@@ -559,8 +431,8 @@
       "id": "CORP",
       "shortcode": "CORP",
       "title": "The Wealth Delta Tax: Corporate Architecture",
-      "version": "2.1",
-      "version_date": "260810",
+      "version": "1.01",
+      "version_date": "260820",
       "status": "active",
       "outbound_ext_citation_ids": [
         "Auerbach1991__CORP",
@@ -596,8 +468,8 @@
       "id": "CORP.A",
       "shortcode": "CORP.A",
       "title": "The Wealth Delta Tax: Corporate Architecture Appendix",
-      "version": "2.1",
-      "version_date": "260810",
+      "version": "1.01",
+      "version_date": "260820",
       "status": "active",
       "outbound_ext_citation_ids": [
         "RingEtAl2026__CORPA"
@@ -624,8 +496,8 @@
       "id": "GOV",
       "shortcode": "GOV",
       "title": "The Wealth Delta Tax: Constitutional Governance",
-      "version": "2.8",
-      "version_date": "260810",
+      "version": "1.01",
+      "version_date": "260829",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AizenmanGlick2009__GOV",
@@ -644,7 +516,6 @@
       ],
       "inbound_internal": [
         "WP",
-        "LR",
         "CORP",
         "CORP.A",
         "JUR",
@@ -658,8 +529,8 @@
       "id": "GOV.A",
       "shortcode": "GOV.A",
       "title": "The Wealth Delta Tax: Constitutional Governance Appendix",
-      "version": "2.1",
-      "version_date": "260809",
+      "version": "1.00",
+      "version_date": "260815",
       "status": "active",
       "outbound_ext_citation_ids": [
         "Elster2000__GOVA",
@@ -671,7 +542,6 @@
       ],
       "inbound_internal": [
         "WP",
-        "LR",
         "GOV",
         "GOV.B"
       ],
@@ -683,8 +553,8 @@
       "id": "GOV.B",
       "shortcode": "GOV.B",
       "title": "The Wealth Delta Tax: Constitutional Governance — Operational Appendix",
-      "version": "0.6",
-      "version_date": "260810",
+      "version": "1.01",
+      "version_date": "260829",
       "status": "active",
       "outbound_ext_citation_ids": [],
       "outbound_internal": [
@@ -705,8 +575,8 @@
       "id": "RATES",
       "shortcode": "RATES",
       "title": "The Wealth Delta Tax: Rates and Revenue",
-      "version": "2.6",
-      "version_date": "260815",
+      "version": "1.03",
+      "version_date": "260913",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AdvaniEtAl2020__RATES",
@@ -744,14 +614,14 @@
         "SWEEPS-1"
       ],
       "flag_ids": [],
-      "notes": "v2.6: budget_growth corrected from 5.24% to 4.51% per JUR v1.8 §2.11; all expenditure-denominator figures updated; N=29."
+      "notes": "v1.01 (260831): TCM coverage ratio corrected (27.7% → 27.4%); minimum-coverage start-year corrected (2003 → 2005). v1.02 (260912): active scenario updated from 2007 to 2000 Balanced; coverage metric updated from capitalisation-window average to post-LRR-fill Step-5 window average; all reference-scenario figures updated (N, expenditure, surplus, burden matrices, terminal wealth, revenue tiers); lifetime contribution envelope discussion added to §4; success definition updated to v8. v1.03 (260913): terminal net worth table and Fig. 3 updated from N=19 to N=30 canonical horizon; table footnote, figure caption, and §2 prose figures updated accordingly."
     },
     {
       "id": "RATES.A",
       "shortcode": "RATES.A",
       "title": "The Wealth Delta Tax: Rates and Revenue Appendix",
-      "version": "1.4",
-      "version_date": "260815",
+      "version": "1.01",
+      "version_date": "260831",
       "status": "active",
       "outbound_ext_citation_ids": [
         "HMTreasury2024__RATESA",
@@ -771,8 +641,8 @@
       "id": "BEHAV",
       "shortcode": "BEHAV",
       "title": "The Wealth Delta Tax: Behavioural Robustness and Administrative Experience",
-      "version": "1.4",
-      "version_date": "260814",
+      "version": "1.01",
+      "version_date": "260914",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AgrawalEtAl2025__BEHAV",
@@ -800,14 +670,14 @@
       "flag_ids": [
         "flag_03"
       ],
-      "notes": "v1.4: full structural rewrite; §§6.3, 8.12, 8.13, 10 added; §9.2 substantially rewritten; §§10-12 renumbered §§11-13. Flag 3: Londoño-Vélez cited as 2024 NBER WP — update to 2025 journal."
+      "notes": "v1.01 (260914): abstract updated to reference tolerant zone as bounding the enforcement claim; §8.11 reframed — Route D enforcement residual characterised as egregious-understatement tail, not general valuation problem, referencing VAL §7.1 tolerant zone (α ≈ 0.8–1.5) and updated equilibrium framing (α ≈ 1.1 as conditional prediction, not dominant strategy); §8.12 extended — tolerant zone substantially reduces enforcement problem for non-egregious declaration range; §9.2 new sub-section noting WDT is not a stock wealth tax and Agrawal ratio calibrated to structurally different systems (directional risk retained, magnitude uncertain); §6.3 new paragraph on SWEEPS parameter separability as structural contribution to Clarity and Fairness membrane dimensions."
     },
     {
       "id": "CLOSE",
       "shortcode": "CLOSE",
       "title": "The Wealth Delta Tax: Position Closure",
-      "version": "0.7",
-      "version_date": "260808",
+      "version": "1.01",
+      "version_date": "260911",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AgrawalEtAl2025__CLOSE",
@@ -832,14 +702,14 @@
       "flag_ids": [
         "flag_03"
       ],
-      "notes": "CLOSE OQ 1 closed by GOV v1.4. Flag 3: Londoño-Vélez cited as 2024 NBER WP — update to 2025 journal."
+      "notes": "v1.01 (260911): §8.4 added — beyond-lifetime-cap exploitation surface and rationale for the cap."
     },
     {
       "id": "POL",
       "shortcode": "POL",
       "title": "The Wealth Delta Tax: Political Architecture",
-      "version": "0.3",
-      "version_date": "260808",
+      "version": "1.00",
+      "version_date": "260815",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AyresBraithwaite1992__POL",
@@ -880,8 +750,8 @@
       "id": "PHASE1",
       "shortcode": "PHASE1",
       "title": "The Wealth Delta Tax: Phase One",
-      "version": "0.2",
-      "version_date": "260808",
+      "version": "1.00",
+      "version_date": "260815",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AgrawalEtAl2025__PHASE1",
@@ -935,8 +805,8 @@
       "id": "ENV",
       "shortcode": "ENV",
       "title": "The Wealth Delta Tax: Environmental Effects and Transmission Channels",
-      "version": "0.3",
-      "version_date": "260809",
+      "version": "1.00",
+      "version_date": "260815",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AgrawalEtAl2025__ENV",
@@ -985,8 +855,8 @@
       "id": "FM",
       "shortcode": "FM",
       "title": "The Wealth Delta Tax: First Mover",
-      "version": "0.7",
-      "version_date": "260814",
+      "version": "1.01",
+      "version_date": "260823",
       "status": "active",
       "outbound_ext_citation_ids": [
         "BatchelderKamin2019__FM",
@@ -1022,8 +892,8 @@
       "id": "MOD",
       "shortcode": "MOD",
       "title": "The Wealth Delta Tax: Modular Adoption",
-      "version": "0.2",
-      "version_date": "260814",
+      "version": "1.00",
+      "version_date": "260815",
       "status": "active",
       "outbound_ext_citation_ids": [],
       "outbound_internal": [
@@ -1058,8 +928,8 @@
       "id": "SWEEPS",
       "shortcode": "SWEEPS",
       "title": "The Wealth Delta Tax: Parameter Space and Governing Council Calibration",
-      "version": "0.3",
-      "version_date": "260815",
+      "version": "1.03",
+      "version_date": "260914",
       "status": "active",
       "outbound_ext_citation_ids": [],
       "outbound_internal": [
@@ -1095,14 +965,14 @@
       "flag_ids": [
         "flag_28"
       ],
-      "notes": "Calibration reference paper. SWEEPS-3 closed within paper. v0.3: budget_growth corrected to 4.51% throughout. Flag 28: References section is a placeholder — full ingestion pass required when populated."
+      "notes": "v1.01 (260831): numerical and argumentative update to match confirmed SWEEPS.A canonical tables. v1.02 (260831): glossary declaration equilibrium definition corrected — refund-protection-asymmetry rationale (α ≈ 1.1) replaces stable TW advantage (α ≈ 1.2–1.5); §2.2 N-crossing paragraph extended with clarification that NPV-adjusted C.12 eliminates mild-overstater advantage prior to nominal N-crossing point. v1.03 (260914): four new figures with accompanying prose added — Fig 7.3 (constant-g sensitivity on LRR fill year and coverage), Fig 7.4 (cross-parameter coverage fan), Fig 7.5 (synthetic sinusoidal stress-test), Fig 8.3c (SWF stress margins — zero-coverage years and LRR buffer headroom). Flag 28 (missing References section) remains open."
     },
     {
       "id": "SWEEPS.A",
       "shortcode": "SWEEPS.A",
       "title": "The Wealth Delta Tax: Parameter Space and Governing Council Calibration — Appendix Tables",
-      "version": "0.2",
-      "version_date": "260815",
+      "version": "1.01",
+      "version_date": "260831",
       "status": "active",
       "outbound_ext_citation_ids": [],
       "outbound_internal": [
@@ -1120,8 +990,8 @@
       "id": "SCOPE",
       "shortcode": "SCOPE",
       "title": "The Wealth Delta Tax: Scope Boundary — Questions Outside This Project",
-      "version": "0.1",
-      "version_date": "260806",
+      "version": "0.2",
+      "version_date": "260821",
       "status": "active",
       "outbound_ext_citation_ids": [],
       "outbound_internal": [],
@@ -1144,19 +1014,84 @@
       ],
       "flag_ids": [],
       "notes": "Records twelve open questions deferred as outside project scope. Four categories: modelling tasks left to future researchers; questions requiring legal/jurisdictional expertise; questions requiring international coordination; items deferred to post-Phase One. Does not introduce new positions or resolve any question."
+    },
+    {
+      "id": "WFR",
+      "shortcode": "WFR",
+      "title": "The Wealth Delta Tax: Welfare Comparison Across Tax Systems at Revenue Equivalence",
+      "version": "0.03",
+      "version_date": "260916",
+      "status": "active",
+      "outbound_ext_citation_ids": [
+        "AgrawalEtAl2025__WFR",
+        "ArachiDAntoni2022__WFR",
+        "BastaniWaldenstrom2020__WFR",
+        "BoadwaySpiritusEtAl2025__WFR",
+        "DalleLucheEtAl2026__WFR",
+        "DomarMusgrave1944__WFR",
+        "FagerengEtAl2016__WFR",
+        "FagerengEtAl2020__WFR",
+        "FlavinYamashita2002__WFR",
+        "GarbintiEtAl2026__WFR",
+        "GerritsenEtAl2025__WFR",
+        "GuvenonEtAl2023__WFR",
+        "HebousEtAl2024__WFR",
+        "JakobsenEtAl2020__WFR",
+        "King1977__WFR",
+        "OECD2025__WFR",
+        "Vickrey1939__WFR"
+      ],
+      "outbound_internal": [
+        "WP",
+        "LR.A",
+        "VAL",
+        "RATES",
+        "SWEEPS",
+        "BEHAV",
+        "CLOSE",
+        "ENV",
+        "PHASE1",
+        "WFR.A"
+      ],
+      "inbound_internal": [],
+      "open_question_ids": [],
+      "flag_ids": [],
+      "notes": "v0.01 (260913): initial scaffold. v0.02 (260916): verbal compression. v0.03 (260916): epistemic tightening — Arachi claim bounded to loss-year component with entry-margin qualification; P(locked in) decomposition relabelled; T≥8 plateau reframed as realisation-induced portfolio persistence; SRR claim corrected to bound taxpayer-level exposure; 479× and income tax concentration figures qualified as model-simulated; welfare object taxonomy distinguished in §6.1; asymmetric CGT/WDT treatment made prominent in §2.4; burden-of-consideration conclusion reframed analytically; incidence ≠ welfare progressivity distinction added to §4.3.4; horizon choice defended in §2.1; §7.4 TODO resolved — N=73 run committed to WFR.A §F. Companion EVAL paper referenced but not yet in project. Six systems compared: flat WDT, progressive WDT, income tax, CGT, stock wealth tax, consumption tax. Pre-behavioural throughout. Key results: WDT leads by 17.4 bp at controlled baseline, 141–143 bp once CGT lock-in admitted; stock wealth tax and consumption tax welfare-equivalent at −1.8870% across all γ; 286–288× Great/Poor concentration under WDT vs 479× for stock-base systems at N=30."
+    },
+    {
+      "id": "WFR.A",
+      "shortcode": "WFR.A",
+      "title": "The Wealth Delta Tax: Welfare Comparison Appendix Tables",
+      "version": "0.01",
+      "version_date": "260910",
+      "status": "active",
+      "outbound_ext_citation_ids": [],
+      "outbound_internal": [
+        "WFR"
+      ],
+      "inbound_internal": [
+        "WFR"
+      ],
+      "open_question_ids": [],
+      "flag_ids": [],
+      "notes": "v0.01 (260910): initial generation — simulation tables §A–§E covering baseline single-agent comparison, progressive rate complications, CGT lock-in distortion, heterogeneous agent incidence and concentration, and welfare sweep analysis across revenue targets, start years, and logistic rate parameters. §F (N=73 start-year sweep) committed per WFR v0.03."
+    },
+    {
+      "id": "ADD",
+      "shortcode": "ADD",
+      "title": "The Wealth Delta Tax: Addendum: Implementation Calibration Examples",
+      "version": "0.01",
+      "version_date": "260827",
+      "status": "active",
+      "outbound_ext_citation_ids": [],
+      "outbound_internal": [],
+      "inbound_internal": [],
+      "open_question_ids": [],
+      "flag_ids": [],
+      "notes": "v0.01 (260827): initial draft. Eight implementation questions with approach sketches."
     }
   ],
   "citations": [
-    {
-      "id": "Addison2009__LR",
-      "ref_id": "Addison2009",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.2"
-      ],
-      "notes": null
-    },
     {
       "id": "Addison2009__LRB",
       "ref_id": "Addison2009",
@@ -1199,18 +1134,6 @@
       "relationship": "in_text",
       "sections": [
         "8"
-      ],
-      "notes": null
-    },
-    {
-      "id": "AgrawalEtAl2025__LR",
-      "ref_id": "AgrawalEtAl2025",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3",
-        "10",
-        "12"
       ],
       "notes": null
     },
@@ -1288,16 +1211,6 @@
       "notes": null
     },
     {
-      "id": "AizenmanGlick2009__LR",
-      "ref_id": "AizenmanGlick2009",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8"
-      ],
-      "notes": null
-    },
-    {
       "id": "AizenmanGlick2009__GOV",
       "ref_id": "AizenmanGlick2009",
       "paper_id": "GOV",
@@ -1314,16 +1227,6 @@
       "relationship": "in_text",
       "sections": [
         "14"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Ambachtsheer2007__LR",
-      "ref_id": "Ambachtsheer2007",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.1"
       ],
       "notes": null
     },
@@ -1346,16 +1249,6 @@
       "notes": null
     },
     {
-      "id": "Atkinson2015__LR",
-      "ref_id": "Atkinson2015",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "11"
-      ],
-      "notes": null
-    },
-    {
       "id": "Atkinson2015__LRB",
       "ref_id": "Atkinson2015",
       "paper_id": "LRB",
@@ -1372,16 +1265,6 @@
       "relationship": "in_text",
       "sections": [
         "2.1"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Auerbach1991__LR",
-      "ref_id": "Auerbach1991",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "2"
       ],
       "notes": null
     },
@@ -1430,16 +1313,6 @@
       "notes": "Accrual vs. realisation design; 2% wealth tax has same dilution effect as mark-to-market but no insurance offset"
     },
     {
-      "id": "AviYonahMazzoni2019__LR",
-      "ref_id": "AviYonahMazzoni2019",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "2.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "AviYonahMazzoni2019__VAL",
       "ref_id": "AviYonahMazzoni2019",
       "paper_id": "VAL",
@@ -1468,16 +1341,6 @@
       "notes": null
     },
     {
-      "id": "AyresBraithwaite1992__LR",
-      "ref_id": "AyresBraithwaite1992",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7"
-      ],
-      "notes": null
-    },
-    {
       "id": "AyresBraithwaite1992__POL",
       "ref_id": "AyresBraithwaite1992",
       "paper_id": "POL",
@@ -1492,16 +1355,6 @@
       "relationship": "in_text",
       "sections": [
         "10"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Bartels2008__LR",
-      "ref_id": "Bartels2008",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "11.2"
       ],
       "notes": null
     },
@@ -1546,16 +1399,6 @@
       "notes": null
     },
     {
-      "id": "BatchelderKamin2019__LR",
-      "ref_id": "BatchelderKamin2019",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "2.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "BatchelderKamin2019__VAL",
       "ref_id": "BatchelderKamin2019",
       "paper_id": "VAL",
@@ -1596,32 +1439,12 @@
       "notes": null
     },
     {
-      "id": "BlanchetMartinezToledano2023__LR",
-      "ref_id": "BlanchetMartinezToledano2023",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "5.1"
-      ],
-      "notes": null
-    },
-    {
       "id": "BlanchetMartinezToledano2023__LRB",
       "ref_id": "BlanchetMartinezToledano2023",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "5"
-      ],
-      "notes": null
-    },
-    {
-      "id": "BlairStout1999__LR",
-      "ref_id": "BlairStout1999",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.2"
       ],
       "notes": null
     },
@@ -1645,17 +1468,6 @@
       "notes": "Revenue estimation methodology; billionaire effective tax rate ~0.2% of wealth"
     },
     {
-      "id": "BollEtAl2026__LR",
-      "ref_id": "BollEtAl2026",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3.1",
-        "12"
-      ],
-      "notes": "Billionaire wealth concentration and effective tax rate regressivity; AI-boom wealth dynamics 2023–2025"
-    },
-    {
       "id": "Bradford1986__WP",
       "ref_id": "Bradford1986",
       "paper_id": "WP",
@@ -1663,16 +1475,6 @@
       "sections": [
         "2.3",
         "B.2"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Bradford1986__LR",
-      "ref_id": "Bradford1986",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "5"
       ],
       "notes": null
     },
@@ -1718,16 +1520,6 @@
       "notes": null
     },
     {
-      "id": "BrickerEtAl2016__LR",
-      "ref_id": "BrickerEtAl2016",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3.1"
-      ],
-      "notes": null
-    },
-    {
       "id": "BrickerEtAl2016__LRB",
       "ref_id": "BrickerEtAl2016",
       "paper_id": "LRB",
@@ -1748,16 +1540,6 @@
       "notes": null
     },
     {
-      "id": "BrulhartEtAl2022__LR",
-      "ref_id": "BrulhartEtAl2022",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3"
-      ],
-      "notes": "Flag 1: LR cites year 2023 and wrong journal — action required in LR"
-    },
-    {
       "id": "BrulhartEtAl2022__LRB",
       "ref_id": "BrulhartEtAl2022",
       "paper_id": "LRB",
@@ -1774,16 +1556,6 @@
       "relationship": "in_text",
       "sections": [
         "2.3"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Chamley1986__LR",
-      "ref_id": "Chamley1986",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "5"
       ],
       "notes": null
     },
@@ -1809,16 +1581,6 @@
       "notes": null
     },
     {
-      "id": "ClarkUrwin2008__LR",
-      "ref_id": "ClarkUrwin2008",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.1"
-      ],
-      "notes": null
-    },
-    {
       "id": "ClarkUrwin2008__JUR",
       "ref_id": "ClarkUrwin2008",
       "paper_id": "JUR",
@@ -1833,16 +1595,6 @@
       "relationship": "in_text",
       "sections": [
         "13"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Dahl1985__LR",
-      "ref_id": "Dahl1985",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "11.2"
       ],
       "notes": null
     },
@@ -1867,16 +1619,6 @@
       "notes": null
     },
     {
-      "id": "DebrunEtAl2008__LR",
-      "ref_id": "DebrunEtAl2008",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.3"
-      ],
-      "notes": null
-    },
-    {
       "id": "DebrunEtAl2008__GOV",
       "ref_id": "DebrunEtAl2008",
       "paper_id": "GOV",
@@ -1897,32 +1639,12 @@
       "notes": null
     },
     {
-      "id": "Delmotte2024__LR",
-      "ref_id": "Delmotte2024",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "2.1"
-      ],
-      "notes": null
-    },
-    {
       "id": "Delmotte2024__LRB",
       "ref_id": "Delmotte2024",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "3"
-      ],
-      "notes": null
-    },
-    {
-      "id": "DiasEtAl2025__LR",
-      "ref_id": "DiasEtAl2025",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "5.1"
       ],
       "notes": null
     },
@@ -1954,18 +1676,6 @@
       "sections": [
         "2.5",
         "3.5"
-      ],
-      "notes": null
-    },
-    {
-      "id": "DomarMusgrave1944__LR",
-      "ref_id": "DomarMusgrave1944",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "4",
-        "4.1",
-        "12"
       ],
       "notes": null
     },
@@ -2047,16 +1757,6 @@
       "notes": null
     },
     {
-      "id": "Elster2000__LR",
-      "ref_id": "Elster2000",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.3"
-      ],
-      "notes": null
-    },
-    {
       "id": "Elster2000__GOV",
       "ref_id": "Elster2000",
       "paper_id": "GOV",
@@ -2074,16 +1774,6 @@
       "relationship": "in_text",
       "sections": [
         "E.1"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Erard1993__LR",
-      "ref_id": "Erard1993",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7.2"
       ],
       "notes": null
     },
@@ -2108,32 +1798,12 @@
       "notes": null
     },
     {
-      "id": "EuropeanCommission2026__LR",
-      "ref_id": "EuropeanCommission2026",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "10"
-      ],
-      "notes": null
-    },
-    {
       "id": "EuropeanCommission2026__LRB",
       "ref_id": "EuropeanCommission2026",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "18"
-      ],
-      "notes": null
-    },
-    {
-      "id": "FagerengEtAl2020__LR",
-      "ref_id": "FagerengEtAl2020",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3.2"
       ],
       "notes": null
     },
@@ -2169,32 +1839,12 @@
       "notes": null
     },
     {
-      "id": "Fishkin2009__LR",
-      "ref_id": "Fishkin2009",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "Fishkin2009__LRB",
       "ref_id": "Fishkin2009",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "12"
-      ],
-      "notes": null
-    },
-    {
-      "id": "FitzRoyKraft2005__LR",
-      "ref_id": "FitzRoyKraft2005",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.2"
       ],
       "notes": null
     },
@@ -2207,32 +1857,12 @@
       "notes": "Flag 17: appears in LR.B References section but no in-text citation identified"
     },
     {
-      "id": "Frankel2010__LR",
-      "ref_id": "Frankel2010",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8"
-      ],
-      "notes": null
-    },
-    {
       "id": "Frankel2010__LRB",
       "ref_id": "Frankel2010",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "14"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Freeman1984__LR",
-      "ref_id": "Freeman1984",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.2"
       ],
       "notes": null
     },
@@ -2245,16 +1875,6 @@
       "notes": "Flag 18: appears in LR.B References section but no in-text citation identified"
     },
     {
-      "id": "FungWright2003__LR",
-      "ref_id": "FungWright2003",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "FungWright2003__LRB",
       "ref_id": "FungWright2003",
       "paper_id": "LRB",
@@ -2265,33 +1885,12 @@
       "notes": null
     },
     {
-      "id": "Galbraith1952__LR",
-      "ref_id": "Galbraith1952",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "11.1"
-      ],
-      "notes": null
-    },
-    {
       "id": "Galbraith1952__LRB",
       "ref_id": "Galbraith1952",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "16"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Gangl2015a__LR",
-      "ref_id": "Gangl2015a",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7",
-        "12"
       ],
       "notes": null
     },
@@ -2380,16 +1979,6 @@
       "notes": "WDT third-party reporting regime; information policy as primary lever"
     },
     {
-      "id": "Gilens2012__LR",
-      "ref_id": "Gilens2012",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "11.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "Gilens2012__MF",
       "ref_id": "Gilens2012",
       "paper_id": "MF",
@@ -2418,17 +2007,6 @@
         "2.3",
         "2.5",
         "11.3"
-      ],
-      "notes": null
-    },
-    {
-      "id": "GuvenonEtAl2023__LR",
-      "ref_id": "GuvenonEtAl2023",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "5.1",
-        "12"
       ],
       "notes": null
     },
@@ -2474,16 +2052,6 @@
       "notes": null
     },
     {
-      "id": "HackerPierson2010__LR",
-      "ref_id": "HackerPierson2010",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "11.1"
-      ],
-      "notes": null
-    },
-    {
       "id": "HackerPierson2010__LRB",
       "ref_id": "HackerPierson2010",
       "paper_id": "LRB",
@@ -2500,16 +2068,6 @@
       "relationship": "in_text",
       "sections": [
         "2.1"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Haig1921__LR",
-      "ref_id": "Haig1921",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "2"
       ],
       "notes": null
     },
@@ -2535,16 +2093,6 @@
       "notes": null
     },
     {
-      "id": "Hansmann2022__LR",
-      "ref_id": "Hansmann2022",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "Hansmann2022__LRB",
       "ref_id": "Hansmann2022",
       "paper_id": "LRB",
@@ -2562,16 +2110,6 @@
       "sections": [
         "2.6",
         "4.3"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Harberger1965__LR",
-      "ref_id": "Harberger1965",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "6"
       ],
       "notes": null
     },
@@ -2703,16 +2241,6 @@
       "notes": "Derivation authority for 4.51% p.a. figure"
     },
     {
-      "id": "IAIS2017__LR",
-      "ref_id": "IAIS2017",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "9"
-      ],
-      "notes": null
-    },
-    {
       "id": "IacononoSmedsvik2024__BEHAV",
       "ref_id": "IacononoSmedsvik2024",
       "paper_id": "BEHAV",
@@ -2736,42 +2264,12 @@
       "notes": "Empirical ETW estimates for rate-setting calibration"
     },
     {
-      "id": "IacononoSmedsvik2024__LR",
-      "ref_id": "IacononoSmedsvik2024",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3"
-      ],
-      "notes": "Norwegian municipal reform; avoidance vs. real response channel"
-    },
-    {
-      "id": "ICMIF2020__LR",
-      "ref_id": "ICMIF2020",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "ICMIF2020__LRB",
       "ref_id": "ICMIF2020",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "13"
-      ],
-      "notes": null
-    },
-    {
-      "id": "IVSC2022__LR",
-      "ref_id": "IVSC2022",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "9"
       ],
       "notes": null
     },
@@ -2806,16 +2304,6 @@
       "notes": null
     },
     {
-      "id": "JakobsenEtAl2020__LR",
-      "ref_id": "JakobsenEtAl2020",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3"
-      ],
-      "notes": null
-    },
-    {
       "id": "JakobsenEtAl2020__LRB",
       "ref_id": "JakobsenEtAl2020",
       "paper_id": "LRB",
@@ -2835,17 +2323,6 @@
         "7.3"
       ],
       "notes": null
-    },
-    {
-      "id": "JakobsenEtAl2024__LR",
-      "ref_id": "JakobsenEtAl2024",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3",
-        "12"
-      ],
-      "notes": "Flag 2: LR omits Jakobsen as first author — action required in LR"
     },
     {
       "id": "JakobsenEtAl2024__JUR",
@@ -2937,16 +2414,6 @@
       "notes": null
     },
     {
-      "id": "Judd1985__LR",
-      "ref_id": "Judd1985",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "5"
-      ],
-      "notes": null
-    },
-    {
       "id": "Judd1985__LRA",
       "ref_id": "Judd1985",
       "paper_id": "LRA",
@@ -2978,16 +2445,6 @@
       "notes": null
     },
     {
-      "id": "Kaldor1955__LR",
-      "ref_id": "Kaldor1955",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "5"
-      ],
-      "notes": null
-    },
-    {
       "id": "Kaldor1955__MF",
       "ref_id": "Kaldor1955",
       "paper_id": "MF",
@@ -3009,17 +2466,6 @@
       "notes": null
     },
     {
-      "id": "King1977__LR",
-      "ref_id": "King1977",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "4.1",
-        "12"
-      ],
-      "notes": null
-    },
-    {
       "id": "King1977__LRA",
       "ref_id": "King1977",
       "paper_id": "LRA",
@@ -3036,17 +2482,6 @@
       "relationship": "in_text",
       "sections": [
         "4"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Kirchler2007__LR",
-      "ref_id": "Kirchler2007",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7",
-        "12"
       ],
       "notes": null
     },
@@ -3103,16 +2538,6 @@
       "notes": null
     },
     {
-      "id": "Klepper1989__LR",
-      "ref_id": "Klepper1989",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "Klepper1989__PHASE1",
       "ref_id": "Klepper1989",
       "paper_id": "PHASE1",
@@ -3158,17 +2583,6 @@
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
-        "10"
-      ],
-      "notes": null
-    },
-    {
-      "id": "KlevenEtAl2024__LR",
-      "ref_id": "KlevenEtAl2024",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3.2",
         "10"
       ],
       "notes": null
@@ -3236,32 +2650,12 @@
       "notes": null
     },
     {
-      "id": "Kopczuk2015__LR",
-      "ref_id": "Kopczuk2015",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3.1"
-      ],
-      "notes": null
-    },
-    {
       "id": "Kopczuk2015__LRB",
       "ref_id": "Kopczuk2015",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "7"
-      ],
-      "notes": null
-    },
-    {
-      "id": "KopitsSymansky1998__LR",
-      "ref_id": "KopitsSymansky1998",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.3"
       ],
       "notes": null
     },
@@ -3274,16 +2668,6 @@
         "15"
       ],
       "notes": null
-    },
-    {
-      "id": "Kornhauser2007__LR",
-      "ref_id": "Kornhauser2007",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7.2"
-      ],
-      "notes": "Flag 14: LR cites as Kornhauser (2009) — correct year is 2007"
     },
     {
       "id": "Kornhauser2007__LRA",
@@ -3302,16 +2686,6 @@
       "relationship": "in_text",
       "sections": [
         "11"
-      ],
-      "notes": null
-    },
-    {
-      "id": "KydlandPrescott1977__LR",
-      "ref_id": "KydlandPrescott1977",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.3"
       ],
       "notes": null
     },
@@ -3337,16 +2711,6 @@
       "notes": null
     },
     {
-      "id": "Levi1988__LR",
-      "ref_id": "Levi1988",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "Levi1988__LRB",
       "ref_id": "Levi1988",
       "paper_id": "LRB",
@@ -3363,17 +2727,6 @@
       "relationship": "in_text",
       "sections": [
         "2.2"
-      ],
-      "notes": "Flag 3: currently cited as 2024 NBER WP — update to 2025 journal version"
-    },
-    {
-      "id": "LondonoVelezAvilaMahecha2025__LR",
-      "ref_id": "LondonoVelezAvilaMahecha2025",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3",
-        "12"
       ],
       "notes": "Flag 3: currently cited as 2024 NBER WP — update to 2025 journal version"
     },
@@ -3426,16 +2779,6 @@
       "notes": null
     },
     {
-      "id": "MacMinnRen2011__LR",
-      "ref_id": "MacMinnRen2011",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "MacMinnRen2011__LRB",
       "ref_id": "MacMinnRen2011",
       "paper_id": "LRB",
@@ -3446,32 +2789,12 @@
       "notes": null
     },
     {
-      "id": "Mills1956__LR",
-      "ref_id": "Mills1956",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "11.1"
-      ],
-      "notes": null
-    },
-    {
       "id": "Mills1956__LRB",
       "ref_id": "Mills1956",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "16"
-      ],
-      "notes": null
-    },
-    {
-      "id": "MurphyNagel2002__LR",
-      "ref_id": "MurphyNagel2002",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "11"
       ],
       "notes": null
     },
@@ -3544,16 +2867,6 @@
       "notes": null
     },
     {
-      "id": "OECD2025__LR",
-      "ref_id": "OECD2025",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "10"
-      ],
-      "notes": null
-    },
-    {
       "id": "OECD2025__LRB",
       "ref_id": "OECD2025",
       "paper_id": "LRB",
@@ -3582,16 +2895,6 @@
         "5.1"
       ],
       "notes": "UK wealth distribution source; Pareto tail parameters for TCM wealth brackets"
-    },
-    {
-      "id": "Olson1965__LR",
-      "ref_id": "Olson1965",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7.1"
-      ],
-      "notes": null
     },
     {
       "id": "Olson1965__GOV",
@@ -3634,16 +2937,6 @@
       "notes": null
     },
     {
-      "id": "Ostrom1990__LR",
-      "ref_id": "Ostrom1990",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7.1"
-      ],
-      "notes": null
-    },
-    {
       "id": "Ostrom1990__GOV",
       "ref_id": "Ostrom1990",
       "paper_id": "GOV",
@@ -3674,32 +2967,12 @@
       "notes": null
     },
     {
-      "id": "OSullivan1998__LR",
-      "ref_id": "OSullivan1998",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "OSullivan1998__LRB",
       "ref_id": "OSullivan1998",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "13"
-      ],
-      "notes": null
-    },
-    {
-      "id": "PereiraGray2021__LR",
-      "ref_id": "PereiraGray2021",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "9"
       ],
       "notes": null
     },
@@ -3792,17 +3065,6 @@
       "notes": null
     },
     {
-      "id": "Piketty2014__LR",
-      "ref_id": "Piketty2014",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3.1",
-        "11"
-      ],
-      "notes": null
-    },
-    {
       "id": "Piketty2014__LRB",
       "ref_id": "Piketty2014",
       "paper_id": "LRB",
@@ -3819,16 +3081,6 @@
       "relationship": "references_only",
       "sections": [],
       "notes": "Flag 4: appears in WP References section but no in-text citation identified"
-    },
-    {
-      "id": "PikettyEtAl2023__LR",
-      "ref_id": "PikettyEtAl2023",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "5.1"
-      ],
-      "notes": null
     },
     {
       "id": "PikettyEtAl2023__LRA",
@@ -3918,17 +3170,6 @@
       "notes": null
     },
     {
-      "id": "PosnerWeyl2018__LR",
-      "ref_id": "PosnerWeyl2018",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "6",
-        "12"
-      ],
-      "notes": null
-    },
-    {
       "id": "PosnerWeyl2018__VAL",
       "ref_id": "PosnerWeyl2018",
       "paper_id": "VAL",
@@ -3978,16 +3219,6 @@
       "notes": "Flag 22: cited without year parenthetical — should be Prewitt (2019)"
     },
     {
-      "id": "Rawls1971__LR",
-      "ref_id": "Rawls1971",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "11"
-      ],
-      "notes": null
-    },
-    {
       "id": "Rawls1971__LRB",
       "ref_id": "Rawls1971",
       "paper_id": "LRB",
@@ -4013,16 +3244,6 @@
       "sections": [
         "1.5.3",
         "2.7"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Richardson2008__LR",
-      "ref_id": "Richardson2008",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7.2"
       ],
       "notes": null
     },
@@ -4088,16 +3309,6 @@
       "notes": "Existing proposals fail because they do not close the holding company gap; WDT purchase option and corporate delta levy address this directly"
     },
     {
-      "id": "Rothstein2001__LR",
-      "ref_id": "Rothstein2001",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7.2"
-      ],
-      "notes": "Flag 13: LR cites as Rothstein (2000) — correct year is 2001"
-    },
-    {
       "id": "Rothstein2001__LRB",
       "ref_id": "Rothstein2001",
       "paper_id": "LRB",
@@ -4108,32 +3319,12 @@
       "notes": null
     },
     {
-      "id": "RothsteinUslaner2005__LR",
-      "ref_id": "RothsteinUslaner2005",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "RothsteinUslaner2005__LRB",
       "ref_id": "RothsteinUslaner2005",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "11"
-      ],
-      "notes": null
-    },
-    {
-      "id": "SakuraiBraithwaite2003__LR",
-      "ref_id": "SakuraiBraithwaite2003",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7.2"
       ],
       "notes": null
     },
@@ -4186,16 +3377,6 @@
       "notes": null
     },
     {
-      "id": "SaezZucman2016__LR",
-      "ref_id": "SaezZucman2016",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3.1"
-      ],
-      "notes": null
-    },
-    {
       "id": "SaezZucman2016__LRB",
       "ref_id": "SaezZucman2016",
       "paper_id": "LRB",
@@ -4216,16 +3397,6 @@
       "notes": null
     },
     {
-      "id": "SaezZucman2019__LR",
-      "ref_id": "SaezZucman2019",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3.1"
-      ],
-      "notes": null
-    },
-    {
       "id": "SaezZucman2019__VAL",
       "ref_id": "SaezZucman2019",
       "paper_id": "VAL",
@@ -4240,17 +3411,6 @@
       "relationship": "in_text",
       "sections": [
         "7"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Sandmo1977__LR",
-      "ref_id": "Sandmo1977",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "4.1",
-        "12"
       ],
       "notes": null
     },
@@ -4295,16 +3455,6 @@
       "notes": null
     },
     {
-      "id": "Seim2017__LR",
-      "ref_id": "Seim2017",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3"
-      ],
-      "notes": null
-    },
-    {
       "id": "Seim2017__LRB",
       "ref_id": "Seim2017",
       "paper_id": "LRB",
@@ -4322,16 +3472,6 @@
       "sections": [
         "2.1",
         "2.7"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Shakow1986__LR",
-      "ref_id": "Shakow1986",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "2"
       ],
       "notes": null
     },
@@ -4377,32 +3517,12 @@
       "notes": null
     },
     {
-      "id": "Shaviro2000__LR",
-      "ref_id": "Shaviro2000",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "2.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "Shaviro2000__LRB",
       "ref_id": "Shaviro2000",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "3"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Shaviro2021__LR",
-      "ref_id": "Shaviro2021",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "2.2"
       ],
       "notes": null
     },
@@ -4427,16 +3547,6 @@
       "notes": null
     },
     {
-      "id": "Simons1938__LR",
-      "ref_id": "Simons1938",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "2"
-      ],
-      "notes": null
-    },
-    {
       "id": "Simons1938__CORP",
       "ref_id": "Simons1938",
       "paper_id": "CORP",
@@ -4453,17 +3563,6 @@
       "relationship": "in_text",
       "sections": [
         "2"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Stiglitz1969__LR",
-      "ref_id": "Stiglitz1969",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "4.1",
-        "12"
       ],
       "notes": null
     },
@@ -4494,16 +3593,6 @@
       "relationship": "in_text",
       "sections": [
         "4"
-      ],
-      "notes": null
-    },
-    {
-      "id": "StraubWerning2020__LR",
-      "ref_id": "StraubWerning2020",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "5"
       ],
       "notes": null
     },
@@ -4556,16 +3645,6 @@
       "notes": "Noted as requiring section assignment; cited in GOV.A §A.2 in the failure-mode taxonomy context"
     },
     {
-      "id": "Truman2008__LR",
-      "ref_id": "Truman2008",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8"
-      ],
-      "notes": null
-    },
-    {
       "id": "Truman2008__GOV",
       "ref_id": "Truman2008",
       "paper_id": "GOV",
@@ -4582,17 +3661,6 @@
       "relationship": "in_text",
       "sections": [
         "14"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Tyler1990__LR",
-      "ref_id": "Tyler1990",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7",
-        "11.3"
       ],
       "notes": null
     },
@@ -4670,16 +3738,6 @@
       "notes": null
     },
     {
-      "id": "ViardCarroll2012__LR",
-      "ref_id": "ViardCarroll2012",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "5"
-      ],
-      "notes": null
-    },
-    {
       "id": "ViardCarroll2012__LRA",
       "ref_id": "ViardCarroll2012",
       "paper_id": "LRA",
@@ -4706,16 +3764,6 @@
       "relationship": "in_text",
       "sections": [
         "2.1"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Vickrey1939__LR",
-      "ref_id": "Vickrey1939",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "2"
       ],
       "notes": null
     },
@@ -4770,16 +3818,6 @@
       "notes": null
     },
     {
-      "id": "Weisbach2000__LR",
-      "ref_id": "Weisbach2000",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "2.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "Weisbach2000__CORP",
       "ref_id": "Weisbach2000",
       "paper_id": "CORP",
@@ -4806,16 +3844,6 @@
       "relationship": "in_text",
       "sections": [
         "2.6"
-      ],
-      "notes": null
-    },
-    {
-      "id": "WeylZhang2022__LR",
-      "ref_id": "WeylZhang2022",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "6"
       ],
       "notes": null
     },
@@ -4858,32 +3886,12 @@
       "notes": "Flag 21: appears in LR.B References section but no in-text citation identified"
     },
     {
-      "id": "Wyplosz2005__LR",
-      "ref_id": "Wyplosz2005",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "8.3"
-      ],
-      "notes": null
-    },
-    {
       "id": "Wyplosz2005__LRB",
       "ref_id": "Wyplosz2005",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "15"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Zelenak2021__LR",
-      "ref_id": "Zelenak2021",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "2.1"
       ],
       "notes": null
     },
@@ -4902,17 +3910,6 @@
       "relationship": "in_text",
       "sections": [
         "3"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Zucman2024__LR",
-      "ref_id": "Zucman2024",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "10",
-        "12"
       ],
       "notes": null
     },
@@ -4946,17 +3943,6 @@
         "18"
       ],
       "notes": null
-    },
-    {
-      "id": "Zucman2026__LR",
-      "ref_id": "Zucman2026",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "10",
-        "12"
-      ],
-      "notes": "Policy synthesis of minimum tax proposal; 2025–2026 political developments: French National Assembly vote February 2025, California Prop. 40 November 2026"
     },
     {
       "id": "Zucman2026__FM",
@@ -4998,71 +3984,6 @@
       "notes": null
     },
     {
-      "id": "BastaniWaldenstrom2020__LR",
-      "ref_id": "BastaniWaldenstrom2020",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3.2"
-      ],
-      "notes": null
-    },
-    {
-      "id": "GarbintiEtAl2026__LR",
-      "ref_id": "GarbintiEtAl2026",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3.1",
-        "12"
-      ],
-      "notes": null
-    },
-    {
-      "id": "JordaEtAl2019__LR",
-      "ref_id": "JordaEtAl2019",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "5.2"
-      ],
-      "notes": null
-    },
-    {
-      "id": "Perret2021__LR",
-      "ref_id": "Perret2021",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3.1",
-        "3.2",
-        "3.3",
-        "3.4",
-        "3.5"
-      ],
-      "notes": null
-    },
-    {
-      "id": "SaezSlemrodGiertz2012__LR",
-      "ref_id": "SaezSlemrodGiertz2012",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "3.1"
-      ],
-      "notes": null
-    },
-    {
-      "id": "KlevenEtAl2011__LR",
-      "ref_id": "KlevenEtAl2011",
-      "paper_id": "LR",
-      "relationship": "in_text",
-      "sections": [
-        "7.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "Elster2000__LRB",
       "ref_id": "Elster2000",
       "paper_id": "LRB",
@@ -5071,46 +3992,247 @@
         "15"
       ],
       "notes": null
+    },
+    {
+      "id": "Pettit1997__MF",
+      "paper_id": "MF",
+      "ref_id": "Pettit1997",
+      "relationship": "in_text",
+      "sections": [
+        "6"
+      ],
+      "notes": "v1.04: Pettit non-domination framework added to §6"
+    },
+    {
+      "id": "Pettit2012__MF",
+      "paper_id": "MF",
+      "ref_id": "Pettit2012",
+      "relationship": "in_text",
+      "sections": [
+        "6"
+      ],
+      "notes": "v1.04: cited alongside Pettit1997 for non-domination framework"
+    },
+    {
+      "id": "Scanlon1998__MF",
+      "paper_id": "MF",
+      "ref_id": "Scanlon1998",
+      "relationship": "in_text",
+      "sections": [
+        "3.3"
+      ],
+      "notes": "v1.04: contractualist criterion — whether principle could be reasonably rejected"
+    },
+    {
+      "id": "Wittgenstein1953__MF",
+      "paper_id": "MF",
+      "ref_id": "Wittgenstein1953",
+      "relationship": "in_text",
+      "sections": [
+        "3.1"
+      ],
+      "notes": "Private language argument — rule-following depends on irreducibly collective conceptual frameworks"
+    },
+    {
+      "id": "Searle1995__MF",
+      "paper_id": "MF",
+      "ref_id": "Searle1995",
+      "relationship": "in_text",
+      "sections": [
+        "3.1"
+      ],
+      "notes": "Institutional facts — money, property, corporate equity exist because of collective practice"
+    },
+    {
+      "id": "ArachiDAntoni2022__WFR",
+      "paper_id": "WFR",
+      "ref_id": "ArachiDAntoni2022",
+      "relationship": "in_text",
+      "sections": [
+        "4.2",
+        "4.2.3",
+        "5.4"
+      ],
+      "notes": "Fiscal Studies: accrual taxation not automatically welfare superior to realisation — intertemporal consumption distortion in appreciation years. WFR §4.2.3 establishes symmetric refund addresses loss-year component; entry-margin qualification retained."
+    },
+    {
+      "id": "BoadwaySpiritusEtAl2025__WFR",
+      "paper_id": "WFR",
+      "ref_id": "BoadwaySpiritusEtAl2025",
+      "relationship": "in_text",
+      "sections": [
+        "5.5",
+        "7.2"
+      ],
+      "notes": "Positive capital income taxation can be Pareto-efficient when returns are heterogeneous; optimal rate rises with return heterogeneity. Directly opposing conclusion to GuvenonEtAl2023 — unresolved frontier dispute WFR does not adjudicate."
+    },
+    {
+      "id": "DalleLucheEtAl2026__WFR",
+      "paper_id": "WFR",
+      "ref_id": "DalleLucheEtAl2026",
+      "relationship": "in_text",
+      "sections": [
+        "5.5"
+      ],
+      "notes": "Review of Income and Wealth: joint heterogeneity in wealth and returns at top of distribution; increasing returns to wealth at upper tail have implications for optimal tax design beyond Guvenen and Boadway-Spiritus frameworks."
+    },
+    {
+      "id": "FagerengEtAl2016__WFR",
+      "paper_id": "WFR",
+      "ref_id": "FagerengEtAl2016",
+      "relationship": "in_text",
+      "sections": [
+        "4.3"
+      ],
+      "notes": "American Economic Review companion to FagerengEtAl2020 — establishes same persistence properties using slightly different sample definition."
+    },
+    {
+      "id": "FlavinYamashita2002__WFR",
+      "paper_id": "WFR",
+      "ref_id": "FlavinYamashita2002",
+      "relationship": "in_text",
+      "sections": [
+        "2.1"
+      ],
+      "notes": "Source for central case γ=2 risk-aversion parameter in CRRA utility function."
+    },
+    {
+      "id": "GerritsenEtAl2025__WFR",
+      "paper_id": "WFR",
+      "ref_id": "GerritsenEtAl2025",
+      "relationship": "in_text",
+      "sections": [
+        "5.5",
+        "7.2"
+      ],
+      "notes": "Economic Journal 2025: same heterogeneous-returns premise as Guvenen; reaches opposite conclusion — positive capital income tax can be Pareto-efficient. Part of unresolved Guvenen vs Boadway-Spiritus dispute."
+    },
+    {
+      "id": "HebousEtAl2024__WFR",
+      "paper_id": "WFR",
+      "ref_id": "HebousEtAl2024",
+      "relationship": "in_text",
+      "sections": [
+        "4.4",
+        "5.3"
+      ],
+      "notes": "IMF 2024 analysis of wealth tax design — institutional confirmation of stock wealth / consumption tax equivalence and conditions under which it breaks."
+    },
+    {
+      "id": "AgrawalEtAl2025__WFR",
+      "paper_id": "WFR",
+      "ref_id": "AgrawalEtAl2025",
+      "relationship": "in_text",
+      "sections": [
+        "6.1",
+        "7.3"
+      ],
+      "notes": "Cross-base externality (income and VAT losses ~6× direct revenue loss) is dominant empirical qualification on pre-behavioural revenue figures. WDT-specific migration dynamics untested."
+    },
+    {
+      "id": "BastaniWaldenstrom2020__WFR",
+      "paper_id": "WFR",
+      "ref_id": "BastaniWaldenstrom2020",
+      "relationship": "in_text",
+      "sections": [
+        "4.4",
+        "5.3"
+      ],
+      "notes": "Journal of Economic Surveys: conditions for stock wealth / consumption tax welfare equivalence (no labour income, proportional bases, uniform saving rate, no liquidity constraints, CRRA preferences)."
+    },
+    {
+      "id": "DomarMusgrave1944__WFR",
+      "paper_id": "WFR",
+      "ref_id": "DomarMusgrave1944",
+      "relationship": "in_text",
+      "sections": [
+        "3.1",
+        "3.2",
+        "4.1"
+      ],
+      "notes": "Risk-sharing mechanism — flat symmetric WDT satisfies D-M to floating-point precision; three progressive-rate complications (net-worth base, progressive marginal rates, multi-period rate asymmetry) are second-order at canonical parameters."
+    },
+    {
+      "id": "FagerengEtAl2020__WFR",
+      "paper_id": "WFR",
+      "ref_id": "FagerengEtAl2020",
+      "relationship": "in_text",
+      "sections": [
+        "4.3",
+        "5.5"
+      ],
+      "notes": "Econometrica — primary empirical foundation for heterogeneous-returns analysis. Norwegian administrative dataset: persistent individual-level return heterogeneity, ~8pp cross-sectional std dev, ~3pp wealth-return gradient 10th–90th percentile within asset classes."
+    },
+    {
+      "id": "GarbintiEtAl2026__WFR",
+      "paper_id": "WFR",
+      "ref_id": "GarbintiEtAl2026",
+      "relationship": "in_text",
+      "sections": [
+        "5.5"
+      ],
+      "notes": "Cited alongside DalleLucheEtAl2026 for joint heterogeneity in wealth and returns at top of distribution."
+    },
+    {
+      "id": "GuvenonEtAl2023__WFR",
+      "paper_id": "WFR",
+      "ref_id": "GuvenonEtAl2023",
+      "relationship": "in_text",
+      "sections": [
+        "5.5",
+        "7.2"
+      ],
+      "notes": "Use-it-or-lose-it mechanism — heterogeneous returns imply wealth taxation reallocates capital toward higher-return uses. WFR does not adjudicate Guvenen vs Boadway-Spiritus; neither paper includes delta-based instrument."
+    },
+    {
+      "id": "JakobsenEtAl2020__WFR",
+      "paper_id": "WFR",
+      "ref_id": "JakobsenEtAl2020",
+      "relationship": "in_text",
+      "sections": [
+        "7.3"
+      ],
+      "notes": "Calibration range for migration response under existing wealth taxes."
+    },
+    {
+      "id": "King1977__WFR",
+      "paper_id": "WFR",
+      "ref_id": "King1977",
+      "relationship": "in_text",
+      "sections": [
+        "3.2"
+      ],
+      "notes": null
+    },
+    {
+      "id": "OECD2025__WFR",
+      "paper_id": "WFR",
+      "ref_id": "OECD2025",
+      "relationship": "in_text",
+      "sections": [
+        "4.2",
+        "5.3"
+      ],
+      "notes": "OECD 2025 capital gains tax design analysis — identifies lock-in as primary efficiency cost of realisation-contingent systems."
+    },
+    {
+      "id": "Vickrey1939__WFR",
+      "paper_id": "WFR",
+      "ref_id": "Vickrey1939",
+      "relationship": "in_text",
+      "sections": [
+        "3.1"
+      ],
+      "notes": null
     }
   ],
   "flags": [
-    {
-      "id": "flag_01",
-      "number": 1,
-      "status": "open_paper_revision",
-      "affects_papers": [
-        "LR"
-      ],
-      "affects_refs": [
-        "BrulhartEtAl2022"
-      ],
-      "type": "bibliographic_error",
-      "description": "LR cites Brülhart et al. as year 2023 and journal American Economic Journal: Applied Economics. Both are wrong. Correct year: 2022; correct journal: American Economic Journal: Economic Policy.",
-      "action_required": "Correct in-text citation and References entry in LR on next revision.",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_02",
-      "number": 2,
-      "status": "open_paper_revision",
-      "affects_papers": [
-        "LR"
-      ],
-      "affects_refs": [
-        "JakobsenEtAl2024"
-      ],
-      "type": "bibliographic_error",
-      "description": "LR cites Jakobsen et al. (2024) without the first author (Katrine Jakobsen), listing it as Kleven, Kolsrud, Landais & Muñoz (2024). NBER WP 32153 confirms first author is Jakobsen.",
-      "action_required": "Correct author list in LR in-text citation and References entry on next revision.",
-      "resolved_date": null
-    },
     {
       "id": "flag_03",
       "number": 3,
       "status": "open_paper_revision",
       "affects_papers": [
         "WP",
-        "LR",
         "BEHAV",
         "POL",
         "CLOSE"
@@ -5215,15 +4337,14 @@
       "number": 9,
       "status": "open_author_decision",
       "affects_papers": [
-        "WP",
-        "LR"
+        "WP"
       ],
       "affects_refs": [
         "AdvaniEtAl2020"
       ],
       "type": "cross_citation_coverage",
-      "description": "Advani et al. (2020) added to 0.4 from JUR and RATES only. Scope narrowed in 0.13. Remaining audit: confirm whether WP body text and LR body text carry an in-text citation to this work.",
-      "action_required": "Check WP and LR body text for in-text citations to Advani et al. (2020). If present, add citation records for WP and LR.",
+      "description": "Advani et al. (2020) added to 0.4 from JUR and RATES only. Scope narrowed in 0.13. Remaining audit: confirm whether WP body text and LR.B body text carry an in-text citation to this work.",
+      "action_required": "",
       "resolved_date": null
     },
     {
@@ -5231,7 +4352,6 @@
       "number": 10,
       "status": "open_author_decision",
       "affects_papers": [
-        "LR",
         "BEHAV",
         "PHASE1",
         "POL"
@@ -5273,36 +4393,6 @@
       "type": "orphan_reference",
       "description": "Saez & Zucman (2019) appears in VAL References section but no in-text citation identified in VAL body. Already in 0.4 from WP §2.4 and LR §3.1.",
       "action_required": "Author to confirm whether VAL intends a body citation and, if so, which section.",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_13",
-      "number": 13,
-      "status": "open_paper_revision",
-      "affects_papers": [
-        "LR"
-      ],
-      "affects_refs": [
-        "Rothstein2001"
-      ],
-      "type": "bibliographic_error",
-      "description": "LR §7.2 cites Rothstein as year 2000. Correct year of publication is 2001.",
-      "action_required": "Correct in-text citation and add full References entry in LR on next revision.",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_14",
-      "number": 14,
-      "status": "open_paper_revision",
-      "affects_papers": [
-        "LR"
-      ],
-      "affects_refs": [
-        "Kornhauser2007"
-      ],
-      "type": "bibliographic_error",
-      "description": "LR §7.2 cites Kornhauser as year 2009. Correct year is 2007 (Florida Tax Review volume 8, number 6).",
-      "action_required": "Correct in-text citation and add full References entry in LR on next revision.",
       "resolved_date": null
     },
     {
