@@ -789,3 +789,109 @@ pre {
   }
 }
 
+
+/* ── Dark mode ────────────────────────────────────────────── */
+/* Quarto sets [data-bs-theme="dark"] on <html> when the user
+   toggles dark mode. The navbar, sidebar, TOC, and footer are
+   already dark (purple/gold) and need no overrides. Only the
+   content panel and body text need to change.                */
+
+[data-bs-theme="dark"] {
+
+  /* Content panel: silver → dark grey, white → near-black */
+  .page-layout-article,
+  .page-layout-full,
+  #quarto-content {
+    background-color: #1a1a2e;
+    border-color: #FFD700;
+    outline-color: #000;
+  }
+
+  .quarto-container,
+  #quarto-document-content,
+  .content {
+    background-color: #12121f;
+    border-color: #3d0080;
+    color: #d4d0e8;
+  }
+
+  /* Body text */
+  body {
+    color: #d4d0e8;
+  }
+
+  /* Headings */
+  h1 {
+    background-color: #1a1a2e;
+    color: #FFD700;
+    border-bottom-color: #FFD700;
+  }
+
+  h2 {
+    color: #c4b5fd;
+    border-bottom-color: #3d0080;
+  }
+
+  h3 { color: #c4b5fd; }
+  h4 { color: #a78bfa; }
+
+  /* Links */
+  a         { color: #a78bfa; }
+  a:visited { color: #c4b5fd; }
+  a:hover   { color: #FFD700; }
+
+  /* Tables */
+  td { border-color: #3d0080; }
+
+  tr:nth-child(even) { background-color: #1a1a2e; }
+  tr:hover           { background-color: #210040; }
+
+  /* Blockquotes */
+  blockquote {
+    background-color: #1a1a2e;
+    color: #c4b5fd;
+  }
+
+  /* Code */
+  code, pre {
+    background-color: #1a1a2e;
+    border-color: #3d0080;
+    color: #c4b5fd;
+  }
+
+  /* Callouts */
+  .callout {
+    background-color: #1a1a2e;
+    border-color: #3d0080;
+  }
+
+  /* Internal bibliography */
+  .internal-bibliography {
+    background-color: #1a1a2e;
+    border-left-color: #FFD700;
+    border-color: #3d0080;
+  }
+
+  /* Reference entries */
+  .wdt-ref-entry {
+    background-color: #12121f;
+    border-left-color: #FFD700;
+    border-color: #3d0080;
+  }
+
+  .wdt-ref-entry:hover {
+    background-color: #1a1a2e;
+    border-left-color: #FFD700;
+  }
+
+  .wdt-ref-cited       { color: #c4b5fd; }
+  .wdt-ref-cited a     { color: #c4b5fd; }
+  .wdt-ref-cited a:hover { color: #FFD700; }
+  .wdt-ref-no-link     { color: #555; }
+
+  /* HR */
+  hr {
+    border-top-color: #3d0080;
+    border-bottom-color: #1a1a2e;
+  }
+}
