@@ -202,7 +202,9 @@ website:
 format:
   html:
     include-in-header: style/geocities.html
-    theme: cosmo
+    theme:
+      light: cosmo
+      dark: darkly
     toc: true
     toc-depth: 2
     number-sections: false
