@@ -2,6 +2,13 @@
 title: "Glossary"
 description: "Definitions of key terms used across the Wealth Delta Tax research programme."
 ---
+```{=html}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["banner"]);
+  });
+</script>
+```
 
 This glossary defines terms that recur across the WDT paper series. Each entry links to every section where the term appears.
 
@@ -768,15 +775,4 @@ The modelling convention applied after LRR fill in the historical sweep: the ful
     WDTGeocities.injectAll();
   });
 </script>
-```
-
-```{=html}
-<!-- Specific elements only — edit the array -->
-<!--
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["counter", "contact"]);
-  });
-</script>
--->
 ```

@@ -3,6 +3,13 @@ title: "Wealth Delta Tax"
 description: "A proposal for taxing changes in private wealth rather than income or assets."
 author: "K. Ogata"
 ---
+```{=html}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["banner"]);
+  });
+</script>
+```
 
 <!-- SCREEN 1 — The idea, before anything else -->
 
@@ -158,15 +165,4 @@ The fund is what makes the refund promise mechanically credible rather than aspi
     WDTGeocities.injectAll();
   });
 </script>
-```
-
-```{=html}
-<!-- Specific elements only — edit the array -->
-<!--
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["counter", "contact"]);
-  });
-</script>
--->
 ```

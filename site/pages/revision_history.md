@@ -2,6 +2,13 @@
 title: "Pre Publication Revision History"
 description: "All papers hold only revision history from publication to present. Here is the full pre-publication revision history, omitted from the main papers for succinctness"
 ---
+```{=html}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["banner"]);
+  });
+</script>
+```
 
 ### WP Revision History {.unnumbered .unlisted}
 
@@ -345,15 +352,4 @@ description: "All papers hold only revision history from publication to present.
     WDTGeocities.injectAll();
   });
 </script>
-```
-
-```{=html}
-<!-- Specific elements only — edit the array -->
-<!--
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["counter", "contact"]);
-  });
-</script>
--->
 ```

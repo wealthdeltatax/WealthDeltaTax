@@ -1,6 +1,13 @@
 ---
 title: "Author"
 ---
+```{=html}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["banner"]);
+  });
+</script>
+```
 
 K. Ogata is a UK-based independent scholar with a background in engineering and education.
 
@@ -47,15 +54,4 @@ Correspondence via [wealthdeltatax@gmail.com](mailto:wealthdeltatax@gmail.com)
     WDTGeocities.injectAll();
   });
 </script>
-```
-
-```{=html}
-<!-- Specific elements only — edit the array -->
-<!--
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["counter", "contact"]);
-  });
-</script>
--->
 ```

@@ -45,6 +45,8 @@ _GROUPS: dict[str, str] = {
     "RATES.A":  "Revenue",
     "SWEEPS":   "Revenue",
     "SWEEPS.A": "Revenue",
+    "WFR":  "Revenue",
+    "WFR.A": "Revenue",
     "BEHAV":    "Implementation",
     "CLOSE":    "Implementation",
     "POL":      "Implementation",
@@ -52,6 +54,7 @@ _GROUPS: dict[str, str] = {
     "ENV":      "Analysis",
     "FM":       "Analysis",
     "MOD":      "Analysis",
+    "INST":     "Analysis",
     "SCOPE":    "Analysis",
     "ADD":      "Analysis",
 }
@@ -916,7 +919,13 @@ window.addEventListener("load", () => {
 // Re-measure on resize in case the navbar reflows (e.g. mobile breakpoint).
 window.addEventListener("resize", lmFitToNavbar);
 </script>
-```
+
+{=html}
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+  WDTGeocities.inject(['counter', 'webring', 'netscape', 'contact']);
+  });
+  </script>
 """
 
 # ── Generator ─────────────────────────────────────────────────────────────────

@@ -7,6 +7,11 @@ toc: true
 ---
 
 ```{=html}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["banner"]);
+  });
+</script>
 <div class="avoid-intro">
 <p>This is the cheat sheet.</p>
 <p>Every tax system in history has fought two battles simultaneously: implementation and information. Governments design the tax, then spend considerable effort making sure the strategies for minimising it are not written down anywhere convenient. The gap between what a sophisticated adviser knows and what a taxpayer without one can find is treated as a feature, not a bug.</p>
@@ -172,15 +177,4 @@ Found a strategy this page does not cover? Identified a parameter combination th
     WDTGeocities.injectAll();
   });
 </script>
-```
-
-```{=html}
-<!-- Specific elements only — edit the array -->
-<!--
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["counter", "contact"]);
-  });
-</script>
--->
 ```

@@ -17,7 +17,7 @@
        ```{=html}
        <script>
          document.addEventListener("DOMContentLoaded", function () {
-           WDTGeocities.inject(["counter", "webring", "netscape", "contact"]);
+           WDTGeocities.inject(["banner", "counter", "webring", "netscape", "contact"]);
          });
        </script>
        ```
@@ -31,59 +31,209 @@
   ---
   WDTGeocities.inject(keys, target?)
     Appends named elements in order to target (default: document.body).
-    keys — array of: "counter", "webring", "netscape", "contact"
+    keys — array of: "banner", "counter", "webring", "netscape", "contact"
 
   WDTGeocities.injectAll(target?)
-    Appends all four in canonical order: counter → webring → netscape → contact.
+    Appends all five in canonical order:
+    banner → counter → webring → netscape → contact
 
   WDTGeocities.html(key)
     Returns the raw HTML string for one element (for Lua filters / SSR).
 
   ELEMENTS
   --------
+  banner    — scrolling marquee cycling through BANNER_SLOGANS
   counter   — visitor hit counter (static display)
-  webring   — Fiscal Policy Web Ring nav block
+  webring   — Fiscal Policy Web Ring nav block (prev/next from WEBRING_PAGES)
   netscape  — "Best Viewed in Netscape Navigator" badge
   contact   — mailto contact footer line
 
   CUSTOMISATION
   -------------
-  To change the visitor count, edit COUNTER_VALUE below.
-  To change the contact address, edit CONTACT_EMAIL below.
+  COUNTER_VALUE  — edit the displayed visitor count
+  CONTACT_EMAIL  — edit the mailto address
+  WEBRING_PAGES  — ordered list of site pages the webring cycles through;
+                   keep in sync with your Quarto nav as pages are added
+  BANNER_SLOGANS — list of marquee slogans; add/remove freely; order is
+                   preserved in the scrolling display
 -->
+
+<style id="wdt-geocities-styles">
+/* ── scrolling banner ─────────────────────────────────────────────────── */
+.wdt-banner-wrap {
+  overflow: hidden;
+  white-space: nowrap;
+  background: #000;
+  border-top: 2px solid #0f0;
+  border-bottom: 2px solid #0f0;
+  padding: 6px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.wdt-banner-track {
+  display: inline-block;
+  animation: wdt-scroll 50s linear infinite;
+}
+.wdt-banner-track:hover {
+  animation-play-state: paused;
+}
+.wdt-banner-slogan {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.85rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  color: #0f0;
+  text-transform: uppercase;
+}
+.wdt-banner-sep {
+  margin: 0 1.8em;
+  color: #0f0;
+  opacity: 0.5;
+}
+@keyframes wdt-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── webring destination labels ───────────────────────────────────────── */
+.wdt-webring-dest {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+</style>
 
 <script id="wdt-geocities-module">
 (function () {
 
   /* ── configurable values ───────────────────────────────────────────── */
-  var COUNTER_VALUE = "001998";
+
+  var COUNTER_VALUE = "000023";
+
   var CONTACT_EMAIL = "wealthdeltatax@gmail.com";
+
+  /**
+   * WEBRING_PAGES
+   * Ordered list of pages in the Fiscal Policy Web Ring.
+   * Each entry is { href, label } — href is matched against
+   * window.location.pathname; label is shown next to ◀ / ▶.
+   * Unknown pages fall back to position 0.
+   * Keep in sync with _quarto.yml nav as pages are added.
+   * Papers and appendices are intentionally excluded.
+   */
+  var WEBRING_PAGES = [
+    { href: "/",                          label: "Home"                  },
+    { href: "/research.html",             label: "How To Navigate"       },
+    { href: "/faq.html",                  label: "FAQ"                   },
+    { href: "/comparison-tables.html",    label: "Comparison Tables"     },
+    { href: "/Project-Map.html",          label: "Project Map"           },
+    { href: "/avoidance.html",            label: "Avoidance"             },
+    { href: "/calculator_index.html",     label: "Calculators"           },
+    { href: "/flowcharts.html",           label: "Flowcharts"            },
+    { href: "/link-map.html",             label: "Link Map"              },
+    { href: "/references.html",           label: "References"            },
+    { href: "/glossary.html",             label: "Glossary"              },
+    { href: "/internal_bibliography.html",label: "Internal Bibliography" },
+    { href: "/revision_history.html",     label: "Revision History"      },
+    { href: "/author_page.html",          label: "About the Author"      }
+  ];
+
+  /**
+   * BANNER_SLOGANS
+   * Slogans that scroll across the marquee banner.
+   * Add, remove, or reorder freely — the banner picks them all up.
+   */
+var BANNER_SLOGANS = [
+  "WHAT THE HECK IS A COOKIE?",
+  "HMRC HAS NOT RETURNED OUR CALL",
+  "HM TREASURY HAS REQUESTED A WORD DOCUMENT",
+  "APPENDIX 14A HAS BEEN WITHHELD",
+  "DOCUMENT STATUS: FINAL FINAL",
+  "PLEASE DO NOT PRINT THIS PAGE",
+  "THIS IS A COMPLETELY NORMAL TAX SYSTEM",
+  "NOT A PONZI SCHEME ACCORDING TO OUR CURRENT UNDERSTANDING",
+  "INFORMATION MAY BE CORRECT",
+  "THE WEBMASTER IS NOT AN ECONOMIST",
+  "HM GOVERNMENT HAS NO CONNECTION WITH THIS WEBSITE"
+];
+
   /* ─────────────────────────────────────────────────────────────────── */
 
+  /* ── webring: compute prev/next from current URL ──────────────────── */
+  function _webringSides() {
+    var pages = WEBRING_PAGES;
+    /* normalise: strip trailing index.html so "/" and "/index.html" match */
+    var path = window.location.pathname.replace(/\/index\.html$/, "/");
+    var idx = -1;
+    for (var i = 0; i < pages.length; i++) {
+      if (pages[i].href === path) { idx = i; break; }
+    }
+    if (idx === -1) idx = 0;
+    var prev = pages[(idx - 1 + pages.length) % pages.length];
+    var next = pages[(idx + 1) % pages.length];
+    return {
+      prevHref:  prev.href,  prevLabel: prev.label,
+      nextHref:  next.href,  nextLabel: next.label
+    };
+  }
+
+  /* ── banner: build doubled track from slogan list ─────────────────── */
+  function _bannerTrack() {
+    var items = BANNER_SLOGANS.map(function (s) {
+      return (
+        '<span class="wdt-banner-slogan">' + s + "</span>" +
+        '<span class="wdt-banner-sep">✦</span>'
+      );
+    }).join(" ");
+    /* double the content so the -50% translateX loop is seamless */
+    return items + " " + items;
+  }
+
+  /* ── templates ────────────────────────────────────────────────────── */
   var TEMPLATES = {
+
+    banner: (function () {
+      return [
+        '<div class="wdt-banner-wrap">',
+        '  <div class="wdt-banner-track">',
+        "    " + _bannerTrack(),
+        "  </div>",
+        "</div>"
+      ].join("\n");
+    })(),
 
     counter: [
       '<div class="wdt-counter-wrap">',
       '  <div class="wdt-counter">',
-      '    <div class="wdt-counter-label">VISITORS SINCE 2024</div>',
-      '    <div class="wdt-counter-digits">' + COUNTER_VALUE + '</div>',
-      '  </div>',
-      '</div>'
+      '    <div class="wdt-counter-label">VISITORS SINCE 2021</div>',
+      '    <div class="wdt-counter-digits">' + COUNTER_VALUE + "</div>",
+      "  </div>",
+      "</div>"
     ].join("\n"),
 
-    webring: [
-      '<div class="wdt-webring">',
-      '  <span class="wdt-webring-hex">⬡ ⬡ ⬡</span>',
-      '  &nbsp;&nbsp;',
-      '  <a href="/" class="wdt-webring-nav">◀</a>',
-      '  &nbsp;',
-      '  <span class="wdt-webring-label">MEMBER OF THE FISCAL POLICY WEB RING</span>',
-      '  &nbsp;',
-      '  <a href="/" class="wdt-webring-nav">▶</a>',
-      '  &nbsp;&nbsp;',
-      '  <span class="wdt-webring-hex">⬡ ⬡ ⬡</span>',
-      '</div>'
-    ].join("\n"),
+    webring: (function () {
+      var s = _webringSides();
+      return [
+        '<div class="wdt-webring">',
+        '  <span class="wdt-webring-hex">⬡ ⬡ ⬡</span>',
+        "  &nbsp;&nbsp;",
+        '  <a href="' + s.prevHref + '" class="wdt-webring-nav" title="' + s.prevLabel + '">',
+        '    ◀ <span class="wdt-webring-dest">' + s.prevLabel + '</span>',
+        '  </a>',
+        "  &nbsp;&nbsp;",
+        '  <span class="wdt-webring-label">FISCAL POLICY WEB RING</span>',
+        "  &nbsp;&nbsp;",
+        '  <a href="' + s.nextHref + '" class="wdt-webring-nav" title="' + s.nextLabel + '">',
+        '    <span class="wdt-webring-dest">' + s.nextLabel + '</span> ▶',
+        '  </a>',
+        "  &nbsp;&nbsp;",
+        '  <span class="wdt-webring-hex">⬡ ⬡ ⬡</span>',
+        "</div>"
+      ].join("\n");
+    })(),
 
     netscape: [
       '<div class="wdt-netscape-wrap">',
@@ -91,15 +241,15 @@
       '    <div class="wdt-netscape-top">BEST VIEWED IN</div>',
       '    <div class="wdt-netscape-mid">NETSCAPE NAVIGATOR</div>',
       '    <div class="wdt-netscape-bot">800×600 · 256 COLOURS</div>',
-      '  </div>',
-      '</div>'
+      "  </div>",
+      "</div>"
     ].join("\n"),
 
     contact: [
       '<div class="wdt-contact">',
-      '  ✉ CONTACT THE Author:',
-      '  <a href="mailto:' + CONTACT_EMAIL + '">mailto:' + CONTACT_EMAIL + '</a>',
-      '</div>'
+      "  ✉ CONTACT THE Author:",
+      '  <a href="mailto:' + CONTACT_EMAIL + '">mailto:' + CONTACT_EMAIL + "</a>",
+      "</div>"
     ].join("\n")
 
   };
@@ -110,7 +260,7 @@
     /**
      * inject(keys, target?)
      * Appends the named elements, in order, to `target` (default: document.body).
-     * keys — array of strings from: "counter", "webring", "netscape", "contact"
+     * keys — array of strings from: "banner", "counter", "webring", "netscape", "contact"
      */
     inject: function (keys, target) {
       var el = target || document.body;
@@ -127,10 +277,11 @@
 
     /**
      * injectAll(target?)
-     * Appends all four elements in canonical order: counter → webring → netscape → contact.
+     * Appends all five elements in canonical order:
+     * banner → counter → webring → netscape → contact
      */
     injectAll: function (target) {
-      this.inject(["counter", "webring", "netscape", "contact"], target);
+      this.inject(["banner", "counter", "webring", "netscape", "contact"], target);
     },
 
     /**

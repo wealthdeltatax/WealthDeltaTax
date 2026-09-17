@@ -462,6 +462,13 @@ def generate_flowcharts_qmd(build: Path) -> None:
             "WDT bidirectional flow — private wealth ↔ public wealth fund",
         ),
         "",
+        "```{=html}",
+        "<script>",
+        "  document.addEventListener('DOMContentLoaded', function () {",
+        "    WDTGeocities.inject(['counter', 'webring', 'netscape', 'contact']);",
+        "  });",
+        "</script>",
+        "```",
     ]
 
     dest = build / "flowcharts.qmd"

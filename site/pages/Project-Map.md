@@ -1,9 +1,17 @@
-# WDT Project Map
-**Last updated:** 13 September 2026  
-**Papers covered:** (WP), (MF), (LR.A), (LR.B), (JUR), (VAL), (VAL.A), (VAL.B), (CORP), (CORP.A), (GOV), (GOV.A), (GOV.B), (RATES), (RATES.A), (SWEEPS), (SWEEPS.A), (WFR), (WFR.A), (BEHAV), (CLOSE), (POL), (PHASE1), (ENV), (FM), (MOD), (SCOPE), (ADD)  
-**Papers not yet in project:** *None*
-
 ---
+title: "WDT Project Map"
+description: "**Last updated:** 13 September 2026  
+**Papers covered:** (WP), (MF), (LR.A), (LR.B), (JUR), (VAL), (VAL.A), (VAL.B), (CORP), (CORP.A), (GOV), (GOV.A), (GOV.B), (RATES), (RATES.A), (SWEEPS), (SWEEPS.A), (WFR), (WFR.A), (BEHAV), (CLOSE), (POL), (PHASE1), (ENV), (FM), (MOD), (SCOPE), (ADD)  
+**Papers not yet in project:** *None*"
+author: "K. Ogata"
+---
+```
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["banner"]);
+  });
+</script>
+```
 
 ## The Core Feasibility Case
 
@@ -342,3 +350,12 @@ Items not listed here are settled. Items listed under **Closed** have been resol
 - **6 jurisdiction-specific items** are not design gaps; resolution requires legal analysis, diplomatic process, or institutional negotiation.
 - **The most consequential calibration problem** is the τ_0 cross-dataset tension: higher τ_0 accelerates LRR fill and brings the overstater correction earlier, but also raises entry burden. No setting simultaneously optimises all three. The τ_0 × W_min joint surface (item #17) is the next analytical deliverable that does not require Phase One data.
 - **The most consequential outstanding deliverable** is Phase One implementation itself: items 4–6, 29, and 30 cannot be resolved by any further desk research.
+
+```{=html}
+<!-- All four elements, canonical order -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.injectAll();
+  });
+</script>
+```

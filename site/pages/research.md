@@ -2,6 +2,13 @@
 title: "Wealth Delta Tax (WDT)"
 description: "The Wealth Delta Tax (WDT) is a proposed reform that taxes changes in individual net wealth on an accrual basis, with symmetric loss refunds and a pre-funded Sovereign Wealth Fund."
 ---
+```{=html}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["banner"]);
+  });
+</script>
+```
 
 ```{=html}
 <script type="application/ld+json">
@@ -34,9 +41,11 @@ description: "The Wealth Delta Tax (WDT) is a proposed reform that taxes changes
 }
 </script>
 
-<marquee behavior="scroll" direction="left" scrollamount="3" class="wdt-marquee">
-&nbsp;&nbsp;&nbsp;★ THE WEALTH DELTA TAX ★&nbsp;&nbsp;&nbsp;ACCRUAL-BASIS WEALTH TAXATION WITH SYMMETRIC LOSS REFUNDS&nbsp;&nbsp;&nbsp;★ SOVEREIGN WEALTH FUND ★&nbsp;&nbsp;&nbsp;26 WORKING PAPERS · FREELY AVAILABLE&nbsp;&nbsp;&nbsp;★ EST. 2024 ★&nbsp;&nbsp;&nbsp;THE ONLY WEALTH TAX THAT PAYS YOU BACK WHEN MARKETS CRASH&nbsp;&nbsp;&nbsp;★ K. OGATA ★&nbsp;&nbsp;&nbsp;
-</marquee>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["banner"]);
+  });
+</script>
 ```
 
 # WDT Research Programme
@@ -183,15 +192,4 @@ The complete register of open questions across all papers is in the [Project Map
     WDTGeocities.injectAll();
   });
 </script>
-```
-
-```{=html}
-<!-- Specific elements only — edit the array -->
-<!--
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["counter", "contact"]);
-  });
-</script>
--->
 ```
