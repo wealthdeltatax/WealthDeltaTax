@@ -337,3 +337,23 @@ description: "All papers hold only revision history from publication to present.
 |:--------:|:---------------:|----------------------|
 | 0.01 | 31 May 2026 | First Draft|
 | 0.02 | 15 August 2026| Published to website |
+
+```{=html}
+<!-- All four elements, canonical order -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.injectAll();
+  });
+</script>
+```
+
+```{=html}
+<!-- Specific elements only — edit the array -->
+<!--
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["counter", "contact"]);
+  });
+</script>
+-->
+```

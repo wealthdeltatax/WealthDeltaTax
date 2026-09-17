@@ -127,3 +127,23 @@ No. The high exemption threshold reflects two distinct arguments, not one. The a
 See: scope and exemption (WP §3.4) · capacity-to-bear rationale (MF §4) · threshold modelling (RATES §7.1) · implementation pathway (PHASE1 §7).
 
 → White Paper (WP) · Phase One (PHASE1) · [Back to the overview](index.html#the-idea-in-one-minute)
+
+```{=html}
+<!-- All four elements, canonical order -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.injectAll();
+  });
+</script>
+```
+
+```{=html}
+<!-- Specific elements only — edit the array -->
+<!--
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["counter", "contact"]);
+  });
+</script>
+-->
+```

@@ -121,6 +121,8 @@ These five papers establish the full architecture. Reading them in order gives a
 | What is the full mathematical revenue model? | Rates Appendix (RATES.A) |
 | How sensitive are revenues to parameter changes? | Parameter Sweeps (SWEEPS) |
 | What are the detailed sweep results? | Sweeps Appendix (SWEEPS.A) |
+| How does the WDT compare agaisnt other taxation systems? | Welfare (WFR) |
+| What are the detailed welfare findings? | Welfare Appendix (WFR.A) |
 
 ### Behaviour
 
@@ -144,6 +146,7 @@ These five papers establish the full architecture. Reading them in order gives a
 | What happens if one country adopts first? | First Mover (FM) |
 | Can WDT be adopted partially or incrementally? | Modular Adoption (MOD) |
 | What falls inside and outside WDT's scope? | Scope Boundaries (SCOPE) |
+| How does the existence of the WDT change institutional decisions on a global scale | Institutional Selection (INST) |
 
 ---
 

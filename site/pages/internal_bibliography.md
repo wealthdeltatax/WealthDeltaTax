@@ -37,6 +37,10 @@ description: "Full citation list for the Wealth Delta Tax working paper series. 
 
 [SWEEPS.A] Ogata, K. (2026). *The Wealth Delta Tax: Parameter Sweeps and Governing Council Calibration — Appendix Tables*. Zenodo. https://zenodo.org/records/21964119/files/9.1_260816_WDT_Parameter_Sweeps_Appendix.pdf?download=1
 
+[WFR] Ogata, K. (2026). *The Wealth Delta Tax: Welfare Comparison Across Tax Systems at Revenue Equivalence*. Unpublished.
+
+[WFR.A] Ogata, K. (2026). *The Wealth Delta Tax: Welfare Comparison Appendix Tables*. Unpublished.
+
 [BEHAV] Ogata, K. (2026). *The Wealth Delta Tax: Behavioural Robustness and Administrative Experience*. Zenodo. https://zenodo.org/records/21964119/files/10.0_260815_WDT_Behavioural_Robustness_and_Administrative_Experience.pdf?download=1
 
 [CLOSE] Ogata, K. (2026). *The Wealth Delta Tax: Position Closure*. Zenodo. https://zenodo.org/records/21964119/files/11.0_260814_WDT_Position_Closure.pdf?download=1
@@ -51,11 +55,28 @@ description: "Full citation list for the Wealth Delta Tax working paper series. 
 
 [MOD] Ogata, K. (2026). *The Wealth Delta Tax: Modular Adoption*. Zenodo. https://zenodo.org/records/21964119/files/16.0_260814_WDT_Modular_Adoption.pdf?download=1
 
+[INST] Ogata, K. (2026). *The Wealth Delta Tax: Fiscal Architecture and Institutional Selection*. Unpublished.
+
 [SCOPE] Ogata, K. (2026). *The Wealth Delta Tax: Scope Boundary — Questions Outside This Project*. Unpublished.
 
 [ADD] Ogata, K. (2026). *The Wealth Delta Tax: Addendum: Implementation Calibration Examples*. Unpublished.
 
-[WFR] Ogata, K. (2026). *The Wealth Delta Tax: Welfare Comparison Across Tax Systems at Revenue Equivalence*. Unpublished.
+```{=html}
+<!-- All four elements, canonical order -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.injectAll();
+  });
+</script>
+```
 
-[WFR.A] Ogata, K. (2026). *The Wealth Delta Tax: Welfare Comparison Appendix Tables*. Unpublished.
- 
+```{=html}
+<!-- Specific elements only — edit the array -->
+<!--
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["counter", "contact"]);
+  });
+</script>
+-->
+```

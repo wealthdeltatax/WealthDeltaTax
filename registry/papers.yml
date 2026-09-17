@@ -81,3 +81,6 @@
 
 - source: 19a_Welfare_Appendix.md
   output: wfr-a.qmd
+
+- source: 20_Institutional_Selection.md
+  output: inst.qmd

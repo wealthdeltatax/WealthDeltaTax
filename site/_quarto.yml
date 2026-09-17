@@ -11,17 +11,17 @@ project:
     - diagrams/
 
 website:
-  title: "Wealth Delta Tax (WDT)"
+  title: "The WDT"
   description: "The Wealth Delta Tax (WDT) taxes changes in individual net wealth on an accrual basis, with symmetric loss refunds and a pre-funded Sovereign Wealth Fund — a proposed alternative to conventional wealth taxation."
   site-url: "https://wealthdeltatax.org"
 
   open-graph:
-    title: "Wealth Delta Tax (WDT)"
+    title: "The WDT"
     description: "The Wealth Delta Tax (WDT) taxes changes in individual net wealth on an accrual basis, with symmetric loss refunds and a pre-funded Sovereign Wealth Fund."
     site-name: "Wealth Delta Tax"
 
   twitter-card:
-    title: "Wealth Delta Tax (WDT)"
+    title: "The WDT"
     description: "The Wealth Delta Tax (WDT) taxes changes in individual net wealth on an accrual basis, with symmetric loss refunds and a pre-funded Sovereign Wealth Fund."
     card-style: summary
 
@@ -31,9 +31,9 @@ website:
 
   navbar:
     left:
-      - text: "Welcome"
+      - text: "Home"
         href: index.html
-      - text: "Research"
+      - text: "How To Navigate"
         href: research.html
       - text: "FAQ"
         href: faq.html
@@ -44,6 +44,7 @@ website:
       - text: "Papers"
         menu:
           - text: "— Core —"
+            href: corpus.html
           - text: "White Paper (WP)"
             href: wp.html
           - text: "Moral Foundations (MF)"
@@ -84,6 +85,8 @@ website:
             href: fm.html
           - text: "Modular Adoption (MOD)"
             href: mod.html
+          - text: "Institutional Selection (INST)"
+            href: inst.html
           - text: "Scope and Boundaries (SCOPE)"
             href: scope.html
           - text: "Addendums (ADD)"
@@ -184,6 +187,8 @@ website:
             href: fm.html
           - text: "Modular Adoption (MOD)"
             href: mod.html
+          - text: "Institutional Selection (INST)"
+            href: inst.html
           - text: "Scope Boundaries (SCOPE)"
             href: scope.html
           - text: "Addendums (ADD)"

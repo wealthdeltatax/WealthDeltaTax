@@ -4,7 +4,7 @@ title: "Author"
 
 K. Ogata is a UK-based independent scholar with a background in engineering and education.
 
-The Wealth Delta Tax is an interdisciplinary project, drawing on economics, law, moral philosophy, and constitutional governance — fields the author approached without institutional affiliation, funding, or sponsorship of any kind. That independence is not incidental: it is the condition under which this kind of work can be done without constraint.
+The Wealth Delta Tax is an interdisciplinary project, drawing on economics, law, moral philosophy, and constitutional governance — fields the author approached without institutional affiliation, funding, or sponsorship of any kind. 
 
 ---
 
@@ -39,3 +39,23 @@ Correspondence via [wealthdeltatax@gmail.com](mailto:wealthdeltatax@gmail.com)
 ---
 
 *The WDT is an independent research project. It is not affiliated with any institution, political party, think tank, or funding body.*
+
+```{=html}
+<!-- All four elements, canonical order -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.injectAll();
+  });
+</script>
+```
+
+```{=html}
+<!-- Specific elements only — edit the array -->
+<!--
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["counter", "contact"]);
+  });
+</script>
+-->
+```

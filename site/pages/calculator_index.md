@@ -34,3 +34,22 @@ initialise the runtime; subsequent calculations are fast.
   </p>
 </a>
 ```
+```{=html}
+<!-- All four elements, canonical order -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.injectAll();
+  });
+</script>
+```
+
+```{=html}
+<!-- Specific elements only — edit the array -->
+<!--
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["counter", "contact"]);
+  });
+</script>
+-->
+```

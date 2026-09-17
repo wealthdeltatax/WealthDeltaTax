@@ -80,3 +80,23 @@ Each WDT cell includes companion paper references where the relevant design clai
 *Quantitative results are from WFR (Welfare Comparison Across Tax Systems at Revenue Equivalence) and its companion appendix WFR.A, using 73 years of UK historical equity returns (JST dataset, 1950–2022), γ=2 (Flavin & Yamashita 2002), and a 30-year scenario horizon. All systems calibrated at E[T] = 2% of W₀. Lock-in calibration: G/V = 50%, T = 5 years, τ_cgt = 24%. Concentration calibration: four-tier return differentials from Fagereng et al. (2020).*
 
 → [Read the full mechanism](wp.html) &nbsp;·&nbsp; → [Twelve common objections answered](faq.html) &nbsp;·&nbsp; → [All 26 papers](research.html)
+
+```{=html}
+<!-- All four elements, canonical order -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.injectAll();
+  });
+</script>
+```
+
+```{=html}
+<!-- Specific elements only — edit the array -->
+<!--
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["counter", "contact"]);
+  });
+</script>
+-->
+```

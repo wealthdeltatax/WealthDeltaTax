@@ -16,7 +16,7 @@ author: "K. Ogata"
     <em> All existing concepts about traditional taxation do not apply because of this single property.</em>
   </p>
   <a class="wdt-hero-prompt" href="#the-idea-in-one-minute">See how it works ↓</a>
-  <p class="wdt-hero-meta">Independent research &nbsp;·&nbsp; 26 working papers &nbsp;·&nbsp; open to challenge</p>
+  <p class="wdt-hero-meta">Independent research &nbsp;·&nbsp; 29 working papers &nbsp;·&nbsp; open to challenge</p>
 </div>
 ```
 
@@ -149,4 +149,24 @@ The fund is what makes the refund promise mechanically credible rather than aspi
 | All 26 papers | [Research Programme](research.html) |
 | Everything | [Project Map](Project-Map.html) |
 
-*26 working papers in active development as of mid-2026. Pre-peer review. Open questions are stated explicitly throughout and collected in the [Project Map](Project-Map.html).*
+*29 working papers in active development as of mid-2026. Pre-peer review. Open questions are stated explicitly throughout and collected in the [Project Map](Project-Map.html).*
+
+```{=html}
+<!-- All four elements, canonical order -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.injectAll();
+  });
+</script>
+```
+
+```{=html}
+<!-- Specific elements only — edit the array -->
+<!--
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["counter", "contact"]);
+  });
+</script>
+-->
+```

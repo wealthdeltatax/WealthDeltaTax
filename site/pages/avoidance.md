@@ -164,3 +164,23 @@ The model runs the full Route C simulation from `wdt_core.py` — the same code 
 ---
 
 Found a strategy this page does not cover? Identified a parameter combination that produces a meaningful durable advantage under canonical parameters? [Contact the project](mailto:wealthdeltatax@gmail.com) — this page is maintained as a live document and will be updated as new strategies are identified.
+
+```{=html}
+<!-- All four elements, canonical order -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.injectAll();
+  });
+</script>
+```
+
+```{=html}
+<!-- Specific elements only — edit the array -->
+<!--
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["counter", "contact"]);
+  });
+</script>
+-->
+```
