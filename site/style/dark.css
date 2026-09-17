@@ -1,22 +1,15 @@
 /* ============================================================
    WDT Dark Mode — style/dark.css
-   Loaded last so it wins over Bootstrap's darkly theme and
-   styles.css. All selectors are flat (no nesting) for maximum
-   browser/pipeline compatibility.
-
-   Quarto sets [data-bs-theme="dark"] on <html> when the user
-   toggles dark mode via the navbar sun/moon icon.
-
-   The navbar, sidebar, TOC, and footer are already dark
-   (purple/gold) and need no overrides. Only the white content
-   panel and its descendants need to change.
+   Loaded by Quarto only under the dark theme (darkly bundle).
+   No [data-bs-theme] selectors needed — this file is never
+   active in light mode.
    ============================================================ */
 
 /* ── Outer content frame ──────────────────────────────────── */
 
-[data-bs-theme="dark"] .page-layout-article,
-[data-bs-theme="dark"] .page-layout-full,
-[data-bs-theme="dark"] #quarto-content {
+.page-layout-article,
+.page-layout-full,
+#quarto-content {
   background-color: #1a1a2e !important;
   border-color: #FFD700 !important;
   outline-color: #000 !important;
@@ -24,9 +17,9 @@
 
 /* ── Inner content panel ──────────────────────────────────── */
 
-[data-bs-theme="dark"] .quarto-container,
-[data-bs-theme="dark"] #quarto-document-content,
-[data-bs-theme="dark"] .content {
+.quarto-container,
+#quarto-document-content,
+.content {
   background-color: #12121f !important;
   border-color: #3d0080 !important;
   color: #d4d0e8 !important;
@@ -34,56 +27,51 @@
 
 /* ── Body ─────────────────────────────────────────────────── */
 
-[data-bs-theme="dark"] body {
+body {
   color: #d4d0e8 !important;
   background-color: #2B0055 !important;
 }
 
 /* ── Headings ─────────────────────────────────────────────── */
 
-[data-bs-theme="dark"] h1 {
+h1 {
   background-color: #1a1a2e !important;
   color: #FFD700 !important;
   border-bottom-color: #FFD700 !important;
 }
 
-[data-bs-theme="dark"] h2 {
+h2 {
   color: #c4b5fd !important;
   border-bottom-color: #3d0080 !important;
 }
 
-[data-bs-theme="dark"] h3 { color: #c4b5fd !important; }
-[data-bs-theme="dark"] h4 { color: #a78bfa !important; }
+h3 { color: #c4b5fd !important; }
+h4 { color: #a78bfa !important; }
 
 /* ── Links ────────────────────────────────────────────────── */
 
-[data-bs-theme="dark"] a         { color: #a78bfa !important; }
-[data-bs-theme="dark"] a:visited { color: #c4b5fd !important; }
-[data-bs-theme="dark"] a:hover   { color: #FFD700 !important; }
+a         { color: #a78bfa !important; }
+a:visited { color: #c4b5fd !important; }
+a:hover   { color: #FFD700 !important; }
 
 /* ── Tables ───────────────────────────────────────────────── */
 
-[data-bs-theme="dark"] td { border-color: #3d0080 !important; }
+td { border-color: #3d0080 !important; }
 
-[data-bs-theme="dark"] tr:nth-child(even) {
-  background-color: #1a1a2e !important;
-}
-
-[data-bs-theme="dark"] tr:hover {
-  background-color: #210040 !important;
-}
+tr:nth-child(even) { background-color: #1a1a2e !important; }
+tr:hover           { background-color: #210040 !important; }
 
 /* ── Blockquotes ──────────────────────────────────────────── */
 
-[data-bs-theme="dark"] blockquote {
+blockquote {
   background-color: #1a1a2e !important;
   color: #c4b5fd !important;
 }
 
 /* ── Code ─────────────────────────────────────────────────── */
 
-[data-bs-theme="dark"] code,
-[data-bs-theme="dark"] pre {
+code,
+pre {
   background-color: #1a1a2e !important;
   border-color: #3d0080 !important;
   color: #c4b5fd !important;
@@ -91,14 +79,14 @@
 
 /* ── Callouts ─────────────────────────────────────────────── */
 
-[data-bs-theme="dark"] .callout {
+.callout {
   background-color: #1a1a2e !important;
   border-color: #3d0080 !important;
 }
 
 /* ── Internal bibliography ────────────────────────────────── */
 
-[data-bs-theme="dark"] .internal-bibliography {
+.internal-bibliography {
   background-color: #1a1a2e !important;
   border-left-color: #FFD700 !important;
   border-color: #3d0080 !important;
@@ -106,25 +94,25 @@
 
 /* ── Reference entries ────────────────────────────────────── */
 
-[data-bs-theme="dark"] .wdt-ref-entry {
+.wdt-ref-entry {
   background-color: #12121f !important;
   border-left-color: #FFD700 !important;
   border-color: #3d0080 !important;
 }
 
-[data-bs-theme="dark"] .wdt-ref-entry:hover {
+.wdt-ref-entry:hover {
   background-color: #1a1a2e !important;
   border-left-color: #FFD700 !important;
 }
 
-[data-bs-theme="dark"] .wdt-ref-cited         { color: #c4b5fd !important; }
-[data-bs-theme="dark"] .wdt-ref-cited a       { color: #c4b5fd !important; }
-[data-bs-theme="dark"] .wdt-ref-cited a:hover { color: #FFD700 !important; }
-[data-bs-theme="dark"] .wdt-ref-no-link       { color: #555 !important; }
+.wdt-ref-cited         { color: #c4b5fd !important; }
+.wdt-ref-cited a       { color: #c4b5fd !important; }
+.wdt-ref-cited a:hover { color: #FFD700 !important; }
+.wdt-ref-no-link       { color: #555 !important; }
 
 /* ── HR ───────────────────────────────────────────────────── */
 
-[data-bs-theme="dark"] hr {
+hr {
   border-top-color: #3d0080 !important;
   border-bottom-color: #1a1a2e !important;
 }

@@ -203,16 +203,20 @@ format:
   html:
     include-in-header: style/geocities.html
     theme:
-      light: cosmo
-      dark: darkly
+      light:
+        - cosmo
+        - style/styles.css
+        - style/tools.css
+        - style/page-components.css
+      dark:
+        - darkly
+        - style/styles.css
+        - style/tools.css
+        - style/page-components.css
+        - style/dark.css
     toc: true
     toc-depth: 2
     number-sections: false
-    css:
-      - style/styles.css
-      - style/tools.css
-      - style/page-components.css
-      - style/dark.css
     citations-hover: true
     footnotes-hover: true
     csl: style/apa.csl
