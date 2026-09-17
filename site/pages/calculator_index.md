@@ -4,11 +4,7 @@ description: "Computational tools for exploring the Wealth Delta Tax mechanism. 
 toc: false
 ---
 ```{=html}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["banner"]);
-  });
-</script>
+<div id="banner-slot"></div>
 ```
 
 Both calculators load `wdt_core.py` and `rates_model.py` directly from the
@@ -42,10 +38,12 @@ initialise the runtime; subsequent calculations are fast.
 </a>
 ```
 ```{=html}
-<!-- All four elements, canonical order -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.injectAll();
+    WDTGeocities.inject(["counter", "webring", "netscape"]);
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["banner"], document.getElementById("banner-slot"));
   });
 </script>
 ```

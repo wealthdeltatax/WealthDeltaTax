@@ -3,11 +3,7 @@ title: "Comparison Tables"
 description: "WDT vs Current Realisation-Based System and Stock Wealth Tax."
 ---
 ```{=html}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["banner"]);
-  });
-</script>
+<div id="banner-slot"></div>
 ```
 
 *This page is for readers who want a systematic, criterion-by-criterion comparison across three systems. If you're new to the proposal, [start with the plain-English overview](index.html) first. If you're arriving with a specific objection, the [FAQ](faq.html) addresses twelve common ones directly.*
@@ -89,10 +85,12 @@ Each WDT cell includes companion paper references where the relevant design clai
 → [Read the full mechanism](wp.html) &nbsp;·&nbsp; → [Twelve common objections answered](faq.html) &nbsp;·&nbsp; → [All 26 papers](research.html)
 
 ```{=html}
-<!-- All four elements, canonical order -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.injectAll();
+    WDTGeocities.inject(["counter", "webring", "netscape"]);
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["banner"], document.getElementById("banner-slot"));
   });
 </script>
 ```

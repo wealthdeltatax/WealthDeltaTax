@@ -5,12 +5,8 @@ description: "**Last updated:** 13 September 2026
 **Papers not yet in project:** *None*"
 author: "K. Ogata"
 ---
-```
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["banner"]);
-  });
-</script>
+```{=html}
+<div id="banner-slot"></div>
 ```
 
 ## The Core Feasibility Case
@@ -352,10 +348,12 @@ Items not listed here are settled. Items listed under **Closed** have been resol
 - **The most consequential outstanding deliverable** is Phase One implementation itself: items 4–6, 29, and 30 cannot be resolved by any further desk research.
 
 ```{=html}
-<!-- All four elements, canonical order -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.injectAll();
+    WDTGeocities.inject(["counter", "webring", "netscape"]);
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["banner"], document.getElementById("banner-slot"));
   });
 </script>
 ```

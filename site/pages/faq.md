@@ -4,11 +4,7 @@ description: "Twelve common objections to the Wealth Delta Tax, with direct answ
 author: "K. Ogata"
 ---
 ```{=html}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["banner"]);
-  });
-</script>
+<div id="banner-slot"></div>
 ```
 
 *Arriving with a specific objection? You're in the right place. If you haven't read the plain-English overview yet, [start there](index.html) first — it covers the mechanism, the loopholes it closes, and who benefits.*
@@ -136,10 +132,12 @@ See: scope and exemption (WP §3.4) · capacity-to-bear rationale (MF §4) · th
 → White Paper (WP) · Phase One (PHASE1) · [Back to the overview](index.html#the-idea-in-one-minute)
 
 ```{=html}
-<!-- All four elements, canonical order -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.injectAll();
+    WDTGeocities.inject(["counter", "webring", "netscape"]);
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    WDTGeocities.inject(["banner"], document.getElementById("banner-slot"));
   });
 </script>
 ```
