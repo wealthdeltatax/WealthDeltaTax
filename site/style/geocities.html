@@ -109,19 +109,33 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0.5rem 1.5rem;
+  padding: 0.25rem 1.5rem;
   box-sizing: border-box;
   border-top: 1px solid var(--bs-border-color, #dee2e6);
+  border-bottom: 1px solid var(--bs-border-color, #dee2e6);
 }
-.wdt-geostrip-left  { flex: 0 0 auto; }
-.wdt-geostrip-right { flex: 0 0 auto; }
+.wdt-geostrip-left,
+.wdt-geostrip-right {
+  flex: 0 0 auto;
+  align-self: center;
+  margin: 0;
+}
 .wdt-geostrip-center {
   flex: 1 1 auto;
   display: flex;
   justify-content: center;
-  /* prevent webring from colliding with badges at narrow widths */
+  align-items: center;
   min-width: 0;
   overflow: hidden;
+  margin: 0;
+}
+/* neutralise any top/bottom margins the inner elements carry */
+.wdt-geocities-strip .wdt-counter-wrap,
+.wdt-geocities-strip .wdt-netscape-wrap,
+.wdt-geocities-strip .wdt-webring {
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 </style>
 
@@ -165,18 +179,18 @@
    * Slogans that scroll across the marquee banner.
    * Add, remove, or reorder freely — the banner picks them all up.
    */
- var BANNER_SLOGANS = [
-    "WHAT THE HECK IS A COOKIE?",
-    "HMRC HAS NOT RETURNED OUR CALL",
-    "HM TREASURY HAS REQUESTED A WORD DOCUMENT",
-    "DOCUMENT STATUS: FINAL FINAL",
-    "PLEASE DO NOT PRINT JUST THIS PAGE",
-    "DO YOU NEED IT AS A PDF?",
-    "THIS IS A COMPLETELY ORDINARY TAX SYSTEM",
-    "INFORMATION MAY BE CORRECT",
-    "THE WEBMASTER IS NOT AN ECONOMIST",
-    "HM GOVERNMENT HAS NO CONNECTION WITH THIS WEBSITE",
-  ];
+  var BANNER_SLOGANS = [
+      "WHAT THE HECK IS A COOKIE?",
+      "HMRC HAS NOT RETURNED OUR CALL",
+      "HM TREASURY HAS REQUESTED A WORD DOCUMENT",
+      "DOCUMENT STATUS: FINAL FINAL",
+      "PLEASE DO NOT PRINT JUST THIS PAGE",
+      "DO YOU NEED IT AS A PDF?",
+      "THIS IS A COMPLETELY ORDINARY TAX SYSTEM",
+      "INFORMATION MAY BE CORRECT",
+      "THE WEBMASTER IS NOT AN ECONOMIST",
+      "HM GOVERNMENT HAS NO CONNECTION WITH THIS WEBSITE",
+    ];
 
   /* ─────────────────────────────────────────────────────────────────── */
 
@@ -299,10 +313,10 @@
       '</div>'
     ].join("");
 
-    /* Insert after <footer>; fall back to appending to <body> */
+    /* Insert before <footer>; fall back to appending to <body> */
     var footer = document.querySelector("footer.footer, footer");
     if (footer) {
-      footer.insertAdjacentElement("afterend", strip);
+      footer.insertAdjacentElement("beforebegin", strip);
     } else {
       document.body.appendChild(strip);
     }
