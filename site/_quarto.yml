@@ -212,6 +212,7 @@ format:
       - style/styles.css
       - style/tools.css
       - style/page-components.css
+      - style/dark.css
     citations-hover: true
     footnotes-hover: true
     csl: style/apa.csl
