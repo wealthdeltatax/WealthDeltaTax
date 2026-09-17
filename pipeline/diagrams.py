@@ -366,11 +366,11 @@ def generate_flowcharts_qmd(build: Path) -> None:
         'title: "Taxpayer Journey Flowcharts"',
         'description: "Side-by-side structural comparison of the WDT taxpayer journey and the current UK tax system."',
         f'author: "{AUTHOR}"',
+        "---",
+        "",
         "```{=html}",
         "  <div id='banner-slot'></div>",
         "```",
-        "---",
-        "",
         # ── inject CSS + lightbox JS ──────────────────────────────────────
         _PAIR_CSS,
         "",
