@@ -167,15 +167,3 @@ These are questions the papers have identified as unresolved. They are stated he
 - The minimum fund capitalisation required to maintain refund credibility through a 2008-scale crash has not been formally derived. → (RATES)
 
 The complete register of open questions across all papers is in the [Project Map](Project-Map.html). Version history and paper status are on the [Papers index](corpus.html).
-
----
-
-<!-- ═══════════════════════════════════════════════════════════════════════
-     GEOCITIES MODULE — injection examples
-     The WDTGeocities object is loaded globally via style/geocities.html
-     (registered in _quarto.yml include-in-header).
-
-     To inject elements on this page, use one of the patterns below.
-     Available keys: "counter" | "webring" | "netscape" | "contact"
-     ═══════════════════════════════════════════════════════════════════ -->
-

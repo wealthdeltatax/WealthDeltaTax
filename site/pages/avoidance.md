@@ -5,16 +5,19 @@ description: >
   Six decisions, in order, with honest analysis of what each one delivers.
 toc: true
 ---
-``` ={html}
-<div class="avoid-intro">
-<p>This is the cheat sheet.</p>
-<p>Every tax system in history has fought two battles simultaneously: implementation and information. Governments design the tax, then spend considerable effort making sure the strategies for minimising it are not written down anywhere convenient. The gap between what a sophisticated adviser knows and what a taxpayer without one can find is treated as a feature, not a bug.</p>
-<p>This page declines to play that game.</p>
-<p>What follows is the designer's honest account of the best strategies available to a taxpayer subject to the Wealth Delta Tax. No anti-avoidance throat-clearing. No "consult a professional." Just the analysis, in order, with the numbers where the numbers exist and an honest "we don't know" where they don't.</p>
-<p>The reason this page can exist is also the most important thing on it: the optimal strategy under the WDT turns out to be close to honest participation. That is not an accident and it is not a moral argument. It follows from the mechanism. Read to the end and you will see why.</p>
-<p style="margin-bottom:0"><em>If you find a strategy this page misses — one that produces a meaningful, durable advantage — <a href="mailto:wealthdeltatax@gmail.com">that is a design defect and we want to know about it</a>.</em></p>
-</div>
-```
+
+## This is the cheat sheet.
+
+Every tax system in history has fought two battles simultaneously: implementation and information. Governments design the tax, then spend considerable effort making sure the strategies for minimising it are not written down anywhere convenient. The gap between what a sophisticated adviser knows and what a taxpayer without one can find is treated as a feature, not a bug.
+
+This page declines to play that game.
+
+What follows is the designer's honest account of the best strategies available to a taxpayer subject to the Wealth Delta Tax. No anti-avoidance throat-clearing. No "consult a professional." Just the analysis, in order, with the numbers where the numbers exist and an honest "we don't know" where they don't.
+
+The reason this page can exist is also the most important thing on it: the optimal strategy under the WDT turns out to be close to honest participation. That is not an accident and it is not a moral argument. It follows from the mechanism. Read to the end and you will see why.
+
+*If you find a strategy this page misses — one that produces a meaningful, durable advantage — [that is a design defect and we want to know about it](mailto:wealthdeltatax@gmail.com).*
+:::
 
 ## How your liability is calculated
 
