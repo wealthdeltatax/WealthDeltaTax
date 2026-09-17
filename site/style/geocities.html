@@ -15,9 +15,11 @@
   ─────────────────────────────────────────────────────────────────────
   On DOMContentLoaded, WDTGeocities._autoInit() runs automatically:
 
-    • Banner  — inserted immediately after the <nav> element
-    • Webring + Counter + Netscape — injected into #wdt-footer-ring
-      (a <div> you place in _quarto.yml page-footer center:)
+    • Banner       — inserted immediately after the <nav> element
+    • Footer strip — a full-width flex row appended after Quarto's
+                     <footer> element:
+                       [Netscape badge] [webring centred] [counter]
+                     No slot div needed in _quarto.yml.
 
   Per-page inject calls are still supported for any element you want
   to place manually — pass a target element as the second argument.
@@ -100,6 +102,27 @@
   text-transform: uppercase;
   opacity: 0.85;
 }
+
+/* ── geocities footer strip ───────────────────────────────────────────── */
+.wdt-geocities-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 1.5rem;
+  box-sizing: border-box;
+  border-top: 1px solid var(--bs-border-color, #dee2e6);
+}
+.wdt-geostrip-left  { flex: 0 0 auto; }
+.wdt-geostrip-right { flex: 0 0 auto; }
+.wdt-geostrip-center {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  /* prevent webring from colliding with badges at narrow widths */
+  min-width: 0;
+  overflow: hidden;
+}
 </style>
 
 <script id="wdt-geocities-module">
@@ -142,17 +165,17 @@
    * Slogans that scroll across the marquee banner.
    * Add, remove, or reorder freely — the banner picks them all up.
    */
-  var BANNER_SLOGANS = [
+ var BANNER_SLOGANS = [
+    "WHAT THE HECK IS A COOKIE?",
     "HMRC HAS NOT RETURNED OUR CALL",
     "HM TREASURY HAS REQUESTED A WORD DOCUMENT",
-    "APPENDIX 14A HAS BEEN WITHHELD",
     "DOCUMENT STATUS: FINAL FINAL",
-    "PLEASE DO NOT PRINT THIS PAGE",
-    "THIS IS A COMPLETELY NORMAL TAX SYSTEM",
-    "NOT A PONZI SCHEME ACCORDING TO OUR CURRENT UNDERSTANDING",
+    "PLEASE DO NOT PRINT JUST THIS PAGE",
+    "DO YOU NEED IT AS A PDF?",
+    "THIS IS A COMPLETELY ORDINARY TAX SYSTEM",
     "INFORMATION MAY BE CORRECT",
     "THE WEBMASTER IS NOT AN ECONOMIST",
-    "HM GOVERNMENT HAS NO CONNECTION WITH THIS WEBSITE"
+    "HM GOVERNMENT HAS NO CONNECTION WITH THIS WEBSITE",
   ];
 
   /* ─────────────────────────────────────────────────────────────────── */
@@ -251,7 +274,8 @@
 
   /* ── auto-init ────────────────────────────────────────────────────── */
   function _autoInit() {
-    /* Banner: insert immediately after the Quarto <nav> */
+
+    /* ── 1. Banner: insert immediately after the Quarto <nav> ───────── */
     var nav = document.querySelector("nav.navbar, header nav, nav");
     if (nav) {
       var bannerEl = document.createElement("div");
@@ -259,14 +283,28 @@
       nav.parentNode.insertBefore(bannerEl.firstChild, nav.nextSibling);
     }
 
-    /* Footer ring: inject webring + counter + netscape into the slot */
-    var slot = document.getElementById("wdt-footer-ring");
-    if (slot) {
-      ["webring", "counter", "netscape"].forEach(function (key) {
-        var wrapper = document.createElement("div");
-        wrapper.innerHTML = TEMPLATES[key];
-        slot.appendChild(wrapper.firstChild);
-      });
+    /* ── 2. Geocities footer strip: appended after Quarto's <footer> ── */
+    /*    Built as one flex row: [Netscape] --- [Webring] --- [Counter]  */
+    var strip = document.createElement("div");
+    strip.className = "wdt-geocities-strip";
+    strip.innerHTML = [
+      '<div class="wdt-geostrip-left">',
+        TEMPLATES.netscape,
+      '</div>',
+      '<div class="wdt-geostrip-center">',
+        TEMPLATES.webring,
+      '</div>',
+      '<div class="wdt-geostrip-right">',
+        TEMPLATES.counter,
+      '</div>'
+    ].join("");
+
+    /* Insert after <footer>; fall back to appending to <body> */
+    var footer = document.querySelector("footer.footer, footer");
+    if (footer) {
+      footer.insertAdjacentElement("afterend", strip);
+    } else {
+      document.body.appendChild(strip);
     }
   }
 
