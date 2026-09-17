@@ -204,7 +204,7 @@ format:
     include-in-header: style/geocities.html
     theme:
       light: cosmo
-      dark: cosmo
+      dark: darkly
     css:
       - style/styles.css
       - style/tools.css
