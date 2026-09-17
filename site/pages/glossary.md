@@ -2,9 +2,7 @@
 title: "Glossary"
 description: "Definitions of key terms used across the Wealth Delta Tax research programme."
 ---
-```{=html}
-<div id="banner-slot"></div>
-```
+
 
 This glossary defines terms that recur across the WDT paper series. Each entry links to every section where the term appears.
 
@@ -764,13 +762,3 @@ A position adopted in the absence of Phase One evidence, on the basis of the bes
 **Zero-governance assumption**
 The modelling convention applied after LRR fill in the historical sweep: the full burden of government expenditure is charged against the LRR each year with no Governing Council rate adjustments. Determines the LRR breach year. Produces a conservative bound on reserve durability; in practice the mandatory rate review mechanism in (GOV §6) would intervene before breach. → (RATES §6), (RATES §6.3), (RATES §7), (RATES §7.2), (RATES §7.3)
 
-```{=html}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["counter", "webring", "netscape"]);
-  });
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["banner"], document.getElementById("banner-slot"));
-  });
-</script>
-```

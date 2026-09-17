@@ -5,9 +5,7 @@ description: "**Last updated:** 13 September 2026
 **Papers not yet in project:** *None*"
 author: "K. Ogata"
 ---
-```{=html}
-<div id="banner-slot"></div>
-```
+
 
 ## The Core Feasibility Case
 
@@ -347,13 +345,3 @@ Items not listed here are settled. Items listed under **Closed** have been resol
 - **The most consequential calibration problem** is the τ_0 cross-dataset tension: higher τ_0 accelerates LRR fill and brings the overstater correction earlier, but also raises entry burden. No setting simultaneously optimises all three. The τ_0 × W_min joint surface (item #17) is the next analytical deliverable that does not require Phase One data.
 - **The most consequential outstanding deliverable** is Phase One implementation itself: items 4–6, 29, and 30 cannot be resolved by any further desk research.
 
-```{=html}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["counter", "webring", "netscape"]);
-  });
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["banner"], document.getElementById("banner-slot"));
-  });
-</script>
-```

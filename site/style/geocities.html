@@ -3,28 +3,24 @@
   ========================
   Standalone module for the WDT site's Geocities-era decorative elements.
 
-  LOADING — two approaches, pick one:
+  LOADING
   ─────────────────────────────────────────────────────────────────────
-  A) Global (all pages): add this file to _quarto.yml so preprocess.py
-     copies it into _build/ and Quarto loads it site-wide:
+  Add this file to _quarto.yml so Quarto loads it site-wide:
 
        format:
          html:
-           include-in-header: _includes/geocities.html
+           include-in-header: style/geocities.html
 
-     Then in any .md that wants the elements, add a raw HTML call block:
+  AUTO-INIT (no per-page calls needed)
+  ─────────────────────────────────────────────────────────────────────
+  On DOMContentLoaded, WDTGeocities._autoInit() runs automatically:
 
-       ```{=html}
-       <script>
-         document.addEventListener("DOMContentLoaded", function () {
-           WDTGeocities.inject(["banner", "counter", "webring", "netscape", "contact"]);
-         });
-       </script>
-       ```
+    • Banner  — inserted immediately after the <nav> element
+    • Webring + Counter + Netscape — injected into #wdt-footer-ring
+      (a <div> you place in _quarto.yml page-footer center:)
 
-  B) Per-page (single page only): paste the entire contents of this file
-     into a ```{=html} block at the bottom of that .md, then immediately
-     follow it with the inject call above. No _quarto.yml change needed.
+  Per-page inject calls are still supported for any element you want
+  to place manually — pass a target element as the second argument.
   ─────────────────────────────────────────────────────────────────────
 
   API
@@ -111,7 +107,7 @@
 
   /* ── configurable values ───────────────────────────────────────────── */
 
-  var COUNTER_VALUE = "000023";
+  var COUNTER_VALUE = "001998";
 
   var CONTACT_EMAIL = "wealthdeltatax@gmail.com";
 
@@ -146,19 +142,18 @@
    * Slogans that scroll across the marquee banner.
    * Add, remove, or reorder freely — the banner picks them all up.
    */
-var BANNER_SLOGANS = [
-  "WHAT THE HECK IS A COOKIE?",
-  "HMRC HAS NOT RETURNED OUR CALL",
-  "HM TREASURY HAS REQUESTED A WORD DOCUMENT",
-  "APPENDIX 14A HAS BEEN WITHHELD",
-  "DOCUMENT STATUS: FINAL FINAL",
-  "PLEASE DO NOT PRINT THIS PAGE",
-  "THIS IS A COMPLETELY NORMAL TAX SYSTEM",
-  "NOT A PONZI SCHEME ACCORDING TO OUR CURRENT UNDERSTANDING",
-  "INFORMATION MAY BE CORRECT",
-  "THE WEBMASTER IS NOT AN ECONOMIST",
-  "HM GOVERNMENT HAS NO CONNECTION WITH THIS WEBSITE"
-];
+  var BANNER_SLOGANS = [
+    "HMRC HAS NOT RETURNED OUR CALL",
+    "HM TREASURY HAS REQUESTED A WORD DOCUMENT",
+    "APPENDIX 14A HAS BEEN WITHHELD",
+    "DOCUMENT STATUS: FINAL FINAL",
+    "PLEASE DO NOT PRINT THIS PAGE",
+    "THIS IS A COMPLETELY NORMAL TAX SYSTEM",
+    "NOT A PONZI SCHEME ACCORDING TO OUR CURRENT UNDERSTANDING",
+    "INFORMATION MAY BE CORRECT",
+    "THE WEBMASTER IS NOT AN ECONOMIST",
+    "HM GOVERNMENT HAS NO CONNECTION WITH THIS WEBSITE"
+  ];
 
   /* ─────────────────────────────────────────────────────────────────── */
 
@@ -208,7 +203,7 @@ var BANNER_SLOGANS = [
     counter: [
       '<div class="wdt-counter-wrap">',
       '  <div class="wdt-counter">',
-      '    <div class="wdt-counter-label">VISITORS SINCE 2021</div>',
+      '    <div class="wdt-counter-label">VISITORS SINCE 2024</div>',
       '    <div class="wdt-counter-digits">' + COUNTER_VALUE + "</div>",
       "  </div>",
       "</div>"
@@ -253,6 +248,29 @@ var BANNER_SLOGANS = [
     ].join("\n")
 
   };
+
+  /* ── auto-init ────────────────────────────────────────────────────── */
+  function _autoInit() {
+    /* Banner: insert immediately after the Quarto <nav> */
+    var nav = document.querySelector("nav.navbar, header nav, nav");
+    if (nav) {
+      var bannerEl = document.createElement("div");
+      bannerEl.innerHTML = TEMPLATES.banner;
+      nav.parentNode.insertBefore(bannerEl.firstChild, nav.nextSibling);
+    }
+
+    /* Footer ring: inject webring + counter + netscape into the slot */
+    var slot = document.getElementById("wdt-footer-ring");
+    if (slot) {
+      ["webring", "counter", "netscape"].forEach(function (key) {
+        var wrapper = document.createElement("div");
+        wrapper.innerHTML = TEMPLATES[key];
+        slot.appendChild(wrapper.firstChild);
+      });
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", _autoInit);
 
   /* ── public API ────────────────────────────────────────────────────── */
   window.WDTGeocities = {

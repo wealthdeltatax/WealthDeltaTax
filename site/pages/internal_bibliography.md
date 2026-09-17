@@ -2,9 +2,7 @@
 title: "Internal Bibliography"
 description: "Full citation list for the Wealth Delta Tax working paper series. This page lists all papers in the Wealth Delta Tax series with their current Zenodo citations. The short-form labels in square brackets — [WP], [MF], [VAL], and so on — are used throughout the series to cross-reference between papers. [SCOPE] and [ADD] are not yet published, but are accesible on this website."
 ---
-```{=html}
-<div id="banner-slot"></div>
-```
+
 
 [WP] Ogata, K. (2026). *The Wealth Delta Tax: The White Paper*. Zenodo. https://zenodo.org/records/21964119/files/1.0_260815_Wealth_Delta_Tax_Whitepaper.pdf?download=1
 
@@ -64,13 +62,4 @@ description: "Full citation list for the Wealth Delta Tax working paper series. 
 
 [ADD] Ogata, K. (2026). *The Wealth Delta Tax: Addendum: Implementation Calibration Examples*. Unpublished.
 
-```{=html}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["counter", "webring", "netscape"]);
-  });
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["banner"], document.getElementById("banner-slot"));
-  });
-</script>
-```
+

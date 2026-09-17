@@ -2,9 +2,7 @@
 title: "Wealth Delta Tax (WDT)"
 description: "The Wealth Delta Tax (WDT) is a proposed reform that taxes changes in individual net wealth on an accrual basis, with symmetric loss refunds and a pre-funded Sovereign Wealth Fund."
 ---
-```{=html}
-<div id="banner-slot"></div>
-```
+
 
 ```{=html}
 <script type="application/ld+json">
@@ -181,13 +179,3 @@ The complete register of open questions across all papers is in the [Project Map
      Available keys: "counter" | "webring" | "netscape" | "contact"
      ═══════════════════════════════════════════════════════════════════ -->
 
-```{=html}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["counter", "webring", "netscape"]);
-  });
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["banner"], document.getElementById("banner-slot"));
-  });
-</script>
-```

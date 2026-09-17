@@ -70,11 +70,3 @@ format:
   </div>
 </div>
 ```
-```{=html}
-<!-- All four elements, canonical order -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.injectAll();
-  });
-</script>
-```

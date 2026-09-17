@@ -3,9 +3,6 @@ title: "WDT — Interactive Calculators"
 description: "Computational tools for exploring the Wealth Delta Tax mechanism. Both calculators run the WDT Python model unmodified in your browser via Pyodide — no data leaves your machine."
 toc: false
 ---
-```{=html}
-<div id="banner-slot"></div>
-```
 
 Both calculators load `wdt_core.py` and `rates_model.py` directly from the
 research codebase. Parameters are read from `WDT_Params.toml`. No
@@ -36,14 +33,4 @@ initialise the runtime; subsequent calculations are fast.
     alongside current UK tax receipts for direct comparison.
   </p>
 </a>
-```
-```{=html}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["counter", "webring", "netscape"]);
-  });
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["banner"], document.getElementById("banner-slot"));
-  });
-</script>
 ```

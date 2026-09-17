@@ -6,7 +6,6 @@ description: >
 toc: true
 ---
 ``` ={html}
-<div id="banner-slot"></div>
 <div class="avoid-intro">
 <p>This is the cheat sheet.</p>
 <p>Every tax system in history has fought two battles simultaneously: implementation and information. Governments design the tax, then spend considerable effort making sure the strategies for minimising it are not written down anywhere convenient. The gap between what a sophisticated adviser knows and what a taxpayer without one can find is treated as a feature, not a bug.</p>
@@ -164,14 +163,3 @@ The model runs the full Route C simulation from `wdt_core.py` — the same code 
 ---
 
 Found a strategy this page does not cover? Identified a parameter combination that produces a meaningful durable advantage under canonical parameters? [Contact the project](mailto:wealthdeltatax@gmail.com) — this page is maintained as a live document and will be updated as new strategies are identified.
-
-```{=html}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["counter", "webring", "netscape"]);
-  });
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["banner"], document.getElementById("banner-slot"));
-  });
-</script>
-```

@@ -1,9 +1,7 @@
 ---
 title: "Author"
 ---
-```
-<div id="banner-slot"></div>
-```
+
 
 K. Ogata is a UK-based independent scholar with a background in engineering and education.
 
@@ -43,13 +41,3 @@ Correspondence via [wealthdeltatax@gmail.com](mailto:wealthdeltatax@gmail.com)
 
 *The WDT is an independent research project. It is not affiliated with any institution, political party, think tank, or funding body.*
 
-```{=html}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["counter", "webring", "netscape"]);
-  });
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["banner"], document.getElementById("banner-slot"));
-  });
-</script>
-```

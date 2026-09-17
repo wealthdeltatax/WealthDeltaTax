@@ -151,13 +151,3 @@ The fund is what makes the refund promise mechanically credible rather than aspi
 
 *29 working papers in active development as of mid-2026. Pre-peer review. Open questions are stated explicitly throughout and collected in the [Project Map](Project-Map.html).*
 
-```{=html}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["counter", "webring", "netscape"]);
-  });
-  document.addEventListener("DOMContentLoaded", function () {
-    WDTGeocities.inject(["banner"], document.getElementById("banner-slot"));
-  });
-</script>
-```

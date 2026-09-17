@@ -367,10 +367,6 @@ def generate_flowcharts_qmd(build: Path) -> None:
         'description: "Side-by-side structural comparison of the WDT taxpayer journey and the current UK tax system."',
         f'author: "{AUTHOR}"',
         "---",
-        "",
-        "```{=html}",
-        "  <div id='banner-slot'></div>",
-        "```",
         # ── inject CSS + lightbox JS ──────────────────────────────────────
         _PAIR_CSS,
         "",
@@ -465,16 +461,6 @@ def generate_flowcharts_qmd(build: Path) -> None:
             "WDT bidirectional flow — private wealth ↔ public wealth fund",
         ),
         "",
-        "```{=html}",
-        "<script>",
-        "  document.addEventListener('DOMContentLoaded', function () {",
-        "    WDTGeocities.inject(['counter', 'webring', 'netscape']);",
-        "  });",
-        "  document.addEventListener('DOMContentLoaded', function () {",
-        "    WDTGeocities.inject(['banner'], document.getElementById('banner-slot'));",
-        "  });",
-        "</script>",
-        "```",
     ]
 
     dest = build / "flowcharts.qmd"
