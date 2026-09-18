@@ -350,8 +350,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
-        "AyresBraithwaite1992__LRB",
-        "AyresBraithwaite1992__POL"
+        "AyresBraithwaite1992__LRB"
       ],
       "flag_ids": [
         "flag_11"
@@ -489,7 +488,7 @@
       "url": null,
       "verified": true,
       "verified_date": "260820",
-      "verification_notes": "SSRN Working Paper No.\\ 3452274. doi:10.2139/ssrn.3452274. Flag 26: FM References section describes this as a NYU School of Law working paper; correct form is SSRN Working Paper No.\\ 3452274. Action required in FM. Middle initial corrected 2026-08-06: L.\\ to L.\\ L.\\ per verified SSRN record.",
+      "verification_notes": "SSRN Working Paper No.\\ 3452274. doi:10.2139/ssrn.3452274. Middle initial corrected 2026-08-06: L.\\ to L.\\ L.\\ per verified SSRN record.",
       "alt_author_forms": [],
       "citation_ids": [
         "BatchelderKamin2019__CORP",
@@ -2749,7 +2748,7 @@
         "LondonoVelezAvilaMahecha2025__WP"
       ],
       "flag_ids": [
-        "flag_03",
+        
         "flag_06"
       ]
     },
@@ -3394,7 +3393,7 @@
       "url": "https://lawreview.uchicago.edu/print-archive/ownership-and-punishment",
       "verified": true,
       "verified_date": "260803",
-      "verification_notes": "Published 17 May 2019. Flag 22: LR.B 9 cites Prewitt without year parenthetical -- action required in LR.B.",
+      "verification_notes": "Published 17 May 2019.",
       "alt_author_forms": [],
       "citation_ids": [
         "Prewitt2019__LRB"
@@ -3626,45 +3625,6 @@
         "RothsteinUslaner2005__LRB"
       ],
       "flag_ids": []
-    },
-    {
-      "id": "SaezSlemrodGiertz2012",
-      "type": "journal_article",
-      "authors": [
-        {
-          "last": "Saez",
-          "first": "Emmanuel"
-        },
-        {
-          "last": "Slemrod",
-          "first": "Joel"
-        },
-        {
-          "last": "Giertz",
-          "first": "Seth H."
-        }
-      ],
-      "year": 2012,
-      "title": "The Elasticity of Taxable Income with Respect to Marginal Tax Rates: A Critical Review",
-      "publisher": null,
-      "journal": "Journal of Economic Literature",
-      "volume": "50",
-      "issue": "1",
-      "pages": "3–50",
-      "series": null,
-      "number": null,
-      "doi": "10.1257/jel.50.1.3",
-      "url": null,
-      "verified": true,
-      "verified_date": "260820",
-      "verification_notes": null,
-      "alt_author_forms": [],
-      "citation_ids": [
-        "SaezSlemrodGiertz2012__WP"
-      ],
-      "flag_ids": [
-        "flag_04"
-      ]
     },
     {
       "id": "SaezZucman2016",
@@ -4072,7 +4032,7 @@
       "url": "https://www.taxwatchuk.org/state-of-tax-administration-2024/",
       "verified": true,
       "verified_date": "260820",
-      "verification_notes": "Published October 2024 but year = 2025 retained to match existing WDT citations. Flag 6: appears in JUR References section but no in-text citation identified in JUR body. Author to confirm whether to retain or remove.",
+      "verification_notes": "Published October 2024 but year = 2025 retained to match existing WDT citations.",
       "alt_author_forms": [],
       "citation_ids": [
         "TaxWatch2025__JUR"
@@ -4673,7 +4633,6 @@
         "PikettyEtAl2014__WP",
         "Piketty2014__WP",
         "PosnerWeyl2018__WP",
-        "SaezSlemrodGiertz2012__WP",
         "SaezZucman2016__WP",
         "SaezZucman2019__WP",
         "Seim2017__WP",
@@ -4702,10 +4661,10 @@
       ],
       "open_question_ids": [],
       "flag_ids": [
-        "flag_03",
+        
         "flag_04"
       ],
-      "notes": "§1.1 extended v2.1: non-interference design constraint added as fourth principle. Flag 3: Londoño-Vélez cited as 2024 NBER WP — update to 2025 journal. Flag 4: orphan references (SaezSlemrodGiertz2012) in WP References await author decision."
+      "notes": "§1.1 extended v2.1: non-interference design constraint added as fourth principle."
     },
     {
       "id": "MF",
@@ -4911,7 +4870,7 @@
         "flag_21",
         "flag_22"
       ],
-      "notes": "First draft. Reference guide to intellectual ancestry. 19 sections. Generated from 0.4 after that database is clean. Flags 15-21: orphan references; flag 22: Prewitt missing year."
+      "notes": "First draft. Reference guide to intellectual ancestry. 19 sections. Generated from 0.4 after that database is clean. Flags 15-21: orphan references; "
     },
     {
       "id": "VAL",
@@ -4955,7 +4914,7 @@
       "flag_ids": [
         "flag_12"
       ],
-      "notes": "v2.10: N=29 following RATES budget_growth correction to 4.51%. Flag 12: SaezZucman2019 in VAL References with no in-text citation — author decision pending."
+      "notes": "v2.10: N=29 following RATES budget_growth correction to 4.51%."
     },
     {
       "id": "VAL.A",
@@ -5092,7 +5051,7 @@
       "flag_ids": [
         "flag_05"
       ],
-      "notes": "v2.1: Updated Limitations. Flag 5: four orphan references (AviYonahMazzoni, DomarMusgrave, PosnerWeyl, Zelenak) in CORP References — author decision pending."
+      "notes": "v2.1: Updated Limitations. "
     },
     {
       "id": "CORP.A",
@@ -5300,7 +5259,7 @@
       "flag_ids": [
         "flag_03"
       ],
-      "notes": "v1.4: full structural rewrite; §§6.3, 8.12, 8.13, 10 added; §9.2 substantially rewritten; §§10-12 renumbered §§11-13. Flag 3: Londoño-Vélez cited as 2024 NBER WP — update to 2025 journal."
+      "notes": "v1.4: full structural rewrite; §§6.3, 8.12, 8.13, 10 added; §9.2 substantially rewritten; §§10-12 renumbered §§11-13. "
     },
     {
       "id": "CLOSE",
@@ -5332,7 +5291,7 @@
       "flag_ids": [
         "flag_03"
       ],
-      "notes": "CLOSE OQ 1 closed by GOV v1.4. Flag 3: Londoño-Vélez cited as 2024 NBER WP — update to 2025 journal."
+      "notes": "CLOSE OQ 1 closed by GOV v1.4. "
     },
     {
       "id": "POL",
@@ -5342,7 +5301,6 @@
       "version_date": "260808",
       "status": "active",
       "outbound_ext_citation_ids": [
-        "AyresBraithwaite1992__POL",
         "BastaniWaldenstrom2020__POL",
         "DomarMusgrave1944__POL",
         "Gangl2015b__POL",
@@ -5370,11 +5328,11 @@
         "POL-4"
       ],
       "flag_ids": [
-        "flag_03",
+        
         "flag_10",
         "flag_11"
       ],
-      "notes": "Flag 3: Londoño-Vélez cited as 2024 NBER WP — update to 2025 journal. Flag 10: Gangl 2015b disambiguation. Flag 11: AyresBraithwaite orphan in References."
+      "notes": " Flag 10: Gangl 2015b disambiguation. "
     },
     {
       "id": "PHASE1",
@@ -5479,7 +5437,7 @@
         "flag_23",
         "flag_24"
       ],
-      "notes": "v0.3: §4 subsectioned §4.1-§4.8; new §4.3-§4.8 on automation and tax-base migration; ENV-4 added. Flag 23: Jakobsen et al. reference confused with Denmark 2020 paper. Flag 24: Kleven et al. JEP volume/pages wrong."
+      "notes": "v0.3: §4 subsectioned §4.1-§4.8; new §4.3-§4.8 on automation and tax-base migration; ENV-4 added."
     },
     {
       "id": "FM",
@@ -5516,7 +5474,7 @@
         "flag_25",
         "flag_26"
       ],
-      "notes": "Strategic analysis paper. Generates no open questions. Flag 25: Perret reference wrong (Intereconomics instead of Fiscal Studies). Flag 26: Batchelder publisher description wrong."
+      "notes": null
     },
     {
       "id": "MOD",
@@ -5791,7 +5749,7 @@
       "paper_id": "JUR",
       "relationship": "references_only",
       "sections": [],
-      "notes": "Flag 6: appears in JUR References section but no in-text citation identified"
+      "notes": null
     },
     {
       "id": "Ambachtsheer2007__LRB",
@@ -5883,7 +5841,7 @@
       "paper_id": "CORP",
       "relationship": "references_only",
       "sections": [],
-      "notes": "Flag 5: appears in CORP References section but no in-text citation identified"
+      "notes": null
     },
     {
       "id": "AviYonahMazzoni2019__LRB",
@@ -5894,14 +5852,6 @@
         "3"
       ],
       "notes": null
-    },
-    {
-      "id": "AyresBraithwaite1992__POL",
-      "ref_id": "AyresBraithwaite1992",
-      "paper_id": "POL",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": "Flag 11: appears in POL References section but no in-text citation identified"
     },
     {
       "id": "AyresBraithwaite1992__LRB",
@@ -6141,7 +6091,7 @@
       "paper_id": "JUR",
       "relationship": "references_only",
       "sections": [],
-      "notes": "Flag 6: appears in JUR References section but no in-text citation identified"
+      "notes": null
     },
     {
       "id": "ClarkUrwin2008__LRB",
@@ -6240,7 +6190,7 @@
       "paper_id": "CORP",
       "relationship": "references_only",
       "sections": [],
-      "notes": "Flag 5: appears in CORP References section but no in-text citation identified"
+      "notes": null
     },
     {
       "id": "DomarMusgrave1944__CLOSE",
@@ -6885,7 +6835,7 @@
       "paper_id": "JUR",
       "relationship": "references_only",
       "sections": [],
-      "notes": "Flag 6: JUR §1.5.3 references Norway evidence by name but no parenthetical citation"
+      "notes": null
     },
     {
       "id": "JakobsenEtAl2024__CLOSE",
@@ -6915,7 +6865,7 @@
       "sections": [
         "3"
       ],
-      "notes": "22-cent revenue loss figure; Norway migration evidence — Flag 23: ENV References entry confuses this with JakobsenEtAl2020"
+      "notes": "22-cent revenue loss figure; Norway migration evidence"
     },
     {
       "id": "JakobsenEtAl2024__RATES",
@@ -7182,7 +7132,7 @@
       "sections": [
         "3"
       ],
-      "notes": "Flag 24: ENV References section cites wrong volume and pages — JEP 34(2), 119-142 should be 38(2), 3-30"
+      "notes": null
     },
     {
       "id": "KlevenEtAl2024__LRB",
@@ -7283,7 +7233,7 @@
       "sections": [
         "2.2"
       ],
-      "notes": "Flag 3: currently cited as 2024 NBER WP — update to 2025 journal version"
+      "notes": null
     },
     {
       "id": "LondonoVelezAvilaMahecha2025__JUR",
@@ -7291,7 +7241,7 @@
       "paper_id": "JUR",
       "relationship": "references_only",
       "sections": [],
-      "notes": "Flag 6: appears in JUR References section but no in-text citation identified"
+      "notes": null
     },
     {
       "id": "LondonoVelezAvilaMahecha2025__BEHAV",
@@ -7302,7 +7252,7 @@
         "2.1",
         "9.2"
       ],
-      "notes": "Flag 3: currently cited as 2024 NBER WP — update to 2025 journal version"
+      "notes": null
     },
     {
       "id": "LondonoVelezAvilaMahecha2025__CLOSE",
@@ -7321,7 +7271,7 @@
         "8.3",
         "9.1"
       ],
-      "notes": "Flag 3: currently cited as 2024 NBER WP — update to 2025 journal version"
+      "notes": null
     },
     {
       "id": "LondonoVelezAvilaMahecha2025__LRB",
@@ -7599,7 +7549,7 @@
         "2",
         "3.2"
       ],
-      "notes": "Flag 25: FM References entry has wrong title, journal, volume, and pages — action required in FM"
+      "notes": null
     },
     {
       "id": "Perret2021__LRB",
@@ -7635,7 +7585,7 @@
       "paper_id": "WP",
       "relationship": "references_only",
       "sections": [],
-      "notes": "Flag 4: appears in WP References section but no in-text citation identified"
+      "notes": null
     },
     {
       "id": "PikettyEtAl2023__LRA",
@@ -7740,7 +7690,7 @@
       "paper_id": "CORP",
       "relationship": "references_only",
       "sections": [],
-      "notes": "Flag 5: appears in CORP References section but no in-text citation identified"
+      "notes": null
     },
     {
       "id": "PosnerWeyl2018__GOV",
@@ -7771,7 +7721,7 @@
       "sections": [
         "9"
       ],
-      "notes": "Flag 22: cited without year parenthetical — should be Prewitt (2019)"
+      "notes": null
     },
     {
       "id": "Rawls1971__LRB",
@@ -7789,7 +7739,7 @@
       "paper_id": "JUR",
       "relationship": "references_only",
       "sections": [],
-      "notes": "Flag 6: appears in JUR References section but no in-text citation identified"
+      "notes": null
     },
     {
       "id": "ResolutionFoundation2026__JUR",
@@ -7914,14 +7864,6 @@
       "notes": null
     },
     {
-      "id": "SaezSlemrodGiertz2012__WP",
-      "ref_id": "SaezSlemrodGiertz2012",
-      "paper_id": "WP",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": "Flag 4: appears in WP References section but no in-text citation identified"
-    },
-    {
       "id": "SaezZucman2016__WP",
       "ref_id": "SaezZucman2016",
       "paper_id": "WP",
@@ -7950,14 +7892,6 @@
         "2.4"
       ],
       "notes": null
-    },
-    {
-      "id": "SaezZucman2019__VAL",
-      "ref_id": "SaezZucman2019",
-      "paper_id": "VAL",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": "Flag 12: appears in VAL References section but no in-text citation identified"
     },
     {
       "id": "SaezZucman2019__LRB",
@@ -8177,7 +8111,7 @@
       "paper_id": "JUR",
       "relationship": "references_only",
       "sections": [],
-      "notes": "Flag 6: appears in JUR References section but no in-text citation identified"
+      "notes": null
     },
     {
       "id": "TetlockGardner2015__GOVA",
@@ -8456,7 +8390,7 @@
       "paper_id": "CORP",
       "relationship": "references_only",
       "sections": [],
-      "notes": "Flag 5: appears in CORP References section but no in-text citation identified"
+      "notes": null
     },
     {
       "id": "Zelenak2021__LRB",
@@ -8550,40 +8484,6 @@
     }
   ],
   "flags": [
-    {
-      "id": "flag_03",
-      "number": 3,
-      "status": "open_paper_revision",
-      "affects_papers": [
-        "WP",
-        "BEHAV",
-        "POL",
-        "CLOSE"
-      ],
-      "affects_refs": [
-        "LondonoVelezAvilaMahecha2025"
-      ],
-      "type": "bibliographic_error",
-      "description": "WDT papers currently cite Londoño-Vélez & Avila-Mahecha as 2024 NBER Working Paper No. 32134. The 0.4 entry has been updated to the 2025 journal version (Review of Economic Studies 92(4), 2624–2655). In-text citations and References entries in the affected papers still use the working paper form.",
-      "action_required": "Update in-text citation and References entry in WP, LR, BEHAV, POL, CLOSE to 2025 Review of Economic Studies journal version on next revision of each paper.",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_04",
-      "number": 4,
-      "status": "open_author_decision",
-      "affects_papers": [
-        "WP"
-      ],
-      "affects_refs": [
-        "PikettyEtAl2014",
-        "SaezSlemrodGiertz2012"
-      ],
-      "type": "orphan_reference",
-      "description": "Two entries appear in WP References section but have no identified in-text citation in the WP body: (a) Piketty, Saez & Stantcheva (2014); (b) Saez, Slemrod & Giertz (2012).",
-      "action_required": "Author to confirm whether these are intentional background references or should be removed from WP References.",
-      "resolved_date": null
-    },
     {
       "id": "flag_05",
       "number": 5,
@@ -8686,21 +8586,6 @@
       "type": "disambiguation",
       "description": "Two papers by Gangl, Hofmann & Kirchler in the same year are now in 0.4 as 2015a (New Ideas in Psychology) and 2015b (Journal of Business Ethics). Author should confirm: (a) disambiguation is correct; (b) LR/BEHAV/PHASE1 cite 2015a and POL cites 2015b; (c) both entries are intentional.",
       "action_required": "Author to confirm disambiguation, confirm which papers cite which version, and confirm whether both are intentional project entries.",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_11",
-      "number": 11,
-      "status": "open_author_decision",
-      "affects_papers": [
-        "POL"
-      ],
-      "affects_refs": [
-        "AyresBraithwaite1992"
-      ],
-      "type": "orphan_reference",
-      "description": "Ayres & Braithwaite (1992) appears in POL References section but no in-text citation visible in POL body. Already in 0.4 from LR §7.",
-      "action_required": "Author to confirm whether POL intends a body citation and, if so, which section.",
       "resolved_date": null
     },
     {
@@ -8826,21 +8711,6 @@
       "resolved_date": null
     },
     {
-      "id": "flag_22",
-      "number": 22,
-      "status": "open_paper_revision",
-      "affects_papers": [
-        "LRB"
-      ],
-      "affects_refs": [
-        "Prewitt2019"
-      ],
-      "type": "bibliographic_error",
-      "description": "LR.B §9 cites Prewitt without a year parenthetical.",
-      "action_required": "Change to 'Prewitt (2019)' on next LR.B revision.",
-      "resolved_date": null
-    },
-    {
       "id": "flag_23",
       "number": 23,
       "status": "open_paper_revision",
@@ -8853,21 +8723,6 @@
       "type": "bibliographic_error",
       "description": "ENV References section conflates the Denmark 2020 paper (JakobsenEtAl2020) with the Norway 2024 paper (JakobsenEtAl2024, NBER 32153). ENV §3 clearly cites the Norway evidence (22-cent figure) but its References entry carries the Denmark paper's details.",
       "action_required": "Replace ENV's confused References entry with the correct Norway paper citation: Jakobsen, K., Kleven, H., Kolsrud, J., Landais, C., & Muñoz, M. (2024). NBER WP 32153.",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_24",
-      "number": 24,
-      "status": "open_paper_revision",
-      "affects_papers": [
-        "ENV"
-      ],
-      "affects_refs": [
-        "KlevenEtAl2024"
-      ],
-      "type": "bibliographic_error",
-      "description": "ENV References section cites Kleven et al. (2024) as Journal of Economic Perspectives 34(2), 119–142. Correct details: JEP 38(2), 3–30.",
-      "action_required": "Correct ENV References entry to JEP 38(2), 3–30.",
       "resolved_date": null
     },
     {
