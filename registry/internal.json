@@ -1089,6 +1089,69 @@
       "open_question_ids": [],
       "flag_ids": [],
       "notes": "v0.01 (260827): initial draft. Eight implementation questions with approach sketches."
+    },
+    {
+      "id": "INST",
+      "shortcode": "INST",
+      "title": "The Wealth Delta Tax: Fiscal Architecture and Institutional Selection",
+      "version": "0.04",
+      "version_date": "260918",
+      "status": "active",
+      "outbound_ext_citation_ids": [
+        "AcemogluEtAl2019__INST",
+        "AgrawalEtAl2025__INST",
+        "Andersson2023__INST",
+        "AnderssonTeorell2025__INST",
+        "BackHadenius2008__INST",
+        "BrickerEtAl2016__INST",
+        "DodlovaLucas2021__INST",
+        "Gilley2017__INST",
+        "JakobsenEtAl2024__INST",
+        "KatoTanaka2019__INST",
+        "Kopczuk2015__INST",
+        "McKinseyGWW2026__INST",
+        "OECD2018__INST",
+        "Olson1965__INST",
+        "Perret2021__INST",
+        "Ross2004__INST",
+        "SaezZucman2016__INST",
+        "SaezZucman2019__INST",
+        "SaezZucman2022__INST",
+        "ScheveStasavage2012__INST",
+        "Tsebelis2002__INST",
+        "UBS2025__INST",
+        "VDem2026__INST",
+        "VonSchiller2018__INST",
+        "Zhang2017__INST"
+      ],
+      "outbound_internal": [
+        "WP",
+        "VAL",
+        "RATES",
+        "GOV",
+        "POL",
+        "BEHAV",
+        "ENV",
+        "FM",
+        "PHASE1",
+        "CORP",
+        "JUR",
+        "CLOSE",
+        "SWEEPS",
+        "MOD"
+      ],
+      "inbound_internal": [],
+      "open_question_ids": [
+        "31",
+        "32"
+      ],
+      "flag_ids": [
+        "flag_29",
+        "flag_30",
+        "flag_31",
+        "flag_32"
+      ],
+      "notes": "v0.01 (260900): First draft. v0.02 (260900): §4 condensed; §5.4 DR chamber name corrected; §5.1 VAL §5.2 citation added; §5.2 Route C description corrected; §7.1 RATES citations sharpened; §7.2 ENV §4.1–§4.2 added; §7.3 FM §3.1 added; §6.4/§8 FM §3.2 corrected to FM §3; §3.1 JUR §2.4 added; §4.2 POL §5.7 added; Tier A footnotes updated. v0.03 (260918): Abstract rewritten (≤300 words) foregrounding two-constituency mechanism; §1 'only' removed; §6.4 heading and China framing revised; unfalsifiable Option B language removed; §8/§10 updated to match. v0.04 (260918): All external citations converted to @Key notation; References section added (APA 7th, 25 entries); Flag 29 (Clark et al. 2022 unresolved) and Flag 30 (World Development 2013 unresolved) added; Flag 31 (institutional sources: Catalyst International, Asia Society, Foreign Affairs) added; Flag 32 (McKinseyGWW2026 URL unverified) added."
     }
   ],
   "citations": [
@@ -4224,6 +4287,266 @@
         "3.1"
       ],
       "notes": null
+    },
+    {
+      "id": "AcemogluEtAl2019__INST",
+      "ref_id": "AcemogluEtAl2019",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "2.3"
+      ],
+      "notes": "Democracy increases GDP per capita ~20% long run; effects via state capacity, education, health. Cited in authoritarian trade-off analysis."
+    },
+    {
+      "id": "AgrawalEtAl2025__INST",
+      "ref_id": "AgrawalEtAl2025",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "9.2"
+      ],
+      "notes": "Six-to-one cross-base fiscal multiplier; failure condition 8 (cross-base migration at prohibitive scale)."
+    },
+    {
+      "id": "Andersson2023__INST",
+      "ref_id": "Andersson2023",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "5.3",
+        "6.2"
+      ],
+      "notes": "Authoritarian systems with institutional oversight can develop greater fiscal capacity; raises credible-commitment-without-democracy question. Central to §5.3 and §6.2 argument."
+    },
+    {
+      "id": "AnderssonTeorell2025__INST",
+      "ref_id": "AnderssonTeorell2025",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "7.3",
+        "8"
+      ],
+      "notes": "State capacity prolongs autocratic rule but increases democratisation probability. Cited in §7.3 pre-built crisis capacity and §8 Option D dynamics."
+    },
+    {
+      "id": "BackHadenius2008__INST",
+      "ref_id": "BackHadenius2008",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "2.1"
+      ],
+      "notes": "J-shaped relationship between democracy and administrative capacity. Intermediate regimes perform poorly on both dimensions."
+    },
+    {
+      "id": "BrickerEtAl2016__INST",
+      "ref_id": "BrickerEtAl2016",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "3.1"
+      ],
+      "notes": "Capitalisation method overstates wealth concentration — methodological counterpoint to Saez & Zucman."
+    },
+    {
+      "id": "DodlovaLucas2021__INST",
+      "ref_id": "DodlovaLucas2021",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "5.4",
+        "6.1"
+      ],
+      "notes": "105 autocracies 1950–2004: autocratic rulers choose tax structures according to whether elites or mass population constitute primary security threat. Elite-threat regimes structurally relax elite taxation. Cited as 'European Journal of Political Economy (2021)' in earlier draft."
+    },
+    {
+      "id": "Gilley2017__INST",
+      "ref_id": "Gilley2017",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.2",
+        "6.3"
+      ],
+      "notes": "Representation dilemma: comprehensive transparent taxation generates accountability demands. China's resilience rests on visible services while limiting political consequences of extraction."
+    },
+    {
+      "id": "JakobsenEtAl2024__INST",
+      "ref_id": "JakobsenEtAl2024",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "9.2"
+      ],
+      "notes": "~2% reduction in wealthy taxpayer stock per 1pp wealth tax rate increase. Empirical ballpark for failure condition 8."
+    },
+    {
+      "id": "KatoTanaka2019__INST",
+      "ref_id": "KatoTanaka2019",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.2",
+        "8"
+      ],
+      "notes": "Taxation does not mechanically cause democratic transition; contemporary autocracies sustain modern tax architecture without democratising. Caveat applied in §6.2 and Option C analysis in §8."
+    },
+    {
+      "id": "Kopczuk2015__INST",
+      "ref_id": "Kopczuk2015",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "3.1"
+      ],
+      "notes": "Capitalisation method overstates concentration — methodological counterpoint alongside BrickerEtAl2016."
+    },
+    {
+      "id": "McKinseyGWW2026__INST",
+      "ref_id": "McKinseyGWW2026",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "3.1",
+        "3.2"
+      ],
+      "notes": "Primary source for $570 trillion global household wealth figure (2025) and country-level wealth data for Table 1. Flag 32: URL unverified."
+    },
+    {
+      "id": "OECD2018__INST",
+      "ref_id": "OECD2018",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "3.2",
+        "4"
+      ],
+      "notes": "12 OECD net wealth taxes in 1990; 4 by 2017. Primary empirical record for §4 failure analysis."
+    },
+    {
+      "id": "Olson1965__INST",
+      "ref_id": "Olson1965",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "4"
+      ],
+      "notes": "Collective action asymmetry: small concentrated taxed population outperforms large diffuse beneficiary population. Second failure mechanism."
+    },
+    {
+      "id": "Perret2021__INST",
+      "ref_id": "Perret2021",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "3.2",
+        "4"
+      ],
+      "notes": "Primary failure mechanisms political not economic. France ISF 60–80% survey support yet abolished. Full case evidence in POL §3."
+    },
+    {
+      "id": "Ross2004__INST",
+      "ref_id": "Ross2004",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.2"
+      ],
+      "notes": "Taxation-to-representation literature: single-constituency model. WDT two-constituency mechanism distinguished from this tradition."
+    },
+    {
+      "id": "SaezZucman2016__INST",
+      "ref_id": "SaezZucman2016",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "3.1"
+      ],
+      "notes": "Upper-tail wealth share growth documented across methodological approaches."
+    },
+    {
+      "id": "SaezZucman2019__INST",
+      "ref_id": "SaezZucman2019",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "1"
+      ],
+      "notes": "Cited as a prior wealth tax proposal that remained theoretical/politically unimplemented."
+    },
+    {
+      "id": "SaezZucman2022__INST",
+      "ref_id": "SaezZucman2022",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "4.2"
+      ],
+      "notes": "European failures from narrow bases (exemptions, avoidance, evasion); modern administrative capacity could improve effectiveness. WDT agrees on diagnosis, proposes structural rather than administrative solution."
+    },
+    {
+      "id": "ScheveStasavage2012__INST",
+      "ref_id": "ScheveStasavage2012",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "4"
+      ],
+      "notes": "Cited in Tier A footnote for §4 failure analysis alongside Olson1965 and Perret2021."
+    },
+    {
+      "id": "Tsebelis2002__INST",
+      "ref_id": "Tsebelis2002",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "2.2"
+      ],
+      "notes": "Veto player literature: policy change more difficult as credible blocking actors increase. Authoritarian systems compress decision cycle by concentrating agenda-setting and blocking power."
+    },
+    {
+      "id": "UBS2025__INST",
+      "ref_id": "UBS2025",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "3.1",
+        "3.2"
+      ],
+      "notes": "Corroboration of McKinsey global wealth total; used alongside McKinseyGWW2026 and VDem2026 for Table 1."
+    },
+    {
+      "id": "VDem2026__INST",
+      "ref_id": "VDem2026",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "2.1",
+        "3.2"
+      ],
+      "notes": "Five-tier governance classification (modified from V-Dem RoW typology). Population estimates and governance-tier assignments for §2.1 and Table 1."
+    },
+    {
+      "id": "VonSchiller2018__INST",
+      "ref_id": "VonSchiller2018",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.2"
+      ],
+      "notes": "Institutionalised political parties increase governments' ability to make credible fiscal contracts with wealthy taxpayers. Credible fiscal commitment is itself an institutional investment with political consequences beyond the fiscal contract."
+    },
+    {
+      "id": "Zhang2017__INST",
+      "ref_id": "Zhang2017",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.2"
+      ],
+      "notes": "Representation dilemma: more comprehensive transparent taxation generates stronger accountability demands. Cited alongside Gilley2017."
     }
   ],
   "flags": [
@@ -4603,6 +4926,60 @@
       "type": "missing_references",
       "description": "SWEEPS v0.3 References section contains only the placeholder note '[To be compiled — external literature cited in the paper body.]' No external references have been entered. This flag remains open until SWEEPS carries a populated References section.",
       "action_required": "When SWEEPS References section is populated, run full SWEEPS ingestion pass: extract all external citations, check against this JSON, add new entries, add citation records throughout.",
+      "resolved_date": null
+    },
+    {
+      "id": "flag_29",
+      "number": 29,
+      "status": "open_author_decision",
+      "affects_papers": [
+        "INST"
+      ],
+      "affects_refs": [],
+      "type": "unresolved_citation",
+      "description": "INST §4 cites 'Clark et al. (2022)' for the finding that 'business structural power — the credible threat of exit — disciplined governments independently of active lobbying.' No article matching this author-year combination and claim was found in the literature. Closest candidates are Fairfield (2015) Private Wealth and Public Revenue in Latin America (Cambridge University Press) or Culpepper (2011) Quiet Politics and Business Power (Cambridge University Press), both on structural power. Citation appears in body text and Tier A footnote of §4, and in References section as a stub.",
+      "action_required": "Author to identify the intended source and supply full citation details. Replace 'Clark et al. (2022)' stub with correct @Key notation throughout INST.",
+      "resolved_date": null
+    },
+    {
+      "id": "flag_30",
+      "number": 30,
+      "status": "open_author_decision",
+      "affects_papers": [
+        "INST"
+      ],
+      "affects_refs": [],
+      "type": "unresolved_citation",
+      "description": "INST §6.2 cites 'World Development (2013)' as part of the taxation-to-representation literature alongside Ross (2004) and Kato & Tanaka (2019). This appears to be a journal name used as a shorthand rather than a specific article citation. No specific article in World Development (2013) matching the context has been identified.",
+      "action_required": "Author to supply the full citation for the intended World Development (2013) article, or remove the parenthetical if it was intended as a genre reference rather than a specific source.",
+      "resolved_date": null
+    },
+    {
+      "id": "flag_31",
+      "number": 31,
+      "status": "open_web_check",
+      "affects_papers": [
+        "INST"
+      ],
+      "affects_refs": [],
+      "type": "unverified_entry",
+      "description": "INST §6.4 Tier A footnote cites three institutional sources without full details: (a) Catalyst International (2025) — illicit outflows $254bn in four quarters to June 2024; (b) Asia Society Policy Institute (2022) — context unclear; (c) Foreign Affairs (2026) — article not identified. None of these have been resolved to specific titles, authors, URLs or page numbers. They are currently cited as narrative references in the Tier A footnote only and do not appear in the References section.",
+      "action_required": "Author to supply full details for all three: title, author(s), URL/DOI, date. Add to References section and bib once verified.",
+      "resolved_date": null
+    },
+    {
+      "id": "flag_32",
+      "number": 32,
+      "status": "open_web_check",
+      "affects_papers": [
+        "INST"
+      ],
+      "affects_refs": [
+        "McKinseyGWW2026"
+      ],
+      "type": "unverified_entry",
+      "description": "McKinseyGWW2026 URL could not be independently verified — McKinsey gates its wealth reports and no stable public URL was confirmed. The bib entry notes this. The report is cited as the primary source for the $570 trillion global wealth figure in INST §3.1 and as a source for Table 1.",
+      "action_required": "Verify URL for McKinsey Global Wealth Watch 2026 and update bib entry. If the report is not publicly accessible, consider whether UBS2025 alone suffices as the citable source for the wealth total.",
       "resolved_date": null
     }
   ]
