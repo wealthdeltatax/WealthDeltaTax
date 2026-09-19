@@ -1,16 +1,57 @@
 {
   "meta": {
     "version": "0.1",
-    "date": "260915",
+    "date": "260919",
     "generated_by": "pipeline/bib_to_json.py",
     "source_bib": "registry/references.bib",
     "source_internal": "registry/internal.json",
-    "total_external_refs": 138,
-    "total_internal_papers": 25,
-    "total_citations": 287,
-    "total_flags": 24
+    "total_external_refs": 165,
+    "total_internal_papers": 29,
+    "total_citations": 317,
+    "total_flags": 14
   },
   "external_references": [
+    {
+      "id": "AcemogluEtAl2019",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Acemoglu",
+          "first": "Daron"
+        },
+        {
+          "last": "Naidu",
+          "first": "Suresh"
+        },
+        {
+          "last": "Restrepo",
+          "first": "Pascual"
+        },
+        {
+          "last": "Robinson",
+          "first": "James A."
+        }
+      ],
+      "year": 2019,
+      "title": "Democracy Does Cause Growth",
+      "publisher": null,
+      "journal": "Journal of Political Economy",
+      "volume": "127",
+      "issue": "1",
+      "pages": "47–100",
+      "series": null,
+      "number": null,
+      "doi": "10.1086/700936",
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": null,
+      "alt_author_forms": [],
+      "citation_ids": [
+        "AcemogluEtAl2019__INST"
+      ],
+      "flag_ids": []
+    },
     {
       "id": "Addison2009",
       "type": "book",
@@ -35,12 +76,8 @@
       "verified_date": null,
       "verification_notes": null,
       "alt_author_forms": [],
-      "citation_ids": [
-        "Addison2009__LRB"
-      ],
-      "flag_ids": [
-        "flag_15"
-      ]
+      "citation_ids": [],
+      "flag_ids": []
     },
     {
       "id": "AdvaniEtAl2020",
@@ -72,7 +109,7 @@
       "url": "https://www.wealthandpolicy.com/wp/WealthTaxFinalReport.pdf",
       "verified": false,
       "verified_date": null,
-      "verification_notes": "WP, or other papers also cite this work.",
+      "verification_notes": "WP, LR, or other papers also cite this work.",
       "alt_author_forms": [
         "Wealth Tax Commission (2020) — institutional-author form used in RATES References section; refers to same report"
       ],
@@ -121,9 +158,11 @@
         "AgrawalEtAl2025__BEHAV",
         "AgrawalEtAl2025__CLOSE",
         "AgrawalEtAl2025__ENV",
+        "AgrawalEtAl2025__INST",
         "AgrawalEtAl2025__LRA",
         "AgrawalEtAl2025__LRB",
-        "AgrawalEtAl2025__PHASE1"
+        "AgrawalEtAl2025__PHASE1",
+        "AgrawalEtAl2025__WFR"
       ],
       "flag_ids": []
     },
@@ -186,12 +225,71 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
-        "Ambachtsheer2007__JUR",
         "Ambachtsheer2007__LRB"
       ],
-      "flag_ids": [
-        "flag_06"
-      ]
+      "flag_ids": []
+    },
+    {
+      "id": "Andersson2023",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Andersson",
+          "first": "Per F."
+        }
+      ],
+      "year": 2023,
+      "title": "Fiscal Capacity in Non-democratic States: The Origins and Expansion of the Income Tax",
+      "publisher": null,
+      "journal": "Journal of Institutional Economics",
+      "volume": "19",
+      "issue": "3",
+      "pages": "364–378",
+      "series": null,
+      "number": null,
+      "doi": "10.1017/S1744137422000327",
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "Open access.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "Andersson2023__INST"
+      ],
+      "flag_ids": []
+    },
+    {
+      "id": "AnderssonTeorell2025",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Andersson",
+          "first": "Per F."
+        },
+        {
+          "last": "Teorell",
+          "first": "Jan"
+        }
+      ],
+      "year": 2025,
+      "title": "The Double-Edged Sword: How State Capacity Prolongs Autocratic Tenure but Hastens Democratization",
+      "publisher": null,
+      "journal": "Journal of Conflict Resolution",
+      "volume": "69",
+      "issue": "6",
+      "pages": "980–1004",
+      "series": null,
+      "number": null,
+      "doi": "10.1177/00220027241293395",
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": null,
+      "alt_author_forms": [],
+      "citation_ids": [
+        "AnderssonTeorell2025__INST"
+      ],
+      "flag_ids": []
     },
     {
       "id": "ArachiDAntoni2022",
@@ -221,7 +319,9 @@
       "verified_date": "260914",
       "verification_notes": "Online first 2021; journal volume dated January 2022. The paper the WFR draft cites as @Arachi2022 -- key should be updated to ArachiDAntoni2022 throughout.",
       "alt_author_forms": [],
-      "citation_ids": [],
+      "citation_ids": [
+        "ArachiDAntoni2022__WFR"
+      ],
       "flag_ids": []
     },
     {
@@ -313,13 +413,10 @@
       "verification_notes": "No CrossRef DOI found; Columbia Tax Review is a student-edited journal without standard DOI infrastructure. Verification attempted 2026-08-20.",
       "alt_author_forms": [],
       "citation_ids": [
-        "AviYonahMazzoni2019__CORP",
         "AviYonahMazzoni2019__LRB",
         "AviYonahMazzoni2019__VAL"
       ],
-      "flag_ids": [
-        "flag_05"
-      ]
+      "flag_ids": []
     },
     {
       "id": "AyresBraithwaite1992",
@@ -352,9 +449,7 @@
       "citation_ids": [
         "AyresBraithwaite1992__LRB"
       ],
-      "flag_ids": [
-        "flag_11"
-      ]
+      "flag_ids": []
     },
     {
       "id": "AzevedoEtAl2025",
@@ -399,6 +494,39 @@
       "flag_ids": []
     },
     {
+      "id": "BackHadenius2008",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Bäck",
+          "first": "Hanna"
+        },
+        {
+          "last": "Hadenius",
+          "first": "Axel"
+        }
+      ],
+      "year": 2008,
+      "title": "Democracy and State Capacity: Exploring a J-Shaped Relationship",
+      "publisher": null,
+      "journal": "Governance",
+      "volume": "21",
+      "issue": "1",
+      "pages": "1–24",
+      "series": null,
+      "number": null,
+      "doi": "10.1111/j.1468-0491.2007.00383.x",
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": null,
+      "alt_author_forms": [],
+      "citation_ids": [
+        "BackHadenius2008__INST"
+      ],
+      "flag_ids": []
+    },
+    {
       "id": "Bartels2008",
       "type": "book",
       "authors": [
@@ -427,6 +555,37 @@
         "Bartels2008__MF"
       ],
       "flag_ids": []
+    },
+    {
+      "id": "Baskaran2014",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Baskaran",
+          "first": "Thushyanthan"
+        }
+      ],
+      "year": 2014,
+      "title": "Taxation and Democratization",
+      "publisher": null,
+      "journal": "World Development",
+      "volume": "56",
+      "issue": null,
+      "pages": "287–301",
+      "series": null,
+      "number": null,
+      "doi": "10.1016/j.worlddev.2013.11.011",
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "Published online December 2013; journal issue April 2014. Cited in INST as \"World Development (2013)\" — Flag 30 closed 2026-09-18. Cite key Baskaran2014. 122 countries, 1981--2008; VAT and autonomous revenue authorities as quasi-exogenous instruments for fiscal burden; mild positive effect of taxation on democracy.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "Baskaran2014__INST"
+      ],
+      "flag_ids": [
+        "flag_30"
+      ]
     },
     {
       "id": "BastaniWaldenstrom2020",
@@ -458,7 +617,8 @@
       "alt_author_forms": [],
       "citation_ids": [
         "BastaniWaldenstrom2020__LRA",
-        "BastaniWaldenstrom2020__POL"
+        "BastaniWaldenstrom2020__POL",
+        "BastaniWaldenstrom2020__WFR"
       ],
       "flag_ids": []
     },
@@ -488,7 +648,7 @@
       "url": null,
       "verified": true,
       "verified_date": "260820",
-      "verification_notes": "SSRN Working Paper No.\\ 3452274. doi:10.2139/ssrn.3452274. Middle initial corrected 2026-08-06: L.\\ to L.\\ L.\\ per verified SSRN record.",
+      "verification_notes": "SSRN Working Paper No.\\ 3452274. doi:10.2139/ssrn.3452274. Middle initial corrected 2026-08-06: L.\\ to L.\\ L.\\ per verified SSRN record. Flag 26 closed 2026-09-18: FM references corrected.",
       "alt_author_forms": [],
       "citation_ids": [
         "BatchelderKamin2019__CORP",
@@ -528,12 +688,8 @@
       "verified_date": "260820",
       "verification_notes": "SSRN DOI (law review predates CrossRef). Flag 16: appears in LR.B References section but no in-text citation identified in LR.B body. Author to confirm whether body citation is intended.",
       "alt_author_forms": [],
-      "citation_ids": [
-        "BlairStout1999__LRB"
-      ],
-      "flag_ids": [
-        "flag_16"
-      ]
+      "citation_ids": [],
+      "flag_ids": []
     },
     {
       "id": "BlanchetMartinezToledano2023",
@@ -596,7 +752,9 @@
       "verified_date": "260914",
       "verification_notes": "Companion paper to GerritsenEtAl2025. Both are relevant to the §5.5 literature dispute — the author should confirm which paper is the operative citation.",
       "alt_author_forms": [],
-      "citation_ids": [],
+      "citation_ids": [
+        "BoadwaySpiritusEtAl2025__WFR"
+      ],
       "flag_ids": []
     },
     {
@@ -705,6 +863,7 @@
       "verification_notes": "Page range corrected to 261--331 (prior entry had 261--312).",
       "alt_author_forms": [],
       "citation_ids": [
+        "BrickerEtAl2016__INST",
         "BrickerEtAl2016__LRB",
         "BrickerEtAl2016__WP"
       ],
@@ -744,13 +903,44 @@
       "url": null,
       "verified": true,
       "verified_date": "260727",
-      "verification_notes": "Economic Journal: Applied Economics -- both wrong. Correct year: 2022; correct journal: Economic Journal: Economic Policy.",
+      "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
         "BrulhartEtAl2022__LRB",
         "BrulhartEtAl2022__WP"
       ],
       "flag_ids": []
+    },
+    {
+      "id": "BudgetResponsibilityAct2011",
+      "type": "institutional_report",
+      "authors": [
+        {
+          "last": "Parliament of the United Kingdom",
+          "first": null
+        }
+      ],
+      "year": 2011,
+      "title": "Budget Responsibility and National Audit Act 2011",
+      "publisher": "Her Majesty's Stationery Office",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "2011 c.\\ 4. Royal Assent 22 March 2011. Establishes the Office for Budget Responsibility. URL: https://www.legislation.gov.uk/ukpga/2011/4. Replaces OBR website (n.d.) entry formerly in JUR References (Flag 7, closed).",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "BudgetResponsibilityAct2011__JUR"
+      ],
+      "flag_ids": [
+        "flag_07"
+      ]
     },
     {
       "id": "Chamley1986",
@@ -784,6 +974,80 @@
       "flag_ids": []
     },
     {
+      "id": "ChinaNDML2026",
+      "type": "institutional_report",
+      "authors": [
+        {
+          "last": "Standing Committee of the National People's Congress of the People's Republic of China",
+          "first": null
+        }
+      ],
+      "year": 2026,
+      "title": "National Defense Mobilization Law of the People's Republic of China (Revised)",
+      "publisher": "National People's Congress of the People's Republic of China",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": "https://paper.people.com.cn/rmrb/pc/content/202609/03/content_30178777.html",
+      "verified": false,
+      "verified_date": null,
+      "verification_notes": "Adopted 28 August 2026; effective 1 October 2026. Introduces explicit expropriation powers for civilian resources in national-defence mobilisation, with compensation provisions. Primary legal source for INST 6.4 China case. Replaces Catalyst International (2025) and Foreign Affairs (2026) stubs (Flag 31 closed 2026-09-18).",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "ChinaNDML2026__INST"
+      ],
+      "flag_ids": [
+        "flag_31"
+      ]
+    },
+    {
+      "id": "ClarkEtAl2020",
+      "type": "institutional_report",
+      "authors": [
+        {
+          "last": "Clark",
+          "first": "Elizabeth"
+        },
+        {
+          "last": "Gronwald",
+          "first": "Victoria"
+        },
+        {
+          "last": "Guerrero Fernandez",
+          "first": "Ricardo"
+        },
+        {
+          "last": "Ramirez-Casillas",
+          "first": "Emmanuel"
+        }
+      ],
+      "year": 2020,
+      "title": "The Political Economy of the Abolition of Wealth Taxes in the OECD",
+      "publisher": "Wealth and Policy Working Paper~123",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": "10.47445/123",
+      "url": "https://www.wealthandpolicy.com/wp/123.html",
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "Published 9 November 2020. Finds drift models, business structural power models, and theories on the role of ideas hold significant merit in the wealth tax sphere; limited evidence for median voter theories. Cited in INST as \"Clark et al. (2022)\" -- year is wrong; correct year 2020.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "ClarkEtAl2020__INST"
+      ],
+      "flag_ids": [
+        "flag_29"
+      ]
+    },
+    {
       "id": "ClarkUrwin2008",
       "type": "journal_article",
       "authors": [
@@ -812,12 +1076,9 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
-        "ClarkUrwin2008__JUR",
         "ClarkUrwin2008__LRB"
       ],
-      "flag_ids": [
-        "flag_06"
-      ]
+      "flag_ids": []
     },
     {
       "id": "CnossenBovenberg2001",
@@ -847,8 +1108,12 @@
       "verified_date": "260820",
       "verification_notes": null,
       "alt_author_forms": [],
-      "citation_ids": [],
-      "flag_ids": []
+      "citation_ids": [
+        "CnossenBovenberg2001__LRB"
+      ],
+      "flag_ids": [
+        "flag_33"
+      ]
     },
     {
       "id": "Dahl1985",
@@ -920,7 +1185,9 @@
       "verified_date": "260914",
       "verification_notes": "Article number e70086. Volume and issue numbers not yet assigned at verification date; update on journal publication. The WFR plan §7.5 attributes this paper to \"Dalle Luche, Garbinti, and Goupille-Lebret\" -- the correct authors are as given here. Garbinti and Goupille-Lebret are distinct researchers whose names appear together in other papers.",
       "alt_author_forms": [],
-      "citation_ids": [],
+      "citation_ids": [
+        "DalleLucheEtAl2026__WFR"
+      ],
       "flag_ids": []
     },
     {
@@ -1037,6 +1304,39 @@
       "flag_ids": []
     },
     {
+      "id": "DodlovaLucas2021",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Dodlova",
+          "first": "Marina"
+        },
+        {
+          "last": "Lucas",
+          "first": "Viola"
+        }
+      ],
+      "year": 2021,
+      "title": "Regime Security and Taxation in Autocracies: Who Is Taxed and How?",
+      "publisher": null,
+      "journal": "European Journal of Political Economy",
+      "volume": "67",
+      "issue": null,
+      "pages": "101998",
+      "series": null,
+      "number": null,
+      "doi": "10.1016/j.ejpoleco.2020.101998",
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "105-autocracy dataset, 1950--2004.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "DodlovaLucas2021__INST"
+      ],
+      "flag_ids": []
+    },
+    {
       "id": "DomarMusgrave1944",
       "type": "journal_article",
       "authors": [
@@ -1065,19 +1365,16 @@
       "verification_notes": "DOI added 2026-08-06 -- confirmed from Oxford Academic and multiple citing sources.",
       "alt_author_forms": [],
       "citation_ids": [
-        "DomarMusgrave1944__CLOSE",
-        "DomarMusgrave1944__CORP",
         "DomarMusgrave1944__ENV",
         "DomarMusgrave1944__FM",
         "DomarMusgrave1944__LRA",
         "DomarMusgrave1944__LRB",
         "DomarMusgrave1944__POL",
         "DomarMusgrave1944__RATES",
+        "DomarMusgrave1944__WFR",
         "DomarMusgrave1944__WP"
       ],
-      "flag_ids": [
-        "flag_05"
-      ]
+      "flag_ids": []
     },
     {
       "id": "Elster2000",
@@ -1170,6 +1467,47 @@
       "flag_ids": []
     },
     {
+      "id": "FagerengEtAl2016",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Fagereng",
+          "first": "Andreas"
+        },
+        {
+          "last": "Guiso",
+          "first": "Luigi"
+        },
+        {
+          "last": "Malacrino",
+          "first": "Davide"
+        },
+        {
+          "last": "Pistaferri",
+          "first": "Luigi"
+        }
+      ],
+      "year": 2016,
+      "title": "Heterogeneity in Returns to Wealth and the Measurement of Wealth Inequality",
+      "publisher": null,
+      "journal": "American Economic Review",
+      "volume": "106",
+      "issue": "5",
+      "pages": "651–655",
+      "series": null,
+      "number": null,
+      "doi": "10.1257/aer.p20161022",
+      "url": null,
+      "verified": true,
+      "verified_date": "260916",
+      "verification_notes": "AER Papers and Proceedings.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "FagerengEtAl2016__WFR"
+      ],
+      "flag_ids": []
+    },
+    {
       "id": "FagerengEtAl2020",
       "type": "journal_article",
       "authors": [
@@ -1208,7 +1546,8 @@
       "citation_ids": [
         "FagerengEtAl2020__LRA",
         "FagerengEtAl2020__LRB",
-        "FagerengEtAl2020__RATES"
+        "FagerengEtAl2020__RATES",
+        "FagerengEtAl2020__WFR"
       ],
       "flag_ids": []
     },
@@ -1269,12 +1608,8 @@
       "verified_date": "260820",
       "verification_notes": null,
       "alt_author_forms": [],
-      "citation_ids": [
-        "FitzRoyKraft2005__LRB"
-      ],
-      "flag_ids": [
-        "flag_17"
-      ]
+      "citation_ids": [],
+      "flag_ids": []
     },
     {
       "id": "FlavinYamashita2002",
@@ -1304,7 +1639,9 @@
       "verified_date": "260914",
       "verification_notes": "Used in WFR as the calibration source for the central-case risk-aversion parameter γ=2.",
       "alt_author_forms": [],
-      "citation_ids": [],
+      "citation_ids": [
+        "FlavinYamashita2002__WFR"
+      ],
       "flag_ids": []
     },
     {
@@ -1360,12 +1697,8 @@
       "verified_date": null,
       "verification_notes": null,
       "alt_author_forms": [],
-      "citation_ids": [
-        "Freeman1984__LRB"
-      ],
-      "flag_ids": [
-        "flag_18"
-      ]
+      "citation_ids": [],
+      "flag_ids": []
     },
     {
       "id": "FungWright2003",
@@ -1553,6 +1886,7 @@
       "citation_ids": [
         "GarbintiEtAl2026__BEHAV",
         "GarbintiEtAl2026__VAL",
+        "GarbintiEtAl2026__WFR",
         "GarbintiEtAl2026__WP"
       ],
       "flag_ids": []
@@ -1593,7 +1927,9 @@
       "verified_date": "260914",
       "verification_notes": "This is the paper the WFR plan (§7.5) attributes to \"Boadway and Spiritus (2025, Economic Journal)\" -- the correct authors are Gerritsen, Jacobs, Spiritus, and Rusu. Boadway and Spiritus's 2025 paper appears in the Scandinavian Journal of Economics (see BoadwaySpiritusEtAl2025). Author to verify which paper is the intended citation in §5.5.",
       "alt_author_forms": [],
-      "citation_ids": [],
+      "citation_ids": [
+        "GerritsenEtAl2025__WFR"
+      ],
       "flag_ids": []
     },
     {
@@ -1623,6 +1959,35 @@
       "citation_ids": [
         "Gilens2012__LRB",
         "Gilens2012__MF"
+      ],
+      "flag_ids": []
+    },
+    {
+      "id": "Gilley2017",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Gilley",
+          "first": "Bruce"
+        }
+      ],
+      "year": 2017,
+      "title": "Taxation and Authoritarian Resilience",
+      "publisher": null,
+      "journal": "Journal of Contemporary China",
+      "volume": "26",
+      "issue": "105",
+      "pages": "452–464",
+      "series": null,
+      "number": null,
+      "doi": "10.1080/10670564.2016.1245891",
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "Online first October 2016; journal year 2017.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "Gilley2017__INST"
       ],
       "flag_ids": []
     },
@@ -1671,6 +2036,7 @@
         "GuvenonEtAl2023__LRA",
         "GuvenonEtAl2023__LRB",
         "GuvenonEtAl2023__RATES",
+        "GuvenonEtAl2023__WFR",
         "GuvenonEtAl2023__WP"
       ],
       "flag_ids": []
@@ -2035,7 +2401,52 @@
       "verified_date": null,
       "verification_notes": null,
       "alt_author_forms": [],
-      "citation_ids": [],
+      "citation_ids": [
+        "Hasen2017__LRB"
+      ],
+      "flag_ids": [
+        "flag_33"
+      ]
+    },
+    {
+      "id": "HebousEtAl2024",
+      "type": "report",
+      "authors": [
+        {
+          "last": "Hebous",
+          "first": "Shafik"
+        },
+        {
+          "last": "Klemm",
+          "first": "Alexander"
+        },
+        {
+          "last": "Michielse",
+          "first": "Geerten"
+        },
+        {
+          "last": "Osorio-Buitron",
+          "first": "Carolina"
+        }
+      ],
+      "year": 2024,
+      "title": "How to Tax Wealth",
+      "publisher": "International Monetary Fund",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": "2024/001",
+      "doi": null,
+      "url": "https://www.elibrary.imf.org/view/journals/061/2024/001/061.2024.issue-001-en.xml",
+      "verified": true,
+      "verified_date": "260916",
+      "verification_notes": "IMF Fiscal Affairs Department How to Note 24/01.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "HebousEtAl2024__WFR"
+      ],
       "flag_ids": []
     },
     {
@@ -2093,6 +2504,37 @@
         "ICMIF2020__LRB"
       ],
       "flag_ids": []
+    },
+    {
+      "id": "ISW2026Sep",
+      "type": "institutional_report",
+      "authors": [
+        {
+          "last": "Institute for the Study of War",
+          "first": null
+        }
+      ],
+      "year": 2026,
+      "title": "China & Taiwan Update, 4 September 2026",
+      "publisher": "Institute for the Study of War",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": "https://understandingwar.org/research/china-taiwan/china-taiwan-update-september-4-2026/",
+      "verified": false,
+      "verified_date": null,
+      "verification_notes": "Analysis of the revised National Defence Mobilisation Law (adopted 28 August 2026). Argues the revision expands the circumstances for civilian-resource mobilisation and changes the framework from requisitioning to expropriation. URL blocklisted for automated fetch; existence confirmed from document metadata 2026-09-18.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "ISW2026Sep__INST"
+      ],
+      "flag_ids": [
+        "flag_31"
+      ]
     },
     {
       "id": "IVSC2022",
@@ -2196,6 +2638,7 @@
       "alt_author_forms": [],
       "citation_ids": [
         "JakobsenEtAl2020__LRB",
+        "JakobsenEtAl2020__WFR",
         "JakobsenEtAl2020__WP"
       ],
       "flag_ids": []
@@ -2238,19 +2681,18 @@
       "url": null,
       "verified": true,
       "verified_date": "260727",
-      "verification_notes": "JakobsenEtAl2020 -- action required in ENV.",
+      "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
         "JakobsenEtAl2024__CLOSE",
         "JakobsenEtAl2024__ENV",
-        "JakobsenEtAl2024__JUR",
+        "JakobsenEtAl2024__INST",
         "JakobsenEtAl2024__LRA",
         "JakobsenEtAl2024__LRB",
         "JakobsenEtAl2024__RATES",
         "JakobsenEtAl2024__WP"
       ],
       "flag_ids": [
-        "flag_06",
         "flag_23"
       ]
     },
@@ -2363,6 +2805,78 @@
       "flag_ids": []
     },
     {
+      "id": "KaoEtAl2022",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Kao",
+          "first": "Jay C."
+        },
+        {
+          "last": "Lü",
+          "first": "Xiaobo"
+        },
+        {
+          "last": "Queralt",
+          "first": "Didac"
+        }
+      ],
+      "year": 2024,
+      "title": "Do Gains in Political Representation Sweeten Tax Reform in China? It Depends on Who You Ask",
+      "publisher": null,
+      "journal": "Political Science Research and Methods",
+      "volume": "12",
+      "issue": "1",
+      "pages": "146–165",
+      "series": null,
+      "number": null,
+      "doi": "10.1017/psrm.2022.58",
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "Published online 18 November 2022; journal issue January 2024. Open access (CC-BY). Conjoint experiment with separate business-elite and nonelite samples in China: business elites show significantly stronger preference for institutionalized political influence (IPI) gains in return for taxation than nonelites; mechanisms include government credibility, tax ownership, and tax salience. Directly relevant to INST two-constituency mechanism.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "KaoEtAl2022__INST"
+      ],
+      "flag_ids": [
+        "flag_31"
+      ]
+    },
+    {
+      "id": "KatoTanaka2019",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Kato",
+          "first": "Junko"
+        },
+        {
+          "last": "Tanaka",
+          "first": "Seiki"
+        }
+      ],
+      "year": 2019,
+      "title": "Does Taxation Lose Its Role in Contemporary Democratisation? State Revenue Production Revisited in the Third Wave of Democratisation",
+      "publisher": null,
+      "journal": "European Journal of Political Research",
+      "volume": "58",
+      "issue": "1",
+      "pages": "184–208",
+      "series": null,
+      "number": null,
+      "doi": "10.1111/1475-6765.12276",
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": null,
+      "alt_author_forms": [],
+      "citation_ids": [
+        "KatoTanaka2019__INST"
+      ],
+      "flag_ids": []
+    },
+    {
       "id": "King1977",
       "type": "book",
       "authors": [
@@ -2388,7 +2902,8 @@
       "alt_author_forms": [],
       "citation_ids": [
         "King1977__LRA",
-        "King1977__LRB"
+        "King1977__LRB",
+        "King1977__WFR"
       ],
       "flag_ids": []
     },
@@ -2540,7 +3055,7 @@
       "url": null,
       "verified": true,
       "verified_date": "260820",
-      "verification_notes": "119--142 -- both volume and pages are wrong. Correct details are as given here. Action required in ENV.",
+      "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
         "KlevenEtAl2024__BEHAV",
@@ -2578,6 +3093,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "Kopczuk2015__INST",
         "Kopczuk2015__LRB",
         "Kopczuk2015__WP"
       ],
@@ -2638,7 +3154,7 @@
       "url": "https://journals.upress.ufl.edu/ftr/article/view/388",
       "verified": true,
       "verified_date": "260820",
-      "verification_notes": "Open access via UF Journals.",
+      "verification_notes": "Open access via UF Journals. URL",
       "alt_author_forms": [],
       "citation_ids": [
         "Kornhauser2007__LRA",
@@ -2731,26 +3247,20 @@
       "pages": "2624–2655",
       "series": null,
       "number": null,
-      "doi": "10.3386/w32134",
+      "doi": "10.1093/restud/rdae093",
       "url": null,
       "verified": true,
       "verified_date": "260727",
-      "verification_notes": "Updated to journal version 2026-08-02. WDT papers currently cite the 2024 NBER Working Paper No.\\ 32134; update citations in WP, BEHAV, POL, CLOSE on next revision (Flag 3).",
+      "verification_notes": "Updated to journal version 2026-08-02. CLOSE not yet updated (paper not available for revision this session).",
       "alt_author_forms": [
         "Londoño-Vélez & Avila-Mahecha (2024) — working paper form used in current WDT papers"
       ],
       "citation_ids": [
         "LondonoVelezAvilaMahecha2025__BEHAV",
-        "LondonoVelezAvilaMahecha2025__CLOSE",
-        "LondonoVelezAvilaMahecha2025__JUR",
         "LondonoVelezAvilaMahecha2025__LRB",
-        "LondonoVelezAvilaMahecha2025__POL",
         "LondonoVelezAvilaMahecha2025__WP"
       ],
-      "flag_ids": [
-        
-        "flag_06"
-      ]
+      "flag_ids": []
     },
     {
       "id": "MacMinnRen2011",
@@ -2784,6 +3294,37 @@
         "MacMinnRen2011__LRB"
       ],
       "flag_ids": []
+    },
+    {
+      "id": "McKinseyGWW2026",
+      "type": "institutional_report",
+      "authors": [
+        {
+          "last": "McKinsey Global Institute",
+          "first": null
+        }
+      ],
+      "year": 2026,
+      "title": "Global Balance Sheet 2026: Imbalance and Divergence",
+      "publisher": "McKinsey & Company",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": "https://www.mckinsey.com/featured-insights/charts/household-wealth-watch",
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "Published 23 July 2026. Data page publicly accessible. : global household net worth \\$570 trillion (2025) confirmed. Flag 32 closed.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "McKinseyGWW2026__INST"
+      ],
+      "flag_ids": [
+        "flag_32"
+      ]
     },
     {
       "id": "Mills1956",
@@ -2875,12 +3416,9 @@
       "alt_author_forms": [],
       "citation_ids": [
         "North1990__LRA",
-        "North1990__LRB",
         "North1990__POL"
       ],
-      "flag_ids": [
-        "flag_21"
-      ]
+      "flag_ids": []
     },
     {
       "id": "OBR2023",
@@ -2902,16 +3440,14 @@
       "number": null,
       "doi": null,
       "url": "https://obr.uk/efo/economic-and-fiscal-outlook-march-2023/",
-      "verified": false,
-      "verified_date": null,
-      "verification_notes": "Standard OBR annual publication. Verify exact issue date and GOV.UK URL on next web-check run.",
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "Standard OBR annual publication. March 2023 edition. URL",
       "alt_author_forms": [],
       "citation_ids": [
         "OBR2023__RATES"
       ],
-      "flag_ids": [
-        "flag_08"
-      ]
+      "flag_ids": []
     },
     {
       "id": "OECD2018",
@@ -2938,6 +3474,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "OECD2018__INST",
         "OECD2018__POL"
       ],
       "flag_ids": []
@@ -2967,7 +3504,8 @@
       "verification_notes": "URL",
       "alt_author_forms": [],
       "citation_ids": [
-        "OECD2025__LRB"
+        "OECD2025__LRB",
+        "OECD2025__WFR"
       ],
       "flag_ids": []
     },
@@ -3056,6 +3594,7 @@
       "alt_author_forms": [],
       "citation_ids": [
         "Olson1965__GOV",
+        "Olson1965__INST",
         "Olson1965__LRA",
         "Olson1965__LRB",
         "Olson1965__POL"
@@ -3144,20 +3683,77 @@
       "number": null,
       "doi": "10.1111/1475-5890.12278",
       "url": null,
-      "verified": false,
-      "verified_date": null,
+      "verified": true,
+      "verified_date": "260820",
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
         "Perret2021__FM",
+        "Perret2021__INST",
         "Perret2021__LRA",
-        "Perret2021__LRB",
         "Perret2021__POL"
       ],
       "flag_ids": [
-        "flag_19",
         "flag_25"
       ]
+    },
+    {
+      "id": "Pettit1997",
+      "type": "book",
+      "authors": [
+        {
+          "last": "Pettit",
+          "first": "Philip"
+        }
+      ],
+      "year": 1997,
+      "title": "Republicanism: A Theory of Freedom and Government",
+      "publisher": "Clarendon Press",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": null,
+      "verified": true,
+      "verified_date": "260916",
+      "verification_notes": null,
+      "alt_author_forms": [],
+      "citation_ids": [
+        "Pettit1997__MF"
+      ],
+      "flag_ids": []
+    },
+    {
+      "id": "Pettit2012",
+      "type": "book",
+      "authors": [
+        {
+          "last": "Pettit",
+          "first": "Philip"
+        }
+      ],
+      "year": 2012,
+      "title": "On the People's Terms: A Republican Theory and Model of Democracy",
+      "publisher": "Cambridge University Press",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": "The Seeley Lectures",
+      "number": null,
+      "doi": null,
+      "url": null,
+      "verified": true,
+      "verified_date": "260916",
+      "verification_notes": null,
+      "alt_author_forms": [],
+      "citation_ids": [
+        "Pettit2012__MF"
+      ],
+      "flag_ids": []
     },
     {
       "id": "Pierson1994",
@@ -3185,12 +3781,9 @@
       "alt_author_forms": [],
       "citation_ids": [
         "Pierson1994__LRA",
-        "Pierson1994__LRB",
         "Pierson1994__POL"
       ],
-      "flag_ids": [
-        "flag_20"
-      ]
+      "flag_ids": []
     },
     {
       "id": "Pierson2000",
@@ -3218,12 +3811,9 @@
       "alt_author_forms": [],
       "citation_ids": [
         "Pierson2000__LRA",
-        "Pierson2000__LRB",
         "Pierson2000__POL"
       ],
-      "flag_ids": [
-        "flag_20"
-      ]
+      "flag_ids": []
     },
     {
       "id": "Piketty2014",
@@ -3287,12 +3877,8 @@
       "verified_date": "260820",
       "verification_notes": null,
       "alt_author_forms": [],
-      "citation_ids": [
-        "PikettyEtAl2014__WP"
-      ],
-      "flag_ids": [
-        "flag_04"
-      ]
+      "citation_ids": [],
+      "flag_ids": []
     },
     {
       "id": "PikettyEtAl2023",
@@ -3361,15 +3947,12 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
-        "PosnerWeyl2018__CORP",
         "PosnerWeyl2018__GOV",
         "PosnerWeyl2018__LRB",
         "PosnerWeyl2018__VAL",
         "PosnerWeyl2018__WP"
       ],
-      "flag_ids": [
-        "flag_05"
-      ]
+      "flag_ids": []
     },
     {
       "id": "Prewitt2019",
@@ -3393,14 +3976,12 @@
       "url": "https://lawreview.uchicago.edu/print-archive/ownership-and-punishment",
       "verified": true,
       "verified_date": "260803",
-      "verification_notes": "Published 17 May 2019.",
+      "verification_notes": "Published 17 May 2019. Flag 22: LR.B 9 cites Prewitt without year parenthetical -- action required in LR.B.",
       "alt_author_forms": [],
       "citation_ids": [
         "Prewitt2019__LRB"
       ],
-      "flag_ids": [
-        "flag_22"
-      ]
+      "flag_ids": []
     },
     {
       "id": "Rawls1971",
@@ -3455,11 +4036,8 @@
       "verified_date": "260820",
       "verification_notes": null,
       "alt_author_forms": [],
-      "citation_ids": [
-        "ResolutionFoundation2020__JUR"
-      ],
+      "citation_ids": [],
       "flag_ids": [
-        "flag_06",
         "flag_08"
       ]
     },
@@ -3565,6 +4143,35 @@
       "flag_ids": []
     },
     {
+      "id": "Ross2004",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Ross",
+          "first": "Michael L."
+        }
+      ],
+      "year": 2004,
+      "title": "Does Taxation Lead to Representation?",
+      "publisher": null,
+      "journal": "British Journal of Political Science",
+      "volume": "34",
+      "issue": "2",
+      "pages": "229–249",
+      "series": null,
+      "number": null,
+      "doi": "10.1017/S0007123404000109",
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": null,
+      "alt_author_forms": [],
+      "citation_ids": [
+        "Ross2004__INST"
+      ],
+      "flag_ids": []
+    },
+    {
       "id": "Rothstein2001",
       "type": "journal_article",
       "authors": [
@@ -3627,6 +4234,41 @@
       "flag_ids": []
     },
     {
+      "id": "SaezSlemrodGiertz2012",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Saez",
+          "first": "Emmanuel"
+        },
+        {
+          "last": "Slemrod",
+          "first": "Joel"
+        },
+        {
+          "last": "Giertz",
+          "first": "Seth H."
+        }
+      ],
+      "year": 2012,
+      "title": "The Elasticity of Taxable Income with Respect to Marginal Tax Rates: A Critical Review",
+      "publisher": null,
+      "journal": "Journal of Economic Literature",
+      "volume": "50",
+      "issue": "1",
+      "pages": "3–50",
+      "series": null,
+      "number": null,
+      "doi": "10.1257/jel.50.1.3",
+      "url": null,
+      "verified": true,
+      "verified_date": "260820",
+      "verification_notes": null,
+      "alt_author_forms": [],
+      "citation_ids": [],
+      "flag_ids": []
+    },
+    {
       "id": "SaezZucman2016",
       "type": "journal_article",
       "authors": [
@@ -3655,6 +4297,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "SaezZucman2016__INST",
         "SaezZucman2016__LRB",
         "SaezZucman2016__WP"
       ],
@@ -3689,13 +4332,44 @@
       "verification_notes": "Prior entry had pages = 437--511; corrected to 437--533 per Project MUSE.",
       "alt_author_forms": [],
       "citation_ids": [
+        "SaezZucman2019__INST",
         "SaezZucman2019__LRB",
-        "SaezZucman2019__VAL",
         "SaezZucman2019__WP"
       ],
-      "flag_ids": [
-        "flag_12"
-      ]
+      "flag_ids": []
+    },
+    {
+      "id": "SaezZucman2022",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Saez",
+          "first": "Emmanuel"
+        },
+        {
+          "last": "Zucman",
+          "first": "Gabriel"
+        }
+      ],
+      "year": 2022,
+      "title": "Wealth Taxation: Lessons from History and Recent Developments",
+      "publisher": null,
+      "journal": "AEA Papers and Proceedings",
+      "volume": "112",
+      "issue": null,
+      "pages": "58–62",
+      "series": null,
+      "number": null,
+      "doi": "10.1257/pandp.20221065",
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "Distinct from SaezZucman2019 (Brookings P&A).",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "SaezZucman2022__INST"
+      ],
+      "flag_ids": []
     },
     {
       "id": "SakuraiBraithwaite2003",
@@ -3764,6 +4438,68 @@
       "flag_ids": []
     },
     {
+      "id": "Scanlon1998",
+      "type": "book",
+      "authors": [
+        {
+          "last": "Scanlon",
+          "first": "T. M."
+        }
+      ],
+      "year": 1998,
+      "title": "What We Owe to Each Other",
+      "publisher": "Belknap Press of Harvard University Press",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": null,
+      "verified": true,
+      "verified_date": "260916",
+      "verification_notes": null,
+      "alt_author_forms": [],
+      "citation_ids": [
+        "Scanlon1998__MF"
+      ],
+      "flag_ids": []
+    },
+    {
+      "id": "ScheveStasavage2012",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Scheve",
+          "first": "Kenneth"
+        },
+        {
+          "last": "Stasavage",
+          "first": "David"
+        }
+      ],
+      "year": 2012,
+      "title": "Democracy, War, and Wealth: Lessons from Two Centuries of Inheritance Taxation",
+      "publisher": null,
+      "journal": "American Political Science Review",
+      "volume": "106",
+      "issue": "1",
+      "pages": "81–102",
+      "series": null,
+      "number": null,
+      "doi": "10.1017/S0003055411000517",
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": null,
+      "alt_author_forms": [],
+      "citation_ids": [
+        "ScheveStasavage2012__INST"
+      ],
+      "flag_ids": []
+    },
+    {
       "id": "Searle1995",
       "type": "book",
       "authors": [
@@ -3787,7 +4523,9 @@
       "verified_date": null,
       "verification_notes": "Used in MF 3.1. Grounds the ontological claim that money, property, and corporate equity are institutional facts constituted by collective frameworks of status-assignment, not by physical properties of objects or private mental states. Supports the argument that large-scale wealth is constituted by, not merely supported by, the collective systems the WDT concerns itself with.",
       "alt_author_forms": [],
-      "citation_ids": [],
+      "citation_ids": [
+        "Searle1995__MF"
+      ],
       "flag_ids": []
     },
     {
@@ -4032,14 +4770,10 @@
       "url": "https://www.taxwatchuk.org/state-of-tax-administration-2024/",
       "verified": true,
       "verified_date": "260820",
-      "verification_notes": "Published October 2024 but year = 2025 retained to match existing WDT citations.",
+      "verification_notes": "Published October 2024 but year = 2025 retained to match existing WDT citations. Flag 6: appears in JUR References section but no in-text citation identified in JUR body. Author to confirm whether to retain or remove.",
       "alt_author_forms": [],
-      "citation_ids": [
-        "TaxWatch2025__JUR"
-      ],
-      "flag_ids": [
-        "flag_06"
-      ]
+      "citation_ids": [],
+      "flag_ids": []
     },
     {
       "id": "TetlockGardner2015",
@@ -4103,8 +4837,12 @@
       "verified_date": "260820",
       "verification_notes": null,
       "alt_author_forms": [],
-      "citation_ids": [],
-      "flag_ids": []
+      "citation_ids": [
+        "ToderViard2016__LRB"
+      ],
+      "flag_ids": [
+        "flag_33"
+      ]
     },
     {
       "id": "Truman2008",
@@ -4133,6 +4871,35 @@
       "citation_ids": [
         "Truman2008__GOV",
         "Truman2008__LRB"
+      ],
+      "flag_ids": []
+    },
+    {
+      "id": "Tsebelis2002",
+      "type": "book",
+      "authors": [
+        {
+          "last": "Tsebelis",
+          "first": "George"
+        }
+      ],
+      "year": 2002,
+      "title": "Veto Players: How Political Institutions Work",
+      "publisher": "Princeton University Press",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "344 pp. ISBN 9780691099897.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "Tsebelis2002__INST"
       ],
       "flag_ids": []
     },
@@ -4167,6 +4934,64 @@
         "Tyler1990__MF",
         "Tyler1990__PHASE1",
         "Tyler1990__POL"
+      ],
+      "flag_ids": []
+    },
+    {
+      "id": "UBS2025",
+      "type": "institutional_report",
+      "authors": [
+        {
+          "last": "UBS",
+          "first": null
+        }
+      ],
+      "year": 2025,
+      "title": "Global Wealth Report 2025",
+      "publisher": "UBS Group AG",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": "https://www.ubs.com/global/en/wealth-management/insights/global-wealth-report.html",
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "Cited as corroboration of McKinsey global wealth total, INST §3.1.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "UBS2025__INST"
+      ],
+      "flag_ids": []
+    },
+    {
+      "id": "VDem2026",
+      "type": "institutional_report",
+      "authors": [
+        {
+          "last": "V-Dem Institute",
+          "first": null
+        }
+      ],
+      "year": 2026,
+      "title": "Regimes of the World (RoW) Dataset, Version 16",
+      "publisher": "Varieties of Democracy (V-Dem) Project, University of Gothenburg",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": "https://www.v-dem.net/data/the-v-dem-dataset/",
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "Five-tier governance classification used throughout INST §2 and Table~1. Version 16 (2026). URL",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "VDem2026__INST"
       ],
       "flag_ids": []
     },
@@ -4353,7 +5178,37 @@
       "alt_author_forms": [],
       "citation_ids": [
         "Vickrey1939__LRB",
+        "Vickrey1939__WFR",
         "Vickrey1939__WP"
+      ],
+      "flag_ids": []
+    },
+    {
+      "id": "VonSchiller2018",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "von Schiller",
+          "first": "Armin"
+        }
+      ],
+      "year": 2018,
+      "title": "Party System Institutionalization and Reliance on Personal Income Taxation in Developing Countries",
+      "publisher": null,
+      "journal": "Journal of International Development",
+      "volume": "30",
+      "issue": "2",
+      "pages": "274–301",
+      "series": null,
+      "number": null,
+      "doi": "10.1002/jid.3347",
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "Cited in INST as Schiller (2018). Full surname: von Schiller.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "VonSchiller2018__INST"
       ],
       "flag_ids": []
     },
@@ -4447,12 +5302,9 @@
       "alt_author_forms": [],
       "citation_ids": [
         "Wilson1980__LRA",
-        "Wilson1980__LRB",
         "Wilson1980__POL"
       ],
-      "flag_ids": [
-        "flag_21"
-      ]
+      "flag_ids": []
     },
     {
       "id": "Wittgenstein1953",
@@ -4478,7 +5330,9 @@
       "verified_date": null,
       "verification_notes": "Used in MF 3.1. The private language argument establishes that rule-following requires a community of practice against which correctness is measured; there can be no purely private rule. Applied here to support the claim that the complex reasoning underlying wealth accumulation draws on language and conceptual frameworks that are irreducibly collective, grounding the cooperative-framework premise.",
       "alt_author_forms": [],
-      "citation_ids": [],
+      "citation_ids": [
+        "Wittgenstein1953__MF"
+      ],
       "flag_ids": []
     },
     {
@@ -4535,12 +5389,38 @@
       "verification_notes": "No CrossRef DOI (trade publication). URL is paywalled.",
       "alt_author_forms": [],
       "citation_ids": [
-        "Zelenak2021__CORP",
         "Zelenak2021__LRB"
       ],
-      "flag_ids": [
-        "flag_05"
-      ]
+      "flag_ids": []
+    },
+    {
+      "id": "Zhang2017",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Zhang",
+          "first": "Changdong"
+        }
+      ],
+      "year": 2017,
+      "title": "A Fiscal Sociological Theory of Authoritarian Resilience: Developing Theory through China Case Studies",
+      "publisher": null,
+      "journal": "Sociological Theory",
+      "volume": "35",
+      "issue": "1",
+      "pages": "39–63",
+      "series": null,
+      "number": null,
+      "doi": "10.1177/0735275117693038",
+      "url": null,
+      "verified": true,
+      "verified_date": "260918",
+      "verification_notes": "Introduces the representation dilemma and growth dilemma framework for authoritarian fiscal sociology.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "Zhang2017__INST"
+      ],
+      "flag_ids": []
     },
     {
       "id": "Zucman2024",
@@ -4609,8 +5489,8 @@
       "id": "WP",
       "shortcode": "WP",
       "title": "The Wealth Delta Tax: The White Paper",
-      "version": "2.1",
-      "version_date": "260810",
+      "version": "1.02",
+      "version_date": "260913",
       "status": "active",
       "outbound_ext_citation_ids": [
         "Auerbach1991__WP",
@@ -4630,7 +5510,6 @@
         "Kopczuk2015__WP",
         "LondonoVelezAvilaMahecha2025__WP",
         "MurphyNagel2002__WP",
-        "PikettyEtAl2014__WP",
         "Piketty2014__WP",
         "PosnerWeyl2018__WP",
         "SaezZucman2016__WP",
@@ -4657,21 +5536,19 @@
         "CORP",
         "CORP.A",
         "JUR",
-        "FM"
+        "FM",
+        "WFR"
       ],
       "open_question_ids": [],
-      "flag_ids": [
-        
-        "flag_04"
-      ],
-      "notes": "§1.1 extended v2.1: non-interference design constraint added as fourth principle."
+      "flag_ids": [],
+      "notes": "v1.01 (260912): §8.2 reframed — liquidity management through self-declaration is intended design feature, not concession; mechanism agnostic about declaration motive; Route C/D liquidity costs distinguished (dilution vs deferral); boundary condition on omitted assets added. v1.02 (260913): §3.7 rewritten — state enforces consequences of declared values, not correct values; §3.8 rewritten — tolerant zone (α ≈ 0.8–1.5) as primary result, mild upward bias (α ≈ 1.1) as conditional behavioural prediction not dominant strategy; §5 fully rewritten — 2000 reference scenario, correct burden figures (0.35% revenue-weighted annual wealth burden, 13.0% gain-weighted effective rate, 0.79% maximum, 27.2% maximum effective rate on gains), four RATES properties, burden-of-proof inversion; §6 TCM figure replaced with post-fill framing; §8.1 rewritten — tolerant zone as primary answer to valuation objection, three-layer structure from VAL §7.1; §9.2 floor-not-ceiling framing; §9.3 closing sentence confirms arithmetic holds across all 73 start years; §10 names four RATES properties explicitly. Flag 3: Londoño-Vélez cited as 2024 NBER WP — update to 2025 journal. Flag 4: orphan references (SaezSlemrodGiertz2012) in WP References await author decision."
     },
     {
       "id": "MF",
       "shortcode": "MF",
       "title": "The Wealth Delta Tax: Moral and Philosophical Foundations",
-      "version": "1.8",
-      "version_date": "260814",
+      "version": "1.04",
+      "version_date": "260916",
       "status": "active",
       "outbound_ext_citation_ids": [
         "Bartels2008__MF",
@@ -4680,7 +5557,12 @@
         "Gilens2012__MF",
         "Kaldor1955__MF",
         "MurphyNagel2002__MF",
-        "Tyler1990__MF"
+        "Tyler1990__MF",
+        "Pettit1997__MF",
+        "Pettit2012__MF",
+        "Scanlon1998__MF",
+        "Wittgenstein1953__MF",
+        "Searle1995__MF"
       ],
       "outbound_internal": [
         "GOV",
@@ -4692,14 +5574,14 @@
       ],
       "open_question_ids": [],
       "flag_ids": [],
-      "notes": "v1.8: version header corrected; GOV.A §E.2 → GOV.A §E in Glossary and §7."
+      "notes": "v1.02 (260829): architectural stability argument added to §2; §3 restructured to distinguish ontological and causal collective production claims; §3.1 procedural limits of prospective participation clarified; abstract and glossary updated. v1.03 (260829): temporal seams eliminated; §2.3 uses administrative-capacity framing; §3.1 ontological claim narrowed to forms of wealth WDT targets; Wittgenstein material reduced; labour-theory-adjacent language removed from §3.2; §5 renamed; §6 rewritten around mutual-dependency framing; glossary and conclusion updated. v1.04 (260916): stale cross-reference in §9.2 fixed (MF §4 → MF §7); ontological/causal independence clarified in §1; Scanlon contractualist framing added to §3.3; Pettit non-domination framework and dependency-control characterisation added to §6; three convergent arguments made explicit in §7; continuously-reproduced contract framing added to §7; non-domination added to glossary. New citations in v1.04: Pettit1997, Pettit2012, Scanlon1998, Wittgenstein1953, Searle1995."
     },
     {
       "id": "LR.A",
       "shortcode": "LR.A",
       "title": "The Wealth Delta Tax: Research Gaps in the Existing Literature",
-      "version": "0.1",
-      "version_date": "260802",
+      "version": "1.00",
+      "version_date": "260815",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AgrawalEtAl2025__LRA",
@@ -4750,8 +5632,8 @@
       "id": "LR.B",
       "shortcode": "LR.B",
       "title": "The Wealth Delta Tax: Intellectual Background and Reference Guide",
-      "version": "0.1",
-      "version_date": "260802",
+      "version": "1.00",
+      "version_date": "260815",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AdvaniEtAl2020__LRB",
@@ -4765,7 +5647,6 @@
         "Bartels2008__LRB",
         "BatchelderKamin2019__LRB",
         "BlanchetMartinezToledano2023__LRB",
-        "BlairStout1999__LRB",
         "Bradford1986__LRB",
         "BrickerEtAl2016__LRB",
         "BrulhartEtAl2022__LRB",
@@ -4781,7 +5662,6 @@
         "EuropeanCommission2026__LRB",
         "FagerengEtAl2020__LRB",
         "Fishkin2009__LRB",
-        "FitzRoyKraft2005__LRB",
         "Frankel2010__LRB",
         "FungWright2003__LRB",
         "Galbraith1952__LRB",
@@ -4812,15 +5692,11 @@
         "MacMinnRen2011__LRB",
         "Mills1956__LRB",
         "MurphyNagel2002__LRB",
-        "North1990__LRB",
         "OECD2025__LRB",
         "OSullivan1998__LRB",
         "Olson1965__LRB",
         "Ostrom1990__LRB",
         "PereiraGray2021__LRB",
-        "Perret2021__LRB",
-        "Pierson1994__LRB",
-        "Pierson2000__LRB",
         "Piketty2014__LRB",
         "PikettyEtAl2023__LRB",
         "PosnerWeyl2018__LRB",
@@ -4847,37 +5723,27 @@
         "Vickrey1939__LRB",
         "Weisbach2000__LRB",
         "WeylZhang2022__LRB",
-        "Wilson1980__LRB",
         "Wyplosz2005__LRB",
         "Zelenak2021__LRB",
         "Zucman2024__LRB",
-        "Addison2009__LRB",
-        "Freeman1984__LRB",
-        "FitzRoyKraft2005__LRB"
+        "CnossenBovenberg2001__LRB",
+        "Hasen2017__LRB",
+        "ToderViard2016__LRB"
       ],
       "outbound_internal": [
         "LR.A"
       ],
       "inbound_internal": [],
       "open_question_ids": [],
-      "flag_ids": [
-        "flag_15",
-        "flag_16",
-        "flag_17",
-        "flag_18",
-        "flag_19",
-        "flag_20",
-        "flag_21",
-        "flag_22"
-      ],
-      "notes": "First draft. Reference guide to intellectual ancestry. 19 sections. Generated from 0.4 after that database is clean. Flags 15-21: orphan references; "
+      "flag_ids": [],
+      "notes": "First draft. Reference guide to intellectual ancestry. 19 sections. Generated from 0.4 after that database is clean. Flags 15-21: orphan references; flag 22: Prewitt missing year."
     },
     {
       "id": "VAL",
       "shortcode": "VAL",
       "title": "The Wealth Delta Tax: Valuing Wealth",
-      "version": "2.10",
-      "version_date": "260815",
+      "version": "1.07",
+      "version_date": "260912",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AviYonahMazzoni2019__VAL",
@@ -4888,7 +5754,6 @@
         "PereiraGray2021__VAL",
         "PosnerWeyl2018__VAL",
         "RingEtAl2026__VAL",
-        "SaezZucman2019__VAL",
         "Shakow1986__VAL"
       ],
       "outbound_internal": [
@@ -4911,17 +5776,15 @@
         "FM"
       ],
       "open_question_ids": [],
-      "flag_ids": [
-        "flag_12"
-      ],
-      "notes": "v2.10: N=29 following RATES budget_growth correction to 4.51%."
+      "flag_ids": [],
+      "notes": "v1.07 (260912): tolerant zone (α ≈ 0.8–1.5) promoted as primary result throughout abstract, §7.1, §7.3, §9, §14.2, §15; mild upward declaration bias (α ≈ 1.1) characterised as conditional model-implied behavioural prediction from refund-protection asymmetry, not population equilibrium or dominant strategy; overstatement side of tolerant zone (α = 1.2, 1.5) characterised as illustrative points within zone; §7.1 rewritten to lead with three-layer structure; §7.3 corrected — at N=30 all four overstater levels cross into nominal net-cost territory above g≈7%, including α=1.2 and α=1.5; 'population equilibrium' replaced throughout with 'model-implied behavioural centre'."
     },
     {
       "id": "VAL.A",
       "shortcode": "VAL.A",
       "title": "The Wealth Delta Tax: Valuing Wealth — Mathematical and Simulation Companion",
-      "version": "3.1",
-      "version_date": "260815",
+      "version": "1.04",
+      "version_date": "260830",
       "status": "active",
       "outbound_ext_citation_ids": [],
       "outbound_internal": [
@@ -4950,8 +5813,8 @@
       "id": "VAL.B",
       "shortcode": "VAL.B",
       "title": "The Wealth Delta Tax: Valuing Wealth — Worked Examples",
-      "version": "1.5",
-      "version_date": "260813",
+      "version": "1.03",
+      "version_date": "260830",
       "status": "active",
       "outbound_ext_citation_ids": [],
       "outbound_internal": [
@@ -4982,24 +5845,19 @@
       "status": "active",
       "outbound_ext_citation_ids": [
         "AdvaniEtAl2020__JUR",
-        "Ambachtsheer2007__JUR",
-        "ClarkUrwin2008__JUR",
         "HMCTS2025__JUR",
         "HMRC2024__JUR",
         "HMRC2025a__JUR",
         "HMRC2025b__JUR",
         "HMTreasury2024__JUR",
-        "JakobsenEtAl2024__JUR",
-        "LondonoVelezAvilaMahecha2025__JUR",
         "ONS2022__JUR",
         "PereiraGray2021__JUR",
-        "ResolutionFoundation2020__JUR",
         "ResolutionFoundation2026__JUR",
-        "TaxWatch2025__JUR",
         "VOA2023__JUR",
         "VOA2024__JUR",
         "VOA2025__JUR",
-        "VTS2025__JUR"
+        "VTS2025__JUR",
+        "BudgetResponsibilityAct2011__JUR"
       ],
       "outbound_internal": [
         "WP",
@@ -5009,32 +5867,24 @@
         "WP"
       ],
       "open_question_ids": [],
-      "flag_ids": [
-        "flag_06",
-        "flag_07",
-        "flag_08"
-      ],
+      "flag_ids": [],
       "notes": "JUR carries no remaining open questions of its own. Body text retains stale cross-references to old GOV section numbers (pre-GOV v2.1 restructuring) — benign. Flags 6 (orphan refs), 7 (OBR website citation), 8 (unverified institutional entries)."
     },
     {
       "id": "CORP",
       "shortcode": "CORP",
       "title": "The Wealth Delta Tax: Corporate Architecture",
-      "version": "2.1",
-      "version_date": "260810",
+      "version": "1.01",
+      "version_date": "260820",
       "status": "active",
       "outbound_ext_citation_ids": [
         "Auerbach1991__CORP",
-        "AviYonahMazzoni2019__CORP",
         "BatchelderKamin2019__CORP",
-        "DomarMusgrave1944__CORP",
         "Haig1921__CORP",
-        "PosnerWeyl2018__CORP",
         "RingEtAl2026__CORP",
         "Shakow1986__CORP",
         "Simons1938__CORP",
-        "Weisbach2000__CORP",
-        "Zelenak2021__CORP"
+        "Weisbach2000__CORP"
       ],
       "outbound_internal": [
         "WP",
@@ -5048,17 +5898,15 @@
         "CORP.A"
       ],
       "open_question_ids": [],
-      "flag_ids": [
-        "flag_05"
-      ],
-      "notes": "v2.1: Updated Limitations. "
+      "flag_ids": [],
+      "notes": "v2.1: Updated Limitations. Flag 5: four orphan references (AviYonahMazzoni, DomarMusgrave, PosnerWeyl, Zelenak) in CORP References — author decision pending."
     },
     {
       "id": "CORP.A",
       "shortcode": "CORP.A",
       "title": "The Wealth Delta Tax: Corporate Architecture Appendix",
-      "version": "2.1",
-      "version_date": "260810",
+      "version": "1.01",
+      "version_date": "260820",
       "status": "active",
       "outbound_ext_citation_ids": [
         "RingEtAl2026__CORPA"
@@ -5085,8 +5933,8 @@
       "id": "GOV",
       "shortcode": "GOV",
       "title": "The Wealth Delta Tax: Constitutional Governance",
-      "version": "2.8",
-      "version_date": "260810",
+      "version": "1.01",
+      "version_date": "260829",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AizenmanGlick2009__GOV",
@@ -5118,8 +5966,8 @@
       "id": "GOV.A",
       "shortcode": "GOV.A",
       "title": "The Wealth Delta Tax: Constitutional Governance Appendix",
-      "version": "2.1",
-      "version_date": "260809",
+      "version": "1.00",
+      "version_date": "260815",
       "status": "active",
       "outbound_ext_citation_ids": [
         "Elster2000__GOVA",
@@ -5142,8 +5990,8 @@
       "id": "GOV.B",
       "shortcode": "GOV.B",
       "title": "The Wealth Delta Tax: Constitutional Governance — Operational Appendix",
-      "version": "0.6",
-      "version_date": "260810",
+      "version": "1.01",
+      "version_date": "260829",
       "status": "active",
       "outbound_ext_citation_ids": [],
       "outbound_internal": [
@@ -5164,8 +6012,8 @@
       "id": "RATES",
       "shortcode": "RATES",
       "title": "The Wealth Delta Tax: Rates and Revenue",
-      "version": "2.6",
-      "version_date": "260815",
+      "version": "1.03",
+      "version_date": "260913",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AdvaniEtAl2020__RATES",
@@ -5203,14 +6051,14 @@
         "SWEEPS-1"
       ],
       "flag_ids": [],
-      "notes": "v2.6: budget_growth corrected from 5.24% to 4.51% per JUR v1.8 §2.11; all expenditure-denominator figures updated; N=29."
+      "notes": "v1.01 (260831): TCM coverage ratio corrected (27.7% → 27.4%); minimum-coverage start-year corrected (2003 → 2005). v1.02 (260912): active scenario updated from 2007 to 2000 Balanced; coverage metric updated from capitalisation-window average to post-LRR-fill Step-5 window average; all reference-scenario figures updated (N, expenditure, surplus, burden matrices, terminal wealth, revenue tiers); lifetime contribution envelope discussion added to §4; success definition updated to v8. v1.03 (260913): terminal net worth table and Fig. 3 updated from N=19 to N=30 canonical horizon; table footnote, figure caption, and §2 prose figures updated accordingly."
     },
     {
       "id": "RATES.A",
       "shortcode": "RATES.A",
       "title": "The Wealth Delta Tax: Rates and Revenue Appendix",
-      "version": "1.4",
-      "version_date": "260815",
+      "version": "1.01",
+      "version_date": "260831",
       "status": "active",
       "outbound_ext_citation_ids": [
         "HMTreasury2024__RATESA",
@@ -5230,8 +6078,8 @@
       "id": "BEHAV",
       "shortcode": "BEHAV",
       "title": "The Wealth Delta Tax: Behavioural Robustness and Administrative Experience",
-      "version": "1.4",
-      "version_date": "260814",
+      "version": "1.01",
+      "version_date": "260914",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AgrawalEtAl2025__BEHAV",
@@ -5256,24 +6104,20 @@
         "BEHAV-2",
         "BEHAV-4"
       ],
-      "flag_ids": [
-        "flag_03"
-      ],
-      "notes": "v1.4: full structural rewrite; §§6.3, 8.12, 8.13, 10 added; §9.2 substantially rewritten; §§10-12 renumbered §§11-13. "
+      "flag_ids": [],
+      "notes": "v1.01 (260914): abstract updated to reference tolerant zone as bounding the enforcement claim; §8.11 reframed — Route D enforcement residual characterised as egregious-understatement tail, not general valuation problem, referencing VAL §7.1 tolerant zone (α ≈ 0.8–1.5) and updated equilibrium framing (α ≈ 1.1 as conditional prediction, not dominant strategy); §8.12 extended — tolerant zone substantially reduces enforcement problem for non-egregious declaration range; §9.2 new sub-section noting WDT is not a stock wealth tax and Agrawal ratio calibrated to structurally different systems (directional risk retained, magnitude uncertain); §6.3 new paragraph on SWEEPS parameter separability as structural contribution to Clarity and Fairness membrane dimensions."
     },
     {
       "id": "CLOSE",
       "shortcode": "CLOSE",
       "title": "The Wealth Delta Tax: Position Closure",
-      "version": "0.7",
-      "version_date": "260808",
+      "version": "1.01",
+      "version_date": "260911",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AgrawalEtAl2025__CLOSE",
         "AzevedoEtAl2025__CLOSE",
-        "DomarMusgrave1944__CLOSE",
-        "JakobsenEtAl2024__CLOSE",
-        "LondonoVelezAvilaMahecha2025__CLOSE"
+        "JakobsenEtAl2024__CLOSE"
       ],
       "outbound_internal": [
         "BEHAV",
@@ -5288,17 +6132,15 @@
         "CLOSE-3",
         "CLOSE-4"
       ],
-      "flag_ids": [
-        "flag_03"
-      ],
-      "notes": "CLOSE OQ 1 closed by GOV v1.4. "
+      "flag_ids": [],
+      "notes": "v1.01 (260911): §8.4 added — beyond-lifetime-cap exploitation surface and rationale for the cap."
     },
     {
       "id": "POL",
       "shortcode": "POL",
       "title": "The Wealth Delta Tax: Political Architecture",
-      "version": "0.3",
-      "version_date": "260808",
+      "version": "1.00",
+      "version_date": "260815",
       "status": "active",
       "outbound_ext_citation_ids": [
         "BastaniWaldenstrom2020__POL",
@@ -5306,7 +6148,6 @@
         "Gangl2015b__POL",
         "Kirchler2007__POL",
         "KlevenEtAl2024__POL",
-        "LondonoVelezAvilaMahecha2025__POL",
         "North1990__POL",
         "OECD2018__POL",
         "Olson1965__POL",
@@ -5328,18 +6169,16 @@
         "POL-4"
       ],
       "flag_ids": [
-        
-        "flag_10",
-        "flag_11"
+        "flag_10"
       ],
-      "notes": " Flag 10: Gangl 2015b disambiguation. "
+      "notes": "Flag 3: Londoño-Vélez cited as 2024 NBER WP — update to 2025 journal. Flag 10: Gangl 2015b disambiguation. Flag 11: AyresBraithwaite orphan in References."
     },
     {
       "id": "PHASE1",
       "shortcode": "PHASE1",
       "title": "The Wealth Delta Tax: Phase One",
-      "version": "0.2",
-      "version_date": "260808",
+      "version": "1.00",
+      "version_date": "260815",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AgrawalEtAl2025__PHASE1",
@@ -5393,8 +6232,8 @@
       "id": "ENV",
       "shortcode": "ENV",
       "title": "The Wealth Delta Tax: Environmental Effects and Transmission Channels",
-      "version": "0.3",
-      "version_date": "260809",
+      "version": "1.00",
+      "version_date": "260815",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AgrawalEtAl2025__ENV",
@@ -5433,18 +6272,15 @@
         "ENV-3",
         "ENV-4"
       ],
-      "flag_ids": [
-        "flag_23",
-        "flag_24"
-      ],
-      "notes": "v0.3: §4 subsectioned §4.1-§4.8; new §4.3-§4.8 on automation and tax-base migration; ENV-4 added."
+      "flag_ids": [],
+      "notes": "v0.3: §4 subsectioned §4.1-§4.8; new §4.3-§4.8 on automation and tax-base migration; ENV-4 added. Flag 23: Jakobsen et al. reference confused with Denmark 2020 paper. Flag 24: Kleven et al. JEP volume/pages wrong."
     },
     {
       "id": "FM",
       "shortcode": "FM",
       "title": "The Wealth Delta Tax: First Mover",
-      "version": "0.7",
-      "version_date": "260814",
+      "version": "1.01",
+      "version_date": "260823",
       "status": "active",
       "outbound_ext_citation_ids": [
         "BatchelderKamin2019__FM",
@@ -5470,18 +6306,15 @@
       ],
       "inbound_internal": [],
       "open_question_ids": [],
-      "flag_ids": [
-        "flag_25",
-        "flag_26"
-      ],
-      "notes": null
+      "flag_ids": [],
+      "notes": "Strategic analysis paper. Generates no open questions. Flag 25: Perret reference wrong (Intereconomics instead of Fiscal Studies). Flag 26: Batchelder publisher description wrong."
     },
     {
       "id": "MOD",
       "shortcode": "MOD",
       "title": "The Wealth Delta Tax: Modular Adoption",
-      "version": "0.2",
-      "version_date": "260814",
+      "version": "1.00",
+      "version_date": "260815",
       "status": "active",
       "outbound_ext_citation_ids": [],
       "outbound_internal": [
@@ -5516,8 +6349,8 @@
       "id": "SWEEPS",
       "shortcode": "SWEEPS",
       "title": "The Wealth Delta Tax: Parameter Space and Governing Council Calibration",
-      "version": "0.3",
-      "version_date": "260815",
+      "version": "1.03",
+      "version_date": "260914",
       "status": "active",
       "outbound_ext_citation_ids": [],
       "outbound_internal": [
@@ -5550,17 +6383,15 @@
         "SWEEPS-1",
         "SWEEPS-2"
       ],
-      "flag_ids": [
-        "flag_28"
-      ],
-      "notes": "Calibration reference paper. SWEEPS-3 closed within paper. v0.3: budget_growth corrected to 4.51% throughout. Flag 28: References section is a placeholder — full ingestion pass required when populated."
+      "flag_ids": [],
+      "notes": "v1.01 (260831): numerical and argumentative update to match confirmed SWEEPS.A canonical tables. v1.02 (260831): glossary declaration equilibrium definition corrected — refund-protection-asymmetry rationale (α ≈ 1.1) replaces stable TW advantage (α ≈ 1.2–1.5); §2.2 N-crossing paragraph extended with clarification that NPV-adjusted C.12 eliminates mild-overstater advantage prior to nominal N-crossing point. v1.03 (260914): four new figures with accompanying prose added — Fig 7.3 (constant-g sensitivity on LRR fill year and coverage), Fig 7.4 (cross-parameter coverage fan), Fig 7.5 (synthetic sinusoidal stress-test), Fig 8.3c (SWF stress margins — zero-coverage years and LRR buffer headroom). Flag 28 (missing References section) remains open."
     },
     {
       "id": "SWEEPS.A",
       "shortcode": "SWEEPS.A",
       "title": "The Wealth Delta Tax: Parameter Space and Governing Council Calibration — Appendix Tables",
-      "version": "0.2",
-      "version_date": "260815",
+      "version": "1.01",
+      "version_date": "260831",
       "status": "active",
       "outbound_ext_citation_ids": [],
       "outbound_internal": [
@@ -5578,8 +6409,8 @@
       "id": "SCOPE",
       "shortcode": "SCOPE",
       "title": "The Wealth Delta Tax: Scope Boundary — Questions Outside This Project",
-      "version": "0.1",
-      "version_date": "260806",
+      "version": "0.2",
+      "version_date": "260821",
       "status": "active",
       "outbound_ext_citation_ids": [],
       "outbound_internal": [],
@@ -5602,17 +6433,147 @@
       ],
       "flag_ids": [],
       "notes": "Records twelve open questions deferred as outside project scope. Four categories: modelling tasks left to future researchers; questions requiring legal/jurisdictional expertise; questions requiring international coordination; items deferred to post-Phase One. Does not introduce new positions or resolve any question."
+    },
+    {
+      "id": "WFR",
+      "shortcode": "WFR",
+      "title": "The Wealth Delta Tax: Welfare Comparison Across Tax Systems at Revenue Equivalence",
+      "version": "0.03",
+      "version_date": "260916",
+      "status": "active",
+      "outbound_ext_citation_ids": [
+        "AgrawalEtAl2025__WFR",
+        "ArachiDAntoni2022__WFR",
+        "BastaniWaldenstrom2020__WFR",
+        "BoadwaySpiritusEtAl2025__WFR",
+        "DalleLucheEtAl2026__WFR",
+        "DomarMusgrave1944__WFR",
+        "FagerengEtAl2016__WFR",
+        "FagerengEtAl2020__WFR",
+        "FlavinYamashita2002__WFR",
+        "GarbintiEtAl2026__WFR",
+        "GerritsenEtAl2025__WFR",
+        "GuvenonEtAl2023__WFR",
+        "HebousEtAl2024__WFR",
+        "JakobsenEtAl2020__WFR",
+        "King1977__WFR",
+        "OECD2025__WFR",
+        "Vickrey1939__WFR"
+      ],
+      "outbound_internal": [
+        "WP",
+        "LR.A",
+        "VAL",
+        "RATES",
+        "SWEEPS",
+        "BEHAV",
+        "CLOSE",
+        "ENV",
+        "PHASE1",
+        "WFR.A"
+      ],
+      "inbound_internal": [],
+      "open_question_ids": [],
+      "flag_ids": [],
+      "notes": "v0.01 (260913): initial scaffold. v0.02 (260916): verbal compression. v0.03 (260916): epistemic tightening — Arachi claim bounded to loss-year component with entry-margin qualification; P(locked in) decomposition relabelled; T≥8 plateau reframed as realisation-induced portfolio persistence; SRR claim corrected to bound taxpayer-level exposure; 479× and income tax concentration figures qualified as model-simulated; welfare object taxonomy distinguished in §6.1; asymmetric CGT/WDT treatment made prominent in §2.4; burden-of-consideration conclusion reframed analytically; incidence ≠ welfare progressivity distinction added to §4.3.4; horizon choice defended in §2.1; §7.4 TODO resolved — N=73 run committed to WFR.A §F. Companion EVAL paper referenced but not yet in project. Six systems compared: flat WDT, progressive WDT, income tax, CGT, stock wealth tax, consumption tax. Pre-behavioural throughout. Key results: WDT leads by 17.4 bp at controlled baseline, 141–143 bp once CGT lock-in admitted; stock wealth tax and consumption tax welfare-equivalent at −1.8870% across all γ; 286–288× Great/Poor concentration under WDT vs 479× for stock-base systems at N=30."
+    },
+    {
+      "id": "WFR.A",
+      "shortcode": "WFR.A",
+      "title": "The Wealth Delta Tax: Welfare Comparison Appendix Tables",
+      "version": "0.01",
+      "version_date": "260910",
+      "status": "active",
+      "outbound_ext_citation_ids": [],
+      "outbound_internal": [
+        "WFR"
+      ],
+      "inbound_internal": [
+        "WFR"
+      ],
+      "open_question_ids": [],
+      "flag_ids": [],
+      "notes": "v0.01 (260910): initial generation — simulation tables §A–§E covering baseline single-agent comparison, progressive rate complications, CGT lock-in distortion, heterogeneous agent incidence and concentration, and welfare sweep analysis across revenue targets, start years, and logistic rate parameters. §F (N=73 start-year sweep) committed per WFR v0.03."
+    },
+    {
+      "id": "ADD",
+      "shortcode": "ADD",
+      "title": "The Wealth Delta Tax: Addendum: Implementation Calibration Examples",
+      "version": "0.01",
+      "version_date": "260827",
+      "status": "active",
+      "outbound_ext_citation_ids": [],
+      "outbound_internal": [],
+      "inbound_internal": [],
+      "open_question_ids": [],
+      "flag_ids": [],
+      "notes": "v0.01 (260827): initial draft. Eight implementation questions with approach sketches."
+    },
+    {
+      "id": "INST",
+      "shortcode": "INST",
+      "title": "The Wealth Delta Tax: Fiscal Architecture and Institutional Selection",
+      "version": "0.04",
+      "version_date": "260918",
+      "status": "active",
+      "outbound_ext_citation_ids": [
+        "AcemogluEtAl2019__INST",
+        "AgrawalEtAl2025__INST",
+        "Andersson2023__INST",
+        "AnderssonTeorell2025__INST",
+        "BackHadenius2008__INST",
+        "BrickerEtAl2016__INST",
+        "DodlovaLucas2021__INST",
+        "Gilley2017__INST",
+        "JakobsenEtAl2024__INST",
+        "KatoTanaka2019__INST",
+        "Kopczuk2015__INST",
+        "McKinseyGWW2026__INST",
+        "OECD2018__INST",
+        "Olson1965__INST",
+        "Perret2021__INST",
+        "Ross2004__INST",
+        "SaezZucman2016__INST",
+        "SaezZucman2019__INST",
+        "SaezZucman2022__INST",
+        "ScheveStasavage2012__INST",
+        "Tsebelis2002__INST",
+        "UBS2025__INST",
+        "VDem2026__INST",
+        "VonSchiller2018__INST",
+        "Zhang2017__INST",
+        "ClarkEtAl2020__INST",
+        "Baskaran2014__INST",
+        "ChinaNDML2026__INST",
+        "ISW2026Sep__INST",
+        "KaoEtAl2022__INST"
+      ],
+      "outbound_internal": [
+        "WP",
+        "VAL",
+        "RATES",
+        "GOV",
+        "POL",
+        "BEHAV",
+        "ENV",
+        "FM",
+        "PHASE1",
+        "CORP",
+        "JUR",
+        "CLOSE",
+        "SWEEPS",
+        "MOD"
+      ],
+      "inbound_internal": [],
+      "open_question_ids": [
+        "31",
+        "32"
+      ],
+      "flag_ids": [],
+      "notes": "v0.01 (260900): First draft. v0.02 (260900): §4 condensed; §5.4 DR chamber name corrected; §5.1 VAL §5.2 citation added; §5.2 Route C description corrected; §7.1 RATES citations sharpened; §7.2 ENV §4.1–§4.2 added; §7.3 FM §3.1 added; §6.4/§8 FM §3.2 corrected to FM §3; §3.1 JUR §2.4 added; §4.2 POL §5.7 added; Tier A footnotes updated. v0.03 (260918): Abstract rewritten (≤300 words) foregrounding two-constituency mechanism; §1 'only' removed; §6.4 heading and China framing revised; unfalsifiable Option B language removed; §8/§10 updated to match. v0.04 (260918): All external citations converted to @Key notation; References section added (APA 7th, 25 entries); Flag 29 (Clark et al. 2022 unresolved) and Flag 30 (World Development 2013 unresolved) added; Flag 31 (institutional sources: Catalyst International, Asia Society, Foreign Affairs) added; Flag 32 (McKinseyGWW2026 URL unverified) added."
     }
   ],
   "citations": [
-    {
-      "id": "Addison2009__LRB",
-      "ref_id": "Addison2009",
-      "paper_id": "LRB",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": "Flag 15: appears in LR.B References section but no in-text citation identified in §13 body text or elsewhere in LR.B"
-    },
     {
       "id": "AdvaniEtAl2020__JUR",
       "ref_id": "AdvaniEtAl2020",
@@ -5744,14 +6705,6 @@
       "notes": null
     },
     {
-      "id": "Ambachtsheer2007__JUR",
-      "ref_id": "Ambachtsheer2007",
-      "paper_id": "JUR",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": null
-    },
-    {
       "id": "Ambachtsheer2007__LRB",
       "ref_id": "Ambachtsheer2007",
       "paper_id": "LRB",
@@ -5833,14 +6786,6 @@
       "sections": [
         "1"
       ],
-      "notes": null
-    },
-    {
-      "id": "AviYonahMazzoni2019__CORP",
-      "ref_id": "AviYonahMazzoni2019",
-      "paper_id": "CORP",
-      "relationship": "references_only",
-      "sections": [],
       "notes": null
     },
     {
@@ -5952,14 +6897,6 @@
         "5"
       ],
       "notes": null
-    },
-    {
-      "id": "BlairStout1999__LRB",
-      "ref_id": "BlairStout1999",
-      "paper_id": "LRB",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": "Flag 16: appears in LR.B References section but no in-text citation identified"
     },
     {
       "id": "BollEtAl2026__RATES",
@@ -6086,14 +7023,6 @@
       "notes": null
     },
     {
-      "id": "ClarkUrwin2008__JUR",
-      "ref_id": "ClarkUrwin2008",
-      "paper_id": "JUR",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": null
-    },
-    {
       "id": "ClarkUrwin2008__LRB",
       "ref_id": "ClarkUrwin2008",
       "paper_id": "LRB",
@@ -6183,22 +7112,6 @@
         "3.5"
       ],
       "notes": null
-    },
-    {
-      "id": "DomarMusgrave1944__CORP",
-      "ref_id": "DomarMusgrave1944",
-      "paper_id": "CORP",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": null
-    },
-    {
-      "id": "DomarMusgrave1944__CLOSE",
-      "ref_id": "DomarMusgrave1944",
-      "paper_id": "CLOSE",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": "Appears in CLOSE References section but no in-text citation identified"
     },
     {
       "id": "DomarMusgrave1944__POL",
@@ -6354,14 +7267,6 @@
       "notes": null
     },
     {
-      "id": "FitzRoyKraft2005__LRB",
-      "ref_id": "FitzRoyKraft2005",
-      "paper_id": "LRB",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": "Flag 17: appears in LR.B References section but no in-text citation identified"
-    },
-    {
       "id": "Frankel2010__LRB",
       "ref_id": "Frankel2010",
       "paper_id": "LRB",
@@ -6370,14 +7275,6 @@
         "14"
       ],
       "notes": null
-    },
-    {
-      "id": "Freeman1984__LRB",
-      "ref_id": "Freeman1984",
-      "paper_id": "LRB",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": "Flag 18: appears in LR.B References section but no in-text citation identified"
     },
     {
       "id": "FungWright2003__LRB",
@@ -6830,14 +7727,6 @@
       "notes": null
     },
     {
-      "id": "JakobsenEtAl2024__JUR",
-      "ref_id": "JakobsenEtAl2024",
-      "paper_id": "JUR",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": null
-    },
-    {
       "id": "JakobsenEtAl2024__CLOSE",
       "ref_id": "JakobsenEtAl2024",
       "paper_id": "CLOSE",
@@ -6865,7 +7754,7 @@
       "sections": [
         "3"
       ],
-      "notes": "22-cent revenue loss figure; Norway migration evidence"
+      "notes": "22-cent revenue loss figure; Norway migration evidence — Flag 23: ENV References entry confuses this with JakobsenEtAl2020"
     },
     {
       "id": "JakobsenEtAl2024__RATES",
@@ -7132,7 +8021,7 @@
       "sections": [
         "3"
       ],
-      "notes": null
+      "notes": "Flag 24: ENV References section cites wrong volume and pages — JEP 34(2), 119-142 should be 38(2), 3-30"
     },
     {
       "id": "KlevenEtAl2024__LRB",
@@ -7233,15 +8122,7 @@
       "sections": [
         "2.2"
       ],
-      "notes": null
-    },
-    {
-      "id": "LondonoVelezAvilaMahecha2025__JUR",
-      "ref_id": "LondonoVelezAvilaMahecha2025",
-      "paper_id": "JUR",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": null
+      "notes": "Flag 3 closed 2026-09-18: citation updated to journal form (Review of Economic Studies 92(4), 2624-2655)."
     },
     {
       "id": "LondonoVelezAvilaMahecha2025__BEHAV",
@@ -7252,26 +8133,7 @@
         "2.1",
         "9.2"
       ],
-      "notes": null
-    },
-    {
-      "id": "LondonoVelezAvilaMahecha2025__CLOSE",
-      "ref_id": "LondonoVelezAvilaMahecha2025",
-      "paper_id": "CLOSE",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": "Flag 3: appears in CLOSE References section but no in-text citation identified; currently cited as 2024 NBER WP"
-    },
-    {
-      "id": "LondonoVelezAvilaMahecha2025__POL",
-      "ref_id": "LondonoVelezAvilaMahecha2025",
-      "paper_id": "POL",
-      "relationship": "in_text",
-      "sections": [
-        "8.3",
-        "9.1"
-      ],
-      "notes": null
+      "notes": "Flag 3 closed 2026-09-18: citation updated to journal form (Review of Economic Studies 92(4), 2624-2655)."
     },
     {
       "id": "LondonoVelezAvilaMahecha2025__LRB",
@@ -7342,14 +8204,6 @@
         "4.1"
       ],
       "notes": null
-    },
-    {
-      "id": "North1990__LRB",
-      "ref_id": "North1990",
-      "paper_id": "LRB",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": "Flag 21: appears in LR.B References section but no in-text citation identified"
     },
     {
       "id": "OBR2023__RATES",
@@ -7549,15 +8403,7 @@
         "2",
         "3.2"
       ],
-      "notes": null
-    },
-    {
-      "id": "Perret2021__LRB",
-      "ref_id": "Perret2021",
-      "paper_id": "LRB",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": "Flag 19: appears in LR.B References section but no in-text citation identified; recommended to expand LR.B §17"
+      "notes": "Flag 25: FM References entry has wrong title, journal, volume, and pages — action required in FM"
     },
     {
       "id": "Piketty2014__WP",
@@ -7577,14 +8423,6 @@
       "sections": [
         "7"
       ],
-      "notes": null
-    },
-    {
-      "id": "PikettyEtAl2014__WP",
-      "ref_id": "PikettyEtAl2014",
-      "paper_id": "WP",
-      "relationship": "references_only",
-      "sections": [],
       "notes": null
     },
     {
@@ -7629,14 +8467,6 @@
       "notes": null
     },
     {
-      "id": "Pierson1994__LRB",
-      "ref_id": "Pierson1994",
-      "paper_id": "LRB",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": "Flag 20: appears in LR.B References section but no in-text citation identified"
-    },
-    {
       "id": "Pierson2000__POL",
       "ref_id": "Pierson2000",
       "paper_id": "POL",
@@ -7657,14 +8487,6 @@
       "notes": null
     },
     {
-      "id": "Pierson2000__LRB",
-      "ref_id": "Pierson2000",
-      "paper_id": "LRB",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": "Flag 20: appears in LR.B References section but no in-text citation identified"
-    },
-    {
       "id": "PosnerWeyl2018__WP",
       "ref_id": "PosnerWeyl2018",
       "paper_id": "WP",
@@ -7682,14 +8504,6 @@
       "sections": [
         "11.2"
       ],
-      "notes": null
-    },
-    {
-      "id": "PosnerWeyl2018__CORP",
-      "ref_id": "PosnerWeyl2018",
-      "paper_id": "CORP",
-      "relationship": "references_only",
-      "sections": [],
       "notes": null
     },
     {
@@ -7721,7 +8535,7 @@
       "sections": [
         "9"
       ],
-      "notes": null
+      "notes": "Flag 22: cited without year parenthetical — should be Prewitt (2019)"
     },
     {
       "id": "Rawls1971__LRB",
@@ -7731,14 +8545,6 @@
       "sections": [
         "16"
       ],
-      "notes": null
-    },
-    {
-      "id": "ResolutionFoundation2020__JUR",
-      "ref_id": "ResolutionFoundation2020",
-      "paper_id": "JUR",
-      "relationship": "references_only",
-      "sections": [],
       "notes": null
     },
     {
@@ -8106,14 +8912,6 @@
       "notes": null
     },
     {
-      "id": "TaxWatch2025__JUR",
-      "ref_id": "TaxWatch2025",
-      "paper_id": "JUR",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": null
-    },
-    {
       "id": "TetlockGardner2015__GOVA",
       "ref_id": "TetlockGardner2015",
       "paper_id": "GOVA",
@@ -8367,14 +9165,6 @@
       "notes": null
     },
     {
-      "id": "Wilson1980__LRB",
-      "ref_id": "Wilson1980",
-      "paper_id": "LRB",
-      "relationship": "references_only",
-      "sections": [],
-      "notes": "Flag 21: appears in LR.B References section but no in-text citation identified"
-    },
-    {
       "id": "Wyplosz2005__LRB",
       "ref_id": "Wyplosz2005",
       "paper_id": "LRB",
@@ -8382,14 +9172,6 @@
       "sections": [
         "15"
       ],
-      "notes": null
-    },
-    {
-      "id": "Zelenak2021__CORP",
-      "ref_id": "Zelenak2021",
-      "paper_id": "CORP",
-      "relationship": "references_only",
-      "sections": [],
       "notes": null
     },
     {
@@ -8481,64 +9263,606 @@
         "15"
       ],
       "notes": null
+    },
+    {
+      "id": "Pettit1997__MF",
+      "paper_id": "MF",
+      "ref_id": "Pettit1997",
+      "relationship": "in_text",
+      "sections": [
+        "6"
+      ],
+      "notes": "v1.04: Pettit non-domination framework added to §6"
+    },
+    {
+      "id": "Pettit2012__MF",
+      "paper_id": "MF",
+      "ref_id": "Pettit2012",
+      "relationship": "in_text",
+      "sections": [
+        "6"
+      ],
+      "notes": "v1.04: cited alongside Pettit1997 for non-domination framework"
+    },
+    {
+      "id": "Scanlon1998__MF",
+      "paper_id": "MF",
+      "ref_id": "Scanlon1998",
+      "relationship": "in_text",
+      "sections": [
+        "3.3"
+      ],
+      "notes": "v1.04: contractualist criterion — whether principle could be reasonably rejected"
+    },
+    {
+      "id": "Wittgenstein1953__MF",
+      "paper_id": "MF",
+      "ref_id": "Wittgenstein1953",
+      "relationship": "in_text",
+      "sections": [
+        "3.1"
+      ],
+      "notes": "Private language argument — rule-following depends on irreducibly collective conceptual frameworks"
+    },
+    {
+      "id": "Searle1995__MF",
+      "paper_id": "MF",
+      "ref_id": "Searle1995",
+      "relationship": "in_text",
+      "sections": [
+        "3.1"
+      ],
+      "notes": "Institutional facts — money, property, corporate equity exist because of collective practice"
+    },
+    {
+      "id": "ArachiDAntoni2022__WFR",
+      "paper_id": "WFR",
+      "ref_id": "ArachiDAntoni2022",
+      "relationship": "in_text",
+      "sections": [
+        "4.2",
+        "4.2.3",
+        "5.4"
+      ],
+      "notes": "Fiscal Studies: accrual taxation not automatically welfare superior to realisation — intertemporal consumption distortion in appreciation years. WFR §4.2.3 establishes symmetric refund addresses loss-year component; entry-margin qualification retained."
+    },
+    {
+      "id": "BoadwaySpiritusEtAl2025__WFR",
+      "paper_id": "WFR",
+      "ref_id": "BoadwaySpiritusEtAl2025",
+      "relationship": "in_text",
+      "sections": [
+        "5.5",
+        "7.2"
+      ],
+      "notes": "Positive capital income taxation can be Pareto-efficient when returns are heterogeneous; optimal rate rises with return heterogeneity. Directly opposing conclusion to GuvenonEtAl2023 — unresolved frontier dispute WFR does not adjudicate."
+    },
+    {
+      "id": "DalleLucheEtAl2026__WFR",
+      "paper_id": "WFR",
+      "ref_id": "DalleLucheEtAl2026",
+      "relationship": "in_text",
+      "sections": [
+        "5.5"
+      ],
+      "notes": "Review of Income and Wealth: joint heterogeneity in wealth and returns at top of distribution; increasing returns to wealth at upper tail have implications for optimal tax design beyond Guvenen and Boadway-Spiritus frameworks."
+    },
+    {
+      "id": "FagerengEtAl2016__WFR",
+      "paper_id": "WFR",
+      "ref_id": "FagerengEtAl2016",
+      "relationship": "in_text",
+      "sections": [
+        "4.3"
+      ],
+      "notes": "American Economic Review companion to FagerengEtAl2020 — establishes same persistence properties using slightly different sample definition."
+    },
+    {
+      "id": "FlavinYamashita2002__WFR",
+      "paper_id": "WFR",
+      "ref_id": "FlavinYamashita2002",
+      "relationship": "in_text",
+      "sections": [
+        "2.1"
+      ],
+      "notes": "Source for central case γ=2 risk-aversion parameter in CRRA utility function."
+    },
+    {
+      "id": "GerritsenEtAl2025__WFR",
+      "paper_id": "WFR",
+      "ref_id": "GerritsenEtAl2025",
+      "relationship": "in_text",
+      "sections": [
+        "5.5",
+        "7.2"
+      ],
+      "notes": "Economic Journal 2025: same heterogeneous-returns premise as Guvenen; reaches opposite conclusion — positive capital income tax can be Pareto-efficient. Part of unresolved Guvenen vs Boadway-Spiritus dispute."
+    },
+    {
+      "id": "HebousEtAl2024__WFR",
+      "paper_id": "WFR",
+      "ref_id": "HebousEtAl2024",
+      "relationship": "in_text",
+      "sections": [
+        "4.4",
+        "5.3"
+      ],
+      "notes": "IMF 2024 analysis of wealth tax design — institutional confirmation of stock wealth / consumption tax equivalence and conditions under which it breaks."
+    },
+    {
+      "id": "AgrawalEtAl2025__WFR",
+      "paper_id": "WFR",
+      "ref_id": "AgrawalEtAl2025",
+      "relationship": "in_text",
+      "sections": [
+        "6.1",
+        "7.3"
+      ],
+      "notes": "Cross-base externality (income and VAT losses ~6× direct revenue loss) is dominant empirical qualification on pre-behavioural revenue figures. WDT-specific migration dynamics untested."
+    },
+    {
+      "id": "BastaniWaldenstrom2020__WFR",
+      "paper_id": "WFR",
+      "ref_id": "BastaniWaldenstrom2020",
+      "relationship": "in_text",
+      "sections": [
+        "4.4",
+        "5.3"
+      ],
+      "notes": "Journal of Economic Surveys: conditions for stock wealth / consumption tax welfare equivalence (no labour income, proportional bases, uniform saving rate, no liquidity constraints, CRRA preferences)."
+    },
+    {
+      "id": "DomarMusgrave1944__WFR",
+      "paper_id": "WFR",
+      "ref_id": "DomarMusgrave1944",
+      "relationship": "in_text",
+      "sections": [
+        "3.1",
+        "3.2",
+        "4.1"
+      ],
+      "notes": "Risk-sharing mechanism — flat symmetric WDT satisfies D-M to floating-point precision; three progressive-rate complications (net-worth base, progressive marginal rates, multi-period rate asymmetry) are second-order at canonical parameters."
+    },
+    {
+      "id": "FagerengEtAl2020__WFR",
+      "paper_id": "WFR",
+      "ref_id": "FagerengEtAl2020",
+      "relationship": "in_text",
+      "sections": [
+        "4.3",
+        "5.5"
+      ],
+      "notes": "Econometrica — primary empirical foundation for heterogeneous-returns analysis. Norwegian administrative dataset: persistent individual-level return heterogeneity, ~8pp cross-sectional std dev, ~3pp wealth-return gradient 10th–90th percentile within asset classes."
+    },
+    {
+      "id": "GarbintiEtAl2026__WFR",
+      "paper_id": "WFR",
+      "ref_id": "GarbintiEtAl2026",
+      "relationship": "in_text",
+      "sections": [
+        "5.5"
+      ],
+      "notes": "Cited alongside DalleLucheEtAl2026 for joint heterogeneity in wealth and returns at top of distribution."
+    },
+    {
+      "id": "GuvenonEtAl2023__WFR",
+      "paper_id": "WFR",
+      "ref_id": "GuvenonEtAl2023",
+      "relationship": "in_text",
+      "sections": [
+        "5.5",
+        "7.2"
+      ],
+      "notes": "Use-it-or-lose-it mechanism — heterogeneous returns imply wealth taxation reallocates capital toward higher-return uses. WFR does not adjudicate Guvenen vs Boadway-Spiritus; neither paper includes delta-based instrument."
+    },
+    {
+      "id": "JakobsenEtAl2020__WFR",
+      "paper_id": "WFR",
+      "ref_id": "JakobsenEtAl2020",
+      "relationship": "in_text",
+      "sections": [
+        "7.3"
+      ],
+      "notes": "Calibration range for migration response under existing wealth taxes."
+    },
+    {
+      "id": "King1977__WFR",
+      "paper_id": "WFR",
+      "ref_id": "King1977",
+      "relationship": "in_text",
+      "sections": [
+        "3.2"
+      ],
+      "notes": null
+    },
+    {
+      "id": "OECD2025__WFR",
+      "paper_id": "WFR",
+      "ref_id": "OECD2025",
+      "relationship": "in_text",
+      "sections": [
+        "4.2",
+        "5.3"
+      ],
+      "notes": "OECD 2025 capital gains tax design analysis — identifies lock-in as primary efficiency cost of realisation-contingent systems."
+    },
+    {
+      "id": "Vickrey1939__WFR",
+      "paper_id": "WFR",
+      "ref_id": "Vickrey1939",
+      "relationship": "in_text",
+      "sections": [
+        "3.1"
+      ],
+      "notes": null
+    },
+    {
+      "id": "AcemogluEtAl2019__INST",
+      "ref_id": "AcemogluEtAl2019",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "2.3"
+      ],
+      "notes": "Democracy increases GDP per capita ~20% long run; effects via state capacity, education, health. Cited in authoritarian trade-off analysis."
+    },
+    {
+      "id": "AgrawalEtAl2025__INST",
+      "ref_id": "AgrawalEtAl2025",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "9.2"
+      ],
+      "notes": "Six-to-one cross-base fiscal multiplier; failure condition 8 (cross-base migration at prohibitive scale)."
+    },
+    {
+      "id": "Andersson2023__INST",
+      "ref_id": "Andersson2023",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "5.3",
+        "6.2"
+      ],
+      "notes": "Authoritarian systems with institutional oversight can develop greater fiscal capacity; raises credible-commitment-without-democracy question. Central to §5.3 and §6.2 argument."
+    },
+    {
+      "id": "AnderssonTeorell2025__INST",
+      "ref_id": "AnderssonTeorell2025",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "7.3",
+        "8"
+      ],
+      "notes": "State capacity prolongs autocratic rule but increases democratisation probability. Cited in §7.3 pre-built crisis capacity and §8 Option D dynamics."
+    },
+    {
+      "id": "BackHadenius2008__INST",
+      "ref_id": "BackHadenius2008",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "2.1"
+      ],
+      "notes": "J-shaped relationship between democracy and administrative capacity. Intermediate regimes perform poorly on both dimensions."
+    },
+    {
+      "id": "BrickerEtAl2016__INST",
+      "ref_id": "BrickerEtAl2016",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "3.1"
+      ],
+      "notes": "Capitalisation method overstates wealth concentration — methodological counterpoint to Saez & Zucman."
+    },
+    {
+      "id": "DodlovaLucas2021__INST",
+      "ref_id": "DodlovaLucas2021",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "5.4",
+        "6.1"
+      ],
+      "notes": "105 autocracies 1950–2004: autocratic rulers choose tax structures according to whether elites or mass population constitute primary security threat. Elite-threat regimes structurally relax elite taxation. Cited as 'European Journal of Political Economy (2021)' in earlier draft."
+    },
+    {
+      "id": "Gilley2017__INST",
+      "ref_id": "Gilley2017",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.2",
+        "6.3"
+      ],
+      "notes": "Representation dilemma: comprehensive transparent taxation generates accountability demands. China's resilience rests on visible services while limiting political consequences of extraction."
+    },
+    {
+      "id": "JakobsenEtAl2024__INST",
+      "ref_id": "JakobsenEtAl2024",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "9.2"
+      ],
+      "notes": "~2% reduction in wealthy taxpayer stock per 1pp wealth tax rate increase. Empirical ballpark for failure condition 8."
+    },
+    {
+      "id": "KatoTanaka2019__INST",
+      "ref_id": "KatoTanaka2019",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.2",
+        "8"
+      ],
+      "notes": "Taxation does not mechanically cause democratic transition; contemporary autocracies sustain modern tax architecture without democratising. Caveat applied in §6.2 and Option C analysis in §8."
+    },
+    {
+      "id": "Kopczuk2015__INST",
+      "ref_id": "Kopczuk2015",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "3.1"
+      ],
+      "notes": "Capitalisation method overstates concentration — methodological counterpoint alongside BrickerEtAl2016."
+    },
+    {
+      "id": "McKinseyGWW2026__INST",
+      "ref_id": "McKinseyGWW2026",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "3.1",
+        "3.2"
+      ],
+      "notes": "Primary source for $570 trillion global household wealth figure (2025) and country-level wealth data for Table 1. Flag 32: URL unverified."
+    },
+    {
+      "id": "OECD2018__INST",
+      "ref_id": "OECD2018",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "3.2",
+        "4"
+      ],
+      "notes": "12 OECD net wealth taxes in 1990; 4 by 2017. Primary empirical record for §4 failure analysis."
+    },
+    {
+      "id": "Olson1965__INST",
+      "ref_id": "Olson1965",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "4"
+      ],
+      "notes": "Collective action asymmetry: small concentrated taxed population outperforms large diffuse beneficiary population. Second failure mechanism."
+    },
+    {
+      "id": "Perret2021__INST",
+      "ref_id": "Perret2021",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "3.2",
+        "4"
+      ],
+      "notes": "Primary failure mechanisms political not economic. France ISF 60–80% survey support yet abolished. Full case evidence in POL §3."
+    },
+    {
+      "id": "Ross2004__INST",
+      "ref_id": "Ross2004",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.2"
+      ],
+      "notes": "Taxation-to-representation literature: single-constituency model. WDT two-constituency mechanism distinguished from this tradition."
+    },
+    {
+      "id": "SaezZucman2016__INST",
+      "ref_id": "SaezZucman2016",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "3.1"
+      ],
+      "notes": "Upper-tail wealth share growth documented across methodological approaches."
+    },
+    {
+      "id": "SaezZucman2019__INST",
+      "ref_id": "SaezZucman2019",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "1"
+      ],
+      "notes": "Cited as a prior wealth tax proposal that remained theoretical/politically unimplemented."
+    },
+    {
+      "id": "SaezZucman2022__INST",
+      "ref_id": "SaezZucman2022",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "4.2"
+      ],
+      "notes": "European failures from narrow bases (exemptions, avoidance, evasion); modern administrative capacity could improve effectiveness. WDT agrees on diagnosis, proposes structural rather than administrative solution."
+    },
+    {
+      "id": "ScheveStasavage2012__INST",
+      "ref_id": "ScheveStasavage2012",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "4"
+      ],
+      "notes": "Cited in Tier A footnote for §4 failure analysis alongside Olson1965 and Perret2021."
+    },
+    {
+      "id": "Tsebelis2002__INST",
+      "ref_id": "Tsebelis2002",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "2.2"
+      ],
+      "notes": "Veto player literature: policy change more difficult as credible blocking actors increase. Authoritarian systems compress decision cycle by concentrating agenda-setting and blocking power."
+    },
+    {
+      "id": "UBS2025__INST",
+      "ref_id": "UBS2025",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "3.1",
+        "3.2"
+      ],
+      "notes": "Corroboration of McKinsey global wealth total; used alongside McKinseyGWW2026 and VDem2026 for Table 1."
+    },
+    {
+      "id": "VDem2026__INST",
+      "ref_id": "VDem2026",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "2.1",
+        "3.2"
+      ],
+      "notes": "Five-tier governance classification (modified from V-Dem RoW typology). Population estimates and governance-tier assignments for §2.1 and Table 1."
+    },
+    {
+      "id": "VonSchiller2018__INST",
+      "ref_id": "VonSchiller2018",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.2"
+      ],
+      "notes": "Institutionalised political parties increase governments' ability to make credible fiscal contracts with wealthy taxpayers. Credible fiscal commitment is itself an institutional investment with political consequences beyond the fiscal contract."
+    },
+    {
+      "id": "Zhang2017__INST",
+      "ref_id": "Zhang2017",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.2"
+      ],
+      "notes": "Representation dilemma: more comprehensive transparent taxation generates stronger accountability demands. Cited alongside Gilley2017."
+    },
+    {
+      "id": "CnossenBovenberg2001__LRB",
+      "ref_id": "CnossenBovenberg2001",
+      "paper_id": "LRB",
+      "relationship": "in_text",
+      "sections": [
+        "3"
+      ],
+      "notes": "Section confirmed by author 2026-09-18."
+    },
+    {
+      "id": "Hasen2017__LRB",
+      "ref_id": "Hasen2017",
+      "paper_id": "LRB",
+      "relationship": "in_text",
+      "sections": [
+        "3"
+      ],
+      "notes": "Section confirmed by author 2026-09-18."
+    },
+    {
+      "id": "ToderViard2016__LRB",
+      "ref_id": "ToderViard2016",
+      "paper_id": "LRB",
+      "relationship": "in_text",
+      "sections": [
+        "3"
+      ],
+      "notes": "Section confirmed by author 2026-09-18."
+    },
+    {
+      "id": "BudgetResponsibilityAct2011__JUR",
+      "ref_id": "BudgetResponsibilityAct2011",
+      "paper_id": "JUR",
+      "relationship": "in_text",
+      "sections": [],
+      "notes": "Replaces OBR website (n.d.) entry. Statutory citation for OBR establishment. Flag 7 closed 2026-09-18. Section to be confirmed when JUR is next revised."
+    },
+    {
+      "id": "ClarkEtAl2020__INST",
+      "ref_id": "ClarkEtAl2020",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "4"
+      ],
+      "notes": "Cited as 'Clark et al. (2022)' in INST body — year is wrong, correct is 2020. Flag 29 closed 2026-09-18. INST body correction pending."
+    },
+    {
+      "id": "Baskaran2014__INST",
+      "ref_id": "Baskaran2014",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.2"
+      ],
+      "notes": "Cited as 'World Development (2013)' in INST body. Published online Dec 2013, journal Apr 2014. Cite as Baskaran2014. Flag 30 closed 2026-09-18. INST body correction pending."
+    },
+    {
+      "id": "ChinaNDML2026__INST",
+      "ref_id": "ChinaNDML2026",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.4"
+      ],
+      "notes": "Primary legal source for INST §6.4 China case — replaces Catalyst International (2025). Revised National Defence Mobilization Law, effective 1 October 2026."
+    },
+    {
+      "id": "ISW2026Sep__INST",
+      "ref_id": "ISW2026Sep",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.4"
+      ],
+      "notes": "Secondary analysis of China NDML revision — replaces Foreign Affairs (2026) and Asia Society Policy Institute (2022). ISW China & Taiwan Update 4 September 2026."
+    },
+    {
+      "id": "KaoEtAl2022__INST",
+      "ref_id": "KaoEtAl2022",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.4"
+      ],
+      "notes": "Empirical evidence: Chinese business elites prefer IPI in exchange for taxation. Open access. Directly relevant to INST two-constituency mechanism. Verified 2026-09-18."
     }
   ],
   "flags": [
     {
-      "id": "flag_05",
-      "number": 5,
-      "status": "open_author_decision",
-      "affects_papers": [
-        "CORP"
-      ],
-      "affects_refs": [
-        "AviYonahMazzoni2019",
-        "DomarMusgrave1944",
-        "PosnerWeyl2018",
-        "Zelenak2021"
-      ],
-      "type": "orphan_reference",
-      "description": "Four entries appear in CORP References section but no in-text citation identified in CORP body: (a) Avi-Yonah & Mazzoni (2019); (b) Domar & Musgrave (1944); (c) Posner & Weyl (2018); (d) Zelenak (2021).",
-      "action_required": "Author to confirm whether to add body citations at suggested locations or remove each entry from CORP References.",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_06",
-      "number": 6,
-      "status": "open_author_decision",
-      "affects_papers": [
-        "JUR"
-      ],
-      "affects_refs": [
-        "Ambachtsheer2007",
-        "ClarkUrwin2008",
-        "JakobsenEtAl2024",
-        "LondonoVelezAvilaMahecha2025",
-        "ResolutionFoundation2020",
-        "TaxWatch2025"
-      ],
-      "type": "orphan_reference",
-      "description": "Five entries appear in JUR References section but no in-text citation identified: (a) Ambachtsheer (2007); (b) Clark & Urwin (2008); (c) Jakobsen et al. (2024) — JUR §1.5.3 references Norway evidence by name without parenthetical; (d) Londoño-Vélez & Avila-Mahecha; (e) Resolution Foundation (2020) and TaxWatch UK (2025).",
-      "action_required": "Author to confirm whether to add body citations or remove each entry from JUR References.",
-      "resolved_date": null
-    },
-    {
       "id": "flag_07",
       "number": 7,
-      "status": "open_author_decision",
+      "status": "closed",
       "affects_papers": [
         "JUR"
       ],
       "affects_refs": [],
       "type": "citation_format",
-      "description": "JUR References section includes an OBR website (n.d.) entry which does not qualify for Section 1. Web-check (260810) confirms appropriate replacement is Budget Responsibility and National Audit Act 2011 (c. 4).",
-      "action_required": "Author to confirm: retain URL in JUR only / replace with Act citation / remove. If Act is to enter 0.4, confirm and it will be added next run.",
-      "resolved_date": null
+      "description": "JUR OBR entry replaced with statutory citation: Budget Responsibility and National Audit Act 2011 (c. 4). Royal Assent 22 March 2011. Legislation.gov.uk URL: https://www.legislation.gov.uk/ukpga/2011/4. Verified 2026-09-18.",
+      "action_required": "",
+      "resolved_date": "260918"
     },
     {
       "id": "flag_08",
       "number": 8,
-      "status": "open_web_check",
+      "status": "closed",
       "affects_papers": [
         "JUR"
       ],
@@ -8551,14 +9875,14 @@
         "VTS2025"
       ],
       "type": "unverified_entry",
-      "description": "Six JUR institutional report entries remain unverified after web-check on 260810: HMRC Tax Receipts annual bulletin (2025b); Resolution Foundation (2020) UK wealth distribution; Resolution Foundation (2026) OBR 15 years on; VOA annual reports 2022-23 and 2023-24; VTS annual report 2024-25.",
-      "action_required": "Run further web-check to confirm titles, URLs, and publication dates for each unverified entry.",
-      "resolved_date": null
+      "description": "JUR institutional entries verified via bib notes (all marked \"Verified 2026-08-20\"): HMRC2025b URL confirmed; ResolutionFoundation2020 URL confirmed; ResolutionFoundation2026 URL confirmed; VOA2023, VOA2024, VOA2025, VTS2025 all confirmed. HMRC2023 and OBR2023 carry separate verification notes but are not in the flag_08 scope. Flag closed.",
+      "action_required": "",
+      "resolved_date": "260918"
     },
     {
       "id": "flag_09",
       "number": 9,
-      "status": "open_author_decision",
+      "status": "closed",
       "affects_papers": [
         "WP"
       ],
@@ -8566,9 +9890,9 @@
         "AdvaniEtAl2020"
       ],
       "type": "cross_citation_coverage",
-      "description": "Advani et al. (2020) added to 0.4 from JUR and RATES only. Scope narrowed in 0.13. Remaining audit: confirm whether WP body text and LR body text carry an in-text citation to this work.",
-      "action_required": "Check WP and LR body text for in-text citations to Advani et al. (2020). If present, add citation records for WP and LR.",
-      "resolved_date": null
+      "description": "Coverage audit closed 2026-09-18: AdvaniEtAl2020 confirmed absent from WP body (paper scan). WP does not cite this work in-text. No action required.",
+      "action_required": "",
+      "resolved_date": "260918"
     },
     {
       "id": "flag_10",
@@ -8584,136 +9908,14 @@
         "Gangl2015b"
       ],
       "type": "disambiguation",
-      "description": "Two papers by Gangl, Hofmann & Kirchler in the same year are now in 0.4 as 2015a (New Ideas in Psychology) and 2015b (Journal of Business Ethics). Author should confirm: (a) disambiguation is correct; (b) LR/BEHAV/PHASE1 cite 2015a and POL cites 2015b; (c) both entries are intentional.",
-      "action_required": "Author to confirm disambiguation, confirm which papers cite which version, and confirm whether both are intentional project entries.",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_12",
-      "number": 12,
-      "status": "open_author_decision",
-      "affects_papers": [
-        "VAL"
-      ],
-      "affects_refs": [
-        "SaezZucman2019"
-      ],
-      "type": "orphan_reference",
-      "description": "Saez & Zucman (2019) appears in VAL References section but no in-text citation identified in VAL body. Already in 0.4 from WP §2.4 and LR §3.1.",
-      "action_required": "Author to confirm whether VAL intends a body citation and, if so, which section.",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_15",
-      "number": 15,
-      "status": "open_author_decision",
-      "affects_papers": [
-        "LRB"
-      ],
-      "affects_refs": [
-        "Addison2009"
-      ],
-      "type": "orphan_reference",
-      "description": "Addison (2009) appears in LR.B References section but is not cited in §13 body text or elsewhere in LR.B. Associated with LR §8.2 codetermination material.",
-      "action_required": "Author decision: expand LR.B §13 to cite this and the three other codetermination orphans (see flag_16, flag_17, flag_18), or remove all four from LR.B References.",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_16",
-      "number": 16,
-      "status": "open_author_decision",
-      "affects_papers": [
-        "LRB"
-      ],
-      "affects_refs": [
-        "BlairStout1999"
-      ],
-      "type": "orphan_reference",
-      "description": "Blair & Stout (1999) appears in LR.B References section but no in-text citation identified in LR.B body. Part of codetermination cluster with flags 15, 17, 18.",
-      "action_required": "Author decision: add body citation to LR.B §13 or remove from LR.B References (in conjunction with flags 15, 17, 18).",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_17",
-      "number": 17,
-      "status": "open_author_decision",
-      "affects_papers": [
-        "LRB"
-      ],
-      "affects_refs": [
-        "FitzRoyKraft2005"
-      ],
-      "type": "orphan_reference",
-      "description": "FitzRoy & Kraft (2005) appears in LR.B References section but no in-text citation identified in LR.B body. Part of codetermination cluster with flags 15, 16, 18.",
-      "action_required": "Author decision: add body citation to LR.B §13 or remove from LR.B References (in conjunction with flags 15, 16, 18).",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_18",
-      "number": 18,
-      "status": "open_author_decision",
-      "affects_papers": [
-        "LRB"
-      ],
-      "affects_refs": [
-        "Freeman1984"
-      ],
-      "type": "orphan_reference",
-      "description": "Freeman (1984) appears in LR.B References section but no in-text citation identified in LR.B body. Part of codetermination cluster with flags 15, 16, 17.",
-      "action_required": "Author decision: add body citation to LR.B §13 or remove from LR.B References (in conjunction with flags 15, 16, 17).",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_19",
-      "number": 19,
-      "status": "open_author_decision",
-      "affects_papers": [
-        "LRB"
-      ],
-      "affects_refs": [
-        "Perret2021"
-      ],
-      "type": "orphan_reference",
-      "description": "Perret (2021) appears in LR.B References section but not cited in the LR.B body, despite LR.B §17 covering the OECD abolition pattern that Perret documents. Strong recommendation: add '(Perret, 2021)' at the point in §17 where the abolition pattern is described.",
-      "action_required": "Author to add body citation to LR.B §17 or remove from LR.B References.",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_20",
-      "number": 20,
-      "status": "open_author_decision",
-      "affects_papers": [
-        "LRB"
-      ],
-      "affects_refs": [
-        "Pierson1994",
-        "Pierson2000"
-      ],
-      "type": "orphan_reference",
-      "description": "Pierson (1994) and Pierson (2000) both appear in LR.B References section but neither is cited in the LR.B body. LR.B §17 draws on Pierson's path-dependence tradition without parenthetical citations.",
-      "action_required": "Author decision: add parenthetical citations in LR.B §17 at relevant points (institutional brittleness → Pierson), or remove both from LR.B References.",
-      "resolved_date": null
-    },
-    {
-      "id": "flag_21",
-      "number": 21,
-      "status": "open_author_decision",
-      "affects_papers": [
-        "LRB"
-      ],
-      "affects_refs": [
-        "North1990",
-        "Wilson1980"
-      ],
-      "type": "orphan_reference",
-      "description": "North (1990) and Wilson (1980) both appear in LR.B References section but neither is cited in the LR.B body. LR.B §17 draws on these traditions without parenthetical citations.",
-      "action_required": "Author decision: add parenthetical citations in LR.B §17 (institutional change → North; organised opposition → Wilson), or remove both from LR.B References.",
+      "description": "Two papers by Gangl, Hofmann & Kirchler (2015) are in the database: 2015a (New Ideas in Psychology, cited in BEHAV/PHASE1/LR.A/LR.B) and 2015b (Journal of Business Ethics, cited in POL). Both use \"Gangl et al., 2015\" in prose without disambiguating suffix. Author cannot confirm which paper is intended in which context without access to the original source material for 2015b (JoBS metadata unverified). Deferred until 2015b can be confirmed via Springer/CrossRef.",
+      "action_required": "Verify Gangl2015b via Springer JoBS or CrossRef. Once confirmed: (a) check prose citations in BEHAV/PHASE1/POL body to assign correct 2015a or 2015b key; (b) update @-cite keys in those papers.",
       "resolved_date": null
     },
     {
       "id": "flag_23",
       "number": 23,
-      "status": "open_paper_revision",
+      "status": "closed",
       "affects_papers": [
         "ENV"
       ],
@@ -8723,12 +9925,27 @@
       "type": "bibliographic_error",
       "description": "ENV References section conflates the Denmark 2020 paper (JakobsenEtAl2020) with the Norway 2024 paper (JakobsenEtAl2024, NBER 32153). ENV §3 clearly cites the Norway evidence (22-cent figure) but its References entry carries the Denmark paper's details.",
       "action_required": "Replace ENV's confused References entry with the correct Norway paper citation: Jakobsen, K., Kleven, H., Kolsrud, J., Landais, C., & Muñoz, M. (2024). NBER WP 32153.",
-      "resolved_date": null
+      "resolved_date": "260918"
+    },
+    {
+      "id": "flag_24",
+      "number": 24,
+      "status": "closed",
+      "affects_papers": [
+        "ENV"
+      ],
+      "affects_refs": [
+        "KlevenEtAl2024"
+      ],
+      "type": "bibliographic_error",
+      "description": "ENV References section cites Kleven et al. (2024) as Journal of Economic Perspectives 34(2), 119–142. Correct details: JEP 38(2), 3–30.",
+      "action_required": "Correct ENV References entry to JEP 38(2), 3–30.",
+      "resolved_date": "260918"
     },
     {
       "id": "flag_25",
       "number": 25,
-      "status": "open_paper_revision",
+      "status": "closed",
       "affects_papers": [
         "FM"
       ],
@@ -8738,12 +9955,12 @@
       "type": "bibliographic_error",
       "description": "FM References section cites Perret (2021) with wrong title ('Why have wealth taxes failed and could they work in the future?'), wrong journal (Intereconomics), wrong volume (56), and wrong pages (132–137). No Perret Intereconomics piece was found. Correct entry is Fiscal Studies 42(3–4), 539–563.",
       "action_required": "Correct FM References entry to Fiscal Studies version. Author should also confirm whether a distinct Perret Intereconomics piece was intended.",
-      "resolved_date": null
+      "resolved_date": "260918"
     },
     {
       "id": "flag_26",
       "number": 26,
-      "status": "open_paper_revision",
+      "status": "closed",
       "affects_papers": [
         "FM"
       ],
@@ -8753,7 +9970,7 @@
       "type": "bibliographic_error",
       "description": "FM References section describes Batchelder & Kamin (2019) as '(Working Paper). New York University School of Law.' Correct form is '(SSRN Working Paper No. 3452274)'.",
       "action_required": "Correct FM References entry publisher description.",
-      "resolved_date": null
+      "resolved_date": "260918"
     },
     {
       "id": "flag_27",
@@ -8771,17 +9988,75 @@
       "resolved_date": null
     },
     {
-      "id": "flag_28",
-      "number": 28,
-      "status": "open_standing",
+      "id": "flag_29",
+      "number": 29,
+      "status": "closed",
       "affects_papers": [
-        "SWEEPS"
+        "INST"
       ],
       "affects_refs": [],
-      "type": "missing_references",
-      "description": "SWEEPS v0.3 References section contains only the placeholder note '[To be compiled — external literature cited in the paper body.]' No external references have been entered. This flag remains open until SWEEPS carries a populated References section.",
-      "action_required": "When SWEEPS References section is populated, run full SWEEPS ingestion pass: extract all external citations, check against this JSON, add new entries, add citation records throughout.",
-      "resolved_date": null
+      "type": "unresolved_citation",
+      "description": "Clark et al. citation resolved 2026-09-18. Correct source: Clark, E., Gronwald, V., Guerrero Fernandez, R., & Ramirez-Casillas, E. (2020). The political economy of the abolition of wealth taxes in the OECD. Wealth and Policy, Working Paper 123. DOI: 10.47445/123. URL: https://www.wealthandpolicy.com/wp/123.html. NOTE: INST body cites this as \"Clark et al. (2022)\" — year is wrong; correct year is 2020. INST body and References section need correction. Bib entry added as ClarkEtAl2020. Citation record ClarkEtAl2020__INST added.",
+      "action_required": "Update INST body: change \"Clark et al. (2022)\" to \"@ClarkEtAl2020\" throughout. Update INST References section accordingly.",
+      "resolved_date": "260918"
+    },
+    {
+      "id": "flag_30",
+      "number": 30,
+      "status": "closed",
+      "affects_papers": [
+        "INST"
+      ],
+      "affects_refs": [],
+      "type": "unresolved_citation",
+      "description": "Resolved 2026-09-18. \"World Development (2013)\" = Baskaran, T. (2014). Taxation and Democratization. World Development, 56, 287-301. DOI: 10.1016/j.worlddev.2013.11.011. Published online December 2013 (hence \"2013\" in citation); journal volume April 2014 — cite as Baskaran2014. INST body and References need updating from \"World Development (2013)\" to \"@Baskaran2014\". Bib entry added. Citation record Baskaran2014__INST added. Author-supplied UN Digital Library URL (record 3964513) appears to be a different document and is not this citation.",
+      "action_required": "Update INST body: replace \"World Development (2013)\" with \"@Baskaran2014\". Update INST References section accordingly.",
+      "resolved_date": "260918"
+    },
+    {
+      "id": "flag_31",
+      "number": 31,
+      "status": "closed",
+      "affects_papers": [
+        "INST"
+      ],
+      "affects_refs": [],
+      "type": "unverified_entry",
+      "description": "INST §6.4 Tier A footnote three unverified sources resolved 2026-09-18. Decision: remove all three from INST (Catalyst International 2025 unidentifiable; Asia Society Policy Institute 2022 unverifiable for specific proposition; Foreign Affairs 2026 not found). INST §6.4 evidence chain reconstructed with verified sources: (1) China National Defence Mobilization Law, revised 28 August 2026, effective 1 October 2026 — primary legal source for expropriation powers. (2) Institute for the Study of War, China & Taiwan Update, 4 September 2026 — secondary analysis of the revision (URL blocklisted; exists at understandingwar.org/research/china-taiwan/china-taiwan-update-september-4-2026). (3) Kao, Lu & Queralt (2022), Political Science Research and Methods 12(1), 146-165 — empirical evidence that Chinese business elites show stronger preference for IPI in exchange for taxation; directly relevant to INST two-constituency mechanism. Bib entries added: ChinaNDML2026, ISW2026Sep, KaoEtAl2022. Citation records added for INST. INST body and References need updating to reflect removal and replacements.",
+      "action_required": "In INST §6.4 Tier A footnote: remove Catalyst International (2025), Asia Society Policy Institute (2022), Foreign Affairs (2026). Add citations to: ChinaNDML2026, ISW2026Sep, KaoEtAl2022. Add to INST References section.",
+      "resolved_date": "260918"
+    },
+    {
+      "id": "flag_32",
+      "number": 32,
+      "status": "closed",
+      "affects_papers": [
+        "INST"
+      ],
+      "affects_refs": [
+        "McKinseyGWW2026"
+      ],
+      "type": "unverified_entry",
+      "description": "McKinseyGWW2026 verified 2026-09-18. Full report title: McKinsey Global Institute, Global Balance Sheet 2026: Imbalance and Divergence, published 23 July 2026. $570 trillion household wealth figure confirmed. URL: https://www.mckinsey.com/featured-insights/charts/household-wealth-watch Data page confirmed publicly accessible. Bib entry updated.",
+      "action_required": "",
+      "resolved_date": "260918"
+    },
+    {
+      "id": "flag_33",
+      "number": 33,
+      "status": "closed",
+      "affects_papers": [
+        "LRB"
+      ],
+      "affects_refs": [
+        "CnossenBovenberg2001",
+        "Hasen2017",
+        "ToderViard2016"
+      ],
+      "type": "missing_citation_record",
+      "description": "Paper scan (260918): LR.B body contains @CnossenBovenberg2001, @Hasen2017, and @ToderViard2016 as @-citations but none appeared in internal.json. All three confirmed in §3. Citation records added with section confirmed by author (260918). Outbound_ext_citation_ids updated. Flag remains open until sections are recorded in citation records below.",
+      "action_required": "",
+      "resolved_date": "260918"
     }
   ]
 }

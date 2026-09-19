@@ -1067,7 +1067,10 @@
         "VonSchiller2018__INST",
         "Zhang2017__INST",
         "ClarkEtAl2020__INST",
-        "Baskaran2014__INST"
+        "Baskaran2014__INST",
+        "ChinaNDML2026__INST",
+        "ISW2026Sep__INST",
+        "KaoEtAl2022__INST"
       ],
       "outbound_internal": [
         "WP",
@@ -1090,9 +1093,7 @@
         "31",
         "32"
       ],
-      "flag_ids": [
-        "flag_31"
-      ],
+      "flag_ids": [],
       "notes": "v0.01 (260900): First draft. v0.02 (260900): §4 condensed; §5.4 DR chamber name corrected; §5.1 VAL §5.2 citation added; §5.2 Route C description corrected; §7.1 RATES citations sharpened; §7.2 ENV §4.1–§4.2 added; §7.3 FM §3.1 added; §6.4/§8 FM §3.2 corrected to FM §3; §3.1 JUR §2.4 added; §4.2 POL §5.7 added; Tier A footnotes updated. v0.03 (260918): Abstract rewritten (≤300 words) foregrounding two-constituency mechanism; §1 'only' removed; §6.4 heading and China framing revised; unfalsifiable Option B language removed; §8/§10 updated to match. v0.04 (260918): All external citations converted to @Key notation; References section added (APA 7th, 25 entries); Flag 29 (Clark et al. 2022 unresolved) and Flag 30 (World Development 2013 unresolved) added; Flag 31 (institutional sources: Catalyst International, Asia Society, Foreign Affairs) added; Flag 32 (McKinseyGWW2026 URL unverified) added."
     }
   ],
@@ -4336,6 +4337,36 @@
         "6.2"
       ],
       "notes": "Cited as 'World Development (2013)' in INST body. Published online Dec 2013, journal Apr 2014. Cite as Baskaran2014. Flag 30 closed 2026-09-18. INST body correction pending."
+    },
+    {
+      "id": "ChinaNDML2026__INST",
+      "ref_id": "ChinaNDML2026",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.4"
+      ],
+      "notes": "Primary legal source for INST §6.4 China case — replaces Catalyst International (2025). Revised National Defence Mobilization Law, effective 1 October 2026."
+    },
+    {
+      "id": "ISW2026Sep__INST",
+      "ref_id": "ISW2026Sep",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.4"
+      ],
+      "notes": "Secondary analysis of China NDML revision — replaces Foreign Affairs (2026) and Asia Society Policy Institute (2022). ISW China & Taiwan Update 4 September 2026."
+    },
+    {
+      "id": "KaoEtAl2022__INST",
+      "ref_id": "KaoEtAl2022",
+      "paper_id": "INST",
+      "relationship": "in_text",
+      "sections": [
+        "6.4"
+      ],
+      "notes": "Empirical evidence: Chinese business elites prefer IPI in exchange for taxation. Open access. Directly relevant to INST two-constituency mechanism. Verified 2026-09-18."
     }
   ],
   "flags": [
@@ -4509,15 +4540,15 @@
     {
       "id": "flag_31",
       "number": 31,
-      "status": "open_web_check",
+      "status": "closed",
       "affects_papers": [
         "INST"
       ],
       "affects_refs": [],
       "type": "unverified_entry",
-      "description": "INST §6.4 Tier A footnote cites three sources not resolved by web search (2026-09-18): (a) Catalyst International (2025) — $254bn illicit outflows from China, four quarters to June 2024. No organisation matching \"Catalyst International\" with this report found; may be Global Financial Integrity, Rhodium Group, or similar. (b) Asia Society Policy Institute (2022) — context in §6.4 unclear; Asia Society Policy Institute exists but no 2022 report matching the China/WDT/institutional context was found. (c) Foreign Affairs (2026) — no specific article identified. All three remain unverified. Author must supply full details.",
-      "action_required": "For each: supply full title, author(s), URL/DOI, and publication date. Add to References section and bib once verified. For (a): confirm whether \"Catalyst International\" is the correct organisation name.",
-      "resolved_date": null
+      "description": "INST §6.4 Tier A footnote three unverified sources resolved 2026-09-18. Decision: remove all three from INST (Catalyst International 2025 unidentifiable; Asia Society Policy Institute 2022 unverifiable for specific proposition; Foreign Affairs 2026 not found). INST §6.4 evidence chain reconstructed with verified sources: (1) China National Defence Mobilization Law, revised 28 August 2026, effective 1 October 2026 — primary legal source for expropriation powers. (2) Institute for the Study of War, China & Taiwan Update, 4 September 2026 — secondary analysis of the revision (URL blocklisted; exists at understandingwar.org/research/china-taiwan/china-taiwan-update-september-4-2026). (3) Kao, Lu & Queralt (2022), Political Science Research and Methods 12(1), 146-165 — empirical evidence that Chinese business elites show stronger preference for IPI in exchange for taxation; directly relevant to INST two-constituency mechanism. Bib entries added: ChinaNDML2026, ISW2026Sep, KaoEtAl2022. Citation records added for INST. INST body and References need updating to reflect removal and replacements.",
+      "action_required": "In INST §6.4 Tier A footnote: remove Catalyst International (2025), Asia Society Policy Institute (2022), Foreign Affairs (2026). Add citations to: ChinaNDML2026, ISW2026Sep, KaoEtAl2022. Add to INST References section.",
+      "resolved_date": "260918"
     },
     {
       "id": "flag_32",
