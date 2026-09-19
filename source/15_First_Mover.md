@@ -24,6 +24,7 @@ keywords:
 | 0.01      | 6 May 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 23 August 2026  | Added historical framing (§1), constituency asymmetry (§3.2), trajectory and knowledge effect (§4) |
+| 1.02      | 18 September 2026 | References corrected: Perret (2021) entry corrected to *Fiscal Studies* 42(3–4), 539–563 (previously cited as non-existent Intereconomics entry); Batchelder & Kamin (2019) publisher description corrected to SSRN Working Paper No. 3452274 |
 
 \newpage
 
