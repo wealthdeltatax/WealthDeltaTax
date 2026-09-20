@@ -25,6 +25,7 @@ keywords:
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 23 August 2026  | Added historical framing (§1), constituency asymmetry (§3.2), trajectory and knowledge effect (§4) |
 | 1.02      | 18 September 2026 | References corrected: Perret (2021) entry corrected to *Fiscal Studies* 42(3–4), 539–563 (previously cited as non-existent Intereconomics entry); Batchelder & Kamin (2019) publisher description corrected to SSRN Working Paper No. 3452274 |
+| 1.03      | 20 September 2026 | Crosslinks added: §2 forward pointer to (INST §6.3) for second independent reason labour dividend cannot be stripped; §3.2 forward pointer to (INST) for systemic-level extension of the suppression analysis and (INST §6.4) for China case |
 
 \newpage
 
@@ -107,6 +108,8 @@ The most damaging outcome available to those who prefer the current system is im
 
 The intellectual record established in the companion series exists partly to make this recognisable before it occurs. A partial imitation can be identified as such before it is implemented, if the reader knows what to look for. Non-decomposability is what to look for.
 
+The analysis here establishes one dimension of non-decomposability: removing the labour dividend breaks the valuation architecture, the risk-sharing mechanism, and the cooperative compliance dynamic. (INST §6.3) establishes a second, independent dimension: removing the labour dividend also breaks the mechanism from the wealthy taxpayer's own economic perspective, because the recirculation of WDT revenue through lower employment costs and higher consumer demand is part of what makes honest declaration rational for the taxpayer whose enterprise economy the labour base serves. The two arguments are independently sufficient; together they close the apparent escape route of directing WDT revenue to state priorities rather than to the labour dividend.
+
 \newpage
 
 # 3. What Each Strategy Delivers
@@ -147,13 +150,15 @@ The Beveridge Report provides the relevant historical precedent, and also its li
 
 Successful suppression prevents demonstration. It does not make the underlying logic disappear. The WDT's properties follow from the delta base and symmetry. They are available to anyone who works through the mathematics. A future designer working on the same problem will find the intellectual record intact. Suppression delays; it does not erase.
 
+The analysis in this section operates at the level of a single jurisdiction facing the binary. (INST) extends it to the systemic level: how the binary plays out simultaneously across governance tiers, why authoritarian systems face structural rather than merely political reasons to execute Option B (suppression), and why the suppression strategy becomes progressively more expensive to sustain as Phase One demonstration accumulates in the first adopting jurisdictions. (INST §6.4) examines China's August 2026 National Defence Mobilization Law revision as a case consistent with pre-emptive domestic Option B dynamics executed before the demonstration phase makes the case observable rather than arguable.
+
 \newpage
 
 # 4. The Record
 
 This paper was completed in August 2026. No jurisdiction had implemented the Wealth Delta Tax at that date. The binary equilibrium described in (FM §1) had not yet resolved. The dynamics described throughout were analytical predictions, not observations.
 
-The companion paper series underlying every claim here is publicly available: twenty-one papers covering the WDT's mechanism design, moral foundations, valuation architecture, corporate instrument, constitutional governance, rates and revenue, behavioural robustness, position closure, political architecture, Phase One empirical boundary, and environmental transmission channels. Every technical claim in this paper has a full derivation in that series.
+The companion paper series underlying every claim here is publicly available: thirty two papers covering the WDT's mechanism design, moral foundations, valuation architecture, corporate instrument, constitutional governance, rates and revenue, behavioural robustness, position closure, political architecture, Phase One empirical boundary, and environmental transmission channels. Every technical claim in this paper has a full derivation in that series.
 
 The intellectual record serves two purposes. The predictions in (FM §1) are specific enough to be checked against events as they unfold: if the adoption curve produces the pattern described (long silence, then a race), this document is dated evidence that the pattern was anticipated before it occurred; if the partial imitation dynamic described in (FM §1) produces failed implementations attributed to the WDT, this document names that dynamic and its mechanism in advance.
 

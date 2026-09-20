@@ -51,75 +51,69 @@ Routes A and B involve professional valuers and produce periodic assessments. Th
 
 ---
 
-### Decision 2 — Set your entry basis as close to true value as you can assess it
+### Decision 2 — Declare at or slightly above your genuine central estimate
 
-This is where the page should tell you to declare as low as possible. It isn't going to, and the reason is worth understanding carefully.
+This applies from the moment of entry and throughout any self-declared holding period.
 
-Route D has a deterrence mechanism for egregious understatement: the Route D auction. If two independent Valuation Bodies, working without knowledge of each other's findings, both conclude that your declared value is a statistical outlier, an auction is triggered. Your asset is offered to competitive bidders at your own declared price as the floor. You then face a choice: retain the asset at the highest third-party bid (paying WDT on the full gap from your original declared basis to the auction price), or sell and lose the asset entirely.
+The refund you receive in a loss year is calculated against your declared basis, not the asset's true value. A taxpayer who has declared at α = 0.8 receives 80% of the refund an honest declarer would receive when growth turns negative. That shortfall arrives at the worst possible moment — when the asset has declined and you most need the protection you paid for across the gain years.
 
-The critical word is *egregious*. The trigger requires three-body unanimous consensus on a statistical outlier. Nobody publishes the threshold. Nobody can tell you what "defensible" looks like for your specific asset. The mechanism is deliberately opaque about where the line sits.
+For illiquid private assets, genuine valuation uncertainty typically spans ±10–20% around any central estimate. Declaring at the midpoint of that range exposes the negative half of your uncertainty band to the refund shortfall problem. Declaring at the upper end of what you can honestly support keeps refund protection intact even if your estimate proves generous. This is the rational basis for α ≈ 1.1 across both Route D entry declarations and Route C ongoing assessments.
 
-This opacity produces an asymmetric risk structure. If you declare at α=1 (honest declaration) and the auction fires, the market confirms your number and nothing happens. If you declare low and the auction fires, you face a tax bill you didn't plan for or you lose the asset. The downside of being wrong is not just financial — for a founder whose company is the asset, compelled sale or an unplanned large tax event are qualitatively different kinds of bad.
+This is not an argument for maximising declared value. The nominal terminal wealth advantage of mild overstatement does not survive present-value adjustment — periodic tax outflows are real early money, and the inflated sell-year refund on an overstated basis is late money worth considerably less when discounted. The case for α ≈ 1.1 is purely protective: at that level, the downside of your valuation uncertainty lands in overstatement territory rather than understatement territory, and your refund protection survives intact.
 
-There is a further problem: you cannot know whether your low declaration will attract attention. The Valuation Bodies are looking at the distribution of declarations across comparable assets. What looks defensible in isolation may be a clear outlier in population context.
+The Route D auction mechanism is not a practical constraint on this recommendation. The corrective trigger requires two independent Valuation Bodies to agree simultaneously, without knowledge of each other's findings, that a declaration is an egregious statistical outlier. It is calibrated for the far tail of under-declaration. A modest upward bias of α ≈ 1.1 does not approach that threshold.
 
-**The recommendation is α≈1.** Not because honesty is virtuous — because under genuine uncertainty about where the auction trigger sits, honest declaration is the dominant strategy. If your declared value is accurate, competitive bidding at that price produces no price change and no consequences. The mechanism designed to deter understatement has no bite against a declaration that reflects true value.
+On Route D, the entry declaration matters more than any subsequent one because it is the one genuinely irreversible decision on that asset. Whatever you declare at entry becomes the recognised basis from which every future delta is measured; there is no mechanism to revise it except through a voluntary hard-reset auction, which incurs costs and cedes pricing to the market. If you are crossing the WDT threshold for the first time, or acquiring a new asset, the entry declaration is also the one moment at which the timing of an acquisition — establishing the basis at a point when the asset's value is lower — has a permanent and compounding effect on all future liability calculations.
 
-Set your entry basis at your genuine best estimate of fair market value. If that estimate has a range, declare at the centre of it.
-
----
-
-### Decision 3 — Elect the longest available assessment window
-
-The WDT allows you to choose how frequently formal assessment crystallises into a tax or refund event. Windows of one, two, three, five, and seven years are available. Annual reporting continues regardless of which you choose — you still file each year — but the settlement event, when cash moves, occurs only at the end of your elected window.
-
-Longer windows carry a premium: a deferral charge (the time value of delayed collection) and a flexibility levy (a payment for the optionality you gain by being able to observe conditions before settlement). The premium is a Governing Council parameter and is intended to be modest — the mechanism is designed to make longer windows genuinely available rather than prohibitively expensive.
-
-The optionality is real. A seven-year window means you observe seven years of economic conditions before a liability crystallises. If those years include a significant market decline, the refund in the final assessment may substantially offset earlier gain-year liabilities. You cannot predict when declines will occur, but you benefit from the ability to time the settlement conversation across a longer window of outcomes.
-
-**Elect the longest window your liquidity position permits.** The premium prices the optionality; the optionality is worth the premium for any taxpayer holding volatile or illiquid assets.
+Declare at or slightly above your best estimate of current value. Not the most defensible figure you could argue for under challenge, but the figure you would honestly describe as the asset's worth.
 
 ---
 
-### Decision 4 — Declare at α≈1.1 on ongoing assessments, for one specific reason
+### Decision 3 — Elect the longest assessment window if you hold volatile or illiquid assets
 
-Route C is the self-declaration route for fungible assets — company equity, fund units, partnership interests. You declare your own value each period with no professional certification required. The trade-off is that settlement must be in kind: when a liability crystallises, you transfer a proportional equity stake at your declared price rather than paying cash. That stake then appreciates alongside the remainder of your holding. The declared price is not just a valuation — it is a transaction price you are committing to stand behind.
+The recommendation is conditional.
 
-This is subtle and easy to get wrong, so the reasoning matters.
+Where an asset can move substantially in either direction across a multi-year period, a longer window has real optionality value. A loss year in the middle of a seven-year window may be partially or fully offset by subsequent recovery within that same window, reducing the net crystallised liability without forfeiting refund entitlement in the individual loss year. If conditions deteriorate and never recover, you settle a larger negative delta and receive a larger refund. The ability to observe a full economic cycle before crystallisation is worth something in a volatile position.
 
-The simulations show that across declaration ratios from approximately α=0.8 to α=1.5, lifetime tax outcomes are close to what honest declaration would produce. This is called the tolerant zone, and it is a deliberate design feature. The mechanism does not need precision from you — it needs the tails to be expensive. Within the zone, it is relatively indifferent.
+For assets that grow steadily and predictably, the case is weaker. The assessment window premium — a deferral charge for the time value of delayed collection, plus a flexibility levy for the optionality itself — is designed to price that benefit fairly. If the premium is well-calibrated, electing a longer window is roughly NPV-neutral in expectation for a stable asset.
 
-Within that zone, however, understatement and overstatement are not symmetric in their consequences. The refund you receive in a bad year is proportional to your *declared basis*, not your true asset value. An understater who has been declaring at α=0.8 receives 80% of the refund an honest declarer would receive when growth turns negative. That shortfall is real money at the moment you most need the protection.
-
-This asymmetry — not any genuine wealth advantage from overstatement — is the rational basis for declaring slightly above your central estimate. If you have genuine valuation uncertainty (and for illiquid private assets, ±10–20% is normal), the cost of landing slightly on the overstatement side of your uncertainty band is small. The cost of landing on the understatement side, in a loss year, is a materially smaller refund.
-
-Note carefully what this is not. The simulations also show that the nominal terminal wealth advantage of mild overstatement does not survive NPV adjustment. Periodic tax outflows are real early money; the sell-year refund generated by overstatement is inflated late money. There is no genuine economic return to overstatement. The recommendation is α≈1.1 not because it makes you wealthier but because it makes the mechanism more symmetrical in protecting you when conditions turn against you.
-
-**A note on what looks like an opportunity.** The declaration incentive simulations show one genuinely blue corner: low asset growth combined with aggressive overstatement within the tolerant zone (α up to ~1.5). In that specific combination, the overstater pays materially less net tax than honest declaration. The sell-year refund on the inflated basis exceeds the accumulated periodic costs, and at low growth rates the bracket penalty that punishes overstatement at moderate-to-high growth simply doesn't fire. It looks, on paper, like a real arbitrage.
-
-The problem is what you would have to do to exploit it. You would need to deliberately hold a low-growth asset on Route C rather than a higher-growth one. But the WDT removes the lock-in distortion that makes holding suboptimal assets rational under capital gains tax. Under CGT you stay in a winner because selling crystallises a large tax bill regardless of whether you reinvest. Under the WDT there is no equivalent cost — you pay tax on gains as they accrue whether you sell or not, so switching to a better asset costs you nothing extra in tax terms. A rational investor under the WDT holds whatever maximises risk-adjusted returns.
-
-Deliberately choosing a low-growth asset to sit in the blue corner of the declaration landscape means accepting a lower expected return specifically to capture a tax advantage that is marginal to begin with. The opportunity cost dominates. The only version of this that makes sense is if you already hold a low-growth asset for reasons unconnected to tax — illiquidity, business necessity, personal reasons — in which case overstatement within the tolerant zone is an incidental optimisation on a position you'd hold regardless, not a strategy you'd construct from scratch.
-
-**Declare at or slightly above your genuine central estimate.** Not to gain an advantage. To ensure the refund protection you are entitled to actually materialises when you need it.
+Which raises a point the page has not yet made. The assessment window premium is a Governing Council calibration parameter. Governing Council membership at the TP Chamber level is automatic: it is a byproduct of filing a WDT return above the threshold, with no separate registration required. TP holds 25% of total Governing Council vote share, and the premium calibration falls within the Tier 1 process that TP can propose and contest. If you find yourself uncertain whether the flexibility levy will be set above or below its fair value, the right long-run response is to participate in the governance process that sets it — not to guess at its future level when making window elections.
 
 ---
 
-### Decision 5 — Emigration plus full divestment, before Phase Two, if your wealth is portable
+### Decision 4 — Understand what your Route C declaration commits you to
 
-This is the most powerful lever on the list. It is also the most demanding, and the qualification matters: emigration alone does not close your exposure. Emigration paired with full divestment of WDT-jurisdiction assets does.
+The α ≈ 1.1 recommendation from Decision 2 applies to Route C self-declared assets. What changes on Route C is the mechanical consequence of any declaration you make.
 
-The WDT applies to UK residents for individual assessment. A taxpayer who emigrates removes themselves from future individual liability accumulation. The bridging facility decouples physical departure from settlement completion: at the point of exit, both parties post bonds proportional to the expected settlement value, you depart, and settlement occurs later through a structured process. There is no liquidity-detention mechanism forcing you to remain until tax is paid. The mechanism is designed to allow departure without penalising it, on the view that punitive exit taxation is both legally vulnerable and counterproductive to the cooperative architecture.
+On Route C, the declared value is not simply a valuation estimate. It is the price at which the state's claim will be settled. When a liability crystallises, you transfer a proportional equity interest at your declared value. If you declared at £100 million and the asset is worth £200 million, the state acquires equity at the underpriced figure and that stake then appreciates at the true rate. The must-transfer settlement creates a direct and compounding cost to understatement without any enforcement action — it is a mechanical consequence of the declared price functioning as a transaction price.
 
-The complication is the corporate delta levy. The WDT applies a levy to listed companies operating in the jurisdiction, on the portion of equity appreciation not attributable to identified individual taxpayers. If you emigrate but retain a stake in a UK-incorporated operating company, that stake does not disappear from the system — it moves into the unattributable tranche and is charged at τ_h, which sits between τ_0 and τ_m. Depending on your prior individual rate, this may be *more* expensive than remaining in the individual assessment system would have been, and you no longer receive the symmetric refund protections that individual assessment carries.
+This makes the refund-protection argument from Decision 2 doubly relevant on Route C. An understater loses in two directions simultaneously: smaller refunds in loss years, because the refund runs from the declared basis; and equity dilution at below-market prices in gain years, because the must-transfer settlement prices the state in at whatever was declared. Declaring at or slightly above your central estimate avoids both.
 
-The honest conclusion is that emigration is only a clean strategy if paired with divestment of all WDT-jurisdiction business interests and assets. A founder with a controlling stake in a UK operating company cannot emigrate their way out of the system. Their wealth is not portable in the relevant sense. The population for whom this strategy is genuinely available is narrower than it first appears: internationally diversified financial assets, foreign-held positions, and holdings with no structural dependency on the jurisdiction. If that describes your portfolio, emigration before Phase Two is the most significant reduction in lifetime WDT exposure available. If it doesn't, this decision is not yours to make.
+One combination looks on paper like a real advantage: low asset growth combined with aggressive overstatement within the tolerant zone (α up to approximately 1.5). At low growth rates the bracket penalty that disciplines overstatement at moderate-to-high growth simply does not fire, and the sell-year refund on the inflated basis nominally exceeds the accumulated periodic costs. The problem is what exploiting it requires. You would need to deliberately hold a low-growth asset on Route C rather than switch to a higher-return one. Under the WDT there is no lock-in cost to switching: you pay tax on gains as they accrue whether you sell or not, so moving to a better asset costs you nothing extra in tax terms. Choosing a low-growth position specifically to sit in this corner means accepting a lower expected return to capture a tax saving that is marginal to begin with. The opportunity cost dominates in any realistic scenario. The only version of this that makes sense is if you already hold a low-growth asset for reasons entirely unconnected to tax — illiquidity, business necessity, personal circumstances — in which case mild overstatement within the tolerant zone is a minor incidental benefit, not a strategy worth constructing from scratch.
 
-The lifetime contribution envelope persists across closures and re-entries. If you emigrate and later return, your prior tax history carries forward and your prior refund entitlements are not reset. This limits cycling strategies but does not change the core calculus for a genuine clean exit.
+---
 
-The Norwegian evidence suggests migration responses to wealth taxation are real but fiscally modest in aggregate — roughly 22 cents of revenue lost per pound raised. That is a population-level finding. For an individual taxpayer the personal calculus is different, which is why the mechanism accepts this outcome rather than trying to prevent it.
+### Decision 5 — Emigration, divestment, and the corporate levy
 
-**If your wealth is genuinely portable and your circumstances permit international mobility, emigration paired with full divestment of WDT-jurisdiction interests before Phase Two is the most significant reduction in lifetime exposure available.** This is an accepted consequence of a system that does not use coercion as its primary instrument. It is also, for most people reading this page, not available.
+Emigration paired with full divestment of WDT-jurisdiction assets remains the single largest available reduction in lifetime WDT exposure. The qualification is more demanding than it appears, and the corporate levy adds a layer most discussions of this decision miss.
+
+**The departure mechanics.** The WDT settles rather than penalises on departure. A bridging facility decouples physical departure from settlement completion: at the point of exit both parties post bonds proportional to the expected settlement value, you leave, and settlement occurs through a structured process. There is no liquidity-detention mechanism.
+
+**What happens to retained UK listed equity.** Once you are no longer a native WDT taxpayer, your shares in listed UK companies fall into the corporate delta mechanism. Which rate applies depends on whether your beneficial ownership is identifiable through the attribution chain:
+
+If your ownership is *identified* — your broker, custodian, or intermediary can trace the interest back to you — you sit in the identified intermediary tranche. The levy at the company level runs at approximately τ₀, the entry-level rate, as a final charge. There is no downstream individual WDT reconciliation available to you as a non-native holder, but the rate itself is τ₀.
+
+If your ownership is *unidentified* — the attribution chain breaks somewhere — you fall into the unidentified beneficial owner tranche. τ_h applies, calibrated above τ₀ and below τ_m, with no downstream recovery. The difference between the two outcomes is entirely within your control: it depends on whether your intermediary chain can attribute the holding back to you.
+
+**The rate calculation.** For a taxpayer whose individual marginal WDT rate was substantially above τ₀ — because their net worth placed them on the steep part of the rate function — emigrating and ensuring proper beneficial ownership attribution through their intermediary chain reduces the rate on UK listed equity appreciation from something near τ_m to approximately τ₀. That is a material reduction.
+
+The cost is complete loss of the symmetric refund mechanism. The corporate instrument generates no levy and no refund in loss years: the asymmetric refund protection that individual assessment provides disappears entirely on this tranche. For volatile listed positions, that cost is real and scales with the amplitude of the swings.
+
+**Private company interests.** This route is structurally unavailable for private UK company stakes. Private companies sit outside the corporate delta mechanism; there is no levy pathway that substitutes for individual assessment. A founder with a controlling stake in a UK operating company who emigrates leaves that stake on individual assessment regardless — or must restructure the company into a listed vehicle to access any corporate mechanism treatment. Listing involves IPO dilution, public company obligations, and loss of operational control. In most cases the restructuring cost dominates any tax saving.
+
+**Who this actually applies to.** Internationally diversified financial assets, listed equity holdings where you do not need operational control, and foreign-held positions. For those holdings, the complete strategy is: emigrate, ensure your beneficial ownership is properly attributed through the intermediary chain, and accept the loss of symmetric refund protection on those positions. For private operating company interests, this decision is simply not available.
+
+The lifetime contribution envelope persists across closures and re-entries. If you emigrate and later return, prior tax history carries forward and prior refund entitlements are not reset. This bounds cycling strategies but does not change the core calculation for a genuine clean exit.
 
 ---
 

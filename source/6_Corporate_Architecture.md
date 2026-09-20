@@ -144,8 +144,6 @@ Dual-class share structures. Where a company has multiple share classes with dif
 
 \newpage
 
-Before drafting I want to make sure I have the full text of every subsection I'm collapsing. Let me get the truncated middle portion.Good. I have everything. Drafting now.
-
 ---
 
 # 5. The Listed Company Corporate Delta Levy

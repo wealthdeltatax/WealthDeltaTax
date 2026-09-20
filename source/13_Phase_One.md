@@ -24,6 +24,7 @@ keywords:
 |:--------:|:---------------:|--------------------------|
 | 0.01      | 3 August 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
+| 1.01      | 20 September 2026 | Crosslinks added: §6.3 Agrawal cross-base externality footer note now cites (BEHAV.A §D) alongside (BEHAV §9.2); §7 conclusion extended with forward pointer to (FAL) as the falsification counterpart to the Phase One empirical cluster agenda |
 
 # Abstract {.unnumbered .unlisted}
 
@@ -112,7 +113,7 @@ Open question #13 concerns the empirical extent and form of avoidance under impe
 
 The shapes generating the most measurement-relevant signal are Shapes 4, 5, and 6. Shape 4 (avoidance through restructuring) is the most directly observable, because restructuring that shifts assets across routes or reduces declared delta requires corporate and legal changes visible in administrative data. Shape 5 (deferral and timing manipulation) is the shape the valuation architecture is most directly designed to contain through the delta-based self-correction mechanism; its Phase One prevalence will be the primary test of whether that mechanism performs as designed. Shape 6 (cross-border asset migration without personal exit) sits at the intersection of this cluster and (PHASE1 §4.3); the cross-base externality @AgrawalEtAl2025 identify may partly reflect asset migration rather than personal exit alone.
 
-Shapes 7, 8, and 9 (personal exit, partial exit, and active resistance) are the most consequential at significant scale. The working assumption is that they will be bounded by the structural closure mechanics in CLOSE and membrane quality in BEHAV; whether that holds is tested jointly by this cluster and (PHASE1 §4.3). The measurement design in (PHASE1 §4.3) specifies what administrative data would allow the Governing Council to track the shape distribution across cycles.
+Shapes 7, 8, and 9 (personal exit, partial exit, and active resistance) are the most consequential at significant scale. The working assumption is that they will be bounded by the structural closure mechanics in CLOSE and membrane quality in BEHAV; whether that holds is tested jointly by this cluster and (PHASE1 §4.3). The measurement design in (PHASE1 §5.4) specifies what administrative data would allow the Governing Council to track the shape distribution across cycles.
 
 ## 4.3 Migration and the Cross-Base Externality
 
@@ -130,7 +131,7 @@ The assessment window premium illustrates why. RATES excludes the premium from i
 
 Route adoption matters for a related but distinct reason. The four routes differ substantially in administrative burden, deterrence properties, and revenue timing. Routes A and B generate revenue on the standard annual cycle; Route C generates revenue through the must-transfer mechanism's continuous self-correction; Route D defers all taxation to realisation, meaning Phase One revenue from Route D taxpayers will be lower than the cohort model suggests until the first realisation events occur. The distribution across routes therefore affects both the aggregate revenue figure and its timing.
 
-The default-long window election creates an interaction with (PHASE1 §4.5): if it produces widespread uptake of longer windows, the Governing Council's calibration problem for the flexibility levy changes in character. The (PHASE1 §4.5) measurement design tracks not only raw election distributions but whether the default is driving them, because the policy implications of default-induced inertia and revealed preference differ.
+The default-long window election creates an interaction with (PHASE1 §4.5): if it produces widespread uptake of longer windows, the Governing Council's calibration problem for the flexibility levy changes in character. The (PHASE1 §5.4) measurement design tracks not only raw election distributions but whether the default is driving them, because the policy implications of default-induced inertia and revealed preference differ.
 
 ## 4.5 Administrative Intervention Effects
 
@@ -162,7 +163,7 @@ None of this will answer #32 directly. It will indicate whether the conditions u
 
 # 5. What Phase One Would Need to Measure
 
-The evaluation designs below are prospective specifications: what measurement would close each cluster, written independently of any assumed implementation timeline. Where (BEHAV §11.1) specifies which interventions are appropriate in which phase, this section specifies what monitoring each intervention requires.
+The evaluation designs below are prospective specifications: what measurement would close each cluster, written independently of any assumed implementation timeline. Where (BEHAV §10) specifies which interventions are appropriate in which phase, this section specifies what monitoring each intervention requires.
 
 ## 5.1 Measuring Behavioural Response to the Cooperative Architecture
 
@@ -260,9 +261,9 @@ This paper is the structured account of what Phase One is designed to answer. Th
 
 ## 6.3 Jurisdiction-specific legal and implementation work
 
-The jurisdiction-specific legal analysis of exit and bankruptcy closure (WP §9.4) (BEHAV §12.3), (CLOSE §9.3) qualifies the position closure framework's practical implementation. Structural design is settled in (CLOSE) and (GOV); what remains requires the dedicated legal paper. The (PHASE1 §5.3) evaluation designs assume the bridging facility is operational; if the legal analysis modifies the implementation, the migration cluster measurement design will require corresponding adjustment. The same qualification applies to the corporate instrument's CIT interaction during transition.
+The jurisdiction-specific legal analysis of exit and bankruptcy closure (WP §9.4) (BEHAV §9), (CLOSE §9.3) qualifies the position closure framework's practical implementation. Structural design is settled in (CLOSE) and (GOV); what remains requires the dedicated legal paper. The (PHASE1 §5.3) evaluation designs assume the bridging facility is operational; if the legal analysis modifies the implementation, the migration cluster measurement design will require corresponding adjustment. The same qualification applies to the corporate instrument's CIT interaction during transition.
 
-Two further items appear in the Open Questions footer as received by this paper but do not map to a (PHASE1 §4) empirical cluster. #31 is acknowledged above: it sits at the boundary of Phase One data and jurisdiction-specific legal analysis rather than cleanly in either. (BEHAV §12.1) (the cross-base fiscal externality in the Phase One context) is substantively addressed within the (PHASE1 §4) cluster and (PHASE1 §4) evaluation design, which treat the externality as the central quantitative unknown of the migration cluster; it is listed separately in the footer because it originated as a (BEHAV) open question, but its resolution path is identical to #15.
+Two further items appear in the Open Questions footer as received by this paper but do not map to a (PHASE1 §4) empirical cluster. #31 is acknowledged above: it sits at the boundary of Phase One data and jurisdiction-specific legal analysis rather than cleanly in either. (BEHAV §9.2) and (BEHAV.A §D) (the cross-base fiscal externality in the Phase One context — the headline framing in (PHASE1 §9.2), the full seven-part structural response in BEHAV.A §D) are substantively addressed within the (PHASE1 §4) cluster and (PHASE1 §4) evaluation design, which treat the externality as the central quantitative unknown of the migration cluster; they are listed separately in the footer because they originated as a (BEHAV) open question, but their resolution path is identical to #15.
 
 The HMRC data access agreement is a precondition, not a Phase One item. The revenue microsimulation it enables follows from the agreement, not from Phase One data collection itself.
 
@@ -285,6 +286,8 @@ The working assumptions in (PHASE1 §3) are provisional by design. An assumption
 The revenue figures will be the first thing Phase One corrects. They are pre-behavioural, stated as such in (RATES), and the (PHASE1 §5.3) measurement design carries the largest fiscal implications of any in the seven clusters. If the @AgrawalEtAl2025 multiplier applies to the WDT population at anything close to its estimated magnitude, the fiscal case for Phase One rests on the membrane investment and structural closure mechanics outperforming a comparable adversarial regime — a claim Phase One is positioned to test.
 
 Phase One is valuable regardless of whether the design is right. A Phase One that finds the cooperative architecture's effects smaller than assumed, the cross-base externality larger than estimated, or certain membrane interventions ineffective still produces the evidence base from which a revised design could be built.
+
+The empirical clusters in (PHASE1 §4) address questions about how the mechanism will be calibrated and administered. A complementary set of questions — whether the mechanism works at all, stated in their strongest falsifiable form — is addressed in (FAL). That paper identifies the five propositions on which the WDT most depends, specifies what evidence or modelling would count against each, and sets the minimum requirements a hostile model must meet to constitute a serious falsification attempt. The relationship between PHASE1 and FAL is sequencing: FAL identifies what would constitute a decisive result; Phase One produces the first data against which those results can begin to be tested.
 
 \newpage
 

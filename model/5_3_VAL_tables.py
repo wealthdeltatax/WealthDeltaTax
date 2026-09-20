@@ -710,7 +710,7 @@ def write_appc_md(tables, p):
         f"$g$ ≈ 17.3%, then plateaus at a ceiling set by $\\alpha$; the marginal deterrent stops "
         f"escalating but does not reverse. The plateau inflection at $g$ ≈ 17.3% is a rate-function "
         f"property that is approximately constant across all $\\alpha$ and N-invariant above the plateau "
-        f"— simulation confirms that the plateau shape at N = 29 and N = 50 are visually identical "
+        f"— simulation confirms that the plateau shape at N = 30 and N = 50 are visually identical "
         f"(SWEEPS §2.3, Fig S3.1b). The C.1 metric for $\\alpha$ = 0.1 exceeds 100% at approximately "
         f"$g$ = 23–24% — the understater's excess tax exceeds their terminal wealth — but this is a "
         f"normalisation artefact (the denominator, the understater's own TW, compresses at high growth), "

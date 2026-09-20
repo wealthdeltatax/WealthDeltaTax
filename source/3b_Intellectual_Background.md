@@ -24,6 +24,7 @@ keywords:
 |:--------:|:---------------:|--------------------------|
 | 0.01      | 2 August 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
+| 1.01      | 20 September 2026 | Crosslinks to WFR added in §1 (new papers note), §3, §4, §5, §6 forward notes; §1 note added directing readers to INST, FAL, and LDW as papers published after the original forward-note apparatus |
 
 \newpage
 
@@ -80,6 +81,8 @@ Each section ends with a forward note stating which companion papers develop or 
 
 The document is the publicly readable version of the source material in the project's master reference database (0.4). It is generated from 0.4 after that database is clean; it is not drafted in parallel with 0.4. All companion papers cite this document for their external references rather than carrying independent literature surveys. The gap register (LR.A) is the companion document: where this paper covers what the literature says, LR.A covers where the literature stops and what the WDT project does in the absence of an answer.
 
+**Note on papers published after this document's forward-note apparatus was completed.** Three companion papers published after LR.B v1.00 extend bodies of literature covered here in ways the per-section forward notes do not yet reflect. (INST) extends the political durability literature surveyed in (LR.B §17) by providing an independent derivation of the three failure mechanisms and a structural account of why the WDT's design properties resist them; it is the natural downstream reading from (LR.B §17) alongside (POL). (FAL) addresses the body of literature on institutional failure and systemic risk that (LR.B §14) and (LR.B §15) touch on in the SWF and precommitment contexts; it develops the WDT-specific failure taxonomy and the Mode A/B/C/D typology. (LDW) extends the labour tax incidence and household welfare literature implicit in (LR.B §2) by tracing the purchasing power consequences for the non-taxed majority of a mature WDT operating under full labour and consumption tax displacement; it is the companion reading to (ENV) for readers interested in distributional welfare effects on ordinary households rather than on the taxed population.
+
 \newpage
 
 # 2. The Tax Base Question
@@ -124,7 +127,7 @@ Contemporary legal scholarship on mark-to-market reform [@Shaviro2000; @Shaviro2
 
 No prior proposal takes the individual's total annual change in net worth as the organising unit of a complete tax-and-fiscal architecture. The accrual taxation tradition treats annual wealth changes as a method for capturing income more completely within an income-tax framework. The WDT treats the annual net worth delta as the base unit from which valuation architecture, loss treatment, settlement mechanics, corporate attribution, governance, and fiscal transition are all derived. That is a different intellectual project, not a stronger version of the same one.
 
-**In the WDT project:** The WDT's response to the loss treatment problem that the prior literature acknowledged but did not resolve — the symmetric refund mechanism, the SWF pre-funding, and the lifetime contribution envelope — is developed in (WP §3.5) and (RATES) The valuation incentive problem that recurs across prior proposals is addressed in (VAL §1) and the mechanism in (VAL §5) and (VAL §7).
+**In the WDT project:** The WDT's response to the loss treatment problem that the prior literature acknowledged but did not resolve — the symmetric refund mechanism, the SWF pre-funding, and the lifetime contribution envelope — is developed in (WP §3.5) and (RATES) The valuation incentive problem that recurs across prior proposals is addressed in (VAL §1) and the mechanism in (VAL §5) and (VAL §7). The most technically serious theoretical objection to accrual taxation — the @ArachiDAntoni2022 argument that accrual taxes create intertemporal consumption distortions by billing unrealised gains before the taxpayer has liquidity to pay — is engaged directly in (WFR §4.2.3), which shows that the symmetric refund addresses the loss-year component of the objection for established taxpayers while acknowledging that the objection applies in full at the entry margin where the lifetime contribution envelope floor binds.
 
 \newpage
 
@@ -140,9 +143,9 @@ The intuition is clearest in the limiting case. If the government taxes 50% of g
 
 @King1977 extended the analysis to the cost of capital. When losses generate no relief, the hurdle rate for risky projects rises, and this bias toward lower-variance investment accumulates across the investment universe.
 
-The formal extension of these results to a progressive, delta-based wealth tax has not been accomplished; that extension is identified as a research gap in (LR.A §2.1).
+The formal extension of these results to a progressive, delta-based wealth tax has not been accomplished; that extension is identified as a research gap in (LR.A §2.1), and formal numerical modeling can be found in (WFR).
 
-**In the WDT project:** The symmetric refund mechanism and its grounding in this tradition are developed in (WP §3.5) and (RATES) The full-symmetry design position and the rejection of partial symmetry are stated in (RATES) The moral and foundational grounding for the symmetric refund — as the operational expression of the state's commitment to downside exposure alongside the taxpayer — is in (MF §7) and (GOV.A §E.5).
+**In the WDT project:** The symmetric refund mechanism and its grounding in this tradition are developed in (WP §3.5) and (RATES) The full-symmetry design position and the rejection of partial symmetry are stated in (RATES) The moral and foundational grounding for the symmetric refund — as the operational expression of the state's commitment to downside exposure alongside the taxpayer — is in (MF §7). The formal extension of the Domar-Musgrave result to a progressive delta base — a gap identified in (LR.A §2.1) — is carried out in (WFR §3.2) and (WFR §4.1), which confirm the property holds for the flat symmetric WDT to floating-point precision and establish that the three complications a logistic progressive schedule introduces are all second-order at canonical parameters.
 
 \newpage
 
@@ -156,11 +159,11 @@ The wealth-return correlation matters more for the WDT than the heterogeneity fi
 
 @GuvenonEtAl2023 formalise the efficiency implications in a model calibrated to US data. Under capital income taxation, the tax burden falls disproportionately on productive investors who earn high returns, concentrating the penalty on efficient capital deployment. Under a stock wealth tax, all holders of equivalent wealth pay equivalent tax regardless of their return, shifting the relative burden toward unproductive holders. The efficiency implication is the use-it-or-lose-it mechanism: productive capital gradually concentrates with investors who earn more from it. In their model, the welfare gain from replacing capital income tax with a revenue-neutral stock wealth tax is approximately 8% in consumption-equivalent terms.
 
-The Guvenen et al. result applies to a stock wealth tax. A delta-based tax changes the structure of the efficiency argument: a productive entrepreneur whose wealth position is stable pays nothing under a delta base even if their holdings are large and their return is high. Whether the use-it-or-lose-it mechanism operates more or less strongly under a delta base than a stock base has not been formally modelled. That modelling gap is identified in (LR.A §2.2).
+The Guvenen et al. result applies to a stock wealth tax. A delta-based tax changes the structure of the efficiency argument: a productive entrepreneur whose wealth position is stable pays nothing under a delta base even if their holdings are large and their return is high. Whether the use-it-or-lose-it mechanism operates more or less strongly under a delta base than a stock base has not been formally modelled. Formal numerical modeling can be found in (WFR).
 
 @PikettyEtAl2023, in a survey paper on capital and wealth taxation, identify three rationales for wealth taxation: the increasingly difficult distinction between capital and labour income at the top of the distribution; the inadequacy of income and consumption as measures of economic wellbeing where capital gains dwarf ordinary flows; and the stronger meritocratic case for taxing inherited wealth than earned wealth. @BlanchetMartinezToledano2023 examine wealth inequality dynamics in Europe and the United States, finding that differing institutional arrangements — particularly differences in pension fund governance and housing market structure — explain much of the cross-country variation in wealth concentration patterns.
 
-**In the WDT project:** The growth-tier model in (RATES §5.2) is calibrated to the @FagerengEtAl2020 persistence and dispersion estimates. The claim that the tier assignments likely overstate the underperforming share of the WDT population is grounded in the positive wealth-return correlation documented by Fagereng et al. The efficiency case for a delta base relative to the stock wealth tax baseline is noted but not formally extended in (WP §2.5). The distributional concentration of the delta tax base is treated in (RATES §5.1).
+**In the WDT project:** The growth-tier model in (RATES §5.2) is calibrated to the @FagerengEtAl2020 persistence and dispersion estimates. The claim that the tier assignments likely overstate the underperforming share of the WDT population is grounded in the positive wealth-return correlation documented by Fagereng et al. The efficiency case for a delta base relative to the stock wealth tax baseline is noted but not formally extended in (WP §2.5). The distributional concentration of the delta tax base is treated in (RATES §5.1). The formal concentration arithmetic across a four-tier Fagereng calibration — a gap identified in (LR.A §2.3) — is carried out in (WFR §4.3), which traces the Great/Poor wealth ratio under all six candidate tax systems over a 30-year horizon and finds that the dominant split at that horizon is accrual basis versus stock base (286–288× for WDT variants versus 479× for stock-base systems), not flat versus progressive rate.
 
 \newpage
 
@@ -176,9 +179,9 @@ Both results have been substantially qualified. @StraubWerning2020 showed that t
 
 Dias, Iglesias, and Goncalves (2025), using agent-based modelling, find that consumption-based tax systems are structurally regressive in their distributional effects, disproportionately burdening the lowest quintiles of households. Their methodology is not directly comparable to the analytical general equilibrium models above, and the results should be treated as corroborating rather than primary evidence.
 
-The formal welfare comparison between a delta-based wealth tax and the consumption tax alternative has not been done at the level of the WDT's specific structure. That comparison remains an open modelling task, identified in (LR.A §2.2).
+The formal welfare comparison between a delta-based wealth tax and the consumption tax alternative has not been done at the level of the WDT's specific structure. Formal numerical modeling can be found in (WFR).
 
-**In the WDT project:** The consumption tax challenge is addressed in (WP §8.4). The argument that the consumption base loses force at extreme wealth levels is developed in (MF §4). The absence of a formal welfare comparison is named as a research priority in (WP §9.1) and in (LR.A §2.2).
+**In the WDT project:** The consumption tax challenge is addressed in (WP §8.4). The argument that the consumption base loses force at extreme wealth levels is developed in (MF §4). The formal welfare comparison that includes the delta base alongside all standard candidates at genuine revenue equivalence is in (WFR §3) and (WFR §4). (WFR §5.5) engages the live dispute between @GuvenonEtAl2023 and @BoadwaySpiritusEtAl2025 on the general-equilibrium capital allocation implications of the use-it-or-lose-it mechanism under a delta base, positioning WFR as a gap-filling rather than side-taking contribution.
 
 \newpage
 
@@ -320,7 +323,7 @@ Chile's Pension Reserve Fund, created in 2006, is the closest structural analogu
 
 @Wyplosz2005 reviews the comparative track record of fiscal rules versus independent institutions, finding that independent fiscal institutions can outperform strict rules in practice by allowing informed discretion within a mandate-constrained framework. Debrun, Moulin, Turrini, Ayuso-i-Casals, and @DebrunEtAl2008 survey the comparative evidence on independent fiscal councils, finding that statutory reporting mandates can raise the political cost of deviation from fiscal commitments without requiring a veto power.
 
-**In the WDT project:** The precommitment architecture — SWF pre-funding, constitutional entrenchment of the nine enumerated structural clauses, the Administrator's non-discretionary publication mandate — is developed in (GOV §5.2) and (GOV §5.3) and (WP §8.5). The UK institutional context and the OBR model as precedent for the Custodian's independence are discussed in (JUR §1.5.3) and (JUR §4.4).
+**In the WDT project:** The precommitment architecture — SWF pre-funding, constitutional entrenchment of the nine enumerated structural clauses, the Administrator's non-discretionary publication mandate — is developed in (GOV §5.2) and (GOV §5.3) and (WP §8.5). The UK institutional context and the OBR model as precedent for the Custodian's independence are discussed in (JUR §1.5.3) and (JUR §4.2).
 
 \newpage
 
@@ -336,7 +339,7 @@ Chile's Pension Reserve Fund, created in 2006, is the closest structural analogu
 
 The treatment of wealth as durable economic and institutional power rather than deferred consumption draws on a tradition that tax theory has not fully absorbed. @Galbraith1952 on countervailing power, @Mills1956 on the power elite, and @HackerPierson2010 on winner-take-all politics describe mechanisms by which concentrated economic resources translate into structural influence over political and institutional processes in ways that are not captured by the consumption-tax framework's view of wealth as the present value of future consumption.
 
-**In the WDT project:** [MF] provides the full moral foundations treatment: the foundational axiom (WP §2), the collective production argument (WP §3), wealth as power (WP §4), the cognitive moral hazard of the current system (WP §5), and the terminal goal of democratic flourishing (WP §6). The named compromises where the theoretical framework meets administrative necessity are in (MF §9).
+**In the WDT project:** [MF] provides the full moral foundations treatment: the foundational axiom (MF §2), the collective production argument (MF §3), wealth as power (MF §4), the cognitive moral hazard of the current system (MF §5), and the terminal goal of democratic flourishing (MF §6). The named compromises where the theoretical framework meets administrative necessity are in (MF §9).
 
 \newpage
 
@@ -373,4 +376,4 @@ The OECD's 2025 study and the European Commission's April 2026 study on wealth t
 
 The lessons from Pillar Two on the political economy of coordination are relevant to the WDT's Phase Two international agenda: agreement across 140-plus jurisdictions took approximately a decade from the launch of BEPS in 2013 to implementation in 2024, and the US exemption of its multinationals from the January 2026 rules introduced significant instability into the framework. Domestic WDT implementation does not require international agreement as a precondition; the Zucman blueprint follows the same sequencing logic.
 
-**In the WDT project:** The exit and closure design is developed in [CLOSE] throughout: the no-punitive-exit-taxation position (CLOSE §4.2), the bridging facility (CLOSE §5), and the re-entry rule (CLOSE §6) are the three settled structural positions. Jurisdiction-specific legal implementation remains open (0.0 #8). The cross-base externality as a Phase One transitional exposure is treated in (CLOSE §9) and (BEHAV §9.2).
+**In the WDT project:** The exit and closure design is developed in [CLOSE] throughout: the no-punitive-exit-taxation position (CLOSE §4.2), the bridging facility (CLOSE §5), and the re-entry rule (CLOSE §6) are the three settled structural positions. Jurisdiction-specific legal implementation remains open (0.0 #8). The cross-base externality as a Phase One transitional exposure is treated in (CLOSE §9.2) and (BEHAV §9.2).

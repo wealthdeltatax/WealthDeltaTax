@@ -315,7 +315,9 @@ E[T] as % of W₀ swept from 1% to 5%. Columns = revenue target; rows grouped by
 | Ver. B | CGT | -0.8698% | -1.7525% | -2.6486% | -3.5585% | -4.4826% |
 | Ver. B | Consumption Tax | -0.9435% | -1.8870% | -2.8305% | -3.7740% | -4.7175% |
 
-## E.2.1 Sweep B: Summary Statistics Across All Start Years
+## E.2 Sweep B: CEW by Start Year (γ=2)
+
+### E.2.1 Sweep B: Summary Statistics Across All Start Years
 
 Min/median/mean/max CEW across all 73 start-year windows (1947–2019). "WDT best?" = fraction of windows in which the Symmetric WDT has the highest CEW (lowest welfare cost) of the five systems. E[T] = 2% of W₀. γ=2. Ver. A distribution.
 
@@ -327,7 +329,7 @@ Min/median/mean/max CEW across all 73 start-year windows (1947–2019). "WDT bes
 | CGT | -1.7713% | -1.6751% | -1.6765% | -1.5881% | — |
 | Consumption Tax | -1.8936% | -1.8144% | -1.8125% | -1.7314% | — |
 
-## E.2.2 Sweep B: Curated Worst-Case Start Years
+### E.2.2 Sweep B: Curated Worst-Case Start Years
 
 Six historically adverse start years plus the canonical 2000 (◄). Adverse years selected: 1972 (oil shock), 1987 (Black Monday), 1999 (GFC in window), 2000 (dot-com + GFC), 2006 (worst LRR fill speed). WDT adv. = (CEW_WDT − CEW_StockWealth) × 10,000 in basis points.
 
@@ -339,7 +341,9 @@ Six historically adverse start years plus the canonical 2000 (◄). Adverse year
 | 2000 ◄ canonical | -1.7539% | -1.8870% | -1.7713% | -1.7713% | -1.8870% | +13.3 |
 | 2006 | -1.7445% | -1.8907% | -1.7625% | -1.7625% | -1.8907% | +14.6 |
 
-## E.3.1 Sweep C: τ₀ Sensitivity
+## E.3 Sweep C: CEW Parameter Sensitivy Sweep
+
+### E.3.1 Sweep C: τ₀ Sensitivity
 
 Gap (bp) = (CEW_flat − CEW_progressive) × 10,000. Positive = flat WDT has lower welfare cost than progressive. τ_m, k, W_min held at canonical values.
 
@@ -352,7 +356,7 @@ Gap (bp) = (CEW_flat − CEW_progressive) × 10,000. Positive = flat WDT has low
 | 0.25 | -0.00 | -0.00 | -0.01 |
 | 0.3 | -0.00 | -0.00 | -0.00 |
 
-## E.3.2 Sweep C: τ_m Sensitivity
+### E.3.2 Sweep C: τ_m Sensitivity
 
 τ₀, k, W_min held at canonical values.
 
@@ -365,7 +369,7 @@ Gap (bp) = (CEW_flat − CEW_progressive) × 10,000. Positive = flat WDT has low
 | 0.8 | -0.00 | -0.00 | -0.01 |
 | 0.9 | -0.00 | -0.00 | -0.01 |
 
-## E.3.3 Sweep C: k Sensitivity
+### E.3.3 Sweep C: k Sensitivity
 
 τ₀, τ_m, W_min held at canonical values.
 
@@ -378,7 +382,7 @@ Gap (bp) = (CEW_flat − CEW_progressive) × 10,000. Positive = flat WDT has low
 | 0.01 | -0.01 | -0.02 | -0.05 |
 | 0.05 | -0.03 | -0.05 | +0.00 |
 
-## E.3.4 Sweep C: W_min Sensitivity
+### E.3.4 Sweep C: W_min Sensitivity
 
 τ₀, τ_m, k held at canonical values.
 

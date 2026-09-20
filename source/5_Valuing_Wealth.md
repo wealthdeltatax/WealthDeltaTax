@@ -133,7 +133,7 @@ Increased professional valuation and audit requirements do not eliminate the und
 
 The WDT separates two functions that have historically been conflated: ongoing monitoring, which is annual, and formal assessment with settlement consequences, which is a taxpayer election.
 
-Annual reporting is mandatory for all taxpayers. Each year, taxpayers submit to the Allocator verification of a return specifying asset ownership, estimated current values, material changes affecting value, acquisitions and disposals, significant financing events, and changes in beneficial ownership. Annual reports are the primary fraud detection and ownership tracking instrument.
+Annual reporting is mandatory for all taxpayers. Each year, taxpayers submit to the Administrator verification of a return specifying asset ownership, estimated current values, material changes affecting value, acquisitions and disposals, significant financing events, and changes in beneficial ownership. Annual reports are the primary fraud detection and ownership tracking instrument.
 
 Formal assessment occurs at the end of the taxpayer's selected assessment window: the delta is calculated, the tax liability or refund is determined, and settlement occurs according to the rules of the applicable route. So long as the assessment window premium compensates the state for timing, the total economic outcome is equivalent to annual formal assessment.
 
@@ -324,7 +324,7 @@ Figure 7.1d makes the two-regime structure visible directly. The left panel repr
 
 ![Figure 7.1d: Nominal (C.1) versus NPV-adjusted (C.12) tax difference relative to honest declaration. Left: C.1 metric as in Figure 5.2. Right: C.12 — the same metric with all tax cash flows discounted to t=0 at ρ = 5%. Shared colour scale. Low-g blue cells (mild-overstater nominal advantage) compress toward white or reverse to red in C.12 — the advantage does not survive discounting. Understater red cells are stable across both panels. N = 30, $V_0$ = £20m, $k$ = 0.001. Source: (VAL.A §C.12).](../figures/val_fig_7_1d_c1_vs_c12_nominal_vs_npv.png){width=100%}
 
-Simulation results across the tested strategies are in (VAL.A §C.1). The formal model supporting these claims is in (VAL.A §A), with the local convexity result at (VAL.A §A.5.1) (Proposition 1) and the full proposition summary at (VAL.A §A.5.6). Worked examples illustrating the payoff-profile argument are in (VAL.A §C.1).
+Simulation results across the tested strategies are in (VAL.A §C.1). The formal model supporting these claims is in (VAL.A §A), with the local convexity result at (VAL.A §A.5.1) (Proposition 1) and the full proposition summary at (VAL.A §A.5.6). Worked examples illustrating the payoff-profile argument are in (VAL.B §N).
 
 ## 7.2 Understatement: Deferred Liability and Dilution
 
@@ -514,7 +514,7 @@ The professional valuation architecture in (VAL §10) is described in some detai
 
 ## 12.1 Annual Reporting Requirements
 
-Taxpayers file an annual return regardless of assessment window selected. The full specification of reporting requirements is in (VAL.A §F). Third-party reporting obligations apply to financial institutions, listed company registrars, and land registries; their reports are filed directly with the Valuation Bodies and used to cross-check returns. The interaction between individual-level reporting and the corporate withholding model for listed shareholdings is addressed in (CORP).
+Taxpayers file an annual return to the Administrator regardless of assessment window selected. The full specification of reporting requirements is in (VAL.A §F). Third-party reporting obligations apply to financial institutions, listed company registrars, and land registries; their reports are distributed to the Valuation Bodies and used to cross-check returns. The interaction between individual-level reporting and the corporate withholding model for listed shareholdings is addressed in (CORP).
 
 ## 12.2 The Purpose of Audit: Fraud, Not Valuation
 
@@ -580,7 +580,7 @@ The inheritance auction design-level questions are resolved: the mechanism uses 
 
 Cross-border holdings in jurisdictions outside existing information exchange frameworks remain a gap. International coordination and exit taxation design provide partial responses. Complete coverage is not achievable under current international arrangements.
 
-One narrower derivatives question remains open: valuation methodology for derivative positions held for individual WDT purposes where no liquid secondary market exists. The double-counting risk is resolved by (CORP §7); this is a valuation question only, assigned to future methodology work.
+One narrower derivatives question remains open: valuation methodology for derivative positions held for individual WDT purposes where no liquid secondary market exists. The double-counting risk is resolved by (CORP §8); this is a valuation question only, assigned to future methodology work.
 
 ## 14.4 Structural and Irreducible Limits of the Design
 

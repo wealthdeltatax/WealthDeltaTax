@@ -467,17 +467,3 @@ The route distribution analysis establishes the empirical basis for the enforcem
 The paper does not claim the WDT will end exit. It claims that a system designed for behavioural robustness — one that functions across the full distribution of responses including exit, that offers a rational actor something no adversarial system can offer, and that is administered through a membrane designed to demonstrate rather than undermine its reciprocal character — deserves a different answer to the emigration objection than the systems that have generated the folk knowledge so far.
 
 The folk knowledge was earned. It does not have to be permanent.
-
----
-
-*BEHAV OQ Cross-Paper Register*
-
-BEHAV OQ 1: Whether the six administrative-layer interventions produce the claimed psychological effects; taxpayer history record is highest Phase One evaluation priority.
-
-BEHAV OQ 2: Cross-base fiscal externality in Phase One context *(duplicate of #15 for cross-reference)*.
-
-~~BEHAV OQ 3: Intermediary adaptation acceleration through phased attribution transition in CORP~~ *(closed by CORP v1.6)*.
-
-BEHAV OQ 4: Exit architecture design — jurisdiction-specific legal implementation *(structural questions settled by CLOSE; overlaps with #8 and CLOSE OQ 4)*.
-
-~~BEHAV OQ 5: Whether taxpayer history record requires enumerated-clause protection in (GOV §6.3)~~ *(closed by GOV v1.4)*.

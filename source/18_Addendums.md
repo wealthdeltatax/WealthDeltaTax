@@ -41,7 +41,7 @@ The WDT design papers settle the mechanism's structure and identify its calibrat
 
 **Threshold drift:** The process by which nominal asset appreciation, particularly in housing, pulls a growing share of the population across a fixed nominal exemption threshold without any discrete enrolment event that would make the crossing visible to the affected individual.
 
-**Tolerant zone:** The range of declaration multipliers (α values) around honest declaration within which the total tax paid difference relative to an honest declarer remains below a defined threshold. Governed primarily by the steepness parameter k. Defined formally in (VAL.A §A.5).
+**Tolerant zone:** The range of declaration multipliers (α values) around honest declaration within which the total tax paid difference relative to an honest declarer remains below a defined threshold. Governed primarily by the steepness parameter k. Defined formally in (VAL.A §A.2.5), (VAL.A §A.6).
 
 **Volunteer rate:** The proportion of lottery-selected Dividend Recipient Chamber seats that are accepted and actively used within a given cycle. Published quarterly by the Administrator. Used as the primary indicator of DR chamber health and the trigger for the constituency dissolution mechanism (GOV.B §A.3.3).
 
@@ -226,7 +226,7 @@ The PHASE1 evaluation designs should be formally adopted by the Governing Counci
 
 The formal adoption process should include, for each empirical cluster: the specific observable that constitutes a genuine test of the working assumption; the threshold above and below which the working assumption is considered confirmed or contradicted; the party responsible for collecting and publishing the relevant data; and the Governing Council process through which the calibration implications of confirmed or contradicted assumptions are addressed.
 
-The consumption multiplier cluster (PHASE1 §4.1) and (PHASE1 §5.1) warrants particular attention. The adoptive standard should distinguish explicitly between revenue improvement attributable to enrolled population growth and revenue improvement attributable to multiplier effects, and should specify the measurement design that separates the two. Without this distinction, Governing Council debates about NICs acceleration pace will be resolved by governance negotiation rather than by Phase One evidence, which is the outcome the Phase One paper was designed to prevent.
+The consumption multiplier cluster (ENV §9.2.1) warrants particular attention. The adoptive standard should distinguish explicitly between revenue improvement attributable to enrolled population growth and revenue improvement attributable to multiplier effects, and should specify the measurement design that separates the two. Without this distinction, Governing Council debates about NICs acceleration pace will be resolved by governance negotiation rather than by Phase One evidence, which is the outcome the Phase One paper was designed to prevent.
 
 Adopting binding interpretive standards does not commit the Governing Council to any particular calibration outcome. It commits the Governing Council to resolving calibration questions by reference to the agreed measurement design when Phase One data is available, rather than by reference to the interests of the chamber making the argument at the time.
 

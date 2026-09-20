@@ -1,6 +1,6 @@
 ---
 title: "Internal Bibliography"
-description: "Full citation list for the Wealth Delta Tax working paper series. This page lists all papers in the Wealth Delta Tax series with their current Zenodo citations. The short-form labels in square brackets — [WP], [MF], [VAL], and so on — are used throughout the series to cross-reference between papers. [SCOPE] and [ADD] are not yet published, but are accesible on this website."
+description: "Full citation list for the Wealth Delta Tax working paper series. This page lists all papers in the Wealth Delta Tax series with their current Zenodo citations. The short-form labels in square brackets — [WP], [MF], [VAL], and so on — are used throughout the series to cross-reference between papers. [SCOPE], [ADD], [INST], [FAL], [WFR], [WFR.A], [BEHAVE.A] are not yet published, but are accesible on this website."
 ---
 
 
@@ -64,4 +64,6 @@ description: "Full citation list for the Wealth Delta Tax working paper series. 
 
 [ADD] Ogata, K. (2026). *The Wealth Delta Tax: Addendum: Implementation Calibration Examples*. Unpublished.
 
+[LDW] Ogata, K. (2026). *The Wealth Delta Tax: Labour Dividend Welfare*. Unpublished.
 
+[FAL] Ogata, K. (2026). *The Wealth Delta Tax: Falsifiable Hypotheses*. Unpublished.

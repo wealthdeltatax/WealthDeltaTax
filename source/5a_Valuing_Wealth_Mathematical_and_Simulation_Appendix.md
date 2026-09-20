@@ -71,7 +71,7 @@ For moderate growth rates and policy-relevant holding periods (g = 2–12%), und
 
 ### A.2.4 Finding 4: Understater penalties plateau once the rate function reaches saturation; aggressive overstatement is self-limiting through a temporal crossing mechanism
 
-For understaters, the marginal penalty stops escalating once the progressive tax function approaches its maximum rate — the ceiling is set by $\alpha$, not by further growth. The plateau inflection at $g$ ≈ 17.3% is a rate-function property that is approximately constant across all understatement levels and N-invariant above the plateau: four-panel simulation at N ∈ {10, 20, 29, 50} confirms that the plateau shape at N = 29 and N = 50 are visually identical, establishing that the ceiling is determined by the rate function rather than by the simulation horizon (SWEEPS §2.3, Fig S3.1b).
+For understaters, the marginal penalty stops escalating once the progressive tax function approaches its maximum rate — the ceiling is set by $\alpha$, not by further growth. The plateau inflection at $g$ ≈ 17.3% is a rate-function property that is approximately constant across all understatement levels and N-invariant above the plateau: four-panel simulation at N ∈ {10, 20, 29, 50} confirms that the plateau shape at N = 30 and N = 50 are visually identical, establishing that the ceiling is determined by the rate function rather than by the simulation horizon (SWEEPS §2.3, Fig S3.1b).
 
 For overstaters the picture differs by degree. Mild overstatement ($\alpha$ ≤ 1.5) produces a nominal TW_settled advantage across the full tested growth range — the sell-year refund benefit from the inflated basis exceeds the f_N erosion and post-sale damping costs by approximately 6:1 at canonical parameters, confirmed by the C.11 decomposition. However, this nominal advantage does not represent a genuine economic return: (VAL.A §C.12) shows that once all tax cash flows are discounted at ρ = 5%, the advantage collapses or reverses in the low-growth band where it nominally exists, because periodic outflows precede the sell-year refund by the full holding period. The mild-overstatement nominal advantage is a timing artefact. Aggressive overstatement ($\alpha$ ≥ 1.8) additionally faces a contemporaneous net-cost corridor at $g$ ≈ 9–17%, and the temporal N-crossing correction: at canonical parameters ($\tau_0$ = 15%), the $\alpha$ = 2.0 N-crossing threshold arrives at N ≈ 30, and the $\alpha$ = 1.8 crossing at N ≈ 32 (SWEEPS.A §A.5). $\alpha$ = 1.5 does not cross within the tested range at canonical parameters, but its nominal advantage is still eliminated by discounting. This N-crossing is $\tau_0$-sensitive: the crossing migrates to longer horizons as $\tau_0$ rises, and disappears entirely for realistic holding periods above $\tau_0$ ≈ 29–32% (SWEEPS §3.1, Table A.6). The self-limiting properties hold as stated at canonical parameters but are parameter-conditional results. Full analysis is in Proposition 4.
 
@@ -151,7 +151,7 @@ The lifetime refund cap applies: cumulative refunds cannot exceed cumulative tax
 
 Design note: current-period net worth governs the rate in both gain and loss years — both (A.3.3) and (A.3.4) apply $\tau(W_t)$. Applying $W_{t-1}$ instead has intuitive appeal but creates a strategic problem: a taxpayer anticipating a loss in period t can overstate $W_{t-1}$ to inflate the refund rate. A midpoint adds complexity without improvement.
 
-The current-period rule accepts a residual asymmetry: a taxpayer falling from high to low net worth receives a refund at the lower rate, so the state captured the prior gain at a higher marginal rate than it shares the corresponding loss. This is accepted on two grounds: rate exposure should reflect current economic position, and the mild-overstatement equilibrium in (VAL.A §A.6) partially offsets the effect in practice by carrying W_t in loss years above strict honest declaration.
+The current-period rule accepts a residual asymmetry: a taxpayer falling from high to low net worth receives a refund at the lower rate, so the state captured the prior gain at a higher marginal rate than it shares the corresponding loss. This is accepted on two grounds: rate exposure should reflect current economic position, and the mild-overstatement in (VAL.A §A.6) partially offsets the effect in practice by carrying W_t in loss years above strict honest declaration.
 
 ### A.3.3 The Basis Update Rule
 
@@ -305,9 +305,9 @@ The propositions below establish local and structural properties of the model, n
 
 ### A.5.4 Proposition 4: Understater Penalties Plateau at the Rate Ceiling; Aggressive Overstatement Is Self-Limiting through a Temporal Crossing Mechanism
 
-**Proposition.** Where the progressive tax function contains an upper marginal rate boundary, the understater's marginal penalty stops escalating once the rate ceiling is approached. The penalty does not reverse — it plateaus at a ceiling determined by $\alpha$, reached at approximately $g$ ≈ 17.3% across all understatement levels. This inflection is N-invariant above the plateau: simulation at N ∈ {10, 20, 29, 50} confirms that the plateau shape at N = 29 and N = 50 are visually identical, establishing that the ceiling is a property of the rate function rather than of compounding dynamics over long horizons (SWEEPS §2.3, Fig S3.1b).
+**Proposition.** Where the progressive tax function contains an upper marginal rate boundary, the understater's marginal penalty stops escalating once the rate ceiling is approached. The penalty does not reverse — it plateaus at a ceiling determined by $\alpha$, reached at approximately $g$ ≈ 17.3% across all understatement levels. This inflection is N-invariant above the plateau: simulation at N ∈ {10, 20, 29, 50} confirms that the plateau shape at N = 30 and N = 50 are visually identical, establishing that the ceiling is a property of the rate function rather than of compounding dynamics over long horizons (SWEEPS §2.3, Fig S3.1b).
 
-For overstaters, outcomes diverge by degree and by time. At N = 30, the C.1 metric crosses from negative (apparent advantage) to positive (net-cost territory) at approximately $g$ ≈ 7% for all four tested overstater levels ($\alpha$ = 1.2, 1.5, 1.8, 2.0). The mild overstatement levels ($\alpha$ = 1.2, 1.5) are therefore in nominal net-cost territory at the historical mean growth rate (10.4%). Their nominal advantage is confined to the low-growth tail (g ≲ 7%) and even there does not survive present-value adjustment: (VAL.A §C.12) shows that discounting at ρ = 5% collapses or reverses the apparent advantage in the growth band where it nominally exists. Aggressive overstatement ($\alpha$ ≥ 1.8) additionally faces a contemporaneous net-cost corridor at $g$ ≈ 9–17% and a temporal N-crossing mechanism: at canonical parameters ($\tau_0$ = 15%), the $\alpha$ = 2.0 N-crossing arrives at N ≈ 30 and the $\alpha$ = 1.8 crossing at N ≈ 32 (SWEEPS.A §B.4.5). This temporal correction is $\tau_0$-sensitive: the crossing migrates to later horizons as $\tau_0$ rises, reaching N ≈ 41 by $\tau_0$ = 29% and disappearing entirely for realistic holding periods above $\tau_0$ ≈ 29–32%. The self-limiting properties hold at canonical parameters but are parameter-conditional results.
+For overstaters, outcomes diverge by degree and by time. At N = 30, the C.1 metric crosses from negative (apparent advantage) to positive (net-cost territory) at approximately $g$ ≈ 7% for all four tested overstater levels ($\alpha$ = 1.2, 1.5, 1.8, 2.0). The mild overstatement levels ($\alpha$ = 1.2, 1.5) are therefore in nominal net-cost territory at the historical mean growth rate (10.4%). Their nominal advantage is confined to the low-growth tail (g ≲ 7%) and even there does not survive present-value adjustment: (VAL.A §C.12) shows that discounting at ρ = 5% collapses or reverses the apparent advantage in the growth band where it nominally exists. Aggressive overstatement ($\alpha$ ≥ 1.8) additionally faces a contemporaneous net-cost corridor at $g$ ≈ 9–17% and a temporal N-crossing mechanism: at canonical parameters ($\tau_0$ = 15%), the $\alpha$ = 2.0 N-crossing arrives at N ≈ 30 and the $\alpha$ = 1.8 crossing at N ≈ 32 (SWEEPS.A §B.4.5). This temporal correction is $\tau_0$-sensitive: the crossing migrates to later horizons as $\tau_0$ rises, reaching N ≈ 41 by $\tau_0$ = 30% and disappearing entirely for realistic holding periods above $\tau_0$ ≈ 29–32%. The self-limiting properties hold at canonical parameters but are parameter-conditional results.
 
 **Interpretation.** The inflection at $g$ ≈ 17.3% is a rate-function property, approximately constant across all $\alpha$. Deterrence against understatement is fully effective throughout the policy-relevant growth range (g = 2–17%); the plateau sets a ceiling on punishment, not a reversal.
 
@@ -362,7 +362,7 @@ The analysis in (VAL.A §A.5) uses $\alpha$ = 1 as reference, which is correct f
 
 **What the nominal C.1 data do and do not show.** The C.1 table at N = 30 shows that $\alpha$ = 1.2 and $\alpha$ = 1.5 produce negative C.1 values (apparent advantage over honest declaration) at low growth ($g$ ≤ 5.9%) and positive C.1 values (net-cost territory) above approximately $g$ ≈ 7%. This means both strategies cross into nominal net-cost territory well below the historical mean growth rate. The apparent advantage at low growth is a timing artefact: periodic outflows are real early money; the sell-year refund is inflated late money. (VAL.A §C.12) confirms that once all cash flows are discounted at ρ = 5%, the apparent low-g advantage collapses or reverses. The $\alpha$ = 1.2 and $\alpha$ = 1.5 values in the tolerant zone are therefore illustrative points on the overstatement side of a symmetric zone, not evidence for a wealth-maximising equilibrium. The earlier claim in prior drafts that "the C.1 metric for $\alpha$ = 1.2 and $\alpha$ = 1.5 stays negative across the full tested growth range" is incorrect at N = 30 and has been removed.
 
-**Why aggressive overstatement is self-limiting.** $\alpha$ = 1.8 and $\alpha$ = 2.0 exit the tolerant zone and face a contemporaneous net-cost corridor at $g$ ≈ 9–17% — the range containing the historical mean (10.45%) and all four RATES TCM tier differentials. Within the corridor the rate bracket penalty exceeds the basis benefit in each period. In addition, a temporal N-crossing mechanism operates independently: at canonical parameters, the $\alpha$ = 2.0 crossing arrives at N ≈ 30 and the $\alpha$ = 1.8 crossing at N ≈ 32 (SWEEPS.A §B.4.5, Fig S3.1a). The maximum nominal TW_settled benefit is bounded by degree — approximately 2.4pp at $\alpha$ = 1.2, 6.0pp at $\alpha$ = 1.5, 9.6pp at $\alpha$ = 1.8, and 12.0pp at $\alpha$ = 2.0 at the canonical intersection — with each ceiling set by rate-function saturation (VAL.A §C.11.4); none survive NPV adjustment. This N-crossing is $\tau_0$-sensitive: the crossing migrates to later horizons as $\tau_0$ rises, reaching N ≈ 41 by $\tau_0$ = 29% and disappearing entirely for realistic holding periods above $\tau_0$ ≈ 29–32%. The self-limiting properties hold at canonical parameters but are parameter-conditional results.
+**Why aggressive overstatement is self-limiting.** $\alpha$ = 1.8 and $\alpha$ = 2.0 exit the tolerant zone and face a contemporaneous net-cost corridor at $g$ ≈ 9–17% — the range containing the historical mean (10.45%) and all four RATES TCM tier differentials. Within the corridor the rate bracket penalty exceeds the basis benefit in each period. In addition, a temporal N-crossing mechanism operates independently: at canonical parameters, the $\alpha$ = 2.0 crossing arrives at N ≈ 30 and the $\alpha$ = 1.8 crossing at N ≈ 32 (SWEEPS.A §B.4.5, Fig S3.1a). The maximum nominal TW_settled benefit is bounded by degree — approximately 2.4pp at $\alpha$ = 1.2, 6.0pp at $\alpha$ = 1.5, 9.6pp at $\alpha$ = 1.8, and 12.0pp at $\alpha$ = 2.0 at the canonical intersection — with each ceiling set by rate-function saturation (VAL.A §C.11.4); none survive NPV adjustment. This N-crossing is $\tau_0$-sensitive: the crossing migrates to later horizons as $\tau_0$ rises, reaching N ≈ 41 by $\tau_0$ = 30% and disappearing entirely for realistic holding periods above $\tau_0$ ≈ 29–32%. The self-limiting properties hold at canonical parameters but are parameter-conditional results.
 
 **A parameter-conditional qualification.** The N-crossing threshold is $\tau_0$-sensitive. The tolerant zone width is $k$-sensitive. The conditional behavioural prediction of $\alpha$ ≈ 1.1 is sensitive to the assumed uncertainty band. None of these are unconditional structural properties. Both claims — that aggressive overstatement is self-limiting, and that risk-averse taxpayers under valuation uncertainty centre slightly above $\alpha$ = 1 — are stated with their relevant conditions.
 
@@ -489,7 +489,7 @@ The same loop runs for $\alpha$ = 1.0 at every parameter combination. All output
 | $\rho$ | Taxpayer discount rate | 5% | Fixed |
 | $W_{\min}$ | Exemption threshold | £2m | Fixed |
 
-Parameters are aligned with the Balanced transition scenario in (RATES). The 29-year reference holding period is the canonical horizon for that scenario, providing a common parameter set across the project's quantitative work.
+Parameters are aligned with the Balanced transition scenario in (RATES). The 30-year reference holding period is the canonical horizon for that scenario, providing a common parameter set across the project's quantitative work.
 
 **Note on $\alpha$ as a portfolio-level aggregate.** The WDT operates on total declared net worth, not on per-asset declaration ratios. $\alpha$ therefore represents the ratio of total declared net worth to total true net worth across the whole portfolio. How that aggregate arises — whether through uniform declaration across a pure Route C portfolio, or through professional valuation anchoring part of the portfolio at $\alpha$ = 1 while Route C/D assets are declared at a higher ratio — is irrelevant to the mechanism and to this model. A taxpayer with 50% of wealth professionally valued and 50% self-declared at an asset-level ratio of 2.0 has a portfolio-level $\alpha$ of 1.5, and is correctly modelled by the $\alpha$ = 1.5 row of every table in (VAL.A §C). The simulation models a single-asset portfolio as a tractable representation; the results apply equally to any portfolio composition producing the same aggregate $\alpha$, because the mechanism operates on declared net worth in total.
 
@@ -525,7 +525,7 @@ Unless otherwise stated, all figures use base parameters: $V_0$ = £20m, N = 30,
 
 $\frac{Net(\alpha) - Net(1)}{TW(\alpha)}$
 
-**Structural claim:** Understatement is more costly than honest declaration across the policy-relevant growth range. The penalty escalates steeply between $g$ ≈ 10% and $g$ ≈ 17.3%, then plateaus at a ceiling set by $\alpha$; the marginal deterrent stops escalating but does not reverse. The plateau inflection at $g$ ≈ 17.3% is a rate-function property that is approximately constant across all $\alpha$ and N-invariant above the plateau — simulation confirms that the plateau shape at N = 29 and N = 50 are visually identical (SWEEPS §2.3, Fig S3.1b). The C.1 metric for $\alpha$ = 0.1 exceeds 100% at approximately $g$ = 23–24% — the understater's excess tax exceeds their terminal wealth — but this is a normalisation artefact (the denominator, the understater's own TW, compresses at high growth), not a sign reversal in the penalty. For mild overstatement ($\alpha$ ≤ 1.5), overstatement produces a tax saving at moderate positive growth, with no reversal within the tested range at canonical parameters. For aggressive overstatement ($\alpha$ ≥ 1.8), the saving reverses in the $g$ ≈ 9–17% corridor containing the historical mean and recovers only above $g$ ≈ 17%; the self-limiting mechanism also operates temporally through the N-crossing described in §A.5.4. In negative growth scenarios the refund cap binds for understaters, reducing their net-tax advantage.
+**Structural claim:** Understatement is more costly than honest declaration across the policy-relevant growth range. The penalty escalates steeply between $g$ ≈ 10% and $g$ ≈ 17.3%, then plateaus at a ceiling set by $\alpha$; the marginal deterrent stops escalating but does not reverse. The plateau inflection at $g$ ≈ 17.3% is a rate-function property that is approximately constant across all $\alpha$ and N-invariant above the plateau — simulation confirms that the plateau shape at N = 30 and N = 50 are visually identical (SWEEPS §2.3, Fig S3.1b). The C.1 metric for $\alpha$ = 0.1 exceeds 100% at approximately $g$ = 23–24% — the understater's excess tax exceeds their terminal wealth — but this is a normalisation artefact (the denominator, the understater's own TW, compresses at high growth), not a sign reversal in the penalty. For mild overstatement ($\alpha$ ≤ 1.5), overstatement produces a tax saving at moderate positive growth, with no reversal within the tested range at canonical parameters. For aggressive overstatement ($\alpha$ ≥ 1.8), the saving reverses in the $g$ ≈ 9–17% corridor containing the historical mean and recovers only above $g$ ≈ 17%; the self-limiting mechanism also operates temporally through the N-crossing described in §A.5.4. In negative growth scenarios the refund cap binds for understaters, reducing their net-tax advantage.
 
 | $\alpha$ \ $g$ | -4.5% | 0.4% | 5.9% | 8.4% | 10.4% | 11.4% | 13.9% | 16.4% | 20.4% | 25.4% |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -889,3 +889,165 @@ $\frac{NPV_{tax}(\alpha) - NPV_{tax}(1)}{TW_{settled}(1)}$
 Table C.12: NPV-adjusted tax difference vs honest declaration, as % of honest TW_settled. $\alpha$ = 1.0 row is zero by construction. Compare directly with C.1: values closer to zero indicate the nominal C.1 advantage/disadvantage is a timing artefact; sign reversals indicate the PV position is opposite to the nominal position. $\rho$ = 5%, $V_0$ = £20m, $k$ = 0.001, N = 30, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
 
 *Key reading:* Compare C.12 with C.1 column by column. Where C.1 shows a negative value for overstaters (advantage) and C.12 shows a value close to zero or positive, the nominal advantage is a timing artefact: the overstater pays early and is refunded late, and the time value of early payment approximately cancels or reverses the apparent gain. Where C.1 and C.12 agree in sign and magnitude for understaters, the penalty is real in both nominal and PV terms — understaters face genuine excess cost regardless of the discount rate applied.
+
+# D. Mechanism Cases {.appendix}
+
+These cases illustrate formal properties of the model in (VAL.A §A). They are deliberately abstract. Applied examples tethered to the five claims in (VAL) are in (VAL.B).
+
+## D.1 Case 1: Persistent Understatement, Asset Never Realises (Proposition 3a, Route C)
+
+**Setup.** Taxpayer holds Route C fungible asset. Declares $W_{t} = \alpha \cdot V_{t}$, α < 1, across all periods. The asset never sells; the taxpayer dies with the position held.
+
+**Mechanics.** Each period the state acquires equity fraction $s_{t} = \frac{L_{t}}{W_{t}}$; the cumulative stake grows as each settlement transfers a fresh fraction.
+
+**Key result.** Tax is collected through equity dilution, not a realisation delta. The heirs inherit a smaller ownership fraction. The strategy does not eliminate tax; it converts it into ongoing dilution that compounds with growth. This is the mechanism behind Proposition 3a.
+
+## D.2 Case 2: Understatement, Refund Protection Loss on Failure (Proposition 3a, Symmetry)
+
+**Setup.** Taxpayer holds Route C asset with entry value $V_0$. Declares $W_{0} = \alpha \cdot V_{0}$, α < 1. Asset fails: V_T = 0 at period T.
+
+**Mechanics.**
+
+Delta: $\Delta_{T} = W_{T} - B_{(T-1)} = -W_{(T-1)} < 0$
+
+Refund: $R_{T} = \tau(W_{T}) \cdot |\Delta_{T}|$
+
+**Key result.** The refund is calculated on $W_{(T-1)}$, the declared prior basis, not on $V_{(T-1)}$. Because the taxpayer understated throughout, $W_{(T-1)} < V_{(T-1)}$: the refund is smaller than accurate declaration would have produced. Understatement forfeits refund entitlement in proportion to the degree of understatement. C.6 quantifies this across negative growth rates.
+
+## D.3 Case 3: Aggressive Overstatement (Proposition 2, Route C)
+
+**Setup.** Taxpayer holds Route C asset with true value V_t. Declares $W_{t} = \alpha \cdot V_{t}$, α > 1.
+
+**Mechanics.** Equity fraction under overstatement versus honest declaration:
+
+$s_{honest} = \tau(V_{t}) \cdot \frac{(V_{t} - V_{(t-1)})}{V_{t}}$
+
+$s_{overstated} = \tau(\alpha \cdot V_{t}) \cdot \frac{(W_{t} - W_{(t-1)})}{(\alpha \cdot V_{t})}$
+
+Since $\tau$ is strictly increasing, $\tau(\alpha \cdot V_{t}) > \tau(V_{t})$ for all α > 1: the overstater transfers more equity than honest declaration requires, at a persistently higher rate bracket.
+
+**Key result.** Overstatement on Route C is self-defeating at any scale. No declaration range produces a stable net advantage independent of whether the asset grows to meet the declaration. This is the mechanism behind Proposition 2.
+
+## D.4 Case 4: Oscillating Declarations, Basis Memory (Proposition 1)
+
+**Setup.** Taxpayer under-declares at t = 1 ($W_1 = 0.7 \cdot V_1$), over-declares at t = 2 ($W_2 = 1.3 \cdot V_2$), declares honestly at t = 3 ($W_3 = V_3$).
+
+**Mechanics.** Period 2 delta: $\Delta_2 = W_2 - B_1 = 1.3 \cdot V_2 - 0.7 \cdot V_1$, inflated by both the overstatement and the artificially low prior basis. Period 3 delta: $\Delta_3 = V_3 - 1.3 \cdot V_2$; if $V_3 < 1.3 \cdot V_2$, this is negative and triggers a refund calculated on the inflated period 2 basis.
+
+**Key result.** Basis errors compound. Alternating misstatements incur costs in both directions; the basis memory property prevents oscillation gaming without requiring the state to reconstruct declaration history. This is the mechanism behind Proposition 1's local convexity.
+
+## D.5 Case 5: Route D Voluntary Settlement and Inheritance
+
+**Setup.** Entry basis $B_0$ = £5m. Scenario A: voluntary settlement at year 10 at declared £18m; asset passes to heir at year 20, auction establishes £30m. Scenario B: no voluntary settlement; asset passes to heir at year 20 at £30m.
+
+**Mechanics.**
+
+Scenario A liability: $\tau(W_{10}) \cdot 13 + \tau(W_{20}) \cdot 12$
+
+Scenario B liability: $\tau(W_{20}) \cdot 25$
+
+**Key result.** Scenario A produces higher present value revenue when discounted at rate ρ if:
+
+$\tau(W_{10}) \cdot 13 \cdot (1 + \rho)^{10} > [\tau(W_{20}) - \tau(W_{10})] \cdot 12$
+
+Where rates are stable, Scenario A is worth more to the state in present value terms. Where the rate bracket rose substantially between years 10 and 20, Scenario B collects more. Voluntary settlement is not avoidance; it gives the taxpayer a defined liability at a chosen time at the cost of paying earlier.
+
+\newpage
+
+# E. Route Specification Tables {.appendix}
+
+Full technical specification for each of the four valuation routes. Cross-references in (VAL §4) point here for settlement mechanics, premium treatment, and route-specific rules.
+
+## E.1 Route A: Professional Valuation of Fungible Assets
+
+| **Field** | **Specification** |
+|:---|:---|
+| **Asset type** | Fungible assets: company equity, fund units, partnership interests |
+| **Assessment** | Independent professional assessment through competitive tender at the end of the assessment window, governed by the Valuation Code |
+| **Risk allocation** | Valuation risk sits with the valuator. A valuator whose assessment is overturned in independent review loses their entire engagement fee |
+| **Settlement** | Cash, or assets that have themselves been professionally valued. No self-declared assets may be used in settlement |
+| **Assessment window premium** | Deferral charge accrues on any unpaid balance from the assessment date. Flexibility levy applied at window end based on the window elected |
+| **Route D auction mechanism** | Not applicable. Where a valuator misprices, responsibility lies with the professional, not the taxpayer |
+| **Loss year treatment** | Negative delta generates a refund entitlement at the applicable marginal rate, subject to the lifetime contribution envelope |
+
+## E.2 Route B: Professional Valuation of Non-Fungible Assets
+
+| **Field** | **Specification** |
+|:---|:---|
+| **Asset type** | Non-fungible assets: art, jewellery, distinctive real estate, collectibles, and similar |
+| **Assessment** | Independent professional assessment through competitive tender at the end of the assessment window, governed by the Valuation Code |
+| **Risk allocation** | Valuation risk sits with the valuator |
+| **Settlement** | Cash or professionally valued assets. No self-declared assets in settlement. Deferred settlement available: where the taxpayer does not settle immediately, the liability accrues to a running deferred balance carrying the deferral charge, secured as a lien against the asset. Settlement is forced at every change of ownership |
+| **Lien rationale** | Route B carries a lien because periodic professional assessment generates real periodic liabilities that must remain collectable. Route D accrues no periodic liability and so requires no lien during the holding period |
+| **Assessment window premium** | As Route A |
+| **Route D auction mechanism** | Not applicable |
+| **Loss year treatment** | As Route A |
+
+## E.3 Route C: Self-Declaration of Fungible Assets
+
+| **Field** | **Specification** |
+|:---|:---|
+| **Asset type** | Fungible assets |
+| **Assessment** | Taxpayer declares own value with a brief methodology description at the end of the assessment window. No professional certification required |
+| **Risk allocation** | Valuation risk sits entirely with the taxpayer |
+| **Settlement** | In kind only. The WDT liability must be settled by transferring a proportional interest in the asset at the declared value. Cash settlement is not available on this route |
+| **Assessment window premium** | Flexibility levy applied at window end. Because Route C settles in kind, the deferral charge does not arise in the same way as on cash-settled routes; the must-transfer mechanism imposes its own timing consequences on the declared value |
+| **Route D auction mechanism** | Not applicable. Route C's must-transfer settlement creates continuous active self-correction through dilution; no auction backstop is needed or available on this route |
+| **Loss year treatment** | Negative delta generates a refund entitlement at the applicable marginal rate. Where the declared basis was understated, the refund is smaller than accurate declaration would have generated — see (VAL.A §C.6) |
+
+## E.4 Route D: Self-Declaration of Non-Fungible Assets
+
+| **Field** | **Specification** |
+|:---|:---|
+| **Asset type** | Non-fungible assets |
+| **Assessment** | No periodic formal assessment. No annual delta calculation. No liability accrues during the holding period. Annual reporting obligations continue throughout, serving fraud detection and ownership tracking |
+| **Risk allocation** | Taxpayer carries full valuation risk at the entry declaration. Entry basis is self-declared and grandfathered. No liability arises from the holding period between entry and realisation |
+| **Settlement** | At realisation only. WDT liability calculated as the marginal rate applied to the full gain from entry basis to realisation value. Payment in cash from proceeds of sale or from other liquid resources |
+| **Voluntary settlement** | Soft basis reset: taxpayer self-declares a current value and pays the WDT liability on the gain from entry basis to that value; basis resets. Hard basis reset: taxpayer commissions a public auction to establish market value; pays liability on gain from prior basis to the auction price; retains asset; auction price becomes new recognised basis |
+| **Symmetric refund** | Route D does not generate periodic liabilities during the holding period, so there is no periodic symmetric refund entitlement. Taxpayers who make voluntary periodic settlements build a contribution history that generates refund entitlements in the normal way. Where a soft basis reset has been made, the declared value serves as the basis for future refund calculations — an acknowledged gap |
+| **Assessment window** | Not applicable. Annual reporting continues. The effective assessment window is the full holding period from entry to realisation |
+| **Assessment window premium** | Not applicable |
+| **Route D auction mechanism** | Available for confirmed outlier entry declarations or egregious soft basis reset declarations, as specified in (GOV.B §G) |
+
+### E.4.1 Route D Event Table
+
+| **Event** | **Tax Trigger?** | **Basis Updated?** |
+|:---|:---|:---|
+| **Annual reporting** | No | No |
+| **Sale** | Yes | Yes |
+| **Soft basis reset** | Yes | Yes |
+| **Hard basis reset** | Yes | Yes |
+| **Inheritance** | Yes (mandatory auction) | Yes |
+| **Destruction without compensation** | No | No |
+
+\newpage
+
+# F. Annual Reporting Requirements {.appendix}
+
+Annual reporting obligations for all WDT taxpayers. Cross-reference: (VAL §12.1).
+
+## F.1 Taxpayer Annual Return
+
+Regardless of assessment window selected, taxpayers file an annual return specifying:
+
+- Total net worth broken down by asset category and valuation route
+- Estimated current values for all assets, with methodology description where self-declared
+- Material changes affecting value during the reporting year
+- Acquisitions and disposals, with dates and consideration
+- Significant financing events affecting net worth calculation
+- Changes in beneficial ownership of held assets
+- Outstanding deferred balance positions, reported alongside the asset declarations to which they relate
+
+## F.2 Third-Party Reporting
+
+Third-party reporting obligations apply to financial institutions, listed company registrars, and land registries. Reports are filed directly with the Valuation Authority and used to cross-check individual returns.
+
+The interaction between individual-level reporting and the corporate withholding model for listed shareholdings is addressed in (CORP). Where a corporate delta levy has been paid at the provisional rate on behalf of an individual shareholder, the individual's annual return carries a credit claim against the corporate settlement account.
+
+## F.3 Route D Asset Reporting
+
+For Route D assets held between entry and realisation, the annual report includes the asset's existence, its estimated current value, and any material changes affecting its condition or ownership. These reports do not generate liabilities or formal assessment events; they feed the public register, support fraud detection, and maintain the ownership trail.
+
+## F.4 Public Register Interaction
+
+Declared values in the annual return populate the public register at the appropriate tier, as specified in (VAL §9). Declared WDT values are visible to lenders, counterparties, courts, and other legal contexts through the register's tier-two public disclosure layer.

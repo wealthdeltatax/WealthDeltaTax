@@ -327,7 +327,7 @@ At T ≥ 50 the third row is arithmetically unreachable, because N ≥ T ≥ 50 
 
 Y = 30, N = 20, V = 50: condition one holds (20 < 50), condition two holds (30 > 20). Passes despite sixty percent non-participation.
 
-Y = 1, N = 29, V = 70: condition one holds (29 < 50), condition two fails (1 < 29). Fails; near-unanimous abstention does not manufacture a pass.
+Y = 1, N = 30, V = 70: condition one holds (29 < 50), condition two fails (1 < 29). Fails; near-unanimous abstention does not manufacture a pass.
 
 Y = 26, N = 25, V = 49: condition one holds (25 < 50), condition two holds (26 > 25). Passes on the narrowest possible margin.
 

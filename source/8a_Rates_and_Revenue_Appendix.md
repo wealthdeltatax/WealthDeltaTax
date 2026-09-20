@@ -96,7 +96,7 @@ The terminal sell year uses the return at position N+1 of the rotated series and
 
 The coverage metrics in (RATES.A §B.2) and (RATES.A §B.3) (and the sweep table's SSM and TCM coverage columns) answer a specific question: what fraction of government expenditure could have been replaced by WDT revenue during the capitalisation period? This is narrower than the headline revenue figures in (RATES §7).
 
-The capitalisation window runs from SRR fill to LRR fill: the years the WDT is operational, the refund guarantee is credible, and the LRR is accumulating toward its floor target. For the 2007 Balanced scenario this is year 3 to year 29, a span of 25 years. Coverage ratios are averages over this window, not point-in-time figures at LRR fill.
+The capitalisation window runs from SRR fill to LRR fill: the years the WDT is operational, the refund guarantee is credible, and the LRR is accumulating toward its floor target. For the 2000 Balanced scenario this is year 3 to year 19, a span of 16 years. Coverage ratios are averages over this window, not point-in-time figures at LRR fill.
 
 The SSM coverage ratio is average annual net SSM income over the capitalisation window divided by average annual government expenditure over the same window: 21.3% for the 2007 Balanced scenario. In years where the return series is negative or very low, net income falls sharply as refund outflows approach or exceed gross tax receipts, pulling the window average well below long-run revenue potential. The SSM coverage ratio is a floor under the most conservative assumptions about return correlation.
 
