@@ -50,52 +50,56 @@ website:
             href: wp.html
           - text: "Moral Foundations (MF)"
             href: mf.html
-          - text: "— Literature —"
+          - text: "— Prior Literature —"
           - text: "Research Gaps (LR.A)"
             href: lr-a.html
           - text: "Intellectual Background (LR.B)"
             href: lr-b.html
+          - text: "— Jurisdiction —"
           - text: "UK Jurisdiction (JUR)"
             href: jur.html
-          - text: "— Valuation —"
+          - text: "— Mechanism & Valuation —"
           - text: "Valuing Wealth (VAL)"
             href: val.html
           - text: "Corporate Architecture (CORP)"
             href: corp.html
           - text: "Constitutional Governance (GOV)"
             href: gov.html
-          - text: "— Revenue & Behaviour —"
+          - text: "— Revenue Modelling —"
           - text: "Rates and Revenue (RATES)"
             href: rates.html
           - text: "Parameter Sweeps (SWEEPS)"
             href: sweeps.html
+          - text: "— Robustness & Limits —"
           - text: "Behavioural Robustness (BEHAV)"
             href: behav.html
+          - text: "Falsification (FAL)"
+            href: fal.html
+          - text: "Scope and Boundaries (SCOPE)"
+            href: scope.html
+          - text: "— Welfare & Distribution —"
           - text: "Welfare (WFR)"
             href: wfr.html
-          - text: "— Implementation & Analysis —"
+          - text: "Labour Dividend Welfare (LDW)"
+            href: ldw.html
+          - text: "Environmental Effects (ENV)"
+            href: env.html
+          - text: "— Implementation —"
           - text: "Position Closure (CLOSE)"
             href: close.html
           - text: "Phase One (PHASE1)"
             href: phase1.html
+          - text: "— Political & Strategic —"
           - text: "Political Architecture (POL)"
             href: pol.html
-          - text: "Environmental Effects (ENV)"
-            href: env.html
           - text: "First Mover (FM)"
             href: fm.html
           - text: "Modular Adoption (MOD)"
             href: mod.html
           - text: "Institutional Selection (INST)"
             href: inst.html
-          - text: "Scope and Boundaries (SCOPE)"
-            href: scope.html
           - text: "Addendums (ADD)"
             href: add.html
-          - text: "Labour Dividend Welfare (LDW)"
-            href: ldw.html
-          - text: "Falsification (FAL)"
-            href: fal.html
       - text: "Avoidance"
         href: avoidance.html
       - text: "Tools"
@@ -131,21 +135,23 @@ website:
     style: "docked"
     collapse-level: 1
     contents:
-      - section: "Core Papers"
+      - section: "Core"
         contents:
           - text: "White Paper (WP)"
             href: wp.html
           - text: "Moral Foundations (MF)"
             href: mf.html
-      - section: "Literature"
+      - section: "Prior Literature"
         contents:
           - text: "Research Gaps (LR.A)"
             href: lr-a.html
           - text: "Intellectual Background (LR.B)"
             href: lr-b.html
+      - section: "Jurisdiction"
+        contents:
           - text: "UK Jurisdiction (JUR)"
             href: jur.html
-      - section: "Valuation"
+      - section: "Mechanism & Valuation"
         contents:
           - text: "Valuing Wealth (VAL)"
             href: val.html
@@ -153,8 +159,6 @@ website:
             href: val-a.html
           - text: "Worked Examples (VAL.B)"
             href: val-b.html
-      - section: "Corporate & Governance"
-        contents:
           - text: "Corporate Architecture (CORP)"
             href: corp.html
           - text: "Corporate Appendix (CORP.A)"
@@ -165,7 +169,7 @@ website:
             href: gov-a.html
           - text: "Operational Appendix (GOV.B)"
             href: gov-b.html
-      - section: "Revenue & Behaviour"
+      - section: "Revenue Modelling"
         contents:
           - text: "Rates and Revenue (RATES)"
             href: rates.html
@@ -175,40 +179,44 @@ website:
             href: sweeps.html
           - text: "Sweeps Appendix (SWEEPS.A)"
             href: sweeps-a.html
+      - section: "Robustness & Limits"
+        contents:
           - text: "Behavioural Robustness (BEHAV)"
             href: behav.html
           - text: "Behavioural Appendix (BEHAV.A)"
             href: behav-a.html
+          - text: "Falsification (FAL)"
+            href: fal.html
+          - text: "Scope and Boundaries (SCOPE)"
+            href: scope.html
+      - section: "Welfare & Distribution"
+        contents:
           - text: "Welfare (WFR)"
             href: wfr.html
           - text: "Welfare Appendix (WFR.A)"
             href: wfr-a.html
+          - text: "Labour Dividend Welfare (LDW)"
+            href: ldw.html
+          - text: "Environmental Effects (ENV)"
+            href: env.html
       - section: "Implementation"
         contents:
           - text: "Position Closure (CLOSE)"
             href: close.html
           - text: "Phase One (PHASE1)"
             href: phase1.html
-      - section: "Analysis"
+      - section: "Political & Strategic"
         contents:
           - text: "Political Architecture (POL)"
             href: pol.html
-          - text: "Environmental Effects (ENV)"
-            href: env.html
           - text: "First Mover (FM)"
             href: fm.html
           - text: "Modular Adoption (MOD)"
             href: mod.html
           - text: "Institutional Selection (INST)"
             href: inst.html
-          - text: "Scope Boundaries (SCOPE)"
-            href: scope.html
           - text: "Addendums (ADD)"
             href: add.html
-          - text: "Labour Dividend Welfare (LDW)"
-            href: ldw.html
-          - text: "Falsification (FAL)"
-            href: fal.html
 
   page-footer:
     left: "© K. Ogata. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)."

@@ -16,14 +16,15 @@ from config import AUTHOR, SITE_URL
 # ── Section ordering for the index table ─────────────────────────────────────
 
 SECTION_ORDER: list[tuple[str, list[str]]] = [
-    ("Core Papers",              ["WP", "MF"]),
-    ("Literature",               ["LR.A", "LR.B", "JUR"]),
-    ("Valuation",                ["VAL", "VAL.A", "VAL.B"]),
-    ("Corporate & Governance",   ["CORP", "CORP.A", "GOV", "GOV.A", "GOV.B"]),
-    ("Revenue & Behaviour",      ["RATES", "RATES.A", "SWEEPS", "SWEEPS.A", "BEHAV", "BEHAV.A", "WFR", "WFR.A"]),
+    ("Core",                     ["WP", "MF"]),
+    ("Prior Literature",         ["LR.A", "LR.B"]),
+    ("Jurisdiction",             ["JUR"]),
+    ("Mechanism & Valuation",    ["VAL", "VAL.A", "VAL.B", "CORP", "CORP.A", "GOV", "GOV.A", "GOV.B"]),
+    ("Revenue Modelling",        ["RATES", "RATES.A", "SWEEPS", "SWEEPS.A"]),
+    ("Robustness & Limits",      ["BEHAV", "BEHAV.A", "FAL", "SCOPE"]),
+    ("Welfare & Distribution",   ["WFR", "WFR.A", "LDW", "ENV"]),
     ("Implementation",           ["CLOSE", "PHASE1"]),
-    ("Analysis",                 ["POL", "ENV", "FM", "MOD"]),
-    ("Reference",                ["SCOPE", "ADD"]),
+    ("Political & Strategic",    ["POL", "FM", "MOD", "INST", "ADD"]),
 ]
 
 _STATUS_LABEL: dict[str, str] = {
