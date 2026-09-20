@@ -79,17 +79,17 @@
 - source: 18_Addendums.md
   output: add.qmd
 
-- source: 19_Welfare.md
+- source: 19_Taxpayer_Welfare.md
   output: wfr.qmd
 
-- source: 19a_Welfare_Appendix.md
+- source: 19a_Taxpayer_Welfare_Appendix.md
   output: wfr-a.qmd
 
 - source: 20_Institutional_Selection.md
   output: inst.qmd
 
 - source: 21_Labour_Dividend_Welfare.md
-  output: LDW.qmd
+  output: ldw.qmd
 
-- source: 22_Falsification.md
+- source: 22_Falsification_Hypotheses.md
   output: fal.qmd

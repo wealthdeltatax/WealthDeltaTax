@@ -1,5 +1,5 @@
 ---
-title: "The Wealth Delta Tax: Welfare Comparison Appendix Tables"
+title: "The Wealth Delta Tax: Taxpayer Welfare Comparison Appendix Tables"
 shortcode: "WFR.A"
 status: "draft"
 keywords:
