@@ -52,6 +52,9 @@
 - source: 10_Behavioural_Robustness_and_Administrative_Experience.md
   output: behav.qmd
 
+- source: 10a_Behavioural_Robustness_and_Administrative_Experience_Appendix.md
+  output: behav-a.qmd
+
 - source: 11_Position_Closure.md
   output: close.qmd
 
@@ -84,3 +87,9 @@
 
 - source: 20_Institutional_Selection.md
   output: inst.qmd
+
+- source: 21_Labour_Dividend_Welfare.md
+  output: LDW.qmd
+
+- source: 22_Falsification.md
+  output: fal.qmd

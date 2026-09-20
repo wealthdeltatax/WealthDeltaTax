@@ -44,6 +44,8 @@ description: "Full citation list for the Wealth Delta Tax working paper series. 
 
 [BEHAV] Ogata, K. (2026). *The Wealth Delta Tax: Behavioural Robustness and Administrative Experience*. Zenodo. https://zenodo.org/records/21964119/files/10.0_260815_WDT_Behavioural_Robustness_and_Administrative_Experience.pdf?download=1
 
+[BEHAV.A] Ogata, K. (2026). *The Wealth Delta Tax: Behavioural Robustness and Administrative Experience*. Unpublished.
+
 [CLOSE] Ogata, K. (2026). *The Wealth Delta Tax: Position Closure*. Zenodo. https://zenodo.org/records/21964119/files/11.0_260814_WDT_Position_Closure.pdf?download=1
 
 [POL] Ogata, K. (2026). *The Wealth Delta Tax: Political Architecture*. Zenodo. https://zenodo.org/records/21964119/files/12.0_260815_WDT_Political_Architecture.pdf?download=1

@@ -1,0 +1,312 @@
+<!-- WDT Labour Dividend Welfare Calculator — body fragment.
+     No <!DOCTYPE>, no <html>/<head>/<body> shell, no .wdt-tool-header,
+     no .wdt-tool-panel / .wdt-tool-inner.
+     Embedded into a Quarto page by pipeline/tools.py.
+     CSS comes from the global site theme (tools.css, styles.css).
+     The Pyodide <script src> sits here in the body — browsers handle it fine.
+     Source logic: ldw_core.py (ldw_calc function). -->
+
+<div id="loading">
+  <h2>Initialising Python runtime…</h2>
+  <div id="progress-bar-wrap"><div id="progress-bar"></div></div>
+  <div id="progress-label">Loading Pyodide…</div>
+  <div id="error-msg"></div>
+</div>
+
+<div id="main" style="display:none">
+
+  <div class="controls">
+
+    <div class="control-group">
+      <label>Gross annual salary</label>
+      <div class="slider-row">
+        <input type="range" id="salary-slider" min="10000" max="200000" step="500" value="39039">
+        <span class="val" id="salary-display">£39,039</span>
+      </div>
+      <span class="note">2025/26 tax rates · £10,000 – £200,000</span>
+    </div>
+
+    <div class="control-group">
+      <label>VAT-able share of post-tax spend</label>
+      <div class="slider-row">
+        <input type="range" id="vat-frac-slider" min="0.20" max="0.90" step="0.01" value="0.55">
+        <span class="val" id="vat-frac-display">55%</span>
+      </div>
+      <span class="note">Illustrative — share of spending subject to standard-rate VAT</span>
+    </div>
+
+    <div class="control-group">
+      <label>Energy bill reduction (SWF)</label>
+      <div class="slider-row">
+        <input type="range" id="energy-red-slider" min="0.00" max="0.80" step="0.01" value="0.30">
+        <span class="val" id="energy-red-display">30%</span>
+      </div>
+      <span class="note">Illustrative SWF infrastructure reduction from £1,755 Ofgem baseline</span>
+    </div>
+
+  </div><!-- /controls -->
+
+  <div style="display:flex;align-items:center;margin-top:1rem;">
+    <button id="run-btn" onclick="runCalc()">▶ Calculate</button>
+    <span class="running-msg" id="running-msg">Calculating…</span>
+  </div>
+
+  <!-- Top summary: three key numbers -->
+  <div class="summary-boxes" id="summary-boxes" style="display:none">
+    <div class="box">
+      <div class="box-label">Current take-home</div>
+      <div class="box-val" id="box-current">—</div>
+      <div class="box-sub">after income tax &amp; employee NICs</div>
+    </div>
+    <div class="box">
+      <div class="box-label">Post-WDT take-home</div>
+      <div class="box-val" id="box-wdt">—</div>
+      <div class="box-sub">gross salary retained in full</div>
+    </div>
+    <div class="box">
+      <div class="box-label">Purchasing power equivalent</div>
+      <div class="box-val" id="box-pp">—</div>
+      <div class="box-sub">in today's £ — all four channels</div>
+    </div>
+    <div class="box">
+      <div class="box-label">Purchasing power gain</div>
+      <div class="box-val" id="box-pp-pct">—</div>
+      <div class="box-sub">vs current take-home</div>
+    </div>
+  </div>
+
+  <!-- Channel breakdown: payslip detail -->
+  <div class="breakdown-section" id="breakdown-section" style="display:none">
+
+    <h3>Payslip comparison</h3>
+    <table id="payslip-table"></table>
+
+    <h3 style="margin-top:1.5rem">Purchasing power gain — all channels</h3>
+    <p class="cite-note" id="pp-subtitle"></p>
+    <table id="pp-table"></table>
+
+    <!-- Employer saving -->
+    <div class="swf-section" style="margin-top:1.5rem">
+      <h3>Employer cost</h3>
+      <div class="swf-grid" id="employer-grid"></div>
+    </div>
+
+  </div>
+
+  <!-- Comparison chart: WDT vs current tax take at this salary -->
+  <div class="comparison-section" id="comparison-section" style="display:none">
+    <h3>Tax take at this salary — current vs WDT</h3>
+    <p class="cite-note">
+      Current system: 2025/26 income tax schedule and NIC rates.
+      WDT assumes full labour tax displacement (income tax and employee NICs removed).
+      Employer NICs also removed under WDT, reducing total employment cost.
+    </p>
+    <div class="bar-chart" id="bar-chart"></div>
+  </div>
+
+</div><!-- /main -->
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.5/full/pyodide.js"></script>
+<script>
+// ── Progress / error helpers ───────────────────────────────────────────────
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = label;
+}
+function showError(msg) {
+  const el = document.getElementById('error-msg');
+  el.textContent = msg; el.style.display = 'block';
+}
+
+// ── Slider bindings ────────────────────────────────────────────────────────
+const salarySlider   = document.getElementById('salary-slider');
+const vatFracSlider  = document.getElementById('vat-frac-slider');
+const energyRedSlider= document.getElementById('energy-red-slider');
+
+function fmtSalary(v) {
+  return '£' + parseInt(v).toLocaleString('en-GB');
+}
+
+salarySlider.addEventListener('input',    () => {
+  document.getElementById('salary-display').textContent    = fmtSalary(salarySlider.value);
+});
+vatFracSlider.addEventListener('input',   () => {
+  document.getElementById('vat-frac-display').textContent  = Math.round(parseFloat(vatFracSlider.value) * 100) + '%';
+});
+energyRedSlider.addEventListener('input', () => {
+  document.getElementById('energy-red-display').textContent= Math.round(parseFloat(energyRedSlider.value) * 100) + '%';
+});
+
+// ── Pyodide bootstrap ──────────────────────────────────────────────────────
+let pyodide = null;
+let pyReady = false;
+
+async function initPyodide() {
+  try {
+    setProgress(5, 'Loading Pyodide runtime (first load ~10s, cached thereafter)…');
+    pyodide = await loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.27.5/full/' });
+    setProgress(50, 'Runtime loaded. Fetching LDW core…');
+
+    const ldwText = await fetch('ldw_core.py').then(r => {
+      if (!r.ok) throw new Error('ldw_core.py not found');
+      return r.text();
+    });
+
+    setProgress(75, 'Writing files to virtual filesystem…');
+    pyodide.FS.writeFile('/ldw_core.py', ldwText);
+
+    setProgress(85, 'Importing LDW module…');
+    await pyodide.runPythonAsync(`
+import sys
+sys.path.insert(0, '/')
+from ldw_core import ldw_calc
+`);
+
+    setProgress(100, 'Ready.');
+    pyReady = true;
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('main').style.display    = 'block';
+  } catch (err) {
+    setProgress(0, 'Failed.');
+    showError('Error: ' + err.message);
+    console.error(err);
+  }
+}
+
+// ── Calculation ────────────────────────────────────────────────────────────
+async function runCalc() {
+  if (!pyReady) return;
+  const btn = document.getElementById('run-btn');
+  const msg = document.getElementById('running-msg');
+  btn.disabled = true; msg.style.display = 'inline';
+
+  const salary    = parseInt(salarySlider.value);
+  const vatFrac   = parseFloat(vatFracSlider.value);
+  const energyRed = parseFloat(energyRedSlider.value);
+
+  try {
+    const pyCode = `
+import json
+# Override module-level assumptions before calling
+import ldw_core as _lc
+_lc.VAT_SPEND_FRACTION = ${vatFrac}
+_lc.ENERGY_REDUCTION   = ${energyRed}
+r = ldw_calc(${salary})
+json.dumps(r)
+`;
+    const jsonStr = await pyodide.runPythonAsync(pyCode);
+    renderResults(JSON.parse(jsonStr));
+  } catch (err) {
+    alert('Calculation error: ' + err.message);
+    console.error(err);
+  }
+  btn.disabled = false; msg.style.display = 'none';
+}
+
+// ── Formatting helpers ─────────────────────────────────────────────────────
+function fmtGbp(v)    { return '£' + Math.round(v).toLocaleString('en-GB'); }
+function fmtGbpMon(v) { return '£' + Math.round(v).toLocaleString('en-GB') + '/mo'; }
+function fmtPct(v)    { return Math.round(v * 100) + '%'; }
+function fmtPctDec(v) { return (v * 100).toFixed(1) + '%'; }
+
+function makeTable(headers, rows, totalRow) {
+  const thead = `<thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>`;
+  const tbody = `<tbody>
+    ${rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}
+    ${totalRow ? `<tr class="total-row">${totalRow.map(c => `<td>${c}</td>`).join('')}</tr>` : ''}
+  </tbody>`;
+  return `<table>${thead}${tbody}</table>`;
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function renderResults(d) {
+  // Summary boxes
+  document.getElementById('summary-boxes').style.display = 'grid';
+  document.getElementById('box-current').textContent = fmtGbp(d.take_home_current);
+  document.getElementById('box-wdt').textContent     = fmtGbp(d.take_home_wdt);
+  document.getElementById('box-pp').textContent      = '~' + fmtGbp(d.purchasing_power_equiv);
+  document.getElementById('box-pp-pct').textContent  = '+' + fmtPctDec(d.pp_increase_pct);
+
+  // Breakdown section
+  document.getElementById('breakdown-section').style.display = 'block';
+
+  // Payslip table
+  const payslipRows = [
+    ['Gross salary',           fmtGbp(d.salary),           fmtGbp(d.salary)],
+    ['Income tax',             '−' + fmtGbp(d.income_tax), '£0 (removed)'],
+    ['Employee NICs',          '−' + fmtGbp(d.employee_nics), '£0 (removed)'],
+  ];
+  const payslipTotal = ['<strong>Take-home</strong>',
+                         `<strong>${fmtGbp(d.take_home_current)}</strong>`,
+                         `<strong>${fmtGbp(d.take_home_wdt)}</strong>`];
+  document.getElementById('payslip-table').outerHTML =
+    makeTable(['Item', 'Current system', 'Post-WDT'], payslipRows, payslipTotal)
+      .replace('<table>', '<table id="payslip-table">');
+
+  // PP subtitle
+  document.getElementById('pp-subtitle').textContent =
+    `Salary: ${fmtGbp(d.salary)} · VAT-able share: ${fmtPct(d.salary > 0 ? d.vat_gain_annual / (d.take_home_wdt * 0.20 / 1.20) : 0.55)} · ` +
+    `Energy baseline: £1,755 · VAT saving uses r/(1+r) formula on VAT-able post-tax spend`;
+
+  // PP table
+  const eeNicMon = d.employee_nics / 12;
+  const itMon    = d.income_tax / 12;
+  const ppRows = [
+    ['Employee NICs removal',       fmtGbp(d.employee_nics),    fmtGbpMon(eeNicMon),  'Arithmetic — verified'],
+    ['Income tax removal',          fmtGbp(d.income_tax),       fmtGbpMon(itMon),     'Full displacement scenario'],
+    ['VAT displacement',            fmtGbp(d.vat_gain_annual),  fmtGbpMon(d.vat_gain_monthly), 'r/(1+r) on VAT-able spend'],
+    ['Energy bill reduction (SWF)', fmtGbp(d.energy_gain_annual), fmtGbpMon(d.energy_gain_monthly), 'Illustrative — SWF infrastructure'],
+  ];
+  const ppTotal = [
+    '<strong>Total gain</strong>',
+    `<strong>${fmtGbp(d.total_gain_annual)}</strong>`,
+    `<strong>${fmtGbpMon(d.total_gain_monthly)}</strong>`,
+    '',
+  ];
+  document.getElementById('pp-table').outerHTML =
+    makeTable(['Channel', 'Annual gain', 'Monthly gain', 'Basis'], ppRows, ppTotal)
+      .replace('<table>', '<table id="pp-table">');
+
+  // Employer grid
+  document.getElementById('employer-grid').innerHTML = `
+    <div class="swf-box">
+      <div class="swf-lbl">Current total employment cost</div>
+      <div class="swf-val">${fmtGbp(d.total_employment_cost)}/yr</div>
+    </div>
+    <div class="swf-box">
+      <div class="swf-lbl">Employer NICs (removed under WDT)</div>
+      <div class="swf-val">${fmtGbp(d.employer_nics)}/yr</div>
+    </div>
+    <div class="swf-box">
+      <div class="swf-lbl">Post-WDT employment cost</div>
+      <div class="swf-val">${fmtGbp(d.salary)}/yr</div>
+    </div>
+    <div class="swf-box">
+      <div class="swf-lbl">Employer annual saving</div>
+      <div class="swf-val">${fmtGbp(d.employer_saving_annual)}/yr</div>
+    </div>`;
+
+  // Bar chart comparison
+  document.getElementById('comparison-section').style.display = 'block';
+  const bars = [
+    { label: 'Income tax',           amount: d.income_tax,     cls: 'hmrc' },
+    { label: 'Employee NICs',        amount: d.employee_nics,  cls: 'hmrc' },
+    { label: 'Employer NICs',        amount: d.employer_nics,  cls: 'hmrc' },
+    { label: 'WDT — all labour tax', amount: 0,                cls: 'wdt-avg', note: '(zero)' },
+  ];
+  const maxAmt = Math.max(...bars.map(b => b.amount), 1);
+  document.getElementById('bar-chart').innerHTML = bars.map(b => {
+    const pct = (b.amount / maxAmt * 100).toFixed(1);
+    const label = b.amount === 0 ? '£0' : fmtGbp(b.amount);
+    return `<div class="bar-row">
+      <span class="bar-label">${b.label}</span>
+      <div class="bar-track">
+        <div class="bar-fill ${b.cls}" style="width:${Math.max(pct, b.amount === 0 ? 0 : 2)}%"></div>
+      </div>
+      <span class="bar-amount">${label}</span>
+    </div>`;
+  }).join('');
+}
+
+initPyodide();
+</script>

@@ -602,21 +602,18 @@
       "id": "BEHAV",
       "shortcode": "BEHAV",
       "title": "The Wealth Delta Tax: Behavioural Robustness and Administrative Experience",
-      "version": "1.01",
-      "version_date": "260914",
+      "version": "2.00",
+      "version_date": "261001",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AgrawalEtAl2025__BEHAV",
-        "GarbintiEtAl2026__BEHAV",
         "Gangl2015a__BEHAV",
-        "IacononoSmedsvik2024__BEHAV",
         "Kirchler2007__BEHAV",
-        "KlevenEtAl2011__BEHAV",
-        "KlevenEtAl2024__BEHAV",
         "LondonoVelezAvilaMahecha2025__BEHAV",
         "Tyler1990__BEHAV"
       ],
       "outbound_internal": [
+        "BEHAV.A",
         "CLOSE"
       ],
       "inbound_internal": [
@@ -629,7 +626,27 @@
         "BEHAV-4"
       ],
       "flag_ids": [],
-      "notes": "v1.01 (260914): abstract updated to reference tolerant zone as bounding the enforcement claim; §8.11 reframed — Route D enforcement residual characterised as egregious-understatement tail, not general valuation problem, referencing VAL §7.1 tolerant zone (α ≈ 0.8–1.5) and updated equilibrium framing (α ≈ 1.1 as conditional prediction, not dominant strategy); §8.12 extended — tolerant zone substantially reduces enforcement problem for non-egregious declaration range; §9.2 new sub-section noting WDT is not a stock wealth tax and Agrawal ratio calibrated to structurally different systems (directional risk retained, magnitude uncertain); §6.3 new paragraph on SWEEPS parameter separability as structural contribution to Clarity and Fairness membrane dimensions."
+      "notes": "v2.00: restructured for length. Supporting material relocated to BEHAV.A companion paper: full route distribution asset-class walkthrough (formerly §8.12–§8.13), membrane calcification monitoring architecture (formerly §10), seven-part Agrawal externality response (formerly §9.2 body), secondary objections (§9.3–§9.5), membrane examples (formerly Appendix A). GarbintiEtAl2026, IacononoSmedsvik2024, KlevenEtAl2011, KlevenEtAl2024 removed from outbound citations: these were pre-registered for planned use but are not cited in either BEHAV or BEHAV.A as restructured. KlevenEtAl2024 was prose-referenced in v1 §2.1 but that passage was compressed; GarbintiEtAl2026 and IacononoSmedsvik2024 were planned §4–§7 citations not incorporated; KlevenEtAl2011 was a §2.2 pre-registration not incorporated. All four remain in references.bib and are cited by other papers."
+    },
+    {
+      "id": "BEHAV.A",
+      "shortcode": "BEHAV.A",
+      "title": "The Wealth Delta Tax: Behavioural Robustness — Supporting Analysis",
+      "version": "1.00",
+      "version_date": "261001",
+      "status": "active",
+      "outbound_ext_citation_ids": [
+        "AgrawalEtAl2025__BEHAV.A"
+      ],
+      "outbound_internal": [
+        "BEHAV"
+      ],
+      "inbound_internal": [
+        "BEHAV"
+      ],
+      "open_question_ids": [],
+      "flag_ids": [],
+      "notes": "Appendix companion to BEHAV. Contains: §A route distribution full asset-class walkthrough; §B membrane calcification monitoring architecture; §C membrane institutional examples; §D seven-part cross-base externality response (AgrawalEtAl2025). One external citation: AgrawalEtAl2025 (@-cited in §D)."
     },
     {
       "id": "CLOSE",
@@ -1144,7 +1161,7 @@
         "2.1",
         "9.2"
       ],
-      "notes": null
+      "notes": "v2.00: §9.2 cite retained in BEHAV (compressed Agrawal response); full seven-part response relocated to BEHAV.A §D (see AgrawalEtAl2025__BEHAV.A)."
     },
     {
       "id": "AgrawalEtAl2025__CLOSE",
@@ -1883,17 +1900,6 @@
       "notes": "Information disclosure requirements dominate rate elasticities by factor of ten; mandatory third-party reporting is critical design variable"
     },
     {
-      "id": "GarbintiEtAl2026__BEHAV",
-      "ref_id": "GarbintiEtAl2026",
-      "paper_id": "BEHAV",
-      "relationship": "in_text",
-      "sections": [
-        "4",
-        "5"
-      ],
-      "notes": "Evasion enabled by reduced disclosure; compliance architecture implications"
-    },
-    {
       "id": "GarbintiEtAl2026__WP",
       "ref_id": "GarbintiEtAl2026",
       "paper_id": "WP",
@@ -2165,18 +2171,6 @@
         "2.11"
       ],
       "notes": "Derivation authority for 4.51% p.a. figure"
-    },
-    {
-      "id": "IacononoSmedsvik2024__BEHAV",
-      "ref_id": "IacononoSmedsvik2024",
-      "paper_id": "BEHAV",
-      "relationship": "in_text",
-      "sections": [
-        "5",
-        "6",
-        "7"
-      ],
-      "notes": "Intensive-margin elasticity of taxable wealth: 60–67% increase per 1 pp rate cut; Norway Bø municipal reform 2021; top ~10% of wealth distribution"
     },
     {
       "id": "IacononoSmedsvik2024__RATES",
@@ -2486,33 +2480,12 @@
       "notes": null
     },
     {
-      "id": "KlevenEtAl2011__BEHAV",
-      "ref_id": "KlevenEtAl2011",
-      "paper_id": "BEHAV",
-      "relationship": "in_text",
-      "sections": [
-        "2.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "KlevenEtAl2011__LRB",
       "ref_id": "KlevenEtAl2011",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "10"
-      ],
-      "notes": null
-    },
-    {
-      "id": "KlevenEtAl2024__BEHAV",
-      "ref_id": "KlevenEtAl2024",
-      "paper_id": "BEHAV",
-      "relationship": "in_text",
-      "sections": [
-        "2.1",
-        "8.7"
       ],
       "notes": null
     },
@@ -2654,10 +2627,9 @@
       "paper_id": "BEHAV",
       "relationship": "in_text",
       "sections": [
-        "2.1",
-        "9.2"
+        "2.1"
       ],
-      "notes": "Flag 3 closed 2026-09-18: citation updated to journal form (Review of Economic Studies 92(4), 2624-2655)."
+      "notes": "v2.00: §9.2 removed from sections — that citation was in the detailed Agrawal response which moved to BEHAV.A §D; only §2.1 in-text cite remains in BEHAV."
     },
     {
       "id": "LondonoVelezAvilaMahecha2025__LRB",
@@ -4367,6 +4339,16 @@
         "6.4"
       ],
       "notes": "Empirical evidence: Chinese business elites prefer IPI in exchange for taxation. Open access. Directly relevant to INST two-constituency mechanism. Verified 2026-09-18."
+    },
+    {
+      "id": "AgrawalEtAl2025__BEHAV.A",
+      "ref_id": "AgrawalEtAl2025",
+      "paper_id": "BEHAV.A",
+      "relationship": "in_text",
+      "sections": [
+        "D"
+      ],
+      "notes": "Primary citation in §D (cross-base externality full response). Also referenced throughout §D prose."
     }
   ],
   "flags": [
@@ -4581,6 +4563,25 @@
       "description": "Paper scan (260918): LR.B body contains @CnossenBovenberg2001, @Hasen2017, and @ToderViard2016 as @-citations but none appeared in internal.json. All three confirmed in §3. Citation records added with section confirmed by author (260918). Outbound_ext_citation_ids updated. Flag remains open until sections are recorded in citation records below.",
       "action_required": "",
       "resolved_date": "260918"
+    },
+    {
+      "id": "flag_34",
+      "number": 34,
+      "status": "closed",
+      "affects_papers": [
+        "BEHAV",
+        "BEHAV.A"
+      ],
+      "affects_refs": [
+        "GarbintiEtAl2026",
+        "IacononoSmedsvik2024",
+        "KlevenEtAl2011",
+        "KlevenEtAl2024"
+      ],
+      "type": "citation_format",
+      "description": "BEHAV restructured to v2.00 (companion paper BEHAV.A created). Four citation records removed from BEHAV: GarbintiEtAl2026 (pre-registered §4–§5, not incorporated); IacononoSmedsvik2024 (pre-registered §5–§7, not incorporated); KlevenEtAl2011 (pre-registered §2.2, not incorporated); KlevenEtAl2024 (prose-cited in v1 §2.1 as 'Kleven and colleagues (2024)' — passage compressed and attribution removed in v2.00 restructure). All four refs remain in references.bib and are cited by other papers (GarbintiEtAl2026: VAL, WP, WFR; IacononoSmedsvik2024: RATES; KlevenEtAl2011: LRB; KlevenEtAl2024: POL, LRA, ENV, LRB). LondonoVelezAvilaMahecha2025__BEHAV sections updated from ['2.1','9.2'] to ['2.1']: §9.2 detailed response relocated to BEHAV.A §D. AgrawalEtAl2025__BEHAV.A record added (sections: ['D']).",
+      "action_required": "",
+      "resolved_date": "261001"
     }
   ]
 }

@@ -7,6 +7,7 @@ project:
   resources:
     - model/wdt_core.py
     - model/rates_model.py
+    - model/ldw_core.py
     - model/WDT_Params.toml
     - diagrams/
 
@@ -42,9 +43,9 @@ website:
       - text: "Project Map"
         href: Project-Map.html
       - text: "Papers"
+        href: corpus.html
         menu:
           - text: "— Core —"
-            href: corpus.html
           - text: "White Paper (WP)"
             href: wp.html
           - text: "Moral Foundations (MF)"
@@ -91,15 +92,24 @@ website:
             href: scope.html
           - text: "Addendums (ADD)"
             href: add.html
-          - text: "---"
-          - text: "All Papers Index"
-            href: corpus.html
+          - text: "Labour Dividend Welfare (LDW)"
+            href: ldw.html
+          - text: "Falsification (FAL)"
+            href: fal.html
       - text: "Avoidance"
         href: avoidance.html
       - text: "Tools"
         menu:
           - text: "Calculators"
             href: calculator_index.html
+          - text: "— Calculators —"
+          - text: "Taxpayer Calculator"
+            href: model/taxpayer.html
+          - text: "National Revenue Calculator"
+            href: model/revenue.html
+          - text: "Labour Dividend Calculator"
+            href: model/ldw.html
+          - text: "— Other —"
           - text: "Flowcharts"
             href: flowcharts.html
           - text: "Link Map"
@@ -167,6 +177,8 @@ website:
             href: sweeps-a.html
           - text: "Behavioural Robustness (BEHAV)"
             href: behav.html
+          - text: "Behavioural Appendix (BEHAV.A)"
+            href: behav-a.html
           - text: "Welfare (WFR)"
             href: wfr.html
           - text: "Welfare Appendix (WFR.A)"
@@ -193,6 +205,10 @@ website:
             href: scope.html
           - text: "Addendums (ADD)"
             href: add.html
+          - text: "Labour Dividend Welfare (LDW)"
+            href: ldw.html
+          - text: "Falsification (FAL)"
+            href: fal.html
 
   page-footer:
     left: "© K. Ogata. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)."

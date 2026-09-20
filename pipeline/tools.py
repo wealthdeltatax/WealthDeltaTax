@@ -16,8 +16,9 @@ Calculator fragments (site/tools/*_calc.html) are pure HTML body content:
   - CSS classes come from the global site theme (tools.css, styles.css)
 
 The Pyodide fetch() calls inside each fragment use bare filenames
-('wdt_core.py', 'WDT_Params.toml').  These resolve correctly because
-the runtime files are deployed alongside the rendered pages in _site/model/.
+('wdt_core.py', 'ldw_core.py', 'WDT_Params.toml').  These resolve correctly
+because the runtime files are deployed alongside the rendered pages in
+_site/model/.
 """
 
 from __future__ import annotations
@@ -57,6 +58,19 @@ TOOLS: list[dict] = [
             "Aggregate WDT revenue modelled across the full UK taxable wealth "
             "distribution (Taxpayer Cohort Model). Four return tiers "
             "(Fagereng et al. 2020). UK equity return series 1947–2019."
+        ),
+    },
+    {
+        "source":      "ldw_calc.html",
+        "output":      "ldw",
+        "title":       "WDT — Labour Dividend Welfare Calculator",
+        "description": (
+            "Purchasing power gain for a given salary under a mature WDT. "
+            "Models full labour tax displacement (income tax and employee NICs), "
+            "VAT displacement, and SWF energy bill reduction. "
+            "Employer NICs displacement shown separately. "
+            "2025/26 tax rates; VAT and energy figures are illustrative. "
+            "Source: LDW paper §2.2 and §4.4."
         ),
     },
 ]
