@@ -43,8 +43,9 @@ website:
       - text: "Project Map"
         href: Project-Map.html
       - text: "Papers"
-        href: corpus.html
         menu:
+          - text: All Papers
+            href: corpus.html
           - text: "— Core —"
           - text: "White Paper (WP)"
             href: wp.html
