@@ -1,8 +1,9 @@
 ---
 title: "WDT Project Map"
 description: "**Last updated:** 13 September 2026  
-**Papers covered:** (WP), (MF), (LR.A), (LR.B), (JUR), (VAL), (VAL.A), (VAL.B), (CORP), (CORP.A), (GOV), (GOV.A), (GOV.B), (RATES), (RATES.A), (SWEEPS), (SWEEPS.A), (WFR), (WFR.A), (BEHAV), (CLOSE), (POL), (PHASE1), (ENV), (FM), (MOD), (SCOPE), (ADD)  
-**Papers not yet in project:** *None*"
+**Papers covered:** (WP), (MF), (LR.A), (LR.B), (JUR), (VAL), (VAL.A), (VAL.B), (CORP), (CORP.A), (GOV), (GOV.A), (GOV.B), (RATES), (RATES.A), (SWEEPS), (SWEEPS.A), (WFR), (WFR.A), (BEHAV), (BEHAV.A), (CLOSE), (POL), (PHASE1), (ENV), (FM), (MOD), (SCOPE), (ADD), (LDW), (INST), (FAL) 
+**Papers not yet in project:** *None*
+**Papers not yet in Project Map** (LDW), (INST), (BEHAVE.A), (FAL)
 author: "K. Ogata"
 ---
 
