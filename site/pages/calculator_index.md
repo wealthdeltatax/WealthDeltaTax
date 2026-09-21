@@ -1,6 +1,6 @@
 ---
 title: "WDT — Interactive Calculators"
-description: "Computational tools for exploring the Wealth Delta Tax mechanism. All calculators load their model code directly from the research codebase. Parameters are read from `WDT_Params.toml`. No server-side computation — all model code runs locally via [Pyodide](https://pyodide.org). The first load takes around 10 seconds to initialise the runtime; subsequent calculations are fast.
+description: "Computational tools for exploring the Wealth Delta Tax mechanism. All calculators load their model code directly from the research codebase. Parameters are read from `WDT_Params.toml`. No server-side computation — all model code runs locally via [Pyodide](https://pyodide.org). The first load takes around 10 seconds to initialise the runtime; subsequent calculations are fast."
 toc: false
 ---
 
