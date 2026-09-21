@@ -83,13 +83,13 @@ These six items are settled in kind — the WDT specifies what each parameter do
 
 **#10 — SWF governance Phase One parameters.** (GOV.B §A.3.4) specifies the DR floor size, constituency dissolution trigger values, and the DR Phase Two scale problem as parameters requiring Phase One data.
 
-**#17 — τ₀ × W_min joint surface.** (SWEEPS §7.1) and SWEEPS.A identify this as the primary cross-dataset tension and the only item in this group resolvable without Phase One data, requiring a second-order sweep extension.
+**#17 — $\tau_0$ × $W_{min}$ joint surface.** (SWEEPS §7.1) and SWEEPS.A identify this as the primary cross-dataset tension and the only item in this group resolvable without Phase One data, requiring a second-order sweep extension.
 
 **#19 — Liquidity threshold for thinly traded companies.** (CORP §4.1) specifies the threshold's function and the trade-offs that govern its calibration; the value is a Phase One parameter.
 
-**#20 — τ₀ exact calibration.** (CORP.A §B.1) specifies the collection-security floor logic; the value is expected to require one to two cycles of Phase One observation.
+**#20 — $\tau_0$ exact calibration.** (CORP.A §B.1) specifies the collection-security floor logic; the value is expected to require one to two cycles of Phase One observation.
 
-**#21 — τ_h exact calibration.** (CORP.A §B.2) specifies the deterrence-floor-to-τ_m range and the joint calibration with CIT/dividend displacement; the value is expected to require three to five cycles.
+**#21 — $\tau_h$ exact calibration.** (CORP.A §B.2) specifies the deterrence-floor-to-$\tau_m$ range and the joint calibration with CIT/dividend displacement; the value is expected to require three to five cycles.
 
 **#24 — Assessment window premium exact calibration.** (VAL §8) and (RATES §4) specify the premium's function; its calibration awaits Phase One adoption distribution data (see also #13).
 
@@ -97,7 +97,7 @@ These six items are settled in kind — the WDT specifies what each parameter do
 
 These six items are not design gaps. The project has specified the relevant mechanisms in principle; resolution depends on legal analysis, diplomatic process, or institutional negotiation specific to a jurisdiction. JUR provides the reference jurisdiction architecture; it does not close these items.
 
-**#22 — τ_f diplomatic rate-setting.** The foreign-owner rate τ_f is set by bilateral or multilateral agreement. CORP.A §F specifies the rate's function and the negotiating frame; the rate itself is not a WDT design parameter.
+**#22 — $\tau_f$ diplomatic rate-setting.** The foreign-owner rate $\tau_f$ is set by bilateral or multilateral agreement. CORP.A §F specifies the rate's function and the negotiating frame; the rate itself is not a WDT design parameter.
 
 **#23 — Route D auction implementation details.** The conduct rules for the Route D enforcement auction at implementation level are specified in principle in GOV.B §G. Jurisdiction-specific implementation requires legal drafting.
 

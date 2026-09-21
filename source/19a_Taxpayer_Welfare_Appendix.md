@@ -39,7 +39,7 @@ Income Tax and CGT show identical CEW and identical revenue-equivalent rates thr
 
 ## A.2 Variance of Consumption by System (γ=2)
 
-Variance of consumption across return states at revenue-equivalent rates. Lower variance indicates greater risk-sharing. The Domar-Musgrave prediction is Var(C_sym) = (1−τ)² × Var(C_notax); confirmation at A.4 below.
+Variance of consumption across return states at revenue-equivalent rates. Lower variance indicates greater risk-sharing. The Domar-Musgrave prediction is Var(C_sym) = (1−$\tau$)² × Var(C_notax); confirmation at A.4 below.
 
 | System | Ver. A Var(C) | Ver. B Var(C) |
 |:---|---:|---:|
@@ -51,9 +51,9 @@ Variance of consumption across return states at revenue-equivalent rates. Lower 
 
 ## A.3 Revenue-Equivalent Tax Rates (γ=2)
 
-Rate τ\* such that E[T(W₀, dist, τ\*)] = target. Rates differ across systems because tax bases differ. Stock wealth and consumption taxes require low rates (broad base); income tax and CGT require higher rates (gains only, no collection in loss states).
+Rate $\tau$\* such that E[T(W₀, dist, $\tau$\*)] = target. Rates differ across systems because tax bases differ. Stock wealth and consumption taxes require low rates (broad base); income tax and CGT require higher rates (gains only, no collection in loss states).
 
-| System | Ver. A rate (τ*) | Ver. B rate (τ*) |
+| System | Ver. A rate ($\tau$*) | Ver. B rate ($\tau$*) |
 |:---|---:|---:|
 | Symmetric WDT | 33.404% | 33.404% |
 | Stock Wealth Tax | 1.887% | 1.887% |
@@ -63,9 +63,9 @@ Rate τ\* such that E[T(W₀, dist, τ\*)] = target. Rates differ across systems
 
 ## A.4 Domar-Musgrave Test: Symmetric WDT
 
-The Domar-Musgrave prediction is Var(C_tax) / Var(C_notax) = (1−τ)². A gap near zero confirms D-M holds for the flat-rate symmetric case. A progressive rate schedule breaks D-M — see Section B.
+The Domar-Musgrave prediction is Var(C_tax) / Var(C_notax) = (1−$\tau$)². A gap near zero confirms D-M holds for the flat-rate symmetric case. A progressive rate schedule breaks D-M — see Section B.
 
-| Distribution | γ | τ (WDT) | (1−τ)² | Actual ratio | Gap | Holds? |
+| Distribution | γ | $\tau$ (WDT) | (1−$\tau$)² | Actual ratio | Gap | Holds? |
 |:---|---:|---:|---:|---:|---:|:---:|
 | Ver. A | 1.0 | 33.4039% | 0.443505 | 0.443505 | -5.55e-17 | ✓ |
 | Ver. A | 2.0 | 33.4039% | 0.443505 | 0.443505 | -5.55e-17 | ✓ |
@@ -80,11 +80,11 @@ Gaps are at floating-point precision (10⁻¹⁶ to 10⁻¹⁷), confirming the 
 
 # B. Progressive Rates and the Three D-M Complications
 
-Tables B.1–B.3 quantify the three complications that a progressive rate schedule introduces to the Domar-Musgrave architecture, corresponding to the analysis in (WFR §4.1). All three complications are real; all three are second-order at canonical parameters. The logistic rate function uses τ₀=15%, τ_m=70%, k=0.001, W_min=£2m throughout this section unless noted.
+Tables B.1–B.3 quantify the three complications that a progressive rate schedule introduces to the Domar-Musgrave architecture, corresponding to the analysis in (WFR §4.1). All three complications are real; all three are second-order at canonical parameters. The logistic rate function uses $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{min}$=£2m throughout this section unless noted.
 
 ## B.1 Flat WDT vs Progressive WDT CEW
 
-C1 complication: under a progressive rate, the government co-investment share varies with wealth level, breaking the flat D-M result. Gap (bp) = (CEW_flat − CEW_progressive) × 10,000; positive means flat WDT produces lower welfare cost. W₀ = 5 × W_min = £10m for both distributions.
+C1 complication: under a progressive rate, the government co-investment share varies with wealth level, breaking the flat D-M result. Gap (bp) = (CEW_flat − CEW_progressive) × 10,000; positive means flat WDT produces lower welfare cost. W₀ = 5 × $W_{min}$ = £10m for both distributions.
 
 | Distribution | γ | Flat WDT CEW | Progressive WDT CEW | Gap (bp) | E[T] progressive |
 |:---|---:|---:|---:|---:|---:|
@@ -97,7 +97,7 @@ C1 complication: under a progressive rate, the government co-investment share va
 
 ## B.2 Leverage Effect on WDT Tax Base and Welfare
 
-C2 complication: when an agent holds gross assets A with outstanding debt D, net worth W = A − D and the WDT taxes the amplified (or dampened) net-worth delta rather than the underlying asset return. NW base = actual WDT base (ΔW = A×R − D − W₀); asset-return base = hypothetical alternative taxing only A×(R−1). The two bases are identical at zero leverage and diverge as D/A rises. Gap (bp) = (CEW_NW − CEW_AR) × 10,000; positive means the WDT's NW base produces higher welfare than the asset-return alternative at the same rate. Gross assets = £10m (5×W_min). Progressive rate function. γ=2. Ver. A distribution.
+C2 complication: when an agent holds gross assets A with outstanding debt D, net worth W = A − D and the WDT taxes the amplified (or dampened) net-worth delta rather than the underlying asset return. NW base = actual WDT base (ΔW = A×R − D − W₀); asset-return base = hypothetical alternative taxing only A×(R−1). The two bases are identical at zero leverage and diverge as D/A rises. Gap (bp) = (CEW_NW − CEW_AR) × 10,000; positive means the WDT's NW base produces higher welfare than the asset-return alternative at the same rate. Gross assets = £10m (5×$W_{min}$). Progressive rate function. γ=2. Ver. A distribution.
 
 | Leverage (%) | W₀ net (£m) | E[T] NW base | E[T] asset-rtn base | CEW NW base | CEW asset-rtn base | Gap (bp) |
 |---:|---:|---:|---:|---:|---:|---:|
@@ -119,9 +119,9 @@ C2 complication: when an agent holds gross assets A with outstanding debt D, net
 
 ## B.3 Two-Period Rate Asymmetry by Initial Wealth
 
-C3 complication: under a progressive schedule, a gain in period 1 increases wealth and attracts a higher effective rate than the refund received in period 2 on an equivalent loss, because the loss is assessed at the lower post-gain wealth level. Sequence: +18.8% gain (μ+σ) in period 1, −8.3% loss (σ) in period 2. τ gain = effective rate on the period-1 delta at (W₀, W₁). τ refund = effective rate on the period-2 loss at (W₁, W₂). Asymmetry = τ gain − τ refund (pp); positive means the gain is taxed at a higher rate than the equivalent loss. Excess = net tax progressive − net tax flat; negative means progression collects less than the flat revenue-equivalent rate.
+C3 complication: under a progressive schedule, a gain in period 1 increases wealth and attracts a higher effective rate than the refund received in period 2 on an equivalent loss, because the loss is assessed at the lower post-gain wealth level. Sequence: +18.8% gain (μ+σ) in period 1, −8.3% loss (σ) in period 2. $\tau$ gain = effective rate on the period-1 delta at (W₀, W₁). $\tau$ refund = effective rate on the period-2 loss at (W₁, W₂). Asymmetry = $\tau$ gain − $\tau$ refund (pp); positive means the gain is taxed at a higher rate than the equivalent loss. Excess = net tax progressive − net tax flat; negative means progression collects less than the flat revenue-equivalent rate.
 
-| W₀ (£m) | τ gain (%) | τ refund (%) | Asymmetry (pp) | Net tax: progressive | Net tax: flat | Excess |
+| W₀ (£m) | $\tau$ gain (%) | $\tau$ refund (%) | Asymmetry (pp) | Net tax: progressive | Net tax: flat | Excess |
 |---:|---:|---:|---:|---:|---:|---:|
 | 3.0 | 15.015 | 15.014 | +0.0011 | £0.0411m | £0.0943m | -0.0532 |
 | 4.0 | 15.028 | 15.027 | +0.0015 | £0.0549m | £0.1258m | -0.0709 |
@@ -131,13 +131,13 @@ C3 complication: under a progressive schedule, a gain in period 1 increases weal
 | 100.0 | 16.305 | 16.263 | +0.0415 | £1.4950m | £3.1438m | -1.6488 |
 | 200.0 | 17.713 | 17.619 | +0.0946 | £3.2656m | £6.2876m | -3.0220 |
 
-The Excess column is uniformly negative because the tested wealth levels sit in the near-flat entry region of the logistic, well below the inflection point, where effective rates barely exceed τ₀. A progressive schedule operating in this region collects less net tax than the flat rate calibrated to the same revenue target. The gain-at-higher-rate asymmetry that textbook bracket analysis would predict requires wealth to sit at or above the logistic inflection point, which the canonical population does not reach.
+The Excess column is uniformly negative because the tested wealth levels sit in the near-flat entry region of the logistic, well below the inflection point, where effective rates barely exceed $\tau_0$. A progressive schedule operating in this region collects less net tax than the flat rate calibrated to the same revenue target. The gain-at-higher-rate asymmetry that textbook bracket analysis would predict requires wealth to sit at or above the logistic inflection point, which the canonical population does not reach.
 
 \newpage
 
 # C. CGT Lock-In Distortion
 
-Reference parameters throughout this section: V=£10m, G/V=50%, r_A=10.45% (empirical equity mean from JST dataset), τ_cgt=24% (UK 2024 higher rate), T=5 years remaining. Tables C.1–C.3 correspond to the lock-in analysis in (WFR §4.2).
+Reference parameters throughout this section: V=£10m, G/V=50%, r_A=10.45% (empirical equity mean from JST dataset), $\tau_{cgt}$=24% (UK 2024 higher rate), T=5 years remaining. Tables C.1–C.3 correspond to the lock-in analysis in (WFR §4.2).
 
 ## C.1 Lock-In Welfare Cost by Embedded Gain Ratio
 
@@ -217,7 +217,7 @@ Section A showed WDT ≈ CGT when lock-in was absent. This table adds the lock-i
 
 Tier return differentials from Fagereng et al. (2020): Poor −4.55pp, Ok −2.05pp, Good +0.95pp, Great +3.45pp, relative to the UK historical equity mean of 10.45%. Ver. A distribution with tier-shifted returns. γ=2. Tables D.1–D.5 correspond to the heterogeneous-agent analysis in (WFR §4.3).
 
-Tier wealth levels: Poor (95th percentile) W₀=£2.9m; Ok (99th) W₀=£7.1m; Good (99.9th) W₀=£19.9m; Great (99.99th+) W₀=£139.6m. Progressive WDT uses logistic rate function with τ₀=15%, τ_m=70%, k=0.001, W_min=£2m. All flat-rate systems calibrated at revenue-equivalent rates producing E[T] = 2% of Good-tier W₀.
+Tier wealth levels: Poor (95th percentile) W₀=£2.9m; Ok (99th) W₀=£7.1m; Good (99.9th) W₀=£19.9m; Great (99.99th+) W₀=£139.6m. Progressive WDT uses logistic rate function with $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{min}$=£2m. All flat-rate systems calibrated at revenue-equivalent rates producing E[T] = 2% of Good-tier W₀.
 
 ## D.1 CEW by Tier and Tax System
 
@@ -289,7 +289,7 @@ Corner A: Great return differential (+3.45pp) applied at Poor-tier W₀ (£2.86m
 |   Consumption Tax | -1.9717% | -1.8424% | -1.8424% | -12.92 |
 |   Progressive WDT | -0.1568% | -1.3814% | -0.1375% | +122.46 |
 
-The "—" entry for Corner B Symmetric WDT requires explanation. At Great-tier initial wealth of £139.6m with the Poor-tier return differential of −4.55pp, the flat symmetric WDT generates expected refunds large enough that the aggregate revenue target cannot be reached within the feasible rate space τ ∈ (0, 0.999]. The revenue-equivalence solver fails to converge: no flat rate can collect E[T] = 2% of W₀ in expectation when the refund commitment at any positive rate exceeds the collection in gain states by this margin. This is a solver boundary condition reflecting a parameter combination outside the feasible calibration space, not a model failure. The cell is undefined for the flat symmetric WDT; all other systems have solutions here because they either pay no refunds or (in the case of progressive WDT) apply a low enough effective entry rate that the revenue target remains reachable.
+The "—" entry for Corner B Symmetric WDT requires explanation. At Great-tier initial wealth of £139.6m with the Poor-tier return differential of −4.55pp, the flat symmetric WDT generates expected refunds large enough that the aggregate revenue target cannot be reached within the feasible rate space $\tau$ ∈ (0, 0.999]. The revenue-equivalence solver fails to converge: no flat rate can collect E[T] = 2% of W₀ in expectation when the refund commitment at any positive rate exceeds the collection in gain states by this margin. This is a solver boundary condition reflecting a parameter combination outside the feasible calibration space, not a model failure. The cell is undefined for the flat symmetric WDT; all other systems have solutions here because they either pay no refunds or (in the case of progressive WDT) apply a low enough effective entry rate that the revenue target remains reachable.
 
 \newpage
 
@@ -343,11 +343,11 @@ Six historically adverse start years plus the canonical 2000 (◄). Adverse year
 
 ## E.3 Sweep C: CEW Parameter Sensitivy Sweep
 
-### E.3.1 Sweep C: τ₀ Sensitivity
+### E.3.1 Sweep C: $\tau_0$ Sensitivity
 
-Gap (bp) = (CEW_flat − CEW_progressive) × 10,000. Positive = flat WDT has lower welfare cost than progressive. τ_m, k, W_min held at canonical values.
+Gap (bp) = (CEW_flat − CEW_progressive) × 10,000. Positive = flat WDT has lower welfare cost than progressive. $\tau_m$, $k$,$W_{min}$ held at canonical values.
 
-| τ₀ (entry rate) | W₀=£10m | W₀=£30m | W₀=£100m |
+| $\tau_0$ (entry rate) | W₀=£10m | W₀=£30m | W₀=£100m |
 |:---|---:|---:|---:|
 | 0.05 | -0.00 | -0.00 | -0.01 |
 | 0.1 | -0.00 | -0.00 | -0.01 |
@@ -356,11 +356,11 @@ Gap (bp) = (CEW_flat − CEW_progressive) × 10,000. Positive = flat WDT has low
 | 0.25 | -0.00 | -0.00 | -0.01 |
 | 0.3 | -0.00 | -0.00 | -0.00 |
 
-### E.3.2 Sweep C: τ_m Sensitivity
+### E.3.2 Sweep C: $\tau_m$ Sensitivity
 
-τ₀, k, W_min held at canonical values.
+$\tau_0$, $k$,$W_{min}$ held at canonical values.
 
-| τ_m (ceiling rate) | W₀=£10m | W₀=£30m | W₀=£100m |
+| $\tau_m$ (ceiling rate) | W₀=£10m | W₀=£30m | W₀=£100m |
 |:---|---:|---:|---:|
 | 0.4 | -0.00 | -0.00 | -0.00 |
 | 0.5 | -0.00 | -0.00 | -0.01 |
@@ -369,11 +369,11 @@ Gap (bp) = (CEW_flat − CEW_progressive) × 10,000. Positive = flat WDT has low
 | 0.8 | -0.00 | -0.00 | -0.01 |
 | 0.9 | -0.00 | -0.00 | -0.01 |
 
-### E.3.3 Sweep C: k Sensitivity
+### E.3.3 Sweep C: $k$ Sensitivity
 
-τ₀, τ_m, W_min held at canonical values.
+$\tau_0$, $\tau_m$, $W_{min}$ held at canonical values.
 
-| k (steepness per £m) | W₀=£10m | W₀=£30m | W₀=£100m |
+| $k$ (steepness per £m) | W₀=£10m | W₀=£30m | W₀=£100m |
 |:---|---:|---:|---:|
 | 0.0001 | -0.00 | -0.00 | -0.00 |
 | 0.0005 | -0.00 | -0.00 | -0.00 |
@@ -382,11 +382,11 @@ Gap (bp) = (CEW_flat − CEW_progressive) × 10,000. Positive = flat WDT has low
 | 0.01 | -0.01 | -0.02 | -0.05 |
 | 0.05 | -0.03 | -0.05 | +0.00 |
 
-### E.3.4 Sweep C: W_min Sensitivity
+### E.3.4 Sweep C: $W_{min}$ Sensitivity
 
-τ₀, τ_m, k held at canonical values.
+$\tau_0$, $\tau_m$, $k$ held at canonical values.
 
-| W_min (£m) | W₀=£10m | W₀=£30m | W₀=£100m |
+| $W_{min}$ (£m) | W₀=£10m | W₀=£30m | W₀=£100m |
 |:---|---:|---:|---:|
 | 0.5 | -0.00 | -0.00 | -0.01 |
 | 1.0 | -0.00 | -0.00 | -0.01 |
@@ -405,9 +405,9 @@ Canonical parameter values used throughout this paper. Sweep deviations from the
 | W₀ (normalised, Section A) | 1.0 | — |
 | Revenue target E[T] | 2% of W₀ | — |
 | γ (central case) | 2.0 | Flavin & Yamashita (2002) |
-| τ₀ (WDT entry rate) | 15% | TOML [rate] |
-| τ_m (WDT ceiling) | 70% | TOML [rate] |
-| k (logistic steepness) | 0.001 | TOML [rate] |
-| W_min (£m) | £2m | TOML [rate] |
+| $\tau_0$ (WDT entry rate) | 15% | TOML [rate] |
+| $\tau_m$ (WDT ceiling) | 70% | TOML [rate] |
+| $k$ (logistic steepness) | 0.001 | TOML [rate] |
+| $W_{min}$ (£m) | £2m | TOML [rate] |
 | UK equity mean (1947–2019) | 10.45% | JST dataset |
 | UK equity std dev | 8.31% | JST dataset |

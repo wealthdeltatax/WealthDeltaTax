@@ -26,6 +26,12 @@ Part D.6  — Off-diagonal spot check: Great differential at Poor W₀ and
            effect can be separately attributed. Only the two extreme corners
            of the tier × bracket grid are evaluated — enough to confirm
            direction without a full 4×5 crossing.
+Part F    — Extended concentration horizon (N=73): re-runs Part D's
+           concentration path over the full 1947-2019 historical sequence
+           (no scenario-window rotation) at the rates already calibrated in
+           Part D, to test whether the progressive WDT's concentration
+           advantage over the flat WDT becomes visible at a longer horizon
+           than the canonical 30-year window. See section_F_plan.md.
 
 Outputs → model/OUTPUTS/WFR/module4/
 """
@@ -37,6 +43,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
+import matplotlib.patches as mpatches
 from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Optional
@@ -46,7 +53,7 @@ from wdt_fmt import fmt_pct, fmt_pct0, fmt_pct1, fmt_pct4, fmt_gbp_m
 from wdt_style import (
     apply_style, save_fig,
     FIG_PAIR, FIG_PAIR_T, FIG_WIDE_L, FIG_QUAD,
-    DPI_SCREEN,
+    DPI_SCREEN, C_DARK, C_ANNOTATION, C_GRID,
 )
 
 from welfare_core import (
@@ -585,7 +592,10 @@ def fig_4_3_3_tier_cew(tier_results: dict, gamma: float, dist_label: str):
                     matrix[i, j] = sr.cew * 100
 
     # Layout: heatmap left, grouped bars right
-    apply_style()
+    # grid=False: the left panel is an imshow heatmap — rcParams gridlines would
+    # draw over the cells. The bar panel sets its own gridlines explicitly below,
+    # independent of this rcParams setting.
+    apply_style(grid=False)
     fig = plt.figure(figsize=(14, 6))
     gs  = fig.add_gridspec(1, 2, width_ratios=[1.1, 1.6], wspace=0.35)
     ax_heat = fig.add_subplot(gs[0])
@@ -669,12 +679,23 @@ def fig_4_3_3_tier_cew(tier_results: dict, gamma: float, dist_label: str):
     ax_bar.set_ylabel("CEW (% vs no-tax)", fontsize=9)
     ax_bar.yaxis.set_major_formatter(mtick.PercentFormatter(decimals=3))
     ax_bar.set_title("Grouped bars: CEW by tier and system", fontsize=9)
-    ax_bar.legend(fontsize=7.5, loc="lower right", ncol=2)
+    # Upper right, on-chart, with a white background and solid border so it
+    # doesn't wash into the bars behind it (wdt_style sets legend.frameon=False
+    # globally, so the frame is switched back on explicitly here).
+    ax_bar.legend(
+        fontsize=7.5, loc="upper right", ncol=2,
+        frameon=True, facecolor="white", edgecolor=C_DARK, framealpha=1.0
+    )
     ax_bar.grid(axis="y", linestyle="--", alpha=0.4)
     ax_bar.spines["top"].set_visible(False)
     ax_bar.spines["right"].set_visible(False)
 
-    fig.tight_layout()
+    # tight_layout is unreliable here: the colorbar adds an Axes outside the
+    # gridspec, which matplotlib explicitly warns is "not compatible with
+    # tight_layout" (rect is then silently ignored). subplots_adjust sets
+    # margins directly instead, so the top-margin reservation actually takes
+    # effect and the suptitle no longer crowds the panel titles.
+    fig.subplots_adjust(top=0.85, bottom=0.20)
     _save(fig, "wfr_fig_4_3_3_tier_cew.png")
 
 
@@ -1089,7 +1110,7 @@ def print_corner_table(
 def fig_4_3_6_corner_check(corner_results: dict, tier_results: dict, gamma: float):
     """
     Figure 4.3.6: Off-diagonal corners vs diagonal — CEW comparison.
-
+ 
     Two-panel chart.  Each panel is one corner.  Within each panel, grouped
     bars show CEW for: the corner cell, the diagonal cell with the same W₀,
     and the diagonal cell with the same differential.  This makes the W₀
@@ -1105,39 +1126,48 @@ def fig_4_3_6_corner_check(corner_results: dict, tier_results: dict, gamma: floa
         "cgt"            : "CGT",
         "consumption"    : "Consump.",
     }
+    # Colour by system — matching every other chart in the report (4.3.3's bar
+    # panel, 4.3.4, 4.3.2), not a grey-tone scheme unique to this chart. The
+    # corner-vs-diagonal distinction is carried by opacity instead: full
+    # opacity for the corner (the focal, decoupled result), fading for the
+    # two diagonal reference bars.
     bar_colours = {
-        "corner"    : "#2c3e50",   # dark — the new spot-check result
-        "same_W0"   : "#7f8c8d",   # grey — diagonal cell, same W₀
-        "same_diff" : "#bdc3c7",   # light grey — diagonal cell, same diff
+        "symmetric_wdt"  : SYSTEM_COLOURS["symmetric_wdt"],
+        "progressive_wdt": "#0d3d6b",
+        "stock_wealth"   : SYSTEM_COLOURS["stock_wealth"],
+        "income"         : SYSTEM_COLOURS["income"],
+        "cgt"            : SYSTEM_COLOURS["cgt"],
+        "consumption"    : SYSTEM_COLOURS["consumption"],
     }
-
+    alpha_levels = {"corner": 0.95, "same_W0": 0.55, "same_diff": 0.30}
+ 
     corner_configs = [
         ("corner_A", "Corner A: Great diff (+3.45pp), Poor W₀ (£2.86m)",
          "Poor", "Great"),
         ("corner_B", "Corner B: Poor diff (−4.55pp), Great W₀ (£139.6m)",
          "Great", "Poor"),
     ]
-
+ 
     apply_style()
     fig, axes = plt.subplots(1, 2, figsize=FIG_PAIR_T, sharey=False)
     fig.suptitle(
         f"Figure 4.3.6 — Off-Diagonal Spot Check — Decoupling W₀ from Return Differential\n"
         f"γ = {gamma} | Revenue target = {fmt_pct0(TARGET_ET)} of corner W₀ | "
-        f"Dark = corner, mid-grey = diagonal (same W₀), light-grey = diagonal (same diff)",
+        f"Colour = system; opacity = corner (dark) vs diagonal reference, same W₀ (medium) vs same diff (light)",
         fontsize=10, fontweight="bold"
     )
-
+ 
     for ax, (corner_key, title, diag_w0_tier, diag_diff_tier) in zip(axes, corner_configs):
         cr        = corner_results[corner_key]
         diag_w0   = tier_results[diag_w0_tier]
         diag_diff = tier_results[diag_diff_tier]
-
+ 
         x      = np.arange(len(systems_ordered))
         width  = 0.25
         cew_corner    = []
         cew_same_w0   = []
         cew_same_diff = []
-
+ 
         for name in systems_ordered:
             if name == "progressive_wdt":
                 cew_corner.append(cr["cew_progressive"] * 100)
@@ -1150,14 +1180,15 @@ def fig_4_3_6_corner_check(corner_results: dict, tier_results: dict, gamma: floa
                 cew_corner.append(   sr_c.cew  * 100 if sr_c  and sr_c.cew  is not None else np.nan)
                 cew_same_w0.append(  sr_w0.cew * 100 if sr_w0 and sr_w0.cew is not None else np.nan)
                 cew_same_diff.append(sr_d.cew  * 100 if sr_d  and sr_d.cew  is not None else np.nan)
-
-        ax.bar(x - width, cew_corner,    width, color=bar_colours["corner"],
-               label="Corner (decoupled)", alpha=0.9, edgecolor="white", linewidth=0.5)
-        ax.bar(x,         cew_same_w0,   width, color=bar_colours["same_W0"],
-               label="Diagonal (same W₀)", alpha=0.9, edgecolor="white", linewidth=0.5)
-        ax.bar(x + width, cew_same_diff, width, color=bar_colours["same_diff"],
-               label="Diagonal (same diff)", alpha=0.9, edgecolor="white", linewidth=0.5)
-
+ 
+        colours = [bar_colours[name] for name in systems_ordered]
+        ax.bar(x - width, cew_corner,    width, color=colours,
+               alpha=alpha_levels["corner"],    edgecolor="white", linewidth=0.5)
+        ax.bar(x,         cew_same_w0,   width, color=colours,
+               alpha=alpha_levels["same_W0"],   edgecolor="white", linewidth=0.5)
+        ax.bar(x + width, cew_same_diff, width, color=colours,
+               alpha=alpha_levels["same_diff"], edgecolor="white", linewidth=0.5)
+ 
         ax.axhline(0, color="black", linewidth=0.8)
         ax.set_xticks(x)
         ax.set_xticklabels([sys_short[s] for s in systems_ordered],
@@ -1165,13 +1196,323 @@ def fig_4_3_6_corner_check(corner_results: dict, tier_results: dict, gamma: floa
         ax.set_ylabel("CEW (% vs no-tax)", fontsize=9)
         ax.yaxis.set_major_formatter(mtick.PercentFormatter(decimals=3))
         ax.set_title(title, fontsize=9, fontweight="bold")
-        ax.legend(fontsize=7.5, loc="lower right")
         ax.grid(axis="y", linestyle="--", alpha=0.4)
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
+ 
+    # One shared legend, bottom-centre of the whole figure rather than per
+    # panel: colour identifies the system (already labelled on each panel's
+    # x-axis), so the legend just explains the opacity encoding once for
+    # both charts rather than repeating it twice.
+    legend_handles = [
+        mpatches.Patch(facecolor=C_DARK, alpha=alpha_levels["corner"],    label="Corner (decoupled)"),
+        mpatches.Patch(facecolor=C_DARK, alpha=alpha_levels["same_W0"],   label="Diagonal (same W₀)"),
+        mpatches.Patch(facecolor=C_DARK, alpha=alpha_levels["same_diff"], label="Diagonal (same diff)"),
+    ]
+    fig.legend(
+        handles=legend_handles, loc="lower center", bbox_to_anchor=(0.5, 0.0),
+        ncol=3, fontsize=8.5,
+        frameon=True, facecolor="white", edgecolor=C_DARK, framealpha=1.0
+    )
+ 
+    # Reserve bottom margin for the shared legend, on top of tight_layout's
+    # own spacing for the rotated x-tick labels and suptitle.
+    fig.tight_layout()
+    fig.subplots_adjust(bottom=0.13)
+    _save(fig, "wfr_fig_4_3_6_corner_check.png")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PART F: Extended concentration horizon (N=73) — WFR.A §F
+# ─────────────────────────────────────────────────────────────────────────────
+#
+# Scope (per section_F_plan.md): same tiers, same systems, same parameters as
+# Part D — only the horizon extends from N=30 (2000-2029, wrap-around scenario
+# window) to N=73, run as the plain chronological 1947-2019 historical sequence.
+# This is NOT make_scenario_sequence(p, N) with N=73 — that would still rotate
+# to start at scenario_start_year (2000) and wrap around. Section F instead
+# starts at series_base_year (1947) with no rotation, since p["returns"]["array"]
+# and p["returns"]["years"] are already stored in plain chronological order.
+#
+# Revenue-equivalent rates are NOT re-solved at N=73: precomputed_taus must be
+# supplied (the same aggregate rates from Part D / run_tier_comparison), because
+# the question this section answers is "what happens if the same calibrated
+# system runs longer", not "what rate would a 73-year target imply".
+
+def run_concentration_analysis_extended(
+    tiers            : list,
+    p                : dict,
+    rate_fn          : ProgressiveRateFunction,
+    systems_to_project: list,
+    precomputed_taus : dict,
+) -> dict:
+    """
+    Extended concentration path — full 1947-2019 historical sequence (N=73),
+    no wrap-around, no rotation. Reuses project_wealth_path /
+    project_progressive_path exactly as Part D does; only the return sequence
+    and horizon differ.
+
+    precomputed_taus is required (not optional): rates are carried forward
+    from Part D (run_tier_comparison's aggregate solve), never re-solved here.
+
+    Returns: ({system_name: {tier_name: wealth_path}}, years_list)
+    """
+    returns_seq = p["returns"]["array"]     # raw 1947-2019, chronological, len 73
+    years       = p["returns"]["years"]     # [1947, 1948, ..., 2019]
+
+    paths = {name: {} for name in systems_to_project}
+
+    for tier in tiers:
+        gross_returns_tier = np.maximum(
+            1.0 + returns_seq + tier.differential, 0.01
+        )
+        for name in systems_to_project:
+            if name == "progressive_wdt":
+                path = project_progressive_path(
+                    tier.W0, gross_returns_tier, rate_fn
+                )
+            else:
+                tau = precomputed_taus.get(name)
+                if tau is None:
+                    path = np.full(len(gross_returns_tier) + 1, np.nan)
+                else:
+                    tax_fn = get_tax_fn(name)
+                    path   = project_wealth_path(
+                        tier.W0, gross_returns_tier, tax_fn, tau
+                    )
+            paths[name][tier.name] = path
+
+    return paths, years
+
+
+def _ratio_at_year(paths: dict, system: str, num_tier: str, den_tier: str,
+                    year: int, start_year: int) -> float:
+    """
+    Great/Poor-style ratio at a given calendar year from an extended path.
+    idx=0 is 'Initial' (before any return applied); idx=k is after the return
+    for calendar year (start_year + k - 1).
+    """
+    if system not in paths:
+        return float('nan')
+    num_path = paths[system].get(num_tier)
+    den_path = paths[system].get(den_tier)
+    if num_path is None or den_path is None:
+        return float('nan')
+    idx = 0 if year == start_year - 1 else (year - start_year + 1)
+    idx = max(0, min(idx, len(num_path) - 1))
+    denom = den_path[idx]
+    return num_path[idx] / denom if denom > 0 else float('nan')
+
+
+def find_progressive_crossover(
+    paths_ext  : dict,
+    start_year : int,
+    threshold  : float = 1.0,
+) -> Optional[dict]:
+    """
+    First year at which the progressive WDT Great/Poor ratio drops BELOW the
+    flat WDT ratio by more than `threshold` (i.e. progressive shows visibly
+    LOWER concentration than flat — the "progressive advantage" §7.4 asks
+    whether it ever appears).
+
+    At N=30 the sign is the opposite (progressive is 1.8x HIGHER than flat),
+    so this walks the extended path year by year looking for the first
+    sign flip past the threshold. Returns None if no such year exists within
+    N=73 (Outcome B in section_F_plan.md — a legitimate, reportable result).
+    """
+    great_flat = paths_ext.get("symmetric_wdt", {}).get("Great")
+    poor_flat  = paths_ext.get("symmetric_wdt", {}).get("Poor")
+    great_prog = paths_ext.get("progressive_wdt", {}).get("Great")
+    poor_prog  = paths_ext.get("progressive_wdt", {}).get("Poor")
+    if great_flat is None or poor_flat is None or great_prog is None or poor_prog is None:
+        return None
+
+    n = len(great_flat)
+    for idx in range(n):
+        if poor_flat[idx] <= 0 or poor_prog[idx] <= 0:
+            continue
+        ratio_flat = great_flat[idx] / poor_flat[idx]
+        ratio_prog = great_prog[idx] / poor_prog[idx]
+        gap = ratio_prog - ratio_flat   # negative = progressive now lower
+        if gap < -threshold:
+            year = start_year - 1 if idx == 0 else start_year + idx - 1
+            return {
+                "year"       : year,
+                "ratio_flat" : ratio_flat,
+                "ratio_prog" : ratio_prog,
+                "gap"        : gap,
+            }
+    return None
+
+
+def _save_f(fig, name: str):
+    save_fig(fig, OUTPUT_DIR / name, dpi=DPI_SCREEN)
+
+
+def fig_7_4a_progressive_vs_flat_extended(
+    paths_ext  : dict,
+    years      : list,
+    crossover  : Optional[dict],
+    paths_d30  : Optional[dict] = None,
+):
+    """
+    Figure 7.4a: Great/Poor concentration, flat vs progressive WDT, N=73.
+    Single panel. Vertical reference line marks where the canonical D.3
+    scenario (2000-2029, wrap-around) sits within the 1947-2019 sequence,
+    for visual orientation only.
+
+    paths_d30 : the ACTUAL Part D output (run_concentration_analysis at the
+        canonical scenario_start_year, N=30) — NOT paths_ext at index 29.
+        The extended sequence starts at 1947 with no rotation, so its 30th
+        entry is a different 30-year window (1947-1977-ish) than D's
+        2000-2029 scenario. The N=30 reference numbers must come from D's
+        own output or the annotation is comparing two different windows.
+        When omitted, the N=30 annotation is skipped rather than computed
+        from the wrong window.
+    """
+    start_year  = years[0]
+    years_full  = [start_year - 1] + list(years)
+    n30_year    = start_year + 29  # visual anchor only — not D's actual N=30 window
+
+    great_flat = paths_ext["symmetric_wdt"]["Great"]
+    poor_flat  = paths_ext["symmetric_wdt"]["Poor"]
+    great_prog = paths_ext["progressive_wdt"]["Great"]
+    poor_prog  = paths_ext["progressive_wdt"]["Poor"]
+
+    ratio_flat = great_flat / poor_flat
+    ratio_prog = great_prog / poor_prog
+
+    apply_style()
+    fig, ax = plt.subplots(figsize=FIG_WIDE_L)
+    fig.suptitle(
+        "Figure 7.4a — Concentration Path: Flat vs Progressive WDT — Full Historical Sequence (N=73)\n"
+        f"Great/Poor wealth ratio, {start_year}-{years[-1]}, rates carried forward from Part D",
+        fontsize=11, fontweight="bold"
+    )
+
+    ax.plot(years_full, ratio_flat, color=SYSTEM_COLOURS["symmetric_wdt"],
+             linewidth=2, linestyle="-", label="Flat WDT")
+    ax.plot(years_full, ratio_prog, color="#0d3d6b",
+             linewidth=2, linestyle="--", label="Progressive WDT")
+    ax.axvline(n30_year, color=C_ANNOTATION, linewidth=1.0, linestyle=":",
+               label=f"30 years from series start ({n30_year}, visual anchor only)")
+
+    if paths_d30 is not None:
+        gap_n30 = (
+            paths_d30["progressive_wdt"]["Great"][-1] / paths_d30["progressive_wdt"]["Poor"][-1]
+            - paths_d30["symmetric_wdt"]["Great"][-1] / paths_d30["symmetric_wdt"]["Poor"][-1]
+        )
+        note = f"Gap at D.3's N=30 (2000-2029): {gap_n30:+.1f}x\n"
+    else:
+        note = ""
+    gap_n73 = ratio_prog[-1] - ratio_flat[-1]
+    note += f"Gap at N=73: {gap_n73:+.1f}x"
+    if crossover is not None:
+        note += f"\nCrossover: {crossover['year']}"
+    else:
+        note += "\nNo crossover within N=73"
+    ax.text(0.02, 0.96, note, transform=ax.transAxes, va="top", ha="left",
+            fontsize=8, color=C_DARK,
+            bbox=dict(boxstyle="round", facecolor="white", edgecolor=C_GRID, alpha=0.9))
+
+    ax.set_xlabel("Year", fontsize=9)
+    ax.set_ylabel("Wealth ratio (Great tier / Poor tier)", fontsize=9)
+    ax.legend(fontsize=8, loc="lower right")
+    ax.grid(linestyle="--", alpha=0.3)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    fig.tight_layout()
+    _save_f(fig, "wfr_fig_7_4a_progressive_vs_flat_extended.png")
+
+
+def fig_7_4b_full_concentration_extended(paths_ext: dict, tiers: list, years: list):
+    """
+    Figure 7.4b: Full concentration path, all systems, N=73 — extended
+    analogue of Figure 4.3.2. Vertical reference line at N=30-equivalent year.
+    """
+    start_year = years[0]
+    years_full = [start_year - 1] + list(years)
+    n30_year   = start_year + 29
+    systems_to_plot = ["symmetric_wdt", "progressive_wdt", "stock_wealth", "income"]
+
+    apply_style()
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=FIG_PAIR_T)
+    fig.suptitle(
+        "Figure 7.4b — Full Concentration Path, All Systems — N=73 (1947-2019)\n"
+        "(Great-tier / Poor-tier wealth ratio; higher = more concentrated)",
+        fontsize=11, fontweight="bold"
+    )
+
+    for name in systems_to_plot:
+        if name not in paths_ext:
+            continue
+        great_path = paths_ext[name].get("Great")
+        poor_path  = paths_ext[name].get("Poor")
+        if great_path is None or poor_path is None:
+            continue
+        ratio = great_path / poor_path
+        label = "Progressive WDT" if name == "progressive_wdt" else SYSTEM_LABELS.get(name, name)
+        color = "#0d3d6b" if name == "progressive_wdt" else SYSTEM_COLOURS.get(name, "grey")
+        ax1.plot(years_full, ratio, color=color, linewidth=1.6, label=label)
+
+    ax1.axvline(n30_year, color=C_ANNOTATION, linewidth=1.0, linestyle=":",
+                label=f"N=30 (D.3 anchor, {n30_year})")
+    ax1.set_xlabel("Year", fontsize=9)
+    ax1.set_ylabel("Wealth ratio (Great tier / Poor tier)", fontsize=9)
+    ax1.set_title("Wealth ratio over time, all systems", fontsize=9)
+    ax1.legend(fontsize=7.5)
+    ax1.grid(linestyle="--", alpha=0.3)
+    ax1.spines["top"].set_visible(False); ax1.spines["right"].set_visible(False)
+
+    for tier in tiers:
+        for name in ["progressive_wdt", "stock_wealth"]:
+            if name not in paths_ext:
+                continue
+            path = paths_ext[name].get(tier.name)
+            if path is None:
+                continue
+            normalised = path / tier.W0
+            label = f"{tier.name} ({('WDT' if name=='progressive_wdt' else 'Stock WTax')})"
+            color = TIER_COLOURS[tier.name]
+            ls    = "-" if name == "progressive_wdt" else "--"
+            ax2.plot(years_full, normalised, color=color, linewidth=1.4,
+                     linestyle=ls, label=label, alpha=0.85)
+
+    ax2.axvline(n30_year, color=C_ANNOTATION, linewidth=1.0, linestyle=":")
+    ax2.set_xlabel("Year", fontsize=9)
+    ax2.set_ylabel("Wealth (normalised to W₀ = 1)", fontsize=9)
+    ax2.set_title("Wealth growth by tier: WDT (solid) vs Stock Wealth Tax (dashed)", fontsize=9)
+    ax2.legend(fontsize=7, ncol=2)
+    ax2.grid(linestyle="--", alpha=0.3)
+    ax2.spines["top"].set_visible(False); ax2.spines["right"].set_visible(False)
 
     fig.tight_layout()
-    _save(fig, "wfr_fig_4_3_6_corner_check.png")
+    _save_f(fig, "wfr_fig_7_4b_full_concentration_extended.png")
+
+
+def print_extended_concentration_summary(paths_ext: dict, years: list, crossover: Optional[dict]):
+    start_year = years[0]
+    print(f"\n{'='*80}")
+    print("PART F: EXTENDED CONCENTRATION HORIZON (N=73, 1947-2019)")
+    print(f"{'='*80}")
+    for name in ["symmetric_wdt", "progressive_wdt", "stock_wealth", "income", "consumption"]:
+        if name not in paths_ext:
+            continue
+        great = paths_ext[name].get("Great", [float('nan')])[-1]
+        poor  = paths_ext[name].get("Poor",  [float('nan')])[-1]
+        ratio = great / poor if poor and poor > 0 else float('nan')
+        label = "Progressive WDT" if name == "progressive_wdt" else SYSTEM_LABELS.get(name, name)
+        print(f"  {label:35s}: {ratio:7.1f}x  (N=73, {start_year}-{years[-1]})")
+    if crossover is not None:
+        print(f"\n  Crossover: progressive WDT drops below flat WDT in {crossover['year']} "
+              f"(gap {crossover['gap']:+.2f}x) — Outcome A (§7.4 expectation confirmed)")
+    else:
+        print(f"\n  No crossover within N=73 — Outcome B "
+              f"(§7.4 expectation NOT confirmed at canonical parameters; "
+              f"progressive WDT does not out-concentrate flat WDT at any "
+              f"empirically observed horizon)")
+    print()
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # MAIN
@@ -1248,11 +1589,27 @@ def main():
     _, envelope_years = make_scenario_sequence(p, N)
     fig_4_3_5_envelope_binding(envelope_results, envelope_years)
 
-    # ── Part F: Off-diagonal spot check ─────────────────────────────────────
-    print("\n--- Part F: Off-diagonal spot check (2 corner cells) ---")
+    # ── Part D.6: Off-diagonal spot check ────────────────────────────────────
+    # (WFR.A §D.5 — mislabeled "Part F" here previously; renamed to avoid
+    # collision with the genuine Part F / WFR.A §F added below.)
+    print("\n--- Part D.6: Off-diagonal spot check (2 corner cells) ---")
     corner_results = run_corner_check(tiers, dist_A, GAMMA, rate_fn)
     print_corner_table(corner_results, tier_results, GAMMA)
     fig_4_3_6_corner_check(corner_results, tier_results, GAMMA)
+
+    # ── Part F: Extended concentration horizon (N=73) — WFR.A §F ────────────
+    # Same tiers, systems, and rates as Part D; only the horizon extends to
+    # the full 1947-2019 historical sequence (no wrap-around rotation).
+    print("\n--- Part F: Extended concentration horizon (N=73, 1947-2019) ---")
+    systems_extended = ["symmetric_wdt", "progressive_wdt",
+                        "stock_wealth", "income", "consumption"]
+    paths_ext, years_ext = run_concentration_analysis_extended(
+        tiers, p, rate_fn, systems_extended, precomputed_taus=agg_taus
+    )
+    crossover = find_progressive_crossover(paths_ext, start_year=years_ext[0])
+    print_extended_concentration_summary(paths_ext, years_ext, crossover)
+    fig_7_4a_progressive_vs_flat_extended(paths_ext, years_ext, crossover, paths_d30=paths)
+    fig_7_4b_full_concentration_extended(paths_ext, tiers, years_ext)
 
     print(f"\n✓ Module 4 complete. Outputs in: {OUTPUT_DIR}")
 

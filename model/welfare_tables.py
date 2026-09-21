@@ -53,6 +53,7 @@ import sys
 import math
 import numpy as np
 from pathlib import Path
+from typing import Optional
 
 # ── project helpers ───────────────────────────────────────────────────────────
 from wdt_md  import MdDoc, md_table, LEFT, RIGHT, CENTER
@@ -101,9 +102,12 @@ run_tier_comparison = _m4.run_tier_comparison
 run_concentration_analysis = _m4.run_concentration_analysis
 test_envelope_binding = _m4.test_envelope_binding
 run_corner_check = _m4.run_corner_check
+run_concentration_analysis_extended = _m4.run_concentration_analysis_extended
+find_progressive_crossover = _m4.find_progressive_crossover
 
 _m5 = _il.import_module('19_6_module5_sweeps')
 run_sweep_a = _m5.run_sweep_a
+run_sweep_a_w0 = _m5.run_sweep_a_w0
 run_sweep_b = _m5.run_sweep_b
 run_sweep_c_param = _m5.run_sweep_c_param
 
@@ -176,24 +180,11 @@ def table_a1(all_results: dict) -> str:
     A.1: CEW (%) for all systems across γ = 1, 2, 4 and both distributions.
     One row per system. One group of columns per (distribution, γ) combination.
     """
-    # Build column headers: one per (dist_key, gamma)
     dist_keys  = list(all_results.keys())
     col_groups = [(dk, g) for dk in dist_keys for g in GAMMA_VALS]
 
     headers = ['System'] + [
-        f"{DIST_SHORT.get(dk[:9], dk[:9])} γ={g:.0f}"
-        for dk, g in col_groups
-    ]
-    # Shorten dist labels
-    dist_label_map = {}
-    for dk in dist_keys:
-        if 'Historical' in dk:
-            dist_label_map[dk] = 'Ver. A'
-        else:
-            dist_label_map[dk] = 'Ver. B'
-
-    headers = ['System'] + [
-        f"{dist_label_map[dk]} γ={g:.0f}"
+        f"{dist_label_map_fn(dk)} γ={g:.0f}"
         for dk, g in col_groups
     ]
     col_fmt = [LEFT] + [RIGHT] * len(col_groups)
@@ -229,7 +220,14 @@ def table_a2(all_results: dict) -> str:
 
 
 def dist_label_map_fn(dk):
-    if 'Historical' in dk: return 'Ver. A'
+    # Distribution labels vary by builder (make_empirical_distribution vs.
+    # make_empirical_distribution_scenario), e.g. "Version A — UK Historical
+    # Equity (1947-2019, 73 obs)" vs "Version A — UK Equity 2000-2029 (30
+    # obs, scenario)". 'Historical' only appears in the former, so matching
+    # on it silently mislabels every row as Ver. B when scenario-based
+    # distributions are used (as Modules 1/2/4 do). 'Version A' / 'Version B'
+    # is the one substring both label formats share.
+    if 'Version A' in dk: return 'Ver. A'
     return 'Ver. B'
 
 
@@ -419,7 +417,7 @@ def table_c2(sens_T: list) -> str:
 
 def table_c3(comp_A: dict, comp_B: dict) -> str:
     """C.3: Full WDT vs CGT welfare comparison including lock-in."""
-    headers = ['Metric', 'Version A (Empirical)', 'Version B (Idealised)']
+    headers = ['Metric', 'Ver. A (Empirical)', 'Ver. B (Idealised)']
     col_fmt = [LEFT, RIGHT, RIGHT]
     rows = [
         ['WDT CEW',                         fmt_pct4(comp_A['wdt_cew']),             fmt_pct4(comp_B['wdt_cew'])],
@@ -685,6 +683,121 @@ def table_d5(corner_results: dict, tier_results: dict) -> str:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# TABLES F.2–F.4  Module 4 Part F: Extended concentration horizon (N=73)
+# ─────────────────────────────────────────────────────────────────────────────
+
+_F_SYS_ORDER  = ["symmetric_wdt", "progressive_wdt", "stock_wealth", "income", "consumption"]
+_F_SYS_LABELS = {
+    "symmetric_wdt"  : "Flat WDT",
+    "progressive_wdt": "Progressive WDT",
+    "stock_wealth"   : "Stock Wealth Tax",
+    "income"         : "Income Tax",
+    "consumption"    : "Consumption Tax",
+}
+
+
+def _f_ratio_at_index(great_path, poor_path, idx) -> str:
+    idx = min(idx, len(great_path) - 1)
+    if poor_path[idx] > 0:
+        return _ratio(great_path[idx] / poor_path[idx])
+    return '—'
+
+
+def table_f2(paths_ext: dict, years_ext: list) -> str:
+    """
+    F.2: Extended concentration path — Great/Poor ratio at key years,
+    1947-2019 (N=73), all systems. Per section_F_plan.md's key-year set.
+    """
+    year0 = years_ext[0] if years_ext else 0
+    key_years = ['Initial', 1957, 1967, 1977, 1987, 1997, 2000, 2007, 2019]
+
+    def _idx_for(label):
+        return 0 if label == 'Initial' else (label - year0 + 1)
+
+    headers = ['System'] + [str(y) for y in key_years]
+    col_fmt = [LEFT] + [RIGHT] * len(key_years)
+
+    rows = []
+    for name in _F_SYS_ORDER:
+        if name not in paths_ext:
+            continue
+        great_path = paths_ext[name].get("Great", [])
+        poor_path  = paths_ext[name].get("Poor", [])
+        if len(great_path) == 0:
+            continue
+        row = [_F_SYS_LABELS[name]]
+        for label in key_years:
+            row.append(_f_ratio_at_index(great_path, poor_path, _idx_for(label)))
+        rows.append(row)
+
+    return md_table(headers, rows, col_fmt=col_fmt)
+
+
+def table_f3(paths_ext: dict, years_ext: list, crossover: Optional[dict],
+             paths_d30: Optional[dict] = None) -> str:
+    """
+    F.3: Flat vs progressive WDT crossover summary — one-row-per-metric table.
+
+    paths_d30 : the actual Part D output (run_concentration_analysis at the
+        canonical scenario_start_year, N=30) — NOT paths_ext's 30th entry.
+        paths_ext starts at 1947 with no rotation, so index 29 there is a
+        different 30-year window (~1947-1977) than D's 2000-2029 scenario.
+        The N=30 reference rows must come from D's own output.
+    """
+    great_flat = paths_ext["symmetric_wdt"]["Great"]
+    poor_flat  = paths_ext["symmetric_wdt"]["Poor"]
+    great_prog = paths_ext["progressive_wdt"]["Great"]
+    poor_prog  = paths_ext["progressive_wdt"]["Poor"]
+
+    if paths_d30 is not None:
+        ratio_flat_n30 = paths_d30["symmetric_wdt"]["Great"][-1] / paths_d30["symmetric_wdt"]["Poor"][-1]
+        ratio_prog_n30 = paths_d30["progressive_wdt"]["Great"][-1] / paths_d30["progressive_wdt"]["Poor"][-1]
+    else:
+        ratio_flat_n30 = ratio_prog_n30 = float('nan')
+    ratio_flat_n73 = great_flat[-1] / poor_flat[-1]
+    ratio_prog_n73 = great_prog[-1] / poor_prog[-1]
+
+    headers = ['Metric', 'Value']
+    col_fmt = [LEFT, RIGHT]
+    rows = [
+        ['Great/Poor ratio: Flat WDT at N=30',        _ratio(ratio_flat_n30)],
+        ['Great/Poor ratio: Progressive WDT at N=30', _ratio(ratio_prog_n30)],
+        ['Gap at N=30 (Progressive − Flat)',          f'{ratio_prog_n30 - ratio_flat_n30:+.1f}\u00d7'],
+        ['Great/Poor ratio: Flat WDT at N=73',        _ratio(ratio_flat_n73)],
+        ['Great/Poor ratio: Progressive WDT at N=73', _ratio(ratio_prog_n73)],
+        ['Gap at N=73 (Progressive − Flat)',          f'{ratio_prog_n73 - ratio_flat_n73:+.1f}\u00d7'],
+        ['First year Progressive WDT ratio < Flat WDT ratio',
+         (f'{crossover["year"]}' if crossover is not None else 'No crossover within N=73')],
+    ]
+    if crossover is not None:
+        rows.append(['Gap at crossover year', f'{crossover["gap"]:+.2f}\u00d7'])
+    return md_table(headers, rows, col_fmt=col_fmt)
+
+
+def table_f4(paths_ext: dict) -> str:
+    """
+    F.4: All-tier concentration matrix at N=73 — Great/Poor, Great/Ok, Ok/Poor,
+    analogous to D.3 but at the terminal N=73 horizon.
+    """
+    headers = ['System', 'Great/Poor', 'Great/Ok', 'Ok/Poor']
+    col_fmt = [LEFT, RIGHT, RIGHT, RIGHT]
+    rows = []
+    for name in _F_SYS_ORDER:
+        if name not in paths_ext:
+            continue
+        great = paths_ext[name].get("Great", [])
+        ok    = paths_ext[name].get("Ok", [])
+        poor  = paths_ext[name].get("Poor", [])
+        if len(great) == 0:
+            continue
+        gp = great[-1] / poor[-1] if poor[-1] > 0 else float('nan')
+        go = great[-1] / ok[-1]   if ok[-1]   > 0 else float('nan')
+        op = ok[-1]    / poor[-1] if poor[-1] > 0 else float('nan')
+        rows.append([_F_SYS_LABELS[name], _ratio(gp), _ratio(go), _ratio(op)])
+    return md_table(headers, rows, col_fmt=col_fmt)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # TABLES E.1.1–E.3.4  Module 5: Sweep Analysis
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -721,6 +834,26 @@ def table_e1(sweep_a_results: dict) -> str:
         rows.append([''] * len(headers))  # blank separator row between distributions
 
     return md_table(headers, rows[:-1], col_fmt=col_fmt)  # drop trailing blank
+
+
+def table_e1b(w0_results: dict, W0_vals: list) -> str:
+    """
+    E.1b: CEW by system and initial wealth W₀ (γ=2, E[T]=2% of W₀, Ver. A).
+    Backs Figure 4.5.1b (W₀-invariance result cited in WFR §4.5.1).
+    w0_results: {W0: {system: cew}}
+    """
+    headers = ['System'] + [f'W₀=£{W0:.0f}m' for W0 in W0_vals]
+    col_fmt = [LEFT] + [RIGHT] * len(W0_vals)
+    rows    = []
+
+    for name in SYSTEMS_ORD_M5:
+        row = [SYS_SWEEP_LABEL[name]]
+        for W0 in W0_vals:
+            v = w0_results.get(W0, {}).get(name)
+            row.append(fmt_pct4(v))
+        rows.append(row)
+
+    return md_table(headers, rows, col_fmt=col_fmt)
 
 
 def table_e2a(sweep_b_full: dict) -> str:
@@ -838,9 +971,16 @@ def build_appendix(
     envelope           : dict,
     tiers              : list,
     p                  : dict,
-    corner_results     : dict = None,   # Module 4 Part F off-diagonal spot check
+    corner_results     : dict = None,   # Module 4 Part D.6 off-diagonal spot check
+    # Module 4 Part F — extended concentration horizon (optional — omit to skip)
+    paths_ext          : dict = None,
+    years_ext          : list = None,
+    f_crossover        : dict = None,
+    paths_d30          : dict = None,   # Part D's own N=30 paths (for F.3's N=30 row)
     # Module 5 sweep results (optional — omit to skip Module 5 section)
     sweep_a_results    : dict = None,
+    sweep_a_w0_results : dict = None,
+    sweep_a_w0_vals    : list = None,
     sweep_b_full       : dict = None,
     sweep_b_curated    : list = None,
     sweep_c_results    : dict = None,
@@ -1121,6 +1261,18 @@ def build_appendix(
         doc.add_block(table_e1(sweep_a_results))
         doc.blank()
 
+        if sweep_a_w0_results is not None:
+            doc.h3('E.1.1 — Sweep A: CEW by System and Initial Wealth W₀ (γ=2)')
+            doc.note(
+                'E[T] fixed at 2% of W₀; W₀ swept across the wealth-tier range. '
+                'CEW is invariant to W₀ under this fixed-percentage design — the '
+                'flat-rate revenue-equivalence normalisation holds the relative '
+                'burden constant regardless of wealth level. Confirms the flat '
+                'series in Figure 4.5.1b. γ=2. Ver. A distribution.'
+            )
+            doc.add_block(table_e1b(sweep_a_w0_results, sweep_a_w0_vals or []))
+            doc.blank()
+
         if sweep_b_full is not None:
             doc.h3('E.2.1 — Sweep B: Summary Statistics Across All Start Years')
             doc.note(
@@ -1169,8 +1321,57 @@ def build_appendix(
 
         doc.rule()
 
+    # ── Module 4 Part F (optional — omitted unless paths_ext supplied) ────────
+    if paths_ext is not None and years_ext is not None:
+        doc.blank()
+        doc.h2('F. Extended Concentration Horizon (N=73)')
+        doc.blank()
+
+        doc.h3('F.1 — Setup and Scope')
+        doc.add(
+            'Same tiers, systems, and revenue-equivalent rates as D. Heterogeneous '
+            'Agents — only the horizon extends from the canonical N=30 scenario '
+            'window (2000-2029, wrap-around) to the full N=73 historical sequence, '
+            'run chronologically from 1947 to 2019 with no rotation. Rates are '
+            'carried forward from D — not re-solved at N=73 — because the question '
+            'is what happens to concentration if the same calibrated system runs '
+            'longer, not what rate a 73-year revenue target would imply.'
+        )
+        doc.blank()
+
+        doc.h3('F.2 — Extended Concentration Path (Key Years)')
+        doc.note(
+            'Great/Poor wealth ratio at selected years across the full 1947-2019 '
+            'sequence. 2000 and 2019 anchor points allow comparison against '
+            'the D.3 N=30 window (2000-2029); D.3\'s 2029 endpoint falls outside '
+            'the 1947-2019 series and is not repeated here.'
+        )
+        doc.add_block(table_f2(paths_ext, years_ext))
+        doc.blank()
+
+        doc.h3('F.3 — Flat vs Progressive WDT: Crossover Horizon')
+        doc.note(
+            'At N=30, progressive WDT shows marginally HIGHER Great/Poor '
+            'concentration than flat WDT (D.3; the logistic operates near its '
+            'entry rate at canonical wealth levels, so progression barely bites). '
+            'This table reports whether and when that inverts at longer horizons.'
+        )
+        doc.add_block(table_f3(paths_ext, years_ext, f_crossover, paths_d30=paths_d30))
+        doc.blank()
+
+        doc.h3('F.4 — All-Tier Concentration Matrix at N=73')
+        doc.note(
+            'Great/Poor, Great/Ok, and Ok/Poor wealth ratios at the N=73 terminal '
+            'horizon, analogous to D.3 but at the extended horizon — shows where '
+            'across the tier structure any progressive-vs-flat divergence '
+            'concentrates.'
+        )
+        doc.add_block(table_f4(paths_ext))
+        doc.blank()
+        doc.rule()
+
     doc.blank()
-    doc.h2('Parameter Reference')
+    doc.h2('G. Parameter Reference')
     doc.blank()
     doc.add('| Parameter | Value | Source |')
     doc.add('|:---|---:|:---|')
@@ -1310,15 +1511,28 @@ def main():
     )
     envelope     = test_envelope_binding(tiers, p, rate_fn)
 
-    # Part F: off-diagonal spot check (uses same dist_A and rate_fn as Parts B–E)
+    # Part D.6: off-diagonal spot check (uses same dist_A and rate_fn as Parts B–E)
     dist_A_m4    = make_empirical_distribution_scenario(p, p['tcm']['canonical_N'])
     corner_results = run_corner_check(tiers, dist_A_m4, 2.0, rate_fn)
+
+    # Part F: extended concentration horizon (N=73) — rates carried forward from D
+    print('--- Running Module 4 Part F (N=73 extension) ---')
+    systems_extended = ['symmetric_wdt', 'progressive_wdt',
+                        'stock_wealth', 'income', 'consumption']
+    paths_ext, years_ext = run_concentration_analysis_extended(
+        tiers, p, rate_fn, systems_extended, precomputed_taus=agg_taus
+    )
+    f_crossover = find_progressive_crossover(paths_ext, start_year=years_ext[0])
 
     # ── Module 5 results ──────────────────────────────────────────────────────
     print('--- Running Module 5 sweeps (this may take a few minutes) ---')
 
     # Sweep A: revenue target
     sweep_a_results, _sweep_dists = run_sweep_a(p)
+
+    # Sweep A: W₀ sensitivity (backs Figure 4.5.1b)
+    sweep_a_w0_results, _sweep_a_w0_dist = run_sweep_a_w0(p)
+    sweep_a_w0_vals = p['sweep']['wfr_W0_sweep']
 
     # Sweep B: start year
     sweep_b_full, _sweep_b_curated = run_sweep_b(p)
@@ -1356,7 +1570,13 @@ def main():
         paths=paths, conc_years=conc_years, envelope=envelope,
         tiers=tiers, p=p,
         corner_results=corner_results,
+        paths_ext=paths_ext,
+        years_ext=years_ext,
+        f_crossover=f_crossover,
+        paths_d30=paths,
         sweep_a_results=sweep_a_results,
+        sweep_a_w0_results=sweep_a_w0_results,
+        sweep_a_w0_vals=sweep_a_w0_vals,
         sweep_b_full=sweep_b_full,
         sweep_b_curated=sweep_b_curated_years,
         sweep_c_results=sweep_c_results,

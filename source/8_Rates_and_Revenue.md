@@ -28,6 +28,7 @@ keywords:
 | 1.01      | 31 August 2026  | Corrected TCM coverage ratio (27.7% → 27.4%) and minimum-coverage start-year attribution (2003 → 2005) to match model output |
 | 1.02      | 12 September 2026  | Updated active scenario from 2007 to 2000 Balanced; revised coverage metric from capitalisation-window average to post-LRR-fill Step-5 window average; updated all reference-scenario figures (N, expenditure, surplus, burden matrices, terminal wealth, revenue tiers); added lifetime contribution envelope discussion to §4; updated success definition to v8 |
 | 1.03      | 13 September 2026  | Updated terminal net worth table and figure (Fig. 3) from N=19 to N=30 canonical horizon; updated table footnote, figure caption, and §2 prose figures accordingly |
+| 1.04      | 20 September 2026  | Crosslinks added: §2 opening notes that burden figures and tier trajectories are used as WFR's revenue-equivalence baseline and four-tier Fagereng calibration (WFR §3–§4, WFR §4.3); §9.1 extended with pointer to WFR for formal welfare comparisons, D-M extension (WFR §3.2, §4.1), and concentration arithmetic (WFR §4.3) |
 
 \newpage
 
@@ -77,7 +78,7 @@ All revenue figures are pre-behavioural baselines. Behavioural modelling is assi
 
 **Lifetime contribution envelope:** The constraint that cumulative lifetime refunds received cannot exceed cumulative lifetime taxes paid. Ensures the symmetric refund mechanism cannot produce net lifetime transfers from the state to the taxpayer.
 
-**Logistic rate function:** The functional form $\tau$(W) applied to annual wealth deltas. Rises smoothly from $\tau_0$ at $W_{min}$ to an asymptotic ceiling of $\tau_m$. Specified by four parameters: $\tau_0$, $\tau_m$, k, and $W_{min}$. See (RATES §4) for the full expression.
+**Logistic rate function:** The functional form $\tau$(W) applied to annual wealth deltas. Rises smoothly from $\tau_0$ at $W_{min}$ to an asymptotic ceiling of $\tau_m$. Specified by four parameters: $\tau_0$, $\tau_m$, $k$,and $W_{min}$. See (RATES §4) for the full expression.
 
 **SSM post-fill coverage:** The average, over a given window of years after LRR fill, of the Step-5 labour-relief surplus (net WDT income remaining after SRR maintenance and LRR floor obligations are satisfied) expressed as a fraction of annual government expenditure. Computed for 5, 10, 20, and 50-year windows; years where the LRR balance is zero contribute zero to the average. Reflects the correlated-shock assumption and provides the floor on post-fill revenue capacity. At the 2000 Balanced reference scenario, the 10-year SSM post-fill coverage is 6.4%. Contrasts with TCM post-fill coverage.
 
@@ -123,6 +124,8 @@ This paper does not model behavioural responses. Migration, restructuring, and a
 # 2. What Taxpayers Actually Pay
 
 Two metrics answer the question of individual burden. The effective rate on gains is tax paid as a proportion of the annual wealth increase: what fraction of this year's appreciation disappears. The annual wealth burden is tax paid as a proportion of existing net worth: how much of total accumulated wealth is transferred annually. Because gains on accumulated wealth are typically much smaller than the stock, these numbers are structurally different. A 25% effective rate on gains corresponds to a much smaller annual wealth burden, because the gain being taxed is itself a fraction of the stock.
+
+The burden figures in this section are used by (WFR) as the revenue-equivalence baseline for its six-system welfare comparison: WFR calibrates all systems to E[T] = 2% of W₀, which corresponds to the revenue-weighted average annual wealth burden of 0.35% of net worth established here. The tier-level wealth trajectories and growth differentials in (RATES §5.2) supply the four-tier Fagereng calibration that WFR uses in its concentration analysis (WFR §4.3).
 
 **Terminal net worth at year N=30 (£m, pre-settlement)**
 
@@ -474,6 +477,8 @@ Against a UK government expenditure base of £1,157b in 2022–23 (JUR §3.2), a
 ## 9.1 Formal modelling gaps
 
 The revenue model is built on a fixed historical UK equity return series as a growth proxy for broad wealth across asset classes. This is the best available single series but reflects one country over one period (1947–2019). A different national return series, finer-grained data, or a longer historical record would produce different sweep figures. A formal cross-country or cross-period analysis of the model's sensitivity to the choice of return series has not been done.
+
+The formal welfare comparisons that this paper's burden figures implied but did not carry out — comparing the WDT against capital gains tax, income tax on capital, a stock wealth tax, a consumption tax, and an accrual tax at genuine revenue equivalence — have since been undertaken in (WFR §3–§4). The Domar-Musgrave extension to a progressive delta base, identified as a gap in (LR.A §2.1), is addressed in (WFR §3.2) and (WFR §4.1). The distributional concentration arithmetic across a four-tier Fagereng calibration, identified as a gap in (LR.A §2.3), is in (WFR §4.3).
 
 ## 9.2 Phase One empirical unknowns
 
