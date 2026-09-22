@@ -163,23 +163,32 @@ def generate_corpus_qmd(
         "",
         "## Reading dependencies",
         "",
-        "Most papers assume familiarity with the [White Paper (WP)](wp.html). "
-        "The valuation appendices (VAL.A), (VAL.B) assume familiarity with (VAL). "
-        "The governance appendices (GOV.A), (GOV.B) assume familiarity with (GOV). "
-        "The rates appendix (RATES.A) assumes familiarity with (RATES).",
+        "Most papers assume familiarity with (WP). "
+        "(RATES) and (SWEEPS) assume familiarity with (VAL). "
+        "(BEHAV) assumes familiarity with (VAL) and (GOV). "
+        "(WFR) assumes familiarity with (RATES). "
+        "(POL) assumes familiarity with (GOV). "
+        "(CLOSE) assumes familiarity with (VAL) and (GOV). "
+        "(INST) assumes familiarity with (POL) and (GOV). "
+        "(FM) assumes familiarity with (POL) and (RATES). "
+        "(ENV) assumes familiarity with (RATES) and (BEHAV). "
+        "(LDW) assumes familiarity with (RATES). "
+        "(FAL) assumes familiarity with (VAL), (RATES), and (BEHAV).",
         "",
-        "For first-time readers, the recommended sequence is: "
-        "[WP](wp.html) → [MF](mf.html) → [VAL](val.html) → "
-        "[GOV](gov.html) → [RATES](rates.html). "
-        "See also the [Welcome](index.l) guide.",
+        "The recommended first-time sequence is: "
+        "(WP) → (MF) → (VAL) → (GOV) → (RATES). "
+        "See also the [reading guide by interest](research.html#reading-guide-by-interest).",
         "",
         "---",
         "",
         "## About this index",
         "",
-        "This page is generated automatically from the project reference database "
-        "at each site build. The HTML papers at this site are the authoritative "
-        "current versions; PDF versions archived at Zenodo may lag by one or more revisions.",
+        "The HTML papers on this site are the authoritative current versions. "
+        "PDF versions archived at [Zenodo](https://doi.org/10.5281/zenodo.21964119) "
+        "may lag by one or more revisions. "
+        "This page is updated manually at each site build; "
+        "the [Project Map](Project-Map.html) is the authoritative source "
+        "for paper status and open questions.",
     ]
 
     dest_path.write_text("\n".join(lines), encoding="utf-8")

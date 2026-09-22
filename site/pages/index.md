@@ -3,26 +3,14 @@ title: "Wealth Delta Tax"
 description: "A proposal for taxing changes in private wealth rather than income or assets."
 author: "K. Ogata"
 ---
-<div id="banner-slot"></div>
-<!-- SCREEN 1 — The idea, before anything else -->
 
-```{=html}
-<div class="wdt-hero">
-  <p class="wdt-hero-tagline">
-    <em>The Wealth Delta Tax taxes Net Worth when it rises, refunds when it falls.
-    </em>
-  </p>
-  <p class="wdt-hero-tagline">
-    <em> All existing concepts about traditional taxation do not apply because of this single property.</em>
-  </p>
-  <a class="wdt-hero-prompt" href="#the-idea-in-one-minute">See how it works ↓</a>
-  <p class="wdt-hero-meta">Independent research &nbsp;·&nbsp; 29 working papers &nbsp;·&nbsp; open to challenge</p>
-</div>
-```
+*The Wealth Delta Tax taxes Net Worth when it rises, refunds when it falls.*
+
+*All existing concepts about traditional taxation do not apply because of this single property.*
+
+> Independent research · 32 working papers · open to challenge · [DOI: 10.5281/zenodo.21964119](https://doi.org/10.5281/zenodo.21964119)
 
 ---
-
-<!-- SCREEN 2 — Three people, concrete immediately -->
 
 ## The idea in one minute {#the-idea-in-one-minute}
 
@@ -36,8 +24,6 @@ Under the current system, Ben could make that £20 million gain, never sell the 
 
 ---
 
-<!-- SCREEN 3 — The diagram (now the reader understands what it shows) -->
-
 ## How the system works {#how-it-works}
 
 ![WDT bidirectional flow](diagrams/WDT_Bidirectional_LR.png){fig-alt="Diagram showing private wealth connecting bidirectionally to a public wealth fund, which distributes to citizen dividends, public investment, and a loss reserve." width=60% fig-align="center"}
@@ -45,8 +31,6 @@ Under the current system, Ben could make that £20 million gain, never sell the 
 The system is bidirectional. Private wealth does not simply flow to government — the connection runs both ways.
 
 ---
-
-<!-- SCREEN 4 — The symmetry, reinforcing what they just saw -->
 
 ## The symmetry
 
@@ -58,13 +42,9 @@ Most taxes move in one direction: private wealth to government. WDT moves in bot
 | ↓ your wealth falls | You receive a refund |
 | → your wealth is unchanged | Nothing happens |
 
-```{=html}
-<p class="wdt-anchor-sentence">WDT is better understood as a fiscal participation rule than as a tax on being wealthy.</p>
-```
+> **WDT is better understood as a fiscal participation rule than as a tax on being wealthy.**
 
 ---
-
-<!-- SCREEN 5 — Why does this exist? The loophole, not an abstraction -->
 
 ## Why the current system falls short
 
@@ -76,33 +56,35 @@ The WDT closes this automatically. Because the tax base is net worth (assets min
 
 ---
 
-<!-- SCREEN 6 — Who benefits -->
-
 ## What the money is for
 
 WDT revenue is dedicated to reducing taxes on wages and consumption — income tax, National Insurance, and VAT. The people benefiting most from long-run wealth accumulation bear a greater share of the cost of maintaining the systems that made that accumulation possible.
 
 Consider Sarah, who earns £38,000 a year. The WDT threshold is in the region of £2 million in net worth. She would need to save every penny of her salary for over a century to reach it. She will never pay the WDT. But she currently pays income tax and National Insurance on every pound she earns, and VAT on most of what she spends. Under a mature WDT, those are the taxes that fall. The people above the threshold pay the WDT; Sarah gets the relief.
 
----
+How much relief? At median earnings of £39,039, removing income tax and National Insurance contributions returns **£618 per month** to the payslip. Once VAT displacement and energy cost reductions are included, effective purchasing power rises by **36%** from the same employment — without a pay rise, without a promotion, without any change in Sarah's working life. A lower earner on £25,000 gains **£320 per month** on the payslip and **32%** in effective purchasing power. These are not projections of what a government might choose to do with surplus revenue. They are the arithmetic consequence of what the WDT's reserve accumulation is constitutionally committed to deliver.
 
-<!-- SCREEN 7 — The Soveriegn Wealth Fund -->
+→ [Full purchasing power analysis (LDW)](ldw.html)
+
+---
 
 ## The Sovereign Wealth Fund
 
-The WDT does not merely finance today's government. It builds an asset. Contributions accumulate in a Sovereign Wealth Fund, managed at arm's length from the Treasury, invested on long horizons. The fund pre-funds the refund gaurentee and generates returns that can be distributed as cLabour Tax Relief or reinvested in public capital.
+The WDT does not merely finance today's government. It builds an asset. Contributions accumulate in a Sovereign Wealth Fund, managed at arm's length from the Treasury, invested on long horizons.
 
-```{=html}
-<div class="wdt-flow">WDT contributions → SOVEREIGN WEALTH FUND → Refund Gaurentee
-                                       → Labour Tax Relief
-                                       → Public Investment</div>
-```
+The fund serves three purposes simultaneously:
 
-The fund is what makes the refund promise mechanically credible rather than aspirational. Without it, a government facing a crash could simply not pay. With it, the obligation is backed by an asset.
+- **Refund guarantee** — pre-funds the state's obligation to pay refunds in bad years, making the promise mechanically credible rather than aspirational
+- **Labour Tax Relief** — accumulates the reserves from which income tax and National Insurance are progressively displaced
+- **Public Investment** — generates long-run returns reinvested in infrastructure and public capital
+
+Without the fund, a government facing a market crash could simply not pay the refund. With it, the obligation is backed by a ring-fenced asset that cannot be suspended without breaching a funded constitutional commitment — not merely breaking a promise.
+
+> A government that raids the SWF is not changing a policy. It is defaulting on a debt.
+
+→ [How the fund is governed and protected (GOV)](gov.html)
 
 ---
-
-<!-- SCREEN 8 — The obvious objection, answered -->
 
 ## "Isn't this just a wealth tax?"
 
@@ -118,36 +100,27 @@ The fund is what makes the refund promise mechanically credible rather than aspi
 
 ---
 
-<!-- SCREEN 9 — The sceptic pathway -->
+## Sceptical?
 
-```{=html}
-<div class="wdt-skeptic-box">
-  <h3>Sceptical?</h3>
-  <ul>
-    <li>How do you value assets that don't trade publicly? → <a href="faq.html#val">FAQ Q3</a> · <a href="val.html">VAL</a></li>
-    <li>What stops the wealthy from leaving? → <a href="faq.html#close">FAQ Q4</a> · <a href="close.html">CLOSE</a></li>
-    <li>Wouldn't this destroy investment incentives? → <a href="faq.html#behav">FAQ Q7</a> · <a href="behav.html">BEHAV</a></li>
-    <li>What stops government from raiding the fund? → <a href="faq.html#gov">FAQ Q10</a> · <a href="gov.html">GOV</a></li>
-    <li>How does this work for private companies? → <a href="faq.html#corp">FAQ Q4</a> · <a href="corp.html">CORP</a></li>
-    <li>Why would this ever become law? → <a href="faq.html#pol">FAQ Q8</a> · <a href="pol.html">POL</a></li>
-  </ul>
-</div>
-```
+> - How do you value assets that don't trade publicly? → [FAQ Q3](faq.html#val) · [VAL](val.html)
+> - What stops the wealthy from leaving? → [FAQ Q4](faq.html#close) · [CLOSE](close.html)
+> - Wouldn't this destroy investment incentives? → [FAQ Q7](faq.html#behav) · [BEHAV](behav.html)
+> - What stops government from raiding the fund? → [FAQ Q10](faq.html#gov) · [GOV](gov.html)
+> - How does this work for private companies? → [FAQ Q4](faq.html#corp) · [CORP](corp.html)
+> - Why would this ever become law? → [FAQ Q8](faq.html#pol) · [POL](pol.html)
 
 ---
-
-<!-- SCREEN 10 — Entry points into the research -->
 
 ## Where to go next
 
 | If you want… | Start with… |
 |---|---|
-| The full mechanism | White Paper (WP)|
-| The moral case | Moral Foundations (MF) |
-| The numbers | Rates and Revenue (RATES) |
+| The full mechanism | [White Paper (WP)](wp.html) |
+| The moral case | [Moral Foundations (MF)](mf.html) |
+| The numbers | [Rates and Revenue (RATES)](rates.html) |
+| What this means for your household | [Labour Dividend Welfare (LDW)](ldw.html) |
 | The hardest objections | [FAQ](faq.html) |
-| All 26 papers | [Research Programme](research.html) |
+| All 32 papers | [Research Programme](research.html) |
 | Everything | [Project Map](Project-Map.html) |
 
-*29 working papers in active development as of mid-2026. Pre-peer review. Open questions are stated explicitly throughout and collected in the [Project Map](Project-Map.html).*
-
+*32 working papers in active development as of mid-2026. Pre-peer review. Open questions are stated explicitly throughout and collected in the [Project Map](Project-Map.html).*
