@@ -86,7 +86,7 @@ The SRR breach check is a static coverage assessment, not a modelled active tran
 
 The TCM models a representative taxpayer in each of forty wealth-bracket-by-growth-tier cells (ten brackets × four tiers), simulating cumulative tax and refund flows over N regular periods plus a terminal sell year, where N is the LRR breakeven year produced by the SSM. N is always passed from the SSM output; the two models share the same horizon by construction.
 
-In each period t, true wealth V_t grows at the actual historical return for that period (from the return series rotated to the active scenario's start year) plus the tier's persistent differential. Declared wealth W_t is a fraction f_t of V_t, where f_t begins at 1.0 and evolves through the Route C equity-transfer mechanism: in each period the WDT settlement transfers a proportional equity interest at the declared value, gradually reducing the retained equity fraction. The annual delta is W_t − W_{t−1}; $\tau$(W_t) is applied to positive deltas to compute gross tax. In loss years the symmetric refund applies at the same marginal rate, subject to the lifetime contribution envelope: annual liability L_t is bounded below by the larger of zero and the negative of cumulative net tax paid to date, ensuring refunds never exceed taxes paid over the lifetime horizon.
+In each period t, true wealth $V_t$ grows at the actual historical return for that period (from the return series rotated to the active scenario's start year) plus the tier's persistent differential. Declared wealth $W_t$ is a fraction $f_t$ of $V_t$, where $f_t$ begins at 1.0 and evolves through the Route C equity-transfer mechanism: in each period the WDT settlement transfers a proportional equity interest at the declared value, gradually reducing the retained equity fraction. The annual delta is $W_t − W_{t−1}$; $\tau_{W_t}$ is applied to positive deltas to compute gross tax. In loss years the symmetric refund applies at the same marginal rate, subject to the lifetime contribution envelope: annual liability $L_t$ is bounded below by the larger of zero and the negative of cumulative net tax paid to date, ensuring refunds never exceed taxes paid over the lifetime horizon.
 
 Net annual tax per taxpayer in bracket b and tier d is the mean of L_t over all N+1 periods. The annual revenue contribution of each cell is this figure multiplied by bracket population and tier population weight. Total annual TCM revenue is the sum across all forty cells. All figures are population-weighted averages over the full N+1-period horizon, not single-year snapshots.
 
@@ -114,7 +114,7 @@ These metrics are statistical summaries derived from historical return data. The
 
 All inputs are in the TOML parameter file (`7_4_260729_WDT_Rates_and_Revenue_Params.toml`). The Python file contains no hardcoded inputs. Replication requires only the TOML, the script, and a standard Python 3 environment with `tomllib` (or `tomli`). No proprietary data, external API calls, or Excel workbook are required.
 
-To run: `python3 model.py [params.toml]`. The TOML path defaults to the script directory if omitted. Each run produces a dated Markdown output file (`7_5_YYMMDD_WDT_Rates_Revenue_Output.md`) containing the full parameter set, all SSM and TCM results, the complete 73-row sweep table, and the statistical pass. §B.1–§B.5 reproduce the output from the 2007 Balanced run.
+To run: `python3 model.py [params.toml]`. The TOML path defaults to the script directory if omitted. Each run produces a dated Markdown output file (`7_5_YYMMDD_WDT_Rates_Revenue_Output.md`) containing the full parameter set, all SSM and TCM results, the complete 73-row sweep table, and the statistical pass. (RATES.A §B.1) through (RATES.A §B.5) reproduce the output from the 2007 Balanced run.
 
 To vary a scenario, modify the TOML and rerun. Only the `scenario_start_year` field in the `[tcm]` section changes between start-year scenarios; rate parameters, reserve ratios, budget constants, and return series values are shared and need not be touched. The sweep tests all 73 start years regardless of the active scenario, so a single run produces both the active-scenario results and the full historical comparison.
 
@@ -176,12 +176,12 @@ To vary a scenario, modify the TOML and rerun. Only the `scenario_start_year` fi
 
 ## B.3 TCM Results — snapshot N=19 (cap. window) / N=30 (lifetime)
 
-*Two TCM horizons are used in this section. Capitalisation-window tables (§B.3.2, §B.3.6–§B.3.9 cap-window column) use N=19 — the SSM LRR breakeven year. Terminal net worth (§B.3.1) and lifetime/burden tables (§B.3.3, §B.3.4, §B.3.5, §B.3.9 lifetime column) use N=30 — the canonical taxpayer horizon declared across VAL, RATES, SWEEPS, and WFR. Using N=19 for terminal wealth would anchor V_N too early and understate the burden by averaging tax over too few years.*
+*Two TCM horizons are used in this section. Capitalisation-window tables (RATES.A §B.3.2), (RATES.A §B.3.6) through (RATES.A §B.3.9) cap-window column use N=19 — the SSM LRR breakeven year. Terminal net worth (§B.3.1) and lifetime/burden tables (RATES.A §B.3.3), (RATES.A §B.3.4), (RATES.A §B.3.5), (RATES.A §B.3.9) lifetime column use N=30 — the canonical taxpayer horizon declared across VAL, RATES, SWEEPS, and WFR. Using N=19 for terminal wealth would anchor V_N too early and understate the burden by averaging tax over too few years.*
 
 
 ### B.3.1 Net worth — start ($V_0$) and year N=30 (£m)
 
-*$V_0$ is the bracket mean wealth (£m) at entry, identical across tiers within a bracket. V_N is the true wealth (before tax settlement) at the end of period N=30 (canonical 30-year horizon) for a representative taxpayer, varying by tier due to persistent return differentials. N=30 is used here — rather than the SSM LRR breakeven year N=19 — so that terminal wealth is anchored at the same horizon as the burden and lifetime metrics in §B.3.3–§B.3.5. Figures are for a single representative taxpayer; they do not reflect aggregate portfolio wealth.*
+*$V_0$ is the bracket mean wealth (£m) at entry, identical across tiers within a bracket. V_N is the true wealth (before tax settlement) at the end of period N=30 (canonical 30-year horizon) for a representative taxpayer, varying by tier due to persistent return differentials. N=30 is used here — rather than the SSM LRR breakeven year N=19 — so that terminal wealth is anchored at the same horizon as the burden and lifetime metrics in (RATES.A §B.3.3) through (RATES.A §B.3.5). Figures are for a single representative taxpayer; they do not reflect aggregate portfolio wealth.*
 
 | Net worth (£m) | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -222,7 +222,7 @@ To vary a scenario, modify the TOML and rerun. Only the `scenario_start_year` fi
 
 ### B.3.4 Effective rate on lifetime gains (income-tax analogue) — N=30
 
-*income_tax_rate = total_net_settled / (TW_settled − V₀). Numerator: total lifetime net WDT (including post-sale settlement oscillations). Denominator: net lifetime wealth gain — what the taxpayer ended up with above what they started with, after all tax cash flows have resolved. Directly comparable to an income or CGT rate. Cells showing "—" have TW_settled ≤ V₀ (net loss over the horizon; WDT issued net refunds, so no positive effective rate is defined). Computed at N=30.*
+*income_tax_rate = total_net_settled / (TW_settled −$V_0$). Numerator: total lifetime net WDT (including post-sale settlement oscillations). Denominator: net lifetime wealth gain — what the taxpayer ended up with above what they started with, after all tax cash flows have resolved. Directly comparable to an income or CGT rate. Cells showing "—" have TW_settled ≤$V_0$ (net loss over the horizon; WDT issued net refunds, so no positive effective rate is defined). Computed at N=30.*
 
 | Tier \ Bracket | 50% | 60% | 70% | 80% | 90% | 95% | 99% | 99.9% | 99.99% | 99.99%+ |
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -236,7 +236,7 @@ To vary a scenario, modify the TOML and rerun. Only the `scenario_start_year` fi
 | Population-weighted avg effective rate | 9.1% | Σ(income_tax_rate × headcount) / Σ headcount — cells with net loss excluded; lower-wealth brackets dominate numerically |
 | Gain-weighted effective rate | 13.0% | Σ(total_net_settled × headcount) / Σ(lifetime_gain × headcount) — tax as fraction of aggregate lifetime wealth created; higher-wealth brackets dominate |
 
-*Both figures computed at N=30, excluding cells where TW_settled ≤ V₀. The gain-weighted figure is the closer analogue to a statutory income tax rate applied to aggregate gains.*
+*Both figures computed at N=30, excluding cells where TW_settled ≤$V_0$. The gain-weighted figure is the closer analogue to a statutory income tax rate applied to aggregate gains.*
 
 ### B.3.5 Average annual net tax per taxpayer — lifetime average (£/yr) — N=30
 

@@ -494,6 +494,31 @@ Items not listed here are settled. Items listed under **Closed** have been resol
 | 27 | Post-Brexit information exchange gaps (DAC loss, EU-domiciled structures) |
 | 28 | Constitutional/legal analysis of Route D auction trigger in specific jurisdictions |
 
+---
+
+**Item #33 — Route D realisation event flow and LRR capitalisation window impact**
+
+The RATES TCM models all taxpayers as generating annual delta revenue in each assessment period. Route D taxpayers generate no annual revenue during the holding period; all settlement defers to a realisation event. The fiscal consequence for the LRR fill timeline depends on the annual flow of Route D realisation events during the capitalisation window — a quantity the TCM does not model.
+
+The required data exists in principle across three sources: ONS mortality data cross-referenced with the upper-tail wealth distribution (deaths trigger inheritance settlement); HMRC transaction data on private company sales and commercial property disposals (the principal Route D asset classes); and the inheritance and estate settlement record. This is a pre-Phase-One analytical deliverable requiring only existing administrative datasets, not live WDT data.
+
+The SRR year-3 fill invariance result is not affected: the SRR target scales with observed net revenue and fills in approximately three years regardless of the revenue level. The LRR fill timeline is sensitive, since the LRR floor is fixed in real terms and does not scale with observed revenue. The degree of LRR timeline extension is proportional to the share of Route D wealth not realising within the capitalisation window. Given observed mortality rates and private asset transaction frequencies, the realistic effect is materially smaller than the theoretical upper bound and concentrated in the early capitalisation years.
+
+**Status:** Pre-Phase-One analytical deliverable. Requires HMRC data access agreement (OQ #26) for full microsimulation; directional estimate constructible from publicly available ONS and transaction data before that agreement is in place.
+
+**Assigned to:** Pre-Phase-One analytical work; RATES.A extension.
+
+**Item #34 — Population-weighted revenue calculation across the predicted α distribution**
+
+The TCM assumes α = 1 throughout. The behavioural analysis predicts a population centre modestly above honest declaration. No paper computes revenue under a population-weighted declaration distribution by bracket. The direction of the effect is argued in RATES §9.7 — systematic understatement and overstatement both produce higher annual revenue than the α = 1 baseline — but the magnitude is not quantified.
+
+The required extension is straightforward within the existing model infrastructure: partition each RATES bracket by a distribution of α values, run the TCM at each α, and weight by the predicted population density. The predicted mild-overstatement centre and the portfolio anchor constraint derived in VAL §7.5 together bound the plausible α distribution for each bracket.
+
+**Status:** Closable without Phase One data using existing model infrastructure.
+
+**Assigned to:** RATES.A extension; SWEEPS follow-on.
+
+
 ### Summary observations
 
 - **3 confirmed literature gaps** remain open requiring formal modelling or comparative case study work. Gaps #1–3 (D-M extension, welfare comparison, concentration arithmetic) are now **closed** by WFR.

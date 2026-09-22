@@ -23,7 +23,7 @@ keywords:
 
 # Abstract {.unnumbered .unlisted}
 
-This paper compares six tax systems — flat-rate symmetric WDT, progressive symmetric WDT, income tax, capital gains tax, stock wealth tax, and consumption tax — at genuine revenue equivalence (E[T] = 2% of W₀), using certainty-equivalent welfare against a common no-tax benchmark. Distortions are admitted one at a time in a controlled sequence, so welfare differences can be attributed to specific mechanisms rather than to bundled effects.
+This paper compares six tax systems — flat-rate symmetric WDT, progressive symmetric WDT, income tax, capital gains tax, stock wealth tax, and consumption tax — at genuine revenue equivalence (E[T] = 2% of $W_0$), using certainty-equivalent welfare against a common no-tax benchmark. Distortions are admitted one at a time in a controlled sequence, so welfare differences can be attributed to specific mechanisms rather than to bundled effects.
 
 The paper closes three confirmed literature gaps. It formally extends the Domar-Musgrave risk-sharing framework to a progressive delta base and quantifies the three complications this introduces under a logistic rate schedule — all second-order at canonical parameters. It positions the delta base in a welfare comparison alongside the standard candidates, tested against the same empirical return distribution at revenue equivalence. And it traces the concentration path of persistent Fagereng-style return heterogeneity under each tax base over a 30-year horizon.
 
@@ -47,7 +47,7 @@ The paper applies a three-category epistemic taxonomy distinguishing welfare cos
 
 **Long-run reserve (LRR):** The WDT's accumulation vehicle for Phase Two fiscal replacement, funded from post-SRR surplus.
 
-**Revenue equivalence:** The condition under which all systems are calibrated such that the expected tax collected equals the same target as a proportion of initial wealth — here, E[T] = 2% of W₀.
+**Revenue equivalence:** The condition under which all systems are calibrated such that the expected tax collected equals the same target as a proportion of initial wealth — here, E[T] = 2% of $W_0$.
 
 **Short-run reserve (SRR):** The ring-fenced reserve capitalised in the early years of the WDT, which makes the refund guarantee mechanically credible within a single political cycle.
 
@@ -64,7 +64,7 @@ References throughout this paper to (WFR.A §A) through (WFR.A §E) refer to sec
 
 Most tax-system welfare comparisons do not hold revenue constant, do not model the mechanisms generating welfare costs, and do not test all candidate instruments against the same empirical return distribution. The consequence is that welfare comparisons in this literature conflate revenue level with welfare outcome, suppress the structural distortions generating the largest real-world welfare costs, and omit instruments without a large implementation literature. This paper does none of these things.
 
-Six systems are compared — flat-rate symmetric WDT, progressive symmetric WDT, income tax, capital gains tax, stock wealth tax, and consumption tax — at genuine revenue equivalence: a numerical solve for E[T] = 2% of W₀ across all systems. The welfare criterion is certainty-equivalent welfare against a common no-tax benchmark, so rankings are directly comparable. Distortions are admitted one at a time in a controlled sequence, so welfare differences can be attributed to specific mechanisms rather than to bundled effects.
+Six systems are compared — flat-rate symmetric WDT, progressive symmetric WDT, income tax, capital gains tax, stock wealth tax, and consumption tax — at genuine revenue equivalence: a numerical solve for E[T] = 2% of $W_0$ across all systems. The welfare criterion is certainty-equivalent welfare against a common no-tax benchmark, so rankings are directly comparable. Distortions are admitted one at a time in a controlled sequence, so welfare differences can be attributed to specific mechanisms rather than to bundled effects.
 
 The paper closes three confirmed literature gaps (LR.A §2.1–2.3). No prior paper formally extends the Domar-Musgrave risk-sharing framework to a progressive delta base and quantifies the three complications this introduces under a logistic rate schedule. No prior welfare comparison includes the delta base alongside the standard candidates tested against the same empirical return distribution at revenue equivalence. No prior paper works through the concentration arithmetic of the delta base under persistent return heterogeneity of the type Fagereng et al. (2020) establish — where returns differ persistently across the wealth distribution and compound into concentration over a multi-decade horizon. Closing all three simultaneously matters: the D-M extension establishes the risk-sharing mechanism; the welfare comparison establishes that the mechanism translates into welfare advantage once distortions are admitted; the concentration result establishes distributional implications extending beyond the single-agent frame.
 
@@ -92,7 +92,7 @@ Section 2 establishes the comparison design, the three-category taxonomy, and th
 
 Six tax systems are compared throughout: flat-rate symmetric WDT, progressive symmetric WDT, income tax, capital gains tax, stock wealth tax, and consumption tax. Both WDT variants apply symmetric loss refunds — the refund rate in a loss year equals the marginal rate that would have applied to an equivalent gain. The flat variant applies this rate proportionally across all wealth levels; the progressive variant applies it through the logistic schedule described in (RATES §4). All references to "the WDT" without qualification apply to both variants; where the two differ, they are identified explicitly.
 
-For each system and each return distribution, the tax rate is solved numerically such that E[T] = 2% of W₀. Rates differ across systems because different tax bases collect differently against the same return distribution. Revenue-equivalent rates are in (WFR.A §A.3). The income tax rate differential between the two distributions — 32.067% against the empirical distribution versus 33.404% against the idealised — is explained in (WFR §3.1).
+For each system and each return distribution, the tax rate is solved numerically such that E[T] = 2% of $W_0$. Rates differ across systems because different tax bases collect differently against the same return distribution. Revenue-equivalent rates are in (WFR.A §A.3). The income tax rate differential between the two distributions — 32.067% against the empirical distribution versus 33.404% against the idealised — is explained in (WFR §3.1).
 
 The welfare criterion is certainty-equivalent welfare (CEW): the proportional change in consumption under a no-tax counterfactual that would make the agent indifferent to the taxed system. Negative values indicate welfare cost relative to the no-tax benchmark. All six systems are evaluated against the same no-tax benchmark, so rankings are directly comparable. The utility function is CRRA with risk-aversion parameter γ; the central case is γ=2, following (@FlavinYamashita2002). A sensitivity sweep across γ=1, 2, and 4 is in (WFR.A §A.1); qualitative rankings are stable.
 
@@ -204,7 +204,7 @@ This sequencing is not merely organisational. @ArachiDAntoni2022 establish that 
 
 A progressive rate schedule breaks the Domar-Musgrave result from (WFR §3.2). The D-M derivation requires a flat proportional rate: the government's co-investment share must be constant across all wealth levels for the contracted return distribution to leave risk rankings unchanged. Under a logistic progressive schedule, the effective rate varies with wealth, so the co-investment share varies too — gains in higher-wealth states are taxed more heavily than equivalent losses at lower post-loss wealth. This introduces three distinct complications to the D-M architecture. All three are real. All three are second-order at canonical parameters across the tested population.
 
-**C1: Progression itself.** The welfare gap between flat and progressive WDT — measured as (CEW_flat − CEW_progressive) × 10,000 — is the quantification of this effect in isolation. At the canonical test wealth of W₀ = £10m (five times the entry threshold), the gap is −0.00 basis points across all γ and both distributions (WFR.A §B.1). The sweep across $\tau_0$, $\tau_m$, $k$,and $W_{min}$ in (WFR §4.5.3); full tables in (WFR.A §E.3.1) to (WFR.A §E.3.4) confirms the gap remains below 0.05 basis points even at W₀ = £100m under all canonical parameter combinations. The logistic is operating on the near-flat lower limb at W₀ = £10m with $W_{min}$ = £2m and $k$ = 0.001, where effective rates barely differ from $\tau_0$. C1 would widen at wealth levels far above the inflection point, but across the population this model tests, it is empirically negligible.
+**C1: Progression itself.** The welfare gap between flat and progressive WDT — measured as (CEW_flat − CEW_progressive) × 10,000 — is the quantification of this effect in isolation. At the canonical test wealth of $W_0$ = £10m (five times the entry threshold), the gap is −0.00 basis points across all γ and both distributions (WFR.A §B.1). The sweep across $\tau_0$, $\tau_m$, $k$,and $W_{min}$ in (WFR §4.5.3); full tables in (WFR.A §E.3.1) to (WFR.A §E.3.4) confirms the gap remains below 0.05 basis points even at $W_0$ = £100m under all canonical parameter combinations. The logistic is operating on the near-flat lower limb at $W_0$ = £10m with $W_{min}$ = £2m and $k$ = 0.001, where effective rates barely differ from $\tau_0$. C1 would widen at wealth levels far above the inflection point, but across the population this model tests, it is empirically negligible.
 
 ![Figure 4.1b: CEW under flat WDT and progressive WDT across $\gamma \in \{1, 2, 4\}$, $W_0 = £10\text{m}$, $E[T] = 2\%$ of $W_0$. Left panel: Ver. A; right panel: Ver. B. The two series are visually coincident in both panels — the gap (C1 complication) is $-0.00$ basis points at $\gamma = 2$ and remains below $0.05$ basis points across all tested parameters. Both lines rise toward zero welfare cost as $\gamma$ increases because higher risk aversion amplifies the value of variance reduction: the D-M risk-sharing mechanism delivers greater benefit to more risk-averse agents, irrespective of whether the rate is flat or progressive, at these wealth levels. Source: WFR simulation model; underlying data from JST dataset. **(WFR.A §B.1)**](../figures/wfr_fig_4_1b_flat_vs_progressive.png){width=100%}
 
@@ -212,7 +212,7 @@ A progressive rate schedule breaks the Domar-Musgrave result from (WFR §3.2). T
 
 **Table 3: Leverage Effect on WDT Tax Base and Welfare (Selected Rows)**
 
-| Leverage (%) | W₀ net (£m) | CEW: NW base | CEW: asset-return base | Gap (bp) |
+| Leverage (%) | $W_0$ net (£m) | CEW: NW base | CEW: asset-return base | Gap (bp) |
 |---:|---:|---:|---:|---:|
 | 0.0 | £10.00m | −0.7865% | −0.7865% | +0.00 |
 | 20.0 | £8.00m | −0.9501% | −0.9516% | +0.15 |
@@ -230,7 +230,7 @@ The gap is monotone in leverage, rising from zero at no debt to +1.10 basis poin
 
 **Table 4: Two-Period Rate Asymmetry by Initial Wealth**
 
-| W₀ (£m) | $\tau$ gain (%) | $\tau$ refund (%) | Asymmetry (pp) | Excess vs flat (£m) |
+| $W_0$ (£m) | $\tau$ gain (%) | $\tau$ refund (%) | Asymmetry (pp) | Excess vs flat (£m) |
 |---:|---:|---:|---:|---:|
 | 3.0 | 15.015 | 15.014 | +0.0011 | −0.0532 |
 | 10.0 | 15.106 | 15.102 | +0.0037 | −0.1765 |
@@ -340,7 +340,9 @@ The symmetric refund directly addresses the loss-year component of the Arachi ob
 
 This makes the WDT structurally different from every prior accrual tax proposal. All earlier accrual proposals — the Vickrey averaging system, the Bradford X-tax accrual variant, prior rate-of-return allowance designs — either did not include full symmetric loss refunds or imposed conditions limiting refund access in precisely the years when loss relief is most valuable.
 
-The objection nonetheless applies at the entry margin. The lifetime contribution envelope caps cumulative refunds at cumulative taxes paid by each taxpayer to date (WP §3.5). A taxpayer who enters the WDT in a loss year — before any cumulative tax has been paid — cannot receive a refund, because the envelope floor binds at zero. This is the situation of the Poor tier in (WFR §4.3), where the envelope binds in the scenario's first year. At that margin, the Arachi distortion applies in full: the taxpayer faces wealth deterioration without compensating transfer. The policy implication — that the SRR requires capitalisation from non-WDT sources to honour early-year refunds for low-return entrants — is addressed in (WFR §4.3).
+The objection nonetheless applies at the entry margin. The lifetime contribution envelope caps cumulative refunds at cumulative taxes paid by each taxpayer to date (WP §3.5). A taxpayer who enters the WDT in a loss year — before any cumulative tax has been paid — cannot receive a refund, because the envelope floor binds at zero. This is the situation of the Poor tier in (WFR §4.3), where the envelope binds in the scenario's first year. At that margin, the Arachi distortion applies in full: the taxpayer faces wealth deterioration without compensating transfer. 
+
+The envelope floor also limits the mechanism's SRR exposure in this case: a taxpayer with zero cumulative contribution balance has zero refund entitlement, so the SRR faces no liability from early-year loss entrants. Whether a design extension providing an entry-year credit to new taxpayers experiencing early losses would be welfare-improving is a named trade-off under the MF §9 framework (it would reopen the exploitation surface CLOSE §8.4 identifies), left as a Governing Council calibration question rather than a current design requirement.
 
 The symmetric refund therefore substantially changes the Arachi mechanism for established taxpayers with a positive cumulative contribution balance. At the entry margin where the envelope floor binds, the objection remains applicable. The WDT is not a general rebuttal of the Arachi critique; it is a design that relocates the distortion from the general case to the entry boundary.
 
@@ -376,7 +378,7 @@ Table 8 reports the Great/Poor wealth ratio at five points across the 30-year sc
 | Stock Wealth Tax | 48.8× | 70.5× | 103.3× | 220.1× | 479.0× |
 | Consumption Tax | 48.8× | 70.5× | 103.3× | 220.1× | 479.0× |
 
-*Initial ratio reflects W₀ difference only. All systems calibrated at population-weighted aggregate revenue equivalence. Full series in (WFR.A §D.3).*
+*Initial ratio reflects $W_0$ difference only. All systems calibrated at population-weighted aggregate revenue equivalence. Full series in (WFR.A §D.3).*
 
 The dominant finding is the two-way split at N=30: the relevant axis is accrual basis versus stock base, not flat versus progressive rate. Both WDT variants reach approximately 286–288×; income tax reaches 320×; both stock-base systems reach 479×. The gap between the WDT variants at N=30 is 1.8× — smaller than the gap between either WDT variant and income tax (33–34×), which is itself smaller than the gap between income tax and the stock-base systems (159×).
 
@@ -411,9 +413,9 @@ Progressive WDT provides better welfare than flat WDT at every tier. At the Poor
 
 ### 4.3.4 Distributional Incidence
 
-Table 10 reports expected tax as a percentage of W₀ by tier.
+Table 10 reports expected tax as a percentage of $W_0$ by tier.
 
-**Table 10: Distributional Incidence — Expected Tax as % of W₀**
+**Table 10: Distributional Incidence — Expected Tax as % of $W_0$**
 
 | System | Poor | Ok | Good | Great | Great/Poor ratio |
 |:---|---:|---:|---:|---:|---:|
@@ -423,9 +425,9 @@ Table 10 reports expected tax as a percentage of W₀ by tier.
 | Stock Wealth Tax | 1.87% | 1.92% | 1.97% | 2.02% | 1.1:1 |
 | Consumption Tax | 1.87% | 1.92% | 1.97% | 2.02% | 1.1:1 |
 
-*E[T]/W₀ × 100. Full table in (WFR.A §D.2).*
+*E[T]/$W_0$ × 100. Full table in (WFR.A §D.2).*
 
-The WDT's Great/Poor incidence ratio of 6.6:1 substantially exceeds income tax's 3.2:1, despite both systems being calibrated to the same aggregate revenue target. The WDT's delta base scales with both wealth and the return differential, because the tax applies to net-return × W₀. The Great tier earns 3.45pp above the mean on £139.6m; the Poor tier earns 4.55pp below the mean on £2.9m. The product of wealth and outperformance is highly concentrated at the Great tier, so the delta base collects disproportionately from the highest-return taxpayers. Income tax also collects more from high-return taxpayers, but applies to gross gains rather than net returns above a cost-of-capital allowance, so the scaling is less pronounced. Stock and consumption tax incidence is near-flat at 1.1:1 — the stock base collects proportionally to wealth regardless of returns.
+The WDT's Great/Poor incidence ratio of 6.6:1 substantially exceeds income tax's 3.2:1, despite both systems being calibrated to the same aggregate revenue target. The WDT's delta base scales with both wealth and the return differential, because the tax applies to net-return × $W_0$. The Great tier earns 3.45pp above the mean on £139.6m; the Poor tier earns 4.55pp below the mean on £2.9m. The product of wealth and outperformance is highly concentrated at the Great tier, so the delta base collects disproportionately from the highest-return taxpayers. Income tax also collects more from high-return taxpayers, but applies to gross gains rather than net returns above a cost-of-capital allowance, so the scaling is less pronounced. Stock and consumption tax incidence is near-flat at 1.1:1 — the stock base collects proportionally to wealth regardless of returns.
 
 The aggregate revenue equivalence produces these tier-level differences by construction: the comparison is calibrated so that the same total revenue is raised across the population, not so that each tier pays the same rate. A referee who observes that the WDT's Poor-tier burden is 0.34% against income tax's 0.68% should read this as a consequence of the accrual base: a taxpayer earning 4.55pp below the mean on a modest wealth base generates a small positive or negative delta each year, and the WDT accordingly collects little from them.
 
@@ -439,7 +441,7 @@ Table 11 reports the envelope binding status across tiers under flat WDT over th
 
 **Table 11: Lifetime Contribution Envelope — Binding Summary**
 
-| Tier | W₀ (£m) | Cumulative tax | Cumulative refund | Min slack | Ever binds? |
+| Tier | $W_0$ (£m) | Cumulative tax | Cumulative refund | Min slack | Ever binds? |
 |:---|---:|---:|---:|---:|:---:|
 | Poor | £2.9m | £0.473m | £0.270m | £0.000m | ⚠ Yes (2001) |
 | Ok | £7.1m | £2.440m | £0.398m | £0.042m | No |
@@ -476,11 +478,11 @@ The 479× versus 286–288× contrast is the concentration mechanism stated in n
 
 ## 4.5 Robustness: Revenue Target, Historical Windows, and Rate Parameters
 
-The results in (WFR §3) to (WFR §4.4) are presented at the canonical parameters: E[T] = 2% of W₀, the 2000 start year, and the logistic rate function at $\tau_0$ = 15%, $\tau_m$ = 70%, $k$ = 0.001, $W_{min}$ = £2m. Three questions test whether those results are artefacts of specific parameter choices or structurally stable properties. First, do the rankings hold if the revenue target is materially higher or lower than 2% of W₀? Second, is the canonical 2000 start year representative of the historical experience, or an adverse outlier that flatters the WDT's symmetric refund by concentrating loss years in the scenario window? Third, are the three D-M complications in (WFR §4.1) genuinely second-order across the full logistic parameter space? Each question is addressed by an independent sweep in (WFR.A §E). The figures and prose results are reported here; simulation tables are in (WFR.A §E.1) to (WFR.A §E.3.4).
+The results in (WFR §3) to (WFR §4.4) are presented at the canonical parameters: E[T] = 2% of $W_0$, the 2000 start year, and the logistic rate function at $\tau_0$ = 15%, $\tau_m$ = 70%, $k$ = 0.001, $W_{min}$ = £2m. Three questions test whether those results are artefacts of specific parameter choices or structurally stable properties. First, do the rankings hold if the revenue target is materially higher or lower than 2% of $W_0$? Second, is the canonical 2000 start year representative of the historical experience, or an adverse outlier that flatters the WDT's symmetric refund by concentrating loss years in the scenario window? Third, are the three D-M complications in (WFR §4.1) genuinely second-order across the full logistic parameter space? Each question is addressed by an independent sweep in (WFR.A §E). The figures and prose results are reported here; simulation tables are in (WFR.A §E.1) to (WFR.A §E.3.4).
 
 ### 4.5.1 Revenue Target Sensitivity
 
-Sweeping from 1% to 5% of W₀ tests whether welfare rankings are stable as the aggregate revenue burden doubles or halves from the central case. Table 12 reports CEW by system and revenue target at γ=2 for both distributions; full tables are in (WFR.A §E.1).
+Sweeping from 1% to 5% of $W_0$ tests whether welfare rankings are stable as the aggregate revenue burden doubles or halves from the central case. Table 12 reports CEW by system and revenue target at γ=2 for both distributions; full tables are in (WFR.A §E.1).
 
 **Table 12: CEW by System and Revenue Target (γ=2, selected targets)**
 
@@ -494,9 +496,9 @@ Sweeping from 1% to 5% of W₀ tests whether welfare rankings are stable as the 
 
 *Ver. A distribution. Revenue equivalence solved numerically at each target. Full five-target table in (WFR.A §E.1).*
 
-No ranking reversal occurs across the full 1%–5% range. The flat WDT leads income tax and CGT at every target in Ver. A; stock wealth and consumption tax sit below all accrual-base systems at every target. Welfare costs scale approximately linearly with revenue extracted — the slope is nearly constant across systems — because the underlying mechanism in each case is proportional to the rate required to hit the revenue target. A ranking that holds at 2% of W₀ therefore holds at any revenue target in the tested range.
+No ranking reversal occurs across the full 1%–5% range. The flat WDT leads income tax and CGT at every target in Ver. A; stock wealth and consumption tax sit below all accrual-base systems at every target. Welfare costs scale approximately linearly with revenue extracted — the slope is nearly constant across systems — because the underlying mechanism in each case is proportional to the rate required to hit the revenue target. A ranking that holds at 2% of $W_0$ therefore holds at any revenue target in the tested range.
 
-The W₀-invariance result in Figure 4.5.1b confirms a related property. Fixing E[T] at 2% of W₀ and varying W₀ from £3m to £140m produces flat CEW series for every system: the welfare outcome is independent of initial wealth level. The two-cluster structure from (WFR §3.1) is reproduced exactly across the full W₀ range.
+The $W_0$-invariance result in Figure 4.5.1b confirms a related property. Fixing E[T] at 2% of $W_0$ and varying $W_0$ from £3m to £140m produces flat CEW series for every system: the welfare outcome is independent of initial wealth level. The two-cluster structure from (WFR §3.1) is reproduced exactly across the full $W_0$ range.
 
 ![Figure 4.5.1a: CEW by tax system and revenue target $E[T]$ as a percentage of $W_0$, $\gamma = 2$. Left panel: Ver. A (empirical); right panel: Ver. B (idealised). All rankings are stable across the full 1%–5% revenue range: the flat WDT (blue) sits above income tax and CGT (gold/orange, overlapping) in Ver. A at every target; stock wealth and consumption tax (red/grey) sit below all accrual-base systems and are visually coincident, confirming $\gamma$-invariance at every revenue level. The parallel downward slopes confirm that welfare costs scale approximately linearly with revenue extracted and that no ranking reversal occurs as the revenue burden rises. Source: WFR simulation model; underlying data from JST dataset. **(WFR.A §E.1)**](../figures/wfr_fig_4_5_1a_revenue_target.png){width=100%}
 
@@ -524,9 +526,9 @@ Section 4.1 established that the three D-M complications are all second-order at
 
 Across all four axes, the results are the same: the flat-versus-progressive welfare gap (Gap = CEW_flat − CEW_progressive, basis points) remains below 0.05 basis points in absolute magnitude across the full tested range for every wealth level and parameter combination, with one exception.
 
-The exception is the $W_{min}$ sweep at W₀ = £10m. When $W_{min}$ is raised to £10m — equal to W₀ — the agent sits exactly at the entry threshold, the progressive schedule applies only the entry rate $\tau_0$, and the gap turns positive (+1.74 basis points). This is not an economically meaningful exception: it requires $W_{min}$ ≈ W₀, which means the taxpayer is simultaneously being assessed and sitting exactly at the threshold below which they would not be assessed at all. No other combination in the four sweeps produces a positive gap or a gap approaching 0.1 basis points.
+The exception is the $W_{min}$ sweep at $W_0$ = £10m. When $W_{min}$ is raised to £10m — equal to $W_0$ — the agent sits exactly at the entry threshold, the progressive schedule applies only the entry rate $\tau_0$, and the gap turns positive (+1.74 basis points). This is not an economically meaningful exception: it requires $W_{min}$ ≈ $W_0$, which means the taxpayer is simultaneously being assessed and sitting exactly at the threshold below which they would not be assessed at all. No other combination in the four sweeps produces a positive gap or a gap approaching 0.1 basis points.
 
-The steepness parameter $k$ produces the largest absolute gaps within the feasible range: at $k$ = 0.01 and W₀ = £100m, the gap reaches −0.05 basis points — two orders of magnitude smaller than the baseline welfare differences between systems. The crossing of the £100m series at $k$ = 0.05 reflects the agent reaching the region above the logistic inflection point, where gain and refund rates reconverge near the $\tau_m$ ceiling. That crossing occurs far outside the canonical parameter space and is noted for completeness.
+The steepness parameter $k$ produces the largest absolute gaps within the feasible range: at $k$ = 0.01 and $W_0$ = £100m, the gap reaches −0.05 basis points — two orders of magnitude smaller than the baseline welfare differences between systems. The crossing of the £100m series at $k$ = 0.05 reflects the agent reaching the region above the logistic inflection point, where gain and refund rates reconverge near the $\tau_m$ ceiling. That crossing occurs far outside the canonical parameter space and is noted for completeness.
 
 The four sweeps confirm that the second-order conclusion does not rest on a fortuitous choice of canonical parameters.
 

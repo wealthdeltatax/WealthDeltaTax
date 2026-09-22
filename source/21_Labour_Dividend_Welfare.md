@@ -24,6 +24,7 @@ keywords:
 | 0.01 | 19 September 2026 | First draft — §2 through §7 |
 | 0.02 | 20 September 2026 | Added abstract, §1, conclusion; revised §2.1 citation, §2.2 table, §4.2 rental mechanisms, §4.3 expanded to energy/transport/communications |
 | 0.03 | 20 September 2026 | Added six external citations and References section: Gruber (1997), Kleven & Kreiner (2006), ONS (2025), Lusardi et al. (2011), Ridley et al. (2020), Blundell et al. (2000) |
+| 0.04 | 20 September 2026 | §2.1 data provenance note added: explicit statement that the 2025/26 rate schedules, ONS ASHE April 2025 median earnings (£39,039), and Ofgem October 2025 cap (£1,755) are not carried in (JUR §2) and are external inputs to this paper's arithmetic |
 
 **Word count:** 6,368
 
@@ -33,7 +34,7 @@ keywords:
 
 This paper asks what a mature Wealth Delta Tax delivers to the roughly 99% of the adult population who will never cross the WDT exemption threshold. It does not model magnitudes where they cannot be established at the design stage; it produces verified arithmetic where they can, and draws a deliberate line between the two. The paper is exploratory in character. Some of its conclusions are speculative by intent, and are labelled as such.
 
-The answer, taken in full, is this. A median earner today takes home the equivalent of £29,300 in purchasing power. Under a mature WDT, through the combined effect of income tax and NICs displacement, consumption tax reduction, and SWF-funded reductions in energy costs, that rises to approximately £49,700 — a 70% increase in what the money actually buys. A lower earner on £25,000 gains proportionally more once consumption effects are included, because VAT and energy represent a larger share of lower incomes. An employer hiring at the median saves approximately £5,106 per year — 13% of total employment cost — from employer NICs removal alone.
+The answer, taken in full, is this. A median earner today takes home the equivalent of £31,628 in purchasing power. Under a mature WDT, through the combined effect of income tax and NICs displacement, consumption tax reduction, and SWF-funded reductions in energy costs, that rises to approximately £43,144 — a 36% increase in what the money actually buys. A lower earner on £25,000 gains proportionally more once consumption effects are included, because VAT and energy represent a larger share of lower incomes. An employer hiring at the median saves approximately £5,106 per year — 13% of total employment cost — from employer NICs removal alone.
 
 Beyond the payslip, the analysis covers employment structure, occupational choice, housing markets for renters specifically, the case for SWF investment in public infrastructure, household financial capacity, and the upstream conditions that generate welfare demand. The WDT's most significant welfare effect on ordinary people is not what it funds. It is the structural change in what it costs to work, to spend, and to absorb shocks.
 
@@ -63,13 +64,15 @@ The purchasing power figures in §2 and §4 are arithmetic applied to verified r
 
 # 2. What Appears on the Payslip
 
-In 2025, a care worker earning £25,000 a year takes home £20,820. The £4,180 difference disappears before she sees it: £2,486 in income tax, £994 in employee National Insurance. Her employer pays a further £3,000 on top of her salary to employ her, bringing the true cost of her labour to £28,000. Neither the worker nor the employer chose this arrangement. It is what the existing tax architecture charges for the act of working.
+In 2025, a care worker earning £25,000 a year takes home £21,520. The £3,480 difference disappears before she sees it: £2,486 in income tax, £994 in employee National Insurance. Her employer pays a further £3,000 on top of her salary to employ her, bringing the true cost of her labour to £28,000. Neither the worker nor the employer chose this arrangement. It is what the existing tax architecture charges for the act of working.
 
 A fully mature Wealth Delta Tax, operating under the constitutional commitment to displace labour and consumption taxes as LRR surplus accumulates (GOV §5.2), removes all of it.
 
 ## 2.1 The Bilateral NICs Case
 
 National Insurance Contributions fall simultaneously on both parties to the employment relationship. The worker pays to be employed; the employer pays to employ. The bilateral structure creates a problem the incidence debate usually obscures. When only the employer side is removed, the argument over who captures the saving is immediate — employers may retain it rather than passing it through (Gruber, 1997). That concern dissolves when both sides are removed simultaneously. The worker sees her NICs disappear from her payslip directly. The employer sees the cost of her employment fall by a separate and equal amount. There is no bargaining over who keeps what, because the two savings are independent line items on different parties' accounts.
+
+**Data provenance note.** The arithmetic in this section rests on three inputs not carried in (JUR §2): the 2025/26 income tax and NICs rate schedules (personal allowance £12,570; basic rate 20%; primary threshold £12,570; upper earnings limit £50,270; employee NICs 8% within band, 2% above; employer NICs 15% above secondary threshold £5,000); median full-time weekly earnings of £39,039 from ONS Annual Survey of Hours and Earnings, April 2025; and the Ofgem energy price cap average of £1,755 per household per year, October 2025. JUR §2 carries aggregate tax revenue figures but not the rate schedules or earnings benchmarks the purchasing power arithmetic requires. These figures are cited as external data in this paper; any update to them requires revision of the tables in (LDW §2.2) and (LDW §4.4).
 
 Two persistent misreadings of bilateral removal deserve correction. The first is that employer NICs removal accelerates casualisation by reducing the relative cost advantage of formal employment over contracting. This runs the direction backwards: employer NICs is a cost on formal employment contracts specifically, and removing it makes formal employment cheaper relative to gig and contractor arrangements, not more expensive. The second is that cheaper labour encourages automation substitution. The direction here is also wrong: if NICs is a cost wedge on labour relative to capital (Kleven & Kreiner, 2006), removing it reduces the economic case for substitution at the margin. Both misreadings were formed around hypothetical partial reforms and do not survive the bilateral case (ENV).
 
@@ -87,13 +90,13 @@ At median earnings of £39,039, full income tax displacement removes 20% of £26
 
 | Salary | Current take-home | Post-WDT take-home | Purchasing power equivalent | Monthly gain (payslip) |
 |---|---|---|---|---|
-| £25,000 | £20,820 | £25,000 | ~£31,300 | £348 |
-| £39,039 (median) | £29,300 | £39,039 | ~£49,700 | £617 |
-| £50,000 | £36,430 | £50,000 | ~£62,400 | £946 |
+| £25,000 | £21,520 | £25,000 | ~£27,818 | £290 |
+| £39,039 (median) | £31,628 | £39,039 | ~£43,144 | £618 |
+| £50,000 | £39,520 | £50,000 | ~£55,110 | £873 |
 
 *2025/26 income tax and NICs rate schedules throughout. Post-WDT take-home assumes zero income tax and zero employee NICs. Purchasing power equivalent adds VAT displacement (55% VAT-able spend) and energy bill reduction (30% SWF infrastructure reduction from £1,755 baseline); see §4.4 for full methodology. Transport and communications infrastructure effects not included in purchasing power figure — directional only. Employer NICs displacement shown separately in §3.1.*
 
-The right comparison is not salary to salary. It is what the money buys. A care worker whose £20,820 take-home buys £20,820 worth of goods today finds that the same employment, under a mature WDT, buys the equivalent of £31,300 — a 50% increase in real purchasing power. A median earner moves from £29,300 in effective purchasing power to £49,700 — a 70% increase. These are not projections of higher salaries. They are the same employment, the same work, with the tax and cost-of-living burden removed.
+The right comparison is not salary to salary. It is what the money buys. A care worker whose £21,520 take-home buys £21,520 worth of goods today finds that the same employment, under a mature WDT, buys the equivalent of £27,818 — a 29% increase in real purchasing power. A median earner moves from £31,628 in effective purchasing power to £43,144 — a 36% increase. These are not projections of higher salaries. They are the same employment, the same work, with the tax and cost-of-living burden removed.
 
 VAT and energy costs represent a higher fraction of spending at lower incomes, so the cost-of-living reduction hits proportionally harder for lower earners. The WDT's labour dividend is approximately proportional across the earnings distribution in real purchasing power terms, and modestly progressive at the lower end — the opposite of what the headline income tax saving suggests.
 
@@ -175,18 +178,18 @@ The table below assembles the channels from §2 and §4.1–4.3 for a median ear
 
 | Channel | Annual gain | Monthly gain | Basis |
 |---|---|---|---|
-| Employee NICs removal | £2,117 | £176 | Arithmetic — verified |
+| Employee NICs removal | £2,118 | £176 | Arithmetic — verified |
 | Income tax removal | £5,294 | £441 | Full displacement scenario |
-| VAT displacement | £2,750 | £229 | Illustrative — 55% VAT-able |
-| Energy bill reduction (SWF) | £527 | £44 | Illustrative — 30% reduction |
-| **Total** | **£10,688** | **£890** | |
-| **Equivalent purchasing power** | **£49,727** | | |
+| VAT displacement | £3,579 | £298 | Illustrative — 55% VAT-able |
+| Energy bill reduction (SWF) | £526 | £44 | Illustrative — 30% reduction |
+| **Total** | **£11,516** | **£960** | |
+| **Equivalent purchasing power** | **£43,144** | | |
 
-A worker earning £39,039 today takes home £29,300 in effective purchasing power. Under a mature WDT, that same job yields the equivalent of £49,700 — a 70% increase in what the income actually buys. The gain is larger than either the payslip or the cost-of-living figures alone would imply, because both compound: higher post-tax income and lower prices for the things that income buys are not simply additive.
+A worker earning £39,039 today takes home £31,628 in effective purchasing power. Under a mature WDT, that same job yields the equivalent of £43,144 — a 36% increase in what the income actually buys. The gain is larger than either the payslip or the cost-of-living figures alone would imply, because both compound: higher post-tax income and lower prices for the things that income buys are not simply additive.
 
 **The lower-earner comparison**
 
-At £25,000, the nominal payslip gain is smaller — £348 per month from income tax and NICs removal. But VAT and energy represent a larger fraction of expenditure at lower incomes. Including consumption effects, effective purchasing power rises from £20,820 to approximately £31,300 — a 50% increase. The reform that looks like it helps higher earners most, because their income tax bill is larger, delivers approximately equal or greater proportional benefit to lower earners once the full consumption picture is included. The WDT's purchasing power gains are approximately proportional across the earnings distribution, and modestly progressive at the lower end.
+At £25,000, the nominal payslip gain is smaller — £290 per month from income tax and NICs removal. But VAT and energy represent a larger fraction of expenditure at lower incomes. Including consumption effects, effective purchasing power rises from £21,520 to approximately £27,818 — a 29% increase. The reform that looks like it helps higher earners most, because their income tax bill is larger, delivers approximately equal or greater proportional benefit to lower earners once the full consumption picture is included. The WDT's purchasing power gains are approximately proportional across the earnings distribution, and modestly progressive at the lower end.
 
 \newpage
 
@@ -262,7 +265,7 @@ The welfare demand effects in §6 are the most speculative section. The cascade 
 
 ## 7.2 The Infrastructure Mandate
 
-The infrastructure analysis in §4.3 depends on a Governing Council decision that has not been made. The paper argues for that decision on grounds deriving from the mechanism's structural properties — the SWF's liability profile, its patient-capital advantage, the inflation-linking of infrastructure revenues — but the argument is normative. The purchasing power figures that include energy bill reduction are explicitly labelled as depending on a particular investment direction that remains open. Transport and communications infrastructure effects are directional only and not included in the purchasing power calculation. A reader who treats the infrastructure scenario as contingent and excludes the energy saving is left with a still-substantial result: effective purchasing power rising from £29,300 to approximately £49,200 at the median — a 68% increase — before any infrastructure benefit is counted. The infrastructure channel adds to a result that already stands without it, and the force-multiplier effects on the wider economy are additional to any household-level saving.
+The infrastructure analysis in §4.3 depends on a Governing Council decision that has not been made. The paper argues for that decision on grounds deriving from the mechanism's structural properties — the SWF's liability profile, its patient-capital advantage, the inflation-linking of infrastructure revenues — but the argument is normative. The purchasing power figures that include energy bill reduction are explicitly labelled as depending on a particular investment direction that remains open. Transport and communications infrastructure effects are directional only and not included in the purchasing power calculation. A reader who treats the infrastructure scenario as contingent and excludes the energy saving is left with a still-substantial result: effective purchasing power rising from £31,628 to approximately £42,618 at the median — a 35% increase — before any infrastructure benefit is counted. The infrastructure channel adds to a result that already stands without it, and the force-multiplier effects on the wider economy are additional to any household-level saving.
 
 ## 7.3 Phase One Measurement Agenda
 
@@ -282,13 +285,13 @@ What is the take-up rate for letting empty properties and spare rooms under WDT 
 
 The paper has a speculative ceiling and a conservative core. The conservative core consists of the payslip figures in §2: income tax and NICs displacement, applied to verified earnings data and current rate schedules, producing specific monthly gains that follow mechanically from the constitutional commitment to labour tax displacement as LRR surplus accumulates. Those figures do not depend on Governing Council infrastructure decisions, on VAT displacement pace, or on Phase One behavioural outcomes. They depend only on the WDT reaching maturity.
 
-The conservative core is already striking. A median earner takes home £617 more per month. Her employer saves £5,106 per year employing her. A lower earner on £25,000 takes home £348 more per month — a 20% payslip increase. Once consumption effects are included, effective purchasing power rises by 50%. These payslip numbers are the floor of the argument; the full purchasing power comparison is the ceiling.
+The conservative core is already striking. A median earner takes home £618 more per month. Her employer saves £5,106 per year employing her. A lower earner on £25,000 takes home £290 more per month — a 16% payslip increase. Once consumption effects are included, effective purchasing power rises by 36%. These payslip numbers are the floor of the argument; the full purchasing power comparison is the ceiling.
 
 \newpage
 
 # 8. Conclusion
 
-In 2025, a care worker earning £25,000 a year takes home £20,820. Under a mature Wealth Delta Tax, she takes home £25,000 — and that £25,000 buys as much as £31,300 does today. Her employer saves £3,000 a year employing her. The job has not changed. The system has.
+In 2025, a care worker earning £25,000 a year takes home £21,520. Under a mature Wealth Delta Tax, she takes home £25,000 — and that £25,000 buys as much as £27,818 does today. Her employer saves £3,000 a year employing her. The job has not changed. The system has.
 
 These are not projections. They are arithmetic applied to verified numbers at current rate schedules, under the assumption that the WDT reaches maturity and the constitutional commitment to labour tax displacement is honoured. The uncertainty is not in the calculation. It is in whether the mechanism gets there — a question RATES, PHASE1, and ultimately implementation answer. What this paper establishes is what "getting there" actually means for the working majority who never cross the WDT threshold.
 
@@ -296,7 +299,7 @@ The case has four layers, each distinct.
 
 The payslip is the most immediate and most quantifiable. Full bilateral NICs removal plus income tax displacement returns £617 per month to a median earner and reduces the cost of employing her by £5,106 per year. These numbers require no speculative assumptions about infrastructure investment, VAT timing, or behavioural response. They follow mechanically from the displacement commitment as LRR surplus accumulates.
 
-The cost of living is the second layer, and it makes the first larger than it appears. VAT displacement reduces the cost of spending. SWF investment in energy infrastructure reduces household bills structurally rather than through subsidy. Transport and communications investment reduces the cost of moving and connecting. These are not additions to a fixed standard of living; they change what a given income actually purchases. The median earner who today commands £29,300 in effective purchasing power commands £49,700 under a mature WDT — a 70% increase in what the same employment actually buys, and proportionally larger for lower earners once consumption patterns are accounted for.
+The cost of living is the second layer, and it makes the first larger than it appears. VAT displacement reduces the cost of spending. SWF investment in energy infrastructure reduces household bills structurally rather than through subsidy. Transport and communications investment reduces the cost of moving and connecting. These are not additions to a fixed standard of living; they change what a given income actually purchases. The median earner who today commands £31,628 in effective purchasing power commands £43,144 under a mature WDT — a 36% increase in what the same employment actually buys, and proportionally larger for lower earners once consumption patterns are accounted for.
 
 The third layer is household capacity — the margin between income and essential expenditure that determines whether ordinary life events are manageable or catastrophic. A household that moves from a £200 monthly margin to a £600 monthly margin has not merely become richer. It has moved from financial fragility to financial resilience. The welfare consequences of that shift are not captured in any income statistic. They show up in savings rates, in NHS waiting rooms, in whether a second earner returns to work, in whether a deferred dental appointment becomes an emergency. The mechanism is real and the direction is clear; the magnitude belongs to Phase One.
 
@@ -306,7 +309,7 @@ The paper has been explicit throughout about where the argument is arithmetic an
 
 The WDT is built for the people above the threshold. Its politics, its governance, its valuation architecture — all of it exists to make the mechanism work for that population on terms they have reason to accept. But the mechanism's purpose, as MF states it, is democratic flourishing: maintaining the conditions under which ordinary people retain meaningful participation in the societies their labour and consumption sustain. The labour tax relief dividend is not a secondary political consideration. It is the mechanism through which that purpose is actually pursued.
 
-The care worker on £25,000 who takes home £20,820 today is not a policy abstraction. She is what the WDT is for.
+The care worker on £25,000 who takes home £21,520 today is not a policy abstraction. She is what the WDT is for.
 
 \newpage
 
