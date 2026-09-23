@@ -329,7 +329,3 @@ The bootstrapping facility approach in (ADD §10) requires a specific public ins
 The approach in (ADD §5.2) requires a measure of DR forum engagement relative to the enrolled population, tracked against a Phase One baseline. The specific metric — what constitutes engagement, how it is measured without compromising member privacy, and what baseline is appropriate — requires operational design work that depends on the Administrator's specific technical architecture and the legal framework governing member data. It cannot be specified in advance of implementation.
 
 \newpage
-
-# References {.unnumbered .unlisted}
-
-No external references. All citations in this paper are to internal WDT project papers listed in the Internal Bibliography above.

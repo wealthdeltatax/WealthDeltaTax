@@ -471,3 +471,5 @@ Same tiers, systems, and revenue-equivalent rates as D. Heterogeneous Agents —
 | W_min (£m) | £2m | TOML [rate] |
 | UK equity mean (1947–2019) | 10.45% | JST dataset |
 | UK equity std dev | 8.31% | JST dataset |
+
+\newpage

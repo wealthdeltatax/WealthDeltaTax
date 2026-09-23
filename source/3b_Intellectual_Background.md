@@ -376,3 +376,5 @@ The OECD's 2025 study and the European Commission's April 2026 study on wealth t
 The lessons from Pillar Two on the political economy of coordination are relevant to the WDT's Phase Two international agenda: agreement across 140-plus jurisdictions took approximately a decade from the launch of BEPS in 2013 to implementation in 2024, and the US exemption of its multinationals from the January 2026 rules introduced significant instability into the framework. Domestic WDT implementation does not require international agreement as a precondition; the Zucman blueprint follows the same sequencing logic.
 
 **In the WDT project:** The exit and closure design is developed in [CLOSE] throughout: the no-punitive-exit-taxation position (CLOSE §4.2), the bridging facility (CLOSE §5), and the re-entry rule (CLOSE §6) are the three settled structural positions. Jurisdiction-specific legal implementation remains open (0.0 #8). The cross-base externality as a Phase One transitional exposure is treated in (CLOSE §9.2) and (BEHAV §9.2).
+
+\newpage

@@ -410,3 +410,5 @@ At the system level, if mild overstatement is the rational equilibrium, declared
 | **§L: Route D defers to realisation** | Annual cash on illiquid assets recreates forced-realisation pressure | Inheritance auction establishes observable price; full gain taxed at realisation | (VAL §6.1), (VAL.B §L) |
 | **§M: Voluntary settlement** | Soft/hard resets give certainty, not avoidance | Liability paid in full at declared or market value; basis resets for all future calculations; voluntary pathway carries full symmetric refund on downward discovery; corrective pathway does not | (VAL §6.4), (VAL §11.2), (VAL §11.3); (GOV.B §G) |
 | **§N: Forecast exposure** | Honest declaration has no directional exposure to trajectory | Both understatement and overstatement penalise forecast error; honest declaration is agnostic | (VAL §7.1); (VAL.A §A.5.1), (VAL.B §N) |
+
+\newpage

@@ -172,5 +172,3 @@ This does not resolve the bootstrapping problem. The WDT's claims about trajecto
 The greatest threat to the WDT is not criticism. Criticism assumes the proposal remains available for later adoption. The greatest threat is suppression before demonstration. Once a successful demonstration exists, the incentives reverse and jurisdictions that previously benefited from preventing adoption face a different problem.
 
 \newpage
-
-# References {.unnumbered}

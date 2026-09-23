@@ -411,11 +411,11 @@ $Cumulative_{refund} = 0$
 
 ### B.2.1 For each period t = 1 to N
 
-Where β = 0 (base case): $V_{t} = V_{0} \cdot (1 + $g$)^{t}$
+Where β = 0 (base case): $V_{t} = V_{0} \cdot (1 + g)^{t}$
 
 Where β ≠ 0 (VAL.A §C.3) exploratory extension only): $V_{t} = V_{0} \cdot (1 + g_{eff})^{t}$, where
 
-$g_{eff} = $g$ + \beta \cdot \ln(\alpha)$
+$g_{eff} = g + \beta \cdot \ln(\alpha)$
 
 The effective growth rate is the base rate plus an additive supplement proportional to ln($\alpha$). β is the per-period growth supplement from signalling, scaled by ln($\alpha$) so that honest declaration ($\alpha$ = 1) receives zero supplement. The supplement applies only where β ≠ 0; the base simulation uses β = 0 throughout.
 
@@ -486,11 +486,11 @@ The same loop runs for $\alpha$ = 1.0 at every parameter combination. All output
 | **Symbol** | **Definition** | **Baseline** | **Sweep range** |
 |:--:|----|----|----|
 | $V_{0}$ | Initial declared net worth at entry | £20m | Fixed |
-| $N$ | Holding period in annual assessment periods | 29 | 5 to 60 |
+| $N$ | Holding period in annual assessment periods | 30 | 5 to 60 |
 | $g$ | Annual true value growth rate | 7% | −10% to +15% |
 | $k$ | Rate escalation parameter | 0.001 | 0.00001 to 0.1 |
 | $\alpha$ | Portfolio-level aggregate declaration ratio: total declared net worth / total true net worth. See note below. | 1.0 (honest) | 0.1 to 2.0 |
-| $\beta$ | Signalling growth supplement; additive: $g_{eff} = $g$ + \beta \cdot \ln(\alpha)$. Zero for base simulation; swept in (VAL.A §C.3) only. | 0% | Swept in (VAL.A §C.3) only |
+| $\beta$ | Signalling growth supplement; additive: $g_{eff} = g + \beta \cdot \ln(\alpha)$. Zero for base simulation; swept in (VAL.A §C.3) only. | 0% | Swept in (VAL.A §C.3) only |
 | $\tau_{0}$ | Baseline marginal rate at $W_{min}$ | 15% | Fixed |
 | $\tau_{m}$ | Asymptotic maximum marginal rate | 70% | Fixed |
 | $\rho$ | Taxpayer discount rate | 5% | Fixed |
@@ -1060,3 +1060,5 @@ For Route D assets held between entry and realisation, the annual report include
 ## F.4 Public Register Interaction
 
 Declared values in the annual return populate the public register at the appropriate tier, as specified in (VAL §9). Declared WDT values are visible to lenders, counterparties, courts, and other legal contexts through the register's tier-two public disclosure layer.
+
+\newpage

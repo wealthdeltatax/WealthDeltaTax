@@ -656,3 +656,5 @@ The mechanism has limitations. Its self-balancing properties depend on asset gro
 The WDT does not eliminate valuation uncertainty. Whatever value the taxpayer declares becomes the basis from which their obligations accumulate — and the consequences of that declaration follow mechanically, regardless of whether it was accurate. The remaining questions are empirical: assessment periods, behavioural responses, premium calibration, and adoption across valuation routes require implementation evidence. RATES demonstrates that the WDT's revenue properties remain robust without assuming perfect valuation accuracy or relying upon assessment-window premiums. The valuation architecture therefore exists to maintain a credible tax base rather than to maximise revenue extraction.
 
 The valuation objection to mark-to-market wealth taxation is dissolved, not merely managed. The objection assumes the state must know the correct value to tax it. The WDT is designed so it does not.
+
+\newpage

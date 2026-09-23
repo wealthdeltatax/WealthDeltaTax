@@ -552,7 +552,7 @@ The objective is not to protect WDT from falsification. It is to make falsificat
 
 \newpage
 
-# Appendix: Hypothesis Summary Table
+# A. Hypothesis Summary Table
 
 The table below summarises each hypothesis, its core claim, its primary threat, its falsification condition, the model type required, and its current evidential status. It is intended for use by researchers selecting an entry point into the modelling programme.
 

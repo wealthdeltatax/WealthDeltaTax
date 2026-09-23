@@ -25,6 +25,7 @@ keywords:
 | 0.02 | 20 September 2026 | Added abstract, §1, conclusion; revised §2.1 citation, §2.2 table, §4.2 rental mechanisms, §4.3 expanded to energy/transport/communications |
 | 0.03 | 20 September 2026 | Added six external citations and References section: Gruber (1997), Kleven & Kreiner (2006), ONS (2025), Lusardi et al. (2011), Ridley et al. (2020), Blundell et al. (2000) |
 | 0.04 | 20 September 2026 | §2.1 data provenance note added: explicit statement that the 2025/26 rate schedules, ONS ASHE April 2025 median earnings (£39,039), and Ofgem October 2025 cap (£1,755) are not carried in (JUR §2) and are external inputs to this paper's arithmetic |
+| 0.05 | 23 September 2026 | Added §4.5 Demand Expansion and Economic Reallocation (five subsections + research question box); updated §7.1 limits, §7.3 Phase One agenda, conclusion (four layers → five layers), and abstract accordingly |
 
 \newpage
 
@@ -34,7 +35,7 @@ This paper asks what a mature Wealth Delta Tax delivers to the roughly 99% of th
 
 The answer, taken in full, is this. A median earner today takes home the equivalent of £31,628 in purchasing power. Under a mature WDT, through the combined effect of income tax and NICs displacement, consumption tax reduction, and SWF-funded reductions in energy costs, that rises to approximately £43,144 — a 36% increase in what the money actually buys. A lower earner on £25,000 gains proportionally more once consumption effects are included, because VAT and energy represent a larger share of lower incomes. An employer hiring at the median saves approximately £5,106 per year — 13% of total employment cost — from employer NICs removal alone.
 
-Beyond the payslip, the analysis covers employment structure, occupational choice, housing markets for renters specifically, the case for SWF investment in public infrastructure, household financial capacity, and the upstream conditions that generate welfare demand. The WDT's most significant welfare effect on ordinary people is not what it funds. It is the structural change in what it costs to work, to spend, and to absorb shocks.
+Beyond the payslip, the analysis covers employment structure, occupational choice, housing markets for renters specifically, the case for SWF investment in public infrastructure, a hypothesis about demand expansion and economic reallocation, household financial capacity, and the upstream conditions that generate welfare demand. The WDT's most significant welfare effect on ordinary people is not what it funds. It is the structural change in what it costs to work, to spend, and to absorb shocks.
 
 \newpage
 \tableofcontents
@@ -191,6 +192,56 @@ A worker earning £39,039 today takes home £31,628 in effective purchasing powe
 
 At £25,000, the nominal payslip gain is smaller — £290 per month from income tax and NICs removal. But VAT and energy represent a larger fraction of expenditure at lower incomes. Including consumption effects, effective purchasing power rises from £21,520 to approximately £27,818 — a 29% increase. The reform that looks like it helps higher earners most, because their income tax bill is larger, delivers approximately equal or greater proportional benefit to lower earners once the full consumption picture is included. The WDT's purchasing power gains are approximately proportional across the earnings distribution, and modestly progressive at the lower end.
 
+## 4.5 Demand Expansion and Economic Reallocation
+
+The purchasing power calculation above describes the immediate household effect of tax displacement. It does not describe what households, firms, or labour markets subsequently do with that change. If households spend a substantial proportion of their additional purchasing power, the resulting increase in demand should itself alter the composition of economic activity. This section sets out that hypothesis and its principal sub-mechanisms. It is currently a hypothesis requiring modelling; the subsections that follow describe causal structure, not empirical findings.
+
+The chain runs: tax displacement raises household income and lowers essential expenditure; households spend more; firms experience additional demand; some workers become willing to accept lower monetary earnings in exchange for autonomy, hours, or occupational fit; more activities become economically viable on both the supply and demand side; returns shift across different forms of private capital; the aggregate equilibrium allocation of labour, consumption, and capital changes. Each link follows from the preceding one. The quantitative size of each effect is unknown before Phase One data exists.
+
+### 4.5.1 Increased Household Consumption
+
+The £11,516 annual purchasing power gain identified in §4.4 does not sit idle. Some portion is consumed, some saved, some used to repay debt, some invested. Whatever fraction is consumed enters someone else's revenue. That is the starting point for the demand expansion hypothesis.
+
+The compositional effect matters more than the aggregate. Households that previously could not sustain regular expenditure on services — eating out, leisure activities, personal services, cultural participation, fitness, home maintenance, professional advice — now can. These are activities with high domestic labour content and thin operating margins at current demand levels. A sustained increase in the number of households willing to pay for them changes the economics of provision: more customers per establishment, higher utilisation rates, improved viability for businesses that were marginal. The aggregate demand increase is one effect. The change in which sectors can sustain viable businesses is another, and may be the more durable one.
+
+A household that previously needed every available hour at maximum earnings to maintain its standard of living also faces a different decision about time. Some households will consume the same goods but work fewer hours to pay for them. That is not a welfare loss; it is a preference revelation that the previous income constraint was suppressing. It is worth distinguishing this from a reduction in aggregate labour input: hours released from one source of work do not disappear, but they change hands — which connects to the labour reallocation argument below.
+
+### 4.5.2 Labour Reallocation and Occupational Choice
+
+The income threshold required to maintain a given standard of living falls when tax is displaced and essential costs decrease. For a worker who currently needs £30,000 net per year to cover rent, food, energy, childcare, and transport, a fall in that threshold to £24,000 does not change the opportunity cost of her time in the economic sense. It changes the minimum viable income for her life. Those are different mechanisms, and the distinction matters for how the effect should be interpreted.
+
+The opportunity-cost argument would say: what else you could do with your time becomes more attractive. The minimum-income argument says: the income at which you can afford to accept a particular job falls, regardless of what alternatives exist. The second mechanism is more direct and does not require assumptions about the quality of alternatives. If the minimum viable income threshold falls, the set of jobs compatible with maintaining a decent life expands. That expansion includes occupations that surveys consistently show workers find meaningful and that labour markets consistently underprice relative to their social value.
+
+This argument is related to but distinct from the occupational constraint argument in §3.2. Section 3.2 addresses the structural question of which jobs the employment relationship makes financially viable given bilateral NICs removal. This subsection addresses the individual-level question of which jobs a worker can accept without material financial sacrifice given a lower minimum-income threshold. Both mechanisms point in the same direction; they operate through different channels and affect different margins.
+
+The aggregate labour supply implications require care. A worker who moves from a high-paying corporate role to a lower-paying independent business has not left the labour market. Total labour input may be approximately unchanged while its composition shifts substantially. An immediate objection to the purchasing-power argument is that higher welfare reduces work incentives; the correct answer to that objection is that the primary effect here is reallocation, not withdrawal. Some withdrawal will occur at the margin, and it is worth naming it rather than dismissing it, but it is not the dominant mechanism.
+
+### 4.5.3 Entry into Marginal and Previously Unprofitable Sectors
+
+Some activities are economically unviable at current demand and labour-cost levels for two independent reasons: there are not enough consumers willing or able to pay for them, and there are not enough workers willing to accept the wages they can afford to offer. A sustained increase in household purchasing power addresses both simultaneously.
+
+On the demand side: more households can afford the product or service, raising expected revenue per business in the sector. On the supply side: the minimum-income threshold falls, making it financially feasible to work in the sector even at relatively low initial wages. Both effects operate in parallel. The feedback structure is: higher household purchasing power generates more customers, raising expected revenue, which makes entry more attractive, which increases supply, which increases variety and competition, which may reduce prices and expand consumer surplus further. The mechanism can also fail: if labour becomes scarcer as workers redeploy across occupations, or if rents rise in response to increased activity, the viability improvement from the demand increase may be partially offset. Naming this failure mode is not a refutation of the hypothesis; it determines the conditions under which the effect is larger or smaller.
+
+The policy relevance is that this mechanism requires no government intervention to operate. It does not require subsidies, licensing reform, or planning changes. It follows from the income and cost-of-living changes already described, through the ordinary operation of households deciding what to buy and workers deciding what to do.
+
+### 4.5.4 Returns to Private Capital
+
+The mechanisms above create a second-order effect for the owners of productive private capital. WDT taxpayers continue to own capital assets. If increased household purchasing power generates additional demand and new business formation, owners of businesses serving expanded consumption may capture part of the resulting increase in activity. This is worth stating directly, because it would otherwise be raised as an objection: the claim is not that the WDT makes wealthy people wealthier across the board. The distributional picture is more complex.
+
+Productive capital deployed in sectors that benefit from demand expansion — consumer services, logistics, entertainment, communications infrastructure, businesses that serve newly solvent customers — may see improved returns. Capital dependent on scarcity, on artificially high household costs, or on barriers to entry may see returns competed away as the mechanisms above operate. Incumbent firms lose rents when new entrants become viable. Assets whose value rested on the constraint that purchasing power was thin lose part of that value when the constraint loosens.
+
+The proposition is not that WDT taxpayers benefit from the labour dividend on net, nor that they lose. It is that the WDT may tax wealth accumulation while simultaneously expanding the economic environment in which productive capital operates. Those are not contradictory. They describe a mechanism that is simultaneously redistributive in its fiscal incidence and expansionary in its effect on the conditions for productive investment.
+
+### 4.5.5 Distributional Ambiguity
+
+The direction of the aggregate effect does not determine its distribution. Some capital owners gain significantly; others lose as rents are competed away. Some workers move from high-paying employment to lower-paying but preferred work; others remain in high-paying employment and simply consume more. Some businesses experience sustained demand growth; others face competitive pressure from new entrants who were previously excluded by the income constraint.
+
+The claim this section makes is therefore not that everyone becomes materially richer under these mechanisms. It is that the equilibrium allocation of labour, consumption, and capital may become substantially different — with more economic activity in sectors that are currently marginal, more occupational diversity, and returns distributed differently across types of capital. A single counterexample to universal enrichment does not refute this claim, because the claim is about structural change in allocation, not about uniform improvement.
+
+---
+
+> **Research question:** Does a large increase in household purchasing power, combined with a reduction in the minimum income required to maintain a given standard of living, increase business formation and occupational diversification sufficiently to raise aggregate productivity and returns to productive private capital? This question cannot be answered from the mechanism's design properties alone. It is a Phase One empirical question, and the evaluation framework should be designed with it in mind.
+
 \newpage
 
 # 5. Household Capacity
@@ -261,6 +312,8 @@ The revenue basis for the ceiling claim is the 125.5% median TCM post-fill cover
 
 The employment structure effects in §3 are directional claims without magnitudes. The occupational choice argument follows from how income constraints work; whether it registers in occupational composition data requires Phase One measurement. The housing supply analysis in §4.2 is directional for the rental market; the ownership market remains ambiguous and the paper does not resolve it.
 
+The demand expansion and reallocation hypothesis in §4.5 is explicitly framed as a hypothesis. The causal chain from purchasing power to consumption to labour reallocation to sector entry to capital returns is structurally plausible and follows from how markets operate; none of the individual links requires exotic assumptions. The size of each effect, and whether the chain operates with sufficient force to produce measurable changes in occupational composition or business formation, is a Phase One empirical question. The distributional ambiguity subsection (§4.5.5) is particularly important: the mechanism produces structural change in allocation, not uniform improvement, and the hypothesis should not be read as a claim that all affected parties benefit.
+
 The welfare demand effects in §6 are the most speculative section. The cascade threshold argument is sound in its logic; the elasticity between household margin and welfare claim frequency is empirical and unknown. The healthcare demand argument is directional; the NHS caseload implications are not quantifiable at the design stage.
 
 ## 7.2 The Infrastructure Mandate
@@ -281,6 +334,8 @@ What fraction of welfare demand reduction, if any, is attributable to improved h
 
 What is the take-up rate for letting empty properties and spare rooms under WDT accrual pressure, and what fraction of the rental supply increase is attributable to this mechanism?
 
+Does a large increase in household purchasing power, combined with a reduction in the minimum income required to maintain a given standard of living, produce measurable increases in business formation rates, occupational diversification, and entry into previously marginal sectors? What fraction of any observed change is attributable to the demand-side mechanism (more customers) versus the supply-side mechanism (lower minimum-income threshold for workers), and how do these interact?
+
 ## 7.4 The Conservative Core
 
 The paper has a speculative ceiling and a conservative core. The conservative core consists of the payslip figures in §2: income tax and NICs displacement, applied to verified earnings data and current rate schedules, producing specific monthly gains that follow mechanically from the constitutional commitment to labour tax displacement as LRR surplus accumulates. Those figures do not depend on Governing Council infrastructure decisions, on VAT displacement pace, or on Phase One behavioural outcomes. They depend only on the WDT reaching maturity.
@@ -295,15 +350,17 @@ In 2025, a care worker earning £25,000 a year takes home £21,520. Under a matu
 
 These are not projections. They are arithmetic applied to verified numbers at current rate schedules, under the assumption that the WDT reaches maturity and the constitutional commitment to labour tax displacement is honoured. The uncertainty is not in the calculation. It is in whether the mechanism gets there — a question RATES, PHASE1, and ultimately implementation answer. What this paper establishes is what "getting there" actually means for the working majority who never cross the WDT threshold.
 
-The case has four layers, each distinct.
+The case has five layers, each distinct.
 
 The payslip is the most immediate and most quantifiable. Full bilateral NICs removal plus income tax displacement returns £617 per month to a median earner and reduces the cost of employing her by £5,106 per year. These numbers require no speculative assumptions about infrastructure investment, VAT timing, or behavioural response. They follow mechanically from the displacement commitment as LRR surplus accumulates.
 
 The cost of living is the second layer, and it makes the first larger than it appears. VAT displacement reduces the cost of spending. SWF investment in energy infrastructure reduces household bills structurally rather than through subsidy. Transport and communications investment reduces the cost of moving and connecting. These are not additions to a fixed standard of living; they change what a given income actually purchases. The median earner who today commands £31,628 in effective purchasing power commands £43,144 under a mature WDT — a 36% increase in what the same employment actually buys, and proportionally larger for lower earners once consumption patterns are accounted for.
 
-The third layer is household capacity — the margin between income and essential expenditure that determines whether ordinary life events are manageable or catastrophic. A household that moves from a £200 monthly margin to a £600 monthly margin has not merely become richer. It has moved from financial fragility to financial resilience. The welfare consequences of that shift are not captured in any income statistic. They show up in savings rates, in NHS waiting rooms, in whether a second earner returns to work, in whether a deferred dental appointment becomes an emergency. The mechanism is real and the direction is clear; the magnitude belongs to Phase One.
+The third layer is the demand expansion hypothesis set out in §4.5: if households spend a substantial fraction of their additional purchasing power, the resulting demand increase should alter the composition of economic activity. More households can afford services they currently cannot sustain. Workers find that the minimum income required to maintain a decent life has fallen, expanding the set of jobs they can accept without material sacrifice. Sectors that were unviable — too few customers, wages too low to attract workers — may become viable simultaneously from both ends. Returns shift across different forms of capital, with productive capital in expanding sectors gaining and rent-dependent or scarcity-dependent capital losing. The size of these effects is unknown; the causal structure is not speculative. This is the layer that requires the most from Phase One measurement.
 
-The fourth layer is the furthest reach and the most speculative: the upstream conditions that generate welfare demand. The welfare state's compensatory logic was built for a world of income scarcity. A mature WDT does not eliminate that scarcity, but it materially reduces the fraction of the working population for whom it is acute. Cascade thresholds move. Fewer ordinary events become welfare-triggering crises. The NHS treats fewer consequences of financial stress. The state pension substitutes for fewer gaps that household savings could have filled. None of this makes the welfare state unnecessary. It changes what the welfare state needs to do.
+The fourth layer is household capacity — the margin between income and essential expenditure that determines whether ordinary life events are manageable or catastrophic. A household that moves from a £200 monthly margin to a £600 monthly margin has not merely become richer. It has moved from financial fragility to financial resilience. The welfare consequences of that shift are not captured in any income statistic. They show up in savings rates, in NHS waiting rooms, in whether a second earner returns to work, in whether a deferred dental appointment becomes an emergency. The mechanism is real and the direction is clear; the magnitude belongs to Phase One.
+
+The fifth layer is the furthest reach and the most speculative: the upstream conditions that generate welfare demand. The welfare state's compensatory logic was built for a world of income scarcity. A mature WDT does not eliminate that scarcity, but it materially reduces the fraction of the working population for whom it is acute. Cascade thresholds move. Fewer ordinary events become welfare-triggering crises. The NHS treats fewer consequences of financial stress. The state pension substitutes for fewer gaps that household savings could have filled. None of this makes the welfare state unnecessary. It changes what the welfare state needs to do.
 
 The paper has been explicit throughout about where the argument is arithmetic and where it is speculative. The payslip figures are arithmetic. The purchasing power figure adds illustrative assumptions about VAT and energy, clearly labelled. The infrastructure case is the author's normative argument for a Governing Council decision not yet made. The welfare demand argument is directional without magnitude. The separation matters: a reader who accepts only the arithmetic still has numbers that are striking. A reader who accepts the full argument has a picture of what a different kind of fiscal system produces for the people it does not tax.
 

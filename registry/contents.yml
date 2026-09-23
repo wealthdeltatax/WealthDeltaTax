@@ -1239,6 +1239,12 @@ WFR.A:
     F: Parameter Reference
     E.2: "Sweep B: CEW by Start Year (γ=2)"
     E.3: "Sweep C: CEW Parameter Sensitivy Sweep"
+    E.1.1: "— Sweep A: CEW by System and Initial Wealth W₀ (γ=2)"
+    F.1: — Setup and Scope
+    F.2: — Extended Concentration Path (Key Years)
+    F.3: "— Flat vs Progressive WDT: Crossover Horizon"
+    F.4: — All-Tier Concentration Matrix at N=73
+    G: Parameter Reference
 INST:
   page: inst.html
   title: "The Wealth Delta Tax: Fiscal Architecture and Institutional Selection"
@@ -1391,3 +1397,4 @@ FAL:
     '11': What Would Constitute Evidence Against WDT
     '12': Research Challenge
     '13': Conclusion
+    A: Hypothesis Summary Table

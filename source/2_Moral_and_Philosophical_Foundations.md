@@ -280,3 +280,5 @@ The moral architecture follows from that claim, not from any hostility to accumu
 The named compromises in (MF §9) are not failures of the theory. They are the theory meeting the world it must operate within, and naming them honestly is part of what makes the framework credible. The constitutional features of the design — the governance structure, the pre-funded commitment, the entrenchment — were not designed in. They emerged because successive mechanical requirements needed them: cooperative architecture because extraction fails operationally; pre-funding because symmetric refunds create contingent liabilities; governance participation because a pre-funded institution needs protection from capture. The aggregate looks constitutional because the underlying problem has that shape.
 
 The tension the WDT manages will not be resolved. It will require managing again, in every generation, under whatever conditions advanced capitalist democracies produce. The WDT is one attempt to build an institution capable of doing that work durably.
+
+\newpage

@@ -17,7 +17,6 @@ What follows is the designer's honest account of the best strategies available t
 The reason this page can exist is also the most important thing on it: the optimal strategy under the WDT turns out to be close to honest participation. That is not an accident and it is not a moral argument. It follows from the mechanism. Read to the end and you will see why.
 
 *If you find a strategy this page misses — one that produces a meaningful, durable advantage — [that is a design defect and we want to know about it](mailto:wealthdeltatax@gmail.com).*
-:::
 
 ## How your liability is calculated
 

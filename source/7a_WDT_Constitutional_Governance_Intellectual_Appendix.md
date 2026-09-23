@@ -234,5 +234,3 @@ The appropriate institutional response to the three irreducible sub-forms is res
 Naming them as irreducible prevents the design from generating false assurances of prevention, and gives the residue mechanisms their proper weight as the honest response to what cannot be prevented.
 
 \newpage
-
-# References {.unnumbered .unlisted}

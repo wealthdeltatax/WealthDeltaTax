@@ -291,5 +291,3 @@ The lifetime contribution envelope persists across position closures and re-entr
 The paper's contribution is the abstraction itself: position closure as a general theory, rather than exit taxation or inheritance treatment as separate specialised regimes. A delta-based mechanism with an ongoing assessment relationship between state and taxpayer naturally generates a general account of how that relationship ends.
 
 \newpage
-
-# References {.unnumbered .unlisted}

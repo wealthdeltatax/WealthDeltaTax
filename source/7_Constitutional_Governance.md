@@ -354,4 +354,4 @@ Governance is a component of the mechanism, not scaffolding around it. The symme
 
 The architecture makes no claim to being capture-proof. The standard applied throughout has been comparative: harder to capture than the alternatives, more visible when capture is attempted, and leaving more worth inheriting if it happens anyway. The three irreducible sub-forms of governance decay — definitional drift, procedural calcification, and role-fidelity drift — are not a confession of inadequacy. They are the correct identification of the residual that any governance design faces, regardless of how carefully it is built. A design that acknowledges that residual and responds with visibility improvements and durable data assets is more honest, and more useful to any future legitimate effort, than one that claims to have closed what cannot be closed.
 
-# References {.unnumbered .unlisted}
+\newpage

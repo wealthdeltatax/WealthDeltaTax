@@ -116,3 +116,5 @@ These six items are not design gaps. The project has specified the relevant mech
 Deferring these items is not a claim that they are unimportant. Several are consequential: the constitutional and legal analysis (#28) is a precondition for implementation in any specific jurisdiction; the bootstrapping vulnerability (#30) and the compliance and behavioural questions (#4–6) are the most consequential Phase One deliverables; the international treaty question (#9) has no project-internal resolution path.
 
 The project states its remaining limits plainly rather than leaving forward references that never arrive.
+
+\newpage

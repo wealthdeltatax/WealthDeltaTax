@@ -592,3 +592,5 @@ The most rigorous alternative to the WDT within mainstream tax economics holds t
 The consumption tax tradition was developed with taxpayers who earn, save, and eventually spend in view. That logic is compelling for ordinary household saving. It is less compelling at the top of the wealth distribution, where very large holdings may never be meaningfully consumed but instead transferred at death, placed in trust, or directed to philanthropy.
 
 The WDT adopts the Haig-Simons position. The disagreement is normative: the consumption-tax tradition prioritises allocative efficiency by minimising distortions to saving and investment; the WDT prioritises taxing economic enrichment as it occurs, including through unrealised appreciation. A formal welfare comparison across all six systems at revenue equivalence is now conducted in (WFR), including a direct comparison of stock wealth tax and consumption tax welfare outcomes. The normative disagreement between the two frameworks is not resolved by that comparison — it persists — but the claim that the welfare comparison has not been done is no longer accurate.
+
+\newpage

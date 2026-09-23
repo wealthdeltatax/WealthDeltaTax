@@ -44,12 +44,16 @@ from transforms import (
     inject_front_matter,
 )
 
-PRINT_DIR   = ROOT_DIR / "print"
-TEMPLATE    = PRINT_DIR / "template.tex"
-LUA_FILTER  = PRINT_DIR / "tabularx.lua"
-BIB_PATH    = ROOT_DIR / "registry" / "references.bib"
-CSL_PATH    = ROOT_DIR / "site" / "style" / "apa.csl"
-FIGURES_DIR = ROOT_DIR / "model" / "OUTPUTS"
+PRINT_DIR    = ROOT_DIR / "print"
+TEMPLATE     = PRINT_DIR / "template.tex"
+LUA_FILTER   = PRINT_DIR / "tabularx.lua"
+BIB_PATH     = ROOT_DIR / "registry" / "references.bib"
+CSL_PATH     = ROOT_DIR / "site" / "style" / "apa.csl"
+# fix_image_paths() rewrites all image srcs to figures/<filename>.
+# Pandoc's --resource-path resolves that as <dir>/figures/<filename>, so
+# FIGURES_ROOT must be the *parent* of the figures/ directory, not figures/ itself.
+# wdt-site/_build/figures/ is the pre-flattened directory Quarto already maintains.
+FIGURES_ROOT = ROOT_DIR / "_build"
 
 
 # ── 1. PDF-specific LaTeX strip ────────────────────────────────────────────────
@@ -94,11 +98,70 @@ def _strip_latex_pdf(text: str) -> str:
 #                           .internal-bibliography, .wdt-under-construction)
 #   {.unnumbered .unlisted} heading attribute syntax
 #
-# All are stripped entirely. The internal-bibliography content (the
-# [CODE] lines) is left as plain bold text after the ::: wrappers are
-# removed, which renders acceptably in PDF.
+# Most divs are stripped entirely. The exception is figure divs: any fenced
+# div that contains an image line is a Quarto figure block. We extract the
+# image line and caption paragraph and re-emit them as plain markdown so the
+# PDF pipeline sees them. The ::: wrappers themselves are dropped.
+#
+# Figure div pattern (Quarto):
+#   ::: {#fig-label .class ...}
+#   ![alt](figures/file.png){width=X%}
+#
+#   Caption text here.
+#   :::
+
+_IMAGE_LINE_RE = re.compile(r'^!\[.*?\]\([^)]+\)', re.MULTILINE)
+
+
+def _rescue_figure_divs(text: str) -> str:
+    """
+    For each ::: {…} … ::: block that contains an image line, extract and
+    re-emit the image line and any caption paragraph as plain markdown.
+    Non-figure divs are left for the general stripping pass.
+    """
+    # Match any fenced div: ::: {attrs} ... :::  (non-greedy, anchored at line start)
+    div_re = re.compile(
+        r'^(:::[ \t]*\{[^}]*\})(.*?)(^:::[ \t]*$)',
+        re.MULTILINE | re.DOTALL,
+    )
+
+    def _replace(m: re.Match) -> str:
+        body = m.group(2)
+        if not _IMAGE_LINE_RE.search(body):
+            # Not a figure div — leave it intact for the general strip pass.
+            return m.group(0)
+
+        # It's a figure div. Extract:
+        #   1. The image line(s) — keep as-is
+        #   2. Any non-blank, non-image paragraphs → the caption
+        lines = body.splitlines()
+        image_lines = []
+        caption_lines = []
+        in_caption = False
+        for line in lines:
+            if re.match(r'^!\[', line):
+                image_lines.append(line)
+                in_caption = False
+            elif line.strip() == "":
+                if image_lines:
+                    in_caption = True
+            elif in_caption:
+                caption_lines.append(line)
+
+        parts = []
+        if image_lines:
+            parts.append("\n".join(image_lines))
+        if caption_lines:
+            parts.append("\n".join(caption_lines))
+        return "\n\n".join(parts) + "\n"
+
+    return div_re.sub(_replace, text)
+
 
 def _strip_quarto_blocks(text: str) -> str:
+    # First: rescue figure divs before the general strip removes them.
+    text = _rescue_figure_divs(text)
+
     # Remove ```{=html} ... ``` raw blocks entirely (JSON-LD, banners, etc.)
     text = re.sub(
         r"^```\{=html\}.*?^```[ \t]*$",
@@ -106,7 +169,7 @@ def _strip_quarto_blocks(text: str) -> str:
         text,
         flags=re.MULTILINE | re.DOTALL,
     )
-    # Remove ::: {.class} ... ::: fenced divs entirely
+    # Remove ::: {.class} ... ::: fenced divs entirely (non-figure ones remain)
     # Handles both class-attributed openers (::: {.foo}) and bare closers (:::)
     text = re.sub(
         r"^:::[ \t]*\{[^}]*\}.*?^:::[ \t]*$",
@@ -127,114 +190,111 @@ def _strip_quarto_blocks(text: str) -> str:
 # ── 3. PDF disclosure injection ────────────────────────────────────────────────
 #
 # inject_front_matter() inserts the disclosure as ::: {.paper-disclosure} :::
-# which _strip_quarto_blocks() then removes (correct — the div syntax crashes
-# lualatex). This function re-injects the disclosure as plain italic paragraph
-# text immediately after the YAML front matter fence, so it appears in the PDF.
+# which _strip_quarto_blocks() then removes. This function re-injects it as
+# plain pandoc markdown after the YAML fence.
 #
-# Note: the template.tex renders version/date/word_count via YAML variables
-# ($if(version)$ … $endif$). The meta_line below is therefore redundant for
-# papers where inject_front_matter puts those fields into the YAML. Remove it
-# if you see duplication on the title page.
+# Version/date/word_count are NOT re-injected here — the template's
+# $if(version)$ block renders those from YAML, and \maketitle renders the
+# date field; duplicating them here caused triple-date output.
+#
+# Disclosure wrapping: DISCLOSURE may contain ### headings. Wrapping the whole
+# string in *...* causes pandoc to swallow the heading marker, producing a
+# stray * and no heading. Instead: strip heading markers (convert to bold
+# inline), collapse any paragraph breaks so the whole thing is one italic span.
 
 _YAML_FENCE_END_RE = re.compile(r"^---\s*\n", re.MULTILINE)
 
 
+def _render_disclosure() -> str:
+    """
+    Convert DISCLOSURE to a single italic pandoc paragraph.
+    ### Heading lines → **Heading** (bold, safe inside *...*)
+    Blank lines collapsed to a space so *...* spans the whole block.
+    """
+    lines = DISCLOSURE.strip().splitlines()
+    rendered = []
+    for line in lines:
+        m = re.match(r'^#{1,6}\s+(.*)', line.strip())
+        if m:
+            rendered.append(f"**{m.group(1)}**")
+        elif line.strip():
+            rendered.append(line.strip())
+        # blank lines dropped — they'd break the italic span
+    return "*" + " ".join(rendered) + "*\n\n"
+
+
 def _inject_pdf_disclosure(text: str, shortcode: str, paper_meta: dict) -> str:
     """
-    Inject the AI/funding disclosure as a plain paragraph after the YAML
-    front matter. Runs after _strip_quarto_blocks() has removed the div form.
+    Inject the disclosure as a plain italic paragraph after the YAML front
+    matter. Runs after _strip_quarto_blocks() has removed the div form.
     """
-    meta = paper_meta.get(shortcode)
-    if not meta:
+    if not paper_meta.get(shortcode):
         return text
 
-    version      = meta.get("version", "—")
-    date_display = meta.get("version_date_display", "—")
-    word_count   = meta.get("word_count", 0)
+    disclosure_para = _render_disclosure()
 
-    try:
-        word_count_fmt = f"{int(word_count):,}"
-    except (TypeError, ValueError):
-        word_count_fmt = str(word_count)
-
-    meta_line = (
-        f"**Version {version}** | {date_display} | "
-        f"{word_count_fmt} words (excl. front matter)\n\n"
-    )
-    disclosure_para = f"*{DISCLOSURE}*\n\n"
-
-    # Find the end of the YAML front matter (second --- fence)
     matches = list(_YAML_FENCE_END_RE.finditer(text))
     if len(matches) >= 2:
         insert_pos = matches[1].end()
-        return (
-            text[:insert_pos]
-            + "\n"
-            + meta_line
-            + disclosure_para
-            + text[insert_pos:]
-        )
-    # Fallback: prepend to entire body
-    return meta_line + disclosure_para + text
+        return text[:insert_pos] + "\n" + disclosure_para + text[insert_pos:]
+    return disclosure_para + text
 
 
 # ── 4. Output filename ─────────────────────────────────────────────────────────
 
+# Flat lookup: shortcode → group name (built once from SECTION_ORDER)
+SECTION_ORDER: list[tuple[str, list[str]]] = [
+    ("Core",                     ["WP", "MF"]),
+    ("Prior Literature",         ["LR.A", "LR.B"]),
+    ("Jurisdiction",             ["JUR"]),
+    ("Mechanism and Valuation",  ["VAL", "VAL.A", "VAL.B", "CORP", "CORP.A", "GOV", "GOV.A", "GOV.B"]),
+    ("Revenue Modelling",        ["RATES", "RATES.A", "SWEEPS", "SWEEPS.A"]),
+    ("Robustness and Limits",    ["BEHAV", "BEHAV.A", "FAL", "SCOPE"]),
+    ("Welfare and Distribution", ["WFR", "WFR.A", "LDW", "ENV"]),
+    ("Implementation",           ["CLOSE", "PHASE1"]),
+    ("Political and Strategic",  ["POL", "FM", "MOD", "INST", "ADD"]),
+]
+
+_SHORTCODE_TO_GROUP: dict[str, str] = {
+    sc: group
+    for group, shortcodes in SECTION_ORDER
+    for sc in shortcodes
+}
+
+# Prefix stripped from YAML titles before use in filenames
+_WDT_TITLE_PREFIX = re.compile(r'^the\s+wealth\s+delta\s+tax\s*[:\-–—]\s*', re.IGNORECASE)
+
+
 def _pdf_filename(shortcode: str, stem: str, paper_meta: dict[str, Any]) -> str:
     """
-    Build a PDF filename from the paper's YAML title field.
-    Spaces → hyphens; characters unsafe in filenames are stripped.
-    Falls back to SC_stem.pdf if no title is available.
-    e.g. "The Wealth Delta Tax: Valuing Wealth" → "The-Wealth-Delta-Tax-Valuing-Wealth.pdf"
+    Build a PDF filename in the format:
+        The Wealth Delta Tax - {Group} - {Short Title}.pdf
+
+    The YAML title has any leading "The Wealth Delta Tax: " prefix stripped
+    to avoid repetition. Special characters are removed; spaces preserved.
+    Falls back to "Uncategorised" for papers not in SECTION_ORDER.
+    Falls back to SC_stem.pdf if no title is available at all.
     """
-    meta = paper_meta.get(shortcode, {})
+    meta  = paper_meta.get(shortcode, {})
     title = meta.get("title", "").strip()
-    if title:
-        safe = re.sub(r'[^\w\s\-]', '', title)   # keep word chars, spaces, hyphens
-        safe = re.sub(r'\s+', '-', safe.strip())  # spaces → hyphens
-        safe = re.sub(r'-{2,}', '-', safe)        # collapse multiple hyphens
-        return f"{safe}.pdf"
-    sc_safe = shortcode.replace(".", "-")
-    return f"{sc_safe}_{stem}.pdf"
+
+    if not title:
+        sc_safe = shortcode.replace(".", "-")
+        return f"{sc_safe}_{stem}.pdf"
+
+    # Strip leading "The Wealth Delta Tax: " / "- " / "– " variants
+    short_title = _WDT_TITLE_PREFIX.sub("", title).strip()
+
+    # Sanitise: remove special chars only, preserve spaces
+    short_title = re.sub(r'[^\w\s\-]', '', short_title)
+    short_title = re.sub(r'\s+', ' ', short_title.strip())
+
+    group = _SHORTCODE_TO_GROUP.get(shortcode, "Uncategorised")
+
+    return f"The Wealth Delta Tax - {group} - {short_title}.pdf"
 
 
-# ── 5. Figure flattening ───────────────────────────────────────────────────────
-#
-# fix_image_paths() rewrites all image src to figures/<filename>.
-# Pandoc's --resource-path searches each directory in the path for the
-# *full relative path* as written in the source — so for figures/foo.png
-# pandoc looks for <dir>/figures/foo.png in each resource-path entry.
-#
-# Strategy: create a figures/ subdir inside the temp dir and copy all
-# images there, then add the temp dir root (not the figures/ subdir) to
-# --resource-path. Pandoc will find figures/foo.png at <tmp>/figures/foo.png.
-
-def _flatten_figures() -> Path:
-    """
-    Copy all figures from model/OUTPUTS/**/* into <tmp>/figures/.
-    Returns the temp dir root (not the figures/ subdir).
-    Uses system temp rather than a project subdirectory, avoiding OneDrive
-    sync locks on Windows.
-    Caller must clean up with shutil.rmtree(path, ignore_errors=True).
-    """
-    tmp = Path(tempfile.mkdtemp(prefix="wdt_pdf_figs_"))
-    figures_subdir = tmp / "figures"
-    figures_subdir.mkdir()
-    if not FIGURES_DIR.exists():
-        print(f"  ⚠ FIGURES_DIR not found: {FIGURES_DIR} — PDFs will have no figures")
-        return tmp
-    copied = 0
-    for src in FIGURES_DIR.rglob("*"):
-        if src.suffix.lower() in {".png", ".jpg", ".jpeg", ".pdf", ".svg", ".eps"}:
-            dest = figures_subdir / src.name
-            if not dest.exists():
-                shutil.copy2(src, dest)
-                copied += 1
-    print(f"  Flattened {copied} figures → {figures_subdir}")
-    return tmp
-
-
-# ── 6. Per-paper PDF transform chain ──────────────────────────────────────────
+# ── 5. Per-paper PDF transform chain ──────────────────────────────────────────
 
 def _fix_double_hash(text: str) -> str:
     """Fix ## in markdown link URLs produced by convert_crossrefs when an
@@ -259,9 +319,15 @@ def _transform_for_pdf(
       4. _fix_double_hash         (fix ## artefacts in cross-ref URLs)
       5. convert_internal_bibliography (shared — [CODE] lines → bold text + div)
       6. inject_front_matter      (shared — enriches YAML, injects meta/disclosure divs)
-      7. _strip_quarto_blocks     (PDF-only — removes divs, raw HTML, heading attrs)
-      8. _inject_pdf_disclosure   (PDF-only — re-injects disclosure as plain text)
+      7. _strip_quarto_blocks     (PDF-only — rescues figure divs, removes other divs,
+                                   raw HTML, and heading attrs)
+      8. _inject_pdf_disclosure   (PDF-only — re-injects disclosure as plain italic)
       9. append "# References"   (bibliography anchor for --citeproc)
+
+    Note: implicit_figures is disabled in the pandoc call (-f markdown-implicit_figures)
+    so images on their own paragraph are never promoted to LaTeX figure floats.
+    This keeps image alt text intact (for accessibility) while preventing the
+    unwanted "Figure N:" auto-counter and double-caption that floats would produce.
     """
     text  = _strip_latex_pdf(text)
     text  = fix_image_paths(text)
@@ -298,6 +364,14 @@ def _build_pdf(
         "--standalone",
         "--pdf-engine=lualatex",
         "--citeproc",
+        # Disable implicit_figures: prevents pandoc from wrapping lone images in
+        # \begin{figure}...\caption{alt}...\end{figure} floats. Without this,
+        # any image with non-empty alt text gets a "Figure N:" auto-counter and
+        # the alt text becomes a LaTeX caption — producing double captions when
+        # the source also has a manual caption paragraph. With the extension off,
+        # images render inline (\includegraphics only) and captions remain as
+        # ordinary paragraphs immediately below each image.
+        "-f", "markdown-implicit_figures",
         f"--template={TEMPLATE}",
         f"--lua-filter={LUA_FILTER}",
         f"--bibliography={BIB_PATH}",
@@ -350,8 +424,11 @@ def build_pdfs(shortcode_filter: list[str] | None = None) -> None:
     # Staging dir for transformed .md files (cleaned up in finally)
     staging_dir = Path(tempfile.mkdtemp(prefix="wdt_pdf_staging_"))
 
-    # Figures temp dir — contains figures/ subdir (cleaned up in finally)
-    figures_root = _flatten_figures()
+    # Pre-built figures dir — Quarto maintains wdt-site/_build/figures/ already.
+    # No copy needed; never deleted (it's a live project directory).
+    figures_root = FIGURES_ROOT
+    if not figures_root.exists():
+        print(f"  ⚠ FIGURES_ROOT not found: {figures_root} — PDFs will have no figures")
 
     built = skipped = failed = 0
 
@@ -398,8 +475,7 @@ def build_pdfs(shortcode_filter: list[str] | None = None) -> None:
                 failed += 1
 
     finally:
-        shutil.rmtree(staging_dir,  ignore_errors=True)
-        shutil.rmtree(figures_root, ignore_errors=True)
+        shutil.rmtree(staging_dir, ignore_errors=True)  # temp only; figures_root is live
 
         print()
         print("=" * 50)

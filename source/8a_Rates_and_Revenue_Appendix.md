@@ -462,3 +462,5 @@ All figures at $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{\min}$=£2.0m.
 | TCM coverage 50yr avg | 73 | 192.3% | 775.3% | 810.4% | 1557.9% |
 
 *Coverage fractions: Step-5 remainder / annual expenditure, averaged over each window length. Zero in any failure year. SSM = correlated-shock floor; TCM = heterogeneous-tier ceiling.*
+
+\newpage

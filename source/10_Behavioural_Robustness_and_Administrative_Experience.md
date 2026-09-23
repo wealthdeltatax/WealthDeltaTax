@@ -471,3 +471,5 @@ The route distribution analysis establishes the empirical basis for the enforcem
 The paper does not claim the WDT will end exit. It claims that a system designed for behavioural robustness — one that functions across the full distribution of responses including exit, that offers a rational actor something no adversarial system can offer, and that is administered through a membrane designed to demonstrate rather than undermine its reciprocal character — deserves a different answer to the emigration objection than the systems that have generated the folk knowledge so far.
 
 The folk knowledge was earned. It does not have to be permanent.
+
+\newpage

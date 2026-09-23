@@ -175,3 +175,5 @@ The nine gaps confirmed in this paper are listed below. Each marks where the exi
 | 9 | Minimum-tax interaction with refund-based systems | Confirmed | Technical specification of how a minimum-tax standard applies to a system generating negative tax in loss years |
 
 These nine gaps do not undermine the case for the WDT. They are the agenda for the next phase of formal work: some modelling tasks that can proceed now, some requiring implementation data, and some requiring coordination between the WDT project and emerging international policy processes.
+
+\newpage
