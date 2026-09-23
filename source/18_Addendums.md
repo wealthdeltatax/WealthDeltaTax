@@ -42,11 +42,12 @@ The WDT design papers settle the mechanism's structure and identify its calibrat
 
 **Threshold drift:** The process by which nominal asset appreciation, particularly in housing, pulls a growing share of the population across a fixed nominal exemption threshold without any discrete enrolment event that would make the crossing visible to the affected individual.
 
-**Tolerant zone:** The range of declaration multipliers (α values) around honest declaration within which the total tax paid difference relative to an honest declarer remains below a defined threshold. Governed primarily by the steepness parameter k. Defined formally in (VAL.A §A.2.5), (VAL.A §A.6).
+**Tolerant zone:** The range of declaration multipliers ($\alpha$ values) around honest declaration within which the total tax paid difference relative to an honest declarer remains below a defined threshold. Governed primarily by the steepness parameter k. Defined formally in (VAL.A §A.2.5), (VAL.A §A.6).
 
 **Volunteer rate:** The proportion of lottery-selected Dividend Recipient Chamber seats that are accepted and actively used within a given cycle. Published quarterly by the Administrator. Used as the primary indicator of DR chamber health and the trigger for the constituency dissolution mechanism (GOV.B §A.3.3).
 
-
+\newpage
+\tableofcontents
 \newpage
 
 # 1. Introduction

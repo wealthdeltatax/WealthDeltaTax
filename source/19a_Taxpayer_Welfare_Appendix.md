@@ -18,6 +18,8 @@ keywords:
 | 0.01     | 10 September 2026 | Initial generation of simulation tables. Sections A–E covering baseline single-agent comparison, progressive rate complications, CGT lock-in distortion, heterogeneous agent incidence and concentration, and welfare sweep analysis across revenue targets, start years, and logistic rate parameters. |
 
 \newpage
+\tableofcontents
+\newpage
 
 # A. Baseline Single-Agent Comparison
 
@@ -197,7 +199,7 @@ G/V=50% fixed. T varies from 1 to 20 years. The lock-in cost rises from T=1 and 
 
 ## C.3 Full Welfare Comparison: WDT vs CGT (With and Without Lock-In)
 
-Section A showed WDT ≈ CGT when lock-in was absent. This table adds the lock-in cost to CGT, correcting that comparison. WDT advantage (with lock-in) = CEW_WDT − CEW_CGT_locked.
+Section A showed WDT $\approx$ CGT when lock-in was absent. This table adds the lock-in cost to CGT, correcting that comparison. WDT advantage (with lock-in) = CEW_WDT − CEW_CGT_locked.
 
 | Metric | Ver. A (Empirical) | Ver. B (Idealised) |
 |:---|---:|---:|
@@ -315,6 +317,18 @@ E[T] as % of $W_0$ swept from 1% to 5%. Columns = revenue target; rows grouped b
 | Ver. B | CGT | -0.8698% | -1.7525% | -2.6486% | -3.5585% | -4.4826% |
 | Ver. B | Consumption Tax | -0.9435% | -1.8870% | -2.8305% | -3.7740% | -4.7175% |
 
+### E.1.1 — Sweep A: CEW by System and Initial Wealth W₀ (γ=2)
+
+*E[T] fixed at 2% of W₀; W₀ swept across the wealth-tier range. CEW is invariant to W₀ under this fixed-percentage design — the flat-rate revenue-equivalence normalisation holds the relative burden constant regardless of wealth level. Confirms the flat series in Figure 4.5.1b. γ=2. Ver. A distribution.*
+
+| System | W₀=£3m | W₀=£5m | W₀=£8m | W₀=£10m | W₀=£20m | W₀=£30m | W₀=£50m | W₀=£100m | W₀=£150m |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Symmetric WDT | -1.7539% | -1.7539% | -1.7539% | -1.7539% | -1.7539% | -1.7539% | -1.7539% | -1.7539% | -1.7539% |
+| Stock Wealth Tax | -1.8870% | -1.8870% | -1.8870% | -1.8870% | -1.8870% | -1.8870% | -1.8870% | -1.8870% | -1.8870% |
+| Income Tax | -1.7713% | -1.7713% | -1.7713% | -1.7713% | -1.7713% | -1.7713% | -1.7713% | -1.7713% | -1.7713% |
+| CGT | -1.7713% | -1.7713% | -1.7713% | -1.7713% | -1.7713% | -1.7713% | -1.7713% | -1.7713% | -1.7713% |
+| Consumption Tax | -1.8870% | -1.8870% | -1.8870% | -1.8870% | -1.8870% | -1.8870% | -1.8870% | -1.8870% | -1.8870% |
+
 ## E.2 Sweep B: CEW by Start Year (γ=2)
 
 ### E.2.1 Sweep B: Summary Statistics Across All Start Years
@@ -396,18 +410,64 @@ $\tau_0$, $\tau_m$, $k$ held at canonical values.
 
 \newpage
 
-# F. Parameter Reference
+---
 
-Canonical parameter values used throughout this paper. Sweep deviations from these values are stated explicitly in each table.
+## F. Extended Concentration Horizon (N=73)
+
+### F.1 — Setup and Scope
+Same tiers, systems, and revenue-equivalent rates as D. Heterogeneous Agents — only the horizon extends from the canonical N=30 scenario window (2000-2029, wrap-around) to the full N=73 historical sequence, run chronologically from 1947 to 2019 with no rotation. Rates are carried forward from D — not re-solved at N=73 — because the question is what happens to concentration if the same calibrated system runs longer, not what rate a 73-year revenue target would imply.
+
+### F.2 — Extended Concentration Path (Key Years)
+
+*Great/Poor wealth ratio at selected years across the full 1947-2019 sequence. 2000 and 2019 anchor points allow comparison against the D.3 N=30 window (2000-2029); D.3's 2029 endpoint falls outside the 1947-2019 series and is not repeated here.*
+
+| System | Initial | 1957 | 1967 | 1977 | 1987 | 1997 | 2000 | 2007 | 2019 |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Flat WDT | 48.8× | 94.5× | 167.9× | 290.7× | 500.5× | 882.6× | 1,045.6× | 1,558.3× | 3,173.2× |
+| Progressive WDT | 48.8× | 99.8× | 175.4× | 222.3× | 169.6× | 152.5× | 146.2× | 138.7× | 177.8× |
+| Stock Wealth Tax | 48.8× | 115.1× | 240.2× | 481.9× | 956.5× | 1,974.6× | 2,451.0× | 4,082.9× | 10,239.8× |
+| Income Tax | 48.8× | 100.9× | 181.8× | 320.8× | 553.5× | 998.3× | 1,183.6× | 1,776.0× | 3,793.5× |
+| Consumption Tax | 48.8× | 115.1× | 240.2× | 481.9× | 956.5× | 1,974.6× | 2,451.0× | 4,082.9× | 10,239.8× |
+
+### F.3 — Flat vs Progressive WDT: Crossover Horizon
+
+*At N=30, progressive WDT shows marginally HIGHER Great/Poor concentration than flat WDT (D.3; the logistic operates near its entry rate at canonical wealth levels, so progression barely bites). This table reports whether and when that inverts at longer horizons.*
+
+| Metric | Value |
+|:---|---:|
+| Great/Poor ratio: Flat WDT at N=30 | 286.3× |
+| Great/Poor ratio: Progressive WDT at N=30 | 288.1× |
+| Gap at N=30 (Progressive − Flat) | +1.8× |
+| Great/Poor ratio: Flat WDT at N=73 | 3,173.2× |
+| Great/Poor ratio: Progressive WDT at N=73 | 177.8× |
+| Gap at N=73 (Progressive − Flat) | -2995.4× |
+| First year Progressive WDT ratio < Flat WDT ratio | 1971 |
+| Gap at crossover year | -1.34× |
+
+### F.4 — All-Tier Concentration Matrix at N=73
+
+*Great/Poor, Great/Ok, and Ok/Poor wealth ratios at the N=73 terminal horizon, analogous to D.3 but at the extended horizon — shows where across the tier structure any progressive-vs-flat divergence concentrates.*
+
+| System | Great/Poor | Great/Ok | Ok/Poor |
+|:---|---:|---:|---:|
+| Flat WDT | 3,173.2× | 336.1× | 9.4× |
+| Progressive WDT | 177.8× | 18.5× | 9.6× |
+| Stock Wealth Tax | 10,239.8× | 739.6× | 13.8× |
+| Income Tax | 3,793.5× | 358.5× | 10.6× |
+| Consumption Tax | 10,239.8× | 739.6× | 13.8× |
+
+---
+
+## G. Parameter Reference
 
 | Parameter | Value | Source |
 |:---|---:|:---|
-| $W_0$ (normalised, Section A) | 1.0 | — |
-| Revenue target E[T] | 2% of $W_0$ | — |
+| W₀ (normalised A. Module 1) | 1.0 | — |
+| Revenue target E[T] | 2% of W₀ | — |
 | γ (central case) | 2.0 | Flavin & Yamashita (2002) |
-| $\tau_0$ (WDT entry rate) | 15% | TOML [rate] |
-| $\tau_m$ (WDT ceiling) | 70% | TOML [rate] |
-| $k$ (logistic steepness) | 0.001 | TOML [rate] |
-| $W_{min}$ (£m) | £2m | TOML [rate] |
+| τ₀ (WDT entry rate) | 15% | TOML [rate] |
+| τ_m (WDT ceiling) | 70% | TOML [rate] |
+| k (logistic steepness) | 0.001 | TOML [rate] |
+| W_min (£m) | £2m | TOML [rate] |
 | UK equity mean (1947–2019) | 10.45% | JST dataset |
 | UK equity std dev | 8.31% | JST dataset |

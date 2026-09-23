@@ -48,7 +48,8 @@ This paper distinguishes between two categories of WDT institution: enabling inf
 
 **Scrutiny period:** As defined in [FM]: the interval between the intellectual case for the WDT becoming publicly available and any jurisdiction committing to Phase One implementation.
 
-
+\newpage
+\tableofcontents
 \newpage
 
 # 1. The Two Categories

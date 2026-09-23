@@ -67,8 +67,7 @@ This paper is the reference guide to the intellectual ancestry of the Wealth Del
 **Use-it-or-lose-it mechanism:** The efficiency argument for wealth taxation when returns on capital are persistently heterogeneous, formalised by @GuvenonEtAl2023: a wealth tax falls equally on all holders of equivalent wealth regardless of return, shifting the relative burden toward unproductive holders and improving aggregate capital allocation compared to a capital income tax.
 
 \newpage
-
-
+\tableofcontents
 \newpage
 
 # 1. Introduction and How to Use This Document

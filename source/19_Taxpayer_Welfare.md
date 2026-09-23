@@ -58,6 +58,7 @@ The paper applies a three-category epistemic taxonomy distinguishing welfare cos
 References throughout this paper to (WFR.A §A) through (WFR.A §E) refer to sections of the companion appendix paper, which contains the full simulation tables and model specification underlying the results presented here.
 
 \newpage
+\tableofcontents
 \newpage
 
 # 1. Introduction
@@ -526,7 +527,7 @@ Section 4.1 established that the three D-M complications are all second-order at
 
 Across all four axes, the results are the same: the flat-versus-progressive welfare gap (Gap = CEW_flat − CEW_progressive, basis points) remains below 0.05 basis points in absolute magnitude across the full tested range for every wealth level and parameter combination, with one exception.
 
-The exception is the $W_{min}$ sweep at $W_0$ = £10m. When $W_{min}$ is raised to £10m — equal to $W_0$ — the agent sits exactly at the entry threshold, the progressive schedule applies only the entry rate $\tau_0$, and the gap turns positive (+1.74 basis points). This is not an economically meaningful exception: it requires $W_{min}$ ≈ $W_0$, which means the taxpayer is simultaneously being assessed and sitting exactly at the threshold below which they would not be assessed at all. No other combination in the four sweeps produces a positive gap or a gap approaching 0.1 basis points.
+The exception is the $W_{min}$ sweep at $W_0$ = £10m. When $W_{min}$ is raised to £10m — equal to $W_0$ — the agent sits exactly at the entry threshold, the progressive schedule applies only the entry rate $\tau_0$, and the gap turns positive (+1.74 basis points). This is not an economically meaningful exception: it requires $W_{min}$ $\approx$ $W_0$, which means the taxpayer is simultaneously being assessed and sitting exactly at the threshold below which they would not be assessed at all. No other combination in the four sweeps produces a positive gap or a gap approaching 0.1 basis points.
 
 The steepness parameter $k$ produces the largest absolute gaps within the feasible range: at $k$ = 0.01 and $W_0$ = £100m, the gap reaches −0.05 basis points — two orders of magnitude smaller than the baseline welfare differences between systems. The crossing of the £100m series at $k$ = 0.05 reflects the agent reaching the region above the logistic inflection point, where gain and refund rates reconverge near the $\tau_m$ ceiling. That crossing occurs far outside the canonical parameter space and is noted for completeness.
 
@@ -652,7 +653,7 @@ The following are real prospective costs of WDT implementation. This paper does 
 
 *Valuation friction under Route D.* The four-route valuation architecture (VAL) is designed to minimise friction by making declared values the legally operative basis. The empirical friction cost under real-world implementation — administrative load, professional fees, contested declarations, auction proceedings — is not quantifiable without implementation data.
 
-*Compliance and avoidance costs at scale.* (BEHAV) establishes theoretical stability of the mild-overstatement equilibrium (α ≈ 1.1–1.5) and characterises the nine behavioural shapes from full compliance to active resistance. It does not establish the empirical compliance cost that HMRC-level implementation would generate, nor the avoidance cost at the population level once Shapes 4–6 (restructuring, timing manipulation, cross-border asset migration) are active.
+*Compliance and avoidance costs at scale.* (BEHAV) establishes theoretical stability of the mild-overstatement equilibrium ($\alpha$ $\approx$ 1.1–1.5) and characterises the nine behavioural shapes from full compliance to active resistance. It does not establish the empirical compliance cost that HMRC-level implementation would generate, nor the avoidance cost at the population level once Shapes 4–6 (restructuring, timing manipulation, cross-border asset migration) are active.
 
 *Administrative learning dynamics.* The speed at which an administering body develops operational competence with the Route D auction process, the declaration review system, and the settlement architecture has no direct empirical analogue. The cost of the learning period is real; Phase One is designed to generate data on it (PHASE1 §2).
 

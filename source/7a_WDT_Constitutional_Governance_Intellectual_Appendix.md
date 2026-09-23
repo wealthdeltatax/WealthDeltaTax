@@ -26,6 +26,8 @@ keywords:
 | 1.00      | 15 August 2026  | Published to website |
 
 \newpage
+\tableofcontents
+\newpage
 
 # A. Failure-Mode Taxonomy
 

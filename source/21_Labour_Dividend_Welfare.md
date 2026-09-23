@@ -26,8 +26,6 @@ keywords:
 | 0.03 | 20 September 2026 | Added six external citations and References section: Gruber (1997), Kleven & Kreiner (2006), ONS (2025), Lusardi et al. (2011), Ridley et al. (2020), Blundell et al. (2000) |
 | 0.04 | 20 September 2026 | §2.1 data provenance note added: explicit statement that the 2025/26 rate schedules, ONS ASHE April 2025 median earnings (£39,039), and Ofgem October 2025 cap (£1,755) are not carried in (JUR §2) and are external inputs to this paper's arithmetic |
 
-**Word count:** 6,368
-
 \newpage
 
 # Abstract {.unnumbered .unlisted}
@@ -38,6 +36,8 @@ The answer, taken in full, is this. A median earner today takes home the equival
 
 Beyond the payslip, the analysis covers employment structure, occupational choice, housing markets for renters specifically, the case for SWF investment in public infrastructure, household financial capacity, and the upstream conditions that generate welfare demand. The WDT's most significant welfare effect on ordinary people is not what it funds. It is the structural change in what it costs to work, to spend, and to absorb shocks.
 
+\newpage
+\tableofcontents
 \newpage
 
 # 1. The Paper's Place in the Series and Its Character

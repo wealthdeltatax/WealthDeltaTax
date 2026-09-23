@@ -59,7 +59,8 @@ This paper derives that binary from four independently evaluable premises, expla
 
 **Vulnerability window:** The Phase One period before the refund guarantee has been demonstrated through a market downturn, during which the WDT's cooperative architecture remains aspirational rather than proven and opposition is most effective.
 
-
+\newpage
+\tableofcontents
 \newpage
 
 # 1. The Binary

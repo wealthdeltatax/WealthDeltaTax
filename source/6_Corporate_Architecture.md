@@ -67,8 +67,9 @@ The paper also settles corporate lifecycle rules for IPO transitions, mergers, a
 
 **Tranche:** One of three ownership categories for the provisional levy. Tranche one covers native shareholders; tranche two covers identified intermediaries; tranche three covers unidentified beneficial owners.
 
-
 \newpage
+\tableofcontents
+\newpage\newpage
 
 # 1. Introduction
 

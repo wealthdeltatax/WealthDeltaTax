@@ -64,7 +64,7 @@ The argument proceeds from a single foundational axiom: individual human beings 
 **Wealth as power:** The characterisation of large net worth as durable economic and institutional power that operates in the present, rather than as deferred consumption awaiting a future spending event. The basis for the WDT's departure from consumption-tax logic at the upper end of the distribution.
 
 \newpage
-
+\tableofcontents
 \newpage
 
 # 1. Introduction

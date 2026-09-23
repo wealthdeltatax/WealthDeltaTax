@@ -67,8 +67,7 @@ Terms already defined in the WDT whitepaper glossary and companion paper glossar
 **Vulnerability window:** The period between WDT introduction and the accumulation of sufficient mutual stake, track record, and constituency to make the institution's political durability properties real rather than designed. The period during which the bootstrapping problem is most acute and the institution is most exposed to dismantling.
 
 \newpage
-
-
+\tableofcontents
 \newpage
 
 # 1. Introduction

@@ -125,8 +125,7 @@ The standard applied throughout is comparative rather than absolute: harder to c
 **Volunteer rate:** The proportion of DR lottery selectees who accept service and take up their seat within the service-acceptance window. Published continuously by the Administrator as a rolling figure, trailing average, and full historical series. The primary legitimacy signal for constituency dissolution; the input to which the constituency dissolution mechanism responds automatically.
 
 \newpage
-
-
+\tableofcontents
 \newpage
 
 # 1. Introduction

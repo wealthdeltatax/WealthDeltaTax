@@ -28,6 +28,8 @@ keywords:
 | 1.02 | 20 September 2026 | Crosslinks added: §E.3 extended with three-instrument SWF overview pointing to (VAL §13) sovereign liquidity facility; §H.5 extended with pointer to (CORP.A §B.2.8) $\tau_h$ ramp parameters and joint calibration requirement |
 
 \newpage
+\tableofcontents
+\newpage
 
 # A. The Chambers in Full
 

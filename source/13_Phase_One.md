@@ -52,7 +52,8 @@ The paper does not make design decisions, resolve any open question, or supply t
 
 **Working assumption:** A position adopted in the absence of Phase One evidence, on the basis of the best available adjacent evidence and first-principles reasoning, that Phase One is designed to test and, where necessary, correct.
 
-
+\newpage
+\tableofcontents
 \newpage
 
 # 1. Introduction
@@ -263,7 +264,7 @@ This paper is the structured account of what Phase One is designed to answer. Th
 
 The jurisdiction-specific legal analysis of exit and bankruptcy closure (WP §9.4) (BEHAV §9), (CLOSE §9.3) qualifies the position closure framework's practical implementation. Structural design is settled in (CLOSE) and (GOV); what remains requires the dedicated legal paper. The (PHASE1 §5.3) evaluation designs assume the bridging facility is operational; if the legal analysis modifies the implementation, the migration cluster measurement design will require corresponding adjustment. The same qualification applies to the corporate instrument's CIT interaction during transition.
 
-Two further items appear in the Open Questions footer as received by this paper but do not map to a (PHASE1 §4) empirical cluster. #31 is acknowledged above: it sits at the boundary of Phase One data and jurisdiction-specific legal analysis rather than cleanly in either. (BEHAV §9.2) and (BEHAV.A §D) (the cross-base fiscal externality in the Phase One context — the headline framing in (PHASE1 §9.2), the full seven-part structural response in BEHAV.A §D) are substantively addressed within the (PHASE1 §4) cluster and (PHASE1 §4) evaluation design, which treat the externality as the central quantitative unknown of the migration cluster; they are listed separately in the footer because they originated as a (BEHAV) open question, but their resolution path is identical to #15.
+Two further items appear in the Open Questions footer as received by this paper but do not map to a (PHASE1 §4) empirical cluster. #31 is acknowledged above: it sits at the boundary of Phase One data and jurisdiction-specific legal analysis rather than cleanly in either. (BEHAV §9.2) and (BEHAV.A §D) (the cross-base fiscal externality in the Phase One context — the headline framing in (PHASE1 §6.2), the full seven-part structural response in BEHAV.A §D) are substantively addressed within the (PHASE1 §4) cluster and (PHASE1 §4) evaluation design, which treat the externality as the central quantitative unknown of the migration cluster; they are listed separately in the footer because they originated as a (BEHAV) open question, but their resolution path is identical to #15.
 
 The HMRC data access agreement is a precondition, not a Phase One item. The revenue microsimulation it enables follows from the agreement, not from Phase One data collection itself.
 

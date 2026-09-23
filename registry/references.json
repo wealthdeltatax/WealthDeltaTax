@@ -1,14 +1,14 @@
 {
   "meta": {
     "version": "0.1",
-    "date": "260919",
+    "date": "260922",
     "generated_by": "pipeline/bib_to_json.py",
     "source_bib": "registry/references.bib",
     "source_internal": "registry/internal.json",
-    "total_external_refs": 165,
-    "total_internal_papers": 29,
-    "total_citations": 317,
-    "total_flags": 14
+    "total_external_refs": 174,
+    "total_internal_papers": 30,
+    "total_citations": 362,
+    "total_flags": 17
   },
   "external_references": [
     {
@@ -114,6 +114,7 @@
         "Wealth Tax Commission (2020) — institutional-author form used in RATES References section; refers to same report"
       ],
       "citation_ids": [
+        "AdvaniEtAl2020__FAL",
         "AdvaniEtAl2020__JUR",
         "AdvaniEtAl2020__LRB",
         "AdvaniEtAl2020__RATES"
@@ -156,8 +157,10 @@
       "alt_author_forms": [],
       "citation_ids": [
         "AgrawalEtAl2025__BEHAV",
+        "AgrawalEtAl2025__BEHAV.A",
         "AgrawalEtAl2025__CLOSE",
         "AgrawalEtAl2025__ENV",
+        "AgrawalEtAl2025__FAL",
         "AgrawalEtAl2025__INST",
         "AgrawalEtAl2025__LRA",
         "AgrawalEtAl2025__LRB",
@@ -320,6 +323,7 @@
       "verification_notes": "Online first 2021; journal volume dated January 2022. The paper the WFR draft cites as @Arachi2022 -- key should be updated to ArachiDAntoni2022 throughout.",
       "alt_author_forms": [],
       "citation_ids": [
+        "ArachiDAntoni2022__FAL",
         "ArachiDAntoni2022__WFR"
       ],
       "flag_ids": []
@@ -379,6 +383,7 @@
       "alt_author_forms": [],
       "citation_ids": [
         "Auerbach1991__CORP",
+        "Auerbach1991__FAL",
         "Auerbach1991__LRB",
         "Auerbach1991__WP"
       ],
@@ -489,6 +494,7 @@
       "alt_author_forms": [],
       "citation_ids": [
         "AzevedoEtAl2025__CLOSE",
+        "AzevedoEtAl2025__FAL",
         "AzevedoEtAl2025__WP"
       ],
       "flag_ids": []
@@ -616,6 +622,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "BastaniWaldenstrom2020__FAL",
         "BastaniWaldenstrom2020__LRA",
         "BastaniWaldenstrom2020__POL",
         "BastaniWaldenstrom2020__WFR"
@@ -725,6 +732,47 @@
       "flag_ids": []
     },
     {
+      "id": "BlundellEtAl2000",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Blundell",
+          "first": "Richard"
+        },
+        {
+          "last": "Duncan",
+          "first": "Alan"
+        },
+        {
+          "last": "McCrae",
+          "first": "Julian"
+        },
+        {
+          "last": "Meghir",
+          "first": "Costas"
+        }
+      ],
+      "year": 2000,
+      "title": "The Labour Market Impact of the Working Families' Tax Credit",
+      "publisher": null,
+      "journal": "Fiscal Studies",
+      "volume": "21",
+      "issue": "1",
+      "pages": "75–104",
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": "https://www.ucl.ac.uk/~uctp39a/blundell-WFTC-Fiscal%20Studies.pdf",
+      "verified": true,
+      "verified_date": "260920",
+      "verification_notes": "via UCL author copy and IDEAS record. No CrossRef DOI found for this Fiscal Studies volume (pre-DOI infrastructure at IFS). Uses a discrete structural model of household labour supply incorporating fixed and childcare costs: finds that the net return on working is sensitive to the relationship between post-tax earnings and childcare costs, and that reforms improving that relationship raise labour supply, particularly for lone parents. Cited in LDW 5 for the claim that NICs removal and income tax displacement improve the childcare-cost calculation for second earners.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "BlundellEtAl2000__LDW"
+      ],
+      "flag_ids": []
+    },
+    {
       "id": "BoadwaySpiritusEtAl2025",
       "type": "journal_article",
       "authors": [
@@ -753,6 +801,7 @@
       "verification_notes": "Companion paper to GerritsenEtAl2025. Both are relevant to the §5.5 literature dispute — the author should confirm which paper is the operative citation.",
       "alt_author_forms": [],
       "citation_ids": [
+        "BoadwaySpiritusEtAl2025__FAL",
         "BoadwaySpiritusEtAl2025__WFR"
       ],
       "flag_ids": []
@@ -819,6 +868,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "Bradford1986__FAL",
         "Bradford1986__LRA",
         "Bradford1986__LRB",
         "Bradford1986__MF",
@@ -906,6 +956,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "BrulhartEtAl2022__FAL",
         "BrulhartEtAl2022__LRB",
         "BrulhartEtAl2022__WP"
       ],
@@ -967,6 +1018,7 @@
       "verification_notes": "No CrossRef DOI (pre-digital Econometrica). JSTOR stable URL",
       "alt_author_forms": [],
       "citation_ids": [
+        "Chamley1986__FAL",
         "Chamley1986__LRA",
         "Chamley1986__LRB",
         "Chamley1986__WP"
@@ -1186,6 +1238,7 @@
       "verification_notes": "Article number e70086. Volume and issue numbers not yet assigned at verification date; update on journal publication. The WFR plan §7.5 attributes this paper to \"Dalle Luche, Garbinti, and Goupille-Lebret\" -- the correct authors are as given here. Garbinti and Goupille-Lebret are distinct researchers whose names appear together in other papers.",
       "alt_author_forms": [],
       "citation_ids": [
+        "DalleLucheEtAl2026__FAL",
         "DalleLucheEtAl2026__WFR"
       ],
       "flag_ids": []
@@ -1462,6 +1515,7 @@
       "verification_notes": "2 volumes. DG TAXUD. Publication date 15 April 2026.",
       "alt_author_forms": [],
       "citation_ids": [
+        "EuropeanCommission2026__FAL",
         "EuropeanCommission2026__LRB"
       ],
       "flag_ids": []
@@ -1544,6 +1598,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "FagerengEtAl2020__FAL",
         "FagerengEtAl2020__LRA",
         "FagerengEtAl2020__LRB",
         "FagerengEtAl2020__RATES",
@@ -1796,6 +1851,7 @@
       "alt_author_forms": [],
       "citation_ids": [
         "Gangl2015a__BEHAV",
+        "Gangl2015a__FAL",
         "Gangl2015a__LRA",
         "Gangl2015a__LRB",
         "Gangl2015a__PHASE1"
@@ -1884,12 +1940,14 @@
       "verification_notes": "Original issue June 2023; revised May 2026. Not yet journal-published -- update citation on journal publication.",
       "alt_author_forms": [],
       "citation_ids": [
-        "GarbintiEtAl2026__BEHAV",
+        "GarbintiEtAl2026__FAL",
         "GarbintiEtAl2026__VAL",
         "GarbintiEtAl2026__WFR",
         "GarbintiEtAl2026__WP"
       ],
-      "flag_ids": []
+      "flag_ids": [
+        "flag_34"
+      ]
     },
     {
       "id": "GerritsenEtAl2025",
@@ -1928,6 +1986,7 @@
       "verification_notes": "This is the paper the WFR plan (§7.5) attributes to \"Boadway and Spiritus (2025, Economic Journal)\" -- the correct authors are Gerritsen, Jacobs, Spiritus, and Rusu. Boadway and Spiritus's 2025 paper appears in the Scandinavian Journal of Economics (see BoadwaySpiritusEtAl2025). Author to verify which paper is the intended citation in §5.5.",
       "alt_author_forms": [],
       "citation_ids": [
+        "GerritsenEtAl2025__FAL",
         "GerritsenEtAl2025__WFR"
       ],
       "flag_ids": []
@@ -1992,6 +2051,35 @@
       "flag_ids": []
     },
     {
+      "id": "Gruber1997",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Gruber",
+          "first": "Jonathan"
+        }
+      ],
+      "year": 1997,
+      "title": "The Incidence of Payroll Taxation: Evidence from Chile",
+      "publisher": null,
+      "journal": "Journal of Labor Economics",
+      "volume": "15",
+      "issue": "3, Part 2",
+      "pages": "S72–S101",
+      "series": null,
+      "number": null,
+      "doi": "10.1086/209877",
+      "url": null,
+      "verified": true,
+      "verified_date": "260920",
+      "verification_notes": "Foundational empirical paper on payroll tax incidence: exogenous reduction in employer contributions in Chile passed through fully to wages with no effect on employment. Cited in LDW 2.1 as the background for the bilateral NICs incidence debate that bilateral removal sidesteps.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "Gruber1997__LDW"
+      ],
+      "flag_ids": []
+    },
+    {
       "id": "GuvenonEtAl2023",
       "type": "journal_article",
       "authors": [
@@ -2033,6 +2121,7 @@
       "alt_author_forms": [],
       "citation_ids": [
         "GuvenonEtAl2023__ENV",
+        "GuvenonEtAl2023__FAL",
         "GuvenonEtAl2023__LRA",
         "GuvenonEtAl2023__LRB",
         "GuvenonEtAl2023__RATES",
@@ -2311,6 +2400,7 @@
       "alt_author_forms": [],
       "citation_ids": [
         "Haig1921__CORP",
+        "Haig1921__FAL",
         "Haig1921__LRB",
         "Haig1921__WP"
       ],
@@ -2445,6 +2535,7 @@
       "verification_notes": "IMF Fiscal Affairs Department How to Note 24/01.",
       "alt_author_forms": [],
       "citation_ids": [
+        "HebousEtAl2024__FAL",
         "HebousEtAl2024__WFR"
       ],
       "flag_ids": []
@@ -2504,6 +2595,37 @@
         "ICMIF2020__LRB"
       ],
       "flag_ids": []
+    },
+    {
+      "id": "IMF2021Norway",
+      "type": "report",
+      "authors": [
+        {
+          "last": "International Monetary Fund",
+          "first": null
+        }
+      ],
+      "year": 2021,
+      "title": "Norway: 2021 Article IV Consultation --- Press Release; Staff Report; and Staff Statement",
+      "publisher": "International Monetary Fund",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": "21/104",
+      "doi": null,
+      "url": "https://www.imf.org/en/Publications/CR/Issues/2021/06/09/Norway-2021-Article-IV-Consultation-Press-Release-Staff-Report-and-Staff-Statement-460986",
+      "verified": true,
+      "verified_date": "260920",
+      "verification_notes": "Published June 2021. Covers Norway's 2020 fiscal response. Confirms that Norway entered the COVID-19 crisis with substantial buffers and acted with strong and effective fiscal, monetary, and financial sector policies. The GPFG flexible spending rule permitted countercyclical deviation above the 3% guideline in 2020. FAL 4.4 cites this as @IMF2020Norway (see Flag~35: no standalone 2020 Article IV was published; the 2021 report CR 21/104 is the correct source for IMF confirmation of the 2020 GPFG drawdown).",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "IMF2021Norway__FAL"
+      ],
+      "flag_ids": [
+        "flag_35"
+      ]
     },
     {
       "id": "ISW2026Sep",
@@ -2595,10 +2717,12 @@
       "verification_notes": "Also published as WID World Working Paper 2023/30 (revised April 2024). Not yet journal-published.",
       "alt_author_forms": [],
       "citation_ids": [
-        "IacononoSmedsvik2024__BEHAV",
+        "IacononoSmedsvik2024__FAL",
         "IacononoSmedsvik2024__RATES"
       ],
-      "flag_ids": []
+      "flag_ids": [
+        "flag_34"
+      ]
     },
     {
       "id": "JakobsenEtAl2020",
@@ -2686,6 +2810,7 @@
       "citation_ids": [
         "JakobsenEtAl2024__CLOSE",
         "JakobsenEtAl2024__ENV",
+        "JakobsenEtAl2024__FAL",
         "JakobsenEtAl2024__INST",
         "JakobsenEtAl2024__LRA",
         "JakobsenEtAl2024__LRB",
@@ -2737,6 +2862,7 @@
       "verification_notes": "via macrohistory.net database.",
       "alt_author_forms": [],
       "citation_ids": [
+        "JordaEtAl2019__FAL",
         "JordaEtAl2019__RATES",
         "JordaEtAl2019__RATESA"
       ],
@@ -2767,6 +2893,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "Judd1985__FAL",
         "Judd1985__LRA",
         "Judd1985__LRB",
         "Judd1985__WP"
@@ -2798,6 +2925,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "Kaldor1955__FAL",
         "Kaldor1955__LRB",
         "Kaldor1955__MF",
         "Kaldor1955__WP"
@@ -3016,10 +3144,12 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
-        "KlevenEtAl2011__BEHAV",
+        "KlevenEtAl2011__FAL",
         "KlevenEtAl2011__LRB"
       ],
-      "flag_ids": []
+      "flag_ids": [
+        "flag_34"
+      ]
     },
     {
       "id": "KlevenEtAl2024",
@@ -3058,15 +3188,50 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
-        "KlevenEtAl2024__BEHAV",
         "KlevenEtAl2024__ENV",
+        "KlevenEtAl2024__FAL",
         "KlevenEtAl2024__LRA",
         "KlevenEtAl2024__LRB",
         "KlevenEtAl2024__POL"
       ],
       "flag_ids": [
-        "flag_24"
+        "flag_24",
+        "flag_34"
       ]
+    },
+    {
+      "id": "KlevenKreiner2006",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Kleven",
+          "first": "Henrik Jacobsen"
+        },
+        {
+          "last": "Kreiner",
+          "first": "Claus Thustrup"
+        }
+      ],
+      "year": 2006,
+      "title": "The Marginal Cost of Public Funds: Hours of Work Versus Labor Force Participation",
+      "publisher": null,
+      "journal": "Journal of Public Economics",
+      "volume": "90",
+      "issue": "10--11",
+      "pages": "1955–1973",
+      "series": null,
+      "number": null,
+      "doi": "10.1016/j.jpubeco.2006.03.006",
+      "url": null,
+      "verified": true,
+      "verified_date": "260920",
+      "verification_notes": "Estimates MCF for five European countries including the UK; main estimate for income tax and NICs combined at 1.26 (UK) using participation elasticities. FAL 4.3 cites this as the primary UK deadweight loss reference for labour taxation. Note: Kleven and Kreiner (2006) main estimate for Denmark exceeds 2; the UK figure of 1.26 is the participation-elasticity-based estimate cited in FAL.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "KlevenKreiner2006__FAL",
+        "KlevenKreiner2006__LDW"
+      ],
+      "flag_ids": []
     },
     {
       "id": "Kopczuk2015",
@@ -3221,6 +3386,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "Levi1988__FAL",
         "Levi1988__LRB"
       ],
       "flag_ids": []
@@ -3259,6 +3425,43 @@
         "LondonoVelezAvilaMahecha2025__BEHAV",
         "LondonoVelezAvilaMahecha2025__LRB",
         "LondonoVelezAvilaMahecha2025__WP"
+      ],
+      "flag_ids": []
+    },
+    {
+      "id": "LusardiEtAl2011",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Lusardi",
+          "first": "Annamaria"
+        },
+        {
+          "last": "Schneider",
+          "first": "Daniel"
+        },
+        {
+          "last": "Tufano",
+          "first": "Peter"
+        }
+      ],
+      "year": 2011,
+      "title": "Financially Fragile Households: Evidence and Implications",
+      "publisher": null,
+      "journal": "Brookings Papers on Economic Activity",
+      "volume": "42",
+      "issue": "1",
+      "pages": "83–150",
+      "series": null,
+      "number": null,
+      "doi": "10.1353/eca.2011.0006",
+      "url": null,
+      "verified": true,
+      "verified_date": "260920",
+      "verification_notes": "Introduces the household financial fragility concept: capacity to come up with \\$2,000 in 30 days. Documents near-half of respondents in eight industrialised countries (incl.\\ the UK) unable to absorb an ordinary financial shock. Establishes that financial fragility is more severe among low-income households but substantial even in the middle class. Primary empirical foundation for the cascade threshold concept in LDW 6.1.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "LusardiEtAl2011__LDW"
       ],
       "flag_ids": []
     },
@@ -3391,6 +3594,35 @@
       "flag_ids": []
     },
     {
+      "id": "NAO2025",
+      "type": "institutional_report",
+      "authors": [
+        {
+          "last": "National Audit Office",
+          "first": null
+        }
+      ],
+      "year": 2025,
+      "title": "Collecting the Right Tax from Wealthy Individuals",
+      "publisher": "National Audit Office",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": "https://www.nao.org.uk/reports/collecting-the-right-tax-from-wealthy-individuals/",
+      "verified": true,
+      "verified_date": "260920",
+      "verification_notes": "HC 876. Session 2024--25. Published 16 May 2025. Reported 850,000 individuals classified as wealthy (assets above 2m or income above 200,000 in any of last three years); 73% represented by a tax agent; compliance investigations averaging 40 months at the high-value end; wealthy tax gap 1.9bn in 2022--23; compliance yield 5.2bn in 2023--24.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "NAO2025__FAL"
+      ],
+      "flag_ids": []
+    },
+    {
       "id": "North1990",
       "type": "book",
       "authors": [
@@ -3417,6 +3649,35 @@
       "citation_ids": [
         "North1990__LRA",
         "North1990__POL"
+      ],
+      "flag_ids": []
+    },
+    {
+      "id": "NorwayRevBudget2020",
+      "type": "institutional_report",
+      "authors": [
+        {
+          "last": "Norwegian Ministry of Finance",
+          "first": null
+        }
+      ],
+      "year": 2020,
+      "title": "Revised National Budget 2020",
+      "publisher": "Norwegian Ministry of Finance",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": "https://www.regjeringen.no/en/aktuelt/key-figures-in-the-revised-national-budget-2020/id2701786",
+      "verified": true,
+      "verified_date": "260920",
+      "verification_notes": "Published 12 May 2020. Proposes use of 419.6 billion NOK in petroleum revenues (structural non-oil fiscal deficit), representing 4.2% of the estimated value of the Government Pension Fund Global at the beginning of the year. Fiscal impulse 5.1% of mainland trend-GDP. Withdrawal of approximately 382 billion NOK (\\$37 billion) from the GPFG -- more than four times the previous record set in 2016. Cited in FAL 4.4 as the primary empirical reference for GPFG countercyclical drawdown under H2c.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "NorwayRevBudget2020__FAL"
       ],
       "flag_ids": []
     },
@@ -3540,6 +3801,35 @@
       "flag_ids": []
     },
     {
+      "id": "ONS2025ETB",
+      "type": "institutional_report",
+      "authors": [
+        {
+          "last": "Office for National Statistics",
+          "first": null
+        }
+      ],
+      "year": 2025,
+      "title": "Effects of Taxes and Benefits on UK Household Income: Financial Year Ending 2024",
+      "publisher": "ONS",
+      "journal": null,
+      "volume": null,
+      "issue": null,
+      "pages": null,
+      "series": null,
+      "number": null,
+      "doi": null,
+      "url": "https://www.ons.gov.uk/releases/effectsoftaxesandbenefitsonukhouseholdincomefinancialyearending2024",
+      "verified": true,
+      "verified_date": "260920",
+      "verification_notes": "Released 25 September 2025. Accredited Official Statistics. Annual analysis of redistribution effects of direct and indirect taxation and benefits by household type and income quintile. Authoritative UK source for household expenditure composition by income quintile, VAT-able spending shares, and the regressive distributional incidence of indirect taxes. Cited in LDW 4.1 for the 55% VAT-able expenditure share figure and for the claim that lower earners spend a higher fraction of income on VAT-able essentials.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "ONS2025ETB__LDW"
+      ],
+      "flag_ids": []
+    },
+    {
       "id": "OSullivan1998",
       "type": "journal_article",
       "authors": [
@@ -3593,6 +3883,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "Olson1965__FAL",
         "Olson1965__GOV",
         "Olson1965__INST",
         "Olson1965__LRA",
@@ -3626,6 +3917,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "Ostrom1990__FAL",
         "Ostrom1990__GOV",
         "Ostrom1990__GOVA",
         "Ostrom1990__LRB"
@@ -3780,6 +4072,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "Pierson1994__FAL",
         "Pierson1994__LRA",
         "Pierson1994__POL"
       ],
@@ -3810,6 +4103,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "Pierson2000__FAL",
         "Pierson2000__LRA",
         "Pierson2000__POL"
       ],
@@ -4103,6 +4397,47 @@
       "flag_ids": []
     },
     {
+      "id": "RidleyEtAl2020",
+      "type": "journal_article",
+      "authors": [
+        {
+          "last": "Ridley",
+          "first": "Matthew"
+        },
+        {
+          "last": "Rao",
+          "first": "Gautam"
+        },
+        {
+          "last": "Schilbach",
+          "first": "Frank"
+        },
+        {
+          "last": "Patel",
+          "first": "Vikram"
+        }
+      ],
+      "year": 2020,
+      "title": "Poverty, Depression, and Anxiety: Causal Evidence and Mechanisms",
+      "publisher": null,
+      "journal": "Science",
+      "volume": "370",
+      "issue": "6522",
+      "pages": "eaay0214",
+      "series": null,
+      "number": null,
+      "doi": "10.1126/science.aay0214",
+      "url": null,
+      "verified": true,
+      "verified_date": "260920",
+      "verification_notes": "Reviews interdisciplinary evidence of the bidirectional causal relationship between poverty and common mental illnesses (depression and anxiety). Establishes that negative income shocks cause mental illness; that mental illness reduces employment and income; and that antipoverty programmes including cash transfers improve mental health. Cited in LDW 6.2 for the causal link between financial insecurity and elevated rates of anxiety, depression, and stress-related physical illness. Published as Tomorrow's Earth series in Science, peer-reviewed.",
+      "alt_author_forms": [],
+      "citation_ids": [
+        "RidleyEtAl2020__LDW"
+      ],
+      "flag_ids": []
+    },
+    {
       "id": "RingEtAl2026",
       "type": "working_paper",
       "authors": [
@@ -4137,6 +4472,7 @@
       "citation_ids": [
         "RingEtAl2026__CORP",
         "RingEtAl2026__CORPA",
+        "RingEtAl2026__FAL",
         "RingEtAl2026__FM",
         "RingEtAl2026__VAL"
       ],
@@ -4431,6 +4767,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "Sandmo1977__FAL",
         "Sandmo1977__LRA",
         "Sandmo1977__LRB",
         "Sandmo1977__RATES"
@@ -4584,6 +4921,7 @@
       "alt_author_forms": [],
       "citation_ids": [
         "Shakow1986__CORP",
+        "Shakow1986__FAL",
         "Shakow1986__FM",
         "Shakow1986__LRB",
         "Shakow1986__VAL",
@@ -4677,6 +5015,7 @@
       "alt_author_forms": [],
       "citation_ids": [
         "Simons1938__CORP",
+        "Simons1938__FAL",
         "Simons1938__LRB",
         "Simons1938__WP"
       ],
@@ -4742,6 +5081,7 @@
       "verification_notes": null,
       "alt_author_forms": [],
       "citation_ids": [
+        "StraubWerning2020__FAL",
         "StraubWerning2020__LRA",
         "StraubWerning2020__LRB",
         "StraubWerning2020__WP"
@@ -4899,6 +5239,7 @@
       "verification_notes": "344 pp. ISBN 9780691099897.",
       "alt_author_forms": [],
       "citation_ids": [
+        "Tsebelis2002__FAL",
         "Tsebelis2002__INST"
       ],
       "flag_ids": []
@@ -4929,6 +5270,7 @@
       "alt_author_forms": [],
       "citation_ids": [
         "Tyler1990__BEHAV",
+        "Tyler1990__FAL",
         "Tyler1990__LRA",
         "Tyler1990__LRB",
         "Tyler1990__MF",
@@ -6078,21 +6420,18 @@
       "id": "BEHAV",
       "shortcode": "BEHAV",
       "title": "The Wealth Delta Tax: Behavioural Robustness and Administrative Experience",
-      "version": "1.01",
-      "version_date": "260914",
+      "version": "2.00",
+      "version_date": "261001",
       "status": "active",
       "outbound_ext_citation_ids": [
         "AgrawalEtAl2025__BEHAV",
-        "GarbintiEtAl2026__BEHAV",
         "Gangl2015a__BEHAV",
-        "IacononoSmedsvik2024__BEHAV",
         "Kirchler2007__BEHAV",
-        "KlevenEtAl2011__BEHAV",
-        "KlevenEtAl2024__BEHAV",
         "LondonoVelezAvilaMahecha2025__BEHAV",
         "Tyler1990__BEHAV"
       ],
       "outbound_internal": [
+        "BEHAV.A",
         "CLOSE"
       ],
       "inbound_internal": [
@@ -6105,7 +6444,27 @@
         "BEHAV-4"
       ],
       "flag_ids": [],
-      "notes": "v1.01 (260914): abstract updated to reference tolerant zone as bounding the enforcement claim; §8.11 reframed — Route D enforcement residual characterised as egregious-understatement tail, not general valuation problem, referencing VAL §7.1 tolerant zone (α ≈ 0.8–1.5) and updated equilibrium framing (α ≈ 1.1 as conditional prediction, not dominant strategy); §8.12 extended — tolerant zone substantially reduces enforcement problem for non-egregious declaration range; §9.2 new sub-section noting WDT is not a stock wealth tax and Agrawal ratio calibrated to structurally different systems (directional risk retained, magnitude uncertain); §6.3 new paragraph on SWEEPS parameter separability as structural contribution to Clarity and Fairness membrane dimensions."
+      "notes": "v2.00: restructured for length. Supporting material relocated to BEHAV.A companion paper: full route distribution asset-class walkthrough (formerly §8.12–§8.13), membrane calcification monitoring architecture (formerly §10), seven-part Agrawal externality response (formerly §9.2 body), secondary objections (§9.3–§9.5), membrane examples (formerly Appendix A). GarbintiEtAl2026, IacononoSmedsvik2024, KlevenEtAl2011, KlevenEtAl2024 removed from outbound citations: these were pre-registered for planned use but are not cited in either BEHAV or BEHAV.A as restructured. KlevenEtAl2024 was prose-referenced in v1 §2.1 but that passage was compressed; GarbintiEtAl2026 and IacononoSmedsvik2024 were planned §4–§7 citations not incorporated; KlevenEtAl2011 was a §2.2 pre-registration not incorporated. All four remain in references.bib and are cited by other papers."
+    },
+    {
+      "id": "BEHAV.A",
+      "shortcode": "BEHAV.A",
+      "title": "The Wealth Delta Tax: Behavioural Robustness — Supporting Analysis",
+      "version": "1.00",
+      "version_date": "261001",
+      "status": "active",
+      "outbound_ext_citation_ids": [
+        "AgrawalEtAl2025__BEHAV.A"
+      ],
+      "outbound_internal": [
+        "BEHAV"
+      ],
+      "inbound_internal": [
+        "BEHAV"
+      ],
+      "open_question_ids": [],
+      "flag_ids": [],
+      "notes": "Appendix companion to BEHAV. Contains: §A route distribution full asset-class walkthrough; §B membrane calcification monitoring architecture; §C membrane institutional examples; §D seven-part cross-base externality response (AgrawalEtAl2025). One external citation: AgrawalEtAl2025 (@-cited in §D)."
     },
     {
       "id": "CLOSE",
@@ -6620,7 +6979,7 @@
         "2.1",
         "9.2"
       ],
-      "notes": null
+      "notes": "v2.00: §9.2 cite retained in BEHAV (compressed Agrawal response); full seven-part response relocated to BEHAV.A §D (see AgrawalEtAl2025__BEHAV.A)."
     },
     {
       "id": "AgrawalEtAl2025__CLOSE",
@@ -7359,17 +7718,6 @@
       "notes": "Information disclosure requirements dominate rate elasticities by factor of ten; mandatory third-party reporting is critical design variable"
     },
     {
-      "id": "GarbintiEtAl2026__BEHAV",
-      "ref_id": "GarbintiEtAl2026",
-      "paper_id": "BEHAV",
-      "relationship": "in_text",
-      "sections": [
-        "4",
-        "5"
-      ],
-      "notes": "Evasion enabled by reduced disclosure; compliance architecture implications"
-    },
-    {
       "id": "GarbintiEtAl2026__WP",
       "ref_id": "GarbintiEtAl2026",
       "paper_id": "WP",
@@ -7641,18 +7989,6 @@
         "2.11"
       ],
       "notes": "Derivation authority for 4.51% p.a. figure"
-    },
-    {
-      "id": "IacononoSmedsvik2024__BEHAV",
-      "ref_id": "IacononoSmedsvik2024",
-      "paper_id": "BEHAV",
-      "relationship": "in_text",
-      "sections": [
-        "5",
-        "6",
-        "7"
-      ],
-      "notes": "Intensive-margin elasticity of taxable wealth: 60–67% increase per 1 pp rate cut; Norway Bø municipal reform 2021; top ~10% of wealth distribution"
     },
     {
       "id": "IacononoSmedsvik2024__RATES",
@@ -7962,33 +8298,12 @@
       "notes": null
     },
     {
-      "id": "KlevenEtAl2011__BEHAV",
-      "ref_id": "KlevenEtAl2011",
-      "paper_id": "BEHAV",
-      "relationship": "in_text",
-      "sections": [
-        "2.2"
-      ],
-      "notes": null
-    },
-    {
       "id": "KlevenEtAl2011__LRB",
       "ref_id": "KlevenEtAl2011",
       "paper_id": "LRB",
       "relationship": "in_text",
       "sections": [
         "10"
-      ],
-      "notes": null
-    },
-    {
-      "id": "KlevenEtAl2024__BEHAV",
-      "ref_id": "KlevenEtAl2024",
-      "paper_id": "BEHAV",
-      "relationship": "in_text",
-      "sections": [
-        "2.1",
-        "8.7"
       ],
       "notes": null
     },
@@ -8130,10 +8445,9 @@
       "paper_id": "BEHAV",
       "relationship": "in_text",
       "sections": [
-        "2.1",
-        "9.2"
+        "2.1"
       ],
-      "notes": "Flag 3 closed 2026-09-18: citation updated to journal form (Review of Economic Studies 92(4), 2624-2655)."
+      "notes": "v2.00: §9.2 removed from sections — that citation was in the detailed Agrawal response which moved to BEHAV.A §D; only §2.1 in-text cite remains in BEHAV."
     },
     {
       "id": "LondonoVelezAvilaMahecha2025__LRB",
@@ -9843,6 +10157,506 @@
         "6.4"
       ],
       "notes": "Empirical evidence: Chinese business elites prefer IPI in exchange for taxation. Open access. Directly relevant to INST two-constituency mechanism. Verified 2026-09-18."
+    },
+    {
+      "id": "AgrawalEtAl2025__BEHAV.A",
+      "ref_id": "AgrawalEtAl2025",
+      "paper_id": "BEHAV.A",
+      "relationship": "in_text",
+      "sections": [
+        "D"
+      ],
+      "notes": "Primary citation in §D (cross-base externality full response). Also referenced throughout §D prose."
+    },
+    {
+      "id": "NAO2025__FAL",
+      "ref_id": "NAO2025",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "3.2"
+      ],
+      "notes": "73% of ~850,000 wealthy individuals represented by tax agent; 40-month average compliance investigation; £1.9bn wealthy tax gap; compliance yields cited as evidence of current-system friction costs for H1 break-even burden analysis."
+    },
+    {
+      "id": "AdvaniEtAl2020__FAL",
+      "ref_id": "AdvaniEtAl2020",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "3.2"
+      ],
+      "notes": "Most rigorous existing UK estimate of taxpayer-side compliance burden for a one-off wealth tax; cited as the closest prior study on H1 all-in friction cost methodology."
+    },
+    {
+      "id": "GarbintiEtAl2026__FAL",
+      "ref_id": "GarbintiEtAl2026",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "3.4"
+      ],
+      "notes": "French wealth tax compliance architecture generated substantial avoidance expenditure; cited in institutional participation component of H1 on predictability dimension."
+    },
+    {
+      "id": "BrulhartEtAl2022__FAL",
+      "ref_id": "BrulhartEtAl2022",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "3.4"
+      ],
+      "notes": "Swiss wealth tax responses driven primarily by avoidance rather than migration; supports framing that current-system avoidance costs are large component of total-cost comparison for H1."
+    },
+    {
+      "id": "AgrawalEtAl2025__FAL",
+      "ref_id": "AgrawalEtAl2025",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "3.5"
+      ],
+      "notes": "Norway 2022 wealth tax increase: ~22 cents total revenue lost per additional unit of wealth tax raised once income and consumption tax losses from migrating households included. Migration evidence constraining H1 elasticity parameters."
+    },
+    {
+      "id": "JakobsenEtAl2024__FAL",
+      "ref_id": "JakobsenEtAl2024",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "3.5"
+      ],
+      "notes": "Significant wealth accumulation responses to Danish wealth tax repeal; difficult to decompose migration vs avoidance. Migration evidence constraining H1 elasticity parameters."
+    },
+    {
+      "id": "IacononoSmedsvik2024__FAL",
+      "ref_id": "IacononoSmedsvik2024",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "3.5"
+      ],
+      "notes": "Behavioural responses to Norwegian reforms real but fiscally modest relative to pre-reform revenues. Migration evidence constraining H1 elasticity parameters."
+    },
+    {
+      "id": "KlevenEtAl2024__FAL",
+      "ref_id": "KlevenEtAl2024",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "3.5"
+      ],
+      "notes": "Surveys taxation and migration literature; elasticities vary substantially by institutional context and tax design. H1 migration evidence review."
+    },
+    {
+      "id": "ArachiDAntoni2022__FAL",
+      "ref_id": "ArachiDAntoni2022",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "4.2"
+      ],
+      "notes": "Primary theoretical challenge to H2a: accrual taxation creates intertemporal consumption distortions in loss years that realisation taxation avoids. Required model must include this channel."
+    },
+    {
+      "id": "GuvenonEtAl2023__FAL",
+      "ref_id": "GuvenonEtAl2023",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "4.2",
+        "4.5",
+        "6.3",
+        "7.4"
+      ],
+      "notes": "Use-it-or-lose-it GE model; closest existing framework for H2a, H2d, H4, H5 required models. Addresses stock wealth tax not delta instrument."
+    },
+    {
+      "id": "GerritsenEtAl2025__FAL",
+      "ref_id": "GerritsenEtAl2025",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "4.2",
+        "6.3"
+      ],
+      "notes": "Heterogeneous returns framework for H2a capital allocation comparison and H4 comparative welfare model."
+    },
+    {
+      "id": "BoadwaySpiritusEtAl2025__FAL",
+      "ref_id": "BoadwaySpiritusEtAl2025",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "4.2",
+        "6.3"
+      ],
+      "notes": "Heterogeneous returns framework for H2a and H4; opposite conclusion to Guvenen on whether positive capital income tax can be Pareto-efficient."
+    },
+    {
+      "id": "AzevedoEtAl2025__FAL",
+      "ref_id": "AzevedoEtAl2025",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "4.2"
+      ],
+      "notes": "Lock-in mechanism in entrepreneurship context; H2a required model should accommodate this."
+    },
+    {
+      "id": "KlevenKreiner2006__FAL",
+      "ref_id": "KlevenKreiner2006",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "4.3"
+      ],
+      "notes": "MCPF 1.26 for income tax and NICs combined (UK) using participation elasticities. Cited as the NICs deadweight loss reference for H2b required model minimum requirements."
+    },
+    {
+      "id": "StraubWerning2020__FAL",
+      "ref_id": "StraubWerning2020",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "4.3",
+        "4.5"
+      ],
+      "notes": "Positive long-run capital taxation optimal under realistic finite-horizon conditions; overturns Chamley-Judd; directly supports H2b claim that displacing labour tax with WDT revenue does not reduce long-run welfare through capital formation."
+    },
+    {
+      "id": "Chamley1986__FAL",
+      "ref_id": "Chamley1986",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "4.3"
+      ],
+      "notes": "Classical zero-capital-tax result; substantially overturned by StraubWerning2020. Cited in H2b context."
+    },
+    {
+      "id": "Judd1985__FAL",
+      "ref_id": "Judd1985",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "4.3"
+      ],
+      "notes": "Classical zero-capital-tax result alongside Chamley1986; overturned by StraubWerning2020. Cited in H2b context."
+    },
+    {
+      "id": "BastaniWaldenstrom2020__FAL",
+      "ref_id": "BastaniWaldenstrom2020",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "4.3"
+      ],
+      "notes": "Most comprehensive recent survey of comparative deadweight loss question between labour tax and capital tax. H2b supporting literature."
+    },
+    {
+      "id": "NorwayRevBudget2020__FAL",
+      "ref_id": "NorwayRevBudget2020",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "4.4"
+      ],
+      "notes": "Norway 2020 revised budget: record GPFG drawdown ~$37bn (NOK 382bn), 4.2% of fund, fiscal impulse 5.1% GDP. Primary data source for H2c Norway analogue."
+    },
+    {
+      "id": "IMF2021Norway__FAL",
+      "ref_id": "IMF2021Norway",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "4.4"
+      ],
+      "notes": "FAL body cites as @IMF2020Norway; correct source is IMF Country Report 21/104 (2021 Article IV covering 2020). Confirms GPFG served as sizeable fiscal buffer within flexible spending rule permitting countercyclical deviation. See Flag 35."
+    },
+    {
+      "id": "FagerengEtAl2020__FAL",
+      "ref_id": "FagerengEtAl2020",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "4.5",
+        "7.4"
+      ],
+      "notes": "Heterogeneous returns calibration for H2d positive feedback loop and H5 automation scenario model. Primary empirical foundation for heterogeneous-returns analysis."
+    },
+    {
+      "id": "Ostrom1990__FAL",
+      "ref_id": "Ostrom1990",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "5.3",
+        "5.6"
+      ],
+      "notes": "Commons governance with stake-holding participants; foundational analysis of cooperative equilibrium. Structural analogue for H3 required model."
+    },
+    {
+      "id": "Olson1965__FAL",
+      "ref_id": "Olson1965",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "5.3"
+      ],
+      "notes": "Collective action problem: concentrated costs, diffuse benefits. H3 cooperative equilibrium analysis."
+    },
+    {
+      "id": "Pierson2000__FAL",
+      "ref_id": "Pierson2000",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "5.3"
+      ],
+      "notes": "Path-dependence mechanism by which early cooperative behaviour compounds into durable institutional norms. H3 cooperative equilibrium analysis."
+    },
+    {
+      "id": "Tsebelis2002__FAL",
+      "ref_id": "Tsebelis2002",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "5.6"
+      ],
+      "notes": "Veto player architecture as constraint on institutional erosion; structural analogue for H3 governance safeguards."
+    },
+    {
+      "id": "Tyler1990__FAL",
+      "ref_id": "Tyler1990",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "5.6"
+      ],
+      "notes": "Procedural justice and compliance psychology; behavioural foundations for individual compliance decisions within H3 game."
+    },
+    {
+      "id": "Gangl2015a__FAL",
+      "ref_id": "Gangl2015a",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "5.6"
+      ],
+      "notes": "Power-trust dynamics in compliance; behavioural foundations for H3 individual compliance decisions."
+    },
+    {
+      "id": "KlevenEtAl2011__FAL",
+      "ref_id": "KlevenEtAl2011",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "5.6"
+      ],
+      "notes": "Third-party reporting and compliance; behavioural foundations for H3 individual compliance decisions."
+    },
+    {
+      "id": "Levi1988__FAL",
+      "ref_id": "Levi1988",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "5.6"
+      ],
+      "notes": "Political economy of revenue bargaining; structural analogue for H3 repeated game model."
+    },
+    {
+      "id": "Pierson1994__FAL",
+      "ref_id": "Pierson1994",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "5.4"
+      ],
+      "notes": "Institutional brittleness failure mode for the three structural clauses in GOV §5.2 most vulnerable to sustained political campaign for modification."
+    },
+    {
+      "id": "Haig1921__FAL",
+      "ref_id": "Haig1921",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "6.2"
+      ],
+      "notes": "Haig-Simons comprehensive income tradition; intellectual lineage of H4 accumulation-point efficiency claim."
+    },
+    {
+      "id": "Simons1938__FAL",
+      "ref_id": "Simons1938",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "6.2"
+      ],
+      "notes": "Haig-Simons comprehensive income tradition; intellectual lineage of H4."
+    },
+    {
+      "id": "Shakow1986__FAL",
+      "ref_id": "Shakow1986",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "6.2"
+      ],
+      "notes": "Most direct prior accrual proposal; establishes distortion-reduction logic without self-balancing mechanism. H4 intellectual lineage."
+    },
+    {
+      "id": "Auerbach1991__FAL",
+      "ref_id": "Auerbach1991",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "6.2"
+      ],
+      "notes": "Most direct prior accrual proposal alongside Shakow1986. H4 intellectual lineage."
+    },
+    {
+      "id": "Sandmo1977__FAL",
+      "ref_id": "Sandmo1977",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "6.2"
+      ],
+      "notes": "Portfolio theory framework within which H4 comparative claim should be assessed."
+    },
+    {
+      "id": "Kaldor1955__FAL",
+      "ref_id": "Kaldor1955",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "6.3"
+      ],
+      "notes": "Consumption tax tradition making strongest alternative claim to H4; taxing consumption rather than accumulation. H4 comparison."
+    },
+    {
+      "id": "Bradford1986__FAL",
+      "ref_id": "Bradford1986",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "6.3"
+      ],
+      "notes": "Consumption tax tradition alongside Kaldor1955. H4 comparison."
+    },
+    {
+      "id": "HebousEtAl2024__FAL",
+      "ref_id": "HebousEtAl2024",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "6.3"
+      ],
+      "notes": "Most recent policy-level assessment of consumption tax vs wealth tax comparison for H4."
+    },
+    {
+      "id": "EuropeanCommission2026__FAL",
+      "ref_id": "EuropeanCommission2026",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "6.3"
+      ],
+      "notes": "Most recent policy-level assessment alongside HebousEtAl2024 for H4 comparative welfare claim."
+    },
+    {
+      "id": "DalleLucheEtAl2026__FAL",
+      "ref_id": "DalleLucheEtAl2026",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "6.3"
+      ],
+      "notes": "Most recent empirical entry into H4 dispute using Italian data. Joint heterogeneity in wealth and returns."
+    },
+    {
+      "id": "JordaEtAl2019__FAL",
+      "ref_id": "JordaEtAl2019",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "7.4"
+      ],
+      "notes": "Long-run return series providing historical context for capital return trajectories under structural economic shifts. H5 automation scenario model calibration."
+    },
+    {
+      "id": "RingEtAl2026__FAL",
+      "ref_id": "RingEtAl2026",
+      "paper_id": "FAL",
+      "relationship": "in_text",
+      "sections": [
+        "7.3"
+      ],
+      "notes": "Personal holding companies significantly reduce effective tax progressivity in Scandinavian systems; similar dynamic under WDT would undermine base capture. H5 primary avoidance risk."
+    },
+    {
+      "id": "Gruber1997__LDW",
+      "ref_id": "Gruber1997",
+      "paper_id": "LDW",
+      "relationship": "in_text",
+      "sections": [
+        "2.1"
+      ],
+      "notes": "Foundational incidence paper: exogenous reduction in employer payroll contributions in Chile passed through fully to wages with no employment effect. LDW §2.1 asserts that bilateral NICs removal dissolves the incidence debate by making the two savings independent line items on different parties' accounts. Gruber (1997) is the standard background citation for why that debate exists."
+    },
+    {
+      "id": "ONS2025ETB__LDW",
+      "ref_id": "ONS2025ETB",
+      "paper_id": "LDW",
+      "relationship": "in_text",
+      "sections": [
+        "4.1",
+        "4.4"
+      ],
+      "notes": "Primary UK source for the 55% VAT-able expenditure share figure used in LDW §4.1 and the full purchasing power table in §4.4. Also supports the distributional claim that lower earners spend a higher fraction of income on VAT-able essentials, making VAT displacement proportionally more valuable to them."
+    },
+    {
+      "id": "LusardiEtAl2011__LDW",
+      "ref_id": "LusardiEtAl2011",
+      "paper_id": "LDW",
+      "relationship": "in_text",
+      "sections": [
+        "5",
+        "6.1"
+      ],
+      "notes": "Empirical foundation for the cascade threshold concept introduced in LDW §6.1. Establishes that household financial fragility — inability to absorb an ordinary financial shock — is widespread, more severe among low-income households, and present even in the middle class. LDW §5 also draws on the savings/margin framework this paper develops. The $2,000-in-30-days methodology is the canonical operationalisation of the threshold concept LDW uses."
+    },
+    {
+      "id": "RidleyEtAl2020__LDW",
+      "ref_id": "RidleyEtAl2020",
+      "paper_id": "LDW",
+      "relationship": "in_text",
+      "sections": [
+        "6.2"
+      ],
+      "notes": "Establishes bidirectional causal relationship between poverty/income shocks and depression and anxiety. Cited in LDW §6.2 for the clinical literature claim that financial insecurity is associated with elevated rates of hypertension, anxiety disorders, depression, and stress-related physical illness, and that deferred health decisions upstream of NHS presentation are causally linked to income constraints."
+    },
+    {
+      "id": "BlundellEtAl2000__LDW",
+      "ref_id": "BlundellEtAl2000",
+      "paper_id": "LDW",
+      "relationship": "in_text",
+      "sections": [
+        "5"
+      ],
+      "notes": "Structural model of household labour supply incorporating fixed costs and childcare costs: finds the net return on working for second earners sensitive to the post-tax earnings / childcare cost relationship. Cited in LDW §5 for the claim that NICs removal and income tax displacement improve the childcare-cost calculation for second earners, and that more secondary earners find it financially worthwhile to work."
+    },
+    {
+      "id": "KlevenKreiner2006__LDW",
+      "ref_id": "KlevenKreiner2006",
+      "paper_id": "LDW",
+      "relationship": "in_text",
+      "sections": [
+        "2.1"
+      ],
+      "notes": "NICs as a cost wedge on labour relative to capital; removing it reduces the economic case for automation substitution at the margin. Cited in LDW §2.1 for the deadweight loss / cost-wedge framing of bilateral NICs. Also the primary UK source for MCPF values of 1.1–1.5 for direct labour taxes."
     }
   ],
   "flags": [
@@ -10057,6 +10871,53 @@
       "description": "Paper scan (260918): LR.B body contains @CnossenBovenberg2001, @Hasen2017, and @ToderViard2016 as @-citations but none appeared in internal.json. All three confirmed in §3. Citation records added with section confirmed by author (260918). Outbound_ext_citation_ids updated. Flag remains open until sections are recorded in citation records below.",
       "action_required": "",
       "resolved_date": "260918"
+    },
+    {
+      "id": "flag_34",
+      "number": 34,
+      "status": "closed",
+      "affects_papers": [
+        "BEHAV",
+        "BEHAV.A"
+      ],
+      "affects_refs": [
+        "GarbintiEtAl2026",
+        "IacononoSmedsvik2024",
+        "KlevenEtAl2011",
+        "KlevenEtAl2024"
+      ],
+      "type": "citation_format",
+      "description": "BEHAV restructured to v2.00 (companion paper BEHAV.A created). Four citation records removed from BEHAV: GarbintiEtAl2026 (pre-registered §4–§5, not incorporated); IacononoSmedsvik2024 (pre-registered §5–§7, not incorporated); KlevenEtAl2011 (pre-registered §2.2, not incorporated); KlevenEtAl2024 (prose-cited in v1 §2.1 as 'Kleven and colleagues (2024)' — passage compressed and attribution removed in v2.00 restructure). All four refs remain in references.bib and are cited by other papers (GarbintiEtAl2026: VAL, WP, WFR; IacononoSmedsvik2024: RATES; KlevenEtAl2011: LRB; KlevenEtAl2024: POL, LRA, ENV, LRB). LondonoVelezAvilaMahecha2025__BEHAV sections updated from ['2.1','9.2'] to ['2.1']: §9.2 detailed response relocated to BEHAV.A §D. AgrawalEtAl2025__BEHAV.A record added (sections: ['D']).",
+      "action_required": "",
+      "resolved_date": "261001"
+    },
+    {
+      "id": "flag_35",
+      "number": 35,
+      "status": "open_author_decision",
+      "affects_papers": [
+        "FAL"
+      ],
+      "affects_refs": [
+        "IMF2021Norway"
+      ],
+      "type": "citation_key_mismatch",
+      "description": "FAL body text cites @IMF2020Norway (H2c, §4.4) but no standalone 2020 Norway Article IV consultation was published — the IMF skipped the annual cycle for 2020. The correct source confirming GPFG countercyclical deployment is IMF Country Report 21/104 (2021 Article IV Consultation, published June 2021), which reviews Norway's 2020 fiscal response and confirms the GPFG served as a sizeable fiscal buffer within a flexible spending rule permitting countercyclical deviation above the 3% guideline. Bib entry added as IMF2021Norway. Verified 2026-09-20.",
+      "action_required": "Update FAL body: change @IMF2020Norway to @IMF2021Norway throughout. Confirm the description in FAL §4.4 ('IMF confirmed the GPFG served as a sizeable fiscal buffer operating within a flexible spending rule that permitted countercyclical deviation') accurately characterises CR 21/104.",
+      "resolved_date": null
+    },
+    {
+      "id": "flag_36",
+      "number": 36,
+      "status": "open_author_decision",
+      "affects_papers": [
+        "FAL"
+      ],
+      "affects_refs": [],
+      "type": "unverified_entry",
+      "description": "FAL §5.3 cites @DAgostino2026 for the proposition that 'institutional credibility is endogenous to compliance behaviour' in the context of H3 game-theoretic modelling. Extensive web search (2026-09-20) could not locate any paper by an author named D'Agostino published in 2026 matching this description. The key does not appear in references.bib. No bib entry has been added. The citation cannot be verified and may be a draft placeholder, a pre-publication reference, or a misattribution.",
+      "action_required": "Author to confirm: (a) full details of DAgostino2026 (title, journal/WP series, DOI or URL); or (b) whether this is a placeholder for a forthcoming paper; or (c) whether a different author or year is intended. Once confirmed, add bib entry and citation record.",
+      "resolved_date": null
     }
   ]
 }

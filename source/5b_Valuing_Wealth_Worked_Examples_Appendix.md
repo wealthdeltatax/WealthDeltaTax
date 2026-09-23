@@ -49,8 +49,7 @@ The five claims, and the examples that illustrate them, are:
 All figures are from Python model v1.0, validated against Excel 27 July 2026. §L and (VAL.B §M) use closed-form arithmetic rather than run_val_sim; see individual section model notes for detail. All examples assume RATES-aligned parameters ($\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m) and a marginal rate of approximately 15% at the relevant net worth level ($k$ = 0.001, $V_0$ at or near £8–20m) unless stated otherwise. All values in £m unless stated otherwise.
 
 \newpage
-
-
+\tableofcontents
 \newpage
 
 # J. The Deferred Delta

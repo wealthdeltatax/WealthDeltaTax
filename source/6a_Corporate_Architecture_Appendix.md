@@ -27,6 +27,8 @@ keywords:
 | 1.01      | 20 August 2026  | Update Section E for clarity |
 
 \newpage
+\tableofcontents
+\newpage
 
 # A. Collection Mechanics and Worked Illustrations
 
@@ -234,7 +236,7 @@ The attribution test applies in binary form in its settled steady-state design. 
 
 ## D.1 Purpose
 
-This appendix examines the administrative requirements the WDT corporate mechanism creates and compares them with the systems it replaces, assuming a mature WDT framework in which corporate income taxation, dividend taxation, and capital gains taxation have been retired. Transitional overlap is addressed in (CORP §D.6). The central question is whether the new requirements are greater than those of the systems they replace. The short answer is no: for listed companies and retail shareholders, mature WDT compliance is substantially lighter than the systems it displaces. The burden shifts rather than grows, and it shifts selectively — falling most heavily on the one population for whom the current system's tolerance of opacity has been most valuable.
+This appendix examines the administrative requirements the WDT corporate mechanism creates and compares them with the systems it replaces, assuming a mature WDT framework in which corporate income taxation, dividend taxation, and capital gains taxation have been retired. Transitional overlap is addressed in (CORP.A §D.6). The central question is whether the new requirements are greater than those of the systems they replace. The short answer is no: for listed companies and retail shareholders, mature WDT compliance is substantially lighter than the systems it displaces. The burden shifts rather than grows, and it shifts selectively — falling most heavily on the one population for whom the current system's tolerance of opacity has been most valuable.
 
 ## D.2 Shareholder Compliance
 

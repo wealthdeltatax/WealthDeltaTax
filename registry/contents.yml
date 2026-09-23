@@ -194,6 +194,7 @@ VAL:
     '14.5': Governing Council Calibration Parameters
     '15': Conclusion
     '11.5': Scope
+    '7.5': Portfolio Composition as a Structural Constraint on Declaration Deviation
 VAL.A:
   page: val-a.html
   title: Valuing Wealth — Mathematical and Simulation Companion
@@ -652,6 +653,7 @@ RATES:
     '9.4': Structural and irreducible limits of the design
     '9.5': Governing Council calibration parameters
     '8.3': Combined Pre-Behavioural Estimate
+    '7.4': Route D Deferred Revenue and Capitalisation Window Timing
 RATES.A:
   page: rates-a.html
   title: Rates and Revenue Appendix
@@ -768,6 +770,11 @@ BEHAV:
     '12.4': Structural and irreducible limits of the design
     '12.5': Governing Council calibration parameters
     A: The Membrane in Practice
+    '7.6': Shape 6 — Migration of Assets Without Personal Exit
+    '7.7': Shape 7 — Personal Exit
+    '7.8': Shape 8 — Partial Exit
+    '7.9': Shape 9 — Active Resistance and Non-Compliance
+    '7.10': The Distribution as a Whole
 CLOSE:
   page: close.html
   title: Position Closure
@@ -859,6 +866,7 @@ POL:
     '5.8': The Cooperative Offer to the Displaced Professional Services Industry
     '8.7': The Governance Structure Is Too Radical to Be Adopted
     A: The Tiered Citizenship Problem
+    '8.8': The Cross-Base Externality Makes the Emigration Risk Unmanageable
 PHASE1:
   page: phase1.html
   title: The Phase One Paper
@@ -1073,6 +1081,7 @@ SWEEPS.A:
     C.9.2: Period sweep (μ, λ, A fixed at canonical)
     C.8: Mean Growth Rate (g)
     C.9: Synthetic Growth Scenario
+    B.8.7: N-crossing thresholds by $W_$
 FM:
   page: fm.html
   title: First Mover
@@ -1106,6 +1115,9 @@ SCOPE:
     '4.3': Systemic Risk Question
     '7': Jurisdiction-Specific and Institutional Preconditions
     '8': What This Document Is Not Doing
+    '3.1': Compliance and Behavioural Questions
+    '3.2': Institutional and Operational Questions
+    '3.3': Systemic Risk Question
 ADD:
   page: add.html
   title: "Addendum: Implementation Calibration Examples"
@@ -1225,6 +1237,8 @@ WFR.A:
     E.3.3: "Sweep C: k Sensitivity"
     E.3.4: "Sweep C: W_min Sensitivity"
     F: Parameter Reference
+    E.2: "Sweep B: CEW by Start Year (γ=2)"
+    E.3: "Sweep C: CEW Parameter Sensitivy Sweep"
 INST:
   page: inst.html
   title: "The Wealth Delta Tax: Fiscal Architecture and Institutional Selection"
@@ -1265,3 +1279,115 @@ INST:
     '10.4': Cluster 4 — Governance Compatibility Under Authoritarian Pressure
     '10.5': Cluster 5 — Diffusion Dynamics
     '11': Conclusion
+    '4.1': The WDT's Structural Response
+BEHAV.A:
+  page: behav-a.html
+  title: "The Wealth Delta Tax: Behavioural Robustness — Supporting Analysis"
+  sections:
+    A: Route Distribution and Enforcement Residual
+    A.1: Classification Logic
+    A.2: Route A — Professional Valuation, Fungible
+    A.3: Route C — Self-Declaration, Fungible
+    A.4: Route B — Professional Valuation, Non-Fungible
+    A.5: Route D — Self-Declaration, Non-Fungible
+    A.6: Edge Cases and Classification Ambiguities
+    A.7: Why the Bias Toward Routes A and B Is Structurally Positive
+    B: Membrane Calcification and the Monitoring Architecture
+    B.1: The Nature of the Problem
+    B.2: The Monitoring Instrument
+    B.3: The Taxpayer Chamber as Monitor
+    B.4: The Internal TP Voting Structure
+    B.5: The Allocator as Fairness Signal
+    B.6: The TP/DR Coalition and the FS Constraint
+    B.7: The Honest Limit
+    C: The Membrane in Practice — Institutional Examples
+    C.1: A Healthy Membrane — Retail Banking
+    C.2: Monopoly-Induced Degradation — Water Utilities
+    C.3: Interest-Aligned Degradation — Mandatory Insurance Markets
+    D: The Cross-Base Fiscal Externality — Full Response
+    D.1: The Jurisdictional Transfer Caveat
+    D.2: The Rate Calibration Lever
+    D.3: The Timeline Extension Buffer
+    D.4: The Re-Entry Rule and the Externality's Temporal Shape
+    D.5: The Immigration Possibility
+LDW:
+  page: ldw.html
+  title: "The Wealth Delta Tax: Labour Dividend Welfare"
+  sections:
+    '1': The Paper's Place in the Series and Its Character
+    '1.1': The Mature WDT as Analytical Baseline
+    '1.2': Speculative Character and What That Means Here
+    '2': What Appears on the Payslip
+    '2.1': The Bilateral NICs Case
+    '2.2': Income Tax Displacement
+    '3': Employment Structure and the Occupational Constraint
+    '3.1': What NICs Removal Does to the Employment Relationship
+    '3.2': The Occupational Constraint and What Relaxes It
+    '4': The Cost of Living Under a Mature WDT
+    '4.1': VAT and Consumption Taxes
+    '4.2': "Housing: Renters and Owners"
+    '4.3': Public Infrastructure and the SWF as Patient Investor
+    '4.4': The Full Purchasing Power Calculation
+    '5': Household Capacity
+    '6': Welfare Demand and Its Upstream Conditions
+    '6.1': The Cascade Threshold
+    '6.2': Healthcare Demand
+    '6.3': Pensions and Long-Run Security
+    '6.4': A Different Relationship Between State and Citizen
+    '7': Where the Analysis Reaches Its Limits
+    '7.1': What This Paper Can and Cannot Establish
+    '7.2': The Infrastructure Mandate
+    '7.3': Phase One Measurement Agenda
+    '7.4': The Conservative Core
+    '8': Conclusion
+FAL:
+  page: fal.html
+  title: "The Wealth Delta Tax: Falsifiable Hypotheses"
+  sections:
+    '1': Purpose and Methodological Commitment
+    '1.1': What This Paper Is
+    '1.2': What This Paper Does Not Claim
+    '1.3': Relation to the Existing Project
+    '2': The Research Question
+    '3': "H1: Wealthy Taxpayer Preference"
+    '3.1': Statement
+    '3.2': The Comparison That Matters
+    '3.3': The Break-Even Burden
+    '3.4': The Institutional Participation Component
+    '3.5': The Migration Evidence
+    '3.6': Falsification Conditions
+    '4': "H2: Macroeconomic Effects"
+    '4.1': Structure of the Decomposition
+    '4.2': "H2a: Capital Allocation Efficiency"
+    '4.3': "H2b: Labour Tax Displacement Welfare Effect"
+    '4.4': "H2c: Automatic Stabilisation"
+    '4.5': "H2d: Positive Feedback Loop Integrity"
+    '5': "H3: Cooperative Institutional Equilibrium"
+    '5.1': Statement
+    '5.2': What the Hypothesis Is Not
+    '5.3': The Repeated-Game Structure
+    '5.4': The Governance Architecture as Anti-Capture Design
+    '5.5': The Bootstrapping Phase
+    '5.6': Required Model
+    '5.7': Falsification Conditions
+    '6': "H4: Accumulation-Point Efficiency"
+    '6.1': Statement
+    '6.2': The Mechanism
+    '6.3': The Costs WDT Introduces
+    '6.4': What a Hostile Model Should Measure
+    '6.5': Falsification Conditions
+    '7': "H5: Automation Base Robustness"
+    '7.1': Statement
+    '7.2': The Mechanism
+    '7.3': The Dependency on H2d
+    '7.4': Required Model
+    '7.5': Falsification Conditions
+    '8': Interactions Between the Five Hypotheses
+    '9': What Counts as a Serious Result
+    '9.1': Support
+    '9.2': Conditional Support
+    '9.3': Falsification
+    '10': Minimum Requirements for Hostile Modelling
+    '11': What Would Constitute Evidence Against WDT
+    '12': Research Challenge
+    '13': Conclusion

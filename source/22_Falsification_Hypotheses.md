@@ -17,9 +17,7 @@ keywords:
 
 | Revision | Date | Details |
 |:---:|:---:|:---|
-| 0.1 | September 2026 | First full draft: all sections, abstract, appendix |
-
-**Word count:** 10,031
+| 0.1 | 20 September 2026 | First full draft: all sections, abstract, appendix |
 
 \newpage
 
@@ -54,9 +52,7 @@ The objective is not to protect WDT from falsification. It is to make falsificat
 **Support.** An evidentiary outcome in which a hypothesis holds across a substantial range of empirically defensible parameters. A model that can be made to work by choosing favourable parameters does not meet this standard. The hypothesis must hold across a substantial and realistic range, not merely somewhere within it.
 
 \newpage
-
 \tableofcontents
-
 \newpage
 
 # 1. Purpose and Methodological Commitment

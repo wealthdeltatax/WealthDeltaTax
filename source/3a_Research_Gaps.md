@@ -49,8 +49,7 @@ This paper identifies and diagnoses nine gaps in the existing academic literatur
 **Stock wealth tax:** A tax on the total accumulated value of net worth at a point in time, as distinct from a delta-based tax on the annual change in net worth.
 
 \newpage
-
-
+\tableofcontents
 \newpage
 
 # 1. Introduction
@@ -105,7 +104,7 @@ The OECD's Cooperative Compliance programme is the closest available evidence. I
 
 One structural feature of the WDT changes the adviser optimisation problem in a way the existing literature does not address: no prior system has shared it. Every wealth tax system the cooperative compliance literature was calibrated against is extractive (the state takes and does not give back). In extractive systems the adviser's optimisation direction is unambiguous (minimise the one-way outflow), and Klepper's finding that advisers increase strategic optimisation on ambiguous items follows naturally from that structure.
 
-The WDT's two-way cost structure changes the problem. An adviser who consistently recommends declaration at the bottom of the tolerant zone (say α = 0.8) is not minimising their client's tax burden. They are simultaneously generating approximately 2% more lifetime tax than honest declaration on the same asset and reducing the client's refund entitlement in bad years. In a severe loss year, that client receives materially less relief than an honest declarer with equivalent wealth and an equivalent asset. The adviser who delivered that outcome has a professional problem, not a compliance victory. The rational adviser optimisation and the cooperative outcome therefore point in the same direction, not because advisers are cooperative by disposition but because the mechanism's cost structure makes understating advice quantifiably bad advice.
+The WDT's two-way cost structure changes the problem. An adviser who consistently recommends declaration at the bottom of the tolerant zone (say $\alpha$ = 0.8) is not minimising their client's tax burden. They are simultaneously generating approximately 2% more lifetime tax than honest declaration on the same asset and reducing the client's refund entitlement in bad years. In a severe loss year, that client receives materially less relief than an honest declarer with equivalent wealth and an equivalent asset. The adviser who delivered that outcome has a professional problem, not a compliance victory. The rational adviser optimisation and the cooperative outcome therefore point in the same direction, not because advisers are cooperative by disposition but because the mechanism's cost structure makes understating advice quantifiably bad advice.
 
 The literature gap identified above remains real: no study has examined adviser behaviour in a reciprocal system because no reciprocal system has existed. But the adverse resolution (advisers systematically optimising to the bottom of the tolerant zone) requires advisers to act against their clients' measurable interests in precisely the states where those clients are most sensitive to adviser performance. That is a stronger assumption than the existing literature supports, and a different assumption from anything Klepper's framework was designed to test.
 

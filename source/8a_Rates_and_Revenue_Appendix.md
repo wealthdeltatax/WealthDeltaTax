@@ -27,6 +27,8 @@ keywords:
 | 1.01      | 31 August 2026  | Corrected TCM coverage ratio prose (27.7% → 27.4%) and minimum-coverage start-year attribution (2003 → 2005) in §A.6 to match §B.3.9 model output |
 
 \newpage
+\tableofcontents
+\newpage
 
 # A. Model Specification
 

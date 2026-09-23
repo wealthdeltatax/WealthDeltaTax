@@ -75,8 +75,7 @@ A note on scope: the WDT companion papers do not model the UK as a real jurisdic
 **Wealth Tax Commission:** The body that produced @AdvaniEtAl2020, the most directly comparable prior UK wealth tax proposal to the WDT. Recommended a one-off wealth tax rather than an annual charge, primarily on administrative grounds.
 
 \newpage
-
-
+\tableofcontents
 \newpage
 
 # 1. The UK as Reference Jurisdiction

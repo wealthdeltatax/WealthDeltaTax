@@ -48,7 +48,8 @@ This paper establishes the general theory of WDT position closure: the set of ev
 
 **Re-entrant:** An individual who previously held a WDT assessment position, experienced a closure event, and subsequently re-enters the WDT's scope, either by returning to the jurisdiction after exit or by rising back above the exemption threshold after threshold fall-through.
 
-
+\newpage
+\tableofcontents
 \newpage
 
 # 1. Intellectual Context and Prior Literature

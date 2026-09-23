@@ -24,6 +24,8 @@ keywords:
 | 0.3 | 20 September 2026 | §2 removed: WFR closed all three formal modelling tasks (#1–3). §3 substantially reduced: INST and FAL have given #7 and #8 substantive theoretical treatment. Cross-references to LDW, FAL, and INST added throughout. |
 
 \newpage
+\tableofcontents
+\newpage
 
 # 1. Purpose
 
@@ -53,7 +55,7 @@ Ten items cannot be resolved by further desk research. The conditions under whic
 
 **#18 — SRR floor calibration under mild-overstatement equilibrium.** If mild overstatement is the stable equilibrium (ENV §2), the SRR floor calibration needs to reflect the implied refund liability. The calibration correction depends on observing the equilibrium distribution. (ENV §2) assigns this to Phase One.
 
-**#29 — Monitoring instrument for population distribution of α.** The mild-overstatement parameter α (VAL.A §A.6) cannot be observed directly; it must be inferred from assessment data over time. (VAL.A §A.6) and (BEHAV.A §B) assign this to Phase One.
+**#29 — Monitoring instrument for population distribution of $\alpha$.** The mild-overstatement parameter $\alpha$ (VAL.A §A.6) cannot be observed directly; it must be inferred from assessment data over time. (VAL.A §A.6) and (BEHAV.A §B) assign this to Phase One.
 
 ## 3.2 Institutional and Operational Questions
 
