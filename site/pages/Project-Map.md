@@ -1,6 +1,6 @@
 ---
 title: "WDT Project Map"
-description: "**Last updated:** 23 September 2026  
+description: "**Last updated:** 24 September 2026  
 **Papers covered:** (WP), (MF), (LR.A), (LR.B), (JUR), (VAL), (VAL.A), (VAL.B), (CORP), (CORP.A), (GOV), (GOV.A), (GOV.B), (RATES), (RATES.A), (SWEEPS), (SWEEPS.A), (WFR), (WFR.A), (BEHAV), (BEHAV.A), (CLOSE), (POL), (PHASE1), (ENV), (FM), (MOD), (SCOPE), (ADD), (LDW), (INST), (FAL)"
 author: "K. Ogata"
 ---
@@ -63,18 +63,9 @@ Establishes the foundational axiom and terminal goal from which the design is de
 
 ### LR.A: Research Gaps
 
-Identifies nine confirmed gaps in existing academic literature bearing directly on WDT design. Three have since been closed by WFR. Six remain open.
+Identifies nine confirmed gaps in existing academic literature bearing directly on WDT design. Three have since been closed by WFR. The remaining literature gaps — covering the causal framework for wealth tax abolition, international competitive dynamics, and minimum-tax floor interactions — are classified in SCOPE §2. The compliance-dependent gaps (cooperative compliance at the ultra-high-net-worth level and administrative-layer intervention effects) are classified in SCOPE §3.1 as Phase One empirical questions.
 
 **Closed gaps (WFR).** Gaps #1–3 are formally closed: (1) the Domar-Musgrave extension to a progressive delta base — WFR §3.2, §4.1 establishes all three complications (net-worth base, progressive marginal rates, multi-period rate asymmetry) are second-order at canonical parameters; (2) the welfare comparison including the delta base — WFR §3–§4 conducts the full comparison at revenue equivalence across six systems; (3) distributional arithmetic of delta-base concentration under persistent return heterogeneity — WFR §4.3 derives the 30-year Great/Poor concentration path showing accrual-vs-stock is the dominant axis. (LR.A §2.1–2.3)
-
-**Remaining formal modelling gaps.**
-- §2.1 residual: the progressive rate's three D-M complications are quantified but not formally derived as propositions — confirmed second-order, not proven negligible at all parameter combinations
-- §3.1: Cooperative compliance at the ultra-high-net-worth level — literature gap in the strict sense; requires studies designed around institutional networks of specialist advisers, not individuals. This is one of FAL's H3 inputs.
-- §3.2: The cross-base migration externality — the Agrawal et al. 2025 finding exists but no modelling framework takes it as input and produces integrated cross-base revenue projections at WDT-specific parameters
-- §3.3: Administrative-layer intervention effects on compliance psychology — partly Phase One dependent but independently a gap in the compliance literature's agenda
-- §4.1: Causal framework for wealth tax abolition — the three-mechanism framework in POL §3 is the paper's own analytical construction, not yet independently validated
-- §4.2: International competitive dynamic at the political level — INST §6 provides the most developed treatment but identifies this as requiring comparative political economy modelling
-- §4.3: Minimum-tax floor interaction with refund-based systems — technical specification gap requiring treaty law and design work outside this project
 
 **What this paper is not.** LR.A is diagnostic, not a survey. The intellectual ancestry covering all engaged literatures is in LR.B. (LR.A §1)
 
@@ -96,7 +87,7 @@ Justifies the UK as reference jurisdiction and compiles empirical data the compa
 
 **Institutional mapping.** HMRC, VOA, OBR, and the tribunal system are mapped against WDT's principal institutional requirements: where existing capacity is adequate, where expansion is needed, and where new functions must be built. The OBR's February 2026 Resolution Foundation assessment is specifically relevant: it found the OBR under-resourced relative to comparable international institutions and identified the non-ring-fenced budget allocation as a structural vulnerability that the WDT's SWF Custodian design should not inherit. (JUR §1.5)
 
-**HMRC data access.** A formal HMRC data access agreement is a precondition for revenue microsimulation rather than a Phase One output; until it exists, revenue projections rely on publicly available statistics with acknowledged limitations. (JUR §4.3)
+**HMRC data access.** A formal HMRC data access agreement is a precondition for revenue microsimulation rather than a Phase One output; until it exists, revenue projections rely on publicly available statistics with acknowledged limitations. This is a jurisdictional precondition, not a design gap (SCOPE §6). (JUR §4.3)
 
 ---
 
@@ -166,7 +157,7 @@ Establishes that the mechanism's arithmetic works at proportionate individual bu
 
 4. *Individual burdens are proportionate throughout.* Revenue-weighted annual wealth burden: 0.35% of net worth, below the 1–2% stock levy of conventional proposals. Gain-weighted effective lifetime rate: 13.0%, comparable to CGT on a materially larger base. Maximum annual wealth burden: 0.79%; maximum effective rate on gains: 27.2% — both requiring simultaneous membership of the top 0.01% wealth bracket and highest persistent-outperformance growth tier across the full 30-year horizon.
 
-**Conservatism direction.** All modelling assumptions are chosen to understate revenue except one: behavioural responses are not modelled. Migration, restructuring, and avoidance will reduce actual revenue by an amount only Phase One can establish. Revenue is heavily concentrated at the upper tail — the population most capable of responding. The pre-behavioural combined estimate approaches near-parity with total managed expenditure; the open question is whether behavioural responses reduce it below the level where fiscal replacement remains viable. (RATES §10)
+**Conservatism direction.** All modelling assumptions are chosen to understate revenue except one: behavioural responses are not modelled. Migration, restructuring, and avoidance will reduce actual revenue by an amount only Phase One can establish. Revenue is heavily concentrated at the upper tail — the population most capable of responding. The pre-behavioural combined estimate approaches near-parity with total managed expenditure; whether behavioural responses reduce it below the level where fiscal replacement remains viable is the dominant empirical question. The cross-base migration externality — the largest single source of uncertainty — is addressed in SCOPE §3.1 and PHASE1 §4.3. (RATES §10)
 
 **Rate function.** A logistic S-curve: τ(W) = τ_m / (1 + A·exp(−k·(W − W_min))). Canonical parameters: τ_0 = 15%, τ_m = 70%, k = 0.001/£m, W_min = £2m. Full symmetry of the loss-refund is a settled design position: partial symmetry fails on two independent grounds — mechanically it breaks the D-M risk-sharing logic, and foundationally the symmetric refund is the operational expression of the state's acceptance of downside exposure. Post-LRR-fill rate recalibration is architecturally required by enumerated clause 6 (continued accumulation beyond the floor target violates the labour relief commitment). (RATES §4, §6.3)
 
@@ -186,7 +177,7 @@ Characterises the parameter space available to the Governing Council through two
 
 **Synthetic stress-test.** A sinusoidal growth scenario (g(t) = μ + A·sin(2πt/T)) establishes that the mechanism handles moderate cyclical volatility without accumulating deficit. Zero-coverage years in the 10-year post-fill window are 0 at amplitude A ≤ 5%, 2 at A = 6%, and 3 at canonical A = 8% — the same order of magnitude as the historical sweep's worst-case start years. The LRR fill year is largely insensitive to cycle period T above 7 years; mean return μ is the dominant driver of transition speed. (SWEEPS §7.5)
 
-**The primary calibration tension.** τ_0 is the one parameter where fiscal speed and declaration incentive correction move in the same direction, but both move together with entry burden. The policy question is not which dimension to sacrifice but how fast to proceed and at what entry burden Phase One is most likely to establish the cooperative norm. The τ_0 × W_min joint surface (item #17 in the open register) is the next analytical deliverable that does not require Phase One data. (SWEEPS §4)
+**The primary calibration tension.** τ_0 is the one parameter where fiscal speed and declaration incentive correction move in the same direction, but both move together with entry burden. The policy question is not which dimension to sacrifice but how fast to proceed and at what entry burden Phase One is most likely to establish the cooperative norm. The τ_0 × W_min joint surface is the next analytical deliverable that does not require Phase One data; it is the only Governing Council calibration parameter resolvable before a live system (SCOPE §5). (SWEEPS §4)
 
 **Small lever set as design feature.** Four rate-function parameters doing largely separable jobs is preferable to a larger entangled set on accountability and democratic legibility grounds: calibration decisions have characterised consequences that any motivated observer can track and evaluate against outcomes. (SWEEPS §6)
 
@@ -206,7 +197,7 @@ Establishes behavioural robustness as a design property derivable from first pri
 
 **Enforcement paradigm shift.** Unattributed ownership faces τ_h by default; surfacing hidden assets compounds the concealment cost progressively; the Route D entry basis is substantially more bounded than a pure detection-contest framing suggests. The route distribution analysis (BEHAV.A §A) establishes the empirical basis: Routes A and B likely account for ~60–85% of WDT-taxable wealth by volume, with Route D at ~10–20%, concentrated at the very top. VAL's tolerant zone (α ≈ 0.8–1.5) further bounds the residual: Route D's enforcement problem is the egregious-understatement tail, not imprecision in general. (BEHAV §8.1, §8.11, §8.12)
 
-**Cross-base externality.** The Agrawal et al. 2025 six-to-one multiplier is a directional warning calibrated to conventional stock wealth taxes — structurally different from the WDT's delta base at a revenue-weighted annual burden of 0.35% of net worth. The WDT is not a stock wealth tax and the ratio was calibrated to structurally different systems. The directional risk is retained; the magnitude is uncertain and a Phase One observable. The multiplier transforms the economics of membrane investment: each departure prevented saves approximately six times the direct WDT revenue that departure would have cost. Six structural responses are available including rate calibration, timeline extension, re-entry rule, and the formal possibility of net inward migration of wealthy individuals attracted by the cooperative architecture. (BEHAV §9.2; BEHAV.A §D)
+**Cross-base externality.** The Agrawal et al. 2025 six-to-one multiplier is a directional warning calibrated to conventional stock wealth taxes — structurally different from the WDT's delta base at a revenue-weighted annual burden of 0.35% of net worth. The WDT is not a stock wealth tax and the ratio was calibrated to structurally different systems. The directional risk is retained; the magnitude is uncertain and a Phase One observable (SCOPE §3.1). The multiplier transforms the economics of membrane investment: each departure prevented saves approximately six times the direct WDT revenue that departure would have cost. Six structural responses are available including rate calibration, timeline extension, re-entry rule, and the formal possibility of net inward migration of wealthy individuals attracted by the cooperative architecture. (BEHAV §9.2; BEHAV.A §D)
 
 **Membrane calcification.** The tendency of a mature institution to preserve processes suited to an earlier taxpayer population is the one form of institutional drift the WDT addresses least directly. The response is a named monitoring architecture: mandatory publication of five membrane health observables (self-assessment completion rate, unprompted refund claim rate, dispute rate by wealth band, refund processing time, professional adviser engagement rate for routine cases); the Taxpayer Chamber as institutional monitor; the Allocator as the Fairness-dimension signal; the TP/DR coalition as the lever against FS resistance on funding. (BEHAV §10; BEHAV.A §B)
 
@@ -244,7 +235,7 @@ H5 — Automation base robustness: WDT base more resilient to automation-driven 
 
 ### SCOPE: Scope Boundary
 
-Records which open question register items fall outside the project's scope and why — distinguishing formal modelling gaps requiring peer-review infrastructure, comparative political economy requiring case-study depth, and jurisdiction-specific legal analysis. Prevents re-opening settled questions without addressing the objections already recorded. Three confirmed literature gaps remain open requiring formal modelling (#7–9). Ten Phase One empirical questions cannot be resolved without live system data. Two MACRO items require Phase One data before modelling can be calibrated. Six jurisdiction-specific items require legal analysis, diplomatic process, or institutional negotiation. See the Open Questions Register below for the full register.
+Records which open questions fall outside this project's scope and why — distinguishing formal modelling gaps requiring peer-review infrastructure, comparative political economy requiring case-study depth, and jurisdiction-specific legal analysis. Prevents re-opening settled questions without addressing the objections already recorded. Covers three confirmed literature gaps requiring formal modelling, Phase One empirical questions unanswerable without a live system, MACRO successor tasks, Governing Council calibration parameters settled in kind but open in value, and jurisdiction-specific preconditions that are not design gaps. SCOPE is the canonical reference for all items not settled by a completed paper.
 
 ---
 
@@ -266,7 +257,7 @@ A Level 1 theoretical paper comparing six tax systems on welfare grounds at genu
 
 **Heterogeneous returns and concentration.** At N = 30 both WDT variants reach approximately 286–288× Great/Poor concentration; income tax reaches 320×; both stock-base systems reach 479×. The dominant axis is accrual basis versus stock base, not flat versus progressive rate — the progressive advantage on concentration requires horizons beyond N = 30 at canonical logistic parameters to become visible. The 479× result for stock-base systems is a Category 1 finding. The progressive WDT delivers better welfare than flat WDT at every tier, with the Poor-tier advantage of 8.2 bp (flat) / 46.3 bp (progressive) over income tax driven by the symmetric refund in loss years. The lifetime contribution envelope binds only for the Poor tier at the scenario's opening year; for all other tiers the envelope does not bind across 30 years — this is the boundary condition under which the Arachi objection applies in full. (WFR §4.3)
 
-**Literature positioning.** WFR closes gaps #1–3 from LR.A simultaneously. It enters without adjudicating the active Guvenen et al. (2023) vs Gerritsen-Jacobs-Spiritus (2025) dispute by adding the delta instrument to a comparison that has not previously included it. The general equilibrium model needed to adjudicate that dispute is a named open question assigned to MACRO. (WFR §5)
+**Literature positioning.** WFR closes gaps #1–3 from LR.A simultaneously. It enters without adjudicating the active Guvenen et al. (2023) vs Gerritsen-Jacobs-Spiritus (2025) dispute by adding the delta instrument to a comparison that has not previously included it. The general equilibrium model needed to adjudicate that dispute is assigned to MACRO as a Phase One successor; its scope is set out in SCOPE §4. (WFR §5)
 
 ---
 
@@ -292,11 +283,11 @@ Asks what a mature WDT delivers to the roughly 99% of the adult population who w
 
 ### ENV: Environmental Effects and Transmission Channels
 
-Establishes that the standard efficiency critique fails for the WDT and identifies four positive transmission channels. Characterises the declaration equilibrium's macroeconomic consequences and assigns the full general equilibrium model to MACRO.
+Establishes that the standard efficiency critique fails for the WDT and identifies four positive transmission channels. Characterises the declaration equilibrium's macroeconomic consequences; the full general equilibrium model is assigned to MACRO as a Phase One successor (SCOPE §4).
 
 **The standard critique fails.** The standard framing — wealth taxation as a friction on a capital stock — fails for a tax on the annual change in net worth with a symmetric loss refund. The WDT removes capital allocation frictions (lock-in distortion, debt preference, basis step-up) rather than adding new ones. The aggregate friction removal across capital, labour, and corporate taxation is the primary efficiency argument, prior to any Domar-Musgrave or use-it-or-lose-it claims. (ENV §3)
 
-**Declaration equilibrium.** Because a declared value establishes the basis, understatement defers rather than eliminates tax and imposes a growing basis gap; overstatement inflates a refund entitlement that will overshoot in a loss year. The locally stable zone is mild overstatement near α ≈ 1.1, driven by refund-protection asymmetry under valuation uncertainty. The nominal mild-overstatement advantage does not survive NPV adjustment (VAL.A §C.12). The population-level implication: declared tax base modestly exceeds true values; the cooperative architecture gains financial concreteness; the Route D auction deterrent fires less frequently against compliant declarers. The SRR calibration implication: if the overstatement equilibrium is confirmed by Phase One data, the SRR floor should be set modestly above the RATES baseline. (ENV §2)
+**Declaration equilibrium.** Because a declared value establishes the basis, understatement defers rather than eliminates tax and imposes a growing basis gap; overstatement inflates a refund entitlement that will overshoot in a loss year. The locally stable zone is mild overstatement near α ≈ 1.1, driven by refund-protection asymmetry under valuation uncertainty. The nominal mild-overstatement advantage does not survive NPV adjustment (VAL.A §C.12). The population-level implication: declared tax base modestly exceeds true values; the cooperative architecture gains financial concreteness; the Route D auction deterrent fires less frequently against compliant declarers. The SRR calibration implication — whether the SRR floor needs upward adjustment once the equilibrium is confirmed — is a Phase One observable addressed in SCOPE §3.1. (ENV §2)
 
 **Displacement channel.** Staged replacement of labour taxation through constitutionally committed LRR accumulation delivers demand stimulus at a pace that reduces transition-shock risk (metered rather than abrupt). Bilateral NICs removal is the cleanest case: both sides see the benefit directly, no incidence ambiguity. (ENV §3–§4)
 
@@ -304,7 +295,7 @@ Establishes that the standard efficiency critique fails for the WDT and identifi
 
 **Financial stability.** The symmetric refund reaches the population whose portfolio decisions move asset markets precisely when liquidation pressure is highest, dampening the forced-selling mechanism. The SWF's countercyclical deployment capacity and the DR chamber's pre-commitment capacity are two independent countercyclical instruments requiring no discretionary intervention to activate. A GOV.B clarification is proposed: the Custodian's investment mandate should include explicit guidance on accelerated Route C equity rotation pace under defined inflationary trigger conditions. (ENV §5, §7)
 
-**Open questions.** The consumption multiplier magnitude and net bias direction of RATES estimates cannot be established without a general equilibrium model; this is assigned to MACRO as a Phase One successor. The automation tax-base migration quantification under different automation trajectories is similarly assigned. (ENV §9)
+**Limits and successors.** The consumption multiplier magnitude and net bias direction of RATES estimates, and the automation tax-base migration quantification under different automation trajectories, cannot be established without a calibrated general equilibrium model. Both are assigned to MACRO as a Phase One successor; their scope and preconditions are set out in SCOPE §4. (ENV §9)
 
 ---
 
@@ -360,7 +351,7 @@ Identifies the three structural failure mechanisms behind OECD wealth tax abolit
 
 **The tiered citizenship problem.** If the WDT succeeds at scale it will produce visible institutional distinctions between people based on their relationship to the mechanism (TP members, DR lottery participants, dividend recipients, the broader public). These tiers emerge from the mechanism's own transactions, not deliberate design. The WDT does not introduce tiers to a non-tiered society; it makes existing invisible, unobligated tiers visible, obligated, and subject to democratic constraint. Whether visible obligated tiers are preferable to invisible unobligated ones is the democratic question the WDT makes askable. (POL §7; POL Appendix A)
 
-**Bootstrapping problem.** Phase One is the vulnerability window — the mechanism is untested, the membrane unproven, and mutual stake not yet accumulated. The mitigations (SRR partially capitalised, refund demonstrated, envelope deepening) must replace the accidental hostage equilibrium before a hostile government arrives. A sufficiently high Phase One threshold compresses the window; voluntary prefunding by early participants who understand the institutional risk is an available mechanism. There is no mechanism-shaped resolution to the bootstrapping problem itself; it is addressed by sequencing. (POL §6)
+**Bootstrapping problem.** Phase One is the vulnerability window — the mechanism is untested, the membrane unproven, and mutual stake not yet accumulated. The mitigations (SRR partially capitalised, refund demonstrated, envelope deepening) must replace the accidental hostage equilibrium before a hostile government arrives. A sufficiently high Phase One threshold compresses the window; voluntary prefunding by early participants who understand the institutional risk is an available mechanism. There is no mechanism-shaped resolution to the bootstrapping problem itself; it is addressed by sequencing. Whether the mitigations are sufficient is the most acute Phase One falsification question (SCOPE §3.3). (POL §6)
 
 ---
 
@@ -406,7 +397,7 @@ Examines whether the WDT creates a structural competitive dynamic between govern
 
 **Diffusion dynamics.** When the advantages are recognised under competitive pressure, four responses are available — adopt, suppress, race, conflict — whose dynamics and costs differ systematically by governance tier. China's mobilisation law is consistent with domestic Option B (pre-emptive suppression of institutional conditions under which adoption would become conceivable); distinguishing this from independent security policy requires more than one case. The bootstrapping vulnerability window is the period of maximum deterrence failure and coincides with the period of minimum reserve differential. (INST §8)
 
-**Epistemic status.** The paper maintains an explicit three-tier taxonomy throughout: Tier A (demonstrated results from mechanism papers and external empirical literature), Tier B (derived implications requiring Phase One or comparative case study verification), Tier C (hypothetical evolutionary claims). Two new open questions created by this paper: OQ #31 and OQ #32. (INST §0.03 revision note; INST §10)
+**Epistemic status.** The paper maintains an explicit three-tier taxonomy throughout: Tier A (demonstrated results from mechanism papers and external empirical literature), Tier B (derived implications requiring Phase One or comparative case study verification), Tier C (hypothetical evolutionary claims). Two comparative political economy questions opened by this paper — whether developmental authoritarian states face the endogenous institutional pressures INST §6.2 predicts, and whether the adoption diffusion dynamics emerge under competitive pressure — are classified in SCOPE §2. (INST §0.03 revision note; INST §10)
 
 ---
 
@@ -432,107 +423,6 @@ Eight implementation questions the design papers leave open, each with an approa
 
 ---
 
-## Open Questions Register
+## Open Questions
 
-Items not listed here are settled. Items listed under **Closed** have been resolved by a completed paper and are retained for audit trail only.
-
-### Closed Literature Gaps (resolved by completed papers)
-
-| # | Question | Closed by |
-|---|---|---|
-| 1 | Domar-Musgrave formal extension to a progressive delta base (three complications: net worth base, progressive rates, multi-period rate asymmetry) | WFR §3.2, §4.1; WFR.A §A.4, §B |
-| 2 | Welfare comparison including delta base alongside existing candidates | WFR §3, §4; WFR.A §A–§D |
-| 3 | Distributional arithmetic of delta-base concentration under persistent return heterogeneity | WFR §4.3; WFR.A §D |
-
-### Confirmed Literature Gaps (formal modelling required; separable from Phase One)
-
-| # | Question |
-|---|---|
-| 7 | Causal framework for wealth tax abolition (POL §3 three-mechanism framework not independently validated as formal political economy model; INST §10 Cluster 4 assigns external collaborative research) |
-| 8 | International competitive dynamic at the political level (INST §6 provides the most developed treatment; formal comparative political economy modelling outstanding) |
-| 9 | Minimum-tax floor interaction with refund-based systems in treaty law |
-
-### Phase One Empirical Questions (unanswerable before a live system)
-
-| # | Question |
-|---|---|
-| 4 | Cooperative compliance at ultra-high-net-worth level (professional intermediary mediation of compliance decisions); also FAL H3's core empirical input |
-| 5 | Cross-base migration externality magnitude (Agrawal et al. 2025 six-to-one ratio applied to WDT population) |
-| 6 | Administrative-layer intervention effects on compliance psychology |
-| 13 | Valuation route and assessment window adoption distribution; flexibility levy calibration |
-| 14 | OBR independence adequacy as WDT mandate-guardian |
-| 15 | Corporate instrument transition: conditions for CIT displacement question to become a policy decision |
-| 16 | Housing price net effect (demand composition shift; net price level ambiguous) |
-| 18 | SRR floor calibration implication of mild-overstatement equilibrium (α ≈ 1.1 population centre; ENV §2 identifies the upward SRR adjustment if confirmed) |
-| 29 | Monitoring instrument for population distribution of α (mild-overstatement drift detection) |
-| 30 | Bootstrapping problem: Phase One vulnerability window mitigation sufficiency; also FAL H3's most acute falsification territory |
-| 31 | Whether Tier 3 (developmental authoritarian) states attempting WDT implementation face the endogenous institutional pressure INST §6.2 predicts (INST OQ, comparative political economy research programme) |
-| 32 | Whether the predicted adoption diffusion pattern (Option A–D dynamics) emerges under competitive pressure (INST OQ; untestable before Phase One produces demonstrable outcomes) |
-
-### Assigned to MACRO (Phase One successor; requires live data)
-
-| # | Question |
-|---|---|
-| 11 | Consumption multiplier magnitude and net bias direction of RATES estimates |
-| 12 | Automation and tax-base migration under different automation trajectories |
-
-### Governing Council Calibration Parameters (settled in kind, open in value)
-
-| # | Question |
-|---|---|
-| 10 | SWF governance Phase One parameters (DR floor size, constituency dissolution triggers) |
-| 17 | τ_0 × W_min joint surface — the only item in this group resolvable without Phase One data; the next analytical deliverable not requiring live data |
-| 19 | Liquidity threshold for thinly traded company reclassification |
-| 20 | τ_0 exact calibration (collection-security floor; 1–2 assessment cycles) |
-| 21 | τ_h exact calibration within [deterrence floor, τ_m]; ramp pace; joint calibration with CIT/dividend displacement |
-| 24 | Assessment window premium exact calibration (deferral charge + flexibility levy coefficients) |
-
-### Jurisdiction-Specific and Institutional Preconditions (not design gaps)
-
-| # | Question |
-|---|---|
-| 22 | τ_f diplomatic rate-setting (bilateral/multilateral agreement) |
-| 23 | Route D auction implementation details (conduct rules, no-bid fallback, timeline, international assets) |
-| 25 | Derivatives valuation methodology for illiquid positions |
-| 26 | HMRC data access agreement for microsimulation |
-| 27 | Post-Brexit information exchange gaps (DAC loss, EU-domiciled structures) |
-| 28 | Constitutional/legal analysis of Route D auction trigger in specific jurisdictions |
-
----
-
-**Item #33 — Route D realisation event flow and LRR capitalisation window impact**
-
-The RATES TCM models all taxpayers as generating annual delta revenue in each assessment period. Route D taxpayers generate no annual revenue during the holding period; all settlement defers to a realisation event. The fiscal consequence for the LRR fill timeline depends on the annual flow of Route D realisation events during the capitalisation window — a quantity the TCM does not model.
-
-The required data exists in principle across three sources: ONS mortality data cross-referenced with the upper-tail wealth distribution (deaths trigger inheritance settlement); HMRC transaction data on private company sales and commercial property disposals (the principal Route D asset classes); and the inheritance and estate settlement record. This is a pre-Phase-One analytical deliverable requiring only existing administrative datasets, not live WDT data.
-
-The SRR year-3 fill invariance result is not affected: the SRR target scales with observed net revenue and fills in approximately three years regardless of the revenue level. The LRR fill timeline is sensitive, since the LRR floor is fixed in real terms and does not scale with observed revenue. The degree of LRR timeline extension is proportional to the share of Route D wealth not realising within the capitalisation window. Given observed mortality rates and private asset transaction frequencies, the realistic effect is materially smaller than the theoretical upper bound and concentrated in the early capitalisation years.
-
-**Status:** Pre-Phase-One analytical deliverable. Requires HMRC data access agreement (OQ #26) for full microsimulation; directional estimate constructible from publicly available ONS and transaction data before that agreement is in place.
-
-**Assigned to:** Pre-Phase-One analytical work; RATES.A extension.
-
-**Item #34 — Population-weighted revenue calculation across the predicted α distribution**
-
-The TCM assumes α = 1 throughout. The behavioural analysis predicts a population centre modestly above honest declaration. No paper computes revenue under a population-weighted declaration distribution by bracket. The direction of the effect is argued in RATES §9.7 — systematic understatement and overstatement both produce higher annual revenue than the α = 1 baseline — but the magnitude is not quantified.
-
-The required extension is straightforward within the existing model infrastructure: partition each RATES bracket by a distribution of α values, run the TCM at each α, and weight by the predicted population density. The predicted mild-overstatement centre and the portfolio anchor constraint derived in VAL §7.5 together bound the plausible α distribution for each bracket.
-
-**Status:** Closable without Phase One data using existing model infrastructure.
-
-**Assigned to:** RATES.A extension; SWEEPS follow-on.
-
-
-### Summary observations
-
-- **Series now comprises 32 papers.** Three papers added since the previous version: FAL (Falsifiable Hypotheses), LDW (Labour Dividend Welfare), INST (Fiscal Architecture and Institutional Selection).
-- **3 confirmed literature gaps** remain open requiring formal modelling or comparative case study work. Gaps #1–3 (D-M extension, welfare comparison, concentration arithmetic) are now **closed** by WFR.
-- **12 Phase One empirical questions** cannot be resolved without live system data. Items 4–6 and 30 are the most consequential for Phase One design. Two new items (#31, #32) were added by INST. The Agrawal cross-base externality (#5) is the dominant empirical qualification on all pre-behavioural revenue figures.
-- **2 MACRO items** require Phase One data before modelling can be calibrated.
-- **6 Governing Council calibration parameters** are settled in kind, open in value. Item #17 (the τ_0 × W_min joint surface) is the **only item in any category resolvable without Phase One data**; it is the next analytical deliverable.
-- **6 jurisdiction-specific items** are not design gaps; resolution requires legal analysis, diplomatic process, or institutional negotiation.
-- **The most consequential calibration problem** is the τ_0 cross-dataset tension: higher τ_0 accelerates LRR fill and brings the overstater correction earlier, but also raises entry burden. No setting simultaneously optimises all three. Item #17 is the next deliverable.
-- **The most consequential outstanding deliverable** is Phase One implementation itself: items 4–6, 29, 30 cannot be resolved by any further desk research.
-- **FAL adds precision** to what "Phase One answering" these questions would require: minimum model specifications, falsification conditions, and the three-category epistemic taxonomy (Category 1: costs of existing systems established without WDT data; Category 2: structural properties following from the mechanism; Category 3: prospective implementation costs not yet quantifiable) for evaluating results. H2a and H4 have partial theoretical support from WFR Category 1 results; H2c has analogical empirical support from Norway 2020. H1, H2b, H2d, H3, and H5 are hypotheses in search of a test.
-- **INST adds a novel competitive-dynamics framing** not previously present in the series: the two-constituency mechanism as a contribution to the taxation→representation literature, the fiscal sovereignty test as the observable threshold for Condition 3, and three explicitly conditional competitive advantages for democratic WDT adopters. All Tier B.
-- **LDW's demand expansion hypothesis** (§4.5, added revision 0.05) is the most recent speculative extension in the series — a causal chain from purchasing power to consumption to labour reallocation to sector entry to capital returns, framed as a Phase One research question, not a settled position.
+The complete record of what this project does not settle is maintained in SCOPE: confirmed literature gaps and comparative political economy questions (SCOPE §2), Phase One empirical questions including compliance, migration, and the bootstrapping vulnerability (SCOPE §3), MACRO successor tasks (SCOPE §4), Governing Council calibration parameters open in value (SCOPE §5), and jurisdiction-specific preconditions (SCOPE §6). Items not listed in SCOPE are settled.

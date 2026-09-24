@@ -135,9 +135,9 @@ The third concerns income tax and CGT in the baseline. The two systems are welfa
 
 ## 3.1 Revenue Equivalence and the Single-Agent Baseline
 
-With distortions suppressed, all six systems are compared at γ=2 against the Ver. A distribution. Table 1 reports the results.
+With distortions suppressed, all six systems are compared at γ=2 against the Ver. A distribution. Table 3.1 reports the results.
 
-**Table 1: Certainty-Equivalent Welfare by System, γ=2, Ver. A**
+**Table 3.1: Certainty-Equivalent Welfare by System, γ=2, Ver. A**
 
 | System | CEW |
 |:---|---:|
@@ -154,7 +154,7 @@ With distortions suppressed, all six systems are compared at γ=2 against the Ve
 
 The flat WDT leads by 17.4 basis points over income tax and CGT, and by 133.1 basis points over stock wealth and consumption tax. Neither advantage is the paper's primary conclusion. The baseline establishes fair ground — the WDT does not win through a mechanical rate advantage. Everything in Part II is attributable to mechanisms.
 
-Two structural features of Table 1 recur throughout Part II.
+Two structural features of Table 3.1 recur throughout Part II.
 
 The first is the exact clustering of stock wealth tax and consumption tax at −1.8870% across all values of γ and both distributions (WFR.A §A.1). Both systems apply a fixed proportional wedge to a base that does not condition on return performance. Under CRRA preferences, a fixed proportional wedge leaves the relative consumption distribution unchanged, making the risk-aversion parameter irrelevant. Welfare cost is determined entirely by revenue extracted, not by how extraction interacts with return risk. This γ-invariance is a structural property of these two bases, not a calibration coincidence. It also foreshadows the concentration result in (WFR §4.3): a tax base that does not condition on return performance does not attenuate the compounding of return differences across taxpayers.
 
@@ -172,9 +172,9 @@ If structural welfare differences are small when distortions are suppressed, whe
 
 @DomarMusgrave1944 establish that a proportional tax with full symmetric loss offsets leaves the agent's optimal risky portfolio share unchanged. When the government taxes gains at rate $\tau$ and refunds losses at the same rate, it participates proportionally in both the upside and the downside of every risky position. The gross return distribution is contracted by the factor (1−$\tau$) in every state. The relative ranking of return states is unchanged, the indifference condition for portfolio allocation is unchanged, and therefore the optimal portfolio is unchanged.
 
-The flat symmetric WDT is a direct application of this mechanism to a wealth-delta base. The model confirms it holds to floating-point precision. Table 2 reports the Domar-Musgrave test across risk-aversion parameters and both distributions.
+The flat symmetric WDT is a direct application of this mechanism to a wealth-delta base. The model confirms it holds to floating-point precision. Table 3.2 reports the Domar-Musgrave test across risk-aversion parameters and both distributions.
 
-**Table 2: Domar-Musgrave Test — Flat Symmetric WDT**
+**Table 3.2: Domar-Musgrave Test — Flat Symmetric WDT**
 
 | Distribution | γ | $\tau$ | (1−$\tau$)² | Actual ratio | Gap |
 |:---|---:|---:|---:|---:|---:|
@@ -209,9 +209,9 @@ A progressive rate schedule breaks the Domar-Musgrave result from (WFR §3.2). T
 
 ![Figure 4.1b: CEW under flat WDT and progressive WDT across $\gamma \in \{1, 2, 4\}$, $W_0 = £10\text{m}$, $E[T] = 2\%$ of $W_0$. Left panel: Ver. A; right panel: Ver. B. The two series are visually coincident in both panels — the gap (C1 complication) is $-0.00$ basis points at $\gamma = 2$ and remains below $0.05$ basis points across all tested parameters. Both lines rise toward zero welfare cost as $\gamma$ increases because higher risk aversion amplifies the value of variance reduction: the D-M risk-sharing mechanism delivers greater benefit to more risk-averse agents, irrespective of whether the rate is flat or progressive, at these wealth levels. Source: WFR simulation model; underlying data from JST dataset. (WFR.A §B.1)](../figures/wfr_fig_4_1b_flat_vs_progressive.png){width=100%}
 
-**C2: The leverage and net-worth base interaction.** The WDT applies to net worth W = A − D. An agent with leverage ratio D/A holds less net worth for a given gross asset position, so the WDT's absolute tax burden is smaller than it would be on the underlying asset return alone. Table 3 reports the welfare gap between the WDT's actual net-worth base and a hypothetical asset-return base across leverage ratios from 0% to 70%.
+**C2: The leverage and net-worth base interaction.** The WDT applies to net worth W = A − D. An agent with leverage ratio D/A holds less net worth for a given gross asset position, so the WDT's absolute tax burden is smaller than it would be on the underlying asset return alone. Table 3.2 reports the welfare gap between the WDT's actual net-worth base and a hypothetical asset-return base across leverage ratios from 0% to 70%.
 
-**Table 3: Leverage Effect on WDT Tax Base and Welfare (Selected Rows)
+**Table 4.1a: Leverage Effect on WDT Tax Base and Welfare (Selected Rows)**
 
 | Leverage (%) | $W_0$ net (£m) | CEW: NW base | CEW: asset-return base | Gap (bp) |
 |---:|---:|---:|---:|---:|
@@ -227,9 +227,9 @@ The gap is monotone in leverage, rising from zero at no debt to +1.10 basis poin
 
 ![Figure 4.1c: C2 complication — leverage effect on the WDT tax base. Left panel: CEW gap between the net-worth (NW) delta base and a hypothetical asset-return base, in basis points, across leverage ratios 0–70% ($\gamma = 2$, Ver. A, gross assets = £10m throughout). The gap is monotone and convex in leverage, reaching +1.10 basis points at 70% — the direction confirms that taxing net worth rather than gross asset return marginally favours leveraged taxpayers, but the magnitude is small at all empirically relevant leverage ratios. Right panel: expected tax $E[T]$ under each base across the same leverage range. The NW base $E[T]$ (blue) falls with leverage as net worth shrinks; the asset-return base $E[T]$ (red) is flat, because the gross asset position is held constant at £10m regardless of debt. Source: WFR simulation model; underlying data from JST dataset. (WFR.A §B.2)](../figures/wfr_fig_4_1c_leverage.png){width=100%}
 
-**C3: Intertemporal rate asymmetry.** Under a progressive schedule, a gain in period 1 increases wealth and attracts a higher effective rate than the refund received in period 2 on an equivalent loss, because the loss is assessed at the lower post-gain wealth level. This asymmetry is a property of any progressive tax with non-linear rates and gain-loss sequences. Table 4 reports the gain-refund rate differential and the net tax difference relative to the flat WDT benchmark across initial wealth levels.
+**C3: Intertemporal rate asymmetry.** Under a progressive schedule, a gain in period 1 increases wealth and attracts a higher effective rate than the refund received in period 2 on an equivalent loss, because the loss is assessed at the lower post-gain wealth level. This asymmetry is a property of any progressive tax with non-linear rates and gain-loss sequences. Table 4.1b reports the gain-refund rate differential and the net tax difference relative to the flat WDT benchmark across initial wealth levels.
 
-**Table 4: Two-Period Rate Asymmetry by Initial Wealth**
+**Table 4.1b: Two-Period Rate Asymmetry by Initial Wealth**
 
 | $W_0$ (£m) | $\tau$ gain (%) | $\tau$ refund (%) | Asymmetry (pp) | Excess vs flat (£m) |
 |---:|---:|---:|---:|---:|
@@ -267,9 +267,9 @@ The indifference return r_B* is the minimum return on asset B at which the agent
 
 ### 4.2.2 The Welfare Cost of Lock-In
 
-Table 5 reports the full welfare comparison between the WDT and CGT once the realisation decision is endogenous.
+Table 4.2.2a reports the full welfare comparison between the WDT and CGT once the realisation decision is endogenous.
 
-**Table 5: WDT vs CGT — With and Without Lock-In**
+**Table 4.2.2a: WDT vs CGT — With and Without Lock-In**
 
 | Metric | Ver. A (Empirical) | Ver. B (Idealised) |
 |:---|---:|---:|
@@ -290,9 +290,9 @@ The WDT advantage grows from 1.74 basis points without lock-in to 142.96 basis p
 
 Ver. A and Ver. B results diverge considerably: 142.96 versus 41.19 basis points. The empirical distribution includes negative return years in which CGT collects nothing but the WDT provides refunds. These years require a lower revenue-equivalent CGT rate (32.07% versus 33.40%), which reduces the switching wedge slightly — but more importantly, the empirical distribution's fat left tail generates more states in which the agent is locked into a loss-making position without tax relief. The idealised Ver. B distribution smooths over these states, understating both the lock-in cost and the WDT's revenue-equivalence rate advantage.
 
-**The G/V sweep.** The lock-in cost varies substantially with the embedded gain ratio. Table 6 reports selected rows from the full sweep in (WFR.A §C.1).
+**The G/V sweep.** The lock-in cost varies substantially with the embedded gain ratio. Table 4.2.2b reports selected rows from the full sweep in (WFR.A §C.1).
 
-**Table 6: Lock-In Welfare Cost by Embedded Gain Ratio (Selected Rows)
+**Table 4.2.2b: Lock-In Welfare Cost by Embedded Gain Ratio (Selected Rows)
 
 | G/V (%) | Lock-in cost (bp) | P(total locked) | P(CGT distortion) | P(r_B < r_A) |
 |---:|---:|---:|---:|---:|
@@ -311,9 +311,9 @@ The P-decomposition columns require precise reading and the distinction between 
 
 ![Figure 4.2.2b: Sensitivity of CGT lock-in welfare cost and lock-in probability to the embedded gain ratio $G/V$. Left panel (purple): lock-in welfare cost in basis points across $G/V \in [5\%, 90\%]$, Ver. A, $\gamma = 2$, $T = 5$. The cost rises from +16.4 basis points at $G/V = 5\%$ to a peak of +162.2 basis points at $G/V = 76.6\%$, then falls non-monotonically — a discretisation artefact of the finite empirical distribution as $r_B^*$ approaches the upper boundary of the return distribution. Right panel (red): P(agent locked in) as a percentage of return states, showing three step-change levels as additional return states cross into the CGT distortion zone. The baseline 86.7\% locked-in probability below $G/V \approx 36\%$ reflects states where $r_B < r_A$ — market preference, not a tax distortion. Only the incremental probability above that baseline represents the CGT distortion proper. Source: WFR simulation model; underlying data from JST dataset. (WFR.A §C.1)](../figures/wfr_fig_4_2_2b_sensitivity_gain.png){width=100%}
 
-**The T sweep.** Table 7 reports the lock-in cost across holding periods at G/V = 50%.
+**The T sweep.** Table 4.2.2c reports the lock-in cost across holding periods at G/V = 50%.
 
-**Table 7: Lock-In Welfare Cost by Remaining Holding Period (Selected Rows)
+**Table 4.2.2c: Lock-In Welfare Cost by Remaining Holding Period (Selected Rows)
 
 | T (years) | r_B* (%) | Lock-in cost (bp) | P(CGT distortion) |
 |---:|---:|---:|---:|
@@ -367,9 +367,9 @@ The model uses a four-tier calibration drawn from @FagerengEtAl2020. Tiers are d
 
 ### 4.3.2 The Concentration Result
 
-Table 8 reports the Great/Poor wealth ratio at five points across the 30-year scenario horizon starting in 2000.
+Table 4.3.2 reports the Great/Poor wealth ratio at five points across the 30-year scenario horizon starting in 2000.
 
-**Table 8: Wealth Concentration Path — Great/Poor Ratio at Key Years**
+**Table 4.3.2: Wealth Concentration Path — Great/Poor Ratio at Key Years**
 
 | System | Initial | 2004 | 2009 | 2019 | 2029 (N=30) |
 |:---|---:|---:|---:|---:|---:|
@@ -391,9 +391,9 @@ The mechanism driving the 479× outcome for stock-base systems is structural. A 
 
 ### 4.3.3 Within-Tier Welfare
 
-Table 9 reports CEW by tier and system.
+Table 4.3.3 reports CEW by tier and system.
 
-**Table 9: Certainty-Equivalent Welfare by Tier and Tax System**
+**Table 4.3.3: Certainty-Equivalent Welfare by Tier and Tax System**
 
 | System | Poor | Ok | Good | Great |
 |:---|---:|---:|---:|---:|
@@ -414,9 +414,9 @@ Progressive WDT provides better welfare than flat WDT at every tier. At the Poor
 
 ### 4.3.4 Distributional Incidence
 
-Table 10 reports expected tax as a percentage of $W_0$ by tier.
+Table 4.3.4 reports expected tax as a percentage of $W_0$ by tier.
 
-**Table 10: Distributional Incidence — Expected Tax as % of $W_0$**
+**Table 4.3.4: Distributional Incidence — Expected Tax as % of $W_0$**
 
 | System | Poor | Ok | Good | Great | Great/Poor ratio |
 |:---|---:|---:|---:|---:|---:|
@@ -438,9 +438,9 @@ These two dimensions — tax incidence and welfare incidence — should be read 
 
 ### 4.3.5 The Lifetime Contribution Envelope — Binding Result
 
-Table 11 reports the envelope binding status across tiers under flat WDT over the 30-year scenario.
+Table 4.3.5 reports the envelope binding status across tiers under flat WDT over the 30-year scenario.
 
-**Table 11: Lifetime Contribution Envelope — Binding Summary**
+**Table 4.3.5: Lifetime Contribution Envelope — Binding Summary**
 
 | Tier | $W_0$ (£m) | Cumulative tax | Cumulative refund | Min slack | Ever binds? |
 |:---|---:|---:|---:|---:|:---:|
@@ -467,7 +467,7 @@ Table D.5 reports a spot check that decouples initial wealth from return differe
 
 ## 4.4 Stock Wealth and Consumption Taxes: Equivalence and Concentration
 
-The controlled baseline showed stock wealth tax and consumption tax clustered at exactly −1.8870% CEW. Table 8 showed them reaching the same 479× concentration at N=30. Both results have the same explanation.
+The controlled baseline showed stock wealth tax and consumption tax clustered at exactly −1.8870% CEW. Table 4.3.2 showed them reaching the same 479× concentration at N=30. Both results have the same explanation.
 
 **The welfare equivalence.** Both systems apply a fixed proportional wedge to a base that does not condition on return performance. The stock wealth tax applies a rate to the end-of-period stock of wealth; the consumption tax applies a rate to the flow of consumption, which in this model equals wealth growth net of the tax. In a single-period model with no labour income, no heterogeneous saving, and no liquidity constraints, both bases produce the same proportional compression of the consumption distribution across all return states. CRRA scale-invariance then makes the risk-aversion parameter irrelevant: welfare cost is determined entirely by revenue extracted, not by how extraction interacts with return risk.
 
@@ -483,9 +483,9 @@ The results in (WFR §3) to (WFR §4.4) are presented at the canonical parameter
 
 ### 4.5.1 Revenue Target Sensitivity
 
-Sweeping from 1% to 5% of $W_0$ tests whether welfare rankings are stable as the aggregate revenue burden doubles or halves from the central case. Table 12 reports CEW by system and revenue target at γ=2 for both distributions; full tables are in (WFR.A §E.1).
+Sweeping from 1% to 5% of $W_0$ tests whether welfare rankings are stable as the aggregate revenue burden doubles or halves from the central case. Table 4.5.1 reports CEW by system and revenue target at γ=2 for both distributions; full tables are in (WFR.A §E.1).
 
-**Table 12: CEW by System and Revenue Target (γ=2, selected targets)
+**Table4.5.1: CEW by System and Revenue Target (γ=2, selected targets)
 
 | System | E[T]=1% | E[T]=2% | E[T]=3% | E[T]=5% |
 |:---|---:|---:|---:|---:|
@@ -597,9 +597,9 @@ The paper is precise about where the equivalence breaks. Each of the model's sim
 
 ## 5.7 Literature Summary
 
-Table 11 maps WFR's main findings against the literature on which they rest and states the drafting basis for each claim.
+Table 5.7 maps WFR's main findings against the literature on which they rest and states the drafting basis for each claim.
 
-**Table 11: Literature Map**
+**Table 5.7: Literature Map**
 
 | WFR finding | Literature basis | Drafting note |
 |:---|:---|:---|
@@ -717,7 +717,7 @@ WFR establishes the welfare advantage at the pre-behavioural level. EVAL's contr
 
 ## 7.4 Progressive WDT Advantage at Longer Horizons
 
-The N=30 concentration result shows a near-equivalence between flat and progressive WDT at the canonical horizon: 286.3× versus 288.1×. The finding that the relevant axis at N=30 is accrual versus stock base, not flat versus progressive rate, follows from the logistic schedule operating in the near-flat entry region across the tested wealth levels for 30 years. The progressive advantage is real — it is present in the CEW comparison (Table 9) and in the incidence ratios (Table 10) — but on the concentration metric it requires a longer horizon to compound into a visible differential between the two WDT variants.
+The N=30 concentration result shows a near-equivalence between flat and progressive WDT at the canonical horizon: 286.3× versus 288.1×. The finding that the relevant axis at N=30 is accrual versus stock base, not flat versus progressive rate, follows from the logistic schedule operating in the near-flat entry region across the tested wealth levels for 30 years. The progressive advantage is real — it is present in the CEW comparison (Table 4.3.3) and in the incidence ratios (Table 4.3.4) — but on the concentration metric it requires a longer horizon to compound into a visible differential between the two WDT variants.
 
 The N=73 concentration extension — running the full 1947–2019 historical sequence chronologically, with the aggregate rates from (WFR §4.3) carried forward unchanged rather than re-solved — confirms this expectation, and shows the advantage emerging earlier than the canonical window alone would suggest. Progressive WDT's Great/Poor ratio first drops below flat WDT's in 1971, less than 25 years into the sequence, and the gap widens sharply from there: by 2019, flat WDT reaches 3,173.2× against progressive WDT's 177.8×, an eighteen-fold difference (WFR.A §F.3; Figure F.1). The mechanism is the one the logistic geometry predicts: as the Great tier's wealth compounds past the schedule's inflection point, its effective rate rises toward $\tau_m$, while the Poor tier — whose losses frequently fall below $W_{min}$ or close to the entry rate — continues to be taxed near its floor. The resulting attenuation is concentrated almost entirely at the top of the tier structure rather than spread across it: the Great/Ok ratio falls from 336.1× under flat WDT to 18.5× under progressive, while the Ok/Poor ratio is essentially unchanged (9.4× vs 9.6×) (WFR.A §F.4; Figure F.2). The progressive schedule's long-horizon concentration advantage is a top-tier effect, not a general compression of the tier structure.
 
