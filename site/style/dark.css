@@ -677,5 +677,16 @@ body.quarto-dark .verdict-box.moderate {
   border-top-color: #d97706 !important; /* amber-400 — lighter than #b45309 */
 }
 
+/* ── Inline citations ─────────────────────────────────────── */
+/* Match body link colours in dark mode: #a78bfa at rest,
+   #FFD700 on hover — same as body.quarto-dark a rules above. */
+
+body.quarto-dark span.citation         { color: #a78bfa !important; }
+body.quarto-dark span.citation a       { color: #a78bfa !important; }
+body.quarto-dark span.citation:visited,
+body.quarto-dark span.citation a:visited { color: #c4b5fd !important; }
+body.quarto-dark span.citation:hover,
+body.quarto-dark span.citation:hover a { color: #FFD700 !important; }
+
 /* ── Netscape badge ───────────────────────────────────────── */
 /* Intentional retro colours — left unchanged in dark mode.   */
