@@ -152,7 +152,19 @@ def _rescue_figure_divs(text: str) -> str:
         if image_lines:
             parts.append("\n".join(image_lines))
         if caption_lines:
-            parts.append("\n".join(caption_lines))
+            # Wrap in the same small-italic raw LaTeX as Pattern B captions.
+            # Convert **bold** → \textup{\textbf{…}} so cross-refs render
+            # upright-bold rather than bold-italic inside \itshape.
+            caption_text = "\n".join(caption_lines)
+            caption_text = re.sub(r'\*\*(.+?)\*\*', r'\\textup{\\textbf{\1}}', caption_text)
+            caption_block = (
+                "```{=latex}\n"
+                "{\\small\\itshape \n"
+                + caption_text + "\n"
+                + "}\n"
+                "```"
+            )
+            parts.append(caption_block)
         return "\n\n".join(parts) + "\n"
 
     return div_re.sub(_replace, text)
@@ -294,7 +306,145 @@ def _pdf_filename(shortcode: str, stem: str, paper_meta: dict[str, Any]) -> str:
     return f"The Wealth Delta Tax - {group} - {short_title}.pdf"
 
 
-# ── 5. Per-paper PDF transform chain ──────────────────────────────────────────
+# ── 5. PDF-specific image transforms ──────────────────────────────────────────
+#
+# Two problems with figures in the PDF pipeline:
+#
+# A) PATH NORMALISATION
+#    Source files reference figures as ../figures/<name>.png (relative to the
+#    source file's location inside the source tree). fix_image_paths() from
+#    transforms.py may not handle the ../ prefix. After fix_image_paths runs,
+#    any remaining path that still contains /figures/ is rewritten to the bare
+#    figures/<name>.png that pandoc's --resource-path can resolve.
+#
+# B) CAPTION EXTRACTION (Pattern B)
+#    The papers use two figure patterns:
+#
+#    Pattern A (Quarto div — handled by _rescue_figure_divs):
+#      ::: {#fig-label}
+#      ![](figures/file.png){width=100%}
+#
+#      Figure N.Na: Caption text.
+#      :::
+#
+#    Pattern B (bare image — handled here):
+#      ![Figure N.Na: Caption text. **(CODE §ref)**](../figures/file.png){width=100%}
+#
+#    With implicit_figures disabled, pandoc renders Pattern B as a plain
+#    \includegraphics with no caption — the alt text is simply dropped.
+#    This function detects Pattern B images (alt text beginning with "Figure"
+#    or "Figure"), strips the alt text from the image marker (so the image
+#    renders cleanly inline), and appends the alt text as a plain paragraph
+#    immediately below the image line. The paragraph is what becomes the
+#    visible caption in the PDF.
+#
+#    The bold cross-reference suffix **(CODE §ref)** embedded in the alt text
+#    is valid pandoc markdown and renders as bold inline in the caption paragraph.
+
+# Matches: ![any alt text](any/path/file.ext){optional attrs}
+# Groups:  1=alt text  2=path  3=optional {attrs}
+_IMG_FULL_RE = re.compile(
+    r'^(!\[)(.*?)(\]\([^)]+\)(?:\{[^}]*\})?)',
+    re.MULTILINE | re.DOTALL,
+)
+
+# Matches a path containing /figures/ or starting with figures/
+_FIG_PATH_RE = re.compile(r'(?:.*[/\\])?figures[/\\]([^)\s]+)')
+
+
+def _fix_image_paths_pdf(text: str) -> str:
+    """
+    Normalise all image paths to figures/<filename> regardless of prefix.
+    Handles ../figures/, ./figures/, ../../figures/, bare figures/, etc.
+    Runs after fix_image_paths() from transforms.py as a safety net.
+
+    The path is extracted by anchoring at the ]( delimiter that separates
+    the alt text from the path, so parentheses inside alt text (e.g.
+    "(basis points)" or "($\\text{CEW}$)") do not confuse the match.
+    """
+    # Capture groups: 1=everything up to and including ](  2=path  3=rest
+    _IMG_PATH_CAPTURE = re.compile(
+        r'(!\[(?:[^\[\]]|\[[^\]]*\])*\]\()([^)]+)(\)(?:\{[^}]*\})?)'
+    )
+
+    def _rewrite(m: re.Match) -> str:
+        prefix        = m.group(1)   # ![alt](
+        original_path = m.group(2)   # ../figures/file.png
+        suffix        = m.group(3)   # ){width=100%}
+        fig_m = _FIG_PATH_RE.match(original_path.strip())
+        if fig_m:
+            return prefix + "figures/" + fig_m.group(1) + suffix
+        return m.group(0)
+
+    return _IMG_PATH_CAPTURE.sub(_rewrite, text)
+
+
+def _extract_image_captions(text: str) -> str:
+    """
+    For Pattern B figures: move the alt text out of ![alt](path) and emit it
+    as a plain paragraph below the image.
+
+    Transforms:
+      ![Figure N: Caption text](figures/file.png){width=100%}
+    into:
+      ![](figures/file.png){width=100%}
+
+      Figure N: Caption text
+
+    Only fires when the alt text begins with "Figure" (case-insensitive) —
+    these are the hand-written captions. Empty alt text and short descriptive
+    alt text (accessibility labels, not captions) are left alone.
+
+    Captions are emitted as a raw LaTeX block so that \small and \itshape
+    apply without interfering with any inline LaTeX math or bold spans the
+    caption may contain. The pandoc raw_tex extension handles this transparently.
+    """
+    # Process line by line to avoid multiline confusion; image lines that span
+    # multiple lines (alt text with \n) are handled by re.DOTALL on the inner match.
+    lines = text.split('\n')
+    out = []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        # Quick pre-check: does this line start a Pattern B image?
+        if line.lstrip().startswith('!['):
+            # Try to match a complete image tag (may span lines if alt text is long)
+            # Reconstruct a lookahead block of up to 5 lines to handle multiline alt
+            block = '\n'.join(lines[i:i+5])
+            m = re.match(
+                r'^(!\[)(.*?)(\]\(([^)]+)\)(\{[^}]*\})?)',
+                block,
+                re.DOTALL,
+            )
+            if m:
+                alt   = m.group(2).strip()
+                path  = m.group(4)
+                attrs = m.group(5) or ''
+                # Count lines consumed by the full match
+                consumed = m.group(0).count('\n')
+                if re.match(r'(?i)^figure\b', alt):
+                    # Emit image with empty alt, then caption styled via raw LaTeX.
+                    # \small\itshape: slightly smaller than body text, italic.
+                    # **bold** → \textup{\textbf{…}} so cross-refs render upright-bold
+                    # rather than bold-italic inside the \itshape group.
+                    # Normalise any internal newlines in the alt text to spaces first.
+                    caption = re.sub(r'\s+', ' ', alt)
+                    caption = re.sub(r'\*\*(.+?)\*\*', r'\\textup{\\textbf{\1}}', caption)
+                    out.append(f'![]({path}){attrs}')
+                    out.append('')
+                    out.append(r'```{=latex}')
+                    out.append(r'{\small\itshape ')
+                    out.append(caption)
+                    out.append(r'}')
+                    out.append(r'```')
+                    i += consumed + 1
+                    continue
+        out.append(line)
+        i += 1
+    return '\n'.join(out)
+
+
+# ── 6. Per-paper PDF transform chain ──────────────────────────────────────────
 
 def _fix_double_hash(text: str) -> str:
     """Fix ## in markdown link URLs produced by convert_crossrefs when an
@@ -315,22 +465,26 @@ def _transform_for_pdf(
     Order:
       1. _strip_latex_pdf         (preserves \\newpage, \\tableofcontents)
       2. fix_image_paths          (shared — rewrites src to figures/<filename>)
-      3. convert_crossrefs        (shared — cross-refs → [TEXT](URL))
-      4. _fix_double_hash         (fix ## artefacts in cross-ref URLs)
-      5. convert_internal_bibliography (shared — [CODE] lines → bold text + div)
-      6. inject_front_matter      (shared — enriches YAML, injects meta/disclosure divs)
-      7. _strip_quarto_blocks     (PDF-only — rescues figure divs, removes other divs,
+      3. _fix_image_paths_pdf     (PDF safety net — normalises ../figures/ etc.)
+      4. _extract_image_captions  (PDF-only — Pattern B: moves alt text to paragraph)
+      5. convert_crossrefs        (shared — cross-refs → [TEXT](URL))
+      6. _fix_double_hash         (fix ## artefacts in cross-ref URLs)
+      7. convert_internal_bibliography (shared — [CODE] lines → bold text + div)
+      8. inject_front_matter      (shared — enriches YAML, injects meta/disclosure divs)
+      9. _strip_quarto_blocks     (PDF-only — rescues figure divs, removes other divs,
                                    raw HTML, and heading attrs)
-      8. _inject_pdf_disclosure   (PDF-only — re-injects disclosure as plain italic)
-      9. append "# References"   (bibliography anchor for --citeproc)
+     10. _inject_pdf_disclosure   (PDF-only — re-injects disclosure as plain italic)
+     11. append "# References"   (bibliography anchor for --citeproc)
 
     Note: implicit_figures is disabled in the pandoc call (-f markdown-implicit_figures)
-    so images on their own paragraph are never promoted to LaTeX figure floats.
-    This keeps image alt text intact (for accessibility) while preventing the
-    unwanted "Figure N:" auto-counter and double-caption that floats would produce.
+    so images are never promoted to LaTeX figure floats. Captions are emitted as
+    plain paragraphs below each image by _extract_image_captions (Pattern B) or
+    _rescue_figure_divs inside _strip_quarto_blocks (Pattern A / Quarto div).
     """
     text  = _strip_latex_pdf(text)
     text  = fix_image_paths(text)
+    text  = _fix_image_paths_pdf(text)
+    text  = _extract_image_captions(text)
     text  = convert_crossrefs(text, link_map, anchor_map)
     text  = _fix_double_hash(text)
     lines = convert_internal_bibliography(text.splitlines(keepends=True))
@@ -344,7 +498,7 @@ def _transform_for_pdf(
     return text
 
 
-# ── 7. Pandoc invocation ───────────────────────────────────────────────────────
+# ── 8. Pandoc invocation ───────────────────────────────────────────────────────
 
 def _build_pdf(
     staging_file: Path,
@@ -389,7 +543,7 @@ def _build_pdf(
     return True
 
 
-# ── 8. Main build loop ────────────────────────────────────────────────────────
+# ── 9. Main build loop ────────────────────────────────────────────────────────
 
 def build_pdfs(shortcode_filter: list[str] | None = None) -> None:
     """

@@ -22,6 +22,7 @@ keywords:
 | 0.1 | 6 August 2026 | First draft. Twelve items from the consolidated open questions register formally acknowledged as outside project scope, with reasons. |
 | 0.2 | 21 August 2026 | Full revision against the completed 30-item open questions register (0.0 §26). All items categorised and absorbed. Section taxonomy restructured to match register groupings. Internal bibliography extended. |
 | 0.3 | 20 September 2026 | §2 removed: WFR closed all three formal modelling tasks (#1–3). §3 substantially reduced: INST and FAL have given #7 and #8 substantive theoretical treatment. Cross-references to LDW, FAL, and INST added throughout. |
+| 0.4 | 24 September 2026 | Open questions register absorbed into SCOPE as the canonical record; Project Map register section retired. §2 extended with #31 and #32 from INST. §3.4 added for pre-Phase-One analytical deliverables (#33, #34 from RATES.A and SWEEPS). §1 updated to reflect SCOPE as the primary register. §7 updated. |
 
 \newpage
 \tableofcontents
@@ -29,9 +30,9 @@ keywords:
 
 # 1. Purpose
 
-The consolidated open questions register (0.0 §26) lists every question the companion paper series raises but does not close. Those items are classified by group: confirmed literature gaps requiring formal modelling (26.1), Phase One empirical questions unanswerable before a live system (26.2), items assigned to MACRO as a Phase One successor (26.3), Governing Council calibration parameters settled in kind but open in value (26.4), and jurisdiction-specific and institutional preconditions that are not design gaps (26.5).
+This document is the canonical record of every question the companion paper series raises but does not close. Items are classified by group: confirmed literature gaps requiring formal modelling or comparative case-study work (§2), Phase One empirical questions unanswerable before a live system (§3), items assigned to MACRO as a Phase One successor (§4), Governing Council calibration parameters settled in kind but open in value (§5), and jurisdiction-specific and institutional preconditions that are not design gaps (§6).
 
-This document records which items are outside this project's scope and why, and flags which have subsequently received substantial treatment in later papers. The categorisation matters: different reasons for deferral carry different implications for what a reader or subsequent researcher should do with each item.
+The classification matters: different reasons for deferral carry different implications for what a reader or subsequent researcher should do with each item. Items not listed here are settled by a completed companion paper. The Project Map records which papers settle which questions; SCOPE records what they do not.
 
 # 2. Comparative Political Economy and International Coordination
 
@@ -40,6 +41,10 @@ This document records which items are outside this project's scope and why, and 
 **#8 — International competitive dynamic at the political level.** How sustained competitive pressure from other jurisdictions transmits through domestic political institutions to produce outcomes was underdeveloped in the project when SCOPE was first written. (INST §8) now provides a substantive treatment of memetic diffusion dynamics and the four response options available to non-adopting states. Formal comparative political economy research remains outstanding; (INST §10) assigns it to external collaboration. (LR.A §4.2) confirms the gap.
 
 **#9 — Minimum-tax floor interaction.** Whether a negative-tax year under the symmetric loss-refund mechanism constitutes a breach of an international minimum-tax floor obligation, and how multi-year averaging interacts with that floor, is a legal and treaty question no refund-based wealth tax has previously raised. No project paper has addressed this. Resolution requires the international legal and tax treaty community. (LR.A §4.3) confirms it as a literature gap.
+
+**#31 — Endogenous institutional pressure on developmental authoritarian states.** (INST §6.2) predicts that a developmental authoritarian state attempting to satisfy all four conditions for a stable large-scale wealth tax will generate the two-constituency accountability coalition through that attempt, narrowing the institutional distance between a stable WDT equilibrium and democratic governance with each assessment cycle. Whether this endogenous pressure materialises as predicted requires comparative political economy research across multiple cases. China's trajectory under the post-2012 Xi era is identified as consistent with the predicted mechanisms, but a single case cannot confirm a structural pattern. (INST §10, Cluster 4) assigns this to the external collaborative research programme.
+
+**#32 — Adoption diffusion dynamics under competitive pressure.** (INST §8) identifies four responses available to non-adopting states once a first mover's advantages are recognised under competitive pressure — adopt, suppress, race, conflict — and characterises their costs and dynamics by governance tier. Whether the predicted pattern of responses actually emerges is untestable before Phase One produces demonstrable outcomes that create the competitive pressure in the first place. This is not a Phase One empirical question about the WDT mechanism in operation; it is a structural prediction about interstate competitive dynamics that requires both Phase One outcomes and subsequent comparative observation. (INST §8) acknowledges this as a Tier C claim.
 
 # 3. Phase One Empirical Questions
 
@@ -70,6 +75,14 @@ Ten items cannot be resolved by further desk research. The conditions under whic
 ## 3.3 Systemic Risk Question
 
 **#30 — Bootstrapping problem: Phase One vulnerability window.** Whether the mitigation measures in (POL §6) are sufficient to hold the system through the Phase One vulnerability window is not verifiable by design analysis. (FAL H3 §5.5) characterises this as the hypothesis's most acute falsification territory and specifies the two paths available. Phase One is both the test and the only available test.
+
+## 3.4 Pre-Phase-One Analytical Deliverables
+
+These two items differ in kind from the questions in §3.1–§3.3. They do not require a live WDT system; they require only existing administrative datasets and the current model infrastructure. They are listed here rather than treated as settled because no companion paper has yet completed them.
+
+**#33 — Route D realisation event flow and LRR capitalisation window impact.** The RATES TCM models all taxpayers as generating annual delta revenue in each assessment period. Route D taxpayers generate no annual revenue during the holding period; all settlement defers to a realisation event. The fiscal consequence for the LRR fill timeline depends on the annual flow of Route D realisation events during the capitalisation window — a quantity the TCM does not currently model. The required data exists in principle across three sources: ONS mortality data cross-referenced with the upper-tail wealth distribution (deaths trigger inheritance settlement); HMRC transaction data on private company sales and commercial property disposals (the principal Route D asset classes); and the inheritance and estate settlement record. The SRR year-3 fill invariance result is unaffected, since the SRR target scales with observed net revenue. The LRR fill timeline is sensitive, since the LRR floor is fixed in real terms. A full microsimulation requires the HMRC data access agreement (see §6, #26); a directional estimate is constructible from publicly available ONS and transaction data before that agreement is in place. Assigned to RATES.A extension.
+
+**#34 — Population-weighted revenue calculation across the predicted α distribution.** The TCM assumes α = 1 throughout. The behavioural analysis predicts a population centre modestly above honest declaration, near α ≈ 1.1. No companion paper computes revenue under a population-weighted declaration distribution by bracket, though (RATES §9.7) argues the direction: systematic understatement and overstatement both produce higher annual revenue than the α = 1 baseline. The required extension is closable within the existing model infrastructure — partitioning each RATES bracket by a distribution of α values, running the TCM at each α, and weighting by predicted population density. The predicted mild-overstatement centre and the portfolio anchor constraint derived in (VAL §7.5) together bound the plausible α distribution for each bracket. Assigned to RATES.A extension and SWEEPS follow-on.
 
 # 4. Phase One Successor Tasks
 
@@ -113,8 +126,8 @@ These six items are not design gaps. The project has specified the relevant mech
 
 # 7. What This Document Is Not Doing
 
-Deferring these items is not a claim that they are unimportant. Several are consequential: the constitutional and legal analysis (#28) is a precondition for implementation in any specific jurisdiction; the bootstrapping vulnerability (#30) and the compliance and behavioural questions (#4–6) are the most consequential Phase One deliverables; the international treaty question (#9) has no project-internal resolution path.
+Deferring these items is not a claim that they are unimportant. Several are consequential: the constitutional and legal analysis (#28) is a precondition for implementation in any specific jurisdiction; the bootstrapping vulnerability (#30) and the compliance and behavioural questions (#4–6) are the most consequential Phase One deliverables; the international treaty question (#9) has no project-internal resolution path. Items #33 and #34 are the most immediately actionable: both are closable with existing data and model infrastructure, and #33 in particular has a directional bearing on LRR fill timeline projections in RATES.
 
-The project states its remaining limits plainly rather than leaving forward references that never arrive.
+The project states its remaining limits plainly rather than leaving forward references that never arrive. When a companion paper closes an item, the closure is recorded in the relevant paper's section summary and the item is removed from this register on the next revision.
 
 \newpage

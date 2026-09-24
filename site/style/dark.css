@@ -54,8 +54,133 @@ body.quarto-dark h4 { color: #a78bfa !important; }
 body.quarto-dark a         { color: #a78bfa !important; }
 body.quarto-dark a:visited { color: #c4b5fd !important; }
 body.quarto-dark a:hover   { color: #FFD700 !important; }
+body.quarto-dark a:active  { color: #FFD700 !important; }
+
+/* ── Navbar ───────────────────────────────────────────────── */
+/* Already dark purple in light mode; pinned here so darkly
+   theme cannot override with its own navbar colours.         */
+
+body.quarto-dark .navbar {
+  background-color: #1a0033 !important;
+  border-bottom-color: #FFD700 !important;
+}
+
+body.quarto-dark .navbar-brand,
+body.quarto-dark .navbar .nav-link,
+body.quarto-dark .navbar-nav .nav-link {
+  color: #FFD700 !important;
+}
+
+body.quarto-dark .navbar .nav-link:hover,
+body.quarto-dark .navbar-nav .nav-link:hover {
+  color: #FFFFFF !important;
+}
+
+/* ── Dropdown menus ───────────────────────────────────────── */
+
+body.quarto-dark .dropdown-menu {
+  background-color: #12121f !important;
+  border-color: #FFD700 !important;
+}
+
+body.quarto-dark .dropdown-item {
+  color: #FFD700 !important;
+  border-bottom-color: #1a1a2e !important;
+}
+
+body.quarto-dark .dropdown-item:hover,
+body.quarto-dark .dropdown-item:focus {
+  background-color: #1a1a2e !important;
+  color: #FFFFFF !important;
+}
+
+/* ── Sidebar ──────────────────────────────────────────────── */
+/* Same logic — already dark purple in light mode; pin it
+   so darkly cannot flip it to a lighter background.          */
+
+body.quarto-dark #quarto-sidebar,
+body.quarto-dark .sidebar,
+body.quarto-dark .sidebar-navigation {
+  background-color: #1a0033 !important;
+  border-right-color: #FFD700 !important;
+}
+
+body.quarto-dark .sidebar-navigation .sidebar-item-text,
+body.quarto-dark .sidebar-navigation a,
+body.quarto-dark .sidebar .nav-link {
+  color: #FFD700 !important;
+}
+
+body.quarto-dark .sidebar-navigation a:hover,
+body.quarto-dark .sidebar .nav-link:hover {
+  color: #FFFFFF !important;
+}
+
+body.quarto-dark .sidebar-navigation .sidebar-section-item,
+body.quarto-dark .sidebar-navigation .sidebar-item {
+  border-bottom-color: #3d0080 !important;
+}
+
+body.quarto-dark .sidebar-navigation .active > .nav-link,
+body.quarto-dark .sidebar-navigation .active > .sidebar-item-text {
+  color: #FFFFFF !important;
+}
+
+body.quarto-dark .sidebar-navigation .sidebar-section > .sidebar-item-text {
+  color: #FFD700 !important;
+  border-bottom-color: #FFD700 !important;
+}
+
+/* ── TOC (right margin sidebar) ───────────────────────────── */
+
+body.quarto-dark #quarto-margin-sidebar,
+body.quarto-dark .toc-active #TOC,
+body.quarto-dark nav#TOC {
+  background-color: #12121f !important;
+  border-left-color: #FFD700 !important;
+}
+
+body.quarto-dark #quarto-margin-sidebar .toc-actions,
+body.quarto-dark nav#TOC > h2,
+body.quarto-dark #quarto-margin-sidebar p.sidebar-title {
+  color: #FFD700 !important;
+}
+
+body.quarto-dark nav#TOC a,
+body.quarto-dark .toc-active #TOC a {
+  color: #c4b5fd !important;
+}
+
+body.quarto-dark nav#TOC a:hover {
+  color: #FFFFFF !important;
+}
+
+body.quarto-dark nav#TOC a.active,
+body.quarto-dark nav#TOC a:focus {
+  color: #FFFFFF !important;
+  border-left-color: #FFD700 !important;
+}
+
+body.quarto-dark nav#TOC .toc-section-number {
+  color: #6b6b8a !important;
+}
+
+body.quarto-dark nav#TOC .nav-link.active {
+  border-left-color: #FFD700 !important;
+  color: #FFFFFF !important;
+}
 
 /* ── Tables ───────────────────────────────────────────────── */
+
+body.quarto-dark table {
+  border-color: #3d0080 !important;
+}
+
+body.quarto-dark th {
+  background-color: #1a0033 !important;
+  color: #FFD700 !important;
+  border-color: #3d0080 !important;
+}
 
 body.quarto-dark td { border-color: #3d0080 !important; }
 
@@ -85,6 +210,61 @@ body.quarto-dark .callout {
   border-color: #3d0080 !important;
 }
 
+body.quarto-dark .callout-header {
+  background-color: #1a0033 !important;
+  color: #FFD700 !important;
+}
+
+/* Callout type borders — keep them distinguishable in dark mode */
+body.quarto-dark .callout-note     { border-color: #3d0080 !important; }
+body.quarto-dark .callout-tip      { border-color: #166534 !important; }
+body.quarto-dark .callout-warning  { border-color: #92400e !important; }
+body.quarto-dark .callout-important { border-color: #991b1b !important; }
+
+/* ── Page footer ──────────────────────────────────────────── */
+
+body.quarto-dark #quarto-footer,
+body.quarto-dark .nav-footer {
+  background-color: #0d0d1a !important;
+  border-top-color: #FFD700 !important;
+  color: #6b6b8a !important;
+}
+
+body.quarto-dark #quarto-footer a,
+body.quarto-dark .nav-footer a {
+  color: #FFD700 !important;
+}
+
+body.quarto-dark #quarto-footer a:visited,
+body.quarto-dark .nav-footer a:visited {
+  color: #c4b5fd !important;
+}
+
+/* ── Search ───────────────────────────────────────────────── */
+
+body.quarto-dark .quarto-search input {
+  background-color: #12121f !important;
+  color: #FFD700 !important;
+  border-color: #FFD700 !important;
+}
+
+body.quarto-dark .quarto-search input::placeholder {
+  color: #6b6b8a !important;
+}
+
+/* ── PDF download button ──────────────────────────────────── */
+
+body.quarto-dark .pdf-download {
+  background-color: #1a0033 !important;
+  color: #FFD700 !important;
+  border-color: #3d0080 !important;
+}
+
+body.quarto-dark .pdf-download:hover {
+  background-color: #3d0080 !important;
+  color: #FFFFFF !important;
+}
+
 /* ── Internal bibliography ────────────────────────────────── */
 
 body.quarto-dark .internal-bibliography {
@@ -111,9 +291,391 @@ body.quarto-dark .wdt-ref-cited a       { color: #c4b5fd !important; }
 body.quarto-dark .wdt-ref-cited a:hover { color: #FFD700 !important; }
 body.quarto-dark .wdt-ref-no-link       { color: #555 !important; }
 
+/* Reference type badge */
+body.quarto-dark .wdt-ref-type {
+  background-color: #1a0033 !important;
+  color: #FFD700 !important;
+  border-color: #3d0080 !important;
+}
+
+/* Verified tick — keep green but lighten for dark bg */
+body.quarto-dark .wdt-ref-verified {
+  color: #4ade80 !important;
+}
+
+/* ── Diagram tabset ───────────────────────────────────────── */
+
+body.quarto-dark .wdt-diagram-tabset {
+  background-color: #12121f !important;
+  border-color: #3d0080 !important;
+}
+
+body.quarto-dark .wdt-diagram-tabset .nav-tabs {
+  background-color: #1a0033 !important;
+  border-bottom-color: #FFD700 !important;
+}
+
+body.quarto-dark .wdt-diagram-tabset .nav-tabs .nav-link {
+  color: #FFD700 !important;
+  background-color: #12121f !important;
+  border-color: #3d0080 !important;
+}
+
+body.quarto-dark .wdt-diagram-tabset .nav-tabs .nav-link.active {
+  background-color: #1a1a2e !important;
+  color: #c4b5fd !important;
+  border-bottom-color: #1a1a2e !important;
+}
+
+body.quarto-dark .wdt-diagram-tabset .tab-pane {
+  background-color: #12121f !important;
+}
+
+/* ── Visitor counter ──────────────────────────────────────── */
+/* Black bg + green digits reads fine in dark mode already;
+   pin border so darkly doesn't flatten the inset effect.    */
+
+body.quarto-dark .wdt-counter {
+  border-color: #3d0080 !important;
+}
+
+body.quarto-dark .wdt-counter-label {
+  color: #6b6b8a !important;
+}
+
+/* wdt-counter-digits (#00FF00) intentionally unchanged —
+   retro green-on-black is the right dark-mode look.        */
+
+/* ── Under-construction banner ────────────────────────────── */
+/* Gold bg + black text is intentionally glaring; leave as-is
+   in dark mode — it's a warning, not a subtle element.      */
+
 /* ── HR ───────────────────────────────────────────────────── */
 
 body.quarto-dark hr {
   border-top-color: #3d0080 !important;
   border-bottom-color: #1a1a2e !important;
 }
+
+/* ============================================================
+   tools.css — dark overrides
+   Only properties using light-specific colours need overrides.
+   Anything using only var(--wdt-purple/gold) is fine as-is.
+   ============================================================ */
+
+/* ── Tool panel chrome ────────────────────────────────────── */
+
+body.quarto-dark .wdt-tool-panel {
+  background-color: #1a1a2e !important;
+  outline-color: #000 !important;
+}
+
+body.quarto-dark .wdt-tool-inner {
+  background-color: #12121f !important;
+  border-color: #3d0080 !important;
+}
+
+body.quarto-dark .wdt-tool-inner h1 {
+  background-color: #1a1a2e !important;
+}
+
+body.quarto-dark .wdt-tool-inner .subtitle {
+  color: #6b6b8a !important;
+}
+
+/* ── Loading / progress ───────────────────────────────────── */
+
+body.quarto-dark .wdt-tool-inner #loading {
+  background: #1a1a2e !important;
+}
+
+body.quarto-dark #progress-bar-wrap {
+  background: #1a0033 !important;
+}
+
+body.quarto-dark #progress-label {
+  color: #6b6b8a !important;
+}
+
+/* ── Controls ─────────────────────────────────────────────── */
+
+body.quarto-dark .control-group .note {
+  color: #6b6b8a !important;
+}
+
+body.quarto-dark .advanced-grid {
+  background: #1a1a2e !important;
+}
+
+/* ── Mode toggle (inactive button state) ──────────────────── */
+
+body.quarto-dark .mode-toggle button {
+  background: #1a1a2e !important;
+  border-color: #3d0080 !important;
+  color: #c4b5fd !important;
+}
+
+/* active state already has purple bg + gold text — fine as-is */
+
+/* ── Run button disabled state ────────────────────────────── */
+
+body.quarto-dark button#run-btn:disabled {
+  background: #2a2a3e !important;
+  color: #6b6b8a !important;
+}
+
+/* ── Summary boxes ────────────────────────────────────────── */
+
+body.quarto-dark .box {
+  background: #1a1a2e !important;
+}
+
+body.quarto-dark .box .box-sub {
+  color: #6b6b8a !important;
+}
+
+/* ── Bar chart ────────────────────────────────────────────── */
+
+body.quarto-dark .bar-label,
+body.quarto-dark .bar-amount {
+  color: #d4d0e8 !important;
+}
+
+body.quarto-dark .bar-track {
+  background: #1a1a2e !important;
+  border-color: #3d0080 !important;
+}
+
+/* HMRC comparison bar: silver on light → muted purple on dark */
+body.quarto-dark .bar-fill.hmrc {
+  background: #3d0080 !important;
+  border-right-color: #6b6b8a !important;
+}
+
+/* ── Stat rows (taxpayer results) ─────────────────────────── */
+
+body.quarto-dark .stat-row {
+  border-bottom-color: #3d0080 !important;
+}
+
+body.quarto-dark .stat-row .lbl {
+  color: #6b6b8a !important;
+}
+
+body.quarto-dark .stat-row .num.neutral {
+  color: #d4d0e8 !important;
+}
+
+/* ── Results panels ───────────────────────────────────────── */
+
+body.quarto-dark .panel {
+  background: #1a1a2e !important;
+}
+
+/* ── Sell row ─────────────────────────────────────────────── */
+
+body.quarto-dark tr.sell-row {
+  background: #1a1a0a !important; /* very dark warm yellow tint */
+}
+
+/* ── SWF boxes ────────────────────────────────────────────── */
+
+body.quarto-dark .swf-box {
+  background: #1a1a2e !important;
+  border-color: #3d0080 !important;
+}
+
+/* ── Total row ────────────────────────────────────────────── */
+
+body.quarto-dark .total-row {
+  background: #1a1a2e !important;
+}
+
+/* ── Tool index cards ─────────────────────────────────────── */
+
+body.quarto-dark .tool-card {
+  background: #1a1a2e !important;
+  border-color: #3d0080 !important;
+}
+
+body.quarto-dark .tool-card:hover {
+  background: #210040 !important;
+  border-color: #FFD700 !important;
+}
+
+body.quarto-dark .tool-card p {
+  color: #6b6b8a !important;
+}
+
+/* Tag badges — replace light pastels with dark equivalents */
+body.quarto-dark .tag-blue   {
+  background: #1e3a5f !important;
+  color: #93c5fd !important;
+}
+
+body.quarto-dark .tag-purple {
+  background: #2e1065 !important;
+  color: #c4b5fd !important;
+}
+
+/* ============================================================
+   page-components.css — dark overrides
+   ============================================================ */
+
+/* ── Per-paper metadata bar ───────────────────────────────── */
+
+body.quarto-dark .paper-meta {
+  background-color: #1a1a2e !important;
+  border-color: #3d0080 !important;
+  color: #d4d0e8 !important;
+}
+
+body.quarto-dark .paper-meta strong {
+  color: #d4d0e8 !important;
+}
+
+/* ── Welcome hero ─────────────────────────────────────────── */
+
+body.quarto-dark .wdt-hero-tagline {
+  color: #d4d0e8 !important;
+}
+
+body.quarto-dark .wdt-hero-meta {
+  color: #6b6b8a !important;
+}
+
+body.quarto-dark .wdt-diagram-caption {
+  color: #6b6b8a !important;
+}
+
+/* ── SWF flow block ───────────────────────────────────────── */
+
+body.quarto-dark .wdt-flow {
+  background: #1a1a2e !important;
+  color: #d4d0e8 !important;
+}
+
+/* ── Argument spine ───────────────────────────────────────── */
+
+body.quarto-dark .wdt-argument-spine {
+  background: #1a1a2e !important;
+}
+
+body.quarto-dark .wdt-spine-intro {
+  color: #6b6b8a !important;
+}
+
+body.quarto-dark .wdt-spine-if {
+  color: #6b6b8a !important;
+}
+
+body.quarto-dark .wdt-spine-then {
+  color: #d4d0e8 !important;
+}
+
+/* ── Programme header ─────────────────────────────────────── */
+
+body.quarto-dark .wdt-programme-header {
+  color: #6b6b8a !important;
+}
+
+body.quarto-dark .wdt-programme-header strong {
+  color: #d4d0e8 !important;
+}
+
+/* ── Paper list ───────────────────────────────────────────── */
+
+body.quarto-dark .wdt-paper-list {
+  border-color: #3d0080 !important;
+}
+
+body.quarto-dark .wdt-paper-item {
+  border-bottom-color: #3d0080 !important;
+}
+
+body.quarto-dark .wdt-paper-item:nth-child(even) {
+  background: #1a1a2e !important;
+}
+
+body.quarto-dark .wdt-paper-question {
+  color: #d4d0e8 !important;
+}
+
+body.quarto-dark .wdt-paper-code {
+  color: #6b6b8a !important;
+}
+
+/* ── Open questions ───────────────────────────────────────── */
+
+body.quarto-dark .wdt-open-questions {
+  background: #12121f !important;
+}
+
+body.quarto-dark .wdt-oq-intro {
+  color: #6b6b8a !important;
+}
+
+body.quarto-dark .wdt-oq-item {
+  border-bottom-color: #3d0080 !important;
+}
+
+/* ── FAQ ──────────────────────────────────────────────────── */
+
+body.quarto-dark .wdt-faq-refs {
+  color: #6b6b8a !important;
+  border-top-color: #3d0080 !important;
+}
+
+body.quarto-dark p.wdt-faq-nav {
+  color: #6b6b8a !important;
+}
+
+/* ── Author disclosure ────────────────────────────────────── */
+
+body.quarto-dark .paper-disclosure {
+  background-color: #1a1a2e !important;
+  color: #6b6b8a !important;
+  border-color: #3d0080 !important;
+}
+
+/* ── Webring ──────────────────────────────────────────────── */
+
+body.quarto-dark .wdt-webring {
+  background-color: #1a1a2e !important;
+}
+
+body.quarto-dark .wdt-webring-hex {
+  color: #6b6b8a !important;
+}
+
+/* ── Avoidance page ───────────────────────────────────────── */
+
+body.quarto-dark .avoid-intro {
+  background: #1a1a0a !important; /* very dark warm yellow tint — matches sell-row */
+  color: #d4d0e8 !important;
+}
+
+body.quarto-dark .strategy-body {
+  color: #d4d0e8 !important;
+}
+
+body.quarto-dark .mechanic {
+  background: #12121f !important;
+  color: #d4d0e8 !important;
+  border-color: #3d0080 !important;
+}
+
+body.quarto-dark .verdict-box {
+  background: #12121f !important;
+  color: #d4d0e8 !important;
+}
+
+/* Keep limited (green) and blocked (red) borders as-is —
+   they're semantic colours that work on dark backgrounds.
+   Moderate (amber) needs lightening to stay readable.    */
+body.quarto-dark .verdict-box.moderate {
+  border-top-color: #d97706 !important; /* amber-400 — lighter than #b45309 */
+}
+
+/* ── Netscape badge ───────────────────────────────────────── */
+/* Intentional retro colours — left unchanged in dark mode.   */
