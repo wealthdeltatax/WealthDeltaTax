@@ -152,17 +152,16 @@ def _rescue_figure_divs(text: str) -> str:
         if image_lines:
             parts.append("\n".join(image_lines))
         if caption_lines:
-            # Wrap in the same small-italic raw LaTeX as Pattern B captions.
-            # Convert **bold** → \textup{\textbf{…}} so cross-refs render
-            # upright-bold rather than bold-italic inside \itshape.
+            # Wrap caption in inline raw_tex size/italic commands.
+            # Pandoc processes the markdown content normally (links, math, bold)
+            # before the surrounding LaTeX commands reach lualatex — so markdown
+            # links with # anchors are converted to \href{} and never hit LaTeX raw.
+            # \begingroup…\endgroup scopes the font change to this paragraph only.
             caption_text = "\n".join(caption_lines)
-            caption_text = re.sub(r'\*\*(.+?)\*\*', r'\\textup{\\textbf{\1}}', caption_text)
             caption_block = (
-                "```{=latex}\n"
-                "{\\small\\itshape \n"
-                + caption_text + "\n"
-                + "}\n"
-                "```"
+                r"`\begingroup\small\itshape`{=latex} "
+                + caption_text + " "
+                + r"`\endgroup`{=latex}"
             )
             parts.append(caption_block)
         return "\n\n".join(parts) + "\n"
@@ -395,9 +394,11 @@ def _extract_image_captions(text: str) -> str:
     these are the hand-written captions. Empty alt text and short descriptive
     alt text (accessibility labels, not captions) are left alone.
 
-    Captions are emitted as a raw LaTeX block so that \small and \itshape
-    apply without interfering with any inline LaTeX math or bold spans the
-    caption may contain. The pandoc raw_tex extension handles this transparently.
+    Captions are emitted as a normal markdown paragraph bracketed by inline
+    raw_tex commands (\\begingroup\\small\\itshape … \\endgroup). Pandoc
+    processes the markdown content — links, math, bold — before the surrounding
+    LaTeX commands reach lualatex, so # anchors in cross-ref URLs are never
+    exposed as bare characters in LaTeX horizontal mode.
     """
     # Process line by line to avoid multiline confusion; image lines that span
     # multiple lines (alt text with \n) are handled by re.DOTALL on the inner match.
@@ -423,20 +424,20 @@ def _extract_image_captions(text: str) -> str:
                 # Count lines consumed by the full match
                 consumed = m.group(0).count('\n')
                 if re.match(r'(?i)^figure\b', alt):
-                    # Emit image with empty alt, then caption styled via raw LaTeX.
-                    # \small\itshape: slightly smaller than body text, italic.
-                    # **bold** → \textup{\textbf{…}} so cross-refs render upright-bold
-                    # rather than bold-italic inside the \itshape group.
-                    # Normalise any internal newlines in the alt text to spaces first.
+                    # Emit image with empty alt, then caption as a markdown paragraph
+                    # wrapped in inline raw_tex size/italic commands.
+                    # Pandoc processes the caption markdown normally (resolving links,
+                    # math, bold) before the LaTeX commands reach lualatex — so
+                    # markdown links with # anchors become \href{} and never hit
+                    # LaTeX as bare # characters. Normalise internal newlines first.
                     caption = re.sub(r'\s+', ' ', alt)
-                    caption = re.sub(r'\*\*(.+?)\*\*', r'\\textup{\\textbf{\1}}', caption)
                     out.append(f'![]({path}){attrs}')
                     out.append('')
-                    out.append(r'```{=latex}')
-                    out.append(r'{\small\itshape ')
-                    out.append(caption)
-                    out.append(r'}')
-                    out.append(r'```')
+                    out.append(
+                        r'`\begingroup\small\itshape`{=latex} '
+                        + caption + ' '
+                        + r'`\endgroup`{=latex}'
+                    )
                     i += consumed + 1
                     continue
         out.append(line)
