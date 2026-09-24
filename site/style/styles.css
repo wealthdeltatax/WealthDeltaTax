@@ -523,19 +523,26 @@ pre {
 }
 
 /* ── Inline citation click area ──────────────────────────────────────── */
-/* Quarto's CSL processor links only the year; this makes the whole
-   Author (Year) span clickable and visually consistent.               */
+/* Quarto links only the year; these rules make the whole Author (Year)
+   span look and behave like a single link in the canonical body colours.
+   No special hover colour — just the standard underline, matching every
+   other link on the page.                                               */
 span.citation {
   cursor: pointer;
+  color: #0000EE;              /* same as body a {} */
 }
 span.citation a {
-  text-decoration: none;
-  color: inherit;
+  color: #0000EE;              /* override Quarto's default year colour */
+  text-decoration: none;       /* suppress underline on year alone */
+}
+span.citation:visited,
+span.citation a:visited {
+  color: #551a8b;              /* same as body a:visited */
 }
 span.citation:hover,
 span.citation:hover a {
-  text-decoration: underline;
-  color: var(--wdt-accent);
+  color: #0000EE;              /* stay blue on hover (no accent shift) */
+  text-decoration: underline;  /* underline the whole span, not just year */
 }
 
 /* ── WDT: PDF download button ─────────────────────────────── */
