@@ -363,6 +363,16 @@
     }
 
   };
-
+  // Expand inline citation click area to cover Author + (Year), not just Year
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('span.citation').forEach(function (span) {
+      span.addEventListener('click', function (e) {
+        if (e.target.tagName !== 'A') {
+          var a = span.querySelector('a[role="doc-biblioref"]');
+          if (a) a.click();
+        }
+      });
+    });
+  });
 })();
 </script>

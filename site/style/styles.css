@@ -522,6 +522,21 @@ pre {
   font-family: "Times New Roman", Times, serif;
 }
 
+/* ── Inline citation click area ──────────────────────────────────────── */
+/* Quarto's CSL processor links only the year; this makes the whole
+   Author (Year) span clickable and visually consistent.               */
+span.citation {
+  cursor: pointer;
+}
+span.citation a {
+  text-decoration: none;
+  color: inherit;
+}
+span.citation:hover,
+span.citation:hover a {
+  text-decoration: underline;
+  color: var(--wdt-accent);
+}
 
 /* ── WDT: PDF download button ─────────────────────────────── */
 
