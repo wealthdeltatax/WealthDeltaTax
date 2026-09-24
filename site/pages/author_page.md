@@ -31,11 +31,11 @@ Correspondence via [wealthdeltatax@gmail.com](mailto:wealthdeltatax@gmail.com)
 
 ## Find the project
 
-- [Bluesky (@wealthdeltatax)](https://bsky.app/profile/wealthdeltatax.bsky.social)
-- [GitHub (wealthdeltatax)](https://github.com/wealthdeltatax)
-- [Twitter / X (@wealthdeltatax)](https://x.com/wealthdeltatax)
-- [YouTube (@wealthdeltatax)](https://youtube.com/@wealthdeltatax)
-- [Instagram (@wealthdeltatax)](https://www.instagram.com/wealthdeltatax/)
+- Bluesky [@wealthdeltatax](https://bsky.app/profile/wealthdeltatax.bsky.social)
+- GitHub [wealthdeltatax](https://github.com/wealthdeltatax)
+- Twitter / X [@wealthdeltatax](https://x.com/wealthdeltatax)
+- YouTube [@wealthdeltatax](https://youtube.com/@wealthdeltatax)
+- Instagram [@wealthdeltatax](https://www.instagram.com/wealthdeltatax/)
 
 ---
 

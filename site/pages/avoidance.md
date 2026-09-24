@@ -20,15 +20,35 @@ The reason this page can exist is also the most important thing on it: the optim
 
 ## How your liability is calculated
 
-The WDT taxes changes in declared net worth, not net worth itself. Each period, you declare a wealth figure W. If it has risen since last period, you pay:
+The WDT taxes changes in declared net worth, not net worth itself. Each period, you declare a wealth figure \(W\). If it has risen since the last period, you pay:
 
-```
-L = τ(W) × ΔW    where ΔW = W_current − W_previous
-```
+$$
+L = \tau(W)\cdot\Delta W
+$$
 
-If it has fallen, the state pays you a refund at the same rate. Total lifetime refunds cannot exceed total lifetime taxes paid — this is the lifetime contribution envelope, and it matters for two of the strategies below.
+where
 
-The rate function τ(W) is a logistic curve rising from a floor of 15% to a ceiling of 70%, above an entry threshold of £2m at canonical parameters. The curve is nearly flat through the first several hundred million pounds of wealth: at £20m you are paying close to the floor rate. The ceiling only bites at extreme wealth and over long holding periods. This shape is load-bearing for understanding where the real costs concentrate.
+$$
+\Delta W = W_{\mathrm{current}}-W_{\mathrm{previous}}
+$$
+
+and $\tau(W)$ is the applicable WDT rate at the relevant wealth level.
+
+If it has fallen, the state pays you a refund at the same rate. Total lifetime refunds cannot exceed total lifetime taxes paid. This is the lifetime contribution envelope, and it matters for two of the strategies below.
+
+The rate function $\tau(W)$ is a logistic curve rising from a floor of 15% to a ceiling of 70%, above an entry threshold of £2m at canonical parameters. The curve is nearly flat through the first several hundred million pounds of wealth: at £20m you are paying close to the floor rate. The ceiling only bites at extreme wealth and over long holding periods. This shape is load-bearing for understanding where the real costs concentrate.
+
+In simplified form, the liability calculation is therefore:
+
+$$
+L =
+\begin{cases}
+\tau(W)\cdot\Delta W, & \Delta W>0\\[4pt]
+0, & \Delta W\leq0
+\end{cases}
+$$
+
+with a corresponding refund when $\Delta W<0$, subject to the lifetime contribution envelope.
 
 One more thing before the strategies: the assessment is on *declared* net worth, not independently verified net worth. What you declare establishes the legally recognised basis from which all future deltas are calculated. This is intentional. It is also the source of most of what follows.
 
