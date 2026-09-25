@@ -228,16 +228,66 @@ def inject_front_matter(
 
     # Build the optional PDF download button (right-hand side of the meta bar).
     # Only rendered when zenodo_doi is present in the paper's YAML front matter.
+    title        = meta.get("title", shortcode)
+    iso_date     = meta.get("version_date", "")
+    year         = iso_date[:4] if iso_date else date_display[-4:] if date_display else "—"
+    doi_url      = f"https://doi.org/{zenodo_doi}" if zenodo_doi else ""
+
     if zenodo_doi:
         pdf_button = (
             f'<a class="pdf-download" '
-            f'href="https://doi.org/{zenodo_doi}" '
+            f'href="{doi_url}" '
             f'target="_blank" rel="noopener">&#11015; Download PDF</a>'
         )
     else:
         pdf_button = ""
 
-    # Use a raw HTML block so we can flex the meta text left and button right.
+    # Cite panel — pure CSS details/summary, no external JS.
+    # Copy buttons use a minimal inline onclick (clipboard API only; no framework).
+    # The panel is only rendered when a DOI is available (needed for a citable URL).
+    if zenodo_doi:
+        apa_text = (
+            f"{AUTHOR} ({year}). {title} (v{version}). "
+            f"Wealth Delta Tax Research Programme. {doi_url}"
+        )
+        bibtex_key  = f"ogata{year}_{shortcode.replace('.', '')}"
+        bibtex_text = (
+            f"@article{{{bibtex_key},\n"
+            f"  author  = {{{AUTHOR}}},\n"
+            f"  title   = {{{title}}},\n"
+            f"  year    = {{{year}}},\n"
+            f"  version = {{{version}}},\n"
+            f"  url     = {{{doi_url}}}\n"
+            f"}}"
+        )
+        # Escape braces for f-string safety in the HTML onclick handlers
+        apa_js     = apa_text.replace("\\", "\\\\").replace("'", "\\'")
+        bibtex_js  = bibtex_text.replace("\\", "\\\\").replace("'", "\\'").replace("\n", "\\n")
+
+        cite_panel = (
+            f'<details class="cite-panel">\n'
+            f'  <summary class="pdf-download">&#8220; Cite</summary>\n'
+            f'  <div class="cite-dropdown">\n'
+            f'    <div class="cite-section-label">APA</div>\n'
+            f'    <div class="cite-block">'
+            f'<span class="cite-text">{apa_text}</span>'
+            f'<button class="cite-copy" onclick="navigator.clipboard.writeText(\'{apa_js}\')" '
+            f'title="Copy APA citation">&#10003; Copy</button>'
+            f'</div>\n'
+            f'    <div class="cite-section-label">BibTeX</div>\n'
+            f'    <div class="cite-block cite-block--code">'
+            f'<pre class="cite-text">{bibtex_text}</pre>'
+            f'<button class="cite-copy" onclick="navigator.clipboard.writeText(\'{bibtex_js}\')" '
+            f'title="Copy BibTeX entry">&#10003; Copy</button>'
+            f'</div>\n'
+            f'  </div>\n'
+            f'</details>\n'
+        )
+    else:
+        cite_panel = ""
+
+    # Use a raw HTML block so we can flex the meta text left and buttons right.
+    # The buttons group (pdf + cite) sits together on the right via a flex wrapper.
     # Falls back gracefully when no DOI is set (button slot is simply empty).
     meta_block = (
         f'\n```{{=html}}\n'
@@ -247,7 +297,10 @@ def inject_front_matter(
         f' &ensp;|&ensp; <strong>Date:</strong> {date_display}'
         f' &ensp;|&ensp; <strong>Word count:</strong> {word_count:,} (excl. front matter)'
         f'</span>\n'
-        f'  {pdf_button}\n'
+        f'  <div class="paper-meta-buttons">\n'
+        f'    {pdf_button}\n'
+        f'    {cite_panel}'
+        f'  </div>\n'
         f'</div>\n'
         f'```\n'
     )
