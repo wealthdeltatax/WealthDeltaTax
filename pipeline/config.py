@@ -283,6 +283,7 @@ def extract_paper_meta(src_path: Path) -> dict[str, Any] | None:
         "version_date":         version_date,         # ISO or None
         "version_date_display": version_date_display, # human-readable
         "word_count":           word_count,
+        "zenodo_doi":           fm.get("zenodo_doi", ""),
     }
 
 
