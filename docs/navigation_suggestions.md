@@ -32,3 +32,15 @@ If I had to prioritise: the topic researchacross the series and the navigational
 The cross-link corrections just completed are necessary but not sufficient. They ensure that when a link exists it points correctly. They don't ensure that the right links exist, or that a reader without a specific section in mind can find their way in.
 
 Would you like me to draft any of these — the topic research front matter templates, or a dependency map — as working documents?
+
+Immediate (under an hour each)
+
+@media print stylesheet — 20 lines of CSS that hides nav/sidebar/footer and reformats for print. Costs nothing, makes every paper printable cleanly from the browser as a fallback. You already discussed this.
+Open Graph image — right now social shares (LinkedIn, Twitter/X) show a blank preview. A single static 1200×630px purple/gold image with "The Wealth Delta Tax" on it, added to _quarto.yml as og:image, transforms how the site looks when shared. One image file, one config line.
+<meta name="description"> per paper — Quarto injects the YAML description: field into the page <head>. You could add a one-sentence abstract as description: to each paper's front matter and extract_paper_meta() would pass it through. Google uses this in search snippets — currently every paper probably shows the same generic site description.
+
+Small build change, meaningful payoff
+
+Revision history page auto-generation — revision_history.md is currently hand-maintained. The revision tables are already machine-readable in every source .md (you parse them in extract_paper_meta()). A small generator could produce this page automatically on every build, guaranteeing it's never stale.
+"Cite this paper" block — inject a pre-formatted citation (APA + BibTeX) into each paper page alongside the download button. Readers copy it directly. The data is all already in paper_meta. High value for an academic audience, maybe 30 lines of code.
+sitemap.xml verification — Quarto generates one automatically but it's worth fetching https://wealthdeltatax.org/sitemap.xml to confirm all 26 papers are in it and the URLs are correct. If any are missing, Google isn't indexing them.

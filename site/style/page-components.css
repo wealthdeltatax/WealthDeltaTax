@@ -795,3 +795,120 @@ p.wdt-faq-nav a:hover {
   .strategy-body  { padding: 0.75rem; }
   .avoid-intro    { padding: 0.9rem; }
 }
+
+/* ── Paper meta bar buttons ──────────────────────────────────────────────── */
+
+.paper-meta-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* ── Cite panel — checkbox toggle (Quarto-safe, no JS) ───────────────────── */
+/*
+ * Pattern:
+ *   .cite-panel                 — relative wrapper (positions the dropdown)
+ *   .cite-toggle-input          — hidden checkbox; tracks open/closed state
+ *   .cite-toggle-label          — styled as .pdf-download button; click toggles
+ *   .cite-dropdown              — hidden by default; shown when checkbox :checked
+ */
+
+.cite-panel {
+  position: relative;
+  display: inline-block;
+}
+
+/* Hide the checkbox itself — interaction is via the <label> */
+.cite-toggle-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* The dropdown panel — hidden by default */
+.cite-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  z-index: 200;
+  width: 480px;
+  background: #F5F0FF;
+  border: 2px solid #2B0055;
+  outline: 1px solid #000;
+  padding: 0.75rem 0.9rem;
+  box-shadow: 3px 3px 0 #000;
+}
+
+/* Show dropdown when checkbox is checked */
+.cite-toggle-input:checked ~ .cite-dropdown {
+  display: block;
+}
+
+/* Depress the label button visually when panel is open */
+.cite-toggle-input:checked ~ .cite-toggle-label {
+  background-color: #3d0080;
+  color: #fff !important;
+  border-style: inset;
+}
+
+.cite-section-label {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #2B0055;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+.cite-section-label:first-child {
+  margin-top: 0;
+}
+
+.cite-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  background: #fff;
+  border: 1px solid #C0C0C0;
+  padding: 0.4rem 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.cite-text {
+  flex: 1;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #1a0033;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+pre.cite-text {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+}
+
+.cite-copy {
+  flex-shrink: 0;
+  padding: 0.2rem 0.5rem;
+  background: #2B0055;
+  color: #FFD700;
+  border: 1px outset #808080;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.cite-copy:hover {
+  background: #3d0080;
+  color: #fff;
+  border-style: inset;
+}

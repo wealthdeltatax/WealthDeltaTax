@@ -226,12 +226,13 @@ def inject_front_matter(
     date_display     = meta.get("version_date_display", "—")
     zenodo_doi       = meta.get("zenodo_doi", "")
 
-    # Build the optional PDF download button (right-hand side of the meta bar).
+    # Build the optional PDF download button and cite panel.
+    # Both sit on the right of the meta bar inside a flex wrapper.
     # Only rendered when zenodo_doi is present in the paper's YAML front matter.
-    title        = meta.get("title", shortcode)
-    iso_date     = meta.get("version_date", "")
-    year         = iso_date[:4] if iso_date else date_display[-4:] if date_display else "—"
-    doi_url      = f"https://doi.org/{zenodo_doi}" if zenodo_doi else ""
+    title    = meta.get("title", shortcode)
+    iso_date = meta.get("version_date", "")
+    year     = iso_date[:4] if iso_date else date_display[-4:] if date_display else "—"
+    doi_url  = f"https://doi.org/{zenodo_doi}" if zenodo_doi else ""
 
     if zenodo_doi:
         pdf_button = (
@@ -242,10 +243,24 @@ def inject_front_matter(
     else:
         pdf_button = ""
 
-    # Cite panel — pure CSS details/summary, no external JS.
-    # Copy buttons use a minimal inline onclick (clipboard API only; no framework).
-    # The panel is only rendered when a DOI is available (needed for a citable URL).
+    # Cite panel — pure CSS checkbox toggle, no JS, Quarto-safe.
+    #
+    # <details>/<summary> is unreliable inside Quarto {=html} raw blocks because
+    # Quarto's HTML post-processor partially re-parses raw blocks and strips the
+    # disclosure behaviour. A hidden checkbox + label toggle is fully inert to
+    # Quarto's parser and works identically in all modern browsers.
+    #
+    # Pattern:
+    #   <input type="checkbox" id="cite-{sc}">   ← hidden, tracks open/closed state
+    #   <label for="cite-{sc}">❝ Cite</label>   ← styled as button; click toggles checkbox
+    #   <div class="cite-dropdown">...</div>     ← shown via CSS :checked sibling selector
+    #
+    # Copy buttons use a single inline onclick (navigator.clipboard — no framework needed).
+    # The panel is only rendered when a DOI is available.
     if zenodo_doi:
+        # Use shortcode as unique ID suffix so multiple papers on one page don't collide
+        sc_id = shortcode.replace(".", "-")
+
         apa_text = (
             f"{AUTHOR} ({year}). {title} (v{version}). "
             f"Wealth Delta Tax Research Programme. {doi_url}"
@@ -260,34 +275,38 @@ def inject_front_matter(
             f"  url     = {{{doi_url}}}\n"
             f"}}"
         )
-        # Escape braces for f-string safety in the HTML onclick handlers
-        apa_js     = apa_text.replace("\\", "\\\\").replace("'", "\\'")
-        bibtex_js  = bibtex_text.replace("\\", "\\\\").replace("'", "\\'").replace("\n", "\\n")
 
+        # Escape for use inside JS string literals in onclick attributes
+        apa_js    = apa_text.replace("\\", "\\\\").replace("'", "\\'")
+        bibtex_js = bibtex_text.replace("\\", "\\\\").replace("'", "\\'").replace("\n", "\\n")
+
+        # HTML entity for left double quotation mark: ❝
         cite_panel = (
-            f'<details class="cite-panel">\n'
-            f'  <summary class="pdf-download">&#8220; Cite</summary>\n'
+            f'<div class="cite-panel">\n'
+            f'  <input type="checkbox" id="cite-toggle-{sc_id}" class="cite-toggle-input">\n'
+            f'  <label for="cite-toggle-{sc_id}" class="pdf-download cite-toggle-label">&#10077; Cite</label>\n'
             f'  <div class="cite-dropdown">\n'
             f'    <div class="cite-section-label">APA</div>\n'
-            f'    <div class="cite-block">'
-            f'<span class="cite-text">{apa_text}</span>'
-            f'<button class="cite-copy" onclick="navigator.clipboard.writeText(\'{apa_js}\')" '
-            f'title="Copy APA citation">&#10003; Copy</button>'
-            f'</div>\n'
+            f'    <div class="cite-block">\n'
+            f'      <span class="cite-text">{apa_text}</span>\n'
+            f'      <button class="cite-copy" '
+            f'onclick="navigator.clipboard.writeText(\'{apa_js}\')" '
+            f'title="Copy APA citation">&#10003; Copy</button>\n'
+            f'    </div>\n'
             f'    <div class="cite-section-label">BibTeX</div>\n'
-            f'    <div class="cite-block cite-block--code">'
-            f'<pre class="cite-text">{bibtex_text}</pre>'
-            f'<button class="cite-copy" onclick="navigator.clipboard.writeText(\'{bibtex_js}\')" '
-            f'title="Copy BibTeX entry">&#10003; Copy</button>'
-            f'</div>\n'
+            f'    <div class="cite-block cite-block--code">\n'
+            f'      <pre class="cite-text">{bibtex_text}</pre>\n'
+            f'      <button class="cite-copy" '
+            f'onclick="navigator.clipboard.writeText(\'{bibtex_js}\')" '
+            f'title="Copy BibTeX entry">&#10003; Copy</button>\n'
+            f'    </div>\n'
             f'  </div>\n'
-            f'</details>\n'
+            f'</div>\n'
         )
     else:
         cite_panel = ""
 
     # Use a raw HTML block so we can flex the meta text left and buttons right.
-    # The buttons group (pdf + cite) sits together on the right via a flex wrapper.
     # Falls back gracefully when no DOI is set (button slot is simply empty).
     meta_block = (
         f'\n```{{=html}}\n'
