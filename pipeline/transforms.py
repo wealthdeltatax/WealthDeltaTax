@@ -314,7 +314,7 @@ def inject_front_matter(
         f'  <span class="paper-meta-text">'
         f'<strong>Version:</strong> {version}'
         f' &ensp;|&ensp; <strong>Date:</strong> {date_display}'
-        f' &ensp;|&ensp; <strong>Word count:</strong> {word_count:,} (excl. front matter)'
+        f' &ensp;|&ensp; <strong>Word count:</strong> {word_count:,}'
         f'</span>\n'
         f'  <div class="paper-meta-buttons">\n'
         f'    {pdf_button}\n'
