@@ -134,20 +134,22 @@ p {
   background-color: transparent;
 }
 
-/* ── Navbar items — spread evenly on large screens ── */
-@media (min-width: 992px) {
-  .navbar-nav {
-    width: 100%;
-    justify-content: space-evenly;
-  }
+/* ── Navbar brand — prevent truncation on small screens ── */
+.navbar .navbar-brand {
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  min-width: max-content !important;
+  flex-shrink: 0 !important;
 }
 
-/* ── Navbar brand — prevent truncation on small screens ── */
-.navbar-brand {
-  white-space: nowrap;
-  overflow: visible;
-  min-width: max-content;
-  flex-shrink: 0;
+/* ── Navbar items — spread evenly on large screens ── */
+@media (min-width: 992px) {
+  .navbar-collapse .navbar-nav,
+  .navbar .navbar-collapse .navbar-nav {
+    flex: 1 1 auto;
+    justify-content: space-evenly !important;
+  }
 }
 
 

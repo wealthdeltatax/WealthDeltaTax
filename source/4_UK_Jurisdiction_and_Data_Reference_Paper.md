@@ -410,13 +410,13 @@ No items in this paper.
 
 ## 4.2 Phase One empirical unknowns
 
-Whether the actual OBR meets the structural properties requires of the SWF Custodian — statutory independence, long overlapping non-renewable tenure, stewardship statements creating a ratcheting reputational commitment, no role in setting the inputs against which its performance is scored — requires empirical assessment of specific episodes unavailable at the design stage. (GOV §6.3) resolves the structural question; the empirical mapping is assigned to Phase One.
+Whether the actual OBR meets the structural properties requires of the SWF Custodian — statutory independence, long overlapping non-renewable tenure, stewardship statements creating a ratcheting reputational commitment, no role in setting the inputs against which its performance is scored — requires empirical assessment of specific episodes unavailable at the design stage. (GOV §6.3) resolves the structural question; the empirical mapping is assigned to Phase One (SCOPE §3.2, #14).
 
 ## 4.3 Jurisdiction-specific legal and implementation work
 
-**HMRC data access.** A formal HMRC data access arrangement requires institutional affiliation or partnership with an established research body. It is a precondition for revenue microsimulation rather than a Phase One output; until it exists, revenue projections rely on publicly available statistics with acknowledged data limitations.
+**HMRC data access.** A formal HMRC data access arrangement requires institutional affiliation or partnership with an established research body. It is a precondition for revenue microsimulation rather than a Phase One output; until it exists, revenue projections rely on publicly available statistics with acknowledged data limitations (SCOPE §6) #26.
 
-**Post-Brexit information exchange.** The UK's loss of DAC access and EU beneficial ownership register interconnection leaves a residual gap concentrated in EU-domiciled holding structures, particularly Luxembourg and Netherlands vehicles. CRS continues to cover the majority of offshore financial account information. Behavioural response modelling should treat this as a scenario-analysis input, not a point estimate.
+**Post-Brexit information exchange.** The UK's loss of DAC access and EU beneficial ownership register interconnection leaves a residual gap concentrated in EU-domiciled holding structures, particularly Luxembourg and Netherlands vehicles. CRS continues to cover the majority of offshore financial account information. Behavioural response modelling should treat this as a scenario-analysis input, not a point estimate (SCOPE §6), #27.
 
 ## 4.4 Structural and irreducible limits of the design
 
