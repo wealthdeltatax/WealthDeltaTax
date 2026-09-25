@@ -224,13 +224,32 @@ def inject_front_matter(
     version          = meta.get("version", "—")
     word_count       = meta.get("word_count", 0)
     date_display     = meta.get("version_date_display", "—")
+    zenodo_doi       = meta.get("zenodo_doi", "")
 
+    # Build the optional PDF download button (right-hand side of the meta bar).
+    # Only rendered when zenodo_doi is present in the paper's YAML front matter.
+    if zenodo_doi:
+        pdf_button = (
+            f'<a class="pdf-download" '
+            f'href="https://doi.org/{zenodo_doi}" '
+            f'target="_blank" rel="noopener">&#11015; Download PDF</a>'
+        )
+    else:
+        pdf_button = ""
+
+    # Use a raw HTML block so we can flex the meta text left and button right.
+    # Falls back gracefully when no DOI is set (button slot is simply empty).
     meta_block = (
-        f"\n::: {{.paper-meta}}\n"
-        f"**Version:** {version}"
-        f" &ensp;|&ensp; **Date:** {date_display}"
-        f" &ensp;|&ensp; **Word count:** {word_count:,} (excl. front matter)\n"
-        f":::\n"
+        f'\n```{{=html}}\n'
+        f'<div class="paper-meta">\n'
+        f'  <span class="paper-meta-text">'
+        f'<strong>Version:</strong> {version}'
+        f' &ensp;|&ensp; <strong>Date:</strong> {date_display}'
+        f' &ensp;|&ensp; <strong>Word count:</strong> {word_count:,} (excl. front matter)'
+        f'</span>\n'
+        f'  {pdf_button}\n'
+        f'</div>\n'
+        f'```\n'
     )
 
     disclosure_block = (

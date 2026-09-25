@@ -78,6 +78,9 @@
   border-left: 4px solid #FFD700;
   padding: 0.4rem 1rem;
   margin: 0.75rem 0 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .paper-meta strong {

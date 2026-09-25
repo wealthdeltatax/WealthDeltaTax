@@ -2,6 +2,7 @@
 title: "The Wealth Delta Tax: Constitutional Governance"
 shortcode: "GOV"
 status: "active"
+zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
     - Wealth Delta Tax
     - wealth taxation

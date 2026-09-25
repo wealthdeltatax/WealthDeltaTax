@@ -2,6 +2,7 @@
 title: "The Wealth Delta Tax: Parameter Sweeps and Governing Council Calibration — Appendix"
 shortcode: "SWEEPS.A"
 status: "active"
+zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
     - Wealth Delta Tax
     - wealth taxation

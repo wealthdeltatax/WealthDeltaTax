@@ -2,6 +2,7 @@
 title: "The Wealth Delta Tax: Political Architecture"
 shortcode: "POL"
 status: "active"
+zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
     - Wealth Delta Tax
     - Phase One

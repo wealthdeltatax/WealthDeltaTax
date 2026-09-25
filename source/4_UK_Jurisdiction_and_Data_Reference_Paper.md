@@ -2,6 +2,7 @@
 title: "The Wealth Delta Tax: UK Jurisdiction and Data Reference Paper"
 shortcode: "JUR"
 status: "active"
+zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
     - Wealth Delta Tax
     - United Kingdom

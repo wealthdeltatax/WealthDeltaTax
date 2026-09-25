@@ -2,6 +2,7 @@
 title: "The Wealth Delta Tax: Taxpayer Welfare Comparison Appendix Tables"
 shortcode: "WFR.A"
 status: "draft"
+zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
     - Wealth Delta Tax
     - welfare comparison
@@ -465,8 +466,8 @@ Same tiers, systems, and revenue-equivalent rates as D. Heterogeneous Agents —
 | W₀ (normalised A. Module 1) | 1.0 | — |
 | Revenue target E[T] | 2% of W₀ | — |
 | γ (central case) | 2.0 | Flavin & Yamashita (2002) |
-| τ₀ (WDT entry rate) | 15% | TOML [rate] |
-| τ_m (WDT ceiling) | 70% | TOML [rate] |
+| $\tau_0$ (WDT entry rate) | 15% | TOML [rate] |
+|  $\tau_m$  (WDT ceiling) | 70% | TOML [rate] |
 | k (logistic steepness) | 0.001 | TOML [rate] |
 | W_min (£m) | £2m | TOML [rate] |
 | UK equity mean (1947–2019) | 10.45% | JST dataset |

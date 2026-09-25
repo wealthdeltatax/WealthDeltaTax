@@ -2,6 +2,7 @@
 title: "The Wealth Delta Tax: The White Paper"
 shortcode: "WP"
 status: "active"
+zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
  - Wealth Delta Tax
  - accrual-based wealth taxation

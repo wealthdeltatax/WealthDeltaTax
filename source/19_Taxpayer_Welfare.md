@@ -2,6 +2,7 @@
 title: "The Wealth Delta Tax: Taxpayer Welfare Comparison Across Tax Systems at Revenue Equivalence"
 shortcode: "WFR"
 status: "draft"
+zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
     - Wealth Delta Tax
     - welfare comparison

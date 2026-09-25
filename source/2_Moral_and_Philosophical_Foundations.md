@@ -2,6 +2,7 @@
 title: "The Wealth Delta Tax: The Moral and Philosophical Foundations of the WDT"
 shortcode: "MF"
 status: "active"
+zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
     - Wealth Delta Tax
     - wealth taxation

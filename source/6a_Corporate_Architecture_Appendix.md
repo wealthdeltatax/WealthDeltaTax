@@ -2,6 +2,7 @@
 title: "The Wealth Delta Tax: Corporate Architecture Appendix"
 shortcode: "CORP.A"
 status: "active"
+zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
     - Wealth Delta Tax
     - wealth taxation

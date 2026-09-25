@@ -2,6 +2,7 @@
 title: "The Wealth Delta Tax: First Mover"
 shortcode: "FM"
 status: "active"
+zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
     - Wealth Delta Tax
     - first-mover advantage

@@ -2,6 +2,7 @@
 title: "The Wealth Delta Tax: Constitutional Governance Operational Appendix"
 shortcode: "GOV.B"
 status: "active"
+zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
     - Wealth Delta Tax
     - constitutional governance

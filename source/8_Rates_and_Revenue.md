@@ -2,6 +2,7 @@
 title: "The Wealth Delta Tax: Rates and Revenue"
 shortcode: "RATES"
 status: "active"
+zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -530,7 +531,7 @@ The TCM's persistent heterogeneous growth tier differentials are a stylisation. 
 
 The paper does not model the political economy of the transition. The Governing Council's ability to commit to a chosen calibration across electoral cycles depends on political conditions beyond this analysis.
 
-The fill timelines assume canonical parameters held constant across the capitalisation window. Governing Council rate decisions are modelled as exogenous: the TCM does not simulate how chamber dynamics might alter parameters over time. TP's rational preference for lower τ₀, combined with potential near-threshold member dominance as the enrolled population grows, could produce persistent downward rate pressure that extends the LRR fill timeline beyond the figures in §7.2. The τ₀ × W_min joint surface — the only Governing Council calibration parameter resolvable before Phase One begins — characterises the fill timeline's sensitivity to τ₀ reduction (SCOPE §5).
+The fill timelines assume canonical parameters held constant across the capitalisation window. Governing Council rate decisions are modelled as exogenous: the TCM does not simulate how chamber dynamics might alter parameters over time. TP's rational preference for lower $\tau_0$, combined with potential near-threshold member dominance as the enrolled population grows, could produce persistent downward rate pressure that extends the LRR fill timeline beyond the figures in §7.2. The $\tau_0$ × W_min joint surface — the only Governing Council calibration parameter resolvable before Phase One begins — characterises the fill timeline's sensitivity to $\tau_0$ reduction (SCOPE §5).
 
 ## 9.5 Governing Council calibration parameters
 

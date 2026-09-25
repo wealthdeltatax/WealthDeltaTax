@@ -2,6 +2,7 @@
 title: "The Wealth Delta Tax: Fiscal Architecture and Institutional Selection"
 shortcode: "INST"
 status: "draft"
+zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
     - Wealth Delta Tax
     - institutional fitness

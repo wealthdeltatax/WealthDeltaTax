@@ -2,6 +2,7 @@
 title: "The Wealth Delta Tax: Addendum: Implementation Calibration Examples"
 shortcode: "ADD"
 status: "draft"
+zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
     - Wealth Delta Tax
     - implementation calibration
