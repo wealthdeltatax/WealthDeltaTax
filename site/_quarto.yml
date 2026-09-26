@@ -210,6 +210,8 @@ website:
         contents:
           - text: "Political Architecture (POL)"
             href: pol.html
+          - text: "Political Architecture Appendix (POL.A)"
+            href: pol-a.html
           - text: "First Mover (FM)"
             href: fm.html
           - text: "Modular Adoption (MOD)"

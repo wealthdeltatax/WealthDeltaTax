@@ -1112,6 +1112,36 @@
       ],
       "flag_ids": [],
       "notes": "v0.01 (260900): First draft. v0.02 (260900): §4 condensed; §5.4 DR chamber name corrected; §5.1 VAL §5.2 citation added; §5.2 Route C description corrected; §7.1 RATES citations sharpened; §7.2 ENV §4.1–§4.2 added; §7.3 FM §3.1 added; §6.4/§8 FM §3.2 corrected to FM §3; §3.1 JUR §2.4 added; §4.2 POL §5.7 added; Tier A footnotes updated. v0.03 (260918): Abstract rewritten (≤300 words) foregrounding two-constituency mechanism; §1 'only' removed; §6.4 heading and China framing revised; unfalsifiable Option B language removed; §8/§10 updated to match. v0.04 (260918): All external citations converted to @Key notation; References section added (APA 7th, 25 entries); Flag 29 (Clark et al. 2022 unresolved) and Flag 30 (World Development 2013 unresolved) added; Flag 31 (institutional sources: Catalyst International, Asia Society, Foreign Affairs) added; Flag 32 (McKinseyGWW2026 URL unverified) added."
+    },
+    {
+      "id": "LDW",
+      "shortcode": "LDW",
+      "title": "The Wealth Delta Tax: Labour Dividend Welfare",
+      "version": "0.05",
+      "version_date": "260923",
+      "status": "draft",
+      "outbound_ext_citation_ids": [
+        "BlundellEtAl2000__LDW",
+        "Gruber1997__LDW",
+        "HMRC2025c__LDW",
+        "KlevenKreiner2006__LDW",
+        "LusardiEtAl2011__LDW",
+        "Ofgem2025Oct__LDW",
+        "ONS2025ASHE__LDW",
+        "ONS2025ETB__LDW",
+        "RidleyEtAl2020__LDW"
+      ],
+      "outbound_internal": [
+        "ENV",
+        "GOV",
+        "JUR",
+        "MF",
+        "PHASE1",
+        "RATES"
+      ],
+      "open_question_ids": [],
+      "flag_ids": [],
+      "notes": "v0.05 (260923): final draft. Six external references added at v0.03 (Gruber1997, KlevenKreiner2006, LusardiEtAl2011, ONS2025ETB, RidleyEtAl2020, BlundellEtAl2000). Three data-source entries added at v0.05 audit: HMRC2025c (rate schedules), ONS2025ASHE (ASHE earnings data), Ofgem2025Oct (energy price cap). All nine external citations now in outbound_ext_citation_ids. Body text requires @key conversion for informal handles: '(ONS ASHE, April 2025)' -> @ONS2025ASHE; '(Ofgem October 2025 [cap])' -> @Ofgem2025Oct; rate schedule inline text -> @HMRC2025c."
     }
   ],
   "citations": [
@@ -4839,6 +4869,40 @@
         "2.1"
       ],
       "notes": "NICs as a cost wedge on labour relative to capital; removing it reduces the economic case for automation substitution at the margin. Cited in LDW §2.1 for the deadweight loss / cost-wedge framing of bilateral NICs. Also the primary UK source for MCPF values of 1.1–1.5 for direct labour taxes."
+    },
+    {
+      "id": "HMRC2025c__LDW",
+      "ref_id": "HMRC2025c",
+      "paper_id": "LDW",
+      "relationship": "in_text",
+      "sections": [
+        "2.1",
+        "2.2"
+      ],
+      "notes": "Source for all 2025/26 income tax and NICs rate schedule figures used in the payslip arithmetic: personal allowance £12,570; basic rate 20%; employee NICs 8% / 2%; employer NICs 15% above secondary threshold £5,000. Previously cited by informal description only in §2.1 data provenance note."
+    },
+    {
+      "id": "ONS2025ASHE__LDW",
+      "ref_id": "ONS2025ASHE",
+      "paper_id": "LDW",
+      "relationship": "in_text",
+      "sections": [
+        "2.1",
+        "4.4"
+      ],
+      "notes": "Source for the £39,039 median gross annual earnings for full-time employees, April 2025 (provisional). Cited in §2.1 as '(ONS ASHE, April 2025)' and in §4.4 table note as 'April 2025 ONS earnings data'. Body requires @key conversion."
+    },
+    {
+      "id": "Ofgem2025Oct__LDW",
+      "ref_id": "Ofgem2025Oct",
+      "paper_id": "LDW",
+      "relationship": "in_text",
+      "sections": [
+        "2.1",
+        "4.3",
+        "4.4"
+      ],
+      "notes": "Source for the £1,755 Ofgem energy price cap, October-December 2025. Cited in §2.1 data provenance note, §4.3 as 'October 2025 Ofgem average', and in §4.4 table note as '30% reduction from £1,755 baseline'. Body requires @key conversion."
     }
   ],
   "flags": [

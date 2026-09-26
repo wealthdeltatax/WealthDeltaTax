@@ -61,6 +61,9 @@
 - source: 12_Political_Architecture.md
   output: pol.qmd
 
+- source: 12a_Political_Architecture_Appendix.md
+  output: pol-a.qmd
+
 - source: 13_Phase_One.md
   output: phase1.qmd
 

@@ -370,17 +370,3 @@ The WDT is built for the people above the threshold. Its politics, its governanc
 The care worker on £25,000 who takes home £21,520 today is not a policy abstraction. She is what the WDT is for.
 
 \newpage
-
-# References {.unnumbered .unlisted}
-
-Blundell, R., Duncan, A., McCrae, J., & Meghir, C. (2000). The labour market impact of the working families' tax credit. *Fiscal Studies*, *21*(1), 75–104.
-
-Gruber, J. (1997). The incidence of payroll taxation: Evidence from Chile. *Journal of Labor Economics*, *15*(3, Part 2), S72–S101. https://doi.org/10.1086/209877
-
-Kleven, H. J., & Kreiner, C. T. (2006). The marginal cost of public funds: Hours of work versus labor force participation. *Journal of Public Economics*, *90*(10–11), 1955–1973. https://doi.org/10.1016/j.jpubeco.2006.03.006
-
-Lusardi, A., Schneider, D., & Tufano, P. (2011). Financially fragile households: Evidence and implications. *Brookings Papers on Economic Activity*, *42*(1), 83–150. https://doi.org/10.1353/eca.2011.0006
-
-Office for National Statistics. (2025). *Effects of taxes and benefits on UK household income: Financial year ending 2024*. ONS. https://www.ons.gov.uk/releases/effectsoftaxesandbenefitsonukhouseholdincomefinancialyearending2024
-
-Ridley, M., Rao, G., Schilbach, F., & Patel, V. (2020). Poverty, depression, and anxiety: Causal evidence and mechanisms. *Science*, *370*(6522), eaay0214. https://doi.org/10.1126/science.aay0214
