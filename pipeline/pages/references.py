@@ -54,6 +54,8 @@ _ABBREV_TO_CANONICAL: dict[str, str] = {
     "SWEEPSA": "SWEEPS.A",
     "VALA":    "VAL.A",
     "VALB":    "VAL.B",
+    "BEHAVB":  "BEHAVE.B",
+    "POLB":    "POL.B"
 }
 
 # Refs with only references_only citations, pending author decisions on

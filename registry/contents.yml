@@ -475,6 +475,13 @@ CORP.A:
     E.8: The General Principle and Its Limits
     E.9: Market Manipulation and the Bilateral-Claim Structure of Short Positions
     G: Existing $\tau$ parameters
+    E.10: Public and Quasi-Public Entities
+    E.10.1: The operative test
+    E.10.2: Wholly public non-listed organisations
+    E.10.3: Government-held listed stakes
+    E.10.4: Quasi-public and mixed ownership entities
+    E.10.5: Classified operational assets and the mechanism's outer boundary
+    E.10.6: The emergent efficiency property
 GOV:
   page: gov.html
   title: Constitutional Governance
@@ -1118,6 +1125,7 @@ SCOPE:
     '3.1': Compliance and Behavioural Questions
     '3.2': Institutional and Operational Questions
     '3.3': Systemic Risk Question
+    '3.4': Pre-Phase-One Analytical Deliverables
 ADD:
   page: add.html
   title: "Addendum: Implementation Calibration Examples"
@@ -1346,6 +1354,12 @@ LDW:
     '7.3': Phase One Measurement Agenda
     '7.4': The Conservative Core
     '8': Conclusion
+    '4.5': Demand Expansion and Economic Reallocation
+    4.5.1: Increased Household Consumption
+    4.5.2: Labour Reallocation and Occupational Choice
+    4.5.3: Entry into Marginal and Previously Unprofitable Sectors
+    4.5.4: Returns to Private Capital
+    4.5.5: Distributional Ambiguity
 FAL:
   page: fal.html
   title: "The Wealth Delta Tax: Falsifiable Hypotheses"
@@ -1398,3 +1412,15 @@ FAL:
     '12': Research Challenge
     '13': Conclusion
     A: Hypothesis Summary Table
+POL.A:
+  page: pol-a.html
+  title: "The Wealth Delta Tax: Political Architecture Appendix"
+  sections:
+    A: The Tiered Citizenship Problem
+    A.1: We Already Live in a Tiered Society
+    A.2: The Tiered Citizenship Risk
+    A.3: Why the WDT Is Not Feudalism
+    A.4: Equality of Outcome Is the Wrong Goal
+    A.5: The Small Community Illustration
+    A.6: The Limits of Mechanism
+    A.7: A Remarkable Problem
