@@ -28,7 +28,6 @@ keywords:
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 11 September 2026 | Added §8.4: beyond-lifetime-cap exploitation surface and rationale for the cap |
 | 1.02      | 20 September 2026 | Crosslinks to BEHAV.A §D added: §1.2 and §3 Agrawal cross-base externality passages now point to full seven-part response in (BEHAV.A §D); §4.4 bankruptcy section extended with GOV.B §E mandate gap note for bankruptcy refund procedure |
-| 1.03 | 25 September 2026 | §4.1 substantially expanded: full death settlement sequence, marginal rate dependency problem, provisional $\tau_{W_death}$ mechanism, hard reset waiver, soft reset effects, heir basis mechanics, estate administration mandate gap; §5 renamed and generalised to closure bond facility covering death, exit and bankruptcy as procedural variants of one instrument; Glossary updated throughout; §9.5 extended; §10 conclusion updated. Added §4.5: incarceration and criminal forfeiture as a unified treatment; glossary entries for custodial suspension, forfeiture closure, and forfeiture resolution award; §9.3 and §9.5 updated |
 
 \newpage
 
@@ -40,25 +39,13 @@ This paper establishes the general theory of WDT position closure: the set of ev
 
 # Glossary {.unnumbered .unlisted}
 
-**Closure bond facility:** The SWF-provided settlement instrument that decouples interim activity from final WDT settlement across all closure event types where a Route D auction is required and non-Route-D assets or distributions need to proceed before that auction completes. Operates through a bond structure under which the estate, executor, practitioner, or departing taxpayer posts security for an expected positive delta, and the SWF posts security for an expected negative delta. The facility has three procedural variants — exit, death, and bankruptcy — differing in who initiates and what interim activity is decoupled, but sharing identical bond mechanics and netting-on-settlement logic.
+**Bridging facility (exit):** The SWF-provided settlement instrument that crystallises an individual's WDT liability at the declared exit date and allows physical departure before the valuation and settlement process completes.
 
-**Custodial route reclassification:** The automatic reclassification of all assets held within a WDT assessment position to Route D upon legal freezing by a competent authority. Reclassification follows from the assets' loss of the properties that define their normal routes: a frozen asset cannot be transferred in Route C settlement, cannot be professionally valued at a price reflecting free transferability, and cannot be liquidated to settle a cash obligation. The reclassification is temporary; assets revert to their normal route classification when the freeze lifts or, where forfeiture follows, the position closes under (CLOSE §4.5).
-
-**Closure event:** Any event by which an individual's WDT assessment position ends. The closure event types recognised by this paper are death, jurisdictional exit, threshold fall-through, bankruptcy, and criminal forfeiture. Each triggers the same general settlement sequence, with event-specific procedural differences.
-
-**Death auction waiver:** A Governing Council calibration parameter specifying the maximum period since a qualifying hard basis reset within which the inheritance auction may be waived at death. Where a hard reset occurred within that period, the reset price serves as the Route D input to W_death without a further auction, and the heir enters at the reset price as their opening basis. The appreciation from last reset to death is deferred into the heir's future delta rather than taxed in the deceased's estate. The waiver period is a named trade-off between administrative simplification and the deferral it creates.
+**Closure event:** Any event by which an individual's WDT assessment position ends. The four closure event types recognised by this paper are death, jurisdictional exit, threshold fall-through, and bankruptcy. Each triggers the same general settlement sequence, with event-specific procedural differences.
 
 **Exit valuation service:** The taxpayer-initiated process that opens formal valuation on Route D assets at the declared exit date, using the inheritance-auction machinery described in (VAL §6.5), with the taxpayer's own declared annual values serving as the opening bid floor.
 
-**Forfeiture closure:** A closure event triggered by criminal forfeiture of assets from an individual's WDT assessment position. The position closes at the point legal ownership transfers to the enforcement authority. The final delta is calculated from the last declared Route D basis to the forfeiture value; any negative delta generates a refund entitlement bounded by the lifetime contribution envelope in the normal way. Forfeited assets pass to the enforcement authority as an unattributed tranche-three position under the corporate levy, bearing $\tau_h$ until attribution to a human beneficial owner is established.
-
-**Forfeiture resolution award:** A share of the value of forfeited assets, paid to named enforcement personnel involved in the seizure on confirmation that those assets have been attributed to a human beneficial owner. The award converts an unattributed tranche-three position to an attributed one, ending $\tau_h$ accrual. Its size is a Governing Council calibration parameter; it is calculated on the asset's value at forfeiture, not on $\tau_h$ accrued during the unresolved period, to avoid creating an incentive to delay attribution.
-
-**Hard basis reset:** Voluntary settlement of a Route D liability using an auction to establish market value, rather than self-declaration. The auction price becomes the new recognised basis. Performing a hard reset before death establishes a market-verified basis that may waive the inheritance auction requirement and simplifies estate administration.
-
 **Position closure:** The general condition in which an individual's WDT assessment position ends and a final settlement is calculated. Distinct from position suspension, which does not occur under the design proposed here: all events that might have been treated as suspension are instead treated as closure events, with re-entry above the threshold treated as a new first entry.
-
-**Provisional $\tau_{W_death}$:** The marginal rate calculated from a provisional W_death — the deceased's total declared net worth established from all non-Route-D assets at their determined values plus the Route D component at the last declared or reset basis — used to settle non-Route-D liabilities before the inheritance auction completes. Final settlement adjusts for any difference between provisional and final $\tau_{W_death}$ once the auction establishes the true Route D value.
 
 **Re-entrant:** An individual who previously held a WDT assessment position, experienced a closure event, and subsequently re-enters the WDT's scope, either by returning to the jurisdiction after exit or by rising back above the exemption threshold after threshold fall-through.
 
@@ -112,8 +99,6 @@ The lifetime contribution envelope is a property of the individual, not of the a
 
 The auction infrastructure that operates at death closure (VAL §6.5) and at exit closure (CLOSE §4.2) also operates in a non-closure context: the (GOV §6.1) / (GOV.B §G) compelled mid-position revaluation for confirmed Route D outliers. All three use the same mechanics (open bidding at the declared value as floor, only third parties may bid, the taxpayer holds a right of first refusal at the highest third-party bid, and the winning price establishes a new recognised basis). The closure auctions and the mid-position auction are triggered by different events and serve different purposes, but share a common institutional form. The auction infrastructure is a standing feature of the Route D architecture, not an instrument improvised for each context separately.
 
-The closure bond facility described in (CLOSE §5) operates across all three closure event types in which Route D assets require auction — death, exit, and bankruptcy. It is a single instrument with three procedural variants, not three separate mechanisms. What varies is who initiates the bond process and what interim activity is decoupled; the bond mechanics are identical across all three. This unification follows directly from the general theory: if death, exit, and bankruptcy are structurally the same kind of event, the instrument that manages the timing gap they create should be the same instrument.
-
 \newpage
 
 # 3. What the Mechanism Owes at Closure
@@ -138,45 +123,11 @@ The cross-base fiscal externality identified by @AgrawalEtAl2025 (income tax and
 
 ## 4.1 Death
 
-Death most fully exercises the WDT's settlement machinery and raises the greatest number of procedural questions. (VAL §6.5) specifies the Route D inheritance auction mechanism; (GOV.B §G.8) specifies the auction's operational conduct. This section establishes the full settlement sequence across all routes and addresses the procedural and timing consequences that follow.
+Death is the closure event the WDT's existing machinery most fully addresses. (VAL §6.5) specifies the inheritance auction mechanism in detail: Route D assets are auctioned to establish a final price, the taxpayer's declared annual values serve as the opening bid floor, and the heir enters the position at the auction price as their new basis. The delta for the final period is calculated against the prior declared basis; if the estate has experienced losses in the final period, the symmetric refund flows to the estate before distribution to heirs.
 
-**The marginal rate dependency problem.** The WDT taxes each route's final delta at $\tau_{W_death}$ — the marginal rate applicable to the deceased's total declared net worth at death. That aggregate cannot be established until all assets across all routes have been valued. Routes A and B require professional valuations triggered at the date of death. Route C settles at the last declared value through the must-transfer mechanism. Route D requires the inheritance auction to complete. Only once all route values are in hand can W_death be computed, and only then can the final tax liability on any individual route be calculated — the rate that applies to the Route A asset depends on what the Route D auction established.
+Routes A and B close through standard professional valuation triggered at the date of death. Route C closes through the must-transfer mechanism: the equity interest transfers at the declared value, the delta is calculated in the standard way, and the heir receives the interest at that value as their opening basis for any future WDT position.
 
-Nothing can be finally settled and released from the estate until the slowest-resolving asset class closes. For an estate with significant Route D holdings alongside Routes A, B, and C assets, all distributions are blocked pending the auction's completion. This is the correct application of the marginal rate logic, not a design flaw, but it is a real administrative burden that the provisional $\tau$ mechanism and the closure bond facility exist to manage.
-
-**Provisional $\tau_{W_death}$ and the closure bond facility.** Where Routes A, B, and C are valued and the Route D auction is still running, the estate executor may establish a provisional W_death from all determined asset values plus the Route D component at the last declared or reset basis. A provisional $\tau_{W_death}$ is calculated from that figure, and tax on Routes A, B, and C is provisionally settled at that rate. The closure bond facility (CLOSE §5) then operates: the estate posts a bond covering the potential upside if the auction establishes a Route D value above the provisional basis, pushing W_death into a higher bracket; the SWF posts a bond to the estate covering the potential downside if the auction comes in below, reducing W_death and meaning the estate overpaid provisionally. Both bonds net on final settlement once the auction completes and the true $\tau_{W_death}$ is established. This allows the estate to begin partial distribution to heirs while the Route D auction runs, rather than freezing all assets until it completes.
-
-**The settlement sequence in full.** Once $\tau_{W_death}$ is established — provisionally under the closure bond facility or finally after all routes complete — the sequence is:
-
-For Routes A and B: the professional valuation at death date is the realisation value. The final delta is that value minus the last declared basis. Tax is calculated at $\tau_{W_death}$ and settled from estate liquid assets.
-
-For Route C: the must-transfer mechanism settles at the last declared value. The delta is calculated in the standard way and the equity interest transfers to the estate at that value. The heir receives the interest at the declared value as their opening WDT basis if their resulting net worth exceeds W_min.
-
-For Route D: the inheritance auction triggers automatically at the transfer event. The last declared basis is the opening floor. Third-party competitive bidding establishes a market price. The estate holds the right of first refusal at the highest third-party bid. If the estate exercises retention, it pays WDT on the upward delta (auction price minus last declared basis) at $\tau_{W_death}$. If it allows the sale, the proceeds are cash; the delta calculation is identical and the tax is settled from proceeds. The heir's WDT entry basis is the auction price in either case.
-
-All WDT liabilities across all routes are a first charge on the estate, settled before any distribution to heirs.
-
-**The symmetric refund at death.** If any route produces a negative final delta — the asset is worth less at death than the last declared basis — the symmetric refund applies in full. The refund flows to the estate and distributes to heirs through estate administration, increasing the estate's liquid assets and the heir's opening inherited net worth. The mechanism does not withdraw the symmetric protection because the taxpayer has died.
-
-**Heir basis and basis compression.** After all WDT liabilities are settled, the remaining assets distribute to heirs through ordinary succession. The heir enters the WDT — if their resulting net worth exceeds W_min — as a fresh first-time entrant. Their opening basis is what they actually receive after WDT settlement, not the gross asset value before settlement. A Route D asset that auctioned at £30m with £3m WDT liability settled from the estate leaves the heir with £27m from that asset; their opening basis is £27m. This compression is a consequence of taxes being settled first, not a designed feature, but it is the correct treatment: the heir begins from their actual inherited position. The deceased's lifetime contribution envelope does not transfer to the heir; the heir starts with a clean envelope, consistent with the individual-as-subject axiom (MF §2).
-
-**Hard resets before death.** A taxpayer who performs a voluntary hard basis reset on Route D assets before death achieves several advantages for their estate. The reset establishes a market-verified price through competitive bidding at the taxpayer's own declared value as floor. This market-verified basis may, depending on how recently it occurred, waive the inheritance auction requirement at death under the death auction waiver mechanism (see §4.1.1 below). Even where the waiver does not apply, a recent hard reset brings the declared basis close to the likely auction price, reducing the final delta, compressing upward pressure on W_death, and minimising the difference between provisional and final $\tau_{W_death}$ — which reduces the bond posting required under the closure bond facility and accelerates final settlement.
-
-A soft reset in the years before death achieves less. It brings the declared basis closer to the likely auction price, reducing the final delta and simplifying provisional rate calculations, but it does not establish a market-verified price. The inheritance auction is still required and the heir receives an unverified self-declared basis rather than an auction-confirmed one. Soft resets are useful preparation but not a substitute for a hard reset where the death auction waiver is sought.
-
-**Estate administration mandate gap.** (GOV.B §E) specifies the Custodian's mandate for the standard refund cycle, the closure bond facility for exit, and the corporate equity settlement facility. The operational mechanics of the bond facility applied to death closure — who initiates the provisional $\tau$ calculation with the Custodian, what documentation the estate executor must provide, how the provisional settlement transmits to the tax authority, and how the final bond netting occurs after the auction completes — are not currently specified for the death case. This is the same category of gap noted in (CLOSE §4.4) for the bankruptcy refund procedure. Both should be resolved in a future GOV.B revision before Phase One: the first death closure within a WDT system will otherwise face a procedural gap at exactly the moment when the mechanism most needs to demonstrate its orderly operation.
-
-### 4.1.1 The Death Auction Waiver
-
-A hard basis reset establishes a market-verified price through open competitive bidding. If a qualifying hard reset occurred sufficiently recently before death, the inheritance auction may be waived: the reset price serves as the Route D component of W_death without a further auction, the reset price is the heir's opening basis, and the estate proceeds to final settlement without waiting for an auction to complete.
-
-The waiver rests on the following logic. A recent hard reset already produced the best available market price through the same competitive bidding mechanism the inheritance auction would use. Running the inheritance auction again a short time later produces marginal improvement in price accuracy at significant administrative cost and delay. The appreciation between the reset date and death is not lost to the Exchequer: it falls into the heir's future delta, taxed at the heir's own marginal rate when they eventually realise the asset. This is a deferral, not a tax gap, consistent with Route D's general design principle of deferring settlement to the point of realisation.
-
-The **waiver threshold period** — the maximum time since a qualifying hard reset within which the waiver applies — is a Governing Council calibration parameter. A shorter threshold captures more post-reset appreciation in the deceased's estate (at the cost of the administrative burden the waiver is designed to avoid); a longer threshold provides greater estate planning certainty and stronger incentives for pre-death hard resets (at the cost of more deferral into the heir's position). The Governing Council sets this parameter under the Tier 1 process, informed by Phase One estate data and actuarial evidence on typical appreciation rates in the Route D asset population.
-
-A qualifying hard reset is one conducted through the full voluntary hard-reset auction process specified in (GOV.B §G.7): open competitive bidding at the declared value as floor, third-party bids only, right of first refusal at the highest bid. A soft reset does not qualify regardless of recency. A corrective auction triggered by Valuation Body consensus qualifies if it established a final price through the same bidding mechanics, but the specific tax treatment of any corrective over-declaration at that auction (no refund on downward correction) carries forward — the reset price is the qualifying basis regardless of direction.
-
-Where the waiver applies, W_death is established immediately from all determined route values plus the hard reset price as the Route D component, with no auction delay. The closure bond facility is not needed for the Route D component, though it may still be used if Route A or B valuations produce uncertainty about the provisional marginal rate.
+No structural addition is required for death beyond what (VAL §6.5) already specifies. It is included in this paper's taxonomy because the general theory of position closure is the correct framing for understanding why the inheritance auction works the way it does: it is not a special inheritance mechanism but the standard position-closure settlement applied to the procedural circumstances of death.
 
 ## 4.2 Jurisdictional Exit
 
@@ -214,107 +165,17 @@ The refund obligation is not subject to creditor priority in the same way. If th
 
 A gap in the current Custodian mandate specification should be noted. (GOV.B §E) specifies the Custodian's mandate for the standard refund cycle, the bridging facility, the solvency floor, and the corporate equity settlement facility. None of these provisions addresses the procedural mechanics of a refund obligation that has entered an insolvency estate: who initiates the refund calculation with the Custodian when the taxpayer is under insolvency administration, what documentation the insolvency practitioner must provide, and how the Custodian transmits the refund to the estate for distribution through the creditor waterfall. These are operational details the mandate will need to carry before Phase One, because the first bankruptcy closure within a WDT system will otherwise face a procedural gap at exactly the moment when the symmetric commitment most needs to be seen to operate. This gap should be resolved in a future GOV.B revision.
 
-## 4.5 Incarceration and Criminal Forfeiture
-
-Incarceration and criminal forfeiture present two distinct problems that share a common starting point and diverge at the point legal ownership transfers.
-
-### 4.5.1 The Position During Incarceration
-
-An incarcerated individual remains the beneficial owner of their assets throughout custody. Under (MF §2), beneficial ownership attaches to the person, not to their physical freedom or legal status. The WDT assessment position stays open; delta accrues normally. Incarceration does not trigger any of the standard closure events.
-
-The practical difficulty is that an incarcerated taxpayer may be unable to execute the obligations their route classification requires. A Route C position requires transfer capability; Routes A and B require engagement with professional valuation. A legally frozen asset has lost these properties regardless of its normal type: frozen cash cannot be transferred in Route C settlement; an asset over which no party may transact cannot be professionally valued at a price reflecting free transferability. The correct treatment follows from the route classification logic in (VAL §4), which classifies assets by their current properties, not by a fixed typology. An asset that cannot be transferred, liquidated, or professionally valued without legal impediment fails the tests for Routes A, B, and C and falls to Route D by elimination: self-declared basis, no annual cash settlement, deferred to realisation.
-
-Custodial route reclassification applies at the assessment date following the imposition of a legal freeze. All frozen assets are reclassified to Route D. The self-declared basis for each is its last declared or reset value at the point of reclassification, carried forward without adjustment until the freeze lifts or the position closes. No annual cash obligation arises during the reclassified period. When the freeze lifts — through charge dropping, acquittal, or completion of sentence without forfeiture — assets revert to their normal route classification and the assessment continues from the carried basis. The delta since reclassification is calculated at the next assessment date from the carried Route D basis to the then-current value under the reverted route's normal rules.
-
-Who files the annual Route D self-declaration during incarceration follows from existing legal authority over the taxpayer's financial affairs. The WDT does not create a new representative institution for this purpose. Whoever holds legal authority to act on the taxpayer's behalf — a lasting power of attorney, a court of protection appointee, or a court-appointed financial administrator under jurisdiction-specific criminal procedure — files as the taxpayer's authorised representative on the same terms as any other authorised filer. Where no such authority exists at incarceration, the Administrator records the position as reclassified to Route D at the last declared basis and the position accrues without annual declaration until a representative is established. The absence of a representative does not pause delta accrual.
-
-### 4.5.2 Criminal Forfeiture as a Closure Event
-
-Where criminal forfeiture transfers legal ownership of assets out of the individual's name, those assets exit the individual's WDT assessment position. Where forfeiture encompasses the entire above-threshold position, it is a full position closure event.
-
-The settlement sequence follows (CLOSE §3) without modification. The final delta for each forfeited asset is calculated from the last declared Route D basis — established at custodial reclassification — to the forfeiture value. Where forfeiture produces a negative delta (assets forfeited below declared basis, as is common where criminal activity inflated declared values or where assets declined during the restrained period), the symmetric refund fires at the applicable marginal rate bounded by the lifetime contribution envelope. The mechanism does not condition the refund on the nature of the loss. What bounds it is the envelope: a taxpayer who accumulated little WDT history on assets that were undeclared or under-declared will have a correspondingly small envelope balance and a correspondingly small refund entitlement. For legitimately declared assets that are forfeited, the envelope balance reflects taxes paid on prior gains and the refund is proportionate. The self-correction is structural rather than discretionary.
-
-All WDT liabilities on any positive final delta are settled before the enforcement authority receives net proceeds, on the same priority terms as other closure types.
-
-### 4.5.3 Post-Forfeiture Attribution
-
-Once forfeiture is complete, the assets pass to the enforcement authority. The individual's position has closed. The assets have no human beneficial owner: prior ownership has been legally extinguished and no new ownership conferred on an identified person. Under the corporate levy framework in (CORP §5), assets with no identifiable beneficial owner are unattributed tranche-three positions bearing $\tau_h$.
-
-Applying $\tau_h$ to enforcement-authority-held assets requires no exception. The enforcement authority is an identified holder; what it has not done is establish attribution to a human beneficial owner. $\tau_h$ accrues from the date of forfeiture in the same way it accrues on any other tranche-three position. This creates the same incentive that $\tau_h$ creates throughout the corporate levy structure: surface the human beneficial owner and the charge ends. The enforcement authority has a direct financial interest in swift attribution.
-
-Attribution is achieved by any transfer that places the asset in the hands of an identifiable human or an intermediary that passes the attribution test. Three pathways are available without requiring any change to existing asset recovery law.
-
-First, sale into the market. The enforcement authority's standard practice of selling forfeited assets into the open market transfers legal ownership to a new human buyer. Attribution is established at the point of sale; $\tau_h$ stops accruing; the new owner enters the corporate levy's normal tranche-one or tranche-two structure from the sale price as their opening basis.
-
-Second, assignment to a charity or public redistribution scheme. A transfer to a registered charity with named trustees confers a tranche-two attributed position on the charity; its underlying beneficiaries are identifiable through the charity's governance. A direct cash distribution to named individuals creates immediate individual attribution.
-
-Third, the forfeiture resolution award. Named enforcement personnel involved in the seizure receive a defined share of the asset's value at forfeiture on confirmed attribution to a human beneficial owner. The award is calculated on the forfeiture value, not on $\tau_h$ accrued during the unresolved period, so the financial incentive points entirely toward speed of resolution. The percentage and eligibility definition are Governing Council calibration parameters under the Tier 1 process. The award requires no new legal institution: it is a statutory payment from the enforcement authority's recovered proceeds, the terms of which are set in the WDT's enabling legislation.
-
-The forfeiture resolution award aligns enforcement incentives with attribution incentives at the same moment. An officer who recovers assets and resolves attribution quickly receives more, net, than one who allows $\tau_h$ to erode them during a prolonged unresolved period. The effect on asset recovery timelines is a Phase One empirical question; the directional incentive is unambiguous.
-
-### 4.5.4 The position of the individual after forfeiture
-
-Where forfeiture closes only part of the position — some assets forfeited, others retained — the retained assets continue under normal assessment. Custodial route reclassification lifts for retained assets when the legal freeze lifts. The lifetime contribution envelope carries the forfeiture closure's settlement forward: taxes paid on forfeited assets and refunds received on their negative deltas update the envelope balance, which the individual carries into any continuing or future position.
-
-Where forfeiture closes the entire position, the individual exits the WDT system. Re-entry above threshold follows (CLOSE §6) on the usual terms: fresh basis at re-entry net worth, lifetime envelope carried forward. An individual who re-enters following full forfeiture closure typically does so with a materially smaller envelope balance than a first-time entrant of equivalent wealth, reflecting the prior position's settlement history.
-
 \newpage
 
-# 5. The Closure Bond Facility
+# 5. The Bridging Facility
 
-The closure bond facility decouples interim activity from final WDT settlement across all closure event types where Route D assets require auction and other assets or distributions need to proceed before that auction completes. It is a single instrument with three procedural variants — death, exit, and bankruptcy — sharing identical bond mechanics and differing only in who initiates the process and what interim activity is decoupled.
+The bridging facility decouples departure from settlement: the taxpayer leaves when they want, and the settlement process runs independently to completion.
 
-The facility is not needed where no Route D assets are held. Where all assets settle through Routes A, B, and C, valuations are triggered immediately at the closure event, marginal rate can be established quickly, and settlement completes without significant delay.
+Without it, a taxpayer with Route D assets faces a timing problem at exit closure: the inheritance-auction process takes time, and a taxpayer who cannot depart until it completes is effectively detained during the auction period. The bridging facility removes this constraint.
 
-## 5.1 Bond Mechanics
+It operates on a bond structure under which both sides post security proportional to the expected direction of the exit delta. Where the expected exit delta is positive, the taxpayer posts a bond before departure; where it is negative, the SWF posts a bond to the taxpayer as security for the expected refund. Where direction is uncertain, both sides post proportional bonds; bonds net on settlement. Departure and settlement are two separate events, and only the first requires the taxpayer's presence in the jurisdiction. The full specification of the bond structure, sizing ratios, and Custodian mandate coverage is in (GOV.B §E.3).
 
-The bond structure is identical across all three variants. Once a provisional W is established from all determined route values plus the Route D component at the last declared or reset basis, a provisional  $\tau(W)$  is calculated and non-Route-D settlement proceeds provisionally. Two bonds may then be posted:
-
-Where the expected Route D contribution to W is above the provisional basis — meaning the auction is expected to come in above the last declared value and push W into a higher bracket — the initiating party (taxpayer, estate executor, or insolvency practitioner) posts a bond to the Custodian covering the estimated additional tax liability. This protects the Exchequer against underpayment if the auction produces a higher-than-expected price.
-
-Where the expected Route D contribution is below the provisional basis — meaning the auction may come in below the last declared value, reducing W and lowering the applicable marginal rate — the SWF posts a bond to the initiating party covering the estimated overpayment. This protects the estate, creditor pool, or departing taxpayer against having overpaid against an excess they cannot then recover.
-
-Where direction is uncertain, both parties post proportional bonds reflecting their respective exposure; the bonds net against each other on final settlement.
-
-All bonds are sized to the estimated difference between provisional and expected final settlement, not to the full tax liability. Sizing ratios are Governing Council calibration parameters under the Tier 1 process, informed by Phase One closure data. (GOV.B §E.3) specifies the sizing principles; the values await implementation experience.
-
-Final settlement occurs when the Route D auction completes and the true W is established. All provisional settlements are adjusted, bonds are released, and the net amount owed transfers in the appropriate direction. Where the death auction waiver applies (CLOSE §4.1.1), no Route D auction runs and bonds are not required for the Route D component; the waiver collapses the timing problem by making the provisional W immediately final.
-
-## 5.2 Death Variant
-
-**Initiating party:** Estate executor.
-
-**Interim activity decoupled:** Provisional distribution to heirs while the Route D inheritance auction runs.
-
-**Initiation:** After death, the executor establishes provisional W_death and initiates the bond process with the Custodian. Documentation requirements are assigned to a future GOV.B revision (see CLOSE §4.1 mandate gap).
-
-**Symmetric character:** The SWF posting a bond to the estate on a negative expected delta ensures the estate has security for the expected refund. The state's downside commitment extends to the estate before final settlement is established.
-
-**Hard reset waiver interaction:** Where the death auction waiver applies, the executor does not initiate the bond process for the Route D component — the reset price is treated as final immediately. The bond may still apply if Route A or B valuations produce rate uncertainty.
-
-## 5.3 Exit Variant
-
-**Initiating party:** Taxpayer.
-
-**Interim activity decoupled:** Physical departure from the jurisdiction before Route D auction completes.
-
-**Initiation:** The taxpayer declares an intended exit date through the Administrator's system. The Custodian calculates the expected delta direction and magnitude. Bonds are posted before departure; physical departure and settlement are then independent events.
-
-**Cooperative character:** The SWF posting a bond to the departing taxpayer on a negative expected delta demonstrates that the state will honour the refund commitment even after the person has left the jurisdiction. This is the trust-building dimension of the exit variant that the death and bankruptcy variants do not carry in the same way: the departing taxpayer is making a judgment about whether to remain in the system, and the SWF's posted bond is evidence that the mechanism will meet its obligations.
-
-**Friction concentration:** A taxpayer who initiates the exit valuation service early, provides complete documentation, and cooperates with the pre-departure process faces minimal uncertainty at departure. A taxpayer who initiates late or with incomplete documentation faces a longer open-liability period. Friction concentrates on non-cooperation, not on the act of departure.
-
-## 5.4 Bankruptcy Variant
-
-**Initiating party:** Insolvency practitioner.
-
-**Interim activity decoupled:** Provisional creditor distributions while Route D assets are auctioned.
-
-**Initiation:** Once insolvency proceedings open, the practitioner initiates the bond process with the Custodian, provides asset declarations, and cooperates with the Route D auction process. Documentation requirements are assigned to the same GOV.B revision noted in (CLOSE §4.4).
-
-**Priority ordering:** The bond posted by the insolvency estate is a claim by the WDT mechanism on that estate, ranked according to jurisdiction-specific insolvency priority rules as specified in (CLOSE §4.4) — creditors first, WDT claim subordinate. The bond does not assert super-priority. In bankruptcy, the more likely scenario is that the final delta is negative (assets have declined), the SWF owes a refund, and the estate bond is not needed; the SWF's bond to the estate is what matters for creditor recovery.
-
-**Hard reset waiver:** The death auction waiver does not apply to bankruptcy. A hard reset performed before insolvency is useful — it reduces the Route D delta and simplifies the practitioner's auction process — but the waiver is specific to death closure because the deferral logic (heir pays later) has no equivalent in bankruptcy, where the creditor pool receives the estate as a one-time settlement and there is no continuing position into which deferred tax could fall.
+The friction structure is deliberately asymmetric. A taxpayer who initiates the exit valuation service early, provides complete documentation, and cooperates with the pre-departure valuation process faces minimal uncertainty at departure. A taxpayer who initiates late or with incomplete documentation faces a longer open-liability period and more uncertainty about the final number. Friction concentrates on non-cooperation, not on the act of closure itself.
 
 \newpage
 
@@ -412,32 +273,22 @@ The Route D closure mechanics (exit valuation service, inheritance auction in it
 
 The re-entry rule's extension to foreign nationals with prior WDT-equivalent positions in other jurisdictions depends on bilateral information exchange arrangements that cannot be designed unilaterally. This is assigned to a future international coordination paper (#16 in the consolidated register).
 
-The interaction of custodial route reclassification and criminal forfeiture closure with existing asset-freezing and proceeds-of-crime legislation requires jurisdiction-specific legal analysis. The WDT's route classification logic follows from the assets' properties at the relevant date; whether domestic courts will accept reclassification from Route C to Route D on this basis, and how the forfeiture settlement sequence interacts with creditor priority rules under criminal confiscation orders, are questions for the dedicated legal paper and JUR.
-
 ## 9.4 Structural and irreducible limits of the design
 
 The paper does not quantify the revenue or behavioural consequences of any closure event type. How those quantities turn out depends on conditions the mechanism cannot determine in advance. The design framework within which Phase One generates evidence on these questions is in BEHAV. CLOSE establishes the closure mechanics and their principled basis; predicting the consequences is outside its scope.
 
 ## 9.5 Governing Council calibration parameters
 
-Bond sizing ratios for the closure bond facility — the proportionality of bonds posted by the taxpayer, executor, or practitioner (positive expected delta) and by the SWF (negative expected delta) relative to estimated liability — are Governing Council calibration parameters under the Tier 1 process, informed by Phase One closure data across all three variants. (GOV.B §E.3) specifies the principles; the values await implementation experience.
-
-The death auction waiver threshold period — the maximum time since a qualifying hard basis reset within which the inheritance auction may be waived at death — is a Governing Council calibration parameter. The relevant trade-off (administrative simplification against deferral of post-reset appreciation into the heir's position) and the qualifying conditions for a hard reset are specified in (CLOSE §4.1.1). The value awaits Phase One estate data and actuarial evidence on typical Route D appreciation rates.
-
-The forfeiture resolution award — the share of forfeiture value payable to named enforcement personnel on confirmed attribution — is a Governing Council calibration parameter under the Tier 1 process. The relevant trade-off is between an award size sufficient to materially accelerate attribution and one that does not crowd out other enforcement incentives or create distortions in investigative prioritisation toward high-value WDT targets. Phase One data on forfeiture timelines and attribution rates will inform the calibration. The value awaits implementation experience.
+Bridging facility bond sizing ratios (the proportionality of bonds posted by the taxpayer (positive expected delta) and by the SWF (negative expected delta) relative to estimated liability) are Governing Council calibration parameters under the Tier 1 process, informed by Phase One exit data. (GOV.B §E.3) specifies the principles; the values await implementation experience.
 
 \newpage
 
 # 10. Conclusion
 
-Death, jurisdictional exit, threshold fall-through, and bankruptcy are structurally the same kind of event: the WDT assessment position closes. The mechanism's response to each is the same in structure — calculate the final delta, honour the symmetric refund if it is negative, settle the running account — with procedural differences that follow from the specific circumstances of each closure type.
+Death, jurisdictional exit, threshold fall-through, and bankruptcy are structurally the same kind of event: the WDT assessment position closes. The mechanism's response to each is the same in structure (calculate the final delta, honour the symmetric refund if it is negative, settle the running account), with procedural differences that follow from the specific circumstances of each closure type. No new machinery is required beyond the bridging facility for exit closure, which exists to decouple departure from settlement completion, not to create a new settlement track.
 
-Death most fully exercises the machinery. The marginal rate dependency problem — $\tau_{W_death}$ cannot be established until all route valuations are complete, meaning Route D's inheritance auction blocks final settlement of everything else — is managed through the provisional $\tau$ mechanism and the closure bond facility. The death auction waiver, where a qualifying hard reset occurred within the Governing Council's threshold period, collapses this timing problem by treating the reset price as the final Route D component of W_death without a further auction, deferring the post-reset appreciation into the heir's future delta.
+The lifetime contribution envelope persists across position closures and re-entries because it is a property of the individual, not of the assessment position. Re-entrants carry their prior envelope balance into any new position they open. The basis of the new position is fresh; the envelope history is not. This is the closure framework's principal safeguard against strategic cycling through the mechanism.
 
-The closure bond facility unifies what would otherwise be three separate instruments. Death, exit, and bankruptcy all face the same underlying problem: Route D assets require an auction that takes time, while other assets or distributions need to proceed. The bond structure — provisional settlement, bonds posted by both sides proportional to expected delta direction, netting on final settlement — is identical across all three variants. What differs is who initiates, what is being decoupled, and the specific procedural context. Exit carries an additional cooperative dimension: the SWF posting a bond to a departing taxpayer demonstrates that the mechanism will honour its refund commitment across jurisdictional boundaries.
-
-The lifetime contribution envelope persists across all closure types and re-entries because it is a property of the individual, not of the assessment position. Re-entrants carry their prior envelope balance into any new position. The basis of the new position is fresh; the envelope history is not. This is the closure framework's principal safeguard against strategic cycling through the mechanism.
-
-The paper's contribution is the abstraction itself: position closure as a general theory, with the closure bond facility as its operational expression, rather than exit taxation and inheritance treatment as separate specialised regimes with their own logic and their own failure modes.
+The paper's contribution is the abstraction itself: position closure as a general theory, rather than exit taxation or inheritance treatment as separate specialised regimes. A delta-based mechanism with an ongoing assessment relationship between state and taxpayer naturally generates a general account of how that relationship ends.
 
 \newpage

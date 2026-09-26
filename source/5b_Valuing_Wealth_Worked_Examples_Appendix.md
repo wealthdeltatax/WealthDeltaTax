@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Valuing Wealth — Worked Examples Appendix"
 shortcode: "VAL.B"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -28,6 +27,7 @@ keywords:
 | 1.01      | 15 August 2026  | Published to website |
 | 1.02 | 29 August 2026 | §M.1 clarifying paragraph added distinguishing voluntary hard-reset from corrective auction and stating lock-point rule; §M.3 no-bid outcome paragraph added for voluntary hard-reset pathway; §M.6 final sentence replaced to distinguish corrective and voluntary pathways and their respective refund treatment; §O summary table §M row updated to reflect three-pathway classification |
 | 1.03 | 30 August 2026 | TW refined to TW_settled throughout (post-sale oscillation now included in terminal figure); Table J.1, K.1, N.1 row headers and captions updated; §N.3.2 prose updated to reflect Founder C's +4.97% TW_settled outcome correctly; §N.4 revised to distinguish Founder B (forecast wrong, worse outcome) from Founder C (forecast-consistent at low growth, better outcome) and note consistency with VAL.A §A.6 mild-overstatement equilibrium |
+| 1.04 | 25 September 2026 | Crosslinks added: §L note added after inheritance auction fires pointing to (CLOSE §4.1) for full death settlement sequence and marginal rate dependency; §M Option C extended with death auction waiver pointer to (CLOSE §4.1.1); §O summary table §M row extended with (CLOSE §4.1.1) reference |
 
 \newpage
 
@@ -215,7 +215,7 @@ No formal assessment occurs during the holding period. Annual reports are filed 
 
 The taxpayer holds the collection for fifteen years and dies. The estate triggers the inheritance auction. The auction establishes a value of £16.631m.
 
-The WDT liability is calculated on the full gain from entry basis to auction value: (£16.631m − £8m) × 15.17% marginal rate = £1.310m. The heir may pay this from the estate's liquid assets and retain the collection, or allow the works to sell at the auction price and receive the net proceeds.
+The WDT liability is calculated on the full gain from entry basis to auction value: (£16.631m − £8m) × 15.17% marginal rate = £1.310m. The heir may pay this from the estate's liquid assets and retain the collection, or allow the works to sell at the auction price and receive the net proceeds. Note that 15.17% here is illustrative as a standalone rate; in practice τ(W_death) is determined by the deceased's total declared net worth across all routes at death, which may place the liability in a different bracket. For the full death settlement sequence — including the marginal rate dependency problem, provisional τ(W_death) mechanism, and the closure bond facility — see (CLOSE §4.1).
 
 ### L.3.1 Timeline A: Annual Cash Settlement (what Route D avoids)
 
@@ -286,7 +286,7 @@ Where a hard-reset auction produces no valid bid, the asset is worthless and the
 
 ## M.4 Option C: No Voluntary Settlement
 
-The taxpayer takes no action. The property appreciates. At death, the estate triggers the inheritance auction, establishing £10.395m (true value at year 15 at $g$ = 5% compounded). The WDT liability on the full gain: £10.395m − £5m = £5.395m, at 15.10% = £0.815m. The heir must pay from the estate's liquid assets or allow the property to sell.
+The taxpayer takes no action. The property appreciates. At death, the estate triggers the inheritance auction, establishing £10.395m (true value at year 15 at $g$ = 5% compounded). The WDT liability on the full gain: £10.395m − £5m = £5.395m, at 15.10% = £0.815m. The heir must pay from the estate's liquid assets or allow the property to sell. Had the taxpayer performed a qualifying hard basis reset within the Governing Council's death auction waiver threshold period before death, the inheritance auction could have been waived and the reset price used directly as the Route D component of W_death; see (CLOSE §4.1.1).
 
 ## M.5 Comparison
 
@@ -409,7 +409,7 @@ At the system level, if mild overstatement is the rational equilibrium, declared
 | **§J: Deferred delta** | Understatement defers, not eliminates | Post-sale assessment recovers accumulated basis gap in a single calculation | (VAL §1), (VAL.B §J); (VAL.A §C.1) |
 | **§K: Dilution compounds** | Must-transfer cost tracks the asset's growth | State acquires equity at declared price; appreciation runs at true rate | (VAL §5.2); (VAL.A §A.4.5), (VAL.B §K) |
 | **§L: Route D defers to realisation** | Annual cash on illiquid assets recreates forced-realisation pressure | Inheritance auction establishes observable price; full gain taxed at realisation | (VAL §6.1), (VAL.B §L) |
-| **§M: Voluntary settlement** | Soft/hard resets give certainty, not avoidance | Liability paid in full at declared or market value; basis resets for all future calculations; voluntary pathway carries full symmetric refund on downward discovery; corrective pathway does not | (VAL §6.4), (VAL §11.2), (VAL §11.3); (GOV.B §G) |
+| **§M: Voluntary settlement** | Soft/hard resets give certainty, not avoidance | Liability paid in full at declared or market value; basis resets for all future calculations; voluntary pathway carries full symmetric refund on downward discovery; corrective pathway does not | (VAL §6.4), (VAL §11.2), (VAL §11.3); (GOV.B §G); (CLOSE §4.1.1) |
 | **§N: Forecast exposure** | Honest declaration has no directional exposure to trajectory | Both understatement and overstatement penalise forecast error; honest declaration is agnostic | (VAL §7.1); (VAL.A §A.5.1), (VAL.B §N) |
 
 \newpage

@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: The White Paper"
 shortcode: "WP"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
 keywords:
  - Wealth Delta Tax
  - accrual-based wealth taxation
@@ -28,6 +27,7 @@ keywords:
 | 1.02 | 13 September 2026 | §3.7 rewritten to reframe the valuation architecture's central claim: the state does not need to determine correct asset values, only enforce the consequences of declared values; §3.8 rewritten to lead with the tolerant zone ($\alpha$ $\approx$ 0.8–1.5) as the primary result and characterise the mild upward declaration bias ($\alpha$ $\approx$ 1.1) as a conditional behavioural prediction from refund-protection asymmetry under valuation uncertainty, not a dominant strategy or wealth-maximising equilibrium; §5 fully rewritten to replace stale 2007-reference figures and incorrect $\tau_0$ = 20% parameter with 2000 reference scenario, correct burden figures (0.35% revenue-weighted annual wealth burden, 13.0% gain-weighted effective rate, 0.79% maximum, 27.2% maximum effective rate on gains), four-property structure from RATES, and burden-of-proof inversion; §6 stale TCM coverage figure replaced with post-fill framing consistent with revised §5; §8.1 rewritten to lead with the tolerant zone as the primary answer to the valuation objection and deploy the three-layer structure from VAL §7.1; §8.1 closing paragraph updated to remove over-concessive residual-difficulty framing and replace with implementation-sequencing characterisation; §9.2 updated with floor-not-ceiling framing and burden-of-proof language; §9.3 closing sentence added confirming arithmetic foundation holds across all 73 tested starting conditions; §10 concluding paragraphs updated to name the four RATES properties explicitly and restate the VAL reframe | |
 | 1.03 | 18 September 2026 | Citation confirmed: @LondonoVelezAvilaMahecha2025 in §2.2 already uses journal-version cite key; bib entry updated to *Review of Economic Studies* 92(4), 2624–2655 | |
 | 1.04 | 20 September 2026 | Crosslinks added: §6 labour dividend paragraph extended with pointer to (LDW) for quantified purchasing power consequences; §9.5 extended with pointer to (FAL) as the falsification counterpart | |
+| 1.05 | 25 September 2026 | Crosslinks updated throughout to reflect closure bond facility generalisation: §1.1 bridging facility → closure bond facility (CLOSE §5); §7.3 bridging facility → closure bond facility; §8.1 forward pointer to (CLOSE §4.1) added for full inheritance settlement sequence; §8.2 closure bond facility generalised to cover death and bankruptcy as well as exit; §9.4 bridging facility → closure bond facility | |
 
 \newpage
 
@@ -96,7 +96,7 @@ Durability requires reciprocal alignment. The symmetric loss-refund, the pre-fun
 
 Three distinct arguments support the cooperative architecture. The moral argument holds that reciprocal treatment of gains and losses is a requirement of fair dealing. The incentive argument holds that reciprocal protections alter the rational calculus of the population best positioned to resist the system. The political durability argument holds that a system perceived as adversarial will face more organised opposition than one offering reciprocal protections. The three arguments are analytically distinct and converge on the same institutional design.
 
-A fourth constraint operates alongside the three: the mechanism must not create regulatory dependencies on other economic systems. The WDT produces effects on surrounding structures — capital allocation, private credit markets, corporate financing, asset valuation — but none require co-legislation or forced restructuring. Every adaptation follows from adjusting to a different measurement point for wealth change, not from new rules imposed from outside. The corporate instrument requires companies to report a delta and issue shareholder statements (CORP §5.2); corporate structure and financing are untouched. Position closure works through the SWF's bridging facility within existing legal machinery, without requiring jurisdictions to harmonise exit taxation regimes. Valuation routes create incentives for consistent declaration without imposing new collateral standards on private credit. A tax requiring simultaneous reform of corporate law, lending regulation, and international coordination would not be implementable regardless of its theoretical properties. The delta base is self-contained; surrounding systems absorb its effects through ordinary market adjustment.
+A fourth constraint operates alongside the three: the mechanism must not create regulatory dependencies on other economic systems. The WDT produces effects on surrounding structures — capital allocation, private credit markets, corporate financing, asset valuation — but none require co-legislation or forced restructuring. Every adaptation follows from adjusting to a different measurement point for wealth change, not from new rules imposed from outside. The corporate instrument requires companies to report a delta and issue shareholder statements (CORP §5.2); corporate structure and financing are untouched. Position closure works through the SWF's closure bond facility (CLOSE §5) within existing legal machinery, without requiring jurisdictions to harmonise exit taxation regimes. Valuation routes create incentives for consistent declaration without imposing new collateral standards on private credit. A tax requiring simultaneous reform of corporate law, lending regulation, and international coordination would not be implementable regardless of its theoretical properties. The delta base is self-contained; surrounding systems absorb its effects through ordinary market adjustment.
 
 Whether cooperation materially changes behaviour is an empirical question. The narrower claim is that reciprocal arrangements are harder to characterise as adversarial, and therefore more durable.
 
@@ -176,7 +176,7 @@ These five problems are interconnected. Symmetric refunds create contingent liab
 
 In plain terms, the WDT works as follows. Each year, an individual's total net worth is assessed. If that person is above the defined exemption threshold, any increase in net worth is taxed at progressive rates, with larger gains facing higher marginal rates. If net worth has fallen, the government refunds a proportional share of the loss. A dedicated Sovereign Wealth Fund, built from surplus-year revenues, holds the reserves required to honour that refund commitment.
 
-The WDT treats wealth as durable command over economic resources rather than as deferred consumption. An individual with significant net worth, even wholly illiquid, commands real advantages: access to credit, geographic optionality, political influence, legal protection, and the capacity to transmit position across generations. These exist before any liquidation event. Unrealised appreciation is fiscally relevant because it expands the holder's command over resources in ways that are immediately real. Further exploration can be found in (WP §A.3).
+The WDT treats wealth as durable command over economic resources rather than as deferred consumption. An individual with significant net worth, even wholly illiquid, commands real advantages: access to credit, geographic optionality, political influence, legal protection, and the capacity to transmit position across generations. These exist before any liquidation event. Unrealised appreciation is fiscally relevant because it expands the holder's command over resources in ways that are immediately real. Further exploration can be found in (MF §4).
 
 ## 3.1 The Tax Base
 
@@ -358,7 +358,7 @@ Within general-revenue taxes, the displacement case varies. Income tax receipts 
 
 The most significant distributive case for the WDT is that it enables a material reduction in the tax burden on labour income. Even a WDT that supplements existing taxes at meaningful scale creates fiscal space to reduce marginal rates on labour, particularly at lower income levels where the marginal propensity to consume is highest. Labour income taxes distort the labour-leisure margin and reduce the returns to work; capital income taxes impose smaller social costs at the level of extraordinary wealth accumulation where savings are unlikely to respond to modest rate increases.
 
-The labour tax relief dividend is not a secondary political consideration. It is the mechanism through which the WDT's governing objective is actually pursued: ordinary households keeping more of what they earn, while those benefiting most from long-run wealth accumulation bear a greater share of maintaining the systems that enabled it. An implementation that taxed wealth deltas successfully but used the revenue for purposes unconnected to reducing burdens on labour income would satisfy the fiscal mechanics while failing on its own terms. The political pressure to treat surplus revenue as general fiscal headroom will be persistent. The further moral and philosophical implications are developed in (WP §A.4). The quantified purchasing power consequences for the working majority — payslip gains from bilateral NICs and income tax displacement, cost-of-living effects from VAT and energy cost reduction, household financial resilience, occupational choice effects, and the upstream welfare demand implications — are set out in full in (LDW).
+The labour tax relief dividend is not a secondary political consideration. It is the mechanism through which the WDT's governing objective is actually pursued: ordinary households keeping more of what they earn, while those benefiting most from long-run wealth accumulation bear a greater share of maintaining the systems that enabled it. An implementation that taxed wealth deltas successfully but used the revenue for purposes unconnected to reducing burdens on labour income would satisfy the fiscal mechanics while failing on its own terms. The political pressure to treat surplus revenue as general fiscal headroom will be persistent. The further moral and philosophical implications are developed in (MF §6). The quantified purchasing power consequences for the working majority — payslip gains from bilateral NICs and income tax displacement, cost-of-living effects from VAT and energy cost reduction, household financial resilience, occupational choice effects, and the upstream welfare demand implications — are set out in full in (LDW).
 
 \newpage
 
@@ -396,7 +396,7 @@ Subsequent threshold reductions and rate adjustments follow the same condition-b
 
 The Norwegian experience following the 2022 wealth tax increase demonstrates that migration responses are real but fiscally modest under well-administered systems. @JakobsenEtAl2024 estimate roughly 22 cents of revenue lost per unit raised, with overall revenues continuing to grow. The empirical evidence reviewed in (WP §2.2) suggests the magnitude of the response depends primarily on reporting quality and the availability of jurisdictional arbitrage.
 
-Exit taxation provides a complement at the enforcement level. A charge on accrued unrealised gains at the point of departure captures value that would otherwise leave the system on emigration. The structural exit design, including the no-punitive-exit-taxation position, the bridging facility that decouples departure from settlement, and the re-entry rule that preserves the lifetime envelope across closures, is settled in (CLOSE). Jurisdiction-specific legal implementation remains open and is identified in (WP §9.4).
+Exit taxation provides a complement at the enforcement level. A charge on accrued unrealised gains at the point of departure captures value that would otherwise leave the system on emigration. The structural exit design, including the no-punitive-exit-taxation position, the closure bond facility that decouples interim activity from final settlement across all closure event types, and the re-entry rule that preserves the lifetime envelope across closures, is settled in (CLOSE). Jurisdiction-specific legal implementation remains open and is identified in (WP §9.4).
 
 International coordination on minimum rates is a possible long-run complement, analogous to the OECD minimum corporate tax framework. The WDT does not treat coordination as a prerequisite for domestic implementation.
 
@@ -414,7 +414,7 @@ The primary answer to the valuation objection is the tolerant zone. At canonical
 
 Beyond the tolerant zone, tail deterrence is real in both directions. Severe understatement at moderate-to-high growth carries an accumulating penalty through the basis gap recovered at realisation and, for fungible assets, through the dilution mechanism under Route C's must-transfer rule. Aggressive overstatement at moderate growth faces a bracket penalty that dominates the nominal advantage across the growth range containing the historical mean. The nominal advantage from mild overstatement does not survive discounting in any case: periodic outflows are real early money while the sell-year refund is inflated late money. The Route D auction mechanism described in (WP §4.3) provides a deterrent of last resort for egregious cases where these self-correcting properties carry less force.
 
-The residual implementation questions — inheritance auction conduct rules, behavioural adoption rates across valuation routes, and derivative valuation methodology for illiquid positions — are assigned to (JUR), Phase One, and future methodology work respectively. They are sequencing questions, not objections to the mechanism's feasibility. The valuation objection to mark-to-market wealth taxation is dissolved at the design level: the mechanism does not require the state to determine correct asset values, only to enforce the consequences of whatever values the taxpayer declared.
+The residual implementation questions — inheritance auction conduct rules, behavioural adoption rates across valuation routes, and derivative valuation methodology for illiquid positions — are assigned to (JUR), Phase One, and future methodology work respectively. They are sequencing questions, not objections to the mechanism's feasibility. The full inheritance settlement sequence — including the marginal rate dependency problem, provisional τ(W_death) mechanism, death auction waiver, and heir basis mechanics — is in (CLOSE §4.1). The valuation objection to mark-to-market wealth taxation is dissolved at the design level: the mechanism does not require the state to determine correct asset values, only to enforce the consequences of whatever values the taxpayer declared.
 
 ## 8.2 The Liquidity Problem
 
@@ -430,7 +430,7 @@ The cost of liquidity management through declaration is priced into the route st
 
 The agnosticism about declaration motive has a boundary: it applies within the reporting relationship, not outside it. A taxpayer who omits an asset from their declaration entirely faces attribution at $\tau_h$ by default. The freedom is wide — covering the full range of declared values on reported assets — but it is freedom within the mechanism, not freedom to exit it.
 
-For the specific case of exit closure, the bridging facility in (CLOSE §5) and (GOV.B §E.3) decouples departure from settlement; the SWF crystallises liability and both parties post bonds, eliminating the liquidity-detention conflict that conventional exit regimes create. This paper treats the liquidity problem as resolved for Route C and D holders through the declaration architecture, and as a design challenge requiring careful attention for the residual cases of ongoing cash settlement on Routes A and B.
+For exit closure, the closure bond facility in (CLOSE §5) and (GOV.B §E.3) decouples departure from settlement; both parties post bonds proportional to the expected delta direction, eliminating the liquidity-detention conflict that conventional exit regimes create. The same facility operates at death and bankruptcy closure, decoupling provisional estate and creditor distributions from final settlement pending the Route D inheritance auction. This paper treats the liquidity problem as resolved for Route C and D holders through the declaration architecture, and as a design challenge requiring careful attention for the residual cases of ongoing cash settlement on Routes A and B.
 
 ## 8.3 Behavioural Responses
 
@@ -446,7 +446,7 @@ The full behavioural framework, including a nine-shape taxonomy of response type
 
 ## 8.4 The Consumption Tax Alternative
 
-The most rigorous alternative to the WDT within mainstream tax economics is Bradford's X Tax. The full treatment is in (WP §A.2). Readers who find the consumption tax framework more persuasive have grounds for a different conclusion.
+The most rigorous alternative to the WDT within mainstream tax economics is Bradford's X Tax. A formal welfare comparison across all six systems at revenue equivalence, including the Bradford X Tax equivalence result, is in (WFR §4.4). Readers who find the consumption tax framework more persuasive have grounds for a different conclusion.
 
 ## 8.5 Constitutional Entrenchment
 
@@ -500,7 +500,7 @@ The fiscal concentration risk is not a reason to abandon the high threshold. The
 
 ## 9.4 Jurisdiction-Specific Legal and Implementation Work
 
-The design of exit closure provisions, the interaction of the bridging facility with domestic deemed-disposal and freedom-of-movement rules, the constitutional status of the Route D auction mechanism's compelled-sale trigger in any given jurisdiction, and the conditions under which minimum-rate international coordination becomes feasible all require dedicated legal and political economy analysis, assigned to a dedicated legal paper.
+The design of exit closure provisions, the interaction of the closure bond facility with domestic deemed-disposal and freedom-of-movement rules, the constitutional status of the Route D auction mechanism's compelled-sale trigger in any given jurisdiction, and the conditions under which minimum-rate international coordination becomes feasible all require dedicated legal and political economy analysis, assigned to a dedicated legal paper.
 
 The HMRC data access agreement required to produce a revenue microsimulation on administrative records is an institutional precondition that must be established before Phase One begins. Until it is in place, the RATES cohort model is the only available revenue estimate.
 
@@ -529,69 +529,5 @@ The terminal goal is not redistribution but the preservation of the democratic c
 Valuation infrastructure does not yet exist at the necessary scale. Behavioural responses can only be observed through implementation. Constitutional entrenchment of the refund commitment will require political conditions that cannot be manufactured in advance. What the companion papers establish is more precise than that the mechanism holds under pressure. RATES demonstrates four properties simultaneously at the hardest historical starting conditions available: the refund guarantee becomes credible within three years under any return sequence in the dataset; the mechanism never fails across 73 start years and four economic cycles; fiscal replacement becomes viable at scale within a decade of self-sufficiency at the median start; and individual burdens remain proportionate throughout, with a revenue-weighted annual wealth burden of 0.35% and a gain-weighted effective rate on lifetime gains of 13.0%, both materially below the alternatives on a materially larger base. VAL establishes that the valuation objection is directed at the wrong problem: the mechanism does not require accurate declarations to function, only that the consequences of inaccurate declarations fall on the party who made them, within a broad tolerant zone that absorbs genuine valuation uncertainty by design. The failure boundary is not a design weakness — it is civilisational infrastructure failure, the same condition that would break any serious institutional design.
 
 The WDT is the first serious attempt to build a fiscal institution that the people most capable of resisting it have real reason to support. That is not a small thing. It may be enough.
-
-\newpage
-
-# A. Philosophical and Moral Foundations
-
-Full treatment in (MF). What follows is a summary for readers who want the logical scaffolding without the full treatment.
-
-## A.1 The Individual as Moral Subject
-
-The WDT's design rests on a single foundational axiom: individual human beings are the only legitimate moral subjects of a tax system. Corporations, trusts, and funds are instruments through which human wealth is organised. They have no welfare of their own. The choice of tax base, the cooperative architecture, the refund mechanism, and the fund structure all derive from that axiom applied consistently.
-
-The practical consequence is that the WDT taxes annual changes in individual net worth rather than corporate profits or consumption events. When a corporation's equity appreciates, the people holding that equity become wealthier. That enrichment is the taxable event. The corporation is the vehicle; the shareholder is the subject.
-
-## A.2 Where Wealth Comes From
-
-(MF) argues that extraordinary private wealth accumulation is partly a collective product. It depends on the labour of workers, the consumption of ordinary households, and the public infrastructure those households fund through their own taxes. Capital ownership structures mean that value generated broadly across the economy concentrates upward through ownership patterns already in place.
-
-At the level of ordinary entrepreneurship, the connection between individual effort and financial return is real. At the level of extreme wealth concentration, that connection weakens. Large fortunes emerge substantially from inheritance, structural positioning within ownership networks, and the compounding of advantages already held. When the WDT asks the wealthiest individuals to contribute proportionally to maintaining the conditions that enabled their accumulation, it is recognising that relationship rather than contesting the legitimacy of ownership itself.
-
-## A.3 Wealth as Power, Not Deferred Consumption
-
-Above a threshold of basic sufficiency, wealth provides real present-tense advantages that do not depend on any spending occurring: access to credit, geographic optionality, political influence, legal leverage, and the capacity to transmit accumulated advantage across generations. The consumption-tax tradition treats wealth as fiscally irrelevant until converted into spending. The WDT treats it as ongoing command over economic resources that is socially consequential before any liquidation event.
-
-At sufficient scale, the distinction between liquid and illiquid holdings weakens substantially. Very large asset positions generate their own effective liquidity through leverage against appreciating collateral and institutional credit access unavailable to ordinary borrowers. The constraints that make illiquid wealth feel different from liquid wealth dissolve at the top of the distribution. Taxing accumulation as it occurs reflects the view that economic power becomes fiscally relevant when it exists.
-
-## A.4 The Terminal Goal and the Labour Tax Relief Dividend
-
-(MF) is explicit that the WDT is an instrument, not an end in itself. Its terminal goal is broad democratic flourishing: maintaining the conditions under which democratic institutions remain functional and ordinary people retain meaningful participation in the societies their labour and consumption sustain.
-
-This sets a harder success criterion than revenue generation alone. An implementation that taxed wealth deltas successfully but used the revenue for purposes unconnected to reducing burdens on labour income would satisfy the fiscal mechanics while failing on the system's own terms. The labour tax relief dividend is the mechanism through which the terminal goal is actually pursued. Ordinary households keeping more of what they earn, while the people benefiting most from long-run wealth accumulation bear a greater share of the cost of maintaining the systems that enabled it, is the point of the design.
-
-## A.5 Named Compromises
-
-(MF) is explicit about the points at which the WDT's theoretical foundations and its practical design part company. These are worth naming here because they affect how the mechanism in this paper should be read.
-
-The corporate instrument cannot be grounded in the individual-centred moral logic but is required for coverage. Where dispersed public shareholdings, institutional holdings, and retained earnings mean that individual-level assessment cannot reliably reach the relevant humans, a residual corporate mechanism is a pragmatic departure from the moral core.
-
-The exemption threshold excludes some accumulation by design. A fully individual-centred system would assess all humans. The threshold is an administrative necessity, not a principled position.
-
-International mobility creates a gap the system manages rather than closes. Exit taxation is available as a complement but does not fully resolve it.
-
-The WDT depends on functioning democratic institutions as a boundary condition it cannot itself supply. A fiscal mechanism cannot restore democratic legitimacy where it has already collapsed. This is named as a real limitation rather than resolved through design.
-
-\newpage
-
-# B. Institutional Design Extensions
-
-## B.1 Governance Model
-
-The governance architecture is now specified in full in (GOV) rather than being illustrative. What follows is a summary for readers who want the structure without the full derivation.
-
-Three chambers hold political legitimacy in the Governing Council. The Taxpayer Chamber (TP) and the Fiscal Sovereign Chamber (FS) are the two proposing chambers, each currently holding twenty-five percent of total vote share; only the split between them is a calibration parameter. The Dividend Recipient Chamber (DR) holds fifty percent, a structural figure derived in (GOV §5.1) from the anti-collusion guarantee: DR's unanimous opposition must be independently sufficient to defeat any joint TP/FS proposal, which requires DR's share to equal at least the combined share of the two proposing chambers. DR is filled by monthly lottery from the general population with staggered one-year terms; it holds no proposing right. A proposal passes only if nays stay below DR's vote share and yays exceed fifty percent of votes actually cast, with non-votes excluded from the denominator.
-
-Six executive bodies carry out the mechanism's transactions without holding Governing Council votes: three independent Valuation Bodies under identical mandates, an Allocator, an SWF Custodian, and an Administrator. The ten enumerated structural clauses (GOV §5.2), the rebalancing mechanism, and the full operational specification are in GOV and (GOV.B).
-
-Several operating principles stated in earlier versions of this appendix remain correct and are now instantiated in GOV's design. The refund drawdown is mechanical and constitutionally guaranteed, not subject to governance discretion. The fund's target reserve level must be calibrated to withstand severe downturns. Fund balances, contribution flows, drawdown decisions, investment returns, and stabilisation deployments are reported publicly through the Administrator's fixed publication cycle.
-
-## B.2 The Consumption Tax Alternative
-
-The most rigorous alternative to the WDT within mainstream tax economics holds that consumption, not income, is the theoretically correct tax base. @Kaldor1955 argues that a person who earns income and saves it is deferring consumption rather than extracting resources from society. David Bradford developed this logic into the X Tax, which applies graduated rates to wages while taxing business cash flows at a flat rate.
-
-The consumption tax tradition was developed with taxpayers who earn, save, and eventually spend in view. That logic is compelling for ordinary household saving. It is less compelling at the top of the wealth distribution, where very large holdings may never be meaningfully consumed but instead transferred at death, placed in trust, or directed to philanthropy.
-
-The WDT adopts the Haig-Simons position. The disagreement is normative: the consumption-tax tradition prioritises allocative efficiency by minimising distortions to saving and investment; the WDT prioritises taxing economic enrichment as it occurs, including through unrealised appreciation. A formal welfare comparison across all six systems at revenue equivalence is now conducted in (WFR), including a direct comparison of stock wealth tax and consumption tax welfare outcomes. The normative disagreement between the two frameworks is not resolved by that comparison — it persists — but the claim that the welfare comparison has not been done is no longer accurate.
 
 \newpage
