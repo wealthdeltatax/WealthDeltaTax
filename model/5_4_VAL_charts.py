@@ -1,64 +1,26 @@
 """
-VAL Output Script D — Figures (v3 — style refactor)
-=====================================================
-Refactor changes (v2 → v3):
+VAL Output Script D — Figures (v4 — data-driven)
+=================================================
+All simulation data is loaded from OUTPUTS/VAL/val_data.json
+(produced by val_core.py). No wdt_core simulation calls here.
 
-Imports / module header
-  • Removed unused imports: os, math, date, Path (Path came from wdt_fmt already)
-  • Extended wdt_style import to include all named size and colour constants used
-    in this file: FIG_SINGLE_W, FIG_PAIR_T, FIG_QUAD_XL, FIG_PAIR_XW,
-    C_ANNOTATION, C_DARK, apply_style_nogrid
-  • Dropped UNDER_COLS / HONEST_COL / OVER_COLS module-level aliases — all
-    figures now reference C_UNDER / C_HONEST / C_OVER directly
-  • Dropped OUT_DIR (str duplicate of _OUT); no os.path calls existed
-  • Dropped FSIZE alias; FIG_SINGLE used directly at call sites
-  • Dropped set_style alias; apply_style / apply_style_nogrid called directly
+To regenerate output:
+    python val_core.py          # run simulations
+    python 5_4_VAL_charts.py   # render figures
 
-Figure-size cleanup (inline tuples → named constants)
-  Fig 02  (10, 5.5)  → FIG_SINGLE_W
-  Fig 04  (10, 5.5)  → FIG_SINGLE_W
-  Fig 05  (10, 5.5)  → FIG_SINGLE_W
-  Fig 07  (14, 6.5)  → FIG_PAIR_T
-  Fig 08  (14, 6.5)  → FIG_PAIR_T
-  Fig 09  (14, 10)   → FIG_QUAD_XL
-  Fig 10  (16, 5.5)  → FIG_PAIR_XW
-  Fig 06  (13, 5.5)  — kept as custom tuple; no named constant matches exactly
-
-Colour cleanup (inline hex lists → wdt_style constants)
-  Fig 04  local under_cols / over_cols  → C_UNDER / C_OVER
-  Fig 05  local under_cols              → C_UNDER
-  Fig 06  local over_cols               → C_OVER
-  _FIG09_COLORS (duplicate of C_OVER_LIGHT) → C_OVER_LIGHT
-
-apply_style_nogrid for pure-heatmap figures
-  Fig 02  — entire figure is a heatmap; use apply_style_nogrid()
-  Fig 07  — set_style() + per-axes ax1.grid(False) → apply_style_nogrid() for
-             both axes; ax2 re-enables grid explicitly with ax2.grid(True)
-  Fig 08  — apply_style_nogrid(); ax1.grid(True, zorder=0) kept as explicit
-             re-enable; ax2.grid(False) is now a no-op but kept for clarity
-  Fig 09  — apply_style_nogrid() (all four panels are heatmaps)
-  Fig 10  — apply_style_nogrid() (both panels are heatmaps)
-
-Fig 07 rcParams bleed fix
-  plt.rcParams.update({'legend.frameon': True, ...}) replaced with per-axes
-  legend() kwargs (frameon=True, framealpha=0.9, fontsize=8.5); no rcParam
-  mutation that could bleed into subsequent figures.
-
-All figure content, annotations, and data logic are unchanged.
+If val_data.json is current you can re-run this script alone to
+adjust figure formatting without re-running simulations.
 """
 
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
-import matplotlib.ticker
 import numpy as np
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 
-from wdt_core import (load_params, tau, simulate, simulate_sell,
-                      settle_tw, run_sim, decompose_tw_advantage,
-                      run_sim_hist, npv_tax_advantage)
+from val_core import load_val_data
 from wdt_fmt import out_dir, ensure_dir
 from wdt_style import (
     apply_style, apply_style_nogrid, save_fig,
@@ -69,40 +31,28 @@ from wdt_style import (
 
 _OUT = out_dir('VAL')
 
-# ─────────────────────────────────────────────────────────────
-# MODULE-LEVEL GRID CONSTANTS
-# Populated by main() from TOML [sweep] section.
-# ─────────────────────────────────────────────────────────────
-
-G_VALS        = []
-G_LABELS      = []
-ALPHA_VALS    = []
-N_ACTUAL_VALS = []
-
 
 def _save(fig, name):
-    path = _OUT / name
-    save_fig(fig, path)
-    return path
+    return save_fig(fig, _OUT / name)
 
 
 # ─────────────────────────────────────────────────────────────
 # FIG 05 — Rate function τ(W)
 # ─────────────────────────────────────────────────────────────
 
-def fig_5_rate_function(p):
+def fig_5_rate_function(data: dict):
     print("  Generating fig 05: rate function τ(W)...")
-    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    p  = data['params']
+    cd = data['charts']['fig_5_rate_function']
 
-    W_vals   = np.logspace(np.log10(p['W_min']), np.log10(10000), 500)
-    tau_vals = [tau(w, sim_p) * 100 for w in W_vals]
-
-    entry_rate = tau(p['W_min'], sim_p) * 100
+    W_vals   = cd['w_vals']
+    tau_vals = cd['tau_vals']
+    entry_rate = tau_vals[0] * 100   # τ at W_min (first point)
 
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE)
 
-    ax.semilogx(W_vals, tau_vals, color=C_DARK, linewidth=2)
+    ax.semilogx(W_vals, [t * 100 for t in tau_vals], color=C_DARK, linewidth=2)
 
     ax.axhline(p['tau_0'] * 100, color=C_ANNOTATION, linewidth=0.8, linestyle='--')
     ax.axhline(p['tau_m'] * 100, color=C_ANNOTATION, linewidth=0.8, linestyle='--')
@@ -148,23 +98,18 @@ def fig_5_rate_function(p):
 
 # ─────────────────────────────────────────────────────────────
 # FIG 5.2a — C.1 heatmap
-# Pure heatmap: apply_style_nogrid(); no per-axes grid override needed.
 # ─────────────────────────────────────────────────────────────
 
-def fig_5_2a_c1_heatmap(p):
+def fig_5_2a_c1_heatmap(data: dict):
     print("  Generating fig 5.2a: C.1 heatmap...")
-    base_by_g = {g: run_sim(p, alpha=1.0, g=g) for g in G_VALS}
+    p       = data['params']
+    grids   = data['grids']
+    cd      = data['charts']['fig_5_2a_c1_heatmap']
 
-    matrix = []
-    for alpha in ALPHA_VALS:
-        row = []
-        for g in G_VALS:
-            r = run_sim(p, alpha=alpha, g=g)
-            b = base_by_g[g]
-            val = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
-            row.append(val)
-        matrix.append(row)
-    matrix = np.array(matrix)
+    G_VALS    = grids['g_vals']
+    G_LABELS  = grids['g_labels']
+    ALPHA_VALS = grids['alpha_vals']
+    matrix = np.array(cd['matrix'])   # [alpha × g] in pp
 
     apply_style_nogrid()
     fig, ax = plt.subplots(figsize=FIG_SINGLE_W)
@@ -208,53 +153,35 @@ def fig_5_2a_c1_heatmap(p):
 # FIG 7.1b — Declaration equilibrium cost curve
 # ─────────────────────────────────────────────────────────────
 
-def fig_7_1b_equilibrium_cost_curve(p):
+def fig_7_1b_equilibrium_cost_curve(data: dict):
     print("  Generating fig 7.1b: declaration equilibrium cost curve...")
+    p  = data['params']
+    cd = data['charts']['fig_7_1b_equilibrium_cost_curve']
 
-    alpha_fine = [a / 100 for a in range(50, 205, 5)]
+    alpha_fine  = cd['alpha_fine']
+    g_scenarios = cd['g_scenarios']
+    cost_by_g   = cd['cost_by_g']
+    hist_cost   = cd['hist_cost']
+    mean_g_hist = cd['mean_g_hist']
 
-    g_scenarios = [
-        (0.059,  '#f46d43', '-',   1.8),
-        (0.084,  '#d4ac0d', '-',   1.6),
-        (0.1045, C_DARK,    '-',   2.0),
-        (0.139,  '#4393c3', '-',   1.8),
-    ]
+    g_colours = {0.059: '#f46d43', 0.084: '#d4ac0d', 0.1045: C_DARK, 0.139: '#4393c3'}
 
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE)
 
-    for g_val, col, ls, lw in g_scenarios:
-        base = run_sim(p, alpha=1.0, g=g_val)
-        net_diffs = []
-        for alpha in alpha_fine:
-            r = run_sim(p, alpha=alpha, g=g_val)
-            if abs(base['Net_settled']) > 1e-12:
-                net_diffs.append((r['Net_settled'] - base['Net_settled']) / base['Net_settled'] * 100)
-            else:
-                net_diffs.append(0.0)
-        ax.plot(alpha_fine, net_diffs, color=col, linewidth=lw,
-                linestyle=ls, label=f'g = {g_val*100:.1f}% (constant)')
+    for g_val in g_scenarios:
+        col = g_colours.get(g_val, '#888888')
+        ax.plot(alpha_fine, cost_by_g[str(g_val)], color=col, linewidth=1.8,
+                linestyle='-', label=f'g = {g_val*100:.1f}% (constant)')
 
-    scen_year   = p['scenario_start_year']
-    N           = p['N_demo']
-    g_series    = p['returns'][:N]
-    mean_g_hist = sum(g_series) / len(g_series)
-
-    base_hist = run_sim_hist(p, alpha=1.0)
-    hist_diffs = []
-    for alpha in alpha_fine:
-        r = run_sim_hist(p, alpha=alpha)
-        if abs(base_hist['Net_settled']) > 1e-12:
-            hist_diffs.append((r['Net_settled'] - base_hist['Net_settled']) / base_hist['Net_settled'] * 100)
-        else:
-            hist_diffs.append(0.0)
-    ax.plot(alpha_fine, hist_diffs, color='#7b2d8b', linewidth=2.0,
+    scen_year = data['meta']['scenario_start_year']
+    N         = p['N_demo']
+    ax.plot(alpha_fine, hist_cost, color='#7b2d8b', linewidth=2.0,
             linestyle='-.', label=f'{scen_year} hist. series (mean g = {mean_g_hist*100:.1f}%, N = {N})')
 
     ax.axhline(0, color=C_ANNOTATION, linewidth=0.8, linestyle='--')
     ax.axvline(1.0, color=C_ANNOTATION, linewidth=0.8, linestyle=':')
     ax.text(1.02, 18, 'α = 1.0\n(honest)', fontsize=8, color='#666666', va='top')
-
     ax.axvspan(0.5, 1.0, alpha=0.04, color='#d73027')
     ax.axvspan(1.0, 2.0, alpha=0.04, color='#4393c3')
 
@@ -263,9 +190,7 @@ def fig_7_1b_equilibrium_cost_curve(p):
     ax.set_ylabel("Net tax vs honest declaration (%)")
     ax.set_title(
         "Figure 7.1b - Declaration equilibrium: net tax cost relative to honest\n"
-        f"N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m, "
-        f"k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%  ·  "
-        f"Dash-dot = {scen_year} historical return series (mean g = {mean_g_hist*100:.1f}%"
+        f"N = {N}, $V_0$ = £{p['V0_m']:.0f}m, k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%"
     )
     ax.legend(loc='upper right', fontsize=8)
     ax.set_xlim(0.5, 2.0)
@@ -275,83 +200,64 @@ def fig_7_1b_equilibrium_cost_curve(p):
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 7.2a — C.8 TW gap by N (overlaid)
-# Colour lists replaced by C_UNDER / C_OVER.
+# FIG 7.2a — C.8 TW gap by N
 # ─────────────────────────────────────────────────────────────
 
-def fig_7_2a_tw_gap_by_n(p):
+def fig_7_2a_tw_gap_by_n(data: dict):
     print("  Generating fig 7.2a: C.8 TW gap by N (overlaid)...")
+    p       = data['params']
+    grids   = data['grids']
+    cd      = data['charts']['fig_7_2a_tw_gap_by_n']
 
-    alpha_under = [0.1, 0.2, 0.5, 0.8]
-    alpha_over  = [1.2, 1.5, 1.8, 2.0]
-
-    def tw_gap_const(alpha, n):
-        r = run_sim(p, alpha=alpha, g=p['g'], N=n)
-        b = run_sim(p, alpha=1.0,   g=p['g'], N=n)
-        return (r['TW_settled'] - b['TW_settled']) / b['TW_settled'] * 100 if abs(b['TW_settled']) > 1e-12 else 0.0
-
-    def tw_gap_hist(alpha, n):
-        r = run_sim_hist(p, alpha=alpha, N=n)
-        b = run_sim_hist(p, alpha=1.0,   N=n)
-        return (r['TW_settled'] - b['TW_settled']) / b['TW_settled'] * 100 if abs(b['TW_settled']) > 1e-12 else 0.0
+    N_ACTUAL_VALS = grids['n_actual_vals']
+    alpha_under   = grids['alpha_under']
+    alpha_over    = grids['alpha_over']
 
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE_W)
 
     for alpha, col in zip(alpha_under, C_UNDER):
-        vals_c = [tw_gap_const(alpha, n) for n in N_ACTUAL_VALS]
-        vals_h = [tw_gap_hist(alpha,  n) for n in N_ACTUAL_VALS]
-        ax.plot(N_ACTUAL_VALS, vals_c, color=col, linewidth=1.8,
-                linestyle='-',  label=f"α = {alpha}")
-        ax.plot(N_ACTUAL_VALS, vals_h, color=col, linewidth=1.4,
-                linestyle='-.', alpha=0.8)
+        ax.plot(N_ACTUAL_VALS, cd['const_under'][str(alpha)], color=col,
+                linewidth=1.8, linestyle='-',  label=f"α = {alpha}")
+        ax.plot(N_ACTUAL_VALS, cd['hist_under'][str(alpha)],  color=col,
+                linewidth=1.4, linestyle='-.', alpha=0.8)
 
     for alpha, col in zip(alpha_over, C_OVER):
-        vals_c = [tw_gap_const(alpha, n) for n in N_ACTUAL_VALS]
-        vals_h = [tw_gap_hist(alpha,  n) for n in N_ACTUAL_VALS]
-        ax.plot(N_ACTUAL_VALS, vals_c, color=col, linewidth=1.8,
-                linestyle='--', label=f"α = {alpha}")
-        ax.plot(N_ACTUAL_VALS, vals_h, color=col, linewidth=1.4,
-                linestyle=':', alpha=0.8)
+        ax.plot(N_ACTUAL_VALS, cd['const_over'][str(alpha)], color=col,
+                linewidth=1.8, linestyle='--', label=f"α = {alpha}")
+        ax.plot(N_ACTUAL_VALS, cd['hist_over'][str(alpha)],  color=col,
+                linewidth=1.4, linestyle=':',  alpha=0.8)
 
     ax.axhline(0, color=C_HONEST, linewidth=1.0, linestyle='-', label='α = 1.0 (honest)')
     scen_N = p['N_demo']
     ax.axvline(scen_N, color=C_ANNOTATION, linewidth=0.8, linestyle=':')
-    # inject N into the existing x-axis ticks as a small labelled tick
-    existing_ticks = list(ax.get_xticks())
-    if scen_N not in existing_ticks:
-        existing_ticks = sorted(existing_ticks + [scen_N])
-        ax.set_xticks(existing_ticks)
+
+    existing_ticks = sorted(set(list(ax.get_xticks()) + [scen_N]))
+    ax.set_xticks(existing_ticks)
     tick_labels = [
         f'{int(t)}\n(N)' if t == scen_N else (str(int(t)) if t == int(t) else '')
         for t in ax.get_xticks()
     ]
     ax.set_xticklabels(tick_labels, fontsize=8)
-    ax.tick_params(axis='x', which='major')
 
-    scen_year = p['scenario_start_year']
+    scen_year = data['meta']['scenario_start_year']
     style_handles = [
         Line2D([0], [0], color='#555555', lw=1.8, linestyle='-',
-            label=f'Solid = constant g ({p["g"]*100:.2f}%)'),
+               label=f'Solid = constant g ({p["g"]*100:.2f}%)'),
         Line2D([0], [0], color='#555555', lw=1.4, linestyle='-.',
-            label=f'Dash-dot = {scen_year} hist. series (understaters)'),
+               label=f'Dash-dot = {scen_year} hist. series (understaters)'),
         Line2D([0], [0], color='#555555', lw=1.8, linestyle='--',
-            label=f'Dashed = constant g ({p["g"]*100:.2f}%) (overstaters)'),
+               label=f'Dashed = constant g ({p["g"]*100:.2f}%) (overstaters)'),
         Line2D([0], [0], color='#555555', lw=1.4, linestyle=':',
-            label=f'Dotted = {scen_year} hist. series (overstaters)'),
+               label=f'Dotted = {scen_year} hist. series (overstaters)'),
     ]
-
     h1, l1 = ax.get_legend_handles_labels()
-    ax.legend(handles=h1 + style_handles,
-              loc='lower left', ncol=2, fontsize=7.5)
+    ax.legend(handles=h1 + style_handles, loc='lower left', ncol=2, fontsize=7.5)
 
     ax.set_xlabel("Holding period N (years)")
     ax.set_ylabel("TW vs honest declaration (%)")
     ax.set_title(
         "Figure 7.2a - Terminal Net Worth Gap vs Honest, by holding period\n"
-        f"Solid/dashed = constant g ({p['g']*100:.2f}%)  ·  "
-        f"Dash-dot/dotted = {scen_year} hist. series  ·  "
-        f"Red = understaters  ·  Blue = overstaters  ·  "
         f"$V_0$ = £{p['V0_m']:.0f}m, k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%"
     )
     ax.set_xlim(N_ACTUAL_VALS[0], N_ACTUAL_VALS[-1])
@@ -362,101 +268,75 @@ def fig_7_2a_tw_gap_by_n(p):
 
 # ─────────────────────────────────────────────────────────────
 # FIG 7.2b — Saturation reversal boundary (understaters)
-# Colour list replaced by C_UNDER.
 # ─────────────────────────────────────────────────────────────
 
-def fig_7_2b_saturation_reversal(p):
-    print("  Generating fig 7.2b: saturation reversal boundary (single panel)...")
+def fig_7_2b_saturation_reversal(data: dict):
+    print("  Generating fig 7.2b: saturation reversal boundary...")
+    p       = data['params']
+    grids   = data['grids']
+    cd      = data['charts']['fig_7_2b_saturation_reversal']
 
-    alpha_under = [0.1, 0.2, 0.5, 0.8]
+    alpha_under = grids['alpha_under']
+    g_pct       = cd['g_pct']
+    c1_curves   = {float(k): v for k, v in cd['c1_curves'].items()}
 
-    g_sweep = [g_int / 1000.0 for g_int in range(0, 1001)]
-    g_pct   = [g * 100 for g in g_sweep]
-
-    c1_curves      = {}
-    inflection_g   = {}
-    plateau_onset  = {}
+    # Derive inflection / plateau from the stored curves
+    cutoff_idx = int(50 / 0.1)   # index at g = 50%
+    inflection_g  = {}
+    plateau_onset = {}
     plateau_height = {}
-
     for alpha in alpha_under:
-        vals = []
-        for g in g_sweep:
-            r  = run_sim(p, alpha=alpha, g=g, N=p['N_demo'])
-            b  = run_sim(p, alpha=1.0,   g=g, N=p['N_demo'])
-            c1 = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
-            vals.append(c1)
-        c1_curves[alpha] = vals
-
-        deriv    = [vals[i+1] - vals[i] for i in range(len(vals) - 1)]
+        vals  = c1_curves[alpha]
+        deriv = [vals[i+1] - vals[i] for i in range(len(vals) - 1)]
         peak_idx = max(range(len(deriv)), key=lambda i: deriv[i])
         inflection_g[alpha] = g_pct[peak_idx]
-
-        plateau_onset[alpha] = None
+        onset = None
         for i in range(peak_idx, min(len(deriv), 400)):
             if deriv[i] < 0.05:
-                plateau_onset[alpha] = g_pct[i]
+                onset = g_pct[i]
                 break
-        if plateau_onset[alpha] is None:
-            plateau_onset[alpha] = 40.0
-
+        plateau_onset[alpha]  = onset if onset is not None else 40.0
         plateau_height[alpha] = max(vals)
-        
 
     mean_inflection = sum(inflection_g[a]  for a in alpha_under) / len(alpha_under)
     mean_plateau    = sum(plateau_onset[a] for a in alpha_under) / len(alpha_under)
-    cutoff = int(50 / 0.1)   # index corresponding to g=50%
-    y_max = max(max(c1_curves[a][:cutoff]) for a in alpha_under)
+    y_max = max(max(c1_curves[a][:cutoff_idx]) for a in alpha_under)
 
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE_W)
-
     ax.set_xlim(0, 50)
+
     ax.axvspan(mean_plateau, 50, alpha=0.08, color=C_ANNOTATION, zorder=0,
                label=f'Plateau zone (g > {mean_plateau:.0f}%)')
     ax.text(mean_plateau + 1, y_max * 1.05, f'Plateau\n(g ≥ {mean_plateau:.0f}%)',
             fontsize=7.5, color='#555555', va='top')
 
-    ax.axvline(mean_inflection, color='#333333', linewidth=1.1,
-               linestyle='--', zorder=3,
-               label=f'Inflection g ≈ {mean_inflection:.1f}% (rate fn property)')
-    ax.text(mean_inflection + 1, 2,
-            f'Inflection\n≈ {mean_inflection:.1f}%',
+    ax.axvline(mean_inflection, color='#333333', linewidth=1.1, linestyle='--', zorder=3,
+               label=f'Inflection g ≈ {mean_inflection:.1f}%')
+    ax.text(mean_inflection + 1, 2, f'Inflection\n≈ {mean_inflection:.1f}%',
             fontsize=7.5, color='#333333', va='bottom')
 
     for alpha, col in zip(alpha_under, C_UNDER):
-        curve_x = g_pct           # full range
-        curve_y = c1_curves[alpha]
-        ax.plot(curve_x, curve_y, color=col, linewidth=2.0)
-
-        ph = plateau_height[alpha]
-        x_label = ax.get_xlim()[1] * 0.82
+        ax.plot(g_pct, c1_curves[alpha], color=col, linewidth=2.0)
+        ph       = plateau_height[alpha]
+        x_label  = ax.get_xlim()[1] * 0.82
         ax.text(x_label, ph,
                 f"α = {alpha}  (plateau ≈ {ph:.0f}%)",
                 color=col, fontsize=8, va='center', ha='left',
                 fontweight='bold' if alpha == 0.1 else 'normal')
 
     ax.axhline(0, color=C_DARK, linewidth=0.8, linestyle=':')
-
     ax.set_xlabel("Growth rate g (%)")
-    ax.set_ylabel(
-        "Excess tax burden (understater vs honest)\n"
-        "as % of understater's terminal wealth TW(α)"
-    )
+    ax.set_ylabel("Excess tax burden (understater vs honest)\nas % of understater's TW(α)")
     ax.set_title(
         f"Figure 7.2b - Understater penalty structure: inflection and plateau (N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m)\n"
-        f"k = {p['k']} · Dashed line = inflection g ≈ {mean_inflection:.1f}% (rate fn property) · "
-        f"Grey = plateau zone (g ≥ {mean_plateau:.0f}%) · Labels show plateau ceiling per α"
+        f"k = {p['k']}"
     )
-    ax.text(0.98, 0.04,
-        f"All understaters (α < 1) face a positive tax burden\nrelative to honest declaration at N = {p['N_demo']}",
-        transform=ax.transAxes, fontsize=8.5, va='top', ha='right',
-        bbox=dict(boxstyle='round,pad=0.3', facecolor='#fff8e7', edgecolor='#ccaa00', alpha=0.85))
-    
-    ax.set_ylim(-5, y_max * 1.12)   # 12% buffer above the true peak
+    ax.set_ylim(-5, y_max * 1.12)
 
     legend_handles = [
         Line2D([0], [0], color='#333333', lw=1.1, linestyle='--',
-               label=f'Inflection ≈ {mean_inflection:.1f}% (rate fn property)'),
+               label=f'Inflection ≈ {mean_inflection:.1f}%'),
         Patch(facecolor=C_ANNOTATION, alpha=0.15,
               label=f'Plateau zone g ≥ {mean_plateau:.0f}%'),
     ]
@@ -468,41 +348,34 @@ def fig_7_2b_saturation_reversal(p):
 
 # ─────────────────────────────────────────────────────────────
 # FIG 7.2c — Overstatement reversal boundary
-# Colour list replaced by C_OVER.
-# figsize (13, 5.5) kept as custom: nearest named constant FIG_WIDE is (13, 6).
 # ─────────────────────────────────────────────────────────────
 
-def fig_7_2c_overstatement_reversal(p):
+def fig_7_2c_overstatement_reversal(data: dict):
     print("  Generating fig 7.2c: overstatement reversal boundary...")
+    p       = data['params']
+    grids   = data['grids']
+    cd      = data['charts']['fig_7_2c_overstatement_reversal']
 
-    alpha_over = [1.2, 1.5, 1.8, 2.0]
+    alpha_over  = grids['alpha_over']
+    g_pct       = cd['g_pct']
+    c1_curves   = {float(k): v for k, v in cd['c1_curves'].items()}
 
-    g_sweep  = [g_int / 1000.0 for g_int in range(0, 400)]
-    g_pct    = [g * 100 for g in g_sweep]
-    c1_curves = {}
+    # First-reversal g values (first g where C.1 > 0)
     first_rev = {}
-
     for alpha in alpha_over:
-        vals      = []
-        found_fwd = None
-        peaked    = False
-        peak_val  = -999
-        for g in g_sweep:
-            r  = run_sim(p, alpha=alpha, g=g, N=p['N_demo'])
-            b  = run_sim(p, alpha=1.0,   g=g, N=p['N_demo'])
-            c1 = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
-            vals.append(c1)
-            if c1 > 0 and found_fwd is None:
-                found_fwd = g * 100
-        c1_curves[alpha] = vals
-        first_rev[alpha] = found_fwd
+        vals = c1_curves[alpha]
+        for i, (g, v) in enumerate(zip(g_pct, vals)):
+            if v > 0:
+                first_rev[alpha] = g
+                break
+        else:
+            first_rev[alpha] = None
 
     apply_style()
     fig, ax = plt.subplots(figsize=FIG_SINGLE_W)
 
     for alpha, col in zip(alpha_over, C_OVER):
-        ax.plot(g_pct, c1_curves[alpha], color=col, linewidth=1.8,
-                label=f"α = {alpha}")
+        ax.plot(g_pct, c1_curves[alpha], color=col, linewidth=1.8, label=f"α = {alpha}")
 
     # α=1.2 nearest-approach annotation
     vals_12     = c1_curves[1.2]
@@ -518,14 +391,12 @@ def fig_7_2c_overstatement_reversal(p):
             arrowprops=dict(arrowstyle='->', color=C_OVER[0], lw=0.8)
         )
 
-    # first-reversal markers
     y_lo = ax.get_ylim()[0]
     for idx, (alpha, col) in enumerate(zip(alpha_over, C_OVER)):
         t = first_rev[alpha]
         if t is not None:
             ax.axvline(t, color=col, linewidth=0.8, linestyle=':', alpha=0.6)
-            y_pos = y_lo * (0.95 - idx * 0.15)   # stagger downward per alpha
-            ax.text(t + 0.3, y_pos,
+            ax.text(t + 0.3, y_lo * (0.95 - idx * 0.15),
                     f'{t:.1f}%', fontsize=7.5, color=col, va='bottom')
 
     ax.axhline(0, color=C_ANNOTATION, linewidth=0.8, linestyle='--',
@@ -534,12 +405,10 @@ def fig_7_2c_overstatement_reversal(p):
                label=f"hist. mean g = {p['g']*100:.1f}%")
 
     ax.set_xlabel("Growth rate g (%)")
-    ax.set_ylabel("C.1 metric (pp) — negative = overstater pays less than honest")
+    ax.set_ylabel("C.1 metric (pp)")
     ax.set_title(
         f"Figure 7.3 - Overstater C.1 by growth rate\n"
-        f"N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m, "
-        f"k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%  ·  "
-        f"Dotted verticals = g at which each α first pays more than honest"
+        f"N = {p['N_demo']}, $V_0$ = £{p['V0_m']:.0f}m, k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%"
     )
     ax.set_xlim(0, 40)
     ax.legend(fontsize=8)
@@ -550,164 +419,100 @@ def fig_7_2c_overstatement_reversal(p):
 
 # ─────────────────────────────────────────────────────────────
 # FIG 7.1a — Overstatement coherence
-# apply_style_nogrid() for both panels (left is a heatmap; right re-enables
-# grid explicitly). rcParams mutation removed — legend kwargs per-axes.
 # ─────────────────────────────────────────────────────────────
 
-_FIG07_OVER_ALPHAS = [1.2, 1.5, 1.8, 2.0]
-_FIG07_OVER_COLS   = C_OVER_LIGHT
-
-
-def fig_7_1a_overstatement_coherence(p):
+def fig_7_1a_overstatement_coherence(data: dict):
     print("  Generating fig 7.1a: overstatement coherence...")
+    p   = data['params']
+    cd  = data['charts']['fig_7_1a_overstatement_coherence']
 
-    hist_mean = p['g']
-    N         = p['N']
+    alphas_grid  = cd['alphas_grid']
+    g_grid       = cd['g_grid']
+    c1_mat       = np.array(cd['c1_matrix'])    # [alpha × g] in pp
+    n_right      = cd['n_right']
+    net_diffs    = {float(k): v for k, v in cd['net_diffs'].items()}
+    hist_mean    = cd['hist_mean']
+    N_ssm        = cd['N_ssm']
+    g_pct_grid   = [g * 100 for g in g_grid]
+    over_alphas  = [1.2, 1.5, 1.8, 2.0]
+
+    # Compute zero-crossings from right-panel net diffs
+    crossings = {}
+    for alpha in over_alphas:
+        diffs = net_diffs[alpha]
+        cross = []
+        for k in range(len(diffs) - 1):
+            if diffs[k] * diffs[k + 1] < 0:
+                n_cross = n_right[k] + (0 - diffs[k]) / (diffs[k + 1] - diffs[k])
+                cross.append(n_cross)
+        crossings[alpha] = cross
 
     apply_style_nogrid()
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=FIG_PAIR_T)
 
     # ── LEFT: C.1 surface heatmap ────────────────────────────
-    alphas_grid = np.linspace(0.1, 2.0, 41)
-    g_grid      = np.linspace(0.0, 0.40, 101)
-    g_pct_grid  = g_grid * 100
-
-    c1_matrix = np.zeros((len(alphas_grid), len(g_grid)))
-    for i, alpha in enumerate(alphas_grid):
-        for j, g in enumerate(g_grid):
-            r  = run_sim(p, alpha=alpha, g=g, N=N)
-            b  = run_sim(p, alpha=1.0,   g=g, N=N)
-            c1 = (r['Net_settled'] - b['Net_settled']) / r['TW_settled'] * 100 if abs(r['TW_settled']) > 1e-12 else 0.0
-            c1_matrix[i, j] = c1
-
     vmax = 10.0
     norm = mcolors.TwoSlopeNorm(vmin=-vmax, vcenter=0, vmax=vmax)
     ax1.imshow(
-        c1_matrix,
-        origin='lower', aspect='auto', cmap='RdBu_r', norm=norm,
+        c1_mat, origin='lower', aspect='auto', cmap='RdBu_r', norm=norm,
         extent=[g_pct_grid[0], g_pct_grid[-1], alphas_grid[0], alphas_grid[-1]],
         zorder=1,
     )
-
-    CS = ax1.contour(
-        g_pct_grid, alphas_grid, c1_matrix,
-        levels=[0.0], colors=[C_DARK], linewidths=1.8, zorder=4,
-    )
-    ax1.clabel(CS, levels=[0.0], fmt={0.0: 'C.1 = 0'},
-               fontsize=8, inline=True, inline_spacing=6)
-
-    CS_band = ax1.contour(
-        g_pct_grid, alphas_grid, c1_matrix,
-        levels=[-1.0, 1.0], colors=[C_ANNOTATION, C_ANNOTATION],
-        linewidths=1.0, linestyles='--', zorder=3, alpha=0.7,
-    )
+    CS = ax1.contour(g_pct_grid, alphas_grid, c1_mat,
+                     levels=[0.0], colors=[C_DARK], linewidths=1.8, zorder=4)
+    ax1.clabel(CS, levels=[0.0], fmt={0.0: 'C.1 = 0'}, fontsize=8, inline=True)
+    CS_band = ax1.contour(g_pct_grid, alphas_grid, c1_mat,
+                          levels=[-1.0, 1.0], colors=[C_ANNOTATION, C_ANNOTATION],
+                          linewidths=1.0, linestyles='--', zorder=3, alpha=0.7)
     ax1.clabel(CS_band, levels=[-1.0, 1.0],
-            fmt={-1.0: '−1pp', 1.0: '+1pp'},
-            fontsize=7, inline=True, inline_spacing=4)
-
-    ax1.axvline(hist_mean * 100, color='#333333', linewidth=1.4,
-                linestyle='--', zorder=5,
+               fmt={-1.0: '−1pp', 1.0: '+1pp'}, fontsize=7, inline=True)
+    ax1.axvline(hist_mean * 100, color='#333333', linewidth=1.4, linestyle='--', zorder=5,
                 label=f'Hist. mean g = {hist_mean*100:.1f}%')
-    ax1.text(hist_mean * 100 - 0.3, 1.45,
-             f'{hist_mean*100:.1f}%\n(mean)', fontsize=7.5,
-             color='#333333', va='center', ha='right')
-
-    ax1.text(0.02, 0.97, 'ADVANTAGE\n(overstater pays less)',
-            transform=ax1.transAxes, fontsize=7.5, color="#000000",
-            fontweight='bold', va='top', ha='left', zorder=7)
-    ax1.text(0.98, 0.97, 'DISADVANTAGE\n(overstater pays more)',
-            transform=ax1.transAxes, fontsize=7.5, color="#000000",
-            fontweight='bold', va='top', ha='right', zorder=7)
-
-    cbar = fig.colorbar(
-        plt.cm.ScalarMappable(norm=norm, cmap='RdBu_r'),
-        ax=ax1, fraction=0.035, pad=0.03, shrink=0.85
-    )
-    cbar.set_label('C.1 (pp)  −=advantage  +=disadvantage', fontsize=8)
-    cbar.ax.tick_params(labelsize=8)
-
+    cbar = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap='RdBu_r'),
+                        ax=ax1, fraction=0.035, pad=0.03, shrink=0.85)
+    cbar.set_label('C.1 (pp)', fontsize=8)
     ax1.set_xlabel("Actual growth rate g (%)", fontsize=10)
     ax1.set_ylabel("Declaration ratio α", fontsize=10)
-    ax1.set_title(
-        "Advantage landscape: C.1 by (g_actual, α)\n"
-        "Blue = advantage · Red = disadvantage · Black = indifference boundary",
-        fontsize=10
-    )
+    ax1.set_title("Advantage landscape: C.1 by (g_actual, α)", fontsize=10)
     ax1.set_xlim(0, 40)
     ax1.set_ylim(0.1, 2.0)
     ax1.legend(loc='lower right', fontsize=8.5, frameon=True, framealpha=0.9)
 
-    # ── RIGHT: Net tax diff vs holding period N ──────────────
-    # Re-enable grid on this panel only (it's a line plot, not a heatmap)
+    # ── RIGHT: Net tax diff vs N ──────────────────────────────
     ax2.grid(True)
-
-    n_vals = list(range(5, 61))
-
-    all_series = {}
-    crossings  = {}
-    for alpha in _FIG07_OVER_ALPHAS:
-        diffs = []
-        for n in n_vals:
-            r = run_sim(p, alpha=alpha, g=hist_mean, N=n)
-            b = run_sim(p, alpha=1.0,   g=hist_mean, N=n)
-            diffs.append(r['Net_settled'] - b['Net_settled'])
-        all_series[alpha] = diffs
-        cross = []
-        for k in range(len(diffs) - 1):
-            if diffs[k] * diffs[k + 1] < 0:
-                n_cross = n_vals[k] + (0 - diffs[k]) / (diffs[k + 1] - diffs[k])
-                cross.append(n_cross)
-        crossings[alpha] = cross
-
-    Y_CLIP = -3.0
-    Y_HI   =  40.0
-
+    Y_CLIP = -3.0; Y_HI = 40.0
     ax2.set_ylim(Y_CLIP, Y_HI)
-    ax2.axhline(0, color='#333333', linewidth=1.2, linestyle='-',
-                zorder=3, label='α = 1.0 honest (zero line)')
+    ax2.axhline(0, color='#333333', linewidth=1.2, linestyle='-', zorder=3,
+                label='α = 1.0 honest (zero line)')
     ax2.axhspan(Y_CLIP, 0,    alpha=0.04, color='#2166ac', zorder=0)
     ax2.axhspan(0,      Y_HI, alpha=0.04, color='#d73027', zorder=0)
-
-    for alpha, col in zip(_FIG07_OVER_ALPHAS, _FIG07_OVER_COLS):
-        diffs         = all_series[alpha]
-        ax2.plot(n_vals, diffs, color=col, linewidth=2.0, label=f'α = {alpha}')
-
-    for idx, (alpha, col) in enumerate(zip(_FIG07_OVER_ALPHAS, _FIG07_OVER_COLS)):
+    for alpha, col in zip(over_alphas, C_OVER_LIGHT):
+        ax2.plot(n_right, net_diffs[alpha], color=col, linewidth=2.0, label=f'α = {alpha}')
+    for idx, (alpha, col) in enumerate(zip(over_alphas, C_OVER_LIGHT)):
         for n_cross in crossings[alpha]:
             ax2.axvline(n_cross, color=col, linewidth=0.8, linestyle=':', alpha=0.6)
-            y_pos = Y_HI * (0.55 - idx * 0.07)
-            ax2.text(n_cross + 0.3, y_pos,
-                    f'α={alpha}, N≈{n_cross:.0f}',
-                    fontsize=7.5, color=col, va='top')
-
-    ax2.axvline(N, color='#555555', linewidth=1.0, linestyle='--', zorder=2)
-    ax2.text(N + 0.4, Y_CLIP + 0.5,
-             f'N={N}\n(RATES ref)', fontsize=7.5,
+            ax2.text(n_cross + 0.3, Y_HI * (0.55 - idx * 0.07),
+                     f'α={alpha}, N≈{n_cross:.0f}', fontsize=7.5, color=col, va='top')
+    ax2.axvline(N_ssm, color='#555555', linewidth=1.0, linestyle='--', zorder=2)
+    ax2.text(N_ssm + 0.4, Y_CLIP + 0.5, f'N={N_ssm}\n(RATES ref)', fontsize=7.5,
              color='#555555', va='bottom')
-
     ax2.set_xlabel("Holding period N (years)", fontsize=10)
-    ax2.set_ylabel("Net(α) − Net(honest)  [£m]\n− = overstater pays less", fontsize=9)
+    ax2.set_ylabel("Net(α) − Net(honest)  [£m]", fontsize=9)
     ax2.set_xlim(5, 60)
     ax2.set_title(
         f"Advantage erosion: net tax diff vs holding period N\n"
-        f"g = hist. mean ({hist_mean*100:.1f}%) · $V_0$ = £{p['V0_m']:.0f}m · "
-        f"Dashed arrows = line continues below clip at £{abs(Y_CLIP):.0f}m",
+        f"g = hist. mean ({hist_mean*100:.1f}%) · $V_0$ = £{p['V0_m']:.0f}m",
         fontsize=10
     )
     ax2.legend(loc='upper left', fontsize=8.5, frameon=True, framealpha=0.9)
 
-    # compute crossing Ns for the suptitle — reuse crossings dict already built above
     cross_strs = ', '.join(
-        f'α={a}: N≈{crossings[a][0]:.0f}' 
-        for a in _FIG07_OVER_ALPHAS 
-        if crossings[a]
+        f'α={a}: N≈{crossings[a][0]:.0f}'
+        for a in over_alphas if crossings[a]
     )
-
     fig.suptitle(
-        f"Figure 7.1a - Overstatement: the advantage is real but narrow\n"
-        f"Left: C.1 advantage landscape across (g_actual, α)  ·  "
-        f"Right: net tax diff at g = {hist_mean*100:.1f}% (hist. mean), "
-        f"$V_0$ = £{p['V0_m']:.0f}m, N = {N}, k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%\n"
+        "Figure 7.1a - Overstatement: the advantage is real but narrow\n"
+        f"$V_0$ = £{p['V0_m']:.0f}m, k = {p['k']}, $\\tau_0$ = {p['tau_0']*100:.0f}%\n"
         f"Zero crossings: {cross_strs if cross_strs else 'none in range'}",
         fontsize=10, y=1.01
     )
@@ -718,280 +523,137 @@ def fig_7_1a_overstatement_coherence(p):
 
 # ─────────────────────────────────────────────────────────────
 # FIG 5.2b — TW advantage decomposition
-# apply_style_nogrid(); ax1 re-enables grid explicitly (line plot);
-# ax2 stays nogrid (heatmap).
 # ─────────────────────────────────────────────────────────────
 
-_FIG08_ALPHA_FINE = np.linspace(1.0, 2.0, 41)
-_FIG08_G_FINE     = np.linspace(0.0, 0.25, 51)
-
-
-def _decompose_fig_5_2b(p, alpha, g):
-    """
-    Thin wrapper around decompose_tw_advantage() returning a 7-tuple:
-        W_sell_delta, refund_delta, settle_delta, tw_advantage,
-        f_ratio, tw_honest, excess_periodic
-
-    Correct identity (verified to machine precision):
-        tw_advantage = W_sell_delta - refund_delta - settle_delta
-    excess_periodic is informational only — NOT additive in the identity.
-    """
-    d = decompose_tw_advantage(p, alpha, g)
-    return (
-        d['W_sell_delta'],
-        d['refund_delta'],
-        d['settle_delta'],
-        d['tw_advantage'],
-        d['f_ratio'],
-        d['tw_honest'],
-        d['excess_periodic'],
-    )
-
-
-def fig_5_2b_tw_decomposition(p):
+def fig_5_2b_tw_decomposition(data: dict):
     print("  Generating fig 5.2b: TW advantage decomposition...")
+    p   = data['params']
+    cd  = data['charts']['fig_5_2b_tw_decomposition']
 
+    alpha_x = np.array(cd['alpha_over_fine'])
+    g_decomp = np.array(cd['g_decomp'])
+    wsd_arr = np.array(cd['wsd'])
+    rd_arr  = np.array(cd['rd'])
+    sd_arr  = np.array(cd['sd'])
+    tw_arr  = np.array(cd['tw'])
+    ep_arr  = np.array(cd['ep'])
+    f_matrix = np.array(cd['f_matrix'])   # [alpha × g]
     hist_mean = p['g']
     N         = p['N_demo']
-
-    wsd_vals = []
-    rd_vals  = []
-    sd_vals  = []
-    tw_vals  = []
-    ep_vals  = []
-
-    for alpha in _FIG08_ALPHA_FINE:
-        wsd, rd, sd, tw_adv, _, tw_h, ep = _decompose_fig_5_2b(p, alpha, hist_mean)
-        denom = tw_h if abs(tw_h) > 1e-12 else 1.0
-        wsd_vals.append(wsd    / denom * 100)
-        rd_vals.append( rd     / denom * 100)
-        sd_vals.append( sd     / denom * 100)
-        tw_vals.append( tw_adv / denom * 100)
-        ep_vals.append( ep     / denom * 100)
-
-    wsd_arr = np.array(wsd_vals)
-    rd_arr  = np.array(rd_vals)
-    sd_arr  = np.array(sd_vals)
-    tw_arr  = np.array(tw_vals)
-    ep_arr  = np.array(ep_vals)
 
     stack_err = np.max(np.abs((wsd_arr - rd_arr - sd_arr) - tw_arr))
     if stack_err > 0.01:
         print(f"    WARNING: fig08 left-panel identity error = {stack_err:.4f}pp")
 
-    f_matrix = np.zeros((len(_FIG08_ALPHA_FINE), len(_FIG08_G_FINE)))
-    for i, alpha in enumerate(_FIG08_ALPHA_FINE):
-        for j, g in enumerate(_FIG08_G_FINE):
-            _, _, _, _, f_ratio, _, _ = _decompose_fig_5_2b(p, alpha, g)
-            f_matrix[i, j] = f_ratio
-
     apply_style_nogrid()
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=FIG_PAIR_T)
-    alpha_x = _FIG08_ALPHA_FINE
 
-    # ── LEFT: stacked decomposition (line plot — re-enable grid) ─
+    # LEFT: stacked decomposition
     ax1.grid(True, zorder=0)
-
     ax1.axhline(0, color='#555555', linewidth=0.9, zorder=2)
-
-    ax1.fill_between(alpha_x, 0, -rd_arr,
-                     color='#4393c3', alpha=0.55,
-                     label='Sell-year refund benefit  (−refund_delta)')
-    ax1.fill_between(alpha_x, 0, wsd_arr,
-                     color='#d73027', alpha=0.55,
-                     label='f_N erosion cost  (W_sell_delta ≤ 0)')
+    ax1.fill_between(alpha_x, 0, -rd_arr,  color='#4393c3', alpha=0.55, label='Sell-year refund benefit')
+    ax1.fill_between(alpha_x, 0,  wsd_arr, color='#d73027', alpha=0.55, label='f_N erosion cost')
     ax1.fill_between(alpha_x, wsd_arr, wsd_arr - sd_arr,
-                     color='#f46d43', alpha=0.55,
-                     label='Post-sale damping cost  (settle_delta)')
-
-    ax1.plot(alpha_x, tw_arr,
-             color=C_DARK, linewidth=2.2, zorder=5,
-             label='Net TW advantage  (C.8 cross-check)')
-    ax1.plot(alpha_x, ep_arr,
-             color='#6a3d9a', linewidth=1.3, linestyle=':', zorder=4,
-             label='Excess periodic tax  (informational — not additive)')
-
+                     color='#f46d43', alpha=0.55, label='Post-sale damping cost')
+    ax1.plot(alpha_x, tw_arr, color=C_DARK, linewidth=2.2, zorder=5, label='Net TW advantage')
+    ax1.plot(alpha_x, ep_arr, color='#6a3d9a', linewidth=1.3, linestyle=':', zorder=4,
+             label='Excess periodic tax (informational)')
     for k in range(len(tw_arr) - 1):
         if tw_arr[k] * tw_arr[k + 1] < 0:
             a_cross = (alpha_x[k]
                        + (0 - tw_arr[k]) / (tw_arr[k + 1] - tw_arr[k])
                        * (alpha_x[k + 1] - alpha_x[k]))
-            ax1.axvline(a_cross, color='#333333', linewidth=1.0,
-                        linestyle='--', zorder=4)
+            ax1.axvline(a_cross, color='#333333', linewidth=1.0, linestyle='--', zorder=4)
             ax1.text(a_cross + 0.01, tw_arr.max() * 0.8,
-                     f'TW adv = 0\na~{a_cross:.2f}',
-                     fontsize=7.5, color='#333333')
-
-    ax1.annotate(f'α=2.0: net +{tw_arr[-1]:.1f}pp',
-                 xy=(2.0, tw_arr[-1]),
-                 xytext=(1.82, tw_arr[-1] + 1.5),
-                 fontsize=7.5, color=C_DARK,
-                 arrowprops=dict(arrowstyle='->', color=C_DARK, lw=0.8))
-
+                     f'TW adv = 0\na~{a_cross:.2f}', fontsize=7.5, color='#333333')
     ax1.set_xlabel("Declaration ratio α", fontsize=10)
     ax1.set_ylabel("As % of honest TW_settled", fontsize=10)
     ax1.set_title(
         f"Left: TW advantage — corrected decomposition\n"
-        f"g = {hist_mean*100:.1f}% (hist. mean)  ·  N = {N}  ·  "
-        f"V₀ = £{p['V0_m']:.0f}m  ·  k = {p['k']}\n"
-        f"Identity: tw_adv = W_sell_delta − refund_delta − settle_delta  ✓",
+        f"g = {hist_mean*100:.1f}%  ·  N = {N}  ·  V₀ = £{p['V0_m']:.0f}m",
         fontsize=9.5
     )
     ax1.set_xlim(1.0, 2.0)
     ax1.legend(loc='upper left', fontsize=8)
 
-    # ── RIGHT: f_N ratio heatmap (no grid) ───────────────────
-    g_pct = _FIG08_G_FINE * 100
+    # RIGHT: f_N ratio heatmap
+    g_pct = g_decomp * 100
     norm  = mcolors.Normalize(vmin=f_matrix.min(), vmax=1.0)
-    im = ax2.imshow(
-        f_matrix,
-        origin='lower', aspect='auto',
-        cmap='Blues_r', norm=norm,
-        extent=[g_pct[0], g_pct[-1],
-                _FIG08_ALPHA_FINE[0], _FIG08_ALPHA_FINE[-1]],
-        zorder=1,
-    )
-
-    CS95 = ax2.contour(
-        g_pct, _FIG08_ALPHA_FINE, f_matrix,
-        levels=[0.95], colors=['#d73027'], linewidths=1.6, zorder=4,
-    )
+    im = ax2.imshow(f_matrix, origin='lower', aspect='auto', cmap='Blues_r', norm=norm,
+                    extent=[g_pct[0], g_pct[-1], alpha_x[0], alpha_x[-1]], zorder=1)
+    CS95 = ax2.contour(g_pct, alpha_x, f_matrix, levels=[0.95],
+                       colors=['#d73027'], linewidths=1.6, zorder=4)
     ax2.clabel(CS95, fmt={0.95: 'f ratio = 0.95'}, fontsize=8, inline=True)
-
-    CS90 = ax2.contour(
-        g_pct, _FIG08_ALPHA_FINE, f_matrix,
-        levels=[0.90], colors=['#7f0000'], linewidths=1.4,
-        linestyles='--', zorder=4,
-    )
+    CS90 = ax2.contour(g_pct, alpha_x, f_matrix, levels=[0.90],
+                       colors=['#7f0000'], linewidths=1.4, linestyles='--', zorder=4)
     ax2.clabel(CS90, fmt={0.90: 'f ratio = 0.90'}, fontsize=8, inline=True)
-
-    ax2.axvline(hist_mean * 100, color='#333333', linewidth=1.4,
-                linestyle='--', zorder=5,
+    ax2.axvline(hist_mean * 100, color='#333333', linewidth=1.4, linestyle='--', zorder=5,
                 label=f'g = hist. mean ({hist_mean*100:.1f}%)')
-
     cbar = fig.colorbar(im, ax=ax2, fraction=0.035, pad=0.03, shrink=0.85)
-    cbar.set_label('f_N(alpha) / f_N(1)  —  1.0 = no extra dilution', fontsize=8)
-    cbar.ax.tick_params(labelsize=8)
-
+    cbar.set_label('f_N(alpha) / f_N(1)', fontsize=8)
     ax2.set_xlabel("Actual growth rate g (%)", fontsize=10)
     ax2.set_ylabel("Declaration ratio (alpha)", fontsize=10)
-    ax2.set_title(
-        "Right: Retained equity fraction ratio f_N(alpha) / f_N(1)\n"
-        "Darker = more equity eroded vs honest  —  contours at 0.95 and 0.90",
-        fontsize=10
-    )
-    ax2.set_xlim(g_pct[0], g_pct[-1])
-    ax2.set_ylim(_FIG08_ALPHA_FINE[0], _FIG08_ALPHA_FINE[-1])
+    ax2.set_title("Right: Retained equity fraction ratio f_N(alpha) / f_N(1)", fontsize=10)
     ax2.legend(loc='upper left', fontsize=8, framealpha=0.9)
 
-    fig.suptitle(
-        "Figure 5.2b - Overstater TW advantage: mechanism and dilution cost\n"
-        "Left: sell-year refund benefit swamps f_N erosion cost across all tested α  ·  "
-        "Right: equity dilution grows with α and g — the hidden price of overstatement\n"
-        "Identity: tw_adv = W_sell_delta − refund_delta − settle_delta",
-        fontsize=9.5, y=1.02
-    )
-
+    fig.suptitle("Figure 5.2b - Overstater TW advantage: mechanism and dilution cost",
+                 fontsize=9.5, y=1.02)
     plt.tight_layout()
     return _save(fig, "val_fig_5_2b_tw_decomposition.png")
 
 
 # ─────────────────────────────────────────────────────────────
 # FIG 7.1c — TW advantage across (g, N) space
-# apply_style_nogrid(); all four panels are heatmaps.
-# _FIG09_COLORS replaced by C_OVER_LIGHT.
 # ─────────────────────────────────────────────────────────────
 
-_FIG09_G_VALS = np.linspace(0.001, 0.28, 56)
-_FIG09_N_VALS = np.arange(5, 62, 1)
-_FIG09_ALPHAS = [1.2, 1.5, 1.8, 2.0]
+def fig_7_1c_tw_advantage_gN_surface(data: dict):
+    print("  Generating fig 7.1c: TW advantage (g, N) surface...")
+    p   = data['params']
+    cd  = data['charts']['fig_7_1c_tw_advantage_gN_surface']
 
-
-def _tw_adv_pct_gN(p, alpha, g, N):
-    """
-    TW advantage of alpha over honest as % of honest TW_settled,
-    at given constant g and holding period N.
-    Runs both simulations inline to sweep N independently of p['N_demo'].
-    """
-    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
-    g_ser  = [g] * N
-    recs_h = simulate(p['V0_m'], g_ser, 1.0, sim_p)
-    sell_h = simulate_sell(recs_h, g, sim_p)
-    tw_h, _, _ = settle_tw(sell_h, sim_p)
-    recs_a = simulate(p['V0_m'], g_ser, alpha, sim_p)
-    sell_a = simulate_sell(recs_a, g, sim_p)
-    tw_a, _, _ = settle_tw(sell_a, sim_p)
-    return (tw_a - tw_h) / tw_h * 100 if abs(tw_h) > 1e-12 else 0.0
-
-
-def fig_7_1c_tw_advantage_gN_surface(p):
-    """
-    2×2 grid of heatmaps: TW advantage of overstatement vs honest across
-    (g, N) space for each α ∈ {1.2, 1.5, 1.8, 2.0}.
-    """
-    print("  Generating fig 7.1c: TW advantage across (g, N) space...")
-
-    g_pct     = _FIG09_G_VALS * 100
+    g_surf  = cd['g_surf']
+    n_surf  = cd['n_surf']
+    g_pct   = [g * 100 for g in g_surf]
     hist_mean = p['g']
     canon_N   = p['N']
-
-    surfaces = {}
-    for alpha in _FIG09_ALPHAS:
-        mat = np.zeros((len(_FIG09_G_VALS), len(_FIG09_N_VALS)))
-        for i, g in enumerate(_FIG09_G_VALS):
-            for j, N in enumerate(_FIG09_N_VALS):
-                mat[i, j] = _tw_adv_pct_gN(p, alpha, g, N)
-        surfaces[alpha] = mat
+    over_alphas = [1.2, 1.5, 1.8, 2.0]
 
     apply_style_nogrid()
     fig, axes = plt.subplots(2, 2, figsize=FIG_QUAD_XL)
     axes = axes.flatten()
 
-    for ax, alpha, col in zip(axes, _FIG09_ALPHAS, C_OVER_LIGHT):
-        mat  = surfaces[alpha]
+    for ax, alpha, col in zip(axes, over_alphas, C_OVER_LIGHT):
+        mat  = np.array(cd['surfaces'][str(alpha)])   # [g × N]
         vmax = float(np.percentile(mat, 98))
         norm = mcolors.Normalize(vmin=0.0, vmax=vmax)
 
-        im = ax.imshow(
-            mat,
-            origin='lower', aspect='auto',
-            cmap='Blues', norm=norm,
-            extent=[_FIG09_N_VALS[0], _FIG09_N_VALS[-1],
-                    g_pct[0], g_pct[-1]],
-            zorder=1,
-        )
+        im = ax.imshow(mat, origin='lower', aspect='auto', cmap='Blues', norm=norm,
+                       extent=[n_surf[0], n_surf[-1], g_pct[0], g_pct[-1]], zorder=1)
 
         contour_levels = [l for l in [2, 4, 6, 8, 10, 12] if 0 < l < vmax]
         if contour_levels:
-            CS = ax.contour(
-                _FIG09_N_VALS, g_pct, mat,
-                levels=contour_levels, colors='white',
-                linewidths=0.9, zorder=4, alpha=0.85,
-            )
+            CS = ax.contour(n_surf, g_pct, mat, levels=contour_levels,
+                            colors='white', linewidths=0.9, zorder=4, alpha=0.85)
             ax.clabel(CS, fmt='%d%%', fontsize=7.5, inline=True)
 
-        ax.axhline(hist_mean * 100, color='#d73027', linewidth=1.4,
-                   linestyle='--', zorder=5,
+        ax.axhline(hist_mean * 100, color='#d73027', linewidth=1.4, linestyle='--', zorder=5,
                    label=f'hist. mean g = {hist_mean*100:.1f}%')
-        ax.axvline(canon_N, color='#d73027', linewidth=1.4,
-                   linestyle=':', zorder=5,
+        ax.axvline(canon_N, color='#d73027', linewidth=1.4, linestyle=':', zorder=5,
                    label=f'canonical N = {canon_N}')
 
-        peak_idx = np.unravel_index(np.argmax(mat), mat.shape)
-        peak_g   = g_pct[peak_idx[0]]
-        peak_N   = int(_FIG09_N_VALS[peak_idx[1]])
-        peak_val = mat[peak_idx]
-        ax.plot(peak_N, peak_g,
-                marker='*', markersize=12, color='#ff7f00',
+        peak_idx  = np.unravel_index(np.argmax(mat), mat.shape)
+        peak_g    = g_pct[peak_idx[0]]
+        peak_N    = int(n_surf[peak_idx[1]])
+        peak_val  = mat[peak_idx]
+        ax.plot(peak_N, peak_g, marker='*', markersize=12, color='#ff7f00',
                 zorder=7, clip_on=False,
                 label=f'Peak: {peak_val:.1f}pp  g={peak_g:.1f}%  N={peak_N}')
 
-        g_cidx    = int(np.argmin(np.abs(_FIG09_G_VALS - hist_mean)))
-        N_cidx    = int(np.argmin(np.abs(_FIG09_N_VALS - canon_N)))
+        g_cidx    = int(np.argmin(np.abs(np.array(g_surf) - hist_mean)))
+        N_cidx    = int(np.argmin(np.abs(np.array(n_surf) - canon_N)))
         canon_val = mat[g_cidx, N_cidx]
-        ax.plot(canon_N, hist_mean * 100,
-                marker='o', markersize=7, color='#d73027',
-                zorder=6, clip_on=False)
+        ax.plot(canon_N, hist_mean * 100, marker='o', markersize=7,
+                color='#d73027', zorder=6, clip_on=False)
         ax.annotate(f'{canon_val:.1f}pp',
                     xy=(canon_N, hist_mean * 100),
                     xytext=(canon_N + 3, hist_mean * 100 + 1.5),
@@ -1000,103 +662,74 @@ def fig_7_1c_tw_advantage_gN_surface(p):
 
         cbar = fig.colorbar(im, ax=ax, fraction=0.04, pad=0.03, shrink=0.85)
         cbar.set_label('TW advantage vs honest (%)', fontsize=8)
-        cbar.ax.tick_params(labelsize=7.5)
-
         ax.set_xlabel("Holding period N (years)", fontsize=9)
         ax.set_ylabel("Actual growth rate g (%)", fontsize=9)
-        ax.set_title(
-            f"α = {alpha}",
-            fontsize=9.5,
-        )
-        ax.set_xlim(_FIG09_N_VALS[0], _FIG09_N_VALS[-1])
+        ax.set_title(f"α = {alpha}", fontsize=9.5)
+        ax.set_xlim(n_surf[0], n_surf[-1])
         ax.set_ylim(g_pct[0], g_pct[-1])
-        ax.legend(loc='upper right', fontsize=7.5,
-                  framealpha=0.92, frameon=True, facecolor='white')
+        ax.legend(loc='upper right', fontsize=7.5, framealpha=0.92, frameon=True)
 
     fig.suptitle(
         "Figure 7.1c - TW advantage of overstatement across (g, N) space\n"
-        f"$V_0$ = £{p['V0_m']:.0f}m  ·  k = {p['k']}  ·  "
-        "TW advantage is always positive — overstatement always retains more "
-        "nominal TW than honest declaration\n"
-        "Red dashed = hist. mean g  ·  Red dotted = canonical N  ·  "
-        "Star = peak  ·  Red dot = canonical intersection\n"
-        f"Darker blue = larger advantage  ·  "
-        f"White contours = % advantage levels",
+        f"$V_0$ = £{p['V0_m']:.0f}m  ·  k = {p['k']}",
         fontsize=9.5, y=1.02,
     )
-
     plt.tight_layout()
     return _save(fig, "val_fig_7_1c_tw_advantage_gN_surface.png")
 
 
 # ─────────────────────────────────────────────────────────────
-# FIG 7.1d — C.1 (nominal) vs C.12 (NPV-adjusted) heatmaps
-# Pure heatmaps: apply_style_nogrid().
+# FIG 7.1d — C.12 NPV heatmap
 # ─────────────────────────────────────────────────────────────
 
-def fig_7_1d_c1_vs_c12_heatmap(p):
-    print("  Generating fig 7.1d: C.1 vs C.12 nominal vs NPV-adjusted heatmap...")
+def fig_7_1d_c1_vs_c12_heatmap(data: dict):
+    print("  Generating fig 7.1d: C.12 heatmap...")
+    p       = data['params']
+    grids   = data['grids']
+    cd      = data['charts']['fig_7_1d_c12_heatmap']
 
-    rho = p['rho']
+    G_VALS    = grids['g_vals']
+    G_LABELS  = grids['g_labels']
+    ALPHA_VALS = grids['alpha_vals']
+    c12_mat   = np.array(cd['matrix'])
+    rho       = cd['rho']
 
-    c12_matrix = np.zeros((len(ALPHA_VALS), len(G_VALS)))
-
-    for i, alpha in enumerate(ALPHA_VALS):
-        for j, g in enumerate(G_VALS):
-            d = npv_tax_advantage(p, alpha, g, rho)
-            c12_matrix[i, j] = d['npv_diff_pct'] * 100
-
-    vmax = min(max(abs(c12_matrix.min()), abs(c12_matrix.max())), 25)
+    vmax = min(max(abs(c12_mat.min()), abs(c12_mat.max())), 25)
     norm = mcolors.TwoSlopeNorm(vmin=-vmax, vcenter=0, vmax=vmax)
 
     apply_style_nogrid()
     fig, ax = plt.subplots(1, 1, figsize=FIG_SINGLE_W)
 
-    def _draw_heatmap(ax, matrix, title_suffix):
-        im = ax.imshow(matrix, aspect='auto', cmap='RdBu_r', norm=norm, zorder=2)
-
-        ax.set_xticks(range(len(G_VALS)))
-        ax.set_xticklabels(G_LABELS, rotation=45, ha='right')
-        ax.set_yticks(range(len(ALPHA_VALS)))
-        ax.set_yticklabels([str(a) for a in ALPHA_VALS])
-        ax.set_xlabel("Growth rate g")
-        ax.set_ylabel("Declaration ratio α")
-        ax.set_title(title_suffix, fontsize=10)
-
-        honest_idx = ALPHA_VALS.index(1.0)
-        ax.add_patch(plt.Rectangle(
-            (-0.5, honest_idx - 0.5), len(G_VALS), 1,
-            fill=False, edgecolor=C_DARK, linewidth=1.5, zorder=5,
-        ))
-
-        for i in range(len(ALPHA_VALS)):
-            for j in range(len(G_VALS)):
-                val = matrix[i, j]
-                text_col = 'white' if abs(val) > vmax * 0.6 else C_DARK
-                ax.text(j, i, f"{val:.1f}",
-                        ha='center', va='center', fontsize=7.5,
-                        color=text_col, zorder=3)
-        return im
-
-    im = _draw_heatmap(
-        ax, c12_matrix,
+    im = ax.imshow(c12_mat, aspect='auto', cmap='RdBu_r', norm=norm, zorder=2)
+    ax.set_xticks(range(len(G_VALS)))
+    ax.set_xticklabels(G_LABELS, rotation=45, ha='right')
+    ax.set_yticks(range(len(ALPHA_VALS)))
+    ax.set_yticklabels([str(a) for a in ALPHA_VALS])
+    ax.set_xlabel("Growth rate g")
+    ax.set_ylabel("Declaration ratio α")
+    ax.set_title(
         f"C.12 — NPV-adjusted tax difference: (NPV_tax(α) − NPV_tax(1)) / TW_settled(1)  [pp]\n"
-        f"ρ = {rho*100:.0f}%,  N = {p['N_demo']},  $V_0$ = £{p['V0_m']:.0f}m,  "
-        f"k = {p['k']},  $\\tau_0$ = {p['tau_0']*100:.0f}%"
+        f"ρ = {rho*100:.0f}%,  N = {p['N_demo']},  $V_0$ = £{p['V0_m']:.0f}m,  k = {p['k']}"
     )
+
+    honest_idx = ALPHA_VALS.index(1.0)
+    ax.add_patch(plt.Rectangle((-0.5, honest_idx - 0.5), len(G_VALS), 1,
+                                fill=False, edgecolor=C_DARK, linewidth=1.5, zorder=5))
+
+    for i in range(len(ALPHA_VALS)):
+        for j in range(len(G_VALS)):
+            val = c12_mat[i, j]
+            text_col = 'white' if abs(val) > vmax * 0.6 else C_DARK
+            ax.text(j, i, f"{val:.1f}", ha='center', va='center',
+                    fontsize=7.5, color=text_col, zorder=3)
 
     cbar = fig.colorbar(im, ax=ax, fraction=0.03, pad=0.04)
-    cbar.set_label(
-        "pp relative to honest declaration\n",
-        fontsize=8
-    )
+    cbar.set_label("pp relative to honest declaration\n", fontsize=8)
 
     fig.suptitle(
-        f"Figure 7.1d - NPV-adjusted tax difference (ρ = {rho*100:.0f}%)  ·  "
-        f"Sell-year refund discounted to {100*(1/(1+rho)**p['N_demo']):.0f}p/£ at t=N+1",
+        f"Figure 7.1d - NPV-adjusted tax difference (ρ = {rho*100:.0f}%)",
         fontsize=10,
     )
-
     plt.tight_layout()
     return _save(fig, "val_fig_7_1d_c1_vs_c12_nominal_vs_npv.png")
 
@@ -1106,33 +739,26 @@ def fig_7_1d_c1_vs_c12_heatmap(p):
 # ─────────────────────────────────────────────────────────────
 
 def main():
-    p = load_params()
-    print(f"Parameters loaded: k={p['k']}, N={p['N']} (SSM-derived), N_demo={p['N_demo']} (demographic), g={p['g']:.4f}")
-
-    global G_VALS, G_LABELS, ALPHA_VALS, N_ACTUAL_VALS
-    sw = p['sweep']
-    G_VALS        = sw['g_vals']
-    G_LABELS      = [f"{v*100:.1f}%" for v in G_VALS]
-    ALPHA_VALS    = sw['alpha_vals']
-    N_ACTUAL_VALS = sw['n_actual_vals']
+    print("5_4_VAL_charts.py — loading val_data.json...")
+    data = load_val_data()
+    print(f"Data loaded. Generated: {data['meta']['generated']}")
+    p = data['params']
+    print(f"Parameters: k={p['k']}, N={p['N']}, N_demo={p['N_demo']}, "
+          f"g={p['g']:.4f}, V0=£{p['V0_m']:.0f}m")
 
     ensure_dir(_OUT)
-    apply_style()
 
     print(f"\nGenerating VAL figures → {_OUT}")
-    print(f"Parameters: N={p['N']}, g={p['g']*100:.2f}%, V0=£{p['V0_m']:.0f}m, "
-          f"k={p['k']}, tau_0={p['tau_0']*100:.0f}%, tau_m={p['tau_m']*100:.0f}%\n")
-
-    fig_5_rate_function(p)
-    fig_5_2a_c1_heatmap(p)
-    fig_7_1b_equilibrium_cost_curve(p)
-    fig_7_2a_tw_gap_by_n(p)
-    fig_7_2b_saturation_reversal(p)
-    fig_7_2c_overstatement_reversal(p)
-    fig_7_1a_overstatement_coherence(p)
-    fig_5_2b_tw_decomposition(p)
-    fig_7_1c_tw_advantage_gN_surface(p)
-    fig_7_1d_c1_vs_c12_heatmap(p)
+    fig_5_rate_function(data)
+    fig_5_2a_c1_heatmap(data)
+    fig_7_1b_equilibrium_cost_curve(data)
+    fig_7_2a_tw_gap_by_n(data)
+    fig_7_2b_saturation_reversal(data)
+    fig_7_2c_overstatement_reversal(data)
+    fig_7_1a_overstatement_coherence(data)
+    fig_5_2b_tw_decomposition(data)
+    fig_7_1c_tw_advantage_gN_surface(data)
+    fig_7_1d_c1_vs_c12_heatmap(data)
 
     print("\nAll figures written.")
 

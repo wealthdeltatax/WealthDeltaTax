@@ -12,6 +12,8 @@ keywords:
     - revenue equivalence
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date          | Details                                      |
@@ -19,6 +21,7 @@ keywords:
 | 0.01     | 13 September 2026 | Initial scaffold. |
 | 0.02     | 16 September 2026 | Verbal compression |
 | 0.03     | 16 September 2026 | Epistemic tightening: Arachi claim bounded to loss-year component with entry-margin qualification; P(locked in) decomposition relabelled to distinguish market preference from CGT-induced non-switching; T≥8 plateau reframed as realisation-induced portfolio persistence; SRR claim corrected to bound taxpayer-level exposure rather than eliminating solvency risk; 479× and income tax concentration figures qualified as model-simulated; welfare object taxonomy (CEW, incidence, concentration) distinguished in §6.1; asymmetric CGT/WDT treatment made prominent in §2.4; burden-of-consideration conclusion reframed analytically; incidence ≠ welfare progressivity distinction added to §4.3.4; horizon choice defended in §2.1; §7.4 TODO resolved — N=73 run committed to WFR.A §F. |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

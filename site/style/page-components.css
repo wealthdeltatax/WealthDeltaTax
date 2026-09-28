@@ -17,19 +17,19 @@
   font-weight: bold;
   text-align: center;
   padding: 0.5rem 0.75rem;
-  background-color: #2B0055;
-  border: 2px solid #FFD700;
+  background-color: var(--wdt-purple);
+  border: 2px solid var(--wdt-gold);
   margin: 1rem 0 1.5rem;
   letter-spacing: 0.05em;
 }
 
 .wdt-glossary-jumpbar a {
-  color: #FFD700;
+  color: var(--wdt-gold);
   text-decoration: none;
 }
 
 .wdt-glossary-jumpbar a:hover {
-  color: #FFFFFF;
+  color: var(--wdt-white);
   text-decoration: underline;
 }
 
@@ -37,9 +37,9 @@
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   font-weight: bold;
-  color: #FFD700;
-  background-color: #2B0055;
-  border: 2px solid #FFD700;
+  color: var(--wdt-gold);
+  background-color: var(--wdt-purple);
+  border: 2px solid var(--wdt-gold);
   padding: 0.15rem 0.6rem;
   margin: 1.5rem 0 0.75rem;
   display: inline-block;
@@ -47,9 +47,7 @@
 
 /* ── WDT: References page additions ──────────────────────── */
 
-/* Wrapper div for the type badge + cited-in row — ensures
-   the two inline spans sit on one block-level line together,
-   separated from the source line above.                      */
+/* Wrapper div for the type badge + cited-in row */
 .wdt-ref-meta {
   margin-top: 0.35rem;
   display: flex;
@@ -64,18 +62,15 @@
   margin-top: 0;
 }
 
-/* No-link indicator — see .wdt-ref-no-link defined above
-   in the References page section */
-
-   /* ── WDT: Per-paper metadata bar ─────────────────────────── */
+/* ── WDT: Per-paper metadata bar ─────────────────────────── */
 
 .paper-meta {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
-  color: #2B0055;
-  background-color: #F5F0FF;
-  border: 1px solid #C0C0C0;
-  border-left: 4px solid #FFD700;
+  color: var(--wdt-purple);
+  background-color: var(--wdt-lavender);
+  border: 1px solid var(--wdt-silver);
+  border-left: 4px solid var(--wdt-gold);
   padding: 0.4rem 1rem;
   margin: 0.75rem 0 0.5rem;
   display: flex;
@@ -84,7 +79,7 @@
 }
 
 .paper-meta strong {
-  color: #2B0055;
+  color: var(--wdt-purple);
 }
 
 
@@ -101,7 +96,7 @@
   font-size: 1.15rem;
   line-height: 1.65;
   margin-bottom: 1rem;
-  color: #1a1a1a;
+  color: var(--wdt-text);
   font-family: "Times New Roman", Times, serif;
 }
 
@@ -133,7 +128,7 @@
 
 .wdt-hero-meta {
   font-size: 0.78rem;
-  color: #666;
+  color: var(--wdt-muted-light);
   font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 0.03em;
   margin-top: 0.5rem;
@@ -157,7 +152,7 @@
 
 .wdt-diagram-caption {
   font-size: 13px;
-  color: #666;
+  color: var(--wdt-muted-light);
   font-style: italic;
   font-family: Arial, Helvetica, sans-serif;
   margin-top: 0.4rem;
@@ -188,7 +183,7 @@
   font-size: 13px;
   line-height: 1.9;
   margin: 1.2rem 0;
-  color: #1a1a1a;
+  color: var(--wdt-text);
 }
 
 
@@ -269,7 +264,7 @@
 }
 
 .wdt-skeptic-box a:hover {
-  color: #ffffff;
+  color: var(--wdt-white);
   text-decoration: underline;
 }
 
@@ -283,12 +278,12 @@
 .wdt-programme-header {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
-  color: #555;
+  color: var(--wdt-muted);
   margin-bottom: 0.5rem;
 }
 
 .wdt-programme-header strong {
-  color: #1a1a1a;
+  color: var(--wdt-text);
 }
 
 
@@ -306,7 +301,7 @@
 
 .wdt-spine-intro {
   font-size: 13px;
-  color: #444;
+  color: var(--wdt-muted);
   margin-bottom: 1rem;
   font-style: italic;
 }
@@ -320,7 +315,7 @@
 }
 
 .wdt-spine-if {
-  color: #555;
+  color: var(--wdt-muted);
   font-size: 13px;
 }
 
@@ -333,7 +328,7 @@
 
 .wdt-spine-then {
   font-weight: bold;
-  color: #1a1a1a;
+  color: var(--wdt-text);
   font-size: 13px;
 }
 
@@ -372,7 +367,7 @@
   justify-content: space-between;
   align-items: baseline;
   padding: 0.65rem 0.8rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eee; /* intentional — lighter than --wdt-silver */
   gap: 1rem;
   flex-wrap: wrap;
 }
@@ -387,7 +382,7 @@
 
 .wdt-paper-question {
   font-size: 14px;
-  color: #1a1a1a;
+  color: var(--wdt-text);
   line-height: 1.4;
   flex: 1 1 280px;
   font-family: "Times New Roman", Times, serif;
@@ -403,7 +398,7 @@
 .wdt-paper-code {
   font-family: "Courier New", Courier, monospace;
   font-size: 12px;
-  color: #666;
+  color: var(--wdt-muted-light);
   white-space: nowrap;
 }
 
@@ -436,7 +431,7 @@
   border-left: 4px solid var(--wdt-gold);
   padding: 1.4rem 1.6rem;
   margin: 2.5rem 0 1rem;
-  background: #FDFBFF;
+  background: var(--wdt-lavender); /* was #FDFBFF — functionally identical */
 }
 
 .wdt-oq-header {
@@ -451,7 +446,7 @@
 
 .wdt-oq-intro {
   font-size: 13px;
-  color: #555;
+  color: var(--wdt-muted);
   margin-bottom: 1rem;
   font-style: italic;
   font-family: Arial, Helvetica, sans-serif;
@@ -465,7 +460,7 @@
 
 .wdt-oq-item {
   padding: 0.55rem 0;
-  border-bottom: 1px solid #e0dce8;
+  border-bottom: 1px solid var(--wdt-lavender-border);
   font-size: 14px;
   line-height: 1.5;
   display: flex;
@@ -494,7 +489,7 @@
 }
 
 .wdt-oq-item a:visited {
-  color: #551a8b;
+  color: var(--wdt-link-visited);
 }
 
 
@@ -514,9 +509,9 @@
 
 .wdt-faq-refs {
   font-size: 13px;
-  color: #555;
+  color: var(--wdt-muted);
   font-family: Arial, Helvetica, sans-serif;
-  border-top: 1px solid #e0dce8;
+  border-top: 1px solid var(--wdt-lavender-border);
   margin-top: 0.75rem;
   padding-top: 0.5rem;
 }
@@ -529,14 +524,14 @@
 /* FAQ navigation links — appears after each answer's ref line */
 p.wdt-faq-nav {
   font-size: 0.85em;
-  color: #555;
+  color: var(--wdt-muted);
   margin-top: 0.25em;
   margin-bottom: 0;
   font-style: normal;
 }
 
 p.wdt-faq-nav a {
-  color: #2B0055;
+  color: var(--wdt-purple);
   text-decoration: none;
 }
 
@@ -550,10 +545,10 @@ p.wdt-faq-nav a:hover {
 .paper-disclosure {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
-  color: #555555;
-  background-color: #FAFAFA;
-  border: 1px solid #C0C0C0;
-  border-left: 4px solid #C0C0C0;
+  color: var(--wdt-muted);
+  background-color: var(--wdt-off-white);
+  border: 1px solid var(--wdt-silver);
+  border-left: 4px solid var(--wdt-silver);
   padding: 0.6rem 1rem;
   margin: 0.5rem 0 1rem;
   line-height: 1.5;
@@ -589,7 +584,7 @@ p.wdt-faq-nav a:hover {
 }
 
 .wdt-webring-hex {
-  color: #808080;
+  color: var(--wdt-mid-grey);
 }
 
 .wdt-webring-nav {
@@ -613,6 +608,7 @@ p.wdt-faq-nav a:hover {
 
 
 /* ── WDT: Footer — Netscape badge ────────────────────────── */
+/* Intentional retro colours — hardcoded by design.          */
 
 .wdt-netscape-wrap {
   text-align: center;
@@ -621,16 +617,16 @@ p.wdt-faq-nav a:hover {
 
 .wdt-netscape {
   display: inline-block;
-  border: 2px outset #C0C0C0;
-  background-color: #000080;
+  border: 2px outset var(--wdt-silver);
+  background-color: #000080; /* retro Netscape navy — intentional */
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
   line-height: normal;
 }
 
 .wdt-netscape-top {
-  background-color: #FFFFFF;
-  color: #000080;
+  background-color: var(--wdt-white);
+  color: #000080; /* retro Netscape navy — intentional */
   font-size: 8px;
   font-weight: bold;
   padding: 1px 4px;
@@ -639,8 +635,8 @@ p.wdt-faq-nav a:hover {
 }
 
 .wdt-netscape-mid {
-  background-color: #000080;
-  color: #FFFFFF;
+  background-color: #000080; /* retro Netscape navy — intentional */
+  color: var(--wdt-white);
   font-size: 11px;
   font-weight: bold;
   padding: 2px 6px;
@@ -649,8 +645,8 @@ p.wdt-faq-nav a:hover {
 }
 
 .wdt-netscape-bot {
-  background-color: #C0C0C0;
-  color: #000000;
+  background-color: var(--wdt-silver);
+  color: var(--wdt-black);
   font-size: 8px;
   padding: 1px 4px;
   text-align: center;
@@ -669,7 +665,7 @@ p.wdt-faq-nav a:hover {
 }
 
 .wdt-contact a {
-  color: #0000EE;
+  color: var(--wdt-link); /* standard browser blue */
   font-weight: bold;
 }
 
@@ -683,7 +679,7 @@ p.wdt-faq-nav a:hover {
 
 .avoid-intro {
   border-left: 6px solid var(--wdt-gold);
-  background: #fffde7;
+  background: #fffde7; /* intentional warm cream tint — one-off */
   padding: 1.25rem 1.5rem;
   margin: 1.5rem 0 2rem;
   font-size: 1rem;
@@ -726,7 +722,7 @@ p.wdt-faq-nav a:hover {
   font-family: "Times New Roman", Times, serif;
   font-size: 0.95rem;
   line-height: 1.7;
-  color: #111;
+  color: #111; /* near-black — intentional, single use */
 }
 
 .strategy-body > p {
@@ -741,12 +737,12 @@ p.wdt-faq-nav a:hover {
 .mechanic {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 0.82rem;
-  background: #fff;
+  background: var(--wdt-white);
   border: 1px solid var(--wdt-silver);
   border-left: 3px solid var(--wdt-gold);
   padding: 0.6rem 0.9rem;
   margin: 0.75rem 0;
-  color: #333;
+  color: var(--wdt-body-dark);
 }
 
 .mechanic > p:first-child {
@@ -766,7 +762,7 @@ p.wdt-faq-nav a:hover {
 .verdict-box {
   border: 2px solid var(--wdt-purple);
   border-top: 4px solid var(--wdt-gold);
-  background: #fff;
+  background: var(--wdt-white);
   padding: 1rem 1.25rem;
   margin: 0.75rem 0 0.5rem;
   font-family: Arial, Helvetica, sans-serif;
@@ -788,7 +784,7 @@ p.wdt-faq-nav a:hover {
 }
 
 .verdict-box.limited  { border-top-color: var(--wdt-green); }
-.verdict-box.moderate { border-top-color: #b45309; }
+.verdict-box.moderate { border-top-color: #b45309; } /* amber — intentional semantic one-off */
 .verdict-box.blocked  { border-top-color: var(--wdt-red); }
 
 @media (max-width: 700px) {
@@ -836,11 +832,11 @@ p.wdt-faq-nav a:hover {
   right: 0;
   z-index: 200;
   width: 480px;
-  background: #F5F0FF;
-  border: 2px solid #2B0055;
-  outline: 1px solid #000;
+  background: var(--wdt-lavender);
+  border: 2px solid var(--wdt-purple);
+  outline: 1px solid var(--wdt-black);
   padding: 0.75rem 0.9rem;
-  box-shadow: 3px 3px 0 #000;
+  box-shadow: 3px 3px 0 var(--wdt-black);
 }
 
 /* Show dropdown when checkbox is checked */
@@ -850,8 +846,8 @@ p.wdt-faq-nav a:hover {
 
 /* Depress the label button visually when panel is open */
 .cite-toggle-input:checked ~ .cite-toggle-label {
-  background-color: #3d0080;
-  color: #fff !important;
+  background-color: var(--wdt-purple-mid);
+  color: var(--wdt-white) !important;
   border-style: inset;
 }
 
@@ -861,7 +857,7 @@ p.wdt-faq-nav a:hover {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #2B0055;
+  color: var(--wdt-purple);
   margin-top: 0.5rem;
   margin-bottom: 0.25rem;
 }
@@ -873,8 +869,8 @@ p.wdt-faq-nav a:hover {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-  background: #fff;
-  border: 1px solid #C0C0C0;
+  background: var(--wdt-white);
+  border: 1px solid var(--wdt-silver);
   padding: 0.4rem 0.5rem;
   margin-bottom: 0.4rem;
 }
@@ -884,7 +880,7 @@ p.wdt-faq-nav a:hover {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   line-height: 1.5;
-  color: #1a0033;
+  color: var(--wdt-purple-deep);
   margin: 0;
   white-space: pre-wrap;
   word-break: break-word;
@@ -898,9 +894,9 @@ pre.cite-text {
 .cite-copy {
   flex-shrink: 0;
   padding: 0.2rem 0.5rem;
-  background: #2B0055;
-  color: #FFD700;
-  border: 1px outset #808080;
+  background: var(--wdt-purple);
+  color: var(--wdt-gold);
+  border: 1px outset var(--wdt-mid-grey);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -908,7 +904,7 @@ pre.cite-text {
   white-space: nowrap;
 }
 .cite-copy:hover {
-  background: #3d0080;
-  color: #fff;
+  background: var(--wdt-purple-mid);
+  color: var(--wdt-white);
   border-style: inset;
 }

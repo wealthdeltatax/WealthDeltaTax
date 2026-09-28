@@ -19,6 +19,8 @@ keywords:
     - intergenerational wealth
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
@@ -29,6 +31,7 @@ keywords:
 | 1.03      | 29 August 2026  | Eliminated temporal seams from prior edits; revised §2.3 to use administrative-capacity framing; narrowed ontological claim in §3.1 to forms of wealth WDT targets; reduced Wittgenstein material; removed labour-theory-adjacent language from §3.2; renamed §5; rewrote §6 around mutual-dependency framing; updated glossary and conclusion |
 | 1.04      | 16 September 2026 | Fixed stale cross-reference in §9.2 (MF §4 → MF §7); clarified ontological/causal independence in §1; added Scanlon contractualist framing to §3.3; added Pettit non-domination framework and dependency-control characterisation to §6; made three convergent arguments explicit in §7; added continuously-reproduced contract framing to §7; added non-domination to glossary |
 | 1.05      | 20 September 2026 | Crosslinks added: §4 closing paragraph added acknowledging Hasen (2017) as independent prior art for the wealth-as-power claim, pointing to (LR.B §16); §6 labour dividend sentence extended with pointer to (LDW) for quantified purchasing power consequences |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

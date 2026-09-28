@@ -18,12 +18,15 @@ keywords:
     - worked calibration examples
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
 |:--------:|:---------------:|--------------------------|
 | 0.01      | 27 August 2026 | Initial draft. |
 | 0.02      | 20 September 2026 | Crosslinks added: §10.2 now cites (GOV §5.2 clause 4) for the sole-capitalisation constraint on the grant/loan distinction; (GOV.B §E.1) for the solvency floor and automatic-consequence chain the subordination replicates; (GOV.B §E.2) for the publication discipline the net-position requirement should join |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

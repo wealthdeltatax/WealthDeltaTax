@@ -19,12 +19,15 @@ keywords:
     - governance robustness
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
 |:--------:|:---------------:|--------------------------|
 | 0.01      | 03 July 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 \tableofcontents

@@ -19,6 +19,8 @@ keywords:
     - tax intermediaries
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
@@ -26,6 +28,7 @@ keywords:
 | 0.01      | 03 July 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 20 August 2026  | Update Section E for clarity |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 \tableofcontents
@@ -409,7 +412,9 @@ The $\tau_h$ ramp adds a time dimension. A pre-announced rising trajectory means
 
 For large-stake attacks, existing Takeover Panel disclosure thresholds require beneficial owner identification at levels likely sufficient to impose meaningful $\tau_h$ burden on a significant company. The WDT amplifies an existing regulatory problem rather than creating a new one.
 
-The residual is a short-horizon sub-disclosure-threshold purely financial attack: building a stake below mandatory disclosure levels, imposing $\tau_h$ pressure for one or two assessment cycles, and exiting into a depressed price. This requires no shareholder activism tools and evades the Takeover Panel threshold. The appropriate response is a flag-event publication mechanism analogous to the Route D audit flag: where the Administrator's mandatory data shows an unusual concentration of unattributed ownership at a specific company against the population baseline, the Administrator publishes a flag noting the anomalous pattern without making a judgment about intent. The flag is a transparency mechanism, not an enforcement one, consistent with the Administrator's transmission-only function.
+The residual is a short-horizon sub-disclosure-threshold purely financial attack: building a stake below mandatory disclosure levels, imposing $\tau_h$ pressure for one or two assessment cycles, and exiting into a depressed price. This requires no shareholder activism tools and evades the Takeover Panel threshold. 
+
+Where the Administrator's mandatory data shows an unusual concentration of unattributed ownership at a specific company against the population baseline, the Administrator publishes a flag noting the anomalous pattern. This is a transparency output of the Administrator's routine publication function, not an enforcement mechanism. No finding of wrongful conduct is implied. A company and its owners who are content to pay $\tau_h$ on the unattributed tranche have made a legitimate choice within the system's terms — the WDT has collected its due at the appropriate rate and has no enforcement interest in compelling attribution beyond what the rate structure already incentivises. The flag's function is to make persistent high-attribution-failure visible in the permanent public record, available to market participants, analysts, Governing Council members, and the public to draw whatever conclusions they draw. The Administrator neither investigates nor acts on the flag beyond publication.
 
 As noted in (CORP.A §E.8), the conditions required to sustain a meaningful attack through structural means are progressively harder to satisfy as the mechanism matures. The WDT substantially closed this attack vector through its attribution architecture before the attack was identified as a problem.
 

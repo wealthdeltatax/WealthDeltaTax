@@ -24,17 +24,25 @@ Sections
 
 Usage
 -----
-  python3 8_2_RATES_report.py [params.toml] [output_dir]
+  python3 8_2_RATES_tables.py [rates_output.json] [output_dir]
 
-  params.toml  defaults to WDT_Params.toml in the same directory.
-  output_dir   defaults to ./OUTPUTS/RATES/
+  rates_output.json  path to the JSON cache written by rates_core.py main().
+                     Defaults to OUTPUTS/RATES/rates_output.json.
+  output_dir         defaults to ./OUTPUTS/RATES/
 
-Can also be imported and called directly:
+Alternatively, pass raw model objects directly:
 
-    from 8_2_RATES_report import write_report
+    from 8_2_RATES_tables import write_report
     out_path = write_report(p, py_ssm, py_tcm, ssm_lrr_N,
                             sweep_extremals, stats, tcm_win=tcm_win,
                             py_tcm_burden=py_tcm_30, burden_N=30)
+
+Or drive from a pre-built JSON dict:
+
+    from 8_2_RATES_tables import write_report_from_json
+    from rates_core import load_rates_output
+    data = load_rates_output('OUTPUTS/RATES/rates_output.json')
+    out_path = write_report_from_json(data)
 """
 
 import sys
@@ -841,69 +849,85 @@ def _tier_bracket_table(doc, diffs, tlabels, blabels, field, py_tcm, fmt):
 
 
 # ─────────────────────────────────────────────────────────────
+# JSON ENTRY POINT
+# ─────────────────────────────────────────────────────────────
+
+def write_report_from_json(data, output_dir=None):
+    """
+    Generate the markdown report from a rates_output.json dict.
+
+    Parameters
+    ----------
+    data       : dict   return value of rates_core.load_rates_output()
+    output_dir : Path   override output directory; defaults to OUTPUTS/RATES/
+
+    Returns
+    -------
+    Path   path of the written markdown file
+    """
+    p            = data['params']
+    py_ssm       = data['ssm']
+    py_tcm       = data['tcm_cap']     # {float: list} after load_rates_output decoding
+    py_tcm_burden = data['tcm_burden']
+    tcm_N        = data['tcm_N']
+    burden_N     = data['burden_N']
+    tcm_win      = data.get('tcm_win') or None
+
+    # Reconstruct sweep_extremals in the shape write_report() expects.
+    # The 'all' key was stripped before saving; restore it from data['sweep'].
+    sweep_extremals = dict(data['sweep_extremals'])
+    sweep_extremals['all'] = data['sweep']
+
+    stats = data['stats']
+
+    return write_report(
+        p, py_ssm, py_tcm, tcm_N,
+        sweep_extremals, stats,
+        tcm_win=tcm_win,
+        output_dir=output_dir,
+        py_tcm_burden=py_tcm_burden,
+        burden_N=burden_N,
+    )
+
+
+# ─────────────────────────────────────────────────────────────
 # MAIN
 # ─────────────────────────────────────────────────────────────
 
 def main():
-    toml_path  = sys.argv[1] if len(sys.argv) > 1 else None
-    output_dir = sys.argv[2] if len(sys.argv) > 2 else None
+    """
+    CLI entry point.
 
-    print(f'Loading parameters from: {toml_path or DEFAULT_PARAMS}')
-    p = rates_core.load_params(toml_path)
-    rates_core.validate_params(p)
+    Usage
+    -----
+      python3 8_2_RATES_tables.py [rates_output.json] [output_dir]
 
-    meta = p.get('meta', {})
-    print()
-    print('─' * 60)
-    print('PARAMETERS')
-    print('─' * 60)
-    print(f"  scenario:   {meta.get('scenario_label', '—')}")
-    print(f"  start year: {p['scenario_start_year']}")
-    print(f"  tau_0={p['tau_0']:.0%}  tau_m={p['tau_m']:.0%}  "
-          f"k={p['k']}  W_min=£{p['W_min']}m")
-    print(f"  SRR={p['srr_ratio']}×  LRR={p['lrr_years']} yrs")
+      rates_output.json  JSON cache written by: python rates_core.py
+                         Defaults to OUTPUTS/RATES/rates_output.json.
+      output_dir         Markdown destination; defaults to OUTPUTS/RATES/.
 
-    print('\nRunning SSM (active scenario, N=1..71)...')
-    py_ssm = rates_core.run_ssm(p, max_N=71)
+    The script reads pre-computed model results from the JSON cache and
+    renders the markdown report without re-running any simulation.
+    """
+    from rates_core import load_rates_output
+    from wdt_fmt import out_dir as _out_dir
 
-    py_lrr_fill = next((r for r in py_ssm if r.get('lrr_filled')), None)
-    py_srr_fill = next((r for r in py_ssm
-                        if r['srr_target'] > 0
-                        and r['srr_balance'] >= r['srr_target'] * 0.9999), None)
-    ssm_lrr_N = py_lrr_fill['year'] if py_lrr_fill else p['tcm_N']
-    ssm_srr_N = py_srr_fill['year'] if py_srr_fill else 1
+    default_json = ensure_dir(_OUT) / 'rates_output.json'
+    json_path    = Path(sys.argv[1]) if len(sys.argv) > 1 else default_json
+    output_dir   = Path(sys.argv[2]) if len(sys.argv) > 2 else None
 
-    print(f"  SRR fill year: {py_srr_fill['year'] if py_srr_fill else '—'}")
-    print(f"  LRR fill year: {ssm_lrr_N}  (used as TCM N)")
+    print(f'Loading rates output from: {json_path}')
+    if not json_path.exists():
+        print(f'  ERROR: {json_path} not found.')
+        print('  Run "python rates_core.py" first to generate the JSON cache.')
+        sys.exit(1)
 
-    print(f'\nRunning TCM (N={ssm_lrr_N}, snapshot / LRR fill year)...')
-    py_tcm = rates_core.run_tcm(p, N=ssm_lrr_N, N_fill=ssm_srr_N)
-
-    _BURDEN_N = 30
-    print(f'\nRunning TCM for burden/lifetime tables (N={_BURDEN_N}, canonical horizon)...')
-    py_tcm_burden = rates_core.run_tcm(p, N=_BURDEN_N, N_fill=ssm_srr_N)
-
-    print('  Computing TCM coverage windows...')
-    tcm_win = _tcm_coverage_windows(p, ssm_lrr_N, ssm_srr_N) if py_lrr_fill else None
-
-    print(f'\nRunning start-year sweep ({len(p["returns"])} calendar years)...')
-    sweep           = rates_core.run_start_year_sweep(p)
-    sweep_extremals = rates_core.report_start_year_sweep(sweep, p)
-
-    print('\nRunning extremal scenario profiles...')
-    profiles = rates_core.run_scenario_profiles(sweep_extremals, p)
-    rates_core.report_scenario_profiles(profiles, p)
-
-    print('\nRunning statistical pass...')
-    stats = rates_core.compute_statistics(sweep)
-    rates_core.report_statistics(stats, p)
+    data = load_rates_output(json_path)
+    print(f'  Run date: {data["run_date"]}')
+    print(f'  tcm_N={data["tcm_N"]}  burden_N={data["burden_N"]}  srr_N={data["srr_N"]}')
 
     print('\nWriting markdown report...')
-    _out     = ensure_dir(Path(output_dir) if output_dir else _OUT)
-    out_path = write_report(p, py_ssm, py_tcm, ssm_lrr_N,
-                            sweep_extremals, stats,
-                            tcm_win=tcm_win, output_dir=_out,
-                            py_tcm_burden=py_tcm_burden, burden_N=_BURDEN_N)
+    out_path = write_report_from_json(data, output_dir=output_dir)
     print(f'  Written: {out_path}')
     print('\nDone.')
 

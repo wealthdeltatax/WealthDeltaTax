@@ -1,9 +1,9 @@
 # VAL.B Worked Examples — Numerical Figures
 
-**Generated:** 2026-09-16  
+**Generated:** 2026-09-27  
 **Model:** Python v1.0 standalone · Route C simulation throughout. All figures use TW_settled/Net_settled (post-sale settlement correction). Presented as TW/Net in table labels to match VAL.B nomenclature.  
 **Parameters:** $\tau_0$=15%, $\tau_m$=70%, $k$=0.001, $W_{min}$=£2m (all examples unless stated).  
-**Option A convention:** N annual periods used as assessment windows throughout.  §K limitation: 3 annual periods used as proxy for 3 multi-year windows — expected to produce variance from a window-aware model; directional claims unaffected.  §L and §M: bespoke closed-form arithmetic, not run_val_sim.  
+**Option A convention:** N annual periods used as assessment windows throughout.  §K limitation: 3 annual periods used as proxy for 3 multi-year windows.  §L and §M: bespoke closed-form arithmetic.  
 
 ## J.3 Illustrative Figures
 
@@ -41,7 +41,7 @@ The $\alpha$ = 0.8 understater saved £0.218m in years 1–5 but paid £0.829m m
 
 ## K.3 Illustrative Figures
 
-**Model note.** (VAL.B §K) uses three *assessment windows* of unspecified length. This model uses N = 3 *annual* periods as a proxy (Option A). A window-aware model would produce different equity accumulation figures; the directional claim (dilution is more expensive at high $g$) is unaffected. The model treats $V_0$ = £20m as the declared portfolio (representing the stake value directly, not the company valuation at £20m with a 60% stake = £12m stake value).
+**Model note.** (VAL.B §K) uses three *assessment windows* of unspecified length. This model uses N = 3 *annual* periods as a proxy (Option A). A window-aware model would produce different equity accumulation figures; the directional claim (dilution is more expensive at high $g$) is unaffected.
 
 ### K.3.1 Period-by-period accumulation
 
@@ -106,7 +106,7 @@ Route D collects more tax (full 15-year gain vs 5-year partial) while eliminatin
 
 ## M.5 Comparison
 
-**Model note.** This example uses closed-form arithmetic, not run_val_sim. Liabilities calculated as $\tau$(V) × (V − prior_basis) for each settlement event. Computed true values: $V_{10}$ = £8.144m, $V_{15}$ = £10.395m ($g$ = 5% compounded from $B_0$ = £5m). Soft reset declared value: £7.688m (conservative, ~94% of true $V_{10}$), consistent with Option A setup.
+**Model note.** Liabilities calculated as $\tau$(V) × (V − prior_basis) for each settlement event. Computed true values: $V_{10}$ = £8.144m, $V_{15}$ = £10.395m ($g$ = 5% compounded from $B_0$ = £5m). Soft reset declared value: £7.688m (conservative, ~94% of true $V_{10}$).
 
 | Metric | Option A: Soft reset (yr 10) | Option B: Hard reset (yr 10) | Option C: No reset (yr 15) |
 |:---|---:|---:|---:|

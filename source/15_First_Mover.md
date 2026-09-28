@@ -18,6 +18,8 @@ keywords:
     - memetic diffusion
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
@@ -27,6 +29,7 @@ keywords:
 | 1.01      | 23 August 2026  | Added historical framing (§1), constituency asymmetry (§3.2), trajectory and knowledge effect (§4) |
 | 1.02      | 18 September 2026 | References corrected: Perret (2021) entry corrected to *Fiscal Studies* 42(3–4), 539–563 (previously cited as non-existent Intereconomics entry); Batchelder & Kamin (2019) publisher description corrected to SSRN Working Paper No. 3452274 |
 | 1.03      | 20 September 2026 | Crosslinks added: §2 forward pointer to (INST §6.3) for second independent reason labour dividend cannot be stripped; §3.2 forward pointer to (INST) for systemic-level extension of the suppression analysis and (INST §6.4) for China case |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

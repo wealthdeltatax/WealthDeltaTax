@@ -18,6 +18,8 @@ keywords:
     - labour dividend
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date | Details |
@@ -29,6 +31,7 @@ keywords:
 | 0.05 | 21 September 2026 | Flag 31 resolved: Catalyst International (2025), Asia Society Policy Institute (2022), and Foreign Affairs (2026) removed from §6.4 Tier A footnote (unverifiable); @KaoLuQueralt2022 added; §6.4 capital-flight paragraph reframed as directional claim without unverified figure; trilemma passage added to §5.3 (sovereignty redistribution argument); trilemma passage added to §6.4 (mobilisation law as governing hierarchy of claims); Abstract restructured to lead with competitive claim; §1 Introduction restructured to open with provocative inversion before framing literature gap |
 | 0.06 | 22 September 2026 | Five argument-sharpening edits to force critic precision: Abstract "cannot be played against each other" replaced with manipulation-cost claim specifying the self-defeating executive offer; §3.2 $286 trillion decomposed into three independently contestable components; §5.3 fiscal sovereignty test added with explicit observable threshold and constitutional enclave response; §6 opening constitutional enclave objection stated and answered directly; §7.1–§7.3 each restructured with explicit conditional and falsifiable threshold preceding the substantive argument |
 | 0.07 | 22 September 2026 | DR identified as the constitutional instantiation of the two-constituency mechanism's second constituency: glossary entry updated; §5.4 extended to note Condition 4 is enforced architecturally by DR's 50% vote share rather than by political dynamics; §6 opening enclave-objection answer extended to specify that the required enclave body is DR specifically; §6.2 extended to establish that full WDT implementation requires constitutionally seating DR as a design requirement, making the endogenous institutional pressure partly structural rather than only dynamic; §6.4 Tier B footnote updated; §11 closing paragraph updated |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

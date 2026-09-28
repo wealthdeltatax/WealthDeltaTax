@@ -19,6 +19,8 @@ keywords:
     - OBR independence
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
@@ -26,6 +28,7 @@ keywords:
 | 0.01      | 26 July 2026    | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 20 September 2026 | Crosslinks added: §3.2 three-mechanism framework extended with pointer to (INST) for systemic-level extension and (INST §6.4) for contemporary case; §5.3 labour dividend constituency paragraph extended with pointer to (LDW) for quantified purchasing power figures |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

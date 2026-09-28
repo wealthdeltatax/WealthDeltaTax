@@ -16,6 +16,8 @@ keywords:
     - future research
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
@@ -24,6 +26,7 @@ keywords:
 | 0.2 | 21 August 2026 | Full revision against the completed 30-item open questions register (0.0 §26). All items categorised and absorbed. Section taxonomy restructured to match register groupings. Internal bibliography extended. |
 | 0.3 | 20 September 2026 | §2 removed: WFR closed all three formal modelling tasks (#1–3). §3 substantially reduced: INST and FAL have given #7 and #8 substantive theoretical treatment. Cross-references to LDW, FAL, and INST added throughout. |
 | 0.4 | 24 September 2026 | Open questions register absorbed into SCOPE as the canonical record; Project Map register section retired. §2 extended with #31 and #32 from INST. §3.4 added for pre-Phase-One analytical deliverables (#33, #34 from RATES.A and SWEEPS). §1 updated to reflect SCOPE as the primary register. §7 updated. |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 \tableofcontents

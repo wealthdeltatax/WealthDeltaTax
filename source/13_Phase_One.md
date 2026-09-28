@@ -19,6 +19,8 @@ keywords:
     - implementation politics
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
@@ -26,6 +28,7 @@ keywords:
 | 0.01      | 3 August 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 20 September 2026 | Crosslinks added: §6.3 Agrawal cross-base externality footer note now cites (BEHAV.A §D) alongside (BEHAV §9.2); §7 conclusion extended with forward pointer to (FAL) as the falsification counterpart to the Phase One empirical cluster agenda |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 # Abstract {.unnumbered .unlisted}
 

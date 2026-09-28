@@ -19,6 +19,8 @@ keywords:
     - corporate tax transition
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
@@ -27,6 +29,7 @@ keywords:
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 20 August 2026  | Updated section 5 for clarity |
 | 1.02      | 20 September 2026 | Crosslinks added: §6.3 three-instrument SWF overview now points to (VAL §13) for sovereign liquidity facility; §6.4 extended with (GOV.B §H) pointer for Custodian mandate extension; §9.5 calibration register now cites (GOV.B §H.5) for the five corporate facility parameters and (CORP.A §B.2.8) for $\tau_h$ ramp parameters |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

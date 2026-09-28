@@ -18,6 +18,8 @@ keywords:
     - tax administration
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
@@ -26,6 +28,7 @@ keywords:
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01 | 29 August 2026 | Glossary entry for Route D auction mechanism replaced to reflect three-pathway architecture (corrective, voluntary hard-reset, inheritance) with summary of distinct tax treatment by pathway and direction; §6.1 second paragraph extended with two sentences confirming corrective trigger operates in both directions, distinguishing tax treatment by direction, and stating taxpayer non-notification rule |
 | 1.02 | 25 September 2026 | Crosslinks updated to reflect closure bond facility generalisation: glossary solvency floor entry updated to closure bond facility (CLOSE §5); §6.3 bridging facility references updated to closure bond facility covering death, exit, and bankruptcy variants; §7.2 exit bridging facility → closure bond facility with cross-closure framing; §7.5 bridging facility bond sizing ratios → closure bond facility bond sizing ratios (CLOSE §9.5) with death auction waiver threshold period added; §8 conclusion bridging facility bond structure → closure bond facility bond structure (CLOSE §5) |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

@@ -4,7 +4,46 @@
    Quarto adds .quarto-dark to <body> when dark mode is active.
    All selectors are prefixed with body.quarto-dark so these
    rules only fire in dark mode.
+
+   ── MASTER DARK-MODE PALETTE ─────────────────────────────
+   Backgrounds (darkest → lightest):
+     #0d0d1a   footer bg (deepest)
+     #12121f   inner content panel / deepest card bg
+     #1a0033   navbar / sidebar / callout header bg
+     #1a1a0a   sell-row / avoid-intro (warm dark tint)
+     #1a1a2e   outer frame / cards / even rows / raised surface
+     #210040   hover rows / TOC bg
+
+   Chrome / borders:
+     #2a2a3e   disabled button bg
+     #2B0055   body bg tiled (matches light-mode brand purple)
+     #3d0080   border / divider colour
+
+   Text:
+     #d4d0e8   primary body text
+     #c4b5fd   h2 / h3 / TOC links / secondary text
+     #a78bfa   h4 / link rest colour
+     #6b6b8a   muted / secondary / placeholder text
+     #555555   very muted (wdt-ref-no-link)
+
+   Accent / interactive:
+     #FFD700   gold — headings / active links / borders
+     #FFFFFF   hover text on dark bg
+
+   Semantic (unchanged from light; work on dark):
+     #4ade80   verified tick (green, lightened)
+     #166534   callout-tip border
+     #92400e   callout-warning border
+     #991b1b   callout-important border
+     #d97706   verdict-box moderate (amber-400, lightened)
+     #00FF00   counter digits (intentional retro green)
+     #1a1a0a   sell-row / avoid-intro warm tint
+
+   Tag badge dark equivalents:
+     bg #1e3a5f / text #93c5fd   (blue tag)
+     bg #2e1065 / text #c4b5fd   (purple tag)
    ============================================================ */
+
 
 /* ── Outer content frame ──────────────────────────────────── */
 
@@ -216,9 +255,9 @@ body.quarto-dark .callout-header {
 }
 
 /* Callout type borders — keep them distinguishable in dark mode */
-body.quarto-dark .callout-note     { border-color: #3d0080 !important; }
-body.quarto-dark .callout-tip      { border-color: #166534 !important; }
-body.quarto-dark .callout-warning  { border-color: #92400e !important; }
+body.quarto-dark .callout-note      { border-color: #3d0080 !important; }
+body.quarto-dark .callout-tip       { border-color: #166534 !important; }
+body.quarto-dark .callout-warning   { border-color: #92400e !important; }
 body.quarto-dark .callout-important { border-color: #991b1b !important; }
 
 /* ── Page footer ──────────────────────────────────────────── */
@@ -434,6 +473,8 @@ body.quarto-dark .box .box-sub {
   color: #6b6b8a !important;
 }
 
+/* .box-label and .box-val use var(--wdt-purple) — fine as-is */
+
 /* ── Bar chart ────────────────────────────────────────────── */
 
 body.quarto-dark .bar-label,
@@ -452,6 +493,8 @@ body.quarto-dark .bar-fill.hmrc {
   border-right-color: #6b6b8a !important;
 }
 
+/* .bar-fill.wdt-avg and .wdt-pf use CSS vars — fine as-is */
+
 /* ── Stat rows (taxpayer results) ─────────────────────────── */
 
 body.quarto-dark .stat-row {
@@ -466,11 +509,15 @@ body.quarto-dark .stat-row .num.neutral {
   color: #d4d0e8 !important;
 }
 
+/* .stat-row .num.positive/.negative use var(--wdt-red/green) — fine as-is */
+
 /* ── Results panels ───────────────────────────────────────── */
 
 body.quarto-dark .panel {
   background: #1a1a2e !important;
 }
+
+/* .panel.honest / .alpha-panel border accents use CSS vars — fine as-is */
 
 /* ── Sell row ─────────────────────────────────────────────── */
 
@@ -484,6 +531,8 @@ body.quarto-dark .swf-box {
   background: #1a1a2e !important;
   border-color: #3d0080 !important;
 }
+
+/* .swf-lbl and .swf-val use var(--wdt-purple) — fine as-is */
 
 /* ── Total row ────────────────────────────────────────────── */
 
@@ -508,7 +557,7 @@ body.quarto-dark .tool-card p {
 }
 
 /* Tag badges — replace light pastels with dark equivalents */
-body.quarto-dark .tag-blue   {
+body.quarto-dark .tag-blue {
   background: #1e3a5f !important;
   color: #93c5fd !important;
 }
@@ -534,6 +583,42 @@ body.quarto-dark .paper-meta strong {
   color: #d4d0e8 !important;
 }
 
+/* ── Cite panel (paper meta bar) ─────────────────────────── */
+
+body.quarto-dark .cite-dropdown {
+  background: #1a1a2e !important;
+  border-color: #3d0080 !important;
+  outline-color: #000 !important;
+}
+
+body.quarto-dark .cite-section-label {
+  color: #c4b5fd !important;
+}
+
+body.quarto-dark .cite-block {
+  background: #12121f !important;
+  border-color: #3d0080 !important;
+}
+
+body.quarto-dark .cite-text {
+  color: #d4d0e8 !important;
+}
+
+body.quarto-dark .cite-copy {
+  background: #1a0033 !important;
+  color: #FFD700 !important;
+  border-color: #3d0080 !important;
+}
+
+body.quarto-dark .cite-copy:hover {
+  background: #3d0080 !important;
+  color: #FFFFFF !important;
+}
+
+/* .cite-toggle-label has no standalone colour block — it shares .pdf-download
+   styles (covered above). The :checked override (#3d0080 bg + #fff text)
+   is already dark-compatible so needs no separate rule.                    */
+
 /* ── Welcome hero ─────────────────────────────────────────── */
 
 body.quarto-dark .wdt-hero-tagline {
@@ -547,6 +632,9 @@ body.quarto-dark .wdt-hero-meta {
 body.quarto-dark .wdt-diagram-caption {
   color: #6b6b8a !important;
 }
+
+/* .wdt-hero has only layout props — no colour override needed */
+/* .wdt-hero-prompt uses CSS vars throughout — fine as-is     */
 
 /* ── SWF flow block ───────────────────────────────────────── */
 
@@ -572,6 +660,9 @@ body.quarto-dark .wdt-spine-if {
 body.quarto-dark .wdt-spine-then {
   color: #d4d0e8 !important;
 }
+
+/* .wdt-spine-arrow uses var(--wdt-purple) — fine as-is  */
+/* .wdt-spine-domain uses var(--wdt-purple) — fine as-is */
 
 /* ── Programme header ─────────────────────────────────────── */
 
@@ -605,6 +696,8 @@ body.quarto-dark .wdt-paper-code {
   color: #6b6b8a !important;
 }
 
+/* .wdt-paper-link uses var(--wdt-purple) throughout — fine as-is */
+
 /* ── Open questions ───────────────────────────────────────── */
 
 body.quarto-dark .wdt-open-questions {
@@ -619,6 +712,23 @@ body.quarto-dark .wdt-oq-item {
   border-bottom-color: #3d0080 !important;
 }
 
+/* .wdt-oq-header and .wdt-oq-marker use var(--wdt-purple) — fine as-is */
+
+/* ── Glossary ─────────────────────────────────────────────── */
+/* Jumpbar and letter use hardcoded #2B0055 + #FFD700 which
+   happen to be the correct dark-mode values — pin them
+   explicitly so they don't shift if vars are ever changed.  */
+
+body.quarto-dark .wdt-glossary-jumpbar {
+  background-color: #1a0033 !important;
+  border-color: #FFD700 !important;
+}
+
+body.quarto-dark .wdt-glossary-letter {
+  background-color: #1a0033 !important;
+  border-color: #FFD700 !important;
+}
+
 /* ── FAQ ──────────────────────────────────────────────────── */
 
 body.quarto-dark .wdt-faq-refs {
@@ -629,6 +739,8 @@ body.quarto-dark .wdt-faq-refs {
 body.quarto-dark p.wdt-faq-nav {
   color: #6b6b8a !important;
 }
+
+/* .wdt-faq-question uses var(--wdt-purple/gold) — fine as-is */
 
 /* ── Author disclosure ────────────────────────────────────── */
 
@@ -648,6 +760,9 @@ body.quarto-dark .wdt-webring-hex {
   color: #6b6b8a !important;
 }
 
+/* .wdt-webring-nav and .wdt-webring-label use var(--wdt-purple/gold)
+   — fine as-is */
+
 /* ── Avoidance page ───────────────────────────────────────── */
 
 body.quarto-dark .avoid-intro {
@@ -657,6 +772,12 @@ body.quarto-dark .avoid-intro {
 
 body.quarto-dark .strategy-body {
   color: #d4d0e8 !important;
+}
+
+/* .strategy-block uses var(--wdt-lavender/purple/silver) — needs override */
+body.quarto-dark .strategy-block {
+  background: #1a1a2e !important;
+  border-color: #3d0080 !important;
 }
 
 body.quarto-dark .mechanic {
@@ -677,6 +798,11 @@ body.quarto-dark .verdict-box.moderate {
   border-top-color: #d97706 !important; /* amber-400 — lighter than #b45309 */
 }
 
+/* ── Skeptic box ──────────────────────────────────────────── */
+/* Uses var(--wdt-purple-deep/purple/gold) throughout — fine as-is.
+   The only hard colour is the li border which uses var(--wdt-purple-mid).
+   No dark override needed.                                              */
+
 /* ── Inline citations ─────────────────────────────────────── */
 /* Match body link colours in dark mode: #a78bfa at rest,
    #FFD700 on hover — same as body.quarto-dark a rules above. */
@@ -690,3 +816,22 @@ body.quarto-dark span.citation:hover a { color: #FFD700 !important; }
 
 /* ── Netscape badge ───────────────────────────────────────── */
 /* Intentional retro colours — left unchanged in dark mode.   */
+
+/* ── Marquee banner ───────────────────────────────────────── */
+/* Already black bg + green text; no dark override needed.
+   The border colours use CSS vars.                           */
+
+/* ── Contact line ─────────────────────────────────────────── */
+/* .wdt-contact uses var(--wdt-purple) for label and
+   hardcoded #0000EE for link — override the link colour.    */
+body.quarto-dark .wdt-contact {
+  color: #d4d0e8 !important;
+}
+body.quarto-dark .wdt-contact a {
+  color: #a78bfa !important;
+}
+
+/* ── Tool standalone header ───────────────────────────────── */
+/* .wdt-tool-header uses var(--wdt-purple/gold) throughout;
+   all light text is already correct for dark bg — no override
+   needed.                                                    */

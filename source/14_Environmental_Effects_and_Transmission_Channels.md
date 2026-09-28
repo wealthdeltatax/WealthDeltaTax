@@ -20,6 +20,8 @@ keywords:
     - capital mobility
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
@@ -28,6 +30,7 @@ keywords:
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 18 September 2026 | References corrected: JakobsenEtAl2024 entry updated to correct Norway paper (NBER WP 32153; distinct from JakobsenEtAl2020 Denmark paper); KlevenEtAl2024 entry corrected to *Journal of Economic Perspectives* 38(2), 3–30 (previously cited as 34(2), 119–142) |
 | 1.02      | 20 September 2026 | Crosslink added: §4.6 closing paragraph extended with pointer to (LDW) for quantified purchasing power consequences of the displacement effects identified in this section |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

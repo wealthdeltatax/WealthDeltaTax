@@ -5,10 +5,11 @@
 
    FILE: style/styles.css  — base, layout, core components
    See also:
-     style/model.css           — WDT tool page classes
+     style/tools.css         — interactive tool page classes
      style/page-components.css — per-page classes (glossary,
                                  references, welcome, index,
                                  FAQ, author, footer widgets)
+     style/dark.css          — dark mode overrides
 
    Changes from v1:
      - Body font bumped to 16px (was 15px) for dense academic prose
@@ -31,21 +32,106 @@
        approach used instead as a subtle alternative)
      - pre/code border-radius remains 0 (period-authentic)
      - All tool-page classes retained verbatim
+
+   v3 (palette consolidation):
+     - All hardcoded hex values replaced with CSS custom properties
+     - New vars added for white, black, link colours, greys, and
+       light-mode surface colours used across tools/page-components
+     - --wdt-red normalised from #c00 to #CC0000 (was already used)
+     - --wdt-green-dark added for callout-tip/verified (#006600)
    ============================================================ */
 
+/* ── Master palette ───────────────────────────────────────── */
+/*
+   BRAND PURPLES (dark → light)
+     --wdt-purple-deep   #1a0033   navbar / sidebar / callout header bg
+     --wdt-purple        #2B0055   primary brand purple
+     --wdt-purple-mid    #3d0080   borders, hover states, mid-purple
+     --wdt-toc-bg        #210040   TOC panel background
+
+   GOLD
+     --wdt-gold          #FFD700   primary accent / headings / borders
+     --wdt-gold-dim      #C0A000   secondary gold (visited footer links)
+
+   NEUTRALS (light → dark)
+     --wdt-white         #FFFFFF   inner content bg / button hover text
+     --wdt-off-white     #FAFAFA   card / entry backgrounds
+     --wdt-grey-light    #F0F0F0   table even rows / code background
+     --wdt-lavender      #F5F0FF   lavender tint (callouts, blockquotes)
+     --wdt-lavender-mid  #E8E0FF   table row hover / bar-track bg
+     --wdt-lavender-border #E0DCE8 open-questions / FAQ divider borders
+     --wdt-silver        #C0C0C0   outer frame bg / divider borders / th
+     --wdt-mid-grey      #808080   inset/outset borders / disabled bg
+     --wdt-body-dark     #333333   stat row values / bar labels
+     --wdt-muted         #555555   secondary label text
+     --wdt-muted-light   #666666   subtitle / diagram caption text
+     --wdt-muted-lighter #888888   note text / zero-value indicators
+     --wdt-text          #1A1A1A   near-black (hero tagline, prose)
+     --wdt-black         #000000   outline borders / body text default
+
+   LINKS (light mode)
+     --wdt-link          #0000EE   standard browser link blue
+     --wdt-link-visited  #551A8B   visited link purple
+     --wdt-link-active   #FF0000   active link red
+
+   SEMANTIC
+     --wdt-green         #16a34a   positive values / verdict-limited
+     --wdt-green-dark    #006600   callout-tip border / verified tick
+     --wdt-red           #CC0000   negative values / verdict-blocked
+     --wdt-accent        #7c3aed   accent purple (reserved)
+     --wdt-accent-dark   #6d28d9   accent purple dark (reserved)
+     --wdt-accent-light  #c4b5fd   accent purple light (reserved)
+
+   INTENTIONAL ONE-OFFS (hardcoded, not vars):
+     #00FF00   counter digits (retro green-on-black)
+     #000080   Netscape badge navy (retro)
+     #CC6600   callout-warning border (amber)
+     #B45309   verdict-box.moderate border (amber)
+     #FFFDE7   avoid-intro warm cream tint
+     #FFFBEB   sell-row warm yellow tint
+     #dbeafe / #1e40af  tag-blue colours
+     #ede9fe / #5b21b6  tag-purple colours
+*/
+
 :root {
-  --wdt-purple-deep:   #1a0033;
-  --wdt-purple:        #2B0055;
-  --wdt-purple-mid:    #3d0080;
-  --wdt-gold:          #FFD700;
-  --wdt-gold-dim:      #C0A000;
-  --wdt-silver:        #C0C0C0;
-  --wdt-lavender:      #F5F0FF;
-  --wdt-accent:        #7c3aed;
-  --wdt-accent-dark:   #6d28d9;
-  --wdt-accent-light:  #c4b5fd;
-  --wdt-green:         #16a34a;
-  --wdt-red:           #c00;
+  /* Brand purples */
+  --wdt-purple-deep:     #1a0033;
+  --wdt-purple:          #2B0055;
+  --wdt-purple-mid:      #3d0080;
+  --wdt-toc-bg:          #210040;
+
+  /* Gold */
+  --wdt-gold:            #FFD700;
+  --wdt-gold-dim:        #C0A000;
+
+  /* Neutrals */
+  --wdt-white:           #FFFFFF;
+  --wdt-off-white:       #FAFAFA;
+  --wdt-grey-light:      #F0F0F0;
+  --wdt-lavender:        #F5F0FF;
+  --wdt-lavender-mid:    #E8E0FF;
+  --wdt-lavender-border: #E0DCE8;
+  --wdt-silver:          #C0C0C0;
+  --wdt-mid-grey:        #808080;
+  --wdt-body-dark:       #333333;
+  --wdt-muted:           #555555;
+  --wdt-muted-light:     #666666;
+  --wdt-muted-lighter:   #888888;
+  --wdt-text:            #1A1A1A;
+  --wdt-black:           #000000;
+
+  /* Links */
+  --wdt-link:            #0000EE;
+  --wdt-link-visited:    #551A8B;
+  --wdt-link-active:     #FF0000;
+
+  /* Semantic */
+  --wdt-green:           #16a34a;
+  --wdt-green-dark:      #006600;
+  --wdt-red:             #CC0000;
+  --wdt-accent:          #7c3aed;
+  --wdt-accent-dark:     #6d28d9;
+  --wdt-accent-light:    #c4b5fd;
 }
 
 /* ── Reset / base ─────────────────────────────────────────── */
@@ -57,18 +143,18 @@
 /* ── Tiled background ─────────────────────────────────────── */
 
 body {
-  background-color: #2B0055;
+  background-color: var(--wdt-purple);
   background-image: repeating-linear-gradient(
     45deg,
-    #2B0055,
-    #2B0055 6px,
-    #1A0033 6px,
-    #1A0033 18px
+    var(--wdt-purple),
+    var(--wdt-purple) 6px,
+    var(--wdt-purple-deep) 6px,
+    var(--wdt-purple-deep) 18px
   );
   background-attachment: fixed;
-  color: #000000;
+  color: var(--wdt-black);
   font-family: "Times New Roman", Times, serif;
-  font-size: 16px;           /* ↑ was 15px */
+  font-size: 16px;
   line-height: 1.65;
   margin: 0;
   padding: 0;
@@ -87,9 +173,9 @@ p {
 .page-layout-article,
 .page-layout-full,
 #quarto-content {
-  background-color: #C0C0C0;
-  border: 3px double #FFD700;
-  outline: 1px solid #000000;
+  background-color: var(--wdt-silver);
+  border: 3px double var(--wdt-gold);
+  outline: 1px solid var(--wdt-black);
   max-width: min(1400px, 100vw);
   margin: 1rem auto;
   padding: 0;
@@ -99,9 +185,9 @@ p {
 .quarto-container,
 #quarto-document-content,
 .content {
-  background-color: #FFFFFF;
+  background-color: var(--wdt-white);
   padding: 1.25rem 1.5rem;
-  border: 2px inset #808080;
+  border: 2px inset var(--wdt-mid-grey);
   margin: 6px;
 }
 
@@ -109,9 +195,9 @@ p {
 /* ── Navbar ───────────────────────────────────────────────── */
 
 .navbar {
-  background-color: #2B0055 !important;
-  border-bottom: 3px solid #FFD700;
-  padding: 0.5rem 0.75rem;   /* ↑ was 0.4rem — slightly less cramped */
+  background-color: var(--wdt-purple) !important;
+  border-bottom: 3px solid var(--wdt-gold);
+  padding: 0.5rem 0.75rem;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
 }
@@ -119,7 +205,7 @@ p {
 .navbar-brand,
 .navbar .nav-link,
 .navbar-nav .nav-link {
-  color: #FFD700 !important;
+  color: var(--wdt-gold) !important;
   font-weight: bold;
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif;
@@ -129,7 +215,7 @@ p {
 
 .navbar .nav-link:hover,
 .navbar-nav .nav-link:hover {
-  color: #FFFFFF !important;
+  color: var(--wdt-white) !important;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -155,25 +241,25 @@ p {
 
 /* Dropdown menus */
 .dropdown-menu {
-  background-color: #1A0033;
-  border: 2px solid #FFD700;
+  background-color: var(--wdt-purple-deep);
+  border: 2px solid var(--wdt-gold);
   border-radius: 0;
   padding: 0;
   min-width: 220px;
 }
 
 .dropdown-item {
-  color: #FFD700 !important;
+  color: var(--wdt-gold) !important;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   padding: 0.3rem 0.75rem;
-  border-bottom: 1px solid #2B0055;
+  border-bottom: 1px solid var(--wdt-purple);
 }
 
 .dropdown-item:hover,
 .dropdown-item:focus {
-  background-color: #2B0055;
-  color: #FFFFFF !important;
+  background-color: var(--wdt-purple);
+  color: var(--wdt-white) !important;
   text-decoration: underline;
 }
 
@@ -187,46 +273,46 @@ p {
 #quarto-sidebar,
 .sidebar,
 .sidebar-navigation {
-  background-color: #2B0055 !important;
-  border-right: 2px solid #FFD700;
+  background-color: var(--wdt-purple) !important;
+  border-right: 2px solid var(--wdt-gold);
 }
 
 .sidebar-navigation .sidebar-item-text,
 .sidebar-navigation a,
 .sidebar .nav-link {
-  color: #FFD700 !important;
+  color: var(--wdt-gold) !important;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 12.5px;         /* ↑ was 12px */
+  font-size: 12.5px;
   font-weight: normal;
   text-decoration: none;
 }
 
 .sidebar-navigation a:hover,
 .sidebar .nav-link:hover {
-  color: #FFFFFF !important;
+  color: var(--wdt-white) !important;
   text-decoration: underline;
 }
 
 .sidebar-navigation .sidebar-section-item,
 .sidebar-navigation .sidebar-item {
-  border-bottom: 1px solid #3d0080;
+  border-bottom: 1px solid var(--wdt-purple-mid);
   padding: 0.1rem 0;
 }
 
 .sidebar-navigation .active > .nav-link,
 .sidebar-navigation .active > .sidebar-item-text {
-  color: #FFFFFF !important;
+  color: var(--wdt-white) !important;
   font-weight: bold;
 }
 
 /* Sidebar section headers */
 .sidebar-navigation .sidebar-section > .sidebar-item-text {
-  color: #FFD700 !important;
+  color: var(--wdt-gold) !important;
   font-weight: bold;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  border-bottom: 1px solid #FFD700;
+  border-bottom: 1px solid var(--wdt-gold);
   margin-bottom: 0.2rem;
   padding-bottom: 0.2rem;
 }
@@ -237,8 +323,8 @@ p {
 #quarto-margin-sidebar,
 .toc-active #TOC,
 nav#TOC {
-  background-color: #210040;
-  border-left: 2px solid #FFD700;
+  background-color: var(--wdt-toc-bg);
+  border-left: 2px solid var(--wdt-gold);
   padding: 0.75rem;
 }
 
@@ -246,7 +332,7 @@ nav#TOC {
 #quarto-margin-sidebar .toc-actions,
 nav#TOC > h2,
 #quarto-margin-sidebar p.sidebar-title {
-  color: #FFD700 !important;
+  color: var(--wdt-gold) !important;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -257,7 +343,7 @@ nav#TOC > h2,
 
 nav#TOC a,
 .toc-active #TOC a {
-  color: #FFD700 !important;
+  color: var(--wdt-gold) !important;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12.5px;
   text-decoration: none;
@@ -268,19 +354,19 @@ nav#TOC a,
 }
 
 nav#TOC a:hover {
-  color: #FFFFFF !important;
+  color: var(--wdt-white) !important;
   text-decoration: underline;
 }
 
 /* Active link — gold indicator, white text */
 nav#TOC a.active,
 nav#TOC a:focus {
-  color: #FFFFFF !important;
-  border-left-color: #FFD700 !important;
+  color: var(--wdt-white) !important;
+  border-left-color: var(--wdt-gold) !important;
 }
 
 nav#TOC .toc-section-number {
-  color: #C0C0C0;
+  color: var(--wdt-silver);
   font-size: 11px;
 }
 
@@ -290,8 +376,8 @@ nav#TOC .nav-link {
 }
 
 nav#TOC .nav-link.active {
-  border-left-color: #FFD700;           /* your gold when active */
-  color: #FFFFFF !important;
+  border-left-color: var(--wdt-gold);
+  color: var(--wdt-white) !important;
 }
 
 /* ── Typography ───────────────────────────────────────────── */
@@ -299,7 +385,7 @@ nav#TOC .nav-link.active {
 h1, h2, h3, h4, h5, h6 {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  color: #2B0055;
+  color: var(--wdt-purple);
   margin-top: 1.4rem;
   margin-bottom: 0.5rem;
   line-height: 1.25;          /* tighter than body — prevents balloon on
@@ -309,11 +395,11 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 22px;
   text-align: center;
-  border-bottom: 3px double #FFD700;
+  border-bottom: 3px double var(--wdt-gold);
   padding-bottom: 0.4rem;
-  color: #2B0055;
-  background-color: #C0C0C0;
-  margin: 2rem -1.5rem 1.25rem;   /* positive top margin for mid-page h1s */
+  color: var(--wdt-purple);
+  background-color: var(--wdt-silver);
+  margin: 2rem -1.5rem 1.25rem;
   padding: 0.75rem 1.5rem 0.5rem;
 }
 
@@ -324,19 +410,19 @@ h1 {
 
 h2 {
   font-size: 18px;
-  border-bottom: 2px solid #2B0055;
+  border-bottom: 2px solid var(--wdt-purple);
   padding-bottom: 0.2rem;
-  margin-top: 2.0rem;        /* extra breathing room above section breaks */
+  margin-top: 2.0rem;
 }
 
 h3 {
   font-size: 15px;
-  color: #3d0080;
+  color: var(--wdt-purple-mid);
 }
 
 h4 {
   font-size: 14px;
-  color: #2B0055;
+  color: var(--wdt-purple);
   font-style: italic;
 }
 
@@ -344,23 +430,21 @@ h4 {
 /* ── Links ────────────────────────────────────────────────── */
 
 a {
-  color: #0000EE;
+  color: var(--wdt-link);
   text-decoration: underline;
 }
 
 a:visited {
-  color: #551a8b;             /* ↑ was #000080 (navy) — purple-visited is
-                                 more distinctly different from unvisited blue
-                                 and fits the site palette */
+  color: var(--wdt-link-visited);
 }
 
 a:hover {
-  color: #CC0000;
+  color: var(--wdt-red);
   text-decoration: underline;
 }
 
 a:active {
-  color: #FF0000;
+  color: var(--wdt-link-active);
 }
 
 
@@ -368,8 +452,8 @@ a:active {
 
 hr {
   border: none;
-  border-top: 2px solid #2B0055;
-  border-bottom: 1px solid #808080;
+  border-top: 2px solid var(--wdt-purple);
+  border-bottom: 1px solid var(--wdt-mid-grey);
   margin: 1.5rem 0;
 }
 
@@ -381,47 +465,46 @@ table {
   width: 100%;
   margin: 1rem 0;
   font-size: 14px;
-  border: 2px solid #2B0055;
+  border: 2px solid var(--wdt-purple);
 }
 
 th {
-  background-color: #2B0055;
-  color: #FFD700;
+  background-color: var(--wdt-purple);
+  color: var(--wdt-gold);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
   font-weight: bold;
-  padding: 0.45rem 0.7rem;   /* ↑ slightly more padding */
-  border: 1px solid #1A0033;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--wdt-purple-deep);
   text-align: left;
 }
 
 td {
-  padding: 0.4rem 0.7rem;    /* ↑ was 0.35/0.6 */
-  border: 1px solid #C0C0C0;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--wdt-silver);
   vertical-align: top;
   font-size: 14px;
 }
 
 tr:nth-child(even) {
-  background-color: #F0F0F0;
+  background-color: var(--wdt-grey-light);
 }
 
 tr:hover {
-  background-color: #E8E0FF;
+  background-color: var(--wdt-lavender-mid);
 }
 
 
 /* ── Blockquotes ──────────────────────────────────────────── */
 
 blockquote {
-  border-left: 4px solid #FFD700;
-  background-color: #F5F0FF;
+  border-left: 4px solid var(--wdt-gold);
+  background-color: var(--wdt-lavender);
   margin: 1rem 0;
   padding: 0.75rem 1rem;
   font-style: italic;
-  font-size: 15px;            /* ↑ explicit — italic Times at 16px
-                                 inherits fine but 15px helps density */
-  color: #2B0055;
+  font-size: 15px;
+  color: var(--wdt-purple);
 }
 
 
@@ -430,8 +513,8 @@ blockquote {
 code, pre {
   font-family: "Courier New", Courier, monospace;
   font-size: 13px;
-  background-color: #F0F0F0;
-  border: 1px solid #C0C0C0;
+  background-color: var(--wdt-grey-light);
+  border: 1px solid var(--wdt-silver);
 }
 
 code {
@@ -441,53 +524,42 @@ code {
 pre {
   padding: 0.75rem 1rem;
   overflow-x: auto;
-  border-left: 3px solid #2B0055;
+  border-left: 3px solid var(--wdt-purple);
 }
 
 
 /* ── Callout boxes (Quarto) ───────────────────────────────── */
 
 .callout {
-  border: 2px solid #2B0055;
+  border: 2px solid var(--wdt-purple);
   border-left-width: 5px;
   border-radius: 0;
-  background-color: #F5F0FF;
+  background-color: var(--wdt-lavender);
   margin: 1.25rem 0;
 }
 
 .callout-header {
-  background-color: #2B0055;
-  color: #FFD700;
+  background-color: var(--wdt-purple);
+  color: var(--wdt-gold);
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 13px;
   padding: 0.4rem 0.75rem;
 }
 
-.callout-note {
-  border-color: #2B0055;
-}
-
-.callout-tip {
-  border-color: #006600;
-}
-
-.callout-warning {
-  border-color: #CC6600;
-}
-
-.callout-important {
-  border-color: #CC0000;
-}
+.callout-note     { border-color: var(--wdt-purple); }
+.callout-tip      { border-color: var(--wdt-green-dark); }
+.callout-warning  { border-color: #CC6600; } /* amber — intentional semantic one-off */
+.callout-important { border-color: var(--wdt-red); }
 
 
 /* ── Page footer ──────────────────────────────────────────── */
 
 #quarto-footer,
 .nav-footer {
-  background-color: #1A0033;
-  border-top: 3px solid #FFD700;
-  color: #C0C0C0;
+  background-color: var(--wdt-purple-deep);
+  border-top: 3px solid var(--wdt-gold);
+  color: var(--wdt-silver);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   padding: 0.5rem 1rem;
@@ -496,67 +568,64 @@ pre {
 
 #quarto-footer a,
 .nav-footer a {
-  color: #FFD700;
+  color: var(--wdt-gold);
 }
 
 #quarto-footer a:visited,
 .nav-footer a:visited {
-  color: #C0A000;
+  color: var(--wdt-gold-dim);
 }
 
 
 /* ── Search (Quarto built-in) ─────────────────────────────── */
 
 .quarto-search input {
-  background-color: #1A0033;
-  color: #FFD700;
-  border: 1px solid #FFD700;
+  background-color: var(--wdt-purple-deep);
+  color: var(--wdt-gold);
+  border: 1px solid var(--wdt-gold);
   border-radius: 0;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
 }
 
 .quarto-search input::placeholder {
-  color: #C0A000;
+  color: var(--wdt-gold-dim);
 }
 
 
 /* ── WDT: internal bibliography ───────────────────────────── */
 
 .internal-bibliography {
-  background-color: #F5F0FF;
-  border-left: 4px solid #2B0055;
-  border-top: 1px solid #C0C0C0;
-  border-bottom: 1px solid #C0C0C0;
-  border-right: 1px solid #C0C0C0;
+  background-color: var(--wdt-lavender);
+  border-left: 4px solid var(--wdt-purple);
+  border-top: 1px solid var(--wdt-silver);
+  border-bottom: 1px solid var(--wdt-silver);
+  border-right: 1px solid var(--wdt-silver);
   padding: 0.75rem 1.25rem;
-  margin: 1.75rem 0 1.5rem;  /* ↑ explicit top margin — separates from
-                                 preceding paragraph more clearly */
+  margin: 1.75rem 0 1.5rem;
   font-size: 13px;
   font-family: "Times New Roman", Times, serif;
 }
 
 /* ── Inline citation click area ──────────────────────────────────────── */
 /* Quarto links only the year; these rules make the whole Author (Year)
-   span look and behave like a single link in the canonical body colours.
-   No special hover colour — just the standard underline, matching every
-   other link on the page.                                               */
+   span look and behave like a single link in the canonical body colours. */
 span.citation {
   cursor: pointer;
-  color: #0000EE;              /* same as body a {} */
+  color: var(--wdt-link);
 }
 span.citation a {
-  color: #0000EE;              /* override Quarto's default year colour */
-  text-decoration: none;       /* suppress underline on year alone */
+  color: var(--wdt-link);
+  text-decoration: none;
 }
 span.citation:visited,
 span.citation a:visited {
-  color: #551a8b;              /* same as body a:visited */
+  color: var(--wdt-link-visited);
 }
 span.citation:hover,
 span.citation:hover a {
-  color: #0000EE;              /* stay blue on hover (no accent shift) */
-  text-decoration: underline;  /* underline the whole span, not just year */
+  color: var(--wdt-link);
+  text-decoration: underline;
 }
 
 /* ── WDT: PDF download button ─────────────────────────────── */
@@ -565,9 +634,9 @@ span.citation:hover a {
   display: inline-block;
   margin: 1rem 0;
   padding: 0.35rem 1rem;
-  background-color: #2B0055;
-  color: #FFD700 !important;
-  border: 2px outset #808080;
+  background-color: var(--wdt-purple);
+  color: var(--wdt-gold) !important;
+  border: 2px outset var(--wdt-mid-grey);
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
@@ -576,8 +645,8 @@ span.citation:hover a {
 }
 
 .pdf-download:hover {
-  background-color: #3d0080;
-  color: #FFFFFF !important;
+  background-color: var(--wdt-purple-mid);
+  color: var(--wdt-white) !important;
   border-style: inset;
   text-decoration: none;
 }
@@ -587,30 +656,30 @@ span.citation:hover a {
 
 .wdt-diagram-tabset {
   margin: 1.5rem 0;
-  border: 2px solid #2B0055;
-  background: #F5F0FF;
+  border: 2px solid var(--wdt-purple);
+  background: var(--wdt-lavender);
 }
 
 .wdt-diagram-tabset .nav-tabs {
-  background-color: #2B0055;
-  border-bottom: 2px solid #FFD700;
+  background-color: var(--wdt-purple);
+  border-bottom: 2px solid var(--wdt-gold);
 }
 
 .wdt-diagram-tabset .nav-tabs .nav-link {
-  color: #FFD700;
+  color: var(--wdt-gold);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   border-radius: 0;
-  border: 1px solid #3d0080;
+  border: 1px solid var(--wdt-purple-mid);
   margin-right: 2px;
-  background-color: #1A0033;
+  background-color: var(--wdt-purple-deep);
 }
 
 .wdt-diagram-tabset .nav-tabs .nav-link.active {
-  background-color: #C0C0C0;
-  color: #2B0055;
+  background-color: var(--wdt-silver);
+  color: var(--wdt-purple);
   font-weight: bold;
-  border-bottom-color: #C0C0C0;
+  border-bottom-color: var(--wdt-silver);
 }
 
 .wdt-diagram-tabset .tab-pane {
@@ -653,70 +722,67 @@ span.citation:hover a {
 }
 
 .wdt-ref-entry {
-  border-left: 4px solid #2B0055;
-  border-top: 1px solid #C0C0C0;
-  border-right: 1px solid #C0C0C0;
-  border-bottom: 1px solid #C0C0C0;
-  padding: 0.7rem 1.1rem 0.8rem; /* ↑ slightly more bottom padding */
+  border-left: 4px solid var(--wdt-purple);
+  border-top: 1px solid var(--wdt-silver);
+  border-right: 1px solid var(--wdt-silver);
+  border-bottom: 1px solid var(--wdt-silver);
+  padding: 0.7rem 1.1rem 0.8rem;
   margin-bottom: 1rem;
-  background-color: #FAFAFA;
+  background-color: var(--wdt-off-white);
   border-radius: 0;
   font-size: 14px;
-  line-height: 1.6;              /* ↑ was inheriting body 1.65 which
-                                    inflated multi-line author strings */
+  line-height: 1.6;
 }
 
 .wdt-ref-entry:hover {
-  background-color: #F5F0FF;
-  border-left-color: #FFD700;
+  background-color: var(--wdt-lavender);
+  border-left-color: var(--wdt-gold);
 }
 
 .wdt-ref-entry p {
   margin: 0 0 0.3rem 0;
 }
 
-/* Type badge and cited-in: promote from inline-span to block so they
-   each sit on their own visual line within the card.                */
 .wdt-ref-type {
   display: inline-block;
   font-size: 11px;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #2B0055;
-  color: #FFD700;
-  border: 1px solid #1A0033;
+  background-color: var(--wdt-purple);
+  color: var(--wdt-gold);
+  border: 1px solid var(--wdt-purple-deep);
   border-radius: 0;
   padding: 0.1rem 0.45rem;
   margin-right: 0.5rem;
-  margin-top: 0.35rem;           /* ↑ breathing room from preceding source line */
+  margin-top: 0.35rem;
   vertical-align: middle;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .wdt-ref-cited {
-  display: block;                /* ↑ was inline; now sits on its own line */
-  margin-top: 0.3rem;            /* ↑ gap from the type badge */
+  display: block;
+  margin-top: 0.3rem;
   font-size: 12px;
-  color: #2B0055;
+  color: var(--wdt-purple);
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .wdt-ref-cited a {
-  color: #2B0055;
+  color: var(--wdt-purple);
   text-decoration: underline;
   font-weight: bold;
 }
 
 .wdt-ref-cited a:hover {
-  color: #CC0000;
+  color: var(--wdt-red);
 }
 
 .wdt-ref-cited a:visited {
-  color: #551a8b;               /* matches the updated global :visited */
+  color: var(--wdt-link-visited);
 }
 
 .wdt-ref-verified {
-  color: #006600;
+  color: var(--wdt-green-dark);
   font-size: 12px;
   margin-left: 0.2rem;
   vertical-align: middle;
@@ -725,7 +791,7 @@ span.citation:hover a {
 
 /* Unlinked entry indicator — muted grey ↗ after title */
 .wdt-ref-no-link {
-  color: #aaa;
+  color: #aaa; /* intentional muted one-off — lighter than --wdt-silver */
   font-size: 11px;
   margin-left: 0.2rem;
   vertical-align: middle;
@@ -738,8 +804,8 @@ span.citation:hover a {
 
 .wdt-counter {
   display: inline-block;
-  background-color: #000000;
-  border: 3px inset #808080;
+  background-color: var(--wdt-black);
+  border: 3px inset var(--wdt-mid-grey);
   padding: 0.4rem 0.75rem;
   margin: 1rem 0;
   text-align: center;
@@ -748,7 +814,7 @@ span.citation:hover a {
 .wdt-counter-label {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 9px;
-  color: #C0C0C0;
+  color: var(--wdt-silver);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 0.2rem;
@@ -757,7 +823,7 @@ span.citation:hover a {
 .wdt-counter-digits {
   font-family: "Courier New", Courier, monospace;
   font-size: 24px;
-  color: #00FF00;
+  color: #00FF00; /* intentional retro green-on-black */
   letter-spacing: 0.1em;
   font-weight: bold;
 }
@@ -766,15 +832,15 @@ span.citation:hover a {
 /* ── Under construction banner ────────────────────────────── */
 
 .wdt-under-construction {
-  background-color: #FFD700;
-  color: #000000;
+  background-color: var(--wdt-gold);
+  color: var(--wdt-black);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
   font-weight: bold;
   text-align: center;
   padding: 0.35rem 0;
-  border-top: 2px solid #000000;
-  border-bottom: 2px solid #000000;
+  border-top: 2px solid var(--wdt-black);
+  border-bottom: 2px solid var(--wdt-black);
   margin: 1rem 0;
   letter-spacing: 0.05em;
 }

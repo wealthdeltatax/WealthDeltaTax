@@ -30,14 +30,22 @@ Figure inventory
 
 Usage
 -----
-  python3 8_3_RATES_figures.py [params.toml] [output_dir]
+  python3 8_3_RATES_charts.py [rates_output.json] [output_dir]
 
-  params.toml  defaults to WDT_Params.toml in the same directory.
-  output_dir   defaults to ./OUTPUTS/RATES/
+  rates_output.json  JSON cache written by: python rates_core.py
+                     Defaults to OUTPUTS/RATES/rates_output.json.
+  output_dir         defaults to ./OUTPUTS/RATES/
 
-Can also be imported and called directly:
+Or drive from a pre-built JSON dict:
 
-    from 8_3_RATES_figures import generate_figures
+    from 8_3_RATES_charts import generate_figures_from_json
+    from rates_core import load_rates_output
+    data = load_rates_output('OUTPUTS/RATES/rates_output.json')
+    generate_figures_from_json(data)
+
+Raw model objects are still accepted directly:
+
+    from 8_3_RATES_charts import generate_figures
     generate_figures(p, py_ssm, py_tcm, sweep_results, tcm_N=N)
 """
 
@@ -773,42 +781,77 @@ def fig_7_3b_phase_two_transition(p, py_ssm, out_dir):
 
 
 # ─────────────────────────────────────────────────────────────
+# JSON ENTRY POINT
+# ─────────────────────────────────────────────────────────────
+
+def generate_figures_from_json(data, output_dir=None):
+    """
+    Generate all RATES figures from a rates_output.json dict.
+
+    Parameters
+    ----------
+    data       : dict   return value of rates_core.load_rates_output()
+    output_dir : Path   override output directory; defaults to OUTPUTS/RATES/
+
+    Returns
+    -------
+    None  (figures are saved to disk; paths printed to stdout)
+    """
+    p             = data['params']
+    py_ssm        = data['ssm']
+    py_tcm        = data['tcm_cap']      # {float: list} after decode
+    py_tcm_burden = data['tcm_burden']
+    tcm_N         = data['tcm_N']
+    burden_N      = data['burden_N']
+
+    # sweep is a flat list; generate_figures only needs it as sweep_results
+    sweep_results = data['sweep']
+
+    out = ensure_dir(Path(output_dir) if output_dir else _OUT)
+    generate_figures(
+        p, py_ssm, py_tcm, sweep_results,
+        output_dir=out, tcm_N=tcm_N,
+        py_tcm_burden=py_tcm_burden, burden_N=burden_N,
+    )
+
+
+# ─────────────────────────────────────────────────────────────
 # MAIN
 # ─────────────────────────────────────────────────────────────
 
 def main():
-    toml_path  = sys.argv[1] if len(sys.argv) > 1 else None
-    output_dir = sys.argv[2] if len(sys.argv) > 2 else None
+    """
+    CLI entry point.
 
-    print(f'Loading parameters from: {toml_path or DEFAULT_PARAMS}')
-    p = rates_core.load_params(toml_path)
-    rates_core.validate_params(p)
+    Usage
+    -----
+      python3 8_3_RATES_charts.py [rates_output.json] [output_dir]
 
-    print('\nRunning SSM (active scenario, N=1..71)...')
-    py_ssm = rates_core.run_ssm(p, max_N=71)
+      rates_output.json  JSON cache written by: python rates_core.py
+                         Defaults to OUTPUTS/RATES/rates_output.json.
+      output_dir         Figure destination; defaults to OUTPUTS/RATES/.
 
-    py_lrr_fill = next((r for r in py_ssm if r.get('lrr_filled')), None)
-    py_srr_fill = next((r for r in py_ssm
-                        if r['srr_target'] > 0
-                        and r['srr_balance'] >= r['srr_target'] * 0.9999), None)
-    ssm_lrr_N = py_lrr_fill['year'] if py_lrr_fill else p['tcm_N']
-    ssm_srr_N = py_srr_fill['year'] if py_srr_fill else 1
-    print(f"  LRR fill year: {ssm_lrr_N}")
+    The script reads pre-computed model results from the JSON cache and
+    renders all figures without re-running any simulation.
+    """
+    from rates_core import load_rates_output
 
-    print(f'\nRunning TCM (N={ssm_lrr_N}, snapshot / LRR fill year)...')
-    py_tcm = rates_core.run_tcm(p, N=ssm_lrr_N, N_fill=ssm_srr_N)
+    default_json = ensure_dir(_OUT) / 'rates_output.json'
+    json_path    = Path(sys.argv[1]) if len(sys.argv) > 1 else default_json
+    output_dir   = Path(sys.argv[2]) if len(sys.argv) > 2 else None
 
-    _BURDEN_N = 30
-    print(f'\nRunning TCM for burden matrix (N={_BURDEN_N}, canonical 30-year horizon)...')
-    py_tcm_burden = rates_core.run_tcm(p, N=_BURDEN_N, N_fill=ssm_srr_N)
+    print(f'Loading rates output from: {json_path}')
+    if not json_path.exists():
+        print(f'  ERROR: {json_path} not found.')
+        print('  Run "python rates_core.py" first to generate the JSON cache.')
+        sys.exit(1)
 
-    print(f'\nRunning start-year sweep ({len(p["returns"])} calendar years)...')
-    sweep = rates_core.run_start_year_sweep(p)
+    data = load_rates_output(json_path)
+    print(f'  Run date: {data["run_date"]}')
+    print(f'  tcm_N={data["tcm_N"]}  burden_N={data["burden_N"]}  srr_N={data["srr_N"]}')
 
-    _out = ensure_dir(Path(output_dir) if output_dir else _OUT)
-    generate_figures(p, py_ssm, py_tcm, sweep,
-                     output_dir=_out, tcm_N=ssm_lrr_N,
-                     py_tcm_burden=py_tcm_burden, burden_N=_BURDEN_N)
+    print('\nGenerating RATES figures...')
+    generate_figures_from_json(data, output_dir=output_dir)
     print('\nDone.')
 
 

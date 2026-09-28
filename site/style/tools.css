@@ -10,14 +10,14 @@
 .wdt-tool-panel {
   background-color: var(--wdt-silver);
   border: 3px double var(--wdt-gold);
-  outline: 1px solid #000;
+  outline: 1px solid var(--wdt-black);
   max-width: 1200px;
   margin: 1rem auto;
 }
 
 .wdt-tool-inner {
-  background-color: #fff;
-  border: 2px inset #808080;
+  background-color: var(--wdt-white);
+  border: 2px inset var(--wdt-mid-grey);
   margin: 6px;
   padding: 1.25rem 1.5rem;
 }
@@ -35,7 +35,7 @@
 }
 
 .wdt-tool-inner .subtitle {
-  color: #666;
+  color: var(--wdt-muted-light);
   font-size: 0.9rem;
   margin-bottom: 1.5rem;
   font-family: Arial, Helvetica, sans-serif;
@@ -43,8 +43,6 @@
 
 
 /* ── Tool standalone page — site header bar ───────────────── */
-/* Used by standalone tool pages (taxpayer.html etc.) that are
-   served outside the Quarto layout and need their own nav bar. */
 
 .wdt-tool-header {
   background-color: var(--wdt-purple);
@@ -65,7 +63,7 @@
 }
 
 .wdt-tool-header .brand:hover {
-  color: #fff;
+  color: var(--wdt-white);
   text-decoration: underline;
 }
 
@@ -91,19 +89,16 @@
 }
 
 .wdt-tool-header .back-link:hover {
-  color: #fff;
+  color: var(--wdt-white);
   border-color: var(--wdt-gold);
 }
 
 
 /* ── Tool standalone page — main content visibility ──────────*/
-/* #main starts hidden; JS reveals it after Pyodide is ready.  */
 
 #main {
   display: none;
 }
-
-/* Year-select row: hidden until historical-series mode active */
 
 #year-select-row {
   display: none;
@@ -151,7 +146,7 @@
 
 #progress-label {
   font-size: 0.85rem;
-  color: #555;
+  color: var(--wdt-muted);
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -182,7 +177,7 @@
 
 .control-group .note {
   font-size: 0.75rem;
-  color: #888;
+  color: var(--wdt-muted-lighter);
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -281,7 +276,7 @@ button#run-btn:hover {
 }
 
 button#run-btn:disabled {
-  background: #808080;
+  background: var(--wdt-mid-grey);
   color: var(--wdt-silver);
   cursor: default;
 }
@@ -339,7 +334,7 @@ button#run-btn:disabled {
 
 .box .box-sub {
   font-size: 0.72rem;
-  color: #666;
+  color: var(--wdt-muted-light);
   margin-top: 0.15rem;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -362,7 +357,7 @@ button#run-btn:disabled {
 
 .comparison-section .cite-note {
   font-size: 0.75rem;
-  color: #888;
+  color: var(--wdt-muted-lighter);
   margin-bottom: 1rem;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -383,13 +378,13 @@ button#run-btn:disabled {
 .bar-label {
   min-width: 180px;
   text-align: right;
-  color: #333;
+  color: var(--wdt-body-dark);
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .bar-track {
   flex: 1;
-  background: #e8e0ff;
+  background: var(--wdt-lavender-mid);
   border: 1px solid var(--wdt-silver);
   height: 22px;
   position: relative;
@@ -403,12 +398,12 @@ button#run-btn:disabled {
 
 .bar-fill.wdt-avg  { background: var(--wdt-purple); }
 .bar-fill.wdt-pf   { background: var(--wdt-purple-mid); }
-.bar-fill.hmrc     { background: var(--wdt-silver); border-right: 1px solid #999; }
+.bar-fill.hmrc     { background: var(--wdt-silver); border-right: 1px solid #999; } /* #999 intentional — slightly darker than silver */
 
 .bar-amount {
   min-width: 60px;
   font-weight: bold;
-  color: #333;
+  color: var(--wdt-body-dark);
   font-size: 0.82rem;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -528,11 +523,11 @@ button#run-btn:disabled {
   border-bottom: none;
 }
 
-.stat-row .lbl { color: #555; }
-.stat-row .num { font-weight: bold; }
+.stat-row .lbl    { color: var(--wdt-muted); }
+.stat-row .num    { font-weight: bold; }
 .stat-row .num.positive { color: var(--wdt-red); }
 .stat-row .num.negative { color: var(--wdt-green); }
-.stat-row .num.neutral  { color: #333; }
+.stat-row .num.neutral  { color: var(--wdt-body-dark); }
 
 
 /* ── Taxpayer calculator — detail table ───────────────────── */
@@ -553,10 +548,10 @@ button#run-btn:disabled {
 
 .pos  { color: var(--wdt-red); }
 .neg  { color: var(--wdt-green); }
-.zero { color: #888; }
+.zero { color: var(--wdt-muted-lighter); }
 
 tr.sell-row {
-  background: #fffbeb;
+  background: #fffbeb; /* intentional warm yellow tint — one-off */
   font-style: italic;
 }
 
@@ -576,7 +571,7 @@ tr.sell-row {
 
 .tool-card:hover {
   border-color: var(--wdt-purple);
-  background: #ede9fe;
+  background: #ede9fe; /* intentional — slightly less lavender than --wdt-lavender-mid */
   text-decoration: none;
   color: inherit;
 }
@@ -590,7 +585,7 @@ tr.sell-row {
 
 .tool-card p {
   font-size: 0.85rem;
-  color: #555;
+  color: var(--wdt-muted);
   margin: 0;
 }
 
@@ -604,6 +599,7 @@ tr.sell-row {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Tag colours are intentional light-mode pastels — hardcoded by design */
 .tag-blue   { background: #dbeafe; color: #1e40af; }
 .tag-purple { background: #ede9fe; color: #5b21b6; }
 
@@ -628,4 +624,3 @@ tr.sell-row {
   .swf-grid         { grid-template-columns: 1fr; }
   .bar-label        { min-width: 110px; font-size: 0.75rem; }
 }
-

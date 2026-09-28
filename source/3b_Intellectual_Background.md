@@ -19,6 +19,8 @@ keywords:
     - international tax coordination
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
@@ -26,6 +28,7 @@ keywords:
 | 0.01      | 2 August 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 20 September 2026 | Crosslinks to WFR added in §1 (new papers note), §3, §4, §5, §6 forward notes; §1 note added directing readers to INST, FAL, and LDW as papers published after the original forward-note apparatus |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

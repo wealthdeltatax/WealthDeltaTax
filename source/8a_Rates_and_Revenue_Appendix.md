@@ -19,6 +19,8 @@ keywords:
     - Python simulation
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
@@ -26,6 +28,7 @@ keywords:
 | 0.01      | 31 July 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 31 August 2026  | Corrected TCM coverage ratio prose (27.7% → 27.4%) and minimum-coverage start-year attribution (2003 → 2005) in §A.6 to match §B.3.9 model output |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 \tableofcontents
@@ -109,7 +112,7 @@ There is a known boundary-alignment bug. The SSM window runs from the SRR fill y
 
 The TCM coverage figure does not mean 27.4% of expenditure is replaced during the capitalisation window. The LRR is still being filled during this period; existing taxes have not yet been displaced. The interpretation is directional: at the moment of LRR fill, the mechanism has delivered average revenue equal to roughly a quarter of contemporaneous government expenditure across the prior 25 years. This supports a magnitude claim (appreciable tens of percent, not single digits and not hundreds of percent) without asserting precision a forward-looking model cannot provide. Across all 73 start years, TCM coverage ranges from 24.0% (2005 start) to 134.5% (1974 start); several starts from the 1960s and early 1970s exceed 100%, meaning the mechanism would have been capable of full fiscal replacement immediately upon LRR fill under those historical conditions.
 
-The approximately 4:3 ratio of TCM to SSM coverage (27.4% vs. 21.3% in the 2007 case) has a directional implication for transition length. If actual conditions are closer to the TCM's persistent-heterogeneity model than the SSM's correlated-shock assumption, revenue accumulates somewhat faster on average, suggesting LRR fill could plausibly arrive somewhat earlier than the SSM projects. The relationship between average revenue and LRR fill year is not linear, but the direction holds even at the worst-case start year. The ratio is narrower at $\tau_0$= 15% than at prior calibrations; this is expected: the lower floor rate compresses both the SSM income (less gross tax at the floor) and the TCM income (same compression, partially offset by tier differentials), but the TCM's tier-differential advantage diminishes at lower floor rates because the gain-year marginal rates at lower wealth brackets converge more closely to the SSM's uniform-return calculation.
+The approximately 4:3 ratio of TCM to SSM coverage (27.4% vs. 21.3% in the 2007 case) has a directional implication for transition length. If actual conditions are closer to the TCM's persistent-heterogeneity model than the SSM's correlated-shock assumption, revenue accumulates somewhat faster on average, suggesting LRR fill could plausibly arrive somewhat earlier than the SSM projects. The relationship between average revenue and LRR fill year is not linear, but the direction holds even at the worst-case start year. The ratio is narrower at $\tau_0$ =  15% than at prior calibrations; this is expected: the lower floor rate compresses both the SSM income (less gross tax at the floor) and the TCM income (same compression, partially offset by tier differentials), but the TCM's tier-differential advantage diminishes at lower floor rates because the gain-year marginal rates at lower wealth brackets converge more closely to the SSM's uniform-return calculation.
 
 These metrics are statistical summaries derived from historical return data. They establish that the mechanism produces revenue of a substantial order of magnitude during the capitalisation period and show how that order of magnitude varies with historical starting conditions.
 
@@ -324,7 +327,7 @@ To vary a scenario, modify the TOML and rerun. Only the `scenario_start_year` fi
 
 ## B.4 Start-Year Sweep
 
-All figures at $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{\min}$=£2.0m.
+All figures at $\tau_0$ = 15%, $\tau_m$ = 70%, k=0.001, $W_{\min}$=£2.0m.
 
 ### B.4.1 Extremals — four dimensions
 

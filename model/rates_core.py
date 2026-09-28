@@ -1354,3 +1354,282 @@ def report_start_year_sweep(sweep_results, p):
         'best_resilient':  best_resilient,
         'all':             sweep_results,
     }
+
+
+# ─────────────────────────────────────────────────────────────
+# SECTION 6 — JSON OUTPUT CACHE
+# ─────────────────────────────────────────────────────────────
+#
+# build_rates_output(p)          run all model computations → dict
+# save_rates_output(data, path)  serialise to JSON
+# load_rates_output(path)        deserialise from JSON → dict
+# main()                         CLI: rates_core.py [params.toml] [out.json]
+#
+# JSON schema (top-level keys)
+# ----------------------------
+#   run_date        ISO date string
+#   params          TOML-derived parameter dict (p), minus computed objects
+#   tcm_N           int  — SSM LRR fill year used as snapshot horizon
+#   burden_N        int  — canonical 30-year horizon
+#   srr_N           int  — SSM SRR fill year
+#   ssm             list — run_ssm() year dicts (N=1..71)
+#   tcm_cap         dict — run_tcm(N=tcm_N);   keys are str(diff) floats
+#   tcm_burden      dict — run_tcm(N=30);       keys are str(diff) floats
+#   tcm_win         dict — _tcm_coverage_windows() result
+#   sweep           list — run_start_year_sweep() row dicts
+#   sweep_extremals dict — report_start_year_sweep() minus the 'all' key
+#   stats           dict — compute_statistics() result
+#
+# TCM float-key encoding
+# ----------------------
+# JSON only allows string keys.  run_tcm() is keyed by tier differential
+# (float).  We encode each key as "tcm_diff:REPR" where REPR is repr(float),
+# and decode symmetrically in load_rates_output().  This round-trips exactly
+# for any float that Python's repr() can reproduce.
+
+import json
+import datetime
+import sys as _sys
+
+_TCM_KEY_PREFIX = 'tcm_diff:'
+
+
+def _encode_tcm(tcm_dict):
+    """Convert {float: list} TCM dict to JSON-safe {str: list}."""
+    return {
+        f'{_TCM_KEY_PREFIX}{repr(k)}': v
+        for k, v in tcm_dict.items()
+    }
+
+
+def _decode_tcm(raw_dict):
+    """Restore {float: list} from JSON-decoded {str: list}."""
+    out = {}
+    for k, v in raw_dict.items():
+        if k.startswith(_TCM_KEY_PREFIX):
+            float_key = float(k[len(_TCM_KEY_PREFIX):])
+            out[float_key] = v
+        else:
+            out[k] = v
+    return out
+
+
+def _serialisable_params(p):
+    """
+    Return a JSON-serialisable copy of the params dict.
+
+    Excludes p['N'] (computed from SSM — stored separately as tcm_N)
+    and p['g'], p['alpha'], p['beta'] (VAL convenience aliases that
+    are not meaningful in the RATES context).  Everything else is
+    plain Python scalars, lists of scalars, or dicts of scalars.
+    """
+    skip = {'N', 'g', 'alpha', 'beta'}
+    return {k: v for k, v in p.items() if k not in skip}
+
+
+def build_rates_output(p, burden_N=30, max_ssm_N=71, verbose=True):
+    """
+    Run all RATES model computations and return a single output dict.
+
+    This is the single entry point that replaces the scattered model
+    calls across 8_2_RATES_tables.py and 8_3_RATES_charts.py main()
+    functions.  Both output scripts now call load_rates_output() and
+    pass the resulting dict to write_report() / generate_figures().
+
+    Parameters
+    ----------
+    p         : dict   loaded params (load_params() / rates_core.load_params())
+    burden_N  : int    canonical taxpayer horizon for burden/lifetime tables (default 30)
+    max_ssm_N : int    SSM window (default 71 years)
+    verbose   : bool   print progress (default True)
+
+    Returns
+    -------
+    dict with the keys documented in the module docstring above.
+
+    Computation order
+    -----------------
+    1.  SSM (active scenario, N=1..max_ssm_N)
+    2.  Derive tcm_N (SSM LRR fill year) and srr_N (SRR fill year)
+    3.  TCM at tcm_N     — capitalisation-window tables
+    4.  TCM at burden_N  — lifetime/burden tables
+    5.  TCM coverage windows
+    6.  Start-year sweep (73 calendar years)
+    7.  Extremal scenario profiles (stdout only; not stored in JSON)
+    8.  Statistics pass
+    """
+    def _log(msg):
+        if verbose:
+            print(msg)
+
+    # 1 — SSM
+    _log(f'  [build] SSM (N=1..{max_ssm_N})...')
+    py_ssm = run_ssm(p, max_N=max_ssm_N)
+
+    # 2 — Derive milestone years
+    py_lrr_fill = next((r for r in py_ssm if r.get('lrr_filled')), None)
+    py_srr_fill = next(
+        (r for r in py_ssm
+         if r['srr_target'] > 0 and r['srr_balance'] >= r['srr_target'] * 0.9999),
+        None,
+    )
+    tcm_N = py_lrr_fill['year'] if py_lrr_fill else p['tcm_N']
+    srr_N = py_srr_fill['year'] if py_srr_fill else 1
+    _log(f'  [build] SRR fill year: {srr_N}   LRR fill year (tcm_N): {tcm_N}')
+
+    # 3 — TCM at tcm_N (capitalisation window)
+    _log(f'  [build] TCM at N={tcm_N} (capitalisation window)...')
+    py_tcm_cap = run_tcm(p, N=tcm_N, N_fill=srr_N)
+
+    # 4 — TCM at burden_N (lifetime / burden tables)
+    _log(f'  [build] TCM at N={burden_N} (canonical horizon)...')
+    py_tcm_burden = run_tcm(p, N=burden_N, N_fill=srr_N)
+
+    # 5 — TCM coverage windows
+    _log('  [build] TCM coverage windows...')
+    tcm_win = _tcm_coverage_windows(p, tcm_N, srr_N) if py_lrr_fill else {}
+
+    # 6 — Start-year sweep
+    _log(f'  [build] Start-year sweep ({len(p["returns"])} calendar years)...')
+    sweep = run_start_year_sweep(p)
+
+    # 7 — Extremal profiles (stdout reporting only)
+    _log('  [build] Extremal scenario profiles...')
+    sweep_extremals_full = report_start_year_sweep(sweep, p)
+    profiles = run_scenario_profiles(sweep_extremals_full, p)
+    report_scenario_profiles(profiles, p)
+
+    # Strip 'all' (it's already stored as sweep) to avoid duplication in JSON
+    sweep_extremals = {k: v for k, v in sweep_extremals_full.items() if k != 'all'}
+
+    # 8 — Statistics
+    _log('  [build] Statistical pass...')
+    stats = compute_statistics(sweep)
+    report_statistics(stats, p)
+
+    return {
+        'run_date':        datetime.date.today().isoformat(),
+        'params':          _serialisable_params(p),
+        'tcm_N':           tcm_N,
+        'burden_N':        burden_N,
+        'srr_N':           srr_N,
+        'ssm':             py_ssm,
+        'tcm_cap':         _encode_tcm(py_tcm_cap),
+        'tcm_burden':      _encode_tcm(py_tcm_burden),
+        'tcm_win':         tcm_win,
+        'sweep':           sweep,
+        'sweep_extremals': sweep_extremals,
+        'stats':           stats,
+    }
+
+
+def save_rates_output(data, path):
+    """
+    Serialise the build_rates_output() dict to JSON at path.
+
+    Creates parent directories automatically.  Writes with indent=2
+    for human readability (the file is ~5–10 MB; still fast to load).
+
+    Parameters
+    ----------
+    data : dict   return value of build_rates_output()
+    path : str | Path
+    """
+    from pathlib import Path as _Path
+    p = _Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    with open(p, 'w', encoding='utf-8') as fh:
+        json.dump(data, fh, indent=2, allow_nan=False,
+                  default=_json_default)
+    print(f'  Saved: {p}  ({p.stat().st_size / 1024:.0f} KB)')
+
+
+def _json_default(obj):
+    """Fallback serialiser for json.dump — converts any remaining non-standard types."""
+    if hasattr(obj, 'item'):          # numpy scalar (if numpy is in scope)
+        return obj.item()
+    if hasattr(obj, '__float__'):
+        return float(obj)
+    if hasattr(obj, '__int__'):
+        return int(obj)
+    raise TypeError(f'Object of type {type(obj)} is not JSON serialisable')
+
+
+def load_rates_output(path):
+    """
+    Load a rates_output.json file and return the reconstituted dict.
+
+    TCM dicts are decoded back to {float: list} keyed by tier differential.
+    All other values are plain Python scalars, lists, and dicts — identical
+    in structure to the in-memory return value of build_rates_output().
+
+    Parameters
+    ----------
+    path : str | Path
+
+    Returns
+    -------
+    dict with keys: run_date, params, tcm_N, burden_N, srr_N,
+                    ssm, tcm_cap, tcm_burden, tcm_win,
+                    sweep, sweep_extremals, stats
+    """
+    from pathlib import Path as _Path
+    with open(_Path(path), 'r', encoding='utf-8') as fh:
+        raw = json.load(fh)
+
+    raw['tcm_cap']    = _decode_tcm(raw['tcm_cap'])
+    raw['tcm_burden'] = _decode_tcm(raw['tcm_burden'])
+    return raw
+
+
+# ─────────────────────────────────────────────────────────────
+# MAIN — rates_core.py as a standalone runner
+# ─────────────────────────────────────────────────────────────
+
+def main():
+    """
+    CLI entry point.
+
+    Usage
+    -----
+      python rates_core.py [params.toml] [output.json]
+
+      params.toml  defaults to WDT_Params.toml in the same directory.
+      output.json  defaults to OUTPUTS/RATES/rates_output.json.
+
+    Runs all RATES model computations and writes the JSON cache.
+    The table and chart scripts (8_2, 8_3) then read this file
+    rather than re-running the model.
+    """
+    from pathlib import Path as _Path
+    from wdt_fmt import out_dir, ensure_dir
+
+    toml_path   = _sys.argv[1] if len(_sys.argv) > 1 else None
+    output_path = (_Path(_sys.argv[2]) if len(_sys.argv) > 2
+                   else ensure_dir(out_dir('RATES')) / 'rates_output.json')
+
+    print(f'Loading parameters from: {toml_path or DEFAULT_PARAMS}')
+    p = load_params(toml_path)
+    validate_params(p)
+
+    meta = p.get('meta', {})
+    print()
+    print('─' * 60)
+    print('PARAMETERS')
+    print('─' * 60)
+    print(f"  scenario:   {meta.get('scenario_label', '—')}")
+    print(f"  start year: {p['scenario_start_year']}")
+    print(f"  tau_0={p['tau_0']:.0%}  tau_m={p['tau_m']:.0%}  "
+          f"k={p['k']}  W_min=£{p['W_min']}m")
+    print(f"  SRR={p['srr_ratio']}×  LRR={p['lrr_years']} yrs")
+    print()
+
+    data = build_rates_output(p, verbose=True)
+    save_rates_output(data, output_path)
+    print()
+    print(f'Done.  JSON written to: {output_path}')
+    print(f'Run date: {data["run_date"]}')
+
+
+if __name__ == '__main__':
+    main()

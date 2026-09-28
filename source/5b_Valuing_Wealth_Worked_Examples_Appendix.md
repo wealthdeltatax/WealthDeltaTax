@@ -19,6 +19,8 @@ keywords:
     - worked examples
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
@@ -27,7 +29,8 @@ keywords:
 | 1.01      | 15 August 2026  | Published to website |
 | 1.02 | 29 August 2026 | §M.1 clarifying paragraph added distinguishing voluntary hard-reset from corrective auction and stating lock-point rule; §M.3 no-bid outcome paragraph added for voluntary hard-reset pathway; §M.6 final sentence replaced to distinguish corrective and voluntary pathways and their respective refund treatment; §O summary table §M row updated to reflect three-pathway classification |
 | 1.03 | 30 August 2026 | TW refined to TW_settled throughout (post-sale oscillation now included in terminal figure); Table J.1, K.1, N.1 row headers and captions updated; §N.3.2 prose updated to reflect Founder C's +4.97% TW_settled outcome correctly; §N.4 revised to distinguish Founder B (forecast wrong, worse outcome) from Founder C (forecast-consistent at low growth, better outcome) and note consistency with VAL.A §A.6 mild-overstatement equilibrium |
-| 1.04 | 25 September 2026 | Crosslinks added: §L note added after inheritance auction fires pointing to (CLOSE §4.1) for full death settlement sequence and marginal rate dependency; §M Option C extended with death auction waiver pointer to CLOSE§4.1; §O summary table §M row extended with CLOSE§4.1 reference |
+| 1.04 | 25 September 2026 | Crosslinks added: §L note added after inheritance auction fires pointing to (CLOSE §4.1) for full death settlement sequence and marginal rate dependency; §M Option C extended with death auction waiver pointer to CLOSE §4.1.1; §O summary table §M row extended with CLOSE§4.1 reference |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 
@@ -215,7 +218,7 @@ No formal assessment occurs during the holding period. Annual reports are filed 
 
 The taxpayer holds the collection for fifteen years and dies. The estate triggers the inheritance auction. The auction establishes a value of £16.631m.
 
-The WDT liability is calculated on the full gain from entry basis to auction value: (£16.631m − £8m) × 15.17% marginal rate = £1.310m. The heir may pay this from the estate's liquid assets and retain the collection, or allow the works to sell at the auction price and receive the net proceeds. Note that 15.17% here is illustrative as a standalone rate; in practice τ(W_death) is determined by the deceased's total declared net worth across all routes at death, which may place the liability in a different bracket. For the full death settlement sequence — including the marginal rate dependency problem, provisional τ(W_death) mechanism, and the closure bond facility — see (CLOSE §4.1).
+The WDT liability is calculated on the full gain from entry basis to auction value: (£16.631m − £8m) × 15.17% marginal rate = £1.310m. The heir may pay this from the estate's liquid assets and retain the collection, or allow the works to sell at the auction price and receive the net proceeds. Note that 15.17% here is illustrative as a standalone rate; in practice $\tau_{Wdeath}$ is determined by the deceased's total declared net worth across all routes at death, which may place the liability in a different bracket. For the full death settlement sequence — including the marginal rate dependency problem, provisional $\tau_{Wdeath}$ mechanism, and the closure bond facility — see (CLOSE §4.1).
 
 ### L.3.1 Timeline A: Annual Cash Settlement (what Route D avoids)
 

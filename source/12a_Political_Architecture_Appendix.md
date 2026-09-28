@@ -19,11 +19,14 @@ keywords:
     - OBR independence
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
 |:--------:|:---------------:|--------------------------|
 | 0.01      | 26 September 2026    | First Draft - Seperated from main paper         |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 \tableofcontents

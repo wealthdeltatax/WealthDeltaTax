@@ -112,7 +112,7 @@ SECTION_ORDER: list[tuple[str, str, list[str]]] = [
     ("Robustness & limits",    "rob",   ["BEHAV", "BEHAV.A", "FAL", "SCOPE"]),
     ("Welfare & distribution", "welf",  ["WFR", "WFR.A", "LDW", "ENV"]),
     ("Implementation",         "impl",  ["CLOSE", "PHASE1"]),
-    ("Political & strategic",  "pol",   ["POL", "FM", "MOD", "INST", "ADD"]),
+    ("Political & strategic",  "pol",   ["POL", "POL.A" "FM", "MOD", "INST", "ADD"]),
 ]
 
 _STATUS_LABEL: dict[str, str] = {

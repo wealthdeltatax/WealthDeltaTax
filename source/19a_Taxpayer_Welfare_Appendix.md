@@ -12,11 +12,14 @@ keywords:
     - revenue equivalence
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date          | Details                                      |
 |:--------:|:-------------:|----------------------------------------------|
 | 0.01     | 10 September 2026 | Initial generation of simulation tables. Sections A–E covering baseline single-agent comparison, progressive rate complications, CGT lock-in distortion, heterogeneous agent incidence and concentration, and welfare sweep analysis across revenue targets, start years, and logistic rate parameters. |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 \tableofcontents
@@ -83,7 +86,7 @@ Gaps are at floating-point precision (10⁻¹⁶ to 10⁻¹⁷), confirming the 
 
 # B. Progressive Rates and the Three D-M Complications
 
-Tables B.1–B.3 quantify the three complications that a progressive rate schedule introduces to the Domar-Musgrave architecture, corresponding to the analysis in (WFR §4.1). All three complications are real; all three are second-order at canonical parameters. The logistic rate function uses $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{min}$=£2m throughout this section unless noted.
+Tables B.1–B.3 quantify the three complications that a progressive rate schedule introduces to the Domar-Musgrave architecture, corresponding to the analysis in (WFR §4.1). All three complications are real; all three are second-order at canonical parameters. The logistic rate function uses $\tau_0$ = 15%, $\tau_m$ = 70%, k=0.001, $W_{min}$=£2m throughout this section unless noted.
 
 ## B.1 Flat WDT vs Progressive WDT CEW
 
@@ -220,7 +223,7 @@ Section A showed WDT $\approx$ CGT when lock-in was absent. This table adds the 
 
 Tier return differentials from Fagereng et al. (2020): Poor −4.55pp, Ok −2.05pp, Good +0.95pp, Great +3.45pp, relative to the UK historical equity mean of 10.45%. Ver. A distribution with tier-shifted returns. γ=2. Tables D.1–D.5 correspond to the heterogeneous-agent analysis in (WFR §4.3).
 
-Tier wealth levels: Poor (95th percentile) $W_0$=£2.9m; Ok (99th) $W_0$=£7.1m; Good (99.9th) $W_0$=£19.9m; Great (99.99th+) $W_0$=£139.6m. Progressive WDT uses logistic rate function with $\tau_0$=15%, $\tau_m$=70%, k=0.001, $W_{min}$=£2m. All flat-rate systems calibrated at revenue-equivalent rates producing E[T] = 2% of Good-tier $W_0$.
+Tier wealth levels: Poor (95th percentile) $W_0$=£2.9m; Ok (99th) $W_0$=£7.1m; Good (99.9th) $W_0$=£19.9m; Great (99.99th+) $W_0$=£139.6m. Progressive WDT uses logistic rate function with $\tau_0$ = 15%, $\tau_m$ = 70%, k=0.001, $W_{min}$=£2m. All flat-rate systems calibrated at revenue-equivalent rates producing E[T] = 2% of Good-tier $W_0$.
 
 ## D.1 CEW by Tier and Tax System
 

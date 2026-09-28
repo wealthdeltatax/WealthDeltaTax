@@ -18,6 +18,8 @@ keywords:
     - fiscal administration
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
@@ -26,7 +28,8 @@ keywords:
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01 | 29 August 2026 | §G opening restructured to name three Route D auction pathways and direct readers to pathway-specific subsections; §G.1 two paragraphs added stating taxpayer non-notification rule and lock-point at sealed estimate submission; §G.3 replaced in full to cover corrective under-declaration, corrective over-declaration, and no-bid outcomes with distinct treatment for each; §G.4 paragraph added covering over-declaration and no-bid basis-reset documentation; §G.5 sentence added confirming flag direction not disclosed at flag stage; §G.7 new section added specifying voluntary hard-reset auction mechanics and refund treatment; §G.8 new section added specifying inheritance auction mechanics and confirmation that corrective no-refund rule does not import into inheritance pathway |
 | 1.02 | 20 September 2026 | Crosslinks added: §E.3 extended with three-instrument SWF overview pointing to (VAL §13) sovereign liquidity facility; §H.5 extended with pointer to (CORP.A §B.2.8) $\tau_h$ ramp parameters and joint calibration requirement |
-| 1.03 | 25 September 2026 | Bridging facility renamed and generalised to closure bond facility throughout: §E.1 both bridging facility references updated to closure bond facility (CLOSE §5); §E.3 section renamed to The Closure Bond Facility, opening paragraph updated to reference (CLOSE §5) as structural authority covering all three variants, operational sequence clarified as exit variant, bond-sizing principles updated to cover all three variants, Custodian mandate paragraph updated to cover all three variants with documentation gap noted, three-instruments paragraph updated to reference closure bond facility; §E.5 mandatory content updated to closure bond facility across all variants; §E.6 mandate extension updated to closure bond facility covering all variants per (CLOSE §5); §G.8 extended with forward pointer to (CLOSE §4.1) as sequencing authority for death closure; §H.2 solvency floor sentence updated to closure bond facility; §H.4 bridging facility reference updated to closure bond facility (CLOSE §5) |
+| 1.03 | 25 September 2026 | Bridging facility renamed and generalised to closure bond facility throughout: §E.1 both bridging facility references updated to closure bond facility (CLOSE §5); §E.3 section renamed to The Closure Bond Facility, opening paragraph updated to reference (CLOSE §5) as structural authority covering all three variants, operational sequence clarified as exit variant, bond-sizing principles updated to cover all three variants, Custodian mandate paragraph updated to cover all three variants with documentation gap noted, three-instruments paragraph updated to reference closure bond facility; §E.5 mandatory content updated to closure bond facility across all variants; §E.6 mandate extension updated to closure bond facility covering all variants per (CLOSE §5); §G.8 extended with forward pointer to (CLOSE §4.1.1) as sequencing authority for death closure; §H.2 solvency floor sentence updated to closure bond facility; §H.4 bridging facility reference updated to closure bond facility (CLOSE §5) |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 \tableofcontents
@@ -705,7 +708,7 @@ The inheritance auction fires automatically when a Route D asset passes to an he
 
 Conduct rules, timeline, and the estate's retention right follow the §G.3 mechanics applied to the inheritance trigger. UK-specific implementation questions, including international asset treatment and auction conduct rules at death, are assigned to (JUR §4.2) and (JUR §4.3).
 
-The inheritance auction is one component of the full death closure settlement sequence. The marginal rate dependency problem — all route valuations must complete before τ(W_death) can be established — the provisional τ(W_death) mechanism, the closure bond facility applied to the death variant, and the death auction waiver are all specified in (CLOSE §4.1), which is the sequencing authority for death closure. This section covers auction operational conduct only.
+The inheritance auction is one component of the full death closure settlement sequence. The marginal rate dependency problem — all route valuations must complete before $\tau_{Wdeath}$ can be established — the provisional $\tau_{Wdeath}$ mechanism, the closure bond facility applied to the death variant, and the death auction waiver are all specified in (CLOSE §4.1.1), which is the sequencing authority for death closure. This section covers auction operational conduct only.
 
 \newpage
 

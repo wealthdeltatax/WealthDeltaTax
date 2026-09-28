@@ -1,8 +1,8 @@
 # C. WDT Valuation Analysis: Summary Tables {.appendix}
 
-**Validation status:** All figures in this section are from Python model v1.0 (standalone, no Excel dependency), confirmed 0 FAILs across all primary matrices. Parameters unified to $k$ = 0.001, N = 30, $\tau_0$ = 15% across all companion papers. Table C.3 carries deviations up to 13% at extreme $\alpha$×β values (threshold 15%; 0 FAILs); see (VAL.A §C.3) note.
+**Validation status:** All figures from Python model v1.0 (standalone, no Excel dependency). Parameters unified to $k$ = 0.001, N = 30, $\tau_0$ = 15%.
 
-Unless otherwise stated, all figures use base parameters: $V_0$ = £20m, N = 30, $\tau_0$ = 15%, $\tau_m$ = 70%, $k$ = 0.001, $W_{min}$ = £2m, $g$ = 10.45%, $\alpha$ = 1, β = 0%. These are the Balanced transition scenario parameters from (RATES).
+Unless otherwise stated, all figures use base parameters: $V_0$ = £20m, N = 30, $\tau_0$ = 15%, $\tau_m$ = 70%, $k$ = 0.001, $W_{min}$ = £2m, $g$ = 10.45%, $\alpha$ = 1, β = 0%.
 
 ## C.1 Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)
 
@@ -10,7 +10,7 @@ Unless otherwise stated, all figures use base parameters: $V_0$ = £20m, N = 30,
 
 $\frac{Net(\alpha) - Net(1)}{TW(\alpha)}$
 
-**Structural claim:** Understatement is more costly than honest declaration across the policy-relevant growth range. The penalty escalates steeply between $g$ ≈ 10% and $g$ ≈ 17.3%, then plateaus at a ceiling set by $\alpha$; the marginal deterrent stops escalating but does not reverse. The plateau inflection at $g$ ≈ 17.3% is a rate-function property that is approximately constant across all $\alpha$ and N-invariant above the plateau — simulation confirms that the plateau shape at N = 30 and N = 50 are visually identical (SWEEPS §2.3, Fig S3.1b). The C.1 metric for $\alpha$ = 0.1 exceeds 100% at approximately $g$ = 23–24% — the understater's excess tax exceeds their terminal wealth — but this is a normalisation artefact (the denominator, the understater's own TW, compresses at high growth), not a sign reversal in the penalty. For mild overstatement ($\alpha$ ≤ 1.5), overstatement produces a tax saving at moderate positive growth, with no reversal within the tested range at canonical parameters. For aggressive overstatement ($\alpha$ ≥ 1.8), the saving reverses in the $g$ ≈ 9–17% corridor containing the historical mean and recovers only above $g$ ≈ 17%; the self-limiting mechanism also operates temporally through the N-crossing described in §A.5.4. In negative growth scenarios the refund cap binds for understaters, reducing their net-tax advantage.
+**Structural claim:** Understatement is more costly than honest declaration across the policy-relevant growth range. The penalty escalates steeply between $g$ ≈ 10% and $g$ ≈ 17.3%, then plateaus at a ceiling set by $\alpha$; the marginal deterrent stops escalating but does not reverse.
 
 | $\alpha$ \ $g$ | -4.5% | 0.4% | 5.9% | 8.4% | 10.4% | 11.4% | 13.9% | 16.4% | 20.4% | 25.4% |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -24,15 +24,13 @@ $\frac{Net(\alpha) - Net(1)}{TW(\alpha)}$
 | **1.8** | 0.00% | -0.86% | -2.51% | -1.06% | -0.21% | 0.12% | 0.86% | 1.53% | 2.65% | 4.49% |
 | **2.0** | 0.00% | -0.83% | -3.02% | -1.22% | -0.15% | 0.28% | 1.25% | 2.17% | 3.77% | 6.51% |
 
-Table C.1: TTP difference relative to honest declaration, as share of TW. $\alpha$ = 1.0 row is zero by construction. Positive values indicate understater pays more lifetime tax. $V_0$ = £20m, $k$ = 0.001, N = 30, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
+Table C.1: TTP difference relative to honest declaration, as share of TW. $\alpha$ = 1.0 row is zero by construction. $V_0$ = £20m, $k$ = 0.001, N = 30, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
 
 ## C.2 Effective Lifetime Tax Rate Difference from Honest Declaration
 
-**Metric:** Net($\alpha$)/TW($\alpha$) − Net(1)/TW(1). Positive values indicate $\alpha$ has a higher effective lifetime rate than the honest declarer.
+**Metric:** Net($\alpha$)/TW($\alpha$) − Net(1)/TW(1).
 
 $\frac{Net(\alpha)}{TW(\alpha)} - \frac{Net(1)}{TW(1)}$
-
-**Structural claim:** Effective lifetime tax rate differences are directionally consistent with C.1 but larger in magnitude, because the formula normalises by TW($\alpha$) and TW(1) separately rather than by a common denominator. Understaters face materially higher effective rates than honest declarers across all tested growth rates; overstaters face lower rates at moderate growth. The differential is largest at low and high growth extremes, reflecting refund protection loss and saturation effects respectively.
 
 | $\alpha$ \ $g$ | -4.5% | 0.4% | 5.9% | 8.4% | 10.4% | 11.4% | 13.9% | 16.4% | 20.4% | 25.4% |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -48,17 +46,11 @@ $\frac{Net(\alpha)}{TW(\alpha)} - \frac{Net(1)}{TW(1)}$
 
 Table C.2: Effective lifetime tax rate difference from honest declaration. $\alpha$ = 1.0 row is zero by construction. $V_0$ = £20m, $k$ = 0.001, N = 30, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
 
-*Note: this table measures the difference in effective lifetime tax rate relative to honest declaration, not an absolute rate.*
-
 ## C.3 Exploratory Extension: Investor Confidence Effects β (Overstatement Only)
 
-*This section is exploratory and not required for the operation of WDT. The beta mechanism is not empirically calibrated. Results are sensitivity testing, not prediction.*
-
-**Metric:** (Net($\alpha$,β) − Net(1,β=0) / TW($\alpha$,β). β swept over the same numeric values as the $g$ columns in C.1/C.2; $g$ fixed at 10.45%.
+*This section is exploratory. β swept over same values as $g$ columns; $g$ fixed at 10.45%.*
 
 $\frac{Net(\alpha, \beta) - Net(1, \beta=0)}{TW(\alpha, \beta)}$
-
-**Structural claim:** β represents the sensitivity of true asset growth to declared valuation via $g_{eff} = g + \beta \cdot \ln(\alpha)$ (see (VAL.A §B.2.1) and (VAL.A §B.2.2). A positive β partially offsets the declaration cost where overstatement contributes to confidence formation. Scope is overstatement only ($\alpha$ ≥ 1.0); understater cells are omitted. Deviations at high $\alpha$×β values (up to 13%) reflect exponential compounding of g_eff over N = 30; directional claims are unaffected. No empirical calibration for β exists.
 
 | $\alpha$ \ β | β=-4.5% | β=0.4% | β=5.9% | β=8.4% | β=10.4% | β=11.4% | β=13.9% | β=16.4% | β=20.4% | β=25.4% |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -68,15 +60,13 @@ $\frac{Net(\alpha, \beta) - Net(1, \beta=0)}{TW(\alpha, \beta)}$
 | **1.8** | -9.18% | 0.49% | 7.31% | 9.68% | 11.41% | 12.17% | 14.08% | 15.99% | 19.12% | 23.64% |
 | **2.0** | -11.32% | 0.70% | 8.65% | 11.39% | 13.45% | 14.37% | 16.79% | 19.37% | 23.96% | 30.88% |
 
-Table C.3: Investor confidence β sensitivity (overstatement only). Sign convention: positive = $\alpha$ pays more than honest. β column values are the same numeric sweep as $g$ in C.1/C.2; $g$ fixed at 10.45%, N=30 throughout. Deviations increase at high $\alpha$×β due to exponential compounding; max deviation vs Excel 13% (threshold 15%; 0 FAILs). $V_0$ = £20m, $k$ = 0.001, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
+Table C.3: Investor confidence β sensitivity (overstatement only). $g$ fixed at 10.45%, N=30 throughout. $V_0$ = £20m, $k$ = 0.001, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
 
 ## C.4 Effective Lifetime Tax Rate by $k$ Parameter and Initial Wealth ($V_0$)
 
-**Metric:** TTP($\alpha$=1) / TW($\alpha$=1). Honest declaration throughout. Rows = k; columns = $V_0$ (£m).
+**Metric:** TTP($\alpha$=1) / TW($\alpha$=1). Rows = k; columns = $V_0$ (£m).
 
 $\frac{TTP(\alpha=1)}{TW(\alpha=1)}$
-
-**Structural claim:** The S-curve rate function produces an effective lifetime rate that is low at small $V_0$ and rises toward $\tau_m$ at very large $V_0$ × high $k$ combinations. The policy-relevant $k$ range is approximately 1e-04 to 1e-03; values above 5e-03 are analytically extreme and included for completeness only. The rate ceiling of approximately 60.67% reflects the logistic bound at $\tau_m$ = 70% over N = 30 years.
 
 | $k$ \ $V_0$ | £1m | £10m | £50m | £100m | £250m | £500m | £1000m | £2500m | £5000m | £10000m |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -90,15 +80,13 @@ $\frac{TTP(\alpha=1)}{TW(\alpha=1)}$
 | 5e-02 | 11.63% | 28.97% | 48.58% | 49.99% | 50.05% | 50.05% | 50.05% | 50.05% | 50.05% | 50.05% |
 | 1e-01 | 12.58% | 38.83% | 49.98% | 50.05% | 50.05% | 50.05% | 50.05% | 50.05% | 50.05% | 50.05% |
 
-Table C.4: Effective lifetime tax rate by $k$ and $V_0$. All at $\alpha$=1, β=0, $g$=10.45%, N=30. $k$ values above 1e-03 are analytically extreme; included for completeness.
+Table C.4: Effective lifetime tax rate by $k$ and $V_0$. All at $\alpha$=1, β=0, $g$=10.45%, N=30.
 
 ## C.5 Sensitivity of $k$ and Alpha: Terminal Net Worth Difference vs Honest
 
-**Metric:** (TW($\alpha$,k) − TW(1,k) / TW(1,k). Positive values indicate $\alpha$ retains more terminal net worth than honest; negative values indicate less.
+**Metric:** (TW($\alpha$,k) − TW(1,k) / TW(1,k).
 
 $\frac{TW(\alpha,k) - TW(1,k)}{TW(1,k)}$
-
-**Structural claim:** TW differences are directionally consistent across the tested $k$ range. Understater penalties scale with $k$ up to the logistic saturation boundary, beyond which further increases have diminishing effect. The overstater advantage follows the same pattern, accelerating at high $k$ ($k$ ≥ 1e-02) as the rate function's bracket ascent steepens. $k$ values above 1e-03 are analytically extreme.
 
 | $\alpha$ \ $k$ | 1e-04 | 2e-04 | 5e-04 | 1e-03 | 2e-03 | 5e-03 | 1e-02 | 5e-02 | 1e-01 |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -116,11 +104,9 @@ Table C.5: TW difference vs honest, by $k$ and $\alpha$. $\alpha$ = 1.0 row is z
 
 ## C.6 Terminal Net Worth After Refunds: Refund Protection Ratio
 
-**Metric:** TW($\alpha$) / TW(1). Values below 100% indicate reduced TW relative to honest. Negative $g$ scenarios only.
+**Metric:** TW($\alpha$) / TW(1). Negative $g$ scenarios only.
 
 $\frac{TW(\alpha)}{TW(1)}$
-
-**Structural claim:** Understaters receive materially reduced terminal wealth in negative growth scenarios because the refund is calculated on the declared basis, not the true value. The protection loss is determined almost entirely by the entry declaration and is stable across negative growth rates for each $\alpha$ — the ratio at $g$ = −4.5% characterises the full negative-$g$ regime. Overstaters show 100% throughout: the lifetime cap prevents refunds exceeding prior contributions, which in a purely negative growth environment are zero for all strategies.
 
 | $\alpha$ \ $g$ | -4.5% |
 |:---:|:---:|
@@ -134,15 +120,13 @@ $\frac{TW(\alpha)}{TW(1)}$
 | **1.8** | 100.00% |
 | **2.0** | 100.00% |
 
-Table C.6: Refund protection ratio vs honest declaration. Negative $g$ scenarios only. $\alpha$ = 1.0 is 100% by construction. Understater protection loss proportional to basis gap at entry. $V_0$ = £20m, $k$ = 0.001, N = 30, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
+Table C.6: Refund protection ratio vs honest declaration. Negative $g$ scenarios only. $\alpha$ = 1.0 is 100% by construction. $V_0$ = £20m, $k$ = 0.001, N = 30, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
 
 ## C.7 Total Tax Paid Compared to Honest Taxpayer, Adjusted for N
 
-**Metric:** (Net($\alpha$,N) − Net(1,N) / Net(1,N). Positive values indicate $\alpha$ pays more net tax than honest. N values shown are actual simulation N (5 to 60). Earlier Excel display showed N-5 in column headers; corrected here.
+**Metric:** (Net($\alpha$,N) − Net(1,N) / Net(1,N).
 
 $\frac{Net(\alpha,N) - Net(1,N)}{Net(1,N)}$
-
-**Structural claim:** Understatement imposes a persistent and substantial net-tax penalty across all holding periods tested. The penalty is largest at short horizons (N = 5) where the basis gap recovery dominates a small total tax base, and compresses as the holding period extends. For overstatement, the initial advantage narrows and can reverse at extended horizons where the honest declarer has accumulated more basis history. Understater N = 5 penalties above 100% reflect the realisation delta dominating a near-zero prior-year contribution.
 
 | $\alpha$ \ N | 5 | 10 | 15 | 20 | 25 | 30 | 35 | 40 | 45 | 50 | 55 | 60 |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -156,15 +140,13 @@ $\frac{Net(\alpha,N) - Net(1,N)}{Net(1,N)}$
 | **1.8** | -80.00% | -32.13% | -10.84% | -0.05% | 6.77% | 12.10% | 17.17% | 22.52% | 27.73% | 31.18% | 31.05% | 26.97% |
 | **2.0** | -77.69% | -39.66% | -12.84% | 0.96% | 9.95% | 17.29% | 24.57% | 32.33% | 39.69% | 44.12% | 43.25% | 37.04% |
 
-Table C.7: Net tax compared to honest taxpayer, adjusted for N. $\alpha$ = 1.0 row is zero by construction. $g$ = 10.45% throughout. $V_0$ = £20m, $k$ = 0.001, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
+Table C.7: Net tax compared to honest taxpayer, adjusted for N. $\alpha$ = 1.0 row is zero by construction. $g$ = 10.45% throughout. $V_0$ = £20m, $k$ = 0.001, N = 30, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
 
 ## C.8 Terminal Net Worth Compared to Honest Taxpayer, Adjusted for N
 
-**Metric:** (TW($\alpha$,N) − TW(1,N) / TW(1,N). Negative values indicate $\alpha$ retains less TW than honest. N correction as C.7 — actual N shown.
+**Metric:** (TW($\alpha$,N) − TW(1,N) / TW(1,N).
 
 $\frac{TW(\alpha,N) - TW(1,N)}{TW(1,N)}$
-
-**Structural claim:** TW differences widen materially as N rises — the basis gap compounds into more pronounced divergence at $k$ = 0.001 than at lower k. The understater penalty at $\alpha$ = 0.1 grows from −12.76% at N = 5 to −41.99% at N = 60. Overstater advantages widen on the same trajectory. No convergence toward zero occurs within realistic holding periods at $g$ = 10.45%.
 
 | $\alpha$ \ N | 5 | 10 | 15 | 20 | 25 | 30 | 35 | 40 | 45 | 50 | 55 | 60 |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -178,13 +160,11 @@ $\frac{TW(\alpha,N) - TW(1,N)}{TW(1,N)}$
 | **1.8** | 9.07% | 9.75% | 9.70% | 9.61% | 9.47% | 9.23% | 8.84% | 8.22% | 7.28% | 6.15% | 5.22% | 5.15% |
 | **2.0** | 9.97% | 12.18% | 12.10% | 11.98% | 11.78% | 11.44% | 10.89% | 9.99% | 8.70% | 7.18% | 6.01% | 6.04% |
 
-Table C.8: TW compared to honest taxpayer, adjusted for N. $\alpha$ = 1.0 row is zero by construction. $g$ = 10.45% throughout. $V_0$ = £20m, $k$ = 0.001, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
+Table C.8: TW compared to honest taxpayer, adjusted for N. $\alpha$ = 1.0 row is zero by construction. $g$ = 10.45% throughout. $V_0$ = £20m, $k$ = 0.001, N = 30, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
 
 ## C.9 Summary of Declaration Incentives Across Growth Regimes
 
-**Metric:** TW(£m) and Net tax (£m) at $\alpha$ ∈ {2.0, 1.0, 0.1} across the $g$ sweep; ratios vs honest. N = 30 throughout.
-
-**Structural claim:** The mechanism's fundamental properties hold across the full tested growth range. Understatement consistently costs more than honest declaration in absolute net-tax terms at every positive $g$ tested. The understater penalty escalates steeply between $g$ ≈ 10% and $g$ ≈ 17.3%, then plateaus — the rate ceiling stops further escalation but does not reverse it. The plateau ceiling scales with the degree of understatement: $\alpha$ = 0.1 plateaus near 98% of true wealth, $\alpha$ = 0.2 near 70%, $\alpha$ = 0.5 near 24%, $\alpha$ = 0.8 near 6%. The inflection at $g$ ≈ 17.3% is a rate-function property, approximately constant across all $\alpha$ and N-invariant above the plateau (see §A.5.4 and SWEEPS §2.3, Fig S3.1b). For overstaters, this table captures the contemporaneous growth-corridor effect for aggressive overstatement; the temporal N-crossing correction operates across holding periods and is documented in §C.8 and SWEEPS.A §A.4. The TW(0.1)/TW(1) ratio declines from approximately 86–87% at moderate growth to 63.2% at $g$ = 25.4%, reflecting compounding basis gap effects consistent with the penalty plateau. The C.1 metric exceeding 100% at $g$ = 25.4% for $\alpha$ = 0.1 is a normalisation artefact: it means the excess tax exceeds the understater's terminal wealth, not that the penalty reverses.
+**Metric:** TW(£m) and Net tax (£m) at $\alpha$ ∈ {2.0, 1.0, 0.1} across the $g$ sweep. N = 30 throughout.
 
 | $g$ | TW($\alpha$=2) £m | TW($\alpha$=1) £m | TW($\alpha$=0.1) £m | Net($\alpha$=2) £m | Net($\alpha$=1) £m | Net($\alpha$=0.1) £m | TW(0.1)/TW(1) | Net(0.1)/Net(1) |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -198,17 +178,13 @@ Table C.8: TW compared to honest taxpayer, adjusted for N. $\alpha$ = 1.0 row is
 | 5.9% | 61.0 | 54.2 | 48.0 | 3.4 | 5.3 | 7.2 | 88.6% | — |
 | 0.4% | 22.0 | 21.6 | 19.1 | 0.1 | 0.2 | 2.6 | 88.2% | — |
 
-Table C.9: Summary of declaration incentives across growth regimes. TW and Net tax in £m. N = 30 throughout. Net($\alpha$=0.1)/Net($\alpha$=1) shown only where Net < 0 (refund scenario, negative $g$); '—' at positive $g$ where both Net values are positive. $V_0$ = £20m, $k$ = 0.001, N = 30, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
+Table C.9: Summary of declaration incentives across growth regimes. TW and Net tax in £m. N = 30 throughout. $V_0$ = £20m, $k$ = 0.001, N = 30, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
 
-## C.10 2006 Historical Return Series — Reference Scenario Results
+## C.10 Historical Return Series — Reference Scenario Results
 
-**Source:** RATES Balanced worst-case reference scenario (p['returns'] rotated to 2000 start year). $V_0$ = £20m, $\tau_0$ = 15%, $\tau_m$ = 70%, $k$ = 0.001, $W_{min}$ = £2m. No β adjustment applied.
-
-**Purpose:** Locates the RATES worst-case scenario within the analytical space of C.1–C.9. The 2006 series includes the 2008 crash and subsequent recovery. The realised mean growth rate across N = 30 periods is 7.05%, below the 10.45% historical mean used in C.1–C.9; results here represent a harder test than the constant-$g$ tables.
+**Source:** RATES Balanced worst-case reference scenario (returns rotated to 2000 start year). $V_0$ = £20m, $\tau_0$ = 15%, $\tau_m$ = 70%, $k$ = 0.001, $W_{min}$ = £2m. No β adjustment applied.
 
 ### C.10.1 Declaration strategy comparison ($\alpha$ sweep, N = 30)
-
-Each row uses p['returns'][:N] as the holding-period series and p['returns'][N] as the sell-year rate. The g_mean column is the arithmetic mean of the N holding-period returns.
 
 | $\alpha$ | TW (£m) | TTP (£m) | Net (£m) | Eff rate | TW vs honest | Net vs honest |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -222,11 +198,9 @@ Each row uses p['returns'][:N] as the holding-period series and p['returns'][N] 
 | **1.8** | 71.36 | 12.57 | 5.67 | 7.94% | +9.71% | -18.88% |
 | **2.0** | 72.93 | 14.04 | 5.38 | 7.38% | +12.12% | -23.00% |
 
-Table C.10.1: Declaration strategy comparison, 2006 historical return series, N = 30. $\alpha$ = 1.0 row is the honest baseline; TW vs honest and Net vs honest are zero by construction. Positive Net vs honest = understater pays more net tax than honest under the historical series.
+Table C.10.1: Declaration strategy comparison, 2000 historical return series, N = 30.
 
 ### C.10.2 Honest declarer trajectory by N ($\alpha$ = 1.0)
-
-Each row uses p['returns'][:N] as the holding-period series and p['returns'][N] as the sell-year rate. The g_mean column is the arithmetic mean of the N holding-period returns; it shifts as more years of the 2006 series are included, most notably around N = 3 (2008 crash enters) and N = 4 (2009 recovery enters).
 
 | N | TW (£m) | Net (£m) | Mean $g$ of series[:N] |
 |:---:|:---:|:---:|:---:|
@@ -237,7 +211,7 @@ Each row uses p['returns'][:N] as the holding-period series and p['returns'][N] 
 | 25 | 69.46 | 7.68 | 6.01% |
 | **30** | **89.36** | **10.86** | **5.99%** |
 
-Table C.10.2: Honest declarer trajectory under 2006 historical return series by holding period. N = 30 row is the RATES reference scenario. TW and Net grow with N as additional years of compounding and WDT payments accumulate. Unlike C.7/C.8 (constant $g$ throughout), each row reflects a different prefix of the realised return history, making path-dependence explicit.
+Table C.10.2: Honest declarer trajectory under 2000 historical return series.
 
 ## C.11 Overstater TW Advantage Decomposition
 
@@ -313,7 +287,7 @@ Table C.11.4: Total TW advantage as % of honest TW_settled. Should match C.5 (at
 
 ### C.11.5 — Retained Equity Fraction Ratio at End of Holding Period
 
-**Formula:** $f_N$($\alpha$) / $f_N$(1)  · Values below 1.0 indicate the overstater has surrendered more equity as tax during the holding period. This is the dilution cost: the overstater owns a smaller fraction of their asset at sale, which is why the sell-year declared value ($f_N \times V_{sell}$) is lower than it would otherwise be. The $f_N$ ratio is independent of $g$ within holding periods but shifts across $g$ because the progressive rate responds to declared wealth level.
+**Formula:** $f_N$($\alpha$) / $f_N$(1)  · Values below 1.0 indicate the overstater has surrendered more equity as tax during the holding period. This is the dilution cost: the overstater owns a smaller fraction of their asset at sale, which is why the sell-year declared value ($f_N \times V_{sell}$) is lower than it would otherwise be.
 
 | $\alpha$ \ $g$ | -4.5% | 0.4% | 5.9% | 8.4% | 10.4% | 11.4% | 13.9% | 16.4% | 20.4% | 25.4% |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -325,13 +299,9 @@ Table C.11.4: Total TW advantage as % of honest TW_settled. Should match C.5 (at
 
 Table C.11.5: Retained equity fraction ratio $f_N$($\alpha$) / $f_N$(1). Values below 1.0 = overstater surrendered more equity during holding period. $V_0$ = £20m, $k$ = 0.001, N = 30.
 
-*Always < 1.0 for $\alpha$ > 1: the overstater's retained fraction is lower at every $g$. The ratio shrinks with $\alpha$ (more dilution) and with $g$ (higher declared wealth pushes the rate function higher, increasing $q$ each period). The $f_N$ ratio is the mechanism through which the declared basis at sale falls below $\alpha \times$ true value — it is not $\alpha \times f_N$(honest) $\times V_{sell}$ but rather $f_N$($\alpha$) $\times V_{sell}$, where $f_N$($\alpha$) < $f_N$(honest).*
-
-*Key design implication: the overstater cannot manufacture a TW advantage by overstatement alone. The advantage in C.11.4 / C.8 persists because the sell-year refund benefit (C.11.2) swamps the f_N erosion cost (C.11.1) and the damping cost (C.11.3) across all tested ($\alpha$, $g$) — by a factor of approximately 6:1 at canonical parameters. Whether this relationship holds beyond the tested range — particularly at very high $g$ where $f_N$ is heavily depleted — requires extension of the $g$ sweep above 25%.*
-
 ### C.11.6 — Excess Periodic Net Tax as % of Honest TW_settled  [Informational]
 
-**Formula:** (Net_holding($\alpha$) $-$ Net_holding(1)) / TW_settled(1)  · Positive = overstater paid more net tax during the holding period.  **This term is NOT additive in the C.11 identity** — it is shown for reference only.  ExcessPeriodic feeds into tw_advantage indirectly through f_N erosion (higher periodic tax depletes f faster, reducing W_sell), but ExcessPeriodic $\gg$ |W_sell_delta| because most of the excess is returned as a sell-year refund (C.11.2).  The correct additive decomposition uses W_sell_delta (C.11.1), not ExcessPeriodic.
+**Formula:** (Net_holding($\alpha$) $-$ Net_holding(1)) / TW_settled(1)  · Positive = overstater paid more net tax during the holding period.  **This term is NOT additive in the C.11 identity** — it is shown for reference only.
 
 | $\alpha$ \ $g$ | -4.5% | 0.4% | 5.9% | 8.4% | 10.4% | 11.4% | 13.9% | 16.4% | 20.4% | 25.4% |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -341,13 +311,11 @@ Table C.11.5: Retained equity fraction ratio $f_N$($\alpha$) / $f_N$(1). Values 
 | **1.8** | 0.00% | 1.38% | 9.90% | 11.77% | 13.37% | 14.26% | 17.36% | 21.91% | 29.04% | 31.41% |
 | **2.0** | 0.00% | 1.73% | 12.45% | 14.87% | 16.95% | 18.11% | 22.14% | 27.83% | 36.09% | 38.51% |
 
-Table C.11.6: Excess periodic net tax as % of honest TW_settled (informational). Positive = overstater paid more net tax during holding period. Compare with C.11.1 (W_sell_delta): ExcessPeriodic is approximately 6× larger in magnitude, confirming that most of the periodic overpayment is recovered via the sell-year refund. $V_0$ = £20m, $k$ = 0.001, N = 30.
-
-*Positive throughout at $g$ \geq ~8\%: the overstater pays more every period due to a larger declared delta and higher progressive rate. Despite this persistent periodic cost, the sell-year refund (C.11.2) exceeds both the erosion cost (C.11.1) and the damping cost (C.11.3), producing the net TW advantage shown in C.11.4.*
+Table C.11.6: Excess periodic net tax as % of honest TW_settled (informational). $V_0$ = £20m, $k$ = 0.001, N = 30.
 
 ## C.12 NPV-Adjusted Tax Position: Present Value of Tax Difference vs Honest
 
-**Purpose:** Adjusts the C.1 nominal tax-difference metric for the time value of money. The C.1 metric treats £1 of tax paid in year 1 as equivalent to £1 received as a refund in year N+1. C.12 corrects this by discounting all cash flows to t=0 at a common rate ρ. The comparison reveals whether the apparent nominal advantage to mild overstaters survives discounting — or whether it is an artefact of comparing early real outflows against a late nominal refund.
+**Purpose:** Adjusts the C.1 nominal tax-difference metric for the time value of money.
 
 **Metric:** $(NPV_{tax}(\alpha) - NPV_{tax}(1))$ / TW_settled(1), where $NPV_{tax}(\alpha) = \sum_{t=1}^{N+1} L_t / (1+\rho)^t$ and $\rho = 5\%$.
 
@@ -355,9 +323,7 @@ $\frac{NPV_{tax}(\alpha) - NPV_{tax}(1)}{TW_{settled}(1)}$
 
 **Sign convention:** Positive = alpha pays more in present-value terms than honest (understater disadvantage). Negative = alpha pays less in PV terms (overstater advantage). Same as C.1, so tables are directly comparable.
 
-**Structural claim:** Two regimes are visible when C.1 and C.12 are compared. At ρ = 5%, a cash flow at year 30 is worth approximately 23 pence on the pound relative to a year-1 payment, so the discount penalises late flows heavily. **Low-g regime (g $\lesssim$ 8%):** these are the cells where C.1 shows a genuine nominal advantage for overstaters (negative values). In C.12 those values compress sharply toward zero or reverse sign. At low g, the sell-year refund is large relative to periodic payments and arrives heavily discounted; the earlier periodic costs are smaller but weighted at shorter horizons. Discounting closes the gap: the apparent nominal advantage is a timing artefact. **Mid/high-g regime (g $\gtrsim$ 8%):** overstaters already pay more than honest declarers in C.1 (positive values). C.12 is larger still in this regime because the bulk of periodic overpayment concentrates in later holding years (when declared wealth is largest), but the sell-year refund is also late and discounted at the same rate; the net effect is that discounting penalises the refund more than the distributed periodic costs, pushing the C.12 value above C.1. **Understaters:** C.12 is systematically smaller in magnitude than C.1 at mid/high g. Understaters declare a lower basis and pay smaller periodic taxes early; their larger settlement at sale is discounted, partially offsetting their nominal penalty. At low g and high understatement, C.12 can turn negative (understater appears to benefit in PV terms because the refund on a very low basis is received early relative to the honest declarer's larger late settlement). The core design claim is preserved and strengthened: the low-g overstater advantage, which motivates the §A.6 population-equilibrium argument, is a nominal timing artefact that collapses once discounted. In PV terms it is approximately neutral or negative, making the design's tolerance of mild overstatement even more defensible than the nominal analysis suggests.
-
-**Scope:** Full α grid (same as C.1). All values at canonical N = 30, $k$ = 0.001, $V_0$ = £20m, $\rho$ = 5%, $\tau_0$ = 15%, $\tau_m$ = 70%. Rows = α; columns = g (same grid as C.1).
+**Scope:** Full α grid (same as C.1). All values at canonical N = 30, $k$ = 0.001, $V_0$ = £20m, $\rho$ = 5%, $\tau_0$ = 15%, $\tau_m$ = 70%.
 
 | $\alpha$ \ $g$ | -4.5% | 0.4% | 5.9% | 8.4% | 10.4% | 11.4% | 13.9% | 16.4% | 20.4% | 25.4% |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -371,6 +337,4 @@ $\frac{NPV_{tax}(\alpha) - NPV_{tax}(1)}{TW_{settled}(1)}$
 | **1.8** | 0.00% | -0.20% | -0.03% | 0.72% | 1.10% | 1.22% | 1.47% | 1.63% | 1.83% | 1.99% |
 | **2.0** | 0.00% | -0.14% | -0.01% | 0.94% | 1.43% | 1.60% | 1.93% | 2.18% | 2.54% | 2.95% |
 
-Table C.12: NPV-adjusted tax difference vs honest declaration, as % of honest TW_settled. $\alpha$ = 1.0 row is zero by construction. Compare directly with C.1: values closer to zero indicate the nominal C.1 advantage/disadvantage is a timing artefact; sign reversals indicate the PV position is opposite to the nominal position. $\rho$ = 5%, $V_0$ = £20m, $k$ = 0.001, N = 30, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.
-
-*Key reading:* Compare C.12 with C.1 column by column. Where C.1 shows a negative value for overstaters (advantage) and C.12 shows a value close to zero or positive, the nominal advantage is a timing artefact: the overstater pays early and is refunded late, and the time value of early payment approximately cancels or reverses the apparent gain. Where C.1 and C.12 agree in sign and magnitude for understaters, the penalty is real in both nominal and PV terms — understaters face genuine excess cost regardless of the discount rate applied.
+Table C.12: NPV-adjusted tax difference vs honest declaration, as % of honest TW_settled. $\alpha$ = 1.0 row is zero by construction. $\rho$ = 5%, $V_0$ = £20m, $k$ = 0.001, N = 30, $\tau_0$ = 15%, $\tau_m$ = 70%, $W_{min}$ = £2m.

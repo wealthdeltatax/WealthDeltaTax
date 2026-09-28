@@ -14,11 +14,14 @@ keywords:
     - hostile modelling
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date | Details |
 |:---:|:---:|:---|
 | 0.1 | 20 September 2026 | First full draft: all sections, abstract, appendix |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

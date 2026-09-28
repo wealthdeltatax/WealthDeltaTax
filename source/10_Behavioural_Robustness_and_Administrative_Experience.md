@@ -20,6 +20,8 @@ keywords:
     - phase sequencing
 ---
 
+\newpage
+
 ### Revision History {.unnumbered .unlisted}
 
 | Revision | Date            | Details                  |
@@ -29,6 +31,7 @@ keywords:
 | 1.01      | 14 September 2026 | Abstract updated to reference tolerant zone as bounding the enforcement claim; §8.11 reframed: Route D enforcement residual characterised as the egregious-understatement tail rather than a general valuation problem, referencing VAL §7.1 tolerant zone ($\alpha$ $\approx$ 0.8–1.5) and updated equilibrium framing ($\alpha$ $\approx$ 1.1 as conditional prediction, not dominant strategy); §8.12 closing paragraph extended to note tolerant zone substantially reduces the enforcement problem for the non-egregious declaration range; §9.2 new opening sub-section added noting the WDT is not a stock wealth tax and that Agrawal's ratio was calibrated to structurally different systems (directional risk retained, magnitude uncertain); §6.3 new paragraph added after interaction matrix on SWEEPS parameter separability as a structural contribution to Clarity and Fairness membrane dimensions |
 | 1.02      | 18 September 2026 | §2.1 citation corrected: Londoño-Vélez & Avila-Mahecha prose reference converted to @LondonoVelezAvilaMahecha2025 cite key (journal version: *Review of Economic Studies* 92(4), 2624–2655) |
 | 1.03      | 19 September 2026 | Restructured: supporting material (route distribution detail, membrane calcification monitoring, Agrawal seven-part response, secondary objections, membrane examples) moved to BEHAV.A companion paper; main paper compressed to core argument |
+| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 
