@@ -298,12 +298,12 @@ logging.basicConfig(
     format="%(asctime)s  %(levelname)-7s  %(message)s",
     handlers=[
         logging.StreamHandler(_console),
-        logging.FileHandler(Path("wdt-site") / "print" / "zenodo_upload.log", mode="a", encoding="utf-8"),
+        logging.FileHandler(SCRIPT_DIR.parent / "print" / "zenodo_upload.log", mode="a", encoding="utf-8"),
     ],
 )
 log = logging.getLogger(__name__)
 
-DOIS_FILE = Path("wdt-site") / "print" / "zenodo_dois.json"
+DOIS_FILE = SCRIPT_DIR.parent / "print" / "zenodo_dois.json"
 
 
 def load_dois() -> dict:

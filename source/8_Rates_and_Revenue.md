@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Rates and Revenue"
 shortcode: "RATES"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610264"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -18,6 +17,14 @@ keywords:
     - UK fiscal policy
     - government expenditure
     - fiscal transition
+zenodo_doi: "10.5072/zenodo.610804"
+jel:
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - H68   # Forecasts of budgets, deficits, and debt
+  - C63   # Computational techniques; Simulation modeling
+  - D31   # Personal income, wealth, and their distributions
+  - H21   # Efficiency; Optimal taxation
+  - G17   # Financial forecasting and simulation
 ---
 \newpage
 

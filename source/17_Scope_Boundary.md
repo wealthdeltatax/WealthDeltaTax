@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Scope Boundary — Questions Outside This Project"
 shortcode: "SCOPE"
 status: "draft"
-zenodo_doi: "10.5072/zenodo.610290"
 keywords:
     - Wealth Delta Tax
     - research scope
@@ -14,6 +13,10 @@ keywords:
     - legal questions
     - empirical questions
     - future research
+zenodo_doi: "10.5072/zenodo.610830"
+jel:
+  - H20   # Taxation, subsidies, and revenue: general
+  - B41   # Economic methodology
 ---
 \newpage
 

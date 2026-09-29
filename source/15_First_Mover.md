@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: First Mover"
 shortcode: "FM"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610286"
 keywords:
     - Wealth Delta Tax
     - first-mover advantage
@@ -16,6 +15,13 @@ keywords:
     - institutional commitment
     - policy imitation
     - memetic diffusion
+zenodo_doi: "10.5072/zenodo.610826"
+jel:
+  - H20   # Taxation, subsidies, and revenue: general
+  - F55   # International institutional arrangements
+  - D72   # Political processes: rent-seeking, lobbying, elections, legislatures
+  - F42   # International policy coordination and transmission
+  - C72   # Noncooperative games
 ---
 \newpage
 

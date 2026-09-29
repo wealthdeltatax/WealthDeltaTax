@@ -16,7 +16,14 @@ keywords:
     - anti-capture mechanisms
     - public finance governance
     - tax administration
-zenodo_doi: "10.5072/zenodo.610258"
+zenodo_doi: "10.5072/zenodo.610798"
+jel:
+  - H11   # Structure, scope, and performance of government
+  - D71   # Social choice; Clubs; Committees; Associations
+  - K34   # Tax law
+  - H20   # Taxation, subsidies, and revenue: general
+  - D72   # Political processes: rent-seeking, lobbying, elections, legislatures
+  - P16   # Political economy
 ---
 \newpage
 

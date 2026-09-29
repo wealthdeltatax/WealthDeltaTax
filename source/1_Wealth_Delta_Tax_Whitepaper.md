@@ -15,7 +15,15 @@ keywords:
  - tax-base reform
  - progressive taxation
  - fiscal transition
-zenodo_doi: "10.5072/zenodo.610236"
+zenodo_doi: "10.5072/zenodo.610778"
+jel:
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - H63   # Debt; Debt management; Sovereign debt
+  - E62   # Fiscal policy; Government expenditures and related policies
+  - D31   # Personal income, wealth, and their distributions
+  - G11   # Portfolio choice; Investment decisions
+  - H21   # Efficiency; Optimal taxation
+  - H55   # Social security and public pensions
 ---
 \newpage
 

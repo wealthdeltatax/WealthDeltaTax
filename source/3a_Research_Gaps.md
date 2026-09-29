@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Research Gaps in the Existing Literature"
 shortcode: "LR.A"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610240"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -17,6 +16,12 @@ keywords:
     - international tax coordination
     - empirical identification
     - tax design
+zenodo_doi: "10.5072/zenodo.610782"
+jel:
+  - H20   # Taxation, subsidies, and revenue: general
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - G12   # Asset pricing; Trading volume; Bond interest rates
+  - D31   # Personal income, wealth, and their distributions    
 ---
 \newpage
 

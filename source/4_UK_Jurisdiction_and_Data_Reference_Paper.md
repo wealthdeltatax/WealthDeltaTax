@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: UK Jurisdiction and Data Reference Paper"
 shortcode: "JUR"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610244"
 keywords:
     - Wealth Delta Tax
     - United Kingdom
@@ -18,6 +17,13 @@ keywords:
     - national accounts
     - fiscal benchmarking
     - administrative data
+zenodo_doi: "10.5072/zenodo.610786"
+jel:
+  - H20   # Taxation, subsidies, and revenue: general
+  - H11   # Structure, scope, and performance of government
+  - D31   # Personal income, wealth, and their distributions
+  - H83   # Public administration; Public sector accounting and audits
+  - C80   # Data collection and data estimation methodology: general
 ---
 \newpage
 

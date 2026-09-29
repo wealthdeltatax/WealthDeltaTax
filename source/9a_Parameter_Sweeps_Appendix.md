@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Parameter Sweeps and Governing Council Calibration — Appendix"
 shortcode: "SWEEPS.A"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610270"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -18,6 +17,11 @@ keywords:
     - tolerant zone
     - Sovereign Wealth Fund capitalisation
     - reproducible research
+zenodo_doi: "10.5072/zenodo.610810"
+jel:
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - C63   # Computational techniques; Simulation modeling
+  - C80   # Data collection and data estimation methodology: general
 ---
 \newpage
 

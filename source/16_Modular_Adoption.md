@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Modular Adoption"
 shortcode: "MOD"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610288"
 keywords:
     - Wealth Delta Tax
     - modular tax reform
@@ -16,6 +15,13 @@ keywords:
     - scrutiny period
     - implementation strategy
     - institutional adoption
+zenodo_doi: "10.5072/zenodo.610828"
+jel:
+  - H20   # Taxation, subsidies, and revenue: general
+  - O17   # Formal and informal sectors; Shadow economy; Institutional arrangements
+  - F55   # International institutional arrangements
+  - H11   # Structure, scope, and performance of government
+  - D02   # Institutions: design, formation, operations, and impact
 ---
 \newpage
 

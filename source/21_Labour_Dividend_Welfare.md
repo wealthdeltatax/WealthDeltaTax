@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Labour Dividend Welfare"
 shortcode: "LDW"
 status: "draft"
-zenodo_doi: "10.5072/zenodo.610300"
 keywords:
     - Wealth Delta Tax
     - labour dividend
@@ -16,6 +15,15 @@ keywords:
     - occupational choice
     - welfare demand
     - cost of living
+zenodo_doi: "10.5072/zenodo.610840"
+jel:
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - D31   # Personal income, wealth, and their distributions
+  - J31   # Wage level and structure; Wage differentials
+  - I31   # General welfare; Well-being
+  - E21   # Consumption; Saving; Wealth
+  - H55   # Social security and public pensions
+  - J21   # Labor force and employment, size, and structure
 ---
 \newpage
 

@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Falsifiable Hypotheses"
 shortcode: "FAL"
 status: "draft"
-zenodo_doi: "10.5072/zenodo.610302"
 keywords:
     - Wealth Delta Tax
     - falsifiable hypotheses
@@ -12,6 +11,14 @@ keywords:
     - accumulation-point efficiency
     - automation resilience
     - hostile modelling
+zenodo_doi: "10.5072/zenodo.610842"
+jel:
+  - H20   # Taxation, subsidies, and revenue: general
+  - B41   # Economic methodology
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - D61   # Allocative efficiency; Cost-benefit analysis
+  - C52   # Model evaluation, validation, and selection
+  - E62   # Fiscal policy; Government expenditures and related policies
 ---
 \newpage
 

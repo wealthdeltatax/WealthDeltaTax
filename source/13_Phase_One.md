@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Phase One"
 shortcode: "PHASE1"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610282"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -17,6 +16,14 @@ keywords:
     - policy stability
     - tax reform
     - implementation politics
+zenodo_doi: "10.5072/zenodo.610822"
+jel:
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - H83   # Public administration; Public sector accounting and audits
+  - C81   # Methodology for collecting, estimating, and organizing microeconomic data
+  - H26   # Tax evasion and avoidance
+  - H11   # Structure, scope, and performance of government
+  - D82   # Asymmetric and private information; Mechanism design
 ---
 \newpage
 

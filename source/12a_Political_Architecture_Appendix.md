@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Political Architecture Appendix"
 shortcode: "POL.A"
 status: "draft"
-zenodo_doi: "10.5072/zenodo.610280"
 keywords:
     - Wealth Delta Tax
     - Phase One
@@ -17,6 +16,14 @@ keywords:
     - corporate tax transition
     - fiscal externality
     - OBR independence
+zenodo_doi: "10.5072/zenodo.610820"
+jel:
+  - H20   # Taxation, subsidies, and revenue: general
+  - D72   # Political processes: rent-seeking, lobbying, elections, legislatures
+  - P16   # Political economy
+  - H11   # Structure, scope, and performance of government
+  - D71   # Social choice; Clubs; Committees; Associations
+  - N40   # Economic history: government, war, law, and regulation: general
 ---
 \newpage
 

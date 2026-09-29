@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Parameter Sweeps and Governing Council Calibration"
 shortcode: "SWEEPS"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610268"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -18,6 +17,13 @@ keywords:
     - sensitivity analysis
     - joint parameter surfaces
     - Phase One calibration
+zenodo_doi: "10.5072/zenodo.610808"
+jel:
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - C63   # Computational techniques; Simulation modeling
+  - D82   # Asymmetric and private information; Mechanism design
+  - H21   # Efficiency; Optimal taxation
+  - G17   # Financial forecasting and simulation
 ---
 \newpage
 

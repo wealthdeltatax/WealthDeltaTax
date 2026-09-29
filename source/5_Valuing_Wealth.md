@@ -17,7 +17,14 @@ keywords:
     - self-assessed valuation
     - declaration incentives
     - unrealised gains
-zenodo_doi: "10.5072/zenodo.610246"
+zenodo_doi: "10.5072/zenodo.610788"
+jel:
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - D82   # Asymmetric and private information; Mechanism design
+  - G12   # Asset pricing; Trading volume; Bond interest rates
+  - D44   # Auctions
+  - H21   # Efficiency; Optimal taxation
+  - G13   # Contingent pricing; Futures pricing
 ---
 \newpage
 

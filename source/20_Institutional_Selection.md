@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Fiscal Architecture and Institutional Selection"
 shortcode: "INST"
 status: "draft"
-zenodo_doi: "10.5072/zenodo.610298"
 keywords:
     - Wealth Delta Tax
     - institutional fitness
@@ -16,6 +15,15 @@ keywords:
     - developmental authoritarianism
     - memetic diffusion
     - labour dividend
+zenodo_doi: "10.5072/zenodo.610838"
+jel:
+  - P16   # Political economy
+  - H20   # Taxation, subsidies, and revenue: general
+  - D72   # Political processes: rent-seeking, lobbying, elections, legislatures
+  - F55   # International institutional arrangements
+  - D02   # Institutions: design, formation, operations, and impact
+  - P48   # Political economy: public enterprise, public-private enterprises, privatization
+  - N40   # Economic history: government, war, law, and regulation: general
 ---
 \newpage
 

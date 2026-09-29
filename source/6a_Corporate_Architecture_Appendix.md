@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Corporate Architecture Appendix"
 shortcode: "CORP.A"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610256"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -17,6 +16,12 @@ keywords:
     - transitional taxation
     - corporate tax transition
     - tax intermediaries
+zenodo_doi: "10.5072/zenodo.610796"
+jel:
+  - H25   # Business taxes and subsidies
+  - G32   # Financing policy; Financial risk and risk management
+  - C61   # Optimization techniques; Programming models; Dynamic analysis
+  - G12   # Asset pricing; Trading volume; Bond interest rates
 ---
 \newpage
 

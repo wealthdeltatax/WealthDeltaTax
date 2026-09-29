@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Rates and Revenue Appendix"
 shortcode: "RATES.A"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610266"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -17,6 +16,12 @@ keywords:
     - taxpayer cohort model
     - reproducible modelling
     - Python simulation
+zenodo_doi: "10.5072/zenodo.610806"
+jel:
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - C63   # Computational techniques; Simulation modeling
+  - G17   # Financial forecasting and simulation
+  - C80   # Data collection and data estimation methodology: general
 ---
 \newpage
 

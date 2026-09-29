@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Environmental Effects and Transmission Channels"
 shortcode: "ENV"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610284"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -18,6 +17,15 @@ keywords:
     - tax-base migration
     - declaration equilibrium
     - capital mobility
+zenodo_doi: "10.5072/zenodo.610824"
+jel:
+  - E62   # Fiscal policy; Government expenditures and related policies
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - G11   # Portfolio choice; Investment decisions
+  - E22   # Capital; Investment (including inventories); Capacity
+  - J24   # Human capital; Skills; Occupational choice; Labor productivity
+  - O33   # Technological change: choices and consequences; Diffusion processes
+  - E32   # Business fluctuations; Cycles
 ---
 \newpage
 

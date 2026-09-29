@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Behavioural Robustness — Supporting Analysis"
 shortcode: "BEHAV.A"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610274"
 keywords:
     - Wealth Delta Tax
     - behavioural robustness
@@ -13,6 +12,12 @@ keywords:
     - membrane monitoring
     - Agrawal externality
     - phase sequencing
+zenodo_doi: "10.5072/zenodo.610814"
+jel:
+  - H26   # Tax evasion and avoidance
+  - D91   # Micro-based behavioral economics: role and effects of psychological, emotional, social, and cognitive factors
+  - F22   # International migration
+  - G11   # Portfolio choice; Investment decisions
 ---
 \newpage
 

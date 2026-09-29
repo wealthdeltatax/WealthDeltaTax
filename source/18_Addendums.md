@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Addendum: Implementation Calibration Examples"
 shortcode: "ADD"
 status: "draft"
-zenodo_doi: "10.5072/zenodo.610292"
 keywords:
     - Wealth Delta Tax
     - implementation calibration
@@ -16,6 +15,13 @@ keywords:
     - policy implementation
     - tax-system design
     - worked calibration examples
+zenodo_doi: "10.5072/zenodo.610832"
+jel:
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - H83   # Public administration; Public sector accounting and audits
+  - D71   # Social choice; Clubs; Committees; Associations
+  - H11   # Structure, scope, and performance of government
+  - D82   # Asymmetric and private information; Mechanism design
 ---
 \newpage
 

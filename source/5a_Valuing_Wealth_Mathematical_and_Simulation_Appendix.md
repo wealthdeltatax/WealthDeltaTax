@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Valuing Wealth — Mathematical and Simulation Appendix"
 shortcode: "VAL.A"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610248"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -18,6 +17,13 @@ keywords:
     - parameter sensitivity
     - N-crossing
     - Route D auction
+zenodo_doi: "10.5072/zenodo.610790"
+jel:
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - D82   # Asymmetric and private information; Mechanism design
+  - C61   # Optimization techniques; Programming models; Dynamic analysis
+  - G12   # Asset pricing; Trading volume; Bond interest rates
+  - D44   # Auctions
 ---
 \newpage
 

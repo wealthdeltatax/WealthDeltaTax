@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: The Moral and Philosophical Foundations of the WDT"
 shortcode: "MF"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610238"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -17,6 +16,13 @@ keywords:
     - social contract
     - political equality
     - intergenerational wealth
+zenodo_doi: "10.5072/zenodo.610780"
+jel:
+  - H20   # Taxation, subsidies, and revenue: general
+  - D63   # Equity, justice, inequality, and other normative criteria and measurement
+  - D70   # Analysis of collective decision-making: general
+  - P16   # Political economy
+  - B40   # Economic methodology: general
 ---
 \newpage
 

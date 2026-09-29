@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Behavioural Robustness and Administrative Experience"
 shortcode: "BEHAV"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610272"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -18,6 +17,14 @@ keywords:
     - migration
     - enforcement
     - phase sequencing
+zenodo_doi: "10.5072/zenodo.610812"
+jel:
+  - H26   # Tax evasion and avoidance
+  - D91   # Micro-based behavioral economics: role and effects of psychological, emotional, social, and cognitive factors
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - F22   # International migration
+  - D82   # Asymmetric and private information; Mechanism design
+  - H11   # Structure, scope, and performance of government
 ---
 \newpage
 

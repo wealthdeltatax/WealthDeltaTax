@@ -16,7 +16,12 @@ keywords:
     - auction governance
     - appointment mechanisms
     - fiscal administration
-zenodo_doi: "10.5072/zenodo.610262"
+zenodo_doi: "10.5072/zenodo.610802"
+jel:
+  - H11   # Structure, scope, and performance of government
+  - D71   # Social choice; Clubs; Committees; Associations
+  - K34   # Tax law
+  - H83   # Public administration; Public sector accounting and audits
 ---
 \newpage
 

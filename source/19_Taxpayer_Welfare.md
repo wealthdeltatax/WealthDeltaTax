@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Taxpayer Welfare Comparison Across Tax Systems at Revenue Equivalence"
 shortcode: "WFR"
 status: "draft"
-zenodo_doi: "10.5072/zenodo.610294"
 keywords:
     - Wealth Delta Tax
     - welfare comparison
@@ -10,6 +9,15 @@ keywords:
     - capital gains tax lock-in
     - return heterogeneity
     - revenue equivalence
+zenodo_doi: "10.5072/zenodo.610834"
+jel:
+  - H21   # Efficiency; Optimal taxation
+  - D31   # Personal income, wealth, and their distributions
+  - G11   # Portfolio choice; Investment decisions
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - D61   # Allocative efficiency; Cost-benefit analysis
+  - G12   # Asset pricing; Trading volume; Bond interest rates
+  - C61   # Optimization techniques; Programming models; Dynamic analysis
 ---
 \newpage
 

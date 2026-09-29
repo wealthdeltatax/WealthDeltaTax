@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Corporate Architecture"
 shortcode: "CORP"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610252"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -17,6 +16,14 @@ keywords:
     - foreign ownership
     - tax incidence
     - corporate tax transition
+zenodo_doi: "10.5072/zenodo.610794"
+jel:
+  - H25   # Business taxes and subsidies
+  - G32   # Financing policy; Financial risk and risk management
+  - H26   # Tax evasion and avoidance
+  - G34   # Mergers; Acquisitions; Restructuring; Corporate governance
+  - D82   # Asymmetric and private information; Mechanism design
+  - G12   # Asset pricing; Trading volume; Bond interest rates
 ---
 \newpage
 

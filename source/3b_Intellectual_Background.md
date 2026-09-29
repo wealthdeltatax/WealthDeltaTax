@@ -2,7 +2,6 @@
 title: "The Wealth Delta Tax: Intellectual Background and Reference Guide"
 shortcode: "LR.B"
 status: "active"
-zenodo_doi: "10.5072/zenodo.610242"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -17,6 +16,14 @@ keywords:
     - wealth inequality
     - democratic legitimacy
     - international tax coordination
+zenodo_doi: "10.5072/zenodo.610784"
+jel:
+  - H20   # Taxation, subsidies, and revenue: general
+  - H24   # Personal income and other nonbusiness taxes and subsidies
+  - D31   # Personal income, wealth, and their distributions
+  - G11   # Portfolio choice; Investment decisions
+  - F22   # International migration
+  - B20   # History of economic thought since 1925: general
 ---
 \newpage
 
