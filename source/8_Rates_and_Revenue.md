@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Rates and Revenue"
 shortcode: "RATES"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610264"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -19,7 +19,6 @@ keywords:
     - government expenditure
     - fiscal transition
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

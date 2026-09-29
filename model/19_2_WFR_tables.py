@@ -1031,7 +1031,7 @@ def build_doc(data: dict) -> MdDoc:
 def main(json_path: Path = None, out_path: Path = None):
     if json_path is None:
         # default: same directory as this script
-        json_path = Path(__file__).parent / "OUTPUTS" / "WFR" / "wfr" / "wfr_results.json"
+        json_path = Path(__file__).parent / "OUTPUTS" / "WFR" / "wfr_results.json"
     if out_path is None:
         out_path = json_path.parent / "WFR_appendix_tables.md"
 

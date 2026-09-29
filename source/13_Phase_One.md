@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Phase One"
 shortcode: "PHASE1"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610282"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -18,7 +18,6 @@ keywords:
     - tax reform
     - implementation politics
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}
@@ -29,6 +28,8 @@ keywords:
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 20 September 2026 | Crosslinks added: §6.3 Agrawal cross-base externality footer note now cites (BEHAV.A §D) alongside (BEHAV §9.2); §7 conclusion extended with forward pointer to (FAL) as the falsification counterpart to the Phase One empirical cluster agenda |
 | 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
+
+\newpage
 
 # Abstract {.unnumbered .unlisted}
 

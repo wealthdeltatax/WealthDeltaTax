@@ -53,7 +53,6 @@ What is NOT cached (cheap, recomputed in output scripts)
 
 import json
 import math
-from copy import deepcopy
 from pathlib import Path
 
 import numpy as np
@@ -66,7 +65,7 @@ from wdt_analytics import (
     run_param_sweep, run_g_sweep, run_synthetic_sweep,
 )
 import wdt_analytics as _A
-import rates_core as model
+from rates_core import tcm_burden_sweep as _tcm_burden_sweep
 
 # ── Output path ───────────────────────────────────────────────────────────────
 _CACHE    = Path(__file__).parent / 'OUTPUTS' / 'sweep_cache.json'
@@ -91,61 +90,8 @@ def _jsonify(obj):
     return obj
 
 
-# ── TCM burden sweep (duplicated from 16_7 to avoid import) ──────────────────
-
-def _weighted_quantiles(vals, weights, quantiles):
-    if not vals:
-        return [None] * len(quantiles)
-    pairs = sorted(zip(vals, weights), key=lambda x: x[0])
-    sv, sw = zip(*pairs)
-    total = sum(sw)
-    cum, cum_w = 0.0, []
-    for w in sw:
-        cum_w.append(cum + 0.5 * w / total)
-        cum += w / total
-    results = []
-    for q in quantiles:
-        if q <= cum_w[0]:
-            results.append(sv[0]); continue
-        if q >= cum_w[-1]:
-            results.append(sv[-1]); continue
-        for i in range(1, len(cum_w)):
-            if cum_w[i] >= q:
-                span_w = cum_w[i] - cum_w[i - 1]
-                frac = (q - cum_w[i - 1]) / span_w if span_w > 0 else 0.0
-                results.append(sv[i - 1] + frac * (sv[i] - sv[i - 1]))
-                break
-    return results
-
-
-def _tcm_burden_sweep(p_base, param_key, values):
-    results = []
-    for v in values:
-        p = deepcopy(p_base)
-        p[param_key] = v
-        if p['tau_0'] >= p['tau_m'] or p['W_min'] < 0:
-            continue
-        try:
-            tcm = model.run_tcm(p, N=p_base['N'], N_fill=1)
-        except Exception:
-            continue
-        wb_vals, er_vals, pops = [], [], []
-        for tier in p['tiers']:
-            diff = tier['differential']
-            for cell in tcm[diff]:
-                wb_vals.append(cell['wealth_burden'])
-                er_vals.append(cell['eff_rate'])
-                pops.append(cell['cell_pop'])
-        wb_q = _weighted_quantiles(wb_vals, pops, [0.0, 0.25, 0.50, 0.75, 1.0])
-        er_q = _weighted_quantiles(er_vals, pops, [0.0, 0.25, 0.50, 0.75, 1.0])
-        results.append({
-            'value':  v, 'x_raw': v,
-            'wb_min': wb_q[0], 'wb_q25': wb_q[1], 'wb_med': wb_q[2],
-            'wb_q75': wb_q[3], 'wb_max': wb_q[4],
-            'er_min': er_q[0], 'er_q25': er_q[1], 'er_med': er_q[2],
-            'er_q75': er_q[3], 'er_max': er_q[4],
-        })
-    return results
+# _tcm_burden_sweep and _weighted_quantiles now live in rates_core.
+# Imported above as _tcm_burden_sweep.
 
 
 # ── VAL.S section helpers ─────────────────────────────────────────────────────

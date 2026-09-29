@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Behavioural Robustness — Supporting Analysis"
 shortcode: "BEHAV.A"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610274"
 keywords:
     - Wealth Delta Tax
     - behavioural robustness
@@ -14,7 +14,6 @@ keywords:
     - Agrawal externality
     - phase sequencing
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

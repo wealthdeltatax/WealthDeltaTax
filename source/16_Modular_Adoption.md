@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Modular Adoption"
 shortcode: "MOD"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610288"
 keywords:
     - Wealth Delta Tax
     - modular tax reform
@@ -17,7 +17,6 @@ keywords:
     - implementation strategy
     - institutional adoption
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

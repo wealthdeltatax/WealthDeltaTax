@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Position Closure"
 shortcode: "CLOSE"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610276"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -19,7 +19,6 @@ keywords:
     - lifetime contribution envelope
     - tax settlement
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

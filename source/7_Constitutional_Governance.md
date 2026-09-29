@@ -16,8 +16,8 @@ keywords:
     - anti-capture mechanisms
     - public finance governance
     - tax administration
+zenodo_doi: "10.5072/zenodo.610258"
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

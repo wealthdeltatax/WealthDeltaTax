@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Behavioural Robustness and Administrative Experience"
 shortcode: "BEHAV"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610272"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -19,7 +19,6 @@ keywords:
     - enforcement
     - phase sequencing
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

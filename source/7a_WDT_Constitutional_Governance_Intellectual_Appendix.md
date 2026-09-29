@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Constitutional Governance Intellectual Appendix"
 shortcode: "GOV.A"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610260"
 keywords:
     - Wealth Delta Tax
     - constitutional governance
@@ -18,7 +18,6 @@ keywords:
     - taxpayer-state relations
     - governance robustness
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

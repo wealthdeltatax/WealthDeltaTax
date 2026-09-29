@@ -1,6 +1,6 @@
 # WDT Rates and Revenue — Model Output
 
-**Run date:** 2026-09-27  
+**Run date:** 2026-09-28  
 **Scenario:** 2000 Balanced  
 **Model version:** v7  
 **Parameters file:** `WDT_Params.toml`  

@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Parameter Sweeps and Governing Council Calibration"
 shortcode: "SWEEPS"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610268"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -19,7 +19,6 @@ keywords:
     - joint parameter surfaces
     - Phase One calibration
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

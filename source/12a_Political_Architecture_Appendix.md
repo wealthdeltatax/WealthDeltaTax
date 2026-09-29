@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Political Architecture Appendix"
 shortcode: "POL.A"
 status: "draft"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610280"
 keywords:
     - Wealth Delta Tax
     - Phase One
@@ -18,7 +18,6 @@ keywords:
     - fiscal externality
     - OBR independence
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

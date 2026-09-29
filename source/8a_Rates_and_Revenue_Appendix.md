@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Rates and Revenue Appendix"
 shortcode: "RATES.A"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610266"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -18,7 +18,6 @@ keywords:
     - reproducible modelling
     - Python simulation
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

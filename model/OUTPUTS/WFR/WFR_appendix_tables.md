@@ -1,6 +1,6 @@
 # WFR Welfare Comparison Model — Appendix Tables
 
-*Generated: 2026-09-26*
+*Generated: 2026-09-28*
 *Revenue target: E[T] = 2% of W₀. Canonical N = 30. Scenario start = 2000.*
 *All CEW values relative to no-tax benchmark. Negative = welfare cost.*
 

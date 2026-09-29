@@ -1055,7 +1055,7 @@ def fig_4_5_3x_param(m5: dict, out_dir: Path, param_name: str,
 
 def main(json_path: Path = None, out_dir: Path = None, modules: list = None):
     if json_path is None:
-        json_path = Path(__file__).parent / "OUTPUTS" / "WFR" / "wfr" / "wfr_results.json"
+        json_path = Path(__file__).parent / "OUTPUTS" / "WFR" / "wfr_results.json"
     if out_dir is None:
         out_dir = json_path.parent / "charts"
     if modules is None:

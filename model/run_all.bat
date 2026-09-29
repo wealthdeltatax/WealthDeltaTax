@@ -10,22 +10,22 @@ echo Current directory:
 cd
 
 for %%f in (
-    "5_3_VAL_tables.py"
-    "5_4_VAL_charts.py"
-    "5_5_VAL_generate_worked_examples.py"
-    "8_2_RATES_tables.py"
-    "8_3_RATES_charts.py"
-    "sweeps_core.py"
-    "16_1_SWEEPS_V_tables.py"
-    "16_2_SWEEPS_V_charts.py"
-    "16_3_SWEEPS_R_tables.py"
-    "16_4_SWEEPS_R_charts.py"
-    "19_2_module1_baseline.py"
-    "19_3_module2_progression.py"
-    "19_4_module3_lockin.py"
-    "19_5_module4_heterogeneous.py"
-    "19_6_module5_sweeps.py"
-    "welfare_tables.py"
+    "val_core.py",
+    "rates_core.py",
+    "sweeeps_core.py",
+    "wfr_core.py",
+    "ldw_core.py",
+    "5_3_VAL_tables.py",
+    "5_4_VAL_charts.py",
+    "5_5_VAL_generate_worked_examples.py",
+    "8_2_RATES_tables.py",
+    "8_3_RATES_charts.py",
+    "16_1_SWEEPS_V_tables.py",
+    "16_2_SWEEPS_V_charts.py",
+    "16_3_SWEEPS_R_tables.py",
+    "16_4_SWEEPS_R_charts.py",
+    "19_2_WFR_tables.py",
+    "19_3_WFR_charts.py"
 ) do (
     echo.
     echo ========================================

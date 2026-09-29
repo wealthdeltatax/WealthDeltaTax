@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Labour Dividend Welfare"
 shortcode: "LDW"
 status: "draft"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610300"
 keywords:
     - Wealth Delta Tax
     - labour dividend
@@ -17,7 +17,6 @@ keywords:
     - welfare demand
     - cost of living
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

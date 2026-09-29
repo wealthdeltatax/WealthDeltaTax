@@ -16,8 +16,8 @@ keywords:
     - auction governance
     - appointment mechanisms
     - fiscal administration
+zenodo_doi: "10.5072/zenodo.610262"
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

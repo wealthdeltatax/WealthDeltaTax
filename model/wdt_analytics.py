@@ -95,10 +95,7 @@ from typing import List, Optional, Sequence
 import numpy as np
 
 from wdt_core import load_params as _core_load_params, run_sim, tau
-
-# ── rates_model re-export ────────────────────────────────────────────────────
-# Imported here so 16_6/16_7 can replace `from rates_s_helpers import model`
-# with `from wdt_analytics import model`.
+from wdt_fmt import median, mean, success
 import rates_core
 
 # Default TOML path — mirrors rates_s_helpers.DEFAULT_PARAMS resolution
@@ -571,62 +568,13 @@ def draw_c1_heatmap(
 
 # ─────────────────────────────────────────────────────────────────────────────
 # STATISTICAL PRIMITIVES
+# Canonical implementations live in wdt_fmt to break the circular import
+# between this module (which calls rates_core sweep functions) and rates_core
+# (which needs these helpers).  Re-exported here for backward compatibility
+# so existing `from wdt_analytics import median` call sites keep working.
 # ─────────────────────────────────────────────────────────────────────────────
 
-def median(vals) -> Optional[float]:
-    """
-    Median of a sequence, ignoring None values.
-
-    Returns None if the filtered sequence is empty.
-
-    Migration notes
-    ---------------
-    rates_s_helpers.median(vals)  →  median(vals)  — identical.
-    rates_model._median(vals)     →  median(vals)  — identical behaviour,
-                                      now public and accessible.
-    """
-    s = sorted(v for v in vals if v is not None)
-    if not s:
-        return None
-    n = len(s)
-    return s[n // 2] if n % 2 else (s[n // 2 - 1] + s[n // 2]) / 2
-
-
-def mean(vals) -> Optional[float]:
-    """
-    Arithmetic mean of a sequence, ignoring None values.
-
-    Returns None if the filtered sequence is empty.
-
-    Migration notes
-    ---------------
-    rates_s_helpers.mean(vals)  →  mean(vals)  — identical.
-    rates_model._mean(vals)     →  mean(vals)  — identical behaviour.
-    """
-    v = [x for x in vals if x is not None]
-    return sum(v) / len(v) if v else None
-
-
-def success(r: dict) -> bool:
-    """
-    Return True if a sweep result row represents a 'successful' scenario.
-
-    Success (v8) = LRR fills within the modelling window AND LRR never
-    fails (lrr_failure_year is None).  The older v7 definition used
-    srr_breach_year / srr_breach_covered, which are retired in v8.
-
-    Parameters
-    ----------
-    r : dict   one row from run_start_year_sweep() results
-
-    Migration notes
-    ---------------
-    rates_s_helpers.success(r)  →  success(r)
-    rates_model._success(r)     →  success(r)
-    v8: srr_breach_year / srr_breach_covered replaced by lrr_failure_year.
-    """
-    return (r.get('lrr_fill_year') is not None and
-            r.get('lrr_failure_year') is None)
+# median, mean, success imported from wdt_fmt at the top of this file.
 
 
 # ─────────────────────────────────────────────────────────────────────────────

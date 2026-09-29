@@ -15,8 +15,8 @@ keywords:
  - tax-base reform
  - progressive taxation
  - fiscal transition
+zenodo_doi: "10.5072/zenodo.610236"
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

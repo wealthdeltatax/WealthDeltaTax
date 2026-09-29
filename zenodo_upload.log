@@ -1,0 +1,1171 @@
+2026-09-28 11:57:27,062  ERROR    No API token set. Edit SANDBOX_TOKEN / LIVE_TOKEN at the top of this file, or set ZENODO_SANDBOX_TOKEN / ZENODO_LIVE_TOKEN environment variables.
+2026-09-28 12:21:18,503  INFO     Zenodo bulk upload � environment: SANDBOX
+2026-09-28 12:21:18,516  INFO     PDF directory:      C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927
+2026-09-28 12:21:18,516  INFO     Dry run:            True
+2026-09-28 12:21:18,533  WARNING  [WP] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,533  WARNING  [MF] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,547  WARNING  [LR.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,553  WARNING  [LR.B] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,553  WARNING  [JUR] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,562  WARNING  [VAL] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,573  WARNING  [VAL.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,579  WARNING  [VAL.B] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,585  WARNING  [CORP] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,590  WARNING  [CORP.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,599  WARNING  [GOV] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,603  WARNING  [GOV.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,612  WARNING  [GOV.B] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,612  WARNING  [RATES.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,629  WARNING  [SWEEPS.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,629  WARNING  [BEHAV] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,646  WARNING  [BEHAV.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,647  WARNING  [CLOSE] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,656  WARNING  [POL] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,660  WARNING  [POL.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,666  WARNING  [PHASE1] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,669  WARNING  [ENV] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,676  WARNING  [FM] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,680  WARNING  [MOD] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,689  WARNING  [ADD] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,698  WARNING  [WFR] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,702  WARNING  [WFR.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,708  WARNING  [INST] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,714  WARNING  [LDW] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,719  WARNING  [FAL] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:21:18,720  INFO     
+Papers to process: 33
+
+2026-09-28 12:21:18,720  INFO     
+[1/33] WP  �  The Wealth Delta Tax: The White Paper
+2026-09-28 12:21:18,720  ERROR    [WP] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\WP.pdf � SKIPPED
+2026-09-28 12:21:18,721  INFO     
+[2/33] MF  �  The Wealth Delta Tax: The Moral and Philosophical Foundation
+2026-09-28 12:21:18,721  ERROR    [MF] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\MF.pdf � SKIPPED
+2026-09-28 12:21:18,721  INFO     
+[3/33] LR.A  �  The Wealth Delta Tax: Research Gaps in the Existing Literatu
+2026-09-28 12:21:18,721  ERROR    [LR.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\LR.A.pdf � SKIPPED
+2026-09-28 12:21:18,722  INFO     
+[4/33] LR.B  �  The Wealth Delta Tax: Intellectual Background and Reference 
+2026-09-28 12:21:18,722  ERROR    [LR.B] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\LR.B.pdf � SKIPPED
+2026-09-28 12:21:18,722  INFO     
+[5/33] JUR  �  The Wealth Delta Tax: UK Jurisdiction and Data Reference Pap
+2026-09-28 12:21:18,723  ERROR    [JUR] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\JUR.pdf � SKIPPED
+2026-09-28 12:21:18,723  INFO     
+[6/33] VAL  �  The Wealth Delta Tax: Valuing Wealth
+2026-09-28 12:21:18,723  ERROR    [VAL] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\VAL.pdf � SKIPPED
+2026-09-28 12:21:18,723  INFO     
+[7/33] VAL.A  �  The Wealth Delta Tax: Valuing Wealth � Mathematical and Simu
+2026-09-28 12:21:18,723  ERROR    [VAL.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\VAL.A.pdf � SKIPPED
+2026-09-28 12:21:18,723  INFO     
+[8/33] VAL.B  �  The Wealth Delta Tax: Valuing Wealth � Worked Examples Appen
+2026-09-28 12:21:18,724  ERROR    [VAL.B] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\VAL.B.pdf � SKIPPED
+2026-09-28 12:21:18,724  INFO     
+[9/33] CORP  �  The Wealth Delta Tax: Corporate Architecture
+2026-09-28 12:21:18,724  ERROR    [CORP] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\CORP.pdf � SKIPPED
+2026-09-28 12:21:18,724  INFO     
+[10/33] CORP.A  �  The Wealth Delta Tax: Corporate Architecture Appendix
+2026-09-28 12:21:18,724  ERROR    [CORP.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\CORP.A.pdf � SKIPPED
+2026-09-28 12:21:18,724  INFO     
+[11/33] GOV  �  The Wealth Delta Tax: Constitutional Governance
+2026-09-28 12:21:18,725  ERROR    [GOV] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\GOV.pdf � SKIPPED
+2026-09-28 12:21:18,725  INFO     
+[12/33] GOV.A  �  The Wealth Delta Tax: Constitutional Governance Intellectual
+2026-09-28 12:21:18,725  ERROR    [GOV.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\GOV.A.pdf � SKIPPED
+2026-09-28 12:21:18,725  INFO     
+[13/33] GOV.B  �  The Wealth Delta Tax: Constitutional Governance Operational 
+2026-09-28 12:21:18,726  ERROR    [GOV.B] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\GOV.B.pdf � SKIPPED
+2026-09-28 12:21:18,726  INFO     
+[14/33] RATES  �  The Wealth Delta Tax: Rates and Revenue
+2026-09-28 12:21:18,728  INFO     
+[15/33] RATES.A  �  The Wealth Delta Tax: Rates and Revenue Appendix
+2026-09-28 12:21:18,728  ERROR    [RATES.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\RATES.A.pdf � SKIPPED
+2026-09-28 12:21:18,728  INFO     
+[16/33] SWEEPS  �  The Wealth Delta Tax: Parameter Sweeps and Governing Council
+2026-09-28 12:21:18,731  INFO     
+[17/33] SWEEPS.A  �  The Wealth Delta Tax: Parameter Sweeps and Governing Council
+2026-09-28 12:21:18,731  ERROR    [SWEEPS.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\SWEEPS.A.pdf � SKIPPED
+2026-09-28 12:21:18,731  INFO     
+[18/33] BEHAV  �  The Wealth Delta Tax: Behavioural Robustness and Administrat
+2026-09-28 12:21:18,731  ERROR    [BEHAV] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\BEHAV.pdf � SKIPPED
+2026-09-28 12:21:18,732  INFO     
+[19/33] BEHAV.A  �  The Wealth Delta Tax: Behavioural Robustness � Supporting An
+2026-09-28 12:21:18,732  ERROR    [BEHAV.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\BEHAV.A.pdf � SKIPPED
+2026-09-28 12:21:18,732  INFO     
+[20/33] CLOSE  �  The Wealth Delta Tax: Position Closure
+2026-09-28 12:21:18,732  ERROR    [CLOSE] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\CLOSE.pdf � SKIPPED
+2026-09-28 12:21:18,733  INFO     
+[21/33] POL  �  The Wealth Delta Tax: Political Architecture
+2026-09-28 12:21:18,733  ERROR    [POL] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\POL.pdf � SKIPPED
+2026-09-28 12:21:18,733  INFO     
+[22/33] POL.A  �  The Wealth Delta Tax: Political Architecture Appendix
+2026-09-28 12:21:18,733  ERROR    [POL.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\POL.A.pdf � SKIPPED
+2026-09-28 12:21:18,733  INFO     
+[23/33] PHASE1  �  The Wealth Delta Tax: Phase One
+2026-09-28 12:21:18,734  ERROR    [PHASE1] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\PHASE1.pdf � SKIPPED
+2026-09-28 12:21:18,734  INFO     
+[24/33] ENV  �  The Wealth Delta Tax: Environmental Effects and Transmission
+2026-09-28 12:21:18,734  ERROR    [ENV] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\ENV.pdf � SKIPPED
+2026-09-28 12:21:18,734  INFO     
+[25/33] FM  �  The Wealth Delta Tax: First Mover
+2026-09-28 12:21:18,734  ERROR    [FM] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\FM.pdf � SKIPPED
+2026-09-28 12:21:18,734  INFO     
+[26/33] MOD  �  The Wealth Delta Tax: Modular Adoption
+2026-09-28 12:21:18,735  ERROR    [MOD] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\MOD.pdf � SKIPPED
+2026-09-28 12:21:18,735  INFO     
+[27/33] SCOPE  �  The Wealth Delta Tax: Scope Boundary � Questions Outside Thi
+2026-09-28 12:21:18,737  WARNING  [SCOPE] No abstract found � would use fallback description
+2026-09-28 12:21:18,738  INFO     
+[28/33] ADD  �  The Wealth Delta Tax: Addendum: Implementation Calibration E
+2026-09-28 12:21:18,738  ERROR    [ADD] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\ADD.pdf � SKIPPED
+2026-09-28 12:21:18,738  INFO     
+[29/33] WFR  �  The Wealth Delta Tax: Taxpayer Welfare Comparison Across Tax
+2026-09-28 12:21:18,739  ERROR    [WFR] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\WFR.pdf � SKIPPED
+2026-09-28 12:21:18,739  INFO     
+[30/33] WFR.A  �  The Wealth Delta Tax: Taxpayer Welfare Comparison Appendix T
+2026-09-28 12:21:18,739  ERROR    [WFR.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\WFR.A.pdf � SKIPPED
+2026-09-28 12:21:18,739  INFO     
+[31/33] INST  �  The Wealth Delta Tax: Fiscal Architecture and Institutional 
+2026-09-28 12:21:18,739  ERROR    [INST] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\INST.pdf � SKIPPED
+2026-09-28 12:21:18,740  INFO     
+[32/33] LDW  �  The Wealth Delta Tax: Labour Dividend Welfare
+2026-09-28 12:21:18,740  ERROR    [LDW] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\LDW.pdf � SKIPPED
+2026-09-28 12:21:18,740  INFO     
+[33/33] FAL  �  The Wealth Delta Tax: Falsifiable Hypotheses
+2026-09-28 12:21:18,741  ERROR    [FAL] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\FAL.pdf � SKIPPED
+2026-09-28 12:21:18,745  WARNING  Failed: ['WP', 'MF', 'LR.A', 'LR.B', 'JUR', 'VAL', 'VAL.A', 'VAL.B', 'CORP', 'CORP.A', 'GOV', 'GOV.A', 'GOV.B', 'RATES.A', 'SWEEPS.A', 'BEHAV', 'BEHAV.A', 'CLOSE', 'POL', 'POL.A', 'PHASE1', 'ENV', 'FM', 'MOD', 'ADD', 'WFR', 'WFR.A', 'INST', 'LDW', 'FAL']
+2026-09-28 12:23:55,405  ERROR    No API token set. Edit SANDBOX_TOKEN / LIVE_TOKEN at the top of this file, or set ZENODO_SANDBOX_TOKEN / ZENODO_LIVE_TOKEN environment variables.
+2026-09-28 12:24:07,970  INFO     Zenodo bulk upload � environment: SANDBOX
+2026-09-28 12:24:07,970  INFO     PDF directory:      C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927
+2026-09-28 12:24:07,971  INFO     Dry run:            True
+2026-09-28 12:24:07,988  WARNING  [WP] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:07,998  WARNING  [MF] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:07,998  WARNING  [LR.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:07,998  WARNING  [LR.B] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,024  WARNING  [VAL.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,028  WARNING  [VAL.B] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,040  WARNING  [CORP.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,051  WARNING  [GOV.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,060  WARNING  [GOV.B] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,069  WARNING  [RATES.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,083  WARNING  [SWEEPS.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,091  WARNING  [BEHAV.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,096  WARNING  [CLOSE] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,104  WARNING  [POL.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,104  WARNING  [PHASE1] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,117  WARNING  [FM] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,134  WARNING  [WFR] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,138  WARNING  [WFR.A] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,147  WARNING  [LDW] No PDF found in C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927 � will fail unless --dry-run
+2026-09-28 12:24:08,151  INFO     
+Papers to process: 33
+
+2026-09-28 12:24:08,152  INFO     
+[1/33] WP  �  The Wealth Delta Tax: The White Paper
+2026-09-28 12:24:08,152  ERROR    [WP] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\WP.pdf � SKIPPED
+2026-09-28 12:24:08,152  INFO     
+[2/33] MF  �  The Wealth Delta Tax: The Moral and Philosophical Foundation
+2026-09-28 12:24:08,152  ERROR    [MF] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\MF.pdf � SKIPPED
+2026-09-28 12:24:08,152  INFO     
+[3/33] LR.A  �  The Wealth Delta Tax: Research Gaps in the Existing Literatu
+2026-09-28 12:24:08,153  ERROR    [LR.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\LR.A.pdf � SKIPPED
+2026-09-28 12:24:08,153  INFO     
+[4/33] LR.B  �  The Wealth Delta Tax: Intellectual Background and Reference 
+2026-09-28 12:24:08,153  ERROR    [LR.B] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\LR.B.pdf � SKIPPED
+2026-09-28 12:24:08,153  INFO     
+[5/33] JUR  �  The Wealth Delta Tax: UK Jurisdiction and Data Reference Pap
+2026-09-28 12:24:08,155  INFO     
+[6/33] VAL  �  The Wealth Delta Tax: Valuing Wealth
+2026-09-28 12:24:08,157  INFO     
+[7/33] VAL.A  �  The Wealth Delta Tax: Valuing Wealth � Mathematical and Simu
+2026-09-28 12:24:08,157  ERROR    [VAL.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\VAL.A.pdf � SKIPPED
+2026-09-28 12:24:08,157  INFO     
+[8/33] VAL.B  �  The Wealth Delta Tax: Valuing Wealth � Worked Examples Appen
+2026-09-28 12:24:08,158  ERROR    [VAL.B] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\VAL.B.pdf � SKIPPED
+2026-09-28 12:24:08,158  INFO     
+[9/33] CORP  �  The Wealth Delta Tax: Corporate Architecture
+2026-09-28 12:24:08,159  INFO     
+[10/33] CORP.A  �  The Wealth Delta Tax: Corporate Architecture Appendix
+2026-09-28 12:24:08,160  ERROR    [CORP.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\CORP.A.pdf � SKIPPED
+2026-09-28 12:24:08,160  INFO     
+[11/33] GOV  �  The Wealth Delta Tax: Constitutional Governance
+2026-09-28 12:24:08,162  INFO     
+[12/33] GOV.A  �  The Wealth Delta Tax: Constitutional Governance Intellectual
+2026-09-28 12:24:08,162  ERROR    [GOV.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\GOV.A.pdf � SKIPPED
+2026-09-28 12:24:08,162  INFO     
+[13/33] GOV.B  �  The Wealth Delta Tax: Constitutional Governance Operational 
+2026-09-28 12:24:08,163  ERROR    [GOV.B] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\GOV.B.pdf � SKIPPED
+2026-09-28 12:24:08,163  INFO     
+[14/33] RATES  �  The Wealth Delta Tax: Rates and Revenue
+2026-09-28 12:24:08,164  INFO     
+[15/33] RATES.A  �  The Wealth Delta Tax: Rates and Revenue Appendix
+2026-09-28 12:24:08,164  ERROR    [RATES.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\RATES.A.pdf � SKIPPED
+2026-09-28 12:24:08,165  INFO     
+[16/33] SWEEPS  �  The Wealth Delta Tax: Parameter Sweeps and Governing Council
+2026-09-28 12:24:08,166  INFO     
+[17/33] SWEEPS.A  �  The Wealth Delta Tax: Parameter Sweeps and Governing Council
+2026-09-28 12:24:08,166  ERROR    [SWEEPS.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\SWEEPS.A.pdf � SKIPPED
+2026-09-28 12:24:08,166  INFO     
+[18/33] BEHAV  �  The Wealth Delta Tax: Behavioural Robustness and Administrat
+2026-09-28 12:24:08,167  INFO     
+[19/33] BEHAV.A  �  The Wealth Delta Tax: Behavioural Robustness � Supporting An
+2026-09-28 12:24:08,167  ERROR    [BEHAV.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\BEHAV.A.pdf � SKIPPED
+2026-09-28 12:24:08,167  INFO     
+[20/33] CLOSE  �  The Wealth Delta Tax: Position Closure
+2026-09-28 12:24:08,168  ERROR    [CLOSE] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\CLOSE.pdf � SKIPPED
+2026-09-28 12:24:08,168  INFO     
+[21/33] POL  �  The Wealth Delta Tax: Political Architecture
+2026-09-28 12:24:08,169  INFO     
+[22/33] POL.A  �  The Wealth Delta Tax: Political Architecture Appendix
+2026-09-28 12:24:08,169  ERROR    [POL.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\POL.A.pdf � SKIPPED
+2026-09-28 12:24:08,169  INFO     
+[23/33] PHASE1  �  The Wealth Delta Tax: Phase One
+2026-09-28 12:24:08,170  ERROR    [PHASE1] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\PHASE1.pdf � SKIPPED
+2026-09-28 12:24:08,170  INFO     
+[24/33] ENV  �  The Wealth Delta Tax: Environmental Effects and Transmission
+2026-09-28 12:24:08,171  INFO     
+[25/33] FM  �  The Wealth Delta Tax: First Mover
+2026-09-28 12:24:08,171  ERROR    [FM] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\FM.pdf � SKIPPED
+2026-09-28 12:24:08,172  INFO     
+[26/33] MOD  �  The Wealth Delta Tax: Modular Adoption
+2026-09-28 12:24:08,173  INFO     
+[27/33] SCOPE  �  The Wealth Delta Tax: Scope Boundary � Questions Outside Thi
+2026-09-28 12:24:08,174  WARNING  [SCOPE] No abstract found � would use fallback description
+2026-09-28 12:24:08,174  INFO     
+[28/33] ADD  �  The Wealth Delta Tax: Addendum: Implementation Calibration E
+2026-09-28 12:24:08,176  INFO     
+[29/33] WFR  �  The Wealth Delta Tax: Taxpayer Welfare Comparison Across Tax
+2026-09-28 12:24:08,176  ERROR    [WFR] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\WFR.pdf � SKIPPED
+2026-09-28 12:24:08,176  INFO     
+[30/33] WFR.A  �  The Wealth Delta Tax: Taxpayer Welfare Comparison Appendix T
+2026-09-28 12:24:08,176  ERROR    [WFR.A] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\WFR.A.pdf � SKIPPED
+2026-09-28 12:24:08,176  INFO     
+[31/33] INST  �  The Wealth Delta Tax: Fiscal Architecture and Institutional 
+2026-09-28 12:24:08,178  INFO     
+[32/33] LDW  �  The Wealth Delta Tax: Labour Dividend Welfare
+2026-09-28 12:24:08,178  ERROR    [LDW] PDF not found: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927\LDW.pdf � SKIPPED
+2026-09-28 12:24:08,178  INFO     
+[33/33] FAL  �  The Wealth Delta Tax: Falsifiable Hypotheses
+2026-09-28 12:24:08,183  WARNING  Failed: ['WP', 'MF', 'LR.A', 'LR.B', 'VAL.A', 'VAL.B', 'CORP.A', 'GOV.A', 'GOV.B', 'RATES.A', 'SWEEPS.A', 'BEHAV.A', 'CLOSE', 'POL.A', 'PHASE1', 'FM', 'WFR', 'WFR.A', 'LDW']
+2026-09-28 12:25:21,645  INFO     ────────────────────────────────────────────────────────────
+2026-09-28 12:25:21,646  INFO     Zenodo bulk upload — environment: SANDBOX
+2026-09-28 12:25:21,646  INFO     PDF directory:      C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927
+2026-09-28 12:25:21,646  INFO     Dry run:            True
+2026-09-28 12:25:21,646  INFO     ────────────────────────────────────────────────────────────
+2026-09-28 12:25:21,863  INFO     
+Papers to process: 33
+
+2026-09-28 12:25:21,864  INFO     
+[1/33] WP  —  The Wealth Delta Tax: The White Paper
+2026-09-28 12:25:21,865  INFO     [WP] DRY RUN — PDF: The Wealth Delta Tax - Core - The White Paper.pdf (268,847 bytes)  abstract: ✓
+2026-09-28 12:25:21,865  INFO     
+[2/33] MF  —  The Wealth Delta Tax: The Moral and Philosophical Foundation
+2026-09-28 12:25:21,866  INFO     [MF] DRY RUN — PDF: The Wealth Delta Tax - Core - The Moral and Philosophical Foundations of the WDT.pdf (139,848 bytes)  abstract: ✓
+2026-09-28 12:25:21,866  INFO     
+[3/33] LR.A  —  The Wealth Delta Tax: Research Gaps in the Existing Literatu
+2026-09-28 12:25:21,867  INFO     [LR.A] DRY RUN — PDF: The Wealth Delta Tax - Prior Literature - Research Gaps in the Existing Literature.pdf (132,600 bytes)  abstract: ✓
+2026-09-28 12:25:21,868  INFO     
+[4/33] LR.B  —  The Wealth Delta Tax: Intellectual Background and Reference 
+2026-09-28 12:25:21,869  INFO     [LR.B] DRY RUN — PDF: The Wealth Delta Tax - Prior Literature - Intellectual Background and Reference Guide.pdf (240,406 bytes)  abstract: ✓
+2026-09-28 12:25:21,869  INFO     
+[5/33] JUR  —  The Wealth Delta Tax: UK Jurisdiction and Data Reference Pap
+2026-09-28 12:25:21,870  INFO     [JUR] DRY RUN — PDF: The Wealth Delta Tax - Jurisdiction - UK Jurisdiction and Data Reference Paper.pdf (158,022 bytes)  abstract: ✓
+2026-09-28 12:25:21,870  INFO     
+[6/33] VAL  —  The Wealth Delta Tax: Valuing Wealth
+2026-09-28 12:25:21,871  INFO     [VAL] DRY RUN — PDF: The Wealth Delta Tax - Mechanism and Valuation - Constitutional Governance Intellectual Appendix.pdf (132,830 bytes)  abstract: ✓
+2026-09-28 12:25:21,871  INFO     
+[7/33] VAL.A  —  The Wealth Delta Tax: Valuing Wealth — Mathematical and Simu
+2026-09-28 12:25:21,872  INFO     [VAL.A] DRY RUN — PDF: The Wealth Delta Tax - Mechanism and Valuation - Valuing Wealth Mathematical and Simulation Appendix.pdf (324,313 bytes)  abstract: ✗ MISSING
+2026-09-28 12:25:21,872  WARNING  [VAL.A] No abstract found — would use fallback description
+2026-09-28 12:25:21,872  INFO     
+[8/33] VAL.B  —  The Wealth Delta Tax: Valuing Wealth — Worked Examples Appen
+2026-09-28 12:25:21,873  INFO     [VAL.B] DRY RUN — PDF: The Wealth Delta Tax - Mechanism and Valuation - Valuing Wealth Worked Examples Appendix.pdf (143,966 bytes)  abstract: ✗ MISSING
+2026-09-28 12:25:21,873  WARNING  [VAL.B] No abstract found — would use fallback description
+2026-09-28 12:25:21,873  INFO     
+[9/33] CORP  —  The Wealth Delta Tax: Corporate Architecture
+2026-09-28 12:25:21,873  INFO     [CORP] DRY RUN — PDF: The Wealth Delta Tax - Mechanism and Valuation - Corporate Architecture Appendix.pdf (246,536 bytes)  abstract: ✓
+2026-09-28 12:25:21,874  INFO     
+[10/33] CORP.A  —  The Wealth Delta Tax: Corporate Architecture Appendix
+2026-09-28 12:25:21,874  INFO     [CORP.A] DRY RUN — PDF: The Wealth Delta Tax - Mechanism and Valuation - Corporate Architecture Appendix.pdf (246,536 bytes)  abstract: ✗ MISSING
+2026-09-28 12:25:21,874  WARNING  [CORP.A] No abstract found — would use fallback description
+2026-09-28 12:25:21,874  INFO     
+[11/33] GOV  —  The Wealth Delta Tax: Constitutional Governance
+2026-09-28 12:25:21,875  INFO     [GOV] DRY RUN — PDF: The Wealth Delta Tax - Mechanism and Valuation - Constitutional Governance Intellectual Appendix.pdf (132,830 bytes)  abstract: ✓
+2026-09-28 12:25:21,875  INFO     
+[12/33] GOV.A  —  The Wealth Delta Tax: Constitutional Governance Intellectual
+2026-09-28 12:25:21,875  INFO     [GOV.A] DRY RUN — PDF: The Wealth Delta Tax - Mechanism and Valuation - Constitutional Governance Intellectual Appendix.pdf (132,830 bytes)  abstract: ✗ MISSING
+2026-09-28 12:25:21,876  WARNING  [GOV.A] No abstract found — would use fallback description
+2026-09-28 12:25:21,876  INFO     
+[13/33] GOV.B  —  The Wealth Delta Tax: Constitutional Governance Operational 
+2026-09-28 12:25:21,876  INFO     [GOV.B] DRY RUN — PDF: The Wealth Delta Tax - Mechanism and Valuation - Constitutional Governance Operational Appendix.pdf (318,043 bytes)  abstract: ✗ MISSING
+2026-09-28 12:25:21,877  WARNING  [GOV.B] No abstract found — would use fallback description
+2026-09-28 12:25:21,877  INFO     
+[14/33] RATES  —  The Wealth Delta Tax: Rates and Revenue
+2026-09-28 12:25:21,877  INFO     [RATES] DRY RUN — PDF: The Wealth Delta Tax - Revenue Modelling - Rates and Revenue Appendix.pdf (150,471 bytes)  abstract: ✓
+2026-09-28 12:25:21,877  INFO     
+[15/33] RATES.A  —  The Wealth Delta Tax: Rates and Revenue Appendix
+2026-09-28 12:25:21,878  INFO     [RATES.A] DRY RUN — PDF: The Wealth Delta Tax - Revenue Modelling - Rates and Revenue Appendix.pdf (150,471 bytes)  abstract: ✗ MISSING
+2026-09-28 12:25:21,879  WARNING  [RATES.A] No abstract found — would use fallback description
+2026-09-28 12:25:21,879  INFO     
+[16/33] SWEEPS  —  The Wealth Delta Tax: Parameter Sweeps and Governing Council
+2026-09-28 12:25:21,879  INFO     [SWEEPS] DRY RUN — PDF: The Wealth Delta Tax - Revenue Modelling - Parameter Sweeps and Governing Council Calibration Appendix.pdf (271,327 bytes)  abstract: ✓
+2026-09-28 12:25:21,880  INFO     
+[17/33] SWEEPS.A  —  The Wealth Delta Tax: Parameter Sweeps and Governing Council
+2026-09-28 12:25:21,880  INFO     [SWEEPS.A] DRY RUN — PDF: The Wealth Delta Tax - Revenue Modelling - Parameter Sweeps and Governing Council Calibration Appendix.pdf (271,327 bytes)  abstract: ✗ MISSING
+2026-09-28 12:25:21,881  WARNING  [SWEEPS.A] No abstract found — would use fallback description
+2026-09-28 12:25:21,881  INFO     
+[18/33] BEHAV  —  The Wealth Delta Tax: Behavioural Robustness and Administrat
+2026-09-28 12:25:21,881  INFO     [BEHAV] DRY RUN — PDF: The Wealth Delta Tax - Robustness and Limits - Behavioural Robustness and Administrative Experience.pdf (195,958 bytes)  abstract: ✓
+2026-09-28 12:25:21,882  INFO     
+[19/33] BEHAV.A  —  The Wealth Delta Tax: Behavioural Robustness — Supporting An
+2026-09-28 12:25:21,882  INFO     [BEHAV.A] DRY RUN — PDF: The Wealth Delta Tax - Robustness and Limits - Behavioural Robustness Supporting Analysis.pdf (112,781 bytes)  abstract: ✗ MISSING
+2026-09-28 12:25:21,882  WARNING  [BEHAV.A] No abstract found — would use fallback description
+2026-09-28 12:25:21,882  INFO     
+[20/33] CLOSE  —  The Wealth Delta Tax: Position Closure
+2026-09-28 12:25:21,883  INFO     [CLOSE] DRY RUN — PDF: The Wealth Delta Tax - Implementation - Position Closure.pdf (195,700 bytes)  abstract: ✓
+2026-09-28 12:25:21,883  INFO     
+[21/33] POL  —  The Wealth Delta Tax: Political Architecture
+2026-09-28 12:25:21,884  INFO     [POL] DRY RUN — PDF: The Wealth Delta Tax - Political and Strategic - Addendum Implementation Calibration Examples.pdf (156,279 bytes)  abstract: ✓
+2026-09-28 12:25:21,884  INFO     
+[22/33] POL.A  —  The Wealth Delta Tax: Political Architecture Appendix
+2026-09-28 12:25:21,885  INFO     [POL.A] DRY RUN — PDF: The Wealth Delta Tax - Uncategorised - Political Architecture Appendix.pdf (58,631 bytes)  abstract: ✗ MISSING
+2026-09-28 12:25:21,885  WARNING  [POL.A] No abstract found — would use fallback description
+2026-09-28 12:25:21,885  INFO     
+[23/33] PHASE1  —  The Wealth Delta Tax: Phase One
+2026-09-28 12:25:21,886  INFO     [PHASE1] DRY RUN — PDF: The Wealth Delta Tax - Implementation - Phase One.pdf (144,406 bytes)  abstract: ✓
+2026-09-28 12:25:21,887  INFO     
+[24/33] ENV  —  The Wealth Delta Tax: Environmental Effects and Transmission
+2026-09-28 12:25:21,887  INFO     [ENV] DRY RUN — PDF: The Wealth Delta Tax - Welfare and Distribution - Environmental Effects and Transmission Channels.pdf (182,139 bytes)  abstract: ✓
+2026-09-28 12:25:21,887  INFO     
+[25/33] FM  —  The Wealth Delta Tax: First Mover
+2026-09-28 12:25:21,888  INFO     [FM] DRY RUN — PDF: The Wealth Delta Tax - Political and Strategic - First Mover.pdf (89,929 bytes)  abstract: ✓
+2026-09-28 12:25:21,888  INFO     
+[26/33] MOD  —  The Wealth Delta Tax: Modular Adoption
+2026-09-28 12:25:21,889  INFO     [MOD] DRY RUN — PDF: The Wealth Delta Tax - Political and Strategic - Modular Adoption.pdf (60,536 bytes)  abstract: ✓
+2026-09-28 12:25:21,889  INFO     
+[27/33] SCOPE  —  The Wealth Delta Tax: Scope Boundary — Questions Outside Thi
+2026-09-28 12:25:21,889  INFO     [SCOPE] DRY RUN — PDF: The Wealth Delta Tax - Robustness and Limits - Scope Boundary Questions Outside This Project.pdf (84,795 bytes)  abstract: ✗ MISSING
+2026-09-28 12:25:21,889  WARNING  [SCOPE] No abstract found — would use fallback description
+2026-09-28 12:25:21,889  INFO     
+[28/33] ADD  —  The Wealth Delta Tax: Addendum: Implementation Calibration E
+2026-09-28 12:25:21,889  INFO     [ADD] DRY RUN — PDF: The Wealth Delta Tax - Political and Strategic - Addendum Implementation Calibration Examples.pdf (156,279 bytes)  abstract: ✓
+2026-09-28 12:25:21,889  INFO     
+[29/33] WFR  —  The Wealth Delta Tax: Taxpayer Welfare Comparison Across Tax
+2026-09-28 12:25:21,889  INFO     [WFR] DRY RUN — PDF: The Wealth Delta Tax - Welfare and Distribution - Taxpayer Welfare Comparison Across Tax Systems at Revenue Equivalence.pdf (2,652,358 bytes)  abstract: ✓
+2026-09-28 12:25:21,889  INFO     
+[30/33] WFR.A  —  The Wealth Delta Tax: Taxpayer Welfare Comparison Appendix T
+2026-09-28 12:25:21,895  INFO     [WFR.A] DRY RUN — PDF: The Wealth Delta Tax - Welfare and Distribution - Taxpayer Welfare Comparison Appendix Tables.pdf (132,979 bytes)  abstract: ✗ MISSING
+2026-09-28 12:25:21,896  WARNING  [WFR.A] No abstract found — would use fallback description
+2026-09-28 12:25:21,896  INFO     
+[31/33] INST  —  The Wealth Delta Tax: Fiscal Architecture and Institutional 
+2026-09-28 12:25:21,897  INFO     [INST] DRY RUN — PDF: The Wealth Delta Tax - Political and Strategic - Fiscal Architecture and Institutional Selection.pdf (305,495 bytes)  abstract: ✓
+2026-09-28 12:25:21,897  INFO     
+[32/33] LDW  —  The Wealth Delta Tax: Labour Dividend Welfare
+2026-09-28 12:25:21,898  INFO     [LDW] DRY RUN — PDF: The Wealth Delta Tax - Welfare and Distribution - Labour Dividend Welfare.pdf (169,421 bytes)  abstract: ✓
+2026-09-28 12:25:21,898  INFO     
+[33/33] FAL  —  The Wealth Delta Tax: Falsifiable Hypotheses
+2026-09-28 12:25:21,899  INFO     [FAL] DRY RUN — PDF: The Wealth Delta Tax - Robustness and Limits - Falsifiable Hypotheses.pdf (253,071 bytes)  abstract: ✓
+2026-09-28 12:25:21,899  INFO     
+────────────────────────────────────────────────────────────
+2026-09-28 12:25:21,900  INFO     Done.  ✓ 33  ↷ 0 skipped  ✗ 0 failed
+2026-09-28 12:25:21,900  INFO     ────────────────────────────────────────────────────────────
+
+2026-09-28 12:25:53,602  INFO     ────────────────────────────────────────────────────────────
+2026-09-28 12:25:53,616  INFO     Zenodo bulk upload — environment: SANDBOX
+2026-09-28 12:25:53,616  INFO     PDF directory:      C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927
+2026-09-28 12:25:53,618  INFO     Dry run:            False
+2026-09-28 12:25:53,619  INFO     ────────────────────────────────────────────────────────────
+2026-09-28 12:25:53,802  INFO     
+Papers to process: 33
+
+2026-09-28 12:25:53,802  INFO     
+[1/33] WP  —  The Wealth Delta Tax: The White Paper
+2026-09-28 12:25:53,802  INFO     [WP] Creating deposition …
+2026-09-28 12:25:54,942  INFO     [WP] Deposition ID: 610118
+2026-09-28 12:25:54,942  INFO     [WP] Uploading The Wealth Delta Tax - Core - The White Paper.pdf (0.3 MB) …
+2026-09-28 12:25:56,675  INFO     [WP] Setting metadata …
+2026-09-28 12:25:57,463  INFO     [WP] Reserved DOI: 10.5281/zenodo.610118
+2026-09-28 12:25:57,463  INFO     [WP] Publishing …
+2026-09-28 12:25:59,390  INFO     [WP] ✓ Published — DOI: 10.5072/zenodo.610118
+2026-09-28 12:25:59,390  INFO       ✓ DOI written back to 1_Wealth_Delta_Tax_Whitepaper.md
+2026-09-28 12:26:01,400  INFO     
+[2/33] MF  —  The Wealth Delta Tax: The Moral and Philosophical Foundation
+2026-09-28 12:26:01,401  INFO     [MF] Creating deposition …
+2026-09-28 12:26:02,189  INFO     [MF] Deposition ID: 610120
+2026-09-28 12:26:02,189  INFO     [MF] Uploading The Wealth Delta Tax - Core - The Moral and Philosophical Foundations of the WDT.pdf (0.1 MB) …
+2026-09-28 12:26:03,322  INFO     [MF] Setting metadata …
+2026-09-28 12:26:03,976  INFO     [MF] Reserved DOI: 10.5281/zenodo.610120
+2026-09-28 12:26:03,992  INFO     [MF] Publishing …
+2026-09-28 12:26:05,597  INFO     [MF] ✓ Published — DOI: 10.5072/zenodo.610120
+2026-09-28 12:26:05,597  INFO       ✓ DOI written back to 2_Moral_and_Philosophical_Foundations.md
+2026-09-28 12:26:07,612  INFO     
+[3/33] LR.A  —  The Wealth Delta Tax: Research Gaps in the Existing Literatu
+2026-09-28 12:26:07,612  INFO     [LR.A] Creating deposition …
+2026-09-28 12:26:08,328  INFO     [LR.A] Deposition ID: 610122
+2026-09-28 12:26:08,328  INFO     [LR.A] Uploading The Wealth Delta Tax - Prior Literature - Research Gaps in the Existing Literature.pdf (0.1 MB) …
+2026-09-28 12:26:09,438  INFO     [LR.A] Setting metadata …
+2026-09-28 12:26:10,063  INFO     [LR.A] Reserved DOI: 10.5281/zenodo.610122
+2026-09-28 12:26:10,063  INFO     [LR.A] Publishing …
+2026-09-28 12:26:11,687  INFO     [LR.A] ✓ Published — DOI: 10.5072/zenodo.610122
+2026-09-28 12:26:11,690  INFO       ✓ DOI written back to 3a_Research_Gaps.md
+2026-09-28 12:26:13,692  INFO     
+[4/33] LR.B  —  The Wealth Delta Tax: Intellectual Background and Reference 
+2026-09-28 12:26:13,692  INFO     [LR.B] Creating deposition …
+2026-09-28 12:26:14,440  INFO     [LR.B] Deposition ID: 610124
+2026-09-28 12:26:14,442  INFO     [LR.B] Uploading The Wealth Delta Tax - Prior Literature - Intellectual Background and Reference Guide.pdf (0.2 MB) …
+2026-09-28 12:26:15,380  INFO     [LR.B] Setting metadata …
+2026-09-28 12:26:15,994  INFO     [LR.B] Reserved DOI: 10.5281/zenodo.610124
+2026-09-28 12:26:15,994  INFO     [LR.B] Publishing …
+2026-09-28 12:26:17,484  INFO     [LR.B] ✓ Published — DOI: 10.5072/zenodo.610124
+2026-09-28 12:26:17,505  INFO       ✓ DOI written back to 3b_Intellectual_Background.md
+2026-09-28 12:26:19,507  INFO     
+[5/33] JUR  —  The Wealth Delta Tax: UK Jurisdiction and Data Reference Pap
+2026-09-28 12:26:19,507  INFO     [JUR] Creating deposition …
+2026-09-28 12:26:20,290  INFO     [JUR] Deposition ID: 610126
+2026-09-28 12:26:20,290  INFO     [JUR] Uploading The Wealth Delta Tax - Jurisdiction - UK Jurisdiction and Data Reference Paper.pdf (0.2 MB) …
+2026-09-28 12:26:21,163  INFO     [JUR] Setting metadata …
+2026-09-28 12:26:21,773  INFO     [JUR] Reserved DOI: 10.5281/zenodo.610126
+2026-09-28 12:26:21,773  INFO     [JUR] Publishing …
+2026-09-28 12:26:23,355  INFO     [JUR] ✓ Published — DOI: 10.5072/zenodo.610126
+2026-09-28 12:26:23,355  INFO       ✓ DOI written back to 4_UK_Jurisdiction_and_Data_Reference_Paper.md
+2026-09-28 12:26:25,372  INFO     
+[6/33] VAL  —  The Wealth Delta Tax: Valuing Wealth
+2026-09-28 12:26:25,373  INFO     [VAL] Creating deposition …
+2026-09-28 12:26:26,165  INFO     [VAL] Deposition ID: 610128
+2026-09-28 12:26:26,165  INFO     [VAL] Uploading The Wealth Delta Tax - Mechanism and Valuation - Constitutional Governance Intellectual Appendix.pdf (0.1 MB) …
+2026-09-28 12:26:27,394  INFO     [VAL] Setting metadata …
+2026-09-28 12:26:28,075  INFO     [VAL] Reserved DOI: 10.5281/zenodo.610128
+2026-09-28 12:26:28,075  INFO     [VAL] Publishing …
+2026-09-28 12:26:29,591  INFO     [VAL] ✓ Published — DOI: 10.5072/zenodo.610128
+2026-09-28 12:26:29,591  INFO       ✓ DOI written back to 5_Valuing_Wealth.md
+2026-09-28 12:26:31,604  INFO     
+[7/33] VAL.A  —  The Wealth Delta Tax: Valuing Wealth — Mathematical and Simu
+2026-09-28 12:26:31,605  INFO     [VAL.A] Creating deposition …
+2026-09-28 12:26:32,413  INFO     [VAL.A] Deposition ID: 610130
+2026-09-28 12:26:32,418  INFO     [VAL.A] Uploading The Wealth Delta Tax - Mechanism and Valuation - Valuing Wealth Mathematical and Simulation Appendix.pdf (0.3 MB) …
+2026-09-28 12:26:33,681  INFO     [VAL.A] Setting metadata …
+2026-09-28 12:26:34,522  INFO     [VAL.A] Reserved DOI: 10.5281/zenodo.610130
+2026-09-28 12:26:34,522  INFO     [VAL.A] Publishing …
+2026-09-28 12:26:36,106  INFO     [VAL.A] ✓ Published — DOI: 10.5072/zenodo.610130
+2026-09-28 12:26:36,113  INFO       ✓ DOI written back to 5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md
+2026-09-28 12:26:38,117  INFO     
+[8/33] VAL.B  —  The Wealth Delta Tax: Valuing Wealth — Worked Examples Appen
+2026-09-28 12:26:38,118  INFO     [VAL.B] Creating deposition …
+2026-09-28 12:26:39,016  INFO     [VAL.B] Deposition ID: 610132
+2026-09-28 12:26:39,017  INFO     [VAL.B] Uploading The Wealth Delta Tax - Mechanism and Valuation - Valuing Wealth Worked Examples Appendix.pdf (0.1 MB) …
+2026-09-28 12:26:40,129  INFO     [VAL.B] Setting metadata …
+2026-09-28 12:26:40,868  INFO     [VAL.B] Reserved DOI: 10.5281/zenodo.610132
+2026-09-28 12:26:40,868  INFO     [VAL.B] Publishing …
+2026-09-28 12:26:42,756  INFO     [VAL.B] ✓ Published — DOI: 10.5072/zenodo.610132
+2026-09-28 12:26:42,769  INFO       ✓ DOI written back to 5b_Valuing_Wealth_Worked_Examples_Appendix.md
+2026-09-28 12:26:44,773  INFO     
+[9/33] CORP  —  The Wealth Delta Tax: Corporate Architecture
+2026-09-28 12:26:44,774  INFO     [CORP] Creating deposition …
+2026-09-28 12:26:45,739  INFO     [CORP] Deposition ID: 610134
+2026-09-28 12:26:45,739  INFO     [CORP] Uploading The Wealth Delta Tax - Mechanism and Valuation - Corporate Architecture Appendix.pdf (0.2 MB) …
+2026-09-28 12:26:46,821  INFO     [CORP] Setting metadata …
+2026-09-28 12:26:47,907  INFO     [CORP] Reserved DOI: 10.5281/zenodo.610134
+2026-09-28 12:26:47,913  INFO     [CORP] Publishing …
+2026-09-28 12:26:49,797  INFO     [CORP] ✓ Published — DOI: 10.5072/zenodo.610134
+2026-09-28 12:26:49,808  INFO       ✓ DOI written back to 6_Corporate_Architecture.md
+2026-09-28 12:26:51,813  INFO     
+[10/33] CORP.A  —  The Wealth Delta Tax: Corporate Architecture Appendix
+2026-09-28 12:26:51,813  INFO     [CORP.A] Creating deposition …
+2026-09-28 12:26:52,626  INFO     [CORP.A] Deposition ID: 610136
+2026-09-28 12:26:52,626  INFO     [CORP.A] Uploading The Wealth Delta Tax - Mechanism and Valuation - Corporate Architecture Appendix.pdf (0.2 MB) …
+2026-09-28 12:26:53,927  INFO     [CORP.A] Setting metadata …
+2026-09-28 12:26:54,828  INFO     [CORP.A] Reserved DOI: 10.5281/zenodo.610136
+2026-09-28 12:26:54,828  INFO     [CORP.A] Publishing …
+2026-09-28 12:26:56,503  INFO     [CORP.A] ✓ Published — DOI: 10.5072/zenodo.610136
+2026-09-28 12:26:56,536  INFO       ✓ DOI written back to 6a_Corporate_Architecture_Appendix.md
+2026-09-28 12:26:58,540  INFO     
+[11/33] GOV  —  The Wealth Delta Tax: Constitutional Governance
+2026-09-28 12:26:58,541  INFO     [GOV] Creating deposition …
+2026-09-28 12:26:59,413  INFO     [GOV] Deposition ID: 610138
+2026-09-28 12:26:59,413  INFO     [GOV] Uploading The Wealth Delta Tax - Mechanism and Valuation - Constitutional Governance Intellectual Appendix.pdf (0.1 MB) …
+2026-09-28 12:27:00,397  INFO     [GOV] Setting metadata …
+2026-09-28 12:27:01,239  INFO     [GOV] Reserved DOI: 10.5281/zenodo.610138
+2026-09-28 12:27:01,242  INFO     [GOV] Publishing …
+2026-09-28 12:27:02,646  INFO     [GOV] ✓ Published — DOI: 10.5072/zenodo.610138
+2026-09-28 12:27:02,653  INFO       ✓ DOI written back to 7_Constitutional_Governance.md
+2026-09-28 12:27:04,658  INFO     
+[12/33] GOV.A  —  The Wealth Delta Tax: Constitutional Governance Intellectual
+2026-09-28 12:27:04,658  INFO     [GOV.A] Creating deposition …
+2026-09-28 12:27:05,628  INFO     [GOV.A] Deposition ID: 610140
+2026-09-28 12:27:05,628  INFO     [GOV.A] Uploading The Wealth Delta Tax - Mechanism and Valuation - Constitutional Governance Intellectual Appendix.pdf (0.1 MB) …
+2026-09-28 12:27:06,575  INFO     [GOV.A] Setting metadata …
+2026-09-28 12:27:07,339  INFO     [GOV.A] Reserved DOI: 10.5281/zenodo.610140
+2026-09-28 12:27:07,339  INFO     [GOV.A] Publishing …
+2026-09-28 12:27:08,925  INFO     [GOV.A] ✓ Published — DOI: 10.5072/zenodo.610140
+2026-09-28 12:27:08,925  INFO       ✓ DOI written back to 7a_WDT_Constitutional_Governance_Intellectual_Appendix.md
+2026-09-28 12:27:10,936  INFO     
+[13/33] GOV.B  —  The Wealth Delta Tax: Constitutional Governance Operational 
+2026-09-28 12:27:10,936  INFO     [GOV.B] Creating deposition …
+2026-09-28 12:27:11,760  INFO     [GOV.B] Deposition ID: 610142
+2026-09-28 12:27:11,760  INFO     [GOV.B] Uploading The Wealth Delta Tax - Mechanism and Valuation - Constitutional Governance Operational Appendix.pdf (0.3 MB) …
+2026-09-28 12:27:13,099  INFO     [GOV.B] Setting metadata …
+2026-09-28 12:27:14,041  INFO     [GOV.B] Reserved DOI: 10.5281/zenodo.610142
+2026-09-28 12:27:14,041  INFO     [GOV.B] Publishing …
+2026-09-28 12:27:15,663  INFO     [GOV.B] ✓ Published — DOI: 10.5072/zenodo.610142
+2026-09-28 12:27:15,702  INFO       ✓ DOI written back to 7b_Constitutional_Governance_Operational_Appendix.md
+2026-09-28 12:27:17,706  INFO     
+[14/33] RATES  —  The Wealth Delta Tax: Rates and Revenue
+2026-09-28 12:27:17,706  INFO     [RATES] Creating deposition …
+2026-09-28 12:27:18,827  INFO     [RATES] Deposition ID: 610144
+2026-09-28 12:27:18,827  INFO     [RATES] Uploading The Wealth Delta Tax - Revenue Modelling - Rates and Revenue Appendix.pdf (0.1 MB) …
+2026-09-28 12:27:19,933  INFO     [RATES] Setting metadata …
+2026-09-28 12:27:20,779  INFO     [RATES] Reserved DOI: 10.5281/zenodo.610144
+2026-09-28 12:27:20,779  INFO     [RATES] Publishing …
+2026-09-28 12:27:22,431  INFO     [RATES] ✓ Published — DOI: 10.5072/zenodo.610144
+2026-09-28 12:27:22,436  INFO       ✓ DOI written back to 8_Rates_and_Revenue.md
+2026-09-28 12:27:24,438  INFO     
+[15/33] RATES.A  —  The Wealth Delta Tax: Rates and Revenue Appendix
+2026-09-28 12:27:24,438  INFO     [RATES.A] Creating deposition …
+2026-09-28 12:27:25,299  INFO     [RATES.A] Deposition ID: 610146
+2026-09-28 12:27:25,299  INFO     [RATES.A] Uploading The Wealth Delta Tax - Revenue Modelling - Rates and Revenue Appendix.pdf (0.1 MB) …
+2026-09-28 12:27:26,346  INFO     [RATES.A] Setting metadata …
+2026-09-28 12:27:27,163  INFO     [RATES.A] Reserved DOI: 10.5281/zenodo.610146
+2026-09-28 12:27:27,163  INFO     [RATES.A] Publishing …
+2026-09-28 12:27:28,914  INFO     [RATES.A] ✓ Published — DOI: 10.5072/zenodo.610146
+2026-09-28 12:27:28,919  INFO       ✓ DOI written back to 8a_Rates_and_Revenue_Appendix.md
+2026-09-28 12:27:30,923  INFO     
+[16/33] SWEEPS  —  The Wealth Delta Tax: Parameter Sweeps and Governing Council
+2026-09-28 12:27:30,924  INFO     [SWEEPS] Creating deposition …
+2026-09-28 12:27:31,874  INFO     [SWEEPS] Deposition ID: 610148
+2026-09-28 12:27:31,875  INFO     [SWEEPS] Uploading The Wealth Delta Tax - Revenue Modelling - Parameter Sweeps and Governing Council Calibration Appendix.pdf (0.3 MB) …
+2026-09-28 12:27:33,224  INFO     [SWEEPS] Setting metadata …
+2026-09-28 12:27:34,033  INFO     [SWEEPS] Reserved DOI: 10.5281/zenodo.610148
+2026-09-28 12:27:34,033  INFO     [SWEEPS] Publishing …
+2026-09-28 12:27:35,923  INFO     [SWEEPS] ✓ Published — DOI: 10.5072/zenodo.610148
+2026-09-28 12:27:35,930  INFO       ✓ DOI written back to 9_Parameter_Sweeps.md
+2026-09-28 12:27:37,933  INFO     
+[17/33] SWEEPS.A  —  The Wealth Delta Tax: Parameter Sweeps and Governing Council
+2026-09-28 12:27:37,934  INFO     [SWEEPS.A] Creating deposition …
+2026-09-28 12:27:38,824  INFO     [SWEEPS.A] Deposition ID: 610150
+2026-09-28 12:27:38,825  INFO     [SWEEPS.A] Uploading The Wealth Delta Tax - Revenue Modelling - Parameter Sweeps and Governing Council Calibration Appendix.pdf (0.3 MB) …
+2026-09-28 12:27:39,900  INFO     [SWEEPS.A] Setting metadata …
+2026-09-28 12:27:40,734  INFO     [SWEEPS.A] Reserved DOI: 10.5281/zenodo.610150
+2026-09-28 12:27:40,735  INFO     [SWEEPS.A] Publishing …
+2026-09-28 12:27:42,339  INFO     [SWEEPS.A] ✓ Published — DOI: 10.5072/zenodo.610150
+2026-09-28 12:27:42,346  INFO       ✓ DOI written back to 9a_Parameter_Sweeps_Appendix.md
+2026-09-28 12:27:44,349  INFO     
+[18/33] BEHAV  —  The Wealth Delta Tax: Behavioural Robustness and Administrat
+2026-09-28 12:27:44,349  INFO     [BEHAV] Creating deposition …
+2026-09-28 12:27:45,313  INFO     [BEHAV] Deposition ID: 610152
+2026-09-28 12:27:45,314  INFO     [BEHAV] Uploading The Wealth Delta Tax - Robustness and Limits - Behavioural Robustness and Administrative Experience.pdf (0.2 MB) …
+2026-09-28 12:27:46,982  INFO     [BEHAV] Setting metadata …
+2026-09-28 12:27:48,032  INFO     [BEHAV] Reserved DOI: 10.5281/zenodo.610152
+2026-09-28 12:27:48,033  INFO     [BEHAV] Publishing …
+2026-09-28 12:27:49,676  INFO     [BEHAV] ✓ Published — DOI: 10.5072/zenodo.610152
+2026-09-28 12:27:49,686  INFO       ✓ DOI written back to 10_Behavioural_Robustness_and_Administrative_Experience.md
+2026-09-28 12:27:51,690  INFO     
+[19/33] BEHAV.A  —  The Wealth Delta Tax: Behavioural Robustness — Supporting An
+2026-09-28 12:27:51,690  INFO     [BEHAV.A] Creating deposition …
+2026-09-28 12:27:52,578  INFO     [BEHAV.A] Deposition ID: 610154
+2026-09-28 12:27:52,578  INFO     [BEHAV.A] Uploading The Wealth Delta Tax - Robustness and Limits - Behavioural Robustness Supporting Analysis.pdf (0.1 MB) …
+2026-09-28 12:27:53,643  INFO     [BEHAV.A] Setting metadata …
+2026-09-28 12:27:54,469  INFO     [BEHAV.A] Reserved DOI: 10.5281/zenodo.610154
+2026-09-28 12:27:54,470  INFO     [BEHAV.A] Publishing …
+2026-09-28 12:27:56,360  INFO     [BEHAV.A] ✓ Published — DOI: 10.5072/zenodo.610154
+2026-09-28 12:27:56,365  INFO       ✓ DOI written back to 10a_Behavioural_Robustness_and_Administrative_Experience_Appendix.md
+2026-09-28 12:27:58,369  INFO     
+[20/33] CLOSE  —  The Wealth Delta Tax: Position Closure
+2026-09-28 12:27:58,369  INFO     [CLOSE] Creating deposition …
+2026-09-28 12:27:59,305  INFO     [CLOSE] Deposition ID: 610156
+2026-09-28 12:27:59,306  INFO     [CLOSE] Uploading The Wealth Delta Tax - Implementation - Position Closure.pdf (0.2 MB) …
+2026-09-28 12:28:00,389  INFO     [CLOSE] Setting metadata …
+2026-09-28 12:28:01,256  INFO     [CLOSE] Reserved DOI: 10.5281/zenodo.610156
+2026-09-28 12:28:01,256  INFO     [CLOSE] Publishing …
+2026-09-28 12:28:03,039  INFO     [CLOSE] ✓ Published — DOI: 10.5072/zenodo.610156
+2026-09-28 12:28:03,061  INFO       ✓ DOI written back to 11_Position_Closure.md
+2026-09-28 12:28:05,067  INFO     
+[21/33] POL  —  The Wealth Delta Tax: Political Architecture
+2026-09-28 12:28:05,067  INFO     [POL] Creating deposition …
+2026-09-28 12:28:05,879  INFO     [POL] Deposition ID: 610160
+2026-09-28 12:28:05,879  INFO     [POL] Uploading The Wealth Delta Tax - Political and Strategic - Addendum Implementation Calibration Examples.pdf (0.1 MB) …
+2026-09-28 12:28:06,891  INFO     [POL] Setting metadata …
+2026-09-28 12:28:07,729  INFO     [POL] Reserved DOI: 10.5281/zenodo.610160
+2026-09-28 12:28:07,729  INFO     [POL] Publishing …
+2026-09-28 12:28:09,177  INFO     [POL] ✓ Published — DOI: 10.5072/zenodo.610160
+2026-09-28 12:28:09,182  INFO       ✓ DOI written back to 12_Political_Architecture.md
+2026-09-28 12:28:11,185  INFO     
+[22/33] POL.A  —  The Wealth Delta Tax: Political Architecture Appendix
+2026-09-28 12:28:11,185  INFO     [POL.A] Creating deposition …
+2026-09-28 12:28:12,148  INFO     [POL.A] Deposition ID: 610162
+2026-09-28 12:28:12,148  INFO     [POL.A] Uploading The Wealth Delta Tax - Uncategorised - Political Architecture Appendix.pdf (0.1 MB) …
+2026-09-28 12:28:13,121  INFO     [POL.A] Setting metadata …
+2026-09-28 12:28:13,835  INFO     [POL.A] Reserved DOI: 10.5281/zenodo.610162
+2026-09-28 12:28:13,835  INFO     [POL.A] Publishing …
+2026-09-28 12:28:15,280  INFO     [POL.A] ✓ Published — DOI: 10.5072/zenodo.610162
+2026-09-28 12:28:15,280  INFO       ✓ DOI written back to 12a_Political_Architecture_Appendix.md
+2026-09-28 12:28:17,288  INFO     
+[23/33] PHASE1  —  The Wealth Delta Tax: Phase One
+2026-09-28 12:28:17,288  INFO     [PHASE1] Creating deposition …
+2026-09-28 12:28:18,135  INFO     [PHASE1] Deposition ID: 610164
+2026-09-28 12:28:18,135  INFO     [PHASE1] Uploading The Wealth Delta Tax - Implementation - Phase One.pdf (0.1 MB) …
+2026-09-28 12:28:19,121  INFO     [PHASE1] Setting metadata …
+2026-09-28 12:28:19,846  INFO     [PHASE1] Reserved DOI: 10.5281/zenodo.610164
+2026-09-28 12:28:19,846  INFO     [PHASE1] Publishing …
+2026-09-28 12:28:21,427  INFO     [PHASE1] ✓ Published — DOI: 10.5072/zenodo.610164
+2026-09-28 12:28:21,427  INFO       ✓ DOI written back to 13_Phase_One.md
+2026-09-28 12:28:23,430  INFO     
+[24/33] ENV  —  The Wealth Delta Tax: Environmental Effects and Transmission
+2026-09-28 12:28:23,430  INFO     [ENV] Creating deposition …
+2026-09-28 12:28:24,223  INFO     [ENV] Deposition ID: 610166
+2026-09-28 12:28:24,224  INFO     [ENV] Uploading The Wealth Delta Tax - Welfare and Distribution - Environmental Effects and Transmission Channels.pdf (0.2 MB) …
+2026-09-28 12:28:25,373  INFO     [ENV] Setting metadata …
+2026-09-28 12:28:26,140  INFO     [ENV] Reserved DOI: 10.5281/zenodo.610166
+2026-09-28 12:28:26,140  INFO     [ENV] Publishing …
+2026-09-28 12:28:27,532  INFO     [ENV] ✓ Published — DOI: 10.5072/zenodo.610166
+2026-09-28 12:28:27,539  INFO       ✓ DOI written back to 14_Environmental_Effects_and_Transmission_Channels.md
+2026-09-28 12:28:29,542  INFO     
+[25/33] FM  —  The Wealth Delta Tax: First Mover
+2026-09-28 12:28:29,543  INFO     [FM] Creating deposition …
+2026-09-28 12:28:30,402  INFO     [FM] Deposition ID: 610168
+2026-09-28 12:28:30,403  INFO     [FM] Uploading The Wealth Delta Tax - Political and Strategic - First Mover.pdf (0.1 MB) …
+2026-09-28 12:28:31,266  INFO     [FM] Setting metadata …
+2026-09-28 12:28:32,012  INFO     [FM] Reserved DOI: 10.5281/zenodo.610168
+2026-09-28 12:28:32,012  INFO     [FM] Publishing …
+2026-09-28 12:28:33,487  INFO     [FM] ✓ Published — DOI: 10.5072/zenodo.610168
+2026-09-28 12:28:33,491  INFO       ✓ DOI written back to 15_First_Mover.md
+2026-09-28 12:28:35,493  INFO     
+[26/33] MOD  —  The Wealth Delta Tax: Modular Adoption
+2026-09-28 12:28:35,493  INFO     [MOD] Creating deposition …
+2026-09-28 12:28:36,248  INFO     [MOD] Deposition ID: 610170
+2026-09-28 12:28:36,248  INFO     [MOD] Uploading The Wealth Delta Tax - Political and Strategic - Modular Adoption.pdf (0.1 MB) …
+2026-09-28 12:28:36,998  INFO     [MOD] Setting metadata …
+2026-09-28 12:28:37,715  INFO     [MOD] Reserved DOI: 10.5281/zenodo.610170
+2026-09-28 12:28:37,715  INFO     [MOD] Publishing …
+2026-09-28 12:28:39,132  INFO     [MOD] ✓ Published — DOI: 10.5072/zenodo.610170
+2026-09-28 12:28:39,132  INFO       ✓ DOI written back to 16_Modular_Adoption.md
+2026-09-28 12:28:41,150  INFO     
+[27/33] SCOPE  —  The Wealth Delta Tax: Scope Boundary — Questions Outside Thi
+2026-09-28 12:28:41,151  INFO     [SCOPE] Creating deposition …
+2026-09-28 12:28:42,036  INFO     [SCOPE] Deposition ID: 610172
+2026-09-28 12:28:42,036  INFO     [SCOPE] Uploading The Wealth Delta Tax - Robustness and Limits - Scope Boundary Questions Outside This Project.pdf (0.1 MB) …
+2026-09-28 12:28:43,102  INFO     [SCOPE] Setting metadata …
+2026-09-28 12:28:43,736  INFO     [SCOPE] Reserved DOI: 10.5281/zenodo.610172
+2026-09-28 12:28:43,736  INFO     [SCOPE] Publishing …
+2026-09-28 12:28:45,258  INFO     [SCOPE] ✓ Published — DOI: 10.5072/zenodo.610172
+2026-09-28 12:28:45,274  INFO       ✓ DOI written back to 17_Scope_Boundary.md
+2026-09-28 12:28:47,279  INFO     
+[28/33] ADD  —  The Wealth Delta Tax: Addendum: Implementation Calibration E
+2026-09-28 12:28:47,279  INFO     [ADD] Creating deposition …
+2026-09-28 12:28:48,106  INFO     [ADD] Deposition ID: 610174
+2026-09-28 12:28:48,106  INFO     [ADD] Uploading The Wealth Delta Tax - Political and Strategic - Addendum Implementation Calibration Examples.pdf (0.1 MB) …
+2026-09-28 12:28:49,294  INFO     [ADD] Setting metadata …
+2026-09-28 12:28:49,944  INFO     [ADD] Reserved DOI: 10.5281/zenodo.610174
+2026-09-28 12:28:49,944  INFO     [ADD] Publishing …
+2026-09-28 12:28:51,408  INFO     [ADD] ✓ Published — DOI: 10.5072/zenodo.610174
+2026-09-28 12:28:51,409  INFO       ✓ DOI written back to 18_Addendums.md
+2026-09-28 12:28:53,415  INFO     
+[29/33] WFR  —  The Wealth Delta Tax: Taxpayer Welfare Comparison Across Tax
+2026-09-28 12:28:53,416  INFO     [WFR] Creating deposition …
+2026-09-28 12:28:54,179  INFO     [WFR] Deposition ID: 610176
+2026-09-28 12:28:54,179  INFO     [WFR] Uploading The Wealth Delta Tax - Welfare and Distribution - Taxpayer Welfare Comparison Across Tax Systems at Revenue Equivalence.pdf (2.5 MB) …
+2026-09-28 12:28:57,527  INFO     [WFR] Setting metadata …
+2026-09-28 12:28:58,189  INFO     [WFR] Reserved DOI: 10.5281/zenodo.610176
+2026-09-28 12:28:58,189  INFO     [WFR] Publishing …
+2026-09-28 12:28:59,622  INFO     [WFR] ✓ Published — DOI: 10.5072/zenodo.610176
+2026-09-28 12:28:59,622  INFO       ✓ DOI written back to 19_Taxpayer_Welfare.md
+2026-09-28 12:29:01,638  INFO     
+[30/33] WFR.A  —  The Wealth Delta Tax: Taxpayer Welfare Comparison Appendix T
+2026-09-28 12:29:01,638  INFO     [WFR.A] Creating deposition …
+2026-09-28 12:29:02,371  INFO     [WFR.A] Deposition ID: 610178
+2026-09-28 12:29:02,371  INFO     [WFR.A] Uploading The Wealth Delta Tax - Welfare and Distribution - Taxpayer Welfare Comparison Appendix Tables.pdf (0.1 MB) …
+2026-09-28 12:29:03,384  INFO     [WFR.A] Setting metadata …
+2026-09-28 12:29:04,016  INFO     [WFR.A] Reserved DOI: 10.5281/zenodo.610178
+2026-09-28 12:29:04,016  INFO     [WFR.A] Publishing …
+2026-09-28 12:29:05,336  INFO     [WFR.A] ✓ Published — DOI: 10.5072/zenodo.610178
+2026-09-28 12:29:05,336  INFO       ✓ DOI written back to 19a_Taxpayer_Welfare_Appendix.md
+2026-09-28 12:29:07,348  INFO     
+[31/33] INST  —  The Wealth Delta Tax: Fiscal Architecture and Institutional 
+2026-09-28 12:29:07,348  INFO     [INST] Creating deposition …
+2026-09-28 12:29:08,129  INFO     [INST] Deposition ID: 610180
+2026-09-28 12:29:08,129  INFO     [INST] Uploading The Wealth Delta Tax - Political and Strategic - Fiscal Architecture and Institutional Selection.pdf (0.3 MB) …
+2026-09-28 12:29:09,263  INFO     [INST] Setting metadata …
+2026-09-28 12:29:09,888  INFO     [INST] Reserved DOI: 10.5281/zenodo.610180
+2026-09-28 12:29:09,888  INFO     [INST] Publishing …
+2026-09-28 12:29:11,398  INFO     [INST] ✓ Published — DOI: 10.5072/zenodo.610180
+2026-09-28 12:29:11,414  INFO       ✓ DOI written back to 20_Institutional_Selection.md
+2026-09-28 12:29:13,424  INFO     
+[32/33] LDW  —  The Wealth Delta Tax: Labour Dividend Welfare
+2026-09-28 12:29:13,424  INFO     [LDW] Creating deposition …
+2026-09-28 12:29:14,185  INFO     [LDW] Deposition ID: 610182
+2026-09-28 12:29:14,186  INFO     [LDW] Uploading The Wealth Delta Tax - Welfare and Distribution - Labour Dividend Welfare.pdf (0.2 MB) …
+2026-09-28 12:29:15,174  INFO     [LDW] Setting metadata …
+2026-09-28 12:29:15,892  INFO     [LDW] Reserved DOI: 10.5281/zenodo.610182
+2026-09-28 12:29:15,892  INFO     [LDW] Publishing …
+2026-09-28 12:29:17,338  INFO     [LDW] ✓ Published — DOI: 10.5072/zenodo.610182
+2026-09-28 12:29:17,338  INFO       ✓ DOI written back to 21_Labour_Dividend_Welfare.md
+2026-09-28 12:29:19,355  INFO     
+[33/33] FAL  —  The Wealth Delta Tax: Falsifiable Hypotheses
+2026-09-28 12:29:19,355  INFO     [FAL] Creating deposition …
+2026-09-28 12:29:20,080  INFO     [FAL] Deposition ID: 610184
+2026-09-28 12:29:20,082  INFO     [FAL] Uploading The Wealth Delta Tax - Robustness and Limits - Falsifiable Hypotheses.pdf (0.2 MB) …
+2026-09-28 12:29:21,145  INFO     [FAL] Setting metadata …
+2026-09-28 12:29:21,829  INFO     [FAL] Reserved DOI: 10.5281/zenodo.610184
+2026-09-28 12:29:21,829  INFO     [FAL] Publishing …
+2026-09-28 12:29:23,381  INFO     [FAL] ✓ Published — DOI: 10.5072/zenodo.610184
+2026-09-28 12:29:23,393  INFO       ✓ DOI written back to 22_Falsification_Hypotheses.md
+2026-09-28 12:29:23,397  INFO     
+────────────────────────────────────────────────────────────
+2026-09-28 12:29:23,403  INFO     Done.  ✓ 33  ↷ 0 skipped  ✗ 0 failed
+2026-09-28 12:29:23,406  INFO     DOI map: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\zenodo_dois.json
+2026-09-28 12:29:23,407  INFO     ────────────────────────────────────────────────────────────
+
+2026-09-28 12:39:44,333  INFO     ────────────────────────────────────────────────────────────
+2026-09-28 12:39:44,336  INFO     Zenodo bulk upload — environment: SANDBOX
+2026-09-28 12:39:44,336  INFO     PDF directory:      C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927
+2026-09-28 12:39:44,337  INFO     Dry run:            False
+2026-09-28 12:39:44,337  INFO     ────────────────────────────────────────────────────────────
+2026-09-28 12:39:44,562  INFO     
+Papers to process: 33
+
+2026-09-28 12:39:44,583  INFO     
+[1/33] WP  —  The Wealth Delta Tax: The White Paper
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610118 — skipping
+2026-09-28 12:39:44,583  INFO     
+[2/33] MF  —  The Wealth Delta Tax: The Moral and Philosophical Foundation
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610120 — skipping
+2026-09-28 12:39:44,583  INFO     
+[3/33] LR.A  —  The Wealth Delta Tax: Research Gaps in the Existing Literatu
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610122 — skipping
+2026-09-28 12:39:44,583  INFO     
+[4/33] LR.B  —  The Wealth Delta Tax: Intellectual Background and Reference 
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610124 — skipping
+2026-09-28 12:39:44,583  INFO     
+[5/33] JUR  —  The Wealth Delta Tax: UK Jurisdiction and Data Reference Pap
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610126 — skipping
+2026-09-28 12:39:44,583  INFO     
+[6/33] VAL  —  The Wealth Delta Tax: Valuing Wealth
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610128 — skipping
+2026-09-28 12:39:44,583  INFO     
+[7/33] VAL.A  —  The Wealth Delta Tax: Valuing Wealth — Mathematical and Simu
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610130 — skipping
+2026-09-28 12:39:44,583  INFO     
+[8/33] VAL.B  —  The Wealth Delta Tax: Valuing Wealth — Worked Examples Appen
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610132 — skipping
+2026-09-28 12:39:44,583  INFO     
+[9/33] CORP  —  The Wealth Delta Tax: Corporate Architecture
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610134 — skipping
+2026-09-28 12:39:44,583  INFO     
+[10/33] CORP.A  —  The Wealth Delta Tax: Corporate Architecture Appendix
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610136 — skipping
+2026-09-28 12:39:44,583  INFO     
+[11/33] GOV  —  The Wealth Delta Tax: Constitutional Governance
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610138 — skipping
+2026-09-28 12:39:44,583  INFO     
+[12/33] GOV.A  —  The Wealth Delta Tax: Constitutional Governance Intellectual
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610140 — skipping
+2026-09-28 12:39:44,583  INFO     
+[13/33] GOV.B  —  The Wealth Delta Tax: Constitutional Governance Operational 
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610142 — skipping
+2026-09-28 12:39:44,583  INFO     
+[14/33] RATES  —  The Wealth Delta Tax: Rates and Revenue
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610144 — skipping
+2026-09-28 12:39:44,583  INFO     
+[15/33] RATES.A  —  The Wealth Delta Tax: Rates and Revenue Appendix
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610146 — skipping
+2026-09-28 12:39:44,583  INFO     
+[16/33] SWEEPS  —  The Wealth Delta Tax: Parameter Sweeps and Governing Council
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610148 — skipping
+2026-09-28 12:39:44,583  INFO     
+[17/33] SWEEPS.A  —  The Wealth Delta Tax: Parameter Sweeps and Governing Council
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610150 — skipping
+2026-09-28 12:39:44,583  INFO     
+[18/33] BEHAV  —  The Wealth Delta Tax: Behavioural Robustness and Administrat
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610152 — skipping
+2026-09-28 12:39:44,583  INFO     
+[19/33] BEHAV.A  —  The Wealth Delta Tax: Behavioural Robustness — Supporting An
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610154 — skipping
+2026-09-28 12:39:44,583  INFO     
+[20/33] CLOSE  —  The Wealth Delta Tax: Position Closure
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610156 — skipping
+2026-09-28 12:39:44,583  INFO     
+[21/33] POL  —  The Wealth Delta Tax: Political Architecture
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610160 — skipping
+2026-09-28 12:39:44,583  INFO     
+[22/33] POL.A  —  The Wealth Delta Tax: Political Architecture Appendix
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610162 — skipping
+2026-09-28 12:39:44,583  INFO     
+[23/33] PHASE1  —  The Wealth Delta Tax: Phase One
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610164 — skipping
+2026-09-28 12:39:44,583  INFO     
+[24/33] ENV  —  The Wealth Delta Tax: Environmental Effects and Transmission
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610166 — skipping
+2026-09-28 12:39:44,583  INFO     
+[25/33] FM  —  The Wealth Delta Tax: First Mover
+2026-09-28 12:39:44,583  INFO       Already published: 10.5072/zenodo.610168 — skipping
+2026-09-28 12:39:44,593  INFO     
+[26/33] MOD  —  The Wealth Delta Tax: Modular Adoption
+2026-09-28 12:39:44,593  INFO       Already published: 10.5072/zenodo.610170 — skipping
+2026-09-28 12:39:44,593  INFO     
+[27/33] SCOPE  —  The Wealth Delta Tax: Scope Boundary — Questions Outside Thi
+2026-09-28 12:39:44,593  INFO       Already published: 10.5072/zenodo.610172 — skipping
+2026-09-28 12:39:44,593  INFO     
+[28/33] ADD  —  The Wealth Delta Tax: Addendum: Implementation Calibration E
+2026-09-28 12:39:44,593  INFO       Already published: 10.5072/zenodo.610174 — skipping
+2026-09-28 12:39:44,594  INFO     
+[29/33] WFR  —  The Wealth Delta Tax: Taxpayer Welfare Comparison Across Tax
+2026-09-28 12:39:44,594  INFO       Already published: 10.5072/zenodo.610176 — skipping
+2026-09-28 12:39:44,594  INFO     
+[30/33] WFR.A  —  The Wealth Delta Tax: Taxpayer Welfare Comparison Appendix T
+2026-09-28 12:39:44,594  INFO       Already published: 10.5072/zenodo.610178 — skipping
+2026-09-28 12:39:44,594  INFO     
+[31/33] INST  —  The Wealth Delta Tax: Fiscal Architecture and Institutional 
+2026-09-28 12:39:44,594  INFO       Already published: 10.5072/zenodo.610180 — skipping
+2026-09-28 12:39:44,594  INFO     
+[32/33] LDW  —  The Wealth Delta Tax: Labour Dividend Welfare
+2026-09-28 12:39:44,594  INFO       Already published: 10.5072/zenodo.610182 — skipping
+2026-09-28 12:39:44,595  INFO     
+[33/33] FAL  —  The Wealth Delta Tax: Falsifiable Hypotheses
+2026-09-28 12:39:44,595  INFO       Already published: 10.5072/zenodo.610184 — skipping
+2026-09-28 12:39:44,595  INFO     
+────────────────────────────────────────────────────────────
+2026-09-28 12:39:44,595  INFO     Done.  ✓ 0  ↷ 33 skipped  ✗ 0 failed
+2026-09-28 12:39:44,595  INFO     ────────────────────────────────────────────────────────────
+
+2026-09-28 12:41:30,583  INFO     ────────────────────────────────────────────────────────────
+2026-09-28 12:41:30,584  INFO     Zenodo bulk upload — environment: SANDBOX
+2026-09-28 12:41:30,585  INFO     PDF directory:      C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\print\260927
+2026-09-28 12:41:30,585  INFO     Dry run:            False
+2026-09-28 12:41:30,586  INFO     ────────────────────────────────────────────────────────────
+2026-09-28 12:41:30,935  INFO     
+Papers to process: 33
+
+2026-09-28 12:41:30,936  INFO     
+[1/33] WP  —  The Wealth Delta Tax: The White Paper
+2026-09-28 12:41:30,936  INFO     [WP] Creating deposition …
+2026-09-28 12:41:32,169  INFO     [WP] Deposition ID: 610236
+2026-09-28 12:41:32,170  INFO     [WP] Uploading The Wealth Delta Tax - Core - The White Paper.pdf (0.3 MB) …
+2026-09-28 12:41:33,203  INFO     [WP] Setting metadata …
+2026-09-28 12:41:33,962  INFO     [WP] Reserved DOI: 10.5281/zenodo.610236
+2026-09-28 12:41:33,962  INFO     [WP] Publishing …
+2026-09-28 12:41:35,377  INFO     [WP] ✓ Published — DOI: 10.5072/zenodo.610236
+2026-09-28 12:41:35,394  INFO       ✓ DOI written back to 1_Wealth_Delta_Tax_Whitepaper.md
+2026-09-28 12:41:37,405  INFO     
+[2/33] MF  —  The Wealth Delta Tax: The Moral and Philosophical Foundation
+2026-09-28 12:41:37,407  INFO     [MF] Creating deposition …
+2026-09-28 12:41:38,278  INFO     [MF] Deposition ID: 610238
+2026-09-28 12:41:38,278  INFO     [MF] Uploading The Wealth Delta Tax - Core - The Moral and Philosophical Foundations of the WDT.pdf (0.1 MB) …
+2026-09-28 12:41:39,398  INFO     [MF] Setting metadata …
+2026-09-28 12:41:40,216  INFO     [MF] Reserved DOI: 10.5281/zenodo.610238
+2026-09-28 12:41:40,219  INFO     [MF] Publishing …
+2026-09-28 12:41:41,834  INFO     [MF] ✓ Published — DOI: 10.5072/zenodo.610238
+2026-09-28 12:41:41,834  INFO       ✓ DOI written back to 2_Moral_and_Philosophical_Foundations.md
+2026-09-28 12:41:43,842  INFO     
+[3/33] LR.A  —  The Wealth Delta Tax: Research Gaps in the Existing Literatu
+2026-09-28 12:41:43,842  INFO     [LR.A] Creating deposition …
+2026-09-28 12:41:45,171  INFO     [LR.A] Deposition ID: 610240
+2026-09-28 12:41:45,173  INFO     [LR.A] Uploading The Wealth Delta Tax - Prior Literature - Research Gaps in the Existing Literature.pdf (0.1 MB) …
+2026-09-28 12:41:46,429  INFO     [LR.A] Setting metadata …
+2026-09-28 12:41:47,278  INFO     [LR.A] Reserved DOI: 10.5281/zenodo.610240
+2026-09-28 12:41:47,278  INFO     [LR.A] Publishing …
+2026-09-28 12:41:48,830  INFO     [LR.A] ✓ Published — DOI: 10.5072/zenodo.610240
+2026-09-28 12:41:48,835  INFO       ✓ DOI written back to 3a_Research_Gaps.md
+2026-09-28 12:41:50,836  INFO     
+[4/33] LR.B  —  The Wealth Delta Tax: Intellectual Background and Reference 
+2026-09-28 12:41:50,836  INFO     [LR.B] Creating deposition …
+2026-09-28 12:41:51,857  INFO     [LR.B] Deposition ID: 610242
+2026-09-28 12:41:51,860  INFO     [LR.B] Uploading The Wealth Delta Tax - Prior Literature - Intellectual Background and Reference Guide.pdf (0.2 MB) …
+2026-09-28 12:41:52,900  INFO     [LR.B] Setting metadata …
+2026-09-28 12:41:53,695  INFO     [LR.B] Reserved DOI: 10.5281/zenodo.610242
+2026-09-28 12:41:53,695  INFO     [LR.B] Publishing …
+2026-09-28 12:41:55,424  INFO     [LR.B] ✓ Published — DOI: 10.5072/zenodo.610242
+2026-09-28 12:41:55,424  INFO       ✓ DOI written back to 3b_Intellectual_Background.md
+2026-09-28 12:41:57,435  INFO     
+[5/33] JUR  —  The Wealth Delta Tax: UK Jurisdiction and Data Reference Pap
+2026-09-28 12:41:57,436  INFO     [JUR] Creating deposition …
+2026-09-28 12:41:58,338  INFO     [JUR] Deposition ID: 610244
+2026-09-28 12:41:58,339  INFO     [JUR] Uploading The Wealth Delta Tax - Jurisdiction - UK Jurisdiction and Data Reference Paper.pdf (0.2 MB) …
+2026-09-28 12:41:59,503  INFO     [JUR] Setting metadata …
+2026-09-28 12:42:00,249  INFO     [JUR] Reserved DOI: 10.5281/zenodo.610244
+2026-09-28 12:42:00,253  INFO     [JUR] Publishing …
+2026-09-28 12:42:01,781  INFO     [JUR] ✓ Published — DOI: 10.5072/zenodo.610244
+2026-09-28 12:42:01,790  INFO       ✓ DOI written back to 4_UK_Jurisdiction_and_Data_Reference_Paper.md
+2026-09-28 12:42:03,799  INFO     
+[6/33] VAL  —  The Wealth Delta Tax: Valuing Wealth
+2026-09-28 12:42:03,799  INFO     [VAL] Creating deposition …
+2026-09-28 12:42:04,827  INFO     [VAL] Deposition ID: 610246
+2026-09-28 12:42:04,827  INFO     [VAL] Uploading The Wealth Delta Tax - Mechanism and Valuation - Valuing Wealth.pdf (3.5 MB) …
+2026-09-28 12:42:09,131  INFO     [VAL] Setting metadata …
+2026-09-28 12:42:09,947  INFO     [VAL] Reserved DOI: 10.5281/zenodo.610246
+2026-09-28 12:42:09,954  INFO     [VAL] Publishing …
+2026-09-28 12:42:11,813  INFO     [VAL] ✓ Published — DOI: 10.5072/zenodo.610246
+2026-09-28 12:42:11,827  INFO       ✓ DOI written back to 5_Valuing_Wealth.md
+2026-09-28 12:42:13,830  INFO     
+[7/33] VAL.A  —  The Wealth Delta Tax: Valuing Wealth — Mathematical and Simu
+2026-09-28 12:42:13,830  INFO     [VAL.A] Creating deposition …
+2026-09-28 12:42:14,733  INFO     [VAL.A] Deposition ID: 610248
+2026-09-28 12:42:14,733  INFO     [VAL.A] Uploading The Wealth Delta Tax - Mechanism and Valuation - Valuing Wealth Mathematical and Simulation Appendix.pdf (0.3 MB) …
+2026-09-28 12:42:15,868  INFO     [VAL.A] Setting metadata …
+2026-09-28 12:42:16,664  INFO     [VAL.A] Reserved DOI: 10.5281/zenodo.610248
+2026-09-28 12:42:16,664  INFO     [VAL.A] Publishing …
+2026-09-28 12:42:18,660  INFO     [VAL.A] ✓ Published — DOI: 10.5072/zenodo.610248
+2026-09-28 12:42:18,670  INFO       ✓ DOI written back to 5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md
+2026-09-28 12:42:20,673  INFO     
+[8/33] VAL.B  —  The Wealth Delta Tax: Valuing Wealth — Worked Examples Appen
+2026-09-28 12:42:20,674  INFO     [VAL.B] Creating deposition …
+2026-09-28 12:42:21,483  INFO     [VAL.B] Deposition ID: 610250
+2026-09-28 12:42:21,483  INFO     [VAL.B] Uploading The Wealth Delta Tax - Mechanism and Valuation - Valuing Wealth Worked Examples Appendix.pdf (0.1 MB) …
+2026-09-28 12:42:22,371  INFO     [VAL.B] Setting metadata …
+2026-09-28 12:42:23,111  INFO     [VAL.B] Reserved DOI: 10.5281/zenodo.610250
+2026-09-28 12:42:23,111  INFO     [VAL.B] Publishing …
+2026-09-28 12:42:24,717  INFO     [VAL.B] ✓ Published — DOI: 10.5072/zenodo.610250
+2026-09-28 12:42:24,737  INFO       ✓ DOI written back to 5b_Valuing_Wealth_Worked_Examples_Appendix.md
+2026-09-28 12:42:26,741  INFO     
+[9/33] CORP  —  The Wealth Delta Tax: Corporate Architecture
+2026-09-28 12:42:26,741  INFO     [CORP] Creating deposition …
+2026-09-28 12:42:27,537  INFO     [CORP] Deposition ID: 610252
+2026-09-28 12:42:27,538  INFO     [CORP] Uploading The Wealth Delta Tax - Mechanism and Valuation - Corporate Architecture.pdf (0.2 MB) …
+2026-09-28 12:42:28,493  INFO     [CORP] Setting metadata …
+2026-09-28 12:42:29,122  INFO     [CORP] Reserved DOI: 10.5281/zenodo.610252
+2026-09-28 12:42:29,122  INFO     [CORP] Publishing …
+2026-09-28 12:42:30,564  INFO     [CORP] ✓ Published — DOI: 10.5072/zenodo.610252
+2026-09-28 12:42:30,570  INFO       ✓ DOI written back to 6_Corporate_Architecture.md
+2026-09-28 12:42:32,574  INFO     
+[10/33] CORP.A  —  The Wealth Delta Tax: Corporate Architecture Appendix
+2026-09-28 12:42:32,574  INFO     [CORP.A] Creating deposition …
+2026-09-28 12:42:33,365  INFO     [CORP.A] Deposition ID: 610256
+2026-09-28 12:42:33,365  INFO     [CORP.A] Uploading The Wealth Delta Tax - Mechanism and Valuation - Corporate Architecture Appendix.pdf (0.2 MB) …
+2026-09-28 12:42:34,320  INFO     [CORP.A] Setting metadata …
+2026-09-28 12:42:34,975  INFO     [CORP.A] Reserved DOI: 10.5281/zenodo.610256
+2026-09-28 12:42:34,975  INFO     [CORP.A] Publishing …
+2026-09-28 12:42:36,508  INFO     [CORP.A] ✓ Published — DOI: 10.5072/zenodo.610256
+2026-09-28 12:42:36,514  INFO       ✓ DOI written back to 6a_Corporate_Architecture_Appendix.md
+2026-09-28 12:42:38,516  INFO     
+[11/33] GOV  —  The Wealth Delta Tax: Constitutional Governance
+2026-09-28 12:42:38,516  INFO     [GOV] Creating deposition …
+2026-09-28 12:42:39,413  INFO     [GOV] Deposition ID: 610258
+2026-09-28 12:42:39,414  INFO     [GOV] Uploading The Wealth Delta Tax - Mechanism and Valuation - Constitutional Governance.pdf (0.2 MB) …
+2026-09-28 12:42:40,497  INFO     [GOV] Setting metadata …
+2026-09-28 12:42:41,132  INFO     [GOV] Reserved DOI: 10.5281/zenodo.610258
+2026-09-28 12:42:41,133  INFO     [GOV] Publishing …
+2026-09-28 12:42:42,748  INFO     [GOV] ✓ Published — DOI: 10.5072/zenodo.610258
+2026-09-28 12:42:42,755  INFO       ✓ DOI written back to 7_Constitutional_Governance.md
+2026-09-28 12:42:44,759  INFO     
+[12/33] GOV.A  —  The Wealth Delta Tax: Constitutional Governance Intellectual
+2026-09-28 12:42:44,759  INFO     [GOV.A] Creating deposition …
+2026-09-28 12:42:45,519  INFO     [GOV.A] Deposition ID: 610260
+2026-09-28 12:42:45,519  INFO     [GOV.A] Uploading The Wealth Delta Tax - Mechanism and Valuation - Constitutional Governance Intellectual Appendix.pdf (0.1 MB) …
+2026-09-28 12:42:46,389  INFO     [GOV.A] Setting metadata …
+2026-09-28 12:42:47,049  INFO     [GOV.A] Reserved DOI: 10.5281/zenodo.610260
+2026-09-28 12:42:47,050  INFO     [GOV.A] Publishing …
+2026-09-28 12:42:48,561  INFO     [GOV.A] ✓ Published — DOI: 10.5072/zenodo.610260
+2026-09-28 12:42:48,568  INFO       ✓ DOI written back to 7a_WDT_Constitutional_Governance_Intellectual_Appendix.md
+2026-09-28 12:42:50,591  INFO     
+[13/33] GOV.B  —  The Wealth Delta Tax: Constitutional Governance Operational 
+2026-09-28 12:42:50,592  INFO     [GOV.B] Creating deposition …
+2026-09-28 12:42:51,600  INFO     [GOV.B] Deposition ID: 610262
+2026-09-28 12:42:51,601  INFO     [GOV.B] Uploading The Wealth Delta Tax - Mechanism and Valuation - Constitutional Governance Operational Appendix.pdf (0.3 MB) …
+2026-09-28 12:42:52,802  INFO     [GOV.B] Setting metadata …
+2026-09-28 12:42:53,568  INFO     [GOV.B] Reserved DOI: 10.5281/zenodo.610262
+2026-09-28 12:42:53,569  INFO     [GOV.B] Publishing …
+2026-09-28 12:42:55,088  INFO     [GOV.B] ✓ Published — DOI: 10.5072/zenodo.610262
+2026-09-28 12:42:55,101  INFO       ✓ DOI written back to 7b_Constitutional_Governance_Operational_Appendix.md
+2026-09-28 12:42:57,103  INFO     
+[14/33] RATES  —  The Wealth Delta Tax: Rates and Revenue
+2026-09-28 12:42:57,103  INFO     [RATES] Creating deposition …
+2026-09-28 12:42:57,960  INFO     [RATES] Deposition ID: 610264
+2026-09-28 12:42:57,961  INFO     [RATES] Uploading The Wealth Delta Tax - Revenue Modelling - Rates and Revenue.pdf (2.4 MB) …
+2026-09-28 12:43:02,345  INFO     [RATES] Setting metadata …
+2026-09-28 12:43:03,099  INFO     [RATES] Reserved DOI: 10.5281/zenodo.610264
+2026-09-28 12:43:03,100  INFO     [RATES] Publishing …
+2026-09-28 12:43:04,500  INFO     [RATES] ✓ Published — DOI: 10.5072/zenodo.610264
+2026-09-28 12:43:04,508  INFO       ✓ DOI written back to 8_Rates_and_Revenue.md
+2026-09-28 12:43:06,512  INFO     
+[15/33] RATES.A  —  The Wealth Delta Tax: Rates and Revenue Appendix
+2026-09-28 12:43:06,512  INFO     [RATES.A] Creating deposition …
+2026-09-28 12:43:07,333  INFO     [RATES.A] Deposition ID: 610266
+2026-09-28 12:43:07,333  INFO     [RATES.A] Uploading The Wealth Delta Tax - Revenue Modelling - Rates and Revenue Appendix.pdf (0.1 MB) …
+2026-09-28 12:43:08,217  INFO     [RATES.A] Setting metadata …
+2026-09-28 12:43:08,965  INFO     [RATES.A] Reserved DOI: 10.5281/zenodo.610266
+2026-09-28 12:43:08,965  INFO     [RATES.A] Publishing …
+2026-09-28 12:43:10,503  INFO     [RATES.A] ✓ Published — DOI: 10.5072/zenodo.610266
+2026-09-28 12:43:10,503  INFO       ✓ DOI written back to 8a_Rates_and_Revenue_Appendix.md
+2026-09-28 12:43:12,516  INFO     
+[16/33] SWEEPS  —  The Wealth Delta Tax: Parameter Sweeps and Governing Council
+2026-09-28 12:43:12,516  INFO     [SWEEPS] Creating deposition …
+2026-09-28 12:43:13,469  INFO     [SWEEPS] Deposition ID: 610268
+2026-09-28 12:43:13,470  INFO     [SWEEPS] Uploading The Wealth Delta Tax - Revenue Modelling - Parameter Sweeps and Governing Council Calibration.pdf (12.1 MB) …
+2026-09-28 12:43:26,834  INFO     [SWEEPS] Setting metadata …
+2026-09-28 12:43:27,763  INFO     [SWEEPS] Reserved DOI: 10.5281/zenodo.610268
+2026-09-28 12:43:27,764  INFO     [SWEEPS] Publishing …
+2026-09-28 12:43:29,287  INFO     [SWEEPS] ✓ Published — DOI: 10.5072/zenodo.610268
+2026-09-28 12:43:29,302  INFO       ✓ DOI written back to 9_Parameter_Sweeps.md
+2026-09-28 12:43:31,320  INFO     
+[17/33] SWEEPS.A  —  The Wealth Delta Tax: Parameter Sweeps and Governing Council
+2026-09-28 12:43:31,321  INFO     [SWEEPS.A] Creating deposition …
+2026-09-28 12:43:32,454  INFO     [SWEEPS.A] Deposition ID: 610270
+2026-09-28 12:43:32,457  INFO     [SWEEPS.A] Uploading The Wealth Delta Tax - Revenue Modelling - Parameter Sweeps and Governing Council Calibration Appendix.pdf (0.3 MB) …
+2026-09-28 12:43:33,855  INFO     [SWEEPS.A] Setting metadata …
+2026-09-28 12:43:34,752  INFO     [SWEEPS.A] Reserved DOI: 10.5281/zenodo.610270
+2026-09-28 12:43:34,752  INFO     [SWEEPS.A] Publishing …
+2026-09-28 12:43:36,404  INFO     [SWEEPS.A] ✓ Published — DOI: 10.5072/zenodo.610270
+2026-09-28 12:43:36,504  INFO       ✓ DOI written back to 9a_Parameter_Sweeps_Appendix.md
+2026-09-28 12:43:38,520  INFO     
+[18/33] BEHAV  —  The Wealth Delta Tax: Behavioural Robustness and Administrat
+2026-09-28 12:43:38,523  INFO     [BEHAV] Creating deposition …
+2026-09-28 12:43:39,514  INFO     [BEHAV] Deposition ID: 610272
+2026-09-28 12:43:39,515  INFO     [BEHAV] Uploading The Wealth Delta Tax - Robustness and Limits - Behavioural Robustness and Administrative Experience.pdf (0.2 MB) …
+2026-09-28 12:43:40,971  INFO     [BEHAV] Setting metadata …
+2026-09-28 12:43:41,841  INFO     [BEHAV] Reserved DOI: 10.5281/zenodo.610272
+2026-09-28 12:43:41,844  INFO     [BEHAV] Publishing …
+2026-09-28 12:43:43,691  INFO     [BEHAV] ✓ Published — DOI: 10.5072/zenodo.610272
+2026-09-28 12:43:43,696  INFO       ✓ DOI written back to 10_Behavioural_Robustness_and_Administrative_Experience.md
+2026-09-28 12:43:45,698  INFO     
+[19/33] BEHAV.A  —  The Wealth Delta Tax: Behavioural Robustness — Supporting An
+2026-09-28 12:43:45,699  INFO     [BEHAV.A] Creating deposition …
+2026-09-28 12:43:46,733  INFO     [BEHAV.A] Deposition ID: 610274
+2026-09-28 12:43:46,734  INFO     [BEHAV.A] Uploading The Wealth Delta Tax - Robustness and Limits - Behavioural Robustness Supporting Analysis.pdf (0.1 MB) …
+2026-09-28 12:43:47,933  INFO     [BEHAV.A] Setting metadata …
+2026-09-28 12:43:49,025  INFO     [BEHAV.A] Reserved DOI: 10.5281/zenodo.610274
+2026-09-28 12:43:49,025  INFO     [BEHAV.A] Publishing …
+2026-09-28 12:43:50,610  INFO     [BEHAV.A] ✓ Published — DOI: 10.5072/zenodo.610274
+2026-09-28 12:43:50,715  INFO       ✓ DOI written back to 10a_Behavioural_Robustness_and_Administrative_Experience_Appendix.md
+2026-09-28 12:43:52,717  INFO     
+[20/33] CLOSE  —  The Wealth Delta Tax: Position Closure
+2026-09-28 12:43:52,717  INFO     [CLOSE] Creating deposition …
+2026-09-28 12:43:53,651  INFO     [CLOSE] Deposition ID: 610276
+2026-09-28 12:43:53,652  INFO     [CLOSE] Uploading The Wealth Delta Tax - Implementation - Position Closure.pdf (0.2 MB) …
+2026-09-28 12:43:55,491  INFO     [CLOSE] Setting metadata …
+2026-09-28 12:43:56,338  INFO     [CLOSE] Reserved DOI: 10.5281/zenodo.610276
+2026-09-28 12:43:56,338  INFO     [CLOSE] Publishing …
+2026-09-28 12:43:57,971  INFO     [CLOSE] ✓ Published — DOI: 10.5072/zenodo.610276
+2026-09-28 12:43:58,044  INFO       ✓ DOI written back to 11_Position_Closure.md
+2026-09-28 12:44:00,047  INFO     
+[21/33] POL  —  The Wealth Delta Tax: Political Architecture
+2026-09-28 12:44:00,048  INFO     [POL] Creating deposition …
+2026-09-28 12:44:00,967  INFO     [POL] Deposition ID: 610278
+2026-09-28 12:44:00,968  INFO     [POL] Uploading The Wealth Delta Tax - Political and Strategic - Political Architecture.pdf (0.2 MB) …
+2026-09-28 12:44:02,142  INFO     [POL] Setting metadata …
+2026-09-28 12:44:03,104  INFO     [POL] Reserved DOI: 10.5281/zenodo.610278
+2026-09-28 12:44:03,104  INFO     [POL] Publishing …
+2026-09-28 12:44:04,714  INFO     [POL] ✓ Published — DOI: 10.5072/zenodo.610278
+2026-09-28 12:44:04,724  INFO       ✓ DOI written back to 12_Political_Architecture.md
+2026-09-28 12:44:06,726  INFO     
+[22/33] POL.A  —  The Wealth Delta Tax: Political Architecture Appendix
+2026-09-28 12:44:06,726  INFO     [POL.A] Creating deposition …
+2026-09-28 12:44:07,808  INFO     [POL.A] Deposition ID: 610280
+2026-09-28 12:44:07,810  INFO     [POL.A] Uploading The Wealth Delta Tax - Uncategorised - Political Architecture Appendix.pdf (0.1 MB) …
+2026-09-28 12:44:08,661  INFO     [POL.A] Setting metadata …
+2026-09-28 12:44:09,404  INFO     [POL.A] Reserved DOI: 10.5281/zenodo.610280
+2026-09-28 12:44:09,404  INFO     [POL.A] Publishing …
+2026-09-28 12:44:10,971  INFO     [POL.A] ✓ Published — DOI: 10.5072/zenodo.610280
+2026-09-28 12:44:10,989  INFO       ✓ DOI written back to 12a_Political_Architecture_Appendix.md
+2026-09-28 12:44:12,991  INFO     
+[23/33] PHASE1  —  The Wealth Delta Tax: Phase One
+2026-09-28 12:44:12,992  INFO     [PHASE1] Creating deposition …
+2026-09-28 12:44:14,227  INFO     [PHASE1] Deposition ID: 610282
+2026-09-28 12:44:14,228  INFO     [PHASE1] Uploading The Wealth Delta Tax - Implementation - Phase One.pdf (0.1 MB) …
+2026-09-28 12:44:15,551  INFO     [PHASE1] Setting metadata …
+2026-09-28 12:44:16,526  INFO     [PHASE1] Reserved DOI: 10.5281/zenodo.610282
+2026-09-28 12:44:16,526  INFO     [PHASE1] Publishing …
+2026-09-28 12:44:18,391  INFO     [PHASE1] ✓ Published — DOI: 10.5072/zenodo.610282
+2026-09-28 12:44:18,395  INFO       ✓ DOI written back to 13_Phase_One.md
+2026-09-28 12:44:20,412  INFO     
+[24/33] ENV  —  The Wealth Delta Tax: Environmental Effects and Transmission
+2026-09-28 12:44:20,412  INFO     [ENV] Creating deposition …
+2026-09-28 12:44:21,547  INFO     [ENV] Deposition ID: 610284
+2026-09-28 12:44:21,547  INFO     [ENV] Uploading The Wealth Delta Tax - Welfare and Distribution - Environmental Effects and Transmission Channels.pdf (0.2 MB) …
+2026-09-28 12:44:23,053  INFO     [ENV] Setting metadata …
+2026-09-28 12:44:24,315  INFO     [ENV] Reserved DOI: 10.5281/zenodo.610284
+2026-09-28 12:44:24,315  INFO     [ENV] Publishing …
+2026-09-28 12:44:26,290  INFO     [ENV] ✓ Published — DOI: 10.5072/zenodo.610284
+2026-09-28 12:44:26,301  INFO       ✓ DOI written back to 14_Environmental_Effects_and_Transmission_Channels.md
+2026-09-28 12:44:28,305  INFO     
+[25/33] FM  —  The Wealth Delta Tax: First Mover
+2026-09-28 12:44:28,306  INFO     [FM] Creating deposition …
+2026-09-28 12:44:29,753  INFO     [FM] Deposition ID: 610286
+2026-09-28 12:44:29,753  INFO     [FM] Uploading The Wealth Delta Tax - Political and Strategic - First Mover.pdf (0.1 MB) …
+2026-09-28 12:44:31,373  INFO     [FM] Setting metadata …
+2026-09-28 12:44:32,481  INFO     [FM] Reserved DOI: 10.5281/zenodo.610286
+2026-09-28 12:44:32,481  INFO     [FM] Publishing …
+2026-09-28 12:44:34,417  INFO     [FM] ✓ Published — DOI: 10.5072/zenodo.610286
+2026-09-28 12:44:34,421  INFO       ✓ DOI written back to 15_First_Mover.md
+2026-09-28 12:44:36,426  INFO     
+[26/33] MOD  —  The Wealth Delta Tax: Modular Adoption
+2026-09-28 12:44:36,426  INFO     [MOD] Creating deposition …
+2026-09-28 12:44:37,779  INFO     [MOD] Deposition ID: 610288
+2026-09-28 12:44:37,781  INFO     [MOD] Uploading The Wealth Delta Tax - Political and Strategic - Modular Adoption.pdf (0.1 MB) …
+2026-09-28 12:44:39,108  INFO     [MOD] Setting metadata …
+2026-09-28 12:44:40,323  INFO     [MOD] Reserved DOI: 10.5281/zenodo.610288
+2026-09-28 12:44:40,323  INFO     [MOD] Publishing …
+2026-09-28 12:44:42,251  INFO     [MOD] ✓ Published — DOI: 10.5072/zenodo.610288
+2026-09-28 12:44:42,251  INFO       ✓ DOI written back to 16_Modular_Adoption.md
+2026-09-28 12:44:44,260  INFO     
+[27/33] SCOPE  —  The Wealth Delta Tax: Scope Boundary — Questions Outside Thi
+2026-09-28 12:44:44,260  INFO     [SCOPE] Creating deposition …
+2026-09-28 12:44:45,835  INFO     [SCOPE] Deposition ID: 610290
+2026-09-28 12:44:45,837  INFO     [SCOPE] Uploading The Wealth Delta Tax - Robustness and Limits - Scope Boundary Questions Outside This Project.pdf (0.1 MB) …
+2026-09-28 12:44:47,144  INFO     [SCOPE] Setting metadata …
+2026-09-28 12:44:48,303  INFO     [SCOPE] Reserved DOI: 10.5281/zenodo.610290
+2026-09-28 12:44:48,303  INFO     [SCOPE] Publishing …
+2026-09-28 12:44:50,122  INFO     [SCOPE] ✓ Published — DOI: 10.5072/zenodo.610290
+2026-09-28 12:44:50,133  INFO       ✓ DOI written back to 17_Scope_Boundary.md
+2026-09-28 12:44:52,135  INFO     
+[28/33] ADD  —  The Wealth Delta Tax: Addendum: Implementation Calibration E
+2026-09-28 12:44:52,136  INFO     [ADD] Creating deposition …
+2026-09-28 12:44:53,361  INFO     [ADD] Deposition ID: 610292
+2026-09-28 12:44:53,361  INFO     [ADD] Uploading The Wealth Delta Tax - Political and Strategic - Addendum Implementation Calibration Examples.pdf (0.1 MB) …
+2026-09-28 12:44:55,305  INFO     [ADD] Setting metadata …
+2026-09-28 12:44:56,497  INFO     [ADD] Reserved DOI: 10.5281/zenodo.610292
+2026-09-28 12:44:56,498  INFO     [ADD] Publishing …
+2026-09-28 12:44:58,183  INFO     [ADD] ✓ Published — DOI: 10.5072/zenodo.610292
+2026-09-28 12:44:58,188  INFO       ✓ DOI written back to 18_Addendums.md
+2026-09-28 12:45:00,190  INFO     
+[29/33] WFR  —  The Wealth Delta Tax: Taxpayer Welfare Comparison Across Tax
+2026-09-28 12:45:00,192  INFO     [WFR] Creating deposition …
+2026-09-28 12:45:01,624  INFO     [WFR] Deposition ID: 610294
+2026-09-28 12:45:01,626  INFO     [WFR] Uploading The Wealth Delta Tax - Welfare and Distribution - Taxpayer Welfare Comparison Across Tax Systems at Revenue Equivalence.pdf (2.5 MB) …
+2026-09-28 12:45:05,424  INFO     [WFR] Setting metadata …
+2026-09-28 12:45:06,259  INFO     [WFR] Reserved DOI: 10.5281/zenodo.610294
+2026-09-28 12:45:06,261  INFO     [WFR] Publishing …
+2026-09-28 12:45:07,939  INFO     [WFR] ✓ Published — DOI: 10.5072/zenodo.610294
+2026-09-28 12:45:07,951  INFO       ✓ DOI written back to 19_Taxpayer_Welfare.md
+2026-09-28 12:45:09,955  INFO     
+[30/33] WFR.A  —  The Wealth Delta Tax: Taxpayer Welfare Comparison Appendix T
+2026-09-28 12:45:09,956  INFO     [WFR.A] Creating deposition …
+2026-09-28 12:45:11,373  INFO     [WFR.A] Deposition ID: 610296
+2026-09-28 12:45:11,373  INFO     [WFR.A] Uploading The Wealth Delta Tax - Welfare and Distribution - Taxpayer Welfare Comparison Appendix Tables.pdf (0.1 MB) …
+2026-09-28 12:45:12,831  INFO     [WFR.A] Setting metadata …
+2026-09-28 12:45:14,080  INFO     [WFR.A] Reserved DOI: 10.5281/zenodo.610296
+2026-09-28 12:45:14,080  INFO     [WFR.A] Publishing …
+2026-09-28 12:45:16,113  INFO     [WFR.A] ✓ Published — DOI: 10.5072/zenodo.610296
+2026-09-28 12:45:16,118  INFO       ✓ DOI written back to 19a_Taxpayer_Welfare_Appendix.md
+2026-09-28 12:45:18,120  INFO     
+[31/33] INST  —  The Wealth Delta Tax: Fiscal Architecture and Institutional 
+2026-09-28 12:45:18,120  INFO     [INST] Creating deposition …
+2026-09-28 12:45:19,499  INFO     [INST] Deposition ID: 610298
+2026-09-28 12:45:19,500  INFO     [INST] Uploading The Wealth Delta Tax - Political and Strategic - Fiscal Architecture and Institutional Selection.pdf (0.3 MB) …
+2026-09-28 12:45:21,174  INFO     [INST] Setting metadata …
+2026-09-28 12:45:22,315  INFO     [INST] Reserved DOI: 10.5281/zenodo.610298
+2026-09-28 12:45:22,315  INFO     [INST] Publishing …
+2026-09-28 12:45:23,993  INFO     [INST] ✓ Published — DOI: 10.5072/zenodo.610298
+2026-09-28 12:45:23,998  INFO       ✓ DOI written back to 20_Institutional_Selection.md
+2026-09-28 12:45:26,001  INFO     
+[32/33] LDW  —  The Wealth Delta Tax: Labour Dividend Welfare
+2026-09-28 12:45:26,002  INFO     [LDW] Creating deposition …
+2026-09-28 12:45:27,488  INFO     [LDW] Deposition ID: 610300
+2026-09-28 12:45:27,488  INFO     [LDW] Uploading The Wealth Delta Tax - Welfare and Distribution - Labour Dividend Welfare.pdf (0.2 MB) …
+2026-09-28 12:45:28,846  INFO     [LDW] Setting metadata …
+2026-09-28 12:45:29,895  INFO     [LDW] Reserved DOI: 10.5281/zenodo.610300
+2026-09-28 12:45:29,896  INFO     [LDW] Publishing …
+2026-09-28 12:45:31,907  INFO     [LDW] ✓ Published — DOI: 10.5072/zenodo.610300
+2026-09-28 12:45:31,919  INFO       ✓ DOI written back to 21_Labour_Dividend_Welfare.md
+2026-09-28 12:45:33,924  INFO     
+[33/33] FAL  —  The Wealth Delta Tax: Falsifiable Hypotheses
+2026-09-28 12:45:33,925  INFO     [FAL] Creating deposition …
+2026-09-28 12:45:35,673  INFO     [FAL] Deposition ID: 610302
+2026-09-28 12:45:35,674  INFO     [FAL] Uploading The Wealth Delta Tax - Robustness and Limits - Falsifiable Hypotheses.pdf (0.2 MB) …
+2026-09-28 12:45:37,467  INFO     [FAL] Setting metadata …
+2026-09-28 12:45:38,402  INFO     [FAL] Reserved DOI: 10.5281/zenodo.610302
+2026-09-28 12:45:38,402  INFO     [FAL] Publishing …
+2026-09-28 12:45:40,318  INFO     [FAL] ✓ Published — DOI: 10.5072/zenodo.610302
+2026-09-28 12:45:40,324  INFO       ✓ DOI written back to 22_Falsification_Hypotheses.md
+2026-09-28 12:45:40,328  INFO     
+────────────────────────────────────────────────────────────
+2026-09-28 12:45:40,328  INFO     Done.  ✓ 33  ↷ 0 skipped  ✗ 0 failed
+2026-09-28 12:45:40,333  INFO     DOI map: C:\Users\kyleo\OneDrive\My Documents\Hobbies\Wealth Delta Tax\public\wdt-site\zenodo_dois.json
+2026-09-28 12:45:40,333  INFO     ────────────────────────────────────────────────────────────
+

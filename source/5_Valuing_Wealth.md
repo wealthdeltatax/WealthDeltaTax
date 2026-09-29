@@ -17,8 +17,8 @@ keywords:
     - self-assessed valuation
     - declaration incentives
     - unrealised gains
+zenodo_doi: "10.5072/zenodo.610246"
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

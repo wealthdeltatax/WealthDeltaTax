@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Taxpayer Welfare Comparison Appendix Tables"
 shortcode: "WFR.A"
 status: "draft"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610296"
 keywords:
     - Wealth Delta Tax
     - welfare comparison
@@ -11,7 +11,6 @@ keywords:
     - return heterogeneity
     - revenue equivalence
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

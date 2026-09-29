@@ -407,6 +407,15 @@ CORPUS_CSS = """
 .cp-status-active     { color: #16a34a; font-weight: bold; }
 .cp-status-draft      { color: #BA7517; font-weight: bold; }
 .cp-status-superseded { color: #888; }
+.cp-doi-link {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: #2B0055;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.cp-doi-link:hover { text-decoration: underline; color: #CC0000; }
+.cp-doi-none { color: #bbb; font-size: 11px; }
 
 /* Show/hide word count vs reading time via body class */
 .cp-words { display: inline; }
@@ -414,19 +423,7 @@ CORPUS_CSS = """
 body.cp-show-rtime .cp-words { display: none; }
 body.cp-show-rtime .cp-rtime { display: inline; }
 
-/* Tables panel toggle */
-.cp-tables-toggle {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  background-color: #2B0055;
-  color: #FFD700;
-  border: 2px outset #808080;
-  padding: 3px 12px;
-  cursor: pointer;
-  margin-bottom: .8rem;
-  display: inline-block;
-}
-.cp-tables-toggle:hover { background-color: #3d0080; border-style: inset; }
+
 """
 
 
@@ -493,14 +490,6 @@ document.getElementById('cp-tabs').addEventListener('click', e => {{
   const tab = e.target.closest('.cp-tab');
   if (tab) cpApplyPath(tab.dataset.path);
 }});
-
-function cpToggleTables() {{
-  const panel = document.getElementById('cp-tables-panel');
-  const btn   = document.getElementById('cp-tables-btn');
-  const open  = panel.style.display === 'none' || panel.style.display === '';
-  panel.style.display = open ? 'block' : 'none';
-  btn.textContent = open ? '&#9660; Hide full index' : '&#9658; Show full index';
-}}
 
 function cpToggleWc() {{
   const show = document.body.classList.toggle('cp-show-rtime');
@@ -590,14 +579,15 @@ def _section_table_html(
 
     rows = []
     for sc in present:
-        page   = link_map.get(sc, "")
-        meta   = paper_meta.get(sc, {})
-        title  = meta.get("title", sc).replace("The Wealth Delta Tax: ", "")
-        ver    = meta.get("version", "—")
-        status = meta.get("status", "active")
-        wc     = meta.get("word_count", 0) or 0
-        rt     = _reading_time(wc)
-        wc_str = f"{wc:,}" if wc else "—"
+        page      = link_map.get(sc, "")
+        meta      = paper_meta.get(sc, {})
+        title     = meta.get("title", sc).replace("The Wealth Delta Tax: ", "")
+        ver       = meta.get("version", "—")
+        status    = meta.get("status", "active")
+        wc        = meta.get("word_count", 0) or 0
+        rt        = _reading_time(wc)
+        wc_str    = f"{wc:,}" if wc else "—"
+        zenodo_doi = meta.get("zenodo_doi", "")
         status_cls = {
             "active": "cp-status-active",
             "draft": "cp-status-draft",
@@ -610,6 +600,14 @@ def _section_table_html(
         else:
             sc_cell = f'<a href="{page}"><strong>{sc}</strong></a>'
 
+        if zenodo_doi:
+            doi_cell = (
+                f'<a class="cp-doi-link" href="https://doi.org/{zenodo_doi}" '
+                f'target="_blank" rel="noopener">{zenodo_doi}</a>'
+            )
+        else:
+            doi_cell = '<span class="cp-doi-none">—</span>'
+
         rows.append(
             f"<tr>"
             f"<td>{sc_cell}</td>"
@@ -618,6 +616,7 @@ def _section_table_html(
             f'<td><span class="cp-words">{wc_str}</span>'
             f'<span class="cp-rtime">{rt}</span></td>'
             f'<td class="{status_cls}">{status_lbl}</td>'
+            f"<td>{doi_cell}</td>"
             f"</tr>"
         )
 
@@ -626,8 +625,9 @@ def _section_table_html(
         "<th>Paper</th>"
         "<th>Title</th>"
         "<th>Version</th>"
-        '<th id="cp-wc-col">Words</th>'
+        '<th class="cp-wc-col">Words</th>'
         "<th>Status</th>"
+        "<th>DOI</th>"
         "</tr>"
     )
 
@@ -713,12 +713,7 @@ def generate_corpus_qmd(
 <button class="cp-wc-btn cp-wc-toggle" id="cp-wc-btn"
         onclick="cpToggleWc()">Show reading time</button>
 
-<button class="cp-tables-toggle" id="cp-tables-btn"
-        onclick="cpToggleTables()">&#9658; Show full index</button>
-
-<div id="cp-tables-panel" style="display:none">
 {tables_html}
-</div>
 
 <script>
 {js}

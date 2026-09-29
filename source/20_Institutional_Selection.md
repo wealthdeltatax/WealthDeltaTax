@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Fiscal Architecture and Institutional Selection"
 shortcode: "INST"
 status: "draft"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610298"
 keywords:
     - Wealth Delta Tax
     - institutional fitness
@@ -17,7 +17,6 @@ keywords:
     - memetic diffusion
     - labour dividend
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

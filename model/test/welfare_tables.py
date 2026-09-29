@@ -60,7 +60,7 @@ from wdt_md  import MdDoc, md_table, LEFT, RIGHT, CENTER
 from wdt_fmt import fmt_pct, fmt_pct0, fmt_pct1, fmt_pct4, fmt_gbp_m, today_iso
 
 # ── welfare model imports ─────────────────────────────────────────────────────
-from welfare_core import (
+from wfr_core import (
     load_params,
     make_empirical_distribution,
     make_idealised_distribution,
@@ -80,7 +80,7 @@ from welfare_core import (
 
 import importlib as _il
 
-from welfare_core import ProgressiveRateFunction
+from wfr_core import ProgressiveRateFunction
 
 _m2 = _il.import_module('19_3_module2_progression')
 run_c1_analysis   = _m2.run_c1_analysis
@@ -115,7 +115,7 @@ run_sweep_c_param = _m5.run_sweep_c_param
 # CONFIG
 # ─────────────────────────────────────────────────────────────────────────────
 
-OUTPUT_DIR  = module_output_dir("tables")
+OUTPUT_DIR  = module_output_dir("WFR")
 W0_BASE     = 1.0      # normalised (Module 1)
 TARGET_ET   = 0.02
 GAMMA_VALS  = [1.0, 2.0, 4.0]

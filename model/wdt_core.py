@@ -588,28 +588,53 @@ def synthetic_returns(n, mu, lam=0.0, amplitude=0.0, period=10):
 
 
 # ─────────────────────────────────────────────────────────────
-# MINIMAL SSM — LRR FILL YEAR
+# SHARED SSM MARGINAL REVENUE PASS
 # ─────────────────────────────────────────────────────────────
 
-def _ssm_lrr_fill_year(p, max_N=71):
+def _ssm_marginals(p, max_N=71):
     """
-    Minimal Sovereign Wealth Fund Sizing Model to find the LRR fill year.
-    Returns the integer fill year or None if LRR never fills within max_N.
+    Compute the cohort marginal net revenue series for the SSM.
+
+    This is the expensive simulation loop shared between:
+      - _ssm_lrr_fill_year()  (capitalisation-only fast path, used by load_params)
+      - rates_core.run_ssm()  (full SSM with post-fill mechanics)
+
+    For each year N = 1..max_N, runs all bracket simulations cumulatively
+    and computes the *marginal* (incremental) net revenue relative to N-1.
+    This marginal approach avoids O(N²) bracket re-simulation.
+
+    Parameters
+    ----------
+    p      : dict   loaded parameter dict (needs 'returns', 'brackets',
+                    'tau_0', 'tau_m', 'k', 'W_min')
+    max_N  : int    number of cohort years to compute (default 71)
+
+    Returns
+    -------
+    list of dicts, one per year N=1..max_N, each containing:
+      N    : int    cohort year (1-indexed)
+      ttp  : float  marginal gross tax (£b)
+      ref  : float  marginal gross refund (£b, negative)
+      net  : float  ttp + ref  (marginal net revenue, £b)
+      g    : float  return in year N+1 (sell-year return for this cohort)
+
+    Design note
+    -----------
+    rates_core.run_ssm() previously duplicated this loop verbatim.  It now
+    calls this function and processes the returned list.  Any change to the
+    simulation mechanic (bracket weights, sell-year logic, etc.) need only
+    be made here.
     """
-    returns       = p['returns']
-    brackets      = p['brackets']
-    srr_ratio     = p['srr_ratio']
-    lrr_years     = p['lrr_years']
-    budget_base   = p['budget_base']
-    budget_growth = p['budget_growth']
+    returns  = p['returns']
+    brackets = p['brackets']
 
     prev_agg_ttp = 0.0
     prev_agg_ref = 0.0
     marginals    = []
 
-    for n in range(0, max_N):
-        g_series = [returns[t] for t in range(1, n + 1)]
-        g_sell   = returns[n + 1]
+    for N in range(0, max_N):
+        g_series = [returns[t] for t in range(1, N + 1)]
+        g_sell   = returns[N + 1]
         agg_ttp  = 0.0
         agg_ref  = 0.0
 
@@ -617,7 +642,6 @@ def _ssm_lrr_fill_year(p, max_N=71):
             sim = simulate(b['V0_m'], g_series, 1.0, p)
             for r in sim[1:]:
                 x = r['L'] * b['N'] / 1000.0
-                (agg_ttp if x > 0 else agg_ref).__add__  # just branch
                 if x > 0:
                     agg_ttp += x
                 else:
@@ -631,14 +655,50 @@ def _ssm_lrr_fill_year(p, max_N=71):
 
         delta_ttp = agg_ttp - prev_agg_ttp
         delta_ref = agg_ref - prev_agg_ref
-        marginals.append({'N': n + 1, 'net': delta_ttp + delta_ref})
+        marginals.append({
+            'N':   N + 1,
+            'ttp': delta_ttp,
+            'ref': delta_ref,
+            'net': delta_ttp + delta_ref,
+            'g':   g_sell,
+        })
         prev_agg_ttp = agg_ttp
         prev_agg_ref = agg_ref
 
-    srr_bal    = 0.0
-    lrr_bal    = 0.0
-    lrr_filled = False
-    cum_net    = 0.0
+    return marginals
+
+
+# ─────────────────────────────────────────────────────────────
+# MINIMAL SSM — LRR FILL YEAR
+# ─────────────────────────────────────────────────────────────
+
+def _ssm_lrr_fill_year(p, max_N=71):
+    """
+    Capitalisation-only SSM fast path: returns the LRR fill year (int)
+    or None if LRR never fills within max_N years.
+
+    Runs only the capitalisation phase — SRR accumulation then LRR
+    accumulation from SRR surplus — and returns as soon as lrr_bal
+    reaches lrr_target.  No post-fill mechanics are needed here because
+    load_params() only needs the fill year to set p['N'].
+
+    Uses _ssm_marginals() for the simulation loop so the revenue
+    arithmetic stays in one place.  rates_core.run_ssm() calls the same
+    helper and then extends with the full v8 post-fill mechanics.
+
+    If the capitalisation logic here ever changes, update both:
+      1. This function (fast path)
+      2. The capitalisation block in rates_core.run_ssm()
+    """
+    marginals     = _ssm_marginals(p, max_N)
+    srr_ratio     = p['srr_ratio']
+    lrr_years     = p['lrr_years']
+    budget_base   = p['budget_base']
+    budget_growth = p['budget_growth']
+
+    srr_bal = 0.0
+    lrr_bal = 0.0
+    cum_net = 0.0
 
     for m in marginals:
         N   = m['N']
@@ -656,11 +716,10 @@ def _ssm_lrr_fill_year(p, max_N=71):
 
         budget_t   = budget_base * (1.0 + budget_growth) ** (N - 1)
         lrr_target = lrr_years * budget_t
+        lrr_bal   += srr_surplus
 
-        if not lrr_filled:
-            lrr_bal += srr_surplus
-            if lrr_bal >= lrr_target:
-                return N
+        if lrr_bal >= lrr_target:
+            return N
 
     return None
 
@@ -795,6 +854,60 @@ def load_params(toml_path=None):
         'period':          float(syn.get('period',          10.0)),
         'amplitude_sweep': [float(v) for v in syn.get('amplitude_sweep', [])],
         'period_sweep':    [float(v) for v in syn.get('period_sweep',    [])],
+    }
+
+    # ── WFR sweep keys (welfare model) ────────────────────────
+    # These are defined in [sweep] in the TOML but were not previously
+    # parsed here. wfr_core reads them via p['sweep']['wfr_*'].
+    p['sweep'].update({
+        'wfr_target_et_pct':       [float(v) for v in sw.get('wfr_target_et_pct',    [])],
+        'wfr_tau_0_sweep':         [float(v) for v in sw.get('wfr_tau_0_sweep',       [])],
+        'wfr_tau_m_sweep':         [float(v) for v in sw.get('wfr_tau_m_sweep',       [])],
+        'wfr_k_sweep':             [float(v) for v in sw.get('wfr_k_sweep',           [])],
+        'wfr_wmin_sweep':          [float(v) for v in sw.get('wfr_wmin_sweep',        [])],
+        'wfr_W0_sweep':            [float(v) for v in sw.get('wfr_W0_sweep',          [])],
+        'wfr_gamma_vals':          [float(v) for v in sw.get('wfr_gamma_vals',        [])],
+        'wfr_start_years_curated': [int(v)   for v in sw.get('wfr_start_years_curated', [])],
+    })
+
+    # ── Structured sub-dicts for WFR pipeline compatibility ───
+    # wfr_core and welfare_core read several values via TOML-shaped
+    # sub-dicts (e.g. p['rate']['tau_0'], p['tcm']['canonical_N']).
+    # We build these here as views over the flat keys so both access
+    # patterns work from the same load_params() call.
+    import numpy as _np
+    _canonical_arr = _np.array(canonical, dtype=float)
+    _offset = (scenario_start - p['series_base_year']) % len(canonical)
+
+    p['rate'] = {
+        'tau_0': p['tau_0'],
+        'tau_m': p['tau_m'],
+        'k':     p['k'],
+        'W_min': p['W_min'],
+    }
+
+    p['tcm'] = {
+        'canonical_N':         int(raw['tcm'].get('canonical_N',  p['tcm_N'])),
+        'snapshot_N':          p['tcm_N'],
+        'hist_mean':           p['hist_mean'],
+        'scenario_start_year': p['scenario_start_year'],
+    }
+
+    # p['returns'] is the rotated list used by all existing code.
+    # The WFR pipeline additionally needs:
+    #   p['returns']['array']           — numpy array of canonical (unrotated) returns
+    #   p['returns']['offset']          — rotation offset for scenario_start_year
+    #   p['returns']['years']           — calendar years 1947–2019
+    #   p['returns']['series_base_year']— already available flat as p['series_base_year']
+    # We add these as a parallel structured key to avoid conflicting with the
+    # rotated list that all other code reads from p['returns'].
+    p['returns_meta'] = {
+        'array':            _canonical_arr,
+        'offset':           _offset,
+        'years':            list(range(p['series_base_year'],
+                                       p['series_base_year'] + len(canonical))),
+        'series_base_year': p['series_base_year'],
+        'values':           canonical,     # raw list, unrotated
     }
 
     return p

@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Falsifiable Hypotheses"
 shortcode: "FAL"
 status: "draft"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610302"
 keywords:
     - Wealth Delta Tax
     - falsifiable hypotheses
@@ -13,7 +13,6 @@ keywords:
     - automation resilience
     - hostile modelling
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: First Mover"
 shortcode: "FM"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610286"
 keywords:
     - Wealth Delta Tax
     - first-mover advantage
@@ -17,7 +17,6 @@ keywords:
     - policy imitation
     - memetic diffusion
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

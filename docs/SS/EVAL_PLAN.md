@@ -10,9 +10,7 @@
 
 WFR establishes a pre-behavioural welfare baseline showing that the WDT eliminates 141–143 basis points of welfare cost that CGT imposes through realisation lock-in. WFR cannot say whether the prospective implementation costs of the WDT exceed that advantage, because those costs are unquantifiable without implementation data.
 
-EVAL's job is to make that uncertainty tractable through break-even analysis. The question is not whether the WDT's welfare advantage survives Category 3 costs. The question is: **how large would each implementation cost have to be to eliminate the advantage?** If a break-even threshold is empirically implausible, that cost cannot explain away the welfare advantage. If it falls within a plausible empirical range, that is a genuine open question for Phase One.
-
-This framing is intentionally adversarial. EVAL is a stress test of the WFR result, not a defence of it. It does not assume the WFR baseline survives — it rebuilds the relevant long-horizon comparator from scratch before calculating break-even thresholds, and reports what it finds regardless of direction.
+EVAL's job is to make that uncertainty tractable through break-even analysis: for each Category 3 prospective cost, what magnitude would it need to reach to wipe out the welfare advantage WFR has measured? If a break-even threshold is empirically implausible, that cost cannot explain away the welfare advantage. If it falls within a plausible empirical range, that is a genuine open question for Phase One.
 
 EVAL is explicitly a *Level 1* analytical contribution. It does not calibrate behavioural responses from empirical data. It does not produce a single expected welfare estimate. It characterises the space within which the WDT's welfare case could be reversed, and assesses whether each reversal scenario is plausible.
 
@@ -77,67 +75,29 @@ The honest comparator for EVAL is the WDT against the *optimally structured curr
 
 **The death step-up is the dominant structural difference at N = 30.** Under current CGT, death forgives the entire embedded capital gain — heirs inherit at probate value with no CGT charge on the deceased's lifetime appreciation. This is the main reason CGT is so attractive to long-horizon holders: the optimal strategy under CGT is to hold until death, realise nothing, and pass the step-up to heirs. At N = 30, a WDT taxpayer approaching death faces an inheritance auction that fires the Route D mechanism; a CGT taxpayer faces a step-up that eliminates the liability entirely. The N = 30 CGT model must incorporate this death probability and the value of the step-up as a CGT benefit.
 
-### 2.3 The N = 30 CGT Model EVAL Must Build — and Its Continuity Requirement
+### 2.3 The N = 30 CGT Model EVAL Must Build
 
-**The mechanism that produces 141 bp is a portfolio switching problem, not a single-asset realisation problem.**
+WFR's lock-in model is a static two-asset switching model at fixed T. EVAL needs a proper dynamic N-period CGT model. The key references are:
 
-WFR's lock-in result specifically arises from the two-asset switching framework in WFR §4.2: the taxpayer holds asset A (current position) and faces asset B (alternative opportunity with potentially higher return). The welfare cost of CGT is the tax-induced switching wedge — the embedded gain on A makes switching to B costly, so the taxpayer rationally remains in an inferior allocation. The 141 bp measures the welfare loss from this distortion, not simply the tax paid on gains.
+**Dammon, Spatt, and Zhang (2001), Review of Financial Studies 14(3): 583–616.** The foundational dynamic model of optimal consumption and portfolio choice with capital gains taxes. Key finding: the incentive to rediversify is inversely related to the size of the embedded gain and investor's age. Optimal equity holding increases well into an investor's lifetime because of death step-up. This establishes the theoretical structure EVAL's CGT counterfactual must replicate.
 
-This has a critical implication for EVAL. If Module 1 replaces WFR's switching model with a single-asset model where assets grow and the taxpayer simply decides whether to realise:
+**Jensen and Marekwica (2013), Journal of Dynamics and Control.** Life-cycle model with unspanned labour income and realisation-based CGT. Key finding: for realistic parameterisations, certainty-equivalent welfare gains from fully tax-optimised portfolio decisions are less than 2% of present financial wealth and lifetime income compared to a heuristic portfolio policy ignoring CGT. Compared to a policy that only ignores the *realisation-based feature* and assumes mark-to-market instead, these gains are less than **0.5%** of financial wealth and lifetime income.
 
-```
-State: (W_t, B_t) — single asset, decide to realise or hold
-```
+This 0.5% figure is the most directly relevant empirical result for the N = 30 lock-in question — but it requires three critical adjustments for the WDT population:
 
-then EVAL is measuring something different from WFR. A discrepancy between EVAL's N=30 result and WFR's 141 bp could mean either (a) the N=30 dynamics genuinely change the welfare comparison, which is the interesting result, or (b) you've built a subtly different model. You cannot tell which is happening without the ability to reproduce the WFR result as a special case.
+1. Jensen-Marekwica model a typical investor with labour income. For W₀ = £20m with no material labour income remaining (the WDT population at age 60+), the denominator of "financial wealth + lifetime human capital" shrinks dramatically, so the 0.5% figure as a fraction of *financial wealth alone* rises substantially.
+2. Their model includes the death step-up, which is the primary driver of why the welfare cost is low. EVAL's CGT comparator must price the step-up explicitly, since removing it (via the WDT's inheritance auction) is a structural difference between the systems.
+3. The 0.5% figure is against mark-to-market taxation in general, not specifically against the WDT's delta base with symmetric refund. The refund in loss years is a materially different welfare property not present in any system Jensen-Marekwica model.
 
-**Continuity requirement:** Before any N=30 extension result is accepted as valid, EVAL must demonstrate that its CGT model reproduces the WFR result of 141.22 bp when run at WFR's reference parameters: T=5, G/V=50%, τ_cgt=24%, γ=2, Ver. A distribution. If EVAL cannot reproduce this, the model has diverged from WFR's mechanism and must be corrected before proceeding.
+**Agersnap and Zidar (2021), AER: Insights 3(4): 399–416.** The Tax Elasticity of Capital Gains and Revenue-Maximizing Rates. Uses state-level panel data 1980–2016 with a direct-projections approach over a 10-year horizon. Key for EVAL: the long-run elasticity of capital gains realizations with respect to the tax rate is substantially larger than the short-run elasticity — the lock-in effect builds over time, consistent with the WFR plateau finding.
 
-**The correct architecture: N-period extension of WFR's switching model**
+**EVAL's approach to the N = 30 CGT model.** Given the complexity of a full dynamic optimisation model, EVAL will use the following approach:
 
-The state must include both assets:
-
-```
-State at each period t:
-    W_A_t   = current value of held asset A
-    W_B_t   = current value of alternative asset B  
-    B_t     = CGT recognised basis on A (for CGT simulations)
-    age_t   = current age (for death probability)
-
-At each period:
-    Observe return r_A_t for current asset (JST historical sequence)
-    Observe return r_B_t for alternative asset (same sequence, or modelled separately)
-    
-    Switching decision:
-        Under CGT: switching realises (W_A_t - B_t), triggers CGT payment
-                   → threshold condition: r_B > r_B_indiff(W_A_t, B_t, tau_cgt, T_remaining)
-                   → the indifference return r_B_indiff is the AssetSwitchDecision mechanism
-                   → this is exactly wfr_core.AssetSwitchDecision — use it, extend it
-        Under WDT: switching is tax-neutral (no embedded gain crystallisation)
-                   → agent switches whenever r_B > r_A (no CGT wedge in the threshold)
-    
-    Death check: with prob q_x(age_t), taxpayer dies
-        Under CGT: step-up; heirs inherit W_A_t with B_t reset to W_A_t (no CGT)
-        Under WDT: inheritance auction fires; Route D or A/B at market value
-    
-    Proceed to t+1
-```
-
-This preserves the WFR mechanism — the welfare cost comes from the switching wedge, compounded over N periods — while extending it to the dynamic N=30 horizon with endogenous G/V and death probability.
-
-**The WDT counterfactual in the same framework:**
-1. Both assets are held in the optimal portfolio (no switching wedge — WDT is switching-neutral)
-2. Annual delta W_t − W_{t-1} computed on total portfolio value
-3. WDT applied at τ(W_t) on positive deltas, symmetric refund on negative deltas
-4. Death triggers inheritance auction, not step-up
-
-**The key references for this architecture:**
-
-**Dammon, Spatt, and Zhang (2001), Review of Financial Studies 14(3): 583–616.** The foundational dynamic model of optimal consumption and portfolio choice with capital gains taxes. Key finding: the incentive to rediversify is inversely related to the size of the embedded gain and investor's age. Optimal equity holding increases well into an investor's lifetime because of death step-up. This is the theoretical precedent for the N-period two-asset model EVAL is building.
-
-**Jensen and Marekwica (2013), Journal of Economic Dynamics and Control.** Life-cycle model with unspanned labour income and realisation-based CGT. Key finding: CEW gains from tax-optimised decisions < 2% of financial wealth + lifetime income vs a heuristic; < **0.5%** relative to mark-to-market. Three critical adjustments required for the WDT population: (1) no labour income at age 60+, so the denominator shrinks and the 0.5% figure rises substantially as a fraction of financial wealth; (2) the model includes the death step-up which is the primary driver of low welfare cost — EVAL must price step-up removal explicitly; (3) the 0.5% figure is against mark-to-market, not against the WDT's delta base with symmetric refund.
-
-**Agersnap and Zidar (2021), AER: Insights 3(4): 399–416.** Long-run elasticity of CGT realizations substantially larger than short-run — lock-in builds over time, consistent with WFR's plateau finding at T ≥ 8.
+- Build a discrete-time N-period simulation where the agent holds an asset growing at the Good-tier return (+11.4%/year) starting from W₀
+- At each period, the agent decides whether to realise (paying CGT at the effective rate) or defer
+- At death (proxied by a death probability at each age, based on UK ONS life tables), the step-up eliminates the liability
+- The welfare cost of CGT relative to WDT is the CEW difference over the full N-period path
+- Parameters are swept across effective CGT rates (24%, 18%, 14%, 12%, 0%) and death probabilities
 
 ---
 
@@ -199,7 +159,7 @@ Expected additional out-migration rate ≈ 0.17 × 0.35 ≈ **0.06 percentage po
 
 **Break-even threshold:**
 
-For migration to eliminate the welfare advantage, the revenue loss through migration and the Agrawal multiplier must equal `ΔCEW_EVAL` from Module E1 (expected to be at least as large as WFR's 141 bp reference, and likely larger at N=30). At a 2× multiplier (conservative UK estimate) and 0.35% annual burden, the implied emigration rate must reach approximately **12–18% of the assessed population** to threaten the WFR 141 bp reference. The Module E1 advantage is expected to be larger, so the actual break-even emigration rate will be higher still. Migration, on its own, is unlikely to threaten the welfare advantage.
+For migration to eliminate the 141 bp welfare advantage, the revenue loss through migration and the Agrawal multiplier must equal the welfare gain. At a 2× multiplier (conservative UK estimate) and 0.35% annual burden, the implied emigration rate must reach approximately **12–18% of the assessed population** to threaten the baseline. That is 10–15× the elasticity-implied prediction. Migration, on its own, is unlikely to threaten the welfare advantage.
 
 **Data requirement:** Jakobsen elasticity is already quantified and applicable. What is not available is a UK-specific migration elasticity for wealth taxation. Phase One measurement is the only resolution. For EVAL, use the Jakobsen semi-elasticity as the central estimate and run sensitivity at 2×, 3×, and 5× that elasticity.
 
@@ -222,7 +182,7 @@ The honest answer is that WDT-specific intensive margin responses cannot be quan
 
 **Break-even threshold:**
 
-At 0.54 cents/dollar (upper bound), a WDT collecting £874b/year loses approximately £471b/year to intensive margin responses — leaving net revenue of ~£403b, still substantial relative to the fiscal target. The welfare break-even question is different from the fiscal one: intensive margin avoidance reduces declared deltas (and therefore tax paid), which reduces Treasury revenue, but also involves real costs to the avoider — professional fees, restructuring friction, suboptimal business structures — that are themselves welfare-destroying. The net welfare effect of avoidance is therefore smaller than the gross revenue loss. Module E2 computes the welfare break-even (real resource cost sufficient to eliminate `ΔCEW_EVAL`) and the fiscal break-even (revenue loss sufficient to eliminate projected WDT receipts) as separate outputs and shows that the welfare break-even is reached substantially later than the fiscal break-even. This is an underdeveloped area of the analysis that EVAL should flag as a Phase One empirical question.
+At 0.54 cents/dollar (upper bound), a WDT collecting £874b/year loses approximately £471b/year to intensive margin responses — leaving net revenue of ~£403b, still substantial relative to the fiscal target. The welfare break-even question is different: the welfare advantage is 141 bp per taxpayer; intensive margin avoidance reduces declared deltas (and therefore tax paid), which reduces the revenue to the WDT but also reduces the welfare cost to the avoider. The net welfare effect depends on whether avoidance is welfare-improving or welfare-destroying for the avoider — BEHAV Shapes 4–6 typically involve real costs (professional fees, restructuring friction, suboptimal business structures) that are themselves welfare-reducing. This is an underdeveloped area of the analysis that EVAL should flag as a Phase One empirical question.
 
 **Data requirement:** No UK-specific WDT intensive margin elasticity exists. Use Jakobsen 0.54 as the upper bound, WDT structural argument as the lower bound, and present the range explicitly. The measurement agenda in PHASE1 §5.2 (avoidance shape distribution) is the resolution path.
 
@@ -256,7 +216,7 @@ The cost is event-based and low in annual terms. Even at 3% of a £20m Route D a
 
 **Break-even threshold:**
 
-The break-even annual compliance cost is determined by Module E2's annuity formula applied to `ΔCEW_EVAL`. Using 141 bp as an indicative reference: 141 bp at W₀ = £1.63m implies a welfare advantage equivalent to approximately £22,969 in present-value consumption terms, or a break-even annualised cost of approximately £1,494/year at ρ = 5% (annuity factor 0.0651). The Burgherr WDT-adjusted central estimate of 0.05% of taxable wealth (≈ £815/year at W₀) is well below this indicative threshold; the upper bound at 0.07% (≈ £1,140/year) is also below it. The actual Module E1 baseline is expected to be larger than 141 bp, raising the break-even further. Compliance cost is unlikely on its own to eliminate the welfare advantage.
+141 bp of CEW at W₀ = £1.63m over 30 years ≈ £141,000 per taxpayer in consumption-equivalent welfare over the horizon, or approximately £4,700/year. The Burgherr WDT-adjusted central estimate of 0.05% of taxable wealth (≈ £815/year at W₀ = £1.63m) is well below that threshold. The Burgherr upper bound at 0.07% (≈ £1,140/year) is also below threshold. Compliance cost is unlikely on its own to eliminate the welfare advantage — though it narrows it.
 
 At the 95th percentile Good-tier reference taxpayer's terminal wealth of £19.72m, the Burgherr upper bound (0.3% of taxable wealth) would imply £59,160/year — which approaches the £4,700/year break-even. However, this figure is for a conventional wealth tax requiring full annual professional valuation of all assets. Under the WDT route architecture, this taxpayer's listed equities (Route A) have zero valuation cost; only the illiquid fraction (Route D/B) bears professional fees. The realistic per-taxpayer cost is substantially lower.
 
@@ -310,7 +270,7 @@ Third, coordinating a population-level timing event requires thousands of taxpay
 
 **Quantitative assessment:** This cost category is the *least likely* of the five to threaten the aggregate welfare advantage. It is architecturally bounded in a way the other four are not. The one scenario where it poses real risk — coordinated mass refund timing — is treated in RATES §7.4 as bounded by the envelope cap and the SRR's reserve sizing.
 
-**Treatment in EVAL:** Include as a sensitivity scenario with a parameter for the fraction of the taxable population that successfully engineers simultaneous loss recognition. Show that the break-even fraction required to exhaust `ΔCEW_EVAL` is implausibly high given the coordination barriers — this holds across the full Module E1 scenario range, not just at 141 bp. This is a confirmatory analysis, not a primary risk.
+**Treatment in EVAL:** Include as a sensitivity scenario with a parameter for the fraction of the taxable population that successfully engineers simultaneous loss recognition. Show that the break-even (the fraction required to exhaust the 141 bp advantage) is implausibly high given the coordination barriers. This is a confirmatory analysis, not a primary risk.
 
 **Data requirement:** None additional. The RATES simulation infrastructure already models this implicitly through the SRR stress scenarios. EVAL can inherit those results directly.
 
@@ -323,10 +283,10 @@ Third, coordinating a population-level timing event requires thousands of taxpay
 EVAL is four modules sharing a common return series and parameter set. The return series is the JST UK equity capital total return data (1947–2019, 73 observations) from `WDT_Params.toml`. Rate function parameters are the Balanced scenario canonical values (τ₀ = 15%, τ_m = 70%, k = 0.001, W_min = £2m).
 
 **Module 1: Welfare baseline at N = 30**  
-Rebuilds the WDT-vs-CGT welfare comparison at N = 30 using a proper dynamic CGT simulation. This is new modelling, not inherited from WFR (which uses T = 5). Outputs: `ΔCEW_EVAL = CEW_WDT − CEW_CGT` in basis points, across effective CGT rate scenarios, death probability scenarios, and CGT realisation behaviour scenarios. **141 bp is a reference point from WFR, not an assumption here.** Module 1's output is the actual EVAL baseline, which may be higher or lower than 141 bp depending on the N=30 dynamics. Everything downstream reads from `ΔCEW_EVAL`.
+Rebuilds the WDT-vs-CGT welfare comparison at N = 30 using a proper dynamic CGT simulation. This is new modelling, not inherited from WFR (which uses T = 5). Outputs: CEW by system at N = 30 across effective CGT rate scenarios and death probability scenarios.
 
 **Module 2: Per-taxpayer break-even**  
-For each of the five cost categories, solves for the cost magnitude that exactly offsets the Module 1 welfare advantage. Runs across the four tiers (Poor/Ok/Good/Great) and the key wealth brackets. Output: "cost X must exceed £Y/year to eliminate the welfare advantage for a [tier] taxpayer at [bracket]." All annualisation uses the intertemporal welfare machinery from Module 1, not arithmetic division by N.
+For each of the five cost categories, solves for the cost magnitude that exactly offsets the N = 30 welfare advantage. Runs across the four tiers (Poor/Ok/Good/Great) and the key wealth brackets. Output: "cost X must exceed £Y/year to eliminate the welfare advantage for a [tier] taxpayer at [bracket]."
 
 **Module 3: Aggregate fiscal break-even**  
 Weights per-taxpayer results by TOML bracket populations. Adds migration response using Jakobsen elasticities and Agrawal multiplier (2×, 4×, 6× sensitivity). Adds admin cost comparison. Output: fiscal viability assessment with break-even thresholds for the aggregate revenue claim.
@@ -336,153 +296,59 @@ Standalone comparison of CGT + IHT admin costs per £1 of revenue against projec
 
 ### 5.2 Module 1 — Dynamic CGT Model Design
 
-**Architecture: N-period extension of wfr_core.AssetSwitchDecision**
+The N = 30 CGT counterfactual cannot use WFR's static lock-in model. The required model:
 
-Module 1 is not a new lock-in model. It is a dynamic extension of the existing WFR switching model, preserving the two-asset portfolio structure that generates the 141 bp result. The `AssetSwitchDecision` class in wfr_core already implements the key mechanism: for given (V, B, tau_cgt, T, r_A), it computes the indifference return r_B_indiff above which switching is welfare-improving and below which lock-in occurs. Module 1 makes this dynamic by running that decision at each period t = 1..N rather than at fixed T, and adding death probability.
+**State variables:** (t, W_t, B_t) where t is the year in the system, W_t is current wealth, and B_t is the recognised CGT basis.
 
-**State variables at each period t:**
+**Each period:**
+1. Wealth grows at the Good-tier return (hist_mean + 0.0095 = 11.4%/year) plus the JST historical sequence for that simulation year
+2. Agent chooses whether to realise the embedded gain W_t − B_t:
+   - If realise: pay CGT at effective rate τ_cgt on (W_t − B_t); new basis B_t = W_t
+   - If defer: no tax; basis unchanged; embedded gain compounds
+3. Death probability at each year from ONS England life tables (starting age 60, N=30 to age 90)
+4. At death: step-up eliminates embedded gain (no CGT on (W_death − B_t)); heir inherits at W_death
 
-```
-(W_A_t, B_t, W_B_t, age_t)
-  W_A_t   = current wealth in held asset A
-  B_t     = CGT basis on A (resets to W_A_t at death — step-up)
-  W_B_t   = current wealth available in alternative asset B
-  age_t   = current age (60 + t, for death probability lookup)
-```
+**The WDT counterfactual (comparator):**
+1. Annual delta computed as W_t − W_{t-1}
+2. WDT applied at logistic rate function τ(W_t) on positive deltas
+3. Symmetric refund at τ(W_t) on negative deltas, subject to lifetime contribution envelope
+4. No step-up at death: inheritance auction at Route D (for the non-fungible fraction) or Route A/B at market value
 
-For the WDT counterfactual, there is no CGT wedge, so the agent holds the optimal portfolio throughout and the state simplifies to (W_t, age_t).
+**Output:** CEW difference (WDT − CGT) across the N = 30 path. Negative = WDT is better. Sweep across:
+- Effective CGT rate: 24%, 18%, 14%, 12%, 0% (optimal structuring scenarios)
+- Death probability: ONS central estimate, 50% of central estimate, zero (ignore death, upper bound on lock-in)
+- G/V profile: computed endogenously from the growth path, not fixed at 50%
 
-**Per-period logic:**
-
-```
-Each year t:
-  1. Observe return r_t from the return path (see Return path specification below)
-  2. Both assets earn r_t (or a variant — see note on single vs dual asset below)
-  3. Compute switching decision under CGT:
-       → r_B_indiff = AssetSwitchDecision(W_A_t, B_t, tau_cgt, T_remaining, r_A).indifference_return()
-       → if realisation_rule says switch at this point: pay tau_cgt*(W_A_t - B_t), reset B_t = W_A_t
-  4. Check death at prob q_x(age_t):
-       Under CGT: B_t = W_A_t (step-up), heirs inherit W_A_t, no CGT
-       Under WDT: inheritance auction fires (Route D or A/B)
-       Simulation ends
-  5. Under WDT: compute delta W_t - W_{t-1}; apply tau(W_t) on positive delta; 
-                apply refund on negative delta subject to cumulative envelope
-  6. Record terminal wealth at period N or at death
-```
-
-**Note on single-asset simplification:** The full two-asset model requires modelling the return on asset B, which introduces a second return series not present in the TOML. A valid simplification — consistent with WFR's existing treatment — is to model the switching decision as: the agent faces an opportunity with return r_B that is uncertain, and holds A when the CGT wedge makes the switching threshold too high. In the single-asset extension, this is equivalent to modelling the *cost of non-switching*: the agent is locked in an asset that earns r_A when r_B would have been higher. The welfare cost accumulates as the compounding of this suboptimal allocation. This simplification is acceptable **provided** that the limiting case (T=5, G/V=50%, τ_cgt=24%) reproduces 141.22 bp — if it does, the mechanism is preserved; if it doesn't, the two-asset model is required.
-
-**Reproducibility gate:** Before running the N=30 sweep, Module 1 must run the following validation:
-
-```python
-# Validation: reproduce WFR Module 3 result at reference parameters
-# If this fails, stop and fix the model before proceeding
-val = compute_cew_eval(
-    p, W0=1.0, tau_cgt=0.24, realisation_rule='threshold_mid',
-    death_probs=[0.0]*5,   # T=5, no death
-    gamma=2.0, G_V=0.50,   # reference calibration
-    horizon=5              # T=5 to match WFR
-)
-assert abs(val - 141.22) < 2.0, f"Reproducibility check failed: got {val:.2f} bp, expected ~141.22 bp"
-```
-
-A tolerance of ±2 bp is acceptable given differences in path construction. A failure means the mechanism has diverged; do not proceed with N=30 analysis until resolved.
-
-**Welfare decomposition — explicit component output:**
-
-Module 1 must decompose `ΔCEW_EVAL` into its contributing components. This makes the paper substantially harder to attack and allows readers to see why the number has the value it does:
-
-| Component | Description | Sign |
-|---|---|---|
-| Lock-in switching wedge | Welfare cost of sub-optimal portfolio persistence under CGT | + (favours WDT) |
-| CGT realisation taxation | Direct welfare cost of CGT payments when realising | + (favours WDT) |
-| CGT death step-up benefit | Welfare benefit of CGT basis reset at death (CGT only) | − (favours CGT) |
-| WDT inheritance auction cost | Welfare cost of Route D auction firing at death (WDT only) | + (favours WDT) |
-| WDT symmetric refund benefit | Welfare benefit of loss-year refunds (WDT only) | + (favours WDT) |
-| **ΔCEW_EVAL (net)** | Sum of above components | ? |
-
-The sign of ΔCEW_EVAL is the answer to EVAL's central question. Decomposing it shows *why* it has that sign, and which components are decisive. Under `hold_to_death`, the death step-up benefit is at its maximum; if WDT still wins, it wins on the other components. That is the adversarial result.
-
-**Return path specification — 44 rolling windows, not 73 starts:**
-
-The JST dataset has 73 annual observations (1947–2019). A 30-year simulation requires a 30-year return sequence. The claim "73 historical starting years" in the previous version of this plan was incorrect — with 73 annual observations and a 30-year window, there are only 44 non-overlapping starting points:
-
-```
-73 - 30 + 1 = 44 rolling windows
-```
-
-Window 1: 1947–1976
-Window 2: 1948–1977
-...
-Window 44: 1990–2019
-
-**Module 1 uses 44 rolling windows as the primary specification.** The equally-weighted E[U] is computed over these 44 paths. This is the cleanest empirical interpretation and what a reviewer would expect.
-
-Two robustness specifications are computed but labelled as secondary:
-- **Circular/wrapping (73 starts):** After 2019, wrap to 1947. Gives 73 paths but introduces artificial 2019→1947 transitions. Labelled "circular" in output.
-- **Bootstrap (1,000 paths):** Sample 30 annual returns with replacement from the 73 observations. Gives a larger empirical distribution but changes the stochastic process. Labelled "bootstrap" in output.
-
-The primary result is always the 44-window specification. If results differ substantially across specifications, that is itself reported.
-
-**CGT realisation behaviour — sensitivity dimension:**
-
-Realisation behaviour is a **primary sensitivity dimension** across five rules:
-
-| Rule label | Description | Bias |
-|---|---|---|
-| `hold_to_death` | Zero realisations during lifetime; full step-up at death | Most favourable to CGT |
-| `threshold_high` | Realise only when embedded gain ratio > 80% | Favourable to CGT |
-| `threshold_mid` | Realise when embedded gain ratio > 50% | Neutral |
-| `threshold_low` | Realise when embedded gain ratio > 30% | Unfavourable to CGT |
-| `annual_fraction` | Realise a fixed 5% of embedded gain each year | Unfavourable to CGT |
-
-The `hold_to_death` rule is the economically correct description of the dominant strategy for this population and the most adversarial test. EVAL must report results for all five rules. No single rule is "the" CGT comparator.
-
-**Sweep parameters for Module E1:**
-
-| Parameter | Values | Purpose |
-|---|---|---|
-| `tau_cgt` | 0.24, 0.18, 0.14, 0.12, 0.00 | Headline → optimal structuring → death step-up only |
-| `realisation_rule` | all five rules above | CGT optimisation sensitivity |
-| `death_prob` | ONS central, 0.5× ONS, 0.0 | Sensitivity on step-up value |
-| `return_path` | 44-window (primary), circular, bootstrap | Distributional robustness |
-| `gamma` | 1.0, 2.0, 4.0 | Risk aversion sensitivity |
-| `W0` | bracket V0_m values | Per-bracket results |
-
-Note: BADR is **not** a primary sweep dimension at the reference cell. See Section 7.1 for rationale.
+This approach is consistent with the Dammon-Spatt-Zhang (2001) framework and incorporates the key finding that the death step-up is the dominant feature distinguishing long-horizon CGT from accrual taxation.
 
 ### 5.3 Module 2 — Per-Taxpayer Break-Even
 
-For each cost category, compute the annual cost that, as a constant stream over N years, has a present value equal to the welfare advantage produced by Module E1. This uses the annuity formula, not arithmetic division by N — the two differ substantially at ρ = 5% over 30 years (annuity factor ≈ 0.065, versus the ÷30 implicit rate of 0.033).
+For each cost category, compute:
 
-**The 141 bp figure from WFR does not appear in Module E2.** Module E2 reads `ΔCEW_EVAL` from Module E1's output. The welfare baseline that drives break-even thresholds is whatever Module E1 computes, across the full scenario sweep. Break-even results are therefore reported per scenario, not as single numbers.
+**Break-even cost (£/year) = (141 bp × W₀) / 30 years** as the annual welfare equivalent, then express as a fraction of W₀ for comparability.
 
-See Section 10.4 for the implementation formula.
+At the reference taxpayer (W₀ = £1.629m, N = 30, 141 bp baseline):
+- 141 bp × £1.629m = £22,969 lifetime welfare equivalent
+- ÷ 30 years = **£766/year** break-even in annualised welfare terms
+
+At terminal wealth (W_terminal ≈ £19.72m, Good tier, 95th percentile after 30 years):
+- The burden figures shift to terminal wealth basis: **0.41% × £19.72m = £80,852/year** in terminal-wealth-equivalent terms (revenue-weighted burden at Good tier, 95th percentile from RATES Table §2)
+
+Compare each cost category against both benchmarks and assess plausibility.
 
 ### 5.4 Module 3 — Aggregate Fiscal Break-Even
 
-**Hard structural rule: welfare break-even ≠ fiscal break-even.**
-
-A fiscal revenue loss is not the same object as a welfare loss. A taxpayer who avoids £1 of WDT liability by spending 20p on professional restructuring has reduced Treasury revenue by £1 but generated a real welfare cost of 20p — the other 80p is a transfer, not a deadweight loss. Similarly, emigration reduces Treasury revenue by the full wealth-tax amount plus cross-base multiplier, but may increase or decrease the emigrant's own welfare, and the welfare of remaining residents is affected through public goods provision and distributional effects. These are different objects and must be computed and reported separately.
-
-Module E5 therefore produces two distinct outputs:
-
-- **Fiscal break-even:** at what behavioural response magnitude does WDT net revenue fall to zero (or to parity with the current system)?
-- **Welfare break-even:** at what real resource cost does the per-taxpayer welfare advantage produced by Module E1 fall to zero?
-
-The paper must state explicitly, in its framing and its conclusions, that fiscal solvency and welfare dominance are not the same claim and can diverge.
-
-**Migration (fiscal):**
+**Migration:**
 - Apply Jakobsen semi-elasticity (−0.17 pp per 1pp effective rate) to WDT burden (0.35%)
 - Implied annual emigration rate increase: 0.17 × 0.35 = 0.06 pp
 - Apply Agrawal multiplier (2×, 4×, 6× sensitivity) for cross-base revenue loss
 - Compare to WDT lifetime average revenue (£873.6b/year, RATES §7.1)
-- Break-even: what emigration rate makes net fiscal revenue negative
+- Break-even: what emigration rate makes net revenue negative
 
-**Intensive margin (fiscal and welfare separately):**
-- Apply Jakobsen intensive margin coefficient (0.54 cents/dollar) for fiscal impact
-- For welfare impact: note that avoidance activity (professional fees, restructuring, suboptimal holdings) is itself welfare-destroying. The welfare break-even requires the *net* real resource cost, not the gross revenue loss. The fiscal break-even is reached first; the welfare break-even requires substantially more avoidance activity and cost.
-- Show the gap between the two thresholds explicitly
+**Intensive margin:**
+- Apply Jakobsen intensive margin coefficient (0.54 cents/dollar)
+- Compare WDT-adjusted estimate (0.1–0.2 cents/dollar based on structural mitigants)
+- Show net revenue under both scenarios
 
 **Admin costs:**
 - Current system: CGT Self Assessment cost (2.14p per £1) × CGT receipts (~£13.7b) = £293m; IHT admin (~£35m); total ~£328m for the population the WDT would cover
@@ -548,94 +414,62 @@ The following must be sourced before Module 1 and Module 4 can be finalised.
 
 ## 6. Key Analytical Findings from Research
 
-**Note on how Section 6 findings are used:** Section 6 summarises the empirical priors that informed model design. These are not model outputs and must not be presented as conclusions. The model produces break-even thresholds; Section 6 provides the empirical comparison ranges. The reader draws the conclusion. The correct EVAL output format is a table like the following, not a series of claims about what is or isn't likely:
+### 6.1 The 141 bp Baseline Is a Floor
 
-| Cost category | Break-even quantity | Empirical comparison range | Source |
-|---|---|---|---|
-| Migration | X% annual emigration rate | Jakobsen: ~0.06 pp increase implied | Jakobsen et al. (2024) |
-| Avoidance | £X real resource cost / taxpayer | Jakobsen: 0.54 cents/dollar fiscal | Jakobsen et al. (2024) |
-| Compliance | £X/year professional fees | Burgherr: 0.05–0.1% of taxable wealth | Burgherr (2021) |
-| Admin failure | X% probability of Phase One failure | No empirical basis — scenario only | — |
-| Refund gaming | X% coordinated loss engineering | Structural bound — see §4.5 | — |
+The WFR baseline of 141 bp is computed against the 24% headline CGT rate at T = 5. Three reasons it understates the true welfare advantage:
 
-The break-even quantities (X values) are computed by Module E2 from `ΔCEW_EVAL`. The empirical comparison ranges are the external data points. The reader sees the gap between them. Section 6 provides that empirical grounding.
+1. **Effective rate for the WDT population is 10–24%, not 24%.** Advani-Summers (2023) establish that EATRs decline at the top of the distribution. BADR, EOT structures, and deferral-to-death reduce the realistic effective rate to 10–18% for optimally structured business asset disposals.
 
-### 6.1 The WFR 141 bp Figure as a Reference Point
+2. **The T = 5 calibration understates lock-in at N = 30.** WFR's lock-in cost plateaus at 181 bp from T = 8 onward. At N = 30, the embedded gain ratio G/V reaches ~90%, and WFR Table 4.2.2b shows lock-in costs approaching 162 bp at G/V = 77%. The N = 30 CGT comparison is harder on CGT, not easier.
 
-The WFR baseline of 141 bp is computed against the 24% headline CGT rate at T = 5. It is a reference, not an assumption for EVAL. Three reasons the true N = 30 advantage may differ:
+3. **Death step-up eliminates CGT but not WDT at N = 30.** The most valuable feature of CGT for a long-horizon wealthy holder is the basis step-up at death: heirs inherit at probate value, the embedded lifetime gain is never taxed. The WDT's inheritance auction fires at death, eliminating this benefit. EVAL's N = 30 model must price this structural difference explicitly.
 
-1. **Effective rate for the WDT population is 10–24%, not 24%.** Advani-Summers (2023) establish that EATRs decline at the top of the distribution. EOT structures and deferral-to-death reduce the realistic effective rate for optimally structured disposals. Note: BADR is a minor factor at the reference cell (Good tier, ~£18m lifetime gains) where the £1m lifetime limit is exhausted rapidly; it is more significant for smaller holdings.
+The honest framing for EVAL: **the question is not whether the WDT's welfare advantage survives Category 3 costs; it is how large those costs would need to be to eliminate an advantage that is substantially larger than WFR's 141 bp baseline suggests.**
 
-2. **The T = 5 calibration may understate lock-in at N = 30.** WFR's lock-in cost plateaus at 181 bp from T = 8 onward due to portfolio persistence. At N = 30, the embedded gain ratio G/V reaches ~90%, and WFR Table 4.2.2b shows lock-in costs approaching 162 bp at G/V = 77%.
+### 6.2 Intensive Margin Avoidance Is the Dominant Risk
 
-3. **The death step-up is potentially the dominant factor at N = 30 — in CGT's favour.** At N = 30, the most valuable feature of CGT for a long-horizon wealthy holder is the basis step-up at death. The WDT's inheritance auction fires at death, removing this benefit. Under `hold_to_death`, CGT effectively costs the agent nothing in present-value terms if the step-up is large enough. Whether the other WDT advantages (switching neutrality, symmetric refund) outweigh this is the central empirical question Module E1 answers.
+Of the five cost categories, intensive margin avoidance is the most material empirical threat. The Jakobsen semi-elasticity gives:
 
-**The honest framing:** EVAL computes `ΔCEW_EVAL` from first principles at N = 30 under all five CGT realisation rules, reports the full scenario range including CGT-favourable assumptions, and then asks how large each Category 3 cost would need to be to eliminate whatever advantage the model produces. The result may show WDT dominance, CGT dominance, or a range spanning both — all are valid and reported.
+- Migration (extensive margin): 0.22 cents per dollar raised
+- Avoidance/restructuring (intensive margin): 0.54 cents per dollar raised
 
-### 6.2 Intensive Margin Avoidance — Empirical Grounding
+The WDT's tolerant zone (α ≈ 0.8–1.5) and self-balancing mechanisms are specifically designed to reduce the intensive margin response relative to conventional wealth taxes. The honest position is that WDT-specific intensive margin responses cannot be quantified before Phase One.
 
-The Jakobsen semi-elasticity gives:
+EVAL's contribution is to characterise the break-even: the intensive margin response would need to reach approximately **0.8–0.9 cents per dollar raised** to eliminate the welfare advantage (above the Jakobsen upper bound of 0.54). This is an empirically useful result even without precise WDT-specific estimates.
 
-- Migration (extensive margin): 0.22 cents per dollar raised (fiscal)
-- Avoidance/restructuring (intensive margin): 0.54 cents per dollar raised (fiscal)
+### 6.3 Migration Is Unlikely to Be the Critical Threat
 
-The WDT's tolerant zone (α ≈ 0.8–1.5) and self-balancing mechanisms are specifically designed to reduce the intensive margin response relative to conventional wealth taxes. Whether they succeed is empirically unknown before Phase One. Module E2 will compute the welfare break-even threshold; the comparison against Jakobsen's 0.54 fiscal estimate is the empirical reference point, not the conclusion.
+At the WDT's 0.35% revenue-weighted annual burden, the implied annual emigration rate increase is 0.06 percentage points above a 0.2% baseline. Break-even requires approximately 12–18% of the assessed population to emigrate — 10–15× the elasticity-implied prediction. Migration, on its own, cannot plausibly eliminate the welfare advantage at the WDT's calibrated burden level.
 
-### 6.3 Migration — Empirical Grounding
+The Agrawal 6× cross-base multiplier is directionally valid but calibrated to intra-national Spanish regional mobility. A UK-specific multiplier of 2–3× is more defensible. Even at 6×, the migration break-even remains implausibly high.
 
-At the WDT's 0.35% revenue-weighted annual burden, the Jakobsen semi-elasticity implies an annual emigration rate increase of approximately 0.06 percentage points above a 0.2% baseline. Module E3 computes the fiscal break-even emigration rate. The empirical comparison is the Jakobsen-implied rate (~0.06 pp increase) against that threshold. The reader draws the conclusion.
+### 6.4 The WDT Is Likely a Net Administrative Saver
 
-The Agrawal 6× cross-base multiplier is directionally valid but calibrated to intra-national Spanish regional mobility. It is included as the upper-bound multiplier scenario; 2–3× is the more defensible UK estimate.
+Current HMRC Self Assessment admin cost (CGT's collection mechanism): **2.14p per £1**. WTC projected ongoing government cost for a UK annual wealth tax at the £10m threshold: approximately **0.03p per £1** (£3m/year against ~£10bn projected revenue). The WDT's admin cost per £1 of revenue is likely lower than any comparable incumbent instrument, not higher.
 
-### 6.4 Admin Costs — Empirical Grounding
-
-Current HMRC Self Assessment admin cost (CGT's collection mechanism): **2.14p per £1** (NAO 2025). WTC projected ongoing government cost for a UK annual wealth tax at the £10m threshold: approximately **0.03p per £1** (£3m/year against ~£10bn projected revenue). Module E4 computes this comparison and the net saving margin.
+This is the one cost category where EVAL's conclusion is almost certainly not "possible threat to welfare advantage" but "net benefit." The structural argument (no open-ended valuation disputes under Routes C/D, bounded two-stage process under Routes A/B) is well-supported by the WTC evidence base.
 
 ### 6.5 The Honest Framing for EVAL's Output
 
-EVAL's output should be presented as: **"The WDT's N=30 welfare advantage, computed across the 44-window historical return distribution and across CGT realisation scenarios from the most to the least favourable, ranges from X to Y basis points. Category 3 costs would need to reach [threshold] to eliminate even the lower bound of this range. The empirical comparison for each cost category is shown in the break-even table."**
+EVAL's output should be presented as: **"The WDT's welfare advantage survives Category 3 costs unless [condition]. That condition requires [implausible empirical magnitude] in the case of [migration/admin] and [plausible but uncertain magnitude] in the case of [intensive margin avoidance]. Phase One is the resolution path for the latter."**
 
-The paper does not characterise whether each break-even is plausible. It shows the numbers and the empirical reference range. That is EVAL's contribution.
+This framing is more honest and more useful than a single welfare number, because it makes the uncertainty explicit and identifies the empirical questions that actually matter.
 
 ---
 
 ## 7. Open Questions for EVAL Development
 
-### 7.1 Modelling Choices — Locked Decisions and Open Items
+### 7.1 Modelling Choices to Resolve Before Coding
 
-The following six rules are **locked** — they reflect decisions reached in design review and must not be overridden during coding without explicit author approval:
+1. **Death probability model.** Use ONS England national life tables starting at age 60 (the assumed WDT entry age based on inheritance-triggered W_min crossing)? Or a distribution of entry ages? The simpler approach (single entry age 60, life table gives annual probability of death through age 90) is sufficient for EVAL's Level 1 contribution.
 
-**Locked rule 1: `ΔCEW_EVAL` is the baseline, not 141 bp.**
-141 bp appears nowhere in eval_core.py as a hard-coded constant used to drive break-even calculations. Module E1 computes the baseline; Modules E2–E5 read from it.
+2. **CGT realisation decision rule.** Dammon-Spatt-Zhang show optimal rebalancing is complex. For EVAL, use a simpler rule: realise when embedded gain ratio exceeds a threshold (calibrated to be roughly welfare-neutral), or realise at a fixed fraction of gains each year. The full dynamic optimisation is the correct answer but is substantially harder to implement. Decide whether Option A (threshold rule) or Option B (full dynamic optimisation) is within scope for this model.
 
-**Locked rule 2: CGT realisation behaviour is a sensitivity dimension, not a parameter to calibrate.**
-eval_core.py implements all five realisation rules (see §5.2). The primary analytical result is presented across the full rule range. No single rule is presented as "the" CGT comparator. The `hold_to_death` rule must be included and clearly labelled as the most CGT-favourable assumption.
+3. **Treatment of BADR lifetime limit.** BADR applies at 18% to the first £1m of lifetime qualifying business asset gains. For the reference taxpayer (terminal wealth ~£20m), the BADR limit is reached early in the holding period. Model BADR as: 18% on first £1m of gains, then 24% thereafter. This is more realistic than a flat 24% for the entire path.
 
-**Locked rule 3: Welfare break-even and fiscal break-even are separate outputs.**
-eval_core.py computes and reports both. The narrative never conflates fiscal revenue loss with welfare loss. The distinction is stated explicitly in the output schema and in any text generated from it.
+4. **Route D fraction of portfolio.** BEHAV §8.2 estimates Route D at 10–20% of WDT-taxable wealth. For the 95th percentile Good-tier reference taxpayer with W₀ ≈ £1.63m, a large fraction may be in listed equities (Route A) or property (Route B). The Route D inheritance auction cost is therefore a fraction of total portfolio value, not the whole thing. Need an assumed Route D fraction for the reference taxpayer.
 
-**Locked rule 4: Break-even annualisation uses the annuity formula.**
-The annuity factor at ρ = 0.05, N = 30 is approximately 0.0651. The ÷30 shortcut is not used anywhere in the code.
-
-**Locked rule 5: Module 1 must reproduce the WFR 141.22 bp result as a limiting case before N=30 extension proceeds.**
-The reproducibility gate described in §5.2 is mandatory. If the model cannot reproduce 141.22 bp (±2 bp tolerance) at WFR's reference parameters (T=5, G/V=50%, τ_cgt=24%, γ=2, no death), development stops and the model is corrected. This gate ensures EVAL is extending WFR's mechanism, not measuring something subtly different.
-
-**Locked rule 6: The primary return path specification is 44 rolling windows, not 73 starts.**
-With 73 annual observations (1947–2019) and a 30-year simulation horizon, there are 44 non-overlapping starting windows (1947–1976 through 1990–2019). The claim of "73 independent 30-year paths" is mathematically impossible and is not used. Circular and bootstrap specifications are computed as labelled robustness checks only.
-
-The following items remain open and must be decided before coding:
-
-1. **Death probability model.** Use ONS England national life tables starting at age 60 (single entry age, life table gives annual probability of death through age 90). Entry age distribution is out of scope.
-
-2. **Route D fraction of portfolio.** Assume 15% Route D for the reference taxpayer (midpoint of BEHAV §8.2 range of 10–20%) as the central case, with 10% and 20% as bounds.
-
-3. **Discount rate for welfare calculations.** Use ρ = 5% (consistent with VAL.A §C.12) as the central case. Report sensitivity at ρ = 3% and ρ = 7%.
-
-4. **Single-asset vs two-asset CGT model.** The full architecture requires both asset A and alternative asset B. The single-asset simplification (measuring cost of non-switching directly) is acceptable if and only if it passes the reproducibility gate in locked rule 5. If it fails, the two-asset model is required.
-
-**Note on BADR:** BADR is not a primary sweep dimension at the reference cell (£1m lifetime limit exhausted within a few years of any partial-realisation path for the ~£18m lifetime gain trajectory). Note as a model limitation; model explicitly only for secondary cases where it materially affects the effective rate.
-
-**Note on output presentation:** EVAL does not characterise whether each cost category is "likely" or "unlikely" to threaten the welfare advantage. It produces break-even quantities and provides empirical comparison ranges. See Section 6 and the output table format in §6.0.
+5. **Discount rate for welfare calculations.** WFR uses γ = 2 (CRRA) with no explicit discount rate for welfare comparisons. EVAL's N = 30 model needs a discount rate ρ for present-value comparisons. Use ρ = 5% (consistent with VAL.A §C.12 NPV adjustment) as the central case.
 
 ### 7.2 Data Still to Fetch
 
@@ -880,51 +714,13 @@ The central architectural problem for EVAL is that **wdt_core and wfr_core model
 | Death | Not modelled | Not modelled |
 | Population | All 40 bracket×tier cells via SSM marginals | One representative agent per tier |
 
-EVAL bridges these frameworks by:
+EVAL needs to bridge these two frameworks to produce comparable N=30 welfare numbers for both WDT and CGT. The approach:
 
-1. **Extending wfr_core's `AssetSwitchDecision` dynamically** — making the switching decision at each period t = 1..N rather than at fixed T, adding death probability, and adding the death step-up benefit. This preserves the mechanism that generates the 141 bp result and ensures EVAL is genuinely extending WFR rather than building a parallel model.
+**For the WDT side:** Use `wdt_core.run_sim_hist()` to simulate the N=30 path for a representative taxpayer. Convert `TW_settled` into a consumption-equivalent by treating it as the terminal consumption available to the agent. For CEW comparison, compute EU over the historical return sequence using the wdt_core path outputs rather than wfr_core's single-period expected utility.
 
-2. **Using 44 rolling historical windows** — with 73 annual observations and a 30-year horizon, there are 44 non-overlapping starting windows. The primary CEW computation uses equally-weighted E[U] over these 44 paths for both the WDT and CGT systems. Circular (73) and bootstrap (1,000) are labelled robustness specifications.
+**For the CGT side:** Build a new N-period dynamic CGT simulation in `eval_core.py`. At each year t, given current wealth W_t and embedded gain (W_t - B_t), decide whether to realise based on the death probability and remaining horizon. At death: step-up (basis resets to W_t, no CGT). At year N (if not dead): forced realisation. Convert the N-period consumption path to EU and CEW using the same wfr_core primitives.
 
-3. **Enforcing the reproducibility gate before any N=30 results are accepted** — Module E1 must reproduce the WFR 141.22 bp result (±2 bp) at WFR's reference parameters before proceeding. This verifies that the dynamic extension has not inadvertently diverged from the WFR mechanism.
-
-**Distributional basis — correct implementation:**
-
-For each (tau_cgt, realisation_rule, death_scenario, W0, gamma) combination:
-- Run 44 WDT simulations (one per rolling window), record `TW_settled` per window
-- Run 44 CGT simulations (one per rolling window), record terminal wealth per window
-- Run 44 no-tax simulations, record terminal wealth per window
-- Compute `E[U_WDT] = mean(crra_utility(tw_i, gamma) for i in 44 windows)`
-- Compute `E[U_CGT]` and `E[U_notax]` on the same basis
-- Convert to `ΔCEW_EVAL = (cew_wdt - cew_cgt) * 10000` in basis points
-
-Do not pass single `TW_settled` values from individual paths into `crra_utility` and label the result CEW. Single-path results are path illustrations, not expected-utility welfare measures.
-
-**Welfare decomposition — required output structure:**
-
-Module E1 must decompose `ΔCEW_EVAL` into contributing components by running targeted simulations that isolate each effect:
-
-| Component | Isolation method |
-|---|---|
-| Lock-in switching wedge | CEW difference between CGT-with-lock-in and CGT-without-lock-in (mark-to-market CGT) |
-| CGT realisation taxation | CEW cost of actual CGT payments in realisation-rule paths vs no-tax |
-| CGT death step-up benefit | CEW difference between CGT-with-step-up and CGT-without-step-up |
-| WDT inheritance auction cost | CEW cost of Route D auction at death vs costless inheritance |
-| WDT symmetric refund benefit | CEW difference between WDT-with-refund and WDT-without-refund (one-sided WDT) |
-
-The sum of these components equals `ΔCEW_EVAL`. Decomposing it allows the reader to see which components drive the result and how the balance shifts across the realisation rule sweep — particularly how the CGT death step-up benefit interacts with the `hold_to_death` rule.
-
-**For the CGT side — simulation logic:**
-Build `DynamicCGTPath` in eval_core.py. At each year t:
-1. Apply return r_t from the window's historical sequence
-2. Apply realisation rule (see §5.2) to determine whether to crystallise the embedded gain
-3. If crystallising: pay tau_cgt × (W_t − B_t); reset B_t = W_t
-4. Check death at prob q_x(age_t): if death, apply step-up (B_t = W_t, no CGT); heir inherits W_t
-5. At year N if still alive: forced realisation of remaining embedded gain
-
-Terminal wealth = W_N minus all CGT paid through the path.
-
-Note that `AssetSwitchDecision` provides the theoretical indifference-return threshold at each step. Under the `threshold_mid` and related rules, realise when the embedded gain ratio exceeds the threshold, which approximates the regime where the switching wedge makes staying suboptimal. This maintains the link to the WFR mechanism even in the simplified single-asset extension.
+This means EVAL's Module 1 (the N=30 welfare baseline) produces results that are **not directly comparable to WFR's Module 1** — they are computed on a different basis (multi-period path vs single-period distribution). EVAL should make this explicit in its output, noting that the N=30 results are a separate computation from the WFR baseline and are expected to show a larger WDT advantage for the reasons documented in Section 2.2.
 
 ---
 
@@ -980,179 +776,67 @@ from wfr_core import (
 )
 ```
 
-### 10.3 Module E1 — N=30 Welfare Baseline
+### 10.3 Module E1 — N=30 Welfare Baseline (New CGT Dynamic Model)
 
-This is the core new contribution. Extends `AssetSwitchDecision`'s static T-period model into a proper N-period dynamic simulation preserving the two-asset switching mechanism.
+This is the core new contribution. Replace `AssetSwitchDecision`'s static T-period model with a proper N-period dynamic simulation.
 
-**Reproducibility gate — run first, before anything else:**
-
-```python
-def validate_reproducibility(p):
-    """
-    Must reproduce WFR Module 3 result at reference parameters.
-    Tolerance ±2 bp. If this fails, stop and fix the model.
-    """
-    result = compute_cew_eval(
-        p,
-        W0=1.0,
-        tau_cgt=0.24,
-        realisation_rule='threshold_mid',   # approximates WFR's switching threshold
-        death_probs=[0.0] * 5,             # no death, T=5
-        gamma=2.0,
-        G_V_initial=0.50,                  # WFR reference embedded gain ratio
-        horizon=5,                          # T=5 to match WFR
-        return_spec='circular'             # use full 73-year series as WFR does
-    )
-    assert abs(result - 141.22) < 2.0, (
-        f"Reproducibility check FAILED: got {result:.2f} bp, expected ~141.22 bp. "
-        "Fix the CGT dynamic model before running N=30 analysis."
-    )
-    return result
-```
-
-If this fails, the CGT simulation has diverged from WFR's mechanism. Do not proceed with N=30 analysis until resolved.
-
-**New class: `DynamicCGTPath`**
-
-(Renamed from `DynamicCGTAgent` — "Path" is more accurate since one instance produces one return-path simulation.)
+**New class: `DynamicCGTAgent`**
 
 ```python
 @dataclass
-class DynamicCGTPath:
-    W0: float                # initial wealth (£m)
-    B0: float                # initial basis (£m); default = W0 * (1 - G_V_initial)
-    tau_cgt: float           # effective CGT rate (scenario parameter)
-    death_probs: list        # annual q_x by year, len=N (from ONS life tables)
-    realisation_rule: str    # one of: 'hold_to_death', 'threshold_high', 'threshold_mid',
-                             #         'threshold_low', 'annual_fraction'
-    # AssetSwitchDecision used internally to compute indifference return at each step
-    # BADR is not a field — see note below
+class DynamicCGTAgent:
+    W0: float           # initial wealth (£m)
+    tau_cgt: float      # effective CGT rate (scenario parameter)
+    r_A: float          # baseline return (hist_mean = 10.45%)
+    death_probs: list   # annual death probability by year, len=N (from ONS life tables)
+    badr_limit: float   # £m of gains eligible for BADR rate (default 1.0)
+    tau_badr: float     # BADR rate (default 0.18)
 ```
 
-**Simulation logic per year t (single-path, one historical window):**
+**Simulation logic per year t:**
 
 ```
-State: (W_t, B_t, cgt_paid_cum)
-  W_t          = current wealth (£m); includes prior-year CGT deductions
-  B_t          = CGT recognised basis; resets to W_t at death (step-up)
-  cgt_paid_cum = cumulative CGT paid to date
+State: (W_t, B_t, cum_t, alive)
+  W_t    = current wealth
+  B_t    = CGT recognised basis (resets at death to W_t — step-up)
+  cum_t  = cumulative CGT paid (for comparison with WDT envelope)
 
 Each year:
-  1. Apply return r_t from the window's historical sequence
-     W_t = W_{t-1} * (1 + r_t)
-
-  2. Compute switching indifference threshold using AssetSwitchDecision:
-     decision = AssetSwitchDecision(V=W_t, B=B_t, tau_cgt=tau_cgt,
-                                    T=N-t, r_A=r_A_bar)
-     r_B_indiff = decision.indifference_return()
-     # This links the dynamic simulation to WFR's switching mechanism
-
-  3. Apply realisation rule:
-     hold_to_death:    never realise during lifetime
-     threshold_high:   realise if (W_t - B_t) / W_t > 0.80
-     threshold_mid:    realise if (W_t - B_t) / W_t > 0.50
-     threshold_low:    realise if (W_t - B_t) / W_t > 0.30
-     annual_fraction:  realise 5% of (W_t - B_t) each year
-
-  4. If realising: pay tau_cgt * (W_t - B_t), deduct from W_t, reset B_t = W_t
-
-  5. Check death at prob death_probs[t]:
-     → step-up: B_t = W_t, no CGT; heir inherits W_t
-     → terminal_wealth = W_t; simulation ends
-
-  6. At year N if still alive: forced realisation
-     terminal_wealth = W_N - tau_cgt * (W_N - B_N)
+  1. Draw return r_t from historical sequence
+  2. W_t = W_{t-1} * (1 + r_t)
+  3. Check death: with prob death_probs[t], taxpayer dies
+     → step-up: B_t = W_t (embedded gain forgiven), no CGT, heir inherits W_t
+     → simulation ends; record W_death as terminal consumption
+  4. If alive: realisation decision
+     → compute r_B_indiff at current (W_t, B_t, tau_cgt, T_remaining)
+     → if r_t > r_B_indiff: switch (realise), pay CGT on (W_t - B_t), B_t = W_t
+     → else: hold, no tax
+  5. Repeat to year N
+  6. If still alive at year N: forced realisation, pay CGT on (W_N - B_N)
 ```
 
-**CEW conversion — 44-window distributional basis (mandatory):**
-
+**CEW conversion:**
+The N-period path produces a terminal consumption value C_terminal = W_terminal after all CGT is paid. Convert to CEW using the wfr_core utility:
 ```python
-def compute_cew_eval(p, W0, tau_cgt, realisation_rule, death_probs, gamma,
-                     return_spec='rolling_44', G_V_initial=None, horizon=30):
-    """
-    Returns ΔCEW_EVAL in basis points (positive = WDT wins).
-    
-    return_spec options:
-        'rolling_44'  — primary: 44 non-overlapping 30-year windows (1947-1976..1990-2019)
-        'circular'    — robustness: 73 starts, wrapping after 2019 → 1947
-        'bootstrap'   — robustness: 1,000 resampled 30-year paths
-    """
-    windows = get_return_windows(p, spec=return_spec, horizon=horizon)
-    # rolling_44: len(windows) == 44
-    # circular:   len(windows) == 73
-    # bootstrap:  len(windows) == 1000
-
-    eu_wdt_list, eu_cgt_list, eu_notax_list = [], [], []
-
-    for window_returns in windows:  # each is a list of `horizon` annual returns
-        # WDT path
-        wdt_result = run_wdt_path(p, W0, window_returns, horizon)
-        tw_wdt = wdt_result['TW_settled']
-
-        # CGT path
-        B0 = W0 * (1 - G_V_initial) if G_V_initial else W0  # basis = W0 if no embedded gain
-        cgt_path = DynamicCGTPath(W0=W0, B0=B0, tau_cgt=tau_cgt,
-                                   death_probs=death_probs,
-                                   realisation_rule=realisation_rule)
-        tw_cgt = cgt_path.simulate(window_returns)
-
-        # No-tax path
-        tw_notax = W0
-        for r in window_returns:
-            tw_notax *= (1 + r)
-
-        eu_wdt_list.append(crra_utility(tw_wdt, gamma))
-        eu_cgt_list.append(crra_utility(tw_cgt, gamma))
-        eu_notax_list.append(crra_utility(tw_notax, gamma))
-
-    eu_wdt   = mean(eu_wdt_list)
-    eu_cgt   = mean(eu_cgt_list)
-    eu_notax = mean(eu_notax_list)
-
-    cew_wdt = consumption_equiv_welfare(eu_wdt, eu_notax, gamma)
-    cew_cgt = consumption_equiv_welfare(eu_cgt, eu_notax, gamma)
-
-    return (cew_wdt - cew_cgt) * 10000   # ΔCEW_EVAL in basis points
+eu_wdt = crra_utility(wdt_sim['TW_settled'], gamma)
+eu_cgt = crra_utility(cgt_sim.C_terminal, gamma)
+eu_notax = crra_utility(W0 * product(1 + r_t for t in range(N)), gamma)
+cew_wdt = consumption_equiv_welfare(eu_wdt, eu_notax, gamma)
+cew_cgt = consumption_equiv_welfare(eu_cgt, eu_notax, gamma)
+wdt_advantage_bp = (cew_wdt - cew_cgt) * 10000
 ```
 
-**Welfare decomposition — required alongside primary output:**
+**Sweep parameters for Module E1:**
 
-Run additional targeted simulations to isolate each contributing component. These are helper runs using the same 44-window loop:
+| Parameter | Values | Purpose |
+|---|---|---|
+| `tau_cgt` | 0.24, 0.18, 0.14, 0.12, 0.00 | Headline → optimal structuring → death step-up only |
+| `death_prob` | ONS central, 0.5× ONS, 0.0 | Sensitivity on step-up value |
+| `badr_limit` | 1.0, 0.0 | BADR applies / does not apply |
+| `gamma` | 1.0, 2.0, 4.0 | Risk aversion sensitivity |
+| `W0` | bracket V0_m values | Per-bracket results |
 
-```python
-def decompose_delta_cew(p, W0, tau_cgt, death_probs, gamma):
-    """
-    Returns a dict of component contributions to ΔCEW_EVAL.
-    All components computed at the primary (rolling_44) specification.
-    """
-    return {
-        'lock_in_wedge': (
-            compute_cew_eval(..., tau_cgt=tau_cgt, death_probs=[0]*30, ...)
-            - compute_cew_eval(..., tau_cgt=0.0, death_probs=[0]*30, ...)
-            # difference between CGT-with-lock-in and CGT-without (mark-to-market)
-            # death set to zero to isolate the switching wedge
-        ),
-        'death_step_up_benefit': (
-            compute_cew_eval(..., death_probs=[0]*30, ...)
-            - compute_cew_eval(..., death_probs=death_probs, ...)
-            # CGT only; difference is the value of the step-up
-        ),
-        'wdt_refund_benefit': (
-            compute_cew_eval_wdt_only(..., with_refund=True)
-            - compute_cew_eval_wdt_only(..., with_refund=False)
-            # WDT only; difference is the symmetric refund value
-        ),
-        'wdt_inheritance_auction_cost': (
-            compute_cew_eval_wdt_only(..., auction_cost_fraction=ROUTE_D_FRACTION)
-            - compute_cew_eval_wdt_only(..., auction_cost_fraction=0.0)
-        ),
-        'net_delta_cew_eval': ...   # must equal sum of above ± floating point
-    }
-```
-
-**Note on BADR:** Not a sweep parameter at the reference cell. See §7.1.
-
-**Output:** `ΔCEW_EVAL` in basis points by `(tau_cgt, realisation_rule, death_scenario, W0, gamma, return_spec)`, plus `decompose_delta_cew` for the primary scenario. 141 bp is a reference comparison; the computed range is the primary result.
+**Output:** `wdt_advantage_bp` by `(tau_cgt, death_scenario, W0, gamma)`. This is the welfare baseline from which Module E2's break-even analysis proceeds.
 
 ### 10.4 Module E2 — Per-Taxpayer Break-Even
 
@@ -1160,38 +844,32 @@ For each of the five cost categories, compute the annual cost (£/year) that exa
 
 **Reference taxpayer:** Good tier, 95th percentile, W0 = £1.629m, N = 30, implied return = 11.4%/year.
 
-**Module E2 reads `ΔCEW_EVAL` from Module E1.** It does not use 141 bp. Break-even results are computed per Module E1 scenario, producing a range rather than a point estimate.
-
-**Break-even formula — annuity basis (mandatory):**
+**Break-even formula:**
 
 ```python
-def breakeven_annual_cost(delta_cew_eval_bp, W0, N=30, rho=0.05):
+def breakeven_annual_cost(wdt_advantage_bp, W0, N, rho=0.05):
     """
-    Annual cost (£m/year) whose N-year annuity PV equals the welfare advantage.
-    
-    welfare_advantage_gbm: ΔCEW_EVAL as a fraction of W0, converted to £m
-    annuity_factor: converts lump-sum PV to equivalent constant annual payment
-    
-    At rho=0.05, N=30: annuity_factor ≈ 0.0651
-    Note: simple division by N gives factor 0.0333 — approximately half the correct value.
-    Always use this formula, never ÷N.
+    Annual cost (£m/year) that PV-offsets the welfare advantage.
+    welfare_advantage_gbp = wdt_advantage_bp / 10000 * W0
+    annualised = welfare_advantage_gbp * rho / (1 - (1+rho)^-N)
+    (annuity formula — constant annual cost with PV = welfare advantage)
     """
-    welfare_gbm = (delta_cew_eval_bp / 10000) * W0
+    welfare_gbp = (wdt_advantage_bp / 10000) * W0
     annuity_factor = rho / (1 - (1 + rho) ** -N)
-    return welfare_gbm * annuity_factor
+    return welfare_gbp * annuity_factor
 ```
 
 **Five cost break-evens:**
 
-1. **Migration (welfare break-even):** parameterised on emigration rate. The welfare cost of migration is *not* the full revenue loss — it is the resource cost of relocating and the welfare changes experienced by remaining residents. For the welfare break-even, use the migration cost net of the emigrant's own welfare change (which may be positive or negative). Flag that this cannot be quantified without Phase One data and present the fiscal break-even (full revenue loss) as an upper bound on welfare cost.
+1. **Migration:** parameterised on emigration rate. Revenue lost per departure = WDT annual liability × Agrawal multiplier (2×, 4×, 6× scenarios). Break-even emigration rate = welfare_advantage / (revenue_per_departure × multiplier).
 
-2. **Intensive margin avoidance (welfare break-even):** parameterised on real resource cost fraction, not revenue loss fraction. The welfare break-even requires: real_resource_cost_per_dollar_avoided × avoidance_rate = welfare_advantage / annual_wdt_revenue. Since real resource costs (professional fees, restructuring friction, suboptimal holdings) are a fraction of the gross revenue loss, the welfare break-even threshold is higher than the fiscal break-even. Report both thresholds.
+2. **Intensive margin avoidance:** parameterised on fraction of annual revenue lost. Break-even fraction = welfare_advantage / annual_wdt_revenue_per_taxpayer.
 
-3. **Compliance cost:** parameterised on £/year professional fees. Break-even = `breakeven_annual_cost(delta_cew_eval_bp, W0)`. Compare against Burgherr estimates (0.1% of taxable wealth ≈ £1,629/year at W0; 0.07% WDT-adjusted ≈ £1,140/year). Both are well below break-even across all Module E1 scenarios.
+3. **Compliance cost:** parameterised on £/year professional fees. Break-even = `breakeven_annual_cost(...)` directly. Compare against Burgherr estimates (0.1% of taxable wealth = ~£1,629/year at W0, scaling to ~£19,720/year at terminal wealth).
 
-4. **Route D auction cost:** event-based. Break-even = welfare_advantage_gbm / (auction_cost_fraction × route_D_wealth_fraction). Number of Route D events over 30 years: 1 mandatory (inheritance) + 0–2 voluntary. At 3% auction cost on Route D portion (assume 15% of portfolio, growing with W): one inheritance auction costs approximately £7,200 at W0 → ~£90,000 at terminal wealth. This is well below break-even across all Module E1 scenarios.
+4. **Route D auction cost:** event-based. Break-even = welfare_advantage / (auction_cost_fraction × route_D_wealth_fraction). Number of Route D events over 30 years: 1 mandatory (inheritance) + 0–2 voluntary. At 3% auction cost on Route D portion (assume 15% of portfolio = £0.24m at W0 growing to ~£3m at terminal wealth): one event costs ~£7,200 at W0 → ~£90,000 at terminal. Bounded, well below break-even.
 
-5. **Admin learning:** probability-weighted scenario. If Phase One fails (probability p_fail) and system is repealed at year T_repeal, the agent receives only T_repeal years of welfare advantage. Expected welfare advantage = full_advantage × [1 − p_fail × (1 − T_repeal/N)]. Solve for the (p_fail, T_repeal) combinations that reduce expected advantage to zero. Present as a grid, not a point estimate.
+5. **Admin learning:** framed as a probability-weighted scenario. If Phase One fails (probability p_fail) and system is repealed at year T_repeal, the agent receives only T_repeal years of welfare advantage instead of 30. Expected welfare advantage = (1 - p_fail) × full_advantage + p_fail × (T_repeal/30) × full_advantage. Show the (p_fail, T_repeal) combinations that reduce expected advantage to zero.
 
 ### 10.5 Module E3 — Migration Response Model
 
@@ -1279,89 +957,37 @@ Express as: "migration rate must exceed X% AND/OR intensive margin losses must e
   "meta": {
     "version": "eval_core_v1",
     "date": "...",
-    "params": { ... },
-    "notes": {
-      "baseline": "ΔCEW_EVAL is computed from Module E1, not from WFR's 141 bp figure",
-      "distributional_basis": "CEW computed over 44 rolling 30-year windows (primary); circular and bootstrap as robustness",
-      "fiscal_vs_welfare": "module_e2 and module_e5 report fiscal and welfare break-evens separately",
-      "reproducibility": "WFR 141.22 bp reproduced at T=5, G/V=50%, tau_cgt=24%, gamma=2 before N=30 analysis"
-    },
-    "reproducibility_gate": {
-      "wfr_reference_bp": 141.22,
-      "eval_reproduced_bp": "...",
-      "tolerance_bp": 2.0,
-      "passed": true
-    }
+    "params": { ... }
   },
   "module_e1": {
     "n30_welfare_baseline": {
-      "return_spec": "rolling_44",
-      "n_windows": 44,
       "by_scenario": {
-        "(tau_cgt=0.24, rule=hold_to_death, death=ons_central, gamma=2.0)": {
-          "wdt_cew_bp": ...,
-          "cgt_cew_bp": ...,
-          "delta_cew_eval_bp": ...,
-          "wfr_reference_bp": 141.22
+        "(tau_cgt=0.24, death=ons_central)": {
+          "wdt_cew": ...,
+          "cgt_cew": ...,
+          "wdt_advantage_bp": ...,
+          "breakeven_annual_cost_gbm": ...
         }
-      },
-      "scenario_range": {
-        "delta_cew_eval_min_bp": ...,
-        "delta_cew_eval_max_bp": ...,
-        "most_favourable_to_cgt_scenario": "tau_cgt=0.00, rule=hold_to_death, death=ons_central",
-        "least_favourable_to_cgt_scenario": "tau_cgt=0.24, rule=annual_fraction, death=0.0"
-      },
-      "decomposition": {
-        "scenario": "(tau_cgt=0.24, rule=hold_to_death, death=ons_central, gamma=2.0)",
-        "lock_in_switching_wedge_bp": ...,
-        "cgt_realisation_tax_cost_bp": ...,
-        "cgt_death_step_up_benefit_bp": ...,
-        "wdt_inheritance_auction_cost_bp": ...,
-        "wdt_symmetric_refund_benefit_bp": ...,
-        "net_delta_cew_eval_bp": "... (must equal sum above ±rounding)"
-      },
-      "robustness": {
-        "circular_73_delta_cew_bp": "...",
-        "bootstrap_1000_delta_cew_bp": "..."
       }
     }
   },
   "module_e2": {
-    "reference_taxpayer": { "W0_gbm": 1.629, "tier": "Good", "bracket": "95pct", "N": 30 },
-    "annuity_factor_rho5_N30": 0.0651,
-    "breakeven_by_cost_and_scenario": {
-      "migration": {
-        "welfare_breakeven_emigration_rate_pct": { "(scenario_key)": ... },
-        "fiscal_breakeven_emigration_rate_pct":  { "(scenario_key)": ... },
-        "jakobsen_implied_additional_rate_pct": 0.06
-      },
-      "avoidance": {
-        "welfare_breakeven_resource_cost_per_dollar": { "(scenario_key)": ... },
-        "fiscal_breakeven_revenue_loss_cents_per_dollar": { "(scenario_key)": ... },
-        "jakobsen_upper_bound_fiscal": 0.54
-      },
-      "compliance": {
-        "welfare_breakeven_annual_gbm": { "(scenario_key)": ... },
-        "burgherr_central_annual_gbm": 0.001629,
-        "burgherr_wdt_adjusted_annual_gbm": 0.00114
-      },
-      "auction": {
-        "welfare_breakeven_events_over_30yr": { "(scenario_key)": ... },
-        "realistic_events": "1-3 (1 mandatory inheritance + 0-2 voluntary)"
-      },
-      "learning": {
-        "p_fail_T_repeal_grid": [ { "p_fail": ..., "T_repeal": ..., "expected_advantage_bp": ... } ]
-      }
+    "reference_taxpayer": { "W0": 1.629, "tier": "Good", "bracket": "95%", "N": 30 },
+    "breakeven_by_cost": {
+      "migration": { "required_emigration_rate_pct": ..., "jakobsen_implied_pct": ... },
+      "avoidance": { "required_cents_per_dollar": ..., "jakobsen_upper_bound": 0.54 },
+      "compliance": { "required_annual_gbm": ..., "burgherr_estimate_gbm": ... },
+      "auction":   { "required_events": ..., "realistic_events": "1-2" },
+      "learning":  { "p_fail_T_repeal_combinations": [...] }
     }
   },
   "module_e3": {
     "migration_scenarios": [
-      { "multiplier": 2, "elasticity": "jakobsen", "annual_departures": ...,
-        "fiscal_revenue_loss_gb": ..., "welfare_cost_note": "Cannot quantify without Phase One data" },
+      { "multiplier": 2, "elasticity": "jakobsen", "annual_departures": ..., "revenue_loss_gb": ... },
       { "multiplier": 4, ... },
       { "multiplier": 6, ... }
     ],
-    "fiscal_breakeven_emigration_rate_pct": ...
+    "breakeven_emigration_rate_pct": ...
   },
   "module_e4": {
     "current_system": { "cgt_pence_per_gbp": 2.14, "iht_pence_per_gbp": 0.66 },
@@ -1369,15 +995,8 @@ Express as: "migration rate must exceed X% AND/OR intensive margin losses must e
     "net_saving_gb_per_year": ...
   },
   "module_e5": {
-    "aggregate_delta_cew_eval_bp": ...,
-    "fiscal_break_even_surface": {
-      "description": "combinations of (migration_rate, avoidance_fraction) at which WDT net fiscal revenue = 0",
-      "grid": [ { "migration_rate_pct": ..., "avoidance_fraction": ..., "net_revenue_gb": ... } ]
-    },
-    "welfare_break_even_surface": {
-      "description": "combinations of (migration_rate, real_resource_cost_fraction) at which aggregate ΔCEW_EVAL = 0",
-      "grid": [ { "migration_rate_pct": ..., "resource_cost_fraction": ..., "net_welfare_advantage_bp": ... } ]
-    }
+    "aggregate_welfare_advantage_bp": ...,
+    "break_even_surface": { "(migration_rate, avoidance_fraction)": "threatens_baseline" }
   }
 }
 ```
@@ -1468,6 +1087,4 @@ and replace the 2018–2020 values below. The 2020–2022 values will be slightl
 ---
 
 *End of EVAL_PLAN.md*  
-*Version updated: 28 September 2026 (v1) — Added Sections 9 and 10 covering existing code infrastructure and eval_core.py specification.*  
-*Version updated: 28 September 2026 (v2) — Design review (Review 1) incorporated. Five changes: (1) reframed as adversarial stress test; (2) `ΔCEW_EVAL` replaces hard-coded 141 bp throughout; (3) CGT realisation behaviour made primary sensitivity dimension with `hold_to_death` as adversarial baseline; (4) welfare and fiscal break-evens separated as distinct outputs; (5) distributional basis requirement made explicit. BADR removed as primary sweep dimension. Annuity formula confirmed as mandatory annualisation method.*  
-*Version updated: 28 September 2026 (v3) — Design review (Review 2) incorporated. Four changes: (1) Module 1 respecified as N-period extension of wfr_core.AssetSwitchDecision, preserving the two-asset switching mechanism that generates the 141 bp result — single-asset simplification permitted only if reproducibility gate passes; (2) mandatory reproducibility gate added: EVAL must reproduce WFR 141.22 bp (±2 bp) at T=5 reference parameters before N=30 analysis proceeds; (3) return path specification corrected from "73 starts" to 44 rolling non-overlapping windows as primary, with circular and bootstrap as labelled robustness checks; (4) welfare decomposition output added to Module E1, isolating lock-in wedge, step-up benefit, refund benefit, and auction cost as separate components of ΔCEW_EVAL. Section 6 analytical findings reformatted to produce a break-even table with empirical comparison ranges rather than conclusions about plausibility.*
+*Version updated: 28 September 2026 — Added Sections 9 and 10 covering existing code infrastructure and eval_core.py specification.*

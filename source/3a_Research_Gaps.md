@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Research Gaps in the Existing Literature"
 shortcode: "LR.A"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610240"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -18,7 +18,6 @@ keywords:
     - empirical identification
     - tax design
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

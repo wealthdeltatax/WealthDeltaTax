@@ -306,6 +306,64 @@ def baseline_marker(v: float, baseline_v: float, tol: float = 1e-9) -> str:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# STATISTICAL PRIMITIVES
+# ─────────────────────────────────────────────────────────────────────────────
+
+def median(vals):
+    """
+    Median of a sequence, ignoring None values.
+
+    Returns None if the filtered sequence is empty.
+
+    Canonical implementation shared by wdt_analytics and rates_core.
+    Moved here from wdt_analytics to break the circular import between
+    wdt_analytics (which calls rates_core sweep functions) and rates_core
+    (which needs these statistical helpers).
+    """
+    s = sorted(v for v in vals if v is not None)
+    if not s:
+        return None
+    n = len(s)
+    return s[n // 2] if n % 2 else (s[n // 2 - 1] + s[n // 2]) / 2
+
+
+def mean(vals):
+    """
+    Arithmetic mean of a sequence, ignoring None values.
+
+    Returns None if the filtered sequence is empty.
+
+    Canonical implementation shared by wdt_analytics and rates_core.
+    Moved here from wdt_analytics to break the circular import between
+    wdt_analytics (which calls rates_core sweep functions) and rates_core
+    (which needs these statistical helpers).
+    """
+    v = [x for x in vals if x is not None]
+    return sum(v) / len(v) if v else None
+
+
+def success(r: dict) -> bool:
+    """
+    Return True if a sweep result row represents a 'successful' scenario.
+
+    Success (v8) = LRR fills within the modelling window AND LRR never
+    fails (lrr_failure_year is None).  The older v7 definition used
+    srr_breach_year / srr_breach_covered, which are retired in v8.
+
+    Parameters
+    ----------
+    r : dict   one row from run_start_year_sweep() results
+
+    Canonical implementation shared by wdt_analytics and rates_core.
+    Moved here from wdt_analytics to break the circular import between
+    wdt_analytics (which calls rates_core sweep functions) and rates_core
+    (which needs these statistical helpers).
+    """
+    return (r.get('lrr_fill_year') is not None and
+            r.get('lrr_failure_year') is None)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # DATE
 # ─────────────────────────────────────────────────────────────────────────────
 

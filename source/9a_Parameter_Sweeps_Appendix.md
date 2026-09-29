@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Parameter Sweeps and Governing Council Calibration — Appendix"
 shortcode: "SWEEPS.A"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610270"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -19,7 +19,6 @@ keywords:
     - Sovereign Wealth Fund capitalisation
     - reproducible research
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

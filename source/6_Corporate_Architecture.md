@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Corporate Architecture"
 shortcode: "CORP"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610252"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -18,7 +18,6 @@ keywords:
     - tax incidence
     - corporate tax transition
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

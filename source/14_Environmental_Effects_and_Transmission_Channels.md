@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Environmental Effects and Transmission Channels"
 shortcode: "ENV"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610284"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -19,7 +19,6 @@ keywords:
     - declaration equilibrium
     - capital mobility
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

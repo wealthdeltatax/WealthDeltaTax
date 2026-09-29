@@ -17,8 +17,8 @@ keywords:
     - Route D
     - auction mechanism
     - worked examples
+zenodo_doi: "10.5072/zenodo.610250"
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}

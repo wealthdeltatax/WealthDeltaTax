@@ -103,7 +103,11 @@ import math
 from pathlib import Path
 
 from wdt_core import (load_params as _core_load_params,
-                      tau, simulate, simulate_sell_year, settle_tw)
+                      tau, simulate, simulate_sell_year, settle_tw,
+                      _ssm_marginals)
+from wdt_fmt import (success as _success_fn,
+                     median  as _median_fn,
+                     mean    as _mean_fn)
 
 DEFAULT_PARAMS = Path(__file__).parent / 'WDT_Params.toml'
 
@@ -391,40 +395,14 @@ def run_ssm(p, max_N=71):
       ssm_cov_{W}, zero_cov_years_{W}, min_lrr_bal_{W},
       lrr_below_floor_years_{W}  for W in COVERAGE_WINDOWS
     """
-    returns       = p['returns']
-    brackets      = p['brackets']
-    alpha         = 1.0
+    returns       = p['returns']       # needed by _compute_coverage_windows
     srr_ratio     = p['srr_ratio']
     lrr_years     = p['lrr_years']
     budget_base   = p['budget_base']
     budget_growth = p['budget_growth']
 
-    # ── marginal revenue pass ──────────────────────────────────
-    prev_agg_ttp = 0.0
-    prev_agg_ref = 0.0
-    marginal = []
-
-    for N in range(0, max_N):
-        g_series = [returns[t] for t in range(1, N + 1)]
-        g_sell   = returns[N + 1]
-        agg_ttp = 0.0; agg_ref = 0.0
-        for b in brackets:
-            sim = simulate(b['V0_m'], g_series, alpha, p)
-            for r in sim[1:]:
-                x = r['L'] * b['N'] / 1000.0
-                if x > 0: agg_ttp += x
-                else:      agg_ref += x
-            sy = simulate_sell_year(sim, g_sell, p)
-            x  = sy['L_sell'] * b['N'] / 1000.0
-            if x > 0: agg_ttp += x
-            else:      agg_ref += x
-        delta_ttp = agg_ttp - prev_agg_ttp
-        delta_ref = agg_ref - prev_agg_ref
-        marginal.append({'N': N + 1, 'ttp': delta_ttp, 'ref': delta_ref,
-                         'net': delta_ttp + delta_ref,
-                         'g':   returns[N + 1]})
-        prev_agg_ttp = agg_ttp
-        prev_agg_ref = agg_ref
+    # ── marginal revenue pass (shared with wdt_core._ssm_lrr_fill_year) ──
+    marginal = _ssm_marginals(p, max_N)
 
     # ── balance tracking ──────────────────────────────────────
     srr_bal    = 0.0
@@ -563,37 +541,18 @@ def _ssm_stripped(rotated_returns, p):
     Applies the full v8 post-fill mechanics and coverage window
     calculations. Returns a dict of all per-start-year metrics.
     """
-    alpha         = 1.0
     srr_ratio     = p['srr_ratio']
     lrr_years     = p['lrr_years']
     budget_base   = p['budget_base']
     budget_growth = p['budget_growth']
-    brackets      = p['brackets']
     max_N         = 71
 
-    # Marginal revenue pass
-    prev_agg_ttp = 0.0
-    prev_agg_ref = 0.0
-    marginals = []
-    for N in range(0, max_N):
-        g_series = [rotated_returns[t] for t in range(1, N + 1)]
-        g_sell   = rotated_returns[N + 1]
-        agg_ttp = 0.0; agg_ref = 0.0
-        for b in brackets:
-            sim = simulate(b['V0_m'], g_series, alpha, p)
-            for r in sim[1:]:
-                x = r['L'] * b['N'] / 1000.0
-                if x > 0: agg_ttp += x
-                else:      agg_ref += x
-            sy = simulate_sell_year(sim, g_sell, p)
-            x  = sy['L_sell'] * b['N'] / 1000.0
-            if x > 0: agg_ttp += x
-            else:      agg_ref += x
-        delta_ttp = agg_ttp - prev_agg_ttp
-        delta_ref = agg_ref - prev_agg_ref
-        marginals.append({'N': N + 1, 'net': delta_ttp + delta_ref})
-        prev_agg_ttp = agg_ttp
-        prev_agg_ref = agg_ref
+    # Marginal revenue pass — delegate to shared helper in wdt_core.
+    # Build a minimal p-like dict with the rotated returns so _ssm_marginals
+    # reads the correct series without mutating the caller's p dict.
+    _p_rot = dict(p)
+    _p_rot['returns'] = rotated_returns
+    marginals = _ssm_marginals(_p_rot, max_N)
 
     # Balance tracking
     srr_bal    = 0.0
@@ -836,23 +795,11 @@ CYCLE_BUCKETS = [
 ]
 
 
-def _success(r):
-    """Success = LRR fills within window AND LRR never fails."""
-    return (r.get('lrr_fill_year') is not None and
-            r.get('lrr_failure_year') is None)
-
-
-def _median(vals):
-    s = sorted(v for v in vals if v is not None)
-    if not s:
-        return None
-    n = len(s)
-    return s[n // 2] if n % 2 else (s[n // 2 - 1] + s[n // 2]) / 2
-
-
-def _mean(vals):
-    v = [x for x in vals if x is not None]
-    return sum(v) / len(v) if v else None
+# _success / _median / _mean are canonical in wdt_analytics.
+# The private aliases below keep internal call sites unchanged.
+_success = _success_fn
+_median  = _median_fn
+_mean    = _mean_fn
 
 
 def _pct(num, den):
@@ -931,6 +878,105 @@ def compute_statistics(sweep_results):
         'by_bucket':    by_bucket,
         'distributions':distributions,
     }
+
+
+# ─────────────────────────────────────────────────────────────
+# SECTION 3e — TCM BURDEN SWEEP
+# ─────────────────────────────────────────────────────────────
+
+def _weighted_quantiles(vals, weights, quantiles):
+    """
+    Weighted quantiles using the midpoint interpolation method.
+
+    Parameters
+    ----------
+    vals      : list of floats
+    weights   : list of floats (population counts or shares)
+    quantiles : list of quantile levels in [0, 1]
+
+    Returns
+    -------
+    list of floats, one per quantile (None-filled if vals is empty)
+
+    This function was previously duplicated in sweeps_core with a comment
+    noting it was "copied from 16_7 to avoid import".  It now lives here
+    as the canonical implementation so sweeps_core can import it.
+    """
+    if not vals:
+        return [None] * len(quantiles)
+    pairs = sorted(zip(vals, weights), key=lambda x: x[0])
+    sv, sw = zip(*pairs)
+    total = sum(sw)
+    cum, cum_w = 0.0, []
+    for w in sw:
+        cum_w.append(cum + 0.5 * w / total)
+        cum += w / total
+    results = []
+    for q in quantiles:
+        if q <= cum_w[0]:
+            results.append(sv[0]); continue
+        if q >= cum_w[-1]:
+            results.append(sv[-1]); continue
+        for i in range(1, len(cum_w)):
+            if cum_w[i] >= q:
+                span_w = cum_w[i] - cum_w[i - 1]
+                frac = (q - cum_w[i - 1]) / span_w if span_w > 0 else 0.0
+                results.append(sv[i - 1] + frac * (sv[i] - sv[i - 1]))
+                break
+    return results
+
+
+def tcm_burden_sweep(p_base, param_key, values):
+    """
+    Sweep one rate parameter through `values`, running the TCM at each point
+    and computing weighted quantiles of wealth_burden and eff_rate across
+    the full tier × bracket population.
+
+    This is the canonical implementation.  sweeps_core previously carried
+    a copy with a note that it was duplicated to avoid import — that copy
+    is now removed and sweeps_core imports this function instead.
+
+    Parameters
+    ----------
+    p_base    : dict   base parameter dict from load_params()
+    param_key : str    key in p_base to override (e.g. 'tau_0', 'k')
+    values    : list   parameter values to sweep
+
+    Returns
+    -------
+    list of dicts, one per valid value:
+      value, x_raw,
+      wb_min, wb_q25, wb_med, wb_q75, wb_max,
+      er_min, er_q25, er_med, er_q75, er_max
+    """
+    from copy import deepcopy
+    results = []
+    for v in values:
+        p = deepcopy(p_base)
+        p[param_key] = v
+        if p['tau_0'] >= p['tau_m'] or p['W_min'] < 0:
+            continue
+        try:
+            tcm = run_tcm(p, N=p_base['N'], N_fill=1)
+        except Exception:
+            continue
+        wb_vals, er_vals, pops = [], [], []
+        for tier in p['tiers']:
+            diff = tier['differential']
+            for cell in tcm[diff]:
+                wb_vals.append(cell['wealth_burden'])
+                er_vals.append(cell['eff_rate'])
+                pops.append(cell['cell_pop'])
+        wb_q = _weighted_quantiles(wb_vals, pops, [0.0, 0.25, 0.50, 0.75, 1.0])
+        er_q = _weighted_quantiles(er_vals, pops, [0.0, 0.25, 0.50, 0.75, 1.0])
+        results.append({
+            'value':  v, 'x_raw': v,
+            'wb_min': wb_q[0], 'wb_q25': wb_q[1], 'wb_med': wb_q[2],
+            'wb_q75': wb_q[3], 'wb_max': wb_q[4],
+            'er_min': er_q[0], 'er_q25': er_q[1], 'er_med': er_q[2],
+            'er_q75': er_q[3], 'er_max': er_q[4],
+        })
+    return results
 
 
 def report_statistics(stats, p):
@@ -1523,6 +1569,46 @@ def build_rates_output(p, burden_N=30, max_ssm_N=71, verbose=True):
     }
 
 
+def _sanitise(obj):
+    """
+    Recursively convert the build_rates_output() dict to plain JSON-safe
+    Python types before passing to json.dump.
+
+    Rules (matching sweeps_core._jsonify):
+    - dict / list / tuple: recurse
+    - numpy ndarray: convert to list then recurse
+    - numpy integer scalar: int()
+    - numpy float scalar, or Python float: float(), then None if nan/inf
+    - everything else: return unchanged (str, int, bool, None)
+
+    Using a pre-pass rather than the json.dump `default=` hook avoids the
+    CPython fast path that handles numpy scalars before `default` is called,
+    which caused nan/inf numpy floats to bypass sanitisation and raise
+    ValueError with allow_nan=False.
+    """
+    import math as _math
+    try:
+        import numpy as _np
+        _has_numpy = True
+    except ImportError:
+        _has_numpy = False
+
+    if isinstance(obj, dict):
+        return {k: _sanitise(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [_sanitise(v) for v in obj]
+    if _has_numpy and isinstance(obj, _np.ndarray):
+        return [_sanitise(v) for v in obj.tolist()]
+    if _has_numpy and isinstance(obj, _np.integer):
+        return int(obj)
+    if _has_numpy and isinstance(obj, _np.floating):
+        v = float(obj)
+        return None if not _math.isfinite(v) else v
+    if isinstance(obj, float):
+        return None if not _math.isfinite(obj) else obj
+    return obj
+
+
 def save_rates_output(data, path):
     """
     Serialise the build_rates_output() dict to JSON at path.
@@ -1539,20 +1625,8 @@ def save_rates_output(data, path):
     p = _Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
     with open(p, 'w', encoding='utf-8') as fh:
-        json.dump(data, fh, indent=2, allow_nan=False,
-                  default=_json_default)
+        json.dump(_sanitise(data), fh, indent=2, allow_nan=False)
     print(f'  Saved: {p}  ({p.stat().st_size / 1024:.0f} KB)')
-
-
-def _json_default(obj):
-    """Fallback serialiser for json.dump — converts any remaining non-standard types."""
-    if hasattr(obj, 'item'):          # numpy scalar (if numpy is in scope)
-        return obj.item()
-    if hasattr(obj, '__float__'):
-        return float(obj)
-    if hasattr(obj, '__int__'):
-        return int(obj)
-    raise TypeError(f'Object of type {type(obj)} is not JSON serialisable')
 
 
 def load_rates_output(path):

@@ -2,7 +2,7 @@
 title: "The Wealth Delta Tax: Intellectual Background and Reference Guide"
 shortcode: "LR.B"
 status: "active"
-zenodo_doi: "10.5281/zenodo.XXXXXXX"
+zenodo_doi: "10.5072/zenodo.610242"
 keywords:
     - Wealth Delta Tax
     - wealth taxation
@@ -18,7 +18,6 @@ keywords:
     - democratic legitimacy
     - international tax coordination
 ---
-
 \newpage
 
 ### Revision History {.unnumbered .unlisted}
