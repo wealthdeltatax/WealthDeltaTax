@@ -13,11 +13,11 @@ keywords:
     - threshold exit
     - jurisdictional exit
     - re-entry
-    - bridging facility
+    - closure bond facility
     - lifetime tax account
     - lifetime contribution envelope
     - tax settlement
-zenodo_doi: "10.5072/zenodo.610816"
+zenodo_doi: "10.5072/zenodo.611230"
 jel:
   - H24   # Personal income and other nonbusiness taxes and subsidies
   - F22   # International migration
@@ -37,7 +37,7 @@ jel:
 | 1.01      | 11 September 2026 | Added §8.4: beyond-lifetime-cap exploitation surface and rationale for the cap |
 | 1.02      | 20 September 2026 | Crosslinks to BEHAV.A §D added: §1.2 and §3 Agrawal cross-base externality passages now point to full seven-part response in (BEHAV.A §D); §4.4 bankruptcy section extended with GOV.B §E mandate gap note for bankruptcy refund procedure |
 | 1.03 | 25 September 2026 | §4.1 substantially expanded: full death settlement sequence, marginal rate dependency problem, provisional $\tau_{Wdeath}$ mechanism, hard reset waiver, soft reset effects, heir basis mechanics, estate administration mandate gap; §5 renamed and generalised to closure bond facility covering death, exit and bankruptcy as procedural variants of one instrument; Glossary updated throughout; §9.5 extended; §10 conclusion updated. Added §4.5: incarceration and criminal forfeiture as a unified treatment; glossary entries for custodial suspension, forfeiture closure, and forfeiture resolution award; §9.3 and §9.5 updated |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
+| 1.04 | 30 September 2026 | Bridging facility wording corrected to closure bond facility (keywords, §4.2, §4.4, §8.1); death and bankruptcy documentation gaps restated as implementation matters for the Custodian's administrative department per GOV.B §E.3 (§4.1, §4.4, §5.2, §5.4). |
 
 \newpage
 
@@ -173,7 +173,7 @@ All WDT liabilities across all routes are a first charge on the estate, settled 
 
 A soft reset in the years before death achieves less. It brings the declared basis closer to the likely auction price, reducing the final delta and simplifying provisional rate calculations, but it does not establish a market-verified price. The inheritance auction is still required and the heir receives an unverified self-declared basis rather than an auction-confirmed one. Soft resets are useful preparation but not a substitute for a hard reset where the death auction waiver is sought.
 
-**Estate administration mandate gap.** (GOV.B §E) specifies the Custodian's mandate for the standard refund cycle, the closure bond facility for exit, and the corporate equity settlement facility. The operational mechanics of the bond facility applied to death closure — who initiates the provisional $\tau$ calculation with the Custodian, what documentation the estate executor must provide, how the provisional settlement transmits to the tax authority, and how the final bond netting occurs after the auction completes — are not currently specified for the death case. This is the same category of gap noted in (CLOSE §4.4) for the bankruptcy refund procedure. Both should be resolved in a future GOV.B revision before Phase One: the first death closure within a WDT system will otherwise face a procedural gap at exactly the moment when the mechanism most needs to demonstrate its orderly operation.
+**Estate administration mandate gap.** (GOV.B §E) specifies the Custodian's mandate for the standard refund cycle, the closure bond facility for exit, and the corporate equity settlement facility. The operational mechanics of the bond facility applied to death closure — who initiates the provisional $\tau$ calculation with the Custodian, what documentation the estate executor must provide, how the provisional settlement transmits to the tax authority, and how the final bond netting occurs after the auction completes — are not currently specified for the death case. This is the same category of gap noted in (CLOSE §4.4) for the bankruptcy refund procedure. Both are implementation matters for the administrative department inside the Custodian (GOV.B §E.3), to be resolved before Phase One: the first death closure within a WDT system will otherwise face a procedural gap at exactly the moment when the mechanism most needs to demonstrate its orderly operation.
 
 ### 4.1.1 The Death Auction Waiver
 
@@ -189,13 +189,13 @@ Where the waiver applies, W_death is established immediately from all determined
 
 ## 4.2 Jurisdictional Exit
 
-Jurisdictional exit (the taxpayer departing the jurisdiction and ceasing to be within the WDT's scope) is the closure event requiring the most structural addition: the bridging facility described in (CLOSE §5). The settlement logic is identical to death (the position closes, the final delta is calculated, the mechanism's obligations are honoured). The procedural challenge is that the taxpayer is alive and mobile, so the timing of closure cannot be fixed by an external event the way death fixes it.
+Jurisdictional exit (the taxpayer departing the jurisdiction and ceasing to be within the WDT's scope) is the closure event requiring the most structural addition: the closure bond facility described in (CLOSE §5). The settlement logic is identical to death (the position closes, the final delta is calculated, the mechanism's obligations are honoured). The procedural challenge is that the taxpayer is alive and mobile, so the timing of closure cannot be fixed by an external event the way death fixes it.
 
 For Routes A and B, exit triggers professional valuation at the declared exit date, following the competitive-tender model in (VAL §10). For Route C, exit triggers the must-transfer settlement: the equity interest transfers at the declared value and the delta is calculated in the standard way. Route D is the substantively novel case, since Route D was designed precisely for assets where periodic cash settlement is impractical. The inheritance-auction mechanism (VAL §11) applies directly: the exit valuation service opens on the declared exit date, the declared annual values serve as the opening bid floor, and the auction runs to establish the final price.
 
 The same auction infrastructure (open bidding at the declared value as floor, only third parties may bid, the taxpayer holds a right of first refusal at the highest third-party bid, and the winning price becomes the new recognised basis) also operates in a third context: the (GOV §6.1) / (GOV.B §G) compelled mid-position revaluation, triggered when the three-body Valuation Body system confirms a Route D declaration as a significant outlier. That mechanism is not a closure event; the position continues after the auction. But it uses identical mechanics and the same Custodian administration, and its existence reinforces the exit auction's credibility: the infrastructure is a standing feature of the Route D architecture, not purpose-built for departure alone.
 
-The bridging facility (CLOSE §5) addresses the timing problem Route D creates. Without it, a taxpayer with significant Route D holdings cannot depart until the auction completes (the detention problem conventional exit tax regimes produce).
+The closure bond facility (CLOSE §5) addresses the timing problem Route D creates. Without it, a taxpayer with significant Route D holdings cannot depart until the auction completes (the detention problem conventional exit tax regimes produce).
 
 The declared annual values do their most important work at exit closure. A taxpayer who has reported honest annual values throughout the holding period has a well-established floor that the auction process is likely to confirm with minimal deviation. A taxpayer who has systematically understated finds that the floor is low, not because the mechanism has set it punitively, but because they established it themselves across the annual reporting cycle. The mechanism takes them at their word.
 
@@ -221,7 +221,7 @@ The rationale for creditor priority: an individual entering bankruptcy has chara
 
 The refund obligation is not subject to creditor priority in the same way. If the final delta is negative (which is likely in a bankruptcy closure), the SWF owes the estate a refund as a guaranteed commitment regardless of the creditor pool's claims. The refund flows to the estate and is distributed through the insolvency process alongside other estate assets. The state's downside commitment extends, through the estate, to the creditors; the mechanism does not withdraw the symmetric protection because the individual is insolvent.
 
-A gap in the current Custodian mandate specification should be noted. (GOV.B §E) specifies the Custodian's mandate for the standard refund cycle, the bridging facility, the solvency floor, and the corporate equity settlement facility. None of these provisions addresses the procedural mechanics of a refund obligation that has entered an insolvency estate: who initiates the refund calculation with the Custodian when the taxpayer is under insolvency administration, what documentation the insolvency practitioner must provide, and how the Custodian transmits the refund to the estate for distribution through the creditor waterfall. These are operational details the mandate will need to carry before Phase One, because the first bankruptcy closure within a WDT system will otherwise face a procedural gap at exactly the moment when the symmetric commitment most needs to be seen to operate. This gap should be resolved in a future GOV.B revision.
+A gap in the current Custodian mandate specification should be noted. (GOV.B §E) specifies the Custodian's mandate for the standard refund cycle, the closure bond facility, the solvency floor, and the corporate equity settlement facility. None of these provisions addresses the procedural mechanics of a refund obligation that has entered an insolvency estate: who initiates the refund calculation with the Custodian when the taxpayer is under insolvency administration, what documentation the insolvency practitioner must provide, and how the Custodian transmits the refund to the estate for distribution through the creditor waterfall. These are operational details the mandate will need to carry before Phase One, because the first bankruptcy closure within a WDT system will otherwise face a procedural gap at exactly the moment when the symmetric commitment most needs to be seen to operate. This gap is an implementation matter for the administrative department inside the Custodian (GOV.B §E.3) and should be resolved before Phase One.
 
 ## 4.5 Incarceration and Criminal Forfeiture
 
@@ -295,7 +295,7 @@ Final settlement occurs when the Route D auction completes and the true W is est
 
 **Interim activity decoupled:** Provisional distribution to heirs while the Route D inheritance auction runs.
 
-**Initiation:** After death, the executor establishes provisional W_death and initiates the bond process with the Custodian. Documentation requirements are assigned to a future GOV.B revision (see CLOSE §4.1 mandate gap).
+**Initiation:** After death, the executor establishes provisional W_death and initiates the bond process with the Custodian. Documentation requirements are an implementation matter (GOV.B §E.3; see CLOSE §4.1 mandate gap).
 
 **Symmetric character:** The SWF posting a bond to the estate on a negative expected delta ensures the estate has security for the expected refund. The state's downside commitment extends to the estate before final settlement is established.
 
@@ -319,7 +319,7 @@ Final settlement occurs when the Route D auction completes and the true W is est
 
 **Interim activity decoupled:** Provisional creditor distributions while Route D assets are auctioned.
 
-**Initiation:** Once insolvency proceedings open, the practitioner initiates the bond process with the Custodian, provides asset declarations, and cooperates with the Route D auction process. Documentation requirements are assigned to the same GOV.B revision noted in (CLOSE §4.4).
+**Initiation:** Once insolvency proceedings open, the practitioner initiates the bond process with the Custodian, provides asset declarations, and cooperates with the Route D auction process. Documentation requirements are an implementation matter on the same basis as noted in (CLOSE §4.4).
 
 **Priority ordering:** The bond posted by the insolvency estate is a claim by the WDT mechanism on that estate, ranked according to jurisdiction-specific insolvency priority rules as specified in (CLOSE §4.4) — creditors first, WDT claim subordinate. The bond does not assert super-priority. In bankruptcy, the more likely scenario is that the final delta is negative (assets have declined), the SWF owes a refund, and the estate bond is not needed; the SWF's bond to the estate is what matters for creditor recovery.
 
@@ -349,7 +349,7 @@ The re-entry rule treats re-entrants differently from first-time entrants. A fir
 
 ## 7.1 Phase One
 
-Phase One applies the full position closure framework to the small identified population that Phase One's high threshold and limited reach actually affect. Death closures will be rare but will exercise the inheritance auction machinery from (VAL §6.5). Exit closures will test the bridging facility and the exit valuation service. Threshold fall-through closures are likely the most common, particularly in years where market conditions produce negative deltas across the top of the wealth distribution; these are also the cleanest test of the symmetric refund at closure because the negative-delta-to-threshold calculation is straightforward.
+Phase One applies the full position closure framework to the small identified population that Phase One's high threshold and limited reach actually affect. Death closures will be rare but will exercise the inheritance auction machinery from (VAL §6.5). Exit closures will test the closure bond facility and the exit valuation service. Threshold fall-through closures are likely the most common, particularly in years where market conditions produce negative deltas across the top of the wealth distribution; these are also the cleanest test of the symmetric refund at closure because the negative-delta-to-threshold calculation is straightforward.
 
 Bankruptcy closures at Phase One are likely to be uncommon and, as argued in (CLOSE §4.4), likely to produce minimal WDT tax claims. Their principal value in Phase One is testing the interaction between position closure mechanics and insolvency procedures in the reference jurisdiction, a prerequisite for the jurisdiction-specific legal work assigned to JUR.
 
@@ -371,7 +371,7 @@ The most intuitive objection to exit closure, and to position closure in general
 
 The first is conceptual. Position closure settlement is not a charge for the act of closing; it is the settlement of an accrued running account. A taxpayer who has held a WDT position for twenty years has twenty years of delta calculations, offset by refund entitlements in loss periods. The closure event settles the running account, as the termination of any ongoing credit or debit relationship settles the account. The accrued amount does not disappear because the individual is leaving, failing, or falling below threshold.
 
-The second is structural, and applies specifically to exit closure. The bridging facility means that physical departure is not conditional on settlement being complete. The compulsion objection in its most serious form (that the taxpayer is detained pending settlement) does not arise. What remains is that the individual has an accrued liability that will be collected after they depart, which is a different claim.
+The second is structural, and applies specifically to exit closure. The closure bond facility means that physical departure is not conditional on settlement being complete. The compulsion objection in its most serious form (that the taxpayer is detained pending settlement) does not arise. What remains is that the individual has an accrued liability that will be collected after they depart, which is a different claim.
 
 ## 8.2 The Double Taxation Objection
 

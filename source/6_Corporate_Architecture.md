@@ -16,7 +16,7 @@ keywords:
     - foreign ownership
     - tax incidence
     - corporate tax transition
-zenodo_doi: "10.5072/zenodo.610794"
+zenodo_doi: "10.5072/zenodo.611208"
 jel:
   - H25   # Business taxes and subsidies
   - G32   # Financing policy; Financial risk and risk management
@@ -35,7 +35,7 @@ jel:
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 20 August 2026  | Updated section 5 for clarity |
 | 1.02      | 20 September 2026 | Crosslinks added: §6.3 three-instrument SWF overview now points to (VAL §13) for sovereign liquidity facility; §6.4 extended with (GOV.B §H) pointer for Custodian mandate extension; §9.5 calibration register now cites (GOV.B §H.5) for the five corporate facility parameters and (CORP.A §B.2.8) for $\tau_h$ ramp parameters |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
+| 1.03 | 30 September 2026 | Bridging facility renamed closure bond facility in the SWF credit-instrument distinction (§6.3). |
 
 \newpage
 
@@ -271,7 +271,7 @@ Shares transferred through the facility are held in a distinct named portfolio w
 
 The SWF's balance sheet position is naturally countercyclical to the facility's demand. Companies produce large positive deltas and face liquidity constraints during periods of rapid market appreciation, in which the SWF is also accumulating assets most quickly through the normal levy collection cycle. The SWF therefore accumulates corporate equity facility positions during exactly the periods when its overall asset position is strongest. In bear years, when the SWF's net levy income falls or turns negative and its refund obligations rise, the facility's existing positions are in rundown: companies that have recovered their cash generation are repaying loans and repurchasing shares, reducing the facility's outstanding exposure. This countercyclical property is structural, not a consequence of active SWF investment management.
 
-The facility is operationally distinct from the SWF's bridging facility for individual taxpayers, established in (GOV.B §E.3). The bridging facility is a bond structure that decouples an individual's physical departure from settlement of their personal WDT position; the corporate equity facility is a secured lending arrangement that decouples a company's assessment-date obligation from its cash generation cycle. Both resolve timing mismatches between obligation and liquidity, but they operate through different instruments and are held in separate SWF portfolios. The third SWF credit instrument — the sovereign liquidity facility for individual taxpayers facing a WDT liability without ready cash on any cash-settled route — is in (VAL §13). All three instruments are described together in (VAL §13)'s three-instrument overview.
+The facility is operationally distinct from the SWF's closure bond facility for individual taxpayers, established in (CLOSE §5) and (GOV.B §E.3). The closure bond facility is a bond structure that decouples an individual's closure event (death, exit, or bankruptcy) from final settlement of their personal WDT position; the corporate equity facility is a secured lending arrangement that decouples a company's assessment-date obligation from its cash generation cycle. Both resolve timing mismatches between obligation and liquidity, but they operate through different instruments and are held in separate SWF portfolios. The third SWF credit instrument — the sovereign liquidity facility for individual taxpayers facing a WDT liability without ready cash on any cash-settled route — is in (VAL §13). All three instruments are described together in (VAL §13)'s three-instrument overview.
 
 ## 6.4 Governing Council Calibration Parameters
 

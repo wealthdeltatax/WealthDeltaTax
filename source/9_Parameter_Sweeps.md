@@ -17,7 +17,7 @@ keywords:
     - sensitivity analysis
     - joint parameter surfaces
     - Phase One calibration
-zenodo_doi: "10.5072/zenodo.610808"
+zenodo_doi: "10.5072/zenodo.611222"
 jel:
   - H24   # Personal income and other nonbusiness taxes and subsidies
   - C63   # Computational techniques; Simulation modeling
@@ -37,7 +37,6 @@ jel:
 | 1.02 | 31 August 2026 | Glossary declaration equilibrium definition corrected to reflect refund-protection-asymmetry rationale ($\alpha$ $\approx$ 1.1) rather than stable TW advantage ($\alpha$ $\approx$ 1.2–1.5); §2.2 N-crossing paragraph extended with clarification that NPV-adjusted C.12 eliminates mild-overstater advantage prior to the nominal N-crossing point |
 | 1.03 | 14 September 2026 | Added four figures with accompanying prose: 7.3 (Fig 7.3, constant-$g$ sensitivity on LRR fill year and coverage); 7.4 (Fig 7.4, cross-parameter coverage fan); 7.5 (Fig 7.5, synthetic sinusoidal stress-test); 8.3c (Fig 8.3c, SWF stress margins — zero-coverage years and LRR buffer headroom) |
 | 1.04 | 20 September 2026 | Crosslinks added: §13.2 extended with explicit pointers to (GOV.B §E.2) for the drawdown-condition publication discipline the SRR buffer amendment would join, and to (GOV.B §E.7) for the trigger-parameter architectural form the amendment should follow |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

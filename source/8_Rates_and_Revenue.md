@@ -17,7 +17,7 @@ keywords:
     - UK fiscal policy
     - government expenditure
     - fiscal transition
-zenodo_doi: "10.5072/zenodo.610804"
+zenodo_doi: "10.5072/zenodo.611218"
 jel:
   - H24   # Personal income and other nonbusiness taxes and subsidies
   - H68   # Forecasts of budgets, deficits, and debt
@@ -39,7 +39,6 @@ jel:
 | 1.03      | 13 September 2026  | Updated terminal net worth table and figure (Fig. 3) from N=19 to N=30 canonical horizon; updated table footnote, figure caption, and §2 prose figures accordingly |
 | 1.04      | 20 September 2026  | Crosslinks added: §2 opening notes that burden figures and tier trajectories are used as WFR's revenue-equivalence baseline and four-tier Fagereng calibration (WFR §3–§4, WFR §4.3); §9.1 extended with pointer to WFR for formal welfare comparisons, D-M extension (WFR §3.2, §4.1), and concentration arithmetic (WFR §4.3) |
 | 1.05      | 24 September 2026  | SCOPE redirects added: OQ number references removed from §4 and §9.3–§9.4; §9.2, §9.4, §9.5 redirected to SCOPE §3.1 and SCOPE §5 as appropriate. |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

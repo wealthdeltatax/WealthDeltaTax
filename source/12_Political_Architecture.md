@@ -16,7 +16,7 @@ keywords:
     - corporate tax transition
     - fiscal externality
     - OBR independence
-zenodo_doi: "10.5072/zenodo.610818"
+zenodo_doi: "10.5072/zenodo.611232"
 jel:
   - H20   # Taxation, subsidies, and revenue: general
   - D72   # Political processes: rent-seeking, lobbying, elections, legislatures
@@ -34,7 +34,7 @@ jel:
 | 0.01      | 26 July 2026    | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 20 September 2026 | Crosslinks added: §3.2 three-mechanism framework extended with pointer to (INST) for systemic-level extension and (INST §6.4) for contemporary case; §5.3 labour dividend constituency paragraph extended with pointer to (LDW) for quantified purchasing power figures |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
+| 1.02 | 30 September 2026 | DR passages restated to reflect GOV revision: guarantee exact only against a unified TP and FS, influence priced and not prevented, and DR's aggregate interest in the dividend stated (§5.5). |
 
 \newpage
 
@@ -228,9 +228,9 @@ TP's internal factionalism, noted in (GOV §5.1) as both inevitable and healthy,
 
 ## 5.5 The Dividend Recipient Chamber
 
-The DR chamber exists because the anti-collusion guarantee derived in (GOV §5.1) requires a diffuse, non-proposing constituency large enough that its unanimous opposition is independently sufficient to defeat any joint TP/FS proposal. That derivation is mathematical: at the current 50/25/25 split, DR's unanimous nay defeats any proposal regardless of how TP and FS vote together. The chamber was not designed to create democratic legitimacy. It was designed to close the collusion risk between the two proposing chambers.
+The DR chamber exists because the anti-collusion guarantee derived in (GOV §5.1) requires a diffuse, non-proposing constituency large enough that its unanimous opposition is independently sufficient to defeat any joint TP/FS proposal. That derivation is mathematical: at the current 50/25/25 split, DR's unanimous nay defeats any proposal regardless of how TP and FS vote together. The guarantee is exact against a unified TP and FS and weakens as cohesion within them falls, so DR's practical strength is that they must spend resources on it in public (GOV §3.2). The chamber was not designed to create democratic legitimacy. It was designed to close the collusion risk between the two proposing chambers.
 
-The democratic legitimacy it creates is a consequence of how it was designed. A chamber filled by monthly lottery from the general population, with staggered one-year terms and no re-election incentive, cannot be captured through the organised interest channels that dominate conventional democratic representation. It has no internal career structure, no accumulated institutional culture favouring incumbents, and no financial stake in any particular outcome. It represents the general population in the literal sense of being selected from it at random, and it cannot be organised against because it does not persist long enough to be organised. The legitimacy this produces is not electoral legitimacy, but it is legitimacy that existing wealth taxes never had: a formal democratic presence structurally resistant to the capture mechanisms (POL §3) identified as driving institutional brittleness.
+The democratic legitimacy it creates is a consequence of how it was designed. A chamber filled by monthly lottery from the general population, with staggered one-year terms and no re-election incentive, is far harder to influence through the organised interest channels that dominate conventional democratic representation. It has no internal career structure and no accumulated institutional culture favouring incumbents, and its members share one aggregate interest in the dividend and the revenue base that funds it, not a stake in any particular proposal (GOV §3.2). It represents the general population in the literal sense of being selected from it at random, and it cannot be organised against because it does not persist long enough to be organised. The legitimacy this produces is not electoral legitimacy, but it is legitimacy that existing wealth taxes never had: a formal democratic presence structurally resistant to the capture mechanisms (POL §3) identified as driving institutional brittleness.
 
 ## 5.6 The Enumerated Structural Clauses
 

@@ -11,7 +11,7 @@ keywords:
     - accumulation-point efficiency
     - automation resilience
     - hostile modelling
-zenodo_doi: "10.5072/zenodo.610842"
+zenodo_doi: "10.5072/zenodo.611256"
 jel:
   - H20   # Taxation, subsidies, and revenue: general
   - B41   # Economic methodology
@@ -26,8 +26,8 @@ jel:
 
 | Revision | Date | Details |
 |:---:|:---:|:---|
-| 0.1 | 20 September 2026 | First full draft: all sections, abstract, appendix |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
+| 0.01 | 20 September 2026 | First full draft: all sections, abstract, appendix |
+| 0.02 | 30 September 2026 | Bridging facility wording corrected to closure bond facility (§3.6); H3 governance passage corrected: DR's blocking power under unified TP and FS, and rebalancing and seat-loss consequences restated per GOV.B; governance model pointer to SCOPE #35 added (§5.4, §5.7). |
 
 \newpage
 
@@ -152,7 +152,7 @@ The expected value of institutional participation is a variable the hostile mode
 
 The existing empirical literature on wealth tax migration constrains but does not determine H1's falsification condition. @AgrawalEtAl2025 estimate that Norway's 2022 wealth tax increase produced a cross-base fiscal externality of approximately 22 cents of total revenue lost per additional unit of wealth tax raised, once income and consumption tax losses from migrating households are included. @JakobsenEtAl2024 find significant wealth accumulation responses to Danish wealth tax repeal that are difficult to decompose cleanly into migration versus avoidance channels. @IacononoSmedsvik2024 find behavioural responses to Norwegian reforms that are real but, in aggregate, fiscally modest relative to pre-reform revenues. @KlevenEtAl2024 surveys the broader taxation and migration literature and finds elasticities that vary substantially by institutional context and tax design.
 
-Three features of the WDT architecture distinguish it structurally from the systems in which these estimates were produced. The delta base produces a revenue-weighted annual burden of 0.35%, structurally below the 1–2% stock levies in the Norwegian, Swedish, and Swiss systems from which most migration elasticity estimates derive (BEHAV §9.2). Route C and Route D hold accumulated basis gaps as departure costs, making exit materially more costly for a taxpayer who has managed declarations strategically (CLOSE §5). The bridging facility (CLOSE §5) decouples physical departure from settlement completion, reducing the practical pressure for aggressive pre-departure restructuring.
+Three features of the WDT architecture distinguish it structurally from the systems in which these estimates were produced. The delta base produces a revenue-weighted annual burden of 0.35%, structurally below the 1–2% stock levies in the Norwegian, Swedish, and Swiss systems from which most migration elasticity estimates derive (BEHAV §9.2). Route C and Route D hold accumulated basis gaps as departure costs, making exit materially more costly for a taxpayer who has managed declarations strategically (CLOSE §5). The closure bond facility (CLOSE §5) decouples physical departure from settlement completion, reducing the practical pressure for aggressive pre-departure restructuring.
 
 None of this means migration under WDT would be zero. Existing elasticity estimates are not directly applicable; a hostile model should treat migration as an endogenous choice at WDT's specific parameters rather than importing elasticities calibrated to stock-base systems at materially higher effective rates. The direction of the adjustment is not obvious: the lower burden reduces the migration incentive while the departure cost mechanism may increase avoidance-in-place as a substitute.
 
@@ -163,7 +163,7 @@ H1 is falsified if a heterogeneous taxpayer choice model, meeting the minimum re
 - the current system's all-in friction cost is robustly below the WDT reference burden across the P95–P99 and higher brackets under empirically defensible compliance cost estimates;
 - the expected value of institutional participation is negligible or negative across plausible beliefs about refund credibility and TP Chamber effectiveness;
 - avoidance opportunities under WDT are sufficient to make non-cooperation more attractive than participation for a substantial fraction of the taxable population; or
-- WDT reduces expected lifetime wealth at reference parameters by enough to make migration rational after accounting for departure costs, bridging facility friction, and re-entry envelope carry-forward.
+- WDT reduces expected lifetime wealth at reference parameters by enough to make migration rational after accounting for departure costs, closure bond facility friction, and re-entry envelope carry-forward.
 
 **Current status: Hypothesis only.** The migration literature provides constraints on the elasticity parameters relevant to H1, but no model has assessed the full cost comparison at WDT's specific parameters and institutional features. The break-even burden at each representative bracket has not been estimated.
 
@@ -289,7 +289,7 @@ The foundational analysis of cooperative equilibrium in multi-party resource gov
 
 H3 does not require the cooperative equilibrium to survive without structural support. The WDT governance architecture is designed to make capture costly.
 
-The ten enumerated structural clauses (GOV §5.2) define the properties the system must preserve to remain the same kind of tax. The DR chamber — filled by monthly lottery from the general population at 50% vote share — provides a standing majority that cannot be captured by the taxable population alone; TP and FS combined hold only 50% and must persuade a substantial fraction of DR to pass any proposal (GOV §3). The anti-collusion guarantee is structural: DR's unanimous opposition must independently be sufficient to defeat any joint TP/FS proposal. The rebalancing mechanism (GOV.B §D) imposes automatic vote share reduction on any chamber that misses votes, removing the option of strategic non-participation.
+The ten enumerated structural clauses (GOV §5.2) define the properties the system must preserve to remain the same kind of tax. The DR chamber — filled by monthly lottery from the general population at 50% vote share — provides a standing majority that the taxable population cannot capture alone; TP and FS combined hold only 50% and must win over DR members to pass any proposal. Against a unified TP and FS a single DR yay or abstention suffices, and the number of DR members they need rises as the two divide (GOV §3.2). The anti-collusion guarantee is structural: DR's unanimous opposition must independently be sufficient to defeat any joint TP/FS proposal. The rebalancing mechanism (GOV.B §D) imposes a flat vote-share cost on a chamber whose structural proposal concludes, and a DR member who misses a Tier 2 vote loses their seat automatically (GOV.B §C.7).
 
 Three of the ten structural clauses rest partly on judgment rather than foundational axioms: the Route D auction mechanism, DR's lottery constitution, and mandatory permanent public transparency (GOV §5.2). These are the clauses most vulnerable to a sustained political campaign for modification. The repeated-game model should test whether the structural safeguards are sufficient to prevent gradual erosion of these three — the failure mode @Pierson1994 identifies as "institutional brittleness" in the welfare state context.
 
@@ -339,7 +339,7 @@ H3 is falsified if the model, meeting the minimum requirements in (FAL §10), de
 - voluntary prefunding does not emerge as an equilibrium behaviour at any plausible cooperative stake level; or
 - a small group can profitably destroy institutional credibility faster than it accumulates through voluntary prefunding and envelope deepening combined.
 
-**Current status: Hypothesis only.** The governance architecture is designed to resist capture, but no formal model has tested whether it succeeds. The game-theoretic structure required — repeated game with taxpayer governance stakes, contingent reserve claims, and capture as an available strategy — has no direct antecedent in the literature.
+**Current status: Hypothesis only.** The governance architecture is designed to resist capture, but no formal model has tested whether it succeeds. The game-theoretic structure required — repeated game with taxpayer governance stakes, contingent reserve claims, and capture as an available strategy — has no direct antecedent in the literature. The governance-specific version of the model, covering coalition dynamics among the chambers and burn and ballot incentives, is recorded in (SCOPE §2, #35).
 
 \newpage
 

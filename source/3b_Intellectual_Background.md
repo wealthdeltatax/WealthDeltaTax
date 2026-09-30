@@ -16,7 +16,7 @@ keywords:
     - wealth inequality
     - democratic legitimacy
     - international tax coordination
-zenodo_doi: "10.5072/zenodo.610784"
+zenodo_doi: "10.5072/zenodo.611198"
 jel:
   - H20   # Taxation, subsidies, and revenue: general
   - H24   # Personal income and other nonbusiness taxes and subsidies
@@ -34,7 +34,7 @@ jel:
 | 0.01      | 2 August 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 20 September 2026 | Crosslinks to WFR added in §1 (new papers note), §3, §4, §5, §6 forward notes; §1 note added directing readers to INST, FAL, and LDW as papers published after the original forward-note apparatus |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
+| 1.02 | 30 September 2026 | Enumerated clause count corrected from nine to ten (precommitment passage); bridging facility renamed closure bond facility (exit and closure passage). |
 
 \newpage
 
@@ -332,7 +332,7 @@ Chile's Pension Reserve Fund, created in 2006, is the closest structural analogu
 
 @Wyplosz2005 reviews the comparative track record of fiscal rules versus independent institutions, finding that independent fiscal institutions can outperform strict rules in practice by allowing informed discretion within a mandate-constrained framework. Debrun, Moulin, Turrini, Ayuso-i-Casals, and @DebrunEtAl2008 survey the comparative evidence on independent fiscal councils, finding that statutory reporting mandates can raise the political cost of deviation from fiscal commitments without requiring a veto power.
 
-**In the WDT project:** The precommitment architecture — SWF pre-funding, constitutional entrenchment of the nine enumerated structural clauses, the Administrator's non-discretionary publication mandate — is developed in (GOV §5.2) and (GOV §5.3) and (WP §8.5). The UK institutional context and the OBR model as precedent for the Custodian's independence are discussed in (JUR §1.5.3) and (JUR §4.2).
+**In the WDT project:** The precommitment architecture — SWF pre-funding, constitutional entrenchment of the ten enumerated structural clauses, the Administrator's non-discretionary publication mandate — is developed in (GOV §5.2) and (GOV §5.3) and (WP §8.5). The UK institutional context and the OBR model as precedent for the Custodian's independence are discussed in (JUR §1.5.3) and (JUR §4.2).
 
 \newpage
 
@@ -385,6 +385,6 @@ The OECD's 2025 study and the European Commission's April 2026 study on wealth t
 
 The lessons from Pillar Two on the political economy of coordination are relevant to the WDT's Phase Two international agenda: agreement across 140-plus jurisdictions took approximately a decade from the launch of BEPS in 2013 to implementation in 2024, and the US exemption of its multinationals from the January 2026 rules introduced significant instability into the framework. Domestic WDT implementation does not require international agreement as a precondition; the Zucman blueprint follows the same sequencing logic.
 
-**In the WDT project:** The exit and closure design is developed in (CLOSE) throughout: the no-punitive-exit-taxation position (CLOSE §4.2), the bridging facility (CLOSE §5), and the re-entry rule (CLOSE §6) are the three settled structural positions. Jurisdiction-specific legal implementation remains open (0.0 #8). The cross-base externality as a Phase One transitional exposure is treated in (CLOSE §9.2) and (BEHAV §9.2).
+**In the WDT project:** The exit and closure design is developed in (CLOSE) throughout: the no-punitive-exit-taxation position (CLOSE §4.2), the closure bond facility (CLOSE §5), and the re-entry rule (CLOSE §6) are the three settled structural positions. Jurisdiction-specific legal implementation remains open (0.0 #8). The cross-base externality as a Phase One transitional exposure is treated in (CLOSE §9.2) and (BEHAV §9.2).
 
 \newpage

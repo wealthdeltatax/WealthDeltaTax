@@ -242,6 +242,14 @@ def extract_paper_meta(src_path: Path) -> dict[str, Any] | None:
         # handle comma-separated string fallback
         keywords = [k.strip() for k in keywords.split(",")]
 
+    # JEL codes — strip inline comments (e.g. "H24   # Personal income…")
+    raw_jel = fm.get("jel", []) or []
+    jel: list[str] = []
+    for entry in raw_jel:
+        code = str(entry).split("#")[0].strip()
+        if code:
+            jel.append(code)
+
     # ── Extract version and date from revision history table ──────────────
     body = text[fm_match.end():]
 
@@ -274,16 +282,23 @@ def extract_paper_meta(src_path: Path) -> dict[str, Any] | None:
     # ── Word count (numbered + appendix sections) ────────────────────────
     word_count = _count_words_body_sections(body)
 
+    # ── Citation keys used in this paper ─────────────────────────────────
+    # Matches @CiteKey in the body (pandoc/Quarto citation syntax).
+    # Captures the bare key; ignores @wdt- internal cross-references.
+    cite_keys: list[str] = sorted(set(re.findall(r'@([A-Za-z][A-Za-z0-9_:\-]*)', body)))
+
     return {
         "shortcode":            shortcode,
         "title":                title,
         "status":               status,
         "keywords":             keywords,
+        "jel":                  jel,
         "version":              version,
         "version_date":         version_date,         # ISO or None
         "version_date_display": version_date_display, # human-readable
         "word_count":           word_count,
         "zenodo_doi":           fm.get("zenodo_doi", ""),
+        "cite_keys":            cite_keys,
     }
 
 

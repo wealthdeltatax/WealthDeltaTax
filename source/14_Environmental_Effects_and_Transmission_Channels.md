@@ -17,7 +17,7 @@ keywords:
     - tax-base migration
     - declaration equilibrium
     - capital mobility
-zenodo_doi: "10.5072/zenodo.610824"
+zenodo_doi: "10.5072/zenodo.611238"
 jel:
   - E62   # Fiscal policy; Government expenditures and related policies
   - H24   # Personal income and other nonbusiness taxes and subsidies
@@ -37,7 +37,6 @@ jel:
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 18 September 2026 | References corrected: JakobsenEtAl2024 entry updated to correct Norway paper (NBER WP 32153; distinct from JakobsenEtAl2020 Denmark paper); KlevenEtAl2024 entry corrected to *Journal of Economic Perspectives* 38(2), 3–30 (previously cited as 34(2), 119–142) |
 | 1.02      | 20 September 2026 | Crosslink added: §4.6 closing paragraph extended with pointer to (LDW) for quantified purchasing power consequences of the displacement effects identified in this section |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

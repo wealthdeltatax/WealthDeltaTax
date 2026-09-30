@@ -9,7 +9,7 @@ keywords:
     - capital gains tax lock-in
     - return heterogeneity
     - revenue equivalence
-zenodo_doi: "10.5072/zenodo.610836"
+zenodo_doi: "10.5072/zenodo.611250"
 jel:
   - H21   # Efficiency; Optimal taxation
   - D31   # Personal income, wealth, and their distributions
@@ -26,7 +26,6 @@ jel:
 | Revision | Date          | Details                                      |
 |:--------:|:-------------:|----------------------------------------------|
 | 0.01     | 10 September 2026 | Initial generation of simulation tables. Sections A–E covering baseline single-agent comparison, progressive rate complications, CGT lock-in distortion, heterogeneous agent incidence and concentration, and welfare sweep analysis across revenue targets, start years, and logistic rate parameters. |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 \tableofcontents

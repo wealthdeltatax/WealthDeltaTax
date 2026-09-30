@@ -15,7 +15,7 @@ keywords:
  - tax-base reform
  - progressive taxation
  - fiscal transition
-zenodo_doi: "10.5072/zenodo.610778"
+zenodo_doi: "10.5072/zenodo.611192"
 jel:
   - H24   # Personal income and other nonbusiness taxes and subsidies
   - H63   # Debt; Debt management; Sovereign debt
@@ -38,7 +38,7 @@ jel:
 | 1.03 | 18 September 2026 | Citation confirmed: @LondonoVelezAvilaMahecha2025 in §2.2 already uses journal-version cite key; bib entry updated to *Review of Economic Studies* 92(4), 2624–2655 |
 | 1.04 | 20 September 2026 | Crosslinks added: §6 labour dividend paragraph extended with pointer to (LDW) for quantified purchasing power consequences; §9.5 extended with pointer to (FAL) as the falsification counterpart |
 | 1.05 | 25 September 2026 | Crosslinks updated throughout to reflect closure bond facility generalisation: §1.1 bridging facility → closure bond facility (CLOSE §5); §7.3 bridging facility → closure bond facility; §8.1 forward pointer to (CLOSE §4.1.1) added for full inheritance settlement sequence; §8.2 closure bond facility generalised to cover death and bankruptcy as well as exit; §9.4 bridging facility → closure bond facility | 
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
+| 1.06 | 30 September 2026 | §4.2 governance summary notes that the anti-collusion guarantee is exact under full cohesion of the proposing chambers and weakens as they divide (GOV §3.2). |
 
 \newpage
 
@@ -309,7 +309,7 @@ The SWF addresses the refund liability problem by spreading cost over time. In s
 
 The Sovereign Wealth Fund must balance three groups: elected governments, WDT taxpayers whose contributions capitalise the fund and whose losses it may be required to offset, and the broader public whose economic activity underpins the taxable wealth base. Governance arrangements should prevent any single constituency from dominating.
 
-The full governance architecture is specified in (GOV). In summary: three chambers hold political legitimacy in the Governing Council. The vote share held by the diffuse public-interest chamber is derived from the anti-collusion guarantee established in (GOV §5.1): its unanimous opposition must be independently sufficient to defeat any joint proposal by the other two chambers, which determines its minimum share as a structural matter rather than a calibration choice. The full derivation of chamber shares, the dual-threshold voting rule, the two-tier escalation mechanism, and the ten enumerated structural clauses that protect the mechanism's core commitments against future erosion are in (GOV §5.2), with full operational specification in (GOV.B).
+The full governance architecture is specified in (GOV). In summary: three chambers hold political legitimacy in the Governing Council. The vote share held by the diffuse public-interest chamber is derived from the anti-collusion guarantee established in (GOV §5.1): its unanimous opposition must be independently sufficient to defeat any joint proposal by the other two chambers, which determines its minimum share as a structural matter rather than a calibration choice. The guarantee is exact when the two proposing chambers vote as a unified bloc and weakens as their cohesion falls (GOV §3.2). The full derivation of chamber shares, the dual-threshold voting rule, the two-tier escalation mechanism, and the ten enumerated structural clauses that protect the mechanism's core commitments against future erosion are in (GOV §5.2), with full operational specification in (GOV.B).
 
 Taxpayer participation follows from the cooperative design principle: a system asking for fiscal cooperation from a concentrated, mobile population has reason to give that population meaningful presence in the institution that holds their money. Participation is presence with real voting weight, not merely advisory standing. Whether participation materially changes behaviour is an empirical question. The narrower claim is that a system offering reciprocal protections, including institutional voice, is more durable than one that does not.
 

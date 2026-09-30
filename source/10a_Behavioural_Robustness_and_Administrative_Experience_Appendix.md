@@ -12,7 +12,7 @@ keywords:
     - membrane monitoring
     - Agrawal externality
     - phase sequencing
-zenodo_doi: "10.5072/zenodo.610814"
+zenodo_doi: "10.5072/zenodo.611228"
 jel:
   - H26   # Tax evasion and avoidance
   - D91   # Micro-based behavioral economics: role and effects of psychological, emotional, social, and cognitive factors
@@ -26,7 +26,6 @@ jel:
 | Revision | Date            | Details                  |
 |:--------:|:---------------:|--------------------------|
 | 0.01      | 19 September 2026     | First edition. Material relocated from BEHAV v2.00: full route distribution asset-class analysis (formerly BEHAV §8.12–§8.13); membrane calcification monitoring architecture (formerly BEHAV §10); seven-part cross-base externality response (formerly BEHAV §9.2 body); secondary objections; membrane examples (formerly BEHAV Appendix A) |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 \tableofcontents

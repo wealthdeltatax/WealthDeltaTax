@@ -17,7 +17,7 @@ keywords:
     - parameter sensitivity
     - N-crossing
     - Route D auction
-zenodo_doi: "10.5072/zenodo.610790"
+zenodo_doi: "10.5072/zenodo.611204"
 jel:
   - H24   # Personal income and other nonbusiness taxes and subsidies
   - D82   # Asymmetric and private information; Mechanism design
@@ -41,7 +41,6 @@ jel:
 | 1.06 | 11 September 2026 | §B.3 parameter table: N baseline corrected from 29 to 30 (canonical holding period — average time spent as a WDT taxpayer in the Balanced scenario). §C tables replaced with N = 30 output (C.1–C.12), resolving the N = 29 error from v1.03–v1.05. §C preamble updated to state N = 30 as canonical with rationale. §C.10 start-year corrected from 2006/2007 to 2000; C.10.2 crash-entry N references corrected. §C.1 structural claim: note added on theoretical plateau inflection at g $\approx$ 17.3% vs observed $\approx$ 19.1% at N = 30. |
 | 1.07 | 12 September 2026 | §A.2.5 (Finding 5), §A.5.4 (Proposition 4), §A.5.6 (Propositions 4 and 6), §A.6 (Declaration Equilibrium), §C.1 (structural claim): reframed throughout to replace mild-overstatement-as-equilibrium with tolerant-zone / asymmetry / conditional-bias structure. (i) Tolerant zone ($\alpha$ $\approx$ 0.8–1.5) established as the primary result. (ii) Asymmetry within the zone made explicit — understatement loses refund protection in loss years (C.6), overstatement preserves it. (iii) Mild upward declaration bias ($\alpha$ $\approx$ 1.1) characterised as a conditional model-implied prediction, not a population equilibrium. (iv) $\alpha$ = 1.2 and $\alpha$ = 1.5 recharacterised as illustrative points on the overstatement side of the tolerant zone, not as equilibrium values. (v) Stale C.1 claim corrected — at N = 30 all four overstater levels cross into nominal net-cost territory at approximately g $\approx$ 7%, including $\alpha$ = 1.2 and $\alpha$ = 1.5, consistent with Figure 7.6 annotations. (vi) Proposition 6 rewritten. (vii) 'Population equilibrium' language replaced with 'model-implied behavioural centre' or 'conditional mild upward declaration bias' throughout. |
 | 1.08 | 20 September 2026 | §B.5 extended with reciprocal pointer to (WFR 6.1.3) Category 3 valuation friction cost, noting the simulation's upper-bound gaming payoff as the input to WFR's cost identification |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 \tableofcontents

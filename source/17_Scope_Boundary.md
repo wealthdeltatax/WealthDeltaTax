@@ -24,11 +24,11 @@ jel:
 
 | Revision | Date            | Details                  |
 |:--------:|:---------------:|--------------------------|
-| 0.1 | 6 August 2026 | First draft. Twelve items from the consolidated open questions register formally acknowledged as outside project scope, with reasons. |
-| 0.2 | 21 August 2026 | Full revision against the completed 30-item open questions register (0.0 §26). All items categorised and absorbed. Section taxonomy restructured to match register groupings. Internal bibliography extended. |
-| 0.3 | 20 September 2026 | §2 removed: WFR closed all three formal modelling tasks (#1–3). §3 substantially reduced: INST and FAL have given #7 and #8 substantive theoretical treatment. Cross-references to LDW, FAL, and INST added throughout. |
-| 0.4 | 24 September 2026 | Open questions register absorbed into SCOPE as the canonical record; Project Map register section retired. §2 extended with #31 and #32 from INST. §3.4 added for pre-Phase-One analytical deliverables (#33, #34 from RATES.A and SWEEPS). §1 updated to reflect SCOPE as the primary register. §7 updated. |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
+| 0.01 | 6 August 2026 | First draft. Twelve items from the consolidated open questions register formally acknowledged as outside project scope, with reasons. |
+| 0.02 | 21 August 2026 | Full revision against the completed 30-item open questions register (0.0 §26). All items categorised and absorbed. Section taxonomy restructured to match register groupings. Internal bibliography extended. |
+| 0.03 | 20 September 2026 | §2 removed: WFR closed all three formal modelling tasks (#1–3). §3 substantially reduced: INST and FAL have given #7 and #8 substantive theoretical treatment. Cross-references to LDW, FAL, and INST added throughout. |
+| 0.04 | 24 September 2026 | Open questions register absorbed into SCOPE as the canonical record; Project Map register section retired. §2 extended with #31 and #32 from INST. §3.4 added for pre-Phase-One analytical deliverables (#33, #34 from RATES.A and SWEEPS). §1 updated to reflect SCOPE as the primary register. §7 updated. |
+| 0.05 | 30 September 2026 | Governance items added from GOV revision: #35 game-theoretic model of governance interactions (§2), #36 SWF Custodian institutional form and #37 DR gift bribery-law carve-out (§6); #10 extended with new governance calibration parameters (§5). |
 
 \newpage
 \tableofcontents
@@ -51,6 +51,8 @@ The classification matters: different reasons for deferral carry different impli
 **#31 — Endogenous institutional pressure on developmental authoritarian states.** (INST §6.2) predicts that a developmental authoritarian state attempting to satisfy all four conditions for a stable large-scale wealth tax will generate the two-constituency accountability coalition through that attempt, narrowing the institutional distance between a stable WDT equilibrium and democratic governance with each assessment cycle. Whether this endogenous pressure materialises as predicted requires comparative political economy research across multiple cases. China's trajectory under the post-2012 Xi era is identified as consistent with the predicted mechanisms, but a single case cannot confirm a structural pattern. (INST §10, Cluster 4) assigns this to the external collaborative research programme.
 
 **#32 — Adoption diffusion dynamics under competitive pressure.** (INST §8) identifies four responses available to non-adopting states once a first mover's advantages are recognised under competitive pressure — adopt, suppress, race, conflict — and characterises their costs and dynamics by governance tier. Whether the predicted pattern of responses actually emerges is untestable before Phase One produces demonstrable outcomes that create the competitive pressure in the first place. This is not a Phase One empirical question about the WDT mechanism in operation; it is a structural prediction about interstate competitive dynamics that requires both Phase One outcomes and subsequent comparative observation. (INST §8) acknowledges this as a Tier C claim.
+
+**#35 — Game-theoretic model of governance interactions.** (GOV §7.1) records that the behavioural claims resting on the Governing Council design have not been modelled: coalition dynamics among the chambers, including the TP and DR package (GOV §5.2) and FS and DR outvoting TP; the degradation of the anti-collusion guarantee as cohesion within TP and FS falls (GOV.B §C.1); burn and ballot incentives under gift immunity and public voting (GOV.B §A.3.7); and the rebalancing increment as a hurdle rate (GOV.B §D.1). (FAL H3) identifies the same model as required for the cooperative institutional equilibrium hypothesis. Formal modelling of this kind requires peer-review infrastructure the project does not have, and it is assigned to the external research programme.
 
 # 3. Phase One Empirical Questions
 
@@ -102,7 +104,7 @@ These two items are assigned to MACRO, a paper that cannot be written until Phas
 
 These six items are settled in kind — the WDT specifies what each parameter does, what considerations govern its calibration, and what trade-offs bind — but open in value pending Phase One data. They are not scope boundary questions in the sense of (SCOPE §2)–(SCOPE §4): the project has done the design work; Phase One observation closes the value question.
 
-**#10 — SWF governance Phase One parameters.** (GOV.B §A.3.4) specifies the DR floor size, constituency dissolution trigger values, and the DR Phase Two scale problem as parameters requiring Phase One data.
+**#10 — Governance Phase One parameters.** (GOV.B §A.3.4) specifies the DR floor size, constituency dissolution trigger values, and the DR Phase Two scale problem as parameters requiring Phase One data. (GOV §7.5) adds the rebalancing increment and its lower bound, the signature share required before a draft reaches chamber quorum, the vesting period, anti-hedging terms and forfeiture schedule for core Custodian leadership, and the stress scenarios and snapshot dates.
 
 **#17 — $\tau_0$ × $W_{min}$ joint surface.** (SWEEPS §7.1) and SWEEPS.A identify this as the primary cross-dataset tension and the only item in this group resolvable without Phase One data, requiring a second-order sweep extension.
 
@@ -116,7 +118,7 @@ These six items are settled in kind — the WDT specifies what each parameter do
 
 # 6. Jurisdiction-Specific and Institutional Preconditions
 
-These six items are not design gaps. The project has specified the relevant mechanisms in principle; resolution depends on legal analysis, diplomatic process, or institutional negotiation specific to a jurisdiction. JUR provides the reference jurisdiction architecture; it does not close these items.
+These eight items are not design gaps. The project has specified the relevant mechanisms in principle; resolution depends on legal analysis, diplomatic process, or institutional negotiation specific to a jurisdiction. JUR provides the reference jurisdiction architecture; it does not close these items.
 
 **#22 — $\tau_f$ diplomatic rate-setting.** The foreign-owner rate $\tau_f$ is set by bilateral or multilateral agreement. CORP.A §F specifies the rate's function and the negotiating frame; the rate itself is not a WDT design parameter.
 
@@ -128,7 +130,11 @@ These six items are not design gaps. The project has specified the relevant mech
 
 **#27 — Post-Brexit information exchange gaps.** (JUR §4.3) identifies the loss of DAC and the treatment of EU-domiciled structures as information exchange gaps that post-Brexit arrangements have not closed. Closing them requires diplomatic process.
 
-**#28 — Constitutional and legal analysis of the Route D auction trigger.** The constitutional status of the compelled-sale trigger, exit closure provisions, and the bridging facility's interaction with deemed-disposal rules all require legal analysis the project cannot supply. (INST §5.3) develops the structural argument for why this analysis is a precondition for implementation under any specific jurisdiction's constitutional framework, not a gap in the mechanism design itself.
+**#28 — Constitutional and legal analysis of the Route D auction trigger.** The constitutional status of the compelled-sale trigger, exit closure provisions, and the closure bond facility's interaction with deemed-disposal rules all require legal analysis the project cannot supply. (INST §5.3) develops the structural argument for why this analysis is a precondition for implementation under any specific jurisdiction's constitutional framework, not a gap in the mechanism design itself.
+
+**#36 — SWF Custodian institutional form.** (GOV.B §B.3) specifies the requirements any valid form must satisfy and the trade-off between inheriting an existing insulated institution and coupling a dedicated body more tightly to the fund. The choice among a mandate extension, a ring-fenced division, a separate entity under an existing institution's umbrella, and an independent body depends on the political and institutional conditions of a specific jurisdiction, and it is assigned to (JUR §4.3).
+
+**#37 — Bribery-law carve-out for DR members.** (GOV.B §A.3.7) provides that gifts to and from DR members carry no offence for either party. The carve-out from general bribery law requires jurisdiction-specific drafting and is assigned to (JUR §4.3).
 
 # 7. What This Document Is Not Doing
 

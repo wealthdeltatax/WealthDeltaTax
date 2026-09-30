@@ -16,7 +16,7 @@ keywords:
     - corporate tax transition
     - fiscal externality
     - OBR independence
-zenodo_doi: "10.5072/zenodo.610820"
+zenodo_doi: "10.5072/zenodo.611234"
 jel:
   - H20   # Taxation, subsidies, and revenue: general
   - D72   # Political processes: rent-seeking, lobbying, elections, legislatures
@@ -32,7 +32,6 @@ jel:
 | Revision | Date            | Details                  |
 |:--------:|:---------------:|--------------------------|
 | 0.01      | 26 September 2026    | First Draft - Seperated from main paper         |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 \tableofcontents

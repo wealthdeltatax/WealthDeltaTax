@@ -17,7 +17,7 @@ keywords:
     - Route D
     - auction mechanism
     - worked examples
-zenodo_doi: "10.5072/zenodo.610792"
+zenodo_doi: "10.5072/zenodo.611206"
 jel:
   - H24   # Personal income and other nonbusiness taxes and subsidies
   - D82   # Asymmetric and private information; Mechanism design
@@ -34,7 +34,6 @@ jel:
 | 1.02 | 29 August 2026 | §M.1 clarifying paragraph added distinguishing voluntary hard-reset from corrective auction and stating lock-point rule; §M.3 no-bid outcome paragraph added for voluntary hard-reset pathway; §M.6 final sentence replaced to distinguish corrective and voluntary pathways and their respective refund treatment; §O summary table §M row updated to reflect three-pathway classification |
 | 1.03 | 30 August 2026 | TW refined to TW_settled throughout (post-sale oscillation now included in terminal figure); Table J.1, K.1, N.1 row headers and captions updated; §N.3.2 prose updated to reflect Founder C's +4.97% TW_settled outcome correctly; §N.4 revised to distinguish Founder B (forecast wrong, worse outcome) from Founder C (forecast-consistent at low growth, better outcome) and note consistency with VAL.A §A.6 mild-overstatement equilibrium |
 | 1.04 | 25 September 2026 | Crosslinks added: §L note added after inheritance auction fires pointing to (CLOSE §4.1) for full death settlement sequence and marginal rate dependency; §M Option C extended with death auction waiver pointer to CLOSE §4.1.1; §O summary table §M row extended with CLOSE§4.1 reference |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

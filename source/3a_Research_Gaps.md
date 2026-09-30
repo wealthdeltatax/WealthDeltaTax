@@ -16,7 +16,7 @@ keywords:
     - international tax coordination
     - empirical identification
     - tax design
-zenodo_doi: "10.5072/zenodo.610782"
+zenodo_doi: "10.5072/zenodo.611196"
 jel:
   - H20   # Taxation, subsidies, and revenue: general
   - H24   # Personal income and other nonbusiness taxes and subsidies
@@ -33,7 +33,6 @@ jel:
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 20 September 2026 | Crosslinks to WFR added: §2.1, §2.2, §2.3 body text and §5 gap register rows 1–3 updated to reflect closure of gaps 1–3 by (WFR §3.2, §4.1, §3–§4, §5.5, §4.3) |
 | 1.02      | 24 September 2026 | SCOPE redirects added to §3.1, §3.2, §3.3, §4.1, §4.2, §4.3 closing sentences and §5 gap register. |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

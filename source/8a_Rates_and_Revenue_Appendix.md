@@ -16,7 +16,7 @@ keywords:
     - taxpayer cohort model
     - reproducible modelling
     - Python simulation
-zenodo_doi: "10.5072/zenodo.610806"
+zenodo_doi: "10.5072/zenodo.611220"
 jel:
   - H24   # Personal income and other nonbusiness taxes and subsidies
   - C63   # Computational techniques; Simulation modeling
@@ -32,7 +32,6 @@ jel:
 | 0.01      | 31 July 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 31 August 2026  | Corrected TCM coverage ratio prose (27.7% → 27.4%) and minimum-coverage start-year attribution (2003 → 2005) in §A.6 to match §B.3.9 model output |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 \tableofcontents

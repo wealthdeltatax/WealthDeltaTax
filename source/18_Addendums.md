@@ -15,7 +15,7 @@ keywords:
     - policy implementation
     - tax-system design
     - worked calibration examples
-zenodo_doi: "10.5072/zenodo.610832"
+zenodo_doi: "10.5072/zenodo.611246"
 jel:
   - H24   # Personal income and other nonbusiness taxes and subsidies
   - H83   # Public administration; Public sector accounting and audits
@@ -31,7 +31,7 @@ jel:
 |:--------:|:---------------:|--------------------------|
 | 0.01      | 27 August 2026 | Initial draft. |
 | 0.02      | 20 September 2026 | Crosslinks added: §10.2 now cites (GOV §5.2 clause 4) for the sole-capitalisation constraint on the grant/loan distinction; (GOV.B §E.1) for the solvency floor and automatic-consequence chain the subordination replicates; (GOV.B §E.2) for the publication discipline the net-position requirement should join |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
+| 0.03 | 30 September 2026 | §4 conflict-of-interest visibility restated against the GOV revision: baseline is automatic disclosure of initiator and signatory assessments, and the Allocator's assessment applies where it publishes (§4.1, §4.2, Open Question 2); §5 information hierarchy corrected for the scoped Allocator gate, the unmoderated DR forum and gift immunity; volunteer rate description aligned to GOV.B §A.3.2 (glossary, §6). |
 
 \newpage
 
@@ -53,7 +53,7 @@ The WDT design papers settle the mechanism's structure and identify its calibrat
 
 **Tolerant zone:** The range of declaration multipliers ($\alpha$ values) around honest declaration within which the total tax paid difference relative to an honest declarer remains below a defined threshold. Governed primarily by the steepness parameter k. Defined formally in (VAL.A §A.2.5), (VAL.A §A.6).
 
-**Volunteer rate:** The proportion of lottery-selected Dividend Recipient Chamber seats that are accepted and actively used within a given cycle. Published quarterly by the Administrator. Used as the primary indicator of DR chamber health and the trigger for the constituency dissolution mechanism (GOV.B §A.3.3).
+**Volunteer rate:** The proportion of lottery selectees who accept service and take up their Dividend Recipient Chamber seat within the service-acceptance window. Published continuously by the Administrator as a rolling figure, a trailing average and a full historical series (GOV.B §A.3.2). Used as the primary indicator of DR chamber health and the trigger for the constituency dissolution mechanism (GOV.B §A.3.3).
 
 \newpage
 \tableofcontents
@@ -115,17 +115,17 @@ When a corrective threshold adjustment is required, the corrective package shoul
 
 ## 4.1 The Problem
 
-The TP chamber's one-member-one-vote structure deliberately does not weight for conflicts of interest — wealth-weighted voting would recreate the capture dynamic the structure was designed to prevent. But the absence of conflict-of-interest weighting is not the same as the absence of conflict-of-interest disclosure. A proposal organised by a cohort of TP members whose direct financial benefit from the proposal's adoption is quantifiable and significant is structurally different from a proposal organised by members whose motivation is mechanism integrity. The governance architecture treats them identically. The Allocator's pre-vote publication does not.
+The TP chamber's one-member-one-vote structure deliberately does not weight for conflicts of interest — wealth-weighted voting would recreate the capture dynamic the structure was designed to prevent. But the absence of conflict-of-interest weighting is not the same as the absence of conflict-of-interest disclosure. A proposal organised by a cohort of TP members whose direct financial benefit from the proposal's adoption is quantifiable and significant is structurally different from a proposal organised by members whose motivation is mechanism integrity. The governance architecture does not weight them differently, and it makes the difference visible: a draft reaches chamber quorum only with a minimum share of signatories, and the initiator and each signatory have their most recent assessment published with the proposal (GOV.B §A.1.4, §F.2). Holding a seat or signing a proposal is a public act, and the privacy election does not apply to the disclosed assessment.
 
-When a TP-initiated proposal reaches the full Governing Council, the DR and FS chambers vote on it with the information the Allocator provides. The Allocator's existing mandate does not currently specify that the distribution of the initiating coalition's direct financial interests in the outcome should be part of that assessment. The DR chamber in particular, whose members are unlikely to have independent knowledge of the TP coalition's business characteristics, should have explicit information about the interest distribution behind any TP proposal before forming their vote.
+When a TP-initiated proposal reaches the full Governing Council, the DR and FS chambers vote on it with the disclosed assessments in view. The disclosure shows each member's own position but does not aggregate it. The distribution of the initiating coalition's direct financial interests in the outcome is not summarised anywhere in the formal record. The DR chamber in particular, whose members are unlikely to have independent knowledge of the TP coalition's business characteristics, should have explicit information about the interest distribution behind any TP proposal before forming their vote.
 
 ## 4.2 The Specification
 
-The Allocator's pre-vote publication for any TP-initiated proposal should include, as a standing section, an assessment of the initiating coalition's direct financial interest in the proposal's outcome. The assessment should present: the proportion of the initiating coalition whose WDT-enrolled business holdings would generate a quantifiable direct financial benefit from the proposal's adoption; the estimated order of magnitude of that benefit relative to the coalition members' enrolled WDT liability; and any cases where the direct financial interest is negative.
+Where the Allocator publishes on a proposal, which is required for the annual allocation vote and otherwise optional (GOV.B §B.2.3), the publication should include, as a standing section, an assessment of the initiating coalition's direct financial interest in the proposal's outcome. For other TP-initiated proposals the baseline is the automatic disclosure of the initiator's and signatories' assessments, and any observer, including DR members and the public forum, can compute the distribution from it. The assessment should present: the proportion of the initiating coalition whose WDT-enrolled business holdings would generate a quantifiable direct financial benefit from the proposal's adoption; the estimated order of magnitude of that benefit relative to the coalition members' enrolled WDT liability; and any cases where the direct financial interest is negative.
 
-The threshold for "quantifiable and significant" financial interest is itself a calibration parameter. The Allocator's mandate should specify that the section is required whenever the estimated aggregate direct financial benefit to the initiating coalition exceeds a defined multiple of their aggregate annual WDT liability. The appropriate multiple is a Governing Council calibration parameter, set at the outset of operations rather than determined case by case.
+The threshold for "quantifiable and significant" financial interest is itself a calibration parameter. Where the Allocator publishes, the mandate should specify that the section is required whenever the estimated aggregate direct financial benefit to the initiating coalition exceeds a defined multiple of their aggregate annual WDT liability. The appropriate multiple is a Governing Council calibration parameter, set at the outset of operations rather than determined case by case.
 
-This section is not a disqualification mechanism. Its publication does not prevent the proposal from proceeding, does not reduce its vote weight, and does not require the initiating coalition to justify their interest before the chamber. It is a visibility mechanism. The DR and FS chambers receive the information and weigh it as they see fit. The Governing Council's decision record should note whether the conflict-of-interest section was present in the Allocator's publication for each TP-initiated proposal, so the pattern of interest distributions across proposals is visible in the longitudinal record.
+This section is not a disqualification mechanism. Its publication, or the disclosure that precedes it, does not prevent the proposal from proceeding, does not reduce its vote weight, and does not require the initiating coalition to justify their interest before the chamber. It is a visibility mechanism. The DR and FS chambers receive the information and weigh it as they see fit. The Governing Council's decision record should note whether an assessment of the initiating coalition's interest was published for each TP-initiated proposal, so the pattern of interest distributions across proposals is visible in the longitudinal record.
 
 \newpage
 
@@ -133,15 +133,15 @@ This section is not a disqualification mechanism. Its publication does not preve
 
 ## 5.1 The Problem
 
-The governance architecture's formal information hierarchy — the Allocator's pre-vote publication as the primary analytical input for DR deliberation — was designed for a world in which chamber members receive information primarily through the Administrator's managed communication infrastructure. In practice, chamber members also receive information through external channels: public media, social media platforms, and organised campaigns by members of other chambers.
+The governance architecture's formal information hierarchy — the Allocator's published recommendation, where one is due, as a primary analytical input for DR deliberation — was designed for a world in which chamber members receive information primarily through the Administrator's managed communication infrastructure. In practice, chamber members also receive information through external channels: public media, social media platforms, and organised campaigns by members of other chambers.
 
-External campaigns by TP members directed at DR members are not prohibited by the governance rules. They constitute democratic speech. They are also, structurally, the resource-defines-truth pressure that (GOV.A §A) identifies as one of the three primary governance failure modes. A TP chamber whose members have significant communications resources can, through organised external campaigning, make their preferred reading of a proposal's implications the most available interpretation for DR members whose access to detailed mechanism analysis is primarily through the formal information architecture.
+External campaigns by TP members directed at DR members are not prohibited by the governance rules. They constitute democratic speech. Gifts to DR members from any party are likewise permitted and carry no offence for either side (GOV.B §A.3.7). They are also, structurally, the resource-defines-truth pressure that (GOV.A §A) identifies as one of the three primary governance failure modes. A TP chamber whose members have significant communications resources can, through organised external campaigning, make their preferred reading of a proposal's implications the most available interpretation for DR members whose access to detailed mechanism analysis is primarily through the formal information architecture.
 
 The problem is not that TP members should be prevented from expressing views. It is that the DR chamber's deliberative quality depends on its members having a clear understanding of which information sources carry the analytical authority the governance architecture specifies, and which carry the persuasive authority of an organised constituency with a stake in the outcome. When these are not distinguished, the DR chamber's independence is not violated — it retains its vote — but its informational position is compromised in a way the governance architecture did not anticipate.
 
 ## 5.2 The Specification
 
-The Administrator's mandatory output cycle should include a standing clarification, published at the opening of every formal Governing Council proposal period, that establishes the information hierarchy clearly for DR members. The clarification should state: the Allocator's pre-vote documentation is the primary analytical input the governance rules specify for DR deliberation; the Administrator's mandatory publications are the authoritative factual record; and the DR forum's verified, moderated internal discussions are the appropriate space for member deliberation. External communications from other chamber members, including organised campaigns, are not part of the formal deliberative record and carry no special analytical authority by virtue of their origin.
+The Administrator's mandatory output cycle should include a standing clarification, published at the opening of every formal Governing Council proposal period, that establishes the information hierarchy clearly for DR members. The clarification should state: the Allocator's published recommendation, where one is due, grounds public discourse on the annual allocation vote; the Administrator's mandatory publications are the authoritative factual record; and the DR forum, in which only seated members may post and which the Administrator does not moderate, is the appropriate space for member deliberation. External communications from other chamber members, including organised campaigns, are not part of the formal deliberative record and carry no special analytical authority by virtue of their origin.
 
 This clarification is not a speech restriction. It establishes what the governance architecture already specifies but does not explicitly communicate.
 
@@ -153,15 +153,15 @@ The DR forum's verified, moderated space must be maintained at a quality standar
 
 ## 6.1 The Problem
 
-The Dividend Recipient Chamber's constitution specifies a lottery selection from the DR-eligible pool: all adults who are neither TP members nor FS members. The constituency dissolution mechanism triggers at a defined volunteer rate floor (GOV.B §A.3.3). The volunteer rate is published quarterly and tracked against the floor.
+The Dividend Recipient Chamber's constitution specifies a lottery selection from the DR-eligible pool: all adults who are neither TP members nor FS members. The constituency dissolution mechanism triggers at a defined volunteer rate floor (GOV.B §A.3.3). The volunteer rate is published continuously and tracked against the floor (GOV.B §A.3.2).
 
-The volunteer rate is a lagging indicator of pool health. It measures the proportion of eligible individuals who accept and engage with a selected seat. It does not measure the pool's size, composition, or representativeness. A pool that has contracted significantly, because threshold drift or deliberate threshold adjustment has pulled a large share of the previously eligible population into TP membership, can produce a volunteer rate that remains above the dissolution floor while the pool itself has become unrepresentative of the constituency the DR chamber was designed to embody.
+The volunteer rate is a lagging indicator of pool health. It measures the proportion of selectees who accept service and take up their seat. It does not measure the pool's size, composition, or representativeness. A pool that has contracted significantly, because threshold drift or deliberate threshold adjustment has pulled a large share of the previously eligible population into TP membership, can produce a volunteer rate that remains above the dissolution floor while the pool itself has become unrepresentative of the constituency the DR chamber was designed to embody.
 
 The DR chamber was designed to represent the broad citizenry's interest in the mechanism's long-run soundness: the population without significant wealth whose stake in the mechanism is as beneficiaries of the labour dividend and as participants in the democratic institutions the mechanism is designed to protect. A pool contracted to a subset of the adult population — concentrated in renters, younger adults, and those in lower-income brackets because threshold drift has pulled homeowners and older asset-holders into TP — represents something real and important, but it is a subset rather than the broad citizenry.
 
 ## 6.2 The Specification
 
-The Administrator's mandatory output cycle should include quarterly publication of the DR-eligible pool size alongside the volunteer rate, expressed both in absolute terms and as a proportion of the total adult population. Trend data over the preceding four quarters should accompany each publication.
+The Administrator's mandatory output cycle should include quarterly publication of the DR-eligible pool size alongside the volunteer rate series, expressed both in absolute terms and as a proportion of the total adult population. Trend data over the preceding four quarters should accompany each publication.
 
 A secondary monitoring trigger, distinct from the constituency dissolution trigger, should fire when the DR-eligible pool falls below a defined proportion of the adult population. This trigger does not dissolve the constituency. It mandates a Governing Council review of the threshold and enrolment parameters within a defined period, with specific attention to whether the pool contraction is producing a chamber whose composition has drifted from its design function.
 
@@ -323,7 +323,7 @@ The threshold indexation approach described in (ADD §3.2) requires a composite 
 
 ## 2. Coalition Interest Distribution Methodology
 
-The conflict of interest visibility approach described in (ADD §4.2) requires a methodology for assessing an initiating TP coalition's direct financial interest in a proposal's outcome. The methodology must be specific enough to produce figures that are defensible against legal challenge and standardised enough to apply consistently across different proposal types. Its development is an Allocator operational design question requiring legal, administrative, and governance expertise.
+The conflict of interest visibility approach described in (ADD §4.2) requires a methodology for assessing an initiating TP coalition's direct financial interest in a proposal's outcome. The methodology must be specific enough to produce figures that are defensible against legal challenge and standardised enough to apply consistently across different proposal types. Its development is an operational design question requiring legal, administrative, and governance expertise. The Allocator would apply it where it publishes on a proposal, and it would serve any observer working from the disclosed assessments of a proposal's initiator and signatories (GOV.B §F.2).
 
 ## 3. Import Leakage Quantification
 

@@ -34,7 +34,7 @@ jel:
 | 0.01      | 3 August 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 20 September 2026 | Crosslinks added: §6.3 Agrawal cross-base externality footer note now cites (BEHAV.A §D) alongside (BEHAV §9.2); §7 conclusion extended with forward pointer to (FAL) as the falsification counterpart to the Phase One empirical cluster agenda |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
+| 1.02 | 30 September 2026 | Bridging facility renamed closure bond facility (§3, §4.3, §5.3, §6.3); governance calibration items and Phase One observables added (§6.5). |
 
 \newpage
 
@@ -98,7 +98,7 @@ Cooperative architecture (#11, #17 residual). The reciprocal features of the des
 
 Avoidance under imperfect compliance (#13). Avoidance will concentrate in the shapes the design has identified as structurally available (principally asset restructuring, timing manipulation, and cross-border asset migration without personal exit), and shapes involving personal exit will be bounded by the structural closure mechanics in CLOSE. The nine-shape taxonomy in BEHAV is the analytical frame (BEHAV §4); Phase One is its empirical test.
 
-Migration and cross-base externality (#15). WDT-driven emigration during Phase One will generate income tax and VAT losses materially larger than the direct wealth-tax revenue loss, consistent with the @AgrawalEtAl2025 finding of approximately six times the direct loss in comparable jurisdictions. The design does not assume this externality away. It assumes the bridging facility, the re-entry rule, and membrane investment will reduce emigration rates relative to adversarial exit-tax regimes, and that Phase One's high threshold and small population limit aggregate exposure. What the design does not assume is that the Agrawal et al. multiplier applies to the WDT population specifically; that is the Phase One measurement question.
+Migration and cross-base externality (#15). WDT-driven emigration during Phase One will generate income tax and VAT losses materially larger than the direct wealth-tax revenue loss, consistent with the @AgrawalEtAl2025 finding of approximately six times the direct loss in comparable jurisdictions. The design does not assume this externality away. It assumes the closure bond facility, the re-entry rule, and membrane investment will reduce emigration rates relative to adversarial exit-tax regimes, and that Phase One's high threshold and small population limit aggregate exposure. What the design does not assume is that the Agrawal et al. multiplier applies to the WDT population specifically; that is the Phase One measurement question.
 
 Valuation route and assessment window adoption (#28). The distribution of taxpayer elections across the four routes and seven window lengths will be sufficiently dispersed that the Governing Council has meaningful calibration data within the first two assessment cycles. Route adoption is expected to track asset composition, and default-long window elections are expected to be common in the early years before the assessment window premium is calibrated. Both expectations are first-principles reasoning from the design's own incentive structure; neither has empirical support.
 
@@ -130,7 +130,7 @@ Shapes 7, 8, and 9 (personal exit, partial exit, and active resistance) are the 
 
 ## 4.3 Migration and the Cross-Base Externality
 
-Three structural positions are settled and are not what Phase One is testing. The no-punitive-exit-taxation position (that departure is a legitimate termination event, not an avoidance act requiring a coercive fiscal response) is specified in CLOSE. The bridging facility, operating on the symmetric bond structure in (GOV.B §E.3), decouples physical departure from asset settlement. The re-entry rule closes the strategic cycling loophole and provides a structural incentive for long-term participants to return. None of this constitutes evidence that these mechanics work at the scale Phase One will test.
+Three structural positions are settled and are not what Phase One is testing. The no-punitive-exit-taxation position (that departure is a legitimate termination event, not an avoidance act requiring a coercive fiscal response) is specified in CLOSE. The closure bond facility, operating on the symmetric bond structure in (GOV.B §E.3), decouples physical departure from asset settlement. The re-entry rule closes the strategic cycling loophole and provides a structural incentive for long-term participants to return. None of this constitutes evidence that these mechanics work at the scale Phase One will test.
 
 The measurement problem that remains is quantitative. @AgrawalEtAl2025 find that wealth-tax-driven migration generates income tax and VAT losses approximately six times larger than the direct wealth-tax revenue loss in comparable jurisdictions. This cross-base multiplier is the central figure this cluster needs to test. The Agrawal et al. finding is the best available estimate, but it is drawn from subnational wealth taxes in Spain where the tax was not accrual-based, the symmetric refund mechanism was absent, and the no-punitive-exit-taxation position was not in force. Whether those differences compress or expand the multiplier for the WDT population is not determinable from the existing evidence.
 
@@ -211,7 +211,7 @@ HMRC supplies the income tax and VAT revenue record, disaggregated by taxpayer i
 
 The Shape 6 component requires a third stream: automatic exchange of information reports covering financial assets held by UK-resident taxpayers in foreign jurisdictions, matched against WDT annual return data to identify systematic discrepancies. This component is distinct from Shape 7 in that the taxpayer remains resident and continues to generate domestic income tax and VAT, but the WDT base and associated investment income may have migrated.
 
-The Governing Council should commission an independent externality assessment at the end of cycles two, four, and six, producing a point estimate of the cross-base multiplier, a confidence interval, and a Shape 6 / Shape 7 decomposition. The trend across assessments — whether the multiplier is declining as the bridging facility and re-entry rule become established — is as informative as the level at any single point.
+The Governing Council should commission an independent externality assessment at the end of cycles two, four, and six, producing a point estimate of the cross-base multiplier, a confidence interval, and a Shape 6 / Shape 7 decomposition. The trend across assessments — whether the multiplier is declining as the closure bond facility and re-entry rule become established — is as informative as the level at any single point.
 
 ## 5.4 Measuring Valuation Route and Assessment Window Adoption
 
@@ -274,7 +274,7 @@ This paper is the structured account of what Phase One is designed to answer. Th
 
 ## 6.3 Jurisdiction-specific legal and implementation work
 
-The jurisdiction-specific legal analysis of exit and bankruptcy closure (WP §9.4) (BEHAV §9), (CLOSE §9.3) qualifies the position closure framework's practical implementation. Structural design is settled in (CLOSE) and (GOV); what remains requires the dedicated legal paper. The (PHASE1 §5.3) evaluation designs assume the bridging facility is operational; if the legal analysis modifies the implementation, the migration cluster measurement design will require corresponding adjustment. The same qualification applies to the corporate instrument's CIT interaction during transition.
+The jurisdiction-specific legal analysis of exit and bankruptcy closure (WP §9.4) (BEHAV §9), (CLOSE §9.3) qualifies the position closure framework's practical implementation. Structural design is settled in (CLOSE) and (GOV); what remains requires the dedicated legal paper. The (PHASE1 §5.3) evaluation designs assume the closure bond facility is operational; if the legal analysis modifies the implementation, the migration cluster measurement design will require corresponding adjustment. The same qualification applies to the corporate instrument's CIT interaction during transition.
 
 Two further items appear in the Open Questions footer as received by this paper but do not map to a (PHASE1 §4) empirical cluster. #31 is acknowledged above: it sits at the boundary of Phase One data and jurisdiction-specific legal analysis rather than cleanly in either. (BEHAV §9.2) and (BEHAV.A §D) (the cross-base fiscal externality in the Phase One context — the headline framing in (PHASE1 §6.2), the full seven-part structural response in BEHAV.A §D) are substantively addressed within the (PHASE1 §4) cluster and (PHASE1 §4) evaluation design, which treat the externality as the central quantitative unknown of the migration cluster; they are listed separately in the footer because they originated as a (BEHAV) open question, but their resolution path is identical to #15.
 
@@ -286,7 +286,7 @@ The evaluation designs are useful independently of whether Phase One happens on 
 
 ## 6.5 Governing Council calibration parameters
 
-No items specific to this paper beyond those carried from the companion papers each evaluation design references.
+No items specific to this paper beyond those carried from the companion papers each evaluation design references, with one addition from (GOV §7.5). The governance revision leaves several Governing Council parameters open in value, and Phase One data informs them: the rebalancing increment and its lower bound, set against observed use of structural proposals and share movement; the share of chamber members whose signatures a draft needs before it reaches internal quorum, set against the volume and quality of drafts reaching the queue; the vesting period, anti-hedging terms and forfeiture schedule for core Custodian leadership, where the vesting period must exceed the lag between a decision and the visibility of its consequences; and the stress scenarios and snapshot dates, set against the Custodian's actual and stressed solvency ratios. The DR volunteer rate, the record of seat-burns and ballots, and the cost and extent of any attempt to influence DR are also observed, since they test the anti-collusion guarantee's price-on-influence claim (GOV §3.2). The choice of the SWF Custodian's institutional form (SCOPE §6, #36) is a Phase One decision that draws on the same political and institutional conditions this paper's clusters observe.
 
 \newpage
 

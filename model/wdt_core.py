@@ -11,12 +11,29 @@ PUBLIC API
   simulate(V0_m, g_series, alpha, p)  holding-period simulation
   simulate_sell(sim, g_next, p)       terminal sell-year event
   settle_tw(sell_result, p)           post-sale oscillation to convergence
-  run_sim(p_in, ...)                  constant-g convenience runner
-  run_sim_hist(p_in, ...)             historical-series convenience runner
-  decompose_tw_advantage(p, alpha, g) TW advantage decomposition (C.11)
-  npv_tax(records, sell, rho)         PV of all tax cash flows for one run
-  npv_tax_advantage(p, alpha, g, rho) C.12 NPV tax difference vs honest
+  settle_tw_flows(sell_result, p)     same, but also returns per-period flows
+  run_sim(p_in, ..., N=REQUIRED)      constant-g convenience runner
+  run_sim_hist(p_in, ..., N=REQUIRED) historical-series convenience runner
+  run_pair(p, alpha, g, N)            ONE call -> all three heatmap metrics
+  decompose_tw_advantage(p, a, g, N)  TW advantage decomposition (C.11)
+  npv_tax(records, sell, rho, alpha, settle_flows)
+                                      PV of true value surrendered (C.12)
+  npv_tax_declared(records, sell, rho)
+                                      LEGACY declared-credit PV (pre-refactor)
+  npv_tax_advantage(p, a, g, rho, N)  C.12 metric vs honest
   load_params(toml_path)              load and validate all parameters
+
+N CONVENTION  (refactor: N is never implicit)
+---------------------------------------------
+There are two different N's:
+  p['N_val']   taxpayer holding period, = [val] N_demo = 30. CANONICAL for all
+               individual-level VAL / VAL.A / VAL.B work.
+  p['N_fill']  SSM LRR fill year (fund mechanics; 19 for the 2000 start at
+               tau_0 = 15%). p['N'] is kept as an alias of N_fill for RATES.
+run_sim, run_sim_hist, decompose_tw_advantage, run_pair and npv_tax_advantage
+RAISE if N is not passed. Before the refactor they defaulted to p['N'] (=N_fill),
+so any table that did not pass N explicitly silently ran at N = 19 while its
+caption said N = 30.
 
 RECORD FIELD GUARANTEE
 -----------------------
@@ -38,6 +55,37 @@ TW_settled  -- economically correct terminal net worth, after post-sale
                is retained for backward compatibility only.
 
 Net_settled -- net lifetime tax including post-sale settlement.
+
+COMMON HEATMAP METRICS  (run_pair)
+----------------------------------
+All three are expressed as a fraction of the SAME denominator, TW_settled(1):
+
+  net_pct  = (Net_settled(a)  - Net_settled(1)) / TW_settled(1)
+             + = pays MORE net tax than honest        (fiscal view; C.1)
+  tw_gap   = (TW_settled(a)   - TW_settled(1))  / TW_settled(1)
+             + = retains MORE terminal wealth         (taxpayer view; C.5/C.8)
+  tw_cost  = -tw_gap
+             + = worse off than honest  (same sign convention as net_pct, so
+             net and TW heatmaps can share a colour scale)
+  pv_pct   = (PVtrue(a) - PVtrue(1)) / TW_settled(1)
+             + = pays MORE in PV terms, valuing every payment at the true value
+             surrendered (C.12, corrected)
+
+The pre-refactor C.1 divided by TW_settled(alpha); C.12 divided by TW(1). They
+are now on the common TW(1) denominator.
+
+WHY C.12 WAS WRONG (pre-refactor)
+---------------------------------
+Route C settles in kind. In holding year t the taxpayer surrenders the fraction
+f_{t-1}*q_t of the asset, whose TRUE value is
+    f_{t-1} * q_t * V_t = q_t * W_t / alpha = L_t / alpha.
+The credited liability is L_t. The old npv_tax() discounted L_t, so for
+understaters (alpha < 1) it under-counted the real payment by a factor 1/alpha,
+producing an artefactual "deferral gain" in the C.12 table. The corrected
+npv_tax() discounts L_t/alpha for holding-period flows. Sell-year and post-sale
+flows are cash at true prices (alpha drops out at liquidation), and post-sale
+settlement flows are now included so the PV metric is on the same footing as
+Net_settled.
 
 DECOMPOSITION IDENTITY (C.11)
 ------------------------------
@@ -66,6 +114,23 @@ import tomllib
 from pathlib import Path
 
 _DEFAULT_TOML = Path(__file__).parent / 'WDT_Params.toml'
+
+
+# ─────────────────────────────────────────────────────────────
+# EXPLICIT-N GUARD
+# ─────────────────────────────────────────────────────────────
+
+def _require_N(N, caller):
+    """Refuse to run with an implicit holding period."""
+    if N is None:
+        raise ValueError(
+            f"{caller}: N must be passed explicitly. "
+            "Use p['N_val'] (=30, canonical taxpayer holding period) for VAL "
+            "work, or p['N_fill'] only for fund-mechanics (RATES) work. "
+            "Implicit p['N'] defaults were removed because p['N'] is the SSM "
+            "LRR fill year (19 at the 2000 start), not the canonical N = 30."
+        )
+    return int(N)
 
 
 # ─────────────────────────────────────────────────────────────
@@ -108,6 +173,42 @@ def g_eff(g, alpha, beta):
 # POST-SALE SETTLEMENT
 # ─────────────────────────────────────────────────────────────
 
+def settle_tw_flows(sell_result, p, max_iter=2000, tol=1e-10):
+    """
+    As settle_tw(), but also returns the list of post-sale L flows, one per
+    post-sale assessment period (flow i occurs at t = N+1+i, i = 1, 2, ...).
+
+    Returns
+    -------
+    TW_settled     float
+    net_settle_tax float  (= sum(flows))
+    n_iter         int
+    flows          list[float]
+    """
+    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    cash  = sell_result['TW']
+    basis = sell_result['W_sell']
+    cum   = sell_result['cum_after']
+    net_settle_tax = 0.0
+    flows = []
+
+    for i in range(max_iter):
+        delta = cash - basis
+        if abs(delta) < tol and abs(cum) < tol:
+            return cash, net_settle_tax, i, flows
+        rate = tau(cash, sim_p)
+        L    = max(-cum, rate * delta) if (delta > 0.0 or cum > 0.0) else 0.0
+        if abs(L) < tol:
+            return cash, net_settle_tax, i, flows
+        net_settle_tax += L
+        flows.append(L)
+        basis = cash
+        cash  = cash - L
+        cum  += L
+
+    return cash, net_settle_tax, max_iter, flows
+
+
 def settle_tw(sell_result, p, max_iter=2000, tol=1e-10):
     """
     Iteratively settle the post-sale tax/refund oscillation to convergence.
@@ -129,26 +230,8 @@ def settle_tw(sell_result, p, max_iter=2000, tol=1e-10):
     net_settle_tax float  sum of post-sale L (+ = net tax, - = net refund)
     n_iter         int    iterations to convergence
     """
-    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
-    cash  = sell_result['TW']
-    basis = sell_result['W_sell']
-    cum   = sell_result['cum_after']
-    net_settle_tax = 0.0
-
-    for i in range(max_iter):
-        delta = cash - basis
-        if abs(delta) < tol and abs(cum) < tol:
-            return cash, net_settle_tax, i
-        rate = tau(cash, sim_p)
-        L    = max(-cum, rate * delta) if (delta > 0.0 or cum > 0.0) else 0.0
-        if abs(L) < tol:
-            return cash, net_settle_tax, i
-        net_settle_tax += L
-        basis = cash
-        cash  = cash - L
-        cum  += L
-
-    return cash, net_settle_tax, max_iter
+    tw, net, n, _ = settle_tw_flows(sell_result, p, max_iter, tol)
+    return tw, net, n
 
 
 # ─────────────────────────────────────────────────────────────
@@ -281,7 +364,8 @@ def run_sim(p_in, alpha=None, beta=None, N=None, g=None):
     """
     Run a complete constant-g simulation then settle post-sale oscillation.
 
-    All keyword arguments override the corresponding value in p_in.
+    N is REQUIRED (no implicit default). All other keyword arguments override
+    the corresponding value in p_in.
 
     Returns dict with keys:
       TW           naive sell-year TW (backward compat; do not use)
@@ -294,10 +378,11 @@ def run_sim(p_in, alpha=None, beta=None, N=None, g=None):
       sell         simulate_sell() dict
       g_use        effective growth rate used
       settle_iters iterations to convergence
+      N            the holding period actually used
     """
+    N      = _require_N(N, 'run_sim')
     alpha  = alpha  if alpha  is not None else p_in.get('alpha', 1.0)
     beta   = beta   if beta   is not None else p_in.get('beta',  0.0)
-    N      = N      if N      is not None else p_in['N']
     g_base = g      if g      is not None else p_in['g']
 
     g_use = g_eff(g_base, alpha, beta)
@@ -326,6 +411,7 @@ def run_sim(p_in, alpha=None, beta=None, N=None, g=None):
         'sell':        sell,
         'g_use':       g_use,
         'settle_iters': n_iter,
+        'N':           N,
     }
 
 
@@ -336,13 +422,13 @@ def run_sim(p_in, alpha=None, beta=None, N=None, g=None):
 def run_sim_hist(p_in, alpha=None, N=None):
     """
     Run a simulation using p_in['returns'] then settle post-sale oscillation.
-    No beta/signalling adjustment. g_use is None.
+    No beta/signalling adjustment. g_use is None. N is REQUIRED.
 
     Returns same dict as run_sim() plus g_mean (arithmetic mean of
     the N holding-period returns).
     """
+    N     = _require_N(N, 'run_sim_hist')
     alpha = alpha if alpha is not None else p_in.get('alpha', 1.0)
-    N     = N     if N     is not None else p_in['N']
 
     if len(p_in['returns']) < N + 1:
         raise ValueError(
@@ -378,6 +464,141 @@ def run_sim_hist(p_in, alpha=None, N=None):
         'g_use':       None,
         'g_mean':      sum(g_series) / len(g_series) if g_series else 0.0,
         'settle_iters': n_iter,
+        'N':           N,
+    }
+
+
+# ─────────────────────────────────────────────────────────────
+# NPV TAX CALCULATION (C.12)
+# ─────────────────────────────────────────────────────────────
+
+def npv_tax_declared(records, sell, rho):
+    """
+    LEGACY (pre-refactor) C.12 numerator: PV of the CREDITED liabilities L_t.
+
+    Retained only for audit and regression. It mis-values Route C payments for
+    alpha != 1 (see module docstring) and omits post-sale settlement flows.
+    Do not use for new results.
+    """
+    pv = 0.0
+    for rec in records[1:]:
+        pv += rec['L'] / (1.0 + rho) ** rec['t']
+    pv += sell['L_sell'] / (1.0 + rho) ** sell['t']
+    return pv
+
+
+def npv_tax(records, sell, rho, alpha=1.0, settle_flows=()):
+    """
+    PV (at t=0, discount rate rho) of all tax payments, each valued at the TRUE
+    value surrendered.
+
+      holding period t=1..N : L_t / alpha        (in-kind at declared price;
+                                                  true value = credited L / alpha)
+      sell year t=N+1       : L_sell             (cash at true prices)
+      post-sale i=1,2,...   : settle_flows[i-1]  at t = N+1+i (cash)
+
+    Sign convention: positive = tax paid, negative = refund received.
+    """
+    if alpha <= 0.0:
+        raise ValueError("npv_tax: alpha must be > 0")
+    pv = 0.0
+    for rec in records[1:]:
+        pv += (rec['L'] / alpha) / (1.0 + rho) ** rec['t']
+    t_sell = sell['t']
+    pv += sell['L_sell'] / (1.0 + rho) ** t_sell
+    for i, L in enumerate(settle_flows, start=1):
+        pv += L / (1.0 + rho) ** (t_sell + i)
+    return pv
+
+
+def _run_full(p, alpha, g, N, rho):
+    """Simulate + sell + settle for one (alpha, g, N); return everything."""
+    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    recs  = simulate(p['V0_m'], [g] * N, alpha, sim_p)
+    sell  = simulate_sell(recs, g, sim_p)
+    gross_tax, gross_ref, _ = _holding_totals(recs)
+    if sell['L_sell'] > 0:
+        gross_tax += sell['L_sell']
+    else:
+        gross_ref += sell['L_sell']
+    tw, net_settle, _, flows = settle_tw_flows(sell, sim_p)
+    return {
+        'records': recs, 'sell': sell, 'TW_settled': tw,
+        'Net_settled': gross_tax + gross_ref + net_settle,
+        'npv_true': npv_tax(recs, sell, rho, alpha, flows),
+        'npv_declared': npv_tax_declared(recs, sell, rho),
+    }
+
+
+_HONEST_CACHE = {}
+
+
+def _honest(p, g, N, rho):
+    key = (g, N, p['V0_m'], p['k'], p['tau_0'], p['tau_m'], p['W_min'], rho)
+    if key not in _HONEST_CACHE:
+        _HONEST_CACHE[key] = _run_full(p, 1.0, g, N, rho)
+    return _HONEST_CACHE[key]
+
+
+def run_pair(p, alpha, g, N=None, rho=None):
+    """
+    One call, every comparison metric vs honest declaration at the same
+    (g, N). All fractions are of TW_settled(1). See module docstring.
+
+    Returns dict with keys:
+      net_pct, tw_gap, tw_cost, pv_pct, pv_declared_pct (legacy),
+      tw_honest, TW, TW_honest, Net, Net_honest, N
+    """
+    N   = _require_N(N, 'run_pair')
+    rho = p['rho'] if rho is None else rho
+    h = _honest(p, g, N, rho)
+    a = h if alpha == 1.0 else _run_full(p, alpha, g, N, rho)
+    d = h['TW_settled'] if abs(h['TW_settled']) > 1e-12 else 1.0
+    tw_gap = (a['TW_settled'] - h['TW_settled']) / d
+    return {
+        'net_pct':   (a['Net_settled'] - h['Net_settled']) / d,
+        'tw_gap':    tw_gap,
+        'tw_cost':   -tw_gap,
+        'pv_pct':    (a['npv_true'] - h['npv_true']) / d,
+        'pv_declared_pct': (a['npv_declared'] - h['npv_declared']) / d,
+        'tw_honest': h['TW_settled'],
+        'TW':        a['TW_settled'],
+        'TW_honest': h['TW_settled'],
+        'Net':       a['Net_settled'],
+        'Net_honest': h['Net_settled'],
+        'N':         N,
+    }
+
+
+def npv_tax_advantage(p, alpha, g, rho, N=None):
+    """
+    NPV tax difference: PV_true(alpha) - PV_true(1), as a fraction of
+    honest TW_settled (the corrected C.12 metric). N is REQUIRED.
+
+    Positive = alpha pays MORE in PV terms than honest (disadvantage).
+    Negative = alpha pays LESS in PV terms than honest (advantage).
+
+    Returns
+    -------
+    dict with keys:
+      npv_alpha, npv_honest, npv_diff   £m (true-value basis)
+      npv_diff_pct                      the corrected C.12 metric
+      npv_diff_pct_declared             LEGACY declared-credit metric (audit)
+      tw_honest                         denominator
+    """
+    N   = _require_N(N, 'npv_tax_advantage')
+    h = _honest(p, g, N, rho)
+    a = h if alpha == 1.0 else _run_full(p, alpha, g, N, rho)
+    tw_h  = h['TW_settled']
+    denom = tw_h if abs(tw_h) > 1e-12 else 1.0
+    diff  = a['npv_true'] - h['npv_true']
+    return {
+        'npv_alpha':  a['npv_true'],
+        'npv_honest': h['npv_true'],
+        'npv_diff':   diff,
+        'npv_diff_pct': diff / denom,
+        'npv_diff_pct_declared': (a['npv_declared'] - h['npv_declared']) / denom,
+        'tw_honest':  tw_h,
     }
 
 
@@ -385,9 +606,10 @@ def run_sim_hist(p_in, alpha=None, N=None):
 # TW ADVANTAGE DECOMPOSITION (C.11)
 # ─────────────────────────────────────────────────────────────
 
-def decompose_tw_advantage(p, alpha, g):
+def decompose_tw_advantage(p, alpha, g, N=None):
     """
     Split TW_settled(alpha) - TW_settled(1) into three additive terms.
+    N is REQUIRED.
 
     Correct identity (verified to machine precision):
 
@@ -407,32 +629,16 @@ def decompose_tw_advantage(p, alpha, g):
         delta in the next post-sale period, which is taxed back.
 
     excess_periodic = holding_net(alpha) - holding_net(1)
-        Informational only. NOT additive in the identity. The excess
-        periodic tax feeds into tw_advantage indirectly through f_N
-        erosion, but excess_periodic >> -W_sell_delta (approximately 6x
-        at canonical parameters) because most of the excess is returned
-        via the sell-year refund.
-
-    Parameters
-    ----------
-    p     parameter dict from load_params()
-    alpha declaration ratio
-    g     constant growth rate for holding period and sell year
+        Informational only. NOT additive in the identity.
 
     Returns
     -------
     dict with keys:
-      W_sell_delta    pounds m  additive term 1 (f_N erosion effect)
-      refund_delta    pounds m  additive term 2 (sell-year refund difference)
-      settle_delta    pounds m  additive term 3 (post-sale damping difference)
-      tw_advantage    pounds m  TW_settled(alpha) - TW_settled(1)
-      excess_periodic pounds m  informational only
-      f_ratio         float     f_N(alpha) / f_N(1)
-      tw_honest       pounds m  TW_settled(1); denominator for pct tables
-      identity_error  pounds m  should be ~0; non-zero indicates a bug
+      W_sell_delta, refund_delta, settle_delta, tw_advantage,
+      excess_periodic, f_ratio, tw_honest, identity_error, N
     """
+    N     = _require_N(N, 'decompose_tw_advantage')
     sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
-    N     = p['N']
     g_ser = [g] * N
 
     # honest
@@ -465,92 +671,9 @@ def decompose_tw_advantage(p, alpha, g):
         'f_ratio':         f_ratio,
         'tw_honest':       tw_h,
         'identity_error':  identity_error,
+        'N':               N,
     }
 
-# ─────────────────────────────────────────────────────────────
-# NPV TAX CALCULATION (C.12)
-# ─────────────────────────────────────────────────────────────
-
-def npv_tax(records, sell, rho):
-    """
-    Compute the present value of all tax cash flows for one simulation run.
-
-    Discounts each holding-period payment L_t at period t and the sell-year
-    payment L_sell at period N+1, all to t=0 using discount rate rho.
-
-    Sign convention matches the rest of the model: positive L = tax paid,
-    negative L = refund received. NPV_tax > 0 means a net tax position in
-    PV terms.
-
-    Parameters
-    ----------
-    records  list of N+1 record dicts from simulate() (t=0..N)
-    sell     result dict from simulate_sell() (contains L_sell and t)
-    rho      annual discount rate (fraction, e.g. 0.05)
-
-    Returns
-    -------
-    float  NPV of all tax cash flows (£m, t=0 present value)
-    """
-    pv = 0.0
-    for rec in records[1:]:          # t=1..N, skip t=0 (no payment)
-        t   = rec['t']
-        pv += rec['L'] / (1.0 + rho) ** t
-    t_sell = sell['t']               # always N+1
-    pv    += sell['L_sell'] / (1.0 + rho) ** t_sell
-    return pv
-
-
-def npv_tax_advantage(p, alpha, g, rho):
-    """
-    NPV tax difference: NPV_tax(alpha) - NPV_tax(1), as fraction of
-    honest TW_settled (the C.12 metric).
-
-    Positive = alpha pays MORE in PV terms than honest (disadvantage).
-    Negative = alpha pays LESS in PV terms than honest (advantage).
-
-    Sign convention is consistent with C.1: positive = understater pays more;
-    negative = overstater pays less.
-
-    Parameters
-    ----------
-    p     parameter dict from load_params()
-    alpha declaration ratio
-    g     constant growth rate for holding period and sell year
-    rho   annual discount rate (fraction)
-
-    Returns
-    -------
-    dict with keys:
-      npv_alpha     float  NPV_tax(alpha) in £m
-      npv_honest    float  NPV_tax(1) in £m
-      npv_diff      float  npv_alpha - npv_honest in £m
-      npv_diff_pct  float  npv_diff / TW_settled(1)  — the C.12 metric
-      tw_honest     float  TW_settled(1) for the denominator
-    """
-    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
-    N     = p['N']
-    g_ser = [g] * N
-
-    recs_h = simulate(p['V0_m'], g_ser, 1.0, sim_p)
-    sell_h = simulate_sell(recs_h, g, sim_p)
-    tw_h, _, _ = settle_tw(sell_h, sim_p)
-
-    recs_a = simulate(p['V0_m'], g_ser, alpha, sim_p)
-    sell_a = simulate_sell(recs_a, g, sim_p)
-
-    npv_h = npv_tax(recs_h, sell_h, rho)
-    npv_a = npv_tax(recs_a, sell_a, rho)
-    npv_diff = npv_a - npv_h
-    denom    = tw_h if abs(tw_h) > 1e-12 else 1.0
-
-    return {
-        'npv_alpha':    npv_a,
-        'npv_honest':   npv_h,
-        'npv_diff':     npv_diff,
-        'npv_diff_pct': npv_diff / denom,
-        'tw_honest':    tw_h,
-    }
 
 # ─────────────────────────────────────────────────────────────
 # SYNTHETIC RETURN SERIES
@@ -680,7 +803,7 @@ def _ssm_lrr_fill_year(p, max_N=71):
     Runs only the capitalisation phase — SRR accumulation then LRR
     accumulation from SRR surplus — and returns as soon as lrr_bal
     reaches lrr_target.  No post-fill mechanics are needed here because
-    load_params() only needs the fill year to set p['N'].
+    load_params() only needs the fill year to set p['N_fill'].
 
     Uses _ssm_marginals() for the simulation loop so the revenue
     arithmetic stays in one place.  rates_core.run_ssm() calls the same
@@ -732,8 +855,13 @@ def load_params(toml_path=None):
     """
     Load all model parameters from the TOML file and return a single dict.
 
-    p['N'] is derived from the SSM LRR fill year. Falls back to
-    p['tcm_N'] with a warning if the SSM does not fill within 71 periods.
+    N keys (see module docstring):
+      p['N_val']   = [val] N_demo (30). Canonical taxpayer holding period.
+      p['N_fill']  = SSM LRR fill year (fund mechanics). Falls back to
+                     p['tcm_N'] with a warning if the SSM does not fill
+                     within 71 periods.
+      p['N']       = alias of N_fill, retained for RATES code. VAL code must
+                     not use it; run_sim() and friends no longer read it.
 
     All monetary values in pounds m. All rates as decimals.
     """
@@ -786,6 +914,7 @@ def load_params(toml_path=None):
     p['V0_m']  = float(raw['val']['V0_m'])
     p['rho']   = float(raw['val']['rho'])
     p['N_demo'] = int(raw['val'].get('N_demo', 30))
+    p['N_val']  = p['N_demo']
     p['g']     = p['hist_mean']
     p['alpha'] = 1.0
     p['beta']  = 0.0
@@ -796,7 +925,8 @@ def load_params(toml_path=None):
               f"71 periods for scenario starting {scenario_start}. "
               f"Falling back to tcm_N={p['tcm_N']}.")
         lrr_N = p['tcm_N']
-    p['N'] = lrr_N
+    p['N_fill'] = lrr_N
+    p['N']      = lrr_N          # alias for RATES code; VAL code must use N_val
 
     sw = raw.get('sweep', {})
 
@@ -809,7 +939,7 @@ def load_params(toml_path=None):
         'tau_m_canon':  float(sw.get('tau_m_canon',  p['tau_m'])),
         'k_canon':      float(sw.get('k_canon',      p['k'])),
         'W_min_canon':  float(sw.get('W_min_canon',  p['W_min'])),
-        'N_canon':      int(  sw.get('N_canon',      p['N'])),
+        'N_canon':      int(  sw.get('N_canon',      p['N_val'])),
         'V0_canon':     float(sw.get('V0_canon',     p['V0_m'])),
         'g_canon':      float(sw.get('g_canon',      p['hist_mean'])),
         'tzone_threshold':   float(sw.get('tzone_threshold', 0.02)),
@@ -844,6 +974,11 @@ def load_params(toml_path=None):
         'rates_lrr_years_sweep': [float(v) for v in sw.get('rates_lrr_years_sweep', [])],
         'rates_g_sweep':     [float(v) for v in sw.get('rates_g_sweep',     [])],
     }
+
+    if p['sweep']['N_canon'] != p['N_val']:
+        print(f"WARNING: wdt_core.load_params() -- [sweep] N_canon="
+              f"{p['sweep']['N_canon']} != [val] N_demo={p['N_val']}. "
+              f"N_canon should equal N_demo (canonical N = 30).")
 
     # ── Synthetic scenario parameters ─────────────────────────
     syn = raw.get('synthetic_scenario', {})

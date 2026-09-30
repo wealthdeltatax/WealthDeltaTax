@@ -16,7 +16,7 @@ keywords:
     - transitional taxation
     - corporate tax transition
     - tax intermediaries
-zenodo_doi: "10.5072/zenodo.610796"
+zenodo_doi: "10.5072/zenodo.611210"
 jel:
   - H25   # Business taxes and subsidies
   - G32   # Financing policy; Financial risk and risk management
@@ -32,7 +32,6 @@ jel:
 | 0.01      | 03 July 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01      | 20 August 2026  | Update Section E for clarity |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 \tableofcontents

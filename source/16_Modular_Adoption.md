@@ -15,7 +15,7 @@ keywords:
     - scrutiny period
     - implementation strategy
     - institutional adoption
-zenodo_doi: "10.5072/zenodo.610828"
+zenodo_doi: "10.5072/zenodo.611242"
 jel:
   - H20   # Taxation, subsidies, and revenue: general
   - O17   # Formal and informal sectors; Shadow economy; Institutional arrangements
@@ -31,7 +31,6 @@ jel:
 |:--------:|:---------------:|--------------------------|
 | 0.01      | 6 August 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

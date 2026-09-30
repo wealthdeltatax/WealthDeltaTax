@@ -17,7 +17,7 @@ keywords:
     - tolerant zone
     - Sovereign Wealth Fund capitalisation
     - reproducible research
-zenodo_doi: "10.5072/zenodo.610810"
+zenodo_doi: "10.5072/zenodo.611224"
 jel:
   - H24   # Personal income and other nonbusiness taxes and subsidies
   - C63   # Computational techniques; Simulation modeling
@@ -33,7 +33,6 @@ jel:
 | 1.00      | 15 August 2026  | Published to website |
 | 1.01 | 31 August 2026 | Numerical and argumentative update to match confirmed SWEEPS.A canonical tables |
 | 1.02      | 11 August 2026  | Updated data  |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 \tableofcontents

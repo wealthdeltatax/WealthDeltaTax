@@ -33,7 +33,7 @@ jel:
 |:--------:|:---------------:|--------------------------|
 | 0.01      | 15 June 2026     | First Draft          |
 | 1.00      | 15 August 2026  | Published to website |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
+| 1.01 | 30 September 2026 | SWF Custodian mapping restated as candidate forms (glossary, §1.5.3); DR gift carve-out and Custodian institutional form added to jurisdiction-specific work (§4.3). |
 
 \newpage
 
@@ -69,7 +69,7 @@ A note on scope: the WDT companion papers do not model the UK as a real jurisdic
 
 **Reference jurisdiction:** A specific country selected to ground the WDT's companion papers in concrete institutional data, population figures, and legal context. The reference jurisdiction does not constrain the whitepaper's generic mechanism design.
 
-**SWF Custodian:** The body responsible for managing the Sovereign Wealth Fund and ensuring the refund liability remains pre-funded. In the UK reference jurisdiction, maps to the Bank of England or a dedicated statutory body modelled on the Bank's independence architecture. See (GOV.B §E.6).
+**SWF Custodian:** The body responsible for managing the Sovereign Wealth Fund and ensuring the refund liability remains pre-funded. Its institutional form is a Phase One decision; in the UK reference jurisdiction the candidates include a mandate extension of the Bank of England, a ring-fenced division of the Bank, a separate entity under its umbrella, and a dedicated statutory body modelled on the Bank's independence architecture. See (GOV.B §B.3) and (GOV.B §E.6).
 
 **Tax gap:** The difference between the theoretical tax liability in the UK and the amount actually collected. Stood at £46.8 billion (5.3%) in 2023-24. The WDT primarily addresses the portion attributable to wealthy individuals.
 
@@ -171,7 +171,7 @@ The OBR is the UK's independent fiscal watchdog, established in 2010 and placed 
 
 *WDT requirements*: (GOV §6.3) identifies the SWF Custodian as the WDT's mandate guardian. Its function is not to administer the tax, value assets, produce economic forecasts, or set the inputs against which its own performance is scored. It requires statutory independence; long, overlapping, non-renewable tenure; stewardship statements creating a ratcheting reputational commitment; outputs preserved in the permanent public record; and no role in setting the conditions or performance measures against which its stewardship is assessed. Its operational task is therefore relatively small in administrative terms but institutionally demanding: it must maintain sufficient expert capacity to monitor compliance with the SWF mandate, assess whether drawdown conditions have been met, publish independent stewardship assessments, and provide a durable institutional check against political drift.
 
-The OBR model — a small expert body with statutory independence and TSC oversight of appointments — is the most directly relevant UK precedent. In the UK reference jurisdiction, the Custodian maps to the Bank of England or to a dedicated statutory body constructed on the Bank's independence architecture (GOV.B §E.6). The OBR demonstrates that parliamentary sovereignty does not prevent the creation of durable independent fiscal institutions. The design elements that have held are the statutory mandate, TSC veto over appointments, and transparency obligations. The budget allocation weakness is real but has not, to date, compromised independence in practice.
+The OBR model — a small expert body with statutory independence and TSC oversight of appointments — is the most directly relevant UK precedent. In the UK reference jurisdiction the candidate forms for the Custodian include a mandate extension of the Bank of England, a ring-fenced division of the Bank, a separate entity under its umbrella, and a dedicated statutory body constructed on the Bank's independence architecture (GOV.B §B.3, §E.6). The OBR demonstrates that parliamentary sovereignty does not prevent the creation of durable independent fiscal institutions. The design elements that have held are the statutory mandate, TSC veto over appointments, and transparency obligations. The budget allocation weakness is real but has not, to date, compromised independence in practice.
 
 The Resolution Foundation's February 2026 assessment is particularly relevant to the WDT design because it demonstrates that formal independence alone does not guarantee adequate institutional capacity. The OBR's comparatively small staffing level and dependence on the Treasury spending review allocation create vulnerabilities that the Custodian should not inherit. This informed the design in (GOV §6.3): the Custodian's budget should not be subject to the same vulnerability, while the three anti-drift requirements—pre-crisis public commitment to drawdown conditions, overlapping long non-renewable tenure, and periodic stewardship statements—create protections extending beyond the OBR model.
 
@@ -426,6 +426,10 @@ Whether the actual OBR meets the structural properties requires of the SWF Custo
 **HMRC data access.** A formal HMRC data access arrangement requires institutional affiliation or partnership with an established research body. It is a precondition for revenue microsimulation rather than a Phase One output; until it exists, revenue projections rely on publicly available statistics with acknowledged data limitations (SCOPE §6) #26.
 
 **Post-Brexit information exchange.** The UK's loss of DAC access and EU beneficial ownership register interconnection leaves a residual gap concentrated in EU-domiciled holding structures, particularly Luxembourg and Netherlands vehicles. CRS continues to cover the majority of offshore financial account information. Behavioural response modelling should treat this as a scenario-analysis input, not a point estimate (SCOPE §6), #27.
+
+**Custodian institutional form.** The choice among the candidate forms for the SWF Custodian turns on political and institutional conditions in the reference jurisdiction: how much statutory insulation and market credibility an existing institution such as the Bank of England lends against how tightly a dedicated body couples its survival to the fund. The requirements any form must satisfy are in (GOV.B §B.3), including that no holder of a Governing Council seat, such as the Governor in an FS office, has authority over the Custodian's leadership. The choice is a Phase One decision and needs political understanding on the ground (SCOPE §6), #36.
+
+**Bribery-law carve-out for DR members.** (GOV.B §A.3.7) provides that DR members may accept gifts from any party for any reason and that neither recipient nor giver commits an offence. Drafting the carve-out from the UK's general bribery legislation, and defining the scope of the protected transaction so that it is clear, is jurisdiction-specific legal work (SCOPE §6), #37.
 
 ## 4.4 Structural and irreducible limits of the design
 

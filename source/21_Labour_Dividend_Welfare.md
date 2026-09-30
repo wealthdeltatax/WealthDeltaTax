@@ -15,7 +15,7 @@ keywords:
     - occupational choice
     - welfare demand
     - cost of living
-zenodo_doi: "10.5072/zenodo.610840"
+zenodo_doi: "10.5072/zenodo.611254"
 jel:
   - H24   # Personal income and other nonbusiness taxes and subsidies
   - D31   # Personal income, wealth, and their distributions
@@ -37,7 +37,6 @@ jel:
 | 0.04 | 20 September 2026 | §2.1 data provenance note added: explicit statement that the 2025/26 rate schedules, ONS ASHE April 2025 median earnings (£39,039), and Ofgem October 2025 cap (£1,755) are not carried in (JUR §2) and are external inputs to this paper's arithmetic |
 | 0.05 | 23 September 2026 | Added §4.5 Demand Expansion and Economic Reallocation (five subsections + research question box); updated §7.1 limits, §7.3 Phase One agenda, conclusion (four layers → five layers), and abstract accordingly |
 | 0.06 | 26 September 2026 | All inline citations converted to @key format; three data-source references added to bib and References section (HMRC2025c, ONS2025ASHE, Ofgem2025Oct); manual References section replaced with auto-generated version from references.bib |
-| 2.00      | 27 September 2026     | Working Paper Individual Upload to Zenodo          |
 
 \newpage
 

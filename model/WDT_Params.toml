@@ -10,6 +10,17 @@
 #   floats    : no quotes, must have decimal  (e.g. 0.001)
 #   strings   : double-quoted
 #   arrays    : [[double-bracket section headers]] for array-of-tables
+#
+# N CONVENTION (read this before touching any N value)
+# ----------------------------------------------------
+# There are two different "N"s in this project and they must not be confused:
+#   N_val  = [val] N_demo = 30 : the taxpayer holding period. Canonical for every
+#            individual-level VAL / VAL.A / VAL.B table and figure.
+#   N_fill = SSM LRR fill year : a FUND-MECHANICS output derived at load time by
+#            load_params() (currently 19 for the 2000 start). Used by RATES.
+# wdt_core.load_params() exposes both: p['N_val'] and p['N_fill'] (p['N'] is kept
+# as an alias of N_fill for RATES code). run_sim / run_sim_hist /
+# decompose_tw_advantage / npv_tax_advantage REQUIRE N to be passed explicitly.
 
 
 # ─────────────────────────────────────────────────────────────
@@ -167,16 +178,20 @@ values = [
 # ─────────────────────────────────────────────────────────────
 # [tcm] — Taxpayer Cohort Model settings
 #
-# snapshot_N    : the horizon year at which TCM is evaluated, equal to the
-#                 LRR breakeven year from the SSM for the active scenario.
-#                 Update this after each SSM run if the breakeven year changes.
-#                 (This is the only value that requires manual update between runs.)
+# snapshot_N    : FALLBACK ONLY. Used as p['N_fill'] if the SSM LRR never fills
+#                 within 71 periods. It is NOT the canonical taxpayer holding
+#                 period (that is [val] N_demo = 30) and it is NOT normally the
+#                 SSM fill year: for the 2000 Balanced scenario at tau_0 = 15%
+#                 the derived fill year is 19, not 30. The old comment here
+#                 ("LRR breakeven year for 2000 Balanced scenario") described an
+#                 earlier calibration and is superseded.
+# canonical_N   : retained for WFR pipeline compatibility; set equal to N_demo.
 # hist_mean     : historical mean return used as the tier differential baseline
 #                 (fraction); derived from the returns series above = 10.45% p.a.
 # ─────────────────────────────────────────────────────────────
 [tcm]
-snapshot_N          = 30     # LRR breakeven year for 2000 Balanced scenario
-canonical_N         = 30 
+snapshot_N          = 30     # fallback for N_fill only (see note above)
+canonical_N         = 30     # = [val] N_demo; WFR compatibility
 hist_mean           = 0.1045 # 10.45% p.a. — population-weighted mean of the returns series
 # Candidate active scenarios:
                               #   2006 — worst LRR fill speed (N=29)
@@ -299,7 +314,8 @@ V0_m  = 139.607368  # £139,607,368
 [val]
 V0_m   = 20.0   # £20m — VAL reference entry wealth
 rho    = 0.05   # 5% discount rate
-N_demo = 30     # Illustrative demographic holding period (years).
+N_demo = 30     # Illustrative demographic holding period (years). This is N_val,
+                # the CANONICAL N for every individual-level VAL figure and table.
                 # Rationale: WDT entry is typically triggered by an inheritance
                 # event; median UK inheritance receipt age ≈ 57, life expectancy
                 # ≈ 85, implying N ≈ 28. N = 30 is a round central estimate.
@@ -308,8 +324,10 @@ N_demo = 30     # Illustrative demographic holding period (years).
                 # range is shown in Fig 09 (g, N) surface.
                 # This N is used for all individual-level VAL figures (02–08, 10)
                 # and all VAL.A appendix C tables. It is deliberately decoupled
-                # from p['N'] (the SSM-derived LRR fill year), which is a fund
+                # from p['N_fill'] (the SSM-derived LRR fill year), which is a fund
                 # mechanics output, not a taxpayer lifecycle parameter.
+                # Since the N refactor this decoupling is ENFORCED in code:
+                # run_sim() and friends raise if N is not passed explicitly.
 
 
 # ─────────────────────────────────────────────────────────────
@@ -328,7 +346,9 @@ N_demo = 30     # Illustrative demographic holding period (years).
 # tau_m_canon  : canonical ceiling rate (τ_m)
 # k_canon      : canonical steepness (per £m)
 # W_min_canon  : canonical entry point (£m)
-# N_canon      : canonical holding period (years) — LRR fill year at 2006 start
+# N_canon      : canonical holding period (years) = N_val = [val] N_demo = 30.
+#                (Old comment said "LRR fill year"; that was wrong after the
+#                tau_0 recalibration and is superseded.)
 # V0_canon     : canonical entry wealth for VAL reference scenarios (£m)
 # g_canon      : canonical growth rate = hist_mean (fraction)
 #
@@ -383,7 +403,7 @@ tau_0_canon = 0.15     # 15% — canonical floor rate
 tau_m_canon = 0.70     # 70% — canonical ceiling rate
 k_canon     = 0.001    # steepness per £m
 W_min_canon = 2.0      # £2m — entry point
-N_canon     = 30       # canonical holding period (LRR fill year, 2000 start)
+N_canon     = 30       # canonical holding period = N_val = [val] N_demo
 V0_canon    = 20.0     # £20m — VAL reference entry wealth
 g_canon     = 0.1045   # 10.45% p.a. — hist_mean alias
 
