@@ -60,17 +60,17 @@ Every other analytical paper in this series addresses an audience already engage
 
 ## 1.1 The Mature WDT as Analytical Baseline
 
-The paper models a fully mature WDT: LRR filled, Phase Two underway, labour tax displacement proceeding under GOV §5.2, and the SWF capitalised. It does not model any point in the transition trajectory. That path is the subject of PHASE1 and, eventually, MACRO.
+The paper models a fully mature WDT: LRR filled, Phase Two underway, labour tax displacement proceeding under (GOV §5.2), and the SWF capitalised. It does not model any point in the transition trajectory. That path is the subject of (PHASE1) and, eventually, (MACRO).
 
 The mature state is taken as baseline for a direct reason. A paper modelling early Phase One would show very little welfare change for ordinary people — because that is accurate. A mid-transition model would require assumptions about pace and calibration that belong to the Governing Council, not the author. The mature state can be characterised cleanly from the mechanism's design properties alone. It is the destination, not a projection of when it arrives.
 
 ## 1.2 Speculative Character and What That Means Here
 
-This paper is more speculative than the core mechanism papers. Several arguments reason toward conclusions rather than deriving them from settled positions. The infrastructure investment case in §4.3 is the author's normative argument for what the Governing Council should consider, not a description of current architecture. The welfare demand effects in §6 are directional claims without quantified magnitudes. The occupational choice argument in §3.2 cannot be established empirically before Phase One data on labour market composition exists.
+This paper is more speculative than the core mechanism papers. Several arguments reason toward conclusions rather than deriving them from settled positions. The infrastructure investment case in (WFR §4.3) is the author's normative argument for what the Governing Council should consider, not a description of current architecture. The welfare demand effects in (WFR §6) are directional claims without quantified magnitudes. The occupational choice argument in (WFR §3.2) cannot be established empirically before Phase One data on labour market composition exists.
 
 Speculative does not mean unsupported. Each argument is grounded in the mechanism's design properties, in verified data, or in directional claims with clear causal logic. A reader who wants only settled positions will find that the paper reaches further than they may be comfortable with. The paper says so here, at the outset, and does not repeat the caveat in every section.
 
-The purchasing power figures in §2 and §4 are arithmetic applied to verified rate schedules and earnings data. They are accurate given their inputs. The uncertainty is whether those inputs materialise — whether full displacement actually occurs — not the arithmetic itself.
+The purchasing power figures in (WFR §2) and (WFR §4) are arithmetic applied to verified rate schedules and earnings data. They are accurate given their inputs. The uncertainty is whether those inputs materialise — whether full displacement actually occurs — not the arithmetic itself.
 
 \newpage
 

@@ -73,7 +73,7 @@ import numpy as np
 from wdt_core import (
     load_params, tau,
     simulate, simulate_sell, settle_tw,
-    run_sim, run_sim_hist, run_pair,
+    run_sim, run_sim_hist, run_pair, run_pair_rhos, breakeven_rho, run_declared, npv_true_declared,
     decompose_tw_advantage, npv_tax_advantage,
     g_eff as _g_eff,
 )
@@ -404,6 +404,162 @@ def _pair_matrix(p, alphas, gs, N):
             rp.append(m['pv_pct'] * 100.0)
         net.append(rn); twc.append(rt); pv.append(rp)
     return net, twc, pv
+
+
+def _compute_rho_data(p: dict, grids: dict) -> tuple:
+    """
+    Discount-rate sweep of the PV-revenue metric (C.12) plus the state-tolerance
+    analysis. One simulation per (alpha, g); PV evaluated at every rho.
+
+    Returns (c12_rho_table, tolerance_chart).
+
+    c12_rho_table[str(rho)][str(alpha)] -> list over G_VALS  (fractions of TW(1);
+        + = state receives more PV of true value than from an honest declarer)
+
+    tolerance_chart: (alpha x g) matrices in pp of TW(1) for every rho, the TW gap
+        and net-tax gap, and the declarer's TW-maximising alpha*(g) with the PV
+        revenue outcome at that alpha* for every rho.
+    """
+    N      = p['N_val']
+    rhos   = list(p['rho_sweep'])
+    if p['rho'] not in rhos:
+        rhos = sorted(rhos + [p['rho']])
+    G_VALS     = grids['g_vals']
+    ALPHA_VALS = grids['alpha_vals']
+
+    print(f"  [rho] C.12 table across rho = {rhos} ...")
+    tab = {str(r): {} for r in rhos}
+    for a in ALPHA_VALS:
+        rows = {str(r): [] for r in rhos}
+        for g in G_VALS:
+            m = run_pair_rhos(p, a, g, N, rhos)
+            for r, v in zip(rhos, m['pv_pct']):
+                rows[str(r)].append(v)
+        for r in rhos:
+            tab[str(r)][str(a)] = rows[str(r)]
+
+    print("  [rho] tolerance-zone grid (alpha x g x rho)...")
+    a_max  = float(p['alpha_max'])
+    alphas = sorted(set([round(x, 4) for x in np.geomspace(0.1, 1.0, 25)] +
+                        [round(x, 4) for x in np.geomspace(1.0, a_max, 40)]))
+    alphas = [1.0 if abs(a - 1.0) < 1e-9 else a for a in alphas]
+    gs     = [round(0.005 * i, 4) for i in range(81)]             # 0 .. 40%
+    pv = {str(r): [] for r in rhos}; tw = []; net = []
+    for a in alphas:
+        rp = {str(r): [] for r in rhos}; rt = []; rn = []
+        for g in gs:
+            m = run_pair_rhos(p, a, g, N, rhos)
+            for r, v in zip(rhos, m['pv_pct']):
+                rp[str(r)].append(v * 100.0)
+            rt.append(m['tw_gap'] * 100.0); rn.append(m['net_pct'] * 100.0)
+        for r in rhos:
+            pv[str(r)].append(rp[str(r)])
+        tw.append(rt); net.append(rn)
+
+    tw_arr = np.array(tw)                       # [alpha x g]
+    star_idx = tw_arr.argmax(axis=0)            # declarer's TW-maximising alpha per g
+    alpha_star = [alphas[i] for i in star_idx]
+    tw_star    = [float(tw_arr[i, j]) for j, i in enumerate(star_idx)]
+    pv_star    = {str(r): [float(np.array(pv[str(r)])[i, j]) for j, i in enumerate(star_idx)]
+                  for r in rhos}
+    edge = [bool(i in (0, len(alphas) - 1)) for i in star_idx]
+
+    # Breakeven rho: discount rate at which the state's shortfall equals the tolerance
+    print("  [rho] breakeven discount rates...")
+    tol_frac = p['tol_pp'] / 100.0
+    be_alphas = [1.2, 1.5, 2.0, 3.0, 5.0]
+    be_alphas = [a for a in be_alphas if a <= a_max + 1e-9]
+    be_g = [round(0.01 * i, 4) for i in range(0, 41)]
+    be = {}; be_status = {}
+    for a in be_alphas:
+        vals = []; sts = []
+        for g in be_g:
+            r, st = breakeven_rho(p, a, g, N, tol_frac)
+            vals.append(r); sts.append(st)
+        be[str(a)] = vals; be_status[str(a)] = sts
+    be_star = []; be_star_status = []
+    gs_arr = np.array(gs)
+    for g in be_g:
+        j = int(np.argmin(abs(gs_arr - g)))
+        r, st = breakeven_rho(p, alpha_star[j], g, N, tol_frac)
+        be_star.append(r); be_star_status.append(st)
+
+    chart = {
+        'N': N, 'rhos': rhos, 'rho_display': list(p['rho_display']), 'alpha_max': a_max,
+        'be_alphas': be_alphas, 'be_g': be_g, 'be_rho': be, 'be_status': be_status,
+        'be_rho_at_star': be_star, 'be_status_at_star': be_star_status, 'rho_headline': p['rho'], 'tol_pp': p['tol_pp'],
+        'alphas': alphas, 'g_grid': gs,
+        'pv': pv, 'tw_gap': tw, 'net': net,
+        'alpha_star': alpha_star, 'tw_at_star': tw_star, 'pv_at_star': pv_star,
+        'star_at_grid_edge': edge,
+    }
+    return tab, chart
+
+
+def _compute_uncertainty(p: dict) -> dict:
+    """
+    Declaration under uncertainty. The taxpayer targets a declaration level m but
+    the market reveals the true value, so the realised ratio alpha_t = D_t / V_t is
+    random. Paired Monte Carlo against an honest declarer on the SAME return path.
+
+    Returns: lognormal annual returns with mean growth p['g'] and volatility sigma.
+    Two declaration rules (see wdt_core.declared_path):
+      committed : D_t = m * V0 * (1+g)^t        (no feedback from the market)
+      lagged    : D_t = m * V_{t-1} * (1+g)     (re-anchored on last year's observed value)
+    """
+    N    = p['N_val']
+    g    = p['g']
+    rhos = list(p['rho_sweep'])
+    rh   = rhos.index(p['rho']) if p['rho'] in rhos else None
+    if rh is None:
+        rhos = sorted(rhos + [p['rho']]); rh = rhos.index(p['rho'])
+    tol  = p['tol_pp'] / 100.0
+    ms   = sorted(set([round(x, 4) for x in np.geomspace(0.1, 1.0, 12)] +
+                      [round(x, 4) for x in np.geomspace(1.0, p['alpha_max'], 20)]))
+    ms   = [1.0 if abs(x - 1.0) < 1e-9 else x for x in ms]
+    modes = ['committed', 'lagged']
+    sigmas = list(p['unc_sigmas'])
+    rng = np.random.default_rng(p['unc_seed'])
+
+    stats = {md: {} for md in modes}
+    for sg in sigmas:
+        n_paths = 1 if sg == 0.0 else p['unc_paths']
+        Z = rng.standard_normal((n_paths, N + 1)) if sg > 0 else np.zeros((1, N + 1))
+        R = (1.0 + g) * np.exp(sg * Z - 0.5 * sg * sg) - 1.0
+        print(f"  [unc] sigma = {sg:.3f}, {n_paths} paths ...")
+        hon = []
+        for k in range(n_paths):
+            h = run_declared(p, R[k].tolist(), 1.0, 'honest', g)
+            hon.append((h, [npv_true_declared(h, r) for r in rhos]))
+        for md in modes:
+            cols = {k: [] for k in ('tw_mean', 'tw_p05', 'tw_p50', 'tw_p95', 'p_tw_gain', 'net_mean',
+                                   'pv_p05', 'pv_p95', 'p_shortfall', 'a_med', 'p_over_at_sale',
+                                   'pv_mean_by_rho', 'a_p05', 'a_p95')}
+            for m in ms:
+                tw = np.empty(n_paths); nt = np.empty(n_paths)
+                pv = np.empty((n_paths, len(rhos))); aN = np.empty(n_paths)
+                for k in range(n_paths):
+                    h, pvh = hon[k]
+                    a = run_declared(p, R[k].tolist(), m, md, g)
+                    d = h['TW_settled'] if abs(h['TW_settled']) > 1e-12 else 1.0
+                    tw[k] = (a['TW_settled'] - h['TW_settled']) / d * 100.0
+                    nt[k] = (a['Net_settled'] - h['Net_settled']) / d * 100.0
+                    pv[k] = [(npv_true_declared(a, r) - x) / d * 100.0 for r, x in zip(rhos, pvh)]
+                    aN[k] = a['alpha_N']
+                pvh_ = pv[:, rh]
+                cols['tw_mean'].append(float(tw.mean()));  cols['tw_p05'].append(float(np.percentile(tw, 5)))
+                cols['tw_p50'].append(float(np.percentile(tw, 50))); cols['tw_p95'].append(float(np.percentile(tw, 95)))
+                cols['p_tw_gain'].append(float((tw > 1e-9).mean())); cols['net_mean'].append(float(nt.mean()))
+                cols['pv_p05'].append(float(np.percentile(pvh_, 5))); cols['pv_p95'].append(float(np.percentile(pvh_, 95)))
+                cols['p_shortfall'].append(float((pvh_ < -p['tol_pp']).mean()))
+                cols['a_med'].append(float(np.median(aN))); cols['p_over_at_sale'].append(float((aN > 1.0).mean()))
+                cols['a_p05'].append(float(np.percentile(aN, 5))); cols['a_p95'].append(float(np.percentile(aN, 95)))
+                cols['pv_mean_by_rho'].append([float(x) for x in pv.mean(axis=0)])
+            stats[md][str(sg)] = cols
+
+    return {'N': N, 'g': g, 'sigmas': sigmas, 'paths': p['unc_paths'], 'seed': p['unc_seed'],
+            'ms': ms, 'modes': modes, 'rhos': rhos, 'rho_headline': p['rho'],
+            'tol_pp': p['tol_pp'], 'stats': stats}
 
 
 def _compute_charts(p: dict, grids: dict) -> dict:
@@ -861,6 +1017,40 @@ def _validate(p: dict, grids: dict, tables: dict, charts: dict) -> dict:
                 worst = max(worst, abs(lhs - rhs))
     check('in_kind_payment_identity', worst < 1e-8, f'max|diff|={worst:.2e}')
 
+    # 8b. rho sweep at the headline rho must equal the C.12 table
+    worst = 0.0
+    hk = str(p['rho'])
+    for a in ALPHA_VALS:
+        for x, y in zip(tables['c12_rho'][hk][str(a)], tables['c12'][str(a)]):
+            worst = max(worst, abs(x - y))
+    check('rho_sweep_headline_equals_C12', worst < 1e-12, f'max|diff|={worst:.2e}')
+    # 8c. rho = 0 PV is the undiscounted true-value sum; alpha=1 row must be zero at every rho
+    z = max(abs(v) for r in tables['c12_rho'].values() for v in r['1.0'])
+    check('rho_sweep_honest_row_zero', z < 1e-12, f'max|v|={z:.2e}')
+
+    # 8d. breakeven rho really solves PV shortfall = tolerance
+    tc = charts['fig_7_4_tolerance_zone']; worst = 0.0; n_chk = 0
+    for a in tc['be_alphas']:
+        for j in range(0, len(tc['be_g']), 8):
+            if tc['be_status'][str(a)][j] != 'ok':
+                continue
+            r = tc['be_rho'][str(a)][j]
+            m = run_pair_rhos(p, a, tc['be_g'][j], N, [r])
+            worst = max(worst, abs(m['pv_pct'][0] + tc['tol_pp'] / 100.0)); n_chk += 1
+    check('breakeven_rho_solves_tolerance', worst < 1e-8 and n_chk > 0, f'{n_chk} cells, max|resid|={worst:.2e}')
+
+    # 8e. sigma = 0 declared-path simulation reproduces the constant-alpha results (both modes)
+    uc = charts['fig_7_7_uncertainty']; worst = 0.0
+    if 0.0 in uc['sigmas']:
+        for md in uc['modes']:
+            st = uc['stats'][md]['0.0']
+            for i, m in enumerate(uc['ms']):
+                ref = run_pair_rhos(p, m, p['g'], N, uc['rhos'])
+                worst = max(worst, abs(st['tw_mean'][i] - ref['tw_gap'] * 100.0),
+                            abs(st['net_mean'][i] - ref['net_pct'] * 100.0),
+                            *[abs(x - y * 100.0) for x, y in zip(st['pv_mean_by_rho'][i], ref['pv_pct'])])
+    check('declared_path_sigma0_equals_constant_alpha', worst < 1e-9, f'max|diff|={worst:.2e}')
+
     # 9. Sign agreement: corrected PV vs TW-cost, and legacy for contrast
     def sign_disagree(pv_tab):
         bad = 0; tot = 0
@@ -911,6 +1101,12 @@ def main(dry_run: bool = False):
 
     print("\n[2/4] Computing chart data...")
     charts = _compute_charts(p, grids)
+
+    print("\n[2b/4] Discount-rate sweep and tolerance zone...")
+    tables['c12_rho'], charts['fig_7_4_tolerance_zone'] = _compute_rho_data(p, grids)
+
+    print("\n[2c/4] Declaration under uncertainty (Monte Carlo)...")
+    charts['fig_7_7_uncertainty'] = _compute_uncertainty(p)
 
     print("\n[3/4] Computing worked-example data (§J–§N)...")
     examples = _compute_examples(p)

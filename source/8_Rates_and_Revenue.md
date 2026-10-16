@@ -452,7 +452,7 @@ The SRR's year-3 fill invariance result is robust to Route D deferrals by constr
 
 The LRR is different. The LRR floor is fixed in real terms (expressed as years of government expenditure, not as a multiple of observed revenue) and does not scale with the annual revenue stream. A sustained Route D deferral effect would extend the LRR breakeven year beyond the RATES §7.2 figures by a margin proportional to the revenue shortfall during the capitalisation window. Item #33 is designed to establish whether that extension is material. Given observed mortality rates and private asset transaction frequencies, the realistic effect is concentrated in the early capitalisation years and is unlikely to approach the theoretical upper bound of a 20% sustained revenue reduction across the full window.
 
-## 7.4 Revenue Under the Predicted Declaration Distribution**
+## 7.5 Revenue Under the Predicted Declaration Distribution**
 
 The TCM assumes $\alpha$ = 1 throughout: every taxpayer declares their assets at true value in every assessment period. The behavioural analysis in (VAL §7), (VAL.A §A.6), and (ENV §2) predicts a population centre modestly above honest declaration, driven by refund-protection asymmetry under valuation uncertainty. (SWEEPS §11) establishes that mechanism intensity varies with wealth level. No paper in the series computes revenue under a population-weighted declaration distribution. This section addresses that omission.
 

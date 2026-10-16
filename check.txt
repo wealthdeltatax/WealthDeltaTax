@@ -1,0 +1,545 @@
+
+[ERROR] duplicate_section_number  (6)
+  18_Addendums.md:320    ADD ┬º1         ->                also used by 'Introduction' (line 62)
+  18_Addendums.md:324    ADD ┬º2         ->                also used by 'The Nature of Implementation Calibration' (line 74)
+  18_Addendums.md:328    ADD ┬º3         ->                also used by 'Calibration Question One: Exemption Threshold Indexation' (line 88)
+  18_Addendums.md:332    ADD ┬º4         ->                also used by 'Calibration Question Two: TP Chamber Conflict of Interest Visibility' (line 114)
+  18_Addendums.md:336    ADD ┬º5         ->                also used by 'Calibration Question Three: External Chamber Communication Rules' (line 132)
+  8_Rates_and_Revenue.md:455 RATES ┬º7.4     ->                also used by 'Route D Deferred Revenue and Capitalisation Window Timing' (line 441)
+
+[ERROR] section_not_found  (5)
+  17_Scope_Boundary.md:85 SCOPE ┬º3.3     -> SCOPE ┬º5.5     SCOPE has no ┬º5.5. Nearby: 
+  17_Scope_Boundary.md:93 SCOPE ┬º3.4     -> RATES ┬º9.7     RATES has no ┬º9.7. Nearby: ┬º9.1 Formal modelling gaps; ┬º9.2 Phase One empirical unknowns; ┬º9.3 Jurisdiction-specific legal and implemen; ┬º9.4 Structural and irreducible limits of the; ┬º9.5 Governing Council calibration parameters
+  19_Taxpayer_Welfare.md:96 WFR ┬º1         -> WFR ┬º7         WFR has no ┬º7. Nearby: ┬º1 Introduction; ┬º2 Methodology; ┬º3 Part I: The Controlled Baseline; ┬º4 Part II: The Mechanisms; ┬º5 Part III: Literature Positioning; ┬º6 Part IV: Synthesis and Conclusion
+  9_Parameter_Sweeps.md:443 SWEEPS ┬º11     -> SWEEPS ┬ºB.5    SWEEPS has no ┬ºB.5. Nearby: 
+  9_Parameter_Sweeps.md:493 SWEEPS ┬º13.2   -> SWEEPS ┬ºE.2    SWEEPS has no ┬ºE.2. Nearby: 
+
+[WARN] anchor_stale  (307)
+  10_Behavioural_Robustness_and_Administrative_Experience.md:47 BEHAV ┬ºabstract -> VAL ┬º7.1       anchors says val.html#honest-declaration-as-the-locally-stable-strategy; heading 'Declaration Strategy and the Rational Equilibrium' now slugs to #declaration-strategy-and-the-rational-equilibrium
+  10_Behavioural_Robustness_and_Administrative_Experience.md:319 BEHAV ┬º7.7     -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  10_Behavioural_Robustness_and_Administrative_Experience.md:345 BEHAV ┬º8.1     -> VAL ┬º7.1       anchors says val.html#honest-declaration-as-the-locally-stable-strategy; heading 'Declaration Strategy and the Rational Equilibrium' now slugs to #declaration-strategy-and-the-rational-equilibrium
+  10_Behavioural_Robustness_and_Administrative_Experience.md:376 BEHAV ┬º9.1     -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  10_Behavioural_Robustness_and_Administrative_Experience.md:452 BEHAV ┬º11.2    -> BEHAV ┬º8.2     anchors says behav.html#shape-2-passive-non-optimisation; heading 'The Route Distribution' now slugs to #the-route-distribution
+  10_Behavioural_Robustness_and_Administrative_Experience.md:452 BEHAV ┬º11.2    -> BEHAV ┬º8.2     anchors says behav.html#shape-2-passive-non-optimisation; heading 'The Route Distribution' now slugs to #the-route-distribution
+  10a_Behavioural_Robustness_and_Administrative_Experience_Appendix.md:36 BEHAV.A ┬ºA     -> BEHAV ┬º8.2     anchors says behav.html#shape-2-passive-non-optimisation; heading 'The Route Distribution' now slugs to #the-route-distribution
+  10a_Behavioural_Robustness_and_Administrative_Experience_Appendix.md:36 BEHAV.A ┬ºA     -> BEHAV ┬º8.1     anchors says behav.html#shape-1-full-cooperative-compliance; heading 'Passive Collection Rather Than Active Detection' now slugs to #passive-collection-rather-than-active-detection
+  11_Position_Closure.md:124 CLOSE ┬º2       -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  11_Position_Closure.md:156 CLOSE ┬º4.1     -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  11_Position_Closure.md:176 CLOSE ┬º4.1     -> GOV.B ┬ºE.3     anchors says gov-b.html#e.3-the-bridging-facility-bond-posting-sequence-and-settlement; heading 'The Closure Bond Facility: Bond Posting Sequence and Settlement' now slugs to #e.3-the-closure-bond-facility-bond-posting-sequence-and-settlement
+  11_Position_Closure.md:192 CLOSE ┬º4.2     -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  11_Position_Closure.md:194 CLOSE ┬º4.2     -> VAL ┬º11        anchors says val.html#the-route-d-auction-mechanism; heading 'The Route D Auction Mechanism ÔÇö Three Uses of One Process' now slugs to #the-route-d-auction-mechanism-three-uses-of-one-process
+  11_Position_Closure.md:198 CLOSE ┬º4.2     -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  11_Position_Closure.md:224 CLOSE ┬º4.4     -> GOV.B ┬ºE.3     anchors says gov-b.html#e.3-the-bridging-facility-bond-posting-sequence-and-settlement; heading 'The Closure Bond Facility: Bond Posting Sequence and Settlement' now slugs to #e.3-the-closure-bond-facility-bond-posting-sequence-and-settlement
+  11_Position_Closure.md:288 CLOSE ┬º5.1     -> GOV.B ┬ºE.3     anchors says gov-b.html#e.3-the-bridging-facility-bond-posting-sequence-and-settlement; heading 'The Closure Bond Facility: Bond Posting Sequence and Settlement' now slugs to #e.3-the-closure-bond-facility-bond-posting-sequence-and-settlement
+  11_Position_Closure.md:298 CLOSE ┬º5.2     -> GOV.B ┬ºE.3     anchors says gov-b.html#e.3-the-bridging-facility-bond-posting-sequence-and-settlement; heading 'The Closure Bond Facility: Bond Posting Sequence and Settlement' now slugs to #e.3-the-closure-bond-facility-bond-posting-sequence-and-settlement
+  11_Position_Closure.md:356 CLOSE ┬º7.1     -> RATES ┬º9.1     anchors says rates.html#behavioural-responses; heading 'Formal modelling gaps' now slugs to #formal-modelling-gaps
+  11_Position_Closure.md:356 CLOSE ┬º7.1     -> BEHAV ┬º7       anchors says behav.html#how-the-wdt-satisfies-the-five-principles; heading 'The Nine Behavioural Shapes' now slugs to #the-nine-behavioural-shapes
+  11_Position_Closure.md:432 CLOSE ┬º9.5     -> GOV.B ┬ºE.3     anchors says gov-b.html#e.3-the-bridging-facility-bond-posting-sequence-and-settlement; heading 'The Closure Bond Facility: Bond Posting Sequence and Settlement' now slugs to #e.3-the-closure-bond-facility-bond-posting-sequence-and-settlement
+  12_Political_Architecture.md:91 POL ┬º1         -> POL ┬º9.4       anchors says pol.html#the-tiered-citizenship-risk-has-no-mechanism-shaped-answer; heading 'Structural and irreducible limits of the design' now slugs to #structural-and-irreducible-limits-of-the-design
+  12_Political_Architecture.md:203 POL ┬º5.1       -> BEHAV ┬º7       anchors says behav.html#how-the-wdt-satisfies-the-five-principles; heading 'The Nine Behavioural Shapes' now slugs to #the-nine-behavioural-shapes
+  13_Phase_One.md:89     PHASE1 ┬º2      -> PHASE1 ┬º6      anchors says phase1.html#named-limitations-inherited; heading 'Limitations and Further Work' now slugs to #limitations-and-further-work
+  13_Phase_One.md:133    PHASE1 ┬º4.3    -> GOV.B ┬ºE.3     anchors says gov-b.html#e.3-the-bridging-facility-bond-posting-sequence-and-settlement; heading 'The Closure Bond Facility: Bond Posting Sequence and Settlement' now slugs to #e.3-the-closure-bond-facility-bond-posting-sequence-and-settlement
+  13_Phase_One.md:179    PHASE1 ┬º5      -> BEHAV ┬º10      anchors says behav.html#membrane-calcification-and-the-monitoring-architecture; heading 'Phase Sequencing' now slugs to #phase-sequencing
+  13_Phase_One.md:289    PHASE1 ┬º6.5    -> SCOPE ┬º6       anchors says scope.html#what-this-document-is-not-doing; heading 'Jurisdiction-Specific and Institutional Preconditions' now slugs to #jurisdiction-specific-and-institutional-preconditions
+  14_Environmental_Effects_and_Transmission_Channels.md:49 ENV ┬ºabstract  -> SCOPE ┬º4       anchors says scope.html#questions-requiring-international-coordination; heading 'Phase One Successor Tasks' now slugs to #phase-one-successor-tasks
+  14_Environmental_Effects_and_Transmission_Channels.md:251 ENV ┬º7         -> GOV.B ┬ºE.7     anchors says gov-b.html#e.7-custodian-inflationary-rotation-mandate-parameters-and-trigger-conditions; heading 'Custodian Investment Mandate: Inflationary Conditions' now slugs to #e.7-custodian-investment-mandate-inflationary-conditions
+  14_Environmental_Effects_and_Transmission_Channels.md:281 ENV ┬º9.2       -> SCOPE ┬º4       anchors says scope.html#questions-requiring-international-coordination; heading 'Phase One Successor Tasks' now slugs to #phase-one-successor-tasks
+  14_Environmental_Effects_and_Transmission_Channels.md:285 ENV ┬º9.2.1     -> SCOPE ┬º4       anchors says scope.html#questions-requiring-international-coordination; heading 'Phase One Successor Tasks' now slugs to #phase-one-successor-tasks
+  14_Environmental_Effects_and_Transmission_Channels.md:293 ENV ┬º9.2.3     -> SCOPE ┬º4       anchors says scope.html#questions-requiring-international-coordination; heading 'Phase One Successor Tasks' now slugs to #phase-one-successor-tasks
+  14_Environmental_Effects_and_Transmission_Channels.md:297 ENV ┬º9.2.4     -> SCOPE ┬º4       anchors says scope.html#questions-requiring-international-coordination; heading 'Phase One Successor Tasks' now slugs to #phase-one-successor-tasks
+  14_Environmental_Effects_and_Transmission_Channels.md:307 ENV ┬º9.4       -> SCOPE ┬º4       anchors says scope.html#questions-requiring-international-coordination; heading 'Phase One Successor Tasks' now slugs to #phase-one-successor-tasks
+  14_Environmental_Effects_and_Transmission_Channels.md:315 ENV ┬º9.5       -> GOV.B ┬ºE.7     anchors says gov-b.html#e.7-custodian-inflationary-rotation-mandate-parameters-and-trigger-conditions; heading 'Custodian Investment Mandate: Inflationary Conditions' now slugs to #e.7-custodian-investment-mandate-inflationary-conditions
+  17_Scope_Boundary.md:39 SCOPE ┬º1       -> SCOPE ┬º2       anchors says scope.html#modelling-tasks-left-to-future-researchers; heading 'Comparative Political Economy and International Coordination' now slugs to #comparative-political-economy-and-international-coordination
+  17_Scope_Boundary.md:39 SCOPE ┬º1       -> SCOPE ┬º3       anchors says scope.html#questions-requiring-legal-or-jurisdictional-expertise; heading 'Phase One Empirical Questions' now slugs to #phase-one-empirical-questions
+  17_Scope_Boundary.md:39 SCOPE ┬º1       -> SCOPE ┬º4       anchors says scope.html#questions-requiring-international-coordination; heading 'Phase One Successor Tasks' now slugs to #phase-one-successor-tasks
+  17_Scope_Boundary.md:39 SCOPE ┬º1       -> SCOPE ┬º5       anchors says scope.html#questions-sequentially-deferred-to-post-phase-one; heading 'Governing Council Calibration Parameters' now slugs to #governing-council-calibration-parameters
+  17_Scope_Boundary.md:39 SCOPE ┬º1       -> SCOPE ┬º6       anchors says scope.html#what-this-document-is-not-doing; heading 'Jurisdiction-Specific and Institutional Preconditions' now slugs to #jurisdiction-specific-and-institutional-preconditions
+  17_Scope_Boundary.md:71 SCOPE ┬º3.1     -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  17_Scope_Boundary.md:71 SCOPE ┬º3.1     -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  17_Scope_Boundary.md:91 SCOPE ┬º3.4     -> SCOPE ┬º6       anchors says scope.html#what-this-document-is-not-doing; heading 'Jurisdiction-Specific and Institutional Preconditions' now slugs to #jurisdiction-specific-and-institutional-preconditions
+  17_Scope_Boundary.md:105 SCOPE ┬º5       -> SCOPE ┬º2       anchors says scope.html#modelling-tasks-left-to-future-researchers; heading 'Comparative Political Economy and International Coordination' now slugs to #comparative-political-economy-and-international-coordination
+  17_Scope_Boundary.md:105 SCOPE ┬º5       -> SCOPE ┬º4       anchors says scope.html#questions-requiring-international-coordination; heading 'Phase One Successor Tasks' now slugs to #phase-one-successor-tasks
+  17_Scope_Boundary.md:129 SCOPE ┬º6       -> JUR ┬º4.3       anchors says jur.html#post-brexit-information-exchange; heading 'Jurisdiction-specific legal and implementation work' now slugs to #jurisdiction-specific-legal-and-implementation-work
+  17_Scope_Boundary.md:131 SCOPE ┬º6       -> JUR ┬º4.3       anchors says jur.html#post-brexit-information-exchange; heading 'Jurisdiction-specific legal and implementation work' now slugs to #jurisdiction-specific-legal-and-implementation-work
+  17_Scope_Boundary.md:135 SCOPE ┬º6       -> JUR ┬º4.3       anchors says jur.html#post-brexit-information-exchange; heading 'Jurisdiction-specific legal and implementation work' now slugs to #jurisdiction-specific-legal-and-implementation-work
+  17_Scope_Boundary.md:137 SCOPE ┬º6       -> JUR ┬º4.3       anchors says jur.html#post-brexit-information-exchange; heading 'Jurisdiction-specific legal and implementation work' now slugs to #jurisdiction-specific-legal-and-implementation-work
+  18_Addendums.md:54     ADD ┬ºglossary  -> VAL.A ┬ºA.2.5   anchors says val-a.html#a.2.5-finding-5; heading 'Finding 5: The mechanism produces a broad tolerant zone with an asymmetric incentive structure and a conditional mild upward declaration bias' now slugs to #a.2.5-finding-5-the-mechanism-produces-a-broad-tolerant-zone-with-an-asymmetric-incentive-structure-and-a-conditional-mild-upward-declaration-bias
+  18_Addendums.md:54     ADD ┬ºglossary  -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  19_Taxpayer_Welfare.md:392 WFR ┬º4.3.2     -> WFR.A ┬ºD.3     anchors says wfr-a.html#d.3-wealth-concentration-path-great-poor-ratio-at-key-years; heading 'Wealth Concentration Path: Great/Poor Ratio at Key Years' now slugs to #d.3-wealth-concentration-path-greatpoor-ratio-at-key-years
+  19_Taxpayer_Welfare.md:400 WFR ┬º4.3.2     -> WFR.A ┬ºD.3     anchors says wfr-a.html#d.3-wealth-concentration-path-great-poor-ratio-at-key-years; heading 'Wealth Concentration Path: Great/Poor Ratio at Key Years' now slugs to #d.3-wealth-concentration-path-greatpoor-ratio-at-key-years
+  19_Taxpayer_Welfare.md:516 WFR ┬º4.5.1     -> WFR.A ┬ºE.1.1   anchors says wfr-a.html#e.1.1-sweep-a-cew-by-system-and-initial-wealth-w-2; heading 'ÔÇö Sweep A: CEW by System and Initial Wealth WÔéÇ (╬│=2)' now slugs to #e.1.1-sweep-a-cew-by-system-and-initial-wealth-w0-2
+  19_Taxpayer_Welfare.md:720 WFR ┬º7.2       -> SCOPE ┬º4       anchors says scope.html#questions-requiring-international-coordination; heading 'Phase One Successor Tasks' now slugs to #phase-one-successor-tasks
+  19_Taxpayer_Welfare.md:726 WFR ┬º7.3       -> SCOPE ┬º4       anchors says scope.html#questions-requiring-international-coordination; heading 'Phase One Successor Tasks' now slugs to #phase-one-successor-tasks
+  19_Taxpayer_Welfare.md:732 WFR ┬º7.4       -> WFR.A ┬ºF.4     anchors says wfr-a.html#f.4-all-tier-concentration-matrix-at-n-73; heading 'ÔÇö All-Tier Concentration Matrix at N=73' now slugs to #f.4-all-tier-concentration-matrix-at-n73
+  19_Taxpayer_Welfare.md:738 WFR ┬º7.4       -> WFR.A ┬ºF.4     anchors says wfr-a.html#f.4-all-tier-concentration-matrix-at-n-73; heading 'ÔÇö All-Tier Concentration Matrix at N=73' now slugs to #f.4-all-tier-concentration-matrix-at-n73
+  19_Taxpayer_Welfare.md:738 WFR ┬º7.4       -> WFR.A ┬ºF.4     anchors says wfr-a.html#f.4-all-tier-concentration-matrix-at-n-73; heading 'ÔÇö All-Tier Concentration Matrix at N=73' now slugs to #f.4-all-tier-concentration-matrix-at-n73
+  1_Wealth_Delta_Tax_Whitepaper.md:110 WP ┬º1.1        -> CORP ┬º5.2      anchors says corp.html#annual-reporting-cycle; heading 'Annual Cycle: Measurement and Reporting' now slugs to #annual-cycle-measurement-and-reporting
+  1_Wealth_Delta_Tax_Whitepaper.md:110 WP ┬º1.1        -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  1_Wealth_Delta_Tax_Whitepaper.md:238 WP ┬º3.4.1      -> VAL ┬º11        anchors says val.html#the-route-d-auction-mechanism; heading 'The Route D Auction Mechanism ÔÇö Three Uses of One Process' now slugs to #the-route-d-auction-mechanism-three-uses-of-one-process
+  1_Wealth_Delta_Tax_Whitepaper.md:392 WP ┬º7.1        -> VAL ┬º11        anchors says val.html#the-route-d-auction-mechanism; heading 'The Route D Auction Mechanism ÔÇö Three Uses of One Process' now slugs to #the-route-d-auction-mechanism-three-uses-of-one-process
+  1_Wealth_Delta_Tax_Whitepaper.md:444 WP ┬º8.2        -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  1_Wealth_Delta_Tax_Whitepaper.md:444 WP ┬º8.2        -> GOV.B ┬ºE.3     anchors says gov-b.html#e.3-the-bridging-facility-bond-posting-sequence-and-settlement; heading 'The Closure Bond Facility: Bond Posting Sequence and Settlement' now slugs to #e.3-the-closure-bond-facility-bond-posting-sequence-and-settlement
+  1_Wealth_Delta_Tax_Whitepaper.md:480 WP ┬º8.7        -> CORP.A ┬ºE.3    anchors says corp-a.html#e.3-corporate-compliance; heading 'Special Purpose Vehicles and Holding Companies' now slugs to #e.3-special-purpose-vehicles-and-holding-companies
+  1_Wealth_Delta_Tax_Whitepaper.md:480 WP ┬º8.7        -> CORP.A ┬ºE      anchors says corp-a.html#e.-administrative-burden; heading 'Non-Corporate Instruments and the Attribution Test' now slugs to #e.-non-corporate-instruments-and-the-attribution-test
+  20_Institutional_Selection.md:235 INST ┬º5.2      -> VAL ┬º7.1       anchors says val.html#honest-declaration-as-the-locally-stable-strategy; heading 'Declaration Strategy and the Rational Equilibrium' now slugs to #declaration-strategy-and-the-rational-equilibrium
+  20_Institutional_Selection.md:265 INST ┬º5.4      -> VAL ┬º7.1       anchors says val.html#honest-declaration-as-the-locally-stable-strategy; heading 'Declaration Strategy and the Rational Equilibrium' now slugs to #declaration-strategy-and-the-rational-equilibrium
+  20_Institutional_Selection.md:265 INST ┬º5.4      -> BEHAV ┬º8.1     anchors says behav.html#shape-1-full-cooperative-compliance; heading 'Passive Collection Rather Than Active Detection' now slugs to #passive-collection-rather-than-active-detection
+  20_Institutional_Selection.md:333 INST ┬º6.4      -> VAL ┬º7.1       anchors says val.html#honest-declaration-as-the-locally-stable-strategy; heading 'Declaration Strategy and the Rational Equilibrium' now slugs to #declaration-strategy-and-the-rational-equilibrium
+  20_Institutional_Selection.md:333 INST ┬º6.4      -> BEHAV ┬º8       anchors says behav.html#the-nine-behavioural-shapes; heading 'The Enforcement Paradigm Shift' now slugs to #the-enforcement-paradigm-shift
+  20_Institutional_Selection.md:383 INST ┬º8        -> BEHAV ┬º10.4    anchors says behav.html#the-internal-tp-voting-structure-hypothesis; heading 'Sequencing as a Design Variable' now slugs to #sequencing-as-a-design-variable
+  20_Institutional_Selection.md:387 INST ┬º8        -> BEHAV ┬º11.1    anchors says behav.html#phase-one-implementation; heading 'Formal Modelling Gaps' now slugs to #formal-modelling-gaps
+  20_Institutional_Selection.md:387 INST ┬º8        -> BEHAV ┬º11.1    anchors says behav.html#phase-one-implementation; heading 'Formal Modelling Gaps' now slugs to #formal-modelling-gaps
+  20_Institutional_Selection.md:405 INST ┬º9.1      -> BEHAV ┬º10.1    anchors says behav.html#the-nature-of-the-problem; heading 'Phase One ÔÇö Implementation' now slugs to #phase-one-implementation
+  20_Institutional_Selection.md:405 INST ┬º9.1      -> BEHAV ┬º11.1    anchors says behav.html#phase-one-implementation; heading 'Formal Modelling Gaps' now slugs to #formal-modelling-gaps
+  20_Institutional_Selection.md:445 INST ┬º10.2     -> SCOPE ┬º4       anchors says scope.html#questions-requiring-international-coordination; heading 'Phase One Successor Tasks' now slugs to #phase-one-successor-tasks
+  20_Institutional_Selection.md:449 INST ┬º10.3     -> RATES ┬º10      anchors says rates.html#limitations-and-further-work; heading 'Conclusion' now slugs to #conclusion
+  20_Institutional_Selection.md:453 INST ┬º10.4     -> PHASE1 ┬º6      anchors says phase1.html#named-limitations-inherited; heading 'Limitations and Further Work' now slugs to #limitations-and-further-work
+  20_Institutional_Selection.md:453 INST ┬º10.4     -> SCOPE ┬º2       anchors says scope.html#modelling-tasks-left-to-future-researchers; heading 'Comparative Political Economy and International Coordination' now slugs to #comparative-political-economy-and-international-coordination
+  20_Institutional_Selection.md:457 INST ┬º10.5     -> SCOPE ┬º2       anchors says scope.html#modelling-tasks-left-to-future-researchers; heading 'Comparative Political Economy and International Coordination' now slugs to #comparative-political-economy-and-international-coordination
+  20_Institutional_Selection.md:461 INST ┬º10.5     -> SCOPE ┬º2       anchors says scope.html#modelling-tasks-left-to-future-researchers; heading 'Comparative Political Economy and International Coordination' now slugs to #comparative-political-economy-and-international-coordination
+  20_Institutional_Selection.md:461 INST ┬º10.5     -> SCOPE ┬º2       anchors says scope.html#modelling-tasks-left-to-future-researchers; heading 'Comparative Political Economy and International Coordination' now slugs to #comparative-political-economy-and-international-coordination
+  21_Labour_Dividend_Welfare.md:322 LDW ┬º7.1       -> RATES ┬º9.2     anchors says rates.html#phase-one-transition-costs; heading 'Phase One empirical unknowns' now slugs to #phase-one-empirical-unknowns
+  22_Falsification_Hypotheses.md:122 FAL ┬º3.2       -> RATES ┬º10      anchors says rates.html#limitations-and-further-work; heading 'Conclusion' now slugs to #conclusion
+  22_Falsification_Hypotheses.md:155 FAL ┬º3.5       -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  22_Falsification_Hypotheses.md:155 FAL ┬º3.5       -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  22_Falsification_Hypotheses.md:342 FAL ┬º5.7       -> SCOPE ┬º2       anchors says scope.html#modelling-tasks-left-to-future-researchers; heading 'Comparative Political Economy and International Coordination' now slugs to #comparative-political-economy-and-international-coordination
+  2_Moral_and_Philosophical_Foundations.md:143 MF ┬º3.3        -> MF ┬º3.1        anchors says mf.html#why-the-delta; heading 'Wealth as Constituted by Collective Frameworks' now slugs to #wealth-as-constituted-by-collective-frameworks
+  2_Moral_and_Philosophical_Foundations.md:147 MF ┬º3.3        -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  2_Moral_and_Philosophical_Foundations.md:201 MF ┬º7          -> BEHAV ┬º6.4     anchors says behav.html#the-membrane-and-the-wdt; heading 'How the WDT Satisfies the Five Principles' now slugs to #how-the-wdt-satisfies-the-five-principles
+  2_Moral_and_Philosophical_Foundations.md:217 MF ┬º8          -> BEHAV ┬º8.1     anchors says behav.html#shape-1-full-cooperative-compliance; heading 'Passive Collection Rather Than Active Detection' now slugs to #passive-collection-rather-than-active-detection
+  3a_Research_Gaps.md:147 LR.A ┬º4.1      -> SCOPE ┬º2       anchors says scope.html#modelling-tasks-left-to-future-researchers; heading 'Comparative Political Economy and International Coordination' now slugs to #comparative-political-economy-and-international-coordination
+  3a_Research_Gaps.md:155 LR.A ┬º4.2      -> SCOPE ┬º2       anchors says scope.html#modelling-tasks-left-to-future-researchers; heading 'Comparative Political Economy and International Coordination' now slugs to #comparative-political-economy-and-international-coordination
+  3a_Research_Gaps.md:165 LR.A ┬º4.3      -> SCOPE ┬º2       anchors says scope.html#modelling-tasks-left-to-future-researchers; heading 'Comparative Political Economy and International Coordination' now slugs to #comparative-political-economy-and-international-coordination
+  3b_Intellectual_Background.md:243 LR.B ┬º9        -> VAL ┬º11.1      anchors says val.html#purpose-and-deterrent-logic; heading 'Deterrent Logic' now slugs to #deterrent-logic
+  3b_Intellectual_Background.md:243 LR.B ┬º9        -> VAL ┬º11.2      anchors says val.html#relationship-to-prior-self-assessment-proposals; heading 'Voluntary Hard-Reset Auction' now slugs to #voluntary-hard-reset-auction
+  3b_Intellectual_Background.md:275 LR.B ┬º11       -> BEHAV ┬º7       anchors says behav.html#how-the-wdt-satisfies-the-five-principles; heading 'The Nine Behavioural Shapes' now slugs to #the-nine-behavioural-shapes
+  3b_Intellectual_Background.md:275 LR.B ┬º11       -> BEHAV ┬º11      anchors says behav.html#phase-sequencing-and-behavioural-evolution; heading 'Limitations' now slugs to #limitations
+  3b_Intellectual_Background.md:335 LR.B ┬º15       -> JUR ┬º4.2       anchors says jur.html#voa-capacity-for-wdt-property-valuations; heading 'Phase One empirical unknowns' now slugs to #phase-one-empirical-unknowns
+  3b_Intellectual_Background.md:351 LR.B ┬º16       -> MF ┬º5          anchors says mf.html#the-cognitive-moral-hazard-of-the-current-system; heading 'Fiscal Opacity and the Conditions for Democratic Deliberation' now slugs to #fiscal-opacity-and-the-conditions-for-democratic-deliberation
+  3b_Intellectual_Background.md:388 LR.B ┬º18       -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  4_UK_Jurisdiction_and_Data_Reference_Paper.md:72 JUR ┬ºglossary  -> GOV.B ┬ºE.6     anchors says gov-b.html#e.6-institutional-mapping-mandate-extension-process-uk-reference; heading 'Institutional Form: Candidate Mapping (UK Reference)' now slugs to #e.6-institutional-form-candidate-mapping-uk-reference
+  4_UK_Jurisdiction_and_Data_Reference_Paper.md:174 JUR ┬º1.5.3     -> GOV.B ┬ºE.6     anchors says gov-b.html#e.6-institutional-mapping-mandate-extension-process-uk-reference; heading 'Institutional Form: Candidate Mapping (UK Reference)' now slugs to #e.6-institutional-form-candidate-mapping-uk-reference
+  4_UK_Jurisdiction_and_Data_Reference_Paper.md:178 JUR ┬º1.5.3     -> JUR ┬º4.2       anchors says jur.html#voa-capacity-for-wdt-property-valuations; heading 'Phase One empirical unknowns' now slugs to #phase-one-empirical-unknowns
+  4_UK_Jurisdiction_and_Data_Reference_Paper.md:426 JUR ┬º4.3       -> SCOPE ┬º6       anchors says scope.html#what-this-document-is-not-doing; heading 'Jurisdiction-Specific and Institutional Preconditions' now slugs to #jurisdiction-specific-and-institutional-preconditions
+  4_UK_Jurisdiction_and_Data_Reference_Paper.md:428 JUR ┬º4.3       -> SCOPE ┬º6       anchors says scope.html#what-this-document-is-not-doing; heading 'Jurisdiction-Specific and Institutional Preconditions' now slugs to #jurisdiction-specific-and-institutional-preconditions
+  4_UK_Jurisdiction_and_Data_Reference_Paper.md:430 JUR ┬º4.3       -> SCOPE ┬º6       anchors says scope.html#what-this-document-is-not-doing; heading 'Jurisdiction-Specific and Institutional Preconditions' now slugs to #jurisdiction-specific-and-institutional-preconditions
+  4_UK_Jurisdiction_and_Data_Reference_Paper.md:432 JUR ┬º4.3       -> SCOPE ┬º6       anchors says scope.html#what-this-document-is-not-doing; heading 'Jurisdiction-Specific and Institutional Preconditions' now slugs to #jurisdiction-specific-and-institutional-preconditions
+  5_Valuing_Wealth.md:95 VAL ┬ºglossary  -> VAL.B ┬ºJ       anchors says val-b.html#j-the-deferred-delta; heading 'The Deferred Delta' now slugs to #j.-the-deferred-delta
+  5_Valuing_Wealth.md:95 VAL ┬ºglossary  -> VAL.B ┬ºO       anchors says val-b.html#o-summary-of-design-properties-illustrated; heading 'Summary of Design Properties Illustrated' now slugs to #o.-summary-of-design-properties-illustrated
+  5_Valuing_Wealth.md:171 VAL ┬º4         -> VAL ┬º11        anchors says val.html#the-route-d-auction-mechanism; heading 'The Route D Auction Mechanism ÔÇö Three Uses of One Process' now slugs to #the-route-d-auction-mechanism-three-uses-of-one-process
+  5_Valuing_Wealth.md:202 VAL ┬º4.4       -> VAL ┬º11        anchors says val.html#the-route-d-auction-mechanism; heading 'The Route D Auction Mechanism ÔÇö Three Uses of One Process' now slugs to #the-route-d-auction-mechanism-three-uses-of-one-process
+  5_Valuing_Wealth.md:210 VAL ┬º5         -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  5_Valuing_Wealth.md:232 VAL ┬º5.2       -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  5_Valuing_Wealth.md:262 VAL ┬º6.3       -> VAL.A ┬ºA.4.4   anchors says val-a.html#a.4.4-post-sale-assessment-at-period-n-1; heading 'Post-Sale Assessment at Period N+1' now slugs to #a.4.4-post-sale-assessment-at-period-n1
+  5_Valuing_Wealth.md:262 VAL ┬º6.3       -> VAL.A ┬ºA.5.3   anchors says val-a.html#a.5.3-propositions-3a-and-3b; heading 'Propositions 3a and 3b: Understatement Boundary Conditions' now slugs to #a.5.3-propositions-3a-and-3b-understatement-boundary-conditions
+  5_Valuing_Wealth.md:270 VAL ┬º6.4       -> VAL ┬º11        anchors says val.html#the-route-d-auction-mechanism; heading 'The Route D Auction Mechanism ÔÇö Three Uses of One Process' now slugs to #the-route-d-auction-mechanism-three-uses-of-one-process
+  5_Valuing_Wealth.md:272 VAL ┬º6.4       -> VAL ┬º11        anchors says val.html#the-route-d-auction-mechanism; heading 'The Route D Auction Mechanism ÔÇö Three Uses of One Process' now slugs to #the-route-d-auction-mechanism-three-uses-of-one-process
+  5_Valuing_Wealth.md:276 VAL ┬º6.4       -> VAL ┬º11        anchors says val.html#the-route-d-auction-mechanism; heading 'The Route D Auction Mechanism ÔÇö Three Uses of One Process' now slugs to #the-route-d-auction-mechanism-three-uses-of-one-process
+  5_Valuing_Wealth.md:280 VAL ┬º6.4       -> VAL ┬º11.3      anchors says val.html#trigger-conditions-and-the-auction-process; heading 'Corrective Auction: Trigger and Process' now slugs to #corrective-auction-trigger-and-process
+  5_Valuing_Wealth.md:292 VAL ┬º6.5       -> VAL ┬º11        anchors says val.html#the-route-d-auction-mechanism; heading 'The Route D Auction Mechanism ÔÇö Three Uses of One Process' now slugs to #the-route-d-auction-mechanism-three-uses-of-one-process
+  5_Valuing_Wealth.md:292 VAL ┬º6.5       -> JUR ┬º4.2       anchors says jur.html#voa-capacity-for-wdt-property-valuations; heading 'Phase One empirical unknowns' now slugs to #phase-one-empirical-unknowns
+  5_Valuing_Wealth.md:292 VAL ┬º6.5       -> JUR ┬º4.3       anchors says jur.html#post-brexit-information-exchange; heading 'Jurisdiction-specific legal and implementation work' now slugs to #jurisdiction-specific-legal-and-implementation-work
+  5_Valuing_Wealth.md:330 VAL ┬º7.1       -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  5_Valuing_Wealth.md:332 VAL ┬º7.1       -> VAL.A ┬ºA.5.4   anchors says val-a.html#a.5.4-proposition-4; heading 'Proposition 4: Understater Penalties Plateau at the Rate Ceiling; Aggressive Overstatement Is Self-Limiting through a Temporal Crossing Mechanism' now slugs to #a.5.4-proposition-4-understater-penalties-plateau-at-the-rate-ceiling-aggressive-overstatement-is-self-limiting-through-a-temporal-crossing-mechanism
+  5_Valuing_Wealth.md:342 VAL ┬º7.1       -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  5_Valuing_Wealth.md:342 VAL ┬º7.1       -> VAL.A ┬ºA.5.1   anchors says val-a.html#a.5.1-proposition-1; heading 'Proposition 1: Local Convexity Around Honest Declaration' now slugs to #a.5.1-proposition-1-local-convexity-around-honest-declaration
+  5_Valuing_Wealth.md:342 VAL ┬º7.1       -> VAL.B ┬ºN       anchors says val-b.html#n-forecast-exposure; heading 'Forecast Exposure' now slugs to #n.-forecast-exposure
+  5_Valuing_Wealth.md:360 VAL ┬º7.2       -> VAL.B ┬ºJ       anchors says val-b.html#j-the-deferred-delta; heading 'The Deferred Delta' now slugs to #j.-the-deferred-delta
+  5_Valuing_Wealth.md:360 VAL ┬º7.2       -> VAL.B ┬ºK       anchors says val-b.html#k-dilution-compounds-with-growth; heading 'Dilution Compounds with Growth' now slugs to #k.-dilution-compounds-with-growth
+  5_Valuing_Wealth.md:370 VAL ┬º7.3       -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  5_Valuing_Wealth.md:370 VAL ┬º7.3       -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  5_Valuing_Wealth.md:372 VAL ┬º7.3       -> VAL.A ┬ºC.6     anchors says val-a.html#c.6-terminal-net-worth-after-refunds; heading 'Terminal Net Worth After Refunds: Refund Protection Ratio' now slugs to #c.6-terminal-net-worth-after-refunds-refund-protection-ratio
+  5_Valuing_Wealth.md:378 VAL ┬º7.3       -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  5_Valuing_Wealth.md:378 VAL ┬º7.3       -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  5_Valuing_Wealth.md:380 VAL ┬º7.3       -> VAL.A ┬ºC.6     anchors says val-a.html#c.6-terminal-net-worth-after-refunds; heading 'Terminal Net Worth After Refunds: Refund Protection Ratio' now slugs to #c.6-terminal-net-worth-after-refunds-refund-protection-ratio
+  5_Valuing_Wealth.md:386 VAL ┬º7.4       -> VAL.A ┬ºC.6     anchors says val-a.html#c.6-terminal-net-worth-after-refunds; heading 'Terminal Net Worth After Refunds: Refund Protection Ratio' now slugs to #c.6-terminal-net-worth-after-refunds-refund-protection-ratio
+  5_Valuing_Wealth.md:390 VAL ┬º7.4       -> VAL.B ┬ºJ       anchors says val-b.html#j-the-deferred-delta; heading 'The Deferred Delta' now slugs to #j.-the-deferred-delta
+  5_Valuing_Wealth.md:390 VAL ┬º7.4       -> VAL.B ┬ºL       anchors says val-b.html#l-why-route-d-defers-to-realisation; heading 'Why Route D Defers to Realisation' now slugs to #l.-why-route-d-defers-to-realisation
+  5_Valuing_Wealth.md:390 VAL ┬º7.4       -> VAL.B ┬ºM       anchors says val-b.html#m-voluntary-settlement-certainty-not-avoidance; heading 'Voluntary Settlement ÔÇö Certainty, Not Avoidance' now slugs to #m.-voluntary-settlement-certainty-not-avoidance
+  5_Valuing_Wealth.md:440 VAL ┬º9         -> GOV.B ┬ºB.4.7   anchors says gov-b.html#b.4.7-privacy-election-binary-disclosure-and-rate-differential; heading 'The Privacy Election: Binary Disclosure and the Rate Differential' now slugs to #b.4.7-the-privacy-election-binary-disclosure-and-the-rate-differential
+  5_Valuing_Wealth.md:446 VAL ┬º9         -> GOV.B ┬ºB.4.7   anchors says gov-b.html#b.4.7-privacy-election-binary-disclosure-and-rate-differential; heading 'The Privacy Election: Binary Disclosure and the Rate Differential' now slugs to #b.4.7-the-privacy-election-binary-disclosure-and-the-rate-differential
+  5_Valuing_Wealth.md:448 VAL ┬º9         -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  5_Valuing_Wealth.md:504 VAL ┬º11        -> VAL ┬º11.3      anchors says val.html#trigger-conditions-and-the-auction-process; heading 'Corrective Auction: Trigger and Process' now slugs to #corrective-auction-trigger-and-process
+  5_Valuing_Wealth.md:506 VAL ┬º11        -> VAL ┬º11.2      anchors says val.html#relationship-to-prior-self-assessment-proposals; heading 'Voluntary Hard-Reset Auction' now slugs to #voluntary-hard-reset-auction
+  5_Valuing_Wealth.md:508 VAL ┬º11        -> VAL ┬º11.4      anchors says val.html#scope-and-what-this-does-not-require; heading 'Inheritance Auction' now slugs to #inheritance-auction
+  5_Valuing_Wealth.md:548 VAL ┬º11.4      -> JUR ┬º4.2       anchors says jur.html#voa-capacity-for-wdt-property-valuations; heading 'Phase One empirical unknowns' now slugs to #phase-one-empirical-unknowns
+  5_Valuing_Wealth.md:570 VAL ┬º12.2      -> VAL.A ┬ºA.5.1   anchors says val-a.html#a.5.1-proposition-1; heading 'Proposition 1: Local Convexity Around Honest Declaration' now slugs to #a.5.1-proposition-1-local-convexity-around-honest-declaration
+  5_Valuing_Wealth.md:592 VAL ┬º13        -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  5_Valuing_Wealth.md:592 VAL ┬º13        -> GOV.B ┬ºE.3     anchors says gov-b.html#e.3-the-bridging-facility-bond-posting-sequence-and-settlement; heading 'The Closure Bond Facility: Bond Posting Sequence and Settlement' now slugs to #e.3-the-closure-bond-facility-bond-posting-sequence-and-settlement
+  5_Valuing_Wealth.md:608 VAL ┬º14.2      -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  5_Valuing_Wealth.md:612 VAL ┬º14.2      -> VAL.A ┬ºA.5.4   anchors says val-a.html#a.5.4-proposition-4; heading 'Proposition 4: Understater Penalties Plateau at the Rate Ceiling; Aggressive Overstatement Is Self-Limiting through a Temporal Crossing Mechanism' now slugs to #a.5.4-proposition-4-understater-penalties-plateau-at-the-rate-ceiling-aggressive-overstatement-is-self-limiting-through-a-temporal-crossing-mechanism
+  5_Valuing_Wealth.md:630 VAL ┬º14.3      -> JUR ┬º4.2       anchors says jur.html#voa-capacity-for-wdt-property-valuations; heading 'Phase One empirical unknowns' now slugs to #phase-one-empirical-unknowns
+  5_Valuing_Wealth.md:630 VAL ┬º14.3      -> JUR ┬º4.3       anchors says jur.html#post-brexit-information-exchange; heading 'Jurisdiction-specific legal and implementation work' now slugs to #jurisdiction-specific-legal-and-implementation-work
+  5_Valuing_Wealth.md:666 VAL ┬º15        -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  5_Valuing_Wealth.md:666 VAL ┬º15        -> VAL.A ┬ºC.6     anchors says val-a.html#c.6-terminal-net-worth-after-refunds; heading 'Terminal Net Worth After Refunds: Refund Protection Ratio' now slugs to #c.6-terminal-net-worth-after-refunds-refund-protection-ratio
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:81 VAL.A ┬ºA.2.3   -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:81 VAL.A ┬ºA.2.3   -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:95 VAL.A ┬ºA.2.5   -> VAL.A ┬ºC.6     anchors says val-a.html#c.6-terminal-net-worth-after-refunds; heading 'Terminal Net Worth After Refunds: Refund Protection Ratio' now slugs to #c.6-terminal-net-worth-after-refunds-refund-protection-ratio
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:101 VAL.A ┬ºA.2.5   -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:167 VAL.A ┬ºA.3.2   -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:209 VAL.A ┬ºA.4.2   -> VAL.A ┬ºC.10    anchors says val-a.html#c.10-historical-return-series-reference-scenario-results; heading '2000 Historical Return Series ÔÇö Reference Scenario Results' now slugs to #c.10-2000-historical-return-series-reference-scenario-results
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:366 VAL.A ┬ºA.5.6   -> VAL.A ┬ºC.6     anchors says val-a.html#c.6-terminal-net-worth-after-refunds; heading 'Terminal Net Worth After Refunds: Refund Protection Ratio' now slugs to #c.6-terminal-net-worth-after-refunds-refund-protection-ratio
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:374 VAL.A ┬ºA.6     -> VAL.A ┬ºC.6     anchors says val-a.html#c.6-terminal-net-worth-after-refunds; heading 'Terminal Net Worth After Refunds: Refund Protection Ratio' now slugs to #c.6-terminal-net-worth-after-refunds-refund-protection-ratio
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:380 VAL.A ┬ºA.6     -> VAL.A ┬ºC.11.4  anchors says val-a.html#c.11.4-total-tw-advantage-as-of-honest-tw-settled-cross-check; heading 'ÔÇö Total TW Advantage as % of Honest TW_settled (Cross-Check)' now slugs to #c.11.4-total-tw-advantage-as-of-honest-tw_settled-cross-check
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:424 VAL.A ┬ºB.2.1   -> VAL.A ┬ºC.3     anchors says val-a.html#c.3-exploratory-extension-investor-confidence-effects; heading 'Exploratory Extension: Investor Confidence Effects ╬▓ (Overstatement Only)' now slugs to #c.3-exploratory-extension-investor-confidence-effects-overstatement-only
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:501 VAL.A ┬ºB.3     -> VAL.A ┬ºC.3     anchors says val-a.html#c.3-exploratory-extension-investor-confidence-effects; heading 'Exploratory Extension: Investor Confidence Effects ╬▓ (Overstatement Only)' now slugs to #c.3-exploratory-extension-investor-confidence-effects-overstatement-only
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:501 VAL.A ┬ºB.3     -> VAL.A ┬ºC.3     anchors says val-a.html#c.3-exploratory-extension-investor-confidence-effects; heading 'Exploratory Extension: Investor Confidence Effects ╬▓ (Overstatement Only)' now slugs to #c.3-exploratory-extension-investor-confidence-effects-overstatement-only
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:535 VAL.A ┬ºC       -> VAL.A ┬ºC.3     anchors says val-a.html#c.3-exploratory-extension-investor-confidence-effects; heading 'Exploratory Extension: Investor Confidence Effects ╬▓ (Overstatement Only)' now slugs to #c.3-exploratory-extension-investor-confidence-effects-overstatement-only
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:545 VAL.A ┬ºC.1     -> VAL.A ┬ºA.5.4   anchors says val-a.html#a.5.4-proposition-4; heading 'Proposition 4: Understater Penalties Plateau at the Rate Ceiling; Aggressive Overstatement Is Self-Limiting through a Temporal Crossing Mechanism' now slugs to #a.5.4-proposition-4-understater-penalties-plateau-at-the-rate-ceiling-aggressive-overstatement-is-self-limiting-through-a-temporal-crossing-mechanism
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:593 VAL.A ┬ºC.3     -> VAL.A ┬ºB.2.2   anchors says val-a.html#b.2.2-post-sale-assessment-at-period-n-1; heading 'Post-sale assessment at period N+1' now slugs to #b.2.2-post-sale-assessment-at-period-n1
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:719 VAL.A ┬ºC.9     -> VAL.A ┬ºA.5.4   anchors says val-a.html#a.5.4-proposition-4; heading 'Proposition 4: Understater Penalties Plateau at the Rate Ceiling; Aggressive Overstatement Is Self-Limiting through a Temporal Crossing Mechanism' now slugs to #a.5.4-proposition-4-understater-penalties-plateau-at-the-rate-ceiling-aggressive-overstatement-is-self-limiting-through-a-temporal-crossing-mechanism
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:890 VAL.A ┬ºC.12    -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md:1013 VAL.A ┬ºE.3     -> VAL.A ┬ºC.6     anchors says val-a.html#c.6-terminal-net-worth-after-refunds; heading 'Terminal Net Worth After Refunds: Refund Protection Ratio' now slugs to #c.6-terminal-net-worth-after-refunds-refund-protection-ratio
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:44 VAL.B ┬ºreaders-guide -> VAL.B ┬ºJ       anchors says val-b.html#j-the-deferred-delta; heading 'The Deferred Delta' now slugs to #j.-the-deferred-delta
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:44 VAL.B ┬ºreaders-guide -> VAL.B ┬ºN       anchors says val-b.html#n-forecast-exposure; heading 'Forecast Exposure' now slugs to #n.-forecast-exposure
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:44 VAL.B ┬ºreaders-guide -> VAL.B ┬ºJ       anchors says val-b.html#j-the-deferred-delta; heading 'The Deferred Delta' now slugs to #j.-the-deferred-delta
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:44 VAL.B ┬ºreaders-guide -> VAL.B ┬ºK       anchors says val-b.html#k-dilution-compounds-with-growth; heading 'Dilution Compounds with Growth' now slugs to #k.-dilution-compounds-with-growth
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:50 VAL.B ┬ºreaders-guide -> VAL.B ┬ºJ       anchors says val-b.html#j-the-deferred-delta; heading 'The Deferred Delta' now slugs to #j.-the-deferred-delta
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:51 VAL.B ┬ºreaders-guide -> VAL.B ┬ºK       anchors says val-b.html#k-dilution-compounds-with-growth; heading 'Dilution Compounds with Growth' now slugs to #k.-dilution-compounds-with-growth
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:52 VAL.B ┬ºreaders-guide -> VAL.B ┬ºL       anchors says val-b.html#l-why-route-d-defers-to-realisation; heading 'Why Route D Defers to Realisation' now slugs to #l.-why-route-d-defers-to-realisation
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:53 VAL.B ┬ºreaders-guide -> VAL.B ┬ºM       anchors says val-b.html#m-voluntary-settlement-certainty-not-avoidance; heading 'Voluntary Settlement ÔÇö Certainty, Not Avoidance' now slugs to #m.-voluntary-settlement-certainty-not-avoidance
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:54 VAL.B ┬ºreaders-guide -> VAL.B ┬ºN       anchors says val-b.html#n-forecast-exposure; heading 'Forecast Exposure' now slugs to #n.-forecast-exposure
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:56 VAL.B ┬ºreaders-guide -> VAL.B ┬ºL       anchors says val-b.html#l-why-route-d-defers-to-realisation; heading 'Why Route D Defers to Realisation' now slugs to #l.-why-route-d-defers-to-realisation
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:56 VAL.B ┬ºreaders-guide -> VAL.B ┬ºM       anchors says val-b.html#m-voluntary-settlement-certainty-not-avoidance; heading 'Voluntary Settlement ÔÇö Certainty, Not Avoidance' now slugs to #m.-voluntary-settlement-certainty-not-avoidance
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:64 VAL.B ┬ºJ       -> VAL.B ┬ºJ       anchors says val-b.html#j-the-deferred-delta; heading 'The Deferred Delta' now slugs to #j.-the-deferred-delta
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:122 VAL.B ┬ºJ.4     -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:156 VAL.B ┬ºK.3     -> VAL.B ┬ºK       anchors says val-b.html#k-dilution-compounds-with-growth; heading 'Dilution Compounds with Growth' now slugs to #k.-dilution-compounds-with-growth
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:190 VAL.B ┬ºK.4     -> VAL.A ┬ºA.5.3   anchors says val-a.html#a.5.3-propositions-3a-and-3b; heading 'Propositions 3a and 3b: Understatement Boundary Conditions' now slugs to #a.5.3-propositions-3a-and-3b-understatement-boundary-conditions
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:320 VAL.B ┬ºM.6     -> VAL ┬º11.3      anchors says val.html#trigger-conditions-and-the-auction-process; heading 'Corrective Auction: Trigger and Process' now slugs to #corrective-auction-trigger-and-process
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:326 VAL.B ┬ºN       -> VAL ┬º7.1       anchors says val.html#honest-declaration-as-the-locally-stable-strategy; heading 'Declaration Strategy and the Rational Equilibrium' now slugs to #declaration-strategy-and-the-rational-equilibrium
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:395 VAL.B ┬ºN.4     -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:399 VAL.B ┬ºN.4     -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:405 VAL.B ┬ºN.5     -> VAL.A ┬ºC.3     anchors says val-a.html#c.3-exploratory-extension-investor-confidence-effects; heading 'Exploratory Extension: Investor Confidence Effects ╬▓ (Overstatement Only)' now slugs to #c.3-exploratory-extension-investor-confidence-effects-overstatement-only
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:407 VAL.B ┬ºN.5     -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:415 VAL.B ┬ºO       -> VAL.B ┬ºJ       anchors says val-b.html#j-the-deferred-delta; heading 'The Deferred Delta' now slugs to #j.-the-deferred-delta
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:415 VAL.B ┬ºO       -> VAL.B ┬ºJ       anchors says val-b.html#j-the-deferred-delta; heading 'The Deferred Delta' now slugs to #j.-the-deferred-delta
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:415 VAL.B ┬ºO       -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:416 VAL.B ┬ºO       -> VAL.B ┬ºK       anchors says val-b.html#k-dilution-compounds-with-growth; heading 'Dilution Compounds with Growth' now slugs to #k.-dilution-compounds-with-growth
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:416 VAL.B ┬ºO       -> VAL.B ┬ºK       anchors says val-b.html#k-dilution-compounds-with-growth; heading 'Dilution Compounds with Growth' now slugs to #k.-dilution-compounds-with-growth
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:417 VAL.B ┬ºO       -> VAL.B ┬ºL       anchors says val-b.html#l-why-route-d-defers-to-realisation; heading 'Why Route D Defers to Realisation' now slugs to #l.-why-route-d-defers-to-realisation
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:417 VAL.B ┬ºO       -> VAL.B ┬ºL       anchors says val-b.html#l-why-route-d-defers-to-realisation; heading 'Why Route D Defers to Realisation' now slugs to #l.-why-route-d-defers-to-realisation
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:418 VAL.B ┬ºO       -> VAL.B ┬ºM       anchors says val-b.html#m-voluntary-settlement-certainty-not-avoidance; heading 'Voluntary Settlement ÔÇö Certainty, Not Avoidance' now slugs to #m.-voluntary-settlement-certainty-not-avoidance
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:418 VAL.B ┬ºO       -> VAL ┬º11.2      anchors says val.html#relationship-to-prior-self-assessment-proposals; heading 'Voluntary Hard-Reset Auction' now slugs to #voluntary-hard-reset-auction
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:418 VAL.B ┬ºO       -> VAL ┬º11.3      anchors says val.html#trigger-conditions-and-the-auction-process; heading 'Corrective Auction: Trigger and Process' now slugs to #corrective-auction-trigger-and-process
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:419 VAL.B ┬ºO       -> VAL.B ┬ºN       anchors says val-b.html#n-forecast-exposure; heading 'Forecast Exposure' now slugs to #n.-forecast-exposure
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:419 VAL.B ┬ºO       -> VAL ┬º7.1       anchors says val.html#honest-declaration-as-the-locally-stable-strategy; heading 'Declaration Strategy and the Rational Equilibrium' now slugs to #declaration-strategy-and-the-rational-equilibrium
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:419 VAL.B ┬ºO       -> VAL.A ┬ºA.5.1   anchors says val-a.html#a.5.1-proposition-1; heading 'Proposition 1: Local Convexity Around Honest Declaration' now slugs to #a.5.1-proposition-1-local-convexity-around-honest-declaration
+  5b_Valuing_Wealth_Worked_Examples_Appendix.md:419 VAL.B ┬ºO       -> VAL.B ┬ºN       anchors says val-b.html#n-forecast-exposure; heading 'Forecast Exposure' now slugs to #n.-forecast-exposure
+  6_Corporate_Architecture.md:92 CORP ┬º1        -> CORP ┬º4        anchors says corp.html#the-listed-private-distinction; heading 'The Listed/Private Distinction' now slugs to #the-listedprivate-distinction
+  6_Corporate_Architecture.md:122 CORP ┬º3        -> CORP ┬º5.5      anchors says corp.html#intermediary-pass-through; heading 'Loss Years' now slugs to #loss-years
+  6_Corporate_Architecture.md:216 CORP ┬º5.3      -> CORP ┬º5.4      anchors says corp.html#individual-settlement-and-credit-release; heading 'Year-End Settlement' now slugs to #year-end-settlement
+  6_Corporate_Architecture.md:274 CORP ┬º6.3      -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  6_Corporate_Architecture.md:274 CORP ┬º6.3      -> GOV.B ┬ºE.3     anchors says gov-b.html#e.3-the-bridging-facility-bond-posting-sequence-and-settlement; heading 'The Closure Bond Facility: Bond Posting Sequence and Settlement' now slugs to #e.3-the-closure-bond-facility-bond-posting-sequence-and-settlement
+  6_Corporate_Architecture.md:278 CORP ┬º6.4      -> GOV.B ┬ºH       anchors says gov-b.html#h.-corporate-equity-settlement-facility-mandate-extension; heading 'The Corporate Equity Settlement Facility: Mandate Extension' now slugs to #h.-the-corporate-equity-settlement-facility-mandate-extension
+  6_Corporate_Architecture.md:294 CORP ┬º7        -> CORP.A ┬ºC      anchors says corp-a.html#c.-relationship-to-the-companion-papers; heading 'Ownership Structure Classification Under the Attribution Test' now slugs to #c.-ownership-structure-classification-under-the-attribution-test
+  6_Corporate_Architecture.md:294 CORP ┬º7        -> CORP.A ┬ºE      anchors says corp-a.html#e.-administrative-burden; heading 'Non-Corporate Instruments and the Attribution Test' now slugs to #e.-non-corporate-instruments-and-the-attribution-test
+  6a_Corporate_Architecture_Appendix.md:219 CORP.A ┬ºC      -> CORP ┬º5.3      anchors says corp.html#provisional-levy-and-the-settlement-account; heading 'Tranche Outcomes During the Year' now slugs to #tranche-outcomes-during-the-year
+  6a_Corporate_Architecture_Appendix.md:408 CORP.A ┬ºE.9    -> CORP ┬º5.6      anchors says corp.html#reconciliation-window-and-final-settlement; heading 'Residual Imperfections' now slugs to #residual-imperfections
+  6a_Corporate_Architecture_Appendix.md:408 CORP.A ┬ºE.9    -> CORP ┬º5.6      anchors says corp.html#reconciliation-window-and-final-settlement; heading 'Residual Imperfections' now slugs to #residual-imperfections
+  6a_Corporate_Architecture_Appendix.md:454 CORP.A ┬ºE.10.2 -> CORP.A ┬ºC      anchors says corp-a.html#c.-relationship-to-the-companion-papers; heading 'Ownership Structure Classification Under the Attribution Test' now slugs to #c.-ownership-structure-classification-under-the-attribution-test
+  7_Constitutional_Governance.md:64 GOV ┬ºglossary  -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  7_Constitutional_Governance.md:64 GOV ┬ºglossary  -> GOV.B ┬ºE.3     anchors says gov-b.html#e.3-the-bridging-facility-bond-posting-sequence-and-settlement; heading 'The Closure Bond Facility: Bond Posting Sequence and Settlement' now slugs to #e.3-the-closure-bond-facility-bond-posting-sequence-and-settlement
+  7_Constitutional_Governance.md:110 GOV ┬ºglossary  -> VAL ┬º11        anchors says val.html#the-route-d-auction-mechanism; heading 'The Route D Auction Mechanism ÔÇö Three Uses of One Process' now slugs to #the-route-d-auction-mechanism-three-uses-of-one-process
+  7_Constitutional_Governance.md:118 GOV ┬ºglossary  -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  7_Constitutional_Governance.md:268 GOV ┬º5.2       -> CORP ┬º5.5      anchors says corp.html#intermediary-pass-through; heading 'Loss Years' now slugs to #loss-years
+  7_Constitutional_Governance.md:268 GOV ┬º5.2       -> VAL ┬º11        anchors says val.html#the-route-d-auction-mechanism; heading 'The Route D Auction Mechanism ÔÇö Three Uses of One Process' now slugs to #the-route-d-auction-mechanism-three-uses-of-one-process
+  7_Constitutional_Governance.md:292 GOV ┬º6.1       -> VAL ┬º11        anchors says val.html#the-route-d-auction-mechanism; heading 'The Route D Auction Mechanism ÔÇö Three Uses of One Process' now slugs to #the-route-d-auction-mechanism-three-uses-of-one-process
+  7_Constitutional_Governance.md:308 GOV ┬º6.3       -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  7_Constitutional_Governance.md:344 GOV ┬º7.2       -> GOV.B ┬ºB.4.7   anchors says gov-b.html#b.4.7-privacy-election-binary-disclosure-and-rate-differential; heading 'The Privacy Election: Binary Disclosure and the Rate Differential' now slugs to #b.4.7-the-privacy-election-binary-disclosure-and-the-rate-differential
+  7_Constitutional_Governance.md:346 GOV ┬º7.2       -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  7_Constitutional_Governance.md:346 GOV ┬º7.2       -> GOV.B ┬ºE.3     anchors says gov-b.html#e.3-the-bridging-facility-bond-posting-sequence-and-settlement; heading 'The Closure Bond Facility: Bond Posting Sequence and Settlement' now slugs to #e.3-the-closure-bond-facility-bond-posting-sequence-and-settlement
+  7_Constitutional_Governance.md:348 GOV ┬º7.2       -> GOV.B ┬ºH       anchors says gov-b.html#h.-corporate-equity-settlement-facility-mandate-extension; heading 'The Corporate Equity Settlement Facility: Mandate Extension' now slugs to #h.-the-corporate-equity-settlement-facility-mandate-extension
+  7_Constitutional_Governance.md:356 GOV ┬º7.3       -> GOV.B ┬ºE.7     anchors says gov-b.html#e.7-custodian-inflationary-rotation-mandate-parameters-and-trigger-conditions; heading 'Custodian Investment Mandate: Inflationary Conditions' now slugs to #e.7-custodian-investment-mandate-inflationary-conditions
+  7_Constitutional_Governance.md:374 GOV ┬º7.5       -> GOV.B ┬ºE.7     anchors says gov-b.html#e.7-custodian-inflationary-rotation-mandate-parameters-and-trigger-conditions; heading 'Custodian Investment Mandate: Inflationary Conditions' now slugs to #e.7-custodian-investment-mandate-inflationary-conditions
+  7_Constitutional_Governance.md:376 GOV ┬º7.5       -> GOV.B ┬ºH       anchors says gov-b.html#h.-corporate-equity-settlement-facility-mandate-extension; heading 'The Corporate Equity Settlement Facility: Mandate Extension' now slugs to #h.-the-corporate-equity-settlement-facility-mandate-extension
+  7_Constitutional_Governance.md:384 GOV ┬º8         -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  7b_Constitutional_Governance_Operational_Appendix.md:237 GOV.B ┬ºB.2.5   -> BEHAV ┬º5.6     anchors says behav.html#administrative-layer-intervention; heading 'The Personal Adviser Corps' now slugs to #the-personal-adviser-corps
+  7b_Constitutional_Governance_Operational_Appendix.md:452 GOV.B ┬ºC.8     -> GOV.B ┬ºB.4.7   anchors says gov-b.html#b.4.7-privacy-election-binary-disclosure-and-rate-differential; heading 'The Privacy Election: Binary Disclosure and the Rate Differential' now slugs to #b.4.7-the-privacy-election-binary-disclosure-and-the-rate-differential
+  7b_Constitutional_Governance_Operational_Appendix.md:504 GOV.B ┬ºE.1     -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  7b_Constitutional_Governance_Operational_Appendix.md:522 GOV.B ┬ºE.3     -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  7b_Constitutional_Governance_Operational_Appendix.md:532 GOV.B ┬ºE.3     -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  7b_Constitutional_Governance_Operational_Appendix.md:534 GOV.B ┬ºE.3     -> GOV.B ┬ºE.7     anchors says gov-b.html#e.7-custodian-inflationary-rotation-mandate-parameters-and-trigger-conditions; heading 'Custodian Investment Mandate: Inflationary Conditions' now slugs to #e.7-custodian-investment-mandate-inflationary-conditions
+  7b_Constitutional_Governance_Operational_Appendix.md:536 GOV.B ┬ºE.3     -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  7b_Constitutional_Governance_Operational_Appendix.md:536 GOV.B ┬ºE.3     -> GOV.B ┬ºH       anchors says gov-b.html#h.-corporate-equity-settlement-facility-mandate-extension; heading 'The Corporate Equity Settlement Facility: Mandate Extension' now slugs to #h.-the-corporate-equity-settlement-facility-mandate-extension
+  7b_Constitutional_Governance_Operational_Appendix.md:564 GOV.B ┬ºE.6     -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  7b_Constitutional_Governance_Operational_Appendix.md:572 GOV.B ┬ºE.7     -> GOV.B ┬ºE.6     anchors says gov-b.html#e.6-institutional-mapping-mandate-extension-process-uk-reference; heading 'Institutional Form: Candidate Mapping (UK Reference)' now slugs to #e.6-institutional-form-candidate-mapping-uk-reference
+  7b_Constitutional_Governance_Operational_Appendix.md:594 GOV.B ┬ºE.8     -> GOV.B ┬ºE.3     anchors says gov-b.html#e.3-the-bridging-facility-bond-posting-sequence-and-settlement; heading 'The Closure Bond Facility: Bond Posting Sequence and Settlement' now slugs to #e.3-the-closure-bond-facility-bond-posting-sequence-and-settlement
+  7b_Constitutional_Governance_Operational_Appendix.md:600 GOV.B ┬ºE.9     -> GOV.B ┬ºE.7     anchors says gov-b.html#e.7-custodian-inflationary-rotation-mandate-parameters-and-trigger-conditions; heading 'Custodian Investment Mandate: Inflationary Conditions' now slugs to #e.7-custodian-investment-mandate-inflationary-conditions
+  7b_Constitutional_Governance_Operational_Appendix.md:634 GOV.B ┬ºF.2     -> GOV.B ┬ºB.4.7   anchors says gov-b.html#b.4.7-privacy-election-binary-disclosure-and-rate-differential; heading 'The Privacy Election: Binary Disclosure and the Rate Differential' now slugs to #b.4.7-the-privacy-election-binary-disclosure-and-the-rate-differential
+  7b_Constitutional_Governance_Operational_Appendix.md:664 GOV.B ┬ºG       -> VAL ┬º11        anchors says val.html#the-route-d-auction-mechanism; heading 'The Route D Auction Mechanism ÔÇö Three Uses of One Process' now slugs to #the-route-d-auction-mechanism-three-uses-of-one-process
+  7b_Constitutional_Governance_Operational_Appendix.md:770 GOV.B ┬ºG.8     -> JUR ┬º4.2       anchors says jur.html#voa-capacity-for-wdt-property-valuations; heading 'Phase One empirical unknowns' now slugs to #phase-one-empirical-unknowns
+  7b_Constitutional_Governance_Operational_Appendix.md:772 GOV.B ┬ºG.8     -> JUR ┬º4.2       anchors says jur.html#voa-capacity-for-wdt-property-valuations; heading 'Phase One empirical unknowns' now slugs to #phase-one-empirical-unknowns
+  7b_Constitutional_Governance_Operational_Appendix.md:772 GOV.B ┬ºG.8     -> JUR ┬º4.3       anchors says jur.html#post-brexit-information-exchange; heading 'Jurisdiction-specific legal and implementation work' now slugs to #jurisdiction-specific-legal-and-implementation-work
+  7b_Constitutional_Governance_Operational_Appendix.md:790 GOV.B ┬ºH.2     -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  7b_Constitutional_Governance_Operational_Appendix.md:800 GOV.B ┬ºH.4     -> GOV.B ┬ºE.7     anchors says gov-b.html#e.7-custodian-inflationary-rotation-mandate-parameters-and-trigger-conditions; heading 'Custodian Investment Mandate: Inflationary Conditions' now slugs to #e.7-custodian-investment-mandate-inflationary-conditions
+  7b_Constitutional_Governance_Operational_Appendix.md:804 GOV.B ┬ºH.4     -> CLOSE ┬º5       anchors says close.html#the-bridging-facility; heading 'The Closure Bond Facility' now slugs to #the-closure-bond-facility
+  7b_Constitutional_Governance_Operational_Appendix.md:804 GOV.B ┬ºH.4     -> GOV.B ┬ºE.3     anchors says gov-b.html#e.3-the-bridging-facility-bond-posting-sequence-and-settlement; heading 'The Closure Bond Facility: Bond Posting Sequence and Settlement' now slugs to #e.3-the-closure-bond-facility-bond-posting-sequence-and-settlement
+  8_Rates_and_Revenue.md:190 RATES ┬º2       -> RATES.A ┬ºB.3.3 anchors says rates-a.html#b.3.3-annual-wealth-burden-tax-as-of-net-worth; heading 'Annual wealth burden (tax as % of net worth) ÔÇö N=30' now slugs to #b.3.3-annual-wealth-burden-tax-as-of-net-worth-n30
+  8_Rates_and_Revenue.md:190 RATES ┬º2       -> RATES.A ┬ºB.3.4 anchors says rates-a.html#b.3.4-effective-rate-on-gains-tax-as-of-annual-gain; heading 'Effective rate on lifetime gains (income-tax analogue) ÔÇö N=30' now slugs to #b.3.4-effective-rate-on-lifetime-gains-income-tax-analogue-n30
+  8_Rates_and_Revenue.md:254 RATES ┬º4       -> SCOPE ┬º5       anchors says scope.html#questions-sequentially-deferred-to-post-phase-one; heading 'Governing Council Calibration Parameters' now slugs to #governing-council-calibration-parameters
+  8_Rates_and_Revenue.md:289 RATES ┬º5.1     -> RATES.A ┬ºB.3   anchors says rates-a.html#b.3-tcm-results; heading 'TCM Results ÔÇö snapshot N=19 (cap. window) / N=30 (lifetime)' now slugs to #b.3-tcm-results-snapshot-n19-cap.-window-n30-lifetime
+  8_Rates_and_Revenue.md:291 RATES ┬º5.1     -> RATES.A ┬ºB.3.7 anchors says rates-a.html#b.3.7-tax-collected-per-year-capitalisation-window-average-m-yr; heading 'Tax collected per year ÔÇö capitalisation window average (┬úm/yr)' now slugs to #b.3.7-tax-collected-per-year-capitalisation-window-average-myr
+  8_Rates_and_Revenue.md:348 RATES ┬º6.3     -> RATES.A ┬ºB.3.9 anchors says rates-a.html#b.3.9-revenue-by-tier-b-yr; heading 'Revenue by tier (┬úb/yr)' now slugs to #b.3.9-revenue-by-tier-byr
+  8_Rates_and_Revenue.md:415 RATES ┬º7.2     -> RATES.A ┬ºB.5.3 anchors says rates-a.html#b.5.3-by-economic-cycle; heading 'Key metric distributions' now slugs to #b.5.3-key-metric-distributions
+  8_Rates_and_Revenue.md:457 RATES ┬º7.4     -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  8_Rates_and_Revenue.md:534 RATES ┬º9.3     -> SCOPE ┬º5       anchors says scope.html#questions-sequentially-deferred-to-post-phase-one; heading 'Governing Council Calibration Parameters' now slugs to #governing-council-calibration-parameters
+  8_Rates_and_Revenue.md:542 RATES ┬º9.4     -> SCOPE ┬º5       anchors says scope.html#questions-sequentially-deferred-to-post-phase-one; heading 'Governing Council Calibration Parameters' now slugs to #governing-council-calibration-parameters
+  8a_Rates_and_Revenue_Appendix.md:106 RATES.A ┬ºA.6   -> RATES.A ┬ºB.3   anchors says rates-a.html#b.3-tcm-results; heading 'TCM Results ÔÇö snapshot N=19 (cap. window) / N=30 (lifetime)' now slugs to #b.3-tcm-results-snapshot-n19-cap.-window-n30-lifetime
+  8a_Rates_and_Revenue_Appendix.md:184 RATES.A ┬ºB.2   -> RATES.A ┬ºB.3   anchors says rates-a.html#b.3-tcm-results; heading 'TCM Results ÔÇö snapshot N=19 (cap. window) / N=30 (lifetime)' now slugs to #b.3-tcm-results-snapshot-n19-cap.-window-n30-lifetime
+  8a_Rates_and_Revenue_Appendix.md:188 RATES.A ┬ºB.3   -> RATES.A ┬ºB.3.9 anchors says rates-a.html#b.3.9-revenue-by-tier-b-yr; heading 'Revenue by tier (┬úb/yr)' now slugs to #b.3.9-revenue-by-tier-byr
+  8a_Rates_and_Revenue_Appendix.md:188 RATES.A ┬ºB.3   -> RATES.A ┬ºB.3.3 anchors says rates-a.html#b.3.3-annual-wealth-burden-tax-as-of-net-worth; heading 'Annual wealth burden (tax as % of net worth) ÔÇö N=30' now slugs to #b.3.3-annual-wealth-burden-tax-as-of-net-worth-n30
+  8a_Rates_and_Revenue_Appendix.md:188 RATES.A ┬ºB.3   -> RATES.A ┬ºB.3.4 anchors says rates-a.html#b.3.4-effective-rate-on-gains-tax-as-of-annual-gain; heading 'Effective rate on lifetime gains (income-tax analogue) ÔÇö N=30' now slugs to #b.3.4-effective-rate-on-lifetime-gains-income-tax-analogue-n30
+  8a_Rates_and_Revenue_Appendix.md:188 RATES.A ┬ºB.3   -> RATES.A ┬ºB.3.5 anchors says rates-a.html#b.3.5-average-annual-net-tax-per-taxpayer-lifetime-average-yr; heading 'Average annual net tax per taxpayer ÔÇö lifetime average (┬ú/yr) ÔÇö N=30' now slugs to #b.3.5-average-annual-net-tax-per-taxpayer-lifetime-average-yr-n30
+  8a_Rates_and_Revenue_Appendix.md:188 RATES.A ┬ºB.3   -> RATES.A ┬ºB.3.9 anchors says rates-a.html#b.3.9-revenue-by-tier-b-yr; heading 'Revenue by tier (┬úb/yr)' now slugs to #b.3.9-revenue-by-tier-byr
+  8a_Rates_and_Revenue_Appendix.md:193 RATES.A ┬ºB.3.1 -> RATES.A ┬ºB.3.3 anchors says rates-a.html#b.3.3-annual-wealth-burden-tax-as-of-net-worth; heading 'Annual wealth burden (tax as % of net worth) ÔÇö N=30' now slugs to #b.3.3-annual-wealth-burden-tax-as-of-net-worth-n30
+  8a_Rates_and_Revenue_Appendix.md:193 RATES.A ┬ºB.3.1 -> RATES.A ┬ºB.3.5 anchors says rates-a.html#b.3.5-average-annual-net-tax-per-taxpayer-lifetime-average-yr; heading 'Average annual net tax per taxpayer ÔÇö lifetime average (┬ú/yr) ÔÇö N=30' now slugs to #b.3.5-average-annual-net-tax-per-taxpayer-lifetime-average-yr-n30
+  9_Parameter_Sweeps.md:155 SWEEPS ┬º3.1    -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  9_Parameter_Sweeps.md:195 SWEEPS ┬º4.1    -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  9_Parameter_Sweeps.md:231 SWEEPS ┬º5.1    -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  9_Parameter_Sweeps.md:267 SWEEPS ┬º6.1    -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  9_Parameter_Sweeps.md:381 SWEEPS ┬º8.3    -> SWEEPS.A ┬ºC.6  anchors says sweeps-a.html#c.6-srr-capitalisation-ratio-srr-ratio; heading 'SRR Capitalisation Ratio (srr_ratio)' now slugs to #c.6-srr-capitalisation-ratio-srr_ratio
+  9_Parameter_Sweeps.md:381 SWEEPS ┬º8.3    -> SWEEPS.A ┬ºC.7  anchors says sweeps-a.html#c.7-lrr-floor-lrr-years; heading 'LRR Floor (lrr_years)' now slugs to #c.7-lrr-floor-lrr_years
+  9_Parameter_Sweeps.md:383 SWEEPS ┬º8.3    -> SWEEPS.A ┬ºC.6  anchors says sweeps-a.html#c.6-srr-capitalisation-ratio-srr-ratio; heading 'SRR Capitalisation Ratio (srr_ratio)' now slugs to #c.6-srr-capitalisation-ratio-srr_ratio
+  9_Parameter_Sweeps.md:385 SWEEPS ┬º8.3    -> SWEEPS.A ┬ºC.7  anchors says sweeps-a.html#c.7-lrr-floor-lrr-years; heading 'LRR Floor (lrr_years)' now slugs to #c.7-lrr-floor-lrr_years
+  9_Parameter_Sweeps.md:395 SWEEPS ┬º8.3    -> SWEEPS.A ┬ºC.6  anchors says sweeps-a.html#c.6-srr-capitalisation-ratio-srr-ratio; heading 'SRR Capitalisation Ratio (srr_ratio)' now slugs to #c.6-srr-capitalisation-ratio-srr_ratio
+  9_Parameter_Sweeps.md:395 SWEEPS ┬º8.3    -> SWEEPS.A ┬ºC.7  anchors says sweeps-a.html#c.7-lrr-floor-lrr-years; heading 'LRR Floor (lrr_years)' now slugs to #c.7-lrr-floor-lrr_years
+  9_Parameter_Sweeps.md:399 SWEEPS ┬º8.4    -> GOV.B ┬ºE.7     anchors says gov-b.html#e.7-custodian-inflationary-rotation-mandate-parameters-and-trigger-conditions; heading 'Custodian Investment Mandate: Inflationary Conditions' now slugs to #e.7-custodian-investment-mandate-inflationary-conditions
+  9_Parameter_Sweeps.md:403 SWEEPS ┬º8.5    -> GOV.B ┬ºB.4.7   anchors says gov-b.html#b.4.7-privacy-election-binary-disclosure-and-rate-differential; heading 'The Privacy Election: Binary Disclosure and the Rate Differential' now slugs to #b.4.7-the-privacy-election-binary-disclosure-and-the-rate-differential
+  9_Parameter_Sweeps.md:427 SWEEPS ┬º10     -> SCOPE ┬º5       anchors says scope.html#questions-sequentially-deferred-to-post-phase-one; heading 'Governing Council Calibration Parameters' now slugs to #governing-council-calibration-parameters
+  9_Parameter_Sweeps.md:429 SWEEPS ┬º10     -> SCOPE ┬º5       anchors says scope.html#questions-sequentially-deferred-to-post-phase-one; heading 'Governing Council Calibration Parameters' now slugs to #governing-council-calibration-parameters
+  9_Parameter_Sweeps.md:435 SWEEPS ┬º10     -> SCOPE ┬º5       anchors says scope.html#questions-sequentially-deferred-to-post-phase-one; heading 'Governing Council Calibration Parameters' now slugs to #governing-council-calibration-parameters
+  9_Parameter_Sweeps.md:437 SWEEPS ┬º10     -> SCOPE ┬º5       anchors says scope.html#questions-sequentially-deferred-to-post-phase-one; heading 'Governing Council Calibration Parameters' now slugs to #governing-council-calibration-parameters
+  9_Parameter_Sweeps.md:449 SWEEPS ┬º11     -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  9_Parameter_Sweeps.md:453 SWEEPS ┬º11     -> SCOPE ┬º5       anchors says scope.html#questions-sequentially-deferred-to-post-phase-one; heading 'Governing Council Calibration Parameters' now slugs to #governing-council-calibration-parameters
+  9_Parameter_Sweeps.md:455 SWEEPS ┬º11     -> SWEEPS.A ┬ºC.6  anchors says sweeps-a.html#c.6-srr-capitalisation-ratio-srr-ratio; heading 'SRR Capitalisation Ratio (srr_ratio)' now slugs to #c.6-srr-capitalisation-ratio-srr_ratio
+  9_Parameter_Sweeps.md:455 SWEEPS ┬º11     -> SWEEPS.A ┬ºC.7  anchors says sweeps-a.html#c.7-lrr-floor-lrr-years; heading 'LRR Floor (lrr_years)' now slugs to #c.7-lrr-floor-lrr_years
+  9_Parameter_Sweeps.md:459 SWEEPS ┬º11     -> SWEEPS ┬º5.3    anchors says sweeps.html#what-the-council-is-calibrating; heading 'What the Council Is Calibrating When It Sets k' now slugs to #what-the-council-is-calibrating-when-it-sets-k
+  9_Parameter_Sweeps.md:461 SWEEPS ┬º11     -> SCOPE ┬º5       anchors says scope.html#questions-sequentially-deferred-to-post-phase-one; heading 'Governing Council Calibration Parameters' now slugs to #governing-council-calibration-parameters
+  9_Parameter_Sweeps.md:487 SWEEPS ┬º13.1   -> SCOPE ┬º5       anchors says scope.html#questions-sequentially-deferred-to-post-phase-one; heading 'Governing Council Calibration Parameters' now slugs to #governing-council-calibration-parameters
+  9_Parameter_Sweeps.md:493 SWEEPS ┬º13.2   -> GOV.B ┬ºE.7     anchors says gov-b.html#e.7-custodian-inflationary-rotation-mandate-parameters-and-trigger-conditions; heading 'Custodian Investment Mandate: Inflationary Conditions' now slugs to #e.7-custodian-investment-mandate-inflationary-conditions
+  9a_Parameter_Sweeps_Appendix.md:143 SWEEPS.A ┬ºB    -> VAL.A ┬ºA.6     anchors says val-a.html#a.6-the-declaration-equilibrium-mild-overstatement-as-population-outcome; heading 'The Declaration Equilibrium: A Broad Tolerant Zone with a Conditional Mild Upward Bias' now slugs to #a.6-the-declaration-equilibrium-a-broad-tolerant-zone-with-a-conditional-mild-upward-bias
+  9a_Parameter_Sweeps_Appendix.md:154 SWEEPS.A ┬ºB    -> VAL.A ┬ºC.1     anchors says val-a.html#c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration; heading 'Total Tax Paid (TTP) Difference Relative to Honest Declaration, as Share of Terminal Net Worth (TW)' now slugs to #c.1-total-tax-paid-ttp-difference-relative-to-honest-declaration-as-share-of-terminal-net-worth-tw
+  9a_Parameter_Sweeps_Appendix.md:765 SWEEPS.A ┬ºB.9  -> SWEEPS.A ┬ºB    anchors says sweeps-a.html#b.-wdt-rate-parameter-sensitivity-sweep; heading 'SWEEPS.V Figure Index' now slugs to #b.-sweeps.v-figure-index
+  9a_Parameter_Sweeps_Appendix.md:815 SWEEPS.A ┬ºC.1.2 -> SWEEPS.A ┬ºA.5  anchors says sweeps-a.html#a.5-sweep-table-initial-value; heading 'SWEEPS.V ÔÇö N Sweep' now slugs to #a.5-sweeps.v-n-sweep
+  9a_Parameter_Sweeps_Appendix.md:1148 SWEEPS.A ┬ºD    -> RATES ┬º9.1     anchors says rates.html#behavioural-responses; heading 'Formal modelling gaps' now slugs to #formal-modelling-gaps
+
+[WARN] not_in_anchors  (18)
+  17_Scope_Boundary.md:55 SCOPE ┬º2       -> GOV.B ┬ºA.3.7   GOV.B┬ºA.3.7 exists ('Gifts to DR Members: Immunity and Legal Position') but has no anchors entry
+  17_Scope_Boundary.md:137 SCOPE ┬º6       -> GOV.B ┬ºA.3.7   GOV.B┬ºA.3.7 exists ('Gifts to DR Members: Immunity and Legal Position') but has no anchors entry
+  18_Addendums.md:138    ADD ┬º5.1       -> GOV.B ┬ºA.3.7   GOV.B┬ºA.3.7 exists ('Gifts to DR Members: Immunity and Legal Position') but has no anchors entry
+  2_Moral_and_Philosophical_Foundations.md:67 MF ┬ºglossary   -> MF ┬º9.4.9      MF┬º9.4.9 exists ('The governance compromises') but has no anchors entry
+  4_UK_Jurisdiction_and_Data_Reference_Paper.md:432 JUR ┬º4.3       -> GOV.B ┬ºA.3.7   GOV.B┬ºA.3.7 exists ('Gifts to DR Members: Immunity and Legal Position') but has no anchors entry
+  7_Constitutional_Governance.md:122 GOV ┬ºglossary  -> GOV.B ┬ºE.9     GOV.B┬ºE.9 exists ('The Stress Function') but has no anchors entry
+  7_Constitutional_Governance.md:270 GOV ┬º5.2       -> GOV.B ┬ºE.9     GOV.B┬ºE.9 exists ('The Stress Function') but has no anchors entry
+  7_Constitutional_Governance.md:310 GOV ┬º6.3       -> GOV.B ┬ºE.9     GOV.B┬ºE.9 exists ('The Stress Function') but has no anchors entry
+  7b_Constitutional_Governance_Operational_Appendix.md:253 GOV.B ┬ºB.3     -> GOV.B ┬ºE.8     GOV.B┬ºE.8 exists ('Custodian Alignment Mechanisms') but has no anchors entry
+  7b_Constitutional_Governance_Operational_Appendix.md:253 GOV.B ┬ºB.3     -> GOV.B ┬ºE.9     GOV.B┬ºE.9 exists ('The Stress Function') but has no anchors entry
+  7b_Constitutional_Governance_Operational_Appendix.md:384 GOV.B ┬ºC.2     -> GOV.B ┬ºC.8     GOV.B┬ºC.8 exists ('Who Classifies, Bundled Proposals, and Public Ballots') but has no anchors entry
+  7b_Constitutional_Governance_Operational_Appendix.md:506 GOV.B ┬ºE.1     -> GOV.B ┬ºE.9     GOV.B┬ºE.9 exists ('The Stress Function') but has no anchors entry
+  7b_Constitutional_Governance_Operational_Appendix.md:534 GOV.B ┬ºE.3     -> GOV.B ┬ºE.8     GOV.B┬ºE.8 exists ('Custodian Alignment Mechanisms') but has no anchors entry
+  7b_Constitutional_Governance_Operational_Appendix.md:550 GOV.B ┬ºE.4     -> GOV.B ┬ºE.8     GOV.B┬ºE.8 exists ('Custodian Alignment Mechanisms') but has no anchors entry
+  7b_Constitutional_Governance_Operational_Appendix.md:556 GOV.B ┬ºE.5     -> GOV.B ┬ºE.9     GOV.B┬ºE.9 exists ('The Stress Function') but has no anchors entry
+  7b_Constitutional_Governance_Operational_Appendix.md:586 GOV.B ┬ºE.8     -> GOV.B ┬ºE.9     GOV.B┬ºE.9 exists ('The Stress Function') but has no anchors entry
+  7b_Constitutional_Governance_Operational_Appendix.md:604 GOV.B ┬ºE.9     -> GOV.B ┬ºE.8     GOV.B┬ºE.8 exists ('Custodian Alignment Mechanisms') but has no anchors entry
+  7b_Constitutional_Governance_Operational_Appendix.md:634 GOV.B ┬ºF.2     -> GOV.B ┬ºE.8     GOV.B┬ºE.8 exists ('Custodian Alignment Mechanisms') but has no anchors entry
+
+[WARN] prose_reference  (12)
+  19_Taxpayer_Welfare.md:96 WFR ┬º1         -> WFR ┬º2         'Section 2' - house style is (┬ºX.Y), not 'Section X'
+  19_Taxpayer_Welfare.md:96 WFR ┬º1         -> WFR ┬º3         'Section 3' - house style is (┬ºX.Y), not 'Section X'
+  19_Taxpayer_Welfare.md:96 WFR ┬º1         -> WFR ┬º4         'Section 4' - house style is (┬ºX.Y), not 'Section X'
+  19_Taxpayer_Welfare.md:96 WFR ┬º1         -> WFR ┬º5         'Section 5' - house style is (┬ºX.Y), not 'Section X'
+  19_Taxpayer_Welfare.md:96 WFR ┬º1         -> WFR ┬º6         'Section 6' - house style is (┬ºX.Y), not 'Section X'
+  19_Taxpayer_Welfare.md:96 WFR ┬º1         -> WFR ┬º7         'Section 7' - house style is (┬ºX.Y), not 'Section X'
+  19_Taxpayer_Welfare.md:206 WFR ┬º3.2       -> WFR ┬º4.2       'Section 4.2' - house style is (┬ºX.Y), not 'Section X'
+  19_Taxpayer_Welfare.md:536 WFR ┬º4.5.3     -> WFR ┬º4.1       'Section 4.1' - house style is (┬ºX.Y), not 'Section X'
+  19_Taxpayer_Welfare.md:568 WFR ┬º5.2       -> WFR ┬º4.1       'Section 4.1' - house style is (┬ºX.Y), not 'Section X'
+  19_Taxpayer_Welfare.md:580 WFR ┬º5.3       -> WFR ┬º4.2.3     'Section 4.2.3' - house style is (┬ºX.Y), not 'Section X'
+  21_Labour_Dividend_Welfare.md:226 LDW ┬º4.5.2     -> LDW ┬º3.2       'Section 3.2' - house style is (┬ºX.Y), not 'Section X'
+  3a_Research_Gaps.md:129 LR.A ┬º3.3      -> LR.A ┬º3.1      'Section 3.1' - house style is (┬ºX.Y), not 'Section X'
+
+[INFO] registry_outbound_missing  (180)
+  internal.json          BEHAV          -> CORP           BEHAV links to CORP but outbound_internal omits it
+  internal.json          BEHAV          -> GOV            BEHAV links to GOV but outbound_internal omits it
+  internal.json          BEHAV          -> JUR            BEHAV links to JUR but outbound_internal omits it
+  internal.json          BEHAV          -> LR.A           BEHAV links to LR.A but outbound_internal omits it
+  internal.json          BEHAV          -> MF             BEHAV links to MF but outbound_internal omits it
+  internal.json          BEHAV          -> PHASE1         BEHAV links to PHASE1 but outbound_internal omits it
+  internal.json          BEHAV          -> POL            BEHAV links to POL but outbound_internal omits it
+  internal.json          BEHAV          -> SCOPE          BEHAV links to SCOPE but outbound_internal omits it
+  internal.json          BEHAV          -> VAL            BEHAV links to VAL but outbound_internal omits it
+  internal.json          BEHAV          -> WP             BEHAV links to WP but outbound_internal omits it
+  internal.json          BEHAV.A        -> CORP           BEHAV.A links to CORP but outbound_internal omits it
+  internal.json          BEHAV.A        -> GOV            BEHAV.A links to GOV but outbound_internal omits it
+  internal.json          BEHAV.A        -> GOV.B          BEHAV.A links to GOV.B but outbound_internal omits it
+  internal.json          BEHAV.A        -> JUR            BEHAV.A links to JUR but outbound_internal omits it
+  internal.json          BEHAV.A        -> MF             BEHAV.A links to MF but outbound_internal omits it
+  internal.json          BEHAV.A        -> SWEEPS         BEHAV.A links to SWEEPS but outbound_internal omits it
+  internal.json          CLOSE          -> BEHAV.A        CLOSE links to BEHAV.A but outbound_internal omits it
+  internal.json          CLOSE          -> CORP           CLOSE links to CORP but outbound_internal omits it
+  internal.json          CLOSE          -> GOV.B          CLOSE links to GOV.B but outbound_internal omits it
+  internal.json          CLOSE          -> LR.A           CLOSE links to LR.A but outbound_internal omits it
+  internal.json          CLOSE          -> LR.B           CLOSE links to LR.B but outbound_internal omits it
+  internal.json          CLOSE          -> MF             CLOSE links to MF but outbound_internal omits it
+  internal.json          CLOSE          -> RATES          CLOSE links to RATES but outbound_internal omits it
+  internal.json          CLOSE          -> VAL            CLOSE links to VAL but outbound_internal omits it
+  internal.json          POL            -> BEHAV          POL links to BEHAV but outbound_internal omits it
+  internal.json          POL            -> CLOSE          POL links to CLOSE but outbound_internal omits it
+  internal.json          POL            -> GOV            POL links to GOV but outbound_internal omits it
+  internal.json          POL            -> INST           POL links to INST but outbound_internal omits it
+  internal.json          POL            -> LDW            POL links to LDW but outbound_internal omits it
+  internal.json          POL            -> LR.A           POL links to LR.A but outbound_internal omits it
+  internal.json          POL            -> LR.B           POL links to LR.B but outbound_internal omits it
+  internal.json          POL            -> MF             POL links to MF but outbound_internal omits it
+  internal.json          POL            -> POL.A          POL links to POL.A but outbound_internal omits it
+  internal.json          POL            -> SCOPE          POL links to SCOPE but outbound_internal omits it
+  internal.json          POL            -> WP             POL links to WP but outbound_internal omits it
+  internal.json          PHASE1         -> BEHAV.A        PHASE1 links to BEHAV.A but outbound_internal omits it
+  internal.json          PHASE1         -> FAL            PHASE1 links to FAL but outbound_internal omits it
+  internal.json          PHASE1         -> SCOPE          PHASE1 links to SCOPE but outbound_internal omits it
+  internal.json          ENV            -> LDW            ENV links to LDW but outbound_internal omits it
+  internal.json          ENV            -> SCOPE          ENV links to SCOPE but outbound_internal omits it
+  internal.json          ENV            -> WFR            ENV links to WFR but outbound_internal omits it
+  internal.json          FM             -> INST           FM links to INST but outbound_internal omits it
+  internal.json          SCOPE          -> BEHAV          SCOPE links to BEHAV but outbound_internal omits it
+  internal.json          SCOPE          -> BEHAV.A        SCOPE links to BEHAV.A but outbound_internal omits it
+  internal.json          SCOPE          -> CORP           SCOPE links to CORP but outbound_internal omits it
+  internal.json          SCOPE          -> CORP.A         SCOPE links to CORP.A but outbound_internal omits it
+  internal.json          SCOPE          -> ENV            SCOPE links to ENV but outbound_internal omits it
+  internal.json          SCOPE          -> FAL            SCOPE links to FAL but outbound_internal omits it
+  internal.json          SCOPE          -> GOV            SCOPE links to GOV but outbound_internal omits it
+  internal.json          SCOPE          -> GOV.B          SCOPE links to GOV.B but outbound_internal omits it
+  internal.json          SCOPE          -> INST           SCOPE links to INST but outbound_internal omits it
+  internal.json          SCOPE          -> JUR            SCOPE links to JUR but outbound_internal omits it
+  internal.json          SCOPE          -> LDW            SCOPE links to LDW but outbound_internal omits it
+  internal.json          SCOPE          -> LR.A           SCOPE links to LR.A but outbound_internal omits it
+  internal.json          SCOPE          -> PHASE1         SCOPE links to PHASE1 but outbound_internal omits it
+  internal.json          SCOPE          -> POL            SCOPE links to POL but outbound_internal omits it
+  internal.json          SCOPE          -> RATES          SCOPE links to RATES but outbound_internal omits it
+  internal.json          SCOPE          -> SWEEPS         SCOPE links to SWEEPS but outbound_internal omits it
+  internal.json          SCOPE          -> VAL            SCOPE links to VAL but outbound_internal omits it
+  internal.json          SCOPE          -> VAL.A          SCOPE links to VAL.A but outbound_internal omits it
+  internal.json          ADD            -> CORP.A         ADD links to CORP.A but outbound_internal omits it
+  internal.json          ADD            -> ENV            ADD links to ENV but outbound_internal omits it
+  internal.json          ADD            -> GOV            ADD links to GOV but outbound_internal omits it
+  internal.json          ADD            -> GOV.A          ADD links to GOV.A but outbound_internal omits it
+  internal.json          ADD            -> GOV.B          ADD links to GOV.B but outbound_internal omits it
+  internal.json          ADD            -> MF             ADD links to MF but outbound_internal omits it
+  internal.json          ADD            -> PHASE1         ADD links to PHASE1 but outbound_internal omits it
+  internal.json          ADD            -> POL            ADD links to POL but outbound_internal omits it
+  internal.json          ADD            -> SWEEPS         ADD links to SWEEPS but outbound_internal omits it
+  internal.json          ADD            -> VAL.A          ADD links to VAL.A but outbound_internal omits it
+  internal.json          ADD            -> WP             ADD links to WP but outbound_internal omits it
+  internal.json          WFR            -> MF             WFR links to MF but outbound_internal omits it
+  internal.json          WFR            -> SCOPE          WFR links to SCOPE but outbound_internal omits it
+  internal.json          WP             -> BEHAV          WP links to BEHAV but outbound_internal omits it
+  internal.json          WP             -> CLOSE          WP links to CLOSE but outbound_internal omits it
+  internal.json          WP             -> CORP.A         WP links to CORP.A but outbound_internal omits it
+  internal.json          WP             -> FAL            WP links to FAL but outbound_internal omits it
+  internal.json          WP             -> GOV.B          WP links to GOV.B but outbound_internal omits it
+  internal.json          WP             -> LDW            WP links to LDW but outbound_internal omits it
+  internal.json          WP             -> POL            WP links to POL but outbound_internal omits it
+  internal.json          WP             -> RATES.A        WP links to RATES.A but outbound_internal omits it
+  internal.json          WP             -> SWEEPS         WP links to SWEEPS but outbound_internal omits it
+  internal.json          WP             -> VAL.A          WP links to VAL.A but outbound_internal omits it
+  internal.json          WP             -> WFR            WP links to WFR but outbound_internal omits it
+  internal.json          WP             -> WFR.A          WP links to WFR.A but outbound_internal omits it
+  internal.json          INST           -> SCOPE          INST links to SCOPE but outbound_internal omits it
+  internal.json          MF             -> BEHAV          MF links to BEHAV but outbound_internal omits it
+  internal.json          MF             -> ENV            MF links to ENV but outbound_internal omits it
+  internal.json          MF             -> LDW            MF links to LDW but outbound_internal omits it
+  internal.json          MF             -> LR.B           MF links to LR.B but outbound_internal omits it
+  internal.json          MF             -> POL            MF links to POL but outbound_internal omits it
+  internal.json          MF             -> VAL            MF links to VAL but outbound_internal omits it
+  internal.json          MF             -> VAL.A          MF links to VAL.A but outbound_internal omits it
+  internal.json          MF             -> WP             MF links to WP but outbound_internal omits it
+  internal.json          LR.A           -> BEHAV          LR.A links to BEHAV but outbound_internal omits it
+  internal.json          LR.A           -> CLOSE          LR.A links to CLOSE but outbound_internal omits it
+  internal.json          LR.A           -> RATES          LR.A links to RATES but outbound_internal omits it
+  internal.json          LR.A           -> SCOPE          LR.A links to SCOPE but outbound_internal omits it
+  internal.json          LR.A           -> VAL            LR.A links to VAL but outbound_internal omits it
+  internal.json          LR.A           -> WFR            LR.A links to WFR but outbound_internal omits it
+  internal.json          LR.A           -> WP             LR.A links to WP but outbound_internal omits it
+  internal.json          LR.B           -> BEHAV          LR.B links to BEHAV but outbound_internal omits it
+  internal.json          LR.B           -> CLOSE          LR.B links to CLOSE but outbound_internal omits it
+  internal.json          LR.B           -> ENV            LR.B links to ENV but outbound_internal omits it
+  internal.json          LR.B           -> FAL            LR.B links to FAL but outbound_internal omits it
+  internal.json          LR.B           -> GOV            LR.B links to GOV but outbound_internal omits it
+  internal.json          LR.B           -> GOV.A          LR.B links to GOV.A but outbound_internal omits it
+  internal.json          LR.B           -> GOV.B          LR.B links to GOV.B but outbound_internal omits it
+  internal.json          LR.B           -> INST           LR.B links to INST but outbound_internal omits it
+  internal.json          LR.B           -> JUR            LR.B links to JUR but outbound_internal omits it
+  internal.json          LR.B           -> LDW            LR.B links to LDW but outbound_internal omits it
+  internal.json          LR.B           -> MF             LR.B links to MF but outbound_internal omits it
+  internal.json          LR.B           -> POL            LR.B links to POL but outbound_internal omits it
+  internal.json          LR.B           -> RATES          LR.B links to RATES but outbound_internal omits it
+  internal.json          LR.B           -> VAL            LR.B links to VAL but outbound_internal omits it
+  internal.json          LR.B           -> WFR            LR.B links to WFR but outbound_internal omits it
+  internal.json          LR.B           -> WP             LR.B links to WP but outbound_internal omits it
+  internal.json          JUR            -> GOV.B          JUR links to GOV.B but outbound_internal omits it
+  internal.json          JUR            -> RATES          JUR links to RATES but outbound_internal omits it
+  internal.json          JUR            -> SCOPE          JUR links to SCOPE but outbound_internal omits it
+  internal.json          JUR            -> SWEEPS         JUR links to SWEEPS but outbound_internal omits it
+  internal.json          JUR            -> SWEEPS.A       JUR links to SWEEPS.A but outbound_internal omits it
+  internal.json          JUR            -> VAL            JUR links to VAL but outbound_internal omits it
+  internal.json          VAL            -> BEHAV.A        VAL links to BEHAV.A but outbound_internal omits it
+  internal.json          VAL            -> CLOSE          VAL links to CLOSE but outbound_internal omits it
+  internal.json          VAL            -> ENV            VAL links to ENV but outbound_internal omits it
+  internal.json          VAL            -> GOV.B          VAL links to GOV.B but outbound_internal omits it
+  internal.json          VAL            -> PHASE1         VAL links to PHASE1 but outbound_internal omits it
+  internal.json          VAL            -> SWEEPS         VAL links to SWEEPS but outbound_internal omits it
+  internal.json          VAL            -> WFR            VAL links to WFR but outbound_internal omits it
+  internal.json          VAL.A          -> ENV            VAL.A links to ENV but outbound_internal omits it
+  internal.json          VAL.A          -> GOV.B          VAL.A links to GOV.B but outbound_internal omits it
+  internal.json          VAL.A          -> SWEEPS         VAL.A links to SWEEPS but outbound_internal omits it
+  internal.json          VAL.A          -> SWEEPS.A       VAL.A links to SWEEPS.A but outbound_internal omits it
+  internal.json          VAL.A          -> WFR            VAL.A links to WFR but outbound_internal omits it
+  internal.json          VAL.B          -> CLOSE          VAL.B links to CLOSE but outbound_internal omits it
+  internal.json          VAL.B          -> GOV.B          VAL.B links to GOV.B but outbound_internal omits it
+  internal.json          CORP           -> CLOSE          CORP links to CLOSE but outbound_internal omits it
+  internal.json          CORP           -> GOV.B          CORP links to GOV.B but outbound_internal omits it
+  internal.json          CORP           -> SCOPE          CORP links to SCOPE but outbound_internal omits it
+  internal.json          CORP.A         -> MF             CORP.A links to MF but outbound_internal omits it
+  internal.json          CORP.A         -> RATES          CORP.A links to RATES but outbound_internal omits it
+  internal.json          CORP.A         -> RATES.A        CORP.A links to RATES.A but outbound_internal omits it
+  internal.json          GOV            -> CLOSE          GOV links to CLOSE but outbound_internal omits it
+  internal.json          GOV            -> CORP           GOV links to CORP but outbound_internal omits it
+  internal.json          GOV            -> CORP.A         GOV links to CORP.A but outbound_internal omits it
+  internal.json          GOV            -> FAL            GOV links to FAL but outbound_internal omits it
+  internal.json          GOV            -> JUR            GOV links to JUR but outbound_internal omits it
+  internal.json          GOV            -> RATES          GOV links to RATES but outbound_internal omits it
+  internal.json          GOV            -> SCOPE          GOV links to SCOPE but outbound_internal omits it
+  internal.json          GOV            -> VAL            GOV links to VAL but outbound_internal omits it
+  internal.json          GOV            -> WP             GOV links to WP but outbound_internal omits it
+  internal.json          GOV.A          -> CORP           GOV.A links to CORP but outbound_internal omits it
+  internal.json          GOV.A          -> CORP.A         GOV.A links to CORP.A but outbound_internal omits it
+  internal.json          GOV.A          -> GOV.B          GOV.A links to GOV.B but outbound_internal omits it
+  internal.json          GOV.A          -> VAL            GOV.A links to VAL but outbound_internal omits it
+  internal.json          GOV.A          -> WP             GOV.A links to WP but outbound_internal omits it
+  internal.json          GOV.B          -> BEHAV          GOV.B links to BEHAV but outbound_internal omits it
+  internal.json          GOV.B          -> CLOSE          GOV.B links to CLOSE but outbound_internal omits it
+  internal.json          GOV.B          -> CORP           GOV.B links to CORP but outbound_internal omits it
+  internal.json          GOV.B          -> CORP.A         GOV.B links to CORP.A but outbound_internal omits it
+  internal.json          GOV.B          -> JUR            GOV.B links to JUR but outbound_internal omits it
+  internal.json          GOV.B          -> VAL            GOV.B links to VAL but outbound_internal omits it
+  internal.json          RATES          -> BEHAV          RATES links to BEHAV but outbound_internal omits it
+  internal.json          RATES          -> BEHAV.A        RATES links to BEHAV.A but outbound_internal omits it
+  internal.json          RATES          -> CORP           RATES links to CORP but outbound_internal omits it
+  internal.json          RATES          -> CORP.A         RATES links to CORP.A but outbound_internal omits it
+  internal.json          RATES          -> ENV            RATES links to ENV but outbound_internal omits it
+  internal.json          RATES          -> LR.A           RATES links to LR.A but outbound_internal omits it
+  internal.json          RATES          -> LR.B           RATES links to LR.B but outbound_internal omits it
+  internal.json          RATES          -> MF             RATES links to MF but outbound_internal omits it
+  internal.json          RATES          -> PHASE1         RATES links to PHASE1 but outbound_internal omits it
+  internal.json          RATES          -> SCOPE          RATES links to SCOPE but outbound_internal omits it
+  internal.json          RATES          -> SWEEPS         RATES links to SWEEPS but outbound_internal omits it
+  internal.json          RATES          -> WFR            RATES links to WFR but outbound_internal omits it
+  internal.json          RATES          -> WP             RATES links to WP but outbound_internal omits it
+  internal.json          RATES.A        -> GOV            RATES.A links to GOV but outbound_internal omits it
+  internal.json          RATES.A        -> JUR            RATES.A links to JUR but outbound_internal omits it
+  internal.json          SWEEPS         -> SCOPE          SWEEPS links to SCOPE but outbound_internal omits it
+  internal.json          SWEEPS.A       -> RATES          SWEEPS.A links to RATES but outbound_internal omits it
+
+[INFO] anchors.yml entries with no matching heading: 109
+  BEHAV┬º10.5, BEHAV┬º10.6, BEHAV┬º10.7, BEHAV┬º12.1, BEHAV┬º12.2, BEHAV┬º12.3, BEHAV┬º12.4, BEHAV┬º12.5, BEHAV┬º13, BEHAV┬º6.5, BEHAV┬º8.10, BEHAV┬º8.11, BEHAV┬º8.12, BEHAV┬º8.13, BEHAV┬º8.3, BEHAV┬º8.4, BEHAV┬º8.5, BEHAV┬º8.6, BEHAV┬º8.7, BEHAV┬º8.8, BEHAV┬º8.9, BEHAV┬ºA, BEHAV┬ºA.1, BEHAV┬ºA.2, BEHAV┬ºA.3, CORP.A┬ºC.1, CORP.A┬ºC.2, CORP.A┬ºC.3, CORP.A┬ºC.4, CORP.A┬ºF.2, CORP.A┬ºF.2.1, CORP.A┬ºF.2.2, CORP.A┬ºF.2.3, CORP.A┬ºF.2.4, CORP.A┬ºF.3, CORP.A┬ºF.4, CORP.A┬ºF.5, CORP.A┬ºF.6, CORP.A┬ºF.7, CORP.A┬ºF.8
+
+528 issue(s), 11 error(s)

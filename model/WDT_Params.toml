@@ -313,7 +313,14 @@ V0_m  = 139.607368  # £139,607,368
 # ─────────────────────────────────────────────────────────────
 [val]
 V0_m   = 20.0   # £20m — VAL reference entry wealth
-rho    = 0.05   # 5% discount rate
+rho    = 0.05   # 5% discount rate (headline)
+rho_sweep = [0.0, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.12]   # C.12b / Fig 7.4-7.6; fine grid around the breakeven
+rho_display = [0.0, 0.03, 0.05, 0.07, 0.09, 0.12]   # subset drawn as panels in Fig 7.5
+alpha_max = 5.0
+unc_sigmas = [0.0, 0.083, 0.15, 0.25]   # annual return volatility for the declaration-under-uncertainty Monte Carlo (0.083 = std of the historical series)
+unc_paths  = 1000    # paired return paths per volatility
+unc_seed   = 20260930   # upper end of the extended alpha search in Fig 7.4-7.6 (headline tables stay on [0.1, 2.0])
+tol_pp    = 2.0   # state tolerance: |PV revenue difference| <= tol_pp of honest TW(1) is 'not of concern'
 N_demo = 30     # Illustrative demographic holding period (years). This is N_val,
                 # the CANONICAL N for every individual-level VAL figure and table.
                 # Rationale: WDT entry is typically triggered by an inheritance

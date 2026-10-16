@@ -511,8 +511,8 @@ def npv_tax(records, sell, rho, alpha=1.0, settle_flows=()):
     return pv
 
 
-def _run_full(p, alpha, g, N, rho):
-    """Simulate + sell + settle for one (alpha, g, N); return everything."""
+def _run_core(p, alpha, g, N):
+    """Simulate + sell + settle for one (alpha, g, N). Independent of rho."""
     sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
     recs  = simulate(p['V0_m'], [g] * N, alpha, sim_p)
     sell  = simulate_sell(recs, g, sim_p)
@@ -523,14 +523,25 @@ def _run_full(p, alpha, g, N, rho):
         gross_ref += sell['L_sell']
     tw, net_settle, _, flows = settle_tw_flows(sell, sim_p)
     return {
-        'records': recs, 'sell': sell, 'TW_settled': tw,
+        'records': recs, 'sell': sell, 'flows': flows, 'alpha': alpha,
+        'TW_settled': tw,
         'Net_settled': gross_tax + gross_ref + net_settle,
-        'npv_true': npv_tax(recs, sell, rho, alpha, flows),
-        'npv_declared': npv_tax_declared(recs, sell, rho),
+    }
+
+
+def _run_full(p, alpha, g, N, rho):
+    """Simulate + sell + settle for one (alpha, g, N); return everything."""
+    c = _run_core(p, alpha, g, N)
+    return {
+        'records': c['records'], 'sell': c['sell'],
+        'TW_settled': c['TW_settled'], 'Net_settled': c['Net_settled'],
+        'npv_true': npv_tax(c['records'], c['sell'], rho, alpha, c['flows']),
+        'npv_declared': npv_tax_declared(c['records'], c['sell'], rho),
     }
 
 
 _HONEST_CACHE = {}
+_CORE_HONEST_CACHE = {}
 
 
 def _honest(p, g, N, rho):
@@ -538,6 +549,188 @@ def _honest(p, g, N, rho):
     if key not in _HONEST_CACHE:
         _HONEST_CACHE[key] = _run_full(p, 1.0, g, N, rho)
     return _HONEST_CACHE[key]
+
+
+def _honest_core(p, g, N):
+    key = (g, N, p['V0_m'], p['k'], p['tau_0'], p['tau_m'], p['W_min'])
+    if key not in _CORE_HONEST_CACHE:
+        _CORE_HONEST_CACHE[key] = _run_core(p, 1.0, g, N)
+    return _CORE_HONEST_CACHE[key]
+
+
+def run_pair_rhos(p, alpha, g, N=None, rhos=()):
+    """
+    Like run_pair, but evaluates the PV metric at several discount rates from a
+    SINGLE simulation (the simulation does not depend on rho).
+
+    Returns dict: net_pct, tw_gap, tw_cost, pv_pct (list, one per rho, same order
+    as `rhos`), N. All fractions of TW_settled(1).
+    """
+    N = _require_N(N, 'run_pair_rhos')
+    h = _honest_core(p, g, N)
+    a = h if alpha == 1.0 else _run_core(p, alpha, g, N)
+    d = h['TW_settled'] if abs(h['TW_settled']) > 1e-12 else 1.0
+    tw_gap = (a['TW_settled'] - h['TW_settled']) / d
+    pv = []
+    for rho in rhos:
+        ph = npv_tax(h['records'], h['sell'], rho, 1.0, h['flows'])
+        pa = npv_tax(a['records'], a['sell'], rho, alpha, a['flows'])
+        pv.append((pa - ph) / d)
+    return {'net_pct': (a['Net_settled'] - h['Net_settled']) / d,
+            'tw_gap': tw_gap, 'tw_cost': -tw_gap, 'pv_pct': pv, 'N': N}
+
+
+# ─────────────────────────────────────────────────────────────
+# DECLARED-PATH SIMULATION (declaration independent of realised value)
+# ─────────────────────────────────────────────────────────────
+#
+# The constant-alpha simulate() ties the declaration to the true value path
+# (D_t = alpha * V_t), i.e. the taxpayer implicitly knows V_t. Here the declared
+# asset value D_t is set independently and the market reveals V_t, so the
+# realised ratio alpha_t = D_t / V_t is a random outcome, not a choice.
+#
+# Route C in-kind identity: paying credited liability L_t surrenders equity worth
+# L_t * V_t / D_t = L_t / alpha_t in TRUE value. Sale-year and post-sale flows are
+# cash at true prices (declaration drops out at liquidation).
+
+def declared_path(V0_m, returns, m, mode, g_exp):
+    """
+    Build (D0, D_list, V_list) for a taxpayer who targets a declaration level m.
+
+      mode 'committed' : D_t = m * V0 * (1+g_exp)^t   (fixed at t=0 from the expected path)
+      mode 'lagged'    : D_t = m * V_{t-1} * (1+g_exp) (re-anchored each year on last year's
+                                                        observed true value)
+      mode 'honest'    : D_t = V_t                     (m ignored)
+
+    returns : N+1 realised growth rates (last one is the sale year, unused here)
+    Returns D0, D (list len N), V (list len N+1, V[0]=V0).
+    """
+    N = len(returns) - 1
+    V = [V0_m]
+    for t in range(1, N + 1):
+        V.append(V[-1] * (1.0 + returns[t - 1]))
+    if mode == 'honest':
+        return V0_m, V[1:], V
+    if mode == 'committed':
+        D = [m * V0_m * (1.0 + g_exp) ** t for t in range(1, N + 1)]
+    elif mode == 'lagged':
+        D = [m * V[t - 1] * (1.0 + g_exp) for t in range(1, N + 1)]
+    else:
+        raise ValueError(f"declared_path: unknown mode {mode!r}")
+    return m * V0_m, D, V
+
+
+def simulate_declared(V0_m, returns, D0, D, p):
+    """
+    Route C simulation with an arbitrary declared asset-value path.
+    Same mechanics as simulate(), with W = f * D_t. Each record also carries
+    alpha_t = D_t / V_t (realised ratio) and true_paid = L / alpha_t.
+    """
+    N   = len(D)
+    V   = V0_m
+    f   = 1.0
+    W   = D0
+    cum = 0.0
+    records = [{'t': 0, 'V': V, 'W': W, 'f': f, 'cum': cum, 'L': 0.0,
+                'rate': tau(W, p), 'delta': 0.0, 'q': 0.0,
+                'alpha_t': D0 / V0_m, 'true_paid': 0.0}]
+    for t in range(1, N + 1):
+        V     = V * (1.0 + returns[t - 1])
+        W_new = f * D[t - 1]
+        rate  = tau(W_new, p)
+        delta = W_new - W
+        L     = max(-cum, rate * delta) if (delta > 0.0 or cum > 0.0) else 0.0
+        q     = (L / W_new) if W_new != 0.0 else 0.0
+        f     = f * (1.0 - q)
+        cum  += L
+        W     = W_new
+        a_t   = D[t - 1] / V
+        records.append({'t': t, 'V': V, 'W': W_new, 'f': f, 'cum': cum, 'L': L,
+                        'rate': rate, 'delta': delta, 'q': q,
+                        'alpha_t': a_t, 'true_paid': L / a_t})
+    return records
+
+
+def run_declared(p, returns, m, mode, g_exp):
+    """Simulate + sell + settle for one declared-path taxpayer on one realised path."""
+    N = len(returns) - 1
+    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    D0, D, V = declared_path(p['V0_m'], returns, m, mode, g_exp)
+    recs = simulate_declared(p['V0_m'], returns, D0, D, p)
+    sell = simulate_sell(recs, returns[N], sim_p)
+    gross_tax, gross_ref, _ = _holding_totals(recs)
+    if sell['L_sell'] > 0:
+        gross_tax += sell['L_sell']
+    else:
+        gross_ref += sell['L_sell']
+    tw, net_settle, _, flows = settle_tw_flows(sell, sim_p)
+    return {'records': recs, 'sell': sell, 'flows': flows, 'TW_settled': tw,
+            'Net_settled': gross_tax + gross_ref + net_settle,
+            'alpha_N': recs[-1]['alpha_t']}
+
+
+def npv_true_declared(run, rho):
+    """PV of true-value payments for a run_declared() result (see module note above)."""
+    pv = 0.0
+    for rec in run['records'][1:]:
+        pv += rec['true_paid'] / (1.0 + rho) ** rec['t']
+    t_sell = run['sell']['t']
+    pv += run['sell']['L_sell'] / (1.0 + rho) ** t_sell
+    for i, L in enumerate(run['flows'], start=1):
+        pv += L / (1.0 + rho) ** (t_sell + i)
+    return pv
+
+
+def run_declared_pair(p, returns, m, mode, g_exp, rhos):
+    """
+    Paired comparison on ONE realised return path: declared-path taxpayer vs honest.
+    All fractions of the honest TW_settled on the same path.
+    Returns dict: net_pct, tw_gap, pv_pct (list over rhos), alpha_N.
+    """
+    h = run_declared(p, returns, 1.0, 'honest', g_exp)
+    a = run_declared(p, returns, m, mode, g_exp)
+    d = h['TW_settled'] if abs(h['TW_settled']) > 1e-12 else 1.0
+    pv = [(npv_true_declared(a, r) - npv_true_declared(h, r)) / d for r in rhos]
+    return {'net_pct': (a['Net_settled'] - h['Net_settled']) / d,
+            'tw_gap': (a['TW_settled'] - h['TW_settled']) / d,
+            'pv_pct': pv, 'alpha_N': a['alpha_N']}
+
+
+
+def breakeven_rho(p, alpha, g, N=None, tol_frac=0.02, rho_max=0.60):
+    """
+    Discount rate at which the state's PV shortfall from `alpha` (vs honest) equals
+    tol_frac of TW(1), i.e. PV_true(alpha) - PV_true(1) = -tol_frac * TW(1).
+    For over-declarers the shortfall shrinks monotonically as rho rises, so the
+    breakeven is found by bisection.
+
+    Returns (rho_star, status) with status in
+      'none'   : shortfall never exceeds tol even at rho = 0   (rho_star = 0.0)
+      'ok'     : bracketed and solved
+      'capped' : still beyond tol at rho_max                    (rho_star = rho_max)
+    """
+    N = _require_N(N, 'breakeven_rho')
+    h = _honest_core(p, g, N)
+    a = h if alpha == 1.0 else _run_core(p, alpha, g, N)
+    d = h['TW_settled'] if abs(h['TW_settled']) > 1e-12 else 1.0
+
+    def gap(rho):
+        ph = npv_tax(h['records'], h['sell'], rho, 1.0, h['flows'])
+        pa = npv_tax(a['records'], a['sell'], rho, alpha, a['flows'])
+        return (pa - ph) / d + tol_frac       # >= 0 means within tolerance (or better)
+
+    if gap(0.0) >= 0:
+        return 0.0, 'none'
+    if gap(rho_max) < 0:
+        return rho_max, 'capped'
+    lo, hi = 0.0, rho_max
+    for _ in range(60):
+        mid = 0.5 * (lo + hi)
+        if gap(mid) < 0:
+            lo = mid
+        else:
+            hi = mid
+    return 0.5 * (lo + hi), 'ok'
 
 
 def run_pair(p, alpha, g, N=None, rho=None):
@@ -913,6 +1106,13 @@ def load_params(toml_path=None):
 
     p['V0_m']  = float(raw['val']['V0_m'])
     p['rho']   = float(raw['val']['rho'])
+    p['rho_sweep'] = [float(x) for x in raw['val'].get('rho_sweep', [0.0, 0.02, 0.03, 0.05, 0.07, 0.10])]
+    p['tol_pp']    = float(raw['val'].get('tol_pp', 2.0))
+    p['rho_display'] = [float(x) for x in raw['val'].get('rho_display', [0.0, 0.03, 0.05, 0.07, 0.09, 0.12])]
+    p['alpha_max']   = float(raw['val'].get('alpha_max', 5.0))
+    p['unc_sigmas']  = [float(x) for x in raw['val'].get('unc_sigmas', [0.0, 0.083, 0.15, 0.25])]
+    p['unc_paths']   = int(raw['val'].get('unc_paths', 1000))
+    p['unc_seed']    = int(raw['val'].get('unc_seed', 20260930))
     p['N_demo'] = int(raw['val'].get('N_demo', 30))
     p['N_val']  = p['N_demo']
     p['g']     = p['hist_mean']

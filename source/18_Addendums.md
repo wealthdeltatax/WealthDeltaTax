@@ -313,27 +313,27 @@ The design is complete. The implementation is not this project's to do.
 
 \newpage
 
-# Open Questions {.unnumbered .unlisted}
+# 14. Open Questions {.unnumbered .unlisted}
 
 The open questions below do not represent work this project intends to complete. They represent work a jurisdiction would need to commission from appropriately qualified experts before implementation. They are listed here to make explicit that the approaches sketched in the body sections are not complete answers — each of the five questions below corresponds to a gap that the body sketches leave open and that cannot be closed by further desk research within this project.
 
-## 1. Composite Wealth Appreciation Index Construction
+## 14.1 Composite Wealth Appreciation Index Construction
 
 The threshold indexation approach described in (ADD §3.2) requires a composite index tracking broad wealth appreciation across the major asset classes in the enrolled population's holdings. The construction methodology — the asset class weights, the data sources, the rebalancing frequency, and the responsible institution — requires statistical expertise, administrative capacity assessment, and legal grounding that this project is not positioned to provide. This is a precondition for the indexation approach to function, not a detail that can be deferred to implementation.
 
-## 2. Coalition Interest Distribution Methodology
+## 14.2 Coalition Interest Distribution Methodology
 
 The conflict of interest visibility approach described in (ADD §4.2) requires a methodology for assessing an initiating TP coalition's direct financial interest in a proposal's outcome. The methodology must be specific enough to produce figures that are defensible against legal challenge and standardised enough to apply consistently across different proposal types. Its development is an operational design question requiring legal, administrative, and governance expertise. The Allocator would apply it where it publishes on a proposal, and it would serve any observer working from the disclosed assessments of a proposal's initiator and signatories (GOV.B §F.2).
 
-## 3. Import Leakage Quantification
+## 14.3 Import Leakage Quantification
 
 The consumption delta analysis in (ADD §7.3) identifies purely offshore transactions with no UK nexus as the residual leakage category. Whether this leakage is large enough to warrant diplomatic priority on $\tau_f$ agreement expansion cannot be assessed without empirical data on the composition of ultra-HNWI consumption expenditure. The question falls within the cross-base externality cluster (PHASE1 §4.3) and requires Phase One empirical work rather than further desk analysis.
 
-## 4. Bootstrapping Facility Mandate Assessment
+## 14.4 Bootstrapping Facility Mandate Assessment
 
 The bootstrapping facility approach in (ADD §10) requires a specific public institution with the legal mandate and institutional capacity to provide the facility. Whether any such institution exists in a given implementing jurisdiction, and whether its mandate and governance arrangements are compatible with the facility's constitutional requirements, is a legal and institutional question requiring jurisdiction-specific analysis. It is a precondition for the approach to be exercisable, not a subsequent implementation detail.
 
-## 5. DR Forum Quality Monitoring Instrument
+## 14.5 DR Forum Quality Monitoring Instrument
 
 The approach in (ADD §5.2) requires a measure of DR forum engagement relative to the enrolled population, tracked against a Phase One baseline. The specific metric — what constitutes engagement, how it is measured without compromising member privacy, and what baseline is appropriate — requires operational design work that depends on the Administrator's specific technical architecture and the legal framework governing member data. It cannot be specified in advance of implementation.
 
