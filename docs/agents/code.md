@@ -19,6 +19,7 @@ Source, tests and tools under `model/` and `pipeline/`, and git for them.
 - Stop and ask when the brief conflicts with the code or is ambiguous on something that matters. Do not quietly redesign.
 - Keep the diff tight; unrelated problems become follow-ups in the report.
 - Work through the acceptance criteria one by one. If one cannot be met, report the measured result; do not retune the test.
+- Import checks: `python -I` ignores the current directory, so `python -I -c "import x"` cannot find a sibling module. Write `python -I -c "import sys; sys.path.insert(0, '.'); import x"` from inside the folder.
 - Bugs: reproduce first, find the root cause, fix minimally, check neighbours.
 - Commit per `AGENTS.md`; do not edit the overview.
 
