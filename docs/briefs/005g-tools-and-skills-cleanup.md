@@ -35,7 +35,7 @@ Unzip each `.skill` and diff against `.claude/skills/<role>/SKILL.md`.
 Changing role guides.
 
 ## Open questions
-- Keep both `.claude/skills/` and `Tools/*.skill` (recommended, with the diff check), or one? Not yet answered by the author; do the recommended thing and report.
+- Keep both `.claude/skills/` and `Tools/*.skill` (recommended, with the diff check), or one? Not yet answered by the author; do the recommended thing and report (not a stop condition for auto-merge).
 
 ## Implementation notes
 <!-- progress:start -->

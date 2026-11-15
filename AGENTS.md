@@ -11,10 +11,18 @@ Read `START_HERE.md`, then the guide for your role in `docs/agents/`. This file 
 - **The author** (K. Ogata) decides open questions.
 
 ## Git
-- `main` deploys the live site on every push. Never push to `main` except guru docs-only edits.
+- `main` deploys the live site on every push (the workflow runs only on `main`, never on a branch). Push to `main` only by the auto-merge rule below, or for guru docs-only edits.
 - One branch per task: `brief/NNN-slug` or `fix/<slug>`, from the latest `main`. Commit and push to the branch.
 - Never force-push `main`. `git pull --rebase` before pushing.
 - Commit message: `type(scope): imperative summary`; types `feat fix refactor docs chore perf`. Stage specific files; one logical change per commit.
+
+## Auto-merge
+When a brief is finished, its agent merges its own branch into `main`; the author does not need to approve.
+- **Merge when all hold:** every acceptance criterion is met and measured; every check the brief names has run and passed; the change report is written and committed; the diff stays inside the brief's `Touches`; no open question for the author remains.
+- **How:** `git fetch`, rebase the branch on `origin/main`, re-run the brief's fast checks if the rebase brought in changes, then `git push origin HEAD:main`. Fast-forward only; never force. Then say "brief NNN merged, ready to retire" in the change report.
+- **Before merging a change that affects the site** (anything under `pipeline/`, `site/`, `registry/`, `model/`, `.github/`): the local build named in the brief must pass first, because the push deploys at once. After the push, watch the Action; if it fails, revert the merge commit on `main` immediately and report.
+- **Do not merge, leave the branch pushed and say `NEEDS THE AUTHOR`, when:** a criterion is unmet or a check was not run; the brief says the author reviews; the diff touches `source/` (paper text) or deletes tracked files the brief does not name; a rebase conflict needs a judgement call.
+- The guru reviews after the merge (criteria with numbers, status, decisions entry) and may revert.
 
 ## Generated files (never edit by hand)
 `_build/`, `_site/`, `registry/anchors.yml`, `registry/crosslinks.json`, `model/OUTPUTS/`. Change the source and regenerate.

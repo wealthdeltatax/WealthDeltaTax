@@ -17,7 +17,7 @@ Stop tracking generated reports and editor state, and remove the debug step from
 - Triage found nothing reads `check.txt` or `check2.txt` (no script, workflow or guide names them), so deletion is safe. `docs/agents/reference/writing/style-guide.md` tells the writer to run the check fresh.
 - `.gitignore`: add `source/.obsidian/` and untrack all five files in it (`git rm -r --cached source/.obsidian`); the author's local Obsidian config stays on disk. Also add `check*.txt` and `pipeline/check*.txt` so future output is not committed.
 - `deploy.yml`: remove the final "Inspect build output" step, which only lists WFR figures. Confirm the WFR figures are produced first.
-- `main` deploys on push, so do this on a branch and check that the Action stays green.
+- `main` deploys on push and the workflow does not run on branches, so do this on a branch, run the local build, merge by the `AGENTS.md` auto-merge rule, then watch the Action and revert if it fails.
 
 ## Touches
 `check.txt`, `pipeline/check2.txt`, `.gitignore`, `.github/workflows/deploy.yml`, `source/.obsidian/`.
@@ -26,7 +26,7 @@ Stop tracking generated reports and editor state, and remove the debug step from
 - The deploy workflow still builds and deploys; no tracked generated report remains at the repo root.
 
 ## Checks to run
-Push the branch and watch the GitHub Action; `git status` clean after a local `pipeline/build.bat` run.
+A local `pipeline/build.bat` run succeeds and leaves `git status` clean; after the merge, the GitHub Action on `main` is green.
 
 ## Out of scope
 Changing any build step other than the debug step.

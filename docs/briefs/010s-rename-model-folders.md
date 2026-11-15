@@ -24,21 +24,21 @@ Triage found:
 
 ## Stages
 - A: rename `model_new_2` to `model_v2` and fix the docs that name it. Checkpoint: branch pushed; check: `grep -rn model_new_2` finds only briefs and decisions.
-- B: rename `model` to `model_v1`, change `preprocess.py` and comments, build locally. Checkpoint: branch pushed, the Action is green; check: the built site still contains `_site/model/` calculator pages and the figures count equals the count before.
+- B: rename `model` to `model_v1`, change `preprocess.py` and comments, build locally. Checkpoint: branch pushed, local build passes; check: the built site still contains `_site/model/` calculator pages and the figures count equals the count before.
 
 ## Acceptance criteria
 - `git ls-files | grep -E '^(model|model_new_2)/'` is empty.
-- The site build output is the same set of files as before (compare `find _site -type f | sort` before and after), and the GitHub Action stays green.
+- The site build output is the same set of files as before (compare `find _site -type f | sort` before and after), and the GitHub Action on `main` is green after the merge.
 - `/model/wdt_core.py` and `/model/WDT_Params.toml` are still published.
 
 ## Checks to run
-Local `pipeline/build_and_render.bat` (or the Linux equivalent in CI) before and after; file-list diff; push the branch and watch the Action. Do not merge to `main` until it is green: `main` deploys on push.
+Local `pipeline/build_and_render.bat` before and after, and the file-list diff. The Action does not run on branches, so merge only after the local build matches, then watch the Action on `main` and revert if it fails (`AGENTS.md` Auto-merge).
 
 ## Out of scope
 Changing the published URLs, renaming scripts, any change to model code.
 
 ## Open questions
-- Keep the published URL `/model/` (recommended) or move it to `/model_v1/`? The second would break any external links to the calculators.
+- Keep the published URL `/model/` (default) or move it to `/model_v1/`? The second would break any external links to the calculators. Use the default; this is not a stop condition for auto-merge.
 
 ## Implementation notes
 <!-- progress:start -->

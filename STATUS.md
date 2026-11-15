@@ -15,11 +15,11 @@ Papers are being rewritten by the author. All housekeeping comes first (briefs 0
 | Agent 5 | Free | none planned |
 
 ## Waiting on the author
-- Merge `brief/002-repo-triage` (docs only) so agents see the revised briefs.
 - Approve the audit brief 001c (scope, one stage per session, writes only under `docs/model-audit/`).
 - Two small choices with defaults in the briefs: letter `s` for the web role; keep the published URL `/model/` when the folder becomes `model_v1` (010s).
 
 ## Recently done
+- 2026-11-15: auto-merge rule added to `AGENTS.md` (agents merge their own finished briefs; site changes build locally first because the Action runs only on `main`); branch `brief/002-repo-triage` merged to `main`.
 - 2026-11-15: scaffold audit and agent guides; repo triage (002g) with the final brief order; author's decisions applied (untrack `source/.obsidian/`, delete old `Tools/` skill files and `web_search.json`, rename and keep docs, keep data dumps, audit models before v3); lane-letter rule added to the guru guide and brief template; `docs/lane-plan.html` rebuilt for these briefs.
 
 ## Open findings
