@@ -1,6 +1,6 @@
 # 003: Crosslink output files, gitignore and CI debug step
 
-- **Status:** ready
+- **Status:** built (merged)
 - **Author/date:** K. Ogata with the guru, 2026-11-15
 - **Depends on:** 002 (merged). Order: 1st of the cleanup set; independent of 004, 006, 008, so they may run in parallel.
 - **Read:** `check.txt`, `pipeline/check2.txt`, `.gitignore`, `.github/workflows/deploy.yml`, `source/.obsidian/`

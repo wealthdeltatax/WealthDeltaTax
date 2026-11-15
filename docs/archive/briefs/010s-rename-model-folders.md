@@ -1,6 +1,6 @@
 # 010: Rename the model folders to model_v1 and model_v2
 
-- **Status:** ready
+- **Status:** built (merged)
 - **Author/date:** K. Ogata with the guru, 2026-11-15
 - **Depends on:** 006c (so the deletions happen at the old paths). Order: after 003s, which also edits the deploy workflow.
 - **Read:** `pipeline/preprocess.py` (lines 140 to 190), `pipeline/transforms.py` (lines 55 to 70), `pipeline/tools.py`, `site/_quarto.yml`, `site/tools/taxpayer_calc.html`, `site/pages/calculator_index.md`, `.github/workflows/deploy.yml`.
