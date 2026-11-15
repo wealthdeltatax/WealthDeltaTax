@@ -17,6 +17,8 @@ model/       v1/v2 Python model (legacy, see section 6): *_core.py, *_tables.py,
              WDT_Params.toml, jst_r6.json, OUTPUTS/ (tracked, generated), test/
 docs/        todo.md, EVAL_PLAN.md, plans; agents/ (role guides + reference/); briefs/;
              decisions.md; model-lessons/ (legacy model notes); audit/; wdt-site-architecture.md
+model_new_2/ second model (v2, legacy): wdt_core/kernel/jst/par, EVAL/, RATES/, VAL/, WID data and guide,
+             README.md, WDT_Code_Reference.md; replaced by model v3 (brief 001)
 Rates Data/  source spreadsheets (JST, tax tables)      Research/  background PDF
 Tools/       old .skill archives (superseded by docs/agents/, to be removed)
 .github/workflows/deploy.yml   Quarto build and GitHub Pages deploy on push to main
@@ -40,7 +42,8 @@ See `STATUS.md`. Finished work and decisions: `docs/decisions.md`.
 ## 6. Findings and open issues
 - `docs/wdt-site-architecture.md` still says the root is `wdt-site/` and was last synced 5 Oct 2026.
 - `model/WDT_Model_Reference.md` names `rates_model.py` (now `rates_core1.py`) and old script numbers.
-- The v1/v2 model is being replaced by a third refactor (brief 001). Do not extend it.
+- The v1 (`model/`) and v2 (`model_new_2/`) models are being replaced by a third refactor (brief 001). Do not extend either.
+- `model_new_2/` is large (WID data dumps, raw JSON) and contains an `SS` folder of superseded material.
 - `check.txt` and `pipeline/check2.txt` are old crosslink-check output kept at their old paths.
 - `model/test/` holds `welfare_core.py` and `welfare_tables.py`, which are not tests.
 - Crosslink errors in the papers (duplicate ADD section numbers, missing SCOPE/RATES/WFR/SWEEPS targets): see `check.txt`; the author is rewriting the papers.
