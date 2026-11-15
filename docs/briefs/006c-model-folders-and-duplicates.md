@@ -46,11 +46,29 @@ Rewriting git history to shrink the pack (the pack is 106 MB; ask the author if 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:**
+- **Done:** Stage A (four `SS` folders and `model_new_2/test/_backups` deleted) and stage B (`model/test/welfare_core.py`, `welfare_tables.py` deleted). Both pushed to `brief/006-model-folders`.
+- **Next:** The author decides the merge (see Gotchas). Then the guru retires the brief.
+- **Decisions:** Ran the `wfr_core` import check with `sys.path.insert(0, '.')` added (see Gotchas) and also on the pre-change baseline 16b06df, which behaves the same.
+- **Gotchas:** The brief's check `python -I -c "import wfr_core"` fails with ModuleNotFoundError, before and after this change, because `-I` leaves the current directory off `sys.path`. Brief 009c or the guru should fix the wording. Not merged for that reason, per `AGENTS.md` ("do not change the check to make it pass").
+- **Resume:** Branch is final. If the author accepts the amended check: `git fetch`, rebase on `origin/main`, `git push origin HEAD:main`.
+- **Not run:** Model run scripts (legacy, long; the brief excludes them). No site build named in the brief.
+- **State:** NEEDS THE AUTHOR.
+
+```
+Change report
+- Task: 006c Model folders: remove superseded material, backups and in-folder duplicates
+- Files changed: 224 files deleted under model_new_2/SS, model_new_2/test/SS, model_new_2/RATES/SS, model_new_2/VAL/SS, model_new_2/test/_backups (superseded material and 61 .bak backups); 2 files deleted: model/test/welfare_core.py, welfare_tables.py (unused shims); this brief's notes
+- What is different now: legacy model folders no longer carry superseded copies or backups; model/test holds only the four test_*.py files
+- New or changed interfaces: none
+- Acceptance criteria:
+  - No tracked .bak, SS or _backups path remains: met, `git ls-files | grep -E '/SS/|\.bak|_backups'` returns 0 lines (224 before)
+  - Tracked-file drop about 226 files and about 37 MB: met, 709 -> 483 tracked files (226 deleted, 174,118 lines); model_new_2 tracked 411 -> 187; model_new_2 on disk 192 MB -> 154 MB (38 MB)
+  - Core imports still resolve: met, wdt_core, wdt_kernel, wdt_jst, wdt_par in model_new_2 and wdt_core, wfr_core, wdt_md in model all import
+  - Repo size before and after: git pack 105.83 MiB before and after (history kept, as expected)
+- Deviations from the brief: import check run with sys.path.insert(0, '.') because the literal command cannot work under -I
+- Risks / follow-ups: fix the check wording in the brief template or 009c; welfare_* comments remain in model/wfr_core.py and model/wdt_core.py (harmless, left alone); `OVERVIEW.md` still says the SS folder exists
+- Verification: grep for SS references in .py files found only files inside SS; re-grep for welfare_(core|tables) found only comments and the shims themselves; ls-files grep empty; imports above; diff vs 16b06df stays inside Touches
+- Overview sections likely needing an update: section 2 (model_new_2 line), section 6 (SS folder and model/test bullets)
+- Commit / branch: fbcd969 and e9cf79c, brief/006-model-folders (notes commit follows)
+```
 <!-- progress:end -->
