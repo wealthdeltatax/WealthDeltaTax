@@ -1,0 +1,11 @@
+patch_001_s5_val_presentation: LIVE tree                                     
+  PASS  live: every op already applied {'5_6_VALGEN_tables.py': (0, 4), '5_7_VALGEN_charts.py': (0, 4), 'WDT_Params.toml': (0, 2)}
+  PASS  live: files compile / parse 
+  PASS  live: existing tests pass {'kernel_test.py': 0}
+  FAIL  8 builders run on the synthetic JSON Traceback (most recent call last):_runner.py", line 27, in <module>
+    t = tb.BUILDERS[pid](d, p); c = ch.BUILDERS[pid](d, p)
+        ~~~~~~~~~~~^^^^^
+KeyError: 'RPL'
+
+
+3 passed, 1 failed

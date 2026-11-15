@@ -1,0 +1,200 @@
+"""
+bridge_test.py -- D9 bridge test (WDT_Refactor_Plan phase 4)
+============================================================
+A single honest line (alpha = 1) must give the same answer in every engine that wraps the kernel's mechanics.
+Archetype, path, rule set, lambda, death verification, consumption and Route B mode are held identical.
+
+  A  kernel line  vs  valgen_core.run_family3     all five archetypes x B modes x rule sets x lambda
+                                                  compared: family true value at T, state true value at T
+  B  RATES line   vs  valgen_core.run_family3     rates_core.run_lines at alpha = 1, lam = 0, no verification.
+                                                  B1 exact cases (hard): pure sale/C, pure lien-B, pure income-B
+                                                  B2 the five archetypes x modes (DIFF, not FAIL): RATES treats the
+                                                     non-B share as in-kind units with a per-line units cap, valgen
+                                                     settles A and D in cash against a pooled envelope and allocates by
+                                                     positive-delta shares. The DIFF column tells S1 / S2 what to align.
+                                                  SKIPs (with the reason) if rates_core.run_lines changes signature.
+
+Section A is a hard test (tolerance TOL).
+
+    python bridge_test.py
+"""
+
+import sys
+from pathlib import Path
+
+
+
+import numpy as np
+
+_HERE = Path(__file__).resolve().parent
+for _d in (_HERE, _HERE / 'VAL', _HERE.parent / 'VAL', _HERE / 'RATES', _HERE.parent / 'RATES'):   # valgen_core is in VAL/, rates_core in RATES/
+    if _d.is_dir():
+        sys.path.insert(0, str(_d))
+import wdt_kernel as wk
+
+TOL = 1e-9
+results = []
+table_b = []
+table = []                      # (archetype, mode, rule, lam, rel diff) for the printed summary
+
+
+def check(name, ok, detail=''):
+    results.append((name, bool(ok), detail))
+    print(f"  {'PASS' if ok else 'FAIL'}  {name} {detail}")
+
+
+def _load():
+    """valgen_core, wdt_core and the parameter dict, or None (with the reason) if any is missing."""
+    try:
+        import valgen_core as vc
+        import wdt_core as wc
+        p0 = vc.with_rate_scenario(vc.load_params())
+        try:
+            p = vc.with_val_basis(p0)
+        except FileNotFoundError:                                            # no JST file: the hand values of [val_gen]
+            p0 = dict(p0, val_gen=dict(p0['val_gen'], basis='manual', g_real=0.0442, index_rate=0.01872))
+            p = vc.with_val_basis(p0)
+            print('  NOTE  JST file not found: manual basis g_real=0.0442, index_rate=0.01872')
+        rp = vc.rate_params(p)
+        return vc, wc, p, rp, None
+    except Exception as e:                                                   # noqa: BLE001
+        return None, None, None, None, f'{type(e).__name__}: {str(e)[:100]}'
+
+
+def parity_archetypes():
+    vc, wc, p, rp, err = _load()
+    if err:
+        print(f'  SKIP  bridge_A_kernel_vs_run_family3 ({err})')
+        return
+    rpv = dict(rp, wmin=rp['W_min'])                   # rate_vec reads 'wmin'; rate_params gives 'W_min'
+    rate = lambda x: wc.rate_vec(np.asarray(x, dtype=float), rpv)
+    arch, inc = p['archetypes'], p['income']
+    vg = p['val_gen']
+    T, G = vg['T'], vg['G']
+    ir = vc._ir(p) if vg['index_wmin'] else 0.0
+    ser = [p['g_real']] * T
+    r_def = p['route_b']['r_def']
+    worst, n_runs = 0.0, 0
+    for name, a in arch.items():
+        ratio = inc['by_archetype'].get(name, inc['default_ratio'])
+        pa = dict(p, V0_m=a['V0_m'])                                         # valgen reads V0 from p
+        for mode in wk.B_MODES:
+            for rule in ('units', 'units_and_value/reset/on'):
+                for lam, dv in ((0.0, False), (0.1, True)):
+                    o = vc._p5_opts(pa, rule, lam)
+                    o.update(shares=dict(a['shares']), route_b=mode, r_def=r_def,
+                             income_ratio=ratio, income_cap=inc['cap'], death_verify=dv)
+                    ref = vc.run_family3(pa, 1.0, 1.0, ser, G, vg['heir_influx'], **o)
+                    bk = wk.run_lines(rate, ser, {r: s * a['V0_m'] for r, s in a['shares'].items()}, G=G,
+                                      heir_influx=vg['heir_influx'], consumption=o['consumption'],
+                                      index_rate=o['index_rate'], alpha_C=1.0, alpha_D=1.0, lam_C=lam,
+                                      lam_D=o['verify_hazard_D'], death_verify=dv, n=1, b_mode=mode,
+                                      c_cap=o['c_cap'], verify_down=o['verify_down'], r_def=r_def,
+                                      inc_allow=inc['cap'] * ratio * a['V0_m'])
+                    d = max(abs(bk.family_true()[0] - ref['family_true_T']),
+                            abs(bk.state_true()[0] - ref['state_true_T'])) / ref['family_true_T']
+                    worst = max(worst, d)
+                    n_runs += 1
+                    table.append((name, mode, rule, lam, d))
+    check('bridge_A_kernel_vs_run_family3', worst < TOL, f'{n_runs} runs; max rel diff={worst:.2e}')
+
+
+def rates_line(rc, wc, p, rp, a, mode, rule_cap, bshare, V0):
+    """ONE honest line (alpha = 1, no verification) through rates_core.run_lines. Returns (family_T, state_T or None)."""
+    vg, inc = p['val_gen'], p['income']
+    T, G = vg['T'], vg['G']
+    ir = float(p['index_rate']) if vg['index_wmin'] else 0.0
+    idx = np.cumprod(np.full(T, 1.0 + ir))
+    rpr = dict(rp, wmin=rp['W_min'])                                         # rates_core reads the key 'wmin'
+    ratio = inc['by_archetype'].get(a, inc['default_ratio']) if isinstance(a, str) else 0.0
+    plan = None if mode == 'sale' else {'shares': {'B': np.array([float(bshare)]), 'C': np.array([1.0 - float(bshare)])},
+                                        'mode': mode, 'r_def': p['route_b']['r_def'], 'cap': inc['cap'],
+                                        'income': np.array([ratio])}
+    o = rc.run_lines(np.full(T, p['g_real']), idx, np.array([V0]), np.array([1.0]), np.array([0]), 1, np.array([G]), G,
+                     float(p['val_gen']['consumption']), rpr, heir_rule='delta', c_cap=rule_cap, plan=plan)
+    fam = o['wealth'][-1] - o['lien_out'][-1]
+    st = o['stake'][-1] + o['lien_out'][-1]
+    return float(fam), (None if mode == 'income' else float(st))
+
+
+def parity_rates():
+    import inspect
+    try:
+        import rates_core as rc
+    except Exception as e:                                                   # noqa: BLE001
+        print(f'  SKIP  bridge_B_rates_vs_run_family3 (rates_core not importable: {type(e).__name__}: {str(e)[:80]})')
+        return
+    want = ['g', 'idx', 'V0', 'w', 'group', 'nb', 'ph', 'G', 'c', 'rp', 'heir_rule', 'c_cap', 'plan', 'ver']
+    got = list(inspect.signature(rc.run_lines).parameters)
+    if got[:len(want)] != want:
+        print(f'  SKIP  bridge_B_rates_vs_run_family3 (rates_core.run_lines signature changed: {got}); update rates_line()')
+        return
+    vc, wc, p, rp, err = _load()
+    if err:
+        print(f'  SKIP  bridge_B_rates_vs_run_family3 ({err})')
+        return
+    vg, inc, arch = p['val_gen'], p['income'], p['archetypes']
+    T, G = vg['T'], vg['G']
+    ir = vc._ir(p) if vg['index_wmin'] else 0.0
+    ser = [p['g_real']] * T
+    r_def = p['route_b']['r_def']
+
+    def ref_line(shares, V0, mode, rule, ratio):
+        pa = dict(p, V0_m=V0)
+        o = vc._p5_opts(pa, rule, 0.0)
+        o.update(shares=shares, route_b=mode, r_def=r_def, income_ratio=ratio,
+                 income_cap=inc['cap'], death_verify=False)
+        r = vc.run_family3(pa, 1.0, 1.0, ser, G, vg['heir_influx'], **o)
+        return r['family_true_T'], r['state_true_T'], o['c_cap']
+
+    # B1 exact cases: a pure line has no allocation or pooling question, so RATES must equal valgen
+    print('  B1 exact cases (hard)')
+    worst, n = 0.0, 0
+    for V0 in (0.4, 8.0, 50.0, 500.0):
+        for rule in ('units', 'units_and_value/reset/on'):
+            for mode, route, bsh in (('sale', 'C', 0.0), ('lien', 'B', 1.0), ('income', 'B', 1.0)):
+                ratio = 0.05
+                f_ref, s_ref, cc = ref_line({route: 1.0}, V0, mode, rule, ratio)
+                pr = dict(p, income=dict(inc, by_archetype={'x': ratio}))
+                f, s = rates_line(rc, wc, pr, rp, 'x', mode, cc, bsh, V0)
+                d = abs(f - f_ref) / f_ref
+                if s is not None:
+                    d = max(d, abs(s - s_ref) / f_ref)
+                worst, n = max(worst, d), n + 1
+                if d > TOL:
+                    print(f'    DIFF  V0={V0} {mode:6s} {rule:24s} rel {d:.2e}')
+    check('bridge_B1_rates_exact_cases', worst < TOL, f'{n} runs; max rel diff={worst:.2e}')
+
+    # B2 archetypes: report only
+    print('  B2 archetypes (DIFF = family true value at T, RATES vs valgen, relative to valgen)')
+    print('    %-18s %-7s %-26s %12s %12s %10s' % ('archetype', 'mode', 'rule', 'valgen', 'RATES', 'rel diff'))
+    for name, a in arch.items():
+        ratio = inc['by_archetype'].get(name, inc['default_ratio'])
+        for mode in wk.B_MODES:
+            for rule in ('units', 'units_and_value/reset/on'):
+                f_ref, s_ref, cc = ref_line(dict(a['shares']), a['V0_m'], mode, rule, ratio)
+                f, s = rates_line(rc, wc, p, rp, name, mode, cc, a['shares']['B'], a['V0_m'])
+                d = (f - f_ref) / f_ref
+                tag = 'ok  ' if abs(d) < TOL else 'DIFF'
+                print('    %-18s %-7s %-26s %12.5f %12.5f %+10.2e  %s' % (name, mode, rule, f_ref, f, d, tag))
+                table_b.append((name, mode, rule, d))
+    print('  (B2 is informational until S1 / S2 align the allocation and cap rules)')
+
+
+def main():
+    print('bridge test (D9)')
+    print('A. kernel vs run_family3, five archetypes')
+    parity_archetypes()
+    print('B. RATES line vs run_family3')
+    parity_rates()
+    if table:
+        print('\nlargest relative differences:')
+        for row in sorted(table, key=lambda r: -r[4])[:5]:
+            print('  %-18s %-7s %-26s lam=%.2f  %.2e' % row)
+    bad = [r for r in results if not r[1]]
+    print(f'\n{len(results) - len(bad)} passed, {len(bad)} failed')
+    sys.exit(1 if bad else 0)
+
+
+if __name__ == '__main__':
+    main()

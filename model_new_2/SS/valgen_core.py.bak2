@@ -1,0 +1,2722 @@
+"""
+valgen_core.py — VAL generational model, steps P1 to P5
+=======================================================
+A family line on a double-entry ledger: four valuation routes, a death every G
+years, an heir, declaration strategies, a verification / corrective-auction
+hazard, and a search for the best declaration response under each refund rule.
+Working name; becomes val_core.py at cutover (plan §8).
+Plan: VAL_generational_model_plan.md (v0.7).
+
+P1  run_life():    one life, sale at N, post-sale settlement. Reproduces the
+                   legacy results (wdt_core.run_pair / run_sim_hist) to 1e-9.
+P2  run_family():  Route C only. A family over horizon T with a death every G
+                   years and an heir. No sale, no verification (lambda = 0).
+                   Switches: heir influx ('delta' D6 | 'fresh_entrant' CLOSE 4.1)
+                   and envelope unit ('real' E2 | 'credited' E1).
+P2b run_family():  consumption (D16/D17), W_min / k indexing (D16) and the
+                   ratio-mirror refund (D8), all off by default.
+                   refund_rule   'legacy'       refund = tau x delta / W_new, capped by
+                                                the credited / real envelope (bridge only).
+                                 'ratio_mirror' refund fraction of holdings
+                                                = tau x (1 - W_new / W_prev), the mirror of
+                                                the payment fraction. In units, capped by
+                                                the units this individual has paid.
+P3  run_family3(): four routes A/B/C/D (D1-D3, D7, D13, D21), see the P3 header.
+P4  run_family3(verify_hazard=lambda): expected-value verification of Route C (D9).
+P5  run_family3(...) + _p5_search(): declaration strategies, rule switches, and the
+                   BRG/HSC/SPT/SST verdicts by rule set and lambda; plus the growth x lambda surface.
+
+CAPS (plan D8, 1 Oct)
+---------------------
+Route C is paid in kind, so its refund cap is in UNITS (u_out = units this individual
+has paid to the state, net of units returned). A/B pay cash-equivalent units and keep
+the pooled real-value envelope (E2). The two caps are separate. c_cap='units_and_value'
+adds the real-value cap to Route C as well (without it Route C can refund several times
+the value paid, because returned units carry the growth since payment).
+
+RULE SETS (P5)
+--------------
+Fixed in every run (decisions of 1-3 Oct): ratio-mirror Route C refund (D8), free entry
+basis, L allocated by delta shares (D21), Route D write-down refund symmetric, D7 netting.
+A rule set is a key 'c_cap/verify_down/dauc', trailing parts optional (see _p5_opts):
+    c_cap        units | units_and_value  Route C refund cap (value cap needed: units alone
+                                          refunds up to ~4x the value paid)
+    verify_down  allow | reset            reset = correcting your own overstatement at
+                                          verification / auction is a basis reset with no
+                                          refund (VAL 11.3, corrective over-declaration)
+    dauc         off | on                 corrective auction also applies to Route D
+The simple universal candidate is units_and_value/reset/on. The other keys are ablations
+that show what each component buys.
+Verdicts: BRG best-response gain <= brg_tol; HSC honest family's cost from the rule in a
+genuine shock <= hsc_tol; SPT and SST: state PV and stake within state_tol wherever the family gains.
+
+Not built: heir pre-existing wealth H, route-specific g, gifts (D20), failed assets,
+net-accumulation-base metric, a voluntary downward re-declaration that needs an auction.
+
+LAYER
+-----
+Layer 3 core. Imports wdt_core (base layer) and wdt_fmt (paths) only. It does
+NOT import val_core or any other core. It writes
+    OUTPUTS/VAL/valgen_data.json
+and leaves OUTPUTS/VAL/val_data.json (legacy) untouched; both live in OUTPUTS/VAL/.
+
+LEDGER
+------
+Accounts hold TRUE (economic) value in £m:
+    market          source of growth (balance = -total value created)
+    family_equity   family's stake in the asset
+    family_cash     family's cash (after the sale)
+    state_equity    state's stake (units received as in-kind tax)
+    state_cash      state's cash
+    consumed        cumulative true value consumed (units sold to the market)
+Every post() moves value from one account to another, so the sum of all
+balances is zero by construction. The checks that bite are:
+  (a) family_equity == f * V each year (in-kind identity true_paid = L / alpha).
+  (b) f + s + sold == 1 (units; sold = cumulative units consumed).
+  (c) family_total + state_total == (1 - sold) * V.
+  (d) 0 <= u_out <= s (refundable units never exceed the state's stake).
+  (e) the bridge to legacy (P1).
+
+METRICS (same sign conventions as wdt_core.run_pair)
+----------------------------------------------------
+  net_pct  (Net(a) - Net(1)) / TW(1)       + = pays more net tax
+  tw_gap   (TW(a)  - TW(1))  / TW(1)       + = retains more
+  pv_pct   (PV(a)  - PV(1))  / TW(1)       + = pays more in PV
+  pv_rel   (PV(a)  - PV(1))  / PV(1)       None where PV(1) < pv_rel_min_frac * TW(1)
+SPT/SST (plan §2): the state is "within tolerance" when |pv_rel| <= state_tol
+(two-sided, fraction of honest PV tax revenue; [val_gen] state_tol).
+
+LEGACY DEVICE KEPT FOR THE BRIDGE ONLY
+--------------------------------------
+_settle_post_sale-style iteration in run_life() exists so P1 can match legacy
+TW_settled / Net_settled. In the family engine the heir's years run explicitly;
+check 7 (_oscillation_check) shows the explicit annual flows reproduce the
+legacy settle_tw_flows net tax.
+
+Usage
+-----
+    python valgen_core.py             # run bridge + validation, write JSON
+    python valgen_core.py --dry-run   # print grid sizes only
+"""
+
+from __future__ import annotations
+
+import json
+import math
+import sys
+from datetime import date
+
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))   # model root: wdt_core, wdt_fmt, wdt_md, wdt_style
+
+from wdt_core import load_params, tau, simulate, run_pair, run_sim_hist, settle_tw_flows, rate_params, with_rate_scenario
+from wdt_fmt import out_dir, ensure_dir
+
+_OUT = out_dir('VAL')
+_JSON_PATH = _OUT / 'valgen_data.json'
+
+# ── numerical constants (not model inputs) ────────────────────
+BRIDGE_TOL     = 1e-9    # pure-move discipline (plan §7 check 2)
+CONSERVE_TOL   = 1e-9    # relative to V
+SETTLE_MAX_ITER = 2000   # as legacy settle_tw_flows
+SETTLE_TOL     = 1e-10   # as legacy settle_tw_flows
+
+# Regression fixtures from plan §1 (no verification ever; single life, no sale;
+# family stake vs honest). Rounded as quoted in the plan, so compared to 0.5pp.
+# Keys: (N, alpha) -> gain. They are test fixtures, not model inputs.
+PLAN_S1_GAIN = {(30, 0.1): 0.025, (30, 0.5): 0.014,
+                (90, 0.1): 1.09,  (90, 0.5): 0.25, (90, 2.0): -0.20, (90, 5.0): -0.40}
+PLAN_S1_TOL  = 0.005
+# Plan §1: flat rate, no threshold -> family stake identical for every alpha.
+# Value quoted 0.685117 at N = 30 (plan v0.7 corrects the row label).
+PLAN_S1_FLAT_N, PLAN_S1_FLAT_STAKE = 30, 0.685117
+
+# The fixtures above hold only at the baseline calibration: they are regression tests for THAT calibration.
+# At other rate parameters, V0_m or g they are skipped (and the UCC benchmark is flagged), not failed.
+PLAN_S1_BASELINE = {'tau_0': 0.15, 'tau_m': 0.70, 'k': 0.001, 'W_min': 2.0, 'V0_m': 20.0, 'g': 0.1045}
+
+
+def _plan_fixture_applies(p: dict, keys=None) -> bool:
+    """True when the parameters the fixtures depend on equal the baseline (all of them, or just `keys`)."""
+    if keys is None and p.get('schedule', 'logistic') != 'logistic':
+        return False                      # the fixtures are for the baseline logistic only
+    return all(abs(p[k] - PLAN_S1_BASELINE[k]) < 1e-12 for k in (keys or PLAN_S1_BASELINE))
+
+
+# ─────────────────────────────────────────────────────────────
+# LEDGER
+# ─────────────────────────────────────────────────────────────
+
+_ACCOUNTS = ('market', 'family_equity', 'family_cash', 'state_equity', 'state_cash', 'consumed')
+
+
+class Ledger:
+    """Double-entry ledger in true £m. post() moves value src -> dst."""
+
+    def __init__(self, accounts=_ACCOUNTS):
+        self.bal = dict.fromkeys(accounts, 0.0)
+        self.entries: list[dict] = []
+
+    def post(self, t, kind, src, dst, amount, **memo):
+        """Move `amount` from src to dst; a negative amount reverses direction."""
+        if amount < 0.0:
+            src, dst, amount = dst, src, -amount
+        self.bal[src] -= amount
+        self.bal[dst] += amount
+        self.entries.append({'t': t, 'kind': kind, 'src': src, 'dst': dst,
+                             'amount': amount, **memo})
+
+    def family_total(self):
+        return self.bal['family_equity'] + self.bal['family_cash']
+
+    def state_total(self):
+        return self.bal['state_equity'] + self.bal['state_cash']
+
+
+# ─────────────────────────────────────────────────────────────
+# THE ASSESSMENT RULES
+# ─────────────────────────────────────────────────────────────
+
+_ENVELOPE_UNITS = ('real', 'credited')
+_HEIR_RULES     = ('delta', 'fresh_entrant')
+_REFUND_RULES   = ('legacy', 'ratio_mirror')
+
+
+def _assess(W_new, W_prev, cap, sim_p):
+    """
+    Legacy assessment on total declared wealth (plan D7), used by P1's sale and
+    post-sale settlement.
+
+        delta = W_new - W_prev
+        L     = max(-cap, tau(W_new) * delta)   if delta > 0 or cap > 0
+              = 0                               otherwise
+    `cap` is the refund envelope in CREDITED pounds. Returns (L, rate, delta).
+    """
+    rate  = tau(W_new, sim_p)
+    delta = W_new - W_prev
+    L     = max(-cap, rate * delta) if (delta > 0.0 or cap > 0.0) else 0.0
+    return L, rate, delta
+
+
+def _new_state(alpha, V0):
+    """Route C holder: f family units, s state units, W last declared, envelopes."""
+    return {'f': 1.0, 's': 0.0, 'W': alpha * V0, 'cum': 0.0, 'cum_true': 0.0,
+            'u_out': 0.0, 'sold': 0.0}
+
+
+def _cap(st, alpha, envelope_unit):
+    """Legacy refund envelope in credited pounds (see _assess)."""
+    return st['cum'] if envelope_unit == 'credited' else alpha * st['cum_true']
+
+
+def _assess_c(st, W_new, W_prev, alpha, sim_p, idx, envelope_unit, rule):
+    """
+    Route C assessment. Returns (q, L, rate, delta): q is the signed fraction of
+    the holder's units that moves (+ = family -> state), L the credited pounds
+    (= q x W_new). The rate is tau(W_new / idx): W_min and k indexed together.
+
+    'legacy'        q = L / W_new, L as in _assess (credited / real envelope).
+    'ratio_mirror'  delta > 0: q = tau x delta / W_new = tau (1 - W_prev / W_new).
+                    delta < 0: q = -tau (1 - W_new / W_prev), floored at
+                    -u_out / f, i.e. the family can never get back more units
+                    than it has paid.
+    """
+    rate  = tau(W_new / idx, sim_p)
+    delta = W_new - W_prev
+    if rule == 'legacy':
+        cap = _cap(st, alpha, envelope_unit)
+        L   = max(-cap, rate * delta) if (delta > 0.0 or cap > 0.0) else 0.0
+        q   = (L / W_new) if W_new != 0.0 else 0.0
+        return q, L, rate, delta
+    if delta > 0.0:
+        L = rate * delta
+        return (L / W_new), L, rate, delta
+    if delta < 0.0 and st['u_out'] > 0.0 and st['f'] > 0.0 and W_prev > 0.0:
+        q = max(-rate * (1.0 - W_new / W_prev), -st['u_out'] / st['f'])
+        return q, q * W_new, rate, delta
+    return 0.0, 0.0, rate, delta
+
+
+def _check(led, st, V_now, diag, units_held=True):
+    """Ledger invariants. Updates the running worst-case in diag."""
+    diag['unit_err'] = max(diag['unit_err'],
+                           abs(led.bal['family_equity'] - st['f'] * V_now) / V_now)
+    sold = st.get('sold', 0.0)
+    if units_held:
+        diag['cons_err'] = max(diag['cons_err'], abs(st['f'] + st['s'] + sold - 1.0))
+        expect = V_now * (1.0 - sold)
+    else:
+        expect = V_now * (1.0 - sold)
+    diag['cons_err'] = max(diag['cons_err'],
+                           abs(led.family_total() + led.state_total() - expect) / V_now)
+    diag['uout_err'] = max(diag['uout_err'], st['u_out'] - st['s'], -st['u_out'], 0.0)
+    diag['min_state_units'] = min(diag['min_state_units'], st['s'])
+    diag['min_state_cash']  = min(diag['min_state_cash'], led.bal['state_cash'])
+
+
+def _new_diag():
+    return {'cons_err': 0.0, 'unit_err': 0.0, 'uout_err': 0.0,
+            'min_state_units': 0.0, 'min_state_cash': 0.0}
+
+
+def _pay_in_kind(led, t, kind, st, V, L, q):
+    """
+    Settle a credited amount L in kind at the declared price: the holder moves
+    fraction q of its units to the state (q < 0 is a refund in units from the
+    state's stake). Returns (q, true value moved to the state).
+    """
+    units = st['f'] * q                       # + = family -> state
+    paid  = units * V                         # true value (= L / alpha)
+    led.post(t, kind, 'family_equity', 'state_equity', paid, credited=L, units=units)
+    st['f']        -= units
+    st['s']        += units
+    st['u_out']    += units
+    st['cum']      += L
+    st['cum_true'] += paid
+    return q, paid
+
+
+def _holding_year(led, t, st, V_prev, V, alpha, sim_p, envelope_unit,
+                  idx=1.0, refund_rule='legacy', c=0.0):
+    """
+    One annual assessment of a Route C holder. Shared by P1, P2 and P2b.
+    Order: growth -> consumption (units sold) -> assessment -> payment in kind.
+    Defaults (idx = 1, legacy, c = 0) are the P1/P2 rule exactly.
+    """
+    led.post(t, 'growth', 'market', 'family_equity', st['f'] * (V - V_prev))
+    led.post(t, 'growth', 'market', 'state_equity',  st['s'] * (V - V_prev))
+    cons_val = 0.0
+    if c > 0.0:
+        cu       = st['f'] * c
+        cons_val = cu * V
+        led.post(t, 'consume', 'family_equity', 'consumed', cons_val, units=cu)
+        st['f']    -= cu
+        st['sold'] += cu
+    W_new = st['f'] * alpha * V
+    q, L, rate, delta = _assess_c(st, W_new, st['W'], alpha, sim_p, idx,
+                                  envelope_unit, refund_rule)
+    q, paid = _pay_in_kind(led, t, 'tax_inkind', st, V, L, q)
+    st['W'] = W_new
+    row = {'t': t, 'V': V, 'W': W_new, 'f': st['f'], 's': st['s'], 'cum': st['cum'],
+           'L': L, 'rate': rate, 'delta': delta, 'q': q, 'true_paid': paid,
+           'consumed': cons_val, 'u_out': st['u_out']}
+    return row, (t, 'tax_inkind', paid, L)
+
+
+# ─────────────────────────────────────────────────────────────
+# P1 — ONE LIFE, ONE ROUTE, SALE AT N
+# ─────────────────────────────────────────────────────────────
+
+def run_life(p: dict, alpha: float, g_series: list, g_sell: float) -> dict:
+    """
+    Simulate one Route C taxpayer: N holding years, a sale in year N+1,
+    post-sale settlement (legacy device). Declared value D_t = alpha * V_t.
+    Envelope unit is E1 (credited): the legacy convention the bridge requires.
+    """
+    sim_p = rate_params(p)
+    N     = len(g_series)
+    V     = p['V0_m']
+    st    = _new_state(alpha, V)
+    led   = Ledger()
+    receipts: list[tuple] = []   # (t, kind, true value received by state, credited L)
+    diag  = _new_diag()
+
+    led.post(0, 'endow', 'market', 'family_equity', V)
+    rows = [{'t': 0, 'V': V, 'W': st['W'], 'f': 1.0, 's': 0.0, 'cum': 0.0, 'L': 0.0,
+             'rate': tau(st['W'], sim_p), 'delta': 0.0, 'q': 0.0, 'true_paid': 0.0}]
+    _check(led, st, V, diag)
+
+    for t in range(1, N + 1):
+        V_prev = V
+        V      = V * (1.0 + g_series[t - 1])
+        row, rc = _holding_year(led, t, st, V_prev, V, alpha, sim_p, 'credited')
+        rows.append(row); receipts.append(rc)
+        _check(led, st, V, diag)
+
+    t_sell = N + 1
+    V_prev = V
+    V_sell = V * (1.0 + g_sell)
+    led.post(t_sell, 'growth', 'market', 'family_equity', st['f'] * (V_sell - V_prev))
+    led.post(t_sell, 'growth', 'market', 'state_equity',  st['s'] * (V_sell - V_prev))
+    W_sell = st['f'] * V_sell
+    L_sell, rate_sell, delta_sell = _assess(W_sell, st['W'], st['cum'], sim_p)
+    led.post(t_sell, 'sale', 'family_equity', 'family_cash', st['f'] * V_sell, units=st['f'])
+    led.post(t_sell, 'tax_sell', 'family_cash', 'state_cash', L_sell, credited=L_sell)
+    receipts.append((t_sell, 'tax_sell', L_sell, L_sell))
+    cum = st['cum'] + L_sell
+    f_after_sale = st['f']
+    st['f'] = 0.0
+    _check(led, st, V_sell, diag, units_held=False)
+    tw_naive = led.bal['family_cash']
+
+    cash, basis, i = tw_naive, W_sell, 0
+    while i < SETTLE_MAX_ITER:
+        L, _, delta = _assess(cash, basis, cum, sim_p)
+        if abs(delta) < SETTLE_TOL and abs(cum) < SETTLE_TOL:
+            break
+        if abs(L) < SETTLE_TOL:
+            break
+        t_i = t_sell + i + 1
+        led.post(t_i, 'tax_settle', 'family_cash', 'state_cash', L, credited=L)
+        receipts.append((t_i, 'tax_settle', L, L))
+        basis = cash
+        cash -= L
+        cum  += L
+        i    += 1
+    _check(led, st, V_sell, diag, units_held=False)
+
+    if abs(cash - led.bal['family_cash']) > 1e-9 * V_sell:
+        raise AssertionError('run_life: settlement cash disagrees with ledger')
+
+    def _sum(kind):
+        return sum(v for (_, k, v, _) in receipts if k == kind)
+
+    return {
+        'alpha': alpha, 'N': N,
+        'TW_settled':  led.bal['family_cash'],
+        'TW_naive':    tw_naive,
+        'Net_settled': sum(c for (_, _, _, c) in receipts),
+        'envelope_end': cum,
+        'f_N': f_after_sale, 'W_sell': W_sell, 'V_sell': V_sell,
+        'hold_true':   _sum('tax_inkind'),
+        'sell_L':      _sum('tax_sell'),
+        'settle_net':  _sum('tax_settle'),
+        'settle_iters': i,
+        'rows': rows, 'receipts': receipts, 'ledger': led, 'diag': diag,
+    }
+
+
+# ─────────────────────────────────────────────────────────────
+# P2 / P2b — FAMILY OVER HORIZON T, DEATH EVERY G YEARS, HEIR
+# ─────────────────────────────────────────────────────────────
+
+def _heir_arrival(led, t, st, V, alpha, sim_p, envelope_unit, rule,
+                  idx=1.0, refund_rule='legacy'):
+    """
+    Death at date t, after the decedent's own year-t assessment (plan D4: for
+    Route C the delta from last assessment to death is zero). The heir receives
+    the stake after tax with a clean envelope (D10): cum, cum_true and u_out
+    are reset, so the heir can be refunded only units the heir has paid.
+
+      'delta'         (D6)  prior net worth 0 (H = 0), influx = declared value of
+                            the stake received, taxed in kind at tau(W_heir).
+      'fresh_entrant' (CLOSE 4.1) no tax; basis = declared value of the stake.
+    Returns the receipt tuple or None.
+    """
+    W_new = st['f'] * alpha * V
+    st['cum'] = 0.0
+    st['cum_true'] = 0.0
+    st['u_out'] = 0.0
+    if rule == 'fresh_entrant':
+        st['W'] = W_new
+        return None
+    q, L, _, _ = _assess_c(st, W_new, 0.0, alpha, sim_p, idx, envelope_unit, refund_rule)
+    _, paid = _pay_in_kind(led, t, 'tax_heir', st, V, L, q)
+    st['W'] = W_new
+    return (t, 'tax_heir', paid, L)
+
+
+def run_family(p: dict, alpha: float, g_series: list, G: int | None,
+               heir_influx: str, envelope_unit: str,
+               consumption: float = 0.0, index_rate: float = 0.0,
+               refund_rule: str = 'legacy') -> dict:
+    """
+    Route C family over T = len(g_series) years. Deaths at t = G, 2G, ... < T
+    (G = None or G >= T: a single life). No sale and no verification event, so
+    nothing ever reveals the true value: lambda = 0 (plan D9).
+
+    consumption : share of net worth consumed each year (D16); 0 = none.
+    index_rate  : W_min / k index growth per year (D16); 0 = unindexed.
+    refund_rule : 'legacy' | 'ratio_mirror' (see module docstring).
+    """
+    if heir_influx not in _HEIR_RULES:
+        raise ValueError(f'heir_influx must be one of {_HEIR_RULES}, got {heir_influx!r}')
+    if envelope_unit not in _ENVELOPE_UNITS:
+        raise ValueError(f'envelope_unit must be one of {_ENVELOPE_UNITS}, got {envelope_unit!r}')
+    if refund_rule not in _REFUND_RULES:
+        raise ValueError(f'refund_rule must be one of {_REFUND_RULES}, got {refund_rule!r}')
+    sim_p = rate_params(p)
+    T     = len(g_series)
+    V     = p['V0_m']
+    st    = _new_state(alpha, V)
+    led   = Ledger()
+    receipts: list[tuple] = []
+    diag  = _new_diag()
+    rows  = []
+    gen   = 0
+    deaths = []
+
+    led.post(0, 'endow', 'market', 'family_equity', V)
+    _check(led, st, V, diag)
+    rows.append({'t': 0, 'gen': 0, 'event': 'entry', 'V': V, 'W': st['W'], 'f': 1.0,
+                 's': 0.0, 'cum': 0.0, 'L': 0.0})
+
+    for t in range(1, T + 1):
+        V_prev = V
+        V      = V * (1.0 + g_series[t - 1])
+        idx    = (1.0 + index_rate) ** t
+        row, rc = _holding_year(led, t, st, V_prev, V, alpha, sim_p, envelope_unit,
+                                idx, refund_rule, consumption)
+        row.update({'gen': gen, 'event': 'year'})
+        rows.append(row); receipts.append(rc)
+        _check(led, st, V, diag)
+        if G is not None and t % G == 0 and t < T:
+            gen += 1
+            rc = _heir_arrival(led, t, st, V, alpha, sim_p, envelope_unit, heir_influx,
+                               idx, refund_rule)
+            if rc is not None:
+                receipts.append(rc)
+            deaths.append(t)
+            rows.append({'t': t, 'gen': gen, 'event': 'heir', 'V': V, 'W': st['W'],
+                         'f': st['f'], 's': st['s'], 'cum': st['cum'],
+                         'L': rc[3] if rc else 0.0})
+            _check(led, st, V, diag)
+
+    return {
+        'alpha': alpha, 'T': T, 'G': G, 'heir_influx': heir_influx,
+        'envelope_unit': envelope_unit, 'consumption': consumption,
+        'index_rate': index_rate, 'refund_rule': refund_rule, 'deaths': deaths,
+        'f_T': st['f'], 's_T': st['s'], 'V_T': V, 'u_out_T': st['u_out'],
+        'family_true_T': st['f'] * V, 'state_stake_true_T': st['s'] * V,
+        'consumed_true': led.bal['consumed'],
+        'net_credited': sum(c for (_, _, _, c) in receipts),
+        'rows': rows, 'receipts': receipts, 'ledger': led, 'diag': diag,
+    }
+
+
+def family_pair(p: dict, alpha: float, g_series: list, G: int | None,
+                heir_influx: str, envelope_unit: str, rho: float,
+                honest: dict | None = None, **opts) -> dict:
+    """
+    Compare `alpha` with the honest family on the same path and rules.
+    `opts` are the P2b switches (consumption, index_rate, refund_rule), applied
+    to both families.
+
+      gain            f_T(a)/f_T(1) - 1         + = family ends with more (BRG)
+      state_stake_rel s_T(a)/s_T(1) - 1         state's terminal stake vs honest
+      pv_rel          (PV(a)-PV(1))/PV(1)       PV of true value received, at rho;
+                                                None where PV(1) < pv_rel_min_frac x
+                                                honest terminal family value
+      consumed_rel    consumed(a)/consumed(1)-1 diagnostic only (D11 objective is
+                                                terminal net worth)
+    """
+    h = honest if honest is not None else run_family(p, 1.0, g_series, G, heir_influx,
+                                                     envelope_unit, **opts)
+    a = h if alpha == 1.0 else run_family(p, alpha, g_series, G, heir_influx,
+                                          envelope_unit, **opts)
+    pv_h, pv_a = pv_true(h, rho), pv_true(a, rho)
+    return {
+        'gain':            a['f_T'] / h['f_T'] - 1.0,
+        'state_stake_rel': (a['s_T'] / h['s_T'] - 1.0) if h['s_T'] > 1e-12 else None,
+        'pv_rel':          ((pv_a - pv_h) / pv_h
+                            if pv_h >= p['val_gen']['pv_rel_min_frac'] * abs(h['family_true_T']) else None),
+        'consumed_rel':    ((a['consumed_true'] / h['consumed_true'] - 1.0)
+                            if h['consumed_true'] > 1e-12 else None),
+        'f_T': a['f_T'], 'f_T_honest': h['f_T'], 'V_T': h['V_T'],
+        'T': a['T'], 'n_deaths': len(a['deaths']),
+    }
+
+
+def alignment(cells: dict, state_tol: float) -> dict:
+    """
+    Plan §6 alignment over a {alpha: family_pair result} dict, alpha != 1.
+    conflict : family gains (gain > 0) and the state is outside +-state_tol
+    aligned  : family gains and the state is within tolerance
+    undefined: pv_rel is None (honest PV too small)
+    """
+    out = {'conflict': [], 'aligned': [], 'undefined': [], 'no_gain': []}
+    for a, m in cells.items():
+        if m.get('is_honest') or str(a) == '1.0':
+            continue
+        if m['gain'] <= 0.0:
+            out['no_gain'].append(a)
+        elif m['pv_rel'] is None:
+            out['undefined'].append(a)
+        elif abs(m['pv_rel']) > state_tol:
+            out['conflict'].append(a)
+        else:
+            out['aligned'].append(a)
+    return out
+
+
+# ─────────────────────────────────────────────────────────────
+# P3 — FOUR ROUTES (A, B, C, D)
+# ─────────────────────────────────────────────────────────────
+#
+# Per-route holdings of one family line. All routes grow at g (route-specific g
+# is a later sensitivity). Declared price per route (full-asset basis):
+#   A, B : true value (alpha = 1, plan D1)
+#   C    : alpha_C x true value, paid in kind at the declared price (D2)
+#   D    : alpha_D x true value between resets; the auction price (= true value)
+#          in a reset year and at a death auction (D3)
+# One annual assessment on TOTAL declared W (D7), then L is allocated across
+# routes by positive-delta shares (tax) or negative-delta shares (refund) (D21):
+#   A, B : paid in cash-equivalent units at true value; refunds capped by the
+#          pooled real value paid (E2) and by the state's stake in the route.
+#   C    : paid in kind at the declared price; refunds in units, capped by the
+#          units this individual has paid (plan D8, 1 Oct).
+#   D    : accrues as a liability; settled in units at the true (auction) price
+#          at a reset or death, or in kind at the declared price when a death
+#          auction is waived. A refund share only cancels accrued liability.
+# Refund size on a net fall: tau x |delta| x W_new / W_prev (the pounds form of
+# the ratio-mirror rule; for a single Route C holding it reproduces P2 exactly).
+# The Route C refund rule, cap and the verification / auction switches are P4-P5 additions,
+# documented on run_family3 and in the module header (RULE SETS).
+
+_ROUTES = ('A', 'B', 'C', 'D')
+_IN_KIND = ('C', 'Cv')       # routes paid in kind, each with its own units-paid cap
+_C_CAP = ('units', 'units_and_value')
+
+
+def _alpha_at(spec, ctx):
+    """A declaration ratio is a number, or a function of ctx (t, gen, yrs_in_gen,
+    yrs_to_death, yrs_to_reset)."""
+    return spec(ctx) if callable(spec) else spec
+
+
+def _ctx(t, gen, gen_start, G, T, reset_interval):
+    tt = max(t, 1)
+    if G:
+        nd = -(-tt // G) * G
+        to_death = (nd - t) if nd < T else (T - t)
+    else:
+        to_death = T - t
+    to_reset = (-(-tt // reset_interval) * reset_interval - t) if reset_interval > 0 else 10 ** 6
+    return {'t': t, 'gen': gen, 'yrs_in_gen': t - gen_start,
+            'yrs_to_death': to_death, 'yrs_to_reset': to_reset}
+
+
+def _p3_routes(shares: dict) -> list:
+    routes = [r for r in _ROUTES if shares.get(r, 0.0) > 0.0]
+    tot = sum(shares[r] for r in routes)
+    if not routes or abs(tot - 1.0) > 1e-9:
+        raise ValueError(f'route shares must be positive and sum to 1, got {shares!r}')
+    return routes
+
+
+def _p3_move(led, t, kind, S, r, units):
+    """units > 0: family -> state; units < 0: state -> family. Returns true value moved."""
+    x   = S['R'][r]
+    val = units * x['V']
+    led.post(t, kind, f'family_{r}', f'state_{r}', val, route=r, units=units)
+    x['f'] -= units
+    x['s'] += units
+    return val
+
+
+def _p3_new_diag():
+    return {'cons_err': 0.0, 'unit_err': 0.0, 'min_E_cash': 0.0, 'min_A_D': 0.0,
+            'min_u_out': 0.0, 'min_state_units': 0.0, 'uout_err': 0.0, 'min_EC': 0.0}
+
+
+def _p3_check(led, S, diag):
+    for r, x in S['R'].items():
+        diag['unit_err'] = max(diag['unit_err'],
+                               abs(led.bal[f'family_{r}'] - x['f'] * x['V']) / x['V'],
+                               abs(led.bal[f'state_{r}'] - x['s'] * x['V']) / x['V'])
+        diag['cons_err'] = max(diag['cons_err'], abs(x['f'] + x['s'] + x['sold'] - x['tot']))
+        diag['min_state_units'] = min(diag['min_state_units'], x['s'])
+    diag['min_E_cash'] = min(diag['min_E_cash'], S['E_cash'])
+    diag['min_A_D']    = min(diag['min_A_D'], S['A_D'])
+    diag['min_EC']     = min(diag['min_EC'], S['EC'])
+    for r in _IN_KIND:
+        if r in S['R']:
+            diag['min_u_out'] = min(diag['min_u_out'], S['uo'][r])
+            diag['uout_err']  = max(diag['uout_err'], S['uo'][r] - S['R'][r]['s'])
+
+
+def _assess_multi(led, t, kind, S, Wn, Wp, idx, sim_p, receipts):
+    """
+    One assessment across routes. Wn / Wp: declared holding value per route, new and
+    previous. Returns (rate, delta, L). See the P3 header for the rules.
+    """
+    R = S['R']
+    W_new, W_prev = sum(Wn.values()), sum(Wp.values())
+    rate  = tau(W_new / idx, sim_p)
+    delta = W_new - W_prev
+    d     = {r: Wn[r] - Wp[r] for r in R}
+    if delta > 0.0:
+        L = rate * delta
+        w = {r: max(d[r], 0.0) for r in R}
+    elif delta < 0.0 and W_prev > 0.0:
+        L = -rate * (-delta) * W_new / W_prev
+        w = {r: max(-d[r], 0.0) for r in R}
+    else:
+        return rate, delta, 0.0
+    tot = sum(w.values())
+    for r in R:
+        Lr = L * w[r] / tot
+        if Lr == 0.0:
+            continue
+        x = R[r]
+        if r in ('A', 'B'):
+            if Lr > 0.0:
+                _p3_move(led, t, kind, S, r, Lr / x['V'])
+                S['E_cash'] += Lr
+                receipts.append((t, f'{kind}_{r}', Lr, Lr))
+            else:
+                val = min(-Lr, S['E_cash'], x['s'] * x['V'])
+                S['lost_refund'] += -Lr - val
+                if val > 0.0:
+                    _p3_move(led, t, kind, S, r, -val / x['V'])
+                    S['E_cash'] -= val
+                    receipts.append((t, f'{kind}_{r}', -val, -val))
+        elif r in _IN_KIND:
+            if Lr > 0.0:
+                units = Lr / x['dd']
+                val   = _p3_move(led, t, kind, S, r, units)
+                S['uo'][r] += units
+                S['EC']    += val
+                receipts.append((t, f'{kind}_{r}', val, Lr))
+            else:
+                cap_u = S['EC'] / x['V'] if S['c_cap'] == 'units_and_value' else float('inf')
+                units = min(-Lr / x['dd'], S['uo'][r], x['s'], cap_u)
+                S['lost_refund'] += -Lr - units * x['dd']
+                if units > 0.0:
+                    val = _p3_move(led, t, kind, S, r, -units)
+                    S['uo'][r] -= units
+                    S['EC']    += val
+                    receipts.append((t, f'{kind}_{r}', val, -units * x['dd']))
+        else:  # D
+            if Lr > 0.0:
+                S['A_D'] += Lr
+            else:
+                # cancel accrued liability first; any remainder was paid at an earlier
+                # reset, so it is refunded in units like A/B (pooled real-value cap)
+                red  = min(-Lr, S['A_D'])
+                S['A_D'] -= red
+                rest = -Lr - red
+                val  = min(rest, S['E_cash'], x['s'] * x['V'])
+                S['lost_refund'] += rest - val
+                if val > 0.0:
+                    _p3_move(led, t, kind, S, r, -val / x['V'])
+                    S['E_cash'] -= val
+                    receipts.append((t, f'{kind}_D', -val, -val))
+    return rate, delta, L
+
+
+def _verify_C(led, t, S, lam):
+    """
+    Expected-value verification hazard (plan D9). Each year a fraction `lam` of the
+    unverified Route C units, the family's AND the state's (the state's stake is
+    marked too), moves to the verified tranche Cv, declared at true value. The
+    prior declared value and the units paid move with the units, so the correction
+    (V against alpha x V) shows up as a delta in this year's assessment (D7).
+    """
+    C, Cv = S['R']['C'], S['R']['Cv']
+    mf, ms = lam * C['f'], lam * C['s']
+    if mf > 0.0:
+        led.post(t, 'verify', 'family_C', 'family_Cv', mf * C['V'], units=mf)
+    if ms > 0.0:
+        led.post(t, 'verify', 'state_C', 'state_Cv', ms * C['V'], units=ms)
+    C['f'] -= mf;  C['s'] -= ms
+    Cv['f'] += mf; Cv['s'] += ms
+    C['tot'] -= mf + ms
+    Cv['tot'] += mf + ms
+    moved_wp = lam * C['Wp']
+    C['Wp']  -= moved_wp
+    adj = moved_wp
+    if S.get('verify_down') == 'reset':
+        # correcting your own overstatement is a basis reset: no write-down credit for the PRICE
+        # excess (prior declared price per unit above the true price now). Units that left for
+        # consumption or tax are not an overstatement and keep their normal treatment.
+        adj = moved_wp - mf * max(0.0, C['ppu'] - C['V'])
+    Cv['Wp'] += adj
+    moved_uo = lam * S['uo']['C']
+    S['uo']['C']  -= moved_uo
+    S['uo']['Cv'] += moved_uo
+
+
+def _verified_share(S):
+    """Share of Route C units (family + state) that has been verified."""
+    if 'Cv' not in S['R']:
+        return 0.0
+    C, Cv = S['R']['C'], S['R']['Cv']
+    tot = C['f'] + C['s'] + Cv['f'] + Cv['s']
+    return (Cv['f'] + Cv['s']) / tot if tot > 0.0 else 0.0
+
+
+def _settle_D(led, t, S, kind, receipts, in_kind_declared=False):
+    """Settle the accrued Route D liability in units: at the true price, or at the declared price."""
+    x = S['R'].get('D')
+    if x is None or S['A_D'] <= 0.0:
+        return
+    price = x['dd'] if in_kind_declared else x['V']
+    units = min(S['A_D'] / price, x['f'])
+    val   = _p3_move(led, t, kind, S, 'D', units)
+    cred  = units * price
+    S['E_cash'] += val
+    S['unpaid_D'] += S['A_D'] - cred
+    S['A_D'] = 0.0
+    receipts.append((t, kind, val, cred))
+
+
+def run_family3(p: dict, alpha_C: float, alpha_D: float, g_series: list, G: int | None,
+                heir_influx: str, consumption: float = 0.0, index_rate: float = 0.0,
+                shares: dict | None = None, reset_interval: int = 0, death_waiver: int = 0,
+                verify_hazard: float = 0.0, c_cap: str = 'units', verify_down: str = 'allow',
+                verify_hazard_D: float = 0.0) -> dict:
+    """
+    Four-route family over T = len(g_series) years; deaths at G, 2G, ... < T.
+    Refunds follow the ratio-mirror rule (D8) and a Route D write-down cancels accrued
+    liability first, then refunds in units like A/B (symmetric).
+
+    alpha_C, alpha_D  numbers, or functions of ctx (see _ctx): a declaration strategy.
+    c_cap           Route C refund cap. 'units' (units this individual has paid; refunds
+                    are returned in units, so they carry the growth since payment) |
+                    'units_and_value' (additionally the true VALUE of refunded units may
+                    not exceed the true value paid, net of refunds: plan check 6, E2).
+    verify_hazard   P4: per-year probability that an unverified Route C asset is
+                    verified (D9), applied as an expected-value flow of units into a
+                    verified tranche Cv (declared at true value). 0 = no verification:
+                    results are identical to P3.
+    verify_hazard_D the same expected-value corrective auction on Route D (VAL 11.3): a share
+                    vD = 1 - (1 - hazard)^t is declared at the true price, the rest follows the
+                    strategy. 0 = off.
+    verify_down     'allow' (baseline up to P5): a correction of an overstatement is a write-down
+                    like any other (refund / netting). 'reset': correcting your own overstatement
+                    at a verification, a Route D reset year or a death auction is a basis reset,
+                    with no refund and no netting against other routes (VAL 11.3, corrective
+                    over-declaration). Up-corrections (understatement) are always a positive delta.
+    shares          route shares of V0 (A, B, C, D); zero-share routes are dropped.
+    reset_interval  voluntary Route D hard reset every this many years (0 = never).
+    death_waiver    a death auction is skipped when a reset happened within this
+                    many years (0 = always auction at death).
+    Family terminal net worth = sum of true route holdings at T after settling any
+    outstanding Route D liability at the true price.
+    """
+    if heir_influx not in _HEIR_RULES:
+        raise ValueError(f'heir_influx must be one of {_HEIR_RULES}, got {heir_influx!r}')
+    if verify_down not in ('allow', 'reset'):
+        raise ValueError(f"verify_down must be 'allow' or 'reset', got {verify_down!r}")
+    if not 0.0 <= verify_hazard_D <= 1.0:
+        raise ValueError(f'verify_hazard_D must be in [0, 1], got {verify_hazard_D!r}')
+    if c_cap not in _C_CAP:
+        raise ValueError(f'c_cap must be one of {_C_CAP}, got {c_cap!r}')
+    if not 0.0 <= verify_hazard <= 1.0:
+        raise ValueError(f'verify_hazard must be in [0, 1], got {verify_hazard!r}')
+    shares = shares if shares is not None else p['val_gen']['route_shares']
+    routes = _p3_routes(shares)
+    has_cv = verify_hazard > 0.0 and 'C' in routes
+    if has_cv:
+        routes = routes + ['Cv']
+    sim_p  = rate_params(p)
+    T      = len(g_series)
+    led    = Ledger(tuple(['market', 'consumed'] + [f'family_{r}' for r in routes]
+                          + [f'state_{r}' for r in routes]))
+    S = {'R': {}, 'E_cash': 0.0, 'A_D': 0.0, 'uo': {'C': 0.0, 'Cv': 0.0}, 'lost_refund': 0.0,
+         'unpaid_D': 0.0, 'last_reset': None, 'c_cap': c_cap, 'EC': 0.0,
+         'verify_down': verify_down, 'vD': 0.0}
+    gen_start = 0
+    c0 = _ctx(0, 0, 0, G, len(g_series), reset_interval)
+    alpha_of = {'A': 1.0, 'B': 1.0, 'C': _alpha_at(alpha_C, c0), 'D': _alpha_at(alpha_D, c0),
+                'Cv': 1.0}
+    for r in routes:
+        if r == 'Cv':       # same asset as C, price per unit equal, no units yet
+            V0 = shares['C'] * p['V0_m']
+            S['R'][r] = {'V': V0, 'f': 0.0, 's': 0.0, 'sold': 0.0, 'tot': 0.0,
+                         'dd': V0, 'Wp': 0.0, 'ppu': V0}
+            continue
+        V0 = shares[r] * p['V0_m']
+        S['R'][r] = {'V': V0, 'f': 1.0, 's': 0.0, 'sold': 0.0, 'tot': 1.0,
+                     'dd': alpha_of[r] * V0,
+                     'Wp': alpha_of[r] * V0, 'ppu': alpha_of[r] * V0}
+        led.post(0, 'endow', 'market', f'family_{r}', V0)
+    diag     = _p3_new_diag()
+    receipts: list[tuple] = []
+    rows, deaths, gen = [], [], 0
+    _p3_check(led, S, diag)
+
+    for t in range(1, T + 1):
+        idx = (1.0 + index_rate) ** t
+        reset_year = reset_interval > 0 and t % reset_interval == 0
+        ctx = _ctx(t, gen, gen_start, G, T, reset_interval)
+        alpha_of['C'] = _alpha_at(alpha_C, ctx)
+        aD_t = _alpha_at(alpha_D, ctx)
+        for r in routes:
+            x    = S['R'][r]
+            V_new = x['V'] * (1.0 + g_series[t - 1])
+            led.post(t, 'growth', 'market', f'family_{r}', x['f'] * (V_new - x['V']))
+            led.post(t, 'growth', 'market', f'state_{r}',  x['s'] * (V_new - x['V']))
+            x['V'] = V_new
+            if consumption > 0.0:
+                cu = x['f'] * consumption
+                led.post(t, 'consume', f'family_{r}', 'consumed', cu * V_new, units=cu)
+                x['f'] -= cu
+                x['sold'] += cu
+            if r == 'D':
+                # corrective auction on Route D (expected value): a share vD of the asset has been
+                # auctioned and is declared at the true price; the rest follows the strategy
+                vD_prev = S['vD']
+                vD_new  = 1.0 - (1.0 - verify_hazard_D) * (1.0 - vD_prev)
+                dd_nr   = V_new * (1.0 + (aD_t - 1.0) * (1.0 - vD_prev))
+                dd_act  = V_new if reset_year else V_new * (1.0 + (aD_t - 1.0) * (1.0 - vD_new))
+                x['dd'] = dd_act
+                D_excl  = x['f'] * (dd_act - dd_nr)
+                S['vD'] = vD_new
+            else:
+                x['dd'] = alpha_of[r] * V_new
+        if has_cv:
+            _verify_C(led, t, S, verify_hazard)
+        Wn = {r: S['R'][r]['f'] * S['R'][r]['dd'] for r in routes}
+        Wp = {r: S['R'][r]['Wp'] for r in routes}
+        if verify_down == 'reset' and 'D' in S['R'] and D_excl < 0.0 and Wn['D'] < Wp['D']:
+            Wp['D'] += max(D_excl, Wn['D'] - Wp['D'])   # auction correction of an overstatement: no refund
+        rate, delta, L = _assess_multi(led, t, 'tax', S, Wn, Wp, idx, sim_p, receipts)
+        for r in routes:
+            S['R'][r]['Wp'] = Wn[r]
+            S['R'][r]['ppu'] = S['R'][r]['dd']
+        if reset_year:
+            S['last_reset'] = t
+            _settle_D(led, t, S, 'reset_D', receipts)
+        rows.append({'t': t, 'gen': gen, 'W': sum(Wn.values()), 'delta': delta, 'L': L,
+                     'rate': rate, 'A_D': S['A_D'], 'E_cash': S['E_cash'],
+                     'u_out': dict(S['uo']), 'verified_share': _verified_share(S)})
+        _p3_check(led, S, diag)
+
+        if G is not None and t % G == 0 and t < T:
+            gen += 1
+            gen_start = t
+            deaths.append(t)
+            if 'D' in S['R']:
+                xD = S['R']['D']
+                waived = (death_waiver > 0 and S['last_reset'] is not None
+                          and t - S['last_reset'] <= death_waiver)
+                if waived:
+                    _settle_D(led, t, S, 'death_D_waiver', receipts, in_kind_declared=True)
+                else:
+                    if xD['dd'] != xD['V']:
+                        dd_old = xD['dd']
+                        xD['dd'] = xD['V']
+                        Wn2 = {r: S['R'][r]['f'] * S['R'][r]['dd'] for r in routes}
+                        Wp2 = {r: S['R'][r]['Wp'] for r in routes}
+                        if verify_down == 'reset' and Wn2['D'] < Wp2['D']:
+                            Wp2['D'] += max(xD['f'] * (xD['dd'] - dd_old), Wn2['D'] - Wp2['D'])
+                        _assess_multi(led, t, 'tax_death', S, Wn2, Wp2, idx, sim_p, receipts)
+                        for r in routes:
+                            S['R'][r]['Wp'] = Wn2[r]
+                            S['R'][r]['ppu'] = S['R'][r]['dd']
+                    _settle_D(led, t, S, 'death_D', receipts)
+            S['uo'] = {'C': 0.0, 'Cv': 0.0}
+            S['EC'] = 0.0
+            S['E_cash'] = 0.0
+            Wn = {r: S['R'][r]['f'] * S['R'][r]['dd'] for r in routes}
+            if heir_influx == 'delta':
+                _assess_multi(led, t, 'tax_heir', S, Wn, {r: 0.0 for r in routes}, idx,
+                              sim_p, receipts)
+            for r in routes:
+                S['R'][r]['Wp'] = Wn[r]
+                S['R'][r]['ppu'] = S['R'][r]['dd']
+            rows.append({'t': t, 'gen': gen, 'event': 'heir', 'A_D': S['A_D']})
+            _p3_check(led, S, diag)
+
+    _settle_D(led, T, S, 'terminal_D', receipts)
+    _p3_check(led, S, diag)
+    R = S['R']
+    return {
+        'alpha_C': alpha_C, 'alpha_D': alpha_D, 'T': T, 'G': G, 'routes': routes,
+        'deaths': deaths, 'shares': dict(shares), 'consumption': consumption,
+        'index_rate': index_rate, 'reset_interval': reset_interval,
+        'death_waiver': death_waiver, 'verify_hazard': verify_hazard, 'c_cap': c_cap,
+        'verified_share': [r_['verified_share'] for r_ in rows if 'verified_share' in r_],
+        'family_true_T': sum(x['f'] * x['V'] for x in R.values()),
+        'state_true_T':  sum(x['s'] * x['V'] for x in R.values()),
+        'consumed_true': led.bal['consumed'],
+        'f_T': {r: x['f'] for r, x in R.items()},
+        'lost_refund': S['lost_refund'], 'unpaid_D': S['unpaid_D'],
+        'receipts': receipts, 'rows': rows, 'ledger': led, 'diag': diag,
+    }
+
+
+def family3_pair(p: dict, alpha_C: float, alpha_D: float, g_series: list, G: int | None,
+                 heir_influx: str, rho: float, honest: dict | None = None, **opts) -> dict:
+    """
+    Compare (alpha_C, alpha_D) with the honest family (1, 1) on the same rules.
+      gain          TW(a)/TW(1) - 1   TW = family true net worth at T (BRG)
+      state_rel     state true holdings at T, vs honest
+      pv_rel        (PV(a) - PV(1)) / PV(1), PV of true value received (SPT)
+    """
+    h = honest if honest is not None else run_family3(p, 1.0, 1.0, g_series, G, heir_influx, **opts)
+    is_h = (not callable(alpha_C) and not callable(alpha_D)
+            and alpha_C == 1.0 and alpha_D == 1.0)
+    a = h if is_h else run_family3(p, alpha_C, alpha_D, g_series, G, heir_influx, **opts)
+    pv_h, pv_a = pv_true(h, rho), pv_true(a, rho)
+    return {
+        'is_honest': is_h,
+        'gain':      a['family_true_T'] / h['family_true_T'] - 1.0,
+        'state_rel': (a['state_true_T'] / h['state_true_T'] - 1.0) if h['state_true_T'] > 1e-12 else None,
+        'pv_rel':    ((pv_a - pv_h) / pv_h
+                      if pv_h >= p['val_gen']['pv_rel_min_frac'] * abs(h['family_true_T']) else None),
+        'consumed_rel': ((a['consumed_true'] / h['consumed_true'] - 1.0)
+                         if h['consumed_true'] > 1e-12 else None),
+        'TW': a['family_true_T'], 'TW_honest': h['family_true_T'],
+        'lost_refund': a['lost_refund'], 'unpaid_D': a['unpaid_D'],
+    }
+
+
+# ─────────────────────────────────────────────────────────────
+# METRICS FROM THE LEDGER
+# ─────────────────────────────────────────────────────────────
+
+def pv_true(run: dict, rho: float) -> float:
+    """PV at t=0 of every receipt by the state, valued at true value surrendered."""
+    return sum(v / (1.0 + rho) ** t for (t, _, v, _) in run['receipts'])
+
+
+def pair(p: dict, alpha: float, g_series: list, g_sell: float, rho: float,
+         honest: dict | None = None) -> dict:
+    """Compare `alpha` with the honest declarer (P1 frame). Legacy metrics plus pv_rel."""
+    h = honest if honest is not None else run_life(p, 1.0, g_series, g_sell)
+    a = h if alpha == 1.0 else run_life(p, alpha, g_series, g_sell)
+    d = h['TW_settled'] if abs(h['TW_settled']) > 1e-12 else 1.0
+    pv_h, pv_a = pv_true(h, rho), pv_true(a, rho)
+    tw_gap = (a['TW_settled'] - h['TW_settled']) / d
+    return {
+        'net_pct': (a['Net_settled'] - h['Net_settled']) / d,
+        'tw_gap':  tw_gap,
+        'tw_cost': -tw_gap,
+        'pv_pct':  (pv_a - pv_h) / d,
+        'pv_rel':  ((pv_a - pv_h) / pv_h) if pv_h >= p['val_gen']['pv_rel_min_frac'] * abs(d) else None,
+        'pv_honest': pv_h,
+        'N': h['N'],
+    }
+
+
+def _decomp(run: dict) -> dict:
+    """Plan §1 decomposition of one run, £m."""
+    return {
+        'alpha': run['alpha'], 'N': run['N'],
+        'holding_payments_true': run['hold_true'],
+        'sell_year_cash':        run['sell_L'],
+        'post_sale_settlement':  run['settle_net'],
+        'TW_before_settlement':  run['TW_naive'],
+        'TW_settled':            run['TW_settled'],
+        'net_credited':          run['Net_settled'],
+        'settle_iters':          run['settle_iters'],
+    }
+
+
+# ─────────────────────────────────────────────────────────────
+# BRIDGE TO LEGACY AND VALIDATION (P1)
+# ─────────────────────────────────────────────────────────────
+
+def _bridge(p: dict) -> dict:
+    """
+    Plan §7 check 2. Compare run_life / pair with legacy run_pair (constant g)
+    and run_sim_hist (historical series) over the grids the legacy VAL tables use.
+    """
+    sw   = p['sweep']
+    N    = p['N_val']
+    rho  = p['rho']
+    alphas = sw['alpha_vals']
+    gs     = sw['g_vals']
+    ns     = sw['n_actual_vals']
+    g0     = p['g']
+
+    worst = {'net_pct': 0.0, 'tw_gap': 0.0, 'pv_pct': 0.0,
+             'hist_TW': 0.0, 'hist_Net': 0.0}
+    diag  = _new_diag()
+    n_cells = 0
+
+    def _absorb(run):
+        d = run['diag']
+        for key in ('cons_err', 'unit_err', 'uout_err'):
+            diag[key] = max(diag[key], d[key])
+        diag['min_state_units'] = min(diag['min_state_units'], d['min_state_units'])
+        diag['min_state_cash']  = min(diag['min_state_cash'],  d['min_state_cash'])
+
+    def _const_cells():
+        for g in gs:
+            yield g, N
+        for n in ns:
+            yield g0, n
+
+    seen = set()
+    for g, n in _const_cells():
+        if (g, n) in seen:
+            continue
+        seen.add((g, n))
+        series = [g] * n
+        h = run_life(p, 1.0, series, g)
+        _absorb(h)
+        for alpha in alphas:
+            m   = pair(p, alpha, series, g, rho, honest=h)
+            leg = run_pair(p, alpha, g, n)
+            worst['net_pct'] = max(worst['net_pct'], abs(m['net_pct'] - leg['net_pct']))
+            worst['tw_gap']  = max(worst['tw_gap'],  abs(m['tw_gap']  - leg['tw_gap']))
+            worst['pv_pct']  = max(worst['pv_pct'],  abs(m['pv_pct']  - leg['pv_pct']))
+            if alpha != 1.0:
+                _absorb(run_life(p, alpha, series, g))
+            n_cells += 1
+
+    n_traj = sorted({5, 10, 15, 20, 25, 30, N})
+    n_hist = 0
+    for n in n_traj:
+        series, g_sell = p['returns'][:n], p['returns'][n]
+        for alpha in alphas:
+            r   = run_life(p, alpha, series, g_sell)
+            leg = run_sim_hist(p, alpha=alpha, N=n)
+            worst['hist_TW']  = max(worst['hist_TW'],  abs(r['TW_settled']  - leg['TW_settled']))
+            worst['hist_Net'] = max(worst['hist_Net'], abs(r['Net_settled'] - leg['Net_settled']))
+            _absorb(r)
+            n_hist += 1
+
+    return {'max_abs_diff': worst, 'worst_diag': diag,
+            'cells_constant_g': n_cells, 'cells_historical': n_hist,
+            'tolerance': BRIDGE_TOL}
+
+
+def _validate(p: dict, bridge: dict) -> dict:
+    """Fail the run if any P1 check fails. Returns the report stored in meta."""
+    report = {'N_val': p['N_val'], 'N_fill': p['N_fill'], 'checks': {}, 'info': {}}
+
+    def check(name, ok, detail=''):
+        report['checks'][name] = {'ok': bool(ok), 'detail': detail}
+        if not ok:
+            raise AssertionError(f'VALIDATION FAILED: {name} {detail}')
+
+    for key, v in bridge['max_abs_diff'].items():
+        check(f'bridge_{key}', v < BRIDGE_TOL, f'max|diff|={v:.2e}')
+
+    d = bridge['worst_diag']
+    check('conservation_units_and_value', d['cons_err'] < CONSERVE_TOL,
+          f"max err={d['cons_err']:.2e}")
+    check('in_kind_identity_family_equity_eq_f_times_V', d['unit_err'] < CONSERVE_TOL,
+          f"max rel err={d['unit_err']:.2e}")
+
+    series = [p['g']] * p['N_val']
+    m = pair(p, 1.0, series, p['g'], p['rho'])
+    check('honest_identity', max(abs(m['net_pct']), abs(m['tw_gap']), abs(m['pv_pct'])) < 1e-12)
+
+    report['info']['min_state_units'] = d['min_state_units']
+    report['info']['min_state_cash']  = d['min_state_cash']
+    return report
+
+
+def _flat(p: dict) -> dict:
+    """Flat rate at tau_0 with no threshold (plan §1 flat-rate test)."""
+    return dict(p, tau_m=p['tau_0'], W_min=0.0, schedule='logistic')
+
+
+def _p2_validate(p: dict) -> tuple[dict, dict]:
+    """P2 checks (plan §7: 1, 3 for the no-sale frame, plus P2-specific ones)."""
+    checks = {}
+
+    def check(name, ok, detail=''):
+        checks[name] = {'ok': bool(ok), 'detail': detail}
+        if not ok:
+            raise AssertionError(f'VALIDATION FAILED: {name} {detail}')
+
+    g      = p['g']
+    vg     = p['val_gen']
+    alphas = p['sweep']['alpha_vals']
+    rho    = p['rho']
+    diag   = _new_diag()
+
+    def absorb(run):
+        d = run['diag']
+        for key in ('cons_err', 'unit_err', 'uout_err'):
+            diag[key] = max(diag[key], d[key])
+        diag['min_state_units'] = min(diag['min_state_units'], d['min_state_units'])
+
+    sim_p = rate_params(p)
+    worst = 0.0
+    for a in alphas:
+        for n in (30, 90):
+            r   = run_family(p, a, [g] * n, None, 'delta', 'real')
+            leg = simulate(p['V0_m'], [g] * n, a, sim_p)
+            absorb(r)
+            for row_new, row_old in zip([x for x in r['rows'] if x['event'] == 'year'], leg[1:]):
+                for key in ('f', 'cum', 'L', 'W', 'V'):
+                    worst = max(worst, abs(row_new[key] - row_old[key]))
+    check('single_life_equals_legacy_simulate', worst < BRIDGE_TOL, f'max|diff|={worst:.2e}')
+
+    bench = []
+    worst = 0.0
+    for (n, a), target in PLAN_S1_GAIN.items():
+        h = run_family(p, 1.0, [g] * n, None, 'delta', 'real')
+        r = run_family(p, a,   [g] * n, None, 'delta', 'real')
+        gain = r['f_T'] / h['f_T'] - 1.0
+        worst = max(worst, abs(gain - target))
+        bench.append({'N': n, 'alpha': a, 'gain': gain, 'plan': target})
+    applies = _plan_fixture_applies(p)
+    if applies:
+        check('plan_s1_no_verification_table', worst < PLAN_S1_TOL, f'max|diff| vs plan={worst:.4f}')
+    else:
+        checks['plan_s1_no_verification_table'] = {
+            'ok': True, 'skipped': True,
+            'detail': f'SKIPPED, parameters differ from the plan baseline (max|diff| would be {worst:.4f})'}
+
+    fp = _flat(p)
+    stakes = [run_family(fp, a, [g] * PLAN_S1_FLAT_N, None, 'delta', 'real')['f_T'] for a in alphas]
+    spread = max(stakes) - min(stakes)
+    check('flat_rate_stake_identical_across_alpha', spread < 1e-12, f'spread={spread:.2e}')
+    if _plan_fixture_applies(p, ('tau_0', 'g')):     # the flat-rate stake depends on tau_0 and g only
+        check('flat_rate_stake_equals_plan', abs(stakes[0] - PLAN_S1_FLAT_STAKE) < 5e-7,
+              f'{stakes[0]:.6f} vs {PLAN_S1_FLAT_STAKE}')
+    else:
+        checks['flat_rate_stake_equals_plan'] = {
+            'ok': True, 'skipped': True,
+            'detail': f'SKIPPED, tau_0 or g differ from the plan baseline ({stakes[0]:.6f} vs {PLAN_S1_FLAT_STAKE})'}
+
+    worst = 0.0
+    for rule in _HEIR_RULES:
+        for env in _ENVELOPE_UNITS:
+            fs = []
+            for a in alphas:
+                r = run_family(fp, a, [g] * vg['T'], vg['G'], rule, env)
+                absorb(r); fs.append(r['f_T'])
+            worst = max(worst, max(fs) - min(fs))
+    check('flat_rate_alpha_free_with_heirs', worst < 1e-12, f'spread={worst:.2e}')
+
+    check('family_conservation_units_and_value', diag['cons_err'] < CONSERVE_TOL,
+          f"max err={diag['cons_err']:.2e}")
+    check('family_in_kind_identity', diag['unit_err'] < CONSERVE_TOL,
+          f"max rel err={diag['unit_err']:.2e}")
+
+    series = [g] * vg['T']
+    worst = 0.0
+    for rule in _HEIR_RULES:
+        for env in _ENVELOPE_UNITS:
+            m = family_pair(p, 1.0, series, vg['G'], rule, env, rho)
+            worst = max(worst, abs(m['gain']), abs(m['state_stake_rel'] or 0.0), abs(m['pv_rel'] or 0.0))
+    check('honest_identity_all_switches', worst < 1e-12)
+
+    worst = 0.0
+    for rule in _HEIR_RULES:
+        for a in alphas:
+            e1 = run_family(p, a, series, vg['G'], rule, 'credited')
+            e2 = run_family(p, a, series, vg['G'], rule, 'real')
+            worst = max(worst, abs(e1['f_T'] - e2['f_T']) / e1['f_T'])
+    check('envelope_unit_inert_constant_alpha_no_sale', worst < 1e-12, f'max rel diff={worst:.2e}')
+
+    r = run_family(p, 1.0, series, vg['G'], 'delta', 'real')
+    expect = list(range(vg['G'], vg['T'], vg['G']))
+    check('death_dates', r['deaths'] == expect, f'{r["deaths"]}')
+
+    return checks, {'plan_s1': bench, 'flat_spread_N30': spread, 'plan_fixture_applies': applies,
+                    'min_state_units': diag['min_state_units']}
+
+
+# ─────────────────────────────────────────────────────────────
+# P2b VALIDATION
+# ─────────────────────────────────────────────────────────────
+
+def _drive(p: dict, alpha: float, V_path: list, rule: str, env: str = 'real'):
+    """Run Route C holding years along an explicit true-value path (no deaths)."""
+    sim_p = rate_params(p)
+    led, diag = Ledger(), _new_diag()
+    st = _new_state(alpha, V_path[0])
+    led.post(0, 'endow', 'market', 'family_equity', V_path[0])
+    for t in range(1, len(V_path)):
+        _holding_year(led, t, st, V_path[t - 1], V_path[t], alpha, sim_p, env, 1.0, rule, 0.0)
+        _check(led, st, V_path[t], diag)
+    return st, led, diag
+
+
+def _oscillation_check(p: dict, V: float = 100.0, years: int = 80) -> dict:
+    """
+    Plan §7 check 7. A one-off delta of V on an empty envelope, run through
+    explicit annual assessments (legacy rule), against the legacy
+    settle_tw_flows. Returns the two flow lists and the net tax of each.
+    """
+    sim_p = rate_params(p)
+    led = Ledger()
+    st  = _new_state(1.0, V)
+    st['W'] = 0.0
+    led.post(0, 'endow', 'market', 'family_equity', V)
+    rc = _heir_arrival(led, 0, st, V, 1.0, sim_p, 'credited', 'delta', 1.0, 'legacy')
+    flows = [rc[3]]
+    for t in range(1, years + 1):
+        row, _ = _holding_year(led, t, st, V, V, 1.0, sim_p, 'credited')
+        flows.append(row['L'])
+    _, net_leg, _, leg = settle_tw_flows({'TW': V, 'W_sell': 0.0, 'cum_after': 0.0}, p)
+    worst = max(abs(a - b) for a, b in zip(flows, leg))
+    return {'net_engine': sum(flows), 'net_legacy': net_leg, 'n_legacy_flows': len(leg),
+            'max_flow_diff': worst, 'first_flows': flows[:4]}
+
+
+def _p2b_validate(p: dict) -> tuple[dict, dict]:
+    """P2b checks: plan §7 checks 7 and 10, plus the refund-cap and rule-switch checks."""
+    checks = {}
+
+    def check(name, ok, detail=''):
+        checks[name] = {'ok': bool(ok), 'detail': detail}
+        if not ok:
+            raise AssertionError(f'VALIDATION FAILED: {name} {detail}')
+
+    g      = p['g']
+    vg     = p['val_gen']
+    alphas = p['sweep']['alpha_vals']
+    rho    = p['rho']
+    T, G   = vg['T'], vg['G']
+    ir     = p['budget_growth']
+    series = [g] * T
+    fp     = _flat(p)
+    diag   = _new_diag()
+    info   = {}
+
+    def absorb(run):
+        d = run['diag']
+        for key in ('cons_err', 'unit_err', 'uout_err'):
+            diag[key] = max(diag[key], d[key])
+        diag['min_state_units'] = min(diag['min_state_units'], d['min_state_units'])
+
+    # 7. oscillation check (legacy rule)
+    o = _oscillation_check(p)
+    check('c7_oscillation_matches_legacy_settle_flows',
+          o['max_flow_diff'] < 1e-9 and abs(o['net_engine'] - o['net_legacy']) < 1e-6,
+          f"net {o['net_engine']:.6f} vs legacy {o['net_legacy']:.6f}")
+    info['oscillation'] = o
+
+    # 10. consumption identity: c = g/(1+g) keeps declared W flat -> zero delta, zero tax
+    c_flat = g / (1.0 + g)
+    worst_w = worst_l = 0.0
+    for rule in _REFUND_RULES:
+        for a in (1.0, 2.0):
+            r = run_family(p, a, series, None, 'delta', 'real', consumption=c_flat, refund_rule=rule)
+            absorb(r)
+            for x in r['rows']:
+                if x['event'] == 'year':
+                    worst_w = max(worst_w, abs(x['W'] - a * p['V0_m']) / (a * p['V0_m']))
+                    worst_l = max(worst_l, abs(x['L']))
+    check('c10_consumption_identity_zero_delta_zero_tax', worst_w < 1e-9 and worst_l < 1e-9,
+          f'max rel dW={worst_w:.2e}, max|L|={worst_l:.2e}, c={c_flat:.4%}')
+
+    # 10b. refunds never exceed what was paid: u_out >= 0 always; state stake >= 0.
+    #      Consumption above the flat-W level forces negative deltas (refunds).
+    worst_u = 0.0
+    legacy_net_min = 0.0
+    for c in vg['consumption_vals'] + [c_flat, 0.12, 0.20]:
+        for rule in _REFUND_RULES:
+            for env in _ENVELOPE_UNITS:
+                for a in alphas:
+                    r = run_family(p, a, series, G, 'delta', env, consumption=c,
+                                   index_rate=ir, refund_rule=rule)
+                    absorb(r)
+                    worst_u = min(worst_u, r['u_out_T'], r['s_T'])
+                    if rule == 'legacy':
+                        legacy_net_min = min(legacy_net_min, r['net_credited'])
+    check('c10b_refund_units_never_exceed_paid', worst_u > -1e-12, f'min(u_out, s_T)={worst_u:.2e}')
+    info['legacy_min_net_credited'] = legacy_net_min
+
+    # round trip: price up 50% then back. ratio_mirror cannot return more units than paid.
+    flat_up_down = [100.0, 150.0, 100.0]
+    f_m, _, d_m = _drive(fp, 1.0, flat_up_down, 'ratio_mirror')
+    f_l, _, d_l = _drive(fp, 1.0, flat_up_down, 'legacy')
+    check('ratio_mirror_round_trip_cannot_exceed_paid', f_m['f'] <= 1.0 + 1e-12 and f_m['f'] > 0.99,
+          f"f={f_m['f']:.6f}")
+    info['round_trip_units'] = {'ratio_mirror': f_m['f'], 'legacy': f_l['f']}
+    # mirror fractions on the first leg are exactly tau*x/(1+x) and tau*(1-1/(1+x))
+    tau0 = fp['tau_0']; x = 0.5
+    st1, _, _ = _drive(fp, 1.0, [100.0, 150.0], 'ratio_mirror')
+    check('ratio_mirror_payment_fraction_is_tau_x_over_1_plus_x',
+          abs((1.0 - st1['f']) - tau0 * x / (1.0 + x)) < 1e-12, f"{1.0 - st1['f']:.6f}")
+    # a pure price fall with nothing paid refunds nothing
+    st2, _, _ = _drive(fp, 1.0, [100.0, 50.0], 'ratio_mirror')
+    check('ratio_mirror_no_refund_without_payment', st2['f'] == 1.0 and st2['s'] == 0.0)
+
+    # flat rate: family stake alpha-free under every P2b switch
+    worst = 0.0
+    for rule in _REFUND_RULES:
+        for c in (0.0, 0.035):
+            for idx_r in (0.0, ir):
+                fs = []
+                for a in alphas:
+                    r = run_family(fp, a, series, G, 'delta', 'real', consumption=c,
+                                   index_rate=idx_r, refund_rule=rule)
+                    absorb(r); fs.append(r['f_T'])
+                worst = max(worst, max(fs) - min(fs))
+    check('flat_rate_alpha_free_all_p2b_switches', worst < 1e-12, f'spread={worst:.2e}')
+
+    # indexing lowers the rate at a given nominal W, so the honest family keeps at least as much
+    worst = 1.0
+    for c in (0.0, 0.035):
+        for rule in _REFUND_RULES:
+            a0 = run_family(p, 1.0, series, G, 'delta', 'real', consumption=c, refund_rule=rule)
+            a1 = run_family(p, 1.0, series, G, 'delta', 'real', consumption=c,
+                            index_rate=ir, refund_rule=rule)
+            worst = min(worst, a1['f_T'] - a0['f_T'])
+    check('indexing_never_raises_honest_tax', worst > -1e-12, f'min(f_idx - f_noidx)={worst:.2e}')
+
+    # honest identity with every P2b switch on
+    worst = 0.0
+    for rule in _REFUND_RULES:
+        m = family_pair(p, 1.0, series, G, 'delta', 'real', rho, consumption=0.035,
+                        index_rate=ir, refund_rule=rule)
+        worst = max(worst, abs(m['gain']), abs(m['state_stake_rel'] or 0.0), abs(m['pv_rel'] or 0.0))
+    check('honest_identity_p2b', worst < 1e-12)
+
+    # consumed sink balances with the ledger
+    r = run_family(p, 1.0, series, G, 'delta', 'real', consumption=0.035,
+                   index_rate=ir, refund_rule='ratio_mirror')
+    ent = sum(e['amount'] for e in r['ledger'].entries if e['kind'] == 'consume')
+    check('consumed_sink_equals_sum_of_sales', abs(ent - r['consumed_true']) < 1e-9 * max(1.0, ent))
+    absorb(r)
+
+    check('p2b_conservation', diag['cons_err'] < CONSERVE_TOL, f"max err={diag['cons_err']:.2e}")
+    check('p2b_in_kind_identity', diag['unit_err'] < CONSERVE_TOL, f"max rel err={diag['unit_err']:.2e}")
+    check('p2b_refundable_units_within_state_stake', diag['uout_err'] < 1e-12,
+          f"max err={diag['uout_err']:.2e}")
+    return checks, info
+
+
+# ─────────────────────────────────────────────────────────────
+# P3 VALIDATION
+# ─────────────────────────────────────────────────────────────
+
+def _p3_validate(p: dict) -> tuple[dict, dict]:
+    """P3 checks: plan §7 checks 3, 4, 5, 6 plus the reductions to P2 / a single asset."""
+    checks, info = {}, {}
+
+    def check(name, ok, detail=''):
+        checks[name] = {'ok': bool(ok), 'detail': detail}
+        if not ok:
+            raise AssertionError(f'VALIDATION FAILED: {name} {detail}')
+
+    g, vg  = p['g'], p['val_gen']
+    T, G   = vg['T'], vg['G']
+    ir     = p['budget_growth']
+    rho    = p['rho']
+    alphas = p['sweep']['alpha_vals']
+    ser    = [g] * T
+    base   = dict(vg['route_shares'])
+    ri     = vg['reset_interval']
+    cons   = vg['consumption']
+    d3     = _p3_new_diag()
+
+    def absorb(run):
+        d = run['diag']
+        for key in ('cons_err', 'unit_err', 'uout_err'):
+            d3[key] = max(d3[key], d[key])
+        for key in ('min_E_cash', 'min_A_D', 'min_u_out', 'min_state_units'):
+            d3[key] = min(d3[key], d[key])
+        if abs(sum(run['ledger'].bal.values())) > 1e-9 * max(1.0, run['family_true_T']):
+            raise AssertionError('P3 ledger does not balance')
+
+    # reductions
+    worst = 0.0
+    for c in (0.0, cons):
+        for a in alphas:
+            r2 = run_family(p, a, ser, G, 'delta', 'real', consumption=c, index_rate=ir,
+                            refund_rule='ratio_mirror')
+            r3 = run_family3(p, a, 1.0, ser, G, 'delta', consumption=c, index_rate=ir,
+                             shares={'C': 1.0})
+            absorb(r3)
+            worst = max(worst, abs(r2['f_T'] * r2['V_T'] - r3['family_true_T']) / r3['family_true_T'])
+    check('p3_C_only_equals_P2', worst < 1e-12, f'max rel diff={worst:.2e}')
+
+    worst = 0.0
+    for c in (0.0, cons):
+        h1 = run_family(p, 1.0, ser, None, 'delta', 'real', consumption=c, index_rate=ir,
+                        refund_rule='ratio_mirror')
+        h3 = run_family3(p, 1.0, 1.0, ser, None, 'delta', consumption=c, index_rate=ir,
+                         shares={'A': 0.5, 'B': 0.25, 'C': 0.25})
+        absorb(h3)
+        worst = max(worst, abs(h1['f_T'] * h1['V_T'] - h3['family_true_T']) / h3['family_true_T'])
+    check('p3_honest_ABC_equals_single_asset', worst < 1e-12, f'max rel diff={worst:.2e}')
+
+    # check 3: honest identity under every route switch
+    worst = 0.0
+    for r_i in (0, ri, 7):
+        for wv in (0, 10):
+            m = family3_pair(p, 1.0, 1.0, ser, G, 'delta', rho, consumption=cons, index_rate=ir,
+                             shares=base, reset_interval=r_i, death_waiver=wv)
+            worst = max(worst, abs(m['gain']), abs(m['state_rel'] or 0.0), abs(m['pv_rel'] or 0.0))
+    check('c3_honest_identity_all_route_switches', worst < 1e-12, f'max={worst:.2e}')
+
+    # check 4: A/B inertness
+    worst = 0.0
+    for aC in alphas:
+        for aD in alphas:
+            m = family3_pair(p, aC, aD, ser, G, 'delta', rho, consumption=cons, index_rate=ir,
+                             shares={'A': 0.6, 'B': 0.4}, reset_interval=ri)
+            worst = max(worst, abs(m['gain']))
+    check('c4_AB_only_families_have_zero_gain', worst < 1e-12, f'max|gain|={worst:.2e}')
+
+    # check 5: dilution. Only C deviates (alpha_C = 0.5); the rest is Route A.
+    dil = {}
+    for s in (0.02, 0.04, 0.08, 0.16):
+        m = family3_pair(p, 0.5, 1.0, ser, G, 'delta', rho, consumption=cons, index_rate=ir,
+                         shares={'A': 1.0 - s, 'C': s}, reset_interval=ri)
+        dil[s] = m['gain']
+    ratio = dil[0.08] / dil[0.04] if dil[0.04] != 0.0 else None
+    info['dilution_gain_by_C_share'] = dil
+    check('c5_dilution_roughly_linear_in_C_share',
+          ratio is not None and 1.5 < ratio < 2.5, f'gain(8%)/gain(4%)={ratio}')
+
+    # check 6: caps, over a switch grid, plus conservation
+    worst_lost = 0.0
+    n_runs = 0
+    for c in (cons, 0.12):
+        for r_i, wv in ((ri, 0), (7, 0), (7, 10)):
+            for aC in (0.1, 0.5, 1.0, 2.0):
+                for aD in (0.1, 0.5, 1.0, 2.0):
+                    r = run_family3(p, aC, aD, ser, G, 'delta', consumption=c, index_rate=ir,
+                                    shares=base, reset_interval=r_i, death_waiver=wv)
+                    absorb(r); n_runs += 1
+                    worst_lost = max(worst_lost, r['lost_refund'])
+    check('c6_refunds_never_exceed_paid_units_or_value',
+          d3['min_E_cash'] > -1e-9 and d3['min_A_D'] > -1e-12 and d3['min_u_out'] > -1e-12
+          and d3['min_state_units'] > -1e-12 and d3['uout_err'] < 1e-12,
+          f"{n_runs} runs; min E_cash={d3['min_E_cash']:.2e}, min A_D={d3['min_A_D']:.2e}, "
+          f"min u_out={d3['min_u_out']:.2e}")
+    check('p3_conservation', d3['cons_err'] < CONSERVE_TOL, f"max err={d3['cons_err']:.2e}")
+    check('p3_in_kind_identity', d3['unit_err'] < CONSERVE_TOL, f"max rel err={d3['unit_err']:.2e}")
+    info['max_lost_refund_gbp_m'] = worst_lost
+
+    # resets bound Route D understatement (finding, asserted as a direction)
+    opts = dict(consumption=cons, index_rate=ir, shares=base)
+    hr = run_family3(p, 1.0, 1.0, ser, G, 'delta', reset_interval=ri, **opts)
+    hn = run_family3(p, 1.0, 1.0, ser, G, 'delta', reset_interval=0, **opts)
+    g_reset = family3_pair(p, 1.0, 0.5, ser, G, 'delta', rho, honest=hr, reset_interval=ri, **opts)['gain']
+    g_never = family3_pair(p, 1.0, 0.5, ser, G, 'delta', rho, honest=hn, reset_interval=0, **opts)['gain']
+    info['D_understate_gain_alpha_D_0.5'] = {'reset': g_reset, 'never': g_never}
+    check('resets_reduce_route_D_understatement_gain', g_reset < g_never,
+          f'gain with reset {g_reset:+.4f}, never {g_never:+.4f}')
+    return checks, info
+
+
+# ─────────────────────────────────────────────────────────────
+# P4 VALIDATION
+# ─────────────────────────────────────────────────────────────
+
+def _first_year_at(share_by_year: list, threshold: float):
+    """First year t (1-indexed) at which the verified share reaches `threshold`, else None."""
+    for i, v_ in enumerate(share_by_year, start=1):
+        if v_ >= threshold:
+            return i
+    return None
+
+
+def _p4_validate(p: dict) -> tuple[dict, dict]:
+    """P4 checks: plan §7 check 8 (lambda -> 0), honest identity and inertness under lambda,
+    the verified-share law, conservation with the verified tranche, and direction."""
+    checks, info = {}, {}
+
+    def check(name, ok, detail=''):
+        checks[name] = {'ok': bool(ok), 'detail': detail}
+        if not ok:
+            raise AssertionError(f'VALIDATION FAILED: {name} {detail}')
+
+    g, vg  = p['g'], p['val_gen']
+    T, G   = vg['T'], vg['G']
+    ir     = p['budget_growth'] if vg['index_wmin'] else 0.0
+    rho    = p['rho']
+    ser    = [g] * T
+    base   = dict(vg['route_shares'])
+    ri     = vg['reset_interval']
+    cons   = vg['consumption']
+    lams   = [x for x in vg['lambda_vals'] if x > 0.0]
+    opts   = dict(consumption=cons, index_rate=ir, shares=base, reset_interval=ri)
+    d4     = _p3_new_diag()
+
+    def absorb(run):
+        d = run['diag']
+        for key in ('cons_err', 'unit_err', 'uout_err'):
+            d4[key] = max(d4[key], d[key])
+        for key in ('min_E_cash', 'min_A_D', 'min_u_out', 'min_state_units'):
+            d4[key] = min(d4[key], d[key])
+        if abs(sum(run['ledger'].bal.values())) > 1e-9 * max(1.0, run['family_true_T']):
+            raise AssertionError('P4 ledger does not balance')
+
+    # 8. lambda -> 0 continuity: a vanishing hazard reproduces the no-verification result
+    worst = 0.0
+    for aC in (0.1, 0.5, 2.0):
+        for aD in (0.5, 1.0):
+            a0 = run_family3(p, aC, aD, ser, G, 'delta', **opts)
+            a1 = run_family3(p, aC, aD, ser, G, 'delta', verify_hazard=1e-9, **opts)
+            absorb(a1)
+            worst = max(worst, abs(a1['family_true_T'] - a0['family_true_T']) / a0['family_true_T'])
+    check('c8_lambda_to_zero_reproduces_no_verification', worst < 1e-6, f'max rel diff at lambda=1e-9: {worst:.2e}')
+
+    # honest identity and inertness: with alpha_C = 1 verification changes nothing
+    worst_gain = worst_inert = 0.0
+    for lam in lams + [1.0]:
+        m = family3_pair(p, 1.0, 1.0, ser, G, 'delta', rho, verify_hazard=lam, **opts)
+        worst_gain = max(worst_gain, abs(m['gain']), abs(m['state_rel'] or 0.0), abs(m['pv_rel'] or 0.0))
+        for aD in (0.5, 2.0):
+            r0 = run_family3(p, 1.0, aD, ser, G, 'delta', **opts)
+            r1 = run_family3(p, 1.0, aD, ser, G, 'delta', verify_hazard=lam, **opts)
+            absorb(r1)
+            worst_inert = max(worst_inert, abs(r1['family_true_T'] - r0['family_true_T']) / r0['family_true_T'])
+    check('c3_honest_identity_under_lambda', worst_gain < 1e-12, f'max={worst_gain:.2e}')
+    check('verification_inert_when_alpha_C_is_1', worst_inert < 1e-9, f'max rel diff={worst_inert:.2e}')
+
+    # verified-share law: 1 - (1 - lambda)^t, exact without consumption
+    worst = 0.0
+    for lam in lams + [1.0]:
+        r = run_family3(p, 0.5, 1.0, ser, G, 'delta', consumption=0.0, index_rate=ir, shares=base,
+                        reset_interval=ri, verify_hazard=lam)
+        absorb(r)
+        yr = [x['t'] for x in r['rows'] if 'verified_share' in x]
+        for t, v_ in zip(yr, r['verified_share']):
+            worst = max(worst, abs(v_ - (1.0 - (1.0 - lam) ** t)))
+    check('verified_share_equals_1_minus_(1-lambda)^t', worst < 1e-12, f'max|diff|={worst:.2e}')
+
+    # A/B inertness and no-C inertness
+    worst = 0.0
+    for lam in lams:
+        for aC in (0.1, 2.0):
+            m = family3_pair(p, aC, 1.0, ser, G, 'delta', rho, verify_hazard=lam,
+                             **dict(opts, shares={'A': 0.6, 'B': 0.4}))
+            worst = max(worst, abs(m['gain']))
+    check('c4_no_C_families_ignore_lambda', worst < 1e-12, f'max|gain|={worst:.2e}')
+
+    # caps and conservation with the verified tranche, over a switch grid
+    n_runs = 0
+    for lam in lams + [1.0]:
+        for c in (cons, 0.12):
+            for wv in (0, 10):
+                for aC in (0.1, 0.5, 1.0, 2.0, 5.0):
+                    for aD in (0.5, 1.0, 2.0):
+                        r = run_family3(p, aC, aD, ser, G, 'delta', consumption=c, index_rate=ir,
+                                        shares=base, reset_interval=ri, death_waiver=wv,
+                                        verify_hazard=lam)
+                        absorb(r); n_runs += 1
+    check('c6_caps_hold_with_verified_tranche',
+          d4['min_E_cash'] > -1e-9 and d4['min_A_D'] > -1e-12 and d4['min_u_out'] > -1e-12
+          and d4['min_state_units'] > -1e-12 and d4['uout_err'] < 1e-12,
+          f"{n_runs} runs; min u_out={d4['min_u_out']:.2e}, min state units={d4['min_state_units']:.2e}")
+    check('p4_conservation', d4['cons_err'] < CONSERVE_TOL, f"max err={d4['cons_err']:.2e}")
+    check('p4_in_kind_identity', d4['unit_err'] < CONSERVE_TOL, f"max rel err={d4['unit_err']:.2e}")
+
+    # direction: with a C-heavy mix, verification takes the understatement gain away
+    heavy = dict(opts, shares={'A': 0.5, 'C': 0.5})
+    gains = {}
+    for lam in [0.0] + lams:
+        h = run_family3(p, 1.0, 1.0, ser, G, 'delta', verify_hazard=lam, **heavy)
+        gains[lam] = family3_pair(p, 0.5, 1.0, ser, G, 'delta', rho, honest=h,
+                                  verify_hazard=lam, **heavy)['gain']
+    ordered = [gains[x] for x in sorted(gains)]
+    info['C_heavy_gain_by_lambda_alpha_C_0.5'] = gains
+    check('verification_erodes_understatement_gain_C_heavy',
+          all(ordered[i + 1] < ordered[i] + 1e-12 for i in range(len(ordered) - 1)) and ordered[-1] < ordered[0],
+          '; '.join(f'{x:.0%}: {gains[x]:+.2%}' for x in sorted(gains)))
+    return checks, info
+
+
+# ─────────────────────────────────────────────────────────────
+# P5 — STRATEGY SEARCH AND BRG/HSC/SPT/SST VERDICTS
+# ─────────────────────────────────────────────────────────────
+
+def _strategies(p: dict, grid: list | None = None) -> list:
+    """
+    Declaration strategies (plan §5). Each is a dict with the Route C / Route D
+    declaration ratios (numbers or functions of ctx):
+      constant              every year, full (alpha_C, alpha_D) grid
+      first_gen_only        deviate in generation 0, honest afterwards
+      late_deviation        deviate in the final k years before each death (and before T)
+      correct_before_death  deviate until k years before each death, then honest
+      pre_reset_deviation   Route D deviates in the k years before each reset
+      reset_gaming          Route D declared high (a) before a reset and low (1/a) after
+    Targets: C, D, or CD (the same pattern on both). Honest (1, 1) is excluded.
+    """
+    vg   = p['val_gen']
+    if grid is None:        # the library of record; a custom grid gives a single-level slice (HLC)
+        grid = sorted(set(p['sweep']['alpha_vals'] + vg['alpha_ext']))
+    al   = [a for a in grid if a != 1.0]
+    over = [a for a in al if a > 1.0]
+    ks   = vg['strategy_k']
+    out  = []
+    for aC in grid:
+        for aD in grid:
+            if aC == 1.0 and aD == 1.0:
+                continue
+            out.append({'name': 'constant', 'target': 'CD', 'a': (aC, aD), 'k': None,
+                        'aC': aC, 'aD': aD})
+
+    def add(name, kk, avals, targets, pattern):
+        for k in kk:
+            for a in avals:
+                for tg in targets:
+                    f = pattern(a, k)
+                    out.append({'name': name, 'target': tg, 'a': a, 'k': k,
+                                'aC': f if 'C' in tg else 1.0, 'aD': f if 'D' in tg else 1.0})
+
+    add('first_gen_only', [None], al, ('C', 'D', 'CD'),
+        lambda a, k: (lambda c: a if c['gen'] == 0 else 1.0))
+    add('late_deviation', ks, al, ('C', 'D', 'CD'),
+        lambda a, k: (lambda c: a if c['yrs_to_death'] < k else 1.0))
+    add('correct_before_death', ks, al, ('C', 'D', 'CD'),
+        lambda a, k: (lambda c: a if c['yrs_to_death'] >= k else 1.0))
+    add('pre_reset_deviation', ks, al, ('D',),
+        lambda a, k: (lambda c: a if c['yrs_to_reset'] < k else 1.0))
+    add('reset_gaming', ks, over, ('D',),
+        lambda a, k: (lambda c: a if c['yrs_to_reset'] < k else 1.0 / a))
+    return out
+
+
+def _label(st: dict) -> str:
+    if st['name'] == 'constant':
+        return f"constant C={st['a'][0]} D={st['a'][1]}"
+    k = '' if st['k'] is None else f" k={st['k']}"
+    return f"{st['name']} {st['target']} a={st['a']}{k}"
+
+
+_BASE_RULE = 'units'                          # no value cap, no corrective auction
+_CANDIDATE_RULE = 'units_and_value/reset/on'  # the simple universal rule
+
+
+def _p5_opts(p, rule, lam):
+    """`rule` is a rule-set key 'c_cap/verify_down/dauc' (see the module header, RULE SETS);
+    trailing parts may be omitted and take the defaults units / allow / off. `lam` is the
+    verification hazard; the Route D auction (dauc = on) uses the same value."""
+    vg = p['val_gen']
+    parts = rule.split('/')
+    cap = parts[0]
+    verify_down = parts[1] if len(parts) > 1 else 'allow'
+    dauc = parts[2] if len(parts) > 2 else 'off'
+    return dict(consumption=vg['consumption'],
+                index_rate=p['budget_growth'] if vg['index_wmin'] else 0.0,
+                shares=vg['route_shares'], reset_interval=vg['reset_interval'],
+                death_waiver=vg['death_waiver'], verify_hazard=lam, c_cap=cap,
+                verify_down=verify_down, verify_hazard_D=(lam if dauc == 'on' else 0.0))
+
+
+def _p5_search(p: dict, rule: str, lam: float, strategies: list) -> dict:
+    """Best response and BRG / SPT / SST verdict for one (refund rule, lambda)."""
+    vg  = p['val_gen']
+    ser = [p['g']] * vg['T']
+    tol = vg['state_tol']
+    o   = _p5_opts(p, rule, lam)
+    h   = run_family3(p, 1.0, 1.0, ser, vg['G'], vg['heir_influx'], **o)
+    recs = []
+    for st in strategies:
+        m = family3_pair(p, st['aC'], st['aD'], ser, vg['G'], vg['heir_influx'], p['rho'],
+                         honest=h, **o)
+        recs.append({'label': _label(st), 'name': st['name'], 'target': st['target'],
+                     'gain': m['gain'], 'pv_rel': m['pv_rel'], 'state_rel': m['state_rel']})
+    best = max(recs, key=lambda r_: r_['gain'])
+    gaining = [r_ for r_ in recs if r_['gain'] > 0.0]
+
+    def bad_pv(r_):
+        return r_['pv_rel'] is None or abs(r_['pv_rel']) > tol
+
+    def bad_st(r_):
+        return r_['state_rel'] is None or abs(r_['state_rel']) > tol
+
+    conf_pv = [r_ for r_ in gaining if bad_pv(r_)]
+    conf_st = [r_ for r_ in gaining if bad_st(r_)]
+    conf = [r_ for r_ in gaining if bad_pv(r_) or bad_st(r_)]
+    conf.sort(key=lambda r_: -r_['gain'])
+    by_family = {}
+    for r_ in recs:
+        k_ = r_['name']
+        if k_ not in by_family or r_['gain'] > by_family[k_]['gain']:
+            by_family[k_] = r_
+    def _extreme(key):
+        pool = [r_ for r_ in gaining if r_[key] is not None]
+        if not pool:
+            return None
+        w = max(pool, key=lambda r_: abs(r_[key]))
+        return {'label': w['label'], 'gain': w['gain'], 'value': w[key]}
+
+    return {'rule': rule, 'lambda': lam, 'n_strategies': len(recs),
+            'worst_pv': _extreme('pv_rel'), 'worst_state': _extreme('state_rel'),
+            'best': best, 'BRG_pass': best['gain'] <= vg['brg_tol'],
+            'n_gaining': len(gaining), 'n_conflict': len(conf),
+            'n_conflict_spt': len(conf_pv), 'n_conflict_sst': len(conf_st),
+            'worst_conflicts': conf[:5], 'SPT_pass': len(conf_pv) == 0, 'SST_pass': len(conf_st) == 0,
+            'best_by_family': by_family, 'all': recs}
+
+
+def _honest_shock_cost(p: dict, rule: str) -> dict:
+    """HSC proxy: an honest family hit by a genuine market fall; its terminal net worth
+    under `rule` relative to the same family under the baseline rule set (units cap, no
+    corrective auction). Negative = the rule costs
+    honest families. Verification plays no part (alpha = 1), so lambda = 0."""
+    vg = p['val_gen']
+    out = {}
+    for shock in vg['shock_sizes']:
+        ser = [p['g']] * vg['T']
+        ser[vg['shock_year'] - 1] = shock
+        a = run_family3(p, 1.0, 1.0, ser, vg['G'], vg['heir_influx'], **_p5_opts(p, rule, 0.0))
+        b = run_family3(p, 1.0, 1.0, ser, vg['G'], vg['heir_influx'],
+                        **_p5_opts(p, _BASE_RULE, 0.0))
+        out[str(shock)] = a['family_true_T'] / b['family_true_T'] - 1.0
+    return out
+
+
+def _conventional_run(p: dict, alpha_C: float, alpha_D: float, rate: float) -> dict:
+    """
+    Reference system for the "no clear unbounded strategy" claim: a conventional self-declared
+    wealth tax. Every year the family pays `rate` x DECLARED value, in kind at the true price
+    (so units paid = rate x alpha x units held). Routes A/B are professionally valued (alpha = 1);
+    C and D are declared at alpha_C, alpha_D. No delta, no refund, no verification, no auction,
+    no reset; same growth, consumption, route shares and horizon as the WDT runs. Deaths change
+    nothing (no tax event). Returns terminal family true value and the PV of the state's receipts.
+    """
+    vg = p['val_gen']
+    T = vg['T']
+    alpha = {'A': 1.0, 'B': 1.0, 'C': alpha_C, 'D': alpha_D}
+    tw = pv = 0.0
+    for r, sh in vg['route_shares'].items():
+        f, V = 1.0, sh * p['V0_m']
+        for t in range(1, T + 1):
+            V *= 1.0 + p['g']
+            f -= f * vg['consumption']
+            units = rate * alpha[r] * f
+            f -= units
+            pv += units * V / (1.0 + p['rho']) ** t
+        tw += f * V
+    return {'TW': tw, 'PV': pv}
+
+
+def _conventional_rate(p: dict, target_tw: float) -> float:
+    """Flat rate at which the honest conventional family ends with the same terminal true wealth as
+    the honest WDT family, i.e. carries the same tax burden. (Equal present value of receipts is not
+    attainable: with growth above the discount rate, PV peaks at a modest rate and then falls.)"""
+    lo, hi = 0.0, 0.99
+    for _ in range(200):
+        mid = 0.5 * (lo + hi)
+        if _conventional_run(p, 1.0, 1.0, mid)['TW'] > target_tw:
+            lo = mid
+        else:
+            hi = mid
+    return 0.5 * (lo + hi)
+
+
+def _p5_conventional(p: dict, strategies_alphas: list) -> dict:
+    """
+    Best response against the conventional system, for comparison with the WDT search. The
+    flat rate is calibrated so the honest family ends with the same terminal wealth as under the WDT
+    (candidate rule, lambda = 0), i.e. the same burden on honest families. Gain = TW(a)/TW(honest) - 1 over the (alpha_C, alpha_D) grid.
+    """
+    vg = p['val_gen']
+    ser = [p['g']] * vg['T']
+    h_wdt = run_family3(p, 1.0, 1.0, ser, vg['G'], vg['heir_influx'], **_p5_opts(p, _CANDIDATE_RULE, 0.0))
+    target = h_wdt['family_true_T']
+    rate = _conventional_rate(p, target)
+    h = _conventional_run(p, 1.0, 1.0, rate)
+    cells = {}
+    for aC in strategies_alphas:
+        for aD in strategies_alphas:
+            cells[f'{aC}|{aD}'] = _conventional_run(p, aC, aD, rate)['TW'] / h['TW'] - 1.0
+    best_k = max(cells, key=cells.get)
+    full = _conventional_run(p, 0.0, 0.0, rate)['TW'] / h['TW'] - 1.0
+    return {'rate': rate, 'target_tw': target, 'honest_TW': h['TW'], 'cells': cells,
+            'best': {'key': best_k, 'gain': cells[best_k]},
+            'full_understatement_gain': full,
+            'diag_alpha': {str(a): cells[f'{a}|{a}'] for a in strategies_alphas}}
+
+
+def _p5_no_tax_tw(p: dict) -> float:
+    """Terminal family true wealth with no tax at all (flat, negligible rate)."""
+    vg = p['val_gen']
+    p0 = dict(p, tau_0=1e-12, tau_m=1e-12, schedule='logistic')
+    return run_family3(p0, 1.0, 1.0, [p['g']] * vg['T'], vg['G'], vg['heir_influx'],
+                       **_p5_opts(p0, _BASE_RULE, 0.0))['family_true_T']
+
+
+def _p5_upper_bound(p: dict, rule: str, lam: float, tw_no_tax: float) -> float:
+    """
+    Strategy-free ceiling on any family's gain under `rule` at `lam`. Tax only moves value from
+    family to state and refunds are capped by what was paid, so no declaration strategy can leave
+    the family richer than a run with no tax: gain <= TW(no tax) / TW(honest) - 1, the honest
+    family's whole tax drag as a share of its terminal wealth. main() checks it against every
+    best response (a violation means a cap or a ledger leak).
+    """
+    vg = p['val_gen']
+    h = run_family3(p, 1.0, 1.0, [p['g']] * vg['T'], vg['G'], vg['heir_influx'], **_p5_opts(p, rule, lam))
+    return tw_no_tax / h['family_true_T'] - 1.0
+
+
+def _p5_growth_surface(p: dict, rules: list, strategies: list) -> dict:
+    """
+    Best-response gain over the growth rate g and the verification hazard lambda, for each rule
+    in `rules`. Reads: how much room a declaration strategy has when the asset grows at g and a
+    share lambda of such assets is verified each year. Slow growers have little delta to
+    misdeclare; fast growers that never list are the exposed corner. Growth and lambda are
+    independent inputs here (the model has no link between them). Gain is the share of the
+    honest family's terminal wealth, so it is a percentage, not pounds; honest_TW_m gives scale.
+    """
+    vg = p['val_gen']
+    out = {}
+    for rule in rules:
+        out[rule] = {}
+        for g_ in vg['growth_vals']:
+            pg = dict(p)
+            pg['g'] = g_
+            o = _p5_opts(pg, rule, 0.0)
+            h = run_family3(pg, 1.0, 1.0, [g_] * vg['T'], vg['G'], vg['heir_influx'], **o)
+            cells = {}
+            for lam in vg['lambda_vals']:
+                r_ = _p5_search(pg, rule, lam, strategies)
+                cells[str(lam)] = {'gain': r_['best']['gain'], 'label': r_['best']['label'],
+                                   'BRG': r_['BRG_pass'], 'SPT': r_['SPT_pass'], 'SST': r_['SST_pass'],
+                                   'n_conflict': r_['n_conflict']}
+            out[rule][str(g_)] = {'honest_TW_m': h['family_true_T'], 'by_lambda': cells}
+    return out
+
+
+def _p5_dmg(p: dict, rules: list, strategies: list) -> dict:
+    """
+    DMG: dominance grid (NDS). A strategy dominates when its family gain over honest is
+    positive in EVERY scenario. Scenarios: growth g x lambda (constant growth), and a genuine
+    one-year market fall (shock_sizes at shock_year, base g) x lambda. The honest family runs
+    under the same rule set and scenario. Per rule: for every strategy the minimum, mean and
+    share of scenarios with a gain; the summary counts strategies that gain everywhere and
+    reports the maximin strategy (highest worst-case gain).
+    """
+    vg = p['val_gen']
+    scen = []
+    for g_ in vg['growth_vals']:
+        for lam in vg['lambda_vals']:
+            scen.append(('growth', g_, lam, [g_] * vg['T']))
+    for sh in vg['shock_sizes']:
+        for lam in vg['lambda_vals']:
+            ser = [p['g']] * vg['T']
+            ser[vg['shock_year'] - 1] = sh
+            scen.append(('shock', sh, lam, ser))
+    out = {}
+    for rule in rules:
+        gains = [[] for _ in strategies]
+        for kind, x_, lam, ser in scen:
+            pg = dict(p)
+            if kind == 'growth':
+                pg['g'] = x_
+            o = _p5_opts(pg, rule, lam)
+            h = run_family3(pg, 1.0, 1.0, ser, vg['G'], vg['heir_influx'], **o)
+            for i, st in enumerate(strategies):
+                m = family3_pair(pg, st['aC'], st['aD'], ser, vg['G'], vg['heir_influx'], pg['rho'],
+                                 honest=h, **o)
+                gains[i].append(m['gain'])
+        recs = []
+        for st, gl in zip(strategies, gains):
+            recs.append({'label': _label(st), 'name': st['name'], 'target': st['target'],
+                         'min_gain': min(gl), 'mean_gain': sum(gl) / len(gl),
+                         'share_gaining': sum(1 for x_ in gl if x_ > 0.0) / len(gl)})
+        dom = sorted([r_ for r_ in recs if r_['min_gain'] > 0.0], key=lambda r_: -r_['min_gain'])
+        n_mat = sum(1 for r_ in recs if r_['min_gain'] > vg['brg_tol'])
+        maximin = max(recs, key=lambda r_: r_['min_gain'])
+        top = sorted(recs, key=lambda r_: -r_['share_gaining'])[:10]
+        out[rule] = {'n_scenarios': len(scen), 'n_strategies': len(recs),
+                     'n_dominant': len(dom), 'n_dominant_material': n_mat, 'material_threshold': vg['brg_tol'], 'dominant': dom[:10],
+                     'maximin': maximin, 'top_share': top,
+                     'max_share_gaining': max(r_['share_gaining'] for r_ in recs)}
+    return out
+
+
+def _hec_paths(vg: dict, sigma: float, seed: int) -> list:
+    """Multiplicative honest valuation error on Routes C and D: declared ratio exp(e_t), e an AR(1) in logs
+    with persistence hec_phi_C / hec_phi_D (both default to hec_phi) and stationary sd sigma, centred so
+    E[exp(e)] = 1 (no bias, by decision of 5 Oct 2026). Independent paths for C and D.
+    Deterministic given the seed (random.Random, no numpy)."""
+    import random
+    rng = random.Random(seed)
+    phis = (vg.get('hec_phi_C', vg['hec_phi']), vg.get('hec_phi_D', vg['hec_phi']))
+    out = []
+    for _ in range(vg['hec_paths']):
+        pair = []
+        for _r in range(2):
+            phi = phis[_r]
+            innov = math.sqrt(max(1.0 - phi * phi, 0.0)) * sigma
+            e, ser = rng.gauss(0.0, sigma), []
+            for _t in range(vg['T'] + 1):
+                ser.append(math.exp(e - 0.5 * sigma * sigma))
+                e = phi * e + innov * rng.gauss(0.0, 1.0)
+            pair.append(ser)
+        out.append(pair)
+    return out
+
+
+def _p5_hec(p: dict, rules: list, lams: list) -> dict:
+    """
+    HEC: honest families that value Routes C and D with error. Error-free honest is the reference, so
+    gain < 0 is the cost of honest error. Per (rule, lambda, sigma): mean and 5th / 95th percentile over
+    hec_paths of the family gain (cost), pv_rel (SPT) and state_rel (SST), and the share of paths that
+    gain. sigma = 0 is the honest family itself (all zero).
+    """
+    vg = p['val_gen']
+    ser = [p['g']] * vg['T']
+    out = {}
+    def pct(xs, q):
+        xs = sorted(xs)
+        return xs[min(len(xs) - 1, max(0, int(round(q * (len(xs) - 1)))))]
+    for rule in rules:
+        for lam in lams:
+            o = _p5_opts(p, rule, lam)
+            h = run_family3(p, 1.0, 1.0, ser, vg['G'], vg['heir_influx'], **o)
+            for sg in vg['hec_sigmas']:
+                paths = _hec_paths(vg, sg, vg['hec_seed'])
+                gs, pvs, sts = [], [], []
+                for pc, pd in paths:
+                    m = family3_pair(p, (lambda c, pc=pc: pc[c['t']]), (lambda c, pd=pd: pd[c['t']]),
+                                     ser, vg['G'], vg['heir_influx'], p['rho'], honest=h, **o)
+                    gs.append(m['gain'])
+                    if m['pv_rel'] is not None:
+                        pvs.append(m['pv_rel'])
+                    if m['state_rel'] is not None:
+                        sts.append(m['state_rel'])
+                mean = lambda xs: sum(xs) / len(xs) if xs else None
+                out[f'{rule}|{lam}|{sg}'] = {
+                    'rule': rule, 'lambda': lam, 'sigma': sg, 'n_paths': len(gs),
+                    'gain_mean': mean(gs), 'gain_p05': pct(gs, 0.05), 'gain_p95': pct(gs, 0.95),
+                    'share_gaining': sum(1 for x_ in gs if x_ > 0.0) / len(gs),
+                    'pv_mean': mean(pvs), 'pv_p05': pct(pvs, 0.05) if pvs else None, 'pv_p95': pct(pvs, 0.95) if pvs else None,
+                    'state_mean': mean(sts), 'state_p05': pct(sts, 0.05) if sts else None, 'state_p95': pct(sts, 0.95) if sts else None}
+    return out
+
+
+def _direction(st: dict) -> str:
+    """under | over | mixed, from the deviating declaration ratios of a strategy."""
+    if st['name'] == 'constant':
+        devs = [a for a in st['a'] if a != 1.0]
+    elif st['name'] == 'reset_gaming':
+        return 'mixed'
+    else:
+        devs = [st['a']]
+    if all(a < 1.0 for a in devs):
+        return 'under'
+    if all(a > 1.0 for a in devs):
+        return 'over'
+    return 'mixed'
+
+
+def _p5_direction(p: dict, rules: list, lams: list, strategies: list) -> dict:
+    """
+    UOS: understatement against overstatement (evidence standard, D10), swept over the Route C share
+    (c_share_vals; A absorbs the difference). Per (rule, lambda, C share): the best gain among strategies
+    that only understate, only overstate, or mix both, with the strategy label, and the largest
+    state_rel / pv_rel among gaining strategies of each direction.
+    """
+    vg = p['val_gen']
+    sh0 = vg['route_shares']
+    ser = [p['g']] * vg['T']
+    out = {}
+    for cs in vg['c_share_vals']:
+        sh = dict(sh0)
+        sh['A'] = sh0['A'] - (cs - sh0['C'])
+        sh['C'] = cs
+        for rule in rules:
+            for lam in lams:
+                o = dict(_p5_opts(p, rule, lam), shares=sh)
+                h = run_family3(p, 1.0, 1.0, ser, vg['G'], vg['heir_influx'], **o)
+                best = {}
+                for st in strategies:
+                    d = _direction(st)
+                    m = family3_pair(p, st['aC'], st['aD'], ser, vg['G'], vg['heir_influx'], p['rho'],
+                                     honest=h, **o)
+                    b = best.get(d)
+                    if b is None or m['gain'] > b['gain']:
+                        best[d] = {'gain': m['gain'], 'label': _label(st), 'state_rel': m['state_rel'],
+                                   'pv_rel': m['pv_rel']}
+                out[f'{rule}|{lam}|{cs}'] = {'rule': rule, 'lambda': lam, 'c_share': cs, 'best': best}
+    return out
+
+
+def _life_results(p: dict) -> dict:
+    """
+    LIFE step (single life, Route C, G = 1 case of the same engine). Replaces the legacy val_core heatmaps and
+    N sweep. Metrics: GAIN (tw_gap, + = family retains more than honest), net_pct and pv_pct, all on the
+    honest terminal wealth TW(1). Grids from [sweep]. Worked examples run through run_life, inputs in
+    [val_gen.life_examples].
+    """
+    sw, vg = p['sweep'], p['val_gen']
+    N, rho = p['N_val'], p['rho']
+    out = {'N': N, 'g0': p['g'], 'alphas': sw['alpha_vals'], 'g_vals': sw['g_vals'],
+           'n_vals': sw['n_actual_vals'], 'rhos': p['rho_sweep'], 'rho': rho}
+    def cell(alpha, g, n, h, r=rho):
+        series = [g] * n
+        m = pair(p, alpha, series, g, r, honest=h)
+        return {'gain': m['tw_gap'], 'net': m['net_pct'], 'pv': m['pv_pct'], 'pv_rel': m['pv_rel']}
+    grid = {}
+    for g in sw['g_vals']:
+        h = run_life(p, 1.0, [g] * N, g)
+        for a in sw['alpha_vals']:
+            grid[f'{a}|{g}'] = cell(a, g, N, h)
+    out['grid'] = grid
+    by_n = {}
+    for n in sw['n_actual_vals']:
+        h = run_life(p, 1.0, [p['g']] * n, p['g'])
+        for a in sw['alpha_vals']:
+            by_n[f'{a}|{n}'] = cell(a, p['g'], n, h)
+    out['by_n'] = by_n
+    by_rho = {}
+    for g in sw['g_vals']:
+        h = run_life(p, 1.0, [g] * N, g)
+        for a in sw['alpha_vals']:
+            for r in p['rho_sweep']:
+                by_rho[f'{a}|{g}|{r}'] = pair(p, a, [g] * N, g, r, honest=h)['pv_pct']
+    out['by_rho'] = by_rho
+    ex = {}
+    for name, spec in vg['life_examples'].items():
+        pe = dict(p)
+        pe['V0_m'] = float(spec['V0_m'])
+        runs = {}
+        for a in spec['alphas']:
+            r = run_life(pe, float(a), [float(spec['g'])] * int(spec['N']), float(spec['g']))
+            runs[str(a)] = {'TW_settled': r['TW_settled'], 'Net_settled': r['Net_settled'],
+                            'hold_true': r['hold_true'], 'sell_L': r['sell_L'], 'settle_net': r['settle_net'],
+                            'rows': r['rows']}
+        ex[name] = {'g': spec['g'], 'N': spec['N'], 'V0_m': spec['V0_m'], 'alphas': spec['alphas'], 'runs': runs}
+    out['examples'] = ex
+    return out
+
+
+def _route_d_examples(p: dict) -> dict:
+    """
+    Worked examples L (Route D against annual settlement) and M (voluntary settlement) run through the
+    family engine with a single route (share 1.0), no death event (G = None: terminal settlement at the end of
+    the horizon). Inputs in [val_gen.route_d_examples.L|M]. The auction cost in M is an input applied to the
+    reset value outside the engine (the engine has no auction cost).
+    """
+    vg = p['val_gen']
+    ex = vg['route_d_examples']
+    out = {}
+    L = ex['L']
+    pe = dict(p); pe['V0_m'] = float(L['V0_m'])
+    ser = [float(L['g'])] * int(L['N'])
+    ra = run_family3(pe, 1.0, 1.0, ser, None, vg['heir_influx'], shares={'A': 1.0})
+    rd = run_family3(pe, 1.0, 1.0, ser, None, vg['heir_influx'], shares={'D': 1.0})
+    V, rows, cum = float(L['V0_m']), [], 0.0
+    for row, rw in zip(ra['rows'], rd['rows']):
+        V *= 1.0 + float(L['g'])
+        cum += row['L']
+        rows.append({'t': row['t'], 'V': V, 'annual_L': row['L'], 'cum_L': cum,
+                     'D_accrued': rw['A_D'], 'rate': row['rate']})
+    out['L'] = {'inputs': L, 'rows': rows,
+                'A': {'family_true_T': ra['family_true_T'], 'state_true_T': ra['state_true_T'],
+                      'cash_demand_total': sum(r_[2] for r_ in ra['receipts'])},
+                'D': {'family_true_T': rd['family_true_T'], 'state_true_T': rd['state_true_T'],
+                      'settlement_true': sum(r_[2] for r_ in rd['receipts']),
+                      'annual_cash_demand': 0.0 if all(r_[1].startswith('terminal') for r_ in rd['receipts']) else None}}
+    M = ex['M']
+    pm = dict(p); pm['V0_m'] = float(M['V0_m'])
+    n_res, n_end, g = int(M['N_reset']), int(M['N_death']), float(M['g'])
+    ser = [g] * n_end
+    soft = float(M['soft_factor'])
+    def alpha_soft(c, soft=soft, n_res=n_res):
+        return soft if c['t'] == n_res else 1.0
+    opts = {'shares': {'D': 1.0}}
+    runs = {'soft': run_family3(pm, 1.0, alpha_soft, ser, None, vg['heir_influx'], **opts),
+            'hard': run_family3(pm, 1.0, 1.0, ser, None, vg['heir_influx'], reset_interval=n_res, **opts),
+            'none': run_family3(pm, 1.0, 1.0, ser, None, vg['heir_influx'], **opts)}
+    V_res = float(M['V0_m']) * (1.0 + g) ** n_res
+    out['M'] = {'inputs': M, 'V_reset': V_res, 'auction_cost': float(M['auction_cost']) * V_res,
+                'options': {k: {'family_true_T': r['family_true_T'], 'state_true_T': r['state_true_T'],
+                                'settlements': [(t_, k_, tv, cr) for (t_, k_, tv, cr) in r['receipts']
+                                                if k_ != 'tax_D']}
+                            for k, r in runs.items()}}
+    return out
+
+
+def _headline_alphas(p: dict) -> list:
+    """Declaration ratios on the HLC axis: the conventional-baseline grid (sweep + ext + extra)."""
+    vg = p['val_gen']
+    return sorted(set(p['sweep']['alpha_vals'] + vg['alpha_ext'] + vg['conv_extra_alphas']))
+
+
+def _p5_headline(p: dict, rules: list, lams: list) -> dict:
+    """
+    HLC core view: the WDT best response at each declaration ratio alpha.
+    For each alpha the strategy slice is every strategy that deviates at exactly that ratio
+    (constant (a,1) (1,a) (a,a); first_gen_only, late_deviation, correct_before_death on
+    C / D / CD; pre_reset_deviation on D; reset_gaming on D declared high when alpha > 1). Best =
+    max gain over that slice, so it is the max over the other strategy dimensions (target,
+    family, k, route). alpha = 1 is honest (gain 0). A lower bound, like the library search.
+    Emitted per (rule, lambda) so presentation never re-aggregates.
+    """
+    vg  = p['val_gen']
+    ser = [p['g']] * vg['T']
+    tol = vg['state_tol']
+    out = {}
+    for rule in rules:
+        out[rule] = {}
+        for lam in lams:
+            o = _p5_opts(p, rule, lam)
+            h = run_family3(p, 1.0, 1.0, ser, vg['G'], vg['heir_influx'], **o)
+            by_a = {}
+            for a in _headline_alphas(p):
+                if a == 1.0:
+                    by_a[str(a)] = {'gain': 0.0, 'pv_rel': 0.0, 'state_rel': 0.0,
+                                    'label': 'honest', 'n_strategies': 0}
+                    continue
+                if a <= 0.0:    # a zero declared price: in-kind units = L / price is undefined
+                    by_a[str(a)] = {'gain': None, 'pv_rel': None, 'state_rel': None,
+                                    'label': 'undefined (zero declared price)', 'n_strategies': 0}
+                    continue
+                sl = _strategies(p, [1.0, a])
+                best = None
+                for st in sl:
+                    m = family3_pair(p, st['aC'], st['aD'], ser, vg['G'], vg['heir_influx'],
+                                     p['rho'], honest=h, **o)
+                    if best is None or m['gain'] > best['gain']:
+                        best = {'gain': m['gain'], 'pv_rel': m['pv_rel'], 'state_rel': m['state_rel'],
+                                'label': _label(st)}
+                best['n_strategies'] = len(sl)
+                by_a[str(a)] = best
+            out[rule][str(lam)] = by_a
+    return out
+
+
+def _p5_validate(p: dict) -> tuple[dict, dict]:
+    """P5 checks: strategy functions, the rule switches, and the caps across all of them."""
+    checks, info = {}, {}
+
+    def check(name, ok, detail=''):
+        checks[name] = {'ok': bool(ok), 'detail': detail}
+        if not ok:
+            raise AssertionError(f'VALIDATION FAILED: {name} {detail}')
+
+    vg  = p['val_gen']
+    g, T, G = p['g'], vg['T'], vg['G']
+    ser = [g] * T
+    rho = p['rho']
+    lam = vg['lambda_base']
+    d5  = _p3_new_diag()
+
+    def absorb(run):
+        d = run['diag']
+        for key in ('cons_err', 'unit_err', 'uout_err'):
+            d5[key] = max(d5[key], d[key])
+        for key in ('min_E_cash', 'min_A_D', 'min_u_out', 'min_state_units'):
+            d5[key] = min(d5[key], d[key])
+        if abs(sum(run['ledger'].bal.values())) > 1e-9 * max(1.0, run['family_true_T']):
+            raise AssertionError('P5 ledger does not balance')
+
+    # rule sets exercised by the checks: the ablation chain up to the simple universal candidate
+    rules_chk = ('units', 'units_and_value', 'units_and_value/allow/on', 'units_and_value/reset/on')
+
+    # a strategy function that returns a constant is the constant
+    worst = 0.0
+    for rule in rules_chk:
+        o = _p5_opts(p, rule, lam)
+        for aC, aD in ((0.5, 1.0), (2.0, 0.5), (5.0, 2.0)):
+            r0 = run_family3(p, aC, aD, ser, G, 'delta', **o)
+            r1 = run_family3(p, lambda c, a=aC: a, lambda c, a=aD: a, ser, G, 'delta', **o)
+            worst = max(worst, abs(r1['family_true_T'] - r0['family_true_T']))
+    check('strategy_function_equals_constant', worst < 1e-12, f'max|diff|={worst:.2e}')
+
+    # honest strategies have zero gain under every rule
+    worst = 0.0
+    for rule in rules_chk:
+        o = _p5_opts(p, rule, lam)
+        m = family3_pair(p, lambda c: 1.0, lambda c: 1.0, ser, G, 'delta', rho, **o)
+        worst = max(worst, abs(m['gain']), abs(m['state_rel'] or 0.0), abs(m['pv_rel'] or 0.0))
+    check('honest_strategy_zero_gain_all_rules', worst < 1e-12, f'max={worst:.2e}')
+
+    # one life: first-generation-only is the constant
+    o = _p5_opts(p, 'units', lam)
+    worst = 0.0
+    for a in (0.5, 2.0):
+        r0 = run_family3(p, a, a, ser, None, 'delta', **o)
+        r1 = run_family3(p, lambda c, a=a: a if c['gen'] == 0 else 1.0,
+                         lambda c, a=a: a if c['gen'] == 0 else 1.0, ser, None, 'delta', **o)
+        worst = max(worst, abs(r1['family_true_T'] - r0['family_true_T']))
+    check('first_gen_only_equals_constant_for_one_life', worst < 1e-12, f'max|diff|={worst:.2e}')
+
+    # the value cap: Route C refunds never exceed the true value paid; the units cap alone does
+    net_units = net_value = 0.0
+    for st in _strategies(p):
+        for cap in _C_CAP:
+            r = run_family3(p, st['aC'], st['aD'], ser, G, 'delta', **_p5_opts(p, cap, 0.0))
+            absorb(r)
+            tot = sum(v_ for (_, k_, v_, _c) in r['receipts'] if k_.endswith('_C') or k_.endswith('_Cv'))
+            if cap == 'units':
+                net_units = min(net_units, tot)
+            else:
+                net_value = min(net_value, tot)
+                if r['diag']['min_EC'] < -1e-9:
+                    raise AssertionError(f"VALIDATION FAILED: min_EC {r['diag']['min_EC']}")
+    info['most_negative_net_route_C_receipt'] = {'units': net_units, 'units_and_value': net_value}
+    check('value_cap_stops_route_C_refunding_more_than_was_paid', net_value > -1e-9,
+          f'units cap alone: most negative net C receipt £{net_units:,.0f}m; with value cap: £{net_value:.2e}m')
+    o_u = _p5_opts(p, 'units', 0.0)
+    r_a = run_family3(p, 2.0, 1.0, ser, G, 'delta', **o_u)
+    r_b = run_family3(p, 2.0, 1.0, ser, G, 'delta', **{k_: v_ for k_, v_ in o_u.items() if k_ != 'c_cap'})
+    check('default_cap_is_units', abs(r_a['family_true_T'] - r_b['family_true_T']) < 1e-12)
+
+    # caps and conservation across rules, strategies, lambda
+    n_runs = 0
+    for rule in rules_chk + ('units/reset/off',):
+        for lam_ in (0.0, lam, 1.0):
+            o = _p5_opts(p, rule, lam_)
+            for st in _strategies(p)[::7]:
+                r = run_family3(p, st['aC'], st['aD'], ser, G, 'delta', **o)
+                absorb(r); n_runs += 1
+    check('p5_caps_hold_all_rules_and_strategies',
+          d5['min_E_cash'] > -1e-9 and d5['min_A_D'] > -1e-12 and d5['min_u_out'] > -1e-12
+          and d5['min_state_units'] > -1e-12 and d5['uout_err'] < 1e-12,
+          f"{n_runs} runs; min u_out={d5['min_u_out']:.2e}")
+    # the corrective-auction switches (verify_down, Route D hazard)
+    h_ref = run_family3(p, 1.0, 1.0, ser, G, 'delta', **_p5_opts(p, 'units_and_value/allow/off', lam))
+    worst = 0.0
+    for vd in ('allow', 'reset'):
+        for da in ('off', 'on'):
+            h_ = run_family3(p, 1.0, 1.0, ser, G, 'delta',
+                             **_p5_opts(p, f'units_and_value/{vd}/{da}', lam))
+            worst = max(worst, abs(h_['family_true_T'] - h_ref['family_true_T']) / h_ref['family_true_T'])
+    check('auction_switches_inert_for_honest_family', worst < 1e-12, f'max rel diff={worst:.2e}')
+    o_allow = _p5_opts(p, 'units_and_value/allow/on', lam)
+    o_reset = _p5_opts(p, 'units_and_value/reset/on', lam)
+    g_allow = family3_pair(p, 10.0, 1.0, ser, G, 'delta', rho, honest=h_ref, **o_allow)['gain']
+    g_reset = family3_pair(p, 10.0, 1.0, ser, G, 'delta', rho, honest=h_ref, **o_reset)['gain']
+    info['alpha_C_10_gain_allow_vs_reset'] = {'allow': g_allow, 'reset': g_reset}
+    check('reset_rule_removes_overstatement_gain', g_allow > 0.03 and g_reset < 0.005,
+          f'allow {g_allow:+.2%}; reset {g_reset:+.2%}')
+    h_a = run_family3(p, 3.0, 1.0, ser, G, 'delta', **o_reset)
+    o_off = dict(o_reset, verify_hazard_D=0.0)
+    h_b = run_family3(p, 3.0, 1.0, ser, G, 'delta', **o_off)
+    check('route_D_auction_inert_when_alpha_D_is_1',
+          abs(h_a['family_true_T'] - h_b['family_true_T']) < 1e-9 * h_b['family_true_T'],
+          f"rel diff={abs(h_a['family_true_T'] - h_b['family_true_T']) / h_b['family_true_T']:.2e}")
+    bad = 0
+    for kw in ({'c_cap': 'x'}, {'verify_down': 'x'}, {'verify_hazard_D': 1.5}, {'verify_hazard': 2.0}):
+        try:
+            run_family3(p, 1.0, 1.0, ser, G, 'delta', **kw)
+        except ValueError:
+            bad += 1
+    check('invalid_switch_values_raise', bad == 4, f'{bad} of 4 raised')
+    # conventional reference system: honest burden matches the WDT, and the gain is monotone in
+    # understatement (declaring less always pays more, with no interior optimum)
+    alphas_c = sorted(set(p['sweep']['alpha_vals'] + vg['alpha_ext'] + vg['conv_extra_alphas']))
+    conv = _p5_conventional(p, alphas_c)
+    h_w = run_family3(p, 1.0, 1.0, ser, G, 'delta', **_p5_opts(p, _CANDIDATE_RULE, 0.0))
+    diag = [conv['diag_alpha'][str(a)] for a in alphas_c]
+    check('conventional_baseline_matches_wdt_honest_burden',
+          abs(conv['honest_TW'] - h_w['family_true_T']) < 1e-6 * h_w['family_true_T'],
+          f"flat rate {conv['rate']:.3%}; TW {conv['honest_TW']:,.1f} vs {h_w['family_true_T']:,.1f}")
+    check('conventional_gain_monotone_in_understatement',
+          all(diag[i + 1] < diag[i] + 1e-12 for i in range(len(diag) - 1)) and conv['best']['gain'] > 0.1,
+          f"alpha {alphas_c[0]}: {diag[0]:+.1%} ... alpha {alphas_c[-1]}: {diag[-1]:+.1%}")
+    check('p5_conservation', d5['cons_err'] < CONSERVE_TOL, f"max err={d5['cons_err']:.2e}")
+    check('p5_in_kind_identity', d5['unit_err'] < CONSERVE_TOL, f"max rel err={d5['unit_err']:.2e}")
+    return checks, info
+
+
+# ─────────────────────────────────────────────────────────────
+# MAIN
+# ─────────────────────────────────────────────────────────────
+
+def _clean(obj):
+    """Plain JSON types; nan/inf -> None."""
+    if isinstance(obj, dict):
+        return {str(k): _clean(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [_clean(v) for v in obj]
+    if isinstance(obj, float) and not math.isfinite(obj):
+        return None
+    return obj
+
+
+def _fmt(v):
+    return f'{v:+7.1%}' if v is not None else '    n/a'
+
+
+def main(dry_run: bool = False):
+    print('valgen_core.py — VAL generational model, P1 / P2 / P2b / P3 / P4 / P5')
+    print('=' * 50)
+    p = with_rate_scenario(load_params())      # rate design from [val_gen] rate_scenario
+    N, g = p['N_val'], p['g']
+    vg = p['val_gen']
+    print(f"Parameters: k={p['k']}, tau_0={p['tau_0']}, tau_m={p['tau_m']}, "
+          f"W_min=£{p['W_min']}m, N_val={N}, g={g:.4f}")
+    sw = p['sweep']
+    print(f"Grids: {len(sw['alpha_vals'])} alpha, {len(sw['g_vals'])} g, "
+          f"{len(sw['n_actual_vals'])} N, {len(vg['consumption_vals'])} consumption")
+    if dry_run:
+        print('Dry run — skipping simulations.')
+        return
+
+    print('\n[1/9] Bridge to legacy run_pair / run_sim_hist...')
+    bridge = _bridge(p)
+    life = _life_results(p)
+    life['route_d_examples'] = _route_d_examples(p)
+    print(f"  LIFE: {len(life['grid'])} grid cells, {len(life['by_n'])} N cells, {len(life['by_rho'])} rho cells, "
+          f"examples {sorted(life['examples'])}")
+    print(f"  {bridge['cells_constant_g']} constant-g cells x {len(sw['alpha_vals'])} alpha, "
+          f"{bridge['cells_historical']} historical runs")
+
+    print('[2/9] Validating P1...')
+    validation = _validate(p, bridge)
+    for name, c in validation['checks'].items():
+        print(f"  PASS  {name} {c['detail']}")
+
+    print('[3/9] P1 reference decomposition (plan §1), alpha in example_alphas...')
+    series = [g] * N
+    examples = {}
+    for a in p['val_gen']['example_alphas']:
+        r = run_life(p, a, series, g)
+        examples[str(a)] = {'decomposition': _decomp(r), 'rows': r['rows']}
+        d = _decomp(r)
+        print(f"  alpha={a}: hold {d['holding_payments_true']:.1f} / sell {d['sell_year_cash']:+.1f} / "
+              f"settle {d['post_sale_settlement']:+.1f} / TW pre {d['TW_before_settlement']:.1f} / "
+              f"TW settled {d['TW_settled']:.1f}")
+    pairs = {str(a): pair(p, a, series, g, p['rho']) for a in sw['alpha_vals']}
+
+    print('[4/9] P2 validation (single life, plan §1 benchmark, heirs)...')
+    p2_checks, p2_data = _p2_validate(p)
+    for name, c in p2_checks.items():
+        print(f"  {'SKIP' if c.get('skipped') else 'PASS'}  {name} {c['detail']}")
+    validation['checks'].update(p2_checks)
+
+    print('[5/9] P2b validation (checks 7 and 10, refund caps, rule switches)...')
+    p2b_checks, p2b_info = _p2b_validate(p)
+    for name, c in p2b_checks.items():
+        print(f"  PASS  {name} {c['detail']}")
+    validation['checks'].update(p2b_checks)
+    o = p2b_info['oscillation']
+    print(f"  INFO  one-off delta 100: net tax {o['net_engine']:.3f}, first flows "
+          f"{[round(x, 2) for x in o['first_flows']]}")
+    print(f"  INFO  round trip +50% then back, flat 15%: units "
+          f"ratio_mirror {p2b_info['round_trip_units']['ratio_mirror']:.5f}, "
+          f"legacy {p2b_info['round_trip_units']['legacy']:.5f}")
+
+    print('[6/9] P2b family grid: consumption x refund rule, W_min indexed...')
+    fseries = [g] * vg['T']
+    ir = p['budget_growth'] if vg['index_wmin'] else 0.0
+    tol = vg['state_tol']
+    grid = {}
+    for c in vg['consumption_vals']:
+        for rule in _REFUND_RULES:
+            key = f'c={c}|{rule}'
+            cells = {str(a): family_pair(p, a, fseries, vg['G'], vg['heir_influx'],
+                                         vg['envelope_unit'], p['rho'], consumption=c,
+                                         index_rate=ir, refund_rule=rule)
+                     for a in sw['alpha_vals']}
+            al = alignment(cells, tol)
+            grid[key] = {'cells': cells, 'alignment': al,
+                         'V_T_honest': cells['1.0']['V_T']}
+    print(f"  T={vg['T']}, G={vg['G']}, heir={vg['heir_influx']}, envelope={vg['envelope_unit']}, "
+          f"index={ir:.2%}, state_tol=±{tol:.0%}")
+    for key, v in grid.items():
+        print(f"  {key}: honest V_T £{v['V_T_honest']:,.0f}m; conflict at alpha="
+              f"{v['alignment']['conflict']}; aligned {v['alignment']['aligned']}")
+        print('    alpha : ' + ' '.join(f'{a:>7}' for a in v['cells']))
+        print('    gain  : ' + ' '.join(_fmt(m['gain']) for m in v['cells'].values()))
+        print('    pv_rel: ' + ' '.join(_fmt(m['pv_rel']) for m in v['cells'].values()))
+
+    print('[7/9] P3 validation and four-route surface...')
+    p3_checks, p3_info = _p3_validate(p)
+    for name, c in p3_checks.items():
+        print(f"  PASS  {name} {c['detail']}")
+    validation['checks'].update(p3_checks)
+    print(f"  INFO  Route D, alpha_D = 0.5: gain with reset every {vg['reset_interval']}y "
+          f"{p3_info['D_understate_gain_alpha_D_0.5']['reset']:+.2%}, never "
+          f"{p3_info['D_understate_gain_alpha_D_0.5']['never']:+.2%}")
+
+    shares = vg['route_shares']
+    p3_opts = dict(consumption=vg['consumption'], index_rate=ir, shares=shares,
+                   reset_interval=vg['reset_interval'], death_waiver=vg['death_waiver'])
+    honest3 = run_family3(p, 1.0, 1.0, fseries, vg['G'], vg['heir_influx'], **p3_opts)
+    surface = {}
+    for aC in sw['alpha_vals']:
+        for aD in sw['alpha_vals']:
+            surface[f'{aC}|{aD}'] = family3_pair(p, aC, aD, fseries, vg['G'], vg['heir_influx'],
+                                                 p['rho'], honest=honest3, **p3_opts)
+    best = max((k for k in surface if k != '1.0|1.0'), key=lambda k: surface[k]['gain'])
+    conflicts = [k for k, m in surface.items()
+                 if not m['is_honest'] and m['gain'] > 0.0
+                 and (m['pv_rel'] is None or abs(m['pv_rel']) > tol)]
+    print(f"  shares {shares}; reset {vg['reset_interval']}y; honest TW £{honest3['family_true_T']:,.0f}m")
+    print(f"  max family gain {surface[best]['gain']:+.2%} at (alpha_C|alpha_D) = {best}, "
+          f"pv_rel {_fmt(surface[best]['pv_rel']).strip()}")
+    print(f"  BRG-gain/SPT-SST conflict cells (gain > 0 and |pv_rel| > {tol:.0%} or undefined): "
+          f"{len(conflicts)} of {len(surface) - 1}")
+    print('    rows alpha_C, cols alpha_D; cell = gain / pv_rel')
+    for aC in sw['alpha_vals']:
+        print(f'    C={aC:<4} ' + ' '.join(
+            f"{surface[f'{aC}|{aD}']['gain']:+6.1%}/{_fmt(surface[f'{aC}|{aD}']['pv_rel']).strip():>6}"
+            for aD in sw['alpha_vals']))
+
+    sens = {}
+    for r_i in vg['reset_sens']:
+        h_r = run_family3(p, 1.0, 1.0, fseries, vg['G'], vg['heir_influx'],
+                          **dict(p3_opts, reset_interval=r_i))
+        sens[str(r_i)] = {str(aD): family3_pair(p, 1.0, aD, fseries, vg['G'], vg['heir_influx'],
+                                                p['rho'], honest=h_r, **dict(p3_opts, reset_interval=r_i))
+                          for aD in sw['alpha_vals']}
+    print('  Route D understatement gain by reset interval (alpha_C = 1):')
+    for r_i, row in sens.items():
+        print(f'    reset {r_i:>3}y: ' + ' '.join(f"{row[str(aD)]['gain']:+6.1%}" for aD in sw['alpha_vals']))
+
+    print('[8/9] P4 verification hazard on Route C: checks, lambda sweep...')
+    p4_checks, p4_info = _p4_validate(p)
+    for name, c in p4_checks.items():
+        print(f"  PASS  {name} {c['detail']}")
+    validation['checks'].update(p4_checks)
+
+    lam_base, thr = vg['lambda_base'], vg['verified_threshold']
+    lam_sweep = {}
+    for lam in vg['lambda_vals']:
+        o4 = dict(p3_opts, verify_hazard=lam)
+        h_l = run_family3(p, 1.0, 1.0, fseries, vg['G'], vg['heir_influx'], **o4)
+        row_c = {str(aC): family3_pair(p, aC, 1.0, fseries, vg['G'], vg['heir_influx'], p['rho'],
+                                       honest=h_l, **o4) for aC in sw['alpha_vals']}
+        row_d = {str(aD): family3_pair(p, 1.0, aD, fseries, vg['G'], vg['heir_influx'], p['rho'],
+                                       honest=h_l, **o4) for aD in sw['alpha_vals']}
+        both = {f'{aC}|{aD}': family3_pair(p, aC, aD, fseries, vg['G'], vg['heir_influx'], p['rho'],
+                                           honest=h_l, **o4)
+                for aC in sw['alpha_vals'] for aD in sw['alpha_vals']}
+        best_l = max((k for k in both if k != '1.0|1.0'), key=lambda k: both[k]['gain'])
+        conf_l = [k for k, m in both.items() if not m['is_honest'] and m['gain'] > 0.0
+                  and (m['pv_rel'] is None or abs(m['pv_rel']) > tol)]
+        conf_s = [k for k, m in both.items() if not m['is_honest'] and m['gain'] > 0.0
+                  and (m['state_rel'] is None or abs(m['state_rel']) > tol)]
+        vs = [x['verified_share'] for x in h_l['rows'] if 'verified_share' in x]
+        lam_sweep[str(lam)] = {
+            'TW_honest': h_l['family_true_T'], 'by_alpha_C': row_c, 'by_alpha_D': row_d,
+            'surface': both, 'max_gain': both[best_l]['gain'], 'max_gain_at': best_l,
+            'conflict_cells': conf_l, 'conflict_cells_stake': conf_s,
+            'year_verified_share_ge_threshold': _first_year_at(vs, thr) if lam > 0.0 else None,
+            'verified_share_by_year': vs,
+        }
+    print(f"  baseline lambda {lam_base:.0%} (placeholder, no empirical anchor), threshold {thr:.0%}")
+    print('  lambda  | yr to ' + f'{thr:.0%}' + ' | max gain (at C|D) | conflicts PV / stake | gain at alpha_C = ' +
+          ' '.join(f'{a:>5}' for a in sw['alpha_vals']))
+    for lam, v_ in lam_sweep.items():
+        yrs = v_['year_verified_share_ge_threshold']
+        print(f"  {float(lam):>6.0%}  | {('-' if yrs is None else yrs):>8} | "
+              f"{v_['max_gain']:+6.2%} at {v_['max_gain_at']:<9} | {len(v_['conflict_cells']):>3} / "
+              f"{len(v_['conflict_cells_stake']):<3} of 80 | " +
+              ' '.join(f"{v_['by_alpha_C'][str(a)]['gain']:+5.1%}" for a in sw['alpha_vals']))
+    print('  pv_rel at alpha_C =                                         ' +
+          ' '.join(f'{a:>5}' for a in sw['alpha_vals']))
+    for lam, v_ in lam_sweep.items():
+        print(f"  {float(lam):>6.0%}  (alpha_D = 1)                                " +
+              ' '.join(_fmt(v_['by_alpha_C'][str(a)]['pv_rel']).strip().rjust(5)
+                       for a in sw['alpha_vals']))
+
+    # sensitivity: C share across the BEHAV range (A absorbs the difference) and alpha_C beyond 2
+    c_sens = {}
+    a_grid = sorted(set(sw['alpha_vals'] + vg['alpha_ext']))
+    for cs in vg['c_share_sens']:
+        sh = dict(shares)
+        sh['A'] = shares['A'] - (cs - shares['C'])
+        sh['C'] = cs
+        for lam in (0.0, lam_base):
+            o4 = dict(p3_opts, shares=sh, verify_hazard=lam)
+            h_c = run_family3(p, 1.0, 1.0, fseries, vg['G'], vg['heir_influx'], **o4)
+            c_sens[f'C={cs}|lambda={lam}'] = {
+                str(a): family3_pair(p, a, 1.0, fseries, vg['G'], vg['heir_influx'], p['rho'],
+                                     honest=h_c, **o4) for a in a_grid}
+    print(f"  Route C share sensitivity (alpha_D = 1), lambda = {lam_base:.0%}: "
+          f"gain / state terminal stake vs honest")
+    print('    C share  alpha_C: ' + ' '.join(f'{a:>14}' for a in (1.5, 2.0, 5.0, 10.0)))
+    for cs in vg['c_share_sens']:
+        row = c_sens[f'C={cs}|lambda={lam_base}']
+        print(f'    {cs:>6.0%}           ' + ' '.join(
+            f"{row[str(a)]['gain']:+6.1%}/{row[str(a)]['state_rel']:+6.1%}" for a in (1.5, 2.0, 5.0, 10.0)))
+
+    print("  C-heavy stress (A 50 / C 50), alpha_C = 0.5, gain by lambda: " +
+          ', '.join(f'{x:.0%}: {v_:+.2%}' for x, v_ in
+                    sorted(p4_info['C_heavy_gain_by_lambda_alpha_C_0.5'].items())))
+
+    print('[9/9] P5 strategy search, refund-rule levers, BRG/HSC/SPT/SST verdicts...')
+    p5_checks, p5_info = _p5_validate(p)
+    for name, c in p5_checks.items():
+        print(f"  PASS  {name} {c['detail']}")
+    validation['checks'].update(p5_checks)
+
+    strategies = _strategies(p)
+    rules = [f'{cap}/{vd}/{da}' for cap in vg['c_cap_rules']
+             for vd in vg['verify_down_rules'] for da in vg['d_auction_rules']]
+    g2 = {rule: _honest_shock_cost(p, rule) for rule in rules}
+    search = {}
+    for rule in rules:
+        for lam in vg['lambda_vals']:
+            search[f'{rule}|{lam}'] = _p5_search(p, rule, lam, strategies)
+    print(f"  {len(strategies)} strategies x {len(rules)} rule sets x {len(vg['lambda_vals'])} lambda "
+          f"= {len(strategies) * len(rules) * len(vg['lambda_vals'])} runs")
+    print(f"  thresholds (placeholders in TOML): BRG best-response gain <= {vg['brg_tol']:.0%}; "
+          f"SPT |PV| and SST |stake| <= {tol:.0%} wherever gain > 0; HSC honest cost <= {vg['hsc_tol']:.0%}")
+    print("  rule set = C cap / verify-down / D auction")
+    print(f"  {'rule set':<26} | worst best-response gain over lambda (lambda, strategy)"
+          f"{'':<26}| BRG  | HSC cost -20% / -50%  | HSC  | SPT/SST (conflicts at worst lambda)")
+    verdict = {}
+    for rule in rules:
+        rs = [search[f'{rule}|{lam}'] for lam in vg['lambda_vals']]
+        worst = max(rs, key=lambda r_: r_['best']['gain'])
+        costs = g2[rule]
+        g2_pass = all(abs(v_) <= vg['hsc_tol'] for v_ in costs.values())
+        verdict[rule] = {'BRG': all(r_['BRG_pass'] for r_ in rs), 'HSC': g2_pass,
+                         'SPT': all(r_['SPT_pass'] for r_ in rs), 'SST': all(r_['SST_pass'] for r_ in rs),
+                         'worst_best_response_gain': worst['best']['gain'],
+                         'worst_lambda': worst['lambda'], 'worst_strategy': worst['best']['label'],
+                         'max_conflicts': max(r_['n_conflict'] for r_ in rs), 'HSC_cost': costs}
+        cs = list(costs.values())
+        print(f"  {rule:<26} | {worst['best']['gain']:+7.2%} ({worst['lambda']:.0%}, {worst['best']['label'][:38]:<38}) | "
+              f"{'pass' if verdict[rule]['BRG'] else 'FAIL'} | {cs[0]:+7.3%} / {cs[1]:+7.3%} | "
+              f"{'pass' if g2_pass else 'FAIL'} | {'pass' if verdict[rule]['SPT'] else 'FAIL'}/{'pass' if verdict[rule]['SST'] else 'FAIL'} ({verdict[rule]['max_conflicts']})")
+    print('  BRG / SPT / SST by lambda (lambda = odds per year that a private company is auctioned / lists):')
+    print(f"  {'rule set':<26} | " + ' | '.join(f'{lam:>9.0%}' for lam in vg['lambda_vals']))
+    for rule in rules:
+        cells = []
+        for lam in vg['lambda_vals']:
+            r_ = search[f'{rule}|{lam}']
+            cells.append(f"{r_['best']['gain']:+6.1%} {'BRG' if r_['BRG_pass'] else '---'} {'SPT' if r_['SPT_pass'] else '---'} {'SST' if r_['SST_pass'] else '---'}")
+        print(f"  {rule:<26} | " + ' | '.join(cells))
+    growth_surf = _p5_growth_surface(p, vg['surface_rules'], strategies)
+    dmg = _p5_dmg(p, vg['dmg_rules'], strategies)
+    uos = _p5_direction(p, vg['dmg_rules'], [0.0, lam_base], strategies)
+    for k_, c_ in uos.items():
+        print(f"  UOS {c_['rule']} lambda {c_['lambda']:.0%} C share {c_['c_share']:.0%}: best gain " +
+              ', '.join(f"{d}: {b['gain']:+.2%}" for d, b in sorted(c_['best'].items())))
+    hec = _p5_hec(p, vg['dmg_rules'], [0.0, lam_base])
+    for k_, c_ in hec.items():
+        if c_['sigma'] > 0.0:
+            print(f"  HEC {c_['rule']} lambda {c_['lambda']:.0%} sigma {c_['sigma']:.0%}: gain mean {c_['gain_mean']:+.2%} "
+                  f"[{c_['gain_p05']:+.2%}, {c_['gain_p95']:+.2%}], share gaining {c_['share_gaining']:.0%}, "
+                  f"state stake mean {c_['state_mean']:+.2%}")
+    for rule, d_ in dmg.items():
+        print(f"  DMG {rule}: {d_['n_dominant']} of {d_['n_strategies']} strategies gain in all {d_['n_scenarios']} scenarios ({d_['n_dominant_material']} by more than {d_['material_threshold']:.0%}); "
+              f"maximin {d_['maximin']['min_gain']:+.2%} ({d_['maximin']['label']}); "
+              f"largest share of scenarios gaining {d_['max_share_gaining']:.0%}")
+    for rule, by_g in growth_surf.items():
+        print(f"  best-response gain by growth g (rows) and lambda (columns), {rule}:")
+        print(f"    {'g':>7} | " + ' | '.join(f'{lam:>11.0%}' for lam in vg['lambda_vals']) + ' | honest TW')
+        for g_, cell in by_g.items():
+            row = ' | '.join(
+                f"{c['gain']:+6.1%} {'BRG' if c['BRG'] else '---'} {'SPT' if c['SPT'] else '---'} {'SST' if c['SST'] else '---'}"
+                for c in cell['by_lambda'].values())
+            print(f"    {float(g_):>7.2%} | {row} | £{cell['honest_TW_m']:,.0f}m")
+    for rule in (_BASE_RULE, _CANDIDATE_RULE):
+        if rule not in rules:
+            continue
+        print(f"  best response by lambda, {rule}:")
+        for lam in vg['lambda_vals']:
+            r_ = search[f'{rule}|{lam}']
+            print(f"    lambda {lam:>4.0%}: {r_['best']['gain']:+7.2%} {r_['best']['label']}   "
+                  f"(gain>0: {r_['n_gaining']}, SPT/SST conflicts: {r_['n_conflict_spt']}/{r_['n_conflict_sst']})")
+    for rule in (_BASE_RULE, _CANDIDATE_RULE):
+        if rule in rules:
+            print(f"  best strategy by family, {rule}, lambda {lam_base:.0%}:")
+            for fam_, r_ in search[f'{rule}|{lam_base}']['best_by_family'].items():
+                print(f"    {fam_:<22} {r_['gain']:+7.2%}  ({r_['label']})")
+
+    # strategy-free ceiling on the gain, checked against every best response
+    tw_free = _p5_no_tax_tw(p)
+    bound = {}
+    for rule in rules:
+        for lam in vg['lambda_vals']:
+            bound[f'{rule}|{lam}'] = _p5_upper_bound(p, rule, lam, tw_free)
+            if search[f'{rule}|{lam}']['best']['gain'] > bound[f'{rule}|{lam}'] + 1e-9:
+                raise AssertionError(f'VALIDATION FAILED: best response exceeds the no-tax ceiling at {rule}|{lam}')
+    cand0, candb = f'{_CANDIDATE_RULE}|0.0', f'{_CANDIDATE_RULE}|{vg["lambda_base"]}'
+    print(f"  ceiling (no declaration strategy can beat a no-tax run): a no-tax family ends "
+          f"{bound[cand0]:+.1%} above the honest one (loose: it includes the tax on A/B); best response captures "
+          f"{search[cand0]['best']['gain'] / bound[cand0]:.0%} of it at lambda 0 and "
+          f"{search[candb]['best']['gain'] / bound[candb]:.0%} at lambda {vg['lambda_base']:.0%}"
+          f" ({_CANDIDATE_RULE})")
+    conv = _p5_conventional(p, sorted(set(sw['alpha_vals'] + vg['alpha_ext'] + vg['conv_extra_alphas'])))
+    print(f"  conventional self-declared wealth tax (flat {conv['rate']:.3%} on declared value, "
+          f"same honest burden as the WDT): best response {conv['best']['gain']:+.1%} at "
+          f"(alpha_C|alpha_D) = {conv['best']['key']}; full understatement {conv['full_understatement_gain']:+.1%}")
+    print('    gain by alpha (alpha_C = alpha_D): ' + ', '.join(
+        f'{a}: {g_:+.1%}' for a, g_ in conv['diag_alpha'].items()))
+    print(f"    WDT {_CANDIDATE_RULE}: best response {search[cand0]['best']['gain']:+.1%} (lambda 0), "
+          f"{search[candb]['best']['gain']:+.1%} (lambda {vg['lambda_base']:.0%})")
+
+    head_rules = vg['headline_rules']
+    head_lams = [0.0, lam_base]
+    headline = _p5_headline(p, head_rules, head_lams)
+    # consistency with the library of record: at ratios the library holds, the slice is a subset, so it cannot beat the library best
+    lib_grid = set(sw['alpha_vals'] + vg['alpha_ext'])   # the library only holds these ratios
+    worst_over = -1.0
+    for rule in head_rules:
+        for lam in head_lams:
+            lib = search[f'{rule}|{lam}']['best']['gain']
+            worst_over = max(worst_over, max(c['gain'] for a_, c in headline[rule][str(lam)].items()
+                                   if c['gain'] is not None and float(a_) in lib_grid) - lib)
+    validation['checks']['headline_slice_never_beats_library_best'] = {
+        'ok': worst_over <= 1e-12, 'detail': f'max(slice best - library best)={worst_over:.2e}'}
+    if worst_over > 1e-12:
+        raise AssertionError('VALIDATION FAILED: headline_slice_never_beats_library_best')
+    print(f"  PASS  headline_slice_never_beats_library_best max(slice - library)={worst_over:.2e}")
+    for rule in head_rules:
+        print(f"  HLC best response by alpha, {rule}, lambda {lam_base:.0%}: " + ', '.join(
+            f"{a}: {c['gain']:+.1%}" for a, c in headline[rule][str(lam_base)].items() if c['gain'] is not None))
+
+    for key, r_ in search.items():
+        if r_['lambda'] not in (0.0, lam_base):
+            r_['all'] = sorted(r_['all'], key=lambda x: -x['gain'])[:25]
+
+    data = {
+        'meta': {
+            'code': 'VALGEN', 'generated': date.today().isoformat(),
+            'model_version': 'valgen P5 (four routes, verification hazard, corrective auction on C and D, declaration strategies, rule sets; ledger)',
+            'scenario_start_year': p['scenario_start_year'],
+            'N_val': N, 'N_fill': p['N_fill'],
+            'params': {'tau_0': p['tau_0'], 'tau_m': p['tau_m'], 'k': p['k'],
+                       'W_min': p['W_min'], 'V0_m': p['V0_m'], 'g': g, 'rho': p['rho'],
+                       'index_rate': ir, 'rate_scenario': p.get('rate_scenario'),
+                       'schedule': p.get('schedule', 'logistic'), 'ladder': p.get('ladder'),
+                       **{k: v for k, v in vg.items()}},
+            'validation': validation,
+        },
+        'bridge': bridge,
+        'life': life,
+        'examples': examples,
+        'pairs_at_N_val': {'N': N, 'g': g, 'rho': p['rho'], 'by_alpha': pairs},
+        'p2_benchmark_plan_s1': p2_data['plan_s1'],
+        'p2_plan_fixture_applies': p2_data['plan_fixture_applies'],
+        'p2b_oscillation': p2b_info['oscillation'],
+        'p2b_round_trip_units': p2b_info['round_trip_units'],
+        'p2b_family_grid': {'T': vg['T'], 'G': vg['G'], 'g': g, 'rho': p['rho'],
+                            'index_rate': ir, 'state_tol': tol,
+                            'metric_notes': {
+                                'gain': 'f_T(a)/f_T(1) - 1; + = family ends with more',
+                                'state_stake_rel': 's_T(a)/s_T(1) - 1',
+                                'pv_rel': '(PV(a)-PV(1))/PV(1), PV of true value received at rho',
+                                'alignment': 'conflict = gain > 0 and |pv_rel| > state_tol'},
+                            'by_switches': grid},
+        'p3_surface': {'T': vg['T'], 'G': vg['G'], 'g': g, 'rho': p['rho'], 'index_rate': ir,
+                       'state_tol': tol, 'shares': shares, 'reset_interval': vg['reset_interval'],
+                       'death_waiver': vg['death_waiver'],
+                       'consumption': vg['consumption'], 'TW_honest': honest3['family_true_T'],
+                       'metric_notes': {
+                           'gain': 'TW(a)/TW(1) - 1; TW = family true net worth at T',
+                           'pv_rel': '(PV(a)-PV(1))/PV(1), PV of true value received at rho',
+                           'key': 'alpha_C|alpha_D'},
+                       'cells': surface, 'conflict_cells': conflicts},
+        'p3_reset_sensitivity': sens,
+        'p3_dilution': p3_info['dilution_gain_by_C_share'],
+        'p4_lambda_sweep': {'lambda_base': lam_base, 'verified_threshold': thr,
+                            'metric_notes': {
+                                'by_alpha_C': 'alpha_D = 1; gain and pv_rel vs the honest family at the same lambda',
+                                'surface': 'key alpha_C|alpha_D',
+                                'verified_share': 'share of Route C units (family + state) verified, by year'},
+                            'by_lambda': lam_sweep},
+        'p4_C_heavy_stress_gain': p4_info['C_heavy_gain_by_lambda_alpha_C_0.5'],
+        'p5': {'thresholds': {'brg_tol': vg['brg_tol'], 'hsc_tol': vg['hsc_tol'], 'state_tol': tol},
+               'rules': rules, 'lambda_vals': vg['lambda_vals'], 'n_strategies': len(strategies),
+               'shock_year': vg['shock_year'], 'g2_honest_shock_cost': g2,
+               'verdict_by_rule': verdict, 'search': search,
+               'no_tax_ceiling': {'TW_no_tax': tw_free, 'gain_ceiling_by_rule_lambda': bound},
+               'conventional_baseline': conv,
+               'headline': {'alphas': _headline_alphas(p), 'rules': head_rules, 'lambda_vals': head_lams,
+                            'by_rule': headline,
+                            'note': 'best response at each declaration ratio: max gain over strategies '
+                                    'deviating at exactly that ratio; lower bound; alpha = 1 honest'},
+               'growth_surface': {'note': 'best-response gain by g and lambda; growth and lambda are '
+                                          'independent inputs; gain is a share of honest terminal wealth',
+                                  'growth_vals': vg['growth_vals'], 'by_rule': growth_surf},
+               'dmg': {'note': 'dominance grid: a strategy dominates if its gain over honest is positive in every '
+                               'scenario (growth x lambda, market fall x lambda); lower bound over the library',
+                       'by_rule': dmg},
+               'uos': {'note': 'best gain by direction of deviation (under, over, mixed) and Route C share; A absorbs the share change',
+                       'c_share_vals': vg['c_share_vals'], 'cells': uos},
+               'hec': {'note': 'honest valuation error on Routes C and D, multiplicative lognormal AR(1), '
+                               'error-free honest as reference; gain < 0 is the cost of honest error',
+                       'sigmas': vg['hec_sigmas'], 'paths': vg['hec_paths'], 'phi': vg['hec_phi'],
+                       'phi_C': vg.get('hec_phi_C', vg['hec_phi']), 'phi_D': vg.get('hec_phi_D', vg['hec_phi']),
+                       'seed': vg['hec_seed'], 'cells': hec},
+               'notes': {'BRG': 'best-response gain over the strategy library <= brg_tol',
+                         'SPT': 'every strategy with gain > 0 has |pv_rel| <= state_tol',
+                         'SST': 'every strategy with gain > 0 has |state_rel| <= state_tol',
+                         'HSC': 'honest family, genuine market fall: terminal net worth vs the baseline rule set (units cap, no auction)'}},
+        'p4_C_share_sensitivity': {'alpha_D': 1.0, 'lambda_base': lam_base, 'cells': c_sens,
+                                   'note': 'A absorbs the change in C share; alpha_C grid includes alpha_ext'},
+    }
+    assert all('|' in k for k in data['p3_surface']['cells']), 'p3_surface.cells overwritten'
+    ensure_dir(_OUT)
+    with open(_JSON_PATH, 'w', encoding='utf-8') as fh:
+        json.dump(_clean(data), fh, indent=2, allow_nan=False)
+    print(f"\nWritten: {_JSON_PATH}  ({_JSON_PATH.stat().st_size / 1024:.0f} KB)")
+
+
+if __name__ == '__main__':
+    main(dry_run='--dry-run' in sys.argv)

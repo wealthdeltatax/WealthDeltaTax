@@ -1,0 +1,2050 @@
+# WDT Rates and Revenue — Parameters File
+# =========================================
+# This file is the single source of truth for all model inputs.
+# The Excel workbook (7_1_260726_Rates_Analysis.xlsx) is now treated as a
+# frozen checker only; Python reads nothing from it at runtime except for
+# validation comparisons.
+#
+# TOML type rules relied on here:
+#   integers  : no quotes, no decimal point   (e.g. 1947)
+#   floats    : no quotes, must have decimal  (e.g. 0.001)
+#   strings   : double-quoted
+#   arrays    : [[double-bracket section headers]] for array-of-tables
+#
+# N CONVENTION (read this before touching any N value)
+# ----------------------------------------------------
+# There are two different "N"s in this project and they must not be confused:
+#   N_val  = [val] N_demo = 30 : the taxpayer holding period. Canonical for every
+#            individual-level VAL / VAL.A / VAL.B table and figure.
+#   N_fill = SSM LRR fill year : a FUND-MECHANICS output derived at load time by
+#            load_params() (currently 19 for the 2000 start). Used by RATES.
+# wdt_core.load_params() exposes both: p['N_val'] and p['N_fill'] (p['N'] is kept
+# as an alias of N_fill for RATES code). run_sim / run_sim_hist /
+# decompose_tw_advantage / npv_tax_advantage REQUIRE N to be passed explicitly.
+
+
+# ─────────────────────────────────────────────────────────────
+# [meta] — run identity
+# ─────────────────────────────────────────────────────────────
+[meta]
+version        = "v7"
+date           = "2026-09-08"
+scenario_label = "2000 Balanced"   # human-readable label for outputs
+excel_checker  = "7.1_260725_Rates_Analysis.xlsx"   # frozen; for validation only
+
+[output]
+generate_charts = true
+
+# ─────────────────────────────────────────────────────────────
+# [rate] — WDT logistic rate function parameters
+#
+# tau(W) = tau_m / (1 + ((tau_m - tau_0) / tau_0) * exp(-k * (W - W_min)))
+#        = 0  if W < W_min
+#
+# tau_0  : floor rate at W = W_min (fraction, e.g. 0.15 = 15%)
+# tau_m  : asymptotic ceiling rate (fraction, e.g. 0.70 = 70%)
+# k      : steepness parameter (per £m); controls how fast rates rise
+# W_min  : wealth level at which the rate function begins to apply (£m)
+#           — a rate design parameter, not a population boundary
+# ─────────────────────────────────────────────────────────────
+# [rate] RETIRED (D2, apply_basis_d2_rho.py). The rate design is [rates.defaults] (the gain ladder, W_min = 1 x median house price);
+# a named variant is a [rates.scenarios.*]. wdt_core.load_params fills p['tau_0'], p['tau_m'], p['k'], p['W_min'] from those defaults
+# for the legacy SSM only. The former baseline (logistic 30% / 90% / k 0.005, every adult in scope) is [rates.scenarios.logistic_ref].
+
+
+# ─────────────────────────────────────────────────────────────
+# [swf] — Sovereign Wealth Fund sizing parameters
+#
+# srr_ratio  : SRR target = srr_ratio × (cumulative net income / N)
+#              Working value 3×; recommended Governing Council floor 3×
+# lrr_years  : LRR floor expressed as N years of prevailing government
+#              expenditure; recommended minimum 3 years
+# ─────────────────────────────────────────────────────────────
+[swf]
+srr_ratio = 3.0   # SRR capitalisation ratio (× average net annual income)
+lrr_years = 3.0   # LRR floor (years of government expenditure)
+
+
+# ─────────────────────────────────────────────────────────────
+# [budget] — UK government expenditure model
+#
+# budget_base   : OBR total managed expenditure base year (£b)
+#                 Source: OBR 2022–23 outturn = £1,157.4b
+# budget_growth : nominal expenditure growth rate per annum (fraction)
+#                 Source: UK historical public expenditure 1999–2019 = 4.51%
+# ─────────────────────────────────────────────────────────────
+[budget]
+budget_base   = 1157.4   # £b (2022–23 OBR total managed expenditure)
+budget_growth = 0.0451   # 4.51% p.a. nominal growth
+
+
+# ─────────────────────────────────────────────────────────────
+# [returns] — UK equity return series
+#
+# series_base_year : the calendar year corresponding to index 0 of the
+#                    returns array below; all other years are offsets from it.
+#                    The sweep rotates this series to test all start years.
+# values           : 73 annual total-return figures (fraction, e.g. 0.1045)
+#                    Source: UK equity capital total return data 1947–2019
+#                    Order: 1947, 1948, … 2019  (index 0 = 1947)
+# ─────────────────────────────────────────────────────────────
+[returns]
+series_base_year = 1947
+
+# Annual returns 1947–2019 inclusive (73 values).
+# These are the same values used in the Excel model UK Fiscal Growth sheet,
+# re-ordered to canonical calendar order (1947 first).
+# IMPORTANT: if the Excel sheet's WDT Year 0 differs from 1947, update
+# series_base_year above and reorder accordingly.
+values = [
+  0.0168,   # 1947
+ -0.0050,   # 1948
+ -0.0016,   # 1949
+  0.0438,   # 1950
+  0.0199,   # 1951
+  0.0033,   # 1952
+  0.0970,   # 1953
+  0.1349,   # 1954
+  0.0295,   # 1955
+  0.0290,   # 1956
+  0.0140,   # 1957
+  0.1869,   # 1958
+  0.1948,   # 1959
+  0.0276,   # 1960
+  0.0392,   # 1961
+  0.0939,   # 1962
+  0.1108,   # 1963
+  0.0224,   # 1964
+  0.0960,   # 1965
+  0.0404,   # 1966
+  0.1527,   # 1967
+  0.2110,   # 1968
+  0.0096,   # 1969
+  0.0413,   # 1970
+  0.2722,   # 1971
+  0.2117,   # 1972
+  0.1546,   # 1973
+  0.0168,   # 1974
+  0.4071,   # 1975
+  0.1118,   # 1976
+  0.2301,   # 1977
+  0.1333,   # 1978
+  0.2292,   # 1979
+  0.2508,   # 1980
+  0.1070,   # 1981
+  0.1719,   # 1982
+  0.1747,   # 1983
+  0.1662,   # 1984
+  0.1563,   # 1985
+  0.1963,   # 1986
+  0.1588,   # 1987
+  0.2086,   # 1988
+  0.2590,   # 1989
+ -0.0015,   # 1990
+  0.0863,   # 1991
+  0.0777,   # 1992
+  0.1295,   # 1993
+  0.0091,   # 1994
+  0.1307,   # 1995
+  0.0856,   # 1996
+  0.1655,   # 1997
+  0.1305,   # 1998
+  0.1639,   # 1999
+  0.0599,   # 2000
+  0.0242,   # 2001
+  0.0642,   # 2002
+  0.1961,   # 2003
+  0.1503,   # 2004
+  0.1237,   # 2005
+  0.0977,   # 2006
+  0.0845,   # 2007
+ -0.0578,   # 2008
+  0.0345,   # 2009
+  0.0953,   # 2010
+  0.0131,   # 2011
+  0.0526,   # 2012
+  0.0865,   # 2013
+  0.0876,   # 2014
+  0.0544,   # 2015
+  0.1022,   # 2016
+  0.0817,   # 2017
+ -0.0105,   # 2018
+  0.0884,   # 2019
+]
+
+
+# ─────────────────────────────────────────────────────────────
+# [tcm] — Taxpayer Cohort Model settings
+#
+# snapshot_N    : FALLBACK ONLY. Used as p['N_fill'] if the SSM LRR never fills
+#                 within 71 periods. It is NOT the canonical taxpayer holding
+#                 period (that is [val] N_demo = 30) and it is NOT normally the
+#                 SSM fill year: for the 2000 Balanced scenario at tau_0 = 15%
+#                 the derived fill year is 19, not 30. The old comment here
+#                 ("LRR breakeven year for 2000 Balanced scenario") described an
+#                 earlier calibration and is superseded.
+# canonical_N   : retained for WFR pipeline compatibility; set equal to N_demo.
+# hist_mean     : historical mean return used as the tier differential baseline
+#                 (fraction); derived from the returns series above = 10.45% p.a.
+# ─────────────────────────────────────────────────────────────
+[tcm]
+snapshot_N          = 30     # fallback for N_fill only (see note above)
+canonical_N         = 30     # = [val] N_demo; WFR compatibility
+hist_mean           = 0.1045 # 10.45% p.a. — population-weighted mean of the returns series
+# Candidate active scenarios:
+                              #   2006 — worst LRR fill speed (N=29)
+                              #   2000 — worst 10yr SSM/TCM coverage (2008 shock in post-fill window)
+                              #   1996 — thinnest LRR surplus at fill (£6b)
+                              #   2007 — near-worst speed, avoids exact 2006 worst
+scenario_start_year = 2000    # Calendar year at which the active scenario begins.
+                              # load_params() rotates the canonical returns series so that
+                              # this year sits at index 0, matching the Excel "WDT Year 0"
+                              # convention. The sweep re-rotates independently per year.
+
+
+# ─────────────────────────────────────────────────────────────
+# [[tiers]] — growth tier definitions (array of tables)
+#
+# Each tier represents a persistent return differential relative to hist_mean.
+# Source: Fagereng, Guiso, Malacrino and Pistaferri (2020).
+# weight       : population share of active taxpayers assigned to this tier
+# differential : additive return differential vs hist_mean (fraction)
+#
+# Constraint: sum of weights must equal 1.0
+# Constraint: population-weighted mean of differentials must equal 0.0
+#             (so weighted-average return recovers hist_mean)
+# ─────────────────────────────────────────────────────────────
+[[tiers]]
+label        = "Poor"
+weight       = 0.10
+differential = -0.0455   # −4.55pp below mean → ~5.90% real return
+
+[[tiers]]
+label        = "Ok"
+weight       = 0.30
+differential = -0.0205   # −2.05pp below mean → ~8.40% real return
+
+[[tiers]]
+label        = "Good"
+weight       = 0.40
+differential =  0.0095   # +0.95pp above mean → ~11.40% real return
+
+[[tiers]]
+label        = "Great"
+weight       = 0.20
+differential =  0.0345   # +3.45pp above mean → ~13.90% real return
+
+
+# ─────────────────────────────────────────────────────────────
+# [[brackets]] — wealth brackets
+#
+# Source: ONS Wealth and Assets Survey 2018–20 (below top 1%);
+#         Pareto extrapolation at α = 2.25 (top 1% and above).
+# label  : human-readable percentile label
+# N_pop  : number of individuals in bracket
+# V0_m   : mean wealth of bracket in £m (used as starting wealth in TCM)
+#
+# NOTE: V0_m for Pareto brackets (top 1% and above) are model-implied,
+# not directly observed. WAS undersamples above £3m so the modelled tail
+# is lighter than the true distribution.
+# ─────────────────────────────────────────────────────────────
+[[brackets]]
+label = "50%"
+N_pop = 6920000
+V0_m  = 0.401789   # £401,789
+
+[[brackets]]
+label = "60%"
+N_pop = 6920000
+V0_m  = 0.569543   # £569,543
+
+[[brackets]]
+label = "70%"
+N_pop = 6920000
+V0_m  = 0.782141   # £782,141
+
+[[brackets]]
+label = "80%"
+N_pop = 6920000
+V0_m  = 1.108535   # £1,108,535
+
+[[brackets]]
+label = "90%"
+N_pop = 3460000
+V0_m  = 1.629190   # £1,629,190
+
+[[brackets]]
+label = "95%"
+N_pop = 2768000
+V0_m  = 2.858347   # £2,858,347
+
+[[brackets]]
+label = "99%"
+N_pop = 622800
+V0_m  = 7.135016   # £7,135,016
+
+[[brackets]]
+label = "99.9%"
+N_pop = 62280
+V0_m  = 19.853605  # £19,853,605
+
+[[brackets]]
+label = "99.99%"
+N_pop = 6228
+V0_m  = 53.384707  # £53,384,707
+
+[[brackets]]
+label = "99.99%+"
+N_pop = 692
+V0_m  = 139.607368  # £139,607,368
+
+
+# ─────────────────────────────────────────────────────────────
+# [val] — VAL reference scenario parameters
+#
+# These are used by the VAL output scripts (3.4.1–3.4.4) only.
+# They are not RATES model inputs.
+#
+# V0_m : reference scenario entry wealth (£m). A round number
+#         chosen for illustration across VAL, VAL.A, and VAL.B.
+#         Not a bracket mean; not a population figure.
+# ─────────────────────────────────────────────────────────────
+[val]
+V0_m   = 20.0   # £20m — VAL reference entry wealth
+# rho moved to [rho] base / sweep (D1c).
+rho_sweep = [0.0, 0.02, 0.03, 0.035, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.12]   # C.12b / Fig 7.4-7.6; fine grid around the breakeven; includes the base rho
+rho_display = [0.0, 0.035, 0.05, 0.07, 0.09, 0.12]   # subset drawn as panels in Fig 7.5; base rho and the old 5% reference both shown
+alpha_max = 5.0   # upper end of the extended alpha search in Fig 7.4-7.6 (headline tables stay on [0.1, 2.0])
+unc_sigmas = [0.0, 0.083, 0.15, 0.25]   # annual return volatility for the declaration-under-uncertainty Monte Carlo (0.083 = std of the historical series)
+unc_paths  = 1000    # paired return paths per volatility
+unc_seed   = 20260930   # RNG seed for the declaration-under-uncertainty Monte Carlo
+rate_table_W = [2.0, 5.0, 10.0, 20.0, 50.0, 100.0, 500.0, 1000.0]   # Table 5.G: W (£m) at which tau(W) is tabulated (nearest plotted grid point)
+cost_curve_alphas = [0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.25, 1.5, 2.0]   # Table 7.1b.G: alpha rows (nearest plotted grid point)
+surface_table_g = [0.05, 0.08, 0.1045, 0.15, 0.20]   # Table 7.1c.G: g columns (nearest plotted grid point), at canonical N
+reversal_plateau_slope = 0.05   # Fig 7.2b: plateau onset = first g after the steepest rise where the net-curve slope per grid step falls below this (pp)
+reversal_g_cutoff_pct  = 50.0   # Fig 7.2b: the net-curve y-range and plateau search stop at this g (%)
+tol_pp    = 2.0   # state tolerance: |PV revenue difference| <= tol_pp of honest TW(1) is 'not of concern'
+N_demo = 30     # Illustrative demographic holding period (years). This is N_val,
+                # the CANONICAL N for every individual-level VAL figure and table.
+                # Rationale: WDT entry is typically triggered by an inheritance
+                # event; median UK inheritance receipt age ≈ 57, life expectancy
+                # ≈ 85, implying N ≈ 28. N = 30 is a round central estimate.
+                # Range is wide (startup founder entering at 35 → N ≈ 50;
+                # late inheritor at 70 → N ≈ 15). Robustness across the full
+                # range is shown in Fig 09 (g, N) surface.
+                # This N is used for all individual-level VAL figures (02–08, 10)
+                # and all VAL.A appendix C tables. It is deliberately decoupled
+                # from p['N_fill'] (the SSM-derived LRR fill year), which is a fund
+                # mechanics output, not a taxpayer lifecycle parameter.
+                # Since the N refactor this decoupling is ENFORCED in code:
+                # run_sim() and friends raise if N is not passed explicitly.
+
+
+# ─────────────────────────────────────────────────────────────
+# [rho] — the real discount rate, state side only (D1c)
+# rho is REAL and enters only the state's present value of receipts (SPT, breakeven spread). The family objective stays undiscounted
+# terminal true net worth. SST (the state's terminal stake) is discount-free and is the PRIMARY state test; SPT is reported at every
+# rho in the sweep. base = 3.5%: HMT Green Book STPR, years 0 to 30. Read by wdt_core.load_params into p['rho'] and p['rho_sens'].
+# [val] rho_sweep (the fine grid for the legacy C.12 / Fig 7.4-7.6 tables) is unchanged.
+# ─────────────────────────────────────────────────────────────
+[rho]
+base  = 0.035
+sweep = [0.0, 0.025, 0.035, 0.05]
+
+# ─────────────────────────────────────────────────────────────
+# [val_gen] — VAL generational model (valgen_core.py; plan v0.7)
+#
+# Family-level model: four routes (A/B/C/D), a death every G years, an heir.
+# Separate from [val], whose N_demo (30) is the single-life holding period
+# used by the legacy val_core. Every key below is read by valgen_core.py;
+# load_params() must pass all of them through (see the patch notes, section D).
+#
+# ── Family and horizon (D12) ──
+# T             : horizon (years). Plan D12 = 100.
+# G             : generation gap (years); deaths at G, 2G, ... < T. Plan D12 = 30.
+# heir_influx   : how the heir's receipt is treated at the first assessment.
+#                   "delta"         influx taxed in kind as a delta at tau(W_heir)  (D6)
+#                   "fresh_entrant" no tax on the influx; basis = declared value  (CLOSE 4.1)
+# envelope_unit : unit of the lifetime refund envelope.
+#                   "real"     true value paid (E2, baseline)
+#                   "credited" credited liability L (E1, legacy)
+#
+# ── P2b: consumption, indexation, refund rule ──
+# consumption   : share of net worth consumed per year (D16); NOT in the family
+#                 objective (D11), reported as a diagnostic.
+# index_wmin    : index W_min and k at [budget] budget_growth (D16).
+# state_tol     : SPT and SST tolerance, two-sided: state PV and stake within this share of honest. SST (stake, discount-free) is the
+#                 PRIMARY state test; SPT is a sensitivity reported at each rho in [rho] sweep (D1c).
+#
+# ── P3: routes and Route D ──
+# route_shares  : see [val_gen.route_shares] below (D13).
+# reset_interval: Route D voluntary hard reset every N years (D3); 0 = never.
+# death_waiver  : death auction skipped if a reset fell within this many years
+#                 (CLOSE 4.1.1); 0 = never waived.
+#                 (A Route D write-down at a reset always refunds: cancels accrued
+#                 liability, then units, pooled cap. Decision of 2 Oct: symmetric.)
+#
+# ── P4: verification hazard (D9, D15) ──
+# lambda_vals   : sweep of lambda, the yearly odds that a self-declared (Route C,
+#                 and with the corrective auction Route D) asset is verified:
+#                 a company lists, or a corroborated flag triggers the auction.
+#                 FRAMING DEVICE, NOT A CALIBRATION: the WDT changes the
+#                 listing decision itself, so historical listing rates do not apply.
+# lambda_base   : headline lambda for the single-run tables. FRAMING VALUE, not a calibration: mean wait to verification
+#                 1/lambda = 20 years at 5%. Evidence: US unicorn exits against the 741 still private, about 2% (past 12 months),
+#                 5% (5-year average), 12% (2021 peak); Crunchbase News, May 2024. Family-held firms are not covered by it.
+# verified_threshold : verified share at which "time to verified" is reported.
+# c_share_sens  : Route C share sensitivities (BEHAV range); A absorbs the difference.
+# alpha_ext     : alpha_C beyond the headline grid (slice only).
+#
+# ── P5: strategy search and verdicts ──
+# strategy_k    : horizons (years) for the late / pre-reset / correct-before-death strategies.
+# pv_rel_min_frac : pv_rel is undefined where honest PV is below this fraction of honest TW.
+# brg_tol       : BRG — best response may beat honest by at most this share of honest TW.
+#                 PLACEHOLDER.
+# hsc_tol       : HSC — an honest family's cost from the rule, in a genuine shock. PLACEHOLDER.
+# conv_extra_alphas : extra declaration ratios (beyond [sweep] alpha_vals and alpha_ext) for the
+#                 conventional-wealth-tax comparison; 0.0 = declare nothing.
+# shock_sizes / shock_year : the HSC shock (one-year market fall at year shock_year).
+#
+# ── Rule sets searched (the verdict table is the product of these lists) ──
+# Fixed in the code, not switches: ratio-mirror Route C refund, free entry basis, L allocated
+# by delta shares, symmetric Route D refund. A rule set is 'c_cap/verify_down/dauc'.
+# Each extra entry multiplies the run time.
+# c_cap_rules       : Route C refund cap. "units" = units paid only;
+#                     "units_and_value" = units paid and the real value paid (the rule).
+# verify_down_rules : "allow" | "reset". "reset" = correcting your own overstatement at
+#                     verification or auction is a basis reset with no refund (VAL 11.3).
+# d_auction_rules   : "off" | "on". "on" = the corrective auction also applies to Route D,
+#                     at the same lambda.
+# ── Growth x lambda surface (P5) ──
+# growth_vals   : constant growth rates g for the surface of best-response gain by g and lambda.
+#                 Growth and lambda are independent inputs in the model (no link between them).
+# surface_rules : rule sets shown in that surface.
+# ─────────────────────────────────────────────────────────────
+[val_gen]
+T             = 100
+G             = 30
+heir_influx   = "delta"
+envelope_unit = "real"
+# rate_scenario : the rate design VAL runs under = a name in [rates.scenarios.*]. Its schedule (ladder / logistic),
+#                 tau_m, W_min (e.g. the median house price) are read from there by wdt_core.with_rate_scenario, so RATES
+#                 and VAL share one source. "" = the [rates.defaults] design (the gain ladder, D2).
+rate_scenario = "gain_ladder"
+# basis : the economy VAL runs on (D1, D1a).
+#   "jst"    g_real and index_rate are DERIVED at run time from the JST history RATES uses: the geometric-mean REAL capital return and
+#            REAL GDP/head growth of [rates].uk_iso, over basis_years if given (else every usable year). Stamped into the JSON
+#            (meta.params.val_basis_info). Hand values from print_val_real_inputs.py, for comparison: g_real 0.0442, index_rate 0.01872.
+#   "manual" g_real and index_rate below, as numbers (a REAL return and REAL GDP/head growth).
+#   "legacy" nominal hist_mean and [budget] budget_growth. Kept only until D11 retires them.
+basis = "jst"
+# basis_years = [1950, 2017]
+# g_real     = 0.0442
+# index_rate = 0.0187
+# JST replay (D1a, D1b): the headline rule sets x lambda {0, lambda_base} re-run on the real return path of each JST loop window
+# (wrap = True; windows that repeat years are flagged, not dropped; `contiguous` windows reported separately). The strategy library
+# runs once per window, so cost = windows x 4 searches. 0 = no replay. index_rate stays the constant above.
+replay_stride    = 10
+replay_countries = ["GBR"]
+
+consumption      = 0.035
+consumption_vals = [0.02, 0.03, 0.04, 0.05]
+index_wmin       = true
+state_tol         = 0.02
+state_tol_sens     = [0.02, 0.05, 0.10]
+
+reset_interval   = 10
+reset_sens       = [0, 5, 10, 20]
+death_waiver     = 0
+
+lambda_vals        = [0.0, 0.01, 0.02, 0.05, 0.10]
+lambda_base        = 0.05
+verified_threshold = 0.90
+c_share_sens       = [0.05, 0.08, 0.10]
+alpha_ext          = [3.0, 5.0, 10.0]
+
+strategy_k      = [3, 5, 10]
+pv_rel_min_frac = 1e-3
+brg_tol         = 0.01
+hsc_tol         = 0.01
+conv_extra_alphas = [0.0, 0.01]
+shock_sizes     = [-0.2, -0.5]
+shock_year      = 20
+
+c_cap_rules       = ["units", "units_and_value"]
+verify_down_rules = ["allow", "reset"]
+d_auction_rules   = ["off", "on"]
+
+growth_vals   = [0.01, 0.03, 0.05, 0.07, 0.10]   # REAL growth (D1); the JST UK mean is about 4.4%
+surface_rules = ["units_and_value/reset/on"]
+headline_rules = ["units/allow/off", "units_and_value/reset/on"]   # HLC headline contrast: base rule and the candidate
+dmg_rules      = ["units/allow/off", "units_and_value/reset/on"]   # DMG dominance grid: rule sets (scenarios = growth_vals x lambda_vals, shock_sizes x lambda_vals)
+c_share_vals  = [0.02, 0.05, 0.08, 0.15, 0.25, 0.40]   # UOS: Route C share sweep (A absorbs). 8% = economy-wide business assets (WAS); 25% = exposure case, about the ceiling for the top decile's non-property, non-pension wealth; 40% = tail stress for families above 5m per adult (judgment, no source). Route C is fluid (assets switch with Route A), so the share is a holder's choice.
+hec_sigmas     = [0.0, 0.05, 0.10, 0.20]   # HEC: sd of honest valuation error on Routes C and D (log scale). 10% anchored to Russell-NCREIF appraisal error 11.07% (range 6 to 13%), institutional property, so a Route D anchor; no Route C source
+hec_paths      = 200
+hec_phi        = 0.5                      # persistence of the error (AR(1) in logs), used for both routes unless overridden below. PLACEHOLDER
+# hec_phi_C    = 0.5                      # optional override for Route C. Direction only: private equity valuations show little serial correlation (CAIA)
+# hec_phi_D    = 0.5                      # optional override for Route D. Direction only: real estate valuations show strong anchoring (CAIA)
+# Honest valuation BIAS is deliberately not modelled (decision 5 Oct 2026): Route C is valued at what the owner believes it is worth on
+# the assessment date, with no marketability-discount rule. A persistent honest discount is a constant alpha_C below 1 (rows of CDS, LGR).
+hec_seed       = 20261004
+example_alphas = [1.0, 0.5, 2.0]   # WLG worked ledger: honest, an understater, an overstater (must include 1.0)
+
+[val_gen.life_examples.J]   # LIFE worked examples (single life, run through run_life). Legacy 5J: deferred delta
+g = 0.07
+V0_m = 20.0
+N = 5
+alphas = [1.0, 0.8, 0.5]
+
+[val_gen.life_examples.K]   # legacy 5K: dilution compounds with growth
+g = 0.15
+V0_m = 20.0
+N = 3
+alphas = [1.0, 0.6]
+
+[val_gen.life_examples.N]   # legacy 5N: forecast exposure
+g = 0.07
+V0_m = 8.0
+N = 10
+alphas = [1.0, 0.6, 1.4]
+
+[val_gen.route_d_examples.L]   # worked example L: Route D against annual settlement (sculpture collection)
+V0_m = 8.0
+g = 0.05
+N = 15
+
+[val_gen.route_d_examples.M]   # worked example M: voluntary settlement (commercial property)
+V0_m = 5.0
+g = 0.05
+N_reset = 10
+N_death = 15
+soft_factor = 0.944    # soft reset declares this share of true value at N_reset (legacy input)
+auction_cost = 0.02    # share of the reset value; applied outside the engine
+
+[val_gen.route_shares]    # D13 baseline, shares of V0; must sum to 1. Sweep the BEHAV ranges.
+A = 0.50
+B = 0.25
+C = 0.08
+D = 0.17
+
+
+# ─────────────────────────────────────────────────────────────
+# [sweep] — shared analytical grids and canonical reference values
+#
+# All hardcoded constants in VAL.S and RATES.S scripts are sourced
+# from here.  Scripts read these via p['sweep'] after load_params().
+#
+# CANONICAL BASELINE
+# ------------------
+# These are the reference parameter values used as the "held-constant"
+# point in all single-parameter sweeps, and as the make_p() defaults
+# in VAL.S scripts.
+#
+# tau_0_canon  : canonical floor rate (τ₀)  — updated to 15%
+# tau_m_canon  : canonical ceiling rate (τ_m)
+# k_canon      : canonical steepness (per £m)
+# W_min_canon  : canonical entry point (£m)
+# N_canon      : canonical holding period (years) = N_val = [val] N_demo = 30.
+#                (Old comment said "LRR fill year"; that was wrong after the
+#                tau_0 recalibration and is superseded.)
+# V0_canon     : canonical entry wealth for VAL reference scenarios (£m)
+# g_canon      : canonical growth rate = hist_mean (fraction)
+#
+# ANALYSIS CONSTANTS
+# ------------------
+# tzone_threshold : |C.1| below this is "negligible" for tolerant-zone analysis
+#
+# SHARED ANALYTICAL GRIDS (VAL and VAL.S)
+# ----------------------------------------
+# g_vals         : growth sweep used in C.1 heatmaps (VAL.A Data Tables order)
+# alpha_vals     : declaration-ratio rows for heatmaps and comparison tables
+# over_alphas    : overstater subset used in N-crossing analysis
+# under_alphas   : understater subset used in penalty analysis
+# n_sweep        : full N sweep range for crossing detection [min, max, step]
+#                  scripts reconstruct: list(range(n_sweep[0], n_sweep[1]+1, n_sweep[2]))
+# n_panel_vals   : N values used in 4-panel horizon figures
+# n_actual_vals  : N values for Tables C.7/C.8 (actual simulation N, not Excel offset)
+# v0_sweep_vals  : V₀ levels for VAL.S horizon/wealth sweeps
+#
+# VAL.S PARAMETER SWEEP PANELS
+# -----------------------------
+# tau0_panel_vals  : τ₀ values for 4-panel VAL.S figures (§2.1)
+# taum_panel_vals  : τ_m values for 4-panel VAL.S figures (§2.2)
+# k_panel_vals     : k values for 4-panel VAL.S figures (§2.3)
+# wmin_panel_vals  : W_min values for 4-panel VAL.S figures (§2.4)
+#
+# VAL.S INTERACTION SURFACE GRIDS
+# --------------------------------
+# tau0_n_surface_tau0  : τ₀ axis for the §4.1 joint surface (fraction)
+#                        encoded as [start_pct, stop_pct, step_pct] → /100
+# tau0_n_surface_nceil : N-ceiling axis for §4.1 surface [min, max, step]
+# k_v0_surface_k       : k axis for §4.2 surface
+# k_v0_surface_v0      : V₀ axis for §4.2 surface (£m)
+#
+# VAL.A APPENDIX C TABLE GRIDS (appc_full, generate_figures)
+# -----------------------------------------------------------
+# appc_k_vals    : k values for Table C.4 (9 values, wider range than panels)
+# appc_v0_vals   : V₀ values for Table C.4 (£m, integer)
+# appc_over_vals : α values for Table C.3 overstatement extension
+#
+# RATES.S SWEEP GRIDS
+# -------------------
+# rates_tau_0_sweep  : τ₀ sweep for RATES.S single-parameter sensitivity
+# rates_tau_m_sweep  : τ_m sweep
+# rates_k_sweep      : k sweep (log-spaced)
+# rates_wmin_sweep   : W_min sweep (£m)
+# ─────────────────────────────────────────────────────────────
+[sweep]
+
+# ── Canonical baseline ────────────────────────────────────────
+# tau_0_canon, tau_m_canon, k_canon, W_min_canon RETIRED (D2): they described the old logistic (15% / 70% / 0.001 / £2m).
+# load_params falls back to p['tau_0'] ... p['W_min'] (the RATES defaults) for any legacy reader. N_canon, V0_canon, g_canon stay.
+N_canon     = 30       # canonical holding period = N_val = [val] N_demo
+V0_canon    = 20.0     # £20m — VAL reference entry wealth
+g_canon     = 0.1045   # 10.45% p.a. — hist_mean alias
+
+# ── Analysis constants ────────────────────────────────────────
+tzone_threshold = 0.02   # 2pp — |C.1| threshold for tolerant-zone analysis
+
+# ── Shared analytical grids ───────────────────────────────────
+g_vals = [
+  -0.0455, 0.00449, 0.059, 0.084, 0.1045,
+   0.114,  0.139,   0.1645, 0.2045, 0.2545,
+]
+alpha_vals   = [0.1, 0.2, 0.5, 0.8, 1.0, 1.2, 1.5, 1.8, 2.0]
+over_alphas  = [1.5, 1.8, 2.0]
+under_alphas = [0.1, 0.2, 0.5, 0.8]
+
+# n_sweep: [min, max, step] — scripts do list(range(min, max+1, step))
+n_sweep = [5, 65, 1]
+
+# n_panel_vals: 4 N values for horizon panel figures (§3.1b)
+n_panel_vals  = [10, 20, 30, 50]
+
+# n_actual_vals: Tables C.7/C.8 — actual simulation N (Excel offset corrected)
+n_actual_vals = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
+
+# v0_sweep_vals: VAL.S §3.2 wealth-level sweep
+v0_sweep_vals = [5.0, 20.0, 100.0, 500.0, 1000, 5000, 10000, 50000]
+
+# ── VAL.S parameter sweep panels ─────────────────────────────
+tau0_panel_vals = [0.10, 0.15, 0.20, 0.30, 0.40, 0.50]
+taum_panel_vals = [0.50, 0.60, 0.70, 0.80]
+k_panel_vals    = [0.0001, 0.0002, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.05, 0.1]
+wmin_panel_vals = [0.5, 1.0, 2.0, 5.0, 10.0, 50]
+
+# ── VAL.S interaction surface grids ──────────────────────────
+# tau0_n_surface_tau0: [start_pct, stop_pct, step_pct] — divide by 100 for fraction
+tau0_n_surface_tau0  = [5, 41, 3]
+tau0_n_surface_nceil = [10, 70, 5]   # [min, max, step]
+
+k_v0_surface_k  = [0.0001, 0.0002, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.05, 0.1]
+k_v0_surface_v0 = [5.0, 10.0, 20.0, 50.0, 100.0, 200.0, 500.0]
+
+# ── VAL.A Appendix C table grids ─────────────────────────────
+appc_k_vals   = [0.0001, 0.0002, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.05, 0.1]
+appc_v0_vals  = [1, 10, 50, 100, 250, 500, 1000, 2500, 5000, 10000]
+appc_over_vals = [1.0, 1.2, 1.5, 1.8, 2.0]
+
+# ── RATES.S sweep grids ───────────────────────────────────────
+rates_tau_0_sweep    = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50]
+rates_tau_m_sweep    = [0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00]
+rates_k_sweep        = [0.0001, 0.0002, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.05, 0.1]
+rates_wmin_sweep     = [0.1, 0.25, 0.5, 1.0, 2.0, 3.0, 5.0, 7.5, 10.0]
+
+# SWF sizing sweeps — vary capitalisation parameters, not rate parameters.
+# Individual taxpayer burden is unaffected by these; only milestone timing changes.
+# Baseline: srr_ratio = 3.0x,  lrr_years = 3.0 years of expenditure.
+rates_srr_ratio_sweep = [1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0]
+rates_lrr_years_sweep = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 8.0]
+
+# ── Welfare model sweep grids (module5_sweeps.py) ────────────────────────────
+#
+# wfr_target_et_pct : revenue target sweep — E[T] as % of W₀.
+#   Range 1–5% spans CGT-deferral-equivalent (1%) through income-tax-equivalent
+#   (4–5%) for a wealth holder earning 10.45% on equity.  The canonical 2% sits
+#   near the CGT-with-moderate-deferral level; 3% is the blended effective rate
+#   for mixed income/gains; 5% approximates full income-tax treatment.
+#
+# wfr_tau_0_sweep  : τ₀ sweep for welfare parameter sensitivity.
+#   Narrower than rates_tau_0_sweep — welfare model is expensive per point.
+#   Includes 0.05 (very low entry) and 0.30 (high entry) to show failure modes.
+#
+# wfr_tau_m_sweep  : τ_m sweep for welfare parameter sensitivity.
+#   Includes 0.40 (low ceiling, moderate progression) and 0.90 (near-confiscatory).
+#
+# wfr_k_sweep      : k steepness sweep (per £m).
+#   Log-spaced; 0.0001 is almost flat (near-proportional), 0.05 rises steeply.
+#
+# wfr_wmin_sweep   : W_min entry-point sweep (£m).
+#   Ranges from £0.5m (broad base) to £10m (narrow top-wealth base).
+#
+# wfr_start_years  : start-year sweep for worst-case scenario analysis.
+#   All 73 possible start years 1947–2019 for the full sweep; a curated
+#   subset of historically adverse years for the worst-case table.
+#   The full sweep is run once and cached; only the curated subset appears
+#   in the paper's worst-case table.
+#   Curated adverse years: 2000 (dot-com + GFC in window), 2006 (worst LRR
+#   speed), 1999 (GFC hits early in window), 1972 (oil shock), 1987 (Black
+#   Monday), 1946 (post-war austerity start).
+#
+# wfr_W0_sweep     : wealth level sweep for within-system welfare comparison.
+#   Spans Poor-tier W₀ (£3m) through Great-tier W₀ (£150m) and beyond.
+#   Allows the C1 progressive-vs-flat gap to be shown as a function of W₀.
+#
+# wfr_gamma_vals   : risk aversion sweep (consistent with Modules 1–4).
+#
+# wfr_start_years_full: full 73-year start-year sweep (1947–2019 inclusive).
+#   Used to generate the complete CEW-by-start-year surface.
+wfr_target_et_pct  = [1.0, 2.0, 3.0, 4.0, 5.0]
+wfr_tau_0_sweep    = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30]
+wfr_tau_m_sweep    = [0.40, 0.50, 0.60, 0.70, 0.80, 0.90]
+wfr_k_sweep        = [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05]
+wfr_wmin_sweep     = [0.5, 1.0, 2.0, 5.0, 10.0]
+wfr_W0_sweep       = [3.0, 5.0, 8.0, 10.0, 20.0, 30.0, 50.0, 100.0, 150.0]
+wfr_gamma_vals     = [1.0, 2.0, 4.0]
+wfr_start_years_curated = [1946, 1972, 1987, 1999, 2000, 2006]
+
+# g sweep — deterministic constant-g scenarios, one SSM run per value.
+# Each value replaces the historical return series with a constant series of
+# that growth rate (extended to 74 entries so the SSM marginal pass has
+# enough headroom).  No start-year rotation; one result per g value.
+# hist_mean (10.45%) is included so the canonical historical baseline appears.
+rates_g_sweep = [0.03, 0.05, 0.07, 0.0845, 0.1045, 0.12, 0.15, 0.20, 0.25]
+
+# Synthetic scenario — linear trend plus sine wave.
+# g(t) = mu + lam * t + amplitude * sin(2 * pi * t / period)
+#
+# Stress-test framing: mu is set to UK long-run CPI inflation (2%), so the
+# mean growth rate is barely positive.  The sine amplitude then drives g
+# negative for roughly half of each cycle.  This directly addresses the
+# criticism that the WDT is not tested under sustained low/negative growth.
+# No linear trend (lam = 0): conservative, no structural improvement assumed.
+#
+# Canonical scenario: g oscillates between −2% and +6% with a 10-year cycle.
+# Central banks historically respond to negative equity growth with inflation
+# (QE, rate cuts), so multi-decade negative equity is not a realistic baseline;
+# the scenario is therefore already more adverse than any recorded UK experience.
+#
+# Sweep axes: amplitude_sweep varies the depth of the negative dip (A=0 →
+# flat 2%, A=0.04 → dips to -2%, A=0.08 → dips to -6%).
+# period_sweep varies cycle length with A fixed at canonical.
+[synthetic_scenario]
+mu        = 0.07     # mean growth rate = UK CPI inflation floor (2%)
+lam       = 0.0      # no structural trend; conservative stress-test baseline
+amplitude = 0.08     # canonical: g oscillates between -2% and +6%
+period    = 10       # 10-year cycle (typical business cycle length)
+
+# amplitude_sweep: A=0 is flat 2% growth; A=0.04 is canonical (-2% to +6%);
+# A=0.08 is severe (-6% to +10%); values above 0.02 produce negative g years.
+amplitude_sweep = [0.0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.08]
+
+# period_sweep: canonical amplitude (A=0.04) held fixed; cycle length varies.
+period_sweep    = [5, 7, 10, 15, 20, 30]
+
+
+# ─────────────────────────────────────────────────────────────
+# [names.val] — VAL acronym register (single source for ids in code, captions and prose)
+# kind: claim | test | output | example | rule | component | metric | step
+# legacy: the placeholder id used before the Phase 0 rename (G1, P3, C12b ...), kept for traceability.
+# Acronyms: at most five capitals, unique, no clash with a paper shortcode (see test_valgen_pairs.py).
+# The register table is generated to OUTPUTS/VAL/tables/val_names.md; never typed into the paper.
+# ─────────────────────────────────────────────────────────────
+[names.val.NDS]
+kind = "claim"
+name = "No dominant strategy"
+legacy = ""
+note = "No dominant, logical strategy maximises own wealth"
+[names.val.BND]
+kind = "claim"
+name = "Bounded gains"
+legacy = ""
+note = "Any positive strategy has a bounded gain"
+[names.val.HLR]
+kind = "claim"
+name = "Honest least resistance"
+legacy = ""
+note = "Honest cooperation is the path of least resistance and uncertainty"
+[names.val.BRG]
+kind = "test"
+name = "Best-response gain"
+legacy = "G1"
+note = "Best response beats honest by at most brg_tol"
+[names.val.HSC]
+kind = "test"
+name = "Honest shock cost"
+legacy = "G2"
+note = "Honest family cost from the rule in a genuine shock at most hsc_tol"
+[names.val.SPT]
+kind = "test"
+name = "State PV test"
+legacy = "G3"
+note = "Among gaining strategies, state PV within state_tol; a sensitivity across the [rho] sweep"
+[names.val.SST]
+kind = "test"
+name = "State stake test"
+legacy = "G3"
+note = "Among gaining strategies, state terminal stake within state_tol; the primary state test (discount-free)"
+[names.val.DOM]
+kind = "test"
+name = "Dominance grid"
+legacy = ""
+note = "No strategy gains in every scenario by a material margin; see DOMG"
+[names.val.HEC]
+kind = "test"
+name = "Honest error and uncertainty"
+legacy = ""
+note = "Honest families with valuation error; see HERR"
+[names.val.UCC]
+kind = "output"
+name = "Units conserved"
+legacy = "G1"
+note = ""
+[names.val.WLG]
+kind = "output"
+name = "Worked ledger"
+legacy = "G2"
+note = ""
+[names.val.CDS]
+kind = "output"
+name = "Declaration surface"
+legacy = "G3"
+note = ""
+[names.val.RIS]
+kind = "output"
+name = "Reset interval sensitivity"
+legacy = "G4"
+note = ""
+[names.val.DSH]
+kind = "output"
+name = "Dilution and Route C share"
+legacy = "G5"
+note = ""
+[names.val.VSY]
+kind = "output"
+name = "Verified share by year"
+legacy = "G6"
+note = ""
+[names.val.ABL]
+kind = "output"
+name = "Ablation by lambda"
+legacy = "G7"
+note = ""
+[names.val.VMP]
+kind = "output"
+name = "Verdict map"
+legacy = "G8"
+note = ""
+[names.val.FBR]
+kind = "output"
+name = "Best response by family"
+legacy = "G9"
+note = ""
+[names.val.PSS]
+kind = "output"
+name = "PV and stake scatter"
+legacy = "G10"
+note = ""
+[names.val.GLM]
+kind = "output"
+name = "Growth by lambda surface"
+legacy = "G11"
+note = ""
+[names.val.HLC]
+kind = "output"
+name = "Headline contrast"
+legacy = "G12"
+note = ""
+[names.val.HCS]
+kind = "output"
+name = "Honest cost in a shock"
+legacy = "G13"
+note = ""
+[names.val.BASE]
+kind = "rule"
+name = "Base rule set (units/allow/off)"
+legacy = ""
+note = ""
+[names.val.CORR]
+kind = "rule"
+name = "Candidate rule set (units_and_value/reset/on), provisional"
+legacy = ""
+note = ""
+[names.val.UCAP]
+kind = "component"
+name = "Units cap on Route C refund"
+legacy = ""
+note = ""
+[names.val.UVCAP]
+kind = "component"
+name = "Units and value cap"
+legacy = ""
+note = ""
+[names.val.VALLOW]
+kind = "component"
+name = "Verify-down allowed"
+legacy = ""
+note = ""
+[names.val.VRESET]
+kind = "component"
+name = "Verify-down is a basis reset"
+legacy = ""
+note = ""
+[names.val.CAUC]
+kind = "component"
+name = "Corrective auction"
+legacy = ""
+note = ""
+[names.val.GAIN]
+kind = "metric"
+name = "Family terminal true net worth gain over honest"
+legacy = ""
+note = ""
+[names.val.PVREL]
+kind = "metric"
+name = "Relative change in PV of tax revenue"
+legacy = ""
+note = ""
+[names.val.STKREL]
+kind = "metric"
+name = "Relative change in state terminal stake"
+legacy = ""
+note = ""
+[names.val.LIFE]
+kind = "step"
+name = "Single life (G = 1)"
+legacy = ""
+note = ""
+[names.val.ROUTE]
+kind = "step"
+name = "Routes A to D"
+legacy = ""
+note = ""
+[names.val.GEN]
+kind = "step"
+name = "Generations and heirs"
+legacy = ""
+note = ""
+[names.val.VERIFY]
+kind = "step"
+name = "Verification hazard"
+legacy = ""
+note = ""
+[names.val.SEARCH]
+kind = "step"
+name = "Strategy search"
+legacy = ""
+note = ""
+[names.val.NOISE]
+kind = "step"
+name = "Valuation noise"
+legacy = ""
+note = ""
+[names.val.CONV]
+kind = "step"
+name = "Conventional tax baseline"
+legacy = ""
+note = ""
+[names.val.DOMG]
+kind = "output"
+name = "Dominance grid result"
+legacy = ""
+note = ""
+[names.val.HERR]
+kind = "output"
+name = "Honest error cost"
+legacy = ""
+note = ""
+[names.val.UOS]
+kind = "output"
+name = "Understatement against overstatement"
+legacy = ""
+note = ""
+[names.val.LGR]
+kind = "output"
+name = "LIFE gain grid"
+legacy = "C.1-TW"
+note = ""
+[names.val.LNS]
+kind = "output"
+name = "LIFE holding-period sweep"
+legacy = "C.8"
+note = ""
+[names.val.DEF]
+kind = "example"
+name = "Deferred delta example"
+legacy = "VAL.B §J"
+note = ""
+[names.val.DIL]
+kind = "example"
+name = "Dilution compounds example"
+legacy = "VAL.B §K"
+note = ""
+[names.val.RDD]
+kind = "example"
+name = "Route D defers to realisation example"
+legacy = "VAL.B §L"
+note = ""
+[names.val.VOL]
+kind = "example"
+name = "Voluntary settlement example"
+legacy = "VAL.B §M"
+note = ""
+[names.val.FEX]
+kind = "example"
+name = "Forecast exposure example"
+legacy = "VAL.B §N"
+note = ""
+
+
+# ─────────────────────────────────────────────────────────────
+# [rates] — RATES rebuild (rates_core.py)
+#
+# Everything the RATES core, tables and charts need. Parsed by
+# wdt_core._parse_rates; read as p['rates'].
+#
+# CONVENTIONS
+#   * TOML has no null. An OPTIONAL setting that is "off" is simply omitted:
+#     tiers, wmin_pct, payout_top, exp_paths, levy, countries.
+#   * Money is £m unless a key says £bn. Rates and shares are fractions.
+#   * [rates.defaults] is the baseline config. Each [rates.scenarios.NAME]
+#     changes ONLY the keys it names; a misspelt key raises at load time.
+#   * The rebuild does not use N_fill / the old SSM: the fund fills dynamically
+#     inside each window (rates_core, fund layer).
+# ─────────────────────────────────────────────────────────────
+[rates]
+jst_path         = "jst_r6.json"   # JST Macrohistory file; looked up in the RATES folder, then in Model/
+uk_iso           = "GBR"           # country used to calibrate the wealth distribution
+calibration_year = 2017            # year of UK population / GDP used with the wealth data
+exp_ref_year     = 2019            # year whose UK expenditure/GDP is the fixed cov_ref denominator
+valgen_dir       = "../VAL"        # folder holding valgen_core.py, relative to the RATES folder (rates_test.py only)
+
+# ── Baseline config (was DEFAULT_CFG in rates_sweep.py) ───────
+[rates.defaults]
+basis            = "real"                          # "real" (CPI-deflated, conservative) | "nominal"
+index_modes      = ["gdp_pc"]     # threshold indexation: cpi | gdp_pc | wealth | house | none ("house" = JST house-price index; used by wmin_house_hp)
+c                = 0.035        # consumption share of net worth per year (valgen D16); used when c_mode = "fixed"
+c_mode           = "fixed"      # "fixed" = c everywhere | "stationary" = per-window c keeping an untaxed holder's wealth/GDP flat
+c_bounds         = [0.0, 0.10]  # clip range for the stationary c
+diag_tops        = [0.01, 0.001]   # top fractions reported in the concentration diagnostics
+dist             = "advani"     # wealth distribution: "advani" (evidence-based) | "adjusted" | "survey"
+dist_mode        = "central"    # advani: central | upper;  adjusted: add | reallocate;  survey: add
+pop_per_adult    = 1.27         # population / adult population (UK)
+wmin_gbp_m       = 0.0          # W_min in £m (0 = every adult is in scope); ignored if wmin_pct is set
+k_per_gbp_m      = 0.005        # rate steepness per £m (rescaled to GDP-per-capita units internally)
+tau_0            = 0.30         # floor rate at W_min
+tau_m            = 0.90         # ceiling rate
+T                = 100           # window length, years (needs fill + horizon)
+exp_ref          = "uk_2019"    # fixed reference expenditure/GDP for cov_ref: "uk_2019" or a number (fraction)
+heir_rule        = "delta"      # "delta" (mechanism as designed, valgen D6) | "fresh" (ablation only)
+n_phase          = 6            # death-phase lines per bracket/tier
+G                = 30           # generation gap, years
+ms               = 3.0          # SRR target, multiples of A_t
+ml               = 3.0          # LRR target, multiples of A_t (reaction-time buffer)
+a_window         = 5            # years in the trailing mean A_t
+horizon          = 10           # years after LRR fill over which coverage is measured
+safe_share       = 0.0          # share of the fund held in the safe asset
+exclude_flagged  = false        # drop windows containing flagged suspect years
+payout_top_frac  = 0.01         # which cells payout_top applies to: top q of adults (scenarios that need another value set it)
+payout_constrained = true       # others' consumption adjusts so the wealth-weighted mean payout stays c
+start_stride     = 1            # take every k-th start year (speed; 1 = all)
+# optional (omitted = off):
+#   tiers      = [[0.1, -0.0455], [0.3, -0.0205], [0.4, 0.0095], [0.2, 0.0345]]   # [weight, return differential]
+#   wmin_pct   = 0.05                       # set W_min at the wealth of the top 5% of adults at launch
+#   payout_top = 0.005                      # consumption share of the top cells
+#   exp_paths  = { flat = "gdp", grow2 = 0.02 }   # expenditure paths; "gdp" = tracks GDP
+#   countries  = ["GBR", "USA"]
+#   cohorts    = "central"                  # a name in [rates.cohorts.*]: return heterogeneity
+#   wmin_house_ratio = 1.0                  # W_min = ratio x median house price at launch (overrides wmin_gbp_m)
+#   anchor_from = "stock_ladder"            # fit k of a logistic to that ladder's top anchor
+# D2 patch (apply_basis_d2_rho.py): the gain ladder is the baseline everywhere (D2). Logistics are comparison schedules only.
+schedule         = "gain_ladder"   # "logistic" | "logistic_ln" | a name in [rates.schedules.*]
+wmin_house_ratio = 1.0             # W_min = ratio x median house price at launch (0.0 = off: every adult in scope, or wmin_gbp_m / wmin_pct)
+rule_set         = "candidate"  # "base" | "candidate" | an explicit key c_cap/verify_down/dauc: see [rules]. RATES honest lines feel the c_cap part (the value cap)
+k_ln             = 1.0          # steepness for logistic_ln (dimensionless, per unit of ln(W / W_min))
+zucman_floor     = 0.02         # annual stock-rate floor tested on the billionaire cells (a CHECK, not a target)
+zucman_threshold_gbp_m = 1000.0 # cells with launch mean wealth at or above this form the billionaire pool
+dist_kw          = { body_split = 5, body_split_from = 0.5 }   # overrides for the distribution builder (a scenario that sets dist_kw REPLACES this); body split lets W_min fall inside a decile
+# CORP corporate levy, ON by default. Two tiers (CORP 5.1 table):
+#   unattributed owners (tranche three, unattributed foreign):        tau  = 0.70 final, on share f_inc of market cap
+#   attributed owners who do not reconcile individually (identified foreign beneficial owners, institutions failing the attribution test):
+#                                                                      tau0 = tau_0 final, on share f_attr of market cap
+#   Attributed NATIVE holders and intermediaries that pass the test are credited against their own WDT: no net levy, already in the engine.
+#   Base: NOMINAL market-cap delta (JST eq_capgain, nominal, whatever `basis` is); positive years only (CORP 5.5: no levy, no refund in loss years).
+#   Share of GDP = mc_gdp * max(0, nominal equity price return) / (1 + nominal GDP growth) * (tau * f_inc + tau0 * f_attr).
+#   tau0   = 0.0375: INPUT ONLY WHILE levy_calibrate = false; otherwise solved (see [rates.levy_calibration]). It was the ladders' first anchor (stock ladder 0.0015 / (0.05 - 0.01)); the logistic_ln scenarios use 4%. One value for
+#            every scenario, so it does not follow a scenario's own tau_0 (the legacy baseline's 30% is not used).
+#   f_attr + f_inc = 0.588: overseas beneficial owners of UK-listed equity, ONS "Ownership of UK quoted shares: 2024" (29 Jan 2026; 57.7% in 2022,
+#            56.3% in 2020). Foreign holders are outside the household distribution, so no double count. UK DC pensions, insurers and funds are
+#            not charged. UK institutions failing the attribution test (tau0 final, at most 29.6% of value) are left out: at most +0.4 pp of the levy base.
+#   f_inc  = 0.10: share of UK-listed equity that is UNATTRIBUTED. NOT OBSERVED: it is a Phase One outcome of the attribution regime, and ONS gives
+#            beneficial owners only by look-through. PLACEHOLDER, SWEEP 0.02 to 0.20.
+#   mc_gdp = 0.876: £2.54tn UK-domiciled LSE-listed market cap (ONS, end 2024) / UK nominal GDP 2024 of about £2.90tn (ICAEW / ONS). Both are end-2024 / calendar-2024, so the ratio is
+#            year-matched. It is NOT divided by [rates.replacement].gdp_gbp_bn (2025): that would mix a 2024 stock with a 2025 flow. Earlier value 0.89 used a derived GDP of £2.85tn (World Bank USD at 1.28), now superseded. VERIFY the market cap against the latest ONS release.
+# A scenario switches it off with every key set to zero (see levy_off). Windows need nominal eq_capgain and GDP.
+levy             = { tau = 0.70, f_inc = 0.10, tau0 = 0.0375, f_attr = 0.488, mc_gdp = 0.876 }
+levy_basis       = "nominal"    # "nominal" (the statutory base) | "real" (CPI-deflated price return and GDP growth). Sets the headline levy columns;
+                                # the JSON always carries all three cases (nominal | real | none) under headline.*.levy_variants.
+levy_cal_base    = ""           # "" = solve the levy on [rates.levy_calibration].base | "nominal" | "real": the base THIS scenario solves on
+levy_calibrate   = true         # solve the levy's entry rate so its median receipts equal [rates.levy_calibration].target (see that section)
+
+# ── CORP levy calibration ─────────────────────────────────────
+# The levy replaces corporation tax, so its entry rate is not a free parameter: it is set so that the MEDIAN levy receipts over all
+# valid windows (every country, every start year, the NOMINAL base: the statutory one) equal the revenue the levy retires.
+#   target = name of an entry in [rates.replacement].retire; its share of GDP is the target ("Corporation tax" = 3.2%)
+#   solve  = "tau0"  : solve tau0 (attributed owners), keep tau on the unattributed tier. Closed form, no solver. If the unattributed tier
+#                      ALONE already exceeds the target, tau0 would be negative: it is floored at 0, a warning is printed and the JSON records
+#                      infeasible = true. Then lower f_inc or tau.
+#            "scale" : multiply tau and tau0 by one factor, keeping their ratio.
+# Calibrated ONCE on the nominal base and then applied unchanged to the real-basis variant, so the real variant shows what is lost if the
+# base is deflated: it is the conservative case, not a second calibration.
+[rates.levy_calibration]
+target = "Corporation tax"
+solve  = "tau0"
+base   = "nominal"   # median base the entry rate is solved on: "nominal" (statute) | "real" (deflated). "real" makes the real-basis variant match the target; the nominal variant then overshoots
+
+# ── Suspect-year flags (diagnostics, not exclusions) ──────────
+[rates.flags]
+real_return_lo = -0.40    # real capital_tr below this is flagged
+real_return_hi =  0.60    # real capital_tr above this is flagged
+infl_hi        =  0.50    # CPI inflation above this is flagged
+
+# ── Eras used to group start years ────────────────────────────
+[[rates.eras]]
+name = "pre-1914"
+lo = 0
+hi = 1913
+[[rates.eras]]
+name = "1914-45"
+lo = 1914
+hi = 1945
+[[rates.eras]]
+name = "1946-79"
+lo = 1946
+hi = 1979
+[[rates.eras]]
+name = "1980+"
+lo = 1980
+hi = 3000
+
+# ── Wealth distribution constants (rates_dist) ────────────────
+[rates.dist]
+ons_total_bn     = 14600.0    # £bn, GB household net wealth 2016-18 (ONS WAS)
+rich_list_bn     = 772.8      # £bn, Sunday Times Rich List 2025, top 350
+rich_list_n      = 350        # people in that list
+table_total_bn   = 42945.4    # £bn, total of the old household bracket table (survey anchors are shares of it)
+survey_anchor_q  = [0.10, 0.05, 0.01, 0.001, 0.0001, 0.00001]            # top fractions
+survey_anchor_bn = [19658.2, 14021.2, 6109.3, 1665.6, 429.1, 96.6]       # £bn held by each top fraction (old table)
+body_deciles_bn  = [24.0, 159.7, 474.1, 1017.4, 1806.9, 2780.4, 3941.2, 5412.4, 7671.1]   # £bn, deciles 0-10 .. 80-90
+edges_90_99      = [0.10, 0.08, 0.06, 0.04, 0.02, 0.01]                  # cell edges, 90th-99th percentile (top fractions)
+edges_top1       = [0.01, 0.005, 0.002, 0.001, 0.0005, 0.0002, 0.0001, 0.00003, 0.00001]   # cell edges inside the top 1%
+tier_alpha       = 1.5        # Pareto alpha splitting the named Rich List tier (stylised, not sourced)
+adjusted_s1      = 0.225      # 'adjusted': top-1% share (estate-based, one fifth to one quarter)
+adjusted_s01     = 0.09       # 'adjusted': top-0.1% share (WID-style)
+adjusted_entry_gbp_m = 350.0  # 'adjusted': Rich List entry wealth, £m
+adjusted_tier_cuts = [10, 100]   # 'adjusted': rank cuts splitting the 350 into three cells (top 10, 11-100, 101-350)
+house_median_gbp_m = 0.225    # PLACEHOLDER: UK median house price in calibration_year (2017), £m. VERIFY against ONS HPSSA.
+
+[rates.dist.advani]            # Advani, Bangham & Leslie (2021), WTC Evidence Paper 1; GB 2016-18
+survey_total_bn   = 14400.0    # £bn, WAS on their definition
+s10_survey        = 0.51       # top-10% share, survey
+s1_survey         = 0.18       # top-1% share, survey
+s1_upper          = 0.23       # top-1% share after Rich List + Pareto adjustment ('upper' variant)
+extra_central_frac = 0.05      # 'central': total wealth this share higher than the survey
+strl_n            = 1000       # Rich List entries (2017/18 editions)
+strl_bn           = 700.0      # £bn, their total value
+strl_entry_m      = 100.0      # £m, list entry (~£103m, 2016 list)
+tier_cuts         = [0.01, 0.1, 1.0]   # named tier split into three cells at these fractions of its members
+
+# ── Return heterogeneity (Fagereng, Guiso, Malacrino & Pistaferri 2020, Econometrica) ──
+# tiers   = persistent return differentials [weight, additive pp as fraction], applied in EVERY cell
+# premium = [top fraction of adults, extra return LEVEL for cells inside it]; narrowest band wins
+# Both are demeaned by launch-wealth weights in rates_core: the wealth-weighted mean return stays
+# at the JST r. Cohorts redistribute return between holders; they add none.
+[rates.cohorts.central]
+label   = "Cohorts, central (tier SD 2.5pp, top-1% premium +1.4pp)"
+tiers   = [[0.10, -0.0455], [0.30, -0.0205], [0.40, 0.0095], [0.20, 0.0345]]
+premium = [[0.01, 0.014]]
+
+[rates.cohorts.high]
+label   = "Cohorts, high (tier SD 4.9pp, graded top premium; EXTRAPOLATION)"
+tiers   = [[0.10, -0.0910], [0.30, -0.0410], [0.40, 0.0190], [0.20, 0.0690]]
+premium = [[0.05, 0.010], [0.01, 0.028], [0.001, 0.040], [0.0001, 0.050]]   # PLACEHOLDER levels: no source above the top 1%
+
+# ── Rate ladders ──
+# Anchors are [W £m at launch, TARGET effective rate]; interpolated linearly in ln W, flat beyond the ends.
+# basis: "stock" (annual rate on wealth) | "gain" (rate on the return, income-tax equivalent) | "delta" (statutory, no conversion).
+# r_ref, c_ref convert the target for an accumulator earning r_ref and consuming c_ref to the statutory rate on the delta:
+#   stock: tau = s / (r_ref - c_ref);  gain: tau = G r_ref / (r_ref - c_ref).
+# Gain anchors = average UK income-tax rate at gain = r W (PA £12,570; 20% to £50,270; 40% to £125,140; 45% above;
+# no allowance taper; from memory, VERIFY). The first anchor of each ladder (at W_min) is a design choice, to avoid a cliff at entry.
+[rates.schedules.gain_ladder]
+label   = "Income-tax-equivalent gain ladder (top 45%)"
+basis   = "gain"
+r_ref   = 0.05
+c_ref   = 0.01
+anchors = [[0.225, 0.03], [0.5, 0.10], [1.0, 0.15], [2.5, 0.30], [5.0, 0.375], [25.0, 0.435], [100.0, 0.45]]
+
+[rates.schedules.stock_ladder]
+label   = "Stock-rate ladder (0.5% at £0.5m, 1% from £2.5m, 2% at £1bn)"
+basis   = "stock"
+r_ref   = 0.05
+c_ref   = 0.01
+anchors = [[0.225, 0.0015], [0.5, 0.005], [2.5, 0.01], [1000.0, 0.02]]
+
+# ── Optional extras (expenditure paths) ───────────────────────
+[rates.extras]
+windows         = [[20, 30], [40, 50]]   # [from, to] year windows reported when exp_paths is set
+trailing_window = 5                      # years in the trailing coverage used for breakeven
+
+# ── Run options ───────────────────────────────────────────────
+[rates.run]
+quantiles       = [0.10, 0.50, 0.90]     # reported for every headline distribution
+drift_band      = [0.67, 1.5]            # wealth/GDP end ÷ launch: "stable base" windows lie inside this band
+rate_curve_W    = [0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0, 200.0, 500.0, 1000.0]   # £m, tau(W) tabulated in the JSON
+float_digits    = 10                     # significant digits kept in the JSON
+revenue_bands_gbp_m = [0.25, 0.5, 1.0, 2.5, 5.0, 25.0, 100.0, 1000.0]   # £m, ascending; cell launch mean wealth is cut at these edges for the revenue-by-tier output
+scenarios = [
+  "baseline", "levy_off",
+  # rate grid read by figure/table 4
+  "tau0_015_k_002", "tau0_010_k_003", "tau0_010_k_005",
+  "logistic_ref", "wmin_all",
+  # wealth distribution: the weakest input, so all variants stay
+  "dist_advani_upper", "dist_adjusted_add", "dist_adjusted_reallocate", "dist_survey",
+  # mechanism-critical ablation and scale
+  "heir_fresh", "wealth_x13",
+  # consumption: aggregate (stationary, 2%, 5%) and top-cell payout
+  "stationary_c", "c_002", "c_005",
+  "top6_at_3", "top6_at_2", "top6_at_1", "top6_at_05",
+  "top1_at_05", "top1_at_1", "top1_at_2",
+  # data-quality check, cheap
+  "exclude_flagged",
+  # hybrid design: cohorts, W_min at the median house price, ladders, anchor-fitted logistics
+  "cohort_central", "cohort_high", "wmin_house", "wmin_house_hp",
+  "gain_ladder", "stock_ladder", "logistic_ln_ref",
+  "logistic_ln_gain", "logistic_ln_stock", "logistic_gain", "logistic_stock",
+  # lever stack: schedule, then cohorts, then the upper wealth distribution
+  "stock_ladder_cohort", "gain_ladder_cohort", "gain_ladder_cohort_upper",
+  # ceiling: the lever stack plus top-cell consumption at the c_ref the ladders were calibrated on
+  "gain_ladder_cohort_upper_c1",
+  # consumption sensitivity on the headline ladder (T20 / F20)
+  "gl_c_001", "gl_c_002", "gl_c_005", "gl_stationary", "gl_top6_1", "gl_top6_1_free",
+  # levy calibration base and f_inc (T25 / F25)
+  "gl_levy_cal_nominal", "gl_levy_cal_real", "gl_levy_stat_f002", "gl_levy_stat_f005",
+  "gl_levy_stat_f010", "gl_levy_stat_f015", "gl_levy_stat_f020",
+  # rule-set ablation: the headline ladder under the BASE rule set (units cap only)
+  "gain_ladder_rule_base",
+  # Route B lien / income (T100 patch)
+  "gl_rb_sale",
+  "gl_rb_lien",
+  "gl_rb_lien_sp0",
+  "gl_rb_lien_sp3",
+  "gl_rb_lien_sp6",
+  "gl_rb_lien_sp12",
+  "gl_rb_income",
+  "gl_rb_income_cap75",
+  "gl_rb_income_cap50",
+]
+# Parked (defined below, not run; for the SWEEPS_R rebuild): tau0_010, tau0_020, taum_050, taum_090, k_0005, k_002,
+# wmin_1m, wmin_5m, wmin_top5, wmin_top2, ms_*, ml_*, a_window_*, safe_share_*, horizon_5, T40_*, top2_at_05,
+# payout_top_1, payout_top_7, c_0005.
+quick = [                               # python rates_core.py --quick (figure scenarios are added automatically)
+  "baseline", "dist_advani_upper", "dist_survey", "heir_fresh",
+  "stationary_c", "c_002", "top6_at_1", "cohort_central",
+]
+
+# ── Tax replacement (T17 / T18 / T19, F17 / F18 / F19) ──
+# Relief (share of GDP, at the quantile named in `cases`) retires the taxes in `retire`, IN THIS ORDER. What is left is SPLIT in two:
+#   * (1 - employer_share) funds ONE common tax-free threshold X for the `unify` legs (income tax, employee NI): below X a person pays neither;
+#   * employer_share funds a SEPARATE tax-free threshold X_e for the `employer_legs` (employer NI): below X_e the employer pays none.
+# Above its threshold each leg charges its own rate on the excess, so liability grows from zero at X (X_e). Two thresholds, because employer NI
+# starts far lower today (£5,000 against £12,570) and one common X would have to be solved across both. Every taxpayer is counted, WDT payers
+# included: the thresholds are universal and nobody who pays today is worse off. Closes against today's revenue (the 1.8 pp gap between
+# reference expenditure and revenue is left open).
+# ALL NUMBERS BELOW ARE PLACEHOLDERS FROM MEMORY EXCEPT gdp_gbp_bn (sourced, see its comment): VERIFY (HMRC / OBR / ONS).
+#   gdp_gbp_bn       UK GDP, £bn
+#   cases            relief quantiles read by T17-T19 ("p50", "p10", "p90")
+#   levy_case        which levy variant the tax-replacement tables read: "real" (conservative: deflated base, same rate) | "nominal" | "none"
+#   retire           [name, share of GDP] retired in this order
+#   unify            legs that share the common threshold X (each leg's threshold becomes max(own, X))
+#   employer_legs    legs paid by the employer that get their OWN threshold X_e (each leg's threshold becomes max(own, X_e)); disjoint from unify.
+#                    Empty list = no employer leg: the whole leftover funds X and employer_share is ignored (forced to 0)
+#   employer_share   share of the leftover relief that funds X_e, 0 <= share < 1. JUDGMENT, NOT SOURCED: 0.25 is a placeholder, a little under the
+#                    leg's share of the combined IT + NI cost at one common X (about 39%). 0 = leave employer NI as it is. SWEEP 0 to 0.40
+#   person_legs      legs a PERSON pays (income tax, employee NI): used for "tax saved at income £Y". Employer NI is the employer's.
+#   phase_in_gbp     0 = liability starts at X at the full rate. > 0 = the marginal rate rises linearly from 0 at X to the full rate at X + this,
+#                    so tax switches on gradually. Costs MORE per £ of X (people just above X save more), so the X the same relief buys is
+#                    lower; the benefit is spread further up the income range. Applies to each leg's base rate, not the higher-rate band.
+#   x_cap_gbp        the solver stops here; a threshold reported as "> cap" is a solver limit, not an economic one
+#   calibrate_counts scale each leg's taxpayer-count curve so the leg raises its own share_gdp today (placeholders agree with each other)
+#   example_incomes  £ a year at which T19 / F19 report the tax a person saves
+#   share_gdp = what the leg raises today, share of GDP (income tax + NI sum to 16.2%)
+#   threshold = today's threshold (£ a year);  rate = rate charged above it
+#   extra     = [[income £, extra rate above it]]: the higher-rate band moves up by the same £ as the threshold
+#   n_above   = [[income £, millions of people with income above it]], interpolated
+[rates.replacement]
+gdp_gbp_bn       = 3040.0   # UK nominal GDP 2025, £bn (ICAEW / ONS; the earlier 2850 was derived from World Bank USD at an average rate). GDP largely cancels in the thresholds X and X_e (calibrated_legs scales counts by share_gdp x GDP); it moves the £bn and per-adult figures in T22 / T22b. VERIFY against the latest ONS blue book.
+cases            = ["p50", "p10", "p90"]
+levy_case        = "nominal"
+retire           = [["Capital gains tax", 0.0050], ["Inheritance tax", 0.0030], ["Corporation tax", 0.0320]]
+unify            = ["income_tax", "ni_employee"]
+employer_legs    = ["ni_employer"]
+employer_share   = 0.25
+person_legs      = ["income_tax", "ni_employee"]
+phase_in_gbp     = 0.0
+x_cap_gbp        = 100000.0
+calibrate_counts = true
+example_incomes  = [15000.0, 20000.0, 30000.0, 50000.0, 100000.0]
+adults_m         = 54.0     # PLACEHOLDER: UK adults, millions (ONS; VERIFY). Only used to turn the WDT scope adult share into millions
+motivated_gbp    = 1000.0   # a beneficiary counts as "motivated" if they save at least this a year (judgment, not sourced)
+saving_bands_gbp = [250.0, 500.0, 1000.0, 2000.0, 5000.0]   # F21 splits beneficiaries by annual saving at these edges
+
+[rates.replacement.legs.income_tax]
+share_gdp = 0.100
+threshold = 12570.0
+rate      = 0.20
+extra     = [[50270.0, 0.20]]
+n_above   = [[5000.0, 40.0], [12570.0, 36.0], [20000.0, 28.0], [30000.0, 19.0], [40000.0, 12.0],
+             [50270.0, 8.0], [70000.0, 4.0], [100000.0, 2.0], [125140.0, 1.0], [250000.0, 0.3], [500000.0, 0.0]]
+
+[rates.replacement.legs.ni_employee]
+share_gdp = 0.021
+threshold = 12570.0
+rate      = 0.08
+n_above   = [[5000.0, 31.0], [12570.0, 29.0], [20000.0, 23.0], [30000.0, 15.0], [40000.0, 9.0],
+             [50270.0, 6.0], [70000.0, 3.0], [100000.0, 1.5], [125140.0, 0.8], [500000.0, 0.0]]
+
+[rates.replacement.legs.ni_employer]
+share_gdp = 0.041
+threshold = 5000.0
+rate      = 0.15
+n_above   = [[5000.0, 31.0], [12570.0, 29.0], [20000.0, 23.0], [30000.0, 15.0], [40000.0, 9.0],
+             [50270.0, 6.0], [70000.0, 3.0], [100000.0, 1.5], [125140.0, 0.8], [500000.0, 0.0]]
+
+# T22 / F22 income profile. One row per launch-wealth band of [rates.run].revenue_bands_gbp_m (ascending: one more row than there are edges).
+#   incomes  = five taxable incomes (£ a year) at the 10th / 30th / 50th / 70th / 90th percentile of the band's adults, equal weight; 0 = no income
+#   ni_share = share of the band's adults who pay employee NI (earners; the rest are retired or live on capital income)
+# Only the SHAPE matters: band_net_position rescales the profile so the adults' total saving equals what the threshold solver says the relief buys.
+# The profile decides who gets the saving, not how much there is. Above about £57k every income saves the same maximum.
+# ALL NUMBERS ARE PLACEHOLDERS (judgment, not sourced). REPLACE with a joint income-by-wealth cut of ONS WAS (or HMRC) before quoting.
+[rates.replacement.income_by_wealth]
+incomes = [
+  [0.0,     9000.0,   20000.0,  30000.0,  45000.0],      # < £0.25m
+  [6000.0,  15000.0,  26000.0,  38000.0,  60000.0],      # £0.25m to £0.5m
+  [9000.0,  20000.0,  33000.0,  48000.0,  80000.0],      # £0.5m to £1m
+  [10000.0, 25000.0,  42000.0,  65000.0,  110000.0],     # £1m to £2.5m
+  [12000.0, 32000.0,  55000.0,  90000.0,  160000.0],     # £2.5m to £5m
+  [15000.0, 45000.0,  85000.0,  150000.0, 400000.0],     # £5m to £25m
+  [20000.0, 60000.0,  120000.0, 300000.0, 1000000.0],    # £25m to £100m
+  [30000.0, 100000.0, 250000.0, 600000.0, 2000000.0],    # £100m to £1000m
+  [50000.0, 150000.0, 400000.0, 1000000.0, 5000000.0],   # >= £1000m
+]
+ni_share = [0.60, 0.50, 0.45, 0.40, 0.35, 0.30, 0.25, 0.20, 0.20]
+
+# ── Closure test (does the tax replace what it is meant to replace?) ──
+[rates.closure]
+replaced_tax_gdp = "uk_2019"   # revenue/GDP being replaced: "uk_2019" = JST UK revenue/GDP in exp_ref_year, or a number (fraction)
+
+# ── Which scenarios the figures and tables read ───────────────
+[rates.figures]
+scenario     = "gain_ladder"   # main scenario for the single-scenario tables/figures (1, 2, 5-8, 16): the conservative hybrid design
+mode         = "gdp_pc"
+group     = "payers"    # wealth-weighted burden on every net-paying cell
+top_group = "top0.1"    # second burden group shown beside it in T4/F4 and T9/F9
+decomposition = ["baseline", "levy_off", "heir_fresh", "dist_advani_upper", "wealth_x13", "top6_at_05"]
+rate_grid    = ["logistic_ref", "tau0_015_k_002", "tau0_010_k_003", "tau0_010_k_005"]   # F4: tau_0 x k combinations
+schedules    = ["gain_ladder", "stock_ladder", "logistic_ln_gain", "logistic_ln_stock", "logistic_gain", "logistic_stock"]   # F9, F11
+cohorts      = ["baseline", "cohort_central", "cohort_high", "stock_ladder", "stock_ladder_cohort", "gain_ladder", "gain_ladder_cohort"]   # F10
+scope        = ["wmin_all", "baseline", "wmin_house_hp"]     # F12
+# Cumulative lever stack (F14): each entry changes one thing from the one before.
+#   stock ladder -> gain ladder (rate schedule) -> + central cohorts -> + Advani upper distribution
+stack        = ["stock_ladder", "gain_ladder", "gain_ladder_cohort", "gain_ladder_cohort_upper", "gain_ladder_cohort_upper_c1"]
+# Headline by country (F13): one scenario per name. Every lever here is sourced; cohort_high (placeholder premium)
+# and wealth_x13 (a sensitivity) are deliberately outside it. F15 plots stack + schedules + cohorts (derived).
+headline     = ["stock_ladder", "gain_ladder", "gain_ladder_cohort_upper", "gain_ladder_cohort_upper_c1"]
+headline_names = ["Conservative", "Central", "Optimistic", "Ceiling"]
+# T20/F20: consumption sensitivity on the headline ladder. First entry is the reference (c = 3.5%).
+consumption  = ["gain_ladder", "gl_c_001", "gl_c_002", "gl_c_005", "gl_stationary", "gl_top6_1", "gl_top6_1_free"]
+# T25 / F25: levy calibration base and f_inc, on the main scenario's schedule (the main scenario is added in front)
+levy         = ["gl_levy_cal_nominal", "gl_levy_cal_real", "gl_levy_stat_f002", "gl_levy_stat_f005", "gl_levy_stat_f010", "gl_levy_stat_f015", "gl_levy_stat_f020"]
+# T22b / F22b (not written yet): Route B sale, lien (spread sweep), income (cap sweep)
+route_b      = ["gl_rb_sale", "gl_rb_lien", "gl_rb_lien_sp0", "gl_rb_lien_sp3", "gl_rb_lien_sp6", "gl_rb_lien_sp12", "gl_rb_income", "gl_rb_income_cap75", "gl_rb_income_cap50"]
+
+# ─────────────────────────────────────────────────────────────
+# [rates.scenarios.*] — each changes only what it names.
+# store_windows = true keeps every window row in the JSON (large); others keep summaries only.
+# ─────────────────────────────────────────────────────────────
+[rates.scenarios.baseline]
+label = "Baseline"
+store_windows = true
+
+[rates.scenarios.levy_off]
+label = "Corporate levy off (ablation)"
+levy_calibrate = false
+levy = { tau = 0.0, f_inc = 0.0, tau0 = 0.0, f_attr = 0.0, mc_gdp = 1.0 }
+
+[rates.scenarios.tau0_015_k_002]
+label = "tau_0 15%, k 0.02"
+schedule = "logistic"
+wmin_house_ratio = 0.0
+dist_kw = {}
+tau_0 = 0.15
+k_per_gbp_m = 0.02
+
+[rates.scenarios.tau0_010_k_003]
+label = "tau_0 10%, k 0.03"
+schedule = "logistic"
+wmin_house_ratio = 0.0
+dist_kw = {}
+tau_0 = 0.10
+k_per_gbp_m = 0.03
+
+[rates.scenarios.tau0_010_k_005]
+label = "tau_0 10%, k 0.05"
+schedule = "logistic"
+wmin_house_ratio = 0.0
+dist_kw = {}
+tau_0 = 0.10
+k_per_gbp_m = 0.05
+
+[rates.scenarios.dist_advani_upper]
+label = "Advani upper (top 1% = 23%)"
+dist_mode = "upper"
+
+[rates.scenarios.dist_adjusted_add]
+label = "Adjusted distribution, add"
+dist = "adjusted"
+dist_mode = "add"
+
+[rates.scenarios.dist_adjusted_reallocate]
+label = "Adjusted distribution, reallocate"
+dist = "adjusted"
+dist_mode = "reallocate"
+
+[rates.scenarios.dist_survey]
+label = "Survey distribution"
+dist = "survey"
+dist_mode = "add"
+
+[rates.scenarios.heir_fresh]
+label = "Heir receipts untaxed (ablation)"
+heir_rule = "fresh"
+
+[rates.scenarios.wealth_x13]
+label = "Wealth base x1.3 (sensitivity)"
+dist_kw = { body_split = 5, body_split_from = 0.5, wealth_scale = 1.3 }
+
+[rates.scenarios.stationary_c]
+label = "Stationary c"
+c_mode = "stationary"
+
+[rates.scenarios.c_002]
+label = "c = 2%"
+c = 0.02
+
+[rates.scenarios.c_005]
+label = "c = 5%"
+c = 0.05
+
+[rates.scenarios.c_0005]
+label = "c = 0.5% for everyone"
+c = 0.005
+
+[rates.scenarios.top6_at_3]
+label = "Top 6% consume 3.0%, rest absorb"
+payout_top = 0.030
+payout_top_frac = 0.06
+
+[rates.scenarios.top6_at_2]
+label = "Top 6% consume 2.0%, rest absorb"
+payout_top = 0.020
+payout_top_frac = 0.06
+
+[rates.scenarios.top6_at_1]
+label = "Top 6% consume 1.0%, rest absorb"
+payout_top = 0.010
+payout_top_frac = 0.06
+
+[rates.scenarios.top6_at_05]
+label = "Top 6% consume 0.5%, rest absorb"
+payout_top = 0.005
+payout_top_frac = 0.06
+
+[rates.scenarios.top2_at_05]
+label = "Top 2% consume 0.5%, rest absorb"
+payout_top = 0.005
+payout_top_frac = 0.02
+
+[rates.scenarios.ms_1]
+label = "SRR 1x"
+ms = 1.0
+
+[rates.scenarios.ms_2]
+label = "SRR 2x"
+ms = 2.0
+
+[rates.scenarios.ms_5]
+label = "SRR 5x"
+ms = 5.0
+
+[rates.scenarios.ml_1]
+label = "LRR 1x"
+ml = 1.0
+
+[rates.scenarios.ml_2]
+label = "LRR 2x"
+ml = 2.0
+
+[rates.scenarios.ml_5]
+label = "LRR 5x"
+ml = 5.0
+
+[rates.scenarios.a_window_3]
+label = "A window 3 years"
+a_window = 3
+
+[rates.scenarios.a_window_10]
+label = "A window 10 years"
+a_window = 10
+
+[rates.scenarios.safe_share_05]
+label = "Fund 50% safe asset"
+safe_share = 0.5
+
+[rates.scenarios.safe_share_10]
+label = "Fund 100% safe asset"
+safe_share = 1.0
+
+[rates.scenarios.horizon_5]
+label = "Horizon 5 years"
+horizon = 5
+
+[rates.scenarios.T40_h10]
+label = "T = 40, horizon 10"
+T = 40
+
+[rates.scenarios.T40_h15]
+label = "T = 40, horizon 15"
+T = 40
+horizon = 15
+
+[rates.scenarios.tau0_010]
+label = "tau_0 10%"
+schedule = "logistic"
+wmin_house_ratio = 0.0
+dist_kw = {}
+tau_0 = 0.10
+
+[rates.scenarios.tau0_020]
+label = "tau_0 20%"
+schedule = "logistic"
+wmin_house_ratio = 0.0
+dist_kw = {}
+tau_0 = 0.20
+
+[rates.scenarios.taum_050]
+label = "tau_m 50%"
+schedule = "logistic"
+wmin_house_ratio = 0.0
+dist_kw = {}
+tau_m = 0.50
+
+[rates.scenarios.taum_090]
+label = "tau_m 90% (baseline value, kept for audit)"
+schedule = "logistic"
+wmin_house_ratio = 0.0
+dist_kw = {}
+tau_m = 0.90
+
+[rates.scenarios.k_0005]
+label = "k 0.0005"
+schedule = "logistic"
+wmin_house_ratio = 0.0
+dist_kw = {}
+k_per_gbp_m = 0.0005
+
+[rates.scenarios.k_002]
+label = "k 0.002"
+schedule = "logistic"
+wmin_house_ratio = 0.0
+dist_kw = {}
+k_per_gbp_m = 0.002
+
+[rates.scenarios.wmin_1m]
+label = "W_min £1m"
+schedule = "logistic"
+wmin_house_ratio = 0.0
+dist_kw = {}
+wmin_gbp_m = 1.0
+
+[rates.scenarios.wmin_5m]
+label = "W_min £5m"
+schedule = "logistic"
+wmin_house_ratio = 0.0
+dist_kw = {}
+wmin_gbp_m = 5.0
+
+[rates.scenarios.wmin_top5]
+label = "W_min at top 5% of adults"
+schedule = "logistic"
+wmin_house_ratio = 0.0
+dist_kw = {}
+wmin_pct = 0.05
+
+[rates.scenarios.wmin_top2]
+label = "W_min at top 2% of adults"
+schedule = "logistic"
+wmin_house_ratio = 0.0
+dist_kw = {}
+wmin_pct = 0.02
+
+[rates.scenarios.payout_top_1]
+label = "Top-cell payout 1%"
+payout_top = 0.01
+payout_top_frac = 0.06
+
+[rates.scenarios.payout_top_7]
+label = "Top-cell payout 7%"
+payout_top = 0.07
+payout_top_frac = 0.06
+
+[rates.scenarios.exclude_flagged]
+label = "Exclude flagged years"
+exclude_flagged = true
+
+[rates.scenarios.cohort_central]
+label = "Cohorts: central"
+cohorts = "central"
+
+[rates.scenarios.cohort_high]
+label = "Cohorts: high"
+cohorts = "high"
+
+[rates.scenarios.top1_at_05]
+label = "Top 1% consume 0.5%, rest absorb"
+payout_top = 0.005
+
+[rates.scenarios.top1_at_1]
+label = "Top 1% consume 1.0%, rest absorb"
+payout_top = 0.010
+
+[rates.scenarios.top1_at_2]
+label = "Top 1% consume 2.0%, rest absorb"
+payout_top = 0.020
+
+[rates.scenarios.wmin_house]
+label = "W_min = median house price, GDP/head index"
+schedule = "logistic"
+wmin_house_ratio = 1.0
+tau_0 = 0.04
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.wmin_house_hp]
+label = "W_min = median house price, house-price index"
+wmin_house_ratio = 1.0
+tau_0 = 0.04
+index_modes = ["house"]
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.gain_ladder]
+label = "Gain ladder (45% top)"
+store_windows = true   # main scenario: F5 reads every window
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.stock_ladder]
+label = "Stock ladder (2% at £1bn)"
+# store_windows removed (it is no longer the main scenario)
+wmin_house_ratio = 1.0
+schedule = "stock_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.logistic_ln_ref]
+label = "Logistic in ln W (tau_0 4%, tau_m 90%, k_ln 1)"
+wmin_house_ratio = 1.0
+tau_0 = 0.04
+schedule = "logistic_ln"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.logistic_ln_gain]
+label = "Logistic in ln W through the gain-ladder top point"
+wmin_house_ratio = 1.0
+tau_0 = 0.04
+schedule = "logistic_ln"
+anchor_from = "gain_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.logistic_ln_stock]
+label = "Logistic in ln W through the stock-ladder top point"
+wmin_house_ratio = 1.0
+tau_0 = 0.04
+schedule = "logistic_ln"
+anchor_from = "stock_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.logistic_gain]
+label = "Logistic in W through the gain-ladder top point"
+schedule = "logistic"
+wmin_house_ratio = 1.0
+tau_0 = 0.04
+anchor_from = "gain_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.logistic_stock]
+label = "Logistic in W through the stock-ladder top point"
+schedule = "logistic"
+wmin_house_ratio = 1.0
+tau_0 = 0.04
+anchor_from = "stock_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.stock_ladder_cohort]
+label = "Stock ladder + cohorts (central)"
+wmin_house_ratio = 1.0
+schedule = "stock_ladder"
+cohorts = "central"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.gain_ladder_cohort]
+label = "Gain ladder + cohorts (central)"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+cohorts = "central"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.gain_ladder_cohort_upper]
+label = "Gain ladder + cohorts (central) + Advani upper"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+cohorts = "central"
+dist_mode = "upper"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+[rates.scenarios.gl_c_001]
+label = "Gain ladder, c = 1% (the ladder's own c_ref)"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+c = 0.01
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.gl_c_002]
+label = "Gain ladder, c = 2%"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+c = 0.02
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.gl_c_005]
+label = "Gain ladder, c = 5%"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+c = 0.05
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.gl_stationary]
+label = "Gain ladder, stationary c"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+c_mode = "stationary"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.gl_top6_1]
+label = "Gain ladder, top 6% consume 1%, others absorb (constrained)"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+payout_top = 0.010
+payout_top_frac = 0.06
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.gl_top6_1_free]
+label = "Gain ladder, top 6% consume 1%, others stay at c (unconstrained)"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+payout_top = 0.010
+payout_top_frac = 0.06
+payout_constrained = false
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+# Ceiling: the stack plus the top 6% of adults consuming at the c_ref the ladders' targets were defined for
+# (a target is the effective rate for an accumulator consuming c_ref = 1%; the other scenarios simulate everyone at
+# c = 3.5%, which realises roughly a third of the target). Others absorb, so mean consumption stays at c.
+# NEEDS A CITATION for saving rates at the top; keep it labelled as the ceiling, not the central case.
+[rates.scenarios.gain_ladder_cohort_upper_c1]
+label = "Gain ladder + cohorts + Advani upper + top 6% consume 1%"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+cohorts = "central"
+dist_mode = "upper"
+payout_top = 0.010
+payout_top_frac = 0.06
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Representativeness of the history (T23-T25 / F23-F25)
+# ═════════════════════════════════════════════════════════════════════════════
+# Is the replayed history the UK of today? Three tools: slices of the windows by regime (T23), a block bootstrap that says how many
+# independent windows there really are (T24), and the levy's dependence on its calibration base and on f_inc (T25).
+#   low_growth_max    geometric-mean REAL GDP/head growth a year below which a window is "low growth". JUDGMENT: the UK has run at roughly
+#                     0.5% since 2008, against about 2% for the post-war windows. VERIFY against ONS.
+#   low_infl_max      mean CPI inflation a year below which a window is "low inflation" (matters for the nominal levy base). JUDGMENT.
+#   focus_countries   ISO codes shown as their own slice beside the pooled panel (the UK itself, and the closest stagnation analogue)
+#   exp_today         total managed expenditure / GDP today, shown beside the fixed JST 2019 reference. SOURCED: OBR Economic and fiscal outlook,
+#                     March 2026, forecast for 2025-26: spending £1,368bn = 44.8% of GDP. A forecast, not an outturn: update when the ONS
+#                     outturn is published. The earlier 0.44 was a placeholder from JUR's 2022-23 TME (£1,157b) over a GDP of about £2.65tn.
+#   rev_today         public sector current receipts / GDP today, for the closure test (base multiple). SOURCED: OBR March 2026, 2025-26:
+#                     receipts £1,235bn = 40.4% of GDP. The earlier 0.37 was a placeholder and implied a deficit of about £232bn against a
+#                     published 2024-25 deficit of about £150bn (ONS provisional: receipts £1,134bn, PSNB £152bn). Same OBR forecast gives
+#                     a 2025-26 deficit of £133bn (4.3% of GDP): 44.8% less 40.4% is the 4.4 pp gap, rounding aside.
+#   today_label       the year and source of exp_today and rev_today, quoted in the T23 caption (a string; keep it in step with the two values)
+#   n_boot            bootstrap resamples per metric and scheme
+#   boot_seed         RNG seed
+#   block_years       block length for the bootstrap, in start years. 30 = the window length: blocks of that size are close to non-overlapping
+#   boot_ci           lower and upper quantile of the bootstrap interval
+#   bootstrap_scenarios  scenarios that carry the bootstrap in the JSON (each adds a few seconds)
+[rates.representativeness]
+low_growth_max      = 0.01
+low_infl_max        = 0.04
+focus_countries     = ["GBR", "JPN"]
+exp_today           = 0.448
+rev_today           = 0.404
+today_label         = "OBR March 2026 forecast for 2025-26"
+n_boot              = 500
+boot_seed           = 20261008
+block_years         = 100   # = T (D7)
+boot_ci             = [0.05, 0.95]
+bootstrap_scenarios = ["stock_ladder", "gain_ladder", "gain_ladder_cohort_upper", "gain_ladder_cohort_upper_c1"]
+
+# ── Levy sensitivity (T25 / F25) on the main scenario's schedule ──────────────────────────────────────────────
+# Calibrated: tau0 is solved so the levy's median receipts equal the retired corporation tax; only the BASE it is solved on differs.
+# Statutory: levy_calibrate = false, so tau0 stays at its input and what the levy raises is an OUTPUT. f_inc is varied and
+# f_attr = 0.588 - f_inc (overseas beneficial ownership of UK-listed equity, ONS), so the total share charged stays fixed.
+[rates.scenarios.gl_levy_cal_nominal]
+label = "Gain ladder, levy calibrated on the nominal base"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+levy_cal_base = "nominal"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.gl_levy_cal_real]
+label = "Gain ladder, levy calibrated on the real base"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+levy_cal_base = "real"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.gl_levy_stat_f002]
+label = "Gain ladder, statutory levy, f_inc 2%"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+levy_calibrate = false
+levy = { tau = 0.70, f_inc = 0.02, tau0 = 0.0375, f_attr = 0.568, mc_gdp = 0.876 }
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.gl_levy_stat_f005]
+label = "Gain ladder, statutory levy, f_inc 5%"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+levy_calibrate = false
+levy = { tau = 0.70, f_inc = 0.05, tau0 = 0.0375, f_attr = 0.538, mc_gdp = 0.876 }
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.gl_levy_stat_f010]
+label = "Gain ladder, statutory levy, f_inc 10%"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+levy_calibrate = false
+levy = { tau = 0.70, f_inc = 0.10, tau0 = 0.0375, f_attr = 0.488, mc_gdp = 0.876 }
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.gl_levy_stat_f015]
+label = "Gain ladder, statutory levy, f_inc 15%"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+levy_calibrate = false
+levy = { tau = 0.70, f_inc = 0.15, tau0 = 0.0375, f_attr = 0.438, mc_gdp = 0.876 }
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+[rates.scenarios.gl_levy_stat_f020]
+label = "Gain ladder, statutory levy, f_inc 20%"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+levy_calibrate = false
+levy = { tau = 0.70, f_inc = 0.20, tau0 = 0.0375, f_attr = 0.388, mc_gdp = 0.876 }
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+# ─────────────────────────────────────────────────────────────
+# [rules] — the two rule sets, named once for RATES and VAL
+# A rule set is the key 'c_cap/verify_down/dauc' (see valgen_core, RULE SETS); wdt_core.parse_rule reads it.
+#   base      the rule before the gaming fixes: Route C refund capped by units paid only
+#   candidate the simple universal candidate: units and value cap, a verify-down is a basis reset, corrective auction on C and D
+# [rates.defaults] rule_set = "base" | "candidate" | an explicit key. RATES honest lines feel only the c_cap part (verify_down and the
+# auction act when alpha != 1); VAL searches all of it.
+# ─────────────────────────────────────────────────────────────
+[rules]
+base      = "units/allow/off"
+candidate = "units_and_value/reset/on"
+
+[rates.scenarios.gain_ladder_rule_base]
+label = "Gain ladder under the BASE rule set (units cap only): the value cap's effect"
+rule_set = "base"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# Phase 1 item 3 additions (WDT_Refactor_Plan.md). All values are PLACEHOLDERS to research (plan section 8, risk 7).
+# payment_mode = "sale" keeps the old behaviour everywhere; set "lien" or "income" to run the D4b scenarios.
+# ═════════════════════════════════════════════════════════════════════════════
+
+[route_b]
+payment_mode        = "sale"      # sale (old: cash-equivalent units) | lien (deferred balance, settled at death) | income (paid from external income)
+sovereign_real_rate = 0.015       # lien accrues at sovereign real rate + deferral_spread (D4c)
+deferral_spread     = 0.01        # the breakeven spread is solved in valgen_core (plan section 6)
+# RATES: Route B share of a line's holdings by launch wealth (£m); linear in ln W between points, flat beyond. From the section 4 archetypes.
+share_by_wealth     = [[0.4, 0.65], [8.0, 0.10], [30.0, 0.10], [50.0, 0.25], [500.0, 0.05]]
+
+[income]
+cap             = 1.0             # share of external income that can go to WDT (sweep 0.5, 0.75, 1.0)
+cap_sweep       = [0.5, 0.75, 1.0]
+default_ratio   = 0.0             # external income / wealth when no archetype is named
+# RATES: external income / wealth by launch wealth (£m), same interpolation as share_by_wealth (section 4.1)
+ratio_by_wealth = [[0.4, 0.08], [8.0, 0.02], [30.0, 0.05], [50.0, 0.005], [500.0, 0.01]]
+
+[income.by_archetype]
+housing_pension   = 0.08
+startup_founder   = 0.02
+generational      = 0.005
+ceo_fintech       = 0.05
+resource_monopoly = 0.01
+
+[verification]
+lambda_C       = 0.0              # per-year verification hazard, Route C (D6)
+lambda_D       = 0.0              # per-year corrective-auction hazard, Route D
+death_verifies = false            # true: death verifies Route C with certainty (D6); Route D is always auctioned at death
+lambda_sweep   = [0.0, 0.02, 0.05, 0.10]
+
+[archetypes.housing_pension]
+label = "Housing and pension"
+V0_m  = 0.4
+A = 0.30
+B = 0.65
+C = 0.02
+D = 0.03
+
+[archetypes.startup_founder]
+label = "Start-up founder"
+V0_m  = 8.0
+A = 0.10
+B = 0.10
+C = 0.70
+D = 0.10
+
+[archetypes.generational]
+label = "Generational wealth"
+V0_m  = 50.0
+A = 0.50
+B = 0.25
+C = 0.08
+D = 0.17
+
+[archetypes.ceo_fintech]
+label = "CEO / fintech"
+V0_m  = 30.0
+A = 0.40
+B = 0.10
+C = 0.40
+D = 0.10
+
+[archetypes.resource_monopoly]
+label = "Resource monopoly"
+V0_m  = 500.0
+A = 0.10
+B = 0.05
+C = 0.20
+D = 0.65
+
+# ═══ T100 patch (apply_rates_t100.py): Route B scenarios on the gain ladder. Only Route B differs from [rates.scenarios.gain_ladder].
+# Shares and income ratios come from [route_b].share_by_wealth and [income].ratio_by_wealth (PLACEHOLDERS).
+
+[rates.scenarios.gl_rb_sale]
+label = "Gain ladder, Route B in cash-equivalent units (reference)"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+route_b_mode = "sale"
+
+[rates.scenarios.gl_rb_lien]
+label = "Gain ladder, Route B deferred lien (spread from [route_b])"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+route_b_mode = "lien"
+
+[rates.scenarios.gl_rb_lien_sp0]
+label = "Gain ladder, Route B lien, deferral spread 0%"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+route_b_mode = "lien"
+deferral_spread = 0.0
+
+[rates.scenarios.gl_rb_lien_sp3]
+label = "Gain ladder, Route B lien, deferral spread 3%"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+route_b_mode = "lien"
+deferral_spread = 0.03
+
+[rates.scenarios.gl_rb_lien_sp6]
+label = "Gain ladder, Route B lien, deferral spread 6%"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+route_b_mode = "lien"
+deferral_spread = 0.06
+
+[rates.scenarios.gl_rb_lien_sp12]
+label = "Gain ladder, Route B lien, deferral spread 12%"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+route_b_mode = "lien"
+deferral_spread = 0.12
+
+[rates.scenarios.gl_rb_income]
+label = "Gain ladder, Route B paid from income (cap from [income])"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+route_b_mode = "income"
+
+[rates.scenarios.gl_rb_income_cap75]
+label = "Gain ladder, Route B from income, cap 75%"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+route_b_mode = "income"
+income_cap = 0.75
+
+[rates.scenarios.gl_rb_income_cap50]
+label = "Gain ladder, Route B from income, cap 50%"
+wmin_house_ratio = 1.0
+schedule = "gain_ladder"
+dist_kw = { body_split = 5, body_split_from = 0.5 }
+route_b_mode = "income"
+income_cap = 0.5
+
+# ═══ D2 patch: comparison schedules (the logistic survives only here) ═══
+[rates.scenarios.logistic_ref]
+label = "Logistic 30% / 90% / k 0.005, every adult in scope (the former baseline, comparison only)"
+schedule = "logistic"
+wmin_house_ratio = 0.0
+dist_kw = {}
+
+[rates.scenarios.wmin_all]
+label = "Gain ladder, every adult in scope (W_min = 0)"
+wmin_house_ratio = 0.0
+

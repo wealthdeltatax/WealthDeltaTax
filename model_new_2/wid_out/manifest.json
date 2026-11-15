@@ -1,0 +1,91 @@
+{
+  "created": "2026-10-16T18:31:16.056296+00:00",
+  "vintage": "2026-10-16",
+  "args": {
+    "command": "fetch",
+    "out": "wid_out",
+    "countries": [
+      "AU",
+      "CH",
+      "DE",
+      "DK",
+      "ES",
+      "FI",
+      "FR",
+      "GB",
+      "IT",
+      "JP",
+      "NL",
+      "NO",
+      "SE",
+      "US"
+    ],
+    "probe": false,
+    "presets": [
+      "wealth_levels",
+      "ratios",
+      "composition",
+      "wealth_distribution",
+      "income_distribution",
+      "income_levels",
+      "population",
+      "deflators"
+    ],
+    "chunk": 10,
+    "no_extrapolations": false,
+    "refresh_catalogue": false
+  },
+  "api": "https://rfap9nitz6.execute-api.eu-west-1.amazonaws.com/prod/",
+  "preset_report": [
+    [
+      "wealth_levels",
+      435,
+      85155
+    ],
+    [
+      "ratios",
+      84,
+      16944
+    ],
+    [
+      "composition",
+      1312,
+      152817
+    ],
+    [
+      "wealth_distribution",
+      419,
+      36226
+    ],
+    [
+      "income_distribution",
+      1137,
+      81115
+    ],
+    [
+      "income_levels",
+      194,
+      26151
+    ],
+    [
+      "population",
+      98,
+      20048
+    ],
+    [
+      "deflators",
+      84,
+      17559
+    ]
+  ],
+  "n_rows": 361536,
+  "files": {
+    "catalogue.csv": "c6651f5769036b728847d2624a47d62d730f5f818bcb17ee2ab954001349d008",
+    "catalogue_concepts.csv": "3e8964e72b3ddeddc96d73e8a7b14b297da48d0edd500f9899f6bbefc62dfb29",
+    "wid_coverage.csv": "e56f27b48dfcd7fede04ec14895842f2a8a358ca0ba1aa183dc58299479e2ff5",
+    "wid_long.csv": "25ab1e59e2cf98a0b46f204d67048b491743025b8c4ee9d07a41dab4a7f31698",
+    "wid_wide_composition.csv": "4ee25f5937bbd36214434987f68e39ff23a22bd266697e8d68dcf21a81e474a4",
+    "wid_wide_population.csv": "f63f430f428239eb8ab0cdda3da7a48a7e19a933ab34b5a788d06e0e5bb111bc",
+    "wid_wide_wealth_levels.csv": "f1a9a970fcfc9036f13eed6f047fc54c5bed176d1eca5429e5376fe11c5a4bf7"
+  }
+}

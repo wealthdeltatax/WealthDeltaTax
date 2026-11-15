@@ -1,0 +1,19 @@
+country,c,span,route,grade,retained_years,passes_gate,flags
+AUS,0.03032,,pooled,C,43,False,pooled c; fails 50-year test or no WID series
+BEL,0.03032,,pooled,C,0,False,pooled c; fails 50-year test or no WID series
+CAN,0.03032,,pooled,C,0,False,pooled c; fails 50-year test or no WID series
+CHE,0.03032,,pooled,C,36,False,pooled c; fails 50-year test or no WID series
+DEU,0.03032,,pooled,C,25,False,pooled c; fails 50-year test or no WID series
+DNK,0.03032,,pooled,C,48,False,pooled c; fails 50-year test or no WID series
+ESP,0.01582,1901-2017,identity,B,112,True,strict grade; WID headline back-cast excluded; no half-year alignment
+FIN,0.03032,,pooled,C,40,False,pooled c; fails 50-year test or no WID series
+FRA,0.02779,1970-2020,identity,B,51,True,strict grade; WID headline back-cast excluded; no half-year alignment
+GBR,0.02716,1920-2019,identity,B,85,True,strict grade; WID headline back-cast excluded; no half-year alignment
+IRL,0.03032,,pooled,C,0,False,pooled c; fails 50-year test or no WID series
+ITA,0.00442,1966-2020,identity,B,55,True,strict grade; WID headline back-cast excluded; no half-year alignment
+JPN,0.01468,1970-2019,identity,B,50,True,strict grade; WID headline back-cast excluded; no half-year alignment
+NLD,0.04019,1950-2020,identity,B,71,True,strict grade; WID headline back-cast excluded; no half-year alignment
+NOR,0.03032,,pooled,C,41,False,pooled c; fails 50-year test or no WID series; Norway wealth definition unconfirmed
+PRT,0.03032,,pooled,C,0,False,pooled c; fails 50-year test or no WID series
+SWE,0.03946,1883-2019,identity,B,137,True,strict grade; WID headline back-cast excluded; no half-year alignment
+USA,0.03142,1913-2020,identity,B,108,True,strict grade; WID headline back-cast excluded; no half-year alignment

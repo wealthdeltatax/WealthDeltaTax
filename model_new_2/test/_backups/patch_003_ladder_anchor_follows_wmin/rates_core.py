@@ -1,0 +1,2118 @@
+"""
+rates_core.py — RATES core (replaces rates_data/dist/scenario/engine/fund/sweep,
+run_sweep, run_hypothesis, solve_rates, check_*, and the old SSM/TCM rates_core)
+================================================================================
+All RATES computation lives here and ends in ONE file:
+
+    OUTPUTS/RATES/rates_data.json
+
+Presentation (8_2_RATES_tables.py, 8_3_RATES_charts.py) reads that JSON and nothing
+else. No CSVs are written anywhere.
+
+LAYERS (top to bottom; each uses only the ones above it)
+  L0  data       JST history -> per-country annual panels, suspect-year flags
+  L1  dist       adult wealth distribution on a fine cell grid
+  L2  scenario   one (country, start, T) window -> engine inputs; calibration in GDP-per-capita units
+  L3  engine     honest-declaration WDT mechanics, vectorised across lines; aggregation.
+                 Settlement runs through wdt_kernel (routes A/B/C/D; Route B sale | lien | income;
+                 C caps; lambda_C / lambda_D; death verification), driven by _route_plan / _verification.
+                 step_death has no line mask: run_lines cuts sub-books (_sub_book) and writes them back.
+                 Windows are JST LOOP windows (wdt_jst.loop_windows, T = 100; `contiguous` marks the
+                 second report).
+  L4  fund       SRR / LRR reserves, relief commitment, failure events, coverage
+  L5  sweep      every window x index mode; per-scenario summaries
+  L6  output     named scenarios from the TOML -> JSON
+
+All inputs are in WDT_Params.toml [rates] (read through wdt_core). Nothing here is a
+hardcoded model value. See the TOML for units and meaning.
+
+UNITS
+  Engine wealth, thresholds and tax are in units of y0 = GDP per capita at the START of
+  the window. Revenue is a share of GDP. Fund quantities are levels in engine units;
+  coverage ratios are scale-free. The JSON stores raw fractions, never percentages.
+
+WHAT THE SWEEP IS
+  A REPLAY: each window applies one country-history's returns, GDP/head growth, inflation
+  and expenditure/GDP to TODAY's UK-calibrated wealth distribution and rate schedule. It
+  tests robustness to macro history; it is not a reconstruction or a forecast.
+
+MECHANICS (honest declaration, alpha = 1; each year t, per line)
+  1 asset grows V *= 1+g | 2 consumption f *= 1-c | 3 declared W = f V
+  4 rate tau(W / idx_t) | 5 delta = W - W_prev; tax in kind if delta>0, refund in units if
+  delta<0 (floored at units this individual paid) | 6 state units accumulate
+  7 death (first at t = phase, then every G): heir cap cleared; heir taxed on the receipt
+  as a delta from zero ('delta') or no tax with fresh basis ('fresh', ablation only).
+
+RATE SCHEDULES (cfg['schedule'])
+  logistic     tau_m / (1 + a exp(-k (W - W_min)))          [the original]
+  logistic_ln  same, in ln(W / W_min); k dimensionless
+  <ladder>     a [rates.schedules.NAME]: anchors (W £m, TARGET effective rate), linear in ln W.
+               Targets are for an accumulator consuming c_ref; converted ONCE to a statutory
+               rate on the delta (stock: s/(r-c); gain: G r/(r-c)). Realised rates are outputs.
+  anchor_from  fits k of a logistic, in closed form, through a ladder's top point (no solver).
+
+COHORTS (cfg['cohorts'])
+  Return heterogeneity (Fagereng, Guiso, Malacrino & Pistaferri 2020): persistent tier
+  differentials in every cell plus a premium for the top cells, demeaned by launch-wealth
+  weights so the wealth-weighted mean return stays at the JST r.
+
+FUND
+  A_t = trailing mean of max(net,0); SRR target ms*A_t; LRR target ml*A_t; fill when
+  S_pre >= (ms+ml)*A_t. After fill: committed relief R* = trailing mean of surplus after
+  upkeep; paid R = min(R*, S_pre - SRR). Failure events: unmet, ring, insolvent.
+  coverage = relief over the `horizon` years after fill / expenditure over the same years.
+  cov_ref  = relief/GDP over that window / fixed reference expenditure/GDP.
+  Censored (reported, not dropped) when fill + horizon exceeds the window.
+
+CORP LEVY (cfg['levy'], ON by default)
+  Two tiers: UNATTRIBUTED ownership at tau (70%) on share f_inc, attributed non-native ownership at tau_0 on share f_attr.
+  (tau f_inc + tau0 f_attr) * mc_gdp * max(0, equity price return) / (1 + GDP growth), share of GDP. No refund in loss years (CORP 5.5).
+  It enters the fund (relief) and net_gdp_mean / levy_gdp_mean, NOT the individual stock / gain rates or the revenue-by-tier shares (it is
+  paid by companies, not by the engine's adults). Needs nominal eq_capgain and GDP in every year of a window, so windows without them are
+  dropped from EVERY scenario that carries the levy.
+  CALIBRATION (cfg['levy_calibrate'], [rates.levy_calibration]): the levy replaces corporation tax, so its entry rate is solved, in closed form,
+  so that the MEDIAN levy over all valid windows (all countries, nominal base) equals the retired tax's share of GDP. The levy is linear in its
+  rate, so no solver is needed. Floored at tau0 = 0 with a warning if the unattributed tier alone overshoots (diag: infeasible).
+  BASIS (cfg['levy_basis']): 'nominal' (the statute: nominal price return, nominal GDP growth) or 'real' (both deflated by CPI). The calibrated
+  RATE is the same; the real base is smaller, so the real variant is the conservative case. Every window runs the fund three times, once per
+  case, so the JSON carries headline.<mode>.levy_variants.{nominal, real, none} (overall + by_country, trimmed); the unsuffixed columns follow
+  levy_basis. 'none' is the individual WDT alone.
+
+CLOSURE AND RESIDUAL
+  base_multiple_needed = replaced_ref / net_gdp_mean: how many times larger the tax base (at
+  the same rates) would have to be to raise the revenue being replaced (default: JST UK
+  revenue/GDP in exp_ref_year).
+  nonwdt_req_*  = exp_ref - WDT receipts (or relief): traditional tax still needed, as a share
+  of GDP and as a share of today's revenue.
+
+CHECKS (not targets)
+  zuc_*  annual stock rate of the cells with launch mean wealth >= zucman_threshold_gbp_m,
+  and the share of years it clears zucman_floor (with and without heir receipts).
+
+REVENUE BY TIER, UNCONDITIONAL COVERAGE, AND WHICH WINDOWS A MEDIAN COVERS
+  revshare_band{i}  share of window-total net receipts (incl. heir receipts) raised from cells whose launch
+                    mean wealth falls in band i of [rates.run].revenue_bands_gbp_m; calibration.bands holds the
+                    edges and the adult / wealth shares of each band. Negative = the band is a net refund.
+  cov_ref_uncond    cov_ref with censored windows counted as zero (the conservative reading of a window that
+                    never fills; part of the censoring is the T-year window, so it is a bound, not a forecast).
+  headline.overall.medians      median over UNCENSORED windows: right for relief and coverage.
+  headline.overall.medians_all  median over ALL windows: right for receipts, burden, drift and tier shares, which
+                                do not depend on the fund filling. Tables and figures read each from the right one.
+
+POST-FILL HORIZON COLUMNS (T22 / F22: who pays and gains while relief is actually being paid)
+  Relief starts at fund fill, so a burden averaged over the whole window mixes in years in which nobody gets anything. For each levy case a window
+  also carries, over years fill+1 .. fill+horizon only (NaN when censored):
+    wdt_gdp_h, levy_gdp_h      individual WDT and CORP levy, share of GDP (ratio of sums over the horizon)
+    fund_inc_gdp_h             fund investment income;  fund_ret_gdp_h  fund growth over the horizon (retention); both share of GDP
+    revshare_h_band{i}         share of horizon net individual WDT paid by launch-wealth band i
+    stockrate_h_band{i}        band's WDT / its wealth over the horizon (ratio of sums)
+  Identity per window: relief_gdp = wdt_gdp_h + levy_gdp_h + fund_inc_gdp_h - fund_ret_gdp_h.
+
+REPRESENTATIVENESS (T23-T25 / F23-F25: is the history the UK of today?)
+  Every window carries gpc_real_gm (geometric-mean REAL GDP/head growth) and infl_mean (mean CPI inflation). headline.<mode>.slices
+  re-states the headline numbers for slices of the windows: all, each [rates.representativeness].focus_countries, low_growth /
+  not_low_growth, low_inflation, today_like (low growth AND low inflation) and each era; each slice is held for all three levy cases.
+  headline.<mode>.levy_variants.<case>.bootstrap (scenarios in [rates.representativeness].bootstrap_scenarios only) is a bootstrap of the
+  median: windows as independent (iid), country-period blocks and all-country period blocks of block_years. deff = var(block) / var(iid);
+  n_eff = windows / max(deff, 1). Overlapping 30-year windows are not independent, so n_eff is the honest sample size.
+  levy_cal_base ('' | nominal | real) sets, per scenario, the base the levy entry rate is solved on.
+
+CLI
+  python rates_core.py                    run [rates.run].scenarios, write the JSON
+  python rates_core.py --quick            run [rates.run].quick + the scenarios the figures read
+  python rates_core.py --scenario a b     run only these (merged into the existing JSON)
+  python rates_core.py --stride 3         override start_stride for every scenario (speed)
+  python rates_core.py --countries GBR USA
+  python rates_core.py --fresh            discard the existing JSON first
+  python rates_core.py --workers 8        worker processes for the window sweep (default: cores - 1; 1 = serial, no processes)
+
+PARALLEL SWEEP (wdt_par)
+  The windows of one scenario are independent, so sweep() runs them in chunks in worker processes and puts the rows back in the
+  original order: the JSON is identical to the serial run (apart from meta.generated and meta.elapsed_s), whatever --workers is.
+  Stays serial in the parent: calibration, the levy calibration, headline, the bootstrap, the JSON.
+"""
+
+import argparse
+import copy
+import hashlib
+import itertools
+import json
+import sys
+import time
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+# wdt_* modules and WDT_Params.toml live in Model/, one level above this RATES folder
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+import wdt_core as wc
+import wdt_kernel as wk                                      # S2: the route engine
+import wdt_par as wpar                                       # PAR: ordered process pool for the window sweep
+from wdt_fmt import ensure_dir, out_dir, today_iso
+from wdt_jst import load_jst, loop_windows, usable_years      # D1b: one window rule and one loader for VAL and RATES
+
+CODE = 'RATES'
+JSON_NAME = 'rates_data.json'
+INDEX_MODES = ('cpi', 'gdp_pc', 'wealth', 'house', 'none')
+LEVY_CASES = ('nominal', 'real', 'none')
+# fund-dependent columns re-computed for each levy case; stored as <col>__<case> in a window row
+VARIANT_COLS = ('censored', 'fill_year', 'relief_gdp', 'cov_ref', 'cov_ref_uncond', 'fail', 'net_gdp_mean', 'levy_gdp_mean')
+VARIANT_KEEP = ('windows', 'uncensored', 'censored_share', 'fail_share', 'relief_gdp', 'cov_ref', 'cov_ref_uncond',
+                'net_gdp_mean', 'stable')
+VARIANT_MED = ('relief_gdp', 'cov_ref', 'net_gdp_mean', 'fill_year', 'levy_gdp_mean')
+# post-fill horizon columns (years fill+1 .. fill+horizon, per levy case): the window the relief is paid in. Medians of these are kept for
+# every levy case too, because the horizon position depends on when the fund fills, which depends on the levy.
+HORIZON_PREFIX = ('wdt_gdp_h', 'levy_gdp_h', 'fund_inc_gdp_h', 'fund_ret_gdp_h', 'revshare_h_band', 'stockrate_h_band')
+
+RETURN_COLS = ['capital_tr', 'eq_tr', 'housing_tr', 'risky_tr', 'safe_tr',
+               'bond_tr', 'eq_capgain']
+FISCAL_COLS = ['gdp', 'expenditure', 'revenue', 'cpi', 'pop', 'hpnom']
+MODEL_COLS = ['capital_tr_real', 'safe_tr_real', 'risky_tr_real',
+              'exp_gdp', 'infl', 'gpc', 'gpc_real']
+
+
+def json_path():
+    """Where the master JSON lives."""
+    return out_dir(CODE) / JSON_NAME
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# L0  DATA — JST Macrohistory
+# ═════════════════════════════════════════════════════════════════════════════
+# Raw JSON is never modified; all transforms happen here. Returns are made real with the
+# country's own CPI. Suspect years are FLAGGED, and the sweep's policy decides what to do.
+
+
+
+
+def countries(J):
+    return sorted(J['countries'])
+
+
+def _series(J, iso, var):
+    c = J['countries'][iso]
+    return pd.Series([np.nan if v is None else v for v in c['series'][var]],
+                     index=pd.Index(c['years'], name='year'), dtype=float)
+
+
+def panel(J, iso):
+    """
+    Per-country annual panel.
+      infl                CPI inflation, year on year
+      <ret>, <ret>_real   nominal return and real return (1+r)/(1+infl)-1
+      exp_gdp, rev_gdp    expenditure / gdp, revenue / gdp (dimensionless; unit-safe)
+      gdp_pc, gpc, gpc_real   GDP per capita level, nominal and real growth
+      hpg, hpg_real       house-price growth (JST hpnom), nominal and real
+    Levels are not comparable across countries: work in ratios to GDP.
+    """
+    d = pd.DataFrame({v: _series(J, iso, v) for v in RETURN_COLS + FISCAL_COLS})
+    d['infl'] = d['cpi'].pct_change()
+    for r in RETURN_COLS:
+        d[f'{r}_real'] = (1.0 + d[r]) / (1.0 + d['infl']) - 1.0
+    d['exp_gdp'] = d['expenditure'] / d['gdp']
+    d['rev_gdp'] = d['revenue'] / d['gdp']
+    d['gdp_pc'] = d['gdp'] / d['pop']
+    d['gdpg'] = d['gdp'].pct_change()                         # NOMINAL GDP growth (CORP levy denominator)
+    d['gpc'] = d['gdp_pc'].pct_change()
+    d['gpc_real'] = (1.0 + d['gpc']) / (1.0 + d['infl']) - 1.0
+    d['hpg'] = d['hpnom'].pct_change()                       # nominal house-price growth
+    d['hpg_real'] = (1.0 + d['hpg']) / (1.0 + d['infl']) - 1.0
+    return d
+
+
+def flag_years(d, thresholds):
+    """Boolean DataFrame of suspect-year flags (diagnostics, not exclusions)."""
+    t = thresholds
+    r = d['capital_tr_real']
+    f = pd.DataFrame(index=d.index)
+    f['extreme_real_return'] = (r < t['real_return_lo']) | (r > t['real_return_hi'])
+    f['high_inflation'] = d['infl'] > t['infl_hi']
+    f['any'] = f.any(axis=1)
+    return f
+
+
+
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# L1  DIST — adult wealth distribution
+# ═════════════════════════════════════════════════════════════════════════════
+# A survey body, a piecewise-Pareto tail anchored to published top shares, and a named top
+# tier from the Sunday Times Rich List. Cells are ordered from the poorest up.
+#   'advani'    evidence-based (Advani, Bangham & Leslie 2021); mode central | upper
+#   'adjusted'  survey body, top 1% rebuilt on estate-based shares; mode add | reallocate
+#   'survey'    survey anchors throughout, total = ONS aggregate
+# LIMITS: anchors are 2016-18 (survey) and 2025 (Rich List), no time adjustment; the body
+# shape is the household-derived decile profile; Pareto interpolation cannot show lumpiness.
+
+def _loglog(anchors):
+    """S(q) interpolating (q, S) anchors log-log linearly; anchors sorted by q descending."""
+    q = np.array([a[0] for a in anchors], float)
+    s = np.array([a[1] for a in anchors], float)
+    lq, ls = np.log(q[::-1]), np.log(s[::-1])
+
+    def S(x):
+        x = np.asarray(x, float)
+        lx = np.log(x)
+        out = np.interp(lx, lq, ls)
+        lo, hi = lx < lq[0], lx > lq[-1]
+        if np.any(lo):
+            b = (ls[1] - ls[0]) / (lq[1] - lq[0])
+            out = np.where(lo, ls[0] + b * (lx - lq[0]), out)
+        if np.any(hi):
+            b = (ls[-1] - ls[-2]) / (lq[-1] - lq[-2])
+            out = np.where(hi, ls[-1] + b * (lx - lq[-1]), out)
+        return np.exp(out)
+    return S
+
+
+def _fit_tail(total_bn, s1, s01, rich_list_bn, p_list, n_adults, entry_gbp_m):
+    """
+    Smooth tail below the named tier: ln w(q) quadratic in ln q (w = wealth at top fraction
+    q, £bn per unit fraction). Three constraints:
+      wealth between the list and the top 0.1%  = s01*total - list
+      wealth between the top 0.1% and top 1%    = (s1 - s01)*total
+      wealth at the list entry (last member)    = entry_gbp_m per adult
+    Returns (cell_wealth_bn(q_a, q_b), solution).
+    """
+    from scipy.integrate import quad
+    from scipy.optimize import fsolve
+    x0, x1, x2 = np.log(p_list), np.log(1e-3), np.log(1e-2)
+    G_a = s01 * total_bn - rich_list_bn 
+    G_b = (s1 - s01) * total_bn
+    w_entry = entry_gbp_m * 1e6 * n_adults / 1e9
+    lw = lambda x, a, b, c: a + b * (x - x1) + c * (x - x1) ** 2
+    integ = lambda lo, hi, a, b, c: quad(lambda x: np.exp(lw(x, a, b, c) + x), lo, hi, limit=200)[0]
+    eqs = lambda p: [integ(x0, x1, *p) / G_a - 1, integ(x1, x2, *p) / G_b - 1,
+                     lw(x0, *p) - np.log(w_entry)]
+    sol = None
+    for a0 in (np.log(1e5), np.log(1e6), np.log(5e6)):
+        for b0 in (-0.5, -1.0, -1.5):
+            for c0 in (0.0, 0.05, -0.05):
+                r, info, ier, _ = fsolve(eqs, [a0, b0, c0], full_output=True)
+                if ier == 1 and max(abs(np.array(eqs(r)))) < 1e-8:
+                    sol = r
+                    break
+            if sol is not None:
+                break
+        if sol is not None:
+            break
+    if sol is None:
+        raise RuntimeError('tail fit failed: anchors inconsistent')
+    return (lambda qa, qb: integ(np.log(qb), np.log(qa), *sol)), sol
+
+
+def _pav(mean, weight):
+    """Pool adjacent violators: make `mean` non-decreasing by pooling blocks, preserving
+    each block's total. Returns (new_mean, n_pooled_cells)."""
+    blocks = [[m * w, w, 1] for m, w in zip(mean, weight)]
+    out = []
+    for b in blocks:
+        out.append(b)
+        while len(out) > 1 and out[-2][0] / out[-2][1] >= out[-1][0] / out[-1][1]:
+            t, w, c = out.pop()
+            out[-1][0] += t
+            out[-1][1] += w
+            out[-1][2] += c
+    new = np.concatenate([[b[0] / b[1]] * b[2] for b in out])
+    return new, int(sum(b[2] for b in out if b[2] > 1))
+
+
+def _finish(cells, n_adults, scenario, mode, wealth_scale, params):
+    """Cells -> distribution dict; repairs any non-monotone cell means."""
+    labels = [c[0] for c in cells]
+    share = np.array([c[1] for c in cells], float)
+    wealth = np.array([c[2] for c in cells], float) * wealth_scale
+    share = share / share.sum()
+    mean = wealth * 1e9 / (share * n_adults) / 1e6          # £m per adult
+    repaired = 0
+    if np.any(np.diff(mean) <= 0):
+        mean, repaired = _pav(mean, share)
+        wealth = mean * share * n_adults * 1e6 / 1e9
+    return {'labels': labels, 'share': share, 'wealth_bn': wealth, 'mean_gbp_m': mean,
+            'total_bn': float(wealth.sum()), 'n_adults': n_adults, 'scenario': scenario,
+            'mode': mode, 'repaired_cells': repaired, 'params': params}
+
+
+def _tier_cells(edges, n, tier_alpha, tier_bn, n_adults):
+    """Three named-tier cells (ascending wealth) from rank edges [0, a, b, n]."""
+    b = 1.0 - 1.0 / tier_alpha
+    cuts = list(zip(edges[:-1], edges[1:]))[::-1]
+    return [(f'RichList {lo + 1}-{hi}', (hi - lo) / n_adults,
+             tier_bn * ((hi / n) ** b - (lo / n) ** b)) for lo, hi in cuts]
+
+
+def _body_cells(deciles_bn, split=1, from_frac=0.5):
+    """
+    Body cells for deciles 0-10 ... 80-90 (wealth in £bn, already scaled). split = 1 returns the
+    deciles unchanged. split > 1 divides every decile that starts at or above `from_frac` into
+    `split` equal-population cells, using a monotone (PCHIP) interpolation of the cumulative wealth
+    (Lorenz) curve through the decile edges. Cell wealth sums back to the decile exactly.
+    This is interpolation, not data: it only lets the threshold fall inside a decile.
+    """
+    from scipy.interpolate import PchipInterpolator
+    n = len(deciles_bn)
+    edges = 0.10 * np.arange(n + 1)
+    L = PchipInterpolator(edges, np.concatenate([[0.0], np.cumsum(deciles_bn)]))
+    cells = []
+    for i, w in enumerate(deciles_bn):
+        if split <= 1 or edges[i] < from_frac - 1e-9:
+            cells.append((f'{10 * i}-{10 * (i + 1)}', 0.10, w))
+        else:
+            sub = np.linspace(edges[i], edges[i + 1], int(split) + 1)
+            cells += [(f'{100 * a:g}-{100 * b:g}', 0.10 / split, float(L(b) - L(a)))
+                      for a, b in zip(sub[:-1], sub[1:])]
+    return cells
+
+
+def _build_advani(n_adults, dp, variant, wealth_scale, tail_alpha, body_split=1, body_split_from=0.5):
+    A = dp['advani']
+    base = A['survey_total_bn']
+    if variant == 'central':
+        X = A['extra_central_frac'] * base
+    elif variant == 'upper':
+        X = (A['s1_upper'] - A['s1_survey']) * base / (1.0 - A['s1_upper'])
+    else:
+        raise ValueError("advani mode must be 'central' or 'upper'")
+    T = base + X
+    top10 = A['s10_survey'] * base + X
+    top1 = A['s1_survey'] * base + X
+    s10a, s1a = top10 / T, top1 / T
+    beta = np.log(s1a / s10a) / np.log(0.1)
+    alpha = tail_alpha or 1.0 / (1.0 - beta)
+    s01 = s1a * 0.1 ** (1.0 - 1.0 / alpha)
+
+    deciles = dp['body_deciles_bn']
+    f = (1.0 - A['s10_survey']) * base / sum(deciles)
+    cells = _body_cells([w * f for w in deciles], body_split, body_split_from)
+    S_surv = _loglog([(0.10, A['s10_survey'] * base), (0.01, A['s1_survey'] * base)])
+    e = dp['edges_90_99']
+    for qa, qb in zip(e[:-1], e[1:]):
+        cells.append((f'top{100 * qa:g}-{100 * qb:g}%', qa - qb, float(S_surv(qa) - S_surv(qb))))
+
+    p_list = A['strl_n'] / n_adults
+    cell_w, _ = _fit_tail(T, s1a, s01, A['strl_bn'], p_list, n_adults, A['strl_entry_m'])
+    edges = list(dp['edges_top1'][:-1]) + [p_list]
+    for qa, qb in zip(edges[:-1], edges[1:]):
+        cells.append((f'top{100 * qa:g}-{100 * qb:g}%', qa - qb, float(cell_w(qa, qb))))
+    n = int(A['strl_n'])
+    rank_edges = [0] + [int(round(fr * n)) for fr in A['tier_cuts']]
+    cells += _tier_cells(rank_edges, n, dp['tier_alpha'], A['strl_bn'], n_adults)
+    return _finish(cells, n_adults, 'advani', variant, wealth_scale,
+                   {'X_bn': X, 'alpha_tail': alpha, 's10_adj': s10a, 's1_adj': s1a,
+                    's01': s01, 'wealth_scale': wealth_scale})
+
+
+def build_dist(scenario, n_adults, mode, dp, **kw):
+    """
+    Distribution dict over cells, ordered from the bottom: labels, share (adult fraction),
+    wealth_bn, mean_gbp_m (per adult), total_bn, n_adults, scenario, mode, repaired_cells.
+    `kw` are the [rates.defaults].dist_kw overrides: s1, s01, rich_list_bn, ons_total_bn,
+    list_entry_gbp_m, wealth_scale, tail_alpha, body_split, body_split_from.
+    """
+    wealth_scale = kw.get('wealth_scale', 1.0)
+    split, split_from = kw.get('body_split', 1), kw.get('body_split_from', 0.5)
+    if scenario == 'advani':
+        return _build_advani(n_adults, dp, mode, wealth_scale, kw.get('tail_alpha'), split, split_from)
+    if scenario not in ('survey', 'adjusted'):
+        raise ValueError("dist must be 'survey', 'adjusted' or 'advani'")
+    s1 = kw.get('s1', dp['adjusted_s1'])
+    s01 = kw.get('s01', dp['adjusted_s01'])
+    rich_bn = kw.get('rich_list_bn', dp['rich_list_bn'])
+    ons_bn = kw.get('ons_total_bn', dp['ons_total_bn'])
+    entry = kw.get('list_entry_gbp_m', dp['adjusted_entry_gbp_m'])
+    n_list = int(dp['rich_list_n'])
+    table_total = dp['table_total_bn']
+    scale = ons_bn / table_total
+    S_surv = _loglog([(q, bn / table_total) for q, bn in
+                      zip(dp['survey_anchor_q'], dp['survey_anchor_bn'])])
+
+    cells = _body_cells([w * scale for w in dp['body_deciles_bn']], split, split_from)
+    e = dp['edges_90_99']
+    for qa, qb in zip(e[:-1], e[1:]):
+        cells.append((f'top{100 * qa:g}-{100 * qb:g}%', qa - qb,
+                      (S_surv(qa) - S_surv(qb)) * table_total * scale))
+
+    if scenario == 'survey':
+        edges = dp['edges_top1']
+        for qa, qb in zip(edges[:-1], edges[1:]):
+            cells.append((f'top{100 * qa:g}-{100 * qb:g}%', qa - qb,
+                          (S_surv(qa) - S_surv(qb)) * table_total * scale))
+        cells.append(('top0.001%', edges[-1], S_surv(edges[-1]) * table_total * scale))
+    else:
+        body_bn = sum(c[2] for c in cells)
+        if mode == 'add':
+            total = body_bn / (1.0 - s1)
+        elif mode == 'reallocate':
+            total = ons_bn
+            f = (1.0 - s1) * total / body_bn
+            cells = [(l, a, w * f) for (l, a, w) in cells]
+        else:
+            raise ValueError("adjusted mode must be 'add' or 'reallocate'")
+        p_list = n_list / n_adults
+        cell_w, _ = _fit_tail(total, s1, s01, rich_bn, p_list, n_adults, entry)
+        edges = list(dp['edges_top1'][:-1]) + [p_list]
+        for qa, qb in zip(edges[:-1], edges[1:]):
+            cells.append((f'top{100 * qa:g}-{100 * qb:g}%', qa - qb, float(cell_w(qa, qb))))
+        rank_edges = [0] + [int(c) for c in dp['adjusted_tier_cuts']] + [n_list]
+        cells += _tier_cells(rank_edges, n_list, dp['tier_alpha'], rich_bn, n_adults)
+    return _finish(cells, n_adults, scenario, mode, wealth_scale,
+                   {'s1': s1, 's01': s01, 'rich_list_bn': rich_bn})
+
+
+def top_shares(d, qs=(0.10, 0.05, 0.01, 1e-3, 1e-4, 1e-5)):
+    """Realised share of total wealth held by the top q of adults."""
+    share, w = d['share'], d['wealth_bn']
+    cum_p = np.cumsum(share[::-1])
+    cum_w = np.cumsum(w[::-1]) / w.sum()
+    return {q: float(np.interp(q, np.concatenate([[0], cum_p]), np.concatenate([[0], cum_w])))
+            for q in qs}
+
+
+def wealth_at_top_fraction(d, q):
+    """Wealth (£m per adult) at top fraction q: log-log interpolation of cell means
+    against cell mid-fractions (from the top)."""
+    share = d['share'][::-1]
+    mean = d['mean_gbp_m'][::-1]
+    edges = np.concatenate([[0.0], np.cumsum(share)])
+    mid = np.sqrt(np.maximum(edges[:-1], 1e-12) * edges[1:])
+    return float(np.exp(np.interp(np.log(q), np.log(mid), np.log(mean))))
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# L2  SCENARIO — calibration and window builder
+# ═════════════════════════════════════════════════════════════════════════════
+# basis 'real': returns, delta and threshold in real terms (conservative default).
+# basis 'nominal': delta includes inflation.
+# Threshold index idx_t compounds the chosen index; W_min and k are indexed together so
+# tau keeps its shape (valgen D16):
+#   cpi: prices (real basis: idx = 1) | gdp_pc: GDP/head growth | wealth: (1+r)(1-c)-1 |
+#   house: house-price growth (real basis: deflated by CPI) | none.
+# WINDOW: data years start..start+T-1; sim year t uses data year start+t-1. Wealth V0 is
+# measured against GDP/head at the end of start-1 (a few-percent approximation, year 1 only).
+
+def calibrate(dist, gdp_bn, pop_per_adult, wmin_gbp_m, k_per_gbp_m, tau_0, tau_m,
+              y_ref_gbp_m, wmin_pct=None, schedule=None, k_ln=None, ladder=None):
+    """
+    Express the distribution and rate schedule in units of GDP per capita. If wmin_pct is
+    given (e.g. 0.05), W_min is the wealth at that top fraction of adults at launch and
+    wmin_gbp_m is ignored.
+      gdp_bn       GDP in the wealth-data year (£bn), to report wealth/GDP
+      y_ref_gbp_m  GDP per capita in the SAME year (£m)
+      schedule     None | 'logistic' | 'logistic_ln' (k_ln = dimensionless steepness)
+      ladder       [(W £m, statutory tau)] for a ladder schedule (converted to engine units here)
+    """
+    wmin_gbp = wealth_at_top_fraction(dist, wmin_pct) if wmin_pct else wmin_gbp_m
+    rate = {'tau_0': tau_0, 'tau_m': tau_m, 'k': k_per_gbp_m * y_ref_gbp_m,
+            'wmin': wmin_gbp / y_ref_gbp_m}
+    if ladder:
+        rate.update({'schedule': 'ladder', 'ladder': [(w / y_ref_gbp_m, t) for w, t in ladder]})
+    elif schedule == 'logistic_ln':
+        rate.update({'schedule': 'logistic_ln', 'k': k_ln})
+    return {
+        'labels': dist['labels'], 'share': dist['share'],
+        'rel': dist['mean_gbp_m'] / (dist['total_bn'] * 1e9 / dist['n_adults'] / 1e6),
+        'V0': dist['mean_gbp_m'] / y_ref_gbp_m,
+        'mean_wealth_y': dist['total_bn'] * 1e3 / dist['n_adults'] / y_ref_gbp_m,
+        'pop_per_adult': pop_per_adult,
+        'wealth_to_gdp': dist['total_bn'] / gdp_bn,
+        'wmin_gbp_m': wmin_gbp,
+        'y_ref_gbp_m': y_ref_gbp_m,
+        'dist': dist['scenario'] + '/' + dist['mode'],
+        'rate': rate,
+    }
+
+
+def cohort_spec(cal, spec):
+    """
+    Cohort inputs for one calibration, from a [rates.cohorts.NAME] spec.
+      spec['tiers']    [(weight, differential)], persistent return differentials, applied in every cell
+      spec['premium']  [(top_fraction, level)], extra return for cells inside the top q of adults
+                       (a LEVEL, not an increment: the narrowest band containing a cell wins)
+    Everything is demeaned by launch-wealth weights, so the wealth-weighted mean return stays at
+    the data's r: cohorts redistribute return between holders, they do not add return.
+    Returns {'cohort_tiers', 'cell_diff', 'cohort_diag'}.
+    """
+    share = np.asarray(cal['share'], float)
+    cum_top = np.cumsum(share[::-1])[::-1]
+    prem = np.zeros(len(share))
+    for q, lvl in sorted(spec['premium'], key=lambda x: -x[0]):
+        prem[cum_top <= q * (1.0 + 1e-6)] = lvl
+    wsh = share * np.asarray(cal['V0'], float)
+    wsh = wsh / wsh.sum()
+    tw = np.array([t[0] for t in spec['tiers']], float)
+    td = np.array([t[1] for t in spec['tiers']], float)
+    if abs(tw.sum() - 1.0) > 1e-9:
+        raise ValueError('cohort tier weights must sum to 1')
+    shift = float(tw @ td + wsh @ prem)
+    cell_diff = prem - shift
+    tier_sd = float(np.sqrt(tw @ td ** 2 - (tw @ td) ** 2))
+    return {'cohort_tiers': [(float(w), float(d)) for w, d in spec['tiers']],
+            'cell_diff': cell_diff,
+            'cohort_diag': {'tier_sd': tier_sd, 'wealth_weighted_shift': shift,
+                            'top_cell_diff': float(cell_diff[-1]),
+                            'bottom_cell_diff': float(cell_diff[0]),
+                            'premium_by_cell': [float(x) for x in prem]}}
+
+
+def build_scenario(J, iso, years, basis, index_mode, c, d=None):
+    """Engine inputs for one window. Raises ValueError if data are missing."""
+    if index_mode not in INDEX_MODES:
+        raise ValueError(f'index_mode must be one of {INDEX_MODES}')
+    if basis not in ('real', 'nominal'):
+        raise ValueError("basis must be 'real' or 'nominal'")
+    d = panel(J, iso) if d is None else d                  # PAR: a caller that already holds the country's panel passes it
+    yrs = list(years)
+    T = len(yrs)
+    start = yrs[0]
+    sub = d.reindex(yrs)
+    sfx = '_real' if basis == 'real' else ''
+    cols = {'r': 'capital_tr' + sfx, 'safe': 'safe_tr' + sfx, 'risky': 'risky_tr' + sfx,
+            'gpc': 'gpc' + sfx, 'infl': 'infl', 'exp_gdp': 'exp_gdp'}
+    out = {}
+    for k_, col in cols.items():
+        a = sub[col].to_numpy(float)
+        if np.isnan(a).any():
+            raise ValueError(f'{iso} {start}+{T}: missing {col}')
+        out[k_] = a
+    out['eqg'] = sub['eq_capgain'].to_numpy(float)          # NOMINAL equity price return, whatever `basis` is (CORP levy); may be NaN
+    out['gdpg'] = sub['gdpg'].to_numpy(float)               # NOMINAL GDP growth; may be NaN
+    r, gpc, infl = out['r'], out['gpc'], out['infl']
+    if index_mode == 'cpi':
+        x = np.zeros(T) if basis == 'real' else infl
+    elif index_mode == 'gdp_pc':
+        x = gpc
+    elif index_mode == 'wealth':
+        x = (1.0 + r) * (1.0 - c) - 1.0
+    elif index_mode == 'house':
+        hp = sub['hpg' + sfx].to_numpy(float)
+        if np.isnan(hp).any():
+            raise ValueError(f'{iso} {start}+{T}: missing house prices')
+        x = hp
+    else:
+        x = np.zeros(T)
+    out.update({'iso': iso, 'start': start, 'T': T, 'basis': basis, 'index_mode': index_mode,
+                'c': c, 'years': np.array(yrs), 'idx': np.cumprod(1.0 + x),
+                'yy': np.cumprod(1.0 + gpc)})
+    return out
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# L3  ENGINE — honest-declaration mechanics and aggregation
+# ═════════════════════════════════════════════════════════════════════════════
+# A "line" is one representative family of one (bracket, tier, death-phase). Lines are
+# weighted by population share x tier weight x phase weight. All money is per adult in
+# units of y0. Reserves and relief are NOT here (see L4).
+
+# ── S2 (Work Order Wave 1 S2, plan D12): the route engine is wdt_kernel ──────────────────────────────────────────────────────────────
+# rates_core builds the population of lines (cell x tier x death phase), runs the years through wdt_kernel and tallies the flows.
+# The route mechanics (growth, consumption, declared W, ONE assessment on total W, allocation across routes, settlement per route,
+# ratio-mirror refund, verification, death and heir) are the kernel's; nothing in this layer duplicates them. See the module
+# docstring, ROUTES AND THE KERNEL.
+
+_ABCD = ('A', 'B', 'C', 'D')
+_RB_MODES = ('sale', 'lien', 'income')
+_KERNEL_DEATH_KINDS = ('verify_death', 'tax_death_C', 'tax_death', 'death_D', 'death_B', 'tax_heir')
+
+
+def _archetype_table(p):
+    """Read [archetypes.*] blocks, ordered by launch wealth.
+
+    Returns:
+        names: archetype names
+        V0m: initial wealth in £m, shape (k,)
+        S: route shares over A/B/C/D, shape (k, 4)
+        ratio: external income / wealth, shape (k,)
+    """
+    arch = p.get('archetypes')
+    # print(arch)
+    if not arch:
+        raise ValueError("p['archetypes'] is missing: wdt_core.load_params must expose the [archetypes.*] blocks (valgen reads them too)")
+    names = sorted(arch, key=lambda k: float(arch[k]['V0_m']))
+    V0m = np.array([float(arch[k]['V0_m']) for k in names])
+    S = np.array([
+        [float(arch[k]['shares'][r]) for r in _ABCD]
+        for k in names
+    ])
+    if np.abs(S.sum(axis=1) - 1.0).max() > 1e-9:
+        bad = [k for k, s in zip(names, S.sum(axis=1)) if abs(s - 1.0) > 1e-9]
+        raise ValueError(f'[archetypes.*] route shares A + B + C + D must sum to 1; check {bad}')
+    inc = p.get('income') or {}
+    by = inc.get('by_archetype') or {}
+    ratio = np.array([float(by.get(k, inc.get('default_ratio', 0.0))) for k in names])
+    return names, V0m, S, ratio
+
+
+def _curve(W, points):
+    """Linear in ln W between the anchor points (W in £m, value), flat beyond the end points."""
+    return np.interp(np.log(W), np.log([a for a, _ in points]), [b for _, b in points])
+
+
+def _route_plan(cfg, cal, p):
+    """
+    Route plan of one calibration: how each cell's holdings split across the routes, and how Route B is paid. Returns
+    {'cell': dict | None, 'diag': JSON-safe, 'summary': JSON-safe}; 'cell' is None for the earlier behaviour (everything in kind).
+    Route B mode: cfg['route_b_mode'] (a scenario key) else [route_b].payment_mode:  sale | lien | income  (plan D4a / D4b).
+    cfg['route_mix'] decides the shares:
+      'none'      all holdings in kind (Route C) except, in lien / income mode, the Route B share from [route_b].share_by_wealth
+                  (the earlier behaviour: with mode 'sale' it reproduces the numbers the inline engine gave)
+      'wealth'    the archetype mixture by launch wealth: each of A / B / C / D is interpolated in ln W between the [archetypes.*]
+                  anchors (at their V0_m), flat beyond. External income / wealth likewise from [income.by_archetype]
+      'blend'     the same shares in every cell: the weights cfg['route_mix_weights'] (archetype -> weight, sum 1) over the archetypes
+      <name>      one archetype ([archetypes.<name>]) everywhere: the archetype sweep
+    """
+    rb, inc = p.get('route_b') or {}, p.get('income') or {}
+    mode = cfg.get('route_b_mode') or rb.get('payment_mode', 'sale')
+    if mode not in _RB_MODES:
+        raise ValueError(f"route_b_mode must be sale | lien | income, got {mode!r}")
+    mix = cfg.get('route_mix') or 'none'
+    W = np.maximum(np.asarray(cal['V0'], float) * cal['y_ref_gbp_m'], 1e-12)       # launch wealth per cell, £m
+    nc = len(W)
+    spread = cfg.get('deferral_spread')
+    if spread is not None:
+        r_def = float(rb['sovereign_real_rate']) + float(spread)                   # per-scenario deferral spread (D4c)
+    elif 'r_def' in rb:
+        r_def = float(rb['r_def'])
+    else:
+        r_def = float(rb['sovereign_real_rate']) + float(rb['deferral_spread'])
+    cap = float(cfg['income_cap']) if cfg.get('income_cap') is not None else float(inc.get('cap', 1.0))
+    names = None
+    if mix == 'none':
+        if mode == 'sale':
+            shares, income = {'C': np.ones(nc)}, np.zeros(nc)
+        else:
+            if not rb.get('share_by_wealth'):
+                raise ValueError(f"route_b_mode {mode!r} with route_mix 'none' needs [route_b].share_by_wealth")
+            b = _curve(W, rb['share_by_wealth'])
+            shares = {'B': b, 'C': 1.0 - b}
+            income = (_curve(W, inc['ratio_by_wealth']) if mode == 'income' and inc.get('ratio_by_wealth') else np.zeros(nc))
+    else:
+        names, V0m, S, ratio = _archetype_table(p)
+        if mix == 'wealth':
+            lw, lx = np.log(W), np.log(V0m)
+            M = np.column_stack([np.interp(lw, lx, S[:, j]) for j in range(4)])
+            inc_c = np.interp(lw, lx, ratio)
+        elif mix == 'blend':
+            wts = dict(cfg.get('route_mix_weights') or {})
+            if not wts or set(wts) - set(names) or min(wts.values()) < 0.0 or abs(sum(wts.values()) - 1.0) > 1e-9:
+                raise ValueError(f"route_mix 'blend' needs route_mix_weights: archetype -> weight >= 0, summing to 1, over {names}; got {wts}")
+            wv = np.array([float(wts.get(k, 0.0)) for k in names])
+            M, inc_c = np.tile(wv @ S, (nc, 1)), np.full(nc, float(wv @ ratio))
+        elif mix in names:
+            k = names.index(mix)
+            M, inc_c = np.tile(S[k], (nc, 1)), np.full(nc, float(ratio[k]))
+        else:
+            raise ValueError(f"route_mix must be 'none' | 'wealth' | 'blend' | one of {names}, got {mix!r}")
+        M = M / M.sum(axis=1, keepdims=True)
+        shares = {r: M[:, j] for j, r in enumerate(_ABCD)}
+        income = inc_c if mode == 'income' else np.zeros(nc)
+    baseline = mix == 'none' and mode == 'sale'
+    cell = None if baseline else {'shares': shares, 'mode': mode, 'r_def': r_def, 'cap': cap, 'income': income}
+
+    # JSON diagnostics: wealth-weighted route shares and external income / wealth by launch-wealth band
+    bid, nbd = cal['band_id'], len(cal['bands']['adult_share'])
+    wsh = np.asarray(cal['share'], float) * np.asarray(cal['V0'], float)
+    den = np.bincount(bid, weights=wsh, minlength=nbd)
+
+    def by_band(x):
+        num = np.bincount(bid, weights=wsh * np.asarray(x, float), minlength=nbd)
+        return [float(a / b) if b > 0 else None for a, b in zip(num, den)]
+    diag = {'mix': mix, 'archetypes': names, 'b_mode': mode, 'r_def': r_def, 'income_cap': cap, 'in_kind_baseline': bool(baseline),
+            'note': ("C = all holdings, settled in kind (the earlier engine)" if mix == 'none'
+                     else 'A / B / D settle in cash-equivalent units at the true price, C in kind, D at death (plan D4a)'),
+            'band_edges_gbp_m': cal['bands']['edges_gbp_m'],
+            'band_wealth_share': {r: by_band(s) for r, s in shares.items()},
+            'band_income_ratio': by_band(income)}
+    summary = {'mode': mode, 'deferral_spread': cfg.get('deferral_spread'), 'income_cap': cfg.get('income_cap'),
+               'r_def': r_def, 'cap': cap, 'mix': mix}
+    return {'cell': cell, 'diag': diag, 'summary': summary}
+
+
+def _verification(cfg, p):
+    """
+    Verification inputs of a run (plan D6): lam_C, lam_D, death_verify, and the verify_down part of the rule set. Each of lam_C / lam_D /
+    death_verify is 'toml' (read [verification]) or the scenario's own value. The corrective auction on Route D follows the rule set's
+    `dauc`, as in VAL. RATES lines are honest (alpha = 1), so these PASS THROUGH the kernel: with verify_down = 'allow' they change nothing;
+    with 'reset' a verification in a year the price FELL is a basis reset (no write-down credit), so an honest holder pays a little more.
+    """
+    v = p.get('verification') or {}
+    rule = wc.resolve_rule(p, cfg['rule_set'])
+
+    def lam(key, toml_key):
+        x = cfg.get(key, 'toml')
+        return float(v.get(toml_key, 0.0)) if x == 'toml' else float(x)
+    dv = cfg.get('death_verify', 'toml')
+    if dv not in ('toml', 'on', 'off'):
+        raise ValueError(f"death_verify must be 'toml' | 'on' | 'off', got {dv!r}")
+    dauc = rule.get('dauc', 'off')
+    dauc_on = dauc is True or str(dauc).lower() in ('on', 'true', '1')
+    lam_d = lam('lam_D', 'lambda_D')
+    return {'lam_C': lam('lam_C', 'lambda_C'), 'lam_D': lam_d if dauc_on else 0.0, 'lam_D_input': lam_d, 'dauc': bool(dauc_on),
+            'death_verify': (bool(v.get('death_verifies', False)) if dv == 'toml' else dv == 'on'),
+            'verify_down': rule.get('verify_down', 'allow')}
+
+
+def _verification_block(cfg, p):
+    """JSON block: the [verification] table as read, and what this scenario ran with."""
+    ver = _verification(cfg, p)
+    return {'toml': p.get('verification'), 'applied': ver,
+            'note': 'honest lines (alpha = 1): lambda passes through the kernel; it can only bite via verify_down = reset in price-fall years'}
+
+
+def check_inputs(p):
+    """Fail early, with the fix, if the TOML / wdt_core do not carry what the kernel engine reads; warn on duplicated route inputs."""
+    d = p['rates']['defaults']
+    for k in ('route_mix', 'route_mix_weights', 'lam_C', 'lam_D', 'death_verify'):
+        if k not in d:
+            raise SystemExit(f"[rates.defaults] has no {k!r}: add it (apply_rates_s2.py does), and if it is in the TOML, "
+                             f"wdt_core's [rates] parser is dropping it: it must pass [rates.defaults] through")
+    _archetype_table(p)
+    rb, inc = p.get('route_b') or {}, p.get('income') or {}
+    names, V0m, S, ratio = _archetype_table(p)
+    for label, pts, ref in (('[route_b].share_by_wealth', rb.get('share_by_wealth'), S[:, 1]),
+                            ('[income].ratio_by_wealth', inc.get('ratio_by_wealth'), ratio)):
+        if pts and (len(pts) != len(names) or any(abs(a - v) > 1e-9 or abs(b - r) > 1e-9 for (a, b), v, r in zip(pts, V0m, ref))):
+            print(f'  WARNING {label} no longer matches the [archetypes.*] anchors (V0_m, B share / external income); '
+                  f"route_mix 'none' reads the former, route_mix 'wealth' the latter", flush=True)
+
+
+# ── per-line state slicing: a death hits only the lines of one phase, and the kernel's step_death has no line mask ───────────────────
+# (request to the kernel owner: step_death(..., mask=None). Until it exists the lines that die are cut out of the Book, run through
+# step_death as a smaller Book and written back; every per-line array of the Book has shape (n,).)
+
+def _take(v, m, n):
+    if isinstance(v, np.ndarray) and v.shape == (n,):
+        return v[m].copy()
+    if isinstance(v, dict):
+        return {k: _take(x, m, n) for k, x in v.items()}
+    return v
+
+
+def _put(dst, src, m):
+    for k, v in src.items():
+        if isinstance(v, np.ndarray):
+            dst[k][m] = v
+        elif isinstance(v, dict):
+            _put(dst[k], v, m)
+
+
+def _sub_book(book, m):
+    sub = copy.copy(book)
+    for k, v in vars(book).items():
+        setattr(sub, k, _take(v, m, book.n))
+    sub.n = int(m.sum())
+    return sub
+
+
+def _write_back(book, sub, m):
+    for k, v in vars(sub).items():
+        if isinstance(v, np.ndarray):
+            getattr(book, k)[m] = v
+        elif isinstance(v, dict):
+            _put(getattr(book, k), v, m)
+
+
+def _flow_value(fl, n):
+    """True value moved family -> state by one operation, per line (units sold at the true price, plus income cash)."""
+    v = np.zeros(n)
+    for x in fl.value.values():
+        v = v + x
+    return v + fl.income
+
+
+def run_lines(g, idx, V0, w, group, nb, ph, G, c, rp, heir_rule='delta', c_cap='units', plan=None, ver=None):
+    """
+    The RATES engine: n weighted lines through wdt_kernel (S2; replaces the inline engine, plan D12).
+    g      (T, n) or (T,)  asset growth per year per line
+    idx    (T,)            threshold index factor for years 1..T
+    V0, w  (n,)            initial value and weight (weights sum to 1)
+    group  (n,) int        bracket id, for the by-bracket output;  nb = number of brackets
+    ph     (n,) int | None first-death year per line (None = no deaths);  G generation gap
+    c      float or (n,)   consumption share per year
+    rp     dict            tau_0, tau_m, k, wmin (engine units); optional schedule / ladder
+    heir_rule 'delta' (baseline) | 'fresh' (ablation: no tax on the receipt, basis = value)
+    c_cap     'units' | 'units_and_value' (see wdt_core.parse_rule)
+    plan   dict | None     per-LINE route plan {'shares': {route: (n,)}, 'mode', 'r_def', 'cap', 'income': (n,)}; None = everything in kind (Route C)
+    ver    dict | None     {'lam_C', 'lam_D', 'death_verify', 'verify_down'} (see _verification); None = no verification
+
+    Honest lines (alpha = 1). The fund counts SETTLED value only (D4d): a Route B lien balance and an accrued Route D liability are
+    returned as receivables (lien_out, accr_d_out), never as receipts; the horizon does not settle them.
+    Returns weighted length-T arrays: tax, refund, heir, lien (Route B lien settled at deaths), dsettle (Route D settled at deaths),
+    stake, share_paying, wealth, lien_out, accr_d_out, income (net external income paid to the state), plus by_bracket (T, nb),
+    heir_by_bracket, lien_out_b, income_b, income_gross_b, b_sold_b, wealth_by_bracket and wealth0_by_bracket.
+    """
+    T = len(idx)
+    n = len(V0)
+    g = np.asarray(g, float)
+    if g.ndim == 1:
+        g = np.repeat(g[:, None], n, axis=1)
+    V0 = np.asarray(V0, float)
+    w = np.asarray(w, float)
+    if heir_rule not in ('delta', 'fresh'):
+        raise ValueError(f"heir_rule must be 'delta' or 'fresh', got {heir_rule!r}")
+    heir_influx = 'delta' if heir_rule == 'delta' else 'fresh_entrant'
+    ver = ver or {}
+    lam_C, lam_D = float(ver.get('lam_C', 0.0)), float(ver.get('lam_D', 0.0))
+    death_verify, verify_down = bool(ver.get('death_verify', False)), ver.get('verify_down', 'allow')
+    rate_fn = lambda x: wc.rate_vec(np.asarray(x, float), rp)
+
+    if plan is None:
+        shares, mode, r_def, cap, income = {'C': np.ones(n)}, 'sale', 0.0, 0.0, np.zeros(n)
+    else:
+        shares, mode, r_def, cap, income = plan['shares'], plan['mode'], float(plan['r_def']), float(plan['cap']), np.asarray(plan['income'], float)
+    routes = {r: s * V0 for r, s in shares.items() if np.any(np.asarray(s) > 0.0)}
+    has_cv = (lam_C > 0.0 or death_verify) and 'C' in routes
+    book = wk.Book(n, routes, has_cv=has_cv, b_mode=mode, c_cap=c_cap, verify_down=verify_down, r_def=r_def,
+                   inc_allow=cap * income * V0)
+
+    tax = np.zeros(T)
+    ref = np.zeros(T)
+    heir = np.zeros(T)
+    lienv = np.zeros(T)
+    dsettle = np.zeros(T)
+    stake = np.zeros(T)
+    npay = np.zeros(T)
+    wealth = np.zeros(T)
+    lien_out = np.zeros(T)
+    accr_d = np.zeros(T)
+    inc_net = np.zeros(T)
+    by_b = np.zeros((T, nb))
+    heir_b = np.zeros((T, nb))
+    wealth_b = np.zeros((T, nb))
+    lien_out_b = np.zeros((T, nb))
+    inc_b = np.zeros((T, nb))
+    inc_gross_b = np.zeros((T, nb))
+    sold_b = np.zeros((T, nb))
+    wealth0_b = np.bincount(group, weights=w * V0, minlength=nb)
+    bc = lambda x: np.bincount(group, weights=x, minlength=nb)
+
+    for t in range(1, T + 1):
+        pt = np.zeros(n)                 # assessments this year (the year's, and the death corrections): units sold + income cash
+        hv = np.zeros(n)                 # heir tax
+        lv = np.zeros(n)                 # Route B lien settled at death
+        dv = np.zeros(n)                 # Route D settled at death
+        iv = np.zeros(n)                 # net external income paid
+        ig = np.zeros(n)                 # ... gross (positive parts)
+        sg = np.zeros(n)                 # Route B units sold (income mode: the shortfall)
+
+        def note(fl, m, size):
+            i = fl.income
+            iv_ = (iv if m is None else iv[m])
+            if m is None:
+                iv[:] += i
+                ig[:] += np.maximum(i, 0.0)
+            else:
+                iv[m] += i
+                ig[m] += np.maximum(i, 0.0)
+            if mode == 'income' and 'B' in fl.value:
+                sb = np.maximum(fl.value['B'], 0.0)
+                if m is None:
+                    sg[:] += sb
+                else:
+                    sg[m] += sb
+
+        for kind, fl in wk.step_year(book, rate_fn, idx[t - 1], g[t - 1], c, 1.0, 1.0, lam_C, lam_D, False):
+            if kind == 'tax':
+                pt += _flow_value(fl, n)
+                note(fl, None, n)
+
+        if ph is not None and t < T:
+            d = (t >= ph) & (((t - ph) % G) == 0)
+            if d.any():
+                sub = _sub_book(book, d)
+                for kind, fl in wk.step_death(sub, rate_fn, idx[t - 1], heir_influx, death_verify):
+                    if kind not in _KERNEL_DEATH_KINDS:
+                        raise ValueError(f'wdt_kernel.step_death returned an operation this engine does not tally: {kind!r}')
+                    v = _flow_value(fl, sub.n)
+                    if kind in ('tax_death_C', 'tax_death'):
+                        pt[d] += v
+                    elif kind == 'tax_heir':
+                        hv[d] += v
+                    elif kind == 'death_B':
+                        lv[d] += v
+                    elif kind == 'death_D':
+                        dv[d] += v
+                    note(fl, d, sub.n)
+                _write_back(book, sub, d)
+
+        pt = np.where(np.abs(pt) < 1e-12, 0.0, pt)      # rounding dust is neither tax nor refund
+        wp, wh, wl, wd = w * pt, w * hv, w * lv, w * dv
+        tax[t - 1] = wp[pt > 0.0].sum()
+        ref[t - 1] = wp[pt < 0.0].sum()
+        npay[t - 1] = w[pt > 0.0].sum()
+        heir[t - 1] = wh.sum()
+        lienv[t - 1] = wl.sum()
+        dsettle[t - 1] = wd.sum()
+        by_b[t - 1] = bc(wp + wh + wl + wd)
+        heir_b[t - 1] = bc(wh)
+        inc_net[t - 1] = (w * iv).sum()
+        inc_b[t - 1] = bc(w * iv)
+        inc_gross_b[t - 1] = bc(w * ig)
+        sold_b[t - 1] = bc(w * sg)
+        fam = book.family_true()
+        stake[t - 1] = (w * sum(x['s'] * x['V'] for x in book.R.values())).sum()
+        wealth[t - 1] = (w * fam).sum()
+        wealth_b[t - 1] = bc(w * fam)
+        lien_out[t - 1] = (w * book.LB).sum()
+        lien_out_b[t - 1] = bc(w * book.LB)
+        accr_d[t - 1] = (w * book.A_D).sum()
+
+    for name, a in (('tax', tax), ('wealth', wealth), ('stake', stake), ('dsettle', dsettle)):
+        if not np.isfinite(a).all():
+            print(f'\nNon-finite {name} in the kernel engine: first at t={int(np.flatnonzero(~np.isfinite(a))[0]) + 1}', flush=True)
+    return {'tax': tax, 'refund': ref, 'heir': heir, 'stake': stake, 'share_paying': npay,
+            'lien': lienv, 'lien_out': lien_out, 'lien_out_b': lien_out_b, 'dsettle': dsettle, 'accr_d_out': accr_d,
+            'income': inc_net, 'income_b': inc_b, 'income_gross_b': inc_gross_b, 'b_sold_b': sold_b,
+            'by_bracket': by_b, 'heir_by_bracket': heir_b, 'wealth': wealth,
+            'wealth_by_bracket': wealth_b, 'wealth0_by_bracket': wealth0_b}
+
+
+def _phases(n_phase, G):
+    """n_phase equally spaced first-death years in 1..G."""
+    return [int(np.ceil((i + 1) * G / n_phase)) for i in range(n_phase)]
+
+
+def _plan_ver(cfg, cal, p):
+    """(_route_plan(...)['cell'], _verification(...)) built once per scenario: cached in `cal` (one cal per scenario)."""
+    pv = cal.get('_plan_ver')
+    if pv is None:
+        pv = cal['_plan_ver'] = (_route_plan(cfg, cal, p)['cell'], _verification(cfg, p))
+    return pv
+
+
+def run_cohorts(scn, cal, tiers=None, n_phase=6, G=30, deaths=True,
+                heir_rule='delta', c_cell=None, cell_diff=None, c_cap='units', plan_cell=None, ver=None):
+    """
+    Aggregate honest WDT receipts for one scenario and calibration, through wdt_kernel (S2).
+    plan_cell  _route_plan(...)['cell'] (per CELL route shares / Route B mode / income) or None = everything in kind
+    ver        _verification(...) dict or None
+    """
+    tiers = tiers or [(1.0, 0.0)]
+    tw = np.array([t[0] for t in tiers], float)
+    td = np.array([t[1] for t in tiers], float)
+    if abs(tw.sum() - 1.0) > 1e-9:
+        raise ValueError('tier weights must sum to 1')
+    nb = len(cal['V0'])
+    phs = _phases(n_phase, G) if deaths else [None]
+    lines = list(itertools.product(range(nb), range(len(tiers)), phs))
+    b_id = np.array([l[0] for l in lines])
+    t_id = np.array([l[1] for l in lines])
+    p_id = [l[2] for l in lines]
+    w = cal['share'][b_id] * tw[t_id] / len(phs)
+    V0 = cal['V0'][b_id]
+    cd = np.zeros(nb) if cell_diff is None else np.asarray(cell_diff, float)
+    g = scn['r'][:, None] + td[t_id][None, :] + cd[b_id][None, :]
+    ph = np.array(p_id, int) if deaths else None
+    c_line = scn['c'] if c_cell is None else np.asarray(c_cell, float)[b_id]
+    plan = None
+    if plan_cell is not None:
+        plan = {'shares': {r: np.asarray(s, float)[b_id] for r, s in plan_cell['shares'].items()},
+                'mode': plan_cell['mode'], 'r_def': plan_cell['r_def'], 'cap': plan_cell['cap'],
+                'income': np.asarray(plan_cell['income'], float)[b_id]}
+    raw = run_lines(g, scn['idx'], V0, w, b_id, nb, ph, G, c_line, cal['rate'],
+                    heir_rule=heir_rule, c_cap=c_cap, plan=plan, ver=ver)
+
+    norm = 1.0 / (scn['yy'] * cal['pop_per_adult'])
+    out = {k: raw[k] * norm for k in ('tax', 'refund', 'heir', 'stake', 'wealth', 'lien', 'lien_out', 'dsettle', 'accr_d_out', 'income')}
+    out['wealth_gdp'] = out.pop('wealth')            # family-held net worth / GDP: stationarity diagnostic
+    out['income_gdp'] = out.pop('income')            # external income paid to the state (Route B income mode), net of any refund
+    out['net'] = out['tax'] + out['refund'] + out['heir'] + out['lien'] + out['dsettle']
+    out['coverage'] = out['net'] / scn['exp_gdp']
+    out['share_paying'] = raw['share_paying']
+    out['by_bracket'] = raw['by_bracket'] * norm[:, None]
+    out['lien_out_b'] = raw['lien_out_b'] * norm[:, None]
+    out['income_b_gdp'] = raw['income_b'] * norm[:, None]
+    prev_w = np.vstack([raw['wealth0_by_bracket'][None, :], raw['wealth_by_bracket'][:-1]])
+    out['lvl'] = {'net_b': raw['by_bracket'], 'wealth_b': raw['wealth_by_bracket'],
+                  'gain_b': scn['r'][:, None] * prev_w, 'prev_b': prev_w,
+                  'heir_b': raw['heir_by_bracket'], 'income_b': raw['income_b'],
+                  'income_gross_b': raw['income_gross_b'], 'b_sold_b': raw['b_sold_b'],
+                  'wealth0_b': raw['wealth0_by_bracket']}
+    out['exp_gdp'] = scn['exp_gdp']
+    out['years'] = scn['years']
+    return out
+
+
+def effective_rates(out, cal, groups=(0.10, 0.06, 0.02, 0.01, 1e-3)):
+    """
+    Wealth-weighted effective rates over the window (ratios of window sums):
+      stock rate = sum net WDT / sum wealth             (comparator: annual stock wealth tax)
+      gain rate  = sum net WDT / sum r_t * W_{t-1}      (comparator: income / CGT rates)
+    Computed for all adults, 'payers' (cells whose window net tax is positive), and the
+    top-q cells (by adult share). `net` includes inheritance receipts.
+    """
+    L = out['lvl']
+    net = L['net_b'].sum(axis=0)
+    W = L['wealth_b'].sum(axis=0)
+    G = L['gain_b'].sum(axis=0)
+    share = np.asarray(cal['share'])
+    cum_top = np.cumsum(share[::-1])[::-1]
+
+    def rates(mask):
+        w, g, n = W[mask].sum(), G[mask].sum(), net[mask].sum()
+        return (n / w if w > 0 else np.nan, n / g if g > 0 else np.nan)
+
+    res = {}
+    res['stock_all'], res['gain_all'] = rates(np.ones(len(share), bool))
+    pay = net > 0
+    res['stock_payers'], res['gain_payers'] = rates(pay)
+    res['payer_adult_share'] = float(share[pay].sum())
+    res['payer_wealth_share'] = float(W[pay].sum() / W.sum())
+    for q in groups:
+        m = cum_top <= q * (1 + 1e-6)
+        key = f'top{100 * q:g}'
+        res[f'stock_{key}'], res[f'gain_{key}'] = rates(m) if m.any() else (np.nan, np.nan)
+    return res
+
+
+def zucman_check(out, cal, floor, threshold_gbp_m):
+    """
+    Annual stock rate of the billionaire cells (launch mean wealth >= threshold), pooled:
+    net WDT in year t over their wealth at the end of t-1. Reported twice, with and without
+    heir receipts, because a death year can lift one cell over the floor by itself.
+    Years with zero opening wealth are skipped (no base to tax). A CHECK, not a calibration target.
+    """
+    L = out['lvl']
+    nan_out = {k: float('nan') for k in ('zuc_share_years', 'zuc_mean', 'zuc_min',
+                                         'zucx_share_years', 'zucx_mean', 'zuc_cells')}
+    mask = np.asarray(cal['V0']) * cal['y_ref_gbp_m'] >= threshold_gbp_m
+    if not mask.any():
+        return nan_out
+    den = L['prev_b'][:, mask].sum(axis=1)
+    num = L['net_b'][:, mask].sum(axis=1)
+    numx = num - L['heir_b'][:, mask].sum(axis=1)
+    ok = den > 0.0
+    if not ok.any():
+        return {**nan_out, 'zuc_cells': int(mask.sum())}
+    r = num[ok] / den[ok]
+    rx = numx[ok] / den[ok]
+    return {'zuc_share_years': float((r >= floor).mean()), 'zuc_mean': float(r.mean()),
+            'zuc_min': float(r.min()), 'zucx_share_years': float((rx >= floor).mean()),
+            'zucx_mean': float(rx.mean()), 'zuc_cells': int(mask.sum())}
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# L4  FUND — reserves, relief commitment, headline metric
+# ═════════════════════════════════════════════════════════════════════════════
+
+def trailing_mean(x, window):
+    """Trailing mean including the current element, over the available history."""
+    x = np.asarray(x, float)
+    c = np.cumsum(np.insert(x, 0, 0.0))
+    idx = np.arange(1, len(x) + 1)
+    lo = np.maximum(0, idx - window)
+    return (c[idx] - c[lo]) / (idx - lo)
+
+
+def run_fund(net, E, r, refund=None, safe=None, ms=3.0, ml=3.0, a_window=5,
+             w_relief=None, safe_share=0.0, horizon=10):
+    """
+    net (T,) net WDT receipts | E (T,) expenditure | r (T,) asset return (same level units)
+    refund (T,) optional, SRR-need diagnostic only | safe (T,) safe-asset return if safe_share > 0
+    Relief is zero until fill. After fill:
+      upkeep_t = max(0, T_total_t - S_{t-1}(1+r_t));  Z_t = net_t - upkeep_t
+      R*_t = max(0, mean(Z over last W post-fill years))   committed relief  (W = ml)
+      avail_t = max(0, S_pre - SRR);  R_t = min(R*_t, avail_t);  S_t = S_pre - R_t
+    Failure events (first post-fill year): unmet (R* > avail), ring (S_pre < SRR),
+    insolvent (S_pre < 0).
+    """
+    net = np.asarray(net, float)
+    E = np.asarray(E, float)
+    r = np.asarray(r, float)
+    T = len(net)
+    w_relief = max(1, int(round(ml if w_relief is None else w_relief)))
+    a_window = max(1, int(a_window))
+    if safe_share > 0.0:
+        if safe is None:
+            raise ValueError('safe returns required when safe_share > 0')
+        rr = (1.0 - safe_share) * r + safe_share * np.asarray(safe, float)
+    else:
+        rr = r
+    A = trailing_mean(np.maximum(net, 0.0), a_window)
+
+    S = 0.0
+    S_path = np.zeros(T)
+    R = np.zeros(T)
+    Rstar = np.zeros(T)
+    filled = False
+    fill_t = srr_fill = None
+    unmet = ring = insolvent = None
+    Z_hist = []
+    buffer = np.full(T, np.nan)
+
+    for t in range(T):
+        Tsrr, Ttot = ms * A[t], (ms + ml) * A[t]
+        S_pre = S * (1.0 + rr[t]) + net[t]
+        if srr_fill is None and A[t] > 0.0 and S_pre >= Tsrr:
+            srr_fill = t + 1
+        if not filled:
+            if A[t] > 0.0 and S_pre >= Ttot:
+                filled, fill_t = True, t + 1
+            S = S_pre
+        else:
+            upkeep = max(0.0, Ttot - S * (1.0 + rr[t]))
+            Z_hist.append(net[t] - upkeep)
+            Rstar[t] = max(0.0, float(np.mean(Z_hist[-w_relief:])))
+            avail = max(0.0, S_pre - Tsrr)
+            if Rstar[t] > avail + 1e-12 and unmet is None:
+                unmet = t + 1
+            if S_pre < Tsrr - 1e-12 and ring is None:
+                ring = t + 1
+            if S_pre < -1e-12 and insolvent is None:
+                insolvent = t + 1
+            R[t] = min(Rstar[t], avail)
+            S = S_pre - R[t]
+            buffer[t] = (S - Tsrr) / A[t] if A[t] > 0.0 else np.nan
+        S_path[t] = S
+
+    out = {'S': S_path, 'R': R, 'Rstar': Rstar, 'A': A, 'fill_year': fill_t,
+           'srr_fill_year': srr_fill, 'unmet_year': unmet, 'ring_year': ring,
+           'insolvent_year': insolvent, 'horizon': horizon, 'T': T}
+
+    if fill_t is None or fill_t + horizon > T:
+        out.update({'censored': True, 'coverage': np.nan, 'cov_receipts': np.nan,
+                    'fail_in_window': None, 'min_buffer': np.nan})
+    else:
+        a, b = fill_t, fill_t + horizon              # python slice = years fill+1..fill+H
+        sl = slice(a, b)
+        win_years = range(a + 1, b + 1)
+        out.update({
+            'censored': False,
+            'coverage': float(R[sl].sum() / E[sl].sum()),
+            'cov_receipts': float(net[sl].sum() / E[sl].sum()),
+            'fail_in_window': any(y is not None and y in win_years
+                                  for y in (unmet, ring, insolvent)),
+            'min_buffer': float(np.nanmin(buffer[sl])),
+        })
+    if refund is not None:
+        ref = np.abs(np.asarray(refund, float))
+        out['srr_need_mult'] = float((ref / np.where(A > 0, A, np.nan)).max()
+                                     if np.isfinite(A).any() else np.nan)
+    return out
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# L5  SWEEP — every window, one scenario
+# ═════════════════════════════════════════════════════════════════════════════
+# SAMPLE RULES: a window needs every model column non-null for all T years. Flagged-year
+# windows are KEPT and marked `flagged` unless exclude_flagged. Windows where the fund
+# never fills or fills too late are CENSORED: reported with their share, never dropped.
+# Overlapping windows are autocorrelated: counts are not independent observations, so
+# summaries are given per country and per era and the country-level view weights
+# countries equally.
+
+def make_cfg(p, **overrides):
+    """Resolved config: [rates.defaults] with `overrides` applied (unknown keys raise)."""
+    base = p['rates']['defaults']
+    unknown = set(overrides) - set(base)
+    if unknown:
+        raise ValueError(f'unknown cfg keys: {sorted(unknown)}')
+    cfg = {**base, **overrides}
+    if cfg['levy_basis'] not in ('nominal', 'real'):
+        raise ValueError("levy_basis must be 'nominal' or 'real'")
+    return cfg
+
+
+def _era(y, eras):
+    for name, lo, hi in eras:
+        if lo <= y <= hi:
+            return name
+
+
+def calibration(J, cfg, p):
+    """Calibrate the wealth distribution and rate schedule for one cfg (UK anchor)."""
+    rp = p['rates']
+    uk_p = panel(J, rp['uk_iso'])
+    u = uk_p.loc[rp['calibration_year']]
+    adults = float(u['pop']) * 1e3 / cfg['pop_per_adult']
+    dist = build_dist(cfg['dist'], adults, cfg['dist_mode'], rp['dist'], **cfg['dist_kw'])
+
+    # W_min: absolute (£m), a share of adults (wmin_pct), or a multiple of the median house price
+    wmin_gbp_m = cfg['wmin_gbp_m']
+    if cfg['wmin_house_ratio']:
+        if cfg['wmin_pct']:
+            raise ValueError('set wmin_house_ratio or wmin_pct, not both')
+        wmin_gbp_m = cfg['wmin_house_ratio'] * rp['dist']['house_median_gbp_m']
+
+    # rate schedule: built-in logistic / logistic_ln, or a ladder from [rates.schedules]
+    sched, ladder, sdiag = cfg['schedule'], None, None
+    if sched not in ('logistic', 'logistic_ln'):
+        sp = rp['schedules'][sched]
+        ladder, capped = wc.ladder_to_tau(sp['anchors'], sp['basis'], sp['r_ref'], sp['c_ref'],
+                                          cfg['tau_m'])
+        sdiag = {'name': sched, 'basis': sp['basis'], 'r_ref': sp['r_ref'], 'c_ref': sp['c_ref'],
+                 'anchors_target': sp['anchors'], 'anchors_tau': ladder, 'capped_at_tau_m': capped}
+
+    # closed-form fit of a logistic through a ladder's top point (no solver)
+    k_ln, k_gbp, fit = cfg['k_ln'], cfg['k_per_gbp_m'], None
+    if cfg['anchor_from']:
+        if cfg['schedule'] not in ('logistic', 'logistic_ln'):
+            raise ValueError('anchor_from fits a logistic: set schedule to logistic or logistic_ln')
+        if cfg['wmin_pct']:
+            raise ValueError('anchor_from needs a W_min in £m, not wmin_pct')
+        sp = rp['schedules'][cfg['anchor_from']]
+        lad, _ = wc.ladder_to_tau(sp['anchors'], sp['basis'], sp['r_ref'], sp['c_ref'], cfg['tau_m'])
+        W_ref, tau_ref = lad[-1]
+        k_fit = wc.fit_k(cfg['schedule'], cfg['tau_0'], cfg['tau_m'], wmin_gbp_m, W_ref, tau_ref)
+        if cfg['schedule'] == 'logistic_ln':
+            k_ln = k_fit
+        else:
+            k_gbp = k_fit
+        fit = {'from': cfg['anchor_from'], 'W_ref_gbp_m': W_ref, 'tau_ref': tau_ref,
+               'k_fitted': k_fit, 'k_unit': 'per ln W' if cfg['schedule'] == 'logistic_ln' else 'per £m'}
+
+    cal = calibrate(dist, float(u['gdp']), cfg['pop_per_adult'], wmin_gbp_m,
+                    k_gbp, cfg['tau_0'], cfg['tau_m'], float(u['gdp_pc']),
+                    cfg['wmin_pct'], schedule=sched, k_ln=k_ln, ladder=ladder)
+    cal['schedule_diag'] = sdiag
+    cal['anchor_fit'] = fit
+    ref = cfg['exp_ref']
+    cal['exp_ref'] = (float(uk_p.loc[rp['exp_ref_year'], 'exp_gdp'])
+                      if ref == 'uk_2019' else float(ref))
+    rev = float(uk_p.loc[rp['exp_ref_year'], 'rev_gdp'])
+    if not np.isfinite(rev):
+        raise ValueError(f"JST revenue/GDP missing for {rp['uk_iso']} {rp['exp_ref_year']}")
+    rep = rp['closure']['replaced_tax_gdp']
+    cal['rev_ref'] = rev
+    cal['replaced_ref'] = rev if rep == 'uk_2019' else float(rep)
+    cal['top_shares'] = {str(q): v for q, v in top_shares(dist).items()}
+    cal['repaired_cells'] = dist['repaired_cells']
+
+    # first-pass payer-share check: who is above W_min at launch (cell means; coarse near the threshold)
+    inscope = np.asarray(cal['V0']) >= cal['rate']['wmin']
+    wsh = np.asarray(cal['share']) * np.asarray(cal['V0'])
+    cal['scope'] = {'adult_share': float(np.asarray(cal['share'])[inscope].sum()),
+                    'wealth_share': float(wsh[inscope].sum() / wsh.sum()),
+                    'wmin_gbp_m': float(cal['wmin_gbp_m']),
+                    'n_cells': int(len(cal['share']))}
+
+    # wealth bands at launch (cell launch mean wealth, £m): who is in the base, who pays
+    edges = np.asarray(rp['run']['revenue_bands_gbp_m'], float)
+    bid = np.searchsorted(edges, np.asarray(cal['V0']) * cal['y_ref_gbp_m'], side='right')
+    nbd = len(edges) + 1
+    cal['band_id'] = bid
+    cal['bands'] = {'edges_gbp_m': [float(e) for e in edges],
+                    'adult_share': [float(np.asarray(cal['share'])[bid == i].sum()) for i in range(nbd)],
+                    'wealth_share': [float(wsh[bid == i].sum() / wsh.sum()) for i in range(nbd)]}
+
+    # return heterogeneity
+    if cfg['cohorts']:
+        if cfg['tiers']:
+            raise ValueError('set either cohorts or tiers, not both')
+        cal.update(cohort_spec(cal, rp['cohorts'][cfg['cohorts']]))
+    return cal
+
+
+def _expenditure_extras(cfg, cal, scn, scale, f, fy, p):
+    """Optional expenditure-path coverage columns (cfg['exp_paths'] set)."""
+    ex = p['rates']['extras']
+    R, Tn = f['R'], cfg['T']
+    yrs_ = np.arange(1, Tn + 1)
+    extra = {}
+    for name, e in cfg['exp_paths'].items():
+        E = (cal['exp_ref'] * scale if e is None
+             else cal['exp_ref'] * cal['pop_per_adult'] * (1.0 + e) ** yrs_)
+        if fy and fy + cfg['horizon'] <= Tn:
+            extra[f'cov_fillh_{name}'] = float(R[fy:fy + cfg['horizon']].sum()
+                                               / E[fy:fy + cfg['horizon']].sum())
+        for a_, b_ in ex['windows']:
+            if Tn >= b_:
+                extra[f'cov_y{a_ + 1}_{b_}_{name}'] = float(R[a_:b_].sum() / E[a_:b_].sum())
+        tw = ex['trailing_window']
+        cR, cE = np.cumsum(np.insert(R, 0, 0.0)), np.cumsum(np.insert(E, 0, 0.0))
+        lo = np.maximum(0, yrs_ - tw)
+        ratio = (cR[yrs_] - cR[lo]) / (cE[yrs_] - cE[lo])
+        hit = (np.where((yrs_ > (fy or 10 ** 9)) & (yrs_ >= tw) & (ratio >= 1.0))[0]
+               if fy else [])
+        extra[f'be_{name}'] = int(hit[0] + 1) if len(hit) else np.nan
+        extra[f'eshare30_{name}'] = float(E[min(29, Tn - 1)] / scale[min(29, Tn - 1)])
+    return extra
+
+
+def _levy_base(eqg, gdpg, infl, basis):
+    """Per-year levy base as a share of GDP per unit of market cap/GDP: max(0, price return) / (1 + GDP growth). 'real' deflates both by CPI."""
+    eqg, gdpg, infl = (np.asarray(x, float) for x in (eqg, gdpg, infl))
+    if basis == 'real':
+        eqg = (1.0 + eqg) / (1.0 + infl) - 1.0
+        gdpg = (1.0 + gdpg) / (1.0 + infl) - 1.0
+    return np.maximum(0.0, eqg) / (1.0 + gdpg)
+
+
+def levy_path(lv, scn, basis):
+    """CORP levy, share of GDP per year, for one window. basis: 'nominal' | 'real' | 'none'."""
+    T = len(scn['r'])
+    if not lv or basis == 'none':
+        return np.zeros(T)
+    rate = lv['tau'] * lv['f_inc'] + lv['tau0'] * lv['f_attr']      # unattributed at tau, attributed non-native at tau_0
+    return rate * lv['mc_gdp'] * _levy_base(scn['eqg'], scn['gdpg'], scn['infl'], basis)
+
+
+_LEVY_BASE_CACHE = {}
+_LEVY_CAL_CACHE = {}
+
+
+def levy_base_median(J, T):
+    """
+    Median over EVERY valid window (all countries, stride 1, window length T) of the window-mean levy base, nominal and real. Independent of
+    the scenario's countries / stride, so one calibration serves every scenario. Returns {'nominal', 'real', 'n'}.
+    """
+    key = (id(J), T)
+    if key not in _LEVY_BASE_CACHE:
+        cols = MODEL_COLS + ['eq_capgain', 'gdpg']
+        xs = {'nominal': [], 'real': []}
+        for iso in countries(J):
+            d = panel(J, iso)
+            for w in loop_windows(usable_years(d, cols), T, wrap=True):
+                sub = d.reindex(w['years'])
+                for b in xs:
+                    xs[b].append(_levy_base(sub['eq_capgain'], sub['gdpg'], sub['infl'], b).mean())
+        if not xs['nominal']:
+            raise ValueError('levy calibration: no valid windows with eq_capgain and GDP')
+        _LEVY_BASE_CACHE[key] = {'nominal': float(np.median(xs['nominal'])), 'real': float(np.median(xs['real'])),
+                                 'n': len(xs['nominal'])}
+    return _LEVY_BASE_CACHE[key]
+
+
+def calibrate_levy(J, cfg, p):
+    """
+    Solve the levy so its median receipts (nominal base, all windows) equal the revenue it retires ([rates.levy_calibration]).
+    Median levy = rate x mc_gdp x median(window-mean base), because the levy is linear in `rate`: closed form.
+      solve 'tau0'  : tau0 = (needed rate - tau f_inc) / f_attr, floored at 0 (infeasible = True if it would be negative)
+      solve 'scale' : tau and tau0 both x (needed rate / current rate)
+    Returns (new levy dict, diagnostics).
+    """
+    lc = p['rates']['levy_calibration']
+    lv = dict(cfg['levy'])
+    cal_base = cfg.get('levy_cal_base') or lc['base']          # per-scenario override of [rates.levy_calibration].base
+    key = (id(J), cfg['T'], tuple(sorted(lv.items())), lc['solve'], lc['target_gdp'], cal_base)
+    if key in _LEVY_CAL_CACHE:
+        return _LEVY_CAL_CACHE[key]
+    base = levy_base_median(J, cfg['T'])
+    bm = base[cal_base]                                                # median base the levy is calibrated on: nominal (statute) | real
+    need = lc['target_gdp'] / (lv['mc_gdp'] * bm)                        # required levy rate (tau f_inc + tau0 f_attr)
+    unattr = lv['tau'] * lv['f_inc']
+    tau0_in, tau_in = lv['tau0'], lv['tau']
+    infeasible = False
+    if lc['solve'] == 'tau0':
+        if lv['f_attr'] <= 0.0:
+            raise ValueError('levy calibration solve = tau0 needs f_attr > 0')
+        t0 = (need - unattr) / lv['f_attr']
+        infeasible = t0 < 0.0
+        lv['tau0'] = max(t0, 0.0)
+    else:
+        cur = unattr + lv['tau0'] * lv['f_attr']
+        k = need / cur
+        lv['tau'], lv['tau0'] = lv['tau'] * k, lv['tau0'] * k
+    rate = lv['tau'] * lv['f_inc'] + lv['tau0'] * lv['f_attr']
+    diag = {'target': lc['target'], 'target_gdp': lc['target_gdp'], 'solve': lc['solve'], 'n_windows': base['n'],
+            'base_median_nominal': base['nominal'], 'base_median_real': base['real'],
+            'needed_rate': need, 'base': cal_base, 'unattributed_tier_gdp': unattr * lv['mc_gdp'] * bm,
+            'tau_input': tau_in, 'tau0_input': tau0_in, 'tau': lv['tau'], 'tau0': lv['tau0'],
+            'achieved_nominal_gdp': rate * lv['mc_gdp'] * base['nominal'],
+            'achieved_real_gdp': rate * lv['mc_gdp'] * base['real'],
+            'infeasible': bool(infeasible)}
+    if infeasible:
+        print(f"  WARNING levy calibration: the unattributed tier alone raises {diag['unattributed_tier_gdp']:.2%} of GDP, above the "
+              f"{lc['target_gdp']:.2%} target ({lc['target']}); tau0 floored at 0. Lower f_inc or tau.", flush=True)
+    print(f"  levy calibrated to {lc['target']} ({lc['target_gdp']:.2%} of GDP): tau0 {tau0_in:.2%} -> {lv['tau0']:.2%}, tau {lv['tau']:.0%}; "
+          f"median levy {diag['achieved_nominal_gdp']:.2%} nominal / {diag['achieved_real_gdp']:.2%} real "
+          f"({base['n']} windows)", flush=True)
+    _LEVY_CAL_CACHE[key] = (lv, diag)
+    return lv, diag
+
+
+def _fund_metrics(f, scale, scn, cal, cfg):
+    """(relief_gdp, cov_ref, fund diagnostics) of one run_fund result; NaN when the window is censored."""
+    cov_ref = relief_gdp = np.nan
+    fund = {'fund_gdp_fill': np.nan, 'fund_gdp_fill_h': np.nan, 'fund_target_gdp_fill_h': np.nan,
+            'fund_excess_gdp_fill_h': np.nan, 'fund_income_gdp_h': np.nan}
+    if not f['censored']:
+        fy = f['fill_year']
+        sl = slice(fy, fy + cfg['horizon'])
+        relief_gdp = float(f['R'][sl].sum() / scale[sl].sum())
+        cov_ref = relief_gdp / cal['exp_ref']
+        S, A_ = f['S'], f['A']
+        ih = fy + cfg['horizon']
+        ss = cfg['safe_share']
+        rr = (1.0 - ss) * scn['r'] + ss * scn['safe'] if ss > 0.0 else scn['r']
+        S_prev = np.concatenate([[0.0], S[:-1]])
+        tgt = (cfg['ms'] + cfg['ml']) * A_[ih - 1]
+        fund = {
+            'fund_gdp_fill': float(S[fy - 1] / scale[fy - 1]),
+            'fund_gdp_fill_h': float(S[ih - 1] / scale[ih - 1]),
+            'fund_target_gdp_fill_h': float(tgt / scale[ih - 1]),
+            'fund_excess_gdp_fill_h': float((S[ih - 1] - tgt) / scale[ih - 1]),
+            'fund_income_gdp_h': float((S_prev[sl] * rr[sl]).sum() / scale[sl].sum()),
+        }
+    return relief_gdp, cov_ref, fund
+
+
+def _decade_cols(f, scale, scn, cfg):
+    """Relief and expenditure as a share of GDP in each tenth year (10, 20, ... T), and the first year relief covers expenditure (NaN if never)."""
+    R, T = f['R'], cfg['T']
+    out = {}
+    for k in range(10, T + 1, 10):
+        out[f'rel_y{k}'] = float(R[k - 1] / scale[k - 1])
+        out[f'exp_y{k}'] = float(scn['exp_gdp'][k - 1])
+    hit = np.where((R > 0.0) & (R >= scn['exp_gdp'] * scale))[0]
+    out['rel_cov_year'] = float(hit[0] + 1) if len(hit) else np.nan
+    return out
+
+
+def _horizon_cols(fv, lp, out, scale, scn, cal, cfg):
+    """
+    Post-fill horizon aggregates for one fund run `fv` (one levy case, levy path `lp`). All NaN when the window is censored.
+    Horizon = years fill+1 .. fill+horizon, the years the relief R is paid in. Shares of GDP are ratios of sums (like relief_gdp), so
+    relief_gdp = wdt_gdp_h + levy_gdp_h + fund_inc_gdp_h - fund_ret_gdp_h holds exactly (R_t = S_{t-1}(1+r) + net_t - S_t).
+    """
+    nbd = len(cal['bands']['adult_share'])
+    res = {'wdt_gdp_h': np.nan, 'levy_gdp_h': np.nan, 'fund_inc_gdp_h': np.nan, 'fund_ret_gdp_h': np.nan}
+    res.update({f'revshare_h_band{i}': np.nan for i in range(nbd)})
+    res.update({f'stockrate_h_band{i}': np.nan for i in range(nbd)})
+    if fv['censored']:
+        return res
+    fy = fv['fill_year']
+    ih = fy + cfg['horizon']
+    sl = slice(fy, ih)
+    den = scale[sl].sum()
+    S = fv['S']
+    ss = cfg['safe_share']
+    rr = (1.0 - ss) * scn['r'] + ss * scn['safe'] if ss > 0.0 else scn['r']
+    S_prev = np.concatenate([[0.0], S[:-1]])
+    L = out['lvl']
+    net_b = np.bincount(cal['band_id'], weights=L['net_b'][sl].sum(axis=0), minlength=nbd)
+    wea_b = np.bincount(cal['band_id'], weights=L['wealth_b'][sl].sum(axis=0), minlength=nbd)
+    tot = net_b.sum()
+    res.update({'wdt_gdp_h': float((out['net'][sl] * scale[sl]).sum() / den),
+                'levy_gdp_h': float((lp[sl] * scale[sl]).sum() / den),
+                'fund_inc_gdp_h': float((S_prev[sl] * rr[sl]).sum() / den),
+                'fund_ret_gdp_h': float((S[ih - 1] - S[fy - 1]) / den)})
+    for i in range(nbd):
+        res[f'revshare_h_band{i}'] = float(net_b[i] / tot) if tot > 0 else np.nan
+        res[f'stockrate_h_band{i}'] = float(net_b[i] / wea_b[i]) if wea_b[i] > 0 else np.nan
+    return res
+
+
+def run_window(J, iso, win, mode, cfg, cal, p, flags=None, pre=None):
+    """One (country, loop window, index mode) -> one flat result row (dict). `win` is a wdt_jst loop window."""
+    rp = p['rates']
+    start = win['start']
+    d = None
+    if pre is not None:                      # PAR: per-sweep constants and the cached country panel (same values, computed once)
+        d, fl_ = _panel_fl(pre, J, iso, rp)
+        flags = fl_ if flags is None else flags
+    scn = build_scenario(J, iso, win['years'], cfg['basis'], mode, cfg['c'], d=d)
+    c_used = cfg['c']
+    if cfg['c_mode'] == 'stationary':
+        # c making (1+r)(1-c) = 1+g on the window's geometric means: an untaxed holder's
+        # wealth/GDP ends where it began.
+        rg = float(np.prod(1.0 + scn['r']) ** (1.0 / cfg['T']) - 1.0)
+        gg = float(np.prod(1.0 + scn['gpc']) ** (1.0 / cfg['T']) - 1.0)
+        lo_c, hi_c = cfg['c_bounds']
+        c_used = float(np.clip(1.0 - (1.0 + gg) / (1.0 + rg), lo_c, hi_c))
+        scn = build_scenario(J, iso, win['years'], cfg['basis'], mode, c_used, d=d)
+    c_cell = None
+    c_rest = np.nan
+    c_rest_clipped = False
+    if cfg['payout_top'] is not None:
+        share = cal['share']
+        wsh = share * cal['V0']
+        wsh = wsh / wsh.sum()
+        top = np.cumsum(share[::-1])[::-1] <= cfg['payout_top_frac'] * (1 + 1e-6)
+        Wt = wsh[top].sum()
+        c_rest = ((c_used - cfg['payout_top'] * Wt) / (1.0 - Wt)) if cfg['payout_constrained'] else c_used
+        if c_rest < 0.0:
+            if cfg['c_mode'] == 'fixed':
+                raise ValueError(
+                    f"payout_top={cfg['payout_top']} with c={c_used} gives NEGATIVE consumption "
+                    f"({c_rest:.4f}) for the other cells: infeasible. Lower payout_top or raise c.")
+            c_rest, c_rest_clipped = 0.0, True
+        c_cell = np.where(top, cfg['payout_top'], c_rest)
+    out = run_cohorts(scn, cal, tiers=cal.get('cohort_tiers', cfg['tiers']), n_phase=cfg['n_phase'],
+                      G=cfg['G'], heir_rule=cfg['heir_rule'], c_cell=c_cell,
+                      cell_diff=cal.get('cell_diff'), c_cap=(pre['c_cap'] if pre is not None else wc.resolve_rule(p, cfg['rule_set'])['c_cap']),
+                      plan_cell=_plan_ver(cfg, cal, p)[0], ver=_plan_ver(cfg, cal, p)[1])
+    er = effective_rates(out, cal)
+    zuc = zucman_check(out, cal, cfg['zucman_floor'], cfg['zucman_threshold_gbp_m'])
+    # where the revenue comes from: share of window-total net receipts by launch-wealth band
+    net_band = np.bincount(cal['band_id'], weights=out['lvl']['net_b'].sum(axis=0),
+                           minlength=len(cal['bands']['adult_share']))
+    tot_net = net_band.sum()
+    bands = {f'revshare_band{i}': (float(v / tot_net) if tot_net > 0 else np.nan)
+             for i, v in enumerate(net_band)}
+    scale = scn['yy'] * cal['pop_per_adult']
+
+    # concentration diagnostics: the top's share of the tax base at launch and at window end
+    _cum_top = np.cumsum(cal['share'][::-1])[::-1]
+    _w0 = cal['share'] * cal['V0']
+    _w0 = _w0 / _w0.sum()
+    _lv = out['lvl']['wealth_b']
+    conc = {}
+    for q_ in cfg['diag_tops']:
+        m_ = _cum_top <= q_ * (1 + 1e-6)
+        k_ = f'top{100 * q_:g}'
+        conc[f'{k_}_share_launch'] = float(_w0[m_].sum())
+        conc[f'{k_}_share_end'] = float(_lv[-1, m_].sum() / _lv[-1].sum())
+        conc[f'{k_}_wgdp_launch'] = float(_w0[m_].sum() * cal['wealth_to_gdp'])
+        conc[f'{k_}_wgdp_end'] = float(_lv[-1, m_].sum() / scale[-1])
+
+    # CORP levy (see the module docstring): three cases per window. The unsuffixed columns follow cfg['levy_basis'];
+    # every case also gets <col>__<case> columns so tables can show with / without levy and the real-basis variant.
+    levy_by = {b_: levy_path(cfg['levy'], scn, b_) for b_ in LEVY_CASES}
+    levy_gdp = levy_by[cfg['levy_basis']]
+    E_l = scn['exp_gdp'] * scale
+    refund_l = out['refund'] * scale
+
+    def _fund(lp):
+        return run_fund((out['net'] + lp) * scale, E_l, scn['r'], refund=refund_l, safe=scn['safe'],
+                        ms=cfg['ms'], ml=cfg['ml'], a_window=cfg['a_window'],
+                        safe_share=cfg['safe_share'], horizon=cfg['horizon'])
+
+    f = _fund(levy_gdp)
+    fy = f['fill_year']
+    extra = _expenditure_extras(cfg, cal, scn, scale, f, fy, p) if cfg['exp_paths'] else {}
+    relief_gdp, cov_ref, fund = _fund_metrics(f, scale, scn, cal, cfg)
+
+    var = {}
+    for b_, lp in levy_by.items():
+        fv = f if lp is levy_gdp else _fund(lp)
+        rg, cr, _ = _fund_metrics(fv, scale, scn, cal, cfg)
+        var.update({f'{k_}__{b_}': v_ for k_, v_ in _horizon_cols(fv, lp, out, scale, scn, cal, cfg).items()})
+        var.update({f'censored__{b_}': fv['censored'], f'fill_year__{b_}': fv['fill_year'],
+                    f'relief_gdp__{b_}': rg, f'cov_ref__{b_}': cr,
+                    f'cov_ref_uncond__{b_}': 0.0 if fv['censored'] else cr,
+                    f'fail__{b_}': fv['fail_in_window'],
+                    f'net_gdp_mean__{b_}': float((out['net'] + lp).mean()),
+                    f'levy_gdp_mean__{b_}': float(lp.mean())})
+
+    flagged = False
+    if flags is not None:
+        flagged = bool(any(flags.get(y, False) for y in win['years']))
+    net_gdp_mean = float((out['net'] + levy_gdp).mean())     # includes the CORP levy
+    wealth_gdp_end = float(out['wealth_gdp'][-1])
+    replaced = cal['replaced_ref']
+    # window regime for the representativeness slices (T23): geometric-mean REAL GDP/head growth, mean CPI inflation
+    gpc_r = scn['gpc'] if cfg['basis'] == 'real' else (1.0 + scn['gpc']) / (1.0 + scn['infl']) - 1.0
+    gpc_real_gm = float(np.prod(1.0 + gpc_r) ** (1.0 / cfg['T']) - 1.0)
+    # T100 patch: Route B by launch-wealth band. recv = mean annual receipts (tax, refunds, heir, lien settled; income cash counted),
+    # lien_out = receivable outstanding at the window end (NOT in the fund), wealth = family wealth at the window end. Shares of GDP.
+    nbd_ = len(cal['bands']['adult_share'])
+    rbands = {}
+    for i_, v_ in enumerate(np.bincount(cal['band_id'], weights=out['by_bracket'].mean(axis=0), minlength=nbd_)):
+        rbands[f'recv_gdp_mean_band{i_}'] = float(v_)
+    for i_, v_ in enumerate(np.bincount(cal['band_id'], weights=out['lien_out_b'][-1], minlength=nbd_)):
+        rbands[f'lien_out_gdp_end_band{i_}'] = float(v_)
+    for i_, v_ in enumerate(np.bincount(cal['band_id'], weights=out['lvl']['wealth_b'][-1] / scale[-1], minlength=nbd_)):
+        rbands[f'wealth_gdp_end_band{i_}'] = float(v_)
+    # S2: Route D settled / accrued, external income paid (Route B income mode; INCLUDED in tax_gdp_mean and net, shown separately), shares of GDP.
+    # accr_d_out is a receivable (NOT in the fund, like lien_out). Cumulative = sum over the window's years.
+    rextra = {'dsettle_gdp_mean': float(out['dsettle'].mean()), 'accr_d_gdp_end': float(out['accr_d_out'][-1]),
+              'accr_d_gdp_max': float(out['accr_d_out'].max()),
+              'income_gdp_mean': float(out['income_gdp'].mean()), 'income_cum_gdp': float(out['income_gdp'].sum())}
+    for i_, v_ in enumerate(np.bincount(cal['band_id'], weights=out['income_b_gdp'].sum(axis=0), minlength=nbd_)):
+        rextra[f'income_cum_gdp_band{i_}'] = float(v_)
+    # W2-01: Route B income mode, share of the assessment met by SALE (the shortfall) = sold / (sold + gross income paid)
+    sold_ = np.bincount(cal['band_id'], weights=out['lvl']['b_sold_b'].sum(axis=0), minlength=nbd_)
+    paid_ = np.bincount(cal['band_id'], weights=out['lvl']['income_gross_b'].sum(axis=0), minlength=nbd_)
+    for i_ in range(nbd_):
+        den_ = sold_[i_] + paid_[i_]
+        rextra[f'income_short_share_band{i_}'] = float(sold_[i_] / den_) if den_ > 1e-15 else np.nan
+    return {
+        'iso': iso, 'start': start, 'mode': mode, 'era': _era(start, rp['eras']),
+        'wraps': win['wraps'], 'repeat': win['repeat'], 'contiguous': win['contiguous'],
+        'fill_year': fy, 'srr_fill_year': f['srr_fill_year'], 'censored': f['censored'],
+        'coverage': f['coverage'], 'cov_ref': cov_ref, 'relief_gdp': relief_gdp,
+        'cov_receipts': f['cov_receipts'],
+        'cov_ref_uncond': 0.0 if f['censored'] else cov_ref,
+        'fail': f['fail_in_window'], 'unmet_year': f['unmet_year'],
+        'ring_year': f['ring_year'], 'insolvent_year': f['insolvent_year'],
+        'min_buffer': f['min_buffer'], 'srr_need_mult': f.get('srr_need_mult'),
+        'net_gdp_mean': net_gdp_mean,
+        'tax_gdp_mean': float(out['tax'].mean()),
+        'refund_gdp_mean': float(out['refund'].mean()),
+        'lien_gdp_mean': float(out['lien'].mean()), 'lien_out_gdp_end': float(out['lien_out'][-1]),
+        'lien_out_gdp_max': float(out['lien_out'].max()),
+        'lien_out_gdp_at_fill': (float(out['lien_out'][fy - 1]) if fy else np.nan),
+        'fund_gdp_end': float(f['S'][-1] / scale[-1]),
+        'fund_plus_recv_gdp_end': float(f['S'][-1] / scale[-1] + out['lien_out'][-1]),
+        'heir_gdp_mean': float(out['heir'].mean()),
+        'levy_gdp_mean': float(levy_gdp.mean()),
+        'wdt_gdp_mean': float(out['net'].mean()),               # individual WDT alone (no levy)
+        'net_gdp_at_fill': float(out['net'][fy - 1]) if fy else np.nan,
+        'paying_at_fill': float(out['share_paying'][fy - 1]) if fy else np.nan,
+        'wealth_gdp_end': wealth_gdp_end,
+        'wealth_gdp_mean': float(out['wealth_gdp'].mean()),
+        'drift': wealth_gdp_end / cal['wealth_to_gdp'],
+        'r_mean': float(scn['r'].mean()), 'exp_gdp_mean': float(scn['exp_gdp'].mean()),
+        'gpc_real_gm': gpc_real_gm, 'infl_mean': float(scn['infl'].mean()),
+        'min_r': float(scn['r'].min()), 'flagged': flagged,
+        'base_multiple_needed': (replaced / net_gdp_mean) if net_gdp_mean > 0 else np.nan,
+        'nonwdt_req_net_gdp': cal['exp_ref'] - net_gdp_mean,
+        'nonwdt_req_relief_gdp': (cal['exp_ref'] - relief_gdp) if np.isfinite(relief_gdp) else np.nan,
+        'nonwdt_req_net_rev': (cal['exp_ref'] - net_gdp_mean) / cal['rev_ref'],
+        'nonwdt_req_relief_rev': ((cal['exp_ref'] - relief_gdp) / cal['rev_ref']
+                                  if np.isfinite(relief_gdp) else np.nan),
+        'wdt_share_of_spend': net_gdp_mean / cal['exp_ref'],
+        'c_used': c_used, 'c_rest': c_rest, 'c_rest_clipped': c_rest_clipped,
+        **conc, **fund, **zuc, **bands, **rbands, **var, **_decade_cols(f, scale, scn, cfg),
+        **_horizon_cols(f, levy_gdp, out, scale, scn, cal, cfg),
+        **{f'er_{k}': v for k, v in er.items()},
+        **extra, **rextra,
+    }
+
+
+# ── PAR: per-sweep constants, worker side, and the sweep itself ──────────────────────────────────────────────────────────────────────
+# run_window used to recompute, for EVERY window, things that depend only on the scenario (the rule set; _route_plan and _verification
+# are already cached in cal by _plan_ver) or on the country (panel, flag_years). _sweep_ctx holds the first, pre['panels'] the second. The values are the
+# same objects the old code rebuilt each time, so the rows are bit-identical. Workers do the same on their side (_w_run).
+
+def _sweep_ctx(cfg, cal, p):
+    """Constants of one sweep, for run_window(pre=...): the Route C refund cap and the panel cache. Also primes the route plan / verification cache in cal."""
+    _plan_ver(cfg, cal, p)             # primes cal['_plan_ver'] (route plan cell + verification); it travels to the workers inside cal
+    return {'c_cap': wc.resolve_rule(p, cfg['rule_set'])['c_cap'], 'panels': {}}
+
+
+def _panel_fl(pre, J, iso, rp):
+    """(panel, suspect-year flags) of one country, built once per sweep (per worker process in a pool)."""
+    pn = pre['panels']
+    if iso not in pn:
+        d = panel(J, iso)
+        pn[iso] = (d, flag_years(d, rp['flags'])['any'])
+    return pn[iso]
+
+
+def _pool_tag(J, p):
+    """Identity of the inputs a pool was started with (J and p are sent to the workers once, at start-up)."""
+    return (id(J), hashlib.md5(json.dumps(wc.json_safe(p), sort_keys=True).encode()).hexdigest())
+
+
+_W = {}                               # worker-process state: J, p, the panel cache, and the current sweep's constants
+_SWEEP_SEQ = itertools.count(1)       # parent side: a token per sweep, so a worker rebuilds _sweep_ctx once per sweep, not per chunk
+
+
+def _w_init(J, p):
+    """Pool initializer: runs once in each worker."""
+    _W.clear()
+    _W.update(J=J, p=p, panels={}, tok=None, pre=None)
+
+
+def _w_run(task):
+    """One chunk of jobs [(iso, window, mode), ...] -> list of rows, in order. ctx = (sweep token, cfg, cal)."""
+    (tok, cfg, cal), jobs = task
+    if _W['tok'] != tok:
+        pre = _sweep_ctx(cfg, cal, _W['p'])
+        pre['panels'] = _W['panels']
+        _W['tok'], _W['pre'] = tok, pre
+    J, p, pre = _W['J'], _W['p'], _W['pre']
+    return [run_window(J, iso, w, mode, cfg, cal, p, pre=pre) for iso, w, mode in jobs]
+
+
+def sweep(J, cfg, p, cal=None, pool=None):
+    """
+    Run every valid (country, start year, index mode) window. Returns (DataFrame, cal).
+    pool: a started wdt_par.WorkerPool built with initargs (J, p) -> the windows run in worker processes (rows in the original
+    order, numbers identical); None, or a pool with workers == 1 -> the serial path in this process.
+    """
+    rp = p['rates']
+    cal = calibration(J, cfg, p) if cal is None else cal
+    isos = cfg['countries'] or countries(J)
+    cols = (MODEL_COLS + (['eq_capgain', 'gdpg'] if cfg['levy'] else [])
+            + ([('hpg_real' if cfg['basis'] == 'real' else 'hpg')] if 'house' in cfg['index_modes'] else []))
+    pre = _sweep_ctx(cfg, cal, p)
+    jobs = []
+    for iso in isos:
+        d, fl = _panel_fl(pre, J, iso, rp)
+        wins = loop_windows(usable_years(d, cols), cfg['T'], wrap=True)     # D1b; `contiguous` marks the second report
+        if cfg['exclude_flagged']:
+            wins = [w for w in wins if not any(fl.get(y, False) for y in w['years'])]
+        for w in wins[::cfg['start_stride']]:
+            for mode in cfg['index_modes']:
+                jobs.append((iso, w, mode))
+    if pool is not None and pool.parallel and len(jobs) > 1:
+        if pool.tag != _pool_tag(J, p):
+            raise ValueError('sweep: the worker pool was started with a different J / p than this sweep uses; '
+                             'start a pool per (J, p): WorkerPool(..., initializer=_w_init, initargs=(J, p), tag=_pool_tag(J, p))')
+        rows = pool.map_chunks(_w_run, jobs, (next(_SWEEP_SEQ), cfg, cal))
+    else:
+        rows = [run_window(J, iso, w, mode, cfg, cal, p, pre=pre) for iso, w, mode in jobs]
+    return pd.DataFrame(rows), cal
+
+
+# ── summaries ────────────────────────────────────────────────────────────────
+
+def _qkey(q):
+    return f'p{int(round(q * 100))}'
+
+
+def dist_stats(x, quantiles):
+    """{'n', 'mean', 'p10', 'p50', 'p90'} of a series, ignoring NaN."""
+    x = pd.Series(x, dtype=float).dropna()
+    out = {'n': int(len(x)), 'mean': float(x.mean()) if len(x) else None}
+    for q in quantiles:
+        out[_qkey(q)] = float(np.quantile(x, q)) if len(x) else None
+    return out
+
+
+def _group_block(g, quantiles, band):
+    """Headline numbers for one group of windows (one mode, one slice)."""
+    ok = g[~g['censored']]
+    stable = ok[ok['drift'].between(band[0], band[1])]
+    fail = ok['fail'].astype(float)
+    return {
+        'windows': int(len(g)), 'uncensored': int(len(ok)),
+        'censored_share': float(g['censored'].mean()) if len(g) else None,
+        'fail_share': float(fail.mean()) if len(ok) else None,
+        'relief_gdp': dist_stats(ok['relief_gdp'], quantiles),
+        'net_gdp_mean': dist_stats(g['net_gdp_mean'], quantiles),
+        'coverage': dist_stats(ok['coverage'], quantiles),
+        'cov_ref': dist_stats(ok['cov_ref'], quantiles),
+        'cov_ref_uncond': dist_stats(g['cov_ref_uncond'], quantiles),
+        'fill_year': dist_stats(ok['fill_year'], quantiles),
+        'drift': dist_stats(g['drift'], quantiles),
+        'base_multiple_needed': dist_stats(g['base_multiple_needed'], quantiles),
+        'nonwdt_req_net_rev': dist_stats(g['nonwdt_req_net_rev'], quantiles),
+        'nonwdt_req_relief_rev': dist_stats(ok['nonwdt_req_relief_rev'], quantiles),
+        'exp_gdp_mean': float(g['exp_gdp_mean'].mean()) if len(g) else None,
+        'rel_cov_never_share': (float(ok['rel_cov_year'].isna().mean())
+                                if len(ok) and 'rel_cov_year' in ok else None),
+        'stable': {'windows': int(len(stable)),
+                   'relief_gdp_median': (float(stable['relief_gdp'].median())
+                                         if len(stable) else None)},
+    }
+
+
+def _mode_block(g, qs, band):
+    """{'overall', 'by_country', 'by_era'} for the windows of one index mode."""
+    ok = g[~g['censored']]
+    overall = _group_block(g, qs, band)
+    num = ok.select_dtypes(include=[np.number, 'bool']).astype(float)
+    overall['medians'] = {c: (None if np.isnan(v) else float(v)) for c, v in num.median().items()}
+    num_all = g.select_dtypes(include=[np.number, 'bool']).astype(float)
+    overall['medians_all'] = {c: (None if np.isnan(v) else float(v)) for c, v in num_all.median().items()}
+    for q_, key_ in ((0.10, 'p10'), (0.90, 'p90')):
+        overall[key_] = {c: (None if np.isnan(v) else float(v)) for c, v in num.quantile(q_).items()}
+    if 'rel_cov_year' in g:                  # W2-01: a SHARE of windows (not a median), kept beside the medians the tables read
+        overall['medians']['rel_cov_never_share'] = overall['rel_cov_never_share']
+        overall['medians_all']['rel_cov_never_share'] = (float(g['rel_cov_year'].isna().mean()) if len(g) else None)
+    for col in ('relief_gdp', 'cov_ref', 'coverage'):
+        cm = ok.groupby('iso')[col].median()
+        overall[f'country_median_{col}'] = float(cm.median()) if len(cm) else None
+    return {
+        'overall': overall,
+        'by_country': {iso: _group_block(x, qs, band) for iso, x in g.groupby('iso')},
+        'by_era': {era: _group_block(x, qs, band) for era, x in g.groupby('era')},
+    }
+
+
+def _variant_view(g, case):
+    """Copy of the windows with the fund-dependent columns of one levy case in place of the headline ones."""
+    h = g.copy()
+    sfx = f'__{case}'
+    for c in g.columns:                      # every <col>__<case> column replaces <col> (VARIANT_COLS and the horizon columns)
+        if c.endswith(sfx):
+            h[c[:-len(sfx)]] = g[c]
+    h['censored'] = h['censored'].astype(bool)
+    return h
+
+
+def _variant_block(h, qs, band):
+    """Trimmed overall + by_country for one levy case (see VARIANT_KEEP); overall also carries the medians the tables read."""
+    ok = h[~h['censored']]
+    ov = _group_block(h, qs, band)
+    overall = {k: ov[k] for k in VARIANT_KEEP}
+    med_cols = list(VARIANT_MED) + [c for c in h.columns if c.startswith(HORIZON_PREFIX) and '__' not in c]
+    overall['medians'] = {c: (None if ok[c].dropna().empty else float(ok[c].astype(float).median())) for c in med_cols}
+    overall['medians_all'] = {c: (None if h[c].dropna().empty else float(h[c].astype(float).median())) for c in med_cols}
+    by_country = {}
+    for iso, x in h.groupby('iso'):
+        b = _group_block(x, qs, band)
+        by_country[iso] = {k: b[k] for k in VARIANT_KEEP}
+    return {'overall': overall, 'by_country': by_country}
+
+
+def _slice_masks(df, rr, eras):
+    """
+    Boolean masks of the window slices T23 / F23 compare (stable keys; wdt_fmt.slice_label turns them into text):
+      all | country:<ISO> for each focus country | low_growth, not_low_growth (geometric-mean REAL GDP/head growth below / at or above
+      low_growth_max) | low_inflation (mean CPI inflation below low_infl_max) | today_like (low growth AND low inflation)
+      | era:<name> for each era of [rates.eras].
+    """
+    low_g = df['gpc_real_gm'] < rr['low_growth_max']
+    low_i = df['infl_mean'] < rr['low_infl_max']
+    masks = {'all': pd.Series(True, index=df.index)}
+    for iso in rr['focus_countries']:
+        masks[f'country:{iso}'] = df['iso'] == iso
+    masks['low_growth'] = low_g
+    masks['not_low_growth'] = ~low_g
+    masks['low_inflation'] = low_i
+    masks['today_like'] = low_g & low_i
+    for name, _, _ in eras:
+        masks[f'era:{name}'] = df['era'] == name
+    return masks
+
+
+def _slice_case_block(h, qs, band):
+    """Trimmed headline numbers of one slice under one levy case (h is a _variant_view)."""
+    ov = _group_block(h, qs, band)
+    out = {k: ov[k] for k in ('windows', 'uncensored', 'censored_share', 'fail_share', 'relief_gdp', 'cov_ref',
+                              'net_gdp_mean', 'drift')}
+    out['gpc_real_gm'] = dist_stats(h['gpc_real_gm'], qs)
+    out['infl_mean'] = dist_stats(h['infl_mean'], qs)
+    return out
+
+
+def slice_blocks(g, p, qs, band):
+    """{slice key: {levy case: block}} for the windows g of one index mode; None for a slice with no windows."""
+    rp = p['rates']
+    out = {}
+    for key, m in _slice_masks(g, rp['representativeness'], rp['eras']).items():
+        x = g[m]
+        out[key] = ({c: _slice_case_block(_variant_view(x, c), qs, band) for c in LEVY_CASES} if len(x) else None)
+    return out
+
+
+def block_bootstrap(h, p):
+    """
+    Bootstrap of the MEDIAN of relief_gdp, cov_ref (uncensored windows) and net_gdp_mean, drift (all windows) for one levy case
+    (h is a _variant_view). Three resampling schemes:
+      iid             windows drawn one by one (what a naive count of windows implies)
+      country_period  blocks = (country, start year // block_years): keeps a country's own autocorrelation
+      period          blocks = start year // block_years across ALL countries: also keeps global shocks (1970s, 2008)
+    Per metric: n, median and, per scheme, the [lo, hi] interval from [rates.representativeness].boot_ci, se, number of blocks,
+    deff = var(block draws) / var(iid draws), n_eff = n / max(deff, 1).
+    """
+    rr = p['rates']['representativeness']
+    rng = np.random.default_rng(rr['boot_seed'])
+    n_boot, B = rr['n_boot'], rr['block_years']
+    lo_q, hi_q = rr['boot_ci']
+    ok = h[~h['censored']]
+    out = {'block_years': B, 'n_boot': n_boot, 'ci': [lo_q, hi_q]}
+    for metric, d in (('relief_gdp', ok), ('cov_ref', ok), ('net_gdp_mean', h), ('drift', h)):
+        d = d[d[metric].notna()]
+        n = len(d)
+        if n < 2:
+            out[metric] = None
+            continue
+        vals = d[metric].to_numpy(float)
+        period = (d['start'] // B).astype(int)
+        schemes = {'country_period': (d['iso'] + '|' + period.astype(str)).to_numpy(), 'period': period.to_numpy()}
+        iid = np.median(rng.choice(vals, size=(n_boot, n)), axis=1)
+        res = {'n': int(n), 'median': float(np.median(vals)),
+               'iid': {'lo': float(np.quantile(iid, lo_q)), 'hi': float(np.quantile(iid, hi_q)), 'se': float(iid.std())}}
+        for scheme, lab in schemes.items():
+            blocks = [vals[lab == u] for u in np.unique(lab)]
+            nb = len(blocks)
+            draws = np.empty(n_boot)
+            for i in range(n_boot):
+                pick = rng.integers(0, nb, nb)
+                draws[i] = np.median(np.concatenate([blocks[j] for j in pick]))
+            deff = float(draws.var() / iid.var()) if nb > 1 and iid.var() > 0 else None
+            res[scheme] = {'blocks': int(nb), 'lo': float(np.quantile(draws, lo_q)), 'hi': float(np.quantile(draws, hi_q)),
+                           'se': float(draws.std()), 'deff': deff,
+                           'n_eff': (float(n / max(deff, 1.0)) if deff is not None else None)}
+        out[metric] = res
+    return out
+
+
+def headline(df, p, boot=False):
+    """
+    {mode: {'overall': ..., 'by_country': {iso: ...}, 'by_era': {era: ...}, 'levy_variants': {case: {'overall', 'by_country'}}}}.
+    overall.medians holds the median of EVERY numeric column over uncensored windows and
+    overall.medians_all the same over ALL windows (see the module docstring for which to read), so any
+    figure can use any column without a core change. overall.country_median_* weights
+    countries equally. levy_variants re-states the fund-dependent numbers for the levy on the nominal base, on the real base, and off.
+    """
+    qs = p['rates']['run']['quantiles']
+    band = p['rates']['run']['drift_band']
+    out = {}
+    for mode, g in df.groupby('mode'):
+        out[mode] = _mode_block(g, qs, band)
+        out[mode]['levy_variants'] = {c: _variant_block(_variant_view(g, c), qs, band) for c in LEVY_CASES}
+        out[mode]['slices'] = slice_blocks(g, p, qs, band)
+        if boot:
+            for c in LEVY_CASES:
+                out[mode]['levy_variants'][c]['bootstrap'] = block_bootstrap(_variant_view(g, c), p)
+    return out
+
+
+def window_table(df, digits):
+    """DataFrame -> {'columns', 'rows'} with floats kept to `digits` significant digits."""
+    d = df.astype(object).where(df.notna(), None)
+    return {'columns': list(d.columns),
+            'rows': [[wc.json_safe(v, digits) for v in r] for r in d.itertuples(index=False)]}
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# L6  OUTPUT — scenarios -> JSON
+# ═════════════════════════════════════════════════════════════════════════════
+
+def _rate_curve(cfg, cal, W_grid):
+    """tau at W (£m) under the scenario's schedule (evaluated in engine units, as the engine does)."""
+    x = np.asarray(W_grid, float) / cal['y_ref_gbp_m']
+    tau_ = wc.rate_vec(x, dict(cal['rate']))
+    return {'W_gbp_m': list(W_grid), 'tau': [float(t) for t in tau_]}
+
+
+def effective_windows(df, T):
+    """
+    Effective-window table (plan 5.6): per mode and country, how many windows there are and how many survive the contiguous-only
+    check. total = every usable start year (the loop); contiguous = no seam crossed, no calendar gap; wraps = cross the seam;
+    repeat = T longer than the usable series, so a year appears twice (kept, flagged). Independent windows are far fewer: see
+    headline.<mode>.levy_variants.<case>.bootstrap n_eff.
+    """
+    def cnt(g):
+        return {'total': int(len(g)), 'contiguous': int(g['contiguous'].astype(bool).sum()),
+                'wraps': int(g['wraps'].astype(bool).sum()), 'repeat': int(g['repeat'].astype(bool).sum())}
+    out = {'T': int(T), 'by_mode': {}}
+    for mode, g in df.groupby('mode'):
+        tot = cnt(g)
+        tot['repeat_share'] = (tot['repeat'] / tot['total']) if tot['total'] else None
+        out['by_mode'][mode] = {'overall': tot, 'by_country': {iso: cnt(x) for iso, x in g.groupby('iso')}}
+    return out
+
+
+def run_scenario(J, p, name, stride=None, countries_=None, verbose=True, pool=None):
+    """Run one named scenario. Returns its JSON block."""
+    sc = p['rates']['scenarios'][name]
+    ov = dict(sc['overrides'])
+    if stride is not None:
+        ov['start_stride'] = stride
+    if countries_ is not None:
+        ov['countries'] = countries_
+    cfg = make_cfg(p, **ov)
+    levy_cal = None
+    if cfg['levy'] and cfg['levy_calibrate']:
+        cfg['levy'], levy_cal = calibrate_levy(J, cfg, p)       # entry rate solved so the levy replaces the retired tax
+    t0 = time.time()
+    df, cal = sweep(J, cfg, p, pool=pool)
+    run = p['rates']['run']
+    block = {
+        'label': sc['label'], 'cfg': cfg,
+        'calibration': {
+            'dist': cal['dist'], 'wealth_to_gdp': cal['wealth_to_gdp'],
+            'mean_wealth_y': cal['mean_wealth_y'], 'wmin_gbp_m': cal['wmin_gbp_m'],
+            'exp_ref': cal['exp_ref'], 'top_shares': cal['top_shares'],
+            'repaired_cells': cal['repaired_cells'],
+            'rate_curve': _rate_curve(cfg, cal, run['rate_curve_W']),
+            'scope': cal['scope'], 'bands': cal['bands'],
+            'schedule': cfg['schedule'], 'schedule_diag': cal['schedule_diag'],
+            'anchor_fit': cal['anchor_fit'],
+            'levy_cal': levy_cal,
+            'rev_ref': cal['rev_ref'], 'replaced_ref': cal['replaced_ref'],
+            **({'cohort': cal['cohort_diag']} if 'cohort_diag' in cal else {}),
+        },
+        'headline': headline(df, p, boot=name in p['rates']['representativeness']['bootstrap_scenarios']),
+        'headline_contiguous': headline(df[df['contiguous'].astype(bool)], p, boot=name in p['rates']['representativeness']['bootstrap_scenarios']),
+        'n_rows': int(len(df)),
+        'effective_windows': effective_windows(df, cfg['T']),
+        'verification': p.get('verification'),
+        'route_b': {'mode': cfg.get('route_b_mode') or (p.get('route_b') or {}).get('payment_mode', 'sale'),
+                    'deferral_spread': cfg.get('deferral_spread'), 'income_cap': cfg.get('income_cap')},
+        'routes': _route_plan(cfg, cal, p)['diag'],                      # S2: A/B/C/D shares by launch-wealth band, mix, Route B mode
+        'verification_applied': _verification_block(cfg, p),             # S2: lambda pass-through
+    }
+    if sc['store_windows']:
+        block['windows'] = window_table(df, run['float_digits'])
+    if verbose:
+        print(f'  {name:28s} {len(df):6d} rows  {time.time() - t0:5.1f}s', flush=True)
+    return block
+
+
+def build_meta(p, names, stride, elapsed, closure_value=None, rev_value=None):
+    rp = p['rates']
+    h = hashlib.md5(json.dumps(wc.json_safe(rp), sort_keys=True).encode()).hexdigest()[:12]
+    return {'code': CODE, 'generated': today_iso(), 'model_version': p['meta'].get('version'),
+            'scenario_label': p['meta'].get('scenario_label'),
+            'params_hash': h, 'jst_path': rp['jst_path'], 'scenarios_run': list(names),
+            'stride_override': stride, 'elapsed_s': round(elapsed, 1),
+            'closure_replaced_tax_gdp': closure_value, 'rev_ref_gdp': rev_value,
+            'drift_band': rp['run']['drift_band'], 'quantiles': rp['run']['quantiles']}
+
+
+def figure_scenarios(p):
+    """Scenarios the tables and figures read ([rates.figures]); --quick always runs them."""
+    fg = p['rates']['figures']
+    names = [fg['scenario']]
+    for key in ('decomposition', 'rate_grid', 'schedules', 'cohorts', 'scope', 'stack', 'headline', 'consumption', 'levy'):
+        names += fg[key]
+    names += fg.get('route_b', [])                                                    # W2-01: T22b / T30 inputs
+    names += [n for n in p['rates']['run']['scenarios'] if n.startswith('gl_arch_')]    # W2-01: archetype sweep (T27, F27)
+    names += p['rates']['representativeness']['bootstrap_scenarios']
+    return list(dict.fromkeys(names))
+
+
+def validate(data):
+    """Cheap invariants on the finished JSON; raises AssertionError on failure."""
+    for name, sc in data['scenarios'].items():
+        for mode, h in sc['headline'].items():
+            ov = h['overall']
+            assert ov['windows'] >= ov['uncensored'], f'{name}/{mode}: uncensored > windows'
+            assert sum(b['windows'] for b in h['by_country'].values()) == ov['windows'], \
+                f'{name}/{mode}: country windows do not sum'
+            assert sum(b['windows'] for b in h['by_era'].values()) == ov['windows'], \
+                f'{name}/{mode}: era windows do not sum'
+            for case, v in h.get('levy_variants', {}).items():
+                assert v['overall']['windows'] == ov['windows'], f'{name}/{mode}/{case}: variant windows differ'
+                assert sum(b['windows'] for b in v['by_country'].values()) == ov['windows'], \
+                    f'{name}/{mode}/{case}: variant country windows do not sum'
+        for mode, h in sc['headline'].items():
+            sl = h['slices']['all']
+            assert sl is not None and sl['nominal']['windows'] == h['overall']['windows'], \
+                f'{name}/{mode}: slice "all" windows differ'
+        if 'effective_windows' in sc:
+            for mode, ew in sc['effective_windows']['by_mode'].items():
+                assert ew['overall']['total'] == sc['headline'][mode]['overall']['windows'], f'{name}/{mode}: effective-window total differs'
+                assert ew['overall']['contiguous'] <= ew['overall']['total'], f'{name}/{mode}: contiguous > total'
+        if 'windows' in sc:
+            assert len(sc['windows']['rows']) == sc['n_rows'], f'{name}: row count mismatch'
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description='RATES core: run scenarios, write rates_data.json')
+    ap.add_argument('--scenario', nargs='*', default=None, help='scenario names (default: [rates.run].scenarios)')
+    ap.add_argument('--quick', action='store_true', help='run [rates.run].quick')
+    ap.add_argument('--stride', type=int, default=None, help='override start_stride (speed)')
+    ap.add_argument('--countries', nargs='*', default=None)
+    ap.add_argument('--fresh', action='store_true', help='discard the existing JSON first')
+    ap.add_argument('--toml', default=None, help='alternative parameter file')
+    ap.add_argument('--workers', type=int, default=None,
+                    help='worker processes for the window sweep (default: cores - 1; 1 = serial, no processes)')
+    a = ap.parse_args(argv)
+
+    p = wc.load_rates_params(a.toml)
+    run = p['rates']['run']
+    names = a.scenario if a.scenario else (
+        list(dict.fromkeys(run['quick'] + figure_scenarios(p))) if a.quick else run['scenarios'])
+    missing = [n for n in names if n not in p['rates']['scenarios']]
+    if missing:
+        raise SystemExit(f'undefined scenarios: {missing}')
+
+    t0 = time.time()
+    check_inputs(p)
+    J = load_jst(p['rates']['jst_path'])
+    print(f'RATES core: {len(names)} scenarios, stride {a.stride or "per config"}')
+    path = json_path()
+    data = {'scenarios': {}}
+    if path.exists() and not a.fresh:
+        data = wc.load_json(path)
+        data.setdefault('scenarios', {})
+    workers = wpar.resolve_workers(a.workers)
+    print(f'  window sweep: {workers} worker process(es)' if workers > 1 else '  window sweep: serial', flush=True)
+    with wpar.WorkerPool(workers, initializer=_w_init, initargs=(J, p), tag=_pool_tag(J, p)) as pool:
+        for n in names:
+            data['scenarios'][n] = run_scenario(J, p, n, a.stride, a.countries, pool=pool)
+    last = data['scenarios'][names[-1]]['calibration']
+    data['meta'] = build_meta(p, list(data['scenarios']), a.stride, time.time() - t0,
+                              closure_value=last['replaced_ref'], rev_value=last['rev_ref'])
+    validate(data)
+    ensure_dir(path.parent)
+    wc.save_json(data, path)
+    print(f'Written: {path}  ({path.stat().st_size / 1e6:.2f} MB, '
+          f'{len(data["scenarios"])} scenarios, {time.time() - t0:.0f}s)')
+    return data
+
+
+if __name__ == '__main__':
+    main()

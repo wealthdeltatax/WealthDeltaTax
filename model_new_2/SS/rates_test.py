@@ -1,0 +1,357 @@
+"""
+rates_test.py — all RATES tests, in one file. Nothing else imports this.
+=========================================================================
+Merges test_fund, test_dist, test_engine and check_series; adds JSON, parameter-file,
+pipeline and registry checks. Run from the model folder:
+
+    python rates_test.py                        self-contained checks
+    python rates_test.py --data                 + checks that need the real JST file
+    python rates_test.py --legacy-csv PATH      + one-off regression against the old
+                                                  sweep_out/baseline_windows.csv (stride 3)
+
+Side effects: none. It writes no files (the pipeline check builds a scenario block in
+memory and validates it).
+"""
+
+import argparse
+import importlib.util
+import math
+import sys
+from pathlib import Path
+
+import numpy as np
+
+HERE = Path(__file__).resolve().parent
+# wdt_* modules and WDT_Params.toml live in Model/, one level above this RATES folder
+sys.path.insert(0, str(HERE.parent))
+
+import wdt_core as wc
+import rates_core as rc
+RESULTS = []
+
+
+def check(name, ok, detail=''):
+    print(f"{'PASS' if ok else 'FAIL'}  {name}  {detail}")
+    RESULTS.append(bool(ok))
+    return ok
+
+
+def skip(name, why):
+    print(f'SKIP  {name}  ({why})')
+
+
+def section(title):
+    print(f'\n── {title} ' + '─' * max(0, 70 - len(title)))
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# parameters
+# ═════════════════════════════════════════════════════════════════════════════
+
+def test_params(p):
+    section('parameter file')
+    rp = p['rates']
+    d = rp['defaults']
+    check('[rates] parses; every run/quick/figure scenario is defined',
+          len(rp['scenarios']) > 0)
+    check('optional settings default to None when omitted',
+          all(d[k] is None for k in ('tiers', 'wmin_pct', 'payout_top', 'exp_paths', 'levy', 'countries')))
+    check('scenario overrides name only known config keys',
+          all(set(s['overrides']) <= set(d) for s in rp['scenarios'].values()))
+    bad = {'defaults': dict(rp['defaults']), 'scenarios': {'x': {'tau_00': 0.1}}}
+    try:
+        raw = {'jst_path': 'x', 'uk_iso': 'GBR', 'calibration_year': 2017, 'exp_ref_year': 2019,
+               'defaults': {k: v for k, v in d.items() if v is not None}, 'flags': rp['flags'],
+               'eras': [{'name': 'a', 'lo': 0, 'hi': 1}], 'dist': rp['dist'],
+               'extras': {'windows': [], 'trailing_window': 5},
+               'run': {'scenarios': [], 'quick': []}, 'closure': {}, 'solve': {'scenario': 'x'},
+               'figures': {'decomposition': [], 'rate_grid': [], 'scenario': 'x'},
+               'scenarios': {'x': {'tau_00': 0.1}}}
+        wc._parse_rates(raw)
+        check('a misspelt scenario key raises', False)
+    except ValueError:
+        check('a misspelt scenario key raises', True)
+    cfg = rc.make_cfg(p, tau_0=0.2)
+    check('make_cfg applies overrides and rejects unknown keys',
+          cfg['tau_0'] == 0.2 and cfg['tau_m'] == d['tau_m'])
+    try:
+        rc.make_cfg(p, nonsense=1)
+        check('make_cfg rejects unknown keys', False)
+    except ValueError:
+        check('make_cfg rejects unknown keys', True)
+    check('tau_vec agrees with wdt_core.tau',
+          max(abs(float(wc.tau_vec(np.array([w]), 0.3, 0.9, 0.005, 2.0)[0])
+                  - wc.tau(w, {'W_min': 2.0, 'tau_0': 0.3, 'tau_m': 0.9, 'k': 0.005}))
+              for w in (0.0, 1.9, 2.0, 5.0, 100.0, 1000.0)) < 1e-12)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# JSON
+# ═════════════════════════════════════════════════════════════════════════════
+
+def test_json(tmp):
+    section('JSON I/O')
+    obj = {'a': np.float64('nan'), 'b': np.array([1.5, np.inf]), 'c': {1: (1, 2)},
+           'tbl': {'columns': ['x', 'y'], 'rows': [[1, 2.123456789012], [3, None]]}, 'd': np.int64(7)}
+    path = Path(tmp) / 'rt.json'
+    wc.save_json(obj, path, digits=6)
+    back = wc.load_json(path)
+    check('nan/inf -> null, numpy -> python, keys -> str',
+          back['a'] is None and back['b'] == [1.5, None] and back['c'] == {'1': [1, 2]} and back['d'] == 7)
+    check('significant digits are kept', back['tbl']['rows'][0][1] == 2.12346)
+    df = wc.table_to_frame(back['tbl'])
+    check('table_to_frame round trip', list(df.columns) == ['x', 'y'] and len(df) == 2)
+    path.unlink()
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# fund layer (was test_fund.py)
+# ═════════════════════════════════════════════════════════════════════════════
+
+def test_fund():
+    section('fund layer')
+    T, N, E = 40, 1.0, 10.0
+    o = rc.run_fund(np.full(T, N), np.full(T, E), np.zeros(T), ms=3, ml=3, horizon=10)
+    check('analytic: SRR fill = ms, LRR fill = ms+ml', o['srr_fill_year'] == 3 and o['fill_year'] == 6,
+          f"srr {o['srr_fill_year']} lrr {o['fill_year']}")
+    check('analytic: relief = income after fill, coverage = N/E',
+          abs(o['coverage'] - N / E) < 1e-12 and not o['fail_in_window'], f"coverage {o['coverage']:.6f}")
+    o2 = rc.run_fund(np.full(T, N), np.full(T, E), np.full(T, 0.05), ms=3, ml=3, horizon=10)
+    check('positive return: fills no later than r=0, pays at most income',
+          o2['fill_year'] <= o['fill_year'] and o2['coverage'] <= N / E + 1e-12,
+          f"fill {o2['fill_year']}, cov {o2['coverage']:.4f}")
+    rng = np.random.default_rng(7)
+    worst = 0.0
+    for _ in range(200):
+        T_ = 60
+        net = np.abs(rng.normal(1.0, 0.8, T_)) - rng.uniform(0, 0.6) * (rng.random(T_) < 0.1)
+        r = rng.normal(0.04, 0.15, T_)
+        o_ = rc.run_fund(net, np.full(T_, 10.0), r, ms=3, ml=3, horizon=10)
+        S_prev = 0.0
+        for t in range(T_):
+            worst = max(worst, abs(S_prev * (1 + r[t]) + net[t] - o_['R'][t] - o_['S'][t]))
+            S_prev = o_['S'][t]
+    check('accounting identity S_t = S_{t-1}(1+r) + net - R (200 random paths)', worst < 1e-9,
+          f'max err {worst:.1e}')
+    net = np.concatenate([np.full(20, 1.0), np.zeros(10)])
+    o4 = rc.run_fund(net, np.full(30, 10.0), np.zeros(30), ms=3, ml=3, horizon=10)
+    pa = o4['R'][20:]
+    check('collapse: relief phases out while reserves cover it',
+          pa[0] > 0 and pa[3] < 1e-9 and o4['unmet_year'] is None and o4['ring_year'] is None,
+          f'relief after collapse {np.round(pa[:5], 2).tolist()}')
+    net = np.concatenate([np.full(15, 1.0), [-50.0], np.full(10, 1.0)])
+    o5 = rc.run_fund(net, np.full(26, 10.0), np.zeros(26), ms=3, ml=3, horizon=5)
+    check('deluge: insolvency and ring-fence breach are flagged',
+          o5['insolvent_year'] == 16 and o5['ring_year'] == 16,
+          f"insolvent {o5['insolvent_year']} ring {o5['ring_year']}")
+    o6 = rc.run_fund(np.full(12, 1.0), np.full(12, 10.0), np.zeros(12), ms=3, ml=3, horizon=10)
+    check('censored when fill + horizon > window', o6['censored'] and np.isnan(o6['coverage']),
+          f"fill {o6['fill_year']}")
+    o7 = rc.run_fund(np.zeros(30), np.full(30, 10.0), np.zeros(30))
+    check('zero income never fills', o7['fill_year'] is None and o7['censored'])
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# distribution layer (was test_dist.py)
+# ═════════════════════════════════════════════════════════════════════════════
+
+def _adults(p, J):
+    if J is not None:
+        rp = p['rates']
+        u = rc.panel(J, rp['uk_iso']).loc[rp['calibration_year']]
+        return float(u['pop']) * 1e3 / rp['defaults']['pop_per_adult']
+    return 52.0e6
+
+
+def test_dist(p, J):
+    section('distribution layer')
+    dp = p['rates']['dist']
+    adults = _adults(p, J)
+    for scen, mode in (('survey', 'add'), ('adjusted', 'add'), ('adjusted', 'reallocate')):
+        d = rc.build_dist(scen, adults, mode, dp)
+        ts = rc.top_shares(d)
+        tag = f'[{scen}/{mode}]'
+        check(f'{tag} adult shares sum to 1', abs(d['share'].sum() - 1) < 1e-12)
+        check(f'{tag} wealth sums to total', abs(d['wealth_bn'].sum() - d['total_bn']) < 1e-6)
+        check(f'{tag} cell means non-decreasing', np.all(np.diff(d['mean_gbp_m']) >= 0),
+              f"repaired cells {d['repaired_cells']}")
+        if scen == 'survey':
+            check(f'{tag} total = ONS aggregate', abs(d['total_bn'] - dp['ons_total_bn']) < 1e-6)
+        else:
+            check(f'{tag} top 1% = adjusted_s1', abs(ts[.01] - dp['adjusted_s1']) < 2e-3, f'{ts[.01]:.4f}')
+            check(f'{tag} top 0.1% = adjusted_s01', abs(ts[1e-3] - dp['adjusted_s01']) < 2e-3, f'{ts[1e-3]:.4f}')
+            rl = sum(w for l, w in zip(d['labels'], d['wealth_bn']) if l.startswith('RichList'))
+            n = sum(a for l, a in zip(d['labels'], d['share']) if l.startswith('RichList')) * adults
+            check(f'{tag} Rich List wealth and head-count', abs(rl - dp['rich_list_bn']) < 1e-6
+                  and abs(n - dp['rich_list_n']) < 1e-6)
+        if mode == 'reallocate':
+            check(f'{tag} total held at ONS', abs(d['total_bn'] - dp['ons_total_bn']) < 1e-6)
+    A = dp['advani']
+    for v in ('central', 'upper'):
+        d = rc.build_dist('advani', adults, v, dp)
+        ts = rc.top_shares(d)
+        tag = f'[advani/{v}]'
+        check(f'{tag} cell means strictly increasing, shares sum to 1',
+              np.all(np.diff(d['mean_gbp_m']) > 0) and abs(d['share'].sum() - 1) < 1e-12)
+        check(f'{tag} top-1% share is above the survey share', ts[.01] > A['s1_survey'], f'{ts[.01]:.4f}')
+        if v == 'upper':
+            check(f'{tag} top 1% = s1_upper', abs(ts[.01] - A['s1_upper']) < 2e-3, f'{ts[.01]:.4f}')
+        rl = sum(w for l, w in zip(d['labels'], d['wealth_bn']) if l.startswith('RichList'))
+        n = sum(a for l, a in zip(d['labels'], d['share']) if l.startswith('RichList')) * adults
+        check(f'{tag} Rich List tier wealth and head-count',
+              abs(rl - A['strl_bn']) < 1e-6 and abs(n - A['strl_n']) < 1e-6)
+        check(f'{tag} tail index alpha in [1.5, 1.8], top 0.1% in [8%, 11%]',
+              1.5 < d['params']['alpha_tail'] < 1.8 and 0.08 < ts[1e-3] < 0.11,
+              f"alpha {d['params']['alpha_tail']:.2f}, top0.1% {ts[1e-3]:.3f}")
+    d0 = rc.build_dist('advani', adults, 'central', dp)
+    d1 = rc.build_dist('advani', adults, 'central', dp, wealth_scale=0.5)
+    check('[advani] wealth_scale rescales £ and leaves shares unchanged',
+          abs(d1['total_bn'] / d0['total_bn'] - 0.5) < 1e-9
+          and abs(rc.top_shares(d1)[.01] - rc.top_shares(d0)[.01]) < 1e-12)
+    a, s = rc.build_dist('adjusted', adults, 'add', dp), rc.build_dist('survey', adults, 'add', dp)
+    check('add mode leaves the body (below top 1%) at survey levels',
+          abs(a['wealth_bn'][:14].sum() - s['wealth_bn'][:14].sum()) < 1e-6)
+    check('threshold by percentile is decreasing in the fraction',
+          rc.wealth_at_top_fraction(a, .05) < rc.wealth_at_top_fraction(a, .02) < rc.wealth_at_top_fraction(a, .01))
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# engine layer (invariants; the valgen equivalence below needs valgen_core)
+# ═════════════════════════════════════════════════════════════════════════════
+
+RP = dict(tau_0=0.15, tau_m=0.70, k=0.001, W_min=2.0)
+
+
+def test_engine_invariants():
+    section('engine layer: invariants')
+    T = 40
+    g = np.full(T, 0.06)
+    idx = np.ones(T)
+    rp = dict(tau_0=0.15, tau_m=0.70, k=0.001, wmin=2.0)
+    V0 = np.array([1.0, 5.0, 50.0])
+    w = np.array([0.5, 0.3, 0.2])
+    grp = np.array([0, 1, 2])
+    e = rc.run_lines(g, idx, V0, w, grp, 3, np.array([10, 10, 10]), 30, 0.035, rp)
+    net_b = e['by_bracket'].sum(axis=1)
+    check('by-bracket receipts sum to tax + refund + heir',
+          np.abs(net_b - (e['tax'] + e['refund'] + e['heir'])).max() < 1e-10)
+    check('state stake is never negative', e['stake'].min() >= -1e-12)
+    rp_hi = dict(rp, wmin=1e9)
+    z = rc.run_lines(g, idx, V0, w, grp, 3, np.array([10, 10, 10]), 30, 0.035, rp_hi)
+    check('no revenue when W_min is above everyone', np.abs(z['tax']).max() + np.abs(z['heir']).max() < 1e-12)
+    f = rc.run_lines(g, idx, V0, w, grp, 3, np.array([10, 10, 10]), 30, 0.035, rp, heir_rule='fresh')
+    check("'fresh' heirs raise less than 'delta' heirs", f['heir'].sum() == 0.0 and e['heir'].sum() > 0.0)
+    check('death phases fall in 1..G', all(1 <= x <= 30 for x in rc._phases(6, 30)) and len(rc._phases(6, 30)) == 6)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# pipeline, registries
+# ═════════════════════════════════════════════════════════════════════════════
+
+def test_pipeline(p, J):
+    section('pipeline (in memory, no files)')
+    if J is None:
+        skip('pipeline', 'JST file not found')
+        return
+    block = rc.run_scenario(J, p, p['rates']['figures']['scenario'], stride=8, verbose=False)
+    try:
+        rc.validate({'scenarios': {'baseline': block}})
+        check('validate() accepts a finished scenario block', True)
+    except AssertionError as ex:
+        check('validate() accepts a finished scenario block', False, str(ex))
+    mode = p['rates']['figures']['mode']
+    ov = block['headline'][mode]['overall']
+    check('headline has the quantities the tables read',
+          all(k in ov['medians'] for k in ('tax_gdp_mean', 'heir_gdp_mean', 'refund_gdp_mean',
+                                           'net_gdp_mean', 'relief_gdp', 'drift'))
+          and 'p50' in ov['relief_gdp'])
+    check('closure column present and positive where receipts are positive',
+          ov['base_multiple_needed']['p50'] is None or ov['base_multiple_needed']['p50'] > 0)
+    check('component identity: tax + refund + heir = net (window means)',
+          abs(ov['medians']['tax_gdp_mean'] + ov['medians']['refund_gdp_mean']
+              + ov['medians']['heir_gdp_mean'] - ov['medians']['net_gdp_mean']) < 0.05)
+    check('rate curve matches the statutory rate function',
+          abs(block['calibration']['rate_curve']['tau'][0]
+              - wc.tau(block['calibration']['rate_curve']['W_gbp_m'][0],
+                       {'W_min': block['calibration']['wmin_gbp_m'], 'tau_0': block['cfg']['tau_0'],
+                        'tau_m': block['cfg']['tau_m'], 'k': block['cfg']['k_per_gbp_m']})) < 1e-12)
+
+
+def _load(path, name):
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def test_registries():
+    section('presentation registries')
+    tbl = _load(HERE / '8_2_RATES_tables.py', 'rates_tables')
+    fig = _load(HERE / '8_3_RATES_charts.py', 'rates_charts')
+    t = [(n, s) for n, s, _ in tbl.TABLES]
+    f = [(n, s) for n, s, _ in fig.FIGURES]
+    check('every figure has a table with the same number and slug', t == f,
+          '' if t == f else f'tables {t} vs figures {f}')
+    check('figure numbers are unique', len({n for n, _ in f}) == len(f))
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# data-dependent checks (--data) and one-off regression (--legacy-csv)
+# ═════════════════════════════════════════════════════════════════════════════
+
+def test_legacy_csv(p, J, csv_path):
+    section('regression against the old sweep_out/baseline_windows.csv')
+    import pandas as pd
+    old = pd.read_csv(csv_path)
+    cfg = rc.make_cfg(p, start_stride=3)
+    new, _ = rc.sweep(J, cfg, p)
+    key = ['iso', 'start', 'mode']
+    cols = [c for c in old.columns if c in new.columns and c not in key]
+    m = old.merge(new, on=key, suffixes=('_o', '_n'))
+    check('same windows as the old baseline', len(m) == len(old) == len(new),
+          f'old {len(old)}, new {len(new)}, joined {len(m)}')
+    worst = 0.0
+    bad = []
+    for c in cols:
+        a, b = m[f'{c}_o'], m[f'{c}_n']
+        if pd.api.types.is_numeric_dtype(a) and pd.api.types.is_numeric_dtype(b):
+            d = np.nanmax(np.abs(a.astype(float) - b.astype(float))) if len(m) else 0.0
+            worst = max(worst, 0.0 if math.isnan(d) else d)
+            if not (math.isnan(d) or d < 1e-9):
+                bad.append(c)
+    check('every shared numeric column matches the old output', not bad,
+          f'max |diff| {worst:.1e}  {bad[:6]}')
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--data', action='store_true', help='also run checks that need the real JST file')
+    ap.add_argument('--legacy-csv', default=None, help='old baseline_windows.csv for a one-off regression')
+    a = ap.parse_args()
+
+    p = wc.load_rates_params()
+    try:
+        J = rc.load_jst(p['rates']['jst_path'])
+    except FileNotFoundError:
+        J = None
+    import tempfile
+    test_params(p)
+    with tempfile.TemporaryDirectory() as tmp:
+        test_json(tmp)
+    test_fund()
+    test_dist(p, J)
+    test_engine_invariants()
+    # valgen equivalence is now bridge_test.py (kernel vs run_family3 vs run_lines)
+    test_pipeline(p, J)
+    test_registries()
+    if a.data and J is None:
+        skip('data checks', 'JST file not found')
+    if a.legacy_csv:
+        test_legacy_csv(p, J, a.legacy_csv)
+
+    print('\nALL PASS' if all(RESULTS) else f'\n{RESULTS.count(False)} FAILED of {len(RESULTS)}')
+    raise SystemExit(0 if all(RESULTS) else 1)
+
+
+if __name__ == '__main__':
+    main()

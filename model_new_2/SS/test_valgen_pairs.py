@@ -1,0 +1,177 @@
+"""
+test_valgen_pairs.py — every VALGEN figure has exactly one paired table (plan section 4)
+=======================================================================================
+Structure tests pass as soon as both scripts declare PAIRS. Content tests (one per pair) FAIL
+until the builder is written: that is the to-do list. Runs under pytest or on its own:
+    python test_valgen_pairs.py [HLC ...]
+
+Checks per pair
+  structure : same ids in both scripts; same JSON keys; every key exists in valgen_data.json;
+              titles carry the id
+  content   : both builders run; the PNG and the table file exist with the paired names;
+              the figure title and table caption carry the same id; the caption holds no
+              literal parameter value (checked against the TOML numbers); 3 table values
+              appear in the figure's plotted series.
+"""
+from __future__ import annotations
+
+import importlib.util
+import math
+import re
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).parent
+sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(HERE.parent))   # model root
+
+
+def _load(fname, name):
+    spec = importlib.util.spec_from_file_location(name, HERE / fname)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+TABLES = _load('5_6_VALGEN_tables.py', 'valgen_tables')
+CHARTS = _load('5_7_VALGEN_charts.py', 'valgen_charts')
+from wdt_core import load_params  # noqa: E402
+
+P = load_params()
+DATA = TABLES.load_data()
+P['g_real'] = DATA['meta']['params']['g']     # D11: load_params carries no g; the real return VAL ran on is in the output
+
+
+def _flat(x):
+    if isinstance(x, dict):
+        for v in x.values():
+            yield from _flat(v)
+    elif isinstance(x, (list, tuple)):
+        for v in x:
+            yield from _flat(v)
+    elif isinstance(x, (int, float)) and not isinstance(x, bool) and math.isfinite(x):
+        yield float(x)
+
+
+def _param_literals():
+    """Parameter values as they would be typed into a caption: percent forms and decimals."""
+    vg = P['val_gen']
+    nums = [P['tau_0'], P['tau_m'], P['k'], P['W_min'], P['V0_m'], P['rho'], P['g_real'],
+            vg['lambda_base'], vg['brg_tol'], vg['hsc_tol'], vg['state_tol']]
+    lits = set()
+    for n in nums:
+        if n == 0:          # a zero parameter (e.g. W_min = 0) formats as '0.0%': generic, cannot go stale
+            continue
+        lits |= {f'{n:.2%}', f'{n:.1%}', f'{n:.0%}', f'£{n:g}m'}
+        if '.' in f'{n:g}':
+            lits.add(f'{n:g}')
+    return lits
+
+
+def _source_strings(path):
+    """String constants in a script, f-string fixed parts included, docstrings excluded."""
+    import ast
+    tree = ast.parse(Path(path).read_text(encoding='utf-8'))
+    doc = set()
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.Module, ast.FunctionDef, ast.ClassDef)):
+            body = node.body
+            if body and isinstance(body[0], ast.Expr) and isinstance(body[0].value, ast.Constant):
+                doc.add(id(body[0].value))
+    return [n.value for n in ast.walk(tree)
+            if isinstance(n, ast.Constant) and isinstance(n.value, str) and id(n) not in doc]
+
+
+def test_no_literal_parameter_values_in_source():
+    lits = _param_literals()
+    for fname in ('5_6_VALGEN_tables.py', '5_7_VALGEN_charts.py'):
+        for sv in _source_strings(HERE / fname):
+            bad = [x for x in lits if re.search(rf'(?<![\d.]){re.escape(x)}(?![\d])', sv)]
+            assert not bad, f'{fname}: literal parameter value(s) {bad} in string {sv!r}'
+
+
+def test_no_figure_titles_in_images():
+    for sv in _source_strings(HERE / '5_7_VALGEN_charts.py'):
+        assert not re.match(r'\s*Figure [A-Z]+:', sv), f'image title carries a figure number: {sv!r}'
+
+
+def test_same_ids():
+    assert set(TABLES.PAIRS) == set(CHARTS.PAIRS), (
+        set(TABLES.PAIRS) ^ set(CHARTS.PAIRS))
+
+
+def test_registry():
+    names = P['names_val']
+    shortcodes = {'WP', 'MF', 'LR', 'JUR', 'VAL', 'CORP', 'GOV', 'RATES', 'SWEEPS', 'BEHAV', 'CLOSE', 'POL',
+                  'PHASE1', 'ENV', 'FM', 'MOD', 'SCOPE', 'ADD'}
+    for a, v in names.items():
+        assert re.fullmatch(r'[A-Z]{2,6}', a), a
+        assert a not in shortcodes, a
+        assert v['kind'] in ('claim', 'test', 'output', 'example', 'rule', 'component', 'metric', 'step'), a
+    outs = {a for a, v in names.items() if v['kind'] == 'output'}
+    assert set(TABLES.PAIRS) <= outs, set(TABLES.PAIRS) - outs
+    for a in outs:
+        assert len(a) <= 5, a
+
+
+def test_same_json_keys():
+    for pid in TABLES.PAIRS:
+        assert sorted(TABLES.PAIRS[pid]['json']) == sorted(CHARTS.PAIRS[pid]['json']), pid
+        assert TABLES.PAIRS[pid]['slug'] == CHARTS.PAIRS[pid]['slug'], pid
+
+
+def test_keys_exist_in_json():
+    for pid, spec in TABLES.PAIRS.items():
+        for k in spec['json']:
+            TABLES.get_key(DATA, k)
+
+
+def test_label_carries_id():
+    for mod, word in ((TABLES, 'Table'), (CHARTS, 'Figure')):
+        for pid, spec in mod.PAIRS.items():
+            assert spec['label'] == f'{word} {pid}', (pid, spec['label'])
+
+
+def check_pair(pid):
+    t = TABLES.BUILDERS[pid](DATA, P)
+    c = CHARTS.BUILDERS[pid](DATA, P)
+    png = Path(c['path'])
+    assert png.exists() and png.name == f"val_fig_{pid}_{CHARTS.PAIRS[pid]['slug']}.png", png
+    assert re.search(rf'Table {pid}\b', t['md']), f'caption of table {pid} does not carry its id'
+    vals = t['values']
+    assert len(vals) >= 3, f'table {pid} exposes fewer than 3 values'
+    drawn = list(_flat(c['series']))
+    picks = [vals[i] for i in (0, len(vals) // 2, len(vals) - 1)]
+    for v in picks:
+        assert any(math.isclose(v, d, rel_tol=1e-9, abs_tol=1e-12) for d in drawn), (
+            f'{pid}: table value {v} not in the figure series')
+
+
+def _make(pid):
+    def f():
+        check_pair(pid)
+    f.__name__ = f'test_pair_{pid}'
+    return f
+
+
+for _pid in TABLES.PAIRS:
+    globals()[f'test_pair_{_pid}'] = _make(_pid)
+
+
+if __name__ == '__main__':
+    only = set(sys.argv[1:])
+    tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith('test_')]
+    fails = 0
+    for n, f in tests:
+        if only and n.startswith('test_pair_') and n[len('test_pair_'):] not in only:
+            continue
+        try:
+            f()
+            print(f'PASS  {n}')
+        except NotImplementedError as e:
+            fails += 1
+            print(f'TODO  {n}: {e}')
+        except Exception as e:  # noqa: BLE001
+            fails += 1
+            print(f'FAIL  {n}: {type(e).__name__}: {e}')
+    sys.exit(1 if fails else 0)

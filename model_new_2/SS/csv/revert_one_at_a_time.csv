@@ -1,0 +1,9 @@
+case,net_pct_GDP,relief_pct_GDP,coverage_med,x baseline
+BASELINE (advani central; real; GDP-pc index; c=3.5%; homogeneous; heirs taxed),1.3585929011098992,1.3054613234793973,3.5452798355601347,1.0
+"revert: threshold NOT indexed, nominal returns (old paper)",4.130620326296951,3.441918843051611,9.347320560506768,3.040366487210739
+revert: nominal returns but threshold indexed to GDP/capita,1.9256870637916499,1.902593290773063,5.166928738319066,1.4174128704915685
+revert: consumption 0% (old paper),5.257140354667171,3.6959205644081443,10.037120529856141,3.869547934758354
+"revert: tail = old paper's survey shape (alpha~2.3), rescaled to ONS",0.7062769805422215,0.6683179001073434,1.8149706409374529,0.5198591719162011
+revert: four persistent growth tiers (old paper),1.8997123451889877,1.6809096210538388,4.564895855388588,1.3982940317419754
+revert: no inheritance receipts taxed (old paper had none),0.7351311134331393,0.5835184020690831,1.5846781419920333,0.5410974198618113
+"ALL OLD: legacy shape at the paper's own £42.9tn (W/Y 16.2), nominal, no indexation, c=0, tiers, no heirs",30.746792829242832,18.9575004593393,51.483443363903156,22.63135101333469

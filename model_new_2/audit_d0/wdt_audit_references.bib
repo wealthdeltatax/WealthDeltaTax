@@ -1,0 +1,458 @@
+% WDT Data Audit (D0-D10) - reference list, BibTeX format
+% Built from: provenance_register_d1..d9.md and coverage_matrix_d1..d9.csv (session of 14-15 October 2026)
+% Build date: 2026-10-15
+%
+% Conventions (per wdt-reference bib_conventions):
+%   Citation keys:  AuthorYYYY (1 author); Surname1Surname2YYYY (2); FirstSurnameEtAlYYYY (3+); institutions by acronym + year
+%   Entry types:    @article, @book, @techreport (working papers), @misc (institutional / data releases)
+%   keywords:       audit dataset(s) that use the entry (D1..D9)
+%   note field:     "status:" = the audit's verification level
+%                     verified      = full text or the relevant data page was opened
+%                     partly        = abstract, landing page, summary or part of the document opened
+%                     unverified    = located by search or recalled; details not confirmed
+%                   plus any field that was not confirmed ("to verify: ...")
+% Scope and limits:
+%   - This is a standalone audit list. It is NOT merged into the master references.bib or internal.json
+%     (neither was available in this session) and no web-check (Pass A) has been run.
+%   - Fields not seen in a source are left out or flagged in the note field, not filled in.
+%   - Mian, Straub and Sufi (named in the spec, D2) were not located and are not listed.
+
+% ---------- Academic works ----------
+
+@article{PikettyZucman2014,
+  author  = {Piketty, Thomas and Zucman, Gabriel},
+  title   = {Capital is Back: Wealth-Income Ratios in Rich Countries, 1700--2010},
+  journal = {Quarterly Journal of Economics},
+  year    = {2014},
+  volume  = {129},
+  number  = {3},
+  pages   = {1255--1310},
+  keywords = {D1},
+  note    = {status: verified (working-paper version, Dec 2013, opened in full; Section 3.1 gives the wealth definition). Table 1 country spans were cut off in the fetched text. Journal page range from memory: to verify.}
+}
+
+@article{SaezZucman2016,
+  author  = {Saez, Emmanuel and Zucman, Gabriel},
+  title   = {Wealth Inequality in the United States since 1913: Evidence from Capitalized Income Tax Data},
+  journal = {Quarterly Journal of Economics},
+  year    = {2016},
+  volume  = {131},
+  number  = {2},
+  pages   = {519--578},
+  keywords = {D2, D8},
+  note    = {status: verified (NBER w20625 text, saving-rate passage opened; text cut off mid-sentence; appendix and data files not opened). Journal volume and pages from memory: to verify.}
+}
+
+@article{DynanSkinnerZeldes2004,
+  author  = {Dynan, Karen E. and Skinner, Jonathan and Zeldes, Stephen P.},
+  title   = {Do the Rich Save More?},
+  journal = {Journal of Political Economy},
+  year    = {2004},
+  volume  = {112},
+  number  = {2},
+  pages   = {397--444},
+  keywords = {D2},
+  note    = {status: partly (NBER w7906 abstract only; years of data not stated on the page). Volume and pages from memory: to verify.}
+}
+
+@techreport{FagerengEtAl2019,
+  author      = {Fagereng, Andreas and Holm, Martin Blomhoff and Moll, Benjamin and Natvik, Gisle},
+  title       = {Saving Behavior Across the Wealth Distribution: The Importance of Capital Gains},
+  institution = {National Bureau of Economic Research},
+  year        = {2019},
+  type        = {Working Paper},
+  number      = {26588},
+  keywords    = {D2},
+  note        = {status: partly (abstract only). Norwegian administrative data; wealth-to-income figures 1995--2015. Author list and publication year from memory: to verify. Published version not checked.}
+}
+
+@article{AlvaredoEtAl2018,
+  author  = {Alvaredo, Facundo and Atkinson, Anthony B. and Morelli, Salvatore},
+  title   = {Top Wealth Shares in the {UK} over More than a Century},
+  journal = {Journal of Public Economics},
+  year    = {2018},
+  keywords = {D8},
+  note    = {status: partly (abstract only; series from 1895). Volume and pages not confirmed: to verify.}
+}
+
+@article{ArtolaBlancoEtAl2021,
+  author  = {Artola Blanco, Miguel and Bauluz, Luis E. and Mart{\'\i}nez-Toledano, Clara},
+  title   = {Wealth in {Spain}, 1900--2017: A Country of Two Lands},
+  journal = {Economic Journal},
+  year    = {2021},
+  volume  = {131},
+  number  = {633},
+  pages   = {129--155},
+  keywords = {D1},
+  note    = {status: unverified (abstract and bibliographic records only; volume, issue and pages from an IDEAS record URL). Span 1900--2017 also appears in the WID technical note.}
+}
+
+@article{Waldenstrom2017,
+  author  = {Waldenstr{\"o}m, Daniel},
+  title   = {Wealth-Income Ratios in a Small, Developing Economy: {Sweden}, 1810--2014},
+  journal = {Journal of Economic History},
+  year    = {2017},
+  volume  = {77},
+  number  = {1},
+  keywords = {D1},
+  note    = {status: unverified (abstract and bibliographic records only). Title from a search-result URL; pages not confirmed: to verify. Span 1810--2019 also appears in the WID technical note.}
+}
+
+@techreport{BaselgiaMartinezToledano2020,
+  author      = {Baselgia, Enea and Mart{\'\i}nez-Toledano, Clara},
+  title       = {Wealth-Income Ratios in Free Market Capitalism: {Switzerland}, 1900--2020},
+  institution = {{WID.world}},
+  year        = {2020},
+  type        = {Working Paper},
+  keywords    = {D1},
+  note        = {status: unverified (abstract only). The search shows related titles: WID.world WP 2020/28, CEPR DP16660, and 'A Safe Harbor: Wealth-Income Ratios in Switzerland over the 20th Century and the Role of Housing Prices'. Which title, number and year belongs to which version is not confirmed: to verify. The register cites Baselgia and Martinez (2020, 2022).}
+}
+
+@misc{Moatsos2022,
+  author       = {Moatsos, Michail and others},
+  title        = {Household Wealth and its Distribution in the {Netherlands}, 1854--2019},
+  howpublished = {IARIW 2022 conference paper},
+  year         = {2022},
+  keywords     = {D1},
+  note         = {status: unverified (search-result fragments; author list not confirmed). A related title 'Wealth-income ratios in a small, open economy: The Netherlands, 1854--2019' also appears in search results; a European Economic Review 2025 record was located but not matched. To verify: authors, venue, which version.}
+}
+
+@techreport{Abildgren2015,
+  author      = {Abildgren, Kim},
+  title       = {Estimates of the National Wealth of {Denmark} 1845--2013},
+  institution = {Danmarks Nationalbank},
+  year        = {2015},
+  type        = {Working Paper},
+  number      = {92},
+  keywords    = {D1},
+  note        = {status: unverified (abstract and catalogue page only). National wealth, includes government; not private wealth.}
+}
+
+@techreport{CardosoCunha2005,
+  author      = {Cardoso, F{\'a}tima and Cunha, Isabel},
+  title       = {Household Wealth in {Portugal}: 1980--2004},
+  institution = {Banco de Portugal},
+  year        = {2005},
+  type        = {Working Paper},
+  number      = {4-2005},
+  keywords    = {D1},
+  note        = {status: unverified (located by URL, abstract and fragments only). Title, authors and number inferred from the search; to verify.}
+}
+
+@book{Goldsmith1985,
+  author    = {Goldsmith, Raymond W.},
+  title     = {Comparative National Balance Sheets: A Study of Twenty Countries, 1688--1978},
+  publisher = {University of Chicago Press},
+  year      = {1985},
+  keywords  = {D1},
+  note      = {status: unverified (catalogue records only).}
+}
+
+@article{JordaEtAl2019,
+  author  = {Jord{\`a}, {\`O}scar and Knoll, Katharina and Kuvshinov, Dmitry and Schularick, Moritz and Taylor, Alan M.},
+  title   = {The Rate of Return on Everything, 1870--2015},
+  journal = {Quarterly Journal of Economics},
+  year    = {2019},
+  volume  = {134},
+  number  = {3},
+  pages   = {1225--1298},
+  keywords = {D0, D4},
+  note    = {status: partly (search results only; used here as the source of the JST data and of the corporate-tax and rents series cited in Kuvshinov and Zimmermann). Volume, pages from memory: to verify.}
+}
+
+@incollection{JordaEtAl2017,
+  author    = {Jord{\`a}, {\`O}scar and Schularick, Moritz and Taylor, Alan M.},
+  title     = {Macrofinancial History and the New Business Cycle Facts},
+  booktitle = {{NBER} Macroeconomics Annual 2016},
+  editor    = {Eichenbaum, Martin and Parker, Jonathan A.},
+  publisher = {University of Chicago Press},
+  year      = {2017},
+  volume    = {31},
+  pages     = {213--263},
+  keywords  = {D0},
+  note      = {status: unverified (cited from memory as the JST database reference; not opened in this audit). The JST file used is release 6 (jst_r6.json): see JST2019.}
+}
+
+@misc{JST2019,
+  author       = {{Jord{\`a}-Schularick-Taylor Macrohistory Database}},
+  title        = {Macrohistory Database, Release 6},
+  howpublished = {macrohistory.net},
+  year         = {2019},
+  keywords     = {D0, D7},
+  note         = {status: verified (file audited in D0: 18 countries; Table 26 reproduces). Release year and URL from memory: to verify.}
+}
+
+@article{KnollSchularickSteger2017,
+  author  = {Knoll, Katharina and Schularick, Moritz and Steger, Thomas},
+  title   = {No Price Like Home: Global House Prices, 1870--2012},
+  journal = {American Economic Review},
+  year    = {2017},
+  volume  = {107},
+  number  = {2},
+  pages   = {331--353},
+  keywords = {D7},
+  note    = {status: verified (CESifo WP 5006 text opened: 14 economies, start years per country, methods; ICPSR file 113055 listed, not opened). Journal volume and pages from memory: to verify. Italy, Spain and Portugal are not among the 14.}
+}
+
+@techreport{KuvshinovZimmermann2020,
+  author      = {Kuvshinov, Dmitry and Zimmermann, Kaspar},
+  title       = {The Big Bang: Stock Market Capitalization in the Long Run},
+  institution = {Centre for Economic Policy Research},
+  year        = {2020},
+  type        = {Discussion Paper},
+  number      = {14468},
+  keywords    = {D4},
+  note        = {status: verified (body text read to the tool's limit; Data Appendix, tables E.1--E.17 and any dataset not retrievable; market cap/GDP 1870--2016, 17 countries). Earlier versions: EHES WP 136 and MPRA 88581 (Aug 2018). Published version not checked.}
+}
+
+@article{FuestEtAl2018,
+  author  = {Fuest, Clemens and Peichl, Andreas and Siegloch, Sebastian},
+  title   = {Do Higher Corporate Taxes Reduce Wages? Micro Evidence from {Germany}},
+  journal = {American Economic Review},
+  year    = {2018},
+  volume  = {108},
+  number  = {2},
+  pages   = {393--418},
+  keywords = {D6},
+  note    = {status: partly (VoxEU column opened: about 51 per cent of the corporate tax burden on workers, German local business tax, 1993--2012; the paper itself not opened). Volume and pages from memory: to verify.}
+}
+
+@techreport{ArulampalamEtAl2007,
+  author      = {Arulampalam, Wiji and Devereux, Michael P. and Maffini, Giorgia},
+  title       = {The Incidence of Corporate Income Tax on Wages},
+  institution = {Oxford University Centre for Business Taxation},
+  year        = {2007},
+  type        = {Working Paper},
+  number      = {07/07},
+  keywords    = {D6},
+  note        = {status: unverified (located in search results, not opened). Authors, title and number from memory: to verify. D6 open item: UK firm-level wage incidence.}
+}
+
+@book{Kohl2017,
+  author    = {Kohl, Sebastian},
+  title     = {Homeownership, Renting and Society: Historical and Comparative Perspectives},
+  publisher = {Routledge},
+  year      = {2017},
+  keywords  = {D3},
+  note      = {status: partly (publisher and institute pages opened; no data link). Germany and the USA case studies.}
+}
+
+% ---------- Official sources and data releases ----------
+
+@misc{BauluzBrassac2020,
+  author       = {Bauluz, Luis E. and Brassac, Fabrice},
+  title        = {{WID.world} Technical Note 2020/14},
+  howpublished = {World Inequality Lab},
+  year         = {2020},
+  keywords     = {D1},
+  note         = {status: verified (full text opened; Table 1 spans and per-country sources taken from it, November 2020). Full title not retrieved: to verify. A 2024 update (Technical Note 2024/14) was located, not opened.}
+}
+
+@misc{WIL2025,
+  author       = {{World Inequality Lab}},
+  title        = {{WID} Income and Wealth Distributional Series: Updated and Extended Coverage 1800--2024},
+  howpublished = {World Inequality Lab Technical Note 2025/10},
+  year         = {2025},
+  keywords     = {D8},
+  note         = {status: partly (coverage text and Table 4 country-year listing opened; methods not described in the note; missing country-years imputed from income distribution).}
+}
+
+@misc{ONS2022shares,
+  author       = {{Office for National Statistics}},
+  title        = {Ownership of {UK} Quoted Shares: 2022},
+  howpublished = {ONS statistical bulletin},
+  year         = {2023},
+  keywords     = {D4},
+  note         = {status: verified (2022 and 2012 bulletins opened). Release date to verify.}
+}
+
+@misc{ONS2026srs,
+  author       = {{Office for National Statistics}},
+  title        = {Share Ownership Time Series (dataset id srs)},
+  howpublished = {ONS dataset, released 29 January 2026},
+  year         = {2026},
+  keywords     = {D4},
+  note         = {status: verified and extracted (CSV attached by the user; 28 survey years 1963--2024, 11 holder categories). Output: uk_holder_shares_ons.csv. 1998--2008 pooled-account split carried from 1997 register analysis (flag carried).}
+}
+
+@misc{FRB2025z1,
+  author       = {{Board of Governors of the Federal Reserve System}},
+  title        = {Financial Accounts of the {United States} (Z.1)},
+  howpublished = {FRED series BOGZ1LM153064105A and BOGZ1LM263064105A; table L.223},
+  year         = {2025},
+  keywords     = {D4},
+  note         = {status: verified (both FRED series pages opened: annual, 1945--2025, market value). Table L.223 partly (sector list, one release); no per-sector long history checked.}
+}
+
+@misc{OECD2019owners,
+  author       = {{OECD}},
+  title        = {Owners of the World's Listed Companies},
+  howpublished = {OECD Capital Market Series},
+  year         = {2019},
+  keywords     = {D4},
+  note         = {status: verified (document opened; 2017 snapshot, 54 markets). Cross-check only: categories do not map to the model tranches.}
+}
+
+@misc{Eurostat2025nasa,
+  author       = {{Eurostat}},
+  title        = {Financial Balance Sheets (nasa\_10\_f\_bs)},
+  howpublished = {Eurostat database},
+  year         = {2025},
+  keywords     = {D4},
+  note         = {status: partly (aggregator page; series 1995--2024). Listed-share instrument (F511) by holder sector, Norway and Switzerland not confirmed.}
+}
+
+@misc{Bundesbank2025sectors,
+  author       = {{Deutsche Bundesbank}},
+  title        = {Geldverm{\"o}gen und Verbindlichkeiten der Sektoren (sectoral financial accounts)},
+  howpublished = {Bundesbank statistical table},
+  year         = {2025},
+  keywords     = {D4},
+  note         = {status: partly (one table vintage, 2020--2025).}
+}
+
+@misc{JPX2025survey,
+  author       = {{Japan Exchange Group}},
+  title        = {Share Ownership Survey},
+  howpublished = {JPX},
+  year         = {2025},
+  keywords     = {D4},
+  note         = {status: partly (archive pages 2016--2025; Excel files not opened).}
+}
+
+@misc{OECD2025revenue,
+  author       = {{OECD}},
+  title        = {Revenue Statistics 2025: Tax Levels and Tax Structures, 1965--2024},
+  howpublished = {OECD Publishing},
+  year         = {2025},
+  keywords     = {D5},
+  note         = {status: partly (chapter Table 3.9 opened: code 1200 taxes on corporate income, UK 3.3 per cent of GDP 1990, 3.5 in 2000, 2.8 in 2010, 3.2 in 2022, 3.4 in 2023; full annual series not opened).}
+}
+
+@misc{HMRC2025ct,
+  author       = {{{HM Revenue and Customs}}},
+  title        = {Corporation Tax Statistics 2025},
+  howpublished = {GOV.UK},
+  year         = {2025},
+  keywords     = {D5},
+  note         = {status: partly (landing page; published 25 September 2025; ODS tables not opened). 'Corporate Taxes' here include bank levy, bank surcharge, residential property developer tax, energy profits levy and electricity generator levy.}
+}
+
+@misc{HMRC2026cgt,
+  author       = {{{HM Revenue and Customs}}},
+  title        = {Capital Gains Tax Statistics (statistical tables)},
+  howpublished = {GOV.UK},
+  year         = {2026},
+  keywords     = {D6},
+  note         = {status: partly (table list opened; 2026 annual release, updated 27 August 2026; ODS data not opened).}
+}
+
+@misc{HMRC2026iht,
+  author       = {{{HM Revenue and Customs}}},
+  title        = {Inheritance Tax Liabilities Statistics (commentary and Table 12.4)},
+  howpublished = {GOV.UK},
+  year         = {2026},
+  keywords     = {D6},
+  note         = {status: verified for the commentary (2023--24: 30,400 taxpaying estates, 7.03 billion pounds); Table 12.4 landing page only (last data year 2019--20); ODS tables not opened.}
+}
+
+@misc{ONS2026nrjk,
+  author       = {{Office for National Statistics}},
+  title        = {Private Non-Financial Corporations: Operating Surplus, Gross (B.2G), Current Price (series NRJK)},
+  howpublished = {UK Economic Accounts time series},
+  year         = {2026},
+  keywords     = {D5},
+  note         = {status: verified (series page opened: annual 1948--2025, release 30 September 2026). Companion series: LRWX (UKCS companies, 1997--2024); YBHA (GDP at market prices) used for the profit/GDP cross-check.}
+}
+
+@misc{ONS2025was,
+  author       = {{Office for National Statistics}},
+  title        = {Household Total Wealth in {Great Britain}: {April} 2020 to {March} 2022},
+  howpublished = {ONS statistical bulletin (Wealth and Assets Survey, Round 8)},
+  year         = {2025},
+  keywords     = {D3, D6},
+  note         = {status: verified (bulletin opened; WAS validation note and quality and methods guide partly; microdata at the UK Data Service SN 7215 and SN 6709). Release date to verify.}
+}
+
+@misc{ONS2018transfers,
+  author       = {{Office for National Statistics}},
+  title        = {Intergenerational Transfers: The Distribution of Inheritances, Gifts and Loans},
+  howpublished = {ONS article, 30 October 2018 (Wealth and Assets Survey, July 2014 to June 2016)},
+  year         = {2018},
+  keywords     = {D9},
+  note         = {status: verified (article opened). Cites a Resolution Foundation estimate (Gardiner 2017) that the most common inheritance age of today's 20--35 year olds will be 61; Gardiner not opened.}
+}
+
+@misc{DLUHC2015tenure,
+  author       = {{Department for Communities and Local Government}},
+  title        = {English Housing Survey 2013--14, Chapter 1: Trends in Tenure},
+  howpublished = {GOV.UK},
+  year         = {2015},
+  keywords     = {D3},
+  note         = {status: verified (text opened; Annex Table 1 not opened). Issuing department and year to verify. Holmans estimates for 1918 and 1939--1971; LFS 1980--2008; EHS from 2008--09.}
+}
+
+@misc{Census2026hvs,
+  author       = {{U.S. Census Bureau}},
+  title        = {Homeownership Rate in the {United States} (RHORUSQ156N)},
+  howpublished = {FRED, Federal Reserve Bank of St. Louis},
+  year         = {2026},
+  keywords     = {D3},
+  note         = {status: verified (series page opened: quarterly Q1 1965 to Q2 2026). Pre-1965 decennial values from a third-party page (dqydj.com), not checked against the census.}
+}
+
+@misc{Eurostat2025silc,
+  author       = {{Eurostat}},
+  title        = {Distribution of Population by Tenure Status, Type of Household and Income Group, {EU-SILC} (ilc\_lvho02)},
+  howpublished = {Eurostat database (viewed via DBnomics)},
+  year         = {2025},
+  keywords     = {D3},
+  note         = {status: partly (structure and first ten series seen; owner/mortgage split unconfirmed).}
+}
+
+@misc{OECD2026houseprices,
+  author       = {{OECD}},
+  title        = {Analytical House Prices Indicators},
+  howpublished = {OECD (viewed via DBnomics, DSD\_AN\_HOUSE\_PRICES)},
+  year         = {2026},
+  keywords     = {D7},
+  note         = {status: partly (measures and sample spans: price-to-income annual from 1970; last update 15 June 2026; country list not seen).}
+}
+
+@misc{IFS2017retirement,
+  author       = {{Institute for Fiscal Studies}},
+  title        = {The Use of Financial Wealth in Retirement},
+  howpublished = {IFS publication (English Longitudinal Study of Ageing, 2002--03 to 2014--15)},
+  year         = {2017},
+  keywords     = {D2},
+  note         = {status: partly (summary page). Authors and year not confirmed: to verify.}
+}
+
+@misc{BoE2017millennium,
+  author       = {{Bank of England}},
+  title        = {A Millennium of Macroeconomic Data for the {UK}},
+  howpublished = {Bank of England research dataset},
+  year         = {2017},
+  keywords     = {D5},
+  note         = {status: partly (README only; annual file 65 variables, 1086--2016; tax and profit variables not confirmed). Authors and release year to verify.}
+}
+
+@misc{WBG2023was,
+  author       = {{Women's Budget Group}},
+  title        = {Report on the {Wealth and Assets Survey} (round 7, April 2018 to March 2020)},
+  howpublished = {Women's Budget Group, September 2023},
+  year         = {2023},
+  keywords     = {D3, D6},
+  note         = {status: verified (text opened). Title and authors to verify. WAS equal-split conventions for property and physical wealth; Table 4 personal wealth by sex and household type.}
+}
+
+@techreport{AdvaniEtAl2021,
+  author      = {Advani, Arun and Bangham, George and Leslie, Jonathan},
+  title       = {The {UK}'s Wealth Distribution and Characteristics of High-Wealth Households},
+  institution = {Centre for Competitive Advantage in the Global Economy (CAGE), University of Warwick},
+  year        = {2021},
+  type        = {Working Paper},
+  number      = {576},
+  keywords    = {D3, D10},
+  note        = {status: verified (full text opened through a fetch tool; unit: families, wealth per adult within the family; survey total 14.4 trillion pounds; top-10 per cent share 51 to 55 and top-1 per cent 18 to 23 after adjustment). Also issued as Wealth Tax Commission Evidence Paper 1 and in Fiscal Studies; those versions not checked: to verify.}
+}

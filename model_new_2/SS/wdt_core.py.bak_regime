@@ -1,0 +1,1993 @@
+"""
+wdt_core.py — WDT Shared Core Mechanics
+========================================
+Single source of truth for parameters, the rate function, and the Route C
+simulation engine used across all VAL and RATES scripts.
+
+PUBLIC API
+----------
+  tau(W_m, p)                         marginal WDT rate
+  g_eff(g, alpha, beta)               effective growth rate with signalling
+  simulate(V0_m, g_series, alpha, p)  holding-period simulation
+  simulate_sell(sim, g_next, p)       terminal sell-year event
+  settle_tw(sell_result, p)           post-sale oscillation to convergence
+  settle_tw_flows(sell_result, p)     same, but also returns per-period flows
+  run_sim(p_in, ..., N=REQUIRED)      constant-g convenience runner
+  run_sim_hist(p_in, ..., N=REQUIRED) historical-series convenience runner
+  run_pair(p, alpha, g, N)            ONE call -> all three heatmap metrics
+  decompose_tw_advantage(p, a, g, N)  TW advantage decomposition (C.11)
+  npv_tax(records, sell, rho, alpha, settle_flows)
+                                      PV of true value surrendered (C.12)
+  npv_tax_declared(records, sell, rho)
+                                      LEGACY declared-credit PV (pre-refactor)
+  npv_tax_advantage(p, a, g, rho, N)  C.12 metric vs honest
+  load_params(toml_path)              load and validate all parameters
+  load_rates_params(toml_path)        light loader: [rates] section only (no SSM pass)
+  tau_vec(x, tau_0, tau_m, k, wmin)   vectorised rate function (numpy)
+  calibrated_legs(rp), leg_cost, solve_threshold, threshold_outcomes(relief, rp), person_saving(income, x, rp)
+                                      RATES T17-T22: relief -> a common tax-free threshold X (income tax, employee NI) and an employer-NI threshold X_e
+  levy_headline(sc, mode, case)       headline block for the levy case 'nominal' | 'real' | 'none'
+  json_safe(obj), save_json(obj, path), load_json(path), table_to_frame(t)
+                                      shared JSON I/O (cores write, presentation reads)
+  threshold_beneficiaries(x, rp)      who gains when the common threshold is x
+  band_net_position(sc, mode, rp)     net position of each launch-wealth band
+
+N CONVENTION  (refactor: N is never implicit)
+---------------------------------------------
+There are two different N's:
+  p['N_val']   taxpayer holding period, = [val] N_demo = 30. CANONICAL for all
+               individual-level VAL / VAL.A / VAL.B work.
+  p['N_fill']  SSM LRR fill year (fund mechanics; 19 for the 2000 start at
+               tau_0 = 15%). p['N'] is kept as an alias of N_fill for RATES.
+run_sim, run_sim_hist, decompose_tw_advantage, run_pair and npv_tax_advantage
+RAISE if N is not passed. Before the refactor they defaulted to p['N'] (=N_fill),
+so any table that did not pass N explicitly silently ran at N = 19 while its
+caption said N = 30.
+
+RECORD FIELD GUARANTEE
+-----------------------
+simulate() records always contain:
+  t, V, W, f, cum, L, rate, delta, q
+
+simulate_sell() return dict always contains:
+  t, V_sell, W_sell, f_N, delta_sell, rate_sell, L_sell, TW, cum_after
+
+run_sim() / run_sim_hist() return dict always contains:
+  TW, TW_settled, TTP, Refunds, Net, Net_settled,
+  records, sell, g_use, settle_iters
+  (run_sim_hist also returns g_mean; g_use is None)
+
+PRIMARY OUTPUT METRICS
+----------------------
+TW_settled  -- economically correct terminal net worth, after post-sale
+               tax/refund oscillation converges. TW (naive sell-year figure)
+               is retained for backward compatibility only.
+
+Net_settled -- net lifetime tax including post-sale settlement.
+
+COMMON HEATMAP METRICS  (run_pair)
+----------------------------------
+All three are expressed as a fraction of the SAME denominator, TW_settled(1):
+
+  net_pct  = (Net_settled(a)  - Net_settled(1)) / TW_settled(1)
+             + = pays MORE net tax than honest        (fiscal view; C.1)
+  tw_gap   = (TW_settled(a)   - TW_settled(1))  / TW_settled(1)
+             + = retains MORE terminal wealth         (taxpayer view; C.5/C.8)
+  tw_cost  = -tw_gap
+             + = worse off than honest  (same sign convention as net_pct, so
+             net and TW heatmaps can share a colour scale)
+  pv_pct   = (PVtrue(a) - PVtrue(1)) / TW_settled(1)
+             + = pays MORE in PV terms, valuing every payment at the true value
+             surrendered (C.12, corrected)
+
+The pre-refactor C.1 divided by TW_settled(alpha); C.12 divided by TW(1). They
+are now on the common TW(1) denominator.
+
+WHY C.12 WAS WRONG (pre-refactor)
+---------------------------------
+Route C settles in kind. In holding year t the taxpayer surrenders the fraction
+f_{t-1}*q_t of the asset, whose TRUE value is
+    f_{t-1} * q_t * V_t = q_t * W_t / alpha = L_t / alpha.
+The credited liability is L_t. The old npv_tax() discounted L_t, so for
+understaters (alpha < 1) it under-counted the real payment by a factor 1/alpha,
+producing an artefactual "deferral gain" in the C.12 table. The corrected
+npv_tax() discounts L_t/alpha for holding-period flows. Sell-year and post-sale
+flows are cash at true prices (alpha drops out at liquidation), and post-sale
+settlement flows are now included so the PV metric is on the same footing as
+Net_settled.
+
+DECOMPOSITION IDENTITY (C.11)
+------------------------------
+decompose_tw_advantage() splits TW_settled(alpha) - TW_settled(1) into
+three terms that sum EXACTLY to tw_advantage:
+
+  tw_advantage = W_sell_delta - refund_delta - settle_delta
+
+  W_sell_delta = W_sell(alpha) - W_sell(1)       [<= 0 for alpha>1]
+  refund_delta = L_sell(alpha) - L_sell(1)        [<= 0 for alpha>1 at mod g]
+  settle_delta = net_settle(alpha) - net_settle(1) [>= 0]
+
+excess_periodic (holding-period net tax diff) is NOT additive in this
+identity. It is returned as an informational field only. The incorrect
+identity -excess_periodic - refund_delta - settle_delta was used in
+Fig 08 v1 and has been corrected.
+
+BETA FORMULA
+------------
+Additive: g_eff = g + beta * ln(alpha).
+VAL.A section B.3 states the multiplicative form incorrectly.
+"""
+
+import math
+import tomllib
+from pathlib import Path
+
+_DEFAULT_TOML = Path(__file__).parent / 'WDT_Params.toml'
+
+
+# ─────────────────────────────────────────────────────────────
+# EXPLICIT-N GUARD
+# ─────────────────────────────────────────────────────────────
+
+def _require_N(N, caller):
+    """Refuse to run with an implicit holding period."""
+    if N is None:
+        raise ValueError(
+            f"{caller}: N must be passed explicitly. "
+            "Use p['N_val'] (=30, canonical taxpayer holding period) for VAL "
+            "work, or p['N_fill'] only for fund-mechanics (RATES) work. "
+            "Implicit p['N'] defaults were removed because p['N'] is the SSM "
+            "LRR fill year (19 at the 2000 start), not the canonical N = 30."
+        )
+    return int(N)
+
+
+# ─────────────────────────────────────────────────────────────
+# RATE FUNCTION
+# ─────────────────────────────────────────────────────────────
+
+def tau(W_m, p):
+    """
+    Marginal WDT rate on declared wealth W_m (pounds m).
+
+    tau(W) = tau_m / (1 + ((tau_m - tau_0) / tau_0) * exp(-k * (W - W_min)))
+    tau(W) = 0  if W < W_min
+    """
+    if W_m < p['W_min']:
+        return 0.0
+    return p['tau_m'] / (
+        1.0 + ((p['tau_m'] - p['tau_0']) / p['tau_0'])
+        * math.exp(-p['k'] * (W_m - p['W_min']))
+    )
+
+
+# ─────────────────────────────────────────────────────────────
+# EFFECTIVE GROWTH RATE
+# ─────────────────────────────────────────────────────────────
+
+def g_eff(g, alpha, beta):
+    """
+    Effective growth rate after signalling adjustment (additive form).
+
+    g_eff = g + beta * ln(alpha)
+
+    Returns g unchanged when beta=0, alpha=1, or alpha<=0.
+    """
+    if beta == 0.0 or alpha == 1.0 or alpha <= 0.0:
+        return g
+    return g + beta * math.log(alpha)
+
+
+# ─────────────────────────────────────────────────────────────
+# POST-SALE SETTLEMENT
+# ─────────────────────────────────────────────────────────────
+
+def settle_tw_flows(sell_result, p, max_iter=2000, tol=1e-10):
+    """
+    As settle_tw(), but also returns the list of post-sale L flows, one per
+    post-sale assessment period (flow i occurs at t = N+1+i, i = 1, 2, ...).
+
+    Returns
+    -------
+    TW_settled     float
+    net_settle_tax float  (= sum(flows))
+    n_iter         int
+    flows          list[float]
+    """
+    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    cash  = sell_result['TW']
+    basis = sell_result['W_sell']
+    cum   = sell_result['cum_after']
+    net_settle_tax = 0.0
+    flows = []
+
+    for i in range(max_iter):
+        delta = cash - basis
+        if abs(delta) < tol and abs(cum) < tol:
+            return cash, net_settle_tax, i, flows
+        rate = tau(cash, sim_p)
+        L    = max(-cum, rate * delta) if (delta > 0.0 or cum > 0.0) else 0.0
+        if abs(L) < tol:
+            return cash, net_settle_tax, i, flows
+        net_settle_tax += L
+        flows.append(L)
+        basis = cash
+        cash  = cash - L
+        cum  += L
+
+    return cash, net_settle_tax, max_iter, flows
+
+
+def settle_tw(sell_result, p, max_iter=2000, tol=1e-10):
+    """
+    Iteratively settle the post-sale tax/refund oscillation to convergence.
+
+    Starting state after sale:
+      cash  = sell_result['TW']       (W_sell - L_sell)
+      basis = sell_result['W_sell']   (carry sell-year declared value forward)
+      cum   = sell_result['cum_after']
+
+    Each iteration:
+      delta = cash - basis
+      L = tau(cash) * delta  if delta > 0 or cum > 0, else 0
+          (floored at -cum by lifetime cap)
+      cash -= L;  basis = cash;  cum += L
+
+    Returns
+    -------
+    TW_settled     float  settled terminal net worth
+    net_settle_tax float  sum of post-sale L (+ = net tax, - = net refund)
+    n_iter         int    iterations to convergence
+    """
+    tw, net, n, _ = settle_tw_flows(sell_result, p, max_iter, tol)
+    return tw, net, n
+
+
+# ─────────────────────────────────────────────────────────────
+# HOLDING-PERIOD SIMULATION
+# ─────────────────────────────────────────────────────────────
+
+def simulate(V0_m, g_series, alpha, p):
+    """
+    Simulate one Route C taxpayer over N holding periods.
+
+    At each period t the declared wealth is W = f * alpha * V.
+    Tax L = tau(W) * delta is paid as fraction q = L/W of declared
+    wealth, reducing the retained equity fraction: f' = f * (1 - q).
+
+    Parameters
+    ----------
+    V0_m     initial true asset value (pounds m)
+    g_series list of N growth rates (one per period)
+    alpha    declaration ratio (1.0 = honest)
+    p        parameter dict (k, tau_0, tau_m, W_min)
+
+    Returns
+    -------
+    list of N+1 record dicts (t=0 through t=N), each with keys:
+      t, V, W, f, cum, L, rate, delta, q
+    """
+    N   = len(g_series)
+    V   = V0_m
+    f   = 1.0
+    W   = alpha * V
+    cum = 0.0
+
+    records = [{
+        't': 0, 'V': V, 'W': W, 'f': f, 'cum': cum,
+        'L': 0.0, 'rate': tau(W, p), 'delta': 0.0, 'q': 0.0,
+    }]
+
+    for t in range(1, N + 1):
+        V     = V * (1.0 + g_series[t - 1])
+        W_new = f * alpha * V
+        rate  = tau(W_new, p)
+        delta = W_new - W
+        L     = max(-cum, rate * delta) if (delta > 0.0 or cum > 0.0) else 0.0
+        q     = (L / W_new) if W_new != 0.0 else 0.0
+        f     = f * (1.0 - q)
+        cum  += L
+        W     = W_new
+        records.append({
+            't': t, 'V': V, 'W': W_new, 'f': f, 'cum': cum,
+            'L': L, 'rate': rate, 'delta': delta, 'q': q,
+        })
+
+    return records
+
+
+# ─────────────────────────────────────────────────────────────
+# TERMINAL SELL-YEAR EVENT
+# ─────────────────────────────────────────────────────────────
+
+def simulate_sell(sim, g_next, p):
+    """
+    Compute the terminal Route C sell event (period N+1).
+
+    At sale, alpha drops out entirely: W_sell = f_N * V_sell (not
+    f_N * alpha * V_sell). The taxpayer receives their retained fraction
+    of true sale proceeds. For overstaters, the prior declared basis
+    (f_N * alpha * V_N) typically exceeds W_sell when alpha > (1+g),
+    generating a negative delta_sell and a sell-year refund.
+
+    Parameters
+    ----------
+    sim    record list from simulate()
+    g_next growth rate for the sell year
+    p      parameter dict (k, tau_0, tau_m, W_min)
+
+    Returns
+    -------
+    dict with keys:
+      t, V_sell, W_sell, f_N, delta_sell, rate_sell, L_sell, TW, cum_after
+    """
+    last       = sim[-1]
+    f_N        = last['f']
+    W_N        = last['W']
+    cum_N      = last['cum']
+    V_N        = last['V']
+
+    V_sell     = V_N * (1.0 + g_next)
+    W_sell     = f_N * V_sell            # alpha drops out at liquidation
+    rate_sell  = tau(W_sell, p)
+    delta_sell = W_sell - W_N
+    L_sell     = (max(-cum_N, rate_sell * delta_sell)
+                  if (delta_sell > 0.0 or cum_N > 0.0) else 0.0)
+
+    return {
+        't':          last['t'] + 1,
+        'V_sell':     V_sell,
+        'W_sell':     W_sell,
+        'f_N':        f_N,
+        'delta_sell': delta_sell,
+        'rate_sell':  rate_sell,
+        'L_sell':     L_sell,
+        'TW':         W_sell - L_sell,
+        'cum_after':  cum_N + L_sell,
+    }
+
+
+# Alias retained for backward compatibility
+simulate_sell_year = simulate_sell
+
+
+# ─────────────────────────────────────────────────────────────
+# INTERNAL HELPER
+# ─────────────────────────────────────────────────────────────
+
+def _holding_totals(recs):
+    """
+    Sum holding-period (t=1..N) L values into gross tax, gross refunds,
+    and net. Sell year is excluded; callers add it separately.
+    """
+    gross_tax = sum(r['L'] for r in recs[1:] if r['L'] > 0)
+    gross_ref = sum(r['L'] for r in recs[1:] if r['L'] < 0)
+    return gross_tax, gross_ref, gross_tax + gross_ref
+
+
+# ─────────────────────────────────────────────────────────────
+# CONVENIENCE RUNNER — constant g
+# ─────────────────────────────────────────────────────────────
+
+def run_sim(p_in, alpha=None, beta=None, N=None, g=None):
+    """
+    Run a complete constant-g simulation then settle post-sale oscillation.
+
+    N is REQUIRED (no implicit default). All other keyword arguments override
+    the corresponding value in p_in.
+
+    Returns dict with keys:
+      TW           naive sell-year TW (backward compat; do not use)
+      TW_settled   settled TW -- PRIMARY METRIC
+      TTP          gross holding-period tax (pounds m, positive)
+      Refunds      gross holding-period refunds (pounds m, negative)
+      Net          TTP + Refunds, holding period only (backward compat)
+      Net_settled  net lifetime tax including post-sale settlement -- PRIMARY
+      records      simulate() list
+      sell         simulate_sell() dict
+      g_use        effective growth rate used
+      settle_iters iterations to convergence
+      N            the holding period actually used
+    """
+    N      = _require_N(N, 'run_sim')
+    alpha  = alpha  if alpha  is not None else p_in.get('alpha', 1.0)
+    beta   = beta   if beta   is not None else p_in.get('beta',  0.0)
+    g_base = g      if g      is not None else p_in['g']
+
+    g_use = g_eff(g_base, alpha, beta)
+    sim_p = {k: p_in[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+
+    recs = simulate(p_in['V0_m'], [g_use] * N, alpha, sim_p)
+    sell = simulate_sell(recs, g_use, sim_p)
+
+    gross_tax, gross_ref, _ = _holding_totals(recs)
+    if sell['L_sell'] > 0:
+        gross_tax += sell['L_sell']
+    else:
+        gross_ref += sell['L_sell']
+
+    tw_settled, net_settle_tax, n_iter = settle_tw(sell, sim_p)
+    net_settled = gross_tax + gross_ref + net_settle_tax
+
+    return {
+        'TW':          sell['TW'],
+        'TW_settled':  tw_settled,
+        'TTP':         gross_tax,
+        'Refunds':     gross_ref,
+        'Net':         gross_tax + gross_ref,
+        'Net_settled': net_settled,
+        'records':     recs,
+        'sell':        sell,
+        'g_use':       g_use,
+        'settle_iters': n_iter,
+        'N':           N,
+    }
+
+
+# ─────────────────────────────────────────────────────────────
+# CONVENIENCE RUNNER — historical return series
+# ─────────────────────────────────────────────────────────────
+
+def run_sim_hist(p_in, alpha=None, N=None):
+    """
+    Run a simulation using p_in['returns'] then settle post-sale oscillation.
+    No beta/signalling adjustment. g_use is None. N is REQUIRED.
+
+    Returns same dict as run_sim() plus g_mean (arithmetic mean of
+    the N holding-period returns).
+    """
+    N     = _require_N(N, 'run_sim_hist')
+    alpha = alpha if alpha is not None else p_in.get('alpha', 1.0)
+
+    if len(p_in['returns']) < N + 1:
+        raise ValueError(
+            f"run_sim_hist: need at least N+1={N+1} return values, "
+            f"got {len(p_in['returns'])}."
+        )
+
+    g_series = p_in['returns'][:N]
+    g_sell   = p_in['returns'][N]
+    sim_p    = {k: p_in[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+
+    recs = simulate(p_in['V0_m'], g_series, alpha, sim_p)
+    sell = simulate_sell(recs, g_sell, sim_p)
+
+    gross_tax, gross_ref, _ = _holding_totals(recs)
+    if sell['L_sell'] > 0:
+        gross_tax += sell['L_sell']
+    else:
+        gross_ref += sell['L_sell']
+
+    tw_settled, net_settle_tax, n_iter = settle_tw(sell, sim_p)
+    net_settled = gross_tax + gross_ref + net_settle_tax
+
+    return {
+        'TW':          sell['TW'],
+        'TW_settled':  tw_settled,
+        'TTP':         gross_tax,
+        'Refunds':     gross_ref,
+        'Net':         gross_tax + gross_ref,
+        'Net_settled': net_settled,
+        'records':     recs,
+        'sell':        sell,
+        'g_use':       None,
+        'g_mean':      sum(g_series) / len(g_series) if g_series else 0.0,
+        'settle_iters': n_iter,
+        'N':           N,
+    }
+
+
+# ─────────────────────────────────────────────────────────────
+# NPV TAX CALCULATION (C.12)
+# ─────────────────────────────────────────────────────────────
+
+def npv_tax_declared(records, sell, rho):
+    """
+    LEGACY (pre-refactor) C.12 numerator: PV of the CREDITED liabilities L_t.
+
+    Retained only for audit and regression. It mis-values Route C payments for
+    alpha != 1 (see module docstring) and omits post-sale settlement flows.
+    Do not use for new results.
+    """
+    pv = 0.0
+    for rec in records[1:]:
+        pv += rec['L'] / (1.0 + rho) ** rec['t']
+    pv += sell['L_sell'] / (1.0 + rho) ** sell['t']
+    return pv
+
+
+def npv_tax(records, sell, rho, alpha=1.0, settle_flows=()):
+    """
+    PV (at t=0, discount rate rho) of all tax payments, each valued at the TRUE
+    value surrendered.
+
+      holding period t=1..N : L_t / alpha        (in-kind at declared price;
+                                                  true value = credited L / alpha)
+      sell year t=N+1       : L_sell             (cash at true prices)
+      post-sale i=1,2,...   : settle_flows[i-1]  at t = N+1+i (cash)
+
+    Sign convention: positive = tax paid, negative = refund received.
+    """
+    if alpha <= 0.0:
+        raise ValueError("npv_tax: alpha must be > 0")
+    pv = 0.0
+    for rec in records[1:]:
+        pv += (rec['L'] / alpha) / (1.0 + rho) ** rec['t']
+    t_sell = sell['t']
+    pv += sell['L_sell'] / (1.0 + rho) ** t_sell
+    for i, L in enumerate(settle_flows, start=1):
+        pv += L / (1.0 + rho) ** (t_sell + i)
+    return pv
+
+
+def _run_core(p, alpha, g, N):
+    """Simulate + sell + settle for one (alpha, g, N). Independent of rho."""
+    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    recs  = simulate(p['V0_m'], [g] * N, alpha, sim_p)
+    sell  = simulate_sell(recs, g, sim_p)
+    gross_tax, gross_ref, _ = _holding_totals(recs)
+    if sell['L_sell'] > 0:
+        gross_tax += sell['L_sell']
+    else:
+        gross_ref += sell['L_sell']
+    tw, net_settle, _, flows = settle_tw_flows(sell, sim_p)
+    return {
+        'records': recs, 'sell': sell, 'flows': flows, 'alpha': alpha,
+        'TW_settled': tw,
+        'Net_settled': gross_tax + gross_ref + net_settle,
+    }
+
+
+def _run_full(p, alpha, g, N, rho):
+    """Simulate + sell + settle for one (alpha, g, N); return everything."""
+    c = _run_core(p, alpha, g, N)
+    return {
+        'records': c['records'], 'sell': c['sell'],
+        'TW_settled': c['TW_settled'], 'Net_settled': c['Net_settled'],
+        'npv_true': npv_tax(c['records'], c['sell'], rho, alpha, c['flows']),
+        'npv_declared': npv_tax_declared(c['records'], c['sell'], rho),
+    }
+
+
+_HONEST_CACHE = {}
+_CORE_HONEST_CACHE = {}
+
+
+def _honest(p, g, N, rho):
+    key = (g, N, p['V0_m'], p['k'], p['tau_0'], p['tau_m'], p['W_min'], rho)
+    if key not in _HONEST_CACHE:
+        _HONEST_CACHE[key] = _run_full(p, 1.0, g, N, rho)
+    return _HONEST_CACHE[key]
+
+
+def _honest_core(p, g, N):
+    key = (g, N, p['V0_m'], p['k'], p['tau_0'], p['tau_m'], p['W_min'])
+    if key not in _CORE_HONEST_CACHE:
+        _CORE_HONEST_CACHE[key] = _run_core(p, 1.0, g, N)
+    return _CORE_HONEST_CACHE[key]
+
+
+def run_pair_rhos(p, alpha, g, N=None, rhos=()):
+    """
+    Like run_pair, but evaluates the PV metric at several discount rates from a
+    SINGLE simulation (the simulation does not depend on rho).
+
+    Returns dict: net_pct, tw_gap, tw_cost, pv_pct (list, one per rho, same order
+    as `rhos`), N. All fractions of TW_settled(1).
+    """
+    N = _require_N(N, 'run_pair_rhos')
+    h = _honest_core(p, g, N)
+    a = h if alpha == 1.0 else _run_core(p, alpha, g, N)
+    d = h['TW_settled'] if abs(h['TW_settled']) > 1e-12 else 1.0
+    tw_gap = (a['TW_settled'] - h['TW_settled']) / d
+    pv = []
+    for rho in rhos:
+        ph = npv_tax(h['records'], h['sell'], rho, 1.0, h['flows'])
+        pa = npv_tax(a['records'], a['sell'], rho, alpha, a['flows'])
+        pv.append((pa - ph) / d)
+    return {'net_pct': (a['Net_settled'] - h['Net_settled']) / d,
+            'tw_gap': tw_gap, 'tw_cost': -tw_gap, 'pv_pct': pv, 'N': N}
+
+
+# ─────────────────────────────────────────────────────────────
+# DECLARED-PATH SIMULATION (declaration independent of realised value)
+# ─────────────────────────────────────────────────────────────
+#
+# The constant-alpha simulate() ties the declaration to the true value path
+# (D_t = alpha * V_t), i.e. the taxpayer implicitly knows V_t. Here the declared
+# asset value D_t is set independently and the market reveals V_t, so the
+# realised ratio alpha_t = D_t / V_t is a random outcome, not a choice.
+#
+# Route C in-kind identity: paying credited liability L_t surrenders equity worth
+# L_t * V_t / D_t = L_t / alpha_t in TRUE value. Sale-year and post-sale flows are
+# cash at true prices (declaration drops out at liquidation).
+
+def declared_path(V0_m, returns, m, mode, g_exp):
+    """
+    Build (D0, D_list, V_list) for a taxpayer who targets a declaration level m.
+
+      mode 'committed' : D_t = m * V0 * (1+g_exp)^t   (fixed at t=0 from the expected path)
+      mode 'lagged'    : D_t = m * V_{t-1} * (1+g_exp) (re-anchored each year on last year's
+                                                        observed true value)
+      mode 'honest'    : D_t = V_t                     (m ignored)
+
+    returns : N+1 realised growth rates (last one is the sale year, unused here)
+    Returns D0, D (list len N), V (list len N+1, V[0]=V0).
+    """
+    N = len(returns) - 1
+    V = [V0_m]
+    for t in range(1, N + 1):
+        V.append(V[-1] * (1.0 + returns[t - 1]))
+    if mode == 'honest':
+        return V0_m, V[1:], V
+    if mode == 'committed':
+        D = [m * V0_m * (1.0 + g_exp) ** t for t in range(1, N + 1)]
+    elif mode == 'lagged':
+        D = [m * V[t - 1] * (1.0 + g_exp) for t in range(1, N + 1)]
+    else:
+        raise ValueError(f"declared_path: unknown mode {mode!r}")
+    return m * V0_m, D, V
+
+
+def simulate_declared(V0_m, returns, D0, D, p):
+    """
+    Route C simulation with an arbitrary declared asset-value path.
+    Same mechanics as simulate(), with W = f * D_t. Each record also carries
+    alpha_t = D_t / V_t (realised ratio) and true_paid = L / alpha_t.
+    """
+    N   = len(D)
+    V   = V0_m
+    f   = 1.0
+    W   = D0
+    cum = 0.0
+    records = [{'t': 0, 'V': V, 'W': W, 'f': f, 'cum': cum, 'L': 0.0,
+                'rate': tau(W, p), 'delta': 0.0, 'q': 0.0,
+                'alpha_t': D0 / V0_m, 'true_paid': 0.0}]
+    for t in range(1, N + 1):
+        V     = V * (1.0 + returns[t - 1])
+        W_new = f * D[t - 1]
+        rate  = tau(W_new, p)
+        delta = W_new - W
+        L     = max(-cum, rate * delta) if (delta > 0.0 or cum > 0.0) else 0.0
+        q     = (L / W_new) if W_new != 0.0 else 0.0
+        f     = f * (1.0 - q)
+        cum  += L
+        W     = W_new
+        a_t   = D[t - 1] / V
+        records.append({'t': t, 'V': V, 'W': W_new, 'f': f, 'cum': cum, 'L': L,
+                        'rate': rate, 'delta': delta, 'q': q,
+                        'alpha_t': a_t, 'true_paid': L / a_t})
+    return records
+
+
+def run_declared(p, returns, m, mode, g_exp):
+    """Simulate + sell + settle for one declared-path taxpayer on one realised path."""
+    N = len(returns) - 1
+    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    D0, D, V = declared_path(p['V0_m'], returns, m, mode, g_exp)
+    recs = simulate_declared(p['V0_m'], returns, D0, D, p)
+    sell = simulate_sell(recs, returns[N], sim_p)
+    gross_tax, gross_ref, _ = _holding_totals(recs)
+    if sell['L_sell'] > 0:
+        gross_tax += sell['L_sell']
+    else:
+        gross_ref += sell['L_sell']
+    tw, net_settle, _, flows = settle_tw_flows(sell, sim_p)
+    return {'records': recs, 'sell': sell, 'flows': flows, 'TW_settled': tw,
+            'Net_settled': gross_tax + gross_ref + net_settle,
+            'alpha_N': recs[-1]['alpha_t']}
+
+
+def npv_true_declared(run, rho):
+    """PV of true-value payments for a run_declared() result (see module note above)."""
+    pv = 0.0
+    for rec in run['records'][1:]:
+        pv += rec['true_paid'] / (1.0 + rho) ** rec['t']
+    t_sell = run['sell']['t']
+    pv += run['sell']['L_sell'] / (1.0 + rho) ** t_sell
+    for i, L in enumerate(run['flows'], start=1):
+        pv += L / (1.0 + rho) ** (t_sell + i)
+    return pv
+
+
+def run_declared_pair(p, returns, m, mode, g_exp, rhos):
+    """
+    Paired comparison on ONE realised return path: declared-path taxpayer vs honest.
+    All fractions of the honest TW_settled on the same path.
+    Returns dict: net_pct, tw_gap, pv_pct (list over rhos), alpha_N.
+    """
+    h = run_declared(p, returns, 1.0, 'honest', g_exp)
+    a = run_declared(p, returns, m, mode, g_exp)
+    d = h['TW_settled'] if abs(h['TW_settled']) > 1e-12 else 1.0
+    pv = [(npv_true_declared(a, r) - npv_true_declared(h, r)) / d for r in rhos]
+    return {'net_pct': (a['Net_settled'] - h['Net_settled']) / d,
+            'tw_gap': (a['TW_settled'] - h['TW_settled']) / d,
+            'pv_pct': pv, 'alpha_N': a['alpha_N']}
+
+
+
+def breakeven_rho(p, alpha, g, N=None, tol_frac=0.02, rho_max=0.60):
+    """
+    Discount rate at which the state's PV shortfall from `alpha` (vs honest) equals
+    tol_frac of TW(1), i.e. PV_true(alpha) - PV_true(1) = -tol_frac * TW(1).
+    For over-declarers the shortfall shrinks monotonically as rho rises, so the
+    breakeven is found by bisection.
+
+    Returns (rho_star, status) with status in
+      'none'   : shortfall never exceeds tol even at rho = 0   (rho_star = 0.0)
+      'ok'     : bracketed and solved
+      'capped' : still beyond tol at rho_max                    (rho_star = rho_max)
+    """
+    N = _require_N(N, 'breakeven_rho')
+    h = _honest_core(p, g, N)
+    a = h if alpha == 1.0 else _run_core(p, alpha, g, N)
+    d = h['TW_settled'] if abs(h['TW_settled']) > 1e-12 else 1.0
+
+    def gap(rho):
+        ph = npv_tax(h['records'], h['sell'], rho, 1.0, h['flows'])
+        pa = npv_tax(a['records'], a['sell'], rho, alpha, a['flows'])
+        return (pa - ph) / d + tol_frac       # >= 0 means within tolerance (or better)
+
+    if gap(0.0) >= 0:
+        return 0.0, 'none'
+    if gap(rho_max) < 0:
+        return rho_max, 'capped'
+    lo, hi = 0.0, rho_max
+    for _ in range(60):
+        mid = 0.5 * (lo + hi)
+        if gap(mid) < 0:
+            lo = mid
+        else:
+            hi = mid
+    return 0.5 * (lo + hi), 'ok'
+
+
+def run_pair(p, alpha, g, N=None, rho=None):
+    """
+    One call, every comparison metric vs honest declaration at the same
+    (g, N). All fractions are of TW_settled(1). See module docstring.
+
+    Returns dict with keys:
+      net_pct, tw_gap, tw_cost, pv_pct, pv_declared_pct (legacy),
+      tw_honest, TW, TW_honest, Net, Net_honest, N
+    """
+    N   = _require_N(N, 'run_pair')
+    rho = p['rho'] if rho is None else rho
+    h = _honest(p, g, N, rho)
+    a = h if alpha == 1.0 else _run_full(p, alpha, g, N, rho)
+    d = h['TW_settled'] if abs(h['TW_settled']) > 1e-12 else 1.0
+    tw_gap = (a['TW_settled'] - h['TW_settled']) / d
+    return {
+        'net_pct':   (a['Net_settled'] - h['Net_settled']) / d,
+        'tw_gap':    tw_gap,
+        'tw_cost':   -tw_gap,
+        'pv_pct':    (a['npv_true'] - h['npv_true']) / d,
+        'pv_declared_pct': (a['npv_declared'] - h['npv_declared']) / d,
+        'tw_honest': h['TW_settled'],
+        'TW':        a['TW_settled'],
+        'TW_honest': h['TW_settled'],
+        'Net':       a['Net_settled'],
+        'Net_honest': h['Net_settled'],
+        'N':         N,
+    }
+
+
+def npv_tax_advantage(p, alpha, g, rho, N=None):
+    """
+    NPV tax difference: PV_true(alpha) - PV_true(1), as a fraction of
+    honest TW_settled (the corrected C.12 metric). N is REQUIRED.
+
+    Positive = alpha pays MORE in PV terms than honest (disadvantage).
+    Negative = alpha pays LESS in PV terms than honest (advantage).
+
+    Returns
+    -------
+    dict with keys:
+      npv_alpha, npv_honest, npv_diff   £m (true-value basis)
+      npv_diff_pct                      the corrected C.12 metric
+      npv_diff_pct_declared             LEGACY declared-credit metric (audit)
+      tw_honest                         denominator
+    """
+    N   = _require_N(N, 'npv_tax_advantage')
+    h = _honest(p, g, N, rho)
+    a = h if alpha == 1.0 else _run_full(p, alpha, g, N, rho)
+    tw_h  = h['TW_settled']
+    denom = tw_h if abs(tw_h) > 1e-12 else 1.0
+    diff  = a['npv_true'] - h['npv_true']
+    return {
+        'npv_alpha':  a['npv_true'],
+        'npv_honest': h['npv_true'],
+        'npv_diff':   diff,
+        'npv_diff_pct': diff / denom,
+        'npv_diff_pct_declared': (a['npv_declared'] - h['npv_declared']) / denom,
+        'tw_honest':  tw_h,
+    }
+
+
+# ─────────────────────────────────────────────────────────────
+# TW ADVANTAGE DECOMPOSITION (C.11)
+# ─────────────────────────────────────────────────────────────
+
+def decompose_tw_advantage(p, alpha, g, N=None):
+    """
+    Split TW_settled(alpha) - TW_settled(1) into three additive terms.
+    N is REQUIRED.
+
+    Correct identity (verified to machine precision):
+
+      tw_advantage = W_sell_delta - refund_delta - settle_delta
+
+    W_sell_delta = W_sell(alpha) - W_sell(1)
+        Always <= 0 for alpha > 1. f_N is depleted faster by higher
+        periodic tax, reducing the sell-year declared value W_sell = f_N * V_sell.
+
+    refund_delta = L_sell(alpha) - L_sell(1)
+        Always <= 0 for alpha > 1 when alpha > (1+g). The prior declared
+        basis (f_N * alpha * V_N) exceeds sell proceeds (f_N * V_sell),
+        producing a larger sell-year refund (more negative L_sell).
+
+    settle_delta = net_settle_tax(alpha) - net_settle_tax(1)
+        Always >= 0. A larger sell-year refund creates a larger positive
+        delta in the next post-sale period, which is taxed back.
+
+    excess_periodic = holding_net(alpha) - holding_net(1)
+        Informational only. NOT additive in the identity.
+
+    Returns
+    -------
+    dict with keys:
+      W_sell_delta, refund_delta, settle_delta, tw_advantage,
+      excess_periodic, f_ratio, tw_honest, identity_error, N
+    """
+    N     = _require_N(N, 'decompose_tw_advantage')
+    sim_p = {k: p[k] for k in ('k', 'tau_0', 'tau_m', 'W_min')}
+    g_ser = [g] * N
+
+    # honest
+    recs_h = simulate(p['V0_m'], g_ser, 1.0, sim_p)
+    sell_h = simulate_sell(recs_h, g, sim_p)
+    tw_h, net_settle_h, _ = settle_tw(sell_h, sim_p)
+    _, _, holding_net_h = _holding_totals(recs_h)
+
+    # declared
+    recs_a = simulate(p['V0_m'], g_ser, alpha, sim_p)
+    sell_a = simulate_sell(recs_a, g, sim_p)
+    tw_a, net_settle_a, _ = settle_tw(sell_a, sim_p)
+    _, _, holding_net_a = _holding_totals(recs_a)
+
+    W_sell_delta    = sell_a['W_sell']    - sell_h['W_sell']
+    refund_delta    = sell_a['L_sell']    - sell_h['L_sell']
+    settle_delta    = net_settle_a        - net_settle_h
+    tw_advantage    = tw_a               - tw_h
+    excess_periodic = holding_net_a      - holding_net_h
+    f_ratio         = (recs_a[-1]['f'] / recs_h[-1]['f']
+                       if abs(recs_h[-1]['f']) > 1e-12 else 0.0)
+    identity_error  = (W_sell_delta - refund_delta - settle_delta) - tw_advantage
+
+    return {
+        'W_sell_delta':    W_sell_delta,
+        'refund_delta':    refund_delta,
+        'settle_delta':    settle_delta,
+        'tw_advantage':    tw_advantage,
+        'excess_periodic': excess_periodic,
+        'f_ratio':         f_ratio,
+        'tw_honest':       tw_h,
+        'identity_error':  identity_error,
+        'N':               N,
+    }
+
+
+# ─────────────────────────────────────────────────────────────
+# SYNTHETIC RETURN SERIES
+# ─────────────────────────────────────────────────────────────
+
+def synthetic_returns(n, mu, lam=0.0, amplitude=0.0, period=10):
+    """
+    Generate a list of n annual return values following a stylised growth path:
+
+        g(t) = mu + lam * t + amplitude * sin(2 * pi * t / period)
+
+    Parameters
+    ----------
+    n         : int    number of values to generate (t = 0 .. n-1)
+    mu        : float  mean growth rate (fraction, e.g. 0.1045)
+    lam       : float  linear drift per year (default 0 → no trend)
+    amplitude : float  sine wave amplitude (default 0 → constant + trend only)
+    period    : float  sine period in years (default 10)
+
+    Returns
+    -------
+    list of n floats
+
+    Special cases
+    -------------
+    lam=0, amplitude=0  →  constant-g series: [mu] * n
+    lam=0               →  sine-only cycle around mu
+    amplitude=0         →  linear trend only: mu + lam * t
+    """
+    import math as _math
+    return [
+        mu + lam * t + amplitude * _math.sin(2.0 * _math.pi * t / period)
+        for t in range(n)
+    ]
+
+
+# ─────────────────────────────────────────────────────────────
+# SHARED SSM MARGINAL REVENUE PASS
+# ─────────────────────────────────────────────────────────────
+
+def _ssm_marginals(p, max_N=71):
+    """
+    Compute the cohort marginal net revenue series for the SSM.
+
+    This is the expensive simulation loop shared between:
+      - _ssm_lrr_fill_year()  (capitalisation-only fast path, used by load_params)
+      - rates_core.run_ssm()  (full SSM with post-fill mechanics)
+
+    For each year N = 1..max_N, runs all bracket simulations cumulatively
+    and computes the *marginal* (incremental) net revenue relative to N-1.
+    This marginal approach avoids O(N²) bracket re-simulation.
+
+    Parameters
+    ----------
+    p      : dict   loaded parameter dict (needs 'returns', 'brackets',
+                    'tau_0', 'tau_m', 'k', 'W_min')
+    max_N  : int    number of cohort years to compute (default 71)
+
+    Returns
+    -------
+    list of dicts, one per year N=1..max_N, each containing:
+      N    : int    cohort year (1-indexed)
+      ttp  : float  marginal gross tax (£b)
+      ref  : float  marginal gross refund (£b, negative)
+      net  : float  ttp + ref  (marginal net revenue, £b)
+      g    : float  return in year N+1 (sell-year return for this cohort)
+
+    Design note
+    -----------
+    rates_core.run_ssm() previously duplicated this loop verbatim.  It now
+    calls this function and processes the returned list.  Any change to the
+    simulation mechanic (bracket weights, sell-year logic, etc.) need only
+    be made here.
+    """
+    returns  = p['returns']
+    brackets = p['brackets']
+
+    prev_agg_ttp = 0.0
+    prev_agg_ref = 0.0
+    marginals    = []
+
+    for N in range(0, max_N):
+        g_series = [returns[t] for t in range(1, N + 1)]
+        g_sell   = returns[N + 1]
+        agg_ttp  = 0.0
+        agg_ref  = 0.0
+
+        for b in brackets:
+            sim = simulate(b['V0_m'], g_series, 1.0, p)
+            for r in sim[1:]:
+                x = r['L'] * b['N'] / 1000.0
+                if x > 0:
+                    agg_ttp += x
+                else:
+                    agg_ref += x
+            sy = simulate_sell(sim, g_sell, p)
+            x  = sy['L_sell'] * b['N'] / 1000.0
+            if x > 0:
+                agg_ttp += x
+            else:
+                agg_ref += x
+
+        delta_ttp = agg_ttp - prev_agg_ttp
+        delta_ref = agg_ref - prev_agg_ref
+        marginals.append({
+            'N':   N + 1,
+            'ttp': delta_ttp,
+            'ref': delta_ref,
+            'net': delta_ttp + delta_ref,
+            'g':   g_sell,
+        })
+        prev_agg_ttp = agg_ttp
+        prev_agg_ref = agg_ref
+
+    return marginals
+
+
+# ─────────────────────────────────────────────────────────────
+# MINIMAL SSM — LRR FILL YEAR
+# ─────────────────────────────────────────────────────────────
+
+def _ssm_lrr_fill_year(p, max_N=71):
+    """
+    Capitalisation-only SSM fast path: returns the LRR fill year (int)
+    or None if LRR never fills within max_N years.
+
+    Runs only the capitalisation phase — SRR accumulation then LRR
+    accumulation from SRR surplus — and returns as soon as lrr_bal
+    reaches lrr_target.  No post-fill mechanics are needed here because
+    load_params() only needs the fill year to set p['N_fill'].
+
+    Uses _ssm_marginals() for the simulation loop so the revenue
+    arithmetic stays in one place.  rates_core.run_ssm() calls the same
+    helper and then extends with the full v8 post-fill mechanics.
+
+    If the capitalisation logic here ever changes, update both:
+      1. This function (fast path)
+      2. The capitalisation block in rates_core.run_ssm()
+    """
+    marginals     = _ssm_marginals(p, max_N)
+    srr_ratio     = p['srr_ratio']
+    lrr_years     = p['lrr_years']
+    budget_base   = p['budget_base']
+    budget_growth = p['budget_growth']
+
+    srr_bal = 0.0
+    lrr_bal = 0.0
+    cum_net = 0.0
+
+    for m in marginals:
+        N   = m['N']
+        net = m['net']
+        cum_net += net
+
+        srr_target = srr_ratio * (cum_net / N)
+        new_srr    = srr_bal + net
+        if new_srr >= srr_target:
+            srr_surplus = new_srr - srr_target
+            srr_bal     = srr_target
+        else:
+            srr_surplus = 0.0
+            srr_bal     = new_srr
+
+        budget_t   = budget_base * (1.0 + budget_growth) ** (N - 1)
+        lrr_target = lrr_years * budget_t
+        lrr_bal   += srr_surplus
+
+        if lrr_bal >= lrr_target:
+            return N
+
+    return None
+
+
+# ─────────────────────────────────────────────────────────────
+# VECTORISED RATE FUNCTION
+# ─────────────────────────────────────────────────────────────
+
+def tau_vec(x, tau_0, tau_m, k, wmin):
+    """
+    Vectorised twin of tau(): marginal rate on an array x of wealth (already
+    divided by any threshold index). Zero below wmin. Same logistic as tau().
+    """
+    import numpy as np
+    x = np.asarray(x, dtype=float)
+    a = (tau_m - tau_0) / tau_0
+    out = np.zeros_like(x, dtype=float)
+    m = x >= wmin
+    out[m] = tau_m / (1.0 + a * np.exp(-k * (x[m] - wmin)))
+    return out
+
+
+def rate_vec(x, rp):
+    """
+    Marginal rate schedule on wealth x (already divided by any threshold index). rp['schedule']:
+      'logistic'    : tau_vec(x, tau_0, tau_m, k, wmin)           (default; unchanged)
+      'logistic_ln' : the same logistic in ln(x / wmin); k is dimensionless; needs wmin > 0
+      'ladder'      : rp['ladder'] = [(W, tau)] anchors, linear in ln W, flat beyond the ends
+    Zero below wmin in every case.
+    """
+    import numpy as np
+    s = rp.get('schedule', 'logistic')
+    if s == 'logistic':
+        return tau_vec(x, rp['tau_0'], rp['tau_m'], rp['k'], rp['wmin'])
+    x = np.asarray(x, dtype=float)
+    out = np.zeros_like(x)
+    m = x >= rp['wmin']
+    if s == 'logistic_ln':
+        if rp['wmin'] <= 0.0:
+            raise ValueError("schedule 'logistic_ln' needs wmin > 0")
+        a = (rp['tau_m'] - rp['tau_0']) / rp['tau_0']
+        out[m] = rp['tau_m'] / (1.0 + a * np.exp(-rp['k'] * np.log(x[m] / rp['wmin'])))
+    elif s == 'ladder':
+        lw = np.log([w for w, _ in rp['ladder']])
+        out[m] = np.interp(np.log(x[m]), lw, [t for _, t in rp['ladder']])
+    else:
+        raise ValueError(f'unknown schedule {s!r}')
+    return out
+
+
+def ladder_to_tau(anchors, basis, r_ref, c_ref, tau_cap):
+    """
+    Convert ladder anchors (target effective rates for an accumulator who consumes c_ref and earns
+    r_ref) to the statutory rate on the delta. stock: s/(r-c); gain: G r/(r-c); delta: unchanged.
+    Returns ([(W, tau)], [W of anchors that hit tau_cap]).
+    """
+    if r_ref <= c_ref:
+        raise ValueError('ladder: r_ref must exceed c_ref')
+    f = {'gain': r_ref / (r_ref - c_ref), 'stock': 1.0 / (r_ref - c_ref), 'delta': 1.0}[basis]
+    pts = [(float(w), min(float(a) * f, tau_cap), float(a) * f > tau_cap) for w, a in anchors]
+    return [(w, t) for w, t, _ in pts], [w for w, _, cap in pts if cap]
+
+
+def fit_k(schedule, tau_0, tau_m, wmin, W_ref, tau_ref):
+    """Closed-form k so that the logistic passes through (W_ref, tau_ref). No solver."""
+    if not tau_0 < tau_ref < tau_m:
+        raise ValueError(f'anchor tau {tau_ref:.4f} must lie strictly between tau_0 {tau_0} and tau_m {tau_m}')
+    if W_ref <= wmin:
+        raise ValueError('anchor wealth must exceed W_min')
+    z = math.log(((tau_m - tau_0) / tau_0) / (tau_m / tau_ref - 1.0))
+    if schedule == 'logistic_ln':
+        return z / math.log(W_ref / wmin)
+    if schedule == 'logistic':
+        return z / (W_ref - wmin)
+    raise ValueError(f'fit_k: schedule {schedule!r} has no steepness to fit')
+
+
+# ─────────────────────────────────────────────────────────────
+# TAX REPLACEMENT: what relief buys as ONE tax-free threshold (RATES T17-T19 / F17-F19)
+# ─────────────────────────────────────────────────────────────
+#
+# Design (see [rates.replacement]): relief retires CGT, IHT and corporation tax; what is left is split between a common threshold X (income tax and
+# employee NI) and a separate employer-NI threshold X_e. Below its threshold a leg charges nothing; above it each leg charges its own rate on the excess,
+# so liability grows from zero at the threshold. A leg's new threshold is
+# max(own, X). Every taxpayer is counted (WDT payers too), so nobody who pays today is worse off. Optional phase-in: the marginal rate rises
+# linearly from 0 at X to the full rate at X + phase_in_gbp.
+#
+# Cost of moving one leg from threshold t0 to Xe = max(t0, X), with n(y) = millions of people with income above y:
+#   rate x [ integral_{t0}^{Xe} n dy  +  integral_{Xe}^{Xe+w} (1 - (y-Xe)/w) n dy ]   +   sum_extra r x integral_{H}^{H+d} n dy,   d = Xe - t0
+# Millions of people x £ = £m. n is piecewise linear, so the integrals are read off cumulative tables built once per leg.
+
+import functools as _ft
+import json as _js
+
+
+def _gdp_m(rp):
+    """UK GDP in £m."""
+    return rp['gdp_gbp_bn'] * 1e3
+
+
+@_ft.lru_cache(maxsize=None)
+def _leg_tables(key):
+    """(grid, cumulative N, cumulative y*N) of a leg's taxpayer-count curve, scaled by leg['count_scale']. `key` is the leg as JSON."""
+    import numpy as np
+    leg = _js.loads(key)
+    xs, ns = zip(*leg['n_above'])
+    y = np.arange(0.0, max(xs) + 5.0, 5.0)
+    n = np.interp(y, xs, ns, right=0.0) * leg.get('count_scale', 1.0)
+    dy = np.diff(y)
+    N = np.concatenate([[0.0], np.cumsum((n[1:] + n[:-1]) / 2.0 * dy)])
+    Y = np.concatenate([[0.0], np.cumsum((n[1:] * y[1:] + n[:-1] * y[:-1]) / 2.0 * dy)])
+    return y, N, Y
+
+
+def _cum(leg, x, which):
+    import numpy as np
+    y, N, Y = _leg_tables(_js.dumps(leg, sort_keys=True))
+    return np.interp(x, y, N if which == 'N' else Y, right=(N if which == 'N' else Y)[-1])
+
+
+def leg_revenue(leg):
+    """£m a year the leg raises today under its own count curve and rate (the calibration target is share_gdp)."""
+    top = _cum(leg, 1e12, 'N')
+    rev = leg['rate'] * (top - _cum(leg, leg['threshold'], 'N'))
+    return float(rev + sum(r * (top - _cum(leg, H, 'N')) for H, r in leg['extra']))
+
+
+@_ft.lru_cache(maxsize=None)
+def _calibrated_json(key):
+    d = _js.loads(key)
+    out = {}
+    for name, leg in d['legs'].items():
+        leg = dict(leg, count_scale=1.0)
+        r0 = leg_revenue(leg)
+        leg['count_scale'] = (leg['share_gdp'] * d['gdp_gbp_bn'] * 1e3 / r0) if (d['on'] and r0 > 0) else 1.0
+        out[name] = leg
+    return _js.dumps(out, sort_keys=True)
+
+
+def calibrated_legs(rp):
+    """
+    The legs of [rates.replacement] with count_scale set so each leg's current revenue equals share_gdp x GDP (when calibrate_counts is on).
+    The taxpayer counts and the shares are both placeholders; this makes them agree with each other, so a £ of threshold costs what the
+    revenue it forgoes implies. count_scale is the correction (1.0 = the counts were already consistent).
+    """
+    key = _js.dumps({'legs': rp['legs'], 'gdp_gbp_bn': rp['gdp_gbp_bn'], 'on': bool(rp.get('calibrate_counts', True))}, sort_keys=True)
+    return _js.loads(_calibrated_json(key))
+
+
+def leg_cost(leg, x, phase_in=0.0):
+    """£m a year of moving the leg's threshold up to max(own, x), with an optional linear phase-in of width `phase_in` (£)."""
+    t0 = leg['threshold']
+    xe = max(t0, x)
+    d = xe - t0
+    cost = _cum(leg, xe, 'N') - _cum(leg, t0, 'N')
+    if phase_in > 0.0:
+        w = phase_in
+        cost += ((xe + w) * (_cum(leg, xe + w, 'N') - _cum(leg, xe, 'N')) - (_cum(leg, xe + w, 'Y') - _cum(leg, xe, 'Y'))) / w
+    cost *= leg['rate']
+    for H, r in leg['extra']:
+        cost += r * (_cum(leg, H + d, 'N') - _cum(leg, H, 'N'))
+    return float(cost)
+
+
+def solve_threshold(target_gbp_m, legs, phase_in=0.0, x_cap=100000.0):
+    """Common threshold X whose cost over `legs` equals target_gbp_m a year. 0.0 if the target is not positive; None if beyond x_cap."""
+    if target_gbp_m <= 0.0:
+        return 0.0
+    cost = lambda x: sum(leg_cost(l, x, phase_in) for l in legs)
+    if cost(x_cap) < target_gbp_m:
+        return None
+    lo, hi = 0.0, x_cap
+    for _ in range(60):
+        mid = 0.5 * (lo + hi)
+        lo, hi = (mid, hi) if cost(mid) < target_gbp_m else (lo, mid)
+    return 0.5 * (lo + hi)
+
+
+def _threshold_status(raw, target_gbp_m, allowance, cap):
+    """(status, x to display) of one solved threshold: 'none' (nothing to spend) | 'cap' | 'below' (cannot reach the allowance) | 'ok'."""
+    if target_gbp_m <= 0.0:
+        return 'none', allowance
+    if raw is None:
+        return 'cap', cap
+    if raw < allowance:
+        return 'below', allowance
+    return 'ok', raw
+
+
+def threshold_outcomes(relief_gdp, rp):
+    """
+    What a relief (share of GDP) buys under [rates.replacement]: retire the listed taxes in order, then split what is left between
+    ONE common threshold X (legs in rp['unify']: income tax, employee NI) and a SEPARATE threshold X_e (legs in rp['employer_legs']: employer NI),
+    in the proportions 1 - employer_share and employer_share. With no employer legs the whole leftover funds X.
+    Returns {'left': share of GDP left after the retired taxes (negative = shortfall),
+             'to_common', 'to_emp': the two parts of max(left, 0), share of GDP,
+             COMMON threshold X:  'status' 'ok' | 'none' (nothing left) | 'below' (left, but not enough to reach today's allowance) | 'cap',
+                                  'x' (X to display or plot: the allowance for 'none' / 'below', x_cap for 'cap'), 'x_raw' (solved X, None if beyond the cap),
+                                  'allowance' (today's allowance = the highest threshold among the unified legs),
+                                  'unify_cost_gdp' (cost of bringing every unified leg to that allowance, share of GDP),
+             EMPLOYER threshold X_e: 'status_emp', 'x_emp', 'x_emp_raw', 'allowance_emp', 'unify_cost_emp_gdp' (same meanings; 0 and 'none' without employer legs)}.
+    """
+    cl = calibrated_legs(rp)
+    legs = [cl[k] for k in rp['unify']]
+    legs_e = [cl[k] for k in rp.get('employer_legs', [])]
+    s = rp.get('employer_share', 0.0) if legs_e else 0.0
+    w, cap = rp['phase_in_gbp'], rp['x_cap_gbp']
+    left = relief_gdp - sum(v for _, v in rp['retire'])
+    to_emp = max(left, 0.0) * s
+    to_common = max(left, 0.0) - to_emp
+    pa0 = max(l['threshold'] for l in legs)
+    raw = solve_threshold(to_common * _gdp_m(rp), legs, w, cap)
+    status, x = _threshold_status(raw, to_common * _gdp_m(rp), pa0, cap)
+    out = {'left': left, 'to_common': to_common, 'to_emp': to_emp, 'status': status, 'x': x, 'x_raw': raw, 'allowance': pa0,
+           'unify_cost_gdp': sum(leg_cost(l, pa0, w) for l in legs) / _gdp_m(rp)}
+    if legs_e:
+        pa_e = max(l['threshold'] for l in legs_e)
+        raw_e = solve_threshold(to_emp * _gdp_m(rp), legs_e, w, cap)
+        status_e, x_e = _threshold_status(raw_e, to_emp * _gdp_m(rp), pa_e, cap)
+        out.update({'status_emp': status_e, 'x_emp': x_e, 'x_emp_raw': raw_e, 'allowance_emp': pa_e,
+                    'unify_cost_emp_gdp': sum(leg_cost(l, pa_e, w) for l in legs_e) / _gdp_m(rp)})
+    else:
+        out.update({'status_emp': 'none', 'x_emp': 0.0, 'x_emp_raw': 0.0, 'allowance_emp': 0.0, 'unify_cost_emp_gdp': 0.0})
+    return out
+
+
+def person_saving(income, x, rp):
+    """£ a year a person with this income saves in income tax and employee NI (rp['person_legs']) once the common threshold is x."""
+    w = rp['phase_in_gbp']
+    total = 0.0
+    for k in rp['person_legs']:
+        leg = calibrated_legs(rp)[k]
+        t0 = leg['threshold']
+        xe = max(t0, x)
+        d = xe - t0
+        if income <= xe:
+            kept = 0.0
+        elif w > 0.0 and income < xe + w:
+            kept = (income - xe) ** 2 / (2.0 * w)
+        elif w > 0.0:
+            kept = w / 2.0 + (income - xe - w)
+        else:
+            kept = income - xe
+        total += leg['rate'] * (max(income - t0, 0.0) - kept)
+        total += sum(r * max(0.0, min(income, H + d) - H) for H, r in leg['extra'])
+    return total
+
+def threshold_beneficiaries(x, rp):
+    """
+    Who gains when the common threshold is x, and by how much (static, gross of WDT).
+    Population: income-tax payers today, by the income_tax leg's calibrated count curve. Each person's expected
+    saving is the sum over rp['person_legs'], with each non-income-tax leg weighted by the share of people at that
+    income who pay it (ratio of the leg's density to the income-tax density), so people outside NI are not credited
+    with NI savings. Beneficiary = positive expected saving, i.e. income above today's allowance (if x exceeds it).
+    Returns {'beneficiaries_m', 'exempt_m' (newly tax-free: income between today's allowance and x),
+             'motivated_m' (saving >= rp['motivated_gbp']), 'total_gbp_bn', 'mean_gbp', 'median_gbp',
+             'mean_pct_income', 'band_m' (millions in each rp['saving_bands_gbp'] band, len + 1)}.
+    """
+    import numpy as np
+    legs = calibrated_legs(rp)
+    y = np.concatenate([np.arange(0.0, 150000.0, 100.0), np.arange(150000.0, 500001.0, 2500.0)])
+    mid = (y[:-1] + y[1:]) / 2.0
+
+    def pop_of(leg):
+        xs, ns = zip(*leg['n_above'])
+        n = np.interp(y, xs, ns, right=0.0) * leg.get('count_scale', 1.0)
+        return n[:-1] - n[1:]                      # millions with income in each bin
+
+    pop = pop_of(legs['income_tax'])
+    sav = np.zeros_like(mid)
+    for k in rp['person_legs']:
+        take = 1.0 if k == 'income_tax' else np.divide(pop_of(legs[k]), pop, out=np.zeros_like(pop), where=pop > 1e-12).clip(0.0, 1.0)
+        rp_k = dict(rp, person_legs=[k])
+        sav = sav + take * np.array([person_saving(m, x, rp_k) for m in mid])
+    t0 = legs['income_tax']['threshold']
+    gain = (sav > 1e-9) & (pop > 0.0)
+    w = np.where(gain, pop, 0.0)
+    tot = float(w.sum())
+    edges = np.asarray(rp['saving_bands_gbp'], float)
+    band = np.bincount(np.digitize(sav, edges)[gain], weights=pop[gain], minlength=len(edges) + 1)
+    if tot > 0.0:
+        cw = np.cumsum(w) / tot                    # saving rises with income, so bins are already in order
+        median = float(sav[np.searchsorted(cw, 0.5)])
+        mean, pct = float((w * sav).sum() / tot), float((w * sav / mid).sum() / tot)
+    else:
+        median = mean = pct = 0.0
+    return {'beneficiaries_m': tot, 'exempt_m': float(pop[(mid > t0) & (mid <= x)].sum()),
+            'motivated_m': float(w[sav >= rp['motivated_gbp']].sum()),
+            'total_gbp_bn': float((pop * sav).sum() / 1e3), 'mean_gbp': mean, 'median_gbp': median,
+            'mean_pct_income': pct, 'band_m': [float(v) for v in band]}
+
+def band_net_position(sc, mode, rp):
+    """
+    Net position of each launch-wealth band under the tax replacement, and the budget that closes it (RATES T22 / F22).
+
+    SAMPLE: the same windows and the same years as the relief. Windows in which the fund fills, years fill+1 .. fill+horizon, for the levy case
+    rp['levy_case']. Nobody receives relief before the fill, so those years are not averaged in: WDT paid, band shares and the fund flows are all
+    read over the post-fill horizon (columns *_h written by rates_core). Medians over those windows.
+
+    Per adult, a year:
+      WDT paid   = band share of net individual WDT x individual WDT (wdt_gdp_h, no CORP levy) / adults in the band
+      stock_rate = WDT / wealth of the band over the horizon (ratio of sums): the burden on one scale
+      repeal     = the taxes in rp['net_repeal'] that the relief actually retires, split across bands by rp['repeal_alloc']
+      saving     = income tax + employee NI saved. Read from rp['income_by_wealth']: each band's adults sit at five incomes, a share ni_share
+                   of them pay NI. The profile is only a SHAPE: it is rescaled so adults' total saving equals what the threshold solver
+                   says the relief buys (profile_scale reports the factor; far from 1 means the profile and the taxpayer counts disagree)
+      net        = saving + repeal - WDT
+    Bounds (no income-wealth link needed): 'net_avg' uses the average adult (total saving / all adults), 'net_max' the largest saving anyone
+    can get (a taxpayer above the moved higher-rate band, who also gets the extra band saving).
+
+    BUDGET (the closure): relief = individual WDT + CORP levy + fund investment income - fund retention, per window, exactly. Components are medians,
+    so they need not add: the gap is shown as 'mismatch'. Uses: each retired tax, the person legs (at X), the employer legs (at X_e), and any unspent amount (a threshold
+    above the solver cap). Uses sum to relief by construction, because X is solved from the same relief.
+
+    Returns None without a median relief; else a dict with 'x', 'status', 'relief_bn', 'gdp_bn', 'sources' {wdt, levy, fund_net, mismatch} (£bn),
+    'x_emp' (the employer threshold), 'retired' [(name, £bn)], 'repeal_bn', 'person_bn', 'employer_bn', 'unspent_bn', 'avg_saving', 'max_saving', 'profile_scale', 'bands': [...].
+    """
+    lh = levy_headline(sc, mode, rp['levy_case'])['overall']
+    relief = lh['relief_gdp'].get('p50')
+    if relief is None:
+        return None
+    m = lh['medians']
+    if m.get('wdt_gdp_h') is None:
+        raise SystemExit(f"scenario '{sc['label']}' has no post-fill horizon columns in rates_data.json; re-run: python rates_core.py")
+    adults, gdp_bn, w = rp['adults_m'], rp['gdp_gbp_bn'], rp['phase_in_gbp']
+    o = threshold_outcomes(relief, rp)
+    x = o['x_raw'] if o['x_raw'] is not None else o['x']             # the common threshold this relief buys (solver cap if it reaches it)
+    x_e = o['x_emp_raw'] if o['x_emp_raw'] is not None else o['x_emp']   # the employer threshold (0 and unused without employer legs)
+    legs = calibrated_legs(rp)
+    cost = {k: leg_cost(legs[k], x, w) / 1e3 for k in rp['unify']}   # £bn a year
+    cost_e = {k: leg_cost(legs[k], x_e, w) / 1e3 for k in rp.get('employer_legs', [])}
+    person_bn = sum(v for k, v in cost.items() if k in rp['person_legs'])
+    employer_bn = sum(cost_e.values()) + sum(v for k, v in cost.items() if k not in rp['person_legs'])
+    rem, retired = relief, []
+    for name, v in rp['retire']:
+        part = max(0.0, min(rem, v))
+        rem -= part
+        retired.append((name, part * gdp_bn))
+    relief_bn = relief * gdp_bn
+    unspent_bn = relief_bn - sum(b for _, b in retired) - person_bn - employer_bn
+    repeal_bn = sum(b for n, b in retired if n in rp['net_repeal'])
+    wdt_bn, levy_bn = m['wdt_gdp_h'] * gdp_bn, m['levy_gdp_h'] * gdp_bn
+    fund_net_bn = (m['fund_inc_gdp_h'] - m['fund_ret_gdp_h']) * gdp_bn
+    mismatch_bn = relief_bn - wdt_bn - levy_bn - fund_net_bn
+
+    b = sc['calibration']['bands']
+    nbd = len(b['adult_share'])
+    shares = [m.get(f'revshare_h_band{i}') for i in range(nbd)]
+    rates = [m.get(f'stockrate_h_band{i}') for i in range(nbd)]
+    wts = ([max(s, 0.0) if s is not None else 0.0 for s in shares] if rp['repeal_alloc'] == 'wdt' else list(b['wealth_share']))
+    tw = sum(wts) or 1.0
+    n_m = [a * adults for a in b['adult_share']]                     # millions of adults per band
+
+    # income profile -> saving per adult, rescaled to the solver's total
+    ibw = rp['income_by_wealth']
+    rp_it = dict(rp, person_legs=[k for k in rp['person_legs'] if k == 'income_tax'])
+    rp_ni = dict(rp, person_legs=[k for k in rp['person_legs'] if k != 'income_tax'])
+    raw = []
+    for ys, ni in zip(ibw['incomes'], ibw['ni_share']):
+        it = sum(person_saving(y, x, rp_it) for y in ys) / len(ys)
+        nn = sum(person_saving(y, x, rp_ni) for y in ys) / len(ys)
+        raw.append(it + ni * nn)
+    tot_raw = sum(n * r for n, r in zip(n_m, raw))
+    scale = (person_bn * 1e3 / tot_raw) if tot_raw > 0 else 0.0
+    avg_saving = person_bn * 1e3 / adults
+    max_saving = person_saving(1e9, x, rp)
+
+    rows = []
+    for i, n in enumerate(n_m):
+        wdt = (shares[i] * wdt_bn * 1e3 / n) if (shares[i] is not None and n > 0) else None
+        rep = (wts[i] / tw * repeal_bn * 1e3 / n) if n > 0 else None
+        sav = scale * raw[i]
+        ok = wdt is not None and rep is not None
+        rows.append({'adults_m': n, 'adult_share': b['adult_share'][i], 'wealth_share': b['wealth_share'][i],
+                     'rev_share': shares[i], 'wdt': wdt, 'stock_rate': rates[i], 'repeal': rep, 'saving': sav,
+                     'net': (sav + rep - wdt) if ok else None,
+                     'net_avg': (avg_saving + rep - wdt) if ok else None,
+                     'net_max': (max_saving + rep - wdt) if ok else None})
+    return {'x': x, 'x_emp': x_e, 'status': o['status'], 'status_emp': o['status_emp'], 'relief_gdp': relief, 'relief_bn': relief_bn, 'gdp_bn': gdp_bn,
+            'sources': {'wdt': wdt_bn, 'levy': levy_bn, 'fund_net': fund_net_bn, 'mismatch': mismatch_bn},
+            'retired': retired, 'repeal_bn': repeal_bn, 'person_bn': person_bn, 'employer_bn': employer_bn,
+            'unspent_bn': unspent_bn, 'avg_saving': avg_saving, 'max_saving': max_saving,
+            'profile_scale': scale, 'bands': rows}
+
+# ─────────────────────────────────────────────────────────────
+# SHARED JSON I/O
+# ─────────────────────────────────────────────────────────────
+
+def json_safe(obj, digits=None):
+    """
+    Convert obj to plain JSON types: numpy scalars/arrays -> python, nan/inf -> None,
+    dict keys -> str, tuples/sets -> lists, Path -> str. If digits is given, floats
+    are kept to that many significant digits.
+    """
+    import math as _m
+    try:
+        import numpy as _np
+    except ImportError:                               # pragma: no cover
+        _np = None
+    if obj is None or isinstance(obj, (bool, str)):
+        return obj
+    if _np is not None:
+        if isinstance(obj, _np.generic):
+            obj = obj.item()
+        elif isinstance(obj, _np.ndarray):
+            return [json_safe(v, digits) for v in obj.tolist()]
+    if isinstance(obj, int):
+        return obj
+    if isinstance(obj, float):
+        if _m.isnan(obj) or _m.isinf(obj):
+            return None
+        return float(f'{obj:.{digits}g}') if digits else obj
+    if isinstance(obj, dict):
+        return {str(k): json_safe(v, digits) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple, set)):
+        return [json_safe(v, digits) for v in obj]
+    if isinstance(obj, Path):
+        return str(obj)
+    return str(obj)
+
+
+def _json_fmt(o, indent, lvl):
+    import json as _j
+    pad, end = ' ' * indent * (lvl + 1), ' ' * indent * lvl
+    if isinstance(o, dict):
+        if not o:
+            return '{}'
+        items = [f'{pad}{_j.dumps(k)}: {_json_fmt(v, indent, lvl + 1)}' for k, v in o.items()]
+        return '{\n' + ',\n'.join(items) + '\n' + end + '}'
+    if isinstance(o, list):
+        if all(not isinstance(x, (dict, list)) for x in o):
+            return _j.dumps(o, separators=(',', ':'), allow_nan=False)
+        items = [f'{pad}{_json_fmt(x, indent, lvl + 1)}' for x in o]
+        return '[\n' + ',\n'.join(items) + '\n' + end + ']'
+    return _j.dumps(o, allow_nan=False)
+
+
+def save_json(obj, path, digits=None, indent=1):
+    """
+    Write obj as JSON. Dicts and lists of containers are indented; lists of scalars
+    (e.g. one table row) stay on one line, so tables remain readable and compact.
+    Returns the Path written.
+    """
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(_json_fmt(json_safe(obj, digits), indent, 0) + '\n', encoding='utf-8')
+    return path
+
+
+def load_json(path):
+    """Read a JSON file written by save_json."""
+    import json as _j
+    with open(Path(path), 'r', encoding='utf-8') as fh:
+        return _j.load(fh)
+
+
+def table_to_frame(table):
+    """{'columns': [...], 'rows': [[...], ...]} (as written by cores) -> DataFrame."""
+    import pandas as pd
+    return pd.DataFrame(table['rows'], columns=table['columns'])
+
+
+def scenario_headline(sc, mode):
+    """(headline block, mode used) of a stored scenario: `mode` if the scenario ran it, else the one mode it ran."""
+    hl = sc['headline']
+    m = mode if mode in hl else next(iter(hl))
+    return hl[m], m
+
+
+def levy_headline(sc, mode, case):
+    """
+    {'overall', 'by_country'} of a stored scenario with the CORP levy on `case`: 'nominal' (the statutory base), 'real' (same rate on the
+    deflated base: the conservative case) or 'none' (levy off). Raises with the fix if the JSON predates the levy variants.
+    """
+    h, _ = scenario_headline(sc, mode)
+    try:
+        return h['levy_variants'][case]
+    except KeyError:
+        raise SystemExit(f"scenario '{sc['label']}' has no levy variant '{case}' in rates_data.json; re-run: python rates_core.py")
+
+
+def scenario_medians(sc, mode, all_windows=False):
+    """
+    Medians block of a stored scenario.
+      all_windows=False  median over windows where the fund fills (the right sample for relief and coverage)
+      all_windows=True   median over ALL windows (the right sample for receipts, burden, drift, tier shares,
+                         which do not depend on the fund filling). Falls back to the uncensored block for a
+                         JSON written before `medians_all` existed.
+    """
+    ov = scenario_headline(sc, mode)[0]['overall']
+    if all_windows and ov.get('medians_all'):
+        return ov['medians_all']
+    return ov['medians']
+
+
+# ─────────────────────────────────────────────────────────────
+# [rates] SECTION
+# ─────────────────────────────────────────────────────────────
+
+_RATES_OPTIONAL = ('tiers', 'wmin_pct', 'payout_top', 'exp_paths', 'countries',
+                   'cohorts', 'wmin_house_ratio', 'anchor_from')
+_RATES_INTS = ('T', 'n_phase', 'G', 'a_window', 'horizon', 'start_stride')
+
+
+def _rates_cfg(d):
+    """Normalise types in a rates config dict (defaults or a scenario's overrides)."""
+    out = dict(d)
+    for k in ('index_modes', 'c_bounds', 'diag_tops'):
+        if k in out:
+            out[k] = tuple(out[k])
+    if 'tiers' in out:
+        out['tiers'] = [(float(w), float(x)) for w, x in out['tiers']]
+    if 'exp_paths' in out:
+        out['exp_paths'] = {n: (None if v == 'gdp' else float(v))
+                            for n, v in out['exp_paths'].items()}
+    if 'countries' in out:
+        out['countries'] = list(out['countries'])
+    if 'dist_kw' in out:
+        out['dist_kw'] = dict(out['dist_kw'])
+    if 'levy' in out:
+        out['levy'] = {k: float(v) for k, v in out['levy'].items()}
+    for k in _RATES_INTS:
+        if k in out:
+            out[k] = int(out[k])
+    return out
+
+
+def _parse_rates(r):
+    """Validate and normalise the [rates] section into p['rates']."""
+    if not r:
+        raise KeyError("WDT_Params.toml has no [rates] section")
+    defaults = _rates_cfg(r['defaults'])
+    for k in _RATES_OPTIONAL:
+        defaults.setdefault(k, None)
+    defaults.setdefault('dist_kw', {})
+    scenarios = {}
+    for name, s in r['scenarios'].items():
+        s = dict(s)
+        label = str(s.pop('label', name))
+        store = bool(s.pop('store_windows', False))
+        unknown = set(s) - set(defaults)
+        if unknown:
+            raise ValueError(f"[rates.scenarios.{name}] unknown keys: {sorted(unknown)}")
+        scenarios[name] = {'label': label, 'store_windows': store,
+                           'overrides': _rates_cfg(s)}
+    cohorts = {}
+    for name, c in r.get('cohorts', {}).items():
+        tiers = [(float(w), float(d)) for w, d in c['tiers']]
+        if abs(sum(w for w, _ in tiers) - 1.0) > 1e-9:
+            raise ValueError(f"[rates.cohorts.{name}] tier weights must sum to 1")
+        cohorts[name] = {'label': str(c.get('label', name)), 'tiers': tiers,
+                         'premium': [(float(q), float(x)) for q, x in c.get('premium', [])]}
+    for n, s in scenarios.items():
+        cn = s['overrides'].get('cohorts')
+        if cn is not None and cn not in cohorts:
+            raise ValueError(f"[rates.scenarios.{n}] cohorts={cn!r} is not defined in [rates.cohorts]")
+    schedules = {}
+    for name, s_ in r.get('schedules', {}).items():
+        if s_['basis'] not in ('stock', 'gain', 'delta'):
+            raise ValueError(f"[rates.schedules.{name}] basis must be stock | gain | delta")
+        an = sorted((float(w), float(a)) for w, a in s_['anchors'])
+        if len(an) < 2:
+            raise ValueError(f"[rates.schedules.{name}] needs at least two anchors")
+        schedules[name] = {'label': str(s_.get('label', name)), 'basis': s_['basis'],
+                           'r_ref': float(s_.get('r_ref', 0.05)), 'c_ref': float(s_.get('c_ref', 0.01)),
+                           'anchors': an}
+    for n, s in scenarios.items():
+        sc_ = s['overrides'].get('schedule')
+        if sc_ not in (None, 'logistic', 'logistic_ln') and sc_ not in schedules:
+            raise ValueError(f"[rates.scenarios.{n}] schedule={sc_!r} is not defined")
+        af = s['overrides'].get('anchor_from')
+        if af is not None and af not in schedules:
+            raise ValueError(f"[rates.scenarios.{n}] anchor_from={af!r} is not defined in [rates.schedules]")
+    rep = r['replacement']
+    legs = {k: {'threshold': float(v['threshold']), 'rate': float(v['rate']),
+                'share_gdp': float(v['share_gdp']),
+                'n_above': [(float(a), float(b)) for a, b in v['n_above']],
+                'extra': [(float(a), float(b)) for a, b in v.get('extra', [])]}
+            for k, v in rep['legs'].items()}
+    missing = {'income_tax', 'ni_employee', 'ni_employer'} - set(legs)
+    if missing:
+        raise ValueError(f'[rates.replacement.legs] missing {sorted(missing)}')
+    employer = [str(k) for k in rep.get('employer_legs', [])]
+    unify = [str(k) for k in rep.get('unify', [k for k in legs if k not in employer])]
+    person = [str(k) for k in rep.get('person_legs', ['income_tax', 'ni_employee'])]
+    bad_legs = [k for k in unify + person + employer if k not in legs]
+    if bad_legs:
+        raise ValueError(f'[rates.replacement] unify / person_legs / employer_legs name unknown legs: {bad_legs}')
+    if not unify:
+        raise ValueError('[rates.replacement].unify must name at least one leg')
+    if set(unify) & set(employer):
+        raise ValueError(f'[rates.replacement] a leg cannot be in both unify and employer_legs: {sorted(set(unify) & set(employer))}')
+    if set(person) & set(employer):
+        raise ValueError('[rates.replacement] employer_legs cannot also be person_legs (a person does not pay employer NI)')
+    emp_share = float(rep.get('employer_share', 0.0)) if employer else 0.0
+    if not 0.0 <= emp_share < 1.0:
+        raise ValueError('[rates.replacement].employer_share must satisfy 0 <= share < 1')
+    if str(rep.get('levy_case', 'real')) not in ('nominal', 'real', 'none'):
+        raise ValueError("[rates.replacement].levy_case must be nominal | real | none")
+    if float(rep.get('phase_in_gbp', 0.0)) < 0.0:
+        raise ValueError('[rates.replacement].phase_in_gbp must be >= 0')
+    net_repeal = [str(x) for x in rep.get('net_repeal', ['Capital gains tax', 'Inheritance tax'])]
+    bad_repeal = [n for n in net_repeal if n not in [str(n_) for n_, _ in rep['retire']]]
+    if bad_repeal:
+        raise ValueError(f'[rates.replacement].net_repeal names taxes not in retire: {bad_repeal}')
+    if str(rep.get('repeal_alloc', 'wdt')) not in ('wdt', 'wealth'):
+        raise ValueError('[rates.replacement].repeal_alloc must be wdt | wealth')
+    replacement = {'gdp_gbp_bn': float(rep['gdp_gbp_bn']), 'cases': list(rep['cases']),
+                   'retire': [(str(n), float(v)) for n, v in rep['retire']], 'legs': legs,
+                   'levy_case': str(rep.get('levy_case', 'real')),
+                   'unify': unify, 'person_legs': person, 'employer_legs': employer, 'employer_share': emp_share,
+                   'phase_in_gbp': float(rep.get('phase_in_gbp', 0.0)),
+                   'x_cap_gbp': float(rep.get('x_cap_gbp', 100000.0)),
+                   'calibrate_counts': bool(rep.get('calibrate_counts', True)),
+                   'example_incomes': [float(x) for x in rep.get('example_incomes', [20000.0, 30000.0, 50000.0])],
+                   'adults_m': float(rep.get('adults_m', 54.0)),
+                   'motivated_gbp': float(rep.get('motivated_gbp', 1000.0)),
+                   'saving_bands_gbp': sorted(float(x) for x in rep.get('saving_bands_gbp', [250.0, 500.0, 1000.0, 2000.0, 5000.0])),
+                   'net_repeal': net_repeal, 'repeal_alloc': str(rep.get('repeal_alloc', 'wdt')),}
+    lc = r.get('levy_calibration', {})
+    lc_target = str(lc.get('target', 'Corporation tax'))
+    hit = [v for n, v in replacement['retire'] if n == lc_target]
+    if not hit:
+        raise ValueError(f"[rates.levy_calibration].target {lc_target!r} is not an entry in [rates.replacement].retire")
+    if str(lc.get('solve', 'tau0')) not in ('tau0', 'scale'):
+        raise ValueError("[rates.levy_calibration].solve must be tau0 | scale")
+    if str(lc.get('base', 'nominal')) not in ('nominal', 'real'):
+        raise ValueError("[rates.levy_calibration].base must be nominal | real")
+    levy_calibration = {'target': lc_target, 'target_gdp': float(hit[0]), 'solve': str(lc.get('solve', 'tau0')),
+                        'base': str(lc.get('base', 'nominal'))}
+    if defaults.get('levy_basis', 'nominal') not in ('nominal', 'real'):
+        raise ValueError("[rates.defaults].levy_basis must be nominal | real")
+    run = dict(r['run'])
+    bands = [float(b) for b in run.get('revenue_bands_gbp_m', [])]
+    if not bands or bands != sorted(bands):
+        raise ValueError("[rates.run].revenue_bands_gbp_m must be a non-empty ascending list (£m)")
+    run['revenue_bands_gbp_m'] = bands
+    ibw = rep.get('income_by_wealth')
+    if not ibw:
+        raise ValueError('[rates.replacement.income_by_wealth] is required (T22 / F22)')
+    inc = [[float(v) for v in row] for row in ibw['incomes']]
+    nis = [float(v) for v in ibw['ni_share']]
+    if len(inc) != len(bands) + 1 or len(nis) != len(bands) + 1:
+        raise ValueError(f'[rates.replacement.income_by_wealth] needs {len(bands) + 1} rows (one per revenue band), got '
+                         f'{len(inc)} incomes and {len(nis)} ni_share')
+    if any(not row or min(row) < 0.0 for row in inc) or any(not 0.0 <= v <= 1.0 for v in nis):
+        raise ValueError('[rates.replacement.income_by_wealth]: incomes must be non-empty and >= 0, ni_share in [0, 1]')
+    replacement['income_by_wealth'] = {'incomes': inc, 'ni_share': nis}
+    for key in ('scenarios', 'quick'):
+        missing = [n for n in run[key] if n not in scenarios]
+        if missing:
+            raise ValueError(f"[rates.run].{key} names undefined scenarios: {missing}")
+    figures = dict(r['figures'])
+    lists = ('decomposition', 'rate_grid', 'schedules', 'cohorts', 'scope', 'stack', 'headline', 'consumption')
+    for key in lists:
+        figures[key] = list(figures.get(key, []))
+    for n in sum((figures[k] for k in lists), [figures['scenario']]):
+        if n not in scenarios:
+            raise ValueError(f"[rates.figures] names undefined scenario: {n}")
+    not_run = [n for n in dict.fromkeys(sum((figures[k] for k in lists), [figures['scenario']])) if n not in run['scenarios']]
+    if not_run:
+        raise ValueError(f"[rates.figures] reads scenarios that [rates.run].scenarios does not run: {not_run}")
+    figures['headline_names'] = [str(x) for x in figures.get('headline_names', figures['headline'])]
+    if len(figures['headline_names']) != len(figures['headline']):
+        raise ValueError("[rates.figures] headline_names must have one name per headline scenario")
+    # the frontier plots every design in the stack, the schedule grid and the cohort comparison
+    figures['frontier'] = list(dict.fromkeys(figures['stack'] + figures['schedules'] + figures['cohorts']))
+    # T19 / F19 read the tax-free threshold of every rate schedule and every step of the stack
+    figures['thresholds'] = list(dict.fromkeys(figures['schedules'] + figures['stack']))
+    return {
+        'jst_path': str(r['jst_path']), 'uk_iso': str(r['uk_iso']),
+        'calibration_year': int(r['calibration_year']), 'exp_ref_year': int(r['exp_ref_year']),
+        'valgen_dir': str(r.get('valgen_dir', '')),
+        'defaults': defaults,
+        'flags': {k: float(v) for k, v in r['flags'].items()},
+        'eras': [(str(e['name']), int(e['lo']), int(e['hi'])) for e in r['eras']],
+        'dist': r['dist'],
+        'extras': {'windows': [tuple(w) for w in r['extras']['windows']],
+                   'trailing_window': int(r['extras']['trailing_window'])},
+        'run': run, 'closure': dict(r['closure']),
+        'figures': figures, 'scenarios': scenarios, 'cohorts': cohorts, 'schedules': schedules,
+        'replacement': replacement, 'levy_calibration': levy_calibration,
+    }
+
+
+def load_rates_params(toml_path=None):
+    """
+    Light loader for RATES code: parses only [rates] (+ [meta]). Unlike
+    load_params() it does not run the old SSM pass, which the rebuild does not use.
+    """
+    path = Path(toml_path) if toml_path else _DEFAULT_TOML
+    with open(path, 'rb') as fh:
+        raw = tomllib.load(fh)
+    return {'rates': _parse_rates(raw.get('rates')), 'meta': raw.get('meta', {})}
+
+
+# ─────────────────────────────────────────────────────────────
+# PARAMETER LOADING
+# ─────────────────────────────────────────────────────────────
+
+def load_params(toml_path=None):
+    """
+    Load all model parameters from the TOML file and return a single dict.
+
+    N keys (see module docstring):
+      p['N_val']   = [val] N_demo (30). Canonical taxpayer holding period.
+      p['N_fill']  = SSM LRR fill year (fund mechanics). Falls back to
+                     p['tcm_N'] with a warning if the SSM does not fill
+                     within 71 periods.
+      p['N']       = alias of N_fill, retained for RATES code. VAL code must
+                     not use it; run_sim() and friends no longer read it.
+
+    All monetary values in pounds m. All rates as decimals.
+    """
+    path = Path(toml_path) if toml_path else _DEFAULT_TOML
+    with open(path, 'rb') as fh:
+        raw = tomllib.load(fh)
+
+    p = {}
+
+    p['tau_0'] = float(raw['rate']['tau_0'])
+    p['tau_m'] = float(raw['rate']['tau_m'])
+    p['k']     = float(raw['rate']['k'])
+    p['W_min'] = float(raw['rate']['W_min'])
+
+    p['srr_ratio'] = float(raw['swf']['srr_ratio'])
+    p['lrr_years'] = float(raw['swf']['lrr_years'])
+
+    p['budget_base']   = float(raw['budget']['budget_base'])
+    p['budget_growth'] = float(raw['budget']['budget_growth'])
+
+    canonical              = [float(v) for v in raw['returns']['values']]
+    p['series_base_year']  = int(raw['returns']['series_base_year'])
+    p['canonical_returns'] = canonical
+
+    scenario_start           = int(raw['tcm'].get('scenario_start_year',
+                                                   p['series_base_year']))
+    p['scenario_start_year'] = scenario_start
+    offset                   = (scenario_start - p['series_base_year']) % len(canonical)
+    p['returns']             = canonical[offset:] + canonical[:offset]
+
+    p['tcm_N']     = int(raw['tcm']['snapshot_N'])
+    p['hist_mean'] = float(raw['tcm']['hist_mean'])
+
+    p['tiers'] = [
+        {'label':        t['label'],
+         'weight':       float(t['weight']),
+         'differential': float(t['differential'])}
+        for t in raw['tiers']
+    ]
+    p['brackets'] = [
+        {'label': b['label'],
+         'N':     float(b['N_pop']),
+         'V0_m':  float(b['V0_m'])}
+        for b in raw['brackets']
+    ]
+
+    p['meta']            = raw.get('meta', {})
+    p['generate_charts'] = bool(raw.get('output', {}).get('generate_charts', False))
+
+    p['V0_m']  = float(raw['val']['V0_m'])
+    p['rho']   = float(raw['val']['rho'])
+    p['rho_sweep'] = [float(x) for x in raw['val'].get('rho_sweep', [0.0, 0.02, 0.03, 0.05, 0.07, 0.10])]
+    p['tol_pp']    = float(raw['val'].get('tol_pp', 2.0))
+    p['rate_table_W']      = [float(x) for x in raw['val']['rate_table_W']]
+    p['cost_curve_alphas'] = [float(x) for x in raw['val']['cost_curve_alphas']]
+    p['surface_table_g']   = [float(x) for x in raw['val']['surface_table_g']]
+    p['reversal_plateau_slope'] = float(raw['val']['reversal_plateau_slope'])
+    p['reversal_g_cutoff_pct']  = float(raw['val']['reversal_g_cutoff_pct'])
+    p['rho_display'] = [float(x) for x in raw['val'].get('rho_display', [0.0, 0.03, 0.05, 0.07, 0.09, 0.12])]
+    p['alpha_max']   = float(raw['val'].get('alpha_max', 5.0))
+    p['unc_sigmas']  = [float(x) for x in raw['val'].get('unc_sigmas', [0.0, 0.083, 0.15, 0.25])]
+    p['unc_paths']   = int(raw['val'].get('unc_paths', 1000))
+    p['unc_seed']    = int(raw['val'].get('unc_seed', 20260930))
+    vg = raw['val_gen']
+    _F  = lambda k: float(vg[k])
+    _I  = lambda k: int(vg[k])
+    _S  = lambda k: str(vg[k])
+    _FL = lambda k: [float(x) for x in vg[k]]
+    _IL = lambda k: [int(x) for x in vg[k]]
+    _SL = lambda k: [str(x) for x in vg[k]]
+
+    rs = {k: float(v) for k, v in vg['route_shares'].items()}
+    if abs(sum(rs.values()) - 1.0) > 1e-9:
+        raise ValueError(f"[val_gen.route_shares] must sum to 1, got {sum(rs.values())}")
+
+    p['val_gen'] = {
+        'T': _I('T'), 'G': _I('G'),
+        'heir_influx': _S('heir_influx'), 'envelope_unit': _S('envelope_unit'),
+        'consumption': _F('consumption'), 'consumption_vals': _FL('consumption_vals'),
+        'index_wmin': bool(vg['index_wmin']),
+        'state_tol': _F('state_tol'), 'state_tol_sens': _FL('state_tol_sens'),
+        'route_shares': rs,
+        'reset_interval': _I('reset_interval'), 'reset_sens': _IL('reset_sens'),
+        'death_waiver': _I('death_waiver'),
+        'lambda_vals': _FL('lambda_vals'), 'lambda_base': _F('lambda_base'),
+        'verified_threshold': _F('verified_threshold'),
+        'c_share_sens': _FL('c_share_sens'), 'alpha_ext': _FL('alpha_ext'),
+        'strategy_k': _IL('strategy_k'), 'pv_rel_min_frac': _F('pv_rel_min_frac'),
+        'brg_tol': _F('brg_tol'), 'hsc_tol': _F('hsc_tol'),
+        'conv_extra_alphas': _FL('conv_extra_alphas'), 'shock_sizes': _FL('shock_sizes'), 'shock_year': _I('shock_year'),
+        'c_cap_rules': _SL('c_cap_rules'),
+        'verify_down_rules': _SL('verify_down_rules'), 'd_auction_rules': _SL('d_auction_rules'),
+        'growth_vals': _FL('growth_vals'), 'surface_rules': _SL('surface_rules'),
+        'headline_rules': _SL('headline_rules'),
+        'dmg_rules': _SL('dmg_rules'), 'route_d_examples': {k: dict(v) for k, v in vg['route_d_examples'].items()}, 'life_examples': {k: dict(v) for k, v in vg['life_examples'].items()}, 'c_share_vals': _FL('c_share_vals'),
+        'hec_sigmas': _FL('hec_sigmas'), 'hec_paths': _I('hec_paths'), 'hec_phi': _F('hec_phi'), 'hec_seed': _I('hec_seed'),
+        'hec_phi_C': float(vg.get('hec_phi_C', vg['hec_phi'])), 'hec_phi_D': float(vg.get('hec_phi_D', vg['hec_phi'])),
+        'example_alphas': _FL('example_alphas'),
+    }
+    p['names_val'] = {k: {kk: str(vv) for kk, vv in v.items()} for k, v in raw.get('names', {}).get('val', {}).items()}
+    p['N_demo'] = int(raw['val'].get('N_demo', 30))
+    p['N_val']  = p['N_demo']
+    p['g']     = p['hist_mean']
+    p['alpha'] = 1.0
+    p['beta']  = 0.0
+
+    lrr_N = _ssm_lrr_fill_year(p)
+    if lrr_N is None:
+        print(f"WARNING: wdt_core.load_params() -- LRR did not fill within "
+              f"71 periods for scenario starting {scenario_start}. "
+              f"Falling back to tcm_N={p['tcm_N']}.")
+        lrr_N = p['tcm_N']
+    p['N_fill'] = lrr_N
+    p['N']      = lrr_N          # alias for RATES code; VAL code must use N_val
+
+    sw = raw.get('sweep', {})
+
+    def _range_grid(triple):
+        mn, mx, st = triple
+        return list(range(mn, mx + 1, st))
+
+    p['sweep'] = {
+        'tau_0_canon':  float(sw.get('tau_0_canon',  p['tau_0'])),
+        'tau_m_canon':  float(sw.get('tau_m_canon',  p['tau_m'])),
+        'k_canon':      float(sw.get('k_canon',      p['k'])),
+        'W_min_canon':  float(sw.get('W_min_canon',  p['W_min'])),
+        'N_canon':      int(  sw.get('N_canon',      p['N_val'])),
+        'V0_canon':     float(sw.get('V0_canon',     p['V0_m'])),
+        'g_canon':      float(sw.get('g_canon',      p['hist_mean'])),
+        'tzone_threshold':   float(sw.get('tzone_threshold', 0.02)),
+        'g_vals':            [float(v) for v in sw.get('g_vals',        [])],
+        'alpha_vals':        [float(v) for v in sw.get('alpha_vals',    [])],
+        'over_alphas':       [float(v) for v in sw.get('over_alphas',   [])],
+        'under_alphas':      [float(v) for v in sw.get('under_alphas',  [])],
+        'n_sweep':           (_range_grid([int(v) for v in sw['n_sweep']])
+                              if 'n_sweep' in sw else list(range(5, 66))),
+        'n_panel_vals':      [int(v)   for v in sw.get('n_panel_vals',  [])],
+        'n_actual_vals':     [int(v)   for v in sw.get('n_actual_vals', [])],
+        'v0_sweep_vals':     [float(v) for v in sw.get('v0_sweep_vals', [])],
+        'tau0_panel_vals':   [float(v) for v in sw.get('tau0_panel_vals', [])],
+        'taum_panel_vals':   [float(v) for v in sw.get('taum_panel_vals', [])],
+        'k_panel_vals':      [float(v) for v in sw.get('k_panel_vals',    [])],
+        'wmin_panel_vals':   [float(v) for v in sw.get('wmin_panel_vals', [])],
+        'tau0_n_surface_tau0':  ([t / 100 for t in
+                                  _range_grid([int(v) for v in sw['tau0_n_surface_tau0']])]
+                                 if 'tau0_n_surface_tau0' in sw else []),
+        'tau0_n_surface_nceil': (_range_grid([int(v) for v in sw['tau0_n_surface_nceil']])
+                                 if 'tau0_n_surface_nceil' in sw else []),
+        'k_v0_surface_k':    [float(v) for v in sw.get('k_v0_surface_k',  [])],
+        'k_v0_surface_v0':   [float(v) for v in sw.get('k_v0_surface_v0', [])],
+        'appc_k_vals':       [float(v) for v in sw.get('appc_k_vals',    [])],
+        'appc_v0_vals':      [int(v)   for v in sw.get('appc_v0_vals',   [])],
+        'appc_over_vals':    [float(v) for v in sw.get('appc_over_vals', [])],
+        'rates_tau_0_sweep': [float(v) for v in sw.get('rates_tau_0_sweep', [])],
+        'rates_tau_m_sweep': [float(v) for v in sw.get('rates_tau_m_sweep', [])],
+        'rates_k_sweep':     [float(v) for v in sw.get('rates_k_sweep',     [])],
+        'rates_wmin_sweep':  [float(v) for v in sw.get('rates_wmin_sweep',  [])],
+        'rates_srr_ratio_sweep': [float(v) for v in sw.get('rates_srr_ratio_sweep', [])],
+        'rates_lrr_years_sweep': [float(v) for v in sw.get('rates_lrr_years_sweep', [])],
+        'rates_g_sweep':     [float(v) for v in sw.get('rates_g_sweep',     [])],
+    }
+
+    if p['sweep']['N_canon'] != p['N_val']:
+        print(f"WARNING: wdt_core.load_params() -- [sweep] N_canon="
+              f"{p['sweep']['N_canon']} != [val] N_demo={p['N_val']}. "
+              f"N_canon should equal N_demo (canonical N = 30).")
+
+    # ── Synthetic scenario parameters ─────────────────────────
+    syn = raw.get('synthetic_scenario', {})
+    p['synthetic_scenario'] = {
+        'mu':              float(syn.get('mu',              p['hist_mean'])),
+        'lam':             float(syn.get('lam',             0.0)),
+        'amplitude':       float(syn.get('amplitude',       0.0)),
+        'period':          float(syn.get('period',          10.0)),
+        'amplitude_sweep': [float(v) for v in syn.get('amplitude_sweep', [])],
+        'period_sweep':    [float(v) for v in syn.get('period_sweep',    [])],
+    }
+
+    # ── WFR sweep keys (welfare model) ────────────────────────
+    # These are defined in [sweep] in the TOML but were not previously
+    # parsed here. wfr_core reads them via p['sweep']['wfr_*'].
+    p['sweep'].update({
+        'wfr_target_et_pct':       [float(v) for v in sw.get('wfr_target_et_pct',    [])],
+        'wfr_tau_0_sweep':         [float(v) for v in sw.get('wfr_tau_0_sweep',       [])],
+        'wfr_tau_m_sweep':         [float(v) for v in sw.get('wfr_tau_m_sweep',       [])],
+        'wfr_k_sweep':             [float(v) for v in sw.get('wfr_k_sweep',           [])],
+        'wfr_wmin_sweep':          [float(v) for v in sw.get('wfr_wmin_sweep',        [])],
+        'wfr_W0_sweep':            [float(v) for v in sw.get('wfr_W0_sweep',          [])],
+        'wfr_gamma_vals':          [float(v) for v in sw.get('wfr_gamma_vals',        [])],
+        'wfr_start_years_curated': [int(v)   for v in sw.get('wfr_start_years_curated', [])],
+    })
+
+    # ── Structured sub-dicts for WFR pipeline compatibility ───
+    # wfr_core and welfare_core read several values via TOML-shaped
+    # sub-dicts (e.g. p['rate']['tau_0'], p['tcm']['canonical_N']).
+    # We build these here as views over the flat keys so both access
+    # patterns work from the same load_params() call.
+    import numpy as _np
+    _canonical_arr = _np.array(canonical, dtype=float)
+    _offset = (scenario_start - p['series_base_year']) % len(canonical)
+
+    p['rate'] = {
+        'tau_0': p['tau_0'],
+        'tau_m': p['tau_m'],
+        'k':     p['k'],
+        'W_min': p['W_min'],
+    }
+
+    p['tcm'] = {
+        'canonical_N':         int(raw['tcm'].get('canonical_N',  p['tcm_N'])),
+        'snapshot_N':          p['tcm_N'],
+        'hist_mean':           p['hist_mean'],
+        'scenario_start_year': p['scenario_start_year'],
+    }
+
+    # p['returns'] is the rotated list used by all existing code.
+    # The WFR pipeline additionally needs:
+    #   p['returns']['array']           — numpy array of canonical (unrotated) returns
+    #   p['returns']['offset']          — rotation offset for scenario_start_year
+    #   p['returns']['years']           — calendar years 1947–2019
+    #   p['returns']['series_base_year']— already available flat as p['series_base_year']
+    # We add these as a parallel structured key to avoid conflicting with the
+    # rotated list that all other code reads from p['returns'].
+    p['returns_meta'] = {
+        'array':            _canonical_arr,
+        'offset':           _offset,
+        'years':            list(range(p['series_base_year'],
+                                       p['series_base_year'] + len(canonical))),
+        'series_base_year': p['series_base_year'],
+        'values':           canonical,     # raw list, unrotated
+    }
+
+    p['rates'] = _parse_rates(raw.get('rates'))
+
+    return p
