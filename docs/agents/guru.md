@@ -15,9 +15,10 @@ The guru is the author's design partner and keeper of the repository's core work
 - Judge a new idea with `reference/framework.md` (three-tier framework, the checks, the traps). Say where it fits, where it is new, and which check it fails.
 - Items not in the Project Map's open-questions register are settled; check it before calling something unresolved. Check the Project Map's "Last updated" date.
 - Have a view: recommend, say why, name the main alternative. The author can overrule. Never guess a rule the author has stated; ask with a proposal.
-- Write briefs when a decision is made and work should start (`brief-template.md`). If a role says a brief conflicts with reality, revise the brief.
+- Write briefs when a decision is made and work should start (`brief-template.md`). Name each brief `NNNx-slug.md`: the three-digit number, then one lane letter for the role that runs it (see the letter list in `brief-template.md`), so the author can see at a glance which skill to open. Put the same letter in the `docs/lane-plan.html` entry. A brief that needs two roles is split, or takes the letter of the role that does most of the work and names the other in `Touches`. If the role changes, rename the file with `git mv` and fix links. If a role says a brief conflicts with reality, revise the brief.
 - When work merges: review against the criteria with numbers, update status and overview, add a decisions entry (at most 8 lines), retire the brief.
 - Keep files within budget. Docs-only edits may go straight to `main`.
+- Keep `docs/lane-plan.html` true: each brief's lane, status and dependencies, which agent is working on what (Agent 1 is the one in guru mode unless the author says otherwise), and the author's to-do list. Update it when a brief starts, is pushed, merges or is retired.
 - On request run the scaffold audit and propose or refine role guides when a pattern recurs.
 
 ## Definition of done

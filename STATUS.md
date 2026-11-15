@@ -1,27 +1,26 @@
 # Status board
 
-Maintained by the guru. Last updated 2026-11-15 (evening).
+Maintained by the guru. Last updated 2026-11-15 (evening). Plan view: `docs/lane-plan.html`.
 
 ## Where the project is
-Papers are being rewritten by the author. The simulation model is to be rebuilt from scratch (third refactor) using lessons from the first two. The agent scaffold was added on branch `docs/scaffold-audit`.
+Papers are being rewritten by the author. All housekeeping comes first (briefs 003s, 004s, 005g, 006c, 008g, 010s); then model v1 and v2 are audited (001c) before any model v3 design (011g). Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
 
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
-| guru | Brief 002 (triage) done on branch `brief/002-repo-triage`; briefs 003 to 009 written or revised | Merge 002; wait for the author's decisions below |
-| code | Idle | Briefs 003 and 006 (ready, can run in parallel); brief 001 (model v3) when the lessons note exists; 009 after 001 |
-| writing | Idle | Author-led paper rewrite |
-| research | Idle | `references.bib` and `internal.json` updates after rewrites |
-| web | Idle | Brief 004 (architecture doc), then the citation button fix from `docs/todo.md`; 003 touches `deploy.yml` |
+| Agent 1 (guru) | Brief 002g done, pushed on `brief/002-repo-triage` | 005g, then 008g |
+| Agent 2 | Free | 003s, then 010s |
+| Agent 3 | Free | 004s |
+| Agent 4 | Free | 006c, then the audit 001c after all housekeeping merges |
+| Agent 5 | Free | none planned |
 
 ## Waiting on the author
-- Test the five new `.skill` files in `Tools/`; then brief 005 removes the old archives and the uploaded `wdt-*` skills.
-- Approve the revised cleanup briefs (order in `docs/briefs/002-repo-triage.md`): 003, 004, 006 ready; 008 docs and naming and 009 legacy-model retirement are new drafts; 005 waits on your skill test; 007 is parked.
-- Decisions listed at the end of brief 002: `.obsidian` scope (003), `Tools/web_search.json` and keeping both skill locations (005), v2 plans and folder renames (008), data dumps and when `model/` goes (009).
-- Brief 001 needs your account of what `model_new_2` got wrong (the "lessons" note).
+- Merge `brief/002-repo-triage` (docs only) so agents see the revised briefs.
+- Approve the audit brief 001c (scope, one stage per session, writes only under `docs/model-audit/`).
+- Two small choices with defaults in the briefs: letter `s` for the web role; keep the published URL `/model/` when the folder becomes `model_v1` (010s).
 
 ## Recently done
-- 2026-11-15: scaffold audit, agent guides, skill stubs, superseded `SS` folders removed; scaffold merged to `main`; v2 model added as `model_new_2/`; open audit items written up as briefs 002 to 007; role stubs packaged as flat `.skill` files.
+- 2026-11-15: scaffold audit and agent guides; repo triage (002g) with the final brief order; author's decisions applied (untrack `source/.obsidian/`, delete old `Tools/` skill files and `web_search.json`, rename and keep docs, keep data dumps, audit models before v3); lane-letter rule added to the guru guide and brief template; `docs/lane-plan.html` rebuilt for these briefs.
 
 ## Open findings
 See `OVERVIEW.md` section 6. Priority list carried over from `docs/todo.md`: citation button, CLOSE updates, PDF title page, WFR refactor, WP Appendix B forward links, internal bibliography to Zenodo v2.

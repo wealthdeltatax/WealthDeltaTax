@@ -9,7 +9,7 @@ Source, tests and tools under `model/` and `pipeline/`, and git for them.
 1. `AGENTS.md`, then the brief and its `Read:` line. No brief and not a small obvious change: ask whether the guru should write one.
 2. Only the overview sections your files belong to; open only the files you will change.
 3. Create your branch before changing files.
-4. Model work: `reference/code/conventions.md` first. The v1/v2 model is legacy; new model work follows brief 001.
+4. Model work: `reference/code/conventions.md` first. The v1/v2 model is legacy; model v3 is designed in brief 011g after the audit in brief 001c. Do not build v3 earlier.
 
 ## Rules
 - Follow the brief; its decisions are settled. Make small implementation choices yourself and report them.

@@ -50,18 +50,21 @@ Deleting or moving anything. This brief plans; the briefs it produces act.
 
 ## Result (2026-11-15)
 
-### Final ordered list
+### Final ordered list (revised after the author's answers, 2026-11-15)
+Lane letter after the number: g guru, c code, w writing, r research, s site (web role).
 | # | Brief | Goal | Depends on | State |
 |---|---|---|---|---|
-| 1 | 003 | Delete old crosslink reports, ignore editor state, drop CI debug step | none | ready |
-| 2 | 004 | Refresh `docs/wdt-site-architecture.md` (narrowed; model docs moved to 009) | none | ready |
-| 3 | 006 | Delete `SS` folders, `.bak`, `_backups` and `welfare_*` (narrowed; no longer waits for 001) | none | ready |
-| 4 | 008 | Give every `docs/` file an owner; fix names with spaces and `(1)` (new) | 004 for one cite | draft |
-| 5 | 005 | One home for skills; delete old `.skill` archives | author tests skills | draft |
-| 6 | 001 | Model v3 | lessons note | draft |
-| 7 | 009 | Retire legacy models, shared files, data dumps, legacy reference docs (new, split from 006) | 001, 006 | draft |
-| 8 | 007 | Crosslink repair | paper rewrite | parked |
-Briefs 003, 004, 006 and 008 touch disjoint paths and can run in parallel, each on its own branch.
+| 1 | 003s | Delete old crosslink reports, untrack `source/.obsidian/`, drop CI debug step | none | ready |
+| 2 | 004s | Refresh `docs/wdt-site-architecture.md` | none | ready |
+| 3 | 006c | Delete `SS` folders, `.bak`, `_backups` and `welfare_*` | none | ready |
+| 4 | 005g | Delete old skill files and `web_search.json` from `Tools/` | none | ready |
+| 5 | 008g | Rename `WDT JEL Codes.md` and the `(1)` xlsx files; give every `docs/` file an owner | none | ready |
+| 6 | 010s | Rename `model` to `model_v1` and `model_new_2` to `model_v2` (the site build reads `model/`) | 006c | ready |
+| 7 | 001c | Audit model v1 and v2, no building | 003s, 004s, 005g, 006c, 008g, 010s | draft |
+| 8 | 011g | Model v3 design | 001c | parked |
+| 9 | 009c | Retire legacy models and data | 011g | parked |
+| 10 | 007w | Crosslink repair | paper rewrite | parked |
+Briefs 003s, 004s, 005g, 006c and 008g touch disjoint paths and can run in parallel, each on its own branch. Housekeeping (the first six) finishes before the audit starts.
 
 ### One source of truth per rule set
 - **Agent rules:** `AGENTS.md` (shared) plus `docs/agents/<role>.md`. The five `.claude/skills/*/SKILL.md` stubs hold no rules (10 lines each) and are byte-identical to the `Tools/wdt-*.skill` contents.
@@ -80,21 +83,22 @@ Briefs 003, 004, 006 and 008 touch disjoint paths and can run in parallel, each 
 | 61 tracked `.bak` files | delete (all sit in `SS` folders) | 006 |
 | `model_new_2/test/_backups/` (6 files) | delete | 006 |
 | `model/test/welfare_core.py`, `welfare_tables.py` | delete after re-running the import grep | 006 |
-| `Rates Data/*(1).xlsx` | **not duplicates** (no originals exist); rename, keep | 008 |
+| `Rates Data/*(1).xlsx` | **not duplicates** (no originals exist); rename, keep | 008g |
 | `check.txt`, `pipeline/check2.txt` | delete; gitignore future output | 003 |
-| `source/.obsidian/workspace.json` | untrack and ignore | 003 |
-| `Tools/` old archives and `web_search.json` | delete after the author's test | 005 |
-| `docs/` root plans, `navigation_suggestions.md`, `todo.md` | archive, rename or fold into STATUS | 008 |
-| `wid_out/` (81 MB), `audit_d0/` (70 MB) | author decides: keep, regenerate or summaries only | 009 |
+| `source/.obsidian/` | untrack and ignore (author, 2026-11-15) | 003s |
+| `Tools/` old archives, `Tools/SS/` and `web_search.json` | delete (author, 2026-11-15) | 005g |
+| `docs/` root plans, `navigation_suggestions.md`, `todo.md` | keep in place; rename `WDT JEL Codes.md`; list owners in `OVERVIEW.md` | 008g |
+| `wid_out/` (81 MB), `audit_d0/` (70 MB) | keep (author, 2026-11-15) | 009c (parked) |
 
 ### Audit items that no longer apply
 - The broken `model_new` gitlink is gone (`git ls-files -s` shows no `160000` entries).
 - `docs/SS/`, `Tools/SS/` and the duplicate skill copies were removed in the scaffold work.
 - Pack size is 106 MB and history is kept; shrinking it needs a history rewrite, which no brief proposes.
 
-### Decisions needed from the author
-- 005: keep both `.claude/skills/` and `Tools/*.skill` (recommended, with a diff check)? Delete or move `Tools/web_search.json`?
-- 003: untrack only `source/.obsidian/workspace.json` (recommended)?
-- 008: v2 plans (`EVAL_PLAN.md`, `VAL_*`): archive or keep in `docs/model-lessons/`? Rename `Rates Data`, `Research`, `Tools`?
-- 009: data dumps keep, regenerate or summaries only? When does `model/` go?
-- 001: the lessons note (what `model_new_2` got wrong).
+### Decisions (author, 2026-11-15)
+- 003s: untrack the editor state (`source/.obsidian/`).
+- 005g: delete the old skill files in `Tools/` and `web_search.json`.
+- 008g: rename and keep; nothing archived.
+- 009c: keep the data dumps and shared copies; folders to be renamed `model_v1` and `model_v2`; v3 replaces both later.
+- 001c: the old v3 brief is replaced by an audit of both models first; housekeeping comes before any model work.
+- Open: letter `s` for the web role is my choice (the author gave g, w, c); folder `model/` is read by the live site, so its rename is a separate brief (010s).

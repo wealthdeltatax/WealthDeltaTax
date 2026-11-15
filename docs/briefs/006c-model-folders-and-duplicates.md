@@ -2,7 +2,7 @@
 
 - **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-15
-- **Depends on:** 002 (merged). Does not wait for 001. Order: parallel with 003, 004, 008. Cross-folder decisions (`jst_r6.json`, `wdt_md.py`, data dumps, legacy reference docs) moved to brief 009.
+- **Depends on:** 002 (merged). Does not wait for 001. Order: parallel with 003s, 004s, 008g. Must be merged before 010s, which renames the folders, and before 001c. Cross-folder decisions (`jst_r6.json`, `wdt_md.py`, data dumps, legacy reference docs) are in brief 009c, now parked: the author keeps them for now (2026-11-15).
 - **Read:** `docs/briefs/002-repo-triage.md` (findings below), `model_new_2/` and `model/test/` directory listings. Nothing else need be opened.
 
 ## Goal
@@ -12,6 +12,7 @@ Take the dead weight out of the two legacy model folders without touching anythi
 - Both `model/` and `model_new_2/` are legacy; model v3 is a complete rework (brief 001).
 - `SS` means superseded; history is in git and the author's backup, so deleting is fine.
 - Old paper-number references and script names do not matter. Do not rename scripts.
+- Folder names change in brief 010s (`model_v1`, `model_v2`); this brief uses the current names.
 
 ## Design
 Triage numbers (tracked files, 2026-11-15): `model_new_2/` is 411 files and 192 MB; `SS` folders hold 218 files (`model_new_2/SS` 155, `test/SS` 52, `RATES/SS` 6, `VAL/SS` 5), including 29 MB `SS/sweep_out`, 1.8 MB `sweep_results.csv` and all 61 tracked `.bak` files (51 + 5 + 5).

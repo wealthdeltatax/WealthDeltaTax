@@ -10,11 +10,12 @@ Stop tracking generated reports and editor state, and remove the debug step from
 
 ## Decisions (author, 2026-11-15)
 - Audit items from group B and C, not yet approved item by item; confirm each diff before applying.
+- Untrack the editor state (author, 2026-11-15: "untrack"); read as the whole of `source/.obsidian/`.
 
 ## Design
 - `check.txt` (110 KB, repo root) and `pipeline/check2.txt` (90 KB) are old output of `wdt_crosslinks.py check`. Delete both (git history keeps them) or gitignore future output; the script stays.
 - Triage found nothing reads `check.txt` or `check2.txt` (no script, workflow or guide names them), so deletion is safe. `docs/agents/reference/writing/style-guide.md` tells the writer to run the check fresh.
-- `.gitignore`: add `source/.obsidian/workspace.json` and untrack it (`git rm --cached`). Recommended: leave the other four `.obsidian` files tracked (`app.json` and `appearance.json` are identical 2-byte `{}` files; harmless). Also add `check*.txt` and `pipeline/check*.txt` so future output is not committed.
+- `.gitignore`: add `source/.obsidian/` and untrack all five files in it (`git rm -r --cached source/.obsidian`); the author's local Obsidian config stays on disk. Also add `check*.txt` and `pipeline/check*.txt` so future output is not committed.
 - `deploy.yml`: remove the final "Inspect build output" step, which only lists WFR figures. Confirm the WFR figures are produced first.
 - `main` deploys on push, so do this on a branch and check that the Action stays green.
 
@@ -31,7 +32,7 @@ Push the branch and watch the GitHub Action; `git status` clean after a local `p
 Changing any build step other than the debug step.
 
 ## Open questions
-- Untrack all of `source/.obsidian/` or only `workspace.json`? (Recommended: only `workspace.json`.)
+- None. If the author meant only `workspace.json`, restore the other four files.
 
 ## Open questions
 - Delete the check files or move them somewhere? Default: delete.

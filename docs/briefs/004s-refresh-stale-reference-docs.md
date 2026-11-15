@@ -10,7 +10,7 @@ Make the site architecture doc true again. It is the single source of truth for 
 
 ## Decisions (author, 2026-11-15)
 - `docs/wdt-site-architecture.md` is the web role's source of truth and must match the files.
-- The v1 and v2 models are legacy and being replaced (brief 001), so their reference docs are not worth refreshing. Their disposition moved to brief 009 (triage, 2026-11-15) so the model decisions are made in one place.
+- The v1 and v2 models are legacy and being replaced (brief 001), so their reference docs are not worth refreshing. Their disposition moved to brief 009c (triage, 2026-11-15) so the model decisions are made in one place.
 
 ## Design
 - Site architecture: fix the root path (`wdt-site/` is now the repo root), the directory tree, the paper count (33 entries in `registry/papers.yml`), the OUTPUTS claim (tracked, not gitignored), and the build scripts; split it by topic if it stays over about 15 KB (it is 29 KB). Show the diff to the author.

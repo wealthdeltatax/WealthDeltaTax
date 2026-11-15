@@ -1,6 +1,18 @@
 # Brief template
 
-Save to `docs/briefs/NNN-short-slug.md`. Keep a brief as short as the change allows.
+Save to `docs/briefs/NNNx-short-slug.md`. Keep a brief as short as the change allows.
+
+**Lane letter `x`** (after the three-digit number) says which role runs the brief, so the author knows which skill to open:
+
+| Letter | Role / skill |
+|---|---|
+| `g` | guru (`wdt-guru`): docs, status, briefs, scaffold |
+| `w` | writing (`wdt-write`): papers |
+| `c` | code (`wdt-code`): model, pipeline code, tests |
+| `r` | research (`wdt-research`): references, literature |
+| `s` | site (`wdt-web`): Quarto site, build, deploy |
+
+Example: `001c-model-audit.md`. The heading inside the file stays `# 001: Title` (no letter).
 
 ```markdown
 # NNN: <Title>
@@ -47,4 +59,4 @@ The implementer asks rather than guesses on these.
 - **State:**
 <!-- progress:end -->
 ```
-Number: the next unused three digits across `docs/briefs/` and `docs/archive/briefs/`. If the repo keeps a generated brief index, regenerate it after changing Status or Depends on.
+Number: the next unused three digits across `docs/briefs/` and `docs/archive/briefs/` (ignore the letter when checking what is unused). If the repo keeps a generated brief index, regenerate it after changing Status or Depends on.
