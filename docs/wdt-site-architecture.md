@@ -64,7 +64,7 @@ The site takes Markdown source files for 33 WDT papers (`registry/papers.yml` ha
 │   ├── numbered output scripts (5_3 ... 19_3) and run_all.bat
 │   ├── test/, WDT_Model_Reference.md
 │   └── OUTPUTS/                 (GENERATED but tracked, 95 files; copied flat to _build/figures/)
-├── model_new_2/, Rates Data/, Research/, Tools/   (not part of the site build; see OVERVIEW.md)
+├── model_v2/, Rates Data/, Research/, Tools/   (not part of the site build; see OVERVIEW.md)
 ├── docs/                        (this file, agent guides, briefs, navigation_suggestions.md, archive/ ...)
 ├── .github/workflows/deploy.yml
 ├── .gitignore                   (_build/, _site/, .quarto/, __pycache__/, anchors.yml, pdfs/, print/, source/.obsidian/, check*.txt)
