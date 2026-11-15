@@ -1,6 +1,6 @@
 # 002: Repo triage: which briefs does the repository need?
 
-- **Status:** built (awaiting merge)
+- **Status:** built (merged)
 - **Author/date:** K. Ogata with the guru, 2026-11-15
 - **Depends on:** none
 - **Read:** `docs/audit/scaffold-2026-11-15.md`, `OVERVIEW.md` section 6, `docs/briefs/003` to `007`, and a directory listing of the repo. Nothing else need be opened.
