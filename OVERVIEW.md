@@ -20,7 +20,8 @@ docs/        todo.md, EVAL_PLAN.md, plans; agents/ (role guides + reference/); b
 model_new_2/ second model (v2, legacy): wdt_core/kernel/jst/par, EVAL/, RATES/, VAL/, WID data and guide,
              README.md, WDT_Code_Reference.md; replaced by model v3 (brief 001)
 Rates Data/  source spreadsheets (JST, tax tables)      Research/  background PDF
-Tools/       old .skill archives (superseded by docs/agents/, to be removed)
+Tools/       flat .skill files: five current role stubs (wdt-guru, -code, -write, -research, -web)
+             plus old archives to remove (brief 005)
 .github/workflows/deploy.yml   Quarto build and GitHub Pages deploy on push to main
 ```
 
