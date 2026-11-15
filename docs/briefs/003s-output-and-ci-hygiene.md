@@ -39,11 +39,16 @@ Changing any build step other than the debug step.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:**
+Change report
+- Task: 003s output and CI hygiene
+- Files changed: `check.txt`, `pipeline/check2.txt` (deleted); `source/.obsidian/*` (5 files untracked, still on disk); `.gitignore` (adds `source/.obsidian/`, `check*.txt`, `pipeline/check*.txt`); `.github/workflows/deploy.yml` (removed "Inspect build output" step)
+- What is different now: no generated crosslink report or editor state is tracked; the deploy workflow has no debug step.
+- New or changed interfaces: none
+- Acceptance criteria: (1) workflow still builds: the same steps ran locally (scrape, glossary, anchors, preprocess exit 0; `quarto render _build` exit 0, 53 pages); the Action itself has not run. (2) no tracked generated report at repo root: met. 28 `wfr_*` figures were produced in `_build/figures`, so the removed step only listed files.
+- Deviations from the brief: none
+- Risks / follow-ups: the build is not `git status` clean on a fresh checkout. `scrape_contents --write`, `build_glossary` and `preprocess` rewrite tracked `registry/contents.yml`, `site/pages/glossary.md` and `registry/references.json` (561 + 244 changed lines in the first two), because the papers are mid-rewrite. This predates the change. I reverted those and did not commit them. Whoever owns it should decide whether they stay tracked. Quarto 1.6.40 was used locally, mermaid-cli was not installed.
+- Verification: local build steps above (Linux, not build.bat); Action on main not watched.
+- Overview sections likely needing an update: section 2 and 6 (check files gone)
+- Commit / branch: brief/003-output-and-ci-hygiene
+- NEEDS THE AUTHOR: not merged. The brief's check "leaves git status clean" is not met as written, and the brief asked for each diff to be confirmed.
 <!-- progress:end -->

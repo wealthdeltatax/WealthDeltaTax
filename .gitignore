@@ -8,3 +8,8 @@ __pycache__/
 anchors.yml
 pdfs/
 print/
+
+# editor state and generated crosslink reports
+source/.obsidian/
+check*.txt
+pipeline/check*.txt
