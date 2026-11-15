@@ -1,0 +1,685 @@
+<title>Plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a schedule grid. Rows are the numbered agents (1 to 5, and 6 the Guru), columns are agent sessions (one brief takes one or more sessions).
+   Each brief keeps its own colour wherever it is placed; arrows are dependencies. */
+:root {
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --fg: #1c2230;
+  --muted: #5d6677;
+  --line: #d9dde5;
+  --grid: #e6e9ef;
+  --accent: #2a5bd7;
+  --bar-s: 55%; --bar-l: 82%; --bar-edge-s: 45%; --bar-edge-l: 42%;
+  --on-bar: #151a26;
+  --arrow: #4b5565;
+  --arrow-soft: #8b94a5;
+  --dim: 0.22;
+  --font-ui: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12151c; --panel: #1a1f29; --fg: #e8ebf2; --muted: #98a1b3; --line: #2c3342; --grid: #232a37; --accent: #7aa2ff;
+    --bar-s: 38%; --bar-l: 30%; --bar-edge-s: 55%; --bar-edge-l: 62%; --on-bar: #f1f4fb;
+    --arrow: #aab3c5; --arrow-soft: #6b7487; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12151c; --panel: #1a1f29; --fg: #e8ebf2; --muted: #98a1b3; --line: #2c3342; --grid: #232a37; --accent: #7aa2ff;
+  --bar-s: 38%; --bar-l: 30%; --bar-edge-s: 55%; --bar-edge-l: 62%; --on-bar: #f1f4fb;
+  --arrow: #aab3c5; --arrow-soft: #6b7487; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-ui); font-size: 14px; line-height: 1.45;
+  padding-block: 24px 40px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+main { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+h1 { font-size: 22px; font-weight: 600; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.sub { color: var(--muted); margin: 4px 0 0; max-width: 70ch; }
+.key { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; color: var(--muted); font-size: 12.5px; }
+.key span { display: inline-flex; align-items: center; gap: 7px; }
+.sw { width: 26px; height: 14px; border-radius: 3px; border: 1.5px solid hsl(215 var(--bar-edge-s) var(--bar-edge-l)); background: hsl(215 var(--bar-s) var(--bar-l)); }
+.sw.under { background-image: repeating-linear-gradient(135deg, rgba(0,0,0,.18) 0 4px, transparent 4px 8px); }
+.sw.author { border-style: dashed; }
+.sw.review { box-shadow: inset 0 -5px 0 var(--accent); }
+.badge-key { font-family: var(--font-mono); font-size: 10.5px; padding: 1px 5px; border-radius: 3px; background: var(--fg); color: var(--bg); }
+.line-key { width: 26px; height: 0; border-top: 2px solid var(--arrow); }
+.line-key.soft { border-top: 2px dashed var(--arrow-soft); }
+
+.chart-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow-x: auto; }
+.chart { position: relative; min-width: calc(120px + var(--slots, 14) * 112px + 14px); padding: 10px 14px 16px 0; --label-w: 120px; --slot: 112px; --row: 64px; }
+.axis { display: grid; grid-template-columns: var(--label-w) repeat(var(--slots, 14), var(--slot)); height: 28px; align-items: end; }
+.axis div { font-family: var(--font-mono); font-size: 11px; color: var(--muted); padding: 0 0 6px 8px; border-left: 1px solid var(--grid); height: 100%; display: flex; align-items: flex-end; }
+.axis div:first-child { border-left: 0; }
+.lane { position: relative; display: grid; grid-template-columns: var(--label-w) 1fr; height: var(--row); border-top: 1px solid var(--line); }
+.lane-label { padding: 8px 12px; display: flex; flex-direction: column; justify-content: center; position: sticky; left: 0; background: var(--panel); z-index: 3; }
+.lane-label b { font-size: 13px; font-weight: 600; }
+.lane-label small { color: var(--muted); font-size: 11.5px; }
+.track { position: relative; background-image: repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px var(--slot)); }
+.now { position: absolute; top: 28px; bottom: 0; left: calc(var(--label-w)); border-left: 2px solid var(--accent); z-index: 1; pointer-events: none; }
+.now::after { content: "now"; position: absolute; top: -22px; right: 4px; font-family: var(--font-mono); font-size: 10.5px; color: var(--accent); }
+
+.bar { position: absolute; top: 8px; height: calc(var(--row) - 16px); border-radius: 6px; padding: 5px 8px; overflow: hidden; cursor: pointer; text-align: left;
+  font: inherit; color: var(--on-bar); background: hsl(var(--h) var(--bar-s) var(--bar-l)); border: 1.5px solid hsl(var(--h) var(--bar-edge-s) var(--bar-edge-l));
+  display: flex; flex-direction: column; justify-content: center; gap: 1px; transition: opacity .15s, box-shadow .15s; z-index: 2; }
+.bar:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.bar .num { font-family: var(--font-mono); font-weight: 500; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+.bar .ttl { font-size: 11.5px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.bar.under { background-image: repeating-linear-gradient(135deg, rgba(0,0,0,.16) 0 5px, transparent 5px 10px); }
+.bar.author { border-style: dashed; }
+.bar.review { box-shadow: inset 0 -5px 0 var(--accent); }
+.bar.hold { opacity: .55; border-style: dotted; }
+.bar .tag { font-family: var(--font-mono); font-size: 9.5px; padding: 0 4px; border-radius: 3px; background: var(--fg); color: var(--bg); line-height: 1.5; }
+.chart.focus .bar:not(.on) { opacity: var(--dim); }
+.bar.sel { box-shadow: 0 0 0 3px var(--accent); }
+
+svg.links { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: visible; }
+svg.links path { fill: none; stroke: var(--arrow); stroke-width: 1.6; }
+svg.links path.soft { stroke: var(--arrow-soft); stroke-dasharray: 5 4; }
+svg.links path.hid { opacity: .08; }
+svg.links marker path { fill: var(--arrow); stroke: none; }
+
+.detail { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-height: 92px; display: grid; gap: 6px; }
+.detail h2 { margin: 0; font-size: 15px; font-weight: 600; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.detail h2 i { width: 14px; height: 14px; border-radius: 3px; display: inline-block; background: hsl(var(--h) var(--bar-s) var(--bar-l)); border: 1.5px solid hsl(var(--h) var(--bar-edge-s) var(--bar-edge-l)); }
+.detail p { margin: 0; color: var(--muted); max-width: 90ch; }
+.detail .meta { font-family: var(--font-mono); font-size: 12px; color: var(--fg); display: flex; flex-wrap: wrap; gap: 4px 18px; }
+
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+.card h3 { margin: 0 0 8px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.card ul { margin: 0; padding-left: 18px; display: grid; gap: 5px; }
+.card li { min-width: 0; }
+code { font-family: var(--font-mono); font-size: 12px; }
+.foot { color: var(--muted); font-size: 12px; }
+.cmd h4 { margin: 14px 0 4px; font-size: 13px; }
+.cmd p { margin: 4px 0; font-size: 13px; color: var(--muted); }
+.cmd pre { position: relative; margin: 4px 0 8px; padding: 8px 64px 8px 10px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; font-family: var(--font-mono); font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.cmd pre button { position: absolute; top: 6px; right: 6px; font: inherit; font-size: 11px; padding: 2px 8px; cursor: pointer; }
+
+
+
+.todo { display: grid; gap: 6px; }
+.todo .tg { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-top: 6px; }
+.todo .tg:first-child { margin-top: 0; }
+.todo-item, .oqb { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; text-align: left; cursor: pointer; display: grid; gap: 2px; width: 100%; }
+.todo-item:hover, .oqb:hover { border-color: var(--accent); }
+.todo-item:focus-visible, .oqb:focus-visible, dialog button:focus-visible, dialog textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+.todo-item .ti { font-weight: 500; }
+.todo-item .tm { font-size: 12px; color: var(--muted); }
+.card ul.oql { list-style: none; padding-left: 0; }
+.oqb { display: block; font-size: 13px; }
+.oqb em { color: var(--muted); font-style: normal; }
+dialog { background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px 20px; width: min(720px, calc(100vw - 24px)); max-height: calc(100vh - 32px); overflow: auto; }
+dialog::backdrop { background: rgba(10, 14, 22, .55); }
+dialog h2 { margin: 0 70px 6px 0; font-size: 18px; font-weight: 600; }
+dialog h3 { margin: 16px 0 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+dialog p { margin: 0 0 6px; max-width: 80ch; }
+dialog .when { color: var(--muted); }
+dialog .pill { background: var(--bg); border: 1px solid var(--line); border-radius: 99px; padding: 1px 9px; font-size: 12px; color: var(--fg); margin-right: 6px; }
+dialog form { position: absolute; top: 14px; right: 16px; }
+dialog button { font: inherit; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+dialog button:hover { border-color: var(--accent); }
+dialog ol.steps { margin: 0; padding-left: 0; list-style: none; counter-reset: st; display: grid; gap: 6px; }
+dialog ol.steps li { counter-increment: st; }
+dialog ol.steps label { display: grid; grid-template-columns: 20px 1fr; gap: 8px; align-items: start; cursor: pointer; }
+dialog ol.steps label span::before { content: counter(st) ". "; color: var(--muted); font-family: var(--font-mono); font-size: 12px; }
+dialog input[type=checkbox] { width: 16px; height: 16px; margin-top: 3px; accent-color: var(--accent); }
+dialog input:checked + span { color: var(--muted); text-decoration: line-through; }
+.qbox { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--bg); display: grid; gap: 10px; }
+.qbox .q p { margin: 0 0 4px; }
+.qbox textarea { width: 100%; font: inherit; color: var(--fg); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; resize: vertical; }
+.qbox .qa { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+#copyMsg { font-size: 12px; color: var(--muted); }
+
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); }
+.tabs button { font: inherit; font-weight: 500; color: var(--muted); background: none; border: 0; border-bottom: 3px solid transparent; padding: 8px 16px; cursor: pointer; margin-bottom: -1px; }
+.tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); }
+.tabs button:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.hist-note { margin: 0 0 10px; }
+.hist { position: relative; min-width: 1100px; padding: 10px 14px 14px 0; --label-w: 150px; }
+.h-axis { position: relative; height: 26px; margin-left: var(--label-w); }
+.h-axis span { position: absolute; top: 0; bottom: 0; border-left: 1px solid var(--grid); padding: 2px 0 0 6px; font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.h-row { display: grid; grid-template-columns: var(--label-w) 1fr; border-top: 1px solid var(--line); }
+.h-row .lane-label { position: sticky; left: 0; }
+.h-track { position: relative; background-image: repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px calc(var(--day))); }
+.h-bar { position: absolute; height: 26px; border-radius: 5px; padding: 0 6px; font: inherit; font-size: 11px; color: var(--on-bar); text-align: left; cursor: pointer; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  background: hsl(var(--h) var(--bar-s) var(--bar-l)); border: 1.5px solid hsl(var(--h) var(--bar-edge-s) var(--bar-edge-l)); display: flex; align-items: center; gap: 6px; }
+.h-bar b { font-family: var(--font-mono); font-weight: 500; }
+.h-bar.ms { padding: 0 4px; justify-content: center; }
+.h-bar.sup { opacity: .55; border-style: dashed; }
+.h-bar:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.h-bar.sel { box-shadow: 0 0 0 3px var(--accent); }
+
+.gantt { position: relative; min-width: calc(270px + var(--slots, 14) * 92px + 14px); padding: 6px 14px 14px 0; --gl: 270px; --gs: 92px; --gr: 36px; }
+.g-axis { display: grid; grid-template-columns: var(--gl) repeat(var(--slots, 14), var(--gs)); height: 26px; align-items: end; font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.g-axis div { padding-left: 6px; border-left: 1px solid var(--grid); }
+.g-axis div:first-child { border-left: 0; }
+.g-grp { display: grid; grid-template-columns: var(--gl) 1fr; height: 24px; align-items: center; border-top: 1px solid var(--line); background: var(--panel); }
+.g-grp b { padding-left: 8px; font-size: 12px; }
+.g-grp small { color: var(--muted); font-size: 11px; padding-left: 8px; }
+.g-row { display: grid; grid-template-columns: var(--gl) 1fr; height: var(--gr); border-top: 1px solid var(--grid); }
+.g-lab { display: flex; align-items: center; gap: 8px; padding: 0 8px; font-size: 12px; min-width: 0; }
+.g-lab b { font-family: var(--font-mono); font-weight: 500; flex: none; }
+.g-lab span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
+.g-track { position: relative; background-image: repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px var(--gs)); }
+.g-bar { position: absolute; top: 6px; height: calc(var(--gr) - 12px); border-radius: 5px; padding: 0 8px; font: inherit; font-size: 11.5px; color: var(--on-bar); text-align: left; cursor: pointer; z-index: 2;
+  background: hsl(var(--h) var(--bar-s) var(--bar-l)); border: 1.5px solid hsl(var(--h) var(--bar-edge-s) var(--bar-edge-l)); display: flex; align-items: center; gap: 6px; overflow: hidden; white-space: nowrap; transition: opacity .15s; }
+.g-bar b { font-family: var(--font-mono); font-weight: 500; }
+.g-bar.under { background-image: repeating-linear-gradient(135deg, rgba(0,0,0,.16) 0 5px, transparent 5px 10px); }
+.g-bar:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.g-bar.review { box-shadow: inset 0 -5px 0 var(--accent); }
+.g-bar.sel { box-shadow: 0 0 0 3px var(--accent); }
+.gantt.focus .g-bar:not(.on) { opacity: var(--dim); }
+.g-now { position: absolute; top: 26px; bottom: 14px; left: var(--gl); border-left: 2px solid var(--accent); z-index: 1; pointer-events: none; }
+.gantt svg.glinks { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; overflow: visible; }
+.gantt svg.glinks path { fill: none; stroke: var(--arrow); stroke-width: 1.6; }
+.gantt svg.glinks path.soft { stroke: var(--arrow-soft); stroke-dasharray: 5 4; }
+.gantt svg.glinks path.hid { opacity: .08; }
+.gantt svg.glinks marker path { fill: var(--arrow); stroke: none; }
+@media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+</style>
+
+<main>
+  <header>
+    <h1>Plan</h1>
+    <p class="sub">Who builds what, in which order, and what waits for what. Each column is one agent session; a brief that needs more than one spans several. Colours stay with a brief when it moves between lanes. Click a brief to trace its dependencies.</p>
+  </header>
+
+  <div class="key" aria-label="Key">
+    <span><i class="sw under"></i> underway</span>
+    <span><i class="sw review"></i> in review (pushed, waiting for checks and merge)</span>
+    <span><i class="sw"></i> ready</span>
+    <span><i class="sw author"></i> needs your time (rough placeholders)</span>
+    <span><i class="badge-key">moved</i> changed lane since the first plan</span>
+    <span><i class="line-key"></i> must finish first</span>
+    <span><i class="line-key soft"></i> same files, so keep in order</span>
+  </div>
+
+
+
+  <div id="view-plan" class="chart-wrap">
+    <div class="chart" id="chart" aria-label="Schedule of briefs by agent lane">
+      <div class="axis" id="axis"></div>
+      <div id="lanes"></div>
+      <div class="now"></div>
+      <svg class="links" id="links" aria-hidden="true"><defs>
+        <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z"/></marker>
+      </defs><g id="paths"></g></svg>
+    </div>
+  </div>
+
+
+  <section class="detail" id="detail" aria-live="polite"></section>
+
+  <div class="cols">
+    <section class="card"><h3>Your to-do</h3><div class="todo" id="todo"></div></section>
+    <section class="card"><h3>Open questions (<span id="oqn">0</span>)</h3><ul class="oql" id="oq"></ul><div class="qa"><button type="button" id="dlA">Download answers.md</button> <button type="button" id="cpA">Copy all answers</button> <span id="allMsg" aria-live="polite"></span></div></section>
+  </div>
+
+  <section class="card cmd" id="commands">
+    <h3>Commands and how-to (paste-ready)</h3>
+    <p>Run everything from the repository folder (outside OneDrive, for example <code>C:\dev\Game</code>). Examples are PowerShell; each button copies one block.</p>
+
+    <h4>1. Play or look at the game in Firefox</h4>
+    <p>Start the server and leave that terminal open (Ctrl+C stops it). It serves the repo root on port 8077 and sends no-cache, so a plain reload is enough.</p>
+<pre>npm run serve<button type="button" class="cp">Copy</button></pre>
+    <p>Then paste into Firefox's address bar (a bare address opens the home page; any <code>?</code> parameter loads the game directly):</p>
+<pre>http://localhost:8077/spike/viewer/index.html<button type="button" class="cp">Copy</button></pre>
+    <p>Useful variants (add to the same address): <code>?dev=1</code> dev panel and hidden dev profile; <code>?bench=frames</code> frame-time benchmark (2 skins x 4 views; keep the tab in front, hands off the mouse, press Copy results at the end); <code>?bench=rate</code> max-speed ticks per second, 2D against 3D. Other pages: <code>/spike/viewer/home.html</code>, <code>arena.html</code>, <code>balance.html</code>, <code>skin-lab.html</code>.</p>
+<pre>http://localhost:8077/spike/viewer/index.html?dev=1
+http://localhost:8077/spike/viewer/index.html?bench=frames
+http://localhost:8077/spike/viewer/index.html?bench=rate<button type="button" class="cp">Copy</button></pre>
+    <p>Port already in use, or "this site can't be reached": the server is not running in that terminal, or use another port and change 8077 in the address to match.</p>
+<pre>$env:PORT=8090; npm run serve<button type="button" class="cp">Copy</button></pre>
+    <h4>2. Get the latest code</h4>
+<pre>git checkout main
+git pull
+npm ci<button type="button" class="cp">Copy</button></pre>
+    <p><code>npm ci</code> is only needed after <code>package.json</code> or the lock file changed. A tree with local changes: <code>git status</code> first.</p>
+
+    <h4>3. Tests and checks</h4>
+    <p>The checks picked by what changed (docs about 1 s, tools and tests 15 to 20 s, viewer about 150 s, simulation about 9 min). <code>--list</code> shows the plan without running it.</p>
+<pre>npm run check -- --list
+npm run check<button type="button" class="cp">Copy</button></pre>
+<pre>npm test -- --fast<button type="button" class="cp">Copy</button></pre>
+    <p>One test file only, and the whole quick tier regardless of what changed:</p>
+<pre>npm run check -- --pattern=test091
+npm run check -- --all<button type="button" class="cp">Copy</button></pre>
+    <p>Your own runs (the agents leave these to you): the full check with the headless browser checks (about 20 min, commit the log), the Firefox and Chromium determinism run, and a fresh-clone check before a release.</p>
+<pre>npm run check:full -- --browser
+npm run xplat
+npm run clean-clone<button type="button" class="cp">Copy</button></pre>
+    <p>Browser checks need Playwright's browsers once: <code>npx playwright-core install chromium firefox</code>. A timing-sensitive browser check that fails on software graphics: add <code>--browser-jobs=1</code>.</p>
+
+    <h4>4. Balance and tuning (long runs, yours)</h4>
+<pre>npm run tournament -- --sets=120
+npm run balance
+npm run baselines<button type="button" class="cp">Copy</button></pre>
+    <p><code>baselines</code> rewrites <code>baselines.json</code> after a simulation change (about 4 min); the result must match the agent's file exactly, otherwise that is a determinism bug.</p>
+
+    <h4>5. Agents and landing</h4>
+    <p>An agent works on <code>brief/NNN-slug</code> and ends with the landing command; it prints <code>LANDED</code>, <code>NEEDS THE AUTHOR</code> or <code>FAILED</code>. What it would do, without touching anything:</p>
+<pre>npm run land -- --dry-run<button type="button" class="cp">Copy</button></pre>
+    <p>Stuck landing lock after a crashed run (never while a landing is really running):</p>
+<pre>npm run land -- --unlock<button type="button" class="cp">Copy</button></pre>
+    <p>Paste to an agent when the usage meter is low, and to the next agent to resume (full text in <code>docs/agents/handover.md</code>):</p>
+<pre>Stop work now. Commit everything as wip, push the branch, run `npm run handover -- --write`, fill in the progress block, then stop. Do not run checks.<button type="button" class="cp">Copy</button></pre>
+<pre>Read the brief and its progress block, `git log origin/main..HEAD`, and `git diff --stat origin/main`. Continue from Next. Do not re-explore. Run the Resume commands first.<button type="button" class="cp">Copy</button></pre>
+    <h4>6. Housekeeping</h4>
+<pre>npm run briefs-index
+npm run lane-plan
+npm run format<button type="button" class="cp">Copy</button></pre>
+    <p><code>briefs-index</code> regenerates the brief list after a brief moves; <code>lane-plan</code> refreshes only the History data of this page (needs a full clone, not a shallow one); <code>format</code> runs prettier. Pruning merged remote branches is in your to-do list above.</p>
+    <p>Reference: <code>docs/local-checks.md</code> (every check, class and stamp), <code>START_HERE.md</code>, <code>STATUS.md</code>.</p>
+  </section>
+  <dialog id="dlg" aria-labelledby="dlgt"></dialog>
+  <p class="foot">Source: <code>STATUS.md</code> and the brief headers in the game repository. Regenerated when the board changes.</p>
+</main>
+
+<script>
+(function () {
+  var LANES = [
+    { id: '1', name: 'Agent 1', note: '169 (red browser checks round 3)' },
+    { id: '2', name: 'Agent 2', note: '167 (fifth golden scenario)' },
+    { id: '3', name: 'Agent 3', note: '168 (narrow the sim-neutral check)' },
+    { id: '4', name: 'Agent 4', note: 'free (166 retired); 136 waits for the spec' },
+    { id: '5', name: 'Agent 5', note: 'free (160 slice D done)' },
+    { id: '6', name: 'Agent 6 · Guru', note: 'reviews, retirements, briefs, docs' },
+    { id: 'E', name: 'You · decisions', note: 'quick calls, reviews' },
+    { id: 'F', name: 'You · design sessions', note: 'brainstorms to schedule' },
+    { id: 'G', name: 'Held until playtest', note: 'starts after the first playtest' }
+  ];
+  // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
+  var B = [
+    { id: '098', lane: '4', at: 0, len: 1, st: 'built', t: 'HUD playtest fixes', needs: [], why: 'Your second playtest: energy cues in 3D (2D is the source of truth), assist on by default, one ? button (menu, rules, settings, dev panel), stances only in the sidebar, HUD default, keep your view, a one-line start strip at the bottom, a cooldown ring.', files: 'hud, layout, sidebar, render3d, main.js (no sim change)' },
+    { id: '099', lane: '5', at: 0, len: 3, gate: 2, st: 'built', t: 'Retire the old display', needs: [{ id: '098' }], why: 'Your 31 Oct call: one display. Inventory of what the old viewer does, delete what the HUD or dev panel covers, gaps come back to you; migrate or delete the 12 tests and tools that use it.', files: 'main.js, index.html, devpanel, settings (no sim change)' },
+    { id: '100', lane: '2', at: 1, len: 1, gate: 1, st: 'built', t: 'Alliance matrix', needs: [{ id: '098', soft: true }], why: 'Your 31 Oct ask: one grid of every stance of everyone toward everyone (red enemy, grey neutral, green ally, glyphs), replaces the Alliances tab; your row is the control; power and trust in the headers; mutual alliances marked; flash on change; an expanded view.', files: 'hud/stances.js, sidebar.js, snapshot accessors (no sim change)' },
+    { id: '101', lane: '3', at: 0, len: 3, st: 'built', t: 'Unit rework in the sim, part 1', needs: [], why: 'Your 31 Oct decisions: enclosed cell 2 HP, tips are consumed, the core cannot fire, all-or-nothing battle, ties do nothing. Units get HP, armour and tips from their shape, battle every tick, ammunition, spawner makes the unscaled design. Speed, spawn period and range stay as they are. Checksum change (SIM_VERSION 14). Parts 2 (builder, shape sets) and 3 (buildings, flags) follow.', files: 'sim/combat, units, movement, shapeset, tests (SIM_VERSION 14)' },
+    { id: '109', lane: '2', at: 0, len: 1, st: 'built', t: 'Unit rework follow-ups', needs: [{ id: '101' }], why: 'Your 1 Nov answers to the 101 review: shooters fire whenever an enemy is in range, each tip picks its own target cell, logistics pace restored by retuning the scalar, a much longer stagnation timer.', files: 'movement.js, combat.js, logistics scalar, stagnation constants (checksum change)' },
+    { id: '102', lane: '3', at: 0, len: 4, st: 'built', t: 'Unit rework, part 2: buildings', needs: [{ id: '101' }], why: 'Your 31 Oct building rules: buildings use the same HP, battle, core and projectile rules; turret tips fire without being consumed under one cooldown; flag: enclosed = units, tips = radius, HP = lifetime; battery: HP = capacity, tips = ports; core dies, the whole building dies. Checksum change (SIM_VERSION 15).', files: 'damage, actions, economy, commands, params (SIM_VERSION 15)' },
+    { id: '110', lane: '1', at: 0, len: 1, gate: 0, st: 'built', t: 'Vision by size and fog (half A merged; half B in review)', needs: [], why: 'Your 1 Nov answers: vision radius falls with size (soft curve, floor and cap), sight is collective, buildings follow the same rule, own territory always visible, enemy buildings remembered as ghosts once seen; coarse 8x8 fog, cosmetic in 2D and 3D.', files: 'perception.js, building sight, seen-blocks layer, fog drawing (checksum change)' },
+    { id: '111', lane: '4', at: 0, len: 2, st: 'built', t: 'Home page and the dev profile', needs: [{ id: '098' }, { id: '099' }], why: 'Your 1 Nov ask: a home page with Play, Arena, Unit Lab, Skin lab, Replays, Profile and Settings; a dev profile where you save the default designs; player profiles start fresh and matches use the shipped default set.', files: 'new home page, profile.js (dev flag), menu entry' },
+    { id: '112', lane: '1', at: 0, len: 1, st: 'built', t: 'Unit Lab: Real duel mode (parts 1 and 2 landed)', needs: [{ id: '106' }, { id: '109' }], why: 'Your 1 Nov idea: the rules explorer becomes the designer, combined with the duel and a batch matrix, all on the real rules, so designs are tested before any match.', files: 'spike/lab/, the shared stats module, the duel replay page, design format' },
+    { id: '113', lane: '5', at: 0, len: 1, st: 'built', t: 'One local check command', needs: [], why: 'Your 1 Nov question: with Actions off, one command (npm run check) that runs the briefs index, determinism lint and scenarios, and the fast tests; check:full adds the full suite; optional pre-push hook.', files: 'spike/tools/check.mjs, package.json, AGENTS.md (tools only)' },
+    { id: '114', lane: '5', at: 0, len: 1, st: 'built', t: 'Windows portability of tests and tools', needs: [{ id: '113' }], why: 'Your Windows run of npm run check failed test065 (a path with spaces) and test079 (CRLF line endings): fix with fileURLToPath, .gitattributes, line-ending-agnostic comparisons and a lint.', files: 'tests and tools only, .gitattributes' },
+    { id: '115', lane: '4', at: 0, len: 2, st: 'built', t: 'Playtest fixes 3: zoom, dev panel pop-out, ring, minimap', needs: [{ id: '098' }], why: 'Your third playtest: wheel and Ctrl+wheel stop working in Firefox, 3D demolish check, pop-out dev panel, a red to green cooldown ring that stays green until the click, a 3D minimap with territory and camera.', files: 'viewer and HUD only' },
+    { id: '116', lane: '4', at: 2, len: 1, st: 'built', t: 'Placement queue and ghost', needs: [{ id: '115' }], why: 'A click during the cooldown is remembered (memory 1, tunable) and placed first, before the assist; a no-physics ghost shows meanwhile.', files: 'commands.js, assist.js, HUD ghost (checksum change)' },
+    { id: '117', lane: '2', at: 3, len: 2, st: 'built', t: 'Logistics manual: out of the assist, shortest click chain', needs: [{ id: '100' }], why: 'The assist never does logistics (AI opponents unchanged); a chain-draw verb: V, click source, click target, stays armed so a chain of five is at most seven inputs.', files: 'assistpolicy.js, assist.js, HUD keys' },
+    { id: '118', lane: '4', at: 0, len: 1, st: 'built', t: 'Economy and placement rebalance', needs: [{ id: '123' }, { id: '110' }, { id: '116' }, { id: '121' }], why: 'Richer energy, heavier upkeep, costlier forest and snow, spacing 1.5 x building size, AI energy preference to maximum, veins reach further from rivers; probes and an AI re-tune.', files: 'params, hydrology, personality (checksum change)' },
+    { id: '119', lane: '1', at: 0, len: 1, st: 'built', t: 'Ping and seek (opt-in rule)', needs: [{ id: '110' }], why: 'Idle units head for the nearest enemy ping, default off, with range and reserve-share knobs, so you can decide from numbers whether it drains the late-game reserve.', files: 'perception.js, movement.js (default off: no baseline change)' },
+    { id: '120', lane: '2', at: 0, len: 3, gate: 4, st: 'built', t: 'In-game odd-grid builder', needs: [{ id: '102', soft: true }], why: 'The tactical builder: a 3, 5 or 7 odd grid with a locked core, live class colours and stats (from the Unit Lab modules), per-type limits, premades, save to profile; investigates what the sim accepts and the spawner size cap (BMAXC 64 allows spawner designs of 16 cells).', files: 'spike/hud/builder*.js, profile.js, new builder-stats.js (imports the lab modules)' },
+    { id: '121', lane: '3', at: 0, len: 1, st: 'built', t: 'AI and assist shortlists of vetted designs', needs: [], why: 'From the 102 probe: the AI drew tipless turrets and batteries and placed no flags. Vetting rules (turret at least 1 tip, battery at least 2, flag needs an enclosed cell and a tip), a shortlist data file you can edit, the AI and the assist draw only from it; players can still make bad designs.', files: 'ai.js, assistpolicy.js, shortlist.js, shortlists.json (checksum change)' },
+    { id: '122', lane: '3', at: 0, len: 3, st: 'built', t: 'The core is carried in the design', needs: [{ id: '123' }, { id: '121' }, { id: '106' }], why: 'The core becomes the design grid centre, as you specified (the sim today takes the cell nearest the box middle, so 19% of 3x3 designs get a different core than you drew). Format and sim change: keys carry the grid, old designs converted, shortlist re-vetted.', files: 'shapeset.js, shape-stats.js, design.js, builder.js, shortlists.json (checksum change)' },
+    { id: '123', lane: '5', at: 0, len: 2, st: 'built', t: 'Faster verification, part 1 (merged): parallel runner, `npm run baselines`, `--changed`', needs: [], why: 'Your priority. Parallel test runner, `npm run baselines` (regenerates and verifies, sets UPDATE_BASELINES itself), no repeated long games, `--changed` selection. Same integrity: a table of what ran before and now.', files: 'run-tests.mjs, det-scenarios.mjs, baseline.mjs, check.mjs (tools only)' },
+    { id: '123b', lane: '3', at: 0, len: 1, st: 'built', t: 'Test audit A: tests 001 to 059', needs: [], why: 'Classify each test as guard, report or obsolete (with runtime, what it guards, overlap, recommendation) into docs/test-audit-a.md before touching any test; then merge both halves into docs/test-audit.md.', files: 'docs only' },
+    { id: '123c', lane: '2', at: 0, len: 1, st: 'built', t: 'Test audit B: tests 060 and up', needs: [], why: 'The same audit for the second half, into docs/test-audit-b.md, in parallel with agent 3.', files: 'docs only' },
+    { id: 'D17', lane: 'E', at: 1, len: 1, st: 'built', t: 'Sign the test audit table', needs: [{ id: '123b' }, { id: '123c' }], ph: true, why: 'Signed 3 Nov: all nine recommendations accepted (moves and splits to reports, test031 section 4 deleted, goldens folded into the baseline command, 040 and 026 on the removal list).', files: '' },
+    { id: '123d', lane: '3', at: 0, len: 2, st: 'built', t: 'Faster tests, batch 1 (first half); fixtures helper landed', needs: [{ id: 'D17' }], why: 'Creates spike/tests/fixtures.mjs first and pushes it, then rewrites its signed keep files: shared worlds, smaller maps, fewer ticks, every assertion kept, a mutation check each.', files: 'spike/tests (own files)' },
+    { id: '123e', lane: '2', at: 1, len: 2, st: 'built', t: 'Faster tests, batch 2: 075, 033, 058, 071 (first batch merged)', needs: [{ id: 'D17' }], why: 'Rewrites its signed keep files after agent 3 pushes the fixtures helper; same rules and mutation checks.', files: 'spike/tests (own files)' },
+    { id: '123f', lane: '1', at: 2, len: 2, st: 'built', t: 'Faster tests, batch 3 (the heaviest five)', needs: [{ id: 'D17' }], why: 'The five heaviest kept files named in the audit table, same rules.', files: 'spike/tests (own files)' },
+    { id: '123g', lane: '5', at: 0, len: 1, st: 'built', t: 'npm run reports and fold the goldens into the baseline command', needs: [{ id: '123' }], why: 'Follow-up to part 1: the reports command (the moves of 080, 087, 088, 089, 096 and the 025 benchmark wait for it) and test018, test023, test067 pins folded into baselines.json so no pin is re-pinned by hand again.', files: 'baseline.mjs, run-tests.mjs, test-reports.json' },
+    { id: '124', lane: '2', at: 0, len: 1, st: 'built', t: 'Sim memory: size the building arrays by use', needs: [], why: 'Your full suite on 7 jobs ran out of memory (Array buffer allocation failed in test038, test049, test061): since 121 every sim reserves about 90 MB. Size building slots by players x 1000, refuse cleanly when full, memory-aware default jobs. Checksum change in the settings section only.', files: 'params.js, state.js, run-tests.mjs (checksum change)' },
+    { id: '125', lane: '1', at: 0, len: 1, st: 'built', t: 'Fix stale tests (test023) and the baselines step-1 order', needs: [{ id: '124' }], why: 'The author\'s baselines run stopped in step 1: test023 hardcodes defaults that 118 and 124 changed, and test034 can never pass before step 2 rewrites the scenario checksums. Works on the 124 branch; no sim change.', files: 'spike/tests/sim/test023.mjs, spike/tools/baseline.mjs, test123' },
+    { id: '126', lane: '4', at: 1, len: 1, st: 'built', t: 'Clear the test failures 118 left (007, 012, 019, 020, 039, 064)', needs: [{ id: '124' }, { id: '125' }], why: 'Your full run after 124 failed 7 of 100 files, all from 118 merging without a full suite. Four are stale literals; test019 (territory exact) and test064 (two hashes must match) may be real bugs, so triage first.', files: 'spike/tests (own files); spike/src only if a real bug' },
+    { id: '127', lane: '1', at: 0, len: 1, st: 'built', t: 'test123: make the 125 mutation check fast (952 s to seconds)', needs: [{ id: '125' }], why: 'Your test123 run passed but took about 17 minutes: the new mutation check ran the real step 1 list and test081b hit the 900 s timeout. Tests only.', files: 'spike/tests/tools/test123.mjs, test-slow.json' },
+    { id: '104a', lane: '1', at: 0, len: 1, st: 'built', t: '104A: the formatter pass (alone first)', needs: [{ id: '122' }], why: 'Prettier width 120 over spike/, proven by identical checksums and an untouched baselines.json. Alone first because it touches every file; reproducible, so a conflict is solved by re-running the formatter.', files: 'whole spike/ (formatting only)' },
+    { id: '104b', lane: '2', at: 1, len: 2, st: 'built', t: '104B: layering and the browser checks', needs: [{ id: '104a' }], why: 'Fix the 7 hud/render3d to viewer imports and add the rule to test028; fix or retire browser-check074 and 066; the glossary question marks. Viewer side only.', files: 'spike/hud, render3d, viewer, test028, browser checks' },
+    { id: '104c', lane: '4', at: 1, len: 2, st: 'built', t: '104C: dead exports and the two speed-ups (checksum-neutral)', needs: [{ id: '104a' }], why: 'Dead exports and small patterns in the sim, a per-unit dirty bit for resolveDeaths (S1), the one-byte occupancy layer (S2); each proven by checksum equality and speed numbers. Sim side only; runs next to B.', files: 'spike/src/sim, src/buildings' },
+    { id: '104d', lane: '1', at: 0, len: 3, st: 'built', t: '104D: legacy removal, the one AI re-tune, re-run the audits', needs: [{ id: '104b' }, { id: '104c' }, { id: 'D18', soft: true }], why: 'Remove pockets and walls, nav fields, hearing, the legacy flag path (the author approved); SIM_VERSION bump; one tournament and retune; the three audits re-run. The never-adopted experiments are listed for you first.', files: 'spike/src (SIM_VERSION bump), baselines.json' },
+    { id: 'D18', lane: 'E', at: 2, len: 1, st: 'built', t: 'Answer on the never-adopted experiments list', needs: [{ id: '104a' }], ph: true, why: 'Answered 5 Nov: remove 13 of the 25 (building-aware steering, back-step guard, memory pull cap, flag levy, flag anchor); keep spreading forces, the flag battery requirement and the human ring rule.' },
+    { id: '105', lane: '2', at: 0, len: 1, st: 'built', t: 'Audit fixes C: group tools and tests', needs: [{ id: '104d' }], why: 'Last: git mv the tools and tests into folders by purpose; nothing else changes. Nothing else may be open when it runs.', files: 'tools/, tests/, scripts, docs links' },
+    { id: '129', lane: '3', at: 0, len: 2, st: 'built', t: 'The shortest check path: tiers, stamps, land', needs: [{ id: '105' }], why: 'Your 4 Nov ask: shortest automated workflow, no redundancy. Five change classes, a stamp so no step reruns on the same tree, baselines without the suite by default, npm run land for the classes that may merge themselves, a complete test map and fresh test times.', files: 'spike/tools, tests (own files)' },
+    { id: '138', lane: '4', at: 0, len: 1, st: 'built', t: 'Handover and slicing: wip pushes, progress block, npm run handover', needs: [{ id: '129' }], why: 'Agents run out of tokens mid-task and work is lost or other agents stay locked. Checkpoint pushes after every stage, a 15-line progress block, a script that writes the mechanical half, wrap-up and resume prompts for you.', files: 'tools/repo, docs/agents' },
+    { id: '130', lane: '4', at: 0, len: 1, st: 'built', t: 'Update every instruction and add Checks to run to briefs', needs: [{ id: '129' }, { id: '138' }], why: 'AGENTS.md and the other places that tell agents what to run, brought in line with 129; every brief gets a Checks to run section (class, named tests) and the briefs index fails a ready brief without one. sg-guru updates the two skills.', files: 'AGENTS.md, docs, briefs-index' },
+    { id: '133', lane: '2', at: 0, len: 1, st: 'built', t: 'Performance 1, viewer: shader queries, minimap, cues', needs: [{ id: '130' }, { id: '137' }], why: 'Profile 5 Nov: main thread 94% busy late in an 8-AI match; program and shader info-log calls every frame, minimap redraw 21%. Viewer only, checksum-neutral. Merged 7 Nov (LANDED 4fff7ea); open for you: the Firefox after-profile and `npm run check -- --browser`.', files: 'viewer, render3d' },
+    { id: '134', lane: '2', at: 1, len: 1, st: 'built', t: 'Performance 1, sim: battle and stepMovement late in a big match', needs: [{ id: '133' }, { id: '132' }], why: 'Worker 79% busy late, battle 28%, stepMovement 29%. Agent 2 built the probe and a neutral steering speed-up; the 20% target is not met (the late match is bound by cache misses, not arithmetic), so it lands as is and stays open; 139 is the follow-up. Landed 7 Nov 15:57 from the author machine (no baseline change); the brief stays open, 139 is the follow-up.', files: 'sim/combat.js, movement.js, tools' },
+    { id: '137', lane: '2', at: 0, len: 1, st: 'built', t: 'GitHub Actions manual only; checks run locally', needs: [{ id: '129' }], why: 'determinism cost 48 billed minutes per push (macOS 10x), 237 pushes in 12 days. Nothing runs by itself; the Chromium and Firefox determinism runs and a clean-clone check move to the local path.', files: '.github/workflows, local-checks' },
+    { id: '135', lane: '4', at: 0, len: 1, st: 'built', t: 'Playtest marks and a human smoke script: bug or interface?', needs: [{ id: '130' }, { id: '137' }], why: 'Resumed by agent 4 after agent 1 ran out of tokens (mark key, rings, storage, download and the browser check are on the branch; the smoke script and the README are left). A mark key that saves the last inputs, tool state, results and a screenshot, plus a scripted human match that asserts the controls work; sg-guru triages marks into bug, unclear or slow.', files: 'hud, viewer, tools' },
+    { id: '136', lane: '4', at: 1, len: 3, st: 'under', t: 'Controls from the ground up: benchmark, spec, strip the UI, build', needs: [{ id: '135' }, { id: '130' }, { id: '137' }, { id: '160C' }], why: 'Author goal after the audit: fewer clicks, one key convention, no unnecessary UI. Stage B (the spec) is written with you before any agent builds; replaces 131.', files: 'hud, viewer, docs/controls.md' },
+    { id: '132', lane: '3', at: 0, len: 2, st: 'built', t: 'Default shapes: 5/7/9 tiers, AI prefers larger, 2x2 out of defaults', needs: [{ id: '130' }, { id: '104d' }], why: 'A 2x2 is all armour with no tips so it never dies; take it out of the AI defaults, add size tier presets, weight the AI to larger. Sim class: one baseline bump and a tournament check.', files: 'data, ai, shape-classes' },
+    { id: '141', lane: '2', at: 0, len: 1, st: 'built', t: 'Land lock that never needs a branch delete', needs: [{ id: '129' }, { id: '138' }], why: 'The agent proxy blocks branch deletes, so land never releases lock/land and you had to delete it after every landing and every crash. The lock becomes a ref whose tip says free or held (fast-forward pushes only), a stale lock times out after 90 minutes, and land --unlock frees one early. A gate-file brief: you say merge it.', files: 'tools/land.mjs, land.config.json, AGENTS.md, local-checks, test129' },
+    { id: '139', lane: '2', at: 2, len: 1, st: 'built', t: 'Quiet-unit mask: skip scans for units with no one nearby', needs: [{ id: '134' }], why: 'Late in a 1000x1000 match the perception scan (23%) and the contact scan (about 17%) mostly find nothing and are bound by cache misses. Stage A measures first; build only if at least 40% of scans are skippable and the saving is at least 15% of a tick. Checksums stay identical.', files: 'sim/perception.js, sim/combat.js, new sim/quiet.js, probe134' },
+    { id: '142', lane: '2', at: 1, len: 1, st: 'built', t: 'Sim events in marks and the smoke (why the battery vanished)', needs: [{ id: '135' }], why: 'The 135 smoke found the human battery gone about 1,500 ticks after it was built, store 0/0, flag order refused. The mark has inputs, toasts and commands but not the sim event ribbon (collapse, destroyed, flag placed), so it cannot say whether the economy or a bug did it. Put the ribbon and an economy row in the mark and the smoke verdict.', files: 'viewer/marks.js, probe/human-smoke.mjs, playtests/README' },
+    { id: '143', lane: '3', at: 0, len: 1, st: 'built', t: 'land squashes first; wip can push a rebased branch', needs: [{ id: '141' }], why: 'Brief 140 reached its first landing with 35 commits (two duplicate chains of wip checkpoints and a merge) and land stopped on a rebase conflict in the brief notes, not in code. wip never force-pushes, so a rebased branch could not be pushed and the agent merged its own checkpoints. land now squashes the throw-away checkpoints into one commit before it rebases; wip pushes a rebased brief branch with a lease. A gate-file brief: you merge it.', files: 'tools/land.mjs, tools/trailers.mjs, repo/handover.mjs, AGENTS.md, test141/143' },
+    { id: '144', lane: '3', at: 1, len: 1, st: 'built', t: 'Squashed commit takes the brief title, not wip(', needs: [{ id: '143' }], why: 'Brief 142 landed on main as a commit named wip(142): the squash kept the first checkpoint subject. Small tools fix.', files: 'trailers.mjs, test143' },
+    { id: '145', lane: '2', at: 2, len: 1, st: 'built', t: 'Ribbon says who destroyed a building and how', needs: [{ id: '142' }], why: 'Your battery was destroyed by damage and nothing said by whom. Telemetry only: checksum and baselines unchanged.', files: 'state.js, damage.js, combat.js' },
+    { id: '146', lane: '2', at: 3, len: 1, st: 'built', t: 'Warn when your building is destroyed; cooldown per area on red pings', needs: [{ id: '142' }], why: 'You got no warning, and the red circles spam in a long fight. One toast and one ping per area per cooldown.', files: 'hud.js, toast.js, main.js' },
+    { id: '147', lane: '3', at: 2, len: 1, st: 'built', t: 'Human smoke runs an exact number of ticks per input', needs: [{ id: '142' }], why: 'Two smoke runs of one seed differed because clicks landed at wall-clock ticks. A worker step command makes them the same match.', files: 'worker.js, human-smoke.mjs' },
+    { id: '148', lane: '1', at: 3, len: 2, st: 'built', t: 'AI and economy on the tier set: diagnose, then fix', needs: [{ id: '140' }], why: 'Tournament 8 Nov: on the tier default territory is 10.7% against 19.6% on Classic, 0 AI flags against 4.5, chains 1 against 16. Tier weights are not the cause. Stage A diagnoses, stage B fixes (sim class).', files: 'tournament.mjs, ai.js, defaults' },
+    { id: '151', lane: '2', at: 5, len: 1, st: 'built', t: 'AI site search cost: closed, the match was just bigger', needs: [{ id: '148' }], why: 'Review of 148: the 200 samples that lift the AI to the bar cost 1.8x tick time (6.3 against 3.5 ms at tick 3000, 700x700, 8 AI). Make the search cheaper and keep the result.', files: 'ai.js' },
+    { id: '152', lane: '3', at: 5, len: 2, st: 'built', t: 'Playable economy on tiers; logistics off by default', needs: [{ id: '148' }], why: 'Your 8 Nov answers: logistics becomes a match setting, off by default, out of every balance target; heavier upkeep, veins reaching further (fairness tests relaxed), energy per zone retried. Aim: buildings concentrate on the energy zones.', files: 'params.js, hydrology.js, setup' },
+    { id: '153', lane: '2', at: 6, len: 1, st: 'built', t: 'Opened sidebar above the builder panel', needs: [], why: 'The floating builder panel (z-index 14) sits over the sidebar (6). A stopgap until the builder leaves the match (D19).', files: 'hud.js' },
+    { id: '156', lane: '2', at: 6, len: 1, st: 'built', t: 'Tuner axis that is not chain use', needs: [{ id: '152' }], why: 'With logistics off the chain axis is flat and the retune dropped the best style. 152 only restamped the file. Tools class.', files: 'tune.mjs' },
+    { id: '159', lane: '2', at: 7, len: 1, st: 'built', t: 'test141 on Windows', needs: [], why: 'On your machine the SIGTERM check and the temp-dir cleanup fail; Windows cannot run a signal handler. Test file only.', files: 'test141.mjs' },
+    { id: '165', lane: '1', at: 0, len: 1, st: 'built', t: 'File tidy-up: loose files into folders', needs: [], why: 'Your 12 Nov ask: root logs to docs/logs, test audits and the playtest protocol into their folders, browser helpers and measure scripts out of the check folder, settings.js into shared/. A pure move, no sim change, no gate file touched. Three stages, class sim-neutral because of the last one.', files: 'docs, tools/browser, tools/measure, shared/settings.js (git mv only)' },
+    { id: '166', lane: '4', at: 0, len: 2, st: 'built', t: 'Verification leftovers: fresh times, cost table, last slow tests, three weak checks', needs: [], why: 'Finishes 123. Stage A (gate file, own branch): fresh test-times.json, recorded on your machine, you merge. B: the measured cost table in local-checks. C: the last 8 slow tests, same assertions. D: three checks that stay green when their rule is broken. Tools-tests class; no checksum change.', files: 'tools/test-times.json (gate), docs/local-checks.md, test014, 020, 075 and the slowest tests' },
+    { id: '167', lane: '2', at: 0, len: 1, st: 'built', t: 'Fifth golden scenario on the default tier game; vision blind spot', needs: [{ id: '166', soft: true }], why: 'Adds scenario e (tier set, logistics off, AI on) so the goldens guard capture, batteries, generator multiplier and flags; mutation table; read-only finding on why visR16 shows in no checksum. Gate file det-scenarios.mjs and one new baselines key: land stops with NEEDS THE AUTHOR, you merge with --expect=det034.e-default-4p-300. Soft order only: both edit docs/local-checks.md.', files: 'tools/determinism/det-scenarios.mjs (gate), baselines.json (one key), test034, docs/replays.md, local-checks' },
+    { id: '168', lane: '3', at: 0, len: 2, st: 'built', t: 'Narrow the sim-neutral check: shared/ by importers; line-coverage probe', needs: [{ id: '166', soft: true }], why: 'Stage 0 (gate file test-map.json, own branch, you merge): shared/ maps to importers, with a layering guard in test028. Stage A: read-only impact probe and report (line coverage, replay of 40 commits, 10 mutation proofs, two-run stability). Stage B is not started: your decision after stage A. Soft: 166 stage A gives honest times for the estimates, but is not a blocker.', files: 'tools/test-map.json (gate), test028, tools/probe/impact-probe.mjs, docs/audit' },
+    { id: '171', lane: '1', at: 3, len: 1, st: 'built', t: 'Check 116: the queued ghost\'s cell is taken before it fires', needs: [], why: 'Your 14 Nov run: the ghost fired and the sim refused it as occupied, so 116 reads no new cooldown. Timing dependent, so it passes elsewhere. Retry with a fresh spot, keep every assertion.', files: 'browser-check116' },
+    { id: '170', lane: '4', at: 3, len: 1, st: 'built', t: 'Two checks that lost their teeth, the job count, dead defaults', needs: [], why: 'Review of 168 and 167: test050 (flank loss) and test058 (stagnation deaths) still pass with the bug in, because their worlds went quiet; check hides how many jobs the runner used; some params.js defaults are dead. Stage A (check.mjs) is a gate file: you merge.', files: 'check.mjs, test050, test058, one guard test' },
+    { id: '169', lane: '1', at: 0, len: 1, st: 'built', t: 'Red browser checks 115, 116, 133 and clean-clone (round 3)', needs: [{ id: '166', soft: true }], why: 'Your 13 Nov run: 133 fails alone with the same 1,093 pixels (the 164 closure was wrong), 115 reads the ring before the cooldown ends, 116 clicks a spot the sim rejects as too-close, clean-clone fails on your user .npmrc. Stage A diagnoses, stage B fixes. Tools-tests class (viewer if minimap3d.js changes). Soft: docs/local-checks.md.', files: 'tools/browser/browser-check115, 116, 133, repo/clean-clone.mjs, minimap3d.js if real' },
+    { id: '164', lane: '1', at: 0, len: 1, st: 'built', t: 'Four red browser checks (115, 078, 107) and the 133 minimap pixels', needs: [], why: 'Your full3.log: 25 of 31 pass; 031 and 075 pass alone (timing under 3 parallel jobs). 115 and 078 are stale waits, 107 is unknown, 133 differs by 1.6% of pixels: artefact or a real cache mismatch, to be decided. Tools class, small.', files: 'tools/browser/browser-check115, 078, 107, 133; render3d/minimap3d if real' },
+    { id: '163', lane: '1', at: 0, len: 1, st: 'built', t: 'Last two red browser checks (098, 112) and the flaky 072', needs: [], why: 'The 161 and 162 notes: the bugs are fixed, the checks fail further on (a stale cooldown wait in 098, a duel result in 112). Tools class, small.', files: 'tools/browser/browser-check098, 112, 072' },
+    { id: '161', lane: '1', at: 0, len: 1, st: 'built', t: 'Two 3D-view bugs and three small viewer notes', needs: [], why: 'Found by the repaired browser checks 133 (3D minimap draws nothing until the test hook runs) and 098 (3D view never asks for the best start). Viewer class, small.', files: 'viewer/main.js, hud, settings' },
+    { id: '162', lane: '2', at: 0, len: 1, st: 'built', t: 'Lab editor grows to 9x9 (check 112)', needs: [], why: 'Moving the core on a 5x5 design is refused because the editor grows only to 7. One constant and the check. Viewer class, small.', files: 'lab/design.js' },
+    { id: '160A', lane: '1', at: 0, len: 1, st: 'built', t: 'Repair browser checks 031, 035, 066, 072, 075 (brief 160, slice A)', needs: [], why: 'Your 10 Nov full2.log: 19 of 31 browser checks are red, mostly stale after the tier set, logistics off, 155 and 154; a few may be real bugs. Each agent sorts its slice into retire, repair or real bug. Class tools-tests, no gate files.', files: 'tools/browser/browser-check*.mjs' },
+    { id: '160B', lane: '2', at: 0, len: 1, st: 'built', t: 'Repair browser checks 078, 081, 085, 097, 098 (brief 160, slice B)', needs: [], why: 'Your 10 Nov full2.log: 19 of 31 browser checks are red, mostly stale after the tier set, logistics off, 155 and 154; a few may be real bugs. Each agent sorts its slice into retire, repair or real bug. Class tools-tests, no gate files.', files: 'tools/browser/browser-check*.mjs' },
+    { id: '160C', lane: '4', at: 0, len: 1, st: 'built', t: 'Repair browser checks 099, 111, 112, 115, 116 (brief 160, slice C)', needs: [], why: 'Your 10 Nov full2.log: 19 of 31 browser checks are red, mostly stale after the tier set, logistics off, 155 and 154; a few may be real bugs. Each agent sorts its slice into retire, repair or real bug. Class tools-tests, no gate files.', files: 'tools/browser/browser-check*.mjs' },
+    { id: '160D', lane: '5', at: 0, len: 1, st: 'built', t: 'Repair browser checks 117, 120, 133, 135 (brief 160, slice D)', needs: [], why: 'Your 10 Nov full2.log: 19 of 31 browser checks are red, mostly stale after the tier set, logistics off, 155 and 154; a few may be real bugs. Each agent sorts its slice into retire, repair or real bug. Class tools-tests, no gate files.', files: 'tools/browser/browser-check*.mjs' },
+    { id: '158', lane: '3', at: 0, len: 1, st: 'built', t: 'Cut the full check time (stage B)', needs: [], why: 'Your 10 Nov run took 2 hours or more. Stage A measures on your machine, stage B cuts. Gate files, so you merge it by hand.', files: 'run-tests.mjs, check.mjs, land.mjs' },
+    { id: '157', lane: '1', at: 6, len: 1, st: 'built', t: 'Quick duel follows the move-first rule', needs: [{ id: '154' }], why: 'After 154 shooters with room do not fire, so the Quick duel and the Real duel disagree on some pairs. 154 dropped two pairs from the test; this retunes the Quick model. Tools class.', files: 'lab/duel.js, test112c' },
+    { id: '155', lane: '1', at: 5, len: 1, st: 'built', t: 'Hide the floating builder panel in a match', needs: [], why: 'Your 9 Nov playtest: the panel blocks the view. A switch turns it off for now; the builder leaves the match under D19. Viewer class.', files: 'builder.js, hud.js' },
+    { id: '154', lane: '4', at: 5, len: 2, st: 'built', t: 'Units move first, look for targets only when blocked; idle units do not freeze', needs: [], why: 'Your 8 Nov observation: units with a target stop and jam, idle units near others freeze. Rule: move, and only if no move is possible scan and fire. Stage A finds the real cause first. Sim class.', files: 'movement.js, combat.js' },
+    { id: '149', lane: '2', at: 4, len: 1, st: 'built', t: 'Profile shape choices as pictures you click', needs: [], why: 'Home, Player Profile lists designs by code. You asked for square boxes showing each shape. Small viewer brief.', files: 'profile-panel.js' },
+    { id: '150', lane: '3', at: 3, len: 1, st: 'built', t: 'Arena: visible pause and a reset', needs: [], why: 'The arena has no pause button and no reset until the result panel; you had to go Home. Small viewer brief.', files: 'arena.js' },
+    { id: '140', lane: '1', at: 2, len: 2, st: 'built', t: 'Size tiers (5/7/9) as the default match shape set', needs: [{ id: '132' }], why: 'Your 7 Nov answer: the tiers become the default. A sim class: templates renumber, baselines move, older replays become incompatible; the old eight stay as a Classic preset. Known risk: 9x9 spawners rarely fit on small maps.', files: 'shapeset.js, match.js, default-designs.json, setup, replays.md, baselines' },
+    { id: '128', lane: '3', at: 0, len: 1, st: 'built', t: 'Trial: an agent checks, merges and verifies its own branch', needs: [{ id: '127' }], why: 'A small real change (the runner prints the first error line of a failed test file) landed by the agent itself under written guard rails, with check:full green before and after; you read the notes before the rule is adopted.', files: 'spike/tools/run-tests.mjs, test123, docs' },
+    { id: '106', lane: '4', at: 0, len: 1, gate: 3, st: 'built', t: 'Arena game mode', needs: [{ id: '102' }, { id: '098' }], why: 'Your 1 Nov idea: the army duel as a second mode on the real sim. You place both sides by click (budget toggle), press Fight, steer with native orders (hotkey, click the centre, wheel to resize the selection, click the destination); dev options in the ? menu. Units only, flat map. Roguelike levels are a later step.', files: 'sim commands and arena map (SIM_VERSION bump), setup, HUD, results' },
+    { id: '107', lane: '1', at: 0, len: 3, st: 'built', t: 'Skins 1: format, validator, lab', needs: [], why: 'Your 1 Nov ask: a skin system for 2D and 3D, art per tile (a tile for every neighbour pattern and cell class, role props on the core), the whole look (terrain and territory too), render side only. This part is new files only: the package format, a validator, a skin lab page to preview any skin on any shape, the artist guide and a template generator. The shipped cubes and slimes become the first skins.', files: 'spike/skin/, spike/skins/, skin lab, docs/skins.md (no game wiring)' },
+    { id: '108', lane: '2', at: 0, len: 3, st: 'built', t: 'Skins 2: wire into 2D and 3D', needs: [{ id: '107' }, { id: '098' }, { id: '099' }, { id: '101' }], why: 'Use skins in the 2D map and the 3D renderer, a glTF loader, the whole look (terrain palette and territory style), one skin setting per profile applied live, checksum-identical with every skin.', files: 'main.js draw layer, renderer, palette, territory, settings (no sim change)' },
+    { id: 'W6', lane: '6', at: 0, len: 2, st: 'under', t: 'Reviews, briefs, plan', needs: [], why: 'Agent 6 reviews and retires finished briefs, writes the next briefs (the D19 builder and points budget after the design session, the 136 controls spec with you, fix briefs from your playtest), and keeps STATUS.md, docs and this plan current.', files: 'docs, STATUS.md, lane plan' },
+    { id: '043', lane: 'G', at: 1, len: 1, st: 'hold', t: 'Onboarding', needs: [{ id: 'D4' }], why: 'Watch an AI match with callouts, then a guided first match. After the playtest tells us what a newcomer trips on.', files: 'viewer/setup.js, results.js, replays' },
+    { id: '042', lane: 'G', at: 2, len: 1, st: 'hold', t: 'Reactive audio', needs: [{ id: 'D4' }], why: 'Generative ambient soundscape driven by sim state plus sparse event cues. Nice to have, after the playtest.', files: 'viewer, worker event stream' },
+    { id: '041', lane: 'G', at: 3, len: 2, st: 'hold', t: 'Multiplayer basics', needs: [{ id: 'D4' }], why: 'Join by code, disconnect and rejoin with AI takeover, spectators. Needs the single-player loop proven first.', files: 'replay.js, match, viewer' },
+    { id: 'D4', lane: 'E', at: 0, len: 1, st: 'Run the browser checks and play an 8-AI match', t: 'Playtest on current main', needs: [], ph: true, why: 'Main has logistics off, upkeep 260, move-first units, no in-match builder panel and the repaired browser checks. Play an 8-AI 1000x1000 match in 2D and 3D, run the ladder and `check:full -- --browser`, and tell me what you see. The held briefs 041 to 043 start after it.' },
+    { id: 'D3', lane: 'E', at: 3, len: 1, st: 'built', t: 'Confirm flag defaults', needs: [], ph: true, why: 'Answered 4 Nov: flags are a routine tool (cheap, frequent), not a rare decisive strike. Defaults are judged after the audit.' },
+    { id: 'D5', lane: 'E', at: 3, len: 1, st: 'Retuned in 156: seven personalities; approve the expander text', t: 'Name and describe the AI personalities', needs: [{ id: 'D4' }], ph: true, why: 'Answered 4 Nov: keep the original names. The 156 retune kept seven (default, lean, expander, opportunist, economist, logistician, turtle). Open: the description of the new expander, and whether economist and logistician (now near-identical) keep both names.' },
+    { id: 'D13b', lane: 'F', at: 0, len: 1, st: 'built', t: 'How players reach each other (answered)', needs: [], ph: true, why: 'Answered 27 Oct: flags first (074, measured: no effect), then alliances (049) before any fallback; no pressure rule, no target match length, AI hunting unlock stays 80. The siege diagnostic (077) is what is left open.' },
+    { id: 'D16', lane: 'F', at: 4, len: 1, st: 'author', t: 'Logistics payoff session', needs: [], ph: true, why: 'Answered 4 Nov: after the audit, bigger payoff first. Chains shorten countdowns only 2 to 4% today; you want chains tuned up significantly and long chains encouraged.' },
+    { id: 'D11', lane: 'F', at: 1, len: 1, st: 'author', t: 'Revisit doctrines after the playtest', needs: [{ id: 'D4' }], ph: true, why: 'Parked until the first playtest. Specialisation with trade-offs, an AI personality as a doctrine choice.' },
+    { id: 'D19', lane: 'F', at: 2, len: 1, st: 'author', t: 'Unit builder in the menu, with a points budget', needs: [], ph: true, why: 'Your 8 Nov answer: the builder leaves the match and sits in the main menu with player unit selection. The host sets the points each player may spend on units (cells, or weighted: armour and tips cost extra). The in-match sidebar shows what you have that game. Larger shapes should be proportionally cheaper than small ones, so no fixed count per type. A design session first.', files: '' },
+    { id: 'D9', lane: 'F', at: 5, len: 1, st: 'author', t: 'Product name and licence (deferred)', needs: [], ph: true, why: 'Deferred: a product name and the licence stance. Nothing blocks on it.' },
+  ];
+  var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
+
+  function hueOf(id) { var n = parseInt(String(id).replace(/\D/g, ''), 10) + (id.charAt(0) === 'D' ? 100 : 0); return Math.round((n * 137.508) % 360); }
+  var SLOTS = 14;
+  // Auto-pack: bars in one lane never overlap and never start before the briefs they need have ended (a `gate` lets a brief start that many sessions early).
+  (function pack() {
+    B.forEach(function (b) { b.at0 = b.at; });
+    for (var pass = 0; pass < 40; pass++) {
+      var moved = false;
+      LANES.forEach(function (L) {
+        var list = B.filter(function (b) { return b.lane === L.id && b.st !== 'built'; }).sort(function (x, y) { return x.at0 - y.at0 || x.id.localeCompare(y.id); });
+        var prevEnd = 0;
+        list.forEach(function (b) {
+          var t = Math.max(b.at, prevEnd);
+          (b.needs || []).forEach(function (n) { var d = byId[n.id]; if (d && d.st !== 'built') t = Math.max(t, d.at + d.len - (b.gate || 0)); });
+          if (t > b.at) { b.at = t; moved = true; }
+          prevEnd = b.at + b.len;
+        });
+      });
+      if (!moved) break;
+    }
+    var end = 0; B.forEach(function (b) { if (b.st !== 'built') end = Math.max(end, b.at + b.len); });
+    SLOTS = Math.max(14, end + 1);
+    document.documentElement.style.setProperty('--slots', SLOTS);
+  })();
+  var axis = document.getElementById('axis');
+  var first = document.createElement('div'); axis.appendChild(first);
+  for (var s = 0; s < SLOTS; s++) { var d = document.createElement('div'); d.textContent = s === 0 ? 'session 1' : String(s + 1); axis.appendChild(d); }
+
+  var lanesEl = document.getElementById('lanes');
+  LANES.forEach(function (L) {
+    var row = document.createElement('div'); row.className = 'lane'; row.dataset.lane = L.id;
+    row.innerHTML = '<div class="lane-label"><b>' + L.name + '</b><small>' + L.note + '</small></div><div class="track"></div>';
+    lanesEl.appendChild(row);
+  });
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  B.forEach(function (b) {
+    var track = lanesEl.querySelector('.lane[data-lane="' + b.lane + '"] .track');
+    var el = document.createElement('button'); el.type = 'button';
+    el.className = 'bar' + (b.st === 'under' ? ' under' : '') + (b.st === 'review' ? ' review' : '') + (b.st === 'author' ? ' author' : '') + (b.st === 'hold' ? ' hold' : '');
+    el.style.setProperty('--h', b.h);
+    el.style.left = 'calc(var(--slot) * ' + b.at + ' + 3px)';
+    el.style.width = 'calc(var(--slot) * ' + b.len + ' - 6px)';
+    el.dataset.id = b.id;
+    el.innerHTML = '<span class="num">' + b.id + (b.moved ? ' <span class="tag">moved</span>' : '') + (b.ph ? ' <span class="tag">idea</span>' : '') + '</span><span class="ttl">' + esc(b.t) + '</span>';
+    el.setAttribute('aria-label', 'Brief ' + b.id + ', ' + b.t);
+    if (b.st === 'built') el.style.display = 'none';   // finished briefs leave the By agent view (they stay in the Gantt and History)
+    track.appendChild(el); b.el = el;
+  });
+
+  var chart = document.getElementById('chart'), pathsG = document.getElementById('paths'), svg = document.getElementById('links');
+  var edges = [];
+  B.forEach(function (b) { b.needs.forEach(function (n) { edges.push({ from: n.id, to: b.id, soft: !!n.soft }); }); });
+  var selected = null;
+
+  function related(id) {
+    var set = {}; set[id] = 1;
+    (function up(x) { edges.forEach(function (e) { if (e.to === x && !e.soft !== undefined && !set[e.from]) { set[e.from] = 1; up(e.from); } }); })(id);
+    (function down(x) { edges.forEach(function (e) { if (e.from === x && !set[e.to]) { set[e.to] = 1; down(e.to); } }); })(id);
+    return set;
+  }
+
+  function draw() {
+    var cr = chart.getBoundingClientRect();
+    svg.setAttribute('viewBox', '0 0 ' + cr.width + ' ' + cr.height);
+    svg.setAttribute('width', cr.width); svg.setAttribute('height', cr.height);
+    pathsG.innerHTML = '';
+    var rel = selected ? related(selected) : null;
+    edges.forEach(function (e) {
+      if (byId[e.from].st === 'built' || byId[e.to].st === 'built') return;
+      var a = byId[e.from].el.getBoundingClientRect(), b = byId[e.to].el.getBoundingClientRect();
+      var x1 = a.right - cr.left, y1 = a.top + a.height / 2 - cr.top, x2 = b.left - cr.left, y2 = b.top + b.height / 2 - cr.top;
+      var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      var dx = Math.max(24, Math.abs(x2 - x1) / 2);
+      if (x2 < x1 + 4) { // same column or backwards: route around
+        p.setAttribute('d', 'M' + x1 + ' ' + y1 + ' C' + (x1 + 30) + ' ' + y1 + ' ' + (x2 - 30) + ' ' + y2 + ' ' + x2 + ' ' + y2);
+      } else {
+        p.setAttribute('d', 'M' + x1 + ' ' + y1 + ' C' + (x1 + dx) + ' ' + y1 + ' ' + (x2 - dx) + ' ' + y2 + ' ' + x2 + ' ' + y2);
+      }
+      p.setAttribute('class', (e.soft ? 'soft' : '') + (rel && !(rel[e.from] && rel[e.to]) ? ' hid' : ''));
+      if (!e.soft) p.setAttribute('marker-end', 'url(#ah)');
+      pathsG.appendChild(p);
+    });
+  }
+
+  var detail = document.getElementById('detail');
+  var LANE_NAME = { Q: 'Next free agent', '1': 'Agent 1', '2': 'Agent 2', '3': 'Agent 3', '4': 'Agent 4', '5': 'Agent 5', '6': 'Agent 6 (Guru)', E: 'You, decisions', F: 'You, design sessions', G: 'Held until the playtest' };
+  var ST = { under: 'underway', review: 'in review (branch pushed, waiting for checks and merge)', ready: 'ready to start', author: 'needs your time (decision or design session)', hold: 'held until the first playtest' };
+  function show(id) {
+    var b = id && byId[id];
+    if (!b) {
+      detail.innerHTML = '<h2>Select a brief</h2><p>Click any bar to see what it is, what it waits for and what waits for it. Click empty space to clear.</p>';
+      return;
+    }
+    var needs = b.needs.map(function (n) { return n.id + (n.soft ? ' (file order)' : ''); }).join(', ') || 'nothing in this plan';
+    var unlocks = edges.filter(function (e) { return e.from === b.id; }).map(function (e) { return e.to; }).join(', ') || 'nothing in this plan';
+    detail.style.setProperty('--h', b.h);
+    detail.innerHTML = '<h2><i></i>' + b.id + ' · ' + esc(b.t) + '</h2><p>' + esc(b.why) + '</p>' +
+      '<div class="meta"><span>' + LANE_NAME[b.lane] + '</span><span>' + ST[b.st] + '</span><span>sessions ' + (b.at + 1) + (b.len > 1 ? ' to ' + (b.at + b.len) : '') + '</span><span>waits for: ' + needs + '</span><span>unblocks: ' + unlocks + '</span><span>touches: ' + esc(b.files) + '</span></div>';
+  }
+  function select(id) {
+    selected = (selected === id) ? null : id;
+    var rel = selected ? related(selected) : null;
+    B.forEach(function (b) {
+      b.el.classList.toggle('sel', b.id === selected);
+      b.el.classList.toggle('on', !!(rel && rel[b.id]));
+    });
+    chart.classList.toggle('focus', !!selected);
+    show(selected); draw();
+    if (selected && typeof TODO_BY_BAR !== 'undefined' && TODO_BY_BAR[selected]) openTodo(TODO_BY_BAR[selected]);
+  }
+  B.forEach(function (b) { b.el.addEventListener('click', function (ev) { ev.stopPropagation(); select(b.id); }); });
+  document.addEventListener('click', function (ev) { if (ev.target.closest && ev.target.closest('dialog')) return; if (selected && !detail.contains(ev.target)) select(selected); });
+  // ---- your to-do items: what each one is, step by step, and the open questions it carries
+  var TODO = [
+    { id: 'gates', t: 'Merge the gate-file branches and run the browser checks (167, 168, 169)', tag: 'verify', when: 'When the agents report `NEEDS THE AUTHOR`.',
+      why: 'Two of the three briefs underway stop at a gate file, which is expected: 167 (det-scenarios.mjs and one baselines key) and 168 stage 0 (test-map.json). 166 is done (test times recorded 13 Nov). 169 is the browser fixes and needs your machine to prove them.',
+      steps: [
+        'Merge 167 by hand and check `git diff` adds only `det034.e-default-4p-300` to baselines.json.',
+        'Merge 168 stage 0 by hand (test-map.json and the test028 guard).',
+        'Install Firefox for the determinism run: `npx playwright-core install chromium firefox`, then `npm run xplat`.',
+        'After 169 merges: `npm run check:full -- --only=browser-check115,browser-check116,browser-check133 --browser` and `npm run clean-clone`.'
+      ],
+      qs: [
+        '168: after the stage A report, build stage B (the line-coverage test selection) or not?',
+        '167: does the vision radius finding need a sim brief?'
+      ] },
+    { id: 'start', t: 'Play the 8-AI match and run the ladder', tag: 'now', when: 'Now (11 Nov).', bar: 'D4',
+      why: 'Main now has 152 (logistics off, upkeep 260, veins further), 154 (units move first), 155 (no in-match builder panel), 156 to 162 and the test-time work (158: browser phase off by default, 3 jobs). Nothing has judged the economy or the movement by eye yet, the strength ladder has not run on the 154 code.',
+      steps: [
+        'Play or watch an 8-AI 1000x1000 match on main, in 2D and in 3D (the 3D start bar and Lock button work now). Tell me how the buildings spread over the energy zones, whether units still queue or freeze, whether shooters closing to contact feels wrong, and whether big shapes stall.',
+        'Run `npm run tournament -- --sets=120` and paste me the table (about 10 minutes).',
+        'Write down what you tried to do and could not: that is the input for the 136 stage B controls spec.'
+      ],
+      qs: [
+        'After the match: is the building spread over the zones good enough, or which lever next (upkeep, vein reach, income)?',
+        'Do units look right with the move-first rule (no freezing near friends)? If not, what do you see?'
+      ] },
+    { id: 'play', t: 'Design session D19: the builder in the main menu, with a points budget', tag: 'decision', when: 'When you want it; the builder panel is hidden in matches for now (155).', bar: 'D19',
+      why: 'Your 8 Nov sketch: the unit builder leaves the match and lives in the main menu next to player unit selection; the host sets a points budget per player (cells, with armour and tips costing extra); the sidebar shows only the units available that game; larger shapes cost proportionally less per cell. Brief 136 stage C builds it after the session.',
+      steps: [
+        'Decide the two questions below.',
+        'Book the session with me; I write the brief from it.'
+      ],
+      qs: [
+        'Does proportionally cheaper mean a falling price per cell as shapes grow (a volume discount), not fewer points overall?',
+        'What costs points: cells only, or also armour, tips and anything else?'
+      ] },
+    { id: 'house', t: 'Housekeeping (any time)', tag: 'verify', when: 'Any time; none blocks the agents.',
+      why: 'Small chores that keep the repo and the local checks tidy.',
+      steps: [
+        'Delete merged remote branches: `brief/130-...`, `133`, `135`, `139`, `140` (both names), `141` to `155` (all), `156`, `157`, `158-stage-a`, `158-stage-b`, `159`, `fix/test141-windows-2`, `160a-...`, `160-slice-b`, `160c-...`, `160-slice-d`, and `tmp/lock-probe`.',
+        'Compare two runs of `node spike/tools/probe/human-smoke.mjs --minutes=4 --seed=2 --size=260` (the verdict lines should match; brief 147).',
+        'Take a Firefox profile of the 8-AI match for brief 133 if you have not yet.',
+        'Re-record test times when the machine is quiet: `node spike/tools/run-tests.mjs --record-times --jobs=1` (44 tests have no recorded time, so test141 and test143 start last).'
+      ],
+      qs: [] },
+    { id: 'tune', t: 'AI personalities after the 156 retune', tag: 'later', when: 'When you next look at the AI.', bar: 'D5',
+      why: 'The retune kept seven personalities (default, lean, expander, opportunist, economist, logistician, turtle). Expander is new and has a generated description. Economist and logistician now behave almost the same, and the economist is no longer the strongest style (ratings carry about plus or minus 100). The original names stay.',
+      steps: [],
+      qs: [
+        'Write or approve the description of the new expander personality.',
+        'Economist and logistician play almost the same now: keep both names, or merge them?'
+      ] },
+    { id: 'play2', t: 'Controls spec (136 stage B)', tag: 'later', when: 'After your next play session.', bar: '136',
+      why: 'Stage A (the benchmark) is done. Stage B is the controls spec we write together in docs/controls.md, then stage C strips the UI to match and the builder leaves the match (D19). I need your list of annoyances from play, which I will ask for in short multiple-choice rounds.',
+      steps: [
+        'Play, and note what you wanted to do and could not.',
+        'Tell sg-guru when you are ready; we write the spec.'
+      ],
+      qs: [
+        'What did you try to do while playing and could not (list as many as you remember)?'
+      ] },
+    { id: 'D16', t: 'Logistics payoff session (D16)', tag: 'later', when: 'After the playtest, once the economy is playable (152 landed).', bar: 'D16',
+      why: 'Answered 4 Nov: bigger payoff first. Logistics is off by default since 152 (a match setting); you decided to get the game playable first and then decide whether it needs more dimensions. Chains shorten countdowns only 2 to 4% today; you want chains tuned up significantly and long chains encouraged.',
+      steps: [],
+      qs: [] },
+    { id: 'parked', t: 'Parked briefs: decide or keep parked', tag: 'later', when: 'Not before the playtest.', bar: 'D11',
+      why: 'Held until the playtest: 041 multiplayer, 042 reactive audio, 043 onboarding, and doctrines (specialisation with trade-offs; D11). Parked: 013 terraform stamps, 119 ping and seek (built, default off, stays off; decided 4 Nov), 123 faster verification part 2 (needs your approval of its audit table; 158 already did the runner, the browser phase and the job count). The product name and the licence are deferred; nothing blocks.',
+      steps: [],
+      qs: [
+        '119 ping and seek stays off: retire the brief (keep the code switch), or keep it parked?',
+        '123 part 2 (a shorter baseline check): still wanted after 158, or retire it?'
+      ] },
+  ];
+  var TODO_BY_ID = {}, TODO_BY_BAR = {};
+  TODO.forEach(function (x) { TODO_BY_ID[x.id] = x; if (x.bar) TODO_BY_BAR[x.bar] = x.id; });
+  var LS = 'lane-plan-todo-v1', store = {};
+  try { store = JSON.parse(localStorage.getItem(LS) || '{}') || {}; } catch (e) { store = {}; }
+  function save() { try { localStorage.setItem(LS, JSON.stringify(store)); } catch (e) { } }
+  function rich(s) { return esc(s).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>'); }
+  var TAGS = { now: 'Do now', decision: 'Decide', verify: 'Check', later: 'Later', done: 'Done' };
+  var TAG_ORDER = ['now', 'decision', 'verify', 'later', 'done'];
+  function counts(x) { var d = 0; x.steps.forEach(function (s, i) { if (store['s:' + x.id + ':' + i]) d++; }); return d; }
+  function renderTodo() {
+    var el = document.getElementById('todo'); el.innerHTML = '';
+    TAG_ORDER.forEach(function (tag) {
+      var items = TODO.filter(function (x) { return x.tag === tag; }); if (!items.length) return;
+      var h = document.createElement('div'); h.className = 'tg'; h.textContent = TAGS[tag]; el.appendChild(h);
+      items.forEach(function (x) {
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'todo-item'; b.dataset.id = x.id;
+        var done = counts(x), meta = [];
+        if (x.steps.length) meta.push(done + '/' + x.steps.length + ' steps');
+        if (x.qs.length) meta.push(x.qs.length + (x.qs.length === 1 ? ' question' : ' questions'));
+        b.innerHTML = '<span class="ti">' + esc(x.t) + '</span><span class="tm">' + esc(meta.join(' · ') || x.when) + '</span>';
+        b.addEventListener('click', function (ev) { ev.stopPropagation(); openTodo(x.id); });
+        el.appendChild(b);
+      });
+    });
+    var oq = document.getElementById('oq'); oq.innerHTML = ''; var n = 0;
+    TODO.forEach(function (x) {
+      x.qs.forEach(function (q, i) {
+        var li = document.createElement('li'), ans = store['a:' + x.id + ':' + i];
+        li.innerHTML = '<button type="button" class="oqb" data-id="' + x.id + '"><b>' + esc(x.t.replace(/ \(.*\)$/, '')) + ':</b> ' + esc(q) + (ans ? ' <em>(answered in notes)</em>' : '') + '</button>';
+        li.firstChild.addEventListener('click', function (ev) { ev.stopPropagation(); openTodo(x.id); });
+        oq.appendChild(li); n++;
+      });
+    });
+    document.getElementById('oqn').textContent = n;
+  }
+  function allAnswersMd() {
+    var out = '# Author answers (exported from the Plan)\n\nExported ' + new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC. Questions with no answer yet are marked so; their defaults apply.\n';
+    TODO.forEach(function (x) {
+      if (!x.qs.length) return;
+      out += '\n## ' + x.t + ' (' + x.id + ')\n';
+      x.qs.forEach(function (q, i) { out += '\n' + (i + 1) + '. ' + q + '\n   Answer: ' + (store['a:' + x.id + ':' + i] || '(none yet)') + '\n'; });
+    });
+    return out;
+  }
+  (function () {
+    var m = document.getElementById('allMsg');
+    document.getElementById('cpA').addEventListener('click', function () {
+      function ok() { m.textContent = 'Copied. Paste it into the chat.'; } function fail() { m.textContent = 'Could not copy; use Download.'; }
+      try { navigator.clipboard.writeText(allAnswersMd()).then(ok, fail); } catch (e) { fail(); }
+    });
+    document.getElementById('dlA').addEventListener('click', function () {
+      var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([allAnswersMd()], { type: 'text/markdown' }));
+      a.download = 'answers.md'; document.body.appendChild(a); a.click(); a.remove();
+      m.textContent = 'Saved. Put it in docs/ (replace docs/answers.md) and tell me, or commit it.';
+    });
+  })();
+  var dlg = document.getElementById('dlg');
+  function openTodo(id) {
+    var x = TODO_BY_ID[id]; if (!x) return;
+    var h = '<form method="dialog"><button class="close" aria-label="Close">Close</button></form>' +
+      '<h2>' + esc(x.t) + '</h2><p class="when"><span class="pill">' + TAGS[x.tag] + '</span> ' + esc(x.when) + '</p><p>' + rich(x.why) + '</p>';
+    if (x.steps.length) {
+      h += '<h3>Steps</h3><ol class="steps">';
+      x.steps.forEach(function (s, i) { var k = 's:' + x.id + ':' + i; h += '<li><label><input type="checkbox" data-k="' + k + '"' + (store[k] ? ' checked' : '') + '><span>' + rich(s) + '</span></label></li>'; });
+      h += '</ol>';
+    }
+    if (x.qs.length) {
+      h += '<h3>Open questions</h3><div class="qbox">';
+      x.qs.forEach(function (q, i) { var k = 'a:' + x.id + ':' + i; h += '<div class="q"><p>' + (i + 1) + '. ' + rich(q) + '</p><textarea rows="2" data-k="' + k + '" placeholder="Your answer or note">' + esc(store[k] || '') + '</textarea></div>'; });
+      h += '<div class="qa"><button type="button" id="copyA">Copy my answers</button><span id="copyMsg" aria-live="polite"></span></div></div>';
+    }
+    dlg.innerHTML = h;
+    dlg.querySelectorAll('input[data-k]').forEach(function (c) { c.addEventListener('change', function () { if (c.checked) store[c.dataset.k] = 1; else delete store[c.dataset.k]; save(); renderTodo(); }); });
+    dlg.querySelectorAll('textarea[data-k]').forEach(function (t) { t.addEventListener('input', function () { if (t.value) store[t.dataset.k] = t.value; else delete store[t.dataset.k]; save(); }); t.addEventListener('blur', renderTodo); });
+    var cb = dlg.querySelector('#copyA');
+    if (cb) cb.addEventListener('click', function () {
+      var out = x.t + '\n'; x.qs.forEach(function (q, i) { out += '\n' + (i + 1) + '. ' + q + '\n   Answer: ' + (store['a:' + x.id + ':' + i] || '(no answer yet; default applies)') + '\n'; });
+      var m = dlg.querySelector('#copyMsg');
+      function ok() { m.textContent = 'Copied. Paste it into the chat.'; }
+      function fail() { m.textContent = 'Could not copy; select the text from the boxes instead.'; }
+      try { navigator.clipboard.writeText(out).then(ok, fail); } catch (e) { fail(); }
+    });
+    if (!dlg.open) { if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); }
+  }
+  dlg.addEventListener('click', function (ev) { if (ev.target === dlg) dlg.close(); });
+  renderTodo();
+  window.addEventListener('resize', draw);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  show(null); draw();
+  show(selected); draw();
+  window.addEventListener('resize', draw);
+})();
+</script>
+<script>
+document.querySelectorAll('#commands pre').forEach(function (pre) {
+  var b = pre.querySelector('button');
+  b.addEventListener('click', function () {
+    var t = pre.textContent.replace(/Copy$|Copied$/, '').trim();
+    function done() { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1200); }
+    try { navigator.clipboard.writeText(t).then(done, function () { window.prompt('Copy:', t); }); } catch (e) { window.prompt('Copy:', t); }
+  });
+});
+</script>
