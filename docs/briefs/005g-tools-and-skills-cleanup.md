@@ -1,6 +1,6 @@
 # 005: Tools folder and skill archives: one home for agent instructions
 
-- **Status:** ready
+- **Status:** built (merged)
 - **Author/date:** K. Ogata with the guru, 2026-11-15
 - **Depends on:** 002. Order: guru lane, any time; must be merged before 001c starts.
 - **Read:** `Tools/`, `.claude/skills/`, `docs/agents/`, `docs/archive/`
@@ -45,5 +45,17 @@ Changing role guides.
 - **Gotchas:**
 - **Resume:**
 - **Not run:**
-- **State:**
+- **State:** merged to main.
 <!-- progress:end -->
+
+Change report
+- Task: 005g Tools folder and skill archives
+- Files changed: `Tools/SS/*` (6 files deleted); `docs/agents/README.md` (Skills section); `docs/decisions.md` (entry); this brief
+- What is different now: `Tools/` holds six files: the five role `.skill` files and `repo-scaffold.skill`. The top-level old archives and `web_search.json` were already gone from `main`.
+- New or changed interfaces: none
+- Acceptance criteria: `git ls-files Tools` lists exactly the five role `.skill` files and `repo-scaffold.skill`: met. No rule text in a stub: met (each SKILL.md is 10 lines).
+- Deviations from the brief: top-level deletions were already done (author's move); only `Tools/SS/` remained.
+- Risks / follow-ups: the author removes the old uploaded `wdt-*` skills from the account (cannot be done from the repo).
+- Verification: unzipped each role `.skill` and diffed against `.claude/skills/<role>/SKILL.md`: all five identical. Grep found no references to the deleted files outside briefs, the audit and history notes.
+- Overview sections likely needing an update: section 2 (`Tools/` line)
+- Commit / branch: `brief/005-tools-and-skills-cleanup`
