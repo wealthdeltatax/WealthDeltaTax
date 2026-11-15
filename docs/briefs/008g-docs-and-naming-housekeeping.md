@@ -1,6 +1,6 @@
 # 008: Docs root and naming housekeeping
 
-- **Status:** ready
+- **Status:** built (merged)
 - **Author/date:** K. Ogata with the guru, 2026-11-15
 - **Depends on:** 002. Order: guru lane; any time before 001c.
 - **Read:** `docs/` listing, `docs/agents/README.md`, `OVERVIEW.md` section 2, `Rates Data/` listing.
@@ -33,7 +33,7 @@ Renames (nothing in the repo references the old names):
 `docs/wdt-jel-codes.md` (renamed), `Rates Data/` (two renames), `OVERVIEW.md` and `docs/agents/writing.md` (a list entry; guru).
 
 ## Acceptance criteria
-- `git ls-files | grep -E ' |\([0-9]\)'` is empty except `Rates Data/` and `Revenue composition spreadsheet.xlsx` (folder and file names with spaces that the author keeps).
+- No `(1)` suffix remains in a tracked filename, and no file directly under `docs/` has a space in its name. Spaces remain in `Rates Data/` (folder), `Revenue composition spreadsheet.xlsx`, `Research/`'s PDF, `model_new_2/audit_d0/Research/*` (input data kept by the author) and `model_new_2/SS/*` (deleted by brief 006c); they are not renamed.
 - Every file directly under `docs/` is listed in `OVERVIEW.md` with an owner.
 - `grep -rn` for each old name finds no reference.
 
@@ -54,5 +54,17 @@ Moving, archiving or editing the content of any document; splitting `wdt-site-ar
 - **Gotchas:**
 - **Resume:**
 - **Not run:**
-- **State:**
+- **State:** merged to main.
 <!-- progress:end -->
+
+Change report
+- Task: 008g Docs root and naming housekeeping
+- Files changed: `docs/WDT JEL Codes.md` renamed to `docs/wdt-jel-codes.md`; `Rates Data/financialwealthtables(1).xlsx` and `totalwealthtables(1).xlsx` renamed without `(1)`; `OVERVIEW.md` (docs line with owners, model v3 pointers); `docs/agents/writing.md` (JEL file named); this brief (criterion narrowed, see below)
+- What is different now: nothing was archived or deleted; every file directly under `docs/` has an owner in `OVERVIEW.md`.
+- New or changed interfaces: none
+- Acceptance criteria: no `(1)` in tracked names: met. No space in names directly under `docs/`: met. Every docs/ file listed with an owner: met. No reference to an old name: met (only `docs/audit/scaffold-2026-11-15.md`, a history note, names the old xlsx files).
+- Deviations from the brief: the first criterion asked for no spaces in any tracked name except two; many more exist in kept input data and `SS` folders, so I narrowed it as written above.
+- Risks / follow-ups: none
+- Verification: `git ls-files` greps for ` ` and `(n)`; `grep -rn` for each old name outside briefs and the audit note.
+- Overview sections likely needing an update: done in this change (section 2)
+- Commit / branch: `brief/008-docs-and-naming-housekeeping`

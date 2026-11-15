@@ -15,10 +15,13 @@ registry/    papers.yml (33 entries), contents.yml, internal.json, references.bi
              crosslinks.json (generated), anchors.yml (generated, gitignored)
 model/       v1/v2 Python model (legacy, see section 6): *_core.py, *_tables.py, *_charts.py,
              WDT_Params.toml, jst_r6.json, OUTPUTS/ (tracked, generated), test/
-docs/        todo.md, EVAL_PLAN.md, plans; agents/ (role guides + reference/); briefs/;
-             decisions.md; model-lessons/ (legacy model notes); audit/; wdt-site-architecture.md
+docs/        agents/ (role guides + reference/); briefs/ (NNNx-slug, x = role letter); lane-plan.html (plan view);
+             decisions.md; model-lessons/ (legacy model notes); audit/; archive/. Owners of the loose files:
+             wdt-site-architecture.md and navigation_suggestions.md (web); wdt-jel-codes.md (writing);
+             EVAL_PLAN.md, VAL_generational_model_plan.md, VAL_refactor_report.md (code, v2 legacy plans);
+             todo.md (guru; list is also in STATUS.md)
 model_new_2/ second model (v2, legacy): wdt_core/kernel/jst/par, EVAL/, RATES/, VAL/, WID data and guide,
-             README.md, WDT_Code_Reference.md; replaced by model v3 (brief 001)
+             README.md, WDT_Code_Reference.md; replaced by model v3 (brief 011g, after the audit 001c)
 Rates Data/  source spreadsheets (JST, tax tables)      Research/  background PDF
 Tools/       flat .skill files: five role stubs (wdt-guru, -code, -write, -research, -web), copies of
              .claude/skills/<role>/SKILL.md, plus repo-scaffold.skill
@@ -43,7 +46,7 @@ See `STATUS.md`. Finished work and decisions: `docs/decisions.md`.
 ## 6. Findings and open issues
 - `docs/wdt-site-architecture.md` still says the root is `wdt-site/` and was last synced 5 Oct 2026.
 - `model/WDT_Model_Reference.md` names `rates_model.py` (now `rates_core1.py`) and old script numbers.
-- The v1 (`model/`) and v2 (`model_new_2/`) models are being replaced by a third refactor (brief 001). Do not extend either.
+- The v1 (`model/`) and v2 (`model_new_2/`) models are being replaced by a third refactor (briefs 001c audit, then 011g). Do not extend either.
 - `model_new_2/` is large (WID data dumps, raw JSON) and contains an `SS` folder of superseded material.
 - `check.txt` and `pipeline/check2.txt` are old crosslink-check output kept at their old paths.
 - `model/test/` holds `welfare_core.py` and `welfare_tables.py`, which are not tests.
