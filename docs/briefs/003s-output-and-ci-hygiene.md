@@ -50,5 +50,7 @@ Change report
 - Verification: local build steps above (Linux, not build.bat); Action on main not watched.
 - Overview sections likely needing an update: section 2 and 6 (check files gone)
 - Commit / branch: brief/003-output-and-ci-hygiene
-- NEEDS THE AUTHOR: not merged. The brief's check "leaves git status clean" is not met as written, and the brief asked for each diff to be confirmed.
+- Merged by the author's instruction (2026-11-15 21:06): "you can merge, but keep the brief live to record the decisions". Brief stays live; not ready to retire.
+- Decisions (author): merge with the build not `git status` clean. Open: whether `registry/contents.yml`, `site/pages/glossary.md` and `registry/references.json` stay tracked.
+- State: merged to `main`; Action result recorded below.
 <!-- progress:end -->
