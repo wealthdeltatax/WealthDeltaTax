@@ -42,11 +42,17 @@ Changing the published URLs, renaming scripts, any change to model code.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:**
+Change report
+- Task: 010s rename model folders
+- Files changed: `model_new_2/` to `model_v2/` and `model/` to `model_v1/` (git mv, no file renamed inside); `pipeline/config.py`, `pipeline/preprocess.py`, `pipeline/transforms.py` (source-side path and comments); `README.md`, `START_HERE.md`, `AGENTS.md`, `docs/agents/code.md`, `docs/agents/reference/code/conventions.md`, `docs/agents/reference/code/patch-and-test.md`, `docs/wdt-site-architecture.md` (folder names)
+- What is different now: the build reads `model_v1/` and still writes `_build/model/`, so published URLs are unchanged.
+- New or changed interfaces: none for the site. Local scripts and `run_all.bat` now live under `model_v1/`.
+- Acceptance criteria: (1) `git ls-files | grep -E '^(model|model_new_2)/'` is empty: met (0). (2) `find _site -type f | sort` before and after the rename: identical, 157 files; figures 95 before and after: met. The Action on `main` after the merge: see State. (3) `/model/wdt_core.py` and `/model/WDT_Params.toml` still in `_site/model/`: met.
+- Deviations from the brief: `OVERVIEW.md` and `STATUS.md` not edited (guru owns them); `docs/lane-plan.html`, audit docs, briefs and `decisions.md` left as written.
+- Risks / follow-ups: `site/_quarto.yml` still lists `model/rates_model.py`. The build confirms it is not published (`_site/model/` has no such file), but `site/tools/revenue_calc.html` still fetches it, so the revenue calculator probably fails (architecture doc Issue 16). Left alone as the brief says: needs a decision. `OVERVIEW.md` and `docs/lane-plan.html` still say `model/` and `model_new_2/`.
+- Verification: full local build (`preprocess.py` and `quarto render _build`, Linux) on `main` before and after, same file list; `build_and_render.bat` itself not run (Windows).
+- Overview sections likely needing an update: section 2 directory map (`model/` to `model_v1/`, `model_new_2/` to `model_v2/`), section 4, section 6.
+- Decisions: published URL stays `/model/` (the brief's default).
+- Commit / branch: brief/010-rename-model-folders
+- Merged by the author's instruction ("006c is merged, merge yours too", 2026-11-15 21:23). Keep live until the author retires it.
 <!-- progress:end -->

@@ -1,6 +1,6 @@
 # WDT model conventions
 
-Target conventions for `model/`. Decided by the user: layer order, cores never
+Target conventions for `model_v1/`. Decided by the user: layer order, cores never
 import each other, `wdt_analytics` is dissolved, JSON names are consistent, LDW is paper
 21, VAL/SWEEPS numbering is updated. Items marked **(proposal)** or **(open)** are my
 reading or an unsettled gap; confirm before enforcing. Where to move things:
@@ -21,7 +21,7 @@ naming · 6 Tables · 7 Charts · 8 Cores · 9 Adding a paper · 10 Tests, patch
 | 4 | Data | `OUTPUTS/{CODE}/*.json` | The contract | contain formatted strings or numpy objects |
 | 5 | Presentation | `{n}_{m}_{CODE}_tables.py`, `_charts.py` | Read JSON → markdown / PNG | run simulations, re-derive numbers, import any `*_core`, import another presentation script |
 | – | Presentation utilities | `wdt_fmt`, `wdt_style`, `wdt_md` | Formatting, paths, style, markdown assembly | import a core (wdt_fmt / wdt_style / wdt_md should be leaves) |
-| – | Tests and patches | `model/test/` | `patch_NNN_*.py`, `test_patch_NNN_*.py`, `wdt_patchlib.py`, `extract_jst_sample.py`, `fixtures/`, `PATCHES.md` | be imported by the pipeline; hardcode paths; touch the real tree except via `--apply`; hold logic that belongs in a core (section 10) |
+| – | Tests and patches | `model_v1/test/` | `patch_NNN_*.py`, `test_patch_NNN_*.py`, `wdt_patchlib.py`, `extract_jst_sample.py`, `fixtures/`, `PATCHES.md` | be imported by the pipeline; hardcode paths; touch the real tree except via `--apply`; hold logic that belongs in a core (section 10) |
 
 `wdt_analytics` is **being dissolved**: its functions go to `wdt_core`, `sweeps_core`,
 `wdt_style` and the TOML (table in `refactor-map.md` §3). Don't add to it and don't
@@ -85,7 +85,7 @@ write new code that imports it.
 
 ## 5. Paths and naming
 
-- Root is the flat `model/` directory. Path helpers `out_dir(code)`, `json_path(code)`,
+- Root is the flat `model_v1/` directory. Path helpers `out_dir(code)`, `json_path(code)`,
   `tables_dir(code)`, `charts_dir(code)` belong in `wdt_core` **(proposal)** because cores
   need them and `wdt_fmt` must stay a leaf; `wdt_fmt.out_dir` is the current home.
 - Shortcodes as directory names: `VAL`, `RATES`, `SWEEPS_V`, `SWEEPS_R`, `WFR`, `LDW`.
@@ -145,9 +145,9 @@ write new code that imports it.
 
 Full workflow: `patch-and-test.md`. The rules that bear on convention:
 
-- Everything new in the test layer lives in `model/test/` and is run from there. Paths are found
+- Everything new in the test layer lives in `model_v1/test/` and is run from there. Paths are found
   at run time (`wdt_patchlib.model_root()`, `find_file(name)`), never typed in, so the same
-  patch works whether a core sits in `model/`, `model/RATES/` or `model/VAL/`.
+  patch works whether a core sits in `model_v1/`, `model_v1/RATES/` or `model_v1/VAL/`.
 - Existing tests that sit beside the modules (`kernel_test.py`, `test_valgen_pairs.py`,
   `rates_test.py`, `test_wdt_*.py`) are not moved as a side effect of another change. Several
   locate the modules with `Path(__file__).parent`, so a move needs that line changed.

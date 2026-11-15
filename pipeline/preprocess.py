@@ -143,12 +143,12 @@ def main() -> None:
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(p, destination)
 
-    # ── Copy model/ runtime assets into _build/model/ ────────────────────
+    # ── Copy model_v1/ runtime assets into _build/model/ (published URL stays /model/) ────────────────────
     # HTML tool pages are NOT copied here — they are generated as .qmd files
     # by tools.generate_tool_pages() (step 12 below).
     # This loop copies only runtime files (.py, .toml) that Pyodide loads
-    # client-side, plus any other non-HTML files in model/.
-    MODEL_DIR = cfg.ROOT_DIR / "model"
+    # client-side, plus any other non-HTML files in model_v1/.
+    MODEL_DIR = cfg.ROOT_DIR / "model_v1"
     if MODEL_DIR.exists():
         for p in [f for f in MODEL_DIR.rglob("*") if f.is_file()]:
             rel = p.relative_to(MODEL_DIR)
@@ -160,9 +160,9 @@ def main() -> None:
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(p, destination)
             if p.suffix in _TOOL_RUNTIME_SUFFIXES:
-                print(f"  ✓ model/{p.name} → _build/model/{p.name} (runtime)")
+                print(f"  ✓ model_v1/{p.name} → _build/model/{p.name} (runtime)")
     else:
-        print("  ! model/ not found — skipping model asset copy")
+        print("  ! model_v1/ not found — skipping model asset copy")
 
     # ── Copy image outputs into _build/figures/ ───────────────────────────
     OUTPUTS_DIR = MODEL_DIR / "OUTPUTS"
@@ -177,7 +177,7 @@ def main() -> None:
             f"({sum(1 for _ in OUTPUTS_DIR.rglob('*') if _.is_file())} files)"
         )
     else:
-        print("  ! model/OUTPUTS/ not found — skipping figure copy")
+        print("  ! model_v1/OUTPUTS/ not found — skipping figure copy")
 
     # ── Auto-generated pages ──────────────────────────────────────────────
     generate_corpus_qmd(build / "corpus.qmd", site_cfg.link_map, site_cfg.paper_meta)

@@ -3,7 +3,7 @@
 How edits to large files are made, tested and recorded. Decided by the user: (1) edits to
 large files go through a Python patch with a matching test; (2) the JST file is too big to
 read, so tests use a small extract made by a script; (3) every patch, test and fixture lives
-in `model/test/` and runs from there.
+in `model_v1/test/` and runs from there.
 
 Contents: 1 When this applies · 2 Layout · 3 One-time setup · 4 The workflow · 5 Writing
 anchors · 6 Writing the test · 7 The JST sample · 8 The log · 9 What you can and can't run
@@ -27,7 +27,7 @@ silently" treatment (SKILL.md rule 5).
 ## 2. Layout
 
 ```
-model/                      the folder that holds WDT_Params.toml (older text calls it model)
+model_v1/                      the folder that holds WDT_Params.toml (older text calls it model)
     wdt_core.py, wdt_jst.py, wdt_kernel.py, …    wherever they actually are; never assume
     test/
         wdt_patchlib.py              helper library (copied from `patch-kit/`)
@@ -47,14 +47,14 @@ on `sys.path`. Run `python wdt_patchlib.py` first in a new checkout to see the l
 
 Existing tests (`kernel_test.py`, `test_valgen_pairs.py`, `rates_test.py`, `test_wdt_*.py`)
 stay where they are unless the user asks to move them; several use `Path(__file__).parent` to
-find the modules, so a move needs that line changed. New tests all go in `model/test/`. They are
+find the modules, so a move needs that line changed. New tests all go in `model_v1/test/`. They are
 not presentation scripts, so they may import any layer (cores included); keep real logic in the
 core, not in the test.
 
 ## 3. One-time setup
 
 Copy `patch-kit/wdt_patchlib.py` and `patch-kit/extract_jst_sample.py` into
-`model/test/` (if the user hasn't already). Check with `python wdt_patchlib.py` (layout, import
+`model_v1/test/` (if the user hasn't already). Check with `python wdt_patchlib.py` (layout, import
 dirs, next number). Generate the fixture once with `python extract_jst_sample.py` (section 7).
 
 ## 4. The workflow
@@ -152,7 +152,7 @@ python extract_jst_sample.py --keep hpnom                     force another seri
 
 ## 8. The log
 
-`model/test/PATCHES.md`, one line per patch, appended when it is applied:
+`model_v1/test/PATCHES.md`, one line per patch, appended when it is applied:
 
 ```
 | 007 | 2026-10-12 | patch_007_lambda_split.py | valgen_core.py, WDT_Params.toml | independent λ_C, λ_D | numbers move: VAL JSON, tables 5_6, figs 5_7 | applied |

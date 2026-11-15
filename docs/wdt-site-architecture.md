@@ -57,7 +57,7 @@ The site takes Markdown source files for 33 WDT papers (`registry/papers.yml` ha
 │   │   ├── apa.csl, svg-pan-zoom.min.js, geocities.html
 │   ├── diagrams/                (5 .mmd sources AND cached .png renders)
 │   └── tools/                   (taxpayer_calc.html, revenue_calc.html, ldw_calc.html)
-├── model/                       (legacy v1 model, see "model/" below)
+├── model_v1/                    (legacy v1 model, see "model_v1/" below; published under /model/)
 │   ├── WDT_Params.toml, jst_r6.json
 │   ├── wdt_core.py, rates_core1.py, ldw_core.py, val_core.py, sweeps_core.py, wfr_core.py
 │   ├── wdt_analytics.py, wdt_fmt.py, wdt_md.py, wdt_style.py   (helpers)
@@ -94,8 +94,8 @@ Run order, full: `pipeline/build_and_render.bat` runs `scrape_contents.py --writ
 3. `config.load(paper_meta=...)` builds the `SiteConfig`.
 4. Delete and recreate `_build/`.
 5. Copy `site/` into `_build/` (rules below), including the `WDT_CALC_INJECT` replacement in `.md` pages.
-6. Copy `model/` runtime files (everything except `.html` and `OUTPUTS/`) to `_build/model/`.
-7. Copy `model/OUTPUTS/**` flat into `_build/figures/`.
+6. Copy `model_v1/` runtime files (everything except `.html` and `OUTPUTS/`) to `_build/model/` (the published URL stays `/model/`).
+7. Copy `model_v1/OUTPUTS/**` flat into `_build/figures/`.
 8. `generate_corpus_qmd`, `generate_references_qmd`, `generate_flowcharts_qmd`, `generate_link_map_html` (writes `link-map.qmd`), `generate_tool_pages` (the calculator pages, step 12 in the code comments).
 9. `copy_machine_readable_assets` (includes `site-index.json`).
 10. `process_file()` on every paper.
@@ -236,10 +236,10 @@ Any fragment injected into a page outside `/model/` must use absolute fetch path
 
 ---
 
-## `model/`
-Legacy v1 model, being audited and replaced (briefs 001c, 011g); the site only consumes parts of it.
+## `model_v1/`
+Legacy v1 model (renamed from `model/` in brief 010; `model_new_2/` became `model_v2/`), being audited and replaced (briefs 001c, 011g); the site only consumes parts of it.
 - **Runtime files loaded by Pyodide:** `WDT_Params.toml`, `wdt_core.py`, `ldw_core.py`, and `rates_model.py`. **`rates_model.py` no longer exists:** the rates code is now `rates_core1.py` (it holds `run_tcm` and `run_ssm`). See Issue 16.
-- **Output scripts** (`5_3` to `19_3`, `run_all.bat`) run locally and write to `model/OUTPUTS/`, which is tracked in git (95 files) and copied flat into `_build/figures/`.
+- **Output scripts** (`5_3` to `19_3`, `run_all.bat`) run locally and write to `model_v1/OUTPUTS/`, which is tracked in git (95 files) and copied flat into `_build/figures/`.
 - Everything except `.html` and `OUTPUTS/` is copied to `_build/model/` (including `test/`, `jst_r6.json`, `*.md`). Only four named files are in `_quarto.yml` `resources:`.
 
 ---
@@ -305,7 +305,7 @@ Found by reading code and content. Confirm on the live site before treating as f
 ## Adding a new calculator: checklist
 1. Create `site/tools/{name}_calc.html` as a clean body fragment; fetch runtime files by absolute `/model/` path.
 2. Add an entry to `TOOLS` in `pipeline/tools.py`.
-3. Put any `.py`/`.toml` runtime files in `model/` and list them in `_quarto.yml` `resources:`.
+3. Put any `.py`/`.toml` runtime files in `model_v1/` and list them in `_quarto.yml` `resources:` as `model/<file>` (the published path).
 4. Add the page to the Tools menu and to `calculator_index.md`.
 5. Add any CSS to `tools.css` (and a dark override in `dark.css` if it uses hardcoded light colours).
 

@@ -62,7 +62,7 @@ def strip_latex(text: str) -> str:
 #   figures/rates_fig_03.png
 #
 # Quarto renders papers at the _build/ root, and preprocess.py copies all
-# images from site/model/OUTPUTS/**/* into _build/figures/ (flat), so
+# images from model_v1/OUTPUTS/**/* into _build/figures/ (flat), so
 # `figures/<filename>` is always the correct relative path.
 
 _IMG_RE = re.compile(

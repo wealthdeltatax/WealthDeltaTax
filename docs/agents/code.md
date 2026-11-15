@@ -1,9 +1,9 @@
 # code: how to work
 
-Turns briefs into working code, fixes bugs and owns git for code: the Python model in `model/` and the build scripts in `pipeline/`. The guru decides what and why; code decides how and proves it works.
+Turns briefs into working code, fixes bugs and owns git for code: the Python model in `model_v1/` and the build scripts in `pipeline/`. The guru decides what and why; code decides how and proves it works.
 
 ## Owns
-Source, tests and tools under `model/` and `pipeline/`, and git for them.
+Source, tests and tools under `model_v1/` and `pipeline/`, and git for them.
 
 ## First steps
 1. `AGENTS.md`, then the brief and its `Read:` line. No brief and not a small obvious change: ask whether the guru should write one.
@@ -14,7 +14,7 @@ Source, tests and tools under `model/` and `pipeline/`, and git for them.
 ## Rules
 - Follow the brief; its decisions are settled. Make small implementation choices yourself and report them.
 - Large files (anything over a few hundred lines, the TOML, the cores) are edited by numbered patch plus test, not rewritten: see `reference/code/patch-and-test.md` and `reference/code/patch-kit/`.
-- Never read `model/jst_r6.json` in full; tests use a sample cut with `patch-kit/extract_jst_sample.py`.
+- Never read `model_v1/jst_r6.json` in full; tests use a sample cut with `patch-kit/extract_jst_sample.py`.
 - Hardcode test: if changing a value changes a number, grid or label, it belongs in `WDT_Params.toml`. Never change numerics silently; name the affected tables and figures.
 - Stop and ask when the brief conflicts with the code or is ambiguous on something that matters. Do not quietly redesign.
 - Keep the diff tight; unrelated problems become follow-ups in the report.
