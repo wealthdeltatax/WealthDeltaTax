@@ -1,6 +1,6 @@
 # 002: Repo triage: which briefs does the repository need?
 
-- **Status:** ready
+- **Status:** built (awaiting merge)
 - **Author/date:** K. Ogata with the guru, 2026-11-15
 - **Depends on:** none
 - **Read:** `docs/audit/scaffold-2026-11-15.md`, `OVERVIEW.md` section 6, `docs/briefs/003` to `007`, and a directory listing of the repo. Nothing else need be opened.
@@ -45,5 +45,56 @@ Deleting or moving anything. This brief plans; the briefs it produces act.
 - **Gotchas:**
 - **Resume:**
 - **Not run:**
-- **State:**
+- **State:** triage complete on branch `brief/002-repo-triage`; briefs 003 to 009 written or revised.
 <!-- progress:end -->
+
+## Result (2026-11-15)
+
+### Final ordered list
+| # | Brief | Goal | Depends on | State |
+|---|---|---|---|---|
+| 1 | 003 | Delete old crosslink reports, ignore editor state, drop CI debug step | none | ready |
+| 2 | 004 | Refresh `docs/wdt-site-architecture.md` (narrowed; model docs moved to 009) | none | ready |
+| 3 | 006 | Delete `SS` folders, `.bak`, `_backups` and `welfare_*` (narrowed; no longer waits for 001) | none | ready |
+| 4 | 008 | Give every `docs/` file an owner; fix names with spaces and `(1)` (new) | 004 for one cite | draft |
+| 5 | 005 | One home for skills; delete old `.skill` archives | author tests skills | draft |
+| 6 | 001 | Model v3 | lessons note | draft |
+| 7 | 009 | Retire legacy models, shared files, data dumps, legacy reference docs (new, split from 006) | 001, 006 | draft |
+| 8 | 007 | Crosslink repair | paper rewrite | parked |
+Briefs 003, 004, 006 and 008 touch disjoint paths and can run in parallel, each on its own branch.
+
+### One source of truth per rule set
+- **Agent rules:** `AGENTS.md` (shared) plus `docs/agents/<role>.md`. The five `.claude/skills/*/SKILL.md` stubs hold no rules (10 lines each) and are byte-identical to the `Tools/wdt-*.skill` contents.
+- **Model conventions:** `docs/agents/reference/code/conventions.md`. `model/WDT_Model_Reference.md` and `model_new_2/WDT_Code_Reference.md` are legacy: disposition in brief 009. `model_new_2/README.md` is a 19-byte placeholder: delete (009).
+- **Site architecture:** `docs/wdt-site-architecture.md` (named in `docs/agents/web.md`); refresh in brief 004.
+- **Paper style:** `docs/agents/reference/writing/style-guide.md` (with `prose-rules.md` for the prose pass).
+
+### Duplicate dispositions
+| Duplicate | Disposition | Brief |
+|---|---|---|
+| `jst_r6.json` (1.77 MB, `model/` and `model_new_2/`) | keep one where v3 reads it; delete the other with its folder | 009 |
+| `wdt_md.py` (`model/` and `model_new_2/`) | same | 009 |
+| `5_3_VAL_tables.py`, `5_4_VAL_charts.py`, `5_5_VAL_generate_worked_examples.py` in `model_new_2/SS/` | delete (copies of `model/` files) | 006 |
+| `rates_view.py` (3 copies) | keep `model_new_2/rates_view.py`; delete the two under `SS` | 006 |
+| 15 duplicate patch and test scripts under `model_new_2/test/SS/` | delete with `SS` (copies survive in `model_new_2/test/` or are superseded) | 006 |
+| 61 tracked `.bak` files | delete (all sit in `SS` folders) | 006 |
+| `model_new_2/test/_backups/` (6 files) | delete | 006 |
+| `model/test/welfare_core.py`, `welfare_tables.py` | delete after re-running the import grep | 006 |
+| `Rates Data/*(1).xlsx` | **not duplicates** (no originals exist); rename, keep | 008 |
+| `check.txt`, `pipeline/check2.txt` | delete; gitignore future output | 003 |
+| `source/.obsidian/workspace.json` | untrack and ignore | 003 |
+| `Tools/` old archives and `web_search.json` | delete after the author's test | 005 |
+| `docs/` root plans, `navigation_suggestions.md`, `todo.md` | archive, rename or fold into STATUS | 008 |
+| `wid_out/` (81 MB), `audit_d0/` (70 MB) | author decides: keep, regenerate or summaries only | 009 |
+
+### Audit items that no longer apply
+- The broken `model_new` gitlink is gone (`git ls-files -s` shows no `160000` entries).
+- `docs/SS/`, `Tools/SS/` and the duplicate skill copies were removed in the scaffold work.
+- Pack size is 106 MB and history is kept; shrinking it needs a history rewrite, which no brief proposes.
+
+### Decisions needed from the author
+- 005: keep both `.claude/skills/` and `Tools/*.skill` (recommended, with a diff check)? Delete or move `Tools/web_search.json`?
+- 003: untrack only `source/.obsidian/workspace.json` (recommended)?
+- 008: v2 plans (`EVAL_PLAN.md`, `VAL_*`): archive or keep in `docs/model-lessons/`? Rename `Rates Data`, `Research`, `Tools`?
+- 009: data dumps keep, regenerate or summaries only? When does `model/` go?
+- 001: the lessons note (what `model_new_2` got wrong).

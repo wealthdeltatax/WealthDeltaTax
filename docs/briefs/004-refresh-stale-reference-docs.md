@@ -1,24 +1,24 @@
-# 004: Refresh the stale site-architecture doc and retire the old model reference
+# 004: Refresh the stale site-architecture doc
 
-- **Status:** draft
+- **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-15
-- **Depends on:** 002
-- **Read:** `docs/wdt-site-architecture.md`, `pipeline/`, `site/_quarto.yml`, `.github/workflows/deploy.yml`, `model/WDT_Model_Reference.md`
+- **Depends on:** 002 (merged); 003 only if both edit `deploy.yml` descriptions. Order: with 003, 006, 008 (parallel).
+- **Read:** `docs/wdt-site-architecture.md`, `pipeline/`, `site/_quarto.yml`, `.github/workflows/deploy.yml`, `docs/agents/web.md`
 
 ## Goal
-Make the site architecture doc true again, and stop the old model reference from misleading agents.
+Make the site architecture doc true again. It is the single source of truth for the site build (named in `docs/agents/web.md`).
 
 ## Decisions (author, 2026-11-15)
 - `docs/wdt-site-architecture.md` is the web role's source of truth and must match the files.
-- The v1 and v2 models are legacy and being replaced (brief 001), so their reference docs are not worth refreshing.
+- The v1 and v2 models are legacy and being replaced (brief 001), so their reference docs are not worth refreshing. Their disposition moved to brief 009 (triage, 2026-11-15) so the model decisions are made in one place.
 
 ## Design
 - Site architecture: fix the root path (`wdt-site/` is now the repo root), the directory tree, the paper count (33 entries in `registry/papers.yml`), the OUTPUTS claim (tracked, not gitignored), and the build scripts; split it by topic if it stays over about 15 KB (it is 29 KB). Show the diff to the author.
-- `model/WDT_Model_Reference.md` (names `rates_model.py`, now `rates_core1.py`, and old script numbers): move to `docs/model-lessons/` with a legacy header, or delete. Same question for `model_new_2/WDT_Code_Reference.md`, decided in brief 002 and 006.
-- Update `OVERVIEW.md` section 6 through the guru after.
+- `docs/navigation_suggestions.md` is cited by the architecture doc but is a pasted chat answer with no owner; if the architecture doc still needs it, keep the point inside the doc, otherwise brief 008 archives the file.
+- Report the OVERVIEW changes; the guru updates `OVERVIEW.md` section 6 after.
 
 ## Touches
-`docs/wdt-site-architecture.md`, `model/WDT_Model_Reference.md`, `OVERVIEW.md`.
+`docs/wdt-site-architecture.md` only (plus a change report for the guru).
 
 ## Acceptance criteria
 - Every path and script named in the architecture doc exists, or the doc says it is planned.

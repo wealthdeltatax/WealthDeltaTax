@@ -2,7 +2,7 @@
 
 - **Status:** draft
 - **Author/date:** K. Ogata with the guru, 2026-11-15
-- **Depends on:** none
+- **Depends on:** none. Order: the first step (lessons note) is the author's account; 006 does not wait for it, but 009 waits for this brief's inputs list.
 - **Read:** `docs/model-lessons/` (all three files), `model_new_2/README.md`, `model_new_2/WDT_Code_Reference.md`, `docs/agents/reference/code/conventions.md`, `model/WDT_Params.toml`
 
 ## Goal
@@ -30,6 +30,7 @@ Paper text changes.
 
 ## Open questions
 - Which outputs the rewritten papers will need.
+- Where v3 lives and where it reads `jst_r6.json` (decides brief 009).
 
 ## Implementation notes
 <!-- progress:start -->

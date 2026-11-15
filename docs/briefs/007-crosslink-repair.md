@@ -2,7 +2,7 @@
 
 - **Status:** parked
 - **Author/date:** K. Ogata with the guru, 2026-11-15
-- **Depends on:** author's paper rewrite
+- **Depends on:** author's paper rewrite. Order: last; nothing else waits on it.
 - **Read:** `check.txt` (or a fresh `python pipeline/wdt_crosslinks.py check`), `docs/agents/reference/writing/style-guide.md` (post-update crosslink workflow)
 
 ## Goal

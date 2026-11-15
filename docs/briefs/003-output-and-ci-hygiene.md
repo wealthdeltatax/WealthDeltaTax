@@ -1,8 +1,8 @@
 # 003: Crosslink output files, gitignore and CI debug step
 
-- **Status:** draft
+- **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-15
-- **Depends on:** 002
+- **Depends on:** 002 (merged). Order: 1st of the cleanup set; independent of 004, 006, 008, so they may run in parallel.
 - **Read:** `check.txt`, `pipeline/check2.txt`, `.gitignore`, `.github/workflows/deploy.yml`, `source/.obsidian/`
 
 ## Goal
@@ -13,7 +13,8 @@ Stop tracking generated reports and editor state, and remove the debug step from
 
 ## Design
 - `check.txt` (110 KB, repo root) and `pipeline/check2.txt` (90 KB) are old output of `wdt_crosslinks.py check`. Delete both (git history keeps them) or gitignore future output; the script stays.
-- `.gitignore`: add `source/.obsidian/workspace.json` and untrack it; decide whether the rest of `source/.obsidian/` stays.
+- Triage found nothing reads `check.txt` or `check2.txt` (no script, workflow or guide names them), so deletion is safe. `docs/agents/reference/writing/style-guide.md` tells the writer to run the check fresh.
+- `.gitignore`: add `source/.obsidian/workspace.json` and untrack it (`git rm --cached`). Recommended: leave the other four `.obsidian` files tracked (`app.json` and `appearance.json` are identical 2-byte `{}` files; harmless). Also add `check*.txt` and `pipeline/check*.txt` so future output is not committed.
 - `deploy.yml`: remove the final "Inspect build output" step, which only lists WFR figures. Confirm the WFR figures are produced first.
 - `main` deploys on push, so do this on a branch and check that the Action stays green.
 
@@ -28,6 +29,9 @@ Push the branch and watch the GitHub Action; `git status` clean after a local `p
 
 ## Out of scope
 Changing any build step other than the debug step.
+
+## Open questions
+- Untrack all of `source/.obsidian/` or only `workspace.json`? (Recommended: only `workspace.json`.)
 
 ## Open questions
 - Delete the check files or move them somewhere? Default: delete.
