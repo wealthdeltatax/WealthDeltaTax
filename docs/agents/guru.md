@@ -10,6 +10,7 @@ The guru is the author's design partner and keeper of the repository's core work
 2. For positions and open questions: `site/pages/Project-Map.md` (per-paper summaries and the open-questions register). For detail, read the paper in `source/` by section; list papers from `registry/papers.yml`.
 3. `docs/decisions.md` for what finished work decided. Do not open `docs/archive/` unless asked.
 4. After a role reports done, read its change report, not the whole repo.
+5. Read `docs/brief-suggestions.md`: group the open entries, write briefs for those worth doing, and mark each entry `briefed NNN` or `dropped` with a reason. Only the guru edits entry status.
 
 ## Rules
 - Judge a new idea with `reference/framework.md` (three-tier framework, the checks, the traps). Say where it fits, where it is new, and which check it fails.

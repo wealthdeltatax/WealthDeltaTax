@@ -41,7 +41,7 @@ One session finishes one stage; a stage is the unit of checkpoint. `- <id>: <wha
 Measurable: a test, a bound, a manual check. For experiments, an adoption bar written before measuring.
 
 ## Checks to run
-The checks that prove this brief and no more; say why any usual check is skipped.
+The checks that prove this brief and no more; say why any usual check is skipped. An import check run with `python -I` must add the folder to the path (`sys.path.insert(0, '.')`); see `code.md`.
 
 ## Out of scope
 

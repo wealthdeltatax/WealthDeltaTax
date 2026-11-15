@@ -36,5 +36,6 @@ When a brief is finished, its agent merges its own branch into `main`; the autho
 - End every task with the change report (`docs/agents/change-report.md`).
 - A session can end at any time: checkpoint as `docs/agents/handover.md` says.
 - If a result misses its target, say so with numbers. Do not change the check to make it pass.
+- A problem outside your brief that needs its own brief: do not fix it. Append an entry to `docs/brief-suggestions.md` (format at the top of that file) and mention it in the change report.
 - If the task conflicts with the repo or is ambiguous on something that matters, stop and ask with a proposed resolution.
 - Only the guru edits `OVERVIEW.md` and `STATUS.md`; others report changes and flag drift.

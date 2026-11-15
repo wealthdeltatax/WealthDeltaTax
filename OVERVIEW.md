@@ -1,6 +1,6 @@
 # Wealth Delta Tax: overview
 
-A map of what exists now, not a history. Read by section. Kept under about 15 KB by the guru (`docs/agents/overview-maintenance.md`). Last synced against the repo files on 2026-11-15; the live site was not fetched.
+A map of what exists now, not a history. Read by section. Kept under about 15 KB by the guru (`docs/agents/overview-maintenance.md`). Last synced against the repo files on 2026-11-15 (after brief 006c; the folder renames of brief 010s are not yet reflected); the live site was not fetched.
 
 ## 1. What this is
 An accrual-basis wealth tax with symmetric loss refunds and a sovereign wealth fund, set out in a paper series (main papers plus appendix companions), with a Python model that produces the papers' figures and tables and a Quarto site at https://wealthdeltatax.org.
@@ -19,7 +19,7 @@ docs/        agents/ (role guides + reference/); briefs/ (NNNx-slug, x = role le
              decisions.md; model-lessons/ (legacy model notes); audit/; archive/. Owners of the loose files:
              wdt-site-architecture.md and navigation_suggestions.md (web); wdt-jel-codes.md (writing);
              EVAL_PLAN.md, VAL_generational_model_plan.md, VAL_refactor_report.md (code, v2 legacy plans);
-             todo.md (guru; list is also in STATUS.md)
+             todo.md and brief-suggestions.md (guru; todo list is also in STATUS.md)
 model_new_2/ second model (v2, legacy): wdt_core/kernel/jst/par, EVAL/, RATES/, VAL/, WID data and guide,
              README.md, WDT_Code_Reference.md; replaced by model v3 (brief 011g, after the audit 001c)
 Rates Data/  source spreadsheets (JST, tax tables)      Research/  background PDF
@@ -47,8 +47,7 @@ See `STATUS.md`. Finished work and decisions: `docs/decisions.md`.
 - `docs/wdt-site-architecture.md` still says the root is `wdt-site/` and was last synced 5 Oct 2026.
 - `model/WDT_Model_Reference.md` names `rates_model.py` (now `rates_core1.py`) and old script numbers.
 - The v1 (`model/`) and v2 (`model_new_2/`) models are being replaced by a third refactor (briefs 001c audit, then 011g). Do not extend either.
-- `model_new_2/` is large (WID data dumps, raw JSON) and contains an `SS` folder of superseded material.
+- `model_new_2/` is large (WID data dumps, raw JSON).
 - `check.txt` and `pipeline/check2.txt` are old crosslink-check output kept at their old paths.
-- `model/test/` holds `welfare_core.py` and `welfare_tables.py`, which are not tests.
 - Crosslink errors in the papers (duplicate ADD section numbers, missing SCOPE/RATES/WFR/SWEEPS targets): see `check.txt`; the author is rewriting the papers.
 - Audit: `docs/audit/scaffold-2026-11-15.md`.

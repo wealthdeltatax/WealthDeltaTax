@@ -1,6 +1,6 @@
 # 006: Model folders: remove superseded material, backups and in-folder duplicates
 
-- **Status:** ready
+- **Status:** built (merged)
 - **Author/date:** K. Ogata with the guru, 2026-11-15
 - **Depends on:** 002 (merged). Does not wait for 001. Order: parallel with 003s, 004s, 008g. Must be merged before 010s, which renames the folders, and before 001c. Cross-folder decisions (`jst_r6.json`, `wdt_md.py`, data dumps, legacy reference docs) are in brief 009c, now parked: the author keeps them for now (2026-11-15).
 - **Read:** `docs/archive/briefs/002g-repo-triage.md` (findings below), `model_new_2/` and `model/test/` directory listings. Nothing else need be opened.

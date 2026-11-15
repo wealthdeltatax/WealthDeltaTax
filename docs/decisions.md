@@ -2,6 +2,11 @@
 
 One entry per finished brief or settled question, at most 8 lines each. Newest first. Maintained by the guru.
 
+## 2026-11-15: model folder cleanup (brief 006)
+- Deleted the four `SS` folders under `model_new_2/`, `model_new_2/test/_backups/` and `model/test/welfare_core.py`, `welfare_tables.py`: 226 tracked files (709 to 483), `model_new_2` 192 to 154 MB. The pack stays 105.83 MiB (history kept).
+- The brief's import check was reworded: `python -I` drops the current directory, so it needs `sys.path.insert(0, '.')`. Same intent, not weaker; the author approved the wording fix and the merge. Pattern recorded in `docs/agents/code.md`.
+- Core imports resolve in both folders. Not caused by this brief: `wdt_analytics` imports `rates_core` (now `rates_core1.py`), so it fails to import (see `docs/brief-suggestions.md`).
+
 ## 2026-11-15: docs and naming housekeeping (brief 008)
 - Renamed `docs/WDT JEL Codes.md` to `docs/wdt-jel-codes.md` and the two `Rates Data` xlsx files without `(1)`; they were not duplicates.
 - Nothing archived or deleted. Every file directly under `docs/` has an owner in `OVERVIEW.md`.
