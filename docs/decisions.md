@@ -74,3 +74,6 @@ One entry per finished brief or settled question, at most 8 lines each. Newest f
 - `SS` ("superseded") folders deleted; history is in git and the author's separate backup.
 - Model v1/v2 is legacy; a third refactor starts from a clean slate (brief 001).
 - `model/OUTPUTS/` stays tracked; old paper-number references are not being fixed because the papers are being rewritten.
+
+## 2026-11-16: restructure of the series (013g)
+The 33 papers are replaced by a hub (general-reader whitepaper, problem first), about 12 spokes and standalone papers (ADD, INST candidates), resting on the v3 data layer. Old papers only guide the new ones. Gate: no spoke prose until the data is finalised. Plan first in five stages (map, ledger, template, site needs, order). Brief 007w becomes obsolete.
