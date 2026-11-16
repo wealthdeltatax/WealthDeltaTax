@@ -1,6 +1,6 @@
 # 011: Model v3 design
 
-- **Status:** underway (stage A drafted 2026-11-16: `docs/model-v3/metrics.md`, `docs/model-v3/outputs.yml`; the author reviews it before stage B)
+- **Status:** underway (stage A passed 2026-11-16: `docs/model-v3/metrics.md`, `docs/model-v3/outputs.yml`, author confirmed all four items; stage B not yet started)
 - **Author/date:** K. Ogata with the guru, 2026-11-16
 - **Depends on:** 001c (merged; synthesis in `docs/model-audit/synthesis.md`)
 - **Read:** `docs/model-audit/synthesis.md`, then `docs/model-audit/lessons-so-far.md`. Nothing else need be opened until a stage names it.
@@ -42,11 +42,11 @@ Writing model code, fixing v1 or v2, writing or editing papers, choosing the whi
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** stage A draft written, 14 outputs in the manifest, every metric in the register.
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** stage A drafted; waiting for the author's review (four confirmations at the end of `docs/model-v3/metrics.md`)
+- **Done:** stage A passed: 16 entries in the manifest, every metric in the register; windows, retirement order (ascending by receipts), revenue-weighted M2 and G = 30 confirmed.
+- **Next:** stage B, research brief 012r (input register), once the author has answered the design questions raised on 2026-11-16 (see State).
+- **Decisions:** six taxes retired, stamp duties carry two receipt lines (seven M1e lines); the retirement trigger is the stated default that follows from P3, not yet confirmed.
+- **Gotchas:** the brief's earlier note said 14 outputs; the manifest has 16.
+- **Resume:** read `docs/model-v3/metrics.md`, then write 012r.
+- **Not run:** the M2 check against the RATES paper's 0.35%; the Green Book schedule check (both go to 012r or the writing lane).
+- **State:** stage A passed; 012r is held while the author considers a design review of the approach (sampled policy schedules, 100-year horizon, missing comparators)
 <!-- progress:end -->

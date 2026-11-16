@@ -2,6 +2,11 @@
 
 One entry per finished brief or settled question, at most 8 lines each. Newest first. Maintained by the guru.
 
+## 2026-11-16: model v3 stage A passed (brief 011, stage A)
+- Author confirmed all four open items: windows (transition to the long-reserve fill; short = 10 years after it; long = mean of years 51 to 100 and year 100), default retirement order ascending by receipts, M2 revenue-weighted, M3 life length 30 years.
+- Six taxes retire; stamp duties carry two receipt lines, so the retired-receipts metric has seven lines. The retirement trigger (first year after the fill in which net relief covers the tax's receipts) is a stated default that follows from P3, not yet confirmed.
+- Open checks, not blocking: M2 against the RATES paper's 0.35%; the Green Book discount schedule text. Files: `docs/model-v3/metrics.md`, `docs/model-v3/outputs.yml` (16 entries).
+
 ## 2026-11-16: site architecture doc refreshed (brief 004)
 - `docs/wdt-site-architecture.md` corrected against the files (root path, tree, preprocess steps, tracked `OUTPUTS`, workflow, issue statuses) and later updated for the `model_v1/model_v2` rename. A path check over its 359 backticked names finds 23 with no file, all generated outputs, externals, things the doc says are gone, or the old root `wdt-site/`.
 - Not split: the doc is 32 KB (target about 15 KB). `docs/agents/web.md` names this single file and splitting was outside the brief's `Touches`. Open for the web role if wanted.
