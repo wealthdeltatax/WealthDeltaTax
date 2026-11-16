@@ -21,7 +21,9 @@ One entry per finished brief or settled question, at most 8 lines each. Newest f
 - Stages A to D audited v1 (42 register items, 3 new) and v2 (complication, tests). Neither model is fixed; lessons are in `docs/model-audit/lessons-so-far.md`, requirements in `docs/model-audit/synthesis.md`.
 - v3 is a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, a year-by-year path with a steady-state summary, and the tolerant zone (C.1 over TW(1)) as a supporting output. Papers become one whitepaper plus appendices, rewritten to follow the results.
 - Fixed allocation order (refunds, SWF share, relief). Rate schedule sampled over a progressive family. Wealth data: survey plus a rich-list tail. Clean slate, port by exception. Gain ladder, heir rule and strategy verdicts dropped.
-- Next: brief 011g (draft, author reviews), then a research brief for the input register.
+- Retired together: CGT, IHT, stamp duties, council tax, business rates, corporation tax, in steps as relief arrives. Headline revenue is the net fiscal effect with every line shown; the corporate levy is its own line. Threshold: half the median house price per adult.
+- Closure check on v2 (UK, 117 windows): post-fill relief of about 3% to 15% of GDP against 8.27% of GDP retired; the retired taxes are covered in 42% to 55% of windows. Details: `docs/model-audit/synthesis.md` section 10.
+- Next: brief 011g stage A (draft written), then a research brief for the input register.
 
 ## 2026-11-15: model folders renamed (brief 010)
 - `model/` is now `model_v1/` and `model_new_2/` is `model_v2/`. The build reads `model_v1/` and still writes `_build/model/`, so published URLs (`/model/wdt_core.py`, `/model/WDT_Params.toml`) are unchanged (author's default).

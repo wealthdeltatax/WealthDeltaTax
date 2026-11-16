@@ -3,23 +3,24 @@
 Maintained by the guru. Last updated 2026-11-16 (afternoon). Plan view: `docs/lane-plan.html`.
 
 ## Where the project is
-The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. The design brief 011g is a draft for the author to review. v1 and v2 are not fixed. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
+The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. Design brief 011g is underway: stage A (metric register and output manifest) is drafted for the author's review. v1 and v2 are not fixed. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
 
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (guru) | Audit stage E done; wrote the synthesis and redrafted 011g | After the author approves 011g: stage A (output manifest and metric register); compile `docs/brief-suggestions.md` |
+| Agent 1 (guru) | 011g stage A drafted (`docs/model-v3/`) | Stage A after the author's review, then stage B (research brief 012r); compile `docs/brief-suggestions.md` |
 | Agent 2 | Free | none planned |
 | Agent 3 | Free | none planned |
 | Agent 4 | Free | none planned |
 | Agent 5 | Free | none planned |
 
 ## Waiting on the author
-- Review the draft of brief 011g and `docs/model-audit/synthesis.md` (section 7 has six open questions: burden denominator, sample size and seed, rate family, SWF share and horizon, UK-only scope, tail dataset).
+- Review 011g stage A: `docs/model-v3/metrics.md` and `docs/model-v3/outputs.yml` (five open items at the end of the metrics file: reporting year, retirement order and trigger, burden weighting and discount rate, who counts as a non-payer, the suggested wealth taxes for comparison).
 - Optional: rename the `wdt-web` skill to `wdt-site` for consistency (logged in `docs/brief-suggestions.md`; touches the stub, the `.skill`, `AGENTS.md`, `docs/agents/`, `OVERVIEW.md` and the account skill).
 - Settled 2026-11-16: Zenodo sandbox token (non-critical, left); revenue calculator (replaced after model v3); letter `s` kept; old uploaded skills removed.
 
 ## Recently done
+- 2026-11-16: closure check on v2 (retired taxes 8.27% of GDP against post-fill relief of about 3% to 15%); decisions recorded (retired taxes, net headline, staged phasing, threshold); 011g stage A drafted.
 - 2026-11-16: audit stage E (brief 001c) done as a question-and-answer session with the author: v3 reframed as a range model (decisions in `docs/model-audit/synthesis.md` section 3), 011g redrafted, 001c retired.
 - 2026-11-16: brief 004s (site architecture doc) reviewed and retired to `docs/archive/briefs/`; the housekeeping set is now fully archived. Open briefs: 001c (stage E), 007w, 009c, 011g (all held or next).
 - 2026-11-16: audit stage D merged (v2 complication and tests; three largest sources of complexity with line counts). All four audit stages are in; lessons list updated.

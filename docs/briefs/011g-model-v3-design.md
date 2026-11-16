@@ -1,6 +1,6 @@
 # 011: Model v3 design
 
-- **Status:** draft (the author reviews before stage A starts)
+- **Status:** underway (stage A drafted 2026-11-16: `docs/model-v3/metrics.md`, `docs/model-v3/outputs.yml`; the author reviews it before stage B)
 - **Author/date:** K. Ogata with the guru, 2026-11-16
 - **Depends on:** 001c (merged; synthesis in `docs/model-audit/synthesis.md`)
 - **Read:** `docs/model-audit/synthesis.md`, then `docs/model-audit/lessons-so-far.md`. Nothing else need be opened until a stage names it.
@@ -16,7 +16,7 @@ All of `synthesis.md` section 3. In short: three headline ranges (government rev
 Four design stages, each producing one document under `docs/model-v3/` (new folder). The guru writes stages A, C and D with the author; stage B is a research brief.
 
 ## Stages
-- **A: output manifest and metric register** (guru, with the author). Checkpoint: `docs/model-v3/outputs.yml` and `docs/model-v3/metrics.md` pushed. Check: each of the three headline outputs and the supporting tolerant zone has a formula, a denominator, a unit, a horizon and the whitepaper element it feeds; no metric has two denominators; the burden and savings definitions and the threshold approach are settled; the closure rule is stated: how the retired taxes are phased against the reserve fill (day one, in steps as relief arrives, or reserves funded otherwise), and the year or years each headline refers to. The v2 check in `synthesis.md` section 10 shows the closure turns on both (retired 8.27% of GDP against relief of about 3% to 15%).
+- **A: output manifest and metric register** (guru, with the author). Checkpoint: `docs/model-v3/outputs.yml` and `docs/model-v3/metrics.md` pushed. Check: each of the three headline outputs and the supporting tolerant zone has a formula, a denominator, a unit, a horizon and the whitepaper element it feeds; no metric has two denominators; the burden and savings definitions and the threshold approach are settled; the retired taxes are phased in steps as relief arrives (decided), and the order, the trigger and the year or years each headline refers to are stated. The v2 check in `synthesis.md` section 10 shows the closure turns on both (retired 8.27% of GDP against relief of about 3% to 15%).
 - **B: input register** (research lane; a separate brief `012r`, written after A). Checkpoint: `docs/model-v3/inputs.md`. Check: every ranged input (wealth distribution and threshold, returns and loss years, behavioural response, rate schedule family) has a low, central and high value, a unit and a cited source; the tail dataset and its licence are named.
 - **C: architecture** (guru). Checkpoint: `docs/model-v3/architecture.md`. Check: it fixes where v3 lives and where it reads `jst_r6.json`; lists the modules in dependence order; sets a line budget for the core and for the output layer; names what is ported by exception with the element that needs it; lists the tests each module needs before the next is built; and states what happens to `model_v1/` and `model_v2/` (brief 009c).
 - **D: acceptance plan and build briefs** (guru). Checkpoint: `docs/model-v3/acceptance.md` and the first build brief written. Check: every build stage has a stop and a measurable criterion (a test, a bound, a reproducible number); the smoke test, the seed and sample-size policy and the run script are specified; each requirement R1 to R11 of the synthesis maps to a criterion.
@@ -42,11 +42,11 @@ Writing model code, fixing v1 or v2, writing or editing papers, choosing the whi
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
+- **Done:** stage A draft written, 14 outputs in the manifest, every metric in the register.
 - **Next:**
 - **Decisions:**
 - **Gotchas:**
 - **Resume:**
 - **Not run:**
-- **State:** draft
+- **State:** stage A drafted; waiting for the author's review (five open items at the end of `docs/model-v3/metrics.md`)
 <!-- progress:end -->

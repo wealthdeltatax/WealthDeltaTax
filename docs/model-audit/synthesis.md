@@ -25,6 +25,7 @@ The model cannot cover the whole economic parameter space. v3 therefore **estima
 | Allocation | One fixed order: refunds first, then reserve top-up to the targets the papers already set (short and long reserves, each 3 times the trailing mean annual refund), then relief for non-payers from the remainder. This replaces the "stated SWF share" of the first draft: the share is a result of the reserve rules, not an input |
 | Corporate levy | Part of government revenue, reported as its own line, never merged into the individual WDT line |
 | Retired taxes | The taxes WDT replaces are removed at the same moment WDT starts, so that revenue is not double counted. Retired together: capital gains tax, inheritance tax, stamp duties (property and shares), council tax, business rates and corporation tax. Everything else stays. The headline revenue is the net fiscal effect: WDT plus levy minus the receipts of every retired tax, with each as its own visible line (the author, 2026-11-16) |
+| Phasing | The six retired taxes are retired in steps as relief arrives, in a stated order, not all on day one. The model reports the order, the trigger and a zero cumulative shortfall (author, 2026-11-16) |
 | Threshold | Set by policy intent, not by the papers: only people with a secure living situation pay. W_min = half the median house price, per adult, read as the share a couple holds in a median home owned outright (net of mortgage). v2's value (0.5 times the median price, about £113k, about half of adults and 93% of wealth) is the starting point. The papers' canonical figures are ignored: they will all change |
 | Countries | UK only in v3. Country data enters through one data pack (distribution, returns, tax baselines, units) and the core contains no UK constant, so adding a country is adding a pack, not editing code |
 | Wealth data | Official survey for the bulk plus a rich-list tail; the tail's uncertainty is a stated input range |
@@ -55,8 +56,8 @@ Not carried over: the gain ladder, the fresh-entrant heir rule, strategy verdict
 - **Crosslinks (007w) and retiring the legacy folders (009c):** both wait for the rewrite and v3.
 
 ## 7. Open questions
-Closed on 2026-11-16: burden denominator, rate family, UK-only, corporate levy (own line), threshold approach, the list of retired taxes, the headline revenue definition (net fiscal effect, every line shown), the unit of assessment (per adult).
-1. **Closure and phasing.** Section 10: on v2 the retired taxes (8.27% of GDP) are covered in about half the UK windows, and there is a transition hole while the reserves fill. Stage A of 011g settles the phasing rule and the reporting year.
+Closed on 2026-11-16: phasing (staged), burden denominator, rate family, UK-only, corporate levy (own line), threshold approach, the list of retired taxes, the headline revenue definition (net fiscal effect, every line shown), the unit of assessment (per adult).
+1. **Order and trigger of retirement, and the reporting year.** Phasing is staged (decided). Section 10: on v2 the retired taxes (8.27% of GDP) are covered in about half the UK windows, so which tax goes first and what triggers each step matter. Stage A of 011g settles both.
 2. **Seed and sample size.** Fixed seed recorded in every output; sample size set by a convergence test across seeds in stage C.
 3. **Horizon, start years and returns.** Chosen, not calculated. Replay of historical windows (v1 and v2) or a sampled return distribution fitted to history: stage C.
 4. **Data gaps** (section 9), for brief 012r.
