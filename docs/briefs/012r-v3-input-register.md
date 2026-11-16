@@ -65,14 +65,29 @@ Choosing the values the model uses, running the tornado, building code, editing 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** B1 (D4, D9, D1): 19 rows in `docs/model-v3/inputs.md`, derivations in `docs/research/012r-b1-derivations.md`; check passed.
-- **Next:** B2 (D5, D6, D10). Append to `inputs.md` below D1; add sources S13 onward.
-- **Decisions:** Latest WAS wave is Round 8 (2020-22), held in repo, used; Round 9 not found published. Rich List licence unverified, treated as cite only. Liquid assets use net financial wealth as a proxy. Income by wealth band is derived (judgement, plus or minus 20%).
-- **Gotchas:** Shell cannot reach ons.gov.uk; use WebFetch. Times terms URL not on the allowlist. Pension valuation break between Rounds 7 and 8.
+- **Done:** B1 (D4, D9, D1) and B2 (D5, D6, D10): 41 rows in `docs/model-v3/inputs.md`; derivations in `docs/research/012r-b1-derivations.md` and `012r-b2-derivations.md`; check passed.
+- **Next:** B3 (comparators: Zucman, UK wealth tax proposals, today's CGT, IHT and income tax by wealth band, M8 alternatives). Append below D10; sources from S24.
+- **Decisions:** Tail fallback is Advani, Summers, Tarrant 2025 (author, 2026-11-16). S12 balance-sheet gap reconciled in B2 as definitional, carried as row I-D4g. D6 deciles are derived allocations (ONS decile workbook not reachable); flagged judgement.
+- **Gotchas:** Shell cannot reach ons.gov.uk; WebFetch also failed on the ETB xlsx. Times terms URL not on the allowlist. Pension valuation break between WAS Rounds 7 and 8.
 - **Resume:** `git checkout brief/012-v3-input-register`; read `inputs.md` gaps section first.
-- **Not run:** no model code (none required); S12 balance-sheet conflict not reconciled; JST later release and licence not verified.
-- **State:** B1 done; see the wip commit on `brief/012-v3-input-register`
+- **Not run:** no model code; ETB decile workbook not read; JST later release and licence not verified; Round 9 not found.
+- **State:** B2 done; see the wip commit on `brief/012-v3-input-register`
 <!-- progress:end -->
+
+### Change report (stage B2)
+```
+Change report
+- Task: 012r stage B2, behaviour, incidence, capitalisation (D5, D6, D10), plus the S12 reconciliation and the tail decision
+- Files changed: docs/model-v3/inputs.md (D5, D6, D10 sections, row I-D4g, sources S13 to S23, gaps and tail decision); docs/research/012r-b2-derivations.md (new, method and script); docs/briefs/012r-v3-input-register.md (progress block and this report)
+- What is different now: 22 new rows (41 in total). Foreign-evidence base for D5; council tax capitalisation range for D10; derived decile incidence for the six retired taxes
+- New or changed interfaces: none
+- Acceptance criteria (B2): avoidance, migration, valuation understatement each have a range (I-D5b, c, d; met, judgement and foreign); incidence of each of the six taxes by decile with stamp duties as property and shares, each summing to 100% within plus or minus 0.1 point (met, but all are derived allocations, not published incidence: partly met); house-price response has a range for council tax (I-D10a, b) and one temporary-holiday point for stamp duty with logical bounds (I-D10c), no usable evidence on a permanent stamp duty retirement (met as stated)
+- Deviations from the brief: brief file edited for the progress block and report; S12 reconciled in B2 at the author's request, not B4
+- Risks / follow-ups: ONS ETB FYE 2024 decile workbook not retrieved, so council tax and stamp duty deciles can be replaced if the author attaches it; no UK evidence for business rates or corporation tax incidence, nor valuation understatement; migration row rests on non-doms and a secondary summary; Koster and Pinchbeck title not confirmed; HMRC CGT page inconsistent (52% vs 55%); IHT and stamp taxes by income decile are weakly linked to wealth
+- Verification: empty-cell and column-count script passed (41 rows, 0 empty cells); rows per driver D4 7, D9 8, D1 5, D5 4, D6 14, D10 3; 27 judgement rows; arithmetic of I-D5b and I-D10b rerun; git diff stat limited to the Touches list plus the brief. Not run: no model code
+- Overview sections likely needing an update: none
+- Commit / branch: wip(012): stage B2 done, brief/012-v3-input-register
+```
 
 ### Change report (stage B1)
 ```
