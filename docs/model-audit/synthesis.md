@@ -56,7 +56,7 @@ Not carried over: the gain ladder, the fresh-entrant heir rule, strategy verdict
 
 ## 7. Open questions
 Closed on 2026-11-16: burden denominator, rate family, UK-only, corporate levy (own line), threshold approach, the list of retired taxes, the headline revenue definition (net fiscal effect, every line shown), the unit of assessment (per adult).
-1. **Does the arithmetic close?** See section 10: on v2's own rough numbers the retired taxes exceed what WDT and the levy raise. Stage A of 011g tests this first.
+1. **Closure and phasing.** Section 10: on v2 the retired taxes (8.27% of GDP) are covered in about half the UK windows, and there is a transition hole while the reserves fill. Stage A of 011g settles the phasing rule and the reporting year.
 2. **Seed and sample size.** Fixed seed recorded in every output; sample size set by a convergence test across seeds in stage C.
 3. **Horizon, start years and returns.** Chosen, not calculated. Replay of historical windows (v1 and v2) or a sampled return distribution fitted to history: stage C.
 4. **Data gaps** (section 9), for brief 012r.
@@ -90,17 +90,27 @@ A scratch run of v2's `rates_core` on a copy outside the repo (nothing committed
 5. Pension, housing and business-asset treatment in the distribution (what counts as wealth for the threshold).
 6. For R11: a note of what each data source covers outside the UK, so the pack format does not assume UK-only fields.
 
-## 10. Scale check: retired taxes against what v2 raises (rough, for stage A to test)
-Retired taxes, receipts as a share of GDP, `Revenue composition spreadsheet.xlsx` (IFS, "% GDP (cash)", the 2025-26 column; the later columns are forecasts):
-| Tax | % of GDP |
-|---|---:|
-| Corporation tax | 3.37 |
-| Council tax | 1.75 |
-| Business rates | 1.29 |
-| Capital gains tax | 0.77 |
-| Stamp duties (property) | 0.66 |
-| Stamp taxes on shares | 0.16 |
-| Inheritance tax | 0.27 |
-| **Total retired** | **8.27** |
-Against that, the v2 scratch run (section 8, `gain_ladder`, UK, mean over 24 windows) shows net revenue of 5.43% of GDP, of which the corporate levy is 2.88 and the individual WDT 2.55. On these numbers the net fiscal effect would be about -2.8% of GDP (-5.7% if the individual WDT alone is counted), before any reserve top-up or relief for non-payers.
-**Caveats.** The v2 figures are unfixed and average the early fill years, the periods differ (UK 2025-26 receipts against replayed windows), and the v2 distribution and rates are not v3's. This is an order-of-magnitude warning, not a result. It does say the closure question comes before the sampled ranges: if the retired list stays this long, the schedule or threshold must raise far more than v2's, or the net headline will be negative, and v3 should report that honestly. The three headline outputs may then include a break-even rate.
+## 10. Closure check: retired taxes against what v2 raises (run 2026-11-16, rough)
+**Question.** If the six taxes are retired together (8.27% of GDP, table below), does what WDT and the levy raise cover them?
+**Method.** v2's `rates_core` on a scratch copy outside the repo, nothing committed. The copy had one change: every scenario stores its window rows. UK start years 1 apart (117 windows, no censored window) and, as a spread check, 14 JST countries with start years 5 apart (351 windows). Index mode `gdp_pc`. Compared: v2's `relief_gdp`, the revenue available in the 10 years after the long reserve fills, equal to WDT + levy + fund income - fund retention (`rates_core.py` line 109), against the retired receipts. v2 is unfixed (author, 2026-11-16): this ranks and sizes, it is not a result.
+**Retired receipts**, % of GDP, `Revenue composition spreadsheet.xlsx` (IFS, "% GDP (cash)", the 2025-26 column; later columns are forecasts): corporation tax 3.37, council tax 1.75, business rates 1.29, capital gains tax 0.77, stamp duties (property) 0.66, stamp taxes on shares 0.16, inheritance tax 0.27. **Total 8.27.**
+
+**Result (UK, 117 windows), % of GDP, years after the long reserve fills:**
+| v2 scenario | WDT | Levy | Relief, mean (P10 / P50 / P90) | Relief minus 8.27, P10 / P50 / P90 | Windows that close |
+|---|---:|---:|---:|---:|---:|
+| `logistic_ref` (every adult, 30% floor) | 9.35 | 2.77 | 11.43 (4.0 / 10.0 / 20.1) | -4.3 / +1.8 / +11.8 | 69% |
+| `logistic_ln_ref` | 7.34 | 2.77 | 9.62 (3.5 / 8.7 / 16.8) | -4.8 / +0.4 / +8.5 | 55% |
+| `gain_ladder` | 6.07 | 2.77 | 8.25 (2.8 / 7.4 / 14.8) | -5.5 / -0.9 / +6.5 | 42% |
+| `stock_ladder` | 5.12 | 2.77 | 7.26 (2.4 / 6.5 / 13.0) | -5.8 / -1.8 / +4.7 | 36% |
+| `logistic_ln_gain` | 4.24 | 2.76 | 6.40 (2.3 / 5.9 / 11.3) | -6.0 / -2.4 / +3.0 | 28% |
+| `logistic_ln_stock` | 3.12 | 2.75 | 5.24 (1.7 / 4.8 / 9.2) | -6.5 / -3.5 / +1.0 | 20% |
+With the 14-country windows the same ordering holds and more windows close (`logistic_ln_ref` 72%, `gain_ladder` 61%), so history matters. If corporation tax is not retired the bar is 4.90 and `logistic_ln_ref` closes in 84% of UK windows, `gain_ladder` in 77%.
+
+**What this says**
+1. **My earlier warning was wrong and is withdrawn.** The first draft of this section set the 100-year window mean of v2's net revenue (5.43% of GDP) against the retired total and found a gap of 2.8% of GDP. The window mean and the post-fill years are different horizons. On the post-fill years the `logistic_ln_ref` mean (9.62) is above 8.27 and the `gain_ladder` mean (8.25) is level with it.
+2. **The mean hides the spread.** Relief ranges from about 3% to 15% of GDP between P10 and P90 across UK start years, so the retired taxes are covered in somewhere between 42% and 55% of windows for the two shapes that matter. That spread, driven by the return history, is exactly what the three headline ranges should show; a single net figure would mislead.
+3. **The reporting year matters as much as the schedule.** For `gain_ladder` the revenue at the fill year is 9.87% of GDP, the 100-year mean 5.39%. v3 must name the year or years each headline refers to. v2's behaviour over time was not examined here.
+4. **There is a transition hole.** The short reserve fills in a median 3 years and the long reserve in 7 (P10 to P90: 6 to 10). If the six taxes go on day one, receipts of 8.27% of GDP vanish while the first revenue goes to the reserves. Either the state borrows through the fill, or the taxes are retired in steps as relief arrives (v2's approach, `[rates.replacement].retire` in order), or the reserves fill from a different source. This is a stage A design question.
+5. **The levy is almost the same size as corporation tax** (2.77 against 3.37), so the pair is close to a swap.
+6. **Fund income is about cancelled by fund retention** (5.29 against 5.88 for `gain_ladder`), so relief is roughly WDT plus levy minus 0.6.
+**Limits.** v2's distribution, rates, c and cohorts are not v3's; UK 2025-26 receipts against replayed windows; the corporate levy and fund are v2's; the retired receipts apply to everyone, not only WDT payers, and the non-payer savings are not yet computed.
