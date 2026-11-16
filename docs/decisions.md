@@ -77,3 +77,6 @@ One entry per finished brief or settled question, at most 8 lines each. Newest f
 
 ## 2026-11-16: restructure of the series (013g)
 The 33 papers are replaced by a hub (general-reader whitepaper, problem first), about 12 spokes and standalone papers (ADD, INST candidates), resting on the v3 data layer. Old papers only guide the new ones. Gate: no spoke prose until the data is finalised. Plan first in five stages (map, ledger, template, site needs, order). Brief 007w becomes obsolete.
+
+## 2026-11-17: briefs are split for parallel work
+The guru splits parallel parts into separate small briefs (own number, one lane, one session, disjoint Touches, shared inputs fixed first). Stages are for sequential steps only. Rule is in `docs/agents/brief-template.md` (Splitting) and `guru.md`.

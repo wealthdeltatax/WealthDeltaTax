@@ -35,7 +35,7 @@ Behaviour written so someone who was not in the conversation can build it.
 Files and areas affected.
 
 ## Stages
-One session finishes one stage; a stage is the unit of checkpoint. `- <id>: <what>. Checkpoint: <what is pushed>; check: <cheapest check>`. Split a brief with more than three deliverables or about 15 files. A small brief may omit this.
+One session finishes one stage; a stage is the unit of checkpoint. `- <id>: <what>. Checkpoint: <what is pushed>; check: <cheapest check>`. Stages are for sequential steps only; split parallel work into separate briefs (see Splitting). A small brief may omit this.
 
 ## Acceptance criteria
 Measurable: a test, a bound, a manual check. For experiments, an adoption bar written before measuring.
@@ -59,4 +59,14 @@ The implementer asks rather than guesses on these.
 - **State:**
 <!-- progress:end -->
 ```
+## Splitting (do this first)
+Before writing a brief, ask which parts can run at the same time, and split them into separate briefs. Several small briefs on different agents beat one large brief run in sequence.
+- **Parallel parts** touch disjoint files and do not need each other's output. Each becomes its own brief: own number, one lane letter, one session, a checkpoint that merges alone, and a `Touches` list that overlaps no sibling.
+- **Shared inputs** (data format, names, interfaces, the gate) are fixed before the children start, in an earlier brief or in a short parent brief. Children never edit a shared file. The guru alone edits `STATUS.md`, `docs/lane-plan.html` and `docs/decisions.md`.
+- **Sequential parts** stay as `Stages` in one brief, or as a `Depends on` chain when they need different lanes.
+- **Size:** a child fits one session: about 5 files, or one paper group, or one module. If it does not, split again.
+- **Parent brief:** only when children share a design or gate. It holds the goal, decisions and gate, links the children, and retires when they all have.
+- **Lane plan:** list the siblings on different agent lanes at the same time, with the same `Depends on`.
+- A brief that cannot be split should say why in one line under `Design`.
+
 Number: the next unused three digits across `docs/briefs/` and `docs/archive/briefs/` (ignore the letter when checking what is unused). If the repo keeps a generated brief index, regenerate it after changing Status or Depends on.
