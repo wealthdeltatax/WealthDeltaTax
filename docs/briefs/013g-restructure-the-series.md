@@ -1,6 +1,6 @@
 # 013: Restructure the series (hub and spokes)
 
-- **Status:** underway (stage A drafted 2026-11-16, awaiting the author's mark-up)
+- **Status:** underway (stage A passed 2026-11-16; stage B ready)
 - **Author/date:** K. Ogata with the guru, 2026-11-16
 - **Depends on:** 011g (model v3 design) for the data gate; 012r feeds it
 - **Read:** `docs/restructure/map.md`, then `docs/model-v3/outputs.yml`. Nothing else until a stage names it.
@@ -20,7 +20,7 @@ Five stages, each ending in a stop. One session does one stage.
 
 ## Stages
 - **A: hub outline and spoke map** (guru). Checkpoint: `docs/restructure/map.md` marked up by the author; check: every hub section and spoke has a job, a reader and a list of data hooks.
-- **B: content ledger** (guru, may be split by paper group). Checkpoint: `docs/restructure/ledger.md`; check: every section of all 33 papers has a disposition (keep to spoke X, merge, drop as redundant, standalone, archive) and a flag for whether it needs model numbers. The flagged claims are listed as demanded outputs and checked against `outputs.yml` for coverage before v3 outputs freeze; fill `element:` in `outputs.yml` with spoke IDs.
+- **B: content ledger** (guru, may be split by paper group). Checkpoint: `docs/restructure/ledger.md`; check: every section of all 33 papers has a disposition (keep to spoke X, merge, drop as redundant, standalone, archive) and a flag for whether it needs model numbers. The flagged claims are listed as demanded outputs and checked against `outputs.yml` for coverage before v3 outputs freeze; fill `element:` in `outputs.yml` with spoke IDs. Also list, per spoke and for hub section H1, the outputs it needs that `outputs.yml` lacks (proposed additions, not yet added), and the old words kept per spoke against its budget.
 - **C: spoke template and writing rules** (guru with the writing lane). Checkpoint: `docs/restructure/template.md`; check: shape, word budget, data-hook syntax, objection block and Data block defined; one paragraph written as a test only.
 - **D: site and pipeline requirements** (guru, then a site brief). Checkpoint: `docs/restructure/site.md`; check: new ID scheme, how hooks fill from model outputs at build, routing block, what happens to `papers.yml`, anchors, crosslinks, the format checker, the Project Map and brief 007w (obsolete).
 - **E: rewrite order and gate** (guru). Checkpoint: `docs/restructure/order.md`; check: the order spokes are written in, the data each needs, and the frozen-data condition that opens the gate.
@@ -42,7 +42,7 @@ See section 5 of `map.md`.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** stage A drafted.
-- **Next:** author marks up `map.md`; then stage B.
-- **State:** stage A awaiting the author
+- **Done:** stage A passed; author decisions are in `map.md` section 5 (FAL into S12; SCOPE, ADD, INST standalone; WFR and LDW into spokes; add outputs for the problem section; 2,000 to 4,000 words provisional).
+- **Next:** stage B (ledger), run by a separate agent; may be split by paper group.
+- **State:** stage B ready
 <!-- progress:end -->

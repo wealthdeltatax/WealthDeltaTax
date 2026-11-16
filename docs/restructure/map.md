@@ -1,4 +1,4 @@
-# Restructure, stage A: hub outline and spoke map (DRAFT for the author to mark up)
+# Restructure, stage A: hub outline and spoke map (author decisions applied 2026-11-16)
 
 Brief 013g. Planning only. No spoke prose is written until the data gate (013g) opens. Spoke names, order and the list of standalone papers are proposals: the content ledger (stage B) tests them against what the 33 old papers actually say.
 
@@ -47,14 +47,14 @@ Source = old paper, by number.
 | S10 Politics and adoption | Can it pass, how is it staged? | 12, 12a, 15, 16, 13 | OP3, OP5 | partly |
 | S11 Wider effects | Environment, welfare, scope | 14, 17, 19, 21 | O4a, O4b | partly |
 | S12 How it could be wrong | What would falsify it? | 22, 10 (limits), 9 (sensitivity) | O7, OS1, tornado | yes |
-Standalone candidates: 18 Addendums (ADD) and 20 Institutional Selection (INST), as the author said. 22 Falsification (FAL) is folded into S12 above; the author may prefer it standalone. 17 Scope Boundary and 19 Taxpayer Welfare overlap S11 and S6 and are the likeliest merges.
+Standalone (decided): 18 Addendums (ADD), 20 Institutional Selection (INST), 17 Scope Boundary (SCOPE, a meta paper outside the wheel). FAL is folded into S12 (decided). WFR (19, 19a) and LDW (21) concern people, so they feed spokes (S6, S7, S11), not standalone papers. S11 no longer draws on 17.
 
-## 5. Decisions for the author
-1. Is the spoke list right (merge, split, rename, drop)? Is the question-per-spoke shape right?
-2. FAL: fold into S12 (proposed) or stand alone?
-3. H1 needs data on the problem itself (what is wrong now). No v3 output covers it. Add outputs for the problem (current distribution, current burden), or does the hub cite existing public data only?
-4. Which of SCOPE, WFR and LDW survive as spokes, merge, or go?
-5. Spoke length target: 2,000 to 4,000 words OK?
+## 5. Decisions (author, 2026-11-16)
+1. Spoke list and question-per-spoke shape: accepted. The ledger may still propose merges or splits.
+2. FAL folds into S12.
+3. The hub's problem section needs outputs. Add them: stage B also checks every spoke for outputs it needs that `outputs.yml` lacks, and lists them as proposed additions (with the problem section H1 first).
+4. SCOPE stays outside the wheel. WFR and LDW go into spokes.
+5. Spoke length 2,000 to 4,000 words: accepted provisionally. The author's experience is that it feels alarmingly short, so the ledger reports, per spoke, the words of material it keeps; if a spoke exceeds budget the budget is revisited then (split the spoke or raise the cap), not squeezed.
 
 ## 6. Not decided here
 Site IDs and URLs (stage D), spoke template wording (stage C), the order of rewriting (stage E).
