@@ -2,6 +2,11 @@
 
 One entry per finished brief or settled question, at most 8 lines each. Newest first. Maintained by the guru.
 
+## 2026-11-16: site architecture doc refreshed (brief 004)
+- `docs/wdt-site-architecture.md` corrected against the files (root path, tree, preprocess steps, tracked `OUTPUTS`, workflow, issue statuses) and later updated for the `model_v1/model_v2` rename. A path check over its 359 backticked names finds 23 with no file, all generated outputs, externals, things the doc says are gone, or the old root `wdt-site/`.
+- Not split: the doc is 32 KB (target about 15 KB). `docs/agents/web.md` names this single file and splitting was outside the brief's `Touches`. Open for the web role if wanted.
+- Not checked against the live site; issues were re-checked in code only. Issue 7 (sandbox token) left as is; Issue 16 (revenue calculator) parked until after model v3 (author, 2026-11-16).
+
 ## 2026-11-16: audit stage D merged (brief 001c)
 - Stage D (v2 complication and tests) reviewed by spot-check and merged: v2 model Python 17,729 lines against v1's 18,136; the growth is the parameter file (1,839 against 554 lines) and unused parts. Three largest sources: output layer 5,150 lines, `valgen_core` 3,353, `eval_core` 2,718 (orphaned).
 - The branch lacked stage B (it was built on the stage C commit), so the two stage D files were applied to `main` instead of merging the branch. The audit stages A to D are now complete; stage E (synthesis and v3 requirements) is the guru's and is next.
