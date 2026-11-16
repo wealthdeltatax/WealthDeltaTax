@@ -65,14 +65,29 @@ Choosing the values the model uses, running the tornado, building code, editing 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** B1 (D4, D9, D1) and B2 (D5, D6, D10): 41 rows in `docs/model-v3/inputs.md`; derivations in `docs/research/012r-b1-derivations.md` and `012r-b2-derivations.md`; check passed.
-- **Next:** B3 (comparators: Zucman, UK wealth tax proposals, today's CGT, IHT and income tax by wealth band, M8 alternatives). Append below D10; sources from S24.
-- **Decisions:** Tail fallback is Advani, Summers, Tarrant 2025 (author, 2026-11-16). S12 balance-sheet gap reconciled in B2 as definitional, carried as row I-D4g. D6 deciles are derived allocations (ONS decile workbook not reachable); flagged judgement.
-- **Gotchas:** Shell cannot reach ons.gov.uk; WebFetch also failed on the ETB xlsx. Times terms URL not on the allowlist. Pension valuation break between WAS Rounds 7 and 8.
-- **Resume:** `git checkout brief/012-v3-input-register`; read `inputs.md` gaps section first.
-- **Not run:** no model code; ETB decile workbook not read; JST later release and licence not verified; Round 9 not found.
-- **State:** B2 done; see the wip commit on `brief/012-v3-input-register`
+- **Done:** B1 (D4, D9, D1), B2 (D5, D6, D10) and B3 (M5, M6, M8): 78 rows in `docs/model-v3/inputs.md` (B3 added 37: M5 17, M6 13, M8 7); derivations in `docs/research/012r-b1-`, `-b2-`, `-b3-derivations.md`; empty-cell check passed (78 rows, 12 cells each).
+- **Next:** B4 (tier 2: D7, D8, D11; Green Book check against the HM Treasury text; M2 check against the RATES paper's 0.35%, RATES read by section). Then the one-paragraph gaps summary at the top of `inputs.md`.
+- **Decisions:** Tail fallback is Advani, Summers, Tarrant 2025 (author, 2026-11-16). S12 gap carried as I-D4g. D6 deciles derived. B3: no source gives CGT, IHT or income tax by wealth band, so M6 by-band rows are derived and flagged; income tax is not banded. "Strongest published version" for each M8 reform is my reading (Resolution Foundation plus IFS for CGT, Onward for property tax, Neidle for LVT); author can overrule.
+- **Gotchas:** Shell cannot reach ons.gov.uk. gov.uk HMRC pages were mostly off the fetch allowlist (CGT 2024-25 totals come from press summaries). Times terms URL not on the allowlist. The branch is behind `main` (013g and restructure files exist on main): rebase before any merge.
+- **Resume:** `git checkout brief/012-v3-input-register`; read the gaps sections at the top of `inputs.md`, then the B4 stage text above.
+- **Not run:** no model code; ETB decile workbook not read; JST later release and licence not verified; Round 9 not found; Wealth Tax Commission PDF, Zucman full report, Tax Justice UK March 2025 paper and Green Party manifesto not read; no change to `registry/`.
+- **State:** B3 done; see the wip commit on `brief/012-v3-input-register`
 <!-- progress:end -->
+
+### Change report (stage B3)
+```
+Change report
+- Task: 012r stage B3, comparators (M5 wealth tax proposals, M6 today's CGT, IHT and income tax, M8 reform benchmarks)
+- Files changed: docs/model-v3/inputs.md (B3 sections, sources S24 to S40, B3 gaps, counts); docs/research/012r-b3-derivations.md (new, method for derived rows); this brief (progress block, report)
+- What is different now: inputs.md holds 78 rows. M5: Zucman global 2% above US$1bn (US$200-250bn), Tippet and Zucman UK 2% above £100m (£10.41bn net 2026), Tax Justice UK 2% above £10m (£24bn), Green Party 1% above £10m and 2% above £1bn (£15bn claimed), Wealth Tax Commission one-off (£260bn), IFS cross-check. M6: IHT 0.056% and CGT 0.144% of the wealth of adults above W_min (central); IHT 0.112% and CGT 0.238% of D10 wealth; IHT effective rates by estate band. M8: CGT alignment £8-12bn, end of uplift £2-2.3bn, property tax rate 0.44-0.81%, LVT 1.28% revenue-neutral.
+- New or changed interfaces: none
+- Acceptance criteria: Zucman and the UK proposals each have rate, threshold and citation: met. Today's CGT, IHT and income tax paid by people above the threshold, by wealth band, from HMRC or ONS: PARTLY MET. No such series exists; CGT and IHT by band are derived from HMRC liabilities and held ONS wealth (flagged judgement), income tax is not banded (top-income rate and all-household ratio only). M8 strongest published version of each of the three reforms, each with rate, revenue estimate and citation: met for CGT, property tax rate and LVT; property tax revenue is the council tax plus stamp duty base, not a costed net change; no source costs deemed disposal at death. All ten fields on every row: met (78 rows, no empty cell). Rows 78, judgement rows 39 (B3: 12). Redistribution restrictions listed. git diff --stat shows only inputs.md, the new derivations note and this brief.
+- Deviations from the brief: the brief file itself was edited for the progress block and report, which earlier stages did too. The CGT 2024-25 totals are from press summaries of HMRC, not the HMRC page.
+- Risks / follow-ups: the M6 by-band allocations rest on assumptions (D10 share of CGT 45-100%, £2m-7.5m estate average); a joint wealth and tax file would replace them. Three proposals' revenues are the proponents' own. Branch is behind main; rebase before merge. Open question 3 (add references to references.bib after B4) still for the author.
+- Verification: empty-cell parse (78 rows, 12 cells, no empty, no duplicate IDs); rows per driver counted; judgement list reconciled with the table (39); arithmetic for the ratios run in python3 -I and shown in the derivations note. Not run: no model code, per the brief.
+- Overview sections likely needing an update: none
+- Commit / branch: wip(012): stage B3 done, brief/012-v3-input-register
+```
 
 ### Change report (stage B2)
 ```
