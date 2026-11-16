@@ -35,7 +35,7 @@ Columns: **Sec** old section number; **Words** old words in the row; **Disp**: K
 | 4 | 4. The Sovereign Wealth Fund | 155 | K | S7 | N | - | fund purpose and why it is structurally necessary |
 | 4.1 | 4.1 Why the Fund Is Structurally Necessary | 225 | K | S7 | N | - | fund purpose and why it is structurally necessary |
 | 4.2 | 4.2 Governance and Shared Interests | 407 | K | S9 | N | - | three-constituency governance |
-| 4.3 | 4.3 Route D Auction Mechanism | 702 | K | S4 | N | - | Route D auction (entry basis problem) |
+| 4.3 | 4.3 Route D Auction Mechanism | 702 | M | S4 | N | - | Route D auction; duplicates VAL 6.5 and 11 |
 | 5 | 5. Revenue Properties | 627 | K | S5 | Y | O1,O1a,O1b,OP1,NEW:reserve-solvency,NEW:coverage | v1 claims: 73 start years, reserve never reaches zero, fill 7 to 29 years, 125.5% coverage, 874bn and 172bn; v2 closure is 42 to 55% of windows, so these cannot be carried over |
 | 5.1 | 5.1 Parameter Selection and the N = 30 Working Assumption | 732 | K | S5 | Y | O2,O3,O5,O6 | 0.35% revenue-weighted burden, 13.0% lifetime rate, against 1 to 2% stock taxes and CGT 18 to 24%; M2 formula still to be checked against 0.35% |
 | 6 | 6. Replacing Existing Taxes: Scope and Sequencing | 550 | K | S7 | Y | O1d,OP5,OP3 | replacing existing taxes, scope and sequencing |
@@ -190,3 +190,197 @@ Columns: **Sec** old section number; **Words** old words in the row; **Disp**: K
 | 4.3 | 4.3 Jurisdiction-specific legal and implementation work | 266 | M | S9 | N | - | jurisdiction-specific legal work (HMRC data access, Custodian form) |
 | 4.4 | 4.4 Structural and irreducible limits of the design | 17 | D | - | N | - | limitations register |
 | 4.5 | 4.5 Governing Council calibration parameters | 6 | D | - | N | - | limitations register |
+
+## 5_Valuing_Wealth (17034 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 107 | AR | - | N | - | front matter |
+| rev | Revision History | 887 | AR | - | N | - | front matter |
+| abs | Abstract | 340 | AR | - | N | - | front matter |
+| gloss | Glossary | 698 | DL | glossary | N | - | merge into the build glossary |
+| 1 | 1. The Valuation Problem | 629 | K | S4 | N | - | the valuation problem and the asset classification |
+| 2 | 2. Asset Classification | 28 | K | S4 | N | - | the valuation problem and the asset classification |
+| 2.1 | 2.1 Automatically Priced Assets | 41 | K | S4 | N | - | the valuation problem and the asset classification |
+| 2.2 | 2.2 Fungible Assets | 91 | K | S4 | N | - | the valuation problem and the asset classification |
+| 2.3 | 2.3 Non-Fungible Assets | 34 | K | S4 | N | - | the valuation problem and the asset classification |
+| 2.4 | 2.4 Why Periodic Valuation and Audit Are Insufficient | 66 | K | S4 | N | - | the valuation problem and the asset classification |
+| 3 | 3. Assessment Windows | 0 | M | S3 | N | - | assessment windows and borrowing; duplicates WP 3.6 |
+| 3.1 | 3.1 Annual Reporting and Formal Assessment | 132 | M | S3 | N | - | assessment windows and borrowing; duplicates WP 3.6 |
+| 3.2 | 3.2 Available Assessment Windows | 160 | M | S3 | N | - | assessment windows and borrowing; duplicates WP 3.6 |
+| 3.3 | 3.3 Borrowing and Net Worth | 42 | M | S3 | N | - | assessment windows and borrowing; duplicates WP 3.6 |
+| 4 | 4. The Four Valuation Routes | 178 | K | S4 | N | - | the four valuation routes |
+| 4.1 | 4.1 Route A: Professional Valuation of Fungible Assets | 65 | K | S4 | N | - | the four valuation routes |
+| 4.2 | 4.2 Route B: Professional Valuation of Non-Fungible Assets | 85 | K | S4 | N | - | the four valuation routes |
+| 4.3 | 4.3 Route C: Self-Declaration of Fungible Assets | 133 | K | S4 | N | - | the four valuation routes |
+| 4.4 | 4.4 Route D: Self-Declaration of Non-Fungible Assets | 163 | K | S4 | N | - | the four valuation routes |
+| 5 | 5. The Self-Balancing Mechanism: Fungible Assets | 307 | K | S4 | P | - | self-balancing mechanism for fungible assets; figures are closed-form arithmetic |
+| 5.1 | 5.1 The Grandfathering Baseline | 64 | K | S4 | P | - | self-balancing mechanism for fungible assets; figures are closed-form arithmetic |
+| 5.2 | 5.2 The Must-Transfer Rule | 765 | K | S4 | P | - | self-balancing mechanism for fungible assets; figures are closed-form arithmetic |
+| 5.3 | 5.3 Delta Continuity at Realisation | 74 | K | S4 | P | - | self-balancing mechanism for fungible assets; figures are closed-form arithmetic |
+| 6 | 6. Non-Fungible Assets and Realisation | 0 | K | S4 | N | - | non-fungible assets and realisation (Route D) |
+| 6.1 | 6.1 Why Periodic Accrual Is Not Workable for Non-Fungible As | 126 | K | S4 | N | - | non-fungible assets and realisation (Route D) |
+| 6.2 | 6.2 Assessment During the Holding Period | 88 | K | S4 | N | - | non-fungible assets and realisation (Route D) |
+| 6.3 | 6.3 The Realisation Calculation | 112 | K | S4 | N | - | non-fungible assets and realisation (Route D) |
+| 6.4 | 6.4 Voluntary Settlement | 529 | K | S4 | N | - | non-fungible assets and realisation (Route D) |
+| 6.5 | 6.5 Inheritance and the Auction Mechanism | 497 | K | S4 | N | - | non-fungible assets and realisation (Route D) |
+| 6.6 | 6.6 Destruction, Theft, and Forced Removal | 40 | K | S4 | N | - | non-fungible assets and realisation (Route D) |
+| 7.1 | 7.1 Declaration Strategy and the Rational Equilibrium | 2037 | K | S4 | Y | O7,NEW:alpha-curve | declaration strategy, understatement, overstatement; results from the v1 simulation |
+| 7.2 | 7.2 Understatement: Deferred Liability and Dilution | 625 | K | S4 | Y | O7,NEW:alpha-curve | declaration strategy, understatement, overstatement; results from the v1 simulation |
+| 7.3 | 7.3 Overstatement: Signalling and Confidence Effects | 883 | K | S4 | Y | O7,NEW:alpha-curve | declaration strategy, understatement, overstatement; results from the v1 simulation |
+| 7.4 | 7.4 Boundary Conditions and Limitations | 259 | K | S4 | P | O7 | boundary conditions |
+| 7.5 | 7.5 Portfolio Composition as a Structural Constraint on Decl | 724 | K | S4 | Y | O7,NEW:composition | portfolio composition limits deviation; needs share of wealth in observable assets by band (input) |
+| 8 | 8. The Assessment Window Premium | 143 | M | S3 | N | - | assessment window premium; excluded from the reference model |
+| 9 | 9. The Public Valuation Register | 725 | K | S4 | N | - | public valuation register |
+| 10 | 10. Professional Valuation | 0 | K | S4 | N | - | professional valuation route |
+| 10.1 | 10.1 Purpose | 43 | K | S4 | N | - | professional valuation route |
+| 10.2 | 10.2 Competitive Tender Model | 143 | K | S4 | N | - | professional valuation route |
+| 10.3 | 10.3 Cost Sharing with a Fee Cap | 84 | K | S4 | N | - | professional valuation route |
+| 10.4 | 10.4 The Two-Stage Review Process | 130 | K | S4 | N | - | professional valuation route |
+| 10.5 | 10.5 The Valuation Code | 186 | K | S4 | N | - | professional valuation route |
+| 10.6 | 10.6 Valuation Governance | 217 | K | S9 | N | - | Valuation Code Board governance |
+| 11 | 11. The Route D Auction Mechanism — Three Uses of One Proces | 175 | K | S4 | N | - | Route D auction, three uses |
+| 11.1 | 11.1 Deterrent Logic | 130 | K | S4 | N | - | Route D auction, three uses |
+| 11.2 | 11.2 Voluntary Hard-Reset Auction | 140 | K | S4 | N | - | Route D auction, three uses |
+| 11.3 | 11.3 Corrective Auction: Trigger and Process | 446 | K | S4 | N | - | Route D auction, three uses |
+| 11.4 | 11.4 Inheritance Auction | 189 | K | S4 | N | - | Route D auction, three uses |
+| 11.5 | 11.5 Scope | 142 | K | S4 | N | - | Route D auction, three uses |
+| 12 | 12. Administration and Fraud Detection | 75 | K | S9 | N | - | administration, reporting, statistical review, penalties |
+| 12.1 | 12.1 Annual Reporting Requirements | 66 | K | S9 | N | - | administration, reporting, statistical review, penalties |
+| 12.2 | 12.2 The Purpose of Audit: Fraud, Not Valuation | 136 | K | S4 | N | - | audit is for fraud, not valuation |
+| 12.3 | 12.3 Statistical Review | 110 | K | S9 | N | - | administration, reporting, statistical review, penalties |
+| 12.4 | 12.4 Penalties | 81 | K | S9 | N | - | administration, reporting, statistical review, penalties |
+| 13 | 13. The Sovereign Liquidity Facility | 340 | K | S7 | N | - | Sovereign Liquidity Facility |
+| 14 | 14. Limitations and Further Work | 0 | D | - | N | - | limitations register, v1 validation note, premium calibration, conclusion |
+| 14.1 | 14.1 Formal Modelling Gaps | 93 | D | - | N | - | limitations register, v1 validation note, premium calibration, conclusion |
+| 14.2 | 14.2 Phase One Empirical Unknowns | 389 | D | - | N | - | limitations register, v1 validation note, premium calibration, conclusion |
+| 14.3 | 14.3 Jurisdiction-Specific Legal and Implementation Work | 481 | M | S12 | N | - | Route D entry-basis boundary and the other two boundaries |
+| 14.4 | 14.4 Structural and Irreducible Limits of the Design | 513 | M | S12 | N | - | Route D entry-basis boundary and the other two boundaries |
+| 14.5 | 14.5 Governing Council Calibration Parameters | 91 | D | - | N | - | limitations register, v1 validation note, premium calibration, conclusion |
+| 15 | 15. Conclusion | 757 | D | - | N | - | limitations register, v1 validation note, premium calibration, conclusion |
+
+## 5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix (17111 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 108 | AR | - | N | - | front matter |
+| rev | Revision History | 690 | AR | - | N | - | front matter |
+| ~A. | A. Mathematical Model and Incentive Analysis | 0 | DL | method note for O7 | N | - | formal model of declaration incentives (notation, recursion, propositions); the specification M7 needs |
+| A.1 | A.1 Purpose | 298 | DL | method note for O7 | N | - | formal model of declaration incentives (notation, recursion, propositions); the specification M7 needs |
+| A.2 | A.2 Main Findings (+5) | 1374 | K | S4 | Y | O7,NEW:alpha-curve | five findings in short form |
+| A.3 | A.3 Model Assumptions and Notation (+4) | 955 | DL | method note for O7 | N | - | formal model of declaration incentives (notation, recursion, propositions); the specification M7 needs |
+| A.4 | A.4 Multi-Period Incentive Model (+7) | 972 | DL | method note for O7 | N | - | formal model of declaration incentives (notation, recursion, propositions); the specification M7 needs |
+| A.5 | A.5 Scope of the Arguments (+6) | 1625 | DL | method note for O7 | N | - | formal model of declaration incentives (notation, recursion, propositions); the specification M7 needs |
+| A.6 | A.6 The Declaration Equilibrium: A Broad Tolerant Zone with  | 1275 | M | S4 | Y | O7,NEW:alpha-curve | declaration equilibrium; duplicates VAL 7.1 |
+| ~B. | B. Simulation Methodology | 0 | DL | method note for O7 | N | - | simulation algorithm, parameter table, metrics |
+| B | B.1 Purpose (+6) | 1198 | DL | method note for O7 | N | - | simulation algorithm, parameter table, metrics |
+| ~C. | C. WDT Valuation Analysis: Summary Tables | 102 | AR | - | Y | O7,NEW:alpha-curve | v1 result tables C.1 to C.12 (0 FAILs, v1 only); v3 regenerates them |
+| C | C.1 Total Tax Paid (TTP) Difference Relative to Honest Decla | 6568 | AR | - | Y | O7,NEW:alpha-curve | v1 result tables C.1 to C.12 (0 FAILs, v1 only); v3 regenerates them |
+| C.6 | C.6 Terminal Net Worth After Refunds: Refund Protection Rati | 199 | AR | - | Y | NEW:refund-protection | refund protection ratio in loss years: understaters lose refund protection |
+| ~D. | D. Mechanism Cases | 27 | D | - | N | - | five abstract cases; covered by VAL.B and A.5 |
+| D | D.1 Case 1: Persistent Understatement, Asset Never Realises  | 564 | D | - | N | - | five abstract cases; covered by VAL.B and A.5 |
+| ~E. | E. Route Specification Tables | 24 | M | S4 | N | - | route specification tables; duplicate VAL 4 |
+| E | E.1 Route A: Professional Valuation of Fungible Assets (+4) | 873 | M | S4 | N | - | route specification tables; duplicate VAL 4 |
+| ~F. | F. Annual Reporting Requirements | 10 | M | S9 | N | - | annual reporting requirements |
+| F | F.1 Taxpayer Annual Return (+3) | 249 | M | S9 | N | - | annual reporting requirements |
+
+## 5b_Valuing_Wealth_Worked_Examples_Appendix (5592 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 92 | AR | - | N | - | front matter |
+| rev | Revision History | 204 | AR | - | N | - | front matter |
+| ~Reader | Reader's Guide | 309 | D | - | N | - | reader's guide and summary table |
+| ~J. | J. The Deferred Delta | 37 | K | S4 | P | NEW:example-figures | five worked examples tethered to the five VAL claims; figures from the v1 simulation or closed-form arithmetic, to be regenerated as fixtures |
+| J | J.1 Setup (+5) | 687 | K | S4 | P | NEW:example-figures | five worked examples tethered to the five VAL claims; figures from the v1 simulation or closed-form arithmetic, to be regenerated as fixtures |
+| ~K. | K. Dilution Compounds with Growth | 46 | K | S4 | P | NEW:example-figures | five worked examples tethered to the five VAL claims; figures from the v1 simulation or closed-form arithmetic, to be regenerated as fixtures |
+| K | K.1 Setup (+6) | 719 | K | S4 | P | NEW:example-figures | five worked examples tethered to the five VAL claims; figures from the v1 simulation or closed-form arithmetic, to be regenerated as fixtures |
+| ~L. | L. Why Route D Defers to Realisation | 45 | K | S4 | P | NEW:example-figures | five worked examples tethered to the five VAL claims; figures from the v1 simulation or closed-form arithmetic, to be regenerated as fixtures |
+| L | L.1 Setup (+6) | 812 | K | S4 | P | NEW:example-figures | five worked examples tethered to the five VAL claims; figures from the v1 simulation or closed-form arithmetic, to be regenerated as fixtures |
+| ~M. | M. Voluntary Settlement — Certainty, Not Avoidance | 69 | K | S4 | P | NEW:example-figures | five worked examples tethered to the five VAL claims; figures from the v1 simulation or closed-form arithmetic, to be regenerated as fixtures |
+| M | M.1 Setup (+5) | 964 | K | S4 | P | NEW:example-figures | five worked examples tethered to the five VAL claims; figures from the v1 simulation or closed-form arithmetic, to be regenerated as fixtures |
+| ~N. | N. Forecast Exposure | 46 | K | S4 | P | NEW:example-figures | five worked examples tethered to the five VAL claims; figures from the v1 simulation or closed-form arithmetic, to be regenerated as fixtures |
+| N | N.1 Setup (+6) | 1373 | K | S4 | P | NEW:example-figures | five worked examples tethered to the five VAL claims; figures from the v1 simulation or closed-form arithmetic, to be regenerated as fixtures |
+| ~O. | O. Summary of Design Properties Illustrated | 189 | D | - | N | - | reader's guide and summary table |
+
+## 6_Corporate_Architecture (8681 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 112 | AR | - | N | - | front matter |
+| rev | Revision History | 116 | AR | - | N | - | front matter |
+| abs | Abstract | 286 | AR | - | N | - | front matter |
+| gloss | Glossary | 462 | DL | glossary | N | - | merge into the build glossary |
+| 1 | 1. Introduction | 286 | M | S8 | N | - | introduction; the individual-centred logic duplicates WP 3.2 |
+| 2 | 2. Why Existing Corporate Tax Systems Are Insufficient | 430 | K | S8 | N | - | why existing corporate taxes fall short; listed against private; lifecycle events |
+| 2.1 | 2.1 Existing Administrative Analogues | 183 | K | S8 | N | - | why existing corporate taxes fall short; listed against private; lifecycle events |
+| 3 | 3. The Individual-Centred Logic and Its Limits | 113 | M | S8 | N | - | introduction; the individual-centred logic duplicates WP 3.2 |
+| 4 | 4. The Listed/Private Distinction | 110 | K | S8 | N | - | why existing corporate taxes fall short; listed against private; lifecycle events |
+| 4.1 | 4.1 Corporate Lifecycle Events | 589 | K | S8 | N | - | why existing corporate taxes fall short; listed against private; lifecycle events |
+| 5 | 5. The Listed Company Corporate Delta Levy | 0 | K | S8 | Y | O1b | the corporate delta levy as escrow, annual cycle, tranches, year end, loss years |
+| 5.1 | 5.1 The Mechanism in One Place | 701 | K | S8 | Y | O1b | the corporate delta levy as escrow, annual cycle, tranches, year end, loss years |
+| 5.2 | 5.2 Annual Cycle: Measurement and Reporting | 383 | K | S8 | Y | O1b | the corporate delta levy as escrow, annual cycle, tranches, year end, loss years |
+| 5.3 | 5.3 Tranche Outcomes During the Year | 548 | K | S8 | Y | O1b | the corporate delta levy as escrow, annual cycle, tranches, year end, loss years |
+| 5.4 | 5.4 Year-End Settlement | 350 | K | S8 | Y | O1b | the corporate delta levy as escrow, annual cycle, tranches, year end, loss years |
+| 5.5 | 5.5 Loss Years | 112 | K | S8 | Y | O1b | the corporate delta levy as escrow, annual cycle, tranches, year end, loss years |
+| 5.6 | 5.6 Residual Imperfections | 188 | M | S12 | N | - | residual imperfections (assessment-date gaming) |
+| 6 | 6. The Corporate Equity Settlement Facility | 0 | K | S8 | N | - | Corporate Equity Settlement Facility |
+| 6.1 | 6.1 Purpose and Scope | 252 | K | S8 | N | - | Corporate Equity Settlement Facility |
+| 6.2 | 6.2 Mechanism | 384 | K | S8 | N | - | Corporate Equity Settlement Facility |
+| 6.3 | 6.3 Relationship to the SWF | 334 | K | S8 | N | - | Corporate Equity Settlement Facility |
+| 6.4 | 6.4 Governing Council Calibration Parameters | 149 | DL | parameter register | N | - | Governing Council calibration parameters |
+| 7 | 7. Institutional Ownership | 592 | K | S8 | N | - | institutional ownership; synthetic exposure and derivatives |
+| 8 | 8. Synthetic Exposure and Derivatives | 496 | K | S8 | N | - | institutional ownership; synthetic exposure and derivatives |
+| 9 | 9. Limitations and Required Further Work | 0 | D | - | N | - | limitations register and conclusion |
+| 9.1 | 9.1 Formal modelling gaps | 47 | D | - | N | - | limitations register and conclusion |
+| 9.2 | 9.2 Phase One empirical unknowns | 248 | M | S12 | Y | O1b,O1d | whether the levy displaces corporation tax outright |
+| 9.3 | 9.3 Jurisdiction-specific legal and implementation work | 58 | D | - | N | - | limitations register and conclusion |
+| 9.4 | 9.4 Structural and irreducible limits of the design | 506 | M | S12 | N | - | structural limits of the corporate instrument |
+| 9.5 | 9.5 Governing Council calibration parameters | 371 | DL | parameter register | N | - | Governing Council calibration parameters |
+| 10 | 10. Conclusion | 275 | D | - | N | - | limitations register and conclusion |
+
+## 6a_Corporate_Architecture_Appendix (15089 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 97 | AR | - | N | - | front matter |
+| rev | Revision History | 45 | AR | - | N | - | front matter |
+| ~A. | A. Collection Mechanics and Worked Illustrations | 0 | AR | - | N | - | collection mechanics detail; kept for the statute-drafting phase |
+| A.1 | A.1 The Two-Deadline Structure | 322 | M | S8 | N | - | two-deadline structure, sequencing, broker and nominee case; duplicate CORP 5 |
+| A.2 | A.2 Shareholders Who Sell Before the Assessment Date** | 129 | AR | - | N | - | collection mechanics detail; kept for the statute-drafting phase |
+| A.3 | A.3 Partial-Year Attribution | 92 | AR | - | N | - | collection mechanics detail; kept for the statute-drafting phase |
+| A.4 | A.4 Sequencing | 201 | M | S8 | N | - | two-deadline structure, sequencing, broker and nominee case; duplicate CORP 5 |
+| A.5 | A.5 Loss Years and Private Arrangements | 54 | AR | - | N | - | collection mechanics detail; kept for the statute-drafting phase |
+| A.6 | A.6 Worked Illustration: Standard Shareholders | 344 | K | S8 | N | - | worked illustration with three shareholders |
+| A.7 | A.7 Corporate Entities as Shareholders | 167 | AR | - | N | - | collection mechanics detail; kept for the statute-drafting phase |
+| A.8 | A.8 No Minimum Threshold | 36 | AR | - | N | - | collection mechanics detail; kept for the statute-drafting phase |
+| A.9 | A.9 Intermediary Chain Illustrations | 0 | M | S8 | N | - | two-deadline structure, sequencing, broker and nominee case; duplicate CORP 5 |
+| A.9.1 | A.9.1 Broker/Nominee Case | 500 | M | S8 | N | - | two-deadline structure, sequencing, broker and nominee case; duplicate CORP 5 |
+| A.9.2 | A.9.2 Pooled Fund Case | 198 | AR | - | N | - | collection mechanics detail; kept for the statute-drafting phase |
+| ~B. | B. Corporate Rate Calibration | 83 | M | S8 | N | - | calibration reasoning for the floor rate and the final charge; the values live in the parameter register |
+| B.1 | B.1 The Floor Rate ($\tau_0$): Collection Security | 475 | M | S8 | N | - | calibration reasoning for the floor rate and the final charge; the values live in the parameter register |
+| B.1.1 | B.1.1 Phase One data requirement | 112 | DL | parameter register | N | - | Phase One data requirements for calibration |
+| B.2 | B.2 The Final Charge on Permanently Unattributable Ownership | 68 | M | S8 | N | - | calibration reasoning for the floor rate and the final charge; the values live in the parameter register |
+| B.2.1 | B.2.1 The deterrence condition | 93 | M | S8 | N | - | calibration reasoning for the floor rate and the final charge; the values live in the parameter register |
+| B.2.2 | B.2.2 The refund-forfeiture effect | 123 | M | S8 | N | - | calibration reasoning for the floor rate and the final charge; the values live in the parameter register |
+| B.2.3 | B.2.3 The revenue-recovery ceiling | 83 | M | S8 | N | - | calibration reasoning for the floor rate and the final charge; the values live in the parameter register |
+| B.2.4 | B.2.4 The legal proportionality constraint, and why it is we | 228 | M | S8 | N | - | calibration reasoning for the floor rate and the final charge; the values live in the parameter register |
+| B.2.5 | B.2.5 One carve-out applies | 81 | M | S8 | N | - | calibration reasoning for the floor rate and the final charge; the values live in the parameter register |
+| B.2.6 | B.2.6 The resulting calibration range | 107 | M | S8 | N | - | calibration reasoning for the floor rate and the final charge; the values live in the parameter register |
+| B.2.7 | B.2.7 Phase One data requirement | 134 | DL | parameter register | N | - | Phase One data requirements for calibration |
+| B.2.8 | B.2.8 The ramp structure | 341 | M | S8 | N | - | calibration reasoning for the floor rate and the final charge; the values live in the parameter register |
+| B.2.9 | B.2.9 The joint-calibration constraint | 402 | M | S8 | N | - | calibration reasoning for the floor rate and the final charge; the values live in the parameter register |
+| B.3 | B.3 Intermediary-Level Provisioning Floor | 354 | M | S8 | N | - | calibration reasoning for the floor rate and the final charge; the values live in the parameter register |
+| B.4 | B.4 The Rejected Pool-Average Alternative | 82 | M | S8 | N | - | calibration reasoning for the floor rate and the final charge; the values live in the parameter register |
+| ~C. | C. Ownership Structure Classification Under the Attribution  | 935 | K | S8 | N | - | ownership structure classification under the attribution test |
+| ~D. | D. Administrative Burden | 0 | K | S8 | N | - | administrative burden of the corporate mechanism |
+| D | D.1 Purpose (+4) | 1078 | K | S8 | N | - | administrative burden of the corporate mechanism |
+| D.6 | D.6 Transitional Considerations and the Parallel-Running Ris | 220 | K | S8 | N | - | administrative burden of the corporate mechanism |
+| D.7 | D.7 Summary | 208 | K | S8 | N | - | administrative burden of the corporate mechanism |
+| ~E. | E. Non-Corporate Instruments and the Attribution Test | 0 | SA | ENT (proposed) | N | - | non-corporate instruments and the attribution test; proposed standalone paper, author to decide |
+| E.1 | E.1 Purpose | 204 | SA | ENT (proposed) | N | - | non-corporate instruments and the attribution test; proposed standalone paper, author to decide |
+| E | E.2 Charitable Vehicles (+17) | 5061 | SA | ENT (proposed) | N | - | non-corporate instruments and the attribution test; proposed standalone paper, author to decide |
+| E.9 | E.9 Market Manipulation and the Bilateral-Claim Structure of | 1233 | SA | ENT (proposed) | P | - | market manipulation and short positions (v3 does not model manipulation) |
+| ~F. | F. $\tau_f$: Foreign Attribution and Diplomatic Rate-Setting | 560 | K | S8 | N | - | foreign attribution and diplomatic rate-setting |
+| F.1 | F.1 $\tau_c$ as an Ownership-Composition Lever | 401 | K | S8 | N | - | foreign attribution and diplomatic rate-setting |
+| ~G. | G. Existing $\tau$ parameters | 238 | DL | parameter register | N | - | existing tau parameters |
