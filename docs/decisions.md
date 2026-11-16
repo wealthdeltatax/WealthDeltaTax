@@ -2,6 +2,10 @@
 
 One entry per finished brief or settled question, at most 8 lines each. Newest first. Maintained by the guru.
 
+## 2026-11-16: audit stage D merged (brief 001c)
+- Stage D (v2 complication and tests) reviewed by spot-check and merged: v2 model Python 17,729 lines against v1's 18,136; the growth is the parameter file (1,839 against 554 lines) and unused parts. Three largest sources: output layer 5,150 lines, `valgen_core` 3,353, `eval_core` 2,718 (orphaned).
+- The branch lacked stage B (it was built on the stage C commit), so the two stage D files were applied to `main` instead of merging the branch. The audit stages A to D are now complete; stage E (synthesis and v3 requirements) is the guru's and is next.
+
 ## 2026-11-16: audit stages B and C merged (brief 001c)
 - Stage B (v1 errors against the drift register: 36 confirmed, 4 partly, 1 not reproduced, 1 not checked, 3 new) and stage C (v2 inventory) reviewed by spot-check against the code and merged. Stage D and the synthesis remain.
 - Rule from the author: model v1 and v2 are incomplete and incorrect and are not fixed, only learned from. So the B1 question (which C.1 denominator is canonical) is not decided now; it goes to the v3 design (011g). Running list of lessons: `docs/model-audit/lessons-so-far.md`.
