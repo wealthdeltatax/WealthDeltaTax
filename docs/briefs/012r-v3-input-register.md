@@ -65,11 +65,26 @@ Choosing the values the model uses, running the tornado, building code, editing 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:** B1
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready, not started
+- **Done:** B1 (D4, D9, D1): 19 rows in `docs/model-v3/inputs.md`, derivations in `docs/research/012r-b1-derivations.md`; check passed.
+- **Next:** B2 (D5, D6, D10). Append to `inputs.md` below D1; add sources S13 onward.
+- **Decisions:** Latest WAS wave is Round 8 (2020-22), held in repo, used; Round 9 not found published. Rich List licence unverified, treated as cite only. Liquid assets use net financial wealth as a proxy. Income by wealth band is derived (judgement, plus or minus 20%).
+- **Gotchas:** Shell cannot reach ons.gov.uk; use WebFetch. Times terms URL not on the allowlist. Pension valuation break between Rounds 7 and 8.
+- **Resume:** `git checkout brief/012-v3-input-register`; read `inputs.md` gaps section first.
+- **Not run:** no model code (none required); S12 balance-sheet conflict not reconciled; JST later release and licence not verified.
+- **State:** B1 done; see the wip commit on `brief/012-v3-input-register`
 <!-- progress:end -->
+
+### Change report (stage B1)
+```
+Change report
+- Task: 012r stage B1, wealth, income and returns (D4, D9, D1)
+- Files changed: docs/model-v3/inputs.md (new, tier 1 sections for D4, D9, D1 and source register); docs/research/012r-b1-derivations.md (new, methods and code); docs/briefs/012r-v3-input-register.md (progress block and this report)
+- What is different now: model v3 has a sourced low, central and high for 19 inputs; latest usable WAS wave named (Round 8)
+- New or changed interfaces: none
+- Acceptance criteria (B1): wealth-to-GDP 5.80 / 5.94 / 7.5 met; share of adults above W_min 49.3 / 54.9 / 64.3% and of wealth 89.7 / 92.7 / 96.4% met (judgement bounds); tail dataset named with licence status met (licence unverified, flagged); income and liquid assets by band met with caveats (derived income, financial-wealth proxy); UK real return mean, spread, loss years, longest run, gap met; every row has all fields (script: 19 rows, 0 empty cells)
+- Deviations from the brief: brief file edited for the progress block and report (handover rules; outside the Touches list)
+- Risks / follow-ups: Rich List licence unverified; Round 9 release not confirmed; wealth-to-GDP conflict with the ONS balance sheet (S12) unresolved, check in B4; income by wealth band is weakest row; JST post-2020 data missing
+- Verification: empty-cell and column-count script on inputs.md passed; rows per driver D4 6, D1 5, D9 8; 7 judgement rows; git diff stat limited to the files above plus the brief. Not run: no model code
+- Overview sections likely needing an update: none
+- Commit / branch: wip commit, brief/012-v3-input-register
+```
