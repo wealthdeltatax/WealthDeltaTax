@@ -23,6 +23,9 @@ The model cannot cover the whole economic parameter space. v3 therefore **estima
 | Rate function | Arbitrary provided it is progressive: the incentive mathematics holds for any progressive schedule, so the rate is a revenue and burden question. v3 samples over a stated family of progressive schedules and the model enforces progressivity. The family is v2's highest-revenue thresholded shape, the logistic in ln W (see section 8); its three parameters are the sampled inputs |
 | Time | Year-by-year path over N years with a steady-state summary; headline numbers reported at steady state and at a stated year |
 | Allocation | One fixed order: refunds first, then reserve top-up to the targets the papers already set (short and long reserves, each 3 times the trailing mean annual refund), then relief for non-payers from the remainder. This replaces the "stated SWF share" of the first draft: the share is a result of the reserve rules, not an input |
+| Corporate levy | Part of government revenue, reported as its own line, never merged into the individual WDT line |
+| Retired taxes | The taxes WDT replaces are removed at the same moment WDT starts, so that revenue is not double counted. Stated so far: capital gains tax, inheritance tax, stamp duty and property taxes. The headline revenue is therefore the net fiscal effect: WDT plus levy minus the receipts of every retired tax, each shown as a line |
+| Threshold | Set by policy intent, not by the papers: only people with a secure living situation pay. W_min = half the median house price, per adult, read as the share a couple holds in a median home owned outright (net of mortgage). v2's value (0.5 times the median price, about £113k, about half of adults and 93% of wealth) is the starting point. The papers' canonical figures are ignored: they will all change |
 | Countries | UK only in v3. Country data enters through one data pack (distribution, returns, tax baselines, units) and the core contains no UK constant, so adding a country is adding a pack, not editing code |
 | Wealth data | Official survey for the bulk plus a rich-list tail; the tail's uncertainty is a stated input range |
 | Build approach | Clean slate, port by exception |
@@ -52,12 +55,13 @@ Not carried over: the gain ladder, the fresh-entrant heir rule, strategy verdict
 - **Crosslinks (007w) and retiring the legacy folders (009c):** both wait for the rewrite and v3.
 
 ## 7. Open questions
-Closed on 2026-11-16: burden denominator (both, with comparators), rate family (highest-revenue thresholded v2 shape), UK-only (with R11).
-1. **Corporate levy.** v2 counts a corporate levy (CORP) inside "net revenue": it is calibrated to replace corporation tax and is 2.88% of GDP, more than the individual WDT (2.55%). Is the levy part of v3's government revenue, or reported separately, or left out?
-2. **Threshold.** The papers' canonical W_min is £2m. v2 set it to half the median house price (about £113k), which puts half of all adults and 93% of wealth in scope. Does v3 target the wealthy (a high threshold, sampled over a range) or a broad base?
-3. **Seed and sample size.** Explained to the author; proposal: a fixed seed recorded in every output, a sample large enough that P10, mean and P90 do not change at the reported precision when the seed changes, checked in stage C. Sample size is set by that test, not by choice.
-4. **Horizon, start years and returns.** Not calculated: chosen. The papers use N = 30. Whether returns come from replaying historical UK windows (as v1 and v2 did, 73 start years) or from sampling a return distribution fitted to history is a design choice for stage C.
-5. **Data gaps** (section 9), for the research brief 012r.
+Closed on 2026-11-16: burden denominator, rate family, UK-only, corporate levy (reported separately), threshold approach (policy intent above).
+1. **Which taxes are retired.** CGT, IHT, stamp duty and property taxes are named. Not yet settled: council tax, business rates, and corporation tax. v2 retired corporation tax and calibrated its levy to the same 3.08% of GDP, so counting the levy as revenue without netting corporation tax would double count the same money in the other direction.
+2. **Headline revenue definition.** Net fiscal effect with every line shown (proposed), or gross WDT and levy with the retired taxes as a separate cost line.
+3. **Unit of assessment.** v2 assesses each adult. The threshold reading (a couple's median home split between two) implies per adult; stage A confirms.
+4. **Seed and sample size.** Fixed seed recorded in every output; sample size set by a convergence test across seeds in stage C.
+5. **Horizon, start years and returns.** Chosen, not calculated. Replay of historical windows (v1 and v2) or a sampled return distribution fitted to history: stage C.
+6. **Data gaps** (section 9), for brief 012r.
 
 ## 8. Evidence for the rate family: v2 schedules run on UK windows
 A scratch run of v2's `rates_core` on a copy outside the repo (nothing committed): UK only, `start_stride` 5, 24 windows each, `gdp_pc` indexation, scenarios as defined in `model_v2/WDT_Params.toml`. v2 is incomplete and incorrect (author, 2026-11-16), so this ranks schedules; it is not a result.
@@ -80,7 +84,9 @@ A scratch run of v2's `rates_core` on a copy outside the repo (nothing committed
 **Held:** JST R6 (`Rates Data/JSTdatasetR6.xlsx`, `jst_r6.json`: returns, prices, GDP, 18 countries); ONS Wealth and Assets Survey tables for Great Britain (`totalwealthtables.xlsx`, `financialwealthtables.xlsx`; the v2 parameters use the 2016-18 wave); Advani, Bangham and Leslie (2021) top shares and the Sunday Times Rich List (2017/18 top 1,000 and 2025 top 350) as encoded in the v2 `[rates.dist]` sections; WID extract for 14 countries (`model_v2/wid_out/`, 81 MB, the long file is not tracked); IFS composition of UK revenue (`Revenue composition spreadsheet.xlsx`); headline UK tax rates and thresholds 2000-01 to 2023 (`maintax_2023.xlsx`); public sector expenditure tables (`PSS_May_2024_TES_UPDATED.xlsx`); the 1975 and 1988 rate-table parameter sets (`7.1_260716_Rates_Data_Tables.xlsx`); the Wealth Tax Commission background paper (`Research/`).
 **Useful to get (suggested, none yet checked):**
 1. The latest WAS wave (the v2 distribution is 2016-18 wealth with a 2025 Rich List mixed in).
-2. What the wealthy pay today: HMRC statistics on income tax by income band, capital gains tax (liabilities, gains realised, by gain size), inheritance tax, and dividend and savings income. Needed for the "versus today's income tax and CGT" comparison, and for the ratio of realised to accrued gains.
+2. What the people above the threshold pay today. That is about half of all adults, not only the very rich, so the data must cover the broad middle as well as the top: income tax by income band, capital gains tax (liabilities, gains realised, by gain size), inheritance tax, dividend and savings income. Needed for the comparison with today's income tax and CGT, and for the ratio of realised to accrued gains.
+2a. Receipts and payers of every retired tax: CGT, IHT, stamp duty (SDLT; LBTT and LTT outside England), council tax, and business rates and corporation tax if retired. Receipts are in `Revenue composition spreadsheet.xlsx`; who pays them, by wealth, is not.
+2b. A joint distribution of income by wealth (ONS WAS or HMRC). The v2 `[rates.replacement.income_by_wealth]` table is judgement placeholders, flagged as such in the parameter file, and decides who receives the savings.
 3. A reference set of suggested wealth taxes to compare against: Wealth Tax Commission proposals, the Zucman 2% above £1bn floor (already a v2 check), and any rate the author names.
 4. Behavioural ranges: avoidance, migration (the Norway leakage figure already in the Project Map) and valuation understatement, each with a low, central and high value.
 5. Pension, housing and business-asset treatment in the distribution (what counts as wealth for the threshold).
