@@ -611,3 +611,280 @@ Columns: **Sec** old section number; **Words** old words in the row; **Disp**: K
 | C.8 | C.8 Mean Growth Rate (g) | 229 | AR | - | Y | NEW:feasibility-map,NEW:tornado | v1 rate-parameter sensitivity sweep (v8 model) |
 | C.9 | C.9 Synthetic Growth Scenario (+2) | 327 | AR | - | Y | NEW:feasibility-map,NEW:tornado | v1 rate-parameter sensitivity sweep (v8 model) |
 | ~D. | D. Reading Notes | 172 | D | - | N | - | reading notes |
+
+## 10_Behavioural_Robustness_and_Administrative_Experience (8803 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 119 | AR | - | N | - | front matter |
+| rev | Revision History | 219 | AR | - | N | - | front matter |
+| abs | Abstract | 255 | AR | - | N | - | front matter |
+| gloss | Glossary | 487 | DL | glossary | N | - | merge into the build glossary |
+| 1 | 1. Introduction | 371 | M | S6 | N | - | introduction; complexity objection |
+| 2 | 2. Why Behaviour Cannot Be Predicted | 0 | K | S6 | N | - | why behaviour cannot be predicted; robustness as a design objective |
+| 2.1 | 2.1 What the Evidence Shows | 193 | K | S6 | N | - | why behaviour cannot be predicted; robustness as a design objective |
+| 2.2 | 2.2 Why the Numbers Don't Travel | 118 | K | S6 | N | - | why behaviour cannot be predicted; robustness as a design objective |
+| 2.3 | 2.3 The Design Implication | 73 | K | S6 | N | - | why behaviour cannot be predicted; robustness as a design objective |
+| 3 | 3. Behavioural Robustness as a Design Objective | 0 | K | S6 | N | - | why behaviour cannot be predicted; robustness as a design objective |
+| 3.1 | 3.1 The Concept Defined | 75 | K | S6 | N | - | why behaviour cannot be predicted; robustness as a design objective |
+| 3.2 | 3.2 What Robustness Is Not | 117 | K | S6 | N | - | why behaviour cannot be predicted; robustness as a design objective |
+| 3.3 | 3.3 The Same Logic Applied Twice | 72 | K | S6 | N | - | why behaviour cannot be predicted; robustness as a design objective |
+| 4 | 4. Sources of Behavioural Friction | 40 | K | S6 | N | - | five types of behavioural friction |
+| 4.1 | 4.1 Type I — Information Friction | 79 | K | S6 | N | - | five types of behavioural friction |
+| 4.2 | 4.2 Type II — Visibility Friction | 81 | K | S6 | N | - | five types of behavioural friction |
+| 4.3 | 4.3 Type III — Legitimacy Friction | 71 | K | S6 | N | - | five types of behavioural friction |
+| 4.4 | 4.4 Type IV — Feedback Friction | 57 | K | S6 | N | - | five types of behavioural friction |
+| 4.5 | 4.5 Type V — Compliance Friction | 85 | K | S6 | N | - | five types of behavioural friction |
+| 4.6 | 4.6 The Design Implication | 40 | K | S6 | N | - | five types of behavioural friction |
+| 5 | 5. Design Principles for Behavioural Robustness | 14 | M | S6 | N | - | five design principles |
+| 5.1 | 5.1 The Clarity Principle | 73 | M | S6 | N | - | five design principles |
+| 5.2 | 5.2 The Reciprocity Principle | 74 | M | S6 | N | - | five design principles |
+| 5.3 | 5.3 The Fairness Principle | 59 | M | S6 | N | - | five design principles |
+| 5.4 | 5.4 The Responsiveness Principle | 59 | M | S6 | N | - | five design principles |
+| 5.5 | 5.5 The Accessibility Principle | 59 | M | S6 | N | - | five design principles |
+| 5.6 | 5.6 The Personal Adviser Corps | 185 | K | S6 | N | - | Personal Adviser Corps |
+| 6 | 6. The Membrane | 0 | K | S6 | N | - | the Membrane: definition, health, how the WDT satisfies the principles |
+| 6.1 | 6.1 Definition | 130 | K | S6 | N | - | the Membrane: definition, health, how the WDT satisfies the principles |
+| 6.2 | 6.2 Membrane Health | 90 | K | S6 | N | - | the Membrane: definition, health, how the WDT satisfies the principles |
+| 6.3 | 6.3 The Interaction Structure of Membrane Health Dimensions | 944 | AR | - | N | - | interaction structure of membrane health dimensions (944 words, table) |
+| 6.4 | 6.4 How the WDT Satisfies the Five Principles | 498 | K | S6 | N | - | the Membrane: definition, health, how the WDT satisfies the principles |
+| 7 | 7. The Nine Behavioural Shapes | 41 | K | S6 | P | - | nine behavioural shapes; no v3 output models shapes, only the driver D5 range |
+| 7.1 | 7.1 Shape 1 — Full Cooperative Compliance | 50 | K | S6 | P | - | nine behavioural shapes; no v3 output models shapes, only the driver D5 range |
+| 7.2 | 7.2 Shape 2 — Passive Non-Optimisation | 69 | K | S6 | P | - | nine behavioural shapes; no v3 output models shapes, only the driver D5 range |
+| 7.3 | 7.3 Shape 3 — Active Optimisation Within the Rules | 80 | K | S6 | P | - | nine behavioural shapes; no v3 output models shapes, only the driver D5 range |
+| 7.4 | 7.4 Shape 4 — Avoidance Through Restructuring | 88 | K | S6 | P | - | nine behavioural shapes; no v3 output models shapes, only the driver D5 range |
+| 7.5 | 7.5 Shape 5 — Deferral and Timing Manipulation | 79 | K | S6 | P | - | nine behavioural shapes; no v3 output models shapes, only the driver D5 range |
+| 7.6 | 7.6 Shape 6 — Migration of Assets Without Personal Exit | 70 | K | S6 | P | - | nine behavioural shapes; no v3 output models shapes, only the driver D5 range |
+| 7.7 | 7.7 Shape 7 — Personal Exit | 130 | K | S6 | P | - | nine behavioural shapes; no v3 output models shapes, only the driver D5 range |
+| 7.8 | 7.8 Shape 8 — Partial Exit | 83 | K | S6 | P | - | nine behavioural shapes; no v3 output models shapes, only the driver D5 range |
+| 7.9 | 7.9 Shape 9 — Active Resistance and Non-Compliance | 114 | K | S6 | P | - | nine behavioural shapes; no v3 output models shapes, only the driver D5 range |
+| 7.10 | 7.10 The Distribution as a Whole | 82 | K | S6 | P | - | nine behavioural shapes; no v3 output models shapes, only the driver D5 range |
+| 8 | 8. The Enforcement Paradigm Shift | 0 | K | S6 | N | - | passive collection rather than active detection |
+| 8.1 | 8.1 Passive Collection Rather Than Active Detection | 301 | K | S6 | N | - | passive collection rather than active detection |
+| 8.2 | 8.2 The Route Distribution | 441 | K | S6 | Y | NEW:composition | route distribution: Route D 10 to 20% of taxable wealth; share of base by route is an input |
+| 9 | 9. Principal Objections | 0 | K | S6 | P | - | the wealthy will leave |
+| 9.1 | 9.1 The Wealthy Will Leave | 263 | K | S6 | P | - | the wealthy will leave |
+| 9.2 | 9.2 The Cross-Base Fiscal Externality | 422 | K | S6 | Y | NEW:cross-base | cross-base fiscal externality (Agrawal); net fiscal effect after migration is not an output |
+| 9.3 | 9.3 The Complexity Objection | 107 | M | S6 | N | - | introduction; complexity objection |
+| 9.4 | 9.4 The Membrane Is Undeliverable | 75 | M | S12 | N | - | undeliverable membrane, rebranding failure, modelling gaps, Agrawal net-effect question |
+| 9.5 | 9.5 Robustness Is Rebranding Failure | 91 | M | S12 | N | - | undeliverable membrane, rebranding failure, modelling gaps, Agrawal net-effect question |
+| 10 | 10. Phase Sequencing | 0 | M | S10 | N | - | phase sequencing; duplicates WP 7 and PHASE1 |
+| 10.1 | 10.1 Phase One — Implementation | 126 | M | S10 | N | - | phase sequencing; duplicates WP 7 and PHASE1 |
+| 10.2 | 10.2 Phase Two — Stabilisation | 112 | M | S10 | N | - | phase sequencing; duplicates WP 7 and PHASE1 |
+| 10.3 | 10.3 Phase Three and Membrane Calcification | 71 | M | S10 | N | - | phase sequencing; duplicates WP 7 and PHASE1 |
+| 10.4 | 10.4 Sequencing as a Design Variable | 67 | M | S10 | N | - | phase sequencing; duplicates WP 7 and PHASE1 |
+| 11 | 11. Limitations | 0 | D | - | N | - | limitations register and conclusion |
+| 11.1 | 11.1 Formal Modelling Gaps | 264 | M | S12 | N | - | undeliverable membrane, rebranding failure, modelling gaps, Agrawal net-effect question |
+| 11.2 | 11.2 Phase One Empirical Unknowns | 130 | M | S12 | N | - | undeliverable membrane, rebranding failure, modelling gaps, Agrawal net-effect question |
+| 11.3 | 11.3 Structural Limits of the Design | 121 | D | - | N | - | limitations register and conclusion |
+| 11.4 | 11.4 Governing Council Calibration Parameters | 6 | D | - | N | - | limitations register and conclusion |
+| 12 | 12. Conclusion | 583 | D | - | N | - | limitations register and conclusion |
+
+## 10a_Behavioural_Robustness_and_Administrative_Experience_Appendix (4643 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 85 | AR | - | N | - | front matter |
+| rev | Revision History | 57 | AR | - | N | - | front matter |
+| ~A. | A. Route Distribution and Enforcement Residual | 52 | DL | input register | Y | NEW:composition | asset-class walkthrough by route; feeds the share of base by route |
+| A.1 | A.1 Classification Logic | 186 | DL | input register | Y | NEW:composition | asset-class walkthrough by route; feeds the share of base by route |
+| A.2 | A.2 Route A — Professional Valuation, Fungible | 191 | DL | input register | Y | NEW:composition | asset-class walkthrough by route; feeds the share of base by route |
+| A.3 | A.3 Route C — Self-Declaration, Fungible | 150 | DL | input register | Y | NEW:composition | asset-class walkthrough by route; feeds the share of base by route |
+| A.4 | A.4 Route B — Professional Valuation, Non-Fungible | 189 | DL | input register | Y | NEW:composition | asset-class walkthrough by route; feeds the share of base by route |
+| A.5 | A.5 Route D — Self-Declaration, Non-Fungible | 233 | DL | input register | Y | NEW:composition | asset-class walkthrough by route; feeds the share of base by route |
+| A.6 | A.6 Edge Cases and Classification Ambiguities | 320 | M | S4 | N | - | classification edge cases; why the bias toward Routes A and B is structurally positive |
+| A.7 | A.7 Why the Bias Toward Routes A and B Is Structurally Posit | 273 | M | S4 | N | - | classification edge cases; why the bias toward Routes A and B is structurally positive |
+| ~B. | B. Membrane Calcification and the Monitoring Architecture | 28 | M | S12 | N | - | membrane calcification, the honest limit |
+| B.1 | B.1 The Nature of the Problem | 217 | M | S12 | N | - | membrane calcification, the honest limit |
+| B.2 | B.2 The Monitoring Instrument | 135 | AR | - | N | - | monitoring architecture detail |
+| B.3 | B.3 The Taxpayer Chamber as Monitor | 120 | AR | - | N | - | monitoring architecture detail |
+| B.4 | B.4 The Internal TP Voting Structure | 222 | AR | - | N | - | monitoring architecture detail |
+| B.5 | B.5 The Allocator as Fairness Signal | 143 | AR | - | N | - | monitoring architecture detail |
+| B.6 | B.6 The TP/DR Coalition and the FS Constraint | 130 | AR | - | N | - | monitoring architecture detail |
+| B.7 | B.7 The Honest Limit | 138 | M | S12 | N | - | membrane calcification, the honest limit |
+| ~C. | C. The Membrane in Practice — Institutional Examples | 25 | AR | - | N | - | membrane examples from banking, water and insurance |
+| C.1 | C.1 A Healthy Membrane — Retail Banking | 145 | AR | - | N | - | membrane examples from banking, water and insurance |
+| C.2 | C.2 Monopoly-Induced Degradation — Water Utilities | 191 | AR | - | N | - | membrane examples from banking, water and insurance |
+| C.3 | C.3 Interest-Aligned Degradation — Mandatory Insurance Marke | 214 | AR | - | N | - | membrane examples from banking, water and insurance |
+| ~D. | D. The Cross-Base Fiscal Externality — Full Response | 64 | K | S6 | P | NEW:cross-base | seven-part response to the Agrawal finding |
+| D.1 | D.1 The Jurisdictional Transfer Caveat | 167 | K | S6 | P | NEW:cross-base | seven-part response to the Agrawal finding |
+| D.2 | D.2 The Rate Calibration Lever | 142 | K | S6 | P | NEW:cross-base | seven-part response to the Agrawal finding |
+| D.3 | D.3 The Timeline Extension Buffer | 147 | K | S6 | P | NEW:cross-base | seven-part response to the Agrawal finding |
+| D.4 | D.4 The Re-Entry Rule and the Externality's Temporal Shape | 187 | K | S6 | P | NEW:cross-base | seven-part response to the Agrawal finding |
+| D.5 | D.5 The Immigration Possibility | 492 | K | S6 | P | NEW:cross-base | seven-part response to the Agrawal finding |
+
+## 11_Position_Closure (11415 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 106 | AR | - | N | - | front matter |
+| rev | Revision History | 219 | AR | - | N | - | front matter |
+| abs | Abstract | 196 | AR | - | N | - | front matter |
+| gloss | Glossary | 761 | DL | glossary | N | - | 761 words; merge into the build glossary |
+| 1 | 1. Intellectual Context and Prior Literature | 43 | M | S2 | N | - | exit tax, migration and insolvency literature |
+| 1.1 | 1.1 Conventional Exit Tax Design | 142 | M | S2 | N | - | exit tax, migration and insolvency literature |
+| 1.2 | 1.2 The Wealth Tax Migration Literature | 285 | M | S2 | N | - | exit tax, migration and insolvency literature |
+| 1.3 | 1.3 Insolvency and Taxation | 96 | M | S2 | N | - | exit tax, migration and insolvency literature |
+| 1.4 | 1.4 What the Literature Leaves Unresolved | 121 | M | S2 | N | - | exit tax, migration and insolvency literature |
+| 2 | 2. The General Theory of Position Closure | 826 | K | S3 | N | - | general theory of position closure; what the mechanism owes at closure |
+| 3 | 3. What the Mechanism Owes at Closure | 587 | K | S3 | N | - | general theory of position closure; what the mechanism owes at closure |
+| 4 | 4. The Four Closure Event Types | 0 | K | S3 | N | - | death, death auction waiver, exit, bankruptcy |
+| 4.1 | 4.1 Death | 1198 | K | S3 | N | - | death, death auction waiver, exit, bankruptcy |
+| 4.1.1 | 4.1.1 The Death Auction Waiver | 431 | K | S3 | N | - | death, death auction waiver, exit, bankruptcy |
+| 4.2 | 4.2 Jurisdictional Exit | 413 | K | S3 | N | - | death, death auction waiver, exit, bankruptcy |
+| 4.3 | 4.3 Threshold Fall-Through | 425 | K | S3 | P | NEW:churn | threshold fall-through; refund volume at fall-through grows as the threshold drops |
+| 4.4 | 4.4 Bankruptcy | 460 | K | S3 | N | - | death, death auction waiver, exit, bankruptcy |
+| 4.5 | 4.5 Incarceration and Criminal Forfeiture (+4) | 1226 | AR | - | N | - | incarceration and criminal forfeiture; edge-case rules for statute drafting |
+| 5 | 5. The Closure Bond Facility | 109 | K | S7 | N | - | closure bond facility (SWF) |
+| 5.1 | 5.1 Bond Mechanics | 321 | K | S7 | N | - | closure bond facility (SWF) |
+| 5.2 | 5.2 Death Variant | 130 | K | S7 | N | - | closure bond facility (SWF) |
+| 5.3 | 5.3 Exit Variant | 182 | K | S7 | N | - | closure bond facility (SWF) |
+| 5.4 | 5.4 Bankruptcy Variant | 217 | K | S7 | N | - | closure bond facility (SWF) |
+| 6 | 6. The Re-entry Rule | 486 | K | S3 | N | - | the re-entry rule |
+| 7 | 7. Phase Sequencing | 0 | M | S10 | N | - | phase sequencing |
+| 7.1 | 7.1 Phase One | 236 | M | S10 | N | - | phase sequencing |
+| 7.2 | 7.2 Phase Two | 168 | M | S10 | N | - | phase sequencing |
+| 8 | 8. Principal Objections | 0 | K | S6 | N | - | compulsion and double taxation objections to exit closure |
+| 8.1 | 8.1 The Compulsion Objection | 202 | K | S6 | N | - | compulsion and double taxation objections to exit closure |
+| 8.2 | 8.2 The Double Taxation Objection | 122 | K | S6 | N | - | compulsion and double taxation objections to exit closure |
+| 8.3 | 8.3 The Re-entry Asymmetry Objection | 190 | M | S3 | N | - | re-entry asymmetry and beyond-lifetime-cap objections |
+| 8.4 | 8.4 The Beyond-Lifetime-Cap Objection | 504 | M | S3 | N | - | re-entry asymmetry and beyond-lifetime-cap objections |
+| 9 | 9. Limitations and Required Further Work | 0 | D | - | N | - | limitations register and conclusion |
+| 9.1 | 9.1 Formal modelling gaps | 5 | D | - | N | - | limitations register and conclusion |
+| 9.2 | 9.2 Phase One empirical unknowns | 157 | M | S12 | P | - | number of exits and fall-through rates unknown |
+| 9.3 | 9.3 Jurisdiction-specific legal and implementation work | 206 | D | - | N | - | limitations register and conclusion |
+| 9.4 | 9.4 Structural and irreducible limits of the design | 60 | D | - | N | - | limitations register and conclusion |
+| 9.5 | 9.5 Governing Council calibration parameters | 223 | DL | parameter register | N | - | closure bond sizing ratios |
+| 10 | 10. Conclusion | 362 | D | - | N | - | limitations register and conclusion |
+
+## 12_Political_Architecture (11664 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 110 | AR | - | N | - | front matter |
+| rev | Revision History | 110 | AR | - | N | - | front matter |
+| abs | Abstract | 390 | AR | - | N | - | front matter |
+| gloss | Glossary | 554 | DL | glossary | N | - | merge into the build glossary |
+| 1 | 1. Introduction | 305 | D | - | N | - | introduction and conclusion |
+| 2 | 2. Intellectual Context and Prior Literature | 395 | M | S2 | N | - | political economy literature |
+| 3 | 3. Why Wealth Taxes Fail Politically | 52 | K | S10 | N | - | why wealth taxes fail politically: legitimacy, organised opposition, brittleness, the spiral |
+| 3.1 | 3.1 The Empirical Pattern | 238 | K | S10 | N | - | why wealth taxes fail politically: legitimacy, organised opposition, brittleness, the spiral |
+| 3.2 | 3.2 Three Structural Mechanisms | 124 | K | S10 | N | - | why wealth taxes fail politically: legitimacy, organised opposition, brittleness, the spiral |
+| 3.3 | 3.3 Mechanism One: Legitimacy Collapse | 406 | K | S10 | N | - | why wealth taxes fail politically: legitimacy, organised opposition, brittleness, the spiral |
+| 3.4 | 3.4 Mechanism Two: Organised Opposition Advantage | 324 | K | S10 | N | - | why wealth taxes fail politically: legitimacy, organised opposition, brittleness, the spiral |
+| 3.5 | 3.5 Mechanism Three: Institutional Brittleness | 477 | K | S10 | N | - | why wealth taxes fail politically: legitimacy, organised opposition, brittleness, the spiral |
+| 3.6 | 3.6 The Spiral | 160 | K | S10 | N | - | why wealth taxes fail politically: legitimacy, organised opposition, brittleness, the spiral |
+| 3.7 | 3.7 Why Revenue Is Not the Failure Mode | 164 | K | S10 | N | - | why wealth taxes fail politically: legitimacy, organised opposition, brittleness, the spiral |
+| 4 | 4. Political Durability as a Design Property | 665 | K | S10 | N | - | political durability as a design property; redundancy; offer to professional services |
+| 5 | 5. The WDT's Political Architecture | 175 | K | S10 | N | - | political durability as a design property; redundancy; offer to professional services |
+| 5.1 | 5.1 The Symmetric Loss-Refund Mechanism | 416 | M | S3 | N | - | symmetric refund; duplicates WP 3.5 |
+| 5.2 | 5.2 The Sovereign Wealth Fund | 228 | M | S7 | N | - | the SWF |
+| 5.3 | 5.3 The Labour Relief Dividend | 346 | K | S7 | Y | O4a,O4b,NEW:labour-dividend | labour relief dividend; 618 pounds a month at median earnings |
+| 5.4 | 5.4 The Taxpayer Chamber | 278 | M | S9 | N | - | Taxpayer Chamber, Dividend Recipient Chamber, enumerated clauses |
+| 5.5 | 5.5 The Dividend Recipient Chamber | 262 | M | S9 | N | - | Taxpayer Chamber, Dividend Recipient Chamber, enumerated clauses |
+| 5.6 | 5.6 The Enumerated Structural Clauses | 208 | M | S9 | N | - | Taxpayer Chamber, Dividend Recipient Chamber, enumerated clauses |
+| 5.7 | 5.7 Redundancy and the Failure Rate | 256 | K | S10 | N | - | political durability as a design property; redundancy; offer to professional services |
+| 5.8 | 5.8 The Cooperative Offer to the Displaced Professional Serv | 238 | K | S10 | N | - | political durability as a design property; redundancy; offer to professional services |
+| 6 | 6. The Credibility Bootstrapping Problem | 73 | K | S10 | N | - | credibility bootstrapping, vulnerability window, Phase One as a political term |
+| 6.1 | 6.1 The Vulnerability Window | 144 | K | S10 | N | - | credibility bootstrapping, vulnerability window, Phase One as a political term |
+| 6.2 | 6.2 The Accidental Hostage and the Deliberate Stake | 261 | K | S10 | N | - | credibility bootstrapping, vulnerability window, Phase One as a political term |
+| 6.3 | 6.3 The Thought Experiment | 145 | K | S10 | N | - | credibility bootstrapping, vulnerability window, Phase One as a political term |
+| 6.4 | 6.4 Phase One Parameters as Politically Determined | 289 | K | S10 | N | - | credibility bootstrapping, vulnerability window, Phase One as a political term |
+| 6.5 | 6.5 The SRR Milestone as Political Threshold | 268 | K | S10 | P | OP1 | SRR milestone as political threshold |
+| 6.6 | 6.6 Phase One as a Political Term | 195 | K | S10 | N | - | credibility bootstrapping, vulnerability window, Phase One as a political term |
+| 6.7 | 6.7 The Calcification Ceiling and the Honest Limitation | 418 | K | S10 | N | - | credibility bootstrapping, vulnerability window, Phase One as a political term |
+| 7 | 7. The Self-Shaping Problem | 251 | M | S12 | N | - | self-shaping problem; objections about falsifiability and circularity; limitations |
+| 8 | 8. Principal Objections | 0 | K | S10 | N | - | bootstrapping and too-radical objections |
+| 8.1 | 8.1 The Political Durability Claim Is Unfalsifiable | 188 | M | S12 | N | - | self-shaping problem; objections about falsifiability and circularity; limitations |
+| 8.2 | 8.2 The Redundancy Argument Proves Too Much | 224 | M | S12 | N | - | self-shaping problem; objections about falsifiability and circularity; limitations |
+| 8.3 | 8.3 The Bootstrapping Problem Is Fatal | 186 | K | S10 | N | - | bootstrapping and too-radical objections |
+| 8.4 | 8.4 The Tiered Citizenship Risk Is the Point | 259 | M | S1 | N | - | tiered citizenship objections; duplicate POL.A |
+| 8.5 | 8.5 The Existing-Tiers Argument Is a Deflection | 192 | M | S1 | N | - | tiered citizenship objections; duplicate POL.A |
+| 8.6 | 8.6 Democratic Flourishing as the Terminal Goal Is Circular | 237 | M | S12 | N | - | self-shaping problem; objections about falsifiability and circularity; limitations |
+| 8.7 | 8.7 The Governance Structure Is Too Radical to Be Adopted | 231 | K | S10 | N | - | bootstrapping and too-radical objections |
+| 8.8 | 8.8 The Cross-Base Externality Makes the Emigration Risk Unm | 69 | D | - | N | - | cross-base externality; covered in BEHAV 9.2 |
+| 9 | 9. Limitations and Further Work | 0 | D | - | N | - | limitations register |
+| 9.1 | 9.1 Formal modelling gaps | 117 | M | S12 | N | - | self-shaping problem; objections about falsifiability and circularity; limitations |
+| 9.2 | 9.2 Phase One empirical unknowns | 162 | M | S12 | N | - | self-shaping problem; objections about falsifiability and circularity; limitations |
+| 9.3 | 9.3 Jurisdiction-specific legal and implementation work | 26 | D | - | N | - | limitations register |
+| 9.4 | 9.4 Structural and irreducible limits of the design | 260 | M | S12 | N | - | self-shaping problem; objections about falsifiability and circularity; limitations |
+| 9.5 | 9.5 Governing Council calibration parameters | 6 | D | - | N | - | limitations register |
+| 10 | 10. Conclusion | 582 | D | - | N | - | introduction and conclusion |
+
+## 12a_Political_Architecture_Appendix (2046 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 111 | AR | - | N | - | front matter |
+| rev | Revision History | 26 | AR | - | N | - | front matter |
+| ~A. | A. The Tiered Citizenship Problem | 23 | K | S1 | N | - | the tiered citizenship problem |
+| A.1 | A.1 We Already Live in a Tiered Society | 388 | K | S1 | N | - | the tiered citizenship problem |
+| A.2 | A.2 The Tiered Citizenship Risk | 250 | K | S1 | N | - | the tiered citizenship problem |
+| A.3 | A.3 Why the WDT Is Not Feudalism | 353 | K | S1 | N | - | the tiered citizenship problem |
+| A.4 | A.4 Equality of Outcome Is the Wrong Goal | 223 | K | S1 | N | - | the tiered citizenship problem |
+| A.5 | A.5 The Small Community Illustration | 287 | K | S1 | N | - | the tiered citizenship problem |
+| A.6 | A.6 The Limits of Mechanism | 169 | K | S1 | N | - | the tiered citizenship problem |
+| A.7 | A.7 A Remarkable Problem | 216 | M | S12 | N | - | a remarkable problem: success raises the stakes |
+
+## 13_Phase_One (6635 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 116 | AR | - | N | - | front matter |
+| rev | Revision History | 99 | AR | - | N | - | front matter |
+| abs | Abstract | 305 | AR | - | N | - | front matter |
+| gloss | Glossary | 225 | DL | glossary | N | - | merge into the build glossary |
+| 1 | 1. Introduction | 244 | D | - | N | - | introduction, conclusion, limitations register |
+| 2 | 2. The Boundary of Desk Research | 283 | K | S10 | P | - | boundary of desk research; working assumptions in force; v3 ranges replace point assumptions |
+| 3 | 3. The Working Assumptions Currently in Force | 690 | K | S10 | P | - | boundary of desk research; working assumptions in force; v3 ranges replace point assumptions |
+| 4 | 4. The Empirical Clusters | 0 | K | S10 | P | - | the seven empirical clusters Phase One must answer |
+| 4.1 | 4.1 Behavioural Response to Cooperative Architecture | 228 | K | S10 | P | - | the seven empirical clusters Phase One must answer |
+| 4.2 | 4.2 Avoidance Under Imperfect Compliance | 244 | K | S10 | P | - | the seven empirical clusters Phase One must answer |
+| 4.3 | 4.3 Migration and the Cross-Base Externality | 299 | K | S10 | P | - | the seven empirical clusters Phase One must answer |
+| 4.4 | 4.4 Valuation Route and Assessment Window Adoption | 257 | K | S10 | P | - | the seven empirical clusters Phase One must answer |
+| 4.5 | 4.5 Administrative Intervention Effects | 332 | K | S10 | P | - | the seven empirical clusters Phase One must answer |
+| 4.6 | 4.6 OBR Independence — Empirical Assessment | 272 | K | S10 | P | - | the seven empirical clusters Phase One must answer |
+| 4.7 | 4.7 Corporate Instrument Transition | 212 | K | S10 | P | - | the seven empirical clusters Phase One must answer |
+| 5 | 5. What Phase One Would Need to Measure | 39 | M | S10 | N | - | prospective measurement designs |
+| 5.1 | 5.1 Measuring Behavioural Response to the Cooperative Archit | 261 | M | S10 | N | - | prospective measurement designs |
+| 5.2 | 5.2 Measuring Avoidance Under Imperfect Compliance | 247 | M | S10 | N | - | prospective measurement designs |
+| 5.3 | 5.3 Measuring the Cross-Base Externality | 281 | M | S10 | N | - | prospective measurement designs |
+| 5.4 | 5.4 Measuring Valuation Route and Assessment Window Adoption | 204 | M | S10 | N | - | prospective measurement designs |
+| 5.5 | 5.5 Measuring Administrative Intervention Effects | 340 | M | S10 | N | - | prospective measurement designs |
+| 5.6 | 5.6 Measuring OBR Independence | 255 | M | S10 | N | - | prospective measurement designs |
+| 5.7 | 5.7 Measuring the Corporate Instrument Transition | 262 | M | S10 | N | - | prospective measurement designs |
+| 6 | 6. Limitations and Further Work | 0 | D | - | N | - | introduction, conclusion, limitations register |
+| 6.1 | 6.1 Formal modelling gaps | 17 | D | - | N | - | introduction, conclusion, limitations register |
+| 6.2 | 6.2 Phase One empirical unknowns | 81 | D | - | N | - | introduction, conclusion, limitations register |
+| 6.3 | 6.3 Jurisdiction-specific legal and implementation work | 230 | D | - | N | - | introduction, conclusion, limitations register |
+| 6.4 | 6.4 Structural and irreducible limits of the design | 44 | D | - | N | - | introduction, conclusion, limitations register |
+| 6.5 | 6.5 Governing Council calibration parameters | 192 | DL | parameter register | N | - | calibration parameters |
+| 7 | 7. Conclusion | 376 | D | - | N | - | introduction, conclusion, limitations register |
+
+## 15_First_Mover (4143 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 92 | AR | - | N | - | front matter |
+| rev | Revision History | 131 | AR | - | N | - | front matter |
+| abs | Abstract | 96 | AR | - | N | - | front matter |
+| gloss | Glossary | 346 | DL | glossary | N | - | merge into the build glossary |
+| 1 | 1. The Binary | 653 | K | S10 | N | - | the binary; why the middle option does not exist |
+| 2 | 2. Why The Middle Option Doesn't Exist | 945 | K | S10 | N | - | the binary; why the middle option does not exist |
+| 3 | 3. What Each Strategy Delivers | 0 | K | S10 | Y | OP1,O1 | commit and compound; cites the 73-window reserve fill and 125.5% coverage, v1 only |
+| 3.1 | 3.1 The First Strategy: Commit and Compound | 546 | K | S10 | Y | OP1,O1 | commit and compound; cites the 73-window reserve fill and 125.5% coverage, v1 only |
+| 3.2 | 3.2 The Second Strategy: Suppress Before Demonstration | 841 | K | S10 | N | - | suppress before demonstration |
+| 4 | 4. The Record | 493 | AR | - | N | - | the record as of August 2026; dated |
+
+## 16_Modular_Adoption (2163 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 100 | AR | - | N | - | front matter |
+| rev | Revision History | 30 | AR | - | N | - | front matter |
+| abs | Abstract | 165 | AR | - | N | - | front matter |
+| gloss | Glossary | 213 | DL | glossary | N | - | merge into the build glossary |
+| 1 | 1. The Two Categories | 366 | K | S10 | N | - | the two categories, why infrastructure accrues, what accretion delivers |
+| 2 | 2. Why Infrastructure Accrues | 527 | K | S10 | N | - | the two categories, why infrastructure accrues, what accretion delivers |
+| 3 | 3. What Accretion Delivers | 408 | K | S10 | N | - | the two categories, why infrastructure accrues, what accretion delivers |
+| 4 | 4. The Relationship to the Binary | 354 | M | S10 | N | - | relationship to the binary |
