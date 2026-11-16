@@ -4,6 +4,7 @@
 # summary: how the output is reported. p10_mean_p90 = sampled range (R5).
 version: draft
 country_pack: UK
+horizons: [transition, short, long]   # every headline and line is reported for all three
 outputs:
   - {id: O1,   metric: M1,  title: "Government revenue, net fiscal effect",       summary: p10_mean_p90, lines: [M1a, M1b, M1c, M1d], element: TBD, kind: headline}
   - {id: O1a,  metric: M1a, title: "Individual WDT net of refunds",               summary: p10_mean_p90, element: TBD, kind: line}
@@ -12,10 +13,12 @@ outputs:
   - {id: O1d,  metric: M1e, title: "Receipts of retired taxes, one line per tax", summary: p10_mean_p90, element: TBD, kind: line, per: [corporation_tax, council_tax, business_rates, capital_gains_tax, inheritance_tax, stamp_duties_property, stamp_taxes_shares]}
   - {id: O2,   metric: M2,  title: "Taxpayer burden, share of wealth",            summary: p10_mean_p90, by: [overall, wealth_band], element: TBD, kind: headline}
   - {id: O3,   metric: M3,  title: "Taxpayer burden, gain-weighted lifetime rate", summary: p10_mean_p90, element: TBD, kind: headline}
-  - {id: O4a,  metric: M4a, title: "Non-payer savings, share of tax bill",        summary: p10_mean_p90, element: TBD, kind: headline}
-  - {id: O4b,  metric: M4b, title: "Non-payer savings, share of income",          summary: p10_mean_p90, element: TBD, kind: headline}
+  - {id: O4a,  metric: M4a, title: "Non-payer savings, share of tax bill",        summary: p10_mean_p90, by: [overall, income_decile], element: TBD, kind: headline}
+  - {id: O4b,  metric: M4b, title: "Non-payer savings, share of income",          summary: p10_mean_p90, by: [overall, income_decile], element: TBD, kind: headline}
   - {id: O5,   metric: M5,  title: "Burden against suggested wealth taxes",       summary: p10_mean_p90, element: TBD, kind: comparison}
   - {id: O6,   metric: M6,  title: "Burden against today's income tax, CGT and IHT", summary: p10_mean_p90, element: TBD, kind: comparison}
   - {id: O7,   metric: M7,  title: "Tolerant zone (C.1 over TW(1))",              summary: point_and_range, element: TBD, kind: supporting}
   - {id: OP1,  metric: P1,  title: "Reserve fill years",                          summary: p10_mean_p90, element: TBD, kind: path}
+  - {id: OP4,  metric: P4,  title: "Sustainability: long-term over short-term revenue, and first year below zero", summary: p10_mean_p90, element: TBD, kind: path}
+  - {id: OP5,  metric: P5,  title: "Year each retired tax is retired",           summary: p10_mean_p90, element: TBD, kind: path}
   - {id: OP3,  metric: P3,  title: "Cumulative shortfall (proof of staged retirement)", summary: p10_mean_p90, element: TBD, kind: path}

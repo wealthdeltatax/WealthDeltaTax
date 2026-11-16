@@ -48,5 +48,5 @@ Writing model code, fixing v1 or v2, writing or editing papers, choosing the whi
 - **Gotchas:**
 - **Resume:**
 - **Not run:**
-- **State:** stage A drafted; waiting for the author's review (five open items at the end of `docs/model-v3/metrics.md`)
+- **State:** stage A drafted; waiting for the author's review (four confirmations at the end of `docs/model-v3/metrics.md`)
 <!-- progress:end -->

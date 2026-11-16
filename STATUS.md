@@ -15,7 +15,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent 5 | Free | none planned |
 
 ## Waiting on the author
-- Review 011g stage A: `docs/model-v3/metrics.md` and `docs/model-v3/outputs.yml` (five open items at the end of the metrics file: reporting year, retirement order and trigger, burden weighting and discount rate, who counts as a non-payer, the suggested wealth taxes for comparison).
+- Confirm four items to pass 011g stage A (end of `docs/model-v3/metrics.md`): the cut points of the short and long windows, the default retirement order, the M2 formula against the RATES paper, and the life length for the lifetime rate.
 - Optional: rename the `wdt-web` skill to `wdt-site` for consistency (logged in `docs/brief-suggestions.md`; touches the stub, the `.skill`, `AGENTS.md`, `docs/agents/`, `OVERVIEW.md` and the account skill).
 - Settled 2026-11-16: Zenodo sandbox token (non-critical, left); revenue calculator (replaced after model v3); letter `s` kept; old uploaded skills removed.
 
