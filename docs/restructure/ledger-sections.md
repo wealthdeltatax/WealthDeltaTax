@@ -861,6 +861,37 @@ Columns: **Sec** old section number; **Words** old words in the row; **Disp**: K
 | 6.5 | 6.5 Governing Council calibration parameters | 192 | DL | parameter register | N | - | calibration parameters |
 | 7 | 7. Conclusion | 376 | D | - | N | - | introduction, conclusion, limitations register |
 
+## 14_Environmental_Effects_and_Transmission_Channels (10385 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 125 | AR | - | N | - | front matter |
+| rev | Revision History | 101 | AR | - | N | - | front matter |
+| abs | Abstract | 338 | AR | - | N | - | front matter |
+| gloss | Glossary | 308 | DL | glossary | N | - | merge into the build glossary |
+| 1 | 1. The Paper's Place in the Series | 405 | D | - | N | - | place in the series, limitations register, conclusion |
+| 2 | 2. The Predicted Rational Equilibrium | 698 | M | S4 | N | - | predicted rational equilibrium; duplicates VAL 7 |
+| 3 | 3. Capital Allocation and Velocity | 890 | K | S11 | N | - | capital allocation and velocity (hypothesis H2a) |
+| 4 | 4. The Displacement Channel and Labour Markets | 0 | M | S7 | N | - | staged displacement of labour taxes |
+| 4.1 | 4.1 Staged Displacement | 280 | M | S7 | N | - | staged displacement of labour taxes |
+| 4.2 | 4.2 The NICs Case | 457 | M | S11 | P | O4a,O4b | NICs case and household effects; duplicate LDW 2 |
+| 4.3 | 4.3 Automation and the Labour Tax Base | 433 | K | S11 | N | - | automation and the labour tax base, existing responses, tax-base migration, stress test, what the WDT does not solve |
+| 4.4 | 4.4 What Existing Responses Address | 361 | K | S11 | N | - | automation and the labour tax base, existing responses, tax-base migration, stress test, what the WDT does not solve |
+| 4.5 | 4.5 Tax-Base Migration | 355 | K | S11 | N | - | automation and the labour tax base, existing responses, tax-base migration, stress test, what the WDT does not solve |
+| 4.6 | 4.6 Displacement Effects on Households | 651 | M | S11 | P | O4a,O4b | NICs case and household effects; duplicate LDW 2 |
+| 4.7 | 4.7 Extreme Automation as a Stress Test | 224 | K | S11 | N | - | automation and the labour tax base, existing responses, tax-base migration, stress test, what the WDT does not solve |
+| 4.8 | 4.8 What the WDT Does Not Solve | 204 | K | S11 | N | - | automation and the labour tax base, existing responses, tax-base migration, stress test, what the WDT does not solve |
+| 5 | 5. The Consumption Multiplier and Growth Feedback | 795 | K | S11 | P | - | consumption multiplier and growth feedback; v3 is partial equilibrium, so the claim stays structural |
+| 6 | 6. Financial System Stability | 936 | K | S11 | N | - | financial system stability; inflation response and countercyclical architecture |
+| 7 | 7. Inflation Response and Countercyclical Architecture | 714 | K | S11 | N | - | financial system stability; inflation response and countercyclical architecture |
+| 8 | 8. Housing and Distributional Consequences | 374 | K | S11 | Y | OS1 | housing and distributional consequences; capitalisation of retired property taxes |
+| 9.1 | 9.1 Formal modelling gaps | 88 | D | - | N | - | place in the series, limitations register, conclusion |
+| 9.2 | 9.2 Phase One empirical unknowns (+4) | 604 | M | S12 | N | - | empirical unknowns (multiplier, housing, bias direction, automation) and structural limits |
+| 9.3 | 9.3 Jurisdiction-specific legal and implementation work | 24 | D | - | N | - | place in the series, limitations register, conclusion |
+| 9.4 | 9.4 Structural and irreducible limits of the design | 358 | M | S12 | N | - | empirical unknowns (multiplier, housing, bias direction, automation) and structural limits |
+| 9.5 | 9.5 Governing Council calibration parameters | 31 | DL | parameter register | N | - | inflationary rotation trigger |
+| 10 | 10. Conclusion | 631 | D | - | N | - | place in the series, limitations register, conclusion |
+
 ## 15_First_Mover (4143 words)
 
 | Sec | Section | Words | Disp | Target | Model | Demands | Note |
@@ -888,3 +919,233 @@ Columns: **Sec** old section number; **Words** old words in the row; **Disp**: K
 | 2 | 2. Why Infrastructure Accrues | 527 | K | S10 | N | - | the two categories, why infrastructure accrues, what accretion delivers |
 | 3 | 3. What Accretion Delivers | 408 | K | S10 | N | - | the two categories, why infrastructure accrues, what accretion delivers |
 | 4 | 4. The Relationship to the Binary | 354 | M | S10 | N | - | relationship to the binary |
+
+## 17_Scope_Boundary (2811 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 68 | AR | - | N | - | front matter |
+| rev | Revision History | 206 | AR | - | N | - | front matter |
+| 1 | 1. Purpose | 125 | SA | SCOPE | N | - | the canonical record of questions outside the project; stays outside the wheel (author, 2026-11-16) |
+| 2 | 2. Comparative Political Economy and International Coordinat | 552 | SA | SCOPE | N | - | the canonical record of questions outside the project; stays outside the wheel (author, 2026-11-16) |
+| 3 | 3. Phase One Empirical Questions (+4) | 903 | SA | SCOPE | N | - | the canonical record of questions outside the project; stays outside the wheel (author, 2026-11-16) |
+| 4 | 4. Phase One Successor Tasks | 142 | SA | SCOPE | N | - | the canonical record of questions outside the project; stays outside the wheel (author, 2026-11-16) |
+| 5 | 5. Governing Council Calibration Parameters | 273 | SA | SCOPE | N | - | the canonical record of questions outside the project; stays outside the wheel (author, 2026-11-16) |
+| 6 | 6. Jurisdiction-Specific and Institutional Preconditions | 407 | SA | SCOPE | N | - | the canonical record of questions outside the project; stays outside the wheel (author, 2026-11-16) |
+| 7 | 7. What This Document Is Not Doing | 135 | SA | SCOPE | N | - | the canonical record of questions outside the project; stays outside the wheel (author, 2026-11-16) |
+
+## 18_Addendums (7476 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 105 | AR | - | N | - | front matter |
+| rev | Revision History | 130 | AR | - | N | - | front matter |
+| abs | Abstract | 172 | AR | - | N | - | front matter |
+| gloss | Glossary | 280 | DL | glossary | N | - | merge into the build glossary |
+| 1 | 1. Introduction | 342 | SA | ADD | N | - | eight implementation calibration questions and open questions; standalone (author, 2026-11-16) |
+| 2 | 2. The Nature of Implementation Calibration | 318 | SA | ADD | N | - | eight implementation calibration questions and open questions; standalone (author, 2026-11-16) |
+| 3 | 3. Calibration Question One: Exemption Threshold Indexation  | 779 | SA | ADD | N | - | eight implementation calibration questions and open questions; standalone (author, 2026-11-16) |
+| 4 | 4. Calibration Question Two: TP Chamber Conflict of Interest | 524 | SA | ADD | N | - | eight implementation calibration questions and open questions; standalone (author, 2026-11-16) |
+| 5 | 5. Calibration Question Three: External Chamber Communicatio | 480 | SA | ADD | N | - | eight implementation calibration questions and open questions; standalone (author, 2026-11-16) |
+| 6 | 6. Calibration Question Four: DR Chamber Eligible Pool Monit | 429 | SA | ADD | N | - | eight implementation calibration questions and open questions; standalone (author, 2026-11-16) |
+| 7 | 7. Calibration Question Five: The Consumption Delta (+4) | 643 | SA | ADD | N | - | eight implementation calibration questions and open questions; standalone (author, 2026-11-16) |
+| 8 | 8. Calibration Question Six: SWF Asset Composition Monitorin | 441 | SA | ADD | N | - | eight implementation calibration questions and open questions; standalone (author, 2026-11-16) |
+| 9 | 9. Calibration Question Seven: Phase One Measurement Framewo | 491 | SA | ADD | N | - | eight implementation calibration questions and open questions; standalone (author, 2026-11-16) |
+| 10 | 10. Calibration Question Eight: The Bootstrapping Facility ( | 751 | SA | ADD | N | - | eight implementation calibration questions and open questions; standalone (author, 2026-11-16) |
+| 11 | 11. The Relationship Between These Questions | 325 | SA | ADD | N | - | eight implementation calibration questions and open questions; standalone (author, 2026-11-16) |
+| 12 | 12. Limitations and Further Work | 342 | SA | ADD | N | - | eight implementation calibration questions and open questions; standalone (author, 2026-11-16) |
+| 13 | 13. Conclusion | 462 | SA | ADD | N | - | eight implementation calibration questions and open questions; standalone (author, 2026-11-16) |
+| 14 | 14. Open Questions (+5) | 462 | SA | ADD | N | - | eight implementation calibration questions and open questions; standalone (author, 2026-11-16) |
+
+## 19_Taxpayer_Welfare (19641 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 104 | AR | - | N | - | front matter |
+| rev | Revision History | 130 | AR | - | N | - | front matter |
+| abs | Abstract | 337 | AR | - | N | - | front matter |
+| gloss | Glossary | 319 | DL | glossary | N | - | merge into the build glossary |
+| 1 | 1. Introduction | 781 | M | S6 | N | - | introduction and method of the welfare comparison |
+| 2 | 2. Methodology | 0 | M | S6 | N | - | introduction and method of the welfare comparison |
+| 2.1 | 2.1 The Comparison Design | 388 | K | S6 | N | - | six tax systems at revenue equivalence |
+| 2.2 | 2.2 What the Baseline Suppresses — and Why | 246 | M | S6 | N | - | introduction and method of the welfare comparison |
+| 2.3 | 2.3 The Three-Category Epistemic Framework | 224 | M | S12 | N | - | three-category epistemic framework; what is not known; open questions |
+| 2.4 | 2.4 Comparable-Treatment Exposures | 326 | M | S6 | N | - | introduction and method of the welfare comparison |
+| 3 | 3. Part I: The Controlled Baseline | 0 | K | S6 | Y | NEW:cew | controlled baseline and the Domar-Musgrave risk-sharing property |
+| 3.1 | 3.1 Revenue Equivalence and the Single-Agent Baseline | 854 | K | S6 | Y | NEW:cew | controlled baseline and the Domar-Musgrave risk-sharing property |
+| 3.2 | 3.2 The D-M Risk-Sharing Property: Mechanism Established, Ve | 641 | K | S6 | Y | NEW:cew | controlled baseline and the Domar-Musgrave risk-sharing property |
+| 4 | 4. Part II: The Mechanisms | 0 | M | S6 | Y | NEW:cew | progressive rates: three complications, all second order |
+| 4.1 | 4.1 Progressive Rates: Three Complications, All Second-Order | 1650 | M | S6 | Y | NEW:cew | progressive rates: three complications, all second order |
+| 4.2 | 4.2 CGT Lock-In: The Dominant Welfare Result | 0 | K | S6 | Y | NEW:lockin | CGT lock-in, the dominant welfare result (141 to 143 basis points) |
+| 4.2.1 | 4.2.1 The Endogenous Realisation Decision | 407 | K | S6 | Y | NEW:lockin | CGT lock-in, the dominant welfare result (141 to 143 basis points) |
+| 4.2.2 | 4.2.2 The Welfare Cost of Lock-In | 1415 | K | S6 | Y | NEW:lockin | CGT lock-in, the dominant welfare result (141 to 143 basis points) |
+| 4.2.3 | 4.2.3 The Arachi Pivot | 498 | K | S6 | Y | NEW:lockin | CGT lock-in, the dominant welfare result (141 to 143 basis points) |
+| 4.2.4 | 4.2.4 Category Classification | 247 | K | S6 | Y | NEW:lockin | CGT lock-in, the dominant welfare result (141 to 143 basis points) |
+| 4.3 | 4.3 Heterogeneous Returns: Concentration Under the Fagereng  | 0 | K | S6 | Y | NEW:concentration,NEW:envelope | heterogeneous returns, concentration, incidence, lifetime contribution envelope |
+| 4.3.1 | 4.3.1 The Fagereng Premise and the Four-Tier Calibration | 224 | K | S6 | Y | NEW:concentration,NEW:envelope | heterogeneous returns, concentration, incidence, lifetime contribution envelope |
+| 4.3.2 | 4.3.2 The Concentration Result | 587 | K | S6 | Y | NEW:concentration,NEW:envelope | heterogeneous returns, concentration, incidence, lifetime contribution envelope |
+| 4.3.3 | 4.3.3 Within-Tier Welfare | 452 | K | S6 | Y | NEW:concentration,NEW:envelope | heterogeneous returns, concentration, incidence, lifetime contribution envelope |
+| 4.3.4 | 4.3.4 Distributional Incidence | 650 | K | S6 | Y | NEW:concentration,NEW:envelope | heterogeneous returns, concentration, incidence, lifetime contribution envelope |
+| 4.3.5 | 4.3.5 The Lifetime Contribution Envelope — Binding Result | 537 | K | S6 | Y | NEW:concentration,NEW:envelope | heterogeneous returns, concentration, incidence, lifetime contribution envelope |
+| 4.3.6 | 4.3.6 The Off-Diagonal Cell | 247 | K | S6 | Y | NEW:concentration,NEW:envelope | heterogeneous returns, concentration, incidence, lifetime contribution envelope |
+| 4.4 | 4.4 Stock Wealth and Consumption Taxes: Equivalence and Conc | 380 | M | S2 | Y | NEW:cew | stock wealth and consumption tax equivalence |
+| 4.5 | 4.5 Robustness: Revenue Target, Historical Windows, and Rate | 150 | AR | - | Y | NEW:cew | v1 robustness checks (revenue target, 73 windows, rate parameters) |
+| 4.5.1 | 4.5.1 Revenue Target Sensitivity | 513 | AR | - | Y | NEW:cew | v1 robustness checks (revenue target, 73 windows, rate parameters) |
+| 4.5.2 | 4.5.2 Historical Window Robustness | 634 | AR | - | Y | NEW:cew | v1 robustness checks (revenue target, 73 windows, rate parameters) |
+| 4.5.3 | 4.5.3 Progressive Rate Parameter Sensitivity | 897 | AR | - | Y | NEW:cew | v1 robustness checks (revenue target, 73 windows, rate parameters) |
+| 5 | 5. Part III: Literature Positioning | 0 | M | S2 | N | - | literature positioning |
+| 5.1 | 5.1 Domar-Musgrave and Risk-Sharing | 236 | M | S2 | N | - | literature positioning |
+| 5.2 | 5.2 Progressive Taxation and Risk Asymmetry | 143 | M | S2 | N | - | literature positioning |
+| 5.3 | 5.3 CGT Lock-In: Literature and Model Contribution | 427 | M | S2 | N | - | literature positioning |
+| 5.4 | 5.4 Heterogeneous Returns and Concentration | 191 | M | S2 | N | - | literature positioning |
+| 5.5 | 5.5 The Active Dispute WFR Enters — and Does Not Adjudicate | 506 | M | S2 | N | - | literature positioning |
+| 5.6 | 5.6 Stock Wealth and Consumption Tax Equivalence | 217 | M | S2 | N | - | literature positioning |
+| 5.7 | 5.7 Literature Summary | 433 | M | S2 | N | - | literature positioning |
+| 6 | 6. Part IV: Synthesis and Conclusion | 0 | K | S6 | P | - | synthesis: what the model establishes about incumbent systems and about the WDT |
+| 6.1 | 6.1 What the Model Establishes and What It Does Not | 132 | M | S12 | N | - | three-category epistemic framework; what is not known; open questions |
+| 6.1.1 | 6.1.1 Category 1: Modelled Properties of Incumbent Systems | 390 | K | S6 | P | - | synthesis: what the model establishes about incumbent systems and about the WDT |
+| 6.1.2 | 6.1.2 Category 2: Structural Properties of the WDT Independe | 340 | K | S6 | P | - | synthesis: what the model establishes about incumbent systems and about the WDT |
+| 6.1.3 | 6.1.3 Category 3: What We Do Not Know | 360 | M | S12 | N | - | three-category epistemic framework; what is not known; open questions |
+| 6.2 | 6.2 The Comparative Question | 241 | K | S6 | P | - | synthesis: what the model establishes about incumbent systems and about the WDT |
+| 6.3 | 6.3 The Burden-of-Consideration Conclusion | 611 | K | S6 | P | - | synthesis: what the model establishes about incumbent systems and about the WDT |
+| 7 | 7. Open Questions | 0 | M | S12 | N | - | three-category epistemic framework; what is not known; open questions |
+| 7.1 | 7.1 Behavioural Calibration | 189 | M | S12 | N | - | three-category epistemic framework; what is not known; open questions |
+| 7.2 | 7.2 General Equilibrium | 218 | M | S12 | N | - | three-category epistemic framework; what is not known; open questions |
+| 7.3 | 7.3 Implementation Cost Quantification | 227 | M | S12 | N | - | three-category epistemic framework; what is not known; open questions |
+| 7.4 | 7.4 Progressive WDT Advantage at Longer Horizons | 942 | K | S6 | P | - | synthesis: what the model establishes about incumbent systems and about the WDT |
+
+## 19a_Taxpayer_Welfare_Appendix (5551 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 100 | AR | - | N | - | front matter |
+| rev | Revision History | 54 | AR | - | N | - | front matter |
+| ~A. | A. Baseline Single-Agent Comparison | 41 | AR | - | Y | NEW:cew,NEW:lockin,NEW:concentration,NEW:envelope | v1 appendix tables for the welfare comparison; v3 regenerates any that survive |
+| A | A.1 Consumption-Equivalent Welfare (CEW) by System, γ, and D | 592 | AR | - | Y | NEW:cew,NEW:lockin,NEW:concentration,NEW:envelope | v1 appendix tables for the welfare comparison; v3 regenerates any that survive |
+| ~B. | B. Progressive Rates and the Three D-M Complications | 53 | AR | - | Y | NEW:cew,NEW:lockin,NEW:concentration,NEW:envelope | v1 appendix tables for the welfare comparison; v3 regenerates any that survive |
+| B | B.1 Flat WDT vs Progressive WDT CEW (+2) | 839 | AR | - | Y | NEW:cew,NEW:lockin,NEW:concentration,NEW:envelope | v1 appendix tables for the welfare comparison; v3 regenerates any that survive |
+| ~C. | C. CGT Lock-In Distortion | 32 | AR | - | Y | NEW:cew,NEW:lockin,NEW:concentration,NEW:envelope | v1 appendix tables for the welfare comparison; v3 regenerates any that survive |
+| C | C.1 Lock-In Welfare Cost by Embedded Gain Ratio (+2) | 1055 | AR | - | Y | NEW:cew,NEW:lockin,NEW:concentration,NEW:envelope | v1 appendix tables for the welfare comparison; v3 regenerates any that survive |
+| ~D. | D. Heterogeneous Agents — Incidence and Concentration | 87 | AR | - | Y | NEW:cew,NEW:lockin,NEW:concentration,NEW:envelope | v1 appendix tables for the welfare comparison; v3 regenerates any that survive |
+| D | D.1 CEW by Tier and Tax System (+4) | 1077 | AR | - | Y | NEW:cew,NEW:lockin,NEW:concentration,NEW:envelope | v1 appendix tables for the welfare comparison; v3 regenerates any that survive |
+| ~E. | E. Welfare Sweep Analysis | 68 | AR | - | Y | NEW:cew,NEW:lockin,NEW:concentration,NEW:envelope | v1 appendix tables for the welfare comparison; v3 regenerates any that survive |
+| E | E.1 Sweep A: CEW by System and Revenue Target (γ=2) (+9) | 986 | AR | - | Y | NEW:cew,NEW:lockin,NEW:concentration,NEW:envelope | v1 appendix tables for the welfare comparison; v3 regenerates any that survive |
+| ~F. | F. Extended Concentration Horizon (N=73) | 0 | AR | - | Y | NEW:cew,NEW:lockin,NEW:concentration,NEW:envelope | v1 appendix tables for the welfare comparison; v3 regenerates any that survive |
+| F | F.1 — Setup and Scope (+3) | 462 | AR | - | Y | NEW:cew,NEW:lockin,NEW:concentration,NEW:envelope | v1 appendix tables for the welfare comparison; v3 regenerates any that survive |
+| ~G. | G. Parameter Reference | 105 | DL | input register | N | - | parameter reference |
+
+## 20_Institutional_Selection (16215 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 117 | AR | - | N | - | front matter |
+| rev | Revision History | 558 | AR | - | N | - | front matter |
+| abs | Abstract | 398 | AR | - | N | - | front matter |
+| gloss | Glossary | 878 | DL | glossary | N | - | merge into the build glossary |
+| 1 | 1. Introduction | 664 | SA | INST | N | - | fiscal architecture and institutional selection; standalone (author, 2026-11-16) |
+| 2 | 2. The Persistent Dominance of Authoritarian Governance (+3) | 1178 | SA | INST | N | - | fiscal architecture and institutional selection; standalone (author, 2026-11-16) |
+| 3 | 3. The Untaxed Pool (+2) | 889 | SA | INST | N | - | fiscal architecture and institutional selection; standalone (author, 2026-11-16) |
+| 4 | 4. Why Prior Mechanisms Failed (+1) | 1033 | SA | INST | N | - | fiscal architecture and institutional selection; standalone (author, 2026-11-16) |
+| 5 | 5. Four Conditions for a Stable Large-Scale Wealth Tax (+4) | 2299 | SA | INST | N | - | fiscal architecture and institutional selection; standalone (author, 2026-11-16) |
+| 6 | 6. The Authoritarian Exclusion: Structural, Dynamic, and Emp | 3393 | SA | INST | N | - | fiscal architecture and institutional selection; standalone (author, 2026-11-16) |
+| 7 | 7. Three Competitive Advantages for Democratic WDT Adopters  | 1441 | SA | INST | Y | O1,O4a,OP1 | three competitive advantages for democratic adopters; each is conditional on a model number |
+| 8 | 8. Memetic Diffusion and the Race Condition | 773 | SA | INST | N | - | fiscal architecture and institutional selection; standalone (author, 2026-11-16) |
+| 9 | 9. Failure Conditions (+3) | 1282 | SA | INST | N | - | fiscal architecture and institutional selection; standalone (author, 2026-11-16) |
+| 10 | 10. The Research Programme (+5) | 750 | SA | INST | N | - | fiscal architecture and institutional selection; standalone (author, 2026-11-16) |
+| 11 | 11. Conclusion | 562 | SA | INST | N | - | fiscal architecture and institutional selection; standalone (author, 2026-11-16) |
+
+## 21_Labour_Dividend_Welfare (9068 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 117 | AR | - | N | - | front matter |
+| rev | Revision History | 202 | AR | - | N | - | front matter |
+| abs | Abstract | 255 | AR | - | N | - | front matter |
+| 1 | 1. The Paper's Place in the Series and Its Character | 94 | D | - | N | - | place in the series, conclusion |
+| 1.1 | 1.1 The Mature WDT as Analytical Baseline | 117 | M | S12 | N | - | analytical baseline, speculative character, what the paper can and cannot show, conservative core |
+| 1.2 | 1.2 Speculative Character and What That Means Here | 187 | M | S12 | N | - | analytical baseline, speculative character, what the paper can and cannot show, conservative core |
+| 2 | 2. What Appears on the Payslip | 101 | K | S6 | Y | O4a,O4b,NEW:labour-dividend | what appears on the payslip |
+| 2.1 | 2.1 The Bilateral NICs Case | 488 | K | S6 | Y | O4a,O4b,O1,NEW:labour-dividend | NICs and income tax displacement; a care worker on 25,000 gains 3,480 pounds a year |
+| 2.2 | 2.2 Income Tax Displacement | 463 | K | S6 | Y | O4a,O4b,O1,NEW:labour-dividend | NICs and income tax displacement; a care worker on 25,000 gains 3,480 pounds a year |
+| 3 | 3. Employment Structure and the Occupational Constraint | 0 | K | S11 | P | - | employment structure, household capacity, welfare demand and its upstream conditions |
+| 3.1 | 3.1 What NICs Removal Does to the Employment Relationship | 271 | K | S11 | P | - | employment structure, household capacity, welfare demand and its upstream conditions |
+| 3.2 | 3.2 The Occupational Constraint and What Relaxes It | 287 | K | S11 | P | - | employment structure, household capacity, welfare demand and its upstream conditions |
+| 4 | 4. The Cost of Living Under a Mature WDT | 43 | K | S6 | Y | NEW:labour-dividend | cost of living under a mature WDT; the full purchasing power calculation |
+| 4.1 | 4.1 VAT and Consumption Taxes | 182 | K | S6 | Y | NEW:labour-dividend | cost of living under a mature WDT; the full purchasing power calculation |
+| 4.2 | 4.2 Housing: Renters and Owners | 495 | M | S11 | P | OS1 | housing; demand expansion and reallocation (second-order effects) |
+| 4.3 | 4.3 Public Infrastructure and the SWF as Patient Investor | 765 | K | S7 | N | - | SWF as patient investor; the author's normative case |
+| 4.4 | 4.4 The Full Purchasing Power Calculation | 341 | K | S6 | Y | NEW:labour-dividend | cost of living under a mature WDT; the full purchasing power calculation |
+| 4.5 | 4.5 Demand Expansion and Economic Reallocation | 165 | M | S11 | P | OS1 | housing; demand expansion and reallocation (second-order effects) |
+| 4.5.1 | 4.5.1 Increased Household Consumption | 244 | M | S11 | P | OS1 | housing; demand expansion and reallocation (second-order effects) |
+| 4.5.2 | 4.5.2 Labour Reallocation and Occupational Choice | 340 | M | S11 | P | OS1 | housing; demand expansion and reallocation (second-order effects) |
+| 4.5.3 | 4.5.3 Entry into Marginal and Previously Unprofitable Sector | 243 | M | S11 | P | OS1 | housing; demand expansion and reallocation (second-order effects) |
+| 4.5.4 | 4.5.4 Returns to Private Capital | 229 | M | S11 | P | OS1 | housing; demand expansion and reallocation (second-order effects) |
+| 4.5.5 | 4.5.5 Distributional Ambiguity | 216 | M | S11 | P | OS1 | housing; demand expansion and reallocation (second-order effects) |
+| 5 | 5. Household Capacity | 452 | K | S11 | P | - | employment structure, household capacity, welfare demand and its upstream conditions |
+| 6 | 6. Welfare Demand and Its Upstream Conditions | 75 | K | S11 | P | - | employment structure, household capacity, welfare demand and its upstream conditions |
+| 6.1 | 6.1 The Cascade Threshold | 285 | K | S11 | P | - | employment structure, household capacity, welfare demand and its upstream conditions |
+| 6.2 | 6.2 Healthcare Demand | 246 | K | S11 | P | - | employment structure, household capacity, welfare demand and its upstream conditions |
+| 6.3 | 6.3 Pensions and Long-Run Security | 184 | K | S11 | P | - | employment structure, household capacity, welfare demand and its upstream conditions |
+| 6.4 | 6.4 A Different Relationship Between State and Citizen | 182 | K | S11 | P | - | employment structure, household capacity, welfare demand and its upstream conditions |
+| 7.1 | 7.1 What This Paper Can and Cannot Establish | 373 | M | S12 | N | - | analytical baseline, speculative character, what the paper can and cannot show, conservative core |
+| 7.2 | 7.2 The Infrastructure Mandate | 156 | M | S7 | N | - | infrastructure mandate |
+| 7.3 | 7.3 Phase One Measurement Agenda | 266 | M | S10 | N | - | Phase One measurement agenda |
+| 7.4 | 7.4 The Conservative Core | 149 | M | S12 | N | - | analytical baseline, speculative character, what the paper can and cannot show, conservative core |
+| 8 | 8. Conclusion | 855 | D | - | N | - | place in the series, conclusion |
+
+## 22_Falsification_Hypotheses (12025 words)
+
+| Sec | Section | Words | Disp | Target | Model | Demands | Note |
+|---|---|---:|---|---|---|---|---|
+| pre | (preamble) | 92 | AR | - | N | - | front matter |
+| rev | Revision History | 70 | AR | - | N | - | front matter |
+| abs | Abstract | 315 | AR | - | N | - | front matter |
+| gloss | Glossary | 188 | DL | glossary | N | - | merge into the build glossary |
+| 1 | 1. Purpose and Methodological Commitment | 0 | K | S12 | N | - | purpose, research question, what counts as a serious result, research challenge |
+| 1.1 | 1.1 What This Paper Is | 173 | K | S12 | N | - | purpose, research question, what counts as a serious result, research challenge |
+| 1.2 | 1.2 What This Paper Does Not Claim | 77 | K | S12 | N | - | purpose, research question, what counts as a serious result, research challenge |
+| 1.3 | 1.3 Relation to the Existing Project | 175 | K | S12 | N | - | purpose, research question, what counts as a serious result, research challenge |
+| 2 | 2. The Research Question | 333 | K | S12 | N | - | purpose, research question, what counts as a serious result, research challenge |
+| 3 | 3. H1: Wealthy Taxpayer Preference | 0 | K | S12 | P | O2,O5,O6 | H1 wealthy taxpayer preference |
+| 3.1 | 3.1 Statement | 28 | K | S12 | P | O2,O5,O6 | H1 wealthy taxpayer preference |
+| 3.2 | 3.2 The Comparison That Matters | 338 | K | S12 | P | O2,O5,O6 | H1 wealthy taxpayer preference |
+| 3.3 | 3.3 The Break-Even Burden | 243 | K | S12 | Y | O2,O6 | break-even burden; derived by comparing the burden with today's taxes |
+| 3.4 | 3.4 The Institutional Participation Component | 249 | K | S12 | P | O2,O5,O6 | H1 wealthy taxpayer preference |
+| 3.5 | 3.5 The Migration Evidence | 283 | K | S12 | P | O2,O5,O6 | H1 wealthy taxpayer preference |
+| 3.6 | 3.6 Falsification Conditions | 161 | K | S12 | P | O2,O5,O6 | H1 wealthy taxpayer preference |
+| 4 | 4. H2: Macroeconomic Effects | 0 | K | S12 | P | O4a | H2a capital allocation efficiency and H2b labour tax displacement |
+| 4.1 | 4.1 Structure of the Decomposition | 143 | K | S12 | P | O4a | H2a capital allocation efficiency and H2b labour tax displacement |
+| 4.2 | 4.2 H2a: Capital Allocation Efficiency | 544 | K | S12 | P | O4a | H2a capital allocation efficiency and H2b labour tax displacement |
+| 4.3 | 4.3 H2b: Labour Tax Displacement Welfare Effect | 508 | K | S12 | P | O4a | H2a capital allocation efficiency and H2b labour tax displacement |
+| 4.4 | 4.4 H2c: Automatic Stabilisation | 541 | K | S12 | P | OP6,O1 | H2c automatic stabilisation; counter-cyclical position by return state |
+| 4.5 | 4.5 H2d: Positive Feedback Loop Integrity | 743 | K | S12 | N | - | H2d positive feedback loop integrity; not modelled in v3 (partial equilibrium) |
+| 5 | 5. H3: Cooperative Institutional Equilibrium | 0 | K | S12 | N | - | H3 cooperative institutional equilibrium; needs a repeated-game model, not part of v3 |
+| 5.1 | 5.1 Statement | 39 | K | S12 | N | - | H3 cooperative institutional equilibrium; needs a repeated-game model, not part of v3 |
+| 5.2 | 5.2 What the Hypothesis Is Not | 203 | K | S12 | N | - | H3 cooperative institutional equilibrium; needs a repeated-game model, not part of v3 |
+| 5.3 | 5.3 The Repeated-Game Structure | 403 | K | S12 | N | - | H3 cooperative institutional equilibrium; needs a repeated-game model, not part of v3 |
+| 5.4 | 5.4 The Governance Architecture as Anti-Capture Design | 319 | K | S12 | N | - | H3 cooperative institutional equilibrium; needs a repeated-game model, not part of v3 |
+| 5.5 | 5.5 The Bootstrapping Phase | 413 | K | S12 | N | - | H3 cooperative institutional equilibrium; needs a repeated-game model, not part of v3 |
+| 5.6 | 5.6 Required Model | 277 | K | S12 | N | - | H3 cooperative institutional equilibrium; needs a repeated-game model, not part of v3 |
+| 5.7 | 5.7 Falsification Conditions | 195 | K | S12 | N | - | H3 cooperative institutional equilibrium; needs a repeated-game model, not part of v3 |
+| 6 | 6. H4: Accumulation-Point Efficiency | 0 | K | S12 | P | NEW:cew | H4 accumulation-point efficiency; needs a welfare comparison |
+| 6.1 | 6.1 Statement | 38 | K | S12 | P | NEW:cew | H4 accumulation-point efficiency; needs a welfare comparison |
+| 6.2 | 6.2 The Mechanism | 427 | K | S12 | P | NEW:cew | H4 accumulation-point efficiency; needs a welfare comparison |
+| 6.3 | 6.3 The Costs WDT Introduces | 274 | K | S12 | P | NEW:cew | H4 accumulation-point efficiency; needs a welfare comparison |
+| 6.4 | 6.4 What a Hostile Model Should Measure | 124 | K | S12 | P | NEW:cew | H4 accumulation-point efficiency; needs a welfare comparison |
+| 6.5 | 6.5 Falsification Conditions | 131 | K | S12 | P | NEW:cew | H4 accumulation-point efficiency; needs a welfare comparison |
+| 7 | 7. H5: Automation Base Robustness | 0 | K | S12 | N | NEW:automation | H5 automation base robustness; not modelled in v3 |
+| 7.1 | 7.1 Statement | 44 | K | S12 | N | NEW:automation | H5 automation base robustness; not modelled in v3 |
+| 7.2 | 7.2 The Mechanism | 261 | K | S12 | N | NEW:automation | H5 automation base robustness; not modelled in v3 |
+| 7.3 | 7.3 The Dependency on H2d | 173 | K | S12 | N | NEW:automation | H5 automation base robustness; not modelled in v3 |
+| 7.4 | 7.4 Required Model | 146 | K | S12 | N | NEW:automation | H5 automation base robustness; not modelled in v3 |
+| 7.5 | 7.5 Falsification Conditions | 150 | K | S12 | N | NEW:automation | H5 automation base robustness; not modelled in v3 |
+| 8 | 8. Interactions Between the Five Hypotheses | 534 | K | S12 | N | - | interactions among the hypotheses; minimum requirements for hostile modelling; what would count against the WDT |
+| 9 | 9. What Counts as a Serious Result | 77 | K | S12 | N | - | purpose, research question, what counts as a serious result, research challenge |
+| 9.1 | 9.1 Support | 52 | K | S12 | N | - | purpose, research question, what counts as a serious result, research challenge |
+| 9.2 | 9.2 Conditional Support | 151 | K | S12 | N | - | purpose, research question, what counts as a serious result, research challenge |
+| 9.3 | 9.3 Falsification | 93 | K | S12 | N | - | purpose, research question, what counts as a serious result, research challenge |
+| 10 | 10. Minimum Requirements for Hostile Modelling | 442 | K | S12 | N | - | interactions among the hypotheses; minimum requirements for hostile modelling; what would count against the WDT |
+| 11 | 11. What Would Constitute Evidence Against WDT | 344 | K | S12 | N | - | interactions among the hypotheses; minimum requirements for hostile modelling; what would count against the WDT |
+| 12 | 12. Research Challenge | 306 | K | S12 | N | - | purpose, research question, what counts as a serious result, research challenge |
+| 13 | 13. Conclusion | 712 | K | S12 | N | - | purpose, research question, what counts as a serious result, research challenge |
+| ~A. | A. Hypothesis Summary Table | 493 | K | S12 | N | - | hypothesis summary table |
