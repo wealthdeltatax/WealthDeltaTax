@@ -35,6 +35,8 @@ The model cannot cover the whole economic parameter space. v3 therefore **estima
 | Build approach | Clean slate, port by exception |
 | Legacy design choices | The gain ladder, the fresh-entrant heir rule and the strategy verdicts BRG, HSC, SPT and SST appear in 0 papers and are not carried over unless the whitepaper needs them |
 
+**Amended 2026-11-16 (011g stage A2, author).** Rows "Range method" and "Rate function": the rate schedule, threshold and retirement order are policy levers, swept as named schedules plus a feasibility map, not sampled; "no hand-picked scenarios" applies to exogenous inputs, which are sampled at two levels (return risk; parameter ignorance). Details: `docs/model-v3/metrics.md`, range design.
+
 ## 4. Requirements for v3
 **R1 Output manifest.** One file lists every output: ID, whitepaper element it feeds, metric, formula, unit. The whitepaper and appendices cite IDs. An output with no element does not exist (lessons 6, 6a, 7).
 **R2 Metric register.** One definition per metric, in one place that code and papers cite: numerator, denominator, unit, horizon. C.1 uses TW(1) (lesson 1; v1-errors B1).

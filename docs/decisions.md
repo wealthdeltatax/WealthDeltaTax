@@ -2,6 +2,13 @@
 
 One entry per finished brief or settled question, at most 8 lines each. Newest first. Maintained by the guru.
 
+## 2026-11-16: model v3 design review and stage A2 (brief 011)
+- The author accepted the guru's review: policy levers (rate schedule, threshold, retirement order) are swept as named schedules S_low, S_central, S_high plus a feasibility map, not sampled; exogenous inputs are sampled at two levels reported apart (return risk; parameter ignorance, as a tornado).
+- The long window (years 51 to 100) is read as a steady-state property, not a forecast; headline claims rest on the transition and short windows and the path to year 50. P4 is read with P6 (fund assets as a share of GDP).
+- Added outputs: cash-flow burden by income and by liquid assets (M2b, M2c), a reform-in-place benchmark (M8), capitalisation of retired property taxes as a sensitivity (S1), public wealth path (P6). Manifest: 21 entries.
+- New stage A2 sits before the input register; 012r is tiered by `docs/model-v3/drivers.md` and a tornado runs on tier 1 before stage C. PROPOSED, not yet confirmed: retirement trigger, named-schedule choice rule, 0.5-point tornado cut-off.
+- `synthesis.md` section 3 amended (range method, rate function).
+
 ## 2026-11-16: model v3 stage A passed (brief 011, stage A)
 - Author confirmed all four open items: windows (transition to the long-reserve fill; short = 10 years after it; long = mean of years 51 to 100 and year 100), default retirement order ascending by receipts, M2 revenue-weighted, M3 life length 30 years.
 - Six taxes retire; stamp duties carry two receipt lines, so the retired-receipts metric has seven lines. The retirement trigger (first year after the fill in which net relief covers the tax's receipts) is a stated default that follows from P3, not yet confirmed.
