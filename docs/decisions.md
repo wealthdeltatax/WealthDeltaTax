@@ -6,7 +6,7 @@ One entry per finished brief or settled question, at most 8 lines each. Newest f
 - The author accepted the guru's review: policy levers (rate schedule, threshold, retirement order) are swept as named schedules S_low, S_central, S_high plus a feasibility map, not sampled; exogenous inputs are sampled at two levels reported apart (return risk; parameter ignorance, as a tornado).
 - The long window (years 51 to 100) is read as a steady-state property, not a forecast; headline claims rest on the transition and short windows and the path to year 50. P4 is read with P6 (fund assets as a share of GDP).
 - Added outputs: cash-flow burden by income and by liquid assets (M2b, M2c), a reform-in-place benchmark (M8), capitalisation of retired property taxes as a sensitivity (S1), public wealth path (P6). Manifest: 21 entries.
-- New stage A2 sits before the input register; 012r is tiered by `docs/model-v3/drivers.md` and a tornado runs on tier 1 before stage C. PROPOSED, not yet confirmed: retirement trigger, named-schedule choice rule, 0.5-point tornado cut-off.
+- New stage A2 sits before the input register; 012r is tiered by `docs/model-v3/drivers.md` and a tornado runs on tier 1 before stage C. Confirmed the same day: retirement trigger, named-schedule choice rule, 0.5-point tornado cut-off. Stage B is brief 012r (four sessions B1 to B4).
 - `synthesis.md` section 3 amended (range method, rate function).
 
 ## 2026-11-16: model v3 stage A passed (brief 011, stage A)

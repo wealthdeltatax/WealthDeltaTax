@@ -1,6 +1,6 @@
 # 011: Model v3 design
 
-- **Status:** underway (stage A passed 2026-11-16, author confirmed all four items; stage A2 drafted 2026-11-16 after the author accepted the design review: `docs/model-v3/drivers.md`, amended `metrics.md` and `outputs.yml`; the author reviews A2 before stage B starts)
+- **Status:** underway (stage A passed 2026-11-16, author confirmed all four items; stage A2 passed 2026-11-16: `docs/model-v3/drivers.md`, amended `metrics.md` and `outputs.yml`, author confirmed the three defaults; stage B is brief 012r, ready)
 - **Author/date:** K. Ogata with the guru, 2026-11-16
 - **Depends on:** 001c (merged; synthesis in `docs/model-audit/synthesis.md`)
 - **Read:** `docs/model-audit/synthesis.md`, then `docs/model-audit/lessons-so-far.md`. Nothing else need be opened until a stage names it.
@@ -43,11 +43,11 @@ Writing model code, fixing v1 or v2, writing or editing papers, choosing the whi
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** stage A passed (16 entries; windows, order, revenue-weighted M2, G = 30 confirmed). Stage A2 drafted: `drivers.md`, range design and reading rule in `metrics.md`, new metrics M2b, M2c, M8, S1 and P6, manifest now 21 entries.
-- **Next:** the author reviews A2 (and confirms the retirement trigger default, the named-schedule choice rule and the 0.5-point tornado cut-off, all PROPOSED); then write 012r around the tier 1 inputs.
-- **Decisions:** the author accepted the design review of 2026-11-16: levers swept and not sampled; two-level uncertainty; long window read as steady state; added cash-flow burden, reform-in-place benchmark and capitalisation sensitivity. Six taxes retire; stamp duties carry two receipt lines.
-- **Gotchas:** my chat figure of 3% of GDP for the identity was an unsourced guess and disagrees with v2's 7.34% post-fill WDT (`drivers.md` section 1). The earlier note said 14 outputs; it is now 21.
-- **Resume:** read `docs/model-v3/drivers.md`, then `metrics.md` range design, then write 012r.
-- **Not run:** M2 against the RATES paper's 0.35%; the Green Book schedule check; the tornado (it needs 012r's values).
-- **State:** stage A2 drafted; waiting for the author's review
+- **Done:** stage A passed (16 entries). Stage A2 passed: `drivers.md`, range design and reading rule in `metrics.md`, M2b, M2c, M8, S1, P6, manifest 21 entries; the author confirmed the retirement trigger, the named-schedule choice rule and the 0.5-point tornado cut-off. Brief 012r (stage B) written.
+- **Next:** 012r runs B1 to B4 in the research lane; then the guru runs the tornado (`docs/model-v3/tornado.md`); then stage C.
+- **Decisions:** levers swept and not sampled; two-level uncertainty; long window read as steady state; six taxes retire, stamp duties carry two receipt lines.
+- **Gotchas:** my chat figure of 3% of GDP for the identity was an unsourced guess and disagrees with v2's 7.34% post-fill WDT (`drivers.md` section 1). The manifest has 21 entries, not the 14 once noted.
+- **Resume:** read `docs/briefs/012r-v3-input-register.md`; after B4 read `inputs.md` and run the tornado.
+- **Not run:** the tornado (needs 012r's values); M2 against the RATES 0.35% and the Green Book check (both in 012r B4).
+- **State:** stage B ready (012r); not started
 <!-- progress:end -->

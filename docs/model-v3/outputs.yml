@@ -1,8 +1,8 @@
-# Model v3: output manifest (brief 011g, stage A passed 2026-11-16, A2 drafted; 21 entries)
+# Model v3: output manifest (brief 011g, stage A passed 2026-11-16, A2 passed; 21 entries)
 # One entry per output. Papers cite the id. An output with no whitepaper element does not exist (R1).
 # element: the whitepaper or appendix element the output feeds. TBD until the writing lane drafts the outline from this list.
 # summary: how the output is reported. p10_mean_p90 = sampled range (R5).
-version: stage-A2-draft
+version: stage-A2-passed
 country_pack: UK
 horizons: [transition, short, long]   # every headline and line is reported for all three; long is a steady-state property, not a forecast
 schedules: [S_low, S_central, S_high]   # named policy schedules, swept not sampled; headline outputs are reported for each (metrics.md, range design)

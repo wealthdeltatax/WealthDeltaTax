@@ -1,25 +1,26 @@
 # Status board
 
-Maintained by the guru. Last updated 2026-11-16 (midday, stage A2 drafted). Plan view: `docs/lane-plan.html`.
+Maintained by the guru. Last updated 2026-11-16 (midday, stage A2 passed, 012r ready). Plan view: `docs/lane-plan.html`.
 
 ## Where the project is
-The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. Design brief 011g is underway: stage A (metric register and output manifest) passed on 2026-11-16; stage A2 (design review: levers swept, two-level uncertainty, driver table, three added outputs) is drafted for the author's review; stage B (input register, brief 012r) follows it. v1 and v2 are not fixed. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
+The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. Design brief 011g is underway: stage A (metric register and output manifest) passed on 2026-11-16; stage A2 (design review: levers swept, two-level uncertainty, driver table, three added outputs) passed; stage B (input register, brief 012r) is ready for the research lane. v1 and v2 are not fixed. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
 
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (guru) | 011g stage A2 drafted (`docs/model-v3/drivers.md`) | Stage B (research brief 012r, tiered by the drivers) after the author's review of A2; compile `docs/brief-suggestions.md` |
-| Agent 2 | Free | none planned |
+| Agent 1 (guru) | 011g stage A2 passed; 012r written | Tornado after 012r B4; compile `docs/brief-suggestions.md` |
+| Agent 2 | Free | 012r B1 (research lane) |
 | Agent 3 | Free | none planned |
 | Agent 4 | Free | none planned |
 | Agent 5 | Free | none planned |
 
 ## Waiting on the author
-- Review stage A2 (`docs/model-v3/drivers.md` and the range design in `metrics.md`) and confirm three PROPOSED defaults: the retirement trigger (M1e), the rule for choosing the named schedules, and the 0.5-point tornado cut-off. Then 012r is written.
+- Start 012r with the research skill (`wdt-research`), one stage (B1 to B4) per session. Three questions are open in the brief: the rich-list licence fallback, acceptable foreign evidence, and whether to add the cited references to the bibliography afterwards.
 - Optional: rename the `wdt-web` skill to `wdt-site` for consistency (logged in `docs/brief-suggestions.md`; touches the stub, the `.skill`, `AGENTS.md`, `docs/agents/`, `OVERVIEW.md` and the account skill).
 - Settled 2026-11-16: Zenodo sandbox token (non-critical, left); revenue calculator (replaced after model v3); letter `s` kept; old uploaded skills removed.
 
 ## Recently done
+- 2026-11-16: 011g stage A2 passed (the author confirmed the retirement trigger, the schedule choice rule and the tornado cut-off); brief 012r (input register, four stages) written and ready.
 - 2026-11-16: 011g stage A2 drafted after the author accepted the design review: levers swept, two-level uncertainty, driver table, new outputs M2b, M2c, M8, S1, P6 (manifest 21 entries); `synthesis.md` section 3 amended.
 - 2026-11-16: 011g stage A passed: the author confirmed windows, retirement order, revenue-weighted M2 and life length 30; manifest has 16 entries; six taxes retire (stamp duties have two receipt lines).
 - 2026-11-16: closure check on v2 (retired taxes 8.27% of GDP against post-fill relief of about 3% to 15%); decisions recorded (retired taxes, net headline, staged phasing, threshold); 011g stage A drafted.

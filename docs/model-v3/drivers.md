@@ -1,4 +1,4 @@
-# Model v3: driver table (brief 011g, stage A2, draft)
+# Model v3: driver table (brief 011g, stage A2, passed 2026-11-16)
 
 Purpose: say what moves the three headlines before the input register (012r) is written, so research effort goes to the inputs that matter. Pen and paper only: no code was run for this file. Numbers come from `docs/model-audit/synthesis.md` (v2 scratch runs, which rank and size but are not results) and are marked where they are not.
 
@@ -40,7 +40,7 @@ Expected order of influence on M1: D1 (return history), then D2 and D3 (levers, 
 1. **Tier 1, sourced fully** (low, central, high, unit, citation, licence): D4, D5, D6, D9, D10, and the loss-year and return inputs D1. These decide whether the headlines are credible.
 2. **Tier 2, one documented range** with a source or a stated reason, no further sourcing: D7, D8, D11, the corporate levy base.
 3. **Levers D2 and D3 are not research inputs.** They are the named schedules and the threshold rule, set in stage C and D.
-4. **Tornado before stage C.** When 012r delivers tier 1, run the identity one input at a time over low and high on a sheet of paper or in the research lane's notes; the result is `docs/model-v3/tornado.md`. Any tier 2 input that moves M1 by less than 0.5 points of GDP stays at its single range (the 0.5 is PROPOSED). The tornado also fixes the first number to back out: ε · g · ω against v2's 7.34%.
+4. **Tornado before stage C.** When 012r delivers tier 1, run the identity one input at a time over low and high on a sheet of paper or in the research lane's notes; the result is `docs/model-v3/tornado.md`. Any tier 2 input that moves M1 by less than 0.5 points of GDP stays at its single range (the 0.5 is confirmed, 2026-11-16). The tornado also fixes the first number to back out: ε · g · ω against v2's 7.34%.
 5. **Add to the input list**, from the A2 decisions: liquid assets and income by wealth band (M2b, M2c), the specifications of the reform-in-place benchmarks (M8), the house-price response to retiring stamp duty and council tax (S1), and the public balance sheet path (P6).
 
 ## 5. The sustainability test, read correctly
