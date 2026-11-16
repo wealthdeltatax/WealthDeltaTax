@@ -1,20 +1,52 @@
 # 011: Model v3 design
 
-- **Status:** parked (starts after the audit, brief 001c)
-- **Author/date:** K. Ogata with the guru, 2026-11-15
-- **Depends on:** 001c
-- **Read:** `docs/model-audit/synthesis.md` (written in 001c stage E)
+- **Status:** draft (the author reviews before stage A starts)
+- **Author/date:** K. Ogata with the guru, 2026-11-16
+- **Depends on:** 001c (merged; synthesis in `docs/model-audit/synthesis.md`)
+- **Read:** `docs/model-audit/synthesis.md`, then `docs/model-audit/lessons-so-far.md`. Nothing else need be opened until a stage names it.
 
 ## Goal
-Design model v3 from the audit's findings, then write the build briefs. No design exists yet.
+Design model v3 as a range model with three headline outputs, so that each build brief written afterwards is small, staged and measurable. This brief writes designs and briefs; it builds no model code.
 
-## Decisions (author, 2026-11-15)
-- Model v3 is a complete rework of v1 and v2, not a repair of either.
-- It is not designed until both earlier models are audited (001c).
-- The previous attempt kept building without control: the design brief must have stages, a stop after each, and measurable acceptance criteria before any implementation brief is written.
+## Decisions (author, 2026-11-16)
+All of `synthesis.md` section 3. In short: three headline ranges (government revenue, taxpayer burden, non-payer savings) reported as sampled P10, mean and P90; a year-by-year path with a steady-state summary; a fixed allocation order (refunds, SWF share, relief); a sampled family of progressive rate schedules; C.1 over TW(1) as a supporting output; a clean slate with port by exception; the papers are rewritten to follow the results.
+- The earlier attempt kept building without control: every stage below ends in a stop, and no implementation brief is written until stage D passes.
 
 ## Design
-To be written after 001c. It must settle: which outputs the rewritten papers need, where v3 lives, where it reads `jst_r6.json`, and what happens to `model_v1/` and `model_v2/` (see brief 009c).
+Four design stages, each producing one document under `docs/model-v3/` (new folder). The guru writes stages A, C and D with the author; stage B is a research brief.
+
+## Stages
+- **A: output manifest and metric register** (guru, with the author). Checkpoint: `docs/model-v3/outputs.yml` and `docs/model-v3/metrics.md` pushed. Check: each of the three headline outputs and the supporting tolerant zone has a formula, a denominator, a unit, a horizon and the whitepaper element it feeds; no metric has two denominators; the burden and savings definitions close open questions 1 of `synthesis.md` section 7.
+- **B: input register** (research lane; a separate brief `012r`, written after A). Checkpoint: `docs/model-v3/inputs.md`. Check: every ranged input (wealth distribution and threshold, returns and loss years, behavioural response, rate schedule family) has a low, central and high value, a unit and a cited source; the tail dataset and its licence are named.
+- **C: architecture** (guru). Checkpoint: `docs/model-v3/architecture.md`. Check: it fixes where v3 lives and where it reads `jst_r6.json`; lists the modules in dependence order; sets a line budget for the core and for the output layer; names what is ported by exception with the element that needs it; lists the tests each module needs before the next is built; and states what happens to `model_v1/` and `model_v2/` (brief 009c).
+- **D: acceptance plan and build briefs** (guru). Checkpoint: `docs/model-v3/acceptance.md` and the first build brief written. Check: every build stage has a stop and a measurable criterion (a test, a bound, a reproducible number); the smoke test, the seed and sample-size policy and the run script are specified; each requirement R1 to R10 of the synthesis maps to a criterion.
+One session does one stage and stops. No model code is written in this brief.
+
+## Touches
+New folder `docs/model-v3/`, `docs/briefs/` (new briefs), `STATUS.md`, `docs/lane-plan.html`, `docs/decisions.md`.
+
+## Acceptance criteria
+- Stages A to D checkpoints exist and meet their checks.
+- `git diff --stat` shows no change to `model_v1/`, `model_v2/`, `source/` or `pipeline/`.
+- Every requirement R1 to R10 appears in `acceptance.md` with its criterion.
+- The author has approved stage A before stage B starts, and stage D before any build brief starts.
+
+## Checks to run
+A grep that each of R1 to R10 is named in `acceptance.md`; `git diff --stat` limited to the Touches list.
+
+## Out of scope
+Writing model code, fixing v1 or v2, writing or editing papers, choosing the whitepaper outline, running the legacy models.
 
 ## Open questions
-- Everything above.
+The six in `synthesis.md` section 7 (burden denominator, sample size and seed, rate family, SWF share and horizon and start years, UK-only scope, tail dataset). Stage A closes the first; stage B the sixth; stage C or D the rest.
+
+## Implementation notes
+<!-- progress:start -->
+- **Done:**
+- **Next:**
+- **Decisions:**
+- **Gotchas:**
+- **Resume:**
+- **Not run:**
+- **State:** draft
+<!-- progress:end -->

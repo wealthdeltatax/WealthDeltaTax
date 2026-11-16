@@ -259,8 +259,8 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 <script>
 (function () {
   var LANES = [
-    { id: "1", name: "Agent 1 · Guru", note: "reviews and retires briefs, keeps status and plan; compiles brief-suggestions.md" },
-    { id: "2", name: "Agent 2", note: "audit 001c stage E: synthesis and the v3 requirements list" },
+    { id: "1", name: "Agent 1 · Guru", note: "011g model v3 design; compiles brief-suggestions.md" },
+    { id: "2", name: "Agent 2", note: "free" },
     { id: "3", name: "Agent 3", note: "free" },
     { id: "4", name: "Agent 4", note: "free" },
     { id: "5", name: "Agent 5", note: "free" },
@@ -269,10 +269,9 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   ];
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
-    { id: "D1", lane: "E", at: 0, len: 1, st: "author", t: "Tell Agent 2 which outputs the papers need", needs: [], ph: true, why: "Stage E needs to know which figures, tables and numbers the rewritten papers will use, so that v3 produces those and nothing more.", files: "" },
-    { id: "001c", lane: "2", at: 0, len: 1, st: "ready", t: "Audit stage E: synthesis and v3 requirements", needs: [{ id: "D1", soft: true }], why: "Stages A to D are merged (inventories, v1 errors, v2 complication and tests). Stage E turns them into the lessons note and the list of outputs v3 must produce, starting from docs/model-audit/lessons-so-far.md. It needs your answer on which outputs the rewritten papers will need. Writes only under docs/model-audit/; then 011g (v3 design) can start.", files: "docs/model-audit/ (synthesis.md, a draft of 011g)" },
     { id: "007w", lane: "G", at: 0, len: 1, st: "hold", t: "Crosslink repair", needs: [], why: "Parked until your paper rewrite lands. Then run the crosslink check fresh and follow the post-update workflow in the style guide.", files: "source/, registry/" },
-    { id: "011g", lane: "G", at: 1, len: 1, st: "hold", t: "Model v3 design", needs: [{ id: "001c" }], why: "Designed from the audit, with stages and measurable criteria before any build brief exists. Settles the outputs the rewritten papers need, where v3 lives and where it reads jst_r6.json.", files: "docs/briefs/ (new briefs)" },
+    { id: "011g", lane: "1", at: 0, len: 4, st: "author", t: "Model v3 design (draft)", needs: [], why: "Range model with three headline outputs (revenue, taxpayer burden, non-payer savings) as P10, mean and P90. Four design stages, each ending in a stop: A output manifest and metric register, B input register (research brief 012r), C architecture, D acceptance plan and the first build brief. No model code. Waiting for your review of the draft and of docs/model-audit/synthesis.md.", files: "docs/model-v3/ (new), docs/briefs/" },
+    { id: "012r", lane: "G", at: 1, len: 1, st: "hold", t: "Input register: data and ranges (to be written)", needs: [{ id: "011g" }], why: "Written after 011g stage A. Sources the wealth survey and rich-list tail, the return series and the behavioural ranges, each with low, central and high values and a citation.", files: "docs/model-v3/inputs.md" },
     { id: "009c", lane: "G", at: 2, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "011g" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" }
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
@@ -391,7 +390,6 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   document.addEventListener('click', function (ev) { if (ev.target.closest && ev.target.closest('dialog')) return; if (selected && !detail.contains(ev.target)) select(selected); });
   // ---- your to-do items: what each one is, step by step, and the open questions it carries
   var TODO = [
-    { id: "outputs", bar: "D1", t: "Which outputs will the rewritten papers need?", tag: "decision", when: "Before or during stage E.", why: "The audit found that v2 produces 55 figures and 56 tables while the papers embed 19 names, none of which v2 produces. v3 should produce only what a paper element uses.", steps: [], qs: ["Which papers (or sections) will carry model figures, tables or numbers after the rewrite?", "Is the 15%-to-70% logistic rate function still the papers' rate, or does the gain ladder replace it?", "Which C.1 denominator, TW(1) or TW(alpha), will the papers define (v1 errors B1)?"] },
   ];
   var TODO_BY_ID = {}, TODO_BY_BAR = {};
   TODO.forEach(function (x) { TODO_BY_ID[x.id] = x; if (x.bar) TODO_BY_BAR[x.bar] = x.id; });

@@ -1,6 +1,6 @@
 # 001: Audit of model v1 and model v2 (no building)
 
-- **Status:** stages A to D merged (2026-11-16); stage E (synthesis, guru lane, run by Agent 2) next
+- **Status:** built (merged)
 - **Author/date:** K. Ogata with the guru, 2026-11-15
 - **Depends on:** 003s, 004s, 005g, 006c, 008g, 010s
 - **Read:** `docs/model-lessons/` (all three files), `docs/agents/reference/code/conventions.md`, `docs/agents/reference/framework.md` (section on checks), the two model folders (`model_v1/`, `model_v2/` after 010s; `model/`, `model_new_2/` until then) and the papers' figure and table list (`registry/contents.yml`).
@@ -62,5 +62,5 @@ Fixing any error, writing or changing any model code, building any part of v3, c
 - **Gotchas:**
 - **Resume:**
 - **Not run:**
-- **State:**
+- **State:** stage E done 2026-11-16 (guru with the author, a question-and-answer session): `docs/model-audit/synthesis.md` written and brief 011g redrafted. The author reframed v3 as a range model with three headline outputs; see the synthesis. Merged, ready to retire.
 <!-- progress:end -->
