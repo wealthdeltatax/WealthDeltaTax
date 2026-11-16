@@ -24,5 +24,10 @@ Change report
   - Suggest widening the existing brief-suggestions entry on import side effects in wid_checks.py / wid_summarise.py (not logged by me).
 - Verification: AST inventory of all 29 files; import tests of 24 files (23 ok, eval_core fails); AST name-resolution check of all cross-module references (0 unresolved); numeric snippets: load_params time, tau on the gain ladder and on v1 logistic, run_pair at alpha 1.5, 1.0, 0.5 in v1 and v2; function-source diff v1 vs v2 wdt_core; figure-name regex match against source/*.md. Not run: any core main, table or chart script, jst_r6.json, test scripts (none exist for the cores)
 - Overview sections likely needing an update: section 6 (add: v2 eval_core orphaned; basis-convention change; name mismatch with papers; import side effects in two WID scripts)
-- Commit / branch: see below
+- Commit / branch: brief/001-model-audit; merged to main by the guru on 2026-11-16 after review (see Guru review below)
 ```
+
+## Guru review (2026-11-16)
+- Spot-checked: 29 `.py` files and 19,558 lines; `WDT_Params.toml` 1,839 lines; `eval_core.py` line 62 imports `wfr_core` (not in v2); `BASIS_CONVENTION = 'post'` at `wdt_core.py` line 121 and no `BASIS_CHANGE.md` in the folder; none of the four test files named by `WDT_Code_Reference.md` exists; `wid_checks.py` and `wid_summarise.py` have no `main` guard. All hold.
+- Deviation 1 (importing the two WID scripts ran their module code and rewrote files under `wid_out/`): accepted. `git status` was clean after it, so the files were byte-identical; the import side effect is itself a finding (add to `docs/brief-suggestions.md` if v2 data tooling survives).
+- The author's rule (2026-11-16): v1 and v2 are not fixed, only learned from. The v1/v2 basis-convention difference is therefore a lesson (same inputs, different answers, no tracked note of why), not a bug to resolve.

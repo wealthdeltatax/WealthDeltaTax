@@ -24,18 +24,25 @@ Entry format, newest at the bottom:
 - Where: `site/tools/revenue_calc.html`, `site/_quarto.yml` (resources)
 - Problem: both name `model/rates_model.py` (now `rates_core1.py`, and not published), so the calculator probably fails. Needs the author's decision (fix, replace or remove); architecture doc Issue 16.
 - Suggested lane: s
-- Status: open
+- Status: parked (author, 2026-11-16): a new revenue calculator comes after model v3.
 
 ### Hardcoded Zenodo sandbox token
 - Found by: brief 004s, 2026-11-15
 - Where: `pipeline/zenodo_upload.py`; git history
 - Problem: a sandbox token is in the source (Issue 7). The author revokes it; then read it from an environment variable.
 - Suggested lane: s
-- Status: open
+- Status: wontfix for now (author, 2026-11-16): Zenodo sandbox is a non-critical test environment.
 
 ### Site build leaves tracked files modified
 - Found by: brief 003s, 2026-11-15
 - Where: `registry/contents.yml`, `site/pages/glossary.md`, `registry/references.json`
 - Problem: the build rewrites them (561 + 244 changed lines in the first two) so it is not `git status` clean. Needs the author's decision on whether they stay tracked.
 - Suggested lane: s
+- Status: done 2026-11-16: `references.json` and `glossary.md` untracked and ignored; `contents.yml` stays tracked (hand-written titles; the build only syncs it).
+
+### Rename the wdt-web skill to wdt-site
+- Found by: author, 2026-11-16 ("i might even rename wdt-web to wdt-site for consistency")
+- Where: `.claude/skills/wdt-web/`, `Tools/wdt-web.skill`, the role name `web` in `AGENTS.md`, `docs/agents/`, `OVERVIEW.md`, and the claude.ai account skill
+- Problem: the lane letter is `s` (site) but the role and skill are called web. Not decided; the author may do it.
+- Suggested lane: g
 - Status: open

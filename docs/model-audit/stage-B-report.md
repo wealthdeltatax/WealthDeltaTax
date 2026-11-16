@@ -22,7 +22,7 @@ Change report
   - The register file itself is not edited (outside Touches); the guru strikes items in stage E
 - Verification: in-memory snippets (alias rates_core -> rates_core1, PYTHONDONTWRITEBYTECODE=1, python -I) for B1, B5, B6, B8, B9, C5, C6, the tolerant zone and B4; greps for the rest; git status clean outside docs/model-audit/ after every run. Not run: run_all, any core main, val_core, wfr_core, table and chart scripts, any test
 - Overview sections likely needing an update: section 6 (add the C.1 denominator split and the 1.85 vs 1.80 tolerant zone once the author decides)
-- Commit / branch: brief/001-model-audit-b (pushed, NOT merged: NEEDS THE AUTHOR)
+- Commit / branch: brief/001-model-audit-b; merged to main by the guru on 2026-11-16 after review (see Guru review below)
 ```
 
 ## Progress block (handover)
@@ -33,4 +33,9 @@ Change report
 - **Gotchas:** `load_params()['N']` is 19 (`N_fill`), `N_val` is 30; `wdt_analytics.make_p()` gives N = 30. `python -I` needs `sys.path.insert(0, '.')`.
 - **Resume:** `git fetch origin && git checkout brief/001-model-audit-b`; read `docs/model-audit/v1-errors.md` section 2 (B1).
 - **Not run:** val_core, wfr_core, rates_core1 main, run_all, tables, charts, tests; B10 and the effects on `OUTPUTS/`.
-- **State:** branch `brief/001-model-audit-b`, pushed after this commit.
+- **State:** merged to main on 2026-11-16.
+
+## Guru review (2026-11-16)
+- Spot-checked against the code: B1 (`run_pair` divides by `TW_settled(1)`; its own docstring says "the pre-refactor C.1 divided by TW_settled(alpha)"), B4 (line 109), B5 (line 960), B7 (line 272 vs TOML 0.15), B8 (TOML lines 543 to 546), B9 (`_to_json_safe`), D2 (`run_all.bat` lines 14, 15). All hold.
+- NEEDS THE AUTHOR on B1 is closed as a finding, not a decision: the author's rule for the audit (2026-11-16) is that model v1 and v2 are not fixed, only learned from. The denominator question moves to the v3 design (brief 011g) as an open design question.
+- Evidence strength: A1 to A5, B7, B11, B12, C1 to C4, C7 to C13, D1 to D5, E1 to E3 rest on file and line reading, not on a measured effect; the note says so. Effects on `OUTPUTS/` were not measured and are not needed for the lessons.

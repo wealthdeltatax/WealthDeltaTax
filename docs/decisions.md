@@ -2,6 +2,12 @@
 
 One entry per finished brief or settled question, at most 8 lines each. Newest first. Maintained by the guru.
 
+## 2026-11-16: audit stages B and C merged (brief 001c)
+- Stage B (v1 errors against the drift register: 36 confirmed, 4 partly, 1 not reproduced, 1 not checked, 3 new) and stage C (v2 inventory) reviewed by spot-check against the code and merged. Stage D and the synthesis remain.
+- Rule from the author: model v1 and v2 are incomplete and incorrect and are not fixed, only learned from. So the B1 question (which C.1 denominator is canonical) is not decided now; it goes to the v3 design (011g). Running list of lessons: `docs/model-audit/lessons-so-far.md`.
+- `registry/references.json` and `site/pages/glossary.md` untracked and ignored (the build regenerates both; checked). `registry/contents.yml` stays tracked: the build only syncs it and keeps hand-written titles for headings with maths.
+- Author answers: the Zenodo sandbox token is non-critical; the revenue calculator will be replaced after model v3; letter `s` stays; old uploaded skills removed from the account.
+
 ## 2026-11-15: model folders renamed (brief 010)
 - `model/` is now `model_v1/` and `model_new_2/` is `model_v2/`. The build reads `model_v1/` and still writes `_build/model/`, so published URLs (`/model/wdt_core.py`, `/model/WDT_Params.toml`) are unchanged (author's default).
 - Site output identical before and after: 157 files, 95 figures. The Action on `main` is green on the tip that contains the rename.
@@ -10,7 +16,7 @@ One entry per finished brief or settled question, at most 8 lines each. Newest f
 ## 2026-11-15: output and CI hygiene (brief 003)
 - Deleted `check.txt` and `pipeline/check2.txt`; untracked `source/.obsidian/` (files stay on disk); `.gitignore` covers them and future `check*.txt`; removed the "Inspect build output" step from `deploy.yml`.
 - Merged with a local Linux build passing (53 pages, 28 `wfr_*` figures) and the Action green on later tips. The build is not `git status` clean: it rewrites `registry/contents.yml`, `site/pages/glossary.md`, `registry/references.json` while the papers are mid-rewrite.
-- Open for the author: do those three generated files stay tracked?
+- Open for the author: do those three generated files stay tracked? (Answered 2026-11-16: two untracked, `contents.yml` stays.)
 
 ## 2026-11-15: model folder cleanup (brief 006)
 - Deleted the four `SS` folders under `model_new_2/`, `model_new_2/test/_backups/` and `model/test/welfare_core.py`, `welfare_tables.py`: 226 tracked files (709 to 483), `model_new_2` 192 to 154 MB. The pack stays 105.83 MiB (history kept).
