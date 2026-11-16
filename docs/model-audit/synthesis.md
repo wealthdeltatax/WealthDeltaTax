@@ -24,7 +24,7 @@ The model cannot cover the whole economic parameter space. v3 therefore **estima
 | Time | Year-by-year path over N years with a steady-state summary; headline numbers reported at steady state and at a stated year |
 | Allocation | One fixed order: refunds first, then reserve top-up to the targets the papers already set (short and long reserves, each 3 times the trailing mean annual refund), then relief for non-payers from the remainder. This replaces the "stated SWF share" of the first draft: the share is a result of the reserve rules, not an input |
 | Corporate levy | Part of government revenue, reported as its own line, never merged into the individual WDT line |
-| Retired taxes | The taxes WDT replaces are removed at the same moment WDT starts, so that revenue is not double counted. Stated so far: capital gains tax, inheritance tax, stamp duty and property taxes. The headline revenue is therefore the net fiscal effect: WDT plus levy minus the receipts of every retired tax, each shown as a line |
+| Retired taxes | The taxes WDT replaces are removed at the same moment WDT starts, so that revenue is not double counted. Retired together: capital gains tax, inheritance tax, stamp duties (property and shares), council tax, business rates and corporation tax. Everything else stays. The headline revenue is the net fiscal effect: WDT plus levy minus the receipts of every retired tax, with each as its own visible line (the author, 2026-11-16) |
 | Threshold | Set by policy intent, not by the papers: only people with a secure living situation pay. W_min = half the median house price, per adult, read as the share a couple holds in a median home owned outright (net of mortgage). v2's value (0.5 times the median price, about £113k, about half of adults and 93% of wealth) is the starting point. The papers' canonical figures are ignored: they will all change |
 | Countries | UK only in v3. Country data enters through one data pack (distribution, returns, tax baselines, units) and the core contains no UK constant, so adding a country is adding a pack, not editing code |
 | Wealth data | Official survey for the bulk plus a rich-list tail; the tail's uncertainty is a stated input range |
@@ -55,13 +55,11 @@ Not carried over: the gain ladder, the fresh-entrant heir rule, strategy verdict
 - **Crosslinks (007w) and retiring the legacy folders (009c):** both wait for the rewrite and v3.
 
 ## 7. Open questions
-Closed on 2026-11-16: burden denominator, rate family, UK-only, corporate levy (reported separately), threshold approach (policy intent above).
-1. **Which taxes are retired.** CGT, IHT, stamp duty and property taxes are named. Not yet settled: council tax, business rates, and corporation tax. v2 retired corporation tax and calibrated its levy to the same 3.08% of GDP, so counting the levy as revenue without netting corporation tax would double count the same money in the other direction.
-2. **Headline revenue definition.** Net fiscal effect with every line shown (proposed), or gross WDT and levy with the retired taxes as a separate cost line.
-3. **Unit of assessment.** v2 assesses each adult. The threshold reading (a couple's median home split between two) implies per adult; stage A confirms.
-4. **Seed and sample size.** Fixed seed recorded in every output; sample size set by a convergence test across seeds in stage C.
-5. **Horizon, start years and returns.** Chosen, not calculated. Replay of historical windows (v1 and v2) or a sampled return distribution fitted to history: stage C.
-6. **Data gaps** (section 9), for brief 012r.
+Closed on 2026-11-16: burden denominator, rate family, UK-only, corporate levy (own line), threshold approach, the list of retired taxes, the headline revenue definition (net fiscal effect, every line shown), the unit of assessment (per adult).
+1. **Does the arithmetic close?** See section 10: on v2's own rough numbers the retired taxes exceed what WDT and the levy raise. Stage A of 011g tests this first.
+2. **Seed and sample size.** Fixed seed recorded in every output; sample size set by a convergence test across seeds in stage C.
+3. **Horizon, start years and returns.** Chosen, not calculated. Replay of historical windows (v1 and v2) or a sampled return distribution fitted to history: stage C.
+4. **Data gaps** (section 9), for brief 012r.
 
 ## 8. Evidence for the rate family: v2 schedules run on UK windows
 A scratch run of v2's `rates_core` on a copy outside the repo (nothing committed): UK only, `start_stride` 5, 24 windows each, `gdp_pc` indexation, scenarios as defined in `model_v2/WDT_Params.toml`. v2 is incomplete and incorrect (author, 2026-11-16), so this ranks schedules; it is not a result.
@@ -91,3 +89,18 @@ A scratch run of v2's `rates_core` on a copy outside the repo (nothing committed
 4. Behavioural ranges: avoidance, migration (the Norway leakage figure already in the Project Map) and valuation understatement, each with a low, central and high value.
 5. Pension, housing and business-asset treatment in the distribution (what counts as wealth for the threshold).
 6. For R11: a note of what each data source covers outside the UK, so the pack format does not assume UK-only fields.
+
+## 10. Scale check: retired taxes against what v2 raises (rough, for stage A to test)
+Retired taxes, receipts as a share of GDP, `Revenue composition spreadsheet.xlsx` (IFS, "% GDP (cash)", the 2025-26 column; the later columns are forecasts):
+| Tax | % of GDP |
+|---|---:|
+| Corporation tax | 3.37 |
+| Council tax | 1.75 |
+| Business rates | 1.29 |
+| Capital gains tax | 0.77 |
+| Stamp duties (property) | 0.66 |
+| Stamp taxes on shares | 0.16 |
+| Inheritance tax | 0.27 |
+| **Total retired** | **8.27** |
+Against that, the v2 scratch run (section 8, `gain_ladder`, UK, mean over 24 windows) shows net revenue of 5.43% of GDP, of which the corporate levy is 2.88 and the individual WDT 2.55. On these numbers the net fiscal effect would be about -2.8% of GDP (-5.7% if the individual WDT alone is counted), before any reserve top-up or relief for non-payers.
+**Caveats.** The v2 figures are unfixed and average the early fill years, the periods differ (UK 2025-26 receipts against replayed windows), and the v2 distribution and rates are not v3's. This is an order-of-magnitude warning, not a result. It does say the closure question comes before the sampled ranges: if the retired list stays this long, the schedule or threshold must raise far more than v2's, or the net headline will be negative, and v3 should report that honestly. The three headline outputs may then include a break-even rate.
