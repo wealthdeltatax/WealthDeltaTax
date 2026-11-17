@@ -32,7 +32,7 @@ The implementer asks rather than guesses.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **State:** ready
+- **Done:** `docs/restructure/site/checker.md` written: 98 checks (front matter, shape, budget, objection block, hooks and R1, typed figures, figure blocks and F1 to F6, cross-references, automatable writing rules, Data block), each with severity, mode, pass and fail example and writing-lane action; 19 manual-only rules with reasons; 14 old-checker rows marked; 18 numbered questions with proposed answers; 6 template findings (the 6a example fails F1 and F5).
+- **Next:** the author or guru answers the questions in section 9; the guru merges the file into `docs/restructure/site.md`.
+- **State:** done, branch pushed, NEEDS THE AUTHOR (open questions; not merged)
 <!-- progress:end -->
