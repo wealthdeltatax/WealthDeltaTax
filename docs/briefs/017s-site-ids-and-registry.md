@@ -33,8 +33,8 @@ The implementer asks rather than guesses.
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** `docs/restructure/site/ids.md` written (id scheme, 32-row page table, all 33 old papers, fates of registry, generated and pipeline files, migration M0 to M6, 11 questions with proposed answers).
-- **Next:** the author answers Q1 to Q11; the guru merges the sibling files into `docs/restructure/site.md`.
-- **State:** NEEDS THE AUTHOR (questions open; not merged to `main`)
+- **Next:** the guru merges the sibling files into `docs/restructure/site.md`.
+- **State:** done; Q1 to Q11 answered by the author 2026-11-17 (Q5a and Q5b differ from the proposals and are applied); brief 017 merged, ready to retire
 <!-- progress:end -->
 
 Change report
@@ -47,4 +47,4 @@ Change report
 - Risks / follow-ups: Q1 to Q11 need the author; POL.A's redirect target (S1 by kept words) is a judgement; the ledger's kept-word figures predate the S4, S6 and S8 splits, so section 3 applies the splits from `map.md` section 7; the live site was not fetched, URLs come from `papers.yml`; the ledger has no rows for the FAQ, comparison, avoidance and corporate-levy pages (Q7)
 - Verification: shortcodes in `source/*.md` against section 3 (33 of 33, none missing or extra); counts of redirects and kept URLs (30 and 3); id clashes checked by grep (`D1` to `D11` in `drivers.md`, metric `S1` in `metrics.md`). Not run: any build, since nothing in `pipeline/`, `site/` or `registry/` changed
 - Overview sections likely needing an update: none until the author answers (section 2 directory map once `pages.yml` exists)
-- Commit / branch: branch `brief/017-site-ids-and-registry`; not merged (open questions for the author)
+- Commit / branch: branch `brief/017-site-ids-and-registry`; merged to `main` after the author answered Q1 to Q11

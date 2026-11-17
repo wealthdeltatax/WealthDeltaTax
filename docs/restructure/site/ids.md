@@ -6,6 +6,9 @@
 
 Status: design only, drafted 2026-11-17, waiting for the author on the questions in section 8. Builds nothing. The guru merges this file into `docs/restructure/site.md` with its siblings (`hooks.md`, `figures.md`, `spoke-checker`, `nav.md`).
 
+> **Q5a and Q5b (author, 2026-11-17, asked directly, later than the note above).** Q5a: the three standalone papers (ADD, INST, SCOPE) move to the new spoke shape now, not kept in the old one. Q5b: the 30 retired numbered source files move to `docs/archive/papers/`, not deleted. Sections 3, 5, 6 and 7 are updated for these two; the other nine answers stand as proposed. If the earlier note and this one disagree on Q5a or Q5b, this one is the author's answer.
+
+
 Inputs read: `registry/papers.yml`, `registry/contents.yml`, `pipeline/` (file names and module docstrings), `site/_quarto.yml`, `site/pages/`, `docs/restructure/map.md` (sections 4 and 7), `ledger.md` (sections 1, 7, 8), `ledger-sections.md` (redirect weights only), `template.md`, `docs/model-v3/outputs.yml`, brief 007w. Nothing in the live site was fetched; current URLs are taken from `papers.yml` (`<output>.html` at the site root) and `_quarto.yml`.
 
 ## 1. The scheme (rules this file fixes)
@@ -113,7 +116,7 @@ Rule for the target: the spoke that receives the most kept or merged words (K an
 | LDW | `/ldw.html` | redirect | S11 | S11 3,914, S6 1,618 |
 | FAL | `/fal.html` | redirect | S12 | S12 11,360 |
 
-Counts: 30 redirects, 3 URLs kept. The three standalone papers are rewritten in place under the author's full-rewrite decision; their section ids stay in the old shape (question Q5).
+Counts: 30 redirects, 3 URLs kept. The three standalone papers keep their ids and URLs and move to the new (spoke) shape now (author, Q5a): their `pages.yml` entries are `type: standalone`, `status: legacy` until each is rewritten, and from then on they take positional section ids (`#add-2`), the spoke reference grammar and the spoke checker.
 
 Side effects the redirects do not cover:
 - A fragment in an old link (`wp.html#the-tax-base`) is lost: a meta refresh does not carry it. RET gives the section-level answer. Accepted unless Q3 says otherwise.
@@ -167,7 +170,7 @@ Fates: **keep**, **change**, **retire**. "At cutover" means at the step in secti
 | `pipeline/build_anchors.py` | `contents.yml` to `anchors.yml` | retire at cutover | |
 | `pipeline/build_glossary.py` | per-paper Glossary sections to `glossary.md` | change | reads `glossary.yml`; keeps its feature of linking each term to the spokes that use it |
 | `pipeline/wdt_crosslinks.py` | scan, check, query, remap for the old shape | retire at cutover | its `remap` idea is worth carrying into the spoke checker (positional section ids, section 8 Q1) |
-| `pipeline/check_wdt_format.py` | format checker, old paper shape | keep until the three standalones are rewritten, then retire | cannot check spokes (rule 5); the spoke checker is 020w |
+| `pipeline/check_wdt_format.py` | format checker, old paper shape | retire at cutover | cannot check spokes (rule 5); the spoke checker (020w) also covers the three standalones once rewritten (Q5a) |
 | `pipeline/pages/corpus.py` | All Papers page | retire at cutover | |
 | `pipeline/pages/references.py` | References page | change | `_ABBREV_TO_CANONICAL` and "Cited in" links retarget to spoke ids |
 | `pipeline/pages/site_index.py` | `site-index.json` | change | same URL, new schema (`version: 2`, pages and hooks instead of papers); no known consumer beyond the site itself (Q9) |
@@ -181,7 +184,7 @@ Fates: **keep**, **change**, **retire**. "At cutover" means at the step in secti
 
 ## 6. What happens to the old source files
 
-At cutover the 30 retired numbered files in `source/` are no longer built. Proposal (Q5b): tag the commit before removal (`old-series-2026-11`), then delete them from the tree; the tag, the Zenodo records and RET keep the record. The three standalone files stay. Nothing in `source/` is touched by this brief.
+At cutover the 30 retired numbered files in `source/` are no longer built. Decided (Q5b): the 30 retired numbered files move to `docs/archive/papers/` (a `git mv`, so history follows); the three standalone files stay in `source/` until rewritten. `docs/archive/` is already off the agents' reading list, so the move costs no reading; it keeps about 340,000 words in the tree. A git tag before the move (`old-series-2026-11`) is still advised as a cheap marker. Nothing in `source/` is touched by this brief.
 
 ## 7. Migration order (the site deploys at every step)
 
@@ -195,13 +198,13 @@ At cutover the 30 retired numbered files in `source/` are no longer built. Propo
 | M3 | Page types built from fixtures: hub, spoke, appendix and data-layer templates, hook resolver, Data block, figure renderer, spoke checker (briefs 018s, 019s, 020w, 021s). Fixture pages are `draft` and excluded from the deployed site, or published as in Q4 | identical (fixtures not deployed) | release build fails on an unresolved hook; fixture spoke passes the checker |
 | M4 | Data layer pages DL0 to DL6 and the per-output pages published, from the manifest, `inputs.md` and `metrics.md`; no values yet (no run), so output pages show the manifest only | new `/data/` pages added; nothing removed | internal links on the new pages resolve; `[[…]]` placeholders never appear on a deployed page |
 | M5 (repeated, one per group, after the data gate opens and the author accepts) | Add the accepted hub or spokes at `status: accepted`; add `aliases` for the old papers that group replaces and put them in `retired.yml`; turn that group's old pages into redirects | each group: new pages live, matching old URLs redirect | every old URL in the group returns the redirect page; the link check on the rest of the site passes; references to a retired shortcode inside live old papers resolve to the new page without a fragment, and the old crosslink check reports them as warnings, not errors |
-| M6 (cutover) | Last legacy paper retired; nav switched to `nav.md`; HOME, `research`, `corpus`, `link-map` and the folded site pages redirect; legacy tools and registry files removed (section 5); workflow steps dropped; `check_wdt_format.py` retired if the standalones are rewritten; glossary from `glossary.yml` | final structure | no `type: legacy` entry remains; `_site/` has no page without an id; the architecture doc matches |
+| M6 (cutover) | Last legacy paper retired; nav switched to `nav.md`; HOME, `research`, `corpus`, `link-map` and the folded site pages redirect; legacy tools and registry files removed (section 5); workflow steps dropped; `check_wdt_format.py` retired; glossary from `glossary.yml` | final structure | no `type: legacy` entry remains; `_site/` has no page without an id; the architecture doc matches |
 
 Group order for M5 follows the writing order, which is stage E's decision. The only dependency this design adds: the hub is accepted last or together with S3, because every retired paper's redirect and RET row point at pages that must exist.
 
 ## 8. Questions for the author
 
-Each has a proposed answer; none is applied until you answer.
+**All eleven answered 2026-11-17.** Accepted as proposed: Q1, Q2, Q3, Q4, Q6, Q7, Q8, Q9, Q10, Q11. Changed by the author: **Q5a** (standalones move to the new shape now, not kept in the old one) and **Q5b** (old sources move to `docs/archive/papers/`, not deleted). The text below is the record of each question; section 3 and the tables above are updated for Q5a and Q5b.
 
 **Q1. Positional or named section ids in spokes?** `(S5 §2)` means "second H2 of S5". Reordering sections silently changes what a reference points at, and the resolver cannot know. *Proposed:* keep positional ids as `template.md` has them; once a spoke is `accepted`, a section move or insertion runs a remap over every reference to that spoke (the idea of `wdt_crosslinks.py remap`), and the spoke checker refuses a build whose accepted spoke changed its H2 order without a remap file. If you prefer named ids (`(S5 §rates-threshold)`), `template.md` rule 7 changes.
 
@@ -236,3 +239,4 @@ Each has a proposed answer; none is applied until you answer.
 | Every registry, generated and pipeline file has a fate | section 5 (registry and pipeline listed in the repo today, plus the three new files) |
 | Migration keeps the site deployable | section 7, one check per step |
 | Touches | this file and brief 017's progress block only |
+| Author answers applied | Q5a and Q5b change sections 3, 5, 6 and 7; the other nine need no change |
