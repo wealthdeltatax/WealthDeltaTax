@@ -18,7 +18,7 @@ Brief 013g. Planning only. No spoke prose is written until the data gate (013g) 
 | H1 | The problem | What is wrong now and who bears it; why existing taxes do not fix it | TBD in ledger (see section 5) |
 | H2 | The tax in one page | The mechanism, plain words, one worked example | none |
 | H3 | What it does | Three headline results as P10, mean, P90 for the named schedules | O1, O2, O3, O4a, O4b |
-| H4 | Why it is fair | Short moral case, links to S1 | none |
+| H4 | Why it is fair | Short moral case, links to FAIR | none |
 | H5 | How it could be wrong | The strongest objections and what would falsify the tax | O7, OS1, O8 |
 | H6 | Where to go next | Reader routing block (section 3) | none |
 | H7 | Data and method | Links to the data layer and the model | all |
@@ -26,34 +26,41 @@ Brief 013g. Planning only. No spoke prose is written until the data gate (013g) 
 ## 3. Reader routing block (in H6)
 | Reader | Start at |
 |---|---|
-| Economist | S4, S5, S6, then the data layer |
-| Tax lawyer or administrator | S3, S4, S9 |
-| Policymaker or adviser | S5, S7, S10, S11 |
-| Business owner or accountant | S8, S4 |
-| Philosopher or sceptic | S1, S2, S12 |
-| Researcher wanting the numbers | the data layer, then S5 |
+| Economist | MECH, VAL, FISC, then the data layer |
+| Tax lawyer or administrator | MECH, VAL, GOV |
+| Policymaker or adviser | FISC, FUND, POL, FIRST, WIDER |
+| Business owner or accountant | CORP, ATTR, VAL |
+| Philosopher or sceptic | FAIR, LIT, FALS |
+| Researcher wanting the numbers | the data layer, then FISC |
 
-## 4. Spoke map (tentative; ledger confirms)
-Source = old paper, by number.
-| Spoke | Question it answers | Fed by (old papers) | v3 outputs | Depends on model numbers? |
+## 4. Spoke map (ledger confirms; shortcodes per `shortcodes.md`)
+Source = old paper, by number. "Fed by" follows `ledger.md` section 7 and `ledger-sections.md` (brief 025w); v3 outputs follow the `element:` lists in `outputs.yml`.
+| Page | Question it answers | Fed by (old papers) | v3 outputs | Depends on model numbers? |
 |---|---|---|---|---|
-| S1 Why | Is it fair? | 2 | none | no |
-| S2 Prior work | What exists, what is missing? | 3a, 3b | none | no |
-| S3 How it works | What exactly is taxed and when? | 1 (mechanism), 4, 13 | none | no |
-| S4 Valuation | How is wealth measured? | 5, 5a, 5b | M-valuation hooks, TBD | partly |
-| S5 Rates and revenue | What rate, what threshold, how much? | 8, 8a, 9, 9a, 11 | O1, O1a to O1d, OP1, OP4, OP5, OP3 | yes |
-| S6 Who pays | Who pays, what do they do? | 10, 10a, 19, 19a | O2, O2b, O2c, O3, O5, O6, O8 | yes |
-| S7 The fund and replaced taxes | Where does the money go? | 21, 11, parts of 8 | O1c, O1d, O4a, O4b | yes |
-| S8 Companies | How are firms treated? | 6, 6a | O1b | partly |
-| S9 Law and governance | Who runs it, on what law? | 7, 7a, 7b, 4 | none | no |
-| S10 Politics and adoption | Can it pass, how is it staged? | 12, 12a, 15, 16, 13 | OP3, OP5 | partly |
-| S11 Wider effects | Environment, welfare, scope | 14, 17, 19, 21 | O4a, O4b | partly |
-| S12 How it could be wrong | What would falsify it? | 22, 10 (limits), 9 (sensitivity) | O7, OS1, tornado | yes |
-Standalone (decided): 18 Addendums (ADD), 20 Institutional Selection (INST), 17 Scope Boundary (SCOPE, a meta paper outside the wheel). FAL is folded into S12 (decided). WFR (19, 19a) and LDW (21) concern people, so they feed spokes (S6, S7, S11), not standalone papers. S11 no longer draws on 17.
+| FAIR | Is it fair? | 2 | none | no |
+| LIT | What exists, what is missing? | 3a, 3b | none | no |
+| MECH | What exactly is taxed and when? | 1 (mechanism), 4, 13 | none | no |
+| VAL | How is wealth measured? | 5, 5a, 5b | M-valuation hooks, TBD | partly |
+| DECL | What do declarations do to incentives? | 5, 5a, 5b (VAL 7, VAL.A, VAL.B) | O7, OD1 | partly |
+| FISC | What rate, what threshold, how much? | 8, 8a, 9, 9a, 11 | O1, O1a to O1d, OP1, OP4, OP5, OP3 | yes |
+| PAY | Who pays? | 10 (RATES 2), 11 (WP 8.2), 21 (payslip), 14 | O2, O2b, O2c, O3 | yes |
+| BEHAV | What do they do? | 10, 10a, 11 (WP 7.3, 8.3, 8.7), CLOSE objections | O5, O6, O8 | yes |
+| WELF | How does it compare on welfare? | 19, 19a | OW1, OW3 | yes |
+| FUND | Where does the money go? | 21, 11, parts of 8 | O1c, O1d, O4a, O4b | yes |
+| CORP | How are firms treated? | 6, 6a | O1b | partly |
+| ATTR | Who holds wealth held through entities? | 6a (ENT, section E) | none | no |
+| GOV | Who runs it, on what law? | 7, 7a, 7b, 4 | none | no |
+| POL | Can it pass, how is it staged? | 12, 12a, 15, 16, 13 | OP3, OP5 | partly |
+| FIRST | What are the direct effects? | 21 (LDW 3.1, 3.2, 5) | O4a, O4b | partly |
+| WIDER | What are the wider effects? | 14 (ENV), 21 | OS1 | partly |
+| UNCER | What is not yet known? | 1, 5, 6, 7, 8, 9, 10, 11, 12, 14, 19, 21 (open questions, gaps, epistemic status) | OB1, O1b, O1d | yes |
+| LIMIT | What can the design not do? | 1, 2, 5, 6, 7, 7a, 8, 10, 10a, 12, 12a, 14 (structural limits, named compromises) | none | no |
+| FALS | What would show it wrong? | 22, 9 (SWEEPS 7.5), 12 (falsifiability objections) | CK1; O1, O2, O4a, O5, O6, OP6, OW1 if the element amendment in `ledger.md` section 9.3 is accepted | yes |
+Standalone (decided): ADD (18 Addendums), INST (20 Institutional Selection), SCOPE (17 Scope Boundary, a meta paper outside the wheel). FAL folds into FALS (decided). WFR (19, 19a) and LDW (21) concern people, so they feed pages (WELF, PAY, FIRST, WIDER, FUND), not standalone papers. Pages over 6,000 kept words and their proposed splits: `ledger.md` section 9.2.
 
 ## 5. Decisions (author, 2026-11-16)
 1. Spoke list and question-per-spoke shape: accepted. The ledger may still propose merges or splits.
-2. FAL folds into S12.
+2. FAL folds into S12 (now FALS).
 3. The hub's problem section needs outputs. Add them: stage B also checks every spoke for outputs it needs that `outputs.yml` lacks, and lists them as proposed additions (with the problem section H1 first).
 4. SCOPE stays outside the wheel. WFR and LDW go into spokes.
 5. Spoke length 2,000 to 4,000 words: accepted provisionally. The author's experience is that it feels alarmingly short, so the ledger reports, per spoke, the words of material it keeps; if a spoke exceeds budget the budget is revisited then (split the spoke or raise the cap), not squeezed.
@@ -61,10 +68,11 @@ Standalone (decided): 18 Addendums (ADD), 20 Institutional Selection (INST), 17 
 ## 6. Not decided here
 Site IDs and URLs (stage D), spoke template wording (stage C), the order of rewriting (stage E).
 
-## 7. Changes after stage B (author, 2026-11-17)
-- Cap raised to 6,000 words per spoke (author confirmed 6,000, 2026-11-17). Overflow rule: a spoke that holds more than the cap moves its less important material into an appendix spoke, id suffix `-A`, reached from the main spoke.
-- **S4 Valuation routes** (VAL 1 to 6, 9 to 12) with **S4-A Declaration incentives** (VAL 7, VAL.A findings, VAL.B examples).
-- **S6 Who pays** (RATES 2, WP 8.2, payslip) with **S6-A What they do** (BEHAV, BEHAV.A, CLOSE objections) and **S6-B Welfare comparison** (WFR, with the new welfare outputs).
-- **S8-A Entity attribution** (ENT, CORP.A section E): a separate spoke, appendix to S8.
-- 12 spokes become 12 main spokes plus 4 appendix spokes (S4-A, S6-A, S6-B, S8-A). Corrections to the "fed by" column are in `ledger.md` section 7 and apply.
-- H1 problem outputs OH1a to OH1c and data facts D-H1a to D-H1c accepted for now.
+## 7. Changes after stage B (author, 2026-11-17; rewritten to shortcodes, brief 025w)
+- Cap raised to 6,000 words per page (author confirmed 6,000, 2026-11-17). Overflow rule: a page that holds more than the cap gets its own shortcode, reached from its parent page. The `-A` suffix retires.
+- **VAL** routes (VAL 1 to 6, 9 to 12) with **DECL** declaration incentives (VAL 7, VAL.A findings, VAL.B examples).
+- **PAY** who pays (RATES 2, WP 8.2, payslip), **BEHAV** what they do (BEHAV, BEHAV.A, CLOSE objections) and **WELF** welfare comparison (WFR, with the new welfare outputs).
+- **ATTR** entity attribution (ENT, CORP.A section E): its own page.
+- S11 becomes FIRST and WIDER; S12 becomes UNCER, LIMIT and FALS (`shortcodes.md`). The 12 planning spokes plus 4 appendices are now 19 pages.
+- Corrections to the "fed by" column are in `ledger.md` section 7 and apply; the row reassignment is in `ledger.md` section 9.
+- H1 problem outputs OH1a to OH1c and data facts D-H1a to D-H1c accepted for now (OH1a later dropped; see `ledger.md` section 6.1).

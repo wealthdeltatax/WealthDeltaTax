@@ -37,7 +37,22 @@ The implementer asks rather than guesses.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **State:** ready
+- **Done:** all 980 rows of `ledger-sections.md` reassigned to shortcodes (plus the four reader-facing pages' rows); `ledger.md` sections 1 to 8 recomputed and new section 9 (placement, splits, model-number coverage, four pages) and 10 added; `map.md` sections 3, 4 and 7 in shortcodes.
+- **Next:** author decisions below.
+- **State:** done, branch `brief/025-ledger-shortcodes` pushed, NEEDS THE AUTHOR.
 <!-- progress:end -->
+
+```
+Change report
+- Task: 025w Reassign the ledger to shortcodes
+- Files changed: docs/restructure/ledger-sections.md (every row has a shortcode, standalone code, data layer or drop reason; moved rows carry [025w: ...] notes; four site pages' rows appended); docs/restructure/ledger.md (sections 1 to 8 recomputed; new sections 9 and 10); docs/restructure/map.md (sections 3, 4, 7 in shortcodes); this brief.
+- What is different now: no S ids remain as destinations. Kept words per page: FAIR 5,947; LIT 8,580; MECH 6,972; VAL 6,784; DECL 10,700; FISC 8,164; PAY 4,212; BEHAV 6,797; WELF 9,671; FUND 6,210; CORP 9,671; ATTR 6,498; GOV 10,668; POL 13,238; FIRST 1,010; WIDER 6,054; UNCER 0; LIMIT 204; FALS 12,135. Fourteen pages are over 6,000; default splits only for POL (to ADOPT and PILOT) and FALS (to HYPO); the others are optional (ledger.md 9.2).
+- New or changed interfaces: none.
+- Acceptance criteria: (1) no S id as destination: met (grep, 0 rows). (2) words kept per shortcode listed and every page over 6,000 has a proposed split: met (ledger.md 2 and 9.2; WIDER is over by 54 words and has no seam, so no split is proposed). (3) map.md sections 4 and 7 use shortcodes only: met; sections 3 also converted; S numbers remain only in the ids note and decision history. (4) proposed new outputs listed, not added: met; the finding is that none are needed, but the former S12 outputs need FALS added to `element:` (ledger.md 9.3). (5) git diff --stat shows only the Touches list: met.
+- Deviations from the brief: none.
+- Risks / follow-ups: UNCER has 0 kept words and LIMIT 204 because their rows were M; proposed treating their M rows as K (6,827 and 6,233 words). FIRST is thin (1,010). comparison-tables page conflicts with template 6a rule 3. The avoidance guide is all M. Element amendments for FALS are for the guru; OH1a was dropped so WELF 4.3 has no output.
+- Verification: row counts and word sums recomputed by script from the rows; grep for S-id targets; git diff --stat. Not run: a full read of every paper; the four site pages were read by section opening only.
+- Overview sections likely needing an update: the restructure status line (ledger now in shortcodes).
+- Commit / branch: see git log, brief/025-ledger-shortcodes
+```
+
