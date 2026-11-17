@@ -194,3 +194,37 @@ Its strongest distinctive feature is the proposed link to the lifetime contribut
 But the key claims remain unproven. The decisive tests are the revenue yield after behavioural response, the cash-flow burden on illiquid taxpayers, the additional contingent refund liability, and whether the combined system remains simpler and more robust than the alternatives.
 
 **Working label:** stock-wealth floor hypothesis. This is a discussion label, not an approved paper title or shortcode.
+
+## 13. Discussion notes, 2026-11-17 (author and guru)
+
+Status unchanged: exploratory; the investigation starts after the straightforward model v3 exists. These notes record the framing agreed in discussion so a later brief starts from it.
+
+### 13.1 Author's motivation
+- **Revenue**, and more broadly a direct charge on accrued wealth. The author's observation is that many wealthy people support stock wealth taxes, and the argument turns on whether a given rate destroys wealth.
+- **Proposed framing:** sweep the stock rate from 0.1% to 2% (the upper end is the rate of Zucman's proposed global minimum). Some rate is acceptable. The WDT then distributes the remaining burden across those best able to pay. The stock rate is a swept parameter; the WDT schedule is solved as the residual at equal total revenue.
+
+### 13.2 Size of the layer (back-of-envelope from the register; GDP about £3tn)
+- 2% on the whole Rich List total (I-D4f, £784bn, 350 entries) is about £16bn, about 0.5% of GDP. 0.1% is about 0.03% of GDP.
+- 2% on all of the top 1%'s wealth (I-D4a ratio 5.94 times GDP, I-D4d share 18%, about £3.2tn) is about £64bn, about 2% of GDP; this is a ceiling, since the base above any threshold in the range discussed is smaller.
+- Retired taxes are 8.27% of GDP, so the stock layer supplies at most about a quarter of the need and, at realistic thresholds, well under a tenth. The WDT carries the remainder.
+- Zucman's proposal is on billionaires (about £750m). Threshold and rate are separate axes; a £5m to £10m threshold is a different tax.
+
+### 13.3 What "acceptable" can mean in model terms
+Reportable per stock rate: the share of the mean return taken, the chance that real wealth is lower after 30 years, the liquidity ratio (charge against income and cash), and the combined stock-plus-WDT burden by wealth band. Rough check (stock tax only, iid returns with standard deviation 8.2%, 30 years, before any WDT): chance that real wealth ends lower.
+
+| Stock rate | Return low (2.18%) | Return central (4.42%) | Return high (7.47%) |
+|---|---:|---:|---:|
+| 0.1% | 8% | 0% | 0% |
+| 0.5% | 13% | 1% | 0% |
+| 1% | 22% | 1% | 0% |
+| 2% | 46% | 6% | 0% |
+
+At 2% the stock tax takes 92% of the low return and 45% of the central return. The result depends on the return (level 2 ignorance) more than on the rate.
+
+### 13.4 What a sweep would need (not for v3 stage C)
+A stock-rate lever and a separate threshold; a solver that scales the WDT schedule to the same total revenue at each stock rate (the equal-revenue machinery of OW1 can be reused); the envelope treatment as a switch (full, fractional, none); top-tail data above WAS (I-D4e, I-D4f) and a liquidity-by-asset source for the top tail, which the register lacks.
+
+### 13.5 Risks added by the discussion
+- Revenue from the top tail is concentrated, mobile and exposed to valuation games (I-D5c, I-D5d, OB1).
+- Once a stock layer does the "everyone above X pays something" job, the WDT reads as a progressive surcharge on gains. The papers would have to say so plainly.
+- Variants to compare: a separate stock charge (as written); a minimum presumed return as a floor on the taxable delta (one base, but breaks refund symmetry); a higher top band on the delta schedule (already the S_high lever).
