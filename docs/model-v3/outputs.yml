@@ -1,8 +1,8 @@
 # Model v3: output manifest (brief 011g, stage A passed 2026-11-16, A2 passed; added outputs integrated 2026-11-17)
 # One entry per output. Papers cite the id. An output with no whitepaper element does not exist (R1).
-# element: hub sections (H0 to H7) and the spoke shortcodes of docs/restructure/shortcodes.md (FAIR, LIT, MECH, VAL, DECL, FISC, PAY, BEHAV, WELF, FUND, CORP, ATTR, GOV, POL, FIRST, WIDER, UNCER, LIMIT, FALS) that cite the output; filled in brief 013g stage B, proposed until the author approves the stage.
+# element: hub sections (H0 to H7) and the spoke shortcodes of docs/restructure/shortcodes.md (FAIR, LIT, MECH, VAL, DECL, FISC, PAY, BEHAV, WELF, FUND, CORP, ATTR, GOV, POL, FIRST, WIDER, UNCER, LIMIT, FALS, and the split pages ADOPT, PILOT, HYPO) that cite the output; filled in brief 013g stage B, proposed until the author approves the stage.
 # summary: how the output is reported. p10_mean_p90 = sampled range (R5).
-version: "stage-A5-falsifiability-elements-2026-11-17"
+version: "stage-A6-hypo-elements-2026-11-17"
 country_pack: UK
 horizons: [transition, short, long]   # every headline and line is reported for all three; long is a steady-state property, not a forecast
 schedules: [S_low, S_central, S_high]   # named policy schedules, swept not sampled; headline outputs are reported for each (metrics.md, range design)
@@ -21,14 +21,14 @@ unit_tags:   # how a hook renders a value (hooks.md section 4.6; the three added
 # unit and decimals are one value, or a map from line id (for outputs with several lines). horizons: omitted means all three; [single] means no horizon dimension.
 # by: a map from dimension to its allowed values (hooks.md Q3, accepted). series: true means an annual series exists for figures.
 outputs:
-  - {id: O1,   metric: M1,  title: "Government revenue, net fiscal effect",       summary: p10_mean_p90, lines: [M1a, M1b, M1c, M1d], unit: pct_gdp, decimals: 2, element: [H0, H3, FISC, POL, FALS], kind: headline}
+  - {id: O1,   metric: M1,  title: "Government revenue, net fiscal effect",       summary: p10_mean_p90, lines: [M1a, M1b, M1c, M1d], unit: pct_gdp, decimals: 2, element: [H0, H3, FISC, POL, HYPO], kind: headline}
   - {id: O1a,  metric: M1a, title: "Individual WDT net of refunds",               summary: p10_mean_p90, unit: pct_gdp, decimals: 2, element: [H3, FISC], kind: line}
   - {id: O1b,  metric: M1b, title: "Corporate levy (own line)",                   summary: p10_mean_p90, unit: pct_gdp, decimals: 2, element: [H3, FISC, CORP, UNCER], kind: line}
   - {id: O1c,  metric: M1c, title: "Fund income net of retention",                summary: p10_mean_p90, unit: pct_gdp, decimals: 2, element: [FISC, FUND], kind: line}
   - {id: O1d,  metric: M1e, title: "Receipts of retired taxes, one line per tax", summary: p10_mean_p90, by: {per: [corporation_tax, council_tax, business_rates, capital_gains_tax, inheritance_tax, stamp_duties_property, stamp_taxes_shares]}, unit: pct_gdp, decimals: 2, element: [FISC, FUND, UNCER], kind: line}
   - {id: O2,   metric: M2,  title: "Taxpayer burden, share of wealth",            summary: p10_mean_p90, by: {wealth_band: [overall, D4_5, D6_7, D8_9, D10]}, unit: pct, decimals: 2, element: [H0, H3, FISC, PAY, FALS], kind: headline}
   - {id: O3,   metric: M3,  title: "Taxpayer burden, gain-weighted lifetime rate", summary: p10_mean_p90, unit: pct, decimals: 2, horizons: [single], element: [H3, FISC, PAY], kind: headline}
-  - {id: O4a,  metric: M4a, title: "Non-payer savings, share of tax bill",        summary: p10_mean_p90, by: {income_decile: [overall, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10]}, unit: pct, decimals: 1, element: [H0, H3, PAY, FUND, FIRST, FALS], kind: headline}
+  - {id: O4a,  metric: M4a, title: "Non-payer savings, share of tax bill",        summary: p10_mean_p90, by: {income_decile: [overall, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10]}, unit: pct, decimals: 1, element: [H0, H3, PAY, FUND, FIRST, HYPO], kind: headline}
   - {id: O4b,  metric: M4b, title: "Non-payer savings, share of income",          summary: p10_mean_p90, by: {income_decile: [overall, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10]}, unit: pct, decimals: 1, element: [H3, PAY, FUND, FIRST], kind: headline}
   - {id: O5,   metric: M5,  title: "Burden against suggested wealth taxes",       summary: p10_mean_p90, unit: pct, decimals: 2, element: [FISC, PAY, FALS], kind: comparison}
   - {id: O6,   metric: M6,  title: "Burden against today's income tax, CGT and IHT", summary: p10_mean_p90, unit: pct, decimals: 2, element: [FISC, PAY, FALS], kind: comparison}
@@ -41,7 +41,7 @@ outputs:
   - {id: O2c,  metric: M2c, title: "Taxpayer cash-flow burden, share of liquid assets", summary: p10_mean_p90, by: {wealth_band: [overall, D4_5, D6_7, D8_9, D10], cutoff_pct_of_liquid_assets: [25, 50, 100]}, unit: pct, decimals: 1, element: [PAY], kind: headline_support}
   - {id: O8,   metric: M8,  title: "Reform-in-place benchmark (same revenue, same people)", summary: p10_mean_p90, unit: pct, decimals: 2, horizons: [short], element: [H5, FISC], kind: comparison}
   - {id: OS1,  metric: S1,  title: "Capitalisation of retired property taxes (on against off)", summary: point_and_range, by: {quantity: [m1, m2, payer_count]}, unit: pp, decimals: 2, horizons: [single], element: [H5, WIDER], kind: sensitivity}
-  - {id: OP6,  metric: P6,  title: "Public wealth path (fund assets, % of GDP at years 10, 25, 50, 100)", summary: p10_mean_p90, by: {year: [10, 25, 50, 100]}, unit: pct_gdp, decimals: 1, horizons: [single], series: true, element: [FUND, FALS], kind: path}
+  - {id: OP6,  metric: P6,  title: "Public wealth path (fund assets, % of GDP at years 10, 25, 50, 100)", summary: p10_mean_p90, by: {year: [10, 25, 50, 100]}, unit: pct_gdp, decimals: 1, horizons: [single], series: true, element: [FUND, HYPO], kind: path}
   # ---- added 2026-11-17 (briefs 014g to 016g; definitions in metrics.md "Added metrics"). OH1a (concentration path) dropped by the author on 2026-11-17: it rested on returns rising with wealth rank, which has no UK evidence (022r) ----
   - {id: OH1b, metric: M3, system: today, title: "Lifetime rate on gains under today's taxes (M3-today and M3-all-tax) for payers", summary: p10_mean_p90, by: {wealth_band: [overall, D4_5, D6_7, D8_9, D10]}, comparator: OH1b2, once_not_per_schedule: true, unit: pct, decimals: 1, horizons: [single], element: [H1], kind: problem}
   - {id: OH1b2, metric: M11, title: "Median worker's average income tax and NICs rate", summary: point, unit: pct, decimals: 1, horizons: [single], element: [H1], kind: problem}
@@ -49,7 +49,7 @@ outputs:
   - {id: DH1a, title: "UK wealth shares and wealth to GDP, now and over time", summary: point_and_range, unit: pct, decimals: 1, element: [H1], kind: data_fact}
   - {id: DH1b, title: "UK tax mix by head and by group", summary: point, unit: pct_gdp, decimals: 1, element: [H1], kind: data_fact}
   - {id: DH1c, title: "Tax bill of non-payers by income decile", summary: point_and_range, by: {income_decile: [overall, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10]}, unit: pct, decimals: 1, element: [H1, PAY], kind: data_fact}
-  - {id: OW1,  metric: M13, title: "Certainty-equivalent welfare of the tax systems at equal revenue (WDT, income tax and CGT, stock wealth tax, consumption tax)", summary: p10_mean_p90, by: {wealth_band: [overall, D4_5, D6_7, D8_9, D10], tax_system: [wdt, income_tax_cgt, stock_wealth_tax, consumption_tax]}, unit: bp, decimals: 0, horizons: [single], element: [WELF, FALS], kind: comparison}
+  - {id: OW1,  metric: M13, title: "Certainty-equivalent welfare of the tax systems at equal revenue (WDT, income tax and CGT, stock wealth tax, consumption tax)", summary: p10_mean_p90, by: {wealth_band: [overall, D4_5, D6_7, D8_9, D10], tax_system: [wdt, income_tax_cgt, stock_wealth_tax, consumption_tax]}, unit: bp, decimals: 0, horizons: [single], element: [WELF, HYPO], kind: comparison}
   - {id: OW2,  metric: M14, title: "CGT lock-in welfare cost", summary: p10_mean_p90, by: [embedded_gain_band, holding_period], unit: bp, decimals: 0, horizons: [single], element: [WELF], kind: comparison}
   - {id: OW3,  metric: M15a, title: "Contribution envelope binding", summary: p10_mean_p90, by: {wealth_band: [overall, D4_5, D6_7, D8_9, D10], entry_year: [value_per_cohort]}, lines: [M15a, M15b], unit: pct, decimals: 1, element: [WELF], kind: path}
   - {id: OB1,  metric: B1,  title: "Payers, entries, exits and fall-through refund volume, by threshold", summary: p10_mean_p90, by: [w_min], lines: [B1a, B1b, B1c, B1d], unit: {B1a: pct, B1b: pct_per_year, B1c: pct_per_year, B1d: pct_gdp}, decimals: {B1a: 1, B1b: 1, B1c: 1, B1d: 2}, element: [MECH, FISC, UNCER], kind: supporting}

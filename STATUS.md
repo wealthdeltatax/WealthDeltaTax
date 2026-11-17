@@ -1,6 +1,6 @@
 # Status board
 
-Maintained by the guru. Last updated 2026-11-17 (night: tornado, 028r and `site.md` merged). Plan view: `docs/lane-plan.html`.
+Maintained by the guru. Last updated 2026-11-17 (night: restructure plan complete; first build set written). Plan view: `docs/lane-plan.html`.
 
 ## Where the project is
 The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. Design brief 011g is underway: stage A (metric register and output manifest) passed on 2026-11-16; stage A2 (design review: levers swept, two-level uncertainty, driver table, three added outputs) passed; stage B (input register, brief 012r) is ready for the research lane. v1 and v2 are not fixed. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
@@ -9,14 +9,18 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (planning guru) | 021s and 025w merged; briefs 017s to 021s and 025w retired | Compile `docs/brief-suggestions.md`; discuss the stock-wealth floor hypothesis with the author |
-| Agent 7 (planning guru) | 026g stage A done, `site.md` approved | 026g stage B (`order.md`) |
-| Agent 2 (site) | 019s done | free |
-| Agent 3 (site) | 021s done | free |
-| Agent 4 (research) | 027r done | free |
+| Agent 7 (planning guru) | 026g done (`site.md`, `order.md` approved) | free |
+| Agent 8 (code) | New | 030c (data interface and output validator) |
+| Agent 9 (code) | New | 033c (gate checker) |
+| Agent 10 (code) | New | 034c (page cards) |
+| Agent 2 (site) | 019s done | 029s (page registry and ids) |
+| Agent 3 (site) | 021s done | 031s (relabel calculators) |
+| Agent 4 (research) | 027r done | 032r (sidecars: literature figures, input display) |
 | Agent 5 (research) | 028r done | free |
 | Agent 6 (writing) | 025w done | free |
 
 ## Recently done
+- 2026-11-17 (night): 026g stage B merged: `docs/restructure/order.md` approved with all ten answers (26 pages in six waves; the gate G1 to G5; 21 writing briefs; no early start; no optional split now). 013g stages A to E are complete (013g retired). `outputs.yml` version `stage-A6-hypo-elements-2026-11-17` (HYPO lists O1, O4a, OP6, OW1). Judgement rows reconciled: 87 flagged `(J)` (17 rows newly flagged), `docs/model-v3/judgement-decisions.md` lists them all pending. First parallel build set written: 029s (page registry), 030c (data interface), 031s (calculators label), 032r (sidecars), 033c (gate checker), 034c (page cards). Writing briefs and the rest of B3 to B16 are written when the gate nears.
 - 2026-11-17 (night): 027r tornado merged (`docs/model-v3/tornado.md`: return dominates, central M1 +1.45% of GDP, sign flips below a return of 3.55%); retired total corrected to 8.11% of GDP; the revenue identity takes the arithmetic mean return (author). 028r merged: I-H2a1 to I-H2a10 (household deciles), register now 269 rows. 026g stage A merged: `docs/restructure/site.md` approved with all eight answers; build briefs B1 to B16 wait for `order.md`. 027r and 028r retired.
 - 2026-11-17 (night): briefs 027r (tier 1 tornado) and 028r (non-payer share by decile) written for the free research agents. Stock-wealth floor discussion notes added to `docs/model-v3/stock-floor-hypothesis.md` section 13; the investigation waits for the straightforward model v3.
 - 2026-11-17 (evening): 021s merged with the author's 12 answers (flat navbar, 15 menu spokes, 4 parent-reached). 025w merged: ledger and map in shortcodes; POL splits into POL, ADOPT, PILOT and FALS into FALS and HYPO (working names); `outputs.yml` `element:` amended so the FAL claims sit in FALS; UNCER and LIMIT M rows count as kept. Briefs 017s to 021s and 025w retired. Brief 026g written for a second guru agent (`site.md`, then `order.md`). The author's stock-wealth floor hypothesis (`docs/model-v3/stock-floor-hypothesis.md`) is recorded as exploratory, not adopted.
@@ -42,4 +46,4 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 See `OVERVIEW.md` section 6. Priority list carried over from `docs/todo.md`: citation button, CLOSE updates, PDF title page, WFR refactor, WP Appendix B forward links, internal bibliography to Zenodo v2.
 
 ## Waiting on the author
-Nothing open. The stock-wealth floor hypothesis waits for the straightforward model v3 (discussion notes in section 13 of its file). `order.md` (026g stage B) will come back for approval. Answers of 2026-11-17 are in `docs/decisions.md`. Held for model stage C: the feasibility share, cap and floor (OF1), and the tolerance for the understater plateau (OD1). The ONS decile workbook is in and read. Still open for a future research brief: the non-payer share by income decile (I-H2a), which needs WAS Table 2.6 rather than the ONS file.
+Nothing open. The stock-wealth floor hypothesis waits for the straightforward model v3 (discussion notes in section 13 of its file). The 87 judgement rows in `docs/model-v3/judgement-decisions.md` need your decisions before the gate (G3); no hurry until the model is built. Answers of 2026-11-17 are in `docs/decisions.md`. Held for model stage C: the feasibility share, cap and floor (OF1), and the tolerance for the understater plateau (OD1). The ONS decile workbook is in and read. Still open for a future research brief: the non-payer share by income decile (I-H2a), which needs WAS Table 2.6 rather than the ONS file.

@@ -117,6 +117,8 @@ Numbers are assigned when each is written (next unused, 027 onward). Lane letter
 | B15 | s | Integration: wire hooks, data block, figures, checker and draft and release into the build; `/draft/` index; workflow draft steps; architecture doc | `pipeline/preprocess.py`, `.github/workflows/deploy.yml`, `docs/wdt-site-architecture.md`, `site/pages/draft.qmd` | B3, B4, B5, B6, B7, B8, B9 |
 | B16 | s | Cutover (M6), written last: publish switch, retire legacy files, archive the 30 sources, switch navbar and home (author reviews; touches `source/`) | `source/`, `docs/archive/papers/`, `.github/workflows/deploy.yml`, `pipeline/scrape_contents.py`, `pipeline/build_anchors.py`, `pipeline/wdt_crosslinks.py`, `pipeline/check_wdt_format.py`, `pipeline/link_map.py`, `pipeline/pages/corpus.py`, `site/pages/index.md` | B15, gate, author |
 
+**8.0 Additions (order.md 6.5).** B17 (gate checker, lane c, `pipeline/check_gate.py`) and B18 (page cards, lane c, `pipeline/page_cards.py`) join the table; both touch files no other brief touches. The first parallel set was written on 2026-11-17 as briefs 029s (B1), 030c (B2), 031s (B11), 032r (B12), 033c (B17) and 034c (B18).
+
 **8.1 Order.** B1, B2, B11 and B12 start together after A. B3 follows B2; B7, B8, B10 and B14 follow B1; B9 follows B1 and B2. B4 then B5 follow B3; B6 and B13 follow B3 (and B1). B15 waits for the seven briefs it names; B16 is written and run last.
 
 **8.2 Shared files, on a Depends chain.** `pipeline/preprocess.py` (B1, then B15); `.github/workflows/deploy.yml` (B15, then B16). No other file appears twice.

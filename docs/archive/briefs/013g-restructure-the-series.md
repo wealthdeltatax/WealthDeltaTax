@@ -1,6 +1,6 @@
 # 013: Restructure the series (hub and spokes)
 
-- **Status:** underway (stages A, B and C passed; stage D designs merged (017s to 021s, 025w); 026g writes `site.md` and `order.md`)
+- **Status:** done, retired 2026-11-17 (stages A to E passed; the rewrite runs as writing briefs after the data gate, `docs/restructure/order.md`)
 - **Author/date:** K. Ogata with the guru, 2026-11-16
 - **Depends on:** 011g (model v3 design) for the data gate; 012r feeds it
 - **Read:** `docs/restructure/map.md`, then `docs/model-v3/outputs.yml`. Nothing else until a stage names it.

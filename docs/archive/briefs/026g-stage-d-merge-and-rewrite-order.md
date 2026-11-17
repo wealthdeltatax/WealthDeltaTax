@@ -1,6 +1,6 @@
 # 026: Stage D merge and rewrite order (013g stages D checkpoint and E)
 
-- **Status:** ready
+- **Status:** done, merged, retired 2026-11-17
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** 013g stages A to C; 017s to 021s and 025w (all merged); `outputs.yml` as amended by 025w
 - **Read:** `docs/briefs/013g-restructure-the-series.md`; `docs/restructure/map.md`, `ledger.md` (sections 2, 8, 9), `shortcodes.md`, `ids-map.md`, `template.md`; `docs/restructure/site/ids.md`, `hooks.md`, `figures.md`, `checker.md`, `nav.md`; `docs/model-v3/outputs.yml`, `metrics.md`, `inputs.md` (headers and judgement rows only); `docs/model-v3/drivers.md`; `docs/briefs/011g-model-v3-design.md` (stage list); `docs/agents/guru.md`, `docs/agents/brief-template.md`.

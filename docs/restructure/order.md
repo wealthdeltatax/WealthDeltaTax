@@ -1,6 +1,6 @@
 # Rewrite order and the data gate (013g stage E, brief 026g stage B)
 
-Status: draft for the author. Design only: no spoke or hub prose is written (the two test paragraphs of the appendix are tests, as `template.md` section 8 is). Stage A, `site.md`, is approved with its eight answers; this file places the build items of its section 8 on the gate, then orders the writing. The build briefs B1 to B16 and the writing briefs of section 6 are written only after the author approves this file.
+Status: approved by the author, 2026-11-17. Design only: no spoke or hub prose is written (the two test paragraphs of the appendix are tests, as `template.md` section 8 is). Stage A, `site.md`, is approved with its eight answers; this file places the build items of its section 8 on the gate, then orders the writing. The build briefs B1 to B16 and the writing briefs of section 6 are written only after the author approves this file.
 
 Sources: [map](map.md), [ledger](ledger.md) and [ledger-sections](ledger-sections.md), [shortcodes](shortcodes.md), [ids-map](ids-map.md), [template](template.md), [site](site.md) with its five siblings, `docs/model-v3/outputs.yml` (version `stage-A5-falsifiability-elements-2026-11-17`), `inputs.md` (269 rows), `metrics.md`, `drivers.md`, `docs/model-v3/stock-floor-hypothesis.md`.
 
@@ -271,6 +271,8 @@ Each has a proposed answer; the writing briefs assume the proposals until the au
 **Q9. The HYPO and PILOT elements.** The HYPO split moves O1, O4a, OP6 and OW1 (section 3); PILOT and ADOPT have no outputs assigned. *Proposed:* the guru edits `outputs.yml` `element:` when the splits are filed (they are already taken), as follows: HYPO lists O1, O4a, OP6, OW1; FALS keeps O2, O5, O6, CK1; PILOT and ADOPT stay at none until their first draft shows a need, and then the guru adds them.
 
 **Q10. Judgement rows.** The register's own prose counts 84 judgement rows (38 in B1 to B4 plus 46 in the added parts) and 70 rows carry the `(J)` flag. *Proposed:* the gate uses the flag, and the guru reconciles the two counts before G3 is run. The decision for each row is yours; `judgement-decisions.md` lists them.
+
+**Author answers, 2026-11-17: all ten proposed answers accepted.** Q1 the order of section 2; Q2 and Q3 the whole gate for every page (no early start); Q4 no optional split now (trigger: compressed Evidence over 5,400 words in a first draft; order GOV to SAFE, DECL to EXMP, CORP to OWNR, WELF to CONC); Q5 all three loose ends (WELF concentration claim to UNCER as a named gap, comparison-tables page folded into prose, avoidance guide folded); Q6 21 grouped writing briefs plus W22, B17, B18; Q7 hub cap 6,000, target 5,000 to 6,000; Q8 `source/data/method.md` and `uk-pack.md`; Q9 HYPO lists O1, O4a, OP6, OW1 and FALS keeps O2, O5, O6, CK1 (applied in `outputs.yml`, version `stage-A6-hypo-elements-2026-11-17`); Q10 the gate uses the `(J)` flag (reconciled: 87 rows, `docs/model-v3/judgement-decisions.md`). `order.md` is approved.
 
 ## 10. Guru follow-through (after the author approves; not done here)
 
