@@ -9,11 +9,11 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (planning guru) | 012r merged (`docs/model-v3/inputs.md`, 89 rows); 013g stage B merged (`docs/restructure/ledger.md`) | Integrate `added/` into metrics.md and outputs.yml after the answers; tornado on tier 1; merge 017s to 021s into `site.md`; compile `docs/brief-suggestions.md` |
-| Agent 2 | 014g done | 017s (site IDs), then 022r |
-| Agent 3 | 015g done | 018s (hooks), then 023r |
-| Agent 4 | 016g done | 019s (figures), then 024r |
-| Agent 5 | Free | 020w (spoke checker) |
-| Agent 6 | 013g stage C done and approved | 021s (navigation) |
+| Agent 2 (site) | 014g done | 017s (site IDs), then 019s (figures) |
+| Agent 3 (site) | 015g done | 018s (hooks), then 021s (navigation) |
+| Agent 4 (research) | 016g done | 022r (wealth, returns), then 023r (tax and gains) |
+| Agent 5 (research) | Free | 024r (households, welfare parameters) |
+| Agent 6 (writing) | 013g stage C done and approved | 020w (spoke checker) |
 
 ## Recently done
 - 2026-11-17: 012r and 013g stages B and C merged; 014g to 016g merged (`docs/model-v3/added/`); stage D split into 017s to 021s and research follow-ups 022r to 024r; template section 6a (figures and tables) added.
@@ -35,24 +35,4 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 See `OVERVIEW.md` section 6. Priority list carried over from `docs/todo.md`: citation button, CLOSE updates, PDF title page, WFR refactor, WP Appendix B forward links, internal bibliography to Zenodo v2.
 
 ## Waiting on the author
-Each has a recommended default; answer "defaults" to accept them all. Background: `docs/model-v3/added/` (h1.md, welfare.md, supporting.md).
-
-**Model design (blocks v3 stage C):**
-1. Heterogeneous returns by wealth rank (the Fagereng premise): is a wealth distribution that evolves by rank in v3 scope? It drives OH1a (concentration), OW3 by tier, and sizes the core. Default: yes, stated as a premise with a source; if too costly, drop OH1a.
-2. OW2 (CGT lock-in): (a) two assets inside the v3 run, or (b) a post-processing module over its paths. Default: (b).
-3. Is the consumption tax a comparator in OW1? Default: drop it (v1 found it equal to the stock wealth tax).
-4. Risk aversion gamma: one value with a tornado, or sampled at level 2? Default: sampled at level 2 with a range from 024r.
-
-**Metric definitions (the guru decides unless you object):**
-5. M3's "gains" means the real change in net wealth, the same as the WDT delta. Default: yes.
-6. M4a deciles are deciles of all adults, with non-payers inside each (matches the ONS tables). Default: yes.
-7. OW3 holds only the envelope; concentration is OH1a. Default: yes.
-8. The synthetic stress test is a check, not an output; its mean return comes from I-D1a (4.42%), not 7%; the amplitude grid runs to about 12%. Default: yes.
-9. Tornado headlines: M1, M2, M4a, and add M3. Default: add M3.
-
-**Hub and process:**
-10. The hub states wealth to GDP on the survey basis (5.8 to 7.5, I-D4a) with 3.6 from the national accounts as a cross-check, and "top 10%" on one stated basis. Default: yes.
-11. Approve research briefs 022r to 024r as written. 024r needs the ONS Effects of Taxes and Benefits FYE 2024 decile workbook: please attach it if you can.
-12. Template 6a: need a table type for lists that are neither data nor a figure's source? Default: no, treat as prose or an appendix spoke.
-
-Later, in model stage C: the feasibility share, cap and floor (OF1), and the tolerance for the understater plateau (OD1).
+Nothing open. Answers of 2026-11-17 are in `docs/decisions.md`. Held for model stage C: the feasibility share, cap and floor (OF1), and the tolerance for the understater plateau (OD1). Still to attach if possible: the ONS Effects of Taxes and Benefits FYE 2024 decile workbook (for 024r).

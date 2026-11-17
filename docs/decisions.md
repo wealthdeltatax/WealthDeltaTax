@@ -96,3 +96,6 @@ The author approved the spoke template (one objection block, 60-word reading not
 
 ## 2026-11-17: output definitions merged; stage D and research follow-ups split
 014g to 016g merged as files under `docs/model-v3/added/` (21 new or changed outputs, one stress-test check); integration into metrics.md and outputs.yml waits on the author's 12 answers. 013g stage D split into 017s to 021s, each writing one file under `docs/restructure/site/`. 12 research requests across 014g to 016g go to 022r to 024r, each writing one file under `docs/model-v3/inputs-added/`.
+
+## 2026-11-17: author answers on the added outputs
+Defaults accepted for: heterogeneous returns by wealth rank as a stated premise (drop OH1a if too costly), OW2 as a post-processing module, gamma sampled at level 2, M3 gains as the real change in net wealth, M4a deciles of all adults with non-payers inside, OW3 as envelope only (concentration is OH1a), the stress test as a check with mean return from I-D1a and amplitude to about 12%, tornado headlines M1, M2, M4a and M3, the hub's wealth-to-GDP basis, 022r to 024r as written, no extra table type. Not default: the consumption tax stays as a comparator in OW1, because it is the WDT's main intellectual competitor; 024r must source consumption to wealth ratios. Agents are kept to one skill: site 2 and 3, research 4 and 5, writing 6.
