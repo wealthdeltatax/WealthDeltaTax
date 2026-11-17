@@ -1,0 +1,81 @@
+id,tier,output,low_in,cen_in,high_in,low_res,central,high_res,swing,note
+I-D1a,1,M1,2.18,4.42,7.47,-2.2698190045248854,1.4499999999999993,6.514932126696834,8.78475113122172,
+I-D4a,1,M1,5.8,5.94,7.5,1.290562365557177,1.4499999999999993,3.2265907837914547,1.9360284182342777,
+I-D4c,1,M1,89.7,92.7,96.4,1.2236633692423489,1.4499999999999993,1.7291485112677716,0.5054851420254227,
+I-D4e,1,M1,0.0,5.0,5.6,1.1038018904114768,1.4499999999999993,1.4915437731506245,0.38774188273914767,
+I-D5a,1,M1,7.0,12.0,17.0,1.8670454545454547,1.4499999999999993,1.0329545454545457,0.834090909090909,
+I-D5b,1,M1,3.5,6.0,8.5,1.6585227272727288,1.4499999999999993,1.2414772727272716,0.41704545454545716,
+I-D5c,1,M1,0.0,6.0,11.0,1.950454545454546,1.4499999999999993,1.0329545454545475,0.9174999999999986,
+I-D5d,1,M1,0.0,11.0,22.0,1.4902782500000011,1.4499999999999993,1.409721750000001,0.08055650000000014,
+I-D10a,1,M1,24.4,30.4,33.6,1.3364561305315323,1.4499999999999993,1.5105567303831826,0.17410059985165027,
+I-D10b,1,M1,19.4,24.2,26.7,1.3358931030796235,1.4499999999999993,1.5094306754793632,0.17353757239973966,
+I-D7a,2,M1,2.77,2.82,2.88,1.4000000000000004,1.4499999999999993,1.5099999999999998,0.10999999999999943,
+I-D7c,2,M1,0.82,0.84,0.85,1.3933999999999997,1.4499999999999993,1.4945000000000004,0.10110000000000063,
+I-D7d,2,M1,96.6,100.4,101.1,1.5775498007968114,1.4499999999999993,1.4265039840637446,0.15104581673306683,
+I-T3f,M1d line,M1,3.24,3.37,3.55,1.5799999999999983,1.4499999999999993,1.2699999999999996,0.3099999999999987,
+I-T3n,M1d line,M1,1.72,1.75,1.78,1.4799999999999986,1.4499999999999993,1.4199999999999982,0.0600000000000005,
+I-T3m,M1d line,M1,1.33,1.29,1.26,1.4099999999999984,1.4499999999999993,1.4799999999999986,0.07000000000000028,
+I-T3h,M1d line,M1,0.73,0.77,0.82,1.4899999999999984,1.4499999999999993,1.3999999999999986,0.08999999999999986,
+I-T3i,M1d line,M1,0.27,0.27,0.27,1.4499999999999993,1.4499999999999993,1.4499999999999993,0.0,
+I-T3k,M1d line,M1,0.43,0.5,0.57,1.5199999999999996,1.4499999999999993,1.379999999999999,0.14000000000000057,
+I-T3l,M1d line,M1,0.16,0.16,0.16,1.4499999999999993,1.4499999999999993,1.4499999999999993,0.0,
+I-D1b,1,M1,6.5,8.2,9.8,,1.4499999999999993,,,"Spread of annual returns. In the identity refunds are netted in g, so sigma acts only through the refund cap and the fill years (not reachable). Direction: a higher sigma raises the arithmetic mean over the geometric g (+0.34 points of return at the central 8.2%, my arithmetic) and the loss-year share."
+I-D1c,1,M1,15.0,22.9,28.2,,1.4499999999999993,,,"Loss-year share. Acts through refunds, the cap on them and the reserve fill (P1, P4). Not reachable on the identity. Direction: more loss years, larger refunds, longer fill."
+I-D1d,1,M1,1.0,3.0,6.0,,1.4499999999999993,,,Longest loss run. Acts on the reserve fill and on P3 only. Not reachable. Direction: a longer run lengthens the transition.
+I-D1e,1,M1,5.0,6.0,6.0,,1.4499999999999993,,,Gap between the end of the return history and the last full year. A data-vintage input; no term in the identity.
+I-D4b,1,M1,49.3,54.9,64.3,,1.4499999999999993,,,"Share of adults at or above W_min. Sets the number of payers and M2b; omega depends on the wealth share I-D4c, not on the head count."
+I-D4d,1,M1,14.4,18.0,23.0,,1.4499999999999993,,,"Top 1% share: a check on the tail (I-D4e), no separate term."
+I-D4f,1,M1,784.0,784.0,784.0,,1.4499999999999993,,,"Rich List total (one value): cross-check on I-D4e, no range."
+I-D4g,1,M1,3.6,3.6,3.6,,1.4499999999999993,,,"National balance sheet ratio (one value): cross-check on I-D4a, no range."
+I-D7b,2,M1,3.37,3.37,3.37,,1.4499999999999993,,,Single value; its range is in I-T3f (below).
+I-D10c,1,M1,0.0,40.0,100.0,,1.4499999999999993,,,"Share of a stamp duty cut that reaches house prices. Needs the transaction turnover, which the register does not hold. Not reachable. Direction: a higher share raises omega."
+I-D8a,2,M1,3.0,3.0,3.0,,1.4499999999999993,,,Reserve multiple. Acts on fill years and the transition only; steady-state M1 is unchanged.
+I-D8b,2,M1,6.0,7.0,10.0,,1.4499999999999993,,,Long reserve fill time (P1): transition only.
+I-D8c,2,M1,3.0,3.0,3.0,,1.4499999999999993,,,Short reserve fill time (P1): transition only.
+I-D11a,2,M1,3.0,3.0,3.5,,1.4499999999999993,,,Discount rate: M3 only.
+I-D11b,2,M1,2.5,2.5,3.0,,1.4499999999999993,,,M3 only; unused at G = 30.
+I-D11c,2,M1,2.25,2.25,2.5,,1.4499999999999993,,,M3 only; unused at G = 30.
+I-D11d,2,M1,,,,,1.4499999999999993,,,M3 only; no value.
+I-D9a,1,M1,40200.0,50300.0,60400.0,,1.4499999999999993,,,"Income and liquid assets by wealth band: enter M2b, M2c and M4b, not M1."
+I-D9b,1,M1,50400.0,63000.0,75600.0,,1.4499999999999993,,,"Income and liquid assets by wealth band: enter M2b, M2c and M4b, not M1."
+I-D9c,1,M1,57200.0,71500.0,85800.0,,1.4499999999999993,,,"Income and liquid assets by wealth band: enter M2b, M2c and M4b, not M1."
+I-D9d,1,M1,57100.0,71400.0,85700.0,,1.4499999999999993,,,"Income and liquid assets by wealth band: enter M2b, M2c and M4b, not M1."
+I-D9e,1,M1,5.6,6.6,6.6,,1.4499999999999993,,,"Income and liquid assets by wealth band: enter M2b, M2c and M4b, not M1."
+I-D9f,1,M1,8.4,9.3,9.3,,1.4499999999999993,,,"Income and liquid assets by wealth band: enter M2b, M2c and M4b, not M1."
+I-D9g,1,M1,10.4,12.8,12.8,,1.4499999999999993,,,"Income and liquid assets by wealth band: enter M2b, M2c and M4b, not M1."
+I-D9h,1,M1,17.1,19.3,21.5,,1.4499999999999993,,,"Income and liquid assets by wealth band: enter M2b, M2c and M4b, not M1."
+I-D6a,1,M1,13.5,13.5,14.0,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6b,1,M1,23.2,23.7,23.7,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6c,1,M1,22.7,24.5,25.7,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6d,1,M1,52.0,55.0,55.0,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6e,1,M1,25.0,28.5,30.4,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6f,1,M1,21.8,21.8,28.2,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6g,1,M1,21.8,25.0,28.5,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6h,1,M1,44.8,45.8,47.1,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6i,1,M1,29.8,30.6,32.4,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6j,1,M1,28.5,30.7,33.9,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6k,1,M1,2.5,3.3,4.9,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6l,1,M1,33.3,34.5,40.4,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6m,1,M1,24.5,36.0,36.0,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6n,1,M1,33.3,33.3,36.0,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6o,1,M1,15.7,15.7,18.6,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6p,1,M1,37.7,42.7,42.7,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D6q,1,M1,55.9,55.9,55.9,,1.4499999999999993,,,"Incidence by income decile: allocates the retired taxes among households (M4a), not the receipts (M1d)."
+I-D1a,1,M2 (mean burden proxy),2.18,4.42,7.47,0.6109572539684356,1.2387298452020574,2.0935094895156943,1.4825522355472587,
+I-D5b,1,M2 (mean burden proxy),3.5,6.0,8.5,1.2718449077200904,1.2387298452020574,1.2056147826840244,0.06623012503606596,
+I-D5d,1,M2 (mean burden proxy),0.0,11.0,22.0,1.2451263506780406,1.2387298452020574,1.2323333397260743,0.012793010951966277,
+I-D6j,1,M4a,28.5,30.7,33.9,28.862092959133776,29.715116671024877,30.955878433775567,2.093785474641791,
+I-D6h,1,M4a,44.8,45.8,47.1,29.51376901850135,29.715116671024877,29.976868619305467,0.4630996008041173,
+I-D6i,1,M4a,29.8,30.6,32.4,29.59637908393672,29.715116671024877,29.982276241973235,0.3858971580365136,
+I-D6k,1,M4a,2.5,3.3,4.9,29.644242297336596,29.715116671024877,29.856865418401444,0.2126231210648477,
+I-D6l,1,M4a,33.3,34.5,40.4,29.677838591357663,29.715116671024877,29.898400562722003,0.22056197136434008,
+I-D6m,1,M4a,24.5,36.0,36.0,29.053545812733294,29.715116671024877,29.715116671024877,0.6615708582915829,
+I-D6n,1,M4a,33.3,33.3,36.0,29.715116671024877,29.715116671024877,29.76482077724783,0.04970410622295418,
+I-D6p,1,M4a,37.7,42.7,42.7,30.768912756432293,29.715116671024877,31.511022675733294,0.7421099193010008,"ONS allocation of business rates, replaces I-D6i"
+I-T3f,M1d line,M4a,3.24,3.37,3.55,29.255928967469796,29.715116671024877,30.350915029793452,1.094986062323656,
+I-T3n,M1d line,M4a,1.72,1.75,1.78,29.557029999843547,29.715116671024877,29.87320334220621,0.3161733423626636,
+I-T3m,M1d line,M4a,1.33,1.29,1.26,29.855944971989903,29.715116671024877,29.609495445301107,0.24644952668879583,
+I-T3h,M1d line,M4a,0.73,0.77,0.82,29.69992930523453,29.715116671024877,29.73410087826281,0.03417157302828144,
+I-T3i,M1d line,M4a,0.27,0.27,0.27,29.715116671024877,29.715116671024877,29.715116671024877,0.0,
+I-T3k,M1d line,M4a,0.43,0.5,0.57,29.425176051391,29.715116671024877,30.00505729065876,0.5798812392677597,
+I-T3l,M1d line,M4a,0.16,0.16,0.16,29.715116671024877,29.715116671024877,29.715116671024877,0.0,

@@ -1,6 +1,6 @@
 # 027: Research: tier 1 tornado on the revenue identity
 
-- **Status:** ready
+- **Status:** done, merged
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** 012r and 022r to 024r (merged into `docs/model-v3/inputs.md`, 260 rows)
 - **Read:** `docs/agents/research.md`; `docs/model-v3/drivers.md` sections 1, 2 and 4; `docs/model-v3/metrics.md` (M1, M1a to M1e, M2, M3, M4a definitions); `docs/model-v3/inputs.md` rows named below. Nothing else need be opened.
@@ -44,11 +44,21 @@ Ask rather than guess, for example if a register row's unit does not map to a te
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:**
+- **Done:** `docs/model-v3/tornado.md`; `docs/model-v3/tornado/` (`tornado.py`, `check.py`, CSV, tables). Tornado for M1, M2 (mean-burden proxy), M4a; M3 marked not reachable; tier 2 cut-off applied; back-out against 7.34 shown.
+- **Next:** guru reads section 9 of the note (8.27 against 8.11; ε); stage C design.
+- **Decisions:** ε held at the value implied by 7.34 on register central inputs (assumption A1); M1d lines taken from the IFS 2025-26 column; no register or metrics edits.
+- **Gotchas:** retired receipts 8.27 double counts stamp taxes on shares (true 8.11); central M1 only 1.45, break-even g 3.55%.
+- **Resume:** `python3 -I docs/model-v3/tornado/tornado.py`; `python3 -I docs/model-v3/tornado/check.py`
+- **Not run:** all-low and all-high corners; any model run.
+- **State:** done, merged
 <!-- progress:end -->
+
+### Change report
+- **Task:** 027r, tier 1 tornado on the revenue identity.
+- **Files changed:** new `docs/model-v3/tornado.md`, new `docs/model-v3/tornado/` (script, check, CSV, tables, central JSON), this brief.
+- **What is different now:** ranking of register inputs by swing on M1, M2 proxy and M4a; implied ε of 30.0% (24.5% with v2-like inputs) against v2's 7.34%; M1 centre 1.45% of GDP.
+- **Acceptance:** every tier 1 and tier 2 input listed with low, central, high and swing or a reason it is not reachable: met; ordering for M1, M2, M4a shown, M3 marked not reachable: met; 0.5 cut-off applied and listed: met; back-out with arithmetic: met; traceability (row ids or labelled assumptions A1 to A7): met; diff within Touches: met.
+- **Deviations:** M2 reported as a mean-burden proxy, M4a with a bottom-five-decile proxy for non-payers; the seven M1d receipt lines and I-D10 capitalisation are added to the input list.
+- **Risks:** the ε is implied, not a v2 value; swings are one at a time and do not add; 8.27 against 8.11 needs a decision in `metrics.md`, `drivers.md`, `synthesis.md`.
+- **Verification:** `check.py` second method agrees on the central M1 and three swings.
+
