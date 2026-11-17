@@ -99,3 +99,6 @@ The author approved the spoke template (one objection block, 60-word reading not
 
 ## 2026-11-17: author answers on the added outputs
 Defaults accepted for: heterogeneous returns by wealth rank as a stated premise (drop OH1a if too costly), OW2 as a post-processing module, gamma sampled at level 2, M3 gains as the real change in net wealth, M4a deciles of all adults with non-payers inside, OW3 as envelope only (concentration is OH1a), the stress test as a check with mean return from I-D1a and amplitude to about 12%, tornado headlines M1, M2, M4a and M3, the hub's wealth-to-GDP basis, 022r to 024r as written, no extra table type. Not default: the consumption tax stays as a comparator in OW1, because it is the WDT's main intellectual competitor; 024r must source consumption to wealth ratios. Agents are kept to one skill: site 2 and 3, research 4 and 5, writing 6.
+
+## 2026-11-17: added outputs integrated
+Metrics renumbered into one sequence (M10 to M15b, B1, P7, M7c to M7e, M9, M4c, F1, T1); manifest now 38 outputs and one check (CK1, a test not an output) with data facts DH1a to DH1c; all elements validated against the hub and spoke ids, appendix spokes included. Applied the author's answers (M3 gains, M4a deciles, consumption tax kept in M13, OW3 envelope only, tornado on four headlines). Briefs 014g to 016g retired. Open inputs remain 022r to 024r.

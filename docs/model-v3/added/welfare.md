@@ -1,5 +1,7 @@
 # Welfare outputs OW1 to OW3 (brief 015g)
 
+> Integrated into `metrics.md` and `outputs.yml` on 2026-11-17 (ids renumbered there). Those two files are the definition; this file keeps the working, flags and research requests.
+
 Status: proposed, for the guru merge into `metrics.md`, `outputs.yml` and `inputs.md` after briefs 014g, 015g and 016g are done. Nothing here edits those files. No values are chosen: every number below is cited as a v1 finding to check, not a fact. Old figures (WFR, paper 19 and 19a) come from a single-agent model and are not carried as targets.
 
 Source claims: ledger section 4, claim 10 (CGT lock-in; concentration and contribution envelope) and claim 19 (welfare of six tax systems at revenue equivalence, FAL H4). Ledger section 6.2, S6 and S12.

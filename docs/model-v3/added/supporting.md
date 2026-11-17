@@ -1,5 +1,7 @@
 # Model v3: supporting outputs (brief 016g)
 
+> Integrated into `metrics.md` and `outputs.yml` on 2026-11-17 (ids renumbered there). Those two files are the definition; this file keeps the working, flags and research requests.
+
 Proposals for the guru's merge into `metrics.md` and `outputs.yml` after 014g, 015g and 016g are all done. Nothing here edits those files. Source of the list: `docs/restructure/ledger.md` section 6.2 and the author's decisions of 2026-11-17 (section 8, item 5 and 6).
 
 Rules followed. One definition per metric: no second denominator for an existing metric. Where an output is a view of an existing metric, it reuses that metric and says so. New metric ids used: B1 (a to d), P7 (a, b), M7c to M7e, M9, M4c, F1, T1. All are free in `metrics.md`. `element:` values are the ledger's; spoke ids follow the ledger and the guru renumbers after the S4 and S6 split (ledger section 8, item 1). Every `summary:` token is one already used in `outputs.yml`.

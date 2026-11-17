@@ -27,7 +27,7 @@ question: "What rate, what threshold, how much?"
 status: draft            # draft | author-review | accepted
 budget: {cap: 6000}      # words of counted prose, section 3
 defaults: {schedule: S_central, horizon: short}   # used by hooks that omit them
-outputs: [O1, O1a, O1b, O1c, O1d, O2, O3, O5, O6, O7, O8, OP1, OP4]   # equals the S5 set in outputs.yml
+outputs: [O1, O1a, O1b, O1c, O1d, O2, O3, O5, O6, O7, OP1, OP4, O8, OB1, OR1, OF1, OT1]   # equals the S5 set in outputs.yml
 inputs: [W_min]          # input-register names the prose cites
 depends: [S3, S4]        # spokes whose claims this one assumes
 ---

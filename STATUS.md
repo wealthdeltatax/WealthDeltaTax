@@ -8,7 +8,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (planning guru) | 012r merged (`docs/model-v3/inputs.md`, 89 rows); 013g stage B merged (`docs/restructure/ledger.md`) | Integrate `added/` into metrics.md and outputs.yml after the answers; tornado on tier 1; merge 017s to 021s into `site.md`; compile `docs/brief-suggestions.md` |
+| Agent 1 (planning guru) | 012r merged (`docs/model-v3/inputs.md`, 89 rows); 013g stage B merged (`docs/restructure/ledger.md`) | Tornado on tier 1; merge 017s to 021s into `site.md`; compile `docs/brief-suggestions.md` |
 | Agent 2 (site) | 014g done | 017s (site IDs), then 019s (figures) |
 | Agent 3 (site) | 015g done | 018s (hooks), then 021s (navigation) |
 | Agent 4 (research) | 016g done | 022r (wealth, returns), then 023r (tax and gains) |
@@ -16,6 +16,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent 6 (writing) | 013g stage C done and approved | 020w (spoke checker) |
 
 ## Recently done
+- 2026-11-17: 014g to 016g integrated into `metrics.md` (new sections: problem, welfare, supporting metrics, check CK1, data facts) and `outputs.yml` (38 outputs, 1 check; elements validated against the spoke list); briefs retired.
 - 2026-11-17: 012r and 013g stages B and C merged; 014g to 016g merged (`docs/model-v3/added/`); stage D split into 017s to 021s and research follow-ups 022r to 024r; template section 6a (figures and tables) added.
 - 2026-11-16: 011g stage A2 passed (the author confirmed the retirement trigger, the schedule choice rule and the tornado cut-off); brief 012r (input register, four stages) written and ready.
 - 2026-11-16: 011g stage A2 drafted after the author accepted the design review: levers swept, two-level uncertainty, driver table, new outputs M2b, M2c, M8, S1, P6 (manifest 21 entries); `synthesis.md` section 3 amended.

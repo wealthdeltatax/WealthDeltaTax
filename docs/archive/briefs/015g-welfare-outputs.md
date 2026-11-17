@@ -1,6 +1,6 @@
 # 015: Define the welfare outputs, combined with v3
 
-- **Status:** built (merged 2026-11-17; integration into metrics.md and outputs.yml waits on the author's answers in STATUS.md)
+- **Status:** built (merged and integrated 2026-11-17; retired)
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** 011g (A2 passed), 012r (merged), 013g stage B (merged). Runs in parallel with the other two of 014g, 015g and 016g.
 - **Read:** `docs/model-v3/metrics.md`, `docs/model-v3/outputs.yml`, `docs/model-v3/drivers.md`, `docs/model-v3/inputs.md` (rows named below), `docs/restructure/ledger.md` section 6 and the sections named in the brief. Nothing else need be opened. Ledger sections: 4 (claims 10, 19) and 6.2.
