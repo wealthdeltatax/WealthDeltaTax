@@ -1,6 +1,6 @@
 # 013: Restructure the series (hub and spokes)
 
-- **Status:** underway (stage B passed; stage C drafted, awaiting author)
+- **Status:** underway (stages A, B and C passed; stage D ready)
 - **Author/date:** K. Ogata with the guru, 2026-11-16
 - **Depends on:** 011g (model v3 design) for the data gate; 012r feeds it
 - **Read:** `docs/restructure/map.md`, then `docs/model-v3/outputs.yml`. Nothing else until a stage names it.
@@ -45,7 +45,7 @@ See section 5 of `map.md`.
 - **Done:** stage A passed; author decisions are in `map.md` section 5 (FAL into S12; SCOPE, ADD, INST standalone; WFR and LDW into spokes; add outputs for the problem section; 2,000 to 4,000 words provisional).
 - **Stage B drafted (2026-11-17):** `docs/restructure/ledger.md` (summary, budget finding, demanded outputs, proposed additions) and `ledger-sections.md` (980 rows, all 33 papers); `element:` filled for all 21 outputs. Waiting for the author on the decisions in `ledger.md` section 8.
 - **Stage B passed (2026-11-17):** author decisions in `ledger.md` section 8 and `map.md` section 7.
-- **Stage C drafted (2026-11-17, Agent 6):** `docs/restructure/template.md`; guru applied the stage B decisions (cap 6,000, appendix spokes). Waiting for the author on its section 10 (items 1 and 3 to 5).
-- **Next:** author approves stage C; briefs 014g to 016g define the added outputs in parallel; then stage D (site and hooks).
-- **State:** stage C drafted, awaiting author
+- **Stage C drafted (2026-11-17, Agent 6):** `docs/restructure/template.md`; guru applied the stage B decisions (cap 6,000, appendix spokes). Author approved it 2026-11-17 and added section 6a (figures and tables).
+- **Next:** stage D; briefs 014g to 016g define the added outputs in parallel; then stage D (site and hooks).
+- **State:** stage C passed; stage D ready
 <!-- progress:end -->

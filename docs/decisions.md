@@ -90,3 +90,6 @@ M2 uses same-year (start-of-year) wealth; RATES 0.35% is a different quantity. R
 
 ## 2026-11-17: 012r retired
 Merged and reviewed; the brief moved to `docs/archive/briefs/`. Open items moved: tornado to 011g, references rework to the author's later decision.
+
+## 2026-11-17: spoke template approved; figures framework
+The author approved the spoke template (one objection block, 60-word reading note, long value never alone in a short answer, strict lint on typed figures). Figures: every figure has a reference table in the Data block, drawn from the same data; a caption describes and never states a result or a number; no tables in the prose, each table is referenced from its figure's caption. Template section 6a. Stage D builds the lint and renderer.

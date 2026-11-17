@@ -1,6 +1,6 @@
 # Restructure, stage C: spoke template and writing rules
 
-Brief 013g. Status: drafted 2026-11-17, stage B decisions applied by the guru 2026-11-17 (cap 6,000, appendix spokes, S4 and S6 split, ENT as S8-A); waiting for the author on section 10. No spoke or hub prose exists beyond the one test paragraph in section 8. The data gate (013g) is still shut.
+Brief 013g. Status: approved by the author 2026-11-17 (shape and rules), with stage B decisions applied (cap 6,000, appendix spokes, S4 and S6 split, ENT as S8-A) and section 6a, figures and tables, added at the author's direction. Stage D is next. No spoke or hub prose exists beyond the one test paragraph in section 8. The data gate (013g) is still shut.
 
 **Gate (author, 2026-11-16).** No spoke prose is written until the data is finalised. The draft mode in section 4, rule 5 exists to test the build and the template, not to write spokes ahead of results.
 
@@ -39,7 +39,7 @@ depends: [S3, S4]        # spokes whose claims this one assumes
 
 **Short answer.** 80 to 150 words, one paragraph. Lead with the answer to the question. Give the headline figures by hook, not typed. Name the strongest objection in one clause and the horizon the numbers refer to. No history, no definitions the reader already has from the hub.
 
-**Evidence.** H2 sections, usually three to six. Each section's first sentence is its claim. A paragraph carries one structural idea (claim, mechanism, implication, limitation). Mechanism is prose; a table is used only where a reader compares across rows. Figures and tables come from hooks (section 4), never pasted. A caveat is stated once, where it bites, and cross-referenced elsewhere.
+**Evidence.** H2 sections, usually three to six. Each section's first sentence is its claim. A paragraph carries one structural idea (claim, mechanism, implication, limitation). Mechanism is prose. There are no tables in the prose: a comparison a reader needs is drawn as a figure, and its numbers sit in that figure's reference table (section 6a). Figures come from figure blocks, never pasted. A caveat is stated once, where it bites, and cross-referenced elsewhere.
 
 **Strongest objection.** Exactly one block per spoke. Lesser objections get a sentence in Evidence or a pointer to S12. Section 5.
 
@@ -47,7 +47,7 @@ depends: [S3, S4]        # spokes whose claims this one assumes
 
 ## 3. Word budget
 
-Counted prose: Short answer, Evidence and Objection block text. Hooks count as one word each. Not counted: front matter, headings, tables, figure captions, the Data block.
+Counted prose: Short answer, Evidence and Objection block text. Hooks count as one word each. Not counted: front matter, headings, figure captions, the Data block and its tables.
 
 | Part | Range |
 |---|---|
@@ -80,7 +80,6 @@ A hook is a named reference to a value in the data layer. The build replaces it 
 {{o:ID[.STAT][@SCHEDULE][/HORIZON][#BAND]}}     output value
 {{i:NAME}}                                      input-register value
 {{fig:ID[@SCHEDULE][/HORIZON]}}                 figure from an output
-{{tab:ID[@SCHEDULE][/HORIZON][#BY]}}            table from an output
 {{lit:KEY}}                                     literature figure, keyed to the reference database
 ```
 
@@ -92,7 +91,7 @@ A hook is a named reference to a value in the data layer. The build replaces it 
 | `HORIZON` | `transition`, `short`, `long` (from `horizons`) | front-matter `defaults.horizon` |
 | `BAND` | a key from the output's `by:` list, `key:value`, for example `wealth_band:top` or `overall` | `overall` where the output has one; otherwise the hook is an error |
 
-Examples: `{{o:O1.range@S_central/short}}`, `{{o:O2.mean#overall}}`, `{{o:OP1.p90@S_low/transition}}`, `{{i:W_min}}`, `{{fig:OP6@S_central}}`, `{{tab:O4a/long#income_decile}}`.
+Examples: `{{o:O1.range@S_central/short}}`, `{{o:O2.mean#overall}}`, `{{o:OP1.p90@S_low/transition}}`, `{{i:W_min}}`, `{{fig:OP6@S_central}}`.
 
 Units, rounding and the "p10 to p90" wording come from the metric register, never from the author. A hook inside a sentence reads as the value alone, so the sentence has to work with "x%" or "x to y%" in the slot.
 
@@ -136,6 +135,8 @@ Generated from the hooks the spoke uses. It lets a reader or economist check eve
 | Row | Content |
 |---|---|
 | Outputs cited | one line per output ID: title, `STAT`, schedule, horizon, value with unit |
+| Figures | one row per figure: id, outputs plotted, schedule, horizon, link to its reference table and CSV |
+| Reference tables | one table per figure (section 6a), holding every value plotted |
 | Run | manifest `version`, `country_pack`, run date |
 | Inputs | each `{{i:}}` name, value, unit, register entry link |
 | Literature figures | each `{{lit:}}` key with its source |
@@ -144,12 +145,46 @@ Generated from the hooks the spoke uses. It lets a reader or economist check eve
 
 The block has no prose the author must keep in step with the text. A hook added to the body appears in the block at the next build.
 
+## 6a. Figures and tables (author, 2026-11-17)
+
+Three rules, then the mechanism.
+
+1. **Every figure has a reference table in the Data block.** The table holds every value the figure plots, with unit, `STAT`, schedule and horizon. The build draws the figure and the table from the same data, so they cannot disagree. Each table also downloads as CSV.
+2. **A caption describes the figure and states no result.** It says what is plotted: the quantity, axes and units, the series, the schedule, the horizon, and what bands or markers mean. It never says what the figure shows, and it carries no model number. The prose states the result, by hook, and cites the figure.
+3. **No table in the prose.** Tables live only in the Data block, and each is referenced from its figure's caption (`Data: Table F5.1`). A comparison a reader needs is drawn as a figure, so its numbers become that figure's reference table. A list that is not data (the six retired taxes, say) is prose.
+
+**Figure block** (replaces the `{{fig:}}` hook; the hook now only cites a figure in prose):
+
+````
+::: {#fig-S5-1}
+output: [OP6]            # ids in outputs.yml; every one must be in this spoke's set
+kind: line               # line | band | bar | dot | map | stack
+schedule: S_central      # one value, or [S_low, S_central, S_high] to draw all three
+horizon: long
+by: overall              # a `by:` key of the output, where it has one
+caption: "Public wealth path (fund assets, share of GDP) over 100 years, central schedule. Line is the mean; shaded band runs from the 10th to the 90th percentile of return risk. Data: Table F-S5-1."
+alt: "Line chart of fund assets as a share of GDP against year, with a shaded range."
+:::
+````
+
+IDs: figure `fig-<spoke>-<n>`, its table `F-<spoke>-<n>`. The prose cites with `{{ref:fig-S5-1}}`, which renders "Figure 1" and links. Appendix spokes use their own id (`fig-S6-A-1`).
+
+**Drawing rules.** A `p10_mean_p90` output is drawn as the mean with a band from p10 to p90, and the table lists all three. A figure that compares schedules draws all three and says so in the caption. Money is in base-year pounds, as the metric register states. One palette and one style across the series (stage D fixes them with the `dataviz` guidance). Alt text describes the form of the chart, never the finding.
+
+**Caption lint** (stage D builds it; until then the writing lane checks by hand):
+- F1. A caption contains no `{{o:}}`, `{{i:}}` or `{{lit:}}` hook and no figure of three or more digits other than years and IDs.
+- F2. A caption contains none of the result words: rises, falls, grows, shrinks, exceeds, outweighs, shows that, demonstrates, confirms, higher, lower, larger, smaller, peaks, converges. The list lives in the checker and can grow.
+- F3. A caption ends with `Data: Table F-<spoke>-<n>` and that table exists in the Data block.
+- F4. Every figure block is cited by `{{ref:}}` at least once in the prose, and the sentence that cites it states the result with a hook.
+- F5. Every output named in a figure block is in the spoke's `outputs` set (rule R1) and counts as cited for the reverse check.
+- F6. The Data block lists every figure and every reference table; a table in the prose is an error.
+
 ## 7. Writing rules
 
 The writing lane applies `docs/agents/reference/writing/style-guide.md` and `prose-rules.md` in one pass while drafting. For spokes this adds:
 
 1. **Draft compressed.** Lead with the point. No preamble, no closing restatement, no reflexive hedging.
-2. **Prose first.** Bullets and tables only where the reader compares or follows a sequence.
+2. **Prose first.** Bullets only where the reader follows a sequence. No tables in the prose; figures follow section 6a.
 3. **State positions in the present tense.** No account of earlier versions, no "has since been", no revision narrative inside a spoke.
 4. **One caveat, once.** Name it where it bites and cross-reference it.
 5. **Name trade-offs.** Where the design departs from its principle, say so.
@@ -185,8 +220,6 @@ What the test shows: the old text's worked 25% example is dropped because the ra
 
 ## 10. For the author
 
-1. Approve the shape, or change it.
-2. (Closed: cap 6,000 and appendix spokes, 2026-11-17.)
-3. Confirm the single-objection rule (section 5), the 60-word reading note, and that the long value never stands alone in a Short answer (section 4, rule 6).
-4. Confirm the hook lint is strict on typed figures (section 4, rule 4), including literature figures through `{{lit:}}`.
-5. Stage D then fixes site IDs, URLs, build mechanics for hooks and the spoke checker.
+All approved by the author on 2026-11-17: the shape, the single-objection rule, the 60-word reading note, the long value never alone in a Short answer, and strict lint on typed figures including `{{lit:}}`. The cap (6,000, appendix spokes) is closed. Added the same day: section 6a, figures and tables.
+
+Open for the author on 6a: (a) a caption's result-word list (F2) is a lint, so it will miss some phrasings; the writing lane reviews captions by hand too. (b) A table that is not data and not a figure's source (for example a list of statutory dates in S9) is read as prose or an appendix spoke; say if you want a table type for it. (c) Stage D then fixes site IDs, URLs, hook mechanics, the figure renderer and the spoke checker.
