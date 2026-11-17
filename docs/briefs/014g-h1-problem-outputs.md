@@ -1,6 +1,6 @@
 # 014: Define the hub problem outputs
 
-- **Status:** ready
+- **Status:** built (branch `brief/014-h1-problem-outputs`, awaiting the guru's merge)
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** 011g (A2 passed), 012r (merged), 013g stage B (merged). Runs in parallel with the other two of 014g, 015g and 016g.
 - **Read:** `docs/model-v3/metrics.md`, `docs/model-v3/outputs.yml`, `docs/model-v3/drivers.md`, `docs/model-v3/inputs.md` (rows named below), `docs/restructure/ledger.md` section 6 and the sections named in the brief. Nothing else need be opened. Ledger sections: 6.1 and 4 (claim 21).
@@ -30,7 +30,10 @@ The implementer asks rather than guesses.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **State:** ready
+- **Done:** `docs/model-v3/added/h1.md`: OH1a, OH1b, OH1c and D-H1a to D-H1c, each with a metric or fact row, inputs, an `outputs.yml` line and a claim; 12 research requests; items for the guru's merge.
+- **Next:** the guru merges 014g to 016g into `metrics.md` and `outputs.yml` and renumbers the provisional metric ids MH1a to MH1c; research picks up requests 1 to 12 (1 to 3 gate OH1a).
+- **Decisions:** metric ids provisional; OH1b and OH1c are today's-system quantities, reported once, not per schedule; OH1a owns the concentration definition (015g refers to it); D-H1c uses deciles of all adults (ONS convention).
+- **Gotchas:** the ledger's "top 10% about half" holds on one basis only (51% against 40.7%); wealth to GDP is 5.8 to 7.5 or 3.6 by source; M3 "gains" and M4a "decile of the non-payers" each have two readings.
+- **Not run:** no model code; no inputs checked against the sources.
+- **State:** done on branch `brief/014-h1-problem-outputs`; not merged (open questions for the guru and author, see section 8 of `h1.md`)
 <!-- progress:end -->
