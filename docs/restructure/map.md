@@ -1,5 +1,7 @@
 # Restructure, stage A: hub outline and spoke map (author decisions applied 2026-11-16)
 
+> **Ids (author, 2026-11-17).** Spoke shortcodes (`docs/restructure/shortcodes.md`) are the page ids, URLs, front-matter `spoke:` values and figure and table ids. Where this file still writes `S1` to `S12`, read it through `docs/restructure/ids-map.md`; the S numbers are planning labels only.
+
 Brief 013g. Planning only. No spoke prose is written until the data gate (013g) opens. Spoke names, order and the list of standalone papers are proposals: the content ledger (stage B) tests them against what the 33 old papers actually say.
 
 ## 1. Shape

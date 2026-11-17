@@ -8,14 +8,15 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (planning guru) | 012r merged (`docs/model-v3/inputs.md`, 89 rows); 013g stage B merged (`docs/restructure/ledger.md`) | Tornado on tier 1; merge 017s to 021s into `site.md`; compile `docs/brief-suggestions.md` |
-| Agent 2 (site) | 014g done | 017s (site IDs), then 019s (figures) |
-| Agent 3 (site) | 015g done | 018s (hooks), then 021s (navigation) |
-| Agent 4 (research) | 016g done | 022r (wealth, returns), then 023r (tax and gains) |
+| Agent 1 (planning guru) | 012r merged (`docs/model-v3/inputs.md`, 89 rows); 013g stage B merged (`docs/restructure/ledger.md`) | Merge 019s and 021s, then write `docs/restructure/site.md` (stage D checkpoint); merge inputs-added into `inputs.md` after 024r; tornado on tier 1; compile `docs/brief-suggestions.md` |
+| Agent 2 (site) | 017s done | 019s (figures) |
+| Agent 3 (site) | 018s done | 021s (navigation) |
+| Agent 4 (research) | 022r and 023r done | free |
 | Agent 5 (research) | Free | 024r (households, welfare parameters) |
-| Agent 6 (writing) | 013g stage C done and approved | 020w (spoke checker) |
+| Agent 6 (writing) | 013g stage C and 020w done | free |
 
 ## Recently done
+- 2026-11-17 (afternoon): author answered the open questions: shortcodes are the page ids (`docs/restructure/ids-map.md`), the concentration output OH1a is dropped (no UK evidence for rank-dependent returns), all stage D proposed answers accepted. 017s, 018s, 020w merged (`docs/restructure/site/`); 022r and 023r merged and retired. `outputs.yml` now uses shortcodes and carries unit, decimals, horizons and by maps (37 outputs, 1 check).
 - 2026-11-17: 014g to 016g integrated into `metrics.md` (new sections: problem, welfare, supporting metrics, check CK1, data facts) and `outputs.yml` (38 outputs, 1 check; elements validated against the spoke list); briefs retired.
 - 2026-11-17: 012r and 013g stages B and C merged; 014g to 016g merged (`docs/model-v3/added/`); stage D split into 017s to 021s and research follow-ups 022r to 024r; template section 6a (figures and tables) added.
 - 2026-11-16: 011g stage A2 passed (the author confirmed the retirement trigger, the schedule choice rule and the tornado cut-off); brief 012r (input register, four stages) written and ready.

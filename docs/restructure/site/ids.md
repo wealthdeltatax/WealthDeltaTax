@@ -1,5 +1,9 @@
 # Site IDs, URLs and the fate of the old registry (brief 017s, stage D)
 
+> **Ids (author, 2026-11-17).** Spoke shortcodes (`docs/restructure/shortcodes.md`) are the page ids, URLs, front-matter `spoke:` values and figure and table ids. Where this file still writes `S1` to `S12`, read it through `docs/restructure/ids-map.md`; the S numbers are planning labels only.
+
+> **Questions.** All proposed answers in this file's question section were accepted by the author on 2026-11-17 (nothing else reads `site-index.json`), except where `ids-map.md` overrides the S ids. Guru follow-through done the same day: `outputs.yml` carries `unit`, `decimals`, `horizons`, `by` maps and `series` (hooks Q1 to Q4); the template's table label is `F-<spoke>-<n>` and its example is an output the spoke owns (hooks Q13, checker Q14 and Q17).
+
 Status: design only, drafted 2026-11-17, waiting for the author on the questions in section 8. Builds nothing. The guru merges this file into `docs/restructure/site.md` with its siblings (`hooks.md`, `figures.md`, `spoke-checker`, `nav.md`).
 
 Inputs read: `registry/papers.yml`, `registry/contents.yml`, `pipeline/` (file names and module docstrings), `site/_quarto.yml`, `site/pages/`, `docs/restructure/map.md` (sections 4 and 7), `ledger.md` (sections 1, 7, 8), `ledger-sections.md` (redirect weights only), `template.md`, `docs/model-v3/outputs.yml`, brief 007w. Nothing in the live site was fetched; current URLs are taken from `papers.yml` (`<output>.html` at the site root) and `_quarto.yml`.

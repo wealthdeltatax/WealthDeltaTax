@@ -102,3 +102,6 @@ Defaults accepted for: heterogeneous returns by wealth rank as a stated premise 
 
 ## 2026-11-17: added outputs integrated
 Metrics renumbered into one sequence (M10 to M15b, B1, P7, M7c to M7e, M9, M4c, F1, T1); manifest now 38 outputs and one check (CK1, a test not an output) with data facts DH1a to DH1c; all elements validated against the hub and spoke ids, appendix spokes included. Applied the author's answers (M3 gains, M4a deciles, consumption tax kept in M13, OW3 envelope only, tornado on four headlines). Briefs 014g to 016g retired. Open inputs remain 022r to 024r.
+
+## 2026-11-17 (afternoon): shortcodes, concentration output dropped, stage D accepted
+Shortcodes of `shortcodes.md` are the page ids, URLs, front-matter values and figure ids; the S numbers are planning labels read through `docs/restructure/ids-map.md`; the `-A` suffix retires; S11 splits into FIRST and WIDER and S12 into UNCER, LIMIT and FALS. OH1a and M10 are dropped: the concentration path needs returns that rise with wealth rank and 022r found no UK evidence; OW3 is by wealth band, not return tier. All proposed answers in 017s, 018s and 020w are accepted; nothing outside the repo reads `site-index.json`. `outputs.yml` gained unit tags, decimals, per-output horizons, `by` value maps and series flags. 022r and 023r retired.

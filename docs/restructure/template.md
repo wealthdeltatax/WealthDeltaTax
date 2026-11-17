@@ -1,5 +1,7 @@
 # Restructure, stage C: spoke template and writing rules
 
+> **Ids (author, 2026-11-17).** Spoke shortcodes (`docs/restructure/shortcodes.md`) are the page ids, URLs, front-matter `spoke:` values and figure and table ids. Where this file still writes `S1` to `S12`, read it through `docs/restructure/ids-map.md`; the S numbers are planning labels only.
+
 Brief 013g. Status: approved by the author 2026-11-17 (shape and rules), with stage B decisions applied (cap 6,000, appendix spokes, S4 and S6 split, ENT as S8-A) and section 6a, figures and tables, added at the author's direction. Stage D is next. No spoke or hub prose exists beyond the one test paragraph in section 8. The data gate (013g) is still shut.
 
 **Gate (author, 2026-11-16).** No spoke prose is written until the data is finalised. The draft mode in section 4, rule 5 exists to test the build and the template, not to write spokes ahead of results.
@@ -22,14 +24,14 @@ The reader question in the front matter is the spoke's title. If a paragraph doe
 
 ```yaml
 ---
-spoke: S5
+spoke: FISC
 question: "What rate, what threshold, how much?"
 status: draft            # draft | author-review | accepted
 budget: {cap: 6000}      # words of counted prose, section 3
 defaults: {schedule: S_central, horizon: short}   # used by hooks that omit them
-outputs: [O1, O1a, O1b, O1c, O1d, O2, O3, O5, O6, O7, OP1, OP4, O8, OB1, OR1, OF1, OT1]   # equals the S5 set in outputs.yml
-inputs: [W_min]          # input-register names the prose cites
-depends: [S3, S4]        # spokes whose claims this one assumes
+outputs: [O1, O1a, O1b, O1c, O1d, O2, O3, O5, O6, O7, OP1, OP4, O8, OB1, OR1, OF1, OT1]   # equals the FISC set in outputs.yml
+inputs: [I-D4b]          # input-register ids the prose cites (hooks.md Q7: ids, not names)
+depends: [MECH, VAL]        # spokes whose claims this one assumes
 ---
 ```
 
@@ -91,7 +93,7 @@ A hook is a named reference to a value in the data layer. The build replaces it 
 | `HORIZON` | `transition`, `short`, `long` (from `horizons`) | front-matter `defaults.horizon` |
 | `BAND` | a key from the output's `by:` list, `key:value`, for example `wealth_band:top` or `overall` | `overall` where the output has one; otherwise the hook is an error |
 
-Examples: `{{o:O1.range@S_central/short}}`, `{{o:O2.mean#overall}}`, `{{o:OP1.p90@S_low/transition}}`, `{{i:W_min}}`, `{{ref:fig-S5-1}}`.
+Examples: `{{o:O1.range@S_central/short}}`, `{{o:O2.mean#overall}}`, `{{o:OP1.p90@S_low/transition}}`, `{{i:I-D4b}}`, `{{ref:fig-FUND-1}}`.
 
 Units, rounding and the "p10 to p90" wording come from the metric register, never from the author. A hook inside a sentence reads as the value alone, so the sentence has to work with "x%" or "x to y%" in the slot.
 
@@ -151,23 +153,22 @@ Three rules, then the mechanism.
 
 1. **Every figure has a reference table in the Data block.** The table holds every value the figure plots, with unit, `STAT`, schedule and horizon. The build draws the figure and the table from the same data, so they cannot disagree. Each table also downloads as CSV.
 2. **A caption describes the figure and states no result.** It says what is plotted: the quantity, axes and units, the series, the schedule, the horizon, and what bands or markers mean. It never says what the figure shows, and it carries no model number. The prose states the result, by hook, and cites the figure.
-3. **No table in the prose.** Tables live only in the Data block, and each is referenced from its figure's caption (`Data: Table F5.1`). A comparison a reader needs is drawn as a figure, so its numbers become that figure's reference table. A list that is not data (the six retired taxes, say) is prose.
+3. **No table in the prose.** Tables live only in the Data block, and each is referenced from its figure's caption (`Data: Table F-FUND-1`). A comparison a reader needs is drawn as a figure, so its numbers become that figure's reference table. A list that is not data (the six retired taxes, say) is prose.
 
 **Figure block** (a block in the spoke file; `{{ref:}}` cites it in prose):
 
 ````
-::: {#fig-S5-1}
+::: {#fig-FUND-1}
 output: [OP6]            # ids in outputs.yml; every one must be in this spoke's set
 kind: line               # line | band | bar | dot | map | stack
 schedule: S_central      # one value, or [S_low, S_central, S_high] to draw all three
-horizon: long
-by: overall              # a `by:` key of the output, where it has one
-caption: "Public wealth path (fund assets, share of GDP) over 100 years, central schedule. Line is the mean; shaded band runs from the 10th to the 90th percentile of return risk. Data: Table F-S5-1."
+by: {year: [10, 25, 50, 100]}   # a `by:` map of the output; OP6 has no horizon, it is read at four years
+caption: "Public wealth path (fund assets, share of GDP) over 100 years, central schedule. Line is the mean; shaded band runs from the 10th to the 90th percentile of return risk. Data: Table F-FUND-1."
 alt: "Line chart of fund assets as a share of GDP against year, with a shaded range."
 :::
 ````
 
-IDs: figure `fig-<spoke>-<n>`, its table `F-<spoke>-<n>`. The prose cites with `{{ref:fig-S5-1}}`, which renders "Figure 1" and links. Appendix spokes use their own id (`fig-S6-A-1`).
+IDs: figure `fig-<spoke>-<n>`, its table `F-<spoke>-<n>`. The prose cites with `{{ref:fig-FUND-1}}`, which renders "Figure 1" and links. IDs use the spoke shortcode (`fig-FUND-1`, `F-FUND-1`).
 
 **Drawing rules.** A `p10_mean_p90` output is drawn as the mean with a band from p10 to p90, and the table lists all three. A figure that compares schedules draws all three and says so in the caption. Money is in base-year pounds, as the metric register states. One palette and one style across the series (stage D fixes them with the `dataviz` guidance). Alt text describes the form of the chart, never the finding.
 

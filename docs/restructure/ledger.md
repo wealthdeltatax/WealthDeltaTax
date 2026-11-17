@@ -1,5 +1,7 @@
 # Content ledger: summary (brief 013g, stage B)
 
+> **Ids (author, 2026-11-17).** Spoke shortcodes (`docs/restructure/shortcodes.md`) are the page ids, URLs, front-matter `spoke:` values and figure and table ids. Where this file still writes `S1` to `S12`, read it through `docs/restructure/ids-map.md`; the S numbers are planning labels only.
+
 Status: stage B drafted, waiting for the author. One row per section of all 33 old papers is in `ledger-sections.md` (980 rows, no section without a disposition). This file holds the totals, the budget finding, the demanded outputs checked against `outputs.yml`, the proposed additions and the decisions for the author. Words are body words counted per section, about 2% under `wc`.
 
 ## 1. What the 33 papers hold

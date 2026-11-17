@@ -47,6 +47,7 @@ See section 5 of `map.md`.
 - **Stage B passed (2026-11-17):** author decisions in `ledger.md` section 8 and `map.md` section 7.
 - **Stage C drafted (2026-11-17, Agent 6):** `docs/restructure/template.md`; guru applied the stage B decisions (cap 6,000, appendix spokes). Author approved it 2026-11-17 and added section 6a (figures and tables).
 - **Stage D split (2026-11-17):** parallel briefs 017s (IDs, URLs, registry), 018s (hooks, data interface), 019s (figures), 020w (spoke checker), 021s (navigation); each writes one file under `docs/restructure/site/`; the guru merges them into `docs/restructure/site.md`.
-- **Next:** 017s to 021s run in parallel; the guru merges them into `docs/restructure/site.md`; the author approves stage D.
+- **Stage D progress:** 017s, 018s and 020w merged (author accepted all proposed answers, 2026-11-17). 019s and 021s still running. Shortcodes are the ids (`docs/restructure/ids-map.md`).
+- **Next:** merge 019s and 021s; the guru writes `docs/restructure/site.md`; the author approves stage D.
 - **State:** stage C passed; stage D running (017s to 021s)
 <!-- progress:end -->

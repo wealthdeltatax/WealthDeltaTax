@@ -1,5 +1,9 @@
 # Site design: hook resolution, data interface and the Data block
 
+> **Ids (author, 2026-11-17).** Spoke shortcodes (`docs/restructure/shortcodes.md`) are the page ids, URLs, front-matter `spoke:` values and figure and table ids. Where this file still writes `S1` to `S12`, read it through `docs/restructure/ids-map.md`; the S numbers are planning labels only.
+
+> **Questions.** All proposed answers in this file's question section were accepted by the author on 2026-11-17 (nothing else reads `site-index.json`), except where `ids-map.md` overrides the S ids. Guru follow-through done the same day: `outputs.yml` carries `unit`, `decimals`, `horizons`, `by` maps and `series` (hooks Q1 to Q4); the template's table label is `F-<spoke>-<n>` and its example is an output the spoke owns (hooks Q13, checker Q14 and Q17).
+
 Brief 018s, part of 013g stage D. Status: design draft for the guru; the guru merges it with the sibling files into `docs/restructure/site.md`. Design only: nothing here is built, no value is chosen, and every number in the worked example (section 10) is a placeholder, not a model result.
 
 Read: `docs/restructure/template.md` (sections 4, 6, 6a), `docs/model-v3/outputs.yml`, `metrics.md`, `inputs.md`, and the file names in `pipeline/`. Where this design needs something the manifest, template or register does not hold, it is a numbered question in section 11 with a proposed answer. The text says "proposed" wherever a rule depends on a question.
@@ -172,6 +176,9 @@ Units, rounding and wording come from the manifest and register, never the autho
 | `years` | number then `years` | `0.22 years` |
 | `pp` | number then `percentage points` | `0.22 percentage points` |
 | `ratio` | number alone | `0.22` |
+| `bp` | number then `basis points` | `22 basis points` |
+| `count` | number with thousands separators | `220,000` |
+| `gbp_month` | `£` number `a month` | `£22 a month` |
 
 - **Range** (`range`): "p10 to p90" or "lo to hi", with the unit once at the end: `0.11 to 0.33% per year`. For `gbp_bn` the `£` leads and `bn` trails the pair: `£0.11 to 0.33bn`.
 - **Rounding:** decimal half-up on the stored value to the manifest `decimals`, computed on the decimal representation of the stored number so that `0.125` at two decimals gives `0.13`. Bands of one range are rounded separately.

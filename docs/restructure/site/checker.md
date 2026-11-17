@@ -1,5 +1,9 @@
 # Spoke checker specification
 
+> **Ids (author, 2026-11-17).** Spoke shortcodes (`docs/restructure/shortcodes.md`) are the page ids, URLs, front-matter `spoke:` values and figure and table ids. Where this file still writes `S1` to `S12`, read it through `docs/restructure/ids-map.md`; the S numbers are planning labels only.
+
+> **Questions.** All proposed answers in this file's question section were accepted by the author on 2026-11-17 (nothing else reads `site-index.json`), except where `ids-map.md` overrides the S ids. Guru follow-through done the same day: `outputs.yml` carries `unit`, `decimals`, `horizons`, `by` maps and `series` (hooks Q1 to Q4); the template's table label is `F-<spoke>-<n>` and its example is an output the spoke owns (hooks Q13, checker Q14 and Q17).
+
 Brief 020w, part of 013g stage D. Status: draft for the guru; the author decides the numbered questions in section 9. This file designs the checker. It builds nothing. The guru merges it into `docs/restructure/site.md` with its siblings (`ids.md`, `hooks.md`, `figures.md`, `nav.md`).
 
 Sources: `docs/restructure/template.md` (sections 1 to 8), `docs/agents/reference/writing/style-guide.md` and `prose-rules.md`, `docs/model-v3/outputs.yml` (version `stage-A3-integrated-2026-11-17`), `docs/model-v3/inputs.md`, `pipeline/check_wdt_format.py`. Where the template is silent or inconsistent, this file proposes an answer in section 9 and marks the check "(Q n)". It does not guess.

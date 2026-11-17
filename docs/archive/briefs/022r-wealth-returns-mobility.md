@@ -1,6 +1,6 @@
 # 022: Research: wealth, returns and mobility
 
-- **Status:** done, merged
+- **Status:** built (merged 2026-11-17; retired)
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** 012r (merged), 014g to 016g (merged). Runs in parallel with 023r, 024r.
 - **Read:** `docs/agents/research.md` and the files in `docs/agents/reference/research/`, `docs/model-v3/inputs.md` (row format and the rows named below), `docs/model-v3/added/h1.md`, `welfare.md` and `supporting.md`. Nothing else need be opened.
