@@ -136,6 +136,7 @@ Applied to `map.md` by brief 025w, in the shortcodes.
 5. **Manifest:** add OF1, OT1, OB1, OR1, OD1, OM1 and OL1.
 6. **Synthetic stress test (SWEEPS 7.5):** keep (confirmed: kept as a stated output or check).
 7. **v1 headline figures:** not carried; v3 will contradict them again. Confirmed.
+8. **Brief 025w decisions (author, 2026-11-17, all "ok"):** (a) POL splits into POL, ADOPT and PILOT, and FALS into FALS and HYPO (the two default splits of section 9.2; ADOPT, PILOT and HYPO are working names until `shortcodes.md` takes them); the optional splits are measured at stage E. (b) The M rows of UNCER (6,827 words) and LIMIT (6,233) count as kept; the rows keep their M mark and stage E counts them as K. (c) The payslip stays in PAY; FIRST is revisited when its short answer is drafted. (d) The `element:` amendments of section 9.3 are applied in `outputs.yml` (O1, O2, O4a, O5, O6, OP6, OW1 list FALS instead of UNCER; OW3 lists WELF only; version `stage-A5-falsifiability-elements-2026-11-17`). (e) Open for the guru: WELF 4.3 has no concentration output (OH1a dropped), the comparison-tables page conflicts with template 6a rule 3, and the avoidance guide is all M.
 
 ## 9. Reassignment to the shortcodes (brief 025w, 2026-11-17)
 

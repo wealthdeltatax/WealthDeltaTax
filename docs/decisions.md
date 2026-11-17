@@ -117,3 +117,7 @@ S11 and S12 output assignments kept (FIRST, WIDER, UNCER, FALS; none to LIMIT). 
 
 ## 2026-11-17: spoke checker questions (020w)
 Q1 question is the title; Q2 H3 allowed inside Evidence sections only (PT7 amended; H3 is not a section address); Q4 draft downgrade accepted; Q18 waivers of warnings accepted. The remaining 020w questions were accepted under the author's blanket approval and stay open to review.
+
+## 2026-11-17 (evening): ledger in shortcodes (025w), navigation (021s)
+025w accepted: POL splits into POL, ADOPT and PILOT and FALS into FALS and HYPO (working names); UNCER and LIMIT M rows count as kept at stage E; payslip stays in PAY. `outputs.yml` `element:` amended so the FAL claims sit in FALS (O1, O2, O4a, O5, O6, OP6, OW1) and OW3 lists WELF only. 021s merged with the author's 12 answers (`docs/restructure/site/nav.md` section 10): flat navbar, 15 menu spokes and 4 parent-reached, old calculators and pending pages stay live labelled as the old model. The stock-wealth floor hypothesis (`docs/model-v3/stock-floor-hypothesis.md`) is exploratory and not adopted; discussion with the author first.
+
