@@ -15,12 +15,8 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent 5 | Free | 020w (spoke checker) |
 | Agent 6 | 013g stage C done and approved | 021s (navigation) |
 
-## Waiting on the author
-- Start 012r with the research skill (`wdt-research`), one stage (B1 to B4) per session. Three questions are open in the brief: the rich-list licence fallback, acceptable foreign evidence, and whether to add the cited references to the bibliography afterwards.
-- Optional: rename the `wdt-web` skill to `wdt-site` for consistency (logged in `docs/brief-suggestions.md`; touches the stub, the `.skill`, `AGENTS.md`, `docs/agents/`, `OVERVIEW.md` and the account skill).
-- Settled 2026-11-16: Zenodo sandbox token (non-critical, left); revenue calculator (replaced after model v3); letter `s` kept; old uploaded skills removed.
-
 ## Recently done
+- 2026-11-17: 012r and 013g stages B and C merged; 014g to 016g merged (`docs/model-v3/added/`); stage D split into 017s to 021s and research follow-ups 022r to 024r; template section 6a (figures and tables) added.
 - 2026-11-16: 011g stage A2 passed (the author confirmed the retirement trigger, the schedule choice rule and the tornado cut-off); brief 012r (input register, four stages) written and ready.
 - 2026-11-16: 011g stage A2 drafted after the author accepted the design review: levers swept, two-level uncertainty, driver table, new outputs M2b, M2c, M8, S1, P6 (manifest 21 entries); `synthesis.md` section 3 amended.
 - 2026-11-16: 011g stage A passed: the author confirmed windows, retirement order, revenue-weighted M2 and life length 30; manifest has 16 entries; six taxes retire (stamp duties have two receipt lines).
@@ -38,7 +34,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 ## Open findings
 See `OVERVIEW.md` section 6. Priority list carried over from `docs/todo.md`: citation button, CLOSE updates, PDF title page, WFR refactor, WP Appendix B forward links, internal bibliography to Zenodo v2.
 
-## Waiting for the author
+## Waiting on the author
 Each has a recommended default; answer "defaults" to accept them all. Background: `docs/model-v3/added/` (h1.md, welfare.md, supporting.md).
 
 **Model design (blocks v3 stage C):**
