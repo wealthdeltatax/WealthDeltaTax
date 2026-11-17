@@ -1,6 +1,6 @@
 # 024: Research: households, leavers and welfare parameters
 
-- **Status:** ready
+- **Status:** done, merged (014g 11 and 12 not met: workbook not readable)
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** 012r (merged), 014g to 016g (merged). Runs in parallel with 022r, 023r.
 - **Read:** `docs/agents/research.md` and the files in `docs/agents/reference/research/`, `docs/model-v3/inputs.md` (row format and the rows named below), `docs/model-v3/added/h1.md`, `welfare.md` and `supporting.md`. Nothing else need be opened.
@@ -31,7 +31,18 @@ The implementer asks rather than guesses.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **State:** ready
+- **Done:** `docs/model-v3/inputs-added/hh.md` (46 rows I-H1a to I-H7e, 9 judgement rows, sources SH1 to SH10), `docs/research/024r-derivations.md`. Empty-cell check passed.
+- **Next:** author attaches the ONS ETB FYE 2024 decile workbook (and ad hoc 12451) to fill I-H1, I-H2, I-H3 by decile; guru merges the three added files.
+- **Decisions:** nearest evidence used where the workbook is missing (FYE 2023 quintiles, secondary); UK real returns computed from the held JST data (to 2020).
+- **Gotchas:** fetch-tool summary mis-divided the ONS spending ratios (recomputed); no UK data on leavers (proxy: additional-rate taxpayers).
+- **State:** done, merged
 <!-- progress:end -->
+
+### Change report
+- **Task:** 024r, households, leavers and welfare parameters.
+- **Files changed:** new `docs/model-v3/inputs-added/hh.md`, new `docs/research/024r-derivations.md`, this brief.
+- **What is different now:** 46 rows answer 015g (risk aversion, returns, consumption to wealth), 016g M-4 and M-5 in part; gaps listed in the file.
+- **Acceptance:** every request has rows or a stated reason: met (014g 11, 12 by stated reason and nearest evidence); all fields present: met; judgement rows listed: met; sources dated with licence: met; empty-cell check: met; diff within Touches: met.
+- **Deviations:** none. **Risks:** tax rows are quintile and FYE 2023 from a secondary table; leaver rows are proxies.
+- **Verification:** empty-cell script; return statistics recomputed from the held JST file.
+
