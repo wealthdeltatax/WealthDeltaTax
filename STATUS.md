@@ -8,7 +8,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (planning guru) | 021s and 025w merged; briefs 017s to 021s and 025w retired | Compile `docs/brief-suggestions.md`; discuss the stock-wealth floor hypothesis with the author |
+| Agent 1 (planning guru) | 021s and 025w merged; briefs 017s to 021s and 025w retired; 035g and 036r written | 035g stage C1 with the author (items 1 to 3 first); compile `docs/brief-suggestions.md`; stock-wealth floor hypothesis |
 | Agent 7 (planning guru) | 026g done (`site.md`, `order.md` approved) | free |
 | Agent 8 (code) | New | 030c (data interface and output validator) |
 | Agent 9 (code) | New | 033c (gate checker) |
@@ -16,7 +16,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent 2 (site) | 019s done | 029s (page registry and ids) |
 | Agent 3 (site) | 021s done | 031s (relabel calculators) |
 | Agent 4 (research) | 027r done | 032r (sidecars: literature figures, input display) |
-| Agent 5 (research) | 028r done | free |
+| Agent 5 (research) | 028r done | 036r (return range method) |
 | Agent 6 (writing) | 025w done | free |
 
 ## Recently done
