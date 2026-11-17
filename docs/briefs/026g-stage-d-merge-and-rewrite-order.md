@@ -48,11 +48,11 @@ The agent asks rather than guesses. It records questions in the brief and stops 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:**
+- **Done:** Stage A. `docs/restructure/site.md` written: five siblings summarised and linked, 17 settled reconciliations (section 6), 8 numbered questions (section 7), 16 proposed briefs B1 to B16 with Touches and Depends on (section 8), guru follow-through (section 9).
+- **Next:** author answers section 7 and approves `site.md`; then stage B, `docs/restructure/order.md`. At the end only: STATUS.md, lane plan, decisions.md, 013g status line.
+- **Decisions:** none by the author yet. Settled by supersession or ownership: ids-map shortcodes, hub at `index.html`, no redirects but `wp.html`, `/data/<id lower-case>.html`, `registry/routing.yml`, one `WDT_MODE` switch.
+- **Gotchas:** old and new URLs collide (VAL, CORP, GOV, POL, BEHAV, ADD, INST, SCOPE), hence Q1; hooks.md id regex misses DH1a, CK1, OH1b2 (R12); outputs.yml `by` is still a list on six outputs.
+- **Resume:** branch `brief/026-stage-d-merge`; start stage B only after approval.
+- **Not run:** no build (no site file touched).
+- **State:** stage A pushed to branch; NEEDS THE AUTHOR.
 <!-- progress:end -->
