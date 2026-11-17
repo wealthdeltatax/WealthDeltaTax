@@ -2,7 +2,7 @@
 
 > **Ids (author, 2026-11-17).** Spoke shortcodes (`docs/restructure/shortcodes.md`) are the page ids, URLs, front-matter `spoke:` values and figure and table ids. Where this file still writes `S1` to `S12`, read it through `docs/restructure/ids-map.md`; the S numbers are planning labels only.
 
-> **Questions.** All proposed answers in this file's question section were accepted by the author on 2026-11-17 (nothing else reads `site-index.json`), except where `ids-map.md` overrides the S ids. Guru follow-through done the same day: `outputs.yml` carries `unit`, `decimals`, `horizons`, `by` maps and `series` (hooks Q1 to Q4); the template's table label is `F-<spoke>-<n>` and its example is an output the spoke owns (hooks Q13, checker Q14 and Q17).
+> **Questions.** The author answered Q1 (question is the title), Q2 (H3 allowed inside Evidence, otherwise as proposed), Q4 (draft downgrade) and Q18 (waivers) explicitly on 2026-11-17; the other questions were accepted under the blanket "all ok" and can be reopened. All proposed answers in this file's question section were accepted by the author on 2026-11-17 (nothing else reads `site-index.json`), except where `ids-map.md` overrides the S ids. Guru follow-through done the same day: `outputs.yml` carries `unit`, `decimals`, `horizons`, `by` maps and `series` (hooks Q1 to Q4); the template's table label is `F-<spoke>-<n>` and its example is an output the spoke owns (hooks Q13, checker Q14 and Q17).
 
 Brief 020w, part of 013g stage D. Status: draft for the guru; the author decides the numbered questions in section 9. This file designs the checker. It builds nothing. The guru merges it into `docs/restructure/site.md` with its siblings (`ids.md`, `hooks.md`, `figures.md`, `nav.md`).
 
@@ -92,7 +92,7 @@ Columns: **M** is the mode (S source, B build). Examples are minimal; hooks use 
 | PT4 | Evidence has three to six H2s ("usually", template section 2) | I | S | four sections | eight sections | FIX or split (AUTHOR) |
 | PT5 | Each Evidence H2 starts with a paragraph, not a figure block, list or quote | W | S | claim sentence first | figure block directly under the heading | FIX |
 | PT6 | Evidence headings are numbered `1.` upward in order, no lower-case letters (Q3) | E | S | `## 2. The refund cap` after `## 1.` | `## 3.` after `## 1.`; `## 2.b` | FIX |
-| PT7 | No heading below H2 (Q2) | W | S | none | `### The cap` | FIX |
+| PT7 | H3 is allowed only inside an Evidence section; no H3 in the Short answer or the objection block, and nothing below H3 (Q2, author 2026-11-17). An H3 is not numbered and is not a `§N` target, so `(FISC §2)` still means the second Evidence H2 | W | S | `### The cap` under `## 2.` | `#### Detail`, or `### x` under `## Short answer` | FIX |
 | PT8 | No pasted image: figures come from figure blocks only | E | S | a figure block | `![Figure 3: ...](../figures/x.png)` | FIX |
 
 ### 4.3 Word budget (WC)

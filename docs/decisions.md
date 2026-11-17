@@ -108,3 +108,6 @@ Shortcodes of `shortcodes.md` are the page ids, URLs, front-matter values and fi
 
 ## 2026-11-17: four calls
 S11 and S12 output assignments kept (FIRST, WIDER, UNCER, FALS; none to LIMIT). Brief 007w dropped as obsolete. Retired-tax receipts take the primary source as central with the IFS sheet as cross-check (CGT 24.2bn HMRC against 19.5bn IFS), written into M1e. Brief 025w (ledger and map to shortcodes) written for the writing lane.
+
+## 2026-11-17: spoke checker questions (020w)
+Q1 question is the title; Q2 H3 allowed inside Evidence sections only (PT7 amended; H3 is not a section address); Q4 draft downgrade accepted; Q18 waivers of warnings accepted. The remaining 020w questions were accepted under the author's blanket approval and stay open to review.
