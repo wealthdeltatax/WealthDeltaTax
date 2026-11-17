@@ -80,3 +80,7 @@ The 33 papers are replaced by a hub (general-reader whitepaper, problem first), 
 
 ## 2026-11-17: briefs are split for parallel work
 The guru splits parallel parts into separate small briefs (own number, one lane, one session, disjoint Touches, shared inputs fixed first). Stages are for sequential steps only. Rule is in `docs/agents/brief-template.md` (Splitting) and `guru.md`.
+
+## 2026-11-17: 012r and 013g stage B merged
+012r: `docs/model-v3/inputs.md`, 89 rows, 40 judgement; incidence (D6) and the D7 and D8 ranges are derived or from v2 output, not independent evidence. Finding: the RATES 0.35% burden divides by terminal wealth; M2 on start-of-year wealth is about 1.2% on a crude path average, so RATES' claim of staying below 1 to 2% is not shown. M2's denominator is the author's call.
+013g stage B: ledger of 980 sections; every spoke exceeds 4,000 kept words (2.6 times overall); outputs.yml `element:` filled with hub and spoke IDs (proposed). Decisions in `ledger.md` section 8 are open.

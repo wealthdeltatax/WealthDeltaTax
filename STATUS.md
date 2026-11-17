@@ -1,6 +1,6 @@
 # Status board
 
-Maintained by the guru. Last updated 2026-11-16 (midday, stage A2 passed, 012r ready). Plan view: `docs/lane-plan.html`.
+Maintained by the guru. Last updated 2026-11-17 (012r and 013g stage B merged). Plan view: `docs/lane-plan.html`.
 
 ## Where the project is
 The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. Design brief 011g is underway: stage A (metric register and output manifest) passed on 2026-11-16; stage A2 (design review: levers swept, two-level uncertainty, driver table, three added outputs) passed; stage B (input register, brief 012r) is ready for the research lane. v1 and v2 are not fixed. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
@@ -8,8 +8,8 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (guru) | 013g stage A passed (`docs/restructure/map.md`); stage B ledger drafted (`docs/restructure/ledger.md`), awaiting author on its section 8; 011g stage A2 passed; 012r written | Tornado after 012r B4; compile `docs/brief-suggestions.md` |
-| Agent 2 | Free | 012r B1 (research lane) |
+| Agent 1 (guru) | 012r merged (`docs/model-v3/inputs.md`, 89 rows); 013g stage B merged (`docs/restructure/ledger.md`) | Tornado on tier 1; stage C; compile `docs/brief-suggestions.md` |
+| Agent 2 | Free | none planned |
 | Agent 3 | Free | none planned |
 | Agent 4 | Free | none planned |
 | Agent 5 | Free | none planned |
@@ -36,3 +36,8 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 
 ## Open findings
 See `OVERVIEW.md` section 6. Priority list carried over from `docs/todo.md`: citation button, CLOSE updates, PDF title page, WFR refactor, WP Appendix B forward links, internal bibliography to Zenodo v2.
+
+## Waiting for the author
+- M2's wealth denominator (`inputs.md`, check against RATES 0.35%): terminal 0.39%, crude path average 1.2%, starting 4.1%.
+- `docs/restructure/ledger.md` section 8: budget option, ENT, welfare layer, H1 outputs, manifest additions, stress test, v1 headline figures.
+- 012r open question 3: add cited references to `registry/references.bib`.
