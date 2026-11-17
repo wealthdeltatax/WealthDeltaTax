@@ -32,9 +32,9 @@ The implementer asks rather than guesses.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** `docs/restructure/site/nav.md` written (page types with layouts, flat navigation and URLs, routing block as `site/data/routing.yml` with checks, page registry, search, mobile and print, what the site no longer has, reachability table, 12 numbered questions with proposed answers).
-- **Next:** the guru reviews the 12 questions with the author and merges the file into `docs/restructure/site.md`.
-- **State:** done, NEEDS THE AUTHOR (open questions remain; not merged)
+- **Done:** `docs/restructure/site/nav.md` written (page types with layouts, flat navigation and URLs, routing block as `site/data/routing.yml` with checks, page registry, search, mobile and print, what the site no longer has, reachability table). The author answered all 12 questions on 2026-11-17 and section 10 records the decisions.
+- **Next:** the guru merges the file into `docs/restructure/site.md` with `hooks.md`.
+- **State:** done, merged (brief 021s merged, ready to retire)
 <!-- progress:end -->
 
 ### Change report
@@ -50,9 +50,9 @@ Change report
   - Every page within two clicks of the hub: met (section 9, longest path 2).
   - Standalone papers and the data layer have a stated place: met (sections 2.4, 2.5, 3).
   - git diff --stat shows only the Touches list: met, see Verification.
-- Deviations from the brief: none. Section 10 Q3 proposes dispositions for pages the restructure documents do not mention (FAQ, Comparison Tables, Project Map, Avoidance, Corporate Levy and others); these are proposals, not decisions.
-- Risks / follow-ups: Quarto `aliases` for redirects is not used in the pipeline today and is unverified for this build (Q5). Routing `prompt` lines are placeholders for the writing lane (Q10). Link targets here settle the data-page URLs that the sibling hooks design (018s, Q14) asked for; the two files must be merged consistently.
+- Deviations from the brief: none. Author decisions (2026-11-17) that shaped the design: no redirects for old paper URLs, except `wp.html` to the hub (Q5, Q1); ten existing pages stay live as Pending review until the author decides each (Q3); calculators stay, labelled old model, until updated (Q4).
+- Risks / follow-ups: existing citations to the removed papers, including Zenodo, will not resolve (the author accepts this, Q5). Routing `prompt` lines are placeholders for the writing lane to draft and the author to approve (Q10). Link targets here settle the data-page URLs that the sibling hooks design (018s, Q14) asked for; the two files must be merged consistently.
 - Verification: appendix ids (S4-A, S6-A, S6-B, S8-A) and the 6,000 cap checked against map.md and template.md; page count recomputed (49). No em dashes in the file. No build run: the diff touches no site file.
 - Overview sections likely needing an update: none until the guru merges site.md; section 2 directory map gains docs/restructure/site/.
-- Commit / branch: branch brief/021-navigation-and-routing. NEEDS THE AUTHOR: open questions remain, so the auto-merge rule does not apply.
+- Commit / branch: branch brief/021-navigation-and-routing. Merged to main under the auto-merge rule: no open question remains, every criterion is met, the diff stays inside Touches. Brief 021s merged, ready to retire.
 ```

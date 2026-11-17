@@ -1,8 +1,8 @@
 # Site design: navigation, hub layout and reader routing
 
-Brief 021s, part of 013g stage D. Status: design draft for the guru; the guru merges it with the sibling files into `docs/restructure/site.md`. Design only: nothing is built, no prose or value is written. Shortcodes and URLs are proposals until the author answers section 10.
+Brief 021s, part of 013g stage D. Status: design draft for the guru; the guru merges it with the sibling files into `docs/restructure/site.md`. Design only: nothing is built, no prose or value is written. The author answered the 12 questions of section 10 on 2026-11-17; section 10 records the decisions.
 
-Read: `docs/restructure/map.md` (sections 1 to 3 and 7), `docs/restructure/template.md` (sections 1, 2, 6), and the current navigation in `site/_quarto.yml` (names only). Where the design needs a decision it does not own, it is a numbered question in section 10 with a proposed answer, and the text says "proposed".
+Read: `docs/restructure/map.md` (sections 1 to 3 and 7), `docs/restructure/template.md` (sections 1, 2, 6), and the current navigation in `site/_quarto.yml` (names only). Decisions the design did not own were numbered questions; section 10 records the author's answers.
 
 ## 1. What the site is after the restructure
 
@@ -13,7 +13,7 @@ One hub, 12 main spokes, 4 appendix spokes, a data layer, 3 standalone papers an
 | A navbar "Papers" menu listing 33 papers in 9 themed groups, plus a docked sidebar of about 40 entries | A navbar with five items; the 12 spokes in one menu; no sidebar of papers |
 | A numbered series: core, literature, mechanism, modelling, robustness, welfare, implementation, political | Hub plus questions: each spoke is titled by the reader's question |
 | A table of contents on every long paper | A fixed four-anchor jump bar on every spoke; an "On this page" list on the hub only |
-| "How To Navigate", "Project Map" and FAQ pages as entry points | The reader routing block in the hub (section 4); the FAQ's job passes to the Strongest objection block of each spoke and to S12 (Q3) |
+| "How To Navigate", "Project Map" and FAQ pages as entry points | The reader routing block in the hub (section 4) is the entry point; the three old pages stay live under Resources, Pending review, until the author decides (Q3) |
 | Tables of numbers in papers and a Comparison Tables page | Figures with reference tables in each spoke's Data block (template 6a); no table in the prose |
 | Per-paper revision history | The run metadata of the data layer; no revision narrative in a spoke (template writing rule 3) |
 
@@ -82,7 +82,7 @@ The same layout and the same four parts, with its own front matter, cap and Data
 
 ### 2.4 Data-layer pages
 
-| Page | URL (proposed) | Content |
+| Page | URL (decided, Q2) | Content |
 |---|---|---|
 | Data index | `data/index.html` | run metadata (manifest version, country pack, run date, status); one table of all outputs: id, title, spokes that cite it, link; links to the inputs page, the method page and the CSV downloads |
 | Output page | `data/outputs/<id>.html`, lowercase id | title and definition (one sentence from the metric register), unit, summary form; the spokes that cite it (from the manifest `element`); a table of every cell (schedules by horizons by `by` values); download of the output's CSV; link back to each citing spoke |
@@ -105,7 +105,9 @@ The old paper layout is kept for ADD, INST and SCOPE: the page title, the paper'
 | Page | Notes |
 |---|---|
 | References, Glossary | keep as generated pages (`references.qmd`, glossary); linked from the footer and the `Resources` menu |
-| Retired papers | one generated table: old shortcode, title, the spoke or spokes that absorbed it, link (Q5) |
+| Retired papers | one generated table: old shortcode, title, the spoke or spokes that absorbed it. The old papers are removed and their URLs are not redirected (Q5) |
+| Pending pages | FAQ, Comparison Tables, Project Map, How To Navigate, Avoidance, Corporate Levy, Flowcharts, Link Map, Internal Bibliography, Revision History: stay live at their current URLs, unchanged, until the author decides each one (Q3) |
+| Calculators | the three existing calculators stay on their current URLs, labelled "Based on the retired model", and are updated to the newest model when it is done (Q4) |
 | About the author and contacts | keep; navbar `About` |
 | 404 | keeps the hub link and the routing block |
 
@@ -123,7 +125,7 @@ Flat: one level from the hub. The navbar is the same on every page.
 | `Questions` | the 12 main spokes, in order, each as "S5 Rates and revenue" (label) with the question as the second line on desktop | 1 |
 | `Data` | opens the data index | 1 |
 | `Papers` | ADD, INST, SCOPE | 1 |
-| `Resources` | References, Glossary, Retired papers | 1 |
+| `Resources` | References, Glossary, Retired papers, Calculators (labelled old model), and a Pending review group listing the ten pending pages | 1 |
 | `About` | the author page | 1 |
 
 Rules:
@@ -134,7 +136,7 @@ Rules:
 - Draft spokes appear in the menu with a "draft" mark until `status` is `accepted`; the mark comes from front matter.
 - The menu is generated from the page registry (section 5), so adding or renaming a spoke edits one data file.
 
-URLs (proposed, Q2): flat and lowercase, as today (`rates.html`, `lr-a.html`).
+URLs (decided, Q2): flat and lowercase, as today (`rates.html`, `lr-a.html`).
 
 | Page | URL |
 |---|---|
@@ -209,7 +211,7 @@ routes:
 
 ## 5. Page registry
 
-The menu, breadcrumbs, routing and the retired-papers table read one registry: `registry/pages.yml` (proposed name, Q7). Hand-maintained for hub, data, standalone and utility pages; for spokes it holds only the fields front matter does not (label, order, parent), and the build reads `question` and `status` from the spoke's own front matter so there is one source for them.
+The menu, breadcrumbs, routing and the retired-papers table read one registry: `registry/pages.yml` (decided, Q7). Hand-maintained for hub, data, standalone and utility pages; for spokes it holds only the fields front matter does not (label, order, parent), and the build reads `question` and `status` from the spoke's own front matter so there is one source for them.
 
 | Field | Type | Rule |
 |---|---|---|
@@ -261,13 +263,13 @@ Rules: an appendix has a `parent` that is a main spoke; a main spoke has none; e
 | The numbered series of 33 papers and their appendices as peers | 1 hub, 12 questions, 4 appendices; old shortcodes appear only on the retired papers page |
 | The themed "Papers" mega-menu and the docked sidebar | the five-item navbar (section 3) |
 | Per-paper tables of contents | the fixed jump bar (spokes), the on-page list (hub only) |
-| "How To Navigate" and "Project Map" as the entry points | the routing block (section 4) and the hub's H0 and H6 |
-| The Comparison Tables page and tables in prose | figures with reference tables in the Data block |
+| "How To Navigate" and "Project Map" as the entry points | the routing block (section 4) and the hub's H0 and H6; the two pages stay live, pending (Q3) |
+| Tables in prose | figures with reference tables in the Data block; the Comparison Tables page stays live, pending (Q3) |
 | Per-paper revision history | run metadata on the data index; a spoke carries no revision narrative |
 | Typed model numbers | hooks resolved from the data file |
-| Old paper URLs (`wp.html`, `rates.html` and so on) | redirect pages to the successor spoke (Q5) |
+| Old paper URLs (`wp.html`, `rates.html` and so on) | nothing: the retired papers are removed and their URLs end; `wp.html` alone redirects to the hub (Q1, Q5) |
 
-Pages whose disposition the restructure documents do not decide are questions (Q3, Q4).
+Pages whose disposition is not decided stay live until the author decides each one (Q3).
 
 ## 9. Reachability check
 
@@ -283,25 +285,26 @@ Click depth from the hub, using the navbar that every page carries.
 | standalone paper | hub, `Papers`, paper | 1 |
 | references, glossary, retired papers | hub, `Resources`, page | 1 |
 | about | hub, `About` | 1 |
+| pending pages, calculators | hub, `Resources`, page | 1 |
 
-Longest path is 2 clicks. Pages: 1 hub, 12 spokes, 4 appendices, 1 data index, 21 output pages (the manifest's 21 entries; more if the proposed outputs of `docs/model-v3/added/` join), inputs, method, 3 standalone, 5 utility (references, glossary, retired papers, about, 404): 49 pages with the manifest as it stands, plus the calculators kept under Q4.
+Longest path is 2 clicks. Pages: 1 hub, 12 spokes, 4 appendices, 1 data index, 21 output pages (the manifest's 21 entries; more if the proposed outputs of `docs/model-v3/added/` join), inputs, method, 3 standalone, 5 utility (references, glossary, retired papers, about, 404), 10 pending pages (Q3) and 3 calculators (Q4): 62 pages with the manifest as it stands.
 
-## 10. Questions
+## 10. Decisions
 
-Each has a proposed answer; until answered, the proposal is the working rule of this file.
+The author answered all twelve on 2026-11-17. Each line states the decision and what it fixes in this file.
 
-1. **Is the hub the home page?** Today `index.html` is a plain-English overview and `wp.html` the whitepaper. *Proposed:* the hub is `index.html`; `wp.html` becomes a redirect to it; the current overview content is replaced by H0.
-2. **URL scheme.** *Proposed:* the flat lowercase scheme in section 3; standalone paper URLs unchanged; output and input page ids lowercase (`data/outputs/o2.html`, `data/inputs.html#i-d4b`), which also settles the link targets asked in Q14 of the sibling hooks design.
-3. **Existing pages with no home in the restructure documents.** FAQ, Comparison Tables, Project Map, How To Navigate, Avoidance, Corporate Levy, Flowcharts, Link Map, Internal Bibliography, Revision History. *Proposed:* FAQ, How To Navigate, Project Map and Comparison Tables are retired (their jobs pass to S12 and the objection blocks, the routing block, the hub and the figures); Avoidance and Corporate Levy are read for content by the writing lane before the author decides; Flowcharts and Link Map stay as utility pages until they are rebuilt for the new graph; Internal Bibliography stays under `Resources`; Revision History becomes a short changelog on the retired papers page.
-4. **The three calculators.** They run on the old model. *Proposed:* keep them on their current URLs under `Resources` (a "Tools" entry), labelled "Based on the retired model" until a v3 brief replaces them. Web.md says interactive tools are not scaffolded, so no new work here.
-5. **Old paper URLs.** About 33 paper URLs exist and are cited, including Zenodo. *Proposed:* each retired paper keeps its URL as a redirect to the successor spoke (Quarto's `aliases` page option; not used in the pipeline today, to be confirmed in the build brief), and `registry/papers.yml` gains a `successor` field filled from the ledger. The retired papers page is generated from it.
-6. **Appendix spokes in navigation and search.** *Proposed:* reached only from the parent; not in any menu; included in search.
-7. **Registry name and split.** *Proposed:* `registry/pages.yml` for ids, labels and order, with `question` and `status` read from spoke front matter, so the template front matter gains no `label` field.
-8. **Data block folding.** *Proposed:* the Data block's summary rows are visible; each figure's reference table is in a `details` element, closed on screen, open in print.
-9. **PDF per spoke.** *Proposed:* not now; the browser print stylesheet is enough until the author asks, and the existing PDF pipeline is untouched.
-10. **Routing prompts.** *Proposed:* the `prompt` lines in section 4.1 are placeholders; the writing lane writes the final ones and the author approves them.
-11. **Hub contents list.** *Proposed:* the hub keeps an on-page contents list of its eight sections; spokes keep only the four-anchor jump bar.
-12. **Standalone papers and the argument.** *Proposed:* the hub links to them only in the line under the routing cards, and the standalone banner states they are not needed for the argument; no spoke's Short answer links to one.
+1. **Hub is the home page.** The hub is `index.html`; `wp.html` redirects to it; the current plain-English overview is replaced by H0. This is the only redirect on the site.
+2. **URL scheme.** Flat and lowercase as in section 3; standalone paper URLs unchanged; output and input pages `data/outputs/o2.html` and `data/inputs.html#i-d4b`. This also settles the link targets asked in Q14 of `hooks.md`.
+3. **Pages with no home in the restructure documents.** Decide page by page later. The ten pages in section 2.6 stay live and unchanged at their current URLs, listed under Resources, Pending review. The author notes they may be rewritten or removed once the data and papers are done. The navbar of section 3 does not change when they go.
+4. **Calculators.** Kept under Resources, labelled "Based on the retired model", and updated to the newest model when it is done. No new work in this design.
+5. **Old paper URLs.** No redirects. The old papers are removed permanently, superseded by the new ones, and their URLs end (the author accepts that existing citations, including Zenodo, will not resolve). The retired papers page stays as a generated old-to-successor table; the `successor` field in `registry/papers.yml` feeds that table only, and the Quarto `aliases` check is dropped.
+6. **Appendix spokes.** Reached from the parent only; in no menu; included in search.
+7. **Page registry.** `registry/pages.yml` holds ids, labels, order and parent; `question` and `status` are read from spoke front matter, so the template front matter gains no `label` field.
+8. **Data block tables.** The Data block's summary rows are visible; each figure's reference table is in a `details` element, closed on screen and open in print.
+9. **PDF per spoke.** Not now; the print stylesheet is enough, and the existing PDF pipeline is untouched.
+10. **Routing prompts.** The prompt lines in section 4.1 are placeholders; the writing lane drafts the final ones and the author approves them.
+11. **Hub contents list.** The hub keeps an on-page contents list of its eight sections; spokes keep only the four-anchor jump bar.
+12. **Standalone papers.** The hub links to them only in the line under the routing cards and in the Papers menu; each carries a banner saying it is not needed for the argument; no spoke's Short answer links to one.
 
 ## 11. Checks run
 
