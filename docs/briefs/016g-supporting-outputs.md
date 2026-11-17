@@ -30,7 +30,19 @@ The implementer asks rather than guesses.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **State:** ready
+- **Done:** `docs/model-v3/added/supporting.md` written: OB1, OR1, OD1, OM1, OL1, OF1, OT1 and the stress test (decided: a check, CK1), each with a metric row, inputs, the `outputs.yml` line and the claim. Five MISSING inputs (M-1 to M-5) with research requests.
+- **Next:** the author reads the three choices at the end of the file; the guru merges this file with 014g and 015g into `metrics.md` and `outputs.yml`, then updates `STATUS.md` and `docs/lane-plan.html`.
+- **State:** built, branch pushed, NEEDS THE AUTHOR (not merged)
+
+Change report
+- Task: 016g, define the remaining added outputs
+- Files changed: `docs/model-v3/added/supporting.md` (new, the eight definitions); this brief's progress block
+- What is different now: the manifest additions for the supporting outputs are specified and ready to merge; none are in `metrics.md` or `outputs.yml` yet
+- New or changed interfaces: none. Proposed new metric ids B1a to B1d, P7a, P7b, M7c to M7e, M9, M4c, F1, T1 (all free); output ids OB1, OR1, OD1, OM1, OL1, OF1, OT1, CK1
+- Acceptance criteria: (1) every listed output has all five items: met, eight of eight sections checked by pattern (metric row, inputs, `outputs.yml` line, claim, and the proposed id in the heading); (2) every input is an `inputs.md` ID or MISSING: met, every cited ID found in `inputs.md` (none absent), five MISSING flagged; (3) `git diff --stat` shows only the Touches list: see Verification
+- Deviations from the brief: none
+- Risks / follow-ups: (a) the refund event in B1d and the modal declaration in M7e rest on the ledger's pointers (CLOSE §4.3, §7.2; VAL §7), which I did not open; the code lane confirms them. (b) SWEEPS 7.5 uses mu of 7%, against I-D1a central 4.42% real, and its canonical amplitude gives about 5.7% volatility against I-D1b's 8.2%; the stress-test fixture needs the author's choice. (c) I-D6 gives incidence for the top decile and bottom five only, which already limits O4a by decile. (d) Three choices left to the author (end of the file)
+- Verification: cited input IDs checked against `inputs.md` by script (none missing); section completeness checked by script; not run: any model code (none exists for these); no paper was read beyond SWEEPS 7.5
+- Overview sections likely needing an update: none until the merge; then `docs/model-v3/` in the directory map and STATUS
+- Commit / branch: branch `brief/016-supporting-outputs`; not merged to `main`, because the brief asks the guru to merge the three files after 014g and 015g, and the author's choices above are open
 <!-- progress:end -->
