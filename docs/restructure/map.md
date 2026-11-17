@@ -60,7 +60,7 @@ Standalone (decided): 18 Addendums (ADD), 20 Institutional Selection (INST), 17 
 Site IDs and URLs (stage D), spoke template wording (stage C), the order of rewriting (stage E).
 
 ## 7. Changes after stage B (author, 2026-11-17)
-- Cap raised to 6,000 words per spoke (read from "600"; confirm). Overflow rule: a spoke that holds more than the cap moves its less important material into an appendix spoke, id suffix `-A`, reached from the main spoke.
+- Cap raised to 6,000 words per spoke (author confirmed 6,000, 2026-11-17). Overflow rule: a spoke that holds more than the cap moves its less important material into an appendix spoke, id suffix `-A`, reached from the main spoke.
 - **S4 Valuation routes** (VAL 1 to 6, 9 to 12) with **S4-A Declaration incentives** (VAL 7, VAL.A findings, VAL.B examples).
 - **S6 Who pays** (RATES 2, WP 8.2, payslip) with **S6-A What they do** (BEHAV, BEHAV.A, CLOSE objections) and **S6-B Welfare comparison** (WFR, with the new welfare outputs).
 - **S8-A Entity attribution** (ENT, CORP.A section E): a separate spoke, appendix to S8.

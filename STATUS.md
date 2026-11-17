@@ -38,4 +38,3 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 See `OVERVIEW.md` section 6. Priority list carried over from `docs/todo.md`: citation button, CLOSE updates, PDF title page, WFR refactor, WP Appendix B forward links, internal bibliography to Zenodo v2.
 
 ## Waiting for the author
-- Confirm two readings: the spoke cap is 6,000 words (you wrote 600), and "keep" for the synthetic stress test means keep it as an output or check.

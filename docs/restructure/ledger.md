@@ -124,12 +124,12 @@ The old papers state the problem in 441 words and give it no numbers. Three outp
 - JUR (4): institutions to S9; the data tables, gaps and input provenance to the data layer.
 
 ## 8. Decisions (author, 2026-11-17)
-1. **Budget:** split S4 and S6 (option 3) and raise the cap to 6,000 words (author wrote "600"; read as 6,000, confirm). A spoke that holds more than its cap moves its less important material into a secondary spoke, an appendix to that spoke (id suffix `-A`).
+1. **Budget:** split S4 and S6 (option 3) and raise the cap to 6,000 words (author confirmed 6,000). A spoke that holds more than its cap moves its less important material into a secondary spoke, an appendix to that spoke (id suffix `-A`).
 2. **ENT:** a separate spoke, as the appendix to S8 (`S8-A`).
 3. **Welfare layer:** add OW1 to OW3, designed together with model v3.
 4. **H1:** accept OH1a to OH1c and D-H1a to D-H1c for now; refine later.
 5. **Manifest:** add OF1, OT1, OB1, OR1, OD1, OM1 and OL1.
-6. **Synthetic stress test (SWEEPS 7.5):** keep (read as: kept as a stated output or check; confirm).
+6. **Synthetic stress test (SWEEPS 7.5):** keep (confirmed: kept as a stated output or check).
 7. **v1 headline figures:** not carried; v3 will contradict them again. Confirmed.
 
 ## 9. Checks run
