@@ -18,7 +18,7 @@ Columns: **Sec** old section number; **Words** old words in the row; **Disp**: K
 | 2.1 | 2.1 The Haig-Simons Definition and the Comprehensive Income  | 279 | K | S2 | N | - | literature context; overlaps 3a and 3b, ledger keeps one copy per idea |
 | 2.2 | 2.2 The Empirical Literature on Wealth Taxation | 228 | K | S2 | N | - | literature context; overlaps 3a and 3b, ledger keeps one copy per idea |
 | 2.3 | 2.3 The Income versus Consumption Debate | 385 | K | S2 | N | - | literature context; overlaps 3a and 3b, ledger keeps one copy per idea |
-| 2.4 | 2.4 The Wealth Concentration Literature | 141 | K | H1 | P | NEW:H1-wealth | wealth concentration (top 1% share about 38%, US); needs UK concentration facts for H1 |
+| 2.4 | 2.4 The Wealth Concentration Literature | 141 | K | H1 | P | NEW:H1 | wealth concentration (top 1% share about 38%, US); needs UK concentration facts for H1 |
 | 2.5 | 2.5 The Domar-Musgrave Principle | 238 | K | S2 | N | - | literature context; overlaps 3a and 3b, ledger keeps one copy per idea |
 | 2.6 | 2.6 Harberger Self-Assessment and the Purchase Option Tradit | 218 | K | S2 | N | - | literature context; overlaps 3a and 3b, ledger keeps one copy per idea |
 | 2.7 | 2.7 Five Design Problems Unresolved in Prior Literature | 274 | K | S2 | N | - | literature context; overlaps 3a and 3b, ledger keeps one copy per idea |
@@ -26,12 +26,12 @@ Columns: **Sec** old section number; **Words** old words in the row; **Disp**: K
 | 3.1 | 3.1 The Tax Base | 239 | K | S3 | N | - | tax base, unit, voluntary participation, symmetric refund, windows |
 | 3.2 | 3.2 The Individual as the Unit of Taxation | 525 | K | S3 | N | - | tax base, unit, voluntary participation, symmetric refund, windows |
 | 3.3 | 3.3 The Progressive Rate Structure | 129 | K | S5 | N | - | rate structure in words; numbers belong to the named schedules |
-| 3.4 | 3.4 The Exemption Threshold | 86 | K | S5 | P | N-PAYERS | threshold is the political parameter; payer count by threshold is not an output yet |
+| 3.4 | 3.4 The Exemption Threshold | 86 | K | S5 | P | NEW:payers | threshold is the political parameter; payer count by threshold is not an output yet |
 | 3.4.1 | 3.4.1 Voluntary Participation Below the Threshold | 373 | K | S3 | N | - | tax base, unit, voluntary participation, symmetric refund, windows |
 | 3.5 | 3.5 The Symmetric Loss-Refund Mechanism | 690 | K | S3 | N | - | tax base, unit, voluntary participation, symmetric refund, windows |
 | 3.6 | 3.6 Assessment Windows | 319 | K | S3 | N | - | tax base, unit, voluntary participation, symmetric refund, windows |
 | 3.7 | 3.7 Valuation Architecture | 357 | M | S4 | N | - | valuation architecture; duplicates VAL |
-| 3.8 | 3.8 Valuation Incentives and the Structure of the Problem | 496 | M | S4 | Y | O7,NEW:alpha | model-implied behavioural centre alpha about 1.1; C.1 covers tolerance, not the centre |
+| 3.8 | 3.8 Valuation Incentives and the Structure of the Problem | 496 | M | S4 | Y | O7,NEW:alpha-curve | model-implied behavioural centre alpha about 1.1; C.1 covers tolerance, not the centre |
 | 4 | 4. The Sovereign Wealth Fund | 155 | K | S7 | N | - | fund purpose and why it is structurally necessary |
 | 4.1 | 4.1 Why the Fund Is Structurally Necessary | 225 | K | S7 | N | - | fund purpose and why it is structurally necessary |
 | 4.2 | 4.2 Governance and Shared Interests | 407 | K | S9 | N | - | three-constituency governance |
@@ -54,7 +54,7 @@ Columns: **Sec** old section number; **Words** old words in the row; **Disp**: K
 | 9 | 9. Limitations and Required Further Work | 0 | D | - | N | - | status text (gaps closed by WFR; data-access precondition covered by S9) |
 | 9.1 | 9.1 Formal modelling gaps | 267 | D | - | N | - | status text (gaps closed by WFR; data-access precondition covered by S9) |
 | 9.2 | 9.2 Phase One Empirical Unknowns | 221 | M | S12 | N | - | empirical unknowns and irreducible limits |
-| 9.3 | 9.3 Fiscal Concentration Risk | 299 | M | S12 | Y | N-PAYERS | fiscal concentration risk, 32,000 payers at W_min 10m |
+| 9.3 | 9.3 Fiscal Concentration Risk | 299 | M | S12 | Y | NEW:payers | fiscal concentration risk, 32,000 payers at W_min 10m |
 | 9.4 | 9.4 Jurisdiction-Specific Legal and Implementation Work | 99 | D | - | N | - | status text (gaps closed by WFR; data-access precondition covered by S9) |
 | 9.5 | 9.5 Structural and Irreducible Limits of the Design | 284 | M | S12 | N | - | empirical unknowns and irreducible limits |
 | 10 | 10. Conclusion | 516 | D | - | N | - | conclusion restates RATES; the hub writes its own |
@@ -276,7 +276,7 @@ Columns: **Sec** old section number; **Words** old words in the row; **Disp**: K
 | B | B.1 Purpose (+6) | 1198 | DL | method note for O7 | N | - | simulation algorithm, parameter table, metrics |
 | ~C. | C. WDT Valuation Analysis: Summary Tables | 102 | AR | - | Y | O7,NEW:alpha-curve | v1 result tables C.1 to C.12 (0 FAILs, v1 only); v3 regenerates them |
 | C | C.1 Total Tax Paid (TTP) Difference Relative to Honest Decla | 6568 | AR | - | Y | O7,NEW:alpha-curve | v1 result tables C.1 to C.12 (0 FAILs, v1 only); v3 regenerates them |
-| C.6 | C.6 Terminal Net Worth After Refunds: Refund Protection Rati | 199 | AR | - | Y | NEW:refund-protection | refund protection ratio in loss years: understaters lose refund protection |
+| C.6 | C.6 Terminal Net Worth After Refunds: Refund Protection Rati | 199 | AR | - | Y | NEW:alpha-curve | refund protection ratio in loss years: understaters lose refund protection |
 | ~D. | D. Mechanism Cases | 27 | D | - | N | - | five abstract cases; covered by VAL.B and A.5 |
 | D | D.1 Case 1: Persistent Understatement, Asset Never Realises  | 564 | D | - | N | - | five abstract cases; covered by VAL.B and A.5 |
 | ~E. | E. Route Specification Tables | 24 | M | S4 | N | - | route specification tables; duplicate VAL 4 |
@@ -732,7 +732,7 @@ Columns: **Sec** old section number; **Words** old words in the row; **Disp**: K
 | 4.1 | 4.1 Death | 1198 | K | S3 | N | - | death, death auction waiver, exit, bankruptcy |
 | 4.1.1 | 4.1.1 The Death Auction Waiver | 431 | K | S3 | N | - | death, death auction waiver, exit, bankruptcy |
 | 4.2 | 4.2 Jurisdictional Exit | 413 | K | S3 | N | - | death, death auction waiver, exit, bankruptcy |
-| 4.3 | 4.3 Threshold Fall-Through | 425 | K | S3 | P | NEW:churn | threshold fall-through; refund volume at fall-through grows as the threshold drops |
+| 4.3 | 4.3 Threshold Fall-Through | 425 | K | S3 | P | NEW:payers | threshold fall-through; refund volume at fall-through grows as the threshold drops |
 | 4.4 | 4.4 Bankruptcy | 460 | K | S3 | N | - | death, death auction waiver, exit, bankruptcy |
 | 4.5 | 4.5 Incarceration and Criminal Forfeiture (+4) | 1226 | AR | - | N | - | incarceration and criminal forfeiture; edge-case rules for statute drafting |
 | 5 | 5. The Closure Bond Facility | 109 | K | S7 | N | - | closure bond facility (SWF) |

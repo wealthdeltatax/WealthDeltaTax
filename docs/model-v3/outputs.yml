@@ -1,6 +1,6 @@
 # Model v3: output manifest (brief 011g, stage A passed 2026-11-16, A2 passed; 21 entries)
 # One entry per output. Papers cite the id. An output with no whitepaper element does not exist (R1).
-# element: the whitepaper or appendix element the output feeds. TBD until the writing lane drafts the outline from this list.
+# element: hub sections (H0 to H7) and spokes (S1 to S12) that cite the output; filled in brief 013g stage B, proposed until the author approves the stage.
 # summary: how the output is reported. p10_mean_p90 = sampled range (R5).
 version: stage-A2-passed
 country_pack: UK
@@ -8,24 +8,24 @@ horizons: [transition, short, long]   # every headline and line is reported for 
 schedules: [S_low, S_central, S_high]   # named policy schedules, swept not sampled; headline outputs are reported for each (metrics.md, range design)
 uncertainty: {level1: return_risk_p10_mean_p90, level2: tornado_and_parameter_p10_p90}   # reported apart
 outputs:
-  - {id: O1,   metric: M1,  title: "Government revenue, net fiscal effect",       summary: p10_mean_p90, lines: [M1a, M1b, M1c, M1d], element: TBD, kind: headline}
-  - {id: O1a,  metric: M1a, title: "Individual WDT net of refunds",               summary: p10_mean_p90, element: TBD, kind: line}
-  - {id: O1b,  metric: M1b, title: "Corporate levy (own line)",                   summary: p10_mean_p90, element: TBD, kind: line}
-  - {id: O1c,  metric: M1c, title: "Fund income net of retention",                summary: p10_mean_p90, element: TBD, kind: line}
-  - {id: O1d,  metric: M1e, title: "Receipts of retired taxes, one line per tax", summary: p10_mean_p90, element: TBD, kind: line, per: [corporation_tax, council_tax, business_rates, capital_gains_tax, inheritance_tax, stamp_duties_property, stamp_taxes_shares]}
-  - {id: O2,   metric: M2,  title: "Taxpayer burden, share of wealth",            summary: p10_mean_p90, by: [overall, wealth_band], element: TBD, kind: headline}
-  - {id: O3,   metric: M3,  title: "Taxpayer burden, gain-weighted lifetime rate", summary: p10_mean_p90, element: TBD, kind: headline}
-  - {id: O4a,  metric: M4a, title: "Non-payer savings, share of tax bill",        summary: p10_mean_p90, by: [overall, income_decile], element: TBD, kind: headline}
-  - {id: O4b,  metric: M4b, title: "Non-payer savings, share of income",          summary: p10_mean_p90, by: [overall, income_decile], element: TBD, kind: headline}
-  - {id: O5,   metric: M5,  title: "Burden against suggested wealth taxes",       summary: p10_mean_p90, element: TBD, kind: comparison}
-  - {id: O6,   metric: M6,  title: "Burden against today's income tax, CGT and IHT", summary: p10_mean_p90, element: TBD, kind: comparison}
-  - {id: O7,   metric: M7,  title: "Tolerant zone (C.1 over TW(1))",              summary: point_and_range, element: TBD, kind: supporting}
-  - {id: OP1,  metric: P1,  title: "Reserve fill years",                          summary: p10_mean_p90, element: TBD, kind: path}
-  - {id: OP4,  metric: P4,  title: "Sustainability: long-term over short-term revenue, and first year below zero", summary: p10_mean_p90, element: TBD, kind: path}
-  - {id: OP5,  metric: P5,  title: "Year each retired tax is retired",           summary: p10_mean_p90, element: TBD, kind: path}
-  - {id: OP3,  metric: P3,  title: "Cumulative shortfall (proof of staged retirement)", summary: p10_mean_p90, element: TBD, kind: path}
-  - {id: O2b,  metric: M2b, title: "Taxpayer cash-flow burden, share of income",     summary: p10_mean_p90, by: [wealth_band, share_of_payers_above_cutoff], element: TBD, kind: headline_support}
-  - {id: O2c,  metric: M2c, title: "Taxpayer cash-flow burden, share of liquid assets", summary: p10_mean_p90, by: [wealth_band, share_of_payers_above_cutoff], element: TBD, kind: headline_support}
-  - {id: O8,   metric: M8,  title: "Reform-in-place benchmark (same revenue, same people)", summary: p10_mean_p90, element: TBD, kind: comparison}
-  - {id: OS1,  metric: S1,  title: "Capitalisation of retired property taxes (on against off)", summary: point_and_range, element: TBD, kind: sensitivity}
-  - {id: OP6,  metric: P6,  title: "Public wealth path (fund assets, % of GDP at years 10, 25, 50, 100)", summary: p10_mean_p90, element: TBD, kind: path}
+  - {id: O1,   metric: M1,  title: "Government revenue, net fiscal effect",       summary: p10_mean_p90, lines: [M1a, M1b, M1c, M1d], element: [H0, H3, S5, S10, S12], kind: headline}
+  - {id: O1a,  metric: M1a, title: "Individual WDT net of refunds",               summary: p10_mean_p90, element: [H3, S5], kind: line}
+  - {id: O1b,  metric: M1b, title: "Corporate levy (own line)",                   summary: p10_mean_p90, element: [H3, S5, S8, S12], kind: line}
+  - {id: O1c,  metric: M1c, title: "Fund income net of retention",                summary: p10_mean_p90, element: [S5, S7], kind: line}
+  - {id: O1d,  metric: M1e, title: "Receipts of retired taxes, one line per tax", summary: p10_mean_p90, element: [S5, S7, S12], kind: line, per: [corporation_tax, council_tax, business_rates, capital_gains_tax, inheritance_tax, stamp_duties_property, stamp_taxes_shares]}
+  - {id: O2,   metric: M2,  title: "Taxpayer burden, share of wealth",            summary: p10_mean_p90, by: [overall, wealth_band], element: [H0, H3, S5, S6, S12], kind: headline}
+  - {id: O3,   metric: M3,  title: "Taxpayer burden, gain-weighted lifetime rate", summary: p10_mean_p90, element: [H3, S5, S6], kind: headline}
+  - {id: O4a,  metric: M4a, title: "Non-payer savings, share of tax bill",        summary: p10_mean_p90, by: [overall, income_decile], element: [H0, H3, S6, S7, S11, S12], kind: headline}
+  - {id: O4b,  metric: M4b, title: "Non-payer savings, share of income",          summary: p10_mean_p90, by: [overall, income_decile], element: [H3, S6, S7, S11], kind: headline}
+  - {id: O5,   metric: M5,  title: "Burden against suggested wealth taxes",       summary: p10_mean_p90, element: [S5, S6, S12], kind: comparison}
+  - {id: O6,   metric: M6,  title: "Burden against today's income tax, CGT and IHT", summary: p10_mean_p90, element: [S5, S6, S12], kind: comparison}
+  - {id: O7,   metric: M7,  title: "Tolerant zone (C.1 over TW(1))",              summary: point_and_range, element: [H5, S4, S5], kind: supporting}
+  - {id: OP1,  metric: P1,  title: "Reserve fill years",                          summary: p10_mean_p90, element: [S5, S7, S10], kind: path}
+  - {id: OP4,  metric: P4,  title: "Sustainability: long-term over short-term revenue, and first year below zero", summary: p10_mean_p90, element: [S5, S7], kind: path}
+  - {id: OP5,  metric: P5,  title: "Year each retired tax is retired",           summary: p10_mean_p90, element: [S7, S10], kind: path}
+  - {id: OP3,  metric: P3,  title: "Cumulative shortfall (proof of staged retirement)", summary: p10_mean_p90, element: [S7, S10], kind: path}
+  - {id: O2b,  metric: M2b, title: "Taxpayer cash-flow burden, share of income",     summary: p10_mean_p90, by: [wealth_band, share_of_payers_above_cutoff], element: [S6], kind: headline_support}
+  - {id: O2c,  metric: M2c, title: "Taxpayer cash-flow burden, share of liquid assets", summary: p10_mean_p90, by: [wealth_band, share_of_payers_above_cutoff], element: [S6], kind: headline_support}
+  - {id: O8,   metric: M8,  title: "Reform-in-place benchmark (same revenue, same people)", summary: p10_mean_p90, element: [H5, S5], kind: comparison}
+  - {id: OS1,  metric: S1,  title: "Capitalisation of retired property taxes (on against off)", summary: point_and_range, element: [H5, S11], kind: sensitivity}
+  - {id: OP6,  metric: P6,  title: "Public wealth path (fund assets, % of GDP at years 10, 25, 50, 100)", summary: p10_mean_p90, element: [S7, S12], kind: path}

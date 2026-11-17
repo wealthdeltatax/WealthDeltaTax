@@ -1,6 +1,6 @@
 # 013: Restructure the series (hub and spokes)
 
-- **Status:** underway (stage A passed 2026-11-16; stage B ready)
+- **Status:** underway (stage A passed 2026-11-16; stage B drafted 2026-11-17, awaiting author)
 - **Author/date:** K. Ogata with the guru, 2026-11-16
 - **Depends on:** 011g (model v3 design) for the data gate; 012r feeds it
 - **Read:** `docs/restructure/map.md`, then `docs/model-v3/outputs.yml`. Nothing else until a stage names it.
@@ -43,6 +43,7 @@ See section 5 of `map.md`.
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** stage A passed; author decisions are in `map.md` section 5 (FAL into S12; SCOPE, ADD, INST standalone; WFR and LDW into spokes; add outputs for the problem section; 2,000 to 4,000 words provisional).
-- **Next:** stage B (ledger), run by a separate agent; may be split by paper group.
-- **State:** stage B ready
+- **Stage B drafted (2026-11-17):** `docs/restructure/ledger.md` (summary, budget finding, demanded outputs, proposed additions) and `ledger-sections.md` (980 rows, all 33 papers); `element:` filled for all 21 outputs. Waiting for the author on the decisions in `ledger.md` section 8.
+- **Next:** author review of stage B, then stage C (spoke template).
+- **State:** stage B drafted, awaiting author
 <!-- progress:end -->
