@@ -1,6 +1,6 @@
 # 024: Research: households, leavers and welfare parameters
 
-- **Status:** done, merged (014g 11 and 12 not met: workbook not readable)
+- **Status:** done, merged, retired 2026-11-17 (014g 11 met by the follow-up that read the ONS workbook; 014g 12 not met, see `docs/decisions.md`)
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** 012r (merged), 014g to 016g (merged). Runs in parallel with 022r, 023r.
 - **Read:** `docs/agents/research.md` and the files in `docs/agents/reference/research/`, `docs/model-v3/inputs.md` (row format and the rows named below), `docs/model-v3/added/h1.md`, `welfare.md` and `supporting.md`. Nothing else need be opened.

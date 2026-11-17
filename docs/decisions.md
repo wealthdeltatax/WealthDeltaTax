@@ -2,6 +2,12 @@
 
 One entry per finished brief or settled question, at most 8 lines each. Newest first. Maintained by the guru.
 
+## 2026-11-17: research inputs merged, ONS decile data read (briefs 022r to 024r)
+- `docs/model-v3/inputs-added/` (wealth I-W 45 rows, tax I-T 58, households I-H 65) merged into `inputs.md` as a part of its own; the register now has 260 rows. A duplicate id in the tax file (two rows called I-T6j) was fixed by renumbering the ISA row I-T6m.
+- The ONS FYE 2024 reference tables are read: decile total tax and gross income per household (I-H1k to I-H1t, I-H3k to I-H3t), with Table 2b central and Tables 2c and 13 as the range for the choice of ranking. Published council tax shares replace the derived I-D6a and I-D6h; the published bottom-five share (45.8%) is above the old derived high (43.5%).
+- Flagged conflicts for the model stage: published stamp duty (top original-income decile 55.9%, I-D6q) against the derived 21.8% (I-D6f); the ONS allocates business rates wholly to consumers (I-D6o, I-D6p), against the derived owners, workers and consumers split.
+- Not met: the non-payer share by income decile (I-H2a). If it means below W_min, it needs WAS Table 2.6, not the ETB. 024r retired.
+
 ## 2026-11-16: model v3 design review and stage A2 (brief 011)
 - The author accepted the guru's review: policy levers (rate schedule, threshold, retirement order) are swept as named schedules S_low, S_central, S_high plus a feasibility map, not sampled; exogenous inputs are sampled at two levels reported apart (return risk; parameter ignorance, as a tornado).
 - The long window (years 51 to 100) is read as a steady-state property, not a forecast; headline claims rest on the transition and short windows and the path to year 50. P4 is read with P6 (fund assets as a share of GDP).
