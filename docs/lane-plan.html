@@ -259,10 +259,10 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 <script>
 (function () {
   var LANES = [
-    { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; 035g model v3 stage C (with you)" },
+    { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; 035g (C1 with you), then 039g, 040g" },
     { id: "2", name: "Agent 2", note: "Code: 030c (data interface and validator)" },
-    { id: "3", name: "Agent 3", note: "Code: 033c (gate checker)" },
-    { id: "4", name: "Agent 4", note: "Code: 034c (page cards)" },
+    { id: "3", name: "Agent 3", note: "Code: 037c (v2 port inventory), then 033c (gate checker)" },
+    { id: "4", name: "Agent 4", note: "Code: 038c (country pack spec), then 034c (page cards)" },
     { id: "5", name: "Agent 5", note: "Research: 036r (return range) now, then 032r (sidecars)" },
     { id: "6", name: "Agent 6", note: "Site: 029s (page registry), then 031s (calculators)" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
@@ -275,10 +275,14 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "031s", lane: "6", at: 5, len: 1, st: "ready", t: "Relabel the calculators (B11)", needs: [], why: "Adds the note Based on the retired model to the three calculators and the index; no logic change. Touches four site files." },
     { id: "032r", lane: "5", at: 5, len: 1, st: "ready", t: "Sidecars: literature figures and input display (B12)", needs: [], why: "Writes registry/lit-figures.yml and registry/inputs-display.yml for the hook resolver: published figures quoted from the literature, and a display unit and decimals for all 269 register rows." },
     { id: "030c", lane: "2", at: 4, len: 1, st: "ready", t: "Data interface and output validator (B2)", needs: [], why: "Parses the register and metrics into inputs.json and metrics.json and writes the validator for the output data file with a fixture, so the resolver and checker have data of a fixed shape before the model exists." },
-    { id: "033c", lane: "3", at: 4, len: 1, st: "ready", t: "Spoke gate checker (B17)", needs: [{ id: "030c", soft: true }], gate: 1, why: "check_gate.py: the five gate checks as a command, per page and for all 26 units." },
-    { id: "035g", lane: "1", at: 4, len: 2, st: "ready", t: "Model v3 stage C: decisions and architecture", needs: [{ id: "011g" }, { id: "036r", soft: true }], why: "C1 closes the design questions the tornado opened (mean return basis, sign of revenue, the rate the identity needs, refund cap, seed and years); C2 writes architecture.md. Item 4 waits for 036r." },
+    { id: "033c", lane: "3", at: 5, len: 1, st: "ready", t: "Spoke gate checker (B17)", needs: [{ id: "030c", soft: true }], gate: 1, why: "check_gate.py: the five gate checks as a command, per page and for all 26 units." },
+    { id: "035g", lane: "1", at: 4, len: 1, st: "ready", t: "Model v3 stage C1: design decisions", needs: [{ id: "011g" }], why: "C1 closes the design questions the tornado opened (mean return basis, sign of revenue, the rate the identity needs, refund cap, seed and years); C2 writes architecture.md. Item 4 waits for 036r." },
     { id: "036r", lane: "5", at: 4, len: 1, st: "under", t: "How the return range is built", needs: [], why: "Research note: replay, block bootstrap or fitted draws for return paths; the arithmetic and geometric mean pinned; a level 2 range for the mean that is not the window spread; JST gap to 2025; a first convergence figure." },
-    { id: "034c", lane: "4", at: 4, len: 1, st: "ready", t: "Page cards for the writing briefs (B18)", needs: [], why: "Generates one card per page from the ledger, manifest and register, so writers start from a card that cannot drift." },
+    { id: "037c", lane: "3", at: 4, len: 1, st: "ready", t: "Inventory of v2 for the port (stage C)", needs: [], why: "Read-only: every function of 30 lines or more in the v2 kernel and core with a port, rewrite or drop verdict, the element that needs it and its tests; where v2 computes the effective rate, refund cap and closure; existing tests run." },
+    { id: "038c", lane: "4", at: 4, len: 1, st: "ready", t: "Country data pack specification (R11)", needs: [], why: "Spec only: what lives in the pack and what in the register (all 269 rows assigned), layout, schemas, hash, the R11 grep test, licences." },
+    { id: "039g", lane: "1", at: 5, len: 1, st: "ready", t: "Model v3 stage C2: architecture", needs: [{ id: "035g" }, { id: "036r" }, { id: "037c" }, { id: "038c" }], why: "architecture.md: where v3 lives, modules in order, line budgets, port by exception, tests per module, build stages." },
+    { id: "040g", lane: "1", at: 6, len: 2, st: "ready", t: "Model v3 stage D: acceptance and build briefs", needs: [{ id: "039g" }], why: "acceptance.md (R1 to R11 to criteria, the acceptance run) then the build briefs, one per build stage, no overlapping Touches. 011g retires when done." },
+    { id: "034c", lane: "4", at: 5, len: 1, st: "ready", t: "Page cards for the writing briefs (B18)", needs: [], why: "Generates one card per page from the ledger, manifest and register, so writers start from a card that cannot drift." },
     { id: "009c", lane: "G", at: 2, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "011g" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" }
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });

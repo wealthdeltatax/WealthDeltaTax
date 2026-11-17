@@ -8,14 +8,14 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (guru prime: writes and hands out briefs) | 035g model v3 stage C1 with the author (items 1 to 3 first) | 035g C2 (architecture), then 011g stage D |
+| Agent 1 (guru prime: writes and hands out briefs) | 035g stage C1 with the author (items 1 to 3 first) | 039g architecture, then 040g acceptance and build briefs |
 | Agent 2 (code) | 030c data interface and output validator | next code brief |
-| Agent 3 (code) | 033c gate checker (builds on fixtures until 030c lands) | next code brief |
-| Agent 4 (code) | 034c page cards | next code brief |
+| Agent 3 (code) | 037c v2 port inventory (model path) | 033c gate checker |
+| Agent 4 (code) | 038c country pack spec (model path) | 034c page cards |
 | Agent 5 (research) | 036r return range method (running) | 032r sidecars |
 | Agent 6 (site) | 029s page registry and ids | 031s relabel calculators |
 
-Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first. Model v3 is blocked on 035g and 036r, then 011g stage D, then the build briefs.
+Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). 011g is split: 035g, 036r, 037c, 038c run now; 039g (architecture) needs them; 040g (acceptance and build briefs) follows; then the build briefs.
 
 ## Recently done
 - 2026-11-17 (night): 026g stage B merged: `docs/restructure/order.md` approved with all ten answers (26 pages in six waves; the gate G1 to G5; 21 writing briefs; no early start; no optional split now). 013g stages A to E are complete (013g retired). `outputs.yml` version `stage-A6-hypo-elements-2026-11-17` (HYPO lists O1, O4a, OP6, OW1). Judgement rows reconciled: 87 flagged `(J)` (17 rows newly flagged), `docs/model-v3/judgement-decisions.md` lists them all pending. First parallel build set written: 029s (page registry), 030c (data interface), 031s (calculators label), 032r (sidecars), 033c (gate checker), 034c (page cards). Writing briefs and the rest of B3 to B16 are written when the gate nears.

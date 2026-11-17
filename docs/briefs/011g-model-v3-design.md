@@ -1,6 +1,6 @@
 # 011: Model v3 design
 
-- **Status:** underway (stage A passed 2026-11-16, author confirmed all four items; stage A2 passed 2026-11-16: `docs/model-v3/drivers.md`, amended `metrics.md` and `outputs.yml`, author confirmed the three defaults; stage B is brief 012r, ready)
+- **Status:** underway; parent brief. Stages C and D are split into children 035g, 036r, 037c, 038c, 039g and 040g (2026-11-17). (stage A passed 2026-11-16, author confirmed all four items; stage A2 passed 2026-11-16: `docs/model-v3/drivers.md`, amended `metrics.md` and `outputs.yml`, author confirmed the three defaults; stage B is brief 012r, ready)
 - **Author/date:** K. Ogata with the guru, 2026-11-16
 - **Depends on:** 001c (merged; synthesis in `docs/model-audit/synthesis.md`)
 - **Read:** `docs/model-audit/synthesis.md`, then `docs/model-audit/lessons-so-far.md`. Nothing else need be opened until a stage names it.
@@ -22,6 +22,8 @@ Five design stages (A, A2, B, C, D), each producing one document under `docs/mod
 - **C: architecture** (guru). Checkpoint: `docs/model-v3/architecture.md`. Check: it fixes where v3 lives and where it reads `jst_r6.json`; lists the modules in dependence order; sets a line budget for the core and for the output layer; names what is ported by exception with the element that needs it; lists the tests each module needs before the next is built; and states what happens to `model_v1/` and `model_v2/` (brief 009c).
 - **D: acceptance plan and build briefs** (guru). Checkpoint: `docs/model-v3/acceptance.md` and the first build brief written. Check: every build stage has a stop and a measurable criterion (a test, a bound, a reproducible number); the smoke test, the seed and sample-size policy and the run script are specified; each requirement R1 to R11 of the synthesis maps to a criterion.
 One session does one stage and stops. No model code is written in this brief.
+
+**Split (2026-11-17).** Stage C is run by: 035g (C1 design decisions, with the author), 036r (research: return range method), 037c (code: v2 port inventory), 038c (code: country pack spec) and 039g (C2 architecture, after the others). Stage D is 040g (D1 acceptance, D2 build briefs). Stage checks above are unchanged; each child meets the part of them it names. This brief retires when 040g D2 is approved.
 
 ## Touches
 New folder `docs/model-v3/`, `docs/briefs/` (new briefs), `STATUS.md`, `docs/lane-plan.html`, `docs/decisions.md`, and one amendment note in `docs/model-audit/synthesis.md` section 3.
@@ -49,5 +51,6 @@ Writing model code, fixing v1 or v2, writing or editing papers, choosing the whi
 - **Gotchas:** my chat figure of 3% of GDP for the identity was an unsourced guess and disagrees with v2's 7.34% post-fill WDT (`drivers.md` section 1). The manifest has 21 entries, not the 14 once noted.
 - **Resume:** read `docs/archive/briefs/012r-v3-input-register.md`; after B4 read `inputs.md` and run the tornado.
 - **Not run:** the tornado (needs 012r's values); M2 against the RATES 0.35% and the Green Book check (both in 012r B4).
-- **State:** stage B ready (012r); not started
+- **Split:** stage C into 035g, 036r, 037c, 038c, 039g; stage D into 040g (2026-11-17).
+- **State:** stages A, A2 and B passed; stage C running as children
 <!-- progress:end -->
