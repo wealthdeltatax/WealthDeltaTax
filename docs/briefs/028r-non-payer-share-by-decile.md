@@ -37,11 +37,11 @@ Ask rather than guess.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:**
+- **Done:** `docs/model-v3/inputs-added/hh2.md`: rows I-H2a1 to I-H2a10 (share of households below W_min £150,000 by income decile, WAS R8 Table 2.6) plus the £100,000 and £200,000 sensitivity; script and sources inside. Checks passed: 10 rows, 12 cells each, ids unique; decile 1 median £132,000 re-read from the table.
+- **Next:** guru merges into `inputs.md` (replaces the I-H2a gap row); author decides whether household deciles are acceptable or adult deciles need a household-type by income source.
+- **Decisions:** Route is Table 2.6 (percentile points by household income decile); ONS 12451 not reachable and measures income tax, not wealth. Central threshold is 1.61 x W_min (I-D4c); not interpolated to adults.
+- **Gotchas:** Deciles are of households. Deciles 8 to 10 are only bracketed at some thresholds (rows marked judgement). Wealth 2020-22 prices against a 2025 W_min.
+- **Resume:** `git checkout brief/028-non-payer-share`
+- **Not run:** no model code; no adult-weighted version (no adults-per-household by income decile held).
+- **State:** committed and pushed on `brief/028-non-payer-share`; auto-merge not claimed: open question for the author on adult against household deciles.
 <!-- progress:end -->
