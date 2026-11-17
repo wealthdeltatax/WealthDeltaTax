@@ -105,3 +105,6 @@ Metrics renumbered into one sequence (M10 to M15b, B1, P7, M7c to M7e, M9, M4c, 
 
 ## 2026-11-17 (afternoon): shortcodes, concentration output dropped, stage D accepted
 Shortcodes of `shortcodes.md` are the page ids, URLs, front-matter values and figure ids; the S numbers are planning labels read through `docs/restructure/ids-map.md`; the `-A` suffix retires; S11 splits into FIRST and WIDER and S12 into UNCER, LIMIT and FALS. OH1a and M10 are dropped: the concentration path needs returns that rise with wealth rank and 022r found no UK evidence; OW3 is by wealth band, not return tier. All proposed answers in 017s, 018s and 020w are accepted; nothing outside the repo reads `site-index.json`. `outputs.yml` gained unit tags, decimals, per-output horizons, `by` value maps and series flags. 022r and 023r retired.
+
+## 2026-11-17: four calls
+S11 and S12 output assignments kept (FIRST, WIDER, UNCER, FALS; none to LIMIT). Brief 007w dropped as obsolete. Retired-tax receipts take the primary source as central with the IFS sheet as cross-check (CGT 24.2bn HMRC against 19.5bn IFS), written into M1e. Brief 025w (ledger and map to shortcodes) written for the writing lane.

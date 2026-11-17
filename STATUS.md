@@ -13,7 +13,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent 3 (site) | 018s done | 021s (navigation) |
 | Agent 4 (research) | 022r and 023r done | free |
 | Agent 5 (research) | Free | 024r (households, welfare parameters) |
-| Agent 6 (writing) | 013g stage C and 020w done | free |
+| Agent 6 (writing) | 013g stage C and 020w done | 025w (ledger and map to shortcodes) |
 
 ## Recently done
 - 2026-11-17 (afternoon): author answered the open questions: shortcodes are the page ids (`docs/restructure/ids-map.md`), the concentration output OH1a is dropped (no UK evidence for rank-dependent returns), all stage D proposed answers accepted. 017s, 018s, 020w merged (`docs/restructure/site/`); 022r and 023r merged and retired. `outputs.yml` now uses shortcodes and carries unit, decimals, horizons and by maps (37 outputs, 1 check).

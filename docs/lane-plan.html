@@ -232,7 +232,7 @@ git pull<button type="button" class="cp">Copy</button></pre>
     <h4>2. Check the papers</h4>
 <pre>python pipeline/check_wdt_format.py source/&lt;paper&gt;.md
 python pipeline/wdt_crosslinks.py check<button type="button" class="cp">Copy</button></pre>
-    <p>The crosslink check is expected to report errors until the paper rewrite lands (brief 007w).</p>
+    <p>The crosslink check is expected to report errors until the paper rewrite lands (retired brief 007w).</p>
 
     <h4>3. Build the site</h4>
 <pre>pipeline\build.bat
@@ -264,18 +264,18 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "3", name: "Agent 3", note: "Site: 021s (navigation)" },
     { id: "4", name: "Agent 4", note: "Research: free (022r, 023r done)" },
     { id: "5", name: "Agent 5", note: "Research: 024r" },
-    { id: "6", name: "Agent 6", note: "Writing: free (020w done)" },
+    { id: "6", name: "Agent 6", note: "Writing: 025w (ledger to shortcodes)" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
   ];
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
-    { id: "007w", lane: "G", at: 0, len: 1, st: "hold", t: "Crosslink repair", needs: [], why: "Parked until your paper rewrite lands. Then run the crosslink check fresh and follow the post-update workflow in the style guide.", files: "source/, registry/" },
     { id: "011g", lane: "1", at: 0, len: 4, st: "under", t: "Model v3 design (stage A2 passed)", needs: [], why: "Range model with three headline outputs (revenue, taxpayer burden, non-payer savings) as P10, mean and P90. Five design stages, each ending in a stop: A output manifest and metric register, A2 design review and driver table, B input register (research brief 012r), C architecture, D acceptance plan and the first build brief. No model code. Stage A (docs/model-v3/metrics.md and outputs.yml) passed on 2026-11-16 with all four items confirmed. Stage A2 (docs/model-v3/drivers.md: levers swept, two-level uncertainty, driver table, added outputs) passed; stage B is brief 012r, ready.", files: "docs/model-v3/ (new), docs/briefs/" },
     { id: "013g", lane: "6", at: 4, len: 2, st: "under", t: "Restructure: stages A and B passed; stages A to C passed; D: 017s, 018s, 020w merged; 019s, 021s running", needs: [], why: "Plan only: hub outline, spoke map, content ledger, template, site needs, rewrite order. Gate: no spoke prose until the data is frozen." },
     { id: "019s", lane: "2", at: 6, len: 1, st: "ready", t: "Stage D: figure renderer and visual system", needs: [], why: "Writes docs/restructure/site/figures.md only." },
     { id: "021s", lane: "3", at: 6, len: 1, st: "ready", t: "Stage D: navigation, hub layout, routing", needs: [], why: "Writes docs/restructure/site/nav.md only." },
     { id: "024r", lane: "5", at: 5, len: 1, st: "ready", t: "Research: households, leavers, welfare parameters", needs: [], why: "Writes docs/model-v3/inputs-added/hh.md only." },
+    { id: "025w", lane: "6", at: 4, len: 1, st: "ready", t: "Ledger and map reassigned to shortcodes", needs: [], why: "Reassigns ledger rows (S11 to FIRST or WIDER, S12 to UNCER, LIMIT or FALS), recomputes budgets, updates map.md. Writes ledger and map only." },
     { id: "009c", lane: "G", at: 2, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "011g" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" }
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });

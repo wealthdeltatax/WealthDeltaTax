@@ -1,6 +1,6 @@
 # 007: Crosslink errors in the papers
 
-- **Status:** parked
+- **Status:** dropped (obsolete under the restructure, 2026-11-17; retired)
 - **Author/date:** K. Ogata with the guru, 2026-11-15
 - **Depends on:** author's paper rewrite. Order: last; nothing else waits on it.
 - **Read:** `check.txt` (or a fresh `python pipeline/wdt_crosslinks.py check`), `docs/agents/reference/writing/style-guide.md` (post-update crosslink workflow)
