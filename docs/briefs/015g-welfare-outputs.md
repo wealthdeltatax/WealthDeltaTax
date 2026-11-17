@@ -30,7 +30,7 @@ The implementer asks rather than guesses.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **State:** ready
+- **Done:** `docs/model-v3/added/welfare.md` written: OW1, OW2, OW3 with id, metric row, inputs (IDs or MISSING with research requests), outputs.yml line and spoke claim; v3 state needs and second-model flags (section 5).
+- **Next:** author answers the four questions in section 6 of welfare.md; guru merges into metrics.md, outputs.yml, inputs.md after 014g and 016g.
+- **State:** needs the author
 <!-- progress:end -->
