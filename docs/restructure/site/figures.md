@@ -1,6 +1,6 @@
 # Figure renderer and visual system (brief 019s, stage D)
 
-Status: design only, drafted 2026-11-17, waiting for the author on the questions in section 11. Builds nothing. The guru merges this file into `docs/restructure/site.md` with its siblings (`ids.md`, `hooks.md`, spoke checker, `nav.md`).
+Status: design only, drafted 2026-11-17. The author answered Q1 to Q8 on 2026-11-17, all as proposed (section 11). Builds nothing. The guru merges this file into `docs/restructure/site.md` with its siblings (`ids.md`, `hooks.md`, spoke checker, `nav.md`).
 
 Inputs read: `docs/restructure/template.md` section 6a (figure block, drawing rules, F1 to F6), `docs/model-v3/outputs.yml` (21 entries; every `summary`, `by`, `lines`, `per`, `kind`), `docs/model-v3/added/*.md` (the proposed `problem`, `data_fact` and `check` roles and the extra manifest entries), `docs/model-v3/metrics.md` (units, horizons, conventions), and the `dataviz` skill (form choice, mark specs, palette, interaction, accessibility; its palette validator was run, section 12). Nothing in `pipeline/`, `site/` or `registry/` was opened or changed.
 
@@ -237,7 +237,7 @@ Cross-cutting tests:
 
 ## 11. Questions for the author
 
-Each has a proposed answer; none is applied until you answer.
+**All eight answered 2026-11-17: each proposed answer accepted.** The text below is kept as the record of the question and the decision.
 
 **Q1. The word `kind` has two meanings.** In `outputs.yml` it is an output's role (`headline`, `line`, `comparison`, `path`, and so on); in a figure block it is the drawing kind (`line`, `band`, `bar`, `dot`, `map`, `stack`). `line` is in both lists and means different things. *Proposed:* no file change; every document calls the manifest field the "role" and the figure field the "kind", and the checker validates a figure's kind against the role-to-kind table in section 6. If you would rather rename the manifest field to `role`, it is a one-word change in `outputs.yml` and its readers.
 

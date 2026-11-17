@@ -33,8 +33,8 @@ The implementer asks rather than guesses.
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** `docs/restructure/site/figures.md` written (renderer choice, palette and style, one-data-path guarantee, rules for six kinds, bands and three schedules, units, alt and keyboard, print, test list, 8 questions with proposed answers).
-- **Next:** the author answers Q1 to Q8; the guru merges the sibling files into `docs/restructure/site.md`.
-- **State:** NEEDS THE AUTHOR (questions open; not merged to `main`)
+- **Next:** the guru merges the sibling files into `docs/restructure/site.md`.
+- **State:** done; Q1 to Q8 answered by the author 2026-11-17, all as proposed; brief 019 merged, ready to retire
 <!-- progress:end -->
 
 Change report
@@ -47,4 +47,4 @@ Change report
 - Risks / follow-ups: Q1 to Q8 need the author; the palette was validated against the `dataviz` default surfaces, not the site's real background (theme files not opened); the Quarto dark-mode selector is unconfirmed; the manifest's two meanings of `kind` and OP4's two units are manifest issues for the guru; nothing was rendered
 - Verification: `validate_palette.js` run four times (ordinal light and dark, eight categorical slots light and dark, all pass); `kind` and `by` values in `docs/model-v3/outputs.yml` compared with section 6 by grep. Not run: any build, since nothing in `pipeline/`, `site/` or `registry/` changed
 - Overview sections likely needing an update: none until the author answers
-- Commit / branch: branch `brief/019-figures-renderer`; not merged (open questions for the author)
+- Commit / branch: branch `brief/019-figures-renderer`; merged to `main` after the author answered Q1 to Q8
