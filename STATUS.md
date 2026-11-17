@@ -8,7 +8,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (guru) | 013g stage A passed (`docs/restructure/map.md`); stage B ledger drafted (`docs/restructure/ledger.md`), awaiting author on its section 8; 011g stage A2 passed; 012r written | Tornado after 012r B4; compile `docs/brief-suggestions.md` |
+| Agent 1 (guru) | 013g stage A passed (`docs/restructure/map.md`); stage B ledger (`ledger.md`) and stage C template (`template.md`) drafted, awaiting author on `ledger.md` section 8 and `template.md` section 10; 011g stage A2 passed; 012r written | Tornado after 012r B4; compile `docs/brief-suggestions.md` |
 | Agent 2 | Free | 012r B1 (research lane) |
 | Agent 3 | Free | none planned |
 | Agent 4 | Free | none planned |

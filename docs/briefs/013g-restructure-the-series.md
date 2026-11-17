@@ -1,6 +1,6 @@
 # 013: Restructure the series (hub and spokes)
 
-- **Status:** underway (stage A passed 2026-11-16; stage B drafted 2026-11-17, awaiting author)
+- **Status:** underway (stage A passed 2026-11-16; stages B and C drafted 2026-11-17, awaiting author)
 - **Author/date:** K. Ogata with the guru, 2026-11-16
 - **Depends on:** 011g (model v3 design) for the data gate; 012r feeds it
 - **Read:** `docs/restructure/map.md`, then `docs/model-v3/outputs.yml`. Nothing else until a stage names it.
@@ -44,6 +44,19 @@ See section 5 of `map.md`.
 <!-- progress:start -->
 - **Done:** stage A passed; author decisions are in `map.md` section 5 (FAL into S12; SCOPE, ADD, INST standalone; WFR and LDW into spokes; add outputs for the problem section; 2,000 to 4,000 words provisional).
 - **Stage B drafted (2026-11-17):** `docs/restructure/ledger.md` (summary, budget finding, demanded outputs, proposed additions) and `ledger-sections.md` (980 rows, all 33 papers); `element:` filled for all 21 outputs. Waiting for the author on the decisions in `ledger.md` section 8.
-- **Next:** author review of stage B, then stage C (spoke template).
-- **State:** stage B drafted, awaiting author
+- **Stage C drafted (2026-11-17):** `docs/restructure/template.md` (spoke shape, word budget, data-hook syntax, objection block, Data block, writing rules, one test paragraph). Ran before the author ruled on stage B; caps depend on that ruling. Waiting for the author.
+- **Next:** author review of stages B and C, then stage D (site IDs, build mechanics, spoke checker).
+- **State:** stages B and C drafted, awaiting author
 <!-- progress:end -->
+
+### Change report, stage C (2026-11-17)
+- Task: 013g stage C, spoke template and writing rules.
+- Files changed: `docs/restructure/template.md` (new: shape, budget, hook syntax, objection and Data blocks, writing rules, test paragraph); this brief, `STATUS.md`, `docs/lane-plan.html` (status lines).
+- What is different now: the spoke format is fixed on paper. No prose beyond the one test paragraph; no site, model or source change.
+- New or changed interfaces: proposed hook grammar `{{o:ID.STAT@SCHEDULE/HORIZON#BAND}}`, `{{i:}}`, `{{fig:}}`, `{{tab:}}`, `{{lit:}}`; build rules R1 forward and reverse. Not implemented (stage D).
+- Acceptance criteria: stage C check (shape, word budget, hook syntax, objection block, Data block defined; one test paragraph) met. Touches respected: `git diff --stat` shows no change to `source/`, `pipeline/`, `site/`, `model_v1/`, `model_v2/`. Author approval of stage C: pending.
+- Deviations from the brief: stage C started before the author approved stage B. Caps in `template.md` section 3 assume option 3 of `ledger.md` section 2.
+- Risks / follow-ups: the test paragraph's ratio (238 to 125 words, 1.9) is one non-model sample; S9, S12 and S10 need more than that and are for stage E. Hook syntax is checked only by regex against `outputs.yml`; no build exists yet. `check_wdt_format.py` does not fit the spoke shape; a spoke checker is a stage D task.
+- Verification: hook examples parsed against `outputs.yml` (IDs, schedules, horizons exist); S5 front-matter outputs equal the manifest's S5 set; word counts by script. No prose-rule pass beyond the test paragraph.
+- Overview sections likely needing an update: none yet.
+- Commit / branch: `brief/013-restructure-ledger`.
