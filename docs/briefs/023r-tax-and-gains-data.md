@@ -1,6 +1,6 @@
 # 023: Research: tax rates, receipts and gains
 
-- **Status:** ready
+- **Status:** done, merged
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** 012r (merged), 014g to 016g (merged). Runs in parallel with 022r, 024r.
 - **Read:** `docs/agents/research.md` and the files in `docs/agents/reference/research/`, `docs/model-v3/inputs.md` (row format and the rows named below), `docs/model-v3/added/h1.md` and `welfare.md`. Nothing else need be opened.
@@ -31,7 +31,18 @@ The implementer asks rather than guesses.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **State:** ready
+- **Done:** `docs/model-v3/inputs-added/tax.md` (58 rows I-T1a to I-T7f, 8 judgement rows, sources ST1 to ST10), `docs/research/023r-derivations.md`. Empty-cell check passed.
+- **Next:** guru merges the three added files into `inputs.md`; 024r.
+- **Decisions:** no wealth-band series exists for investment income, accrued gains or realisation: Round 8 decile aggregates plus stated judgement, income bands as proxy.
+- **Gotchas:** HMRC 52% against 55% (high-income share of gains); IFS CGT £19.5bn against HMRC £24.2bn; uplift at death rests on a secondary source.
+- **State:** done, merged
 <!-- progress:end -->
+
+### Change report
+- **Task:** 023r, tax rates, receipts and gains data.
+- **Files changed:** new `docs/model-v3/inputs-added/tax.md`, new `docs/research/023r-derivations.md`, this brief.
+- **What is different now:** 58 rows answer 014g 4 to 8, 10 and 015g; gaps listed in the file.
+- **Acceptance:** every request has rows or a stated reason: met (partly for 014g 5 to 8); all fields present: met; judgement rows listed: met; sources dated with licence: met; empty-cell check: met; diff within Touches: met.
+- **Deviations:** none. **Risks:** accrued-gain and D10 investment-income rows are judgement; Round 8 is GB against UK income and receipts.
+- **Verification:** empty-cell script; Round 8 and IFS cells re-read from the held files.
+
