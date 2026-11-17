@@ -1,8 +1,8 @@
 # Restructure, stage C: spoke template and writing rules
 
-Brief 013g. Status: drafted 2026-11-17, waiting for the author. No spoke or hub prose exists beyond the one test paragraph in section 8. The data gate (013g) is still shut.
+Brief 013g. Status: drafted 2026-11-17, stage B decisions applied by the guru 2026-11-17 (cap 6,000, appendix spokes, S4 and S6 split, ENT as S8-A); waiting for the author on section 10. No spoke or hub prose exists beyond the one test paragraph in section 8. The data gate (013g) is still shut.
 
-Stage C ran before the author ruled on stage B. Where a rule depends on a stage B decision, it is marked **[B-dep]** and the assumption is stated. Nothing here needs rework if the author chooses differently; only the caps in section 3 and the spoke count move.
+**Gate (author, 2026-11-16).** No spoke prose is written until the data is finalised. The draft mode in section 4, rule 5 exists to test the build and the template, not to write spokes ahead of results.
 
 ## 1. Shape of a spoke
 
@@ -25,7 +25,7 @@ The reader question in the front matter is the spoke's title. If a paragraph doe
 spoke: S5
 question: "What rate, what threshold, how much?"
 status: draft            # draft | author-review | accepted
-budget: {cap: 4000}      # words of counted prose, section 3
+budget: {cap: 6000}      # words of counted prose, section 3
 defaults: {schedule: S_central, horizon: short}   # used by hooks that omit them
 outputs: [O1, O1a, O1b, O1c, O1d, O2, O3, O5, O6, O7, O8, OP1, OP4]   # equals the S5 set in outputs.yml
 inputs: [W_min]          # input-register names the prose cites
@@ -54,22 +54,21 @@ Counted prose: Short answer, Evidence and Objection block text. Hooks count as o
 | Short answer | 80 to 150 |
 | Objection block | 150 to 400 |
 | Evidence | the rest |
-| Whole spoke | 2,000 to 4,000, per the map (provisional) |
+| Whole spoke | up to 6,000 (author, 2026-11-17); no floor |
 
 The cap is a front-matter field, so a spoke that the author allows to run longer, or that is split, changes one line. The build warns above 100% of cap and fails above 125%.
 
-**[B-dep] Caps.** Assumes the recommended option 3 of `ledger.md` §2: cap 4,000 for ten spokes, S6 and S4 split. If the author picks option 1 or 2, the cap column below changes and nothing else.
+**Caps (author, 2026-11-17).** Cap 6,000 for every spoke, main or appendix. A spoke that would exceed its cap moves its less important material into an appendix spoke (id suffix `-A`, reached from the main spoke; an appendix has its own front matter, cap and Data block). S4 and S6 are split; ENT is S8-A.
 
-| Spoke | Kept words (old) | Proposed unit(s) | Cap |
+| Spoke | Kept words (old) | Unit | Cap |
 |---|---:|---|---:|
-| S1, S2, S3, S5, S7, S8, S11 | 5,947 to 9,671 | as the map | 4,000 |
-| S9 | 10,668 | as the map | 4,000 |
-| S10 | 13,238 | as the map; test at stage E | 4,000 |
-| S12 | 12,135 | as the map; test at stage E | 4,000 |
-| S6 | 20,680 | who pays; what they do; welfare comparison | 4,000 each |
-| S4 | 17,484 | valuation routes; declaration incentives | 4,000 each |
+| S1, S2, S3, S5, S7, S11 | 5,947 to 8,580 | as the map | 6,000 |
+| S8 | 9,671 | main; **S8-A** entity attribution (ENT, 6,498) | 6,000 each |
+| S9, S10, S12 | 10,668 to 13,238 | as the map; test at stage E | 6,000 |
+| S4 | 17,484 | valuation routes; **S4-A** declaration incentives | 6,000 each |
+| S6 | 20,680 | who pays; **S6-A** what they do; **S6-B** welfare comparison | 6,000 each |
 
-**First compression measurement.** The test paragraph (section 8) compresses a 238-word passage of the whitepaper to 125 words, a ratio of 1.9. It is one non-model paragraph and the old text is fairly padded, so it is a floor for what laconic drafting gives on prose, not a forecast for the whole. The ledger's required ratios for S1 (1.5), S3 (1.7), S7 (1.6) and S11 (1.8) are inside it; S5 (2.0), S2 (2.1) and S8 (2.4) are at or just above. S9 (2.7), S12 (3.0) and S10 (3.3) need ratios beyond one paragraph's evidence and stay open for stage E. Model-dependent words shrink further because hooks replace typed numbers and their narration.
+**First compression measurement.** The test paragraph (section 8) compresses a 238-word passage of the whitepaper to 125 words, a ratio of 1.9. It is one non-model paragraph and the old text is fairly padded, so it is a floor for what laconic drafting gives on prose, not a forecast for the whole. At a 6,000 cap the highest ratio of kept words to cap is S10 at 2.2, then S12 at 2.0 and S9 at 1.8 (ledger words, before removing model numbers); the split units of S4 and S6 are at or below 1.8 by the ledger's rough unit sizes. S10, S12 and S9 stay open for stage E. Model-dependent words shrink further because hooks replace typed numbers and their narration.
 
 ## 4. Data hooks
 
@@ -187,7 +186,7 @@ What the test shows: the old text's worked 25% example is dropped because the ra
 ## 10. For the author
 
 1. Approve the shape, or change it.
-2. Rule on the stage B budget (`ledger.md` §8 item 1); section 3 caps follow.
+2. (Closed: cap 6,000 and appendix spokes, 2026-11-17.)
 3. Confirm the single-objection rule (section 5), the 60-word reading note, and that the long value never stands alone in a Short answer (section 4, rule 6).
 4. Confirm the hook lint is strict on typed figures (section 4, rule 4), including literature figures through `{{lit:}}`.
 5. Stage D then fixes site IDs, URLs, build mechanics for hooks and the spoke checker.

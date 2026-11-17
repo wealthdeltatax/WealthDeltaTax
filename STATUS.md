@@ -13,7 +13,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent 3 | Free | 015g (welfare outputs) |
 | Agent 4 | Free | 016g (remaining outputs) |
 | Agent 5 | Free (012r finished and retired) | none planned |
-| Agent 6 | 013g stage C (spoke template) | none planned |
+| Agent 6 | 013g stage C done (`docs/restructure/template.md`), awaiting author | none planned |
 
 ## Waiting on the author
 - Start 012r with the research skill (`wdt-research`), one stage (B1 to B4) per session. Three questions are open in the brief: the rich-list licence fallback, acceptable foreign evidence, and whether to add the cited references to the bibliography afterwards.
@@ -39,3 +39,4 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 See `OVERVIEW.md` section 6. Priority list carried over from `docs/todo.md`: citation button, CLOSE updates, PDF title page, WFR refactor, WP Appendix B forward links, internal bibliography to Zenodo v2.
 
 ## Waiting for the author
+- `docs/restructure/template.md` section 10: approve the shape; the single-objection rule; the 60-word reading note; the long value never alone in a Short answer; strict lint on typed figures.
