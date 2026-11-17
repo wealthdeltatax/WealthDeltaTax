@@ -87,3 +87,6 @@ The guru splits parallel parts into separate small briefs (own number, one lane,
 
 ## 2026-11-17: author decisions on 012r and 013g stage B
 M2 uses same-year (start-of-year) wealth; RATES 0.35% is a different quantity. References are to be reworked to only those actually used. Spoke cap 6,000 words; overflow goes to an appendix spoke (suffix -A); S4 and S6 split, ENT becomes S8-A; welfare outputs are added and produced by the v3 run; H1 problem outputs accepted for now; manifest additions accepted; synthetic stress test kept; v1 headline figures not carried. Briefs 014g to 016g define the added outputs in parallel (files under docs/model-v3/added/); the guru merges them into metrics.md and outputs.yml.
+
+## 2026-11-17: 012r retired
+Merged and reviewed; the brief moved to `docs/archive/briefs/`. Open items moved: tornado to 011g, references rework to the author's later decision.

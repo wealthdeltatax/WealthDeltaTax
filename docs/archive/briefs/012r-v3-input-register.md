@@ -1,6 +1,6 @@
 # 012: Model v3 input register
 
-- **Status:** ready
+- **Status:** built (merged 2026-11-17; retired)
 - **Author/date:** K. Ogata with the guru, 2026-11-16
 - **Depends on:** 011g stages A and A2 (both passed)
 - **Read:** `docs/model-v3/drivers.md` (sections 2 and 4), the input names in `docs/model-v3/metrics.md`, `docs/model-audit/synthesis.md` section 9 (data held and data to get), `docs/agents/research.md` and the three files in `docs/agents/reference/research/`. Nothing else need be opened.

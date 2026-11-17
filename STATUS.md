@@ -8,11 +8,12 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (guru) | 012r merged (`docs/model-v3/inputs.md`, 89 rows); 013g stage B merged (`docs/restructure/ledger.md`) | Tornado on tier 1; merge 014g to 016g into metrics.md and outputs.yml; 013g stage C; compile `docs/brief-suggestions.md` |
+| Agent 1 (planning guru) | 012r merged (`docs/model-v3/inputs.md`, 89 rows); 013g stage B merged (`docs/restructure/ledger.md`) | Tornado on tier 1; merge 014g to 016g into metrics.md and outputs.yml; 013g stage C; compile `docs/brief-suggestions.md` |
 | Agent 2 | Free | 014g (hub problem outputs) |
 | Agent 3 | Free | 015g (welfare outputs) |
 | Agent 4 | Free | 016g (remaining outputs) |
-| Agent 5 | Free | none planned |
+| Agent 5 | Free (012r finished and retired) | none planned |
+| Agent 6 | 013g stage C (spoke template) | none planned |
 
 ## Waiting on the author
 - Start 012r with the research skill (`wdt-research`), one stage (B1 to B4) per session. Three questions are open in the brief: the rich-list licence fallback, acceptable foreign evidence, and whether to add the cited references to the bibliography afterwards.

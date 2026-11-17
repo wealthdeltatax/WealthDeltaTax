@@ -47,7 +47,7 @@ Writing model code, fixing v1 or v2, writing or editing papers, choosing the whi
 - **Next:** 012r runs B1 to B4 in the research lane; then the guru runs the tornado (`docs/model-v3/tornado.md`); then stage C.
 - **Decisions:** levers swept and not sampled; two-level uncertainty; long window read as steady state; six taxes retire, stamp duties carry two receipt lines.
 - **Gotchas:** my chat figure of 3% of GDP for the identity was an unsourced guess and disagrees with v2's 7.34% post-fill WDT (`drivers.md` section 1). The manifest has 21 entries, not the 14 once noted.
-- **Resume:** read `docs/briefs/012r-v3-input-register.md`; after B4 read `inputs.md` and run the tornado.
+- **Resume:** read `docs/archive/briefs/012r-v3-input-register.md`; after B4 read `inputs.md` and run the tornado.
 - **Not run:** the tornado (needs 012r's values); M2 against the RATES 0.35% and the Green Book check (both in 012r B4).
 - **State:** stage B ready (012r); not started
 <!-- progress:end -->
