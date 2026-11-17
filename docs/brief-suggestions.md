@@ -46,3 +46,10 @@ Entry format, newest at the bottom:
 - Problem: the lane letter is `s` (site) but the role and skill are called web. Not decided; the author may do it.
 - Suggested lane: g
 - Status: open
+
+### RATES 0.35% burden uses terminal wealth, M2 in metrics.md uses start-of-year wealth
+- Found by: research / brief 012r stage B4, 2026-11-17
+- Where: `source/8_Rates_and_Revenue.md` (burden table, "Revenue-weighted average 0.35%"), `source/8a_Rates_and_Revenue_Appendix.md` B.3.3, `docs/model-v3/metrics.md` M2
+- Problem: the paper's 0.35% is tax over post-settlement terminal wealth (N = 30), weighted by terminal wealth. M2 is the tax-weighted mean of T_i/W_i with W_i start-of-year wealth. From the printed tables the same tax gives 0.39% on terminal wealth, about 1.2% on a crude path average and 4.1% on starting wealth (`docs/research/012r-b4-derivations.md`). The claim "structurally below the 1 to 2% of stock levies" holds only on the terminal denominator. The author has to choose M2's denominator, then writing may need to state it in RATES.
+- Suggested lane: g
+- Status: open

@@ -65,14 +65,29 @@ Choosing the values the model uses, running the tornado, building code, editing 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** B1 (D4, D9, D1), B2 (D5, D6, D10) and B3 (M5, M6, M8): 78 rows in `docs/model-v3/inputs.md` (B3 added 37: M5 17, M6 13, M8 7); derivations in `docs/research/012r-b1-`, `-b2-`, `-b3-derivations.md`; empty-cell check passed (78 rows, 12 cells each).
-- **Next:** B4 (tier 2: D7, D8, D11; Green Book check against the HM Treasury text; M2 check against the RATES paper's 0.35%, RATES read by section). Then the one-paragraph gaps summary at the top of `inputs.md`.
-- **Decisions:** Tail fallback is Advani, Summers, Tarrant 2025 (author, 2026-11-16). S12 gap carried as I-D4g. D6 deciles derived. B3: no source gives CGT, IHT or income tax by wealth band, so M6 by-band rows are derived and flagged; income tax is not banded. "Strongest published version" for each M8 reform is my reading (Resolution Foundation plus IFS for CGT, Onward for property tax, Neidle for LVT); author can overrule.
-- **Gotchas:** Shell cannot reach ons.gov.uk. gov.uk HMRC pages were mostly off the fetch allowlist (CGT 2024-25 totals come from press summaries). Times terms URL not on the allowlist. The branch is behind `main` (013g and restructure files exist on main): rebase before any merge.
-- **Resume:** `git checkout brief/012-v3-input-register`; read the gaps sections at the top of `inputs.md`, then the B4 stage text above.
-- **Not run:** no model code; ETB decile workbook not read; JST later release and licence not verified; Round 9 not found; Wealth Tax Commission PDF, Zucman full report, Tax Justice UK March 2025 paper and Green Party manifesto not read; no change to `registry/`.
-- **State:** B3 done; see the wip commit on `brief/012-v3-input-register`
+- **Done:** B1, B2, B3 and B4. 89 rows in `docs/model-v3/inputs.md` (B4 added D7 4, D8 3, D11 4); sources S1 to S43; derivations in `docs/research/012r-b1-` to `-b4-derivations.md`; empty-cell check passed (89 rows, 12 cells each); gaps summary at the top of `inputs.md`.
+- **Next:** the guru reviews, runs the tornado (`docs/model-v3/tornado.md`), and decides the two open items below. Stage C after that. Then the author answers open question 3 (add references to `registry/references.bib`).
+- **Decisions:** Tail fallback is Advani, Summers, Tarrant 2025 (author, 2026-11-16). B3 and B4 judgement calls as in the change reports. Needs the author: M2's wealth denominator (see the M2 check in `inputs.md` and the new entry in `docs/brief-suggestions.md`).
+- **Gotchas:** gov.uk HMRC pages and the Green Book itself were off the fetch allowlist. The branch is behind `main` (013g and restructure files exist there): rebase before any merge.
+- **Resume:** `git checkout brief/012-v3-input-register`; nothing left to do in 012r except review.
+- **Not run:** no model code (so the M2 path average is a crude proxy); Green Book text not read; ETB decile workbook, Round 9, WTC PDF, Zucman full report, Tax Justice March 2025 paper and Green manifesto not read; no change to `registry/`.
+- **State:** all four stages done; NEEDS THE AUTHOR (M2 denominator, branch rebase); not merged
 <!-- progress:end -->
+
+### Change report (stage B4)
+```
+Change report
+- Task: 012r stage B4, tier 2 (D7, D8, D11) and the two checks
+- Files changed: docs/model-v3/inputs.md (tier 2 rows, sources S41 to S43, M2 check, gaps summary at the top, counts); docs/research/012r-b4-derivations.md (new); docs/brief-suggestions.md (one entry appended); this brief
+- What is different now: 89 rows. D7: levy yield 2.77 to 2.88% of GDP (v2 output) against corporation tax 3.37% retired, ratio 0.82 to 0.85; receipts £96.6bn to £101.1bn across three series. D8: multiple 3 (a lever); long reserve fill 6 to 10 years, median 7; short reserve median 3 (no spread). D11: 3.00%, 2.50%, 2.25% for the three bands, previous 3.50%, 3.00%, 2.50% as the sensitivity.
+- New or changed interfaces: none
+- Acceptance criteria: D7, D8, D11 each have a documented range: met (D7 and D8 ranges come from v2 model output in the repo, not independent sources; the short reserve has a median only). Green Book schedule compared with the HM Treasury text, differences reported: PARTLY MET. Confirmed against the Treasury response (Box 1.A p. 7, para 2.36 p. 15) and the review's Table 1; the Green Book text itself was not reachable. Differences: no effective date given (October 2026 publication), no rate beyond year 125. M2 checked against 0.35%: met as a check, with a finding: 0.35% is tax over terminal wealth, M2 uses start-of-year wealth, and the result moves from 0.39% to about 1.2% (crude) to 4.1% by denominator. Pushed with a gaps summary at the top: met. All fields filled on 89 rows. git diff --stat: inputs.md, the new derivations note, brief-suggestions.md, this brief.
+- Deviations from the brief: brief-suggestions.md edited (the AGENTS.md route for a problem outside the brief). RATES read from the repo copy, not the site.
+- Risks / follow-ups: M2 denominator is the author's decision; path-average figure needs the model's yearly wealth. T was derived as burden times terminal wealth and does not reproduce the appendix's per-year net tax tables cell by cell (99th percentile Great: 0.39% against 0.46%); cause not found. Branch is behind main.
+- Verification: empty-cell parse (89 rows, 12 cells, no empty, no duplicate IDs); replication of the paper's 0.24% (0.243%) and 0.35% (0.361%) in python3 -I; Green Book rates read from two primary PDFs. Not run: no model code, per the brief.
+- Overview sections likely needing an update: none (the M2 decision may touch metrics.md, guru only)
+- Commit / branch: wip(012): stage B4 done, brief/012-v3-input-register
+```
 
 ### Change report (stage B3)
 ```
