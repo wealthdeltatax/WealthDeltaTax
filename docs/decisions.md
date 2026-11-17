@@ -93,3 +93,6 @@ Merged and reviewed; the brief moved to `docs/archive/briefs/`. Open items moved
 
 ## 2026-11-17: spoke template approved; figures framework
 The author approved the spoke template (one objection block, 60-word reading note, long value never alone in a short answer, strict lint on typed figures). Figures: every figure has a reference table in the Data block, drawn from the same data; a caption describes and never states a result or a number; no tables in the prose, each table is referenced from its figure's caption. Template section 6a. Stage D builds the lint and renderer.
+
+## 2026-11-17: output definitions merged; stage D and research follow-ups split
+014g to 016g merged as files under `docs/model-v3/added/` (21 new or changed outputs, one stress-test check); integration into metrics.md and outputs.yml waits on the author's 12 answers. 013g stage D split into 017s to 021s, each writing one file under `docs/restructure/site/`. 12 research requests across 014g to 016g go to 022r to 024r, each writing one file under `docs/model-v3/inputs-added/`.

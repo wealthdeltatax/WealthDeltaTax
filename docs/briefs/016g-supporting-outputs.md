@@ -1,6 +1,6 @@
 # 016: Define the remaining added outputs
 
-- **Status:** ready
+- **Status:** built (merged 2026-11-17; integration into metrics.md and outputs.yml waits on the author's answers in STATUS.md)
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** 011g (A2 passed), 012r (merged), 013g stage B (merged). Runs in parallel with the other two of 014g, 015g and 016g.
 - **Read:** `docs/model-v3/metrics.md`, `docs/model-v3/outputs.yml`, `docs/model-v3/drivers.md`, `docs/model-v3/inputs.md` (rows named below), `docs/restructure/ledger.md` section 6 and the sections named in the brief. Nothing else need be opened. Ledger sections: 4 (claims 3, 5, 7, 8, 9, 12, 13) and 6.2.
