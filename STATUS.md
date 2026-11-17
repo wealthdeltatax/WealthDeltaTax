@@ -1,6 +1,6 @@
 # Status board
 
-Maintained by the guru. Last updated 2026-11-17 (night: restructure plan complete; first build set written). Plan view: `docs/lane-plan.html`.
+Maintained by the guru. Last updated 2026-11-17 (night: six-agent assignment; 035g and 036r written). Plan view: `docs/lane-plan.html`.
 
 ## Where the project is
 The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. Design brief 011g is underway: stage A (metric register and output manifest) passed on 2026-11-16; stage A2 (design review: levers swept, two-level uncertainty, driver table, three added outputs) passed; stage B (input register, brief 012r) is ready for the research lane. v1 and v2 are not fixed. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
@@ -8,16 +8,14 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (planning guru) | 021s and 025w merged; briefs 017s to 021s and 025w retired; 035g and 036r written | 035g stage C1 with the author (items 1 to 3 first); compile `docs/brief-suggestions.md`; stock-wealth floor hypothesis |
-| Agent 7 (planning guru) | 026g done (`site.md`, `order.md` approved) | free |
-| Agent 8 (code) | New | 030c (data interface and output validator) |
-| Agent 9 (code) | New | 033c (gate checker) |
-| Agent 10 (code) | New | 034c (page cards) |
-| Agent 2 (site) | 019s done | 029s (page registry and ids) |
-| Agent 3 (site) | 021s done | 031s (relabel calculators) |
-| Agent 4 (research) | 027r done | 032r (sidecars: literature figures, input display) |
-| Agent 5 (research) | 028r done | 036r (return range method) |
-| Agent 6 (writing) | 025w done | free |
+| Agent 1 (guru prime: writes and hands out briefs) | 035g model v3 stage C1 with the author (items 1 to 3 first) | 035g C2 (architecture), then 011g stage D |
+| Agent 2 (code) | 030c data interface and output validator | next code brief |
+| Agent 3 (code) | 033c gate checker (builds on fixtures until 030c lands) | next code brief |
+| Agent 4 (code) | 034c page cards | next code brief |
+| Agent 5 (research) | 036r return range method (running) | 032r sidecars |
+| Agent 6 (site) | 029s page registry and ids | 031s relabel calculators |
+
+Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first. Model v3 is blocked on 035g and 036r, then 011g stage D, then the build briefs.
 
 ## Recently done
 - 2026-11-17 (night): 026g stage B merged: `docs/restructure/order.md` approved with all ten answers (26 pages in six waves; the gate G1 to G5; 21 writing briefs; no early start; no optional split now). 013g stages A to E are complete (013g retired). `outputs.yml` version `stage-A6-hypo-elements-2026-11-17` (HYPO lists O1, O4a, OP6, OW1). Judgement rows reconciled: 87 flagged `(J)` (17 rows newly flagged), `docs/model-v3/judgement-decisions.md` lists them all pending. First parallel build set written: 029s (page registry), 030c (data interface), 031s (calculators label), 032r (sidecars), 033c (gate checker), 034c (page cards). Writing briefs and the rest of B3 to B16 are written when the gate nears.
