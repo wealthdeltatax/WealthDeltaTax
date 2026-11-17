@@ -102,6 +102,8 @@ A scratch run of v2's `rates_core` on a copy outside the repo (nothing committed
 **Method.** v2's `rates_core` on a scratch copy outside the repo, nothing committed. The copy had one change: every scenario stores its window rows. UK start years 1 apart (117 windows, no censored window) and, as a spread check, 14 JST countries with start years 5 apart (351 windows). Index mode `gdp_pc`. Compared: v2's `relief_gdp`, the revenue available in the 10 years after the long reserve fills, equal to WDT + levy + fund income - fund retention (`rates_core.py` line 109), against the retired receipts. v2 is unfixed (author, 2026-11-16): this ranks and sizes, it is not a result.
 **Retired receipts**, % of GDP, `Revenue composition spreadsheet.xlsx` (IFS, "% GDP (cash)", the 2025-26 column; later columns are forecasts): corporation tax 3.37, council tax 1.75, business rates 1.29, capital gains tax 0.77, stamp duties (property) 0.66, stamp taxes on shares 0.16, inheritance tax 0.27. **Total 8.27.**
 
+> **Correction, 2026-11-17 (tier 1 tornado, `docs/model-v3/tornado.md`).** The 'Stamp duties' row of the IFS sheet (0.66) already contains the shares line, so the property line is 0.50 and the true total is **8.11**. Every 8.27 in this section is a v2 result computed at the old total: the 'Relief minus 8.27' columns are too low by 0.16 and the 'windows that close' shares were not recomputed. Recompute with the v2 runs before quoting them.
+
 **Result (UK, 117 windows), % of GDP, years after the long reserve fills:**
 | v2 scenario | WDT | Levy | Relief, mean (P10 / P50 / P90) | Relief minus 8.27, P10 / P50 / P90 | Windows that close |
 |---|---:|---:|---:|---:|---:|

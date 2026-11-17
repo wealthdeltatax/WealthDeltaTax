@@ -12,7 +12,7 @@ M1a ≈ ε · g · ω - refunds
 - **ε** = wealth-weighted effective rate on gains, set by the schedule (family: logistic in ln W, v2's `logistic_ln_ref` runs 4% to 90%).
 - **refunds** = refunds paid in loss years.
 
-The other lines: M1b = corporate levy (v2 post-fill about 2.8% of GDP, against corporation tax 3.37); M1c = fund income minus retention (v2 about -0.6); M1d = retired receipts (8.27% of GDP at 2025-26, seven lines). Closure: M1a + M1b + M1c covers M1d, staged by the trigger in `metrics.md` (M1e).
+The other lines: M1b = corporate levy (v2 post-fill about 2.8% of GDP, against corporation tax 3.37); M1c = fund income minus retention (v2 about -0.6); M1d = retired receipts (8.11% of GDP at 2025-26, seven lines; the 8.27 of earlier drafts counted the stamp-duty row and its shares sub-row twice, corrected 2026-11-17 by the tier 1 tornado, `tornado.md`). Closure: M1a + M1b + M1c covers M1d, staged by the trigger in `metrics.md` (M1e).
 
 **Correction.** In the 2026-11-16 chat review I gave an illustrative 3% of GDP at a 20% effective rate. That figure was my guess, not sourced from the repo, and it does not fit v2: post-fill WDT is 7.34% of GDP for `logistic_ln_ref` (`synthesis.md` section 10). Either v2's wealth-to-GDP ratio, its gain rate or its effective rate is higher than my guess. Backing out which one is the first job of 012r's tier 1 (section 4).
 
@@ -26,7 +26,7 @@ Kind: **lever** = the author chooses it (swept, not sampled); **exo** = the worl
 | D3 | Threshold W_min | ω, number of payers, M2b | all | lever | half the median house price (decided); v2 about £113k; sensitivity at the full median in the v2 parameter file |
 | D4 | Wealth-to-GDP ratio and the tail | ω | M1a, M2 | exo, level 2 | WAS 2016-18 plus Rich List in v2; latest wave not held; no single ratio recorded in the repo |
 | D5 | Behavioural response (avoidance, migration, valuation understatement) | shrinks ω, shifts declared alpha | M1a, M7 | exo, level 2 | Norway leakage in the Project Map only; no range yet |
-| D6 | Retired receipts and who pays them | M1d, M4 | M1, M4a, M4b | exo, level 2 | totals from IFS (8.27%); incidence by income decile not held (`synthesis.md` section 9, 3a) |
+| D6 | Retired receipts and who pays them | M1d, M4 | M1, M4a, M4b | exo, level 2 | totals from IFS (8.11%); incidence by income decile not held (`synthesis.md` section 9, 3a) |
 | D7 | Corporate levy base | M1b | M1 | exo, level 2 | v2 2.77% to 2.88% of GDP; its own line |
 | D8 | Reserve rule (3 times trailing mean refund) | fill years, when retirement can start | P1, P3, P5 | lever (set by the papers) | v2 medians 3 and 7 years |
 | D9 | Income by wealth, liquid assets | M2b, M2c, M4b | burden and savings by band | exo, level 2 | v2 placeholders only (`income_by_wealth`) |
@@ -45,3 +45,6 @@ Expected order of influence on M1: D1 (return history), then D2 and D3 (levers, 
 
 ## 5. The sustainability test, read correctly
 v2 shows revenue falling from 9.87% of GDP at the fill year to 5.39% over 100 years for `gain_ladder`. Before reading that as WDT failing as a revenue source, split it. Part may be the fund absorbing returns that the tax takes out of private wealth growth, which is public wealth rising and not revenue failing. P4 therefore reports with P6, the fund's assets as a share of GDP at years 10, 25, 50 and 100. A falling M1 with a rising P6 is a different finding from a falling M1 with a flat P6.
+
+## Note, 2026-11-17: which mean return the revenue identity uses (author)
+The annual tax falls on expected annual gain, so the revenue identity M1a = ε · g · ω takes the arithmetic mean return for g (register I-D1a is geometric, 4.42%; the arithmetic mean is about 4.76% at a standard deviation of 8.2%, v2 used 4.74%). Wealth paths still compound at the geometric rate. Stage C writes this into the architecture and the register carries both figures.

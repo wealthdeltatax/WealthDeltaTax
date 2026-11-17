@@ -206,7 +206,7 @@ Status unchanged: exploratory; the investigation starts after the straightforwar
 ### 13.2 Size of the layer (back-of-envelope from the register; GDP about £3tn)
 - 2% on the whole Rich List total (I-D4f, £784bn, 350 entries) is about £16bn, about 0.5% of GDP. 0.1% is about 0.03% of GDP.
 - 2% on all of the top 1%'s wealth (I-D4a ratio 5.94 times GDP, I-D4d share 18%, about £3.2tn) is about £64bn, about 2% of GDP; this is a ceiling, since the base above any threshold in the range discussed is smaller.
-- Retired taxes are 8.27% of GDP, so the stock layer supplies at most about a quarter of the need and, at realistic thresholds, well under a tenth. The WDT carries the remainder.
+- Retired taxes are 8.11% of GDP (corrected from 8.27, see `tornado.md`), so the stock layer supplies at most about a quarter of the need and, at realistic thresholds, well under a tenth. The WDT carries the remainder.
 - Zucman's proposal is on billionaires (about £750m). Threshold and rate are separate axes; a £5m to £10m threshold is a different tax.
 
 ### 13.3 What "acceptable" can mean in model terms
