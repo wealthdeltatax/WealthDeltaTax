@@ -8,10 +8,10 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (guru) | 012r merged (`docs/model-v3/inputs.md`, 89 rows); 013g stage B merged (`docs/restructure/ledger.md`) | Tornado on tier 1; stage C; compile `docs/brief-suggestions.md` |
-| Agent 2 | Free | none planned |
-| Agent 3 | Free | none planned |
-| Agent 4 | Free | none planned |
+| Agent 1 (guru) | 012r merged (`docs/model-v3/inputs.md`, 89 rows); 013g stage B merged (`docs/restructure/ledger.md`) | Tornado on tier 1; merge 014g to 016g into metrics.md and outputs.yml; 013g stage C; compile `docs/brief-suggestions.md` |
+| Agent 2 | Free | 014g (hub problem outputs) |
+| Agent 3 | Free | 015g (welfare outputs) |
+| Agent 4 | Free | 016g (remaining outputs) |
 | Agent 5 | Free | none planned |
 
 ## Waiting on the author
@@ -38,6 +38,4 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 See `OVERVIEW.md` section 6. Priority list carried over from `docs/todo.md`: citation button, CLOSE updates, PDF title page, WFR refactor, WP Appendix B forward links, internal bibliography to Zenodo v2.
 
 ## Waiting for the author
-- M2's wealth denominator (`inputs.md`, check against RATES 0.35%): terminal 0.39%, crude path average 1.2%, starting 4.1%.
-- `docs/restructure/ledger.md` section 8: budget option, ENT, welfare layer, H1 outputs, manifest additions, stress test, v1 headline figures.
-- 012r open question 3: add cited references to `registry/references.bib`.
+- Confirm two readings: the spoke cap is 6,000 words (you wrote 600), and "keep" for the synthetic stress test means keep it as an output or check.

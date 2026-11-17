@@ -84,3 +84,6 @@ The guru splits parallel parts into separate small briefs (own number, one lane,
 ## 2026-11-17: 012r and 013g stage B merged
 012r: `docs/model-v3/inputs.md`, 89 rows, 40 judgement; incidence (D6) and the D7 and D8 ranges are derived or from v2 output, not independent evidence. Finding: the RATES 0.35% burden divides by terminal wealth; M2 on start-of-year wealth is about 1.2% on a crude path average, so RATES' claim of staying below 1 to 2% is not shown. M2's denominator is the author's call.
 013g stage B: ledger of 980 sections; every spoke exceeds 4,000 kept words (2.6 times overall); outputs.yml `element:` filled with hub and spoke IDs (proposed). Decisions in `ledger.md` section 8 are open.
+
+## 2026-11-17: author decisions on 012r and 013g stage B
+M2 uses same-year (start-of-year) wealth; RATES 0.35% is a different quantity. References are to be reworked to only those actually used. Spoke cap 6,000 words; overflow goes to an appendix spoke (suffix -A); S4 and S6 split, ENT becomes S8-A; welfare outputs are added and produced by the v3 run; H1 problem outputs accepted for now; manifest additions accepted; synthetic stress test kept; v1 headline figures not carried. Briefs 014g to 016g define the added outputs in parallel (files under docs/model-v3/added/); the guru merges them into metrics.md and outputs.yml.

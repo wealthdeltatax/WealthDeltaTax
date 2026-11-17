@@ -58,3 +58,11 @@ Standalone (decided): 18 Addendums (ADD), 20 Institutional Selection (INST), 17 
 
 ## 6. Not decided here
 Site IDs and URLs (stage D), spoke template wording (stage C), the order of rewriting (stage E).
+
+## 7. Changes after stage B (author, 2026-11-17)
+- Cap raised to 6,000 words per spoke (read from "600"; confirm). Overflow rule: a spoke that holds more than the cap moves its less important material into an appendix spoke, id suffix `-A`, reached from the main spoke.
+- **S4 Valuation routes** (VAL 1 to 6, 9 to 12) with **S4-A Declaration incentives** (VAL 7, VAL.A findings, VAL.B examples).
+- **S6 Who pays** (RATES 2, WP 8.2, payslip) with **S6-A What they do** (BEHAV, BEHAV.A, CLOSE objections) and **S6-B Welfare comparison** (WFR, with the new welfare outputs).
+- **S8-A Entity attribution** (ENT, CORP.A section E): a separate spoke, appendix to S8.
+- 12 spokes become 12 main spokes plus 4 appendix spokes (S4-A, S6-A, S6-B, S8-A). Corrections to the "fed by" column are in `ledger.md` section 7 and apply.
+- H1 problem outputs OH1a to OH1c and data facts D-H1a to D-H1c accepted for now.

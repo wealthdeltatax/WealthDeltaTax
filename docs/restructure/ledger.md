@@ -123,14 +123,14 @@ The old papers state the problem in 441 words and give it no numbers. Three outp
 - **S12** is FAL plus the unknowns and limits of every paper; the per-paper "Limitations" registers are otherwise dropped.
 - JUR (4): institutions to S9; the data tables, gaps and input provenance to the data layer.
 
-## 8. Decisions for the author
-1. **Budget:** option 1, 2 or 3 in section 2 (recommended: 3).
-2. **ENT** (CORP.A §E, 6,498 words): standalone paper, or archive.
-3. **Welfare layer** (WFR, 9,671 kept words in S6): add OW1 to OW3 to the manifest, or keep WFR as labelled v1 results with no hub claim.
-4. **H1:** accept OH1a to OH1c and D-H1a to D-H1c, or name the claims you want.
-5. **Manifest:** add OF1 (feasibility map) and OT1 (tornado) as entries, since `metrics.md` already defines both; add OB1, OR1, OD1, OM1, OL1 on the same footing.
-6. **Synthetic stress test** (SWEEPS §7.5): drop, or confirm level 1 sampling includes cycles.
-7. **The v1 headline figures** in WP §5, FM §3.1 and INST are contradicted by v2 (100% success against 42 to 55% of windows). The ledger carries none of them. Confirm.
+## 8. Decisions (author, 2026-11-17)
+1. **Budget:** split S4 and S6 (option 3) and raise the cap to 6,000 words (author wrote "600"; read as 6,000, confirm). A spoke that holds more than its cap moves its less important material into a secondary spoke, an appendix to that spoke (id suffix `-A`).
+2. **ENT:** a separate spoke, as the appendix to S8 (`S8-A`).
+3. **Welfare layer:** add OW1 to OW3, designed together with model v3.
+4. **H1:** accept OH1a to OH1c and D-H1a to D-H1c for now; refine later.
+5. **Manifest:** add OF1, OT1, OB1, OR1, OD1, OM1 and OL1.
+6. **Synthetic stress test (SWEEPS 7.5):** keep (read as: kept as a stated output or check; confirm).
+7. **v1 headline figures:** not carried; v3 will contradict them again. Confirmed.
 
 ## 9. Checks run
 - Every section of all 33 papers resolves to a disposition: the generator reported no unresolved section across 980 rows.
