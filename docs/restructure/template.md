@@ -79,7 +79,7 @@ A hook is a named reference to a value in the data layer. The build replaces it 
 ```
 {{o:ID[.STAT][@SCHEDULE][/HORIZON][#BAND]}}     output value
 {{i:NAME}}                                      input-register value
-{{fig:ID[@SCHEDULE][/HORIZON]}}                 figure from an output
+{{ref:fig-ID}}                                  cite a figure block (section 6a)
 {{lit:KEY}}                                     literature figure, keyed to the reference database
 ```
 
@@ -91,7 +91,7 @@ A hook is a named reference to a value in the data layer. The build replaces it 
 | `HORIZON` | `transition`, `short`, `long` (from `horizons`) | front-matter `defaults.horizon` |
 | `BAND` | a key from the output's `by:` list, `key:value`, for example `wealth_band:top` or `overall` | `overall` where the output has one; otherwise the hook is an error |
 
-Examples: `{{o:O1.range@S_central/short}}`, `{{o:O2.mean#overall}}`, `{{o:OP1.p90@S_low/transition}}`, `{{i:W_min}}`, `{{fig:OP6@S_central}}`.
+Examples: `{{o:O1.range@S_central/short}}`, `{{o:O2.mean#overall}}`, `{{o:OP1.p90@S_low/transition}}`, `{{i:W_min}}`, `{{ref:fig-S5-1}}`.
 
 Units, rounding and the "p10 to p90" wording come from the metric register, never from the author. A hook inside a sentence reads as the value alone, so the sentence has to work with "x%" or "x to y%" in the slot.
 
@@ -153,7 +153,7 @@ Three rules, then the mechanism.
 2. **A caption describes the figure and states no result.** It says what is plotted: the quantity, axes and units, the series, the schedule, the horizon, and what bands or markers mean. It never says what the figure shows, and it carries no model number. The prose states the result, by hook, and cites the figure.
 3. **No table in the prose.** Tables live only in the Data block, and each is referenced from its figure's caption (`Data: Table F5.1`). A comparison a reader needs is drawn as a figure, so its numbers become that figure's reference table. A list that is not data (the six retired taxes, say) is prose.
 
-**Figure block** (replaces the `{{fig:}}` hook; the hook now only cites a figure in prose):
+**Figure block** (a block in the spoke file; `{{ref:}}` cites it in prose):
 
 ````
 ::: {#fig-S5-1}
