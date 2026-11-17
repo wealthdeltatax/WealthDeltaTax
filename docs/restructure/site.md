@@ -92,6 +92,8 @@ Each has a proposed answer; this file and the briefs of section 8 assume the pro
 
 **Q8. When do ADD, INST and SCOPE move to the spoke shape?** `ids` Q5a says now; the gate says no spoke prose until the data is final, and the move rewrites text into four parts with hooks. *Proposed:* now means the registry row and the URL (type `standalone`, status `legacy`); the text moves after the gate, in the order of `order.md`.
 
+**Author answers, 2026-11-17: all eight proposed answers accepted.** Q1 drafts publish under `/draft/` and the old series stays whole until one cutover release; Q2 drafts are not in the menu before cutover; Q3 the hub has the same generated Data block as the spokes; Q4 ADOPT, PILOT and HYPO are reached from their parents (22 spokes, menu stays at 15); Q5 hub at `source/hub.md`, standalones in `source/spokes/`; Q6 pending-page links to old papers are rewritten to `retired.html#<old code>`; Q7 glossary seeding by copying existing definitions may start before the gate; Q8 ADD, INST and SCOPE get their registry row and URL now and their text after the gate. `site.md` is approved. The build briefs of section 8 are written only after `order.md` is approved (author, 2026-11-17).
+
 ## 8. Proposed briefs
 
 Numbers are assigned when each is written (next unused, 027 onward). Lane letters as `brief-template.md`. "A" is the author's approval of this file with section 7 answered. All build briefs work on fixtures and deliver without the data gate; none writes spoke or hub prose. `Touches` are disjoint between briefs that may run together; a file shared by two briefs is listed in section 8.2 and the pair is on a Depends chain.

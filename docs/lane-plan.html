@@ -263,8 +263,8 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "2", name: "Agent 2", note: "Site: free (017s, 019s done)" },
     { id: "7", name: "Agent 7 · Guru", note: "026g stage D merge and rewrite order" },
     { id: "3", name: "Agent 3", note: "Site: free (021s done and merged)" },
-    { id: "4", name: "Agent 4", note: "Research: 027r (tier 1 tornado)" },
-    { id: "5", name: "Agent 5", note: "Research: 028r (non-payer share by decile)" },
+    { id: "4", name: "Agent 4", note: "Research: free (027r done)" },
+    { id: "5", name: "Agent 5", note: "Research: free (028r done)" },
     { id: "6", name: "Agent 6", note: "Writing: free (025w merged)" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
@@ -273,9 +273,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   var B = [
     { id: "011g", lane: "1", at: 0, len: 4, st: "under", t: "Model v3 design (stage A2 passed)", needs: [], why: "Range model with three headline outputs (revenue, taxpayer burden, non-payer savings) as P10, mean and P90. Five design stages, each ending in a stop: A output manifest and metric register, A2 design review and driver table, B input register (research brief 012r), C architecture, D acceptance plan and the first build brief. No model code. Stage A (docs/model-v3/metrics.md and outputs.yml) passed on 2026-11-16 with all four items confirmed. Stage A2 (docs/model-v3/drivers.md: levers swept, two-level uncertainty, driver table, added outputs) passed; stage B is brief 012r, ready.", files: "docs/model-v3/ (new), docs/briefs/" },
     { id: "013g", lane: "7", at: 4, len: 2, st: "under", t: "Restructure: stages A to C passed; D designs all merged; 026g running (site.md, order.md)", needs: [], why: "Plan only: hub outline, spoke map, content ledger, template, site needs, rewrite order. Gate: no spoke prose until the data is frozen." },
-    { id: "026g", lane: "7", at: 4, len: 2, st: "ready", t: "Stage D merge into site.md, then rewrite order and gate (order.md)", needs: [], why: "Merges the five site design files into site.md with a reconciliation section and a table of proposed build briefs, then writes order.md: the order spokes are written in, the data each needs, the checkable gate, the writing briefs plan. Two stops for your approval. Writes docs only." },
-    { id: "027r", lane: "4", at: 4, len: 1, st: "ready", t: "Tier 1 tornado on the revenue identity", needs: [], why: "Runs the identity one input at a time over low and high on revenue, burden, non-payer savings and gains, applies the 0.5-point tier 2 cut-off, and backs out the identity against v2's 7.34%. Writes tornado.md only." },
-    { id: "028r", lane: "5", at: 4, len: 1, st: "ready", t: "Non-payer share by income decile", needs: [], why: "Finds the joint income and wealth distribution behind the share of adults below the threshold, by income decile (I-H2a), or states the gap. Writes one new inputs file only." },
+    { id: "026g", lane: "7", at: 4, len: 2, st: "ready", t: "Stage A (site.md) approved; stage B: rewrite order and gate (order.md)", needs: [], why: "Merges the five site design files into site.md with a reconciliation section and a table of proposed build briefs, then writes order.md: the order spokes are written in, the data each needs, the checkable gate, the writing briefs plan. Two stops for your approval. Writes docs only." },
     { id: "009c", lane: "G", at: 2, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "011g" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" }
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });

@@ -54,5 +54,5 @@ The agent asks rather than guesses. It records questions in the brief and stops 
 - **Gotchas:** old and new URLs collide (VAL, CORP, GOV, POL, BEHAV, ADD, INST, SCOPE), hence Q1; hooks.md id regex misses DH1a, CK1, OH1b2 (R12); outputs.yml `by` is still a list on six outputs.
 - **Resume:** branch `brief/026-stage-d-merge`; start stage B only after approval.
 - **Not run:** no build (no site file touched).
-- **State:** stage A pushed to branch; NEEDS THE AUTHOR.
+- **State:** stage A approved by the author 2026-11-17 (all eight questions answered as proposed, recorded in `site.md` section 7); merged to main by the guru. Stage B (`order.md`) may start; rebase on `origin/main` first.
 <!-- progress:end -->
