@@ -1,0 +1,193 @@
+# Restructure, stage C: spoke template and writing rules
+
+Brief 013g. Status: drafted 2026-11-17, waiting for the author. No spoke or hub prose exists beyond the one test paragraph in section 8. The data gate (013g) is still shut.
+
+Stage C ran before the author ruled on stage B. Where a rule depends on a stage B decision, it is marked **[B-dep]** and the assumption is stated. Nothing here needs rework if the author chooses differently; only the caps in section 3 and the spoke count move.
+
+## 1. Shape of a spoke
+
+Every spoke answers one reader question and has four parts, in this order. A reader who stops after any part has a complete, honest answer at that depth.
+
+| Part | What it is | Written by |
+|---|---|---|
+| Front matter | id, question, outputs cited, budget, depends-on | author or writing lane |
+| 1. Short answer | the claim, the headline numbers (by hook), and a pointer to the objection | writing lane |
+| 2. Evidence | the argument, in H2 sections; each opens with its claim | writing lane |
+| 3. Strongest objection | one block, section 5 | writing lane |
+| 4. Data block | generated at build from the hooks, section 6 | build |
+
+The reader question in the front matter is the spoke's title. If a paragraph does not help answer it, it belongs in another spoke or nowhere.
+
+### Front matter
+
+```yaml
+---
+spoke: S5
+question: "What rate, what threshold, how much?"
+status: draft            # draft | author-review | accepted
+budget: {cap: 4000}      # words of counted prose, section 3
+defaults: {schedule: S_central, horizon: short}   # used by hooks that omit them
+outputs: [O1, O1a, O1b, O1c, O1d, O2, O3, O5, O6, O7, O8, OP1, OP4]   # equals the S5 set in outputs.yml
+inputs: [W_min]          # input-register names the prose cites
+depends: [S3, S4]        # spokes whose claims this one assumes
+---
+```
+
+`outputs` must equal the set of IDs whose `element:` lists this spoke in `outputs.yml` (rule R1, section 4). Shortcodes for cross-references are provisional until stage D fixes site IDs.
+
+## 2. Parts in detail
+
+**Short answer.** 80 to 150 words, one paragraph. Lead with the answer to the question. Give the headline figures by hook, not typed. Name the strongest objection in one clause and the horizon the numbers refer to. No history, no definitions the reader already has from the hub.
+
+**Evidence.** H2 sections, usually three to six. Each section's first sentence is its claim. A paragraph carries one structural idea (claim, mechanism, implication, limitation). Mechanism is prose; a table is used only where a reader compares across rows. Figures and tables come from hooks (section 4), never pasted. A caveat is stated once, where it bites, and cross-referenced elsewhere.
+
+**Strongest objection.** Exactly one block per spoke. Lesser objections get a sentence in Evidence or a pointer to S12. Section 5.
+
+**Data block.** Generated. The author may add one optional `reading note` of at most 60 words for how to read the numbers (for example that the long horizon is a steady-state property, not a forecast: `metrics.md`, reading rule A2). Section 6.
+
+## 3. Word budget
+
+Counted prose: Short answer, Evidence and Objection block text. Hooks count as one word each. Not counted: front matter, headings, tables, figure captions, the Data block.
+
+| Part | Range |
+|---|---|
+| Short answer | 80 to 150 |
+| Objection block | 150 to 400 |
+| Evidence | the rest |
+| Whole spoke | 2,000 to 4,000, per the map (provisional) |
+
+The cap is a front-matter field, so a spoke that the author allows to run longer, or that is split, changes one line. The build warns above 100% of cap and fails above 125%.
+
+**[B-dep] Caps.** Assumes the recommended option 3 of `ledger.md` §2: cap 4,000 for ten spokes, S6 and S4 split. If the author picks option 1 or 2, the cap column below changes and nothing else.
+
+| Spoke | Kept words (old) | Proposed unit(s) | Cap |
+|---|---:|---|---:|
+| S1, S2, S3, S5, S7, S8, S11 | 5,947 to 9,671 | as the map | 4,000 |
+| S9 | 10,668 | as the map | 4,000 |
+| S10 | 13,238 | as the map; test at stage E | 4,000 |
+| S12 | 12,135 | as the map; test at stage E | 4,000 |
+| S6 | 20,680 | who pays; what they do; welfare comparison | 4,000 each |
+| S4 | 17,484 | valuation routes; declaration incentives | 4,000 each |
+
+**First compression measurement.** The test paragraph (section 8) compresses a 238-word passage of the whitepaper to 125 words, a ratio of 1.9. It is one non-model paragraph and the old text is fairly padded, so it is a floor for what laconic drafting gives on prose, not a forecast for the whole. The ledger's required ratios for S1 (1.5), S3 (1.7), S7 (1.6) and S11 (1.8) are inside it; S5 (2.0), S2 (2.1) and S8 (2.4) are at or just above. S9 (2.7), S12 (3.0) and S10 (3.3) need ratios beyond one paragraph's evidence and stay open for stage E. Model-dependent words shrink further because hooks replace typed numbers and their narration.
+
+## 4. Data hooks
+
+A hook is a named reference to a value in the data layer. The build replaces it with the formatted value. Authors never type a model number.
+
+### Grammar
+
+```
+{{o:ID[.STAT][@SCHEDULE][/HORIZON][#BAND]}}     output value
+{{i:NAME}}                                      input-register value
+{{fig:ID[@SCHEDULE][/HORIZON]}}                 figure from an output
+{{tab:ID[@SCHEDULE][/HORIZON][#BY]}}            table from an output
+{{lit:KEY}}                                     literature figure, keyed to the reference database
+```
+
+| Field | Values | Default |
+|---|---|---|
+| `ID` | an `id` in `outputs.yml` (O1, O1a to O1d, O2, O2b, O2c, O3, O4a, O4b, O5 to O8, OP1, OP3 to OP6, OS1) | none; required |
+| `STAT` | `p10`, `mean`, `p90`, `range` (renders "p10 to p90"), `point`, `lo`, `hi` | `mean` for `p10_mean_p90` outputs; `point` for `point_and_range` outputs |
+| `SCHEDULE` | `S_low`, `S_central`, `S_high` (from `outputs.yml` `schedules`) | front-matter `defaults.schedule` |
+| `HORIZON` | `transition`, `short`, `long` (from `horizons`) | front-matter `defaults.horizon` |
+| `BAND` | a key from the output's `by:` list, `key:value`, for example `wealth_band:top` or `overall` | `overall` where the output has one; otherwise the hook is an error |
+
+Examples: `{{o:O1.range@S_central/short}}`, `{{o:O2.mean#overall}}`, `{{o:OP1.p90@S_low/transition}}`, `{{i:W_min}}`, `{{fig:OP6@S_central}}`, `{{tab:O4a/long#income_decile}}`.
+
+Units, rounding and the "p10 to p90" wording come from the metric register, never from the author. A hook inside a sentence reads as the value alone, so the sentence has to work with "x%" or "x to y%" in the slot.
+
+### Rules the build enforces (stage D builds them; stage C fixes them)
+
+1. **Unknown ID is an error.** The ID, `STAT`, `SCHEDULE`, `HORIZON` and `BAND` must all exist in the manifest.
+2. **R1, forward.** A hook to an output whose `element:` does not list this spoke is an error. Fix the manifest or drop the hook.
+3. **R1, reverse.** An output whose `element:` lists this spoke and that no hook cites is an error. The output either belongs elsewhere or the spoke is incomplete.
+4. **No typed model numbers.** Any figure in prose that is a model result or input value is a lint error. The lint flags percentages, currency amounts, decimals and numbers of three or more digits outside hooks, headings, years and section references. Small structural counts are written as words ("six taxes are retired"). A figure from the literature is entered through `{{lit:KEY}}` so it carries its source.
+5. **Draft versus release.** Until the data gate opens, a hook to a value with no run renders as `[[O2.mean@S_central/short]]` and the page is marked draft. A release build fails on any unresolved hook.
+6. **Horizon discipline.** A claim about the long horizon is worded as a steady-state property, not a forecast, and the long value never appears in a Short answer without the short one beside it (author, 2026-11-16, `metrics.md` reading rule A2).
+
+## 5. The objection block
+
+One per spoke. It states the objection at full strength, as a holder of it would, before any reply.
+
+```markdown
+## Strongest objection
+
+**Objection.** [The strongest version, 60 to 150 words, in the objector's terms.
+No strawman. Use a hook if the objection rests on a number.]
+
+**Held by.** [A named source from the literature, or "no one has put this in print;
+it is the sceptic's obvious point".]
+
+**Response.** [Up to 200 words. What the design does about it, with hooks for
+numbers. Say where the response is a trade-off.]
+
+**Status.** [Exactly one: open question | named compromise | empirical.]
+[One sentence on what that means here.]
+
+**What would change the answer.** [A condition, or a pointer: (S12 ...).]
+```
+
+Labels follow the style guide: *open question* is work nobody has done, assigned to a future paper and to SCOPE if outside the project; *named compromise* is a trade-off already accepted and stated; *empirical* is what only implementation can settle. The response never claims more than the label allows. "What would change the answer" points at the falsification item in S12 where one exists.
+
+## 6. The Data block
+
+Generated from the hooks the spoke uses. It lets a reader or economist check every number without leaving the page, and it is the only place the run and inputs are named.
+
+| Row | Content |
+|---|---|
+| Outputs cited | one line per output ID: title, `STAT`, schedule, horizon, value with unit |
+| Run | manifest `version`, `country_pack`, run date |
+| Inputs | each `{{i:}}` name, value, unit, register entry link |
+| Literature figures | each `{{lit:}}` key with its source |
+| Reading note | the author's optional note, at most 60 words |
+| Replicate | link to the data-layer page for each output |
+
+The block has no prose the author must keep in step with the text. A hook added to the body appears in the block at the next build.
+
+## 7. Writing rules
+
+The writing lane applies `docs/agents/reference/writing/style-guide.md` and `prose-rules.md` in one pass while drafting. For spokes this adds:
+
+1. **Draft compressed.** Lead with the point. No preamble, no closing restatement, no reflexive hedging.
+2. **Prose first.** Bullets and tables only where the reader compares or follows a sequence.
+3. **State positions in the present tense.** No account of earlier versions, no "has since been", no revision narrative inside a spoke.
+4. **One caveat, once.** Name it where it bites and cross-reference it.
+5. **Name trade-offs.** Where the design departs from its principle, say so.
+6. **Hedge with a condition.** Say under what condition a claim fails, not that it might.
+7. **Cross-references** carry the shortcode and are fully bracketed: `(S5)`, `(S5 §2)`, `(MF §6)` for a retired source if a spoke must cite one. Never a bare section sign. Spoke shortcodes are provisional until stage D.
+8. **Do not oversell.** A spoke undercuts its strongest claim with a direct statement of what is unproven.
+9. **No em dashes, no "genuine", no decorative intensifiers, no "not X but Y" for plain claims.** Uneven paragraph length is allowed.
+10. **A spoke stands alone.** It defines in a clause any term it needs; it does not assume the reader came through the hub, and it does not re-explain what the hub or another spoke explains. Link instead.
+11. **Never invent** a figure, quote, citation or DOI. Mark anything unverified.
+12. **Check.** Spokes use a new checker; `check_wdt_format.py` is for the old paper shape. The spoke checker is a stage D task. Until it exists, the writing lane checks shape, budget and hook syntax by hand against this file.
+
+The hub (H0 to H7) follows rules 1 to 12 and its own outline in `map.md`; it does not use the four-part shape.
+
+## 8. Test paragraph
+
+Test only. It is not spoke text and is not to be reused as written. Spoke S3, Evidence section on the symmetric refund. Source: whitepaper §3.5, first three paragraphs (238 words). Draft: 125 words. No model numbers, so no hooks.
+
+> Most tax systems take a share of a rise in wealth and leave the whole of a fall with the holder. That penalises founders whose wealth moves with one illiquid asset, and it gives them reason to restructure, delay realisation or leave. The WDT treats gains and losses alike: a loss year is refunded at the marginal rate an equivalent gain would have paid, so the state shares the downside. Refunds sit inside a lifetime envelope. Total refunds to a person cannot exceed the total tax they have paid, because without the cap the WDT would insure failed speculation instead of sharing a contribution history. If cumulative refunds ever exceed cumulative tax, later gains repay the excess before ordinary liability resumes. Early repayment is allowed.
+
+What the test shows: the old text's worked 25% example is dropped because the rate is a schedule parameter and belongs to a hook if a spoke needs it. Content kept: asymmetry problem, symmetry rule, cap and its reason, repayment, early repayment. Content left for later paragraphs: the envelope as cooperative stake, the distributional consequence, the inheritance reset.
+
+## 9. Checks run
+
+| Check | Result |
+|---|---|
+| Shape defined: four parts, order, front matter | section 1 and 2 |
+| Word budget defined and counted | section 3 |
+| Data-hook syntax defined | section 4 |
+| Objection block defined | section 5 |
+| Data block defined | section 6 |
+| One paragraph written as a test only | section 8 |
+| Hook grammar checked against `outputs.yml` | examples in section 4 parsed; IDs, schedules and horizons exist |
+
+## 10. For the author
+
+1. Approve the shape, or change it.
+2. Rule on the stage B budget (`ledger.md` §8 item 1); section 3 caps follow.
+3. Confirm the single-objection rule (section 5), the 60-word reading note, and that the long value never stands alone in a Short answer (section 4, rule 6).
+4. Confirm the hook lint is strict on typed figures (section 4, rule 4), including literature figures through `{{lit:}}`.
+5. Stage D then fixes site IDs, URLs, build mechanics for hooks and the spoke checker.
