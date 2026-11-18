@@ -39,11 +39,30 @@ None. If `run_fields_added` is empty or missing in a manifest, the validator beh
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** validator reads `line_horizons` (V7 expected cells per line; a cell at a horizon outside the line's own is a V7 error in every mode) and `run_fields_added` (known run fields; missing is a V8 error when final, a warning otherwise; `pack_country` must equal `run.country_pack`). Fixture maker follows; fixture regenerated with the three run fields.
+- **Next:** guru records the rule in hooks.md 3.4.
+- **Decisions:** an unexpected line cell also stops that cell counting toward coverage. Absent or empty `run_fields_added` behaves as before.
+- **Gotchas:** the brief says OW3 loses 60 M15b cells and keeps 30; the fixture had 45 M15b cells (5 bands, 3 schedules, 3 horizons), now 15, so it lost 30. `build_metrics.py` prints its usual warnings; `registry/metrics.json` unchanged.
+- **Resume:** `pytest tests/data -q`, `tests/gate`, `tests/model_v3`.
+- **Not run:** none.
+- **State:** done
+
+```
+Change report
+- Task: 058c, validator and fixture follow line_horizons and run_fields_added
+- Files changed: pipeline/validate_outputs.py; tests/data/make_fixture.py; tests/data/fixtures/outputs.fixture.json (regenerated); tests/data/test_validate_outputs.py (9 tests added); this brief
+- What is different now: a complete final file with M15b at transition only passes V7; the three added run fields are known
+- New or changed interfaces: none (Entry gains line_horizons)
+- Acceptance criteria:
+  - Fixture passes in --fixture mode, exit 0: met
+  - Transition-only M15b complete and final passes V7; other-window cell fails V7 in every mode; missing transition cell fails when final: met (tests)
+  - Final file lacking a run field fails V8, provisional warns: met (3 fields, tests)
+  - pytest tests/data 84 passed (75 old + 9 new), tests/gate 17, tests/model_v3 108: met; no old test asserted the old behaviour, none changed
+  - git diff --stat only Touches: met
+- Deviations from the brief: cell counts in the brief (60 lost, 30 kept) differ from the fixture (30 lost, 15 kept)
+- Risks / follow-ups: none
+- Verification: the pytest runs above; build_metrics.py output unchanged
+- Overview sections likely needing an update: none
+- Commit / branch: brief/058-validator-line-horizons
+```
 <!-- progress:end -->

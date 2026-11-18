@@ -48,6 +48,13 @@ def stats(summary: str, base: float) -> dict:
     raise ValueError(f"unknown summary form {summary!r}")
 
 
+def fake_run_field(name: str, manifest: dict) -> str:
+    """Value for a run field the manifest adds: pack_country follows country_pack, hashes are fake."""
+    if name == "pack_country":
+        return manifest["country_pack"]
+    return hashlib.sha256(f"fixture-{name}".encode()).hexdigest()
+
+
 def build(manifest_path: Path = MANIFEST, inputs_path: Path = INPUTS) -> dict:
     manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
     schedules = list(manifest["schedules"])
@@ -67,8 +74,11 @@ def build(manifest_path: Path = MANIFEST, inputs_path: Path = INPUTS) -> dict:
         scheds = [None] if e.get("once_not_per_schedule") else schedules
         horizons = [str(h) for h in (e.get("horizons") or horizons_all)]
         lines = [str(x) for x in (e.get("lines") or [])] or [None]
+        line_h = {str(k): [str(h) for h in v] for k, v in (e.get("line_horizons") or {}).items()}
         cells = []
         for s, h, ln, combo in product(scheds, horizons, lines, list(product(*vocab)) if names else [()]):
+            if ln is not None and h not in line_h.get(ln, horizons):
+                continue   # a line is reported only at its own horizons (manifest line_horizons)
             n += 1
             base = 1.0 + (n % 17) * 0.3
             cell: dict = {}
@@ -99,6 +109,7 @@ def build(manifest_path: Path = MANIFEST, inputs_path: Path = INPUTS) -> dict:
             "paths": 0,
             "base_year": 2025,
             "fixture": True,
+            **{k: fake_run_field(k, manifest) for k in manifest.get("run_fields_added") or []},
         },
         "outputs": outputs,
     }

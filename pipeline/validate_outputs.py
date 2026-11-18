@@ -36,7 +36,7 @@ import json
 import math
 import re
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from itertools import product
 from pathlib import Path
 
@@ -105,6 +105,7 @@ class Entry:
     lines: list[str]
     series: bool
     kind: str
+    line_horizons: dict[str, list[str]] = field(default_factory=dict)   # line -> its own horizons; absent line: `horizons`
 
 
 def sha256_file(path: Path) -> str | None:
@@ -138,6 +139,7 @@ def load_entries(manifest: dict) -> dict[str, Entry]:
                 lines=[str(x) for x in (e.get("lines") or [])],
                 series=e.get("series") is True,
                 kind=e.get("kind", ""),
+                line_horizons={str(k): [str(h) for h in v] for k, v in (e.get("line_horizons") or {}).items()},
             )
     return entries
 
@@ -246,6 +248,9 @@ class Validator:
             self.add("V12", "warning", "file", f"unknown top-level field {k!r}")
 
     # V8 ------------------------------------------------------------------
+    def added_run_fields(self) -> list[str]:
+        return [str(k) for k in (self.manifest.get("run_fields_added") or [])]
+
     def v8_run(self) -> None:
         run = self.data.get("run")
         if not isinstance(run, dict):
@@ -254,7 +259,16 @@ class Validator:
         for k in RUN_REQUIRED:
             if k not in run:
                 self.add("V8", "error", "run", f"missing field {k!r}")
-        for k in sorted(set(run) - RUN_FIELDS):
+        added = self.added_run_fields()
+        for k in added:
+            if k not in run:
+                self.add("V8", "error" if self.strict() else "warning", "run",
+                         f"missing field {k!r} (manifest run_fields_added)")
+        if "pack_country" in added and "pack_country" in run and "country_pack" in run \
+                and run["pack_country"] != run["country_pack"]:
+            self.add("V8", "error", "run.pack_country",
+                     f"{run['pack_country']!r} must equal run.country_pack {run['country_pack']!r}")
+        for k in sorted(set(run) - RUN_FIELDS - set(added)):
             self.add("V12", "warning", "run", f"unknown field {k!r}")
         status = run.get("status")
         if "status" in run and status not in ("provisional", "final"):
@@ -388,6 +402,13 @@ class Validator:
             if cell.get("line") not in ent.lines:
                 self.add("V3", "error", where, f"line {cell.get('line')!r} not in {ent.lines}")
                 ok = False
+            else:
+                own = ent.line_horizons.get(cell.get("line"))
+                if own is not None and cell.get("horizon") in ent.horizons and cell.get("horizon") not in own:
+                    self.add("V7", "error", where,
+                             f"unexpected cell: line {cell.get('line')!r} is reported only at {own}, "
+                             f"not {cell.get('horizon')!r}")
+                    ok = False
         elif "line" in cell:
             self.add("V3", "error", where, "output declares no lines: remove 'line'")
             ok = False
@@ -475,6 +496,8 @@ class Validator:
         combos = product(*(declared[n] for n in names)) if names else [()]
         keys = set()
         for s, h, combo, ln in product(scheds, ent.horizons, list(combos), lines):
+            if ln is not None and h not in ent.line_horizons.get(ln, ent.horizons):
+                continue
             keys.add((s, h, tuple(zip(names, combo)), ln))
         return keys
 

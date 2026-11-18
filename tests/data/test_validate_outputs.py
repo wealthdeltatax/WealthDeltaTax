@@ -294,3 +294,65 @@ def test_v12_unknown_fields_warn_only(run, doc):
     cell(doc, "O3")["series"] = [{"t": 1, "p10": 1.0, "mean": 2.0, "p90": 3.0}]
     f = run(doc, "fixture")
     assert len(hits(f, "V12", "warning")) == 5 and not errors(f)
+
+
+# ── line_horizons and the added run fields (brief 058c) ──────────────────────
+
+def m15b(doc):
+    return [c for c in doc["outputs"]["OW3"]["cells"] if c.get("line") == "M15b"]
+
+
+def finalise(doc):
+    """The fixture as a complete final model file (fixture flag removed, status final)."""
+    doc["run"]["status"] = "final"
+    doc["run"].pop("fixture", None)
+    return doc
+
+
+def test_m15b_is_reported_at_transition_only_in_the_fixture(doc):
+    assert {c["horizon"] for c in m15b(doc)} == {"transition"}
+    assert {c["horizon"] for c in doc["outputs"]["OW3"]["cells"] if c.get("line") == "M15a"} == \
+        {"transition", "short", "long"}
+
+
+def test_v7_complete_final_file_passes(run, doc):
+    f = run(finalise(doc), "default")
+    assert hits(f, "V7") == []
+
+
+def test_v7_cell_outside_line_horizons_fails_in_every_mode(run, doc):
+    extra = dict(m15b(doc)[0], horizon="short")
+    doc["outputs"]["OW3"]["cells"].append(extra)
+    for mode in ("fixture", "default", "final"):
+        assert hits(run(doc, mode), "V7", "error"), mode
+
+
+def test_v7_missing_transition_cell_fails_when_final_only(run, doc):
+    cells = doc["outputs"]["OW3"]["cells"]
+    cells.remove(m15b(doc)[0])
+    assert not hits(run(doc, "fixture"), "V7", "error")
+    assert not hits(run(doc, "default"), "V7", "error")   # provisional status: warning
+    assert hits(run(finalise(doc), "default"), "V7", "error")
+
+
+@pytest.mark.parametrize("name", ["pack_sha256", "pack_country", "levers_sha256"])
+def test_v8_added_run_fields(run, doc, name):
+    del doc["run"][name]
+    assert hits(run(doc, "default"), "V8", "warning")      # provisional
+    assert not hits(run(doc, "default"), "V8", "error")
+    assert hits(run(finalise(doc), "default"), "V8", "error")
+    assert not hits(run(doc, "default"), "V12")
+
+
+def test_v8_pack_country_must_equal_country_pack(run, doc):
+    doc["run"]["pack_country"] = "XXX"
+    assert hits(run(doc, "default"), "V8", "error")
+
+
+def test_added_run_fields_are_known_fields_and_absent_list_changes_nothing(vo, manifest, doc):
+    assert hits(vo.validate(doc, manifest, MANIFEST, INPUTS_JSON, "fixture"), "V12") == []
+    m = dict(manifest)
+    m.pop("run_fields_added")
+    for k in ("pack_sha256", "pack_country", "levers_sha256"):
+        del doc["run"][k]
+    assert vo.validate(doc, m, MANIFEST, INPUTS_JSON, "fixture") == []
