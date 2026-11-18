@@ -12,7 +12,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent 2 (guru) | 039g done | 040g acceptance plan (D1, stop for the author), then build briefs (D2) |
 | Agent 3 (code) | 033c done | free |
 | Agent 4 (code) | 038c and 034c done | free |
-| Agent 5 (research) | 041r and 042r done | free |
+| Agent 5 (research) | 041r and 042r done | 043r source mapping |
 | Agent 6 (site) | 029s and 031s done | free |
 
 Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). 011g is split: 035g, 036r, 037c, 038c run now; 039g (architecture) needs them; 040g (acceptance and build briefs) follows; then the build briefs.
