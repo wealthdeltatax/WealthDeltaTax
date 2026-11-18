@@ -10,7 +10,7 @@ Write `docs/model-v3/acceptance.md` and the build briefs, one per architecture b
 
 ## Design
 Two stages, guru only, each ending in a stop.
-- **D1: acceptance plan.** Checkpoint: `docs/model-v3/acceptance.md`. Check: every build stage has a stop and a measurable criterion (a test, a bound, a reproducible number); the smoke test, the seed and sample-size policy, the convergence test and the run script are specified; every requirement R1 to R11 maps to a criterion; the single command that G1 runs as the acceptance run is named and exits 0 only when all stages pass.
+- **D1: acceptance plan.** Checkpoint: `docs/model-v3/acceptance.md`. Check: every build stage has a stop and a measurable criterion (a test, a bound, a reproducible number); the smoke test, the seed and sample-size policy, the convergence test and the run script are specified; every requirement R1 to R11 maps to a criterion; the single command that G1 runs as the acceptance run is named and exits 0 only when all stages pass. `acceptance.md` holds exactly one line of the form `Acceptance command: \`...\`` (the gate checker, 033c, reads it; `order.md` guru rulings of 2026-11-18).
 - **D2: build briefs.** Checkpoint: one brief per build stage under `docs/briefs/`, each with its own number, one lane letter, a `Touches` list that overlaps no sibling, shared interfaces fixed in advance (the output file shape, the country pack format, the id lists), and `Depends on` set so that independent stages run at once. Check: a script lists the Touches of all build briefs and reports any overlap; each brief fits one session (about 5 files or one module).
 Stage D2 is the point at which build briefs may be written; none exists before D1 is approved.
 

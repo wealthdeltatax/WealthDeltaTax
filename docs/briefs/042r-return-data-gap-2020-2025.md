@@ -39,11 +39,11 @@ Ask rather than guess.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:**
-<!-- progress:end -->
+- **Done:** `docs/model-v3/returns-gap.md` and `returns/gap.py` (+ `gap_results.json`). JST R6 licence settled from the R6 documentation: CC BY-NC-SA 4.0 (non-commercial, share-alike, citation of JST 2017 and JKKST 2019); no later release found. Series table with licence statements and URLs (ONS CPI and UK HPI: OGL v3.0, used; FTSE: LSEG licence needed, not used; Bank of England: OGL but no values retrievable, not used; rents: OGL but no annual values read). 2020 wealth return estimated from JST's own 2020 series: -0.44% real. 2021 to 2025 housing-only proxy: 10.14, 2.78, -5.92, 4.17, 1.28 (estimates, not wealth returns). Effect on I-D1a: mean 4.74 to 4.70 (2020), 4.61 (proxy), 4.49 or 4.37 (stress); band 3.41 to 6.07 becomes 3.38 to 6.02 / 3.34 to 5.88; SD 8.1 to 8.3; lag-1 0.29 to 0.32. S0 reproduces the register; 2022 and 2023 hand checks agree.
+- **Next:** author supplies a licensed equity and gilt series (or accepts 2019 as the end); guru decides on a JST licence notice and whether I-D1e should be reworded.
+- **Decisions:** no splice; the housing proxy is shown only for shape (it is December on December, JST's house price is not: 5.7 points apart in 2020); rent return held at JST 2020 (assumption); stress shifts of 3 and 6 points are labelled assumptions.
+- **Gotchas:** macrohistory.net is not on the fetch allowlist, so the licence came from the R6 documentation copy (first 100,000 of 570,066 characters) and the NBER page; re-read the terms page when reachable. HPI values are the first-published December changes, later revised. No LICENSE file in the repo.
+- **Resume:** n/a
+- **Not run:** any model run; equity and gilt returns; HPI download tables.
+- **State:** done, merged.
+<<!-- progress:end -->

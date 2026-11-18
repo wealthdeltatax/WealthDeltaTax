@@ -1,6 +1,6 @@
 # 032: Research: sidecar data for literature figures and input display (site.md B12)
 
-- **Status:** ready
+- **Status:** done, merged by the agent 2026-11-18; guru accepted the new input unit tags (`hooks.md` rulings), retired
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** none
 - **Read:** `docs/restructure/site/hooks.md` sections 4.3, 4.5, 11 (questions 8 and 9) and 10; `docs/model-v3/inputs.md` (row format; every row's unit and Low, Central, High cells); `registry/references.bib` and `registry/references.json` (keys only); `docs/agents/research.md` and `docs/agents/reference/research/`.

@@ -37,11 +37,11 @@ Ask rather than guess.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:**
-<!-- progress:end -->
+- **Done:** `tornado/tornado_v2.py` (original kept) and `check_v2.py`; `tornado.md` section 10 'Rerun 2026-11-18' with the change table; old I-D1a rows and the statements resting on them marked superseded. I-D1a swing on M1: 4.42 (ε held 29.97%) or 4.12 (ε recalibrated 27.95%), against 8.78 before; still rank 1, the lead over I-D4a falls from 4.5 to 2.1 times. Break-even arithmetic mean 3.55% (held) or 3.80% (recalibrated); level 2 probability 12.5% or 18.3%. Second method agrees on central M1, two swings and the break-even.
+- **Next:** guru decides held or recalibrated ε (lever D2) and whether to carry the 8.11 and the new break-even into stage C.
+- **Decisions:** both ε treatments carried; SD (I-D1b) and lag-1 (I-D1b2) do not reach the identity (no term; refunds netted in g), stated in section 10.2; I-D1a0 removed; true-mean standard error 1.038 from the I-D1a band; normal approximation (A8).
+- **Gotchas:** the brief's "about 31% recalibrated" does not reproduce; recalibrating at 4.74 gives 27.95%. The probability excludes level 1 return risk.
+- **Resume:** n/a
+- **Not run:** all-corner runs; any model run; refund-cap effects (need a path run).
+- **State:** done, merged.
+<<!-- progress:end -->
