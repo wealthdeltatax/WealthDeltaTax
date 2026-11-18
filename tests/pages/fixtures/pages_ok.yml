@@ -1,0 +1,37 @@
+# Fixture: a small valid registry, with a draft new page on a live legacy URL.
+- id: old-val
+  type: legacy
+  title: Old valuation paper
+  url: /val.html
+  source: source/5_Valuing_Wealth.md
+  status: legacy
+- id: old-wp
+  type: legacy
+  title: Old white paper
+  url: /wp.html
+  source: source/1_Wealth_Delta_Tax_Whitepaper.md
+  status: legacy
+- id: H
+  type: hub
+  title: Hub
+  url: /index.html
+  source: source/hub.md
+  status: draft
+  aliases: [wp.html]
+- id: VAL
+  type: spoke
+  url: /val.html
+  source: source/spokes/VAL.md
+  label: Valuation
+  order: 1
+- id: DECL
+  type: appendix
+  url: /decl.html
+  source: source/spokes/DECL.md
+  parent: VAL
+- id: FISC
+  type: spoke
+  url: /fisc.html
+  source: source/spokes/FISC.md
+  label: Rates and revenue
+  order: 2

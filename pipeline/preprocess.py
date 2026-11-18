@@ -48,16 +48,28 @@ def main() -> None:
     source = cfg.SOURCE_DIR
 
     # ── Step 0.5: extract metadata from all source .md files ─────────────
-    # Read papers.yml for the source→output mapping.
-    # Shortcode is now read from each file's front matter, not from papers.yml.
-    registry_path = cfg.REGISTRY_YML
-    print(f"  Looking for papers.yml at: {registry_path.resolve()}")
+    # Read pages.yml (brief 029s) for the source→output mapping of the papers.
+    # Shortcode is read from each file's front matter, not from the registry.
+    registry_path = cfg.PAGES_YML
+    print(f"  Looking for pages.yml at: {registry_path.resolve()}")
     if not registry_path.exists():
-        print("ERROR: registry/papers.yml not found.")
+        print("ERROR: registry/pages.yml not found.")
         return
 
-    with registry_path.open(encoding="utf-8") as fh:
-        registry = yaml.safe_load(fh)
+    pages = cfg.load_pages(registry_path)
+    errors = cfg.validate_pages(pages)
+    if errors:
+        print("ERROR: registry/pages.yml is invalid:")
+        for e in errors:
+            print(f"  ! {e}")
+        raise SystemExit(1)
+    for c in cfg.find_url_collisions(pages):
+        print(f"  ! URL {c['url']} claimed by {', '.join(c['ids'])}: "
+              f"built from {', '.join(c['live']) or 'none'}, held (not published): {', '.join(c['held']) or 'none'}")
+        if len(c["live"]) > 1:
+            print("ERROR: two live pages claim one URL.")
+            raise SystemExit(1)
+    registry = cfg.paper_registry(pages)
 
     # Build paper_meta by extracting from each source file.
     # Also build a lookup: shortcode → output filename (still needed by the pipeline).
