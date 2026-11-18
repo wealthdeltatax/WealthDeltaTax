@@ -151,3 +151,6 @@ Author: a schedule is feasible when retired receipts never exceed revenue in at 
 
 ## 2026-11-18: pack hash error message (P2) and pack mappings
 Author accepted the weaker reading of P2: a changed pack byte fails on the file sha256 and names the file; row and column are added only when the file also breaks its schema. A per-row hash was not adopted. `architecture.md` P2 and P9 and the 047c brief now say so; P9 compares the register row count with `inputs.md` at test time (274 today). The part-of, group and X1 pointer mappings that `core/pack.py` takes from its caller are written by brief 048c into `model_v3/levers.json` (`pack_mappings`).
+
+## 2026-11-18: register corrections from the source check
+Author: the central workers' share of corporation tax is 51% (held ifo WP 241, pp. 5, 6, 19), not 40% (that was the capital share); I-D6c and I-D6j change by the row's own rule. I-M6l's figures are replaced by those in the held OxREP article (Advani, Hughson, Summers). Applied by 059r; dependants (tornado, drivers) are listed in its report for the guru. Site tooling briefs B3, B7, B8, B10, B14 written as 060c, 061s, 062s, 063s, 064s.
