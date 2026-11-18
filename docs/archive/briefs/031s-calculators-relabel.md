@@ -1,6 +1,6 @@
 # 031: Site: relabel the calculators (site.md B11)
 
-- **Status:** ready
+- **Status:** done, merged 2026-11-18 (author: merge the label; the revenue calculator stays broken until the old series is retired; avoidance.html also shows the label)
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** none
 - **Read:** `docs/restructure/site.md` section 8 (B11) and Q6; `docs/restructure/site/nav.md` sections 2.6 and 10; the four files under Touches; `docs/agents/web.md`.
