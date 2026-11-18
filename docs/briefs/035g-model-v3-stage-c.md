@@ -1,6 +1,6 @@
 # 035: Model v3 stage C1: design decisions
 
-- **Status:** ready
+- **Status:** under way (C1: items 1 to 3 and 5 to 8 decided; item 4 waits for 036r)
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** 011g (stages A, A2 and B passed; this is its stage C1). Starts now; item 4 waits for 036r. Stage C2 (architecture) is brief 039g.
 - **Read:** `docs/briefs/011g-model-v3-design.md` (stage C and D text); `docs/model-audit/synthesis.md` sections 3, 4, 5, 7 and 10; `docs/model-v3/drivers.md` (all, with the 2026-11-17 note); `docs/model-v3/tornado.md` sections 1 to 4; `docs/model-v3/metrics.md`; `docs/restructure/order.md` G1, G2 (what the gate reads); `docs/briefs/030c-data-interface.md` (output file shape); `docs/model-lessons/` only where a decision cites it; `docs/agents/guru.md`. The 036r note (`docs/model-v3/returns-method.md`) when it lands.
@@ -51,11 +51,11 @@ Whether the break-even return is an output (C1 item 2); whether the core carries
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:** items 1 to 3 with the author; item 4 after 036r.
-- **Decisions:**
+- **Done:** `docs/model-v3/stage-c-decisions.md` written with the author's answers: geometric mean throughout (item 1; supersedes the arithmetic note of the same evening); no clipping of M1, one sign convention, the share of paths below zero reported, and the break-even return as a new output (item 2; the proposal of `M1f`, `O1e`, `O1f` awaits approval, nothing edited); the model computes epsilon and the identity is a check (item 3); payer-level state per path (item 5); one fixed seed, 2025-26 prices (item 6; numbers set in 039g); D5 a level 2 draw and D10 a switch off in the headline (item 7); housekeeping done (item 8).
+- **Next:** item 4 after 036r lands (`returns-method.md`); the author approves the `M1f`, `O1e`, `O1f` proposal; the author approves C1; then 039g starts.
+- **Decisions:** see `stage-c-decisions.md`.
 - **Gotchas:** the tornado's return swing mixes level 1 and level 2 (see 036r); do not trust it for the level 2 range.
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Resume:** open `stage-c-decisions.md`; item 4 is the only open item.
+- **Not run:** none.
+- **State:** C1 at its checkpoint; stopped for item 4 and the author's approval.
 <!-- progress:end -->
