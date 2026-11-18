@@ -35,10 +35,10 @@ Settled by 039g; list any that remain.
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** D1 approved by the author (Q1 to Q6 as proposed) and merged to main with the matching `architecture.md` edits (test budget 3,020; `accept.sh` and `test_converge.py` in V3-12). D2: 13 build briefs 045g to 057c, one per stage V3-0 to V3-12, on branch `brief/040-acceptance`. Overlap script: no Touches shared between parallel briefs; the only shared file is `tests/model_v3/test_pack.py` (047, then 048).
-- **Next:** author approves D2. Then: briefs to `ready`, STATUS.md, `docs/lane-plan.html`, `docs/decisions.md`, move `011g` to `docs/archive/briefs/`. First wave: 045g, 046c, 049c.
+- **Next:** author approved D2 on 2026-11-18 with two fixes for you: (a) add `docs/decisions.md` to 057c Touches (a raised sample size is entered there); (b) 046c creates the empty `__init__.py` for `core/`, `runner/`, `out/` and `pack/` (add to its Touches and rerun the overlap script). Then: briefs to `ready`, STATUS.md, `docs/lane-plan.html`, `docs/decisions.md`, move `011g` to `docs/archive/briefs/`. First wave: 045g, 046c, 049c.
 - **Decisions:** none new.
 - **Gotchas:** the return sample now ends in 2019, so the architecture's pinned n 117 for test R1 must be re-derived (050c says so). 045g touches `registry/`, so it runs the local site build.
 - **Resume:** branch `brief/040-acceptance`.
 - **Not run:** no code or test (nothing built).
-- **State:** D2 pushed; NEEDS THE AUTHOR.
+- **State:** D2 approved with fixes (a) and (b); merge to main after them. Lane plan, STATUS and decisions already updated on main by the guru; you still move 011g to `docs/archive/briefs/` and set the 13 briefs to ready.
 <!-- progress:end -->
