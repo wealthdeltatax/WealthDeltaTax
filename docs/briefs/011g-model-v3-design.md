@@ -1,6 +1,6 @@
 # 011: Model v3 design
 
-- **Status:** underway; parent brief. Stages C and D are split into children 035g, 036r, 037c, 038c, 039g and 040g (2026-11-17). (stage A passed 2026-11-16, author confirmed all four items; stage A2 passed 2026-11-16: `docs/model-v3/drivers.md`, amended `metrics.md` and `outputs.yml`, author confirmed the three defaults; stage B is brief 012r, ready)
+- **Status:** underway; parent brief. Stages A, A2, B and C1 passed (C1 approved 2026-11-18). Open: C2 (039g architecture) and stage D (040g: D1 acceptance, D2 build briefs). Retires when 040g D2 is approved.
 - **Author/date:** K. Ogata with the guru, 2026-11-16
 - **Depends on:** 001c (merged; synthesis in `docs/model-audit/synthesis.md`)
 - **Read:** `docs/model-audit/synthesis.md`, then `docs/model-audit/lessons-so-far.md`. Nothing else need be opened until a stage names it.
@@ -45,12 +45,11 @@ Writing model code, fixing v1 or v2, writing or editing papers, choosing the whi
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** stage A passed (16 entries). Stage A2 passed: `drivers.md`, range design and reading rule in `metrics.md`, M2b, M2c, M8, S1, P6, manifest 21 entries; the author confirmed the retirement trigger, the named-schedule choice rule and the 0.5-point tornado cut-off. Brief 012r (stage B) written.
-- **Next:** 012r runs B1 to B4 in the research lane; then the guru runs the tornado (`docs/model-v3/tornado.md`); then stage C.
-- **Decisions:** levers swept and not sampled; two-level uncertainty; long window read as steady state; six taxes retire, stamp duties carry two receipt lines.
-- **Gotchas:** my chat figure of 3% of GDP for the identity was an unsourced guess and disagrees with v2's 7.34% post-fill WDT (`drivers.md` section 1). The manifest has 21 entries, not the 14 once noted.
-- **Resume:** read `docs/archive/briefs/012r-v3-input-register.md`; after B4 read `inputs.md` and run the tornado.
-- **Not run:** the tornado (needs 012r's values); M2 against the RATES 0.35% and the Green Book check (both in 012r B4).
-- **Split:** stage C into 035g, 036r, 037c, 038c, 039g; stage D into 040g (2026-11-17).
-- **State:** stages A, A2 and B passed; stage C running as children
+- **Done:** stage A (manifest and metric register), A2 (drivers, range design), B (input register, now 274 rows; 012r, 022r to 024r, 028r, 036r), the tier 1 tornado (027r), C1 design decisions (035g, approved 2026-11-18), and the C inputs: 036r return method, 037c port inventory, 038c country pack spec.
+- **Next:** 039g (C2 architecture), then the author approves it; 040g D1 (`acceptance.md`), approval; 040g D2 (build briefs), approval; then this brief retires. 041r (tornado rerun) and 042r (return data gap) run in parallel and feed 039g and the architecture's return module.
+- **Decisions:** see `docs/model-v3/stage-c-decisions.md` and `docs/decisions.md`.
+- **Gotchas:** 011g's stage texts are the check each child must meet; the split changed who does the work, not the checks.
+- **Resume:** read `docs/model-v3/stage-c-decisions.md`, then 039g.
+- **Not run:** none.
+- **State:** stages A, A2, B and C1 passed; C2 ready.
 <!-- progress:end -->
