@@ -142,3 +142,6 @@ Author: a vertical tree with four areas plus root files (`model/` with v1, v2, v
 
 ## 2026-11-18: acceptance plan approved
 Author approved `docs/model-v3/acceptance.md` (040g D1) with Q1 to Q6 as proposed: `accept.sh` and `test_converge.py` join V3-12 (test budget 3,020); convergence thresholds 0.10 and 0.15 on spreads, 0.05 on doubling, 0.10 at level 2; unfilled-path ceiling 5%; no time cap on `accept.sh`; acceptance includes a full provisional run; P9 reads the register count from `inputs.md`. D2 follows.
+
+## 2026-11-18: model v3 build briefs approved
+Author approved the 13 build briefs 045g to 057c (040g D2) with two fixes for Agent 4 before merge: `docs/decisions.md` added to 057c Touches; the empty `__init__.py` files for `core/`, `runner/`, `out/` and `pack/` created by 046c. First wave 045g, 046c, 049c on Agents 2, 3 and 6. 050c re-derives its pinned return statistics on the 2019 sample and reports; a difference from the register (4.742, 8.219) stops for the author.
