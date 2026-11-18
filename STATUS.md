@@ -12,12 +12,13 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent 2 (guru) | 030c done | 039g architecture, then 040g acceptance and build briefs |
 | Agent 3 (code) | 033c done | free |
 | Agent 4 (code) | 038c and 034c done | free |
-| Agent 5 (research) | 036r done | 032r sidecars, then 041r tornado rerun, 042r data gap |
+| Agent 5 (research) | 032r done | 041r tornado rerun, then 042r data gap |
 | Agent 6 (site) | 029s and 031s done | free |
 
 Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). 011g is split: 035g, 036r, 037c, 038c run now; 039g (architecture) needs them; 040g (acceptance and build briefs) follows; then the build briefs.
 
 ## Recently done
+- 2026-11-18: 032r merged by the agent: `registry/inputs-display.yml` (274 rows) and `registry/lit-figures.yml` (6 entries, ONS ETB only; the other literature sources are not held and have no bib key). Guru accepted the input-only unit tags; rulings in `hooks.md`.
 - 2026-11-18: 033c merged: `python pipeline/check_gate.py --all` reports 0 of 26 units open (G1, G2, G3, G5 fail with reasons; 90 judgement rows pending). Its eight assumed formats accepted (`order.md` rulings). Agent 2 is writing 039g then 040g.
 - 2026-11-18: stage C1 approved by the author; break-even outputs added (metrics M1f, M1g; outputs O1e, O1f; manifest 39 outputs, version `stage-A8-breakeven-2026-11-18`). 039g (architecture) is unblocked and waits for an agent.
 - 2026-11-18: merged 029s (page registry, deploy green), 030c (data interface and validator; register now 274 rows), 031s (calculator label), 037c (port inventory), 036r, 038c, 034c. C1 item 4 decided on 036r: AR(1) normal generator, bootstrap cross-check, pool; mean: arithmetic in generator and check, geometric quoted; refund rule tau x loss; envelope resets at death. Manifest units fixed (O2, OF1, OW3). 036r return rows applied to the register (I-D1a is now the arithmetic mean with the level 2 band). Briefs 041r (tornado rerun with level 2) and 042r (data gap 2020 to 2025) written. 90 judgement rows pending.
