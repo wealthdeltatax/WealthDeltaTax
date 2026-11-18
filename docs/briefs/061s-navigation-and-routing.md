@@ -58,7 +58,7 @@ Routing file at `registry/routing.yml` (site.md R7): accepted; the guru corrects
 - **Gotchas:** no spoke file exists yet, so the R04 dependency warning cannot fire on the real registry (it is tested on fixtures); `tests/cards::test_committed_cards_are_current` already fails on clean `main` (not this brief).
 - **Resume:** `python3 -I pipeline/pages/routing.py; python3 -I pipeline/pages/nav.py --write _build/navbar.generated.yml; python3 -m pytest tests/nav tests/pages -q`
 - **Not run:** the deploy Action until after the push; accessibility and mobile (no layout change).
-- **State:** code commit f5ec55c on `brief/061s-navigation-routing`.
+- **State:** code commit 8a9b2c0 on `brief/061s-navigation-routing`.
 <!-- progress:end -->
 
 ### Change report
@@ -94,5 +94,5 @@ Change report
   - docs/wdt-site-architecture.md not updated (Touches excludes it); B15 owns that update.
 - Verification: pytest tests/nav tests/pages 87 passed; full `pytest tests` 294 passed, 1 failed (the pre-existing cards test above); routing.py and nav.py scripts exit 0; preprocess and quarto render exit 0; page list and HTML hashes identical before and after. Not run: accessibility and mobile (no layout change).
 - Overview sections likely needing an update: registry file list (routing.yml); pages/ modules (routing, nav); the nav.md count (guru, noted in the brief rulings).
-- Commit / branch: f5ec55c, brief/061s-navigation-routing.
+- Commit / branch: 8a9b2c0, brief/061s-navigation-routing.
 ```
