@@ -38,11 +38,33 @@ Stop and ask if K8 fails: it means the port or the decomposition is wrong, not t
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** draft; not started
+- **Done:** `core/schedule.py` (77 lines), `core/kernel.py` (567 lines, 480 code), `test_schedule.py` S1 to S5, `test_kernel.py` K1 to K10; 24 tests pass.
+- **Next:** none for this brief; V3-5 onward import `rate_function` and `run_lines`.
+- **Decisions:** refund rate read at new declared wealth (as v2); cumulative paid/refunded are lifetime records, not reset at death; K8 settle_delta case uses a stale post-sale basis set by the test (v1 convention); no `__init__.py` added (outside Touches).
+- **Gotchas:** `schedule.py` needs no levers or pack reading, so the named schedules and schedule grid are not built here.
+- **Resume:** n/a
+- **Not run:** `tests/model_v3/test_budget.py` and import-graph tests of V3-1 (rebased onto them, see report).
+- **State:** done; merged by the auto-merge rule if the report below says so
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 049c, model v3 V3-4: rate schedule and kernel (port)
+- Files changed: model_v3/core/schedule.py (new: tau, rate_function with R10 check); model_v3/core/kernel.py (new: port of model_v2/wdt_kernel.py with five changes); tests/model_v3/test_schedule.py (S1-S5); tests/model_v3/test_kernel.py (K1-K10); this brief's progress block
+- What is different now: v3 has the rate function and the refund kernel, tested, importing numpy only
+- New or changed interfaces: schedule.tau(W,k,tau_0,tau_m,W_min,form), schedule.rate_function(...)->callable (raises ValueError on a non-progressive draw); kernel.run_lines(rate_fn, g_mat (T,n), V0, ...); Book.paid / Book.refunded cumulative per line; step_death has no heir_influx argument
+- Acceptance criteria:
+  - S1-S5, K1-K10 pass: met (24 passed)
+  - K8 to 1e-12: met. 70 points (alpha 0.5,0.75,1,1.5,2,3,5 x g -3%,0,7.45%,10.45%,20% x N 10,30): worst |error| 2.3e-13. Non-zero settle_delta case (alpha 1.5, g 10.45%, N 30, stale post-sale basis): settle_delta 4.19, error 1.1e-14
+  - K6 (1000 lines vs alone, three B modes) and K9 to 1e-12: met
+  - K3 exact to the pound: met (refund = paid to 1e-6; one pound over is held back, lost_refund 1e-6)
+  - schedule.py <= 170 lines: 77. kernel.py <= 620: 567 (480 code). No project import: met (ast test)
+  - git diff --stat limited to Touches: met
+- Deviations from the brief: none. K8 does not reuse the v2 `settle_tw` pound cap: on the kernel path the refund cap is in units (as in v2's kernel), so the terms are read off kernel flows and TW off the book.
+- Risks / follow-ups: (1) the refund rate is read at new declared wealth W_new (v2 behaviour); the papers' "rate on an equivalent gain" could mean the old wealth. Author may confirm. (2) For Route C the cap is units paid, so credited pounds refunded can exceed credited pounds paid if the declared price rose; K3 tests the cash routes. (3) named schedules and the schedule grid from levers.json are not built here (architecture 2.4 lists them; the brief's Out of scope reads no pack).
+- Verification: pytest tests/model_v3 -q; line counts; ast import check
+- Overview sections likely needing an update: model v3 build status
+- Commit / branch: brief/049-schedule-kernel
+```
+
