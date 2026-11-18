@@ -1,6 +1,6 @@
 # 036: Research: how the return range is built (model v3 stage C input)
 
-- **Status:** done, merged
+- **Status:** done, merged, retired 2026-11-18
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** none. Feeds 035g (stage C), which waits for it on the return module only.
 - **Read:** `docs/model-v3/metrics.md` (range design, reading rule A2); `docs/model-v3/drivers.md` sections 1, 2 and the note of 2026-11-17 on the mean return; `docs/model-v3/inputs.md` rows I-D1a to I-D1e and I-H6a to I-H6i; `docs/model-v3/tornado.md` sections 1 to 4 (and `tornado/tornado.py`, `check.py` for the working style); `docs/model-audit/synthesis.md` sections 3, 7 and 10; `docs/agents/research.md`. The data is `Rates Data/JSTdatasetR6.xlsx` and `jst_r6.json` (UK, annual real total return on wealth to 2019, equities, housing, bonds and CPI to 2020). Nothing else need be opened.

@@ -9,15 +9,16 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime: writes and hands out briefs) | 035g stage C1 with the author (items 1 to 3 first) | 039g architecture, then 040g acceptance and build briefs |
-| Agent 2 (code) | 030c data interface and output validator | next code brief |
-| Agent 3 (code) | 037c v2 port inventory (model path) | 033c gate checker |
-| Agent 4 (code) | 038c country pack spec (model path) | 034c page cards |
-| Agent 5 (research) | 036r return range method (running) | 032r sidecars |
-| Agent 6 (site) | 029s page registry and ids | 031s relabel calculators |
+| Agent 2 (code) | 030c done | free |
+| Agent 3 (code) | 037c done | 033c gate checker |
+| Agent 4 (code) | 038c and 034c done | free |
+| Agent 5 (research) | 036r done | 032r sidecars, then 041r tornado rerun, 042r data gap |
+| Agent 6 (site) | 029s and 031s done | free |
 
 Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). 011g is split: 035g, 036r, 037c, 038c run now; 039g (architecture) needs them; 040g (acceptance and build briefs) follows; then the build briefs.
 
 ## Recently done
+- 2026-11-18: merged 029s (page registry, deploy green), 030c (data interface and validator; register now 274 rows), 031s (calculator label), 037c (port inventory), 036r, 038c, 034c. C1 item 4 decided on 036r: AR(1) normal generator, bootstrap cross-check, pool; mean: arithmetic in generator and check, geometric quoted; refund rule tau x loss; envelope resets at death. Manifest units fixed (O2, OF1, OW3). 036r return rows applied to the register (I-D1a is now the arithmetic mean with the level 2 band). Briefs 041r (tornado rerun with level 2) and 042r (data gap 2020 to 2025) written. 90 judgement rows pending.
 - 2026-11-18: model v3 stage C1 decisions recorded (`docs/model-v3/stage-c-decisions.md`, brief 035g): geometric mean return throughout; no clipping of M1; break-even return proposed as a new output; epsilon computed by the model; payer-level refund state; D5 a level 2 draw, D10 a switch. Only item 4 (replay or sampled paths) is open, waiting for 036r.
 - 2026-11-17 (night): 026g stage B merged: `docs/restructure/order.md` approved with all ten answers (26 pages in six waves; the gate G1 to G5; 21 writing briefs; no early start; no optional split now). 013g stages A to E are complete (013g retired). `outputs.yml` version `stage-A6-hypo-elements-2026-11-17` (HYPO lists O1, O4a, OP6, OW1). Judgement rows reconciled: 87 flagged `(J)` (17 rows newly flagged), `docs/model-v3/judgement-decisions.md` lists them all pending. First parallel build set written: 029s (page registry), 030c (data interface), 031s (calculators label), 032r (sidecars), 033c (gate checker), 034c (page cards). Writing briefs and the rest of B3 to B16 are written when the gate nears.
 - 2026-11-17 (night): 027r tornado merged (`docs/model-v3/tornado.md`: return dominates, central M1 +1.45% of GDP, sign flips below a return of 3.55%); retired total corrected to 8.11% of GDP; the revenue identity takes the arithmetic mean return (author). 028r merged: I-H2a1 to I-H2a10 (household deciles), register now 269 rows. 026g stage A merged: `docs/restructure/site.md` approved with all eight answers; build briefs B1 to B16 wait for `order.md`. 027r and 028r retired.
@@ -45,5 +46,5 @@ Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first
 See `OVERVIEW.md` section 6. Priority list carried over from `docs/todo.md`: citation button, CLOSE updates, PDF title page, WFR refactor, WP Appendix B forward links, internal bibliography to Zenodo v2.
 
 ## Waiting on the author
-Approve the proposed outputs `O1e` (break-even return) and `O1f` (share of paths with M1 below zero) and metric `M1f` (`stage-c-decisions.md` item 2); approve C1 once 036r settles item 4.
+Approve stage C1 (`docs/model-v3/stage-c-decisions.md`) and the proposed outputs `O1e`, `O1f` and metric `M1f`; then 039g (architecture) starts. The 90 judgement rows in `judgement-decisions.md` need decisions before the gate.
 Nothing open. The stock-wealth floor hypothesis waits for the straightforward model v3 (discussion notes in section 13 of its file). The 87 judgement rows in `docs/model-v3/judgement-decisions.md` need your decisions before the gate (G3); no hurry until the model is built. Answers of 2026-11-17 are in `docs/decisions.md`. Held for model stage C: the feasibility share, cap and floor (OF1), and the tolerance for the understater plateau (OD1). The ONS decile workbook is in and read. Still open for a future research brief: the non-payer share by income decile (I-H2a), which needs WAS Table 2.6 rather than the ONS file.

@@ -52,10 +52,10 @@ Whether the break-even return is an output (C1 item 2); whether the core carries
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** `docs/model-v3/stage-c-decisions.md` written with the author's answers: geometric mean throughout (item 1; supersedes the arithmetic note of the same evening); no clipping of M1, one sign convention, the share of paths below zero reported, and the break-even return as a new output (item 2; the proposal of `M1f`, `O1e`, `O1f` awaits approval, nothing edited); the model computes epsilon and the identity is a check (item 3); payer-level state per path (item 5); one fixed seed, 2025-26 prices (item 6; numbers set in 039g); D5 a level 2 draw and D10 a switch off in the headline (item 7); housekeeping done (item 8).
-- **Next:** item 4 after 036r lands (`returns-method.md`); the author approves the `M1f`, `O1e`, `O1f` proposal; the author approves C1; then 039g starts.
+- **Next:** the author approves the `M1f`, `O1e`, `O1f` proposal; the author approves C1; then 039g starts.
 - **Decisions:** see `stage-c-decisions.md`.
 - **Gotchas:** the tornado's return swing mixes level 1 and level 2 (see 036r); do not trust it for the level 2 range.
 - **Resume:** open `stage-c-decisions.md`; item 4 is the only open item.
 - **Not run:** none.
-- **State:** C1 at its checkpoint; stopped for item 4 and the author's approval.
+- **State:** C1 items 1 to 10 decided 2026-11-17 and 2026-11-18; waiting for the author's approval of C1 and of the proposed `M1f`, `O1e`, `O1f`.
 <!-- progress:end -->

@@ -1,6 +1,6 @@
 # 034: Code: page cards for the writing briefs (order.md B18)
 
-- **Status:** ready
+- **Status:** done, merged, retired 2026-11-18
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** none (reads `registry/pages.yml` if 029s has landed)
 - **Read:** `docs/restructure/order.md` sections 3 and 6.2; `docs/restructure/ledger-sections.md` (row format) and `ledger.md` sections 2 and 9; `docs/restructure/shortcodes.md`; `docs/model-v3/outputs.yml`, `inputs.md` (families, headers); `docs/restructure/template.md` section 2 (front matter); `docs/agents/code.md`.

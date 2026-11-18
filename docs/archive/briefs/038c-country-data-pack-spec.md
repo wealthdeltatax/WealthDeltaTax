@@ -1,6 +1,6 @@
 # 038: Code: country data pack specification (model v3 requirement R11)
 
-- **Status:** ready
+- **Status:** done, merged, retired 2026-11-18
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** none (reads `registry/inputs.json` if 030c has landed; otherwise `inputs.md`)
 - **Read:** `docs/model-audit/synthesis.md` section 4 (R3, R4, R11) and section 9; `docs/model-v3/inputs.md` (header, families, source and file columns); `docs/model-v3/drivers.md` section 2; `docs/briefs/030c-data-interface.md` (file shapes it creates); `docs/restructure/order.md` G2 (hashes the gate reads); `model_v2/wdt_jst.py` and the head of `jst_r6.json` (the one series file that exists); `docs/agents/code.md`.
