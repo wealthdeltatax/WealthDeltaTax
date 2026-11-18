@@ -1,0 +1,677 @@
+{
+ "count": 43,
+ "metrics": [
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition, short and long (above)",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "M1",
+   "name": "Government revenue, net fiscal effect",
+   "section": "Headline metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct_gdp",
+    "gbp_bn"
+   ],
+   "unit_text": "% of GDP and real £bn",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": "M1",
+   "horizon_text": "as M1",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "M1e",
+   "name": "Retired-tax receipts",
+   "section": "Headline metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct_gdp"
+   ],
+   "unit_text": "% of GDP",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition, short and long",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "M2",
+   "name": "Taxpayer burden, share of wealth",
+   "section": "Headline metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct_per_year"
+   ],
+   "unit_text": "% per year",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition, short and long",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "M2b",
+   "name": "Taxpayer cash-flow burden, share of income",
+   "section": "Headline metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct_per_year",
+    "pct"
+   ],
+   "unit_text": "% per year; share of payers",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition, short and long",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "M2c",
+   "name": "Taxpayer cash-flow burden, share of liquid assets",
+   "section": "Headline metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct_per_year",
+    "pct"
+   ],
+   "unit_text": "% per year; share of payers",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "one life, G years",
+   "horizons": [
+    "single"
+   ],
+   "id": "M3",
+   "name": "Taxpayer burden, gain-weighted lifetime rate",
+   "section": "Headline metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct"
+   ],
+   "unit_text": "%",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition, short and long",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "M4a",
+   "name": "Non-payer savings, share of current tax bill",
+   "section": "Headline metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct"
+   ],
+   "unit_text": "%",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition, short and long",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "M4b",
+   "name": "Non-payer savings, share of income",
+   "section": "Headline metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct"
+   ],
+   "unit_text": "%",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "M1a",
+   "name": "Individual WDT, net",
+   "section": "Revenue lines (parts of M1)",
+   "status": "active",
+   "unit_tags": [
+    "pct_gdp"
+   ],
+   "unit_text": "% of GDP",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "M1b",
+   "name": "Corporate levy",
+   "section": "Revenue lines (parts of M1)",
+   "status": "active",
+   "unit_tags": [
+    "pct_gdp"
+   ],
+   "unit_text": "% of GDP",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "M1c",
+   "name": "Fund income net of retention",
+   "section": "Revenue lines (parts of M1)",
+   "status": "active",
+   "unit_tags": [
+    "pct_gdp"
+   ],
+   "unit_text": "% of GDP",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "M5",
+   "name": "Burden against suggested wealth taxes",
+   "section": "Comparison metrics (for the whitepaper's argument)",
+   "status": "active",
+   "unit_tags": [],
+   "unit_text": null,
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "M6",
+   "name": "Burden against today's income tax, CGT and IHT",
+   "section": "Comparison metrics (for the whitepaper's argument)",
+   "status": "active",
+   "unit_tags": [],
+   "unit_text": null,
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "M8",
+   "name": "Reform-in-place benchmark",
+   "section": "Comparison metrics (for the whitepaper's argument)",
+   "status": "active",
+   "unit_tags": [],
+   "unit_text": null,
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "S1",
+   "name": "Capitalisation of retired property taxes",
+   "section": "Sensitivity metric",
+   "status": "active",
+   "unit_tags": [],
+   "unit_text": null,
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "M7",
+   "name": "C.1, the tolerant-zone measure",
+   "section": "Supporting metric",
+   "status": "active",
+   "unit_tags": [
+    "pp"
+   ],
+   "unit_text": "percentage points",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "P1",
+   "name": "Reserve fill years",
+   "section": "Path metrics (needed to produce M1 and M4)",
+   "status": "active",
+   "unit_tags": [],
+   "unit_text": null,
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "P2",
+   "name": "Relief available",
+   "section": "Path metrics (needed to produce M1 and M4)",
+   "status": "active",
+   "unit_tags": [],
+   "unit_text": null,
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "P3",
+   "name": "Cumulative shortfall",
+   "section": "Path metrics (needed to produce M1 and M4)",
+   "status": "active",
+   "unit_tags": [],
+   "unit_text": null,
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "P4",
+   "name": "Sustainability",
+   "section": "Path metrics (needed to produce M1 and M4)",
+   "status": "active",
+   "unit_tags": [],
+   "unit_text": null,
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "P6",
+   "name": "Public wealth path",
+   "section": "Path metrics (needed to produce M1 and M4)",
+   "status": "active",
+   "unit_tags": [],
+   "unit_text": null,
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "P5",
+   "name": "Retirement schedule",
+   "section": "Path metrics (needed to produce M1 and M4)",
+   "status": "active",
+   "unit_tags": [],
+   "unit_text": null,
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "M10",
+   "name": "(dropped 2026-11-17) Top-q share of adult net wealth",
+   "section": "Problem metrics (hub section H1)",
+   "status": "dropped",
+   "unit_tags": [],
+   "unit_text": null,
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "one year of the data pack",
+   "horizons": [
+    "single"
+   ],
+   "id": "M11",
+   "name": "Worker's average tax rate",
+   "section": "Problem metrics (hub section H1)",
+   "status": "active",
+   "unit_tags": [
+    "pct"
+   ],
+   "unit_text": "%",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "one life, G = 30",
+   "horizons": [
+    "single"
+   ],
+   "id": "M12",
+   "name": "Escape share",
+   "section": "Problem metrics (hub section H1)",
+   "status": "active",
+   "unit_tags": [
+    "pct"
+   ],
+   "unit_text": "%",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "one life, G = 30",
+   "horizons": [
+    "single"
+   ],
+   "id": "M13",
+   "name": "Certainty-equivalent welfare cost, by tax system",
+   "section": "Welfare metrics (spoke S6-B)",
+   "status": "active",
+   "unit_tags": [
+    "bp"
+   ],
+   "unit_text": "basis points; difference in basis points",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "remaining holding period, one life",
+   "horizons": [
+    "single"
+   ],
+   "id": "M14",
+   "name": "CGT lock-in cost",
+   "section": "Welfare metrics (spoke S6-B)",
+   "status": "active",
+   "unit_tags": [
+    "bp",
+    "pct"
+   ],
+   "unit_text": "basis points; share of paths",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition, short, long",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "M15a",
+   "name": "Envelope binding",
+   "section": "Welfare metrics (spoke S6-B)",
+   "status": "active",
+   "unit_tags": [
+    "pct"
+   ],
+   "unit_text": "% of payers; year; % of refunds due",
+   "unit_unmapped": [
+    "year"
+   ]
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition",
+   "horizons": [
+    "transition"
+   ],
+   "id": "M15b",
+   "name": "Aggregate liquidity timing of the cap",
+   "section": "Welfare metrics (spoke S6-B)",
+   "status": "active",
+   "unit_tags": [
+    "pct_gdp"
+   ],
+   "unit_text": "% of GDP",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition, short, long",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "B1a",
+   "name": "Payers",
+   "section": "Supporting metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct"
+   ],
+   "unit_text": "millions; % of adults",
+   "unit_unmapped": [
+    "millions"
+   ]
+  },
+  {
+   "horizon_same_as": "B1a",
+   "horizon_text": "as B1a",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "B1b",
+   "name": "Entries",
+   "section": "Supporting metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct_per_year",
+    "count"
+   ],
+   "unit_text": "% per year; count",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": "B1a",
+   "horizon_text": "as B1a",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "B1c",
+   "name": "Exits",
+   "section": "Supporting metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct_per_year",
+    "count"
+   ],
+   "unit_text": "% per year; count",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": "B1a",
+   "horizon_text": "as B1a",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "B1d",
+   "name": "Fall-through refund volume",
+   "section": "Supporting metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct_gdp"
+   ],
+   "unit_text": "% of GDP",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "short, long",
+   "horizons": [
+    "short",
+    "long"
+   ],
+   "id": "P7a",
+   "name": "Reserve insolvency share",
+   "section": "Supporting metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct"
+   ],
+   "unit_text": "% of paths",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "short, long",
+   "horizons": [
+    "short",
+    "long"
+   ],
+   "id": "P7b",
+   "name": "Minimum cover",
+   "section": "Supporting metrics",
+   "status": "active",
+   "unit_tags": [
+    "ratio"
+   ],
+   "unit_text": "ratio",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": "M7",
+   "horizon_text": "the M7 horizon",
+   "horizons": null,
+   "id": "M7c",
+   "name": "Declaration curve",
+   "section": "Supporting metrics",
+   "status": "active",
+   "unit_tags": [
+    "pp"
+   ],
+   "unit_text": "percentage points",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": "M7c",
+   "horizon_text": "as M7c",
+   "horizons": null,
+   "id": "M7d",
+   "name": "Lost refund protection",
+   "section": "Supporting metrics",
+   "status": "active",
+   "unit_tags": [
+    "pp"
+   ],
+   "unit_text": "percentage points",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": "M7c",
+   "horizon_text": "as M7c",
+   "horizons": null,
+   "id": "M7e",
+   "name": "Modal declaration",
+   "section": "Supporting metrics",
+   "status": "active",
+   "unit_tags": [
+    "ratio"
+   ],
+   "unit_text": "alpha",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition, short, long",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "M9",
+   "name": "Net fiscal effect after migration",
+   "section": "Supporting metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct_gdp"
+   ],
+   "unit_text": "% of GDP; real pounds",
+   "unit_unmapped": [
+    "real pounds"
+   ]
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition, short, long",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "M4c",
+   "name": "Non-payer saving, pounds per month",
+   "section": "Supporting metrics",
+   "status": "active",
+   "unit_tags": [
+    "gbp_month"
+   ],
+   "unit_text": "pounds per month",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition, short",
+   "horizons": [
+    "transition",
+    "short"
+   ],
+   "id": "F1",
+   "name": "Closure share",
+   "section": "Supporting metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct"
+   ],
+   "unit_text": "% of paths",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition, short, long",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "T1",
+   "name": "Tornado swing",
+   "section": "Supporting metrics",
+   "status": "active",
+   "unit_tags": [
+    "pp"
+   ],
+   "unit_text": "points of GDP for M1; percentage points otherwise",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": null,
+   "horizons": null,
+   "id": "CK1",
+   "name": "Synthetic cyclical stress test",
+   "section": "Check (a test of the model, not an output)",
+   "status": "active",
+   "unit_tags": [],
+   "unit_text": null,
+   "unit_unmapped": []
+  }
+ ],
+ "schema": "wdt-metrics/1"
+}

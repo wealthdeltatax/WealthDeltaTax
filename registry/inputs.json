@@ -1,0 +1,4039 @@
+{
+ "count": 269,
+ "inputs": [
+  {
+   "central": 5.94,
+   "coverage": "GB households (Northern Ireland excluded) 2020-22; GDP is UK. Outside UK: none (R11)",
+   "high": 7.5,
+   "id": "I-D4a",
+   "input": "Household wealth to GDP, total wealth incl. private pensions (ω numerator; M1a, M2)",
+   "judgement": false,
+   "low": 5.8,
+   "nulls": {},
+   "sources": [
+    "S1",
+    "S3",
+    "S4"
+   ],
+   "unit": "ratio, nominal GDP of wave midpoint year"
+  },
+  {
+   "central": 54.9,
+   "coverage": "GB, 2020-22. House price is England only; the England and Wales figure was not retrieved. Outside UK: none",
+   "high": 64.3,
+   "id": "I-D4b",
+   "input": "Share of adults at or above W_min = £150,000 (half of £300,000 median house price; M2b, ω)",
+   "judgement": true,
+   "low": 49.3,
+   "nulls": {},
+   "sources": [
+    "S1",
+    "S8"
+   ],
+   "unit": "% of adults"
+  },
+  {
+   "central": 92.7,
+   "coverage": "GB, 2020-22. Outside UK: none",
+   "high": 96.4,
+   "id": "I-D4c",
+   "input": "Share of total wealth held by those adults (ω; M1a, M2)",
+   "judgement": true,
+   "low": 89.7,
+   "nulls": {},
+   "sources": [
+    "S1"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 18.0,
+   "coverage": "UK, 2016-18. S6 compares National Accounts and survey aggregates; no other countries read. Outside UK: none",
+   "high": 23.0,
+   "id": "I-D4d",
+   "input": "Top 1% wealth share, 2016-18 (tail check; M2)",
+   "judgement": false,
+   "low": 14.4,
+   "nulls": {},
+   "sources": [
+    "S5",
+    "S6"
+   ],
+   "unit": "% of personal wealth"
+  },
+  {
+   "central": 5.0,
+   "coverage": "UK, 2016-18. Outside UK: none",
+   "high": 5.6,
+   "id": "I-D4e",
+   "input": "Wealth missing from WAS at the top, as % of WAS total (ω, tail add-on)",
+   "judgement": true,
+   "low": 0.0,
+   "nulls": {},
+   "sources": [
+    "S5"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 784,
+   "coverage": "UK and UK-resident or UK-linked individuals, 2026. Outside UK: none",
+   "high": 784,
+   "id": "I-D4f",
+   "input": "Sunday Times Rich List 2026, combined wealth of 350 entries (tail dataset; M2)",
+   "judgement": false,
+   "low": 784,
+   "nulls": {},
+   "sources": [
+    "S7"
+   ],
+   "unit": "£bn, 2026"
+  },
+  {
+   "central": 3.6,
+   "coverage": "UK, 2025 preliminary. Outside UK: none",
+   "high": 3.6,
+   "id": "I-D4g",
+   "input": "Household net worth over GDP, national balance sheet basis (cross-check on I-D4a; M2)",
+   "judgement": false,
+   "low": 3.6,
+   "nulls": {},
+   "sources": [
+    "S12"
+   ],
+   "unit": "ratio"
+  },
+  {
+   "central": 50300,
+   "coverage": "GB wealth 2020-22, UK income FYE 2024. Outside UK: none",
+   "high": 60400,
+   "id": "I-D9a",
+   "input": "Mean gross household income, wealth D4 to 5 (M2b, M2c)",
+   "judgement": true,
+   "low": 40200,
+   "nulls": {},
+   "sources": [
+    "S1",
+    "S9"
+   ],
+   "unit": "£ per year, FYE 2024 level"
+  },
+  {
+   "central": 63000,
+   "coverage": "As I-D9a",
+   "high": 75600,
+   "id": "I-D9b",
+   "input": "Mean gross household income, wealth D6 to 7",
+   "judgement": true,
+   "low": 50400,
+   "nulls": {},
+   "sources": [],
+   "unit": "£ per year"
+  },
+  {
+   "central": 71500,
+   "coverage": "As I-D9a",
+   "high": 85800,
+   "id": "I-D9c",
+   "input": "Mean gross household income, wealth D8 to 9",
+   "judgement": true,
+   "low": 57200,
+   "nulls": {},
+   "sources": [],
+   "unit": "£ per year"
+  },
+  {
+   "central": 71400,
+   "coverage": "As I-D9a",
+   "high": 85700,
+   "id": "I-D9d",
+   "input": "Mean gross household income, wealth D10",
+   "judgement": true,
+   "low": 57100,
+   "nulls": {},
+   "sources": [],
+   "unit": "£ per year"
+  },
+  {
+   "central": 6.6,
+   "coverage": "GB, three waves. Outside UK: none",
+   "high": 6.6,
+   "id": "I-D9e",
+   "input": "Net financial wealth as share of total wealth, wealth D4 to 5 (M2c, M4b; upper-side proxy for liquid assets)",
+   "judgement": false,
+   "low": 5.6,
+   "nulls": {},
+   "sources": [
+    "S1",
+    "S2"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 9.3,
+   "coverage": "As I-D9e",
+   "high": 9.3,
+   "id": "I-D9f",
+   "input": "Same, wealth D6 to 7",
+   "judgement": false,
+   "low": 8.4,
+   "nulls": {},
+   "sources": [],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 12.8,
+   "coverage": "As I-D9e",
+   "high": 12.8,
+   "id": "I-D9g",
+   "input": "Same, wealth D8 to 9",
+   "judgement": false,
+   "low": 10.4,
+   "nulls": {},
+   "sources": [],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 19.3,
+   "coverage": "As I-D9e",
+   "high": 21.5,
+   "id": "I-D9h",
+   "input": "Same, wealth D10",
+   "judgement": false,
+   "low": 17.1,
+   "nulls": {},
+   "sources": [],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 4.42,
+   "coverage": "UK 1871-2020 (data 1896-2019). The database covers 18 countries; only the UK read. Outside UK: available in the source (R11)",
+   "high": 7.47,
+   "id": "I-D1a",
+   "input": "Mean real total return on wealth, geometric (g; M1, M1a, P3)",
+   "judgement": false,
+   "low": 2.18,
+   "nulls": {},
+   "sources": [
+    "S10"
+   ],
+   "unit": "% per year"
+  },
+  {
+   "central": 8.2,
+   "coverage": "As I-D1a",
+   "high": 9.8,
+   "id": "I-D1b",
+   "input": "Standard deviation of annual real total return (P1, P4)",
+   "judgement": false,
+   "low": 6.5,
+   "nulls": {},
+   "sources": [
+    "S10"
+   ],
+   "unit": "% per year"
+  },
+  {
+   "central": 22.9,
+   "coverage": "As I-D1a",
+   "high": 28.2,
+   "id": "I-D1c",
+   "input": "Loss-year frequency, share of years with negative real return (refunds, fill years; M1c, P4)",
+   "judgement": false,
+   "low": 15.0,
+   "nulls": {},
+   "sources": [
+    "S10"
+   ],
+   "unit": "% of years"
+  },
+  {
+   "central": 3,
+   "coverage": "As I-D1a",
+   "high": 6,
+   "id": "I-D1d",
+   "input": "Longest run of consecutive loss years (fill years, P3)",
+   "judgement": false,
+   "low": 1,
+   "nulls": {},
+   "sources": [
+    "S10"
+   ],
+   "unit": "years"
+  },
+  {
+   "central": 6,
+   "coverage": "As I-D1a",
+   "high": 6,
+   "id": "I-D1e",
+   "input": "Gap between the end of the return history and the last full year",
+   "judgement": false,
+   "low": 5,
+   "nulls": {},
+   "sources": [
+    "S10"
+   ],
+   "unit": "years to 2025"
+  },
+  {
+   "central": 12,
+   "coverage": "Evidence from Switzerland, Denmark, Spain; no UK wealth tax exists. Foreign: transfer to a delta tax at a UK rate is unproven, since the base and design differ. Outside UK: this row is foreign",
+   "high": 17,
+   "id": "I-D5a",
+   "input": "Loss of taxable base to all behavioural responses at a 1% annual wealth tax, after 4 to 8 years (D5; ω, M1a, M7)",
+   "judgement": true,
+   "low": 7,
+   "nulls": {},
+   "sources": [
+    "S13",
+    "S15"
+   ],
+   "unit": "% of base"
+  },
+  {
+   "central": 6.0,
+   "coverage": "Switzerland, Scandinavia, Colombia, Spain. Foreign; UK has third-party reporting and the 8.7% of GDP offshore estimate (European Commission, 2016, as reported in S13 p. 18). Outside UK: foreign",
+   "high": 8.5,
+   "id": "I-D5b",
+   "input": "Part of the response that is avoidance or under-reporting (D5; shifts declared alpha, M1a)",
+   "judgement": true,
+   "low": 3.5,
+   "nulls": {},
+   "sources": [
+    "S13"
+   ],
+   "unit": "% of base"
+  },
+  {
+   "central": 6,
+   "coverage": "UK, non-doms, 2017 reform; secondary summary of HMRC Datalab work. Transferability: non-doms are more mobile than UK-born wealthy. Foreign comparators: Denmark and Sweden stock elasticity 4.3, Spain 7.9 (mainly regional)",
+   "high": 11,
+   "id": "I-D5c",
+   "input": "Share of affected people leaving UK tax residence after a targeted tax rise (D5; ω, M7)",
+   "judgement": true,
+   "low": 0,
+   "nulls": {},
+   "sources": [
+    "S14",
+    "S13"
+   ],
+   "unit": "% of affected group"
+  },
+  {
+   "central": 11,
+   "coverage": "Colombia (22%), Sweden (cars, 75-80% of taxpayers near the threshold understated). Foreign; business assets are about 10% of the top decile's wealth, under 1% at the median (S13 p. 23). Outside UK: foreign",
+   "high": 22,
+   "id": "I-D5d",
+   "input": "Understatement of assessed value for assets with discretionary valuation, such as private business assets (D5; ω)",
+   "judgement": true,
+   "low": 0,
+   "nulls": {},
+   "sources": [
+    "S13"
+   ],
+   "unit": "% of true value"
+  },
+  {
+   "central": 13.5,
+   "coverage": "UK households, FYE 2024",
+   "high": 14.0,
+   "id": "I-D6a",
+   "input": "Share of council tax receipts borne by the top income decile (D6; M1d, M4)",
+   "judgement": false,
+   "low": 13.5,
+   "nulls": {},
+   "sources": [
+    "S23",
+    "SH11"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 23.7,
+   "coverage": "UK, 2025-26 receipts; allocation on WAS Round 8 and FYE 2024 incomes. Outside UK: none for the allocation; S22 is German",
+   "high": 23.7,
+   "id": "I-D6b",
+   "input": "Share of business rates receipts borne by the top income decile (D6; M1d, M4)",
+   "judgement": true,
+   "low": 23.2,
+   "nulls": {},
+   "sources": [
+    "S22",
+    "S1",
+    "S9"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 24.5,
+   "coverage": "UK, 2025-26 receipts; allocation on WAS Round 8 and FYE 2024 incomes. Outside UK: none for the allocation; S22 is German",
+   "high": 25.7,
+   "id": "I-D6c",
+   "input": "Share of corporation tax receipts borne by the top income decile (D6; M1d, M4)",
+   "judgement": true,
+   "low": 22.7,
+   "nulls": {},
+   "sources": [
+    "S22",
+    "S1",
+    "S9"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 55.0,
+   "coverage": "UK, 2025-26 receipts; allocation on WAS Round 8 and FYE 2024 incomes. Outside UK: none for the allocation; S22 is German",
+   "high": 55.0,
+   "id": "I-D6d",
+   "input": "Share of capital gains tax receipts borne by the top income decile (D6; M1d, M4)",
+   "judgement": true,
+   "low": 52.0,
+   "nulls": {},
+   "sources": [
+    "S20",
+    "S1",
+    "S9"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 28.5,
+   "coverage": "UK, 2025-26 receipts; allocation on WAS Round 8 and FYE 2024 incomes. Outside UK: none for the allocation; S22 is German",
+   "high": 30.4,
+   "id": "I-D6e",
+   "input": "Share of inheritance tax receipts borne by the top income decile (D6; M1d, M4)",
+   "judgement": true,
+   "low": 25.0,
+   "nulls": {},
+   "sources": [
+    "S1",
+    "S21"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 21.8,
+   "coverage": "UK, 2025-26 receipts; allocation on WAS Round 8 and FYE 2024 incomes. Outside UK: none for the allocation; S22 is German",
+   "high": 28.2,
+   "id": "I-D6f",
+   "input": "Share of stamp duties on property receipts borne by the top income decile (D6; M1d, M4)",
+   "judgement": true,
+   "low": 21.8,
+   "nulls": {},
+   "sources": [
+    "S1",
+    "S23"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 25.0,
+   "coverage": "UK, 2025-26 receipts; allocation on WAS Round 8 and FYE 2024 incomes. Outside UK: none for the allocation; S22 is German",
+   "high": 28.5,
+   "id": "I-D6g",
+   "input": "Share of stamp taxes on shares receipts borne by the top income decile (D6; M1d, M4)",
+   "judgement": true,
+   "low": 21.8,
+   "nulls": {},
+   "sources": [
+    "S1",
+    "S23"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 45.8,
+   "coverage": "UK households, FYE 2024",
+   "high": 47.1,
+   "id": "I-D6h",
+   "input": "Share of council tax receipts borne by the bottom five income deciles (D6; M1d, M4)",
+   "judgement": false,
+   "low": 44.8,
+   "nulls": {},
+   "sources": [
+    "S23",
+    "SH11"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 30.6,
+   "coverage": "UK, 2025-26 receipts; allocation on WAS Round 8 and FYE 2024 incomes. Outside UK: none for the allocation; S22 is German",
+   "high": 32.4,
+   "id": "I-D6i",
+   "input": "Share of business rates receipts borne by the bottom five income deciles (D6; M1d, M4)",
+   "judgement": true,
+   "low": 29.8,
+   "nulls": {},
+   "sources": [
+    "S22",
+    "S1",
+    "S9"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 30.7,
+   "coverage": "UK, 2025-26 receipts; allocation on WAS Round 8 and FYE 2024 incomes. Outside UK: none for the allocation; S22 is German",
+   "high": 33.9,
+   "id": "I-D6j",
+   "input": "Share of corporation tax receipts borne by the bottom five income deciles (D6; M1d, M4)",
+   "judgement": true,
+   "low": 28.5,
+   "nulls": {},
+   "sources": [
+    "S22",
+    "S1",
+    "S9"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 3.3,
+   "coverage": "UK, 2025-26 receipts; allocation on WAS Round 8 and FYE 2024 incomes. Outside UK: none for the allocation; S22 is German",
+   "high": 4.9,
+   "id": "I-D6k",
+   "input": "Share of capital gains tax receipts borne by the bottom five income deciles (D6; M1d, M4)",
+   "judgement": true,
+   "low": 2.5,
+   "nulls": {},
+   "sources": [
+    "S20",
+    "S1",
+    "S9"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 34.5,
+   "coverage": "UK, 2025-26 receipts; allocation on WAS Round 8 and FYE 2024 incomes. Outside UK: none for the allocation; S22 is German",
+   "high": 40.4,
+   "id": "I-D6l",
+   "input": "Share of inheritance tax receipts borne by the bottom five income deciles (D6; M1d, M4)",
+   "judgement": true,
+   "low": 33.3,
+   "nulls": {},
+   "sources": [
+    "S1",
+    "S21"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 36.0,
+   "coverage": "UK, 2025-26 receipts; allocation on WAS Round 8 and FYE 2024 incomes. Outside UK: none for the allocation; S22 is German",
+   "high": 36.0,
+   "id": "I-D6m",
+   "input": "Share of stamp duties on property receipts borne by the bottom five income deciles (D6; M1d, M4)",
+   "judgement": true,
+   "low": 24.5,
+   "nulls": {},
+   "sources": [
+    "S1",
+    "S23"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 33.3,
+   "coverage": "UK, 2025-26 receipts; allocation on WAS Round 8 and FYE 2024 incomes. Outside UK: none for the allocation; S22 is German",
+   "high": 36.0,
+   "id": "I-D6n",
+   "input": "Share of stamp taxes on shares receipts borne by the bottom five income deciles (D6; M1d, M4)",
+   "judgement": true,
+   "low": 33.3,
+   "nulls": {},
+   "sources": [
+    "S1",
+    "S23"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 15.7,
+   "coverage": "UK households, FYE 2024",
+   "high": 18.6,
+   "id": "I-D6o",
+   "input": "Share of business rates receipts borne by the top income decile, ONS allocation (D6 cross-check on I-D6b; M1d, M4)",
+   "judgement": false,
+   "low": 15.7,
+   "nulls": {},
+   "sources": [
+    "S23",
+    "SH11"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 42.7,
+   "coverage": "UK households, FYE 2024",
+   "high": 42.7,
+   "id": "I-D6p",
+   "input": "Share of business rates receipts borne by the bottom five income deciles, ONS allocation (D6 cross-check on I-D6i; M1d, M4)",
+   "judgement": false,
+   "low": 37.7,
+   "nulls": {},
+   "sources": [
+    "S23",
+    "SH11"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 55.9,
+   "coverage": "UK households, FYE 2024",
+   "high": 55.9,
+   "id": "I-D6q",
+   "input": "Share of stamp duty on house purchase borne by the top original-income decile (D6 cross-check on I-D6f; M1d, M4)",
+   "judgement": false,
+   "low": 55.9,
+   "nulls": {},
+   "sources": [
+    "S23",
+    "SH11"
+   ],
+   "unit": "% of the tax"
+  },
+  {
+   "central": 30.4,
+   "coverage": "England, repeat sales 1998-2016. Retiring the whole tax is a larger change than the boundary variation the estimate uses. Outside UK: none",
+   "high": 33.6,
+   "id": "I-D10a",
+   "input": "Fall in house price per £1 of annual council tax (retiring council tax raises price by the same multiple; metric S1, ω, M2, M4)",
+   "judgement": false,
+   "low": 24.4,
+   "nulls": {},
+   "sources": [
+    "S16"
+   ],
+   "unit": "£ of price per £1 a year"
+  },
+  {
+   "central": 24.2,
+   "coverage": "UK. Outside UK: none",
+   "high": 26.7,
+   "id": "I-D10b",
+   "input": "Rise in dwelling and land value if council tax is retired, full capitalisation (metric S1; ω, M2, M4)",
+   "judgement": true,
+   "low": 19.4,
+   "nulls": {},
+   "sources": [
+    "S16",
+    "S12"
+   ],
+   "unit": "% of gross dwelling and land value"
+  },
+  {
+   "central": 40,
+   "coverage": "UK, 2008-09 holiday; 2004-12 transactions. Outside UK: none",
+   "high": 100,
+   "id": "I-D10c",
+   "input": "Share of a cut in stamp duty that ends up in the pre-tax house price (metric S1; M2, M4)",
+   "judgement": true,
+   "low": 0,
+   "nulls": {},
+   "sources": [
+    "S17",
+    "S18"
+   ],
+   "unit": "% of the tax cut"
+  },
+  {
+   "central": 2,
+   "coverage": "Global design, about 3,000 billionaires; no UK split in the executive summary. Outside UK: this row is global (R11)",
+   "high": 2,
+   "id": "I-M5a",
+   "input": "Zucman global minimum tax, rate (M5; the base case for `zucman_floor`)",
+   "judgement": false,
+   "low": 2,
+   "nulls": {},
+   "sources": [
+    "S24"
+   ],
+   "unit": "% of total wealth per year"
+  },
+  {
+   "central": 1,
+   "coverage": "Global. Outside UK: global",
+   "high": 1,
+   "id": "I-M5b",
+   "input": "Zucman global minimum tax, threshold (M5)",
+   "judgement": false,
+   "low": 0.1,
+   "nulls": {},
+   "sources": [
+    "S24"
+   ],
+   "unit": "US$ bn of net wealth"
+  },
+  {
+   "central": 225,
+   "coverage": "Global, annual. Outside UK: global",
+   "high": 250,
+   "id": "I-M5c",
+   "input": "Zucman global minimum tax, revenue at the US$1bn threshold (M5)",
+   "judgement": true,
+   "low": 200,
+   "nulls": {},
+   "sources": [
+    "S24"
+   ],
+   "unit": "US$ bn per year"
+  },
+  {
+   "central": 100,
+   "coverage": "UK households, 2026. Outside UK: none",
+   "high": 250,
+   "id": "I-M5d",
+   "input": "UK 2% minimum tax (Tippet and Zucman), threshold (M5)",
+   "judgement": false,
+   "low": 50,
+   "nulls": {},
+   "sources": [
+    "S25",
+    "S26"
+   ],
+   "unit": "£m of net wealth"
+  },
+  {
+   "central": 10.41,
+   "coverage": "As I-M5d",
+   "high": 12.53,
+   "id": "I-M5e",
+   "input": "UK 2% minimum tax, revenue in 2026 net of avoidance (M5)",
+   "judgement": false,
+   "low": 9.86,
+   "nulls": {},
+   "sources": [
+    "S25",
+    "S26"
+   ],
+   "unit": "£bn per year, 2026"
+  },
+  {
+   "central": 946,
+   "coverage": "UK, 2026. Outside UK: none",
+   "high": 1086,
+   "id": "I-M5f",
+   "input": "UK 2% minimum tax, households above £100m (M5; payer count)",
+   "judgement": false,
+   "low": 946,
+   "nulls": {},
+   "sources": [
+    "S25"
+   ],
+   "unit": "households"
+  },
+  {
+   "central": 0.2,
+   "coverage": "UK, households above £100m. Outside UK: none",
+   "high": 0.5,
+   "id": "I-M5g",
+   "input": "UK 2% minimum tax, income tax already paid as a share of wealth, the credit (M5, M6 comparator)",
+   "judgement": true,
+   "low": 0.1,
+   "nulls": {},
+   "sources": [
+    "S25"
+   ],
+   "unit": "% of wealth per year"
+  },
+  {
+   "central": 2,
+   "coverage": "UK. Outside UK: none",
+   "high": 2,
+   "id": "I-M5h",
+   "input": "Tax Justice UK and Patriotic Millionaires UK net wealth tax, rate (M5)",
+   "judgement": false,
+   "low": 2,
+   "nulls": {},
+   "sources": [
+    "S27"
+   ],
+   "unit": "% per year"
+  },
+  {
+   "central": 10,
+   "coverage": "UK",
+   "high": 10,
+   "id": "I-M5i",
+   "input": "Same, threshold (M5)",
+   "judgement": false,
+   "low": 10,
+   "nulls": {},
+   "sources": [
+    "S27"
+   ],
+   "unit": "£m of net assets"
+  },
+  {
+   "central": 24,
+   "coverage": "UK, annual. Outside UK: none",
+   "high": 24,
+   "id": "I-M5j",
+   "input": "Same, revenue and payers (M5)",
+   "judgement": false,
+   "low": 24,
+   "nulls": {},
+   "sources": [
+    "S27"
+   ],
+   "unit": "£bn per year"
+  },
+  {
+   "central": 1,
+   "coverage": "UK. Outside UK: none",
+   "high": 2,
+   "id": "I-M5k",
+   "input": "Green Party proposal, marginal rate (M5)",
+   "judgement": false,
+   "low": 1,
+   "nulls": {},
+   "sources": [
+    "S28"
+   ],
+   "unit": "% per year"
+  },
+  {
+   "central": 10,
+   "coverage": "UK",
+   "high": 1000,
+   "id": "I-M5l",
+   "input": "Green Party proposal, thresholds (M5)",
+   "judgement": false,
+   "low": 10,
+   "nulls": {},
+   "sources": [
+    "S28"
+   ],
+   "unit": "£m of assets"
+  },
+  {
+   "central": 15,
+   "coverage": "UK, annual",
+   "high": 15,
+   "id": "I-M5m",
+   "input": "Green Party proposal, claimed revenue (M5)",
+   "judgement": false,
+   "low": 15,
+   "nulls": {},
+   "sources": [
+    "S28"
+   ],
+   "unit": "£bn per year"
+  },
+  {
+   "central": 10,
+   "coverage": "UK, 2016-18 data. Outside UK: none",
+   "high": 33,
+   "id": "I-M5n",
+   "input": "Independent yield of a 1% annual wealth tax, before behavioural response (cross-check on I-M5j, I-M5m; M5)",
+   "judgement": true,
+   "low": 10,
+   "nulls": {},
+   "sources": [
+    "S30"
+   ],
+   "unit": "£bn per year"
+  },
+  {
+   "central": 5,
+   "coverage": "UK. Outside UK: none",
+   "high": 5,
+   "id": "I-M5o",
+   "input": "Wealth Tax Commission one-off tax, rate (M5)",
+   "judgement": false,
+   "low": 5,
+   "nulls": {},
+   "sources": [
+    "S29"
+   ],
+   "unit": "% of wealth, total over five years"
+  },
+  {
+   "central": 500,
+   "coverage": "UK",
+   "high": 2000,
+   "id": "I-M5p",
+   "input": "Same, threshold (M5)",
+   "judgement": false,
+   "low": 500,
+   "nulls": {},
+   "sources": [
+    "S29"
+   ],
+   "unit": "£k of net wealth"
+  },
+  {
+   "central": 260,
+   "coverage": "UK",
+   "high": 260,
+   "id": "I-M5q",
+   "input": "Same, revenue over the five years (M5)",
+   "judgement": false,
+   "low": 80,
+   "nulls": {},
+   "sources": [
+    "S29"
+   ],
+   "unit": "£bn in total"
+  },
+  {
+   "central": 0.056,
+   "coverage": "GB wealth 2020-22, UK liabilities. Outside UK: none",
+   "high": 0.058,
+   "id": "I-M6a",
+   "input": "IHT liability over the wealth of adults at or above W_min (M6)",
+   "judgement": true,
+   "low": 0.051,
+   "nulls": {},
+   "sources": [
+    "S21",
+    "S1"
+   ],
+   "unit": "% of wealth per year"
+  },
+  {
+   "central": 0.112,
+   "coverage": "As I-M6a",
+   "high": 0.127,
+   "id": "I-M6b",
+   "input": "IHT liability over wealth decile D10 (M6)",
+   "judgement": true,
+   "low": 0.098,
+   "nulls": {},
+   "sources": [
+    "S21",
+    "S1"
+   ],
+   "unit": "% of wealth per year"
+  },
+  {
+   "central": 0.019,
+   "coverage": "As I-M6a",
+   "high": 0.036,
+   "id": "I-M6c",
+   "input": "IHT liability over wealth deciles D8 to 9 (M6)",
+   "judgement": true,
+   "low": 0.0,
+   "nulls": {},
+   "sources": [
+    "S21",
+    "S1"
+   ],
+   "unit": "% of wealth per year"
+  },
+  {
+   "central": 0,
+   "coverage": "As I-M6a",
+   "high": 0,
+   "id": "I-M6d",
+   "input": "IHT liability over wealth deciles D4 to 7 (M6)",
+   "judgement": true,
+   "low": 0,
+   "nulls": {},
+   "sources": [
+    "S21"
+   ],
+   "unit": "% of wealth per year"
+  },
+  {
+   "central": 14.4,
+   "coverage": "UK, 2023-24",
+   "high": 19,
+   "id": "I-M6e",
+   "input": "IHT effective rate on estates of £1m to £2m (M6)",
+   "judgement": false,
+   "low": 12,
+   "nulls": {},
+   "sources": [
+    "S21"
+   ],
+   "unit": "% of estate value"
+  },
+  {
+   "central": 25,
+   "coverage": "UK, 2023-24",
+   "high": 25,
+   "id": "I-M6f",
+   "input": "IHT effective rate on estates of £2m to £7.5m (M6)",
+   "judgement": false,
+   "low": 25,
+   "nulls": {},
+   "sources": [
+    "S21"
+   ],
+   "unit": "% of estate value"
+  },
+  {
+   "central": 18.9,
+   "coverage": "UK, 2023-24",
+   "high": 23,
+   "id": "I-M6g",
+   "input": "IHT effective rate on estates above £7.5m (M6)",
+   "judgement": false,
+   "low": 18,
+   "nulls": {},
+   "sources": [
+    "S21"
+   ],
+   "unit": "% of estate value"
+  },
+  {
+   "central": 0.144,
+   "coverage": "UK liabilities, GB wealth. Outside UK: none",
+   "high": 0.199,
+   "id": "I-M6h",
+   "input": "CGT liability over the wealth of adults at or above W_min (M6)",
+   "judgement": true,
+   "low": 0.093,
+   "nulls": {},
+   "sources": [
+    "S34",
+    "S35",
+    "S1"
+   ],
+   "unit": "% of wealth per year"
+  },
+  {
+   "central": 0.238,
+   "coverage": "As I-M6h",
+   "high": 0.438,
+   "id": "I-M6i",
+   "input": "CGT liability over wealth decile D10 (M6)",
+   "judgement": true,
+   "low": 0.099,
+   "nulls": {},
+   "sources": [
+    "S34",
+    "S35",
+    "S36",
+    "S1"
+   ],
+   "unit": "% of wealth per year"
+  },
+  {
+   "central": 45,
+   "coverage": "UK, 2024-25",
+   "high": 45,
+   "id": "I-M6j",
+   "input": "Share of CGT from the largest gains, those of £5m or more (M6)",
+   "judgement": false,
+   "low": 45,
+   "nulls": {},
+   "sources": [
+    "S36"
+   ],
+   "unit": "% of total"
+  },
+  {
+   "central": 18.2,
+   "coverage": "UK, two years",
+   "high": 24.2,
+   "id": "I-M6k",
+   "input": "CGT liability, UK, all payers (M6, M8 base)",
+   "judgement": true,
+   "low": 12.1,
+   "nulls": {},
+   "sources": [
+    "S34",
+    "S35"
+   ],
+   "unit": "£bn per year"
+  },
+  {
+   "central": 35,
+   "coverage": "UK, 2015-16; stale. Outside UK: none",
+   "high": 45,
+   "id": "I-M6l",
+   "input": "Income tax, effective average rate on taxpayers with £1m or more of income and gains (M6; income tax stays)",
+   "judgement": false,
+   "low": 11,
+   "nulls": {},
+   "sources": [
+    "S37"
+   ],
+   "unit": "% of taxable income and gains"
+  },
+  {
+   "central": 2.16,
+   "coverage": "UK receipts, GB wealth",
+   "high": 2.26,
+   "id": "I-M6m",
+   "input": "Income tax receipts over total household wealth, all GB households (M6; context)",
+   "judgement": false,
+   "low": 2.08,
+   "nulls": {},
+   "sources": [
+    "S1"
+   ],
+   "unit": "% of total wealth per year"
+  },
+  {
+   "central": 10,
+   "coverage": "UK. Outside UK: none",
+   "high": 12,
+   "id": "I-M8a",
+   "input": "CGT aligned with income tax, static revenue (M8)",
+   "judgement": false,
+   "low": 8,
+   "nulls": {},
+   "sources": [
+    "S31",
+    "S32"
+   ],
+   "unit": "£bn per year, about 2029-30"
+  },
+  {
+   "central": 2.3,
+   "coverage": "UK",
+   "high": 2.3,
+   "id": "I-M8b",
+   "input": "Ending the CGT uplift at death, static revenue (M8)",
+   "judgement": false,
+   "low": 2.0,
+   "nulls": {},
+   "sources": [
+    "S31",
+    "S30",
+    "S33"
+   ],
+   "unit": "£bn per year, 2029-30"
+  },
+  {
+   "central": 12.3,
+   "coverage": "UK",
+   "high": 14.3,
+   "id": "I-M8c",
+   "input": "CGT reform in full: aligned rates plus no uplift (M8 specification)",
+   "judgement": true,
+   "low": 10,
+   "nulls": {},
+   "sources": [
+    "S30",
+    "S31",
+    "S32"
+   ],
+   "unit": "£bn per year"
+  },
+  {
+   "central": 0.71,
+   "coverage": "England. Outside UK: none",
+   "high": 0.81,
+   "id": "I-M8d",
+   "input": "Proportional property tax, rate on property value, replacing council tax and stamp duty (M8)",
+   "judgement": true,
+   "low": 0.44,
+   "nulls": {},
+   "sources": [
+    "S39",
+    "S38",
+    "S40"
+   ],
+   "unit": "% of value per year"
+  },
+  {
+   "central": 56.7,
+   "coverage": "England, residential",
+   "high": 56.7,
+   "id": "I-M8e",
+   "input": "Revenue the property tax and LVT reforms replace: residential council tax plus stamp duty land tax, England (M8)",
+   "judgement": false,
+   "low": 45.2,
+   "nulls": {},
+   "sources": [
+    "S40",
+    "S39",
+    "S30"
+   ],
+   "unit": "£bn per year, about 2025-26"
+  },
+  {
+   "central": 1.28,
+   "coverage": "England, residential, 296 authorities. Outside UK: none",
+   "high": 1.7,
+   "id": "I-M8f",
+   "input": "Land value tax, revenue-neutral rate on land value, replacing council tax and stamp duty (M8)",
+   "judgement": false,
+   "low": 1.1,
+   "nulls": {},
+   "sources": [
+    "S40"
+   ],
+   "unit": "% of land value per year"
+  },
+  {
+   "central": -4,
+   "coverage": "UK",
+   "high": -4,
+   "id": "I-M8g",
+   "input": "Land value tax replacing business rates, static revenue change (M8)",
+   "judgement": false,
+   "low": -10,
+   "nulls": {},
+   "sources": [
+    "S31"
+   ],
+   "unit": "£bn per year (negative is a loss)"
+  },
+  {
+   "central": 2.82,
+   "coverage": "UK, v2 windows. Outside UK: none",
+   "high": 2.88,
+   "id": "I-D7a",
+   "input": "Corporate levy yield, v2 (M1b)",
+   "judgement": true,
+   "low": 2.77,
+   "nulls": {},
+   "sources": [],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 3.37,
+   "coverage": "UK, one year",
+   "high": 3.37,
+   "id": "I-D7b",
+   "input": "Corporation tax receipts retired by WDT, 2025-26 (M1e)",
+   "judgement": false,
+   "low": 3.37,
+   "nulls": {},
+   "sources": [],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 0.84,
+   "coverage": "UK",
+   "high": 0.85,
+   "id": "I-D7c",
+   "input": "Levy yield as a share of corporation tax retired (M1b against M1e)",
+   "judgement": false,
+   "low": 0.82,
+   "nulls": {},
+   "sources": [],
+   "unit": "ratio"
+  },
+  {
+   "central": 100.4,
+   "coverage": "UK, one year",
+   "high": 101.1,
+   "id": "I-D7d",
+   "input": "Corporation tax receipts, 2025-26 (cross-check on I-D7b)",
+   "judgement": false,
+   "low": 96.6,
+   "nulls": {},
+   "sources": [
+    "S43"
+   ],
+   "unit": "£bn"
+  },
+  {
+   "central": 3,
+   "coverage": "Model setting",
+   "high": 3,
+   "id": "I-D8a",
+   "input": "Reserve target as a multiple of the trailing mean annual refund, each of the short and the long reserve",
+   "judgement": false,
+   "low": 3,
+   "nulls": {},
+   "sources": [],
+   "unit": "multiple"
+  },
+  {
+   "central": 7,
+   "coverage": "UK, v2 windows",
+   "high": 10,
+   "id": "I-D8b",
+   "input": "Long reserve fill time (P1)",
+   "judgement": false,
+   "low": 6,
+   "nulls": {},
+   "sources": [],
+   "unit": "years"
+  },
+  {
+   "central": 3,
+   "coverage": "UK, v2 windows",
+   "high": 3,
+   "id": "I-D8c",
+   "input": "Short reserve fill time (P1)",
+   "judgement": false,
+   "low": 3,
+   "nulls": {},
+   "sources": [],
+   "unit": "years"
+  },
+  {
+   "central": 3.0,
+   "coverage": "UK public appraisal, real terms",
+   "high": 3.5,
+   "id": "I-D11a",
+   "input": "Discount rate, years 1 to 30 (M3)",
+   "judgement": false,
+   "low": 3.0,
+   "nulls": {},
+   "sources": [
+    "S41",
+    "S42"
+   ],
+   "unit": "% real per year"
+  },
+  {
+   "central": 2.5,
+   "coverage": "As I-D11a",
+   "high": 3.0,
+   "id": "I-D11b",
+   "input": "Discount rate, years 31 to 75 (M3; unused at G = 30)",
+   "judgement": false,
+   "low": 2.5,
+   "nulls": {},
+   "sources": [
+    "S41",
+    "S42"
+   ],
+   "unit": "% real per year"
+  },
+  {
+   "central": 2.25,
+   "coverage": "As I-D11a",
+   "high": 2.5,
+   "id": "I-D11c",
+   "input": "Discount rate, years 76 to 125 (M3; unused at G = 30)",
+   "judgement": false,
+   "low": 2.25,
+   "nulls": {},
+   "sources": [
+    "S41",
+    "S42"
+   ],
+   "unit": "% real per year"
+  },
+  {
+   "central": null,
+   "coverage": "As I-D11a",
+   "high": null,
+   "id": "I-D11d",
+   "input": "Discount rate beyond year 125 (M3; unused)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "none",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "none",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "none",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "S41",
+    "S42"
+   ],
+   "unit": "n/a"
+  },
+  {
+   "central": 11,
+   "coverage": "Norway, 2005-2015, population-wide tax records. Foreign: Norwegian returns to wealth are measured on tax-assessed values; transfer to the UK is argued by Advani et al. (SW3 p. 18) but not shown",
+   "high": 18,
+   "id": "I-W1a",
+   "input": "Gap in the average return to net worth between the 90th and 10th percentile of net worth (014g 1; OH1a gradient)",
+   "judgement": false,
+   "low": 10,
+   "nulls": {},
+   "sources": [
+    "SW1"
+   ],
+   "unit": "percentage points per year"
+  },
+  {
+   "central": 4.5,
+   "coverage": "Norway, 2004-2015, cumulative returns. Foreign (as I-W1a)",
+   "high": 4.5,
+   "id": "I-W1b",
+   "input": "Return to net worth, top 0.1% against the 75th percentile, 2004 to 2015 (014g 1)",
+   "judgement": true,
+   "low": 4.5,
+   "nulls": {},
+   "sources": [
+    "SW1"
+   ],
+   "unit": "percentage points per year"
+  },
+  {
+   "central": 1.9,
+   "coverage": "GB, 2016-18, financial wealth only (housing and pensions excluded). UK evidence, but not total return",
+   "high": 2.0,
+   "id": "I-W1c",
+   "input": "UK portfolio-implied financial return, top wealth decile minus the bottom deciles (014g 1)",
+   "judgement": true,
+   "low": 1.8,
+   "nulls": {},
+   "sources": [
+    "SW3"
+   ],
+   "unit": "percentage points per year"
+  },
+  {
+   "central": 5.5,
+   "coverage": "Norway, 2005-2015. Foreign (as I-W1a)",
+   "high": 6,
+   "id": "I-W1d",
+   "input": "Standard deviation of the persistent individual component of the return to net worth (015g)",
+   "judgement": true,
+   "low": 5,
+   "nulls": {},
+   "sources": [
+    "SW1"
+   ],
+   "unit": "percentage points"
+  },
+  {
+   "central": 7.7,
+   "coverage": "Norway, 2005-2015. Foreign (as I-W1a)",
+   "high": 7.7,
+   "id": "I-W2a",
+   "input": "P10 to P90 range of the individual fixed effect in the return to net worth (015g)",
+   "judgement": false,
+   "low": 7.7,
+   "nulls": {},
+   "sources": [
+    "SW1"
+   ],
+   "unit": "percentage points"
+  },
+  {
+   "central": 0.13,
+   "coverage": "Norway, parent-child pairs. Foreign (as I-W1a)",
+   "high": 0.136,
+   "id": "I-W2b",
+   "input": "Slope of a child's return fixed effect on the parent's (015g; persistence across generations)",
+   "judgement": true,
+   "low": 0.127,
+   "nulls": {},
+   "sources": [
+    "SW1"
+   ],
+   "unit": "coefficient"
+  },
+  {
+   "central": 0.14,
+   "coverage": "Norway. Foreign (as I-W1a)",
+   "high": 0.16,
+   "id": "I-W2c",
+   "input": "Slope of the return percentile of children on fathers', net worth and financial wealth (015g)",
+   "judgement": true,
+   "low": 0.12,
+   "nulls": {},
+   "sources": [
+    "SW1"
+   ],
+   "unit": "coefficient"
+  },
+  {
+   "central": 7,
+   "coverage": "Norway, 2005-2015. Foreign (as I-W1a); housing and stocks revalued each year",
+   "high": 8,
+   "id": "I-W3a",
+   "input": "Net (active) saving rate by wealth, flat from about the 20th percentile upward (014g 2; OH1a saving)",
+   "judgement": true,
+   "low": 6,
+   "nulls": {},
+   "sources": [
+    "SW2"
+   ],
+   "unit": "% of disposable income per year"
+  },
+  {
+   "central": 35,
+   "coverage": "Norway, 2005-2015. Foreign (as I-W1a). Gross rate includes unrealised gains, so it is not comparable with a UK household saving ratio",
+   "high": 35,
+   "id": "I-W3b",
+   "input": "Gross saving rate of the top 1% (saving including capital gains held, not sold) (014g 2)",
+   "judgement": false,
+   "low": 35,
+   "nulls": {},
+   "sources": [
+    "SW2"
+   ],
+   "unit": "% of disposable income per year"
+  },
+  {
+   "central": 15,
+   "coverage": "GB, financial wealth, 2008-10 to 2016-18. Not by wealth band",
+   "high": 24,
+   "id": "I-W3c",
+   "input": "UK: share of the change in family financial wealth that is net saving, the rest being asset prices and yields (014g 2)",
+   "judgement": true,
+   "low": 7,
+   "nulls": {},
+   "sources": [
+    "SW3"
+   ],
+   "unit": "% of the change"
+  },
+  {
+   "central": 40,
+   "coverage": "GB, 2018-20 to 2020-22. By age and income, not by wealth band",
+   "high": 40,
+   "id": "I-W3d",
+   "input": "UK: active saving as a share of total wealth gains, 2018-20 to 2020-22 (014g 2)",
+   "judgement": false,
+   "low": 40,
+   "nulls": {},
+   "sources": [
+    "SW4"
+   ],
+   "unit": "% of the change"
+  },
+  {
+   "central": 80,
+   "coverage": "GB, 2014-16 to 2016-18, families. Two-year window only",
+   "high": 80,
+   "id": "I-W4a",
+   "input": "UK: share of top-decile families still in the top decile two years later (014g 2; 016g M-2)",
+   "judgement": false,
+   "low": 80,
+   "nulls": {},
+   "sources": [
+    "SW3"
+   ],
+   "unit": "% of families"
+  },
+  {
+   "central": 90,
+   "coverage": "GB, 2014-16 to 2016-18",
+   "high": 90,
+   "id": "I-W4b",
+   "input": "UK: share of new top-decile entrants who came from the ninth decile (014g 2)",
+   "judgement": false,
+   "low": 90,
+   "nulls": {},
+   "sources": [
+    "SW3"
+   ],
+   "unit": "% of entrants"
+  },
+  {
+   "central": 75.5,
+   "coverage": "GB, 2016-18 to 2020-22, by income group, not by wealth band",
+   "high": 77,
+   "id": "I-W4c",
+   "input": "UK: four-year rank correlation of wealth, 2016-18 to 2020-22 (014g 2)",
+   "judgement": true,
+   "low": 74,
+   "nulls": {},
+   "sources": [
+    "SW4"
+   ],
+   "unit": "% (correlation x 100)"
+  },
+  {
+   "central": 0.57,
+   "coverage": "Norway. Foreign (as I-W1a)",
+   "high": 0.57,
+   "id": "I-W4d",
+   "input": "Norway: chance of moving from the bottom 99% to the top 1% of net worth over 11 years, 2004 to 2015 (014g 2)",
+   "judgement": false,
+   "low": 0.57,
+   "nulls": {},
+   "sources": [
+    "SW1"
+   ],
+   "unit": "% over 11 years"
+  },
+  {
+   "central": 7,
+   "coverage": "Norway. Foreign (as I-W1a)",
+   "high": 21,
+   "id": "I-W4e",
+   "input": "Norway: share of the bottom net-worth decile reaching the top decile over 11 years, 2004 to 2015 (014g 2)",
+   "judgement": false,
+   "low": 7,
+   "nulls": {},
+   "sources": [
+    "SW1"
+   ],
+   "unit": "% over 11 years"
+  },
+  {
+   "central": 0.31,
+   "coverage": "GB, wave 3 of the WAS and wave 5 panel. Not a transition rate",
+   "high": 0.37,
+   "id": "I-W4f",
+   "input": "UK: intergenerational wealth rank-rank slope (016g M-2; 014g 2)",
+   "judgement": false,
+   "low": 0.27,
+   "nulls": {},
+   "sources": [
+    "SW10"
+   ],
+   "unit": "coefficient"
+  },
+  {
+   "central": 40.7,
+   "coverage": "GB, April 2020 to March 2022. Outside UK: none",
+   "high": 43.9,
+   "id": "I-W5a",
+   "input": "Top 10% share of household total wealth, Round 8, households basis (014g 3; OH1a start)",
+   "judgement": true,
+   "low": 40.1,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 13.0,
+   "coverage": "GB, 2020-22. Households, not adults",
+   "high": 13.3,
+   "id": "I-W5b",
+   "input": "Top 1% share of total wealth, Round 8, Pareto-implied on a household basis (014g 3; OH1a start)",
+   "judgement": true,
+   "low": 10.5,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 16.5,
+   "coverage": "UK adults 20+, 2016-18, including DC and funded DB pensions; unfunded DB excluded (including it lowers the top 1% by about 1 point)",
+   "high": 23.0,
+   "id": "I-W5c",
+   "input": "Top 1% share of adult net personal wealth, the nearest published per-adult figure, 2016-18 (014g 3)",
+   "judgement": false,
+   "low": 14.4,
+   "nulls": {},
+   "sources": [
+    "SW5",
+    "SW4"
+   ],
+   "unit": "% of adult wealth"
+  },
+  {
+   "central": 52.5,
+   "coverage": "UK adults 20+, 2016-18, as I-W5c",
+   "high": 52.5,
+   "id": "I-W5d",
+   "input": "Top 10% share of adult net personal wealth, 2016-18 (014g 3)",
+   "judgement": false,
+   "low": 52.4,
+   "nulls": {},
+   "sources": [
+    "SW5"
+   ],
+   "unit": "% of adult wealth"
+  },
+  {
+   "central": 35.4,
+   "coverage": "GB, 2020-22",
+   "high": 35.4,
+   "id": "I-W5e",
+   "input": "Private pension wealth as a share of total household wealth, Round 8, and the basis note (014g 3)",
+   "judgement": false,
+   "low": 35.4,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 63.7,
+   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.61 (I-D4c)",
+   "high": 63.7,
+   "id": "I-W6a1",
+   "input": "Share of households with wealth of at least £150,000, Round 8 (016g M-1; OB1)",
+   "judgement": true,
+   "low": 62.9,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of households"
+  },
+  {
+   "central": 95.2,
+   "coverage": "GB, 2020-22. Households; see the row above",
+   "high": 95.2,
+   "id": "I-W6a2",
+   "input": "Share of total wealth held by households with at least £150,000, Round 8 (016g M-1; OB1)",
+   "judgement": true,
+   "low": 95.2,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 53.8,
+   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.61 (I-D4c)",
+   "high": 53.8,
+   "id": "I-W6b1",
+   "input": "Share of households with wealth of at least £250,000, Round 8 (016g M-1; OB1)",
+   "judgement": true,
+   "low": 53.1,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of households"
+  },
+  {
+   "central": 91.4,
+   "coverage": "GB, 2020-22. Households; see the row above",
+   "high": 91.4,
+   "id": "I-W6b2",
+   "input": "Share of total wealth held by households with at least £250,000, Round 8 (016g M-1; OB1)",
+   "judgement": true,
+   "low": 91.4,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 34.2,
+   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.61 (I-D4c)",
+   "high": 34.2,
+   "id": "I-W6c1",
+   "input": "Share of households with wealth of at least £500,000, Round 8 (016g M-1; OB1)",
+   "judgement": true,
+   "low": 33.8,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of households"
+  },
+  {
+   "central": 76.6,
+   "coverage": "GB, 2020-22. Households; see the row above",
+   "high": 76.6,
+   "id": "I-W6c2",
+   "input": "Share of total wealth held by households with at least £500,000, Round 8 (016g M-1; OB1)",
+   "judgement": true,
+   "low": 76.6,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 14.1,
+   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.61 (I-D4c)",
+   "high": 15.0,
+   "id": "I-W6d1",
+   "input": "Share of households with wealth of at least £1,000,000, Round 8 (016g M-1; OB1)",
+   "judgement": true,
+   "low": 14.1,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of households"
+  },
+  {
+   "central": 48.9,
+   "coverage": "GB, 2020-22. Households; see the row above",
+   "high": 48.9,
+   "id": "I-W6d2",
+   "input": "Share of total wealth held by households with at least £1,000,000, Round 8 (016g M-1; OB1)",
+   "judgement": true,
+   "low": 48.9,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 3.45,
+   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.61 (I-D4c)",
+   "high": 3.51,
+   "id": "I-W6e1",
+   "input": "Share of households with wealth of at least £2,000,000, Round 8 (016g M-1; OB1)",
+   "judgement": true,
+   "low": 2.92,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of households"
+  },
+  {
+   "central": 24.9,
+   "coverage": "GB, 2020-22. Households; see the row above",
+   "high": 25.5,
+   "id": "I-W6e2",
+   "input": "Share of total wealth held by households with at least £2,000,000, Round 8 (016g M-1; OB1)",
+   "judgement": true,
+   "low": 19.7,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 0.5,
+   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.61 (I-D4c)",
+   "high": 0.52,
+   "id": "I-W6f1",
+   "input": "Share of households with wealth of at least £5,000,000, Round 8 (016g M-1; OB1)",
+   "judgement": true,
+   "low": 0.31,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of households"
+  },
+  {
+   "central": 9.0,
+   "coverage": "GB, 2020-22. Households; see the row above",
+   "high": 9.5,
+   "id": "I-W6f2",
+   "input": "Share of total wealth held by households with at least £5,000,000, Round 8 (016g M-1; OB1)",
+   "judgement": true,
+   "low": 5.3,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 0.12,
+   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.61 (I-D4c)",
+   "high": 0.12,
+   "id": "I-W6g1",
+   "input": "Share of households with wealth of at least £10,000,000, Round 8 (016g M-1; OB1)",
+   "judgement": true,
+   "low": 0.06,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of households"
+  },
+  {
+   "central": 4.2,
+   "coverage": "GB, 2020-22. Households; see the row above",
+   "high": 4.5,
+   "id": "I-W6g2",
+   "input": "Share of total wealth held by households with at least £10,000,000, Round 8 (016g M-1; OB1)",
+   "judgement": true,
+   "low": 1.9,
+   "nulls": {},
+   "sources": [
+    "SW7"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 21.3,
+   "coverage": "UK, 1820 to 2024; all years flagged observed, not extrapolated, in the file; recent years are WID estimates. Outside UK: the same extract holds 13 other countries",
+   "high": 22.6,
+   "id": "I-W7a",
+   "input": "UK top 1% share of net personal wealth, WID, equal-split adults, level and range since 1990 (014g 9)",
+   "judgement": false,
+   "low": 18.3,
+   "nulls": {},
+   "sources": [
+    "SW6"
+   ],
+   "unit": "% of wealth"
+  },
+  {
+   "central": 57.1,
+   "coverage": "UK, 1820 to 2024",
+   "high": 57.8,
+   "id": "I-W7b",
+   "input": "UK top 10% share of net personal wealth, WID, level and range since 1990 (014g 9)",
+   "judgement": false,
+   "low": 51.6,
+   "nulls": {},
+   "sources": [
+    "SW6"
+   ],
+   "unit": "% of wealth"
+  },
+  {
+   "central": 10.6,
+   "coverage": "GB, 2014-16 to 2016-18. Decile, not a fixed pound threshold",
+   "high": 13.4,
+   "id": "I-W8a",
+   "input": "UK: annual probability that a top-decile adult falls out of the top decile (016g M-2)",
+   "judgement": true,
+   "low": 7.8,
+   "nulls": {},
+   "sources": [
+    "SW3"
+   ],
+   "unit": "% per year"
+  },
+  {
+   "central": 3.6,
+   "coverage": "GB, 2014-16 to 2016-18, families",
+   "high": 3.8,
+   "id": "I-W8b",
+   "input": "UK: annual probability that a family in the bottom half moves into the top half (016g M-2)",
+   "judgement": true,
+   "low": 3.3,
+   "nulls": {},
+   "sources": [
+    "SW3"
+   ],
+   "unit": "% per year"
+  },
+  {
+   "central": 4.6,
+   "coverage": "Colombia, 2010 reform. Foreign: a notch design with weak third-party reporting; UK transfer not argued",
+   "high": 4.9,
+   "id": "I-W9a",
+   "input": "Excess mass of reported wealth just below the wealth tax notch, as a multiple of the counterfactual density (016g M-3; OD1)",
+   "judgement": true,
+   "low": 4.3,
+   "nulls": {},
+   "sources": [
+    "SW8"
+   ],
+   "unit": "multiple"
+  },
+  {
+   "central": 1.3,
+   "coverage": "Colombia, 2010. Foreign (as I-W9a)",
+   "high": 2.0,
+   "id": "I-W9b",
+   "input": "Elasticity of reported wealth with respect to the net-of-tax rate (016g M-3; OD1, I-D5a cross-check)",
+   "judgement": true,
+   "low": 0.6,
+   "nulls": {},
+   "sources": [
+    "SW8"
+   ],
+   "unit": "elasticity"
+  },
+  {
+   "central": 22,
+   "coverage": "Colombia, 2010. Foreign (as I-W9a)",
+   "high": 22,
+   "id": "I-W9c",
+   "input": "Understatement of inventories (no third-party reporting) by those who bunch (016g M-3)",
+   "judgement": false,
+   "low": 22,
+   "nulls": {},
+   "sources": [
+    "SW8"
+   ],
+   "unit": "% of the item"
+  },
+  {
+   "central": 15.3,
+   "coverage": "Colombia. Foreign (as I-W9a); the UK has a different offshore regime",
+   "high": 15.3,
+   "id": "I-W9d",
+   "input": "Undisclosed wealth as a share of the wealth of the top 0.01% (016g M-3)",
+   "judgement": false,
+   "low": 15.3,
+   "nulls": {},
+   "sources": [
+    "SW8"
+   ],
+   "unit": "% of wealth"
+  },
+  {
+   "central": 55,
+   "coverage": "Swiss cantons, 2000s. Foreign; abstract only read, so no table or page",
+   "high": 55,
+   "id": "I-W9e",
+   "input": "Switzerland: share of the rise in reported taxable wealth after a one point cut in the canton rate that is not mobility or housing prices (016g M-3)",
+   "judgement": true,
+   "low": 55,
+   "nulls": {},
+   "sources": [
+    "SW9"
+   ],
+   "unit": "% of the response"
+  },
+  {
+   "central": null,
+   "coverage": "England, Wales, Northern Ireland; Scotland has its own bands",
+   "high": null,
+   "id": "I-T1a",
+   "input": "Income tax bands, rates and personal allowance for a worker, 2026-27 (014g 4)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "12,570 allowance; 20% on 37,700; 40% to 125,140; 45% above",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "As central (allowance withdrawn £1 per £2 above £100,000)",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "12,570 allowance; 20% to 50,270",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "ST1",
+    "ST2"
+   ],
+   "unit": "£ and %"
+  },
+  {
+   "central": null,
+   "coverage": "UK",
+   "high": null,
+   "id": "I-T1b",
+   "input": "Employee NICs, Class 1 primary, 2026-27 (014g 4)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "8% on £12,570 to £50,270",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "2% above £50,270",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "0 below £12,570",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "ST1"
+   ],
+   "unit": "%"
+  },
+  {
+   "central": 40911,
+   "coverage": "UK, employees on adult rates, ASHE 2026 provisional, release 22 Oct 2026",
+   "high": 42182,
+   "id": "I-T1c",
+   "input": "Median gross annual earnings, full-time employees, April 2026 (014g 4, 016g M-5)",
+   "judgement": false,
+   "low": 40580,
+   "nulls": {},
+   "sources": [
+    "ST4"
+   ],
+   "unit": "£ a year"
+  },
+  {
+   "central": 19.4,
+   "coverage": "UK single employee, no other income",
+   "high": 19.7,
+   "id": "I-T1d",
+   "input": "Income tax plus employee NICs at the median full-time wage, as % of gross pay (014g 4, M-4)",
+   "judgement": false,
+   "low": 19.3,
+   "nulls": {},
+   "sources": [
+    "ST1",
+    "ST2",
+    "ST4"
+   ],
+   "unit": "% of gross earnings"
+  },
+  {
+   "central": null,
+   "coverage": "UK",
+   "high": null,
+   "id": "I-T1e",
+   "input": "Tax rates on investment income for a taxpayer, 2026-27 (014g 5)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "Dividends 35.75 (higher); savings and other income 40 (higher)",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "Dividends 39.35 and savings 45 (additional)",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "Dividends 10.75 (basic)",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "ST1",
+    "ST2"
+   ],
+   "unit": "%"
+  },
+  {
+   "central": 71.8,
+   "coverage": "UK taxpayers on the HMRC survey; excludes non-taxpayers' ISA and pension income",
+   "high": 71.8,
+   "id": "I-T2a",
+   "input": "Dividend income of UK taxpayers, tax year 2023-24 (014g 5)",
+   "judgement": false,
+   "low": 71.8,
+   "nulls": {},
+   "sources": [
+    "ST9"
+   ],
+   "unit": "£ bn"
+  },
+  {
+   "central": 18.3,
+   "coverage": "UK taxpayers",
+   "high": 18.3,
+   "id": "I-T2b",
+   "input": "Savings (bank and building society interest) income of UK taxpayers, 2023-24 (014g 5)",
+   "judgement": false,
+   "low": 18.3,
+   "nulls": {},
+   "sources": [
+    "ST9"
+   ],
+   "unit": "£ bn"
+  },
+  {
+   "central": 4.7,
+   "coverage": "UK income over GB wealth",
+   "high": 4.7,
+   "id": "I-T2c",
+   "input": "Taxable dividends plus interest over aggregate net financial wealth, 2023-24 income over 2020-22 stock (014g 5)",
+   "judgement": true,
+   "low": 4.7,
+   "nulls": {},
+   "sources": [
+    "ST9",
+    "ST10"
+   ],
+   "unit": "% a year"
+  },
+  {
+   "central": 70,
+   "coverage": "GB wealth; UK income",
+   "high": 90,
+   "id": "I-T2d",
+   "input": "Share of taxable investment income received by wealth decile 10 (014g 5)",
+   "judgement": true,
+   "low": 56,
+   "nulls": {},
+   "sources": [
+    "ST10",
+    "ST8",
+    "ST9"
+   ],
+   "unit": "% of total"
+  },
+  {
+   "central": 2.36,
+   "coverage": "UK income over GB wealth",
+   "high": 3.42,
+   "id": "I-T2e",
+   "input": "Income tax on investment income in wealth decile 10 as % of its net financial wealth (014g 5)",
+   "judgement": true,
+   "low": 1.68,
+   "nulls": {},
+   "sources": [
+    "ST9",
+    "ST10",
+    "ST1"
+   ],
+   "unit": "% a year"
+  },
+  {
+   "central": 76.2,
+   "coverage": "UK, income over £1m, not wealth",
+   "high": 76.2,
+   "id": "I-T2f",
+   "input": "Concentration of dividends in very high incomes (014g 5, nearest evidence)",
+   "judgement": false,
+   "low": 76.2,
+   "nulls": {},
+   "sources": [
+    "ST9"
+   ],
+   "unit": "% of property, interest, dividend and other income"
+  },
+  {
+   "central": 10.6,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 10.71,
+   "id": "I-T3a",
+   "input": "Receipts, Income tax (gross of tax credits), central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 10.54,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 8.83,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 8.88,
+   "id": "I-T3b",
+   "input": "Receipts, of which pay as you earn, central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 8.83,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 1.97,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 2.04,
+   "id": "I-T3c",
+   "input": "Receipts, of which self assessment, central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 1.91,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 6.53,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 6.52,
+   "id": "I-T3d",
+   "input": "Receipts, National insurance contributions, central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 6.55,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 6.22,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 6.16,
+   "id": "I-T3e",
+   "input": "Receipts, Value added tax, central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 6.26,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 3.37,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 3.55,
+   "id": "I-T3f",
+   "input": "Receipts, Corporation tax, central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 3.24,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 0.95,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 0.91,
+   "id": "I-T3g",
+   "input": "Receipts, Fuel duties, central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 1.0,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 0.77,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 0.82,
+   "id": "I-T3h",
+   "input": "Receipts, Capital gains tax, central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 0.73,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 0.27,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 0.27,
+   "id": "I-T3i",
+   "input": "Receipts, Inheritance tax, central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 0.27,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 0.66,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 0.73,
+   "id": "I-T3j",
+   "input": "Receipts, Stamp duties (all), central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 0.59,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 0.5,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 0.57,
+   "id": "I-T3k",
+   "input": "Receipts, of which property transactions, central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 0.43,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 0.16,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 0.16,
+   "id": "I-T3l",
+   "input": "Receipts, of which stamp taxes on shares, central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 0.16,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 1.29,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 1.26,
+   "id": "I-T3m",
+   "input": "Receipts, Business rates, central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 1.33,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 1.75,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 1.78,
+   "id": "I-T3n",
+   "input": "Receipts, Council tax, central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 1.72,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 31.61,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 31.9,
+   "id": "I-T3o",
+   "input": "Receipts, Total HMRC receipts, central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 31.54,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 41.2,
+   "coverage": "UK, cash basis, forecast vintage: OBR EFO March 2023 for post-2022 years",
+   "high": 41.54,
+   "id": "I-T3p",
+   "input": "Receipts, Total current receipts, central 2025-26 (014g 10; reads the sheet cell behind M1e)",
+   "judgement": false,
+   "low": 41.36,
+   "nulls": {},
+   "sources": [
+    "ST5"
+   ],
+   "unit": "% of GDP"
+  },
+  {
+   "central": 460,
+   "coverage": "GB households, decile group",
+   "high": 460,
+   "id": "I-T4a",
+   "input": "Gain-bearing wealth (net property plus net financial) in wealth D4-5, April 2020 to March 2022 (014g 6)",
+   "judgement": false,
+   "low": 460,
+   "nulls": {},
+   "sources": [
+    "ST10"
+   ],
+   "unit": "£ bn"
+  },
+  {
+   "central": 1251,
+   "coverage": "GB households, decile group",
+   "high": 1251,
+   "id": "I-T4b",
+   "input": "Gain-bearing wealth (net property plus net financial) in wealth D6-7, April 2020 to March 2022 (014g 6)",
+   "judgement": false,
+   "low": 1251,
+   "nulls": {},
+   "sources": [
+    "ST10"
+   ],
+   "unit": "£ bn"
+  },
+  {
+   "central": 2460,
+   "coverage": "GB households, decile group",
+   "high": 2460,
+   "id": "I-T4c",
+   "input": "Gain-bearing wealth (net property plus net financial) in wealth D8-9, April 2020 to March 2022 (014g 6)",
+   "judgement": false,
+   "low": 2460,
+   "nulls": {},
+   "sources": [
+    "ST10"
+   ],
+   "unit": "£ bn"
+  },
+  {
+   "central": 3181,
+   "coverage": "GB households, decile group",
+   "high": 3181,
+   "id": "I-T4d",
+   "input": "Gain-bearing wealth (net property plus net financial) in wealth D10, April 2020 to March 2022 (014g 6)",
+   "judgement": false,
+   "low": 3181,
+   "nulls": {},
+   "sources": [
+    "ST10"
+   ],
+   "unit": "£ bn"
+  },
+  {
+   "central": 35,
+   "coverage": "UK; applied to GB decile",
+   "high": 50,
+   "id": "I-T4e",
+   "input": "Accrued (unrealised) gain as a share of the market value of gain-bearing assets (014g 6)",
+   "judgement": true,
+   "low": 20,
+   "nulls": {},
+   "sources": [
+    "ST6",
+    "ST10"
+   ],
+   "unit": "% of value"
+  },
+  {
+   "central": 1113,
+   "coverage": "GB, D10",
+   "high": 1591,
+   "id": "I-T4f",
+   "input": "Accrued gains in wealth decile 10 (014g 6)",
+   "judgement": true,
+   "low": 636,
+   "nulls": {},
+   "sources": [
+    "ST10"
+   ],
+   "unit": "£ bn"
+  },
+  {
+   "central": 127,
+   "coverage": "UK; individuals and trusts; first year with carried interest and crypto reported separately",
+   "high": 127,
+   "id": "I-T4g",
+   "input": "Realised capital gains of UK individuals and trusts, 2024-25 (014g 6, nearest evidence)",
+   "judgement": false,
+   "low": 69.8,
+   "nulls": {},
+   "sources": [
+    "ST6"
+   ],
+   "unit": "£ bn"
+  },
+  {
+   "central": null,
+   "coverage": "UK; assets disposed of in the year, not the stock held; sample-based, provisional",
+   "high": null,
+   "id": "I-T5a",
+   "input": "Median holding period of disposed assets by class, 2023-24 (014g 7)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "2.5 (unlisted shares)",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "12.5 to 17.5 (residential; agricultural, commercial or industrial land)",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "1 (listed shares)",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "ST6"
+   ],
+   "unit": "years"
+  },
+  {
+   "central": null,
+   "coverage": "UK; disposals in the year",
+   "high": null,
+   "id": "I-T5b",
+   "input": "Share of disposed assets held 5 years or less, 2023-24 (014g 7)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "61 (unlisted shares)",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "77 (listed shares)",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "14 (residential)",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "ST6"
+   ],
+   "unit": "%"
+  },
+  {
+   "central": 50,
+   "coverage": "UK; CGT payers, HMRC microdata 1997-2020",
+   "high": 50,
+   "id": "I-T5c",
+   "input": "Share of people paying CGT in 2020 who had no gain in the previous ten years (014g 7)",
+   "judgement": false,
+   "low": 50,
+   "nulls": {},
+   "sources": [
+    "ST7"
+   ],
+   "unit": "%"
+  },
+  {
+   "central": null,
+   "coverage": "UK; income and size bands, not wealth bands",
+   "high": null,
+   "id": "I-T5d",
+   "input": "Share of gains received by the 5,000 largest gainers in 2020, and by taxpayers with taxable income over £125,140 (014g 7)",
+   "judgement": false,
+   "low": 52.2,
+   "nulls": {
+    "central": {
+     "raw": "52.2 (top 5,000, 2020)",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "55 (income over £125,140, 2024-25; 52 in the summary of the same release)",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "ST7",
+    "ST6"
+   ],
+   "unit": "% of gains"
+  },
+  {
+   "central": 1.7,
+   "coverage": "UK over GB",
+   "high": 1.7,
+   "id": "I-T5e",
+   "input": "Annual realised gains over total gain-bearing wealth, all households (014g 7)",
+   "judgement": true,
+   "low": 0.9,
+   "nulls": {},
+   "sources": [
+    "ST6",
+    "ST10"
+   ],
+   "unit": "% a year"
+  },
+  {
+   "central": 2.1,
+   "coverage": "UK over GB; income band proxy",
+   "high": 2.2,
+   "id": "I-T5f",
+   "input": "Annual realised gains over D10 gain-bearing wealth (014g 7)",
+   "judgement": true,
+   "low": 1.1,
+   "nulls": {},
+   "sources": [
+    "ST6",
+    "ST10"
+   ],
+   "unit": "% a year"
+  },
+  {
+   "central": 32.5,
+   "coverage": "GB households",
+   "high": 35.0,
+   "id": "I-T6b",
+   "input": "Private pension wealth as % of total wealth, wealth D6-7 (014g 8: exempt class)",
+   "judgement": false,
+   "low": 32.5,
+   "nulls": {},
+   "sources": [
+    "ST10"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 45.6,
+   "coverage": "GB households",
+   "high": 45.6,
+   "id": "I-T6e",
+   "input": "Net property wealth as % of total wealth, wealth D6-7 (014g 8: home plus other property)",
+   "judgement": false,
+   "low": 44.4,
+   "nulls": {},
+   "sources": [
+    "ST10"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 9.3,
+   "coverage": "GB households",
+   "high": 9.3,
+   "id": "I-T6h",
+   "input": "Net financial wealth as % of total wealth, wealth D6-7 (014g 8: holds ISAs and shares)",
+   "judgement": false,
+   "low": 8.4,
+   "nulls": {},
+   "sources": [
+    "ST10"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 35.4,
+   "coverage": "GB households",
+   "high": 43.1,
+   "id": "I-T6c",
+   "input": "Private pension wealth as % of total wealth, wealth D8-9 (014g 8: exempt class)",
+   "judgement": false,
+   "low": 35.4,
+   "nulls": {},
+   "sources": [
+    "ST10"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 42.7,
+   "coverage": "GB households",
+   "high": 42.7,
+   "id": "I-T6f",
+   "input": "Net property wealth as % of total wealth, wealth D8-9 (014g 8: home plus other property)",
+   "judgement": false,
+   "low": 37.9,
+   "nulls": {},
+   "sources": [
+    "ST10"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 12.8,
+   "coverage": "GB households",
+   "high": 12.8,
+   "id": "I-T6i",
+   "input": "Net financial wealth as % of total wealth, wealth D8-9 (014g 8: holds ISAs and shares)",
+   "judgement": false,
+   "low": 10.8,
+   "nulls": {},
+   "sources": [
+    "ST10"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 36.4,
+   "coverage": "GB households",
+   "high": 46.5,
+   "id": "I-T6d",
+   "input": "Private pension wealth as % of total wealth, wealth D10 (014g 8: exempt class)",
+   "judgement": false,
+   "low": 36.4,
+   "nulls": {},
+   "sources": [
+    "ST10"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 38.3,
+   "coverage": "GB households",
+   "high": 38.3,
+   "id": "I-T6g",
+   "input": "Net property wealth as % of total wealth, wealth D10 (014g 8: home plus other property)",
+   "judgement": false,
+   "low": 31.4,
+   "nulls": {},
+   "sources": [
+    "ST10"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 19.3,
+   "coverage": "GB households",
+   "high": 19.3,
+   "id": "I-T6j",
+   "input": "Net financial wealth as % of total wealth, wealth D10 (014g 8: holds ISAs and shares)",
+   "judgement": false,
+   "low": 17.1,
+   "nulls": {},
+   "sources": [
+    "ST10"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": 7.0,
+   "coverage": "UK ISAs over GB wealth",
+   "high": 7.7,
+   "id": "I-T6m",
+   "input": "Adult ISA holdings as % of total household wealth (014g 8: ISA exempt class)",
+   "judgement": true,
+   "low": 6.7,
+   "nulls": {},
+   "sources": [
+    "ST8",
+    "ST10"
+   ],
+   "unit": "% of total wealth"
+  },
+  {
+   "central": null,
+   "coverage": "UK, 2023-24",
+   "high": 103315,
+   "id": "I-T6k",
+   "input": "Average ISA holding by earner, income £150,000 or more, 2023-24 (014g 8, nearest evidence by band)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "103,315 (income £150,000 or more)",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "34,575 (median-income holder)",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "ST8"
+   ],
+   "unit": "£"
+  },
+  {
+   "central": null,
+   "coverage": "UK",
+   "high": null,
+   "id": "I-T6l",
+   "input": "Share of accrued gains sheltered by business relief at death (014g 8)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "not found",
+     "reason": "not found"
+    },
+    "high": {
+     "raw": "not found",
+     "reason": "not found"
+    },
+    "low": {
+     "raw": "not found",
+     "reason": "not found"
+    }
+   },
+   "sources": [
+    "ST6"
+   ],
+   "unit": "% of gains"
+  },
+  {
+   "central": 24,
+   "coverage": "UK; trustees and personal representatives also 24%",
+   "high": 24,
+   "id": "I-T7a",
+   "input": "CGT rate, higher and additional rate taxpayers, all asset classes, 2026-27 (015g)",
+   "judgement": false,
+   "low": 24,
+   "nulls": {},
+   "sources": [
+    "ST3"
+   ],
+   "unit": "%"
+  },
+  {
+   "central": 18,
+   "coverage": "UK",
+   "high": 18,
+   "id": "I-T7b",
+   "input": "CGT rate, basic rate taxpayers, all asset classes, 2026-27 (015g)",
+   "judgement": false,
+   "low": 18,
+   "nulls": {},
+   "sources": [
+    "ST3"
+   ],
+   "unit": "%"
+  },
+  {
+   "central": 18,
+   "coverage": "UK",
+   "high": 18,
+   "id": "I-T7c",
+   "input": "Business Asset Disposal Relief rate from 6 April 2026 (015g)",
+   "judgement": false,
+   "low": 18,
+   "nulls": {},
+   "sources": [
+    "ST3"
+   ],
+   "unit": "%"
+  },
+  {
+   "central": 3000,
+   "coverage": "UK; individuals",
+   "high": 3000,
+   "id": "I-T7d",
+   "input": "CGT annual exempt amount, 2026-27 (015g)",
+   "judgement": false,
+   "low": 3000,
+   "nulls": {},
+   "sources": [
+    "ST3"
+   ],
+   "unit": "£ per person"
+  },
+  {
+   "central": null,
+   "coverage": "UK",
+   "high": null,
+   "id": "I-T7e",
+   "input": "Main home exempt from CGT (private residence relief) (015g)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "exempt",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "exempt",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "exempt",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "ST3"
+   ],
+   "unit": "rule"
+  },
+  {
+   "central": null,
+   "coverage": "UK",
+   "high": null,
+   "id": "I-T7f",
+   "input": "Uplift at death: unrealised gains forgiven, heir inherits at market value (015g)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "yes",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "yes",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "yes",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "ST7"
+   ],
+   "unit": "rule"
+  },
+  {
+   "central": 8829,
+   "coverage": "UK households, FYE 2023, quintile not decile",
+   "high": 8829,
+   "id": "I-H1a",
+   "input": "Average total tax paid, equivalised disposable income quintile: bottom, FYE 2023 (014g 11)",
+   "judgement": false,
+   "low": 8829,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 37.9,
+   "coverage": "UK households, FYE 2023",
+   "high": 37.949999999999996,
+   "id": "I-H1f",
+   "input": "Total tax as % of gross income, quintile bottom, FYE 2023 (014g 11)",
+   "judgement": false,
+   "low": 37.85,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "% of gross income"
+  },
+  {
+   "central": 11251,
+   "coverage": "UK households, FYE 2023, quintile not decile",
+   "high": 11251,
+   "id": "I-H1b",
+   "input": "Average total tax paid, equivalised disposable income quintile: 2nd, FYE 2023 (014g 11)",
+   "judgement": false,
+   "low": 11251,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 29.1,
+   "coverage": "UK households, FYE 2023",
+   "high": 29.150000000000002,
+   "id": "I-H1g",
+   "input": "Total tax as % of gross income, quintile 2nd, FYE 2023 (014g 11)",
+   "judgement": false,
+   "low": 29.05,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "% of gross income"
+  },
+  {
+   "central": 16011,
+   "coverage": "UK households, FYE 2023, quintile not decile",
+   "high": 16011,
+   "id": "I-H1c",
+   "input": "Average total tax paid, equivalised disposable income quintile: 3rd, FYE 2023 (014g 11)",
+   "judgement": false,
+   "low": 16011,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 30.1,
+   "coverage": "UK households, FYE 2023",
+   "high": 30.150000000000002,
+   "id": "I-H1h",
+   "input": "Total tax as % of gross income, quintile 3rd, FYE 2023 (014g 11)",
+   "judgement": false,
+   "low": 30.05,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "% of gross income"
+  },
+  {
+   "central": 23436,
+   "coverage": "UK households, FYE 2023, quintile not decile",
+   "high": 23436,
+   "id": "I-H1d",
+   "input": "Average total tax paid, equivalised disposable income quintile: 4th, FYE 2023 (014g 11)",
+   "judgement": false,
+   "low": 23436,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 31.8,
+   "coverage": "UK households, FYE 2023",
+   "high": 31.85,
+   "id": "I-H1i",
+   "input": "Total tax as % of gross income, quintile 4th, FYE 2023 (014g 11)",
+   "judgement": false,
+   "low": 31.75,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "% of gross income"
+  },
+  {
+   "central": 52441,
+   "coverage": "UK households, FYE 2023, quintile not decile",
+   "high": 52441,
+   "id": "I-H1e",
+   "input": "Average total tax paid, equivalised disposable income quintile: top, FYE 2023 (014g 11)",
+   "judgement": false,
+   "low": 52441,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 37.1,
+   "coverage": "UK households, FYE 2023",
+   "high": 37.15,
+   "id": "I-H1j",
+   "input": "Total tax as % of gross income, quintile top, FYE 2023 (014g 11)",
+   "judgement": false,
+   "low": 37.050000000000004,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "% of gross income"
+  },
+  {
+   "central": 8494,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 8494,
+   "id": "I-H1k",
+   "input": "Total tax paid per household, equivalised disposable income decile bottom, FYE 2024: direct plus indirect, all taxes the ONS allocates (014g 11; M4a denominator)",
+   "judgement": false,
+   "low": 4700,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 8757,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 8757,
+   "id": "I-H1l",
+   "input": "Total tax paid per household, equivalised disposable income decile 2nd, FYE 2024: direct plus indirect, all taxes the ONS allocates (014g 11; M4a denominator)",
+   "judgement": false,
+   "low": 7222,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 11923,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 11923,
+   "id": "I-H1m",
+   "input": "Total tax paid per household, equivalised disposable income decile 3rd, FYE 2024: direct plus indirect, all taxes the ONS allocates (014g 11; M4a denominator)",
+   "judgement": false,
+   "low": 9086,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 12837,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 13695,
+   "id": "I-H1n",
+   "input": "Total tax paid per household, equivalised disposable income decile 4th, FYE 2024: direct plus indirect, all taxes the ONS allocates (014g 11; M4a denominator)",
+   "judgement": false,
+   "low": 11995,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 16242,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 16242,
+   "id": "I-H1o",
+   "input": "Total tax paid per household, equivalised disposable income decile 5th, FYE 2024: direct plus indirect, all taxes the ONS allocates (014g 11; M4a denominator)",
+   "judgement": false,
+   "low": 15031,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 18435,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 20025,
+   "id": "I-H1p",
+   "input": "Total tax paid per household, equivalised disposable income decile 6th, FYE 2024: direct plus indirect, all taxes the ONS allocates (014g 11; M4a denominator)",
+   "judgement": false,
+   "low": 18435,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 22132,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 22759,
+   "id": "I-H1q",
+   "input": "Total tax paid per household, equivalised disposable income decile 7th, FYE 2024: direct plus indirect, all taxes the ONS allocates (014g 11; M4a denominator)",
+   "judgement": false,
+   "low": 22132,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 28430,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 28430,
+   "id": "I-H1r",
+   "input": "Total tax paid per household, equivalised disposable income decile 8th, FYE 2024: direct plus indirect, all taxes the ONS allocates (014g 11; M4a denominator)",
+   "judgement": false,
+   "low": 27466,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 33009,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 35756,
+   "id": "I-H1s",
+   "input": "Total tax paid per household, equivalised disposable income decile 9th, FYE 2024: direct plus indirect, all taxes the ONS allocates (014g 11; M4a denominator)",
+   "judgement": false,
+   "low": 33009,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 70797,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 74885,
+   "id": "I-H1t",
+   "input": "Total tax paid per household, equivalised disposable income decile top, FYE 2024: direct plus indirect, all taxes the ONS allocates (014g 11; M4a denominator)",
+   "judgement": false,
+   "low": 70797,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 53.3,
+   "coverage": "UK individuals, FYE 2024",
+   "high": 90.1,
+   "id": "I-H2b",
+   "input": "Share of individuals in households receiving more in benefits than they pay in taxes, FYE 2024 (014g 12, nearest)",
+   "judgement": false,
+   "low": 45.8,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "% of individuals"
+  },
+  {
+   "central": 23296,
+   "coverage": "UK, FYE 2023",
+   "high": 23412,
+   "id": "I-H3a",
+   "input": "Average gross income, equivalised disposable income quintile bottom, FYE 2023 (016g M-5)",
+   "judgement": true,
+   "low": 23179,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 38663,
+   "coverage": "UK, FYE 2023",
+   "high": 38857,
+   "id": "I-H3b",
+   "input": "Average gross income, equivalised disposable income quintile 2nd, FYE 2023 (016g M-5)",
+   "judgement": true,
+   "low": 38470,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 53193,
+   "coverage": "UK, FYE 2023",
+   "high": 53459,
+   "id": "I-H3c",
+   "input": "Average gross income, equivalised disposable income quintile 3rd, FYE 2023 (016g M-5)",
+   "judgement": true,
+   "low": 52927,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 73698,
+   "coverage": "UK, FYE 2023",
+   "high": 74067,
+   "id": "I-H3d",
+   "input": "Average gross income, equivalised disposable income quintile 4th, FYE 2023 (016g M-5)",
+   "judgement": true,
+   "low": 73330,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 141350,
+   "coverage": "UK, FYE 2023",
+   "high": 142057,
+   "id": "I-H3e",
+   "input": "Average gross income, equivalised disposable income quintile top, FYE 2023 (016g M-5)",
+   "judgement": true,
+   "low": 140644,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": null,
+   "coverage": "UK, FYE 2024, released 25 Sep 2025; quintile ends only",
+   "high": null,
+   "id": "I-H3f",
+   "input": "Equivalised income at the two ends, FYE 2024 (016g M-5)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "richest fifth disposable 85,600",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "richest fifth original 116,600",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "poorest fifth disposable 15,200",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "SH2"
+   ],
+   "unit": "£ a year"
+  },
+  {
+   "central": null,
+   "coverage": "UK, FYE 2025",
+   "high": null,
+   "id": "I-H3g",
+   "input": "Median household disposable income, FYE 2025 (016g M-5)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "39,200 (all)",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "77,000 (richest fifth median)",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "18,300 (poorest fifth median)",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "SH4"
+   ],
+   "unit": "£ a year"
+  },
+  {
+   "central": 40911,
+   "coverage": "UK full-time employees",
+   "high": 42182,
+   "id": "I-H3h",
+   "input": "Median earnings, full-time employee, UK, April 2026 (016g M-5)",
+   "judgement": false,
+   "low": 40580,
+   "nulls": {},
+   "sources": [
+    "ST4"
+   ],
+   "unit": "£ a year"
+  },
+  {
+   "central": 12.71,
+   "coverage": "England (Skills for Care) and ASHE care workers, provisional",
+   "high": 16.11,
+   "id": "I-H3i",
+   "input": "Median hourly pay, care workers, England independent sector, Dec 2025 (016g M-5)",
+   "judgement": true,
+   "low": 12.6,
+   "nulls": {},
+   "sources": [
+    "SH5",
+    "SH6"
+   ],
+   "unit": "£ per hour"
+  },
+  {
+   "central": 24785,
+   "coverage": "England",
+   "high": 31415,
+   "id": "I-H3j",
+   "input": "Annual gross pay, care worker at the hourly medians above, full time (016g M-5)",
+   "judgement": true,
+   "low": 24570,
+   "nulls": {},
+   "sources": [
+    "SH5",
+    "SH6"
+   ],
+   "unit": "£ a year"
+  },
+  {
+   "central": 17938,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 19580,
+   "id": "I-H3k",
+   "input": "Average gross income per household, equivalised disposable income decile bottom, FYE 2024 (016g M-5; M4b denominator)",
+   "judgement": false,
+   "low": 14439,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 29053,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 29053,
+   "id": "I-H3l",
+   "input": "Average gross income per household, equivalised disposable income decile 2nd, FYE 2024 (016g M-5; M4b denominator)",
+   "judgement": false,
+   "low": 24278,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 36591,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 36591,
+   "id": "I-H3m",
+   "input": "Average gross income per household, equivalised disposable income decile 3rd, FYE 2024 (016g M-5; M4b denominator)",
+   "judgement": false,
+   "low": 32752,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 43991,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 43991,
+   "id": "I-H3n",
+   "input": "Average gross income per household, equivalised disposable income decile 4th, FYE 2024 (016g M-5; M4b denominator)",
+   "judgement": false,
+   "low": 40812,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 53140,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 53294,
+   "id": "I-H3o",
+   "input": "Average gross income per household, equivalised disposable income decile 5th, FYE 2024 (016g M-5; M4b denominator)",
+   "judgement": false,
+   "low": 50952,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 61786,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 63202,
+   "id": "I-H3p",
+   "input": "Average gross income per household, equivalised disposable income decile 6th, FYE 2024 (016g M-5; M4b denominator)",
+   "judgement": false,
+   "low": 60758,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 72812,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 72812,
+   "id": "I-H3q",
+   "input": "Average gross income per household, equivalised disposable income decile 7th, FYE 2024 (016g M-5; M4b denominator)",
+   "judgement": false,
+   "low": 71894,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 86662,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 87041,
+   "id": "I-H3r",
+   "input": "Average gross income per household, equivalised disposable income decile 8th, FYE 2024 (016g M-5; M4b denominator)",
+   "judgement": false,
+   "low": 85780,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 101710,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 108199,
+   "id": "I-H3s",
+   "input": "Average gross income per household, equivalised disposable income decile 9th, FYE 2024 (016g M-5; M4b denominator)",
+   "judgement": false,
+   "low": 101710,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 184980,
+   "coverage": "UK households, FYE 2024, decile of individuals",
+   "high": 198359,
+   "id": "I-H3t",
+   "input": "Average gross income per household, equivalised disposable income decile top, FYE 2024 (016g M-5; M4b denominator)",
+   "judgement": false,
+   "low": 184980,
+   "nulls": {},
+   "sources": [
+    "SH11"
+   ],
+   "unit": "£ per household a year"
+  },
+  {
+   "central": 1.87,
+   "coverage": "UK tax over GB wealth; income band proxy",
+   "high": 2.93,
+   "id": "I-H4a",
+   "input": "Income tax paid by additional-rate taxpayers per £ of wealth, D10 and wider (016g M-4)",
+   "judgement": true,
+   "low": 1.26,
+   "nulls": {},
+   "sources": [
+    "SH7",
+    "ST10"
+   ],
+   "unit": "% of wealth a year"
+  },
+  {
+   "central": null,
+   "coverage": "UK",
+   "high": null,
+   "id": "I-H4b",
+   "input": "Employee NICs paid by those most likely to leave, per £ of wealth (016g M-4)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "not found",
+     "reason": "not found"
+    },
+    "high": {
+     "raw": "not found",
+     "reason": "not found"
+    },
+    "low": {
+     "raw": "not found",
+     "reason": "not found"
+    }
+   },
+   "sources": [
+    "ST1"
+   ],
+   "unit": "% of wealth a year"
+  },
+  {
+   "central": 3.6,
+   "coverage": "UK, FYE 2023",
+   "high": 3.65,
+   "id": "I-H4c",
+   "input": "VAT paid by the top income quintile as % of gross income, FYE 2023 (016g M-4)",
+   "judgement": false,
+   "low": 3.55,
+   "nulls": {},
+   "sources": [
+    "SH1"
+   ],
+   "unit": "% of gross income"
+  },
+  {
+   "central": 0.24,
+   "coverage": "UK/GB mixed",
+   "high": 0.3,
+   "id": "I-H4d",
+   "input": "VAT paid by the top income quintile per £ of top-quintile household wealth (016g M-4)",
+   "judgement": true,
+   "low": 0.2,
+   "nulls": {},
+   "sources": [
+    "SH1",
+    "SH8"
+   ],
+   "unit": "% of wealth a year"
+  },
+  {
+   "central": 1.5,
+   "coverage": "UK, 1964 to 2011 time series, tax years 2000-01 to 2009-10",
+   "high": 1.99,
+   "id": "I-H5a",
+   "input": "Relative risk aversion: elasticity of marginal utility of consumption, UK (015g)",
+   "judgement": false,
+   "low": 1.0,
+   "nulls": {},
+   "sources": [
+    "SH9"
+   ],
+   "unit": "coefficient"
+  },
+  {
+   "central": 1.515,
+   "coverage": "UK, 2000-01 to 2009-10",
+   "high": 1.61,
+   "id": "I-H5b",
+   "input": "Elasticity of marginal utility, equal-sacrifice income tax method (015g)",
+   "judgement": false,
+   "low": 1.42,
+   "nulls": {},
+   "sources": [
+    "SH9"
+   ],
+   "unit": "coefficient"
+  },
+  {
+   "central": 1.584,
+   "coverage": "UK, quarterly 1975Q1 to 2011Q1",
+   "high": 1.987,
+   "id": "I-H5c",
+   "input": "Elasticity of marginal utility, Euler equation, IV bootstrap (015g)",
+   "judgement": false,
+   "low": 1.181,
+   "nulls": {},
+   "sources": [
+    "SH9"
+   ],
+   "unit": "coefficient"
+  },
+  {
+   "central": 1.32,
+   "coverage": "UK, survey; period not stated",
+   "high": 1.65,
+   "id": "I-H5d",
+   "input": "Elasticity of marginal utility, subjective well-being (015g)",
+   "judgement": false,
+   "low": 0.99,
+   "nulls": {},
+   "sources": [
+    "SH9"
+   ],
+   "unit": "coefficient"
+  },
+  {
+   "central": 1.553,
+   "coverage": "UK, 1964 to 2010",
+   "high": 2.9,
+   "id": "I-H5e",
+   "input": "Elasticity of marginal utility, additive preferences (food demand) (015g)",
+   "judgement": false,
+   "low": 0,
+   "nulls": {},
+   "sources": [
+    "SH9"
+   ],
+   "unit": "coefficient"
+  },
+  {
+   "central": 8.7,
+   "coverage": "UK, annual, to 2020",
+   "high": 8.7,
+   "id": "I-H6a",
+   "input": "UK real total return, equities: mean a year (015g)",
+   "judgement": false,
+   "low": 3.1,
+   "nulls": {},
+   "sources": [
+    "SH10"
+   ],
+   "unit": "% a year"
+  },
+  {
+   "central": 22.2,
+   "coverage": "UK, annual, to 2020",
+   "high": 22.2,
+   "id": "I-H6b",
+   "input": "UK real total return, equities: standard deviation (015g)",
+   "judgement": false,
+   "low": 14.5,
+   "nulls": {},
+   "sources": [
+    "SH10"
+   ],
+   "unit": "% a year"
+  },
+  {
+   "central": 6.4,
+   "coverage": "UK, annual, to 2020",
+   "high": 6.6,
+   "id": "I-H6c",
+   "input": "UK real total return, housing: mean a year (015g)",
+   "judgement": false,
+   "low": 5.4,
+   "nulls": {},
+   "sources": [
+    "SH10"
+   ],
+   "unit": "% a year"
+  },
+  {
+   "central": 8.3,
+   "coverage": "UK, annual, to 2020",
+   "high": 9.0,
+   "id": "I-H6d",
+   "input": "UK real total return, housing: standard deviation (015g)",
+   "judgement": false,
+   "low": 7.9,
+   "nulls": {},
+   "sources": [
+    "SH10"
+   ],
+   "unit": "% a year"
+  },
+  {
+   "central": 2.7,
+   "coverage": "UK, annual, to 2020",
+   "high": 6.2,
+   "id": "I-H6e",
+   "input": "UK real total return, government bonds: mean a year (015g)",
+   "judgement": false,
+   "low": 2.3,
+   "nulls": {},
+   "sources": [
+    "SH10"
+   ],
+   "unit": "% a year"
+  },
+  {
+   "central": 11.1,
+   "coverage": "UK, annual, to 2020",
+   "high": 11.1,
+   "id": "I-H6f",
+   "input": "UK real total return, government bonds: standard deviation (015g)",
+   "judgement": false,
+   "low": 5.7,
+   "nulls": {},
+   "sources": [
+    "SH10"
+   ],
+   "unit": "% a year"
+  },
+  {
+   "central": -0.14,
+   "coverage": "UK, annual, to 2020; the asset held and the asset switched to are the pair chosen by the model",
+   "high": 0.05,
+   "id": "I-H6g",
+   "input": "Cross-correlation of UK annual real returns, equities and housing (015g)",
+   "judgement": false,
+   "low": -0.14,
+   "nulls": {},
+   "sources": [
+    "SH10"
+   ],
+   "unit": "correlation"
+  },
+  {
+   "central": 0.37,
+   "coverage": "UK, annual, to 2020; the asset held and the asset switched to are the pair chosen by the model",
+   "high": 0.47,
+   "id": "I-H6h",
+   "input": "Cross-correlation of UK annual real returns, equities and government bonds (015g)",
+   "judgement": false,
+   "low": -0.53,
+   "nulls": {},
+   "sources": [
+    "SH10"
+   ],
+   "unit": "correlation"
+  },
+  {
+   "central": -0.17,
+   "coverage": "UK, annual, to 2020; the asset held and the asset switched to are the pair chosen by the model",
+   "high": 0.15,
+   "id": "I-H6i",
+   "input": "Cross-correlation of UK annual real returns, housing and government bonds (015g)",
+   "judgement": false,
+   "low": -0.17,
+   "nulls": {},
+   "sources": [
+    "SH10"
+   ],
+   "unit": "correlation"
+  },
+  {
+   "central": 0.84,
+   "coverage": "GB households, bottom fifth",
+   "high": 0.84,
+   "id": "I-H7a",
+   "input": "Spending to net wealth, bottom wealth fifth, GB April 2016 to March 2018 (015g, comparator)",
+   "judgement": false,
+   "low": 0.84,
+   "nulls": {},
+   "sources": [
+    "SH8"
+   ],
+   "unit": "ratio a year"
+  },
+  {
+   "central": 0.027,
+   "coverage": "GB households, top fifth",
+   "high": 0.027,
+   "id": "I-H7b",
+   "input": "Spending to net wealth, top wealth fifth, GB April 2016 to March 2018 (015g, comparator)",
+   "judgement": false,
+   "low": 0.027,
+   "nulls": {},
+   "sources": [
+    "SH8"
+   ],
+   "unit": "ratio a year"
+  },
+  {
+   "central": null,
+   "coverage": "GB households",
+   "high": null,
+   "id": "I-H7c",
+   "input": "Spending to income, bottom and top wealth fifth, same article (015g)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "0.68 (top)",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "0.68 (top)",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "1.17 (bottom)",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "SH8"
+   ],
+   "unit": "ratio"
+  },
+  {
+   "central": null,
+   "coverage": "GB",
+   "high": null,
+   "id": "I-H7d",
+   "input": "Spending to wealth in the middle wealth bands (015g, comparator)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "not found",
+     "reason": "not found"
+    },
+    "high": {
+     "raw": "not found",
+     "reason": "not found"
+    },
+    "low": {
+     "raw": "not found",
+     "reason": "not found"
+    }
+   },
+   "sources": [
+    "SH8"
+   ],
+   "unit": "ratio a year"
+  },
+  {
+   "central": 40,
+   "coverage": "GB households, April 2016 to March 2018",
+   "high": 40,
+   "id": "I-H7e",
+   "input": "Share of households spending more than their income (015g, nearest)",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "low": {
+     "raw": "17 (cannot fund an overspend for a year)",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "SH8"
+   ],
+   "unit": "%"
+  },
+  {
+   "central": 61.2,
+   "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
+   "high": 67.2,
+   "id": "I-H2a1",
+   "input": "Share of households in income decile 1 (lowest) with total wealth below W_min = £150,000, the non-payers (O4a, M4a, M4b; 028r)",
+   "judgement": false,
+   "low": 51.8,
+   "nulls": {},
+   "sources": [
+    "SN1",
+    "SN3"
+   ],
+   "unit": "% of households in the decile"
+  },
+  {
+   "central": 64.8,
+   "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
+   "high": 71.4,
+   "id": "I-H2a2",
+   "input": "Share of households in income decile 2 with total wealth below W_min = £150,000, the non-payers (O4a, M4a, M4b; 028r)",
+   "judgement": false,
+   "low": 54.5,
+   "nulls": {},
+   "sources": [
+    "SN1",
+    "SN3"
+   ],
+   "unit": "% of households in the decile"
+  },
+  {
+   "central": 62.4,
+   "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
+   "high": 68.5,
+   "id": "I-H2a3",
+   "input": "Share of households in income decile 3 with total wealth below W_min = £150,000, the non-payers (O4a, M4a, M4b; 028r)",
+   "judgement": false,
+   "low": 52.8,
+   "nulls": {},
+   "sources": [
+    "SN1",
+    "SN3"
+   ],
+   "unit": "% of households in the decile"
+  },
+  {
+   "central": 58.7,
+   "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
+   "high": 64.6,
+   "id": "I-H2a4",
+   "input": "Share of households in income decile 4 with total wealth below W_min = £150,000, the non-payers (O4a, M4a, M4b; 028r)",
+   "judgement": false,
+   "low": 48.8,
+   "nulls": {},
+   "sources": [
+    "SN1",
+    "SN3"
+   ],
+   "unit": "% of households in the decile"
+  },
+  {
+   "central": 50.4,
+   "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
+   "high": 55.5,
+   "id": "I-H2a5",
+   "input": "Share of households in income decile 5 with total wealth below W_min = £150,000, the non-payers (O4a, M4a, M4b; 028r)",
+   "judgement": false,
+   "low": 38.3,
+   "nulls": {},
+   "sources": [
+    "SN1",
+    "SN3"
+   ],
+   "unit": "% of households in the decile"
+  },
+  {
+   "central": 47.9,
+   "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
+   "high": 53.6,
+   "id": "I-H2a6",
+   "input": "Share of households in income decile 6 with total wealth below W_min = £150,000, the non-payers (O4a, M4a, M4b; 028r)",
+   "judgement": false,
+   "low": 35.5,
+   "nulls": {},
+   "sources": [
+    "SN1",
+    "SN3"
+   ],
+   "unit": "% of households in the decile"
+  },
+  {
+   "central": 36.1,
+   "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
+   "high": 42.0,
+   "id": "I-H2a7",
+   "input": "Share of households in income decile 7 with total wealth below W_min = £150,000, the non-payers (O4a, M4a, M4b; 028r)",
+   "judgement": false,
+   "low": 26.9,
+   "nulls": {},
+   "sources": [
+    "SN1",
+    "SN3"
+   ],
+   "unit": "% of households in the decile"
+  },
+  {
+   "central": 27.5,
+   "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
+   "high": 32.8,
+   "id": "I-H2a8",
+   "input": "Share of households in income decile 8 with total wealth below W_min = £150,000, the non-payers (O4a, M4a, M4b; 028r)",
+   "judgement": true,
+   "low": 0.0,
+   "nulls": {},
+   "sources": [
+    "SN1",
+    "SN3"
+   ],
+   "unit": "% of households in the decile"
+  },
+  {
+   "central": 19.9,
+   "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
+   "high": 25.7,
+   "id": "I-H2a9",
+   "input": "Share of households in income decile 9 with total wealth below W_min = £150,000, the non-payers (O4a, M4a, M4b; 028r)",
+   "judgement": true,
+   "low": 0.0,
+   "nulls": {},
+   "sources": [
+    "SN1",
+    "SN3"
+   ],
+   "unit": "% of households in the decile"
+  },
+  {
+   "central": 9.9,
+   "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
+   "high": 25.0,
+   "id": "I-H2a10",
+   "input": "Share of households in income decile 10 (highest) with total wealth below W_min = £150,000, the non-payers (O4a, M4a, M4b; 028r)",
+   "judgement": true,
+   "low": 0.0,
+   "nulls": {},
+   "sources": [
+    "SN1",
+    "SN3"
+   ],
+   "unit": "% of households in the decile"
+  }
+ ],
+ "schema": "wdt-inputs/1"
+}
