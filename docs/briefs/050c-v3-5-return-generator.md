@@ -1,6 +1,6 @@
 # 050: Model v3 V3-5: return generator
 
-- **Status:** draft (ready when the author approves 040g D2)
+- **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** 048
 - **Read:** `docs/model-v3/architecture.md` 2.2, 3.1 and 6.2 (R1 to R7); `docs/model-v3/returns-method.md`; `docs/model-v3/returns-gap.md`; `docs/model-v3/stage-c-decisions.md` item 4; `docs/model-v3/acceptance.md` V3-5 row.
@@ -25,6 +25,7 @@ This is build stage V3-5 of `architecture.md` section 7. One session, one lane; 
 - R1 to R7 pass; sample statistics pinned to 0.001 as in the acceptance V3-5 row (the pin is re-derived if the 2019 end changes n, and the change is written in the change report).
 - 100,000-path mean, SD and lag-1 within 0.05, 0.05 and 0.02 of the inputs; the level 2 band reproduces its register range within 0.02.
 - `returns.py` at most 260 lines; it imports numpy and `core/pack.py` types only.
+- The pinned sample statistics are re-derived on the 2019 sample and reported; a difference from the register's 4.742 and 8.219 stops the build for the author (author, 2026-11-18).
 - `git diff --stat` is limited to the Touches list.
 
 ## Checks to run

@@ -1,6 +1,6 @@
 # 053: Model v3 V3-8: burden and savings
 
-- **Status:** draft (ready when the author approves 040g D2)
+- **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** 052
 - **Read:** `docs/model-v3/architecture.md` 2.6 and 6.2 (D1 to D6); `docs/model-v3/metrics.md` (M2, M2b, M2c, M3, M4a to M4c, M5, M6, M8, M11, M12); `docs/model-v3/added/` (welfare and problem outputs); `docs/model-v3/acceptance.md` V3-8 row.

@@ -1,6 +1,6 @@
 # 052: Model v3 V3-7: revenue, fund and the identity check
 
-- **Status:** draft (ready when the author approves 040g D2)
+- **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** 049, 050, 051
 - **Read:** `docs/model-v3/architecture.md` 2.5, 3.4, 6.2 (M1 to M7) and 6.3 (I1 to I3); `docs/model-v3/metrics.md` (M1 family, B1, P1, P3 to P7); `docs/model-v3/stage-c-decisions.md` items 2 and 3; `model_v2/rates_core.py` lines 1109 to 1193 (`run_fund`) as specification; `docs/model-v3/acceptance.md` V3-7 row.

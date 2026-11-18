@@ -1,6 +1,6 @@
 # 011: Model v3 design
 
-- **Status:** underway; parent brief. Stages A, A2, B and C1 passed (C1 approved 2026-11-18). Open: C2 (039g architecture) and stage D (040g: D1 acceptance, D2 build briefs). Retires when 040g D2 is approved.
+- **Status:** done (stages A to D complete; 040g D2 approved 2026-11-18); retired
 - **Author/date:** K. Ogata with the guru, 2026-11-16
 - **Depends on:** 001c (merged; synthesis in `docs/model-audit/synthesis.md`)
 - **Read:** `docs/model-audit/synthesis.md`, then `docs/model-audit/lessons-so-far.md`. Nothing else need be opened until a stage names it.

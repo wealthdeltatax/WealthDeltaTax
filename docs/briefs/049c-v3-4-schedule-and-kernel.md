@@ -1,6 +1,6 @@
 # 049: Model v3 V3-4: rate schedule and kernel (port)
 
-- **Status:** draft (ready when the author approves 040g D2)
+- **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** none (can start at once)
 - **Read:** `docs/model-v3/architecture.md` 2.4, 3.2, 4 and 6.2 (S1 to S5, K1 to K10); `docs/model-v3/port-inventory.md` in full; `docs/model-v3/stage-c-decisions.md` items 3, 5, 9, 10; `model_v2/wdt_kernel.py` and `model_v2/wdt_core.py` (the lines the inventory names); `docs/model-v3/acceptance.md` V3-4 row.

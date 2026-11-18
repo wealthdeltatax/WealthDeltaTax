@@ -1,6 +1,6 @@
 # 054: Model v3 V3-9: supporting metrics
 
-- **Status:** draft (ready when the author approves 040g D2)
+- **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** 052
 - **Read:** `docs/model-v3/architecture.md` 2.7 and 6.2 (U1 to U6); `docs/model-v3/metrics.md` (M7, M7c to M7e, M9, M13, M14, M15a, M15b, S1); `docs/model-v3/added/`; `docs/model-v3/acceptance.md` V3-9 row.

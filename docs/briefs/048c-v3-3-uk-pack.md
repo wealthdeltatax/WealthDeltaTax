@@ -1,6 +1,6 @@
 # 048: Model v3 V3-3: the UK data pack from the held files
 
-- **Status:** draft (ready when the author approves 040g D2)
+- **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** 047
 - **Read:** `docs/model-v3/country-pack.md` in full; `docs/model-v3/architecture.md` 1 and 6.2 (P8, P9); `docs/model-v3/port-inventory.md` (the `jst_r6.json` row); `docs/model-v3/inputs.md` (headers); `docs/model-v3/returns-method.md` and the author's 2026-11-18 ruling that the return sample ends in 2019.

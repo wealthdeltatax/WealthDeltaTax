@@ -1,6 +1,6 @@
 # 055: Model v3 V3-10: range runner
 
-- **Status:** draft (ready when the author approves 040g D2)
+- **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** 053, 054
 - **Read:** `docs/model-v3/architecture.md` 2.8, 3.1 to 3.3, 6.2 (N1 to N7) and 6.5; `docs/model-v3/drivers.md`; `docs/model-v3/tornado.md`; `docs/model-v3/stage-c-decisions.md` items 2, 6, 7; `docs/model-v3/acceptance.md` V3-10 row and section 4 (R3, R10).

@@ -1,6 +1,6 @@
 # 051: Model v3 V3-6: wealth and payer base
 
-- **Status:** draft (ready when the author approves 040g D2)
+- **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** 048, 049
 - **Read:** `docs/model-v3/architecture.md` 2.3 and 6.2 (B1 to B5); `docs/model-v3/country-pack.md` (`wealth_distribution`, `wealth_tail`, `household_incidence`); `docs/model-v3/drivers.md`; `model_v2/rates_core.py` lines 408 to 599 as specification only; `docs/model-v3/acceptance.md` V3-6 row.

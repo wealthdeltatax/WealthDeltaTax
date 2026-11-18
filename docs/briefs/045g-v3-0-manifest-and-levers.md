@@ -1,6 +1,6 @@
 # 045: Model v3 V3-0: manifest amendments and levers file
 
-- **Status:** draft (ready when the author approves 040g D2)
+- **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** none (architecture approved 2026-11-18)
 - **Read:** `docs/model-v3/architecture.md` sections 3.3 and 8.1; `docs/model-v3/outputs.yml`; `docs/model-v3/metrics.md`; `docs/model-v3/stage-c-decisions.md`; `docs/restructure/site/hooks.md` (the 030c rulings); `tests/data/make_fixture.py`.
