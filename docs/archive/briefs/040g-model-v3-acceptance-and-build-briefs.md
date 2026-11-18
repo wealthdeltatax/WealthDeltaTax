@@ -1,6 +1,6 @@
 # 040: Model v3 stage D: acceptance plan and build briefs
 
-- **Status:** draft (starts when 039g is approved)
+- **Status:** done; retired
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** 039g
 - **Read:** `docs/briefs/011g-model-v3-design.md` (stage D check); `docs/model-v3/architecture.md`; `docs/model-audit/synthesis.md` section 4 (R1 to R11); `docs/restructure/order.md` G1 (the acceptance run it reads); `docs/agents/brief-template.md`.

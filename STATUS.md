@@ -11,14 +11,14 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent 1 (guru prime: writes and hands out briefs) | 039g approved and merged | review of 040g D1 and D2; write the stage D build-set briefs as they unblock |
 | Agent 2 (guru) | 039g done | 045g (V3-0 manifest and levers) once D2 is merged |
 | Agent 3 (code) | 033c done | 046c (V3-1 scaffold and rules) once D2 is merged |
-| Agent 4 (guru for this brief) | 040g D2 written (13 build briefs 045g to 057c) | fix two gaps, then merge the briefs to main |
+| Agent 4 (guru for this brief) | 040g D2 written (13 build briefs 045g to 057c) | free |
 | Agent 5 (research) | 041r and 042r done | 043r source mapping |
 | Agent 6 (site) | 029s and 031s done | 049c (V3-4 kernel port) once D2 is merged |
 
 Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). 011g is split: 035g, 036r, 037c, 038c run now; 039g (architecture) needs them; 040g (acceptance and build briefs) follows; then the build briefs.
 
 ## Recently done
-- 2026-11-18: 040g D2 approved by the author: 13 build briefs 045g to 057c (branch `brief/040-acceptance`, not merged until Agent 4 fixes two gaps: decisions.md in 057c Touches; empty `__init__.py` files in 046c). First wave: 045g (Agent 2), 046c (Agent 3), 049c (Agent 6). 050c re-derives its pinned return statistics on the 2019 sample and reports.
+- 2026-11-18: 040g D2 approved by the author: 13 build briefs 045g to 057c (two gaps fixed and the briefs merged to main; 011g and 040g retired). First wave: 045g (Agent 2), 046c (Agent 3), 049c (Agent 6). 050c re-derives its pinned return statistics on the 2019 sample and reports.
 - 2026-11-18: 040g D1 (`docs/model-v3/acceptance.md`, branch `brief/040-acceptance`) approved by the author, Q1 to Q6 as proposed; Agent 4 proceeds to D2. G3 counts in `order.md` corrected (90 of 274).
 - 2026-11-18: file layout designed (`docs/restructure/file-layout.md`, brief 044c parked); the move runs after the v3 build. 043r written (source mapping), 040g assigned to Agent 4.
 - 2026-11-18: 039g approved by the author and merged (`docs/model-v3/architecture.md`): nine defaults accepted as written (seed 20261118, 10,000 level 1 paths, 200 level 2 draws, T=100, identity bounds 0.02 and 6.34, 4,770 line budget) and manifest amendments A1 to A7 for stage V3-0. 041r (tornado rerun) and 042r (return data gap) reviewed and retired; the author ends the return sample at 2019 and states the gap in UNCER. Adam, Hodge, Phillips and Xu (IFS, March 2020, R168 in `Research/`) confirmed as S38. 040g is ready.
