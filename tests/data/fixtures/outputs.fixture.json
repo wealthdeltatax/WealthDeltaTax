@@ -1,6 +1,6 @@
 {
  "schema": "wdt-outputs/1",
- "run": {"manifest_version": "stage-V3-0-contract-2026-11-18", "manifest_sha256": "416b0aa621b266ebc771a40a284191357fac175aee0dd4ca72c6cff672f4d6d9", "country_pack": "UK", "run_date": "2026-01-01", "status": "provisional", "model_version": "fixture", "inputs_sha256": "a5fe9715d5fc23a37f92ee32cb2ec2b7eb1ea1a8526c8d82bd9575b13610192f", "paths": 0, "base_year": 2025, "fixture": true},
+ "run": {"manifest_version": "stage-V3-0-contract-2026-11-18", "manifest_sha256": "e64f1c5a62a47f239210f8fbebdbb32fff62f0eb2108be34fc9d25727661d207", "country_pack": "UK", "run_date": "2026-01-01", "status": "provisional", "model_version": "fixture", "inputs_sha256": "a5fe9715d5fc23a37f92ee32cb2ec2b7eb1ea1a8526c8d82bd9575b13610192f", "paths": 0, "base_year": 2025, "fixture": true},
  "outputs": {
   "O1": {"summary": "p10_mean_p90", "cells": [
    {"schedule": "S_low", "horizon": "transition", "line": "M1", "by": {}, "p10": 0.65, "mean": 1.3, "p90": 1.95},
