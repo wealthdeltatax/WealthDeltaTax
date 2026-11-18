@@ -5,6 +5,14 @@ toc: false
 ---
 
 ```{=html}
+<div class="wdt-retired-model-note" role="note" style="margin:0 0 1.25rem 0;padding:0.75rem 1rem;border:1px solid #CC6600;border-left-width:6px;border-radius:4px;background:rgba(204,102,0,0.08);">
+  <strong>Based on the retired model.</strong> All three calculators below run the earlier (version 1) model that the new series is replacing, so their results are not the newest model's results. They will be updated when the newest model is finished.
+  <a href="/retired.html">About the retired model and where its papers went</a>.
+</div>
+
+```
+
+```{=html}
 <a class="tool-card" href="model/taxpayer.html">
   <span class="tag tag-blue">Individual</span>
   <h2>Taxpayer Calculator</h2>
