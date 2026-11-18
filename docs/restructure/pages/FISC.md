@@ -10,7 +10,7 @@ spoke: FISC
 question: ""            # blank: the writer and author set it
 status: draft
 budget: {cap: 6000}
-outputs: [O1, O1a, O1b, O1c, O1d, O2, O3, O5, O6, O7, OP1, OP4, O8, OB1, OR1, OF1, OT1]   # the set of outputs.yml entries that list FISC
+outputs: [O1, O1a, O1b, O1c, O1d, O1e, O1f, O2, O3, O5, O6, O7, OP1, OP4, O8, OB1, OR1, OF1, OT1]   # the set of outputs.yml entries that list FISC
 inputs: []             # fixed at drafting from the families below (hooks.md Q7: ids)
 depends: [MECH, VAL]
 ---
@@ -34,6 +34,8 @@ depends: [MECH, VAL]
 | O1b | M1b | Corporate levy (own line) | line | H3, FISC, CORP, UNCER |
 | O1c | M1c | Fund income net of retention | line | FISC, FUND |
 | O1d | M1e | Receipts of retired taxes, one line per tax | line | FISC, FUND, UNCER |
+| O1e | M1f | Break-even mean return: the return at which net revenue is zero | supporting | FISC, UNCER |
+| O1f | M1g | Share of paths with negative net revenue | supporting | FISC, UNCER |
 | O2 | M2 | Taxpayer burden, share of wealth | headline | H0, H3, FISC, PAY, FALS |
 | O3 | M3 | Taxpayer burden, gain-weighted lifetime rate | headline | H3, FISC, PAY |
 | O5 | M5 | Burden against suggested wealth taxes | comparison | FISC, PAY, FALS |
@@ -51,7 +53,7 @@ depends: [MECH, VAL]
 
 `order.md` section 3: D1, D4, D5, D7, D8, D11, M5, M6, M8, T3, W6
 
-- **D1** (5 rows): I-D1a, I-D1b, I-D1c, I-D1d, I-D1e
+- **D1** (10 rows): I-D1a, I-D1b, I-D1c, I-D1d, I-D1a2, I-D1b2, I-D1a0, I-D1f, I-D1g, I-D1e
 - **D4** (7 rows): I-D4a, I-D4b, I-D4c, I-D4d, I-D4e, I-D4f, I-D4g
 - **D5** (4 rows): I-D5a, I-D5b, I-D5c, I-D5d
 - **D7** (4 rows): I-D7a, I-D7b, I-D7c, I-D7d

@@ -10,7 +10,7 @@ spoke: UNCER
 question: ""            # blank: the writer and author set it
 status: draft
 budget: {cap: 6000}
-outputs: [O1b, O1d, OB1]   # the set of outputs.yml entries that list UNCER
+outputs: [O1b, O1d, O1e, O1f, OB1]   # the set of outputs.yml entries that list UNCER
 inputs: []             # fixed at drafting from the families below (hooks.md Q7: ids)
 depends: [MECH, VAL, FISC, GOV, PAY, FUND, CORP, DECL, BEHAV, FAIR, LIT, ATTR, WELF, FIRST, WIDER, POL, ADOPT, PILOT, LIMIT, FALS, HYPO]
 ---
@@ -31,6 +31,8 @@ depends: [MECH, VAL, FISC, GOV, PAY, FUND, CORP, DECL, BEHAV, FAIR, LIT, ATTR, W
 |---|---|---|---|---|
 | O1b | M1b | Corporate levy (own line) | line | H3, FISC, CORP, UNCER |
 | O1d | M1e | Receipts of retired taxes, one line per tax | line | FISC, FUND, UNCER |
+| O1e | M1f | Break-even mean return: the return at which net revenue is zero | supporting | FISC, UNCER |
+| O1f | M1g | Share of paths with negative net revenue | supporting | FISC, UNCER |
 | OB1 | B1 | Payers, entries, exits and fall-through refund volume, by threshold | supporting | MECH, FISC, UNCER |
 
 ## Register input families

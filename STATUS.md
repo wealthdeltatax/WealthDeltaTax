@@ -9,15 +9,16 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime: writes and hands out briefs) | 040g done; build briefs 045g to 057c approved and ready | review each V3 build stage as it lands; stop points go to the author |
-| Agent 2 (guru) | free | 062s (site page types and styles), then 064s (glossary) |
+| Agent 2 (guru) | 062s underway (out of tokens) | 062s |
 | Agent 3 (code) | 047c merged | 048c (V3-3 UK pack), now |
-| Agent 4 | 056c merged | 058c (validator reads line_horizons), then 060c (hook resolver) |
-| Agent 5 (research) | 043r done | 059r (register corrections), then 063s (retired papers page) |
-| Agent 6 (site) | 049c done | 061s (site navigation and routing) |
+| Agent 4 | 058c done | 060c (hook resolver) |
+| Agent 5 (research) | 059r underway (out of tokens) | 059r |
+| Agent 6 (site) | 061s done | 063s (retired papers page), then 064s (glossary) |
 
 Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). The model v3 design is done (011g and 040g retired); the 13 build briefs 045g to 057c are ready, first wave 045g, 046c, 049c. Landed and retired: 045g, 046c, 047c. Waiting: 049c (no branch yet). Ready now: 048c, 049c, 056c.
 
 ## Recently done
+- 2026-11-18: 058c (validator reads `line_horizons` and the three run fields; 84 data, 17 gate, 108 model tests pass; rule recorded in hooks.md) and 061s (routing.yml, nav generator, 59 tests) reviewed and retired. Page cards were stale since the C1 manifest changes; regenerated (they now carry O1e, O1f and the new D1 rows). Rule: whoever changes `outputs.yml` or `inputs.md` runs `python pipeline/page_cards.py`. 063s moved to Agent 6 and 064s follows it, because Agents 2, 3 and 5 are out of tokens mid-brief (062s, 048c, 059r).
 - 2026-11-18: 049c (V3-4 schedule and kernel, 108 model tests pass) and 043r (source map: 43 sources, 12 discrepancies, 67 literature figures entered) reviewed and retired. Author decided the two register errors: corporate-tax workers' share 51% (held ifo paper), I-M6l figures replaced by the OxREP article's. Written: 059r register corrections, and site briefs 060c hooks (B3), 061s navigation (B7), 062s page types (B8), 063s retired papers (B10), 064s glossary (B14); rulings on their open questions are in each brief. The model chain waits on 048c (UK pack).
 - 2026-11-18: 056c (V3-11 output layer) merged and retired: `out/assemble.py`, `out/writer.py`, 23 tests, 84 model_v3 tests pass with 75 data and 17 gate. It found that the validator ignores `line_horizons` and the run fields A6, so a final file fails V7 on OW3: brief 058c written (Agent 4); 057c waits on it. 047c was already retired by another guru session; 048c (UK pack) is with Agent 3.
 - 2026-11-18: 045g (V3-0) merged with the A5 constants set (closure share 75%, M2 cap 2.0% a year, M4a floor 0%; manifest `stage-V3-0-contract-2026-11-18`, `model_v3/levers.json`). 047c (V3-2) merged: `core/pack.py` 339 lines, ZZZ fixture pack, 63 tests pass; P8 and P9 wait for the UK pack (048c). 047c reviewed and retired; author accepted the weaker P2 (file named, row and column when the schema also fails). 048c now also writes `pack_mappings` into `levers.json`; P9 compares with `inputs.md` (274). 048c and 056c released.

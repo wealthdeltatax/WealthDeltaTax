@@ -44,7 +44,7 @@ depends: [MECH, FISC, GOV]
 
 `order.md` section 3: D1, D6, D8, T3
 
-- **D1** (5 rows): I-D1a, I-D1b, I-D1c, I-D1d, I-D1e
+- **D1** (10 rows): I-D1a, I-D1b, I-D1c, I-D1d, I-D1a2, I-D1b2, I-D1a0, I-D1f, I-D1g, I-D1e
 - **D6** (17 rows): I-D6a, I-D6b, I-D6c, I-D6d, I-D6e, I-D6f, I-D6g, I-D6h, I-D6i, I-D6j, I-D6k, I-D6l, I-D6m, I-D6n, I-D6o, I-D6p, I-D6q
 - **D8** (3 rows): I-D8a, I-D8b, I-D8c
 - **T3** (16 rows): I-T3a, I-T3b, I-T3c, I-T3d, I-T3e, I-T3f, I-T3g, I-T3h, I-T3i, I-T3j, I-T3k, I-T3l, I-T3m, I-T3n, I-T3o, I-T3p
