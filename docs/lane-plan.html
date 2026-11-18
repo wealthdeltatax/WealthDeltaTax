@@ -270,12 +270,12 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   ];
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
-    { id: "043r", lane: "5", at: 0, len: 2, st: "ready", t: "Map uploaded research to register sources; add held figures", needs: [], why: "source-map.md ties S1 to S43 to the files in Research/, checks the cited pages, and enters the held figures in lit-figures.yml. No bib or register edits." },
+    { id: "043r", lane: "5", at: 0, len: 2, st: "under", t: "Map uploaded research to register sources; add held figures", needs: [], why: "source-map.md ties S1 to S43 to the files in Research/, checks the cited pages, and enters the held figures in lit-figures.yml. No bib or register edits." },
     { id: "044c", lane: "G", at: 8, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }], why: "Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
-    { id: "049c", lane: "6", at: 0, len: 2, st: "ready", t: "Model v3 V3-4: schedule and kernel (port)", needs: [], why: "Ports the kernel and schedule; K8 identity stops the build if it fails." },
+    { id: "049c", lane: "6", at: 0, len: 2, st: "under", t: "Model v3 V3-4: schedule and kernel (port)", needs: [], why: "Ports the kernel and schedule; K8 identity stops the build if it fails." },
     { id: "047c", lane: "3", at: 0, len: 1, st: "review", t: "Model v3 V3-2: pack loader", needs: [], why: "Country pack loader and the ZZZ fixture pack. Merged to main, 63 tests pass; guru review pending." },
     { id: "048c", lane: "3", at: 1, len: 1, st: "ready", t: "Model v3 V3-3: UK pack", needs: [{ id: "047c" }], why: "UK pack from the held files." },
-    { id: "056c", lane: "4", at: 0, len: 1, st: "ready", t: "Model v3 V3-11: output layer", needs: [], why: "Assembler and writer for outputs.json." },
+    { id: "056c", lane: "4", at: 0, len: 1, st: "under", t: "Model v3 V3-11: output layer", needs: [], why: "Assembler and writer for outputs.json." },
     { id: "050c", lane: "3", at: 3, len: 1, st: "hold", t: "Model v3 V3-5: return generator", needs: [{ id: "048c" }], why: "AR(1) generator, bootstrap, level 2 band; pins re-derived on the 2019 sample." },
     { id: "051c", lane: "6", at: 3, len: 1, st: "hold", t: "Model v3 V3-6: wealth and payer base", needs: [{ id: "048c" }, { id: "049c" }], why: "Band shares, payer base, route mix." },
     { id: "052c", lane: "6", at: 4, len: 1, st: "hold", t: "Model v3 V3-7: revenue, fund, identity", needs: [{ id: "049c" }, { id: "050c" }, { id: "051c" }], why: "Revenue lines, fund, horizon windows, I1 and I2 identity checks." },
