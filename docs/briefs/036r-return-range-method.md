@@ -1,6 +1,6 @@
 # 036: Research: how the return range is built (model v3 stage C input)
 
-- **Status:** ready
+- **Status:** done, merged
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** none. Feeds 035g (stage C), which waits for it on the return module only.
 - **Read:** `docs/model-v3/metrics.md` (range design, reading rule A2); `docs/model-v3/drivers.md` sections 1, 2 and the note of 2026-11-17 on the mean return; `docs/model-v3/inputs.md` rows I-D1a to I-D1e and I-H6a to I-H6i; `docs/model-v3/tornado.md` sections 1 to 4 (and `tornado/tornado.py`, `check.py` for the working style); `docs/model-audit/synthesis.md` sections 3, 7 and 10; `docs/agents/research.md`. The data is `Rates Data/JSTdatasetR6.xlsx` and `jst_r6.json` (UK, annual real total return on wealth to 2019, equities, housing, bonds and CPI to 2020). Nothing else need be opened.
@@ -50,11 +50,20 @@ The implementer asks rather than guesses: whether a later JST release is availab
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** `docs/model-v3/returns-method.md` (answers Q1 to Q6); `docs/model-v3/returns/` (scripts, JSON outputs, tables, `check.py`).
+- **Next:** author chooses the generator (recommended: AR(1), normal innovations, arithmetic mean) and pool or break scenario; guru decides on the replacement rows (section 5) and on rerunning the tornado with the level 2 band.
+- **Decisions:** none made for the author; arithmetic mean 4.742% settled (4.76 is geometric plus half the variance); war years kept, effect recorded.
+- **Gotchas:** 1940 to 1946 absent, so 29 of 88 windows and the register's longest run of 6 cross the gap (5 within contiguous data); JST licence unconfirmed.
+- **Resume:** `cd docs/model-v3/returns && for f in run_generators run_level2 run_composition run_convergence tables check; do python3 -I $f.py; done`
+- **Not run:** tornado rerun; longer UK history; asset-class or GARCH generators.
+- **State:** done, merged
 <!-- progress:end -->
+
+### Change report
+- **Task:** 036r, how the return range is built.
+- **Files changed:** new `docs/model-v3/returns-method.md`, new `docs/model-v3/returns/` (9 scripts and outputs), this brief.
+- **What is different now:** one recommended generator; mean settled at 4.742% arithmetic; level 2 range 3.41 to 6.07 for the mean (8.22, 7.47 to 8.96 for the SD); tornado double count identified; replacement rows listed.
+- **Acceptance:** questions 1 to 6 answered with tables and stated limits: met; one generator, parameter and level 2 ranges named: met; effective independent sample with method: met (63 observations, 0.63 of a 100-year path); scripts reproduce the tables and the second method agrees within 0.05 point: met; arithmetic mean settled: met; diff within Touches: met.
+- **Deviations:** none. **Risks:** composition mapping and 80% bands are judgement; JST licence unconfirmed; no later JST release seen.
+- **Verification:** `check.py`; one table recomputed by hand (note section 10).
+

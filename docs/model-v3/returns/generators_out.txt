@@ -1,0 +1,39 @@
+observed (117 years)
+   {'mean': np.float64(0.0474), 'sd': np.float64(0.0822), 'geo': np.float64(0.0442), 'loss': np.float64(0.2821), 'ac1': 0.303, 'ac2': 0.0807, 'run_contig': 5, 'run_stitched': 6, 'g30_p10': np.float64(0.0218), 'g30_p50': np.float64(0.0373), 'g30_p90': np.float64(0.0747), 'n_win': 88}
+a. window replay, 100y, 117 paths
+   {'mean': np.float64(0.0474), 'sd': np.float64(0.082), 'geo': np.float64(0.0442), 'loss': np.float64(0.2821), 'ac1': np.float64(0.3001), 'run_mean': np.float64(5.812), 'run_p90': np.float64(6.0), 'run4': np.float64(1.0), 'run6': np.float64(0.812), 'g30_p10': np.float64(0.0213), 'g30_p50': np.float64(0.0387), 'g30_p90': np.float64(0.0725), 'n_paths': 117}
+b. stationary bootstrap, mean block 1
+   {'mean': np.float64(0.0475), 'sd': np.float64(0.0816), 'geo': np.float64(0.0443), 'loss': np.float64(0.2821), 'ac1': np.float64(-0.0101), 'run_mean': np.float64(3.3354), 'run_p90': np.float64(5.0), 'run4': np.float64(0.3624), 'run6': np.float64(0.034), 'g30_p10': np.float64(0.025), 'g30_p50': np.float64(0.0443), 'g30_p90': np.float64(0.0637)}
+   88-window-style P10/P50/P90: [0.0252, 0.0444, 0.0635]
+b. stationary bootstrap, mean block 2
+   {'mean': np.float64(0.0475), 'sd': np.float64(0.0813), 'geo': np.float64(0.0443), 'loss': np.float64(0.2818), 'ac1': np.float64(0.1303), 'run_mean': np.float64(3.8694), 'run_p90': np.float64(5.0), 'run4': np.float64(0.5526), 'run6': np.float64(0.0872), 'g30_p10': np.float64(0.0225), 'g30_p50': np.float64(0.0448), 'g30_p90': np.float64(0.0662)}
+   88-window-style P10/P50/P90: [0.0221, 0.0446, 0.0664]
+b. stationary bootstrap, mean block 3
+   {'mean': np.float64(0.0473), 'sd': np.float64(0.0812), 'geo': np.float64(0.0441), 'loss': np.float64(0.2826), 'ac1': np.float64(0.1799), 'run_mean': np.float64(4.0328), 'run_p90': np.float64(5.0), 'run4': np.float64(0.5998), 'run6': np.float64(0.0948), 'g30_p10': np.float64(0.0207), 'g30_p50': np.float64(0.045), 'g30_p90': np.float64(0.0677)}
+   88-window-style P10/P50/P90: [0.0211, 0.045, 0.0672]
+b. stationary bootstrap, mean block 5
+   {'mean': np.float64(0.0474), 'sd': np.float64(0.0812), 'geo': np.float64(0.0442), 'loss': np.float64(0.2823), 'ac1': np.float64(0.213), 'run_mean': np.float64(4.1194), 'run_p90': np.float64(5.0), 'run4': np.float64(0.6048), 'run6': np.float64(0.0892), 'g30_p10': np.float64(0.0191), 'g30_p50': np.float64(0.045), 'g30_p90': np.float64(0.0683)}
+   88-window-style P10/P50/P90: [0.0197, 0.0451, 0.0685]
+b. stationary bootstrap, mean block 10
+   {'mean': np.float64(0.0475), 'sd': np.float64(0.0811), 'geo': np.float64(0.0443), 'loss': np.float64(0.2812), 'ac1': np.float64(0.2402), 'run_mean': np.float64(4.1664), 'run_p90': np.float64(5.0), 'run4': np.float64(0.6116), 'run6': np.float64(0.0587), 'g30_p10': np.float64(0.0193), 'g30_p50': np.float64(0.0447), 'g30_p90': np.float64(0.0697)}
+   88-window-style P10/P50/P90: [0.0193, 0.0449, 0.0697]
+d. bootstrap, 1914-18 and 1939 dropped, block 3
+   {'mean': np.float64(0.0526), 'sd': np.float64(0.0796), 'geo': np.float64(0.0496), 'loss': np.float64(0.2521), 'ac1': np.float64(0.1447), 'run_mean': np.float64(3.4995), 'run_p90': np.float64(5.0), 'run4': np.float64(0.4554), 'run6': np.float64(0.0362), 'g30_p10': np.float64(0.0287), 'g30_p50': np.float64(0.0498), 'g30_p90': np.float64(0.071), 'sample_mean': np.float64(0.0525), 'sample_sd': np.float64(0.0803)}
+c1. iid normal
+   {'mean': np.float64(0.0474), 'sd': np.float64(0.082), 'geo': np.float64(0.0442), 'loss': np.float64(0.2823), 'ac1': np.float64(-0.0111), 'run_mean': np.float64(3.3366), 'run_p90': np.float64(5.0), 'run4': np.float64(0.362), 'run6': np.float64(0.0348), 'g30_p10': np.float64(0.0253), 'g30_p50': np.float64(0.0442), 'g30_p90': np.float64(0.0636)}
+   88-window-style P10/P50/P90: [0.0247, 0.0442, 0.0636]
+c2. iid Student t
+   {'mean': np.float64(0.0476), 'sd': np.float64(0.0816), 'geo': np.float64(0.0444), 'loss': np.float64(0.2763), 'ac1': np.float64(-0.0084), 'run_mean': np.float64(3.2858), 'run_p90': np.float64(5.0), 'run4': np.float64(0.3458), 'run6': np.float64(0.03), 'g30_p10': np.float64(0.0253), 'g30_p50': np.float64(0.0444), 'g30_p90': np.float64(0.0635), 'df': 30}
+   88-window-style P10/P50/P90: [0.025, 0.0442, 0.0635]
+c3. AR(1) normal
+   {'mean': np.float64(0.0473), 'sd': np.float64(0.0816), 'geo': np.float64(0.0441), 'loss': np.float64(0.2823), 'ac1': np.float64(0.2797), 'run_mean': np.float64(4.3706), 'run_p90': np.float64(6.0), 'run4': np.float64(0.708), 'run6': np.float64(0.1816), 'g30_p10': np.float64(0.0181), 'g30_p50': np.float64(0.0445), 'g30_p90': np.float64(0.0704), 'phi': np.float64(0.2975)}
+   88-window-style P10/P50/P90: [0.0184, 0.0444, 0.0701]
+c4. AR(1) t
+   {'mean': np.float64(0.0475), 'sd': np.float64(0.0816), 'geo': np.float64(0.0443), 'loss': np.float64(0.278), 'ac1': np.float64(0.2782), 'run_mean': np.float64(4.3214), 'run_p90': np.float64(6.0), 'run4': np.float64(0.6931), 'run6': np.float64(0.1742), 'g30_p10': np.float64(0.0186), 'g30_p50': np.float64(0.0445), 'g30_p90': np.float64(0.0704)}
+   88-window-style P10/P50/P90: [0.0184, 0.0443, 0.0702]
+d2. 2-state Gaussian HMM
+   {'mean': np.float64(0.0503), 'sd': [0.052405648714385335, 0.07216367060110081], 'geo': np.float64(0.0473), 'loss': np.float64(0.2659), 'ac1': np.float64(0.1621), 'run_mean': np.float64(5.9882), 'run_p90': np.float64(11.0), 'run4': np.float64(0.7068), 'run6': np.float64(0.4624), 'g30_p10': np.float64(0.0131), 'g30_p50': np.float64(0.0521), 'g30_p90': np.float64(0.0745), 'mu': [-0.05625116336951608, 0.06527916071325061], 'A': [[0.8416518111006994, 0.15834818889930058], [0.02219333620742244, 0.9778066637925776]]}
+   88-window-style P10/P50/P90: [0.0129, 0.0521, 0.0745]
+pw_block 2.553817543806711
+acf [0.3029605458969846, 0.08074876862025987, 0.06275100171756494, 0.18919329911607408, -0.04270606166434192]
+fit {"normal": {"ll": 126.83924508939754, "bic": -244.15414230919956}, "t": {"ll": 126.95684862437648, "bic": -239.6271754443597, "df": 30}, "ar1": {"ll": 129.9631631522868, "n": 115, "phi": 0.29750698513005686, "se_phi": 0.08902806561874667}, "hmm": {"ll": 134.7637611029101, "bic": -240.95447859703367}, "moments": {"skew": 0.0016020937216131765, "kurt": 3.2570589427285186}}
