@@ -36,11 +36,11 @@ The implementer asks rather than guesses.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:**
-<!-- progress:end -->
+- **Done:** `registry/inputs-display.yml` (274 rows; the register on main has 274, not 269, since 030c merged the 036r rows). `registry/lit-figures.yml` (6 entries, all `ONS2025ETB`, from the held ETB FYE 2024 PDF). Check script passed (274/274 ids both ways; every bib key exists). Re-read against the PDF text: 116,600, 85,600, 15,200 (p. 2), 53.3% (pp. 2, 8), 90.1% (p. 8).
+- **Next:** guru accepts or renames the proposed unit tags; research lane adds lit entries once bib keys exist and the papers are held.
+- **Decisions:** all `scale: 1`; `decimals` is the most decimal places among numeric Low/Central/High. Proposed new tags: pp_per_year, usd_bn, gbp, gbp_m, gbp_k, coefficient, correlation, text. 17 rows have no numeric cell and 4 more only some (note on each); 4 rows are `text` (D11d "n/a", "rule", "£ and %").
+- **Gotchas:** most literature sources behind register rows (S5, S6, S13, S16, S17, S18, S22, S25, S37, S38, S4, S30) have no bib key; S24 maps to a different title under `Zucman2024`. They are listed in the lit-figures header, not invented. They were read earlier by fetch, are not held, so no figure is entered. Ledger Y/P rows give no quotable published figure in the text.
+- **Resume:** n/a
+- **Not run:** the check script is not committed (Touches lists only the two yml files); it ran from the scratchpad. 
+- **State:** done, merged.
+<<!-- progress:end -->

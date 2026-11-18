@@ -1,0 +1,294 @@
+# registry/inputs-display.yml: display spec per register row (brief 032r, hooks Q8).
+# Written by the research lane; merged by pipeline/build_inputs.py. One entry per row of
+# docs/model-v3/inputs.md (274 rows). Derived only from each row's own unit text and the
+# precision of its Low/Central/High cells. No value is chosen or changed here.
+#
+# unit tags in docs/model-v3/outputs.yml: pct, pct_per_year, pct_gdp, gbp_bn, years, pp, ratio, bp, count, gbp_month.
+# PROPOSED new tags (not in outputs.yml; guru to accept, rename or map to existing ones):
+#   pp_per_year  percentage points a year
+#   usd_bn       US$ billions
+#   gbp          pounds (per household a year, a year, per person, per hour; the display_unit says which)
+#   gbp_m        £ millions
+#   gbp_k        £ thousands
+#   coefficient  dimensionless coefficient or elasticity, shown as a plain decimal
+#   correlation  correlation, plain decimal
+#   text         not a single quantity; resolver should refuse {{i:}} display for these rows
+# scale is 1 on every row: each value is already stored in the unit its display_unit names.
+# decimals = most decimal places among the row's numeric Low/Central/High cells.
+# note appears only where the unit is ambiguous or the row has no numeric cells.
+schema: wdt-inputs-display/1
+inputs:
+  I-D4a: {unit: ratio, decimals: 2, display_unit: "ratio, nominal GDP of wave midpoint year", scale: 1}
+  I-D4b: {unit: pct, decimals: 1, display_unit: "% of adults", scale: 1}
+  I-D4c: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-D4d: {unit: pct, decimals: 1, display_unit: "% of personal wealth", scale: 1}
+  I-D4e: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-D4f: {unit: gbp_bn, decimals: 0, display_unit: "£bn, 2026", scale: 1}
+  I-D4g: {unit: ratio, decimals: 1, display_unit: "ratio", scale: 1}
+  I-D9a: {unit: gbp, decimals: 0, display_unit: "£ a year, FYE 2024 level", scale: 1}
+  I-D9b: {unit: gbp, decimals: 0, display_unit: "£ a year", scale: 1}
+  I-D9c: {unit: gbp, decimals: 0, display_unit: "£ a year", scale: 1}
+  I-D9d: {unit: gbp, decimals: 0, display_unit: "£ a year", scale: 1}
+  I-D9e: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-D9f: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-D9g: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-D9h: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-D1a: {unit: pct_per_year, decimals: 2, display_unit: "% a year", scale: 1}
+  I-D1b: {unit: pct_per_year, decimals: 2, display_unit: "% a year", scale: 1}
+  I-D1c: {unit: pct, decimals: 0, display_unit: "% of years", scale: 1, note: "no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-D1d: {unit: years, decimals: 0, display_unit: "years", scale: 1, note: "no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-D1a2: {unit: pct_per_year, decimals: 2, display_unit: "% a year", scale: 1}
+  I-D1b2: {unit: correlation, decimals: 2, display_unit: "correlation", scale: 1}
+  I-D1a0: {unit: pct_per_year, decimals: 2, display_unit: "% a year", scale: 1}
+  I-D1f: {unit: pct_per_year, decimals: 0, display_unit: "% a year", scale: 1, note: "no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-D1g: {unit: count, decimals: 0, display_unit: "count", scale: 1, note: "one or more of low/central/high is not numeric"}
+  I-D1e: {unit: years, decimals: 0, display_unit: "years to 2025", scale: 1}
+  I-D5a: {unit: pct, decimals: 0, display_unit: "% of base", scale: 1}
+  I-D5b: {unit: pct, decimals: 1, display_unit: "% of base", scale: 1}
+  I-D5c: {unit: pct, decimals: 0, display_unit: "% of affected group", scale: 1}
+  I-D5d: {unit: pct, decimals: 0, display_unit: "% of true value", scale: 1}
+  I-D6a: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6b: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6c: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6d: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6e: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6f: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6g: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6h: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6i: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6j: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6k: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6l: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6m: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6n: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6o: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6p: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D6q: {unit: pct, decimals: 1, display_unit: "% of the tax", scale: 1}
+  I-D10a: {unit: gbp, decimals: 1, display_unit: "£ of price per £1 a year", scale: 1}
+  I-D10b: {unit: pct, decimals: 1, display_unit: "% of gross dwelling and land value", scale: 1}
+  I-D10c: {unit: pct, decimals: 0, display_unit: "% of the tax cut", scale: 1}
+  I-M5a: {unit: pct_per_year, decimals: 0, display_unit: "% of total wealth a year", scale: 1}
+  I-M5b: {unit: usd_bn, decimals: 1, display_unit: "US$bn of net wealth", scale: 1}
+  I-M5c: {unit: usd_bn, decimals: 0, display_unit: "US$bn a year", scale: 1}
+  I-M5d: {unit: gbp_m, decimals: 0, display_unit: "£m of net wealth", scale: 1}
+  I-M5e: {unit: gbp_bn, decimals: 2, display_unit: "£bn a year, 2026", scale: 1}
+  I-M5f: {unit: count, decimals: 0, display_unit: "households", scale: 1}
+  I-M5g: {unit: pct_per_year, decimals: 1, display_unit: "% of wealth a year", scale: 1}
+  I-M5h: {unit: pct_per_year, decimals: 0, display_unit: "% a year", scale: 1}
+  I-M5i: {unit: gbp_m, decimals: 0, display_unit: "£m of net assets", scale: 1}
+  I-M5j: {unit: gbp_bn, decimals: 0, display_unit: "£bn a year", scale: 1}
+  I-M5k: {unit: pct_per_year, decimals: 0, display_unit: "% a year", scale: 1}
+  I-M5l: {unit: gbp_m, decimals: 0, display_unit: "£m of assets", scale: 1}
+  I-M5m: {unit: gbp_bn, decimals: 0, display_unit: "£bn a year", scale: 1}
+  I-M5n: {unit: gbp_bn, decimals: 0, display_unit: "£bn a year", scale: 1}
+  I-M5o: {unit: pct, decimals: 0, display_unit: "% of wealth, total over five years", scale: 1}
+  I-M5p: {unit: gbp_k, decimals: 0, display_unit: "£k of net wealth", scale: 1}
+  I-M5q: {unit: gbp_bn, decimals: 0, display_unit: "£bn in total", scale: 1}
+  I-M6a: {unit: pct_per_year, decimals: 3, display_unit: "% of wealth a year", scale: 1}
+  I-M6b: {unit: pct_per_year, decimals: 3, display_unit: "% of wealth a year", scale: 1}
+  I-M6c: {unit: pct_per_year, decimals: 3, display_unit: "% of wealth a year", scale: 1}
+  I-M6d: {unit: pct_per_year, decimals: 0, display_unit: "% of wealth a year", scale: 1}
+  I-M6e: {unit: pct, decimals: 1, display_unit: "% of estate value", scale: 1}
+  I-M6f: {unit: pct, decimals: 0, display_unit: "% of estate value", scale: 1}
+  I-M6g: {unit: pct, decimals: 1, display_unit: "% of estate value", scale: 1}
+  I-M6h: {unit: pct_per_year, decimals: 3, display_unit: "% of wealth a year", scale: 1}
+  I-M6i: {unit: pct_per_year, decimals: 3, display_unit: "% of wealth a year", scale: 1}
+  I-M6j: {unit: pct, decimals: 0, display_unit: "% of total", scale: 1}
+  I-M6k: {unit: gbp_bn, decimals: 1, display_unit: "£bn a year", scale: 1}
+  I-M6l: {unit: pct, decimals: 0, display_unit: "% of taxable income and gains", scale: 1}
+  I-M6m: {unit: pct_per_year, decimals: 2, display_unit: "% of total wealth a year", scale: 1}
+  I-M8a: {unit: gbp_bn, decimals: 0, display_unit: "£bn a year, about 2029-30", scale: 1}
+  I-M8b: {unit: gbp_bn, decimals: 1, display_unit: "£bn a year, 2029-30", scale: 1}
+  I-M8c: {unit: gbp_bn, decimals: 1, display_unit: "£bn a year", scale: 1}
+  I-M8d: {unit: pct_per_year, decimals: 2, display_unit: "% of value a year", scale: 1}
+  I-M8e: {unit: gbp_bn, decimals: 1, display_unit: "£bn a year, about 2025-26", scale: 1}
+  I-M8f: {unit: pct_per_year, decimals: 2, display_unit: "% of land value a year", scale: 1}
+  I-M8g: {unit: gbp_bn, decimals: 0, display_unit: "£bn a year (negative is a loss)", scale: 1, note: "negative value is a loss"}
+  I-D7a: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-D7b: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-D7c: {unit: ratio, decimals: 2, display_unit: "ratio", scale: 1}
+  I-D7d: {unit: gbp_bn, decimals: 1, display_unit: "£bn", scale: 1}
+  I-D8a: {unit: ratio, decimals: 0, display_unit: "multiple", scale: 1}
+  I-D8b: {unit: years, decimals: 0, display_unit: "years", scale: 1}
+  I-D8c: {unit: years, decimals: 0, display_unit: "years", scale: 1}
+  I-D11a: {unit: pct_per_year, decimals: 1, display_unit: "% real a year", scale: 1}
+  I-D11b: {unit: pct_per_year, decimals: 1, display_unit: "% real a year", scale: 1}
+  I-D11c: {unit: pct_per_year, decimals: 2, display_unit: "% real a year", scale: 1}
+  I-D11d: {unit: text, decimals: 0, display_unit: "n/a", scale: 1, note: "not a quantity; no numeric display; no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-W1a: {unit: pp_per_year, decimals: 0, display_unit: "percentage points a year", scale: 1}
+  I-W1b: {unit: pp_per_year, decimals: 1, display_unit: "percentage points a year", scale: 1}
+  I-W1c: {unit: pp_per_year, decimals: 1, display_unit: "percentage points a year", scale: 1}
+  I-W1d: {unit: pp, decimals: 1, display_unit: "percentage points", scale: 1}
+  I-W2a: {unit: pp, decimals: 1, display_unit: "percentage points", scale: 1}
+  I-W2b: {unit: coefficient, decimals: 3, display_unit: "coefficient", scale: 1}
+  I-W2c: {unit: coefficient, decimals: 2, display_unit: "coefficient", scale: 1}
+  I-W3a: {unit: pct_per_year, decimals: 0, display_unit: "% of disposable income a year", scale: 1}
+  I-W3b: {unit: pct_per_year, decimals: 0, display_unit: "% of disposable income a year", scale: 1}
+  I-W3c: {unit: pct, decimals: 0, display_unit: "% of the change", scale: 1}
+  I-W3d: {unit: pct, decimals: 0, display_unit: "% of the change", scale: 1}
+  I-W4a: {unit: pct, decimals: 0, display_unit: "% of families", scale: 1}
+  I-W4b: {unit: pct, decimals: 0, display_unit: "% of entrants", scale: 1}
+  I-W4c: {unit: pct, decimals: 1, display_unit: "%", scale: 1, note: "unit says correlation x 100; value kept as a percentage"}
+  I-W4d: {unit: pct, decimals: 2, display_unit: "% over 11 years", scale: 1}
+  I-W4e: {unit: pct, decimals: 0, display_unit: "% over 11 years", scale: 1}
+  I-W4f: {unit: coefficient, decimals: 2, display_unit: "coefficient", scale: 1}
+  I-W5a: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-W5b: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-W5c: {unit: pct, decimals: 1, display_unit: "% of adult wealth", scale: 1}
+  I-W5d: {unit: pct, decimals: 1, display_unit: "% of adult wealth", scale: 1}
+  I-W5e: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-W6a1: {unit: pct, decimals: 1, display_unit: "% of households", scale: 1}
+  I-W6a2: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-W6b1: {unit: pct, decimals: 1, display_unit: "% of households", scale: 1}
+  I-W6b2: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-W6c1: {unit: pct, decimals: 1, display_unit: "% of households", scale: 1}
+  I-W6c2: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-W6d1: {unit: pct, decimals: 1, display_unit: "% of households", scale: 1}
+  I-W6d2: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-W6e1: {unit: pct, decimals: 2, display_unit: "% of households", scale: 1}
+  I-W6e2: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-W6f1: {unit: pct, decimals: 2, display_unit: "% of households", scale: 1}
+  I-W6f2: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-W6g1: {unit: pct, decimals: 2, display_unit: "% of households", scale: 1}
+  I-W6g2: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-W7a: {unit: pct, decimals: 1, display_unit: "% of wealth", scale: 1}
+  I-W7b: {unit: pct, decimals: 1, display_unit: "% of wealth", scale: 1}
+  I-W8a: {unit: pct_per_year, decimals: 1, display_unit: "% a year", scale: 1}
+  I-W8b: {unit: pct_per_year, decimals: 1, display_unit: "% a year", scale: 1}
+  I-W9a: {unit: ratio, decimals: 1, display_unit: "multiple", scale: 1}
+  I-W9b: {unit: coefficient, decimals: 1, display_unit: "elasticity", scale: 1}
+  I-W9c: {unit: pct, decimals: 0, display_unit: "% of the item", scale: 1}
+  I-W9d: {unit: pct, decimals: 1, display_unit: "% of wealth", scale: 1}
+  I-W9e: {unit: pct, decimals: 0, display_unit: "% of the response", scale: 1}
+  I-T1a: {unit: text, decimals: 0, display_unit: "£ and %", scale: 1, note: "mixed units in one row; no single display unit; check the row text; no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-T1b: {unit: pct, decimals: 0, display_unit: "%", scale: 1, note: "no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-T1c: {unit: gbp, decimals: 0, display_unit: "£ a year", scale: 1}
+  I-T1d: {unit: pct, decimals: 1, display_unit: "% of gross earnings", scale: 1}
+  I-T1e: {unit: pct, decimals: 0, display_unit: "%", scale: 1, note: "no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-T2a: {unit: gbp_bn, decimals: 1, display_unit: "£bn", scale: 1}
+  I-T2b: {unit: gbp_bn, decimals: 1, display_unit: "£bn", scale: 1}
+  I-T2c: {unit: pct_per_year, decimals: 1, display_unit: "% a year", scale: 1}
+  I-T2d: {unit: pct, decimals: 0, display_unit: "% of total", scale: 1}
+  I-T2e: {unit: pct_per_year, decimals: 2, display_unit: "% a year", scale: 1}
+  I-T2f: {unit: pct, decimals: 1, display_unit: "% of property, interest, dividend and other income", scale: 1}
+  I-T3a: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3b: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3c: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3d: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3e: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3f: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3g: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3h: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3i: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3j: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3k: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3l: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3m: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3n: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3o: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3p: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T4a: {unit: gbp_bn, decimals: 0, display_unit: "£bn", scale: 1}
+  I-T4b: {unit: gbp_bn, decimals: 0, display_unit: "£bn", scale: 1}
+  I-T4c: {unit: gbp_bn, decimals: 0, display_unit: "£bn", scale: 1}
+  I-T4d: {unit: gbp_bn, decimals: 0, display_unit: "£bn", scale: 1}
+  I-T4e: {unit: pct, decimals: 0, display_unit: "% of value", scale: 1}
+  I-T4f: {unit: gbp_bn, decimals: 0, display_unit: "£bn", scale: 1}
+  I-T4g: {unit: gbp_bn, decimals: 1, display_unit: "£bn", scale: 1}
+  I-T5a: {unit: years, decimals: 0, display_unit: "years", scale: 1, note: "no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-T5b: {unit: pct, decimals: 0, display_unit: "%", scale: 1, note: "no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-T5c: {unit: pct, decimals: 0, display_unit: "%", scale: 1}
+  I-T5d: {unit: pct, decimals: 1, display_unit: "% of gains", scale: 1, note: "one or more of low/central/high is not numeric"}
+  I-T5e: {unit: pct_per_year, decimals: 1, display_unit: "% a year", scale: 1}
+  I-T5f: {unit: pct_per_year, decimals: 1, display_unit: "% a year", scale: 1}
+  I-T6b: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-T6e: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-T6h: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-T6c: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-T6f: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-T6i: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-T6d: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-T6g: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-T6j: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-T6m: {unit: pct, decimals: 1, display_unit: "% of total wealth", scale: 1}
+  I-T6k: {unit: gbp, decimals: 0, display_unit: "£", scale: 1, note: "one or more of low/central/high is not numeric"}
+  I-T6l: {unit: pct, decimals: 0, display_unit: "% of gains", scale: 1, note: "no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-T7a: {unit: pct, decimals: 0, display_unit: "%", scale: 1}
+  I-T7b: {unit: pct, decimals: 0, display_unit: "%", scale: 1}
+  I-T7c: {unit: pct, decimals: 0, display_unit: "%", scale: 1}
+  I-T7d: {unit: gbp, decimals: 0, display_unit: "£ per person", scale: 1}
+  I-T7e: {unit: text, decimals: 0, display_unit: "rule", scale: 1, note: "not a quantity; no numeric display; no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-T7f: {unit: text, decimals: 0, display_unit: "rule", scale: 1, note: "not a quantity; no numeric display; no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-H1a: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H1f: {unit: pct, decimals: 15, display_unit: "% of gross income", scale: 1}
+  I-H1b: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H1g: {unit: pct, decimals: 15, display_unit: "% of gross income", scale: 1}
+  I-H1c: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H1h: {unit: pct, decimals: 15, display_unit: "% of gross income", scale: 1}
+  I-H1d: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H1i: {unit: pct, decimals: 2, display_unit: "% of gross income", scale: 1}
+  I-H1e: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H1j: {unit: pct, decimals: 15, display_unit: "% of gross income", scale: 1}
+  I-H1k: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H1l: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H1m: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H1n: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H1o: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H1p: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H1q: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H1r: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H1s: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H1t: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H2b: {unit: pct, decimals: 1, display_unit: "% of individuals", scale: 1}
+  I-H3a: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H3b: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H3c: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H3d: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H3e: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H3f: {unit: gbp, decimals: 0, display_unit: "£ a year", scale: 1, note: "no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-H3g: {unit: gbp, decimals: 0, display_unit: "£ a year", scale: 1, note: "no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-H3h: {unit: gbp, decimals: 0, display_unit: "£ a year", scale: 1}
+  I-H3i: {unit: gbp, decimals: 2, display_unit: "£ per hour", scale: 1}
+  I-H3j: {unit: gbp, decimals: 0, display_unit: "£ a year", scale: 1}
+  I-H3k: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H3l: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H3m: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H3n: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H3o: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H3p: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H3q: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H3r: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H3s: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H3t: {unit: gbp, decimals: 0, display_unit: "£ per household a year", scale: 1}
+  I-H4a: {unit: pct_per_year, decimals: 2, display_unit: "% of wealth a year", scale: 1}
+  I-H4b: {unit: pct_per_year, decimals: 0, display_unit: "% of wealth a year", scale: 1, note: "no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-H4c: {unit: pct, decimals: 2, display_unit: "% of gross income", scale: 1}
+  I-H4d: {unit: pct_per_year, decimals: 2, display_unit: "% of wealth a year", scale: 1}
+  I-H5a: {unit: coefficient, decimals: 2, display_unit: "coefficient", scale: 1}
+  I-H5b: {unit: coefficient, decimals: 3, display_unit: "coefficient", scale: 1}
+  I-H5c: {unit: coefficient, decimals: 3, display_unit: "coefficient", scale: 1}
+  I-H5d: {unit: coefficient, decimals: 2, display_unit: "coefficient", scale: 1}
+  I-H5e: {unit: coefficient, decimals: 3, display_unit: "coefficient", scale: 1}
+  I-H6a: {unit: pct_per_year, decimals: 1, display_unit: "% a year", scale: 1}
+  I-H6b: {unit: pct_per_year, decimals: 1, display_unit: "% a year", scale: 1}
+  I-H6c: {unit: pct_per_year, decimals: 1, display_unit: "% a year", scale: 1}
+  I-H6d: {unit: pct_per_year, decimals: 1, display_unit: "% a year", scale: 1}
+  I-H6e: {unit: pct_per_year, decimals: 1, display_unit: "% a year", scale: 1}
+  I-H6f: {unit: pct_per_year, decimals: 1, display_unit: "% a year", scale: 1}
+  I-H6g: {unit: correlation, decimals: 2, display_unit: "correlation", scale: 1}
+  I-H6h: {unit: correlation, decimals: 2, display_unit: "correlation", scale: 1}
+  I-H6i: {unit: correlation, decimals: 2, display_unit: "correlation", scale: 1}
+  I-H7a: {unit: ratio, decimals: 2, display_unit: "ratio a year", scale: 1}
+  I-H7b: {unit: ratio, decimals: 3, display_unit: "ratio a year", scale: 1}
+  I-H7c: {unit: ratio, decimals: 0, display_unit: "ratio", scale: 1, note: "no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-H7d: {unit: ratio, decimals: 0, display_unit: "ratio a year", scale: 1, note: "no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-H7e: {unit: pct, decimals: 0, display_unit: "%", scale: 1, note: "one or more of low/central/high is not numeric"}
+  I-H2a1: {unit: pct, decimals: 1, display_unit: "% of households in the decile", scale: 1}
+  I-H2a2: {unit: pct, decimals: 1, display_unit: "% of households in the decile", scale: 1}
+  I-H2a3: {unit: pct, decimals: 1, display_unit: "% of households in the decile", scale: 1}
+  I-H2a4: {unit: pct, decimals: 1, display_unit: "% of households in the decile", scale: 1}
+  I-H2a5: {unit: pct, decimals: 1, display_unit: "% of households in the decile", scale: 1}
+  I-H2a6: {unit: pct, decimals: 1, display_unit: "% of households in the decile", scale: 1}
+  I-H2a7: {unit: pct, decimals: 1, display_unit: "% of households in the decile", scale: 1}
+  I-H2a8: {unit: pct, decimals: 1, display_unit: "% of households in the decile", scale: 1}
+  I-H2a9: {unit: pct, decimals: 1, display_unit: "% of households in the decile", scale: 1}
+  I-H2a10: {unit: pct, decimals: 1, display_unit: "% of households in the decile", scale: 1}
