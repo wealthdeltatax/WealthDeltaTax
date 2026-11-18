@@ -1,0 +1,10 @@
+line,fiscal_year,pct_gdp,gbp_bn,basis
+income_tax,2025-26,10,,forecast
+pay_a,2025-26,4,,forecast
+pay_b,2025-26,3,,forecast
+sales_tax,2025-26,6,,forecast
+stamp_all,2025-26,1.0,,forecast
+stamp_a,2025-26,0.6,,forecast
+stamp_b,2025-26,0.3,,forecast
+property_tax,2025-26,1.5,,forecast
+total_current,2025-26,30,,forecast

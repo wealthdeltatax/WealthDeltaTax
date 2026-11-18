@@ -1,0 +1,79 @@
+{
+ "country": "ZZZ",
+ "currency": "ZZD",
+ "base_year": 2020,
+ "pack_version": 1,
+ "built": "2026-11-18",
+ "files": [
+  {
+   "name": "returns.csv",
+   "dataset": "returns",
+   "sha256": "4ec6edd57e2a674ca81b62b82326f203fb48632309c999f36a94cef7bab22f2c",
+   "rows": 10,
+   "source": "invented",
+   "licence": "unverified",
+   "retrieved": "2026-11-18",
+   "vintage": "fixture"
+  },
+  {
+   "name": "wealth_distribution.csv",
+   "dataset": "wealth_distribution",
+   "sha256": "760381fb69821d9690426040aa7c3990e53c5e73b8eef1e04b1a93542386b718",
+   "rows": 12,
+   "source": "invented",
+   "licence": "unverified",
+   "retrieved": "2026-11-18",
+   "vintage": "fixture"
+  },
+  {
+   "name": "wealth_tail.csv",
+   "dataset": "wealth_tail",
+   "sha256": "6ac661b9b7ecbe5ee93ac636af1895c14a66e6d273777f0745e8dbcc3fff82d6",
+   "rows": 4,
+   "source": "invented",
+   "licence": "unverified",
+   "retrieved": "2026-11-18",
+   "vintage": "fixture"
+  },
+  {
+   "name": "receipts.csv",
+   "dataset": "receipts",
+   "sha256": "af4f28215283c56ba741e20fdf3d4a0a09bd28eb05658189577d86092b3517fd",
+   "rows": 9,
+   "source": "invented",
+   "licence": "unverified",
+   "retrieved": "2026-11-18",
+   "vintage": "fixture"
+  },
+  {
+   "name": "household_incidence.csv",
+   "dataset": "household_incidence",
+   "sha256": "c5ac29b6b8a7d8eccce38f3758a6e341edfe015a6deb9923caaf1a4168676ef9",
+   "rows": 16,
+   "source": "invented",
+   "licence": "unverified",
+   "retrieved": "2026-11-18",
+   "vintage": "fixture"
+  },
+  {
+   "name": "tax_rules.csv",
+   "dataset": "tax_rules",
+   "sha256": "b3f19eb07276345afaa586d618c16656f05db55d80055ba16c41d7823480551f",
+   "rows": 4,
+   "source": "invented",
+   "licence": "unverified",
+   "retrieved": "2026-11-18",
+   "vintage": "fixture"
+  },
+  {
+   "name": "public_expenditure.csv",
+   "dataset": "public_expenditure",
+   "sha256": "6f8098929ebb7ad71dc59aa5dfea36652eab1174f322ffaebe8f19117b3a8e3e",
+   "rows": 3,
+   "source": "invented",
+   "licence": "unverified",
+   "retrieved": "2026-11-18",
+   "vintage": "fixture"
+  }
+ ]
+}

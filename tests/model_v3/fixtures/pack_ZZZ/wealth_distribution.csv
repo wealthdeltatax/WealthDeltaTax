@@ -1,0 +1,13 @@
+variable,band,value,unit,basis,year
+wealth_share,D1,0.5,pct_total_wealth,household,2018-20
+wealth_share,D2,1,pct_total_wealth,household,2018-20
+wealth_share,D3,2,pct_total_wealth,household,2018-20
+wealth_share,D4,3,pct_total_wealth,household,2018-20
+wealth_share,D5,5,pct_total_wealth,household,2018-20
+wealth_share,D6,7,pct_total_wealth,household,2018-20
+wealth_share,D7,9,pct_total_wealth,household,2018-20
+wealth_share,D8,12,pct_total_wealth,household,2018-20
+wealth_share,D9,20,pct_total_wealth,household,2018-20
+wealth_share,D10,40.5,pct_total_wealth,household,2018-20
+households_above,ge_100,40,pct_households,household,2018-20
+gain_bearing_wealth,all,900,gbp_bn,household,2018-20

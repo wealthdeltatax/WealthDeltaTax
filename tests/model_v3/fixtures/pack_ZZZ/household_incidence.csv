@@ -1,0 +1,17 @@
+variable,group,tax,value,unit,fiscal_year,basis
+total_tax_pct_gross,Q1,,10,pct_gross_income,2023-24,equivalised_disposable
+total_tax_pct_gross,Q2,,12,pct_gross_income,2023-24,equivalised_disposable
+total_tax_pct_gross,Q3,,14,pct_gross_income,2023-24,equivalised_disposable
+total_tax_pct_gross,Q4,,16,pct_gross_income,2023-24,equivalised_disposable
+total_tax_pct_gross,Q5,,18,pct_gross_income,2023-24,equivalised_disposable
+total_tax_pct_gross,D1,,8,pct_gross_income,2023-24,equivalised_disposable
+total_tax_pct_gross,D2,,9,pct_gross_income,2023-24,equivalised_disposable
+total_tax_pct_gross,D3,,11,pct_gross_income,2023-24,equivalised_disposable
+total_tax_pct_gross,D4,,12,pct_gross_income,2023-24,equivalised_disposable
+total_tax_pct_gross,D5,,13,pct_gross_income,2023-24,equivalised_disposable
+total_tax_pct_gross,D6,,14,pct_gross_income,2023-24,equivalised_disposable
+total_tax_pct_gross,D7,,15,pct_gross_income,2023-24,equivalised_disposable
+total_tax_pct_gross,D8,,16,pct_gross_income,2023-24,equivalised_disposable
+total_tax_pct_gross,D9,,17,pct_gross_income,2023-24,equivalised_disposable
+total_tax_pct_gross,D10,,25,pct_gross_income,2023-24,equivalised_disposable
+tax_share_top_decile,all,income_tax,40,pct_of_tax,2023-24,original

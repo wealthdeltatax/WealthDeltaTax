@@ -1,0 +1,5 @@
+rule,tax_year,subject,lower,upper,rate,amount,flag
+income_band,2026-27,basic,0,50,20,,
+income_band,2026-27,higher,50,150,40,,
+income_band,2026-27,additional,150,,45,,
+home_relief,2026-27,all,,,,,true

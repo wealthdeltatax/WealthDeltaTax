@@ -1,0 +1,5 @@
+series,year,value,unit,low,high,basis
+adult_top1,2010,18.0,pct_wealth,16.0,20.0,adult
+adult_top1,2020,20.0,pct_wealth,18.0,22.0,adult
+adult_top10,2020,55.0,pct_wealth,,,adult
+rich_list_total,2020,300,gbp_bn,,,adult
