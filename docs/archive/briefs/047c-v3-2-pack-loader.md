@@ -1,6 +1,6 @@
 # 047: Model v3 V3-2: country pack and register loader
 
-- **Status:** ready
+- **Status:** done, merged and retired 2026-11-18
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** 046 (the tests scaffold)
 - **Read:** `docs/model-v3/architecture.md` 2.1 and 6.2 (`pack` tests P1 to P7, P10); `docs/model-v3/country-pack.md` in full; `registry/inputs.json` and `docs/model-v3/inputs.md` (headers only); `docs/model-v3/acceptance.md` V3-2 row.

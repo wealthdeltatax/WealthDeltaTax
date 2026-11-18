@@ -148,3 +148,6 @@ Author approved the 13 build briefs 045g to 057c (040g D2) with two fixes for Ag
 
 ## 2026-11-18: feasibility constants (A5)
 Author: a schedule is feasible when retired receipts never exceed revenue in at least 75% of level 1 return paths, mean payer burden M2 is at most 2.0% of wealth a year, and non-payers' overall saving M4a is at least 0%. S_central is the feasible point with the highest closure share under the cap; S_low and S_high are the edges of the feasible region. If no schedule is feasible the map reports the best achievable closure share and the run says so. Set in `outputs.yml` by 045g.
+
+## 2026-11-18: pack hash error message (P2) and pack mappings
+Author accepted the weaker reading of P2: a changed pack byte fails on the file sha256 and names the file; row and column are added only when the file also breaks its schema. A per-row hash was not adopted. `architecture.md` P2 and P9 and the 047c brief now say so; P9 compares the register row count with `inputs.md` at test time (274 today). The part-of, group and X1 pointer mappings that `core/pack.py` takes from its caller are written by brief 048c into `model_v3/levers.json` (`pack_mappings`).
