@@ -9,9 +9,9 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime: writes and hands out briefs) | 039g approved and merged | review of 040g D1 and D2; write the stage D build-set briefs as they unblock |
-| Agent 2 (guru) | 039g done | 040g acceptance plan (D1, stop for the author), then build briefs (D2) |
+| Agent 2 (guru) | 039g done | free |
 | Agent 3 (code) | 033c done | free |
-| Agent 4 (code) | 038c and 034c done | free |
+| Agent 4 (guru for this brief) | 038c and 034c done | 040g in full: acceptance plan (D1, stop for the author), then build briefs (D2) |
 | Agent 5 (research) | 041r and 042r done | 043r source mapping |
 | Agent 6 (site) | 029s and 031s done | free |
 
