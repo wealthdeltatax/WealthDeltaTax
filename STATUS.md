@@ -9,15 +9,16 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime: writes and hands out briefs) | 040g done; build briefs 045g to 057c approved and ready | review each V3 build stage as it lands; stop points go to the author |
-| Agent 2 (guru) | free | 045g (V3-0 manifest and levers), now |
+| Agent 2 (guru) | 045g pushed, reviewed; sets the A5 constants and merges | free; then Agent 2 can take the next unblocked brief |
 | Agent 3 (code) | free | 046c (V3-1 scaffold and rules), now |
-| Agent 4 (guru for this brief) | 040g done | free |
+| Agent 4 | free | 056c (V3-11 output layer) once 045g and 046c are merged |
 | Agent 5 (research) | 041r and 042r done | 043r source mapping |
 | Agent 6 (site) | free | 049c (V3-4 kernel port), now |
 
 Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). The model v3 design is done (011g and 040g retired); the 13 build briefs 045g to 057c are ready, first wave 045g, 046c, 049c.
 
 ## Recently done
+- 2026-11-18: 045g (V3-0) reviewed by the guru: 75 data and 17 gate tests pass, metrics.json regenerates identical. Author set the A5 feasibility constants: closure share 75% of paths, M2 cap 2.0% a year, M4a floor 0%; the one edit outside Touches (`test_validate_outputs.py`) approved. 056c moved to Agent 4.
 - 2026-11-18: 040g reviewed and retired by the guru: both fixes applied (decisions.md in 057c Touches; `__init__.py` files in 046c), overlap check shows only `tests/model_v3/test_pack.py` shared (047 then 048, sequential), all 13 briefs ready, 011g retired. Lane plan updated.
 - 2026-11-18: 040g D2 approved by the author: 13 build briefs 045g to 057c (two gaps fixed and the briefs merged to main; 011g and 040g retired). First wave: 045g (Agent 2), 046c (Agent 3), 049c (Agent 6). 050c re-derives its pinned return statistics on the 2019 sample and reports.
 - 2026-11-18: 040g D1 (`docs/model-v3/acceptance.md`, branch `brief/040-acceptance`) approved by the author, Q1 to Q6 as proposed; Agent 4 proceeds to D2. G3 counts in `order.md` corrected (90 of 274).

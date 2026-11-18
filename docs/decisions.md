@@ -145,3 +145,6 @@ Author approved `docs/model-v3/acceptance.md` (040g D1) with Q1 to Q6 as propose
 
 ## 2026-11-18: model v3 build briefs approved
 Author approved the 13 build briefs 045g to 057c (040g D2) with two fixes for Agent 4 before merge: `docs/decisions.md` added to 057c Touches; the empty `__init__.py` files for `core/`, `runner/`, `out/` and `pack/` created by 046c. First wave 045g, 046c, 049c on Agents 2, 3 and 6. 050c re-derives its pinned return statistics on the 2019 sample and reports; a difference from the register (4.742, 8.219) stops for the author.
+
+## 2026-11-18: feasibility constants (A5)
+Author: a schedule is feasible when retired receipts never exceed revenue in at least 75% of level 1 return paths, mean payer burden M2 is at most 2.0% of wealth a year, and non-payers' overall saving M4a is at least 0%. S_central is the feasible point with the highest closure share under the cap; S_low and S_high are the edges of the feasible region. If no schedule is feasible the map reports the best achievable closure share and the run says so. Set in `outputs.yml` by 045g.
