@@ -1,6 +1,6 @@
 # 030: Code: data interface and output validator (site.md B2)
 
-- **Status:** ready
+- **Status:** done, merged 2026-11-18 (guru fixed the manifest units; rulings in `docs/restructure/site/hooks.md`)
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** none
 - **Read:** `docs/restructure/site/hooks.md` sections 1 to 4, 9; `docs/model-v3/outputs.yml`, `metrics.md` (headers), `inputs.md` (row format and header only); `docs/agents/code.md`.

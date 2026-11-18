@@ -1,11 +1,14 @@
 # Judgement-row decisions (gate check G3)
 
-Status: **all pending.** One line per register row flagged `(J)` in `docs/model-v3/inputs.md` (87 today; the guru reconciled the register's prose count of 84 with the 70 flags on 2026-11-17: 17 rows listed in the prose were not flagged and are now flagged, and the three bracketed rows I-H2a8 to I-H2a10 of brief 028r were added). The gate (`order.md` section 4.1, G3) is true when the set of ids below equals the set of `(J)` rows and every decision cell reads `accepted`, `fixed at <value>` or `replaced by <row id>` with a date. The author decides; the guru records.
+Status: **all pending.** One line per register row flagged `(J)` in `docs/model-v3/inputs.md` (90 today; the guru reconciled the register's prose count of 84 with the 70 flags on 2026-11-17: 17 rows listed in the prose were not flagged and are now flagged, and the three bracketed rows I-H2a8 to I-H2a10 of brief 028r were added; I-D1a, I-D1b and I-D1b2 were added with the level 2 return bands of 036r on 2026-11-18). The gate (`order.md` section 4.1, G3) is true when the set of ids below equals the set of `(J)` rows and every decision cell reads `accepted`, `fixed at <value>` or `replaced by <row id>` with a date. The author decides; the guru records.
 
 | ID | Input | Low | Central | High | Decision | Date |
 |---|---|---|---|---|---|---|
 | I-D10b | Rise in dwelling and land value if council tax is retired, full capitalisation (metric S1; | 19.4 | 24.2 | 26.7 | pending |  |
 | I-D10c | Share of a cut in stamp duty that ends up in the pre-tax house price (metric S1; M2, M4) | 0 | 40 | 100 | pending |  |
+| I-D1a | Mean real total return on wealth, **arithmetic**, level 2 (g; M1a identity, P3) | 3.41 | 4.74 | 6.07 | pending |  |
+| I-D1b | Standard deviation of annual real total return, marginal, level 2 | 7.47 | 8.22 | 8.96 | pending |  |
+| I-D1b2 | Lag-1 autocorrelation of the annual real return, level 2 | 0.19 | 0.30 | 0.42 | pending |  |
 | I-D4b | Share of adults at or above W_min = £150,000 (half of £300,000 median house price; M2b, ω) | 49.3 | 54.9 | 64.3 | pending |  |
 | I-D4c | Share of total wealth held by those adults (ω; M1a, M2) | 89.7 | 92.7 | 96.4 | pending |  |
 | I-D4e | Wealth missing from WAS at the top, as % of WAS total (ω, tail add-on) | 0.0 | 5.0 | 5.6 | pending |  |

@@ -376,3 +376,10 @@ Each has a proposed answer. Until answered, the proposed rule is the working rul
 | Worked example round-trips | section 10: hook, data entry, rendered text, Data block row, CSV row |
 | Manifest gaps listed as questions | Q1 to Q6, Q17, Q18 |
 | Regex parses every example in template section 4 and the worked example | run in the session, result in the change report |
+
+## Guru rulings, 2026-11-18 (from the change report of brief 030c)
+1. **Cell fields.** A cell of an output with `lines` carries a `line` field; a cell of an output with `once_not_per_schedule` omits `schedule`; summary `point` is a value-only form (DH1b, OH1b2). Accepted as 030c implemented them.
+2. **Checks.** `checks` such as CK1 are written to the output file under their manifest ids (the spokes cite them as evidence).
+3. **Id pattern.** The id regex of section 3.4 is wrong: it must also match DH1a to c, OH1b2 and CK1 (five ids). The next brief that edits the resolver or validator fixes it.
+4. **Manifest.** Units O2 and OF1 line M2 now `pct_per_year`, OW3 line M15b `pct_gdp` (`outputs.yml` version `stage-A7-units-2026-11-18`). Still open for the architecture (039g): `by` vocabularies for OW2, OB1, OD1, OL1, OF1, OT1 and CK1 (values of `embedded_gain_band`, `holding_period`, `w_min`, `alpha_grid`, `reference_worker`, `schedule_grid`, `input`, `headline`, `amplitude`); a line-level `horizons` (M15b is transition only, M15a all three); O1 and OM1 need cells for their own net (M1, M9).
+5. **Register and metrics.** The M7 row of `metrics.md` has an unescaped `|` (`|C.1|`); units are unstated for M5, M6, M8, S1, P1, P3 to P6; P2 is cited by no output; the rows I-H2a1 to I-H2a10 cite SN1 and SN3, which are in no source table. These go to the next guru pass.

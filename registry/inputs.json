@@ -1,5 +1,5 @@
 {
- "count": 269,
+ "count": 274,
  "inputs": [
   {
    "central": 5.94,
@@ -206,11 +206,121 @@
    "unit": "% of total wealth"
   },
   {
-   "central": 4.42,
-   "coverage": "UK 1871-2020 (data 1896-2019). The database covers 18 countries; only the UK read. Outside UK: available in the source (R11)",
-   "high": 7.47,
+   "central": 4.74,
+   "coverage": "UK 1896-2019, 117 years, 1940-46 absent",
+   "high": 6.07,
    "id": "I-D1a",
-   "input": "Mean real total return on wealth, geometric (g; M1, M1a, P3)",
+   "input": "Mean real total return on wealth, **arithmetic**, level 2 (g; M1a identity, P3)",
+   "judgement": true,
+   "low": 3.41,
+   "nulls": {},
+   "sources": [
+    "S10"
+   ],
+   "unit": "% per year"
+  },
+  {
+   "central": 8.22,
+   "coverage": "as above",
+   "high": 8.96,
+   "id": "I-D1b",
+   "input": "Standard deviation of annual real total return, marginal, level 2",
+   "judgement": true,
+   "low": 7.47,
+   "nulls": {},
+   "sources": [
+    "S10"
+   ],
+   "unit": "% per year"
+  },
+  {
+   "central": null,
+   "coverage": "as above",
+   "high": null,
+   "id": "I-D1c",
+   "input": "Loss-year frequency: **output of the generator, not an input**",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "28.2 (observed; generator 28.2)",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "n/a",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "n/a",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "S10"
+   ],
+   "unit": "% of years"
+  },
+  {
+   "central": null,
+   "coverage": "as above",
+   "high": null,
+   "id": "I-D1d",
+   "input": "Longest loss run: **output of the generator, not an input**",
+   "judgement": false,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "5 within contiguous data; 6 across the 1940-46 gap (register high of 6 crosses the gap)",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "n/a",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "n/a",
+     "reason": "text"
+    }
+   },
+   "sources": [
+    "S10"
+   ],
+   "unit": "years"
+  },
+  {
+   "central": 4.42,
+   "coverage": "as above",
+   "high": 5.73,
+   "id": "I-D1a2",
+   "input": "Mean real total return, **geometric** (wealth path compounding; M3)",
+   "judgement": false,
+   "low": 3.07,
+   "nulls": {},
+   "sources": [
+    "S10"
+   ],
+   "unit": "% per year"
+  },
+  {
+   "central": 0.3,
+   "coverage": "as above",
+   "high": 0.42,
+   "id": "I-D1b2",
+   "input": "Lag-1 autocorrelation of the annual real return, level 2",
+   "judgement": true,
+   "low": 0.19,
+   "nulls": {},
+   "sources": [
+    "S10"
+   ],
+   "unit": "correlation"
+  },
+  {
+   "central": 3.73,
+   "coverage": "as above",
+   "high": 7.47,
+   "id": "I-D1a0",
+   "input": "Spread of 30-year geometric means (level 1 display, **not a level 2 range**)",
    "judgement": false,
    "low": 2.18,
    "nulls": {},
@@ -220,46 +330,52 @@
    "unit": "% per year"
   },
   {
-   "central": 8.2,
-   "coverage": "As I-D1a",
-   "high": 9.8,
-   "id": "I-D1b",
-   "input": "Standard deviation of annual real total return (P1, P4)",
+   "central": null,
+   "coverage": "UK 1950-2019",
+   "high": null,
+   "id": "I-D1f",
+   "input": "Named scenario: UK 1950-2019 arithmetic mean and SD (only if the author runs the break)",
    "judgement": false,
-   "low": 6.5,
-   "nulls": {},
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "5.82 (SD 7.38)",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "n/a",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "n/a",
+     "reason": "text"
+    }
+   },
    "sources": [
     "S10"
    ],
    "unit": "% per year"
   },
   {
-   "central": 22.9,
-   "coverage": "As I-D1a",
-   "high": 28.2,
-   "id": "I-D1c",
-   "input": "Loss-year frequency, share of years with negative real return (refunds, fill years; M1c, P4)",
+   "central": 63,
+   "coverage": "n/a",
+   "high": null,
+   "id": "I-D1g",
+   "input": "Effective independent annual observations",
    "judgement": false,
-   "low": 15.0,
-   "nulls": {},
-   "sources": [
-    "S10"
-   ],
-   "unit": "% of years"
-  },
-  {
-   "central": 3,
-   "coverage": "As I-D1a",
-   "high": 6,
-   "id": "I-D1d",
-   "input": "Longest run of consecutive loss years (fill years, P3)",
-   "judgement": false,
-   "low": 1,
-   "nulls": {},
-   "sources": [
-    "S10"
-   ],
-   "unit": "years"
+   "low": null,
+   "nulls": {
+    "high": {
+     "raw": "n/a",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "n/a",
+     "reason": "text"
+    }
+   },
+   "sources": [],
+   "unit": "count"
   },
   {
    "central": 6,
