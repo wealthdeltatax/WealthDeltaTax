@@ -129,3 +129,6 @@ The retirement trigger, the named-schedule choice rule and the 0.5-point tornado
 
 ## Closed on 2026-11-17 (author): added outputs
 Defaults accepted: M3 gains as the real change in net wealth; M4a deciles of all adults with non-payers inside; OW2 as a post-processing module; risk aversion sampled at level 2; the envelope output separate from concentration; the stress test a check; tornado on M1, M2, M4a and M3. Not default: the consumption tax stays as a comparator in M13.
+
+## Contract amendments V3-0 (2026-11-18, brief 045g)
+Manifest `stage-V3-0-contract-2026-11-18` applies `architecture.md` 8.1: `by` vocabularies for OW2, OB1, OD1, OL1, OF1, OT1 and CK1 (A1, A2; the OT1 `input` list is the tier 1 register rows with a low and a high, derived inputs I-D1a2 and I-D1a0 excluded); `line_horizons` for OW3, with M15b transition only (A3); own-net lines M1 on O1 and M9 on OM1 (A4); `feasibility` constants, null until the author sets them (A5); run fields `pack_sha256`, `pack_country`, `levers_sha256` (A6). No metric definition changes.

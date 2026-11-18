@@ -81,8 +81,8 @@ def test_manifest_notes_name_the_known_findings(vo, manifest):
     notes = {n.rule: n.message for n in vo.manifest_notes(manifest)}
     for oid in ("DH1a", "CK1", "OH1b2"):
         assert oid in notes["M1"]
-    for oid in ("OW2", "OB1", "OD1", "OL1", "OF1", "OT1"):
-        assert oid in notes["M2"]
+    # brief 045g (V3-0) gave the six list-valued `by` entries and CK1 a vocabulary map, so the M2 note must be gone
+    assert "M2" not in notes
 
 
 # ── V1, V2 ───────────────────────────────────────────────────────────────────

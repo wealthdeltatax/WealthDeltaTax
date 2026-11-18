@@ -1,0 +1,13 @@
+{
+  "schema": "wdt-levers/1",
+  "note": "Levers, not inputs (metrics.md range design). The named schedules S_low, S_central and S_high are computed from this grid by the choice rule, never typed here.",
+  "schedule_family": "logistic_ln",
+  "axes": {
+    "tau_m": [0.5, 0.7, 0.9],
+    "k_ln": [0.5, 1, 2],
+    "tau_0": [0.04],
+    "threshold_ratio": [0.25, 0.5, 1.0]
+  },
+  "threshold_basis": "median house price per adult",
+  "retirement_order": "ascending_by_receipts"
+}
