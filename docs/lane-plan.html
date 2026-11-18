@@ -260,9 +260,9 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 (function () {
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the V3 build as it lands" },
-    { id: "2", name: "Agent 2", note: "Guru: 045g (V3-0)" },
-    { id: "3", name: "Agent 3", note: "Code: 047c (V3-2 pack loader), then 048c" },
-    { id: "4", name: "Agent 4", note: "Code: 056c (V3-11 output layer), once 045g is merged" },
+    { id: "2", name: "Agent 2", note: "Guru: free (045g merged); reviews 047c" },
+    { id: "3", name: "Agent 3", note: "Code: 047c merged; 048c (V3-3 UK pack), now" },
+    { id: "4", name: "Agent 4", note: "Code: 056c (V3-11 output layer), now (045g and 046c merged)" },
     { id: "5", name: "Agent 5", note: "Research: 043r (source mapping)" },
     { id: "6", name: "Agent 6", note: "Code for the V3 build: 049c (kernel port), then the chain" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
@@ -272,11 +272,10 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   var B = [
     { id: "043r", lane: "5", at: 0, len: 2, st: "ready", t: "Map uploaded research to register sources; add held figures", needs: [], why: "source-map.md ties S1 to S43 to the files in Research/, checks the cited pages, and enters the held figures in lit-figures.yml. No bib or register edits." },
     { id: "044c", lane: "G", at: 8, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }], why: "Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
-    { id: "045g", lane: "2", at: 0, len: 1, st: "under", t: "Model v3 V3-0: manifest and levers", needs: [], why: "Applies amendments A1 to A7 to outputs.yml, writes levers.json, regenerates metrics.json." },
     { id: "049c", lane: "6", at: 0, len: 2, st: "ready", t: "Model v3 V3-4: schedule and kernel (port)", needs: [], why: "Ports the kernel and schedule; K8 identity stops the build if it fails." },
-    { id: "047c", lane: "3", at: 0, len: 1, st: "ready", t: "Model v3 V3-2: pack loader", needs: [], why: "Country pack loader and the ZZZ fixture pack." },
-    { id: "048c", lane: "3", at: 2, len: 1, st: "hold", t: "Model v3 V3-3: UK pack", needs: [{ id: "047c" }], why: "UK pack from the held files." },
-    { id: "056c", lane: "4", at: 2, len: 1, st: "hold", t: "Model v3 V3-11: output layer", needs: [{ id: "045g" }], why: "Assembler and writer for outputs.json." },
+    { id: "047c", lane: "3", at: 0, len: 1, st: "review", t: "Model v3 V3-2: pack loader", needs: [], why: "Country pack loader and the ZZZ fixture pack. Merged to main, 63 tests pass; guru review pending." },
+    { id: "048c", lane: "3", at: 1, len: 1, st: "ready", t: "Model v3 V3-3: UK pack", needs: [{ id: "047c" }], why: "UK pack from the held files." },
+    { id: "056c", lane: "4", at: 0, len: 1, st: "ready", t: "Model v3 V3-11: output layer", needs: [], why: "Assembler and writer for outputs.json." },
     { id: "050c", lane: "3", at: 3, len: 1, st: "hold", t: "Model v3 V3-5: return generator", needs: [{ id: "048c" }], why: "AR(1) generator, bootstrap, level 2 band; pins re-derived on the 2019 sample." },
     { id: "051c", lane: "6", at: 3, len: 1, st: "hold", t: "Model v3 V3-6: wealth and payer base", needs: [{ id: "048c" }, { id: "049c" }], why: "Band shares, payer base, route mix." },
     { id: "052c", lane: "6", at: 4, len: 1, st: "hold", t: "Model v3 V3-7: revenue, fund, identity", needs: [{ id: "049c" }, { id: "050c" }, { id: "051c" }], why: "Revenue lines, fund, horizon windows, I1 and I2 identity checks." },
