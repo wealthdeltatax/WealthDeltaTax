@@ -34,11 +34,27 @@ The implementer asks rather than guesses.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:**
+- **Done:** `pipeline/check_gate.py` (`--page ID`, `--all`, `--root`) and `tests/gate/` (17 tests, pass). Needs table is `PAGES` inside the script (order.md 4.2), with escalation to G1-G5 when a page cites outputs and to G3 when it lists inputs. Real repo: `--all` exits 1, 0 of 26 open, G1/G2/G3/G5 fail with reasons, G3 "87 flagged (J) rows, 87 pending, 0 decided"; the decisions file ids equal the flagged ids.
+- **Next:** guru/author confirm the assumed formats below; when B2, B3, B15 and 011g stage D land, re-run `--all`; retire `test_real_repository_is_closed_today` once the gate opens.
+- **Decisions:** needs table lives in the script, not a separate data file (Touches allows no other file). G4 coverage = schedules x horizons x `by` vocabulary from the manifest; where `by` is a list of names with no vocabulary (OW2, OB1, OD1...) only non-null cells are checked, B2's V7 owns the rest. `once_not_per_schedule` outputs ignore schedule.
+- **Gotchas (assumed formats, not in any spec yet):** (1) acceptance.md must hold exactly one line `Acceptance command: \`...\``. (2) `run.fixture` must be present and false (hooks.md section 9 does not list the field; 030c fixture sets it). (3) validator is called `python pipeline/validate_outputs.py --final <outputs.json>` (flags from 030c; argument form assumed). (4) `_build/hooks-report.json` needs `unresolved` (count or list). (5) The fixture-spoke release build has no command until B15: `Config.fixture_build` is None, so G5 fails by design. (6) "Merged" for B2..B6, B15 = their Touches files exist. (7) Page source found via `registry/pages.yml` (`id`, `source`) else `source/<id>.md`; hub id is `HUB`. (8) `registry/inputs.json` accepted as a list of `{id}`, `{id: row}` or `{inputs: ...}`.
+- **Resume:** none needed.
+- **Not run:** the G1 acceptance run, the G2 validator and the G5 build/pytest against the real repo (their files do not exist yet); only fixtures exercised them.
+- **State:** done; pushed on `brief/033-gate-checker`; NEEDS THE AUTHOR (assumed formats)
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 033c, spoke gate checker (order.md B17)
+- Files changed: pipeline/check_gate.py (new: G1-G5 checker, --page/--all); tests/gate/ (new: conftest.py fixtures, test_gate.py, 17 tests); docs/briefs/033c-gate-checker.md (progress block, this report)
+- What is different now: "the data gate is open" is a command. Today it reports all 26 units closed with the failing checks and reasons.
+- New or changed interfaces: python pipeline/check_gate.py --page <ID> | --all [--root DIR]; exit 0 only if open.
+- Acceptance criteria: --all on today's repo exits 1 and names failing checks with reasons (met); synthetic complete fixture exits 0 (met, test_complete_fixture_all_open); G3 counts 87 flagged rows and reports them pending (met); git diff --stat shows only the Touches list (met).
+- Deviations from the brief: needs table is inside check_gate.py, because Touches allows no separate data file.
+- Risks / follow-ups: eight assumed formats (progress block, Gotchas) need confirming by 011g stage D, B2, B3, B15; coverage rule for list-valued `by` is partial until B2's V7 is wired. Guru: decide whether to fold these formats into acceptance.md and hooks.md section 9.
+- Verification: pytest tests/gate: 17 passed; --all and --page VAL run on the repo and read. Not run: G1 acceptance run, validator, G5 build against the real repo (inputs absent).
+- Overview sections likely needing an update: site build items (B17 done); gate section of order.md
+- Commit / branch: brief/033-gate-checker (NEEDS THE AUTHOR; not merged)
+```
+
