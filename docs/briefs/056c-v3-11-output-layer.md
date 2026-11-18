@@ -38,11 +38,11 @@ Ask if the 030c file shape and the architecture disagree; the validator wins.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** draft; not started
-<!-- progress:end -->
+- **Done:** `out/assemble.py` (166 lines of 480), `out/writer.py` (72 of 220), `tests/model_v3/test_out.py` (153 lines, 23 test cases covering W1 to W7 and gaps). 159 tests pass (`pytest tests/model_v3 tests/data`).
+- **Next:** none for this brief. 057c wires the writer into `run.py`.
+- **Decisions:** conventions for what `interface.py` leaves open (in the `assemble.py` docstring): `point_and_range` arrays are `[point, lo, hi]`, `point` arrays hold one entry, a series point is a Samples key whose `by` holds `("t", n)`, a `line_horizons` line gets cells only for its horizons. Missing cell or output, or a non-finite value: error when final, omitted or null when provisional. The writer calls the validator by subprocess (`python -I`), so it imports nothing from `pipeline/`. Tornado rows are written as supplied; the validator checks their order.
+- **Gotchas:** a final file fails V7 on OW3 (validator and fixture ignore `line_horizons`; suggestion appended to `docs/brief-suggestions.md`). `run_date` is an argument, so byte-identical reruns (acceptance step 6) need the run script to pass the same date. The budget table names `test_assemble.py` and `test_writer.py`; the brief says one `test_out.py`, so `test_budget.py` does not count it (153 lines, budget 300).
+- **Resume:** n/a
+- **Not run:** a `--final` validation of a complete file (known V7 gap above); no model module exists to feed real Samples.
+- **State:** merged.
+<!-- progress:end --><!-- progress:end -->

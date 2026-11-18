@@ -53,3 +53,10 @@ Entry format, newest at the bottom:
 - Problem: the paper's 0.35% is tax over post-settlement terminal wealth (N = 30), weighted by terminal wealth. M2 is the tax-weighted mean of T_i/W_i with W_i start-of-year wealth. From the printed tables the same tax gives 0.39% on terminal wealth, about 1.2% on a crude path average and 4.1% on starting wealth (`docs/research/012r-b4-derivations.md`). The claim "structurally below the 1 to 2% of stock levies" holds only on the terminal denominator. The author has to choose M2's denominator, then writing may need to state it in RATES.
 - Suggested lane: g
 - Status: open
+
+### Validator and fixture ignore `line_horizons`, so a final model file cannot pass V7 (OW3)
+- Found by: code / brief 056c, 2026-11-18
+- Where: `pipeline/validate_outputs.py` (`load_entries`, V7 coverage), `tests/data/make_fixture.py`, `docs/restructure/site/hooks.md` 3.4; also the `run` fields `pack_sha256`, `pack_country`, `levers_sha256` (A6), which V8 reports as unknown (V12 warning)
+- Problem: `outputs.yml` gives OW3 line M15b the horizon `transition` only (A3), and the output layer writes only those cells. The validator expects the full product, so a `--final` check of a complete file fails with `V7 error OW3: 30 cell(s) missing`; the fixture still holds 90 OW3 cells. Provisional files pass (V7 is a warning). Needs the validator to read `line_horizons`, the fixture to follow, and A6 fields accepted.
+- Suggested lane: c
+- Status: open
