@@ -136,3 +136,6 @@ Author, on 036r: generator is an AR(1) with normal innovations (arithmetic mean 
 
 ## 2026-11-18: architecture approved, return sample ends 2019
 Author approved `docs/model-v3/architecture.md` (039g): section 9 defaults 1 to 9 as written and section 8.1 amendments A1 to A7 (stage V3-0 applies them). On 042r: the v3 return sample ends in 2019 (JST R6 wealth return); no splice; the missing 2020 to 2025 is stated in UNCER with 042r's bracket (mean 4.37 to 4.70) as the sensitivity; a later licensed series is a future update. JST R6 is CC BY-NC-SA 4.0 (042r), a licence notice is a writing item. 041r: both epsilon treatments carried in the tornado; the model computes epsilon (C1 item 3), so held or recalibrated is moot.
+
+## 2026-11-18: file layout
+Author: a vertical tree with four areas plus root files (`model/` with v1, v2, v3 and the model data; `research/` with sources and notes; `web/` with site, pipeline, registry and page tests; `docs/` with the status files, briefs, agents, archive and skills). Old papers (`source/`) go to `docs/archive/papers/` once the hub and spokes replace them. The move runs after the v3 build (brief 044c, parked); until then all briefs use today's paths. Design: `docs/restructure/file-layout.md`.
