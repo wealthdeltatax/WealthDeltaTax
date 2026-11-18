@@ -1,26 +1,726 @@
-# registry/lit-figures.yml: published figures the papers quote, keyed <bibkey>:<slug> (brief 032r, hooks Q9).
-# Research lane owns it. Every entry was re-read this session in a held copy of the source; quoted_as is the
-# figure exactly as printed. page is the PDF page ('Page N of 15' footer). verified is the date of that re-read.
+# registry/lit-figures.yml: published figures the papers quote, keyed <bibkey>:<slug> (briefs 032r, 043r; hooks Q9).
+# Research lane owns it. Every entry was re-read in the held copy named in source_file on the verified date; quoted_as is
+# the figure as printed (a range printed once is entered as two entries, one per end). Held copies and the register rows they
+# serve are mapped in docs/model-v3/source-map.md; discrepancies with the register are in its section 3.
 #
-# Coverage: only figures that a register row or a ledger row uses AND that sit in a source held in the repo
-# (Research/). Other literature sources behind register rows were read earlier through the fetch tool, are not
-# held, and so are not entered here (no figure from memory).
+# page = page of the held PDF (the 'page N' a PDF viewer shows). printed = the page number printed on that page, where it differs
+# and was checked (PDF page + offset: AdvaniBanghamLeslie2021 +395, AdvaniTarrant2021 +508, KosterPinchbeck2018 -2, BesleyEtAl2014 -1,
+# BestKleven2018 +156, TippetZucman2026 -1). AdamEtAl2025 is chapter 4 of the Green Budget; chapter page = PDF page - 122.
+# Workbook figures give table, row and column instead of a page. A figure converted to the entry's unit says so in note.
 #
-# MISSING bib keys (source cited in docs/model-v3/inputs.md, no entry in registry/references.bib; not invented):
-#   S5 Advani, Bangham, Leslie (2021) CAGE WP 576          S6 Advani, Summers, Tarrant (2025) EER 178
-#   S13 Advani and Tarrant (2021) Fiscal Studies 42        S16 Koster and Pinchbeck (2018) City DP 18/06
-#   S17 Besley, Meads, Surico (2014) JPubE 119             S18 Best and Kleven (2018) REStud 85
-#   S22 Fuest, Peichl, Siegloch (2015) IZA DP 9606         S25 Tippet and Zucman (2026) ITO WP 46
-#   S37 Summers (2023) OxREP 39                            S38 Adam et al. (IFS) Revaluation and reform
-#   S4 Resolution Foundation, Before the fall (2025)       S30 IFS Green Budget 2025, Options for tax increases
-#   S24 Zucman (2024) G20 report: bib Zucman2024 is a different EU Tax Observatory title; not assumed to match
-# Those sources hold the figures behind rows I-D5*, I-D6*, I-D10*, I-M5*, I-M6l; add entries once the keys exist
-# and the papers are held.
+# Coverage: the figures the register rows use from the 14 literature files held in Research/ (S4, S5, S6, S13, S16, S17, S18,
+# S22, S23, S24, S25, S30; S37 and S38 hold no register figure, see source-map section 3). Not held, so not entered: S3, S7-S9,
+# S11, S12, S14, S15, S19-S21, S26-S29, S31-S36, S39-S43. No figure from memory. Ledger rows quote no published figure in the
+# text (ledger-sections.md), so none was added from the ledger.
+#
+# MISSING bib keys (proposed, not in registry/references.bib; the author reworks the reference list later, 043r decision).
+# The keys below are entered as proposed so the sidecar is ready; hooks H42 will fail on them until references.bib has them:
+#   BroomeKanabar2025
+#   AdvaniBanghamLeslie2021
+#   AdvaniSummersTarrant2025
+#   AdvaniTarrant2021
+#   KosterPinchbeck2018
+#   BesleyEtAl2014
+#   BestKleven2018
+#   FuestEtAl2017
+#   TippetZucman2026
+#   AdamEtAl2025
+# Existing keys used: Zucman2024 (title matches the held report-g20.pdf), ONS2025ETB.
+# Units: pct, pct_gdp, gbp_bn, count, ratio are in outputs.yml or inputs-display.yml; usd_bn, gbp and coefficient are the proposed
+# tags of inputs-display.yml.
 schema: wdt-lit-figures/1
 figures:
+  BroomeKanabar2025:wealth-gdp-2023:
+    value: 580
+    unit: pct_gdp
+    decimals: 0
+    quoted_as: "580 per cent"
+    page: 11
+    source_file: "Research/Before-the-fall.pdf"
+    use: "register I-D4a"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  BroomeKanabar2025:wealth-gdp-peak-2020-22:
+    value: 7.5
+    unit: ratio
+    decimals: 1
+    quoted_as: "nearly 7.5 times GDP"
+    page: 16
+    source_file: "Research/Before-the-fall.pdf"
+    use: "register I-D4a"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniBanghamLeslie2021:top1-share-survey:
+    value: 18
+    unit: pct
+    decimals: 0
+    quoted_as: "18 per cent"
+    page: 29
+    printed: 424
+    source_file: "Research/1475_5890.12286.pdf"
+    use: "register I-D4d, I-D4e"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniBanghamLeslie2021:top1-share-pareto-adjusted:
+    value: 23
+    unit: pct
+    decimals: 0
+    quoted_as: "23 per cent"
+    page: 29
+    printed: 424
+    source_file: "Research/1475_5890.12286.pdf"
+    use: "register I-D4d"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniBanghamLeslie2021:wealth-uplift-share:
+    value: 5
+    unit: pct
+    decimals: 0
+    quoted_as: "5 per cent higher"
+    page: 4
+    printed: 399
+    source_file: "Research/1475_5890.12286.pdf"
+    use: "register I-D4d, I-D4e"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniBanghamLeslie2021:wealth-uplift-gbp:
+    value: 800
+    unit: gbp_bn
+    decimals: 0
+    quoted_as: "almost £800 billion"
+    page: 4
+    printed: 399
+    source_file: "Research/1475_5890.12286.pdf"
+    use: "register I-D4e"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniBanghamLeslie2021:wealth-total-was:
+    value: 14400
+    unit: gbp_bn
+    decimals: 0
+    quoted_as: "£14.4 trillion"
+    page: 24
+    printed: 419
+    source_file: "Research/1475_5890.12286.pdf"
+    use: "register I-D4d, I-D4e"
+    note: "value converted: £14.4 trillion = 14,400 £bn"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniSummersTarrant2025:top1-share-low:
+    value: 14.4
+    unit: pct
+    decimals: 1
+    quoted_as: "14.4%"
+    page: 3
+    source_file: "Research/1-s2.0-S0014292125001266-main.pdf"
+    use: "register I-D4d"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniSummersTarrant2025:top1-share-high:
+    value: 16.5
+    unit: pct
+    decimals: 1
+    quoted_as: "16.5%"
+    page: 3
+    source_file: "Research/1-s2.0-S0014292125001266-main.pdf"
+    use: "register I-D4d"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniTarrant2021:elasticity-low:
+    value: 7
+    unit: coefficient
+    decimals: 0
+    quoted_as: "7–17"
+    page: 2
+    printed: 510
+    source_file: "Research/Fiscal Studies - 2021 - Advani - Behavioural responses to a wealth tax.pdf"
+    use: "register I-D5a, I-D5b"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniTarrant2021:elasticity-high:
+    value: 17
+    unit: coefficient
+    decimals: 0
+    quoted_as: "7–17"
+    page: 2
+    printed: 510
+    source_file: "Research/Fiscal Studies - 2021 - Advani - Behavioural responses to a wealth tax.pdf"
+    use: "register I-D5a, I-D5b"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniTarrant2021:swiss-half-reporting-elasticity:
+    value: 17.7
+    unit: coefficient
+    decimals: 1
+    quoted_as: "17.7"
+    page: 25
+    printed: 533
+    source_file: "Research/Fiscal Studies - 2021 - Advani - Behavioural responses to a wealth tax.pdf"
+    use: "register I-D5a"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniTarrant2021:danish-very-wealthy-elasticity:
+    value: 11.3
+    unit: coefficient
+    decimals: 1
+    quoted_as: "11.3"
+    page: 8
+    printed: 516
+    source_file: "Research/Fiscal Studies - 2021 - Advani - Behavioural responses to a wealth tax.pdf"
+    use: "register I-D5a"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniTarrant2021:spanish-migration-elasticity:
+    value: 5.8
+    unit: coefficient
+    decimals: 1
+    quoted_as: "5.8"
+    page: 26
+    printed: 534
+    source_file: "Research/Fiscal Studies - 2021 - Advani - Behavioural responses to a wealth tax.pdf"
+    use: "register I-D5a"
+    note: "Table on PDF p.5 gives the range 5.8–8.6"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniTarrant2021:colombia-inventories-understated:
+    value: 22
+    unit: pct
+    decimals: 0
+    quoted_as: "22 per cent"
+    page: 14
+    printed: 522
+    source_file: "Research/Fiscal Studies - 2021 - Advani - Behavioural responses to a wealth tax.pdf"
+    use: "register I-D5d"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniTarrant2021:colombia-debts-inflated:
+    value: 35
+    unit: pct
+    decimals: 0
+    quoted_as: "35 per cent"
+    page: 14
+    printed: 522
+    source_file: "Research/Fiscal Studies - 2021 - Advani - Behavioural responses to a wealth tax.pdf"
+    use: "register I-D5d"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniTarrant2021:scandinavian-offshore-evasion-share:
+    value: 25
+    unit: pct
+    decimals: 0
+    quoted_as: "around a quarter"
+    page: 15
+    printed: 523
+    source_file: "Research/Fiscal Studies - 2021 - Advani - Behavioural responses to a wealth tax.pdf"
+    use: "register I-D5b"
+    note: "value 25 stands for \"around a quarter\""
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniTarrant2021:evaders-wealth-hidden-abroad:
+    value: 40
+    unit: pct
+    decimals: 0
+    quoted_as: "40 per cent"
+    page: 15
+    printed: 523
+    source_file: "Research/Fiscal Studies - 2021 - Advani - Behavioural responses to a wealth tax.pdf"
+    use: "register I-D5b"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  KosterPinchbeck2018:implied-discount-rate-max:
+    value: 4.1
+    unit: pct
+    decimals: 1
+    quoted_as: "4.1%"
+    page: 5
+    printed: 3
+    source_file: "Research/Koster_How-do-households_Author.pdf"
+    use: "register I-D10a"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  KosterPinchbeck2018:capitalisation-boundary-design:
+    value: 30.38
+    unit: ratio
+    decimals: 2
+    quoted_as: "-30.38"
+    page: 27
+    printed: 25
+    source_file: "Research/Koster_How-do-households_Author.pdf"
+    use: "register I-D10a"
+    note: "Table 3, column 6 (inter-jurisdictional); sign negative as printed"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  KosterPinchbeck2018:capitalisation-travel-to-work-area:
+    value: 73.79
+    unit: ratio
+    decimals: 2
+    quoted_as: "-73.79"
+    page: 27
+    printed: 25
+    source_file: "Research/Koster_How-do-households_Author.pdf"
+    use: "register I-D10a"
+    note: "Table 3, column 1; sign negative as printed"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  KosterPinchbeck2018:capitalisation-within-jurisdiction:
+    value: 33.6
+    unit: ratio
+    decimals: 2
+    quoted_as: "-33.60"
+    page: 29
+    printed: 27
+    source_file: "Research/Koster_How-do-households_Author.pdf"
+    use: "register I-D10a"
+    note: "Table 4, column 2 (intra-jurisdictional); sign negative as printed"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  KosterPinchbeck2018:rental-capitalisation-low:
+    value: 0.94
+    unit: ratio
+    decimals: 2
+    quoted_as: "0.94"
+    page: 31
+    printed: 29
+    source_file: "Research/Koster_How-do-households_Author.pdf"
+    use: "register I-D10a"
+    note: "Table 5 panel A (rents); positive in column 3 as printed"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  KosterPinchbeck2018:rental-capitalisation-high:
+    value: 1.14
+    unit: ratio
+    decimals: 2
+    quoted_as: "-1.14"
+    page: 31
+    printed: 29
+    source_file: "Research/Koster_How-do-households_Author.pdf"
+    use: "register I-D10a"
+    note: "Table 5 panel A column 2; sign negative as printed"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  BesleyEtAl2014:post-tax-price-reduction:
+    value: 900
+    unit: gbp
+    decimals: 0
+    quoted_as: "£900"
+    page: 2
+    printed: 1
+    source_file: "Research/Besley_Incidence transaction_2016.pdf"
+    use: "register I-D10c"
+    note: "text extraction shows \"$\"; page image shows \"£\" (checked)"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  BesleyEtAl2014:tax-reduction:
+    value: 1500
+    unit: gbp
+    decimals: 0
+    quoted_as: "£1500"
+    page: 2
+    printed: 1
+    source_file: "Research/Besley_Incidence transaction_2016.pdf"
+    use: "register I-D10c"
+    note: "text extraction shows \"$\"; page image shows \"£\" (checked)"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  BesleyEtAl2014:buyer-share-of-saving:
+    value: 60
+    unit: pct
+    decimals: 0
+    quoted_as: "sixty percent"
+    page: 5
+    printed: 4
+    source_file: "Research/Besley_Incidence transaction_2016.pdf"
+    use: "register I-D10c"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  BesleyEtAl2014:volume-increase:
+    value: 8
+    unit: pct
+    decimals: 0
+    quoted_as: "8%"
+    page: 5
+    printed: 4
+    source_file: "Research/Besley_Incidence transaction_2016.pdf"
+    use: "register I-D10c"
+    note: "the same page says the effect is insignificant if a subset is excluded"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  BestKleven2018:volume-response-stimulus:
+    value: 20
+    unit: pct
+    decimals: 0
+    quoted_as: "20%"
+    page: 3
+    printed: 159
+    source_file: "Research/Best-Kleven-LandNotches_2018.pdf"
+    use: "register I-D10c"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  FuestEtAl2017:workers-share-of-corporate-tax:
+    value: 51
+    unit: pct
+    decimals: 0
+    quoted_as: "approximately 51%"
+    page: 5
+    source_file: "Research/wp-2017-241-fuest-peichl-siegloch-corporate-taxes.pdf"
+    use: "register I-D6c, I-D6j"
+    note: "the register’s 40% is not in this version; see source-map section 3"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  FuestEtAl2017:survey-capital-share-of-incidence:
+    value: 40
+    unit: pct
+    decimals: 0
+    quoted_as: "40%"
+    page: 4
+    source_file: "Research/wp-2017-241-fuest-peichl-siegloch-corporate-taxes.pdf"
+    use: "register I-D6c, I-D6j"
+    note: "survey response quoted from Fuchs, Krueger and Poterba (1998); 40% is the capital share, not the workers share"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  Zucman2024:minimum-rate:
+    value: 2
+    unit: pct
+    decimals: 0
+    quoted_as: "2%"
+    page: 2
+    source_file: "Research/report-g20.pdf"
+    use: "register I-M5a, I-M5c"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  Zucman2024:billionaire-threshold:
+    value: 1
+    unit: usd_bn
+    decimals: 0
+    quoted_as: "$1 billion"
+    page: 2
+    source_file: "Research/report-g20.pdf"
+    use: "register I-M5b, I-M5c"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  Zucman2024:revenue-billionaires-low:
+    value: 200
+    unit: usd_bn
+    decimals: 0
+    quoted_as: "$200-$250 billion"
+    page: 2
+    source_file: "Research/report-g20.pdf"
+    use: "register I-M5c"
+    note: "printed as one range; 200 is the low end"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  Zucman2024:revenue-billionaires-high:
+    value: 250
+    unit: usd_bn
+    decimals: 0
+    quoted_as: "$200-$250 billion"
+    page: 2
+    source_file: "Research/report-g20.pdf"
+    use: "register I-M5c"
+    note: "printed as one range; 250 is the high end"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  Zucman2024:revenue-centimillionaires-low:
+    value: 100
+    unit: usd_bn
+    decimals: 0
+    quoted_as: "$100-$140 billion"
+    page: 2
+    source_file: "Research/report-g20.pdf"
+    use: "register I-M5b"
+    note: "printed as one range; 100 is the low end"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  Zucman2024:revenue-centimillionaires-high:
+    value: 140
+    unit: usd_bn
+    decimals: 0
+    quoted_as: "$100-$140 billion"
+    page: 2
+    source_file: "Research/report-g20.pdf"
+    use: "register I-M5b"
+    note: "printed as one range; 140 is the high end"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  Zucman2024:billionaire-return-before-minimum-tax:
+    value: 7.2
+    unit: pct
+    decimals: 1
+    quoted_as: "7.2%"
+    page: 8
+    source_file: "Research/report-g20.pdf"
+    use: "register I-M5c"
+    note: "net-of-tax real return today"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  Zucman2024:billionaire-return-after-minimum-tax:
+    value: 5.5
+    unit: pct
+    decimals: 1
+    quoted_as: "5.5%"
+    page: 8
+    source_file: "Research/report-g20.pdf"
+    use: "register I-M5c"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  TippetZucman2026:households-above-100m:
+    value: 946
+    unit: count
+    decimals: 0
+    quoted_as: "946"
+    page: 8
+    printed: 7
+    source_file: "Research/TippetZucman2026.pdf"
+    use: "register I-M5f"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  TippetZucman2026:households-above-100m-hmrc-based:
+    value: 1086
+    unit: count
+    decimals: 0
+    quoted_as: "1086"
+    page: 8
+    printed: 7
+    source_file: "Research/TippetZucman2026.pdf"
+    use: "register I-M5f"
+    note: "Davies (2025, p. 14) as reported"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  TippetZucman2026:wealth-above-100m:
+    value: 642.5
+    unit: gbp_bn
+    decimals: 1
+    quoted_as: "642.5"
+    page: 17
+    printed: 16
+    source_file: "Research/TippetZucman2026.pdf"
+    use: "register I-M5f"
+    note: "Table 2 row for threshold £100m, £bn"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  TippetZucman2026:revenue-gross-2026:
+    value: 11.57
+    unit: gbp_bn
+    decimals: 2
+    quoted_as: "£11.57bn"
+    page: 8
+    printed: 7
+    source_file: "Research/TippetZucman2026.pdf"
+    use: "register I-M5e, I-M5g"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  TippetZucman2026:revenue-net-2026:
+    value: 10.41
+    unit: gbp_bn
+    decimals: 2
+    quoted_as: "£10.41 billion"
+    page: 8
+    printed: 7
+    source_file: "Research/TippetZucman2026.pdf"
+    use: "register I-M5e"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  TippetZucman2026:revenue-net-2036:
+    value: 17.61
+    unit: gbp_bn
+    decimals: 2
+    quoted_as: "17.61"
+    page: 9
+    printed: 8
+    source_file: "Research/TippetZucman2026.pdf"
+    use: "register I-M5e"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  TippetZucman2026:revenue-threshold-50m:
+    value: 12.53
+    unit: gbp_bn
+    decimals: 2
+    quoted_as: "£12.53 billion"
+    page: 21
+    printed: 20
+    source_file: "Research/TippetZucman2026.pdf"
+    use: "register I-M5e"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  TippetZucman2026:revenue-marginal-100m-net:
+    value: 9.86
+    unit: gbp_bn
+    decimals: 2
+    quoted_as: "£9.86 billion"
+    page: 24
+    printed: 23
+    source_file: "Research/TippetZucman2026.pdf"
+    use: "register I-M5e"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  TippetZucman2026:revenue-existing-tax-0-1pct:
+    value: 12.21
+    unit: gbp_bn
+    decimals: 2
+    quoted_as: "£12.21bn"
+    page: 22
+    printed: 21
+    source_file: "Research/TippetZucman2026.pdf"
+    use: "register I-M5g"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  TippetZucman2026:revenue-existing-tax-0-3pct:
+    value: 10.92
+    unit: gbp_bn
+    decimals: 2
+    quoted_as: "£10.92"
+    page: 22
+    printed: 21
+    source_file: "Research/TippetZucman2026.pdf"
+    use: "register I-M5g"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  TippetZucman2026:revenue-existing-tax-0-5pct:
+    value: 9.64
+    unit: gbp_bn
+    decimals: 2
+    quoted_as: "9.64"
+    page: 22
+    printed: 21
+    source_file: "Research/TippetZucman2026.pdf"
+    use: "register I-M5g"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdamEtAl2025:wealth-tax-1pct-above-1m:
+    value: 33
+    unit: gbp_bn
+    decimals: 0
+    quoted_as: "£33 billion"
+    page: 147
+    chapter_page: 25
+    source_file: "Research/Final_The_IFS_Green_Budget_2025_full_report_amended 2.pdf"
+    use: "register I-M5n"
+    note: "chapter 4 page = PDF page - 122; estimate cited from earlier work, 2016-18 data, before behavioural response"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdamEtAl2025:wealth-tax-1pct-above-10m:
+    value: 10
+    unit: gbp_bn
+    decimals: 0
+    quoted_as: "£10 billion"
+    page: 147
+    chapter_page: 25
+    source_file: "Research/Final_The_IFS_Green_Budget_2025_full_report_amended 2.pdf"
+    use: "register I-M5n, I-M8e"
+    note: "chapter 4 page = PDF page - 122"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdamEtAl2025:cgt-forgiveness-at-death:
+    value: 2.3
+    unit: gbp_bn
+    decimals: 1
+    quoted_as: "£2.3 billion"
+    page: 142
+    chapter_page: 20
+    source_file: "Research/Final_The_IFS_Green_Budget_2025_full_report_amended 2.pdf"
+    use: "register I-M8b, I-M8c"
+    note: "chapter 4 page = PDF page - 122; also on PDF p.126 (ch. p.4) as a past measure’s cost"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdamEtAl2025:stamp-duty-land-tax-2029-30:
+    value: 24.5
+    unit: gbp_bn
+    decimals: 1
+    quoted_as: "£24.5 billion"
+    page: 151
+    chapter_page: 29
+    source_file: "Research/Final_The_IFS_Green_Budget_2025_full_report_amended 2.pdf"
+    use: "register I-M8e"
+    note: "chapter 4 page = PDF page - 122"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  ONS2025ETB:council-tax-top-decile-gbp:
+    value: 2293
+    unit: gbp
+    decimals: 0
+    quoted_as: "2293"
+    table: "Table 2b"
+    row: 46
+    column: "Top"
+    source_file: "Research/etbreferencetablesfye202324final.xlsx"
+    use: "register I-D6a; Top decile, Council Tax and Northern Ireland rates, £ per year"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  ONS2025ETB:households-top-decile-thousands:
+    value: 3032
+    unit: count
+    decimals: 0
+    quoted_as: "3032"
+    table: "Table 2b"
+    row: 9
+    column: "Top"
+    source_file: "Research/etbreferencetablesfye202324final.xlsx"
+    use: "register I-D6a, I-D6o; Number of households, top decile (thousands)"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  ONS2025ETB:business-rates-top-decile-gbp:
+    value: 441
+    unit: gbp
+    decimals: 0
+    quoted_as: "441"
+    table: "Table 2b"
+    row: 65
+    column: "Top"
+    source_file: "Research/etbreferencetablesfye202324final.xlsx"
+    use: "register I-D6o; Commercial and industrial rates, top decile, £ per year"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  ONS2025ETB:stamp-duty-top-decile-gbp-2c:
+    value: 1229
+    unit: gbp
+    decimals: 0
+    quoted_as: "1229"
+    table: "Table 2c"
+    row: 58
+    column: "Top"
+    source_file: "Research/etbreferencetablesfye202324final.xlsx"
+    use: "register I-D6q; Stamp Duty on house purchase, top original-income decile, £ per year"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  ONS2025ETB:households-top-decile-2c-thousands:
+    value: 2975
+    unit: count
+    decimals: 0
+    quoted_as: "2975"
+    table: "Table 2c"
+    row: 9
+    column: "Top"
+    source_file: "Research/etbreferencetablesfye202324final.xlsx"
+    use: "register I-D6q; Number of households, top original-income decile (thousands)"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  ONS2025ETB:stamp-duty-all-households-gbp:
+    value: 230
+    unit: gbp
+    decimals: 0
+    quoted_as: "230"
+    table: "Table 2c"
+    row: 58
+    column: "All individuals"
+    source_file: "Research/etbreferencetablesfye202324final.xlsx"
+    use: "register I-D6q; Stamp Duty on house purchase, all individuals, £ per year"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  ONS2025ETB:households-all-thousands:
+    value: 28440
+    unit: count
+    decimals: 0
+    quoted_as: "28440"
+    table: "Table 2c"
+    row: 9
+    column: "All individuals"
+    source_file: "Research/etbreferencetablesfye202324final.xlsx"
+    use: "register I-D6q; Number of households, all (thousands)"
+    access_date: 2026-11-18
+    verified: 2026-11-18
   ONS2025ETB:retired-net-recipients:
     value: 90.1
-    unit: pct
+    unit: "pct"
     decimals: 1
     quoted_as: "90.1%"
     page: 8
@@ -30,17 +730,17 @@ figures:
     verified: 2026-11-18
   ONS2025ETB:all-net-recipients:
     value: 53.3
-    unit: pct
+    unit: "pct"
     decimals: 1
     quoted_as: "53.3%"
-    page: 2 and 8
+    page: "2 and 8"
     source_file: "Research/Effects of taxes and benefits on UK household income financial year ending 2024.pdf"
     use: "people in households receiving more in benefits than they pay in taxes, FYE 2024 (I-H2b central)"
     access_date: 2026-11-18
     verified: 2026-11-18
   ONS2025ETB:nonretired-net-recipients:
     value: 45.8
-    unit: pct
+    unit: "pct"
     decimals: 1
     quoted_as: "45.8%"
     page: 8
@@ -50,7 +750,7 @@ figures:
     verified: 2026-11-18
   ONS2025ETB:richest-fifth-original-income:
     value: 116600
-    unit: gbp
+    unit: "gbp"
     decimals: 0
     quoted_as: "£116,600"
     page: 2
@@ -60,7 +760,7 @@ figures:
     verified: 2026-11-18
   ONS2025ETB:richest-fifth-disposable-income:
     value: 85600
-    unit: gbp
+    unit: "gbp"
     decimals: 0
     quoted_as: "£85,600"
     page: 2
@@ -70,7 +770,7 @@ figures:
     verified: 2026-11-18
   ONS2025ETB:poorest-fifth-disposable-income:
     value: 15200
-    unit: gbp
+    unit: "gbp"
     decimals: 0
     quoted_as: "£15,200"
     page: 2

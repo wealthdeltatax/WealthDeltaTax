@@ -38,11 +38,11 @@ Ask rather than guess: which S-id a held PDF belongs to when the match is not cl
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
-<!-- progress:end -->
+- **Done:** `docs/model-v3/source-map.md` (43 S-ids, all 17 files of `Research/` and 7 of `Rates Data/` once, page check, 12 discrepancies) and `registry/lit-figures.yml` (67 entries: 6 ETB bulletin, 7 ETB workbook cells, 54 figures from S4, S5, S6, S13, S16, S17, S18, S22, S24, S25, S30; header lists 10 proposed bib keys). Script check: 54 of 54 figures matched by pattern on the named held page, 7 of 7 workbook cells; `python -I` load returns 67 entries with all fields; `pytest tests/data -q` 75 passed.
+- **Next:** guru reads section 3 and decides the register edits (S22 workers' share, S37 figures, page notes); author reworks the reference list (10 proposed keys; `Hasen2017` points to the wrong work).
+- **Decisions:** page = PDF page of the held file, printed page added where checked; version differences recorded, not corrected; ranges entered as two entries; no S37 or S38 figure entered (not in the held text).
+- **Gotchas:** S22 held WP says 51% workers, register says 40% (the 40% in the WP is the capital share); S37's 35%/45%/11% are not in the article; S5 and S13 register pages are WP numbering; `Adam et al. (IFS).pdf` is the full 548-page *Tax by Design*, not a preface; bib `Hasen2017` is Richard Hasen, the papers mean David Hasen. `python pipeline/validate_outputs.py` needs a file argument; on `registry/metrics.json --fixture` it reports 3 errors, a file this brief did not touch (pre-existing).
+- **Resume:** n/a
+- **Not run:** site build (no site file touched); the check script is not committed (Touches).
+- **State:** done, merged.
+<<!-- progress:end -->
