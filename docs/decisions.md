@@ -139,3 +139,6 @@ Author approved `docs/model-v3/architecture.md` (039g): section 9 defaults 1 to 
 
 ## 2026-11-18: file layout
 Author: a vertical tree with four areas plus root files (`model/` with v1, v2, v3 and the model data; `research/` with sources and notes; `web/` with site, pipeline, registry and page tests; `docs/` with the status files, briefs, agents, archive and skills). Old papers (`source/`) go to `docs/archive/papers/` once the hub and spokes replace them. The move runs after the v3 build (brief 044c, parked); until then all briefs use today's paths. Design: `docs/restructure/file-layout.md`.
+
+## 2026-11-18: acceptance plan approved
+Author approved `docs/model-v3/acceptance.md` (040g D1) with Q1 to Q6 as proposed: `accept.sh` and `test_converge.py` join V3-12 (test budget 3,020); convergence thresholds 0.10 and 0.15 on spreads, 0.05 on doubling, 0.10 at level 2; unfilled-path ceiling 5%; no time cap on `accept.sh`; acceptance includes a full provisional run; P9 reads the register count from `inputs.md`. D2 follows.

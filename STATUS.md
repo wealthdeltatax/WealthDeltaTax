@@ -11,13 +11,14 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent 1 (guru prime: writes and hands out briefs) | 039g approved and merged | review of 040g D1 and D2; write the stage D build-set briefs as they unblock |
 | Agent 2 (guru) | 039g done | free |
 | Agent 3 (code) | 033c done | free |
-| Agent 4 (guru for this brief) | 038c and 034c done | 040g in full: acceptance plan (D1, stop for the author), then build briefs (D2) |
+| Agent 4 (guru for this brief) | 038c and 034c done | 040g D2: build briefs (D1 approved) |
 | Agent 5 (research) | 041r and 042r done | 043r source mapping |
 | Agent 6 (site) | 029s and 031s done | free |
 
 Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). 011g is split: 035g, 036r, 037c, 038c run now; 039g (architecture) needs them; 040g (acceptance and build briefs) follows; then the build briefs.
 
 ## Recently done
+- 2026-11-18: 040g D1 (`docs/model-v3/acceptance.md`, branch `brief/040-acceptance`) approved by the author, Q1 to Q6 as proposed; Agent 4 proceeds to D2. G3 counts in `order.md` corrected (90 of 274).
 - 2026-11-18: file layout designed (`docs/restructure/file-layout.md`, brief 044c parked); the move runs after the v3 build. 043r written (source mapping), 040g assigned to Agent 4.
 - 2026-11-18: 039g approved by the author and merged (`docs/model-v3/architecture.md`): nine defaults accepted as written (seed 20261118, 10,000 level 1 paths, 200 level 2 draws, T=100, identity bounds 0.02 and 6.34, 4,770 line budget) and manifest amendments A1 to A7 for stage V3-0. 041r (tornado rerun) and 042r (return data gap) reviewed and retired; the author ends the return sample at 2019 and states the gap in UNCER. Adam, Hodge, Phillips and Xu (IFS, March 2020, R168 in `Research/`) confirmed as S38. 040g is ready.
 - 2026-11-18: 032r merged by the agent: `registry/inputs-display.yml` (274 rows) and `registry/lit-figures.yml` (6 entries, ONS ETB only; the other literature sources are not held and have no bib key). Guru accepted the input-only unit tags; rulings in `hooks.md`.
