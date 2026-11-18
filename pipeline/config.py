@@ -30,7 +30,8 @@ DIAGRAMS_DIR    = SITE_DIR / "diagrams"
 CONTENTS_YML    = ROOT_DIR / "registry" / "contents.yml"
 ANCHORS_YML     = ROOT_DIR / "registry" / "anchors.yml"
 REFERENCES_JSON = ROOT_DIR / "registry" / "references.json"
-REGISTRY_YML    = ROOT_DIR / "registry" / "papers.yml"
+REGISTRY_YML    = ROOT_DIR / "registry" / "papers.yml"   # legacy source for the 33 papers (zenodo, pdf, scrape); retires at cutover
+PAGES_YML       = ROOT_DIR / "registry" / "pages.yml"    # the page list the site build reads
 
 # ── Site-wide constants ───────────────────────────────────────────────────────
 SITE_URL     = "https://wealthdeltatax.org"
@@ -300,6 +301,140 @@ def extract_paper_meta(src_path: Path) -> dict[str, Any] | None:
         "zenodo_doi":           fm.get("zenodo_doi", ""),
         "cite_keys":            cite_keys,
     }
+
+
+# ── Page registry (registry/pages.yml) ────────────────────────────────────────
+# One row per page.  Fields: id, type, title, url, source, status, parent,
+# aliases, label, order  (docs/restructure/site/ids.md rule 7, site.md section 2).
+
+PAGE_TYPES    = {"hub", "spoke", "appendix", "standalone", "legacy",
+                 "pending", "calculator", "site"}
+PAGE_STATUSES = {"draft", "author-review", "accepted", "legacy"}
+# Spoke-kind rows take title and status from their own front matter (site.md R4).
+SPOKE_KINDS   = {"spoke", "appendix"}
+# A page is live at its URL today when its status is one of these; a draft is
+# never published over a live URL (site.md Q1).
+LIVE_STATUSES = {"legacy", "accepted"}
+# Types built from a paper in source/ by the per-paper pipeline today.
+PAPER_TYPES   = {"legacy", "standalone"}
+
+
+def load_pages(path: Path | None = None) -> list[dict[str, Any]]:
+    """Read pages.yml; every row gets all ten fields (None, or [] for aliases)."""
+    path = path or PAGES_YML
+    with path.open(encoding="utf-8") as fh:
+        raw = yaml.safe_load(fh) or []
+    rows: list[dict[str, Any]] = []
+    for r in raw:
+        row = {k: None for k in ("id", "type", "title", "url", "source",
+                                 "status", "parent", "label", "order")}
+        row["aliases"] = []
+        row.update(r)
+        row["aliases"] = row["aliases"] or []
+        rows.append(row)
+    return rows
+
+
+def _norm_url(u: str) -> str:
+    return "/" + u.lstrip("/")
+
+
+def validate_pages(rows: list[dict[str, Any]]) -> list[str]:
+    """Return a list of error strings (empty when the registry is valid)."""
+    errors: list[str] = []
+    ids: dict[str, dict[str, Any]] = {}
+    for r in rows:
+        rid = r.get("id")
+        if not rid:
+            errors.append(f"row without id: {r}")
+            continue
+        if rid in ids:
+            errors.append(f"{rid}: duplicate id")
+        ids[rid] = r
+
+    orders: dict[int, str] = {}
+    for rid, r in ids.items():
+        if r["type"] not in PAGE_TYPES:
+            errors.append(f"{rid}: unknown type {r['type']!r}")
+        if not r["url"]:
+            errors.append(f"{rid}: no url")
+        elif not str(r["url"]).startswith("/"):
+            errors.append(f"{rid}: url must start with '/': {r['url']}")
+        if r["type"] in SPOKE_KINDS:
+            for f in ("title", "status"):
+                if r[f] is not None:
+                    errors.append(f"{rid}: a {r['type']} row must not set {f} (it comes from front matter)")
+        else:
+            if not r["title"]:
+                errors.append(f"{rid}: no title")
+            if r["status"] not in PAGE_STATUSES:
+                errors.append(f"{rid}: status {r['status']!r} not in {sorted(PAGE_STATUSES)}")
+        if r["type"] == "appendix":
+            parent = ids.get(r["parent"])
+            if parent is None:
+                errors.append(f"{rid}: parent {r['parent']!r} does not exist")
+            elif parent["type"] != "spoke" or parent["order"] is None:
+                errors.append(f"{rid}: parent {r['parent']} must be a menu spoke")
+        elif r["parent"] is not None:
+            if r["parent"] not in ids:
+                errors.append(f"{rid}: parent {r['parent']!r} does not exist")
+            else:
+                errors.append(f"{rid}: only an appendix row has a parent")
+        if r["order"] is not None:
+            if r["type"] != "spoke":
+                errors.append(f"{rid}: only a menu spoke has order")
+            if not r["label"]:
+                errors.append(f"{rid}: order without label")
+            if r["order"] in orders:
+                errors.append(f"{rid}: order {r['order']} also used by {orders[r['order']]}")
+            orders[r["order"]] = rid
+        elif r["label"] is not None:
+            errors.append(f"{rid}: label without order")
+    return errors
+
+
+def find_url_collisions(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """
+    Report every URL (a row's url or one of its aliases) claimed by two or more rows.
+
+    Each item: {"url", "ids", "live": [ids with a live status], "held": [other ids]}.
+    A held row is never published over the live one; two live rows on one URL is a
+    real conflict (`live` has more than one id).
+    """
+    claims: dict[str, list[str]] = {}
+    for r in rows:
+        urls = {_norm_url(r["url"])} | {_norm_url(a) for a in r["aliases"]} if r["url"] else set()
+        for u in sorted(urls):
+            claims.setdefault(u, []).append(r["id"])
+    by_id = {r["id"]: r for r in rows}
+    out = []
+    for url, ids in sorted(claims.items()):
+        if len(ids) < 2:
+            continue
+        live = [i for i in ids if by_id[i]["status"] in LIVE_STATUSES]
+        out.append({"url": url, "ids": ids, "live": live,
+                    "held": [i for i in ids if i not in live]})
+    return out
+
+
+def paper_registry(rows: list[dict[str, Any]]) -> list[dict[str, str]]:
+    """
+    Source-to-output entries for the per-paper pipeline, in the shape papers.yml has:
+    [{"source": "<file in source/>", "output": "<stem>.qmd"}].
+    Only live paper rows (legacy and standalone papers) are built; a held row
+    that collides with a live URL is never in the list.
+    """
+    held = {i for c in find_url_collisions(rows) for i in c["held"]}
+    entries = []
+    for r in rows:
+        if (r["type"] in PAPER_TYPES and r["status"] in LIVE_STATUSES
+                and r["id"] not in held
+                and r["source"] and r["source"].startswith("source/")):
+            entries.append({
+                "source": r["source"][len("source/"):],
+                "output": Path(r["url"]).stem + ".qmd",
+            })
+    return entries
 
 
 # ── Registry loader ───────────────────────────────────────────────────────────

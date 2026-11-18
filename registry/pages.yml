@@ -1,0 +1,563 @@
+# Page registry: one row per page (brief 029s; docs/restructure/site/ids.md rule 7, site.md section 2).
+#
+# Fields: id, type, title, url, source, status, parent, aliases, label, order.
+#   type    hub | spoke | appendix | standalone | legacy | pending | calculator | site
+#   status  draft | author-review | accepted | legacy
+#   url     the live URL (root-relative). Drafts publish under /draft/<id>.html and are not built yet.
+#   title and status are NOT set on spoke or appendix rows: they come from the page's own front matter
+#   (site.md R4); a spoke row that sets either is a validation error.
+#   order/label  menu position (1 to 15) and text, menu spokes only.
+# A url (or alias) claimed by two rows is reported by `config.find_url_collisions`; the live row
+# is built and the draft row is held, never published over it (site.md Q1).
+# Legacy row ids are `old-<url stem>` because the new series reuses the codes VAL, CORP, GOV, POL
+# and BEHAV; ids are permanent (ids.md rule 1), so the new pages take the bare codes.
+# Standalone rows (ADD, INST, SCOPE) keep their URL; their text moves to the spoke shape after the data gate (site.md Q8).
+# registry/papers.yml stays the legacy source for the 33 papers until cutover; a test keeps the two in step.
+
+# ── The 33 papers in papers.yml order (build order is output order: corpus.qmd lists them so): 30 legacy, 3 standalone 
+
+- id: old-wp
+  type: legacy
+  title: 'The Wealth Delta Tax: The White Paper'
+  url: /wp.html
+  source: source/1_Wealth_Delta_Tax_Whitepaper.md
+  status: legacy
+
+- id: old-mf
+  type: legacy
+  title: 'The Wealth Delta Tax: The Moral and Philosophical Foundations of the WDT'
+  url: /mf.html
+  source: source/2_Moral_and_Philosophical_Foundations.md
+  status: legacy
+
+- id: old-lr-a
+  type: legacy
+  title: 'The Wealth Delta Tax: Research Gaps in the Existing Literature'
+  url: /lr-a.html
+  source: source/3a_Research_Gaps.md
+  status: legacy
+
+- id: old-lr-b
+  type: legacy
+  title: 'The Wealth Delta Tax: Intellectual Background and Reference Guide'
+  url: /lr-b.html
+  source: source/3b_Intellectual_Background.md
+  status: legacy
+
+- id: old-jur
+  type: legacy
+  title: 'The Wealth Delta Tax: UK Jurisdiction and Data Reference Paper'
+  url: /jur.html
+  source: source/4_UK_Jurisdiction_and_Data_Reference_Paper.md
+  status: legacy
+
+- id: old-val
+  type: legacy
+  title: 'The Wealth Delta Tax: Valuing Wealth'
+  url: /val.html
+  source: source/5_Valuing_Wealth.md
+  status: legacy
+
+- id: old-val-a
+  type: legacy
+  title: "The Wealth Delta Tax: Valuing Wealth \u2014 Mathematical and Simulation Appendix"
+  url: /val-a.html
+  source: source/5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md
+  status: legacy
+
+- id: old-val-b
+  type: legacy
+  title: "The Wealth Delta Tax: Valuing Wealth \u2014 Worked Examples Appendix"
+  url: /val-b.html
+  source: source/5b_Valuing_Wealth_Worked_Examples_Appendix.md
+  status: legacy
+
+- id: old-corp
+  type: legacy
+  title: 'The Wealth Delta Tax: Corporate Architecture'
+  url: /corp.html
+  source: source/6_Corporate_Architecture.md
+  status: legacy
+
+- id: old-corp-a
+  type: legacy
+  title: 'The Wealth Delta Tax: Corporate Architecture Appendix'
+  url: /corp-a.html
+  source: source/6a_Corporate_Architecture_Appendix.md
+  status: legacy
+
+- id: old-gov
+  type: legacy
+  title: 'The Wealth Delta Tax: Constitutional Governance'
+  url: /gov.html
+  source: source/7_Constitutional_Governance.md
+  status: legacy
+
+- id: old-gov-a
+  type: legacy
+  title: 'The Wealth Delta Tax: Constitutional Governance Intellectual Appendix'
+  url: /gov-a.html
+  source: source/7a_WDT_Constitutional_Governance_Intellectual_Appendix.md
+  status: legacy
+
+- id: old-gov-b
+  type: legacy
+  title: 'The Wealth Delta Tax: Constitutional Governance Operational Appendix'
+  url: /gov-b.html
+  source: source/7b_Constitutional_Governance_Operational_Appendix.md
+  status: legacy
+
+- id: old-rates
+  type: legacy
+  title: 'The Wealth Delta Tax: Rates and Revenue'
+  url: /rates.html
+  source: source/8_Rates_and_Revenue.md
+  status: legacy
+
+- id: old-rates-a
+  type: legacy
+  title: 'The Wealth Delta Tax: Rates and Revenue Appendix'
+  url: /rates-a.html
+  source: source/8a_Rates_and_Revenue_Appendix.md
+  status: legacy
+
+- id: old-sweeps
+  type: legacy
+  title: 'The Wealth Delta Tax: Parameter Sweeps and Governing Council Calibration'
+  url: /sweeps.html
+  source: source/9_Parameter_Sweeps.md
+  status: legacy
+
+- id: old-sweeps-a
+  type: legacy
+  title: "The Wealth Delta Tax: Parameter Sweeps and Governing Council Calibration \u2014 Appendix"
+  url: /sweeps-a.html
+  source: source/9a_Parameter_Sweeps_Appendix.md
+  status: legacy
+
+- id: old-behav
+  type: legacy
+  title: 'The Wealth Delta Tax: Behavioural Robustness and Administrative Experience'
+  url: /behav.html
+  source: source/10_Behavioural_Robustness_and_Administrative_Experience.md
+  status: legacy
+
+- id: old-behav-a
+  type: legacy
+  title: "The Wealth Delta Tax: Behavioural Robustness \u2014 Supporting Analysis"
+  url: /behav-a.html
+  source: source/10a_Behavioural_Robustness_and_Administrative_Experience_Appendix.md
+  status: legacy
+
+- id: old-close
+  type: legacy
+  title: 'The Wealth Delta Tax: Position Closure'
+  url: /close.html
+  source: source/11_Position_Closure.md
+  status: legacy
+
+- id: old-pol
+  type: legacy
+  title: 'The Wealth Delta Tax: Political Architecture'
+  url: /pol.html
+  source: source/12_Political_Architecture.md
+  status: legacy
+
+- id: old-pol-a
+  type: legacy
+  title: 'The Wealth Delta Tax: Political Architecture Appendix'
+  url: /pol-a.html
+  source: source/12a_Political_Architecture_Appendix.md
+  status: legacy
+
+- id: old-phase1
+  type: legacy
+  title: 'The Wealth Delta Tax: Phase One'
+  url: /phase1.html
+  source: source/13_Phase_One.md
+  status: legacy
+
+- id: old-env
+  type: legacy
+  title: 'The Wealth Delta Tax: Environmental Effects and Transmission Channels'
+  url: /env.html
+  source: source/14_Environmental_Effects_and_Transmission_Channels.md
+  status: legacy
+
+- id: old-fm
+  type: legacy
+  title: 'The Wealth Delta Tax: First Mover'
+  url: /fm.html
+  source: source/15_First_Mover.md
+  status: legacy
+
+- id: old-mod
+  type: legacy
+  title: 'The Wealth Delta Tax: Modular Adoption'
+  url: /mod.html
+  source: source/16_Modular_Adoption.md
+  status: legacy
+
+- id: SCOPE
+  type: standalone
+  title: "The Wealth Delta Tax: Scope Boundary \u2014 Questions Outside This Project"
+  url: /scope.html
+  source: source/17_Scope_Boundary.md
+  status: legacy
+
+- id: ADD
+  type: standalone
+  title: 'The Wealth Delta Tax: Addendum: Implementation Calibration Examples'
+  url: /add.html
+  source: source/18_Addendums.md
+  status: legacy
+
+- id: old-wfr
+  type: legacy
+  title: 'The Wealth Delta Tax: Taxpayer Welfare Comparison Across Tax Systems at Revenue Equivalence'
+  url: /wfr.html
+  source: source/19_Taxpayer_Welfare.md
+  status: legacy
+
+- id: old-wfr-a
+  type: legacy
+  title: 'The Wealth Delta Tax: Taxpayer Welfare Comparison Appendix Tables'
+  url: /wfr-a.html
+  source: source/19a_Taxpayer_Welfare_Appendix.md
+  status: legacy
+
+- id: INST
+  type: standalone
+  title: 'The Wealth Delta Tax: Fiscal Architecture and Institutional Selection'
+  url: /inst.html
+  source: source/20_Institutional_Selection.md
+  status: legacy
+
+- id: old-ldw
+  type: legacy
+  title: 'The Wealth Delta Tax: Labour Dividend Welfare'
+  url: /ldw.html
+  source: source/21_Labour_Dividend_Welfare.md
+  status: legacy
+
+- id: old-fal
+  type: legacy
+  title: 'The Wealth Delta Tax: Falsifiable Hypotheses'
+  url: /fal.html
+  source: source/22_Falsification_Hypotheses.md
+  status: legacy
+
+
+# ── Hub ───────────────────────────────────────────────────────────────────
+
+- id: H
+  type: hub
+  title: The Wealth Delta Tax
+  url: /index.html
+  source: source/hub.md
+  status: draft
+  aliases: [wp.html]
+
+
+# ── Menu spokes (15): order is menu order ─────────────────────────────────
+
+- id: FAIR
+  type: spoke
+  url: /fair.html
+  source: source/spokes/FAIR.md
+  label: Fairness
+  order: 1
+
+- id: LIT
+  type: spoke
+  url: /lit.html
+  source: source/spokes/LIT.md
+  label: Prior work
+  order: 2
+
+- id: MECH
+  type: spoke
+  url: /mech.html
+  source: source/spokes/MECH.md
+  label: How it works
+  order: 3
+
+- id: VAL
+  type: spoke
+  url: /val.html
+  source: source/spokes/VAL.md
+  label: Valuation
+  order: 4
+
+- id: FISC
+  type: spoke
+  url: /fisc.html
+  source: source/spokes/FISC.md
+  label: Rates and revenue
+  order: 5
+
+- id: PAY
+  type: spoke
+  url: /pay.html
+  source: source/spokes/PAY.md
+  label: Who pays
+  order: 6
+
+- id: FUND
+  type: spoke
+  url: /fund.html
+  source: source/spokes/FUND.md
+  label: The fund
+  order: 7
+
+- id: CORP
+  type: spoke
+  url: /corp.html
+  source: source/spokes/CORP.md
+  label: Companies
+  order: 8
+
+- id: GOV
+  type: spoke
+  url: /gov.html
+  source: source/spokes/GOV.md
+  label: Law and governance
+  order: 9
+
+- id: POL
+  type: spoke
+  url: /pol.html
+  source: source/spokes/POL.md
+  label: Politics and adoption
+  order: 10
+
+- id: FIRST
+  type: spoke
+  url: /first.html
+  source: source/spokes/FIRST.md
+  label: Direct effects
+  order: 11
+
+- id: WIDER
+  type: spoke
+  url: /wider.html
+  source: source/spokes/WIDER.md
+  label: Wider effects
+  order: 12
+
+- id: UNCER
+  type: spoke
+  url: /uncer.html
+  source: source/spokes/UNCER.md
+  label: Uncertainties
+  order: 13
+
+- id: LIMIT
+  type: spoke
+  url: /limit.html
+  source: source/spokes/LIMIT.md
+  label: Limitations
+  order: 14
+
+- id: FALS
+  type: spoke
+  url: /fals.html
+  source: source/spokes/FALS.md
+  label: Falsification
+  order: 15
+
+
+# ── Parent-reached spokes (7): no menu entry; reached from the parent (site.md Q4, nav.md decision 6) 
+
+- id: DECL
+  type: appendix
+  url: /decl.html
+  source: source/spokes/DECL.md
+  parent: VAL
+
+- id: BEHAV
+  type: appendix
+  url: /behav.html
+  source: source/spokes/BEHAV.md
+  parent: PAY
+
+- id: WELF
+  type: appendix
+  url: /welf.html
+  source: source/spokes/WELF.md
+  parent: PAY
+
+- id: ATTR
+  type: appendix
+  url: /attr.html
+  source: source/spokes/ATTR.md
+  parent: CORP
+
+- id: ADOPT
+  type: appendix
+  url: /adopt.html
+  source: source/spokes/ADOPT.md
+  parent: POL
+
+- id: PILOT
+  type: appendix
+  url: /pilot.html
+  source: source/spokes/PILOT.md
+  parent: POL
+
+- id: HYPO
+  type: appendix
+  url: /hypo.html
+  source: source/spokes/HYPO.md
+  parent: FALS
+
+
+# ── Pending pages (10): stay live and unchanged until the author decides each (nav.md decision 3) 
+
+- id: FAQ
+  type: pending
+  title: FAQ
+  url: /faq.html
+  source: site/pages/faq.md
+  status: legacy
+
+- id: COMPARE
+  type: pending
+  title: Comparison Tables
+  url: /comparison-tables.html
+  source: site/pages/comparison-tables.md
+  status: legacy
+
+- id: PROJMAP
+  type: pending
+  title: Project Map
+  url: /Project-Map.html
+  source: site/pages/Project-Map.md
+  status: legacy
+
+- id: HOWNAV
+  type: pending
+  title: How To Navigate
+  url: /research.html
+  source: site/pages/research.md
+  status: legacy
+
+- id: AVOID
+  type: pending
+  title: Avoidance
+  url: /avoidance.html
+  source: site/pages/avoidance.md
+  status: legacy
+
+- id: LEVY
+  type: pending
+  title: Corporate Levy
+  url: /corporate-levy-taxpayer.html
+  source: site/pages/corporate-levy-taxpayer.md
+  status: legacy
+
+- id: FLOWCH
+  type: pending
+  title: Flowcharts
+  url: /flowcharts.html
+  status: legacy
+
+- id: LINKMAP
+  type: pending
+  title: Link Map
+  url: /link-map.html
+  status: legacy
+
+- id: INTBIB
+  type: pending
+  title: Internal Bibliography
+  url: /internal_bibliography.html
+  source: site/pages/internal_bibliography.md
+  status: legacy
+
+- id: REVHIST
+  type: pending
+  title: Revision History
+  url: /revision_history.html
+  source: site/pages/revision_history.md
+  status: legacy
+
+
+# ── Calculators (3): on the retired model; URLs unchanged (nav.md decision 4) 
+
+- id: TAXCALC
+  type: calculator
+  title: Taxpayer calculator
+  url: /model/taxpayer.html
+  source: site/tools/taxpayer_calc.html
+  status: legacy
+
+- id: REVCALC
+  type: calculator
+  title: Revenue calculator
+  url: /model/revenue.html
+  source: site/tools/revenue_calc.html
+  status: legacy
+
+- id: LDWCALC
+  type: calculator
+  title: Labour dividend calculator
+  url: /model/ldw.html
+  source: site/tools/ldw_calc.html
+  status: legacy
+
+
+# ── Utility and site pages ────────────────────────────────────────────────
+
+- id: HOME
+  type: site
+  title: Home
+  url: /index.html
+  source: site/pages/index.md
+  status: legacy
+
+- id: CALCIDX
+  type: site
+  title: Calculators
+  url: /calculator_index.html
+  source: site/pages/calculator_index.md
+  status: legacy
+
+- id: CORPUS
+  type: site
+  title: All Papers
+  url: /corpus.html
+  status: legacy
+
+- id: REFS
+  type: site
+  title: References
+  url: /references.html
+  status: accepted
+
+- id: GLOSS
+  type: site
+  title: Glossary
+  url: /glossary.html
+  source: site/pages/glossary.md
+  status: accepted
+
+- id: RET
+  type: site
+  title: Where the old papers went
+  url: /retired.html
+  status: draft
+
+- id: ABOUT
+  type: site
+  title: About the author
+  url: /author_page.html
+  source: site/pages/author_page.md
+  status: accepted
+
+- id: E404
+  type: site
+  title: Not found
+  url: /404.html
+  source: site/pages/404.qmd
+  status: accepted

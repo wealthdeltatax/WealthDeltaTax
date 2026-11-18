@@ -135,6 +135,132 @@ def convert_crossrefs(
     return _CROSSREF_RE.sub(replace, text)
 
 
+# ── 3b. Spoke ids and cross-references (brief 029s) ───────────────────────────
+# Applies only to new hub and spoke source files (source/hub.md, source/spokes/*.md).
+# Legacy papers never pass through these functions; process_file() does not call them.
+# Grammar (docs/restructure/site/ids.md rule 5, widened by site.md R1): fully bracketed,
+#   (H3)  (FISC)  (FISC §2)  (ADD §3)  (DL2)  (DL1-O1)
+# A spoke or standalone id is a code in pages.yml (3 to 5 capitals); H0 to H7 are the
+# hub sections; DL0 to DL6 are data pages; DL1-<output id> is one output's page.
+
+_SPOKE_REF_RE = re.compile(
+    r"\((H[0-7]|DL[0-6](?:-[A-Z]{1,2}[0-9]+[a-z]?[0-9]?)?|[A-Z]{3,5})(?: §(\d+))?\)"
+)
+_DL_URLS = {
+    "DL0": "/data.html", "DL1": "/data/outputs.html", "DL2": "/data/inputs.html",
+    "DL3": "/data/metrics.html", "DL4": "/data/method.html",
+    "DL5": "/data/downloads.html", "DL6": "/data/uk-pack.html",
+}
+_FENCE_RE = re.compile(r"^\s*(```|~~~)")
+_CODE_SPAN_RE = re.compile(r"(`[^`\n]*`)")
+_H2_RE = re.compile(r"^##(?!#)\s+(.*?)\s*$")
+_ATTR_TAIL_RE = re.compile(r"\{([^}]*)\}\s*$")
+
+
+def is_spoke_source(path: Path, source_dir: Path) -> bool:
+    """True for source/hub.md and source/spokes/*.md, the only files the 3b functions may touch."""
+    try:
+        rel = Path(path).resolve().relative_to(Path(source_dir).resolve())
+    except ValueError:
+        return False
+    return rel == Path("hub.md") or (len(rel.parts) == 2 and rel.parts[0] == "spokes" and rel.suffix == ".md")
+
+
+def add_section_ids(text: str, page_id: str, hub: bool = False) -> str:
+    """
+    Give each H2 an explicit id by position: `{#fisc-1}`, `{#fisc-2}`, ...
+    The hub's eight H2 sections get `{#h0}` to `{#h7}`.  An H2 that already has an
+    id keeps it (and still counts).  Fenced code is skipped.
+    """
+    n = 0 if hub else 1
+    out: list[str] = []
+    in_fence = False
+    for line in text.splitlines(keepends=True):
+        if _FENCE_RE.match(line):
+            in_fence = not in_fence
+        m = None if in_fence else _H2_RE.match(line.rstrip("\r\n"))
+        if not m:
+            out.append(line)
+            continue
+        if hub and n > 7:
+            raise ValueError("hub has more than eight H2 sections (H0 to H7)")
+        new_id = f"h{n}" if hub else f"{page_id.lower()}-{n}"
+        n += 1
+        eol = line[len(line.rstrip("\r\n")):]
+        body = line.rstrip("\r\n")
+        attrs = _ATTR_TAIL_RE.search(body)
+        if attrs and "#" in attrs.group(1):
+            out.append(line)
+        elif attrs:
+            out.append(body[:attrs.start()] + "{#" + new_id + " " + attrs.group(1).strip() + "}" + eol)
+        else:
+            out.append(body + " {#" + new_id + "}" + eol)
+    return "".join(out)
+
+
+def convert_spoke_refs(
+    text: str,
+    page_urls: dict[str, str],
+) -> tuple[str, list[str]]:
+    """
+    Turn `(FISC §2)` into `[(FISC §2)](/fisc.html#fisc-2)`.
+
+    page_urls maps a page id (hub `H`, spokes, standalones) to its URL, from pages.yml.
+    Returns (text, unresolved).  An unknown code with a section number is reported
+    (a typo such as `(FICS §2)`); an unknown bare `(ABC)` is left as prose.
+    Fenced code and inline code are skipped.
+    """
+    unresolved: list[str] = []
+
+    def replace(m: re.Match) -> str:
+        code, sec = m.group(1), m.group(2)
+        full = m.group(0)
+        if re.fullmatch(r"H[0-7]", code):
+            hub = page_urls.get("H")
+            if hub is None or sec:
+                unresolved.append(full)
+                return full
+            return f"[{full}]({hub}#{code.lower()})"
+        if code.startswith("DL"):
+            if sec:
+                unresolved.append(full)
+                return full
+            if "-" in code:
+                return f"[{full}](/data/{code.split('-', 1)[1].lower()}.html)"
+            return f"[{full}]({_DL_URLS[code]})"
+        url = page_urls.get(code)
+        if url is None:
+            if sec:
+                unresolved.append(full)
+            return full
+        return f"[{full}]({url}#{code.lower()}-{sec})" if sec else f"[{full}]({url})"
+
+    out: list[str] = []
+    in_fence = False
+    for line in text.splitlines(keepends=True):
+        if _FENCE_RE.match(line):
+            in_fence = not in_fence
+            out.append(line)
+        elif in_fence:
+            out.append(line)
+        else:
+            parts = _CODE_SPAN_RE.split(line)
+            out.append("".join(p if i % 2 else _SPOKE_REF_RE.sub(replace, p)
+                               for i, p in enumerate(parts)))
+    return "".join(out), unresolved
+
+
+def process_spoke_text(
+    text: str,
+    page_id: str,
+    page_urls: dict[str, str],
+    hub: bool = False,
+) -> tuple[str, list[str]]:
+    """Section ids then cross-references, for one hub or spoke source text."""
+    text = add_section_ids(text, page_id, hub=hub)
+    return convert_spoke_refs(text, page_urls)
+
+
 # ── 4. Internal bibliography conversion ───────────────────────────────────────
 
 _INTBIB_LINE_RE = re.compile(
