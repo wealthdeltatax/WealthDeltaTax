@@ -10,14 +10,15 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 |---|---|---|
 | Agent 1 (guru prime: writes and hands out briefs) | 040g done; build briefs 045g to 057c approved and ready | review each V3 build stage as it lands; stop points go to the author |
 | Agent 2 (guru) | 045g pushed, reviewed; sets the A5 constants and merges | free; then Agent 2 can take the next unblocked brief |
-| Agent 3 (code) | free | 046c (V3-1 scaffold and rules), now |
-| Agent 4 | free | 056c (V3-11 output layer) once 045g and 046c are merged |
+| Agent 3 (code) | 046c done | 047c (V3-2 pack loader), now |
+| Agent 4 | free | 056c (V3-11 output layer) once 045g is merged |
 | Agent 5 (research) | 041r and 042r done | 043r source mapping |
 | Agent 6 (site) | free | 049c (V3-4 kernel port), now |
 
 Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). The model v3 design is done (011g and 040g retired); the 13 build briefs 045g to 057c are ready, first wave 045g, 046c, 049c.
 
 ## Recently done
+- 2026-11-18: 046c (V3-1) merged by the agent, reviewed and retired: `model_v3/` scaffold, `interface.py` (35 lines), rules and budget tests, 23 pass; nine seeded violations each fail their rule. Its three rule files sit at their 150-line budget, so a later rule needs a budget edit in `architecture.md` 6.1. 047c released.
 - 2026-11-18: 045g (V3-0) reviewed by the guru: 75 data and 17 gate tests pass, metrics.json regenerates identical. Author set the A5 feasibility constants: closure share 75% of paths, M2 cap 2.0% a year, M4a floor 0%; the one edit outside Touches (`test_validate_outputs.py`) approved. 056c moved to Agent 4.
 - 2026-11-18: 040g reviewed and retired by the guru: both fixes applied (decisions.md in 057c Touches; `__init__.py` files in 046c), overlap check shows only `tests/model_v3/test_pack.py` shared (047 then 048, sequential), all 13 briefs ready, 011g retired. Lane plan updated.
 - 2026-11-18: 040g D2 approved by the author: 13 build briefs 045g to 057c (two gaps fixed and the briefs merged to main; 011g and 040g retired). First wave: 045g (Agent 2), 046c (Agent 3), 049c (Agent 6). 050c re-derives its pinned return statistics on the 2019 sample and reports.
