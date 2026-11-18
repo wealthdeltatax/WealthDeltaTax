@@ -43,7 +43,7 @@ Stop and ask if K8 fails: it means the port or the decomposition is wrong, not t
 - **Decisions:** refund rate read at new declared wealth (as v2); cumulative paid/refunded are lifetime records, not reset at death; K8 settle_delta case uses a stale post-sale basis set by the test (v1 convention); no `__init__.py` added (outside Touches).
 - **Gotchas:** `schedule.py` needs no levers or pack reading, so the named schedules and schedule grid are not built here.
 - **Resume:** n/a
-- **Not run:** `tests/model_v3/test_budget.py` and import-graph tests of V3-1 (rebased onto them, see report).
+- **Not run:** nothing; after rebasing on main the whole `tests/model_v3` suite passed (87).
 - **State:** done; merged by the auto-merge rule if the report below says so
 <!-- progress:end -->
 
@@ -63,7 +63,7 @@ Change report
   - git diff --stat limited to Touches: met
 - Deviations from the brief: none. K8 does not reuse the v2 `settle_tw` pound cap: on the kernel path the refund cap is in units (as in v2's kernel), so the terms are read off kernel flows and TW off the book.
 - Risks / follow-ups: (1) the refund rate is read at new declared wealth W_new (v2 behaviour); the papers' "rate on an equivalent gain" could mean the old wealth. Author may confirm. (2) For Route C the cap is units paid, so credited pounds refunded can exceed credited pounds paid if the declared price rose; K3 tests the cash routes. (3) named schedules and the schedule grid from levers.json are not built here (architecture 2.4 lists them; the brief's Out of scope reads no pack).
-- Verification: pytest tests/model_v3 -q; line counts; ast import check
+- Verification: pytest tests/model_v3 -q after rebase on origin/main: 87 passed (incl. V3-1 rules tests); line counts; ast import check
 - Overview sections likely needing an update: model v3 build status
 - Commit / branch: brief/049-schedule-kernel
 ```
