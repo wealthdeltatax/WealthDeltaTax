@@ -1,6 +1,6 @@
 # 029: Site: page registry and ids (site.md B1)
 
-- **Status:** ready
+- **Status:** done, merged 2026-11-18 (author accepted ids old-<stem> and the 15 menu labels)
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** none (site.md approved)
 - **Read:** `docs/restructure/site.md` (sections 2, 5, 6, 8); `docs/restructure/site/ids.md`; `docs/restructure/site/nav.md` section 5; `docs/restructure/shortcodes.md`, `ids-map.md`; `pipeline/config.py`, `pipeline/preprocess.py`, `pipeline/transforms.py` (names and entry points only); `registry/papers.yml`; `docs/agents/web.md`.
