@@ -42,7 +42,7 @@ def test_real_register_parses_and_resolves_ids(build_metrics):
     import yaml
     metrics, _ = build_metrics.parse_register(METRICS_MD.read_text(encoding="utf-8"))
     ids = [m["id"] for m in metrics]
-    assert len(ids) == len(set(ids)) == 43
+    assert len(ids) == len(set(ids)) == 45
     mf = yaml.safe_load(MANIFEST.read_text(encoding="utf-8"))
     found = build_metrics.cross_check(metrics, mf)
     # ids, unit maps and declared tags agree with the manifest; unit text may not (reported by the script)

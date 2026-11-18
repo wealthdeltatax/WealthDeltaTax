@@ -1,5 +1,5 @@
 {
- "count": 43,
+ "count": 45,
  "metrics": [
   {
    "horizon_same_as": null,
@@ -36,6 +36,38 @@
     "pct_gdp"
    ],
    "unit_text": "% of GDP",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "single",
+   "horizons": null,
+   "id": "M1f",
+   "name": "Break-even mean return",
+   "section": "Headline metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct_per_year"
+   ],
+   "unit_text": "% per year",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition, short, long",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "M1g",
+   "name": "Share of paths with negative net revenue",
+   "section": "Headline metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct"
+   ],
+   "unit_text": "% of paths",
    "unit_unmapped": []
   },
   {

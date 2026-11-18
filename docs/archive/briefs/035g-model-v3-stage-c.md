@@ -1,6 +1,6 @@
 # 035: Model v3 stage C1: design decisions
 
-- **Status:** under way (C1: items 1 to 3 and 5 to 8 decided; item 4 waits for 036r)
+- **Status:** done: C1 approved by the author 2026-11-18 (retired)
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** 011g (stages A, A2 and B passed; this is its stage C1). Starts now; item 4 waits for 036r. Stage C2 (architecture) is brief 039g.
 - **Read:** `docs/briefs/011g-model-v3-design.md` (stage C and D text); `docs/model-audit/synthesis.md` sections 3, 4, 5, 7 and 10; `docs/model-v3/drivers.md` (all, with the 2026-11-17 note); `docs/model-v3/tornado.md` sections 1 to 4; `docs/model-v3/metrics.md`; `docs/restructure/order.md` G1, G2 (what the gate reads); `docs/briefs/030c-data-interface.md` (output file shape); `docs/model-lessons/` only where a decision cites it; `docs/agents/guru.md`. The 036r note (`docs/model-v3/returns-method.md`) when it lands.
@@ -57,5 +57,5 @@ Whether the break-even return is an output (C1 item 2); whether the core carries
 - **Gotchas:** the tornado's return swing mixes level 1 and level 2 (see 036r); do not trust it for the level 2 range.
 - **Resume:** open `stage-c-decisions.md`; item 4 is the only open item.
 - **Not run:** none.
-- **State:** C1 items 1 to 10 decided 2026-11-17 and 2026-11-18; waiting for the author's approval of C1 and of the proposed `M1f`, `O1e`, `O1f`.
+- **State:** done; C1 approved 2026-11-18; `M1f`, `O1e`, `O1f` (and `M1g`) added.
 <!-- progress:end -->

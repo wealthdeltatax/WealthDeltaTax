@@ -1,6 +1,6 @@
 # 039: Model v3 stage C2: architecture
 
-- **Status:** draft (starts when 035g C1 is approved and 037c, 038c and 036r have landed)
+- **Status:** ready (C1 approved 2026-11-18; 037c, 038c and 036r merged)
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** 035g (C1 approved), 037c, 038c, 036r (return module only)
 - **Read:** `docs/briefs/011g-model-v3-design.md` (stage C check); `docs/model-v3/stage-c-decisions.md` (035g); `docs/model-v3/port-inventory.md` (037c); `docs/model-v3/country-pack.md` (038c); `docs/model-v3/returns-method.md` (036r); `docs/model-audit/synthesis.md` section 4; `docs/restructure/order.md` G1 and G2; `docs/briefs/030c-data-interface.md`.

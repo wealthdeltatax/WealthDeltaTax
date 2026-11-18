@@ -1,5 +1,7 @@
 # Model v3 stage C1: design decisions
 
+**Approved by the author, 2026-11-18** (all ten items; break-even outputs approved).
+
 Brief 035g. Each item: the decision, the reason, the file it changes, and the author's date. No item is closed by the guru alone. Item 4 waits for 036r.
 
 | # | Item | Status |
@@ -21,7 +23,7 @@ Brief 035g. Each item: the decision, the reason, the file it changes, and the au
 ## 2. The sign of revenue
 **Decision (author, 2026-11-17):** (a) the model never floors or clips M1; (b) one sign convention for every line: positive is a receipt to the state, and M1c (fund income) can be negative; (c) the share of paths with M1 below zero is reported for each horizon; (d) the break-even return is a new reported output. **Reason:** at central inputs M1 is +1.45% of GDP and zero at a return of 3.55% (`tornado.md`); a clipped M1 would hide the central risk. **Files:** `architecture.md` (039g); `outputs.yml` and `metrics.md` change only after the author approves the id and element below.
 
-**Proposal for approval (nothing edited):** new metric `M1f`, "Break-even mean return: the geometric mean real return at which M1 is zero, at the named schedule and central other inputs", unit `pct`, decimals 2, horizons all three. New outputs `O1e` (break-even return, `summary: point_and_range`, `by: [schedule]`, element `FISC`, `UNCER`) and `O1f` (share of paths with M1 below zero, `summary: point_and_range`, `by: [horizon, schedule]`, unit `pct`, element `FISC`, `UNCER`). Rule R1: both would be cited by FISC and UNCER; neither exists until the author says yes.
+**Approved by the author 2026-11-18 and applied** (`outputs.yml` version `stage-A8-breakeven-2026-11-18`; `metrics.md` rows M1f and M1g): new metric `M1f`, "Break-even mean return: the geometric mean real return at which M1 is zero, at the named schedule and central other inputs", unit `pct`, decimals 2, horizons all three. New outputs `O1e` (break-even return, `summary: point_and_range`, `by: [schedule]`, element `FISC`, `UNCER`) and `O1f` (share of paths with M1 below zero, metric `M1g`, `summary: p10_mean_p90`, unit `pct`, all three horizons, element `FISC`, `UNCER`). Unit of `O1e` is `pct_per_year`. Rule R1: both are cited by FISC and UNCER.
 
 ## 3. The rate the identity needs
 **Decision (author, 2026-11-17, after clarifying that the question meant the model computes it):** the effective rate on gains ε is a lever, not an input. The model computes each payer's tax from the named schedule over the wealth distribution; ε is an output of that. The identity `M1a ≈ ε · g · ω − refunds` is a check only. v2's realised ε is not recorded (implied 24.5% to 30%, `tornado.md` section 4), so the check is run by porting the kernel and reproducing v2's 7.34% of GDP at v2-like inputs within a tolerance set in 039g from the port inventory (037c). **Files:** `architecture.md`, `acceptance.md` (040g).
