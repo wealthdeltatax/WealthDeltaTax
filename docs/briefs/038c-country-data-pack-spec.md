@@ -42,11 +42,30 @@ Whether the wealth distribution is stored as survey microdata or as a binned tab
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** `docs/model-v3/country-pack.md`: boundary table (108 pack, 161 register, sum 269, by script), layout and manifest header, schema for seven datasets, UK file list with repo sources and gaps, hash and run record, R11 grep rule run once on `model_v2/` (288 hits outside comments), licences.
+- **Next:** guru reads the note; `030c` build can read pack rows from it once a pack exists. A later brief writes the loader and the UK pack files.
+- **Decisions:** wealth distribution is a binned table plus tail points, no microdata (the register's tail sources publish shares, not unit records). A row is pack only if one cell of a multi-cell dataset and not `(J)`. Pack hash = sha256 over header JSON plus per-file hashes; run records `run.pack_sha256`.
+- **Gotchas:** register has 87 `(J)` rows, not the 70 in gate G3; 38 `(J)` rows are pack-shaped and stay in the register. 23 pack rows have no data in the repo.
+- **Resume:** tally script is in the appendix of the note; run `python -I tally.py docs/model-v3/inputs.md` after saving it.
+- **Not run:** rule A2 (pack-value literals), needs a pack; no loader or pack file exists.
+- **State:** done
+
+```
+Change report
+- Task: 038c, country data pack spec. Design note only.
+- Files changed: docs/model-v3/country-pack.md (new); docs/briefs/038c-country-data-pack-spec.md (progress block)
+- What is different now: R11 has a written boundary, layout, schema, hash and test for the UK pack
+- New or changed interfaces: none yet (proposed: manifest.json header, run.pack_sha256)
+- Acceptance criteria:
+  - 269 rows assigned, counts sum to 269, checked by script: met (108 + 161)
+  - Every dataset has columns, units, validation rule and source: met
+  - A reader can write the loader from the note alone: met on the note's own terms; not tested by writing one
+  - Grep rule given and run once on model_v2/: met (288 union hits outside comments)
+  - git diff --stat only Touches: met
+- Deviations from the brief: none
+- Risks / follow-ups: flags listed at the end of the note (stale 260 row bullet, G3 says 70 vs 87, G2 needs run.pack_sha256, synthesis wid_long.csv claim, 125 rows "In repo: no", rates_core break wider than its suggestions entry); JST licence unverified
+- Verification: tally script asserts and prints the table; table sums re-added by script; grep run once
+- Overview sections likely needing an update: model v3 section (add country-pack.md)
+- Commit / branch: brief/038-country-data-pack-spec
+```
 <!-- progress:end -->
