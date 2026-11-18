@@ -1,0 +1,12 @@
+routes:
+  - id: alpha
+    reader: "Economist"
+    prompt: "I want to check the mechanism and the numbers."
+    start: [MECH, VAL, FISC, data]
+  - id: beta
+    reader: "Sceptic"
+    prompt: "I want the case for fairness."
+    start: [FAIR, MECH, VAL, FISC]
+  - id: gamma
+    reader: "Researcher"
+    start: [data, MECH, VAL, FISC]
