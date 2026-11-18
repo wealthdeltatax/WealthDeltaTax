@@ -4,7 +4,7 @@ Status: approved by the author, 2026-11-18 (sections 8.1 and 9 as written). Writ
 
 ## 0. What this says
 1. v3 lives in `model_v3/`. It has three layers (R4): **core** (`model_v3/core/`, eight files in dependence order), **range runner** (`model_v3/runner/`) and **output layer** (`model_v3/out/`). Data enter through one country pack (`model_v3/pack/GBR/`) and the register (`registry/inputs.json`); the one output file is `model_v3/OUTPUTS/outputs.json`.
-2. Code budget: core plus runner 3,900 lines, output layer 700, interface and run script 170; **4,770 in all**, against 17,730 lines scanned in `model_v2/` (R9; the output layer is 18% of core plus runner, v2's was 5,150 lines, the largest part of its bulk). Tests are budgeted apart at 2,930 lines.
+2. Code budget: core plus runner 3,900 lines, output layer 700, interface and run script 170; **4,770 in all**, against 17,730 lines scanned in `model_v2/` (R9; the output layer is 18% of core plus runner, v2's was 5,150 lines, the largest part of its bulk). Tests are budgeted apart at 3,020 lines.
 3. Port by exception: the kernel (564 lines, all of it) with five changes, the rate function `tau`, the window rule, the real-basis function and `jst_r6.json`. Everything else in v2 is rewritten from `metrics.md` or dropped (section 4).
 4. Thirteen build stages (section 7). Each is one session and one lane; each has its own files. Three can start at once (V3-0, V3-1, V3-4). The model path is one chain; the output writer and the manifest amendments run beside it.
 5. Settled here and left open by C1: seed 20261118, 10,000 level 1 paths, 200 level 2 draws, horizons as year windows (section 3.4), the identity tolerance (section 6.3), kernel routes kept whole, a lever file, seven manifest amendments (section 8).
@@ -192,6 +192,8 @@ out/writer.py                  220    120
 interface.py                    50      0
 run.py                         120     80
 rules and budget tests           0    150
+tests/model_v3/accept.sh         0     30
+tests/model_v3/test_converge.py 0     60
 ```
 
 | Group | Code lines | Test lines |
@@ -202,7 +204,8 @@ rules and budget tests           0    150
 | Output layer (`out/`) | 700 | 300 |
 | `interface.py` and `run.py` | 170 | 80 |
 | Rules, budget and smoke tests | 0 | 150 |
-| **Total** | **4,770** | **2,930** |
+| Acceptance script and convergence test (040g Q1) | 0 | 90 |
+| **Total** | **4,770** | **3,020** |
 
 Core plus runner 3,900 is a ceiling, not a target; `runner/pool.py` (70) is outside it and counted only if triggered. The data tooling `pack/build_gbr.py` has its own budget of 150 lines and no test beyond a hash check of its output. Output layer 700 is 18% of core plus runner; R9 asks for smaller.
 
@@ -255,7 +258,7 @@ Thirteen stages. "Files" are the only files a stage may change; no file appears 
 | V3-9 | Supporting metrics | c | `core/support.py`, `tests/model_v3/test_support.py` | V3-7 | V3-8, V3-11 |
 | V3-10 | Range runner | c | `runner/runner.py`, `runner/sweeps.py`, `runner/pool.py` (conditional), `tests/model_v3/test_runner.py` | V3-8, V3-9 | V3-11 |
 | V3-11 | Output layer | c | `out/assemble.py`, `out/writer.py`, `tests/model_v3/test_out.py` | V3-0, V3-1 | V3-2 to V3-10 |
-| V3-12 | Run script, smoke test, acceptance wiring | c | `model_v3/run.py`, `tests/model_v3/test_smoke.py`, the acceptance script of `acceptance.md` | V3-10, V3-11 | none |
+| V3-12 | Run script, smoke test, acceptance wiring | c | `model_v3/run.py`, `tests/model_v3/test_smoke.py`, `tests/model_v3/accept.sh`, `tests/model_v3/test_converge.py` | V3-10, V3-11 | none |
 
 **Sequential chain:** V3-1, V3-2, V3-3, V3-5 and V3-6, V3-7, then V3-8 with V3-9, then V3-10, then V3-12. V3-4 and V3-11 sit outside the chain and meet it at V3-5 and V3-12. First wave: V3-0, V3-1, V3-4. A stage that needs another does not start until the earlier stage's tests pass and its branch is merged (R7).
 
