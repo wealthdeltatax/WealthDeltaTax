@@ -34,11 +34,11 @@ Settled by 039g; list any that remain.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** draft; not started
+- **Done:** D1: `docs/model-v3/acceptance.md` written (acceptance command, policies, 13 stage criteria, R1 to R11, convergence test, six questions).
+- **Next:** author approves D1 and answers its Q1 to Q6; then D2 (build briefs V3-0 to V3-12, Touches overlap script), then STATUS.md, lane plan, decisions.md and retirement of 011g.
+- **Decisions:** none by the author yet.
+- **Gotchas:** register row count differs across docs (269, 274); architecture V3-12 file list lacks `accept.sh` and `test_converge.py` (Q1).
+- **Resume:** branch `brief/040-acceptance`.
+- **Not run:** any test or model run (nothing built).
+- **State:** D1 pushed; NEEDS THE AUTHOR.
 <!-- progress:end -->
