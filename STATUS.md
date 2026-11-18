@@ -11,13 +11,14 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent 1 (guru prime: writes and hands out briefs) | 040g done; build briefs 045g to 057c approved and ready | review each V3 build stage as it lands; stop points go to the author |
 | Agent 2 (guru) | free (045g merged) | the next unblocked brief |
 | Agent 3 (code) | 047c merged | 048c (V3-3 UK pack), now |
-| Agent 4 | free | 056c (V3-11 output layer), now |
+| Agent 4 | 056c merged | 058c (validator reads line_horizons), now |
 | Agent 5 (research) | 041r and 042r done | 043r source mapping |
 | Agent 6 (site) | not started | 049c (V3-4 kernel port), now |
 
 Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). The model v3 design is done (011g and 040g retired); the 13 build briefs 045g to 057c are ready, first wave 045g, 046c, 049c. Landed and retired: 045g, 046c, 047c. Waiting: 049c (no branch yet). Ready now: 048c, 049c, 056c.
 
 ## Recently done
+- 2026-11-18: 056c (V3-11 output layer) merged and retired: `out/assemble.py`, `out/writer.py`, 23 tests, 84 model_v3 tests pass with 75 data and 17 gate. It found that the validator ignores `line_horizons` and the run fields A6, so a final file fails V7 on OW3: brief 058c written (Agent 4); 057c waits on it. 047c was already retired by another guru session; 048c (UK pack) is with Agent 3.
 - 2026-11-18: 045g (V3-0) merged with the A5 constants set (closure share 75%, M2 cap 2.0% a year, M4a floor 0%; manifest `stage-V3-0-contract-2026-11-18`, `model_v3/levers.json`). 047c (V3-2) merged: `core/pack.py` 339 lines, ZZZ fixture pack, 63 tests pass; P8 and P9 wait for the UK pack (048c). 047c reviewed and retired; author accepted the weaker P2 (file named, row and column when the schema also fails). 048c now also writes `pack_mappings` into `levers.json`; P9 compares with `inputs.md` (274). 048c and 056c released.
 - 2026-11-18: 046c (V3-1) merged by the agent, reviewed and retired: `model_v3/` scaffold, `interface.py` (35 lines), rules and budget tests, 23 pass; nine seeded violations each fail their rule. Its three rule files sit at their 150-line budget, so a later rule needs a budget edit in `architecture.md` 6.1. 047c released.
 - 2026-11-18: 045g (V3-0) reviewed by the guru: 75 data and 17 gate tests pass, metrics.json regenerates identical. Author set the A5 feasibility constants: closure share 75% of paths, M2 cap 2.0% a year, M4a floor 0%; the one edit outside Touches (`test_validate_outputs.py`) approved. 056c moved to Agent 4.

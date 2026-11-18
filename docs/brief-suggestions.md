@@ -17,7 +17,7 @@ Entry format, newest at the bottom:
 - Where: `model_v1/wdt_analytics.py` (was `model/`)
 - Problem: `import rates_core` fails with ModuleNotFoundError; the module is now `rates_core1.py`. Present before 006c (baseline 16b06df has only `rates_core1.py`). Legacy; may be moot after the audit 001c.
 - Suggested lane: c
-- Status: open
+- Status: taken (brief 058c)
 
 ### Revenue calculator fetches a file that no longer exists
 - Found by: brief 010s, 2026-11-15
@@ -59,4 +59,4 @@ Entry format, newest at the bottom:
 - Where: `pipeline/validate_outputs.py` (`load_entries`, V7 coverage), `tests/data/make_fixture.py`, `docs/restructure/site/hooks.md` 3.4; also the `run` fields `pack_sha256`, `pack_country`, `levers_sha256` (A6), which V8 reports as unknown (V12 warning)
 - Problem: `outputs.yml` gives OW3 line M15b the horizon `transition` only (A3), and the output layer writes only those cells. The validator expects the full product, so a `--final` check of a complete file fails with `V7 error OW3: 30 cell(s) missing`; the fixture still holds 90 OW3 cells. Provisional files pass (V7 is a warning). Needs the validator to read `line_horizons`, the fixture to follow, and A6 fields accepted.
 - Suggested lane: c
-- Status: open
+- Status: taken (brief 058c)

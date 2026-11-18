@@ -1,6 +1,6 @@
 # 056: Model v3 V3-11: output layer
 
-- **Status:** ready
+- **Status:** done (retired 2026-11-18)
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** 045, 046
 - **Read:** `docs/model-v3/architecture.md` 2.9, 2.10 and 6.2 (W1 to W7); `docs/restructure/site/hooks.md` section 3 and the 030c rulings; `pipeline/validate_outputs.py` (V1 to V12); `docs/model-v3/outputs.yml` (after V3-0); `docs/model-v3/acceptance.md` V3-11 row.
