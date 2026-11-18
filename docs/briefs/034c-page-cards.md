@@ -34,11 +34,29 @@ The implementer asks rather than guesses.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:**
+- **Done:** `pipeline/page_cards.py` writes 26 cards to `docs/restructure/pages/` (22 spokes, ADD, INST, SCOPE, HUB); `tests/cards/test_cards.py` (8 tests, pass).
+- **Next:** guru reads a card; writing briefs start from the cards. If 029s lands `registry/pages.yml`, the script can read page ids and questions from it.
+- **Decisions:** kept = K rows (standalones also show SA rows). Hub card collects rows targeting H0 to H7 and lists the UK data pack and O7 method rows. Spoke front matter only on spoke cards; `inputs: []` is left for drafting, the families and their register ids are listed on the card. Families come from `order.md` section 3, outputs from `outputs.yml`, neighbours from `order.md` section 2. ADOPT, PILOT and HYPO have no ledger rows until the split is taken (ledger 9.2), so their cards show zero words and say so.
+- **Gotchas:** merged words in `ledger-sections.md` differ from `ledger.md` section 2 on 12 pages (e.g. FISC 9,050 vs 8,445, MECH 2,629 vs 1,587); kept words agree on all 19 pages. `ledger-sections.md` row "21 sec 3" has 0 words.
+- **Resume:** `python pipeline/page_cards.py` then `pytest tests/cards`.
+- **Not run:** none.
+- **State:** done
+
+```
+Change report
+- Task: 034c, page cards generator
+- Files changed: pipeline/page_cards.py (new); docs/restructure/pages/*.md (26 generated); tests/cards/test_cards.py (new); docs/briefs/034c-page-cards.md (progress block)
+- What is different now: each page has a generated card with ledger rows, outputs, register families, neighbours, front matter skeleton and kept words
+- New or changed interfaces: python pipeline/page_cards.py [--out DIR]
+- Acceptance criteria:
+  - 26 cards, kept words agree with ledger.md section 2: met. FAIR 5,947; LIT 8,580; MECH 6,972; VAL 6,784; DECL 10,700; FISC 8,164; PAY 4,212; BEHAV 6,797; WELF 9,671; FUND 6,210; CORP 9,671; ATTR 6,498; GOV 10,668; POL 13,238; FIRST 1,010; WIDER 6,054; UNCER 0; LIMIT 204; FALS 12,135; hub H1+H2 293 (141+152). Standalone SA words ADD 6,789, INST 14,264, SCOPE 2,537 (ledger.md section 3)
+  - Every element entry on exactly its pages: met (test over all 37 outputs)
+  - Rerun changes nothing: met (byte-identical, test)
+  - git diff --stat only Touches: met
+- Deviations from the brief: none. Merged words are not checked (see Gotchas)
+- Risks / follow-ups: ledger-sections merged words disagree with ledger.md section 2 on 12 pages; the guru should say which is current. ADOPT, PILOT, HYPO cards are empty of rows until the split is taken
+- Verification: pytest tests/cards (8 passed); FIRST card read in full; rerun gives no git change
+- Overview sections likely needing an update: restructure section (add pages/ and page_cards.py)
+- Commit / branch: brief/034-page-cards
+```
 <!-- progress:end -->
