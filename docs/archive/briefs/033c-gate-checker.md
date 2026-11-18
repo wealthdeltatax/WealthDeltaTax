@@ -1,6 +1,6 @@
 # 033: Code: spoke gate checker (order.md B17)
 
-- **Status:** ready
+- **Status:** done, merged 2026-11-18 (the eight assumed formats accepted by the guru; `order.md` rulings)
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** 029s and 030c for real inputs (soft: build against the formats in the Read files and fixtures; wire to the real files when they land)
 - **Read:** `docs/restructure/order.md` sections 4 and 6.5; `docs/restructure/site.md` sections 3 and 6; `docs/restructure/site/hooks.md` section 9 (run metadata); `docs/model-v3/outputs.yml`; `docs/model-v3/inputs.md` (the `(J)` flag); `docs/model-v3/judgement-decisions.md`; `docs/agents/code.md`.

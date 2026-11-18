@@ -260,8 +260,8 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 (function () {
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; 035g (C1 with you), then 039g, 040g" },
-    { id: "2", name: "Agent 2", note: "Guru: 039g" },
-    { id: "3", name: "Agent 3", note: "Code: 033c (gate checker)" },
+    { id: "2", name: "Agent 2", note: "Guru: 039g, then 040g" },
+    { id: "3", name: "Agent 3", note: "Code: free (033c done)" },
     { id: "4", name: "Agent 4", note: "Code: free" },
     { id: "5", name: "Agent 5", note: "Research: 032r (sidecars), then 041r (tornado rerun), 042r (data gap)" },
     { id: "6", name: "Agent 6", note: "Site: free (029s, 031s done)" },
@@ -272,7 +272,6 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   var B = [
     { id: "011g", lane: "1", at: 0, len: 1, st: "under", t: "Model v3 design (stage A2 passed)", needs: [], why: "Range model with three headline outputs (revenue, taxpayer burden, non-payer savings) as P10, mean and P90. Five design stages, each ending in a stop: A output manifest and metric register, A2 design review and driver table, B input register (research brief 012r), C architecture, D acceptance plan and the first build brief. No model code. Stage A (docs/model-v3/metrics.md and outputs.yml) passed on 2026-11-16 with all four items confirmed. Stage A2 (docs/model-v3/drivers.md: levers swept, two-level uncertainty, driver table, added outputs) passed; stage B is brief 012r, ready.", files: "docs/model-v3/ (new), docs/briefs/" },
     { id: "032r", lane: "5", at: 0, len: 1, st: "under", t: "Sidecars: literature figures and input display (B12)", needs: [], why: "Writes registry/lit-figures.yml and registry/inputs-display.yml for the hook resolver: published figures quoted from the literature, and a display unit and decimals for all 269 register rows." },
-    { id: "033c", lane: "3", at: 0, len: 1, st: "under", t: "Spoke gate checker (B17)", needs: [{ id: "030c", soft: true }], gate: 1, why: "check_gate.py: the five gate checks as a command, per page and for all 26 units." },
     { id: "039g", lane: "2", at: 0, len: 1, st: "under", t: "Model v3 stage C2: architecture", needs: [], why: "architecture.md: where v3 lives, modules in order, line budgets, port by exception, tests per module, build stages." },
     { id: "040g", lane: "2", at: 1, len: 2, st: "ready", t: "Model v3 stage D: acceptance and build briefs", needs: [{ id: "039g" }], why: "acceptance.md (R1 to R11 to criteria, the acceptance run) then the build briefs, one per build stage, no overlapping Touches. 011g retires when done." },
     { id: "041r", lane: "5", at: 1, len: 1, st: "ready", t: "Rerun the tornado with the level 2 return band", needs: [], why: "Corrects the double count in the tornado: replaces the return swing with the level 2 band on the arithmetic mean, adds SD and lag-1, restates the ranking and the break-even return. Writes tornado.md only." },
