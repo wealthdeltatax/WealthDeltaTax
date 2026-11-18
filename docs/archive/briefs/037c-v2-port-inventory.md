@@ -1,6 +1,6 @@
 # 037: Code: inventory of v2 for the port by exception (model v3 stage C input)
 
-- **Status:** ready
+- **Status:** done, merged 2026-11-18 (author answers: refund rule tau x loss; envelope resets at death; no run of logistic_ln_ref)
 - **Author/date:** K. Ogata with the guru, 2026-11-17
 - **Depends on:** none
 - **Read:** `docs/briefs/011g-model-v3-design.md` (stage C text); `docs/model-audit/synthesis.md` sections 4, 5 and 10; `model_v2/README.md`, `model_v2/WDT_Code_Reference.md`; `model_v2/wdt_kernel.py`, `wdt_core.py`, `wdt_jst.py`, `wdt_par.py`; `model_v2/test/`; `docs/model-v3/outputs.yml` and `metrics.md` (ids and formulas); `docs/agents/code.md`. Nothing else need be opened.

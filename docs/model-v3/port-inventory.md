@@ -148,7 +148,7 @@ Run read-only, with `python3 -B -I` so no bytecode is written to `model_v2/`. Py
 
 ## 7. Open questions, suggested entries and the check
 
-**Questions for the author**
+**Questions for the author** (answered 2026-11-18: 1. no run of `logistic_ln_ref`; 2. the papers' rule, tau x loss, for the refund; the envelope resets at death, as v2 does. Recorded in `stage-c-decisions.md` items 9 and 10.)
 1. Run `logistic_ln_ref` once to record its realised epsilon? Default: no. How: `rates_core.main` (2082-2124) has `--scenario`, `--fresh`, `--workers`, `--stride`, `--toml`; it writes `model_v2/OUTPUTS/RATES/rates_data.json` (`rates_core.py` 7 and 176-178, `wdt_fmt.out_dir` 390; folder absent, not git-ignored), so the run must be in a scratch copy outside the repo; `store_windows` is not set for this scenario (true at `WDT_Params.toml` 1074 and 1346 for others); run time is unmeasured. A post-fill gain rate would also need a small change to `effective_rates`, which is not part of this brief.
 2. The refund rule for v3: tau x loss as the papers state, or v2's ratio-mirror (section 3.3, A)? And does the envelope persist at death (B)?
 
