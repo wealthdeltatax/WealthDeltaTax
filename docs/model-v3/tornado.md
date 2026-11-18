@@ -2,6 +2,8 @@
 
 Status: research result for stage C design; no value is chosen and nothing in the register is edited. Date 2026-11-17. Script and data: `docs/model-v3/tornado/` (`tornado.py` reads `inputs.md`; `check.py` is the second method). Run both with `python3 -I`.
 
+**Superseded in part, 2026-11-18 (brief 041r):** the I-D1a row (geometric mean, 2.18 to 7.47) and every statement that rests on it (section 1 items 1 and 2, the I-D1a rows of the M1 and M2 tables, section 9 last bullet, break-even g in section 8) are replaced by section 10 below. The ranking of the other inputs stands. The old tables are kept unchanged.
+
 ## 1. What it says
 1. **Return history dominates.** On M1 the mean real return (I-D1a, 2.18 to 7.47% a year) swings the result by 8.8 points of GDP; the next input, the wealth-to-GDP ratio (I-D4a), by 1.9. Behavioural response (I-D5a) 0.8, the payer wealth share (I-D4c) 0.5. Everything else is under 0.5.
 2. **The sign of M1 is not safe.** At central inputs M1 is **+1.45% of GDP** (full retirement of the six taxes, steady state, section 3). It reaches zero at g = 3.55% a year, against a register central of 4.42% and a low of 2.18%. At the low g, M1 is -2.27.
@@ -61,7 +63,7 @@ Reading. My 2026-11-16 illustration (3% of GDP at 20%) does not follow from the 
 ### M1 (revenue, % of GDP; central 1.45)
 | Rank | Input | Row id | Tier | Input low / central / high | Result at low | Central | Result at high | Swing | Note |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | Mean real total return on wealth, geometric | I-D1a | 1 | 2.18 / 4.42 / 7.47 | -2.27 | 1.45 | 6.51 | 8.78 |  |
+| ~~1~~ | ~~Mean real total return on wealth, geometric~~ **superseded (section 10)** | I-D1a | 1 | 2.18 / 4.42 / 7.47 | -2.27 | 1.45 | 6.51 | 8.78 |  |
 | 2 | Household wealth to GDP, total wealth incl. private pensions | I-D4a | 1 | 5.8 / 5.94 / 7.5 | 1.29 | 1.45 | 3.23 | 1.94 |  |
 | 3 | Share of affected people leaving UK tax residence after a targeted tax | I-D5c | 1 | 0.0 / 6.0 / 11.0 | 1.95 | 1.45 | 1.03 | 0.92 |  |
 | 4 | Loss of taxable base to all behavioural responses at a 1% annual wealt | I-D5a | 1 | 7.0 / 12.0 / 17.0 | 1.87 | 1.45 | 1.03 | 0.83 |  |
@@ -130,7 +132,7 @@ Lever for scale (not an input): the six v2 schedules give WDT of 3.12 to 9.35 (`
 M2 proper is revenue-weighted (`metrics.md`) and larger than the mean burden; only the mean is reachable. ω, the retired taxes and the discount rates do not enter it.
 | Rank | Input | Row id | Tier | Input low / central / high | Result at low | Central | Result at high | Swing | Note |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | Mean real total return on wealth, geometric | I-D1a | 1 | 2.18 / 4.42 / 7.47 | 0.61 | 1.24 | 2.09 | 1.48 |  |
+| ~~1~~ | ~~Mean real total return on wealth, geometric~~ **superseded (section 10)** | I-D1a | 1 | 2.18 / 4.42 / 7.47 | 0.61 | 1.24 | 2.09 | 1.48 |  |
 | 2 | Part of the response that is avoidance or under-reporting | I-D5b | 1 | 3.5 / 6.0 / 8.5 | 1.27 | 1.24 | 1.21 | 0.07 |  |
 | 3 | Understatement of assessed value for assets with discretionary valuati | I-D5d | 1 | 0.0 / 11.0 / 22.0 | 1.25 | 1.24 | 1.23 | 0.01 |  |
 
@@ -184,3 +186,74 @@ Caveat. The register ranges for the levy are v2's yield band only. Whether corpo
 - Replace 8.27 with 8.11 in `metrics.md` (M1e), `drivers.md` section 1 and `synthesis.md` section 10, or tell me the stamp-duty reading is different.
 - Decide whether stage C wants ε fixed at a schedule value (levers D2 and D3) before the next tornado; the ranking above holds at any ε because every M1a swing scales with it.
 - The register range for I-D1a (10th to 90th percentile of rolling 30-year means) is wide enough to flip M1; this is the main uncertainty stage C should spend on.
+
+## 10. Rerun 2026-11-18 (brief 041r): level 2 band on the arithmetic mean
+Script `tornado/tornado_v2.py` (the original `tornado.py` is kept); second method `tornado/check_v2.py`; outputs `tornado_v2_*`. Both run with `python3 -I`. The register is the 274-row `inputs.md`; I-D1a is now the arithmetic mean, level 2: **3.41 / 4.74 / 6.07** % a year. Nothing else in the identity changed (M1b 2.82, M1c -0.6 (A2), M1d 8.11, omega 5.54).
+
+### 10.1 The wealth-weighted rate ε at the arithmetic mean (assumption A1, a lever, not a register row)
+| Treatment | ε | M1a at I-D1a central | M1 central |
+|---|---|---|---|
+| Held: ε = 29.97% from the first run (7.34 reproduced at g = 4.42, I-D1a2 central) | 29.97% | 7.87 (0.2997 x 4.74% x 5.54) | 1.98 |
+| Recalibrated: 7.34 reproduced at g = 4.74 | 27.95% (7.34 / (4.74% x 5.54 x 100)) | 7.34 | 1.45 |
+
+The brief's "about 31% recalibrated" does not reproduce from the register: recalibrating ε at the arithmetic mean lowers it (4.74 > 4.42), to 27.95%. A 31% figure would need g below 4.42% or a smaller omega. Flagged to the guru; both treatments are carried below. The ranking does not depend on the choice.
+
+### 10.2 I-D1a swing and the other return rows
+Swing = ε x omega x (6.07 - 3.41) = ε x 5.54 x 2.66.
+| Treatment | Result at 3.41 | Central | Result at 6.07 | Swing |
+|---|---|---|---|---|
+| Held ε 29.97% | -0.23 | 1.98 | 4.19 | **4.42** |
+| Recalibrated ε 27.95% | -0.61 | 1.45 | 3.51 | **4.12** |
+| First run (geometric, 2.18 to 7.47, ε 29.97%), superseded | -2.27 | 1.45 | 6.51 | 8.78 |
+
+Other return rows (I-D1b to I-D1g, I-D1a2, I-D1a0, I-D1f):
+| Row | Reaches the identity? |
+|---|---|
+| I-D1b SD, band 7.47 to 8.96 | **No.** M1a = ε g ω has no SD term; refunds are netted in g (A3). It acts through the refund cap and the reserve fill; needs a path run (036r generator). |
+| I-D1b2 lag-1, band 0.19 to 0.42 | **No**, same reason: it changes the spread of 30-year means and loss runs, not the steady-state mean. |
+| I-D1a2 geometric mean (3.07 / 4.42 / 5.73) | Derived from I-D1a; belongs to M3 (wealth path compounding). Not varied separately. |
+| I-D1c loss-year frequency, I-D1d longest run | Generator outputs, not inputs (register); reported, not varied. |
+| I-D1a0 spread of 30-year means | Level 1 display, not a parameter range; **leaves the tornado**. |
+| I-D1f, I-D1g | Named scenario; effective observations behind the I-D1a band. No range, no swing. |
+| I-D1e data gap | Unchanged: no term in the identity. |
+
+### 10.3 Ranking restated (M1, swing in points of GDP)
+| Rank | Input | Row | First run | Rerun, ε held | Rerun, ε recalibrated |
+|---|---|---|---|---|---|
+| 1 | Mean real return, arithmetic, level 2 | I-D1a | 8.78 | 4.42 | 4.12 |
+| 2 | Wealth to GDP | I-D4a | 1.94 | 2.08 | 1.94 |
+| 3 | Leavers | I-D5c | 0.92 | 0.98 | 0.92 |
+| 4 | Behavioural loss of base | I-D5a | 0.83 | 0.89 | 0.83 |
+| 5 | Payer wealth share | I-D4c | 0.51 | 0.54 | 0.51 |
+| 6 | Avoidance share | I-D5b | 0.42 | 0.45 | 0.42 |
+| 7 | Missing top wealth | I-D4e | 0.39 | 0.42 | 0.39 |
+| 8 | Corporation tax receipts (M1d line) | I-T3f | 0.31 | 0.31 | 0.31 |
+| 9 | Council tax capitalisation | I-D10a, I-D10b | 0.17 | 0.19 | 0.17 |
+| - | everything else | | below 0.15 | below 0.15 | below 0.15 |
+M2 proxy, I-D1a swing (% of payer wealth a year): 1.48 first run; 0.75 held; 0.70 recalibrated (central 1.33 held, 1.24 recalibrated). M4a is unchanged (no return row enters it). Full tables: `tornado/tornado_v2_tables_held.md`, `tornado_v2_tables_recal.md`; CSVs alongside.
+
+### 10.4 Changes from the first run
+| Item | First run | Rerun | Why |
+|---|---|---|---|
+| I-D1a definition | geometric 4.42 | arithmetic 4.74 | the identity and the AR(1) generator use the arithmetic mean (stage C item 1) |
+| I-D1a range | 2.18 to 7.47 (level 1 spread of 30-year means) | 3.41 to 6.07 (level 2: uncertainty of the true mean) | the first range counted level 1 return risk as parameter ignorance |
+| I-D1a swing on M1 | 8.78 | 4.42 held, 4.12 recalibrated | band 2.66 points wide against 5.29 |
+| ε | 29.97% | 29.97% held or 27.95% recalibrated | A1 |
+| M1 central | 1.45 | 1.98 held, 1.45 recalibrated | held ε on a higher g raises M1a |
+| I-D1b, I-D1b2 | I-D1b "not reachable" | both not reachable, stated with reasons | no SD or lag-1 term in the identity |
+| I-D1a0 | not in the first run | leaves the tornado | not a parameter range |
+| Rank 1 | I-D1a (8.78 vs 1.94 next) | I-D1a (4.12 to 4.42 vs 1.94 to 2.08 next) | unchanged order; the lead falls from 4.5 times to 2.1 times the next input (both treatments) |
+| Other swings | | about 7% larger with held ε (they scale with ε g); equal with ε recalibrated | first run's M1 identity values |
+| Tier 2 cut-off 0.5 | all tier 2 below | unchanged (largest 0.15) | section 6 stands |
+
+### 10.5 Break-even return and its level 2 probability
+M1 = 0 needs M1a = M1d - M1b - M1c = 8.11 - 2.82 + 0.6 = **5.89** % of GDP (I-T3f, I-T3n, I-T3m, I-T3h, I-T3i, I-T3k, I-T3l, I-D7b, I-D7a; M1c is A2). Then g* = 5.89 / (ε x omega) with omega = 5.54 (I-D4a, I-D4c, I-D4e, I-D10b, I-D5a).
+| Treatment | ε x omega | Break-even arithmetic mean g* | z = (g* - 4.74) / 1.038 | P(true mean below g*) |
+|---|---|---|---|---|
+| Held ε 29.97% | 1.660 | **3.55%** | -1.15 | **12.5%** |
+| Recalibrated ε 27.95% | 1.549 | **3.80%** | -0.91 | **18.3%** |
+The standard error 1.038 is the level 2 band itself, (6.07 - 3.41) / 2 / 1.2816 (I-D1a; register note: 1.2816 x 1.04). The probability uses level 2 alone, a normal true mean around the sample 4.74; it does not include level 1 return risk (the year to year spread I-D1b, I-D1b2), which is a separate layer for the generator, and it takes ε, ω and M1d at central. Reading: with ε held, M1 turns negative at a true mean 1.19 points below the sample mean, about one chance in eight; with ε recalibrated, about one in five.
+
+### 10.6 Checks
+- `check_v2.py` (hand arithmetic, register numbers typed in): ε 0.2997 and 0.2795; central M1 1.45 and 1.98; I-D1a swing 4.12 and 4.42; I-D4a swing 1.94; g* 3.547 and 3.804; P 0.125 and 0.183. All match the script.
+- Traceability: every number is a register row id or assumption A1 to A7. The new items: the 1.2816 normal quantile (the register's own method) and the normal approximation for the true mean (assumption A8, from I-D1a's note).
