@@ -34,246 +34,43 @@ The implementer asks rather than guesses.
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** note added to the four pages; local build, render and browser check run; calculator results recorded before and after.
-- **Next:** the author decides on the revenue calculator row below; then merge (rebase on , re-run the build, , watch the Action).
-- **Decisions:** one inline-styled note (amber border, transparent tint, so it reads in light and dark) rather than a new CSS class, because the styles files are outside Touches; the link is  as the brief says.
-- **Gotchas:** the taxpayer fragment is also injected into  (), so  shows the note too; the revenue calculator cannot start on  (it fetches , now ; architecture doc Issue 16, ).
-- **Resume:**   Reading references.bib...
-  Reading internal.json...
-  Merging (177 external refs, 31 papers, 365 citations, 17 flags)...
-  ✓ references.json written (177 external refs)
-  Looking for papers.yml at: /home/claude/wealthdeltatax/registry/papers.yml
-  ✓ 1_Wealth_Delta_Tax_Whitepaper.md: [WP] v1.06 (14,278 words)
-  ✓ 2_Moral_and_Philosophical_Foundations.md: [MF] v1.06 (6,685 words)
-  ✓ 3a_Research_Gaps.md: [LR.A] v1.02 (4,049 words)
-  ✓ 3b_Intellectual_Background.md: [LR.B] v1.02 (8,904 words)
-  ✓ 4_UK_Jurisdiction_and_Data_Reference_Paper.md: [JUR] v1.01 (5,547 words)
-  ✓ 5_Valuing_Wealth.md: [VAL] v1.09 (15,369 words)
-  ✓ 5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md: [VAL.A] v1.08 (16,967 words)
-  ✓ 5b_Valuing_Wealth_Worked_Examples_Appendix.md: [VAL.B] v1.04 (5,216 words)
-  ✓ 6_Corporate_Architecture.md: [CORP] v1.03 (7,861 words)
-  ✓ 6a_Corporate_Architecture_Appendix.md: [CORP.A] v1.01 (15,307 words)
-  ✓ 7_Constitutional_Governance.md: [GOV] v1.03 (9,894 words)
-  ✓ 7a_WDT_Constitutional_Governance_Intellectual_Appendix.md: [GOV.A] v1.01 (7,703 words)
-  ✓ 7b_Constitutional_Governance_Operational_Appendix.md: [GOV.B] v1.04 (22,223 words)
-  ✓ 8_Rates_and_Revenue.md: [RATES] v1.05 (12,556 words)
-  ✓ 8a_Rates_and_Revenue_Appendix.md: [RATES.A] v1.01 (8,004 words)
-  ✓ 9_Parameter_Sweeps.md: [SWEEPS] v1.04 (17,057 words)
-  ✓ 9a_Parameter_Sweeps_Appendix.md: [SWEEPS.A] v1.02 (18,275 words)
-  ✓ 10_Behavioural_Robustness_and_Administrative_Experience.md: [BEHAV] v1.03 (8,091 words)
-  ✓ 10a_Behavioural_Robustness_and_Administrative_Experience_Appendix.md: [BEHAV.A] v0.01 (4,691 words)
-  ✓ 11_Position_Closure.md: [CLOSE] v1.04 (10,349 words)
-  ✓ 12_Political_Architecture.md: [POL] v1.02 (10,806 words)
-  ✓ 12a_Political_Architecture_Appendix.md: [POL.A] v0.01 (1,964 words)
-  ✓ 13_Phase_One.md: [PHASE1] v1.02 (6,058 words)
-  ✓ 14_Environmental_Effects_and_Transmission_Channels.md: [ENV] v1.02 (9,686 words)
-  ✓ 15_First_Mover.md: [FM] v1.03 (3,516 words)
-  ✓ 16_Modular_Adoption.md: [MOD] v1.00 (1,677 words)
-  ✓ 17_Scope_Boundary.md: [SCOPE] v0.05 (2,602 words)
-  ✓ 18_Addendums.md: [ADD] v0.03 (7,006 words)
-  ✓ 19_Taxpayer_Welfare.md: [WFR] v0.03 (19,071 words)
-  ✓ 19a_Taxpayer_Welfare_Appendix.md: [WFR.A] v0.01 (5,684 words)
-  ✓ 20_Institutional_Selection.md: [INST] v0.08 (14,535 words)
-  ✓ 21_Labour_Dividend_Welfare.md: [LDW] v0.06 (8,716 words)
-  ✓ 22_Falsification_Hypotheses.md: [FAL] v0.02 (11,615 words)
-  Extracted metadata for 33 papers.
-
-  ⚠ section not in anchors.yml: GOV§4.2
-  ⚠ section not in anchors.yml: MF§9.4.9
-  ⚠ section not in anchors.yml: GOV§4.2
-  ⚠ section not in anchors.yml: INST§0.03
-  ✓ Injected taxpayer_calc.html into avoidance.md
-  ⚠ section not in anchors.yml: WP§11
-  ⚠ section not in anchors.yml: GOV§2.2
-  ⚠ section not in anchors.yml: GOV§3.3
-  ⚠ section not in anchors.yml: GOV§9
-  ⚠ section not in anchors.yml: GOV§10
-  ⚠ section not in anchors.yml: WP§11.4
-  ⚠ section not in anchors.yml: WP§11.4
-  ⚠ section not in anchors.yml: WP§11.4
-  ⚠ section not in anchors.yml: WP§11.4
-  ⚠ section not in anchors.yml: WP§11.11
-  ⚠ section not in anchors.yml: WP§11.4
-  ⚠ section not in anchors.yml: WP§11.10
-  ⚠ section not in anchors.yml: WP§11.6
-  ⚠ section not in anchors.yml: GOV§10
-  ⚠ section not in anchors.yml: WP§11
-  ⚠ section not in anchors.yml: WP§11
-  ⚠ section not in anchors.yml: MF§3.5
-  ⚠ section not in anchors.yml: MF§9.6
-  ⚠ section not in anchors.yml: GOV§11.1
-  ⚠ section not in anchors.yml: MF§9.7
-  ⚠ section not in anchors.yml: MF§9.7
-  ⚠ section not in anchors.yml: MF§E.2
-  ⚠ section not in anchors.yml: MF§9.8
-  ⚠ section not in anchors.yml: MF§9.9
-  ⚠ section not in anchors.yml: GOV§9
-  ⚠ section not in anchors.yml: GOV§9
-  ⚠ section not in anchors.yml: GOV§10
-  ⚠ section not in anchors.yml: GOV§8.3
-  ⚠ section not in anchors.yml: VAL§8.4
-  ⚠ section not in anchors.yml: VAL§8.4
-  ⚠ section not in anchors.yml: VAL.B§1
-  ⚠ section not in anchors.yml: VAL.B§2
-  ⚠ section not in anchors.yml: VAL.B§5
-  ⚠ section not in anchors.yml: VAL§J
-  ⚠ section not in anchors.yml: VAL§8.4
-  ⚠ section not in anchors.yml: VAL§8.4
-  ⚠ section not in anchors.yml: VAL§G
-  ⚠ section not in anchors.yml: GOV§8.5
-  ⚠ section not in anchors.yml: GOV§8.3
-  ⚠ section not in anchors.yml: GOV§9.3
-  ⚠ section not in anchors.yml: VAL§8.4
-  ⚠ section not in anchors.yml: GOV§8.5
-  ⚠ section not in anchors.yml: GOV§9.3
-  ⚠ section not in anchors.yml: VAL.B§5.2
-  ⚠ section not in anchors.yml: VAL.B§5.2
-  ⚠ section not in anchors.yml: VAL.B§5.2
-  ⚠ section not in anchors.yml: VAL.B§5.2
-  ⚠ section not in anchors.yml: VAL.A§I
-  ⚠ section not in anchors.yml: CORP§B.2
-  ⚠ section not in anchors.yml: GOV§11.1
-  ⚠ section not in anchors.yml: GOV§10
-  ⚠ section not in anchors.yml: GOV.A§4
-  ⚠ section not in anchors.yml: GOV§10
-  ⚠ section not in anchors.yml: GOV§10
-  ⚠ section not in anchors.yml: GOV§9
-  ⚠ section not in anchors.yml: GOV§10
-  ⚠ section not in anchors.yml: GOV§8.3
-  ⚠ section not in anchors.yml: GOV.B§I
-  ⚠ section not in anchors.yml: GOV.B§I
-  ⚠ section not in anchors.yml: GOV§6.2.3
-  ⚠ section not in anchors.yml: GOV§10
-  ⚠ section not in anchors.yml: GOV§6.2.3
-  ⚠ section not in anchors.yml: GOV§6.2.2
-  ⚠ section not in anchors.yml: GOV§6.2.2
-  ⚠ section not in anchors.yml: GOV§8.3
-  ⚠ section not in anchors.yml: GOV§8.3
-  ⚠ section not in anchors.yml: GOV§8.8
-  ⚠ section not in anchors.yml: GOV§8.3
-  ⚠ section not in anchors.yml: GOV§8.4
-  ⚠ section not in anchors.yml: GOV§9.1
-  ⚠ section not in anchors.yml: GOV§9.3
-  ⚠ section not in anchors.yml: GOV§10
-  ⚠ section not in anchors.yml: GOV§10.3
-  ⚠ section not in anchors.yml: GOV§10.3
-  ⚠ section not in anchors.yml: GOV§8.7
-  ⚠ section not in anchors.yml: RATES§7.5
-  ⚠ section not in anchors.yml: RATES§D
-  ⚠ section not in anchors.yml: RATES§D
-  ⚠ section not in anchors.yml: RATES.A§B.3a
-  ⚠ section not in anchors.yml: RATES.A§B.3i
-  ⚠ section not in anchors.yml: RATES.A§B.3h
-  ⚠ section not in anchors.yml: RATES.A§B.3a
-  ⚠ section not in anchors.yml: GOV§10
-  ⚠ section not in anchors.yml: GOV§8.8
-  ⚠ section not in anchors.yml: GOV§10
-  ⚠ section not in anchors.yml: GOV§8.8
-  ⚠ section not in anchors.yml: GOV§8.6
-  ⚠ section not in anchors.yml: MF§9.4.9
-  ⚠ section not in anchors.yml: GOV.B§E.9
-  ✓ model_v1/sweeps_core.py → _build/model/sweeps_core.py (runtime)
-  ✓ model_v1/val_core.py → _build/model/val_core.py (runtime)
-  ✓ model_v1/wfr_core.py → _build/model/wfr_core.py (runtime)
-  ✓ model_v1/ldw_core.py → _build/model/ldw_core.py (runtime)
-  ✓ model_v1/19_2_WFR_tables.py → _build/model/19_2_WFR_tables.py (runtime)
-  ✓ model_v1/wdt_fmt.py → _build/model/wdt_fmt.py (runtime)
-  ✓ model_v1/8_2_RATES_tables.py → _build/model/8_2_RATES_tables.py (runtime)
-  ✓ model_v1/16_1_SWEEPS_V_tables.py → _build/model/16_1_SWEEPS_V_tables.py (runtime)
-  ✓ model_v1/5_3_VAL_tables.py → _build/model/5_3_VAL_tables.py (runtime)
-  ✓ model_v1/wdt_analytics.py → _build/model/wdt_analytics.py (runtime)
-  ✓ model_v1/rates_core1.py → _build/model/rates_core1.py (runtime)
-  ✓ model_v1/19_3_WFR_charts.py → _build/model/19_3_WFR_charts.py (runtime)
-  ✓ model_v1/wdt_style.py → _build/model/wdt_style.py (runtime)
-  ✓ model_v1/16_3_SWEEPS_R_tables.py → _build/model/16_3_SWEEPS_R_tables.py (runtime)
-  ✓ model_v1/wdt_md.py → _build/model/wdt_md.py (runtime)
-  ✓ model_v1/5_5_VAL_generate_worked_examples.py → _build/model/5_5_VAL_generate_worked_examples.py (runtime)
-  ✓ model_v1/16_4_SWEEPS_R_charts.py → _build/model/16_4_SWEEPS_R_charts.py (runtime)
-  ✓ model_v1/wdt_core.py → _build/model/wdt_core.py (runtime)
-  ✓ model_v1/5_4_VAL_charts.py → _build/model/5_4_VAL_charts.py (runtime)
-  ✓ model_v1/WDT_Params.toml → _build/model/WDT_Params.toml (runtime)
-  ✓ model_v1/8_3_RATES_charts.py → _build/model/8_3_RATES_charts.py (runtime)
-  ✓ model_v1/16_2_SWEEPS_V_charts.py → _build/model/16_2_SWEEPS_V_charts.py (runtime)
-  ✓ model_v1/test_wdt_style.py → _build/model/test_wdt_style.py (runtime)
-  ✓ model_v1/test_wdt_md.py → _build/model/test_wdt_md.py (runtime)
-  ✓ model_v1/test_wdt_fmt.py → _build/model/test_wdt_fmt.py (runtime)
-  ✓ model_v1/test_wdt_analytics.py → _build/model/test_wdt_analytics.py (runtime)
-  ✓ Copied image outputs → _build/figures/ (95 files)
-  ✓ Generated corpus.qmd (33 papers, 6 reading paths)
-  ✓ Generated references.qmd (177 entries, 0 pending)
-  ✓ WDT_Flowchart_LR.png (cached, 608,413 bytes)
-  ✓ WDT_Skeleton_LR.png (cached, 142,966 bytes)
-  ✓ UK_Tax_Flowchart_LR.png (cached, 1,074,013 bytes)
-  ✓ UK_Skeleton_LR.png (cached, 442,928 bytes)
-  ✓ WDT_Bidirectional_LR.png (cached, 20,655 bytes)
-  ✓ Generated flowcharts.qmd (5 diagrams, side-by-side layout)
-  [link_map] wrote /home/claude/wealthdeltatax/_build/link-map.qmd (31 papers)
-  ✓ tools/taxpayer_calc.html → _build/model/taxpayer.qmd
-  ✓ tools/revenue_calc.html → _build/model/revenue.qmd
-  ✓ tools/ldw_calc.html → _build/model/ldw.qmd
-  ✓ references.json → references.json
-  ✓ anchors.yml → anchors.yml
-  ✓ contents.yml → wdt-contents.yml
-  ✓ references.bib → references.bib
-  ✓ Generated site-index.json (33 papers, 1304 anchors, 1337 search records)
-  ✓ 1_Wealth_Delta_Tax_Whitepaper.md → wp.qmd
-  ⚠ section not in anchors.yml: MF§9.4.9
-  ✓ 2_Moral_and_Philosophical_Foundations.md → mf.qmd
-  ✓ 3a_Research_Gaps.md → lr-a.qmd
-  ✓ 3b_Intellectual_Background.md → lr-b.qmd
-  ⚠ section not in anchors.yml: GOV.B§A.3.7
-  ✓ 4_UK_Jurisdiction_and_Data_Reference_Paper.md → jur.qmd
-  ✓ 5_Valuing_Wealth.md → val.qmd
-  ✓ 5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md → val-a.qmd
-  ✓ 5b_Valuing_Wealth_Worked_Examples_Appendix.md → val-b.qmd
-  ✓ 6_Corporate_Architecture.md → corp.qmd
-  ✓ 6a_Corporate_Architecture_Appendix.md → corp-a.qmd
-  ⚠ section not in anchors.yml: GOV.B§E.9
-  ⚠ section not in anchors.yml: GOV.B§E.9
-  ⚠ section not in anchors.yml: GOV.B§E.9
-  ✓ 7_Constitutional_Governance.md → gov.qmd
-  ✓ 7a_WDT_Constitutional_Governance_Intellectual_Appendix.md → gov-a.qmd
-  ⚠ section not in anchors.yml: GOV.B§E.8
-  ⚠ section not in anchors.yml: GOV.B§E.9
-  ⚠ section not in anchors.yml: GOV.B§C.8
-  ⚠ section not in anchors.yml: GOV.B§E.9
-  ⚠ section not in anchors.yml: GOV.B§E.8
-  ⚠ section not in anchors.yml: GOV.B§E.8
-  ⚠ section not in anchors.yml: GOV.B§E.9
-  ⚠ section not in anchors.yml: GOV.B§E.9
-  ⚠ section not in anchors.yml: GOV.B§E.8
-  ⚠ section not in anchors.yml: GOV.B§E.8
-  ✓ 7b_Constitutional_Governance_Operational_Appendix.md → gov-b.qmd
-  ✓ 8_Rates_and_Revenue.md → rates.qmd
-  ✓ 8a_Rates_and_Revenue_Appendix.md → rates-a.qmd
-  ⚠ section not in anchors.yml: GOV§E.2
-  ✓ 9_Parameter_Sweeps.md → sweeps.qmd
-  ✓ 9a_Parameter_Sweeps_Appendix.md → sweeps-a.qmd
-  ✓ 10_Behavioural_Robustness_and_Administrative_Experience.md → behav.qmd
-  ✓ 10a_Behavioural_Robustness_and_Administrative_Experience_Appendix.md → behav-a.qmd
-  ✓ 11_Position_Closure.md → close.qmd
-  ✓ 12_Political_Architecture.md → pol.qmd
-  ✓ 12a_Political_Architecture_Appendix.md → pol-a.qmd
-  ✓ 13_Phase_One.md → phase1.qmd
-  ✓ 14_Environmental_Effects_and_Transmission_Channels.md → env.qmd
-  ✓ 15_First_Mover.md → fm.qmd
-  ✓ 16_Modular_Adoption.md → mod.qmd
-  ⚠ section not in anchors.yml: GOV.B§A.3.7
-  ⚠ section not in anchors.yml: GOV.B§A.3.7
-  ✓ 17_Scope_Boundary.md → scope.qmd
-  ⚠ section not in anchors.yml: GOV.B§A.3.7
-  ✓ 18_Addendums.md → add.qmd
-  ✓ 19_Taxpayer_Welfare.md → wfr.qmd
-  ✓ 19a_Taxpayer_Welfare_Appendix.md → wfr-a.qmd
-  ✓ 20_Institutional_Selection.md → inst.qmd
-  ✓ 21_Labour_Dividend_Welfare.md → ldw.qmd
-  ✓ 22_Falsification_Hypotheses.md → fal.qmd
-
-Done. 33 papers staged, 0 not available.
-Run: quarto render /home/claude/wealthdeltatax/_build
+- **Next:** the author decides on the revenue calculator row below; then merge (rebase on `origin/main`, re-run the build, `git push origin HEAD:main`, watch the Action).
+- **Decisions:** one inline-styled note (amber border, light tint, so it reads in light and dark) rather than a new CSS class, because the styles files are outside Touches; the link is `/retired.html` as the brief says.
+- **Gotchas:** the taxpayer fragment is also injected into `avoidance.md` (`WDT_CALC_INJECT`), so `avoidance.html` shows the note too; the revenue calculator cannot start on `main` (it fetches `rates_model.py`, now `rates_core1.py`; architecture doc Issue 16, `docs/brief-suggestions.md`).
+- **Resume:** `python pipeline/preprocess.py; quarto render _build; grep -l "Based on the retired model" -r _build/_site --include=*.html`
 - **Not run:** the Action after merge (not merged); a real Pyodide run in a browser (the CDN is unreachable from the sandbox); revenue calculator results (cannot run before or after).
-- **State:** pushed  on .
+- **State:** pushed on `brief/031s-calculators-relabel` (code commit d254c00).
 <!-- progress:end -->
 
 ### Change report
-
-
+```
+Change report
+- Task: 031s Site: relabel the calculators (site.md B11)
+- Files changed:
+  - site/pages/calculator_index.md: note above the three cards
+  - site/tools/taxpayer_calc.html, revenue_calc.html, ldw_calc.html: note at the top of each fragment (5 lines each, insertions only)
+  - this brief's notes
+- What is different now: each of the four pages opens with "Based on the retired model", one sentence on what that means, and a link to /retired.html. The same note also appears on avoidance.html, which embeds the taxpayer calculator.
+- New or changed interfaces: none. /retired.html does not exist yet (dependency: the retired-page brief, B10); until it does the link is a 404.
+- Acceptance criteria:
+  - Each of the four pages shows the label: met. Headless Chromium, light and dark, shows the note visible on calculator_index, model/taxpayer, model/revenue and model/ldw (and avoidance); one screenshot checked.
+  - Results for three fixed inputs identical before and after: PARTLY MET. Taxpayer and labour-dividend: identical (the recorded JSON is byte-identical on main and on this branch). Revenue: not measurable, it fails to start on main and on this branch (rates_model.py missing, known Issue 16), so there are no results to compare. The pages' scripts are untouched: the diff is 5 inserted lines per fragment and no deletions.
+    - Taxpayer 1: V0 = 10^1.301 £m, N = 29, alpha = 1.0, g = 0.1045: honest TW 263.099, alpha TW 263.099
+    - Taxpayer 2: V0 = 10^2.0 £m, N = 20, alpha = 0.6, g = 0.05: honest TW 240.3305, alpha TW 224.873
+    - Taxpayer 3: V0 = 10^0.5 £m, N = 40, alpha = 1.4, g = 0.15: honest TW 451.8837, alpha TW 477.6756
+      (tau_0 0.15, tau_m 0.70, k 10^-3, W_min 2.0 throughout; all seven outputs and every yearly row compared, row hashes ee2d1521623a5670, 7869400de327f7f5, 1276daf3c0b93c03)
+    - LDW 1: salary 39,039, VAT share 0.55, energy cut 0.30: employee NICs 2,117.52, employer NICs 5,105.85, energy gain 526.50 a year
+    - LDW 2: salary 25,000, VAT share 0.70, energy cut 0.10: employee NICs 994.40, employer NICs 3,000.00, energy gain 175.50 a year
+    - LDW 3: salary 120,000, VAT share 0.40, energy cut 0.60: employee NICs 4,410.60, employer NICs 17,250.00, energy gain 1,053.00 a year
+      (the full ldw_calc result dict compared in each case)
+  - git diff --stat shows only the Touches list: met (four site files plus this brief).
+- Deviations from the brief: none. Results come from running each page's own Python call path natively on the same model_v1 core files, because the Pyodide CDN is blocked in the sandbox.
+- Risks / follow-ups:
+  - NEEDS THE AUTHOR: accept that the revenue calculator cannot be measured (then merge), or fix it first in its own brief.
+  - /retired.html is a 404 until the retired-page brief lands.
+  - avoidance.html now carries the note, a side effect of the injected fragment; say if you want it removed there.
+  - The note's wording ("the new series is replacing") is mine; the author may want to reword it.
+- Verification: preprocess exit 0; quarto render exit 0; output page list identical (53 pages); label found in 5 rendered pages; calculator results identical for taxpayer and LDW. Not run: the Action, a real Pyodide run, mobile and accessibility beyond the visible-note check.
+- Overview sections likely needing an update: the calculators description (labelled as the retired model).
+- Commit / branch: d254c00, brief/031s-calculators-relabel. NEEDS THE AUTHOR: not merged.
+```
