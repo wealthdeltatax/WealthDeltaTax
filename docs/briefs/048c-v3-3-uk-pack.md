@@ -18,12 +18,15 @@ Write `model_v3/pack/build_gbr.py` (150 lines at most; a data tool, not core) th
 
 This is build stage V3-3 of `architecture.md` section 7. One session, one lane; the stage ends in a stop: tests pass, change report written, branch merged by the auto-merge rule. The stage's files are budgeted in `architecture.md` 6.1; a stage more than 15% over its budget reports it before the next starts.
 
+**Mappings that 047c left to the caller (added by the guru, 2026-11-18).** `core/pack.py` names no tax line and no register id, so X1 and X2 need three mappings. Write them as a `pack_mappings` section of `model_v3/levers.json` (no other section is edited; no named schedule is typed there): `x1_pointers` (register row id to dataset, row selector and column, for the 108 pack rows whose data the pack supplies), `parts` (each parent receipts line to its parts, for example the stamp-duty sub-rows), `groups` (receipts lines to the DH1b groups) and `x2` (the retired lines and the 8.11 target). The P8 test reads them from this file and types no number or line name; the 8.11 target comes from the file. A pointer whose register row says the data are not in the repo is listed and skipped, with the count reported.
+
 ## Touches
-`model_v3/pack/GBR/`, `model_v3/pack/build_gbr.py`, `tests/model_v3/test_pack.py`, this brief's progress block.
+`model_v3/pack/GBR/`, `model_v3/pack/build_gbr.py`, `model_v3/levers.json` (the `pack_mappings` section only), `tests/model_v3/test_pack.py`, this brief's progress block.
 
 ## Acceptance criteria
-- P8 passes: X1 within 1e-9 and X2 within 0.01 (the M1d lines sum to 8.11% of GDP).
-- P9 passes: the register row count equals the count read from `inputs.md`, `low <= central <= high`, `(J)` flags equal `inputs.md`.
+- P8 passes: X1 within 1e-9 and X2 within 0.01 (the M1d lines sum to 8.11% of GDP), with every mapping read from `levers.json` `pack_mappings`.
+- `levers.json` still parses and still holds no named schedule; only the `pack_mappings` section is new.
+- P9 passes: the register row count (274 today) equals the count read from `inputs.md`, `low <= central <= high`, `(J)` flags equal `inputs.md`.
 - `pack_sha256` of the UK pack is pinned in a test; the 038c scan returns zero hits.
 - `git diff --stat` is limited to the Touches list.
 
