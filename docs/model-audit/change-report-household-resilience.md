@@ -1,0 +1,23 @@
+# Change report: household resilience external observation
+
+- Task: Record the external analytical observation on household financial resilience and the WDT's wider philosophy.
+- Files changed:
+  - `docs/model-audit/external-observation-household-resilience.md`: new external observation distinguishing income, wealth and resilience; analysing the WDT's possible transmission channels and limitations; setting out empirical hypotheses and a research programme.
+  - `docs/model-audit/change-report-household-resilience.md`: this hand-off report.
+- What is different now: The repository records household resilience as a potential social and fiscal objective for evaluating the WDT, while explicitly distinguishing public fiscal resilience from direct household shock insurance. The note does not change the model, tax parameters or policy commitments.
+- New or changed interfaces: none.
+- Acceptance criteria:
+  - External observation written: met.
+  - Distinguishes income, wealth and resilience: met.
+  - Explains WDT tax and refund mechanism, SWF relationship and possible transmission channels: met.
+  - Identifies limitations of current exemption and avoids presenting WDT as universal household insurance: met.
+  - Sets out testable hypotheses and empirical research priorities: met.
+  - Model changes or unsupported empirical claims introduced: none; the historical resilience claim is explicitly framed as a hypothesis requiring evidence.
+- Deviations from the brief: none.
+- Risks / follow-ups:
+  - The proposed historical deterioration in middle-income household resilience requires UK longitudinal evidence and consistent definitions.
+  - The SWF stress-testing questions need to be connected to the model's actual refund rules, asset allocation and liquidity assumptions.
+  - A later research task could construct a household resilience baseline and compare WDT with alternative policies using common outcome measures.
+- Verification: Confirmed the new observation file was committed to the repository. No model or site build was required because this is a docs-only addition.
+- Overview sections likely needing an update: none immediately; this is an external observation rather than a settled project position.
+- Commit / branch: `1550a36b91e2f0a19560b5e4dcea6b002ec7ab3d` on `main`; report committed separately.
