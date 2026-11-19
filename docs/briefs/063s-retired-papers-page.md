@@ -43,11 +43,32 @@ Both granularities: `retired.yml` holds the section rows and a frozen per-paper 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** `pipeline/pages/retired.py` (`--convert`, `--out`), `registry/retired.yml` (frozen; 30 papers, 938 sections), `tests/retired/` (13 tests).
+- **Next:** author decides the 12-word criterion (see Decisions); then merge. Wiring the page into the build is B15.
+- **Decisions:** Ledger holds 980 rows; 938 belong to the 30 retired papers; 42 belong to ADD, INST, SCOPE and are not converted. Data-layer targets (48 rows) have no `pages.yml` row, so `page: null` with the target kept as text. A tie for `successor` raises an error; none occurred. Links on the page go to non-legacy rows; five new pages (VAL, CORP, GOV, BEHAV, POL) share the URL of the old paper they replace, so the link test checks the row, not the URL.
+- **Gotchas:** The build's scrape step rewrites `registry/contents.yml`; I restored it, so the diff shows only Touches.
+- **Resume:** nothing to resume.
+- **Not run:** the generated page was written to the scratchpad, not `site/pages/` (outside Touches).
+- **State:** done; NEEDS THE AUTHOR (one criterion not met as written)
 <!-- progress:end -->
+
+```
+Change report
+- Task: brief 063s, retired papers page
+- Files changed: registry/retired.yml (new; frozen conversion of the ledger, 30 papers); pipeline/pages/retired.py (new; --convert and --out); tests/retired/ (new; conftest and 13 tests); this brief (progress block and report)
+- What is different now: where each section of the 30 retired papers went is recorded once in registry/retired.yml; the generator writes the page from it (30 tables, sections in collapsible blocks, no link to a legacy row)
+- New or changed interfaces: python pipeline/pages/retired.py --convert (refuses a frozen file); python pipeline/pages/retired.py --out FILE
+- Acceptance criteria:
+  - 30 papers, every ledger row of those papers once, header states mapping and frozen: true. Met: 30 papers, 938 of 980 ledger rows (the other 42 are ADD, INST, SCOPE).
+  - pytest tests/retired -q passes. Met: 13 passed. Full suite: 317 passed.
+  - Generator exits 0 and lists 30 papers. Met.
+  - Local site build passes unchanged; diff shows only Touches. Met: build exit 0; git diff shows only the new paths (contents.yml, rewritten by the scrape step, restored).
+  - Change report lists unresolved ledger targets and the page null count. Met: unresolved targets: none; page null rows: 314 (266 dropped or archived with the ledger note as reason, 48 data-layer targets with no page row).
+  - Zero 12-word shingle hits against source/ legacy files. NOT MET as written: 8 hits on 5 lines, all of them titles of 12 words or more (for example the MF and WFR paper titles), which the brief says to copy. The test exempts only lines that carry such a title; no prose overlaps.
+- Deviations from the brief: none beyond the criterion above.
+- Risks / follow-ups: three papers have an empty successor (old-rates-a, old-sweeps-a, old-wfr-a: all their words are dropped, archived or data-layer), shown as "None". Author: accept titles as exempt from the shingle check, or shorten the long titles by hand in retired.yml. Add a data-layer row to pages.yml (B9) and edit the 48 rows by hand then.
+- Verification: pytest tests (317 passed); scrape, glossary, anchors, preprocess and quarto render _build exit 0; generator run to the scratchpad.
+- Overview sections likely needing an update: site pages and registry (retired.yml)
+- Commit / branch: brief/063s
+```
+
