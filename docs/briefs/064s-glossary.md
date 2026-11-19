@@ -48,11 +48,24 @@ A second `--registry` mode with the legacy mode unchanged byte for byte: accepte
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
-<!-- progress:end -->
+- **Done:** `registry/glossary.yml` (10 seeded rows); registry mode in `pipeline/build_glossary.py` (`--registry`, `--pages`, `--lookup`; legacy mode untouched); 27 tests in `tests/glossary/` with 19 fixtures (pass).
+- **Next:** B6 reads the lookup JSON; B15/B16 wire registry mode into the workflow; the guru briefs the legacy-glossary de-duplication.
+- **Decisions:** the three schedules are three rows (S_low, S_central, S_high) built from two copied sentences of the metrics.md range design; owners FISC for schedules, closure share, break-even, retired taxes (first element in outputs.yml; the ledger names FISC for the named schedules), PAY for M2 and M4a, UNCER for level 1 and 2; "Defined on" label is the pages.yml label, then title, then id; term anchors are fenced divs with `#slug`; usage lists only with `--papers` and `--contents` together; a source path is the text before the first comma.
+- **Gotchas:** `metrics.md` M1f says arithmetic mean; `stage-c-decisions.md` (A8, line 26) words it as the geometric mean. I copied metrics.md. Dated "(author, ...)" notes inside a source cell are dropped from the copy; the test allows that. Tests run on their own (`pytest tests/glossary -q`).
+- **Resume:** done.
+- **Not run:** local site build (no site file changes, per the brief).
+- **State:** merged
+
+```
+Change report
+- Task: 064s Site: glossary registry and generator (site.md B14)
+- Files changed: registry/glossary.yml (10 seeded terms); pipeline/build_glossary.py (registry mode added: validation, page, lookup); tests/glossary/ (conftest, test_glossary.py, 19 fixtures); this brief.
+- What is different now: `python pipeline/build_glossary.py --registry registry/glossary.yml --pages registry/pages.yml --out <md> --lookup <json>` validates the registry and writes the glossary page and the wdt-glossary/1 lookup. Legacy mode and the live site are unchanged.
+- New or changed interfaces: CLI flags --registry, --pages, --lookup; lookup JSON {"schema": "wdt-glossary/1", "terms": [{term, owner, aliases, slug}]}; glossary.yml schema (comment at its top).
+- Acceptance criteria: registry validates, exit 0, sources and owners exist: met. Legacy output identical (cmp on source + registry/contents.yml): met. Lookup test (order, slugs, aliases): met. Test coverage list (schema, duplicates, alias collisions, owners, source, typed figure, hook, markup): met, 27 passed. Diff only in Touches: met.
+- Deviations from the brief: none.
+- Risks / follow-ups: (1) Owner pages. No design document names one for these terms; I took the first element in outputs.yml (FISC for retired taxes, break-even, closure share) and the ledger for named schedules; PAY for M2 and M4a and UNCER for levels 1 and 2 follow the brief. Author may want to move retired taxes to FUND. (2) metrics.md and stage-c-decisions.md disagree on arithmetic versus geometric for the break-even return; I copied metrics.md. (3) The level 1 definition ends in "(R5)", an internal register id, because it was copied; a reader-facing rewording waits for the data gate. (4) S_low and S_high share one copied sentence.
+- Verification: pytest tests/glossary 27 passed; pytest tests/pages 28 passed; legacy output cmp identical; local site build not run (no site files changed).
+- Overview sections likely needing an update: site (glossary registry), registry list.
+- Commit / branch: brief/064-glossary
+```
