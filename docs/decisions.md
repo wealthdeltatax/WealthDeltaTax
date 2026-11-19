@@ -163,3 +163,6 @@ Author: the pack is extended before the base is built (wealth in pounds, adult a
 
 ## 2026-11-19: revenue stage inputs
 Author: verification hazards lambda_C and lambda_D 5% central, range 0 to 10% (v2 headline framing value; judgement rows). Guru: the corporate levy M1b reads the register's I-D7a (2.82% of GDP) as a constant share; consumption 3.5% and the fund settings (a_window 5, horizon 10, safe_share 0, reference year 2019) are v2 defaults entered as judgement rows (071g); real GDP per head and the reference expenditure over GDP come from JST into the pack (070c). The base uses deciles, so within-decile spread is not seen by the kernel: a limit for the papers and a reason the identity I1 may miss.
+
+## 2026-11-19: base tail and identity I3
+Author: the v3 base adopts v2's top-tail construction (survey shares, Rich List tiers, Pareto split) because an 11-line base reproduces 3.5% of GDP against v2's 7.34% (effective rate 10.2% against 24.5%). Identity I1 passes v2's own tail constants as test constants; the model uses register rows (072g adds Pareto alpha and tier cuts, framing values from v2; 073c builds the tail). I3 is the exact decomposition: assessed tax equals eps g omega; M1a equals in-life tax minus refunds plus death-time and heirs' assessments. Paper sentence "M1a is about eps g omega minus refunds" holds for in-life assessment only.
