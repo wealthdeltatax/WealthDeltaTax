@@ -95,7 +95,7 @@ inputs:
   I-M6i: {unit: pct_per_year, decimals: 3, display_unit: "% of wealth a year", scale: 1}
   I-M6j: {unit: pct, decimals: 0, display_unit: "% of total", scale: 1}
   I-M6k: {unit: gbp_bn, decimals: 1, display_unit: "£bn a year", scale: 1}
-  I-M6l: {unit: pct, decimals: 0, display_unit: "% of taxable income and gains", scale: 1}
+  I-M6l: {unit: pct, decimals: 0, display_unit: "% of taxable income", scale: 1}
   I-M6m: {unit: pct_per_year, decimals: 2, display_unit: "% of total wealth a year", scale: 1}
   I-M8a: {unit: gbp_bn, decimals: 0, display_unit: "£bn a year, about 2029-30", scale: 1}
   I-M8b: {unit: gbp_bn, decimals: 1, display_unit: "£bn a year, 2029-30", scale: 1}

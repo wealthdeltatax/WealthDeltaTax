@@ -41,11 +41,11 @@ Ask, do not guess: if the S37 article cannot support any figure for the row's me
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** I-D6c central 24.5 to 25.2 and I-D6j central 30.7 to 29.5 (workers 51%, consumers 10%, owners 39%; low/high unchanged, arithmetic in the notes); I-M6l replaced by 37 / 42 / 47 from the held OxREP article (PDF p. 3, printed 407), relabelled income only, £3m or more; discrepancies 3-7, 9, 10 applied; inputs.json regenerated (274 rows, 90 (J) as before); sidecars updated (4 new S37 lit-figures entries, 71 in all); source-map section 3 statuses, section 6 and dependants list. Checks: build_inputs exit 0; pytest tests/data 75 passed; tests/gate 17 passed; lit-figures loads with `python -I`; I-M6l and S22 figures pattern-checked on their pages.
+- **Next:** guru: decide reruns (tornado), edit supporting.md lines 84, 178 (I-M6l wording), judgement-decisions.md rows.
+- **Decisions:** owners/consumers rule = consumers stay 10, owners take the remainder (39), variants unchanged. I-M6l measure is income only because the 42% is an income-only rate; low 37 is a P10 cut-off and high 47 the headline rate, not a mean; with-gains figures (mean below 30%, a quarter at or under 12%) are in the note only. S22 source row now names the held ifo WP 241.
+- **Gotchas:** `tests/data/fixtures/outputs.fixture.json` embeds the inputs.json hash and `test_fixture_is_current` failed; regenerated with `make_fixture.py` (one line, outside Touches). Pre-existing build_inputs warnings (SN1, SN3 not in a source table) unchanged.
+- **Resume:** n/a
+- **Not run:** site build (skipped per brief).
+- **State:** done, merged
 <!-- progress:end -->
