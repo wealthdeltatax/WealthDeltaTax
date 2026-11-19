@@ -2,6 +2,8 @@
 
 Status: research result for stage C design; no value is chosen and nothing in the register is edited. Date 2026-11-17. Script and data: `docs/model-v3/tornado/` (`tornado.py` reads `inputs.md`; `check.py` is the second method). Run both with `python3 -I`.
 
+**Note, 2026-11-19 (guru):** the corporation tax rows I-D6c and I-D6j changed (central 24.5 to 25.2 and 30.7 to 29.5, workers' share 51%, brief 059r) after this tornado ran. No rerun: the v3 model produces its own tornado (brief 055c), which supersedes this one; the D6 figures below are the old ones.
+
 **Superseded in part, 2026-11-18 (brief 041r):** the I-D1a row (geometric mean, 2.18 to 7.47) and every statement that rests on it (section 1 items 1 and 2, the I-D1a rows of the M1 and M2 tables, section 9 last bullet, break-even g in section 8) are replaced by section 10 below. The ranking of the other inputs stands. The old tables are kept unchanged.
 
 ## 1. What it says
