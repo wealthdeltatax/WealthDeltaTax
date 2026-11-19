@@ -1,5 +1,4 @@
-"""Tests M1 to M7 and I1 to I3 of architecture.md 6.2, 6.3 for core/revenue.py (brief 052c), on the UK pack and the register. v2 is not run: its 7.34 is a constant."""
-import dataclasses
+"""Tests M1 to M7 and I1 to I3 of architecture.md 6.2, 6.3 for core/revenue.py (brief 052c), on the UK pack and the register. v2 is not run: I1 and I2 read its recorded run (fixtures/v2_logistic_ln_ref.json, brief 078c)."""
 import json
 from pathlib import Path
 
@@ -14,12 +13,8 @@ from model_v3.core import revenue as rv
 from model_v3.core import schedule as sc
 
 ROOT = Path(__file__).parents[2]
-V2_WDT = 7.34   # post-fill 10-year individual WDT take, percent of GDP, median over the 117 UK windows (port-inventory.md; rounded to two places)
-
-
-# v2's own tail (rates_core.py `_build_advani`; 2017/18 Rich List), the constants of I1 and I2. The model passes the register's (I-D4d to I-D4l) instead.
-V2_TAIL = dict(s1=18.0, extra=5.0, list_bn=700.0, alpha=1.5, n=1000.0, cut1=1.0, cut2=10.0)   # percent, percent, GBP bn, coefficient, count, percent, percent
-V2_S10 = 0.51                                                                                    # survey share of the top 10% in v2 (the pack's decile table gives 0.407)
+V2_WDT = 7.34   # v2's post-fill 10-year individual WDT take, percent of GDP: the MEAN over the 117 UK windows, 7.3416 in the fixture (the median is 6.594; guru ruling 2026-11-19)
+FIXTURE = ROOT / 'tests' / 'model_v3' / 'fixtures' / 'v2_logistic_ln_ref.json'
 
 
 def make_env(pack, reg):
@@ -37,20 +32,25 @@ def env():
 
 
 @pytest.fixture(scope='module')
-def v2env(env):
-    """The same pack and register with v2's tail constants: the register's tail rows are replaced by V2_TAIL, and the survey deciles are rescaled so
-    the top 10% holds V2_S10 of the total (the nine lower deciles keep their proportions). The test owns this; no model file knows v2's numbers."""
-    reg = dict(env['reg'])
-    for k, v in V2_TAIL.items():
-        reg[bs.IDS['tail'][k]] = dataclasses.replace(reg[bs.IDS['tail'][k]], central=v)
-    rows = [dict(r) for r in env['pack'].tables['wealth_distribution']]
-    dec = {f'D{i}': next(r for r in rows if r['variable'] == 'wealth_total' and r['band'] == f'D{i}') for i in range(1, 11)}
-    tot = sum(r['value'] for r in dec.values())
-    low = 1 - dec['D10']['value'] / tot
-    for i in range(1, 10):
-        dec[f'D{i}']['value'] *= (1 - V2_S10) / low
-    dec['D10']['value'] = V2_S10 * tot
-    return make_env(dataclasses.replace(env['pack'], tables={**env['pack'].tables, 'wealth_distribution': rows}), reg)
+def ref():
+    return json.loads(FIXTURE.read_text())
+
+
+@pytest.fixture(scope='module')
+def v2in(env, ref):
+    """v2's own inputs as test constants, all from the fixture: its 41 cells (shares, wealth, adults), GDP, W_min, the JST real GDP-per-head growth (`gpc_real`) for the threshold
+    index, and its schedule. The model, the register and the pack keep their own values; the identity checks the port, not the data (guru ruling 2026-11-19)."""
+    c, cfg = ref['calibration'], ref['settings']['cfg']
+    cells = c['cells']
+    sh, wb, mean = (np.array([x[k] for x in cells]) for k in ('adult_share', 'wealth_bn', 'mean_gbp_m'))
+    n = len(cells)
+    b = bs.Base(labels=tuple(x['label'] for x in cells), band=('',) * n, households_k=sh * c['n_adults'] / 1e3, adults_k=sh * c['n_adults'] / 1e3, weights=sh, wealth_bn=wb, V0={'C': mean.copy()},
+                wealth=mean.copy(), income=np.full(n, np.nan), liquid=np.full(n, np.nan), w_min=c['wmin_gbp_m'], wealth_to_gdp=c['wealth_to_gdp'], income_deciles={})
+    years, r = rt.real_series(env['pack'])
+    ys = np.array([w['years'] for w in rt.loop_windows([int(y) for y in years], 100)]).T
+    gpc = dict(zip(ref['gpc_real']['years'], ref['gpc_real']['values']))
+    return dict(env, b=b, gdp0=c['gdp_bn'], rate=sc.rate_function(cfg['k_ln'], cfg['tau_0'], cfg['tau_m'], b.w_min, 'logistic_ln'), starts=ys[0],
+                g=np.vectorize(dict(zip(years.tolist(), (r / 100).tolist())).__getitem__)(ys), gg=np.vectorize(gpc.__getitem__)(ys), c=cfg['c'])
 
 
 def paths(env, P=12, seed=3, mean=4.742, sd=8.219, phi=0.303):
@@ -159,34 +159,55 @@ def mirror_assess(book, rate_fn, idx, Wn=None, Wp=None):
 
 
 def v2_like(env, mirror, monkeypatch, levy=None):
-    """v2-like inputs over the 117 windows: everything on Route C (in kind), the v2 rule set, no verification hazard, GDP-indexed threshold."""
-    g, gg = windows(env)
+    """v2-like run over the 117 windows: everything on Route C (in kind), the v2 rule set, no verification hazard, GDP-per-head-indexed threshold. `env` carries its own growth
+    (v2in) or the pack's (the model's base). Returns the run and revenue()'s outputs."""
+    g, gg = (env['g'], env['gg']) if 'g' in env else windows(env)
     with monkeypatch.context() as m:
         if mirror:
             m.setattr(K, 'assess', mirror_assess)
-        run = rv.run_lines(env['b'], env['rate'], g, gg, 0.035, routes={'C': env['b'].wealth.copy()}, c_cap='units_and_value', verify_down='reset')
-    return rv.revenue(run, env['gdp0'], env['levy'] if levy is None else levy, env['rec'], g, env['exp'], 0.035)
+        run = rv.run_lines(env['b'], env['rate'], g, gg, env['c'], routes={'C': env['b'].wealth.copy()}, c_cap='units_and_value', verify_down='reset')
+    return run, rv.revenue(run, env['gdp0'], env['levy'] if levy is None else levy, env['rec'], g, env['exp'], env['c'])
 
 
-def measured(env, monkeypatch):
-    return {(m, lv): float(np.nanmedian(v2_like(env, m, monkeypatch, lv)['wdt_short'])) for m in (True, False) for lv in (None, 0.0)}
+def take(run, o, fill, horizon=10):
+    """v2's post-fill take per window, percent of GDP (rates_core._horizon_cols): net tax + death tax + heirs - refunds, no levy, years fill to fill+9 (0-based slice), a ratio of sums over GDP."""
+    net = run['tax'] + run['refund'] + run['death_tax'] + run['heir']
+    return np.array([100 * net[f:f + horizon, i].sum() / o['gdp'][f:f + horizon, i].sum() for i, f in enumerate(fill)])
 
 
-def test_i1_i2_the_measured_values_are_recorded(env, v2env, monkeypatch):
-    m, r = measured(v2env, monkeypatch), measured(env, monkeypatch)
-    print('I1 mirror refund (levy, no levy), v2 tail:', m[True, None], m[True, 0.0], '| I2 own refund:', m[False, None], m[False, 0.0], '| v2:', V2_WDT)
-    print('same with the register tail (I-D4d to I-D4l):', r[True, None], r[True, 0.0], '| own refund:', r[False, None], r[False, 0.0])
-    assert all(0 < v < V2_WDT for v in list(m.values()) + list(r.values()))    # the 14-line base is closer to v2 than the 11-line base (3.6), and still below it
+def test_i1_i2_the_measured_values_are_recorded(v2in, env, ref, monkeypatch):
+    v2 = 100 * np.array([w['wdt_gdp_h'] for w in ref['windows']])
+    res = {m: v2_like(v2in, m, monkeypatch) for m in (True, False)}
+    for m, (run, o) in res.items():
+        t, d = take(run, o, o['fill']), take(run, o, o['fill']) - v2
+        assert np.allclose(t, o['wdt_short'], atol=1e-9) and o['unfilled'].sum() == 0 and (run['death_B'] == 0).all() and (run['death_D'] == 0).all()
+        top = np.argsort(-abs(d))[:6]
+        print(f"{'I1 ratio-mirror' if m else 'I2 own'} refund: mean {t.mean():.4f} median {np.median(t):.4f} (v2 {v2.mean():.4f} / {np.median(v2):.4f}); fill equal in {(o['fill'] == [w['fill_year'] for w in ref['windows']]).sum()} of 117; "
+              f"largest take differences (start, v2 fill, v3 fill, v2, v3): " + '; '.join(f"{v2in['starts'][i]}, {ref['windows'][i]['fill_year']}, {o['fill'][i]}, {v2[i]:.2f}, {t[i]:.2f}" for i in top))
+    own = v2_like(env, False, monkeypatch)[1]['wdt_short']
+    print('the model\'s own base (14 lines, pack inputs), own refund: mean', float(np.mean(own)), 'median', float(np.median(own)))
+    assert np.isfinite(own).all() and own.mean() > 0
 
 
-@pytest.mark.xfail(strict=True, reason='I1 miss with v2 tail constants, NEEDS THE AUTHOR: see the change report in the brief')
-def test_i1_the_port_reproduces_v2_with_the_ratio_mirror_refund(v2env, monkeypatch):
-    assert abs(np.nanmedian(v2_like(v2env, True, monkeypatch)['wdt_short']) - V2_WDT) <= 0.02
+def test_i1_the_port_gives_v2s_take_in_every_window_that_fills_in_v2s_year(v2in, ref, monkeypatch):
+    """The take is v2's to 1e-4 points in each window when read over v2's own fill years, so the tax mechanics are ported; windows differ only through the fill year of the fund."""
+    run, o = v2_like(v2in, True, monkeypatch)
+    fy = np.array([w['fill_year'] for w in ref['windows']])
+    v2 = 100 * np.array([w['wdt_gdp_h'] for w in ref['windows']])
+    assert np.abs(take(run, o, fy) - v2).max() < 1e-4 and abs(take(run, o, fy).mean() - 100 * np.mean([w['wdt_gdp_h'] for w in ref['windows']])) < 1e-4
+    assert np.abs((take(run, o, o['fill']) - v2)[o['fill'] == fy]).max() < 1e-4
 
 
-@pytest.mark.xfail(strict=True, reason='I2 miss with v2 tail constants, NEEDS THE AUTHOR: see the change report in the brief')
-def test_i2_the_models_own_refund_is_within_one_point(v2env, monkeypatch):
-    assert V2_WDT - 1.0 <= np.nanmedian(v2_like(v2env, False, monkeypatch)['wdt_short']) <= V2_WDT + 0.02
+@pytest.mark.xfail(strict=True, reason='I1 miss, NEEDS THE AUTHOR: mean 7.514 against 7.34 (limit 0.02); the take is exact over v2 fill years, the fund fills earlier than v2 in 39 of 117 windows (progress block, 052c)')
+def test_i1_the_port_reproduces_v2s_mean_with_the_ratio_mirror_refund(v2in, monkeypatch):
+    run, o = v2_like(v2in, True, monkeypatch)
+    assert abs(take(run, o, o['fill']).mean() - V2_WDT) <= 0.02
+
+
+@pytest.mark.xfail(strict=True, reason='I2 miss, NEEDS THE AUTHOR: mean 7.395 with the model refund, above the 7.36 bound by 0.035 (progress block, 052c)')
+def test_i2_the_models_own_refund_is_within_one_point(v2in, monkeypatch):
+    run, o = v2_like(v2in, False, monkeypatch)
+    assert V2_WDT - 1.0 <= take(run, o, o['fill']).mean() <= V2_WDT + 0.02
 
 
 def test_i3a_the_tax_assessed_on_gains_is_eps_g_omega(env):
