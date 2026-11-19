@@ -60,3 +60,17 @@ Entry format, newest at the bottom:
 - Problem: `outputs.yml` gives OW3 line M15b the horizon `transition` only (A3), and the output layer writes only those cells. The validator expects the full product, so a `--final` check of a complete file fails with `V7 error OW3: 30 cell(s) missing`; the fixture still holds 90 OW3 cells. Provisional files pass (V7 is a warning). Needs the validator to read `line_horizons`, the fixture to follow, and A6 fields accepted.
 - Suggested lane: c
 - Status: taken (brief 058c)
+
+### Register I-D4a (wealth to GDP 5.94) disagrees with the pack GDP
+- Found by: guru review of 067c, 2026-11-19
+- Where: `docs/model-v3/inputs.md` I-D4a; `model_v3/pack/GBR/wealth_distribution.csv` (`wealth_total` all 13,568, `gdp` 2,211.48)
+- Problem: the pack gives 13,568 / 2,211.48 = 6.14; the register central is 5.94 on calendar-2021 GDP of 2,284 (OECD via FRED, not held). The base reads the pack, so the register row and the pack disagree on the same ratio. Decide whether the register row is recomputed from the pack (a `(J)` row, author decides) or the pack GDP is replaced
+- Suggested lane: r
+- Status: open
+
+### Pack rebuild needs a full git history
+- Found by: guru review of 067c, 2026-11-19
+- Where: `model_v3/pack/build_gbr.py` `added()`
+- Problem: the manifest `retrieved` dates come from `git log --follow` of each source file (066c). In a shallow clone the builder writes 2026-11-17 for every file and the committed manifest (2026-09-30 and 2026-11-15) is not reproduced, so the byte-identical rebuild check fails there. It passes in a full clone
+- Suggested lane: c
+- Status: open

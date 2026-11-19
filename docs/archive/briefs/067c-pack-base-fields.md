@@ -1,6 +1,6 @@
 # 067: Extend the UK pack with what the wealth and payer base needs
 
-- **Status:** ready once the author has uploaded the ONS housing affordability file (see Depends)
+- **Status:** done, merged and retired 2026-11-19
 - **Author/date:** K. Ogata with the guru, 2026-11-19
 - **Depends on:** 048c (merged), 066c (manifest rulings; they touch `build_gbr.py` and `manifest.json`, so run 067c after 066c merges); **the author uploads the ONS bulletin or dataset "Housing affordability in England and Wales: 2025" (median house price, England, £300,000, year ending Sept 2025) to `Research/`**; the guru then sets this brief to ready.
 - **Read:** `docs/model-v3/country-pack.md` section 3.2 including the 2026-11-19 addition; `docs/briefs/051c-v3-6-wealth-and-payer-base.md` (the blocker note on branch `brief/051-base`, `git show origin/brief/051-base:docs/briefs/051c-v3-6-wealth-and-payer-base.md`) for the field list; `model_v3/pack/build_gbr.py`; `model_v3/core/pack.py` (enum at line 38, checks `_x_wealth`); `model_v2/RATES/rates_core.py` lines 408 to 599 as specification only; `Rates Data/totalwealthtables.xlsx` (WAS Tables 2.2, 2.5, 2.9), `Rates Data/financialwealthtables.xlsx`, the OBR and ONS sheets in `Rates Data/`, `docs/model-v3/inputs.md` rows I-D4a to I-D4f, I-D9*.
