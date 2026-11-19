@@ -1,5 +1,5 @@
 {
- "count": 274,
+ "count": 279,
  "inputs": [
   {
    "central": 5.94,
@@ -1450,6 +1450,79 @@
     "S42"
    ],
    "unit": "n/a"
+  },
+  {
+   "central": 50,
+   "coverage": "Not a UK measurement: a modelling split of initial value across the four routes. No UK data say how much wealth would be declared by each route; v2 chose the split to frame the sweep.",
+   "high": 53,
+   "id": "I-D13a",
+   "input": "Share of initial wealth value held on Route A, no declaration (D13; kernel route mix, M1a, M2)",
+   "judgement": true,
+   "low": 48,
+   "nulls": {},
+   "sources": [],
+   "unit": "% of initial value"
+  },
+  {
+   "central": 25,
+   "coverage": "Not a UK measurement: a modelling split of initial value across the four routes. No UK data say how much wealth would be declared by each route; v2 chose the split to frame the sweep.",
+   "high": 25,
+   "id": "I-D13b",
+   "input": "Share of initial wealth value held on Route B, payment from the asset (D13; kernel route mix, M2b, M2c)",
+   "judgement": true,
+   "low": 25,
+   "nulls": {},
+   "sources": [],
+   "unit": "% of initial value"
+  },
+  {
+   "central": 8,
+   "coverage": "Not a UK measurement: a modelling split of initial value across the four routes. No UK data say how much wealth would be declared by each route; v2 chose the split to frame the sweep.",
+   "high": 10,
+   "id": "I-D13c",
+   "input": "Share of initial wealth value held on Route C, self-declared and verified later (D13; kernel route mix, M7, M1a)",
+   "judgement": true,
+   "low": 5,
+   "nulls": {},
+   "sources": [],
+   "unit": "% of initial value"
+  },
+  {
+   "central": 17,
+   "coverage": "Not a UK measurement: a modelling split of initial value across the four routes. No UK data say how much wealth would be declared by each route; v2 chose the split to frame the sweep.",
+   "high": 17,
+   "id": "I-D13d",
+   "input": "Share of initial wealth value held on Route D, auction on the declared value (D13; kernel route mix, M1a)",
+   "judgement": true,
+   "low": 17,
+   "nulls": {},
+   "sources": [],
+   "unit": "% of initial value"
+  },
+  {
+   "central": null,
+   "coverage": "Not a UK measurement: a modelling split of initial value across the four routes. No UK data say how much wealth would be declared by each route; v2 chose the split to frame the sweep.",
+   "high": null,
+   "id": "I-D13e",
+   "input": "Route B payment mode (D13; kernel, M2b, M2c)",
+   "judgement": true,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "sale",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "sale",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "sale",
+     "reason": "text"
+    }
+   },
+   "sources": [],
+   "unit": "mode"
   },
   {
    "central": 11,

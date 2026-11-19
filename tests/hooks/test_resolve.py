@@ -12,9 +12,9 @@ def test_hooks_in_code_spans_and_fences_are_ignored(run):
 def test_ids_the_old_regex_missed_are_recognised(run):
     r = run("{{o:DH1a}} {{o:OH1b2}}", spoke="HUB")
     assert not r["errors"] and r["counts"]["resolved"] == 2
-    r = run("{{o:CK1.point#amplitude:A1}}", spoke="FALS")
-    # CK1 is found (no H01 or H02); its unit is a map over metrics P1 P3 P7b but its cells carry no metric
-    assert codes(r) == ["H13"] and "declares no lines" in r["errors"][0]["message"]
+    r = run("{{o:CK1:P1.point#amplitude:A1}}", spoke="FALS")
+    # brief 065g: CK1 declares lines P1, P3, P7b, so it resolves like OW3
+    assert not r["errors"] and r["counts"]["resolved"] == 1
 
 
 def test_default_and_explicit_overall_give_the_template_placeholder(run, make):
