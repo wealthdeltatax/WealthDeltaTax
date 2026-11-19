@@ -2,7 +2,7 @@
 # One entry per output. Papers cite the id. An output with no whitepaper element does not exist (R1).
 # element: hub sections (H0 to H7) and the spoke shortcodes of docs/restructure/shortcodes.md (FAIR, LIT, MECH, VAL, DECL, FISC, PAY, BEHAV, WELF, FUND, CORP, ATTR, GOV, POL, FIRST, WIDER, UNCER, LIMIT, FALS, and the split pages ADOPT, PILOT, HYPO) that cite the output; filled in brief 013g stage B, proposed until the author approves the stage.
 # summary: how the output is reported. p10_mean_p90 = sampled range (R5).
-version: "stage-V3-0-contract-2026-11-18"
+version: "stage-A9-ck1-lines-2026-11-19"
 country_pack: UK
 horizons: [transition, short, long]   # every headline and line is reported for all three; long is a steady-state property, not a forecast
 schedules: [S_low, S_central, S_high]   # named policy schedules, swept not sampled; headline outputs are reported for each (metrics.md, range design)
@@ -65,4 +65,4 @@ outputs:
   - {id: OF1,  metric: F1,  title: "Feasibility map over the schedule family (closure share, M2 and M4a at each point)", summary: p10_mean_p90, by: {schedule_grid: [tm50_k05, tm50_k1, tm50_k2, tm70_k05, tm70_k1, tm70_k2, tm90_k05, tm90_k1, tm90_k2], w_min: [r025, r050, r100]}, lines: [F1, M2, M4a], unit: {F1: pct, M2: pct_per_year, M4a: pct}, decimals: {F1: 0, M2: 2, M4a: 1}, horizons: [transition, short], element: [FISC], kind: supporting}
   - {id: OT1,  metric: T1,  title: "Tornado: one input at a time, low and high, on M1, M2, M4a and M3", summary: point_and_range, by: {input: [I-D4a, I-D4b, I-D4c, I-D4d, I-D4e, I-D9a, I-D9b, I-D9c, I-D9d, I-D9e, I-D9f, I-D9g, I-D9h, I-D1a, I-D1b, I-D1b2, I-D1e, I-D5a, I-D5b, I-D5c, I-D5d, I-D6a, I-D6b, I-D6c, I-D6d, I-D6e, I-D6f, I-D6g, I-D6h, I-D6i, I-D6j, I-D6k, I-D6l, I-D6m, I-D6n, I-D6o, I-D6p, I-D10a, I-D10b, I-D10c], headline: [M1, M2, M4a, M3], schedule: [S_low, S_central, S_high]}, unit: pp, decimals: 2, element: [FISC], kind: supporting}
 checks:   # tests of the model, cited as evidence; no range, so not outputs
-  - {id: CK1, metric: [P1, P3, P7b], title: "Synthetic cyclical stress test (fixed sinusoidal return path, by amplitude)", summary: point_and_range, by: {amplitude: [A1, A3, A5, A8, A12]}, unit: {P1: years, P3: pct_gdp, P7b: ratio}, decimals: {P1: 1, P3: 2, P7b: 2}, horizons: [short], element: [FALS], kind: check}
+  - {id: CK1, metric: [P1, P3, P7b], title: "Synthetic cyclical stress test (fixed sinusoidal return path, by amplitude)", summary: point_and_range, by: {amplitude: [A1, A3, A5, A8, A12]}, lines: [P1, P3, P7b], unit: {P1: years, P3: pct_gdp, P7b: ratio}, decimals: {P1: 1, P3: 2, P7b: 2}, horizons: [short], element: [FALS], kind: check}
