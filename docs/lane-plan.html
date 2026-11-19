@@ -271,12 +271,11 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
     { id: "044c", lane: "G", at: 8, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }], why: "Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
-    { id: "052c", lane: "4", at: 1, len: 1, st: "hold", t: "Model v3 V3-7: revenue, fund, identity", needs: [{ id: "070c" }], why: "Revenue lines, fund, horizon windows, I1 and I2 identity checks." },
-    { id: "053c", lane: "4", at: 2, len: 1, st: "hold", t: "Model v3 V3-8: burden and savings", needs: [{ id: "052c" }], why: "Burden and savings metrics." },
-    { id: "054c", lane: "3", at: 2, len: 1, st: "hold", t: "Model v3 V3-9: supporting metrics", needs: [{ id: "052c" }], why: "Supporting and welfare metrics." },
-    { id: "055c", lane: "3", at: 3, len: 1, st: "hold", t: "Model v3 V3-10: range runner", needs: [{ id: "053c" }, { id: "054c" }], why: "Level 1 and 2 runs, sweeps, tornado, named schedules." },
-    { id: "057c", lane: "4", at: 4, len: 1, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "055c" }], why: "run.py, smoke tests, accept.sh, convergence test." },
-    { id: "070c", lane: "4", at: 0, len: 1, st: "ready", t: "Add real GDP per head and reference expenditure to the UK pack", needs: [], why: "The two macro inputs 052c needs that the pack lacks (returns.csv gdp_pc; public_expenditure total)." },
+    { id: "052c", lane: "4", at: 0, len: 1, st: "ready", t: "Model v3 V3-7: revenue, fund, identity", needs: [], why: "Revenue lines, fund, horizon windows, I1 and I2 identity checks." },
+    { id: "053c", lane: "4", at: 1, len: 1, st: "hold", t: "Model v3 V3-8: burden and savings", needs: [{ id: "052c" }], why: "Burden and savings metrics." },
+    { id: "054c", lane: "3", at: 1, len: 1, st: "hold", t: "Model v3 V3-9: supporting metrics", needs: [{ id: "052c" }], why: "Supporting and welfare metrics." },
+    { id: "055c", lane: "3", at: 2, len: 1, st: "hold", t: "Model v3 V3-10: range runner", needs: [{ id: "053c" }, { id: "054c" }], why: "Level 1 and 2 runs, sweeps, tornado, named schedules." },
+    { id: "057c", lane: "4", at: 3, len: 1, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "055c" }], why: "run.py, smoke tests, accept.sh, convergence test." },
     { id: "009c", lane: "G", at: 2, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" }
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
