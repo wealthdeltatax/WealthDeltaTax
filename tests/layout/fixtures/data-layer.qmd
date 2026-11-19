@@ -1,0 +1,20 @@
+---
+title: "A data-layer fixture page"
+format:
+  html:
+    toc: false
+    css: [style/spoke.css, style/print.css]
+    include-before-body: [includes/datalayer-head.html]
+    include-after-body: [includes/print-chrome.html]
+---
+
+A short filler paragraph for a data-layer page. It holds one table.
+
+::: {.wdt-table-wrap}
+
+| Item | Column A | Column B | Column C | Column D | Column E | Column F | Column G | Column H |
+|---|---|---|---|---|---|---|---|---|
+| Row one | alpha | bravo | charlie | delta | echo | foxtrot | golf | hotel |
+| Row two | india | juliet | kilo | lima | mike | november | oscar | papa |
+
+:::

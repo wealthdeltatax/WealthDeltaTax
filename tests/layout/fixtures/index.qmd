@@ -1,0 +1,54 @@
+---
+title: "A hub fixture"
+aliases: [wp.html]
+format:
+  html:
+    toc: false
+    css: [style/spoke.css, style/print.css]
+    include-before-body: [includes/hub-head.html]
+    include-after-body: [includes/print-chrome.html]
+---
+
+## One-page summary {#h0}
+
+This fixture page checks layout only. It stands in for the short answer of a page, which runs between eighty and one hundred and fifty words, so the block is as long here as it can be on the real site. The text is invented filler about a harbour lamp that is lit at dusk and put out at dawn, and it makes no claim about anything. A lamp keeper keeps a logbook, trims the wick, polishes the lens and writes down the weather, and the logbook is read each spring by someone who wants to know how the winters went. Nothing in this paragraph is a number, a result or a position, and none of it is meant to be read as one. Its only job is to occupy the space that a real short answer will occupy, at the width of a phone.
+
+```{=html}
+{{< include includes/hub-contents.html >}}
+```
+
+## The problem {#h1}
+
+Filler paragraph for the evidence part. The keeper wipes the lens, notes the tide, and closes the logbook. Nothing here is a claim.
+
+## The tax in one page {#h2}
+
+Filler paragraph for the evidence part. The keeper wipes the lens, notes the tide, and closes the logbook. Nothing here is a claim.
+
+## What it does {#h3}
+
+Filler paragraph for the evidence part. The keeper wipes the lens, notes the tide, and closes the logbook. Nothing here is a claim.
+
+## Why it is fair {#h4}
+
+Filler paragraph for the evidence part. The keeper wipes the lens, notes the tide, and closes the logbook. Nothing here is a claim.
+
+## How it could be wrong {#h5}
+
+Filler paragraph for the evidence part. The keeper wipes the lens, notes the tide, and closes the logbook. Nothing here is a claim.
+
+## Where to go next {#h6}
+
+Filler paragraph for the evidence part. The keeper wipes the lens, notes the tide, and closes the logbook. Nothing here is a claim.
+
+```{=html}
+{{< include includes/routing-slot.html >}}
+```
+
+## Data and method {#h7}
+
+Filler paragraph for the evidence part. The keeper wipes the lens, notes the tide, and closes the logbook. Nothing here is a claim.
+
+```{=html}
+{{< include includes/hub-numbers.html >}}
+```

@@ -1,0 +1,350 @@
+/* ============================================================
+   WDT Page types — style/spoke.css
+   Layout and banners for the restructured page types: hub, spoke,
+   parent-reached spoke, standalone paper, data-layer page, utility
+   page. Pairs with site/includes/*.html; class names and anchors are
+   documented in site/includes/LAYOUT.md and are a contract with the
+   navigation (B7), checker (B6) and integration (B15) briefs.
+
+   Mobile first: the base rules are the phone layout; wider layouts
+   are added in min-width queries. Uses the custom properties of
+   style/styles.css (with fallbacks) and the dark palette of
+   style/dark.css. Every class is prefixed wdt- and none is defined
+   in the existing CSS files.
+   ============================================================ */
+
+:root {
+  --wdt-l-tap: 44px;
+  --wdt-l-gap: 0.75rem;
+  --wdt-l-ink: var(--wdt-text, #1a1a1a);
+  --wdt-l-muted: var(--wdt-muted, #555555);
+  --wdt-l-line: var(--wdt-lavender-border, #e0dce8);
+  --wdt-l-tint: var(--wdt-lavender, #f5f0ff);
+  --wdt-l-brand: var(--wdt-purple, #2b0055);
+  --wdt-l-accent: var(--wdt-gold, #ffd700);
+  --wdt-l-ui: Arial, Helvetica, sans-serif;
+}
+
+body.quarto-dark {
+  --wdt-l-ink: #d4d0e8;
+  --wdt-l-muted: #a9a5c4;
+  --wdt-l-line: #3d0080;
+  --wdt-l-tint: #1a1a2e;
+  --wdt-l-brand: #c4b5fd;
+}
+
+/* ── Page head: breadcrumb and status chip ─────────────────── */
+
+.wdt-pagehead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 var(--wdt-l-gap);
+  margin: 0 0 0.25rem;
+  font-family: var(--wdt-l-ui);
+  font-size: 0.85rem;
+}
+
+.wdt-breadcrumb { min-width: 0; flex: 1 1 auto; }
+
+.wdt-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.wdt-breadcrumb ol:empty { display: none; }
+
+.wdt-breadcrumb li { display: inline-flex; align-items: center; margin: 0; }
+
+.wdt-breadcrumb li + li::before {
+  content: "\203A";
+  margin: 0 0.4rem;
+  color: var(--wdt-l-muted);
+}
+
+.wdt-breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--wdt-l-tap);
+  color: var(--wdt-l-brand);
+}
+
+.wdt-status-chip {
+  flex: 0 0 auto;
+  padding: 0.1rem 0.6rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--wdt-l-muted);
+}
+
+.wdt-status-chip:empty { display: none; }
+
+.wdt-run-record {
+  margin: 0 0 0.75rem;
+  font-family: var(--wdt-l-ui);
+  font-size: 0.8rem;
+  color: var(--wdt-l-muted);
+}
+
+.wdt-run-record:empty { display: none; }
+
+/* ── Banners ───────────────────────────────────────────────── */
+
+.wdt-banner {
+  margin: 0.5rem 0 0.9rem;
+  padding: 0.55rem 0.8rem;
+  border: 2px solid var(--wdt-mid-grey, #808080);
+  background: var(--wdt-grey-light, #f0f0f0);
+  font-family: var(--wdt-l-ui);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--wdt-l-ink);
+  overflow-wrap: anywhere;
+}
+
+.wdt-banner--parent {
+  border-color: var(--wdt-l-brand);
+  background: var(--wdt-l-tint);
+}
+
+.wdt-banner--draft {
+  border-color: #cc6600;
+  background: #fffbeb;
+  color: #4a2c00;
+}
+
+.wdt-banner__count:not(:empty)::before { content: " \00B7  "; }
+
+.wdt-banner a { overflow-wrap: anywhere; }
+
+body.quarto-dark .wdt-banner { background: #1a1a2e; border-color: #3d0080; }
+body.quarto-dark .wdt-banner--parent { border-color: #a78bfa; }
+body.quarto-dark .wdt-banner--draft { background: #1a1a0a; border-color: #d97706; color: #fde68a; }
+
+/* ── Short answer, evidence, objection ─────────────────────── */
+
+.wdt-short-answer {
+  position: relative;
+  margin: 0.4rem 0 0.5rem;
+  padding: 0.4rem 0.6rem 0.5rem;
+  border: 2px solid var(--wdt-l-brand);
+  border-left-width: 6px;
+  background: var(--wdt-l-tint);
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+@media (min-width: 600px) {
+  .wdt-short-answer {
+    border-left-width: 8px;
+    padding: 0.9rem 1rem 0.8rem;
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+}
+
+.wdt-short-answer::before {
+  content: "Short answer";
+  display: block;
+  margin-bottom: 0.2rem;
+  font-family: var(--wdt-l-ui);
+  font-size: 0.72rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--wdt-l-brand);
+}
+
+.wdt-short-answer > :last-child { margin-bottom: 0; }
+.wdt-short-answer > p { margin-top: 0; }
+
+body.quarto-dark .wdt-short-answer { border-color: var(--wdt-l-accent, #ffd700); }
+body.quarto-dark .wdt-short-answer::before { color: var(--wdt-l-accent, #ffd700); }
+
+.wdt-prereq {
+  margin: 0.25rem 0 0;
+  font-family: var(--wdt-l-ui);
+  font-size: 0.85rem;
+  color: var(--wdt-l-muted);
+}
+
+.wdt-prereq:empty, .wdt-moredetail:empty { display: none; }
+
+.wdt-moredetail {
+  margin: 0.25rem 0 0.75rem;
+  font-family: var(--wdt-l-ui);
+  font-size: 0.9rem;
+}
+
+.wdt-evidence { margin: 1rem 0; }
+
+.wdt-objection {
+  margin: 1.25rem 0;
+  padding: 0.8rem 1rem;
+  border: 2px solid var(--wdt-l-line);
+  border-left: 8px solid #cc6600;
+  background: var(--wdt-l-tint);
+}
+
+.wdt-objection > :first-child { margin-top: 0; }
+.wdt-objection > :last-child { margin-bottom: 0; }
+
+/* ── Jump bar: one row, scrolls sideways ───────────────────── */
+
+.wdt-jumpbar {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.25rem;
+  max-width: 100%;
+  margin: 0.5rem 0 0.75rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  border-bottom: 2px solid var(--wdt-l-line);
+  font-family: var(--wdt-l-ui);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.wdt-jumpbar a {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  min-height: var(--wdt-l-tap);
+  padding: 0 0.85rem;
+  color: var(--wdt-l-brand);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.wdt-jumpbar a:hover,
+.wdt-jumpbar a:focus-visible { text-decoration: underline; }
+
+/* ── Data block frame, Read next, numbers foot ─────────────── */
+
+.wdt-data,
+.wdt-numbers,
+.wdt-readnext {
+  margin: 1.5rem 0 0;
+  padding-top: 0.5rem;
+  border-top: 2px solid var(--wdt-l-line);
+}
+
+.wdt-data__title,
+.wdt-numbers__title,
+.wdt-readnext__title { margin-top: 0.5rem; }
+
+.wdt-data details > summary,
+.wdt-numbers details > summary {
+  display: flex;
+  align-items: center;
+  min-height: var(--wdt-l-tap);
+  cursor: pointer;
+  font-family: var(--wdt-l-ui);
+  font-weight: bold;
+}
+
+.wdt-readnext__list:empty,
+.wdt-data__summary:empty,
+.wdt-data__tables:empty,
+.wdt-numbers__list:empty { display: none; }
+
+/* ── Tables scroll inside their own wrapper ────────────────── */
+
+.wdt-table-wrap {
+  max-width: 100%;
+  margin: 0.75rem 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.wdt-table-wrap table {
+  width: max-content;
+  min-width: 100%;
+  margin: 0;
+}
+
+/* ── Routing block slot: one column on a phone ─────────────── */
+
+.wdt-routing-slot {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--wdt-l-gap);
+  margin: 1rem 0;
+}
+
+.wdt-routing-slot:empty { display: none; }
+
+.wdt-routing-slot a {
+  display: flex;
+  align-items: center;
+  min-height: var(--wdt-l-tap);
+  padding: 0.5rem 0.8rem;
+  border: 2px solid var(--wdt-l-line);
+  background: var(--wdt-l-tint);
+  color: var(--wdt-l-brand);
+  font-family: var(--wdt-l-ui);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.wdt-routing-slot a:hover,
+.wdt-routing-slot a:focus-visible { border-color: var(--wdt-l-brand); }
+
+@media (min-width: 600px) {
+  .wdt-routing-slot { grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+}
+
+/* ── Hub: eight-entry contents list ────────────────────────── */
+
+.wdt-hubnav {
+  margin: 0.75rem 0;
+  padding: 0 0.8rem;
+  border: 2px solid var(--wdt-l-line);
+  background: var(--wdt-l-tint);
+  font-family: var(--wdt-l-ui);
+  font-size: 0.9rem;
+}
+
+.wdt-hubnav > summary {
+  display: flex;
+  align-items: center;
+  min-height: var(--wdt-l-tap);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.wdt-hubnav ol { margin: 0 0 0.6rem; padding-left: 1.4rem; }
+
+.wdt-hubnav li a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+}
+
+@media (min-width: 992px) {
+  .wdt-hubnav { position: sticky; top: 1rem; }
+}
+
+/* ── Utility and data-layer pages ──────────────────────────── */
+
+.wdt-utility { max-width: 40rem; }
+
+.wdt-utility .wdt-routing-slot { margin-top: 1.5rem; }
+
+/* Long unbroken strings (URLs, ids) never widen the page. */
+.wdt-short-answer, .wdt-objection, .wdt-evidence, .wdt-data, .wdt-numbers { overflow-wrap: anywhere; }
+
+/* ── Print chrome: hidden on screen, shown by print.css ────── */
+
+.wdt-print-header,
+.wdt-print-footer { display: none; }

@@ -1,0 +1,14 @@
+---
+title: "A utility fixture page"
+format:
+  html:
+    toc: false
+    css: [style/spoke.css, style/print.css]
+    include-after-body: [includes/print-chrome.html]
+---
+
+::: {.wdt-utility}
+
+A short filler paragraph for a utility page such as a glossary or an about page.
+
+:::
