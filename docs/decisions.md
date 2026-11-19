@@ -166,3 +166,6 @@ Author: verification hazards lambda_C and lambda_D 5% central, range 0 to 10% (v
 
 ## 2026-11-19: base tail and identity I3
 Author: the v3 base adopts v2's top-tail construction (survey shares, Rich List tiers, Pareto split) because an 11-line base reproduces 3.5% of GDP against v2's 7.34% (effective rate 10.2% against 24.5%). Identity I1 passes v2's own tail constants as test constants; the model uses register rows (072g adds Pareto alpha and tier cuts, framing values from v2; 073c builds the tail). I3 is the exact decomposition: assessed tax equals eps g omega; M1a equals in-life tax minus refunds plus death-time and heirs' assessments. Paper sentence "M1a is about eps g omega minus refunds" holds for in-life assessment only.
+
+## 2026-11-19: I1 and I2 gap
+Author: with v2's own tail the port check still gives 5.02% of GDP against 7.34 (I2 4.97, floor 6.34). Diagnose first (074c: one v2 input at a time, no fix) and hold 052c until I1 and I2 pass; 053c and 054c wait. Loosening the limits was offered and not chosen.
