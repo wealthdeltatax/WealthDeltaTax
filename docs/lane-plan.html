@@ -260,8 +260,8 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 (function () {
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the V3 build as it lands" },
-    { id: "2", name: "Agent 2", note: "Research: 069r (adults per household row); guru reviews 051c when it lands" },
-    { id: "3", name: "Agent 3", note: "Code: 051c (needs the adults-per-household row, 069r), then 054c, 055c" },
+    { id: "2", name: "Agent 2", note: "Guru: free (069r reviewed); reviews 051c when it lands" },
+    { id: "3", name: "Agent 3", note: "Code: 051c, now (069r merged), then 054c, 055c" },
     { id: "4", name: "Agent 4", note: "Code: 056c (V3-11 output layer), now (045g and 046c merged)" },
     { id: "5", name: "Agent 5", note: "Research: free" },
     { id: "6", name: "Agent 6", note: "Site: free" },
@@ -271,8 +271,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
     { id: "044c", lane: "G", at: 8, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }], why: "Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
-    { id: "051c", lane: "3", at: 2, len: 1, st: "hold", t: "Model v3 V3-6: wealth and payer base", needs: [{ id: "069r" }], why: "Band shares, payer base, route mix." },
-    { id: "069r", lane: "2", at: 0, len: 1, st: "ready", t: "Add adults per household to the register", needs: [], why: "067c left adults out of the pack; no register row holds the figure." },
+    { id: "051c", lane: "3", at: 2, len: 1, st: "ready", t: "Model v3 V3-6: wealth and payer base", needs: [], why: "Band shares, payer base, route mix." },
     { id: "052c", lane: "4", at: 3, len: 1, st: "hold", t: "Model v3 V3-7: revenue, fund, identity", needs: [{ id: "051c" }], why: "Revenue lines, fund, horizon windows, I1 and I2 identity checks." },
     { id: "053c", lane: "4", at: 4, len: 1, st: "hold", t: "Model v3 V3-8: burden and savings", needs: [{ id: "052c" }], why: "Burden and savings metrics." },
     { id: "054c", lane: "3", at: 4, len: 1, st: "hold", t: "Model v3 V3-9: supporting metrics", needs: [{ id: "052c" }], why: "Supporting and welfare metrics." },

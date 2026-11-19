@@ -74,3 +74,10 @@ Entry format, newest at the bottom:
 - Problem: the manifest `retrieved` dates come from `git log --follow` of each source file (066c). In a shallow clone the builder writes 2026-11-17 for every file and the committed manifest (2026-09-30 and 2026-11-15) is not reproduced, so the byte-identical rebuild check fails there. It passes in a full clone
 - Suggested lane: c
 - Status: open
+
+### I-D4b central assumes fewer adults per household than I-D4h
+- Found by: guru review of 069r, 2026-11-19
+- Where: `docs/model-v3/inputs.md` I-D4b (central, method of `012r-b1-derivations.md`) and I-D4h
+- Problem: I-D4b's central implies 1.77 adults per household; I-D4h's central, read from Tables 2.9 and 2.11, is 1.93 and counts people 16 and over. The two rows can drive different adult counts in `base.py`. Author to choose whether I-D4b's central is recomputed with 1.93 and whether an 18-and-over count is needed (the author could upload ONS mid-2021 population by age to separate the 16 and 17-year-olds)
+- Suggested lane: r
+- Status: open
