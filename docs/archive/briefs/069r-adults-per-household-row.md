@@ -1,6 +1,6 @@
 # 069: Add adults per household to the input register
 
-- **Status:** ready
+- **Status:** done, merged and retired 2026-11-19
 - **Author/date:** K. Ogata with the guru, 2026-11-19
 - **Depends on:** 067c (merged), 068g (merged)
 - **Read:** `docs/model-v3/inputs.md` (conventions; rows I-D4b, I-D4c and their research note, `docs/research/012r-b1-derivations.md`); `docs/briefs/067c-pack-base-fields.md` progress block (why adults are not in the pack); `docs/briefs/068g` in `docs/archive/briefs/` (how a family is added); `pipeline/build_inputs.py`.
