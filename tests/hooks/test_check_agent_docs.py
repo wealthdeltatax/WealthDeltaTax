@@ -1,0 +1,79 @@
+"""check_agent_docs.py: one test per rule, on temp trees (brief 075c). Suite: tests/hooks (no tests/scaffold exists)."""
+import importlib.util
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+SCRIPT = ROOT / "pipeline" / "check_agent_docs.py"
+spec = importlib.util.spec_from_file_location("check_agent_docs", SCRIPT)
+cad = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(cad)
+
+SKILL = "---\nname: wdt-code\n---\nRead `AGENTS.md`, then `docs/agents/code.md`.\n"
+
+
+def tree(tmp_path, files=None):
+    base = {
+        "AGENTS.md": "rules\n",
+        "START_HERE.md": "start\n",
+        "docs/agents/code.md": "code guide\n",
+        "docs/agents/reference/x.md": "ref\n",
+        ".claude/skills/wdt-code/SKILL.md": SKILL,
+    }
+    base.update(files or {})
+    for rel, text in base.items():
+        p = tmp_path / rel
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(text, encoding="utf-8")
+    return tmp_path
+
+
+def test_clean_tree_passes(tmp_path):
+    assert cad.check(tree(tmp_path)) == []
+
+
+def test_rule1_broken_link_fails_and_good_links_pass(tmp_path):
+    t = tree(tmp_path, {"docs/agents/guru.md": "[a](reference/x.md) [b](https://e.org/x) [c](#top) [d](reference/x.md#h)\n[e](reference/gone.md)\n"})
+    assert cad.check(t) == ["docs/agents/guru.md:2 broken link reference/gone.md"]
+
+
+def test_rule1_anchor_link_to_missing_file_fails(tmp_path):
+    t = tree(tmp_path, {"AGENTS.md": "[a](docs/nope.md#sec)\n"})
+    assert len(cad.check(t)) == 1
+
+
+def test_rule2_missing_backticked_path_fails(tmp_path):
+    t = tree(tmp_path, {"docs/agents/guru.md": "see `docs/missing.md` and `scripts/run.py`\n"})
+    out = cad.check(t)
+    assert [o.split(" ")[0] for o in out] == ["docs/agents/guru.md:1"] * 2 and "docs/missing.md" in out[0]
+
+
+def test_rule2_root_relative_and_file_relative_both_resolve(tmp_path):
+    t = tree(tmp_path, {"docs/agents/guru.md": "`reference/x.md` `docs/agents/reference/x.md` `docs/agents/reference/`\n"})
+    assert cad.check(t) == []
+
+
+def test_rule2_allow_list_and_non_paths_are_skipped(tmp_path):
+    line = "`_build/` `_site/a.html` `registry/anchors.yml` `docs/briefs/NNNx-slug.md` `a/<role>/b.md` `src/*.py` `origin/main` `brief/NNN-slug` `https://e.org/a.md` `pipeline/x`\n"
+    assert cad.check(tree(tmp_path, {"docs/agents/guru.md": line})) == []
+
+
+def test_rule3_skill_pointing_at_a_missing_guide_fails(tmp_path):
+    t = tree(tmp_path, {".claude/skills/wdt-web/SKILL.md": "Read `AGENTS.md`, then `docs/agents/web.md`.\n"})
+    out = cad.check(t)
+    assert any("guide docs/agents/web.md does not exist" in o for o in out)
+
+
+def test_rule3_skill_without_agents_or_guide_fails(tmp_path):
+    t = tree(tmp_path, {".claude/skills/wdt-code/SKILL.md": "Do things. See `docs/agents/change-report.md`.\n"})
+    out = cad.check(t)
+    assert any("does not name AGENTS.md" in o for o in out) and any("names no docs/agents guide" in o for o in out)
+
+
+def test_cli_exit_status_and_real_repo_is_clean(tmp_path):
+    t = tree(tmp_path, {"AGENTS.md": "[a](gone.md)\n"})
+    run = lambda root: subprocess.run([sys.executable, "-I", str(SCRIPT), "--root", str(root)], capture_output=True, text=True)
+    bad = run(t)
+    assert bad.returncode == 1 and "AGENTS.md:1 broken link gone.md" in bad.stdout
+    assert run(ROOT).returncode == 0

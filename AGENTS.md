@@ -10,6 +10,18 @@ Read `START_HERE.md`, then the guide for your role in `docs/agents/`. This file 
 - **web**: Quarto site, build, deploy.
 - **The author** (K. Ogata) decides open questions.
 
+## Who owns what
+By path; where a task crosses a line, name one change owner and the other role as reviewer, and do not edit the same file in parallel.
+
+| Path | Owner | Note |
+|---|---|---|
+| `model_v1/`, `model_v3/`, `tests/`, `pipeline/` data and model scripts | code | tests: others propose, code implements |
+| `site/`, `pipeline/` site-build scripts, `.github/workflows/` | web | no change to paper claims |
+| `source/` | writing | substantive argument changes need the author |
+| `registry/references.bib`, reference records, `docs/research/` | research | author-controlled fields need confirmation |
+| `docs/`, `OVERVIEW.md`, `STATUS.md`, briefs, `docs/agents/` | guru | does not override the rows above |
+| Unclear or cross-role | guru coordinates | ask the author if it changes substance |
+
 ## Git
 - `main` deploys the live site on every push (the workflow runs only on `main`, never on a branch). Push to `main` only by the auto-merge rule below, or for guru docs-only edits.
 - One branch per task: `brief/NNN-slug` or `fix/<slug>`, from the latest `main`. Commit and push to the branch.
