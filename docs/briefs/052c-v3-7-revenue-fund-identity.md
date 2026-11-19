@@ -46,11 +46,26 @@ Blocked on the first run (your note on `brief/052-revenue`): correct, my gaps ag
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** draft; not started
+- **Done:** `model_v3/core/revenue.py` (246 lines, budget 520) and `tests/model_v3/test_revenue.py` (168 lines, budget 350). `run_lines` (kernel over paths x 6 death phases, one call), `fund` (rewritten from `run_fund`, vectorised), `taxes`, `retire` (staged retirement), `revenue` (M1a to M1e, M1, B1a to B1d, P1, P3 to P7b, short and long windows, negative-M1 share), `identity` (I3), `gdp_growth`, `window_mean`. M1 to M7 pass (M1 equals its parts to 1e-12, a negative-M1 path passes unclipped, fund hand cases, retirement order, P3 zero at each retirement, B1d a split of M1a). `pytest tests/model_v3 -q`: 143 passed, 2 xfailed (I1 and I2, strict). A smoke run of 117 windows takes under 1 second.
+- **Next:** the author rules on I1, I2 and I3 (numbers below). Not merged.
+- **Decisions:** (1) Run settings are read from the register (I-D14a to g, I-D7a 2.82 as a constant share of GDP, I-D8a 3 and 3 as `ms`, `ml`); the I1 and I2 runs use v2-like settings: all value on Route C, v2's candidate rule set (`units_and_value`, `reset`), no verification hazard, GDP-indexed threshold, c 3.5%, 6 phases, G 30. (2) GDP in year t is the pack's 2,211.48 bn times cumulated real GDP per head growth (population fixed). (3) The kernel's deaths are staggered as in v2 (first deaths at 5, 10, ... 30). (4) `tax` and `refund` are the in-life assessments split by sign; the death-time assessments (`death_tax`), heirs, `death_B` and `death_D` are their own arrays; M1a is their sum, as v2's `net`. (5) M1c = S(-1) r - (S - S(-1)), so relief = M1a + M1b + M1c exactly.
+- **Gotchas:** (1) **I1 and I2 miss.** v2-like inputs over the 117 UK windows, post-fill 10-year individual WDT take, median, percent of GDP: with the ratio-mirror refund 3.58 with the levy fund, 3.50 with no levy; with the model's refund (tau x loss) 3.45 and 3.46. v2: 7.34. I1 misses by 3.76 (limit 0.02), I2 is 2.89 below its lower bound 6.34. The refund rule moves the number by 0.13 (3.58 to 3.45); the gap is not the refund. Fill year median 7 (v2: 7), no unfilled window. The cause is in the base: the realised effective rate eps is 10.2% (omega 5.71), against 24.5% for v2-like inputs (`tornado.md` section 4); 7.34 x 10.2 / 24.5 is 3.0, the right order. Eleven lines, the top one the whole top 1% at a mean of about 4m per adult, cannot carry the tail where the schedule reaches 90%; v2's cells go to the Rich List. With the register route mix and lambda 5% the number is 3.09. (2) **I3 misses on M1a.** The tax assessed on gains equals eps x g x omega to 1e-15 (an exact accounting identity). M1a does not: its median gap to eps x g x omega - refunds is 70% (60% with the register mix), because M1a is cash and units received, and it includes Route D tax that accrues and is settled at death, the death assessments and the heirs' assessments (the heir is taxed on the whole receipt as a delta from zero, as the kernel does, which is about as large as the in-life tax). No gain rate explains those. (3) **B1d is identically zero**: the kernel refunds at the rate of the new wealth, which is 0 below W_min, and rebases, so a line that falls out of the base is never refunded; B1d stays a valid split (0 <= B1d <= refunds) and the test records the finding. (4) **Long-term M1 is negative in all 117 windows** (median -4.57% of GDP) and P3 is large (median 364 percentage-point years): taxes are retired as relief covers them, then relief (about 3.5 WDT + 2.8 levy) falls below the 8.11 retired. With a base that carries 7.34 this would be much smaller. (5) The corporate levy is the register constant, so the levy bases of v2 ("both levy bases") are not both available; I ran with and without it (above).
+- **Resume:** after the author's ruling: finer top lines (from the tail table or a Rich List input) are the probable fix for I1, and a decision on whether I3 should compare against the in-life assessment; then rerun `pytest tests/model_v3 -q` and remove the two xfail marks.
+- **Not run:** nothing in the brief; v2 not run (its 7.34 is a constant).
+- **State:** built; I1, I2 and I3 miss; branch pushed, NEEDS THE AUTHOR
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 052c, model v3 stage V3-7: revenue, fund and identity check
+- Files changed: model_v3/core/revenue.py (new, 246 lines); tests/model_v3/test_revenue.py (new, 168); this brief
+- What is different now: v3 computes per-path revenue lines M1a to M1e and M1, the fund, the fill year and horizon windows, P1 and P3 to P7b, and the epsilon identity.
+- New or changed interfaces: run_lines, fund, taxes, retire, window_mean, revenue, identity, gdp_growth in model_v3.core.revenue
+- Acceptance criteria: M1 to M7 pass (met); M1 equals its parts to 1e-12 and a negative-M1 path passes unclipped (met); I1 7.34 within 0.02: NOT met (3.58); I2 between 6.34 and 7.36: NOT met (3.45, refund-rule effect 0.13); I3 within 5% of M1a: NOT met (70%; exact for the assessed tax, 1e-15); revenue.py 246 of 520 lines (met); git diff --stat limited to Touches (met)
+- Deviations from the brief: none; I1 and I2 are strict xfail tests, so the suite is green and the miss cannot pass silently
+- Risks / follow-ups: (1) the base's 11 lines understate the effective rate (10.2% against 24.5%): needs finer top lines; (2) I3 as worded compares M1a, which includes deferred and death flows; (3) B1d identically zero by the kernel's refund-at-new-wealth rule and rebase; (4) long-term M1 negative in every window at this base; (5) levy is a constant share
+- Verification: pytest tests/model_v3 -q: 143 passed, 2 xfailed
+- Overview sections likely needing an update: model v3 build status (V3-7 built, acceptance open)
+- Commit / branch: brief/052-revenue (pushed, not merged)
+```
