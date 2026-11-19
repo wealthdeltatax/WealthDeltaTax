@@ -14,7 +14,7 @@ Source, tests and tools under `model_v1/`, `model_v3/`, `pipeline/` and `tests/`
 ## Rules
 - Follow the brief; its decisions are settled. Make small implementation choices yourself and report them.
 - Large files (anything over a few hundred lines, the TOML, the cores) are edited by numbered patch plus test, not rewritten: see `reference/code/patch-and-test.md` and `reference/code/patch-kit/`.
-- Never read `model_v1/jst_r6.json` in full; tests use a sample cut with `patch-kit/extract_jst_sample.py`.
+- Never read `model_v1/jst_r6.json` in full; tests use a sample cut with `reference/code/patch-kit/extract_jst_sample.py`.
 - Hardcode test: if changing a value changes a number, grid or label, it belongs in `WDT_Params.toml`. Never change numerics silently; name the affected tables and figures.
 - Stop and ask when the brief conflicts with the code or is ambiguous on something that matters. Do not quietly redesign.
 - Keep the diff tight; unrelated problems become follow-ups in the report.
