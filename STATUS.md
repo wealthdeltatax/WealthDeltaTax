@@ -9,7 +9,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime: writes and hands out briefs) | 040g done; build briefs 045g to 057c approved and ready | review each V3 build stage as it lands; stop points go to the author |
-| Agent 2 (guru) | 072g done | waiting for the next brief |
+| Agent 2 (guru) | 072g done; agent-plan adoption written | waiting for the next brief |
 | Agent 3 (code) | 051c done | 073c (base tail) released (072g merged), then 054c and 055c |
 | Agent 4 (code) | 052c reworked, I1 and I2 still miss (author ruled 2026-11-19) | 074c (diagnose the I1 gap) on `brief/052c-rework`, then 052c, 053c, 057c |
 | Agent 5 (research) | 059r done | free |
@@ -18,6 +18,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). The model v3 design is done (011g and 040g retired); the 13 build briefs 045g to 057c are ready, first wave 045g, 046c, 049c. Landed and retired: 045g, 046c, 047c. Waiting: 049c (no branch yet). Ready now: 048c, 049c, 056c.
 
 ## Recently done
+- 2026-11-19: external agent plan (PR #1, kobrains) reviewed: not merged as a document (302 lines, restates rules). Adopted: path ownership table in `AGENTS.md`; briefs 075c (agent docs link and path checker), 076c (build `.skill` archives from the stubs), 077c (isolated test-suite orchestrator), all code lane, disjoint Touches, no dependencies. Not adopted: routing exclusions, five-item decision note, risk table, outcome metrics, deploy-gate rewrite (covered by existing rules). Author to close or keep PR #1.
 - 2026-11-19: 072g merged (register D4: I-D4i Pareto alpha 1.2/1.5/2.0, I-D4j Rich List entries 350, I-D4k and I-D4l tier cuts 1% and 10%; all `(J)`, pending at G3; register 291 rows, 107 (J); 84 data, 17 gate, 8 cards, 134 model, 67 hooks tests pass). 073c is released. v2 has no sweep of alpha, so 1.2 to 2.0 is a stated reason, not a v2 grid.
 - 2026-11-19: 052c rework reviewed (branch `brief/052c-rework`, 4b76e03, not merged): I3 passes as the exact decomposition; I1 5.02 and I2 4.97 against 7.34 and 6.34 with v2's own tail (register tail 4.62); realised eps 12.3%. Author: diagnose first, hold 052c until I1 and I2 pass. Brief 074c (Agent 4): change one v2 input at a time (body split, wealth/GDP, W_min, returns, definition of the take) and report each effect in `docs/model-v3/i1-gap.md`. Lead: v2 `body_split = 5` puts W_min inside a decile; v3 lines are decile means. 053c, 054c wait.
 - 2026-11-19: 072g (rows I-D4i to I-D4l: Pareto alpha 1.2/1.5/2.0, 350 entries, cuts 1% and 10%; register 291 rows, 107 (J)) and 073c (base has 14 lines: D1 to D9, D10a, D10b, RL3, RL2, RL1; `tail()` takes every constant as an argument; base.py 149 lines; 142 model, 84 data, 17 gate, 8 cards tests pass) reviewed and retired. 052c released for its rework. Decision of 073c to carry: I-D4d is a share of the survey total, D10a is now D10 less the survey top 1%; every tail line takes the D10 band income and liquid assets (one register income for the whole top decile). Marginal-rate proxy 16.3% to 21.1% at tau_m 0.9, k_ln 1; the effective rate is for 052c to measure.
