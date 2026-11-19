@@ -35,6 +35,12 @@ Kernel changes; behaviour (a level 2 draw in V3-10).
 ## Open questions
 Ask if the pack tables do not support a route mix; do not invent one.
 
+## Guru rulings, 2026-11-19
+Blocked on the first run (Agent 3's note on `brief/051-base`): the merged UK pack has shares only, and no register row held the route mix. Both are my gaps in the architecture, not yours. Resolved as follows; do not start before both merge.
+- **Pack:** brief 067c adds `wealth_total`, `households`, `adults`, `median_house_price` and `gdp` to `wealth_distribution.csv` (country-pack.md 3.2). B2 reads `median_house_price` from the pack. Its progress block ends with the field list; rewrite this brief's pack field list from it.
+- **Route mix:** brief 068g adds the register rows (v2 baseline D13 as central, Route C 5 to 10 with A absorbing, Route B by sale). Read them from `registry/inputs.json`; do not type the shares.
+- The branch `brief/051-base` carries only the blocker note: start again from main, keep the progress block.
+
 ## Implementation notes
 <!-- progress:start -->
 - **Done:**

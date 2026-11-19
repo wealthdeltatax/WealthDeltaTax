@@ -9,15 +9,16 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime: writes and hands out briefs) | 040g done; build briefs 045g to 057c approved and ready | review each V3 build stage as it lands; stop points go to the author |
-| Agent 2 (guru) | 062s done | 065g (CK1 lines) |
-| Agent 3 (code) | free | 051c (V3-6 base), then 054c, then 055c |
-| Agent 4 (code) | free | 066c (pack manifest rulings), then 052c, 053c, 057c |
+| Agent 2 (guru) | 062s done | 065g (CK1 lines), then 068g (route mix rows) |
+| Agent 3 (code) | 051c blocked (note on `brief/051-base`) | waits for 067c and 068g; free meanwhile |
+| Agent 4 (code) | free | 066c (pack manifest rulings), then 067c (pack base fields) once the author has uploaded the ONS file, then 052c, 053c, 057c |
 | Agent 5 (research) | 059r done | free |
 | Agent 6 (site) | 063s branch done | merge 063s |
 
 Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). The model v3 design is done (011g and 040g retired); the 13 build briefs 045g to 057c are ready, first wave 045g, 046c, 049c. Landed and retired: 045g, 046c, 047c. Waiting: 049c (no branch yet). Ready now: 048c, 049c, 056c.
 
 ## Recently done
+- 2026-11-19: Agent 3 reported 051c blocked, and was right: the pack held shares only (no wealth in pounds, counts, median house price, GDP) and no register row held the route mix; both were gaps in my architecture. Author: extend the pack first and adopt the v2 baseline route mix (A 50, B 25, C 8 with range 5 to 10, D 17; Route B by sale) as judgement rows. Written: 067c (pack base fields, waits for the author to upload the ONS housing affordability file to `Research/`), 068g (route mix rows); `country-pack.md` 3.2 amended; rulings added to 051c. The chain 051c to 057c moves back by two steps.
 - 2026-11-19: 048c (UK pack) and 050c (return generator) merged by their agent; reviewed and retired (116 model, 84 data, 17 gate, 64 hooks tests pass). 048c merged without two of my rulings (`base_year` 2025-26, real retrieval dates): brief 066c. Coding briefs distributed: Agent 3 takes 051c, 054c, 055c; Agent 4 takes 066c, 052c, 053c, 057c. 052c needs 051c, 053c and 054c both need 052c and can run together.
 - 2026-11-19: reviewed 059r (I-D6c central 25.2, I-D6j 29.5 at the 51% workers' share; I-M6l 37 / 42 / 47 income only, £3m or more), 060c (hook resolver, 64 tests), 062s (page types, layout tests skip here without Quarto), 064s (glossary, 27 tests): merged and retired. Not merged but reviewed: 048c (UK pack) and 050c (return generator, stacked on it; re-derived return statistics equal the register, so no stop), 063s (retired papers page; shingle criterion amended for 12-word titles). Author: the five T3 receipts rows stay as the register has them. Written: 065g (CK1 lines). Tornado not rerun (055c supersedes it); wording fixes in supporting.md, judgement-decisions.md, stage-c-decisions.md (break-even is the arithmetic mean). Open for B15: add spoke.css and print.css to the global CSS list; the (R5) wording in the glossary; owner of "retired taxes" stays FISC; Short answer limit stays 150.
 - 2026-11-18: 058c (validator reads `line_horizons` and the three run fields; 84 data, 17 gate, 108 model tests pass; rule recorded in hooks.md) and 061s (routing.yml, nav generator, 59 tests) reviewed and retired. Page cards were stale since the C1 manifest changes; regenerated (they now carry O1e, O1f and the new D1 rows). Rule: whoever changes `outputs.yml` or `inputs.md` runs `python pipeline/page_cards.py`. 063s moved to Agent 6 and 064s follows it, because Agents 2, 3 and 5 are out of tokens mid-brief (062s, 048c, 059r).

@@ -157,3 +157,6 @@ Author: the central workers' share of corporation tax is 51% (held ifo WP 241, p
 
 ## 2026-11-19: review of the first site tooling and the UK pack
 Author: the five receipts rows I-T3d, e, g, m, p keep low and high as the OBR sheet's neighbouring-year columns (not bounds); the pack stores them as given. Glossary owner of "retired taxes" is FISC. The Short answer limit stays 150 words although it does not fit a 360 by 640 phone fold with the current header. Guru: the break-even return is the arithmetic mean (M1f); the tornado is not rerun after the 51% workers' share because the v3 tornado (055c) supersedes it; CK1 gets `lines` (065g).
+
+## 2026-11-19: base inputs
+Author: the pack is extended before the base is built (wealth in pounds, adult and household counts, median house price from the ONS file the author uploads, GDP): brief 067c. The route mix is adopted from the v2 baseline D13 (A 50, B 25, C 8, D 17 of initial value; Route C range 5 to 10 with A absorbing; Route B paid by sale) as new judgement rows pending in G3: brief 068g. Both were gaps in architecture.md (2.3 said "register values" and no rows existed); 051c waits on both.
