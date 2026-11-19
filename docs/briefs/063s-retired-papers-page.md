@@ -41,15 +41,18 @@ Ask the guru rather than guess: (1) whether a data-layer page row is to exist in
 ## Guru rulings, 2026-11-18
 Both granularities: `retired.yml` holds the section rows and a frozen per-paper `successor` of at most three pages, the page shows paper tables with collapsible section rows: accepted. `successor` lives in `retired.yml`, not `papers.yml`: accepted. SA standalone rows are excluded; report the parsed count against the 980 of `ids.md`. Data-layer targets with no `pages.yml` row resolve to `page: null` and go in the change report.
 
+## Guru rulings, 2026-11-19
+Reviewed: 13 tests and the 28 page tests pass on the branch merged with main. The 12-word shingle criterion is amended: lines that are paper titles of 12 words or more (the brief tells the agent to copy titles) are exempt, and the test names them; no prose may overlap. Data-layer targets with `page: null` stay (48 rows). The 42 rows for ADD, INST and SCOPE are not converted: correct. Merge to main by the auto-merge rule, then the guru retires the brief.
+
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** `pipeline/pages/retired.py` (`--convert`, `--out`), `registry/retired.yml` (frozen; 30 papers, 938 sections), `tests/retired/` (13 tests).
-- **Next:** author decides the 12-word criterion (see Decisions); then merge. Wiring the page into the build is B15.
+- **Next:** the guru ruled on the 12-word criterion (Guru rulings); merge. Wiring the page into the build is B15.
 - **Decisions:** Ledger holds 980 rows; 938 belong to the 30 retired papers; 42 belong to ADD, INST, SCOPE and are not converted. Data-layer targets (48 rows) have no `pages.yml` row, so `page: null` with the target kept as text. A tie for `successor` raises an error; none occurred. Links on the page go to non-legacy rows; five new pages (VAL, CORP, GOV, BEHAV, POL) share the URL of the old paper they replace, so the link test checks the row, not the URL.
 - **Gotchas:** The build's scrape step rewrites `registry/contents.yml`; I restored it, so the diff shows only Touches.
 - **Resume:** nothing to resume.
 - **Not run:** the generated page was written to the scratchpad, not `site/pages/` (outside Touches).
-- **State:** done; NEEDS THE AUTHOR (one criterion not met as written)
+- **State:** done; approved by the guru 2026-11-19; to be merged
 <!-- progress:end -->
 
 ```
