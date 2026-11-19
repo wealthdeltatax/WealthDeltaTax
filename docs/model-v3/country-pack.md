@@ -80,6 +80,7 @@ One row per year. Real total returns, annual, in percent, deflated by the countr
 | `bond_tr` | float | % a year, nominal | yes, outside the series span | same |
 | `capital_tr` | float | % a year, nominal | yes, outside the series span | same |
 | `cpi` | float | index, any base | no | > 0, every year |
+| `gdp_pc` | float | real GDP per head, a level, in the units the source publishes (brief 070c) | yes, outside the series span | > 0 |
 
 Span rule: each return column is contiguous (missing only before its first and after its last year). Derived (not stored, computed by the model, so register rows I-D1a to I-D1e and I-H6a to I-H6i are checks): geometric and arithmetic mean, standard deviation, loss-year frequency, longest loss run, cross-correlations.
 
@@ -155,19 +156,19 @@ The statutory rules the retired-tax and benchmark lines depend on, as rows, so a
 Exactly one of `rate`, `amount`, `flag` is non-empty per row. Band rows of one `rule` and `tax_year` must be ordered and non-overlapping.
 
 ### 3.7 public_expenditure.csv
-Spending by function, share of GDP, for the benchmarks that price a retired line against other uses. Columns: `function` (key), `fiscal_year`, `pct_gdp` (float, % of GDP), `gbp_bn` (float, nominal, may be missing), `basis`. Source: `Rates Data/PSS_May_2024_TES_UPDATED.xlsx`. No register row points here yet; it is listed because the file is held and uncited.
+Spending by function, share of GDP, for the benchmarks that price a retired line against other uses. A non-empty file must hold a `function` = `total` row (the reference expenditure over GDP, brief 070c); `pct_gdp` lies strictly between 0 and 100. Columns: `function` (key), `fiscal_year`, `pct_gdp` (float, % of GDP), `gbp_bn` (float, nominal, may be missing), `basis`. UK file: one row, `total`, `fiscal_year` 2019 (the reference year, v2's `exp_ref_year`), `pct_gdp` 36.82 from JST `expenditure` over `gdp` for 2019 (`Rates Data/JSTdatasetR6.xlsx`, Sheet1, GBR row 1510); `gbp_bn` empty. Cross-check, not stored: `Rates Data/PSS_May_2024_TES_UPDATED.xlsx`, Data_for_charts, TME over nominal GDP, 39.58 for 2019-20. No register row points here.
 
 ## 4. The UK pack: files, repo sources and what is missing
 
 | Pack file | Rows | Source in the repo today | Missing |
 |---|---:|---|---|
-| `returns.csv` | 14 checks | `model_v2/jst_r6.json` (series `eq_tr` 1871-2020, `housing_tr` 1896-2020, `bond_tr` 1870-2020, `capital_tr` 1896-2019, `cpi`); `Rates Data/JSTdatasetR6.xlsx` | Years 2021 to the last full year (I-D1e gap); a licence check for JST |
+| `returns.csv` | 14 checks | `model_v2/jst_r6.json` (series `eq_tr` 1871-2020, `housing_tr` 1896-2020, `bond_tr` 1870-2020, `capital_tr` 1896-2019, `cpi`, and from 070c `rgdpmad` as `gdp_pc` 1870-2019); `Rates Data/JSTdatasetR6.xlsx` | Years 2021 to the last full year (I-D1e gap); a licence check for JST |
 | `wealth_distribution.csv` | 25 | `Rates Data/totalwealthtables.xlsx` (Tables 2.2, 2.4, 2.5), `financialwealthtables.xlsx` | A later survey wave than Round 8; the 14 W6 ladder rows and 6 other rows are `(J)` and not yet sourced |
 | `wealth_tail.csv` | 6 | `model_v2/wid_out/wid_long.csv` (I-W7a, I-W7b) | I-D4d, I-D4f, I-W5c, I-W5d are `no` in the register (Advani et al., Rich List: not copied into the repo) |
 | `receipts.csv` | 18 | `Rates Data/Revenue composition spreadsheet.xlsx` | An outturn vintage newer than the March 2023 forecast; `Rates Data/maintax_2023.xlsx` is held and not cited |
 | `household_incidence.csv` | 36 | `Research/etbreferencetablesfye202324final.xlsx` (Tables 2b, 2c, 13, 16: decile rows I-H1k to I-H1t, I-H3k to I-H3t, I-H2b, I-D6a, I-D6h, I-D6o to I-D6q) | The FYE 2023 quintile rows I-H1a to I-H1j (10 rows) have no file in the repo |
 | `tax_rules.csv` | 9 | none (read from gov.uk and a Deloitte PDF, register ST1 to ST3) | all 9 rows: I-T1a, I-T1b, I-T1e, I-T7a to I-T7f |
-| `public_expenditure.csv` | 0 | `Rates Data/PSS_May_2024_TES_UPDATED.xlsx` | no consumer yet |
+| `public_expenditure.csv` | 1 | `Rates Data/JSTdatasetR6.xlsx` (`expenditure` over `gdp`, 2019; cross-check `PSS_May_2024_TES_UPDATED.xlsx` Data_for_charts, 39.58 for 2019-20, not stored) | other functions; `gbp_bn` |
 
 Of the 108 pack rows, **23 have data not in the repo** (register "In repo" cell starts with `no`): I-D4d, I-D4f, I-H1a to I-H1j, I-T1a, I-T1b, I-T1e, I-T7a to I-T7f, I-W5c, I-W5d. The other 85 are held. Four held files are cited by no register source: `maintax_2023.xlsx`, `PSS_May_2024_TES_UPDATED.xlsx`, `7.1_260716_Rates_Data_Tables.xlsx`, `financialwealthtables.xlsx`; the research lane should say which row each supports or drop it.
 

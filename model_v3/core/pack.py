@@ -34,7 +34,7 @@ F, I, T = 'float', 'int', 'text'
 PCT, RET, SHARE, BASIS = ('in', 0, 100), ('ex', -100, 1000), ('rh', 0, 100), ('enum', {'household', 'adult'})
 SCHEMA = {   # dataset -> [(column, kind, missing allowed, check)]; country-pack.md section 3
     'returns': [('year', I, 0, None), ('eq_tr', F, 1, RET), ('housing_tr', F, 1, RET), ('bond_tr', F, 1, RET),
-                ('capital_tr', F, 1, RET), ('cpi', F, 0, ('gt', 0))],
+                ('capital_tr', F, 1, RET), ('cpi', F, 0, ('gt', 0)), ('gdp_pc', F, 1, ('gt', 0))],
     'wealth_distribution': [('variable', T, 0, None), ('band', T, 0, None), ('value', F, 0, None),
                             ('unit', T, 0, ('enum', {'pct_total_wealth', 'pct_households', 'gbp_bn', 'pct_of_band', 'thousand', 'gbp'})),
                             ('basis', T, 0, BASIS), ('year', T, 0, None)],
@@ -48,7 +48,7 @@ SCHEMA = {   # dataset -> [(column, kind, missing allowed, check)]; country-pack
                             ('fiscal_year', T, 0, None), ('basis', T, 0, ('enum', {'equivalised_disposable', 'original'}))],
     'tax_rules': [('rule', T, 0, None), ('tax_year', T, 0, None), ('subject', T, 1, None), ('lower', F, 1, None),
                   ('upper', F, 1, None), ('rate', F, 1, PCT), ('amount', F, 1, None), ('flag', T, 1, ('enum', {'true', 'false'}))],
-    'public_expenditure': [('function', T, 0, None), ('fiscal_year', T, 0, None), ('pct_gdp', F, 0, PCT), ('gbp_bn', F, 1, None),
+    'public_expenditure': [('function', T, 0, None), ('fiscal_year', T, 0, None), ('pct_gdp', F, 0, ('ex', 0, 100)), ('gbp_bn', F, 1, None),
                            ('basis', T, 0, None)],
 }
 
@@ -165,10 +165,6 @@ def _x_tail(n, rows):
                 raise PackError(f'{n}:{r}:{col}: low <= value <= high does not hold')
 
 
-def _x_receipts(n, rows):
-    _unique(n, rows, ('line', 'fiscal_year', 'basis'))
-
-
 def _x_household(n, rows):
     groups = defaultdict(lambda: ([], []))
     for r, row in enumerate(rows, 2):
@@ -198,8 +194,12 @@ def _x_rules(n, rows):
         last[k] = (row['lower'], row['upper'])
 
 
-CROSS = {'returns': _x_returns, 'wealth_distribution': _x_wealth, 'wealth_tail': _x_tail, 'receipts': _x_receipts,
-         'household_incidence': _x_household, 'tax_rules': _x_rules, 'public_expenditure': lambda n, rows: None}
+def _no_total(n):
+    raise PackError(f'{n}:-:function: a non-empty file needs a total row (the reference expenditure over GDP)')
+
+
+CROSS = {'returns': _x_returns, 'wealth_distribution': _x_wealth, 'wealth_tail': _x_tail, 'receipts': lambda n, rows: _unique(n, rows, ('line', 'fiscal_year', 'basis')),
+         'household_incidence': _x_household, 'tax_rules': _x_rules, 'public_expenditure': lambda n, rows: rows and not any(x['function'] == 'total' for x in rows) and _no_total(n)}
 
 
 def _pack_hash(m, shas):

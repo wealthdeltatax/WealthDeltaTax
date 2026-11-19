@@ -8,7 +8,7 @@
   {
    "name": "returns.csv",
    "dataset": "returns",
-   "sha256": "4ec6edd57e2a674ca81b62b82326f203fb48632309c999f36a94cef7bab22f2c",
+   "sha256": "647e32beb9c34fd2ccd95a97c8154f841d986ef3d0f98c5298ec25da9c3bd3c2",
    "rows": 10,
    "source": "invented",
    "licence": "unverified",
@@ -68,8 +68,8 @@
   {
    "name": "public_expenditure.csv",
    "dataset": "public_expenditure",
-   "sha256": "6f8098929ebb7ad71dc59aa5dfea36652eab1174f322ffaebe8f19117b3a8e3e",
-   "rows": 3,
+   "sha256": "5234a177acbf55975d39215a1480c7503f6a75451f6faeb39a1e01d31353646f",
+   "rows": 4,
    "source": "invented",
    "licence": "unverified",
    "retrieved": "2026-11-18",

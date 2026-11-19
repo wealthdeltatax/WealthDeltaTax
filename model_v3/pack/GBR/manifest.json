@@ -9,9 +9,9 @@
   {
    "name": "returns.csv",
    "dataset": "returns",
-   "sha256": "c91fc38ca8b6fc3145bfc2a05411f7518fe413bf2c24964e5bcf7f15ea6190fa",
+   "sha256": "f440911be33c36190bb779e5835bc0e3873da94b35007c7fc981defe67fd1ab7",
    "rows": 150,
-   "source": "JST Macrohistory R6, model_v2/jst_r6.json",
+   "source": "JST Macrohistory R6, model_v2/jst_r6.json (series incl. rgdpmad, real GDP per head)",
    "licence": "cite-only",
    "retrieved": "2026-09-30",
    "vintage": "JST R6"
@@ -69,12 +69,12 @@
   {
    "name": "public_expenditure.csv",
    "dataset": "public_expenditure",
-   "sha256": "13f0af868e9744a698c2b2f97b8884bfabaccaee3a91786394ed9bb775c127c7",
-   "rows": 0,
-   "source": "none cited by the register",
-   "licence": "unverified",
-   "retrieved": "2026-11-18",
-   "vintage": "none"
+   "sha256": "2841dc3c83865d5844d38aabbf36087075b36f96bc5f1e700f4ff853abf1f46e",
+   "rows": 1,
+   "source": "JST Macrohistory R6, model_v2/jst_r6.json (expenditure over gdp, 2019)",
+   "licence": "cite-only",
+   "retrieved": "2026-09-30",
+   "vintage": "JST R6"
   }
  ]
 }

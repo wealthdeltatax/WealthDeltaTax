@@ -20,7 +20,8 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'model_v3' / 'pack' / 'GBR'
 WEALTH, REVENUE, ETB = 'Rates Data/totalwealthtables.xlsx', 'Rates Data/Revenue composition spreadsheet.xlsx', 'Research/etbreferencetablesfye202324final.xlsx'
 HOUSING = 'Research/Housing affordability in England and Wales 2025.pdf'
-SCHEMA = {'returns': 'year eq_tr housing_tr bond_tr capital_tr cpi', 'wealth_distribution': 'variable band value unit basis year',
+JSTX, REF_YEAR = 'Rates Data/JSTdatasetR6.xlsx', 2019   # REF_YEAR: v2's exp_ref_year
+SCHEMA = {'returns': 'year eq_tr housing_tr bond_tr capital_tr cpi gdp_pc', 'wealth_distribution': 'variable band value unit basis year',
           'wealth_tail': 'series year value unit low high basis', 'receipts': 'line fiscal_year pct_gdp gbp_bn basis',
           'household_incidence': 'variable group tax value unit fiscal_year basis', 'tax_rules': 'rule tax_year subject lower upper rate amount flag',
           'public_expenditure': 'function fiscal_year pct_gdp gbp_bn basis'}
@@ -53,8 +54,15 @@ def returns():
     j = json.loads((OUT / 'source' / 'jst_r6.json').read_text(encoding='utf-8'))['countries']['GBR']
     for k, y in enumerate(j['years']):
         if y <= 2019:    # the return sample ends in 2019 (author, 2026-11-18)
-            v = {s: j['series'][s][k] for s in ('eq_tr', 'housing_tr', 'bond_tr', 'capital_tr', 'cpi')}
-            ROWS['returns'].append([y] + [txt(None if v[s] is None else v[s] * (1 if s == 'cpi' else 100)) for s in v])
+            v = {s: j['series'][s][k] for s in ('eq_tr', 'housing_tr', 'bond_tr', 'capital_tr', 'cpi', 'rgdpmad')}
+            ROWS['returns'].append([y] + [txt(None if v[s] is None else v[s] * (100 if s.endswith('_tr') else 1)) for s in v])
+    # 070c. gdp_pc is JST rgdpmad (real GDP per head, as published, level) and the reference expenditure is JST expenditure over gdp in 2019 (v2's exp_ref_year);
+    # both are read from JSTdatasetR6.xlsx, Sheet1, the GBR row of the year, and must equal the json the loader copies (a held sheet, no number from memory).
+    x = [r for r in sheet(JSTX, 'Sheet1')]
+    h, gbr = x[0], {r[0]: r for r in x[1:] if r[2] == 'GBR'}
+    cell = lambda y, c: gbr[y][h.index(c)]
+    assert all(cell(y, 'rgdpmad') == j['series']['rgdpmad'][j['years'].index(y)] for y in range(1870, 2020)) and cell(2019, 'expenditure') == j['series']['expenditure'][j['years'].index(2019)]
+    ROWS['public_expenditure'].append(['total', str(REF_YEAR), txt(round(100 * cell(REF_YEAR, 'expenditure') / cell(REF_YEAR, 'gdp'), 2)), '', 'outturn'])
 
 
 def wealth():
@@ -138,7 +146,7 @@ def write(name, rows):
 
 BUILT = '2026-11-18'
 NOTES = 'Pack values are as published; the model expresses them in 2025-26 prices (base_year, stage C1).'
-FROM = {'returns': ['model_v2/jst_r6.json'], 'wealth_distribution': [WEALTH, REVENUE, HOUSING], 'wealth_tail': ['model_v2/wid_out/wid_long.csv'], 'receipts': [REVENUE],
+FROM = {'returns': ['model_v2/jst_r6.json'], 'public_expenditure': ['model_v2/jst_r6.json'], 'wealth_distribution': [WEALTH, REVENUE, HOUSING], 'wealth_tail': ['model_v2/wid_out/wid_long.csv'], 'receipts': [REVENUE],
         'household_incidence': [ETB]}   # dataset -> the repo file it is read from; a dataset with no source file carries the build date
 
 
@@ -158,10 +166,10 @@ def main():
     shutil.copyfile(ROOT / 'model_v2' / 'jst_r6.json', OUT / 'source' / 'jst_r6.json')
     for f in (returns, wealth, tail, receipts, incidence):
         f()
-    src = {'returns': ('JST Macrohistory R6, model_v2/jst_r6.json', 'cite-only', 'JST R6'), 'wealth_distribution': ('ONS WAS Round 8, totalwealthtables.xlsx Tables 2.1, 2.2; ONS Housing affordability 2025 (median price); IFS Revenue composition, Total revenues (GDP)', 'cite-only', 'WAS Round 8'),
+    src = {'returns': ('JST Macrohistory R6, model_v2/jst_r6.json (series incl. rgdpmad, real GDP per head)', 'cite-only', 'JST R6'), 'wealth_distribution': ('ONS WAS Round 8, totalwealthtables.xlsx Tables 2.1, 2.2; ONS Housing affordability 2025 (median price); IFS Revenue composition, Total revenues (GDP)', 'cite-only', 'WAS Round 8'),
            'wealth_tail': ('WID.world, model_v2/wid_out/wid_long.csv', 'cite-only', 'WID 2026-10-16'), 'receipts': ('IFS Revenue composition spreadsheet, % GDP (cash)', 'cite-only', 'EFO March 2023'),
            'household_incidence': ('ONS effects of taxes and benefits FYE 2024, Tables 2b, 2c, 16', 'ogl-v3', 'ETB FYE 2024'), 'tax_rules': ('none held', 'unverified', 'none'),
-           'public_expenditure': ('none cited by the register', 'unverified', 'none')}
+           'public_expenditure': ('JST Macrohistory R6, model_v2/jst_r6.json (expenditure over gdp, 2019)', 'cite-only', 'JST R6')}
     files = []
     for ds in SCHEMA:
         write(ds + '.csv', ROWS[ds])
@@ -176,7 +184,12 @@ def main():
                                    'households from Table 2.1 row 29 (weighted frequency, 26,991,000), each decile the total divided by ten (a decile holds a tenth of households by definition; no table prints a count per decile); '
                                    'no adults rows (no held table gives adults by decile); median_house_price GBP 300,000 is England, year ending Sept 2025, all dwellings, from `Research/Housing affordability in England and Wales 2025.pdf` '
                                    '(the existing-dwelling median in `medianpricepaidforadministrativegeographiesexisting.xlsx` table 1a is GBP 297,000); gdp is the mean of financial years 2020-21 (2,085.204) and 2021-22 (2,337.757) '
-                                   'GBP bn in `Revenue composition spreadsheet.xlsx` sheet Total revenues, column G, nominal as published. The file is cite only because the GDP series comes from the IFS spreadsheet.\n', encoding='utf-8')
+                                   'GBP bn in `Revenue composition spreadsheet.xlsx` sheet Total revenues, column G, nominal as published. The file is cite only because the GDP series comes from the IFS spreadsheet.\n\n'
+                                   'returns.csv gdp_pc (brief 070c) is the JST series rgdpmad, real GDP per head, a level in the units JST publishes (the repo\'s description of the variable says Maddison, 1990 USD; the held file carries no unit label), '
+                                   'JSTdatasetR6.xlsx Sheet1, GBR rows 1870 to 2019 (2019 is row 1510). public_expenditure.csv holds one row, function total, fiscal_year 2019 (a calendar year, v2\'s exp_ref_year): '
+                                   'pct_gdp is 100 x JST expenditure over gdp, 2019, cells expenditure 830.452 and gdp 2,255.283, = 36.82. JST is used first, as v2 did. '
+                                   'Cross-check, not stored: PSS_May_2024_TES_UPDATED.xlsx Data_for_charts, Total Managed Expenditure over Nominal GDP is 39.58 for 2019-20 (888.4 / 2,244.5) and 39.48 for 2018-19; '
+                                   'JST general government expenditure and TME differ in definition and in calendar against fiscal year. gbp_bn is left empty: the JST description calls the unit millions but the GBR values are billions.\n', encoding='utf-8')
     p = ROOT / 'model_v3' / 'levers.json'
     text, lev = p.read_text(encoding='utf-8'), json.loads(p.read_text(encoding='utf-8'))
     lev['pack_mappings'].update(x1_pointers=dict(sorted(POINTERS.items())), x1_skipped={i: why for why, ids in SKIP.items() for i in ids})

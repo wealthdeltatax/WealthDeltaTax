@@ -7,10 +7,10 @@ import numpy as np, pytest
 from model_v3.core import pack as pk
 
 FIX = Path(__file__).parent / 'fixtures' / 'pack_ZZZ'
-PINNED = '90031fcd58434fe98b1329646ceb40320a229ecb36c430f1f99ede8b505d67c5'   # P7: the fixture's pack_sha256
+PINNED = '339cb47401dcf2f421f82b320ea715838e3a933f1a48355040130574ccefde9c'   # P7: the fixture's pack_sha256
 ROOT = Path(__file__).parents[2]
 GBR = ROOT / 'model_v3' / 'pack' / 'GBR'
-GBR_SHA = '09d76ce7b9d20e6ff793043d45a2b0af3c25bc01f6cbb04388c4130a019d2540'   # the UK pack_sha256, pinned: a rebuilt pack that changes a byte fails here
+GBR_SHA = 'a9d8312678f423f7978de1857a67ece80f88ce0c39f514aef01832e6282c31be'   # the UK pack_sha256, pinned: a rebuilt pack that changes a byte fails here
 KNOWN_UNORDERED = {'I-T3d', 'I-T3e', 'I-T3g', 'I-T3m', 'I-T3p'}   # register rows with low > central or central > high (finding of 048c, for the author)
 PARTS = {'stamp_all': ['stamp_a', 'stamp_b'], 'income_tax': ['pay_a', 'pay_b']}
 
@@ -59,7 +59,7 @@ def test_p2_a_changed_byte_that_stays_valid_names_its_file(zzz):
 
 @pytest.mark.parametrize('file,old,new,match', [
     ('receipts.csv', 'line,fiscal_year', 'fiscal_year,line', r'receipts\.csv:1:header'),
-    ('returns.csv', '2000,5,3.0,2.0,,100.0', '2000,5,3.0,2.0,100.0', r'returns\.csv:2:-: 5 cells')])
+    ('returns.csv', '2000,5,3.0,2.0,,100.0,', '2000,5,3.0,2.0,100.0,', r'returns\.csv:2:-: 6 cells')])
 def test_p3_wrong_header_order_and_cell_count_fail(zzz, file, old, new, match):
     fails(zzz, match, (file, old, new))
 

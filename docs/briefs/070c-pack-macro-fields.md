@@ -1,6 +1,6 @@
 # 070: Add the macro series the revenue stage needs to the UK pack
 
-- **Status:** ready
+- **Status:** done
 - **Author/date:** K. Ogata with the guru, 2026-11-19
 - **Depends on:** none (067c and 051c are merged)
 - **Read:** the blocker note on branch `brief/052-revenue` (`git show origin/brief/052-revenue:docs/briefs/052c-v3-7-revenue-fund-identity.md`, progress block); `docs/model-v3/country-pack.md` sections 3.1 (returns) and 4 (public_expenditure); `model_v3/pack/build_gbr.py`; `model_v3/core/pack.py` (SCHEMA, `_x_returns`); `tests/model_v3/test_pack.py`; `Rates Data/JSTdatasetR6.xlsx`; `Rates Data/PSS_May_2024_TES_UPDATED.xlsx`; `model_v2/RATES/rates_core.py` lines 60 to 90, 158 to 210, 1109 to 1193 (specification only).
@@ -40,11 +40,15 @@ Ask rather than guess: if JST carries expenditure but no GDP in pounds for 2019,
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** `returns.csv` gains `gdp_pc` (JST `rgdpmad`, 1870 to 2019, 150 rows, all positive); `public_expenditure.csv` holds one `total` row (2019, 36.82). Builder extended (201 lines, under 230) and run twice, byte-identical; `pack_sha256` now a9d8312678f423f7978de1857a67ece80f88ce0c39f514aef01832e6282c31be. Loader: `gdp_pc` in the schema (float, nullable, > 0); `public_expenditure.pct_gdp` strictly between 0 and 100; a non-empty file needs a `total` row. `core/pack.py` stays at 340 lines (the receipts check became a lambda in CROSS). ZZZ fixture: `gdp_pc` column added (2000 blank, then 1010 to 1090) and a `total` row (40.0, 2025-26); its pin is 339cb47401dc...ccefde9c. country-pack.md 3.1, 3.7 and the section 4 table updated. Tests P11 and P12 (6 tests) in the new `test_pack_macro.py`.
+- **Field list 052c can rely on:**
+  - `returns.csv`, column `gdp_pc`: real GDP per head, a level, JST `rgdpmad` as published (the repo's description: Maddison, 1990 USD; the held file has no unit label), years 1870 to 2019, no gaps, 2019 = 26341.025966. Growth is the model's to derive.
+  - `public_expenditure.csv`, row `function=total`, `fiscal_year=2019` (calendar year), `pct_gdp=36.82` (percent), `gbp_bn` empty, `basis=outturn`. Source: JSTdatasetR6.xlsx Sheet1, GBR row 1510, `expenditure` 830.452 over `gdp` 2255.283.
+  - Cross-check, not stored: PSS_May_2024_TES_UPDATED.xlsx, Data_for_charts, Total Managed Expenditure over Nominal GDP = 39.58 for 2019-20 (888.4 / 2244.5) and 39.48 for 2018-19 (858.2 / 2173.7). The 2.8-point gap is definition (JST general government expenditure against TME) and fiscal against calendar year.
+- **Next:** 052c.
+- **Decisions:** `gdp_pc` is `rgdpmad` (the JST per-head level in dollars) not `rgdpbarro` (an index) nor `gdp / pop` (nominal, what v2 derived). The `total` check is "a non-empty file needs a total row", because the manifest declares no reference year; so the fixture got a `total` row (the brief's second option). `gbp_bn` left empty: the JST description says millions but the GBR values are billions. The builder asserts every `rgdpmad` year and the 2019 expenditure equal the xlsx cells, so the json copy and the sheet cannot drift. `public_expenditure` is now `cite-only` (JST) and its `retrieved` is 2026-09-30.
+- **Gotchas:** `pct_gdp` on `public_expenditure` is now exclusive of 0 and 100 (was inclusive). Fixture `returns.csv` has a 7th column, so P3's cell-count test now expects 6 cells. P11 and P12 are in `tests/model_v3/test_pack_macro.py`, a file outside Touches, because `test_pack.py` is at its 240-line budget (same as 067c's `test_pack_base.py`). The unit of `gdp_pc` is unconfirmed (see the description note).
+- **Resume:** nothing.
+- **Not run:** none of the named checks was skipped. Also run: tests/hooks and tests/cards (75 passed).
+- **State:** done; merged to main. Results: tests/model_v3 134 passed, tests/data 84, tests/gate 17. `git diff --stat`: only Touches plus the new test file; the other five CSVs and levers.json are unchanged.
 <!-- progress:end -->
