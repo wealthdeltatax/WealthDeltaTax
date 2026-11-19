@@ -9,7 +9,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime: writes and hands out briefs) | 040g done; build briefs 045g to 057c approved and ready | review each V3 build stage as it lands; stop points go to the author |
-| Agent 2 (guru) | 065g, 068g done | 071g (run settings rows) |
+| Agent 2 (guru) | 071g done | free |
 | Agent 3 (code) | 051c done | 054c and 055c once 052c lands; free until then |
 | Agent 4 (code) | 067c done | 070c (pack macro fields), then 052c, 053c, 057c |
 | Agent 5 (research) | 059r done | free |
@@ -18,6 +18,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). The model v3 design is done (011g and 040g retired); the 13 build briefs 045g to 057c are ready, first wave 045g, 046c, 049c. Landed and retired: 045g, 046c, 047c. Waiting: 049c (no branch yet). Ready now: 048c, 049c, 056c.
 
 ## Recently done
+- 2026-11-19: 071g merged (register family D14: I-D14a to g, v2 run settings: hazards 5% central, consumption 3.5, `a_window`, `horizon`, `safe_share`, `exp_ref_year`; all `(J)`, pending at G3; register 287 rows, 103 (J); 84 data, 17 gate, 8 cards, 128 model, 67 hooks tests pass). 052c now waits only for 070c. `safe_share` is stored as a percentage (0/0/100), not a fraction: 052c must divide by 100.
 - 2026-11-19: 051c (V3-6 wealth and payer base: 11 lines, B1 to B5, 128 model tests pass) reviewed and retired. Agent 4 reported 052c blocked on inputs again: written 070c (real GDP per head `gdp_pc` in returns.csv and the reference expenditure over GDP in public_expenditure.csv) and 071g (lambda_C and lambda_D 5 central, consumption 3.5, fund settings as register rows); levy base ruled as the register's I-D7a; rulings added to 052c. Limit to carry to the papers: the base has 11 lines (deciles), so the kernel sees each decile's mean wealth, not the spread inside it; I1 may miss because of that and stops with the numbers.
 - 2026-11-19: 069r reviewed and retired (merged by its agent at e9d5740): register row I-D4h, adults per household 1.77 / 1.93 / 1.93 (J), from Tables 2.9 and 2.11 (cells re-read, sums reproduce); register 280 rows, 96 (J); 84 data, 17 gate, 8 cards, 118 model, 67 hooks tests pass. 051c released. Open for the author: I-D4b's central implies 1.77 adults, I-D4h 1.93 (16 and over, not 18 and over); logged in brief-suggestions.md.
 - 2026-11-19: 067c reviewed and retired (merged by its agent at e7033c0; 118 model, 84 data, 17 gate, 67 hooks, 8 cards tests pass). The pack now carries `wealth_total`, `households`, `median_house_price` and `gdp`; adults are not in it (no held table), so 051c needs a register row: brief 069r written. Findings in `brief-suggestions.md`: register I-D4a (5.94) against the pack ratio 6.14, and the builder's `retrieved` dates needing a full git history. `wealth_distribution.csv` is now cite-only in the manifest (the IFS GDP series). Budgets amended: pack tests 298 (new `test_pack_base.py`, 58), build_gbr.py 200 lines.
