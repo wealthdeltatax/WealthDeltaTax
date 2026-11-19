@@ -172,3 +172,6 @@ Author: with v2's own tail the port check still gives 5.02% of GDP against 7.34 
 
 ## 2026-11-19: closing I1
 Author: after 074c the identity tests take v2's inputs as test constants (W_min, GDP, adults, the 41-cell table, GDP-per-head growth); the model keeps the pack. v2 is run once and its per-window output and cell table recorded as a fixture (078c) to locate the last 0.68 points; I1 stays strict. A band for I1 and a hunt from the spec were offered and not chosen. 052c merges only when I1 passes.
+
+## 2026-11-19: the statistic behind 7.34
+The v2 reference run (078c) shows the recorded 7.34 is the mean over the 117 windows of the net post-fill take (ratio of sums, fill to fill+9, no levy); the median is 6.59. The v3 identity tests compare the mean (guru correction; architecture.md and acceptance.md updated). The I1 limit stays 0.02 and I2's band 6.34 to 7.36, both on the mean. Earlier median-based gaps (5.02, 6.66) are superseded.
