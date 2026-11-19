@@ -45,5 +45,5 @@ None.
 - **Gotchas:** `tests/hooks/test_resolve.py::test_ids_the_old_regex_missed_are_recognised` asserted H13 for CK1 (the old behaviour); I changed it to expect a clean resolve. It is outside Touches. The brief names `tests/hooks/test_hooks.py`, which did not exist; I created it.
 - **Resume:** branch `brief/065-ck1-lines`.
 - **Not run:** none.
-- **State:** pushed, NEEDS THE AUTHOR (one test edited outside Touches).
+- **State:** reviewed by the guru 2026-11-19, approved (the edit of `test_resolve.py` outside Touches is right: it asserted the old H13 behaviour); merge by the auto-merge rule; the guru then retires the brief and records the hook form in hooks.md.
 <!-- progress:end -->
