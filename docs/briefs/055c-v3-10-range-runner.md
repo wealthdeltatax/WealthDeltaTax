@@ -37,6 +37,9 @@ The writer (V3-11); the convergence test (V3-12); a final run.
 ## Open questions
 Ask if N7 shows the full run would take over 60 minutes and K6 passed: the pool rule is the answer, but confirm the reference machine.
 
+## Guru note, 2026-11-19 (after 054c)
+`core/support.py` takes some inputs from the caller (054c gotchas): the distribution of declared alpha (M7e), consumption spend and its rate (the migration loss), the second asset's returns and the embedded-gain bands (M14), and the gains-tax realisation rate (M13). The runner supplies them from the register and pack: consumption from I-D14, the second asset's returns from `returns.csv` (`housing_tr`, `bond_tr`), embedded gain from I-T4e and realisation from the I-T5 rows. Map each to a row id in your report. If an input has no row (the likely one is the distribution of declared alpha: the register holds only the shift I-D5b), do **not** invent a value: stop and report to the guru, who writes a register brief. Same for any other input the runner needs and the register lacks.
+
 ## Implementation notes
 <!-- progress:start -->
 - **Done:**
