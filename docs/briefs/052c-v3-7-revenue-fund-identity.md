@@ -1,6 +1,6 @@
 # 052: Model v3 V3-7: revenue, fund and the identity check
 
-- **Status:** ready
+- **Status:** done
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** 049, 050, 051
 - **Read:** `docs/model-v3/architecture.md` 2.5, 3.4, 6.2 (M1 to M7) and 6.3 (I1 to I3); `docs/model-v3/metrics.md` (M1 family, B1, P1, P3 to P7); `docs/model-v3/stage-c-decisions.md` items 2 and 3; `model_v2/rates_core.py` lines 1109 to 1193 (`run_fund`) as specification; `docs/model-v3/acceptance.md` V3-7 row.
@@ -79,23 +79,21 @@ Excellent diagnosis. The author decided v3 learns from v2 and does not replicate
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** merged main into `brief/052c-rework` (b7a161d, no history rewrite). Tests only (`test_revenue.py`, 233 lines): I1 and I2 now run on v2's own inputs read from `fixtures/v2_logistic_ln_ref.json` (41 cells, 51.0m adults, GDP 2,097.1bn, W_min 0.1125, JST `gpc_real`, schedule from the fixture's cfg) and compare the **mean over the 117 windows**, take defined as v2 does (net tax + death tax + heirs - refunds, no levy, years fill to fill+9, ratio of sums over GDP). `revenue.py`, `base.py`, pack and register unchanged. The older tail-constant rescaling (`V2_TAIL`, `V2_S10`, `v2env`) is gone: the fixture's cells replace it. Suites: `tests/model_v3` 157 passed, 2 xfailed (I1, I2, strict); `tests/data` 84; `tests/gate` 17; `tests/cards` 8.
-- **Next:** the author rules on I1 and I2 (numbers below). 052c is NOT merged to main (I1 does not pass). Do not tune.
-- **Result (percent of GDP, mean over 117 windows, v2 = 7.3416):**
-  - I1, ratio-mirror refund: **7.514**, +0.172 against 7.34, limit 0.02: **miss**. Median 6.659 (v2 6.594).
-  - I2, model refund (tau x loss): **7.395**; range 6.34 to 7.36: **miss by 0.035 above the upper bound**. Median 6.607.
-  - Model's own base (14 lines, pack inputs, own refund) for reference: mean 5.523, median 4.585.
-- **Where the 0.172 sits (window by window):**
-  - **Take is exact when read over v2's fill year:** with v2's fill year in each window the v3 take equals the fixture's `wdt_gdp_h` to 6.5e-6 points in all 117 windows (mean 7.341585 against 7.341586). New passing test `test_i1_the_port_gives_v2s_take_in_every_window_that_fills_in_v2s_year`. The tax, refund, death and heir mechanics are v2's, with the mirror refund.
-  - **The whole gap is the fund's fill year.** Fill year equal in 78 of 117 windows (take difference there at most 6e-6). In 39 windows v3 fills earlier: by 1 year in 25, 2 in 6, 3 in 3, 4 in 3; later by 1 in 2. The 39 differ by +0.52 on average, the 78 by 0, so the +0.172 mean gap is those 39. An earlier fill means the post-fill window starts earlier, where the take is higher.
-  - Largest differences (window start; v2 fill; v3 fill; v2 take; v3 take; difference): 1900; 10; 6; 1.14; 5.68; +4.55 | 1901; 10; 7; -0.07; 3.39; +3.46 | 1932; 5; 6; -3.55; -1.22; +2.33 | 1902; 10; 8; 0.42; 2.41; +1.99 | 1950; 10; 9; 3.45; 5.42; +1.97 | 1951; 9; 8; 3.76; 5.68; +1.92 | 1899; 9; 7; 3.40; 5.26; +1.86 | 1926; 8; 7; 2.80; 4.63; +1.83 | 1988; 7; 6; 15.36; 13.60; -1.75 | 1960; 9; 8; 4.05; 5.41; +1.36 | 2013; 8; 7; 6.37; 7.71; +1.34 | 1909; 10; 7; 6.18; 4.98; -1.21. Fill years are 1-based in both (v2 `fill_t = t + 1`); v2's 10 is the largest.
-  - Not tried (the fill is the model's, not a test input): v2's levy is per window and per year (calibrated entry rate on the equity price return; only the post-fill mean 2.77 is in the fixture), v3's fund takes a constant 2.82 (register I-D7a). A constant levy does not close it: levy 0 matches 81 fill years, 2.2 matches 87, 2.77 matches 79 (mean 7.52), 3.08 matches 75, 4.0 matches 64. The remaining candidates are v2's per-year levy path in `run_fund`, and anything else in the fill rule (a_window 5, ms and ml 3, safe_share 0 are the same). Not tested further.
-- **Decisions:** (1) v2 `levy` in the test is the model's register value, 2.82 (the earlier 074c table found 2.82 against 2.77 moves the median by 0.000). (2) The v2 start years and the pack's usable years agree (checked: the 117 starts are equal). (3) I1 and I2 stay strict xfails with the numbers in the reason; the new exact-take test is not an xfail.
-- **Gotchas:** (1) The branch was not a tracking ref locally: I fetched it by name (`git fetch origin brief/052c-rework:brief/052c-rework`); an earlier `git checkout` failed and my `git merge origin/main` ran on `brief/073-base-tail` (a fast-forward to main, no new commits, nothing pushed). (2) Long-term M1 negative in 117 of 117 windows as before (not rerun on the new base).
-- **Resume:** `git checkout brief/052c-rework`; after the ruling edit `test_revenue.py` only; `pytest tests/model_v3 -q`.
+- **Done:** `revenue.py` (246 of 520 lines), `test_revenue.py` (242 of 350). I1 and I2 restated per architecture.md 6.3 and the 2026-11-19 ruling; both xfails removed; a fill-year finding test added. `pytest tests/model_v3` 159 passed; `tests/data` 84; `tests/gate` 17; `tests/cards` 8. Tests only on this pass; `revenue.py`, `base.py`, pack and register unchanged.
+- **Next:** 053c and 054c.
+- **Results (percent of GDP, mean over the 117 windows):**
+  - **I1 met.** At v2's fill year, with v2's inputs and the ratio-mirror refund, the v3 take equals v2's in all 117 windows to 1e-5 (the measured maximum is 6.5e-6); mean 7.3416.
+  - **I2 met.** At v2's fill year with the model's own refund (tau x loss): mean **7.2253** (band 6.34 to 7.36); median 6.489. Difference from I1: **-0.1163** (mean), -0.1047 (median). The model's refund returns less than the ratio mirror.
+  - **Fill-year finding (recorded as an assertion, not tuned):** v3's own fund with the ratio mirror gives 7.5137 against 7.3416, +0.1721. Fill year equal in 78 of 117 windows (take difference there at most 1e-5); different in 39: v3 earlier in 37 (by 1 year in 25, 2 in 6, 3 in 3, 4 in 3), later by 1 in 2. The 39 differ by +0.516 on average. The ruling says "earlier in 39": it is 37 earlier and 2 later.
+  - **Cause:** v3's fund is fed a constant levy (register I-D7a, 2.82% of GDP); v2 charges a per-window, per-year path (calibrated entry rate on the equity price return, 2.77 post-fill mean). The fund's fill year depends on the net receipts including the levy. A constant levy did not close it in the earlier check: levy 0 matches 81 fill years, 2.2 matches 87, 2.77 matches 79, 3.08 matches 75, 4.0 matches 64 (so no constant reproduces v2's timing).
+  - **Paper question:** does a constant levy understate how much the fund's timing varies? In v2 the levy follows the equity price return, so a bad-return window both thins the wealth-tax take and shrinks the levy, and the fill year spreads out; with a constant 2.82 v3 fills earlier in 37 of 39 differing windows, and the fund's timing is less variable. Worth a sentence in the revenue paper and a levy-path option for a later brief.
+- **Earlier findings (unchanged):** (1) **B1d is identically zero**: the kernel refunds at the rate of the new wealth, which is 0 below W_min, and rebases, so a line that falls out is never refunded (test M7). (2) **Long-term M1 is negative in 117 of 117 windows** (median -4.69% of GDP on the 14-line base before the v2-input run), as before the tail; not a defect. (3) **"M1a is about eps x g x omega minus refunds" holds only for in-life assessment**: the median gap of M1a to that sum is 55% (range 37 to 87%, 30 random paths, register mix) because death-time and heirs' assessments are part of M1a (I3b is the exact decomposition, I3a holds to 1e-15). Writing items.
+- **Decisions:** (1) The model's own base (14 lines, pack inputs, own refund) gives a full-chain mean of 5.52 (median 4.59); it is printed, not asserted against v2: its wealth over GDP is 6.44 against v2's 7.21 and W_min 0.15 against 0.1125. (2) The levy in I1 and I2 tests is the register's 2.82. (3) v2 is not run; the fixture (078c) is the reference.
+- **Gotchas:** the local clone fetches only main, so `origin/brief/052c-rework` needs the explicit refspec (`git fetch origin '+refs/heads/brief/052c-rework:refs/remotes/origin/brief/052c-rework'`).
+- **Resume:** nothing.
 - **Not run:** v2 (read from the fixture).
-- **State:** pushed on `brief/052c-rework`; NEEDS THE AUTHOR (I1, I2).
-<!-- progress:end -->
+- **State:** merged.
+<!-- progress:end --><!-- progress:end -->
 
 ### Change report
 ```
