@@ -1,6 +1,6 @@
 # 065: Make the stress-test output CK1 hookable
 
-- **Status:** ready
+- **Status:** done on branch, waiting for the author
 - **Author/date:** K. Ogata with the guru, 2026-11-19
 - **Depends on:** none (058c and 060c are merged)
 - **Read:** `docs/briefs/` archive `060c-hook-resolver.md` (its Gotchas 1); `docs/model-v3/outputs.yml` entries CK1 and OW3 (a multi-metric entry with `lines` and `line_horizons`); `pipeline/validate_outputs.py` (V7); `pipeline/hooks.py` (H13); `docs/restructure/site/hooks.md` 3.2 and 4.2.
@@ -39,11 +39,11 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** CK1 has `lines: [P1, P3, P7b]` and the manifest version is `stage-A9-ck1-lines-2026-11-19`; nothing else in `outputs.yml` changed. Fixture regenerated: CK1 has 45 cells (3 lines x 5 amplitudes x 3 schedules); the validator passes it (0 errors, 0 warnings). `tests/hooks/test_hooks.py` resolves one CK1 cell for P1, P3 and P7b to 4.6 years, 1.00% of GDP and 2.50. `pipeline/hooks.py` needed no change; `registry/metrics.json` and the page cards regenerate byte-identical.
+- **Next:** none.
+- **Decisions:** the line selector form is `{{o:CK1:P1.point#amplitude:A5}}` (the brief's `{{o:CK1:P1.mean@A5}}` is not the 060c syntax: `mean` is not a CK1 form, and `@` selects a schedule and horizon).
+- **Gotchas:** `tests/hooks/test_resolve.py::test_ids_the_old_regex_missed_are_recognised` asserted H13 for CK1 (the old behaviour); I changed it to expect a clean resolve. It is outside Touches. The brief names `tests/hooks/test_hooks.py`, which did not exist; I created it.
+- **Resume:** branch `brief/065-ck1-lines`.
+- **Not run:** none.
+- **State:** pushed, NEEDS THE AUTHOR (one test edited outside Touches).
 <!-- progress:end -->
