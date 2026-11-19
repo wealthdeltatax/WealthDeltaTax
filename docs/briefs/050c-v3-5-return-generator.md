@@ -40,12 +40,12 @@ The architecture pins n 117, written before the author ended the sample in 2019.
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** `model_v3/core/returns.py` (121 lines, budget 260; numpy only, no pack import needed since the pack arrives as an argument and `Row` is duck-typed) and `tests/model_v3/test_returns.py` (93 lines, budget 220). `real_series`, `sample_stats`, `ar1_paths`, `block_bootstrap`, `level2_draw` (Latin hypercube), `loop_windows`, `streams` (SeedSequence(20261118).spawn(5)). R1 to R7 pass. `pytest tests/model_v3 -q`: 116 passed.
-- **Next:** author merges 048 (open questions in its report), then this branch; then V3-6.
+- **Next:** V3-7 (revenue, fund, identity) once 051c is done.
 - **Decisions:** parameters in percent, paths as fractions (kernel's arithmetic growth). Level 2 draws mean, SD and lag-1 independently, normal about the register central with the standard error that makes low and high the 10th and 90th percentiles. The normal quantile is Acklam's approximation (1e-9), because the brief allows numpy only. Sample lag-1 is the v2 definition over the series in order (pairs 1939 with 1947); the bootstrap wraps within contiguous segments.
-- **Gotchas:** (1) The pinned statistics re-derived on the pack series (sample ends 2019): n 117, arithmetic 4.7423, geometric 4.4200, SD 8.2188, lag-1 0.3030, effective sample 63. They equal the register's 4.742, 4.420, 8.219, 0.303 and n is unchanged, so no stop for the author. (2) 100,000-path generator: mean, SD and lag-1 within 0.05, 0.05 and 0.02; level 2 10th and 90th percentiles within 0.02 of the register low and high. (3) This branch is stacked on brief/048-uk-pack because 050 reads the UK pack, which is not on main.
+- **Gotchas:** (1) The pinned statistics re-derived on the pack series (sample ends 2019): n 117, arithmetic 4.7423, geometric 4.4200, SD 8.2188, lag-1 0.3030, effective sample 63. They equal the register's 4.742, 4.420, 8.219, 0.303 and n is unchanged, so no stop for the author. (2) 100,000-path generator: mean, SD and lag-1 within 0.05, 0.05 and 0.02; level 2 10th and 90th percentiles within 0.02 of the register low and high. (3) The branch was stacked on 048 until 048 merged.
 - **Resume:** none needed.
 - **Not run:** nothing in the brief.
-- **State:** done; branch pushed, NOT merged: depends on 048, which waits for the author
+- **State:** done; merged to main by the auto-merge rule (048c merged first)
 <!-- progress:end -->
 
 ### Change report
@@ -57,8 +57,8 @@ Change report
 - New or changed interfaces: SEED, STREAMS, streams, real_series, sample_stats, ar1_paths, block_bootstrap, level2_draw, loop_windows in model_v3.core.returns
 - Acceptance criteria: R1 to R7 pass (met); 100,000-path statistics and level 2 band within tolerance (met); returns.py 121 of 260 lines, numpy only (met); pinned statistics re-derived on the 2019 sample and equal to the register (met, n unchanged at 117); git diff --stat limited to Touches (met)
 - Deviations from the brief: none
-- Risks / follow-ups: (1) branch depends on the unmerged 048 branch; (2) level 2 independence of the three parameters is my choice (the sample correlation of the estimates is not modelled); (3) architecture says n 117 and effective 63: both confirmed
+- Risks / follow-ups: (1) none now: 048 is on main; (2) level 2 independence of the three parameters is my choice (the sample correlation of the estimates is not modelled); (3) architecture says n 117 and effective 63: both confirmed
 - Verification: pytest tests/model_v3 -q: 116 passed
 - Overview sections likely needing an update: model v3 build status (V3-5)
-- Commit / branch: brief/050-return-generator (stacked on brief/048-uk-pack, not merged)
+- Commit / branch: brief/050-return-generator, merged to main
 ```
