@@ -52,7 +52,7 @@ Reviewed: 13 tests and the 28 page tests pass on the branch merged with main. Th
 - **Gotchas:** The build's scrape step rewrites `registry/contents.yml`; I restored it, so the diff shows only Touches.
 - **Resume:** nothing to resume.
 - **Not run:** the generated page was written to the scratchpad, not `site/pages/` (outside Touches).
-- **State:** done; approved by the guru 2026-11-19; to be merged
+- **State:** done; approved by the guru 2026-11-19; merged (brief 063s merged, ready to retire)
 <!-- progress:end -->
 
 ```
