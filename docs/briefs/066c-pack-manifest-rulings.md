@@ -35,11 +35,25 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** `base_year` is `"2025-26"`; manifest `notes` added; `retrieved` per file is the day its source file entered the repository (builder runs `git log --follow --diff-filter=A`, oldest): returns 2026-09-30 (jst_r6.json, followed through the rename from `model/`), wealth_distribution and receipts and wealth_tail 2026-11-15, household_incidence 2026-11-17. `NOTICE.md` says so. New `pack_sha256` pinned: f6f66aaf...5866.
+- **Next:** none.
+- **Decisions:** `--follow` is used (the brief's command has none): without it `jst_r6.json` reads 2026-11-15, the day of the folder rename, not the day it was added. `tax_rules.csv` and `public_expenditure.csv` have no source file, so they carry the build date 2026-11-18 and NOTICE says so; if the author wants another rule for them, say so. The loader accepts the string base_year and the extra `notes` key without a change; `notes` is not hashed, `base_year` is.
+- **Gotchas:** the clone was shallow; I ran `git fetch --unshallow` (needed for the dates). The builder now needs git history to run.
+- **Resume:** `python model_v3/pack/build_gbr.py`, `pytest tests/model_v3 -q`.
+- **Not run:** none.
+- **State:** done
+
+```
+Change report
+- Task: 066c, manifest rulings of 048c (base_year and retrieved)
+- Files changed: model_v3/pack/build_gbr.py; model_v3/pack/GBR/manifest.json; model_v3/pack/GBR/NOTICE.md; tests/model_v3/test_pack.py (the pin); this brief
+- What is different now: the UK pack manifest states the 2025-26 price base and true source dates
+- New or changed interfaces: none (pack_sha256 changed because base_year is hashed)
+- Acceptance criteria: manifest has base_year and real retrieved dates, 2026-11-16 gone (met); pytest tests/model_v3 116 passed, second builder run byte-identical incl. levers.json (met); diff limited to Touches, CSV files unchanged (met)
+- Deviations from the brief: --follow added; build_gbr.py is 159 lines, 6% over its 150 budget; two files carry the build date
+- Risks / follow-ups: the builder depends on full git history
+- Verification: pytest model_v3, data, gate separately (116, 84, 17); builder run twice and diffed
+- Overview sections likely needing an update: none
+- Commit / branch: brief/066-pack-manifest-rulings
+```
 <!-- progress:end -->

@@ -11,6 +11,7 @@ import csv
 import hashlib
 import json
 import shutil
+import subprocess
 from pathlib import Path
 
 import openpyxl
@@ -115,6 +116,19 @@ def write(name, rows):
         csv.writer(fh, lineterminator='\n').writerows([SCHEMA[name[:-4]].split()] + rows)
 
 
+BUILT = '2026-11-18'
+NOTES = 'Pack values are as published; the model expresses them in 2025-26 prices (base_year, stage C1).'
+FROM = {'returns': 'model_v2/jst_r6.json', 'wealth_distribution': WEALTH, 'wealth_tail': 'model_v2/wid_out/wid_long.csv', 'receipts': REVENUE,
+        'household_incidence': ETB}   # dataset -> the repo file it is read from; a dataset with no source file carries the build date
+
+
+def added(path):
+    """The day a source file entered the repository, following renames (the oldest add commit)."""
+    out = subprocess.run(['git', 'log', '--follow', '--diff-filter=A', '--format=%as', '--', path], cwd=ROOT, capture_output=True, text=True, check=True).stdout.split()
+    assert out, f'{path} is not in git history'
+    return out[-1]
+
+
 def main():
     (OUT / 'source').mkdir(parents=True, exist_ok=True)
     shutil.copyfile(ROOT / 'model_v2' / 'jst_r6.json', OUT / 'source' / 'jst_r6.json')
@@ -128,10 +142,12 @@ def main():
     for ds in SCHEMA:
         write(ds + '.csv', ROWS[ds])
         files.append({'name': ds + '.csv', 'dataset': ds, 'sha256': hashlib.sha256((OUT / (ds + '.csv')).read_bytes()).hexdigest(), 'rows': len(ROWS[ds]),
-                      'source': src[ds][0], 'licence': src[ds][1], 'retrieved': '2026-11-16', 'vintage': src[ds][2]})
-    (OUT / 'manifest.json').write_text(json.dumps({'country': 'GBR', 'currency': 'GBP', 'base_year': None, 'pack_version': 1, 'built': '2026-11-18', 'files': files}, indent=1) + '\n', encoding='utf-8')
+                      'source': src[ds][0], 'licence': src[ds][1], 'retrieved': added(FROM[ds]) if ds in FROM else BUILT, 'vintage': src[ds][2]})
+    (OUT / 'manifest.json').write_text(json.dumps({'country': 'GBR', 'currency': 'GBP', 'base_year': '2025-26', 'pack_version': 1, 'built': BUILT,
+                                                                       'notes': NOTES, 'files': files}, indent=1) + '\n', encoding='utf-8')
     (OUT / 'NOTICE.md').write_text('# GBR pack notice\n\nContains public sector information licensed under the Open Government Licence v3.0 (ONS). JST Macrohistory R6 is CC BY-NC-SA 4.0 '
-                                   '(Jorda, Schularick and Taylor): cite only, non-commercial. IFS and WID rows are cite only. The pack stays a private input of the repo.\n', encoding='utf-8')
+                                   '(Jorda, Schularick and Taylor): cite only, non-commercial. IFS and WID rows are cite only. The pack stays a private input of the repo.\n\n'
+                                   'Each file\'s `retrieved` date is the day its source file entered this repository (git history, renames followed); a file with no source file carries the build date.\n', encoding='utf-8')
     p = ROOT / 'model_v3' / 'levers.json'
     text, lev = p.read_text(encoding='utf-8'), json.loads(p.read_text(encoding='utf-8'))
     lev['pack_mappings'].update(x1_pointers=dict(sorted(POINTERS.items())), x1_skipped={i: why for why, ids in SKIP.items() for i in ids})
