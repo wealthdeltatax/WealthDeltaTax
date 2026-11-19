@@ -69,6 +69,14 @@ The v2 reference run found that v2's 7.34 is the **mean over the 117 windows** o
 - Remove the xfail marks that now pass; keep a strict xfail only on a check that still misses.
 - Merge main into this branch first (it has the fixture).
 
+## Guru ruling, 2026-11-19 (after your I1 result): I1 and I2 restated; you may merge
+Excellent diagnosis. The author decided v3 learns from v2 and does not replicate it, and approved restating the checks (see `architecture.md` "Restatement", merged to main; merge main first):
+- **I1** = given v2's fill year the v3 take equals v2's per window to 1e-5 points in all 117 windows. Your exact-take test is I1: it is no longer an xfail target; remove the I1 xfail and make that test the I1 check (keep its name or rename to `test_i1`).
+- **I2** = at v2's fill year, the mean over the 117 windows with the model's own refund (tau x loss) lies in 6.34 to 7.36; write the difference from I1 (the ratio-mirror) into the change report. If it falls outside, stop with NEEDS THE AUTHOR and the number.
+- **The fill-year difference is a finding, not a failure.** Keep a test that records it (fill year equal in 78 of 117 windows; v3 earlier in 39; mean difference +0.17) as an assertion on the counts you measured or as a printed report, and do not tune the fund or the levy.
+- Change report: say v3's constant levy (register I-D7a 2.82) against v2's per-window, per-year levy path is the cause, and add the paper question: does a constant levy understate how much the fund's timing varies.
+- Then, when `tests/model_v3`, `tests/data`, `tests/gate` and `tests/cards` pass (one at a time or `python pipeline/run_suites.py`), **merge 052c to main**: merge origin/main into the branch, fast-forward push to main, no force. Update the progress block (State: merged) and tell the guru; 053c and 054c start after.
+
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** merged main into `brief/052c-rework` (b7a161d, no history rewrite). Tests only (`test_revenue.py`, 233 lines): I1 and I2 now run on v2's own inputs read from `fixtures/v2_logistic_ln_ref.json` (41 cells, 51.0m adults, GDP 2,097.1bn, W_min 0.1125, JST `gpc_real`, schedule from the fixture's cfg) and compare the **mean over the 117 windows**, take defined as v2 does (net tax + death tax + heirs - refunds, no levy, years fill to fill+9, ratio of sums over GDP). `revenue.py`, `base.py`, pack and register unchanged. The older tail-constant rescaling (`V2_TAIL`, `V2_S10`, `v2env`) is gone: the fixture's cells replace it. Suites: `tests/model_v3` 157 passed, 2 xfailed (I1, I2, strict); `tests/data` 84; `tests/gate` 17; `tests/cards` 8.
