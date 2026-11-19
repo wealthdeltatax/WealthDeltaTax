@@ -81,7 +81,7 @@ The understater plateau is read off M7c: the alpha range below the zone in which
 
 M9 sits beside M1. M1 is not redefined, and the line X is reported on its own, not merged. The ledger's term is the "cross-base externality": the income tax and VAT lost per unit of wealth tax lost to emigration (BEHAV §9.2, BEHAV.A §D; WP §7.3). Summary form: `p10_mean_p90`.
 
-**Inputs.** I-D5c (share leaving residence, 0 to 11%), I-D5a (total base response), I-D9d (mean income of the top wealth decile, a proxy for leavers' income), I-M6l (effective income tax rate of people with £1m or more of income and gains, 11 to 45%), I-D4b, I-D4c (who is in the base). MISSING: M-4 (income, NICs and VAT paid by the likely leavers, per pound of wealth tax base, and their consumption share).
+**Inputs.** I-D5c (share leaving residence, 0 to 11%), I-D5a (total base response), I-D9d (mean income of the top wealth decile, a proxy for leavers' income), I-M6l (effective income tax rate of people with £3m or more of income, income only, 37 to 47%), I-D4b, I-D4c (who is in the base). MISSING: M-4 (income, NICs and VAT paid by the likely leavers, per pound of wealth tax base, and their consumption share).
 
 **`outputs.yml` line to add**
 ```yaml
@@ -175,7 +175,7 @@ Two points for the code lane, both from reading SWEEPS 7.5 against the register.
 | M-1 | OB1 | The share of adults, and the share of wealth they hold, above each threshold on a grid from about £150,000 to £10m, from the held WAS Round 8 percentile tables plus the tail sources (I-D4d to I-D4f). Extends I-D4b and I-D4c, which give one threshold |
 | M-2 | OB1 | How often adults cross a given wealth threshold in a year, by band: a published wealth-mobility estimate, or the saving and portfolio assumption the model would otherwise need |
 | M-3 | OD1 | The distribution of declared value against true value among payers, or the closest evidence on bunching and understatement (I-D5d is a mean, not a distribution) |
-| M-4 | OM1 | Income tax, NICs and VAT paid per pound of wealth by the people most likely to leave, with their consumption share. I-M6l is a rate only, for taxpayers with £1m or more of income and gains |
+| M-4 | OM1 | Income tax, NICs and VAT paid per pound of wealth by the people most likely to leave, with their consumption share. I-M6l is a rate only, for taxpayers with £3m or more of income (income only) |
 | M-5 | OL1 | Mean household income by income decile, and published earnings for the median worker and a care worker (the ONS decile workbook was not reachable in B2) |
 
 ## Author's choices that this file leaves open

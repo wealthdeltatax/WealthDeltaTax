@@ -138,11 +138,6 @@ def _x_returns(n, rows):
     for r, (a, b) in enumerate(zip(rows, rows[1:]), 3):
         if b['year'] != a['year'] + 1:
             raise PackError(f'{n}:{r}:year: {b["year"]} does not follow {a["year"]} (strictly increasing, no gaps)')
-    for col in (c[0] for c in SCHEMA['returns'] if c[0].endswith('_tr')):
-        idx = [i for i, row in enumerate(rows) if row[col] is not None]
-        gap = next((i for i in range(idx[0], idx[-1]) if rows[i][col] is None), None) if idx else None
-        if gap is not None:
-            raise PackError(f'{n}:{gap + 2}:{col}: missing inside the series span (each return column must be contiguous)')
 
 
 def _x_wealth(n, rows):

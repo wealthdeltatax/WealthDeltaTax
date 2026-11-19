@@ -17,13 +17,13 @@ Status: **all pending.** One line per register row flagged `(J)` in `docs/model-
 | I-D5c | Share of affected people leaving UK tax residence after a targeted tax rise (D5; ω, M7) | 0 | 6 | 11 | pending |  |
 | I-D5d | Understatement of assessed value for assets with discretionary valuation, such as private  | 0 | 11 | 22 | pending |  |
 | I-D6b | Share of business rates receipts borne by the top income decile (D6; M1d, M4) | 23.2 | 23.7 | 23.7 | pending |  |
-| I-D6c | Share of corporation tax receipts borne by the top income decile (D6; M1d, M4) | 22.7 | 24.5 | 25.7 | pending |  |
+| I-D6c | Share of corporation tax receipts borne by the top income decile (D6; M1d, M4) | 22.7 | 25.2 | 25.7 | pending |  |
 | I-D6d | Share of capital gains tax receipts borne by the top income decile (D6; M1d, M4) | 52.0 | 55.0 | 55.0 | pending |  |
 | I-D6e | Share of inheritance tax receipts borne by the top income decile (D6; M1d, M4) | 25.0 | 28.5 | 30.4 | pending |  |
 | I-D6f | Share of stamp duties on property receipts borne by the top income decile (D6; M1d, M4) | 21.8 | 21.8 | 28.2 | pending |  |
 | I-D6g | Share of stamp taxes on shares receipts borne by the top income decile (D6; M1d, M4) | 21.8 | 25.0 | 28.5 | pending |  |
 | I-D6i | Share of business rates receipts borne by the bottom five income deciles (D6; M1d, M4) | 29.8 | 30.6 | 32.4 | pending |  |
-| I-D6j | Share of corporation tax receipts borne by the bottom five income deciles (D6; M1d, M4) | 28.5 | 30.7 | 33.9 | pending |  |
+| I-D6j | Share of corporation tax receipts borne by the bottom five income deciles (D6; M1d, M4) | 28.5 | 29.5 | 33.9 | pending |  |
 | I-D6k | Share of capital gains tax receipts borne by the bottom five income deciles (D6; M1d, M4) | 2.5 | 3.3 | 4.9 | pending |  |
 | I-D6l | Share of inheritance tax receipts borne by the bottom five income deciles (D6; M1d, M4) | 33.3 | 34.5 | 40.4 | pending |  |
 | I-D6m | Share of stamp duties on property receipts borne by the bottom five income deciles (D6; M1 | 24.5 | 36.0 | 36.0 | pending |  |

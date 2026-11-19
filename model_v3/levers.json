@@ -9,5 +9,607 @@
     "threshold_ratio": [0.25, 0.5, 1.0]
   },
   "threshold_basis": "median house price per adult",
-  "retirement_order": "ascending_by_receipts"
+  "retirement_order": "ascending_by_receipts",
+  "pack_mappings": {
+    "note": "Mappings that core/pack.py leaves to the caller (047c, 048c). x1_pointers and x1_skipped are written by pack/build_gbr.py; parts, groups and x2 are typed here.",
+    "x1_pointers": {
+      "I-D6a": [
+        "household_incidence",
+        {
+          "variable": "tax_share_top_decile",
+          "group": "D10",
+          "tax": "council_tax"
+        },
+        "value"
+      ],
+      "I-D6h": [
+        "household_incidence",
+        {
+          "variable": "tax_share_bottom_five",
+          "group": "D1-5",
+          "tax": "council_tax"
+        },
+        "value"
+      ],
+      "I-D6o": [
+        "household_incidence",
+        {
+          "variable": "tax_share_top_decile",
+          "group": "D10",
+          "tax": "business_rates"
+        },
+        "value"
+      ],
+      "I-D6p": [
+        "household_incidence",
+        {
+          "variable": "tax_share_bottom_five",
+          "group": "D1-5",
+          "tax": "business_rates"
+        },
+        "value"
+      ],
+      "I-D6q": [
+        "household_incidence",
+        {
+          "variable": "tax_share_top_decile",
+          "group": "D10",
+          "tax": "stamp_property"
+        },
+        "value"
+      ],
+      "I-D7b": [
+        "receipts",
+        {
+          "line": "corporation_tax"
+        },
+        "pct_gdp"
+      ],
+      "I-D9e": [
+        "wealth_distribution",
+        {
+          "variable": "net_financial_share",
+          "band": "D4-5"
+        },
+        "value"
+      ],
+      "I-D9f": [
+        "wealth_distribution",
+        {
+          "variable": "net_financial_share",
+          "band": "D6-7"
+        },
+        "value"
+      ],
+      "I-D9g": [
+        "wealth_distribution",
+        {
+          "variable": "net_financial_share",
+          "band": "D8-9"
+        },
+        "value"
+      ],
+      "I-D9h": [
+        "wealth_distribution",
+        {
+          "variable": "net_financial_share",
+          "band": "D10"
+        },
+        "value"
+      ],
+      "I-H1k": [
+        "household_incidence",
+        {
+          "variable": "total_tax",
+          "group": "D1",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H1l": [
+        "household_incidence",
+        {
+          "variable": "total_tax",
+          "group": "D2",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H1m": [
+        "household_incidence",
+        {
+          "variable": "total_tax",
+          "group": "D3",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H1n": [
+        "household_incidence",
+        {
+          "variable": "total_tax",
+          "group": "D4",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H1o": [
+        "household_incidence",
+        {
+          "variable": "total_tax",
+          "group": "D5",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H1p": [
+        "household_incidence",
+        {
+          "variable": "total_tax",
+          "group": "D6",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H1q": [
+        "household_incidence",
+        {
+          "variable": "total_tax",
+          "group": "D7",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H1r": [
+        "household_incidence",
+        {
+          "variable": "total_tax",
+          "group": "D8",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H1s": [
+        "household_incidence",
+        {
+          "variable": "total_tax",
+          "group": "D9",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H1t": [
+        "household_incidence",
+        {
+          "variable": "total_tax",
+          "group": "D10",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H2b": [
+        "household_incidence",
+        {
+          "variable": "share_receiving_net_benefit",
+          "group": "all",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H3k": [
+        "household_incidence",
+        {
+          "variable": "gross_income",
+          "group": "D1",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H3l": [
+        "household_incidence",
+        {
+          "variable": "gross_income",
+          "group": "D2",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H3m": [
+        "household_incidence",
+        {
+          "variable": "gross_income",
+          "group": "D3",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H3n": [
+        "household_incidence",
+        {
+          "variable": "gross_income",
+          "group": "D4",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H3o": [
+        "household_incidence",
+        {
+          "variable": "gross_income",
+          "group": "D5",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H3p": [
+        "household_incidence",
+        {
+          "variable": "gross_income",
+          "group": "D6",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H3q": [
+        "household_incidence",
+        {
+          "variable": "gross_income",
+          "group": "D7",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H3r": [
+        "household_incidence",
+        {
+          "variable": "gross_income",
+          "group": "D8",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H3s": [
+        "household_incidence",
+        {
+          "variable": "gross_income",
+          "group": "D9",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-H3t": [
+        "household_incidence",
+        {
+          "variable": "gross_income",
+          "group": "D10",
+          "tax": null
+        },
+        "value"
+      ],
+      "I-T3a": [
+        "receipts",
+        {
+          "line": "income_tax"
+        },
+        "pct_gdp"
+      ],
+      "I-T3b": [
+        "receipts",
+        {
+          "line": "paye"
+        },
+        "pct_gdp"
+      ],
+      "I-T3c": [
+        "receipts",
+        {
+          "line": "self_assessment"
+        },
+        "pct_gdp"
+      ],
+      "I-T3d": [
+        "receipts",
+        {
+          "line": "nics"
+        },
+        "pct_gdp"
+      ],
+      "I-T3e": [
+        "receipts",
+        {
+          "line": "vat"
+        },
+        "pct_gdp"
+      ],
+      "I-T3f": [
+        "receipts",
+        {
+          "line": "corporation_tax"
+        },
+        "pct_gdp"
+      ],
+      "I-T3g": [
+        "receipts",
+        {
+          "line": "fuel_duty"
+        },
+        "pct_gdp"
+      ],
+      "I-T3h": [
+        "receipts",
+        {
+          "line": "cgt"
+        },
+        "pct_gdp"
+      ],
+      "I-T3i": [
+        "receipts",
+        {
+          "line": "iht"
+        },
+        "pct_gdp"
+      ],
+      "I-T3j": [
+        "receipts",
+        {
+          "line": "stamp_duties"
+        },
+        "pct_gdp"
+      ],
+      "I-T3k": [
+        "receipts",
+        {
+          "line": "stamp_property"
+        },
+        "pct_gdp"
+      ],
+      "I-T3l": [
+        "receipts",
+        {
+          "line": "stamp_shares"
+        },
+        "pct_gdp"
+      ],
+      "I-T3m": [
+        "receipts",
+        {
+          "line": "business_rates"
+        },
+        "pct_gdp"
+      ],
+      "I-T3n": [
+        "receipts",
+        {
+          "line": "council_tax"
+        },
+        "pct_gdp"
+      ],
+      "I-T3o": [
+        "receipts",
+        {
+          "line": "total_hmrc"
+        },
+        "pct_gdp"
+      ],
+      "I-T3p": [
+        "receipts",
+        {
+          "line": "total_current"
+        },
+        "pct_gdp"
+      ],
+      "I-T4a": [
+        "wealth_distribution",
+        {
+          "variable": "gain_bearing_wealth",
+          "band": "D4-5"
+        },
+        "value"
+      ],
+      "I-T4b": [
+        "wealth_distribution",
+        {
+          "variable": "gain_bearing_wealth",
+          "band": "D6-7"
+        },
+        "value"
+      ],
+      "I-T4c": [
+        "wealth_distribution",
+        {
+          "variable": "gain_bearing_wealth",
+          "band": "D8-9"
+        },
+        "value"
+      ],
+      "I-T4d": [
+        "wealth_distribution",
+        {
+          "variable": "gain_bearing_wealth",
+          "band": "D10"
+        },
+        "value"
+      ],
+      "I-T6b": [
+        "wealth_distribution",
+        {
+          "variable": "pension_share",
+          "band": "D6-7"
+        },
+        "value"
+      ],
+      "I-T6c": [
+        "wealth_distribution",
+        {
+          "variable": "pension_share",
+          "band": "D8-9"
+        },
+        "value"
+      ],
+      "I-T6d": [
+        "wealth_distribution",
+        {
+          "variable": "pension_share",
+          "band": "D10"
+        },
+        "value"
+      ],
+      "I-T6e": [
+        "wealth_distribution",
+        {
+          "variable": "property_share",
+          "band": "D6-7"
+        },
+        "value"
+      ],
+      "I-T6f": [
+        "wealth_distribution",
+        {
+          "variable": "property_share",
+          "band": "D8-9"
+        },
+        "value"
+      ],
+      "I-T6g": [
+        "wealth_distribution",
+        {
+          "variable": "property_share",
+          "band": "D10"
+        },
+        "value"
+      ],
+      "I-T6h": [
+        "wealth_distribution",
+        {
+          "variable": "net_financial_share",
+          "band": "D6-7"
+        },
+        "value"
+      ],
+      "I-T6i": [
+        "wealth_distribution",
+        {
+          "variable": "net_financial_share",
+          "band": "D8-9"
+        },
+        "value"
+      ],
+      "I-T6j": [
+        "wealth_distribution",
+        {
+          "variable": "net_financial_share",
+          "band": "D10"
+        },
+        "value"
+      ],
+      "I-W5e": [
+        "wealth_distribution",
+        {
+          "variable": "pension_share",
+          "band": "all"
+        },
+        "value"
+      ],
+      "I-W7a": [
+        "wealth_tail",
+        {
+          "series": "wid_top1",
+          "year": 2024
+        },
+        "value"
+      ],
+      "I-W7b": [
+        "wealth_tail",
+        {
+          "series": "wid_top10",
+          "year": 2024
+        },
+        "value"
+      ]
+    },
+    "x1_skipped": {
+      "I-D1c": "derived from the return series, checked by the model not stored",
+      "I-D1d": "derived from the return series, checked by the model not stored",
+      "I-D1e": "derived from the return series, checked by the model not stored",
+      "I-H6a": "derived from the return series, checked by the model not stored",
+      "I-H6b": "derived from the return series, checked by the model not stored",
+      "I-H6c": "derived from the return series, checked by the model not stored",
+      "I-H6d": "derived from the return series, checked by the model not stored",
+      "I-H6e": "derived from the return series, checked by the model not stored",
+      "I-H6f": "derived from the return series, checked by the model not stored",
+      "I-H6g": "derived from the return series, checked by the model not stored",
+      "I-H6h": "derived from the return series, checked by the model not stored",
+      "I-H6i": "derived from the return series, checked by the model not stored",
+      "I-H2a1": "needs W_min, a register input, so no pack row",
+      "I-H2a2": "needs W_min, a register input, so no pack row",
+      "I-H2a3": "needs W_min, a register input, so no pack row",
+      "I-H2a4": "needs W_min, a register input, so no pack row",
+      "I-H2a5": "needs W_min, a register input, so no pack row",
+      "I-H2a6": "needs W_min, a register input, so no pack row",
+      "I-H2a7": "needs W_min, a register input, so no pack row",
+      "I-D7d": "no held sheet gives the HMRC series",
+      "I-D4d": "data not in the repo (register In repo cell says no)",
+      "I-D4f": "data not in the repo (register In repo cell says no)",
+      "I-W5c": "data not in the repo (register In repo cell says no)",
+      "I-W5d": "data not in the repo (register In repo cell says no)",
+      "I-T1a": "data not in the repo (register In repo cell says no)",
+      "I-T1b": "data not in the repo (register In repo cell says no)",
+      "I-T1e": "data not in the repo (register In repo cell says no)",
+      "I-H1a": "data not in the repo (register In repo cell says no)",
+      "I-H1b": "data not in the repo (register In repo cell says no)",
+      "I-H1c": "data not in the repo (register In repo cell says no)",
+      "I-H1d": "data not in the repo (register In repo cell says no)",
+      "I-H1e": "data not in the repo (register In repo cell says no)",
+      "I-H1f": "data not in the repo (register In repo cell says no)",
+      "I-H1g": "data not in the repo (register In repo cell says no)",
+      "I-H1h": "data not in the repo (register In repo cell says no)",
+      "I-H1i": "data not in the repo (register In repo cell says no)",
+      "I-H1j": "data not in the repo (register In repo cell says no)",
+      "I-T7a": "data not in the repo (register In repo cell says no)",
+      "I-T7b": "data not in the repo (register In repo cell says no)",
+      "I-T7c": "data not in the repo (register In repo cell says no)",
+      "I-T7d": "data not in the repo (register In repo cell says no)",
+      "I-T7e": "data not in the repo (register In repo cell says no)",
+      "I-T7f": "data not in the repo (register In repo cell says no)"
+    },
+    "parts": {
+      "stamp_duties": [
+        "stamp_property",
+        "stamp_shares"
+      ]
+    },
+    "groups": {
+      "labour": [
+        "income_tax",
+        "nics"
+      ],
+      "consumption": [
+        "vat",
+        "fuel_duty"
+      ],
+      "capital": [
+        "corporation_tax",
+        "cgt"
+      ],
+      "wealth": [
+        "iht",
+        "stamp_duties",
+        "business_rates",
+        "council_tax"
+      ]
+    },
+    "x2": {
+      "lines": [
+        "corporation_tax",
+        "council_tax",
+        "business_rates",
+        "cgt",
+        "iht",
+        "stamp_property",
+        "stamp_shares"
+      ],
+      "target": 8.11,
+      "tolerance": 0.01
+    }
+  }
 }

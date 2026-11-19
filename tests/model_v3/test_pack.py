@@ -1,14 +1,17 @@
-"""Tests P1 to P7 and P10 of architecture.md 6.2 for core/pack.py, on the invented ZZZ pack (brief 047c). P8 and P9 need the UK pack (V3-3)."""
-import ast, hashlib, json, shutil, sys
+"""Tests P1 to P10 of architecture.md 6.2 for core/pack.py: P1 to P7 and P10 on the invented ZZZ pack (047c), P8 and P9 on the UK pack (048c)."""
+import ast, hashlib, json, re, shutil, sys
 from pathlib import Path
 
-import numpy as np
-import pytest
+import numpy as np, pytest
 
 from model_v3.core import pack as pk
 
 FIX = Path(__file__).parent / 'fixtures' / 'pack_ZZZ'
 PINNED = '90031fcd58434fe98b1329646ceb40320a229ecb36c430f1f99ede8b505d67c5'   # P7: the fixture's pack_sha256
+ROOT = Path(__file__).parents[2]
+GBR = ROOT / 'model_v3' / 'pack' / 'GBR'
+GBR_SHA = '4ac02da6032a1f5b688f64449ff9a78c068e7d04bfcee4e23e77148bd434cf72'   # the UK pack_sha256, pinned: a rebuilt pack that changes a byte fails here
+KNOWN_UNORDERED = {'I-T3d', 'I-T3e', 'I-T3g', 'I-T3m', 'I-T3p'}   # register rows with low > central or central > high (finding of 048c, for the author)
 PARTS = {'stamp_all': ['stamp_a', 'stamp_b'], 'income_tax': ['pay_a', 'pay_b']}
 
 
@@ -42,10 +45,7 @@ def test_p1_fixture_loads_every_dataset(zzz):
     assert (p.country, p.currency, p.base_year, p.version) == ('ZZZ', 'ZZD', 2020, 1)
     assert set(p.tables) == set(pk.SCHEMA) and all(len(p.tables[d]) == p.files[f'{d}.csv']['rows'] for d in p.tables)
     assert p.tables['returns'][0]['capital_tr'] is None and p.tables['returns'][2]['capital_tr'] == 4.4   # no fill
-
-
-def test_p1_missing_values_stay_missing(zzz):
-    years, v = pk.series(pk.load_pack(zzz), 'capital_tr')
+    years, v = pk.series(p, 'capital_tr')
     assert list(years[:3]) == [2000, 2001, 2002] and np.isnan(v[:2]).all() and v[2] == 4.4
 
 
@@ -53,22 +53,15 @@ def test_p2_changed_byte_fails_on_sha256_and_names_file_row_column(zzz):
     fails(zzz, r'returns\.csv: sha256 mismatch.*returns\.csv:3:eq_tr', ('returns.csv', '2001,6,', '2001,x,'), rehash=False)
 
 
-def test_p2_changed_byte_that_stays_valid_names_the_file(zzz):
-    fails(zzz, r'returns\.csv: sha256 mismatch', ('returns.csv', '2001,6,', '2001,6.5,'), rehash=False)
+def test_p2_a_changed_byte_that_stays_valid_names_its_file(zzz):
+    fails(zzz, r'receipts\.csv: sha256', ('receipts.csv', 'income_tax,2025-26,10', 'income_tax,2025-26,11'), rehash=False)
 
 
-def test_p2_the_manifest_may_not_hide_a_changed_byte_in_another_file(zzz):
-    edit(zzz, 'receipts.csv', 'income_tax,2025-26,10', 'income_tax,2025-26,11', rehash=False)
-    with pytest.raises(pk.PackError, match=r'receipts\.csv: sha256'):
-        pk.load_pack(zzz)
-
-
-def test_p3_wrong_header_order_fails(zzz):
-    fails(zzz, r'receipts\.csv:1:header', ('receipts.csv', 'line,fiscal_year', 'fiscal_year,line'))
-
-
-def test_p3_wrong_cell_count_and_junk_numbers_fail(zzz):
-    fails(zzz, r'returns\.csv:2:-: 5 cells', ('returns.csv', '2000,5,3.0,2.0,,100.0', '2000,5,3.0,2.0,100.0'))
+@pytest.mark.parametrize('file,old,new,match', [
+    ('receipts.csv', 'line,fiscal_year', 'fiscal_year,line', r'receipts\.csv:1:header'),
+    ('returns.csv', '2000,5,3.0,2.0,,100.0', '2000,5,3.0,2.0,100.0', r'returns\.csv:2:-: 5 cells')])
+def test_p3_wrong_header_order_and_cell_count_fail(zzz, file, old, new, match):
+    fails(zzz, match, (file, old, new))
 
 
 @pytest.mark.parametrize('bad', ['"1,234.5"', 'nan', '"4,5"', '1e999'])
@@ -76,15 +69,9 @@ def test_p3_number_formats_the_pack_forbids(zzz, bad):
     fails(zzz, r'returns\.csv:3:cpi', ('returns.csv', '102.0', bad))
 
 
-def test_p4_empty_cell_where_not_allowed_fails(zzz):
-    fails(zzz, r'returns\.csv:4:cpi: empty cell', ('returns.csv', '104.04', ''))
-
-
-def test_p5_percent_outside_0_to_100_fails(zzz):
-    fails(zzz, r'wealth_distribution\.csv:12:value', ('wealth_distribution.csv', 'ge_100,40', 'ge_100,140'))
-
-
 @pytest.mark.parametrize('file,old,new,match', [
+    ('returns.csv', '104.04', '', r'returns\.csv:4:cpi: empty cell'),   # P4
+    ('wealth_distribution.csv', 'ge_100,40', 'ge_100,140', r'wealth_distribution\.csv:12:value'),   # P5
     ('receipts.csv', 'income_tax,2025-26,10', 'income_tax,2025-26,100', r'receipts\.csv:2:pct_gdp'),
     ('tax_rules.csv', ',20,,', ',120,,', r'tax_rules\.csv:2:rate'),
     ('returns.csv', '2000,5,', '2000,-100,', r'returns\.csv:2:eq_tr'),
@@ -93,13 +80,11 @@ def test_p5_other_ranges(zzz, file, old, new, match):
     fails(zzz, match, (file, old, new))
 
 
-def test_p6_partition_must_sum_to_100(zzz):
-    fails(zzz, r'wealth_distribution\.csv:2:value: bands of wealth_share partition.*sum to', ('wealth_distribution.csv', 'D1,0.5', 'D1,2.5'))
-
-
-def test_p6_partition_within_half_a_point_passes(zzz):
+def test_p6_partition_must_sum_to_100_within_half_a_point(zzz):
     edit(zzz, 'wealth_distribution.csv', 'D1,0.5', 'D1,0.9')
     assert pk.load_pack(zzz)
+    edit(zzz, 'wealth_distribution.csv', 'D1,0.9', 'D1,2.5')
+    fails(zzz, r'wealth_distribution\.csv:2:value: bands of wealth_share partition.*sum to', ('wealth_distribution.csv', 'D1,0.5', 'D1,2.5'))
 
 
 def test_p7_fixture_pack_hash_is_pinned(zzz):
@@ -115,13 +100,9 @@ def test_p7_hash_moves_with_data_currency_and_base_year(zzz):
         (zzz / 'manifest.json').write_text(json.dumps(m))
         shutil.copy(FIX / 'tax_rules.csv', zzz / 'tax_rules.csv')
         assert pk.load_pack(zzz).sha256 not in (PINNED, None)
-
-
-def test_p7_built_date_is_not_hashed(zzz):
-    m = json.loads((zzz / 'manifest.json').read_text())
-    m['built'] = '2030-01-01'
-    (zzz / 'manifest.json').write_text(json.dumps(m))
-    assert pk.load_pack(zzz).sha256 == PINNED
+    shutil.copy(FIX / 'tax_rules.csv', zzz / 'tax_rules.csv')
+    (zzz / 'manifest.json').write_text(json.dumps(dict(json.loads((FIX / 'manifest.json').read_text()), built='2030-01-01')))
+    assert pk.load_pack(zzz).sha256 == PINNED   # the built date is not hashed
 
 
 def test_p10_stamp_sub_rows_are_never_summed_with_their_parent(zzz):
@@ -168,7 +149,6 @@ def test_manifest_file_entries(zzz):
 
 @pytest.mark.parametrize('file,old,new,match', [
     ('returns.csv', '2003,', '2004,', r'returns\.csv:5:year'),
-    ('returns.csv', '2003,8,4.5,2.3,4.6,', '2003,8,4.5,2.3,,', r'returns\.csv:5:capital_tr: missing inside'),
     ('wealth_distribution.csv', 'households_above,ge_100,40,pct_households', 'wealth_share,D1,40,pct_households', r'wealth_distribution\.csv:12:variable: duplicate of row 2'),
     ('wealth_tail.csv', '2010,18.0,', '2010,15.0,', r'wealth_tail\.csv:2:low'),
     ('receipts.csv', 'pay_a,', 'pay_b,', r'receipts\.csv:4:line: duplicate'),
@@ -179,6 +159,11 @@ def test_manifest_file_entries(zzz):
     ('tax_rules.csv', 'higher,50,150', 'higher,50,', r'tax_rules\.csv:4:lower: bands')])
 def test_cross_checks(zzz, file, old, new, match):
     fails(zzz, match, (file, old, new))
+
+
+def test_an_interior_gap_in_a_return_column_loads_and_stays_missing(zzz):   # JST has no housing or capital return for 1940-46
+    edit(zzz, 'returns.csv', '2003,8,4.5,2.3,4.6,', '2003,8,4.5,2.3,,')
+    assert pk.load_pack(zzz).tables['returns'][3]['capital_tr'] is None
 
 
 def test_register_loader(tmp_path):
@@ -229,3 +214,27 @@ def test_only_numpy_and_the_standard_library_are_imported():
     roots = {n.module.split('.')[0] if isinstance(n, ast.ImportFrom) else a.name.split('.')[0]
              for n in ast.walk(t) if isinstance(n, (ast.Import, ast.ImportFrom)) for a in getattr(n, 'names', [])}
     assert roots <= set(sys.stdlib_module_names) | {'numpy'}
+
+
+def test_p8_the_uk_pack_agrees_with_the_register_and_the_retirement_target():
+    mp = json.loads((ROOT / 'model_v3' / 'levers.json').read_text())['pack_mappings']
+    p, reg = pk.load_pack(GBR), pk.load_register(ROOT / 'registry' / 'inputs.json')
+    assert pk.check_x1(p, reg, mp['x1_pointers']) == len(mp['x1_pointers']) > 0
+    assert set(mp['x1_skipped']) <= set(reg) and not set(mp['x1_skipped']) & set(mp['x1_pointers'])
+    pk.check_parts(p, mp['parts'])
+    x = mp['x2']
+    assert abs(pk.check_x2(p, x['lines'], x['target'], x['tolerance'], mp['parts']) - x['target']) <= x['tolerance']
+
+
+def test_p9_the_register_agrees_with_inputs_md():
+    text = (ROOT / 'docs' / 'model-v3' / 'inputs.md').read_text(encoding='utf-8')
+    md = {m[1]: '(J)' in line for line in text.splitlines() if (m := re.match(r'\| (I-\w+) \|', line))}
+    reg = pk.load_register(ROOT / 'registry' / 'inputs.json')
+    assert len(reg) == len(md) == int(re.search(r'register has (\d+) rows', text)[1]) == json.loads((ROOT / 'registry' / 'inputs.json').read_text())['count']
+    assert {i: r.judgement for i, r in reg.items()} == md
+    bad = {i for i, r in reg.items() if r.low is not None and r.high is not None and not r.low <= r.central <= r.high}
+    assert bad == KNOWN_UNORDERED
+
+
+def test_p7_the_uk_pack_hash_is_pinned():
+    assert pk.load_pack(GBR).sha256 == GBR_SHA

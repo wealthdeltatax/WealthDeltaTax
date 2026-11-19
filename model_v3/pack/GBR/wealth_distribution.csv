@@ -1,0 +1,16 @@
+variable,band,value,unit,basis,year
+net_financial_share,D4-5,6.6,pct_of_band,household,2020-22
+net_financial_share,D6-7,9.3,pct_of_band,household,2020-22
+net_financial_share,D8-9,12.8,pct_of_band,household,2020-22
+net_financial_share,D10,19.3,pct_of_band,household,2020-22
+pension_share,all,35.4,pct_of_band,household,2020-22
+pension_share,D6-7,32.5,pct_of_band,household,2020-22
+pension_share,D8-9,35.4,pct_of_band,household,2020-22
+pension_share,D10,36.4,pct_of_band,household,2020-22
+property_share,D6-7,45.6,pct_of_band,household,2020-22
+property_share,D8-9,42.7,pct_of_band,household,2020-22
+property_share,D10,38.3,pct_of_band,household,2020-22
+gain_bearing_wealth,D4-5,460,gbp_bn,household,2020-22
+gain_bearing_wealth,D6-7,1251,gbp_bn,household,2020-22
+gain_bearing_wealth,D8-9,2460,gbp_bn,household,2020-22
+gain_bearing_wealth,D10,3181,gbp_bn,household,2020-22
