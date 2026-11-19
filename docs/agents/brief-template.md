@@ -37,6 +37,9 @@ Files and areas affected.
 ## Stages
 One session finishes one stage; a stage is the unit of checkpoint. `- <id>: <what>. Checkpoint: <what is pushed>; check: <cheapest check>`. Stages are for sequential steps only; split parallel work into separate briefs (see Splitting). A small brief may omit this.
 
+## Inputs and early check (build stages)
+List each register row, pack field or file the stage reads and where it exists; a missing one needs its own brief first. If the stage feeds a target number, name the cheapest check against it and say to stop and report the numbers if it misses.
+
 ## Acceptance criteria
 Measurable: a test, a bound, a manual check. For experiments, an adoption bar written before measuring.
 

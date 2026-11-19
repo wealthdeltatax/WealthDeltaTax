@@ -7,6 +7,8 @@ A session can end at any moment. Work only on an agent's disk is lost and the ne
 - Progress block in the brief's Implementation notes (or the task notes), at most 15 lines: **Done**, **Next**, **Decisions** (what the next agent must not redo), **Gotchas**, **Resume** (exact commands), **Not run**, **State** (pushed commit).
 - One small edit per stage; never paste logs, only the first error line and the command.
 
+- A stop-hook warning of unpushed commits is stale when `git ls-remote origin <branch>` equals `git rev-parse HEAD`; check before pushing again.
+
 ## Prompts (the author pastes one)
 **Wrap up:**
 ```
