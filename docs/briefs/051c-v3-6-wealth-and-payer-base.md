@@ -2,7 +2,7 @@
 
 - **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-18
-- **Depends on:** 048, 049
+- **Depends on:** 048, 049, 067, 068, 069 (all merged)
 - **Read:** `docs/model-v3/architecture.md` 2.3 and 6.2 (B1 to B5); `docs/model-v3/country-pack.md` (`wealth_distribution`, `wealth_tail`, `household_incidence`); `docs/model-v3/drivers.md`; `model_v2/rates_core.py` lines 408 to 599 as specification only; `docs/model-v3/acceptance.md` V3-6 row.
 
 ## Goal
@@ -36,10 +36,27 @@ Kernel changes; behaviour (a level 2 draw in V3-10).
 Ask if the pack tables do not support a route mix; do not invent one.
 
 ## Guru rulings, 2026-11-19
-Blocked on the first run (Agent 3's note on `brief/051-base`): the merged UK pack has shares only, and no register row held the route mix. Both are my gaps in the architecture, not yours. Resolved as follows; do not start before both merge.
-- **Pack:** brief 067c adds `wealth_total`, `households`, `adults`, `median_house_price` and `gdp` to `wealth_distribution.csv` (country-pack.md 3.2). B2 reads `median_house_price` from the pack. Its progress block ends with the field list; rewrite this brief's pack field list from it.
-- **Route mix:** brief 068g adds the register rows (v2 baseline D13 as central, Route C 5 to 10 with A absorbing, Route B by sale). Read them from `registry/inputs.json`; do not type the shares.
-- The branch `brief/051-base` carries only the blocker note: start again from main, keep the progress block.
+Blocked on the first run (Agent 3's note on `brief/051-base`): the merged UK pack had shares only, and no register row held the route mix. Both were my gaps in the architecture, not yours. They are now resolved and merged (067c, 068g, 069r). The branch `brief/051-base` carries only the blocker note: start again from main, keep the progress block. Depends on 048, 049, 067, 068, 069 (all merged).
+
+**Where each input is (read it from here; type none of it).**
+- **Pack, `wealth_distribution.csv`** (field list: the 067c progress block, `docs/archive/briefs/067c-pack-base-fields.md`):
+  - `wealth_total`: D1 to D10 and `all`, `gbp_bn`, household basis, 2020-22. The deciles sum to 13,567.89 and `all` is the printed 13,568.
+  - `households`: D1 to D10 and `all`, `thousand`; each decile is 2,699.1 (a tenth of 26,991 by definition; no held table prints a count per decile).
+  - `median_house_price`: band `all`, `gbp`, 300,000, England, year to Sep 2025.
+  - `gdp`: `all`, `gbp_bn`, 2,211.48 (mean of FY 2020-21 and FY 2021-22, nominal as published).
+  - **`adults` is not in the pack** (no held table gives adults by decile); it is a register row, below.
+- **Register, `registry/inputs.json`:**
+  - Route mix, family D13: I-D13a Route A 48/50/53, I-D13b Route B 25/25/25, I-D13c Route C 5/8/10, I-D13d Route D 17/17/17 (% of initial value; A absorbs the C change; the four sum to 100 at central and at each end of the C range). I-D13e is the Route B payment mode: **text, so `low`, `central`, `high` are null and the word `sale` is in `nulls.central.raw`.** Read it from there.
+  - Adults per household: I-D4h, 1.77 / 1.93 / 1.93 (central: persons aged 16 and over, Table 2.11, over households, Table 2.9). The central counts people **16 and over**, not 18 and over.
+- All the D13 rows and I-D4h are `(J)` rows still pending the author's decision at gate G3. That is expected; build to the central and carry low and high.
+
+**Known mismatches; do not fix them, report them in the change report if they bite.**
+- Register I-D4a (wealth to GDP, central 5.94) uses calendar-2021 GDP of 2,284bn; the pack ratio is 13,568 / 2,211.48 = 6.14. The base reads the pack. The register row is a guru and author question (`docs/brief-suggestions.md`).
+- Register I-D4b's central implies 1.77 adults per household; I-D4h's is 1.93. If your `base.py` needs an adult count in a test that touches I-D4b, say which row you used. Open question for the author (`docs/brief-suggestions.md`).
+- `wealth_distribution.csv` is now `cite-only` in the manifest (the IFS GDP series), so any later page that republishes pack numbers needs that noted.
+- In a shallow git clone the pack builder writes different `retrieved` dates, so do not run `build_gbr.py` to rebuild the pack in a shallow clone; you should not need to rebuild it for this brief.
+
+**Budgets.** `core/pack.py` is exactly at its 340-line budget, so `base.py` may not add to it; accessors you need come from `lookup` and the existing functions or you stop and report. `base.py` is budgeted 380 lines, its test file 220.
 
 ## Implementation notes
 <!-- progress:start -->
