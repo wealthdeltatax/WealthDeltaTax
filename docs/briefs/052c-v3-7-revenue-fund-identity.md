@@ -55,6 +55,12 @@ Reviewed: revenue.py and the tests are as the brief wants; your diagnosis of I1 
 ## Guru rulings, 2026-11-19 (after the rework)
 Reviewed `brief/052c-rework` (4b76e03): the tests and the I3 decomposition are as ruled. I1 5.02 and I2 4.97 still miss; the author decided: diagnose first (brief 074c, one v2 input at a time, no fix), and **do not merge 052c until I1 and I2 pass**. Keep the two strict xfails. Do not tune. Continue on this branch with 074c.
 
+## Guru rulings, 2026-11-19 (after 074c)
+Reviewed `docs/model-v3/i1-gap.md`: good work; your withdrawal of the finer-cells proposal is accepted. Author decisions:
+- **Test constants approved.** The I1 and I2 tests take v2's inputs as constants in the test file (W_min 0.1125, GDP 2,097bn, 51.0m adults, v2's 41-cell table, JST `gpc_real` growth); the model, register and pack keep their own values. Same principle as the tail: the identity checks the port, not the data. Expected I1 about 6.66, I2 about 6.61.
+- **I1 stays strict (within 0.02).** The last 0.68 is not to be hunted from the spec. Brief 078c (another agent) runs v2 once and records its per-window output and cell table as `tests/model_v3/fixtures/v2_logistic_ln_ref.json`. When it lands, rebase, compare window by window, and report where the 0.68 sits; do not tune.
+- Until then keep I1 as a strict xfail with the new constants and the numbers in the reason; I2 passes and loses its xfail. Do not merge 052c until I1 passes. The W_min (0.1125 against 0.150) and wealth over GDP (7.21 against 6.44) differences are recorded as writing items, not changed.
+
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** branch `brief/052c-rework` = main 737ee3a + the first build (cherry-picked; `revenue.py` unchanged, 246 of 520 lines) + this rerun. Tests only: I1 and I2 run on v2's tail constants (`V2_TAIL`, `V2_S10`, fixture `v2env`), I3 rewritten as 3a (assessed tax = eps x g x omega, 1e-12), 3b (M1a = in-life tax - refunds + death-time + heirs, 1e-12), 3c (median gap recorded). `pytest tests/model_v3 -q`: 153 passed, 2 xfailed (I1, I2, strict).
