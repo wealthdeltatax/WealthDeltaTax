@@ -160,3 +160,6 @@ Author: the five receipts rows I-T3d, e, g, m, p keep low and high as the OBR sh
 
 ## 2026-11-19: base inputs
 Author: the pack is extended before the base is built (wealth in pounds, adult and household counts, median house price from the ONS file the author uploads, GDP): brief 067c. The route mix is adopted from the v2 baseline D13 (A 50, B 25, C 8, D 17 of initial value; Route C range 5 to 10 with A absorbing; Route B paid by sale) as new judgement rows pending in G3: brief 068g. Both were gaps in architecture.md (2.3 said "register values" and no rows existed); 051c waits on both.
+
+## 2026-11-19: revenue stage inputs
+Author: verification hazards lambda_C and lambda_D 5% central, range 0 to 10% (v2 headline framing value; judgement rows). Guru: the corporate levy M1b reads the register's I-D7a (2.82% of GDP) as a constant share; consumption 3.5% and the fund settings (a_window 5, horizon 10, safe_share 0, reference year 2019) are v2 defaults entered as judgement rows (071g); real GDP per head and the reference expenditure over GDP come from JST into the pack (070c). The base uses deciles, so within-decile spread is not seen by the kernel: a limit for the papers and a reason the identity I1 may miss.
