@@ -11,7 +11,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent 1 (guru prime: writes and hands out briefs) | 040g done; build briefs 045g to 057c approved and ready | review each V3 build stage as it lands; stop points go to the author |
 | Agent 2 (guru) | 072g done; agent-plan adoption written | 075c, 076c, 077c (agent tooling side briefs) |
 | Agent 3 (code) | 073c done | 078c (run v2 once, fixture), then 055c |
-| Agent 4 (code) | 052c reworked, I1 and I2 still miss (author ruled 2026-11-19) | 074c (diagnose the I1 gap) on `brief/052c-rework`, then 052c, 053c, 057c |
+| Agent 4 (code) | 052c reworked; I1 still misses (author ruled 2026-11-19) | 052c on `brief/052c-rework`: v2 constants into the I1 and I2 tests, then I1 against the 078c fixture; then 053c and 057c |
 | Agent 5 (research) | 074c done | light tasks |
 | Agent 6 (site) | 063s done | 054c once 052c merges (author chose to wait) |
 
