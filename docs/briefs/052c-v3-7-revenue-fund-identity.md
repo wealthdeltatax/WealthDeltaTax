@@ -60,7 +60,7 @@ Reviewed: revenue.py and the tests are as the brief wants; your diagnosis of I1 
 - **Gotchas:** (1) **I1 and I2 still miss** with v2's own tail: I1 5.02 (limit 7.34 +- 0.02), I2 4.97 (lower bound 6.34); register tail 4.62 and 4.59. (2) Realised eps 12.3% (v2 tail) against v2's implied 24.5% (`tornado.md` 4; definitions differ: g there is gross). Start-state wealth-weighted rate is 22.9%. (3) Long-term M1 negative in 117 of 117 windows (median -4.69).
 - **Resume:** `git checkout brief/052c-rework`; after the ruling: edit `test_revenue.py` (xfail marks, constants) only; `pytest tests/model_v3 -q`.
 - **Not run:** v2 (7.34 is a constant); nothing else in the brief.
-- **State:** pushed on `brief/052c-rework`; NEEDS THE AUTHOR (I1, I2).
+- **State:** pushed on `brief/052c-rework`; NEEDS THE AUTHOR (I1, I2). Gap diagnosis (074c): `docs/model-v3/i1-gap.md`, 71% of the gap recovered from v2 inputs.
 <!-- progress:end -->
 
 ### Change report

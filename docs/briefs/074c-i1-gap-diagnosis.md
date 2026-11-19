@@ -1,6 +1,6 @@
 # 074: Diagnose the remaining I1 and I2 gap (one v2 input at a time)
 
-- **Status:** ready
+- **Status:** done, awaiting the author
 - **Author/date:** K. Ogata with the guru, 2026-11-19
 - **Depends on:** 052c on branch `brief/052c-rework` (this brief continues on that branch), 073c (merged)
 - **Read:** the 052c progress block on `brief/052c-rework` (I1 5.02, I2 4.97, register tail 4.62, realised eps 12.3% against 24.5%, start-state wealth-weighted rate 22.9%); `docs/model-v3/architecture.md` section 230 to 232 (I1, I2); `docs/model-v3/tornado.md` section 4 (how 24.5% was backed out); `model_v2/WDT_Params.toml` lines 700 to 760 (`logistic_ln_ref`, `body_split = 5`, `body_split_from = 0.5`, `wmin_house_ratio`) and the v2 scenario's other settings; `model_v2/RATES/rates_core.py` `_build_advani` and the body-split builder (specification only; v2 is not run or imported); `synthesis.md` section 10 (where 7.34 is recorded).
@@ -40,11 +40,11 @@ If a swap needs a v2 number that is in neither the toml nor `tornado.md`, say so
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** `docs/model-v3/i1-gap.md` written: one row per candidate, combined swap, remainder, recommended fix. Scratch scripts only (not committed). No model, pack, register or test change.
+- **Next:** the author rules on the recommended fix (test constants from v2; v2 per-window output for the last 0.68).
+- **Decisions:** v2 cell grid rewritten from the spec with toml constants (not checked against a v2 printout); take read net of refunds as in the test.
+- **Gotchas:** recovered 1.64 of the 2.32 gap (71%): v2 distribution, GDP, W_min and `gpc_real` growth give 6.659; remainder 0.68. Returns identical (0.000). Finer cells alone +0.22, so the 052c proposal to split D10a/D10b finer is withdrawn. I2 on the combined base 6.61 passes.
+- **Resume:** `git checkout brief/052c-rework`; nothing to rebuild.
+- **Not run:** v2 (by rule); the rewritten grid was not compared with a v2 output.
+- **State:** done; pushed on `brief/052c-rework`; decision with the author.
 <!-- progress:end -->
