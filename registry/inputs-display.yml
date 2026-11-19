@@ -1,6 +1,6 @@
 # registry/inputs-display.yml: display spec per register row (brief 032r, hooks Q8).
 # Written by the research lane; merged by pipeline/build_inputs.py. One entry per row of
-# docs/model-v3/inputs.md (274 rows). Derived only from each row's own unit text and the
+# docs/model-v3/inputs.md (279 rows). Derived only from each row's own unit text and the
 # precision of its Low/Central/High cells. No value is chosen or changed here.
 #
 # unit tags in docs/model-v3/outputs.yml: pct, pct_per_year, pct_gdp, gbp_bn, years, pp, ratio, bp, count, gbp_month.
@@ -115,6 +115,11 @@ inputs:
   I-D11b: {unit: pct_per_year, decimals: 1, display_unit: "% real a year", scale: 1}
   I-D11c: {unit: pct_per_year, decimals: 2, display_unit: "% real a year", scale: 1}
   I-D11d: {unit: text, decimals: 0, display_unit: "n/a", scale: 1, note: "not a quantity; no numeric display; no numeric low/central/high in the register; display spec unused until a value exists"}
+  I-D13a: {unit: pct, decimals: 0, display_unit: "% of initial value", scale: 1}
+  I-D13b: {unit: pct, decimals: 0, display_unit: "% of initial value", scale: 1}
+  I-D13c: {unit: pct, decimals: 0, display_unit: "% of initial value", scale: 1}
+  I-D13d: {unit: pct, decimals: 0, display_unit: "% of initial value", scale: 1}
+  I-D13e: {unit: text, decimals: 0, display_unit: "mode", scale: 1, note: "a payment mode, not a quantity; the three cells repeat sale; no numeric display"}
   I-W1a: {unit: pp_per_year, decimals: 0, display_unit: "percentage points a year", scale: 1}
   I-W1b: {unit: pp_per_year, decimals: 1, display_unit: "percentage points a year", scale: 1}
   I-W1c: {unit: pp_per_year, decimals: 1, display_unit: "percentage points a year", scale: 1}

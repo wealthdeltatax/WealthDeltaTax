@@ -1,6 +1,6 @@
 # 068: Add the route mix to the input register
 
-- **Status:** ready
+- **Status:** done, merged 2026-11-19
 - **Author/date:** K. Ogata with the guru, 2026-11-19
 - **Depends on:** none
 - **Read:** `docs/model-v3/inputs.md` (conventions: row format, `(J)`, the Coverage and Source cells, how an added family is declared); `docs/model-v3/architecture.md` 2.3 and the module table (`base`: "register rows for the route mix"); `model_v2/WDT_Params.toml` lines 116 to 135, 195 to 205 and 270 to 277 (`[val_gen.route_shares]`, `c_share_sens`), 1595 to 1610 (`[route_b]`); `docs/model-v3/judgement-decisions.md`; `pipeline/build_inputs.py`; `registry/inputs-display.yml`.
@@ -38,11 +38,11 @@ None. If a register convention forbids a text row, say so and propose the form.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** family D13 (route mix, tier 2) in `inputs.md`: I-D13a Route A 48/50/53, I-D13b Route B 25/25/25, I-D13c Route C 5/8/10, I-D13d Route D 17/17/17 (% of initial value), I-D13e Route B payment mode `sale`. All five `(J)`, evidence cell says framing value from the v2 baseline. Shares sum to 100 at central, at C low (53+25+5+17) and at C high (48+25+10+17). Added to `judgement-decisions.md` (pending); counts now 279 rows and 95 `(J)`; display entries added; `registry/inputs.json`, the fixture regenerated; row-count pins in `tests/data/test_build_inputs.py` 274 to 279.
+- **Next:** the author decides the five rows at gate G3; 051c can read the route mix from the register.
+- **Decisions:** family D13 (v2's own name for the baseline), placed after D11 under Tier 2; ids I-D13a to e. Columns of the A and C rows are not one scenario (A low pairs with C high); the evidence cell says so.
+- **Gotchas:** the mode row is text, so `inputs.json` has `low`, `central` and `high` null for I-D13e and the word is kept in `nulls.<col>.raw` (`sale`), as for I-D11d; `base.py` must read it from there. The register summary in `inputs.md` still carries the older row-count history in its first paragraph.
+- **Resume:** none; merged.
+- **Not run:** none. `pytest` on `tests/data`, `gate`, `cards`, `model_v3`, `hooks` (separately): 84, 17, 8, 116, 64 pass; P9 reads the count from the register and passes at 279. The page cards regenerate unchanged.
+- **State:** merged to main.
 <!-- progress:end -->

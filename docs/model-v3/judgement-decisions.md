@@ -1,11 +1,16 @@
 # Judgement-row decisions (gate check G3)
 
-Status: **all pending.** One line per register row flagged `(J)` in `docs/model-v3/inputs.md` (90 today; the guru reconciled the register's prose count of 84 with the 70 flags on 2026-11-17: 17 rows listed in the prose were not flagged and are now flagged, and the three bracketed rows I-H2a8 to I-H2a10 of brief 028r were added; I-D1a, I-D1b and I-D1b2 were added with the level 2 return bands of 036r on 2026-11-18). The gate (`order.md` section 4.1, G3) is true when the set of ids below equals the set of `(J)` rows and every decision cell reads `accepted`, `fixed at <value>` or `replaced by <row id>` with a date. The author decides; the guru records.
+Status: **all pending.** One line per register row flagged `(J)` in `docs/model-v3/inputs.md` (95 today; the guru reconciled the register's prose count of 84 with the 70 flags on 2026-11-17: 17 rows listed in the prose were not flagged and are now flagged, and the three bracketed rows I-H2a8 to I-H2a10 of brief 028r were added; I-D1a, I-D1b and I-D1b2 were added with the level 2 return bands of 036r on 2026-11-18; I-D13a to I-D13e were added with the route mix of 068g on 2026-11-19). The gate (`order.md` section 4.1, G3) is true when the set of ids below equals the set of `(J)` rows and every decision cell reads `accepted`, `fixed at <value>` or `replaced by <row id>` with a date. The author decides; the guru records.
 
 | ID | Input | Low | Central | High | Decision | Date |
 |---|---|---|---|---|---|---|
 | I-D10b | Rise in dwelling and land value if council tax is retired, full capitalisation (metric S1; | 19.4 | 24.2 | 26.7 | pending |  |
 | I-D10c | Share of a cut in stamp duty that ends up in the pre-tax house price (metric S1; M2, M4) | 0 | 40 | 100 | pending |  |
+| I-D13a | Share of initial wealth value held on Route A, no declaration (D13; kernel route mix, M1a, | 48 | 50 | 53 | pending |  |
+| I-D13b | Share of initial wealth value held on Route B, payment from the asset (D13; kernel route m | 25 | 25 | 25 | pending |  |
+| I-D13c | Share of initial wealth value held on Route C, self-declared and verified later (D13; kern | 5 | 8 | 10 | pending |  |
+| I-D13d | Share of initial wealth value held on Route D, auction on the declared value (D13; kernel  | 17 | 17 | 17 | pending |  |
+| I-D13e | Route B payment mode (D13; kernel, M2b, M2c) | sale | sale | sale | pending |  |
 | I-D1a | Mean real total return on wealth, **arithmetic**, level 2 (g; M1a identity, P3) | 3.41 | 4.74 | 6.07 | pending |  |
 | I-D1b | Standard deviation of annual real total return, marginal, level 2 | 7.47 | 8.22 | 8.96 | pending |  |
 | I-D1b2 | Lag-1 autocorrelation of the annual real return, level 2 | 0.19 | 0.30 | 0.42 | pending |  |
