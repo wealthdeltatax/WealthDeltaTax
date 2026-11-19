@@ -65,11 +65,31 @@ Hook line selector `{{o:O1:M1.mean...}}` with H08 when it is missing: accepted. 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** `pipeline/hook_format.py` (78 lines) and `pipeline/hooks.py` (366 lines): grammar with `:LINE`, 4.2 nine steps, `i`, `ref`, `lit`, modes by `WDT_MODE`, `check_f4`, `check_r1_reverse`, `check_a2`, `count_words`, CLI resolve, validate, report. Tests in `tests/hooks/` (five files, 403 lines, 64 tests).
+- **Next:** B15 wires it into `preprocess.py`; B6 calls `check_f4`, `check_r1_reverse`, `count_words`.
+- **Decisions:** the hook is parsed with a generic id and the id is checked against the manifest (H02), so an unknown id is H02 and not H01; the effect is the ruling's (pattern from manifest ids). `inputs.json` does not carry the display spec (the brief says merged), so the resolver reads `row["display"]` if present and else `registry/inputs-display.yml`. Release with `--fixture` validates in fixture mode (so the resolver itself can be tested; V7 and V9 stay warnings there) and every placeholder is still an error. A figure is cited if at least one citing sentence holds an `o` hook (lenient). Hub front matter `spoke: HUB` accepts outputs whose element is H0 to H7. Extra code F1 for a hook in a caption.
+- **Gotchas:** (1) CK1 cannot be hooked: its `unit` and `decimals` are maps over P1, P3, P7b but the entry has no `lines` and its cells carry no metric, so the resolver returns H13. Needs a manifest decision (add `lines` or a selector). (2) H42 fires on 10 bib keys, 46 of 67 lit keys: AdamEtAl2025, AdvaniBanghamLeslie2021, AdvaniSummersTarrant2025, AdvaniTarrant2021, BesleyEtAl2014, BestKleven2018, BroomeKanabar2025, FuestEtAl2017, KosterPinchbeck2018, TippetZucman2026 (expected per ruling). (3) `registry/references.bib` is read with a regex for `@type{key,`; the tests use `tests/hooks/fixtures/references.bib`.
+- **Resume:** `pytest tests/hooks -q` (separate command from the other suites).
+- **Not run:** no site build (not wired).
+- **State:** done
+
+```
+Change report
+- Task: 060c, hook resolver and number formatter
+- Files changed: pipeline/hooks.py, pipeline/hook_format.py (new); tests/hooks/ (conftest, 4 test files, fixtures: pay.md, fisc.md, references.bib); this brief
+- What is different now: hooks resolve to formatted numbers or placeholders, with the checks B6 needs exported
+- New or changed interfaces: CLI `hooks.py resolve|validate|report`; functions format_value, format_range, placeholder, check_f4, check_r1_reverse, check_a2, count_words
+- Acceptance criteria:
+  - Every code of 4.7 implemented and tested: met. 26 named code tests (the brief says 28; 4.7 has 25 codes: H01 to H13, H20 to H23, H30 to H32, H40 to H42, plus R1r and A2, plus F1), 64 tests in all
+  - resolve on both fixture spokes in draft: placeholder for a missing cell, number for the rest; release exits non-zero on every placeholder: met (test_cli)
+  - report byte-identical on two runs: met
+  - pytest tests/hooks 64, tests/data 84, tests/gate 17, tests/model_v3 108: pass, run separately
+  - git diff --stat only Touches: met
+  - Line budgets: hook_format 78 (max 150), tests 403 (max 520), hooks.py 366 (max 330, +11%, inside the 15% allowance)
+- Deviations from the brief: display spec read from inputs-display.yml because inputs.json has none; id check by membership (see Decisions)
+- Risks / follow-ups: CK1 unhookable (Gotchas 1); H42 on 10 bib keys (Gotchas 2); hooks.md 3.4 id regex to be corrected by the guru
+- Verification: four pytest suites, both modes on both fixture spokes, python -I import check
+- Overview sections likely needing an update: none
+- Commit / branch: brief/060-hook-resolver
+```
 <!-- progress:end -->

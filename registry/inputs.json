@@ -481,7 +481,7 @@
    "unit": "% of the tax"
   },
   {
-   "central": 24.5,
+   "central": 25.2,
    "coverage": "UK, 2025-26 receipts; allocation on WAS Round 8 and FYE 2024 incomes. Outside UK: none for the allocation; S22 is German",
    "high": 25.7,
    "id": "I-D6c",
@@ -589,7 +589,7 @@
    "unit": "% of the tax"
   },
   {
-   "central": 30.7,
+   "central": 29.5,
    "coverage": "UK, 2025-26 receipts; allocation on WAS Round 8 and FYE 2024 incomes. Outside UK: none for the allocation; S22 is German",
    "high": 33.9,
    "id": "I-D6j",
@@ -1158,18 +1158,18 @@
    "unit": "£bn per year"
   },
   {
-   "central": 35,
-   "coverage": "UK, 2015-16; stale. Outside UK: none",
-   "high": 45,
+   "central": 42,
+   "coverage": "UK, 2018 data. Outside UK: none",
+   "high": 47,
    "id": "I-M6l",
-   "input": "Income tax, effective average rate on taxpayers with £1m or more of income and gains (M6; income tax stays)",
+   "input": "Income tax and NICs, mean effective average tax rate on taxpayers with £3m or more of taxable income, gains excluded (M6; income tax stays)",
    "judgement": false,
-   "low": 11,
+   "low": 37,
    "nulls": {},
    "sources": [
     "S37"
    ],
-   "unit": "% of taxable income and gains"
+   "unit": "% of taxable income"
   },
   {
    "central": 2.16,

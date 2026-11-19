@@ -17,6 +17,7 @@ Usage:
 """
 
 import argparse
+import json
 import re
 import sys
 from collections import defaultdict
@@ -386,6 +387,221 @@ def build_glossary(papers_dir: str, contents_path: str, out_path: str):
 
 
 # ---------------------------------------------------------------------------
+# 6. Registry mode (brief 064s): registry/glossary.yml -> page + lookup file
+# ---------------------------------------------------------------------------
+
+REG_FIELDS = ("term", "definition", "owner", "aliases", "source", "status")
+REG_STATUSES = ("seeded", "written")
+REG_OWNER_TYPES = ("spoke", "hub", "appendix", "standalone")
+HOOK_RE = re.compile(r"\{\{\s*[oi]:[^}]*\}\}")
+TYPED_FIGURE_RE = re.compile(r"\d+(?:\.\d+)?\s*(?:%|pp\b)")
+LOOKUP_SCHEMA = "wdt-glossary/1"
+
+
+def slugify(term: str) -> str:
+    """Anchor on the glossary page: glossary.html#<slug>."""
+    return re.sub(r"[^a-z0-9]+", "-", term.lower()).strip("-")
+
+
+def _key(s) -> str:
+    return str(s).strip().lower()
+
+
+def load_registry(path) -> list:
+    with open(path, "r", encoding="utf-8") as f:
+        rows = yaml.safe_load(f)
+    return rows if rows is not None else []
+
+
+def validate_registry(rows, pages, root=None) -> list[str]:
+    """Return error strings, each naming the row's term. Empty list means valid."""
+    root = Path(root) if root else Path(".")
+    page_type = {r.get("id"): r.get("type") for r in pages}
+    errors: list[str] = []
+    if not isinstance(rows, list):
+        return ["registry: top level must be a list of rows"]
+
+    seen_terms: dict[str, str] = {}
+    seen_aliases: dict[str, str] = {}      # alias key -> term that owns it
+    for i, row in enumerate(rows):
+        if not isinstance(row, dict):
+            errors.append(f"row {i + 1}: not a mapping")
+            continue
+        term = str(row.get("term", f"row {i + 1}")).strip()
+        label = f"{term}"
+        for f in REG_FIELDS:
+            if f not in row:
+                errors.append(f"{label}: missing field '{f}'")
+        for f in row:
+            if f not in REG_FIELDS:
+                errors.append(f"{label}: unknown field '{f}'")
+        if "term" in row:
+            k = _key(row["term"])
+            if not k:
+                errors.append(f"{label}: empty term")
+            elif k in seen_terms:
+                errors.append(f"{label}: duplicate term (also row '{seen_terms[k]}')")
+            else:
+                seen_terms[k] = term
+
+        owner = row.get("owner")
+        if "owner" in row:
+            if owner not in page_type:
+                errors.append(f"{label}: owner '{owner}' is not in pages.yml")
+            elif page_type[owner] not in REG_OWNER_TYPES:
+                errors.append(f"{label}: owner '{owner}' has type '{page_type[owner]}', which cannot own a definition")
+
+        status = row.get("status")
+        if "status" in row and status not in REG_STATUSES:
+            errors.append(f"{label}: status '{status}' is not one of {', '.join(REG_STATUSES)}")
+
+        if "source" in row:
+            src = row.get("source")
+            if status == "seeded" and not src:
+                errors.append(f"{label}: seeded row has no source")
+            elif src:
+                path = str(src).split(",")[0].strip()
+                if not (root / path).is_file():
+                    errors.append(f"{label}: source file '{path}' does not exist")
+
+        defn = row.get("definition")
+        if "definition" in row:
+            if not isinstance(defn, str) or not defn.strip():
+                errors.append(f"{label}: empty definition")
+            elif TYPED_FIGURE_RE.search(HOOK_RE.sub("", defn)):
+                errors.append(f"{label}: definition has a typed figure; use a hook")
+
+        aliases = row.get("aliases", [])
+        if "aliases" in row:
+            if not isinstance(aliases, list):
+                errors.append(f"{label}: aliases must be a list")
+                aliases = []
+            own = _key(row.get("term", ""))
+            for a in aliases:
+                ak = _key(a)
+                if ak == own:
+                    errors.append(f"{label}: alias '{a}' equals its own term")
+                elif ak in seen_aliases:
+                    errors.append(f"{label}: alias '{a}' collides with an alias of '{seen_aliases[ak]}'")
+                else:
+                    seen_aliases[ak] = term
+
+    # An alias equal to another row's term (any order of rows).
+    for ak, owner_term in seen_aliases.items():
+        if ak in seen_terms and seen_terms[ak] != owner_term:
+            errors.append(f"{owner_term}: alias '{ak}' collides with the term '{seen_terms[ak]}'")
+    return errors
+
+
+def page_links(pages) -> dict:
+    """page id -> (label, url) for the "Defined on" link."""
+    out = {}
+    for r in pages:
+        label = r.get("label") or r.get("title") or r.get("id")
+        out[r.get("id")] = (str(label), str(r.get("url", "")))
+    return out
+
+
+def build_lookup(rows) -> dict:
+    terms = [
+        {"term": r["term"], "owner": r["owner"], "aliases": list(r.get("aliases") or []), "slug": slugify(r["term"])}
+        for r in sorted(rows, key=lambda r: r["term"].lstrip("$").lower())
+    ]
+    return {"schema": LOOKUP_SCHEMA, "terms": terms}
+
+
+def render_registry_page(rows, pages, xrefs=None) -> str:
+    """The glossary page, in the legacy front matter and entry markup. xrefs: term -> list of strings, or None."""
+    links = page_links(pages)
+    ordered = sorted(rows, key=lambda r: r["term"].lstrip("$").lower())
+
+    letters: list[str] = []
+    for r in ordered:
+        t = r["term"].lstrip("$")
+        fl = t[0].upper() if t else ""
+        if fl.isalpha() and fl not in letters:
+            letters.append(fl)
+    jump_links = " &nbsp; ".join(f'<a href="#glossary-{l.lower()}">{l}</a>' for l in letters)
+
+    lines = [
+        "---",
+        'title: "Glossary"',
+        'description: "Definitions of key terms used across the Wealth Delta Tax research programme."',
+        "---",
+        "",
+        "This glossary defines terms that recur across the WDT pages. Each entry links to the page that defines it."
+        + ("" if xrefs is not None else " Lists of the pages that use each term are not built yet."),
+        "",
+        "\n```{=html}\n"
+        '<div class="wdt-glossary-jumpbar">\n'
+        f"{jump_links}\n"
+        "</div>\n"
+        "```\n",
+        "",
+        "---",
+        "",
+    ]
+    current = ""
+    for r in ordered:
+        term, defn = r["term"], r["definition"].strip()
+        t = term.lstrip("$")
+        fl = t[0].upper() if t else ""
+        if fl.isalpha() and fl != current:
+            current = fl
+            lines.append(
+                f'\n```{{=html}}\n<h3 id="glossary-{fl.lower()}" class="wdt-glossary-letter">{fl}</h3>\n```\n'
+            )
+        label, url = links[r["owner"]]
+        lines.append(f"::: {{#{slugify(term)} .wdt-glossary-entry}}")
+        lines.append(f"**{term}**")
+        lines.append("")
+        lines.append(defn)
+        lines.append("")
+        lines.append(f"Defined on [{label}]({url})")
+        if xrefs and xrefs.get(term):
+            lines.append("")
+            lines.append("Used in " + ", ".join(xrefs[term]))
+        lines.append(":::")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def build_registry(registry_path, pages_path, out_path, lookup_path=None,
+                   papers_dir=None, contents_path=None) -> int:
+    rows = load_registry(registry_path)
+    with open(pages_path, "r", encoding="utf-8") as f:
+        pages = yaml.safe_load(f)
+    errors = validate_registry(rows, pages, root=Path(registry_path).resolve().parent.parent)
+    if errors:
+        for e in errors:
+            print(f"error: {e}", file=sys.stderr)
+        return 1
+
+    xrefs = None
+    if papers_dir and contents_path:
+        contents = load_contents(contents_path)
+        xrefs = {}
+        for md_file in sorted(Path(papers_dir).glob("*.md")):
+            md_text = read_md(md_file)
+            code = md_to_paper_code(md_text, contents)
+            if code is None:
+                continue
+            for r in rows:
+                hits = []
+                for t in [r["term"], *(r.get("aliases") or [])]:
+                    hits.extend(find_term_in_sections(t, code, md_text, contents))
+                xrefs.setdefault(r["term"], []).extend(h for h in dict.fromkeys(hits))
+        for k in xrefs:
+            xrefs[k] = list(dict.fromkeys(xrefs[k]))
+
+    Path(out_path).write_text(render_registry_page(rows, pages, xrefs), encoding="utf-8")
+    if lookup_path:
+        Path(lookup_path).write_text(json.dumps(build_lookup(rows), indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"Glossary written to {out_path}  ({len(rows)} terms)", file=sys.stderr)
+    return 0
+
+
+# ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
 
@@ -393,10 +609,21 @@ def main():
     parser = argparse.ArgumentParser(
         description="Build WDT master glossary with cross-references from paper Glossary sections."
     )
-    parser.add_argument("--papers",   required=True, help="Directory containing .md paper files")
-    parser.add_argument("--contents", required=True, help="Path to contents.yml")
+    parser.add_argument("--papers",   help="Directory containing .md paper files")
+    parser.add_argument("--contents", help="Path to contents.yml")
     parser.add_argument("--out",      default="glossary_auto.md", help="Output path")
+    parser.add_argument("--registry", help="Registry mode: path to registry/glossary.yml")
+    parser.add_argument("--pages",    help="Registry mode: path to registry/pages.yml")
+    parser.add_argument("--lookup",   help="Registry mode: path of the lookup JSON to write")
     args = parser.parse_args()
+    if args.registry:
+        if not args.pages:
+            parser.error("--registry needs --pages")
+        if bool(args.papers) != bool(args.contents):
+            parser.error("usage lists need both --papers and --contents")
+        sys.exit(build_registry(args.registry, args.pages, args.out, args.lookup, args.papers, args.contents))
+    if not (args.papers and args.contents):
+        parser.error("legacy mode needs --papers and --contents")
     build_glossary(args.papers, args.contents, args.out)
 
 

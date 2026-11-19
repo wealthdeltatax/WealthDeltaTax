@@ -54,11 +54,24 @@ Fixtures declare CSS and includes in per-page front matter and tests render agai
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
-<!-- progress:end -->
+- **Done:** 16 partials and `LAYOUT.md` in `site/includes/`; `site/style/spoke.css`, `site/style/print.css`; `site/pages/404.qmd` rewritten; 8 fixtures and 40 tests in `tests/layout/` (pass).
+- **Next:** B7 or B15 adds `style/spoke.css` and `style/print.css` to global `format.html.css` (see report).
+- **Decisions:** partials are raw-block includes so empty slots stay `:empty`; authored Short answer, Evidence and Objection blocks are fenced-div wrappers, not includes; SCOPE banner adds a sentence to the standard text; 404 references no new CSS, so the output file list is unchanged; print header/footer are fixed at top:0/bottom:0 with a white background (negative offsets were clipped by Chromium).
+- **Gotchas:** Quarto is not on PATH in the sandbox (set `QUARTO_BIN` or PATH; tests skip without it). A local build rewrites `registry/contents.yml`; revert it. At 360x640 the existing global chrome takes about 160 px above the title, so the fold test passes for an 76-word Short answer; one of 150 words will not fit.
+- **Resume:** done.
+- **Not run:** global CSS wiring (out of scope); Safari/Firefox print.
+- **State:** merged
+
+```
+Change report
+- Task: 062s Site: page types and styles (site.md B8)
+- Files changed: site/includes/*.html (16 partials) and LAYOUT.md (contract); site/style/spoke.css (screen, mobile first); site/style/print.css; site/pages/404.qmd (hub link, routing slot); tests/layout/ (conftest, helpers, test_layout.py, 8 fixtures); this brief.
+- What is different now: each page type has its partials and styles, tested with Quarto and Playwright. Nothing is wired into the live pages yet.
+- New or changed interfaces: class, anchor and data-slot names in site/includes/LAYOUT.md.
+- Acceptance criteria: (a) met, per-type tests; (b) met; (c) met, 375px on all fixtures, empty and filled; 360x640 fold met with a 76-word Short answer; (d) met; (e) met; (f) met; (g) met; (h) met, output file list identical, existing CSS byte-identical; (i) met.
+- Deviations from the brief: authored blocks are fenced-div wrappers, not includes; SCOPE banner interpreted as an addition to the standard text.
+- Risks / follow-ups: B7 should add style/spoke.css and style/print.css to format.html.css in _quarto.yml, because it owns the navbar and global includes there; B15 otherwise at integration. Not done here (_quarto.yml is out of scope). I took the simpler route of page-level css: lists, which avoid _quarto.yml. A 150-word Short answer does not fit the 360x640 fold with the existing global chrome; the author may want a lower word limit or a slimmer header.
+- Verification: pytest tests/layout 40 passed; real site build ok; file list and CSS hashes diffed; print PDF viewed.
+- Overview sections likely needing an update: site section (page types, styles).
+- Commit / branch: brief/062-page-types-and-styles
+```

@@ -1,0 +1,23 @@
+<details class="wdt-hubnav column-margin" open>
+<summary>On this page</summary>
+<ol>
+<li><a href="#h0">One-page summary</a></li>
+<li><a href="#h1">The problem</a></li>
+<li><a href="#h2">The tax in one page</a></li>
+<li><a href="#h3">What it does</a></li>
+<li><a href="#h4">Why it is fair</a></li>
+<li><a href="#h5">How it could be wrong</a></li>
+<li><a href="#h6">Where to go next</a></li>
+<li><a href="#h7">Data and method</a></li>
+</ol>
+</details>
+<script>
+(function () {
+  var q = window.matchMedia("(min-width: 992px)");
+  function sync() {
+    document.querySelectorAll("details.wdt-hubnav").forEach(function (d) { d.open = q.matches; });
+  }
+  sync();
+  if (q.addEventListener) { q.addEventListener("change", sync); }
+})();
+</script>

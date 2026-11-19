@@ -5,11 +5,11 @@
 #
 # page = page of the held PDF (the 'page N' a PDF viewer shows). printed = the page number printed on that page, where it differs
 # and was checked (PDF page + offset: AdvaniBanghamLeslie2021 +395, AdvaniTarrant2021 +508, KosterPinchbeck2018 -2, BesleyEtAl2014 -1,
-# BestKleven2018 +156, TippetZucman2026 -1). AdamEtAl2025 is chapter 4 of the Green Budget; chapter page = PDF page - 122.
+# BestKleven2018 +156, TippetZucman2026 -1, AdvaniHughsonSummers2023 +404). AdamEtAl2025 is chapter 4 of the Green Budget; chapter page = PDF page - 122.
 # Workbook figures give table, row and column instead of a page. A figure converted to the entry's unit says so in note.
 #
 # Coverage: the figures the register rows use from the 14 literature files held in Research/ (S4, S5, S6, S13, S16, S17, S18,
-# S22, S23, S24, S25, S30; S37 and S38 hold no register figure, see source-map section 3). Not held, so not entered: S3, S7-S9,
+# S22, S23, S24, S25, S30, S37; S38 holds no register figure, see source-map section 3). Not held, so not entered: S3, S7-S9,
 # S11, S12, S14, S15, S19-S21, S26-S29, S31-S36, S39-S43. No figure from memory. Ledger rows quote no published figure in the
 # text (ledger-sections.md), so none was added from the ledger.
 #
@@ -25,6 +25,7 @@
 #   FuestEtAl2017
 #   TippetZucman2026
 #   AdamEtAl2025
+#   AdvaniHughsonSummers2023
 # Existing keys used: Zucman2024 (title matches the held report-g20.pdf), ONS2025ETB.
 # Units: pct, pct_gdp, gbp_bn, count, ratio are in outputs.yml or inputs-display.yml; usd_bn, gbp and coefficient are the proposed
 # tags of inputs-display.yml.
@@ -364,7 +365,7 @@ figures:
     page: 5
     source_file: "Research/wp-2017-241-fuest-peichl-siegloch-corporate-taxes.pdf"
     use: "register I-D6c, I-D6j"
-    note: "the register’s 40% is not in this version; see source-map section 3"
+    note: "register I-D6c and I-D6j now use 51% as central (brief 059r); the earlier 40% is not in this version, see source-map section 3"
     access_date: 2026-11-18
     verified: 2026-11-18
   FuestEtAl2017:survey-capital-share-of-incidence:
@@ -375,7 +376,55 @@ figures:
     page: 4
     source_file: "Research/wp-2017-241-fuest-peichl-siegloch-corporate-taxes.pdf"
     use: "register I-D6c, I-D6j"
-    note: "survey response quoted from Fuchs, Krueger and Poterba (1998); 40% is the capital share, not the workers share"
+    note: "survey response quoted from Fuchs, Krueger and Poterba (1998); 40% is the capital share, not the workers share; the register no longer uses it as the workers share (059r)"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniHughsonSummers2023:mean-eatr-income-3m:
+    value: 42
+    unit: pct
+    decimals: 0
+    quoted_as: "42 per cent"
+    page: 3
+    printed: 407
+    source_file: "Research/Summers 2023 (OxREP).pdf"
+    use: "register I-M6l (central)"
+    note: "mean effective average tax rate on income only, individuals with £3 million in income; also flat at 42 per cent above £1 million of income"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniHughsonSummers2023:headline-rate:
+    value: 47
+    unit: pct
+    decimals: 0
+    quoted_as: "47 per cent"
+    page: 3
+    printed: 407
+    source_file: "Research/Summers 2023 (OxREP).pdf"
+    use: "register I-M6l (high)"
+    note: "headline average rate on earnings from employment: income tax 45 per cent plus employee NICs"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniHughsonSummers2023:p10-eatr-income-3m:
+    value: 37
+    unit: pct
+    decimals: 0
+    quoted_as: "37 per cent or less"
+    page: 3
+    printed: 407
+    source_file: "Research/Summers 2023 (OxREP).pdf"
+    use: "register I-M6l (low)"
+    note: "10 per cent of individuals with £3 million or more in income paid 37 per cent or less; a tenth-percentile cut-off, not a mean"
+    access_date: 2026-11-18
+    verified: 2026-11-18
+  AdvaniHughsonSummers2023:quarter-paid-no-more-than-12pct:
+    value: 12
+    unit: pct
+    decimals: 0
+    quoted_as: "no more than 12 per cent"
+    page: 3
+    printed: 407
+    source_file: "Research/Summers 2023 (OxREP).pdf"
+    use: "register I-M6l (note only)"
+    note: "almost a quarter of those with £3 million or more in total remuneration (income plus gains) paid no more than 12 per cent; not an income-only figure"
     access_date: 2026-11-18
     verified: 2026-11-18
   Zucman2024:minimum-rate:

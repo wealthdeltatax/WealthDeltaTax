@@ -1,0 +1,43 @@
+---
+title: "What is the fixture question?"
+format:
+  html:
+    toc: false
+    css: [style/spoke.css, style/print.css]
+    include-before-body: [includes/spoke-head.html]
+    include-after-body: [includes/print-chrome.html]
+---
+
+::: {#short-answer .wdt-short-answer}
+This fixture page checks layout only. It stands in for the short answer of a page, which runs between eighty and one hundred and fifty words, so the block is as long here as it can be on the real site. The text is invented filler about a harbour lamp that is lit at dusk and put out at dawn, and it makes no claim about anything. A lamp keeper keeps a logbook, trims the wick, polishes the lens and writes down the weather, and the logbook is read each spring by someone who wants to know how the winters went. Nothing in this paragraph is a number, a result or a position, and none of it is meant to be read as one. Its only job is to occupy the space that a real short answer will occupy, at the width of a phone.
+:::
+
+```{=html}
+{{< include includes/spoke-nav.html >}}
+```
+
+::: {#evidence .wdt-evidence}
+
+## First evidence section
+
+Filler paragraph for the evidence part. The keeper wipes the lens, notes the tide, and closes the logbook. Nothing here is a claim.
+
+## Second evidence section
+
+Filler paragraph for the evidence part. The keeper wipes the lens, notes the tide, and closes the logbook. Nothing here is a claim.
+
+:::
+
+::: {#strongest-objection .wdt-objection}
+
+**Strongest objection.** Filler for the strongest objection box. A visitor asks why the lamp is lit at all, and the keeper answers that the boats come home late. This is invented text.
+
+:::
+
+```{=html}
+{{< include includes/spoke-data.html >}}
+```
+
+```{=html}
+{{< include includes/spoke-read-next.html >}}
+```

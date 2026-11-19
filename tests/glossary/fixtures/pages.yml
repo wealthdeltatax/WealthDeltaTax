@@ -1,0 +1,9 @@
+- {id: H, type: hub, title: The Wealth Delta Tax, url: /index.html}
+- {id: FISC, type: spoke, url: /fisc.html, label: Rates and revenue, order: 5}
+- {id: PAY, type: spoke, url: /pay.html, label: Who pays, order: 6}
+- {id: APP, type: appendix, url: /app.html}
+- {id: ADD, type: standalone, url: /add.html}
+- {id: CALC, type: calculator, title: Calculator, url: /calc.html}
+- {id: PEND, type: pending, url: /pend.html}
+- {id: OLD, type: legacy, title: Old paper, url: /old.html}
+- {id: GLOSS, type: site, title: Glossary, url: /glossary.html}
