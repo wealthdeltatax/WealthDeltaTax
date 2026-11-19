@@ -41,11 +41,26 @@ Ask if a held spreadsheet does not give a pack field; do not fill it.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** draft; not started
+- **Done:** `model_v3/pack/build_gbr.py` (143 lines, budget 150) built `model_v3/pack/GBR/` once: manifest, seven CSV files (returns 150 rows 1870-2019, wealth_distribution 15, wealth_tail 6, receipts 16, household_incidence 26, tax_rules and public_expenditure header only), NOTICE.md, `source/jst_r6.json` (unchanged copy). `pack_mappings` in `levers.json` now holds 63 `x1_pointers` and 43 `x1_skipped` (23 data not in the repo, 12 returns rows the model derives, 7 H2a rows that depend on W_min, 1 I-D7d no sheet gives); parts, groups and x2 typed. `test_pack.py` (240 of 240 lines) adds P8, P9 and the pinned UK `pack_sha256`. `pytest tests/model_v3 -q`: 107 passed. A second run of the builder gives byte-identical files and `levers.json`.
+- **Next:** author's answers to the open questions below; then merge.
+- **Decisions:** author 2026-11-18: relax the loader rule that each return column is contiguous (JST has no housing or capital return for 1940-46); `_x_returns` keeps strictly increasing, no-gap years; a gap loads as None. Pack values are the register's published roundings computed from the sheets (percent 1 dp, receipts 2 dp, pounds whole), so X1 holds at 1e-9. `parts` holds only stamp_duties = stamp_property + stamp_shares.
+- **Gotchas:** (1) 038c's check "paye + self_assessment <= income_tax" fails on the sheet (10.80 against 10.60), so income_tax has no part-of. (2) `returns-gap.md` has no 2017 to 2019 bridge and JST already covers 2017-2019, so none was built. (3) Five register rows have low, central, high out of order: I-T3d, I-T3e, I-T3g, I-T3m, I-T3p (they are in `registry/inputs.json`, not in Touches). P9 pins that exact set. (4) The register marks 90 rows as judgement, `inputs.md` writes the flag as `**(J)**` in 70 and as plain `(J)` in 20; P9 reads both. (5) `manifest.retrieved` is 2026-11-16 for every file: I did not find the real retrieval dates. (6) base_year is null in the manifest: no sheet gives a price base for the whole pack.
+- **Resume:** none needed.
+- **Not run:** nothing in the brief; no model code touched.
+- **State:** done except two open questions; branch pushed, NEEDS THE AUTHOR
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 048c, model v3 stage V3-3: the UK data pack
+- Files changed: model_v3/pack/GBR/ (new: manifest.json, seven CSV files, NOTICE.md, source/jst_r6.json); model_v3/pack/build_gbr.py (new, 143 lines); model_v3/levers.json (pack_mappings only); tests/model_v3/test_pack.py (P8, P9, UK hash; 240 lines); model_v3/core/pack.py (contiguity check removed, 334 lines); this brief
+- What is different now: the UK pack validates and carries every register number that has a file in the repo; 63 register rows point at it and X1 holds; the seven retired lines sum to 8.11% of GDP.
+- New or changed interfaces: none; pack_mappings holds x1_pointers, x1_skipped, parts, groups, x2
+- Acceptance criteria: P8 X1 within 1e-9 and X2 within 0.01 (met); levers.json parses and holds no named schedule (met); P9 row count and (J) flags equal inputs.md (met), low <= central <= high (NOT met: five register rows break it, pinned as known); pack_sha256 pinned, 038c scan zero hits (met); git diff --stat limited to Touches (met, plus the pack.py deviation)
+- Deviations from the brief: core/pack.py edited, with the author's answer (JST 1940-46 gap)
+- Risks / follow-ups: (1) fix or rule on the five I-T3 rows (receipts forecast series run downward); (2) retrieval dates and base_year in the manifest; (3) paye + self_assessment exceeds income_tax in the sheet, 038c's part-of rule needs amending; (4) no 2017-2019 bridge exists or is needed
+- Verification: pytest tests/model_v3 -q: 107 passed; builder re-run byte-identical
+- Overview sections likely needing an update: model v3 build status (V3-3)
+- Commit / branch: brief/048-uk-pack (not merged)
+```

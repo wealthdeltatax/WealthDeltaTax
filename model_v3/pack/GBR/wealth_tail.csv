@@ -1,0 +1,7 @@
+series,year,value,unit,low,high,basis
+wid_top1,2000,20.4,pct_wealth,,,adult
+wid_top1,2010,20,pct_wealth,,,adult
+wid_top1,2024,21.3,pct_wealth,,,adult
+wid_top10,2000,55.8,pct_wealth,,,adult
+wid_top10,2010,54.6,pct_wealth,,,adult
+wid_top10,2024,57.1,pct_wealth,,,adult

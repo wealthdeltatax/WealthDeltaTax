@@ -1,0 +1,17 @@
+line,fiscal_year,pct_gdp,gbp_bn,basis
+income_tax,2025-26,10.6,,forecast
+paye,2025-26,8.83,,forecast
+self_assessment,2025-26,1.97,,forecast
+nics,2025-26,6.53,,forecast
+vat,2025-26,6.22,,forecast
+corporation_tax,2025-26,3.37,,forecast
+fuel_duty,2025-26,0.95,,forecast
+cgt,2025-26,0.77,,forecast
+iht,2025-26,0.27,,forecast
+stamp_duties,2025-26,0.66,,forecast
+stamp_property,2025-26,0.5,,forecast
+stamp_shares,2025-26,0.16,,forecast
+business_rates,2025-26,1.29,,forecast
+council_tax,2025-26,1.75,,forecast
+total_hmrc,2025-26,31.61,,forecast
+total_current,2025-26,41.2,,forecast

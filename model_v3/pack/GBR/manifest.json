@@ -1,0 +1,79 @@
+{
+ "country": "GBR",
+ "currency": "GBP",
+ "base_year": null,
+ "pack_version": 1,
+ "built": "2026-11-18",
+ "files": [
+  {
+   "name": "returns.csv",
+   "dataset": "returns",
+   "sha256": "c91fc38ca8b6fc3145bfc2a05411f7518fe413bf2c24964e5bcf7f15ea6190fa",
+   "rows": 150,
+   "source": "JST Macrohistory R6, model_v2/jst_r6.json",
+   "licence": "cite-only",
+   "retrieved": "2026-11-16",
+   "vintage": "JST R6"
+  },
+  {
+   "name": "wealth_distribution.csv",
+   "dataset": "wealth_distribution",
+   "sha256": "ae6b8d93f721e5416b64e5f5fe93506744865ab90d84b98f911bad9ba3795378",
+   "rows": 15,
+   "source": "ONS WAS Round 8, totalwealthtables.xlsx Table 2.2",
+   "licence": "ogl-v3",
+   "retrieved": "2026-11-16",
+   "vintage": "WAS Round 8"
+  },
+  {
+   "name": "wealth_tail.csv",
+   "dataset": "wealth_tail",
+   "sha256": "5af4ebf2a34bb729ce07e58bc59fb41953bcada16733f64a53f0dcb718e59f65",
+   "rows": 6,
+   "source": "WID.world, model_v2/wid_out/wid_long.csv",
+   "licence": "cite-only",
+   "retrieved": "2026-11-16",
+   "vintage": "WID 2026-10-16"
+  },
+  {
+   "name": "receipts.csv",
+   "dataset": "receipts",
+   "sha256": "afcc48bf9898ca828a1e42a085125ec45697c516d237048a211409a5c9278f4b",
+   "rows": 16,
+   "source": "IFS Revenue composition spreadsheet, % GDP (cash)",
+   "licence": "cite-only",
+   "retrieved": "2026-11-16",
+   "vintage": "EFO March 2023"
+  },
+  {
+   "name": "household_incidence.csv",
+   "dataset": "household_incidence",
+   "sha256": "33d4fced34ffb905ca26177d3b79e214fdfa0120750119333a13aa43244f0540",
+   "rows": 26,
+   "source": "ONS effects of taxes and benefits FYE 2024, Tables 2b, 2c, 16",
+   "licence": "ogl-v3",
+   "retrieved": "2026-11-16",
+   "vintage": "ETB FYE 2024"
+  },
+  {
+   "name": "tax_rules.csv",
+   "dataset": "tax_rules",
+   "sha256": "b455db82c7a0c6f7c172c7ddefc48589be4677af1678d6bd9fd6e69494084176",
+   "rows": 0,
+   "source": "none held",
+   "licence": "unverified",
+   "retrieved": "2026-11-16",
+   "vintage": "none"
+  },
+  {
+   "name": "public_expenditure.csv",
+   "dataset": "public_expenditure",
+   "sha256": "13f0af868e9744a698c2b2f97b8884bfabaccaee3a91786394ed9bb775c127c7",
+   "rows": 0,
+   "source": "none cited by the register",
+   "licence": "unverified",
+   "retrieved": "2026-11-16",
+   "vintage": "none"
+  }
+ ]
+}
