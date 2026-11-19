@@ -121,6 +121,13 @@ inputs:
   I-D13c: {unit: pct, decimals: 0, display_unit: "% of initial value", scale: 1}
   I-D13d: {unit: pct, decimals: 0, display_unit: "% of initial value", scale: 1}
   I-D13e: {unit: text, decimals: 0, display_unit: "mode", scale: 1, note: "a payment mode, not a quantity; the three cells repeat sale; no numeric display"}
+  I-D14a: {unit: pct_per_year, decimals: 0, display_unit: "% per year", scale: 1}
+  I-D14b: {unit: pct_per_year, decimals: 0, display_unit: "% per year", scale: 1}
+  I-D14c: {unit: pct_per_year, decimals: 1, display_unit: "% of net worth per year", scale: 1}
+  I-D14d: {unit: years, decimals: 0, display_unit: "years", scale: 1}
+  I-D14e: {unit: years, decimals: 0, display_unit: "years", scale: 1}
+  I-D14f: {unit: pct, decimals: 0, display_unit: "% of fund", scale: 1}
+  I-D14g: {unit: count, decimals: 0, display_unit: "year", scale: 1, note: "a calendar year held fixed; shown as a plain integer, not a duration"}
   I-W1a: {unit: pp_per_year, decimals: 0, display_unit: "percentage points a year", scale: 1}
   I-W1b: {unit: pp_per_year, decimals: 1, display_unit: "percentage points a year", scale: 1}
   I-W1c: {unit: pp_per_year, decimals: 1, display_unit: "percentage points a year", scale: 1}

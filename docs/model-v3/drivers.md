@@ -27,7 +27,7 @@ Kind: **lever** = the author chooses it (swept, not sampled); **exo** = the worl
 | D4 | Wealth-to-GDP ratio and the tail | ω | M1a, M2 | exo, level 2 | WAS 2016-18 plus Rich List in v2; latest wave not held; no single ratio recorded in the repo |
 | D5 | Behavioural response (avoidance, migration, valuation understatement) | shrinks ω, shifts declared alpha | M1a, M7 | exo, level 2 | Norway leakage in the Project Map only; no range yet |
 | D6 | Retired receipts and who pays them | M1d, M4 | M1, M4a, M4b | exo, level 2 | totals from IFS (8.11%); incidence by income decile not held (`synthesis.md` section 9, 3a) |
-| D7 | Corporate levy base | M1b | M1 | exo, level 2 | v2 2.77% to 2.88% of GDP; its own line |
+| D7 | Corporate levy base | M1b | M1 | exo, level 2 | v2 2.77% to 2.88% of GDP; its own line. M1b reads I-D7a as a constant share of GDP; v2's per-window derivation from the equity price return is not ported (071g) |
 | D8 | Reserve rule (3 times trailing mean refund) | fill years, when retirement can start | P1, P3, P5 | lever (set by the papers) | v2 medians 3 and 7 years |
 | D9 | Income by wealth, liquid assets | M2b, M2c, M4b | burden and savings by band | exo, level 2 | v2 placeholders only (`income_by_wealth`) |
 | D10 | Capitalisation of retired property taxes (S1) | wealth values, payer count | ω, M2, M4 | exo, level 2 | nothing |

@@ -1,5 +1,5 @@
 {
- "count": 280,
+ "count": 287,
  "inputs": [
   {
    "central": 5.94,
@@ -1308,7 +1308,7 @@
   },
   {
    "central": 2.82,
-   "coverage": "UK, v2 windows. Outside UK: none",
+   "coverage": "UK, v2 windows. M1b reads this as a constant share of GDP; v2's per-window derivation from the equity price return is not ported (brief 071g). Outside UK: none",
    "high": 2.88,
    "id": "I-D7a",
    "input": "Corporate levy yield, v2 (M1b)",
@@ -1537,6 +1537,90 @@
    },
    "sources": [],
    "unit": "mode"
+  },
+  {
+   "central": 5,
+   "coverage": "Not a UK measurement: a run setting of the v2 model, kept so v3 reads it from the register. No UK data fix it.",
+   "high": 10,
+   "id": "I-D14a",
+   "input": "Verification hazard, Route C: yearly chance a self-declared Route C asset is verified (D14; kernel `lambda_C`, M7, M1a)",
+   "judgement": true,
+   "low": 0,
+   "nulls": {},
+   "sources": [],
+   "unit": "% per year"
+  },
+  {
+   "central": 5,
+   "coverage": "Not a UK measurement: a run setting of the v2 model, kept so v3 reads it from the register. No UK data fix it.",
+   "high": 10,
+   "id": "I-D14b",
+   "input": "Corrective-auction hazard, Route D: yearly chance a Route D asset is re-auctioned at the true value (D14; kernel `lambda_D`, M1a)",
+   "judgement": true,
+   "low": 0,
+   "nulls": {},
+   "sources": [],
+   "unit": "% per year"
+  },
+  {
+   "central": 3.5,
+   "coverage": "Not a UK measurement: a run setting of the v2 model, kept so v3 reads it from the register. No UK data fix it.",
+   "high": 5,
+   "id": "I-D14c",
+   "input": "Consumption share of net worth each year, `c` (D14; kernel `grow_and_consume`, M1a, M2)",
+   "judgement": true,
+   "low": 0.5,
+   "nulls": {},
+   "sources": [],
+   "unit": "% of net worth per year"
+  },
+  {
+   "central": 5,
+   "coverage": "Not a UK measurement: a run setting of the v2 model, kept so v3 reads it from the register. No UK data fix it.",
+   "high": 10,
+   "id": "I-D14d",
+   "input": "Trailing years in the mean refund `A`, `a_window` (D14; reserve rule, P1, P3)",
+   "judgement": true,
+   "low": 3,
+   "nulls": {},
+   "sources": [],
+   "unit": "years"
+  },
+  {
+   "central": 10,
+   "coverage": "Not a UK measurement: a run setting of the v2 model, kept so v3 reads it from the register. No UK data fix it.",
+   "high": 15,
+   "id": "I-D14e",
+   "input": "Years after the long reserve fills over which coverage is measured, `horizon` (D14; reserve rule, P1, P3)",
+   "judgement": true,
+   "low": 5,
+   "nulls": {},
+   "sources": [],
+   "unit": "years"
+  },
+  {
+   "central": 0,
+   "coverage": "Not a UK measurement: a run setting of the v2 model, kept so v3 reads it from the register. No UK data fix it.",
+   "high": 100,
+   "id": "I-D14f",
+   "input": "Share of the fund held in the safe asset, `safe_share` (D14; fund, M1c)",
+   "judgement": true,
+   "low": 0,
+   "nulls": {},
+   "sources": [],
+   "unit": "% of fund"
+  },
+  {
+   "central": 2019,
+   "coverage": "Not a UK measurement: a run setting of the v2 model, kept so v3 reads it from the register. No UK data fix it.",
+   "high": 2019,
+   "id": "I-D14g",
+   "input": "Reference year of the expenditure-to-GDP ratio used for reserve coverage, `exp_ref_year` (D14; fund, P5)",
+   "judgement": true,
+   "low": 2019,
+   "nulls": {},
+   "sources": [],
+   "unit": "year"
   },
   {
    "central": 11,
