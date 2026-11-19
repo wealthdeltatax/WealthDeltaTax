@@ -1,5 +1,5 @@
 {
- "count": 279,
+ "count": 280,
  "inputs": [
   {
    "central": 5.94,
@@ -102,6 +102,20 @@
     "S12"
    ],
    "unit": "ratio"
+  },
+  {
+   "central": 1.93,
+   "coverage": "GB private households, April 2020 to March 2022; Northern Ireland excluded. Outside UK: none",
+   "high": 1.93,
+   "id": "I-D4h",
+   "input": "Adults per household, all households, Great Britain (converts household wealth bands to adults; M2b, ω)",
+   "judgement": true,
+   "low": 1.77,
+   "nulls": {},
+   "sources": [
+    "S1"
+   ],
+   "unit": "adults per household"
   },
   {
    "central": 50300,

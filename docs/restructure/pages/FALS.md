@@ -38,7 +38,7 @@ depends: [FISC, PAY, WELF, UNCER, LIMIT]
 `order.md` section 3: D1, D4, M5, M6, W3
 
 - **D1** (10 rows): I-D1a, I-D1b, I-D1c, I-D1d, I-D1a2, I-D1b2, I-D1a0, I-D1f, I-D1g, I-D1e
-- **D4** (7 rows): I-D4a, I-D4b, I-D4c, I-D4d, I-D4e, I-D4f, I-D4g
+- **D4** (8 rows): I-D4a, I-D4b, I-D4c, I-D4d, I-D4e, I-D4f, I-D4g, I-D4h
 - **M5** (17 rows): I-M5a, I-M5b, I-M5c, I-M5d, I-M5e, I-M5f, I-M5g, I-M5h, I-M5i, I-M5j, I-M5k, I-M5l, I-M5m, I-M5n, I-M5o, I-M5p, I-M5q
 - **M6** (13 rows): I-M6a, I-M6b, I-M6c, I-M6d, I-M6e, I-M6f, I-M6g, I-M6h, I-M6i, I-M6j, I-M6k, I-M6l, I-M6m
 - **W3** (4 rows): I-W3a, I-W3b, I-W3c, I-W3d

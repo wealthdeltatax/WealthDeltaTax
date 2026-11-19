@@ -1,6 +1,6 @@
 # Judgement-row decisions (gate check G3)
 
-Status: **all pending.** One line per register row flagged `(J)` in `docs/model-v3/inputs.md` (95 today; the guru reconciled the register's prose count of 84 with the 70 flags on 2026-11-17: 17 rows listed in the prose were not flagged and are now flagged, and the three bracketed rows I-H2a8 to I-H2a10 of brief 028r were added; I-D1a, I-D1b and I-D1b2 were added with the level 2 return bands of 036r on 2026-11-18; I-D13a to I-D13e were added with the route mix of 068g on 2026-11-19). The gate (`order.md` section 4.1, G3) is true when the set of ids below equals the set of `(J)` rows and every decision cell reads `accepted`, `fixed at <value>` or `replaced by <row id>` with a date. The author decides; the guru records.
+Status: **all pending.** One line per register row flagged `(J)` in `docs/model-v3/inputs.md` (96 today; the guru reconciled the register's prose count of 84 with the 70 flags on 2026-11-17: 17 rows listed in the prose were not flagged and are now flagged, and the three bracketed rows I-H2a8 to I-H2a10 of brief 028r were added; I-D1a, I-D1b and I-D1b2 were added with the level 2 return bands of 036r on 2026-11-18; I-D13a to I-D13e were added with the route mix of 068g on 2026-11-19; I-D4h was added with 069r on 2026-11-19). The gate (`order.md` section 4.1, G3) is true when the set of ids below equals the set of `(J)` rows and every decision cell reads `accepted`, `fixed at <value>` or `replaced by <row id>` with a date. The author decides; the guru records.
 
 | ID | Input | Low | Central | High | Decision | Date |
 |---|---|---|---|---|---|---|
@@ -17,6 +17,7 @@ Status: **all pending.** One line per register row flagged `(J)` in `docs/model-
 | I-D4b | Share of adults at or above W_min = £150,000 (half of £300,000 median house price; M2b, ω) | 49.3 | 54.9 | 64.3 | pending |  |
 | I-D4c | Share of total wealth held by those adults (ω; M1a, M2) | 89.7 | 92.7 | 96.4 | pending |  |
 | I-D4e | Wealth missing from WAS at the top, as % of WAS total (ω, tail add-on) | 0.0 | 5.0 | 5.6 | pending |  |
+| I-D4h | Adults per household, all households, Great Britain (M2b, ω) | 1.77 | 1.93 | 1.93 | pending |  |
 | I-D5a | Loss of taxable base to all behavioural responses at a 1% annual wealth tax, after 4 to 8  | 7 | 12 | 17 | pending |  |
 | I-D5b | Part of the response that is avoidance or under-reporting (D5; shifts declared alpha, M1a) | 3.5 | 6.0 | 8.5 | pending |  |
 | I-D5c | Share of affected people leaving UK tax residence after a targeted tax rise (D5; ω, M7) | 0 | 6 | 11 | pending |  |

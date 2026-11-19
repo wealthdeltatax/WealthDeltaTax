@@ -37,11 +37,11 @@ If no held or cited source gives the figure, stop and say what the author should
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** added I-D4h, adults per household, GB: 1.77 / 1.93 / 1.93, flagged (J). Central = persons aged 16+ in Table 2.11 (52,043,000, R8, rows 69-74 col K) over households in Table 2.9 (26,991,000, K58). Low 1.77 = adults implied by I-D4b's assumed counts per household type (47.64m / 26.99m). Both inside 1 to 2. Added to judgement-decisions.md (96 rows); register header counts, display sidecar, inputs.json, page cards, fixture and the count pins (279 to 280) regenerated. Checks: build_inputs exit 0; tests/data 84, gate 17, cards 8, model_v3 118 passed; tests/hooks also run.
+- **Next:** author to choose whether I-D4b's central should use the table-based 1.93 (its method implies 1.77); guru decides on an 18+ count (author could upload ONS mid-year population by age for 2021 to separate 16-17s).
+- **Decisions:** next free D4 letter was h (I-D4g is the national balance sheet row). High equals central because no held cell supports more than 1.93. Display unit tag `ratio` with display_unit "adults per household" (no `adults` tag exists in the hooks list).
+- **Gotchas:** Table 2.10 and 2.11 count individuals of all ages (63.9m); only 2.11's age bands give a 16+ count. 2.13/2.14 adult totals (50.2m, 47.1m) are 16+ not in full-time education, with missing-data exclusions: not used.
+- **Resume:** n/a
+- **Not run:** site build.
+- **State:** done, merged
 <!-- progress:end -->

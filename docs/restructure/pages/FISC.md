@@ -54,7 +54,7 @@ depends: [MECH, VAL]
 `order.md` section 3: D1, D4, D5, D7, D8, D11, M5, M6, M8, T3, W6
 
 - **D1** (10 rows): I-D1a, I-D1b, I-D1c, I-D1d, I-D1a2, I-D1b2, I-D1a0, I-D1f, I-D1g, I-D1e
-- **D4** (7 rows): I-D4a, I-D4b, I-D4c, I-D4d, I-D4e, I-D4f, I-D4g
+- **D4** (8 rows): I-D4a, I-D4b, I-D4c, I-D4d, I-D4e, I-D4f, I-D4g, I-D4h
 - **D5** (4 rows): I-D5a, I-D5b, I-D5c, I-D5d
 - **D7** (4 rows): I-D7a, I-D7b, I-D7c, I-D7d
 - **D8** (3 rows): I-D8a, I-D8b, I-D8c
