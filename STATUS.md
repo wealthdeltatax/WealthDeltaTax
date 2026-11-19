@@ -9,8 +9,8 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime: writes and hands out briefs) | 040g done; build briefs 045g to 057c approved and ready | review each V3 build stage as it lands; stop points go to the author |
-| Agent 2 (guru) | 071g done | 072g (register rows for the top tail) |
-| Agent 3 (code) | 051c done | 073c (base tail) after 072g merges, then 054c and 055c |
+| Agent 2 (guru) | 072g done | waiting for the next brief |
+| Agent 3 (code) | 051c done | 073c (base tail) released (072g merged), then 054c and 055c |
 | Agent 4 (code) | 052c built, needs the author on I1 to I3 (decided) | rework 052c on its branch after 073c (rerun I1 and I2, I3 as exact decomposition), then 053c, 057c |
 | Agent 5 (research) | 059r done | free |
 | Agent 6 (site) | 063s done | free |
@@ -18,6 +18,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). The model v3 design is done (011g and 040g retired); the 13 build briefs 045g to 057c are ready, first wave 045g, 046c, 049c. Landed and retired: 045g, 046c, 047c. Waiting: 049c (no branch yet). Ready now: 048c, 049c, 056c.
 
 ## Recently done
+- 2026-11-19: 072g merged (register D4: I-D4i Pareto alpha 1.2/1.5/2.0, I-D4j Rich List entries 350, I-D4k and I-D4l tier cuts 1% and 10%; all `(J)`, pending at G3; register 291 rows, 107 (J); 84 data, 17 gate, 8 cards, 134 model, 67 hooks tests pass). 073c is released. v2 has no sweep of alpha, so 1.2 to 2.0 is a stated reason, not a v2 grid.
 - 2026-11-19: 052c first build reviewed (branch `brief/052-revenue`, not merged): I1 3.5% of GDP against v2 7.34, I2 and I3 miss. Cause: 11-line base puts the whole top 1% in one line (effective rate 10.2% against 24.5%). Author: add v2's tail (Rich List plus Pareto) to the base, and I3 as an exact decomposition. Written 072g (register rows alpha and tier cuts, Agent 2) and 073c (base tail, Agent 3, after 072g); rulings appended to 052c; Agent 4 reruns after 073c. Findings for the papers: B1d is identically zero (refund at the rate of new wealth is 0 below W_min); "M1a is about eps g omega minus refunds" holds for in-life assessment only; long-term M1 negative in all 117 windows with the coarse base.
 - 2026-11-19: 070c (`gdp_pc` 1870 to 2019 and the reference expenditure 36.82% of GDP for 2019 in the pack; 134 model tests pass) reviewed and retired; 071g (rows I-D14a to g) already archived. 052c is released: its two inputs are merged. Note: `public_expenditure.pct_gdp` is now exclusive of 0 and 100; `gdp_pc` is JST `rgdpmad` in dollars (only growth is used).
 - 2026-11-19: 071g merged (register family D14: I-D14a to g, v2 run settings: hazards 5% central, consumption 3.5, `a_window`, `horizon`, `safe_share`, `exp_ref_year`; all `(J)`, pending at G3; register 287 rows, 103 (J); 84 data, 17 gate, 8 cards, 128 model, 67 hooks tests pass). 052c now waits only for 070c. `safe_share` is stored as a percentage (0/0/100), not a fraction: 052c must divide by 100.

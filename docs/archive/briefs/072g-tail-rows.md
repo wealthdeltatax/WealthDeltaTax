@@ -1,6 +1,6 @@
 # 072: Add the top-tail construction settings to the input register
 
-- **Status:** ready
+- **Status:** done, merged 2026-11-19
 - **Author/date:** K. Ogata with the guru, 2026-11-19
 - **Depends on:** none
 - **Read:** the 052c report on branch `brief/052-revenue` (`git show origin/brief/052-revenue:docs/briefs/052c-v3-7-revenue-fund-identity.md`, Gotchas 1); `model_v2/RATES/rates_core.py` `_build_advani` and its callers (lines 408 to 599, specification only); `model_v2/WDT_Params.toml` lines 824 to 850 (`rich_list_*`, `tier_alpha`, `[rates.dist.advani]`); `docs/model-v3/inputs.md` rows I-D4d, I-D4e, I-D4f, I-W5c, I-W5d, I-W7a, I-W7b and the conventions as 071g followed them (archived `docs/archive/briefs/071g-run-settings-rows.md`); `docs/model-v3/judgement-decisions.md`; `docs/model-v3/stage-c-decisions.md`.
@@ -39,11 +39,11 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** four D4 rows in the register, all `(J)`: I-D4i tail Pareto alpha 1.2/1.5/2.0 (central is v2 `tier_alpha`; v2 has no sweep, so the range is a stated reason: the tier mean needs alpha above 1), I-D4j Rich List entries 350 (a count row; I-D4f carried it only in its label), I-D4k and I-D4l tier cuts 1% and 10% of members (numeric, fixed; the third cell runs to 100% and needs no row). Added to `judgement-decisions.md` as pending; display entries; register 291 rows, 107 `(J)`; inputs.json, cards and fixture regenerated; pins 287 to 291.
+- **Next:** 073c (base tail) is released.
+- **Decisions:** tier cuts are numeric rows (percent of members) not text; low, central, high repeat for the three fixed rows.
+- **Gotchas:** `tests/model_v3` does not pin the count (P9 reads it from inputs.md and passes). Pack unaffected.
+- **Resume:** merged.
+- **Not run:** none.
+- **State:** done
 <!-- progress:end -->

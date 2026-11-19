@@ -26,6 +26,10 @@ inputs:
   I-D4f: {unit: gbp_bn, decimals: 0, display_unit: "£bn, 2026", scale: 1}
   I-D4g: {unit: ratio, decimals: 1, display_unit: "ratio", scale: 1}
   I-D4h: {unit: ratio, decimals: 2, display_unit: "adults per household", scale: 1}
+  I-D4i: {unit: coefficient, decimals: 1, display_unit: "Pareto alpha", scale: 1}
+  I-D4j: {unit: count, decimals: 0, display_unit: "entries", scale: 1}
+  I-D4k: {unit: pct, decimals: 0, display_unit: "% of Rich List members", scale: 1}
+  I-D4l: {unit: pct, decimals: 0, display_unit: "% of Rich List members", scale: 1}
   I-D9a: {unit: gbp, decimals: 0, display_unit: "£ a year, FYE 2024 level", scale: 1}
   I-D9b: {unit: gbp, decimals: 0, display_unit: "£ a year", scale: 1}
   I-D9c: {unit: gbp, decimals: 0, display_unit: "£ a year", scale: 1}

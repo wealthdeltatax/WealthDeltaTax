@@ -35,7 +35,7 @@ depends: [MECH, VAL, FISC]
 
 `order.md` section 3: D5, D4
 
-- **D4** (8 rows): I-D4a, I-D4b, I-D4c, I-D4d, I-D4e, I-D4f, I-D4g, I-D4h
+- **D4** (12 rows): I-D4a, I-D4b, I-D4c, I-D4d, I-D4e, I-D4f, I-D4g, I-D4h, I-D4i, I-D4j, I-D4k, I-D4l
 - **D5** (4 rows): I-D5a, I-D5b, I-D5c, I-D5d
 
 ## Words against the cap

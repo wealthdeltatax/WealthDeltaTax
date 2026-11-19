@@ -1,5 +1,5 @@
 {
- "count": 287,
+ "count": 291,
  "inputs": [
   {
    "central": 5.94,
@@ -116,6 +116,56 @@
     "S1"
    ],
    "unit": "adults per household"
+  },
+  {
+   "central": 1.5,
+   "coverage": "Not a UK measurement: a construction setting of the v2 tail, kept so v3 reads it from the register. No UK data fix it.",
+   "high": 2.0,
+   "id": "I-D4i",
+   "input": "Pareto alpha splitting the named Rich List tier (tail construction; M1a, M2)",
+   "judgement": true,
+   "low": 1.2,
+   "nulls": {},
+   "sources": [],
+   "unit": "coefficient"
+  },
+  {
+   "central": 350,
+   "coverage": "Not a UK measurement: a construction setting of the v2 tail, kept so v3 reads it from the register. No UK data fix it.",
+   "high": 350,
+   "id": "I-D4j",
+   "input": "Number of entries in the Rich List used for the named tier (tail construction; M1a)",
+   "judgement": true,
+   "low": 350,
+   "nulls": {},
+   "sources": [
+    "S7"
+   ],
+   "unit": "count"
+  },
+  {
+   "central": 1,
+   "coverage": "Not a UK measurement: a construction setting of the v2 tail, kept so v3 reads it from the register. No UK data fix it.",
+   "high": 1,
+   "id": "I-D4k",
+   "input": "First cut of the named tier, as a share of its members (tail construction; M1a)",
+   "judgement": true,
+   "low": 1,
+   "nulls": {},
+   "sources": [],
+   "unit": "% of Rich List members"
+  },
+  {
+   "central": 10,
+   "coverage": "Not a UK measurement: a construction setting of the v2 tail, kept so v3 reads it from the register. No UK data fix it.",
+   "high": 10,
+   "id": "I-D4l",
+   "input": "Second cut of the named tier, as a share of its members (tail construction; M1a)",
+   "judgement": true,
+   "low": 10,
+   "nulls": {},
+   "sources": [],
+   "unit": "% of Rich List members"
   },
   {
    "central": 50300,

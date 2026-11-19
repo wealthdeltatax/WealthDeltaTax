@@ -1,6 +1,6 @@
 # 073: Give the base a tail: top lines from the Rich List and a Pareto split
 
-- **Status:** ready once 072g has merged
+- **Status:** ready (072g merged 2026-11-19)
 - **Author/date:** K. Ogata with the guru, 2026-11-19
 - **Depends on:** 051c (merged), 072g (tail rows)
 - **Read:** `model_v3/core/base.py` and `tests/model_v3/test_base.py`; the 052c report on branch `brief/052-revenue` (Gotchas 1; `git show origin/brief/052-revenue:docs/briefs/052c-v3-7-revenue-fund-identity.md`); `model_v2/RATES/rates_core.py` `_build_advani` (lines 408 to 599) as specification only (not ported or imported); `docs/model-v3/tornado.md` section 4 (the effective rate 24.5% for v2-like inputs); `docs/model-v3/architecture.md` 2.3 and the tests row for `base`; register rows I-D4d, I-D4e, I-D4f, I-W5c, I-W7a, I-W7b and the rows 072g added.
