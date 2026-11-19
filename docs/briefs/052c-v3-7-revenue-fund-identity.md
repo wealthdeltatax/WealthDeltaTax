@@ -61,6 +61,14 @@ Reviewed `docs/model-v3/i1-gap.md`: good work; your withdrawal of the finer-cell
 - **I1 stays strict (within 0.02).** The last 0.68 is not to be hunted from the spec. Brief 078c (another agent) runs v2 once and records its per-window output and cell table as `tests/model_v3/fixtures/v2_logistic_ln_ref.json`. When it lands, rebase, compare window by window, and report where the 0.68 sits; do not tune.
 - Until then keep I1 as a strict xfail with the new constants and the numbers in the reason; I2 passes and loses its xfail. Do not merge 052c until I1 passes. The W_min (0.1125 against 0.150) and wealth over GDP (7.21 against 6.44) differences are recorded as writing items, not changed.
 
+## Guru ruling, 2026-11-19 (after 078c): the statistic is the mean
+The v2 reference run found that v2's 7.34 is the **mean over the 117 windows** of the net post-fill take (7.3416); the median is 6.594. Your I1 and I2 compared a v3 median with it. Corrected in `architecture.md` and `acceptance.md` (merged to main). This replaces the earlier ruling's expectation of I1 about 6.66:
+- Rerun I1 and I2 with the **mean over windows**, v2 constants in the test as already approved, per-window take defined as v2 does (net: tax + death tax + heirs - refunds, no levy, years fill to fill+9, ratio of sums over GDP). Use `tests/model_v3/fixtures/v2_logistic_ln_ref.json` for the cells, GDP, W_min, `gpc_real` and the per-window arrays.
+- I1: v3 mean within 0.02 of 7.34. I2: mean with the model's refund within 6.34 to 7.36.
+- Compare window by window with the fixture (fill year, net take) and report the largest differences. Do not tune. A remaining miss stops with NEEDS THE AUTHOR and the table.
+- Remove the xfail marks that now pass; keep a strict xfail only on a check that still misses.
+- Merge main into this branch first (it has the fixture).
+
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** branch `brief/052c-rework` = main 737ee3a + the first build (cherry-picked; `revenue.py` unchanged, 246 of 520 lines) + this rerun. Tests only: I1 and I2 run on v2's tail constants (`V2_TAIL`, `V2_S10`, fixture `v2env`), I3 rewritten as 3a (assessed tax = eps x g x omega, 1e-12), 3b (M1a = in-life tax - refunds + death-time + heirs, 1e-12), 3c (median gap recorded). `pytest tests/model_v3 -q`: 153 passed, 2 xfailed (I1, I2, strict).
