@@ -1,4 +1,5 @@
 """Tests M1 to M7 and I1 to I3 of architecture.md 6.2, 6.3 for core/revenue.py (brief 052c), on the UK pack and the register. v2 is not run: its 7.34 is a constant."""
+import dataclasses
 import json
 from pathlib import Path
 
@@ -16,15 +17,40 @@ ROOT = Path(__file__).parents[2]
 V2_WDT = 7.34   # post-fill 10-year individual WDT take, percent of GDP, median over the 117 UK windows (port-inventory.md; rounded to two places)
 
 
-@pytest.fixture(scope='module')
-def env():
-    pack, reg = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')
+# v2's own tail (rates_core.py `_build_advani`; 2017/18 Rich List), the constants of I1 and I2. The model passes the register's (I-D4d to I-D4l) instead.
+V2_TAIL = dict(s1=18.0, extra=5.0, list_bn=700.0, alpha=1.5, n=1000.0, cut1=1.0, cut2=10.0)   # percent, percent, GBP bn, coefficient, count, percent, percent
+V2_S10 = 0.51                                                                                    # survey share of the top 10% in v2 (the pack's decile table gives 0.407)
+
+
+def make_env(pack, reg):
     mp = json.loads((ROOT / 'model_v3' / 'levers.json').read_text())['pack_mappings']
     b = bs.build_base(pack, reg, 0.5)
     row = lambda i: reg[i].central
     return dict(pack=pack, reg=reg, b=b, rate=sc.rate_function(1.0, 0.04, 0.9, b.w_min, 'logistic_ln'), rec=rv.taxes(pack, mp['x2']['lines'], mp['parts']),
                 c=row('I-D14c') / 100, levy=row('I-D7a'), gdp0=pk.lookup(pack, 'wealth_distribution', variable='gdp', band='all')[0]['value'],
                 exp=pk.lookup(pack, 'public_expenditure', function='total')[0]['pct_gdp'], mp=mp)
+
+
+@pytest.fixture(scope='module')
+def env():
+    return make_env(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'))
+
+
+@pytest.fixture(scope='module')
+def v2env(env):
+    """The same pack and register with v2's tail constants: the register's tail rows are replaced by V2_TAIL, and the survey deciles are rescaled so
+    the top 10% holds V2_S10 of the total (the nine lower deciles keep their proportions). The test owns this; no model file knows v2's numbers."""
+    reg = dict(env['reg'])
+    for k, v in V2_TAIL.items():
+        reg[bs.IDS['tail'][k]] = dataclasses.replace(reg[bs.IDS['tail'][k]], central=v)
+    rows = [dict(r) for r in env['pack'].tables['wealth_distribution']]
+    dec = {f'D{i}': next(r for r in rows if r['variable'] == 'wealth_total' and r['band'] == f'D{i}') for i in range(1, 11)}
+    tot = sum(r['value'] for r in dec.values())
+    low = 1 - dec['D10']['value'] / tot
+    for i in range(1, 10):
+        dec[f'D{i}']['value'] *= (1 - V2_S10) / low
+    dec['D10']['value'] = V2_S10 * tot
+    return make_env(dataclasses.replace(env['pack'], tables={**env['pack'].tables, 'wealth_distribution': rows}), reg)
 
 
 def paths(env, P=12, seed=3, mean=4.742, sd=8.219, phi=0.303):
@@ -146,24 +172,42 @@ def measured(env, monkeypatch):
     return {(m, lv): float(np.nanmedian(v2_like(env, m, monkeypatch, lv)['wdt_short'])) for m in (True, False) for lv in (None, 0.0)}
 
 
-def test_i1_i2_the_measured_values_are_recorded(env, monkeypatch):
-    m = measured(env, monkeypatch)
-    print('I1 mirror refund (levy, no levy):', m[True, None], m[True, 0.0], '| I2 own refund:', m[False, None], m[False, 0.0], '| v2:', V2_WDT)
-    assert all(0 < v < V2_WDT for v in m.values())          # all four are far below v2's 7.34: the 11-line base understates the effective rate
+def test_i1_i2_the_measured_values_are_recorded(env, v2env, monkeypatch):
+    m, r = measured(v2env, monkeypatch), measured(env, monkeypatch)
+    print('I1 mirror refund (levy, no levy), v2 tail:', m[True, None], m[True, 0.0], '| I2 own refund:', m[False, None], m[False, 0.0], '| v2:', V2_WDT)
+    print('same with the register tail (I-D4d to I-D4l):', r[True, None], r[True, 0.0], '| own refund:', r[False, None], r[False, 0.0])
+    assert all(0 < v < V2_WDT for v in list(m.values()) + list(r.values()))    # the 14-line base is closer to v2 than the 11-line base (3.6), and still below it
 
 
-@pytest.mark.xfail(strict=True, reason='I1 miss, NEEDS THE AUTHOR: see the change report in the brief')
-def test_i1_the_port_reproduces_v2_with_the_ratio_mirror_refund(env, monkeypatch):
-    assert abs(np.nanmedian(v2_like(env, True, monkeypatch)['wdt_short']) - V2_WDT) <= 0.02
+@pytest.mark.xfail(strict=True, reason='I1 miss with v2 tail constants, NEEDS THE AUTHOR: see the change report in the brief')
+def test_i1_the_port_reproduces_v2_with_the_ratio_mirror_refund(v2env, monkeypatch):
+    assert abs(np.nanmedian(v2_like(v2env, True, monkeypatch)['wdt_short']) - V2_WDT) <= 0.02
 
 
-@pytest.mark.xfail(strict=True, reason='I2 miss, NEEDS THE AUTHOR: see the change report in the brief')
-def test_i2_the_models_own_refund_is_within_one_point(env, monkeypatch):
-    assert V2_WDT - 1.0 <= np.nanmedian(v2_like(env, False, monkeypatch)['wdt_short']) <= V2_WDT + 0.02
+@pytest.mark.xfail(strict=True, reason='I2 miss with v2 tail constants, NEEDS THE AUTHOR: see the change report in the brief')
+def test_i2_the_models_own_refund_is_within_one_point(v2env, monkeypatch):
+    assert V2_WDT - 1.0 <= np.nanmedian(v2_like(v2env, False, monkeypatch)['wdt_short']) <= V2_WDT + 0.02
 
 
-def test_i3_the_accounting_identity_holds_for_the_assessed_tax_not_for_m1a(env):
-    run, _ = full(env, *paths(env, 30))
-    i = rv.identity(run, paths(env, 30)[0], env['c'])
-    assert (i['assessed'] < 1e-9).all()                  # the tax assessed on gains is eps x g x omega, exactly
-    assert np.median(i['total']) > 0.05                  # finding: M1a carries Route D settled at death and the heirs' assessments, which no gain rate explains
+def test_i3a_the_tax_assessed_on_gains_is_eps_g_omega(env):
+    g, gg = paths(env, 30)
+    run, _ = full(env, g, gg)
+    i = rv.identity(run, g, env['c'])
+    assert (i['assessed'] < 1e-12).all() and (run['assessed'] > 0).any()          # exact accounting: the sum of assessed tax over the years is the sum of eps x g x omega
+
+
+def test_i3b_m1a_is_the_in_life_tax_less_refunds_plus_death_time_and_heirs_assessments(env):
+    g, gg = paths(env, 30)
+    run, o = full(env, g, gg)
+    parts = dict(inlife=run['tax'], refunds=run['refund'], death=run['death_tax'] + run['death_B'] + run['death_D'], heirs=run['heir'])
+    assert (parts['refunds'] <= 0).all() and (parts['inlife'] >= 0).all() and (parts['heirs'] > 0).any() and (parts['death'] > 0).any()
+    assert np.abs(o['M1a'] - 100 * (parts['inlife'] + parts['refunds'] + parts['death'] + parts['heirs']) / o['gdp']).max() < 1e-12
+    assert np.abs(o['wdt_bn'] - sum(parts.values())).max() < 1e-9
+
+
+def test_i3c_the_in_life_approximation_misses_m1a_by_the_death_and_heir_flows(env):
+    g, gg = paths(env, 30)
+    run, _ = full(env, g, gg)
+    gap = rv.identity(run, g, env['c'])['total']                                  # |M1a - (eps x g x omega + refunds)| / |M1a|
+    print('median gap of M1a to eps x g x omega - refunds:', float(np.median(gap)), 'range', float(gap.min()), float(gap.max()))
+    assert np.isfinite(gap).all() and np.median(gap) > 0.05                       # finding for the papers: the sentence holds for in-life assessment only
