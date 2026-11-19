@@ -52,6 +52,9 @@ Reviewed: revenue.py and the tests are as the brief wants; your diagnosis of I1 
 - **Long-term M1 negative in every window:** expected with the coarse base; report the figure again after the tail, do not treat it as a defect first.
 - Remove the two xfail marks when I1 and I2 pass; keep the stage's other tests as they are.
 
+## Guru rulings, 2026-11-19 (after the rework)
+Reviewed `brief/052c-rework` (4b76e03): the tests and the I3 decomposition are as ruled. I1 5.02 and I2 4.97 still miss; the author decided: diagnose first (brief 074c, one v2 input at a time, no fix), and **do not merge 052c until I1 and I2 pass**. Keep the two strict xfails. Do not tune. Continue on this branch with 074c.
+
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** branch `brief/052c-rework` = main 737ee3a + the first build (cherry-picked; `revenue.py` unchanged, 246 of 520 lines) + this rerun. Tests only: I1 and I2 run on v2's tail constants (`V2_TAIL`, `V2_S10`, fixture `v2env`), I3 rewritten as 3a (assessed tax = eps x g x omega, 1e-12), 3b (M1a = in-life tax - refunds + death-time + heirs, 1e-12), 3c (median gap recorded). `pytest tests/model_v3 -q`: 153 passed, 2 xfailed (I1, I2, strict).
