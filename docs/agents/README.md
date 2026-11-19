@@ -16,7 +16,7 @@ Start with `START_HERE.md` at the repo root.
 | Guru: write a brief | `brief-template.md` |
 
 ## Skills
-The five role skills are stubs: `.claude/skills/<role>/SKILL.md` (10 lines, no rules) is the source and Claude Code loads it from the repo. `Tools/wdt-<role>.skill` is the same file zipped for the claude.ai account (plus `Tools/repo-scaffold.skill`). All rules live in this folder, never in a stub. After changing a stub, rebuild its `.skill` (a zip with `wdt-<role>/SKILL.md`) and check that they match: unzip and `diff` against `.claude/skills/<role>/SKILL.md`.
+The five role skills are stubs: `.claude/skills/<role>/SKILL.md` (10 lines, no rules) is the source and Claude Code loads it from the repo. `Tools/wdt-<role>.skill` is the same file zipped for the claude.ai account (plus `Tools/repo-scaffold.skill`). All rules live in this folder, never in a stub. After changing a stub, run `python pipeline/build_skills.py` (a zip with `wdt-<role>/SKILL.md` per role); `python pipeline/build_skills.py --check` verifies they match.
 
 Reference files in `reference/` are long on purpose and are read only when the guide names them.
 
