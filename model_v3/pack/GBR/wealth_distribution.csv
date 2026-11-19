@@ -14,3 +14,27 @@ gain_bearing_wealth,D4-5,460,gbp_bn,household,2020-22
 gain_bearing_wealth,D6-7,1251,gbp_bn,household,2020-22
 gain_bearing_wealth,D8-9,2460,gbp_bn,household,2020-22
 gain_bearing_wealth,D10,3181,gbp_bn,household,2020-22
+wealth_total,D1,13.897,gbp_bn,household,2020-22
+wealth_total,D2,78.424,gbp_bn,household,2020-22
+wealth_total,D3,195.622,gbp_bn,household,2020-22
+wealth_total,D4,392.482,gbp_bn,household,2020-22
+wealth_total,D5,651.95,gbp_bn,household,2020-22
+wealth_total,D6,955.204,gbp_bn,household,2020-22
+wealth_total,D7,1322.966,gbp_bn,household,2020-22
+wealth_total,D8,1805.596,gbp_bn,household,2020-22
+wealth_total,D9,2628.545,gbp_bn,household,2020-22
+wealth_total,D10,5523.204,gbp_bn,household,2020-22
+wealth_total,all,13568,gbp_bn,household,2020-22
+households,D1,2699.1,thousand,household,2020-22
+households,D2,2699.1,thousand,household,2020-22
+households,D3,2699.1,thousand,household,2020-22
+households,D4,2699.1,thousand,household,2020-22
+households,D5,2699.1,thousand,household,2020-22
+households,D6,2699.1,thousand,household,2020-22
+households,D7,2699.1,thousand,household,2020-22
+households,D8,2699.1,thousand,household,2020-22
+households,D9,2699.1,thousand,household,2020-22
+households,D10,2699.1,thousand,household,2020-22
+households,all,26991,thousand,household,2020-22
+median_house_price,all,300000,gbp,adult,YE Sep 2025
+gdp,all,2211.48,gbp_bn,household,2020-22

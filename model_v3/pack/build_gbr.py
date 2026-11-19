@@ -19,6 +19,7 @@ import openpyxl
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'model_v3' / 'pack' / 'GBR'
 WEALTH, REVENUE, ETB = 'Rates Data/totalwealthtables.xlsx', 'Rates Data/Revenue composition spreadsheet.xlsx', 'Research/etbreferencetablesfye202324final.xlsx'
+HOUSING = 'Research/Housing affordability in England and Wales 2025.pdf'
 SCHEMA = {'returns': 'year eq_tr housing_tr bond_tr capital_tr cpi', 'wealth_distribution': 'variable band value unit basis year',
           'wealth_tail': 'series year value unit low high basis', 'receipts': 'line fiscal_year pct_gdp gbp_bn basis',
           'household_incidence': 'variable group tax value unit fiscal_year basis', 'tax_rules': 'rule tax_year subject lower upper rate amount flag',
@@ -70,6 +71,25 @@ def wealth():
         row('property_share', band, round(100 * at(1, bands[band]) / at(0, bands[band]), 1), 'pct_of_band', (ids,))
     for band, ids in zip(bands, ['I-T4a', 'I-T4b', 'I-T4c', 'I-T4d']):
         row('gain_bearing_wealth', band, round((at(1, bands[band]) + at(2, bands[band])) / 1000), 'gbp_bn', (ids,))
+    # 067c, the base's inputs. wealth_total: Table 2.2 block 0 (GBP million, April 2020 to March 2022) over the deciles, 'all' is Table 2.1 row 8 (GBP bn, as printed).
+    t1 = sheet(WEALTH, 'Table 2.1')
+    assert t1[7][1].startswith('Total Wealth (including Pr') and t1[28][1].startswith('Total Wealth (including Pr') and 'Aggregate' in t1[3][0] and 'Weighted' in t1[24][0]
+    for d in range(1, 11):
+        row('wealth_total', f'D{d}', round(at(0, [d]) / 1000, 3), 'gbp_bn', ())
+    row('wealth_total', 'all', t1[7][-1], 'gbp_bn', ())
+    # households: Table 2.1 row 29 (weighted frequency, total wealth including pensions); a decile holds a tenth of the households by definition, so D1 to D10 are
+    # the printed total over ten (the tables print no count per decile). Adults are not in any held table by decile, so no adults rows (the guru's 067c question, answered).
+    for b in [f'D{d}' for d in range(1, 11)] + ['all']:
+        row('households', b, round(t1[28][-1] / 1000 / (1 if b == 'all' else 10), 1), 'thousand', ())
+    # median house price: the ONS bulletin 'Housing affordability in England and Wales: 2025', England, year ending Sept 2025, all dwellings (GBP 300,000); checked against the PDF text.
+    pdf = subprocess.run(['pdftotext', '-layout', str(ROOT / HOUSING), '-'], capture_output=True, text=True, check=True).stdout
+    assert 'the median average home in England, at \u00a3300,000' in pdf
+    add('wealth_distribution', (), variable='median_house_price', band='all', value='300000', unit='gbp', basis='adult', year='YE Sep 2025')
+    # gdp: 'Total revenues' sheet, GDP column, GBP bn nominal, mean of financial years 2020-21 and 2021-22 (the survey's April 2020 to March 2022); income-year basis as the wealth rows.
+    rv = sheet(REVENUE, 'Total revenues')
+    g = {r[0]: r[6] for r in rv if r and r[0] in ('2020-21', '2021-22')}
+    assert len(g) == 2 and all(isinstance(v, float) for v in g.values())
+    row('gdp', 'all', round(sum(g.values()) / 2, 2), 'gbp_bn', ())
 
 
 def tail():
@@ -118,8 +138,8 @@ def write(name, rows):
 
 BUILT = '2026-11-18'
 NOTES = 'Pack values are as published; the model expresses them in 2025-26 prices (base_year, stage C1).'
-FROM = {'returns': 'model_v2/jst_r6.json', 'wealth_distribution': WEALTH, 'wealth_tail': 'model_v2/wid_out/wid_long.csv', 'receipts': REVENUE,
-        'household_incidence': ETB}   # dataset -> the repo file it is read from; a dataset with no source file carries the build date
+FROM = {'returns': ['model_v2/jst_r6.json'], 'wealth_distribution': [WEALTH, REVENUE, HOUSING], 'wealth_tail': ['model_v2/wid_out/wid_long.csv'], 'receipts': [REVENUE],
+        'household_incidence': [ETB]}   # dataset -> the repo file it is read from; a dataset with no source file carries the build date
 
 
 def added(path):
@@ -129,12 +149,16 @@ def added(path):
     return out[-1]
 
 
+def retrieved(ds):
+    return min(added(p) for p in FROM[ds]) if ds in FROM else BUILT
+
+
 def main():
     (OUT / 'source').mkdir(parents=True, exist_ok=True)
     shutil.copyfile(ROOT / 'model_v2' / 'jst_r6.json', OUT / 'source' / 'jst_r6.json')
     for f in (returns, wealth, tail, receipts, incidence):
         f()
-    src = {'returns': ('JST Macrohistory R6, model_v2/jst_r6.json', 'cite-only', 'JST R6'), 'wealth_distribution': ('ONS WAS Round 8, totalwealthtables.xlsx Table 2.2', 'ogl-v3', 'WAS Round 8'),
+    src = {'returns': ('JST Macrohistory R6, model_v2/jst_r6.json', 'cite-only', 'JST R6'), 'wealth_distribution': ('ONS WAS Round 8, totalwealthtables.xlsx Tables 2.1, 2.2; ONS Housing affordability 2025 (median price); IFS Revenue composition, Total revenues (GDP)', 'cite-only', 'WAS Round 8'),
            'wealth_tail': ('WID.world, model_v2/wid_out/wid_long.csv', 'cite-only', 'WID 2026-10-16'), 'receipts': ('IFS Revenue composition spreadsheet, % GDP (cash)', 'cite-only', 'EFO March 2023'),
            'household_incidence': ('ONS effects of taxes and benefits FYE 2024, Tables 2b, 2c, 16', 'ogl-v3', 'ETB FYE 2024'), 'tax_rules': ('none held', 'unverified', 'none'),
            'public_expenditure': ('none cited by the register', 'unverified', 'none')}
@@ -142,12 +166,17 @@ def main():
     for ds in SCHEMA:
         write(ds + '.csv', ROWS[ds])
         files.append({'name': ds + '.csv', 'dataset': ds, 'sha256': hashlib.sha256((OUT / (ds + '.csv')).read_bytes()).hexdigest(), 'rows': len(ROWS[ds]),
-                      'source': src[ds][0], 'licence': src[ds][1], 'retrieved': added(FROM[ds]) if ds in FROM else BUILT, 'vintage': src[ds][2]})
+                      'source': src[ds][0], 'licence': src[ds][1], 'retrieved': retrieved(ds), 'vintage': src[ds][2]})
     (OUT / 'manifest.json').write_text(json.dumps({'country': 'GBR', 'currency': 'GBP', 'base_year': '2025-26', 'pack_version': 1, 'built': BUILT,
                                                                        'notes': NOTES, 'files': files}, indent=1) + '\n', encoding='utf-8')
     (OUT / 'NOTICE.md').write_text('# GBR pack notice\n\nContains public sector information licensed under the Open Government Licence v3.0 (ONS). JST Macrohistory R6 is CC BY-NC-SA 4.0 '
                                    '(Jorda, Schularick and Taylor): cite only, non-commercial. IFS and WID rows are cite only. The pack stays a private input of the repo.\n\n'
-                                   'Each file\'s `retrieved` date is the day its source file entered this repository (git history, renames followed); a file with no source file carries the build date.\n', encoding='utf-8')
+                                   'Each file\'s `retrieved` date is the day its source file entered this repository (git history, renames followed); a file with no source file carries the build date.\n\n'
+                                   'wealth_distribution.csv base rows (brief 067c): wealth_total D1 to D10 from totalwealthtables.xlsx Table 2.2 (block 1, last column, GBP million, over 1000) and all from Table 2.1 row 8; '
+                                   'households from Table 2.1 row 29 (weighted frequency, 26,991,000), each decile the total divided by ten (a decile holds a tenth of households by definition; no table prints a count per decile); '
+                                   'no adults rows (no held table gives adults by decile); median_house_price GBP 300,000 is England, year ending Sept 2025, all dwellings, from `Research/Housing affordability in England and Wales 2025.pdf` '
+                                   '(the existing-dwelling median in `medianpricepaidforadministrativegeographiesexisting.xlsx` table 1a is GBP 297,000); gdp is the mean of financial years 2020-21 (2,085.204) and 2021-22 (2,337.757) '
+                                   'GBP bn in `Revenue composition spreadsheet.xlsx` sheet Total revenues, column G, nominal as published. The file is cite only because the GDP series comes from the IFS spreadsheet.\n', encoding='utf-8')
     p = ROOT / 'model_v3' / 'levers.json'
     text, lev = p.read_text(encoding='utf-8'), json.loads(p.read_text(encoding='utf-8'))
     lev['pack_mappings'].update(x1_pointers=dict(sorted(POINTERS.items())), x1_skipped={i: why for why, ids in SKIP.items() for i in ids})

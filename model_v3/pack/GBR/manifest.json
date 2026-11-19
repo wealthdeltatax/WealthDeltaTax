@@ -19,10 +19,10 @@
   {
    "name": "wealth_distribution.csv",
    "dataset": "wealth_distribution",
-   "sha256": "ae6b8d93f721e5416b64e5f5fe93506744865ab90d84b98f911bad9ba3795378",
-   "rows": 15,
-   "source": "ONS WAS Round 8, totalwealthtables.xlsx Table 2.2",
-   "licence": "ogl-v3",
+   "sha256": "b06d3b2936e4fc80e80a8545ff1888b7556fe573654684b8366335d09c2d42f3",
+   "rows": 39,
+   "source": "ONS WAS Round 8, totalwealthtables.xlsx Tables 2.1, 2.2; ONS Housing affordability 2025 (median price); IFS Revenue composition, Total revenues (GDP)",
+   "licence": "cite-only",
    "retrieved": "2026-11-15",
    "vintage": "WAS Round 8"
   },

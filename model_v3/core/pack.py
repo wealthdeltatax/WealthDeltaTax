@@ -36,7 +36,7 @@ SCHEMA = {   # dataset -> [(column, kind, missing allowed, check)]; country-pack
     'returns': [('year', I, 0, None), ('eq_tr', F, 1, RET), ('housing_tr', F, 1, RET), ('bond_tr', F, 1, RET),
                 ('capital_tr', F, 1, RET), ('cpi', F, 0, ('gt', 0))],
     'wealth_distribution': [('variable', T, 0, None), ('band', T, 0, None), ('value', F, 0, None),
-                            ('unit', T, 0, ('enum', {'pct_total_wealth', 'pct_households', 'gbp_bn', 'pct_of_band'})),
+                            ('unit', T, 0, ('enum', {'pct_total_wealth', 'pct_households', 'gbp_bn', 'pct_of_band', 'thousand', 'gbp'})),
                             ('basis', T, 0, BASIS), ('year', T, 0, None)],
     'wealth_tail': [('series', T, 0, None), ('year', I, 0, None), ('value', F, 0, None),
                     ('unit', T, 0, ('enum', {'pct_wealth', 'gbp_bn', 'pct_total'})), ('low', F, 1, None), ('high', F, 1, None),
@@ -150,6 +150,12 @@ def _x_wealth(n, rows):
             if abs(sum(x['value'] for _, x in g) - 100) > 0.5:
                 raise PackError(f'{n}:{g[0][0]}:value: bands of {var} partition the population but sum to '
                                 f'{sum(x["value"] for _, x in g):.3f}, not 100 within 0.5')
+        bands = {x['band']: x['value'] for _, x in g}
+        part, tol = sum(v for b, v in bands.items() if b != 'all'), max(0.5, 1e-4 * bands.get('all', 0))   # the printed 'all' is rounded, the bands are not
+        if unit in ('gbp_bn', 'thousand') and len(bands) > 1 and 'all' in bands and all(re.fullmatch(r'D\d+|all', b) for b in bands) and abs(part - bands['all']) > tol:
+            raise PackError(f'{n}:{g[0][0]}:value: bands D1 to D10 of {var} sum to {part:.3f}, not the printed all {bands["all"]} within {tol:.3f}')
+    bad = next(((r, x['variable']) for r, x in enumerate(rows, 2) if x['variable'] in ('median_house_price', 'gdp') and x['value'] <= 0), None)
+    if bad: raise PackError(f'{n}:{bad[0]}:value: {bad[1]} must be greater than 0')
 
 
 def _x_tail(n, rows):

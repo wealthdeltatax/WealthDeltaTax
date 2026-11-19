@@ -10,7 +10,7 @@ FIX = Path(__file__).parent / 'fixtures' / 'pack_ZZZ'
 PINNED = '90031fcd58434fe98b1329646ceb40320a229ecb36c430f1f99ede8b505d67c5'   # P7: the fixture's pack_sha256
 ROOT = Path(__file__).parents[2]
 GBR = ROOT / 'model_v3' / 'pack' / 'GBR'
-GBR_SHA = 'f6f66aafaada32a9c6f9da1fc63ceb75c6ebfa78f28b44e95eb92d27c5795866'   # the UK pack_sha256, pinned: a rebuilt pack that changes a byte fails here
+GBR_SHA = '09d76ce7b9d20e6ff793043d45a2b0af3c25bc01f6cbb04388c4130a019d2540'   # the UK pack_sha256, pinned: a rebuilt pack that changes a byte fails here
 KNOWN_UNORDERED = {'I-T3d', 'I-T3e', 'I-T3g', 'I-T3m', 'I-T3p'}   # register rows with low > central or central > high (finding of 048c, for the author)
 PARTS = {'stamp_all': ['stamp_a', 'stamp_b'], 'income_tax': ['pay_a', 'pay_b']}
 
