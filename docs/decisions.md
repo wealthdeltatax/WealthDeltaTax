@@ -175,3 +175,6 @@ Author: after 074c the identity tests take v2's inputs as test constants (W_min,
 
 ## 2026-11-19: the statistic behind 7.34
 The v2 reference run (078c) shows the recorded 7.34 is the mean over the 117 windows of the net post-fill take (ratio of sums, fill to fill+9, no levy); the median is 6.59. The v3 identity tests compare the mean (guru correction; architecture.md and acceptance.md updated). The I1 limit stays 0.02 and I2's band 6.34 to 7.36, both on the mean. Earlier median-based gaps (5.02, 6.66) are superseded.
+
+## 2026-11-19: I1 and I2 restated
+Author: v3 learns from v2, it does not replicate it. I1 is the exact-take port check at v2's fill year (passes: 1e-5 in all 117 windows); I2 is the refund-rule difference at v2's fill year, in 6.34 to 7.36; the fill-year difference (39 of 117 windows, +0.17 on the mean) comes from v3's constant levy against v2's per-year path and is reported as a finding, not a failure. 052c merges when its tests pass on this basis. Paper question: does a constant levy understate how much the fund's timing varies.
