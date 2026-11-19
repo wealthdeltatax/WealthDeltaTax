@@ -60,11 +60,26 @@ Blocked on the first run (Agent 3's note on `brief/051-base`): the merged UK pac
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** draft; not started
+- **Done:** `model_v3/core/base.py` (122 lines, budget 380; numpy and `core/pack.py` only) and `tests/model_v3/test_base.py` (101 lines). `build_base(pack, register, ratio)` gives `Base`: 11 lines (D1 to D9, D10a the 90th to 99th percentile, D10b the top 1%), households and adults, weights, wealth by line summing to the pack total, `V0` by route A to D, income and liquid assets per adult, `w_min`, wealth over GDP, the ten income deciles of gross income and total tax, G = 30. `w_min(pack, ratio)`. B1 to B5 pass. `pytest tests/model_v3 -q`: 128 passed.
+- **Next:** V3-7 (052c) once this is merged.
+- **Decisions:** (1) Lines are the WAS wealth deciles, D10 split by the pack's top 1% over top 10% WID share (latest year both are given): a ratio of two adult-basis shares applied to the household-basis D10, the one cross-basis step. (2) Adults per household is the register's I-D4h central (1.93), the same for every line; W_min is compared with wealth per adult. (3) Route mix is the register's I-D13a to d central, the same for every line (no source varies it by band); low and high are for the level 2 draw. (4) Lines are scaled so wealth sums to the printed total (the deciles sum to it within 0.11bn). (5) Income per line is the register's I-D9a to d (D4 to D5, D6 to D7, D8 to D9, D10) over adults per household; liquid assets are the pack's net financial share of wealth by the same bands (the register calls it an upper-side proxy). Lines D1 to D3 have no source and stay nan: the build raises if a line at or above W_min has nan, which no lever ratio on the grid triggers (the lowest, 0.25, gives W_min below the D4 mean).
+- **Gotchas:** (1) Income by line is not ordered: I-D9c (D8 to D9) is 71,500 and I-D9d (D10) 71,400, so D10 sits 0.1% below; B4 tests order for the income deciles and liquid assets, and non-negativity for the line income. D10a and D10b share one income figure (no source for the top 1%). (2) wealth over GDP is 6.14 on the pack's GDP, the register's I-D4a central is 5.94 (067c noted this). (3) The Route B payment mode (I-D13e, text) is not read: `load_register` drops text rows to None; it is a kernel argument. (4) Not in `Base`, by the brief: the cohort return tiers and the behaviour shrink factor (V3-10), non-payer income-decile shares (M4a, V3-8: I-H2a depends on W_min). (5) Decile means: a decile that straddles W_min (D4 at the lowest ratio, D5 and D6 at the central) is treated as all payers or none by its mean; the kernel sees the line mean, not the spread inside a decile.
+- **Resume:** none needed.
+- **Not run:** nothing in the brief.
+- **State:** done; merged to main by the auto-merge rule
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 051c, model v3 stage V3-6: wealth and payer base
+- Files changed: model_v3/core/base.py (new, 122 lines); tests/model_v3/test_base.py (new, 101); this brief
+- What is different now: v3 builds the payer lines the kernel runs from the UK pack and the register: values by route, weights, income and liquid assets, W_min.
+- New or changed interfaces: build_base, w_min, Base, BaseError, IDS, BANDS, LABELS, G in model_v3.core.base
+- Acceptance criteria: B1 to B5 pass (met); base.py 122 of 380 lines, imports numpy and core/pack.py only (met); git diff --stat limited to Touches (met)
+- Deviations from the brief: none
+- Risks / follow-ups: (1) income and liquid assets exist only for wealth bands D4 and above; (2) the top 1% split mixes adult and household bases; (3) one adults-per-household figure for all lines; (4) route mix identical across lines; (5) wealth over GDP 6.14 against the register's 5.94 (guru)
+- Verification: pytest tests/model_v3 -q: 128 passed
+- Overview sections likely needing an update: model v3 build status (V3-6)
+- Commit / branch: brief/051-base, merged to main
+```
