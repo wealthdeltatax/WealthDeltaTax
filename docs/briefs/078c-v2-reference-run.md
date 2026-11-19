@@ -37,11 +37,26 @@ Ask rather than guess: if the run needs data that is not in the repo or takes mo
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** v2 run once at `logistic_ln_ref` (UK, 117 windows, 2.5 s) from a scratch copy; fixture `tests/model_v3/fixtures/v2_logistic_ln_ref.json` and `tests/model_v3/test_v2_reference.py` (3 tests). `pytest tests/model_v3 -q`: 145 passed. `git status --short model_v2`: empty.
+- **Next:** 052c rework uses the fixture; I1 should compare the mean, not the median.
+- **Decisions:** (1) The scratch copy of `WDT_Params.toml` got one line, `store_windows = true` under `[rates.scenarios.logistic_ln_ref]` (window rows are not kept otherwise; the 2026-11-16 closure check did the same); no number changes. (2) Per-window fields in the fixture are fractions of GDP as v2 writes them; headline numbers are percent. (3) The fixture holds `_meta` with the command, the last output lines and the extraction script.
+- **Gotchas:** (1) **The recorded 7.34 is a mean.** It is the mean over the 117 windows of `wdt_gdp_h`, written by `rates_core._horizon_cols` (line 1498): net individual WDT (tax + death tax + heirs - refunds, no levy), years fill to fill+9, ratio of sums over GDP. Mean 7.3416. The median, which `rates_core.headline` prints, is 6.594. 074c and 052c compared a v3 median with 7.34: different statistics, and the gap 7.34 - 6.59 = 0.75 is what a mean-for-median swap alone explains of 074c's 0.68 remainder. (2) v2 computes no gross post-fill take and no realised eps; the fixture keeps the net take, whole-window means of tax, refunds and net, and `er_gain_all` / `er_stock_all`. (3) Levy: entry rate calibrated to a 3.08% base (nominal median); the levy actually paid post-fill, `levy_gdp_h`, has median 2.774%, the 2.77 in synthesis section 10. (4) Fill year median 7, no censored window. (5) The 41 cells: total 15,120bn, 51.0m adults, GDP 2,097.1bn, W_min 0.1125 (0.5 x 0.225), wealth/GDP 7.21; they match the 074c rewrite's totals.
+- **Resume:** none.
+- **Not run:** nothing in the brief.
+- **State:** done; criteria met; merged
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 078c, v2 reference run recorded as a fixture
+- Files changed: tests/model_v3/fixtures/v2_logistic_ln_ref.json (new); tests/model_v3/test_v2_reference.py (new); this brief
+- What is different now: v3 tests can read v2's per-window output, 41-cell table, settings and gpc_real at logistic_ln_ref; the recorded 7.34 is identified as a mean (median 6.594).
+- New or changed interfaces: none
+- Acceptance criteria: headline reproduces 7.34 (met: mean 7.3416); fixture holds every Design 2 field and the new test passes, suite 145 passed (met); diff limited to Touches, model_v2 untouched (met)
+- Deviations from the brief: one line added to the scratch copy's toml to keep window rows (not the repo)
+- Risks / follow-ups: 052c's I1 and I2 should compare the v3 mean (not median) with 7.34 and 074c's table should be reread with that; the fixture records no gross take and no realised eps (v2 does not compute them)
+- Verification: pytest tests/model_v3 -q: 145 passed; git status --short model_v2: empty
+- Overview sections likely needing an update: model v3 status (I1 definition)
+- Commit / branch: brief/078-v2-reference; brief 078c merged, ready to retire
+```
