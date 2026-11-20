@@ -28,3 +28,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Cost: a few minutes reading the tests to find the call.
 - Suggest: a brief for a one-off script should name the test fixture that builds the context (084c has since moved `payer_taxes` into `levers.json`).
 - Status: open (one entry)
+### 2026-11-20 · brief 086c · code
+- Instruction: brief 086c Design: fill `out_burden.per_path(raw, again)` and read the inputs "from the register and pack as 055c does (`ctx`, `theta`)".
+- Happened: `per_path` gets `Raw` and `again` only; `Raw` has no `pack`, `reg`, `ctx` or `theta`. O5, O6, O8, OH1b, OH1b2, OH1c, DH1c need them (m5, m6, m8, m3_today, m11, m12, dh1c). 084c's tests also pin every group's `IDS == ()` and the empty-group digest, so any filled group fails `test_groups.py`.
+- Cost: built five of twelve ids, stopped on seven (the brief's own stop rule).
+- Suggest: the guru widens the group interface (`per_path(raw, again, ctx, theta)` or `Raw` carrying `ctx` and `theta`, an edit to `runner.py`) and loosens the two 084c tests to "IDS in the manifest".
+- Status: open (one entry)

@@ -43,11 +43,12 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** `out_burden.py` (57 lines) builds O2d, O2b, O2c, O4b, OL1 (75 + 15 + 45 + 45 + 33 + 12 cells per schedule: one per horizon and `by`); tests 45 lines, 5 pass. Metric map: O2d = `m2d(raw.fl, lo, hi)` (death flows are in `raw.fl`, so `again` is unused); O2b and O2c = `m2b`/`m2c` shares of payers above each cut-off (burden.py default, all net WDT; the payer mean is not in the manifest); O4b = `m4(raw.r['P5'], hi, raw.inc, bill, income)['M4b']` with bill and income from `raw.base.income_deciles`; OL1 = `m4c` on that. Register and pack rows read: none (all from `Raw`).
+- **Early check (200 paths, seed 7, SPEC, short window):** M2 in life 3.00, M2d 23.48 (053c: 2.8 and 22.2); within a tenth. Long: 1.01 and 12.42.
+- **Next:** the guru decides the interface question below; then the seven ids.
+- **Decisions:** none by me.
+- **Gotchas:** (1) **Not built: O5, O6, O8, OH1b, OH1b2, OH1c, DH1c.** `per_path(raw, again)` receives no pack or register and `Raw` holds neither (`ctx`, `theta` stay in `evaluate`), while `m5`, `m6`, `m8` (shares), `m3_today`, `m11`, `m12`, `dh1c` need them. I did not reach into `again`'s closure. Fix is an interface edit (`runner.py` is out of scope): pass `ctx` and `theta` to `per_path`, or put them on `Raw`. (2) 084c's `test_groups.py` fails twice with any group filled: `IDS == ()` for all groups, and the empty-group digest PIN for `burden`. Not in Touches, not edited. (3) O8 also needs the M1 revenue in billions per path (from `raw.r`), not checked. (4) O5 has no with-death line (079g), as the brief says.
+- **Resume:** branch `brief/086-work`; after the interface change, add the seven ids to `out_burden.py` (line budget 150: now 57) and tests (budget 80: now 45).
+- **Not run:** the full level 2; the seven ids.
+- **State:** partly built, NOT merged (needs the guru: interface). `pytest tests/model_v3 -q`: 206 passed, 2 failed (the two 084c tests above).
 <!-- progress:end -->
