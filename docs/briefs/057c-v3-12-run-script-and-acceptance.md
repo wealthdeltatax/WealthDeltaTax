@@ -2,11 +2,14 @@
 
 - **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-18
-- **Depends on:** 055, 056
+- **Depends on:** 055 (merged), 056; for a complete `--final` file also 084c to 088c and the ruling in 089c (a provisional smoke run may start after 084c)
 - **Read:** `docs/model-v3/architecture.md` 6.4, 6.5 and 3.1; `docs/model-v3/acceptance.md` in full (sections 1, 2, 5); `pipeline/check_gate.py`; `docs/restructure/order.md` G1.
 
 ## Goal
 One command, `bash tests/model_v3/accept.sh`, that exits 0 only when the model is accepted.
+
+## Guru note, 2026-11-20
+CK1's mu is I-D1a central, 4.74 (arithmetic), not 4.42 (the geometric I-D1a2); `metrics.md` was corrected. `run.py` passes it to `sweeps.stress` from the register, not as a typed number.
 
 ## Decisions (author, 2026-11-18)
 `architecture.md` approved (sections 8.1 and 9 as written); `acceptance.md` approved with Q1 to Q6 as proposed. v3 imports nothing from `model_v1/` or `model_v2/`. No file outside this brief's Touches is changed.

@@ -2,6 +2,12 @@
 
 One entry per finished brief or settled question, at most 8 lines each. Newest first. Maintained by the guru.
 
+## 2026-11-20: 055c range runner merged; no schedule closes (briefs 055c, 083c to 089c)
+- 055c merged as built (`e4993a4`): two-level runner and sweeps, N1 to N7, R3, R10 met, 201 model tests and all 10 suites pass. The branch stopped for the author because the feasible region is empty: short-window F1 4.0 to 11.2% at all 27 grid points against the A5 closure share of 75%, with a tolerance of 1e-9. On a constant 4.74% return path relief after the fill falls from 5.7% to 2.9% of GDP over 100 years against 4.74% retired, so CK1's P3 is 100.9 at amplitude 0 over 100 years.
+- Author (2026-11-20): measure first (083c: tolerance, retirement margin, constant path, CK1 window), then rule on the feasibility rule; no constant (A5) or definition changes before then. 089c (OF1, CK1) is parked on that ruling.
+- 055c built only O1, O1a to O1c, O2, O3, O4a, O1f into Samples; the other 32 manifest ids go to four group files filled in parallel (084c fixes the group interface and moves `payer_taxes` into `levers.json`; 085c revenue, 086c burden, 087c support, 088c sweeps and pack; 089c feasibility).
+- CK1's mu is I-D1a central 4.74 (arithmetic), not 4.42 (the geometric I-D1a2): the `metrics.md` row carried the pre-036r figure and is corrected. 055c used 4.42 as the caller's argument; 057c's `run.py` reads it from the register.
+
 ## 2026-11-17: research inputs merged, ONS decile data read (briefs 022r to 024r)
 - `docs/model-v3/inputs-added/` (wealth I-W 45 rows, tax I-T 58, households I-H 65) merged into `inputs.md` as a part of its own; the register now has 260 rows. A duplicate id in the tax file (two rows called I-T6j) was fixed by renumbering the ISA row I-T6m.
 - The ONS FYE 2024 reference tables are read: decile total tax and gross income per household (I-H1k to I-H1t, I-H3k to I-H3t), with Table 2b central and Tables 2c and 13 as the range for the choice of ranking. Published council tax shares replace the derived I-D6a and I-D6h; the published bottom-five share (45.8%) is above the old derived high (43.5%).

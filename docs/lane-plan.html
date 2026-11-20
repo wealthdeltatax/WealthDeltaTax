@@ -260,20 +260,25 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 (function () {
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the V3 build as it lands" },
-    { id: "2", name: "Agent 2", note: "Free (081g merged)" },
-    { id: "3", name: "Agent 3", note: "Code: 055c built, pushed, waits for your ruling; next 083c (closure diagnostic)" },
-    { id: "4", name: "Agent 4", note: "Code: free now; 057c after 055c" },
-    { id: "5", name: "Agent 5", note: "Free (053c merged)" },
-    { id: "6", name: "Agent 6", note: "Free" },
+    { id: "2", name: "Agent 2", note: "Free; 085c after 084c" },
+    { id: "3", name: "Agent 3", note: "Code: 083c (closure diagnostic); 089c after your ruling" },
+    { id: "4", name: "Agent 4", note: "Code: 084c (runner groups), then 088c; 057c after the groups" },
+    { id: "5", name: "Agent 5", note: "Free; 086c after 084c" },
+    { id: "6", name: "Agent 6", note: "Free; 087c after 084c" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
   ];
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
     { id: "044c", lane: "G", at: 3, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }], why: "Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
-    { id: "055c", lane: "3", at: 0, len: 1, st: "built", t: "Model v3 V3-10: range runner (no M7e)", needs: [], why: "Built and pushed on brief/055-runner (201 tests pass). No schedule closes: short-window F1 is 4 to 11% against 75%. Merge after your ruling on the feasibility rule (083c measures first)." },
-    { id: "083c", lane: "3", at: 1, len: 1, st: "ready", t: "F1 closure diagnostic", needs: [{ id: "055c", soft: true }], why: "Measures why F1 is 4 to 11%: size of the P3 shortfall, tolerance, retirement margin, constant path, CK1 window. Report only; no model change.", files: "docs/model-v3/f1-diagnostic/" },
-    { id: "057c", lane: "4", at: 1, len: 1, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "055c" }], why: "run.py, smoke tests, accept.sh, convergence test." },
+    { id: "083c", lane: "3", at: 0, len: 1, st: "ready", t: "F1 closure diagnostic", needs: [], why: "Measures why F1 is 4 to 11%: size of the P3 shortfall, tolerance, retirement margin, constant path, CK1 window. Report only; no model change. Then you rule on the feasibility rule.", files: "docs/model-v3/f1-diagnostic/" },
+    { id: "084c", lane: "4", at: 0, len: 1, st: "ready", t: "Runner groups: split evaluate, payer_taxes into levers.json", needs: [], why: "Fixes the group interface so the 32 unassembled outputs can be added in parallel without touching runner.py.", files: "model_v3/runner/" },
+    { id: "085c", lane: "2", at: 1, len: 1, st: "ready", t: "Revenue and fund outputs into Samples", needs: [{ id: "084c" }], why: "O1d, OP1, OP3 to OP6, OR1, OB1.", files: "runner/out_revenue.py" },
+    { id: "086c", lane: "5", at: 1, len: 1, st: "ready", t: "Burden and savings outputs into Samples", needs: [{ id: "084c" }], why: "O2d, O2b, O2c, O4b, O5, O6, O8, OL1, OH1b, OH1b2, OH1c, DH1c.", files: "runner/out_burden.py" },
+    { id: "087c", lane: "6", at: 1, len: 1, st: "ready", t: "Supporting outputs into Samples", needs: [{ id: "084c" }], why: "O7, OD1, OW1 to OW3, OM1, OS1 (no M7e).", files: "runner/out_support.py" },
+    { id: "088c", lane: "4", at: 1, len: 1, st: "ready", t: "Sweep and pack outputs into Samples", needs: [{ id: "084c" }], why: "O1e, OT1, DH1a, DH1b.", files: "runner/out_sweeps.py" },
+    { id: "089c", lane: "3", at: 1, len: 1, st: "hold", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [{ id: "083c" }, { id: "088c" }], why: "Waits for your ruling on the feasibility rule after 083c.", files: "runner/sweeps.py, out_sweeps.py" },
+    { id: "057c", lane: "4", at: 1, len: 1, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "085c" }, { id: "086c" }, { id: "087c" }, { id: "088c" }, { id: "089c" }], why: "run.py, smoke tests, accept.sh, convergence test." },
     { id: "009c", lane: "G", at: 2, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" }
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });

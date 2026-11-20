@@ -2,8 +2,8 @@
 
 - **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-20
-- **Depends on:** 055c (built on branch `brief/055-runner`, tip `1a60781`, not merged). Branch from that tip if `main` does not yet hold `model_v3/runner/`.
-- **Read:** `docs/briefs/055c-v3-10-range-runner.md` (progress block, gotchas 1 and 2); `docs/model-v3/metrics.md` rows P3, F1, CK1 and the range-design paragraph; `model_v3/core/revenue.py` `retire` and `revenue` (lines 20 to 30 and 174 to 215); `model_v3/runner/runner.py` `evaluate`; `model_v3/runner/sweeps.py` `feasibility`, `choose`, `CLOSED`.
+- **Depends on:** 055c (merged to `main`, `e4993a4`).
+- **Read:** `docs/archive/briefs/055c-v3-10-range-runner.md` (progress block, gotchas 1 and 2); `docs/model-v3/metrics.md` rows P3, F1, CK1 and the range-design paragraph; `model_v3/core/revenue.py` `retire` and `revenue` (lines 20 to 30 and 174 to 215); `model_v3/runner/runner.py` `evaluate`; `model_v3/runner/sweeps.py` `feasibility`, `choose`, `CLOSED`.
 
 ## Goal
 Say where the closure share F1 comes from and which single change would move it, with numbers, so the author can rule on the feasibility rule. This is a measurement, not a model change.
@@ -45,7 +45,7 @@ The script run; `pytest tests/model_v3 -q` to show nothing moved.
 Any change to `retire`, `evaluate`, `choose`, `CLOSED`, the manifest, A5 or CK1; the full N1 and N2 sizes; level 2.
 
 ## Open questions
-None. Ask if the 055c branch cannot be fetched or its tip is no longer `1a60781`.
+None. None.
 
 ## Implementation notes
 <!-- progress:start -->
