@@ -184,3 +184,6 @@ Author: M2 is reported in life as the headline and including death flows as M2d 
 
 ## 2026-11-20: M7e
 Author: the first provisional run goes without M7e (modal declaration): no distribution of declared alpha is held (M-3). OD1 reports M7c and M7d; O7 uses the curve only. Brief 080r looks for the evidence for a later run. Process note: a data gap marked MISSING in a design file must be turned into a brief before the stage that needs it is assigned.
+
+## 2026-11-20: check of MISSING flags in the design files
+The MISSING flags in `added/supporting.md`, `h1.md` and `welfare.md` (written 2026-11-17) were answered by the 022r to 024r research: every request has register rows (coverage tables in `inputs.md`). Open after that, all stated in the register: M-3 declared alpha (I-W9a to I-W9e foreign, no distribution; first run goes without M7e, 080r); null rows I-H4b (employee NICs of likely leavers), I-H7c and I-H7d (spending to wealth in the middle bands), I-T6k and I-T6l (business relief share): none is read by the runner; they are needed only by the consumption-tax comparator and finer M9 and M14 forms. Partly-met rows (return by rank, saving by band, mobility, investment income, accrued gains, realisation, exempt shares) rest on foreign or judgement figures and are (J) rows in the tornado.
