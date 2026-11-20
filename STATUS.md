@@ -3,19 +3,19 @@
 Maintained by the guru. Last updated 2026-11-20 (081g merged and retired). Plan view: `docs/lane-plan.html`.
 
 ## Where the project is
-The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. Design brief 011g is underway: stage A (metric register and output manifest) passed on 2026-11-16; stage A2 (design review: levers swept, two-level uncertainty, driver table, three added outputs) passed; stage B (input register, brief 012r) is ready for the research lane. v1 and v2 are not fixed. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
+The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. The design is retired (011g, 040g) and the build briefs are mostly landed: scaffold, pack, schedule and kernel, base, revenue (052c), burden and savings (053c), support metrics (054c) and the output layer are on `main`. The manifest no longer carries M7e (081g). 055c (range runner, no M7e) is the next build brief; 057c (run script and acceptance) follows it. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
 
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (guru prime: writes and hands out briefs) | 040g done; build briefs 045g to 057c approved and ready | review each V3 build stage as it lands; stop points go to the author |
+| Agent 1 (guru prime: writes and hands out briefs) | reviewing the V3 build as it lands | 055c and 057c next; stop points go to the author |
 | Agent 2 (guru) | 081g done | free |
 | Agent 3 (code) | 055c stopped, rightly; unblocked | 055c (range runner, no M7e), now |
 | Agent 4 (code) | 052c done | free; 057c after 055c |
 | Agent 5 (research) | 053c done | free |
 | Agent 6 (site) | 080r done | free |
 
-Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). The model v3 design is done (011g and 040g retired); the 13 build briefs 045g to 057c are ready, first wave 045g, 046c, 049c. Landed and retired: 045g, 046c, 047c. Waiting: 049c (no branch yet). Ready now: 048c, 049c, 056c.
+Six agents only. Agents 2 to 6 change skill with the brief. Ready now: 055c (Agent 3). Waiting: 057c (after 055c). Held: 044c (file layout move) and 009c (retire legacy models), both after 057c.
 
 ## Recently done
 - 2026-11-20: 081g merged (`728b93b`) and retired: M7e dropped from OD1 and the metrics list (id kept as a dropped row, not reused); manifest `stage-A11-no-m7e-2026-11-20`; 46 metric ids still (M7e counts as dropped); fixture numbers shifted, three CK1 hooks pins re-set (P1 5.8, P3 2.20, P7b 3.70; the positional-fixture suggestion stays open); 10 of 10 suites pass. `registry/metrics.json` regenerated (added to Touches). 055c can now build without `modal_alpha`; `model_v3/core/support.py` still names M7e until 055c.
@@ -87,5 +87,10 @@ Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first
 See `OVERVIEW.md` section 6. Priority list carried over from `docs/todo.md`: citation button, CLOSE updates, PDF title page, WFR refactor, WP Appendix B forward links, internal bibliography to Zenodo v2.
 
 ## Waiting on the author
-The 90 judgement rows in `docs/model-v3/judgement-decisions.md` need decisions before the gate (G3); no hurry until the model is built.
-Nothing open. The stock-wealth floor hypothesis waits for the straightforward model v3 (discussion notes in section 13 of its file). The 87 judgement rows in `docs/model-v3/judgement-decisions.md` need your decisions before the gate (G3); no hurry until the model is built. Answers of 2026-11-17 are in `docs/decisions.md`. Held for model stage C: the feasibility share, cap and floor (OF1), and the tolerance for the understater plateau (OD1). The ONS decile workbook is in and read. Still open for a future research brief: the non-payer share by income decile (I-H2a), which needs WAS Table 2.6 rather than the ONS file.
+- **G3 judgement rows:** the 107 `(J)` rows in `docs/model-v3/judgement-decisions.md` (register 291 rows) need decisions before the gate; no hurry until the model is built.
+- **M2 denominator:** terminal or start-of-year wealth (RATES 0.35% against M2). Entry in `docs/brief-suggestions.md`.
+- **Register mismatches:** I-D4a wealth to GDP 5.94 against the pack's 6.14; I-D4b implies 1.77 adults per household against I-D4h's 1.93 (16 and over). Both in `docs/brief-suggestions.md`; an ONS mid-2021 population-by-age upload would separate 16 and 17-year-olds.
+- **M5 with death:** a with-death line needs `lines` on O5, an M5d row and a changed O5 cell shape (079g).
+- **PR #1 (kobrains):** close or keep.
+- **Optional:** rename the web role and skill to `wdt-site`.
+- **Parked:** the stock-wealth floor hypothesis waits for the straightforward model v3 (`docs/model-v3/stock-floor-hypothesis.md` section 13); the tolerance for the OD1 understater plateau is held for model stage C.
