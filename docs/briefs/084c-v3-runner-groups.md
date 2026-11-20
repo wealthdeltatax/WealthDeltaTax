@@ -41,11 +41,26 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** `evaluate` split into `core_run` (returns a `Raw`), `headlines` and the group loop; `groups.py` (11 lines) and four stub groups (18 lines each); `samples(by_schedule, ids)` raises on an id outside the manifest, outside the group's IDS, or returned by two producers; `payer_taxes` moved to `levers.json` (`pack_mappings.payer_taxes`). `runner.py` 322 lines (budget 360). `pytest tests/model_v3 -q`: 208 passed; `python pipeline/run_suites.py`: 10 of 10 suites passed.
+- **Next:** 085c to 088c fill one group file each.
+- **Decisions:** (1) Layers: the author chose to add LAYER rows to `tests/model_v3/conftest.py` (out_* 3.5, groups 3.7, between burden/support and runner), a file outside Touches. (2) `context(pack, reg, levers, tier1, manifest_ids)`: the manifest ids are the new fifth argument (the runner cannot read the manifest), used by `samples` for the R1 check. (3) A group's `cells(e)` returns `{output id: {(horizon, by, line): array}}`; `samples` puts the schedule in front, so a group does not know schedule names. (4) `again(override)` returns a `Raw`, cached per `evaluate` call by the changed spec (the original spec is seeded). (5) Budgets: groups.py 20 and tests 60 (not 0, since `test_groups.py` exists), each `out_*.py` 150 and 80; totals in 6.1 now 5,390 code and 3,458 tests. The prose of architecture 5.1 does not yet mention the new layers (not in Touches).
+- **Gotchas:** (1) Pins of `levers_sha256`: none. `test_out.py` and `test_validate_outputs.py` only check the field has 64 hex characters, and the fixture's value is not compared with the file. (2) The byte-identity test pins the digest of 055c's Samples (seed 7, 40 paths, chunks of 20, the test schedule): `ce75c164...`, computed from the unchanged 055c code before the edit. (3) `payer_taxes` sits under `pack_mappings`, next to `parts` and `groups`.
+- **Resume:** none.
+- **Not run:** nothing in the brief.
+- **State:** done; criteria met; merged
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 084c, runner groups and payer_taxes in the lever file
+- Files changed: model_v3/runner/runner.py; model_v3/runner/groups.py, out_revenue.py, out_burden.py, out_support.py, out_sweeps.py (new); model_v3/levers.json; tests/model_v3/test_runner.py; tests/model_v3/test_groups.py (new); tests/model_v3/conftest.py (LAYER rows, author-approved); docs/model-v3/architecture.md (6.1 rows and totals); docs/agents/friction-log.md; this brief
+- What is different now: `evaluate` = core_run + headlines + one entry per group; groups are named in groups.py; samples checks ids against the manifest; payer_taxes is read from the lever file.
+- New or changed interfaces: runner.core_run, headlines, Raw; context(pack, reg, levers, tier1, manifest_ids); samples(by_schedule, ids); groups.GROUPS and the group interface (NAME, IDS, per_path, cells)
+- Acceptance criteria: existing runner tests unchanged except the payer_taxes argument (met); samples for the 055c ids byte-identical for seed 7 (met, pinned digest); runner.py 322 of 360 lines (met); levers rule tests, pytest tests/model_v3 -q (208 passed) and run_suites.py (10 of 10) (met); diff stat limited to Touches (met except conftest.py, approved by the author)
+- Deviations from the brief: conftest.py LAYER rows; manifest_ids as a context argument; test budget for groups.py 60 not 0
+- Risks / follow-ups: architecture 5.1 prose should list the new layers; briefs 085c to 088c fill the groups
+- Verification: pytest tests/model_v3 -q: 208 passed; python pipeline/run_suites.py: 10 of 10 suites passed
+- Overview sections likely needing an update: model v3 status (runner groups in place)
+- Commit / branch: brief/084-groups; brief 084c merged, ready to retire
+```

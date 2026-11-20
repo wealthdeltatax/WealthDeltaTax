@@ -30,8 +30,8 @@ def tier1(out):
 
 
 @pytest.fixture(scope='module')
-def ctx(lv, tier1):
-    return R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1, ('cgt', 'iht'))
+def ctx(lv, tier1, out):
+    return R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs']])
 
 
 def level1(ctx, seed, n=40):

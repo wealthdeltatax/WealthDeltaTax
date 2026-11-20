@@ -1,8 +1,8 @@
 """
 runner.py -- the two-level run (model v3, stage V3-10)
 =====================================================
-Layer L4 (architecture.md 5.1). Imports numpy and the core modules; no file is read and nothing runs at import (R8). No country or tax is named
-here (R11): the pack, the register, the lever file, the tier 1 list and the payer-side taxes arrive as arguments.
+Layer L4 (architecture.md 5.1). Imports numpy, the core modules and `groups` (the output groups, brief 084c); no file is read and nothing runs at import (R8). No country or tax is named
+here (R11): the pack, the register, the lever file, the tier 1 list and the manifest's output ids arrive as arguments (the payer-side taxes are in the lever file).
 
 TWO LEVELS (architecture.md 2.8, 3.1; stage-c-decisions items 4, 6, 7)
 ----------------------------------------------------------------------
@@ -42,6 +42,7 @@ from model_v3.core import pack as pk
 from model_v3.core import returns as rt
 from model_v3.core import revenue as rv
 from model_v3.core import schedule as sc
+from model_v3.runner.groups import GROUPS
 
 T = 100
 N1, N2, N2P, CHUNK = 10_000, 200, 1_000, 1_000
@@ -59,7 +60,7 @@ class Ctx:
     reg: dict
     mp: dict               # the lever file's pack_mappings
     tier1: tuple           # ids drawn at level 2 and swung by the tornado
-    payer_taxes: tuple     # retired taxes that fall on payers, not on the non-payers (given by the caller)
+    ids: frozenset         # the manifest's output ids: what `samples` accepts
     centre: dict           # id -> central value, for every id the run reads or draws
     rec: dict              # retired taxes' receipts, ascending (revenue.taxes)
     bill: np.ndarray
@@ -81,7 +82,7 @@ class RunnerError(ValueError):
     """An input the run needs is missing or a draw left its admissible region."""
 
 
-def context(pack, reg, levers, tier1, payer_taxes):
+def context(pack, reg, levers, tier1, manifest_ids):
     mp = levers['pack_mappings']
     ids = dict.fromkeys([*tier1, *RET.values(), *SHAPE, *RUN])
     miss = [i for i in ids if i not in reg or reg[i].central is None]
@@ -90,7 +91,7 @@ def context(pack, reg, levers, tier1, payer_taxes):
     one = lambda ds, **w: pk.lookup(pack, ds, **w)[0]
     bill, income = bd.pack_deciles(pack)
     gdp_g = float(np.mean(rv.gdp_growth(pack, rt.real_series(pack)[0])))
-    return Ctx(pack, reg, mp, tuple(tier1), tuple(payer_taxes), {i: float(reg[i].central) for i in ids}, rv.taxes(pack, mp['x2']['lines'], mp['parts']), bill, income,
+    return Ctx(pack, reg, mp, tuple(tier1), frozenset(manifest_ids), {i: float(reg[i].central) for i in ids}, rv.taxes(pack, mp['x2']['lines'], mp['parts']), bill, income,
                one('wealth_distribution', variable='gdp', band='all')['value'], one('public_expenditure', function='total')['pct_gdp'], gdp_g, {})
 
 
@@ -149,10 +150,30 @@ def patched(ctx, theta):
     return replace(ctx.pack, tables=tabs)
 
 
-def evaluate(ctx, theta, spec, g, gdp_g, full=False):
-    """One schedule (`spec`: tau_0, tau_m, k_ln, ratio) on the paths g (T, P), per-path results: {'M1', 'M1a'..'M1d': {horizon: (P,)}, 'M2': {horizon: {band}},
-    'M4a': {horizon: {decile}}, 'M3': (P,), 'neg': {horizon: bool}, 'P3h': {horizon: (P,)}, 'P1', 'P7b', 'fill', 'unfilled', 'long_T'}. `full` takes the
-    receipts from revenue.run_lines instead of the burden run (the same numbers, a test)."""
+@dataclass(frozen=True)
+class Raw:
+    """The core results of one schedule on one block of paths, as the output groups read them: the shaped base and rate, the burden run's line flows, the
+    receipts (`run`), revenue.py's result `r`, the per-horizon window bounds `lo` and `hi` (1-based years, one per path), `ok` (the reserve fills), the
+    retired taxes' incidence `inc` (taxes by deciles), the paths and the consumption share and horizon length."""
+    spec: dict
+    base: object
+    rate: object
+    fl: dict
+    run: dict
+    r: dict
+    lo: dict
+    hi: dict
+    ok: np.ndarray
+    inc: np.ndarray
+    g: np.ndarray
+    gdp_g: np.ndarray
+    c: float
+    h: int
+
+
+def core_run(ctx, theta, spec, g, gdp_g, full=False):
+    """One schedule (`spec`: tau_0, tau_m, k_ln, ratio) on the paths g (T, P): the core modules run once, kept raw. `full` takes the receipts from
+    revenue.run_lines instead of the burden run (the same numbers, a test)."""
     g, gdp_g = np.asarray(g, float), np.asarray(gdp_g, float)
     P = g.shape[1]
     b = shaped(ctx, theta, spec['ratio'])
@@ -170,17 +191,40 @@ def evaluate(ctx, theta, spec, g, gdp_g, full=False):
     fill, ok, one = r['fill'], ~r['unfilled'], np.ones(P, int)
     lo = {'transition': one, 'short': fill + 1, 'long': 51 * one}
     hi = {'transition': np.where(ok, fill, T), 'short': fill + h, 'long': T * one}
+    inc = bd.incidence(patched(ctx, theta), list(ctx.rec), ctx.mp['parts'], ctx.mp['payer_taxes'])
+    return Raw(spec, b, rate, fl, run, r, lo, hi, ok, inc, g, gdp_g, c, h)
+
+
+def headlines(raw, ctx, theta):
+    """Per-path results of the headline ids: {'M1', 'M1a'..'M1d': {horizon: (P,)}, 'M2': {horizon: {band}}, 'M4a': {horizon: {decile}}, 'M3': (P,),
+    'neg': {horizon: bool}, 'P3h': {horizon: (P,)}, 'P1', 'P7b', 'fill', 'unfilled', 'long_T'}."""
+    r, lo, hi, ok, fl = raw.r, raw.lo, raw.hi, raw.ok, raw.fl
     gate = lambda k, v: np.where(ok, v, np.nan) if k == 'short' else v
     win = lambda x, k: gate(k, rv.window_mean(x, r['gdp'], lo[k], hi[k]))
-    inc = bd.incidence(patched(ctx, theta), list(ctx.rec), ctx.mp['parts'], ctx.payer_taxes)
     ex, t = np.maximum(0.0, r['M1d'] - r['relief']), np.arange(1, T + 1)[:, None]
     out = {x: {k: win(r[x], k) for k in HORIZONS} for x in ('M1', 'M1a', 'M1b', 'M1c', 'M1d')}
     out['M2'] = {k: {b_: gate(k, v) for b_, v in bd.m2(fl, lo[k], hi[k]).items()} for k in HORIZONS}
-    out['M4a'] = {k: {d: gate(k, v) for d, v in bd.m4(r['P5'], hi[k], inc, ctx.bill, ctx.income)['M4a'].items()} for k in HORIZONS}
+    out['M4a'] = {k: {d: gate(k, v) for d, v in bd.m4(r['P5'], hi[k], raw.inc, ctx.bill, ctx.income)['M4a'].items()} for k in HORIZONS}
     out['M3'] = bd.m3(fl, (theta['I-D11a'], theta['I-D11b'], theta['I-D11c']))
     out['neg'] = {k: np.where(np.isfinite(out['M1'][k]), out['M1'][k] < 0, False) for k in HORIZONS}
     out['P3h'] = {k: (ex * (t <= hi[k][None, :])).sum(axis=0) for k in HORIZONS}
-    return {**out, 'P1': r['P1'], 'P7b': r['P7b'], 'fill': fill, 'unfilled': r['unfilled'], 'long_T': r['long_year_T']}
+    return {**out, 'P1': r['P1'], 'P7b': r['P7b'], 'fill': r['fill'], 'unfilled': r['unfilled'], 'long_T': r['long_year_T']}
+
+
+def evaluate(ctx, theta, spec, g, gdp_g, full=False):
+    """core_run, then the headline results, then one entry per output group, `{group.NAME: group.per_path(raw, again)}`. `again(override)` is the core run
+    of the same paths and inputs with the spec changed by `override`, kept per call so a group asking for the same spec twice runs it once."""
+    raw = core_run(ctx, theta, spec, g, gdp_g, full)
+    seen = {tuple(sorted(spec.items())): raw}
+
+    def again(over):
+        sp = {**spec, **over}
+        k = tuple(sorted(sp.items()))
+        if k not in seen:
+            seen[k] = core_run(ctx, theta, sp, g, gdp_g, full)
+        return seen[k]
+
+    return {**headlines(raw, ctx, theta), **{m.NAME: m.per_path(raw, again) for m in GROUPS}}
 
 
 def make_ev(ctx, eps):
@@ -207,10 +251,15 @@ def mean_of(ev):
         return np.array([np.nanmean(np.asarray(ev, float)) if np.isfinite(np.asarray(ev, float)).any() else np.nan])
 
 
-def samples(by_schedule):
+def samples(by_schedule, ids):
     """Output id -> {(schedule, horizon, by, line): array} from {schedule: evaluation}. `by` is a sorted tuple of (name, value); a missing dimension is
-    () and `None` stands for no line (architecture.md 2.9). Ids: O1 (five lines), O1a to O1c, O2, O3, O4a, O1f."""
+    () and `None` stands for no line (architecture.md 2.9). Ids: O1 (five lines), O1a to O1c, O2, O3, O4a, O1f, then each group's `cells(e[NAME])`,
+    {output id: {(horizon, by, line): array}}, which gets the schedule put in front. Raises when an id is not in `ids` (the manifest), not declared in the
+    group's IDS, or returned by two producers."""
     out = {k: {} for k in ('O1', 'O1a', 'O1b', 'O1c', 'O2', 'O3', 'O4a', 'O1f')}
+    owner = dict.fromkeys(out, 'runner')
+    if not set(out) <= set(ids):
+        raise RunnerError(f'runner ids {sorted(set(out) - set(ids))} are not in the manifest')
     for s, e in by_schedule.items():
         for hz in HORIZONS:
             for x in ('M1', 'M1a', 'M1b', 'M1c', 'M1d'):
@@ -223,6 +272,13 @@ def samples(by_schedule):
                 out['O4a'][s, hz, (('income_decile', d),), None] = v
             out['O1f'][s, hz, (), None] = np.asarray(e['neg'][hz], float)
         out['O3'][s, 'single', (), None] = e['M3']
+        for m in GROUPS:
+            for oid, cells in m.cells(e[m.NAME]).items():
+                if oid not in ids or oid not in m.IDS:
+                    raise RunnerError(f'{m.NAME}: output id {oid} is not in the manifest and in the group\'s IDS')
+                if owner.setdefault(oid, m.NAME) != m.NAME:
+                    raise RunnerError(f'output id {oid} is returned by {owner[oid]} and by {m.NAME}')
+                out.setdefault(oid, {}).update({(s, *k): v for k, v in cells.items()})
     return out
 
 
@@ -235,7 +291,7 @@ def level1(ctx, specs, rng, n=N1, chunk=CHUNK, theta=None):
         for s, spec in specs.items():
             parts[s].append(evaluate(ctx, th, spec, g, np.full(g.shape, ctx.gdp_g)))
     ev = {s: cat(p) for s, p in parts.items()}
-    return samples(ev), {'paths': n, 'unfilled_paths': {s: int(e['unfilled'].sum()) for s, e in ev.items()}}
+    return samples(ev, ctx.ids), {'paths': n, 'unfilled_paths': {s: int(e['unfilled'].sum()) for s, e in ev.items()}}
 
 
 def level2(ctx, specs, rng, n=N2, n_paths=N2P):
@@ -246,7 +302,7 @@ def level2(ctx, specs, rng, n=N2, n_paths=N2P):
     for i in range(n):
         for s, spec in specs.items():
             acc[s].append(mean_of(ev(spec, {k: float(v[i]) for k, v in draws.items()})))
-    return Level2(draws, samples({s: cat(a) for s, a in acc.items()}), tuple(specs))
+    return Level2(draws, samples({s: cat(a) for s, a in acc.items()}, ctx.ids), tuple(specs))
 
 
 def digest(s):

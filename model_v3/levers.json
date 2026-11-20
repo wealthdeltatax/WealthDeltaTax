@@ -578,6 +578,10 @@
         "stamp_shares"
       ]
     },
+    "payer_taxes": [
+      "cgt",
+      "iht"
+    ],
     "groups": {
       "labour": [
         "income_tax",

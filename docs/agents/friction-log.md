@@ -15,3 +15,9 @@ Entry format:
 The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging. One entry is noted; two on the same instruction mean the guide is edited. Fixed and dropped entries move to `docs/archive/friction-log-archive.md`; keep this file under about 100 lines.
 
 ## Entries
+
+### 2026-11-20 · 084c · code
+- Instruction: brief 084c Touches and architecture.md 5.1 (R4 layers): a new runner module needs a row in the LAYER table of `tests/model_v3/conftest.py`
+- Happened: the brief adds `runner/groups.py` and four `out_*.py` files that `runner.py` imports; R4 fails any edge with a module not in LAYER, and conftest.py was not in Touches
+- Cost: stopped to ask; the author said to add the rows (out_* 3.5, groups 3.7), so conftest.py changed outside Touches
+- Suggest: briefs that add a module name the LAYER row, and 5.1 lists the new modules
