@@ -71,14 +71,15 @@ def per_path(raw, env, again):
 
 
 def static(env):
-    """OH1b and OH1c: once, single horizon, over STATIC_PATHS return paths at the inputs `env.theta` and the base at the reference ratio."""
+    """OH1b and OH1c: once, single horizon, over STATIC_PATHS return paths at the inputs `env.theta` and the base at the reference ratio; only the ids `Ctx.once` holds."""
     th, reg = env.theta, env.ctx.reg
     g = rt.ar1_paths(env.rng('burden.static'), th['I-D1a'], th['I-D1b'], th['I-D1b2'], bd.G, STATIC_PATHS)
     base, c, rates = bs.build_base(env.pack, reg, STATIC_RATIO), th['I-D14c'] / 100, tuple(th[i] for i in ('I-D11a', 'I-D11b', 'I-D11c'))
     m12 = bd.m12(base, g, c, reg, env.pack, rates)
-    return {'OH1b': {('single', (('wealth_band', b),), None): v for b, v in bd.m3_today(base, g, c, reg, rates).items()},
-            'OH1c': {('single', tuple(sorted((('wealth_band', b), ('cause', 'exempt_by_law' if ca == 'exempt_law' else ca)))), None): x
-                     for b, d in m12.items() for ca, x in d.items()}}
+    cells = {'OH1b': {('single', (('wealth_band', b),), None): v for b, v in bd.m3_today(base, g, c, reg, rates).items()},
+             'OH1c': {('single', tuple(sorted((('wealth_band', b), ('cause', 'exempt_by_law' if ca == 'exempt_law' else ca)))), None): x
+                      for b, d in m12.items() for ca, x in d.items()}}
+    return {i: c for i, c in cells.items() if i in env.ctx.once}
 
 
 def cells(e):
