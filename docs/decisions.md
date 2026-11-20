@@ -181,3 +181,6 @@ Author: v3 learns from v2, it does not replicate it. I1 is the exact-take port c
 
 ## 2026-11-20: burden metrics (053c)
 Author: M2 is reported in life as the headline and including death flows as M2d (labelled; death flows are 87% of M2); M5 compares in life. M3 gains are the positive real changes in net wealth. M4a incidence is a stated limit of the pack. OH1b all-tax line, M8 non-payer saving and M2b/M2c below W_min are not built and listed as limits of the first run. Manifest entry for M2d: brief 079g.
+
+## 2026-11-20: M7e
+Author: the first provisional run goes without M7e (modal declaration): no distribution of declared alpha is held (M-3). OD1 reports M7c and M7d; O7 uses the curve only. Brief 080r looks for the evidence for a later run. Process note: a data gap marked MISSING in a design file must be turned into a brief before the stage that needs it is assigned.
