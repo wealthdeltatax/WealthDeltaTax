@@ -39,12 +39,12 @@ Ask if a metric formula in `metrics.md` is ambiguous.
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** `core/burden.py` (316 of 430 lines) and `tests/model_v3/test_burden.py` (206 of 250): `line_flows`, M2, M2b, M2c, M3, OH1b (today line), OH1c, M4a to M4c, DH1c, M5, M6, M8 (burden), M11. D1 to D6 pass; `pytest tests/model_v3 -q`: 176 passed.
-- **Next:** the author rules on the questions in the change report; not merged. Then V3-9 reads these functions.
-- **Decisions:** (1) `line_flows` keeps every line and death phase (revenue's run is aggregate only); it reconciles with `revenue.run_lines` to 1e-9. (2) M2, M2b, M2c: all net WDT of the year, with `inlife=True` to drop death flows. (3) M3 and M12: gains are the positive real changes in net wealth. (4) M4: incidence by income decile of all households (no joint income and wealth table); corporation tax by gross income; the two payer-side taxes give non-payers nothing. (5) M8 burden only.
-- **Gotchas:** (1) Death flows are 87% of M2 (short: 22.2% all net, 2.8% in life). (2) M5 and M8 are on launch line means, so only RL tiers pass the large thresholds. (3) Not built: M3-all-tax line, M8 non-payer saving, M2b/M2c below-W_min income.
+- **Next:** merged by the auto-merge rule after the author's rulings of 2026-11-20 (`docs/decisions.md`, `metrics.md` closed list); 079g adds O2d to the manifest; V3-10 reads these functions.
+- **Decisions:** (1) `line_flows` keeps every line and death phase (revenue's run is aggregate only); it reconciles with `revenue.run_lines` to 1e-9. (2) M2 is in life by default (author ruling 2026-11-20), `m2d` is M2 with death flows; M2b and M2c still read all net WDT (the ruling does not cover them; `inlife` flag exists). (3) M3 and M12: gains are the positive real changes in net wealth. (4) M4: incidence by income decile of all households (no joint income and wealth table); corporation tax by gross income; the two payer-side taxes give non-payers nothing. (5) M8 burden only.
+- **Gotchas:** (1) Death flows are 87% of M2d (short: 22.2% with death, 2.8% in life). (2) M5 and M8 are on launch line means, so only RL tiers pass the large thresholds. (3) Not built: M3-all-tax line, M8 non-payer saving, M2b/M2c below-W_min income.
 - **Resume:** `git checkout brief/053-burden`; after the ruling edit the defaults in `burden.py` (`inlife`, gain definition) and the hand cases.
 - **Not run:** the runner and `out/` (V3-9); anything with the pack for another country.
-- **State:** built and pushed on `brief/053-burden`; NEEDS THE AUTHOR (open questions in the change report).
+- **State:** done; merged to main; ready to retire.
 <!-- progress:end -->
 
 ### Change report
@@ -63,13 +63,13 @@ Change report
   - D6 comparators read only pack and register values: met (m5 and m6 run on a register-only stub; a missing row raises)
   - burden.py at most 430 lines: met (316). git diff limited to Touches: met (two new files and this brief)
 - Deviations from the brief: none in scope; two metrics partly built (see Risks)
-- Risks / follow-ups (NEEDS THE AUTHOR; metrics.md is ambiguous or the inputs are not held):
-  1. M2 and death flows. M2 as written is net WDT of the year over start-of-year wealth; that includes what a death triggers. On 117 windows (14 lines, register mix, v2-like settings, post-fill 10 years, median): M2 22.2% a year (D10 27.4%), in life only 2.8% (D10 3.6%); long run 10.9% against 0.75%. M5 against it: the five comparators burden 1.0 to 2.0% a year, so "difference" is -20 points with the death flows in, about -1 with them out. Which reading is M2? (`inlife` flag exists; default all net.)
+- Risks / follow-ups (items 1 to 3 ruled by the author on 2026-11-20 and built as ruled; items 4 and 5 are limits of the first run, listed in `metrics.md`; M2b and M2c still read all net WDT, not covered by the ruling):
+  1. M2 and death flows. M2 as written is net WDT of the year over start-of-year wealth; that includes what a death triggers. On 117 windows (14 lines, register mix, v2-like settings, post-fill 10 years, median): M2d 22.2% a year (D10 27.4%), M2 in life 2.8% (D10 3.6%); long run 10.9% against 0.75%. RULED (author, 2026-11-20): O2 is in life, O2d with death (brief 079g); `m2` is in life by default, `m2d` is the with-death reading, and `m5` takes both and returns `_diff` (in life) and `_diff_death`. The comparators burden 1.0 to 2.0% a year: about -1 point against in life, -20 against M2d.
   2. M3 gains. The signed sum of real changes in net wealth is zero or negative over many lives, so no rate exists; I use the positive part (as M12). Median M3 25.0% (10th to 90th 20.6 to 32.8) with death flows, 7.7% in life. Today's liabilities (OH1b): 7.4% overall, D10 10.4%.
   3. M4a incidence. The pack has a tax's share only for the top decile and the bottom five; the rest split evenly, corporation tax by gross income, the two payer-side taxes zero. Result: retired taxes save the non-payers 25.1% of their tax bill overall (D1 36.2%, D10 17.6%), 8.4% of income (D1 17.2%); M4c 331, 397, 559, 620 pounds a month at p25 to p90. The non-payers' share of a decile is taken as the decile's (no joint income and wealth table).
   4. Lines. Each line is one representative adult, so M2b has D10 at 89.9% of income and M5 and M8 test thresholds on line means (D10b mean 4.7 million: nothing passes 10 million). Same cause as the I1 gap.
   5. Not built: M3-all-tax line of OH1b (investment income rows exist for D10 only), the non-payer saving form of M8 (the reform's own incidence by income decile is not held), M2b and M2c for lines below W_min (no source). M8 burden: a property reform raising the WDT's 89.4bn (post-fill 10-year, 3.92% of GDP) costs its payers 0.70% of wealth a year, a gains reform 0.69%.
-- Verification: pytest tests/model_v3 -q: 176 passed. line_flows net, weighted and scaled, equals revenue's aggregate tax + refund + death + heirs to 1e-9 on 6 paths; R11 scan clean
-- Overview sections likely needing an update: model v3 build status (V3-8 built, six questions open)
-- Commit / branch: brief/053-burden (pushed, NOT merged: NEEDS THE AUTHOR)
+- Verification: pytest tests/model_v3 -q: all pass after the rebase on main (count in the merge note). line_flows net, weighted and scaled, equals revenue's aggregate tax + refund + death + heirs to 1e-9 on 6 paths; R11 scan clean
+- Overview sections likely needing an update: model v3 build status (V3-8 built)
+- Commit / branch: brief/053-burden, merged by fast-forward; brief 053 merged, ready to retire
 ```

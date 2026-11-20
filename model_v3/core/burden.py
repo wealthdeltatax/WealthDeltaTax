@@ -12,7 +12,8 @@ all adults (a line's weight divided by the phases). Windows are 1-based year bou
 
 METRICS (every ratio is in percent; `band` keys are overall, D4_5, D6_7, D8_9, D10)
 -----------------------------------------------------------------------------------
-M2  revenue-weighted burden: sum wt net (net / W0) over sum wt net, payers with net > 0, W0 the start-of-year wealth, pooled over the window.
+M2  revenue-weighted burden: sum wt net (net / W0) over sum wt net, payers with net > 0, W0 the start-of-year wealth, pooled over the window; in life
+    (the headline) or, as M2d, with what a death triggers.
 M2b, M2c  payer-weighted mean of net over income (income grows with GDP per head) or over liquid assets (the line's launch share of wealth); the share of
     payers above each cut-off. Lines with no income or liquid-asset source are left out, never filled.
 M3  present value of net paid over the first G years over present value of the gains (the positive real changes in net wealth, before tax), payers only.
@@ -118,12 +119,18 @@ def _net(fl, inlife):
     return fl['net'] - fl['death'] if inlife else fl['net']
 
 
-def m2(fl, lo, hi, inlife=False):
-    """M2 by band over the window, percent a year, nan where no one paid. `inlife` leaves out what a death triggers (default: all net WDT of the year)."""
+def m2(fl, lo, hi, inlife=True):
+    """M2 by band over the window, percent a year, nan where no one paid. In life by default (the headline, comparable with annual taxes): what a death
+    triggers is left out. `inlife=False` is M2d, the same metric with the settlement at death."""
     net, w0, wt = _net(fl, inlife), fl['w0'], fl['wt'][None, :, None]
     m = _window(net.shape[0], lo, hi, net.shape[2])[:, None, :] & (net > 0) & (w0 > 0)
     num, den = np.where(m, wt * net ** 2 / np.where(w0 > 0, w0, 1.0), 0.0), np.where(m, wt * net, 0.0)
     return {k: _ratio(num[:, gm].sum((0, 1)), den[:, gm].sum((0, 1))) for k, gm in _groups(fl['band']).items()}
+
+
+def m2d(fl, lo, hi):
+    """M2d: M2 including death and heirs' assessments (the whole net WDT of the year over start-of-year wealth). Always label it as such."""
+    return m2(fl, lo, hi, inlife=False)
 
 
 def _cash(fl, denom, cuts, lo, hi, inlife):
@@ -265,9 +272,9 @@ def _burden(wealth, adults_k, tax):
     return 100 * num / den if den > 0 else float('nan')
 
 
-def m5(wealth, adults_k, reg, m2_wdt=None):
-    """M5: the burden of each suggested wealth tax on the same lines at launch (percent a year, wealth in millions per adult) and, if `m2_wdt` is
-    given, its difference from the WDT's M2. Reads only the register."""
+def m5(wealth, adults_k, reg, m2_wdt=None, m2_wdt_death=None):
+    """M5: the burden of each suggested wealth tax on the same lines at launch (percent a year, wealth in millions per adult) and, if given, its difference
+    from the WDT's M2 in life (`_diff`) and from M2d (`_diff_death`). Reads only the register."""
     w, a, ids = np.asarray(wealth, float), np.asarray(adults_k, float), IDS['m5']
     r = lambda i: _reg(reg, i) / 100.0
     zr, zt, zc = ids['zucman']
@@ -278,7 +285,8 @@ def m5(wealth, adults_k, reg, m2_wdt=None):
            + _reg(reg, ids['green'][0], 'high') / 100.0 * np.maximum(w - _reg(reg, ids['green'][1], 'high'), 0.0),
            'once': np.where(w >= _reg(reg, ids['once'][1]) / 1e3, r(ids['once'][0]) / 5.0 * w, 0.0)}
     out = {k: _burden(np.where(w > 0, w, 1.0), a, np.maximum(v, 0.0)) for k, v in tax.items()}
-    return {**out, **({f'{k}_diff': v - m2_wdt for k, v in out.items()} if m2_wdt is not None else {})}
+    return {**out, **({f'{k}_diff': v - m2_wdt for k, v in out.items()} if m2_wdt is not None else {}),
+            **({f'{k}_diff_death': v - m2_wdt_death for k, v in out.items()} if m2_wdt_death is not None else {})}
 
 
 def m6(reg):

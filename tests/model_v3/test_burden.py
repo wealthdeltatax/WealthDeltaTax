@@ -38,8 +38,8 @@ def test_d1_m2_is_revenue_weighted_on_a_hand_case():
 def test_d1_m2_window_and_the_death_flows():
     fl = flows([[[1.0]], [[3.0]]], [[[10.0]], [[10.0]]], [1.0], ['D10'], death=[[[0.0]], [[2.0]]])
     assert abs(bd.m2(fl, 1, 1)['overall'][0] - 10.0) < 1e-12
-    assert abs(bd.m2(fl, 1, 2)['overall'][0] - 100 * (0.1 + 0.9) / 4) < 1e-12   # (1 x .1 + 3 x .3) / 4
-    assert abs(bd.m2(fl, 1, 2, inlife=True)['overall'][0] - 100 * (0.1 + 0.1) / 2) < 1e-12   # year 2 in life: net 1 over 10
+    assert abs(bd.m2d(fl, 1, 2)['overall'][0] - 100 * (0.1 + 0.9) / 4) < 1e-12   # M2d: (1 x .1 + 3 x .3) / 4
+    assert abs(bd.m2(fl, 1, 2)['overall'][0] - 100 * (0.1 + 0.1) / 2) < 1e-12   # M2 in life (the default): year 2 is net 1 over 10
 
 
 def test_d1_m2b_and_m2c_hand_cases():
@@ -157,8 +157,8 @@ def rows(**kw):
 
 def test_d6_comparators_read_only_register_values():
     r = rows(**{'I-M5a': (2,), 'I-M5b': (1,), 'I-M5g': (0.2,), 'I-M5d': (100,), 'I-M5h': (2,), 'I-M5i': (10,), 'I-M5k': (1, 2), 'I-M5l': (10, 1000), 'I-M5o': (5,), 'I-M5p': (500,)})
-    out = bd.m5(np.array([0.3, 20.0, 50.0, 2000.0]), np.array([9.0, 1.0, 1.0, 1.0]), r, m2_wdt=0.5)
-    assert abs(out['zucman'] - 1.8) < 1e-12 and abs(out['uk_minimum'] - 1.8) < 1e-12 and abs(out['once'] - 1.0) < 1e-12 and abs(out['zucman_diff'] - 1.3) < 1e-12
+    out = bd.m5(np.array([0.3, 20.0, 50.0, 2000.0]), np.array([9.0, 1.0, 1.0, 1.0]), r, m2_wdt=0.5, m2_wdt_death=1.5)
+    assert abs(out['zucman'] - 1.8) < 1e-12 and abs(out['uk_minimum'] - 1.8) < 1e-12 and abs(out['once'] - 1.0) < 1e-12 and abs(out['zucman_diff'] - 1.3) < 1e-12 and abs(out['zucman_diff_death'] - 0.3) < 1e-12
     t = np.array([0.0, 0.2, 0.8, 0.02 * 1990.0])                                                    # the marginal tax above 10 million (the largest line passes the second band)
     green = np.array([0.0, 0.01 * 10, 0.01 * 40, 0.01 * 990 + 0.02 * 1000])
     union = 0.02 * np.maximum(np.array([0.3, 20.0, 50.0, 2000.0]) - 10, 0)
@@ -197,7 +197,7 @@ def test_burden_metrics_on_a_run_are_finite_and_ordered(run, reg, pack):
     b, _, fl, g, c = run
     m = bd.m2(fl, 1, 20)
     assert np.isfinite(m['overall']).all() and (m['overall'] > 0).all() and (m['D10'] >= m['D6_7']).all()
-    assert (bd.m2(fl, 1, 20, inlife=True)['overall'] <= m['overall'] + 1e-12).all()
+    assert (bd.m2d(fl, 1, 20)['overall'] >= m['overall'] + 1e-12).all()
     assert np.isfinite(bd.m2b(fl, 1, 20)['overall']['mean']).all() and np.isfinite(bd.m2c(fl, 1, 20)['D10']['share_25']).all()
     rates = [reg[i].central for i in bd.IDS['disc']]
     assert np.isfinite(bd.m3(fl, rates)).all() and (bd.m3(fl, rates) > 0).all()
