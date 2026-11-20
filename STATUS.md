@@ -1,6 +1,6 @@
 # Status board
 
-Maintained by the guru. Last updated 2026-11-18 (V3 build: 045g, 046c, 047c merged and retired). Plan view: `docs/lane-plan.html`.
+Maintained by the guru. Last updated 2026-11-20 (081g merged and retired). Plan view: `docs/lane-plan.html`.
 
 ## Where the project is
 The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. Design brief 011g is underway: stage A (metric register and output manifest) passed on 2026-11-16; stage A2 (design review: levers swept, two-level uncertainty, driver table, three added outputs) passed; stage B (input register, brief 012r) is ready for the research lane. v1 and v2 are not fixed. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
@@ -9,7 +9,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime: writes and hands out briefs) | 040g done; build briefs 045g to 057c approved and ready | review each V3 build stage as it lands; stop points go to the author |
-| Agent 2 (guru) | 079g done | 081g (drop M7e from the manifest) |
+| Agent 2 (guru) | 081g done | free |
 | Agent 3 (code) | 055c stopped, rightly; unblocked | 055c (range runner, no M7e), now |
 | Agent 4 (code) | 052c done | free; 057c after 055c |
 | Agent 5 (research) | 053c done | free |
@@ -18,6 +18,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 will be a range mo
 Six agents only. Agents 2 to 6 change skill with the brief; code briefs go first, and the model path (037c, 038c) before page tooling (033c, 034c). The model v3 design is done (011g and 040g retired); the 13 build briefs 045g to 057c are ready, first wave 045g, 046c, 049c. Landed and retired: 045g, 046c, 047c. Waiting: 049c (no branch yet). Ready now: 048c, 049c, 056c.
 
 ## Recently done
+- 2026-11-20: 081g merged (`728b93b`) and retired: M7e dropped from OD1 and the metrics list (id kept as a dropped row, not reused); manifest `stage-A11-no-m7e-2026-11-20`; 46 metric ids still (M7e counts as dropped); fixture numbers shifted, three CK1 hooks pins re-set (P1 5.8, P3 2.20, P7b 3.70; the positional-fixture suggestion stays open); 10 of 10 suites pass. `registry/metrics.json` regenerated (added to Touches). 055c can now build without `modal_alpha`; `model_v3/core/support.py` still names M7e until 055c.
 - 2026-11-19: external agent plan (PR #1, kobrains) reviewed: not merged as a document (302 lines, restates rules). Adopted: path ownership table in `AGENTS.md`; briefs 075c (agent docs link and path checker), 076c (build `.skill` archives from the stubs), 077c (isolated test-suite orchestrator), all code lane, disjoint Touches, no dependencies. Not adopted: routing exclusions, five-item decision note, risk table, outcome metrics, deploy-gate rewrite (covered by existing rules). Author to close or keep PR #1.
 - 2026-11-19: 072g merged (register D4: I-D4i Pareto alpha 1.2/1.5/2.0, I-D4j Rich List entries 350, I-D4k and I-D4l tier cuts 1% and 10%; all `(J)`, pending at G3; register 291 rows, 107 (J); 84 data, 17 gate, 8 cards, 134 model, 67 hooks tests pass). 073c is released. v2 has no sweep of alpha, so 1.2 to 2.0 is a stated reason, not a v2 grid.
 - 2026-11-20: 079g merged (manifest O2d: M2 including settlement at death; O2 retitled "in life"; M2d row; manifest `stage-A10-o2d-2026-11-20`; 46 metrics; 10 of 10 suites pass). M5 not changed: a with-death line needs `lines` on O5, an M5d row and changes the O5 cell shape; author to decide. Beyond Touches (needed): architecture.md 2.6 and 2.10 (W7), fixture spokes, five hooks pins. 053c can now name O2d. The link checker (075c) caught my friction-log archive path; file created.
