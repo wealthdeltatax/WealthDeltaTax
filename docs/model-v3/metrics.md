@@ -105,7 +105,7 @@ P7 differs from P3: P3 asks whether retired receipts ever exceed revenue; P7 ask
 ### Check (a test of the model, not an output)
 | ID | Name | Definition |
 |---|---|---|
-| CK1 | Synthetic cyclical stress test | On a fixed path g(t) = mu + A sin(2 pi t / T), report P1, P3 and P7b for each amplitude A on a grid. Pass: P3 equals zero up to a stated amplitude. **mu comes from I-D1a (central 4.42%), not the old 7%; the grid runs to about 12%**, because a sinusoid of amplitude A has a standard deviation A over the square root of 2, so matching the historical 8.2% needs A near 11.6%. T is 10 years, a fixture. Cited in S12 as evidence; no range, so not in the manifest's outputs |
+| CK1 | Synthetic cyclical stress test | On a fixed path g(t) = mu + A sin(2 pi t / T), report P1, P3 and P7b for each amplitude A on a grid. Pass: P3 equals zero up to a stated amplitude. **mu comes from I-D1a (central 4.74%, the arithmetic mean that the revenue identity and the generator use; the geometric 4.42% is I-D1a2 and is not used here; corrected 2026-11-20, the row still carried the pre-036r figure), not the old 7%; the grid runs to about 12%**, because a sinusoid of amplitude A has a standard deviation A over the square root of 2, so matching the historical 8.2% needs A near 11.6%. T is 10 years, a fixture. Cited in S12 as evidence; no range, so not in the manifest's outputs |
 
 ### Data facts (hub H1; not model outputs)
 Held in the manifest with `kind: data_fact` so R1 and the hooks cover them.
