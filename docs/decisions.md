@@ -2,6 +2,12 @@
 
 One entry per finished brief or settled question, at most 8 lines each. Newest first. Maintained by the guru.
 
+## 2026-11-20: after the output-group briefs (085c to 088c, 090c; 093r)
+- 085c, 086c, 088c and 090c merged and retired; 087c (six of seven ids) resumes with a narrow `runner.py` edit for OS1. `o1e` and `ot1` are formatters, not runners (R4): the run script (057c) calls the sweeps.
+- Author: hold the feasibility rule (089c) until the consumption evidence is in; no change to the margin, tolerance, closure share or CK1 window now. 093r gathers evidence for I-D14c (audit and net depletion by band); no value is chosen for its fiscal effect.
+- Author: M5 and M8 compare against M2 in life only for the first run (stated limit; the O8 gap is +24.6 points at the median under tau_m 0.9 against M2 in life and about +5 against M2d). A with-death line (M5d row, O5 and O8 second line) is considered after the first provisional run.
+- Author: M2 denominator is start-of-year wealth (already closed 2026-11-16; reconfirmed). RATES's 0.35% (terminal wealth) is restated when the papers are rewritten.
+
 ## 2026-11-20: 055c range runner merged; no schedule closes (briefs 055c, 083c to 089c)
 - 055c merged as built (`e4993a4`): two-level runner and sweeps, N1 to N7, R3, R10 met, 201 model tests and all 10 suites pass. The branch stopped for the author because the feasible region is empty: short-window F1 4.0 to 11.2% at all 27 grid points against the A5 closure share of 75%, with a tolerance of 1e-9. On a constant 4.74% return path relief after the fill falls from 5.7% to 2.9% of GDP over 100 years against 4.74% retired, so CK1's P3 is 100.9 at amplitude 0 over 100 years.
 - Author (2026-11-20): measure first (083c: tolerance, retirement margin, constant path, CK1 window), then rule on the feasibility rule; no constant (A5) or definition changes before then. 089c (OF1, CK1) is parked on that ruling.
