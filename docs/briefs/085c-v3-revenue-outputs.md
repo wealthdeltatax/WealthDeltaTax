@@ -51,12 +51,12 @@ None.
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** `model_v3/runner/out_revenue.py` (56 lines, budget 150) fills O1d, OP1, OP3, OP4, OP5, OP6, OR1, OB1; `tests/model_v3/test_out_revenue.py` (65 lines, budget 80, 5 tests); `pytest tests/model_v3 -q`: 211 passed (run as its own process).
-- **Next:** the author decides the Touches question below; then merge. Briefs 086c to 088c have the same stale assertion to hit.
+- **Next:** none; the group is merged.
 - **Decisions:** (1) taxes: names are the keys of `env.ctx.rec` (pack and lever file), so none is written in the file (R11); a test pins them equal to the manifest `by.per`. The ruling said read them from the manifest; `Env` has no manifest and the file read would belong to the runner. (2) OB1 B1b and B1c: the core keeps counts (thousands of adults); the manifest unit is `pct_per_year`, so each window is 100 x the sum of entries (or exits) over the sum of the payers of the year before. A mean of yearly percents had a tail (max 2,980 %) where a path's payers fall near zero. B1a and B1b to B1d use a flat weight, B1d the GDP weight, each at its own threshold's fill year windows. (3) OB1 horizons are the three (the manifest has none), OR1 and the P outputs `single`. (4) OP3 single is `r['P3']`, which equals `headlines` P3h `long` (years 1 to T): the early check compares with that. (5) P7a is 0 or 1 per path (as O1f); P7b is nan where no year follows the fill (it was inf, which `mean_of` would turn into an infinite mean). (6) `RATIOS` (r025 0.25, r050 0.5, r100 1.0) is a constant in the file; a test pins it to `levers.json` axes and the manifest labels.
-- **Gotchas:** `tests/model_v3/test_groups.py` asserted that all four groups are empty; with the revenue group filled it fails. I changed that one clause to cover the groups with no IDS: outside Touches, so NEEDS THE AUTHOR for the merge rule (friction-log entry written).
-- **Resume:** branch `brief/085-v3-revenue-outputs` is pushed and rebased on `main` (69c1975).
+- **Gotchas:** `tests/model_v3/test_groups.py` asserted that all four groups are empty and failed once the revenue group was filled; the guru put my exact one-clause fix on `main` (abca600), so after the rebase the file has no diff here. Friction-log entry written.
+- **Resume:** none; rebased on `main` abca600 and merged.
 - **Not run:** the site build (nothing here is in it); N1 10,000 paths.
-- **State:** built, criteria met except "diff limited to Touches"; NEEDS THE AUTHOR
+- **State:** merged
 <!-- progress:end -->
 
 ### Change report
@@ -66,7 +66,7 @@ Change report
 - Files changed:
   - model_v3/runner/out_revenue.py: the group (IDS, per_path, cells), 56 lines
   - tests/model_v3/test_out_revenue.py: 5 tests, 65 lines
-  - tests/model_v3/test_groups.py: the emptiness clause restricted to groups with no IDS (outside Touches, see Decisions)
+  - (tests/model_v3/test_groups.py: the same clause fix was put on main by the guru; no diff here after the rebase)
   - docs/agents/friction-log.md: one entry; docs/briefs/085c-v3-revenue-outputs.md: progress block and this report
 - What is different now: Samples carries the eight ids for each schedule: O1d 18 cells (six taxes x three horizons), OP1, OP3, OP4 1 each, OP5 6, OP6 4, OR1 2 (P7a, P7b), OB1 36 (three thresholds x three horizons x four lines).
 - Metric to core map: O1d M1e = revenue.revenue r['M1e'] by tax, windowed as M1 (revenue.window_mean); OP1 P1; OP3 P3; OP4 P4_ratio; OP5 P5 column; OP6 P6; OR1 P7a, P7b; OB1 B1a to B1d from run_lines' payer record (`again({'ratio': r}, full=True)`), B1b and B1c as percents (Decision 2).
@@ -75,11 +75,11 @@ Change report
   1. One cell per schedule, horizon and by value: MET (counts above, tested against the manifest lists). None NaN on the 1,000-path central run (seed 7, SPEC 0.04, 0.9, 1.0, 0.5, 21 s): MET except OR1 P7b, 1 path nan (a fill in the last year, so no year after it); the fund fills on all 1,000 paths (unfilled 0).
   2. OP3 equals headlines P3h long: MET (array equal). O1d sums to the retired receipts M1d: MET (1e-9, all three horizons, test).
   3. out_revenue.py at most 150 lines and tests at most 80: MET (56, 65). pytest tests/model_v3: MET (211 passed).
-  4. git diff --stat limited to Touches: NOT MET (tests/model_v3/test_groups.py).
-- Deviations from the brief: test_groups.py edit; tax names from `env.ctx.rec` rather than the manifest list (Decision 1).
+  4. git diff --stat limited to Touches: MET after the rebase (out_revenue.py, test_out_revenue.py, the brief, the friction log).
+- Deviations from the brief: tax names from `env.ctx.rec` rather than the manifest list (Decision 1); accepted by the guru (rulings 2).
 - Findings (for the guru, none blocks): (1) B1d is exactly zero on every path at all three thresholds (1,000 paths): fall-through refunds never occur in the core's run; check the core before the figure uses OB1. (2) P5 is 0 where a tax is never retired, and 188 of 1,000 paths never retire corporation tax (9 council tax): the P10 and mean of OP5 include those zeros, so a rule for never (nan or T) is needed in assemble. (3) OP3's mean is 291 percent of GDP at the central schedule (the known P3 finding). (4) OB1 long window: B1a 41, 26 and 13 percent of adults at r025, r050, r100; exits above entries.
-- Risks / follow-ups: 086c to 088c will meet the same test_groups.py clause. The fixture and validator are unchanged.
-- Verification: pytest tests/model_v3 -q 211 passed; three mutations of the file (OB1 without full, OP3 from P1, no short gate) each fail a test; python -I pipeline/check_agent_docs.py (run below).
+- Risks / follow-ups: none new. The fixture and validator are unchanged by this brief.
+- Verification: pytest tests/model_v3 -q 211 passed, before and after the rebase on abca600; three mutations of the file (OB1 without full, OP3 from P1, no short gate) each fail a test; python -I pipeline/check_agent_docs.py clean.
 - Overview sections likely needing an update: model v3 status (outputs filled: revenue group).
-- Commit / branch: brief/085-v3-revenue-outputs, pushed, not merged: NEEDS THE AUTHOR (diff outside Touches)
+- Commit / branch: brief/085-v3-revenue-outputs. Brief 085c merged, ready to retire.
 ```
