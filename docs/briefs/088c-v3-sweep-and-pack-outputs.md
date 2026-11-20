@@ -36,11 +36,11 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** read the stub, `groups.py`, `runner.samples`, `Level2`/`TornadoRow` (`interface.py`), `out/assemble.py`, the validator, `pack.dh1a`/`dh1b` and the four manifest entries. No code written.
+- **Next:** the guru answers the three questions below (one manifest amendment and one group-interface change, both outside this brief's Touches); then build.
+- **Decisions:** none taken: each answer changes a shared interface.
+- **Gotchas:** (1) **DH1a and DH1b cannot be carried as the manifest stands.** Their entries have no `by`, no `horizons` and no `once_not_per_schedule`, so `assemble._expected` wants 3 schedules x 3 horizons = 9 cells of one number each, while `pk.dh1a` returns several series with their history and `pk.dh1b` every receipts line and group; nothing says which number goes in a cell. And `runner.samples` puts the schedule in front of every cell a group returns, so a schedule-free cell (key schedule `None`) cannot come out of a group. (2) **OT1 has no home.** The manifest wants cells by input x headline x schedule (a `schedule` dimension on top of the top-level schedules, default three horizons: 4,320 cells), while `interface.Level2` and `level2.<id>` hold one list of `TornadoRow(input, low_effect, high_effect)` per output id, with no headline, schedule or horizon; `sweeps.tornado` returns rows per (schedule, headline, horizon). (3) **O1e and OT1 are sweeps, not per-path cells**: they need the evaluator `ev` and the level 2 draws, which `per_path(raw, again)` and `cells(e)` (one schedule, one block of paths) do not see. And S_low, S_central and S_high do not exist until the author rules on the feasibility rule (083c: no feasible point; 089c), so there are no named schedules to run them on.
+- **Resume:** proposed answers (guru to confirm or change): (a) amend the manifest: DH1a `once_not_per_schedule: true`, `horizons: [single]`, `by: {series: [...]}` (the latest value as point, its low and high as range); DH1b the same with `by: {line: [...]}` (and the groups as extra values of the same dimension), and let `samples` accept a schedule-free cell (a key with schedule `None`) from a group. (b) OT1: cells by input x headline for each named schedule, one `single` horizon (M1, M2 and M4a at the short window, M3 single), array [0, low swing, high swing] (the central value is the zero of the swing), drop `by.schedule` from the manifest as redundant; the `level2` object then carries only the P10 to P90 of each headline's level 1 mean (a tornado list for O1, O2, O4a and O3 is optional). (c) `out_sweeps` exposes two plain functions, `o1e(ev, specs, draws)` and `ot1(ev, specs, rows, read)`, returning Samples cells, called by the run script (V3-12) next to `level2`; `per_path` and `cells` stay empty for the group, and the tests run on the 27 grid points with schedule labels given, until 089c names the schedules.
+- **Not run:** everything; no code or test written, no check run.
+- **State:** blocked; NEEDS THE GURU (questions above)
 <!-- progress:end -->
