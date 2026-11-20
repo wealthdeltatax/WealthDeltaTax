@@ -31,7 +31,7 @@ M7e is not produced. The manifest and the metrics list say so, so the runner, th
 `python pipeline/validate_outputs.py`; `python pipeline/run_suites.py`.
 
 ## Out of scope
-Model code, the register, the old papers (082w).
+Model code, the register, the old papers (not edited: they are rewritten from the ground up).
 
 ## Open questions
 None.
