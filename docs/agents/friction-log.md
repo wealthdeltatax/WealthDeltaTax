@@ -21,3 +21,8 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: the brief adds `runner/groups.py` and four `out_*.py` files that `runner.py` imports; R4 fails any edge with a module not in LAYER, and conftest.py was not in Touches
 - Cost: stopped to ask; the author said to add the rows (out_* 3.5, groups 3.7), so conftest.py changed outside Touches
 - Suggest: briefs that add a module name the LAYER row, and 5.1 lists the new modules
+### 2026-11-20 · brief 083c · code
+- Instruction: brief 083c "Read:" and Design (how to build the runner context); `runner.context` needs the tier 1 list and `payer_taxes`.
+- Happened: neither is named in the brief; `payer_taxes` has no home in `levers.json` (055c gotcha 6), so I copied the fixture from `tests/model_v3/test_runner.py`.
+- Cost: a few minutes reading the tests to find the call.
+- Suggest: a brief for a one-off script should name the test fixture that builds the context (084c has since moved `payer_taxes` into `levers.json`).

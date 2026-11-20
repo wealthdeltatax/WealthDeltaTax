@@ -49,11 +49,27 @@ None. None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** `docs/model-v3/f1-diagnostic/f1_gap.py` (items 1 to 6, plus a labelled scan of margins 50% and 100% beyond the grid) and `report.md`. Two runs of the script (seed 20261118, 1,000 paths, about 1.5 minutes) print identical text. `pytest tests/model_v3 -q`: 208 passed on the tree rebased on 084c (201 before the rebase); no file under `model_v3/` or `tests/` changed.
+- **Next:** the guru and the author read `report.md` and rule on the feasibility rule.
+- **Decisions:** (1) The context is built as `tests/model_v3/test_runner.py` does (tier 1 list from `outputs.yml` OT1, the manifest ids). After 084c merged during the work (`runner.core_run`, `payer_taxes` in `levers.json`), the script calls `core_run` instead of its own copy of evaluate's first half; the tables did not change (cmp on the output). (2) The margin follows the brief (`relief / (1 + m)` to `retire`), so it applies to the cumulative retired receipts; the excess is against true relief. (3) CK1 is shown for the three item-4 schedules and tm70_k05_r050 (055c's), with mu 4.42 and 4.74. (4) Margins 50% and 100% added in their own table, outside the grid, because no cell of the brief's grid reaches 75%.
+- **Gotchas:** (1) Keeping every point's line flows in memory gets the run killed at about point 21 of 27; the script keeps only small arrays per point. (2) Item 1 gives F1 4.3 to 11.5% against 055c's 4.0 to 11.2%: a different 1,000-path sample (other draws give lows 3.6 to 4.7, highs 11.3 to 13.4), not a model difference; the script's P3, M2, M4a and fill years equal `runner.headlines` on points 1, 14 and 27 (asserted).
+- **Resume:** none; finished.
+- **Not run:** level 2, the full N1 size, any change to `retire`, `evaluate`, `choose`, `CLOSED`, A5 or CK1 (out of scope).
+- **State:** done; result: no cell of the brief's grid reaches 75% (best 50.6% at tol 1.0, m 25%); a margin of 100% with tol 1.0 reaches 79.3% (M4a short 5.6, 3.61 taxes retired)
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 083c, F1 closure diagnostic
+- Files changed: docs/model-v3/f1-diagnostic/f1_gap.py (new, one-off measurement script); docs/model-v3/f1-diagnostic/report.md (new, the report); this brief's progress block; docs/agents/friction-log.md (one entry)
+- What is different now: the author has the numbers behind the empty feasible region: F1 by tolerance and retirement margin on the 27 grid points, the constant-path decay of relief, CK1 in two windows, and the chosen point for each (tol, m).
+- New or changed interfaces: none (the script is run by hand; nothing under model_v3/ or tests/ changed)
+- Acceptance criteria: report holds the six items with numbers (met); a second run prints identical text (met, cmp on two runs); item 1 at (tol 0, m 0) gives F1 4.3 to 11.5% against 055c's 4.0 to 11.2% (differs by 0.3 points at both ends: another 1,000-path sample, see gotcha 2); pytest tests/model_v3 -q 208 passed after rebasing on 084c (met); git diff --stat limited to Touches (met).
+- Deviations from the brief: margins 50% and 100% added in a separate, labelled table (the brief's grid does not reach 75%); CK1 also shown for mu 4.74 and for the 055c schedule.
+- Risks / follow-ups: the author rules on the feasibility rule after reading report.md. Only a 100% margin with tol 1.0 reaches 75% in this measurement; nothing is recommended.
+- Instruction friction: one entry added to docs/agents/friction-log.md (how to build the runner context).
+- Verification: the script run twice (identical output); script's numbers asserted equal to runner.headlines on grid points 1, 14 and 27; script rerun after rebasing on 084c with identical output; pytest tests/model_v3 -q: 208 passed (rebased on 084c).
+- Overview sections likely needing an update: model v3 status (feasible region: no point at 75%, see f1-diagnostic/report.md)
+- Commit / branch: brief/083-f1-diagnostic (see below)
+```
