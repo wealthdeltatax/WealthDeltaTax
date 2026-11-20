@@ -39,11 +39,11 @@ The implementer asks rather than guesses. If `ctx` does not hold the pack, say w
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** `Env` (ctx, theta, pack, lam, rng; plus `seq` and `key` that feed `rng`) in `runner.py`; `per_path(raw, env, again)` in `evaluate`, `groups.py` docs and the four stubs; `again(over, full=False)` cached per (spec, full); optional `static(env)` per group, run by `statics` (level 1 once, level 2 per draw) and stored by `samples(by_schedule, ids, once, static)` with schedule None, only for ids in `once`. `context(..., once=())` and `Ctx.once` carry the manifest's `once_not_per_schedule` ids. Tests: `test_groups.py` 60 lines (budget 60), 4 rules tested, each fails when its rule is removed (checked by mutation: chunk key, name hash, `full` ignored, `once` check, schedule None).
+- **Decisions:** `env.rng(name)` is `default_rng(SeedSequence(entropy=seq.entropy, spawn_key=(*seq.spawn_key, *key, hash(name))))`, from the run stream's `bit_generator.seed_seq` (level 1: key = chunk index; level 2: key = draw index). It spawns nothing and draws nothing, so no digest moves. The pack lives in `ctx.pack`; `Env.pack` points at it, `ctx` unchanged. With no `seq` given, `evaluate` uses `SeedSequence(0)`.
+- **Gotchas:** (1) The suite is 206 tests, not 208 plus new: I folded 084c's four tests into five (the `IDS == ()` assert became "manifest ids, none shared"; the static tests share one) to stay at `test_groups.py` 60. (2) A level 2 static cell is the mean over paths of each draw's static array, like every other level 2 value. (3) `static` is not called for a group without it; no group defines one yet. (4) 085c to 088c branches carry the old stub signature: they rebase onto this.
+- **Next:** 085c to 088c resume.
+- **Resume:** none.
+- **Not run:** a full level 2 (no group defines `static`).
+- **State:** done; merged to main; ready to retire.
 <!-- progress:end -->

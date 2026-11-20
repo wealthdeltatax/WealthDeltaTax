@@ -61,6 +61,7 @@ class Ctx:
     mp: dict               # the lever file's pack_mappings
     tier1: tuple           # ids drawn at level 2 and swung by the tornado
     ids: frozenset         # the manifest's output ids: what `samples` accepts
+    once: frozenset        # the ids the manifest marks `once_not_per_schedule`: the only ids a group's `static` may return
     centre: dict           # id -> central value, for every id the run reads or draws
     rec: dict              # retired taxes' receipts, ascending (revenue.taxes)
     bill: np.ndarray
@@ -82,7 +83,7 @@ class RunnerError(ValueError):
     """An input the run needs is missing or a draw left its admissible region."""
 
 
-def context(pack, reg, levers, tier1, manifest_ids):
+def context(pack, reg, levers, tier1, manifest_ids, once=()):
     mp = levers['pack_mappings']
     ids = dict.fromkeys([*tier1, *RET.values(), *SHAPE, *RUN])
     miss = [i for i in ids if i not in reg or reg[i].central is None]
@@ -91,7 +92,7 @@ def context(pack, reg, levers, tier1, manifest_ids):
     one = lambda ds, **w: pk.lookup(pack, ds, **w)[0]
     bill, income = bd.pack_deciles(pack)
     gdp_g = float(np.mean(rv.gdp_growth(pack, rt.real_series(pack)[0])))
-    return Ctx(pack, reg, mp, tuple(tier1), frozenset(manifest_ids), {i: float(reg[i].central) for i in ids}, rv.taxes(pack, mp['x2']['lines'], mp['parts']), bill, income,
+    return Ctx(pack, reg, mp, tuple(tier1), frozenset(manifest_ids), frozenset(once), {i: float(reg[i].central) for i in ids}, rv.taxes(pack, mp['x2']['lines'], mp['parts']), bill, income,
                one('wealth_distribution', variable='gdp', band='all')['value'], one('public_expenditure', function='total')['pct_gdp'], gdp_g, {})
 
 
@@ -151,6 +152,26 @@ def patched(ctx, theta):
 
 
 @dataclass(frozen=True)
+class Env:
+    """What a group reads besides `Raw`: `ctx`, this evaluation's inputs `theta` (a level 2 draw's), the `pack`, the lambdas `lam` (fractions) and `rng(name)`: a
+    Generator from the run stream's SeedSequence entropy and spawn key plus `key` (chunk or draw) and a hash of the name. It spawns and draws nothing."""
+    ctx: object
+    theta: dict
+    pack: object
+    lam: dict
+    seq: object
+    key: tuple
+
+    def rng(self, name):
+        h = int.from_bytes(hashlib.sha256(name.encode()).digest()[:4], 'big')
+        return np.random.default_rng(np.random.SeedSequence(entropy=self.seq.entropy, spawn_key=(*self.seq.spawn_key, *self.key, h)))
+
+
+def env_of(ctx, theta, seq=None, key=()):
+    return Env(ctx, theta, ctx.pack, dict(lam_C=theta['I-D14a'] / 100, lam_D=theta['I-D14b'] / 100), np.random.SeedSequence(0) if seq is None else seq, tuple(key))
+
+
+@dataclass(frozen=True)
 class Raw:
     """The core results of one schedule on one block of paths, as the output groups read them: the shaped base and rate, the burden run's line flows, the
     receipts (`run`), revenue.py's result `r`, the per-horizon window bounds `lo` and `hi` (1-based years, one per path), `ok` (the reserve fills), the
@@ -178,7 +199,7 @@ def core_run(ctx, theta, spec, g, gdp_g, full=False):
     P = g.shape[1]
     b = shaped(ctx, theta, spec['ratio'])
     rate = sc.rate_function(spec['k_ln'], spec['tau_0'], spec['tau_m'], b.w_min, 'logistic_ln')
-    c, lam = theta['I-D14c'] / 100, dict(lam_C=theta['I-D14a'] / 100, lam_D=theta['I-D14b'] / 100)
+    c, lam = theta['I-D14c'] / 100, env_of(ctx, theta).lam
     fl = bd.line_flows(b, rate, g, gdp_g, c, **lam)
     if full:
         run = rv.run_lines(b, rate, g, gdp_g, c, **lam)
@@ -211,28 +232,34 @@ def headlines(raw, ctx, theta):
     return {**out, 'P1': r['P1'], 'P7b': r['P7b'], 'fill': r['fill'], 'unfilled': r['unfilled'], 'long_T': r['long_year_T']}
 
 
-def evaluate(ctx, theta, spec, g, gdp_g, full=False):
-    """core_run, then the headline results, then one entry per output group, `{group.NAME: group.per_path(raw, again)}`. `again(override)` is the core run
-    of the same paths and inputs with the spec changed by `override`, kept per call so a group asking for the same spec twice runs it once."""
+def evaluate(ctx, theta, spec, g, gdp_g, full=False, seq=None, key=()):
+    """core_run, the headline results, then `{group.NAME: group.per_path(raw, env, again)}`. `seq` and `key` (run stream, chunk or draw) only feed `env.rng`.
+    `again(override, full=False)` is the core run with the spec changed (`full`: receipts from revenue.run_lines), run once per (spec, full)."""
     raw = core_run(ctx, theta, spec, g, gdp_g, full)
-    seen = {tuple(sorted(spec.items())): raw}
+    seen = {(tuple(sorted(spec.items())), full): raw}
+    env = env_of(ctx, theta, seq, key)
 
-    def again(over):
+    def again(over, full=False):
         sp = {**spec, **over}
-        k = tuple(sorted(sp.items()))
+        k = (tuple(sorted(sp.items())), full)
         if k not in seen:
             seen[k] = core_run(ctx, theta, sp, g, gdp_g, full)
         return seen[k]
 
-    return {**headlines(raw, ctx, theta), **{m.NAME: m.per_path(raw, again) for m in GROUPS}}
+    return {**headlines(raw, ctx, theta), **{m.NAME: m.per_path(raw, env, again) for m in GROUPS}}
 
 
-def make_ev(ctx, eps):
-    """ev(spec, over=None, g=None): `evaluate` on the common innovations eps (T, P) with the central inputs updated by `over`, or on the paths g given."""
-    def ev(spec, over=None, g=None):
+def statics(ctx, theta, seq=None, key=()):
+    """{group NAME: m.static(env)} for the groups that define it."""
+    return {m.NAME: m.static(env_of(ctx, theta, seq, key)) for m in GROUPS if hasattr(m, 'static')}
+
+
+def make_ev(ctx, eps, seq=None):
+    """ev(spec, over=None, g=None, key=()): `evaluate` on the common innovations eps (T, P) with the central inputs updated by `over`, or on the paths g given."""
+    def ev(spec, over=None, g=None, key=()):
         th = {**ctx.centre, **(over or {})}
         gg = paths(eps, th[RET['mean']], th[RET['sd']], th[RET['phi']]) if g is None else np.asarray(g, float)
-        return evaluate(ctx, th, spec, gg, np.full(gg.shape, ctx.gdp_g))
+        return evaluate(ctx, th, spec, gg, np.full(gg.shape, ctx.gdp_g), seq=seq, key=key)
     return ev
 
 
@@ -251,11 +278,11 @@ def mean_of(ev):
         return np.array([np.nanmean(np.asarray(ev, float)) if np.isfinite(np.asarray(ev, float)).any() else np.nan])
 
 
-def samples(by_schedule, ids):
+def samples(by_schedule, ids, once=frozenset(), static=None):
     """Output id -> {(schedule, horizon, by, line): array} from {schedule: evaluation}. `by` is a sorted tuple of (name, value); a missing dimension is
     () and `None` stands for no line (architecture.md 2.9). Ids: O1 (five lines), O1a to O1c, O2, O3, O4a, O1f, then each group's `cells(e[NAME])`,
     {output id: {(horizon, by, line): array}}, which gets the schedule put in front. Raises when an id is not in `ids` (the manifest), not declared in the
-    group's IDS, or returned by two producers."""
+    group's IDS, or returned by two producers. `static` (from `statics`) is {group NAME: {id: cells}}: stored with schedule None, only for ids in `once`."""
     out = {k: {} for k in ('O1', 'O1a', 'O1b', 'O1c', 'O2', 'O3', 'O4a', 'O1f')}
     owner = dict.fromkeys(out, 'runner')
     if not set(out) <= set(ids):
@@ -279,30 +306,41 @@ def samples(by_schedule, ids):
                 if owner.setdefault(oid, m.NAME) != m.NAME:
                     raise RunnerError(f'output id {oid} is returned by {owner[oid]} and by {m.NAME}')
                 out.setdefault(oid, {}).update({(s, *k): v for k, v in cells.items()})
+    for name, cells in (static or {}).items():
+        for oid, cs in cells.items():
+            m = next((g for g in GROUPS if g.NAME == name), None)
+            if oid not in ids or m is None or oid not in m.IDS or oid not in once:
+                raise RunnerError(f'{name}: static output id {oid} is not in the manifest, in the group\'s IDS and once_not_per_schedule')
+            if owner.setdefault(oid, name) != name:
+                raise RunnerError(f'output id {oid} is returned by {owner[oid]} and by {name}')
+            out.setdefault(oid, {}).update({(None, *k): v for k, v in cs.items()})
     return out
 
 
 def level1(ctx, specs, rng, n=N1, chunk=CHUNK, theta=None):
     """Level 1: n paths per schedule in chunks, the same paths for every schedule. Returns (Samples, {'paths', 'unfilled_paths': {schedule: count}})."""
-    th = theta or ctx.centre
+    th, seq = theta or ctx.centre, rng.bit_generator.seed_seq
     parts = {s: [] for s in specs}
     for a in range(0, n, chunk):
         g = rt.ar1_paths(rng, th[RET['mean']], th[RET['sd']], th[RET['phi']], T, min(chunk, n - a))
         for s, spec in specs.items():
-            parts[s].append(evaluate(ctx, th, spec, g, np.full(g.shape, ctx.gdp_g)))
+            parts[s].append(evaluate(ctx, th, spec, g, np.full(g.shape, ctx.gdp_g), seq=seq, key=(a // chunk,)))
     ev = {s: cat(p) for s, p in parts.items()}
-    return samples(ev, ctx.ids), {'paths': n, 'unfilled_paths': {s: int(e['unfilled'].sum()) for s, e in ev.items()}}
+    return samples(ev, ctx.ids, ctx.once, statics(ctx, th, seq)), {'paths': n, 'unfilled_paths': {s: int(e['unfilled'].sum()) for s, e in ev.items()}}
 
 
 def level2(ctx, specs, rng, n=N2, n_paths=N2P):
     """Level 2: n Latin hypercube draws of every tier 1 input, each run on n_paths common random paths for every schedule."""
     draws = draw_theta(rng, ctx, ctx.tier1, n)
     eps = rng.standard_normal((T, n_paths))
-    acc, ev = {s: [] for s in specs}, make_ev(ctx, eps)
+    seq = rng.bit_generator.seed_seq
+    acc, ev, st = {s: [] for s in specs}, make_ev(ctx, eps, seq), []
     for i in range(n):
+        over = {k: float(v[i]) for k, v in draws.items()}
         for s, spec in specs.items():
-            acc[s].append(mean_of(ev(spec, {k: float(v[i]) for k, v in draws.items()})))
-    return Level2(draws, samples({s: cat(a) for s, a in acc.items()}, ctx.ids), tuple(specs))
+            acc[s].append(mean_of(ev(spec, over, key=(i,))))
+        st.append(mean_of(statics(ctx, {**ctx.centre, **over}, seq, (i,))))
+    return Level2(draws, samples({s: cat(a) for s, a in acc.items()}, ctx.ids, ctx.once, cat(st)), tuple(specs))
 
 
 def digest(s):

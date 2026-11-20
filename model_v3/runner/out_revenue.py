@@ -8,8 +8,8 @@ NAME = 'revenue'
 IDS = ()
 
 
-def per_path(raw, again):
-    """Per-path arrays from the raw core results of runner.Raw; `again(override)` reruns the core with the spec changed."""
+def per_path(raw, env, again):
+    """Per-path arrays from the raw core results of runner.Raw; `env` and `again(override, full=False)` reruns the core with the spec changed."""
     return {}
 
 
