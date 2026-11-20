@@ -44,7 +44,7 @@ Not a spoke: the spoke front matter of `template.md` section 2 does not apply to
 
 - **T1** (5 rows): I-T1a, I-T1b, I-T1c, I-T1d, I-T1e
 - **T2** (6 rows): I-T2a, I-T2b, I-T2c, I-T2d, I-T2e, I-T2f
-- **T3** (16 rows): I-T3a, I-T3b, I-T3c, I-T3d, I-T3e, I-T3f, I-T3g, I-T3h, I-T3i, I-T3j, I-T3k, I-T3l, I-T3m, I-T3n, I-T3o, I-T3p
+- **T3** (17 rows): I-T3a, I-T3b, I-T3c, I-T3d, I-T3e, I-T3f, I-T3g, I-T3h, I-T3i, I-T3j, I-T3k, I-T3l, I-T3m, I-T3n, I-T3o, I-T3p, I-T3q
 - **T4** (7 rows): I-T4a, I-T4b, I-T4c, I-T4d, I-T4e, I-T4f, I-T4g
 - **T5** (6 rows): I-T5a, I-T5b, I-T5c, I-T5d, I-T5e, I-T5f
 - **T6** (12 rows): I-T6b, I-T6e, I-T6h, I-T6c, I-T6f, I-T6i, I-T6d, I-T6g, I-T6j, I-T6m, I-T6k, I-T6l

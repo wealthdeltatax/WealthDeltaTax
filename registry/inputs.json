@@ -1,5 +1,5 @@
 {
- "count": 291,
+ "count": 293,
  "inputs": [
   {
    "central": 5.94,
@@ -1673,6 +1673,18 @@
    "unit": "year"
   },
   {
+   "central": 20,
+   "coverage": "Not a UK measurement: the reference scenario of the v2 declaration model, kept so v3 reads it from the register. No UK data fix it.",
+   "high": 20,
+   "id": "I-D14h",
+   "input": "Reference entry wealth of a declaring holder, `V0` (D14; M7, O7, OD1: one Route C line; sets the rate through the minimum wealth)",
+   "judgement": true,
+   "low": 20,
+   "nulls": {},
+   "sources": [],
+   "unit": "£ m"
+  },
+  {
    "central": 11,
    "coverage": "Norway, 2005-2015, population-wide tax records. Foreign: Norwegian returns to wealth are measured on tax-assessed values; transfer to the UK is argued by Advani et al. (SW3 p. 18) but not shown",
    "high": 18,
@@ -2728,6 +2740,20 @@
     "ST5"
    ],
    "unit": "% of GDP"
+  },
+  {
+   "central": 20,
+   "coverage": "UK statute. Applying the standard rate to the spending of people who leave is a modelling choice: some spending is zero or reduced rated.",
+   "high": 20,
+   "id": "I-T3q",
+   "input": "VAT standard rate, 2026-27 (M9, OM1: VAT lost when payers leave)",
+   "judgement": false,
+   "low": 20,
+   "nulls": {},
+   "sources": [
+    "ST11"
+   ],
+   "unit": "%"
   },
   {
    "central": 460,

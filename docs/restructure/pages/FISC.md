@@ -63,7 +63,7 @@ depends: [MECH, VAL]
 - **M5** (17 rows): I-M5a, I-M5b, I-M5c, I-M5d, I-M5e, I-M5f, I-M5g, I-M5h, I-M5i, I-M5j, I-M5k, I-M5l, I-M5m, I-M5n, I-M5o, I-M5p, I-M5q
 - **M6** (13 rows): I-M6a, I-M6b, I-M6c, I-M6d, I-M6e, I-M6f, I-M6g, I-M6h, I-M6i, I-M6j, I-M6k, I-M6l, I-M6m
 - **M8** (7 rows): I-M8a, I-M8b, I-M8c, I-M8d, I-M8e, I-M8f, I-M8g
-- **T3** (16 rows): I-T3a, I-T3b, I-T3c, I-T3d, I-T3e, I-T3f, I-T3g, I-T3h, I-T3i, I-T3j, I-T3k, I-T3l, I-T3m, I-T3n, I-T3o, I-T3p
+- **T3** (17 rows): I-T3a, I-T3b, I-T3c, I-T3d, I-T3e, I-T3f, I-T3g, I-T3h, I-T3i, I-T3j, I-T3k, I-T3l, I-T3m, I-T3n, I-T3o, I-T3p, I-T3q
 - **W6** (14 rows): I-W6a1, I-W6a2, I-W6b1, I-W6b2, I-W6c1, I-W6c2, I-W6d1, I-W6d2, I-W6e1, I-W6e2, I-W6f1, I-W6f2, I-W6g1, I-W6g2
 
 ## Words against the cap

@@ -54,7 +54,7 @@ depends: [MECH, FISC]
 - **H3** (20 rows): I-H3a, I-H3b, I-H3c, I-H3d, I-H3e, I-H3f, I-H3g, I-H3h, I-H3i, I-H3j, I-H3k, I-H3l, I-H3m, I-H3n, I-H3o, I-H3p, I-H3q, I-H3r, I-H3s, I-H3t
 - **M5** (17 rows): I-M5a, I-M5b, I-M5c, I-M5d, I-M5e, I-M5f, I-M5g, I-M5h, I-M5i, I-M5j, I-M5k, I-M5l, I-M5m, I-M5n, I-M5o, I-M5p, I-M5q
 - **M6** (13 rows): I-M6a, I-M6b, I-M6c, I-M6d, I-M6e, I-M6f, I-M6g, I-M6h, I-M6i, I-M6j, I-M6k, I-M6l, I-M6m
-- **T3** (16 rows): I-T3a, I-T3b, I-T3c, I-T3d, I-T3e, I-T3f, I-T3g, I-T3h, I-T3i, I-T3j, I-T3k, I-T3l, I-T3m, I-T3n, I-T3o, I-T3p
+- **T3** (17 rows): I-T3a, I-T3b, I-T3c, I-T3d, I-T3e, I-T3f, I-T3g, I-T3h, I-T3i, I-T3j, I-T3k, I-T3l, I-T3m, I-T3n, I-T3o, I-T3p, I-T3q
 
 ## Words against the cap
 

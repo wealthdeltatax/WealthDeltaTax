@@ -41,7 +41,7 @@ depends: [MECH, VAL, FISC, GOV, PAY, FUND, CORP, DECL, BEHAV, FAIR, LIT, ATTR, W
 
 - **D5** (4 rows): I-D5a, I-D5b, I-D5c, I-D5d
 - **D7** (4 rows): I-D7a, I-D7b, I-D7c, I-D7d
-- **T3** (16 rows): I-T3a, I-T3b, I-T3c, I-T3d, I-T3e, I-T3f, I-T3g, I-T3h, I-T3i, I-T3j, I-T3k, I-T3l, I-T3m, I-T3n, I-T3o, I-T3p
+- **T3** (17 rows): I-T3a, I-T3b, I-T3c, I-T3d, I-T3e, I-T3f, I-T3g, I-T3h, I-T3i, I-T3j, I-T3k, I-T3l, I-T3m, I-T3n, I-T3o, I-T3p, I-T3q
 - **W6** (14 rows): I-W6a1, I-W6a2, I-W6b1, I-W6b2, I-W6c1, I-W6c2, I-W6d1, I-W6d2, I-W6e1, I-W6e2, I-W6f1, I-W6f2, I-W6g1, I-W6g2
 
 ## Words against the cap

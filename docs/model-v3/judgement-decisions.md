@@ -1,6 +1,6 @@
 # Judgement-row decisions (gate check G3)
 
-Status: **all pending.** One line per register row flagged `(J)` in `docs/model-v3/inputs.md` (107 today; the guru reconciled the register's prose count of 84 with the 70 flags on 2026-11-17: 17 rows listed in the prose were not flagged and are now flagged, and the three bracketed rows I-H2a8 to I-H2a10 of brief 028r were added; I-D1a, I-D1b and I-D1b2 were added with the level 2 return bands of 036r on 2026-11-18; I-D13a to I-D13e were added with the route mix of 068g on 2026-11-19; I-D4h was added with 069r on 2026-11-19). The gate (`order.md` section 4.1, G3) is true when the set of ids below equals the set of `(J)` rows and every decision cell reads `accepted`, `fixed at <value>` or `replaced by <row id>` with a date. The author decides; the guru records.
+Status: **all pending.** One line per register row flagged `(J)` in `docs/model-v3/inputs.md` (108 today; the guru reconciled the register's prose count of 84 with the 70 flags on 2026-11-17: 17 rows listed in the prose were not flagged and are now flagged, and the three bracketed rows I-H2a8 to I-H2a10 of brief 028r were added; I-D1a, I-D1b and I-D1b2 were added with the level 2 return bands of 036r on 2026-11-18; I-D13a to I-D13e were added with the route mix of 068g on 2026-11-19; I-D4h was added with 069r on 2026-11-19). The gate (`order.md` section 4.1, G3) is true when the set of ids below equals the set of `(J)` rows and every decision cell reads `accepted`, `fixed at <value>` or `replaced by <row id>` with a date. The author decides; the guru records.
 
 | ID | Input | Low | Central | High | Decision | Date |
 |---|---|---|---|---|---|---|
@@ -18,6 +18,7 @@ Status: **all pending.** One line per register row flagged `(J)` in `docs/model-
 | I-D14e | Years after the long reserve fills over which coverage is measured, `horizon` (D14; reserv | 5 | 10 | 15 | pending |  |
 | I-D14f | Share of the fund held in the safe asset, `safe_share` (D14; fund, M1c) | 0 | 0 | 100 | pending |  |
 | I-D14g | Reference year of the expenditure-to-GDP ratio used for reserve coverage, `exp_ref_year` ( | 2019 | 2019 | 2019 | pending |  |
+| I-D14h | Reference entry wealth of a declaring holder, `V0` (D14; M7, O7, OD1: one Route C line) | 20 | 20 | 20 | pending |  |
 | I-D1a | Mean real total return on wealth, **arithmetic**, level 2 (g; M1a identity, P3) | 3.41 | 4.74 | 6.07 | pending |  |
 | I-D1b | Standard deviation of annual real total return, marginal, level 2 | 7.47 | 8.22 | 8.96 | pending |  |
 | I-D1b2 | Lag-1 autocorrelation of the annual real return, level 2 | 0.19 | 0.30 | 0.42 | pending |  |

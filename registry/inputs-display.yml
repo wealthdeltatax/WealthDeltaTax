@@ -132,6 +132,7 @@ inputs:
   I-D14e: {unit: years, decimals: 0, display_unit: "years", scale: 1}
   I-D14f: {unit: pct, decimals: 0, display_unit: "% of fund", scale: 1}
   I-D14g: {unit: count, decimals: 0, display_unit: "year", scale: 1, note: "a calendar year held fixed; shown as a plain integer, not a duration"}
+  I-D14h: {unit: gbp_m, decimals: 0, display_unit: "£m", scale: 1}
   I-W1a: {unit: pp_per_year, decimals: 0, display_unit: "percentage points a year", scale: 1}
   I-W1b: {unit: pp_per_year, decimals: 1, display_unit: "percentage points a year", scale: 1}
   I-W1c: {unit: pp_per_year, decimals: 1, display_unit: "percentage points a year", scale: 1}
@@ -204,6 +205,7 @@ inputs:
   I-T3n: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
   I-T3o: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
   I-T3p: {unit: pct_gdp, decimals: 2, display_unit: "% of GDP", scale: 1}
+  I-T3q: {unit: pct, decimals: 0, display_unit: "%", scale: 1}
   I-T4a: {unit: gbp_bn, decimals: 0, display_unit: "£bn", scale: 1}
   I-T4b: {unit: gbp_bn, decimals: 0, display_unit: "£bn", scale: 1}
   I-T4c: {unit: gbp_bn, decimals: 0, display_unit: "£bn", scale: 1}
