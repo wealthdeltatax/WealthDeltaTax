@@ -33,3 +33,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: filling `out_revenue.py` made that assertion fail (`KeyError: 'M1e'`); test_groups.py is not in Touches
 - Cost: edited it outside Touches (the clause now covers groups with no IDS), so the merge rule "diff inside Touches" is not met
 - Suggest: briefs 086c to 088c name test_groups.py in Touches, or the test stops asserting emptiness of the filled groups
+### 2026-11-20 · brief 088c · code
+- Instruction: brief 088c guru ruling 2: plain functions `o1e(ev, specs, draws)` and `ot1(ev, specs, rows, read)` in `out_sweeps`.
+- Happened: they must call `sweeps.breakeven_return` and `sweeps.tornado`, but R4 (`test_rules` cross-layer import) fails `runner/out_sweeps` importing `runner/sweeps`; the first version failed the suite.
+- Cost: one rewrite: the functions now format the sweeps' results and the run script calls the sweeps.
+- Suggest: rulings that name a function signature check it against the layer table of architecture.md 5.1.
+- Status: open (one entry)
