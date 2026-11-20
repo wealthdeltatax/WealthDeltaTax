@@ -57,13 +57,13 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** all seven ids in Samples: O7, OD1, OW1, OW2, OW3, OM1, OS1. Cells: O7 1, OD1 16, OW1 20, OW2 9, OW3 20 (M15b transition only), OM1 9, OS1 3. `runner.py` `tweak` hook (360 lines, default no tweak). `out_support.py` 131 lines, `test_out_support.py` 69. `pytest tests/model_v3 -q`: 213 passed.
+- **Done:** all seven ids in Samples: O7, OD1, OW1, OW2, OW3, OM1, OS1. Cells: O7 1, OD1 16, OW1 20, OW2 9, OW3 20 (M15b transition only), OM1 9, OS1 3. `runner.py` `tweak` hook (360 lines, default no tweak). `out_support.py` 131 lines, `test_out_support.py` 69. `pytest tests/model_v3 -q`: 230 passed; `pipeline/run_suites.py`: 10 of 10 suites passed; `check_agent_docs.py` clean; manifest unchanged, so no fixture or metrics regeneration; 055c digest PIN in `test_groups.py` unchanged (default is no tweak).
 - **Next:** none; ready to merge.
 - **Decisions:** as in the first report (O7 cell, OD1 [mean, P10, P90], OW3 `entry_year` 'value_per_cohort', M15b N = I-D14e, one death phase in the envelope rerun, X on I-D9d with spend I-D14c x mean payer wealth, chunk-repeated CE values); D4_5 with no payer is nan (ruling 3). OS1: m1 and m2 (overall) at the short horizon, payer_count scalar repeated over paths, cell [mean, P10, P90]; property share from the pack's `property_share` by band (0 where the pack has none: D1 to D5, below the threshold), uplift I-D10b / 100.
-- **Gotchas:** (1) Ruling 1 as written changes only `wealth`; `burden.line_flows` (line 95) starts from `base.V0`, so M1 and M2 did not move at all (measured 0, 0, 0). `out_support.grow` therefore scales `wealth` and every route of `V0` by the same factor (routes sum to wealth); the tweak is otherwise as ruled. Guru to confirm. (2) payer_count difference is 0 on the 14-line base: no line crosses the threshold at I-D10b central. (3) `test_groups.py` was at its 60-line budget, so the `tweak` test is folded into the existing `again` test (identity tweak: cached, distinct from raw); the changed-base effect is tested in `test_out_support.py`. (4) `bd._groups` is private to burden; used for the same band masks.
+- **Gotchas:** (1) Ruling 1 as written changes only `wealth`; `burden.line_flows` (line 95) starts from `base.V0`, so M1 and M2 did not move at all (measured 0, 0, 0). `out_support.grow` therefore scales `wealth` and every route of `V0` by the same factor (routes sum to wealth); the tweak is otherwise as ruled. Guru to confirm. (2) payer_count difference is 0 on the 14-line base: no line crosses the threshold at I-D10b central. (3) `test_groups.py` was at its 60-line budget, so its `tweak` check is folded into the existing `again` test (cached, distinct from raw); `test_runner.py` tests `core_run` with a tweak and with none; the changed-base effect on M1 is tested in `test_out_support.py`. (4) `bd._groups` is private to burden; used for the same band masks.
 - **Resume:** none.
 - **Not run:** the swept S_central schedule; used the grid-centre spec (tau_0 .04, tau_m .9, k_ln 1, ratio .5), synthetic paths, 1,000 paths.
-- **State:** done; ready to merge
+- **State:** done
 <!-- progress:end -->
 
 ### Early-check bounds and bootstrap (grid-centre spec, 1,000 paths)
@@ -83,4 +83,4 @@ Change report
 - Instruction friction: one entry in the friction log (now resolved by rulings 2)
 - Verification: full model_v3 suite; early-check measured on the grid-centre spec; swept S_central not run
 - Overview sections likely needing an update: none
-- Commit / branch: `brief/087-support-outputs`, rebased on main abca600
+- Commit / branch: `brief/087-support-outputs`, rebased on main d6e490a; merged

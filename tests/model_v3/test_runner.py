@@ -83,6 +83,13 @@ def test_the_burden_run_gives_the_same_receipts_as_run_lines(ctx):
     assert all(np.allclose(a[x][h], b[x][h], atol=1e-9, equal_nan=True) for x in ('M1', 'M1a', 'M1c', 'M1d') for h in R.HORIZONS)
 
 
+def test_core_run_applies_a_tweak_to_the_shaped_base_and_none_changes_nothing(ctx):
+    g = R.paths(np.random.default_rng(3).standard_normal((100, 6)), 4.742, 8.219, 0.3)
+    run = lambda **k: R.core_run(ctx, ctx.centre, SPEC, g, np.full(g.shape, 0.015), **k)
+    a, b, c = run(), run(tweak=None), run(tweak=lambda x: x.__class__(**{**x.__dict__, 'w_min': 2 * x.w_min}))
+    assert np.array_equal(a.r['M1'], b.r['M1'], equal_nan=True) and c.base.w_min == 2 * a.base.w_min and not np.array_equal(a.r['M1'], c.r['M1'], equal_nan=True)
+
+
 def test_n3_tornado_rows_descend_and_unread_inputs_swing_zero():
     rows = {'a': ROW(0, 5, 10), 'b': ROW(0, 5, 10), 'c': ROW(0, 5, 10)}
     ev = fake(lambda o: 2.0 * o.get('a', 5) - 1.0 * o.get('b', 5))
