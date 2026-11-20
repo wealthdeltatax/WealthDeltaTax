@@ -42,11 +42,25 @@ Ask if N7 shows the full run would take over 60 minutes and K6 passed: the pool 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** draft; not started
+- **Done:** read the brief, architecture 2.8, 3.1 to 3.4, 6.2, 6.5, drivers, stage-c items 2, 6, 7, the V3-10 and R3/R10 rows of acceptance, `outputs.yml` for O1e, O1f, OF1, OT1, CK1, `levers.json`, and the interfaces of `revenue`, `burden`, `support`, `returns`. Checked the guru note's inputs against `registry/inputs.json` (291 rows) and the pack. No code written.
+- **Next:** the guru's register brief for the missing row below; then build `runner.py`, `sweeps.py`, `test_runner.py`.
+- **Decisions:** none taken.
+- **Gotchas:** input-to-row map as far as it exists: consumption spend and rate = I-D14c (3.5%, 0.5 to 5); second asset returns = pack `returns.csv` `housing_tr` and `bond_tr` (mean and SD also at I-H6c to I-H6f, cross-correlations I-H6g to I-H6i); embedded gain = I-T4e (20, 35, 50 % of value; band wealth I-T4a to I-T4d); realisation of gains = I-T5e (all households, 0.9, 1.7, 1.7 % a year) and I-T5f (D10, 1.1, 2.1, 2.2); risk aversion = I-H5a (1.5). **Missing: the distribution of declared alpha (M7e, which feeds `support.declaration_curve`, `modal_alpha`, `tolerant_zone`, OD1 and O7).** The register holds only I-D5b (6.0 % of base, a shift of declared alpha), no shape, support or weights. Per the guru note I did not invent one. Also noted: I-D13e (Route B payment mode) is a text row and `load_register` returns None for it, so the runner would pass the mode `sale` as a kernel argument, not read it (the 054c reading); the guru may want a register value for it. The OT1 list has 40 inputs, of which I-D6a to I-D6p are incidence shares that only enter M4a through `burden.incidence`; I will map each of the 40 to a model argument when building.
+- **Resume:** when the alpha-distribution row exists (low, central, high, unit and what the numbers mean: support points and weights, or a parametric form), rerun `/wdt-code do brief 055c` from this branch.
+- **Not run:** everything; no code.
+- **State:** blocked, NEEDS THE GURU (register brief for the distribution of declared alpha); not started
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 055c, model v3 V3-10 range runner: stopped at the guru note's input check
+- Files changed: this brief only (progress block)
+- What is different now: nothing in the model; the missing input is named
+- Acceptance criteria: none attempted
+- Deviations from the brief: none; the brief's own rule (guru note 2026-11-19) says stop and report when a row is missing
+- Risks / follow-ups: register brief needed for the distribution of declared alpha (M7e); optional: a value for I-D13e
+- Verification: grep of the ids in core modules against registry/inputs.json (none absent); pack columns read
+- Overview sections likely needing an update: none
+- Commit / branch: brief/055-runner (pushed, not merged): NEEDS THE GURU
+```
