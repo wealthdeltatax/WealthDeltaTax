@@ -27,9 +27,9 @@ def test_an_empty_group_changes_no_number(ctx, monkeypatch):
 
 def test_again_reruns_the_core_once_and_full_gives_the_receipts_of_run_lines(ctx, monkeypatch):
     seen = []
-    pp = lambda raw, env, again: seen.append((again({}) is again({}), raw.r['B1a'].any(), again({}, full=True).r['B1a'].any(), again({}, full=True) is again({}, full=True))) or {}
+    pp = lambda raw, env, again: seen.append((again({}) is again({}), raw.r['B1a'].any(), again({}, full=True).r['B1a'].any(), again({}, full=True) is again({}, full=True), (t := lambda x: x) and again({}, tweak=t) is again({}, tweak=t) is not raw, again() is raw)) or {}
     EV(ctx, GROUP('x', pp=pp), monkeypatch)
-    assert seen == [(True, False, True, True)]
+    assert seen == [(True, False, True, True, True, True)]
 
 
 def test_env_rng_is_reproducible_and_distinct_by_chunk_and_name(ctx, monkeypatch):

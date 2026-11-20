@@ -1,4 +1,4 @@
-"""Brief 087c: the support group fills O7, OD1, OW1, OW2, OW3 and OM1 in Samples (OS1 waits for a ruling)."""
+"""Brief 087c: the support group fills O7, OD1, OW1, OW2, OW3, OM1 and OS1 in Samples."""
 import numpy as np
 import pytest
 
@@ -22,7 +22,7 @@ def cells(ev):
 def test_every_id_has_one_cell_per_manifest_vocabulary(cells, out):
     by = {o['id']: o for o in out['outputs']}
     assert set(cells) == set(S.IDS) and all(i in by for i in cells)
-    n = {'O7': 1, 'OD1': 16, 'OW1': 20, 'OW2': 9, 'OW3': 5 * 3 + 5, 'OM1': 9}
+    n = {'O7': 1, 'OD1': 16, 'OW1': 20, 'OW2': 9, 'OW3': 5 * 3 + 5, 'OM1': 9, 'OS1': 3}
     assert {i: len(c) for i, c in cells.items()} == n
     assert {k[1] for k in cells['OD1']} == {(('alpha_grid', a),) for a in by['OD1']['by']['alpha_grid']}
     assert {k[2] for k in cells['OW3']} == {'M15a', 'M15b'} and {k[0] for k in cells['OW3'] if k[2] == 'M15b'} == {'transition'}
@@ -55,6 +55,13 @@ def test_welfare_is_a_cost_and_chunks_repeat_one_value(cells):
     o = {dict(k[1])['tax_system']: v[0] for k, v in w.items() if dict(k[1])['wealth_band'] == 'overall'}
     assert o['wdt'] > o['stock_wealth_tax']
     assert all(np.ptp(v) == 0 for v in cells['OW2'].values())
+
+
+def test_capitalisation_changes_m1_through_the_routes_and_is_zero_off(ctx, ev):
+    s1 = {k[1][0][1]: v for k, v in S.cells(ev['support'])['OS1'].items()}
+    assert set(s1) == {'m1', 'm2', 'payer_count'} and np.isfinite(s1['m1']).all() and s1['m1'][0] != 0
+    b = R.shaped(ctx, ctx.centre, SPEC['ratio'])
+    assert np.array_equal(S.grow(b, 1.0).wealth, b.wealth) and np.allclose(sum(S.grow(b, 1.1).V0.values()), 1.1 * b.wealth)
 
 
 def test_the_group_is_reproducible_by_chunk(ctx, ev):

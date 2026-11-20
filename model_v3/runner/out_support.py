@@ -9,9 +9,12 @@ Interface: groups.py. Layer L3.5: reads core only; the runner's `Raw`, `Env` and
   OW3  M15a, M15b  envelope, liquidity_timing on a kernel rerun with per-year capture (one death phase, deaths every G years); M15b first I-D14e years
   OM1  M1, X, M9  migration_effect (I-D5c, I-D9d, I-M6l, I-T3q, I-D14c); the payer count is the full receipts run's (`again({}, True)`)
 Cells follow outputs.yml: p10_mean_p90 ids keep the per-path (level 1) or per-draw (level 2) array; point_and_range ids hold [point, lo, hi] = [mean, P10, P90] over it;
-O7 holds [1.0, mean lower edge, mean upper edge] of the tolerant zone. A band with no payer at launch is nan, as in O2. OS1 (S1) is not here: it needs a core rerun on another base (see the brief's progress block).
+O7 holds [1.0, mean lower edge, mean upper edge] of the tolerant zone. A band with no payer at launch is nan, as in O2. 
+  OS1  S1  s1_effect on again({}, tweak=...) with capitalise (pack property_share by band, I-D10b); m1, m2 (overall) and payer_count at the short horizon; [mean, P10, P90]
 """
 from __future__ import annotations
+
+from dataclasses import replace
 
 import numpy as np
 
@@ -20,7 +23,7 @@ from model_v3.core import kernel as K
 from model_v3.core import revenue as rv
 from model_v3.core import support as U
 
-NAME, IDS = 'support', ('O7', 'OD1', 'OW1', 'OW2', 'OW3', 'OM1')
+NAME, IDS = 'support', ('O7', 'OD1', 'OW1', 'OW2', 'OW3', 'OM1', 'OS1')
 HZ = ('transition', 'short', 'long')
 ALPHA = (('a050', .5), ('a075', .75), ('a100', 1.0), ('a125', 1.25), ('a150', 1.5), ('a200', 2.0), ('a300', 3.0), ('a500', 5.0))
 GAIN, HOLD = (('pct25', .25), ('pct50', .5), ('pct75', .75)), (('y5', 5), ('y10', 10), ('y20', 20))
@@ -80,6 +83,20 @@ def _migration(raw, env, again):
     return {k: {h: np.where(raw.ok | (h != 'short'), rv.window_mean(v, r['gdp'], raw.lo[h], raw.hi[h]), np.nan) for h in HZ} for k, v in m.items()}
 
 
+def grow(b, f):
+    """The base with every line's wealth and routes times f (the routes sum to the wealth; burden.line_flows starts from the routes)."""
+    return replace(b, wealth=b.wealth * f, V0={r: v * f for r, v in b.V0.items()})
+
+
+def _s1(raw, env, again):
+    """{'m1', 'm2', 'payer_count': (P,)}: the capitalisation switch on minus off at the short horizon (property share by band from the pack, uplift I-D10b, threshold untouched)."""
+    t = {r['band']: r['value'] / 100 for r in env.pack.tables['wealth_distribution'] if r['variable'] == 'property_share'}
+    sh, up = np.array([t.get(x, 0.0) for x in raw.base.band]), _row(env, 'I-D10b') / 100
+    q = lambda x: {'m1': rv.window_mean(x.r['M1'], x.r['gdp'], x.lo['short'], x.hi['short']), 'm2': bd.m2(x.fl, x.lo['short'], x.hi['short'])['overall'],
+                   'payer_count': np.full(x.g.shape[1], U.payer_count(x.base.wealth, x.base.adults_k, x.base.w_min))}
+    return U.s1_effect(q(again({}, tweak=lambda b: grow(b, U.capitalise(b.wealth, sh, up, on=True) / b.wealth))), q(raw))
+
+
 def per_path(raw, env, again):
     """Per-path arrays for one chunk of paths; the certainty-equivalent leaves hold the chunk's one value repeated over its paths."""
     b, P, al = raw.base, raw.g.shape[1], [a for _, a in ALPHA]
@@ -91,7 +108,7 @@ def per_path(raw, env, again):
     return {'decl': {'M7c': {k: c1[i] for i, (k, _) in enumerate(ALPHA)}, 'M7d': {k: lost[i] for i, (k, _) in enumerate(ALPHA)}, 'zone': {'lo': zlo, 'hi': zhi}},
             'welfare': {k: {s: one(U.wmean(cew[u][m], pw[m]) if pw[m].any() else np.nan) for s, u in SYS} for k, m in bd._groups(b.band).items()},
             'lock': {g: {h: one(U.lockin(hA, hB, _row(env, 'I-T7a') / 100, e, n, _row(env, 'I-H5a'))[0]) for h, n in HOLD} for g, e in GAIN},
-            'env': _envelope(raw, env), 'mig': _migration(raw, env, again)}
+            'env': _envelope(raw, env), 'mig': _migration(raw, env, again), 's1': _s1(raw, env, again)}
 
 
 def _tri(x):
@@ -103,11 +120,12 @@ def cells(e):
     """{output id: {(horizon, by, line): array}} from this group's per-path results of one schedule."""
     if not e:
         return {}
-    d, w, k, v, m = (e[x] for x in ('decl', 'welfare', 'lock', 'env', 'mig'))
+    d, w, k, v, m, s1 = (e[x] for x in ('decl', 'welfare', 'lock', 'env', 'mig', 's1'))
     ev = lambda b: (('entry_year', 'value_per_cohort'), ('wealth_band', b))
     return {'O7': {('single', (), None): np.array([1.0, np.nanmean(d['zone']['lo']), np.nanmean(d['zone']['hi'])])},
             'OD1': {('single', (('alpha_grid', a),), l): _tri(d[l][a]) for l in ('M7c', 'M7d') for a, _ in ALPHA},
             'OW1': {('single', (('tax_system', s), ('wealth_band', b)), None): w[b][s] for b in w for s, _ in SYS},
             'OW2': {('single', (('embedded_gain_band', g), ('holding_period', h)), None): k[g][h] for g, _ in GAIN for h, _ in HOLD},
             'OW3': {**{(h, ev(b), 'M15a'): v['M15a'][h][b] for h in HZ for b in v['M15a'][h]}, **{('transition', ev(b), 'M15b'): x for b, x in v['M15b'].items()}},
-            'OM1': {(h, (), l): m[l][h] for l in m for h in HZ}}
+            'OM1': {(h, (), l): m[l][h] for l in m for h in HZ},
+            'OS1': {('single', (('quantity', q),), None): _tri(x) for q, x in s1.items()}}

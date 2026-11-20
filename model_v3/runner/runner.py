@@ -192,12 +192,12 @@ class Raw:
     h: int
 
 
-def core_run(ctx, theta, spec, g, gdp_g, full=False):
+def core_run(ctx, theta, spec, g, gdp_g, full=False, tweak=None):
     """One schedule (`spec`: tau_0, tau_m, k_ln, ratio) on the paths g (T, P): the core modules run once, kept raw. `full` takes the receipts from
-    revenue.run_lines instead of the burden run (the same numbers, a test)."""
+    revenue.run_lines instead of the burden run (the same numbers, a test). `tweak` maps the shaped base to another (default none)."""
     g, gdp_g = np.asarray(g, float), np.asarray(gdp_g, float)
     P = g.shape[1]
-    b = shaped(ctx, theta, spec['ratio'])
+    b = (tweak or (lambda x: x))(shaped(ctx, theta, spec['ratio']))
     rate = sc.rate_function(spec['k_ln'], spec['tau_0'], spec['tau_m'], b.w_min, 'logistic_ln')
     c, lam = theta['I-D14c'] / 100, env_of(ctx, theta).lam
     fl = bd.line_flows(b, rate, g, gdp_g, c, **lam)
@@ -234,16 +234,16 @@ def headlines(raw, ctx, theta):
 
 def evaluate(ctx, theta, spec, g, gdp_g, full=False, seq=None, key=()):
     """core_run, the headline results, then `{group.NAME: group.per_path(raw, env, again)}`. `seq` and `key` (run stream, chunk or draw) only feed `env.rng`.
-    `again(override, full=False)` is the core run with the spec changed (`full`: receipts from revenue.run_lines), run once per (spec, full)."""
+    `again(override=None, full=False, tweak=None)` is the core run with the spec changed (`full`: receipts from revenue.run_lines; `tweak`: a base map), run once per (spec, full, tweak)."""
     raw = core_run(ctx, theta, spec, g, gdp_g, full)
-    seen = {(tuple(sorted(spec.items())), full): raw}
+    seen = {(tuple(sorted(spec.items())), full, None): raw}
     env = env_of(ctx, theta, seq, key)
 
-    def again(over, full=False):
-        sp = {**spec, **over}
-        k = (tuple(sorted(sp.items())), full)
+    def again(over=None, full=False, tweak=None):
+        sp = {**spec, **(over or {})}
+        k = (tuple(sorted(sp.items())), full, tweak)
         if k not in seen:
-            seen[k] = core_run(ctx, theta, sp, g, gdp_g, full)
+            seen[k] = core_run(ctx, theta, sp, g, gdp_g, full, tweak)
         return seen[k]
 
     return {**headlines(raw, ctx, theta), **{m.NAME: m.per_path(raw, env, again) for m in GROUPS}}
