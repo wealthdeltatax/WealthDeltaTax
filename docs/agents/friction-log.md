@@ -38,4 +38,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: they must call `sweeps.breakeven_return` and `sweeps.tornado`, but R4 (`test_rules` cross-layer import) fails `runner/out_sweeps` importing `runner/sweeps`; the first version failed the suite.
 - Cost: one rewrite: the functions now format the sweeps' results and the run script calls the sweeps.
 - Suggest: rulings that name a function signature check it against the layer table of architecture.md 5.1.
+### 2026-11-20 · brief 086c · code
+- Instruction: brief 086c Design: fill `out_burden.per_path(raw, again)` and read the inputs "from the register and pack as 055c does (`ctx`, `theta`)".
+- Happened: `per_path` gets `Raw` and `again` only; `Raw` has no `pack`, `reg`, `ctx` or `theta`. O5, O6, O8, OH1b, OH1b2, OH1c, DH1c need them (m5, m6, m8, m3_today, m11, m12, dh1c). 084c's tests also pin every group's `IDS == ()` and the empty-group digest, so any filled group fails `test_groups.py`.
+- Cost: built five of twelve ids, stopped on seven (the brief's own stop rule).
+- Suggest: the guru widens the group interface (`per_path(raw, again, ctx, theta)` or `Raw` carrying `ctx` and `theta`, an edit to `runner.py`) and loosens the two 084c tests to "IDS in the manifest".
 - Status: open (one entry)
