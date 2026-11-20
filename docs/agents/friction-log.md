@@ -54,6 +54,7 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 
 ### 2026-11-20 · brief 093r · research
 - Instruction: brief 093r Read line (hypothesis path) and `docs/agents/research.md` First steps 2 (`reference/research/...`)
-- Happened: `docs/hypotheses/household-consumption-income-and-replenishment-of-private-wealth.md` does not exist (the file is `household-consumption-and-wealth-replenishment.md`); `reference/research/` does not exist (it is `docs/agents/reference/research/`)
+- Happened: the hypothesis path in the brief (a longer, wrong file name) does not exist (the file is `household-consumption-and-wealth-replenishment.md`); `reference/research/` does not exist (it is `docs/agents/reference/research/`)
 - Cost: a few extra lookups; no wrong action
 - Suggest: correct both paths
+- Status: brief path was the guru's error (fixed in the archived brief); research.md paths fixed
