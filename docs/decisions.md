@@ -178,3 +178,6 @@ The v2 reference run (078c) shows the recorded 7.34 is the mean over the 117 win
 
 ## 2026-11-19: I1 and I2 restated
 Author: v3 learns from v2, it does not replicate it. I1 is the exact-take port check at v2's fill year (passes: 1e-5 in all 117 windows); I2 is the refund-rule difference at v2's fill year, in 6.34 to 7.36; the fill-year difference (39 of 117 windows, +0.17 on the mean) comes from v3's constant levy against v2's per-year path and is reported as a finding, not a failure. 052c merges when its tests pass on this basis. Paper question: does a constant levy understate how much the fund's timing varies.
+
+## 2026-11-20: burden metrics (053c)
+Author: M2 is reported in life as the headline and including death flows as M2d (labelled; death flows are 87% of M2); M5 compares in life. M3 gains are the positive real changes in net wealth. M4a incidence is a stated limit of the pack. OH1b all-tax line, M8 non-payer saving and M2b/M2c below W_min are not built and listed as limits of the first run. Manifest entry for M2d: brief 079g.
