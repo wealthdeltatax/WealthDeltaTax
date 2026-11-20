@@ -624,17 +624,15 @@
    "unit_unmapped": []
   },
   {
-   "horizon_same_as": "M7c",
-   "horizon_text": "as M7c",
+   "horizon_same_as": null,
+   "horizon_text": null,
    "horizons": null,
    "id": "M7e",
-   "name": "Modal declaration",
+   "name": "(dropped 2026-11-20: see 080r)",
    "section": "Supporting metrics",
-   "status": "active",
-   "unit_tags": [
-    "ratio"
-   ],
-   "unit_text": "alpha",
+   "status": "dropped",
+   "unit_tags": [],
+   "unit_text": null,
    "unit_unmapped": []
   },
   {

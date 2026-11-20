@@ -86,7 +86,7 @@ Each entry: purpose, inputs, outputs (and the manifest ids it produces), the C1 
 - **Imports.** `pack`, `base`, `schedule`, `kernel`, `revenue`.
 
 ### 2.7 `core/support.py`: supporting metrics (520 lines)
-- **Does.** M7 and the declaration curve M7c to M7e (C.1 over TW(1), refund protection lost, modal declaration), M13 (certainty-equivalent welfare of the four tax systems at equal revenue; risk aversion drawn at level 2), M14 (CGT lock-in, a post-processing pass over the same payer paths), M15a and M15b (the contribution envelope, from the cumulative payer state), M9 (net fiscal effect after migration), S1 (capitalisation of retired property taxes). S1 is a **switch**: off in every headline cell; one extra variant run with it on (C1 item 7b). It is not averaged into any range.
+- **Does.** M7 and the declaration curve M7c and M7d (C.1 over TW(1), refund protection lost), M13 (certainty-equivalent welfare of the four tax systems at equal revenue; risk aversion drawn at level 2), M14 (CGT lock-in, a post-processing pass over the same payer paths), M15a and M15b (the contribution envelope, from the cumulative payer state), M9 (net fiscal effect after migration), S1 (capitalisation of retired property taxes). S1 is a **switch**: off in every headline cell; one extra variant run with it on (C1 item 7b). It is not averaged into any range.
 - **Ids.** `O7, OD1, OW1, OW2, OW3, OM1, OS1`.
 - **Imports.** `pack`, `base`, `schedule`, `kernel`, `revenue`. It does not import `burden` (R4: no import across cores at the same layer).
 

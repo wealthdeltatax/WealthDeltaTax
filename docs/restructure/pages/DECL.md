@@ -30,7 +30,7 @@ depends: [MECH, VAL]
 | Id | Metric | Title | Kind | Element (all pages) |
 |---|---|---|---|---|
 | O7 | M7 | Tolerant zone (C.1 over TW(1)) | supporting | H5, DECL, FISC |
-| OD1 | M7 | Declaration curve across alpha (C.1 over TW(1), refund protection lost, modal declaration) | supporting | H5, DECL |
+| OD1 | M7 | Declaration curve across alpha (C.1 over TW(1), refund protection lost) | supporting | H5, DECL |
 
 ## Register input families
 

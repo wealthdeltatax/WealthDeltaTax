@@ -95,12 +95,12 @@ All are read off the same v3 run as the headlines: the same return paths, schedu
 | P7b | Minimum cover | Over the years after the fill, the minimum of the long reserve divided by its P1 target; mean over paths with the P10 beside it | the P1 target | ratio | short, long |
 | M7c | Declaration curve | C.1(alpha) = (Net(alpha) - Net(1)) / TW(1), the M7 formula at every alpha on a grid | TW(1) | percentage points | the M7 horizon |
 | M7d | Lost refund protection | (Refunds(1) - Refunds(alpha)) / TW(1): the part of M7c that is refunds forgone because declared wealth is understated; a split of M7c | TW(1) | percentage points | as M7c |
-| M7e | Modal declaration | The alpha held by the largest share of payers | payers | alpha | as M7c |
+| M7e | (dropped 2026-11-20: see 080r) | Not produced; the id is not reused | | | |
 | M9 | Net fiscal effect after migration | M9 = M1 - X, where X is the income tax, NICs and VAT lost from people who leave UK tax residence in response to the tax. X is reported on its own line | GDP_t | % of GDP; real pounds | transition, short, long |
 | M4c | Non-payer saving, pounds per month | M4c(y) = M4b(d) x y / 12 for a reference worker with income y in decile d. A derived view of M4b; no price pass-through beyond the incidence inputs already in M4a and M4b | none (a level) | pounds per month | transition, short, long |
 | F1 | Closure share | For one schedule and threshold, the share of level-1 return paths in which P3 equals zero | return paths | % of paths | transition, short |
 | T1 | Tornado swing | For headline h and input j: h(j at Low) - h(central) and h(j at High) - h(central), every other input at central, ranked by the larger absolute swing. **Headlines: M1, M2, M4a and M3** (author default). Run at each named schedule; the 0.5-point cut-off of tier 2 is applied to the M1 swing | the headline's own | points of GDP for M1; percentage points otherwise | transition, short, long |
-P7 differs from P3: P3 asks whether retired receipts ever exceed revenue; P7 asks whether the reserve runs out. Both are reported. M7e is the old papers' "behavioural centre"; confirm its definition against VAL section 7 when it is built. The understater plateau is read off M7c with a tolerance fixed in model stage C. F1 and the feasibility map use a share, burden cap and saving floor fixed in model stage C (OF1).
+P7 differs from P3: P3 asks whether retired receipts ever exceed revenue; P7 asks whether the reserve runs out. Both are reported. The understater plateau is read off M7c with a tolerance fixed in model stage C. F1 and the feasibility map use a share, burden cap and saving floor fixed in model stage C (OF1).
 
 ### Check (a test of the model, not an output)
 | ID | Name | Definition |

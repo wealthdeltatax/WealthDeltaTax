@@ -36,7 +36,7 @@ Not a spoke: the spoke front matter of `template.md` section 2 does not apply to
 | DH1a |  | UK wealth shares and wealth to GDP, now and over time | data_fact | H1 |
 | DH1b |  | UK tax mix by head and by group | data_fact | H1 |
 | DH1c |  | Tax bill of non-payers by income decile | data_fact | H1, PAY |
-| OD1 | M7 | Declaration curve across alpha (C.1 over TW(1), refund protection lost, modal declaration) | supporting | H5, DECL |
+| OD1 | M7 | Declaration curve across alpha (C.1 over TW(1), refund protection lost) | supporting | H5, DECL |
 
 ## Register input families
 
