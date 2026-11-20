@@ -12,6 +12,7 @@ Start with `START_HERE.md` at the repo root.
 | Site build, deploy, rendering problems | `web.md`, then `reference/web/preprocessing.md` or `citation-keys.md` as the task needs |
 | Finish a task | `change-report.md` |
 | Stop mid-task, or resume one | `handover.md` |
+| An instruction or tool failed you | `friction-log.md` (append an entry) |
 | Guru: keep overview and status true | `overview-maintenance.md` |
 | Guru: write a brief | `brief-template.md` |
 

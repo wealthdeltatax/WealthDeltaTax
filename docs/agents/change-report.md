@@ -10,6 +10,7 @@ Change report
 - Acceptance criteria: <each with its measured result; mark any not met or partly met, and why>
 - Deviations from the brief: <or "none">
 - Risks / follow-ups: <or "none">
+- Instruction friction: <entries added to `docs/agents/friction-log.md`, or "none"; write "none" only after asking whether any instruction, workflow or tool failed you>
 - Verification: <checks run and results; anything not run>
 - Overview sections likely needing an update: <or "none">
 - Commit / branch: <hash, branch>

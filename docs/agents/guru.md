@@ -11,6 +11,7 @@ The guru is the author's design partner and keeper of the repository's core work
 3. `docs/decisions.md` for what finished work decided. Do not open `docs/archive/` unless asked.
 4. After a role reports done, read its change report, not the whole repo.
 5. Read `docs/brief-suggestions.md`: group the open entries, write briefs for those worth doing, and mark each entry `briefed NNN` or `dropped` with a reason. Only the guru edits entry status.
+5a. Read `docs/agents/friction-log.md`: set each entry's `Status`. One entry is noted; two on the same instruction mean edit that guide (or `AGENTS.md`) and mark them `fixed <commit>`; move closed entries to `docs/archive/friction-log-archive.md`. Say in the review which instructions changed.
 
 ## Rules
 - Judge a new idea with `reference/framework.md` (three-tier framework, the checks, the traps). Say where it fits, where it is new, and which check it fails.
