@@ -46,6 +46,12 @@ Wait for 092c (`per_path(raw, env, again)`, `env.ctx`, `env.theta`, `env.pack`, 
 5. **S1, OS1:** call `core_run` with a changed `ctx` (`dataclasses.replace`) and the same paths and `theta`; take m2 and payer_count from `raw.base`.
 Certainty-equivalent outputs (OW1, OW2): your decision on chunks stands. If any of this does not hold when you read the code, stop and say which line.
 
+## Guru rulings 2 (2026-11-20, after your stop)
+1. **OS1 (ruling 5 replaced).** You are right: `core_run` is L4 and `again` only overrides the spec. Do not duplicate the core rerun. Make this narrow edit to `runner.py`: `core_run(..., tweak=None)` applies `b = tweak(b)` to the shaped base, and `again(override=None, full=False, tweak=None)` passes it on, cached on (spec, full, tweak). Then OS1 is `again({}, tweak=lambda b: replace(b, wealth=sp.capitalise(b.wealth, share, uplift, on=True)))` against `raw`, with the property share from the pack, the uplift from I-D10b (divide by 100), the threshold untouched, and `s1_effect` on m1, m2 and `payer_count`. `runner.py`, `tests/model_v3/test_runner.py` and `tests/model_v3/test_groups.py` (a test for `tweak`) are in Touches for this edit only; keep `runner.py` at most 360 lines and the 084c and 092c digests unchanged (the default is no tweak).
+2. **`test_groups.py` clause:** take `main`'s version on rebase (it now guards groups with ids); drop your edit of that line.
+3. **D4_5 band with no payer:** keep nan, as O2 and O2d do. The final run's policy on non-finite cells is 057c's; noted there.
+4. Everything else in your report stands (O7 cell, the 16 OD1 cells, OW3 `entry_year`, the chunk-repeated CE values).
+
 ## Open questions
 None.
 

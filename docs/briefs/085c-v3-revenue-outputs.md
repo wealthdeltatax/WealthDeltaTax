@@ -32,6 +32,9 @@ For each id, map its metric to the `core/revenue.py` function that produces it a
 ## Checks to run
 `pytest tests/model_v3 -q`.
 
+## Guru rulings 2 (2026-11-20, after your stop)
+Accepted: your decisions 1 to 6 (tax names from `env.ctx.rec` pinned to the manifest `by.per`; OB1 windows as a ratio of sums; P7b nan where no year follows the fill). The `test_groups.py` clause is fixed on `main` (your exact edit): after you rebase, the file has no diff and the diff is inside Touches, so the auto-merge rule applies. Run the checks again after the rebase, then merge as `AGENTS.md` says.
+
 ## Out of scope
 Any other group; `runner.py`; the validator.
 

@@ -13,6 +13,8 @@ CK1's mu is I-D1a central, 4.74 (arithmetic), not 4.42 (the geometric I-D1a2); `
 
 Also (guru, 2026-11-20): `run.py` passes `once` (the manifest's `once_not_per_schedule` ids) to `runner.context`, or any group `static` id raises (086c, 088c).
 
+Also (guru, 2026-11-20): a band with no payer at launch (D4_5, wealth under w_min) gives nan in O2, O2d and OW3; `assemble` treats non-finite as an error in a final run, so 057c decides how the final file marks those cells (a stated null, not a number) before `--final`.
+
 ## Decisions (author, 2026-11-18)
 `architecture.md` approved (sections 8.1 and 9 as written); `acceptance.md` approved with Q1 to Q6 as proposed. v3 imports nothing from `model_v1/` or `model_v2/`. No file outside this brief's Touches is changed.
 

@@ -17,7 +17,7 @@ EV = lambda ctx, m, mp, **kw: (mp.setattr(R, 'GROUPS', (m,)), R.evaluate(ctx, ct
 def test_the_four_groups_are_named_explicitly_and_follow_the_interface(out):
     assert [m.NAME for m in G.GROUPS] == ['revenue', 'burden', 'support', 'sweeps']
     ids = [i for m in G.GROUPS for i in m.IDS]            # manifest ids, no two groups share one
-    assert set(ids) <= {o['id'] for o in out['outputs']} and len(ids) == len(set(ids)) and all(m.cells({}) == m.per_path(None, None, None) == {} for m in G.GROUPS)
+    assert set(ids) <= {o['id'] for o in out['outputs']} and len(ids) == len(set(ids)) and all(m.cells({}) == m.per_path(None, None, None) == {} for m in G.GROUPS if not m.IDS)
 
 
 def test_an_empty_group_changes_no_number(ctx, monkeypatch):
