@@ -1,6 +1,6 @@
 # 084: Runner groups: split `evaluate` so output groups can be added in parallel, and move `payer_taxes` into the lever file
 
-- **Status:** ready
+- **Status:** retired 2026-11-20 (merged `b821489`)
 - **Author/date:** K. Ogata with the guru, 2026-11-20
 - **Depends on:** 055c (merged, `e4993a4`)
 - **Read:** `docs/archive/briefs/055c-v3-10-range-runner.md` (progress block, gotchas 4 and 6); `model_v3/runner/runner.py` (`context`, `evaluate`, `make_ev`, `cat`, `samples`, `level1`, `level2`); `docs/model-v3/architecture.md` 2.9, 2.10, 5.1 and 6.1; `model_v3/levers.json`.

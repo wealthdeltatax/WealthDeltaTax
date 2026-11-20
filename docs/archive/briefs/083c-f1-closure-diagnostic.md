@@ -1,6 +1,6 @@
 # 083: F1 closure diagnostic (why no schedule closes, and what would)
 
-- **Status:** ready
+- **Status:** retired 2026-11-20 (report `docs/model-v3/f1-diagnostic/report.md`)
 - **Author/date:** K. Ogata with the guru, 2026-11-20
 - **Depends on:** 055c (merged to `main`, `e4993a4`).
 - **Read:** `docs/archive/briefs/055c-v3-10-range-runner.md` (progress block, gotchas 1 and 2); `docs/model-v3/metrics.md` rows P3, F1, CK1 and the range-design paragraph; `model_v3/core/revenue.py` `retire` and `revenue` (lines 20 to 30 and 174 to 215); `model_v3/runner/runner.py` `evaluate`; `model_v3/runner/sweeps.py` `feasibility`, `choose`, `CLOSED`.
