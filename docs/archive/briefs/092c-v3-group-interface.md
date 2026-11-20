@@ -1,6 +1,6 @@
 # 092c: V3 group interface: give the output groups what they read
 
-- **Status:** ready
+- **Status:** done; reviewed and retired 2026-11-20
 - **Author/date:** K. Ogata with the guru, 2026-11-20
 - **Depends on:** none (084c, 055c merged). Blocks 085c, 086c, 087c, 088c (they resume after this merges).
 - **Read:** `AGENTS.md`, `docs/agents/code.md`, `docs/model-v3/architecture.md` 2.8, 2.9, 5.1, 6.1; `model_v3/runner/runner.py` (`Raw`, `core_run`, `evaluate`, `level1`, `level2`, `samples`), `groups.py`, the four `out_*.py` stubs, `tests/model_v3/test_groups.py`; the stop reports in `docs/briefs/085c` to `088c` (on branches `brief/085-v3-revenue-outputs`, `brief/086-work`, `brief/087-support-outputs`, `brief/088-sweep-pack-outputs`; read with `git show`).
