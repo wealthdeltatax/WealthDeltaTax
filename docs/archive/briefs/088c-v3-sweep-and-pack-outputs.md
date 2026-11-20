@@ -1,6 +1,6 @@
 # 088: Sweep and pack outputs into Samples (O1e, OT1, DH1a, DH1b)
 
-- **Status:** ready
+- **Status:** retired 2026-11-20 (merged `13747b0`)
 - **Author/date:** K. Ogata with the guru, 2026-11-20
 - **Depends on:** 084c
 - **Read:** `docs/archive/briefs/055c-v3-10-range-runner.md` (gotchas 3, 4 and 7); `model_v3/runner/out_sweeps.py` (the stub); `model_v3/runner/sweeps.py` (`tornado`, `breakeven`, `breakeven_return`); `model_v3/runner/runner.py` `Level2`; `model_v3/core/pack.py` (the household data facts); `docs/model-v3/outputs.yml` entries O1e, OT1, DH1a, DH1b; `docs/model-v3/architecture.md` 2.9.

@@ -1,6 +1,6 @@
 # 086: Burden and savings outputs into Samples
 
-- **Status:** ready
+- **Status:** retired 2026-11-20 (merged `0c025e4`)
 - **Author/date:** K. Ogata with the guru, 2026-11-20
 - **Depends on:** 084c
 - **Read:** `docs/archive/briefs/055c-v3-10-range-runner.md` (gotcha 4); `model_v3/runner/out_burden.py` (the stub); `model_v3/core/burden.py` (module note, `line_flows`, `m2`, `m4`, `m3`, incidence); `docs/model-v3/outputs.yml` entries O2d, O2b, O2c, O4b, O5, O6, O8, OL1, OH1b, OH1b2, OH1c, DH1c; `docs/model-v3/metrics.md` rows M2b to M6, M8, M11, M12, M4c; `docs/model-v3/metrics.md` "Closed on 2026-11-20" (what 053c did not build).

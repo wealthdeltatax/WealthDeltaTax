@@ -1,6 +1,6 @@
 # 090: Wealth-to-GDP and revenue decomposition (tests of the private-wealth hypothesis)
 
-- **Status:** ready
+- **Status:** retired 2026-11-20 (merged `4958609`)
 - **Author/date:** K. Ogata with the guru, 2026-11-20
 - **Depends on:** none (084c merged)
 - **Read:** `docs/hypotheses/private-wealth-growth-relative-to-gdp-and-declining-wdt-revenue.md` (sections 3 and 6); `docs/model-v3/f1-diagnostic/report.md` (Reading, item 4) and `f1_gap.py` (how it builds the context and calls `runner.core_run`); `model_v3/runner/runner.py` (`context`, `core_run`, `Raw`); `model_v3/core/burden.py` (module note, `line_flows`: `w0`, `delta`) and `core/revenue.py` (module note: relief, fund, retirement, `gdp_growth`); `docs/model-v3/inputs.md` rows I-D14c, I-D1a, I-D1a2, I-D7a.

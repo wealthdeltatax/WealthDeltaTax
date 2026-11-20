@@ -1,6 +1,6 @@
 # 085: Revenue and fund outputs into Samples
 
-- **Status:** ready
+- **Status:** retired 2026-11-20 (merged `4cc6a64`)
 - **Author/date:** K. Ogata with the guru, 2026-11-20
 - **Depends on:** 084c
 - **Read:** `docs/archive/briefs/055c-v3-10-range-runner.md` (gotcha 4); `model_v3/runner/out_revenue.py` (the stub); `model_v3/core/revenue.py` (module note and `revenue`); `docs/model-v3/outputs.yml` entries O1d, OP1, OP3, OP4, OP5, OP6, OR1, OB1; `docs/model-v3/metrics.md` rows M1e, P1, P3, P4, P5, P6, P7, B1.

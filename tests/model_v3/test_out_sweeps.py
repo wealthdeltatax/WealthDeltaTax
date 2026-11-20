@@ -35,7 +35,7 @@ def test_dh1a_and_dh1b_equal_the_pack_and_the_group_adds_no_per_path_cell(ctx, o
     c1 = replace(ctx, once=frozenset(i for i, o in man.items() if o.get('once_not_per_schedule')))
     s = W.static(R.env_of(c1, c1.centre))
     a, b = pk.dh1a(pack), pk.dh1b(pack)['lines']
-    assert W.static(R.env_of(ctx, ctx.centre)) == {} and set(s) == {'DH1a', 'DH1b'}                    # no once id in the context, no static cell
+    assert W.static(R.env_of(replace(ctx, once=frozenset()), ctx.centre)) == {} and set(s) == {'DH1a', 'DH1b'}                    # no once id in the context, no static cell
     assert {k[1][0][1] for k in s['DH1a']} == set(man['DH1a']['by']['series']) == set(a) and {k[1][0][1] for k in s['DH1b']} == set(man['DH1b']['by']['line']) == set(b)
     assert all(s['DH1a']['single', (('series', n),), None][0] == a[n]['point'] for n in a) and all(s['DH1b']['single', (('line', n),), None][0] == v for n, v in b.items())
     assert W.IDS == ('DH1a', 'DH1b', 'O1e', 'OT1') and W.cells({}) == W.per_path(None, None, None) == {}
