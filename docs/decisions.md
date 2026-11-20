@@ -2,6 +2,12 @@
 
 One entry per finished brief or settled question, at most 8 lines each. Newest first. Maintained by the guru.
 
+## 2026-11-20: I-D14c (3.5%) abandoned as the central assumption
+- Author: the 3.5% is a v2 judgement device (decision D16), not a UK measurement (093r). It is abandoned as the central consumption or depletion assumption; no replacement scalar (no 0%, 1.5%, 2.5% or other universal rate). It stays as a labelled legacy comparator to reproduce historical outputs. Results that rest on it (083c, 090c, the first provisional run) are legacy results, not calibrated forecasts.
+- Replacement: an accounting-consistent household flow model, by cells (hypothesis `household-consumption-and-wealth-replenishment.md`, sections 10 to 14). Briefs 094r (kernel map and accounts), 095r (UK evidence map), 096r (cohort cell design, with plans for backcast and comparison). Backcast and WDT comparison runs and the implementation are later code briefs, after the author reviews 096r. No change to kernel, register or manifest until then.
+- Feasibility rule (089c) stays parked: it was measured against 3.5%. 057c still runs on 3.5% and labels the run legacy.
+- Origin of the brief: an external agent drafted a combined 094 on a branch; the guru rewrote it as 094r to 096r (tests A and B; C; D with plans for E and F).
+
 ## 2026-11-20: after the output-group briefs (085c to 088c, 090c; 093r)
 - 085c, 086c, 088c and 090c merged and retired; 087c (six of seven ids) resumes with a narrow `runner.py` edit for OS1. `o1e` and `ot1` are formatters, not runners (R4): the run script (057c) calls the sweeps.
 - Author: hold the feasibility rule (089c) until the consumption evidence is in; no change to the margin, tolerance, closure share or CK1 window now. 093r gathers evidence for I-D14c (audit and net depletion by band); no value is chosen for its fiscal effect.

@@ -15,6 +15,8 @@ Also (guru, 2026-11-20): `run.py` passes `once` (the manifest's `once_not_per_sc
 
 Also (guru, 2026-11-20): a band with no payer at launch (D4_5, wealth under w_min) gives nan in O2, O2d and OW3; `assemble` treats non-finite as an error in a final run, so 057c decides how the final file marks those cells (a stated null, not a number) before `--final`.
 
+Also (guru, 2026-11-20): the author abandoned I-D14c's 3.5% as the central assumption (094r). Until a replacement is implemented, the run still uses it, so `run.py` writes a run field (for example `legacy_consumption: 3.5`) and every report or page that prints a result from this run labels it a **legacy result, not a calibrated forecast**. Choose the field name with the A6 run fields; do not change c.
+
 ## Decisions (author, 2026-11-18)
 `architecture.md` approved (sections 8.1 and 9 as written); `acceptance.md` approved with Q1 to Q6 as proposed. v3 imports nothing from `model_v1/` or `model_v2/`. No file outside this brief's Touches is changed.
 
