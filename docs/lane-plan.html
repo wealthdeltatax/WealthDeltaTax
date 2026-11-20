@@ -264,14 +264,13 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "3", name: "Agent 3", note: "Code: 055c (range runner), ready now" },
     { id: "4", name: "Agent 4", note: "Code: free now; 057c after 055c" },
     { id: "5", name: "Agent 5", note: "Free (053c merged)" },
-    { id: "6", name: "Agent 6", note: "Writing: 082w (retract the alpha 1.1 claim)" },
+    { id: "6", name: "Agent 6", note: "Free" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
   ];
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
     { id: "044c", lane: "G", at: 3, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }], why: "Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
-    { id: "082w", lane: "6", at: 0, len: 2, st: "ready", t: "Retract the behavioural centre near alpha 1.1 from the papers and site", needs: [], why: "Author: model-implied, unsourced (080r); remove paper by paper." },
     { id: "081g", lane: "2", at: 0, len: 1, st: "ready", t: "Drop M7e from the metrics and the manifest", needs: [], why: "080r: M7e would read 1.00 on the grid; author dropped it." },
     { id: "055c", lane: "3", at: 0, len: 1, st: "ready", t: "Model v3 V3-10: range runner (no M7e)", needs: [], why: "Level 1 and 2 runs, sweeps, tornado, named schedules." },
     { id: "057c", lane: "4", at: 1, len: 1, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "055c" }], why: "run.py, smoke tests, accept.sh, convergence test." },
