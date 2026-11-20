@@ -67,7 +67,7 @@ Each is a claim the old papers make from v1 or v2 runs. The hub and spokes may n
 | 4 | Short reserve fills within 3 years under every sequence | WP §10; FM §3.1; RATES.A §B.2 | OP1 | yes |
 | 5 | 10-year post-fill coverage: median 125.5%, worst case 6 to 15% of spending | WP §5; FM §3.1 | O1 over spending | partly: O1 is in % of GDP; spending share is a derived denominator |
 | 6 | Individual WDT 874bn a year at the 30-year average, corporate levy 172bn at 30% unattributable | WP §5; RATES §8.3 | O1a, O1b | yes |
-| 7 | Tolerant zone alpha 0.8 to 1.5; behavioural centre near 1.1; understater penalty plateaus; overstatement self-limiting | WP §3.8; VAL §7; VAL.A §A.2, §C; SWEEPS §2 | O7 | partly: O7 gives the zone, not the curve or the centre |
+| 7 | Tolerant zone alpha 0.8 to 1.5; ~~behavioural centre near 1.1~~ (removed 2026-11-20: model-implied, unsourced, see 080r); understater penalty plateaus; overstatement self-limiting | WP §3.8; VAL §7; VAL.A §A.2, §C; SWEEPS §2 | O7 | partly: O7 gives the zone and OD1 the curve (M7c, M7d); no centre (M7e dropped, 081g) |
 | 8 | Parameter hierarchy: entry rate dominates revenue, ceiling rate inert, steepness sets zone width, threshold sets scope | SWEEPS §3 to §7 | tornado, feasibility map | no entry in the manifest (both are in `metrics.md`) |
 | 9 | Payslip: care worker on 25,000 gains 3,480 a year; 618 a month at median earnings; purchasing power up 36% and 29% | LDW §2, §4.4; POL §5.3 | O4a, O4b | partly: shares yes; pounds per month and price pass-through are a view on O4b plus the incidence input |
 | 10 | CGT lock-in costs 141 to 143 basis points, the dominant welfare result; concentration and contribution envelope under heterogeneous returns | WFR §4.2, §4.3; WFR.A | welfare layer | no |

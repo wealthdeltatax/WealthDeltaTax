@@ -50,7 +50,7 @@ depends: [MECH, VAL]
 
 | Old paper | Sec | Section | Words | Disp | Model | Demands | Note |
 |---|---|---|---:|---|---|---|---|
-| 1_Wealth_Delta_Tax_Whitepaper (15078 words) | 3.8 | 3.8 Valuation Incentives and the Structure of the Problem | 496 | M | Y | O7,NEW:alpha-curve | model-implied behavioural centre alpha about 1.1; C.1 covers tolerance, not the centre [025w: S4 split: declaration incentives (VAL 7, VAL.A findings, VAL.B examples; map section 7)] |
+| 1_Wealth_Delta_Tax_Whitepaper (15078 words) | 3.8 | 3.8 Valuation Incentives and the Structure of the Problem | 496 | M | Y | O7,NEW:alpha-curve | the behavioural centre alpha about 1.1 is removed (author, 2026-11-20: model-implied, unsourced); C.1 covers tolerance and the curve [025w: S4 split: declaration incentives (VAL 7, VAL.A findings, VAL.B examples; map section 7)] |
 | 3b_Intellectual_Background (9707 words) | 9 | 9. Self-Assessment and Deterrence | 415 | M | N | - | valuation problem and self-assessment literature [025w: S4 split: declaration incentives (VAL 7, VAL.A findings, VAL.B examples; map section 7)] |
 | 5_Valuing_Wealth (17034 words) | 7.1 | 7.1 Declaration Strategy and the Rational Equilibrium | 2,037 | K | Y | O7,NEW:alpha-curve | declaration strategy, understatement, overstatement; results from the v1 simulation [025w: S4 split: declaration incentives (VAL 7, VAL.A findings, VAL.B examples; map section 7)] |
 | 5_Valuing_Wealth (17034 words) | 7.2 | 7.2 Understatement: Deferred Liability and Dilution | 625 | K | Y | O7,NEW:alpha-curve | declaration strategy, understatement, overstatement; results from the v1 simulation [025w: S4 split: declaration incentives (VAL 7, VAL.A findings, VAL.B examples; map section 7)] |

@@ -31,7 +31,7 @@ Columns: **Sec** old section number; **Words** old words in the row; **Disp**: K
 | 3.5 | 3.5 The Symmetric Loss-Refund Mechanism | 690 | K | MECH | N | - | tax base, unit, voluntary participation, symmetric refund, windows |
 | 3.6 | 3.6 Assessment Windows | 319 | K | MECH | N | - | tax base, unit, voluntary participation, symmetric refund, windows |
 | 3.7 | 3.7 Valuation Architecture | 357 | M | VAL | N | - | valuation architecture; duplicates VAL [025w: S4 split: valuation routes (VAL 1 to 6 and 9 to 12; map section 7)] |
-| 3.8 | 3.8 Valuation Incentives and the Structure of the Problem | 496 | M | DECL | Y | O7,NEW:alpha-curve | model-implied behavioural centre alpha about 1.1; C.1 covers tolerance, not the centre [025w: S4 split: declaration incentives (VAL 7, VAL.A findings, VAL.B examples; map section 7)] |
+| 3.8 | 3.8 Valuation Incentives and the Structure of the Problem | 496 | M | DECL | Y | O7,NEW:alpha-curve | the behavioural centre alpha about 1.1 is removed (author, 2026-11-20: model-implied, unsourced); C.1 covers tolerance and the curve [025w: S4 split: declaration incentives (VAL 7, VAL.A findings, VAL.B examples; map section 7)] |
 | 4 | 4. The Sovereign Wealth Fund | 155 | K | FUND | N | - | fund purpose and why it is structurally necessary |
 | 4.1 | 4.1 Why the Fund Is Structurally Necessary | 225 | K | FUND | N | - | fund purpose and why it is structurally necessary |
 | 4.2 | 4.2 Governance and Shared Interests | 407 | K | GOV | N | - | three-constituency governance |

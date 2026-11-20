@@ -260,20 +260,19 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 (function () {
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the V3 build as it lands" },
-    { id: "2", name: "Agent 2", note: "Guru: free (079g merged)" },
+    { id: "2", name: "Agent 2", note: "Guru: 081g (drop M7e)" },
     { id: "3", name: "Agent 3", note: "Code: 055c (range runner) once 053c lands" },
     { id: "4", name: "Agent 4", note: "Code: free now; 057c after 055c" },
     { id: "5", name: "Agent 5", note: "Code: 053c (burden and savings), underway" },
-    { id: "6", name: "Agent 6", note: "Research: 080r (declared-alpha evidence)" },
+    { id: "6", name: "Agent 6", note: "Writing: 082w (retract the alpha 1.1 claim)" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
   ];
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
     { id: "044c", lane: "G", at: 4, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }], why: "Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
-    { id: "080r", lane: "6", at: 0, len: 1, st: "ready", t: "Evidence for the declared-alpha distribution (M-3)", needs: [], why: "For a later run; the first run goes without M7e." },
     { id: "053c", lane: "5", at: 0, len: 1, st: "under", t: "Model v3 V3-8: burden and savings (built; rulings given, merge pending)", needs: [], why: "Burden and savings metrics." },
-    { id: "055c", lane: "3", at: 1, len: 1, st: "hold", t: "Model v3 V3-10: range runner (unblocked; build without M7e)", needs: [{ id: "053c" }], gate: 1, why: "Level 1 and 2 runs, sweeps, tornado, named schedules." },
+    { id: "055c", lane: "3", at: 1, len: 1, st: "hold", t: "Model v3 V3-10: range runner (unblocked; no M7e)", needs: [{ id: "053c" }], gate: 1, why: "Level 1 and 2 runs, sweeps, tornado, named schedules." },
     { id: "057c", lane: "4", at: 2, len: 1, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "055c" }], why: "run.py, smoke tests, accept.sh, convergence test." },
     { id: "009c", lane: "G", at: 3, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" }
   ];
