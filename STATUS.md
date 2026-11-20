@@ -1,6 +1,6 @@
 # Status board
 
-Maintained by the guru. Last updated 2026-11-20 (055c merged and retired; 083c to 089c written). Plan view: `docs/lane-plan.html`.
+Maintained by the guru. Last updated 2026-11-20 (055c merged and retired; 083c to 089c written and assigned). Plan view: `docs/lane-plan.html`.
 
 ## Where the project is
 The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. The design is retired (011g, 040g) and the build briefs are mostly landed: scaffold, pack, schedule and kernel, base, revenue (052c), burden and savings (053c), support metrics (054c) and the output layer are on `main`. The manifest no longer carries M7e (081g). 055c (range runner) is merged but finds no feasible schedule (F1 4 to 11% against 75%); 083c measures why before the author rules (089c waits on it). The runner builds only 8 of the manifest outputs: 084c fixes a group interface, then 085c to 088c add the other outputs in parallel; 057c follows. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
@@ -10,12 +10,12 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 |---|---|---|
 | Agent 1 (guru prime: writes and hands out briefs) | reviewing the V3 build as it lands | 055c and 057c next; stop points go to the author |
 | Agent 2 (guru) | 081g done | free; 085c (revenue outputs) after 084c |
-| Agent 3 (code) | 055c merged | 083c (F1 closure diagnostic), now; 089c after your ruling |
-| Agent 4 (code) | 052c done | 084c (runner groups), now; then 088c; 057c after the groups |
+| Agent 3 (code) | 055c merged; part used | 084c (runner groups, small), now; 089c after your ruling |
+| Agent 4 (code) | 052c done | 083c (F1 closure diagnostic), now; then 088c; 057c after the groups |
 | Agent 5 (research) | 053c done | free; 086c (burden outputs) after 084c |
 | Agent 6 (site) | 080r done | free; 087c (supporting outputs) after 084c |
 
-Six agents only. Agents 2 to 6 change skill with the brief. Ready now: 083c (Agent 3) and 084c (Agent 4). After 084c: 085c, 086c, 087c, 088c in parallel. Parked: 089c (OF1, CK1) until the author's ruling after 083c. Waiting: 057c (after the groups). Briefs 085c to 087c are code-lane briefs; the agents named in the lane plan open the code skill. Waiting: 057c (after 055c). Held: 044c (file layout move) and 009c (retire legacy models), both after 057c.
+Six agents only. Agents 2 to 6 change skill with the brief. Ready now: 083c (Agent 4) and 084c (Agent 3). After 084c: 085c, 086c, 087c, 088c in parallel. Parked: 089c (OF1, CK1) until the author's ruling after 083c. Waiting: 057c (after the groups). Briefs 085c to 087c are code-lane briefs; the agents named in the lane plan open the code skill. Waiting: 057c (after 055c). Held: 044c (file layout move) and 009c (retire legacy models), both after 057c.
 
 ## Recently done
 - 2026-11-20: 055c merged (`e4993a4`, rebased on `main`; the author asked for the merge; 201 model tests pass, line budgets met (266, 149, 135), diff inside Touches, N1 to N7, R3 and R10 met. Finding: no feasible schedule; short-window F1 4.0 to 11.2% at all 27 grid points against 75%, because relief after the fill falls below the retired receipts (on a constant 4.74% path relief goes 5.7 to 2.9% of GDP over 100 years against 4.74% retired, so CK1 P3 is 100.9 at amplitude 0) and `CLOSED` is 1e-9. Author chose to measure first: 083c (tolerance, retirement margin, constant path, CK1 window); 089c (OF1, CK1) is parked on the ruling. 055c built O1, O1a to O1c, O2, O3, O4a and O1f into Samples only; 084c (group interface, `payer_taxes` into `levers.json`) then 085c revenue, 086c burden, 087c support, 088c sweeps and pack assemble the other 32 ids (budgets for the new files are added to `architecture.md` 6.1 by 084c). CK1 row of `metrics.md` corrected: mu is I-D1a 4.74, not 4.42 (I-D1a2); 057c told. 055c retired; all 10 suites pass.
