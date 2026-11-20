@@ -28,3 +28,8 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Cost: a few minutes reading the tests to find the call.
 - Suggest: a brief for a one-off script should name the test fixture that builds the context (084c has since moved `payer_taxes` into `levers.json`).
 - Status: open (one entry)
+### 2026-11-20 · 085c · code
+- Instruction: brief 085c Touches; `tests/model_v3/test_groups.py` (084c, 092c) asserts every group is empty: `all(m.cells({}) == m.per_path(None, None, None) == {} ...)`
+- Happened: filling `out_revenue.py` made that assertion fail (`KeyError: 'M1e'`); test_groups.py is not in Touches
+- Cost: edited it outside Touches (the clause now covers groups with no IDS), so the merge rule "diff inside Touches" is not met
+- Suggest: briefs 086c to 088c name test_groups.py in Touches, or the test stops asserting emptiness of the filled groups
