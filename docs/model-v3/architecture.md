@@ -186,8 +186,8 @@ core/revenue.py                520    350
 core/burden.py                 430    250
 core/support.py                520    300
 runner/runner.py               360    150
-runner/sweeps.py               300    100
-runner/groups.py                20     60
+runner/sweeps.py               280    100
+runner/groups.py                40     60
 runner/out_revenue.py          150     80
 runner/out_burden.py           150     80
 runner/out_support.py          150     80
