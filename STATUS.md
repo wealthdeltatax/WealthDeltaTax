@@ -1,23 +1,24 @@
 # Status board
 
-Maintained by the guru. Last updated 2026-11-20 (081g merged and retired). Plan view: `docs/lane-plan.html`.
+Maintained by the guru. Last updated 2026-11-20 (055c reviewed; 083c written). Plan view: `docs/lane-plan.html`.
 
 ## Where the project is
-The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. The design is retired (011g, 040g) and the build briefs are mostly landed: scaffold, pack, schedule and kernel, base, revenue (052c), burden and savings (053c), support metrics (054c) and the output layer are on `main`. The manifest no longer carries M7e (081g). 055c (range runner, no M7e) is the next build brief; 057c (run script and acceptance) follows it. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
+The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. The design is retired (011g, 040g) and the build briefs are mostly landed: scaffold, pack, schedule and kernel, base, revenue (052c), burden and savings (053c), support metrics (054c) and the output layer are on `main`. The manifest no longer carries M7e (081g). 055c (range runner) is built and pushed but finds no feasible schedule (F1 4 to 11% against 75%); 083c measures why before the author rules; 057c follows. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
 
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime: writes and hands out briefs) | reviewing the V3 build as it lands | 055c and 057c next; stop points go to the author |
 | Agent 2 (guru) | 081g done | free |
-| Agent 3 (code) | 055c stopped, rightly; unblocked | 055c (range runner, no M7e), now |
+| Agent 3 (code) | 055c built, pushed, not merged (empty feasible region) | 083c (F1 closure diagnostic), now |
 | Agent 4 (code) | 052c done | free; 057c after 055c |
 | Agent 5 (research) | 053c done | free |
 | Agent 6 (site) | 080r done | free |
 
-Six agents only. Agents 2 to 6 change skill with the brief. Ready now: 055c (Agent 3). Waiting: 057c (after 055c). Held: 044c (file layout move) and 009c (retire legacy models), both after 057c.
+Six agents only. Agents 2 to 6 change skill with the brief. Ready now: 083c (Agent 3). 055c waits for the author's ruling after 083c. Waiting: 057c (after 055c). Held: 044c (file layout move) and 009c (retire legacy models), both after 057c.
 
 ## Recently done
+- 2026-11-20: 055c reviewed (`brief/055-runner` at `1a60781`, not merged): 201 model tests pass, line budgets met (266, 149, 135), diff inside Touches, N1 to N7, R3 and R10 met. Finding: no feasible schedule; short-window F1 4.0 to 11.2% at all 27 grid points against 75%, because relief after the fill falls below the retired receipts (on a constant 4.74% path relief goes 5.7 to 2.9% of GDP over 100 years against 4.74% retired, so CK1 P3 is 100.9 at amplitude 0) and `CLOSED` is 1e-9. Author chose to measure first: 083c (tolerance, retirement margin, constant path, CK1 window). Not assembled in 055c: O1d, OP*, OB1, O5 to O8, OL1, OH1*, DH1c and the support outputs (O7, OD1, OW*, OM1, OS1); a follow-up brief is needed before the writer. Guru fix pending: the CK1 row says mu is I-D1a (4.42%) but I-D1a is 4.74 and 4.42 is I-D1a2. `payer_taxes` belongs in `levers.json`.
 - 2026-11-20: 081g merged (`728b93b`) and retired: M7e dropped from OD1 and the metrics list (id kept as a dropped row, not reused); manifest `stage-A11-no-m7e-2026-11-20`; 46 metric ids still (M7e counts as dropped); fixture numbers shifted, three CK1 hooks pins re-set (P1 5.8, P3 2.20, P7b 3.70; the positional-fixture suggestion stays open); 10 of 10 suites pass. `registry/metrics.json` regenerated (added to Touches). 055c can now build without `modal_alpha`; `model_v3/core/support.py` still names M7e until 055c.
 - 2026-11-19: external agent plan (PR #1, kobrains) reviewed: not merged as a document (302 lines, restates rules). Adopted: path ownership table in `AGENTS.md`; briefs 075c (agent docs link and path checker), 076c (build `.skill` archives from the stubs), 077c (isolated test-suite orchestrator), all code lane, disjoint Touches, no dependencies. Not adopted: routing exclusions, five-item decision note, risk table, outcome metrics, deploy-gate rewrite (covered by existing rules). Author to close or keep PR #1.
 - 2026-11-19: 072g merged (register D4: I-D4i Pareto alpha 1.2/1.5/2.0, I-D4j Rich List entries 350, I-D4k and I-D4l tier cuts 1% and 10%; all `(J)`, pending at G3; register 291 rows, 107 (J); 84 data, 17 gate, 8 cards, 134 model, 67 hooks tests pass). 073c is released. v2 has no sweep of alpha, so 1.2 to 2.0 is a stated reason, not a v2 grid.
@@ -87,6 +88,7 @@ Six agents only. Agents 2 to 6 change skill with the brief. Ready now: 055c (Age
 See `OVERVIEW.md` section 6. Priority list carried over from `docs/todo.md`: citation button, CLOSE updates, PDF title page, WFR refactor, WP Appendix B forward links, internal bibliography to Zenodo v2.
 
 ## Waiting on the author
+- **Feasibility rule (after 083c):** 055c finds no schedule closes at 75% with zero tolerance. 083c reports tolerance and retirement-margin effects; you then rule on the rule (tolerance, a margin lever, closure share) and on CK1's window. 055c merges after that.
 - **G3 judgement rows:** the 107 `(J)` rows in `docs/model-v3/judgement-decisions.md` (register 291 rows) need decisions before the gate; no hurry until the model is built.
 - **M2 denominator:** terminal or start-of-year wealth (RATES 0.35% against M2). Entry in `docs/brief-suggestions.md`.
 - **Register mismatches:** I-D4a wealth to GDP 5.94 against the pack's 6.14; I-D4b implies 1.77 adults per household against I-D4h's 1.93 (16 and over). Both in `docs/brief-suggestions.md`; an ONS mid-2021 population-by-age upload would separate 16 and 17-year-olds.
