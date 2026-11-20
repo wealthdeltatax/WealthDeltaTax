@@ -35,6 +35,13 @@ For each id, map its metric to the `core/revenue.py` function that produces it a
 ## Out of scope
 Any other group; `runner.py`; the validator.
 
+## Guru rulings (2026-11-20, after the stop; manifest A12, brief 092c)
+Wait for 092c (group interface: `per_path(raw, env, again)`, `again(over, full=False)`) before the ids that need it; build **OP1, OP3, OP4 and OP6 now** (OP4 is the ratio only; the first year below zero is text, not a cell).
+1. **OB1:** read B1a to B1d with `again({}, full=True)` (the payer record is only kept there); lambdas come from `env.lam`.
+2. **O1d and OP5:** six taxes, names as the core: `corporation_tax, council_tax, business_rates, cgt, iht, stamp_duties` (manifest `by.per`). OP5's cell per tax is that tax's retirement year (a column of P5).
+3. **OR1:** P7a and P7b are single-horizon (manifest `horizons: [single]`): one value per path over all years after the fill, as `revenue()` returns them.
+4. Do not name taxes in `out_revenue.py` by hand: read them from the manifest `by.per` list (R11).
+
 ## Open questions
 None.
 

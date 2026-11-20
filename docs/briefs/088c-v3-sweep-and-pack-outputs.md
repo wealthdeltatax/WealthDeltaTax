@@ -31,6 +31,13 @@ This group differs from 085c to 087c: O1e and OT1 are level 2 and sweep results,
 ## Out of scope
 OF1, CK1 (089c); `runner.py`; the other groups.
 
+## Guru rulings (2026-11-20, after the stop; manifest A12, brief 092c)
+Your three proposed answers are accepted, with the manifest edit done (A12): DH1a is `by: {series: [wid_top1, wid_top10]}`, DH1b `by: {line: [the 16 pack lines]}`, both `once_not_per_schedule`, `horizons: [single]` (DH1a without wealth to GDP, DH1b without groups); OT1 is cells by input and headline per named schedule, point 0 with lo and hi the swings, `horizons: [single]`, `by.schedule` gone.
+1. **DH1a, DH1b:** a `static(env)` function in `out_sweeps` (092c adds the hook; schedule `None` cells). Read the pack with `env.pack`.
+2. **O1e and OT1:** plain functions `o1e(ev, specs, draws)` and `ot1(ev, specs, rows, read)` returning cells as `samples` does, called by the run script (057c); `per_path` and `cells` stay empty for the sweeps.
+3. **Schedules:** test on the 27 grid points with schedule labels given, until 089c names S_low, S_central and S_high.
+Wait for 092c before the code.
+
 ## Open questions
 None.
 

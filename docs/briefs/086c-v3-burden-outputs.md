@@ -35,6 +35,9 @@ For each id, map its metric to the `core/burden.py` function that produces it an
 ## Out of scope
 Any other group; `runner.py`; building the 053c limits.
 
+## Guru rulings (2026-11-20, after the stop; brief 092c)
+Your five ids stay. Wait for 092c: the signature becomes `per_path(raw, env, again)` with `env.ctx`, `env.theta`, `env.pack`; rebase onto main after it merges and build O5, O6, O8, OH1b, OH1b2, OH1c and DH1c from `env`. 092c changes the two `test_groups.py` pins you hit; do not edit them. O8 takes M1 in pounds per path from `raw.r` (check against the M1 headline). Note the manifest A12 does not change DH1c (still per schedule and horizon); say in your report if that looks wrong.
+
 ## Open questions
 None.
 

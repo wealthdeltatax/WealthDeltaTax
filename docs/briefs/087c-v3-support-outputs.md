@@ -37,6 +37,15 @@ For each id, map its metric to the `core/support.py` function that produces it a
 ## Out of scope
 Any other group; `runner.py`; `core/support.py`; M7e.
 
+## Guru rulings (2026-11-20, after the stop; manifest A12, brief 092c, register 091g)
+Wait for 092c (`per_path(raw, env, again)`, `env.ctx`, `env.theta`, `env.pack`, `env.rng(name)`) before writing code. Rulings on the five blockers:
+1. **VAT (M9, OM1):** `rate_spend` is the register row **I-T3q** (VAT standard rate, 20%, divide by 100); `spend` is the leaver's consumption (consumption share I-D14c times wealth, as the core defines it).
+2. **Reference holder (M7, O7, OD1):** `V0` is the register row **I-D14h** (£20m; `support.declaration_runs` takes pounds m).
+3. **Second asset (M14, OW2):** joint bootstrap of whole years of `housing_tr` and `bond_tr` from `returns.csv` (the same year for both), drawn with `env.rng('support')`; say in the report how many years and the resulting means.
+4. **Envelope record (M15a, OW3):** the group reruns the kernel itself with per-year capture (about 40 lines), inside its budget; `burden.py` is not edited.
+5. **S1, OS1:** call `core_run` with a changed `ctx` (`dataclasses.replace`) and the same paths and `theta`; take m2 and payer_count from `raw.base`.
+Certainty-equivalent outputs (OW1, OW2): your decision on chunks stands. If any of this does not hold when you read the code, stop and say which line.
+
 ## Open questions
 None.
 
