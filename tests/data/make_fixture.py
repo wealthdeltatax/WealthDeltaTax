@@ -3,7 +3,7 @@ make_fixture.py: write tests/data/fixtures/outputs.fixture.json.
 
 A fixture output data file covering every entry of docs/model-v3/outputs.yml
 (outputs and checks) with fake numbers, until the v3 model exists.  Brief 030c.
-The numbers are arithmetic on a counter, carry no meaning, and are the same on
+The numbers are a hash of the cell key, carry no meaning, and are the same on
 every run; ``run.fixture`` is true so no release build can take it for data.
 
     python tests/data/make_fixture.py            # rewrite the fixture
@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import zlib
 import json
 import sys
 from itertools import product
@@ -60,7 +61,6 @@ def build(manifest_path: Path = MANIFEST, inputs_path: Path = INPUTS) -> dict:
     schedules = list(manifest["schedules"])
     horizons_all = list(manifest.get("horizons") or ALL_WINDOWS)
     outputs: dict = {}
-    n = 0
     for e in list(manifest["outputs"]) + list(manifest.get("checks") or []):
         by = e.get("by")
         if isinstance(by, dict):
@@ -79,8 +79,8 @@ def build(manifest_path: Path = MANIFEST, inputs_path: Path = INPUTS) -> dict:
         for s, h, ln, combo in product(scheds, horizons, lines, list(product(*vocab)) if names else [()]):
             if ln is not None and h not in line_h.get(ln, horizons):
                 continue   # a line is reported only at its own horizons (manifest line_horizons)
-            n += 1
-            base = 1.0 + (n % 17) * 0.3
+            key = f"{e['id']}|{s}|{h}|{ln}|{combo}"   # keyed by cell, so adding an output never moves another's numbers
+            base = 1.0 + (zlib.crc32(key.encode()) % 17) * 0.3
             cell: dict = {}
             if s is not None:
                 cell["schedule"] = s

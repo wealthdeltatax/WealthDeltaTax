@@ -563,11 +563,8 @@
   },
   {
    "horizon_same_as": null,
-   "horizon_text": "short, long",
-   "horizons": [
-    "short",
-    "long"
-   ],
+   "horizon_text": "single (A12: all years after the fill, no window)",
+   "horizons": null,
    "id": "P7a",
    "name": "Reserve insolvency share",
    "section": "Supporting metrics",
@@ -580,11 +577,8 @@
   },
   {
    "horizon_same_as": null,
-   "horizon_text": "short, long",
-   "horizons": [
-    "short",
-    "long"
-   ],
+   "horizon_text": "single (A12: all years after the fill, no window)",
+   "horizons": null,
    "id": "P7b",
    "name": "Minimum cover",
    "section": "Supporting metrics",
@@ -692,11 +686,9 @@
   },
   {
    "horizon_same_as": null,
-   "horizon_text": "transition, short, long",
+   "horizon_text": "single (A12: M1, M2 and M4a at the short window, M3 single); cells by input and headline at each named schedule: point 0 (the central run), lo and hi the swings",
    "horizons": [
-    "transition",
-    "short",
-    "long"
+    "short"
    ],
    "id": "T1",
    "name": "Tornado swing",

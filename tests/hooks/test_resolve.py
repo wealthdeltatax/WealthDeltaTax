@@ -10,7 +10,7 @@ def test_hooks_in_code_spans_and_fences_are_ignored(run):
 
 
 def test_ids_the_old_regex_missed_are_recognised(run):
-    r = run("{{o:DH1a}} {{o:OH1b2}}", spoke="HUB")
+    r = run("{{o:DH1a#series:wid_top1}} {{o:OH1b2}}", spoke="HUB")
     assert not r["errors"] and r["counts"]["resolved"] == 2
     r = run("{{o:CK1:P1.point#amplitude:A1}}", spoke="FALS")
     # brief 065g: CK1 declares lines P1, P3, P7b, so it resolves like OW3
@@ -32,7 +32,7 @@ def test_draft_and_release_for_the_same_input(run, make, doc):
     body = "{{o:O2}} {{o:O2#wealth_band:D10}}"
     d = run(body, ctx=make("draft", doc))
     assert d["counts"] == {"resolved": 1, "placeholder": 1, "error": 0} and not d["errors"]
-    assert "5.50%" in d["text"] and "[[O2.mean@S_central/short#wealth_band:D10]]" in d["text"]
+    assert "4.00%" in d["text"] and "[[O2.mean@S_central/short#wealth_band:D10]]" in d["text"]
     r = run(body, "release", ctx=make("release", doc))
     assert codes(r) == ["H11"] and r["counts"]["error"] == 1
 

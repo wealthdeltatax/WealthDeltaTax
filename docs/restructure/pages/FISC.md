@@ -43,7 +43,7 @@ depends: [MECH, VAL]
 | O6 | M6 | Burden against today's income tax, CGT and IHT | comparison | FISC, PAY, FALS |
 | O7 | M7 | Tolerant zone (C.1 over TW(1)) | supporting | H5, DECL, FISC |
 | OP1 | P1 | Reserve fill years | path | FISC, FUND, POL |
-| OP4 | P4 | Sustainability: long-term over short-term revenue, and first year below zero | path | FISC, FUND |
+| OP4 | P4 | Sustainability: long-term over short-term revenue | path | FISC, FUND |
 | O8 | M8 | Reform-in-place benchmark (same revenue, same people) | comparison | H5, FISC |
 | OB1 | B1 | Payers, entries, exits and fall-through refund volume, by threshold | supporting | MECH, FISC, UNCER |
 | OR1 | P7 | Reserve solvency: share of paths where the long reserve reaches zero, and minimum cover | path | FISC, POL |

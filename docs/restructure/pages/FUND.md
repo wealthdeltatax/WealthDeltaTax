@@ -34,7 +34,7 @@ depends: [MECH, FISC, GOV]
 | O4a | M4a | Non-payer savings, share of tax bill | headline | H0, H3, PAY, FUND, FIRST, HYPO |
 | O4b | M4b | Non-payer savings, share of income | headline | H3, PAY, FUND, FIRST |
 | OP1 | P1 | Reserve fill years | path | FISC, FUND, POL |
-| OP4 | P4 | Sustainability: long-term over short-term revenue, and first year below zero | path | FISC, FUND |
+| OP4 | P4 | Sustainability: long-term over short-term revenue | path | FISC, FUND |
 | OP5 | P5 | Year each retired tax is retired | path | FUND, POL |
 | OP3 | P3 | Cumulative shortfall (proof of staged retirement) | path | FUND, POL |
 | OP6 | P6 | Public wealth path (fund assets, % of GDP at years 10, 25, 50, 100) | path | FUND, HYPO |

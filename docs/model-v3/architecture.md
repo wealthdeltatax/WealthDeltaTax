@@ -286,6 +286,9 @@ The manifest is out of scope here. These are what stage V3-0 edits once approved
 | A5 | Feasibility rule constants (cap on M2, floor on M4a, closure share) as manifest fields | choice rule of the named schedules needs them |
 | A6 | G2 reads `run.pack_sha256` and `run.levers_sha256` as well as `inputs_sha256` | `country-pack.md` section 5 |
 | A7 | The hooks.md id regex matches DH1a to c, OH1b2 and CK1 | ruling 3 (next resolver brief) |
+| A8 | O2d with-death burden (M2d) | 079g |
+| A9 | M7e dropped | 081g |
+| A12 | Output groups (2026-11-20, `stage-A12-group-outputs-2026-11-20`): O1d and OP5 carry six taxes named as the core (`cgt`, `iht`, `stamp_duties`); OP4 is the ratio only; OR1 and its lines are single-horizon; DH1a (`series`) and DH1b (`line`) are once-not-per-schedule single cells, DH1a without wealth to GDP and DH1b without groups; OT1 is cells by input and headline per named schedule, point 0 with the low and high swings, single horizon | the four stopped group briefs 085c to 088c (091g) |
 
 ### 8.2 `model_v1/` and `model_v2/` (brief 009c stays parked)
 v3 never imports, runs or reads either folder, and no v3 test does. They are not touched by any build stage.

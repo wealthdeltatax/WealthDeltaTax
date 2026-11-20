@@ -33,8 +33,8 @@ Not a spoke: the spoke front matter of `template.md` section 2 does not apply to
 | OH1b | M3 | Lifetime rate on gains under today's taxes (M3-today and M3-all-tax) for payers | problem | H1 |
 | OH1b2 | M11 | Median worker's average income tax and NICs rate | problem | H1 |
 | OH1c | M12 | Share of lifetime gains that escape tax today, by cause | problem | H1 |
-| DH1a |  | UK wealth shares and wealth to GDP, now and over time | data_fact | H1 |
-| DH1b |  | UK tax mix by head and by group | data_fact | H1 |
+| DH1a |  | UK top wealth shares, latest year with its range | data_fact | H1 |
+| DH1b |  | UK tax receipts by line | data_fact | H1 |
 | DH1c |  | Tax bill of non-payers by income decile | data_fact | H1, PAY |
 | OD1 | M7 | Declaration curve across alpha (C.1 over TW(1), refund protection lost) | supporting | H5, DECL |
 
