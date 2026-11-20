@@ -39,11 +39,27 @@ Ask rather than guess: if the evidence is only from outside the UK and the autho
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** note `docs/research/080r-declared-alpha-evidence.md`: 14 sources with quantity, number, sample, year (Sweden, Colombia, Switzerland, Norway, UK IHT gap and valuation scrutiny, UK and US valuation noise, euro-area owner reports); four searched and not usable; proposed rows P1 to P5 (table only, (J) marked); effect on OD1 stated.
+- **Next:** author answers the two open questions in section 5 of the note (use of foreign evidence; I-D5d wording). The guru then decides whether to propose register rows.
+- **Decisions:** parametric mixture proposed over support-and-weights (eight bin weights would have no source). P2 is the existing I-D5d, so no new row. P5 (overstatement for refund protection) has no evidence and no value is proposed.
+- **Gotchas:** no source measures the distribution; no UK measurement of alpha. Seim's understater share is 75 to 80% in the held S13 and 75 to 85% in the fetched Seim text; not reconciled. Most sources were read through the fetch tool (shell cannot reach sites), so page numbers are unchecked except S13. On the OD1 grid M7e reads 1.00 for any centre 0.875 to 1.125.
+- **Resume:** n/a
+- **Not run:** primary PDFs of Seim, Londoño-Vélez and Ávila-Mahecha, SSB, ECB, MSCI not opened directly.
+- **State:** note written; branch pushed; not merged (open question for the author)
 <!-- progress:end -->
+
+```
+Change report
+- Task: 080r, evidence on declared value against true value (M-3)
+- Files changed: docs/research/080r-declared-alpha-evidence.md (new, the research note); docs/briefs/080r-declared-alpha-evidence.md (progress block and this report)
+- What is different now: the repo has a sourced answer to M-3: no distribution exists; the nearest evidence, a mixture form and rows P1 to P5 for the guru to propose
+- New or changed interfaces: none
+- Acceptance criteria: sources listed with quantity, number, sample, year: met (14 sources, 4 not usable). Proposed-rows table with (J) marked: met (P1 to P5). git diff --stat limited to Touches: met (two files)
+- Deviations from the brief: none. Not merged: the brief's open-question rule applies (evidence outside the UK); two questions in section 5 of the note
+- Risks / follow-ups: most page numbers are from the fetch tool, not opened PDFs; Seim 75 to 80% (held) against 75 to 85% (fetched) unreconciled; M7e reads 1.00 on the OD1 grid for any centre 0.875 to 1.125 (for the guru)
+- Instruction friction: none
+- Verification: python pipeline/run_suites.py, 10 of 10 suites passed (layout skipped 40); figures in the note checked against held S13 (Seim 75 to 80%, Colombia 22% and 35%, Swiss half-elasticity, valuation range); route shares checked against I-D13a to I-D13d and kernel `declare`
+- Overview sections likely needing an update: none
+- Commit / branch: brief/080-declared-alpha-evidence (see push)
+```
+
