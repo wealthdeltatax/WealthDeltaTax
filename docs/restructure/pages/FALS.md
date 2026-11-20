@@ -10,7 +10,7 @@ spoke: FALS
 question: ""            # blank: the writer and author set it
 status: draft
 budget: {cap: 6000}
-outputs: [O2, O5, O6]   # the set of outputs.yml entries that list FALS
+outputs: [O2, O2d, O5, O6]   # the set of outputs.yml entries that list FALS
 inputs: []             # fixed at drafting from the families below (hooks.md Q7: ids)
 depends: [FISC, PAY, WELF, UNCER, LIMIT]
 ---
@@ -29,7 +29,8 @@ depends: [FISC, PAY, WELF, UNCER, LIMIT]
 
 | Id | Metric | Title | Kind | Element (all pages) |
 |---|---|---|---|---|
-| O2 | M2 | Taxpayer burden, share of wealth | headline | H0, H3, FISC, PAY, FALS |
+| O2 | M2 | Taxpayer burden in life, share of wealth | headline | H0, H3, FISC, PAY, FALS |
+| O2d | M2d | Taxpayer burden including settlement at death, share of wealth | headline | H0, H3, FISC, PAY, FALS |
 | O5 | M5 | Burden against suggested wealth taxes | comparison | FISC, PAY, FALS |
 | O6 | M6 | Burden against today's income tax, CGT and IHT | comparison | FISC, PAY, FALS |
 

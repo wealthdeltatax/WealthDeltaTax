@@ -20,7 +20,7 @@ def partial(tmp_path, doc):
 def test_resolve_draft_gives_placeholders_for_missing_cells_and_numbers_for_the_rest(tmp_path, doc):
     r = cli("resolve", FX / "pay.md", "--data", partial(tmp_path, doc), "--fixture")
     assert r.returncode == 0, r.stderr
-    assert "[[O2.range@S_central/short#wealth_band:D10]]" in r.stdout and "3.10% over a lifetime" in r.stdout
+    assert "[[O2.range@S_central/short#wealth_band:D10]]" in r.stdout and "1.30% over a lifetime" in r.stdout
 
 
 def test_resolve_release_fails_on_every_placeholder(tmp_path, doc):

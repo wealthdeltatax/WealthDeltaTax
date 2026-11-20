@@ -4,7 +4,7 @@
 
 ## Front matter skeleton
 
-Not a spoke: the spoke front matter of `template.md` section 2 does not apply to this unit. Outputs listing it in `outputs.yml`: O1, O1a, O1b, O2, O3, O4a, O4b, O7, O8, OS1, OH1b, OH1b2, OH1c, DH1a, DH1b, DH1c, OD1.
+Not a spoke: the spoke front matter of `template.md` section 2 does not apply to this unit. Outputs listing it in `outputs.yml`: O1, O1a, O1b, O2, O2d, O3, O4a, O4b, O7, O8, OS1, OH1b, OH1b2, OH1c, DH1a, DH1b, DH1c, OD1.
 
 ## Neighbours (`order.md` sections 2 and 3)
 
@@ -22,7 +22,8 @@ Not a spoke: the spoke front matter of `template.md` section 2 does not apply to
 | O1 | M1 | Government revenue, net fiscal effect | headline | H0, H3, FISC, POL, HYPO |
 | O1a | M1a | Individual WDT net of refunds | line | H3, FISC |
 | O1b | M1b | Corporate levy (own line) | line | H3, FISC, CORP, UNCER |
-| O2 | M2 | Taxpayer burden, share of wealth | headline | H0, H3, FISC, PAY, FALS |
+| O2 | M2 | Taxpayer burden in life, share of wealth | headline | H0, H3, FISC, PAY, FALS |
+| O2d | M2d | Taxpayer burden including settlement at death, share of wealth | headline | H0, H3, FISC, PAY, FALS |
 | O3 | M3 | Taxpayer burden, gain-weighted lifetime rate | headline | H3, FISC, PAY |
 | O4a | M4a | Non-payer savings, share of tax bill | headline | H0, H3, PAY, FUND, FIRST, HYPO |
 | O4b | M4b | Non-payer savings, share of income | headline | H3, PAY, FUND, FIRST |

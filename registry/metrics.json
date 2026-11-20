@@ -1,5 +1,5 @@
 {
- "count": 45,
+ "count": 46,
  "metrics": [
   {
    "horizon_same_as": null,
@@ -79,7 +79,25 @@
     "long"
    ],
    "id": "M2",
-   "name": "Taxpayer burden, share of wealth",
+   "name": "Taxpayer burden in life, share of wealth",
+   "section": "Headline metrics",
+   "status": "active",
+   "unit_tags": [
+    "pct_per_year"
+   ],
+   "unit_text": "% per year",
+   "unit_unmapped": []
+  },
+  {
+   "horizon_same_as": null,
+   "horizon_text": "transition, short and long",
+   "horizons": [
+    "transition",
+    "short",
+    "long"
+   ],
+   "id": "M2d",
+   "name": "Taxpayer burden including settlement at death, share of wealth",
    "section": "Headline metrics",
    "status": "active",
    "unit_tags": [

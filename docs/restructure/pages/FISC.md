@@ -10,7 +10,7 @@ spoke: FISC
 question: ""            # blank: the writer and author set it
 status: draft
 budget: {cap: 6000}
-outputs: [O1, O1a, O1b, O1c, O1d, O1e, O1f, O2, O3, O5, O6, O7, OP1, OP4, O8, OB1, OR1, OF1, OT1]   # the set of outputs.yml entries that list FISC
+outputs: [O1, O1a, O1b, O1c, O1d, O1e, O1f, O2, O2d, O3, O5, O6, O7, OP1, OP4, O8, OB1, OR1, OF1, OT1]   # the set of outputs.yml entries that list FISC
 inputs: []             # fixed at drafting from the families below (hooks.md Q7: ids)
 depends: [MECH, VAL]
 ---
@@ -36,7 +36,8 @@ depends: [MECH, VAL]
 | O1d | M1e | Receipts of retired taxes, one line per tax | line | FISC, FUND, UNCER |
 | O1e | M1f | Break-even mean return: the return at which net revenue is zero | supporting | FISC, UNCER |
 | O1f | M1g | Share of paths with negative net revenue | supporting | FISC, UNCER |
-| O2 | M2 | Taxpayer burden, share of wealth | headline | H0, H3, FISC, PAY, FALS |
+| O2 | M2 | Taxpayer burden in life, share of wealth | headline | H0, H3, FISC, PAY, FALS |
+| O2d | M2d | Taxpayer burden including settlement at death, share of wealth | headline | H0, H3, FISC, PAY, FALS |
 | O3 | M3 | Taxpayer burden, gain-weighted lifetime rate | headline | H3, FISC, PAY |
 | O5 | M5 | Burden against suggested wealth taxes | comparison | FISC, PAY, FALS |
 | O6 | M6 | Burden against today's income tax, CGT and IHT | comparison | FISC, PAY, FALS |

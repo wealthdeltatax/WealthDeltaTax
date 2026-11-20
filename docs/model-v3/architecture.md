@@ -82,7 +82,7 @@ Each entry: purpose, inputs, outputs (and the manifest ids it produces), the C1 
 
 ### 2.6 `core/burden.py`: burden and savings (430 lines)
 - **Does.** M2 (burden as a share of wealth, revenue-weighted, start-of-year wealth denominator), M2b and M2c (cash-flow burden against income and liquid assets, at the cutoffs of the manifest), M3 (gain-weighted lifetime rate, G = 30), M4a and M4b (non-payer savings by income decile, including the retired taxes they pay), M4c (pounds per month for a reference worker), M5 and M6 (comparators from the pack: suggested wealth taxes, income tax, CGT and IHT), M8 (reform in place at the same revenue and the same people), M11, M12 (today's lifetime rate and the share of gains that escape tax). The decile table of the pack is the denominator of DH1c.
-- **Ids.** `O2, O3, O2b, O2c, O4a, O4b, O5, O6, O8, OL1, OH1b, OH1b2, OH1c, DH1c`.
+- **Ids.** `O2, O2d, O3, O2b, O2c, O4a, O4b, O5, O6, O8, OL1, OH1b, OH1b2, OH1c, DH1c`.
 - **Imports.** `pack`, `base`, `schedule`, `kernel`, `revenue`.
 
 ### 2.7 `core/support.py`: supporting metrics (520 lines)
@@ -109,7 +109,7 @@ Each entry: purpose, inputs, outputs (and the manifest ids it produces), the C1 
 |---|---|
 | `core/pack.py` | DH1a, DH1b |
 | `core/revenue.py` | O1, O1a, O1b, O1c, O1d, OP1, OP3, OP4, OP5, OP6, OR1, OB1 |
-| `core/burden.py` | O2, O3, O2b, O2c, O4a, O4b, O5, O6, O8, OL1, OH1b, OH1b2, OH1c, DH1c |
+| `core/burden.py` | O2, O2d, O3, O2b, O2c, O4a, O4b, O5, O6, O8, OL1, OH1b, OH1b2, OH1c, DH1c |
 | `core/support.py` | O7, OD1, OW1, OW2, OW3, OM1, OS1 |
 | `runner/sweeps.py` | O1e, O1f, OF1, OT1, CK1 |
 

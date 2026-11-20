@@ -2,7 +2,7 @@
 # One entry per output. Papers cite the id. An output with no whitepaper element does not exist (R1).
 # element: hub sections (H0 to H7) and the spoke shortcodes of docs/restructure/shortcodes.md (FAIR, LIT, MECH, VAL, DECL, FISC, PAY, BEHAV, WELF, FUND, CORP, ATTR, GOV, POL, FIRST, WIDER, UNCER, LIMIT, FALS, and the split pages ADOPT, PILOT, HYPO) that cite the output; filled in brief 013g stage B, proposed until the author approves the stage.
 # summary: how the output is reported. p10_mean_p90 = sampled range (R5).
-version: "stage-A9-ck1-lines-2026-11-19"
+version: "stage-A10-o2d-2026-11-20"
 country_pack: UK
 horizons: [transition, short, long]   # every headline and line is reported for all three; long is a steady-state property, not a forecast
 schedules: [S_low, S_central, S_high]   # named policy schedules, swept not sampled; headline outputs are reported for each (metrics.md, range design)
@@ -31,7 +31,8 @@ outputs:
   - {id: O1d,  metric: M1e, title: "Receipts of retired taxes, one line per tax", summary: p10_mean_p90, by: {per: [corporation_tax, council_tax, business_rates, capital_gains_tax, inheritance_tax, stamp_duties_property, stamp_taxes_shares]}, unit: pct_gdp, decimals: 2, element: [FISC, FUND, UNCER], kind: line}
   - {id: O1e,  metric: M1f, title: "Break-even mean return: the return at which net revenue is zero", summary: point_and_range, unit: pct_per_year, decimals: 2, horizons: [single], element: [FISC, UNCER], kind: supporting}
   - {id: O1f,  metric: M1g, title: "Share of paths with negative net revenue", summary: p10_mean_p90, unit: pct, decimals: 0, element: [FISC, UNCER], kind: supporting}
-  - {id: O2,   metric: M2,  title: "Taxpayer burden, share of wealth",            summary: p10_mean_p90, by: {wealth_band: [overall, D4_5, D6_7, D8_9, D10]}, unit: pct_per_year, decimals: 2, element: [H0, H3, FISC, PAY, FALS], kind: headline}
+  - {id: O2,   metric: M2,  title: "Taxpayer burden in life, share of wealth",    summary: p10_mean_p90, by: {wealth_band: [overall, D4_5, D6_7, D8_9, D10]}, unit: pct_per_year, decimals: 2, element: [H0, H3, FISC, PAY, FALS], kind: headline}
+  - {id: O2d,  metric: M2d, title: "Taxpayer burden including settlement at death, share of wealth", summary: p10_mean_p90, by: {wealth_band: [overall, D4_5, D6_7, D8_9, D10]}, unit: pct_per_year, decimals: 2, element: [H0, H3, FISC, PAY, FALS], kind: headline}
   - {id: O3,   metric: M3,  title: "Taxpayer burden, gain-weighted lifetime rate", summary: p10_mean_p90, unit: pct, decimals: 2, horizons: [single], element: [H3, FISC, PAY], kind: headline}
   - {id: O4a,  metric: M4a, title: "Non-payer savings, share of tax bill",        summary: p10_mean_p90, by: {income_decile: [overall, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10]}, unit: pct, decimals: 1, element: [H0, H3, PAY, FUND, FIRST, HYPO], kind: headline}
   - {id: O4b,  metric: M4b, title: "Non-payer savings, share of income",          summary: p10_mean_p90, by: {income_decile: [overall, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10]}, unit: pct, decimals: 1, element: [H3, PAY, FUND, FIRST], kind: headline}

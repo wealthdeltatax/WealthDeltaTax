@@ -10,7 +10,7 @@ spoke: PAY
 question: ""            # blank: the writer and author set it
 status: draft
 budget: {cap: 6000}
-outputs: [O2, O3, O4a, O4b, O5, O6, O2b, O2c, DH1c, OL1]   # the set of outputs.yml entries that list PAY
+outputs: [O2, O2d, O3, O4a, O4b, O5, O6, O2b, O2c, DH1c, OL1]   # the set of outputs.yml entries that list PAY
 inputs: []             # fixed at drafting from the families below (hooks.md Q7: ids)
 depends: [MECH, FISC]
 ---
@@ -29,7 +29,8 @@ depends: [MECH, FISC]
 
 | Id | Metric | Title | Kind | Element (all pages) |
 |---|---|---|---|---|
-| O2 | M2 | Taxpayer burden, share of wealth | headline | H0, H3, FISC, PAY, FALS |
+| O2 | M2 | Taxpayer burden in life, share of wealth | headline | H0, H3, FISC, PAY, FALS |
+| O2d | M2d | Taxpayer burden including settlement at death, share of wealth | headline | H0, H3, FISC, PAY, FALS |
 | O3 | M3 | Taxpayer burden, gain-weighted lifetime rate | headline | H3, FISC, PAY |
 | O4a | M4a | Non-payer savings, share of tax bill | headline | H0, H3, PAY, FUND, FIRST, HYPO |
 | O4b | M4b | Non-payer savings, share of income | headline | H3, PAY, FUND, FIRST |

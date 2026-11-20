@@ -1,6 +1,6 @@
 # 079: Add the output for M2 including death flows (O2d) to the manifest
 
-- **Status:** ready
+- **Status:** done, merged 2026-11-20
 - **Author/date:** K. Ogata with the guru, 2026-11-20
 - **Depends on:** none (053c's code change is separate and does not touch these files)
 - **Read:** `docs/model-v3/outputs.yml` entries O2 and O2b; `docs/model-v3/metrics.md` rows M2 and M5 and the section "Closed on 2026-11-20 (author)" (merged with this brief); the 053c change report (`git show origin/brief/053-burden:docs/briefs/053c-v3-8-burden-and-savings.md`, Risks 1); `docs/archive/briefs/065g-ck1-lines.md` and `045g-*.md` (how a manifest amendment was done: version string, validator, pins, cards); `pipeline/validate_outputs.py`; `docs/restructure/site/hooks.md` 3.2.
@@ -37,11 +37,11 @@ None. Ask rather than guess if the manifest's form for M5 cannot carry a second 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** O2d added after O2 (same `by`, summary, unit, decimals, element, kind headline); O2 retitled "in life"; manifest version `stage-A10-o2d-2026-11-20`; metrics.md M2 reworded in life and a new M2d row (46 metrics); cards, metrics.json and fixture regenerated; all ten suites pass (`run_suites.py`), validator PASS in fixture mode.
+- **Next:** 053c's writer and runner read O2d later (V3-10, V3-11). The author decides whether M5 gets a with-death line (below).
+- **Decisions:** M5 NOT changed. Manifest form allows `lines` (OF1, O1), but O5 has none: adding `lines: [M5, M5d]` puts a `line` field on every O5 cell, needs an M5d metric row, and changes what the hooks resolve for O5. Decision for the author: add it in a separate brief, or leave M5 in life only.
+- **Gotchas:** fixture fake numbers are positional, so inserting O2d shifted later numbers; five hooks pins re-pinned (CK1 P1 2.8, P3 4.30, P7b 5.80; O3 1.30). Logged in brief-suggestions. O2d listed in the fixture spokes `pay.md` and `fisc.md` (R1r needs a hook cite per element). Beyond Touches, needed: `architecture.md` 2.6 ids and the 2.10 module table (test W7 reads it), and the metric-count pin 45 to 46.
+- **Resume:** merged.
+- **Not run:** site build (nothing wired).
+- **State:** done
 <!-- progress:end -->
