@@ -57,11 +57,30 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** six of seven ids in Samples: O7, OD1, OW1, OW2, OW3, OM1 (`out_support.py` 113 lines, `test_out_support.py` 62). Cell counts: O7 1, OD1 16, OW1 20, OW2 9, OW3 20 (M15a 5 bands x 3 horizons, M15b transition only), OM1 9. `pytest tests/model_v3 -q`: 212 passed.
+- **Next:** OS1 (S1), needs the guru (see Gotchas). Then add `OS1` to `IDS`/`cells` and the brief can merge.
+- **Decisions:** O7 cell = [1.0, mean zone lo, mean zone hi]; OD1/others with p10_mean_p90 keep the per-path array, point_and_range ids = [mean, P10, P90]; OD1 = [mean, P10, P90] over paths; OW3 `entry_year` = 'value_per_cohort'; M15b N = I-D14e years; envelope rerun has one death phase (deaths every G years); X uses household income I-D9d per leaver and spend = I-D14c x mean payer wealth; CE values are one per chunk, repeated over its paths; a band with no payer at launch (D4_5, wealth under w_min) is nan, as in O2 (assemble treats non-finite as an error in a final run: guru to confirm nan vs 0).
+- **Gotchas:** (1) Ruling 5 cannot be followed: `core_run` lives in `runner.py` (L4), `out_support` is L3.5 and may not import it (R4, no lazy imports); `again` only overrides the spec, not the base. Options: a ~12-line duplicate core rerun in the group (needs line budget), or a core-run hook in the group interface. OS1 left out of `IDS`. (2) `test_groups.py` asserted every group's `per_path(None, None, None) == {}`; now guarded for groups with ids (outside Touches). (3) `bd._groups` is private to burden; used for the same band masks.
+- **Resume:** branch `brief/087-support-outputs`; add OS1 after the ruling.
+- **Not run:** the named S_central (sweep) schedule; used the grid-centre spec (tau_0 .04, tau_m .9, k_ln 1, ratio .5), synthetic paths, 1,000 paths.
+- **State:** blocked on OS1; six ids done
 <!-- progress:end -->
+
+### Early-check bounds and bootstrap (grid-centre spec, 1,000 paths)
+- O7 tolerant zone [0.860, 1.147] contains alpha 1.0 (OD1 M7c at alpha 1.0 is 0).
+- Second asset: 117 usable consecutive years of `housing_tr` and `bond_tr` in the GBR returns table; drawn jointly with `env.rng('support')`; real arithmetic means 5.4% (housing) and 1.8% (bond) on a 20 x 1,000 draw.
+- OM1 on synthetic paths: X about 2.0 per cent of GDP-window, M9 = M1 - X exactly.
+- M7e mentions left in `core/support.py` (not edited): module docstring line 7 ("M7c to M7e"), line 35, and `modal_alpha` (lines 77-78, "supporting.md M-3").
+
+Change report
+- Task: brief 087c, v3 support outputs
+- Files changed: `model_v3/runner/out_support.py` (six ids filled); `tests/model_v3/test_out_support.py` (new); `tests/model_v3/test_groups.py` (empty-group assertion guarded, outside Touches); this brief; `docs/agents/friction-log.md`
+- What is different now: Samples carries O7, OD1, OW1, OW2, OW3, OM1 per schedule/horizon/by.
+- New or changed interfaces: none (group interface of 092c unchanged)
+- Acceptance criteria: one cell per vocabulary value met for six ids; OS1 not met (layer rule); O7 zone contains 1.0 met; line budgets met (113 <= 150, 62 <= 80); `pytest tests/model_v3 -q` 212 passed; `git diff --stat` within Touches except test_groups.py
+- Deviations from the brief: ruling 5 not followed (impossible under R4); OS1 omitted
+- Risks / follow-ups: guru to rule on OS1 route and on nan for payer-less bands; U-shape of assemble on non-finite values
+- Instruction friction: one entry added to the friction log
+- Verification: full model_v3 suite; early-check measured; named S_central not run
+- Overview sections likely needing an update: none
+- Commit / branch: see git log, `brief/087-support-outputs` (not merged: NEEDS THE GURU)

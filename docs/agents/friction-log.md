@@ -44,3 +44,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Cost: built five of twelve ids, stopped on seven (the brief's own stop rule).
 - Suggest: the guru widens the group interface (`per_path(raw, again, ctx, theta)` or `Raw` carrying `ctx` and `theta`, an edit to `runner.py`) and loosens the two 084c tests to "IDS in the manifest".
 - Status: resolved (092c added `env`; 086c rulings 2 fixed the rest)
+### 2026-11-20 · brief 087c · code
+- Instruction: brief 087c ruling 5 (S1 via `core_run` with a replaced ctx) and the 092c group interface
+- Happened: `core_run` is in runner.py (L4), out_support is L3.5 (R4), and `again` overrides only the spec; the group also gets no ctx or rng except through `env`; `test_groups.py` asserted empty per_path for every group
+- Cost: stopped on OS1; one test edit outside Touches
+- Suggest: give the group interface a core-run hook (or move `core_run` below L3.5); briefs that fill a group name the test_groups assertion
+- Status: open (one entry)
