@@ -40,11 +40,24 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** wrote `docs/research/093r-consumption-depletion-evidence.md`. Audit: I-D14c is v2 plan decision D16 (1 Oct, user-set, steady-state device, c 2 to 5%, baseline 3.5%, set against nominal returns), applied uniformly, no empirical source. Evidence: no UK net depletion rate by band; aggregate saving positive (ratio 9.5% in 2024, about 1.6% of net worth, my arithmetic), kernel-equivalent aggregate c at most about 3.0%; ELSA net financial wealth ages 70+ down 1.8% a year (2.4% wealthier half, 0.7% poorer half, total change). Reading: below 3.5% in aggregate, about equal or above for retired financial wealth, unmeasured by band; low to moderate confidence.
+- **Next:** guru checks each cited number against its source (all read via fetch summaries, page numbers not checked); author rules on the three open questions in section 7 of the note.
+- **Decisions:** no band rates entered in the table (no data support one); aggregate row uses an income-yield assumption marked (J); rows proposed in the note only, no `inputs-added` file (080r form).
+- **Gotchas:** the brief's hypothesis path differs from the file (`household-consumption-and-wealth-replenishment.md`); `docs/agents/research.md` names `reference/research/` but the files are in `docs/agents/reference/research/`; register cites `WDT_Params.toml` line 714 for `c`, actual line 711.
+- **Resume:** n/a
+- **Not run:** no checks named by the brief; numbers not yet checked against primary PDFs.
+- **State:** done on branch `brief/093-consumption-depletion-evidence`; not merged, NEEDS THE AUTHOR
 <!-- progress:end -->
+
+### Change report
+- Task: brief 093r, evidence for I-D14c (tests A and C)
+- Files changed: `docs/research/093r-consumption-depletion-evidence.md` (new research note); this brief's progress block; `docs/agents/friction-log.md` (one entry, two wrong paths)
+- What is different now: the repository has an audit of I-D14c's origin and a sourced statement of what UK data do and do not bound
+- New or changed interfaces: none
+- Acceptance criteria: audit names the origin (D16, 1 Oct), each source has quantity, number, sample, year and definitions: met. Item 4 table present with (J) marked and the gap to 3.5% stated, item 5 reading stated with confidence: met, with no band rates because no data support one. Saving, revaluation and transfers kept apart or the mix named for every figure: met. `git diff --stat` limited to Touches: met
+- Deviations from the brief: none; hypothesis file opened under its actual name
+- Risks / follow-ups: all numbers read through fetch summaries, so the guru's number check matters; ELSA figure is a total change and needs an assumed return to become a kernel c; aggregate row depends on an unsourced income yield
+- Instruction friction: one entry added to `docs/agents/friction-log.md` (two wrong paths)
+- Verification: no checks named; arithmetic in section 3.2 recomputed by hand; nothing else run
+- Overview sections likely needing an update: none
+- Commit / branch: see final message, `brief/093-consumption-depletion-evidence`

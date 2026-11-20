@@ -51,3 +51,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Cost: stopped on OS1; one test edit outside Touches
 - Suggest: give the group interface a core-run hook (or move `core_run` below L3.5); briefs that fill a group name the test_groups assertion
 - Status: resolved by guru rulings 2 (tweak hook); the brief's ruling 1 named only `wealth`, but line_flows reads `V0` (one more entry-worth: name the field the kernel reads)
+
+### 2026-11-20 · brief 093r · research
+- Instruction: brief 093r Read line (hypothesis path) and `docs/agents/research.md` First steps 2 (`reference/research/...`)
+- Happened: `docs/hypotheses/household-consumption-income-and-replenishment-of-private-wealth.md` does not exist (the file is `household-consumption-and-wealth-replenishment.md`); `reference/research/` does not exist (it is `docs/agents/reference/research/`)
+- Cost: a few extra lookups; no wrong action
+- Suggest: correct both paths
