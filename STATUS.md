@@ -1,6 +1,6 @@
 # Status board
 
-Maintained by the guru. Last updated 2026-11-20 (083c and 084c reviewed and retired; hypothesis read; 090c written). Plan view: `docs/lane-plan.html`.
+Maintained by the guru. Last updated 2026-11-20 (092c merged; 085c to 088c resumed). Plan view: `docs/lane-plan.html`.
 
 ## Where the project is
 The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. The design is retired (011g, 040g) and the build briefs are mostly landed: scaffold, pack, schedule and kernel, base, revenue (052c), burden and savings (053c), support metrics (054c) and the output layer are on `main`. The manifest no longer carries M7e (081g). 055c (range runner) is merged but finds no feasible schedule (F1 4 to 11% against 75%); 083c measures why before the author rules (089c waits on it). The runner builds only 8 of the manifest outputs: 084c fixes a group interface, then 085c to 088c add the other outputs in parallel; 057c follows. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
@@ -9,13 +9,13 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime: writes and hands out briefs) | reviewing the V3 build as it lands | 055c and 057c next; stop points go to the author |
-| Agent 2 (code) | 085c stopped (four findings) | 085c after 092c; OP1, OP3, OP4, OP6 can start now |
-| Agent 3 (code) | 090c done | 092c (group interface), now; 089c after your ruling |
-| Agent 4 (code) | 088c stopped (three questions, answered) | 088c after 092c; 057c after the groups |
-| Agent 5 | 086c partly built (5 of 12 ids) | 086c after 092c |
-| Agent 6 | 087c stopped (five inputs, ruled) | 087c after 092c |
+| Agent 2 (code) | 085c revenue and fund outputs (resumed on the 092c interface) | 057c support if needed |
+| Agent 3 (code) | 092c merged (awaiting guru review) | free until the feasibility ruling, then 089c |
+| Agent 4 (code) | 088c sweep and pack outputs (resumed) | 057c after the groups |
+| Agent 5 (code) | 086c burden and savings outputs (5 of 12 ids built; resumed) | next brief |
+| Agent 6 (code) | 087c supporting outputs (resumed) | next brief |
 
-Six agents only. Agents 2 to 6 change skill with the brief. Ready now: 092c (group interface, Agent 3). 085c to 088c wait for 092c (four stops 2026-11-20, one cause: the 084c interface gave a group no `ctx`, `theta`, pack, rng or payer record; rulings are in each brief). Parked: 089c (OF1, CK1) until the author rules on the feasibility rule after the 083c and 090c reports. Waiting: 057c. Held: 044c and 009c, both after 057c.
+Six agents only. Agents 2 to 6 change skill with the brief. Ready now: 085c to 088c, resumed on the 092c interface (merged 2026-11-20; the four stops had one cause: the 084c interface gave a group no `ctx`, `theta`, pack, rng or payer record; rulings are in each brief). Parked: 089c (OF1, CK1) until the author rules on the feasibility rule after the 083c and 090c reports. Waiting: 057c. Held: 044c and 009c, both after 057c.
 
 ## Recently done
 - 2026-11-20: 085c to 088c stopped at their rules, all on interface gaps (086c built five ids: O2d, O2b, O2c, O4b, OL1; early check M2 3.00, M2d 23.48 against 053c 2.8 and 22.2). Cause: my 084c interface was specified without an input audit. Done (091g, merged): register I-T3q (VAT 20%, statute) and I-D14h (V0 £20m, J), 293 rows, 108 (J); manifest A12 (six taxes in O1d and OP5, OR1 single, DH1a/DH1b once-not-per-schedule single cells, OT1 per named schedule with point 0); fixture numbers keyed by cell (no more positional pins); budgets groups 40, sweeps 280; rulings in 085c to 088c; 092c written (Env with ctx, theta, pack, lam, seeded rng; `again(over, full)`; static cells). 090c merged earlier; friction log is in use (three entries, two from these stops). Open for the author: the feasibility rule (083c and 090c reports in; 089c parked); DH1c is still per schedule and horizon (a data fact, could be once); DH1a no longer carries wealth to GDP.
