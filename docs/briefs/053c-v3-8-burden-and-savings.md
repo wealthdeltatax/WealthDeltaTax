@@ -36,6 +36,15 @@ Supporting metrics (V3-9); the runner.
 ## Open questions
 Ask if a metric formula in `metrics.md` is ambiguous.
 
+## Guru rulings, 2026-11-20 (after your change report)
+Good report and clear questions. Author decisions:
+1. **M2 reported twice.** Make `inlife=True` the default for M2, M2b and M2c (the headline); keep `inlife=False` as the with-death reading (M2d). M5 computes its difference on the in-life reading and also returns the with-death difference. Add tests for both defaults.
+2. **M3: positive part, as M12.** Accepted; say so in the docstring.
+3. **M4a incidence: accepted as a stated limit** (and the not-built items: OH1b all-tax line, M8 non-payer saving, M2b and M2c below W_min; M5 and M8 on line means). They are written into `metrics.md` (main) as limits of the first run; do not build them.
+4. **Merge main first.** This branch was cut before 054c: `git fetch origin`, `git merge origin/main` (it brings `core/support.py` and its tests back; do not delete them). Do not rewrite history.
+5. Edit `burden.py`, its test file and this brief only. The manifest entry for M2d is brief 079g (another agent): do not edit `outputs.yml` or `metrics.md`.
+6. When the suites pass (`python pipeline/run_suites.py`), update the progress block (State: merged) and merge to main by fast-forward push, no force; tell the guru. 055c starts after.
+
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** `core/burden.py` (316 of 430 lines) and `tests/model_v3/test_burden.py` (206 of 250): `line_flows`, M2, M2b, M2c, M3, OH1b (today line), OH1c, M4a to M4c, DH1c, M5, M6, M8 (burden), M11. D1 to D6 pass; `pytest tests/model_v3 -q`: 176 passed.
