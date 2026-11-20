@@ -215,3 +215,69 @@ The central unresolved question is therefore:
 **Does the current WDT model confuse consumption expenditure with net depletion of existing household wealth, and if so, how much does that distort the projected wealth base and fiscal capacity of WDT?**
 
 That is the hypothesis to test.
+
+
+---
+
+## 10. Evidence review and revised author decision (093r, 2026-11-20)
+
+The 093r evidence review has now audited the origin and meaning of I-D14c.
+
+- The 3.5% value originated as a user-selected v2 judgement in decision D16 (1 October), within a 2–5% sensitivity range. It was a simplifying steady-state/depletion device, not an empirically measured UK household consumption or net-dissaving rate.
+- It was applied uniformly across household wealth routes. No empirical source was found for that uniform rate.
+- The original rationale was set against nominal returns, while the later v3 model uses real-return conventions. There is no documented recalibration across that change.
+- The available UK evidence does not establish net depletion rates for the WDT-relevant wealth bands. Aggregate household saving statistics cannot be converted directly into a proportional wealth-depletion rate: household saving includes saving from labour and other current income, pension accumulation and property income, while the kernel parameter acts directly on the existing asset stock.
+- Retirement evidence indicates that some households draw down financial wealth, with substantial heterogeneity, but does not identify a universal depletion rate across total household net wealth.
+
+**Author decision:** abandon 3.5% as the model's central household-consumption/depletion assumption. It is not to be replaced by another universal percentage. The 3.5% value may be retained temporarily as a clearly labelled legacy comparator when reproducing historical results, but it must not be presented as an empirically supported estimate or used as the preferred baseline in new economic conclusions.
+
+This supersedes the earlier statement in this hypothesis that no change to the model input was proposed. The actual code/register change is to be made through a separate implementation brief after the replacement accounting and transition rules have been specified. Until then, existing outputs that depend on 3.5% are legacy results and must be labelled accordingly.
+
+## 11. Revised hypothesis
+
+The model should represent household wealth as a balance-sheet stock that changes through net saving from current income, retained property income, capital gains and losses, net transfers, other balance-sheet changes, and WDT taxation. Consumption should reduce wealth only to the extent that it produces net dissaving or is funded by running down assets or increasing liabilities. It should not be imposed as an arbitrary proportional haircut on every household's existing wealth.
+
+A household-flow representation, initially differentiated by broad household cohorts or cells, will better represent the distinct accumulation and decumulation paths of working households, low-saving households and retired households. The magnitude and distribution of the resulting changes in WDT outcomes are unknown and must be tested rather than assumed.
+
+This is a testable model-specification hypothesis, not a claim that the revised model will produce higher wealth, higher revenue or fiscal closure.
+
+## 12. Accounting principles for the replacement
+
+The replacement must obey the following principles:
+
+1. **Net worth, not gross asset turnover.** Track household net worth as assets less liabilities. Selling an asset and holding the proceeds as cash changes asset composition, not net worth. Net worth falls when the proceeds are consumed, transferred out, lost, or otherwise reduce the balance sheet.
+2. **Income and consumption are flows.** Consumption is funded from current disposable resources where available. The residual is saving; where consumption exceeds disposable resources, the household dissaves or borrows. The model must not assume that every pound of consumption is a sale of pre-existing wealth.
+3. **Returns must be decomposed.** Distinguish cash property income (interest, dividends and rents, net of relevant costs) from capital gains and losses. If a total-return series is credited to wealth, do not add its cash-income component a second time as saving.
+4. **Saving and revaluation are separate.** Saving from income changes net worth through the flow account. Capital gains and losses change net worth through revaluation. Neither may be used as a proxy for the other.
+5. **Transfers are separate.** Gifts and inheritances affect household-level distribution. Transfers within the modelled household sector should cancel in the aggregate, except for taxes, costs, cross-border flows or transfers across the sector boundary.
+6. **Debt is included.** Borrowing to fund consumption increases liabilities; repayment and interest must be treated consistently. Asset sales alone are not dissaving.
+7. **WDT is a tax transfer, not consumption.** Record the household's WDT payment separately from consumption and show the corresponding public/Sovereign Wealth Fund receipt where the model boundary includes it. Do not treat a transfer to the state as destruction of aggregate wealth.
+8. **Pensions and housing are treated consistently.** State whether pension entitlements and owner-occupied housing are included, and prevent pension contributions, pension accrual and pension assets from being counted twice.
+9. **No fiscal targeting.** Parameters must be calibrated to reproduce observed household flows and balance sheets, not selected to achieve a desired WDT revenue or closure result.
+
+## 13. Replacement model form to investigate
+
+A candidate household net-worth identity is:
+
+`\Delta NW_{i,t} = S_{i,t} + CG_{i,t} + TR_{i,t} + O_{i,t} - T^{WDT}_{i,t}`
+
+where:
+
+- `NW` is net worth (assets less liabilities);
+- `S` is net saving from current income after consumption and ordinary current taxes, including retained cash property income exactly once;
+- `CG` is capital gains and losses, excluding cash returns already counted in `S`;
+- `TR` is net capital transfers received (gifts and inheritances received less those given);
+- `O` is other volume changes and reconciliation items;
+- `T^WDT` is WDT paid by the household.
+
+This is an accounting identity to operationalise, not a calibrated behavioural equation. A behavioural model must explain or estimate income, consumption, saving, returns, transfers and borrowing for each household group. If the model uses a total-return credit instead of decomposed cash income and capital gains, the saving term must be adjusted to prevent double counting.
+
+At a minimum, the first implementation should test broad cells by wealth and income, with working/retired status or age added where data support it. More detailed heterogeneity by asset liquidity and composition should be introduced only where it can be measured or bounded. A full household microsimulation or general-equilibrium model is not a prerequisite.
+
+The first version may be a partial-equilibrium household model using externally specified income and return paths. It must say so plainly and reconcile aggregate saving, wealth and revaluation against UK data. It must not imply that it has closed the macroeconomic flows between households, firms, government and the rest of the world.
+
+## 14. Revised research question
+
+**Can an accounting-consistent, cohort-based household income, consumption, saving and balance-sheet model reproduce the observed accumulation and decumulation of UK household wealth more credibly than the current universal proportional drawdown, and how does that change the distribution and evolution of the WDT tax base?**
+
+The next brief should specify and test this replacement. It should not search for a new value of `c`.
