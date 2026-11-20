@@ -21,7 +21,7 @@ For each id, map its metric to the `core/burden.py` function that produces it an
 **Shared interfaces, fixed before any stage starts** (a build brief never edits them; a mismatch is a question to the guru): the output file shape is `schema wdt-outputs/1` as `pipeline/validate_outputs.py` checks it and `docs/restructure/site/hooks.md` section 3; the Samples contract is `architecture.md` 2.9; the id lists are `docs/model-v3/outputs.yml` and the module-to-id table of `architecture.md` 2.10; the layers and import rules are `architecture.md` 5.1; the group interface is the one 084c fixes (`model_v3/runner/groups.py`).
 
 ## Touches
-`model_v3/runner/out_burden.py`, `tests/model_v3/test_out_burden.py`, this brief's progress block, `docs/agents/friction-log.md`.
+`model_v3/runner/out_burden.py`, `tests/model_v3/test_out_burden.py`, this brief's progress block, `docs/agents/friction-log.md` (and `model_v3/runner/runner.py` with `tests/model_v3/test_runner.py` for the one narrow edit in ruling 4, only if needed).
 
 ## Acceptance criteria
 - Each built id returns one cell per schedule, horizon and `by` value in the manifest; every id not built is listed with the reason (a stated limit of the first run).
@@ -31,6 +31,16 @@ For each id, map its metric to the `core/burden.py` function that produces it an
 
 ## Checks to run
 `pytest tests/model_v3 -q`.
+
+## Guru rulings 2 (2026-11-20, after your second stop; manifest A13 is on `main`)
+Rebase onto `main` first (it holds A13 and the regenerated fixture; no test pin moves). Resume from branch `brief/086-work` and build the five ids:
+1. **O5** (`by.comparator`: zucman, uk_minimum, union, green, once; `lines`: burden, diff; units pct_per_year and pp): `burden` = `m5` burden, in life; `diff` = its `<comparator>_diff` against the same schedule's M2 in life (`m2_wdt`). No with-death line (079g, still open for the author): do not add one.
+2. **O6** (`by.wealth_band`; `lines`: gains, estates, total; pct_per_year): `m6(reg)` values. They come from the register only, so every path has the same value; the manifest keeps them per schedule and horizon, as for DH1c.
+3. **O8** (short only; `by.reform`: property, gains; `lines`: burden, diff): `burden` = `m8(...)['burden']` with M1 in pounds per path from `raw.r` (check against the M1 headline) and `bd.reform_shares(env.pack)`; `diff` = that burden minus the same schedule's M2 in life, percentage points. The non-payer saving form stays a limit.
+4. **OH1b and OH1c** (`static(env)`, single horizon, once): threshold ratio **0.5** (the v2 reference ratio), **1,000 paths** (`CHUNK`) of returns from `env.rng('burden.static')` with the AR(1) generator at `env.theta`'s mean, sd and phi, GDP growth `ctx.gdp_g`, base `bs.build_base(env.pack, env.ctx.reg, 0.5)` unshaped (at central inputs the shaping scales payer wealth uniformly and M3 and M12 are ratios, so it cancels: say so if a test shows otherwise). Cells are p10, mean, p90 over the paths. If something needed is not reachable from `Env` without importing `runner` (layer rule), you may make the smallest edit to `runner.py` (`Env` or `statics`), name it in the report, keep the file at most 360 lines and the 084c and 092c digests unchanged; `runner.py` and `tests/model_v3/test_runner.py` are then in Touches for that edit only. In tests pass `once=` to `context`; the run script passing it is 057c's.
+5. **DH1c and OH1b2** stay per schedule and horizon as built. The M5 and M8 line-mean thresholds stay a limit of the first run.
+
+Stop again only for a gap in these rulings, and name it.
 
 ## Out of scope
 Any other group; `runner.py`; building the 053c limits.
