@@ -48,11 +48,27 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** wealth_ratio.py and report.md (items 1 to 6, three opening sentences); early check 0.62; script reruns to identical text (seed 20261118); pytest tests/model_v3 208 passed.
+- **Next:** author rules on I-D14c, the feasibility rule and CK1 after this report and the 083c report.
+- **Decisions:** relief rises to year 20 then falls, so the attribution runs from the block ending year 20 (not 10) to year 100; 083c's year-11 at tau_m 0.9 is reproduced on its own k 1.0 schedules.
+- **Gotchas:** the runner has no fixed-real-threshold switch; the script repeats core_run with burden.line_flows' index argument and asserts equality with core_run on the GDP-indexed case.
+- **Resume:** none.
+- **Not run:** none.
+- **State:** done; merged
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 090c, wealth-to-GDP and revenue decomposition
+- Files changed: docs/model-v3/wealth-ratio-diagnostic/wealth_ratio.py (the diagnostic); report.md (its output); this brief's notes
+- What is different now: the report says, with numbers, why relief falls relative to GDP: consumption (I-D14c 3.5) accounts for all of the fall from the year-20 peak (with c 0 relief rises 36.6 to 36.9 GDP-points instead of falling 1.22 to 1.53); the tax's own drag is 35 to 36% of the log fall in W/GDP (0.62 tax off, 0.47 on at year 100); a fixed real threshold removes 8 to 11% of the fall; the levy 0%. W/GDP stays flat at c about 2.65 to 2.67 with the tax on. Hypothesis: supported.
+- New or changed interfaces: none
+- Acceptance criteria: report holds items 1 to 6 and the three opening sentences, script reruns identical (met); 083c first year below M1d reproduced: year 13 at tau_m 0.5 and 0.7, year 11 at 0.9 on 083c's k 1.0 schedules (met; at this brief's k 0.5 tm90 gives 13, six taxes retire only at k 1.0); pytest tests/model_v3 passes, no file under model_v3/ or tests/ changed (met, 208 passed); diff limited to Touches (met)
+- Deviations from the brief: attribution measured from the block ending year 20 because relief does not fall from year 10 (3.02 to 3.14); shares are removal counterfactuals, consumption's is above 100% (it reverses the fall) so no remainder is reported; geometric GDP growth on the same 117 years is 1.534%, not the brief's 1.49% (full 1870-2019 history 1.43%)
+- Risks / follow-ups: constant path compounds at the arithmetic mean; the 1,000 random paths give W/GDP y100 median 0.34, P10 0.09, and every path has relief below M1d (median first year 11)
+- Instruction friction: none
+- Verification: script run twice, cmp identical; early check 0.616; pytest tests/model_v3 -q 208 passed; not run: nothing
+- Overview sections likely needing an update: none
+- Commit / branch: see git log, brief/090-wealth-ratio, merged to main
+```
