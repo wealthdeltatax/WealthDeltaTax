@@ -1,0 +1,7 @@
+hmrc_item,hmrc_year,ons_year,hmrc_gbpm,ons_gbpm,ratio,note
+HMRC property net income,2023-24,2023,29300.0,,,no like-for-like ONS series; see note
+HMRC property net income,2023-24,2024,29300.0,,,no like-for-like ONS series; see note
+HMRC bank and building society interest,2023-24,2023,18300.0,86092.0,0.2126,"SPI taxpayers only, taxable income; ONS includes sheltered (ISA, pension) and non-taxpayer income"
+HMRC bank and building society interest,2023-24,2024,18300.0,98189.0,0.1864,"SPI taxpayers only, taxable income; ONS includes sheltered (ISA, pension) and non-taxpayer income"
+HMRC dividends,2023-24,2023,71800.0,135343.0,0.5305,"SPI taxpayers only, taxable income; ONS includes sheltered (ISA, pension) and non-taxpayer income"
+HMRC dividends,2023-24,2024,71800.0,138218.0,0.5195,"SPI taxpayers only, taxable income; ONS includes sheltered (ISA, pension) and non-taxpayer income"
