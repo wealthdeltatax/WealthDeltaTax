@@ -40,11 +40,11 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** Read the required agent/workflow/decision documents; created the research note and per-source status register; extracted ONS annual S.14 flow and financial-stock series where HTML time-series tables were readable; extracted HMRC HTML summary metrics; created source-linked CSVs; checked the household saving identity and the NBS financial-stock identity.
+- **Next:** Author uploads the exact ONS, BoE and HMRC spreadsheet files listed in `docs/research/097r-open-series-collection.md` if full D.42/D.44, non-financial assets/revaluations, NMG variables and full HMRC band tables are required.
+- **Decisions:** Scenario B preserved. No wealth-band consumption/depletion rate or fiscal parameter introduced. ONS D.45 is treated as rent on land, not gross landlord rental income.
+- **Gotchas:** Web retrieval rejected CSV/XLSX/ODS and Stata downloads by content-type. HTML time-series tables were usable. HAXW and M8MD are Blue Book 2025 vintage (latest annual value 2024); the other newer UKEA series run to 2025. NMG variable inventory remains unknown until the workbooks and do-file are readable.
+- **Resume:** Continue from the author-upload list in the research note; update the same register and CSV set after parsing the supplied files.
+- **Not run:** `python -I pipeline/check_agent_docs.py` (the GitHub connector provides repository API access, not a local checkout/runtime for executing the project script).
+- **State:** complete for the accessible-source acquisition and logging scope; full binary-file extraction awaits author upload.
 <!-- progress:end -->
