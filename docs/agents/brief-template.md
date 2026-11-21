@@ -34,6 +34,9 @@ Behaviour written so someone who was not in the conversation can build it.
 ## Touches
 Files and areas affected.
 
+## Session budget (research and data briefs)
+A session has finite tokens; the brief's length is not the risk, the work is. Cap a brief at one source group or about 15 register rows, and one reviewable note. Block 0 pushes the note skeleton (every section marked pending) before any source is opened; each later block fills one section, updates the progress block and pushes in the same commit. After three blocks, write the note from what exists, push and stop, listing the rest under Next. Name any earlier outputs and branches the agent must reuse rather than re-derive.
+
 ## Stages
 One session finishes one stage; a stage is the unit of checkpoint. `- <id>: <what>. Checkpoint: <what is pushed>; check: <cheapest check>`. Stages are for sequential steps only; split parallel work into separate briefs (see Splitting). A small brief may omit this.
 
@@ -57,7 +60,7 @@ The implementer asks rather than guesses on these.
 - **Next:**
 - **Decisions:**
 - **Gotchas:**
-- **Resume:**
+- **Resume:** (branch to check out, last block pushed, first action)
 - **Not run:**
 - **State:**
 <!-- progress:end -->

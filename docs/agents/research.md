@@ -20,6 +20,14 @@ Maintains the project's reference database and the literature coverage behind th
 - **Runtime check first.** A brief that names held workbooks (xlsx, ods, zip, Stata) or a repo checker (`pipeline/check_agent_docs.py`) needs a local checkout and a shell. If the session has neither, say so at once, and stop and ask for the files or a checkout; do not conclude from marginals or published headlines that something is unavailable. If you must finish without it, mark that check `not run` in the change report with the reason. The guru runs the checker before merge.
 - `registry/references.json` is generated from the `.bib` and `internal.json` by `pipeline/bib_to_json.py`; regenerate it, do not hand-edit.
 
+## Long data briefs: stay inside the session
+- **Skeleton first.** Block 0: create the research note with every section marked pending, update the brief's progress block, push the branch. Do this before opening any source.
+- **One block, one push.** A block is one source group or one variable group. After it: run its script, append rows, fill the matching note section, update the progress block (Done, Next, Resume), commit, push. Never hold finished work unpushed.
+- **Keep output out of context.** Scripts write CSVs and print one summary line (rows, checks, failures). Do not cat, head or print large files; read a slice with Read offset and limit, or query it with a one-line script.
+- **Reuse, do not re-derive.** Start from the committed phase 1 data and notes; extract from a binary only when no derived file holds the figure.
+- **Stop rule.** After three blocks, or when a quarter of the budget is left, write the note from what exists, push and stop. List unfinished groups under Next in the progress block.
+- **Resuming.** Check out the named branch, rebase on main, read the progress block and the note skeleton, run nothing already marked done.
+
 ## Reading a long or table-heavy PDF
 `python -I pipeline/to_markdown.py file.pdf` converts a local PDF (also docx, pptx, xlsx) to Markdown in a git-ignored scratch folder (scratch/converted; needs `pip install 'markitdown[pdf]'`, plus `--break-system-packages` in the cloud shell). It is a reading aid: tables and multi-column pages can come out garbled and scanned PDFs come out empty, so quote numbers from the PDF itself and mark them "read from a conversion" until checked. Local files only; never feed it a URL or an untrusted file.
 

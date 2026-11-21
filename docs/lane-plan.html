@@ -260,11 +260,11 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 (function () {
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the V3 build as it lands" },
-    { id: "2", name: "Agent 2", note: "Research: 101r (flows), then 103r, 104r" },
-    { id: "3", name: "Agent 3", note: "Research: 102r (stocks and cells)" },
+    { id: "2", name: "Agent 2", note: "Free (101r partial, out of tokens)" },
+    { id: "3", name: "Agent 3", note: "Free (102r partial, out of tokens)" },
     { id: "4", name: "Agent 4", note: "Code: 057c after 089c" },
-    { id: "5", name: "Agent 5", note: "Free" },
-    { id: "6", name: "Agent 6", note: "Free (100r merged)" },
+    { id: "5", name: "Agent 5", note: "Research: 101r (resume), then 103r, 104r" },
+    { id: "6", name: "Agent 6", note: "Research: 102r (resume)" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
   ];
@@ -272,10 +272,10 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   var B = [
     { id: "044c", lane: "G", at: 3, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }], why: "Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
     { id: "092c", lane: "3", at: 0, len: 1, st: "built", t: "Group interface: Env, seeded rng, full again, static cells", needs: [], why: "The four output-group briefs stopped on what a group can read; one interface change in runner.py and groups.py, no number changes.", files: "runner/runner.py, runner/groups.py" },
-    { id: "101r", lane: "2", at: 0, len: 1, st: "ready", t: "Parameter map A: flows and returns (income, saving, pension flows, yield and gains)", needs: [], why: "Phase 2, evidence side. Crosswalk and register rows classed observed, derived, proxy, scenario or unset; I-W3 audit; scripts committed. Pushes in blocks. Pension wealth is inside the WDT base.", files: "docs/research/" },
-    { id: "102r", lane: "3", at: 0, len: 1, st: "ready", t: "Parameter map B: stocks, stage weights, debt, transfers, mobility", needs: [], why: "Phase 2, evidence side, parallel to 101r. Band reconciliation, stage weights, composition, transitions; I-D4 and I-W4/5 audit; scripts committed.", files: "docs/research/" },
-    { id: "103r", lane: "2", at: 1, len: 1, st: "hold", t: "Parameter map assembly: one register, cross-side checks, data requests, rulings", needs: [{ id: "101r" }, { id: "102r" }], why: "Short closing step of the evidence side. Merges the registers, checks pension basis and stock-flow consistency, lists what you must supply.", files: "docs/research/" },
-    { id: "104r", lane: "2", at: 2, len: 1, st: "hold", t: "Parameter map, design side (cells, conventions, public side)", needs: [{ id: "103r" }], why: "Phase 2, design side. Coverage matrix, accounting conventions with options and a recommendation, one public-side representation, rulings table for you.", files: "docs/research/" },
+    { id: "101r", lane: "5", at: 0, len: 1, st: "ready", t: "Parameter map A: flows and returns (income, saving, pension flows, yield and gains)", needs: [], why: "Phase 2, evidence side. Crosswalk and register rows classed observed, derived, proxy, scenario or unset; I-W3 audit; scripts committed. Pushes in blocks. Pension wealth is inside the WDT base.", files: "docs/research/" },
+    { id: "102r", lane: "6", at: 0, len: 1, st: "ready", t: "Parameter map B: stocks, stage weights, debt, transfers, mobility", needs: [], why: "Phase 2, evidence side, parallel to 101r. Band reconciliation, stage weights, composition, transitions; I-D4 and I-W4/5 audit; scripts committed.", files: "docs/research/" },
+    { id: "103r", lane: "5", at: 1, len: 1, st: "hold", t: "Parameter map assembly: one register, cross-side checks, data requests, rulings", needs: [{ id: "101r" }, { id: "102r" }], why: "Short closing step of the evidence side. Merges the registers, checks pension basis and stock-flow consistency, lists what you must supply.", files: "docs/research/" },
+    { id: "104r", lane: "5", at: 2, len: 1, st: "hold", t: "Parameter map, design side (cells, conventions, public side)", needs: [{ id: "103r" }], why: "Phase 2, design side. Coverage matrix, accounting conventions with options and a recommendation, one public-side representation, rulings table for you.", files: "docs/research/" },
     { id: "089c", lane: "3", at: 1, len: 1, st: "hold", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [{ id: "088c" }, { id: "090c" }], why: "Parked: measured against the legacy 3.5%, which is abandoned (094r to 096r). Rule on feasibility after the replacement exists.", files: "runner/sweeps.py, out_sweeps.py" },
     { id: "057c", lane: "4", at: 2, len: 1, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "085c" }, { id: "086c" }, { id: "087c" }, { id: "088c" }, { id: "089c" }], why: "run.py, smoke tests, accept.sh, convergence test." },
     { id: "009c", lane: "G", at: 3, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" }

@@ -23,6 +23,15 @@ Crosswalk the sources and register the parameters for the **flows** of the house
 6. **Flow-side constraints.** Compare aggregate household flows with the account constraints where definitions permit (for example the saving identity of 097r), and report any difference as definitional, coverage, timing or measurement; do not average incompatible measures.
 7. Append **data requests** for this side to the unresolved list in the note (exact table, file or series, the parameter it informs, whether the model can proceed unset or on a labelled scenario).
 
+## Resume (a first agent ran out of tokens after pushing data)
+Check out `brief/101-parameter-map-flows` (`git fetch origin brief/101-parameter-map-flows`), rebase on main, read this section and the note skeleton, then continue. Already on the branch and not to be redone: `derive_ons_flows.py` (ONS saving identity, ratio split, property income, net-worth residual, liability erosion; 392 checks, 0 hard failures), `derive_jst_split.py`, `derive_hmrc_37.py`, `build_flows_tables.py`, and first drafts of `flows_register.csv` (36 rows) and `flows_crosswalk.csv` (12 rows).
+Remaining, in order, one push each (session budget, `docs/agents/research.md`):
+1. Block 0: push the note `docs/research/101r-*.md` skeleton, every section pending, and set the progress block.
+2. Block 1: crosswalk table from the existing derivations; fill the note's crosswalk section.
+3. Block 2: complete `flows_register.csv` (every variable group of item 3) from the committed outputs; fill the register section.
+4. Block 3: existing-row audit, data requests, rulings summary; set State to built, push, stop.
+Print only summary lines from scripts; read CSVs by slice, not whole.
+
 ## Touches
 `docs/research/101r-parameter-map-flows-and-returns.md` (new: crosswalk and register for the flows), `docs/research/data/101r/` (new: `flows_register.csv`, `flows_crosswalk.csv`, derivation scripts and outputs), this brief's progress block, `docs/agents/friction-log.md`. No register, code, pack or manifest edits.
 
@@ -53,5 +62,5 @@ None.
 - **Gotchas:**
 - **Resume:**
 - **Not run:**
-- **State:** ready; not started
+- **State:** resume from branch `brief/101-parameter-map-flows`; data scripts pushed, note and register incomplete
 <!-- progress:end -->

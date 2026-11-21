@@ -23,6 +23,15 @@ Crosswalk the sources and register the parameters for the **stocks and structure
 6. **Reproducible calculations.** Every derived value (band reconciliation, stage weights by band, composition shares, a person to household weight, transition hazards) is computed by a script under `docs/research/data/102r/` that reads the held files, with its output CSV and the tolerance against the source.
 7. Append **data requests** for this side to the unresolved list in the note (exact table, file or series, the parameter it informs, whether the model can proceed unset or on a labelled scenario, the access route: UK Data Service WAS study 7215, ELSA, ONS request).
 
+## Resume (a first agent ran out of tokens after pushing data)
+Check out `brief/102-parameter-map-stocks` (`git fetch origin brief/102-parameter-map-stocks`), rebase on main, read this section and the note skeleton, then continue. Already on the branch and not to be redone: `derive_bands_stages.py`, `derive_debt_demography.py`, `derive_transfers_audit_coverage.py`, and outputs for bands, stage weights, composition, debt, demography, transfers, the existing-row audit and cell coverage inputs; no register, crosswalk or note yet.
+Remaining, in order, one push each (session budget, `docs/agents/research.md`):
+1. Block 0: push the note `docs/research/102r-*.md` skeleton, every section pending, and set the progress block.
+2. Block 1: crosswalk table from the existing derivations; fill the note's crosswalk section.
+3. Block 2: complete `stocks_register.csv` (every variable group of item 3) from the committed outputs; fill the register section.
+4. Block 3: existing-row audit, data requests, rulings summary; set State to built, push, stop.
+Print only summary lines from scripts; read CSVs by slice, not whole.
+
 ## Touches
 `docs/research/102r-parameter-map-stocks-and-cells.md` (new: crosswalk and register for the stocks and structure), `docs/research/data/102r/` (new: `stocks_register.csv`, `stocks_crosswalk.csv`, derivation scripts and outputs), this brief's progress block, `docs/agents/friction-log.md`. No register, code, pack or manifest edits.
 
@@ -54,5 +63,5 @@ None.
 - **Gotchas:**
 - **Resume:**
 - **Not run:**
-- **State:** ready; not started
+- **State:** resume from branch `brief/102-parameter-map-stocks`; data scripts pushed, note and register incomplete
 <!-- progress:end -->
