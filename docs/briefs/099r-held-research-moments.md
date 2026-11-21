@@ -41,11 +41,11 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** Confirmed repository instructions, brief dependencies, 097r/098r holdings and the ten named PDFs. Created `docs/research/099r-held-research-moments.md` documenting the blocker. No PDF moments extracted.
+- **Next:** Obtain a local checkout or upload the named PDFs; run page-preserving PDF extraction; read relevant files in full; build the moments table and compare duplicates against 097r/098r CSVs.
+- **Decisions:** Do not redo Bozio et al. (2013); the guru's full reading is in `docs/research/095r-bozio-2013-reading.md`. Do not use search summaries as evidence or create an empty moments CSV.
+- **Gotchas:** Raw GitHub PDF opens returned `DisabledError`; shallow clone failed with DNS resolution error. The connector can read repository text but this session has no local binary PDF runtime.
+- **Resume:** `git checkout brief/099r-held-research-moments && git pull`; then `pdftotext -layout` or `python -I pipeline/to_markdown.py` on the PDFs in `Research/`.
+- **Not run:** PDF conversion, moments extraction, `python -I pipeline/check_agent_docs.py`.
+- **State:** blocked checkpoint pushed after commit `0f30ea42ab89d22a9bee8ee93d9378869b97af4f`
 <!-- progress:end -->
