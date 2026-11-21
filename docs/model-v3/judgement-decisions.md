@@ -23,7 +23,7 @@ Status: **all pending.** One line per register row flagged `(J)` in `docs/model-
 | I-D1b | Standard deviation of annual real total return, marginal, level 2 | 7.47 | 8.22 | 8.96 | pending |  |
 | I-D1b2 | Lag-1 autocorrelation of the annual real return, level 2 | 0.19 | 0.30 | 0.42 | pending |  |
 | I-D4b | Share of adults at or above W_min = £150,000 (half of £300,000 median house price; M2b, ω) | 49.3 | 52.4 | 64.3 | pending |  |
-| I-D4c | Share of total wealth held by those adults (ω; M1a, M2) | 89.7 | 92.7 | 96.4 | pending |  |
+| I-D4c | Share of total wealth held by those adults (ω; M1a, M2) | 89.7 | 91.5 | 96.4 | pending |  |
 | I-D4e | Wealth missing from WAS at the top, as % of WAS total (ω, tail add-on) | 0.0 | 5.0 | 5.6 | pending |  |
 | I-D4h | Adults per household, all households, Great Britain (M2b, ω) | 1.77 | 1.93 | 1.93 | pending |  |
 | I-D4i | Pareto alpha splitting the named Rich List tier (tail construction; M1a, M2) | 1.2 | 1.5 | 2.0 | pending |  |
@@ -51,9 +51,9 @@ Status: **all pending.** One line per register row flagged `(J)` in `docs/model-
 | I-D9b | Mean gross household income, wealth D6 to 7 | 50,400 | 63,000 | 75,600 | pending |  |
 | I-D9c | Mean gross household income, wealth D8 to 9 | 57,200 | 71,500 | 85,800 | pending |  |
 | I-D9d | Mean gross household income, wealth D10 | 57,100 | 71,400 | 85,700 | pending |  |
-| I-H2a10 | Share of households in income decile 10 (highest) with total wealth below W_min = £150,000 | 0.0 | 9.9 | 25.0 | pending |  |
-| I-H2a8 | Share of households in income decile 8 with total wealth below W_min = £150,000, the non-p | 0.0 | 27.5 | 32.8 | pending |  |
-| I-H2a9 | Share of households in income decile 9 with total wealth below W_min = £150,000, the non-p | 0.0 | 19.9 | 25.7 | pending |  |
+| I-H2a10 | Share of households in income decile 10 (highest) with total wealth below W_min = £150,000 | 0.0 | 11.7 | 25.0 | pending |  |
+| I-H2a8 | Share of households in income decile 8 with total wealth below W_min = £150,000, the non-p | 0.0 | 29.8 | 32.8 | pending |  |
+| I-H2a9 | Share of households in income decile 9 with total wealth below W_min = £150,000, the non-p | 0.0 | 22.6 | 25.7 | pending |  |
 | I-H3a | Average gross income, equivalised disposable income quintile bottom, FYE 2023 (016g M-5) | 23,179 | 23,296 | 23,412 | pending |  |
 | I-H3b | Average gross income, equivalised disposable income quintile 2nd, FYE 2023 (016g M-5) | 38,470 | 38,663 | 38,857 | pending |  |
 | I-H3c | Average gross income, equivalised disposable income quintile 3rd, FYE 2023 (016g M-5) | 52,927 | 53,193 | 53,459 | pending |  |
@@ -66,11 +66,11 @@ Status: **all pending.** One line per register row flagged `(J)` in `docs/model-
 | I-M5c | Zucman global minimum tax, revenue at the US$1bn threshold (M5) | 200 | 225 | 250 | pending |  |
 | I-M5g | UK 2% minimum tax, income tax already paid as a share of wealth, the credit (M5, M6 compar | 0.1 | 0.2 | 0.5 | pending |  |
 | I-M5n | Independent yield of a 1% annual wealth tax, before behavioural response (cross-check on I | 10 | 10 | 33 | pending |  |
-| I-M6a | IHT liability over the wealth of adults at or above W_min (M6) | 0.051 | 0.056 | 0.058 | pending |  |
+| I-M6a | IHT liability over the wealth of adults at or above W_min (M6) | 0.051 | 0.057 | 0.058 | pending |  |
 | I-M6b | IHT liability over wealth decile D10 (M6) | 0.098 | 0.112 | 0.127 | pending |  |
 | I-M6c | IHT liability over wealth deciles D8 to 9 (M6) | 0.0 | 0.019 | 0.036 | pending |  |
 | I-M6d | IHT liability over wealth deciles D4 to 7 (M6) | 0 | 0 | 0 | pending |  |
-| I-M6h | CGT liability over the wealth of adults at or above W_min (M6) | 0.093 | 0.144 | 0.199 | pending |  |
+| I-M6h | CGT liability over the wealth of adults at or above W_min (M6) | 0.093 | 0.146 | 0.199 | pending |  |
 | I-M6i | CGT liability over wealth decile D10 (M6) | 0.099 | 0.238 | 0.438 | pending |  |
 | I-M6k | CGT liability, UK, all payers (M6, M8 base) | 12.1 | 18.2 | 24.2 | pending |  |
 | I-M8c | CGT reform in full: aligned rates plus no uplift (M8 specification) | 10 | 12.3 | 14.3 | pending |  |

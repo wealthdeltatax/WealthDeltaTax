@@ -33,7 +33,7 @@
    "unit": "% of adults"
   },
   {
-   "central": 92.7,
+   "central": 91.5,
    "coverage": "GB, 2020-22. Outside UK: none",
    "high": 96.4,
    "id": "I-D4c",
@@ -1059,7 +1059,7 @@
    "unit": "£bn in total"
   },
   {
-   "central": 0.056,
+   "central": 0.057,
    "coverage": "GB wealth 2020-22, UK liabilities. Outside UK: none",
    "high": 0.058,
    "id": "I-M6a",
@@ -1160,7 +1160,7 @@
    "unit": "% of estate value"
   },
   {
-   "central": 0.144,
+   "central": 0.146,
    "coverage": "UK liabilities, GB wealth. Outside UK: none",
    "high": 0.199,
    "id": "I-M6h",
@@ -1995,7 +1995,7 @@
   },
   {
    "central": 63.7,
-   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.61 (I-D4c)",
+   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.78 (I-D4c)",
    "high": 63.7,
    "id": "I-W6a1",
    "input": "Share of households with wealth of at least £150,000, Round 8 (016g M-1; OB1)",
@@ -2023,7 +2023,7 @@
   },
   {
    "central": 53.8,
-   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.61 (I-D4c)",
+   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.78 (I-D4c)",
    "high": 53.8,
    "id": "I-W6b1",
    "input": "Share of households with wealth of at least £250,000, Round 8 (016g M-1; OB1)",
@@ -2051,7 +2051,7 @@
   },
   {
    "central": 34.2,
-   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.61 (I-D4c)",
+   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.78 (I-D4c)",
    "high": 34.2,
    "id": "I-W6c1",
    "input": "Share of households with wealth of at least £500,000, Round 8 (016g M-1; OB1)",
@@ -2079,7 +2079,7 @@
   },
   {
    "central": 14.1,
-   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.61 (I-D4c)",
+   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.78 (I-D4c)",
    "high": 15.0,
    "id": "I-W6d1",
    "input": "Share of households with wealth of at least £1,000,000, Round 8 (016g M-1; OB1)",
@@ -2107,7 +2107,7 @@
   },
   {
    "central": 3.45,
-   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.61 (I-D4c)",
+   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.78 (I-D4c)",
    "high": 3.51,
    "id": "I-W6e1",
    "input": "Share of households with wealth of at least £2,000,000, Round 8 (016g M-1; OB1)",
@@ -2135,7 +2135,7 @@
   },
   {
    "central": 0.5,
-   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.61 (I-D4c)",
+   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.78 (I-D4c)",
    "high": 0.52,
    "id": "I-W6f1",
    "input": "Share of households with wealth of at least £5,000,000, Round 8 (016g M-1; OB1)",
@@ -2163,7 +2163,7 @@
   },
   {
    "central": 0.12,
-   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.61 (I-D4c)",
+   "coverage": "GB, 2020-22. Households; for adults divide the threshold by about 1.78 (I-D4c)",
    "high": 0.12,
    "id": "I-W6g1",
    "input": "Share of households with wealth of at least £10,000,000, Round 8 (016g M-1; OB1)",
@@ -4248,7 +4248,7 @@
    "unit": "%"
   },
   {
-   "central": 61.2,
+   "central": 63.8,
    "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
    "high": 67.2,
    "id": "I-H2a1",
@@ -4263,7 +4263,7 @@
    "unit": "% of households in the decile"
   },
   {
-   "central": 64.8,
+   "central": 67.7,
    "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
    "high": 71.4,
    "id": "I-H2a2",
@@ -4278,7 +4278,7 @@
    "unit": "% of households in the decile"
   },
   {
-   "central": 62.4,
+   "central": 65.1,
    "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
    "high": 68.5,
    "id": "I-H2a3",
@@ -4293,7 +4293,7 @@
    "unit": "% of households in the decile"
   },
   {
-   "central": 58.7,
+   "central": 61.3,
    "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
    "high": 64.6,
    "id": "I-H2a4",
@@ -4308,7 +4308,7 @@
    "unit": "% of households in the decile"
   },
   {
-   "central": 50.4,
+   "central": 52.7,
    "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
    "high": 55.5,
    "id": "I-H2a5",
@@ -4323,7 +4323,7 @@
    "unit": "% of households in the decile"
   },
   {
-   "central": 47.9,
+   "central": 50.9,
    "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
    "high": 53.6,
    "id": "I-H2a6",
@@ -4338,7 +4338,7 @@
    "unit": "% of households in the decile"
   },
   {
-   "central": 36.1,
+   "central": 38.7,
    "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
    "high": 42.0,
    "id": "I-H2a7",
@@ -4353,7 +4353,7 @@
    "unit": "% of households in the decile"
   },
   {
-   "central": 27.5,
+   "central": 29.8,
    "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
    "high": 32.8,
    "id": "I-H2a8",
@@ -4368,7 +4368,7 @@
    "unit": "% of households in the decile"
   },
   {
-   "central": 19.9,
+   "central": 22.6,
    "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
    "high": 25.7,
    "id": "I-H2a9",
@@ -4383,7 +4383,7 @@
    "unit": "% of households in the decile"
   },
   {
-   "central": 9.9,
+   "central": 11.7,
    "coverage": "GB, April 2020 to March 2022; households by net equivalised income decile, not adults. Outside UK: none",
    "high": 25.0,
    "id": "I-H2a10",

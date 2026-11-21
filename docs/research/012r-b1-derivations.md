@@ -265,3 +265,10 @@ for nm in ['capital_tr','eq_tr','housing_tr','cpi']:
 - Results: £150,000: adults 52.4% (was 54.9%), equivalent household threshold 1.78 times W_min (£267,412; was 1.61), wealth share at that threshold 91.5% (was 92.7%). £112,500: adults 60.2% (was 62.5%), 1.68 times (was 1.48), wealth 95.0% (was 95.8%).
 - Sensitivity of the target: 52,043,000 / 26,991,000 = 1.9282 gives 52.4% (52.44); the low 1.86 gives 53.5%.
 - I-D4c was not changed by 106c. Its method (wealth above the household threshold that reproduces the adult share) gives the wealth shares above, 91.5% (was 92.7%), inside its bounds 89.7 to 96.4.
+
+## Addendum 2026-11-21 (brief 107c): I-D4c and the rows that quote its threshold
+- I-D4c refitted by the 106c result: 91.5% of wealth (was 92.7%) at £150,000, equivalent household threshold 1.78 times W_min (£267,412; was 1.61, £241,721). Bounds 89.7 and 96.4 kept. At £112,500: 95.0% (was 95.8%).
+- I-H2a1 to I-H2a10 central threshold £241,721 to £267,412. The old centrals reproduce with the row text's method (linear between the 25th, 50th and 75th percentile points; a two-piece lognormal outside them) except decile 5, which computes 50.5 against the 50.4 printed. New centrals: 63.8, 67.7, 65.1, 61.3, 52.7, 50.9, 38.7, 29.8, 22.6, 11.7. Low (£150,000) and high (£300,000) unchanged.
+- I-M6a and I-M6h divide a liability by the I-D4c wealth: central £13,568bn x 91.5% = £12,415bn (was £12,578bn). I-M6a central 7.03 / 12,415 = 0.0566, printed 0.057 (was 0.056); I-M6h 18.15 / 12,415 = 0.1462, printed 0.146 (was 0.144). Their low and high use the I-D4c bounds and the other year's liability, so they are unchanged.
+- The I-W6 coverage notes and the 016g line now say about 1.78. Left alone: I-W6 values (household shares, no adult conversion), `tornado.md` lines 54 and 72 (a dated design note quoting 92.7), and the 102r and 103r audit files (history).
+
