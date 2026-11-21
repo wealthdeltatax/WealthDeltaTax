@@ -69,11 +69,11 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 note skeleton; branch `brief/104` cut from origin/main 1ba96eb. Block 1: `coverage_matrix.py` and CSVs in `docs/research/data/104r/` (cell weights, 150-entry matrix, per-row resolution, pivot); note section 2.
-- **Next:** block 2 accounting conventions and worked case (item 2); block 3 public side and settlement (item 3); block 4 interface, rulings, validation moments (items 4 to 6); block 5 summary, friction log, change report, merge.
-- **Decisions:** none yet beyond the author's 2026-11-21 decisions in the brief.
-- **Gotchas:** the clone tracks main only; fetch other branches by name. Do not pipe `git push` through anything.
-- **Resume:** branch `brief/104`; read this block and the note skeleton.
-- **Not run:** nothing yet.
+- **Done:** blocks 0 and 1 (note skeleton; coverage matrix, section 2). Block 2: note section 3 (accounting conventions 3.1 to 3.8) with `conventions_worked.py` and four CSVs in `docs/research/data/104r/`.
+- **Next:** block 3 public side and settlement (section 4); block 4 interface, rulings table, validation moments (5 to 7); block 5 summary, reproduction, change report, friction log, merge.
+- **Decisions:** recommended A (credit holding gain, saving carries retained yield once) with B as equivalent check; disposable-income basis; no cross-cell transfers in the first implementation; settlement source left to the author.
+- **Gotchas:** branch is `brief/104`; the clone tracks main only. Do not pipe `git push`.
+- **Resume:** branch `brief/104`; read this block and the note; section 4 onward pending.
+- **Not run:** `check_agent_docs.py` (run at block 5).
 - **State:** in progress
 <!-- progress:end -->

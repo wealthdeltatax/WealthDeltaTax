@@ -1,0 +1,7 @@
+event,unit,dNW_thousand_gbp,account_term,note
+household A gives 30 cash to household B,A,-30.0,TR -30,
+,B,30.0,TR +30,
+cell total TR (A + B),A+B,0.0,cancels,no new aggregate wealth
+WDT of 5 paid by A,A,-5.0,T_WDT 5,household dNW -5
+,public sector,5.0,asset or receipt of 5,public net worth +5
+household plus public sector dNW,A+B+public,0.0,zero,"the payment is a transfer, not consumption (C and S unchanged)"

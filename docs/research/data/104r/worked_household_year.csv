@@ -1,0 +1,20 @@
+line,value_thousand_gbp,note
+opening net worth,1100,"H 600, E 200, M 100, PA 400, D 200"
+Y_L labour compensation incl employer contribution 4,60.0,
+"imputed rent on H (3%), income",18.0,income and consumption; never cash
+"dividends on E (3%), retained",6.0,
+interest received,2.0,
+pension fund retained income (3% of PA),12.0,retained inside the fund
+interest paid on D (4%),-8.0,nominal; the real erosion is in CG
+T_C ordinary taxes net of benefits,-12.0,"label fix F-03: benefits sit here, not in TR"
+consumption C = cash 40 + imputed rent,-58.0,
+S net saving (yields counted once),20.0,
+"CG holding gains on E (2%), H (2%), PA (5%)",36.0,real; excludes the cash yield
+CG real loss on cash at CPI 2.0%,-2.0,nominal asset
+CG real erosion of D at the expenditure deflator 2.5% (F-21 as a CG term),5.0,of which at CPI 2.0 percent: 4.0; deflator wedge 1.0 reported as its own line
+T_WDT paid by selling 5 of E,-5.0,composition change plus a payment to the public sector
+"dNW flow side S + CG + TR + O - T_WDT, with TR = 0 and O = 0",54.0,
+"closing H, E, M, PA, D","612, 199, 98, 440, 195",
+closing net worth,1154.0,
+dNW stock side,54.0,equals the flow side
+wrong: total return credited to assets and the yields also left in S: dNW,90.0,overstates by 36.0: yields counted twice
