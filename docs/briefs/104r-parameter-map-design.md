@@ -34,6 +34,19 @@ From the 103r register, decide **which cells the evidence supports** and **how t
 5. **Rulings table.** For each parameter row: ready for implementation, implement with a scenario range, remain unset, or further data required, with the consequence of the unset rows for the first implementation.
 6. **Validation moments.** Which 099r moments validate the untaxed baseline, at which resolution, and the tolerance a pass would need before the comparison is run (plans only).
 
+## Resume (a first agent pushed blocks 0 and 1, then ran out of tokens)
+Branch `brief/104` (not `104r`). Fetch and check it out:
+`git fetch origin brief/104:refs/remotes/origin/brief/104 && git checkout -b brief/104 origin/brief/104 && git pull --rebase origin main`
+(the clone tracks main only; main has since moved: 105c and 106c briefs, rulings in `docs/decisions.md`). On the branch the brief's progress block is accurate: read it, the note `docs/research/104r-parameter-map-design.md` (section 2 is written, 3 to 8 pending) and `docs/research/data/104r/`. Do not redo block 1 (`coverage_matrix.py` and its CSVs); if the brief file conflicts on rebase, keep the branch version and add the Decisions section from main.
+
+Remaining blocks, one push each, filling the note section and the progress block in the same commit (`docs/agents/research.md`, Long data briefs). Print only summary lines from scripts; read CSVs by slice.
+- **Block 2: accounting conventions (note section 3, design item 2).** Each convention as options, consequences and one recommendation. Apply the author's rulings above (pension aggregate scenario; scenario range per no-return class; O reported; two deflators, say where each is used; label fixes F-03 and F-21; I-W3b context only; physical wealth added to the asset list). Include the worked D4-5 case from 103r (`worked_cell_d45.csv`) rewritten under the recommended conventions, with the imputed-rent consumption point.
+- **Block 3: public side (section 4, item 3).** One representation of the household payment, the state's stake and settlement; 094r's two unlinked representations are the problem statement.
+- **Block 4: interface, rulings table, validation moments (sections 5 to 7, items 4 to 6).** Interface is a gap list only (signature, pack inputs, manifest outputs, tests that would move; the LAYER and `test_groups.py` rows for any new module per `docs/agents/code.md`). The rulings table is built from `docs/research/data/103r/parameter_register.csv` (73 rows) plus the author's rulings; it ends with the questions the author must rule on, each with a recommendation first. Validation moments use the 099r set at stated resolution with tolerances, plans only.
+- **Block 5: summary (section 1), reproduction (section 8), change report, friction entry; set State to done; push; stop.**
+
+**Stop rule.** After three of these blocks, or when a quarter of the budget is left, write the unfinished sections from what exists (marked "partial" with what is missing), push, list the rest under Next and stop. The author wants the build to start after this brief: prefer a complete short section to a long unfinished one. No more research is wanted: where a number is not held, say unset or scenario, as the register classes do.
+
 ## Touches
 `docs/research/104r-parameter-map-design.md` (new), this brief's progress block, `docs/agents/friction-log.md`. No code, register, pack or manifest edits.
 
