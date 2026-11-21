@@ -51,11 +51,11 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** research note written: part A items 1 to 6 (kernel map, dependence table, gap list) and part B (identity, flow of funds, dictionary, worked demonstration, total-return mapping, boundary). No scalar proposed; 3.5% treated as legacy comparator only.
+- **Next:** author reviews the design; implementation is a later brief (096r).
+- **Decisions:** none taken beyond the author's 2026-11-20 decisions.
+- **Gotchas:** state units in the kernel and the fund flow in the revenue code are two unlinked representations of the public asset (note A3).
+- **Resume:** nothing to resume.
+- **Not run:** O7/OD1 and tornado independence of c were searched, not executed; demonstration arithmetic checked by an uncommitted script.
+- **State:** done
 <!-- progress:end -->
