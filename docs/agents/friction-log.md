@@ -71,3 +71,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: ONS CSV/XLSX, BoE XLSX/Stata, and HMRC ODS downloads returned `Unsupported content-type`; HTML time-series/commentary pages remained readable.
 - Cost: source workbooks and the NMG variable inventory could not be inspected; exact upload links were recorded instead.
 - Suggest: author uploads the named files, or provide a repository runtime that can parse ODS/XLSX/Stata downloads.
+
+### 2026-11-21 · 098r · research
+- Instruction: brief 098r Design; inspect held WAS and ONS XLSX/ZIP files.
+- Happened: the connector returned XLSX as base64, ONS file fetches returned `Unsupported content-type`, and the runtime had no XLSX/ZIP parser or checkout, so the first pass reported the held tables as unreadable and concluded the joint stage-by-band distribution was not published. It is (Tables 2.11, 2.13).
+- Cost: a wrong finding had to be corrected at close-out; the brief's acceptance test 1 could not be run.
+- Suggest: research briefs that name held workbooks should say the run needs a local checkout with openpyxl, or the agent should stop and ask instead of concluding from marginals.
