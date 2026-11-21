@@ -259,6 +259,8 @@ The agent's runtime could not decode the uploaded workbooks; the files are valid
 
 **Checks.** Four values spot-checked against the raw workbook (HAXW 2024 138,218; NRVN 2023 104,891; ABPB 2025 1,782,389; HABN 1997 615,321) match exactly. Of 172 values that also appear in the earlier HTML extracts, 163 match to within £1.5m. D.42 received (HAXW) differs in 1997, 2018, 2020 to 2024 (largest 2024: 142,008 earlier, 138,218 now; 2022: 123,703 and 125,424) and D.45 received (M8MD) in 2023 and 2024 (18 and 36; 14 and 45): the earlier files are an older vintage (Blue Book 2025 pages), the workbook is the Q2 2026 release. For these series use the workbook file; the older rows are superseded. S.14 net worth (E45V) for 2025 is 10,829,163, matching the ONS bulletin headline of £10.8tn.
 
+**NBS manual download.** The author's manual workbook `nbs_manual.csv.xlsx` (sheet `nbs`, 71 rows by 419 columns, release 2026-06-10) was compared cell by cell with `nbs.csv`: the data are identical (only the release-date format and a garbled pound sign differ). It is not committed; `nbs.csv` stands. The empty `nbs.xlsx` on the branch is a different, failed download.
+
 **Findings.** The household sheets give D.42 and D.44 as resources only; no D.42 paid, D.44 paid or D.43 series is published for households. Revaluation and other-volume-change series exist for financial assets by instrument only (6.1.9, 6.1.10, households and NPISH together, from 1998); there is no revaluation of dwellings or land in these sheets. The NBS file has stocks, not the revaluation split by asset class.
 
 **Outstanding after this section** (replaces the list above where they differ)
