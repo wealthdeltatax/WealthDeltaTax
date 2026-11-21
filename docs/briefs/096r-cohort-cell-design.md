@@ -46,11 +46,24 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** note `docs/research/096r-cohort-cell-design.md`: segmentation table against 095r, four test cells with a status-labelled parameter matrix, aggregation and transitions, v3 interface gap list (five call sites, public-side resolution, missing pack inputs, tests and digests that move), validation plan (test E), comparison plan (test F), open questions.
+- **Next:** author rules on the open questions (note section 7); then an implementation brief, only after the author authorises.
+- **Decisions:** cells are wealth band x working/retired; consumption specified on the income side per cell and left unset; no scalar depletion rate; one public-side representation (fund) with units kept as settlement bookkeeping, pending the author.
+- **Gotchas:** nearly every flow parameter by cell is unset because 095r found no band rates; recheck items and 095r section 7 rows were not used; pack rows for D4-5 property and pension share are absent.
+- **Resume:** n/a
+- **Not run:** no model code or runs (design); the five call-site line numbers were read, not executed.
+- **State:** done; not merged (open questions, note section 7)
 <!-- progress:end -->
+
+Change report
+- Task: brief 096r, design of the simplest viable household cohort model (test D)
+- Files changed: `docs/research/096r-cohort-cell-design.md` (new note); this brief (progress block, report)
+- What is different now: the cell design, interface gap list, validation plan and comparison plan exist on paper for author review
+- New or changed interfaces: none
+- Acceptance criteria: four test cells with one identity and every parameter labelled: met (many labelled unset); segmentation justified against 095r: met; interface gap list, validation plan, comparison plan present: met; no scalar depletion rate proposed and no favourable/unfavourable description: met
+- Deviations from the brief: none
+- Risks / follow-ups: five open questions in note section 7; most cell flows cannot be run until data requests from 095r are filled
+- Instruction friction: none
+- Verification: `python -I pipeline/check_agent_docs.py` (passed, exit 0); worked-example arithmetic checked by hand
+- Overview sections likely needing an update: none
+- Commit / branch: see git log, brief/096-cohort-cell-design
