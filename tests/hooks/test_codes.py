@@ -102,7 +102,7 @@ def test_h23_selected_value_is_not_a_number(run, make):
     text_row = next(k for k, v in c.display.items() if v["unit"] == "text")
     assert codes(run("{{i:%s}}" % text_row, ctx=c)) == ["H23"]
     assert codes(run("{{i:I-D1c}}", ctx=c)) == ["H23"]                      # no numeric cell yet
-    assert "54.9%" in run("{{i:I-D4b}} {{i:I-D4b.range}}", ctx=c)["text"]
+    assert "52.4%" in run("{{i:I-D4b}} {{i:I-D4b.range}}", ctx=c)["text"]
 
 
 def test_h30_ref_to_a_figure_not_in_this_file(run):

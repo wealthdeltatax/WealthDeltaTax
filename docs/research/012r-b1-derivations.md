@@ -258,3 +258,10 @@ for nm in ['capital_tr','risky_tr','safe_tr','eq_tr','housing_tr','bond_tr']:
 for nm in ['capital_tr','eq_tr','housing_tr','cpi']:
     ys=[y for y,v in zip(yrs,S[nm]) if v is not None]; print(nm,"last non-null year",ys[-1])
 ```
+
+## Addendum 2026-11-21 (brief 106c): I-D4b refitted with the I-D4h adult count
+- The script in section 1 reproduces the old central exactly (54.9% of adults, wealth 92.7%, at £150,000; 62.5% and 95.8% at £112,500). Its assumed counts (1, 2, 3 per household type) imply 47.642m adults over 26.991m households, 1.765 per household; I-D4h (Tables 2.9 and 2.11, persons 16 and over) gives 1.93.
+- Refit: every assumed count is multiplied by one factor, 1.93 / 1.7651 = 1.0934 (counts 1.093, 2.187, 3.280; no household type added), so the household-weighted mean is 1.93. In `adults_share`, `a2 = a * 1.0934` for every type (the old function shifted only the 2 and 3 types, with `adult_shift`, and left 1 alone). Everything else is as in section 1.
+- Results: £150,000: adults 52.4% (was 54.9%), equivalent household threshold 1.78 times W_min (£267,412; was 1.61), wealth share at that threshold 91.5% (was 92.7%). £112,500: adults 60.2% (was 62.5%), 1.68 times (was 1.48), wealth 95.0% (was 95.8%).
+- Sensitivity of the target: 52,043,000 / 26,991,000 = 1.9282 gives 52.4% (52.44); the low 1.86 gives 53.5%.
+- I-D4c was not changed by 106c. Its method (wealth above the household threshold that reproduces the adult share) gives the wealth shares above, 91.5% (was 92.7%), inside its bounds 89.7 to 96.4.
