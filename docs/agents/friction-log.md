@@ -104,3 +104,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Cost: a few lookups; one verdict corrected
 - Suggest: require a progress-block update with each wip commit (the brief already says so) and have the audit script state the comparison it makes in the verdict
 - Status: open
+
+### 2026-11-21 · brief 103r · research
+- Instruction: "a row for every variable of the 094r dictionary" and "every row classified" (five classes: observed, derived, proxy, scenario, unset).
+- Happened: `T_WDT`, `dNW` and `r_f` are model outputs, not parameters, so no existing class fits; I added an "endogenous" class for three dictionary rows.
+- Cost: a vocabulary choice the guru did not make; the class count in the note has a sixth entry.
+- Suggest: add "endogenous (model output, no parameter)" to the classification in `docs/hypotheses/empirical-household-flow-parameter-map.md`, or say that dictionary terms that are not parameters need no row.

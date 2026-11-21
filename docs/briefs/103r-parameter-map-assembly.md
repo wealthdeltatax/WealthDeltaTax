@@ -45,11 +45,25 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 note skeleton; branch cut from origin/main 152d700. Block 1: `merge_and_check.py`, merged register (73 rows), crosswalk (25), dictionary map; note section 2; structural checks pass. Block 2: `cross_side_checks.py`, `cross_side_checks.csv` (14 checks, 4 hard pass), `worked_cell_d45.csv`; `cross_side_flag` column in the register; note section 3. Block 3: supply list (16 requests into 7; `unresolved_data.csv`), rulings summary with the consequence of each unset row, `register_differences.csv` (26 rows), reproduction list; note sections 4 to 7.
-- **Next:** block 4: summary (note section 1), friction log, final check, merge decision.
-- **Decisions:** none yet.
-- **Gotchas:** the clone tracks main only; fetch other branches by name.
-- **Resume:** branch `brief/103`; read this block and the note skeleton.
-- **Not run:** nothing yet.
-- **State:** in progress
+- **Done:** all blocks. Block 1 merged register and crosswalk with structural checks; block 2 cross-side checks and worked cell; block 3 supply list, rulings and register differences; block 4 summary, friction log, change report. Note: `docs/research/103r-parameter-map-assembly.md`; data and scripts: `docs/research/data/103r/`.
+- **Next:** guru review and retire; 104r takes the decisions listed in the note summary.
+- **Decisions:** none taken beyond the author's 2026-11-21 decisions.
+- **Gotchas:** the clone tracks main only; fetch other branches by name. Flows are on the ONS national-accounts pension basis, the stock on the WAS SCAPE basis.
+- **Resume:** nothing to resume.
+- **Not run:** nothing skipped. No source re-collected; the 101r and 102r scripts were not re-run (their CSVs are read).
+- **State:** done
 <!-- progress:end -->
+
+**Change report**
+- Task: 103r, parameter map assembly (deliverables A, B, E closing step).
+- Files changed: `docs/research/103r-parameter-map-assembly.md` (new note); `docs/research/data/103r/` (new: `merge_and_check.py`, `cross_side_checks.py`, `parameter_register.csv`, `source_crosswalk.csv`, `dictionary_map.csv`, `unresolved_data.csv`, `register_differences.csv`, `cross_side_checks.csv`, `worked_cell_d45.csv`); this brief's progress block; `docs/agents/friction-log.md` (one entry).
+- What is different now: one 73-row parameter register and a 25-source crosswalk replace the two; the cross-side consistency checks, a worked cell, a 7-item data-supply list, the rulings with the consequence of each unset row, and a table of differences from the existing register exist for 104r and the author.
+- New or changed interfaces: two scripts run with `python -I` from the repository root; no model, register, pack or manifest interface.
+- Acceptance criteria: (1) merged register has a row for every one of the 18 094r dictionary terms and every one of the 26 existing register rows named in 101r and 102r, every row classified, no unset row with a value: met, checked by `merge_and_check.py` (0 failures). (2) Items 2 to 5 present with numbers and tolerances: met (14 cross-side checks, section 3; supply list section 4; rulings section 5; differences section 6). (3) No row adjusted or chosen with regard to WDT revenue: met. (4) `git diff --stat` limited to Touches: met (see Verification).
+- Deviations from the brief: a sixth classification, "endogenous", for three dictionary rows that are model outputs (friction-log entry); a second script for the numeric checks.
+- Risks / follow-ups: the pension flows and stock are on different bases (DR-01); the wealth roll-forward does not close without the non-financial revaluation (DR-05); one imputed-rent claim rests on an ONS methodology page read on the web, not on a held file.
+- Instruction friction: one entry added (classification vocabulary for non-parameter dictionary terms).
+- Verification: `python -I pipeline/check_agent_docs.py` passes; both scripts re-run from a clean checkout of the branch tip with identical outputs (below).
+- Overview sections likely needing an update: none; the guru records the decisions in the note summary (a) to (e).
+- Commit / branch: see the final commit on `brief/103`.
+
