@@ -1,0 +1,169 @@
+hrp_age,wealth_component,statistic,value,flag,unit,geography,period,source,retrieval_date
+16 to 24,Physical wealth,Mean,19900.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Physical wealth,Aggregate,6244.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Physical wealth,Percent,0.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Property wealth (net),Mean,13500.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Property wealth (net),Median,0.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Property wealth (net),Aggregate,4233.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Property wealth (net),Percent,0.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Private pension wealth,Mean,12900.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Private pension wealth,Median,800.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Private pension wealth,Aggregate,4053.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Private pension wealth,Percent,0.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Financial wealth (net),Mean,3700.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Financial wealth (net),Median,100.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Financial wealth (net),Aggregate,1152.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Financial wealth (net),Percent,0.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Total wealth,Mean,49900.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Total wealth,Median,15200.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Total wealth,Aggregate,15682.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Total wealth,Percent,0.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Unweighted Frequency,,81.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+16 to 24,Weighted Frequency,,314000.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Physical wealth,Mean,33300.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Physical wealth,Aggregate,117511.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Physical wealth,Percent,8.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Property wealth (net),Mean,62100.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Property wealth (net),Median,7000.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Property wealth (net),Aggregate,219066.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Property wealth (net),Percent,4.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Private pension wealth,Mean,57100.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Private pension wealth,Median,30400.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Private pension wealth,Aggregate,201501.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Private pension wealth,Percent,4.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Financial wealth (net),Mean,18700.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Financial wealth (net),Median,1300.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Financial wealth (net),Aggregate,66081.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Financial wealth (net),Percent,3.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Total wealth,Mean,171200.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Total wealth,Median,109800.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Total wealth,Aggregate,604160.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Total wealth,Percent,4.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Unweighted Frequency,,833.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+25 to 34,Weighted Frequency,,3528000.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Physical wealth,Mean,44900.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Physical wealth,Aggregate,203996.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Physical wealth,Percent,15.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Property wealth (net),Mean,118300.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Property wealth (net),Median,64000.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Property wealth (net),Aggregate,537002.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Property wealth (net),Percent,10.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Private pension wealth,Mean,115500.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Private pension wealth,Median,51600.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Private pension wealth,Aggregate,524481.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Private pension wealth,Percent,11.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Financial wealth (net),Mean,43800.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Financial wealth (net),Median,5600.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Financial wealth (net),Aggregate,199028.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Financial wealth (net),Percent,10.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Total wealth,Mean,322600.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Total wealth,Median,209600.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Total wealth,Aggregate,1464508.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Total wealth,Percent,11.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Unweighted Frequency,,1595.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+35 to 44,Weighted Frequency,,4540000.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Physical wealth,Mean,53000.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Physical wealth,Aggregate,283642.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Physical wealth,Percent,20.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Property wealth (net),Mean,188800.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Property wealth (net),Median,92600.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Property wealth (net),Aggregate,1009582.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Property wealth (net),Percent,18.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Private pension wealth,Mean,190200.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Private pension wealth,Median,84800.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Private pension wealth,Aggregate,1017070.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Private pension wealth,Percent,21.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Financial wealth (net),Mean,51500.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Financial wealth (net),Median,7200.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Financial wealth (net),Aggregate,275406.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Financial wealth (net),Percent,14.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Total wealth,Mean,483400.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Total wealth,Median,301900.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Total wealth,Aggregate,2585700.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Total wealth,Percent,19.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Unweighted Frequency,,2378.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+45 to 54,Weighted Frequency,,5349000.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Physical wealth,Mean,62400.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Physical wealth,Aggregate,322094.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Physical wealth,Percent,23.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Property wealth (net),Mean,269600.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Property wealth (net),Median,181000.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Property wealth (net),Aggregate,1391073.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Property wealth (net),Percent,25.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Private pension wealth,Mean,302800.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Private pension wealth,Median,155000.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Private pension wealth,Aggregate,1562185.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Private pension wealth,Percent,32.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Financial wealth (net),Mean,94300.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Financial wealth (net),Median,15600.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Financial wealth (net),Aggregate,486529.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Financial wealth (net),Percent,25.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Total wealth,Mean,729100.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Total wealth,Median,496500.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Total wealth,Aggregate,3761881.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Total wealth,Percent,28.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Unweighted Frequency,,3186.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+55 to 64,Weighted Frequency,,5160000.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Physical wealth,Mean,61600.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Physical wealth,Aggregate,259004.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Physical wealth,Percent,19.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Property wealth (net),Mean,292400.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Property wealth (net),Median,200000.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Property wealth (net),Aggregate,1229484.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Property wealth (net),Percent,23.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Private pension wealth,Mean,250900.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Private pension wealth,Median,141800.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Private pension wealth,Aggregate,1054931.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Private pension wealth,Percent,22.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Financial wealth (net),Mean,117400.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Financial wealth (net),Median,32300.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Financial wealth (net),Aggregate,493776.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Financial wealth (net),Percent,26.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Total wealth,Mean,722400.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Total wealth,Median,502500.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Total wealth,Aggregate,3037195.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Total wealth,Percent,22.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Unweighted Frequency,,3845.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+65 to 74,Weighted Frequency,,4204000.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Physical wealth,Mean,49300.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Physical wealth,Aggregate,192089.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Physical wealth,Percent,14.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Property wealth (net),Mean,274800.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Property wealth (net),Median,210000.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Property wealth (net),Aggregate,1070383.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Property wealth (net),Percent,20.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Private pension wealth,Mean,113900.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Private pension wealth,Median,49900.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Private pension wealth,Aggregate,443482.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Private pension wealth,Percent,9.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Financial wealth (net),Mean,100800.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Financial wealth (net),Median,25800.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Financial wealth (net),Aggregate,392811.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Financial wealth (net),Percent,21.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Total wealth,Mean,538800.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Total wealth,Median,373100.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Total wealth,Aggregate,2098764.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Total wealth,Percent,15.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Unweighted Frequency,,3212.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+75+,Weighted Frequency,,3895000.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Physical wealth,Mean,51300.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Physical wealth,Aggregate,1384580.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Physical wealth,Percent,100.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Property wealth (net),Mean,202300.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Property wealth (net),Median,106000.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Property wealth (net),Aggregate,5460824.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Property wealth (net),Percent,100.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Private pension wealth,Mean,178100.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Private pension wealth,Median,67900.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Private pension wealth,Aggregate,4807703.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Private pension wealth,Percent,100.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Financial wealth (net),Mean,70900.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Financial wealth (net),Median,10400.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Financial wealth (net),Aggregate,1914783.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Financial wealth (net),Percent,100.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Total wealth,Mean,502700.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Total wealth,Median,293700.0,,£,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Total wealth,Aggregate,13567890.0,,£ million,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Total wealth,Percent,100.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Unweighted Frequency,,15130.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21
+All households,Weighted Frequency,,26991000.0,,%,Great Britain,April 2020 to March 2022,ONS Ad hoc 2813,2026-11-21

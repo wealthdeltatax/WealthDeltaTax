@@ -1,0 +1,505 @@
+table,round,group_kind,parent_group,group,level,wealth_band,percent,flag,unweighted_n,weighted_n,geography,wealth_measure,unit,source_file,retrieval_date
+Table 2.11,July 2006 to June 2008,age,,Under 16,main,"Less than £20,000",23.0,,8086,11323000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,Under 16,main,"£20,000 but < £85,000",18.0,,8086,11323000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,Under 16,main,"£85,000 but < £200,000",20.0,,8086,11323000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,Under 16,main,"£200,000 but < £300,000",12.0,,8086,11323000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,Under 16,main,"£300,000 but < £500,000",14.0,,8086,11323000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,Under 16,main,"£500,000 but < £1 million",10.0,,8086,11323000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,Under 16,main,£1 million or more,4.0,,8086,11323000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,16-24,main,"Less than £20,000",27.0,,3957,6704000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,16-24,main,"£20,000 but < £85,000",20.0,,3957,6704000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,16-24,main,"£85,000 but < £200,000",13.0,,3957,6704000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,16-24,main,"£200,000 but < £300,000",9.0,,3957,6704000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,16-24,main,"£300,000 but < £500,000",13.0,,3957,6704000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,16-24,main,"£500,000 but < £1 million",12.0,,3957,6704000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,16-24,main,£1 million or more,6.0,,3957,6704000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,25-34,main,"Less than £20,000",22.0,,4398,7509000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,25-34,main,"£20,000 but < £85,000",28.0,,4398,7509000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,25-34,main,"£85,000 but < £200,000",26.0,,4398,7509000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,25-34,main,"£200,000 but < £300,000",9.0,,4398,7509000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,25-34,main,"£300,000 but < £500,000",8.0,,4398,7509000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,25-34,main,"£500,000 but < £1 million",4.0,,4398,7509000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,25-34,main,£1 million or more,2.0,,4398,7509000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,35-44,main,"Less than £20,000",13.0,,5888,8996000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,35-44,main,"£20,000 but < £85,000",15.0,,5888,8996000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,35-44,main,"£85,000 but < £200,000",22.0,,5888,8996000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,35-44,main,"£200,000 but < £300,000",16.0,,5888,8996000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,35-44,main,"£300,000 but < £500,000",18.0,,5888,8996000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,35-44,main,"£500,000 but < £1 million",12.0,,5888,8996000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,35-44,main,£1 million or more,4.0,,5888,8996000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,45-54,main,"Less than £20,000",9.0,,5276,7629000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,45-54,main,"£20,000 but < £85,000",11.0,,5276,7629000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,45-54,main,"£85,000 but < £200,000",14.0,,5276,7629000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,45-54,main,"£200,000 but < £300,000",13.0,,5276,7629000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,45-54,main,"£300,000 but < £500,000",21.0,,5276,7629000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,45-54,main,"£500,000 but < £1 million",21.0,,5276,7629000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,45-54,main,£1 million or more,11.0,,5276,7629000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,55-64,main,"Less than £20,000",6.0,,5500,6844000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,55-64,main,"£20,000 but < £85,000",8.0,,5500,6844000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,55-64,main,"£85,000 but < £200,000",12.0,,5500,6844000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,55-64,main,"£200,000 but < £300,000",12.0,,5500,6844000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,55-64,main,"£300,000 but < £500,000",20.0,,5500,6844000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,55-64,main,"£500,000 but < £1 million",27.0,,5500,6844000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,55-64,main,£1 million or more,16.0,,5500,6844000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,65+,main,"Less than £20,000",8.0,,7229,9086000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,65+,main,"£20,000 but < £85,000",12.0,,7229,9086000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,65+,main,"£85,000 but < £200,000",15.0,,7229,9086000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,65+,main,"£200,000 but < £300,000",17.0,,7229,9086000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,65+,main,"£300,000 but < £500,000",22.0,,7229,9086000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,65+,main,"£500,000 but < £1 million",18.0,,7229,9086000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,65+,main,£1 million or more,7.0,,7229,9086000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,All persons,main,"Less than £20,000",16.0,,40334,58094000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,All persons,main,"£20,000 but < £85,000",16.0,,40334,58094000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,All persons,main,"£85,000 but < £200,000",18.0,,40334,58094000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,All persons,main,"£200,000 but < £300,000",13.0,,40334,58094000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,All persons,main,"£300,000 but < £500,000",17.0,,40334,58094000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,All persons,main,"£500,000 but < £1 million",14.0,,40334,58094000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2006 to June 2008,age,,All persons,main,£1 million or more,7.0,,40334,58094000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,Under 16,main,"Less than £20,000",20.0,,8742,11130000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,Under 16,main,"£20,000 but < £85,000",20.0,,8742,11130000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,Under 16,main,"£85,000 but < £200,000",21.0,,8742,11130000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,Under 16,main,"£200,000 but < £300,000",12.0,,8742,11130000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,Under 16,main,"£300,000 but < £500,000",13.0,,8742,11130000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,Under 16,main,"£500,000 but < £1 million",11.0,,8742,11130000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,Under 16,main,£1 million or more,4.0,,8742,11130000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,16-24,main,"Less than £20,000",19.0,,4121,7126000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,16-24,main,"£20,000 but < £85,000",19.0,,4121,7126000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,16-24,main,"£85,000 but < £200,000",15.0,,4121,7126000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,16-24,main,"£200,000 but < £300,000",11.0,,4121,7126000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,16-24,main,"£300,000 but < £500,000",14.0,,4121,7126000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,16-24,main,"£500,000 but < £1 million",15.0,,4121,7126000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,16-24,main,£1 million or more,8.0,,4121,7126000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,25-34,main,"Less than £20,000",20.0,,4348,7699000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,25-34,main,"£20,000 but < £85,000",29.0,,4348,7699000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,25-34,main,"£85,000 but < £200,000",25.0,,4348,7699000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,25-34,main,"£200,000 but < £300,000",10.0,,4348,7699000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,25-34,main,"£300,000 but < £500,000",8.0,,4348,7699000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,25-34,main,"£500,000 but < £1 million",6.0,,4348,7699000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,25-34,main,£1 million or more,2.0,,4348,7699000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,35-44,main,"Less than £20,000",13.0,,6248,8700000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,35-44,main,"£20,000 but < £85,000",16.0,,6248,8700000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,35-44,main,"£85,000 but < £200,000",23.0,,6248,8700000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,35-44,main,"£200,000 but < £300,000",16.0,,6248,8700000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,35-44,main,"£300,000 but < £500,000",17.0,,6248,8700000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,35-44,main,"£500,000 but < £1 million",13.0,,6248,8700000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,35-44,main,£1 million or more,3.0,,6248,8700000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,45-54,main,"Less than £20,000",8.0,,6370,8062000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,45-54,main,"£20,000 but < £85,000",10.0,,6370,8062000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,45-54,main,"£85,000 but < £200,000",15.0,,6370,8062000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,45-54,main,"£200,000 but < £300,000",14.0,,6370,8062000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,45-54,main,"£300,000 but < £500,000",20.0,,6370,8062000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,45-54,main,"£500,000 but < £1 million",22.0,,6370,8062000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,45-54,main,£1 million or more,11.0,,6370,8062000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,55-64,main,"Less than £20,000",6.0,,6819,7061000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,55-64,main,"£20,000 but < £85,000",8.0,,6819,7061000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,55-64,main,"£85,000 but < £200,000",12.0,,6819,7061000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,55-64,main,"£200,000 but < £300,000",11.0,,6819,7061000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,55-64,main,"£300,000 but < £500,000",19.0,,6819,7061000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,55-64,main,"£500,000 but < £1 million",25.0,,6819,7061000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,55-64,main,£1 million or more,19.0,,6819,7061000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,65+,main,"Less than £20,000",7.0,,9694,9405000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,65+,main,"£20,000 but < £85,000",12.0,,9694,9405000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,65+,main,"£85,000 but < £200,000",15.0,,9694,9405000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,65+,main,"£200,000 but < £300,000",15.0,,9694,9405000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,65+,main,"£300,000 but < £500,000",22.0,,9694,9405000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,65+,main,"£500,000 but < £1 million",20.0,,9694,9405000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,65+,main,£1 million or more,9.0,,9694,9405000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,All persons,main,"Less than £20,000",13.0,,46342,59183000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,All persons,main,"£20,000 but < £85,000",16.0,,46342,59183000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,All persons,main,"£85,000 but < £200,000",18.0,,46342,59183000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,All persons,main,"£200,000 but < £300,000",13.0,,46342,59183000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,All persons,main,"£300,000 but < £500,000",16.0,,46342,59183000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,All persons,main,"£500,000 but < £1 million",16.0,,46342,59183000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2008 to June 2010,age,,All persons,main,£1 million or more,7.0,,46342,59183000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,Under 16,main,"Less than £20,000",20.0,,9051,11187000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,Under 16,main,"£20,000 but < £85,000",20.0,,9051,11187000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,Under 16,main,"£85,000 but < £200,000",20.0,,9051,11187000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,Under 16,main,"£200,000 but < £300,000",12.0,,9051,11187000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,Under 16,main,"£300,000 but < £500,000",13.0,,9051,11187000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,Under 16,main,"£500,000 but < £1 million",11.0,,9051,11187000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,Under 16,main,£1 million or more,4.0,,9051,11187000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,16-24,main,"Less than £20,000",19.0,,4668,6824000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,16-24,main,"£20,000 but < £85,000",18.0,,4668,6824000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,16-24,main,"£85,000 but < £200,000",15.0,,4668,6824000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,16-24,main,"£200,000 but < £300,000",9.0,,4668,6824000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,16-24,main,"£300,000 but < £500,000",14.0,,4668,6824000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,16-24,main,"£500,000 but < £1 million",15.0,,4668,6824000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,16-24,main,£1 million or more,9.0,,4668,6824000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,25-34,main,"Less than £20,000",20.0,,4576,8031000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,25-34,main,"£20,000 but < £85,000",27.0,,4576,8031000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,25-34,main,"£85,000 but < £200,000",25.0,,4576,8031000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,25-34,main,"£200,000 but < £300,000",10.0,,4576,8031000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,25-34,main,"£300,000 but < £500,000",8.0,,4576,8031000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,25-34,main,"£500,000 but < £1 million",7.0,,4576,8031000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,25-34,main,£1 million or more,3.0,,4576,8031000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,35-44,main,"Less than £20,000",12.0,,6375,8360000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,35-44,main,"£20,000 but < £85,000",18.0,,6375,8360000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,35-44,main,"£85,000 but < £200,000",22.0,,6375,8360000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,35-44,main,"£200,000 but < £300,000",15.0,,6375,8360000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,35-44,main,"£300,000 but < £500,000",16.0,,6375,8360000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,35-44,main,"£500,000 but < £1 million",13.0,,6375,8360000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,35-44,main,£1 million or more,4.0,,6375,8360000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,45-54,main,"Less than £20,000",9.0,,6854,8415000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,45-54,main,"£20,000 but < £85,000",11.0,,6854,8415000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,45-54,main,"£85,000 but < £200,000",14.0,,6854,8415000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,45-54,main,"£200,000 but < £300,000",13.0,,6854,8415000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,45-54,main,"£300,000 but < £500,000",21.0,,6854,8415000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,45-54,main,"£500,000 but < £1 million",22.0,,6854,8415000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,45-54,main,£1 million or more,11.0,,6854,8415000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,55-64,main,"Less than £20,000",6.0,,7108,7096000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,55-64,main,"£20,000 but < £85,000",7.0,,7108,7096000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,55-64,main,"£85,000 but < £200,000",11.0,,7108,7096000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,55-64,main,"£200,000 but < £300,000",11.0,,7108,7096000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,55-64,main,"£300,000 but < £500,000",17.0,,7108,7096000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,55-64,main,"£500,000 but < £1 million",26.0,,7108,7096000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,55-64,main,£1 million or more,22.0,,7108,7096000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,65+,main,"Less than £20,000",7.0,,10813,9746000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,65+,main,"£20,000 but < £85,000",11.0,,10813,9746000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,65+,main,"£85,000 but < £200,000",14.0,,10813,9746000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,65+,main,"£200,000 but < £300,000",14.0,,10813,9746000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,65+,main,"£300,000 but < £500,000",21.0,,10813,9746000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,65+,main,"£500,000 but < £1 million",23.0,,10813,9746000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,65+,main,£1 million or more,11.0,,10813,9746000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,All persons,main,"Less than £20,000",13.0,,49445,59659000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,All persons,main,"£20,000 but < £85,000",16.0,,49445,59659000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,All persons,main,"£85,000 but < £200,000",18.0,,49445,59659000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,All persons,main,"£200,000 but < £300,000",12.0,,49445,59659000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,All persons,main,"£300,000 but < £500,000",16.0,,49445,59659000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,All persons,main,"£500,000 but < £1 million",16.0,,49445,59659000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2010 to June 2012,age,,All persons,main,£1 million or more,9.0,,49445,59659000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,Under 16,main,"Less than £20,000",21.0,,8153,11619000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,Under 16,main,"£20,000 but < £85,000",21.0,,8153,11619000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,Under 16,main,"£85,000 but < £200,000",20.0,,8153,11619000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,Under 16,main,"£200,000 but < £300,000",10.0,,8153,11619000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,Under 16,main,"£300,000 but < £500,000",12.0,,8153,11619000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,Under 16,main,"£500,000 but < £1 million",10.0,,8153,11619000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,Under 16,main,£1 million or more,6.0,,8153,11619000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,16-24,main,"Less than £20,000",21.0,,4333,6822000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,16-24,main,"£20,000 but < £85,000",18.0,,4333,6822000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,16-24,main,"£85,000 but < £200,000",13.0,,4333,6822000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,16-24,main,"£200,000 but < £300,000",9.0,,4333,6822000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,16-24,main,"£300,000 but < £500,000",13.0,,4333,6822000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,16-24,main,"£500,000 but < £1 million",15.0,,4333,6822000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,16-24,main,£1 million or more,11.0,,4333,6822000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,25-34,main,"Less than £20,000",21.0,,4143,8320000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,25-34,main,"£20,000 but < £85,000",27.0,,4143,8320000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,25-34,main,"£85,000 but < £200,000",23.0,,4143,8320000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,25-34,main,"£200,000 but < £300,000",9.0,,4143,8320000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,25-34,main,"£300,000 but < £500,000",9.0,,4143,8320000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,25-34,main,"£500,000 but < £1 million",7.0,,4143,8320000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,25-34,main,£1 million or more,3.0,,4143,8320000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,35-44,main,"Less than £20,000",13.0,,5356,8155000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,35-44,main,"£20,000 but < £85,000",18.0,,5356,8155000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,35-44,main,"£85,000 but < £200,000",23.0,,5356,8155000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,35-44,main,"£200,000 but < £300,000",13.0,,5356,8155000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,35-44,main,"£300,000 but < £500,000",17.0,,5356,8155000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,35-44,main,"£500,000 but < £1 million",12.0,,5356,8155000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,35-44,main,£1 million or more,5.0,,5356,8155000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,45-54,main,"Less than £20,000",9.0,,6689,8720000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,45-54,main,"£20,000 but < £85,000",11.0,,6689,8720000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,45-54,main,"£85,000 but < £200,000",13.0,,6689,8720000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,45-54,main,"£200,000 but < £300,000",11.0,,6689,8720000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,45-54,main,"£300,000 but < £500,000",19.0,,6689,8720000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,45-54,main,"£500,000 but < £1 million",22.0,,6689,8720000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,45-54,main,£1 million or more,14.0,,6689,8720000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,55-64,main,"Less than £20,000",7.0,,6647,7051000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,55-64,main,"£20,000 but < £85,000",7.0,,6647,7051000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,55-64,main,"£85,000 but < £200,000",10.0,,6647,7051000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,55-64,main,"£200,000 but < £300,000",10.0,,6647,7051000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,55-64,main,"£300,000 but < £500,000",15.0,,6647,7051000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,55-64,main,"£500,000 but < £1 million",26.0,,6647,7051000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,55-64,main,£1 million or more,25.0,,6647,7051000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,65+,main,"Less than £20,000",7.0,,11130,10482000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,65+,main,"£20,000 but < £85,000",10.0,,11130,10482000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,65+,main,"£85,000 but < £200,000",12.0,,11130,10482000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,65+,main,"£200,000 but < £300,000",12.0,,11130,10482000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,65+,main,"£300,000 but < £500,000",19.0,,11130,10482000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,65+,main,"£500,000 but < £1 million",24.0,,11130,10482000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,65+,main,£1 million or more,16.0,,11130,10482000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,All persons,main,"Less than £20,000",14.0,,46451,61169000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,All persons,main,"£20,000 but < £85,000",16.0,,46451,61169000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,All persons,main,"£85,000 but < £200,000",17.0,,46451,61169000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,All persons,main,"£200,000 but < £300,000",11.0,,46451,61169000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,All persons,main,"£300,000 but < £500,000",15.0,,46451,61169000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,All persons,main,"£500,000 but < £1 million",17.0,,46451,61169000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2012 to June 2014,age,,All persons,main,£1 million or more,11.0,,46451,61169000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,Under 16,main,"Less than £20,000",18.0,,7274,11816000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,Under 16,main,"£20,000 but < £85,000",19.0,,7274,11816000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,Under 16,main,"£85,000 but < £200,000",18.0,,7274,11816000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,Under 16,main,"£200,000 but < £300,000",11.0,,7274,11816000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,Under 16,main,"£300,000 but < £500,000",14.0,,7274,11816000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,Under 16,main,"£500,000 but < £1 million",13.0,,7274,11816000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,Under 16,main,£1 million or more,7.0,,7274,11816000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,16-24,main,"Less than £20,000",19.0,,3885,6768000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,16-24,main,"£20,000 but < £85,000",16.0,,3885,6768000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,16-24,main,"£85,000 but < £200,000",13.0,,3885,6768000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,16-24,main,"£200,000 but < £300,000",9.0,,3885,6768000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,16-24,main,"£300,000 but < £500,000",12.0,,3885,6768000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,16-24,main,"£500,000 but < £1 million",15.0,,3885,6768000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,16-24,main,£1 million or more,17.0,,3885,6768000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,25-34,main,"Less than £20,000",19.0,,3599,8466000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,25-34,main,"£20,000 but < £85,000",24.0,,3599,8466000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,25-34,main,"£85,000 but < £200,000",21.0,,3599,8466000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,25-34,main,"£200,000 but < £300,000",10.0,,3599,8466000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,25-34,main,"£300,000 but < £500,000",11.0,,3599,8466000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,25-34,main,"£500,000 but < £1 million",9.0,,3599,8466000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,25-34,main,£1 million or more,6.0,,3599,8466000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,35-44,main,"Less than £20,000",12.0,,4690,8077000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,35-44,main,"£20,000 but < £85,000",15.0,,4690,8077000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,35-44,main,"£85,000 but < £200,000",20.0,,4690,8077000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,35-44,main,"£200,000 but < £300,000",13.0,,4690,8077000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,35-44,main,"£300,000 but < £500,000",18.0,,4690,8077000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,35-44,main,"£500,000 but < £1 million",16.0,,4690,8077000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,35-44,main,£1 million or more,6.0,,4690,8077000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,45-54,main,"Less than £20,000",9.0,,6160,8874000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,45-54,main,"£20,000 but < £85,000",11.0,,6160,8874000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,45-54,main,"£85,000 but < £200,000",13.0,,6160,8874000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,45-54,main,"£200,000 but < £300,000",10.0,,6160,8874000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,45-54,main,"£300,000 but < £500,000",16.0,,6160,8874000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,45-54,main,"£500,000 but < £1 million",22.0,,6160,8874000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,45-54,main,£1 million or more,19.0,,6160,8874000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,55-64,main,"Less than £20,000",7.0,,6106,7195000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,55-64,main,"£20,000 but < £85,000",8.0,,6106,7195000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,55-64,main,"£85,000 but < £200,000",8.0,,6106,7195000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,55-64,main,"£200,000 but < £300,000",7.0,,6106,7195000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,55-64,main,"£300,000 but < £500,000",13.0,,6106,7195000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,55-64,main,"£500,000 but < £1 million",24.0,,6106,7195000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,55-64,main,£1 million or more,33.0,,6106,7195000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,65+,main,"Less than £20,000",6.0,,11182,10937000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,65+,main,"£20,000 but < £85,000",9.0,,11182,10937000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,65+,main,"£85,000 but < £200,000",11.0,,11182,10937000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,65+,main,"£200,000 but < £300,000",11.0,,11182,10937000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,65+,main,"£300,000 but < £500,000",18.0,,11182,10937000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,65+,main,"£500,000 but < £1 million",26.0,,11182,10937000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,65+,main,£1 million or more,20.0,,11182,10937000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,All persons,main,"Less than £20,000",13.0,,42896,62135000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,All persons,main,"£20,000 but < £85,000",15.0,,42896,62135000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,All persons,main,"£85,000 but < £200,000",15.0,,42896,62135000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,All persons,main,"£200,000 but < £300,000",10.0,,42896,62135000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,All persons,main,"£300,000 but < £500,000",15.0,,42896,62135000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,All persons,main,"£500,000 but < £1 million",18.0,,42896,62135000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,July 2014 to June 2016,age,,All persons,main,£1 million or more,15.0,,42896,62135000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,Under 16,main,"Less than £20,000",20.0,,7406,11792000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,Under 16,main,"£20,000 but < £85,000",19.0,,7406,11792000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,Under 16,main,"£85,000 but < £200,000",18.0,,7406,11792000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,Under 16,main,"£200,000 but < £300,000",11.0,,7406,11792000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,Under 16,main,"£300,000 but < £500,000",13.0,,7406,11792000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,Under 16,main,"£500,000 but < £1 million",13.0,,7406,11792000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,Under 16,main,£1 million or more,7.0,,7406,11792000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,16-24,main,"Less than £20,000",18.0,,3964,6774000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,16-24,main,"£20,000 but < £85,000",16.0,,3964,6774000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,16-24,main,"£85,000 but < £200,000",13.0,,3964,6774000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,16-24,main,"£200,000 but < £300,000",9.0,,3964,6774000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,16-24,main,"£300,000 but < £500,000",13.0,,3964,6774000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,16-24,main,"£500,000 but < £1 million",15.0,,3964,6774000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,16-24,main,£1 million or more,16.0,,3964,6774000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,25-34,main,"Less than £20,000",20.0,,3701,8448000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,25-34,main,"£20,000 but < £85,000",24.0,,3701,8448000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,25-34,main,"£85,000 but < £200,000",22.0,,3701,8448000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,25-34,main,"£200,000 but < £300,000",10.0,,3701,8448000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,25-34,main,"£300,000 but < £500,000",10.0,,3701,8448000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,25-34,main,"£500,000 but < £1 million",8.0,,3701,8448000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,25-34,main,£1 million or more,6.0,,3701,8448000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,35-44,main,"Less than £20,000",12.0,,4789,8079000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,35-44,main,"£20,000 but < £85,000",16.0,,4789,8079000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,35-44,main,"£85,000 but < £200,000",19.0,,4789,8079000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,35-44,main,"£200,000 but < £300,000",13.0,,4789,8079000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,35-44,main,"£300,000 but < £500,000",18.0,,4789,8079000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,35-44,main,"£500,000 but < £1 million",15.0,,4789,8079000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,35-44,main,£1 million or more,6.0,,4789,8079000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,45-54,main,"Less than £20,000",9.0,,6223,8858000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,45-54,main,"£20,000 but < £85,000",11.0,,6223,8858000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,45-54,main,"£85,000 but < £200,000",13.0,,6223,8858000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,45-54,main,"£200,000 but < £300,000",11.0,,6223,8858000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,45-54,main,"£300,000 but < £500,000",16.0,,6223,8858000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,45-54,main,"£500,000 but < £1 million",22.0,,6223,8858000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,45-54,main,£1 million or more,18.0,,6223,8858000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,55-64,main,"Less than £20,000",7.0,,6162,7172000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,55-64,main,"£20,000 but < £85,000",8.0,,6162,7172000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,55-64,main,"£85,000 but < £200,000",9.0,,6162,7172000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,55-64,main,"£200,000 but < £300,000",7.0,,6162,7172000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,55-64,main,"£300,000 but < £500,000",13.0,,6162,7172000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,55-64,main,"£500,000 but < £1 million",25.0,,6162,7172000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,55-64,main,£1 million or more,32.0,,6162,7172000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,65+,main,"Less than £20,000",6.0,,11186,10889000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,65+,main,"£20,000 but < £85,000",9.0,,11186,10889000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,65+,main,"£85,000 but < £200,000",11.0,,11186,10889000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,65+,main,"£200,000 but < £300,000",11.0,,11186,10889000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,65+,main,"£300,000 but < £500,000",18.0,,11186,10889000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,65+,main,"£500,000 but < £1 million",25.0,,11186,10889000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,65+,main,£1 million or more,19.0,,11186,10889000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,All persons,main,"Less than £20,000",13.0,,43431,62013000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,All persons,main,"£20,000 but < £85,000",15.0,,43431,62013000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,All persons,main,"£85,000 but < £200,000",15.0,,43431,62013000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,All persons,main,"£200,000 but < £300,000",10.0,,43431,62013000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,All persons,main,"£300,000 but < £500,000",15.0,,43431,62013000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,All persons,main,"£500,000 but < £1 million",18.0,,43431,62013000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2014 to March 2016,age,,All persons,main,£1 million or more,14.0,,43431,62013000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,Under 16,main,"Less than £20,000",18.0,,6507,12030000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,Under 16,main,"£20,000 but < £85,000",17.0,,6507,12030000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,Under 16,main,"£85,000 but < £200,000",18.0,,6507,12030000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,Under 16,main,"£200,000 but < £300,000",10.0,,6507,12030000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,Under 16,main,"£300,000 but < £500,000",13.0,,6507,12030000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,Under 16,main,"£500,000 but < £1 million",15.0,,6507,12030000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,Under 16,main,£1 million or more,8.0,,6507,12030000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,16-24,main,"Less than £20,000",20.0,,3525,6624000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,16-24,main,"£20,000 but < £85,000",17.0,,3525,6624000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,16-24,main,"£85,000 but < £200,000",10.0,,3525,6624000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,16-24,main,"£200,000 but < £300,000",8.0,,3525,6624000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,16-24,main,"£300,000 but < £500,000",12.0,,3525,6624000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,16-24,main,"£500,000 but < £1 million",16.0,,3525,6624000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,16-24,main,£1 million or more,17.0,,3525,6624000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,25-34,main,"Less than £20,000",18.0,,3246,8593000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,25-34,main,"£20,000 but < £85,000",24.0,,3246,8593000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,25-34,main,"£85,000 but < £200,000",23.0,,3246,8593000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,25-34,main,"£200,000 but < £300,000",11.0,,3246,8593000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,25-34,main,"£300,000 but < £500,000",10.0,,3246,8593000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,25-34,main,"£500,000 but < £1 million",9.0,,3246,8593000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,25-34,main,£1 million or more,6.0,,3246,8593000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,35-44,main,"Less than £20,000",11.0,,4246,8045000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,35-44,main,"£20,000 but < £85,000",15.0,,4246,8045000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,35-44,main,"£85,000 but < £200,000",20.0,,4246,8045000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,35-44,main,"£200,000 but < £300,000",13.0,,4246,8045000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,35-44,main,"£300,000 but < £500,000",16.0,,4246,8045000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,35-44,main,"£500,000 but < £1 million",18.0,,4246,8045000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,35-44,main,£1 million or more,8.0,,4246,8045000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,45-54,main,"Less than £20,000",9.0,,5604,8922000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,45-54,main,"£20,000 but < £85,000",11.0,,5604,8922000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,45-54,main,"£85,000 but < £200,000",11.0,,5604,8922000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,45-54,main,"£200,000 but < £300,000",9.0,,5604,8922000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,45-54,main,"£300,000 but < £500,000",17.0,,5604,8922000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,45-54,main,"£500,000 but < £1 million",22.0,,5604,8922000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,45-54,main,£1 million or more,21.0,,5604,8922000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,55-64,main,"Less than £20,000",7.0,,6076,7469000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,55-64,main,"£20,000 but < £85,000",8.0,,6076,7469000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,55-64,main,"£85,000 but < £200,000",8.0,,6076,7469000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,55-64,main,"£200,000 but < £300,000",7.0,,6076,7469000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,55-64,main,"£300,000 but < £500,000",11.0,,6076,7469000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,55-64,main,"£500,000 but < £1 million",24.0,,6076,7469000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,55-64,main,£1 million or more,35.0,,6076,7469000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,65+,main,"Less than £20,000",6.0,,11336,11251000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,65+,main,"£20,000 but < £85,000",8.0,,11336,11251000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,65+,main,"£85,000 but < £200,000",10.0,,11336,11251000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,65+,main,"£200,000 but < £300,000",9.0,,11336,11251000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,65+,main,"£300,000 but < £500,000",16.0,,11336,11251000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,65+,main,"£500,000 but < £1 million",27.0,,11336,11251000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,65+,main,£1 million or more,25.0,,11336,11251000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,All persons,main,"Less than £20,000",12.0,,40540,62933000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,All persons,main,"£20,000 but < £85,000",14.0,,40540,62933000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,All persons,main,"£85,000 but < £200,000",15.0,,40540,62933000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,All persons,main,"£200,000 but < £300,000",10.0,,40540,62933000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,All persons,main,"£300,000 but < £500,000",14.0,,40540,62933000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,All persons,main,"£500,000 but < £1 million",19.0,,40540,62933000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2016 to March 2018,age,,All persons,main,£1 million or more,17.0,,40540,62933000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,Under 16,main,"Less than £20,000",17.0,,6178,12278000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,Under 16,main,"£20,000 but < £85,000",18.0,,6178,12278000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,Under 16,main,"£85,000 but < £200,000",18.0,,6178,12278000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,Under 16,main,"£200,000 but < £300,000",9.0,,6178,12278000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,Under 16,main,"£300,000 but < £500,000",14.0,,6178,12278000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,Under 16,main,"£500,000 but < £1 million",15.0,,6178,12278000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,Under 16,main,£1 million or more,9.0,,6178,12278000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,16-24,main,"Less than £20,000",17.0,,3156,6445000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,16-24,main,"£20,000 but < £85,000",18.0,,3156,6445000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,16-24,main,"£85,000 but < £200,000",11.0,,3156,6445000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,16-24,main,"£200,000 but < £300,000",7.0,,3156,6445000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,16-24,main,"£300,000 but < £500,000",12.0,,3156,6445000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,16-24,main,"£500,000 but < £1 million",17.0,,3156,6445000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,16-24,main,£1 million or more,18.0,,3156,6445000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,25-34,main,"Less than £20,000",16.0,,2913,8691000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,25-34,main,"£20,000 but < £85,000",25.0,,2913,8691000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,25-34,main,"£85,000 but < £200,000",22.0,,2913,8691000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,25-34,main,"£200,000 but < £300,000",10.0,,2913,8691000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,25-34,main,"£300,000 but < £500,000",11.0,,2913,8691000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,25-34,main,"£500,000 but < £1 million",9.0,,2913,8691000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,25-34,main,£1 million or more,7.0,,2913,8691000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,35-44,main,"Less than £20,000",11.0,,3995,8094000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,35-44,main,"£20,000 but < £85,000",16.0,,3995,8094000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,35-44,main,"£85,000 but < £200,000",17.0,,3995,8094000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,35-44,main,"£200,000 but < £300,000",13.0,,3995,8094000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,35-44,main,"£300,000 but < £500,000",18.0,,3995,8094000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,35-44,main,"£500,000 but < £1 million",17.0,,3995,8094000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,35-44,main,£1 million or more,9.0,,3995,8094000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,45-54,main,"Less than £20,000",8.0,,5160,8770000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,45-54,main,"£20,000 but < £85,000",12.0,,5160,8770000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,45-54,main,"£85,000 but < £200,000",12.0,,5160,8770000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,45-54,main,"£200,000 but < £300,000",9.0,,5160,8770000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,45-54,main,"£300,000 but < £500,000",15.0,,5160,8770000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,45-54,main,"£500,000 but < £1 million",24.0,,5160,8770000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,45-54,main,£1 million or more,20.0,,5160,8770000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,55-64,main,"Less than £20,000",6.0,,5968,7830000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,55-64,main,"£20,000 but < £85,000",8.0,,5968,7830000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,55-64,main,"£85,000 but < £200,000",9.0,,5968,7830000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,55-64,main,"£200,000 but < £300,000",7.0,,5968,7830000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,55-64,main,"£300,000 but < £500,000",12.0,,5968,7830000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,55-64,main,"£500,000 but < £1 million",22.0,,5968,7830000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,55-64,main,£1 million or more,36.0,,5968,7830000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,65+,main,"Less than £20,000",6.0,,11560,11619000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,65+,main,"£20,000 but < £85,000",8.0,,11560,11619000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,65+,main,"£85,000 but < £200,000",9.0,,11560,11619000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,65+,main,"£200,000 but < £300,000",9.0,,11560,11619000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,65+,main,"£300,000 but < £500,000",16.0,,11560,11619000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,65+,main,"£500,000 but < £1 million",26.0,,11560,11619000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,65+,main,£1 million or more,27.0,,11560,11619000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,All persons,main,"Less than £20,000",11.0,,38930,63727000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,All persons,main,"£20,000 but < £85,000",15.0,,38930,63727000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,All persons,main,"£85,000 but < £200,000",14.0,,38930,63727000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,All persons,main,"£200,000 but < £300,000",9.0,,38930,63727000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,All persons,main,"£300,000 but < £500,000",14.0,,38930,63727000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,All persons,main,"£500,000 but < £1 million",19.0,,38930,63727000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2018 to March 2020,age,,All persons,main,£1 million or more,18.0,,38930,63727000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,Under 16,main,"Less than £20,000",16.0,,4292,11883000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,Under 16,main,"£20,000 but < £85,000",18.0,,4292,11883000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,Under 16,main,"£85,000 but < £200,000",16.0,,4292,11883000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,Under 16,main,"£200,000 but < £300,000",10.0,,4292,11883000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,Under 16,main,"£300,000 but < £500,000",15.0,,4292,11883000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,Under 16,main,"£500,000 but < £1 million",17.0,,4292,11883000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,Under 16,main,£1 million or more,8.0,,4292,11883000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,16-24,main,"Less than £20,000",14.0,,2417,6475000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,16-24,main,"£20,000 but < £85,000",18.0,,2417,6475000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,16-24,main,"£85,000 but < £200,000",11.0,,2417,6475000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,16-24,main,"£200,000 but < £300,000",8.0,,2417,6475000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,16-24,main,"£300,000 but < £500,000",11.0,,2417,6475000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,16-24,main,"£500,000 but < £1 million",21.0,,2417,6475000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,16-24,main,£1 million or more,16.0,,2417,6475000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,25-34,main,"Less than £20,000",14.0,,2241,8675000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,25-34,main,"£20,000 but < £85,000",23.0,,2241,8675000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,25-34,main,"£85,000 but < £200,000",22.0,,2241,8675000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,25-34,main,"£200,000 but < £300,000",10.0,,2241,8675000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,25-34,main,"£300,000 but < £500,000",13.0,,2241,8675000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,25-34,main,"£500,000 but < £1 million",11.0,,2241,8675000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,25-34,main,£1 million or more,6.0,,2241,8675000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,35-44,main,"Less than £20,000",10.0,,3090,8367000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,35-44,main,"£20,000 but < £85,000",17.0,,3090,8367000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,35-44,main,"£85,000 but < £200,000",17.0,,3090,8367000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,35-44,main,"£200,000 but < £300,000",14.0,,3090,8367000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,35-44,main,"£300,000 but < £500,000",18.0,,3090,8367000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,35-44,main,"£500,000 but < £1 million",18.0,,3090,8367000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,35-44,main,£1 million or more,6.0,,3090,8367000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,45-54,main,"Less than £20,000",10.0,,4095,8580000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,45-54,main,"£20,000 but < £85,000",14.0,,4095,8580000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,45-54,main,"£85,000 but < £200,000",10.0,,4095,8580000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,45-54,main,"£200,000 but < £300,000",10.0,,4095,8580000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,45-54,main,"£300,000 but < £500,000",15.0,,4095,8580000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,45-54,main,"£500,000 but < £1 million",25.0,,4095,8580000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,45-54,main,£1 million or more,17.0,,4095,8580000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,55-64,main,"Less than £20,000",8.0,,5374,8188000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,55-64,main,"£20,000 but < £85,000",9.0,,5374,8188000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,55-64,main,"£85,000 but < £200,000",8.0,,5374,8188000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,55-64,main,"£200,000 but < £300,000",6.0,,5374,8188000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,55-64,main,"£300,000 but < £500,000",13.0,,5374,8188000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,55-64,main,"£500,000 but < £1 million",27.0,,5374,8188000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,55-64,main,£1 million or more,29.0,,5374,8188000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,65+,main,"Less than £20,000",5.0,,10784,11758000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,65+,main,"£20,000 but < £85,000",10.0,,10784,11758000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,65+,main,"£85,000 but < £200,000",9.0,,10784,11758000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,65+,main,"£200,000 but < £300,000",9.0,,10784,11758000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,65+,main,"£300,000 but < £500,000",17.0,,10784,11758000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,65+,main,"£500,000 but < £1 million",27.0,,10784,11758000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,65+,main,£1 million or more,22.0,,10784,11758000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,All persons,main,"Less than £20,000",11.0,,32293,63928000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,All persons,main,"£20,000 but < £85,000",15.0,,32293,63928000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,All persons,main,"£85,000 but < £200,000",13.0,,32293,63928000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,All persons,main,"£200,000 but < £300,000",10.0,,32293,63928000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,All persons,main,"£300,000 but < £500,000",15.0,,32293,63928000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,All persons,main,"£500,000 but < £1 million",21.0,,32293,63928000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21
+Table 2.11,April 2020 to March 2022,age,,All persons,main,£1 million or more,15.0,,32293,63928000,Great Britain,household total wealth,% of persons in the row group,totalwealthtables.xlsx,2026-11-21

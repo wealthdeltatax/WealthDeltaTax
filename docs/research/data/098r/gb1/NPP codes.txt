@@ -1,0 +1,32 @@
+2024-based national population projections
+28 April 2026
+
+The lettered keys in the file name indicates the projection type the data relates to:
+
+ppp: Principal projection
+
+hpp: High fertility
+
+lpp: Low fertility
+
+rpp: Replacement fertility
+
+php: High life expectancy
+
+plp: Low life expectancy
+
+pnp: No long-term mortality improvement variant
+
+pph: High migration
+
+ppl: Low migration
+
+ppz: Zero net migration
+
+hhh: High population
+
+lll: Low population
+
+hlh: Young age structure
+
+lhl: Old age structure

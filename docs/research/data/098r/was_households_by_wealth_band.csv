@@ -1,0 +1,433 @@
+table,round,measure,wealth_band,value,flag,unit,geography,source_file,retrieval_date
+Table 2.5,July 2006 to June 2008,Percentage of households,"Less than £20,000",16.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Percentage of households,"Less than £20,000",15.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Percentage of households,"Less than £20,000",14.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Percentage of households,"Less than £20,000",15.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Percentage of households,"Less than £20,000",14.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Percentage of households,"Less than £20,000",14.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Percentage of households,"Less than £20,000",13.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Percentage of households,"Less than £20,000",12.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Percentage of households,"Less than £20,000",12.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Percentage of households,"£20,000 but < £85,000",16.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Percentage of households,"£20,000 but < £85,000",17.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Percentage of households,"£20,000 but < £85,000",16.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Percentage of households,"£20,000 but < £85,000",16.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Percentage of households,"£20,000 but < £85,000",15.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Percentage of households,"£20,000 but < £85,000",15.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Percentage of households,"£20,000 but < £85,000",14.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Percentage of households,"£20,000 but < £85,000",15.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Percentage of households,"£20,000 but < £85,000",16.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Percentage of households,"£85,000 but < £200,000",18.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Percentage of households,"£85,000 but < £200,000",18.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Percentage of households,"£85,000 but < £200,000",17.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Percentage of households,"£85,000 but < £200,000",16.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Percentage of households,"£85,000 but < £200,000",15.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Percentage of households,"£85,000 but < £200,000",15.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Percentage of households,"£85,000 but < £200,000",14.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Percentage of households,"£85,000 but < £200,000",14.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Percentage of households,"£85,000 but < £200,000",14.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Percentage of households,"£200,000 but < £300,000",13.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Percentage of households,"£200,000 but < £300,000",13.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Percentage of households,"£200,000 but < £300,000",12.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Percentage of households,"£200,000 but < £300,000",11.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Percentage of households,"£200,000 but < £300,000",10.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Percentage of households,"£200,000 but < £300,000",11.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Percentage of households,"£200,000 but < £300,000",10.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Percentage of households,"£200,000 but < £300,000",9.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Percentage of households,"£200,000 but < £300,000",10.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Percentage of households,"£300,000 but < £500,000",16.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Percentage of households,"£300,000 but < £500,000",16.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Percentage of households,"£300,000 but < £500,000",16.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Percentage of households,"£300,000 but < £500,000",15.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Percentage of households,"£300,000 but < £500,000",14.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Percentage of households,"£300,000 but < £500,000",15.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Percentage of households,"£300,000 but < £500,000",14.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Percentage of households,"£300,000 but < £500,000",14.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Percentage of households,"£300,000 but < £500,000",15.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Percentage of households,"£500,000 but < £1 million",14.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Percentage of households,"£500,000 but < £1 million",15.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Percentage of households,"£500,000 but < £1 million",16.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Percentage of households,"£500,000 but < £1 million",16.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Percentage of households,"£500,000 but < £1 million",18.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Percentage of households,"£500,000 but < £1 million",18.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Percentage of households,"£500,000 but < £1 million",19.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Percentage of households,"£500,000 but < £1 million",19.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Percentage of households,"£500,000 but < £1 million",20.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Percentage of households,£1 million or more,6.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Percentage of households,£1 million or more,7.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Percentage of households,£1 million or more,8.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Percentage of households,£1 million or more,11.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Percentage of households,£1 million or more,14.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Percentage of households,£1 million or more,13.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Percentage of households,£1 million or more,16.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Percentage of households,£1 million or more,17.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Percentage of households,£1 million or more,14.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Percentage of households,All households,100.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Percentage of households,All households,100.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Percentage of households,All households,100.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Percentage of households,All households,100.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Percentage of households,All households,100.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Percentage of households,All households,100.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Percentage of households,All households,100.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Percentage of households,All households,100.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Percentage of households,All households,100.0,,%,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 25th percentile point (£),"Less than £20,000",2600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 25th percentile point (£),"Less than £20,000",2700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 25th percentile point (£),"Less than £20,000",2900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 25th percentile point (£),"Less than £20,000",2800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 25th percentile point (£),"Less than £20,000",2900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 25th percentile point (£),"Less than £20,000",2800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 25th percentile point (£),"Less than £20,000",2800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 25th percentile point (£),"Less than £20,000",2800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 25th percentile point (£),"Less than £20,000",3500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 25th percentile point (£),"£20,000 but < £85,000",30300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 25th percentile point (£),"£20,000 but < £85,000",30600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 25th percentile point (£),"£20,000 but < £85,000",30900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 25th percentile point (£),"£20,000 but < £85,000",29600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 25th percentile point (£),"£20,000 but < £85,000",31000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 25th percentile point (£),"£20,000 but < £85,000",31000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 25th percentile point (£),"£20,000 but < £85,000",29600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 25th percentile point (£),"£20,000 but < £85,000",30100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 25th percentile point (£),"£20,000 but < £85,000",29300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 25th percentile point (£),"£85,000 but < £200,000",112100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 25th percentile point (£),"£85,000 but < £200,000",112200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 25th percentile point (£),"£85,000 but < £200,000",110300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 25th percentile point (£),"£85,000 but < £200,000",110400.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 25th percentile point (£),"£85,000 but < £200,000",111500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 25th percentile point (£),"£85,000 but < £200,000",111000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 25th percentile point (£),"£85,000 but < £200,000",109600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 25th percentile point (£),"£85,000 but < £200,000",109500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 25th percentile point (£),"£85,000 but < £200,000",109200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 25th percentile point (£),"£200,000 but < £300,000",222500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 25th percentile point (£),"£200,000 but < £300,000",223200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 25th percentile point (£),"£200,000 but < £300,000",222900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 25th percentile point (£),"£200,000 but < £300,000",222700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 25th percentile point (£),"£200,000 but < £300,000",221900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 25th percentile point (£),"£200,000 but < £300,000",221500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 25th percentile point (£),"£200,000 but < £300,000",224900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 25th percentile point (£),"£200,000 but < £300,000",223900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 25th percentile point (£),"£200,000 but < £300,000",224400.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 25th percentile point (£),"£300,000 but < £500,000",338600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 25th percentile point (£),"£300,000 but < £500,000",339200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 25th percentile point (£),"£300,000 but < £500,000",340500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 25th percentile point (£),"£300,000 but < £500,000",340400.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 25th percentile point (£),"£300,000 but < £500,000",342000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 25th percentile point (£),"£300,000 but < £500,000",342300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 25th percentile point (£),"£300,000 but < £500,000",340500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 25th percentile point (£),"£300,000 but < £500,000",342200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 25th percentile point (£),"£300,000 but < £500,000",344200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 25th percentile point (£),"£500,000 but < £1 million",574600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 25th percentile point (£),"£500,000 but < £1 million",573000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 25th percentile point (£),"£500,000 but < £1 million",576200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 25th percentile point (£),"£500,000 but < £1 million",586500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 25th percentile point (£),"£500,000 but < £1 million",584300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 25th percentile point (£),"£500,000 but < £1 million",585400.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 25th percentile point (£),"£500,000 but < £1 million",586500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 25th percentile point (£),"£500,000 but < £1 million",588100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 25th percentile point (£),"£500,000 but < £1 million",579700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 25th percentile point (£),£1 million or more,1145200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 25th percentile point (£),£1 million or more,1163800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 25th percentile point (£),£1 million or more,1148700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 25th percentile point (£),£1 million or more,1181100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 25th percentile point (£),£1 million or more,1196900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 25th percentile point (£),£1 million or more,1187900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 25th percentile point (£),£1 million or more,1215000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 25th percentile point (£),£1 million or more,1211800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 25th percentile point (£),£1 million or more,1161200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 25th percentile point (£),All households,45100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 25th percentile point (£),All households,53500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 25th percentile point (£),All households,56100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 25th percentile point (£),All households,52000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 25th percentile point (£),All households,62000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 25th percentile point (£),All households,60500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 25th percentile point (£),All households,69100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 25th percentile point (£),All households,71000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 25th percentile point (£),All households,70500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 50th percentile point - median (£),"Less than £20,000",7500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 50th percentile point - median (£),"Less than £20,000",7500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 50th percentile point - median (£),"Less than £20,000",7800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 50th percentile point - median (£),"Less than £20,000",7800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 50th percentile point - median (£),"Less than £20,000",7800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 50th percentile point - median (£),"Less than £20,000",7900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 50th percentile point - median (£),"Less than £20,000",7800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 50th percentile point - median (£),"Less than £20,000",7900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 50th percentile point - median (£),"Less than £20,000",8300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 50th percentile point - median (£),"£20,000 but < £85,000",43600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 50th percentile point - median (£),"£20,000 but < £85,000",44200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 50th percentile point - median (£),"£20,000 but < £85,000",44500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 50th percentile point - median (£),"£20,000 but < £85,000",43900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 50th percentile point - median (£),"£20,000 but < £85,000",44200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 50th percentile point - median (£),"£20,000 but < £85,000",44500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 50th percentile point - median (£),"£20,000 but < £85,000",43100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 50th percentile point - median (£),"£20,000 but < £85,000",42800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 50th percentile point - median (£),"£20,000 but < £85,000",42900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 50th percentile point - median (£),"£85,000 but < £200,000",140100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 50th percentile point - median (£),"£85,000 but < £200,000",140300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 50th percentile point - median (£),"£85,000 but < £200,000",138400.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 50th percentile point - median (£),"£85,000 but < £200,000",138200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 50th percentile point - median (£),"£85,000 but < £200,000",138200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 50th percentile point - median (£),"£85,000 but < £200,000",138400.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 50th percentile point - median (£),"£85,000 but < £200,000",138000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 50th percentile point - median (£),"£85,000 but < £200,000",137500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 50th percentile point - median (£),"£85,000 but < £200,000",135900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 50th percentile point - median (£),"£200,000 but < £300,000",246300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 50th percentile point - median (£),"£200,000 but < £300,000",247300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 50th percentile point - median (£),"£200,000 but < £300,000",247000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 50th percentile point - median (£),"£200,000 but < £300,000",245600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 50th percentile point - median (£),"£200,000 but < £300,000",246600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 50th percentile point - median (£),"£200,000 but < £300,000",245700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 50th percentile point - median (£),"£200,000 but < £300,000",248100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 50th percentile point - median (£),"£200,000 but < £300,000",248000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 50th percentile point - median (£),"£200,000 but < £300,000",247800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 50th percentile point - median (£),"£300,000 but < £500,000",381200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 50th percentile point - median (£),"£300,000 but < £500,000",382000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 50th percentile point - median (£),"£300,000 but < £500,000",388400.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 50th percentile point - median (£),"£300,000 but < £500,000",385700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 50th percentile point - median (£),"£300,000 but < £500,000",385800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 50th percentile point - median (£),"£300,000 but < £500,000",385800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 50th percentile point - median (£),"£300,000 but < £500,000",386300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 50th percentile point - median (£),"£300,000 but < £500,000",388900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 50th percentile point - median (£),"£300,000 but < £500,000",396200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 50th percentile point - median (£),"£500,000 but < £1 million",666700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 50th percentile point - median (£),"£500,000 but < £1 million",668300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 50th percentile point - median (£),"£500,000 but < £1 million",674200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 50th percentile point - median (£),"£500,000 but < £1 million",687500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 50th percentile point - median (£),"£500,000 but < £1 million",685200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 50th percentile point - median (£),"£500,000 but < £1 million",685200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 50th percentile point - median (£),"£500,000 but < £1 million",687800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 50th percentile point - median (£),"£500,000 but < £1 million",690500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 50th percentile point - median (£),"£500,000 but < £1 million",681100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 50th percentile point - median (£),£1 million or more,1382800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 50th percentile point - median (£),£1 million or more,1390300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 50th percentile point - median (£),£1 million or more,1400000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 50th percentile point - median (£),£1 million or more,1439800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 50th percentile point - median (£),£1 million or more,1475400.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 50th percentile point - median (£),£1 million or more,1456600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 50th percentile point - median (£),£1 million or more,1526300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 50th percentile point - median (£),£1 million or more,1537300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 50th percentile point - median (£),£1 million or more,1437600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 50th percentile point - median (£),All households,196700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 50th percentile point - median (£),All households,204300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 50th percentile point - median (£),All households,216600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 50th percentile point - median (£),All households,223100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 50th percentile point - median (£),All households,263500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 50th percentile point - median (£),All households,254600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 50th percentile point - median (£),All households,286600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 50th percentile point - median (£),All households,302500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 50th percentile point - median (£),All households,293700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 75th percentile point (£),"Less than £20,000",13700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 75th percentile point (£),"Less than £20,000",13700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 75th percentile point (£),"Less than £20,000",14500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 75th percentile point (£),"Less than £20,000",14600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 75th percentile point (£),"Less than £20,000",14700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 75th percentile point (£),"Less than £20,000",14700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 75th percentile point (£),"Less than £20,000",14500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 75th percentile point (£),"Less than £20,000",14400.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 75th percentile point (£),"Less than £20,000",14800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 75th percentile point (£),"£20,000 but < £85,000",62700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 75th percentile point (£),"£20,000 but < £85,000",63300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 75th percentile point (£),"£20,000 but < £85,000",62900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 75th percentile point (£),"£20,000 but < £85,000",62100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 75th percentile point (£),"£20,000 but < £85,000",61800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 75th percentile point (£),"£20,000 but < £85,000",61900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 75th percentile point (£),"£20,000 but < £85,000",61700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 75th percentile point (£),"£20,000 but < £85,000",61600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 75th percentile point (£),"£20,000 but < £85,000",63700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 75th percentile point (£),"£85,000 but < £200,000",168700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 75th percentile point (£),"£85,000 but < £200,000",169600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 75th percentile point (£),"£85,000 but < £200,000",168800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 75th percentile point (£),"£85,000 but < £200,000",166700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 75th percentile point (£),"£85,000 but < £200,000",167500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 75th percentile point (£),"£85,000 but < £200,000",168500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 75th percentile point (£),"£85,000 but < £200,000",168100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 75th percentile point (£),"£85,000 but < £200,000",166700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 75th percentile point (£),"£85,000 but < £200,000",165500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 75th percentile point (£),"£200,000 but < £300,000",273000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 75th percentile point (£),"£200,000 but < £300,000",271900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 75th percentile point (£),"£200,000 but < £300,000",271400.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 75th percentile point (£),"£200,000 but < £300,000",270600.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 75th percentile point (£),"£200,000 but < £300,000",275000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 75th percentile point (£),"£200,000 but < £300,000",273800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 75th percentile point (£),"£200,000 but < £300,000",275700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 75th percentile point (£),"£200,000 but < £300,000",273000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 75th percentile point (£),"£200,000 but < £300,000",274000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 75th percentile point (£),"£300,000 but < £500,000",436500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 75th percentile point (£),"£300,000 but < £500,000",434300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 75th percentile point (£),"£300,000 but < £500,000",441400.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 75th percentile point (£),"£300,000 but < £500,000",439500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 75th percentile point (£),"£300,000 but < £500,000",437000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 75th percentile point (£),"£300,000 but < £500,000",437500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 75th percentile point (£),"£300,000 but < £500,000",437100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 75th percentile point (£),"£300,000 but < £500,000",441000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 75th percentile point (£),"£300,000 but < £500,000",447000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 75th percentile point (£),"£500,000 but < £1 million",791800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 75th percentile point (£),"£500,000 but < £1 million",798100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 75th percentile point (£),"£500,000 but < £1 million",806300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 75th percentile point (£),"£500,000 but < £1 million",816100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 75th percentile point (£),"£500,000 but < £1 million",824500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 75th percentile point (£),"£500,000 but < £1 million",821200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 75th percentile point (£),"£500,000 but < £1 million",827000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 75th percentile point (£),"£500,000 but < £1 million",825500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 75th percentile point (£),"£500,000 but < £1 million",823200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 75th percentile point (£),£1 million or more,1907200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 75th percentile point (£),£1 million or more,1893400.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 75th percentile point (£),£1 million or more,1869300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 75th percentile point (£),£1 million or more,1953500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 75th percentile point (£),£1 million or more,1997200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 75th percentile point (£),£1 million or more,1986800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 75th percentile point (£),£1 million or more,2045000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 75th percentile point (£),£1 million or more,2126400.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 75th percentile point (£),£1 million or more,1938500.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Total Wealth 75th percentile point (£),All households,427200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Total Wealth 75th percentile point (£),All households,447900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Total Wealth 75th percentile point (£),All households,488300.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Total Wealth 75th percentile point (£),All households,540700.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Total Wealth 75th percentile point (£),All households,633900.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Total Wealth 75th percentile point (£),All households,618200.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Total Wealth 75th percentile point (£),All households,709000.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Total Wealth 75th percentile point (£),All households,733800.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Total Wealth 75th percentile point (£),All households,662100.0,,£,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Unweighted Frequency,"Less than £20,000",2588.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Unweighted Frequency,"Less than £20,000",2348.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Unweighted Frequency,"Less than £20,000",2601.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Unweighted Frequency,"Less than £20,000",2256.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Unweighted Frequency,"Less than £20,000",1948.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Unweighted Frequency,"Less than £20,000",1994.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Unweighted Frequency,"Less than £20,000",1627.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Unweighted Frequency,"Less than £20,000",1395.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Unweighted Frequency,"Less than £20,000",856.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Unweighted Frequency,"£20,000 but < £85,000",2511.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Unweighted Frequency,"£20,000 but < £85,000",2659.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Unweighted Frequency,"£20,000 but < £85,000",2836.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Unweighted Frequency,"£20,000 but < £85,000",2485.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Unweighted Frequency,"£20,000 but < £85,000",2100.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Unweighted Frequency,"£20,000 but < £85,000",2155.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Unweighted Frequency,"£20,000 but < £85,000",1855.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Unweighted Frequency,"£20,000 but < £85,000",1750.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Unweighted Frequency,"£20,000 but < £85,000",1266.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Unweighted Frequency,"£85,000 but < £200,000",2856.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Unweighted Frequency,"£85,000 but < £200,000",3271.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Unweighted Frequency,"£85,000 but < £200,000",3283.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Unweighted Frequency,"£85,000 but < £200,000",2865.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Unweighted Frequency,"£85,000 but < £200,000",2290.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Unweighted Frequency,"£85,000 but < £200,000",2371.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Unweighted Frequency,"£85,000 but < £200,000",2079.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Unweighted Frequency,"£85,000 but < £200,000",1889.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Unweighted Frequency,"£85,000 but < £200,000",1485.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Unweighted Frequency,"£200,000 but < £300,000",2145.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Unweighted Frequency,"£200,000 but < £300,000",2532.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Unweighted Frequency,"£200,000 but < £300,000",2516.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Unweighted Frequency,"£200,000 but < £300,000",2142.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Unweighted Frequency,"£200,000 but < £300,000",1776.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Unweighted Frequency,"£200,000 but < £300,000",1843.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Unweighted Frequency,"£200,000 but < £300,000",1571.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Unweighted Frequency,"£200,000 but < £300,000",1472.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Unweighted Frequency,"£200,000 but < £300,000",1286.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Unweighted Frequency,"£300,000 but < £500,000",2824.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Unweighted Frequency,"£300,000 but < £500,000",3449.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Unweighted Frequency,"£300,000 but < £500,000",3529.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Unweighted Frequency,"£300,000 but < £500,000",3233.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Unweighted Frequency,"£300,000 but < £500,000",2843.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Unweighted Frequency,"£300,000 but < £500,000",2892.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Unweighted Frequency,"£300,000 but < £500,000",2535.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Unweighted Frequency,"£300,000 but < £500,000",2472.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Unweighted Frequency,"£300,000 but < £500,000",2439.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Unweighted Frequency,"£500,000 but < £1 million",2771.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Unweighted Frequency,"£500,000 but < £1 million",3659.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Unweighted Frequency,"£500,000 but < £1 million",3958.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Unweighted Frequency,"£500,000 but < £1 million",4010.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Unweighted Frequency,"£500,000 but < £1 million",4013.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Unweighted Frequency,"£500,000 but < £1 million",4002.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Unweighted Frequency,"£500,000 but < £1 million",3980.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Unweighted Frequency,"£500,000 but < £1 million",3921.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Unweighted Frequency,"£500,000 but < £1 million",3934.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Unweighted Frequency,£1 million or more,1621.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Unweighted Frequency,£1 million or more,2252.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Unweighted Frequency,£1 million or more,2727.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Unweighted Frequency,£1 million or more,3255.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Unweighted Frequency,£1 million or more,3844.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Unweighted Frequency,£1 million or more,3738.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Unweighted Frequency,£1 million or more,4387.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Unweighted Frequency,£1 million or more,4642.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Unweighted Frequency,£1 million or more,3864.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Unweighted Frequency,All households,17316.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Unweighted Frequency,All households,20170.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Unweighted Frequency,All households,21450.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Unweighted Frequency,All households,20246.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Unweighted Frequency,All households,18814.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Unweighted Frequency,All households,18995.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Unweighted Frequency,All households,18034.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Unweighted Frequency,All households,17541.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Unweighted Frequency,All households,15130.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Weighted Frequency,"Less than £20,000",4035000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Weighted Frequency,"Less than £20,000",3613000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Weighted Frequency,"Less than £20,000",3440000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Weighted Frequency,"Less than £20,000",3787000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Weighted Frequency,"Less than £20,000",3553000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Weighted Frequency,"Less than £20,000",3594000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Weighted Frequency,"Less than £20,000",3412000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Weighted Frequency,"Less than £20,000",3236000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Weighted Frequency,"Less than £20,000",3132000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Weighted Frequency,"£20,000 but < £85,000",3978000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Weighted Frequency,"£20,000 but < £85,000",4084000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Weighted Frequency,"£20,000 but < £85,000",3932000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Weighted Frequency,"£20,000 but < £85,000",3988000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Weighted Frequency,"£20,000 but < £85,000",3716000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Weighted Frequency,"£20,000 but < £85,000",3785000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Weighted Frequency,"£20,000 but < £85,000",3636000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Weighted Frequency,"£20,000 but < £85,000",3877000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Weighted Frequency,"£20,000 but < £85,000",4237000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Weighted Frequency,"£85,000 but < £200,000",4398000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Weighted Frequency,"£85,000 but < £200,000",4510000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Weighted Frequency,"£85,000 but < £200,000",4224000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Weighted Frequency,"£85,000 but < £200,000",4115000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Weighted Frequency,"£85,000 but < £200,000",3765000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Weighted Frequency,"£85,000 but < £200,000",3814000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Weighted Frequency,"£85,000 but < £200,000",3754000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Weighted Frequency,"£85,000 but < £200,000",3628000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Weighted Frequency,"£85,000 but < £200,000",3650000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Weighted Frequency,"£200,000 but < £300,000",3196000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Weighted Frequency,"£200,000 but < £300,000",3166000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Weighted Frequency,"£200,000 but < £300,000",2956000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Weighted Frequency,"£200,000 but < £300,000",2747000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Weighted Frequency,"£200,000 but < £300,000",2618000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Weighted Frequency,"£200,000 but < £300,000",2675000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Weighted Frequency,"£200,000 but < £300,000",2479000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Weighted Frequency,"£200,000 but < £300,000",2409000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Weighted Frequency,"£200,000 but < £300,000",2655000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Weighted Frequency,"£300,000 but < £500,000",3982000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Weighted Frequency,"£300,000 but < £500,000",3961000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Weighted Frequency,"£300,000 but < £500,000",3795000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Weighted Frequency,"£300,000 but < £500,000",3758000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Weighted Frequency,"£300,000 but < £500,000",3688000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Weighted Frequency,"£300,000 but < £500,000",3722000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Weighted Frequency,"£300,000 but < £500,000",3534000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Weighted Frequency,"£300,000 but < £500,000",3729000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Weighted Frequency,"£300,000 but < £500,000",4084000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Weighted Frequency,"£500,000 but < £1 million",3422000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Weighted Frequency,"£500,000 but < £1 million",3637000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Weighted Frequency,"£500,000 but < £1 million",3850000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Weighted Frequency,"£500,000 but < £1 million",4094000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Weighted Frequency,"£500,000 but < £1 million",4541000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Weighted Frequency,"£500,000 but < £1 million",4478000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Weighted Frequency,"£500,000 but < £1 million",4847000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Weighted Frequency,"£500,000 but < £1 million",4974000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Weighted Frequency,"£500,000 but < £1 million",5416000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Weighted Frequency,£1 million or more,1573000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Weighted Frequency,£1 million or more,1754000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Weighted Frequency,£1 million or more,2030000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Weighted Frequency,£1 million or more,2705000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Weighted Frequency,£1 million or more,3563000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Weighted Frequency,£1 million or more,3409000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Weighted Frequency,£1 million or more,4259000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Weighted Frequency,£1 million or more,4575000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Weighted Frequency,£1 million or more,3816000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2006 to June 2008,Weighted Frequency,All households,24584000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2008 to June 2010,Weighted Frequency,All households,24725000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2010 to June 2012,Weighted Frequency,All households,24228000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2012 to June 2014,Weighted Frequency,All households,25195000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,July 2014 to June 2016,Weighted Frequency,All households,25445000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2014 to March 2016,Weighted Frequency,All households,25477000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2016 to March 2018,Weighted Frequency,All households,25921000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2018 to March 2020,Weighted Frequency,All households,26428000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
+Table 2.5,April 2020 to March 2022,Weighted Frequency,All households,26991000.0,,households,Great Britain,Table 2.5 (banded household total wealth),2026-11-21
