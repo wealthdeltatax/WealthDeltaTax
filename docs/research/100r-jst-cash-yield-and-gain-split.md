@@ -98,6 +98,8 @@ The annual reconstruction is compared with the existing `model_v3/pack/GBR/retur
 
 The weighted reconstruction residual against JST `capital_tr` is 1.183e-6 percentage points; the real decomposition residual is 1.157e-6 percentage points. Tolerance: **1e-7 in decimal-return units** (0.00001 percentage points). All observations pass. The pack has no separate `bill_tr` column; its bill leg is `bill_rate`.
 
+**What these checks do and do not test.** The weights are solved from `capital_tr`, `risky_tr` and `safe_tr`, so the weighted identity (nominal and real) holds by construction: its residuals show floating-point noise, not independent confirmation. The substantive tests are (a) the equity and housing component identities against the source, (b) the pack-copy comparison, (c) the recovered weights being sensible (all in [0, 1], summing to 1, equity 0.10 to 0.49, housing 0.16 to 0.66, each bond and bill weight 0.05 to 0.30), and (d) the mean real yield plus mean real holding gain (4.034% + 0.708%) equalling the register's I-D1a central value of 4.74%.
+
 ## 4. Real conversion and nominal revaluation
 
 Let nominal cash yield be \(y_t\), nominal holding gain be \(g_{h,t}\), and CPI inflation be \(\pi_t = CPI_t/CPI_{t-1}-1\). The JST nominal arithmetic identity is:
@@ -106,7 +108,7 @@ Let nominal cash yield be \(y_t\), nominal holding gain be \(g_{h,t}\), and CPI 
 r_t^{nom}=y_t+g_{h,t}.
 \]
 
-The exact additive real decomposition consistent with the pack's gross-return deflator is:
+The combination used throughout is **arithmetic and additive within a year**: yield and gain add to the annual return, and averages across years are arithmetic means. No geometric (compounded) decomposition is attempted; a geometric mean of the total return (I-D1a2) does not split additively into yield and gain, so the split must not be used for compounded wealth paths. The exact additive real decomposition consistent with the pack's gross-return deflator is:
 
 \[
 y_t^{real}=\frac{y_t}{1+\pi_t},\qquad
@@ -163,4 +165,5 @@ It is the market-return decomposition of a JST aggregate asset portfolio. It doe
 - Safe-return identity and portfolio weighted identity checked.
 - Real decomposition checked against the pack's CPI-deflated return formula.
 - Pack `capital_tr` checked against source `capital_tr`.
-- `python -I pipeline/check_agent_docs.py`: not run; this session has GitHub repository read/write access but no local checkout or shell in which to run the project script.
+- `python -I pipeline/check_agent_docs.py`: run by the guru on the branch tip with a local checkout, 2026-11-21; exit 0. The research agent could not run it (no checkout or shell).
+- Guru re-verification from the committed CSV: 117 rows, 1896 to 2019, none in 1940 to 1946; weight sums 1 to 1e-12; weighted yield recomputes to 7e-13; largest residual against the pack `capital_tr` 4.9e-7 percentage points.

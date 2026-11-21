@@ -39,12 +39,12 @@ None.
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** Read the household-flow plan, 094r account map, pack builder, JST R6 source JSON, pack returns, input register and core real-return conversion. Read the official JST R6 codebook and RORE return documentation. Committed `docs/research/100r-jst-cash-yield-and-gain-split.md` and the 117-row `docs/research/data/100r/returns_decomposition.csv`. Verified equity and housing component identities, safe-return identity, aggregate weighted reconstruction, CPI-deflated identity and pack source matches.
-- **Next:** Run `python -I pipeline/check_agent_docs.py` in a local checkout; review the branch; merge only after the named check passes.
+- **Next:** Merged after guru review; retire.
 - **Decisions:** Scenario B; data design only. No pack, builder, register, manifest or model edits. Bond cash yield uses `bond_rate` as a proxy; where it is YTM, the residual is not a pure observed coupon/price decomposition. Bill nominal holding gain is zero by the short-bill convention.
 - **Gotchas:** `capital_tr` is available 1896–2019 with 1940–1946 missing (117 observations). JST weights are market-stock weights, not household portfolio weights. JST does not separately identify household cash or debt. The split is not household retained income or saving.
 - **Resume:** `git checkout brief/100r-jst-cash-yield-gain-split`; review `docs/research/100r-jst-cash-yield-and-gain-split.md` and `docs/research/data/100r/returns_decomposition.csv`.
-- **Not run:** `python -I pipeline/check_agent_docs.py`; no local checkout/shell is available in this session.
-- **State:** work complete; pushed branch; awaiting local documentation check, not merged
+- **Not run:** nothing outstanding. The checker could not be run by the research agent; the guru ran it on the branch (exit 0).
+- **State:** work complete; checker passed; merged to main on 2026-11-21
 <!-- progress:end -->
 
 
@@ -57,10 +57,10 @@ None.
   1. Reconstruction committed and identity shown: **met**. 117 portfolio years; equity and housing component identities pass; weighted nominal and real identities pass a tolerance of 1e-7 in decimal-return units (0.00001 percentage points). Exceptions: 1940–1946 missing; bond yield is a proxy in years using YTM; bill holding gain is zero by convention.
   2. Schema specified without pack edits: **met**. No pack, builder, manifest, register or model files changed.
   3. No claim about household saving or retained income: **met**. The note explicitly distinguishes market return from household cash retention and saving.
-- **Deviations from the brief:** None substantive. The automated documentation checker was not run because this session has no local checkout or shell.
+- **Deviations from the brief:** None substantive. The research agent could not run the checker (no local checkout or shell); the guru ran it afterwards (exit 0).
 - **Risks / follow-ups:** The bond yield proxy is not uniformly an observed coupon cash flow. The weights are market-stock weights, not household-specific weights. Check the note's named limitations before phase 2 uses the series.
 - **Instruction friction:** Added a 100r entry to `docs/agents/friction-log.md` for the unavailable local checker.
-- **Verification:** CSV read back from GitHub: 118 lines including header, 44 columns, 117 data rows, all rows have the same width. Recalculated identities against the held JST JSON and `returns.csv`. `python -I pipeline/check_agent_docs.py` not run.
+- **Verification:** CSV read back from GitHub: 118 lines including header, 44 columns, 117 data rows, all rows have the same width. Recalculated identities against the held JST JSON and `returns.csv`. `python -I pipeline/check_agent_docs.py`: not run by the research agent; run by the guru, exit 0.
 - **Overview sections likely needing an update:** None until the branch is merged.
 - **Commit / branch:** `a9127b7acabd432cf7adfa4240d6a0deadc6c1f4`, `brief/100r-jst-cash-yield-gain-split`.
 
