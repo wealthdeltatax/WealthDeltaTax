@@ -247,3 +247,26 @@ The agent's runtime could not decode the uploaded workbooks; the files are valid
 5. NMG year-by-year variable availability.
 
 **Repository note.** The two NMG workbooks (80 MB and 7 MB) and the empty `nbs.xlsx` are not committed (80 MB in git history is permanent); they are listed in `.gitignore` and kept locally. The branch history holds them until deleted.
+
+## 10. UKEA and NBS household series extracted (2026-11-21, guru follow-up)
+
+`docs/research/data/097r/extract_ukea_nbs.py` (committed, reproducible) writes two tidy CSVs in the brief's column schema plus `esa_code`, `side` and `table`. All values are current-price £m, not seasonally adjusted, 1997 to 2025.
+
+| Output | From | Content |
+|---|---|---|
+| `ons_ukea_household_annual.csv` (3,232 rows, 99 series) | `ukea2026q2.xlsx` (UK Economic Accounts, 11.7 MB, not in git), annual table on sheets 6.2.3 to 6.2.7 (households, S.14) and 6.1.9, 6.1.10 (households and NPISH, S.14+S.15) | Allocation of primary income (D.11, D.12, D.41, D.42 received, D.44 received, D.45), secondary distribution, redistribution in kind, use of disposable income (B.6g, D.8, P.31, B.8g), capital account; other changes in volume and revaluations of financial assets by instrument, 1998 to 2025 |
+| `ons_nbs_household_stocks_annual.csv` (1,160 rows, 40 series) | `nbs.csv` (ONS National Balance Sheet) | S.14 and S.14+S.15 end-year stocks: total net worth (B.90), non-financial assets (AN.1) and their components (dwellings AN.111, other buildings, land AN.211, inventories, valuables and others) |
+
+**Checks.** Four values spot-checked against the raw workbook (HAXW 2024 138,218; NRVN 2023 104,891; ABPB 2025 1,782,389; HABN 1997 615,321) match exactly. Of 172 values that also appear in the earlier HTML extracts, 163 match to within £1.5m. D.42 received (HAXW) differs in 1997, 2018, 2020 to 2024 (largest 2024: 142,008 earlier, 138,218 now; 2022: 123,703 and 125,424) and D.45 received (M8MD) in 2023 and 2024 (18 and 36; 14 and 45): the earlier files are an older vintage (Blue Book 2025 pages), the workbook is the Q2 2026 release. For these series use the workbook file; the older rows are superseded. S.14 net worth (E45V) for 2025 is 10,829,163, matching the ONS bulletin headline of £10.8tn.
+
+**Findings.** The household sheets give D.42 and D.44 as resources only; no D.42 paid, D.44 paid or D.43 series is published for households. Revaluation and other-volume-change series exist for financial assets by instrument only (6.1.9, 6.1.10, households and NPISH together, from 1998); there is no revaluation of dwellings or land in these sheets. The NBS file has stocks, not the revaluation split by asset class.
+
+**Outstanding after this section** (replaces the list above where they differ)
+1. Item 1 (NBS) and the first half of item 3 (D.42, D.44 received): resolved by the two files above.
+2. D.42 paid, D.44 paid: not published for households; no further source to chase unless the model needs them.
+3. Revaluation of dwellings and land: not in UKEA or NBS as downloaded; would need the ONS "revaluations" tables of the National Balance Sheet bulletin, or the author's decision that stocks suffice.
+4. HMRC CSVs are raw sheet dumps; reconciliation to the commentary figures.
+5. NMG year-by-year variable availability (uncached formulas) and the 2004 to 2011 file.
+
+**Repository note (updated).** `ukea2026q2.xlsx` is listed in `.gitignore` and held only on branch `brief/097r-open-series-collection`; the committed CSVs carry everything extracted from it. Re-run the script with the workbook path as its argument.
+
