@@ -1,0 +1,7 @@
+age_from,age_to,expected_deaths,note
+16,44,18481,"expected deaths in a year = population x period qx, 2024, GB; ages above 100 and under 16 excluded"
+45,64,77470,"expected deaths in a year = population x period qx, 2024, GB; ages above 100 and under 16 excluded"
+65,74,97752,"expected deaths in a year = population x period qx, 2024, GB; ages above 100 and under 16 excluded"
+75,84,183340,"expected deaths in a year = population x period qx, 2024, GB; ages above 100 and under 16 excluded"
+85,100,220464,"expected deaths in a year = population x period qx, 2024, GB; ages above 100 and under 16 excluded"
+16,100,597507,total of the bands above
