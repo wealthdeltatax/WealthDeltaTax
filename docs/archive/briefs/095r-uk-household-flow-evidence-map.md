@@ -47,11 +47,24 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** note `docs/research/095r-uk-household-flow-evidence-map.md` written: entries for seven flows, NA-survey bridge, per-flow table for 096r, top-tail section, data requests, proposed rows (note only), sources.
+- **Next:** author rules on the open questions (note section 8); a follow-up pass re-verifies items marked recheck.
+- **Decisions:** no band-level rate and no replacement for 3.5%; the saving ratio is not converted to a depletion rate; flows kept apart or the mix stated.
+- **Gotchas:** IFS WP 13/30 (Bozio and others) unreadable (HAL access-denied, fetch allowlist); ONS decile composition is an xlsx link only; Bach, Calvet and Sodini fetch truncated; ONS D4 series values not read.
+- **Resume:** n/a
+- **Not run:** no checks (research note); recheck items not re-verified.
+- **State:** done; not merged (open questions, section 8)
 <!-- progress:end -->
+
+Change report
+- Task: brief 095r, UK evidence and calibration map for household wealth flows
+- Files changed: `docs/research/095r-uk-household-flow-evidence-map.md` (new note); this brief (progress block, report); `docs/agents/friction-log.md` (entry)
+- What is different now: 096r has a per-flow map of what UK evidence identifies, with gaps and data requests
+- New or changed interfaces: none
+- Acceptance criteria: per-flow entries met; bridge table met; per-flow table met; data-request list with routes met; sources with links met; diff limited to Touches met. Partly met: several figures are marked recheck and the Bozio numbers were not read
+- Deviations from the brief: none
+- Risks / follow-ups: open questions in note section 8 (top-decile saving share has no UK evidence; Bozio PDF; recheck pass)
+- Instruction friction: one entry added to the friction log
+- Verification: no checks (research note); figures not re-verified where marked
+- Overview sections likely needing an update: none
+- Commit / branch: see git log, brief/095-uk-household-flow-evidence-map

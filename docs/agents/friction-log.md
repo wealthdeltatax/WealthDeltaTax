@@ -58,3 +58,10 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Cost: a few extra lookups; no wrong action
 - Suggest: correct both paths
 - Status: brief path was the guru's error (fixed in the archived brief); research.md paths fixed
+
+### 2026-11-20 · brief 095r · research
+- Instruction: fetch cited sources with WebFetch
+- Happened: WebFetch returned URL_NOT_ON_ALLOWLIST for URLs not first returned by a search; the HAL copy of IFS WP 13/30 returned an access-denied page; the ONS decile composition page links only an xlsx
+- Cost: Bozio and others' numbers and the decile composition were not read; extra searches
+- Suggest: say in research.md that the author should attach PDFs that are not fetchable; note xlsx-only ONS pages as a data-request item
+- Status: open
