@@ -48,11 +48,24 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** all four steps. Block A and B scripts (Agent 4) re-run clean; `stocks_crosswalk.csv` (13 rows), `stocks_register.csv` (33 rows), `build_stocks_tables.py`, and the note `docs/research/102r-parameter-map-stocks-and-cells.md` (crosswalk summary, register by group, existing-row audit, cell coverage, reproducibility, data requests).
+- **Next:** author or guru rules on the note's three open questions; 103r assembles.
+- **Decisions:** stage weights classed proxy (GBP band groups, not deciles, mismatch reported); every pension row on the ONS SCAPE-based basis; unset rows carry no number (enforced by the build script); I-D4b audit verdict corrected in the script.
+- **Gotchas:** the held files were checked internally, not against the live pages; I-D4d to f and I-W4d to f, I-W5b were not audited (no held table); the pack has no D4-5 property or pension rows but Table 2.2 gives them.
+- **Resume:** n/a
+- **Not run:** no model run; no check against live ONS pages.
+- **State:** done; not merged (open questions in the note, section 8)
 <!-- progress:end -->
+
+Change report
+- Task: brief 102r, parameter map evidence side B (stocks and structure)
+- Files changed: `docs/research/102r-parameter-map-stocks-and-cells.md` (note); `docs/research/data/102r/` (stocks_crosswalk.csv, stocks_register.csv, build_stocks_tables.py; one verdict corrected in derive_transfers_audit_coverage.py and existing_row_audit.csv); this brief; friction log
+- What is different now: the stocks and structure side has a crosswalk, a classified register and a cell coverage input, all reproducible from scripts
+- New or changed interfaces: none
+- Acceptance criteria: every variable group has rows with definition, location, classification, exact reference, use: met; observed and derived values reproduce from committed scripts with tolerances: met; proxies and unset rows state why and the consequence: met; pension rows state their basis: met; band reconciliation shows its mismatch, nothing spread by wealth: met; no value chosen for WDT revenue: met; diff limited to Touches: met
+- Deviations from the brief: none
+- Risks / follow-ups: three open questions (note section 8); I-D4d to f, I-W4d to f and I-W5b not audited
+- Instruction friction: one entry added to the friction log
+- Verification: `python -I pipeline/check_agent_docs.py` and the four scripts (results in the commit message and below)
+- Overview sections likely needing an update: none
+- Commit / branch: see git log, brief/102-parameter-map-stocks
