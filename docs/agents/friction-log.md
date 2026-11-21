@@ -15,3 +15,8 @@ Entry format:
 The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging. One entry is noted; two on the same instruction mean the guide is edited. Fixed and dropped entries move to `docs/archive/friction-log-archive.md`; keep this file under about 100 lines.
 
 ## Entries
+
+### 2026-11-21 · 104r · research
+- Instruction: brief 104r `Resume` text and wdt-research skill (branch naming).
+- Happened: the branch is `brief/104`, not `104r`; the clone tracks main only; main moved during the brief, so the rebase needed `git push --force-with-lease` after a non-fast-forward rejection.
+- Cost: one failed push and a lookup. A parallel 102r run was superseded mid-brief.

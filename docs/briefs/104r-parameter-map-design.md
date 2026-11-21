@@ -68,12 +68,25 @@ Any code, pack, register or manifest edit; running the model; calibration; a rep
 None.
 
 ## Implementation notes
+
+Change report
+- Task: brief 104r, parameter map, design side
+- Files changed: `docs/research/104r-parameter-map-design.md` (note, sections 1 to 8); `docs/research/data/104r/` (scripts and CSVs for coverage, conventions, public side, rulings); this brief; `docs/agents/friction-log.md`.
+- What is different now: a design note with a cell coverage matrix, accounting conventions with a worked case, a public-ledger proposal with an illustrative identity, an interface gap list, a 73-row rulings table and a validation plan. Proposals only.
+- New or changed interfaces: none.
+- Acceptance criteria: coverage matrix covers every band and both stages (met); each convention has options, consequences and a recommendation, with a worked no-double-counting case (met); public-side identity with illustrative numbers, labelled (met); pension liquidity and valuation basis stated for base and settlement (met); rulings table covers all 73 rows with no unsupported values (met); nothing chosen for WDT revenue or closure (met).
+- Deviations from the brief: none. The 102r branch was superseded and not merged.
+- Risks / follow-ups: nine author questions in section 6; DR-01 (pension bases) open; joint band-by-stage cross-tab needed (S06); band persistence moments cannot be tested without a transition rule.
+- Instruction friction: one entry added to the friction log.
+- Verification: `check_agent_docs.py` and the four scripts run clean (`ok:` lines); no model run.
+- Overview sections likely needing an update: none until the author rules.
+- Commit / branch: brief/104
 <!-- progress:start -->
 - **Done:** block 4 (note sections 5 to 7, `rulings_table.py`). Blocks 0 and 1 (note skeleton; coverage matrix, section 2). Block 3: section 4 public ledger with `public_side_identity.py`. Block 2: note section 3 (accounting conventions 3.1 to 3.8) with `conventions_worked.py` and four CSVs in `docs/research/data/104r/`.
-- **Next:** block 4 interface, rulings table, validation moments (5 to 7); block 5 summary, reproduction, change report, friction log, merge.
+- **Next:** author rules on the nine questions in note section 6.
 - **Decisions:** recommended A (credit holding gain, saving carries retained yield once) with B as equivalent check; disposable-income basis; no cross-cell transfers in the first implementation; settlement source left to the author.
 - **Gotchas:** branch is `brief/104`; the clone tracks main only. Do not pipe `git push`.
 - **Resume:** branch `brief/104`; read this block and the note; section 4 onward pending.
-- **Not run:** `check_agent_docs.py` (run at block 5).
-- **State:** in progress
+- **Not run:** nothing; checks pass.
+- **State:** done
 <!-- progress:end -->

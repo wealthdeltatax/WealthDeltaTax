@@ -2,10 +2,17 @@
 
 Accessed 2026-11-21. Brief `docs/briefs/104r-parameter-map-design.md`. Closes deliverables C and D of the parameter map from the 103r register (`docs/research/data/103r/parameter_register.csv`). Proposals with a recommendation each; the author rules. No code, register, pack or manifest edit; no model run; no replacement for 3.5%.
 
-Status: in progress; sections marked pending are not yet written.
+Status: done.
 
 ## 1. Summary
-(pending)
+
+- **Coverage (section 2).** Ten cells (five pack bands by retired or not). Only 2 of 73 register rows exist at band by stage resolution; 25 are observed, derived or proxy at the aggregate. Every flow is aggregate-only and allocated by a labelled scenario.
+- **Conventions (section 3).** Recommend A: credit the holding gain only; saving carries the retained yield once (`dNW/NW = s + g_h`). B is the equivalent check; counting the yield twice is wrong (worked household: 54 against 90). Pension sits in the base on the WAS SCAPE stock basis, illiquid until drawn; two deflators (CPI for returns, expenditure deflator for liability erosion), the wedge reported as its own line; `O` reported, not forced; no cross-cell `TR`.
+- **Public side (section 4).** Recommend one public ledger by class at market value; the payment is `T_WDT` in the household account and a receipt in the ledger; the household-plus-public identity sums to zero in the illustrative case (labelled as such).
+- **Interface (section 5).** Gap list: a new `household.py`, pack inputs that do not exist, manifest outputs, kernel and revenue changes, tests that move, LAYER, budget and `test_groups.py` rows. The 3.5% stays a switchable comparator.
+- **Rulings (section 6).** 73 rows: ready 22, scenario range 14, unset 8, further data 15, other 14. Nine questions for the author, recommendation first.
+- **Validation (section 7).** Aggregate and class-level moments only (BF-01, BF-02, AB-01, BF-14, GB-01); band persistence moments need a transition rule that does not exist yet.
+
 
 ## 2. Cell coverage matrix (item 1)
 Script `docs/research/data/104r/coverage_matrix.py` reads the 103r register and the 102r cell inputs and writes `cell_weights.csv`, `coverage_matrix.csv` (15 variable groups x 5 pack bands x 2 stages = 150 entries), `resolution_by_row.csv` (every 103r row with the finest resolution it supports) and `resolution_pivot.csv`. It fails if a cell or a register row is missing. The matrix classifies evidence; it holds no value for any cell.
@@ -333,4 +340,5 @@ Two limits. First, the cells have fixed membership within a generation step (S26
 
 
 ## 8. Reproduction
-(pending)
+
+From the repo root, with `python -I`: `docs/research/data/104r/coverage_matrix.py` (section 2), `conventions_worked.py` (section 3; writes four CSVs), `public_side_identity.py` (section 4), `rulings_table.py` (section 6; writes `rulings_table.csv` and `.md`). Each prints one `ok:` line and exits 1 on failure. Inputs: `docs/research/data/103r/parameter_register.csv`, `worked_cell_d45.csv`, `cross_side_checks.csv`; `102r/band_composition_by_pack_band.csv`, `cell_coverage_inputs.csv`; `099r/moments.csv`. Check: `python -I pipeline/check_agent_docs.py`.
