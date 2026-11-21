@@ -231,3 +231,6 @@ Author: (1) stage is the person's economic status (the held WAS table) as a prox
 ## 2026-11-21: rulings after 103r (accounting)
 Author: (1) Pension accrual runs as one labelled aggregate scenario on the ONS basis; no rate is formed on the WAS SCAPE stock until the ONS reconciliation (SUP-3) arrives. (2) Classes with no held return (pension, physical, net financial) are credited a labelled scenario range per class, never an estimate. (3) The wealth roll-forward residual O is a reported residual, not forced to zero; the survey (WAS) stays the stock base and national accounts are validation only. (4) Two deflators are kept and labelled: CPI for real returns, the ONS household consumption deflator for liability erosion; 104r lists where each is used. Housekeeping by the guru: F-03 is labelled `T_C` not `TR`, F-21 is a `CG` term not `O`, and I-W3b is context only (applied in 104r's conventions; no registry edit yet).
 
+## 2026-11-21: I-D4b refit, adult age, I-W3 citations
+Author: (1) The I-D4b central is refitted with I-D4h's 1.93 adults per household (brief 106c). (2) Adult means 16 and over, as held; the 18-plus split is a request to the WAS microdata. (3) I-W3c and I-W3d stay validation moments marked unverified until the source PDFs are uploaded (SUP-7).
+
