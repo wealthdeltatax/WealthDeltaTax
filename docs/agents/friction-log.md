@@ -77,3 +77,10 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: the connector returned XLSX as base64, ONS file fetches returned `Unsupported content-type`, and the runtime had no XLSX/ZIP parser or checkout, so the first pass reported the held tables as unreadable and concluded the joint stage-by-band distribution was not published. It is (Tables 2.11, 2.13).
 - Cost: a wrong finding had to be corrected at close-out; the brief's acceptance test 1 could not be run.
 - Suggest: research briefs that name held workbooks should say the run needs a local checkout with openpyxl, or the agent should stop and ask instead of concluding from marginals.
+
+
+### 2026-11-21 · 100r · research
+- **Instruction:** 100r Checks to run; `python -I pipeline/check_agent_docs.py`.
+- **Happened:** The GitHub-connected session has no local checkout or shell; the repository API can read/write files but cannot execute the repository's Python checker.
+- **Cost:** The required automated documentation check could not be run; relevant paths were inspected through the repository API instead.
+- **Suggest:** Provide a local checkout/shell in the research runtime, or run the checker in CI for research branches.
