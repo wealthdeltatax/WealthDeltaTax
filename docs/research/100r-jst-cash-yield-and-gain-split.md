@@ -142,8 +142,9 @@ It is the market-return decomposition of a JST aggregate asset portfolio. It doe
 - Held source workbook: `Rates Data/JSTdatasetR6.xlsx`; builder asserts selected source values against the JSON.
 - Pack total-return table: `model_v3/pack/GBR/returns.csv`; built by `model_v3/pack/build_gbr.py`.
 - Pack real conversion: `model_v3/core/returns.py`.
-- JST Macrohistory Database R6 documentation: https://www.macrohistory.net/database/ (R6 update documentation, accessed 2026-11-21).
-- Jordà, Knoll, Kuvshinov, Schularick and Taylor (2019), *The Rate of Return on Everything, 1870–2015*, QJE 134(3), 1225–1298; return-data documentation linked from the JST database page, accessed 2026-11-21.
+- JST Macrohistory Database R6 codebook, pp. 6–7 (variable labels and formulas for `eq_tr`, `housing_tr`, `bond_tr`, `bill_rate`, `bond_rate`, component returns and composite returns): https://www.macrohistory.net/app/download/9834516169/JST_documentationR6.pdf?t=1676279836 (accessed 2026-11-21).
+- Chen et al. (2022), *Documentation on the JST Database Update 2016–2020*, pp. 3–10 (R6 update to bill, bond, equity, housing and composite returns): https://www.macrohistory.net/app/download/9918957869/JST_RORE_Documentation_R6.pdf?t=1658254098 (accessed 2026-11-21).
+- Jordà, Knoll, Kuvshinov, Schularick and Taylor (2019), *The Rate of Return on Everything, 1870–2015*, QJE 134(3), 1225–1298; return-data documentation: https://www.macrohistory.net/app/download/9834516469/RORE_documentation.pdf?t=1614633099 (accessed 2026-11-21).
 - Licence: JST data are made available under CC BY-NC-SA 4.0; comply with the non-commercial and share-alike conditions and cite the 2019 return paper when using returns.
 
 ## Checks
