@@ -7,10 +7,10 @@ import numpy as np, pytest
 from model_v3.core import pack as pk
 
 FIX = Path(__file__).parent / 'fixtures' / 'pack_ZZZ'
-PINNED = '339cb47401dcf2f421f82b320ea715838e3a933f1a48355040130574ccefde9c'   # P7: the fixture's pack_sha256
+PINNED = '291b63c28e8666e22b4ae2b0c4768a8144b74b04bf8b0b488e60520a61f1182f'   # P7: the fixture's pack_sha256
 ROOT = Path(__file__).parents[2]
 GBR = ROOT / 'model_v3' / 'pack' / 'GBR'
-GBR_SHA = 'a9d8312678f423f7978de1857a67ece80f88ce0c39f514aef01832e6282c31be'   # the UK pack_sha256, pinned: a rebuilt pack that changes a byte fails here
+GBR_SHA = '19f3ebcc82ee4c84fe4cdee1821ffbb49f073da126f748ddb387dd3323d5b7f3'   # the UK pack_sha256, pinned: a rebuilt pack that changes a byte fails here
 KNOWN_UNORDERED = {'I-T3d', 'I-T3e', 'I-T3g', 'I-T3m', 'I-T3p'}   # register rows with low > central or central > high (finding of 048c, for the author)
 PARTS = {'stamp_all': ['stamp_a', 'stamp_b'], 'income_tax': ['pay_a', 'pay_b']}
 
@@ -238,3 +238,23 @@ def test_p9_the_register_agrees_with_inputs_md():
 
 def test_p7_the_uk_pack_hash_is_pinned():
     assert pk.load_pack(GBR).sha256 == GBR_SHA
+
+
+@pytest.mark.parametrize('file,old,new,match', [
+    ('band_composition.csv', 'B1,pension,35,', 'B1,pension,30,', r'band_composition\.csv:2:value: classes of B1 sum to 95'),
+    ('band_composition.csv', 'B2,physical,5.2,', 'B2,property,5.2,', r'band_composition\.csv:8:band: duplicate of row 6'),
+    ('cell_weights.csv', 'B1,retired,', 'B1,not retired,', r'cell_weights\.csv:3:band: duplicate'),
+    ('cell_weights.csv', 'B2,retired,', 'B2,old,', r'cell_weights\.csv:5:stage'),
+    ('cell_weights.csv', ',700,', ',-7,', r'cell_weights\.csv:4:persons')])
+def test_cell_inputs_of_the_fixture_are_checked(zzz, file, old, new, match):   # 109c
+    fails(zzz, match, (file, old, new))
+
+
+def test_the_uk_pack_carries_the_cell_inputs_and_they_close():   # 109c
+    p = pk.load_pack(GBR)
+    w, c = p.tables['cell_weights'], p.tables['band_composition']
+    bands = ['D1-3', 'D4-5', 'D6-7', 'D8-9', 'D10']
+    assert [(x['band'], x['stage']) for x in w] == [(b, s) for b in bands for s in ('not retired', 'retired')] and p.version == 2
+    assert abs(sum(x['persons'] for x in w) - 50_200_000) <= sum(x['max_rounding'] for x in w) and round(sum(x['persons'] for x in w) / 1e6, 2) == 50.20
+    assert {x['class'] for x in c} == {'property', 'net_financial', 'physical', 'pension'} and len(c) == 20
+    assert all(abs(sum(x['value'] for x in c if x['band'] == b) - 100) <= 0.5 for b in bands)

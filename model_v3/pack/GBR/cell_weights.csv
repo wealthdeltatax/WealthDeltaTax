@@ -1,0 +1,11 @@
+band,stage,persons,max_rounding,basis
+D1-3,not retired,10662020,385450,"person-based proxy: persons 16+ by household wealth band, WAS Round 8"
+D1-3,retired,1629600,116400,"person-based proxy: persons 16+ by household wealth band, WAS Round 8"
+D4-5,not retired,9198350,385450,"person-based proxy: persons 16+ by household wealth band, WAS Round 8"
+D4-5,retired,1978800,116400,"person-based proxy: persons 16+ by household wealth band, WAS Round 8"
+D6-7,not retired,5565890,192725,"person-based proxy: persons 16+ by household wealth band, WAS Round 8"
+D6-7,retired,1978800,58200,"person-based proxy: persons 16+ by household wealth band, WAS Round 8"
+D8-9,not retired,7663730,192725,"person-based proxy: persons 16+ by household wealth band, WAS Round 8"
+D8-9,retired,3259200,58200,"person-based proxy: persons 16+ by household wealth band, WAS Round 8"
+D10,not retired,5357350,192725,"person-based proxy: persons 16+ by household wealth band, WAS Round 8"
+D10,retired,2910000,58200,"person-based proxy: persons 16+ by household wealth band, WAS Round 8"

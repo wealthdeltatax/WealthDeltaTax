@@ -48,6 +48,10 @@ inputs:
   I-D1f: {unit: pct_per_year, decimals: 0, display_unit: "% a year", scale: 1, note: "no numeric low/central/high in the register; display spec unused until a value exists"}
   I-D1g: {unit: count, decimals: 0, display_unit: "count", scale: 1, note: "one or more of low/central/high is not numeric"}
   I-D1e: {unit: years, decimals: 0, display_unit: "years to 2025", scale: 1}
+  I-D1h: {unit: pct_per_year, decimals: 2, display_unit: "% a year", scale: 1}
+  I-D1i: {unit: pct_per_year, decimals: 2, display_unit: "% a year", scale: 1}
+  I-D1j: {unit: pct_per_year, decimals: 2, display_unit: "% a year", scale: 1}
+  I-D1k: {unit: pct_per_year, decimals: 2, display_unit: "% of opening net worth a year", scale: 1}
   I-D5a: {unit: pct, decimals: 0, display_unit: "% of base", scale: 1}
   I-D5b: {unit: pct, decimals: 1, display_unit: "% of base", scale: 1}
   I-D5c: {unit: pct, decimals: 0, display_unit: "% of affected group", scale: 1}

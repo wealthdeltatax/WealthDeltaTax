@@ -1,0 +1,9 @@
+band,class,value,unit,basis,year
+B1,property,50,pct_of_band,household,2020
+B1,net_financial,10,pct_of_band,household,2020
+B1,physical,5,pct_of_band,household,2020
+B1,pension,35,pct_of_band,household,2020
+B2,property,40,pct_of_band,household,2020
+B2,net_financial,20,pct_of_band,household,2020
+B2,physical,5.2,pct_of_band,household,2020
+B2,pension,34.8,pct_of_band,household,2020

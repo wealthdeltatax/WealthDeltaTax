@@ -74,6 +74,26 @@
    "licence": "unverified",
    "retrieved": "2026-11-18",
    "vintage": "fixture"
+  },
+  {
+   "name": "cell_weights.csv",
+   "dataset": "cell_weights",
+   "sha256": "e6e0c13a6465f7c8bf67e6c8821503468fe3169a8174c5c8368793a4eec0dfd3",
+   "rows": 4,
+   "source": "invented",
+   "licence": "unverified",
+   "retrieved": "2026-11-21",
+   "vintage": "fixture"
+  },
+  {
+   "name": "band_composition.csv",
+   "dataset": "band_composition",
+   "sha256": "b702a7bf123ba13a281edc3961a1821c64d023f909da096e95ab5c0554edbbda",
+   "rows": 8,
+   "source": "invented",
+   "licence": "unverified",
+   "retrieved": "2026-11-21",
+   "vintage": "fixture"
   }
  ]
 }

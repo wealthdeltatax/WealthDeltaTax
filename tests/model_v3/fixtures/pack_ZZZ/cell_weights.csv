@@ -1,0 +1,5 @@
+band,stage,persons,max_rounding,basis
+B1,not retired,600,10,invented
+B1,retired,400,10,invented
+B2,not retired,700,10,invented
+B2,retired,300,10,invented

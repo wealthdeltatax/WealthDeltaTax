@@ -2,8 +2,8 @@
  "country": "GBR",
  "currency": "GBP",
  "base_year": "2025-26",
- "pack_version": 1,
- "built": "2026-11-18",
+ "pack_version": 2,
+ "built": "2026-11-21",
  "notes": "Pack values are as published; the model expresses them in 2025-26 prices (base_year, stage C1).",
  "files": [
   {
@@ -63,7 +63,7 @@
    "rows": 0,
    "source": "none held",
    "licence": "unverified",
-   "retrieved": "2026-11-18",
+   "retrieved": "2026-11-21",
    "vintage": "none"
   },
   {
@@ -75,6 +75,26 @@
    "licence": "cite-only",
    "retrieved": "2026-09-30",
    "vintage": "JST R6"
+  },
+  {
+   "name": "cell_weights.csv",
+   "dataset": "cell_weights",
+   "sha256": "b646fdb0d999e89ed45bdf353e526e1c26c7475163316ba2fc8e97efc6151cb9",
+   "rows": 10,
+   "source": "ONS WAS Round 8 economic status by wealth band, via 102r and 104r cell_weights.csv (persons 16+, a person-based proxy)",
+   "licence": "cite-only",
+   "retrieved": "2026-11-21",
+   "vintage": "WAS Round 8"
+  },
+  {
+   "name": "band_composition.csv",
+   "dataset": "band_composition",
+   "sha256": "f84215b49e5f9aaa8f6512a4a59316b45cb0a210f701d2287e0d935bc9f6f0bc",
+   "rows": 20,
+   "source": "ONS WAS Round 8, totalwealthtables.xlsx Table 2.2, via 102r band_composition_by_pack_band.csv",
+   "licence": "cite-only",
+   "retrieved": "2026-11-21",
+   "vintage": "WAS Round 8"
   }
  ]
 }

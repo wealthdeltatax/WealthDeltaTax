@@ -1,5 +1,5 @@
 {
- "count": 293,
+ "count": 297,
  "inputs": [
   {
    "central": 5.94,
@@ -454,6 +454,54 @@
     "S10"
    ],
    "unit": "years to 2025"
+  },
+  {
+   "central": 5.2,
+   "coverage": "Market portfolio, not pension funds; UK 1947-1979 and 1980-2019",
+   "high": 6.96,
+   "id": "I-D1h",
+   "input": "Scenario range, real return on pension wealth, `r_pension` (household step; no held series, a regime range, not an estimate)",
+   "judgement": true,
+   "low": 3.44,
+   "nulls": {},
+   "sources": [],
+   "unit": "% per year"
+  },
+  {
+   "central": 5.2,
+   "coverage": "Market portfolio, not households by band; UK 1947-1979 and 1980-2019",
+   "high": 6.96,
+   "id": "I-D1i",
+   "input": "Scenario range, real return on net financial wealth, `r_financial` (household step; no held series, a regime range, not an estimate)",
+   "judgement": true,
+   "low": 3.44,
+   "nulls": {},
+   "sources": [],
+   "unit": "% per year"
+  },
+  {
+   "central": 0,
+   "coverage": "UK; no return series held",
+   "high": 0,
+   "id": "I-D1j",
+   "input": "Scenario assumption, real return on physical wealth (contents and vehicles), `r_physical` (household step)",
+   "judgement": true,
+   "low": 0,
+   "nulls": {},
+   "sources": [],
+   "unit": "% per year"
+  },
+  {
+   "central": 1.12,
+   "coverage": "UK households, all; 1998-2025",
+   "high": 1.84,
+   "id": "I-D1k",
+   "input": "Scenario range, pension accrual, aggregate, ONS basis: pension adjustment D.8 over opening household net worth, `pen_in` (household step; no rate on the SCAPE stock)",
+   "judgement": true,
+   "low": 0.41,
+   "nulls": {},
+   "sources": [],
+   "unit": "% of opening net worth per year"
   },
   {
    "central": 12,

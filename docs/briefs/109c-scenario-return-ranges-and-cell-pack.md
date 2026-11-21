@@ -41,11 +41,27 @@ Whether `build_inputs.py` or the register tests object to a mid-point label in a
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:** (exact branch name and fetch line, last block pushed, first action)
-- **Not run:**
-- **State:** ready; not started
+- **Done:** four register rows I-D1h to I-D1k; registry regenerated (297 rows); pack version 2 with cell_weights and band_composition built by build_gbr.py (byte-identical second run); loader, ZZZ fixture and tests extended; v3 243 passed; check_agent_docs exit 0.
+- **Next:** the wiring brief that reads these rows and files; the author may replace the mid-point labels with chosen values.
+- **Decisions:** author answered "Extend loader, update pins" (core/pack.py and the ZZZ fixture are outside Touches); ids I-D1h to I-D1k (D1 is the returns block); `registry/inputs-display.yml` gets four entries because the hooks test needs one per register row (precedent: 091g, 072g).
+- **Gotchas:** the clone was shallow, so `retrieved` dates came out wrong until `git fetch --unshallow`; with a full clone the existing files' dates are unchanged.
+- **Resume:** none.
+- **Not run:** none.
+- **State:** done; merged
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 109c, scenario return ranges, pension accrual range and cell inputs
+- Files changed: docs/model-v3/inputs.md (rows I-D1h to I-D1k, counts, 2026-11-21 bullet); registry/inputs.json (generated); registry/inputs-display.yml (four entries, named: hooks test needs one per row); tests/data/test_build_inputs.py (pin 293 to 297); model_v3/pack/build_gbr.py (cells(), schema, version 2, notice); model_v3/pack/GBR/ (cell_weights.csv, band_composition.csv, manifest, NOTICE); model_v3/core/pack.py (two datasets and one cross-check, named: the loader rejects unknown datasets); tests/model_v3/fixtures/pack_ZZZ/ (two files, manifest, named); tests/model_v3/test_pack.py (pins, 6 tests); docs/model-v3/architecture.md (pack budget 340/240 to 355/265, totals, 2.1 note)
+- What is different now: the register holds the scenario ranges the household step needs; the pack carries persons by band and stage and the composition by band; nothing reads them yet.
+- New or changed interfaces: pack datasets cell_weights (band, stage, persons, max_rounding, basis) and band_composition (band, class, value, unit, basis, year); pack_version 2.
+- Acceptance criteria: four rows with exact values: I-D1h pension and I-D1i net financial real return 3.44 / 5.20 / 6.96 (1947-1979 mean 3.4396 over 33 years; 1980-2019 mean 6.9639 over 40; 1896-2019 4.7423 as reference text), I-D1j physical 0 / 0 / 0 (assumption), I-D1k pension accrual 0.41 / 1.12 / 1.84 % of opening net worth (1998-2025 min 0.4095 in 2020, max 1.8356 in 1998, median 1.18) (met); mid-point labels in the central cells of I-D1h, I-D1i and I-D1k (mid-point of low and high; I-D1j is 0 in all three as an assumption); pack byte-identical on a second run (met, diff -r); every existing digest unchanged except the two pack hashes that must move when files are added: GBR_SHA a9d8312678... to 19f3ebcc82... and the ZZZ fixture pin 339cb474... to 291b63c2... (reported; the author's answer covered this); registry regenerated, v3 243 passed, data 5 failed and hooks 1 failed, the pre-existing ones (same as main); diff limited to Touches plus the named files above (partly met: core/pack.py, the ZZZ fixture and inputs-display.yml are outside Touches, covered by the author's answer or named)
+- Deviations from the brief: band_composition has no debt row: the 102r file gives property and net financial net of debt, and no sheet gives debt by band, so it is left out; stage is a person-based proxy and says so in the basis column; the tax_rules manifest date moved to the build date 2026-11-21 (no source file); build_gbr.py is now over its 200-line budget (it was 201, no test counts it)
+- Risks / follow-ups: build_inputs and the register tests accept a mid-point central without change (no parser edit); levers.json needs no mapping (no pack pointer for the new rows, they are read by id from the register); STATUS.md and country-pack.md still quote older row counts (guru-owned); build_gbr.py needs a full clone (this one was shallow)
+- Instruction friction: none
+- Verification: python -I pipeline/build_inputs.py (297 inputs); build_gbr.py twice, diff -r identical; pytest tests/model_v3: 243 passed; run_suites data hooks: 5 and 1 failures, all pre-existing; python -I pipeline/check_agent_docs.py: exit 0
+- Overview sections likely needing an update: register size (297 rows, 112 judgement rows); pack contents and version
+- Commit / branch: brief/109-scenario-cell-pack, merged to main
+```

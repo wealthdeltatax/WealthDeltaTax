@@ -44,12 +44,13 @@ tests/model_v3/          one test file per module, plus rules and budget tests
 
 Each entry: purpose, inputs, outputs (and the manifest ids it produces), the C1 decision it implements, budget. Budgets are `wc -l` of the file, blank lines and comments included (the convention of `port-inventory.md`).
 
-### 2.1 `core/pack.py`: country pack and register loader (340 lines)
+### 2.1 `core/pack.py`: country pack and register loader (355 lines)
 - **Does.** Reads and validates a pack as 038c sections 2, 3 and 5 say: manifest first, folder name equals `country`, per-file sha256, header equals the schema, first violation raises with file, row and column, no fill, no interpolation, no clipping. Computes `pack_sha256`. Reads `registry/inputs.json` into low, central and high per row id, with `(J)` flags and unit. Runs the interim consistency checks X1 (register value of a pack row equals the pack-derived value within 1e-9) and X2 (the M1d lines sum to 8.11% of GDP within 0.01). Provides the accessors the other modules use and the two data-fact outputs.
 - **Inputs.** `model_v3/pack/<ISO>/`, `registry/inputs.json`.
 - **Outputs.** Typed dicts of pack tables and register values; `DH1a` and `DH1b` (data facts read from the pack, point forms).
 - **Implements.** R3 (register with low, central, high), R11 (the only module that handles `country`, `currency` and labels), R5 (hash). C1 item 8 housekeeping (stamp-duty sub-rows never summed with their parent).
 - **Imports.** numpy, standard library only.
+- **Brief 109c (2026-11-21):** two datasets added to the loader, `cell_weights` (persons by band and stage; unique on band and stage) and `band_composition` (shares of band net wealth by class; unique, and the classes of a band sum to 100 within 0.5), so a pack built with them loads. Budget raised from 340 to 355 code lines and 240 to 265 test lines for this reason only (the two schema rows, one cross-check, and the tests of the fixture and of the UK pack). The pack version is 2.
 
 ### 2.2 `core/returns.py`: return generator (260 lines)
 - **Does.** The level 1 generator: AR(1) with normal innovations, parameterised by the **arithmetic** mean, the marginal SD and lag-1 autocorrelation (4.742%, 8.219%, 0.30 at the sample), starting from the stationary distribution; returns real annual arithmetic returns as a `(T, paths)` array from a seed stream. The stationary block bootstrap (mean block 3, wrapping inside each contiguous segment) as the robustness check. The level 2 draw: mean, SD and lag-1 drawn from their register ranges (3.41 to 6.07; 7.47 to 8.96; 0.19 to 0.42). Sample statistics from the pack series (arithmetic and geometric mean, SD, lag-1, effective sample 63). Window rule `loop_windows` for the identity check and the 30-year spread display.
@@ -180,7 +181,7 @@ The budgets of section 6.1 are machine-readable in the fenced block there. `test
 
 ```budgets
 file                          code  tests
-core/pack.py                   340    240
+core/pack.py                   355    265
 core/returns.py                260    220
 core/base.py                   380    220
 core/schedule.py               170    120
@@ -208,16 +209,16 @@ tests/model_v3/test_pack_base.py 0     58
 
 | Group | Code lines | Test lines |
 |---|---:|---:|
-| Core (nine files; `household.py` added by 108c) | 3,360 | 2,358 |
+| Core (nine files; `household.py` added by 108c) | 3,375 | 2,383 |
 | Runner (`runner.py`, `sweeps.py`, `groups.py`, four `out_*.py` groups; 084c) | 1,280 | 630 |
-| **Core plus runner** | **4,640** | **2,988** |
+| **Core plus runner** | **4,655** | **3,013** |
 | Output layer (`out/`) | 700 | 300 |
 | `interface.py` and `run.py` | 170 | 80 |
 | Rules, budget and smoke tests | 0 | 150 |
 | Acceptance script and convergence test (040g Q1) | 0 | 90 |
-| **Total** | **5,510** | **3,608** |
+| **Total** | **5,525** | **3,633** |
 
-Core plus runner 4,640 is a ceiling, not a target; `runner/pool.py` (70) is outside it and counted only if triggered. The data tooling `pack/build_gbr.py` has its own budget of 200 lines (067c) and no test beyond a hash check of its output. Output layer 700 is 15% of core plus runner; R9 asks for smaller.
+Core plus runner 4,655 is a ceiling, not a target; `runner/pool.py` (70) is outside it and counted only if triggered. The data tooling `pack/build_gbr.py` has its own budget of 200 lines (067c) and no test beyond a hash check of its output. Output layer 700 is 15% of core plus runner; R9 asks for smaller.
 
 ### 6.2 Tests each module needs before the next is built (R7)
 Names are the test ids a build brief and `acceptance.md` cite.

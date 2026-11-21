@@ -2,7 +2,7 @@
 
     python3 -B -I model_v3/pack/build_gbr.py
 
-Writes the seven CSV files, manifest.json and NOTICE.md, copies model_v2/jst_r6.json unchanged to GBR/source/, and rewrites the x1_pointers and
+Writes the nine CSV files, manifest.json and NOTICE.md, copies model_v2/jst_r6.json unchanged to GBR/source/, and rewrites the x1_pointers and
 x1_skipped parts of levers.json's pack_mappings. Numbers are computed from the held sheets and rounded to the precision the register prints them at
 (percent shares one decimal, receipts two, pounds whole) so X1 can compare them exactly; a value no sheet gives is left out, never filled. A re-run gives
 byte-identical files. No test beyond the hash check of test_pack.py.
@@ -20,11 +20,13 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'model_v3' / 'pack' / 'GBR'
 WEALTH, REVENUE, ETB = 'Rates Data/totalwealthtables.xlsx', 'Rates Data/Revenue composition spreadsheet.xlsx', 'Research/etbreferencetablesfye202324final.xlsx'
 HOUSING = 'Research/Housing affordability in England and Wales 2025.pdf'
+CELLS, COMP = 'docs/research/data/104r/cell_weights.csv', 'docs/research/data/102r/band_composition_by_pack_band.csv'   # 109c: held derived files (derive_bands_stages.py, 104r)
 JSTX, REF_YEAR = 'Rates Data/JSTdatasetR6.xlsx', 2019   # REF_YEAR: v2's exp_ref_year
 SCHEMA = {'returns': 'year eq_tr housing_tr bond_tr capital_tr cpi gdp_pc', 'wealth_distribution': 'variable band value unit basis year',
           'wealth_tail': 'series year value unit low high basis', 'receipts': 'line fiscal_year pct_gdp gbp_bn basis',
           'household_incidence': 'variable group tax value unit fiscal_year basis', 'tax_rules': 'rule tax_year subject lower upper rate amount flag',
-          'public_expenditure': 'function fiscal_year pct_gdp gbp_bn basis'}
+          'public_expenditure': 'function fiscal_year pct_gdp gbp_bn basis', 'cell_weights': 'band stage persons max_rounding basis',
+          'band_composition': 'band class value unit basis year'}
 KEY = {'wealth_distribution': 'variable band', 'wealth_tail': 'series year', 'receipts': 'line', 'household_incidence': 'variable group tax'}
 SKIP = {'derived from the return series, checked by the model not stored': ['I-D1c', 'I-D1d', 'I-D1e'] + [f'I-H6{c}' for c in 'abcdefghi'],
         'needs W_min, a register input, so no pack row': [f'I-H2a{i}' for i in range(1, 8)],
@@ -100,6 +102,17 @@ def wealth():
     row('gdp', 'all', round(sum(g.values()) / 2, 2), 'gbp_bn', ())
 
 
+def cells():
+    """109c. cell_weights: persons by pack band and stage as 104r prints them (a person-based proxy: persons 16+ placed by household wealth, not households). band_composition:
+    the 102r shares of band net wealth, April 2020 to March 2022, one decimal as printed; debt is netted inside property and net financial by the survey, so no debt row."""
+    for r in csv.DictReader(open(ROOT / CELLS, newline='', encoding='utf-8')):
+        ROWS['cell_weights'].append([r['pack_band'], r['stage'], r['persons'], r['max_rounding'], 'person-based proxy: persons 16+ by household wealth band, WAS Round 8'])
+    for r in csv.DictReader(open(ROOT / COMP, newline='', encoding='utf-8')):
+        if r['round'] == 'April 2020 to March 2022':
+            ROWS['band_composition'] += [[r['pack_band'], c, txt(round(float(r['share_' + k + '_pct']), 1)), 'pct_of_band', 'household', '2020-22'] for c, k in
+                                         (('property', 'property'), ('net_financial', 'financial'), ('physical', 'physical'), ('pension', 'pension'))]
+
+
 def tail():
     want = {'shweal_p99p100_992_j': ('wid_top1', 'I-W7a'), 'shweal_p90p100_992_j': ('wid_top10', 'I-W7b')}
     with open(ROOT / 'model_v2/wid_out/wid_long.csv', newline='', encoding='utf-8') as fh:
@@ -144,10 +157,10 @@ def write(name, rows):
         csv.writer(fh, lineterminator='\n').writerows([SCHEMA[name[:-4]].split()] + rows)
 
 
-BUILT = '2026-11-18'
+BUILT = '2026-11-21'
 NOTES = 'Pack values are as published; the model expresses them in 2025-26 prices (base_year, stage C1).'
 FROM = {'returns': ['model_v2/jst_r6.json'], 'public_expenditure': ['model_v2/jst_r6.json'], 'wealth_distribution': [WEALTH, REVENUE, HOUSING], 'wealth_tail': ['model_v2/wid_out/wid_long.csv'], 'receipts': [REVENUE],
-        'household_incidence': [ETB]}   # dataset -> the repo file it is read from; a dataset with no source file carries the build date
+        'household_incidence': [ETB], 'cell_weights': [CELLS], 'band_composition': [COMP]}   # dataset -> the repo file it is read from; a dataset with no source file carries the build date
 
 
 def added(path):
@@ -164,18 +177,20 @@ def retrieved(ds):
 def main():
     (OUT / 'source').mkdir(parents=True, exist_ok=True)
     shutil.copyfile(ROOT / 'model_v2' / 'jst_r6.json', OUT / 'source' / 'jst_r6.json')
-    for f in (returns, wealth, tail, receipts, incidence):
+    for f in (returns, wealth, tail, receipts, incidence, cells):
         f()
     src = {'returns': ('JST Macrohistory R6, model_v2/jst_r6.json (series incl. rgdpmad, real GDP per head)', 'cite-only', 'JST R6'), 'wealth_distribution': ('ONS WAS Round 8, totalwealthtables.xlsx Tables 2.1, 2.2; ONS Housing affordability 2025 (median price); IFS Revenue composition, Total revenues (GDP)', 'cite-only', 'WAS Round 8'),
            'wealth_tail': ('WID.world, model_v2/wid_out/wid_long.csv', 'cite-only', 'WID 2026-10-16'), 'receipts': ('IFS Revenue composition spreadsheet, % GDP (cash)', 'cite-only', 'EFO March 2023'),
            'household_incidence': ('ONS effects of taxes and benefits FYE 2024, Tables 2b, 2c, 16', 'ogl-v3', 'ETB FYE 2024'), 'tax_rules': ('none held', 'unverified', 'none'),
-           'public_expenditure': ('JST Macrohistory R6, model_v2/jst_r6.json (expenditure over gdp, 2019)', 'cite-only', 'JST R6')}
+           'public_expenditure': ('JST Macrohistory R6, model_v2/jst_r6.json (expenditure over gdp, 2019)', 'cite-only', 'JST R6'),
+           'cell_weights': ('ONS WAS Round 8 economic status by wealth band, via 102r and 104r cell_weights.csv (persons 16+, a person-based proxy)', 'cite-only', 'WAS Round 8'),
+           'band_composition': ('ONS WAS Round 8, totalwealthtables.xlsx Table 2.2, via 102r band_composition_by_pack_band.csv', 'cite-only', 'WAS Round 8')}
     files = []
     for ds in SCHEMA:
         write(ds + '.csv', ROWS[ds])
         files.append({'name': ds + '.csv', 'dataset': ds, 'sha256': hashlib.sha256((OUT / (ds + '.csv')).read_bytes()).hexdigest(), 'rows': len(ROWS[ds]),
                       'source': src[ds][0], 'licence': src[ds][1], 'retrieved': retrieved(ds), 'vintage': src[ds][2]})
-    (OUT / 'manifest.json').write_text(json.dumps({'country': 'GBR', 'currency': 'GBP', 'base_year': '2025-26', 'pack_version': 1, 'built': BUILT,
+    (OUT / 'manifest.json').write_text(json.dumps({'country': 'GBR', 'currency': 'GBP', 'base_year': '2025-26', 'pack_version': 2, 'built': BUILT,
                                                                        'notes': NOTES, 'files': files}, indent=1) + '\n', encoding='utf-8')
     (OUT / 'NOTICE.md').write_text('# GBR pack notice\n\nContains public sector information licensed under the Open Government Licence v3.0 (ONS). JST Macrohistory R6 is CC BY-NC-SA 4.0 '
                                    '(Jorda, Schularick and Taylor): cite only, non-commercial. IFS and WID rows are cite only. The pack stays a private input of the repo.\n\n'
@@ -189,7 +204,10 @@ def main():
                                    'JSTdatasetR6.xlsx Sheet1, GBR rows 1870 to 2019 (2019 is row 1510). public_expenditure.csv holds one row, function total, fiscal_year 2019 (a calendar year, v2\'s exp_ref_year): '
                                    'pct_gdp is 100 x JST expenditure over gdp, 2019, cells expenditure 830.452 and gdp 2,255.283, = 36.82. JST is used first, as v2 did. '
                                    'Cross-check, not stored: PSS_May_2024_TES_UPDATED.xlsx Data_for_charts, Total Managed Expenditure over Nominal GDP is 39.58 for 2019-20 (888.4 / 2,244.5) and 39.48 for 2018-19; '
-                                   'JST general government expenditure and TME differ in definition and in calendar against fiscal year. gbp_bn is left empty: the JST description calls the unit millions but the GBR values are billions.\n', encoding='utf-8')
+                                   'JST general government expenditure and TME differ in definition and in calendar against fiscal year. gbp_bn is left empty: the JST description calls the unit millions but the GBR values are billions.\n\n'
+                                   'cell_weights.csv and band_composition.csv (brief 109c, pack_version 2) are read from the held derived files `docs/research/data/104r/cell_weights.csv` and `docs/research/data/102r/band_composition_by_pack_band.csv`. '
+                                   'cell_weights are persons aged 16+ placed by household wealth band and economic stage (retired, or not retired = working, unemployed and inactive not retired): a person-based proxy, not households; max_rounding is the 102r bound in persons. '
+                                   'band_composition holds the shares of band net wealth, April 2020 to March 2022, one decimal as printed (they sum to 100 within 0.5); there is no debt row because the survey nets debt inside property and net financial wealth.\n', encoding='utf-8')
     p = ROOT / 'model_v3' / 'levers.json'
     text, lev = p.read_text(encoding='utf-8'), json.loads(p.read_text(encoding='utf-8'))
     lev['pack_mappings'].update(x1_pointers=dict(sorted(POINTERS.items())), x1_skipped={i: why for why, ids in SKIP.items() for i in ids})
