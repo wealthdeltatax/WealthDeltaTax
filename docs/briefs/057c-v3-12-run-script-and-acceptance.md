@@ -15,7 +15,7 @@ Also (guru, 2026-11-20): `run.py` passes `once` (the manifest's `once_not_per_sc
 
 Also (guru, 2026-11-20): a band with no payer at launch (D4_5, wealth under w_min) gives nan in O2, O2d and OW3; `assemble` treats non-finite as an error in a final run, so 057c decides how the final file marks those cells (a stated null, not a number) before `--final`.
 
-Also (guru, 2026-11-20): the author abandoned I-D14c's 3.5% as the central assumption (094r). Until a replacement is implemented, the run still uses it, so `run.py` writes a run field (for example `legacy_consumption: 3.5`) and every report or page that prints a result from this run labels it a **legacy result, not a calibrated forecast**. Choose the field name with the A6 run fields; do not change c.
+Also (guru, updated 2026-11-21): the author abandoned I-D14c's 3.5% as the central assumption (094r). The household step now exists (108c, not wired) with a `legacy` mode that reproduces the 3.5% rule; the planned wiring brief makes it a switchable arm. Until the new arm is wired and validated, the run uses the legacy arm, so `run.py` writes a run field (for example `legacy_consumption: 3.5`) and every report or page that prints a result from this run labels it a **legacy result, not a calibrated forecast**. Choose the field name with the A6 run fields. When the arm selector exists, the run field records the arm; this brief stays held until the wiring, validation and comparison briefs have run, and then also reads the arm.
 
 ## Decisions (author, 2026-11-18)
 `architecture.md` approved (sections 8.1 and 9 as written); `acceptance.md` approved with Q1 to Q6 as proposed. v3 imports nothing from `model_v1/` or `model_v2/`. No file outside this brief's Touches is changed.

@@ -1,6 +1,6 @@
 # 089: Feasibility map and stress test outputs into Samples (OF1, CK1)
 
-- **Status:** parked (waits for the author's ruling on the feasibility rule, after 083c)
+- **Status:** parked (waits for the author's ruling on the feasibility rule, after 083c; 2026-11-21: the feasibility numbers were measured under the legacy 3.5% rule, so the rule is re-examined after the cell model and the comparison run, not before)
 - **Author/date:** K. Ogata with the guru, 2026-11-20
 - **Depends on:** 084c, 088c, 083c and the author's ruling
 - **Read:** `docs/model-v3/f1-diagnostic/report.md` (from 083c); `model_v3/runner/sweeps.py` (`feasibility`, `choose`, `stress`, `CLOSED`); `model_v3/runner/out_sweeps.py`; `docs/model-v3/outputs.yml` entries OF1 and the CK1 check; `docs/model-v3/metrics.md` rows F1 and CK1.

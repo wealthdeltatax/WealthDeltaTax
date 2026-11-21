@@ -13,6 +13,8 @@ Put the scenario ranges the household step needs into the register as labelled j
 - **Pension accrual** is one labelled aggregate scenario on the ONS basis: range = the 1998 to 2025 min and max of D.8 over opening net worth (0.4% to 1.8%, median 1.2% as reference; recompute from the 101r derivation). No rate on the WAS SCAPE stock.
 - Convention A, settlement by the existing routes, and the other 104r rulings stand (`docs/decisions.md`).
 
+- **No central estimate (author, 2026-11-21):** where the register format needs a central cell, it holds a labelled mid-point reference (state it as such in the caveat and the row's first sentence), never an estimate; the whole-sample 4.74 is a reference, not the central, for pension and net financial. Say in the change report which cells are mid-point labels.
+
 ## Design
 1. **Register rows** (follow the numbering and column conventions of `inputs.md`; name the ids you choose): three real-return ranges (pension, net financial, physical), one pension accrual range. Each is a judgement row, "scenario, not an estimate", with the regime years and source files in the caveat and the central cell equal to the stated reference or marked as a mid-point label, not as an estimate; follow the register's own rule for rows that have no central (report what the format requires and say so). Update the register-total and judgement-count text, `registry/inputs.json` and the row-count pin in `tests/data/test_build_inputs.py`.
 2. **Pack additions** (a new version of the pack with a manifest bump; the legacy digests must not move): `cell_weights` (five bands by two stages, from `cell_weights.csv`; stage is the person-based proxy, say so in the basis column) and `band_composition` (property, net financial, physical, pension, debt shares by pack band, from the 102r file). Build them in `build_gbr.py` (not by hand), keep its rules (rounded to printed precision, byte-identical re-run, a value no sheet gives is left out).
@@ -35,7 +37,7 @@ Put the scenario ranges the household step needs into the register as labelled j
 Wiring into the kernel or runner, the public ledger, settlement, income and consumption allocation by cell (still unset), the lien, any paper text.
 
 ## Open questions
-How the register represents a row with no central estimate (agent reports what `inputs.md` requires).
+Whether `build_inputs.py` or the register tests object to a mid-point label in a central cell (agent reports; do not change the parser without asking).
 
 ## Implementation notes
 <!-- progress:start -->
