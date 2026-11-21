@@ -8,6 +8,8 @@ cell takes a labelled retired fraction of the not-retired income. Stage shares o
 """
 from __future__ import annotations
 
+from model_v3.core.household import household_step
+
 BANDS = ('D1-3', 'D4-5', 'D6-7', 'D8-9', 'D10')
 STAGES = ('not retired', 'retired')
 CLASSES = ('property', 'net_financial', 'physical', 'pension')
@@ -53,6 +55,12 @@ def build_cells(pack, reg, retired_fraction=0.6, level='central'):
     return cells
 
 
+def scale_income(cells, target_bn):
+    """Aggregate-constrained cells: every cell's income times one factor so the total equals target_bn; band proportions and the retired split are kept."""
+    k = target_bn / sum(c['income'] for c in cells)
+    return [dict(c, income=c['income'] * k, income_per_hh=c['income_per_hh'] * k, income_scale=k) for c in cells]
+
+
 def reconcile(cells, pack, b6g_bn, d8_bn=0.0):
     """Cell totals against the pack and the national accounts; the gaps are reported, never forced. b6g_bn: national-accounts disposable income B.6g (pounds bn); d8_bn: pension adjustment D.8."""
     wealth, income = sum(c['wealth'] for c in cells), sum(c['income'] for c in cells)
@@ -66,3 +74,44 @@ def reconcile(cells, pack, b6g_bn, d8_bn=0.0):
         income_cells=income, b6g=b6g_bn, b6g_plus_d8=b6g_bn + d8_bn, income_gap_pct=100 * (income / b6g_bn - 1),
         income_gap_incl_d8_pct=100 * (income / (b6g_bn + d8_bn) - 1), income_over_gdp=income / gdp,
         persons=sum(c['persons'] for c in cells))
+
+
+CLASS_KEY = {'property': 'property', 'net_financial': 'financial', 'physical': 'physical', 'pension': 'pension'}
+
+
+def run_cells(cells, sc, years=100, convention='A'):
+    """Run the cells forward `years` untaxed (T_WDT = 0) with household_step; one dict per cell and year (year 0 is the opening position).
+    sc: s (non-pension saving ratio of cell income, a fraction), g and y (class -> real gain and yield), pen (pension accrual as a fraction of opening
+    net worth), gdp_g (cell income grows with real GDP), r and c (the legacy total return and consumption share), arm 'new' or 'legacy'.
+    Income is Y_L, consumption is (1 - s) of it, pension accrual is Y_P and goes straight to the pension class, so the sink receives s x income."""
+    out, defl = [], dict(cpi=0.0, hfce=0.0)
+    for c in cells:
+        pos = {CLASS_KEY[k]: v for k, v in c['pos'].items()} if sc['arm'] == 'new' else dict(financial=c['wealth'])
+        out.append(dict(cell=c['cell'], year=0, **pos, nw=sum(pos.values()), dNW=0.0, S=0.0, CG=0.0, wedge=0.0, O=0.0, resid=0.0, income=c['income']))
+        for t in range(1, years + 1):
+            nw0, inc = sum(pos.values()), c['income'] * (1.0 + sc['gdp_g']) ** (t - 1)
+            if sc['arm'] == 'legacy':
+                pos, a = household_step(c['cell'], pos, dict(c=sc['c']), dict(r=sc['r']), defl, 'legacy')
+            else:
+                pen = sc['pen'] * nw0
+                flows = dict(Y_L=inc, Y_P=pen, C=(1.0 - sc['s']) * inc, pen_in=pen)
+                pos, a = household_step(c['cell'], pos, flows, dict(g=sc['g'], y=sc['y']), defl, convention, sink='financial')
+            nw1 = sum(pos.values())
+            out.append(dict(cell=c['cell'], year=t, **{k: float(v) for k, v in pos.items() if k != 'debt'}, nw=float(nw1), dNW=float(a['dNW']), S=float(a['S']),
+                            CG=float(a['CG']), wedge=float(a['CG_wedge']), O=float(a['O']), resid=float(abs(nw1 - nw0 - a['dNW'])), income=float(inc)))
+    return out
+
+
+def aggregate(rows, years, gdp0, gdp_g):
+    """Aggregate by year (sum over cells, pounds bn, household basis: no person or household weights are needed for a sum): wealth, wealth/GDP indexed to
+    year 0, realised saving ratio (S over income), the wealth share of each band, and the largest identity residual."""
+    by = {y: [r for r in rows if r['year'] == y] for y in years}
+    w0 = sum(r['nw'] for r in by[0])
+    out = []
+    for y, rs in by.items():
+        w, inc = sum(r['nw'] for r in rs), sum(r['income'] for r in rs)
+        gdp = gdp0 * (1.0 + gdp_g) ** y
+        band = {b: sum(r['nw'] for r in rs if r['cell'].split('|')[0] == b) / w for b in BANDS}
+        out.append(dict(year=y, wealth=w, wealth_over_gdp=w / gdp, wealth_over_gdp_index=(w / gdp) / (w0 / gdp0),
+                        saving_ratio=(sum(r['S'] for r in rs) / inc if y else float('nan')), resid=max(r['resid'] for r in rs), **{f'share_{b}': v for b, v in band.items()}))
+    return out

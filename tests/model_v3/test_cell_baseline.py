@@ -1,7 +1,9 @@
 """Brief 110c block 1: the cell inputs partition the pack, the band income mean is kept, the gaps are reported."""
 import pytest
 
-from model_v3.core import pack as pk
+import numpy as np
+
+from model_v3.core import kernel as kn, pack as pk
 from model_v3.runner import cell_baseline as cb
 from conftest import REPO
 
@@ -51,3 +53,37 @@ def test_reconcile_reports_the_gaps_and_is_deterministic():
     a, b = cb.reconcile(cells, PACK, 1883.195, 100.0), cb.reconcile(cb.build_cells(PACK, REG), PACK, 1883.195, 100.0)
     assert a == b and close(a['wealth_cells'], a['wealth_deciles']) and close(a['income_cells'] / 1883.195 - 1, a['income_gap_pct'] / 100)
     assert a['persons'] == sum(r['persons'] for r in PACK.tables['cell_weights'])
+
+
+def test_scaling_hits_the_target_and_keeps_proportions():
+    cells = cb.build_cells(PACK, REG)
+    s = cb.scale_income(cells, 1883.195)
+    assert close(sum(c['income'] for c in s), 1883.195) and close(sum(c['wealth'] for c in s), sum(c['wealth'] for c in cells))
+    assert close(s[2]['income'] / s[0]['income'], cells[2]['income'] / cells[0]['income'])
+    assert close(s[1]['income_per_hh'] / s[0]['income_per_hh'], cells[1]['income_per_hh'] / cells[0]['income_per_hh'])
+
+
+SC = dict(arm='new', s=0.0713, g=dict(property=0.0265, equity=0.0, financial=0.052, physical=0.0, pension=0.052), y=dict(property=0.038), pen=0.0112, gdp_g=0.0182, r=0.0474, c=0.035)
+CELLS = cb.scale_income(cb.build_cells(PACK, REG), 1801.414)
+
+
+def test_identity_closes_every_year_in_a_and_b_and_they_agree():
+    a, b = cb.run_cells(CELLS, SC, 100, 'A'), cb.run_cells(CELLS, SC, 100, 'B')
+    assert max(r['resid'] for r in a + b) < 1e-9 and len(a) == 1010
+    assert max(abs(x['dNW'] - y['dNW']) for x, y in zip(a, b) if x['year'] == 1) < 1e-9   # one step: the same dNW; later years differ in where the yield sits
+
+
+def test_legacy_arm_equals_the_kernels_growth_and_consumption():
+    rows = cb.run_cells(CELLS, dict(SC, arm='legacy'), 100)
+    book = kn.Book(10, {'A': np.array([c['wealth'] for c in CELLS])})
+    for t in range(1, 101):
+        kn.grow_and_consume(book, SC['r'], SC['c'])
+        assert np.allclose([r['nw'] for r in rows if r['year'] == t], book.family_true(), rtol=1e-12, atol=0)
+
+
+def test_run_is_deterministic_and_aggregate_has_every_band():
+    a, b = cb.run_cells(CELLS, SC), cb.run_cells(CELLS, SC)
+    assert a == b
+    g = cb.aggregate(a, (0, 10, 100), 2211.48, 0.0182)
+    assert [r['year'] for r in g] == [0, 10, 100] and abs(g[0]['wealth_over_gdp_index'] - 1) < 1e-12
+    assert abs(sum(v for k, v in g[2].items() if k.startswith('share_')) - 1) < 1e-12

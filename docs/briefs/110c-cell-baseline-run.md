@@ -55,11 +55,28 @@ Retired fraction source; whether the per-household and per-person conversions ma
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (progress block, note skeleton); block 1 (`model_v3/runner/cell_baseline.py`, `tests/model_v3/test_cell_baseline.py`, `docs/model-v3/cell-baseline/run_cell_baseline.py`, units and inputs sections of the note, LAYER and budget rows).
-- **Next:** author review of the income gap (cells -19.5% against B.6g), then block 2 (one run: mid-point regime, median saving ratio, convention A, 100 years, identity residual, legacy arm against the kernel's legacy path).
-- **Decisions:** retired income is f x not retired with the band mean kept (f = 0.6, 0.4 to 0.8); stage split of wealth and households by person share; class shares rescaled to sum to 1; module at layer 4 (`runner/`), loader takes pack and register as arguments and reads no file; the script reads the ONS series.
-- **Gotchas:** the R11 scan flags the national statistics office and currency names in docstrings (use neutral wording); `tests/model_v3/conftest.py` and `architecture.md` 6.1 were edited for registration; GBR pack `band_composition` shares sum to 100.1 in D4-5.
-- **Resume:** `git fetch origin brief/110-cell-baseline-run && git checkout brief/110-cell-baseline-run`; last block pushed: 1; first action: read the note's units section and the author's answer on the income gap.
-- **Not run:** blocks 2 to 4.
-- **State:** in progress; block 1 pushed; stopped for review (income gap large)
+- **Done:** blocks 0 and 1 (pushed earlier); block 2: `scale_income`, `run_cells`, `aggregate` in `model_v3/runner/cell_baseline.py`, tests, `run_cell_baseline.py run`, CSVs for the scaled (aggregate-constrained, B.6g 2024), unscaled and legacy runs, note sections Runs, Findings, Limits (written from the one run), budget row 130 / 100.
+- **Next:** block 3, the grid (low/mid/high regimes x min/median/max saving ratio; one B check over 100 years; a no-pension-accrual arm to measure its share; retired fraction 0.4 and 0.8 sensitivity; CSVs, summary lines only). Then update the note's Runs, Findings and Limits from the grid and re-push. The stop rule ended this session after three blocks.
+- **Decisions:** retired income f x not retired, band mean kept (f 0.6); stage split of wealth and households by person share; class shares rescaled to 1; income scaled to B.6g 2024; cell income grows with real GDP (my decision); non-pension saving s x income to net financial, pension accrual on top (Y_P) to pension; module at layer 4.
+- **Gotchas:** R11 flags statistics-office and currency names in docstrings; `household_step` pay-share warning (inf times mask); the legacy index at year 100 is 0.613, not the brief's 0.47 (deterministic arithmetic path; probably the stochastic kernel); A and B agree per step, not as paths (the yield sits in different classes).
+- **Resume:** `git fetch origin brief/110-cell-baseline-run:refs/remotes/origin/brief/110-cell-baseline-run && git checkout brief/110-cell-baseline-run`; last block pushed: 2; first action: read `docs/model-v3/cell-baseline.md` Runs, then extend `run_cell_baseline.py` with a `grid` mode.
+- **Not run:** block 3 grid, B over 100 years, no-accrual arm, retired fraction sensitivity.
+- **State:** in progress; block 2 pushed; stop rule reached
 <!-- progress:end -->
+
+**Change report (interim, blocks 0 to 2)**
+```
+Change report
+- Task: brief 110c, untaxed cell baseline run (blocks 0 to 2 of 4)
+- Files changed: model_v3/runner/cell_baseline.py (loader, scaling, run, aggregate); tests/model_v3/test_cell_baseline.py; docs/model-v3/cell-baseline.md (note); docs/model-v3/cell-baseline/ (script, units.csv, cells.csv, run CSVs); tests/model_v3/conftest.py (LAYER row); docs/model-v3/architecture.md (budget row and totals); this brief (progress block)
+- What is different now: a standalone untaxed 100-year run of ten cells with household_step; nothing imports it
+- New or changed interfaces: `python -I docs/model-v3/cell-baseline/run_cell_baseline.py units|run`
+- Acceptance criteria: ten cells 100 years, residual below 1e-9 every year: met; legacy arm equals the kernel's growth and consumption: met (1e-12; the brief's 47% index not reproduced, 61% here); units reconciliation with gaps reported: met; findings for all runs: partly (one run plus the unscaled and legacy arms; the grid is not run); no input tuned: met; existing suites unchanged: met (255 passed in model_v3); diff limited to Touches: met apart from architecture.md and conftest.py (registration)
+- Deviations from the brief: grid (block 3) and the B run over 100 years not done (stop rule); income scaled per the author's ruling of 2026-11-21
+- Risks / follow-ups: untaxed wealth/GDP reaches 81x; pension accrual proportional to net worth with no consumption brake dominates late years; cell income growth with GDP is my decision; price base mismatch 2020-22 wealth vs 2024 income
+- Instruction friction: none
+- Verification: pytest model_v3 255 passed; check_agent_docs clean; run script run; not run: other suites
+- Overview sections likely needing an update: none until the grid is done
+- Commit / branch: see git log, brief/110-cell-baseline-run
+```
+
