@@ -22,7 +22,7 @@ Status: **all pending.** One line per register row flagged `(J)` in `docs/model-
 | I-D1a | Mean real total return on wealth, **arithmetic**, level 2 (g; M1a identity, P3) | 3.41 | 4.74 | 6.07 | pending |  |
 | I-D1b | Standard deviation of annual real total return, marginal, level 2 | 7.47 | 8.22 | 8.96 | pending |  |
 | I-D1b2 | Lag-1 autocorrelation of the annual real return, level 2 | 0.19 | 0.30 | 0.42 | pending |  |
-| I-D4b | Share of adults at or above W_min = £150,000 (half of £300,000 median house price; M2b, ω) | 49.3 | 54.9 | 64.3 | pending |  |
+| I-D4b | Share of adults at or above W_min = £150,000 (half of £300,000 median house price; M2b, ω) | 49.3 | 52.4 | 64.3 | pending |  |
 | I-D4c | Share of total wealth held by those adults (ω; M1a, M2) | 89.7 | 92.7 | 96.4 | pending |  |
 | I-D4e | Wealth missing from WAS at the top, as % of WAS total (ω, tail add-on) | 0.0 | 5.0 | 5.6 | pending |  |
 | I-D4h | Adults per household, all households, Great Britain (M2b, ω) | 1.77 | 1.93 | 1.93 | pending |  |
