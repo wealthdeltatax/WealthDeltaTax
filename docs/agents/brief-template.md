@@ -60,7 +60,7 @@ The implementer asks rather than guesses on these.
 - **Next:**
 - **Decisions:**
 - **Gotchas:**
-- **Resume:** (branch to check out, last block pushed, first action)
+- **Resume:** (exact branch name and `git fetch origin <branch>:refs/remotes/origin/<branch>` line, last block pushed, first action; a clone tracks main only)
 - **Not run:**
 - **State:**
 <!-- progress:end -->

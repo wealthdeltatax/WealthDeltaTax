@@ -9,6 +9,8 @@
 Merge the two evidence-side registers into one, check consistency across them, and produce the unresolved-data list and the proposed rulings that 104r and the author use. This is the short closing step of deliverables A, B and E.
 
 ## Decisions (author, 2026-11-21)
+- Stage is the person's economic status (held WAS table) as a proxy; the household reference person's status is a data request, not a blocker.
+- Physical wealth (contents and vehicles) is inside the WDT base as a separate asset class.
 - Scenario B: cells of wealth band by life stage; saving on the income side; a parameter with no UK evidence is **unset** or a labelled **scenario**; no universal scalar; nothing is chosen for its effect on WDT revenue, fund fill or closure.
 - **Pension wealth is inside the WDT base** (DC and DB, on the ONS SCAPE-based basis the pack uses): pension accrual counts as saving; every pension row names its valuation basis; the Resolution Foundation basis is validation context only and is never mixed with it.
 - 3.5% (I-D14c) is a legacy comparator only, never evidence.

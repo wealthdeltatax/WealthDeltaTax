@@ -224,3 +224,7 @@ The MISSING flags in `added/supporting.md`, `h1.md` and `welfare.md` (written 20
 
 ## 2026-11-20: M7e dropped; the alpha 1.1 claim retracted
 Author, after 080r: M7e (modal declaration) is dropped from the metrics and the manifest (it reads 1.00 on the OD1 grid for any centre between 0.875 and 1.125); OD1 keeps M7c and M7d, O7 keeps the tolerant zone; no register rows for a declared-alpha distribution. The old papers' behavioural centre near alpha 1.1 and the "mild-overstatement equilibrium" are retracted as findings (model-implied from the refund asymmetry, unsourced, untested; a centre above 1 also follows from owners overestimating their homes). Brief 081g (manifest). The old papers and site pages are not edited (author: they are rewritten from the ground up); the guru ledger and `framework.md` carry the retraction so the rewrite does not repeat the claim. Brief 082w was written and removed.
+
+## 2026-11-21: stage, physical wealth and register fixes after 101r and 102r
+Author: (1) stage is the person's economic status (the held WAS table) as a proxy; the household reference person's status is requested from the WAS household file. (2) Physical wealth (contents and vehicles) is inside the WDT base as a separate asset class, not merged into the other classes. (3) I-D4a, I-D4b and I-D4h are corrected to the numbers with a citation: I-D4h low becomes 1.86 (Table 2.13), I-D4a and I-D4b values stay with corrected caveats (brief 105c); the I-D4b central is not recomputed and stays an open question.
+

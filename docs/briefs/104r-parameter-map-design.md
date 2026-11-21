@@ -9,6 +9,8 @@
 From the 103r register, decide **which cells the evidence supports** and **how the household account is to be built**: the coverage matrix (deliverable C), the accounting conventions (D), and how the state's asset stake, the fund and WDT receipts are made one representation. These are proposals with a recommendation each; the author rules.
 
 ## Decisions (author, 2026-11-21)
+- Stage is the person's economic status (held WAS table) as a proxy; the household reference person's status is a data request, not a blocker.
+- Physical wealth (contents and vehicles) is inside the WDT base as a separate asset class.
 - Scenario B; no universal scalar; nothing chosen for revenue (see 101r).
 - **Pension wealth is inside the WDT base.** The account therefore carries pension contributions, employer contributions, accrual, investment return and decumulation; pension wealth is part of net worth and of the assessed base but not liquid cash available to consume or to pay tax before it is drawn. State the consequence for payment and settlement (liquidity), without assuming a rule.
 
