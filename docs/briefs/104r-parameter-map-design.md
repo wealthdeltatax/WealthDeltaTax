@@ -69,11 +69,11 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; 103r merged (register of 73 rows in `docs/research/data/103r/parameter_register.csv`). Push a note skeleton first, one push per block (`docs/agents/research.md`).
+- **Done:** block 0: note skeleton `docs/research/104r-parameter-map-design.md`; branch `brief/104` cut from origin/main 1ba96eb.
+- **Next:** block 1 coverage matrix (item 1); block 2 accounting conventions and worked case (item 2); block 3 public side and settlement (item 3); block 4 interface, rulings, validation moments (items 4 to 6); block 5 summary, friction log, change report, merge.
+- **Decisions:** none yet beyond the author's 2026-11-21 decisions in the brief.
+- **Gotchas:** the clone tracks main only; fetch other branches by name. Do not pipe `git push` through anything.
+- **Resume:** branch `brief/104`; read this block and the note skeleton.
+- **Not run:** nothing yet.
+- **State:** in progress
 <!-- progress:end -->
