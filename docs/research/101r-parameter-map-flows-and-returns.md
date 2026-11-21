@@ -99,3 +99,51 @@ Findings from the audit:
 3. **Only I-W3c and I-W3d are UK, and both are validation moments** for the split of wealth change into saving and gains, on bases that exclude pensions (financial wealth only) or DB pensions (RF basis). They check an output; they do not set an input.
 4. **I-W3b should not feed a saving term** (a classification, not an edit: for the author or guru).
 5. **I-D1a is reproduced** (F-26: 4.742% against 4.74; `derive_jst_split.py`) and **I-D1a2 cannot be split** into yield and gain (F-27): geometric means are not additive.
+
+## 6. Flow-side constraints (aggregate, 2024 unless stated)
+Aggregate household flows against the account constraints of 094r B1. All values come from `derived_ons_flows.csv` and `derived_ons_checks.csv` (script `derive_ons_flows.py`; 392 checks, 0 hard failures). Each difference is classed as definitional, coverage, timing (vintage) or measurement. Nothing is averaged. Aggregate only: no constraint here holds by wealth band or stage.
+
+| # | Constraint | Left | Right | Difference and class |
+|---|---|---|---|---|
+| 1 | Saving identity: B.6g + D.8 - P.31 = B.8g (check ID1, 28 years) | 1,801.4 + 86.9 - 1,708.9 = GBP 179.4bn | B.8g published GBP 179.4bn | 0 within GBP 2m rounding. Holds every year 1998 to 2025 |
+| 2 | Saving ratio B.8g/(B.6g+D.8) against the published DG5H (ID2) | 9.502% | 9.5% (published to 1dp) | 0.002pp: measurement (rounding) |
+| 3 | Pension and non-pension parts: derived (D.8 and B.8g - D.8 over B.6g+D.8) against QSA JS97 and JS8S (QSA1) | 4.60 and 4.90pp, sum 9.50 | 4.6 and 4.8pp, sum 9.4 | 0.1pp in the published sum: measurement (three terms each rounded to 1dp). The derived split is used only as a cross-check of the published one |
+| 4 | Published ratio against the cash-basis alternative | DGD8 9.5% | CSJ8 7.4% | 2.1pp: **definitional**. CSJ8 excludes the pension net-equity adjustment and uses cash contributions and benefits. Both are reported (F-07, F-09); neither is averaged or preferred |
+| 5 | UKEA against QSA vintages: DG5H against DGD8; HABN against RPHA | 9.5 and GBP 1,801.4bn | 9.5 and GBP 1,801.4bn | 0 in 2024; GBP 1m in 2025 on one series: **timing** (release vintage). Not spliced |
+| 6 | Net-worth change: dNW = B.101g + B.102 + B.103 + O | dNW GBP 137.1bn | 178.4 + 29.4 - 168.1 = GBP 39.7bn | Residual **O = GBP 97.4bn**, 0.92% of opening net worth (1998 to 2025 range -8.5% to +10.3%). Coverage: B.102 and B.103 are held for **financial assets only**; the revaluation of dwellings and land, consumption of fixed capital and the S.15 and statistical-discrepancy items sit in O. Reported, never absorbed into `S` (F-23; DR-05, DR-04) |
+| 7 | Financial-account constraint: dNFA against B.9N, B.102, B.103 | dNFA GBP -73.6bn | - | Residual GBP -10.8bn: **coverage and measurement**. Net financial assets fell in a year when the pension and insurance revaluation was GBP -217.5bn, a valuation change tied to actuarial discount rates, not an asset return (F-12, F-22); the equity revaluation was +58.3bn |
+| 8 | Saving over opening net worth | B.8g / opening NW = 1.70%; non-pension 0.88%; pension accrual 0.82% | - | Gross of consumption of fixed capital, so an upper bound on net saving (F-24). Against 093r, which gave "about 1.6%" from approximate pound arithmetic: the exact derived figure is 1.70%. This changes 093r's identity bound by about 0.1pp; no value is adopted here and no c is proposed |
+| 9 | Retained cash property income: D.4 received less D.441 and D.442 | GBP 239.8bn = 13.3% of B.6g; 3.74% of opening total financial assets | D.4 paid GBP 93.4bn not netted; D.442 attributed to pension holders GBP 93.9bn equals D.614 (ID6) | **Definitional.** The attributed pension income is returned through D.614 and is part of pension accrual, so it is excluded from retained cash income to avoid counting it in both `Y_P` and `D.8`. The rate is on financial assets only and is **not** a yield on total wealth |
+| 10 | HMRC taxable interest and dividends (Table 3.7, 2023-24) against ONS D.41 and D.42 | interest GBP 18.3bn; dividends GBP 71.8bn | ONS 2024: 98.2 and 138.2 | Ratios 0.19 and 0.52: **coverage and timing**. SPI taxpayers' taxable income only (ISA, pension and non-taxpayer income are outside it); tax year against calendar year. Validation only (F-15). Property net income GBP 29.3bn has no like-for-like ONS series |
+| 11 | Housing cash yield: ONS B.2g over opening dwellings and land against JST net rent over price (1998 to 2019 mean) | ONS 4.66% | JST 3.00% | 1.66pp: **definitional**. ONS is gross operating surplus including non-dwelling surplus, before consumption of fixed capital, over S.14 dwellings and land; JST is net rent over a country housing stock. Reported, not spliced (F-16) |
+| 12 | Total return against the split | JST arithmetic real mean 4.742% | yield 4.034% + gain 0.708% | 0: the split sums to the total (F-17 to F-19). The register's I-D1a is reproduced. The geometric I-D1a2 has no additive split |
+| 13 | Pension flows: D.8 against D.622 | D.8 GBP 86.9bn | D.622 GBP 165.1bn (ratio 0.53) | Descriptive only: D.622 includes non-pension insurance benefits and lump sums are not separated, so it is not a withdrawal series (F-13, DR-03) |
+| 14 | Consumption: P.31 against B.6g | 94.9% | - | An income share, not a share of wealth. It is **not** evidence for I-D14c and sets no rate (F-06, F-25) |
+
+What the constraints do and do not give:
+- The aggregate saving identity and its pension split hold and reproduce, so the income-side account is closed at the aggregate for 1998 to 2025.
+- The wealth constraint does **not** close without a non-financial revaluation series, so `O` is a reported residual and the housing return in particular cannot be tested against the account.
+- No constraint is available by band or stage; those parameters stay unset or scenario (section 7).
+
+## 7. Data requests (flows side)
+"Proceeds" says what the model can do without it. The register's open-question column carries DR-01 to DR-06; DR-07 to DR-09 are added here from the rows marked *further data required* by band, stage or source. 103r merges these into the full list.
+
+| Id | Request (exact table, file or series) | Parameter it informs | Model without it |
+|---|---|---|---|
+| DR-01 | ONS national balance sheet: household (S.14) pension entitlements, AF.6, by year; and a reconciliation to the WAS Round 8 SCAPE-method pension wealth totals in the pack. Series id to be identified; not held | F-10 pension accrual, F-12 pension return, F-35 basis register, F-32 | Pension accrual proceeds as an aggregate on the ONS basis with a scenario range and the basis named; a pension **return** stays unset; the three bases are not converted |
+| DR-02 | ONS UKEA or pension statistics: split D.611 and D.613 into pension contributions and National Insurance contributions | F-11 contributions (employee and employer) | Context only; the account uses D.8 (accrual), not contributions, so it proceeds |
+| DR-03 | ONS or DWP: D.622 (and benefits paid) by scheme type and age group; lump sums and annuity purchases | F-13 decumulation, F-03 | Withdrawal stays unset; retired-stage cells use a labelled scenario or no pension outflow |
+| DR-04 | ONS: consumption of fixed capital on dwellings; split of B.2g into dwelling services and other operating surplus | F-02, F-16, F-24, F-23 | Saving is gross (an upper bound); the housing cash yield stays a reported cross-check, not a calibration |
+| DR-05 | ONS UKEA: non-financial revaluation (B.103 non-financial) for S.14 | F-22, F-23 | `O` is reported as a residual and not set |
+| DR-06 | Bank of England NMG 2011-2026 workbook: values and wave coverage of be2afree_c, soa1, qbe02, be08free_c, be07free_c, qincomev2 | F-36 saving and debt service by income band | None used (variable names only held); saving by cell stays unset or scenario |
+| DR-07 | A table or microdata linking **wealth band and life stage** to household income, benefits and tax (WAS Round 8 linked income tables, FRS or LCF); 098r records which WAS tables are held. Not held in the needed form | F-01 to F-06, F-14 by cell | Cell income stays unset; aggregate constraints only; a labelled scenario by income decile is the nearest (F-33) |
+| DR-08 | UK **saving by wealth band** (active saving as a share of income or of wealth), any rank-based UK source. **I know of no such source**; the nearest UK evidence is aggregate or by income and education | F-08, F-29 to F-33 | Band saving stays unset or a labelled scenario with direction from F-33; I-W3a and I-W3b are not used as UK values |
+| DR-09 | Source PDFs for the I-W1c and I-W3 rows (Fagereng and others; Bangham and Leslie 2020; Advani, Bangham and Leslie 2021) to verify the registered figures and resolve the citation and page differences in section 5 | F-28 to F-32 | The rows stay validation context only; no figure is verified |
+
+## 8. Reproduction
+Run from the repository root with `python -I`; each script reads held files and writes its CSV next to itself.
+- `docs/research/data/101r/derive_ons_flows.py` -> `derived_ons_flows.csv`, `derived_ons_checks.csv` (392 checks; hard tolerance in each row).
+- `docs/research/data/101r/derive_jst_split.py` -> `jst_split_stats.csv` (JST split reproduced to 0.0004pp; arithmetic mean 4.742%).
+- `docs/research/data/101r/derive_hmrc_37.py` -> `hmrc_37_income_composition.csv`, `hmrc_37_coverage_vs_ons.csv`.
+- `docs/research/data/101r/build_flows_tables.py` -> `flows_register.csv`, `flows_crosswalk.csv` (reads the derived CSVs; carries the register text).
+All four were run once on 2026-11-21 from the branch checkout; the derived outputs were unchanged and 0 hard checks failed.
