@@ -197,6 +197,7 @@ runner/out_revenue.py          150     80
 runner/out_burden.py           150     80
 runner/out_support.py          150     80
 runner/out_sweeps.py           150     80
+runner/cell_baseline.py        100     70
 out/assemble.py                480    180
 out/writer.py                  220    120
 interface.py                    50      0
@@ -210,15 +211,15 @@ tests/model_v3/test_pack_base.py 0     58
 | Group | Code lines | Test lines |
 |---|---:|---:|
 | Core (nine files; `household.py` added by 108c) | 3,375 | 2,383 |
-| Runner (`runner.py`, `sweeps.py`, `groups.py`, four `out_*.py` groups; 084c) | 1,280 | 630 |
-| **Core plus runner** | **4,655** | **3,013** |
+| Runner (`runner.py`, `sweeps.py`, `groups.py`, four `out_*.py` groups; 084c; `cell_baseline.py` standalone, 110c) | 1,380 | 700 |
+| **Core plus runner** | **4,755** | **3,083** |
 | Output layer (`out/`) | 700 | 300 |
 | `interface.py` and `run.py` | 170 | 80 |
 | Rules, budget and smoke tests | 0 | 150 |
 | Acceptance script and convergence test (040g Q1) | 0 | 90 |
-| **Total** | **5,525** | **3,633** |
+| **Total** | **5,625** | **3,703** |
 
-Core plus runner 4,655 is a ceiling, not a target; `runner/pool.py` (70) is outside it and counted only if triggered. The data tooling `pack/build_gbr.py` has its own budget of 200 lines (067c) and no test beyond a hash check of its output. Output layer 700 is 15% of core plus runner; R9 asks for smaller.
+Core plus runner 4,755 is a ceiling, not a target; `runner/pool.py` (70) is outside it and counted only if triggered. The data tooling `pack/build_gbr.py` has its own budget of 200 lines (067c) and no test beyond a hash check of its output. Output layer 700 is 15% of core plus runner; R9 asks for smaller.
 
 ### 6.2 Tests each module needs before the next is built (R7)
 Names are the test ids a build brief and `acceptance.md` cite.

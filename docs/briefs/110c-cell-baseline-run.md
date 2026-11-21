@@ -55,11 +55,11 @@ Retired fraction source; whether the per-household and per-person conversions ma
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0: this progress block and the skeleton of `docs/model-v3/cell-baseline.md` (all sections pending).
-- **Next:** block 1 (inputs loader and units reconciliation): read `model_v3/core/household.py`, `tests/model_v3/test_household.py`, `104r` section 3, then the pack and register rows the brief names.
-- **Decisions:** none yet.
-- **Gotchas:** none yet.
-- **Resume:** `git fetch origin brief/110-cell-baseline-run && git checkout brief/110-cell-baseline-run`; last block pushed: 0; first action: read household.py.
-- **Not run:** everything (no code yet).
-- **State:** in progress; block 0 pushed
+- **Done:** block 0 (progress block, note skeleton); block 1 (`model_v3/runner/cell_baseline.py`, `tests/model_v3/test_cell_baseline.py`, `docs/model-v3/cell-baseline/run_cell_baseline.py`, units and inputs sections of the note, LAYER and budget rows).
+- **Next:** author review of the income gap (cells -19.5% against B.6g), then block 2 (one run: mid-point regime, median saving ratio, convention A, 100 years, identity residual, legacy arm against the kernel's legacy path).
+- **Decisions:** retired income is f x not retired with the band mean kept (f = 0.6, 0.4 to 0.8); stage split of wealth and households by person share; class shares rescaled to sum to 1; module at layer 4 (`runner/`), loader takes pack and register as arguments and reads no file; the script reads the ONS series.
+- **Gotchas:** the R11 scan flags the national statistics office and currency names in docstrings (use neutral wording); `tests/model_v3/conftest.py` and `architecture.md` 6.1 were edited for registration; GBR pack `band_composition` shares sum to 100.1 in D4-5.
+- **Resume:** `git fetch origin brief/110-cell-baseline-run && git checkout brief/110-cell-baseline-run`; last block pushed: 1; first action: read the note's units section and the author's answer on the income gap.
+- **Not run:** blocks 2 to 4.
+- **State:** in progress; block 1 pushed; stopped for review (income gap large)
 <!-- progress:end -->
