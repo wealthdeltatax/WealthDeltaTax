@@ -92,3 +92,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: the context ran out mid-brief; the half-built moment tuples were lost to the summary and had to be re-extracted from the PDFs.
 - Cost: about a third of the extraction repeated.
 - Suggest: split a multi-PDF brief by file group, or have the agent write each file's rows to the repo as it goes.
+
+### 2026-11-21 · brief 101r · research
+- Instruction: "continue on brief/101-parameter-map-flows ... four steps remain"; the brief's progress block was empty and `git checkout -b ... origin/brief/101-...` failed (clone tracks main only).
+- Happened: I fetched the branch by name and inferred the four steps from the brief's design items against the committed tables.
+- Cost: a few minutes and a guess at what "four steps" meant.
+- Suggest: the checkpoint commit (or hand-over message) should fill the progress block's Done and Next lines.

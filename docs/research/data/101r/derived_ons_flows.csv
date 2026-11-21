@@ -1,0 +1,1933 @@
+year,item,value,unit,formula,inputs
+1998,B6g_gdhi,629689.0,GBPm,HABN,HABN
+1998,D8_pension_adj,54933.0,GBPm,HAZA,HAZA
+1998,P31_consumption,639702.0,GBPm,ABPB,ABPB
+1998,B8g_saving,44920.0,GBPm,HADA,HADA
+1998,saving_ratio_pct,6.561285,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+1998,ratio_pension_part_pct,8.023844,pct,100*D8/(B6g+D8),"HAZA,HABN"
+1998,ratio_nonpension_part_pct,-1.462559,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+1998,consumption_share_of_B6g,1.015902,ratio,P31/B6g,"ABPB,HABN"
+1998,saving_share_of_B6g,0.071337,ratio,B8g/B6g,"HADA,HABN"
+1998,D8_share_of_B6g,0.087238,ratio,D8/B6g,"HAZA,HABN"
+1998,nonpension_saving_GBPm,-10013.0,GBPm,B8g-D8,"HADA,HAZA"
+1998,qsa_pension_contribution_pp,8.1,pct,JS97,JS97
+1998,qsa_nonpension_contribution_pp,-1.5,pct,JS8S,JS8S
+1998,cash_basis_saving_ratio_pct,-1.5,pct,CSJ8,CSJ8
+1998,D1_compensation_GBPm,458852.0,GBPm,HAEB,HAEB
+1998,D1_compensation_share_B5g,0.617992,ratio,HAEB/B5g,"HAEB,HABL"
+1998,B2gB3g_operating_mixed_GBPm,162230.0,GBPm,CRTY,CRTY
+1998,B2gB3g_operating_mixed_share_B5g,0.218495,ratio,CRTY/B5g,"CRTY,HABL"
+1998,D4_property_received_GBPm,158038.0,GBPm,HAXU,HAXU
+1998,D4_property_received_share_B5g,0.212849,ratio,HAXU/B5g,"HAXU,HABL"
+1998,D4_property_paid_GBPm,36631.0,GBPm,HACX,HACX
+1998,D4_property_paid_share_B5g,0.049335,ratio,HACX/B5g,"HACX,HABL"
+1998,B5g_primary_GBPm,742489.0,GBPm,HABL,HABL
+1998,D4_net_GBPm,121407.0,GBPm,HAXU-HACX,"HAXU,HACX"
+1998,D4_net_share_B5g,0.163514,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+1998,D41_interest_GBPm,36094.0,GBPm,HAXV,HAXV
+1998,D42_distributed_GBPm,37230.0,GBPm,HAXW,HAXW
+1998,D441_insurance_attrib_GBPm,19755.0,GBPm,KZK8,KZK8
+1998,D442_pension_attrib_GBPm,60989.0,GBPm,KZK9,KZK9
+1998,D443_cis_GBPm,3959.0,GBPm,L5V2,L5V2
+1998,D45_rent_on_land_GBPm,11.0,GBPm,M8MD,M8MD
+1998,D4_excl_D441_D442_GBPm,77294.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+1998,D4_excl_D441_D442_share_B6g,0.122749,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+1998,D442_share_B6g,0.096856,ratio,D442/B6g,"KZK9,HABN"
+1998,D611_employer_actual_GBPm,53186.0,GBPm,L8NL,L8NL
+1998,D612_employer_imputed_GBPm,7198.0,GBPm,MA4A,MA4A
+1998,D613_household_actual_GBPm,32867.0,GBPm,L8PT,L8PT
+1998,D614_supplements_GBPm,60989.0,GBPm,L8Q9,L8Q9
+1998,D61SC_service_charges_GBPm,-2493.0,GBPm,M92I,M92I
+1998,D61_net_contributions_GBPm,151747.0,GBPm,HADI,HADI
+1998,D621_social_security_cash_GBPm,45306.0,GBPm,L8QH,L8QH
+1998,D622_other_social_insurance_GBPm,46663.0,GBPm,L8QV,L8QV
+1998,D623_social_assistance_GBPm,57592.0,GBPm,HAYU,HAYU
+1998,D62_benefits_GBPm,149561.0,GBPm,HAYP,HAYP
+1998,D51_income_tax_GBPm,89276.0,GBPm,HAYD,HAYD
+1998,D5_taxes_income_wealth_GBPm,106959.0,GBPm,HAYC,HAYC
+1998,D8_over_D622,1.177228,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+1998,D622_share_B6g,0.074105,ratio,D622/B6g,"L8QV,HABN"
+1998,D5_share_B5g,0.144055,ratio,D5/B5g,"HAYC,HABL"
+1998,B2g_over_open_dwellings_land,0.087534,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+1998,NW_S14_end,3460908.0,GBPm,E45V,E45V
+1998,dNW_S14,468226.0,GBPm,E45V[t]-E45V[t-1],E45V
+1998,B8g_over_open_NW,0.01501,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+1998,nonpension_B8g_over_open_NW,-0.003346,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+1998,D8_over_open_NW,0.018356,ratio,D8/E45V[t-1],"HAZA,E45V"
+1998,B101g_saving_plus_capital_transfers,43446.0,GBPm,HABD,HABD
+1998,B102_other_volume_fin,3220.0,GBPm,CWU2 (S14+S15),CWU2
+1998,B103_holding_gain_fin,341079.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+1998,O_residual_dNW_less_B101g_B102_B103,80481.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+1998,O_residual_over_open_NW,0.026893,ratio,residual/E45V[t-1],as above
+1998,B103_AF5_equity,154049.0,GBPm,N4CX,N4CX
+1998,B103_AF6_pension_insurance,189277.0,GBPm,N4EV,N4EV
+1998,dNFA_S14,377690.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+1998,O_fin_residual_dNFA_less_B9N_B102_B103,17163.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+1998,pi_hfce_deflator,0.013722,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+1998,real_erosion_opening_liabilities_GBPm,8138.571912,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+1998,real_erosion_over_open_NW,0.002719,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+1998,D4_received_over_open_total_fin_assets,0.064804,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+1998,D4_excl_D441_D442_over_open_total_fin_assets,0.031695,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+1999,B6g_gdhi,659987.0,GBPm,HABN,HABN
+1999,D8_pension_adj,48417.0,GBPm,HAZA,HAZA
+1999,P31_consumption,671560.0,GBPm,ABPB,ABPB
+1999,B8g_saving,36844.0,GBPm,HADA,HADA
+1999,saving_ratio_pct,5.200987,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+1999,ratio_pension_part_pct,6.834659,pct,100*D8/(B6g+D8),"HAZA,HABN"
+1999,ratio_nonpension_part_pct,-1.633672,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+1999,consumption_share_of_B6g,1.017535,ratio,P31/B6g,"ABPB,HABN"
+1999,saving_share_of_B6g,0.055825,ratio,B8g/B6g,"HADA,HABN"
+1999,D8_share_of_B6g,0.073361,ratio,D8/B6g,"HAZA,HABN"
+1999,nonpension_saving_GBPm,-11573.0,GBPm,B8g-D8,"HADA,HAZA"
+1999,qsa_pension_contribution_pp,6.8,pct,JS97,JS97
+1999,qsa_nonpension_contribution_pp,-1.7,pct,JS8S,JS8S
+1999,cash_basis_saving_ratio_pct,-1.8,pct,CSJ8,CSJ8
+1999,D1_compensation_GBPm,495864.0,GBPm,HAEB,HAEB
+1999,D1_compensation_share_B5g,0.637106,ratio,HAEB/B5g,"HAEB,HABL"
+1999,B2gB3g_operating_mixed_GBPm,171550.0,GBPm,CRTY,CRTY
+1999,B2gB3g_operating_mixed_share_B5g,0.220414,ratio,CRTY/B5g,"CRTY,HABL"
+1999,D4_property_received_GBPm,145662.0,GBPm,HAXU,HAXU
+1999,D4_property_received_share_B5g,0.187152,ratio,HAXU/B5g,"HAXU,HABL"
+1999,D4_property_paid_GBPm,34769.0,GBPm,HACX,HACX
+1999,D4_property_paid_share_B5g,0.044673,ratio,HACX/B5g,"HACX,HABL"
+1999,B5g_primary_GBPm,778307.0,GBPm,HABL,HABL
+1999,D4_net_GBPm,110893.0,GBPm,HAXU-HACX,"HAXU,HACX"
+1999,D4_net_share_B5g,0.14248,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+1999,D41_interest_GBPm,30112.0,GBPm,HAXV,HAXV
+1999,D42_distributed_GBPm,35583.0,GBPm,HAXW,HAXW
+1999,D441_insurance_attrib_GBPm,20479.0,GBPm,KZK8,KZK8
+1999,D442_pension_attrib_GBPm,54996.0,GBPm,KZK9,KZK9
+1999,D443_cis_GBPm,4482.0,GBPm,L5V2,L5V2
+1999,D45_rent_on_land_GBPm,10.0,GBPm,M8MD,M8MD
+1999,D4_excl_D441_D442_GBPm,70187.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+1999,D4_excl_D441_D442_share_B6g,0.106346,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+1999,D442_share_B6g,0.083329,ratio,D442/B6g,"KZK9,HABN"
+1999,D611_employer_actual_GBPm,59334.0,GBPm,L8NL,L8NL
+1999,D612_employer_imputed_GBPm,7178.0,GBPm,MA4A,MA4A
+1999,D613_household_actual_GBPm,35472.0,GBPm,L8PT,L8PT
+1999,D614_supplements_GBPm,54996.0,GBPm,L8Q9,L8Q9
+1999,D61SC_service_charges_GBPm,-2881.0,GBPm,M92I,M92I
+1999,D61_net_contributions_GBPm,154099.0,GBPm,HADI,HADI
+1999,D621_social_security_cash_GBPm,47481.0,GBPm,L8QH,L8QH
+1999,D622_other_social_insurance_GBPm,51425.0,GBPm,L8QV,L8QV
+1999,D623_social_assistance_GBPm,56097.0,GBPm,HAYU,HAYU
+1999,D62_benefits_GBPm,155003.0,GBPm,HAYP,HAYP
+1999,D51_income_tax_GBPm,96527.0,GBPm,HAYD,HAYD
+1999,D5_taxes_income_wealth_GBPm,115579.0,GBPm,HAYC,HAYC
+1999,D8_over_D622,0.941507,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+1999,D622_share_B6g,0.077918,ratio,D622/B6g,"L8QV,HABN"
+1999,D5_share_B5g,0.148501,ratio,D5/B5g,"HAYC,HABL"
+1999,B2g_over_open_dwellings_land,0.085896,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+1999,NW_S14_end,3779127.0,GBPm,E45V,E45V
+1999,dNW_S14,318219.0,GBPm,E45V[t]-E45V[t-1],E45V
+1999,B8g_over_open_NW,0.010646,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+1999,nonpension_B8g_over_open_NW,-0.003344,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+1999,D8_over_open_NW,0.01399,ratio,D8/E45V[t-1],"HAZA,E45V"
+1999,B101g_saving_plus_capital_transfers,35162.0,GBPm,HABD,HABD
+1999,B102_other_volume_fin,-9430.0,GBPm,CWU2 (S14+S15),CWU2
+1999,B103_holding_gain_fin,147339.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+1999,O_residual_dNW_less_B101g_B102_B103,145148.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+1999,O_residual_over_open_NW,0.041939,ratio,residual/E45V[t-1],as above
+1999,B103_AF5_equity,193801.0,GBPm,N4CX,N4CX
+1999,B103_AF6_pension_insurance,-48701.0,GBPm,N4EV,N4EV
+1999,dNFA_S14,140175.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+1999,O_fin_residual_dNFA_less_B9N_B102_B103,-3446.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+1999,pi_hfce_deflator,0.006768,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+1999,real_erosion_opening_liabilities_GBPm,4369.115966,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+1999,real_erosion_over_open_NW,0.001262,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+1999,D4_received_over_open_total_fin_assets,0.050841,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+1999,D4_excl_D441_D442_over_open_total_fin_assets,0.024497,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2000,B6g_gdhi,697093.0,GBPm,HABN,HABN
+2000,D8_pension_adj,61384.0,GBPm,HAZA,HAZA
+2000,P31_consumption,703793.0,GBPm,ABPB,ABPB
+2000,B8g_saving,54684.0,GBPm,HADA,HADA
+2000,saving_ratio_pct,7.209711,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2000,ratio_pension_part_pct,8.09306,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2000,ratio_nonpension_part_pct,-0.883349,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2000,consumption_share_of_B6g,1.009611,ratio,P31/B6g,"ABPB,HABN"
+2000,saving_share_of_B6g,0.078446,ratio,B8g/B6g,"HADA,HABN"
+2000,D8_share_of_B6g,0.088057,ratio,D8/B6g,"HAZA,HABN"
+2000,nonpension_saving_GBPm,-6700.0,GBPm,B8g-D8,"HADA,HAZA"
+2000,qsa_pension_contribution_pp,8.1,pct,JS97,JS97
+2000,qsa_nonpension_contribution_pp,-0.9,pct,JS8S,JS8S
+2000,cash_basis_saving_ratio_pct,-0.7,pct,CSJ8,CSJ8
+2000,D1_compensation_GBPm,532619.0,GBPm,HAEB,HAEB
+2000,D1_compensation_share_B5g,0.635043,ratio,HAEB/B5g,"HAEB,HABL"
+2000,B2gB3g_operating_mixed_GBPm,178852.0,GBPm,CRTY,CRTY
+2000,B2gB3g_operating_mixed_share_B5g,0.213246,ratio,CRTY/B5g,"CRTY,HABL"
+2000,D4_property_received_GBPm,168907.0,GBPm,HAXU,HAXU
+2000,D4_property_received_share_B5g,0.201388,ratio,HAXU/B5g,"HAXU,HABL"
+2000,D4_property_paid_GBPm,41665.0,GBPm,HACX,HACX
+2000,D4_property_paid_share_B5g,0.049677,ratio,HACX/B5g,"HACX,HABL"
+2000,B5g_primary_GBPm,838713.0,GBPm,HABL,HABL
+2000,D4_net_GBPm,127242.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2000,D4_net_share_B5g,0.151711,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2000,D41_interest_GBPm,36551.0,GBPm,HAXV,HAXV
+2000,D42_distributed_GBPm,42498.0,GBPm,HAXW,HAXW
+2000,D441_insurance_attrib_GBPm,21686.0,GBPm,KZK8,KZK8
+2000,D442_pension_attrib_GBPm,62030.0,GBPm,KZK9,KZK9
+2000,D443_cis_GBPm,6122.0,GBPm,L5V2,L5V2
+2000,D45_rent_on_land_GBPm,20.0,GBPm,M8MD,M8MD
+2000,D4_excl_D441_D442_GBPm,85191.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2000,D4_excl_D441_D442_share_B6g,0.122209,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2000,D442_share_B6g,0.088984,ratio,D442/B6g,"KZK9,HABN"
+2000,D611_employer_actual_GBPm,67839.0,GBPm,L8NL,L8NL
+2000,D612_employer_imputed_GBPm,7542.0,GBPm,MA4A,MA4A
+2000,D613_household_actual_GBPm,38671.0,GBPm,L8PT,L8PT
+2000,D614_supplements_GBPm,62030.0,GBPm,L8Q9,L8Q9
+2000,D61SC_service_charges_GBPm,-3397.0,GBPm,M92I,M92I
+2000,D61_net_contributions_GBPm,172685.0,GBPm,HADI,HADI
+2000,D621_social_security_cash_GBPm,49456.0,GBPm,L8QH,L8QH
+2000,D622_other_social_insurance_GBPm,53518.0,GBPm,L8QV,L8QV
+2000,D623_social_assistance_GBPm,56704.0,GBPm,HAYU,HAYU
+2000,D62_benefits_GBPm,159678.0,GBPm,HAYP,HAYP
+2000,D51_income_tax_GBPm,105299.0,GBPm,HAYD,HAYD
+2000,D5_taxes_income_wealth_GBPm,124613.0,GBPm,HAYC,HAYC
+2000,D8_over_D622,1.146979,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2000,D622_share_B6g,0.076773,ratio,D622/B6g,"L8QV,HABN"
+2000,D5_share_B5g,0.148576,ratio,D5/B5g,"HAYC,HABL"
+2000,B2g_over_open_dwellings_land,0.078017,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2000,NW_S14_end,4053409.0,GBPm,E45V,E45V
+2000,dNW_S14,274282.0,GBPm,E45V[t]-E45V[t-1],E45V
+2000,B8g_over_open_NW,0.01447,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2000,nonpension_B8g_over_open_NW,-0.001773,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2000,D8_over_open_NW,0.016243,ratio,D8/E45V[t-1],"HAZA,E45V"
+2000,B101g_saving_plus_capital_transfers,53027.0,GBPm,HABD,HABD
+2000,B102_other_volume_fin,16950.0,GBPm,CWU2 (S14+S15),CWU2
+2000,B103_holding_gain_fin,29111.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2000,O_residual_dNW_less_B101g_B102_B103,175194.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2000,O_residual_over_open_NW,0.046358,ratio,residual/E45V[t-1],as above
+2000,B103_AF5_equity,-12411.0,GBPm,N4CX,N4CX
+2000,B103_AF6_pension_insurance,42456.0,GBPm,N4EV,N4EV
+2000,dNFA_S14,86735.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2000,O_fin_residual_dNFA_less_B9N_B102_B103,21566.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2000,pi_hfce_deflator,0.001681,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2000,real_erosion_opening_liabilities_GBPm,1193.104027,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2000,real_erosion_over_open_NW,0.000316,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2000,D4_received_over_open_total_fin_assets,0.055083,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2000,D4_excl_D441_D442_over_open_total_fin_assets,0.027782,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2001,B6g_gdhi,726688.0,GBPm,HABN,HABN
+2001,D8_pension_adj,61337.0,GBPm,HAZA,HAZA
+2001,P31_consumption,732422.0,GBPm,ABPB,ABPB
+2001,B8g_saving,55603.0,GBPm,HADA,HADA
+2001,saving_ratio_pct,7.055994,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2001,ratio_pension_part_pct,7.783636,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2001,ratio_nonpension_part_pct,-0.727642,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2001,consumption_share_of_B6g,1.007891,ratio,P31/B6g,"ABPB,HABN"
+2001,saving_share_of_B6g,0.076516,ratio,B8g/B6g,"HADA,HABN"
+2001,D8_share_of_B6g,0.084406,ratio,D8/B6g,"HAZA,HABN"
+2001,nonpension_saving_GBPm,-5734.0,GBPm,B8g-D8,"HADA,HAZA"
+2001,qsa_pension_contribution_pp,7.8,pct,JS97,JS97
+2001,qsa_nonpension_contribution_pp,-0.7,pct,JS8S,JS8S
+2001,cash_basis_saving_ratio_pct,-0.8,pct,CSJ8,CSJ8
+2001,D1_compensation_GBPm,566571.0,GBPm,HAEB,HAEB
+2001,D1_compensation_share_B5g,0.649798,ratio,HAEB/B5g,"HAEB,HABL"
+2001,B2gB3g_operating_mixed_GBPm,184824.0,GBPm,CRTY,CRTY
+2001,B2gB3g_operating_mixed_share_B5g,0.211974,ratio,CRTY/B5g,"CRTY,HABL"
+2001,D4_property_received_GBPm,160062.0,GBPm,HAXU,HAXU
+2001,D4_property_received_share_B5g,0.183574,ratio,HAXU/B5g,"HAXU,HABL"
+2001,D4_property_paid_GBPm,39538.0,GBPm,HACX,HACX
+2001,D4_property_paid_share_B5g,0.045346,ratio,HACX/B5g,"HACX,HABL"
+2001,B5g_primary_GBPm,871919.0,GBPm,HABL,HABL
+2001,D4_net_GBPm,120524.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2001,D4_net_share_B5g,0.138228,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2001,D41_interest_GBPm,31272.0,GBPm,HAXV,HAXV
+2001,D42_distributed_GBPm,41487.0,GBPm,HAXW,HAXW
+2001,D441_insurance_attrib_GBPm,20816.0,GBPm,KZK8,KZK8
+2001,D442_pension_attrib_GBPm,61253.0,GBPm,KZK9,KZK9
+2001,D443_cis_GBPm,5213.0,GBPm,L5V2,L5V2
+2001,D45_rent_on_land_GBPm,21.0,GBPm,M8MD,M8MD
+2001,D4_excl_D441_D442_GBPm,77993.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2001,D4_excl_D441_D442_share_B6g,0.107327,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2001,D442_share_B6g,0.084291,ratio,D442/B6g,"KZK9,HABN"
+2001,D611_employer_actual_GBPm,71872.0,GBPm,L8NL,L8NL
+2001,D612_employer_imputed_GBPm,8127.0,GBPm,MA4A,MA4A
+2001,D613_household_actual_GBPm,41301.0,GBPm,L8PT,L8PT
+2001,D614_supplements_GBPm,61253.0,GBPm,L8Q9,L8Q9
+2001,D61SC_service_charges_GBPm,-3312.0,GBPm,M92I,M92I
+2001,D61_net_contributions_GBPm,179241.0,GBPm,HADI,HADI
+2001,D621_social_security_cash_GBPm,52413.0,GBPm,L8QH,L8QH
+2001,D622_other_social_insurance_GBPm,57650.0,GBPm,L8QV,L8QV
+2001,D623_social_assistance_GBPm,60518.0,GBPm,HAYU,HAYU
+2001,D62_benefits_GBPm,170581.0,GBPm,HAYP,HAYP
+2001,D51_income_tax_GBPm,111887.0,GBPm,HAYD,HAYD
+2001,D5_taxes_income_wealth_GBPm,132301.0,GBPm,HAYC,HAYC
+2001,D8_over_D622,1.063955,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2001,D622_share_B6g,0.079333,ratio,D622/B6g,"L8QV,HABN"
+2001,D5_share_B5g,0.151735,ratio,D5/B5g,"HAYC,HABL"
+2001,B2g_over_open_dwellings_land,0.070466,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2001,NW_S14_end,4159168.0,GBPm,E45V,E45V
+2001,dNW_S14,105759.0,GBPm,E45V[t]-E45V[t-1],E45V
+2001,B8g_over_open_NW,0.013718,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2001,nonpension_B8g_over_open_NW,-0.001415,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2001,D8_over_open_NW,0.015132,ratio,D8/E45V[t-1],"HAZA,E45V"
+2001,B101g_saving_plus_capital_transfers,53272.0,GBPm,HABD,HABD
+2001,B102_other_volume_fin,2275.0,GBPm,CWU2 (S14+S15),CWU2
+2001,B103_holding_gain_fin,-159353.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2001,O_residual_dNW_less_B101g_B102_B103,209565.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2001,O_residual_over_open_NW,0.051701,ratio,residual/E45V[t-1],as above
+2001,B103_AF5_equity,-99304.0,GBPm,N4CX,N4CX
+2001,B103_AF6_pension_insurance,-60032.0,GBPm,N4EV,N4EV
+2001,dNFA_S14,-117494.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2001,O_fin_residual_dNFA_less_B9N_B102_B103,20915.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2001,pi_hfce_deflator,0.006711,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2001,real_erosion_opening_liabilities_GBPm,5141.293333,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2001,real_erosion_over_open_NW,0.001268,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2001,D4_received_over_open_total_fin_assets,0.049813,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2001,D4_excl_D441_D442_over_open_total_fin_assets,0.024272,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2002,B6g_gdhi,746867.0,GBPm,HABN,HABN
+2002,D8_pension_adj,64257.0,GBPm,HAZA,HAZA
+2002,P31_consumption,757422.0,GBPm,ABPB,ABPB
+2002,B8g_saving,53702.0,GBPm,HADA,HADA
+2002,saving_ratio_pct,6.620689,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2002,ratio_pension_part_pct,7.92197,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2002,ratio_nonpension_part_pct,-1.301281,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2002,consumption_share_of_B6g,1.014132,ratio,P31/B6g,"ABPB,HABN"
+2002,saving_share_of_B6g,0.071903,ratio,B8g/B6g,"HADA,HABN"
+2002,D8_share_of_B6g,0.086035,ratio,D8/B6g,"HAZA,HABN"
+2002,nonpension_saving_GBPm,-10555.0,GBPm,B8g-D8,"HADA,HAZA"
+2002,qsa_pension_contribution_pp,7.9,pct,JS97,JS97
+2002,qsa_nonpension_contribution_pp,-1.3,pct,JS8S,JS8S
+2002,cash_basis_saving_ratio_pct,-1.4,pct,CSJ8,CSJ8
+2002,D1_compensation_GBPm,580608.0,GBPm,HAEB,HAEB
+2002,D1_compensation_share_B5g,0.649863,ratio,HAEB/B5g,"HAEB,HABL"
+2002,B2gB3g_operating_mixed_GBPm,189775.0,GBPm,CRTY,CRTY
+2002,B2gB3g_operating_mixed_share_B5g,0.212411,ratio,CRTY/B5g,"CRTY,HABL"
+2002,D4_property_received_GBPm,159588.0,GBPm,HAXU,HAXU
+2002,D4_property_received_share_B5g,0.178624,ratio,HAXU/B5g,"HAXU,HABL"
+2002,D4_property_paid_GBPm,36540.0,GBPm,HACX,HACX
+2002,D4_property_paid_share_B5g,0.040899,ratio,HACX/B5g,"HACX,HABL"
+2002,B5g_primary_GBPm,893431.0,GBPm,HABL,HABL
+2002,D4_net_GBPm,123048.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2002,D4_net_share_B5g,0.137725,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2002,D41_interest_GBPm,26171.0,GBPm,HAXV,HAXV
+2002,D42_distributed_GBPm,41539.0,GBPm,HAXW,HAXW
+2002,D441_insurance_attrib_GBPm,22194.0,GBPm,KZK8,KZK8
+2002,D442_pension_attrib_GBPm,64697.0,GBPm,KZK9,KZK9
+2002,D443_cis_GBPm,4960.0,GBPm,L5V2,L5V2
+2002,D45_rent_on_land_GBPm,27.0,GBPm,M8MD,M8MD
+2002,D4_excl_D441_D442_GBPm,72697.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2002,D4_excl_D441_D442_share_B6g,0.097336,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2002,D442_share_B6g,0.086625,ratio,D442/B6g,"KZK9,HABN"
+2002,D611_employer_actual_GBPm,73364.0,GBPm,L8NL,L8NL
+2002,D612_employer_imputed_GBPm,7695.0,GBPm,MA4A,MA4A
+2002,D613_household_actual_GBPm,41182.0,GBPm,L8PT,L8PT
+2002,D614_supplements_GBPm,64697.0,GBPm,L8Q9,L8Q9
+2002,D61SC_service_charges_GBPm,-2966.0,GBPm,M92I,M92I
+2002,D61_net_contributions_GBPm,183972.0,GBPm,HADI,HADI
+2002,D621_social_security_cash_GBPm,55222.0,GBPm,L8QH,L8QH
+2002,D622_other_social_insurance_GBPm,58249.0,GBPm,L8QV,L8QV
+2002,D623_social_assistance_GBPm,63547.0,GBPm,HAYU,HAYU
+2002,D62_benefits_GBPm,177018.0,GBPm,HAYP,HAYP
+2002,D51_income_tax_GBPm,112170.0,GBPm,HAYD,HAYD
+2002,D5_taxes_income_wealth_GBPm,134297.0,GBPm,HAYC,HAYC
+2002,D8_over_D622,1.103143,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2002,D622_share_B6g,0.077991,ratio,D622/B6g,"L8QV,HABN"
+2002,D5_share_B5g,0.150316,ratio,D5/B5g,"HAYC,HABL"
+2002,B2g_over_open_dwellings_land,0.061886,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2002,NW_S14_end,4507537.0,GBPm,E45V,E45V
+2002,dNW_S14,348369.0,GBPm,E45V[t]-E45V[t-1],E45V
+2002,B8g_over_open_NW,0.012912,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2002,nonpension_B8g_over_open_NW,-0.002538,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2002,D8_over_open_NW,0.015449,ratio,D8/E45V[t-1],"HAZA,E45V"
+2002,B101g_saving_plus_capital_transfers,50798.0,GBPm,HABD,HABD
+2002,B102_other_volume_fin,30462.0,GBPm,CWU2 (S14+S15),CWU2
+2002,B103_holding_gain_fin,-159912.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2002,O_residual_dNW_less_B101g_B102_B103,427021.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2002,O_residual_over_open_NW,0.10267,ratio,residual/E45V[t-1],as above
+2002,B103_AF5_equity,-159443.0,GBPm,N4CX,N4CX
+2002,B103_AF6_pension_insurance,988.0,GBPm,N4EV,N4EV
+2002,dNFA_S14,-97792.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2002,O_fin_residual_dNFA_less_B9N_B102_B103,20244.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2002,pi_hfce_deflator,0.006667,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2002,real_erosion_opening_liabilities_GBPm,5651.437086,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2002,real_erosion_over_open_NW,0.001359,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2002,D4_received_over_open_total_fin_assets,0.050217,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2002,D4_excl_D441_D442_over_open_total_fin_assets,0.022875,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2003,B6g_gdhi,772775.0,GBPm,HABN,HABN
+2003,D8_pension_adj,66215.0,GBPm,HAZA,HAZA
+2003,P31_consumption,793071.0,GBPm,ABPB,ABPB
+2003,B8g_saving,45919.0,GBPm,HADA,HADA
+2003,saving_ratio_pct,5.473128,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2003,ratio_pension_part_pct,7.892228,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2003,ratio_nonpension_part_pct,-2.419099,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2003,consumption_share_of_B6g,1.026264,ratio,P31/B6g,"ABPB,HABN"
+2003,saving_share_of_B6g,0.059421,ratio,B8g/B6g,"HADA,HABN"
+2003,D8_share_of_B6g,0.085685,ratio,D8/B6g,"HAZA,HABN"
+2003,nonpension_saving_GBPm,-20296.0,GBPm,B8g-D8,"HADA,HAZA"
+2003,qsa_pension_contribution_pp,7.9,pct,JS97,JS97
+2003,qsa_nonpension_contribution_pp,-2.4,pct,JS8S,JS8S
+2003,cash_basis_saving_ratio_pct,-3.1,pct,CSJ8,CSJ8
+2003,D1_compensation_GBPm,611704.0,GBPm,HAEB,HAEB
+2003,D1_compensation_share_B5g,0.659752,ratio,HAEB/B5g,"HAEB,HABL"
+2003,B2gB3g_operating_mixed_GBPm,194215.0,GBPm,CRTY,CRTY
+2003,B2gB3g_operating_mixed_share_B5g,0.20947,ratio,CRTY/B5g,"CRTY,HABL"
+2003,D4_property_received_GBPm,159449.0,GBPm,HAXU,HAXU
+2003,D4_property_received_share_B5g,0.171973,ratio,HAXU/B5g,"HAXU,HABL"
+2003,D4_property_paid_GBPm,38195.0,GBPm,HACX,HACX
+2003,D4_property_paid_share_B5g,0.041195,ratio,HACX/B5g,"HACX,HABL"
+2003,B5g_primary_GBPm,927173.0,GBPm,HABL,HABL
+2003,D4_net_GBPm,121254.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2003,D4_net_share_B5g,0.130778,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2003,D41_interest_GBPm,27757.0,GBPm,HAXV,HAXV
+2003,D42_distributed_GBPm,41396.0,GBPm,HAXW,HAXW
+2003,D441_insurance_attrib_GBPm,22505.0,GBPm,KZK8,KZK8
+2003,D442_pension_attrib_GBPm,63394.0,GBPm,KZK9,KZK9
+2003,D443_cis_GBPm,4362.0,GBPm,L5V2,L5V2
+2003,D45_rent_on_land_GBPm,35.0,GBPm,M8MD,M8MD
+2003,D4_excl_D441_D442_GBPm,73550.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2003,D4_excl_D441_D442_share_B6g,0.095176,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2003,D442_share_B6g,0.082034,ratio,D442/B6g,"KZK9,HABN"
+2003,D611_employer_actual_GBPm,82532.0,GBPm,L8NL,L8NL
+2003,D612_employer_imputed_GBPm,6754.0,GBPm,MA4A,MA4A
+2003,D613_household_actual_GBPm,46882.0,GBPm,L8PT,L8PT
+2003,D614_supplements_GBPm,63394.0,GBPm,L8Q9,L8Q9
+2003,D61SC_service_charges_GBPm,-3299.0,GBPm,M92I,M92I
+2003,D61_net_contributions_GBPm,196263.0,GBPm,HADI,HADI
+2003,D621_social_security_cash_GBPm,58012.0,GBPm,L8QH,L8QH
+2003,D622_other_social_insurance_GBPm,60571.0,GBPm,L8QV,L8QV
+2003,D623_social_assistance_GBPm,70453.0,GBPm,HAYU,HAYU
+2003,D62_benefits_GBPm,189036.0,GBPm,HAYP,HAYP
+2003,D51_income_tax_GBPm,115973.0,GBPm,HAYD,HAYD
+2003,D5_taxes_income_wealth_GBPm,140700.0,GBPm,HAYC,HAYC
+2003,D8_over_D622,1.09318,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2003,D622_share_B6g,0.078381,ratio,D622/B6g,"L8QV,HABN"
+2003,D5_share_B5g,0.151752,ratio,D5/B5g,"HAYC,HABL"
+2003,B2g_over_open_dwellings_land,0.051124,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2003,NW_S14_end,4900806.0,GBPm,E45V,E45V
+2003,dNW_S14,393269.0,GBPm,E45V[t]-E45V[t-1],E45V
+2003,B8g_over_open_NW,0.010187,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2003,nonpension_B8g_over_open_NW,-0.004503,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2003,D8_over_open_NW,0.01469,ratio,D8/E45V[t-1],"HAZA,E45V"
+2003,B101g_saving_plus_capital_transfers,43476.0,GBPm,HABD,HABD
+2003,B102_other_volume_fin,15365.0,GBPm,CWU2 (S14+S15),CWU2
+2003,B103_holding_gain_fin,41187.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2003,O_residual_dNW_less_B101g_B102_B103,293241.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2003,O_residual_over_open_NW,0.065056,ratio,residual/E45V[t-1],as above
+2003,B103_AF5_equity,56850.0,GBPm,N4CX,N4CX
+2003,B103_AF6_pension_insurance,-19633.0,GBPm,N4EV,N4EV
+2003,dNFA_S14,55030.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2003,O_fin_residual_dNFA_less_B9N_B102_B103,-742.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2003,pi_hfce_deflator,0.013245,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2003,real_erosion_opening_liabilities_GBPm,12573.294118,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2003,real_erosion_over_open_NW,0.002789,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2003,D4_received_over_open_total_fin_assets,0.050005,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2003,D4_excl_D441_D442_over_open_total_fin_assets,0.023066,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2004,B6g_gdhi,808436.0,GBPm,HABN,HABN
+2004,D8_pension_adj,73620.0,GBPm,HAZA,HAZA
+2004,P31_consumption,830776.0,GBPm,ABPB,ABPB
+2004,B8g_saving,51280.0,GBPm,HADA,HADA
+2004,saving_ratio_pct,5.81369,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2004,ratio_pension_part_pct,8.346409,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2004,ratio_nonpension_part_pct,-2.532719,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2004,consumption_share_of_B6g,1.027634,ratio,P31/B6g,"ABPB,HABN"
+2004,saving_share_of_B6g,0.063431,ratio,B8g/B6g,"HADA,HABN"
+2004,D8_share_of_B6g,0.091065,ratio,D8/B6g,"HAZA,HABN"
+2004,nonpension_saving_GBPm,-22340.0,GBPm,B8g-D8,"HADA,HAZA"
+2004,qsa_pension_contribution_pp,8.4,pct,JS97,JS97
+2004,qsa_nonpension_contribution_pp,-2.5,pct,JS8S,JS8S
+2004,cash_basis_saving_ratio_pct,-3.2,pct,CSJ8,CSJ8
+2004,D1_compensation_GBPm,652662.0,GBPm,HAEB,HAEB
+2004,D1_compensation_share_B5g,0.666064,ratio,HAEB/B5g,"HAEB,HABL"
+2004,B2gB3g_operating_mixed_GBPm,200048.0,GBPm,CRTY,CRTY
+2004,B2gB3g_operating_mixed_share_B5g,0.204156,ratio,CRTY/B5g,"CRTY,HABL"
+2004,D4_property_received_GBPm,176996.0,GBPm,HAXU,HAXU
+2004,D4_property_received_share_B5g,0.18063,ratio,HAXU/B5g,"HAXU,HABL"
+2004,D4_property_paid_GBPm,49827.0,GBPm,HACX,HACX
+2004,D4_property_paid_share_B5g,0.05085,ratio,HACX/B5g,"HACX,HABL"
+2004,B5g_primary_GBPm,979879.0,GBPm,HABL,HABL
+2004,D4_net_GBPm,127169.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2004,D4_net_share_B5g,0.12978,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2004,D41_interest_GBPm,37594.0,GBPm,HAXV,HAXV
+2004,D42_distributed_GBPm,45819.0,GBPm,HAXW,HAXW
+2004,D441_insurance_attrib_GBPm,21266.0,GBPm,KZK8,KZK8
+2004,D442_pension_attrib_GBPm,67799.0,GBPm,KZK9,KZK9
+2004,D443_cis_GBPm,4480.0,GBPm,L5V2,L5V2
+2004,D45_rent_on_land_GBPm,38.0,GBPm,M8MD,M8MD
+2004,D4_excl_D441_D442_GBPm,87931.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2004,D4_excl_D441_D442_share_B6g,0.108767,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2004,D442_share_B6g,0.083864,ratio,D442/B6g,"KZK9,HABN"
+2004,D611_employer_actual_GBPm,92961.0,GBPm,L8NL,L8NL
+2004,D612_employer_imputed_GBPm,6799.0,GBPm,MA4A,MA4A
+2004,D613_household_actual_GBPm,50958.0,GBPm,L8PT,L8PT
+2004,D614_supplements_GBPm,67799.0,GBPm,L8Q9,L8Q9
+2004,D61SC_service_charges_GBPm,-3819.0,GBPm,M92I,M92I
+2004,D61_net_contributions_GBPm,214698.0,GBPm,HADI,HADI
+2004,D621_social_security_cash_GBPm,60527.0,GBPm,L8QH,L8QH
+2004,D622_other_social_insurance_GBPm,63611.0,GBPm,L8QV,L8QV
+2004,D623_social_assistance_GBPm,77064.0,GBPm,HAYU,HAYU
+2004,D62_benefits_GBPm,201202.0,GBPm,HAYP,HAYP
+2004,D51_income_tax_GBPm,123898.0,GBPm,HAYD,HAYD
+2004,D5_taxes_income_wealth_GBPm,150393.0,GBPm,HAYC,HAYC
+2004,D8_over_D622,1.157347,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2004,D622_share_B6g,0.078684,ratio,D622/B6g,"L8QV,HABN"
+2004,D5_share_B5g,0.153481,ratio,D5/B5g,"HAYC,HABL"
+2004,B2g_over_open_dwellings_land,0.04587,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2004,NW_S14_end,5379447.0,GBPm,E45V,E45V
+2004,dNW_S14,478641.0,GBPm,E45V[t]-E45V[t-1],E45V
+2004,B8g_over_open_NW,0.010464,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2004,nonpension_B8g_over_open_NW,-0.004558,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2004,D8_over_open_NW,0.015022,ratio,D8/E45V[t-1],"HAZA,E45V"
+2004,B101g_saving_plus_capital_transfers,49060.0,GBPm,HABD,HABD
+2004,B102_other_volume_fin,-1942.0,GBPm,CWU2 (S14+S15),CWU2
+2004,B103_holding_gain_fin,88751.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2004,O_residual_dNW_less_B101g_B102_B103,342772.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2004,O_residual_over_open_NW,0.069942,ratio,residual/E45V[t-1],as above
+2004,B103_AF5_equity,44753.0,GBPm,N4CX,N4CX
+2004,B103_AF6_pension_insurance,43030.0,GBPm,N4EV,N4EV
+2004,dNFA_S14,88522.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2004,O_fin_residual_dNFA_less_B9N_B102_B103,3471.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2004,pi_hfce_deflator,0.019608,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2004,real_erosion_opening_liabilities_GBPm,21143.403846,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2004,real_erosion_over_open_NW,0.004314,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2004,D4_received_over_open_total_fin_assets,0.052346,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2004,D4_excl_D441_D442_over_open_total_fin_assets,0.026005,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2005,B6g_gdhi,844329.0,GBPm,HABN,HABN
+2005,D8_pension_adj,77775.0,GBPm,HAZA,HAZA
+2005,P31_consumption,868377.0,GBPm,ABPB,ABPB
+2005,B8g_saving,53727.0,GBPm,HADA,HADA
+2005,saving_ratio_pct,5.826566,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2005,ratio_pension_part_pct,8.434515,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2005,ratio_nonpension_part_pct,-2.607949,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2005,consumption_share_of_B6g,1.028482,ratio,P31/B6g,"ABPB,HABN"
+2005,saving_share_of_B6g,0.063633,ratio,B8g/B6g,"HADA,HABN"
+2005,D8_share_of_B6g,0.092115,ratio,D8/B6g,"HAZA,HABN"
+2005,nonpension_saving_GBPm,-24048.0,GBPm,B8g-D8,"HADA,HAZA"
+2005,qsa_pension_contribution_pp,8.4,pct,JS97,JS97
+2005,qsa_nonpension_contribution_pp,-2.6,pct,JS8S,JS8S
+2005,cash_basis_saving_ratio_pct,-3.6,pct,CSJ8,CSJ8
+2005,D1_compensation_GBPm,691492.0,GBPm,HAEB,HAEB
+2005,D1_compensation_share_B5g,0.669462,ratio,HAEB/B5g,"HAEB,HABL"
+2005,B2gB3g_operating_mixed_GBPm,207895.0,GBPm,CRTY,CRTY
+2005,B2gB3g_operating_mixed_share_B5g,0.201272,ratio,CRTY/B5g,"CRTY,HABL"
+2005,D4_property_received_GBPm,191084.0,GBPm,HAXU,HAXU
+2005,D4_property_received_share_B5g,0.184996,ratio,HAXU/B5g,"HAXU,HABL"
+2005,D4_property_paid_GBPm,57564.0,GBPm,HACX,HACX
+2005,D4_property_paid_share_B5g,0.05573,ratio,HACX/B5g,"HACX,HABL"
+2005,B5g_primary_GBPm,1032907.0,GBPm,HABL,HABL
+2005,D4_net_GBPm,133520.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2005,D4_net_share_B5g,0.129266,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2005,D41_interest_GBPm,42045.0,GBPm,HAXV,HAXV
+2005,D42_distributed_GBPm,51813.0,GBPm,HAXW,HAXW
+2005,D441_insurance_attrib_GBPm,22631.0,GBPm,KZK8,KZK8
+2005,D442_pension_attrib_GBPm,69635.0,GBPm,KZK9,KZK9
+2005,D443_cis_GBPm,4928.0,GBPm,L5V2,L5V2
+2005,D45_rent_on_land_GBPm,32.0,GBPm,M8MD,M8MD
+2005,D4_excl_D441_D442_GBPm,98818.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2005,D4_excl_D441_D442_share_B6g,0.117037,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2005,D442_share_B6g,0.082474,ratio,D442/B6g,"KZK9,HABN"
+2005,D611_employer_actual_GBPm,104226.0,GBPm,L8NL,L8NL
+2005,D612_employer_imputed_GBPm,7710.0,GBPm,MA4A,MA4A
+2005,D613_household_actual_GBPm,54219.0,GBPm,L8PT,L8PT
+2005,D614_supplements_GBPm,69635.0,GBPm,L8Q9,L8Q9
+2005,D61SC_service_charges_GBPm,-5064.0,GBPm,M92I,M92I
+2005,D61_net_contributions_GBPm,230726.0,GBPm,HADI,HADI
+2005,D621_social_security_cash_GBPm,62906.0,GBPm,L8QH,L8QH
+2005,D622_other_social_insurance_GBPm,69116.0,GBPm,L8QV,L8QV
+2005,D623_social_assistance_GBPm,80573.0,GBPm,HAYU,HAYU
+2005,D62_benefits_GBPm,212595.0,GBPm,HAYP,HAYP
+2005,D51_income_tax_GBPm,134381.0,GBPm,HAYD,HAYD
+2005,D5_taxes_income_wealth_GBPm,162312.0,GBPm,HAYC,HAYC
+2005,D8_over_D622,1.125282,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2005,D622_share_B6g,0.081859,ratio,D622/B6g,"L8QV,HABN"
+2005,D5_share_B5g,0.157141,ratio,D5/B5g,"HAYC,HABL"
+2005,B2g_over_open_dwellings_land,0.040879,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2005,NW_S14_end,5803638.0,GBPm,E45V,E45V
+2005,dNW_S14,424191.0,GBPm,E45V[t]-E45V[t-1],E45V
+2005,B8g_over_open_NW,0.009987,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2005,nonpension_B8g_over_open_NW,-0.00447,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2005,D8_over_open_NW,0.014458,ratio,D8/E45V[t-1],"HAZA,E45V"
+2005,B101g_saving_plus_capital_transfers,51369.0,GBPm,HABD,HABD
+2005,B102_other_volume_fin,9262.0,GBPm,CWU2 (S14+S15),CWU2
+2005,B103_holding_gain_fin,233927.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2005,O_residual_dNW_less_B101g_B102_B103,129633.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2005,O_residual_over_open_NW,0.024098,ratio,residual/E45V[t-1],as above
+2005,B103_AF5_equity,113585.0,GBPm,N4CX,N4CX
+2005,B103_AF6_pension_insurance,120983.0,GBPm,N4EV,N4EV
+2005,dNFA_S14,237986.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2005,O_fin_residual_dNFA_less_B9N_B102_B103,-1296.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2005,pi_hfce_deflator,0.017628,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2005,real_erosion_opening_liabilities_GBPm,21327.977953,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2005,real_erosion_over_open_NW,0.003965,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2005,D4_received_over_open_total_fin_assets,0.053056,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2005,D4_excl_D441_D442_over_open_total_fin_assets,0.027438,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2006,B6g_gdhi,884510.0,GBPm,HABN,HABN
+2006,D8_pension_adj,78300.0,GBPm,HAZA,HAZA
+2006,P31_consumption,901119.0,GBPm,ABPB,ABPB
+2006,B8g_saving,61691.0,GBPm,HADA,HADA
+2006,saving_ratio_pct,6.407391,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2006,ratio_pension_part_pct,8.132446,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2006,ratio_nonpension_part_pct,-1.725055,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2006,consumption_share_of_B6g,1.018778,ratio,P31/B6g,"ABPB,HABN"
+2006,saving_share_of_B6g,0.069746,ratio,B8g/B6g,"HADA,HABN"
+2006,D8_share_of_B6g,0.088524,ratio,D8/B6g,"HAZA,HABN"
+2006,nonpension_saving_GBPm,-16609.0,GBPm,B8g-D8,"HADA,HAZA"
+2006,qsa_pension_contribution_pp,8.1,pct,JS97,JS97
+2006,qsa_nonpension_contribution_pp,-1.8,pct,JS8S,JS8S
+2006,cash_basis_saving_ratio_pct,-1.6,pct,CSJ8,CSJ8
+2006,D1_compensation_GBPm,731082.0,GBPm,HAEB,HAEB
+2006,D1_compensation_share_B5g,0.674085,ratio,HAEB/B5g,"HAEB,HABL"
+2006,B2gB3g_operating_mixed_GBPm,218413.0,GBPm,CRTY,CRTY
+2006,B2gB3g_operating_mixed_share_B5g,0.201385,ratio,CRTY/B5g,"CRTY,HABL"
+2006,D4_property_received_GBPm,198697.0,GBPm,HAXU,HAXU
+2006,D4_property_received_share_B5g,0.183206,ratio,HAXU/B5g,"HAXU,HABL"
+2006,D4_property_paid_GBPm,63637.0,GBPm,HACX,HACX
+2006,D4_property_paid_share_B5g,0.058676,ratio,HACX/B5g,"HACX,HABL"
+2006,B5g_primary_GBPm,1084555.0,GBPm,HABL,HABL
+2006,D4_net_GBPm,135060.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2006,D4_net_share_B5g,0.12453,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2006,D41_interest_GBPm,46047.0,GBPm,HAXV,HAXV
+2006,D42_distributed_GBPm,59039.0,GBPm,HAXW,HAXW
+2006,D441_insurance_attrib_GBPm,18609.0,GBPm,KZK8,KZK8
+2006,D442_pension_attrib_GBPm,68396.0,GBPm,KZK9,KZK9
+2006,D443_cis_GBPm,6582.0,GBPm,L5V2,L5V2
+2006,D45_rent_on_land_GBPm,24.0,GBPm,M8MD,M8MD
+2006,D4_excl_D441_D442_GBPm,111692.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2006,D4_excl_D441_D442_share_B6g,0.126276,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2006,D442_share_B6g,0.077326,ratio,D442/B6g,"KZK9,HABN"
+2006,D611_employer_actual_GBPm,111321.0,GBPm,L8NL,L8NL
+2006,D612_employer_imputed_GBPm,8589.0,GBPm,MA4A,MA4A
+2006,D613_household_actual_GBPm,57506.0,GBPm,L8PT,L8PT
+2006,D614_supplements_GBPm,68396.0,GBPm,L8Q9,L8Q9
+2006,D61SC_service_charges_GBPm,-6049.0,GBPm,M92I,M92I
+2006,D61_net_contributions_GBPm,239763.0,GBPm,HADI,HADI
+2006,D621_social_security_cash_GBPm,65054.0,GBPm,L8QH,L8QH
+2006,D622_other_social_insurance_GBPm,73215.0,GBPm,L8QV,L8QV
+2006,D623_social_assistance_GBPm,82667.0,GBPm,HAYU,HAYU
+2006,D62_benefits_GBPm,220936.0,GBPm,HAYP,HAYP
+2006,D51_income_tax_GBPm,143582.0,GBPm,HAYD,HAYD
+2006,D5_taxes_income_wealth_GBPm,172960.0,GBPm,HAYC,HAYC
+2006,D8_over_D622,1.069453,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2006,D622_share_B6g,0.082775,ratio,D622/B6g,"L8QV,HABN"
+2006,D5_share_B5g,0.159476,ratio,D5/B5g,"HAYC,HABL"
+2006,B2g_over_open_dwellings_land,0.04055,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2006,NW_S14_end,6162991.0,GBPm,E45V,E45V
+2006,dNW_S14,359353.0,GBPm,E45V[t]-E45V[t-1],E45V
+2006,B8g_over_open_NW,0.01063,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2006,nonpension_B8g_over_open_NW,-0.002862,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2006,D8_over_open_NW,0.013492,ratio,D8/E45V[t-1],"HAZA,E45V"
+2006,B101g_saving_plus_capital_transfers,58433.0,GBPm,HABD,HABD
+2006,B102_other_volume_fin,529.0,GBPm,CWU2 (S14+S15),CWU2
+2006,B103_holding_gain_fin,10626.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2006,O_residual_dNW_less_B101g_B102_B103,289765.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2006,O_residual_over_open_NW,0.049928,ratio,residual/E45V[t-1],as above
+2006,B103_AF5_equity,55027.0,GBPm,N4CX,N4CX
+2006,B103_AF6_pension_insurance,-40510.0,GBPm,N4EV,N4EV
+2006,dNFA_S14,5676.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2006,O_fin_residual_dNFA_less_B9N_B102_B103,-4803.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2006,pi_hfce_deflator,0.029921,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2006,real_erosion_opening_liabilities_GBPm,38705.266055,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2006,real_erosion_over_open_NW,0.006669,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2006,D4_received_over_open_total_fin_assets,0.050423,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2006,D4_excl_D441_D442_over_open_total_fin_assets,0.028344,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2007,B6g_gdhi,934551.0,GBPm,HABN,HABN
+2007,D8_pension_adj,90447.0,GBPm,HAZA,HAZA
+2007,P31_consumption,945513.0,GBPm,ABPB,ABPB
+2007,B8g_saving,79485.0,GBPm,HADA,HADA
+2007,saving_ratio_pct,7.754649,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2007,ratio_pension_part_pct,8.824115,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2007,ratio_nonpension_part_pct,-1.069466,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2007,consumption_share_of_B6g,1.01173,ratio,P31/B6g,"ABPB,HABN"
+2007,saving_share_of_B6g,0.085052,ratio,B8g/B6g,"HADA,HABN"
+2007,D8_share_of_B6g,0.096781,ratio,D8/B6g,"HAZA,HABN"
+2007,nonpension_saving_GBPm,-10962.0,GBPm,B8g-D8,"HADA,HAZA"
+2007,qsa_pension_contribution_pp,8.8,pct,JS97,JS97
+2007,qsa_nonpension_contribution_pp,-1.1,pct,JS8S,JS8S
+2007,cash_basis_saving_ratio_pct,-1.5,pct,CSJ8,CSJ8
+2007,D1_compensation_GBPm,781672.0,GBPm,HAEB,HAEB
+2007,D1_compensation_share_B5g,0.67757,ratio,HAEB/B5g,"HAEB,HABL"
+2007,B2gB3g_operating_mixed_GBPm,221480.0,GBPm,CRTY,CRTY
+2007,B2gB3g_operating_mixed_share_B5g,0.191983,ratio,CRTY/B5g,"CRTY,HABL"
+2007,D4_property_received_GBPm,230074.0,GBPm,HAXU,HAXU
+2007,D4_property_received_share_B5g,0.199433,ratio,HAXU/B5g,"HAXU,HABL"
+2007,D4_property_paid_GBPm,79585.0,GBPm,HACX,HACX
+2007,D4_property_paid_share_B5g,0.068986,ratio,HACX/B5g,"HACX,HABL"
+2007,B5g_primary_GBPm,1153641.0,GBPm,HABL,HABL
+2007,D4_net_GBPm,150489.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2007,D4_net_share_B5g,0.130447,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2007,D41_interest_GBPm,56023.0,GBPm,HAXV,HAXV
+2007,D42_distributed_GBPm,64734.0,GBPm,HAXW,HAXW
+2007,D441_insurance_attrib_GBPm,24599.0,GBPm,KZK8,KZK8
+2007,D442_pension_attrib_GBPm,77929.0,GBPm,KZK9,KZK9
+2007,D443_cis_GBPm,6771.0,GBPm,L5V2,L5V2
+2007,D45_rent_on_land_GBPm,18.0,GBPm,M8MD,M8MD
+2007,D4_excl_D441_D442_GBPm,127546.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2007,D4_excl_D441_D442_share_B6g,0.136478,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2007,D442_share_B6g,0.083387,ratio,D442/B6g,"KZK9,HABN"
+2007,D611_employer_actual_GBPm,118974.0,GBPm,L8NL,L8NL
+2007,D612_employer_imputed_GBPm,9244.0,GBPm,MA4A,MA4A
+2007,D613_household_actual_GBPm,57912.0,GBPm,L8PT,L8PT
+2007,D614_supplements_GBPm,77929.0,GBPm,L8Q9,L8Q9
+2007,D61SC_service_charges_GBPm,-5965.0,GBPm,M92I,M92I
+2007,D61_net_contributions_GBPm,258094.0,GBPm,HADI,HADI
+2007,D621_social_security_cash_GBPm,69037.0,GBPm,L8QH,L8QH
+2007,D622_other_social_insurance_GBPm,77680.0,GBPm,L8QV,L8QV
+2007,D623_social_assistance_GBPm,86916.0,GBPm,HAYU,HAYU
+2007,D62_benefits_GBPm,233633.0,GBPm,HAYP,HAYP
+2007,D51_income_tax_GBPm,155326.0,GBPm,HAYD,HAYD
+2007,D5_taxes_income_wealth_GBPm,186790.0,GBPm,HAYC,HAYC
+2007,D8_over_D622,1.164354,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2007,D622_share_B6g,0.08312,ratio,D622/B6g,"L8QV,HABN"
+2007,D5_share_B5g,0.161913,ratio,D5/B5g,"HAYC,HABL"
+2007,B2g_over_open_dwellings_land,0.037382,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2007,NW_S14_end,6570212.0,GBPm,E45V,E45V
+2007,dNW_S14,407221.0,GBPm,E45V[t]-E45V[t-1],E45V
+2007,B8g_over_open_NW,0.012897,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2007,nonpension_B8g_over_open_NW,-0.001779,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2007,D8_over_open_NW,0.014676,ratio,D8/E45V[t-1],"HAZA,E45V"
+2007,B101g_saving_plus_capital_transfers,76704.0,GBPm,HABD,HABD
+2007,B102_other_volume_fin,18329.0,GBPm,CWU2 (S14+S15),CWU2
+2007,B103_holding_gain_fin,47643.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2007,O_residual_dNW_less_B101g_B102_B103,264545.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2007,O_residual_over_open_NW,0.042925,ratio,residual/E45V[t-1],as above
+2007,B103_AF5_equity,34892.0,GBPm,N4CX,N4CX
+2007,B103_AF6_pension_insurance,11998.0,GBPm,N4EV,N4EV
+2007,dNFA_S14,87232.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2007,O_fin_residual_dNFA_less_B9N_B102_B103,6604.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2007,pi_hfce_deflator,0.013761,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2007,real_erosion_opening_liabilities_GBPm,20328.420814,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2007,real_erosion_over_open_NW,0.003298,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2007,D4_received_over_open_total_fin_assets,0.055958,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2007,D4_excl_D441_D442_over_open_total_fin_assets,0.031022,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2008,B6g_gdhi,967923.0,GBPm,HABN,HABN
+2008,D8_pension_adj,85370.0,GBPm,HAZA,HAZA
+2008,P31_consumption,973755.0,GBPm,ABPB,ABPB
+2008,B8g_saving,79538.0,GBPm,HADA,HADA
+2008,saving_ratio_pct,7.551365,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2008,ratio_pension_part_pct,8.105057,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2008,ratio_nonpension_part_pct,-0.553692,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2008,consumption_share_of_B6g,1.006025,ratio,P31/B6g,"ABPB,HABN"
+2008,saving_share_of_B6g,0.082174,ratio,B8g/B6g,"HADA,HABN"
+2008,D8_share_of_B6g,0.088199,ratio,D8/B6g,"HAZA,HABN"
+2008,nonpension_saving_GBPm,-5832.0,GBPm,B8g-D8,"HADA,HAZA"
+2008,qsa_pension_contribution_pp,8.1,pct,JS97,JS97
+2008,qsa_nonpension_contribution_pp,-0.6,pct,JS8S,JS8S
+2008,cash_basis_saving_ratio_pct,-0.5,pct,CSJ8,CSJ8
+2008,D1_compensation_GBPm,798375.0,GBPm,HAEB,HAEB
+2008,D1_compensation_share_B5g,0.675273,ratio,HAEB/B5g,"HAEB,HABL"
+2008,B2gB3g_operating_mixed_GBPm,231647.0,GBPm,CRTY,CRTY
+2008,B2gB3g_operating_mixed_share_B5g,0.195929,ratio,CRTY/B5g,"CRTY,HABL"
+2008,D4_property_received_GBPm,242191.0,GBPm,HAXU,HAXU
+2008,D4_property_received_share_B5g,0.204848,ratio,HAXU/B5g,"HAXU,HABL"
+2008,D4_property_paid_GBPm,89914.0,GBPm,HACX,HACX
+2008,D4_property_paid_share_B5g,0.07605,ratio,HACX/B5g,"HACX,HABL"
+2008,B5g_primary_GBPm,1182299.0,GBPm,HABL,HABL
+2008,D4_net_GBPm,152277.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2008,D4_net_share_B5g,0.128797,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2008,D41_interest_GBPm,63985.0,GBPm,HAXV,HAXV
+2008,D42_distributed_GBPm,68032.0,GBPm,HAXW,HAXW
+2008,D441_insurance_attrib_GBPm,26045.0,GBPm,KZK8,KZK8
+2008,D442_pension_attrib_GBPm,79507.0,GBPm,KZK9,KZK9
+2008,D443_cis_GBPm,4605.0,GBPm,L5V2,L5V2
+2008,D45_rent_on_land_GBPm,17.0,GBPm,M8MD,M8MD
+2008,D4_excl_D441_D442_GBPm,136639.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2008,D4_excl_D441_D442_share_B6g,0.141167,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2008,D442_share_B6g,0.082142,ratio,D442/B6g,"KZK9,HABN"
+2008,D611_employer_actual_GBPm,120663.0,GBPm,L8NL,L8NL
+2008,D612_employer_imputed_GBPm,9093.0,GBPm,MA4A,MA4A
+2008,D613_household_actual_GBPm,59415.0,GBPm,L8PT,L8PT
+2008,D614_supplements_GBPm,79507.0,GBPm,L8Q9,L8Q9
+2008,D61SC_service_charges_GBPm,-5079.0,GBPm,M92I,M92I
+2008,D61_net_contributions_GBPm,263599.0,GBPm,HADI,HADI
+2008,D621_social_security_cash_GBPm,73871.0,GBPm,L8QH,L8QH
+2008,D622_other_social_insurance_GBPm,83605.0,GBPm,L8QV,L8QV
+2008,D623_social_assistance_GBPm,93651.0,GBPm,HAYU,HAYU
+2008,D62_benefits_GBPm,251127.0,GBPm,HAYP,HAYP
+2008,D51_income_tax_GBPm,159860.0,GBPm,HAYD,HAYD
+2008,D5_taxes_income_wealth_GBPm,192851.0,GBPm,HAYC,HAYC
+2008,D8_over_D622,1.021111,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2008,D622_share_B6g,0.086376,ratio,D622/B6g,"L8QV,HABN"
+2008,D5_share_B5g,0.163115,ratio,D5/B5g,"HAYC,HABL"
+2008,B2g_over_open_dwellings_land,0.036526,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2008,NW_S14_end,5886531.0,GBPm,E45V,E45V
+2008,dNW_S14,-683681.0,GBPm,E45V[t]-E45V[t-1],E45V
+2008,B8g_over_open_NW,0.012106,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2008,nonpension_B8g_over_open_NW,-0.000888,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2008,D8_over_open_NW,0.012993,ratio,D8/E45V[t-1],"HAZA,E45V"
+2008,B101g_saving_plus_capital_transfers,77994.0,GBPm,HABD,HABD
+2008,B102_other_volume_fin,50364.0,GBPm,CWU2 (S14+S15),CWU2
+2008,B103_holding_gain_fin,-250393.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2008,O_residual_dNW_less_B101g_B102_B103,-561646.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2008,O_residual_over_open_NW,-0.085484,ratio,residual/E45V[t-1],as above
+2008,B103_AF5_equity,-38918.0,GBPm,N4CX,N4CX
+2008,B103_AF6_pension_insurance,-204409.0,GBPm,N4EV,N4EV
+2008,dNFA_S14,-159284.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2008,O_fin_residual_dNFA_less_B9N_B102_B103,18718.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2008,pi_hfce_deflator,0.039216,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2008,real_erosion_opening_liabilities_GBPm,60213.320755,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2008,real_erosion_over_open_NW,0.009165,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2008,D4_received_over_open_total_fin_assets,0.056364,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2008,D4_excl_D441_D442_over_open_total_fin_assets,0.0318,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2009,B6g_gdhi,990540.0,GBPm,HABN,HABN
+2009,D8_pension_adj,71370.0,GBPm,HAZA,HAZA
+2009,P31_consumption,947668.0,GBPm,ABPB,ABPB
+2009,B8g_saving,114242.0,GBPm,HADA,HADA
+2009,saving_ratio_pct,10.758162,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2009,ratio_pension_part_pct,6.720909,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2009,ratio_nonpension_part_pct,4.037254,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2009,consumption_share_of_B6g,0.956719,ratio,P31/B6g,"ABPB,HABN"
+2009,saving_share_of_B6g,0.115333,ratio,B8g/B6g,"HADA,HABN"
+2009,D8_share_of_B6g,0.072052,ratio,D8/B6g,"HAZA,HABN"
+2009,nonpension_saving_GBPm,42872.0,GBPm,B8g-D8,"HADA,HAZA"
+2009,qsa_pension_contribution_pp,6.7,pct,JS97,JS97
+2009,qsa_nonpension_contribution_pp,4.0,pct,JS8S,JS8S
+2009,cash_basis_saving_ratio_pct,5.8,pct,CSJ8,CSJ8
+2009,D1_compensation_GBPm,790888.0,GBPm,HAEB,HAEB
+2009,D1_compensation_share_B5g,0.680615,ratio,HAEB/B5g,"HAEB,HABL"
+2009,B2gB3g_operating_mixed_GBPm,213711.0,GBPm,CRTY,CRTY
+2009,B2gB3g_operating_mixed_share_B5g,0.183914,ratio,CRTY/B5g,"CRTY,HABL"
+2009,D4_property_received_GBPm,193044.0,GBPm,HAXU,HAXU
+2009,D4_property_received_share_B5g,0.166128,ratio,HAXU/B5g,"HAXU,HABL"
+2009,D4_property_paid_GBPm,35624.0,GBPm,HACX,HACX
+2009,D4_property_paid_share_B5g,0.030657,ratio,HACX/B5g,"HACX,HABL"
+2009,B5g_primary_GBPm,1162019.0,GBPm,HABL,HABL
+2009,D4_net_GBPm,157420.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2009,D4_net_share_B5g,0.135471,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2009,D41_interest_GBPm,22044.0,GBPm,HAXV,HAXV
+2009,D42_distributed_GBPm,78762.0,GBPm,HAXW,HAXW
+2009,D441_insurance_attrib_GBPm,21209.0,GBPm,KZK8,KZK8
+2009,D442_pension_attrib_GBPm,68245.0,GBPm,KZK9,KZK9
+2009,D443_cis_GBPm,2767.0,GBPm,L5V2,L5V2
+2009,D45_rent_on_land_GBPm,17.0,GBPm,M8MD,M8MD
+2009,D4_excl_D441_D442_GBPm,103590.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2009,D4_excl_D441_D442_share_B6g,0.104579,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2009,D442_share_B6g,0.068897,ratio,D442/B6g,"KZK9,HABN"
+2009,D611_employer_actual_GBPm,123025.0,GBPm,L8NL,L8NL
+2009,D612_employer_imputed_GBPm,9759.0,GBPm,MA4A,MA4A
+2009,D613_household_actual_GBPm,55876.0,GBPm,L8PT,L8PT
+2009,D614_supplements_GBPm,68245.0,GBPm,L8Q9,L8Q9
+2009,D61SC_service_charges_GBPm,-6112.0,GBPm,M92I,M92I
+2009,D61_net_contributions_GBPm,250793.0,GBPm,HADI,HADI
+2009,D621_social_security_cash_GBPm,80826.0,GBPm,L8QH,L8QH
+2009,D622_other_social_insurance_GBPm,89779.0,GBPm,L8QV,L8QV
+2009,D623_social_assistance_GBPm,105100.0,GBPm,HAYU,HAYU
+2009,D62_benefits_GBPm,275705.0,GBPm,HAYP,HAYP
+2009,D51_income_tax_GBPm,151348.0,GBPm,HAYD,HAYD
+2009,D5_taxes_income_wealth_GBPm,185275.0,GBPm,HAYC,HAYC
+2009,D8_over_D622,0.794952,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2009,D622_share_B6g,0.090636,ratio,D622/B6g,"L8QV,HABN"
+2009,D5_share_B5g,0.159442,ratio,D5/B5g,"HAYC,HABL"
+2009,B2g_over_open_dwellings_land,0.036657,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2009,NW_S14_end,6399352.0,GBPm,E45V,E45V
+2009,dNW_S14,512821.0,GBPm,E45V[t]-E45V[t-1],E45V
+2009,B8g_over_open_NW,0.019407,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2009,nonpension_B8g_over_open_NW,0.007283,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2009,D8_over_open_NW,0.012124,ratio,D8/E45V[t-1],"HAZA,E45V"
+2009,B101g_saving_plus_capital_transfers,113766.0,GBPm,HABD,HABD
+2009,B102_other_volume_fin,11265.0,GBPm,CWU2 (S14+S15),CWU2
+2009,B103_holding_gain_fin,259333.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2009,O_residual_dNW_less_B101g_B102_B103,128457.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2009,O_residual_over_open_NW,0.021822,ratio,residual/E45V[t-1],as above
+2009,B103_AF5_equity,123291.0,GBPm,N4CX,N4CX
+2009,B103_AF6_pension_insurance,136264.0,GBPm,N4EV,N4EV
+2009,dNFA_S14,342246.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2009,O_fin_residual_dNFA_less_B9N_B102_B103,4182.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2009,pi_hfce_deflator,0.007257,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2009,real_erosion_opening_liabilities_GBPm,11725.871758,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2009,real_erosion_over_open_NW,0.001992,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2009,D4_received_over_open_total_fin_assets,0.046299,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2009,D4_excl_D441_D442_over_open_total_fin_assets,0.024845,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2010,B6g_gdhi,1008197.0,GBPm,HABN,HABN
+2010,D8_pension_adj,98161.0,GBPm,HAZA,HAZA
+2010,P31_consumption,981959.0,GBPm,ABPB,ABPB
+2010,B8g_saving,124399.0,GBPm,HADA,HADA
+2010,saving_ratio_pct,11.24401,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2010,ratio_pension_part_pct,8.872445,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2010,ratio_nonpension_part_pct,2.371565,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2010,consumption_share_of_B6g,0.973975,ratio,P31/B6g,"ABPB,HABN"
+2010,saving_share_of_B6g,0.123388,ratio,B8g/B6g,"HADA,HABN"
+2010,D8_share_of_B6g,0.097363,ratio,D8/B6g,"HAZA,HABN"
+2010,nonpension_saving_GBPm,26238.0,GBPm,B8g-D8,"HADA,HAZA"
+2010,qsa_pension_contribution_pp,8.9,pct,JS97,JS97
+2010,qsa_nonpension_contribution_pp,2.4,pct,JS8S,JS8S
+2010,cash_basis_saving_ratio_pct,3.7,pct,CSJ8,CSJ8
+2010,D1_compensation_GBPm,811031.0,GBPm,HAEB,HAEB
+2010,D1_compensation_share_B5g,0.673476,ratio,HAEB/B5g,"HAEB,HABL"
+2010,B2gB3g_operating_mixed_GBPm,213322.0,GBPm,CRTY,CRTY
+2010,B2gB3g_operating_mixed_share_B5g,0.177141,ratio,CRTY/B5g,"CRTY,HABL"
+2010,D4_property_received_GBPm,201216.0,GBPm,HAXU,HAXU
+2010,D4_property_received_share_B5g,0.167089,ratio,HAXU/B5g,"HAXU,HABL"
+2010,D4_property_paid_GBPm,21322.0,GBPm,HACX,HACX
+2010,D4_property_paid_share_B5g,0.017706,ratio,HACX/B5g,"HACX,HABL"
+2010,B5g_primary_GBPm,1204247.0,GBPm,HABL,HABL
+2010,D4_net_GBPm,179894.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2010,D4_net_share_B5g,0.149383,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2010,D41_interest_GBPm,17554.0,GBPm,HAXV,HAXV
+2010,D42_distributed_GBPm,70168.0,GBPm,HAXW,HAXW
+2010,D441_insurance_attrib_GBPm,21915.0,GBPm,KZK8,KZK8
+2010,D442_pension_attrib_GBPm,86915.0,GBPm,KZK9,KZK9
+2010,D443_cis_GBPm,4646.0,GBPm,L5V2,L5V2
+2010,D45_rent_on_land_GBPm,18.0,GBPm,M8MD,M8MD
+2010,D4_excl_D441_D442_GBPm,92386.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2010,D4_excl_D441_D442_share_B6g,0.091635,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2010,D442_share_B6g,0.086208,ratio,D442/B6g,"KZK9,HABN"
+2010,D611_employer_actual_GBPm,136367.0,GBPm,L8NL,L8NL
+2010,D612_employer_imputed_GBPm,10277.0,GBPm,MA4A,MA4A
+2010,D613_household_actual_GBPm,58074.0,GBPm,L8PT,L8PT
+2010,D614_supplements_GBPm,86915.0,GBPm,L8Q9,L8Q9
+2010,D61SC_service_charges_GBPm,-6016.0,GBPm,M92I,M92I
+2010,D61_net_contributions_GBPm,285617.0,GBPm,HADI,HADI
+2010,D621_social_security_cash_GBPm,82117.0,GBPm,L8QH,L8QH
+2010,D622_other_social_insurance_GBPm,95743.0,GBPm,L8QV,L8QV
+2010,D623_social_assistance_GBPm,112246.0,GBPm,HAYU,HAYU
+2010,D62_benefits_GBPm,290106.0,GBPm,HAYP,HAYP
+2010,D51_income_tax_GBPm,152420.0,GBPm,HAYD,HAYD
+2010,D5_taxes_income_wealth_GBPm,187306.0,GBPm,HAYC,HAYC
+2010,D8_over_D622,1.025255,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2010,D622_share_B6g,0.094965,ratio,D622/B6g,"L8QV,HABN"
+2010,D5_share_B5g,0.155538,ratio,D5/B5g,"HAYC,HABL"
+2010,B2g_over_open_dwellings_land,0.033369,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2010,NW_S14_end,6648647.0,GBPm,E45V,E45V
+2010,dNW_S14,249295.0,GBPm,E45V[t]-E45V[t-1],E45V
+2010,B8g_over_open_NW,0.019439,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2010,nonpension_B8g_over_open_NW,0.0041,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2010,D8_over_open_NW,0.015339,ratio,D8/E45V[t-1],"HAZA,E45V"
+2010,B101g_saving_plus_capital_transfers,124563.0,GBPm,HABD,HABD
+2010,B102_other_volume_fin,28673.0,GBPm,CWU2 (S14+S15),CWU2
+2010,B103_holding_gain_fin,96357.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2010,O_residual_dNW_less_B101g_B102_B103,-298.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2010,O_residual_over_open_NW,-4.7e-05,ratio,residual/E45V[t-1],as above
+2010,B103_AF5_equity,68952.0,GBPm,N4CX,N4CX
+2010,B103_AF6_pension_insurance,30594.0,GBPm,N4EV,N4EV
+2010,dNFA_S14,209301.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2010,O_fin_residual_dNFA_less_B9N_B102_B103,8411.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2010,pi_hfce_deflator,0.010086,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2010,real_erosion_opening_liabilities_GBPm,16108.827389,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2010,real_erosion_over_open_NW,0.002517,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2010,D4_received_over_open_total_fin_assets,0.044741,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2010,D4_excl_D441_D442_over_open_total_fin_assets,0.020542,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2011,B6g_gdhi,1028228.0,GBPm,HABN,HABN
+2011,D8_pension_adj,91778.0,GBPm,HAZA,HAZA
+2011,P31_consumption,1015512.0,GBPm,ABPB,ABPB
+2011,B8g_saving,104494.0,GBPm,HADA,HADA
+2011,saving_ratio_pct,9.329771,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2011,ratio_pension_part_pct,8.19442,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2011,ratio_nonpension_part_pct,1.135351,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2011,consumption_share_of_B6g,0.987633,ratio,P31/B6g,"ABPB,HABN"
+2011,saving_share_of_B6g,0.101625,ratio,B8g/B6g,"HADA,HABN"
+2011,D8_share_of_B6g,0.089258,ratio,D8/B6g,"HAZA,HABN"
+2011,nonpension_saving_GBPm,12716.0,GBPm,B8g-D8,"HADA,HAZA"
+2011,qsa_pension_contribution_pp,8.2,pct,JS97,JS97
+2011,qsa_nonpension_contribution_pp,1.1,pct,JS8S,JS8S
+2011,cash_basis_saving_ratio_pct,1.9,pct,CSJ8,CSJ8
+2011,D1_compensation_GBPm,829522.0,GBPm,HAEB,HAEB
+2011,D1_compensation_share_B5g,0.680627,ratio,HAEB/B5g,"HAEB,HABL"
+2011,B2gB3g_operating_mixed_GBPm,217868.0,GBPm,CRTY,CRTY
+2011,B2gB3g_operating_mixed_share_B5g,0.178762,ratio,CRTY/B5g,"CRTY,HABL"
+2011,D4_property_received_GBPm,194760.0,GBPm,HAXU,HAXU
+2011,D4_property_received_share_B5g,0.159802,ratio,HAXU/B5g,"HAXU,HABL"
+2011,D4_property_paid_GBPm,23389.0,GBPm,HACX,HACX
+2011,D4_property_paid_share_B5g,0.019191,ratio,HACX/B5g,"HACX,HABL"
+2011,B5g_primary_GBPm,1218761.0,GBPm,HABL,HABL
+2011,D4_net_GBPm,171371.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2011,D4_net_share_B5g,0.140611,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2011,D41_interest_GBPm,20428.0,GBPm,HAXV,HAXV
+2011,D42_distributed_GBPm,68926.0,GBPm,HAXW,HAXW
+2011,D441_insurance_attrib_GBPm,21231.0,GBPm,KZK8,KZK8
+2011,D442_pension_attrib_GBPm,81893.0,GBPm,KZK9,KZK9
+2011,D443_cis_GBPm,2260.0,GBPm,L5V2,L5V2
+2011,D45_rent_on_land_GBPm,22.0,GBPm,M8MD,M8MD
+2011,D4_excl_D441_D442_GBPm,91636.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2011,D4_excl_D441_D442_share_B6g,0.08912,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2011,D442_share_B6g,0.079645,ratio,D442/B6g,"KZK9,HABN"
+2011,D611_employer_actual_GBPm,137765.0,GBPm,L8NL,L8NL
+2011,D612_employer_imputed_GBPm,10237.0,GBPm,MA4A,MA4A
+2011,D613_household_actual_GBPm,59798.0,GBPm,L8PT,L8PT
+2011,D614_supplements_GBPm,81893.0,GBPm,L8Q9,L8Q9
+2011,D61SC_service_charges_GBPm,-6196.0,GBPm,M92I,M92I
+2011,D61_net_contributions_GBPm,283497.0,GBPm,HADI,HADI
+2011,D621_social_security_cash_GBPm,83826.0,GBPm,L8QH,L8QH
+2011,D622_other_social_insurance_GBPm,97725.0,GBPm,L8QV,L8QV
+2011,D623_social_assistance_GBPm,115797.0,GBPm,HAYU,HAYU
+2011,D62_benefits_GBPm,297348.0,GBPm,HAYP,HAYP
+2011,D51_income_tax_GBPm,157594.0,GBPm,HAYD,HAYD
+2011,D5_taxes_income_wealth_GBPm,192777.0,GBPm,HAYC,HAYC
+2011,D8_over_D622,0.939146,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2011,D622_share_B6g,0.095042,ratio,D622/B6g,"L8QV,HABN"
+2011,D5_share_B5g,0.158175,ratio,D5/B5g,"HAYC,HABL"
+2011,B2g_over_open_dwellings_land,0.03379,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2011,NW_S14_end,7013274.0,GBPm,E45V,E45V
+2011,dNW_S14,364627.0,GBPm,E45V[t]-E45V[t-1],E45V
+2011,B8g_over_open_NW,0.015717,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2011,nonpension_B8g_over_open_NW,0.001913,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2011,D8_over_open_NW,0.013804,ratio,D8/E45V[t-1],"HAZA,E45V"
+2011,B101g_saving_plus_capital_transfers,104241.0,GBPm,HABD,HABD
+2011,B102_other_volume_fin,47106.0,GBPm,CWU2 (S14+S15),CWU2
+2011,B103_holding_gain_fin,240789.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2011,O_residual_dNW_less_B101g_B102_B103,-27509.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2011,O_residual_over_open_NW,-0.004138,ratio,residual/E45V[t-1],as above
+2011,B103_AF5_equity,-28847.0,GBPm,N4CX,N4CX
+2011,B103_AF6_pension_insurance,272937.0,GBPm,N4EV,N4EV
+2011,dNFA_S14,377753.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2011,O_fin_residual_dNFA_less_B9N_B102_B103,33494.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2011,pi_hfce_deflator,0.038516,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2011,real_erosion_opening_liabilities_GBPm,59600.274725,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2011,real_erosion_over_open_NW,0.008964,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2011,D4_received_over_open_total_fin_assets,0.041434,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2011,D4_excl_D441_D442_over_open_total_fin_assets,0.019495,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2012,B6g_gdhi,1075680.0,GBPm,HABN,HABN
+2012,D8_pension_adj,78234.0,GBPm,HAZA,HAZA
+2012,P31_consumption,1053657.0,GBPm,ABPB,ABPB
+2012,B8g_saving,100257.0,GBPm,HADA,HADA
+2012,saving_ratio_pct,8.688429,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2012,ratio_pension_part_pct,6.779881,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2012,ratio_nonpension_part_pct,1.908548,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2012,consumption_share_of_B6g,0.979526,ratio,P31/B6g,"ABPB,HABN"
+2012,saving_share_of_B6g,0.093203,ratio,B8g/B6g,"HADA,HABN"
+2012,D8_share_of_B6g,0.07273,ratio,D8/B6g,"HAZA,HABN"
+2012,nonpension_saving_GBPm,22023.0,GBPm,B8g-D8,"HADA,HAZA"
+2012,qsa_pension_contribution_pp,6.8,pct,JS97,JS97
+2012,qsa_nonpension_contribution_pp,1.9,pct,JS8S,JS8S
+2012,cash_basis_saving_ratio_pct,2.7,pct,CSJ8,CSJ8
+2012,D1_compensation_GBPm,844684.0,GBPm,HAEB,HAEB
+2012,D1_compensation_share_B5g,0.682445,ratio,HAEB/B5g,"HAEB,HABL"
+2012,B2gB3g_operating_mixed_GBPm,232478.0,GBPm,CRTY,CRTY
+2012,B2gB3g_operating_mixed_share_B5g,0.187826,ratio,CRTY/B5g,"CRTY,HABL"
+2012,D4_property_received_GBPm,185669.0,GBPm,HAXU,HAXU
+2012,D4_property_received_share_B5g,0.150007,ratio,HAXU/B5g,"HAXU,HABL"
+2012,D4_property_paid_GBPm,25099.0,GBPm,HACX,HACX
+2012,D4_property_paid_share_B5g,0.020278,ratio,HACX/B5g,"HACX,HABL"
+2012,B5g_primary_GBPm,1237732.0,GBPm,HABL,HABL
+2012,D4_net_GBPm,160570.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2012,D4_net_share_B5g,0.129729,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2012,D41_interest_GBPm,21542.0,GBPm,HAXV,HAXV
+2012,D42_distributed_GBPm,74139.0,GBPm,HAXW,HAXW
+2012,D441_insurance_attrib_GBPm,19115.0,GBPm,KZK8,KZK8
+2012,D442_pension_attrib_GBPm,68363.0,GBPm,KZK9,KZK9
+2012,D443_cis_GBPm,2491.0,GBPm,L5V2,L5V2
+2012,D45_rent_on_land_GBPm,19.0,GBPm,M8MD,M8MD
+2012,D4_excl_D441_D442_GBPm,98191.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2012,D4_excl_D441_D442_share_B6g,0.091283,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2012,D442_share_B6g,0.063553,ratio,D442/B6g,"KZK9,HABN"
+2012,D611_employer_actual_GBPm,144095.0,GBPm,L8NL,L8NL
+2012,D612_employer_imputed_GBPm,10212.0,GBPm,MA4A,MA4A
+2012,D613_household_actual_GBPm,60665.0,GBPm,L8PT,L8PT
+2012,D614_supplements_GBPm,68363.0,GBPm,L8Q9,L8Q9
+2012,D61SC_service_charges_GBPm,-7309.0,GBPm,M92I,M92I
+2012,D61_net_contributions_GBPm,276026.0,GBPm,HADI,HADI
+2012,D621_social_security_cash_GBPm,89187.0,GBPm,L8QH,L8QH
+2012,D622_other_social_insurance_GBPm,103248.0,GBPm,L8QV,L8QV
+2012,D623_social_assistance_GBPm,119196.0,GBPm,HAYU,HAYU
+2012,D62_benefits_GBPm,311631.0,GBPm,HAYP,HAYP
+2012,D51_income_tax_GBPm,153730.0,GBPm,HAYD,HAYD
+2012,D5_taxes_income_wealth_GBPm,189151.0,GBPm,HAYC,HAYC
+2012,D8_over_D622,0.757729,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2012,D622_share_B6g,0.095984,ratio,D622/B6g,"L8QV,HABN"
+2012,D5_share_B5g,0.152821,ratio,D5/B5g,"HAYC,HABL"
+2012,B2g_over_open_dwellings_land,0.036392,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2012,NW_S14_end,7263138.0,GBPm,E45V,E45V
+2012,dNW_S14,249864.0,GBPm,E45V[t]-E45V[t-1],E45V
+2012,B8g_over_open_NW,0.014295,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2012,nonpension_B8g_over_open_NW,0.00314,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2012,D8_over_open_NW,0.011155,ratio,D8/E45V[t-1],"HAZA,E45V"
+2012,B101g_saving_plus_capital_transfers,100880.0,GBPm,HABD,HABD
+2012,B102_other_volume_fin,68185.0,GBPm,CWU2 (S14+S15),CWU2
+2012,B103_holding_gain_fin,28905.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2012,O_residual_dNW_less_B101g_B102_B103,51894.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2012,O_residual_over_open_NW,0.007399,ratio,residual/E45V[t-1],as above
+2012,B103_AF5_equity,25295.0,GBPm,N4CX,N4CX
+2012,B103_AF6_pension_insurance,1594.0,GBPm,N4EV,N4EV
+2012,dNFA_S14,160662.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2012,O_fin_residual_dNFA_less_B9N_B102_B103,10933.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2012,pi_hfce_deflator,0.01511,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2012,real_erosion_opening_liabilities_GBPm,23803.687415,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2012,real_erosion_over_open_NW,0.003394,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2012,D4_received_over_open_total_fin_assets,0.036618,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2012,D4_excl_D441_D442_over_open_total_fin_assets,0.019365,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2013,B6g_gdhi,1122009.0,GBPm,HABN,HABN
+2013,D8_pension_adj,83310.0,GBPm,HAZA,HAZA
+2013,P31_consumption,1104231.0,GBPm,ABPB,ABPB
+2013,B8g_saving,101088.0,GBPm,HADA,HADA
+2013,saving_ratio_pct,8.386825,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2013,ratio_pension_part_pct,6.911863,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2013,ratio_nonpension_part_pct,1.474962,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2013,consumption_share_of_B6g,0.984155,ratio,P31/B6g,"ABPB,HABN"
+2013,saving_share_of_B6g,0.090096,ratio,B8g/B6g,"HADA,HABN"
+2013,D8_share_of_B6g,0.074251,ratio,D8/B6g,"HAZA,HABN"
+2013,nonpension_saving_GBPm,17778.0,GBPm,B8g-D8,"HADA,HAZA"
+2013,qsa_pension_contribution_pp,6.9,pct,JS97,JS97
+2013,qsa_nonpension_contribution_pp,1.4,pct,JS8S,JS8S
+2013,cash_basis_saving_ratio_pct,2.3,pct,CSJ8,CSJ8
+2013,D1_compensation_GBPm,876614.0,GBPm,HAEB,HAEB
+2013,D1_compensation_share_B5g,0.676007,ratio,HAEB/B5g,"HAEB,HABL"
+2013,B2gB3g_operating_mixed_GBPm,239014.0,GBPm,CRTY,CRTY
+2013,B2gB3g_operating_mixed_share_B5g,0.184317,ratio,CRTY/B5g,"CRTY,HABL"
+2013,D4_property_received_GBPm,203227.0,GBPm,HAXU,HAXU
+2013,D4_property_received_share_B5g,0.15672,ratio,HAXU/B5g,"HAXU,HABL"
+2013,D4_property_paid_GBPm,22102.0,GBPm,HACX,HACX
+2013,D4_property_paid_share_B5g,0.017044,ratio,HACX/B5g,"HACX,HABL"
+2013,B5g_primary_GBPm,1296753.0,GBPm,HABL,HABL
+2013,D4_net_GBPm,181125.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2013,D4_net_share_B5g,0.139676,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2013,D41_interest_GBPm,18547.0,GBPm,HAXV,HAXV
+2013,D42_distributed_GBPm,85669.0,GBPm,HAXW,HAXW
+2013,D441_insurance_attrib_GBPm,18042.0,GBPm,KZK8,KZK8
+2013,D442_pension_attrib_GBPm,78238.0,GBPm,KZK9,KZK9
+2013,D443_cis_GBPm,2709.0,GBPm,L5V2,L5V2
+2013,D45_rent_on_land_GBPm,22.0,GBPm,M8MD,M8MD
+2013,D4_excl_D441_D442_GBPm,106947.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2013,D4_excl_D441_D442_share_B6g,0.095317,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2013,D442_share_B6g,0.06973,ratio,D442/B6g,"KZK9,HABN"
+2013,D611_employer_actual_GBPm,145502.0,GBPm,L8NL,L8NL
+2013,D612_employer_imputed_GBPm,9528.0,GBPm,MA4A,MA4A
+2013,D613_household_actual_GBPm,63362.0,GBPm,L8PT,L8PT
+2013,D614_supplements_GBPm,78238.0,GBPm,L8Q9,L8Q9
+2013,D61SC_service_charges_GBPm,-8305.0,GBPm,M92I,M92I
+2013,D61_net_contributions_GBPm,288325.0,GBPm,HADI,HADI
+2013,D621_social_security_cash_GBPm,91231.0,GBPm,L8QH,L8QH
+2013,D622_other_social_insurance_GBPm,109166.0,GBPm,L8QV,L8QV
+2013,D623_social_assistance_GBPm,119947.0,GBPm,HAYU,HAYU
+2013,D62_benefits_GBPm,320344.0,GBPm,HAYP,HAYP
+2013,D51_income_tax_GBPm,158986.0,GBPm,HAYD,HAYD
+2013,D5_taxes_income_wealth_GBPm,195773.0,GBPm,HAYC,HAYC
+2013,D8_over_D622,0.76315,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2013,D622_share_B6g,0.097295,ratio,D622/B6g,"L8QV,HABN"
+2013,D5_share_B5g,0.150972,ratio,D5/B5g,"HAYC,HABL"
+2013,B2g_over_open_dwellings_land,0.036,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2013,NW_S14_end,7518069.0,GBPm,E45V,E45V
+2013,dNW_S14,254931.0,GBPm,E45V[t]-E45V[t-1],E45V
+2013,B8g_over_open_NW,0.013918,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2013,nonpension_B8g_over_open_NW,0.002448,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2013,D8_over_open_NW,0.01147,ratio,D8/E45V[t-1],"HAZA,E45V"
+2013,B101g_saving_plus_capital_transfers,100068.0,GBPm,HABD,HABD
+2013,B102_other_volume_fin,30554.0,GBPm,CWU2 (S14+S15),CWU2
+2013,B103_holding_gain_fin,-44430.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2013,O_residual_dNW_less_B101g_B102_B103,168739.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2013,O_residual_over_open_NW,0.023232,ratio,residual/E45V[t-1],as above
+2013,B103_AF5_equity,118494.0,GBPm,N4CX,N4CX
+2013,B103_AF6_pension_insurance,-159018.0,GBPm,N4EV,N4EV
+2013,dNFA_S14,18432.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2013,O_fin_residual_dNFA_less_B9N_B102_B103,-12563.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2013,pi_hfce_deflator,0.021651,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2013,real_erosion_opening_liabilities_GBPm,34347.464901,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2013,real_erosion_over_open_NW,0.004729,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2013,D4_received_over_open_total_fin_assets,0.03869,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2013,D4_excl_D441_D442_over_open_total_fin_assets,0.02036,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2014,B6g_gdhi,1166922.0,GBPm,HABN,HABN
+2014,D8_pension_adj,79003.0,GBPm,HAZA,HAZA
+2014,P31_consumption,1150544.0,GBPm,ABPB,ABPB
+2014,B8g_saving,95381.0,GBPm,HADA,HADA
+2014,saving_ratio_pct,7.655437,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2014,ratio_pension_part_pct,6.340911,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2014,ratio_nonpension_part_pct,1.314525,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2014,consumption_share_of_B6g,0.985965,ratio,P31/B6g,"ABPB,HABN"
+2014,saving_share_of_B6g,0.081737,ratio,B8g/B6g,"HADA,HABN"
+2014,D8_share_of_B6g,0.067702,ratio,D8/B6g,"HAZA,HABN"
+2014,nonpension_saving_GBPm,16378.0,GBPm,B8g-D8,"HADA,HAZA"
+2014,qsa_pension_contribution_pp,6.3,pct,JS97,JS97
+2014,qsa_nonpension_contribution_pp,1.3,pct,JS8S,JS8S
+2014,cash_basis_saving_ratio_pct,2.0,pct,CSJ8,CSJ8
+2014,D1_compensation_GBPm,898938.0,GBPm,HAEB,HAEB
+2014,D1_compensation_share_B5g,0.671301,ratio,HAEB/B5g,"HAEB,HABL"
+2014,B2gB3g_operating_mixed_GBPm,256846.0,GBPm,CRTY,CRTY
+2014,B2gB3g_operating_mixed_share_B5g,0.191805,ratio,CRTY/B5g,"CRTY,HABL"
+2014,D4_property_received_GBPm,210959.0,GBPm,HAXU,HAXU
+2014,D4_property_received_share_B5g,0.157538,ratio,HAXU/B5g,"HAXU,HABL"
+2014,D4_property_paid_GBPm,27645.0,GBPm,HACX,HACX
+2014,D4_property_paid_share_B5g,0.020644,ratio,HACX/B5g,"HACX,HABL"
+2014,B5g_primary_GBPm,1339098.0,GBPm,HABL,HABL
+2014,D4_net_GBPm,183314.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2014,D4_net_share_B5g,0.136894,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2014,D41_interest_GBPm,23539.0,GBPm,HAXV,HAXV
+2014,D42_distributed_GBPm,90016.0,GBPm,HAXW,HAXW
+2014,D441_insurance_attrib_GBPm,16680.0,GBPm,KZK8,KZK8
+2014,D442_pension_attrib_GBPm,77895.0,GBPm,KZK9,KZK9
+2014,D443_cis_GBPm,2806.0,GBPm,L5V2,L5V2
+2014,D45_rent_on_land_GBPm,23.0,GBPm,M8MD,M8MD
+2014,D4_excl_D441_D442_GBPm,116384.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2014,D4_excl_D441_D442_share_B6g,0.099736,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2014,D442_share_B6g,0.066753,ratio,D442/B6g,"KZK9,HABN"
+2014,D611_employer_actual_GBPm,141246.0,GBPm,L8NL,L8NL
+2014,D612_employer_imputed_GBPm,9075.0,GBPm,MA4A,MA4A
+2014,D613_household_actual_GBPm,65193.0,GBPm,L8PT,L8PT
+2014,D614_supplements_GBPm,77895.0,GBPm,L8Q9,L8Q9
+2014,D61SC_service_charges_GBPm,-9367.0,GBPm,M92I,M92I
+2014,D61_net_contributions_GBPm,284042.0,GBPm,HADI,HADI
+2014,D621_social_security_cash_GBPm,93650.0,GBPm,L8QH,L8QH
+2014,D622_other_social_insurance_GBPm,107522.0,GBPm,L8QV,L8QV
+2014,D623_social_assistance_GBPm,120920.0,GBPm,HAYU,HAYU
+2014,D62_benefits_GBPm,322092.0,GBPm,HAYP,HAYP
+2014,D51_income_tax_GBPm,162609.0,GBPm,HAYD,HAYD
+2014,D5_taxes_income_wealth_GBPm,199965.0,GBPm,HAYC,HAYC
+2014,D8_over_D622,0.734761,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2014,D622_share_B6g,0.092142,ratio,D622/B6g,"L8QV,HABN"
+2014,D5_share_B5g,0.149328,ratio,D5/B5g,"HAYC,HABL"
+2014,B2g_over_open_dwellings_land,0.036527,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2014,NW_S14_end,8404095.0,GBPm,E45V,E45V
+2014,dNW_S14,886026.0,GBPm,E45V[t]-E45V[t-1],E45V
+2014,B8g_over_open_NW,0.012687,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2014,nonpension_B8g_over_open_NW,0.002178,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2014,D8_over_open_NW,0.010508,ratio,D8/E45V[t-1],"HAZA,E45V"
+2014,B101g_saving_plus_capital_transfers,95328.0,GBPm,HABD,HABD
+2014,B102_other_volume_fin,22543.0,GBPm,CWU2 (S14+S15),CWU2
+2014,B103_holding_gain_fin,477695.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2014,O_residual_dNW_less_B101g_B102_B103,290460.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2014,O_residual_over_open_NW,0.038635,ratio,residual/E45V[t-1],as above
+2014,B103_AF5_equity,109600.0,GBPm,N4CX,N4CX
+2014,B103_AF6_pension_insurance,369956.0,GBPm,N4EV,N4EV
+2014,dNFA_S14,545868.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2014,O_fin_residual_dNFA_less_B9N_B102_B103,9788.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2014,pi_hfce_deflator,0.010596,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2014,real_erosion_opening_liabilities_GBPm,17393.541284,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2014,real_erosion_over_open_NW,0.002314,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2014,D4_received_over_open_total_fin_assets,0.039734,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2014,D4_excl_D441_D442_over_open_total_fin_assets,0.021921,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2015,B6g_gdhi,1236752.0,GBPm,HABN,HABN
+2015,D8_pension_adj,75892.0,GBPm,HAZA,HAZA
+2015,P31_consumption,1181365.0,GBPm,ABPB,ABPB
+2015,B8g_saving,131279.0,GBPm,HADA,HADA
+2015,saving_ratio_pct,10.001112,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2015,ratio_pension_part_pct,5.781613,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2015,ratio_nonpension_part_pct,4.219499,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2015,consumption_share_of_B6g,0.955216,ratio,P31/B6g,"ABPB,HABN"
+2015,saving_share_of_B6g,0.106148,ratio,B8g/B6g,"HADA,HABN"
+2015,D8_share_of_B6g,0.061364,ratio,D8/B6g,"HAZA,HABN"
+2015,nonpension_saving_GBPm,55387.0,GBPm,B8g-D8,"HADA,HAZA"
+2015,qsa_pension_contribution_pp,5.8,pct,JS97,JS97
+2015,qsa_nonpension_contribution_pp,4.2,pct,JS8S,JS8S
+2015,cash_basis_saving_ratio_pct,5.9,pct,CSJ8,CSJ8
+2015,D1_compensation_GBPm,929290.0,GBPm,HAEB,HAEB
+2015,D1_compensation_share_B5g,0.65577,ratio,HAEB/B5g,"HAEB,HABL"
+2015,B2gB3g_operating_mixed_GBPm,273016.0,GBPm,CRTY,CRTY
+2015,B2gB3g_operating_mixed_share_B5g,0.192659,ratio,CRTY/B5g,"CRTY,HABL"
+2015,D4_property_received_GBPm,242385.0,GBPm,HAXU,HAXU
+2015,D4_property_received_share_B5g,0.171043,ratio,HAXU/B5g,"HAXU,HABL"
+2015,D4_property_paid_GBPm,27594.0,GBPm,HACX,HACX
+2015,D4_property_paid_share_B5g,0.019472,ratio,HACX/B5g,"HACX,HABL"
+2015,B5g_primary_GBPm,1417097.0,GBPm,HABL,HABL
+2015,D4_net_GBPm,214791.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2015,D4_net_share_B5g,0.151571,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2015,D41_interest_GBPm,24456.0,GBPm,HAXV,HAXV
+2015,D42_distributed_GBPm,115868.0,GBPm,HAXW,HAXW
+2015,D441_insurance_attrib_GBPm,22968.0,GBPm,KZK8,KZK8
+2015,D442_pension_attrib_GBPm,76173.0,GBPm,KZK9,KZK9
+2015,D443_cis_GBPm,2898.0,GBPm,L5V2,L5V2
+2015,D45_rent_on_land_GBPm,22.0,GBPm,M8MD,M8MD
+2015,D4_excl_D441_D442_GBPm,143244.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2015,D4_excl_D441_D442_share_B6g,0.115823,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2015,D442_share_B6g,0.061591,ratio,D442/B6g,"KZK9,HABN"
+2015,D611_employer_actual_GBPm,146579.0,GBPm,L8NL,L8NL
+2015,D612_employer_imputed_GBPm,8932.0,GBPm,MA4A,MA4A
+2015,D613_household_actual_GBPm,68081.0,GBPm,L8PT,L8PT
+2015,D614_supplements_GBPm,76173.0,GBPm,L8Q9,L8Q9
+2015,D61SC_service_charges_GBPm,-7543.0,GBPm,M92I,M92I
+2015,D61_net_contributions_GBPm,292222.0,GBPm,HADI,HADI
+2015,D621_social_security_cash_GBPm,96462.0,GBPm,L8QH,L8QH
+2015,D622_other_social_insurance_GBPm,113370.0,GBPm,L8QV,L8QV
+2015,D623_social_assistance_GBPm,121785.0,GBPm,HAYU,HAYU
+2015,D62_benefits_GBPm,331617.0,GBPm,HAYP,HAYP
+2015,D51_income_tax_GBPm,171392.0,GBPm,HAYD,HAYD
+2015,D5_taxes_income_wealth_GBPm,209500.0,GBPm,HAYC,HAYC
+2015,D8_over_D622,0.669419,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2015,D622_share_B6g,0.091668,ratio,D622/B6g,"L8QV,HABN"
+2015,D5_share_B5g,0.147837,ratio,D5/B5g,"HAYC,HABL"
+2015,B2g_over_open_dwellings_land,0.035766,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2015,NW_S14_end,8817935.0,GBPm,E45V,E45V
+2015,dNW_S14,413840.0,GBPm,E45V[t]-E45V[t-1],E45V
+2015,B8g_over_open_NW,0.015621,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2015,nonpension_B8g_over_open_NW,0.00659,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2015,D8_over_open_NW,0.00903,ratio,D8/E45V[t-1],"HAZA,E45V"
+2015,B101g_saving_plus_capital_transfers,132281.0,GBPm,HABD,HABD
+2015,B102_other_volume_fin,-3552.0,GBPm,CWU2 (S14+S15),CWU2
+2015,B103_holding_gain_fin,-25546.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2015,O_residual_dNW_less_B101g_B102_B103,310657.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2015,O_residual_over_open_NW,0.036965,ratio,residual/E45V[t-1],as above
+2015,B103_AF5_equity,49428.0,GBPm,N4CX,N4CX
+2015,B103_AF6_pension_insurance,-78001.0,GBPm,N4EV,N4EV
+2015,dNFA_S14,45925.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2015,O_fin_residual_dNFA_less_B9N_B102_B103,6023.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2015,pi_hfce_deflator,-0.005242,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2015,real_erosion_opening_liabilities_GBPm,-8906.245059,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2015,real_erosion_over_open_NW,-0.00106,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2015,D4_received_over_open_total_fin_assets,0.041179,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2015,D4_excl_D441_D442_over_open_total_fin_assets,0.024336,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2016,B6g_gdhi,1260102.0,GBPm,HABN,HABN
+2016,D8_pension_adj,67294.0,GBPm,HAZA,HAZA
+2016,P31_consumption,1239234.0,GBPm,ABPB,ABPB
+2016,B8g_saving,88162.0,GBPm,HADA,HADA
+2016,saving_ratio_pct,6.641726,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2016,ratio_pension_part_pct,5.069625,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2016,ratio_nonpension_part_pct,1.572101,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2016,consumption_share_of_B6g,0.983439,ratio,P31/B6g,"ABPB,HABN"
+2016,saving_share_of_B6g,0.069964,ratio,B8g/B6g,"HADA,HABN"
+2016,D8_share_of_B6g,0.053404,ratio,D8/B6g,"HAZA,HABN"
+2016,nonpension_saving_GBPm,20868.0,GBPm,B8g-D8,"HADA,HAZA"
+2016,qsa_pension_contribution_pp,5.1,pct,JS97,JS97
+2016,qsa_nonpension_contribution_pp,1.5,pct,JS8S,JS8S
+2016,cash_basis_saving_ratio_pct,2.6,pct,CSJ8,CSJ8
+2016,D1_compensation_GBPm,965448.0,GBPm,HAEB,HAEB
+2016,D1_compensation_share_B5g,0.667137,ratio,HAEB/B5g,"HAEB,HABL"
+2016,B2gB3g_operating_mixed_GBPm,286772.0,GBPm,CRTY,CRTY
+2016,B2gB3g_operating_mixed_share_B5g,0.198163,ratio,CRTY/B5g,"CRTY,HABL"
+2016,D4_property_received_GBPm,223107.0,GBPm,HAXU,HAXU
+2016,D4_property_received_share_B5g,0.15417,ratio,HAXU/B5g,"HAXU,HABL"
+2016,D4_property_paid_GBPm,28175.0,GBPm,HACX,HACX
+2016,D4_property_paid_share_B5g,0.019469,ratio,HACX/B5g,"HACX,HABL"
+2016,B5g_primary_GBPm,1447152.0,GBPm,HABL,HABL
+2016,D4_net_GBPm,194932.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2016,D4_net_share_B5g,0.1347,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2016,D41_interest_GBPm,24104.0,GBPm,HAXV,HAXV
+2016,D42_distributed_GBPm,103032.0,GBPm,HAXW,HAXW
+2016,D441_insurance_attrib_GBPm,24250.0,GBPm,KZK8,KZK8
+2016,D442_pension_attrib_GBPm,68645.0,GBPm,KZK9,KZK9
+2016,D443_cis_GBPm,3042.0,GBPm,L5V2,L5V2
+2016,D45_rent_on_land_GBPm,34.0,GBPm,M8MD,M8MD
+2016,D4_excl_D441_D442_GBPm,130212.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2016,D4_excl_D441_D442_share_B6g,0.103334,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2016,D442_share_B6g,0.054476,ratio,D442/B6g,"KZK9,HABN"
+2016,D611_employer_actual_GBPm,157506.0,GBPm,L8NL,L8NL
+2016,D612_employer_imputed_GBPm,8530.0,GBPm,MA4A,MA4A
+2016,D613_household_actual_GBPm,72145.0,GBPm,L8PT,L8PT
+2016,D614_supplements_GBPm,68645.0,GBPm,L8Q9,L8Q9
+2016,D61SC_service_charges_GBPm,-11549.0,GBPm,M92I,M92I
+2016,D61_net_contributions_GBPm,295277.0,GBPm,HADI,HADI
+2016,D621_social_security_cash_GBPm,98992.0,GBPm,L8QH,L8QH
+2016,D622_other_social_insurance_GBPm,117541.0,GBPm,L8QV,L8QV
+2016,D623_social_assistance_GBPm,121286.0,GBPm,HAYU,HAYU
+2016,D62_benefits_GBPm,337819.0,GBPm,HAYP,HAYP
+2016,D51_income_tax_GBPm,178455.0,GBPm,HAYD,HAYD
+2016,D5_taxes_income_wealth_GBPm,218061.0,GBPm,HAYC,HAYC
+2016,D8_over_D622,0.572515,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2016,D622_share_B6g,0.093279,ratio,D622/B6g,"L8QV,HABN"
+2016,D5_share_B5g,0.150683,ratio,D5/B5g,"HAYC,HABL"
+2016,B2g_over_open_dwellings_land,0.035021,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2016,NW_S14_end,9579269.0,GBPm,E45V,E45V
+2016,dNW_S14,761334.0,GBPm,E45V[t]-E45V[t-1],E45V
+2016,B8g_over_open_NW,0.009998,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2016,nonpension_B8g_over_open_NW,0.002367,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2016,D8_over_open_NW,0.007631,ratio,D8/E45V[t-1],"HAZA,E45V"
+2016,B101g_saving_plus_capital_transfers,89117.0,GBPm,HABD,HABD
+2016,B102_other_volume_fin,15688.0,GBPm,CWU2 (S14+S15),CWU2
+2016,B103_holding_gain_fin,448265.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2016,O_residual_dNW_less_B101g_B102_B103,208264.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2016,O_residual_over_open_NW,0.023618,ratio,residual/E45V[t-1],as above
+2016,B103_AF5_equity,105031.0,GBPm,N4CX,N4CX
+2016,B103_AF6_pension_insurance,348991.0,GBPm,N4EV,N4EV
+2016,dNFA_S14,487474.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2016,O_fin_residual_dNFA_less_B9N_B102_B103,3277.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2016,pi_hfce_deflator,0.013175,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2016,real_erosion_opening_liabilities_GBPm,22604.317295,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2016,real_erosion_over_open_NW,0.002563,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2016,D4_received_over_open_total_fin_assets,0.037306,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2016,D4_excl_D441_D442_over_open_total_fin_assets,0.021773,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2017,B6g_gdhi,1297936.0,GBPm,HABN,HABN
+2017,D8_pension_adj,65135.0,GBPm,HAZA,HAZA
+2017,P31_consumption,1291976.0,GBPm,ABPB,ABPB
+2017,B8g_saving,71095.0,GBPm,HADA,HADA
+2017,saving_ratio_pct,5.215796,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2017,ratio_pension_part_pct,4.778548,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2017,ratio_nonpension_part_pct,0.437248,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2017,consumption_share_of_B6g,0.995408,ratio,P31/B6g,"ABPB,HABN"
+2017,saving_share_of_B6g,0.054775,ratio,B8g/B6g,"HADA,HABN"
+2017,D8_share_of_B6g,0.050184,ratio,D8/B6g,"HAZA,HABN"
+2017,nonpension_saving_GBPm,5960.0,GBPm,B8g-D8,"HADA,HAZA"
+2017,qsa_pension_contribution_pp,4.8,pct,JS97,JS97
+2017,qsa_nonpension_contribution_pp,0.4,pct,JS8S,JS8S
+2017,cash_basis_saving_ratio_pct,0.9,pct,CSJ8,CSJ8
+2017,D1_compensation_GBPm,1001406.0,GBPm,HAEB,HAEB
+2017,D1_compensation_share_B5g,0.666754,ratio,HAEB/B5g,"HAEB,HABL"
+2017,B2gB3g_operating_mixed_GBPm,302975.0,GBPm,CRTY,CRTY
+2017,B2gB3g_operating_mixed_share_B5g,0.201726,ratio,CRTY/B5g,"CRTY,HABL"
+2017,D4_property_received_GBPm,220810.0,GBPm,HAXU,HAXU
+2017,D4_property_received_share_B5g,0.147019,ratio,HAXU/B5g,"HAXU,HABL"
+2017,D4_property_paid_GBPm,23278.0,GBPm,HACX,HACX
+2017,D4_property_paid_share_B5g,0.015499,ratio,HACX/B5g,"HACX,HABL"
+2017,B5g_primary_GBPm,1501913.0,GBPm,HABL,HABL
+2017,D4_net_GBPm,197532.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2017,D4_net_share_B5g,0.13152,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2017,D41_interest_GBPm,19285.0,GBPm,HAXV,HAXV
+2017,D42_distributed_GBPm,105036.0,GBPm,HAXW,HAXW
+2017,D441_insurance_attrib_GBPm,23413.0,GBPm,KZK8,KZK8
+2017,D442_pension_attrib_GBPm,69734.0,GBPm,KZK9,KZK9
+2017,D443_cis_GBPm,3314.0,GBPm,L5V2,L5V2
+2017,D45_rent_on_land_GBPm,28.0,GBPm,M8MD,M8MD
+2017,D4_excl_D441_D442_GBPm,127663.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2017,D4_excl_D441_D442_share_B6g,0.098358,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2017,D442_share_B6g,0.053727,ratio,D442/B6g,"KZK9,HABN"
+2017,D611_employer_actual_GBPm,163452.0,GBPm,L8NL,L8NL
+2017,D612_employer_imputed_GBPm,8339.0,GBPm,MA4A,MA4A
+2017,D613_household_actual_GBPm,75810.0,GBPm,L8PT,L8PT
+2017,D614_supplements_GBPm,69734.0,GBPm,L8Q9,L8Q9
+2017,D61SC_service_charges_GBPm,-13415.0,GBPm,M92I,M92I
+2017,D61_net_contributions_GBPm,303920.0,GBPm,HADI,HADI
+2017,D621_social_security_cash_GBPm,100996.0,GBPm,L8QH,L8QH
+2017,D622_other_social_insurance_GBPm,119485.0,GBPm,L8QV,L8QV
+2017,D623_social_assistance_GBPm,120876.0,GBPm,HAYU,HAYU
+2017,D62_benefits_GBPm,341357.0,GBPm,HAYP,HAYP
+2017,D51_income_tax_GBPm,188174.0,GBPm,HAYD,HAYD
+2017,D5_taxes_income_wealth_GBPm,229840.0,GBPm,HAYC,HAYC
+2017,D8_over_D622,0.545131,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2017,D622_share_B6g,0.092058,ratio,D622/B6g,"L8QV,HABN"
+2017,D5_share_B5g,0.153032,ratio,D5/B5g,"HAYC,HABL"
+2017,B2g_over_open_dwellings_land,0.034358,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2017,NW_S14_end,9970925.0,GBPm,E45V,E45V
+2017,dNW_S14,391656.0,GBPm,E45V[t]-E45V[t-1],E45V
+2017,B8g_over_open_NW,0.007422,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2017,nonpension_B8g_over_open_NW,0.000622,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2017,D8_over_open_NW,0.0068,ratio,D8/E45V[t-1],"HAZA,E45V"
+2017,B101g_saving_plus_capital_transfers,73010.0,GBPm,HABD,HABD
+2017,B102_other_volume_fin,19823.0,GBPm,CWU2 (S14+S15),CWU2
+2017,B103_holding_gain_fin,138073.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2017,O_residual_dNW_less_B101g_B102_B103,160750.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2017,O_residual_over_open_NW,0.016781,ratio,residual/E45V[t-1],as above
+2017,B103_AF5_equity,92927.0,GBPm,N4CX,N4CX
+2017,B103_AF6_pension_insurance,47538.0,GBPm,N4EV,N4EV
+2017,dNFA_S14,153078.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2017,O_fin_residual_dNFA_less_B9N_B102_B103,684.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2017,pi_hfce_deflator,0.018205,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2017,real_erosion_opening_liabilities_GBPm,32189.701149,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2017,real_erosion_over_open_NW,0.00336,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2017,D4_received_over_open_total_fin_assets,0.033815,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2017,D4_excl_D441_D442_over_open_total_fin_assets,0.01955,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2018,B6g_gdhi,1353526.0,GBPm,HABN,HABN
+2018,D8_pension_adj,67409.0,GBPm,HAZA,HAZA
+2018,P31_consumption,1341062.0,GBPm,ABPB,ABPB
+2018,B8g_saving,79873.0,GBPm,HADA,HADA
+2018,saving_ratio_pct,5.621158,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2018,ratio_pension_part_pct,4.743989,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2018,ratio_nonpension_part_pct,0.877169,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2018,consumption_share_of_B6g,0.990791,ratio,P31/B6g,"ABPB,HABN"
+2018,saving_share_of_B6g,0.059011,ratio,B8g/B6g,"HADA,HABN"
+2018,D8_share_of_B6g,0.049803,ratio,D8/B6g,"HAZA,HABN"
+2018,nonpension_saving_GBPm,12464.0,GBPm,B8g-D8,"HADA,HAZA"
+2018,qsa_pension_contribution_pp,4.7,pct,JS97,JS97
+2018,qsa_nonpension_contribution_pp,0.9,pct,JS8S,JS8S
+2018,cash_basis_saving_ratio_pct,1.4,pct,CSJ8,CSJ8
+2018,D1_compensation_GBPm,1044647.0,GBPm,HAEB,HAEB
+2018,D1_compensation_share_B5g,0.666257,ratio,HAEB/B5g,"HAEB,HABL"
+2018,B2gB3g_operating_mixed_GBPm,320138.0,GBPm,CRTY,CRTY
+2018,B2gB3g_operating_mixed_share_B5g,0.204178,ratio,CRTY/B5g,"CRTY,HABL"
+2018,D4_property_received_GBPm,232833.0,GBPm,HAXU,HAXU
+2018,D4_property_received_share_B5g,0.148497,ratio,HAXU/B5g,"HAXU,HABL"
+2018,D4_property_paid_GBPm,29684.0,GBPm,HACX,HACX
+2018,D4_property_paid_share_B5g,0.018932,ratio,HACX/B5g,"HACX,HABL"
+2018,B5g_primary_GBPm,1567934.0,GBPm,HABL,HABL
+2018,D4_net_GBPm,203149.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2018,D4_net_share_B5g,0.129565,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2018,D41_interest_GBPm,25319.0,GBPm,HAXV,HAXV
+2018,D42_distributed_GBPm,117925.0,GBPm,HAXW,HAXW
+2018,D441_insurance_attrib_GBPm,19560.0,GBPm,KZK8,KZK8
+2018,D442_pension_attrib_GBPm,66755.0,GBPm,KZK9,KZK9
+2018,D443_cis_GBPm,3242.0,GBPm,L5V2,L5V2
+2018,D45_rent_on_land_GBPm,32.0,GBPm,M8MD,M8MD
+2018,D4_excl_D441_D442_GBPm,146518.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2018,D4_excl_D441_D442_share_B6g,0.108249,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2018,D442_share_B6g,0.049319,ratio,D442/B6g,"KZK9,HABN"
+2018,D611_employer_actual_GBPm,170864.0,GBPm,L8NL,L8NL
+2018,D612_employer_imputed_GBPm,8185.0,GBPm,MA4A,MA4A
+2018,D613_household_actual_GBPm,81669.0,GBPm,L8PT,L8PT
+2018,D614_supplements_GBPm,66755.0,GBPm,L8Q9,L8Q9
+2018,D61SC_service_charges_GBPm,-11683.0,GBPm,M92I,M92I
+2018,D61_net_contributions_GBPm,315790.0,GBPm,HADI,HADI
+2018,D621_social_security_cash_GBPm,103892.0,GBPm,L8QH,L8QH
+2018,D622_other_social_insurance_GBPm,125424.0,GBPm,L8QV,L8QV
+2018,D623_social_assistance_GBPm,122284.0,GBPm,HAYU,HAYU
+2018,D62_benefits_GBPm,351600.0,GBPm,HAYP,HAYP
+2018,D51_income_tax_GBPm,194691.0,GBPm,HAYD,HAYD
+2018,D5_taxes_income_wealth_GBPm,239486.0,GBPm,HAYC,HAYC
+2018,D8_over_D622,0.537449,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2018,D622_share_B6g,0.092665,ratio,D622/B6g,"L8QV,HABN"
+2018,D5_share_B5g,0.15274,ratio,D5/B5g,"HAYC,HABL"
+2018,B2g_over_open_dwellings_land,0.0351,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2018,NW_S14_end,9822590.0,GBPm,E45V,E45V
+2018,dNW_S14,-148335.0,GBPm,E45V[t]-E45V[t-1],E45V
+2018,B8g_over_open_NW,0.008011,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2018,nonpension_B8g_over_open_NW,0.00125,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2018,D8_over_open_NW,0.006761,ratio,D8/E45V[t-1],"HAZA,E45V"
+2018,B101g_saving_plus_capital_transfers,81199.0,GBPm,HABD,HABD
+2018,B102_other_volume_fin,37812.0,GBPm,CWU2 (S14+S15),CWU2
+2018,B103_holding_gain_fin,-310520.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2018,O_residual_dNW_less_B101g_B102_B103,43174.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2018,O_residual_over_open_NW,0.00433,ratio,residual/E45V[t-1],as above
+2018,B103_AF5_equity,-57367.0,GBPm,N4CX,N4CX
+2018,B103_AF6_pension_insurance,-250467.0,GBPm,N4EV,N4EV
+2018,dNFA_S14,-267443.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2018,O_fin_residual_dNFA_less_B9N_B102_B103,5790.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2018,pi_hfce_deflator,0.019157,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2018,real_erosion_opening_liabilities_GBPm,34949.43609,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2018,real_erosion_over_open_NW,0.003505,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2018,D4_received_over_open_total_fin_assets,0.034535,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2018,D4_excl_D441_D442_over_open_total_fin_assets,0.021732,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2019,B6g_gdhi,1405426.0,GBPm,HABN,HABN
+2019,D8_pension_adj,58572.0,GBPm,HAZA,HAZA
+2019,P31_consumption,1380671.0,GBPm,ABPB,ABPB
+2019,B8g_saving,83327.0,GBPm,HADA,HADA
+2019,saving_ratio_pct,5.691743,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2019,ratio_pension_part_pct,4.000825,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2019,ratio_nonpension_part_pct,1.690918,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2019,consumption_share_of_B6g,0.982386,ratio,P31/B6g,"ABPB,HABN"
+2019,saving_share_of_B6g,0.059289,ratio,B8g/B6g,"HADA,HABN"
+2019,D8_share_of_B6g,0.041676,ratio,D8/B6g,"HAZA,HABN"
+2019,nonpension_saving_GBPm,24755.0,GBPm,B8g-D8,"HADA,HAZA"
+2019,qsa_pension_contribution_pp,4.0,pct,JS97,JS97
+2019,qsa_nonpension_contribution_pp,1.7,pct,JS8S,JS8S
+2019,cash_basis_saving_ratio_pct,2.4,pct,CSJ8,CSJ8
+2019,D1_compensation_GBPm,1093102.0,GBPm,HAEB,HAEB
+2019,D1_compensation_share_B5g,0.671178,ratio,HAEB/B5g,"HAEB,HABL"
+2019,B2gB3g_operating_mixed_GBPm,331608.0,GBPm,CRTY,CRTY
+2019,B2gB3g_operating_mixed_share_B5g,0.203611,ratio,CRTY/B5g,"CRTY,HABL"
+2019,D4_property_received_GBPm,231051.0,GBPm,HAXU,HAXU
+2019,D4_property_received_share_B5g,0.141868,ratio,HAXU/B5g,"HAXU,HABL"
+2019,D4_property_paid_GBPm,27130.0,GBPm,HACX,HACX
+2019,D4_property_paid_share_B5g,0.016658,ratio,HACX/B5g,"HACX,HABL"
+2019,B5g_primary_GBPm,1628631.0,GBPm,HABL,HABL
+2019,D4_net_GBPm,203921.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2019,D4_net_share_B5g,0.12521,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2019,D41_interest_GBPm,22923.0,GBPm,HAXV,HAXV
+2019,D42_distributed_GBPm,125751.0,GBPm,HAXW,HAXW
+2019,D441_insurance_attrib_GBPm,23857.0,GBPm,KZK8,KZK8
+2019,D442_pension_attrib_GBPm,55248.0,GBPm,KZK9,KZK9
+2019,D443_cis_GBPm,3252.0,GBPm,L5V2,L5V2
+2019,D45_rent_on_land_GBPm,20.0,GBPm,M8MD,M8MD
+2019,D4_excl_D441_D442_GBPm,151946.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2019,D4_excl_D441_D442_share_B6g,0.108114,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2019,D442_share_B6g,0.039311,ratio,D442/B6g,"KZK9,HABN"
+2019,D611_employer_actual_GBPm,186710.0,GBPm,L8NL,L8NL
+2019,D612_employer_imputed_GBPm,8016.0,GBPm,MA4A,MA4A
+2019,D613_household_actual_GBPm,90488.0,GBPm,L8PT,L8PT
+2019,D614_supplements_GBPm,55248.0,GBPm,L8Q9,L8Q9
+2019,D61SC_service_charges_GBPm,-13704.0,GBPm,M92I,M92I
+2019,D61_net_contributions_GBPm,326758.0,GBPm,HADI,HADI
+2019,D621_social_security_cash_GBPm,105329.0,GBPm,L8QH,L8QH
+2019,D622_other_social_insurance_GBPm,132347.0,GBPm,L8QV,L8QV
+2019,D623_social_assistance_GBPm,124880.0,GBPm,HAYU,HAYU
+2019,D62_benefits_GBPm,362556.0,GBPm,HAYP,HAYP
+2019,D51_income_tax_GBPm,199912.0,GBPm,HAYD,HAYD
+2019,D5_taxes_income_wealth_GBPm,247157.0,GBPm,HAYC,HAYC
+2019,D8_over_D622,0.442564,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2019,D622_share_B6g,0.094169,ratio,D622/B6g,"L8QV,HABN"
+2019,D5_share_B5g,0.151758,ratio,D5/B5g,"HAYC,HABL"
+2019,B2g_over_open_dwellings_land,0.034987,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2019,NW_S14_end,10317697.0,GBPm,E45V,E45V
+2019,dNW_S14,495107.0,GBPm,E45V[t]-E45V[t-1],E45V
+2019,B8g_over_open_NW,0.008483,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2019,nonpension_B8g_over_open_NW,0.00252,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2019,D8_over_open_NW,0.005963,ratio,D8/E45V[t-1],"HAZA,E45V"
+2019,B101g_saving_plus_capital_transfers,86901.0,GBPm,HABD,HABD
+2019,B102_other_volume_fin,45030.0,GBPm,CWU2 (S14+S15),CWU2
+2019,B103_holding_gain_fin,353290.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2019,O_residual_dNW_less_B101g_B102_B103,9886.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2019,O_residual_over_open_NW,0.001006,ratio,residual/E45V[t-1],as above
+2019,B103_AF5_equity,138654.0,GBPm,N4CX,N4CX
+2019,B103_AF6_pension_insurance,217738.0,GBPm,N4EV,N4EV
+2019,dNFA_S14,399346.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2019,O_fin_residual_dNFA_less_B9N_B102_B103,-584.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2019,pi_hfce_deflator,0.015038,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2019,real_erosion_opening_liabilities_GBPm,28234.844444,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2019,real_erosion_over_open_NW,0.002874,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2019,D4_received_over_open_total_fin_assets,0.035431,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2019,D4_excl_D441_D442_over_open_total_fin_assets,0.023301,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2020,B6g_gdhi,1404043.0,GBPm,HABN,HABN
+2020,D8_pension_adj,42246.0,GBPm,HAZA,HAZA
+2020,P31_consumption,1208211.0,GBPm,ABPB,ABPB
+2020,B8g_saving,238078.0,GBPm,HADA,HADA
+2020,saving_ratio_pct,16.461302,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2020,ratio_pension_part_pct,2.920993,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2020,ratio_nonpension_part_pct,13.540309,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2020,consumption_share_of_B6g,0.860523,ratio,P31/B6g,"ABPB,HABN"
+2020,saving_share_of_B6g,0.169566,ratio,B8g/B6g,"HADA,HABN"
+2020,D8_share_of_B6g,0.030089,ratio,D8/B6g,"HAZA,HABN"
+2020,nonpension_saving_GBPm,195832.0,GBPm,B8g-D8,"HADA,HAZA"
+2020,qsa_pension_contribution_pp,3.0,pct,JS97,JS97
+2020,qsa_nonpension_contribution_pp,13.6,pct,JS8S,JS8S
+2020,cash_basis_saving_ratio_pct,17.2,pct,CSJ8,CSJ8
+2020,D1_compensation_GBPm,1097912.0,GBPm,HAEB,HAEB
+2020,D1_compensation_share_B5g,0.68922,ratio,HAEB/B5g,"HAEB,HABL"
+2020,B2gB3g_operating_mixed_GBPm,330843.0,GBPm,CRTY,CRTY
+2020,B2gB3g_operating_mixed_share_B5g,0.207688,ratio,CRTY/B5g,"CRTY,HABL"
+2020,D4_property_received_GBPm,183143.0,GBPm,HAXU,HAXU
+2020,D4_property_received_share_B5g,0.114969,ratio,HAXU/B5g,"HAXU,HABL"
+2020,D4_property_paid_GBPm,18920.0,GBPm,HACX,HACX
+2020,D4_property_paid_share_B5g,0.011877,ratio,HACX/B5g,"HACX,HABL"
+2020,B5g_primary_GBPm,1592978.0,GBPm,HABL,HABL
+2020,D4_net_GBPm,164223.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2020,D4_net_share_B5g,0.103092,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2020,D41_interest_GBPm,15988.0,GBPm,HAXV,HAXV
+2020,D42_distributed_GBPm,101258.0,GBPm,HAXW,HAXW
+2020,D441_insurance_attrib_GBPm,19245.0,GBPm,KZK8,KZK8
+2020,D442_pension_attrib_GBPm,43600.0,GBPm,KZK9,KZK9
+2020,D443_cis_GBPm,3024.0,GBPm,L5V2,L5V2
+2020,D45_rent_on_land_GBPm,28.0,GBPm,M8MD,M8MD
+2020,D4_excl_D441_D442_GBPm,120298.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2020,D4_excl_D441_D442_share_B6g,0.08568,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2020,D442_share_B6g,0.031053,ratio,D442/B6g,"KZK9,HABN"
+2020,D611_employer_actual_GBPm,190958.0,GBPm,L8NL,L8NL
+2020,D612_employer_imputed_GBPm,9094.0,GBPm,MA4A,MA4A
+2020,D613_household_actual_GBPm,89095.0,GBPm,L8PT,L8PT
+2020,D614_supplements_GBPm,43600.0,GBPm,L8Q9,L8Q9
+2020,D61SC_service_charges_GBPm,-14558.0,GBPm,M92I,M92I
+2020,D61_net_contributions_GBPm,318189.0,GBPm,HADI,HADI
+2020,D621_social_security_cash_GBPm,108322.0,GBPm,L8QH,L8QH
+2020,D622_other_social_insurance_GBPm,137305.0,GBPm,L8QV,L8QV
+2020,D623_social_assistance_GBPm,141683.0,GBPm,HAYU,HAYU
+2020,D62_benefits_GBPm,387310.0,GBPm,HAYP,HAYP
+2020,D51_income_tax_GBPm,199452.0,GBPm,HAYD,HAYD
+2020,D5_taxes_income_wealth_GBPm,247549.0,GBPm,HAYC,HAYC
+2020,D8_over_D622,0.30768,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2020,D622_share_B6g,0.097793,ratio,D622/B6g,"L8QV,HABN"
+2020,D5_share_B5g,0.1554,ratio,D5/B5g,"HAYC,HABL"
+2020,B2g_over_open_dwellings_land,0.033972,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2020,NW_S14_end,11071768.0,GBPm,E45V,E45V
+2020,dNW_S14,754071.0,GBPm,E45V[t]-E45V[t-1],E45V
+2020,B8g_over_open_NW,0.023075,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2020,nonpension_B8g_over_open_NW,0.01898,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2020,D8_over_open_NW,0.004095,ratio,D8/E45V[t-1],"HAZA,E45V"
+2020,B101g_saving_plus_capital_transfers,241707.0,GBPm,HABD,HABD
+2020,B102_other_volume_fin,3053.0,GBPm,CWU2 (S14+S15),CWU2
+2020,B103_holding_gain_fin,205132.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2020,O_residual_dNW_less_B101g_B102_B103,304179.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2020,O_residual_over_open_NW,0.029481,ratio,residual/E45V[t-1],as above
+2020,B103_AF5_equity,4767.0,GBPm,N4CX,N4CX
+2020,B103_AF6_pension_insurance,206062.0,GBPm,N4EV,N4EV
+2020,dNFA_S14,381233.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2020,O_fin_residual_dNFA_less_B9N_B102_B103,2938.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2020,pi_hfce_deflator,0.0,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2020,real_erosion_opening_liabilities_GBPm,0.0,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2020,real_erosion_over_open_NW,0.0,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2020,D4_received_over_open_total_fin_assets,0.026331,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2020,D4_excl_D441_D442_over_open_total_fin_assets,0.017296,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2021,B6g_gdhi,1468246.0,GBPm,HABN,HABN
+2021,D8_pension_adj,55485.0,GBPm,HAZA,HAZA
+2021,P31_consumption,1331408.0,GBPm,ABPB,ABPB
+2021,B8g_saving,192323.0,GBPm,HADA,HADA
+2021,saving_ratio_pct,12.621847,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2021,ratio_pension_part_pct,3.641391,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2021,ratio_nonpension_part_pct,8.980457,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2021,consumption_share_of_B6g,0.906802,ratio,P31/B6g,"ABPB,HABN"
+2021,saving_share_of_B6g,0.130988,ratio,B8g/B6g,"HADA,HABN"
+2021,D8_share_of_B6g,0.03779,ratio,D8/B6g,"HAZA,HABN"
+2021,nonpension_saving_GBPm,136838.0,GBPm,B8g-D8,"HADA,HAZA"
+2021,qsa_pension_contribution_pp,3.7,pct,JS97,JS97
+2021,qsa_nonpension_contribution_pp,9.0,pct,JS8S,JS8S
+2021,cash_basis_saving_ratio_pct,11.8,pct,CSJ8,CSJ8
+2021,D1_compensation_GBPm,1162175.0,GBPm,HAEB,HAEB
+2021,D1_compensation_share_B5g,0.678688,ratio,HAEB/B5g,"HAEB,HABL"
+2021,B2gB3g_operating_mixed_GBPm,350388.0,GBPm,CRTY,CRTY
+2021,B2gB3g_operating_mixed_share_B5g,0.20462,ratio,CRTY/B5g,"CRTY,HABL"
+2021,D4_property_received_GBPm,220894.0,GBPm,HAXU,HAXU
+2021,D4_property_received_share_B5g,0.128998,ratio,HAXU/B5g,"HAXU,HABL"
+2021,D4_property_paid_GBPm,21071.0,GBPm,HACX,HACX
+2021,D4_property_paid_share_B5g,0.012305,ratio,HACX/B5g,"HACX,HABL"
+2021,B5g_primary_GBPm,1712386.0,GBPm,HABL,HABL
+2021,D4_net_GBPm,199823.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2021,D4_net_share_B5g,0.116693,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2021,D41_interest_GBPm,19566.0,GBPm,HAXV,HAXV
+2021,D42_distributed_GBPm,120842.0,GBPm,HAXW,HAXW
+2021,D441_insurance_attrib_GBPm,18355.0,GBPm,KZK8,KZK8
+2021,D442_pension_attrib_GBPm,58652.0,GBPm,KZK9,KZK9
+2021,D443_cis_GBPm,3453.0,GBPm,L5V2,L5V2
+2021,D45_rent_on_land_GBPm,26.0,GBPm,M8MD,M8MD
+2021,D4_excl_D441_D442_GBPm,143887.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2021,D4_excl_D441_D442_share_B6g,0.097999,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2021,D442_share_B6g,0.039947,ratio,D442/B6g,"KZK9,HABN"
+2021,D611_employer_actual_GBPm,198123.0,GBPm,L8NL,L8NL
+2021,D612_employer_imputed_GBPm,7662.0,GBPm,MA4A,MA4A
+2021,D613_household_actual_GBPm,96651.0,GBPm,L8PT,L8PT
+2021,D614_supplements_GBPm,58652.0,GBPm,L8Q9,L8Q9
+2021,D61SC_service_charges_GBPm,-15591.0,GBPm,M92I,M92I
+2021,D61_net_contributions_GBPm,345497.0,GBPm,HADI,HADI
+2021,D621_social_security_cash_GBPm,110848.0,GBPm,L8QH,L8QH
+2021,D622_other_social_insurance_GBPm,137347.0,GBPm,L8QV,L8QV
+2021,D623_social_assistance_GBPm,146382.0,GBPm,HAYU,HAYU
+2021,D62_benefits_GBPm,394577.0,GBPm,HAYP,HAYP
+2021,D51_income_tax_GBPm,228715.0,GBPm,HAYD,HAYD
+2021,D5_taxes_income_wealth_GBPm,279264.0,GBPm,HAYC,HAYC
+2021,D8_over_D622,0.403977,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2021,D622_share_B6g,0.093545,ratio,D622/B6g,"L8QV,HABN"
+2021,D5_share_B5g,0.163085,ratio,D5/B5g,"HAYC,HABL"
+2021,B2g_over_open_dwellings_land,0.033333,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2021,NW_S14_end,11492198.0,GBPm,E45V,E45V
+2021,dNW_S14,420430.0,GBPm,E45V[t]-E45V[t-1],E45V
+2021,B8g_over_open_NW,0.017371,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2021,nonpension_B8g_over_open_NW,0.012359,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2021,D8_over_open_NW,0.005011,ratio,D8/E45V[t-1],"HAZA,E45V"
+2021,B101g_saving_plus_capital_transfers,196307.0,GBPm,HABD,HABD
+2021,B102_other_volume_fin,29723.0,GBPm,CWU2 (S14+S15),CWU2
+2021,B103_holding_gain_fin,-67198.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2021,O_residual_dNW_less_B101g_B102_B103,261598.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2021,O_residual_over_open_NW,0.023627,ratio,residual/E45V[t-1],as above
+2021,B103_AF5_equity,111128.0,GBPm,N4CX,N4CX
+2021,B103_AF6_pension_insurance,-187849.0,GBPm,N4EV,N4EV
+2021,dNFA_S14,59975.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2021,O_fin_residual_dNFA_less_B9N_B102_B103,-12275.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2021,pi_hfce_deflator,0.030864,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2021,real_erosion_opening_liabilities_GBPm,59868.742515,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2021,real_erosion_over_open_NW,0.005407,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2021,D4_received_over_open_total_fin_assets,0.029869,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2021,D4_excl_D441_D442_over_open_total_fin_assets,0.019456,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2022,B6g_gdhi,1553825.0,GBPm,HABN,HABN
+2022,D8_pension_adj,84284.0,GBPm,HAZA,HAZA
+2022,P31_consumption,1555418.0,GBPm,ABPB,ABPB
+2022,B8g_saving,82691.0,GBPm,HADA,HADA
+2022,saving_ratio_pct,5.047955,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2022,ratio_pension_part_pct,5.145201,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2022,ratio_nonpension_part_pct,-0.097246,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2022,consumption_share_of_B6g,1.001025,ratio,P31/B6g,"ABPB,HABN"
+2022,saving_share_of_B6g,0.053218,ratio,B8g/B6g,"HADA,HABN"
+2022,D8_share_of_B6g,0.054243,ratio,D8/B6g,"HAZA,HABN"
+2022,nonpension_saving_GBPm,-1593.0,GBPm,B8g-D8,"HADA,HAZA"
+2022,qsa_pension_contribution_pp,5.1,pct,JS97,JS97
+2022,qsa_nonpension_contribution_pp,-0.1,pct,JS8S,JS8S
+2022,cash_basis_saving_ratio_pct,0.8,pct,CSJ8,CSJ8
+2022,D1_compensation_GBPm,1246596.0,GBPm,HAEB,HAEB
+2022,D1_compensation_share_B5g,0.671695,ratio,HAEB/B5g,"HAEB,HABL"
+2022,B2gB3g_operating_mixed_GBPm,381297.0,GBPm,CRTY,CRTY
+2022,B2gB3g_operating_mixed_share_B5g,0.205452,ratio,CRTY/B5g,"CRTY,HABL"
+2022,D4_property_received_GBPm,270740.0,GBPm,HAXU,HAXU
+2022,D4_property_received_share_B5g,0.145881,ratio,HAXU/B5g,"HAXU,HABL"
+2022,D4_property_paid_GBPm,42738.0,GBPm,HACX,HACX
+2022,D4_property_paid_share_B5g,0.023028,ratio,HACX/B5g,"HACX,HABL"
+2022,B5g_primary_GBPm,1855895.0,GBPm,HABL,HABL
+2022,D4_net_GBPm,228002.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2022,D4_net_share_B5g,0.122853,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2022,D41_interest_GBPm,43282.0,GBPm,HAXV,HAXV
+2022,D42_distributed_GBPm,125424.0,GBPm,HAXW,HAXW
+2022,D441_insurance_attrib_GBPm,13574.0,GBPm,KZK8,KZK8
+2022,D442_pension_attrib_GBPm,85169.0,GBPm,KZK9,KZK9
+2022,D443_cis_GBPm,3266.0,GBPm,L5V2,L5V2
+2022,D45_rent_on_land_GBPm,25.0,GBPm,M8MD,M8MD
+2022,D4_excl_D441_D442_GBPm,171997.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2022,D4_excl_D441_D442_share_B6g,0.110693,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2022,D442_share_B6g,0.054812,ratio,D442/B6g,"KZK9,HABN"
+2022,D611_employer_actual_GBPm,212596.0,GBPm,L8NL,L8NL
+2022,D612_employer_imputed_GBPm,10879.0,GBPm,MA4A,MA4A
+2022,D613_household_actual_GBPm,106422.0,GBPm,L8PT,L8PT
+2022,D614_supplements_GBPm,85169.0,GBPm,L8Q9,L8Q9
+2022,D61SC_service_charges_GBPm,-16604.0,GBPm,M92I,M92I
+2022,D61_net_contributions_GBPm,398462.0,GBPm,HADI,HADI
+2022,D621_social_security_cash_GBPm,118431.0,GBPm,L8QH,L8QH
+2022,D622_other_social_insurance_GBPm,139419.0,GBPm,L8QV,L8QV
+2022,D623_social_assistance_GBPm,152213.0,GBPm,HAYU,HAYU
+2022,D62_benefits_GBPm,410063.0,GBPm,HAYP,HAYP
+2022,D51_income_tax_GBPm,255016.0,GBPm,HAYD,HAYD
+2022,D5_taxes_income_wealth_GBPm,308238.0,GBPm,HAYC,HAYC
+2022,D8_over_D622,0.604537,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2022,D622_share_B6g,0.089726,ratio,D622/B6g,"L8QV,HABN"
+2022,D5_share_B5g,0.166086,ratio,D5/B5g,"HAYC,HABL"
+2022,B2g_over_open_dwellings_land,0.035498,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2022,NW_S14_end,10770596.0,GBPm,E45V,E45V
+2022,dNW_S14,-721602.0,GBPm,E45V[t]-E45V[t-1],E45V
+2022,B8g_over_open_NW,0.007195,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2022,nonpension_B8g_over_open_NW,-0.000139,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2022,D8_over_open_NW,0.007334,ratio,D8/E45V[t-1],"HAZA,E45V"
+2022,B101g_saving_plus_capital_transfers,73184.0,GBPm,HABD,HABD
+2022,B102_other_volume_fin,4869.0,GBPm,CWU2 (S14+S15),CWU2
+2022,B103_holding_gain_fin,-1169095.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2022,O_residual_dNW_less_B101g_B102_B103,369440.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2022,O_residual_over_open_NW,0.032147,ratio,residual/E45V[t-1],as above
+2022,B103_AF5_equity,-48187.0,GBPm,N4CX,N4CX
+2022,B103_AF6_pension_insurance,-1115941.0,GBPm,N4EV,N4EV
+2022,dNFA_S14,-1181813.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2022,O_fin_residual_dNFA_less_B9N_B102_B103,12314.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2022,pi_hfce_deflator,0.088623,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2022,real_erosion_opening_liabilities_GBPm,165987.372937,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2022,real_erosion_over_open_NW,0.014443,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2022,D4_received_over_open_total_fin_assets,0.036124,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2022,D4_excl_D441_D442_over_open_total_fin_assets,0.022949,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2023,B6g_gdhi,1682268.0,GBPm,HABN,HABN
+2023,D8_pension_adj,86807.0,GBPm,HAZA,HAZA
+2023,P31_consumption,1655276.0,GBPm,ABPB,ABPB
+2023,B8g_saving,113799.0,GBPm,HADA,HADA
+2023,saving_ratio_pct,6.432684,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2023,ratio_pension_part_pct,4.906915,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2023,ratio_nonpension_part_pct,1.525769,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2023,consumption_share_of_B6g,0.983955,ratio,P31/B6g,"ABPB,HABN"
+2023,saving_share_of_B6g,0.067646,ratio,B8g/B6g,"HADA,HABN"
+2023,D8_share_of_B6g,0.051601,ratio,D8/B6g,"HAZA,HABN"
+2023,nonpension_saving_GBPm,26992.0,GBPm,B8g-D8,"HADA,HAZA"
+2023,qsa_pension_contribution_pp,4.9,pct,JS97,JS97
+2023,qsa_nonpension_contribution_pp,1.5,pct,JS8S,JS8S
+2023,cash_basis_saving_ratio_pct,3.1,pct,CSJ8,CSJ8
+2023,D1_compensation_GBPm,1334825.0,GBPm,HAEB,HAEB
+2023,D1_compensation_share_B5g,0.667702,ratio,HAEB/B5g,"HAEB,HABL"
+2023,B2gB3g_operating_mixed_GBPm,421372.0,GBPm,CRTY,CRTY
+2023,B2gB3g_operating_mixed_share_B5g,0.210777,ratio,CRTY/B5g,"CRTY,HABL"
+2023,D4_property_received_GBPm,326362.0,GBPm,HAXU,HAXU
+2023,D4_property_received_share_B5g,0.163252,ratio,HAXU/B5g,"HAXU,HABL"
+2023,D4_property_paid_GBPm,83426.0,GBPm,HACX,HACX
+2023,D4_property_paid_share_B5g,0.041731,ratio,HACX/B5g,"HACX,HABL"
+2023,B5g_primary_GBPm,1999133.0,GBPm,HABL,HABL
+2023,D4_net_GBPm,242936.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2023,D4_net_share_B5g,0.121521,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2023,D41_interest_GBPm,86092.0,GBPm,HAXV,HAXV
+2023,D42_distributed_GBPm,135343.0,GBPm,HAXW,HAXW
+2023,D441_insurance_attrib_GBPm,13215.0,GBPm,KZK8,KZK8
+2023,D442_pension_attrib_GBPm,88528.0,GBPm,KZK9,KZK9
+2023,D443_cis_GBPm,3148.0,GBPm,L5V2,L5V2
+2023,D45_rent_on_land_GBPm,36.0,GBPm,M8MD,M8MD
+2023,D4_excl_D441_D442_GBPm,224619.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2023,D4_excl_D441_D442_share_B6g,0.133522,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2023,D442_share_B6g,0.052624,ratio,D442/B6g,"KZK9,HABN"
+2023,D611_employer_actual_GBPm,217963.0,GBPm,L8NL,L8NL
+2023,D612_employer_imputed_GBPm,15784.0,GBPm,MA4A,MA4A
+2023,D613_household_actual_GBPm,107186.0,GBPm,L8PT,L8PT
+2023,D614_supplements_GBPm,88528.0,GBPm,L8Q9,L8Q9
+2023,D61SC_service_charges_GBPm,-15641.0,GBPm,M92I,M92I
+2023,D61_net_contributions_GBPm,413820.0,GBPm,HADI,HADI
+2023,D621_social_security_cash_GBPm,130508.0,GBPm,L8QH,L8QH
+2023,D622_other_social_insurance_GBPm,150080.0,GBPm,L8QV,L8QV
+2023,D623_social_assistance_GBPm,168435.0,GBPm,HAYU,HAYU
+2023,D62_benefits_GBPm,449023.0,GBPm,HAYP,HAYP
+2023,D51_income_tax_GBPm,285957.0,GBPm,HAYD,HAYD
+2023,D5_taxes_income_wealth_GBPm,342325.0,GBPm,HAYC,HAYC
+2023,D8_over_D622,0.578405,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2023,D622_share_B6g,0.089213,ratio,D622/B6g,"L8QV,HABN"
+2023,D5_share_B5g,0.171237,ratio,D5/B5g,"HAYC,HABL"
+2023,B2g_over_open_dwellings_land,0.038842,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2023,NW_S14_end,10545981.0,GBPm,E45V,E45V
+2023,dNW_S14,-224615.0,GBPm,E45V[t]-E45V[t-1],E45V
+2023,B8g_over_open_NW,0.010566,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2023,nonpension_B8g_over_open_NW,0.002506,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2023,D8_over_open_NW,0.00806,ratio,D8/E45V[t-1],"HAZA,E45V"
+2023,B101g_saving_plus_capital_transfers,114358.0,GBPm,HABD,HABD
+2023,B102_other_volume_fin,42724.0,GBPm,CWU2 (S14+S15),CWU2
+2023,B103_holding_gain_fin,-83456.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2023,O_residual_dNW_less_B101g_B102_B103,-298241.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2023,O_residual_over_open_NW,-0.02769,ratio,residual/E45V[t-1],as above
+2023,B103_AF5_equity,55079.0,GBPm,N4CX,N4CX
+2023,B103_AF6_pension_insurance,-124609.0,GBPm,N4EV,N4EV
+2023,dNFA_S14,-48032.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2023,O_fin_residual_dNFA_less_B9N_B102_B103,-22185.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2023,pi_hfce_deflator,0.069307,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2023,real_erosion_opening_liabilities_GBPm,138811.231481,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2023,real_erosion_over_open_NW,0.012888,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2023,D4_received_over_open_total_fin_assets,0.05087,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2023,D4_excl_D441_D442_over_open_total_fin_assets,0.035011,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2024,B6g_gdhi,1801414.0,GBPm,HABN,HABN
+2024,D8_pension_adj,86949.0,GBPm,HAZA,HAZA
+2024,P31_consumption,1708930.0,GBPm,ABPB,ABPB
+2024,B8g_saving,179433.0,GBPm,HADA,HADA
+2024,saving_ratio_pct,9.50204,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2024,ratio_pension_part_pct,4.604464,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2024,ratio_nonpension_part_pct,4.897575,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2024,consumption_share_of_B6g,0.94866,ratio,P31/B6g,"ABPB,HABN"
+2024,saving_share_of_B6g,0.099607,ratio,B8g/B6g,"HADA,HABN"
+2024,D8_share_of_B6g,0.048267,ratio,D8/B6g,"HAZA,HABN"
+2024,nonpension_saving_GBPm,92484.0,GBPm,B8g-D8,"HADA,HAZA"
+2024,qsa_pension_contribution_pp,4.6,pct,JS97,JS97
+2024,qsa_nonpension_contribution_pp,4.8,pct,JS8S,JS8S
+2024,cash_basis_saving_ratio_pct,7.4,pct,CSJ8,CSJ8
+2024,D1_compensation_GBPm,1415283.0,GBPm,HAEB,HAEB
+2024,D1_compensation_share_B5g,0.667593,ratio,HAEB/B5g,"HAEB,HABL"
+2024,B2gB3g_operating_mixed_GBPm,451862.0,GBPm,CRTY,CRTY
+2024,B2gB3g_operating_mixed_share_B5g,0.213144,ratio,CRTY/B5g,"CRTY,HABL"
+2024,D4_property_received_GBPm,346240.0,GBPm,HAXU,HAXU
+2024,D4_property_received_share_B5g,0.163322,ratio,HAXU/B5g,"HAXU,HABL"
+2024,D4_property_paid_GBPm,93405.0,GBPm,HACX,HACX
+2024,D4_property_paid_share_B5g,0.044059,ratio,HACX/B5g,"HACX,HABL"
+2024,B5g_primary_GBPm,2119980.0,GBPm,HABL,HABL
+2024,D4_net_GBPm,252835.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2024,D4_net_share_B5g,0.119263,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2024,D41_interest_GBPm,98189.0,GBPm,HAXV,HAXV
+2024,D42_distributed_GBPm,138218.0,GBPm,HAXW,HAXW
+2024,D441_insurance_attrib_GBPm,12532.0,GBPm,KZK8,KZK8
+2024,D442_pension_attrib_GBPm,93911.0,GBPm,KZK9,KZK9
+2024,D443_cis_GBPm,3345.0,GBPm,L5V2,L5V2
+2024,D45_rent_on_land_GBPm,45.0,GBPm,M8MD,M8MD
+2024,D4_excl_D441_D442_GBPm,239797.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2024,D4_excl_D441_D442_share_B6g,0.133116,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2024,D442_share_B6g,0.052132,ratio,D442/B6g,"KZK9,HABN"
+2024,D611_employer_actual_GBPm,235757.0,GBPm,L8NL,L8NL
+2024,D612_employer_imputed_GBPm,17384.0,GBPm,MA4A,MA4A
+2024,D613_household_actual_GBPm,92256.0,GBPm,L8PT,L8PT
+2024,D614_supplements_GBPm,93911.0,GBPm,L8Q9,L8Q9
+2024,D61SC_service_charges_GBPm,-16669.0,GBPm,M92I,M92I
+2024,D61_net_contributions_GBPm,422639.0,GBPm,HADI,HADI
+2024,D621_social_security_cash_GBPm,141004.0,GBPm,L8QH,L8QH
+2024,D622_other_social_insurance_GBPm,165128.0,GBPm,L8QV,L8QV
+2024,D623_social_assistance_GBPm,184181.0,GBPm,HAYU,HAYU
+2024,D62_benefits_GBPm,490313.0,GBPm,HAYP,HAYP
+2024,D51_income_tax_GBPm,308660.0,GBPm,HAYD,HAYD
+2024,D5_taxes_income_wealth_GBPm,368591.0,GBPm,HAYC,HAYC
+2024,D8_over_D622,0.526555,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2024,D622_share_B6g,0.091666,ratio,D622/B6g,"L8QV,HABN"
+2024,D5_share_B5g,0.173865,ratio,D5/B5g,"HAYC,HABL"
+2024,B2g_over_open_dwellings_land,0.043417,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2024,NW_S14_end,10683090.0,GBPm,E45V,E45V
+2024,dNW_S14,137109.0,GBPm,E45V[t]-E45V[t-1],E45V
+2024,B8g_over_open_NW,0.017014,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2024,nonpension_B8g_over_open_NW,0.00877,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2024,D8_over_open_NW,0.008245,ratio,D8/E45V[t-1],"HAZA,E45V"
+2024,B101g_saving_plus_capital_transfers,178390.0,GBPm,HABD,HABD
+2024,B102_other_volume_fin,29407.0,GBPm,CWU2 (S14+S15),CWU2
+2024,B103_holding_gain_fin,-168078.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2024,O_residual_dNW_less_B101g_B102_B103,97390.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2024,O_residual_over_open_NW,0.009235,ratio,residual/E45V[t-1],as above
+2024,B103_AF5_equity,58283.0,GBPm,N4CX,N4CX
+2024,B103_AF6_pension_insurance,-217548.0,GBPm,N4EV,N4EV
+2024,dNFA_S14,-73605.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2024,O_fin_residual_dNFA_less_B9N_B102_B103,-10787.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2024,pi_hfce_deflator,0.028807,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2024,real_erosion_opening_liabilities_GBPm,61376.616,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2024,real_erosion_over_open_NW,0.00582,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2024,D4_received_over_open_total_fin_assets,0.053948,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2024,D4_excl_D441_D442_over_open_total_fin_assets,0.037363,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
+2025,B6g_gdhi,1883195.0,GBPm,HABN,HABN
+2025,D8_pension_adj,88186.0,GBPm,HAZA,HAZA
+2025,P31_consumption,1782389.0,GBPm,ABPB,ABPB
+2025,B8g_saving,188992.0,GBPm,HADA,HADA
+2025,saving_ratio_pct,9.586782,pct,100*B8g/(B6g+D8),"HADA,HABN,HAZA"
+2025,ratio_pension_part_pct,4.473311,pct,100*D8/(B6g+D8),"HAZA,HABN"
+2025,ratio_nonpension_part_pct,5.113471,pct,ratio - pension part (identity P31=B6g+D8-B8g),"HADA,HABN,HAZA"
+2025,consumption_share_of_B6g,0.946471,ratio,P31/B6g,"ABPB,HABN"
+2025,saving_share_of_B6g,0.100357,ratio,B8g/B6g,"HADA,HABN"
+2025,D8_share_of_B6g,0.046828,ratio,D8/B6g,"HAZA,HABN"
+2025,nonpension_saving_GBPm,100806.0,GBPm,B8g-D8,"HADA,HAZA"
+2025,qsa_pension_contribution_pp,4.5,pct,JS97,JS97
+2025,qsa_nonpension_contribution_pp,5.1,pct,JS8S,JS8S
+2025,cash_basis_saving_ratio_pct,7.8,pct,CSJ8,CSJ8
+2025,D1_compensation_GBPm,1518462.0,GBPm,HAEB,HAEB
+2025,D1_compensation_share_B5g,0.678882,ratio,HAEB/B5g,"HAEB,HABL"
+2025,B2gB3g_operating_mixed_GBPm,462394.0,GBPm,CRTY,CRTY
+2025,B2gB3g_operating_mixed_share_B5g,0.20673,ratio,CRTY/B5g,"CRTY,HABL"
+2025,D4_property_received_GBPm,342922.0,GBPm,HAXU,HAXU
+2025,D4_property_received_share_B5g,0.153315,ratio,HAXU/B5g,"HAXU,HABL"
+2025,D4_property_paid_GBPm,87068.0,GBPm,HACX,HACX
+2025,D4_property_paid_share_B5g,0.038927,ratio,HACX/B5g,"HACX,HABL"
+2025,B5g_primary_GBPm,2236710.0,GBPm,HABL,HABL
+2025,D4_net_GBPm,255854.0,GBPm,HAXU-HACX,"HAXU,HACX"
+2025,D4_net_share_B5g,0.114389,ratio,(HAXU-HACX)/B5g,"HAXU,HACX,HABL"
+2025,D41_interest_GBPm,95477.0,GBPm,HAXV,HAXV
+2025,D42_distributed_GBPm,135748.0,GBPm,HAXW,HAXW
+2025,D441_insurance_attrib_GBPm,11852.0,GBPm,KZK8,KZK8
+2025,D442_pension_attrib_GBPm,96337.0,GBPm,KZK9,KZK9
+2025,D443_cis_GBPm,3450.0,GBPm,L5V2,L5V2
+2025,D45_rent_on_land_GBPm,58.0,GBPm,M8MD,M8MD
+2025,D4_excl_D441_D442_GBPm,234733.0,GBPm,D4 - D441 - D442,"HAXU,KZK8,KZK9"
+2025,D4_excl_D441_D442_share_B6g,0.124646,ratio,(D4-D441-D442)/B6g,"HAXU,KZK8,KZK9,HABN"
+2025,D442_share_B6g,0.051156,ratio,D442/B6g,"KZK9,HABN"
+2025,D611_employer_actual_GBPm,265948.0,GBPm,L8NL,L8NL
+2025,D612_employer_imputed_GBPm,20241.0,GBPm,MA4A,MA4A
+2025,D613_household_actual_GBPm,93457.0,GBPm,L8PT,L8PT
+2025,D614_supplements_GBPm,96337.0,GBPm,L8Q9,L8Q9
+2025,D61SC_service_charges_GBPm,-17402.0,GBPm,M92I,M92I
+2025,D61_net_contributions_GBPm,458581.0,GBPm,HADI,HADI
+2025,D621_social_security_cash_GBPm,151632.0,GBPm,L8QH,L8QH
+2025,D622_other_social_insurance_GBPm,173254.0,GBPm,L8QV,L8QV
+2025,D623_social_assistance_GBPm,195622.0,GBPm,HAYU,HAYU
+2025,D62_benefits_GBPm,520508.0,GBPm,HAYP,HAYP
+2025,D51_income_tax_GBPm,333397.0,GBPm,HAYD,HAYD
+2025,D5_taxes_income_wealth_GBPm,397968.0,GBPm,HAYC,HAYC
+2025,D8_over_D622,0.508998,ratio,D8/D622 (descriptive only),"HAZA,L8QV"
+2025,D622_share_B6g,0.092,ratio,D622/B6g,"L8QV,HABN"
+2025,D5_share_B5g,0.177926,ratio,D5/B5g,"HAYC,HABL"
+2025,B2g_over_open_dwellings_land,0.043543,ratio,HABM/(E46V+E44N)[t-1]; GBPm over end-prior-year stock,"HABM,E46V,E44N"
+2025,NW_S14_end,10829163.0,GBPm,E45V,E45V
+2025,dNW_S14,146073.0,GBPm,E45V[t]-E45V[t-1],E45V
+2025,B8g_over_open_NW,0.017691,ratio,B8g/E45V[t-1] (gross of CFC),"HADA,E45V"
+2025,nonpension_B8g_over_open_NW,0.009436,ratio,(B8g-D8)/E45V[t-1],"HADA,HAZA,E45V"
+2025,D8_over_open_NW,0.008255,ratio,D8/E45V[t-1],"HAZA,E45V"
+2025,B101g_saving_plus_capital_transfers,188281.0,GBPm,HABD,HABD
+2025,B102_other_volume_fin,3484.0,GBPm,CWU2 (S14+S15),CWU2
+2025,B103_holding_gain_fin,13687.0,GBPm,"CWUR (S14+S15, financial only)",CWUR
+2025,O_residual_dNW_less_B101g_B102_B103,-59379.0,GBPm,"dNW - B101g - B102 - B103 ; contains -CFC, non-financial revaluation, S15 mismatch, discrepancy","E45V,HABD,CWU2,CWUR"
+2025,O_residual_over_open_NW,-0.005558,ratio,residual/E45V[t-1],as above
+2025,B103_AF5_equity,151123.0,GBPm,N4CX,N4CX
+2025,B103_AF6_pension_insurance,-132485.0,GBPm,N4EV,N4EV
+2025,dNFA_S14,118914.0,GBPm,NYOH[t]-NYOH[t-1],NYOH
+2025,O_fin_residual_dNFA_less_B9N_B102_B103,15427.0,GBPm,"dNFA - B9N - B102 - B103 (S14 vs S14+S15 mismatch, statistical discrepancy)","NYOH,A99R,CWU2,CWUR"
+2025,pi_hfce_deflator,0.033,ratio,CRXA[t]/CRXA[t-1]-1,CRXA
+2025,real_erosion_opening_liabilities_GBPm,71821.417231,GBPm,NIWJ[t-1]*pi/(1+pi); loans are valued at par so this is NOT in B.103,"NIWJ,CRXA"
+2025,real_erosion_over_open_NW,0.006723,ratio,above/E45V[t-1],"NIWJ,CRXA,E45V"
+2025,D4_received_over_open_total_fin_assets,0.053577,ratio,HAXU/NITF[t-1]; denominator includes pension and insurance entitlements. Not a yield.,"HAXU,NITF"
+2025,D4_excl_D441_D442_over_open_total_fin_assets,0.036674,ratio,(D4-D441-D442)/NITF[t-1]; not a yield,"HAXU,KZK8,KZK9,NITF"
