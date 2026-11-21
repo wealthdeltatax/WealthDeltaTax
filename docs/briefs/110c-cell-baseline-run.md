@@ -3,7 +3,7 @@
 - **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-21
 - **Depends on:** 108c, 109c (merged)
-- **Read:** `docs/research/104r-parameter-map-design.md` sections 2, 3, 5 and 7 (cells, conventions, interface, validation moments); `model_v3/core/household.py` and `tests/model_v3/test_household.py`; `model_v3/pack/GBR/` (`cell_weights.csv`, `band_composition.csv`, manifest v2); rows I-D1a, I-D1h to I-D1k, I-D9a to I-D9d, I-D4h, I-D4c and the growth and GDP rows the legacy run reads (find them in `model_v3/runner/runner.py`); `docs/research/data/101r/` (JST split by class, ONS flow derivations: the non-pension saving ratio series); `docs/research/data/103r/parameter_register.csv`; `docs/model-v3/household-flow-plan.md`; `docs/agents/code.md`.
+- **Read (first block only the first two; read the rest when the block needs it):** (1) `model_v3/core/household.py` and `tests/model_v3/test_household.py`; (2) `docs/research/104r-parameter-map-design.md` section 3 only. Later, by block: pack `model_v3/pack/GBR/` (`cell_weights.csv`, `band_composition.csv`); register rows I-D1a, I-D1h to I-D1k, I-D9a to I-D9d, I-D4h and the growth and GDP rows `runner.py` reads for the legacy run; `docs/research/data/101r/` (JST split by class; the ONS non-pension saving ratio series).
 
 ## Goal
 Run the ten cells (five pack bands by retired or not) forward for 100 years with **no WDT**, using `household_step` under convention A, and report how aggregate wealth, wealth over GDP and the saving ratio behave against the legacy 3.5% rule. The point is a first look at the baseline the new arm produces. Nothing is tuned to hit a target.
@@ -14,6 +14,14 @@ Run the ten cells (five pack bands by retired or not) forward for 100 years with
 - **Returns:** property from the JST housing split (yield and gain, F-20); pension and net financial from I-D1h and I-D1i (low, mid-point label, high: three runs); physical from I-D1j (0); pension accrual from I-D1k, as an aggregate scenario applied to the pension class. Pension is not sold or drawn in this run (no withdrawal flow yet: state this as a limit).
 - Settlement does not arise (T_WDT = 0). Convention A; B as a check on one run.
 - The legacy arm comparison uses `household_step(..., convention='legacy')` with c = I-D14c over the same cells.
+
+## Blocks (one push each; `docs/agents/code.md`, Long builds)
+- **Block 0:** push the progress block and the skeleton of `docs/model-v3/cell-baseline.md` (sections: units and reconciliation, inputs, runs, findings, limits; all pending). Read nothing else first.
+- **Block 1: inputs and units.** The loader that builds the ten cells' inputs from the pack and register, and the units reconciliation (cell income against B.6g, cell wealth against the pack total, per-household or per-person conversion with I-D4h). Test it; fill the note's units section; push. If the gaps are large, report and stop for review before block 2.
+- **Block 2: one run.** Mid-point regime, median saving ratio, convention A, 100 years, identity residual test, the legacy arm on the same inputs matching the kernel's legacy path. Fill the runs section for this run; push.
+- **Block 3: the grid.** Low, mid, high regimes times min, median, max saving ratios; one B check; the CSVs; summary lines only on screen; push.
+- **Block 4: findings.** Write the findings and limits from the CSVs, set State, change report, push; stop.
+**Stop rule.** After three blocks, or when a quarter of the budget is left, write the findings from what exists, push, list the rest under Next and stop.
 
 ## Design
 1. A standalone module (choose the layer from architecture.md 5.1 and report; it imports `household` and the pack/register readers, and the kernel imports nothing from it) and a script that writes a table per run: cell, year, positions by class, `dNW`, `S`, `CG` (with the erosion wedge line), `O`, and the aggregate (sum over cells weighted by persons or households: state which and the conversion with I-D4h).

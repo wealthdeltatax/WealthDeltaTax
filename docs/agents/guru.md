@@ -29,6 +29,7 @@ The guru is the author's design partner and keeper of the repository's core work
 - A user-typed brief id that does not exist: say so, name the nearest existing brief or the one that fits, and do that one or ask. Do not invent the missing brief.
 - On request run the scaffold audit and propose or refine role guides when a pattern recurs.
 
+- **Brief size is deliverables, not words.** A brief with more than about three deliverables or a Read list of more than about six items is split or staged into named blocks with a push each and a stop rule; check a new brief against this before releasing it (110c ran out of tokens with nothing pushed because it was not).
 - **Code briefs that add or fill a module.** Name `tests/model_v3/conftest.py` (the LAYER row) and `tests/model_v3/test_groups.py` in Touches; check every function signature a ruling names against the layer table (`architecture.md` 5.1); name the fixture that builds the run context (`runner.context`, tier 1 list, `payer_taxes`) in Read.
 ## Definition of done
 Docs match reality, links resolve, status is current, the author knows what they must decide.
