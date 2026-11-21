@@ -9,8 +9,8 @@ One entry per finished brief or settled question, at most 8 lines each. Newest f
 - Spec only: `returns_decomposition.csv` schema in `docs/research/100r-jst-cash-yield-and-gain-split.md`. It is the market return, not household saving or retained income. No pack, builder or I-D1a change.
 
 ## 2026-11-21: parameter-map phase approved; pension wealth is in the WDT base
-- Author: the empirical household-flow parameter-map hypothesis (`docs/hypotheses/empirical-household-flow-parameter-map.md`) is approved as phase 2, split into 101r (evidence side: crosswalk, register, unresolved data) and 102r (design side: coverage matrix, accounting conventions, public-side representation), with the accounting rulings left to the author.
-- Author: **pension wealth is inside the WDT base.** Pension accrual is household saving in the account; the pension valuation basis (ONS SCAPE-based, as the pack) matters for the base; pension wealth is not liquid cash for consumption or tax payment until drawn, a consequence 102r states for settlement.
+- Author: the empirical household-flow parameter-map hypothesis (`docs/hypotheses/empirical-household-flow-parameter-map.md`) is approved as phase 2, briefed as 101r (flows and returns), 102r (stocks, stage weights, transitions), 103r (assembly: one register, cross-side checks, unresolved data, proposed rulings) and 104r (design side: coverage matrix, accounting conventions, public-side representation), with the accounting rulings left to the author. The evidence side was split after a single-agent brief ran out of tokens without pushing.
+- Author: **pension wealth is inside the WDT base.** Pension accrual is household saving in the account; the pension valuation basis (ONS SCAPE-based, as the pack) matters for the base; pension wealth is not liquid cash for consumption or tax payment until drawn, a consequence 104r states for settlement.
 - Phase 1 is complete (097r to 100r; the 099r moments contain no UK saving or return rate by band or stage).
 
 ## 2026-11-21: Scenario B and the household-flow plan

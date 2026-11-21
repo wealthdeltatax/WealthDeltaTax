@@ -1,12 +1,12 @@
-# 102: Parameter map, design side (cell coverage, accounting conventions, public side)
+# 104: Parameter map, design side (cell coverage, accounting conventions, public side)
 
 - **Status:** hold
 - **Author/date:** K. Ogata with the guru, 2026-11-21
-- **Depends on:** 101r (reported and reviewed)
-- **Read:** `docs/hypotheses/empirical-household-flow-parameter-map.md` (sections 4 to 9: the account, the no-double-counting rule, deliverables C and D); `docs/research/101r-parameter-map-evidence.md` and its register; `docs/research/096r-cohort-cell-design.md` (cells, interface gap list, open questions); `docs/research/094r-kernel-map-and-household-accounts.md` (A3 the public side; B3 the worked cases); `docs/research/100r-jst-cash-yield-and-gain-split.md`; `docs/model-v3/architecture.md`.
+- **Depends on:** 103r (reported and reviewed)
+- **Read:** `docs/hypotheses/empirical-household-flow-parameter-map.md` (sections 4 to 9: the account, the no-double-counting rule, deliverables C and D); `docs/research/103r-parameter-map-assembly.md` and its register; `docs/research/096r-cohort-cell-design.md` (cells, interface gap list, open questions); `docs/research/094r-kernel-map-and-household-accounts.md` (A3 the public side; B3 the worked cases); `docs/research/100r-jst-cash-yield-and-gain-split.md`; `docs/model-v3/architecture.md`.
 
 ## Goal
-From the 101r register, decide **which cells the evidence supports** and **how the household account is to be built**: the coverage matrix (deliverable C), the accounting conventions (D), and how the state's asset stake, the fund and WDT receipts are made one representation. These are proposals with a recommendation each; the author rules.
+From the 103r register, decide **which cells the evidence supports** and **how the household account is to be built**: the coverage matrix (deliverable C), the accounting conventions (D), and how the state's asset stake, the fund and WDT receipts are made one representation. These are proposals with a recommendation each; the author rules.
 
 ## Decisions (author, 2026-11-21)
 - Scenario B; no universal scalar; nothing chosen for revenue (see 101r).
@@ -28,14 +28,14 @@ From the 101r register, decide **which cells the evidence supports** and **how t
 6. **Validation moments.** Which 099r moments validate the untaxed baseline, at which resolution, and the tolerance a pass would need before the comparison is run (plans only).
 
 ## Touches
-`docs/research/102r-parameter-map-design.md` (new), this brief's progress block, `docs/agents/friction-log.md`. No code, register, pack or manifest edits.
+`docs/research/104r-parameter-map-design.md` (new), this brief's progress block, `docs/agents/friction-log.md`. No code, register, pack or manifest edits.
 
 ## Acceptance criteria
 - A coverage matrix covering every pack band and both stages, with each cell's evidence class stated.
 - Each convention in item 2 has options, consequences for the identity and a recommendation; the no-double-counting rule is shown to hold with a worked case.
 - The public-side proposal shows that household payments, the state's stake and the fund reconcile with no created wealth (an identity, with numbers for an illustrative case labelled as such).
 - Pension liquidity and valuation basis are stated for the base and for settlement.
-- The rulings table covers every 101r row; no row is given a value the evidence does not support.
+- The rulings table covers every register row of 103r; no row is given a value the evidence does not support.
 - No parameter or option is chosen for its effect on WDT revenue or closure.
 
 ## Checks to run
@@ -55,5 +55,5 @@ None.
 - **Gotchas:**
 - **Resume:**
 - **Not run:**
-- **State:** hold; waits for 101r
+- **State:** hold; waits for 103r
 <!-- progress:end -->
