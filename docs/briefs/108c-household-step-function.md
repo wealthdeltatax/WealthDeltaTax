@@ -14,14 +14,14 @@ One new pure function, `household_step`, that advances one cell's positions by o
 - Physical wealth is a separate class inside the base; pension, physical and net financial returns are labelled scenario inputs, never defaults.
 - Two deflators: CPI for returns and numeraire, the expenditure deflator for liability erosion; the wedge is its own line in the account.
 - `O` is reported, not forced to zero. `TR` is an argument fixed at 0. The legacy 3.5% is the `legacy` mode only.
-- Settlement is not decided here; the function takes `T_WDT` as an input (default 0) and does not choose the source.
+- Settlement (author, replaces the earlier net-financial-only ruling): the existing kernel routes; the payment is taken pro rata across the non-pension classes; pension is never sold; Route D keeps its lien. The function takes `T_WDT` as an input (default 0) and an optional `source_weights` over classes (default: price-weighted pro rata over property, net financial and physical, pension weight 0); it reports the liquidity diagnostic (payment over net financial wealth, payment over non-pension wealth, and a flag where payment exceeds net financial wealth).
 
 ## Design
 1. `model_v3/core/household.py` with `household_step(cell, pos, flows, rets, defl, convention) -> (pos1, acct)` as in 104r 5.1 (names may adjust; report each change). Classes: property, net financial, physical, pension, debt. Inputs are plain numbers or arrays; no pack or register reads inside the function.
 2. `acct` has `dNW`, `S`, `CG` (with the erosion wedge as its own entry), `TR`, `O`, `T_WDT`, and the identity `dNW = S + CG + TR + O - T_WDT` holds to 1e-9; `O` is an input residual, not solved.
 3. `legacy` mode: given wealth and I-D14c it returns exactly the kernel's `W*(1+g)*(1-c)`; test it against `kernel.grow_and_consume` on the same inputs (bit-equal).
 4. No-double-counting tests: the 104r worked household gives 54 in A and in B; a deliberately wrong convention (yield counted in saving and in the return) gives 90 and must be caught by a test that asserts the identity against an independent calculation.
-5. Illiquid pension: the function exposes liquidity by class (the pension is not available to `T_WDT` or consumption until a `withdrawal` flow); a test shows this.
+5. Illiquid pension and settlement: the pension is not available to `T_WDT` or consumption until a `withdrawal` flow; a test shows this. With `T_WDT` > 0 the payment falls pro rata on the non-pension classes (test: shares match the class weights; the identity still holds with `T_WDT` as one negative line), and the liquidity diagnostic fields are returned in `acct`.
 6. Registration: a LAYER row for `household` in `tests/model_v3/conftest.py`; a budget row in `architecture.md`; new tests in `tests/model_v3/test_household.py` and the `test_groups.py` rows the 104r note lists. Choose the layer from architecture.md 5.1 so that `household` imports nothing above it; report the choice.
 
 ## Touches
@@ -38,7 +38,7 @@ One new pure function, `household_step`, that advances one cell's positions by o
 v3 suites in the background (never piped); `python -I pipeline/check_agent_docs.py`.
 
 ## Out of scope
-Wiring into the kernel or runner, the public ledger, pack inputs, scenario values, settlement, tax, any register or paper edit.
+Wiring into the kernel or runner, the public ledger, pack inputs, scenario values, the lien and route logic (they stay in the kernel), tax, any register or paper edit.
 
 ## Open questions
 Layer placement; whether `cell` needs more than band and stage in the signature.
