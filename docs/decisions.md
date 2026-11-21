@@ -2,6 +2,11 @@
 
 One entry per finished brief or settled question, at most 8 lines each. Newest first. Maintained by the guru.
 
+## 2026-11-21: Scenario B and the household-flow plan
+- Author: scenario B. Cells by wealth band and life stage, saving on the income side, parameters with no UK range left unset or run as labelled judgement scenarios, no universal scalar. The closure baseline (a scalar from the untaxed steady state) may be kept as a labelled comparison arm.
+- Diagnosis recorded: the kernel has no household flow, so wealth is never replenished (wealth/GDP 47% of start by year 100, 62% with the tax off); 3.5% began as a v2 steady-state device and became a "consumption share" without its steady state being tested; the repeated `(1+g)(1-c)` is a cost, not a cause.
+- Plan: `docs/model-v3/household-flow-plan.md`. Phase 1 is four collection briefs (097r, 098r, 099r, 100r); no code or register change until phase 2 (parameter map and rulings). Bozio and others (2013) read: `docs/research/095r-bozio-2013-reading.md`.
+
 ## 2026-11-20: I-D14c (3.5%) abandoned as the central assumption
 - Author: the 3.5% is a v2 judgement device (decision D16), not a UK measurement (093r). It is abandoned as the central consumption or depletion assumption; no replacement scalar (no 0%, 1.5%, 2.5% or other universal rate). It stays as a labelled legacy comparator to reproduce historical outputs. Results that rest on it (083c, 090c, the first provisional run) are legacy results, not calibrated forecasts.
 - Replacement: an accounting-consistent household flow model, by cells (hypothesis `household-consumption-and-wealth-replenishment.md`, sections 10 to 14). Briefs 094r (kernel map and accounts), 095r (UK evidence map), 096r (cohort cell design, with plans for backcast and comparison). Backcast and WDT comparison runs and the implementation are later code briefs, after the author reviews 096r. No change to kernel, register or manifest until then.
