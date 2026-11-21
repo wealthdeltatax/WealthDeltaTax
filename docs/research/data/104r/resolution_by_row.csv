@@ -1,0 +1,74 @@
+row_id,variable,group_id,finest_resolution_supported,evidence_class,ruling_class,target_cell_dimension
+F-01,"Labour income: compensation of employees (D.1), share of gross primary income",G05,aggregate,observed,further data,aggregate only; no wealth-band or stage split held
+F-02,"Self-employment and housing services: gross operating surplus plus mixed income (B.2g+B.3g), share of B.5g",G05,aggregate,observed,further data,aggregate only
+F-03,Transfer income: social benefits in cash (D.62) share of disposable income,G05,aggregate,observed,scenario range,aggregate only; stage (retired) is the intended dimension
+F-04,"Taxes on income and wealth (D.5), share of gross primary income",G06,aggregate,observed,scenario range,aggregate only
+F-05,Gross disposable income B.6g,G05,aggregate,observed,ready,aggregate
+F-06,Household final consumption (P.31) as a share of B.6g,G07,aggregate,observed,further data,aggregate only
+F-07,"Saving ratio, published",G08,aggregate,observed,ready,aggregate
+F-08,Non-pension saving: B.8g - D.8 (the part of the ratio not pension accrual),G08,aggregate,derived,scenario range,aggregate; band/stage unset
+F-09,Cash-basis saving ratio (CSJ8),G08,aggregate,observed,ready,aggregate
+F-10,Pension accrual: adjustment for change in pension entitlements D.8,G09,aggregate,observed,scenario range,aggregate; accumulation vs decumulation stage unset
+F-11,Pension contributions (employee and employer),G09,aggregate,proxy,further data,aggregate; contributions include National Insurance
+F-12,Pension investment return,G11,none,unset,unset,unset by cell
+F-13,Pension withdrawal and decumulation,G09,"other axis (age, income, estate size, stage only)",proxy,further data,stage (retired); band unset
+F-35,Pension valuation basis register,G09,aggregate,observed,unset,all
+F-14,"Retained cash property income (D.4 received excluding D.441 and D.442), share of B.6g",G10,aggregate,derived,scenario range,aggregate; retained fraction by band unset
+F-15,HMRC taxable interest and dividends against ONS D.41 and D.42,G10,"other axis (age, income, estate size, stage only)",observed,ready,"total-income range, not wealth"
+F-16,Housing services yield cross-check,G10,aggregate,proxy,unset,aggregate
+F-17,"Cash yield, portfolio, real (JST market portfolio, arithmetic mean of annual components)",G10,"market path, not household",derived,scenario range,market portfolio; not household or band
+F-18,"Holding gain, portfolio, real (JST market portfolio, arithmetic mean of annual components)",G10,"market path, not household",derived,scenario range,market portfolio; not household or band
+F-19,"Total return, real, arithmetic (JST)",G10,"market path, not household",derived,ready,market portfolio
+F-20,Cash yield and gain by asset class (real),G10,"market path, not household",derived,scenario range,asset class (not band)
+F-21,Revaluation of nominal liabilities (real erosion),G12,aggregate,derived,scenario range,aggregate; by band belongs to 102r (debt)
+F-22,Holding gains on financial assets (B.103) and other volume changes (B.102),G12,aggregate,observed,ready,aggregate
+F-23,Net-worth residual O,G12,aggregate,derived,ready,aggregate
+F-24,Aggregate saving over opening net worth (gross of CFC),G08,aggregate,derived,unset,aggregate
+F-25,Legacy I-D14c: 3.5% consumption share of net worth,G07,none,scenario,unset,none
+F-26,Existing row I-D1a (arithmetic mean real total return 4.74),G10,"market path, not household",observed,ready,market portfolio
+F-27,Existing row I-D1a2 (geometric 4.42),G10,"market path, not household",derived,ready,market portfolio
+F-28,"Audit I-W1c: UK financial return gap, top decile minus bottom deciles (1.8 to 2.0 pp)",G15,top tail or distribution moment,proxy,unset,"wealth decile, financial wealth"
+F-29,"Audit I-W3a: net active saving rate by wealth, 6 to 8% of disposable income",G08,none,proxy,unset,wealth percentile (Norway)
+F-30,Audit I-W3b: gross saving rate top 1% (about 35%),G08,top tail or distribution moment,proxy,unset,top 1%
+F-31,Audit I-W3c: net saving share of the change in family financial wealth (7 to 24%),G08,aggregate,proxy,scenario range,"average family, not by band"
+F-32,"Audit I-W3d: active saving about 40% of total wealth gain, 2018-20 to 2020-22",G08,"other axis (age, income, estate size, stage only)",proxy,scenario range,"age and income, not band"
+F-33,Saving by lifetime income and education (direction),G08,"other axis (age, income, estate size, stage only)",scenario,scenario range,"income quintile, education; not wealth band"
+F-34,Passive and active share of wealth change (validation moments),G08,aggregate,observed,ready,average family
+F-36,NMG survey saving and debt-service variables,G08,"other axis (age, income, estate size, stage only)",unset,further data,"household, income band; no wealth band except through savings balances"
+S01,Pack wealth bands (deciles of total wealth),G02,band,observed,ready,band
+S02,"Band-edge mapping, GBP bands against pack deciles",G01,band,derived,ready,band
+S03,Stage weights by pack band (persons 16+),G01,band x stage,proxy,scenario range,band x stage
+S04,Cell sizes by pack band and stage,G01,band x stage,derived,ready,band x stage
+S05,Asset composition by pack band (R8),G03,band,observed,ready,band
+S06,Asset composition by age of household reference person (proxy for stage),G03,"other axis (age, income, estate size, stage only)",proxy,validation or proxy only,age (proxy for stage)
+S07,DB against DC pension split and pensions in payment,G03,band x stage,unset,further data,band x stage
+S08,Pension valuation basis for stock rows (WAS R8 SCAPE-based),G03,aggregate,observed,ready,all
+S09,Physical (contents and vehicles) wealth share by band,G03,band,observed,ready,band
+S10,"Secured debt (personal property debt), GB total and by age",G04,"other axis (age, income, estate size, stage only)",observed,further data,age (not band)
+S11,"Unsecured debt (personal financial debt), GB total and by age",G04,"other axis (age, income, estate size, stage only)",observed,further data,age (not band)
+S12,"Aggregate liabilities cross-check, ONS 3222 against NBS AF.L",G04,aggregate,proxy,unset,aggregate
+S13,Debt service by band and stage,G04,band x stage,unset,further data,band x stage
+S14,Top-tail share series (WID),G15,top tail or distribution moment,observed,ready,tail
+S15,Top-tail adjustment for wealth missing from the WAS top,G15,top tail or distribution moment,scenario,scenario range,D10 and tail
+S16,Capital transfers of households with other sectors (S.14),G13,aggregate,observed,ready,aggregate
+S17,Gifts and inheritances by band and stage,G13,band x stage,unset,unset,band x stage
+S18,Estates passing at death by size and composition,G13,"other axis (age, income, estate size, stage only)",unset,further data,estate size
+S19,"Legacy heir rule (one heir, G = 30 years)",G13,none,legacy,legacy comparator,all lines
+S20,Two-year top-decile persistence and entry,G14,top tail or distribution moment,proxy,ready,top decile
+S21,Four-year rank correlation and same-decile share,G14,"other axis (age, income, estate size, stage only)",proxy,ready,income group
+S22,Band-to-band and stage transition matrix,G14,band x stage,unset,further data,band x stage
+S23,Age structure of the adult population,G14,"other axis (age, income, estate size, stage only)",observed,ready,age
+S24,"Mortality, period qx and survival from 65",G14,"other axis (age, income, estate size, stage only)",derived,ready,age
+S25,Working-to-retired transition hazard by band,G14,band x stage,unset,further data,band x stage
+S26,Household formation and dissolution,G14,band x stage,unset,unset,band x stage
+S27,Adults per household by pack band,G14,band,derived,scenario range,band
+S28,Person weights by stage within band,G14,band x stage,unset,further data,band x stage
+S29,Audit I-D4a wealth to GDP,G02,aggregate,observed,audit (no ruling),aggregate
+S30,"Audit I-D4b, I-D4g, I-D4h adult base and adults per household",,aggregate,derived,audit (no ruling),aggregate
+S31,Audit I-W5a and I-W5e top-decile and pension shares,G15,top tail or distribution moment,observed,audit (no ruling),D10
+S32,Audit I-W5b to I-W5d tail shares against the pack tail,G15,top tail or distribution moment,proxy,audit (no ruling),tail
+S33,Audit I-W4a to I-W4f mobility rows,G14,top tail or distribution moment,proxy,audit (no ruling),top decile
+D01,"T_WDT: WDT paid by the household, net of refund",,none,endogenous,not applicable (endogenous),none
+D02,dNW: change in net worth (the identity left-hand side),,none,endogenous,not applicable (endogenous),none
+D03,r_f: fund return,,none,endogenous,not applicable (endogenous),none
+D04,"I_D: interest paid on household debt, and principal repayment R",G04,none,unset,further data,none
