@@ -263,8 +263,8 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "2", name: "Agent 2", note: "Free (101r partial, out of tokens)" },
     { id: "3", name: "Agent 3", note: "Free (102r partial, out of tokens)" },
     { id: "4", name: "Agent 4", note: "Code: 057c after 089c" },
-    { id: "5", name: "Agent 5", note: "Code: 108c (household step)" },
-    { id: "6", name: "Agent 6", note: "Code: 107c (I-D4c refit)" },
+    { id: "5", name: "Agent 5", note: "Code: 109c (ranges and pack)" },
+    { id: "6", name: "Agent 6", note: "Free (107c merged)" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
   ];
@@ -272,8 +272,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   var B = [
     { id: "044c", lane: "G", at: 3, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }], why: "Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
     { id: "092c", lane: "3", at: 0, len: 1, st: "built", t: "Group interface: Env, seeded rng, full again, static cells", needs: [], why: "The four output-group briefs stopped on what a group can read; one interface change in runner.py and groups.py, no number changes.", files: "runner/runner.py, runner/groups.py" },
-    { id: "107c", lane: "6", at: 0, len: 1, st: "ready", t: "Refit I-D4c and rows quoting its threshold", needs: [], why: "Author ruled: refit, own brief. Follows 106c (I-D4b 52.4). Stops for review if any model digest moves.", files: "docs/model-v3/inputs.md, registry/inputs.json" },
-    { id: "108c", lane: "5", at: 0, len: 1, st: "ready", t: "Household step function (pure, not wired in)", needs: [], why: "First build brief after the parameter map. Convention A, legacy mode bit-equal to grow_and_consume. No digest moves.", files: "model_v3/core/household.py, tests/model_v3/" },
+    { id: "109c", lane: "5", at: 0, len: 1, st: "ready", t: "Scenario return ranges and cell inputs (register and pack)", needs: [], why: "Four judgement rows (pension, net financial, physical return; pension accrual) and the cell weights and composition in the pack. No wiring.", files: "docs/model-v3/inputs.md, model_v3/pack/" },
     { id: "089c", lane: "3", at: 1, len: 1, st: "hold", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [{ id: "088c" }, { id: "090c" }], why: "Parked: measured against the legacy 3.5%, which is abandoned (094r to 096r). Rule on feasibility after the replacement exists.", files: "runner/sweeps.py, out_sweeps.py" },
     { id: "057c", lane: "4", at: 2, len: 1, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "085c" }, { id: "086c" }, { id: "087c" }, { id: "088c" }, { id: "089c" }], why: "run.py, smoke tests, accept.sh, convergence test." },
     { id: "009c", lane: "G", at: 3, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" }
