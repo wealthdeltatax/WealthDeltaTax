@@ -264,7 +264,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "3", name: "Agent 3", note: "Free (098r merged)" },
     { id: "4", name: "Agent 4", note: "Code: 057c after 089c" },
     { id: "5", name: "Agent 5", note: "Research: 099r (held research moments)" },
-    { id: "6", name: "Agent 6", note: "Research: 100r (JST split)" },
+    { id: "6", name: "Agent 6", note: "Free (100r merged)" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
   ];
@@ -273,7 +273,6 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "044c", lane: "G", at: 3, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }], why: "Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
     { id: "092c", lane: "3", at: 0, len: 1, st: "built", t: "Group interface: Env, seeded rng, full again, static cells", needs: [], why: "The four output-group briefs stopped on what a group can read; one interface change in runner.py and groups.py, no number changes.", files: "runner/runner.py, runner/groups.py" },
     { id: "099r", lane: "5", at: 0, len: 1, st: "ready", t: "Extract moments from the research already held", needs: [], why: "Phase 1. Page-checked numbers from the PDFs in Research/ as parameter ranges, validation moments or context.", files: "docs/research/" },
-    { id: "100r", lane: "6", at: 0, len: 1, st: "ready", t: "JST cash yield and gain split (data design)", needs: [], why: "Phase 1. Reconstruct y and g_h by class, prove they reproduce the pack total return, specify the pack table.", files: "docs/research/" },
     { id: "089c", lane: "3", at: 1, len: 1, st: "hold", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [{ id: "088c" }, { id: "090c" }], why: "Parked: measured against the legacy 3.5%, which is abandoned (094r to 096r). Rule on feasibility after the replacement exists.", files: "runner/sweeps.py, out_sweeps.py" },
     { id: "057c", lane: "4", at: 2, len: 1, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "085c" }, { id: "086c" }, { id: "087c" }, { id: "088c" }, { id: "089c" }], why: "run.py, smoke tests, accept.sh, convergence test." },
     { id: "009c", lane: "G", at: 3, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" }

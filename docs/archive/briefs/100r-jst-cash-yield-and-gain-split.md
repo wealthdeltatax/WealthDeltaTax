@@ -1,6 +1,6 @@
 # 100: Split the JST total return into cash yield and holding gain (data design)
 
-- **Status:** ready
+- **Status:** retired 2026-11-21 (merged to main, guru review)
 - **Author/date:** K. Ogata with the guru, 2026-11-21
 - **Depends on:** none
 - **Read:** `docs/model-v3/household-flow-plan.md`; `docs/research/094r-kernel-map-and-household-accounts.md` (A2 and B4); `model_v3/pack/build_gbr.py`; `model_v3/pack/GBR/returns.csv`; `model_v3/pack/GBR/source/jst_r6.json` (`meta.variable_descriptions_note`); `docs/model-v3/inputs.md` (I-D1a, I-D1a2).

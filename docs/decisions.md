@@ -2,6 +2,12 @@
 
 One entry per finished brief or settled question, at most 8 lines each. Newest first. Maintained by the guru.
 
+## 2026-11-21: 100r JST cash yield and holding-gain split (data design)
+- The JST file carries the split: equity and housing identities hold to 5e-6 percentage points; bonds use `bond_rate` as a yield proxy with `bond_tr - bond_rate` as the gain (not an observed coupon split); bills have zero nominal gain by convention.
+- Portfolio weights are recovered from `capital_tr`, `risky_tr`, `safe_tr`: equity 28.6%, housing 41.2%, bonds 15.1%, bills 15.1% on average over 117 years. They are market-stock weights, not household weights.
+- Real conversion: `y/(1+pi)` and `(g-pi)/(1+pi)`, matching `core/returns.py`; arithmetic and additive, not for compounded paths. Mean real yield 4.03% plus real gain 0.71% equals I-D1a (4.74%).
+- Spec only: `returns_decomposition.csv` schema in `docs/research/100r-jst-cash-yield-and-gain-split.md`. It is the market return, not household saving or retained income. No pack, builder or I-D1a change.
+
 ## 2026-11-21: Scenario B and the household-flow plan
 - Author: scenario B. Cells by wealth band and life stage, saving on the income side, parameters with no UK range left unset or run as labelled judgement scenarios, no universal scalar. The closure baseline (a scalar from the untaxed steady state) may be kept as a labelled comparison arm.
 - Diagnosis recorded: the kernel has no household flow, so wealth is never replenished (wealth/GDP 47% of start by year 100, 62% with the tax off); 3.5% began as a v2 steady-state device and became a "consumption share" without its steady state being tested; the repeated `(1+g)(1-c)` is a cost, not a cause.
