@@ -8,6 +8,11 @@ One entry per finished brief or settled question, at most 8 lines each. Newest f
 - Real conversion: `y/(1+pi)` and `(g-pi)/(1+pi)`, matching `core/returns.py`; arithmetic and additive, not for compounded paths. Mean real yield 4.03% plus real gain 0.71% equals I-D1a (4.74%).
 - Spec only: `returns_decomposition.csv` schema in `docs/research/100r-jst-cash-yield-and-gain-split.md`. It is the market return, not household saving or retained income. No pack, builder or I-D1a change.
 
+## 2026-11-21: parameter-map phase approved; pension wealth is in the WDT base
+- Author: the empirical household-flow parameter-map hypothesis (`docs/hypotheses/empirical-household-flow-parameter-map.md`) is approved as phase 2, split into 101r (evidence side: crosswalk, register, unresolved data) and 102r (design side: coverage matrix, accounting conventions, public-side representation), with the accounting rulings left to the author.
+- Author: **pension wealth is inside the WDT base.** Pension accrual is household saving in the account; the pension valuation basis (ONS SCAPE-based, as the pack) matters for the base; pension wealth is not liquid cash for consumption or tax payment until drawn, a consequence 102r states for settlement.
+- Phase 1 is complete (097r to 100r; the 099r moments contain no UK saving or return rate by band or stage).
+
 ## 2026-11-21: Scenario B and the household-flow plan
 - Author: scenario B. Cells by wealth band and life stage, saving on the income side, parameters with no UK range left unset or run as labelled judgement scenarios, no universal scalar. The closure baseline (a scalar from the untaxed steady state) may be kept as a labelled comparison arm.
 - Diagnosis recorded: the kernel has no household flow, so wealth is never replenished (wealth/GDP 47% of start by year 100, 62% with the tax off); 3.5% began as a v2 steady-state device and became a "consumption share" without its steady state being tested; the repeated `(1+g)(1-c)` is a cost, not a cause.
