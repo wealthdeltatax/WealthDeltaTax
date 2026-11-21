@@ -47,11 +47,11 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** blocks 1 and 2 by Agent 3 (ONS, JST, HMRC scripts; register and crosswalk CSVs). Block 3: note created with basis, crosswalk and register view (sections 2 to 4 of the note).
+- **Next:** block 4 existing-row audit (I-W3a to I-W3d, I-W1c); block 5 flow-side constraints and data requests; block 6 summary, friction log, final check.
+- **Decisions:** none beyond the author's 2026-11-21 decisions.
+- **Gotchas:** note section 1 (summary) is a placeholder until the last block.
+- **Resume:** branch `brief/101-parameter-map-flows`; scripts re-run clean with no diff.
+- **Not run:** none yet.
+- **State:** in progress
 <!-- progress:end -->
