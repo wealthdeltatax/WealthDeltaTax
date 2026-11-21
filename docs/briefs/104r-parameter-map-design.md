@@ -1,6 +1,6 @@
 # 104: Parameter map, design side (cell coverage, accounting conventions, public side)
 
-- **Status:** hold (author rulings from 103r first)
+- **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-21
 - **Depends on:** 103r (merged)
 - **Read:** `docs/hypotheses/empirical-household-flow-parameter-map.md` (sections 4 to 9: the account, the no-double-counting rule, deliverables C and D); `docs/research/103r-parameter-map-assembly.md` and its register; `docs/research/096r-cohort-cell-design.md` (cells, interface gap list, open questions); `docs/research/094r-kernel-map-and-household-accounts.md` (A3 the public side; B3 the worked cases); `docs/research/100r-jst-cash-yield-and-gain-split.md`; `docs/model-v3/architecture.md`.
@@ -9,6 +9,11 @@
 From the 103r register, decide **which cells the evidence supports** and **how the household account is to be built**: the coverage matrix (deliverable C), the accounting conventions (D), and how the state's asset stake, the fund and WDT receipts are made one representation. These are proposals with a recommendation each; the author rules.
 
 ## Decisions (author, 2026-11-21)
+- Pension accrual: one labelled aggregate scenario on the ONS basis; no rate on the SCAPE stock (SUP-3 pending).
+- Classes with no held return (pension, physical, net financial): a labelled scenario range per class, not an estimate.
+- Residual O is reported, not forced to zero; survey (WAS) is the stock base, national accounts validation only.
+- Two deflators kept and labelled (CPI for real returns; ONS household consumption deflator for liability erosion); list where each is used.
+- Apply the label fixes: F-03 is `T_C` not `TR`; F-21 is a `CG` term not `O`; I-W3b is context only. Add physical wealth to the asset list.
 - Stage is the person's economic status (held WAS table) as a proxy; the household reference person's status is a data request, not a blocker.
 - Physical wealth (contents and vehicles) is inside the WDT base as a separate asset class.
 - Scenario B; no universal scalar; nothing chosen for revenue (see 101r).
