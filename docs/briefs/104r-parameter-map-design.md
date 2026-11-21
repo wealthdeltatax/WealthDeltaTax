@@ -1,6 +1,6 @@
 # 104: Parameter map, design side (cell coverage, accounting conventions, public side)
 
-- **Status:** ready
+- **Status:** hold (author rulings from 103r first)
 - **Author/date:** K. Ogata with the guru, 2026-11-21
 - **Depends on:** 103r (merged)
 - **Read:** `docs/hypotheses/empirical-household-flow-parameter-map.md` (sections 4 to 9: the account, the no-double-counting rule, deliverables C and D); `docs/research/103r-parameter-map-assembly.md` and its register; `docs/research/096r-cohort-cell-design.md` (cells, interface gap list, open questions); `docs/research/094r-kernel-map-and-household-accounts.md` (A3 the public side; B3 the worked cases); `docs/research/100r-jst-cash-yield-and-gain-split.md`; `docs/model-v3/architecture.md`.
