@@ -44,7 +44,7 @@ List each register row, pack field or file the stage reads and where it exists; 
 Measurable: a test, a bound, a manual check. For experiments, an adoption bar written before measuring.
 
 ## Checks to run
-The checks that prove this brief and no more; say why any usual check is skipped. An import check run with `python -I` must add the folder to the path (`sys.path.insert(0, '.')`); see `code.md`.
+The checks that prove this brief and no more; say why any usual check is skipped. A brief that names held workbooks or a repo script says so here: the run needs a local checkout and a shell (research sessions sometimes have neither; `research.md`). An import check run with `python -I` must add the folder to the path (`sys.path.insert(0, '.')`); see `code.md`.
 
 ## Out of scope
 

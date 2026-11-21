@@ -17,6 +17,7 @@ Maintains the project's reference database and the literature coverage behind th
 - Present the scope template (`docs/agents/reference/research/scope-template.md`) and wait for confirmation before a coverage scan.
 - Prefer primary sources; note date and source for each claim. State conflicts and gaps. Paraphrase; do not paste long passages.
 - If a paper is not in `source/`, flag the gap instead of inferring its content.
+- **Runtime check first.** A brief that names held workbooks (xlsx, ods, zip, Stata) or a repo checker (`pipeline/check_agent_docs.py`) needs a local checkout and a shell. If the session has neither, say so at once, and stop and ask for the files or a checkout; do not conclude from marginals or published headlines that something is unavailable. If you must finish without it, mark that check `not run` in the change report with the reason. The guru runs the checker before merge.
 - `registry/references.json` is generated from the `.bib` and `internal.json` by `pipeline/bib_to_json.py`; regenerate it, do not hand-edit.
 
 ## Reading a long or table-heavy PDF
