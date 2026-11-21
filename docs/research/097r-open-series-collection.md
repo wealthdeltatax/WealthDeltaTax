@@ -53,7 +53,7 @@ The latest QSA edition page identifies the Q2 2026 workbook (release 30 Septembe
 | Total financial liabilities — NIWJ | **Extracted** | S.14 annual 1997–2025, £m, current prices, NSA. |
 | Net financial assets — NYOH | **Extracted** | S.14 annual 1997–2025, £m, current prices, NSA. |
 | Total household net worth | **Headline only; component series not extracted** | ONS preliminary 2025 bulletin reports household net worth at £10.8tn and an increase of £146.1bn between 2024 and 2025. This is a rounded bulletin headline, not a row in the extracted financial-stocks CSV. |
-| Non-financial assets and asset components (dwellings, land, etc.) | **Reachable but not parseable** | Present in the NBS dataset; the dataset download could not be parsed in this environment. |
+| Non-financial assets and asset components (dwellings, land, etc.) | **Received, not yet extracted** | `data/097r/nbs.csv` (ONS National Balance Sheet, author upload 2026-11-21; 70 annual rows to 2025, S.1HN and S.14 columns incl. AN.111 dwellings and AN.211 land, current prices £m). Household series still to be pulled out into a tidy CSV. |
 | Revaluation / other-volume-change split by asset class | **Reachable but not parseable** | Not extracted. No allocation across dwellings, land, equities or other asset classes has been inferred. |
 
 Sources:
@@ -240,9 +240,9 @@ The agent's runtime could not decode the uploaded workbooks; the files are valid
 - The BoE do-file builds income deciles only (see section 8).
 
 **Still outstanding**
-1. **`nbs.xlsx` is empty** (one sheet, one cell). The National Balance Sheet needs downloading again from `ons.gov.uk/file?uri=%2Feconomy%2Fnationalaccounts%2Fuksectoraccounts%2Fdatasets%2Fnationalbalancesheet%2Fcurrent%2Fnbs.csv` as the CSV: author upload.
+1. ~~`nbs.xlsx` is empty~~ Resolved 2026-11-21: the author uploaded the CSV as `data/097r/nbs.csv`. `nbs.xlsx` stays empty and is ignored.
 2. The QSA workbook's revaluation and other-changes-in-volume sheets (B.9, BF.90 hold lending and financial net worth only; no revaluation sheet exists in this edition). Revaluation by asset class has to come from the balance sheet.
-3. D.42 paid, D.44 received and paid: not in the HH sheets of this workbook; look in the UK Economic Accounts workbook.
+3. D.42 paid, D.44 received and paid: not in the HH sheets of the QSA workbook. The UK Economic Accounts workbook (`ukea2026q2.xlsx`, 11.7 MB, uploaded 2026-11-21) is on the branch `brief/097r-open-series-collection` only, not committed to `main`; its sheets are not yet read.
 4. HMRC CSVs are raw sheet dumps; the numbers need reconciling to the commentary.
 5. NMG year-by-year variable availability.
 
