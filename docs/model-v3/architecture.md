@@ -115,6 +115,9 @@ Each entry: purpose, inputs, outputs (and the manifest ids it produces), the C1 
 
 39 outputs and one check; a test in stage V3-11 asserts that this table covers `outputs.yml` exactly.
 
+### 2.11 `core/household.py`: the household step (120 lines; brief 108c)
+A pure function `household_step(cell, pos, flows, rets, defl, convention, ...)` that advances one cell's positions (property, net financial, physical, pension, debt) by one year under convention A (credit the holding gain; saving carries the retained yield once), B (total return, an equivalence check) or `legacy` (the kernel's `W(1+g)(1-c)`, bit-equal). It returns the new positions and the account `dNW = S + CG + TR + O - T_WDT` (identity checked to 1e-9, the deflator wedge as its own entry of `CG`, `O` an input residual, `TR` fixed at 0). Pension is illiquid: the WDT payment falls pro rata on the non-pension classes (or by `source_weights`), never on pension, and the liquidity diagnostic is returned. Layer 1 (it imports nothing from `model_v3`, so the kernel may import it later). Not called by the kernel, runner or revenue code in 108c. Design: `docs/research/104r-parameter-map-design.md` sections 3 and 5.1.
+
 ## 3. Numbers C1 left to the architecture
 
 ### 3.1 Seed and sample size
@@ -185,6 +188,7 @@ core/kernel.py                 620    450
 core/revenue.py                520    350
 core/burden.py                 430    250
 core/support.py                520    300
+core/household.py             120    150
 runner/runner.py               360    150
 runner/sweeps.py               280    100
 runner/groups.py                40     60
@@ -204,16 +208,16 @@ tests/model_v3/test_pack_base.py 0     58
 
 | Group | Code lines | Test lines |
 |---|---:|---:|
-| Core (eight files) | 3,240 | 2,208 |
+| Core (nine files; `household.py` added by 108c) | 3,360 | 2,358 |
 | Runner (`runner.py`, `sweeps.py`, `groups.py`, four `out_*.py` groups; 084c) | 1,280 | 630 |
-| **Core plus runner** | **4,520** | **2,838** |
+| **Core plus runner** | **4,640** | **2,988** |
 | Output layer (`out/`) | 700 | 300 |
 | `interface.py` and `run.py` | 170 | 80 |
 | Rules, budget and smoke tests | 0 | 150 |
 | Acceptance script and convergence test (040g Q1) | 0 | 90 |
-| **Total** | **5,390** | **3,458** |
+| **Total** | **5,510** | **3,608** |
 
-Core plus runner 4,520 is a ceiling, not a target; `runner/pool.py` (70) is outside it and counted only if triggered. The data tooling `pack/build_gbr.py` has its own budget of 200 lines (067c) and no test beyond a hash check of its output. Output layer 700 is 15% of core plus runner; R9 asks for smaller.
+Core plus runner 4,640 is a ceiling, not a target; `runner/pool.py` (70) is outside it and counted only if triggered. The data tooling `pack/build_gbr.py` has its own budget of 200 lines (067c) and no test beyond a hash check of its output. Output layer 700 is 15% of core plus runner; R9 asks for smaller.
 
 ### 6.2 Tests each module needs before the next is built (R7)
 Names are the test ids a build brief and `acceptance.md` cite.

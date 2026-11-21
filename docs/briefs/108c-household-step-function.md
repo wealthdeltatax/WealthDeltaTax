@@ -45,11 +45,27 @@ Layer placement; whether `cell` needs more than band and stage in the signature.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:** (exact branch name and fetch line, last block pushed, first action)
-- **Not run:**
-- **State:** ready; not started
+- **Done:** `model_v3/core/household.py` (77 lines), `tests/model_v3/test_household.py` (73), LAYER row, budget row and architecture 2.11; v3 suite 237 passed; check_agent_docs passed.
+- **Next:** wiring into the kernel and runner (a later brief); the author rules on the scenario return inputs.
+- **Decisions:** layer 1 (imports nothing from model_v3, so the kernel, also layer 1, may import it later); `cell` is a label only, band and stage suffice; classes are a dict with two special keys (`pension`, `debt`) and a `sink` for saving.
+- **Gotchas:** none.
+- **Resume:** none.
+- **Not run:** none.
+- **State:** done; merged
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 108c, household step function
+- Files changed: model_v3/core/household.py (new, household_step with modes A, B, legacy); tests/model_v3/test_household.py (new, 7 tests); tests/model_v3/conftest.py (LAYER row, same line count); docs/model-v3/architecture.md (budget row 120/150, totals, section 2.11); this brief's notes
+- What is different now: a pure function advances one cell's positions a year under convention A, B or legacy, returns the account dNW = S + CG + TR + O - T_WDT (checked to 1e-9 per call, wedge as its own CG entry, O an input, TR fixed at 0), never sells pension, spreads T_WDT pro rata (or by source_weights) over non-pension classes, and returns the liquidity diagnostic. Nothing calls it.
+- New or changed interfaces: household_step(cell, pos, flows, rets, defl, convention, T_WDT=0, source_weights=None, sink='financial', fin=None, TR=0, O=0) -> (pos1, acct)
+- Acceptance criteria: modes A, B, legacy exist and the identity holds per call (met, 50-case grid and every call raises if it fails); worked household gives 54 in A and in B, the double-count variant gives 90 and the test catches the 36 gap (met); legacy bit-equal to kernel.grow_and_consume on four (g, c) pairs over random wealth, np.array_equal (met); all existing v3 tests unchanged, 237 passed (met); registration and budget (met: 77/120 and 73/150 lines; rules budget still 150); diff limited to Touches (met)
+- Deviations from the brief: none; test_groups.py not touched (no runner group filled)
+- Risks / follow-ups: the sink class takes all saving not going to pension, so B and A differ in composition, not in dNW; a payment above non-pension wealth raises rather than deferring (the lien stays in the kernel); the scenario returns for pension, physical and net financial are inputs the caller must supply
+- Instruction friction: none
+- Verification: PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest tests/model_v3 -q: 237 passed; python -I pipeline/check_agent_docs.py: exit 0
+- Overview sections likely needing an update: none
+- Commit / branch: brief/108-household, merged to main
+```
