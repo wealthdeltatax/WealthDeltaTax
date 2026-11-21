@@ -1,4 +1,4 @@
-series_id,period,value,unit,price_basis,seasonal_adjustment,sector,sign_convention,source_url,retrieval_date,definition
+series_id,period,value,unit,price_basis,seasonal_adjustment,sector,sign_convention,source_link,retrieval_date,definition
 NYOH,1997,1837472,£m,current price,NSA,S.14,asset_or_liability_stock,https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/nyoh/nbs,2026-11-21,"Net financial assets (BF.90)"
 NYOH,1998,2215162,£m,current price,NSA,S.14,asset_or_liability_stock,https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/nyoh/nbs,2026-11-21,"Net financial assets (BF.90)"
 NYOH,1999,2355337,£m,current price,NSA,S.14,asset_or_liability_stock,https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/nyoh/nbs,2026-11-21,"Net financial assets (BF.90)"
