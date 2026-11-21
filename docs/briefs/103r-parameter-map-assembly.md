@@ -1,6 +1,6 @@
 # 103: Parameter map, assembly: one register, the pension-basis check, unresolved data and proposed rulings
 
-- **Status:** hold
+- **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-21
 - **Read (all three evidence briefs):** `docs/hypotheses/empirical-household-flow-parameter-map.md` (sections 3 to 8, the classification and deliverables A, B, E); `docs/model-v3/household-flow-plan.md`; `docs/research/094r-kernel-map-and-household-accounts.md` (B1 and B2, the identity and the variable dictionary); `docs/research/096r-cohort-cell-design.md`; the phase 1 notes `095r-*`, `097r-*`, `098r-*`, `099r-*`, `100r-*` in `docs/research/` and the data under `docs/research/data/`; `docs/model-v3/inputs.md` (the rows named in each brief); `docs/agents/research.md` (runtime check first).
 - **Depends on:** 101r and 102r (both reported and reviewed)
@@ -49,5 +49,5 @@ None.
 - **Gotchas:**
 - **Resume:**
 - **Not run:**
-- **State:** hold; waits for 101r and 102r
+- **State:** ready; 101r and 102r merged (notes in `docs/research/`, data in `docs/research/data/101r/` and `102r/`). Start with the note skeleton, one push per block (`docs/agents/research.md`).
 <!-- progress:end -->
