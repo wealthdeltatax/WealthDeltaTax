@@ -77,3 +77,10 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: the connector returned XLSX as base64, ONS file fetches returned `Unsupported content-type`, and the runtime had no XLSX/ZIP parser or checkout, so the first pass reported the held tables as unreadable and concluded the joint stage-by-band distribution was not published. It is (Tables 2.11, 2.13).
 - Cost: a wrong finding had to be corrected at close-out; the brief's acceptance test 1 could not be run.
 - Suggest: research briefs that name held workbooks should say the run needs a local checkout with openpyxl, or the agent should stop and ask instead of concluding from marginals.
+
+
+### 2026-11-21 · 099r · research
+- **Instruction:** 099r Runtime; requires a local checkout and page-numbered PDF reader, and forbids search-summary evidence.
+- **Happened:** `git clone --depth 1 https://github.com/wealthdeltatax/WealthDeltaTax.git /tmp/wdt` failed: `Could not resolve host: github.com`; raw GitHub PDF opens returned `DisabledError`.
+- **Cost:** PDF extraction and all page-checked moments are blocked; no figures were inferred from search results.
+- **Suggest:** Provide a repository runtime with local checkout/PDF reader, or upload the held PDFs as a ZIP.
