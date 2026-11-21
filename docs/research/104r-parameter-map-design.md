@@ -153,7 +153,36 @@ The account is in real pounds on the pack's CPI basis; the JST yield and gain ar
 Net financial wealth is the only held liquid class (no instrument split); pension plus property is 74% to 78% of net worth in D4-5 to D10. A household whose wealth is mostly pension and housing cannot pay from cash on hand without a sale, a loan, deferral or a drawdown: which of these the design allows is an author ruling (section 6), not an assumption here. No payment rate is computed.
 
 ## 4. Public-side representation and settlement (item 3)
-(pending)
+**Problem (094r A3).** The kernel moves units from the family to the state (`_move`: `f -= units; s += units`) and grows the state's units at `g`; `state_true` is read by no module outside the kernel. The revenue code reads the same payment as a cash flow `wdt = tax + refund + death_tax + heir + death_B + death_D` into a fund recursion `fund(wdt + lev, E, g, ...)` that earns `r = g` (a share `safe_share`, I-D14f, in the safe asset), pays out `R` against expenditure and reports M1c. These are two recursions of one asset with no test that ties them, and no consolidated household-plus-public account is checked anywhere.
+
+**Options.**
+| Option | What the payment becomes | Consequence |
+|---|---|---|
+| A. Cash only | a cash transfer into the fund; the household sells units to the market | drops the state's units; the fund recursion is the public asset; consistent with the revenue code but not with the kernel's refund cap on the state's stake |
+| B. In kind only | units moved to the state; the fund is the value of the stake | needs the stake valued each year and cash flows (refunds, payout, the corporate levy) written as unit sales |
+| **C. One public ledger** | a transfer to the public sector, entered once as `Rec`; the public sector holds one ledger of positions by asset class, in units, at market value; the fund balance is read from the ledger, not run as a second recursion | cash and in-kind receipts reach the same positions; the same price index values household and public units |
+
+*Recommendation: C.*
+- **What the household payment becomes.** In the household account it is `T_WDT` (net of any refund), one negative line in `dNW`; in the public account the same amount is a receipt `Rec` and an addition to the ledger. A cash settlement (the household sells units to the rest of the market, outside the modelled sectors, and pays cash) and an in-kind transfer give the same ledger; the market counterparty's change is zero because units and cash swap at one price (composition only).
+- **How the stake is valued.** At market value, units times the true price index of the asset class (the kernel's `state_true` basis), the same index that values household units; the declared value is used for assessment only (the kernel's declared against true distinction is unchanged). Cash receipts are held under the fund rule (`safe_share`, I-D14f, unchanged); an in-kind receipt keeps its class. The fund's return `r_f` (D03) is then the ledger's own realised return and is endogenous, not a second input.
+- **Other flows through the ledger.** Refunds are a ledger-to-household transfer (the kernel caps them at the state's stake: that cap is the ledger balance of that class). The corporate levy `lev` is an external receipt (firms), not a household flow; the fund payout `R` leaves the ledger, and is either government expenditure (public out) or a transfer to households (household income, so in `T_C` net or `S`), never both. Death taxes and the heir receipt are household-to-public payments of the same form as the annual payment.
+
+**Reconciliation identity (no wealth or income created).** For each year, with `L` the ledger value:
+`dNW_HH + dL = [S + CG + TR + O]_HH + r_pub L + Lev - R_out`
+where `R_out` is the part of `R` not paid to households (a transfer to households is income inside `S` and cancels against the ledger fall), `Lev` is the external receipt and `r_pub L` the ledger's own return. The payment `T_WDT` appears as `-T` in `dNW_HH` and `+T` in `dL` and cancels. The conservation test in units is `f + s = F` per class (household units plus the ledger's units equal the starting units less units sold to or bought from the market), which the kernel already holds.
+
+**Illustrative case (not data, not a band, no rate of tax; `public_side_identity.py`, `public_side_identity.csv`).** A WDT of 5 (thousand pounds) in one equity-like class with a gain of 2% and a cash yield of 3% in year 2:
+| Case | Year | Household dNW against the no-WDT counterfactual | Ledger dL | Sum |
+|---|---|---|---|---|
+| cash settlement | 1 | -5.00 | +5.00 | 0 |
+| cash settlement | 2 | -0.25 | +0.25 | 0 |
+| in kind | 1 | -5.00 | +5.00 | 0 |
+| in kind | 2 | -0.25 | +0.25 | 0 |
+| cash settlement, payout R = 0.10 to households | 2 | -0.15 | +0.15 | 0 |
+
+In year 2 the household forgoes the gain (0.10) and the yield (0.15) on the 5 units, and the ledger earns them; with a payout of 0.10 to households the household's shortfall falls to 0.15 and the ledger's change to 0.15. The legacy two recursions agree here (the stake and the fund both reach 5.25) only because one return is used and there is no payout; nothing in the code makes them agree.
+
+**Limits.** The model stays partial equilibrium (094r B5): the market counterparty to a sale is outside the modelled sectors, prices do not respond to the sale, and nothing here is a macroeconomic closure. The ledger's holding by class needs the same class returns as the household side, including the classes with no held return (pension, physical, net financial), which are scenario ranges; the public stake is therefore a scenario for those classes, labelled in the same way.
 
 ## 5. Interface to v3 (item 4)
 (pending)

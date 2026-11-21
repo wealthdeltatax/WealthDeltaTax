@@ -1,0 +1,8 @@
+case,year,household_dNW_vs_no_wdt,public_ledger_dNW,market_counterparty_dNW,sum,note
+cash settlement: household sells 5 units to the market and pays 5 cash; the ledger buys 5 units,1,-5.0,5.0,0.0,0.0,"payment of the WDT: a transfer, no wealth created"
+cash settlement: household sells 5 units to the market and pays 5 cash; the ledger buys 5 units,2,-0.25,0.25,0.0,0.0,"against the counterfactual household that kept the units; payout R is public out, household in"
+in-kind: household transfers 5 units to the ledger,1,-5.0,5.0,0.0,0.0,"payment of the WDT: a transfer, no wealth created"
+in-kind: household transfers 5 units to the ledger,2,-0.25,0.25,0.0,0.0,"against the counterfactual household that kept the units; payout R is public out, household in"
+cash settlement with a payout R = 0.10 to households as a transfer in year 2,1,-5.0,5.0,0.0,0.0,"payment of the WDT: a transfer, no wealth created"
+cash settlement with a payout R = 0.10 to households as a transfer in year 2,2,-0.15,0.15,0.0,0.0,"against the counterfactual household that kept the units; payout R is public out, household in"
+"legacy kernel and revenue code, same case with the same return",2,,,,0.0,agree by construction when one return is used and no payout; they are separate recursions with no test that ties them (094r A3)
