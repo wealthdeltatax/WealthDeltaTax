@@ -248,3 +248,7 @@ Author: the pension and net financial real return ranges are the JST market-port
 
 ## 2026-11-21: first cell run inputs
 Author: saving by cell is one uniform ratio (the ONS non-pension saving ratio, min, median and max of 1998-2025), no wealth gradient; income by band from I-D9a to I-D9d for all stages, with D1-3 at the D4-5 low bound and retired cells at a labelled retired fraction (held source if any, else 0.6, range 0.4 to 0.8). First run is untaxed and standalone (brief 110c); validation against the 099r moments follows. 109c merged (I-D1h to I-D1k, pack v2).
+
+## 2026-11-21: 110c income gap
+Block 1 found cell income (I-D9 band means times households) 19.5% below ONS B.6g, while the saving ratio is a national-accounts ratio of B.6g. Author: scale every cell's income by one factor to the B.6g total, keeping band proportions and the retired split; label the run aggregate-constrained; keep the unscaled run as a sensitivity.
+

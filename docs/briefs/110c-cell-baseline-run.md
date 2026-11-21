@@ -23,6 +23,10 @@ Run the ten cells (five pack bands by retired or not) forward for 100 years with
 - **Block 4: findings.** Write the findings and limits from the CSVs, set State, change report, push; stop.
 **Stop rule.** After three blocks, or when a quarter of the budget is left, write the findings from what exists, push, list the rest under Next and stop.
 
+## Resume (blocks 0 and 1 are pushed; block 1 stopped for the author's ruling)
+`git fetch origin brief/110-cell-baseline-run:refs/remotes/origin/brief/110-cell-baseline-run && git checkout -b brief/110-cell-baseline-run origin/brief/110-cell-baseline-run && git pull --rebase origin main`. The branch's progress block is accurate; do not redo blocks 0 and 1. If the brief file conflicts on rebase, keep the branch version and add this section.
+**Author's ruling on the income gap (2026-11-21):** scale every cell's income by one factor so the total equals ONS B.6g (state the year you match to; the wealth base is 2020 to 2022, I-D9 is at the FYE 2024 level, B.6g is quoted for 2025, so say which year and why, and whether prices need adjusting), keeping the band proportions and the retired split. Label the run aggregate-constrained. Keep the unscaled run as a sensitivity (one extra run, mid regime and median saving). Then blocks 2 to 4 as written.
+
 ## Design
 1. A standalone module (choose the layer from architecture.md 5.1 and report; it imports `household` and the pack/register readers, and the kernel imports nothing from it) and a script that writes a table per run: cell, year, positions by class, `dNW`, `S`, `CG` (with the erosion wedge line), `O`, and the aggregate (sum over cells weighted by persons or households: state which and the conversion with I-D4h).
 2. **Units first.** State the units of income, wealth and weights and reconcile: the sum of cell income against ONS B.6g and of cell wealth against the pack total wealth (report the gap; do not rescale to force a match).
