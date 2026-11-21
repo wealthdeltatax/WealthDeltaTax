@@ -220,17 +220,17 @@ If ONS cannot supply the joint tabulation, proceed through study 7215 first. Do 
 
 ## 7. Files and sources still required for full numeric extraction
 
-The following are published and/or already held but remain unparsed in this run:
+The following are published and/or already held but remain unparsed in this run. The direct file URLs below were confirmed from the ONS download links; the fetch interface rejects their binary content types:
 
 | File / dataset | Exact source | Why needed |
 |---|---|---|
 | `Rates Data/totalwealthtables.xlsx` | Held in repository | Table 2.11 and decile wealth/component values; workbook spot-checks |
 | `Rates Data/financialwealthtables.xlsx` | Held in repository | Financial-wealth tables and any age/decile breakdown |
 | `Research/etbreferencetablesfye202324final.xlsx` | Held in repository | Confirm table-level definitions for ETB income-decile evidence |
-| ONS Ad hoc 2813 XLSX | https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/adhocs/2813meanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferencepersonhrpingreatbritainapril2020tomarch2022 | Wealth components by age of household reference person, Round 8 |
-| ONS Ad hoc 3222 XLSX | https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/adhocs/3222personalfinancialandpropertydebtbyageandregiongreatbritainapril2020tomarch2022 | Personal financial/property debt by age and region, Round 8 |
-| ONS 2024-based Great Britain population projection ZIP | https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationprojections/datasets/zippedpopulationprojectionsdatafilesgreatbritain | Single-year age/sex population projections |
-| ONS 2024-based Great Britain qx XLSX | https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/lifeexpectancies/adhocs/3459periodandcohortmortalityratesqxandexpectationsoflifeex2024basedprincipalprojectiongreatbritainanduk1981to2124 | Age-specific period/cohort mortality probabilities |
+| ONS Ad hoc 2813 XLSX (`meanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferenceperson.xlsx`) | https://www.ons.gov.uk/file?uri=%2Fpeoplepopulationandcommunity%2Fpersonalandhouseholdfinances%2Fincomeandwealth%2Fadhocs%2F2813meanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferencepersonhrpingreatbritainapril2020tomarch2022%2Fmeanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferenceperson.xlsx | Wealth components by age of household reference person, Round 8 |
+| ONS Ad hoc 3222 XLSX (`personalfinancialandpropertydebtbyageandregion.xlsx`) | https://www.ons.gov.uk/file?uri=%2Fpeoplepopulationandcommunity%2Fpersonalandhouseholdfinances%2Fincomeandwealth%2Fadhocs%2F3222personalfinancialandpropertydebtbyageandregiongreatbritainapril2020tomarch2022%2Fpersonalfinancialandpropertydebtbyageandregion.xlsx | Personal financial/property debt by age and region, Round 8 |
+| ONS 2024-based Great Britain population projection ZIP (`gb1.zip`) | https://www.ons.gov.uk/file?uri=%2Fpeoplepopulationandcommunity%2Fpopulationandmigration%2Fpopulationprojections%2Fdatasets%2Fzippedpopulationprojectionsdatafilesgreatbritain%2F2024based%2Fgb1.zip | Single-year age/sex population projections |
+| ONS 2024-based Great Britain qx XLSX (`periodcohortqx2024basedgb.xlsx`) | https://www.ons.gov.uk/file?uri=%2Fpeoplepopulationandcommunity%2Fbirthsdeathsandmarriages%2Flifeexpectancies%2Fadhocs%2F3459periodandcohortmortalityratesqxandexpectationsoflifeex2024basedprincipalprojectiongreatbritainanduk1981to2124%2Fperiodcohortqx2024basedgb.xlsx | Age-specific period/cohort mortality probabilities |
 
 The public downloads are reachable by browser but their binary contents could not be parsed through the available connector. The held repository workbooks are already present; they do not need to be re-uploaded to GitHub. To finish the numeric extraction, provide readable CSV exports of the relevant sheets or use a local repository checkout with an XLSX parser. No new file has been created from guessed workbook values.
 
