@@ -87,7 +87,16 @@ The underlying weights are not separate columns in the held JSON. These are alge
 
 ### Reproduction against the pack
 
-The annual weighted reconstruction is compared with `capital_tr` and the existing `model_v3/pack/GBR/returns.csv`. The maximum absolute difference between the JST source `capital_tr` and the pack's percentage-point value divided by 100 is 4.908e-7 percentage points over 117 years. The reconstruction residual is 1.183e-6 percentage points. Tolerance: **1e-7 in decimal-return units** (0.00001 percentage points). All observations pass.
+The annual reconstruction is compared with the existing `model_v3/pack/GBR/returns.csv`. Each pack total-return column is a direct copy of the matching JST series (percentage points in the CSV, decimals in the JSON):
+
+| Pack column | Matched observations | Maximum absolute source/pack difference |
+|---|---:|---:|
+| `eq_tr` | 149 | 4.828e-7 percentage points |
+| `housing_tr` | 117 | 4.987e-7 percentage points |
+| `bond_tr` | 150 | 4.976e-7 percentage points |
+| `capital_tr` | 117 | 4.908e-7 percentage points |
+
+The weighted reconstruction residual against JST `capital_tr` is 1.183e-6 percentage points; the real decomposition residual is 1.157e-6 percentage points. Tolerance: **1e-7 in decimal-return units** (0.00001 percentage points). All observations pass. The pack has no separate `bill_tr` column; its bill leg is `bill_rate`.
 
 ## 4. Real conversion and nominal revaluation
 
