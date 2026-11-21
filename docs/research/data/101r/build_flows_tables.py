@@ -222,8 +222,8 @@ add("F-28", "Audit I-W1c: UK financial return gap, top decile minus bottom decil
     "Fagereng-style UK return by rank is not available")
 add("F-29", "Audit I-W3a: net active saving rate by wealth, 6 to 8% of disposable income", "Norway, 2005-2015, Fagereng et al.; read from a figure",
     "S by wealth band", "wealth percentile (Norway)", "Proxy (foreign)", "inputs.md I-W3a (SW2); PDF not held", "none", "row range 6 to 8% (as registered)",
-    "Foreign population and income concept; figure reading; UK non-pension saving ratio over 1998-2025 is "
-    + rng("ratio_nonpension_part_pct", 1.0, "pp") + " of B.6g+D.8",
+    "Foreign population and income concept; figure reading. For scale only (a different concept, not a test): UK non-pension saving, contribution to the ratio of B.6g+D.8, "
+    + rng("ratio_nonpension_part_pct", 1.0, "pp"),
     "context only", "remain unset (UK)", "does not support as a UK value; UK evidence is aggregate or by income (F-33)", "UK saving by wealth band: not available in held data")
 add("F-30", "Audit I-W3b: gross saving rate top 1% (about 35%)", "Norway 2005-2015, includes unrealised capital gains", "S+CG by band", "top 1%",
     "Proxy (foreign), different definition", "inputs.md I-W3b (SW2)", "none", "row point 35%",

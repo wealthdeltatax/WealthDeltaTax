@@ -3,7 +3,7 @@
 Accessed 2026-11-21. Brief `docs/briefs/101r-parameter-map-flows-and-returns.md`. Evidence side A for the household account of `094r` (B1, B2); companions 102r (stocks, cells, debt) and 103r (assembly). Data and scripts: `docs/research/data/101r/`. No register, code, pack or manifest edit comes from this note, and no model was run.
 
 ## Status of this note
-Built in blocks, one push each. Block 1 (ONS flows), block 2 (JST split, HMRC 3.7, tables) are committed with scripts. This file adds, in order: the crosswalk and register (section 2 and 3), the existing-row audit (section 4), the flow-side constraints (section 5), the data requests (section 6), and the closing summary (section 1, filled last).
+Built in blocks, one push each. Block 1 (ONS flows), block 2 (JST split, HMRC 3.7, tables) are committed with scripts. This file holds, in order: basis (2), crosswalk (3), register view (4), existing-row audit (5), flow-side constraints (6), data requests (7), reproduction list (8), and the closing summary (1, filled last).
 
 ## 1. Summary
 (Filled at the last block.)
@@ -14,7 +14,7 @@ Built in blocks, one push each. Block 1 (ONS flows), block 2 (JST split, HMRC 3.
 - **3.5% (I-D14c)** is a legacy comparator. It is row F-25, classed *scenario (legacy comparator)*, intended use *neither*.
 - Sources with different definitions are reported side by side and not averaged or spliced (for example UKEA against QSA vintages, DGD8 against CSJ8, ONS B.2g yield against the JST housing yield).
 - Accounting locations are those of 094r B1 (`dNW = S + CG + TR + O - T_WDT`) and B2; `Y_L`, `Y_P`, `T_C`, `C`, `K`, `CG`, `O` as defined there.
-- Classification: *observed*, *derived*, *proxy*, *scenario*, *unset*. Every value reproduces from a script in `docs/research/data/101r/` (section 7); tolerances are in the check files.
+- Classification: *observed*, *derived*, *proxy*, *scenario*, *unset*. Every value reproduces from a script in `docs/research/data/101r/` (section 8); tolerances are in the check files.
 
 ## 3. Source crosswalk (flows)
 Full columns (period, unit and price basis, definitions, dimensions, revisions, whether the held file was checked against the published source) are in `docs/research/data/101r/flows_crosswalk.csv`. One line per source here.
@@ -81,3 +81,21 @@ One row per parameter in `docs/research/data/101r/flows_register.csv` (14 column
 | F-33 | Saving by lifetime income and education (direction) | Scenario | direction only; gap of the order of 4 points of income (median, highest education against compulsory-only), a nearest UK bound, no | scenario range (labelled) | implement with scenario range |
 | F-34 | Passive and active share of wealth change (validation moments) | Observed (moment) | 53%; 60%; 76 to 93% (as published) | validation only | ready for implementation (as validation moments) |
 | F-36 | NMG survey saving and debt-service variables | Unset | unset | none | further data required |
+
+## 5. Audit of existing register rows (I-W3a to I-W3d, I-W1c)
+Read-only: the register is not edited. "Held check" says what a held file lets me verify. The four source PDFs (Fagereng and others; Bangham and Leslie 2020; Advani, Bangham and Leslie 2021; Before the fall) are not all held; where a figure was read by 099r from a held PDF the moment id is given. Detail rows: F-28 to F-32 in `flows_register.csv`.
+
+| Row | What it is | Does the source support the definition and population? | Held check | Classification the evidence gives | Disagreement or caution |
+|---|---|---|---|---|---|
+| I-W1c (1.8 to 2.0 pp) | UK mean financial return implied by portfolio composition, top wealth decile against bottom deciles, WAS 2016-18, financial wealth only | Yes as a *composition-implied* return, which the row says. It is not an observed return and not a total return on wealth | The figures (2.2% top, 0.2 to 0.4% bottom) are not in a held file. Direction agrees with AB-05 (share of financial wealth in zero-return assets falls from 71% in the lowest to 17% in the top decile, read from a chart) | **Proxy**, validation only (register says judgement) | The numeric gap cannot be verified here; the authors say the true gap is probably larger. Excludes housing and pensions, so it cannot calibrate a return by band on the WDT base |
+| I-W3a (6 to 8%) | Net active saving rate by wealth percentile, Norway 2005-15, % of disposable income | Supports its own definition (Norway, read from a figure); the register says foreign | Not verifiable: PDF not held | **Proxy (foreign)**; context only | Not a UK value. No UK saving by wealth band is held (F-33 is by income and education). The UK aggregate non-pension saving (F-08) has a different denominator and is for scale only, not a test. The central is the midpoint of a figure reading (J) |
+| I-W3b (35%) | Gross saving rate of the top 1%, Norway, **includes unrealised capital gains** | Yes, and the register says it is not comparable with a household saving ratio | Not verifiable | **Proxy (foreign), different definition**: it is `S + CG`, not `S` | **Contradicts use as a saving rate** in the 094r account: it mixes saving and holding gains, so feeding it to an `S` term would count gains twice (094r B3 case 6c). Keep as context only |
+| I-W3c (7 to 24%, central 15) | Share of the change in GB family *financial* wealth that is net saving, the residual after asset prices and yields | Supports: 099r AB-01 gives asset-price-and-yield shares of 93, 93, 82, 76 and 79%, so saving 7 to 24%. It is a **share of change**, not a saving rate | Bar labels read from a page image by 099r; the text names only the first (93%) | **Proxy (validation)**: average family, financial wealth only, not by band | Citation differs: the register cites Bangham and Leslie 2020 Fig 6 (p. 18); 099r read the chart in the 2021 journal paper (PDF p. 15) and notes the source is the 2020 report. Same method, two citations, not reconciled. The central 15 is the midpoint of a range that varies by period, not an estimate. Excludes pensions, so it does not map to the WDT base |
+| I-W3d (about 40%) | Active saving as a share of the total wealth gain, 2018-20 to 2020-22, GB, including housing | Supports: 099r BF-02 gives active 40% in the latest period (47% over the longer period since 2010-12) | Read from text by 099r; the report is held | **Proxy (validation moment)**; one two-year window including pandemic saving | Resolution Foundation basis **excludes DB pensions**, so it is not the WDT pension basis (F-35). The register cites p. 22 Fig 7; 099r records pages 21, 13 and 5; the page difference is not resolved here (printed against PDF page not checked) |
+
+Findings from the audit:
+1. **Four rows, four denominators.** I-W3a is a share of disposable income; I-W3b a share of disposable income including gains; I-W3c a share of the change in financial wealth; I-W3d a share of the change in total wealth. They cannot be compared with each other or with the ONS saving ratio without a conversion that no held file supports. They are not averaged here.
+2. **None is a UK saving rate by wealth band.** The nearest UK evidence is aggregate (F-07 to F-10) or by income and education (F-33). So the band-specific saving parameter stays *unset or a labelled scenario* in Scenario B.
+3. **Only I-W3c and I-W3d are UK, and both are validation moments** for the split of wealth change into saving and gains, on bases that exclude pensions (financial wealth only) or DB pensions (RF basis). They check an output; they do not set an input.
+4. **I-W3b should not feed a saving term** (a classification, not an edit: for the author or guru).
+5. **I-D1a is reproduced** (F-26: 4.742% against 4.74; `derive_jst_split.py`) and **I-D1a2 cannot be split** into yield and gain (F-27): geometric means are not additive.
