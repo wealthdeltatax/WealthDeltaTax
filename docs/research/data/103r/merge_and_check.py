@@ -58,6 +58,17 @@ D_ROWS = [
  ('D04', 'I_D: interest paid on household debt, and principal repayment R', 'I_D, uses; B and R swap M and D', 'Unset', 'no household interest series by band or stage; aggregate D.4 paid is in derived_ons_flows.csv (101r) and is not split into debt interest',
   'further data required (DR-06, DR-10 debt service)')]
 
+# Cross-side flags found by cross_side_checks.py (labels only; no value or row text is edited here).
+FLAGS = {
+ 'F-03': 'C03: labelled TR; in 094r B2 benefits sit in T_C net of benefits and TR is net capital transfers',
+ 'F-21': 'C03: labelled O; in 094r B2 the real revaluation of nominal positions is a CG term',
+ 'F-06': 'C05: P.31 includes owners imputed rent (ONS), so imputed rent nets out of S',
+ 'F-10': 'C01/C02: ONS national-accounts basis; the stock rows are on the WAS R8 SCAPE basis; not convertible (DR-01)',
+ 'F-12': 'C01/C02: as F-10', 'F-13': 'C01/C02: as F-10', 'F-23': 'C06: O outside 1% of opening NW in 2020 and 2021 (non-financial revaluation not held, DR-05)',
+ 'S08': 'C01/C02: stock basis differs from the flow rows F-10 to F-13',
+ 'S09': 'not in the 094r asset list A (H, E, B, M, PA); author ruling 2026-11-21 puts it in the base',
+ 'S12': 'C09: ONS 3222 total is 0.69 of NBS AF.L (2021); coverage',
+ 'S05': 'C05: property class returns exist (F-20); financial, pension and physical classes cannot be run'}
 def cls(c):
     c = c.strip()
     return c.split(' (')[0].split(',')[0].strip().lower()
@@ -90,6 +101,7 @@ for r in rows:
     r['ruling_class'] = ruling_class(r['proposed_ruling'])
     r['pension_basis'] = BASIS.get(r['row_id'], '')
     r['dictionary_terms'] = '; '.join(k for k, v in DICT.items() if r['row_id'] in v)
+    r['cross_side_flag'] = FLAGS.get(r['row_id'], '')
 
 errs = []
 names = [r['variable'].strip().lower() for r in rows]
@@ -149,7 +161,7 @@ for r in xrows:
 
 pcols = ['row_id', 'side', 'group', 'variable', 'definition', 'accounting_location', 'target_cell_dimension', 'classification', 'class_norm', 'source_reference',
          'calculation_and_script', 'value_or_range', 'caveats', 'intended_use', 'proposed_ruling', 'ruling_class', 'pension_basis', 'dictionary_terms',
-         'relation_to_existing_row', 'open_question_or_data_request']
+         'cross_side_flag', 'relation_to_existing_row', 'open_question_or_data_request']
 os.makedirs(OUT, exist_ok=True)
 with open(OUT + 'parameter_register.csv', 'w', newline='') as f:
     w = csv.DictWriter(f, pcols); w.writeheader(); w.writerows(rows)

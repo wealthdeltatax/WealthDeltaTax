@@ -1,0 +1,5 @@
+asset_class,weight_pct_of_cell_wealth,pounds_cash_yield_per_100,pounds_holding_gain_per_100,status
+property,37.5,1.409,0.617,JST housing split (F-20); imputed rent included in the yield
+financial,6.6,,,no instrument split of net financial wealth in the pack or WAS tables held (S05); yield and gain by instrument not applicable
+physical,19.7,,,no return series for contents and vehicles held
+pension,36.3,,,pension return unset (F-12; DR-01)

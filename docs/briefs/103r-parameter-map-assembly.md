@@ -45,8 +45,8 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 note skeleton; branch cut from origin/main 152d700. Block 1: `merge_and_check.py`, merged register (73 rows), crosswalk (25), dictionary map; note section 2; structural checks pass.
-- **Next:** block 2 cross-side checks (note section 3); block 3 data list, rulings, register differences (sections 4 to 6); block 4 summary, friction log, final check.
+- **Done:** block 0 note skeleton; branch cut from origin/main 152d700. Block 1: `merge_and_check.py`, merged register (73 rows), crosswalk (25), dictionary map; note section 2; structural checks pass. Block 2: `cross_side_checks.py`, `cross_side_checks.csv` (14 checks, 4 hard pass), `worked_cell_d45.csv`; `cross_side_flag` column in the register; note section 3.
+- **Next:** block 3 data list, rulings, register differences (sections 4 to 6); block 4 summary, friction log, final check.
 - **Decisions:** none yet.
 - **Gotchas:** the clone tracks main only; fetch other branches by name.
 - **Resume:** branch `brief/103`; read this block and the note skeleton.
