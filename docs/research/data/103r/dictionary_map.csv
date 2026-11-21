@@ -1,0 +1,20 @@
+094r_term,register_rows
+NW,S01; S05; S29
+"A (H, E, B, M, PA)",S05; S06; S08; S09; F-20
+L = D,S10; S11; S12; S13
+dNW,D02; F-23
+S,F-07; F-08; F-09; F-10; F-24
+Y_L,F-01; F-02
+Y_P,F-14; F-15; F-16
+I_D,D04; S13
+T_C,F-03; F-04
+C,F-06; F-25
+K,F-11
+CG,F-18; F-20; F-22
+TR,S16; S17; S18; S19
+O,F-21; F-23
+T_WDT,D01
+"B, R",S13; D04
+"y, g_h, r",F-17; F-18; F-19; F-26; F-27
+r_f,D03
+Physical wealth (author decision 2026-11-21; not in the 094r dictionary),S09
