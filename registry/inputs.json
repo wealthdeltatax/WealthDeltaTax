@@ -110,7 +110,7 @@
    "id": "I-D4h",
    "input": "Adults per household, all households, Great Britain (converts household wealth bands to adults; M2b, ω)",
    "judgement": true,
-   "low": 1.77,
+   "low": 1.86,
    "nulls": {},
    "sources": [
     "S1"
