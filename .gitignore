@@ -22,3 +22,6 @@ site/pages/glossary.md
 docs/research/data/097r/boe-nmg-*.xlsx
 docs/research/data/097r/nbs.xlsx
 docs/research/data/097r/ukea2026q2.xlsx
+
+# converted reading copies (pipeline/to_markdown.py)
+scratch/
