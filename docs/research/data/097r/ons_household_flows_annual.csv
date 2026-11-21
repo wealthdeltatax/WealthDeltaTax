@@ -1,4 +1,4 @@
-series_id,period,value,unit,price_basis,seasonal_adjustment,sector,sign_convention,source_url,retrieval_date,definition
+series_id,period,value,unit,price_basis,seasonal_adjustment,sector,sign_convention,source_link,retrieval_date,definition
 RPHA,1997,615321,£m,current price,SA,S.14,resources/received,https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/rpha/ukea,2026-11-21,"Gross disposable income, gross (B.6g), uses/resources"
 RPHA,1998,629689,£m,current price,SA,S.14,resources/received,https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/rpha/ukea,2026-11-21,"Gross disposable income, gross (B.6g), uses/resources"
 RPHA,1999,659987,£m,current price,SA,S.14,resources/received,https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/rpha/ukea,2026-11-21,"Gross disposable income, gross (B.6g), uses/resources"
