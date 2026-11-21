@@ -236,3 +236,7 @@ Author: (1) The I-D4b central is refitted with I-D4h's 1.93 adults per household
 
 ## 2026-11-21: I-D4b refitted; I-D4c to follow
 Brief 106c refitted the I-D4b central to 52.4% (adults per household 1.93, one scale factor 1.0934 on the assumed counts). Author: refit I-D4c the same way as its own brief (107c), stopping for review if any model digest moves.
+
+## 2026-11-21: 104r rulings; build starts
+Author, on 104r: (1) Convention A (credit the holding gain; saving carries the retained yield once), B as an equivalence check; double counting is a failing test. (2) Settlement: the first implementation settles from net financial wealth only and reports the shortfall by cell; the order of other sources stays unset. (3) Public side: one public ledger by class at market value; the fund balance and its return are read from it. (4) Stage within band: the labelled person-based proxy; no microdata is commissioned (no UKDS licence). 104r questions 4 to 8 taken at their recommendations: add register rows for the scenario ranges (unset until the author sets a range), no cross-cell transfers (TR = 0), the deflator wedge reported inside CG, gross saving reported only as an upper bound while CFC is unset, the pension basis reconciliation stays open. Research is closed for now; build order: 108c household step, then pack additions, the public ledger (kernel and revenue), cell wiring, validation, comparison. 089c and 057c stay held.
+
