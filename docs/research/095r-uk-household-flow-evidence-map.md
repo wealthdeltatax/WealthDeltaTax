@@ -1,5 +1,7 @@
 # 095r: UK evidence and calibration map for household wealth flows (test C)
 
+**Corrections and source locations: see `docs/research/095r-source-acquisition-and-verification.md` (2026-11-21), which resolves the "recheck" items: state pension treatment corrected, the 92% gains share is ranked by remuneration (Advani, Bangham and Summers 2020), the OBR 7% and Resolution Foundation 34% pension figures are not a common range, and NMG microdata are public.**
+
 Accessed 2026-11-20. Brief `docs/briefs/095r-uk-household-flow-evidence-map.md`; hypothesis `docs/hypotheses/household-consumption-and-wealth-replenishment.md` (sections 10 to 14); predecessor `docs/research/093r-consumption-depletion-evidence.md`. Nothing here edits the register, the model or the manifest, and no value is chosen for its effect on WDT revenue. Proposed register rows are in section 7 only.
 
 **Question.** For each household wealth flow in ΔNW = S + CG + TR + O − T_WDT, does UK evidence give a measured **level**, **rate**, **transition**, a **bound**, or is the flow a **gap**? The map feeds the cohort design (096r). It does not map the kernel (094r), choose a parameter or backcast anything.
