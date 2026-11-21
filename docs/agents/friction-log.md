@@ -98,3 +98,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: I fetched the branch by name and inferred the four steps from the brief's design items against the committed tables.
 - Cost: a few minutes and a guess at what "four steps" meant.
 - Suggest: the checkpoint commit (or hand-over message) should fill the progress block's Done and Next lines.
+### 2026-11-21 · brief 102r · research
+- Instruction: continue a brief from a pushed branch ("resume from the branch")
+- Happened: the prior agent left the brief's progress block at "ready; not started" and the branch name was not in the brief; a plain `git checkout` failed because the remote ref had to be fetched by name; one audit verdict (I-D4b "supports, bounds inside") was not borne out by its own numbers
+- Cost: a few lookups; one verdict corrected
+- Suggest: require a progress-block update with each wip commit (the brief already says so) and have the audit script state the comparison it makes in the verdict
+- Status: open

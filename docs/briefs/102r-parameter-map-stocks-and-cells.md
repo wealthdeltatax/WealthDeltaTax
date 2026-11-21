@@ -23,15 +23,6 @@ Crosswalk the sources and register the parameters for the **stocks and structure
 6. **Reproducible calculations.** Every derived value (band reconciliation, stage weights by band, composition shares, a person to household weight, transition hazards) is computed by a script under `docs/research/data/102r/` that reads the held files, with its output CSV and the tolerance against the source.
 7. Append **data requests** for this side to the unresolved list in the note (exact table, file or series, the parameter it informs, whether the model can proceed unset or on a labelled scenario, the access route: UK Data Service WAS study 7215, ELSA, ONS request).
 
-## Resume (a first agent ran out of tokens after pushing data)
-Check out `brief/102-parameter-map-stocks` (`git fetch origin brief/102-parameter-map-stocks`), rebase on main, read this section and the note skeleton, then continue. Already on the branch and not to be redone: `derive_bands_stages.py`, `derive_debt_demography.py`, `derive_transfers_audit_coverage.py`, and outputs for bands, stage weights, composition, debt, demography, transfers, the existing-row audit and cell coverage inputs; no register, crosswalk or note yet.
-Remaining, in order, one push each (session budget, `docs/agents/research.md`):
-1. Block 0: push the note `docs/research/102r-*.md` skeleton, every section pending, and set the progress block.
-2. Block 1: crosswalk table from the existing derivations; fill the note's crosswalk section.
-3. Block 2: complete `stocks_register.csv` (every variable group of item 3) from the committed outputs; fill the register section.
-4. Block 3: existing-row audit, data requests, rulings summary; set State to built, push, stop.
-Print only summary lines from scripts; read CSVs by slice, not whole.
-
 ## Touches
 `docs/research/102r-parameter-map-stocks-and-cells.md` (new: crosswalk and register for the stocks and structure), `docs/research/data/102r/` (new: `stocks_register.csv`, `stocks_crosswalk.csv`, derivation scripts and outputs), this brief's progress block, `docs/agents/friction-log.md`. No register, code, pack or manifest edits.
 
@@ -57,11 +48,24 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** resume from branch `brief/102-parameter-map-stocks`; data scripts pushed, note and register incomplete
+- **Done:** all four steps. Block A and B scripts (Agent 4) re-run clean; `stocks_crosswalk.csv` (13 rows), `stocks_register.csv` (33 rows), `build_stocks_tables.py`, and the note `docs/research/102r-parameter-map-stocks-and-cells.md` (crosswalk summary, register by group, existing-row audit, cell coverage, reproducibility, data requests).
+- **Next:** author or guru rules on the note's three open questions; 103r assembles.
+- **Decisions:** stage weights classed proxy (GBP band groups, not deciles, mismatch reported); every pension row on the ONS SCAPE-based basis; unset rows carry no number (enforced by the build script); I-D4b audit verdict corrected in the script.
+- **Gotchas:** the held files were checked internally, not against the live pages; I-D4d to f and I-W4d to f, I-W5b were not audited (no held table); the pack has no D4-5 property or pension rows but Table 2.2 gives them.
+- **Resume:** n/a
+- **Not run:** no model run; no check against live ONS pages.
+- **State:** done; not merged (open questions in the note, section 8)
 <!-- progress:end -->
+
+Change report
+- Task: brief 102r, parameter map evidence side B (stocks and structure)
+- Files changed: `docs/research/102r-parameter-map-stocks-and-cells.md` (note); `docs/research/data/102r/` (stocks_crosswalk.csv, stocks_register.csv, build_stocks_tables.py; one verdict corrected in derive_transfers_audit_coverage.py and existing_row_audit.csv); this brief; friction log
+- What is different now: the stocks and structure side has a crosswalk, a classified register and a cell coverage input, all reproducible from scripts
+- New or changed interfaces: none
+- Acceptance criteria: every variable group has rows with definition, location, classification, exact reference, use: met; observed and derived values reproduce from committed scripts with tolerances: met; proxies and unset rows state why and the consequence: met; pension rows state their basis: met; band reconciliation shows its mismatch, nothing spread by wealth: met; no value chosen for WDT revenue: met; diff limited to Touches: met
+- Deviations from the brief: none
+- Risks / follow-ups: three open questions (note section 8); I-D4d to f, I-W4d to f and I-W5b not audited
+- Instruction friction: one entry added to the friction log
+- Verification: `python -I pipeline/check_agent_docs.py` and the four scripts (results in the commit message and below)
+- Overview sections likely needing an update: none
+- Commit / branch: see git log, brief/102-parameter-map-stocks
