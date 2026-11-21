@@ -67,9 +67,9 @@ HMRC's [Personal Incomes Statistics 2023–24](https://www.gov.uk/government/sta
 ## 3. Bank of England NMG survey (request 4)
 
 - [Bank of England research datasets](https://www.bankofengland.co.uk/statistics/research-datasets) publishes:
-  - [NMG survey data 2004–2011](https://www.bankofengland.co.uk/-/media/boe/files/statistics/research-datasets/nmg-survey-data-2004-2011.zip) (7 MB);
-  - [NMG survey data 2011–2026](https://www.bankofengland.co.uk/-/media/boe/files/statistics/research-datasets/nmg-survey-data-2011-2026.zip) (71 MB);
-  - [supporting Stata code](https://www.bankofengland.co.uk/-/media/boe/files/statistics/research-datasets/nmg-survey-data-code.zip).
+  - [NMG survey data 2004–2011](https://www.bankofengland.co.uk/-/media/boe/files/statistics/research-datasets/boe-nmg-household-survey-data-2004-11.xlsx) (XLSX, 7 MB);
+  - [NMG survey data 2011–2026](https://www.bankofengland.co.uk/-/media/boe/files/statistics/research-datasets/boe-nmg-household-survey-data.xlsx) (XLSX, 71 MB);
+  - [supporting Stata code](https://www.bankofengland.co.uk/-/media/boe/files/statistics/research-datasets/household-incomes-and-deciles-stata-file.do) (DO-file).
 - The Bank says this annual survey asks households about income and spending. The example Stata code creates household income variables and income deciles.
 - [2018 NMG article](https://www.bankofengland.co.uk/quarterly-bulletin/2018/2018-q4/the-financial-position-of-british-households-evidence-from-the-2018-nmg-consulting-survey) remains useful contextual documentation. Its published charts show behaviour by gross financial wealth decile and DTI/DSR group. For example, the chart on spending changes explicitly excludes savings and debt repayment from spending, which is conceptually useful when separating consumption from saving and loan repayment.
 
