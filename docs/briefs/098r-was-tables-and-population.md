@@ -38,11 +38,36 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** Read the household-flow plan, 096r and 095r source register. Reviewed Round 8 ONS bulletin/methodology; located age-component (2813), debt-by-age (3222), GB population projection and qx files; reviewed HBAI, FRS and UKDS 7215/6709 access. Added research note and three CSVs, including pack band aggregation.
+- **Next:** Parse the held WAS and ETB workbooks plus ONS binary files; record sheet/range/weights and three cell spot-checks; extract numeric population and qx series; resolve inactive-not-retired treatment before phase 2.
+- **Decisions:** Scenario B unchanged. No rate or parameter selected. Use self-reported retired status rather than treating State Pension age as retirement; leave economically inactive but not retired unallocated pending author ruling.
+- **Gotchas:** No published wealth-band × age/status joint weights. Round 8 accreditation suspended; DB pension valuation break. Study 7215 Round 8 person-file dictionary missing. Study 6709 is Secure Access and UK-based.
+- **Resume:** Checkout `brief/098r-was-tables-population`; parse `Rates Data/totalwealthtables.xlsx`, `Rates Data/financialwealthtables.xlsx`, `Research/etbreferencetablesfye202324final.xlsx`, ONS 2813/3222, `gb1.zip` and `periodcohortqx2024basedgb.xlsx`.
+- **Not run:** `python -I pipeline/check_agent_docs.py` (no local checkout); no XLSX/ZIP cell extraction or microdata analysis.
+- **State:** partial; branch pushed; acceptance criterion 1 unmet; no merge.
 <!-- progress:end -->
+
+
+### Implementation notes — 2026-11-21
+
+**Change report**
+- **Task:** 098r — WAS published tables, ages and the working-to-retired transition.
+- **Files changed:**
+  - `docs/research/098r-was-tables-and-population.md` — source findings, definitions, data limitations, access plan and exact remaining downloads.
+  - `docs/research/data/098r/was_published_evidence.csv` — numeric ONS Round 8 age/status and composition figures stated in the bulletin.
+  - `docs/research/data/098r/was_band_reconciliation.csv` — aggregation of existing pack deciles into WDT bands; derived means labelled as such.
+  - `docs/research/data/098r/098r_source_inventory.csv` — source periods, geography, access status and exact links.
+  - `docs/agents/friction-log.md` — binary parsing limitation.
+  - This brief — progress and change report.
+- **What is different now:** the public evidence and source routes are documented. The report distinguishes age/status marginals from the missing joint wealth-band × stage weights. It identifies the preferred microdata route and the ONS tabulation request.
+- **New or changed interfaces:** none.
+- **Acceptance criteria:**
+  1. **Not met.** The held WAS/ETB workbooks and ONS binary files could not be parsed. No sheet/range metadata or three-cell workbook spot-checks are claimed. Public HTML figures were extracted and source-linked.
+  2. **Partly met.** Decile-to-WDT-band mapping and pack arithmetic are shown. The held workbook band edges could not be independently rechecked.
+  3. **Met.** HBAI/FRS/ETB ranking limitations, ONS population and mortality definitions, retirement-transition limitations, and the UKDS 7215/6709 access route are documented.
+- **Deviations from the brief:** no scope change. Binary extraction is incomplete because the available connector/runtime cannot decode XLSX/ZIP files.
+- **Risks / follow-ups:** full workbook extraction and numeric age/mortality series remain outstanding. Phase 2 also needs an author ruling on the economically inactive, not-retired residual; it is not silently assigned to either of the two stages.
+- **Instruction friction:** added 098r entry to `docs/agents/friction-log.md`.
+- **Verification:** official ONS, DWP and UKDS source pages and download links checked; pack band arithmetic calculated from the existing CSV. No local script/check was run because there is no local repository checkout.
+- **Overview sections likely needing an update:** none until the brief is completed.
+- **Commit / branch:** see branch head; `brief/098r-was-tables-population`.
