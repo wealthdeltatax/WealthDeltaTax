@@ -55,11 +55,11 @@ Retired fraction source; whether the per-household and per-person conversions ma
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:** (exact branch name and fetch line, last block pushed, first action)
-- **Not run:**
-- **State:** ready; not started
+- **Done:** block 0: this progress block and the skeleton of `docs/model-v3/cell-baseline.md` (all sections pending).
+- **Next:** block 1 (inputs loader and units reconciliation): read `model_v3/core/household.py`, `tests/model_v3/test_household.py`, `104r` section 3, then the pack and register rows the brief names.
+- **Decisions:** none yet.
+- **Gotchas:** none yet.
+- **Resume:** `git fetch origin brief/110-cell-baseline-run && git checkout brief/110-cell-baseline-run`; last block pushed: 0; first action: read household.py.
+- **Not run:** everything (no code yet).
+- **State:** in progress; block 0 pushed
 <!-- progress:end -->
