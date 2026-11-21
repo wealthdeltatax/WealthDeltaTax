@@ -157,3 +157,60 @@ Once readable files are available, the remaining work is to extract the missing 
 ## 7. Boundary
 
 Nothing in these data is a universal depletion rate, a consumption rate by wealth band, or a chosen fiscal parameter. National accounts are aggregate household-sector flows; HMRC tables are taxpayer or estate distributions; the NMG survey is household microdata. They are different statistical objects and must not be collapsed into one another without a separately authorised method.
+
+
+## 8. Follow-up after author upload (2026-11-21)
+
+The requested source files have now been committed under `docs/research/data/097r/` on the working branch. The upload is confirmed by the branch diff. The files present are:
+
+| Uploaded file | Source block | Inspection outcome in this environment |
+|---|---|---|
+| `quarterlysectoraccounts2026q2.xlsx` | ONS QSA Q2 2026 | GitHub connector returned the binary payload as base64; workbook contents could not be decoded in the available repository-only runtime. |
+| `nbs.xlsx` | ONS National Balance Sheet | Binary payload returned as base64; workbook contents could not be decoded here. |
+| `boe-nmg-household-survey-data-2004-11.xlsx` | BoE NMG 2004–2011 | Uploaded and present in branch; workbook contents not inspected. |
+| `boe-nmg-household-survey-data.xlsx` | BoE NMG 2011–2026 | Uploaded and present in branch; the file-content endpoint returned an empty payload, so no claim is made about its workbook contents. |
+| `household-incomes-and-deciles-stata-file.do` | BoE NMG processing example | **Read and reviewed as text.** Findings below. |
+| `Collated_Tables_3_1_to_3_11_2324.ods` | HMRC Personal Incomes 2023–24 | Binary payload returned as base64; ODS contents could not be decoded here. |
+| `Table_1_2026_Taxpayer_numbers_gains_and_tax_liabilities.ods` | HMRC CGT Table 1 | Uploaded; ODS contents not inspected. |
+| `Table_2_2026_Size_of_gain.ods` | HMRC CGT Table 2 | Uploaded; ODS contents not inspected. |
+| `Table_3_2026_Size_of_gain_by_income.ods` | HMRC CGT Table 3 | Uploaded; ODS contents not inspected. |
+| `table_12_1_final.ods` | HMRC IHT Table 12.1 | Uploaded; ODS contents not inspected. |
+| `table_12_2_final.ods` | HMRC IHT Table 12.2 | Uploaded; ODS contents not inspected. |
+| `table_12_3_final.ods` | HMRC IHT Table 12.3 | Uploaded; ODS contents not inspected. |
+| `property_rental_income_statistics_tables_2026.ods` | HMRC property rental statistics | Uploaded; ODS contents not inspected. |
+
+This changes the status from **author upload outstanding** to **author upload received; binary extraction still outstanding**. The remaining limitation is no longer missing source files. It is the inability of the GitHub connector/runtime available for this task to decode the committed XLSX/ODS payloads. No workbook values have been inferred from filenames or file sizes.
+
+### BoE Stata do-file: what it actually supports
+
+The uploaded `household-incomes-and-deciles-stata-file.do` is an example construction script for the 2024 and March 2025 NMG waves, not a complete codebook or a general-purpose survey extraction script.
+
+It:
+- imports the 2024 and March 2025 workbook sheets;
+- creates wave dates (September 2024 and March 2025);
+- combines reported annual income for the main respondent, partner/second earner and other household earners;
+- combines continuous numeric responses with imputed midpoints from income bands;
+- creates a constructed household annual income variable (`fihhyr2_m`);
+- calculates household-income decile thresholds separately within each wave.
+
+Important limitations for any later use:
+- The script demonstrates income construction only. It does not identify or construct consumption, saving, debt balances, debt repayments, interest payments/receipts, financial wealth or age variables.
+- The resulting deciles are **income deciles within survey wave**, not wealth deciles and not WDT wealth bands.
+- Band responses are midpoint-imputed. The top band (>=£100,000) is assigned £125,000, which is an imposed representative value for an open-ended category, not an observed midpoint. Sensitivity to this top-band treatment would need checking before using aggregate income estimates.
+- The script hard-codes `randomgen=2` and constructs the type-2 income question route shown. It should not be assumed to cover every income-question type or every wave in the workbook.
+- The combined household measure requires non-negative values for the respondent, partner and other earners; don't-know, refusal and missing codes propagate to the household total. This affects usable sample size and should be quantified from the actual microdata before analysis.
+- It is an example script with placeholder import/save paths. It is not a ready-to-run pipeline without editing.
+
+**Implication:** the Stata file gives a concrete method for constructing household income in two recent waves, but it does not establish that NMG can answer the household saving/consumption/debt/wealth questions in 097r. The workbook variable inventory remains unverified. No household-level records have been extracted.
+
+### Revised completion state
+
+- Source upload step: **met**; the requested ONS, BoE and HMRC files are present in the branch.
+- Stata example review: **met**; its purpose and limitations are now documented.
+- ONS workbook series extraction: **not yet met**; uploaded XLSX contents remain unread.
+- BoE NMG variable inventory: **not yet met**; uploaded workbooks remain unread.
+- HMRC detailed table extraction: **not yet met**; uploaded ODS contents remain unread.
+- Existing HTML-derived CSVs and mechanical checks remain unchanged.
+- No model parameters, wealth-band rates or fiscal conclusions have been added.
+
+To complete the remaining work, the binary files need to be opened in a local checkout or supplied in a form the analysis runtime can parse. Once parsed, update this same register and the relevant CSVs; do not create substitute series from the HTML summary extracts.
