@@ -48,3 +48,32 @@ None.
 - **Not run:** `python -I pipeline/check_agent_docs.py` (the GitHub connector provides repository API access, not a local checkout/runtime for executing the project script).
 - **State:** complete for the accessible-source acquisition and logging scope; full binary-file extraction awaits author upload.
 <!-- progress:end -->
+
+## Change report
+
+- **Task:** Brief 097r — Collect the open UK series (national accounts, Bank of England, HMRC).
+- **Files changed:**
+  - `docs/research/097r-open-series-collection.md` — source register, extraction outcomes, limitations, upload list and mechanical checks.
+  - `docs/research/data/097r/ons_household_flows_annual.csv` — annual ONS S.14 flow series.
+  - `docs/research/data/097r/ons_household_consumption_annual.csv` — annual ONS S.14 P.31 consumption.
+  - `docs/research/data/097r/ons_household_saving_identity_check.csv` — source series and derived identity checks.
+  - `docs/research/data/097r/ons_nbs_financial_annual.csv` — annual ONS S.14 financial stocks.
+  - `docs/research/data/097r/hmrc_html_summary_extracts.csv` — HMRC numeric summary extracts from readable HTML commentary.
+  - `docs/briefs/097r-open-series-collection.md` — progress block and this report.
+  - `docs/agents/friction-log.md` — binary download/content-type limitation.
+- **What is different now:** Accessible ONS and HMRC HTML series/summary data are in source-linked CSVs; the report records all remaining unreadable files with exact filenames and URLs. The household saving identity and NBS financial-stock identity reconcile.
+- **New or changed interfaces:** None.
+- **Acceptance criteria:**
+  - Item 1 (ONS): **met as an acquisition register**; readable annual series extracted, unavailable series/workbooks explicitly marked reachable but not parseable.
+  - Item 2 (NBS): **partly met**; financial stocks extracted and checked; non-financial components and revaluation split await readable NBS file.
+  - Item 3 (BoE NMG): **status recorded, extraction not met**; workbooks and Stata do-file are published but not parseable here; variable inventory awaits author upload.
+  - Item 4 (HMRC): **partly met**; HTML summaries extracted; underlying banded ODS tables are reachable but not parseable.
+  - CSV schema and source spot checks: **met** for all five CSVs; checks are documented in the research note.
+  - Exact links for inaccessible files: **met**.
+  - No wealth-band saving, consumption or depletion rate introduced: **met**.
+- **Deviations from the brief:** Full spreadsheet extraction could not be completed because the retrieval tool rejected CSV/XLSX/ODS/Stata file content-types. No substitute values were invented.
+- **Risks / follow-ups:** Author upload is required to complete NMG variable inventory, full D.42/D.44 and NBS non-financial/revaluation series, and full HMRC band tables. The local agent-doc check remains unrun.
+- **Instruction friction:** Added 2026-11-21 entry to `docs/agents/friction-log.md`.
+- **Verification:** Three-year saving identity check (2023–2025) and three-year financial-stock identity check (2023–2025) passed; source-value spot checks are recorded. `python -I pipeline/check_agent_docs.py` **not run**: repository connector has no local checkout/runtime. No CI status checks are attached to the branch.
+- **Overview sections likely needing an update:** None; this brief adds acquisition evidence and no model conclusion.
+- **Commit / branch:** `0294bc1b18f29d7545f96372e56aa13d5d70db7a` / `brief/097r-open-series-collection`. Branch is 18 commits ahead of main and 0 behind. **NEEDS THE AUTHOR**; not merged because the named check was not run and unreadable source files remain.
