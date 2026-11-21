@@ -1,0 +1,11 @@
+pack_band,stage,persons,max_rounding,share_of_band_adults_pct,of_which,band_share_mismatch_pp
+D1-3,not retired,10662020,385450,86.7,working 6317850; unemployed 675000; inactive not retired 3669170,-2.7
+D1-3,retired,1629600,116400,13.3,,-2.7
+D4-5,not retired,9198350,385450,82.3,working 7822100; unemployed 283500; inactive not retired 1092750,3.4
+D4-5,retired,1978800,116400,17.7,,3.4
+D6-7,not retired,5565890,192725,73.8,working 4813600; unemployed 94500; inactive not retired 657790,-4.9
+D6-7,retired,1978800,58200,26.2,,-4.9
+D8-9,not retired,7663730,192725,70.2,working 6618700; unemployed 202500; inactive not retired 842530,0.1
+D8-9,retired,3259200,58200,29.8,,0.1
+D10,not retired,5357350,192725,64.8,working 4512750; unemployed 94500; inactive not retired 750100,4.1
+D10,retired,2910000,58200,35.2,,4.1
