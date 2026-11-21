@@ -45,11 +45,11 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; 101r and 102r merged (notes in `docs/research/`, data in `docs/research/data/101r/` and `102r/`). Start with the note skeleton, one push per block (`docs/agents/research.md`).
+- **Done:** block 0: note skeleton `docs/research/103r-parameter-map-assembly.md`; branch cut from origin/main 152d700.
+- **Next:** block 1 merge script and merged CSVs (`docs/research/data/103r/`); block 2 cross-side checks (note section 3); block 3 data list, rulings, register differences (sections 4 to 6); block 4 summary, friction log, final check.
+- **Decisions:** none yet.
+- **Gotchas:** the clone tracks main only; fetch other branches by name.
+- **Resume:** branch `brief/103`; read this block and the note skeleton.
+- **Not run:** nothing yet.
+- **State:** in progress
 <!-- progress:end -->
