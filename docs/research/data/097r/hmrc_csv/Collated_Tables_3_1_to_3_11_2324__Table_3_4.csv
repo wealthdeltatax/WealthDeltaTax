@@ -1,0 +1,38 @@
+"Table 3.4: Income Tax liabilities of 'savers', basic, higher and additional rate taxpayers, by largest source of income, tax year 2023 to 2024",,,,,,,,,,,
+This worksheet contains one table and some cells may refer to notes which can be found on the accompanying notes worksheet.,,,,,,,,,,,
+Numbers of taxpayers are measured in thousands and amounts are measured in £ millions. Totals may not sum due to rounding.,,,,,,,,,,,
+This table is based on UK taxpayers only and the source is the Survey of Personal Incomes (SPI) for the tax year 2023 to 2024. This table was last updated in April 2026,,,,,,,,,,,
+Marginal tax rates payable,Range of total income (lower limit) £,Self-employment (Number),Self-employment (Amount),Employment (Number),Employment (Amount),Pension (Number),Pension (Amount),"Property, interest, dividend and other income (Number)","Property, interest, dividend and other income (Amount)",Total number of taxpayers,Total amount of tax
+Savers,12570,[Not available],[Not available],18,1,[Not available],[Not available],8,1,39,2
+Savers,15000,2,1,44,13,19,3,33,10,99,27
+Savers,20000,[Not available],[Not available],37,28,[Not available],[Not available],136,131,184,165
+Savers,30000,[Not available],[Not available],3,3,[Not available],[Not available],327,819,331,823
+Savers,Total (Savers),4,2,102,44,42,9,504,961,652,1020
+Basic,12570,349,72,1210,239,1200,245,53,30,2810,585
+Basic,15000,455,405,2760,2380,2150,1770,74,60,5430,4610
+Basic,20000,634,1460,6900,15800,2320,5030,154,276,10000,22600
+Basic,30000,585,2880,8590,42600,1590,7550,363,1270,11100,54300
+Basic,Total (Basic),2020,4820,19500,61000,7240,14600,643,1640,29400,82000
+Higher,12570,[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available]
+Higher,20000,[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available]
+Higher,30000,[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available]
+Higher,40000,4,32,99,731,15,112,1,7,119,882
+Higher,50000,118,1210,2470,25800,318,3260,262,1750,3170,32100
+Higher,70000,61,1150,1450,27800,125,2400,168,2650,1800,34000
+Higher,100000,34,967,515,16400,36,1150,66,1680,651,20200
+Higher,150000,5,150,8,240,[Not available],[Not available],1,24,14,419
+Higher,200000,[Not available],[Not available],1,20,[Not available],[Not available],[Not available],[Not available],1,29
+Higher,300000,[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available]
+Higher,500000,[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available]
+Higher,1000000,[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available]
+Higher,Total (Higher),223,3510,4540,71100,494,6920,499,6130,5760,87600
+"Additional rate [Note 3, 4]",12570,[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available],[Not available]
+"Additional rate [Note 3, 4]",100000,7,340,182,8580,12,556,21,855,223,10300
+"Additional rate [Note 3, 4]",150000,17,991,225,13700,10,593,28,1490,280,16700
+"Additional rate [Note 3, 4]",200000,19,1560,156,14000,6,520,22,1750,202,17800
+"Additional rate [Note 3, 4]",300000,14,1990,78,11900,3,402,13,1720,108,16000
+"Additional rate [Note 3, 4]",500000,10,2830,35,9810,1,236,7,1830,54,14700
+"Additional rate [Note 3, 4]",1000000,7,7400,15,15500,[Not available],117,4,4730,26,27700
+"Additional rate [Note 3, 4]",Total (Additional),75,15100,692,73400,31,2420,95,12400,893,103000
+All rates,All Taxpayers,2330,23400,24800,206000,7810,24000,1740,21100,36700,274000
+End of worksheet,,,,,,,,,,,

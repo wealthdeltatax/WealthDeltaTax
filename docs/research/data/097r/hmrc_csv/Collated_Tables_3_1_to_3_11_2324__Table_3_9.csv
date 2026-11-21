@@ -1,0 +1,278 @@
+"Table 3.9: Self-employment income assessable to tax, tax year 2023 to 2024",,,
+This worksheet contains one table and some cells may refer to notes which can be found on the accompanying notes worksheet.,,,
+"Numbers of sources are measured in thousands, amounts are measured in £ millions. Totals may not sum due to rounding.",,,
+"This table is based on the sources of individuals with self-employment income, whether taxpayers or not, and the source is the Survey of Personal Incomes (SPI) for the tax year 2023 to 2024. This table was last updated in April 2026",,,
+Industry,Range of self- employment income in industry group (lower limit) £,Number of sources,Amount
+"Agriculture, Forestry and Fishing",0,106,[Not available]
+"Agriculture, Forestry and Fishing",1,9,2
+"Agriculture, Forestry and Fishing",500,6,5
+"Agriculture, Forestry and Fishing",1000,11,16
+"Agriculture, Forestry and Fishing",2000,8,20
+"Agriculture, Forestry and Fishing",3000,8,26
+"Agriculture, Forestry and Fishing",4000,7,31
+"Agriculture, Forestry and Fishing",5000,15,91
+"Agriculture, Forestry and Fishing",7500,13,114
+"Agriculture, Forestry and Fishing",10000,27,333
+"Agriculture, Forestry and Fishing",15000,16,276
+"Agriculture, Forestry and Fishing",20000,18,446
+"Agriculture, Forestry and Fishing",30000,17,668
+"Agriculture, Forestry and Fishing",50000,8,546
+"Agriculture, Forestry and Fishing",100000,2,414
+"Agriculture, Forestry and Fishing (Total)",All ranges,271,2990
+Manufacturing,0,21,[Not available]
+Manufacturing,1,4,1
+Manufacturing,500,3,2
+Manufacturing,1000,7,10
+Manufacturing,2000,5,13
+Manufacturing,3000,5,17
+Manufacturing,4000,5,20
+Manufacturing,5000,10,60
+Manufacturing,7500,9,78
+Manufacturing,10000,15,193
+Manufacturing,15000,10,170
+Manufacturing,20000,14,339
+Manufacturing,30000,12,445
+Manufacturing,50000,4,263
+Manufacturing,100000,1,154
+Manufacturing (Total),All ranges,124,1770
+Construction,0,85,[Not available]
+Construction,1,10,2
+Construction,500,11,8
+Construction,1000,23,35
+Construction,2000,22,56
+Construction,3000,24,84
+Construction,4000,23,102
+Construction,5000,64,406
+Construction,7500,71,620
+Construction,10000,225,2830
+Construction,15000,163,2840
+Construction,20000,274,6790
+Construction,30000,235,8770
+Construction,50000,41,2480
+Construction,100000,2,412
+Construction (Total),All ranges,1270,25400
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,0,58,[Not available]
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,1,9,2
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,500,8,6
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,1000,14,20
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,2000,12,30
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,3000,11,37
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,4000,10,43
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,5000,20,123
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,7500,20,172
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,10000,43,536
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,15000,24,412
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,20000,25,613
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,30000,21,811
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,50000,9,629
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles,100000,2,500
+Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles (Total),All ranges,286,3930
+Transportation and Storage,0,31,[Not available]
+Transportation and Storage,1,7,2
+Transportation and Storage,500,7,5
+Transportation and Storage,1000,16,23
+Transportation and Storage,2000,13,33
+Transportation and Storage,3000,13,47
+Transportation and Storage,4000,14,61
+Transportation and Storage,5000,36,228
+Transportation and Storage,7500,42,365
+Transportation and Storage,10000,120,1500
+Transportation and Storage,15000,49,833
+Transportation and Storage,20000,33,792
+Transportation and Storage,30000,14,513
+Transportation and Storage,50000,2,142
+Transportation and Storage,100000,1,147
+Transportation and Storage (Total),All ranges,398,4690
+Accommodation and Food Service Activities,0,31,[Not available]
+Accommodation and Food Service Activities,1,3,1
+Accommodation and Food Service Activities,500,2,2
+Accommodation and Food Service Activities,1000,5,8
+Accommodation and Food Service Activities,2000,5,11
+Accommodation and Food Service Activities,3000,4,15
+Accommodation and Food Service Activities,4000,4,17
+Accommodation and Food Service Activities,5000,10,63
+Accommodation and Food Service Activities,7500,8,69
+Accommodation and Food Service Activities,10000,19,236
+Accommodation and Food Service Activities,15000,8,134
+Accommodation and Food Service Activities,20000,8,203
+Accommodation and Food Service Activities,30000,7,259
+Accommodation and Food Service Activities,50000,4,233
+Accommodation and Food Service Activities,100000,1,227
+Accommodation and Food Service Activities (Total),All ranges,118,1480
+Information & Communication,0,13,[Not available]
+Information & Communication,1,2,1
+Information & Communication,500,2,2
+Information & Communication,1000,4,6
+Information & Communication,2000,3,8
+Information & Communication,3000,3,10
+Information & Communication,4000,2,9
+Information & Communication,5000,5,33
+Information & Communication,7500,4,36
+Information & Communication,10000,8,95
+Information & Communication,15000,5,92
+Information & Communication,20000,7,172
+Information & Communication,30000,8,294
+Information & Communication,50000,4,297
+Information & Communication,100000,1,386
+Information & Communication (Total),All ranges,72,1440
+"Financial, Insurance and Real Estate Activities",0,49,[Not available]
+"Financial, Insurance and Real Estate Activities",1,3,1
+"Financial, Insurance and Real Estate Activities",500,2,1
+"Financial, Insurance and Real Estate Activities",1000,4,6
+"Financial, Insurance and Real Estate Activities",2000,3,8
+"Financial, Insurance and Real Estate Activities",3000,3,10
+"Financial, Insurance and Real Estate Activities",4000,3,13
+"Financial, Insurance and Real Estate Activities",5000,6,40
+"Financial, Insurance and Real Estate Activities",7500,5,41
+"Financial, Insurance and Real Estate Activities",10000,10,117
+"Financial, Insurance and Real Estate Activities",15000,6,105
+"Financial, Insurance and Real Estate Activities",20000,7,180
+"Financial, Insurance and Real Estate Activities",30000,7,284
+"Financial, Insurance and Real Estate Activities",50000,6,424
+"Financial, Insurance and Real Estate Activities",100000,10,8490
+"Financial, Insurance and Real Estate Activities (Total)",All ranges,124,9730
+Legal & Accounting Activities [Note 3],0,13,[Not available]
+Legal & Accounting Activities [Note 3],1,3,1
+Legal & Accounting Activities [Note 3],500,3,2
+Legal & Accounting Activities [Note 3],1000,4,6
+Legal & Accounting Activities [Note 3],2000,4,11
+Legal & Accounting Activities [Note 3],3000,4,12
+Legal & Accounting Activities [Note 3],4000,3,14
+Legal & Accounting Activities [Note 3],5000,7,42
+Legal & Accounting Activities [Note 3],7500,5,41
+Legal & Accounting Activities [Note 3],10000,9,113
+Legal & Accounting Activities [Note 3],15000,6,105
+Legal & Accounting Activities [Note 3],20000,7,170
+Legal & Accounting Activities [Note 3],30000,9,333
+Legal & Accounting Activities [Note 3],50000,12,870
+Legal & Accounting Activities [Note 3],100000,36,17100
+Legal & Accounting Activities [Note 3] (Total),All ranges,125,18800
+"Other Professional, Scientific and Technical Activities [Note 3]",0,52,[Not available]
+"Other Professional, Scientific and Technical Activities [Note 3]",1,8,2
+"Other Professional, Scientific and Technical Activities [Note 3]",500,8,5
+"Other Professional, Scientific and Technical Activities [Note 3]",1000,14,21
+"Other Professional, Scientific and Technical Activities [Note 3]",2000,12,30
+"Other Professional, Scientific and Technical Activities [Note 3]",3000,12,41
+"Other Professional, Scientific and Technical Activities [Note 3]",4000,9,40
+"Other Professional, Scientific and Technical Activities [Note 3]",5000,22,136
+"Other Professional, Scientific and Technical Activities [Note 3]",7500,18,159
+"Other Professional, Scientific and Technical Activities [Note 3]",10000,36,439
+"Other Professional, Scientific and Technical Activities [Note 3]",15000,21,370
+"Other Professional, Scientific and Technical Activities [Note 3]",20000,28,691
+"Other Professional, Scientific and Technical Activities [Note 3]",30000,29,1120
+"Other Professional, Scientific and Technical Activities [Note 3]",50000,17,1100
+"Other Professional, Scientific and Technical Activities [Note 3]",100000,8,3010
+"Other Professional, Scientific and Technical Activities [Note 3] (Total)",All ranges,294,7170
+Administrative and Support Service Activities,0,41,[Not available]
+Administrative and Support Service Activities,1,8,2
+Administrative and Support Service Activities,500,9,7
+Administrative and Support Service Activities,1000,23,34
+Administrative and Support Service Activities,2000,23,57
+Administrative and Support Service Activities,3000,20,70
+Administrative and Support Service Activities,4000,20,88
+Administrative and Support Service Activities,5000,47,298
+Administrative and Support Service Activities,7500,46,399
+Administrative and Support Service Activities,10000,92,1130
+Administrative and Support Service Activities,15000,34,577
+Administrative and Support Service Activities,20000,30,719
+Administrative and Support Service Activities,30000,16,576
+Administrative and Support Service Activities,50000,4,247
+Administrative and Support Service Activities,100000,1,236
+Administrative and Support Service Activities (Total),All ranges,411,4440
+Education,0,24,[Not available]
+Education,1,8,2
+Education,500,8,6
+Education,1000,16,24
+Education,2000,13,33
+Education,3000,12,43
+Education,4000,10,44
+Education,5000,21,130
+Education,7500,17,153
+Education,10000,36,445
+Education,15000,20,337
+Education,20000,22,522
+Education,30000,13,474
+Education,50000,3,195
+Education,100000,[Not available],101
+Education (Total) ,All ranges,223,2510
+Human Health and Social Work Activities,0,61,[Not available]
+Human Health and Social Work Activities,1,7,1
+Human Health and Social Work Activities,500,8,6
+Human Health and Social Work Activities,1000,15,23
+Human Health and Social Work Activities,2000,12,30
+Human Health and Social Work Activities,3000,12,42
+Human Health and Social Work Activities,4000,10,44
+Human Health and Social Work Activities,5000,22,139
+Human Health and Social Work Activities,7500,20,178
+Human Health and Social Work Activities,10000,46,574
+Human Health and Social Work Activities,15000,24,408
+Human Health and Social Work Activities,20000,28,694
+Human Health and Social Work Activities,30000,28,1110
+Human Health and Social Work Activities,50000,26,1870
+Human Health and Social Work Activities,100000,29,5000
+Human Health and Social Work Activities (Total),All ranges,349,10100
+"Arts, Entertainment and Recreation",0,41,[Not available]
+"Arts, Entertainment and Recreation",1,7,2
+"Arts, Entertainment and Recreation",500,7,5
+"Arts, Entertainment and Recreation",1000,12,18
+"Arts, Entertainment and Recreation",2000,11,26
+"Arts, Entertainment and Recreation",3000,9,31
+"Arts, Entertainment and Recreation",4000,9,39
+"Arts, Entertainment and Recreation",5000,16,101
+"Arts, Entertainment and Recreation",7500,15,131
+"Arts, Entertainment and Recreation",10000,24,299
+"Arts, Entertainment and Recreation",15000,12,205
+"Arts, Entertainment and Recreation",20000,16,381
+"Arts, Entertainment and Recreation",30000,13,487
+"Arts, Entertainment and Recreation",50000,6,384
+"Arts, Entertainment and Recreation",100000,3,1540
+"Arts, Entertainment and Recreation (Total)",All ranges,200,3650
+Other Industries,0,32,[Not available]
+Other Industries,1,8,2
+Other Industries,500,8,6
+Other Industries,1000,15,23
+Other Industries,2000,15,39
+Other Industries,3000,14,50
+Other Industries,4000,13,61
+Other Industries,5000,35,217
+Other Industries,7500,37,324
+Other Industries,10000,77,958
+Other Industries,15000,37,642
+Other Industries,20000,36,870
+Other Industries,30000,20,744
+Other Industries,50000,4,236
+Other Industries,100000,1,231
+Other Industries (Total),All ranges,353,4400
+Unknown Industries,0,108,[Not available]
+Unknown Industries,1,37,9
+Unknown Industries,500,36,26
+Unknown Industries,1000,71,104
+Unknown Industries,2000,57,141
+Unknown Industries,3000,47,164
+Unknown Industries,4000,45,202
+Unknown Industries,5000,89,554
+Unknown Industries,7500,79,687
+Unknown Industries,10000,159,1960
+Unknown Industries,15000,81,1400
+Unknown Industries,20000,90,2190
+Unknown Industries,30000,67,2530
+Unknown Industries,50000,23,1480
+Unknown Industries,100000,6,3710
+Unknown Industries (Total),All ranges,994,15200
+All Industries,0,766,[Not available]
+All Industries,1,135,31
+All Industries,500,128,95
+All Industries,1000,254,375
+All Industries,2000,220,546
+All Industries,3000,201,699
+All Industries,4000,185,830
+All Industries,5000,425,2660
+All Industries,7500,408,3570
+All Industries,10000,946,11800
+All Industries,15000,515,8910
+All Industries,20000,644,15800
+All Industries,30000,515,19400
+All Industries,50000,172,11400
+All Industries,100000,104,41600
+All Industries (Total),All ranges,5620,118000
+End of worksheet,,,

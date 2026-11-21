@@ -1,0 +1,25 @@
+12.1a Inheritance tax: numbers and tax due by range of estate,,,,,
+This table contains data on estates notified to HMRC using Inheritance Tax returns: Numbers and tax by range of estate for year of death 2023 to 2024.,,,,,
+Some cells contain [z] where there is no tax charge due to the nil rate band (NRB).,,,,,
+Some cells contain [c] where figures are not available due to disclosure control.,,,,,
+Net estate (lower limits) [Note 1],2023 to 2024 number not taxed,2023 to 2024 number taxed,2023 to 2024 tax due (£ million) [Note 2],2023 to 2024 average tax (£),2023 to 2024 average effective tax rate of taxpaying estates (per cent)
+0,741,[z],[z],[z],[z]
+100000,718,[z],[z],[z],[z]
+200000,2090,[z],[z],[z],[z]
+300000,5270,2300,32,13800,0.04
+400000,8500,2470,105,42500,0.09
+500000,5110,3070,161,52400,0.1
+600000,3570,2450,185,75500,0.12
+700000,4300,2300,209,90700,0.12
+800000,2630,1910,221,116000,0.14
+900000,2190,1670,205,123000,0.13
+1000000,1360,7770,1180,151000,0.12
+1500000,445,2930,950,324000,0.19
+2000000,452,1860,1040,557000,0.23
+3000000,230.8,619,538,869000,0.25
+4000000,[c],331,365,1100000,0.25
+5000000,[c],346,517,1490000,0.25
+7500000,[c],144,288,1990000,0.23
+10000000,[c],220,1040,4720000,0.18
+Total estates notified,38000,30400,7030,231000,0.13
+End of worksheet,,,,,

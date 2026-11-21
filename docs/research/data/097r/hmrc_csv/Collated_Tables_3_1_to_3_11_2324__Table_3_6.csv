@@ -1,0 +1,20 @@
+"Table 3.6: Profit, employment and pension income, tax year 2023 to 2024",,,,,,,,,,,,,,,,,,,,
+This worksheet contains one table and some cells may refer to notes which can be found on the accompanying notes worksheet.,,,,,,,,,,,,,,,,,,,,
+"Numbers of taxpayers are measured in thousands, amounts are measured in £ millions and means are measured in £. Totals may not sum due to rounding.",,,,,,,,,,,,,,,,,,,,
+This table is based on UK taxpayers only and the source is the Survey of Personal Incomes (SPI) for the tax year 2023 to 2024. This table was last updated in April 2026,,,,,,,,,,,,,,,,,,,,
+Range of total income (lower limit) £,Self-employment income (Number of individuals) [Note 1],Self-employment income (Amount) [Note 1],Self-employment income (Mean) [Note 1],Employment income (Number of individuals),Employment income (Amount),Employment income (Mean),Pension Income from National Insurance contributions (Number of individuals) [Note 2],Pension Income from National Insurance contributions (Amount) [Note 2],Pension Income from National Insurance contributions (Mean) [Note 2],Pension income from other pensions (Number of individuals),Pension income from other pensions (Amount),Pension income from other pensions (Mean),"Total profit, employment and pension income (Number of individuals) [Note 3]","Total profit, employment and pension income (Amount) [Note 3]","Total profit, employment and pension income (Mean) [Note 3]","Distribution of amounts of total profit, employment and pension income (%)","Percentage of total profit, employment and pension income (Self-employment)","Percentage of total profit, employment and pension income (Employment)","Percentage of total profit, employment and pension income (National Insurance)","Percentage of total profit, employment and pension income (Other pensions)"
+12570,444,4810,10800,1360,16900,12400,1140,11800,10400,1070,4350,4050,2810,37900,13500,2.7,12.7,44.6,31.3,11.5
+15000,651,8030,12300,3100,48600,15700,2050,22200,10800,2140,13600,6360,5490,92500,16900,6.6,8.7,52.5,24,14.7
+20000,961,15700,16300,7470,172000,23000,2320,24900,10800,2660,30200,11300,10100,242000,23900,17.3,6.5,70.8,10.3,12.4
+30000,595,12600,21100,5370,170000,31700,1160,12300,10600,1450,24900,17200,6660,220000,33000,15.7,5.7,77.4,5.6,11.3
+40000,359,8730,24300,3500,139000,39700,568,6020,10600,779,16900,21700,4110,170000,41500,12.1,5.1,81.4,3.5,9.9
+50000,311,8220,26400,3430,174000,50700,441,4660,10600,643,17400,27100,3870,204000,52800,14.5,4,85.2,2.3,8.5
+70000,143,5360,37400,1640,118000,72200,176,1890,10700,259,9470,36600,1810,135000,74600,9.6,4,87.6,1.4,7
+100000,85,4980,58400,791,82300,104000,74,847,11400,109,5430,49900,870,93500,107000,6.7,5.3,88,0.9,5.8
+150000,40,3650,91700,264,39200,149000,21,265,12800,29,1810,61800,291,44900,154000,3.2,8.1,87.2,0.6,4
+200000,34,4390,130000,180,36600,203000,14,179,12700,20,1570,77700,201,42700,212000,3,10.3,85.6,0.4,3.7
+300000,21,4840,225000,93,29000,313000,8,96,12400,10,1120,112000,107,35100,329000,2.5,13.8,82.8,0.3,3.2
+500000,15,6670,440000,44,23100,528000,3,43,12500,4,640,159000,53,30500,578000,2.2,21.9,75.9,0.1,2.1
+1000000,11,19500,1790000,21,35500,1720000,2,20,13000,2,370,204000,26,55400,2130000,3.9,35.2,64.1,[Not available],0.7
+All ranges,3670,107000,29300,27300,1080000,39800,7980,85400,10700,9180,128000,13900,36400,1400000,38600,100,7.6,77.2,6.1,9.1
+End of worksheet,,,,,,,,,,,,,,,,,,,,

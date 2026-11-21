@@ -1,0 +1,10 @@
+12.2b Inheritance tax: distribution of claims for agricultural property relief,,,,,
+"This table contains data on the distribution of claims at death for agricultural property relief in the 2023 to 2024 tax year. The data is tabulated by the value of the estate's claim (meaning the amount by which the total value of the chargeable estate for IHT purposes is reduced), rather than the value of the asset on which relief was claimed. It does not relate to the value of tax.",,,,,
+Value of APR claim (lower limit),Number of claims,Proportion of total claims,Total value of relief (£m),Proportion of total value of relief,Median value of relief (£)
+0.0,654,0.305464736104624,71,0.03358561967833491,100000
+250000.0,413,0.19290051377860812,144,0.06811731315042574,319000
+500000.0,428,0.19990658570761327,294,0.1390728476821192,665000
+1000000.0,480,0.2241943017281644,752,0.35572374645222327,1435000
+2500000.0,109,0.05091078935077067,338,0.1598864711447493,2950000
+5000000.0,57,0.026623073330219522,515,0.24361400189214757,6907000
+Total,2141,1.0,2114,1.0,500000

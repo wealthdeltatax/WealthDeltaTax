@@ -1,0 +1,697 @@
+variable,label
+we_factor,we_factor [weight]
+we_factor,we_factor_adjusted [preferred weights]
+subsid,subsid [identifier pre-2020]
+pid,Research Now Respondent ID
+dsoc,dsoc [Coded social grade]
+dsocial,dsocial
+nobedrooms,nobedrooms
+fgenage_1,fgenage_1 [Age]
+dage,dage
+nage,nage {Grouped Age}
+qregion,qregion
+dregion,dregion
+fgen,fgen
+qhousing,qhousing
+dhousing,dhousing
+workingstatus,Which one of these applies to you?
+qworking,qworking
+dworking,dworking
+a20workingstatus,Which one of these currently applies to you? If you are currently taking sick leave or paid leave please state whether you usually work full time or part time.
+a20dworking,a20dworking
+recent_workingstatus,Which one of these applied to you three months ago?
+drecent,drecent
+bc1a,Do you work through a company you yourself own?
+bc1b,Do you work within the public sector?
+industry,What does the firm/organisation you work for in your main job mainly make or do (at the place where you work)?
+firmsize,"Approximately how many people are employed in this firm/organisation (in total, not just at the place where you work)"
+nochildren,How many children live in your household (those aged under 16)?
+otheradults,otheradults
+noadults,"Excluding yourself, how many other adults live in your household (those aged 16 or over)?"
+adultworkingstatus,Please enter the number of other adults in your household (excluding yourself) who fall into each of the below categories. For anyone taking sick leave or paid leave please state whether they usually work full time or part time. The total is shown at the bottom - please ensure this adds up to ^f('no
+bc2a,You mentioned there are ^f('noadultsworking_hidden')^ other adults in your household who are working. Please enter the number who fall into each of the below categories (excluding yourself).
+fbe03,fbe03: Are you mainly or jointly responsible for the financial decision making in your household?
+qmarital,qmarital
+randomgen,ALLOCATE ONE OF THE FOLLOWING AMOUNTS AT RANDOM:
+bc2b,You mentioned there are ^f('noadultsworking_hidden')^ other adults in your household who are working. Please tell us how many of these work through a company which either they or you own. (If none of them do please enter zero)
+socialgrade,"Thinking about the chief income earner in your household (the person with the largest income – which could be you), which of the following best describes their most recent occupation?If the Chief Income Earner is retired and has an occupational pension please answer for their most recent occupation."
+dsocialgrade,Coded social grade
+typeresponse,typeresponse
+qincomefree_dk,qincomefree_dk
+qincome,qincome
+qincomev1,"Which of these ranges comes closest to the total annual income of the whole of your household, before anything is deducted for tax, National Insurance, pension schemes etc?"
+qincomefreev2,qincomefreev2
+qincomefreev2_c,
+qincomev2,"Which of these ranges comes closest to the total annual income of each adult in your household, before anything is deducted for tax, National Insurance, pension schemes etc."
+qincomev2_1,
+hincomev2,hincomev2
+incomev2comb,Dummy
+combincome,combincome
+qual,What is the highest educational or school qualification you have obtained?
+brexit,"Taking everything into account, how do you currently view the UK leaving the EU (European Union) – which has become known as 'Brexit'?"
+brexit2,"And, thinking back to the time of the 2016 referendum, how did you feel about the vote outcome at the time?"
+qbe01free_dk,qbe01free_dk
+qbe01_hidden,Text piping of qbe01
+qbe01,qbe01 [qbe01_calc]
+BOE56free,"[In the previous question, when reporting your monthly income after paying tax, National Insurance, housing costs (e.g. rent and mortgage repayments), loan repayments (e.g. personal loans, credit cards) and bills (e.g. electricity and council tax) how much did you allow for bills?]"
+boe56free_dk,BOE56free_dk
+boe56,BOE56
+qbe02,qbe02 [And how much would you say that your monthly left over income has changed over the past year?]
+be2afree_c,"In general over the past year, how much of your household income would you say that you put aside as cash savings each month ?"
+be2afree_dk,be2afree_dk
+be2a_hidden,Text piping of be2a
+be2a,be2a
+soa1,"Over the past year, did you change the amount of money you saved each month? Please exclude any contributions to pension schemes."
+soa1b,What would you say are the main reasons for this decrease?
+soa1c,What would you say are the main reasons for this increase?
+BOE39a,"The level of interest rates set by the Bank of England (Bank Rate) was XX% on (Date), when this survey opened. At what level do you expect that interest rate to be in each of the following time periods?"
+0,0.24% (12)
+be04free_c,About how much would you expect to get for your home if you sold it today?
+be04free_dk,be04free_dk
+be04_hidden,Text piping of BE04
+be04,be04
+be44,What type of mortgage do you currently have on your main home?
+be07free_c,And roughly how much is left to pay on your current mortgage(s) and secured loan(s) on your home?
+be07free_dk,be07free_dk
+be07_hidden,Text piping of BE07_hidden
+be07,be07
+mh01,Have you taken a mortgage payment holiday this year?
+be08free_c,How much was your last monthly instalment on the mortgage(s) or loan(s) related to your home?
+be08free_dk,be08free_dk
+be08_hidden,Text piping of BE08_hidden
+be08,be08
+opd1,Text pipe for OP1
+op1,^f('OPD1')^ [You mentioned that your last monthly instalment was £^amount^. Was this amount]
+op2,How much was the overpayment you included?
+nds1,Text pipe for NCS1
+nds2,Text pipe for NCS1
+mthincome,Combined Monthly Household income
+ncs1,"^f('NDS2')^ ^f('NDS1')^You've also told us your total annual household income before anything is deducted for tax, National Insurance, pension schemes etc, which is roughly equivalent to ^f('mthincome')^ per month. We would just like to check whether you'd like to correct any of your answers?"
+qincomefreev2re,qincomefreev2re
+qincomefreev2_cre,
+qincomefreev2_totalre,Total sum of qincomefreev2_nre
+dincomev2re,Masks qincomev2re
+incomepipingre,Text piping for income
+qincomev2re,^f('qincomepipingre')^
+qincomev2_1re,
+hincomev2re,hincomev2re
+incomev2combre,Combined Household income for version 2
+combincomere,combincomere
+be08free_cre,How much was your last monthly instalment on the mortgage(s) or loan(s) related to your home?
+be08freere,How much was your last monthly instalment on the mortgage(s) or loan(s) related to your home?
+be08free_dkre,be08free_dkre
+be08re,"Using the following ranges, could you state how much your last monthly instalment was on the mortgage(s) or loan(s) related to your home?"
+overallincomecomb,Overall combined Household income
+overallcombincome,overallcombincome
+overallbe08,Overall monthly mortgage installment
+be09,be09 [ASK IF TENURE = 1 MORTGAGE AND BE03 = YES. What type of interest rate is being paid on the mortgage or loans?]
+be09a,be09a [Are you or your household currently benefitting from any of the options below to help ease the burden of your mortgage? Please include options that you are benefitting from that were permitted in the original terms of your mortgage as well as those that were not. Do not include any general be
+be09a1,"be09a1 [If you had not made this change, which of the following would describe your likely situation?]"
+bd09_hidden,What type of interest rate is being paid on the mortgage or loan?
+boe47,"Using the following ranges, could you state the approximate interest rate you are currently paying on your mortgage(s) or loan(s) related to your main home? If you have more than one mortgage or loan, please state the interest rate on the largest loan."
+boe57,When does your fixed interest rate deal expire?
+boe57,When does your fixed interest rate deal expire?
+boe49year,BOE49year
+boe49_dk,BOE49_dk
+boe79,Have you considered moving to another property since the beginning of 2015? & Have you considered moving to another property since the beginning of 2017?
+boe80,When do you next expect to move house?
+boe81,The government recently announced changes to the Inheritance Tax regime. Has this changed the likelihood of you moving house?
+boe49,"Using the following ranges, could you state when you bought your home?"
+boe50year,BOE50year
+boe50_dk,BOE50_dk
+boe50,"Using the following ranges, could you state when you last took out a mortgage or secured loan on your main home, or made a change to the amount borrowed on an existing mortgage or secured loan on this property? Please include whenever you moved house, remortgaged or took out an additional loan and r"
+boe82year,"BOE82year [And at that point, how long was the mortgage or secured loan for? (This is the number of years over which you will repay the mortgage - also known as the term). Even if you are making overpayments to reduce the term of your mortgage, please state the original term you signed up for. Pleas"
+boe82_dk,BOE82_dk
+boe82,"BOE82: Using the following ranges, how many years until your mortgage or secured loan on your main home ends? Even if you are making overpayments to reduce the term of your mortgage, please state how many years until it was originally scheduled to end."
+bd400,Used for text piping year in to be400 and be401
+be400free_c,"And, in ^f('BD400')^ what was the total original value of all the mortgage(s) and loan(s) you borrowed against your home at that point?"
+be400free,"And, in ^f('BD400')^ what was the total original value of all the mortgage(s) and loan(s) you borrowed against your home at that point?"
+be400free_dk,be400free_dk
+be400,"Using the following ranges, could you state roughly what was the total original value of all the mortgage(s) and loan(s) you borrowed against your home at that point in ^f('BD400')^?"
+be401free_c,"And, at that point, in ^f('BD400')^, roughly what was the value of your home?"
+be401free,"And, at that point, in ^f('BD400')^, roughly what was the value of your home?"
+be401free_dk,be401free_dk
+be401,"Using the following ranges, could you state roughly what was the value of your home at that point in ^f('BD400')^?"
+boec1,The Bank of England Base Rate was lowered in August from 0.5% to 0.25%. Has the interest rate you pay on your mortgage fallen as a result or have you been notified that it will fall shortly?
+boec1afree,"As a result of this change in your mortgage rate, how much has your monthly mortgage repayment fallen (or will fall shortly)? Please exclude any changes to the amount you overpay. Please enter an amount in pounds without any decimals."
+boec1afree_dk,boec1afree_dk
+boec1an,"boec1a Using the following ranges, could you state by how much your monthly mortgage repayment has fallen (or will fall shortly) as a result of this change in your mortgage rate? Please exclude any changes to the amount you overpay."
+boe60r,You said that your monthly mortgage repayment has fallen by £x [BOEC1A]. Which of these statements best describes your household’s response to this fall in your mortgage repayment?
+boe55rfree,You said that your household has spent more in response to lower mortgage repayments. How much have you increased your monthly spending by in response to the £x [boec1afree] decrease in your monthly mortgage repayment?
+boe55rfree_dk,boe55rfree_dk
+boe55rb,"Using the following ranges, could you state how much you have increased your monthly spending by in response to the £x [boec1afree] fall in your monthly mortgage repayment?"
+boec11b,"How has the interest rate you pay on your mortgage changed in the last twelve months, either because you have remortgaged on a higher interest rate or because you have a mortgage where the interest rate varies with the base rate?"
+boec11afree,
+boec11afree_dk,boec11afree_dk
+boec11a,"Using the following ranges, could you state by how much your monthly mortgage repayment has risen (or will rise shortly) as a result of this change in your mortgage rate? Please exclude any changes to the amount you overpay."
+boec11a,"Using the following ranges, could you state by how much your monthly mortgage repayment has risen (or will rise shortly) as a result of this change in your mortgage rate? Please exclude any changes to the amount you overpay"
+boec12,"Had the higher interest rate already been applied to the last payment you made, which you mentioned was ^f('BE08free').toBoolean()?f('BE08free'):""""^ ^f('BE08free').toBoolean()?f('BE08free_1'):f('BE08')^?"
+sc1,"In addition to your mortgage, do you have any other loans secured against your main home? Please do not include other loans not secured against the value of your home – we will ask about these later."
+scd2,Text pipe for SC2
+sc2,^f('SCD2')^
+scd3,Used for text piping SC3
+boec2,"Had the reduced interest rate already been applied to the last payment you made, which you mentioned was ...?"
+boec3,"In 12 months' time do you think the interest rate you pay on your mortgage will be higher or lower than ^f('BODC3')^ Please assume everything else about the mortgage will stay the same – i.e. the amount borrowed, the length of the mortgage."
+BOEC4afree,
+boec4afree_dk,BOEC4afree_dk
+boec4a,"Using the following ranges, could you state by how much higher you think your monthly mortgage repayment will be in 12 months' time?"
+BOEC4bfree,
+boec4bfree_dk,BOEC4bfree_dk
+boec4b,"Using the following ranges, could you state by how much lower you think your monthly mortgage repayment will be in 12 months' time?"
+BOE83free_c,About how much would you expect to get for your home if you sold it today?
+BOE83free,
+boe83free_dk,BOE83free_dk
+boe83info_count,boe83info_count
+boe83,"Using the following ranges, could you state roughly how much you would expect to get for your home if you sold it today?"
+boe51,"How does the current annual income of the whole of your household before anything is deducted for tax, National Insurance, pension schemes etc, compare with what it was when you last took out a mortgage or secured loan on your main home, or made a change to the amount borrowed on an existing mortgag"
+boe58,Have any of the following changes occurred in your household since you last made a change to your mortgage?
+boe52,"What are the main reasons why your current annual household income (before deductions) has fallen from what it was when you last took out a mortgage or secured loan, or made a change to the amount borrowed on n existing mortgage or secured loan on your main home?"
+be10bfree_c,be10bfree_c
+be10bfree_dk,be10bfree_dk
+be10_hidden,Text piping of BE10_hidden
+be10b,be10b
+be10b_hidden,Hidden
+be10cfree_c,be10cfree_c
+be10cfree_dk,be10cfree_dk
+be10c_hidden,Text piping of BE10c
+be10c,^f('BE10c_hidden')^
+bed07,Calculation for text pipping [see BOE59]
+bod59,Text piping for BOE59
+boe59,"If your monthly mortgage payments were to increase for a sustained period by £^f('bed07')^, how do you think you would respond? Please assume your income would not be any higher unless you take action to increase it."
+BOE54free_c,How much would you reduce your monthly spending by if your monthly mortgage payments were to increase for a sustained period by £^f('bed07')^ from tomorrow?
+BOE54free,
+boe54free_dk,BOE54free_dk
+boe54,"Using the following ranges, could you state how much you would reduce your monthly spending by in this situation?"
+boe54b,"Using the following ranges, could you state how much you would reduce your monthly spending by if your monthly mortgage payments were to increase for a sustained period by £^f('bed07')^ from tomorrow?"
+bed08,Calculation for text pipping q84
+boe84,"BOE84 [ If your monthly mortgage payments were to fall by £y [which is calculated automatically from software as the payment under a 1pp lower rate] for a sustained period from tomorrow, how do you think you would respond? Please assume your income would not change unless you take action to change i"
+BOE85free_c,How much would you increase your monthly spending by if your monthly mortgage payments were to fall for a sustained period by £^f('bed08')^?
+BOE85free,
+boe85free_dk,BOE85free_dk
+boe85an,"Using the following ranges, could you state how much you would increase your monthly spending by if your monthly mortgage payments were to fall for a sustained period by £^f('bed08')^?"
+boe85,"Using the following ranges, could you state how much you would increase your monthly spending by if your monthly mortgage payments were to fall for a sustained period by £^f('bed08')^?"
+boe86,Which of the following reasons help explain why your household has fallen behind in the mortgage payments? You can give as many reasons as you like.
+be11,Who is your mortgage provider?
+bed11,Mortgage provider:
+boe55a,"BOE55a [ASK IF TENURE = 1 MORTGAGE AND BE03 = YES. Now imagine that there is a very sharp increase in mortgage rates. Imagine also that the increase in mortgage payments you face is so large that you have no choice but to move to a cheaper home (for example, finding a smaller home, moving to a cheap"
+be13,be13 [Many people these days are finding it difficult to keep up with their housing payments. In the past twelve months would you say you have had any difficulties paying for your accommodation?]
+BE13b,How many mortgage payments have you missed in the last 12 months?
+BE13b_1,
+boe60,In the past 12 months have you ever found yourself more than two months behind with your mortgage payments (known as being 'in arrears')? i.e. you have missed two or more monthly repayments in a row which the lender was expecting you to pay.Please exclude any pre-arranged payment holidays.
+qbe16free_dk,qbe16free_dk
+BOE97free,"BOE97free [How much in total do you and your household currently owe on each of these types of loans? Again, for credit cards, please only include the amount you expect to leave unpaid on your next bill. And report any student loans from other sources (eg a bank) under the relevant category.]"
+BOE97free_c,
+boe97free_total,Total sum of boe97free_n
+boe97income,Masks BOE97 bands
+BOE97_bands,"Using the following ranges, could you state how much in total you and your household currently owe on each of these types of loans?"
+BOE97_bandsv1,
+BOE97bands,BOE97free_n and BOE97_bandsv1 combined into a band
+boe97combined,Combined BOE97
+combboe97a,combboe97
+boe16,"Having thought about the individual types of loan you hold, the total you've said you owe is £^f('combBOE97').toString().replace(/\B(?=(\d{3})+(?!\d))/g, "","")^, we would just like to check whether you'd like to correct this total figure?"
+qbe16refree_c,How much in total do you and your household currently owe on these loans?
+qbe16refree,qbe16refree
+qbe16refree_dk,qbe16refree_dk
+qbe16re,"Using the following ranges, could you state how much in total you and your household currently owe on these loans?"
+qbe16_hidden,Text piping of qbe16_hidden
+qbe16,qbe16
+qbe16afree_dk,qbe16afree_dk
+qbe16a_hidden,Text piping of qbe16a_hidden
+qbe16a,^f('qbe16a_hidden')^
+qde16a,Calculation for pop ups
+qde15b,Masking for BOE87free
+BOE87free,"BOE87free [How much in total do you or your household currently owe on each of these types of loans? Again, for credit cards, please only include the amount you expect to leave unpaid on your next bill. And report any student loans from other sources (eg a bank) under the relevant category.]"
+BOE87free_n,
+boe87income,Masks BOE87
+boe87free_total,Total sum of boe87free_n
+qd089,Was 'Don't know' or 'Prefer not to state' selected at BOE87free
+boe87a,"Having thought about the individual types of loan you hold, the total you've said you owe is £^f('boe87free_total')^, whereas earlier you gave a total of £^f('qbe16free')['1']^. Which of these would you say is more accurate?"
+boe87a_total,The total selected at BOE87a
+BOE87freev2,"BOE87freev2 [Please re-enter these figures where necessary so that the total comes to £. How much in total do you or your household currently owe on each of these types of loans? Again, for credit cards, please only include the amount you expect to leave unpaid on your next bill. And report any stud"
+BOE87free_nv2,
+qd088,Dummy to mark where B0E87 is higher than QBE16
+qd088v2,Dummy to mark where B0E87v2 is higher / lower than BE16
+boe87freev2_total,Total sum of boe87free_nv2
+boe87incomev2,Masks BOE87v2 bands
+BOE87_bandv2,"Using the following ranges, could you state how much in total you or your household currently owe on each of these types of loans?"
+BOE87_bandsv1v2,
+BOE87bandsv2,BOE87free_nv2 and BOE87_bandsv1v2 combined into a band
+BOE87_bandsv1,
+BOE87bands,BOE87bands [BOE87free_n and BOE87_bandsv1 combined into a band]
+totaldebt,"DUMMY QUESTION TO HOLD CORRECTED BE16 VALUES - IF BOE97 AND BOE87 TOTAL IS CHOSEN ABOVE THEN POPULATE THIS Q WITH THE TOTAL FROM BOE87, OTHERWISE POUPLATE WITH BE16 ANSWER INCLUDING ANSWER FOR THOSE WITH ONLY ONE DEBT TYPE AND THOSE WITH MULTIPLE TYPES BUT NONE OF A,B,C,D,G AT Q15"
+boe88,Which of the following best describes how you or members of your household paid the most recent credit card bill?
+qbe17free_c,"Taking into account all of your current unsecured debts, how much was your last monthly payment on all of the loans?"
+qbe17free_dk,qbe17free_dk
+qbe17_hidden,Text piping of qbe17_hidden
+qbe17,qbe17
+be17afree,How much was your last monthly payment on your credit card/s?
+be17afree_dk_1,How much was your last monthly payment on your credit card/s?
+be17afree_dk_2,How much was your last monthly payment on your credit card/s?
+be17a,How much was your last monthly payment on your credit card/s?
+be17bfree,"Taking into account all of your other current unsecured debts (excluding your credit card debt), how much was your last monthly payment on all of these loans?"
+be17bfree_dk_1,"Taking into account all of your other current unsecured debts (excluding your credit card debt), how much was your last monthly payment on all of these loans?"
+be17bfree_dk_2,"Taking into account all of your other current unsecured debts (excluding your credit card debt), how much was your last monthly payment on all of these loans?"
+be17b,"Taking into account all of your other current unsecured debts (excluding your credit card debt), how much was your last monthly payment on all of these loans?"
+qbe18,qbe18 [To what extent is the repayment of these loans and the interest a financial burden on your household? Would you say it is:]
+uq03,In the past 12 months have you ever found yourself more than two months behind with payments of these loans (known as being 'in arrears')? i.e. you have missed two or more monthly repayments in a row which the lender was expecting you to pay. Please exclude any pre-arranged payment holidays.
+uq04,Which of the following reasons help explain why your household has fallen behind in the loan payments? You can give as many reasons as you like.
+bod64,Calculation for text pipping
+boe64,"[Although your monthly payments on these loans may be fixed, we would like to understand the impact if your payments were to increase. If your total monthly payments on all your unsecured loans and credit agreements were to increase for a sustained period by £^f('BOD64')^, from tomorrow due to highe"
+BOE78free_c,How much would you reduce your monthly spending by if your total monthly payments on all your unsecured loans and credit agreements were to increase for a sustained period by £^f('BOD64')^ from tomorrow?
+BOE78free,
+boe78free_dk,BOE78free_dk
+boe78,"Using the following ranges, could you state how much you would reduce your monthly spending by in this situation?"
+boe78b,"Using the following ranges, could you state how much you would reduce your monthly spending by if your total monthly payments on all your unsecured loans and credit agreements were to increase for a sustained period by £^f('BOD64')^ from tomorrow?"
+bod84c,Routing for BOE84c
+bod84,Calculation for text pipping
+boe84c,"BOE84c [If your monthly mortgage payments were to fall by £y [which is calculated automatically from software as the payment under a 1pp lower rate] for a sustained period from tomorrow, how do you think you would respond? Please assume your income would not change unless you take action to change i"
+BOE85cfree_c,How much would you increase your monthly spending by if your total monthly payments on all your unsecured loans and credit agreements were to fall for a sustained period by £^f('BOD84')^ from tomorrow?
+BOE85cfree,
+boe85cfree_dk,BOE85cfree_dk
+boe85c,"Using the following ranges, could you state how much you would increase your monthly spending by if your total monthly payments on all your unsecured loans and credit agreements were to fall for a sustained period by £^f('BOD84')^ from tomorrow?"
+cf1,CF1 [You indicated that you or someone in your household currently owes money on a finance agreement arranged by a car dealer. Do you know what type of car finance arrangement you currently have? Please read the following descriptions carefully before selecting your answer. If you currently owe mone
+cf2,"When did you or someone in your household take out the car finance agreement? If you currently owe money on more than one car finance agreement, please respond based on the arrangement you owe the most money on."
+cf3,"Please indicate why you chose to take out a finance arrangement from a dealer rather than to fund your car purchase using another type of finance (e.g. using personal savings, unsecured personal loan from a bank or remortgage)?"
+cf4,Do you think you bought a more expensive vehicle than you might otherwise have chosen as a result of the finance arrangement offered to you by the dealer?
+cf5,"If you hadn't been able to obtain a finance arrangement with the car dealer, which of the following would have been most likely?"
+upl1,"UPL1 [You indicated that you or someone in your household currently owes money on an unsecured personal loan. When was this loan taken out? If members of your household currently have more than one unsecured personal loan outstanding, please respond based on the loan with the largest outstanding bal"
+upl2,Please indicate the reasons why you or a member of your household chose to take out a personal loan?
+cc1,Which of the following describe the types of activity/spending that have contributed to the outstanding credit card balance which you do not expect to repay in full by the next payment date?
+be18a,be18a [Are you or your household currently benefitting from any of the following actions / changes to your loan agreement to help ease the burden of your debt (other than mortgage debt)? You can choose more than one answer.]
+be18a1,"be18a1 [If you had not made this change, which of the following would describe your likely situation? If you are unsure, please give a rough guess.]"
+qbe18aa,qbe18aa [Which one of the following statements BEST describes how well your household is keeping up with your bills and / or credit commitments at the moment?]
+qbe22,"qbe22 [What actions, if any, are you taking to resolve the difficulty you have in keeping up with bills and / or credit commitments? Please select no more than three of the following. MAX 3 ANSWERS]"
+cv101,Are you currently furloughed from your job?
+cv102,Have you been furloughed at any point since the start of the pandemic?
+cv_102b,Which of these best describes your current employment situation?
+cv103,Have you discussed with your employer your likely employment status when your period of furlough ends?
+cv104,Which of these best describes your employment expectations when your period of furlough ends?
+cv107,You said your household income is lower now than before the coronavirus pandemic. Why is that?
+cv08b,Have you been granted any of the following as a result of coronavirus?
+cv1081,You said you have fallen behind on rent. How many month’s rent do you currently owe?
+cv1082,Have you discussed with your landlord/agent how you will pay the rental arrears back?
+cv1083,Over what time frame do you expect to repay the missed payments?
+cv1084,"As a result of coronavirus, have you taken any of the following actions in order to pay your rent, mortgage repayments or other accommodation payments?"
+cv09b_1,"We would like to know whether coronavirus has had an impact on your spending, and how you expect your spending might change on these things over the next three months.Thinking about the past month, how has your total household spending differed from what you would have usually spent before the coron"
+cv10b_1,And how do you expect your total household spending to change over the next three months compared to now?
+cv09b_2,"Thinking about the past month, how has your spending on social activities differed from what you would have usually spent before the coronavirus pandemic?Please include spending on holidays and flights, cultural and sporting events, going to restaurants / pubs / bars, as well as services that involv"
+cv10b_2,And how do you expect your social activities to change over the next three months compared to now?
+cv09b_3,"Thinking about the past month, how has your spending on transport differed from what you would have usually spent before the coronavirus pandemic?By transport we mean spending on day-to-day travel, such as commuting costs. This includes spending on petrol/diesel and motor repairs, and on train and b"
+cv10b_3,And how do you expect your transport to change over the next three months compared to now?
+cv09b_4,"Thinking about the past month, how has your spending on essentials differed from what you would have usually spent before the coronavirus pandemic?Please include essential spending and purchases such as paying bills (rent, utilities, phone contracts etc.), food and alcohol consumed at home, smoking "
+cv10b_4,And how do you expect your essentials to change over the next three months compared to now?
+cv09b_5,"Thinking about the past month, how has your spending on other non-essential goods and services differed from what you would have usually spent before the coronavirus pandemic?Please include non-essential items that do not require social contact, and that can be delayed if necessary or bought online."
+cv10b_5,And how do you expect your other non-essential goods and services to change over the next three months compared to now?
+cv11,"The next question is about how much savings your household has. By savings we mean the amount of money your household has in bank/building society accounts, including current accounts, or fixed rate savings bonds, cash ISAs, and NS&I account/bonds. We do not mean any pensions or investments you migh"
+cv11b,You said your savings have increased during the pandemic. What do you plan to do with these savings?
+cv12,"Over the next three months, which of these best describes your plans for the amount you save each month?"
+CV10,The next four questions are about whether coronavirus has had an impact on your spending on different types of products and services.
+be23,"be23 [Have you been put off spending because you are concerned that you will not be able to get further credit when you need it, say because you are close to your credit limit or you think your loan application would be turned down?]"
+boe60aa,How long have you lived in your current property?
+boe63b,Which of the following explanations best describes how you found out you could not obtain a mortgage?
+boec6,Do you think the general availability of credit has changed following the UK voting to leave the EU (vote for Brexit)?
+boec7,"BOEC7 [Has the overall amount of money you would like to borrow over the next 12 months been affected by the vote for Brexit? Including all types of borrowing (e.g. credit cards, loans, mortgages) and compared to how things would have been if the UK had voted to remain in the EU, would you now like "
+bodc8a,Text piping for BOEC8a
+bodc8b,Text piping for BOEC8b
+boec8a,Which types of credit would you like to borrow ^f('BODC8a')^ of because of the vote for Brexit?
+boec8b,Are there also any types of credit you would like to borrow ^f('BODC8b')^ of as a result of the vote for Brexit?
+boec9a,What are the main reasons why you now want to borrow more because of the vote for Brexit?
+boec9b,What are the main reasons why you now want to borrow less because of the vote for Brexit?
+boe60a,"Do you think you will eventually buy a property to live in, in the UK?"
+boe62a,"Would you like to buy a property (to live in), but are unable to obtain a mortgage?"
+boe63a,What are the reasons you are unable to obtain a mortgage?
+boe61a,When you expect to buy a property to live in?
+boe64a,What are the main reasons why you don't think you will eventually buy your own home?
+boec10,"BOEC10 [How do you think the vote for Brexit has affected how likely you are to sell your main residential home over the next 12 months (either to buy another property to live in or move to other accommodation)? Compared to how things would have been if the UK had voted to remain in the EU, are you:"
+boec11,"BOEC11 [[Ask all]: How do you think the vote for Brexit has affected how likely you are to buy a new main residential home over the next 12 months (whether moving or buying for the first time)? Compared to how things would have been if the UK had voted to remain in the EU, are you:]"
+be30a,"Over the next year, are you planning to change the amount of money you save each month? Please exclude any contributions to pension schemes."
+BE30bfree,
+be30bfree_dk,BE30bfree_dk
+be30b1,"Using the following ranges, could you state how much you plan to change the amount you save each month? Please exclude any contributions to pension schemes."
+be30b2,"Using the following ranges, could you state how much you plan to change the amount you save each month? Please exclude any contributions to pension schemes."
+be31n1,What would you say are the main reasons for this increase?
+be31b1,What would you say are the main reasons for this decrease?
+be24,be24 [Have you found it easier or harder to borrow to finance spending than a year ago?]
+be24f,Would you like to buy a property but are unable to obtain a mortgage?
+be24g,What are the reasons you are unable to obtain a mortgage?
+be25,be25 [Would you like to borrow any more at the moment but find it too expensive or difficult to do so? ]
+boe61,"Do you expect to buy a property to live in, or trade up to a more expensive property, within the next twelve months?"
+boe62,"Would you like to buy a property (to live in, or trade up to a more expensive property), but are unable to obtain a mortgage?"
+boe63,What are the reasons you are unable to obtain a mortgage?
+BOE65afree_c,"How much do you (and all other members of your household) currently have in total, saved up in savings accounts? Please include bank/building society accounts or bonds, cash ISAs, and NS&I account/bonds."
+BOE65afree,
+boe65afree_dk,BOE65afree_dk
+boe65a,"Using the following ranges, could you state how much you (and all other members of your household) currently have in total, saved up in savings accounts?"
+BOE65bfree_c,"Excluding money in savings accounts, how much do you (and all other members of your household) currently have in total, saved up in other investments such as stocks, shares and unit trusts?"
+BOE65bfree,
+boe65bfree_dk,BOE65bfree_dk
+boe65b,BOE65b
+boe98a,"You mentioned that the amount you (and all other members of your household) currently have in total, saved up in cash savings is £[BOE65a]. How has this amount changed compared with twelve months ago?"
+BOE91free_c,BOE91free_c
+BOE91free,BOE91free
+boe91free_dk,boe91free_dk
+BOE92free_c,"And how much, if any, additional money towards a deposit do you expect to be gifted from relations?"
+BOE92free,BOE92free
+boe92free_dk,boe92free_dk
+be26combined,Combined question BOE65a and BOE65b
+bod66,Calculation for text pipping
+boe66,"If the monthly interest you receive on your savings were to increase for a sustained period by £^f('BOD66')^, from tomorrow due to higher interest rates on savings, how do you think you would respond? Please assume your other sources of income would not change."
+BOE67free_c,How much would you increase your monthly spending by if the monthly interest you receive on your savings were to increase for a sustained period by £^f('BOD66')^ from tomorrow?
+BOE67free,
+boe67free_dk,BOE67free_dk
+boe67,"Using the following ranges, could you state how much you would increase your monthly spending by in this situation?"
+bod66b,Calculation for text pipping
+boe66b,"If the monthly interest you receive on your savings were to decrease for a sustained period by £^f('BOD66b')^, from tomorrow due to lower interest rates on savings, how do you think you would respond? Please assume your other sources of income would not change."
+BOE67bfree_c,How much would you decrease your monthly spending by if the monthly interest you receive on your savings were to decrease for a sustained period by £^f('BOD66b')^ from tomorrow?
+BOE67bfree,How much would you decrease your monthly spending by if the monthly interest you receive on your savings were to decrease for a sustained period by £^f('BOD66b')^ from tomorrow?
+boe67bfree_dk,boe67bfree_dk
+boe67b,"Using the following ranges, could you state how much you would decrease your monthly spending by if the monthly interest you receive on your savings were to decrease for a sustained period by £^f('BOD66b')^ from tomorrow?"
+be26nfree_dk,be26nfree_dk
+be26n_hidden,Text piping of be26n_hidden
+be26n,be26n
+be30,"be30 [Over the next year, are you planning change the amount of money you save? Please exclude any contributions to formal pension schemes. ]"
+be31b,be31b [What would you say are the main factors driving this decrease? Please select no more than four of the following. MAX 4 RESPONSES]
+be31c,be31c [How certain are you that you know what your household income will be a year from now?]
+be31d,"be31d [And how, if at all, has your certainty about your future household income changed over the past year?]"
+be32,be32 [Does your household gain more than half of its income from work for the public sector (by this we mean working directly for the public sector or for industries or services that mainly depend on contracts with the government for their business activity)?]
+be33,"be33 [In 2010, the government announced a set of measures in order to cut the country’s budget deficit. Some of these measures have already come into effect. How have these measures affected your household over the past year? Please select no more than three of the following. MAX 3 ANSWERS]"
+be34,"be34 [Which, if any, of the following actions have you taken in response to those measures? Please select no more than three of the following. MAX 3 ANSWERS]"
+be35,be35 [Some of the government’s measures will come into effect over coming years. Which of the following are you most concerned about for the future? Please select no more than three of the following. MAX 3 ANSWERS]
+be36,"be36 [Which, if any, of the following actions will you take in response to those measures? Please select no more than three of the following. MAX 3 ANSWERS]"
+be37,"Would you say you are financially better off or worse off now than you would have expected at the end of 2006, before the start of the financial crisis?"
+boe39,How much would you expect house prices in your region (^f('qregion')^) to change over the next twelve months?
+col11,"The next question seeks to understand how rising interest rates have affected your household finances. Bank Rate, also known as the Bank of England base rate, has risen since the end of 2021 and on [dd] March, when this survey opened, it was [4]%. What impact has this rise in interest rates had on y"
+col11,"The next question seeks to understand how rising interest rates have affected your household finances. Bank Rate, also known as the Bank of England base rate, has risen since the end of 2021 and on [dd] March, when this survey opened, it was [4]%. What impact has this rise in interest rates had on y"
+boe42,Do you currently own any property other than your main family home?
+boe43,"Selecting from the below, what are the main reasons you currently own property other than your main family home?"
+boe44,"Other than your main home, do you expect to buy an(other) additional property (e.g. holiday home, buy-to-let property) in the next twelve months?"
+fq01,How has the financial situation of your household changed over the last 12 months?
+fq02,How do you expect the financial position of your household to change over the next 12 months?
+fq02a,You said that you expect the financial position of your household to get worse over the next 12 months. In response to your expected worsened financial position please select which of the following actions members of your household are currently taking or which you expect members of your household w
+fq11,"FQ11 [How do you expect the vote for Brexit to affect the financial position of your household over the next 12 months? Compared to how things would have been if the UK had voted to remain in the EU, will things:]"
+boe55,"Over the next twelve months, how do you expect your household income (before anything is deducted for tax, National Insurance, pension schemes etc.) to change?"
+bod55,Hidden for test piping [see boe55]
+BOE46free,
+boe46free_dk,BOE46free_dk
+boe46a,"Using the following ranges, could you state how much you expect your total household income before anything is deducted for tax, National Insurance, pension schemes etc. to change by over the next twelve months?"
+boe46b,"Using the following ranges, could you state how much you expect your total household income before anything is deducted for tax, National Insurance, pension schemes etc. to change by over the next twelve months?"
+fq06,"FQ06 [Suppose that you continue working in the exact same job at the same place you currently work, and working the exact same number of hours as you do now. Over the next 12 months, how would you expect your earnings on this job, before taxes and deductions to change?]"
+FQ07free,"[Suppose that you continue working in the exact same job at the same place you currently work, and working the exact same number of hours as you do now. By how much do you expect your earnings on this job, before taxes and deductions to [insert increase/decrease from FQ06] over the next twelve month"
+fq07free_dk,FQ07free_dk
+fq08a,"FQ08a [Suppose that you continue working in the exact same job at the same place you currently work, and working the exact same number of hours as you do now. Using the following ranges, could you state how much you expect your earnings on this job, before taxes and deductions to change by over the "
+fq08b,"FQ08b [Suppose that you continue working in the exact same job at the same place you currently work, and working the exact same number of hours as you do now. Using the following ranges, could you state how much you expect your earnings on this job, before taxes and deductions to change by over the "
+fq08_recode,FQ08_recode
+fq03,"To the best of your knowledge, what would you say is the likelihood that you will lose your job during the next 12 months?"
+fq07,"Thinking about your household finances over the next 12 months, how worried are you about the impact of Brexit relative to other worries or uncertainties?"
+fq12,What do you think is the percent chance that you will lose your job during the next 12 months?
+fq13,"FQ13 [How do you think the vote for Brexit has affected the likelihood of you losing your job over the next 12 months? Compared to how things would have been if the UK had voted to remain in the EU, has the likelihood of you losing your job:]"
+fq09,What actions have you taken in response to the possibility that your income may fall sharply over the next year?
+fq10,You mentioned earlier that you expect the financial position of your household to ^f('FD10')^ over the next 12 months. How confident are you that the financial position of your household will ^f('FD10')^ over the next 12 months?
+SPQ07free_c,"How much rent per month does the landlord/council/housing association charge in total for your accommodation? Please exclude any utility bills, service charge and council tax."
+SPQ07free,
+spq07free_dk,SPQ07free_dk
+spq07,SPQ07
+col02b,"Has the rent the landlord/council/housing association charges for your accommodation increased in the last twelve months? Please exclude any utility bills, service charge and council tax."
+col02bbfree_1,"By how much has your monthly rent risen? Please exclude any utility bills, service charge, and council tax."
+col02bbfree_dk_1,"By how much has your monthly rent risen? Please exclude any utility bills, service charge, and council tax."
+col02bbfree_dk_2,"By how much has your monthly rent risen? Please exclude any utility bills, service charge, and council tax."
+col02bb,"By how much has your monthly rent risen? Please exclude any utility bills, service charge, and council tax."
+SPQ07afree_c,SPQ07afree_c
+SPQ07afree,"[Approximately how much more rent, if any, could you pay a month (above what you already pay) for a sustained period without you having to take some kind of action to find the extra money e.g. cut spending, work longer hours, or move house? Enter the amount of additional rent you could pay below. Pl"
+spq07afree_dk,SPQ07afree_dk
+spq07a,SPQ07a
+spd08,Calculation for pop ups
+spq08a,"If your monthly rent payments were to increase for a sustained period by £^f('SPD08')^ from tomorrow, how do you think you would respond? Please assume your income would not be any higher unless you take action to increase it."
+SPQ08abfree,
+spq08abfree_dk,SPQ08abfree_dk
+spq08ab,"Using the following ranges, could you state how much you would reduce your monthly spending by if your monthly rent payments were to increase for a sustained period by £^f('SPD08')^ from tomorrow?"
+spq08,"Using the following ranges, could you state how much your monthly rent payments could increase by without you having to take some kind of action to find the extra money e.g. cut spending, work longer hours, or move house?"
+spq10,"SPQ10 [Now imagine that there is a very sharp increase in rents in your area. Imagine also that the increase in rent you face is so large that you have no choice but to move to a cheaper home (for example, finding a smaller home, moving to a cheaper area, or moving in with relatives). In your opinio"
+spd01,Text piping for SPQ01
+SPQ01free_c,"About how much did your household spend, in total, on everything in the last month? ^f('SPD01')^"
+SPQ01free,
+spq01free_dk,SPQ01free_dk
+spq02,How has your household changed its spending compared with a year ago? Please exclude money put into savings and repayment of bank loans.
+spqn02,"In the past twelve months, has your household avoided or delayed any of the following, specifically because of the uncertainty about Brexit?"
+spq02a,You stated you have increased your spending compared to a year ago. What types of goods or services have you increased your spending on?
+spq02b,You stated you have decreased your spending compared to a year ago. What types of goods or services have you decreased your spending on?
+spq03,"How do you expect your household to change its spending over the next 12 months? Please exclude money put into savings or used to repay mortgages, overdrafts, credit cards and other loans"
+spq03b,SPQ03B [What are the main reasons why you expect your household to spend more over the next 12 months? You may select up to three responses but please ensure you select the main reason first. ]
+spq09,"SPQ09 [How do you expect the vote for Brexit to affect your household’s spending over the next 12 months? Please exclude money put into savings and repayment of bank loans. Compared to how things would have been if the UK had voted to remain in the EU, will your spending:]"
+SPQ09C,SPQ09C [What are the main reasons why you expect the vote for Brexit to cause your household to spend more over the next 12 months? You may select up to three responses but please ensure you select the main reason first. ]
+rank1,Hidden question for rank 1st at SPQ09C
+rank2,Hidden question for rank 2nd at SPQ09C
+rank3,Hidden question for rank 3rd at SPQ09C
+SPQ09D,SPQ09D [What are the main reasons why you expect the vote for Brexit to cause your household to spend less over the next 12 months? You may select up to three responses but please ensure you select the main reason first. ]
+rankd1,Hidden question for rank 1st at SPQ09D
+rankd2,Hidden question for rank 2nd at SPQ09D
+rankd3,Hidden question for rank 3rd at SPQ09D
+spq05,"Compared to the last 12 months, do you expect to spend more or less money on major purchases (such as a car, furniture or electrical goods) over the next year?"
+spq05ba,"First, we'd like you to imagine a scenario where the price of all goods and services you buy increased for a sustained period. Imagine the cost of everything - food, clothes, travel costs, getting your hair cut, getting the car washed etc. increased by 4% from tomorrow and was expected to increase a"
+spd05bb,Calculation for text pipping SPQ05bb
+SPQ05bbfree,SPQ05bbfree
+spq05bb_dk,spq05bb_dk
+spq05bbbands,"Using the following ranges, could you state how much would you increase your monthly spending by if it would cost you £^f('SPD05bb').toString().replace(/\B(?=(\d{3})+(?!\d))/g, "","")^ more per month to buy the same things you currently do?"
+spq05bc,"If you had to increase your spending in this way, how would you fund the extra cost?"
+isd01,Calculation for text pipping
+isq01,"ISQ01 [Imagine your monthly household income after taxes and national insurance fell for a sustained period by £y [which is calculated automatically from software as income x 0.2] from tomorrow, how do you think you would respond? Please assume prices of goods and services remain unchanged. Please s"
+ISQ02free,
+isq02free_dk,ISQ02free_dk
+isq02,"Using the following ranges, could you state how much you would reduce your monthly spending by if your monthly household income after taxes and national insurance fell for a sustained period by £^f('ISD01')^ from tomorrow?"
+uisd01,"CALCULATION FOR UISQ01. PERSONAL ANNUAL INCOME, NUMERIC OR MIDPOINT OF BAND, DIVIDE BY 12 AND SUBTRACT 450"
+uisq01,"We'd now like you to imagine a scenario where you were made unemployed and this decreased your income, and meant that for at least the next 6 months your monthly household income was £^f('UISD01').toString().replace(/\B(?=(\d{3})+(?!\d))/g, "","")^ less than usual and you were unable to regain employm"
+UISQ02free,UISQ02free
+uisq02free_dk,uisq02free_dk
+uisq02bands,"Using the following ranges, could you state how much you would reduce your monthly spending by if you became unemployed and your monthly household income was £^f('UISD01').toString().replace(/\B(?=(\d{3})+(?!\d))/g, "","")^ less than usual for at least 6 months?"
+uisq03,"If you were made unemployed and were unable to regain employment for 6 months, do you think this would impact your long term career prospects and lifetime earnings?"
+uisq04,"We'd now like you to imagine a scenario where the unemployment rate in this country increased sharply to over 7%, a rate not seen since the last recession. How do you think you would respond if this happened?"
+UISQ05free,"How much would you decrease your monthly spending / increase your monthly saving by if the unemployment rate increased sharply to over 7%, a rate not seen since the last recession?"
+uisq05free_dk,uisq05free_dk
+uisq05,"Using the following ranges, could you state how much you would reduce your monthly spending / increase your monthly saving by if the unemployment rate increased sharply to over 7%, a rate not seen since the last recession?"
+be39a,How do you think your household spending would be affected if house prices were to decrease by 10% in the next year? Would you say..
+spq06,Do you regularly spend money on any of the following items?
+mq01,Which of these options best describes how prices in the shops have changed over the last twelve months?
+mq02,And how much would you expect prices in the shops generally to change over the next twelve months?
+mq03,And how about the 12 months after that?
+mq04,"And how about the longer term, say in five years time? How much would you expect prices in the shops generally to change over a year then?"
+mq03b,And what effect has Brexit had on how you expect prices in the shops generally to change over the next year?
+mq06,How do you expect the number of unemployed people in this country will change over the next 12 months?
+mq10,"MQ10 [How do you expect the vote for Brexit to affect the number of people unemployed in this country over the next 12 months? Compared to how things would have been if the UK had voted to remain in the EU, will the number of unemployed people:]"
+mq07,How do you think the general economic situation in this country has changed over the past 12 months?
+mq08,How do you expect the general economic situation in this country to develop over the next 12 months?
+mq11,"MQ11 [How do you expect the vote for Brexit to affect the general economic situation of this country over the next 12 months? Compared to how things would have been if the UK had voted to remain in the EU, will things:]"
+mq08a,How confident are you that the general economic situation in this country will ^f('MD08a')^ over the next 12 months?
+mq08b,"In your opinion, is the likelihood of a severe downturn in the economy:"
+mq08c,"In your opinion, which of the following best describes the effects that recent trade tensions between the United Kingdom and the United States (e.g. tariffs) have had on the UK economy?"
+psq01,"Since 2010, the government has announced a succession of measures in order to cut the country's budget deficit. How have these measures affected your household over the past 5 years?"
+psq02,In what way has your household been affected by these changes?
+psq03,"Which, if any, of the following actions have you taken in response to those measures?"
+psq04,Some of the government's measures will come into effect over coming years. Which of the following are you most concerned about for the future?
+psq05,"Which, if any, of the following actions will you take in response to those measures?"
+btlq01,Do you currently own any buy-to-let properties?
+BTLQ02,Please indicate the extent to which you agree/disagree with the following statements regarding why you own buy-to-let properties.
+btlq03,Do you have an interest only mortgage on any of your buy-to-let properties?
+btlq04,How do you intend to repay the outstanding balance on your interest-only mortgages(s) at completion?
+btlq05a,How long do you intend to keep your buy-to-let property for?
+btlq05b,How long before you expect to sell one of your buy-to-let properties?
+btlq06,Would you sell one (or more) of your buy-to-let properties if interest rates were to rise such that rental income were not enough to cover mortgage repayments and expenses?
+btlq07,Would you sell your buy-to-let property if rental income didn't cover costs AND property prices were also expected to fall?
+BTLQ08free,"[How much would you expect to receive for all your buy-to-let properties if you were to sell them today? Please try to be as accurate as possible, entering an amount in pounds without any decimals (you do not need to use all the nine spaces for digits).]"
+btlq08free_dk,BTLQ08free_dk
+BTLQ09free,"[Roughly how much is left to pay in total on mortgages and other loans secured against all the buy-to-let properties you own? Please try to be as accurate as possible, entering an amount in pounds without any decimals (you do not need to use all the nine spaces for digits).]"
+btlq09free_dk,BTLQ09free_dk
+BTLQ10free,"BTLQ10free [Roughly how much rent do you charge per month in total across all your buy-to-let properties? Please try to be as accurate as possible, entering an amount in pounds without any decimals (you do not need to use all the nine spaces for digits).]"
+btlq10free_dk,BTLQ10free_dk
+btlq11,How likely is it that you will purchase a buy-to-let property at one point in the future?
+btlq12,Are you aware of the proposed reduction in mortgage finance tax relief for buy-to-let investors paying higher rate income tax announced in the Summer Budget 2015?
+btlq13,Which of the following best describes the effect the reduction in mortgage finance tax relief will have on your buy-to-let investments?
+btlq14,Which of the following best describe how you will respond to the reduction in mortgage finance tax relief?
+btlq15,What impact has the announcement of the reduction in mortgage finance tax relief had on your likelihood of investing in a buy-to-let property in the future?
+btlq16,Do you have a mortgage on any of your buy-to-let properties?
+btlq17,"BTLQ17 [How do you think that the vote for Brexit has affected how likely you are to sell at least one of your buy-to-let properties over the next 12 months? Compared to how things would have been if the UK had voted to remain in the EU, are you:]"
+btlq18,"BTLQ18 [Thinking about all your buy-to-let properties, how much capacity do you have to increase rents without risking your properties becoming unoccupied? When answering this question, it may be useful to think about how the rent currently paid by your tenants compares to the rent achievable if you"
+boe46_recode,"Using the following ranges, could you state how much you expect your total household income before anything is deducted for tax, National Insurance, pension schemes etc. to change by over the next twelve months?"
+BOE68free,[Earlier you mentioned that you are currently unemployed and seeking work. About how many hours in a week do you think you would be able to work?]
+boe68free_dk,BOE68free_dk
+BOE69free,[What weekly take-home pay would you expect to get for working [INSERT HOURS FROM PREVIOUS QUESTION] hours per week?]
+boe69free_dk,BOE69free_dk
+BOE70free,[What is the lowest weekly take-home pay you would consider accepting for a job?]
+boe70free_dk,BOE70free_dk
+BOE71free,[About how many hours in a week would you expect to have to work to be paid £[INSERT PAY FROM PREVIOUS QUESTION]?]
+boe71free_dk,BOE71free_dk
+be38,Do you think your household will be better off or worse off in another seven year's time (at the end of 2020) than you are now?
+be39,We would like to get an understanding of how changes in house prices may impact people's attitude to spending in general.How do you think your household spending would be affected if house prices were to increase by 10% in the next year? Would you say...
+M1Q16,"How likely do you think it is that Britain will have a disorderly Brexit, whereby no deal is reached by the end of March 2019 deadline? Please answer on a scale from 'Not at all likely' to 'Absolutely certain'."
+m1q16_dk,M1Q16_dk
+miq17a,"If Britain were to have a disorderly Brexit, how would you expect this to affect the general economic situation of this country over the next 12 months?"
+miq17b,"How, if at all, would you expect the financial position of your household to change over the next 12 months in the event of a disorderly Brexit? It would…"
+miq17c,What would you say is the likelihood that you could lose your job during the next 12 months in the event of a disorderly Brexit?
+miq18a,"If Britain were to have a disorderly no deal Brexit, how much would you expect prices in the shops generally to change over the next twelve months?"
+miq18b,And how about the 12 months after that?
+miq18c,"And how about the longer term, say in five years time? How much would you expect prices in the shops generally to change over a year then if Britain were to have a disorderly no deal Brexit?"
+miq18d,"If Britain were to have a disorderly no deal Brexit, how would you expect house prices in your region (^f('qregion')^) to change over the next twelve months?"
+hd1a,Average FTB price by region
+hd1b,Increase by 10%
+hd1c,Decrease by 10%
+hd,Dummy question used for masking HE1a and HE2a
+he1a,We would like to get an understanding of how changes in house prices may impact people's attitudes in general.
+HE1bfree,
+he1bfree_dk,he1bfree_dk
+he1b,"Using the following ranges, could you state how much you would increase your monthly day to day spending by if house prices in your region were to increase by 10% in the next year ^f('HDi2').toBoolean()?f('HDi2'):""""^"
+HE1cfree,
+he1cfree_dk,he1cfree_dk
+he1c,"Using the following ranges, could you state how much you would decrease your monthly day to day spending by if house prices in your region were to increase by 10% in the next year ^f('HDi2').toBoolean()?f('HDi2'):""""^"
+he2a,If house prices in your region were to fall by 10% in the next year ^f('HDd1')^
+HE2bfree,
+he2bfree_dk,he2bfree_dk
+he2b,"Using the following ranges, could you state how much you would increase your monthly day to day spending by if house prices in your region were to fall by 10% in the next year ^f('HDd2').toBoolean()?f('HDd2'):""""^"
+HE2cfree,
+he2cfree_dk,he2cfree_dk
+he2c,"Using the following ranges, could you state how much you would decrease your monthly day to day spending by if house prices in your region were to fall by 10% in the next year ^f('HDd2').toBoolean()?f('HDd2'):""""^"
+oq1,oq1 [Is your household’s current monthly income more or less than what you expected it would be this time last year? [INSTRUCTION] Please consider your income after income tax and National insurance but before any housing costs or bills are paid. ]
+oq2a_b,oq2a_b
+oq4,oq4 [What are the main reasons why your current household income is more than what you expected it would be? [INSTRUCTION] Please select no more than 3 of the following. ]
+oq2b_b,oq2b_b
+oq3,oq3 [What are the main reasons why your current household income is less than what you expected it would be? [INSTRUCTION] Please select no more than 3 of the following. ]
+oq5,oq5 [How did you change your monthly spending in response to this unexpected change in household income? ]
+oq6a_b,oq6a_b
+oq6b_b,oq6b_b
+qbe22b,"qbe22b [How concerned are you about your current level of debt? [INSTRUCTION] Please consider all debt, including any balances on credit / store cards, loans, or secured debt such as your mortgage.]"
+qbe22c,"qbe22c [What actions, if any, are you taking to deal with your concerns about your current level of debt? [INSTRUCTION] Please select no more than three of the following. ]"
+qbe22d,qbe22d [How has your concern about your current level of debt changed over the last two years?]
+be22bb,Why are you concerned about your current level of debt?
+be22d,How much have you reduced your monthly spending as a result of your concerns about your current level of debt?
+be22e,"[If you were to find yourself in financial difficulty and you had no choice but to stop paying some bills/debts in order to make ends meet, in which order would you stop paying the following commitments? Please place these in order, where 1 is the item you would stop paying first. ]"
+be22e_dk,be22e_dk
+qbe22dd,How has your concern about your current level of debt changed over the last year?
+be24a,be24a [Have you applied for one or more new loans (including mortgage applications) over the past year? ]
+be24b,be24b [What was the final outcome of your loan application(s)? ]
+be24c,be24c [Would you like to buy a property but are unable to obtain a mortgage because of the deposit requirement?]
+be24d,be24d [How long have you been saving in order to build up a large enough deposit?]
+be24e,be24e [How much longer do you expect to have to save to obtain a large enough deposit to buy a property?]
+be31f,be31f [Has the amount of money you feel is necessary to deal with emergencies changed relative to the same time last year? ]
+be31g,"be31g [To the best of your knowledge, how likely is it that your household income will fall sharply over the next year or so (for example, because you or someone in your household are made redundant)?]"
+be31h,"be31h [Are you more concerned now than a year ago, that your household income will fall sharply over the next year or so?]"
+o12q1,"o12q1 [Has your household received more or less money, from both work and non-work sources, over the last 12 months than you would have expected this time last year? [INSTRUCTION] Please consider your income after income tax and National Insurance but before any housing costs or bills are paid. Plea"
+o12d1,O12D1
+o12q2a2,o12q2a2
+o12q4,o12q4 [What are the main reasons your household received more money than you expected over the last 12 months? [INSTRUCTION] Please select no more than three of the following. ]
+o12q4a,o12q4a [Are you treating this unexpected increase in money received by your household as: ]
+o12q2b2,o12q2b2
+o12q3,o12q3 [What are the main reasons your household received less money than you expected over the last 12 months? [INSTRUCTION] Please select no more than three of the following. ]
+o12q3a,o12q3a [Are you treating this unexpected decrease in money received by your household as: ]
+o12q4_dummy,o12q4_dummy
+o12q5,o12q5 [How did you change your annual spending in response to this unexpected change in money received by your household? ]
+o12q6a2,o12q6a2
+o12q6b2,o12q6b2
+boe72,How many properties (excluding your family home) do you own?
+bod73,Masking for BOE73
+boe73,How many of your properties (excluding your family home) did you buy with cash rather than a mortgage?
+BOE74free,"[How much would you expect to get for all properties you own (excluding your family home) if you sold them today? Please try to be as accurate as possible, entering an amount in pounds (you do not need to use all the nine spaces for digits). ]"
+boe74free_dk,BOE74free_dk
+BOE75free,"[Roughly how much is left to pay on your current mortgages and secured loans on all properties you own (excluding your family home)? Please try to be as accurate as possible, entering an amount in pounds (you do not need to use all the nine spaces for digits). ]"
+boe75free_dk,BOE75free_dk
+BOE76free,"[Roughly how much total rent do you charge per month across all the properties you own (excluding your family home)? Please try to be as accurate as possible, entering an amount in pounds (you do not need to use all the nine spaces for digits). ]"
+boe76free_dk,BOE76free_dk
+boe77,How would you respond if the rental income on one of the properties you own other than your main family home was less than the cost of its mortgage?
+random,ALLOCATE ONE OF THE FOLLOWING AMOUNTS AT RANDOM:
+be40,"If your household received an unexpected windfall of £^f('Random').toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')^ tomorrow, what do you think you would do with this extra money over the next year?"
+random2,ALLOCATE ONE OF THE FOLLOWING AMOUNTS AT RANDOM:
+be41,"If you received an unexpected bill or other one off expense of £^f('Random2').toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')^ tomorrow, which you had to pay over the next 12 months, would you reduce your spending on other items in order to pay this?"
+be42_dk,BE42_DK
+be43,"Finally, to help us with our analysis, please enter the first half of your postcode, for example 'PE9'."
+be31n,"be31n [ASK IF ANY OF ""h) Increase by less than £50 a month i) Increase by £50-£99 a month j) Increase by £100-£149 a month k) Increase by £150-£199 a month l) Increase by £200-£299 a month m) Increase by £300 or more a month "" AT BE30 What would you say are the main factors driving this increase? [I"
+qbe15,"qbe15 [Do you or your household currently owe any money on any of the following types of loan or credit agreement? For credit and store cards, please exclude any balances that you expect to repay in full on the next payment date. Please report student loans which are not from the Student Loans Compa"
+bc2,Do you currently receive any of the following benefits from the government? Please select all the ones that you receive.
+bc10a,"Still thinking about your total annual household income before anything is deducted for tax, National Insurance, pension schemes etc. Compared to twelve months ago, how has your household's annual income changed?"
+bc10bfree_1,You said your household’s total annual income has increased in the last 12 months. Please give an approximate amount in pounds for how much your household’s annual income has increased.
+bc10bfree_dk,You said your household’s total annual income has increased in the last 12 months. Please give an approximate amount in pounds for how much your household’s annual income has increased.
+bc10c,Which of these ranges is closest to the increase in your household’s annual income over the last twelve months?
+bc11,Are you treating this increase in income received by your household as:
+bc12afree_1,You said your household’s annual income has decreased in the last 12 months. Please give an approximate amount in pounds for how much your household’s annual income has decreased.
+bc12afree_dk,You said your household’s annual income has decreased in the last 12 months. Please give an approximate amount in pounds for how much your household’s annual income has decreased.
+bc12b,Which of these ranges is closest to the decrease in your household’s annual income over the last twelve months?
+bc13,Are you treating this decrease in income received by your household as:
+boec11afree_1,"As a result of this change in your mortgage rate, by how much has your monthly mortgage repayment risen (or you have been informed it will rise by shortly)? Please exclude any changes to the amount you overpay."
+boec11afree_dk,"As a result of this change in your mortgage rate, by how much has your monthly mortgage repayment risen (or you have been informed it will rise by shortly)? Please exclude any changes to the amount you overpay."
+boec11a,"Using the following ranges, could you state by how much your monthly mortgage repayment has risen (or will rise shortly) as a result of this change in your mortgage rate? Please exclude any changes to the amount you overpay."
+qbe15,"qbe15 [Do you or your household currently owe any money on any of the following types of loan or credit agreement? For credit and store cards, please exclude any balances that you expect to repay in full on the next payment date. Please report student loans which are not from the Student Loans Compa"
+BOE97free,"BOE97free [How much in total do you and your household currently owe on each of these types of loans? Again, for credit cards, please only include the amount you expect to leave unpaid on your next bill. And report any student loans from other sources (eg a bank) under the relevant category.]"
+BOE97free_c,
+BOE97afree,"[How much in total do you and your household currently owe on each of these types of loans? Again, for credit cards, please only include the amount you expect to leave unpaid on your next bill. And report any student loans from other sources (eg a bank) under the relevant category.]"
+BOE97free_c,
+boe97income,Masks BOE97 bands
+BOE97_bandsv1,"Using the following ranges, could you state how much in total you and your household currently owe on each of these types of loans?"
+BOE97bands,BOE97free_n and BOE97_bandsv1 combined into a band
+BOE97a_bandsv1,"Using the following ranges, could you state how much in total you and your household currently owe on each of these types of loans?"
+BOE97abands,"Using the following ranges, could you state how much in total you and your household currently owe on each of these types of loans?"
+be17afree_1,"How much was your last monthly payment on your credit card/s? Please try to be as accurate as possible, entering an amount in pounds without any decimals (you do not need to use all the nine spaces for digits)."
+be17afree_dk,"How much was your last monthly payment on your credit card/s? Please try to be as accurate as possible, entering an amount in pounds without any decimals (you do not need to use all the nine spaces for digits)."
+be17a_bands,"Using the following ranges, could you state how much your last monthly payment was your credit card(s)?"
+be17bfree_1,"Taking into account all of your other current unsecured debts (excluding your credit card debt), how much was your last monthly payment on all of these loans? Please try to be as accurate as possible, entering an amount in pounds without any decimals (you do not need to use all the nine spaces for d"
+be17bfree_dk,"Taking into account all of your other current unsecured debts (excluding your credit card debt), how much was your last monthly payment on all of these loans? Please try to be as accurate as possible, entering an amount in pounds without any decimals (you do not need to use all the nine spaces for d"
+be17b_bands,"Using the following ranges, could you state how much your last monthly payment was on all of the loans?"
+fq01b,"Over the last 12 months, have you found yourself in any of the types of financial difficulty outlined below? [Select all that apply]"
+boe86,Which of the following reasons help explain why your household has fallen behind in the mortgage payments? You can give as many reasons as you like.
+uq03,"Now thinking about financial commitments your household may have apart from mortgages and housing-related loans, such as car finance, personal loans, overdrafts and credit card debts, in the past 12 months have you ever found yourself more than two months behind with payments of these unsecured loan"
+uq04,Which of the following reasons help explain why your household has fallen behind in the loan payments? You can give as many reasons as you like.
+cv11,"The next question is about how much savings your household still has has in the context of the current as a result of the coronavirus pandemic. By savings we mean the amount of money your household has in bank/building society accounts, including current accounts, or fixed rate savings bonds, cash I"
+cv11b,You said your savings have increased during the pandemic. What do you plan to do with these savings?
+col01,How has the cost of everything you would normally buy changed compared with six months ago?
+col02,By around how much would you say the cost has increased?
+col03,"In light of the increase in the cost of living, which of these statements best describes how your total spending (on everything, including essentials and non-essentials) has changed over the last six months."
+col04,You said you are spending more than before because of the increase in the cost of living. How much more are you spending each month compared with six months ago?
+col06,You said you are spending more than before because of the increase in the cost of living. How are you funding this extra cost? Please select all that apply and rank the top three from the following:
+col07,You said you have cut back on some goods and services you buy because your cost of living has risen. What types of goods and services have you cut back on?
+col08free_1,"The government is providing financial support to households in response to the increase in the cost of living. Part of this support involves direct payments to households’ bank accounts. And part of it involves payments to energy companies that they pass on to household energy bills, so that they ri"
+col08free_dk_1,"The government is providing financial support to households in response to the increase in the cost of living. Part of this support involves direct payments to households’ bank accounts. And part of it involves payments to energy companies that they pass on to household energy bills, so that they ri"
+col09,How have you mainly used this money or how do you plan to use it? You may pick up to two options
+col10,"Do you expect to receive additional support from the government over and above what has already been announced, such as tax cuts or further cost of living support payments?"
+BOE39a,"The level of interest rates was set by the Bank of England (Bank Rate) at 1.75% in August, at the time this survey opened. At what level do you expect that interest rate to be in each of the following time periods?"
+0,0.24% (12)
+BOE39a,"The level of interest rates was set by the Bank of England (Bank Rate) at 4.00% in August, at the time this survey opened. At what level do you expect that interest rate to be in each of the following time periods?"
+mq01,Which of these options best describes how prices in the shops have changed over the last twelve months?
+mq02,And how much would you expect prices in the shops generally to change over the next twelve months?
+mq03,And how about the 12 months after that?
+mq04,"And how about the longer term, say in five years time? How much would you expect prices in the shops generally to change over a year then?"
+bc55b_free,You said you expect your household’s total annual income to increase over the next 12 months. Please give an approximate amount in pounds for how much you expect your household’s annual income to increase
+bc55b_free_dk_1,You said you expect your household’s total annual income to increase over the next 12 months. Please give an approximate amount in pounds for how much you expect your household’s annual income to increase
+bc55b_free_dk_2,You said you expect your household’s total annual income to increase over the next 12 months. Please give an approximate amount in pounds for how much you expect your household’s annual income to increase
+bc57a_free,You said you expect your households’ total annual income to decrease over the next 12 months. Please give an approximate amount in pounds for how much you expect your household’s annual income to decrease.
+bc57a_free_dk_1,You said you expect your households’ total annual income to decrease over the next 12 months. Please give an approximate amount in pounds for how much you expect your household’s annual income to decrease.
+bc57a_free_dk_2,You said you expect your households’ total annual income to decrease over the next 12 months. Please give an approximate amount in pounds for how much you expect your household’s annual income to decrease.
+sv11,"As a result of any changes in income or spending, would you say that your household has saved more, less, or the same over the last six months compared with how much you usually save?"
+spq04afree_1,How much do you expect your household to spend on average per month on everything over the next 12 months? (added September 2024)
+tr01,Do you think it is clear how the Bank of England responds to inflation? Inflation is the rate at which prices of goods and services increase.
+spq01_bands,"Using the following ranges, how much did your household spend on average per month on everything over the last 12 months? ^f('SPD01')^ (spq01_bands)"
+spq03c,"Did you delay any major purchases over the last 12 months (such as a car, household appliances, home improvements, electronic equipment, or similar)?"
+spq04_bands,"Using the following ranges, how much do you expect your household to spend on average per month on everything over the next 12 months? ^f('SPD01')^ (spq04_bands)"
+spq0724,"Generally speaking, do you think now is a good time for people to make major purchases (such as a car, household appliances, home improvements, electronic equipment, or similar)? (spq0724)"
+sv13,"The next question is about how you expect your household’s monthly savings to change going forward. Over the next 12 months, do you expect to save more or less than usual from your monthly household income? (sv13)"
+sv13a_,You said that you expect to save more than usual over the next 12 months. What are the main reasons for this expected increase? (sv13a)
+sv13b_,You said that you expect to save less than usual over the next 12 months. What are the main reasons for this expected decrease? (sv13b)
+be32e_1,Approximately how much do you think your household would need to have set aside in savings for emergencies and other unexpected things that may come up?
+be31e,Do you feel you have enough money set aside for emergencies?
+be33e,"Thinking about the savings you have set aside for emergencies, what emergencies are you particularly thinking about? Please rank up to 3 options"
+be32e_dk_,Approximately how much do you think your household would need to have set aside in savings for emergencies and other unexpected things that may come up?
+boe61b,Are you currently behind with your mortgage payments (known as being ‘in arrears’)? (boe61b)
+boe62b,"Thinking about your mortgage arrears, how many months’ worth repayments are you behind? (boe62b)"
+nat1a,In which country were you born?
+nat1b1,"If you were born outside the UK, in which year did you move to the UK?"
+js2_1,"Within the last week (7 days), how many hours did you spend searching and applying for jobs? This can include looking for job-postings, sending applications, or designing a CV."
+boe40b,How much do you expect rental prices in your region (INSERT REGION FROM SCREENING QUESTION) to change over the next twelve months?
+mov1_1,How likely are you to move home in the next 12 months?
+mov2,"Imagine you get a job offer in the next 12 months in a line of work that you would consider, which is further away from your main home and would require you to move. How much higher would your income have to be to accept this offer and move away from your main home?"
+js1,How likely are you to do the following to increase your income over the next 12 months?
+js1_1,"Apply for a job that pays more [Slider 0-10; 0 Very unlikely, 10 Very likely]"
+js1_2,"Work longer hours or overtime [Slider 0-10; 0 Very unlikely, 10 Very likely]"
+js1_3,"Ask for a pay rise/promotion [Slider 0-10; 0 Very unlikely, 10 Very likely]"
+js1_4,"Look for an additional job [Slider 0-10; 0 Very unlikely, 10 Very likely]"
+js3_1,"Over the next month, how many hours do you expect to spend searching and applying for jobs in a usual week (7 days)? This can include looking for job-postings, sending applications, or designing a CV."
+ha01,You said you currently live in the property you own. How did you acquire (your share of) this property? Please select all that apply.
+ha02,"You said you bought this property using a mortgage and/or your own savings. Apart from using a mortgage, how did you finance this purchase? Please select all that apply."
+rs01,"Thinking about how your rental situation has changed, if at all, over the past 12 months. Which of the following statements best applies to you?"
+boe61c,"If you were to buy a property to live in, how do you expect your housing costs would change?"
+boe61d,"You said when you buy a property you expect the amount you spend on housing will [answer from BOE61c]. When you buy that property how do you think it will compare to the property you currently live in? In your answer you may wish to consider location, property size, property quality etc."
+bod54r,Midpoint calculation for boec11a
+boe16a,"Having thought about the individual types of loan you hold, the total you've said you owe is roughly £ we would just like to check whether you'd like to correct this total figure?"

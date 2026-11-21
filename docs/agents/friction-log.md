@@ -65,3 +65,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Cost: Bozio and others' numbers and the decile composition were not read; extra searches
 - Suggest: say in research.md that the author should attach PDFs that are not fetchable; note xlsx-only ONS pages as a data-request item
 - Status: open
+
+### 2026-11-21 · 097r · research
+- Instruction: brief 097r Design; retrieve and inspect the cited open numeric files.
+- Happened: ONS CSV/XLSX, BoE XLSX/Stata, and HMRC ODS downloads returned `Unsupported content-type`; HTML time-series/commentary pages remained readable.
+- Cost: source workbooks and the NMG variable inventory could not be inspected; exact upload links were recorded instead.
+- Suggest: author uploads the named files, or provide a repository runtime that can parse ODS/XLSX/Stata downloads.

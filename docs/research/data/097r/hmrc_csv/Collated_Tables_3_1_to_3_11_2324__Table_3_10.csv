@@ -1,0 +1,22 @@
+"Table 3.10: Income of individuals with self-employment sources, tax year 2023 to 2024",,,,,,,,,,,,
+This worksheet contains one table and some cells may refer to notes which can be found on the accompanying notes worksheet.,,,,,,,,,,,,
+"Numbers of individuals are measured in thousands, amounts are measured in £ millions. Totals may not sum due to rounding.",,,,,,,,,,,,
+"This table is based on individuals with sources of self-employment income, whether taxpayers or not, and the source is the Survey of Personal Incomes (SPI) for the tax year 2023 to 2024. This table was last updated in April 2026",,,,,,,,,,,,
+Range of self- employment income (lower limit) £,Self-employment income (Number of individuals),Self-employment income (Amount),Employment income (Number of individuals),Employment income (Amounts),Pension income (Number of individuals),Pension income (Amounts),"Property, interest, dividend and other income (Number of individuals)","Property, interest, dividend and other income (Amounts)",Total income (Number of individuals),Total income (Amounts),Mean total income,Self-employment as a percentage of total (%)
+0,633,[Not available],343,14700,175,3300,286,8280,633,26300,41500,[Not available]
+1,111,26,67,2060,28,480,44,564,111,3120,28100,0.8
+500,110,82,64,1800,27,431,40,409,110,2720,24800,3
+1000,229,339,127,3190,51,769,76,739,229,5040,22000,6.7
+2000,201,500,103,2360,44,638,65,636,201,4140,20500,12.1
+3000,186,647,90,1920,37,528,56,494,186,3590,19300,18
+4000,174,780,77,1610,32,467,49,449,174,3300,19000,23.6
+5000,405,2540,148,2850,69,936,107,956,405,7280,18000,34.9
+7500,397,3470,113,1930,50,677,95,800,397,6880,17300,50.5
+10000,940,11700,159,2500,72,941,167,1340,940,16500,17500,71
+15000,515,8890,83,1430,44,640,108,845,515,11800,23000,75.3
+20000,645,15800,83,1520,50,700,140,1200,645,19200,29800,82.2
+30000,517,19500,53,1420,38,597,133,1080,517,22600,43700,86.3
+50000,172,11400,24,1120,19,375,81,1110,172,14000,81100,81.4
+100000,104,42000,24,2130,10,319,84,5620,104,50100,484000,83.9
+All ranges,5340,118000,1560,42500,746,11800,1530,24500,5340,197000,36800,59.9
+End of worksheet,,,,,,,,,,,,
