@@ -41,12 +41,12 @@ None.
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** Read the required agent/workflow/decision documents; created the research note and per-source status register; extracted ONS annual S.14 flow and financial-stock series where HTML time-series tables were readable; extracted HMRC HTML summary metrics; created source-linked CSVs; checked the household saving identity and the NBS financial-stock identity.
-- **Next:** Author uploads the exact ONS, BoE and HMRC spreadsheet files listed in `docs/research/097r-open-series-collection.md` if full D.42/D.44, non-financial assets/revaluations, NMG variables and full HMRC band tables are required.
+- **Next:** Parse the uploaded ONS XLSX, BoE NMG workbooks and HMRC ODS files in a local/runtime environment that supports these formats; then extend the source register and CSVs. The author upload step is complete.
 - **Decisions:** Scenario B preserved. No wealth-band consumption/depletion rate or fiscal parameter introduced. ONS D.45 is treated as rent on land, not gross landlord rental income.
-- **Gotchas:** Web retrieval rejected CSV/XLSX/ODS and Stata downloads by content-type. HTML time-series tables were usable. HAXW and M8MD are Blue Book 2025 vintage (latest annual value 2024); the other newer UKEA series run to 2025. NMG variable inventory remains unknown until the workbooks and do-file are readable.
-- **Resume:** Continue from the author-upload list in the research note; update the same register and CSV set after parsing the supplied files.
+- **Gotchas:** The author has now uploaded the ONS QSA/NBS workbooks, both BoE NMG workbooks, the Stata example and HMRC ODS tables under `docs/research/data/097r/`. The Stata example is readable and documents income construction for 2024 and March 2025 only; it does not identify saving, consumption, debt, repayments, interest, financial wealth or age variables. Binary workbook/table contents remain unread in the available connector runtime. HAXW and M8MD are Blue Book 2025 vintage (latest annual value 2024); the other newer UKEA series run to 2025.
+- **Resume:** Continue from section 8 of `docs/research/097r-open-series-collection.md`; parse the already-uploaded files and update the same register and CSV set.
 - **Not run:** `python -I pipeline/check_agent_docs.py` (the GitHub connector provides repository API access, not a local checkout/runtime for executing the project script).
-- **State:** complete for the accessible-source acquisition and logging scope; full binary-file extraction awaits author upload.
+- **State:** source uploads received; accessible HTML extraction and Stata example review complete; full XLSX/ODS extraction and NMG variable inventory remain outstanding because the available repository connector/runtime cannot decode the binary files.
 <!-- progress:end -->
 
 ## Change report
@@ -77,3 +77,14 @@ None.
 - **Verification:** Three-year saving identity check (2023–2025) and three-year financial-stock identity check (2023–2025) passed; source-value spot checks are recorded. `python -I pipeline/check_agent_docs.py` **not run**: repository connector has no local checkout/runtime. No CI status checks are attached to the branch.
 - **Overview sections likely needing an update:** None; this brief adds acquisition evidence and no model conclusion.
 - **Commit / branch:** `0294bc1b18f29d7545f96372e56aa13d5d70db7a` / `brief/097r-open-series-collection`. Branch is 18 commits ahead of main and 0 behind. **NEEDS THE AUTHOR**; not merged because the named check was not run and unreadable source files remain.
+
+
+## Follow-up change report (2026-11-21)
+
+- **Author action received:** ONS QSA Q2 2026, ONS NBS, both BoE NMG workbooks, the BoE Stata example, HMRC Personal Incomes collated tables, CGT Tables 1–3, IHT Tables 12.1–12.3 and property-rental tables are now committed under `docs/research/data/097r/`.
+- **Files changed by this follow-up:** `docs/research/097r-open-series-collection.md` (new upload inventory, binary-inspection status and Stata findings); this brief's progress block and follow-up report.
+- **New finding:** The Stata file constructs household annual income for 2024 and March 2025 by combining respondent/partner/other-earner income, midpoint-imputing bands and calculating within-wave income deciles. It is not a general codebook; it does not establish availability of saving, consumption, debt, repayments, interest, financial wealth or age. The income deciles are not wealth deciles. The >=£100,000 open-ended band is assigned £125,000, requiring sensitivity treatment if used for aggregate income analysis.
+- **Acceptance update:** Author upload requirement **met**. Stata example inspection **met**. ONS workbook extraction, BoE variable inventory and detailed HMRC table extraction remain **not met** because XLSX/ODS contents could not be decoded through the available repository connector/runtime. No values have been guessed.
+- **Verification:** Existing saving and financial-stock identities remain as previously recorded. The local `python -I pipeline/check_agent_docs.py` check remains unrun because no local repository checkout/runtime is available here.
+- **Branch:** `brief/097r-open-series-collection`. The follow-up commits are on this branch only; not merged.
+- **State:** **NEEDS THE AUTHOR / local parsing environment** for the remaining binary extraction and required local check. No model changes or parameter choices.
