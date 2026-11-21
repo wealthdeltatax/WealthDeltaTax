@@ -41,11 +41,25 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** ready; not started
+- **Done:** all 18 PDFs and the ETB xlsx read with page checks; note `docs/research/099r-held-research-moments.md` and `data/099r/moments.csv` (33 moments) written.
+- **Next:** guru review; phase 2 uses the moments as validation or context, not as parameters.
+- **Decisions:** none of the 33 moments is classed a parameter range; stage and band schemes stated per row; skipped files and not-held items listed (sections 6, 7).
+- **Gotchas:** page numbers are PDF pages (offsets in section 1); chart labels read from page images; ABL cites the 2014-16 base on PDF 4 and 2016-18 on PDF 23 (recorded as stated).
+- **Resume:** none; finished.
+- **Not run:** nothing beyond the check.
+- **State:** done; merged if the change report below says so
 <!-- progress:end -->
+
+Change report
+- Task: brief 099r, extract the moments from the research already held
+- Files changed: `docs/research/099r-held-research-moments.md` (note: per-file reading, moments table, 096r s5 coverage, top-tail component answer, not-held list, skipped files); `docs/research/data/099r/moments.csv` (the same table, 33 rows); this brief's progress block; `docs/agents/friction-log.md` (one entry)
+- What is different now: the held research is mapped to usable moments with page, band scheme, stage definition and pension-accrual status; held-series duplicates cite their CSV
+- New or changed interfaces: none
+- Acceptance criteria: every number carries a PDF page, met (PDF text checked; chart labels from page images); each moment classed, met (7 validation moments, 1 validation shape plus context, 25 context only; none a parameter range, none turned into a rate); skipped files listed with reasons, met; band, stage and pension status per row, met (stated or "not stated"); duplicates cite the CSV and difference, met (BF-11, BF-13, BF-15, EER-01, GB-01, TZ-01, AB-04 partly)
+- Deviations from the brief: skipped files were scanned, not read in full, because none bears on household wealth flows
+- Risks / follow-ups: no source supplies the retired financial wealth change, a transition matrix or the share with falling wealth as numbers; they need the items in section 6 or study 7215
+- Instruction friction: one entry added (context ran out mid-brief)
+- Verification: `python -I pipeline/check_agent_docs.py` passed; CSV parses with 14 columns on every row
+- Overview sections likely needing an update: none
+- Commit / branch: see git log, `brief/099-held-research-moments`
+

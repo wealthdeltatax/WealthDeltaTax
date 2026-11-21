@@ -87,3 +87,8 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - **Cost:** The required automated documentation check could not be run; relevant paths were inspected through the repository API instead.
 - **Suggest:** Provide a local checkout/shell in the research runtime, or run the checker in CI for research branches.
 - Status: fixed fc3906e (research.md rule; guru runs the checker before merge)
+### 2026-11-21 · brief 099r · research
+- Instruction: brief 099r "Read in full the PDFs ... with page checks" (18 PDFs, one session).
+- Happened: the context ran out mid-brief; the half-built moment tuples were lost to the summary and had to be re-extracted from the PDFs.
+- Cost: about a third of the extraction repeated.
+- Suggest: split a multi-PDF brief by file group, or have the agent write each file's rows to the repo as it goes.
