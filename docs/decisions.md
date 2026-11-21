@@ -234,3 +234,5 @@ Author: (1) Pension accrual runs as one labelled aggregate scenario on the ONS b
 ## 2026-11-21: I-D4b refit, adult age, I-W3 citations
 Author: (1) The I-D4b central is refitted with I-D4h's 1.93 adults per household (brief 106c). (2) Adult means 16 and over, as held; the 18-plus split is a request to the WAS microdata. (3) I-W3c and I-W3d stay validation moments marked unverified until the source PDFs are uploaded (SUP-7).
 
+## 2026-11-21: I-D4b refitted; I-D4c to follow
+Brief 106c refitted the I-D4b central to 52.4% (adults per household 1.93, one scale factor 1.0934 on the assumed counts). Author: refit I-D4c the same way as its own brief (107c), stopping for review if any model digest moves.
