@@ -20,7 +20,7 @@ Maintains the project's reference database and the literature coverage behind th
 - `registry/references.json` is generated from the `.bib` and `internal.json` by `pipeline/bib_to_json.py`; regenerate it, do not hand-edit.
 
 ## Reading a long or table-heavy PDF
-`python -I pipeline/to_markdown.py file.pdf` converts a local PDF (also docx, pptx, xlsx) to Markdown in `scratch/converted/` (git-ignored; needs `pip install 'markitdown[pdf]'`, plus `--break-system-packages` in the cloud shell). It is a reading aid: tables and multi-column pages can come out garbled and scanned PDFs come out empty, so quote numbers from the PDF itself and mark them "read from a conversion" until checked. Local files only; never feed it a URL or an untrusted file.
+`python -I pipeline/to_markdown.py file.pdf` converts a local PDF (also docx, pptx, xlsx) to Markdown in a git-ignored scratch folder (scratch/converted; needs `pip install 'markitdown[pdf]'`, plus `--break-system-packages` in the cloud shell). It is a reading aid: tables and multi-column pages can come out garbled and scanned PDFs come out empty, so quote numbers from the PDF itself and mark them "read from a conversion" until checked. Local files only; never feed it a URL or an untrusted file.
 
 ## Definition of done
 Every added or changed entry verified or flagged, discrepancies and flags reported, confirmed records written, change report lists entries added and updated.
