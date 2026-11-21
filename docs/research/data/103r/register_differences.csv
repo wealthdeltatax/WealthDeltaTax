@@ -1,0 +1,27 @@
+existing_row,verdict,merged_register_row,finding,edit_already_on_main,recommended_action_not_made_here
+I-D1a,supports,F-26,JST arithmetic real mean 4.742% against 4.74,none,no change
+I-D1a2,no disagreement; no additive split,F-27,geometric mean has no additive yield and gain split,none,keep as the geometric comparator; the split rows are arithmetic
+I-D14c,"legacy comparator, not evidence",F-25,3.5% (0.5 to 5) has no UK source (093r); author decision 2026-11-21,run labelling in 057c,keep only as a labelled legacy run; no replacement scalar
+I-W1c,unverified; proxy for validation,F-28,composition-implied financial return gap; figures not in a held file; direction agrees with AB-05,none,validation context only; verify with DR-09 (SUP-7)
+I-W3a,foreign; proxy (J central),F-29,"Norway, % of disposable income; no UK saving by wealth band held",none,not a UK value; do not use as a band saving rate
+I-W3b,"reclassify: saving plus gains, not saving",F-30,"gross of unrealised gains (S + CG), so it must not feed a saving term (094r B3 case 6c)",none,author or guru to reclassify as context only
+I-W3c,validation moment; citation unreconciled,F-31,"share of the change in financial wealth that is saving; register cites Bangham and Leslie 2020 Fig 6, 099r read the 2021 paper",none,resolve the citation with DR-09; midpoint 15 is not an estimate
+I-W3d,validation moment; RF basis; page unreconciled,F-32,"active saving about 40% of the total wealth gain; Resolution Foundation basis excludes DB pensions; page 22 against 099r pages 21, 13, 5",none,resolve the page with DR-09; not on the WDT pension basis
+I-D4a,central supports; low and high unverified; GDP differs from the pack,S29,"5.94 reproduces; pack GDP 2,211.48bn gives 6.14 (3.2%); held NBS S.14 over the same GDP gives 5.03","105c annotated the row (unverified low and high, GDP mismatch); not reconciled",open: reconcile the pack GDP with the register GDP; verify low and high (SUP-7)
+I-D4b,low supports; high inside the held bracket; central below it and untestable,S30,low 49.3 reproduces as a household share; bracket 59.2 to 72.7; central 54.9 implies 1.77 adults per household,105c relabelled the bounds as household shares and flagged the central,open for the author: the central (lognormal fit) cannot be tested by a held table
+I-D4c,not tested; depends on the I-D4b central,S30,share of wealth held by the adults above W_min; derived from I-D4b,none,moves with I-D4b; no separate evidence
+I-D4d,supports as a range,S15,top 1% share 14.4 to 23.0 published,none,keep as a range; WID 21.3 (2024) is on a different basis (S32)
+I-D4e,supports as a range,S15,"wealth missing from the WAS top, 0 to 5.6% of total",none,keep as a range; no single value
+I-D4g,supports the level; ratio not reproducible,S29,"held NBS S.14 net worth end-2025 GBP 10,829bn; ratio 3.6 uses a GDP not held",none,cross-check only; do not mix with the I-D4a survey basis (C08)
+I-D4h,central supports; Table 2.13 differs; old low contradicted,S30,1.93 reproduces (1.9282); Table 2.13 gives 1.8593; the earlier low 1.77 was an assumption,105c set the low to 1.86,closed; the 16+ against 18+ definition stays an author decision
+I-W4a,supports,S33,80% top-decile stay (AB-02),none,no change
+I-W4b,supports,S33,90% of entrants from the ninth decile (AB-02),none,no change
+I-W4c,supports; central is a midpoint,S33,74 and 77 reproduce (Table 1); 75.5 is the register midpoint (J),none,"age-adjusted income groups, not wealth bands"
+I-W4d,not audited against a held file,S33,Norway 11-year move to the top 1%,none,foreign; context only
+I-W4e,not audited against a held file,S33,Norway bottom decile to the top decile,none,foreign; context only
+I-W4f,not audited against a held file,S33,UK rank-rank slope 0.27 to 0.37,none,not audited; no held table
+I-W5a,supports,S31,40.71 reproduces from Table 2.2; low 40.1 reproduces,none,high 43.9 depends on the I-D4e add-on
+I-W5b,derived (J); not tested,S32,Pareto-implied household top 1%; not tested against a held file,none,not tested here
+I-W5c,definitions differ from the pack tail,S32,WID top 1% 21.3 (2024 adults) against 14.4 to 23.0 (2016-18),none,not averaged; different years and definitions
+I-W5d,definitions differ from the pack tail,S32,WID top 10% 57.1 (2024) against 52.4 to 52.5 (2016-18),none,not averaged
+I-W5e,supports,S31,pension share 35.43 against 35.4,none,no change

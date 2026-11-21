@@ -83,13 +83,105 @@ For the property class the convention cannot double-count if the account is used
 5. **Survey and national-account totals differ by 18 to 23% (C08)** for definitional and coverage reasons that no held file separates; the stock base for the WDT is the survey (pack) side, and the national-account constraints on the flows are on a different footing.
 
 ## 4. Unresolved-data list
-(pending)
+The 16 requests of 101r (DR-01 to DR-09) and 102r (R1 to R7) are merged into **seven supplies**, each one thing the author, or the role that downloads it, can provide. `unresolved_data.csv` holds the full text; the script checks that every original request maps to a supply and that every row ruled *unset* or *further data required* (26 rows) is covered by a supply or carries a stated no-source reason. Order is by the number of register rows a supply would inform, not by any effect on WDT results.
+
+| Supply | What | Merges | Rows informed | Without it | Access and licence |
+|---|---|---|---|---|---|
+| SUP-1 | WAS study 7215 (UKDS), Round 8 and panel, person and household files: household wealth with components, age and economic status of the reference person, gross secured and unsecured debt, DB/DC and in-payment pensions, gifts and inheritances received, income, and the longitudinal status and decile changes | 101r:DR-07; 101r:DR-08 (partly); 102r:R1 | F-01, F-06, F-13, F-29, S07, S10, S11, S13, S17, S22, S25, S28, D04 (13) | cells keep stage on the pack proxy (S06), stage and band transitions stay unset, debt and debt service stay unset, income and consumption by cell stay on scenario ranges | UK Data Service registration and the End User Licence for safeguarded study 7215 (098r section 6; 095r); commercial use may need data-owner approval; Secure Access study 6709 is the fallback (3 to 4 months, non-commercial, UK-based). UKDS End User Licence (safeguarded); not unrestricted |
+| SUP-2 | ONS national accounts, household sector S.14: pension entitlements AF.6 stock by year; non-financial revaluation (dwellings and land); consumption of fixed capital on dwellings; B.2g split into dwelling services and other surplus; D.611/D.613 split into pension and NIC contributions; D.622 benefits by scheme type and age group (ONS or DWP) | 101r:DR-01 (stock); 101r:DR-02; 101r:DR-03; 101r:DR-04; 101r:DR-05 | F-02, F-11, F-12, F-13, F-16, F-23, F-24, F-35 (8) | pension accrual only as an aggregate scenario on the ONS basis, no pension return, saving stays gross of consumption of fixed capital, O stays a reported residual | ONS UK Economic Accounts and National Balance Sheet downloads; the ONS spreadsheet link was not parseable by the research interface (095r), so the author or code role downloads; series ids to be identified. ONS statistics are published under the Open Government Licence v3.0 (093r reading; licence page not re-checked here) |
+| SUP-3 | ONS enquiry: reconciliation of household pension entitlements (AF.6) to WAS Round 8 SCAPE-based pension wealth; note on WAS Table 2.13 against Table 2.11 adult counts; ONS 3222 against NBS financial liabilities | 101r:DR-01 (reconciliation); 102r:R2; 102r:R6 (part) | F-12, F-35, S08, S12, S27 (5) | the three pension bases stay unconverted, adults per household stays on the I-D4h register value, S12 stays a reported mismatch | ONS enquiry (not a download); no response time known. not applicable (correspondence) |
+| SUP-7 | Author or analyst items: the source PDFs for I-W1c and the I-W3 rows (Fagereng and others; Bangham and Leslie 2020; Advani, Bangham and Leslie 2021) and the page references; the GDP series behind the register ratio against the pack; the Round 8 top-wealth reconciliation | 101r:DR-09; 102r:R6 (part); 102r:R7 | F-28, F-30, S15, S29, S31 (5) | the four I-W3 rows and I-W1c stay validation context only and unverified; I-D4a and the pack GDP stay as audited in 102r | supplied by the author. as the publishers state; not checked |
+| SUP-4 | Bank of England NMG 2011 to 2026 survey (workbook or microdata): values and wave coverage of saving, debt service and income-band variables (be2afree_c, soa1, qbe02, be08free_c, be07free_c, qincomev2) | 101r:DR-06; 102r:R5 | F-36, S13, D04 (3) | no NMG value is used; saving and debt service by income band stay scenario or unset | Bank of England publishes downloadable NMG microdata and example Stata code (095r); the raw files were not downloaded. licence not checked in the repository |
+| SUP-5 | HMRC inheritance tax statistics: estates by size band and composition, current years (tables held as ODS in 097r but not parsed) | 102r:R3 | S17, S18 (2) | gifts and inheritances stay unset; the one-heir rule S19 stays the legacy modelling choice | HMRC statistics download. licence not checked in the repository |
+| SUP-6 | Mortality by wealth or a linked wealth-mortality estimate for the UK (no source identified in 098r) | 102r:R4 | S24 (1) | mortality stays age and sex only (S24, ready); no wealth gradient | ONS enquiry; no direct published table identified. not applicable |
+
+**Rows with no source known or wanted** (the model proceeds on the classification already given):
+- F-25: legacy comparator; no data wanted (author ruling)
+- F-28: UK return by rank is not published (101r); SUP-7 only verifies the registered figures
+- F-29: no UK source known for saving by wealth band (101r DR-08); SUP-1 could give wealth change by band, not saving
+- F-30: foreign figure, gross of gains; no UK counterpart wanted
+- S26: no source identified for household formation and dissolution by band
+
+Reading the list:
+- **SUP-1 (the WAS microdata) is the largest single supply**: 13 rows, including income, consumption and debt by cell, the stage and band transition matrices and the retirement hazard. It is also the one with an access condition (End User Licence, possible data-owner approval for commercial use). Whether the panel gives *saving* by band is not known; the file could give wealth change by band, not saving (F-29).
+- **SUP-2 and SUP-3 together decide the pension basis.** Pension is the largest block in every cell (32.5 to 36.4% of wealth in D4-5 to D10, 38.3% in D1-3; S05) and has no return (F-12) until the AF.6 stock and the SCAPE reconciliation are supplied.
+- **No licence or terms are asserted that the repository does not record.** For the Bank of England and HMRC supplies the licence is "not checked in the repository".
+- **Nothing here is needed for the first design step.** Every unset row has a stated consequence below, and the model can be specified without any supply.
+
 
 ## 5. Rulings summary and consequence of each unset row
-(pending)
+Ruling classes of the 73 rows (the five of the brief, plus those that are not parameters):
+
+| Ruling class | n | Rows |
+|---|---|---|
+| ready | 22 | F-05, F-07, F-09, F-15, F-19, F-22, F-23, F-26, F-27, F-34, S01, S02, S04, S05, S08, S09, S14, S16, S20, S21, S23, S24 |
+| scenario range | 15 | F-03, F-04, F-08, F-10, F-14, F-17, F-18, F-20, F-21, F-31, F-32, F-33, S03, S15, S27 |
+| further data | 15 | D04, F-01, F-02, F-06, F-11, F-13, F-36, S07, S10, S11, S13, S18, S22, S25, S28 |
+| unset | 11 | F-12, F-16, F-24, F-25, F-28, F-29, F-30, F-35, S12, S17, S26 |
+| audit (no ruling) | 5 | S29, S30, S31, S32, S33 |
+| validation or proxy only | 1 | S06 |
+| legacy comparator | 1 | S19 |
+| not applicable (endogenous) | 3 | D01, D02, D03 |
+
+Notes: *ready* rows are observed or derived values with a source and script; *scenario range* rows are implemented only as a labelled range with direction from the evidence; *further data* rows need one of the supplies in section 4; *unset* rows carry no value. S06 is *validation or proxy only* (age of the reference person is a proxy for stage); F-25 and S19 are the legacy rows. A ruling is a proposal for the guru and author; nothing in the register is changed.
+
+**Consequence of each unset row for implementation**
+
+| Row | Variable | Consequence |
+|---|---|---|
+| F-12 | Pension investment return | No rate for the pension asset: the pension class (about a third of every cell above D1-3) cannot be credited a return. Pension accrual enters only as an aggregate scenario on the ONS basis; 104r decides whether the pension class is held fixed in real terms or excluded from the growth step. |
+| F-16 | Housing services yield cross-check | The housing-services yield stays a reported cross-check; the JST housing split (F-20) is the only scenario source, and the ONS B.2g figure cannot calibrate it. |
+| F-24 | Aggregate saving over opening net worth (gross of CFC) | No saving rate on wealth is set. Saving enters through the income side of each cell (scenario or unset), never as a share of net worth. |
+| F-25 | Legacy I-D14c: 3.5% consumption share of net worth | The kernel keeps 3.5% only as a labelled legacy comparator run; there is no replacement value to implement. |
+| F-28 | Audit I-W1c: UK financial return gap, top decile minus bottom deciles (1.8 to 2.0 pp) | I-W1c is validation context only: no return difference by band is set. |
+| F-29 | Audit I-W3a: net active saving rate by wealth, 6 to 8% of disposable income | No UK saving by wealth band: band saving is unset or a labelled scenario, direction only; the Norwegian figure is not used. |
+| F-30 | Audit I-W3b: gross saving rate top 1% (about 35%) | I-W3b is not used as a saving parameter. |
+| F-35 | Pension valuation basis register | No conversion between the three pension bases: flows (ONS) and the stock (WAS SCAPE) stay on their own bases; a rate across them is not formed (C02). |
+| S12 | Aggregate liabilities cross-check, ONS 3222 against NBS AF.L | The aggregate liabilities mismatch (ONS 3222 against AF.L, ratio 0.69) is reported; no debt aggregate constrains the cells. |
+| S17 | Gifts and inheritances by band and stage | No gifts or inheritances by cell: `TR` is zero in aggregate and absent by cell; the one-heir rule (S19) is the only transfer in the kernel. |
+| S26 | Household formation and dissolution | Household formation and dissolution are absent: cell membership is fixed within a generation step. |
+
+The 15 *further data* rows (F-01, F-02, F-06, F-11, F-13, F-36, S07, S10, S11, S13, S18, S22, S25, S28, D04) have the same consequence in kind: the parameter is absent until its supply arrives, and the model uses an aggregate or a labelled scenario range with no value chosen for effect on WDT.
+
 
 ## 6. Differences from the existing register
-(pending)
+Read-only. 26 existing register rows are named across 101r and 102r; each has a line in `register_differences.csv`. Rows I-D4a, I-D4b and I-D4h were annotated or corrected on main by 105c after the 102r audit; those edits are listed as already made, and no other register edit is made or proposed here as an edit (the recommended actions are for the guru and author).
+
+| Row | Verdict | Finding | Already on main (105c) | Recommended action |
+|---|---|---|---|---|
+| I-D1a | supports | JST arithmetic real mean 4.742% against 4.74 | none | no change |
+| I-D1a2 | no disagreement; no additive split | geometric mean has no additive yield and gain split | none | keep as the geometric comparator; the split rows are arithmetic |
+| I-D14c | legacy comparator, not evidence | 3.5% (0.5 to 5) has no UK source (093r); author decision 2026-11-21 | run labelling in 057c | keep only as a labelled legacy run; no replacement scalar |
+| I-W1c | unverified; proxy for validation | composition-implied financial return gap; figures not in a held file; direction agrees with AB-05 | none | validation context only; verify with DR-09 (SUP-7) |
+| I-W3a | foreign; proxy (J central) | Norway, % of disposable income; no UK saving by wealth band held | none | not a UK value; do not use as a band saving rate |
+| I-W3b | reclassify: saving plus gains, not saving | gross of unrealised gains (S + CG), so it must not feed a saving term (094r B3 case 6c) | none | author or guru to reclassify as context only |
+| I-W3c | validation moment; citation unreconciled | share of the change in financial wealth that is saving; register cites Bangham and Leslie 2020 Fig 6, 099r read the 2021 paper | none | resolve the citation with DR-09; midpoint 15 is not an estimate |
+| I-W3d | validation moment; RF basis; page unreconciled | active saving about 40% of the total wealth gain; Resolution Foundation basis excludes DB pensions; page 22 against 099r pages 21, 13, 5 | none | resolve the page with DR-09; not on the WDT pension basis |
+| I-D4a | central supports; low and high unverified; GDP differs from the pack | 5.94 reproduces; pack GDP 2,211.48bn gives 6.14 (3.2%); held NBS S.14 over the same GDP gives 5.03 | 105c annotated the row (unverified low and high, GDP mismatch); not reconciled | open: reconcile the pack GDP with the register GDP; verify low and high (SUP-7) |
+| I-D4b | low supports; high inside the held bracket; central below it and untestable | low 49.3 reproduces as a household share; bracket 59.2 to 72.7; central 54.9 implies 1.77 adults per household | 105c relabelled the bounds as household shares and flagged the central | open for the author: the central (lognormal fit) cannot be tested by a held table |
+| I-D4c | not tested; depends on the I-D4b central | share of wealth held by the adults above W_min; derived from I-D4b | none | moves with I-D4b; no separate evidence |
+| I-D4d | supports as a range | top 1% share 14.4 to 23.0 published | none | keep as a range; WID 21.3 (2024) is on a different basis (S32) |
+| I-D4e | supports as a range | wealth missing from the WAS top, 0 to 5.6% of total | none | keep as a range; no single value |
+| I-D4g | supports the level; ratio not reproducible | held NBS S.14 net worth end-2025 GBP 10,829bn; ratio 3.6 uses a GDP not held | none | cross-check only; do not mix with the I-D4a survey basis (C08) |
+| I-D4h | central supports; Table 2.13 differs; old low contradicted | 1.93 reproduces (1.9282); Table 2.13 gives 1.8593; the earlier low 1.77 was an assumption | 105c set the low to 1.86 | closed; the 16+ against 18+ definition stays an author decision |
+| I-W4a | supports | 80% top-decile stay (AB-02) | none | no change |
+| I-W4b | supports | 90% of entrants from the ninth decile (AB-02) | none | no change |
+| I-W4c | supports; central is a midpoint | 74 and 77 reproduce (Table 1); 75.5 is the register midpoint (J) | none | age-adjusted income groups, not wealth bands |
+| I-W4d | not audited against a held file | Norway 11-year move to the top 1% | none | foreign; context only |
+| I-W4e | not audited against a held file | Norway bottom decile to the top decile | none | foreign; context only |
+| I-W4f | not audited against a held file | UK rank-rank slope 0.27 to 0.37 | none | not audited; no held table |
+| I-W5a | supports | 40.71 reproduces from Table 2.2; low 40.1 reproduces | none | high 43.9 depends on the I-D4e add-on |
+| I-W5b | derived (J); not tested | Pareto-implied household top 1%; not tested against a held file | none | not tested here |
+| I-W5c | definitions differ from the pack tail | WID top 1% 21.3 (2024 adults) against 14.4 to 23.0 (2016-18) | none | not averaged; different years and definitions |
+| I-W5d | definitions differ from the pack tail | WID top 10% 57.1 (2024) against 52.4 to 52.5 (2016-18) | none | not averaged |
+| I-W5e | supports | pension share 35.43 against 35.4 | none | no change |
+
+Partition of the 26 rows by verdict: **supports or reproduces** 11 (I-D1a, I-D4a central, I-D4d, I-D4e, I-D4g level, I-D4h central, I-W4a, I-W4b, I-W4c, I-W5a, I-W5e); **a part unverified, contradicted or reclassified** 6 (I-D4b central, I-W1c, I-W3a, I-W3b, I-W3c, I-W3d; I-D4a low and high and the I-D4h low are further parts of rows counted above, already annotated or corrected by 105c); **definitions differ** 2 (I-W5c, I-W5d); **not audited or not testable** 5 (I-D4c, I-W4d, I-W4e, I-W4f, I-W5b); **legacy or no disagreement** 2 (I-D14c, I-D1a2). **Open after 105c:** the I-D4a GDP mismatch and unverified low and high; the I-D4b central; the I-W3b reclassification; the I-W3c and I-W3d citation and page differences.
+
 
 ## 7. Reproduction
-(pending)
+From the repository root with `python -I`, in this order (each reads committed files only):
+1. `docs/research/data/103r/merge_and_check.py` -> `parameter_register.csv` (73 rows), `source_crosswalk.csv` (25), `dictionary_map.csv`, `unresolved_data.csv`, `register_differences.csv`. Exits 1 on any structural failure (repeated name, unclassified row, unset row with a value, dictionary term without a row, named existing row without an entry, pension row without a basis, request or unset row left uncovered). Last run: 0 failures.
+2. `docs/research/data/103r/cross_side_checks.py` -> `cross_side_checks.csv` (14 checks), `worked_cell_d45.csv`. Exits 1 if a hard check (C01, C04, C05, C07) fails. Last run: 0 hard failures.
+The 101r and 102r scripts that produce the inputs are listed in their notes; they were not re-run here except as their CSVs are read.
+
