@@ -149,7 +149,7 @@ Create one row for every required flow, stock, rate, weight or transition. Inclu
 - variable name and definition;
 - accounting location;
 - target cell dimension;
-- classification (observed / derived / proxy / scenario / unset);
+- classification (observed / derived / proxy / scenario / unset; plus endogenous for model outputs that are not parameters, such as T_WDT, dNW and r_f, added after 103r);
 - source and exact reference;
 - calculation or transformation;
 - value or range, only where supported;
