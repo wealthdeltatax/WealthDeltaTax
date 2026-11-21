@@ -47,11 +47,11 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** blocks 1 and 2 by Agent 3 (ONS, JST, HMRC scripts; register and crosswalk CSVs). Block 3: note created with basis, crosswalk and register view (sections 2 to 4). Block 4: existing-row audit (section 5); F-29 caveat wording fixed in the build script. Block 5: flow-side constraints (section 6), data requests DR-01 to DR-09 (section 7), reproduction list (section 8).
-- **Next:** block 6: summary (note section 1), final check, state to done.
+- **Done:** blocks 1 and 2 by Agent 3 (ONS, JST, HMRC scripts; register and crosswalk CSVs). Blocks 3 to 6: note `docs/research/101r-parameter-map-flows-and-returns.md` (summary, basis, crosswalk, register view, existing-row audit, flow-side constraints, data requests DR-01 to DR-09, reproduction list); F-29 caveat wording and the pension-basis labels on F-11 to F-13 fixed in the build script; friction-log entry added.
+- **Next:** guru review; then 102r (stocks, cells, debt) and 103r (assembly, which merges the data requests).
 - **Decisions:** none beyond the author's 2026-11-21 decisions.
-- **Gotchas:** note section 1 (summary) is a placeholder until the last block.
-- **Resume:** branch `brief/101-parameter-map-flows`; scripts re-run clean with no diff.
-- **Not run:** none yet.
-- **State:** in progress
+- **Gotchas:** the clone tracks main only; fetch the branch by name. The four I-W3 rows have four different denominators and are not comparable.
+- **Resume:** branch `brief/101-parameter-map-flows`; nothing to resume.
+- **Not run:** nothing skipped. Source PDFs for I-W1c and I-W3 are not held, so their figures are unverified (DR-09); no model run.
+- **State:** done (on the branch, not merged to main)
 <!-- progress:end -->

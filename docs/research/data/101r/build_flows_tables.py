@@ -121,19 +121,19 @@ add("F-10", "Pension accrual: adjustment for change in pension entitlements D.8"
 add("F-11", "Pension contributions (employee and employer)", "D.611 employers' actual, D.613 households' actual, D.612 imputed, D.614 supplements, D.61SC charges",
     "contributions into D.8", "aggregate; contributions include National Insurance", "Proxy",
     "L8NL, MA4A, L8PT, L8Q9, M92I, HADI", f"{OF} (ID7 sum check)", "levels in derived_ons_flows.csv only; no pension-only series",
-    "D.611 and D.613 mix NIC and pension contributions; D.614 equals D.442 (pension income attributed and returned)",
+    "Valuation basis: ONS national-accounts flow series (not WAS SCAPE, not Resolution Foundation). D.611 and D.613 mix NIC and pension contributions; D.614 equals D.442 (pension income attributed and returned)",
     "context only", "further data required", "none", "DR-02: split D.611/D.613 into pension and NIC")
 add("F-12", "Pension investment return", "Return on pension wealth, valuation basis named",
     "r on pension wealth; D.442 and B.103 AF.6", "unset by cell", "Unset",
     "D.442 (KZK9); B.103 AF.6 (N4EV); pension stock by instrument not held", f"{OF}", "",
-    "A rate needs the AF.6 stock, which is not held. B.103 AF.6 swings with actuarial discount rates ("
+    "Valuation basis: ONS national-accounts flow series (not WAS SCAPE, not Resolution Foundation). A rate needs the AF.6 stock, which is not held. B.103 AF.6 swings with actuarial discount rates ("
     + f"{D[('B103_AF6_pension_insurance', 2019)] / 1000:.0f}bn in 2019, {D[('B103_AF6_pension_insurance', 2024)] / 1000:.0f}bn in 2024"
     + "): a valuation change, not an asset return",
     "none", "remain unset", "none", "DR-01: AF.6 stock (S.14) by year")
 add("F-13", "Pension withdrawal and decumulation", "Benefits paid from funded and unfunded schemes (D.622 other social insurance benefits)",
     "outflow of D.8", "stage (retired); band unset", "Proxy",
     "L8QV (D.622)", f"{OF}", "ratio D8/D622 descriptive: " + rng("D8_over_D622", 1.0, "", 2),
-    "D.622 includes non-pension insurance benefits; lump sums and annuity purchases not separated",
+    "Valuation basis: ONS national-accounts flow series (not WAS SCAPE, not Resolution Foundation). D.622 includes non-pension insurance benefits; lump sums and annuity purchases not separated",
     "context only", "further data required", "none", "DR-03: D.622 split by scheme type and age group")
 add("F-35", "Pension valuation basis register", "ONS national-accounts net equity (D.8, AF.6); WAS Round 8 SCAPE-method DB wealth (pack wealth base); Resolution Foundation basis (excludes DB, validation context only)",
     "basis label on every pension row", "all", "Observed (labelling)", "098r s9 (Round 8 break); 099r BF/AB class notes",
