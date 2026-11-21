@@ -15,6 +15,7 @@ Start with `START_HERE.md` at the repo root.
 | An instruction or tool failed you | `friction-log.md` (append an entry) |
 | Guru: keep overview and status true | `overview-maintenance.md` |
 | Guru: write a brief | `brief-template.md` |
+| Agent-system design and improvement proposals | `agent-system-improvement-plan.md` |
 
 ## Skills
 The five role skills are stubs: `.claude/skills/<role>/SKILL.md` (10 lines, no rules) is the source and Claude Code loads it from the repo. `Tools/wdt-<role>.skill` is the same file zipped for the claude.ai account (plus `Tools/repo-scaffold.skill`). All rules live in this folder, never in a stub. After changing a stub, run `python pipeline/build_skills.py` (a zip with `wdt-<role>/SKILL.md` per role); `python pipeline/build_skills.py --check` verifies they match.
