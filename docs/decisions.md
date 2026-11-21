@@ -245,3 +245,6 @@ Author, after discussing the liquidity gap: the earlier ruling (settle from net 
 
 ## 2026-11-21: scenario return ranges
 Author: the pension and net financial real return ranges are the JST market-portfolio real total return across the two held regimes (low 1947-79, high 1980-2019; 1896-2019 mean as reference only); physical wealth is held at 0% real, labelled an assumption; pension accrual is one aggregate range from the 1998-2025 min and max of D.8 over opening net worth. All are judgement rows, never estimates (brief 109c). 107c and 108c merged the same day (I-D4c 91.5%; `household_step` exists, not wired).
+
+## 2026-11-21: first cell run inputs
+Author: saving by cell is one uniform ratio (the ONS non-pension saving ratio, min, median and max of 1998-2025), no wealth gradient; income by band from I-D9a to I-D9d for all stages, with D1-3 at the D4-5 low bound and retired cells at a labelled retired fraction (held source if any, else 0.6, range 0.4 to 0.8). First run is untaxed and standalone (brief 110c); validation against the 099r moments follows. 109c merged (I-D1h to I-D1k, pack v2).
