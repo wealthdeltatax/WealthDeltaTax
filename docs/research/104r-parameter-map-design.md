@@ -185,13 +185,152 @@ In year 2 the household forgoes the gain (0.10) and the yield (0.15) on the 5 un
 **Limits.** The model stays partial equilibrium (094r B5): the market counterparty to a sale is outside the modelled sectors, prices do not respond to the sale, and nothing here is a macroeconomic closure. The ledger's holding by class needs the same class returns as the household side, including the classes with no held return (pension, physical, net financial), which are scenario ranges; the public stake is therefore a scenario for those classes, labelled in the same way.
 
 ## 5. Interface to v3 (item 4)
-(pending)
+Gap list only. Nothing here is code; each line names what would have to exist or move, so the implementation brief can be sized. The legacy 3.5% stays a switchable comparator that reproduces today's digests (F-25, S19).
+
+**5.1 Function signature (proposed).** A new module `model_v3/core/household.py` holding one household step per cell and year:
+
+`household_step(cell, pos, flows, rets, defl, convention) -> (pos1, acct)`
+
+- `cell`: band and stage (ten cells, section 2); `pos`: real positions by class (H, E, B/M, K, PA, D) at opening market value; `flows`: `Y_L`, `Y_P`, `I_D`, `T_C` (net of benefits, F-03), `C`, and the pension flows (contributions, accrual, decumulation) as aggregate-allocated scenario inputs; `rets`: per-class yield and holding gain from the JST split (F-20), plus the scenario ranges for pension, physical and net financial (F-12); `defl`: CPI for returns and numeraire, expenditure deflator for liability erosion (F-21); `convention`: `'A'` (recommended), `'B'` (check) or `'legacy'` (3.5% comparator).
+- `acct` is the identity `dNW = S + CG + TR + O - T_WDT`, each term and the erosion wedge as its own line (section 3.4).
+- `TR` is an argument fixed at zero in the first implementation (3.5).
+
+**5.2 Pack inputs that do not exist.**
+| Input | Source | Status |
+|---|---|---|
+| Cell weights (five bands by two stages) | `cell_weights.csv` | built (102r and block 1); stage weights are a proxy (S06) |
+| Composition by class including physical | `band_composition_by_pack_band.csv` | held at band; joint band by stage needs microdata |
+| Yield and holding gain by class | JST split (F-20) | held for property class; others scenario |
+| Scenario ranges: pension, physical, net financial return | register rows to add (F-12) | for the author to set; never a central value |
+| Pension aggregate accrual, ONS basis | F-10 | one labelled scenario; DR-01 open |
+| Aggregate flow constraints (`Y_L`, `Y_P`, `I_D`, `T_C`, `C`) | national accounts | aggregate only; allocation by cell is a labelled scenario |
+| Expenditure deflator | national accounts | held (C10) |
+| Consumption and saving by band | none | unset (F-24, F-29) |
+
+`model_v3/pack/build_gbr.py` and `levers.json` have no mapping for I-D14c today; the cell inputs need a mapping and a version bump of the pack, and the legacy digests must not move when the comparator arm is selected.
+
+**5.3 Manifest outputs that would be added.** Per cell and year: `dNW`, `S`, `CG` (with the erosion wedge line), `TR`, `O`, `T_WDT`; the consolidated household-plus-public identity of section 4 and its residual (must be zero to rounding); the `O` reported residual against the national-accounts gap (C06, C08); liquidity by class (section 3.8).
+
+**5.4 Kernel and revenue changes.**
+- `kernel.py`: `grow_and_consume` (line 324) holds the single `c = I-D14c / 100` consumption rule read by `runner/runner.py`; it becomes the legacy arm and the household step the other. `assess` (275), `declare` (343) and `step_death` (478) read `state_true` (167); the state needs the class positions, not one wealth number, before the cell account can feed them. `_move` and the revenue `fund(wdt + lev, E, g, ...)` recursion are replaced by reads from one public ledger (section 4, option C), so `core/revenue.py` and `core/burden.py` (`free_path`) change from running their own recursion to reading it.
+- No kernel rule decides the settlement source; the author does (section 6, question 2).
+
+**5.5 Tests that would move or be added.**
+- Moving: `test_burden.py`, `test_revenue.py`, `test_out_burden.py`, `test_kernel.py`, `test_support.py` (they reference I-D14c, `state_true` or `state_cash`, or consumption). Under the comparator arm none should change; under the new arm the digests change and that is stated, not hidden.
+- New: identity holds per cell and year (no residual); no-double-counting worked case (section 3, the household example gives `dNW` = 54 on both sides); consolidated household-plus-public sum is zero (the seven rows of `public_side_identity.csv`); the legacy comparator reproduces the stored digests; `O` is reported, not forced.
+- Registration (docs/agents/code.md): a LAYER row for `household` in `tests/model_v3/conftest.py`; a budget row in the budgets block of `docs/model-v3/architecture.md`; rows in `tests/model_v3/test_groups.py` for the new test file.
+
 
 ## 6. Rulings table (item 5)
-(pending)
+
+Generated by `rulings_table.py` from the 103r register (73 rows), with the author's 2026-11-21 rulings applied.
+
+| Row | Variable | Class | Finest resolution | 103r | 104r ruling | Consequence for the first implementation |
+|---|---|---|---|---|---|---|
+| F-01 | Labour income: compensation of employees (D.1), share of gross primary | observed | aggregate | further data | further data required | absent in the first implementation; data needed: By wealth band and stage: needs a household survey link (WAS/FRS/LCF), not held; an aggregate or a labelled scenario range stands in |
+| F-02 | Self-employment and housing services: gross operating surplus plus mix | observed | aggregate | further data | further data required | absent in the first implementation; data needed: ONS split of B.2g by dwelling services versus other; not held; an aggregate or a labelled scenario range stands in |
+| F-03 | Transfer income: social benefits in cash (D.62) share of disposable in | observed | aggregate | scenario range | implement with a scenario range | label fixed to T_C (taxes net of benefits); aggregate only; band means are scenario or unset |
+| F-04 | Taxes on income and wealth (D.5), share of gross primary income | observed | aggregate | scenario range | implement with a scenario range | used only as a labelled range, direction from the evidence; the range is for the author to set |
+| F-05 | Gross disposable income B.6g | observed | aggregate | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| F-06 | Household final consumption (P.31) as a share of B.6g | observed | aggregate | further data | further data required | absent in the first implementation; data needed: Consumption by wealth band: LCF/WAS link; not held; an aggregate or a labelled scenario range stands in |
+| F-07 | Saving ratio, published | observed | aggregate | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| F-08 | Non-pension saving: B.8g - D.8 (the part of the ratio not pension accr | derived | aggregate | scenario range | implement with a scenario range | used only as a labelled range, direction from the evidence; the range is for the author to set |
+| F-09 | Cash-basis saving ratio (CSJ8) | observed | aggregate | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| F-10 | Pension accrual: adjustment for change in pension entitlements D.8 | observed | aggregate | scenario range | implement with a scenario range | one labelled aggregate scenario on the ONS basis; no rate on the SCAPE stock until DR-01 (author) |
+| F-11 | Pension contributions (employee and employer) | proxy | aggregate | further data | further data required | absent in the first implementation; data needed: DR-02: split D.611/D.613 into pension and NIC; an aggregate or a labelled scenario range stands in |
+| F-12 | Pension investment return | unset | none | unset | implement with a scenario range | author ruling: a labelled scenario range per class (pension, physical, net financial), never an estimate; evidence class stays unset; the range is for the author to set; pension, physical and net financial classes are 62.6% of a D4-5 cell and have no held return: each runs a labelled range and a cell is not run end to end without it |
+| F-13 | Pension withdrawal and decumulation | proxy | other axis (age, income, estate size, stage only) | further data | further data required | absent in the first implementation; data needed: DR-03: D.622 split by scheme type and age group; an aggregate or a labelled scenario range stands in |
+| F-35 | Pension valuation basis register | observed | aggregate | unset | remain unset | no conversion between pension bases; flows (ONS) and the stock (WAS SCAPE) stay on their own bases |
+| F-14 | Retained cash property income (D.4 received excluding D.441 and D.442) | derived | aggregate | scenario range | implement with a scenario range | used only as a labelled range, direction from the evidence; the range is for the author to set |
+| F-15 | HMRC taxable interest and dividends against ONS D.41 and D.42 | observed | other axis (age, income, estate size, stage only) | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| F-16 | Housing services yield cross-check | proxy | aggregate | unset | remain unset | housing yield stays a reported cross-check; the JST split (F-20) is the only source |
+| F-17 | Cash yield, portfolio, real (JST market portfolio, arithmetic mean of  | derived | market path, not household | scenario range | implement with a scenario range | used only as a labelled range, direction from the evidence; the range is for the author to set |
+| F-18 | Holding gain, portfolio, real (JST market portfolio, arithmetic mean o | derived | market path, not household | scenario range | implement with a scenario range | used only as a labelled range, direction from the evidence; the range is for the author to set |
+| F-19 | Total return, real, arithmetic (JST) | derived | market path, not household | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| F-20 | Cash yield and gain by asset class (real) | derived | market path, not household | scenario range | implement with a scenario range | used only as a labelled range, direction from the evidence; the range is for the author to set |
+| F-21 | Revaluation of nominal liabilities (real erosion) | derived | aggregate | scenario range | implement with a scenario range | label fixed to CG (real erosion of liabilities); deflator is the expenditure deflator; wedge to CPI reported as its own line |
+| F-22 | Holding gains on financial assets (B.103) and other volume changes (B. | observed | aggregate | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| F-23 | Net-worth residual O | derived | aggregate | ready | ready for implementation | O is a reported residual, not forced to zero; WAS is the stock base and national accounts are validation only (author) |
+| F-24 | Aggregate saving over opening net worth (gross of CFC) | derived | aggregate | unset | remain unset | no saving rate on wealth; saving enters through each cell income side (scenario or unset), never as a share of net worth |
+| F-25 | Legacy I-D14c: 3.5% consumption share of net worth | scenario | none | unset | legacy comparator only | reproduces today digests as a switchable comparator; no replacement value; only the legacy comparator run uses 3.5% |
+| F-26 | Existing row I-D1a (arithmetic mean real total return 4.74) | observed | market path, not household | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| F-27 | Existing row I-D1a2 (geometric 4.42) | derived | market path, not household | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| F-28 | Audit I-W1c: UK financial return gap, top decile minus bottom deciles  | proxy | top tail or distribution moment | unset | remain unset | validation context only; no return difference by band is set |
+| F-29 | Audit I-W3a: net active saving rate by wealth, 6 to 8% of disposable i | proxy | none | unset | remain unset | no UK saving by wealth band; direction only; the Norwegian figure is not used |
+| F-30 | Audit I-W3b: gross saving rate top 1% (about 35%) | proxy | top tail or distribution moment | unset | context only | author ruling: I-W3b is context only (gross saving rate of a foreign top 1%); not a saving parameter; not used as a saving parameter |
+| F-31 | Audit I-W3c: net saving share of the change in family financial wealth | proxy | aggregate | scenario range | validation moment only (unverified until SUP-7) | I-W3c stays a validation moment marked unverified until the source PDF is uploaded (author) |
+| F-32 | Audit I-W3d: active saving about 40% of total wealth gain, 2018-20 to  | proxy | other axis (age, income, estate size, stage only) | scenario range | validation moment only (unverified until SUP-7) | I-W3d stays a validation moment marked unverified until the source PDF is uploaded (author) |
+| F-33 | Saving by lifetime income and education (direction) | scenario | other axis (age, income, estate size, stage only) | scenario range | implement with a scenario range | used only as a labelled range, direction from the evidence; the range is for the author to set |
+| F-34 | Passive and active share of wealth change (validation moments) | observed | aggregate | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| F-36 | NMG survey saving and debt-service variables | unset | other axis (age, income, estate size, stage only) | further data | further data required | absent in the first implementation; data needed: DR-06: NMG 2011-2026 workbook contents (values), exact wave coverage per variable; an aggregate or a labelled scenario range stands in |
+| S01 | Pack wealth bands (deciles of total wealth) | observed | band | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| S02 | Band-edge mapping, GBP bands against pack deciles | derived | band | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| S03 | Stage weights by pack band (persons 16+) | proxy | band x stage | scenario range | implement with a scenario range | used only as a labelled range, direction from the evidence; the range is for the author to set |
+| S04 | Cell sizes by pack band and stage | derived | band x stage | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| S05 | Asset composition by pack band (R8) | observed | band | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| S06 | Asset composition by age of household reference person (proxy for stag | proxy | other axis (age, income, estate size, stage only) | validation or proxy only | validation or proxy only | age of the reference person is a proxy for stage in the composition; the joint band by stage composition needs the microdata |
+| S07 | DB against DC pension split and pensions in payment | unset | band x stage | further data | further data required | absent in the first implementation; data needed: WAS pension tables (DB, DC, in payment) by decile; study 7215; an aggregate or a labelled scenario range stands in |
+| S08 | Pension valuation basis for stock rows (WAS R8 SCAPE-based) | observed | aggregate | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| S09 | Physical (contents and vehicles) wealth share by band | observed | band | ready | ready for implementation | physical wealth (contents and vehicles) is a separate asset class inside the WDT base (author); its return is a scenario range with F-12 |
+| S10 | Secured debt (personal property debt), GB total and by age | observed | other axis (age, income, estate size, stage only) | further data | further data required | absent in the first implementation; data needed: WAS study 7215 gross debt by band and stage; an aggregate or a labelled scenario range stands in |
+| S11 | Unsecured debt (personal financial debt), GB total and by age | observed | other axis (age, income, estate size, stage only) | further data | further data required | absent in the first implementation; data needed: As S10; an aggregate or a labelled scenario range stands in |
+| S12 | Aggregate liabilities cross-check, ONS 3222 against NBS AF.L | proxy | aggregate | unset | remain unset | the 3222 against AF.L gap is reported; no debt aggregate constrains the cells |
+| S13 | Debt service by band and stage | unset | band x stage | further data | further data required | absent in the first implementation; data needed: NMG household survey tables; WAS 7215 debt service variables; an aggregate or a labelled scenario range stands in |
+| S14 | Top-tail share series (WID) | observed | top tail or distribution moment | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| S15 | Top-tail adjustment for wealth missing from the WAS top | scenario | top tail or distribution moment | scenario range | implement with a scenario range | used only as a labelled range, direction from the evidence; the range is for the author to set |
+| S16 | Capital transfers of households with other sectors (S.14) | observed | aggregate | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| S17 | Gifts and inheritances by band and stage | unset | band x stage | unset | remain unset | TR is zero by cell (no inter-cell transfer); the legacy heir rule is the only transfer in the legacy arm |
+| S18 | Estates passing at death by size and composition | unset | other axis (age, income, estate size, stage only) | further data | further data required | absent in the first implementation; data needed: HMRC IHT statistics (tables 12.1 to 12.3 are held as ods in 097r but not parsed for estate; an aggregate or a labelled scenario range stands in |
+| S19 | Legacy heir rule (one heir, G = 30 years) | legacy | none | legacy comparator | legacy comparator only | one-heir rule kept as the labelled legacy arm; the account carries no cross-cell transfer (3.5) |
+| S20 | Two-year top-decile persistence and entry | proxy | top tail or distribution moment | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| S21 | Four-year rank correlation and same-decile share | proxy | other axis (age, income, estate size, stage only) | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| S22 | Band-to-band and stage transition matrix | unset | band x stage | further data | further data required | absent in the first implementation; data needed: WAS 7215 longitudinal file; an aggregate or a labelled scenario range stands in |
+| S23 | Age structure of the adult population | observed | other axis (age, income, estate size, stage only) | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| S24 | Mortality, period qx and survival from 65 | derived | other axis (age, income, estate size, stage only) | ready | ready for implementation | used as stated in the pack, a pack addition or a reported check; value from the cited source |
+| S25 | Working-to-retired transition hazard by band | unset | band x stage | further data | further data required | absent in the first implementation; data needed: WAS 7215 longitudinal status changes; DWP State Pension age schedule; an aggregate or a labelled scenario range stands in |
+| S26 | Household formation and dissolution | unset | band x stage | unset | remain unset | cell membership fixed within a generation step; no household formation |
+| S27 | Adults per household by pack band | derived | band | scenario range | implement with a scenario range | used only as a labelled range, direction from the evidence; the range is for the author to set |
+| S28 | Person weights by stage within band | unset | band x stage | further data | further data required | absent in the first implementation; data needed: WAS 7215 household file; an aggregate or a labelled scenario range stands in |
+| S29 | Audit I-D4a wealth to GDP | observed | aggregate | audit (no ruling) | report only (audit, no register edit) | no model use; differences reported for the guru |
+| S30 | Audit I-D4b, I-D4g, I-D4h adult base and adults per household | derived | aggregate | audit (no ruling) | report only (audit, no register edit) | no model use; differences reported for the guru |
+| S31 | Audit I-W5a and I-W5e top-decile and pension shares | observed | top tail or distribution moment | audit (no ruling) | report only (audit, no register edit) | no model use; differences reported for the guru |
+| S32 | Audit I-W5b to I-W5d tail shares against the pack tail | proxy | top tail or distribution moment | audit (no ruling) | report only (audit, no register edit) | no model use; differences reported for the guru |
+| S33 | Audit I-W4a to I-W4f mobility rows | proxy | top tail or distribution moment | audit (no ruling) | report only (audit, no register edit) | no model use; differences reported for the guru |
+| D01 | T_WDT: WDT paid by the household, net of refund | endogenous | none | not applicable (endogenous) | not applicable (model output) | output of the account, not an input |
+| D02 | dNW: change in net worth (the identity left-hand side) | endogenous | none | not applicable (endogenous) | not applicable (model output) | output of the account, not an input |
+| D03 | r_f: fund return | endogenous | none | not applicable (endogenous) | not applicable (model output) | output of the account, not an input |
+| D04 | I_D: interest paid on household debt, and principal repayment R | unset | none | further data | further data required | absent in the first implementation; an aggregate or a labelled scenario range stands in |
+
+Counts: ready 22, scenario range 14, unset 8, further data 15, other 14 (legacy comparator 2, validation moment only 2, context only 1, validation or proxy only 1, report only 5, not applicable 3). The "ready" rows carry a source value; no row is given a value the evidence does not support, and no ruling is chosen for its effect on WDT revenue or closure.
+
+**Questions the author must rule on (recommendation first).**
+1. **Convention.** Recommend A (credit the holding gain only; saving carries the retained yield once) with B as an identity check; C is wrong. Alternative: B as the primary convention.
+2. **Settlement source.** Recommend that the first implementation settles from net financial wealth only (the one liquid class) and reports the shortfall by cell, leaving the order of sources (a to f in section 4) unset. Alternative: set a legacy-style order now.
+3. **Public side.** Recommend one public ledger by class at market value (option C of section 4), with `r_f` endogenous. Alternative: keep two recursions and add a tying test (option A).
+4. **New register rows.** Recommend adding rows for the physical, pension and net financial scenario ranges (F-12) and the pension aggregate scenario (F-10), each marked unset until the author sets a range.
+5. **Cross-cell transfers.** Recommend none in the first implementation (`TR` = 0); the legacy one-heir rule stays the comparator.
+6. **Deflator wedge.** Recommend reporting the CPI to expenditure-deflator wedge as its own line inside `CG` (about £6.9bn a year at the mean, up to £32bn).
+7. **Gross saving.** Recommend reporting it only as an upper bound while CFC is unset.
+8. **Pension basis.** Recommend that DR-01 (SCAPE stock against ONS flows) stays open and nothing converts between bases.
+9. **Joint band by stage.** Recommend commissioning the microdata cross-tab (S06) before any cell is run end to end; until then stage weights are a labelled proxy.
+
 
 ## 7. Validation moments (item 6)
-(pending)
+Plans only; no moment is computed here and no tolerance is a result. The untaxed baseline is the account with `T_WDT = 0`, run with scenario ranges for the unset classes. Tolerances are proposals for the author; where a moment's resolution is coarser than the model's, only the coarse comparison is planned.
+
+| Moment (099r) | What it is | Resolution to compare at | Use | Proposed tolerance |
+|---|---|---|---|---|
+| BF-01, BF-02 | share of wealth growth that is passive, excluding DB and pensions in payment (53% since 2010-12; 60% latest period) | aggregate, by period | validates the holding-gain share of `dNW`, `CG` over `S + CG` in the households with property and financial positions | baseline passive share inside 53 to 60% across the scenario range, or the range reported as not matching |
+| AB-01 | passive share of financial wealth (93, 93, 82, 76, 79%) | financial classes only, by period | checks the class split of `CG` for E and B/M | within 5pp of each published period; direction (fall then rise) must match |
+| BF-06 | same-decile share at ages 25-34 and 35-54 (27%, 34%) | stage (not retired) crossed with age proxy | plausibility of band persistence for the non-retired cells | only if band transitions exist (see below); otherwise not run |
+| AB-02 | top decile: 80% stay, 90% of entrants from the ninth decile | D10 against D8-9 | persistence at the top | same caveat; D10 stay rate within 5pp |
+| BF-04, BF-05 | mobility and mean changes, age-adjusted, by income group | income groups, not wealth bands | context only; not a pack-resolution test | none |
+| BF-14 | retired shape (qualitative) | retired against not retired cells | sign check: retired cells draw down liquid wealth, pension decumulates | sign only |
+| GB-01 | saving rate 10.8% (Q2 2025) against 4.0% (2022) | aggregate | reported against aggregate `S`; gross saving is an upper bound (CFC unset) | report, no tolerance |
+| F-31, F-32 | I-W3c, I-W3d | aggregate | unverified until SUP-7; not used as targets | none |
+
+Two limits. First, the cells have fixed membership within a generation step (S26) and no inter-cell transfer (3.5), so band persistence (BF-04, BF-06, AB-02) is mechanically 100% within a step; those moments need a transition rule the first implementation does not have and are listed as a gap, not as tests. Second, the baseline cannot validate a flow by band, because every flow is aggregate-only (section 2): the validation is of aggregates and of class-level direction, which is what the evidence supports.
+
 
 ## 8. Reproduction
 (pending)

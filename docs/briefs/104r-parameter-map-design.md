@@ -69,7 +69,7 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** blocks 0 and 1 (note skeleton; coverage matrix, section 2). Block 3: section 4 public ledger with `public_side_identity.py`. Block 2: note section 3 (accounting conventions 3.1 to 3.8) with `conventions_worked.py` and four CSVs in `docs/research/data/104r/`.
+- **Done:** block 4 (note sections 5 to 7, `rulings_table.py`). Blocks 0 and 1 (note skeleton; coverage matrix, section 2). Block 3: section 4 public ledger with `public_side_identity.py`. Block 2: note section 3 (accounting conventions 3.1 to 3.8) with `conventions_worked.py` and four CSVs in `docs/research/data/104r/`.
 - **Next:** block 4 interface, rulings table, validation moments (5 to 7); block 5 summary, reproduction, change report, friction log, merge.
 - **Decisions:** recommended A (credit holding gain, saving carries retained yield once) with B as equivalent check; disposable-income basis; no cross-cell transfers in the first implementation; settlement source left to the author.
 - **Gotchas:** branch is `brief/104`; the clone tracks main only. Do not pipe `git push`.
