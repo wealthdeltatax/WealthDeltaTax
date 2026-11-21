@@ -49,3 +49,18 @@ None.
 - **Not run:** PDF conversion, moments extraction, `python -I pipeline/check_agent_docs.py`.
 - **State:** blocked checkpoint pushed after commit `0f30ea42ab89d22a9bee8ee93d9378869b97af4f`
 <!-- progress:end -->
+
+
+### Change report
+- **Task:** 099r — extract moments from held research PDFs.
+- **Files changed:** `docs/research/099r-held-research-moments.md` (records the extraction blocker and exact next step); `docs/briefs/099r-held-research-moments.md` (progress and this report); `docs/agents/friction-log.md` (local checkout/PDF runtime failure).
+- **What is different now:** The branch is checkpointed with the blocker documented. No unverified figures or empty moments table have been added.
+- **New or changed interfaces:** None.
+- **Acceptance criteria:** Not met yet. No PDF numbers were extracted or page-checked; no moments classified; the skipped-file audit and duplicate comparisons remain pending.
+- **Deviations from the brief:** Extraction stopped at the runtime gate as the brief instructs; no search summaries were used as evidence.
+- **Risks / follow-ups:** Needs local access to the ten named PDFs and a page-preserving PDF reader. Bozio et al. (2013) remains covered by 095r and must not be repeated.
+- **Instruction friction:** Added the 099r entry to `docs/agents/friction-log.md`.
+- **Verification:** Repository files and branch were read back. `python -I pipeline/check_agent_docs.py` and PDF conversion were not run because there is no local checkout.
+- **Overview sections likely needing an update:** None until the brief is completed.
+- **Commit / branch:** `5cde69ff46811f11ad2f29c1580e28bcd6930aea`, `brief/099r-held-research-moments`.
+
