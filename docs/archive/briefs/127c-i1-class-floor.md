@@ -33,8 +33,8 @@ Pension withdrawal, a running pension cap, per-path returns, any change to the s
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** blocks 0 to 3; branch pushed for review (do not merge)
+- **Next:** none; the author rules on the alarms (see the note)
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/127-i1-class-floor origin/brief/127-i1-class-floor`
-- **State:** ready; not started
+- **State:** done, awaiting review
 <!-- progress:end -->

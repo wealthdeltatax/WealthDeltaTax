@@ -111,3 +111,37 @@ def test_a_death_in_the_last_but_one_year_and_the_horizon_leave_the_books_and_cl
     books, h = [], Spy(ST, GAIN, 0.0157)
     rv.run_lines(BASE, RATE, np.zeros((5, 1)), np.full((5, 1), 0.0157), 0.0, G=4, n_phase=1, hook=h)
     assert [t for t, g in h.rec if g > 1e-6] == [4, 5] and max(h.pre_gaps) < 1e-9
+
+
+def test_a_tax_on_a_line_in_debt_is_followed_by_the_book_and_recorded_as_unpaid():
+    """127c: the classes of a line with negative non-pension wealth cannot pay the tax the kernel took: the book follows the kernel (its total falls by the tax), the unpaid amount is the alarm in the hook and in unpaid_B; nothing raises."""
+    h = arm.HouseholdHook(ST, GAIN, 0.0157)
+    book = book_for(ST)
+    K.step_year(book, RATE, 1.0, np.zeros(14), 0.0, hook=h, t=1)
+    h.q = {**h.q, 'property': np.full(14, 0.1), 'net_financial': np.full(14, -0.3), 'physical': np.zeros(14)}
+    h.T, h.unpaid, b0, n0 = 0.0, 0.0, book.unpaid_B.copy(), sum(h.q[k] for k in arm.CLASSES[:3])
+    q1 = h._pay(h.q, np.full(14, 0.01))
+    assert np.allclose(h.unpaid, 0.01) and np.allclose(h.T, 0.0) and np.allclose(book.unpaid_B - b0, 0.01)
+    assert np.allclose(sum(q1[k] for k in arm.CLASSES[:3]), n0 - 0.01) and K.shortfall_lines(book) == 14
+
+
+def test_a_line_with_no_units_stays_at_the_floor_and_the_flow_that_cannot_enter_is_the_alarm():
+    """127c: a line whose units are all 0 (the tax took everything) cannot carry the year's flow; it stays at 0, I1 holds, the floor amount is recorded (and in unpaid_B)."""
+    h = arm.HouseholdHook(ST, GAIN, 0.0157)
+    book = book_for(ST)
+    K.step_year(book, RATE, 1.0, np.zeros(14), 0.0, hook=h, t=1)
+    for k in arm.CLASSES[:3]:
+        h.q[k] = h.q[k] * 0.0
+    for x in book.R.values():
+        x.update({k: x[k] * 0.0 for k in ('V', 'dd', 'Wp', 'ppu')})
+    b0 = book.unpaid_B.copy()
+    K.step_year(book, RATE, 1.0, np.zeros(14), 0.0, hook=h, t=2)
+    a = h.account()
+    assert np.abs(book.family_true()).max() < 1e-12 and sum(h.q[k] for k in arm.CLASSES[:3]).max() < 1e-12
+    assert (a['floor'] != 0).all() and np.abs(a['residual']).max() < 1e-9 and (book.unpaid_B > b0).all()
+
+
+def test_a_line_that_never_reaches_the_floor_records_no_floor():
+    h = arm.HouseholdHook(ST, GAIN, 0.0157)
+    for t, kind, book, a in run(h, 12):
+        assert (a['floor'] == 0).all() and K.shortfall_lines(book) == 0

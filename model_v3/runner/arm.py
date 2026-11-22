@@ -126,6 +126,13 @@ class HouseholdHook:
         gn = returns(self.q, self.gn)
         self.q1, self.acct = self._year(self.q, inc, self.sav, self.acc, gn)
         self.nw0, self.T, self.unpaid = sum(self.q[k] for k in CLASSES), 0.0, 0.0
+        N1 = self._n(self.q1)
+        dead = np.abs(N0) <= 1e-12                                                                 # the class floor (127c): a line whose units are all 0 cannot carry any flow (units grow multiplicatively), so it stays at 0; a line with negative wealth keeps its units
+        self.fl = np.where(dead, -N1, 0.0)                                                          # what the floor added (+) or removed (-) in the year; an alarm, never tuned away
+        for k in CLASSES[:3]:
+            self.q1[k] = np.where(dead, 0.0, self.q1[k])
+        book.unpaid_B = book.unpaid_B + np.abs(self.fl)                                             # recorded as the model's shortfall alarm (shortfall_lines counts it)
+        N0 = np.where(dead, 1.0, N0)
         g_n = sum(np.asarray(gn[k]) * self.q[k] for k in CLASSES[:3]) / N0
         book.pen, self.W_after = self.q1['pension'], sum(self.q1[k] for k in CLASSES)
         return g_n, self._n(self.q1) / (N0 * (1.0 + g_n)) - 1.0                                     # growth then the flow reach the household's closing non-pension total exactly (I1)
@@ -138,6 +145,7 @@ class HouseholdHook:
         """The payment T (a line's value moved to the state, negative a refund) on the classes q, pro rata to the positive non-pension balances; pension is never sold. Adds to the year's T and unpaid."""
         q1, _, un = hh.apply_payment(q, T, {k: np.maximum(q[k], 0.0) for k in CLASSES[:3]})
         self.T, self.unpaid = self.T + T - un, self.unpaid + un
+        q1['net_financial'], self.book.unpaid_B = q1['net_financial'] - un, self.book.unpaid_B + un     # the kernel already took the whole tax from the line: the book follows it, and what the classes could not pay is the alarm (127c)
         for k in CLASSES[:3]:
             self.rcv[k] = self.rcv[k] + q[k] - q1[k]                                              # the state's receipt by class: the value the line paid out of each
         return q1
@@ -176,7 +184,7 @@ class HouseholdHook:
         q0, dnw = self.q1, sum(self.q[k] for k in CLASSES) - self.nw0
         fin, nonpen = q0['net_financial'], sum(q0[k] for k in CLASSES[:3])
         return dict(dNW=dnw, S=self.acct['S'], CG=self.acct['CG'], T_WDT=self.T, unpaid=self.unpaid, pay_over_fin=np.where(self.T == 0, 0.0, hh._ratio(self.T, fin)), pay_over_nonpension=np.where(self.T == 0, 0.0, hh._ratio(self.T, nonpen)),
-                    residual=dnw - (self.acct['S'] + self.acct['CG'] - self.T))
+                    residual=dnw - (self.acct['S'] + self.acct['CG'] - self.T + self.fl - self.unpaid), floor=self.fl)
 
     def system(self, kind, rate, G, payer):
         """A comparator tax on the account (126c, M13): terminal wealth (pension included) and the lifetime tax, both (L,), of the lines over G years under `kind` ('none'; 'stock_wealth_tax' on the opening net worth, pension included;
