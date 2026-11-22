@@ -158,6 +158,7 @@ class Book:
         self.state_cash = z()
         self.lost_refund, self.unpaid_D, self.unpaid_B = z(), z(), z()
         self.paid, self.refunded = z(), z()
+        self.pen, self.penp = z(), z()     # the pension: a class balance in the assessed base, never a unit (it is not sold), and its value at the last assessment
         self.vD = z()                      # share of Route D already auctioned at the true price (hazard lam_D)
 
     # ── readouts ─────────────────────────────────────────────
@@ -278,7 +279,7 @@ def assess(book, rate_fn, idx, Wn=None, Wp=None):
     positive-delta (tax) or negative-delta (refund) shares (D21). L = rate x delta for either sign: a loss is
     refunded at tau x loss (C1 item 9), capped by what was paid (per route, in _route_tax).
 
-    Wn, Wp   dict route -> declared value now / at the last assessment (default: f x dd, and the stored Wp).
+    Wn, Wp   dict route -> declared value now / at the last assessment (default: f x dd, and the stored Wp). The pension (`book.pen`, `book.penp`) is added to W_new and W_prev.
     Returns Flows with rate, delta and L (+ tax, - refund) per line. Does NOT rebase: call rebase() after
     (the post-settlement basis).
     """
@@ -288,8 +289,8 @@ def assess(book, rate_fn, idx, Wn=None, Wp=None):
     lien = book.b_mode == 'lien' and 'B' in R
     adj_n = book.LB if lien else 0.0
     adj_p = book.LBp if lien else 0.0
-    W_new = np.maximum(sum(Wn[r] for r in book.routes) - adj_n, 0.0)
-    W_prev = np.maximum(sum(Wp[r] for r in book.routes) - adj_p, 0.0)
+    W_new = np.maximum(sum(Wn[r] for r in book.routes) + book.pen - adj_n, 0.0)
+    W_prev = np.maximum(sum(Wp[r] for r in book.routes) + book.penp - adj_p, 0.0)
     rate = np.asarray(rate_fn(W_new / idx), dtype=float)
     delta = W_new - W_prev
     d = {r: Wn[r] - Wp[r] for r in book.routes}
@@ -300,6 +301,10 @@ def assess(book, rate_fn, idx, Wn=None, Wp=None):
     L = rate * delta
     w = {r: np.where(up, np.maximum(d[r], 0.0), np.where(down, np.maximum(-d[r], 0.0), 0.0)) for r in book.routes}
     tot = sum(w.values())
+    fb = (tot <= 0.0) & (delta != 0.0) & ((book.pen != 0.0) | (book.penp != 0.0))     # the pension moved the base and no route did: settle by route value shares
+    if np.any(fb):
+        w = {r: np.where(fb, np.maximum(Wn[r], 0.0), w[r]) for r in book.routes}
+        tot = sum(w.values())
     fl = Flows(n, rate=rate, delta=delta, L=L)
     for r in book.routes:                           # ROUTES order: pooled E_cash / EC depend on it
         Lr = L * _div(w[r], tot)
@@ -315,6 +320,7 @@ def rebase(book):
     for x in book.R.values():
         x['Wp'] = x['f'] * x['dd']
         x['ppu'] = x['dd'].copy()
+    book.penp = book.pen.copy()
 
 
 # ─────────────────────────────────────────────────────────────

@@ -41,11 +41,11 @@ Whether the route-value fallback should weight by route value or by units (agent
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (this block).
-- **Next:** block 1, pension in the book (`Book.pen`, `Book.penp`, `assess`, `rebase`, route fallback).
-- **Decisions:**
-- **Gotchas:**
-- **Resume:** branch `brief/116-work`; `git fetch origin && git checkout brief/116-work`; last block pushed: 0; first action: read kernel-wiring-design 2.5, 3.3, 3.4, W4 row, then `Book` and `assess` in kernel.py.
-- **Not run:** everything.
-- **State:** in progress (block 0)
+- **Done:** block 0; block 1 (pension in the book): `Book.pen`, `Book.penp` (zeros, per line); `assess` adds them to `W_new` and `W_prev`; `rebase` sets `penp = pen`; fallback in `assess` (kernel.py 574 to 580 lines). `tests/model_v3/test_pension_book.py` (5 tests); `pytest tests/model_v3`: 266 passed incl. `test_legacy_digest` unchanged.
+- **Next:** block 2, `apply_payment` in `household.py` (pure, called by `household_step`).
+- **Decisions:** the fallback allocates by the route's declared value `Wn[r]` (the same quantity the assessment already holds), not by units: units of different routes are not comparable (a unit of C is declared at `alpha_C x V`, of A at V), the value is what the tax is a share of. It fires only on a line with a non-zero pension (`pen` or `penp`) where no route moved the right way (`tot = 0`) and `delta != 0`, so with `pen = penp = 0` nothing changes bit for bit; it covers a pension fall with routes not down (refund) as well as a rise (tax). The sum `sum_r L_r = L` holds to 1e-12 relative (floating point; the shares are not forced to sum to 1 in the last bit, as that would move legacy bits).
+- **Gotchas:** a line with only pension and no route value cannot pay (`_div` gives 0): that is the shortfall of block 3, not a loss in the fallback.
+- **Resume:** branch `brief/116-work`; `git fetch origin && git checkout brief/116-work`; last block pushed: 1; first action: read `household.py` 55 to 77, write `apply_payment`.
+- **Not run:** check_agent_docs; the other suites.
+- **State:** in progress (block 1 pushed)
 <!-- progress:end -->
