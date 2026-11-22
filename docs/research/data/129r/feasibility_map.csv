@@ -1,0 +1,10 @@
+parameter_family,best_no_licence_source,evidence_class,what_a_licence_adds,fallback,checked_by_guru
+saving by wealth band,RF Before the Fall; ONS tables,proxy,household-level saving and wealth change matched by starting wealth,scenario only,no
+active accumulation (residual),RF decomposition (passive share 60% 2018-20 to 2020-22),derived,reproducible household residuals and alternative groupings,derived with explicit residual caveat,partly (passive 60% confirmed; active share not stated)
+wealth transitions,RF matched WAS analysis (2016-18 to 2020-22; income groups; age-adjusted),empirically identified (broad),full transition matrices and finer conditioning,use published mobility constraints; do not invent cells,yes (76%/73% within one decile; 45%/40% up at least one)
+retirement decumulation,IFS/ELSA 2018 (2002-03 to 2014-15),empirically identified (historical); proxy for current,individual-level lifecycle analysis,scenario range informed by ELSA,yes (31%/39%/13%)
+pension withdrawal by type,ELSA and IFS,proxy,pension-type and wealth-group analysis,unset where not identified,no
+asset allocation by band,ONS published tables,empirically identified at published resolution,matched asset allocation and transitions,use published distributions,no
+DB pension valuation basis,IFS 2026 method and code; ONS GAD-based revision,derived with defensible assumptions,reproduce and test against all WAS records,consistent alternative valuation as sensitivity,yes (see note)
+top-tail stock and composition,Advani-Summers-Tarrant 2025; ONS; HMRC,derived / proxy,household-level top-tail observations (access dependent),sensitivity range not one correction,no
+top-tail saving and returns,none found,unset,possibly WAS tail records; sample limits remain,scenario only or unset,no

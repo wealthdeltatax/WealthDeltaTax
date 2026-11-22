@@ -263,7 +263,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "2", name: "Agent 2", note: "Code: 126c (comparators); may run out of tokens, resume from the branch" },
     { id: "3", name: "Agent 3", note: "Waiting (no brief out)" },
     { id: "4", name: "Agent 4", note: "Waiting; 057c is held (after 089c)" },
-    { id: "5", name: "Agent 5", note: "Waiting; 129r (WAS audit) queued for it" },
+    { id: "5", name: "Agent 5", note: "Waiting (129r done by an external agent)" },
     { id: "6", name: "Agent 6", note: "Code: 127c (I1 class floor), then 128c (per-path market returns)" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
@@ -277,7 +277,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "126c", lane: "2", at: 0, len: 1, st: "ready", t: "Comparators on the account: M3, M12, M13, M15, M9 return", needs: [], why: "Each comparator reads the account base (S, CG, C, untaxed path); no legacy c under the household arm.", files: "burden.py, support.py, arm.py, outputs.yml" },
     { id: "127c", lane: "6", at: 1, len: 1, st: "ready", t: "I1 at the class floor: exhausted lines report through alarms", needs: [{ id: "124c" }], why: "min_mid and median_high raise I1; fix the floor only, no economics change; passing points byte-identical.", files: "model_v3/runner/arm.py, core/household.py" },
     { id: "128c", lane: "6", at: 2, len: 1, st: "ready", t: "Per-path market returns in the household arm (market-return risk only, labelled)", needs: [{ id: "127c" }], why: "Author ruling: JST-based path returns drive net financial and pension around scenario rates; GDP growth stays constant; zero deviation byte-identical.", files: "model_v3/runner/arm.py" },
-    { id: "129r", lane: "5", at: 1, len: 1, st: "ready", t: "WAS longitudinal access and feasibility audit (no licence)", needs: [], why: "Author approved the audit only: what is reachable without UKDS, what a licence adds, evidence class per parameter family.", files: "docs/research/129r-was-access-audit.md" },
+    { id: "129r", lane: "5", at: 0, len: 1, st: "done", t: "WAS longitudinal access and feasibility audit (no licence)", needs: [], why: "Author approved the audit only: what is reachable without UKDS, what a licence adds, evidence class per parameter family.", files: "docs/research/129r-was-access-audit.md" },
     { id: "089c", lane: "3", at: 1, len: 1, st: "hold", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [{ id: "088c" }, { id: "090c" }], why: "Parked: measured against the legacy 3.5%, which is abandoned (094r to 096r). Rule on feasibility after the replacement exists.", files: "runner/sweeps.py, out_sweeps.py" },
     { id: "057c", lane: "4", at: 2, len: 1, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "085c" }, { id: "086c" }, { id: "087c" }, { id: "088c" }, { id: "089c" }], why: "run.py, smoke tests, accept.sh, convergence test." },
     { id: "009c", lane: "G", at: 3, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" }
