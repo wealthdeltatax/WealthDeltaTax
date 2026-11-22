@@ -30,8 +30,8 @@ Comparators, new outputs, any revenue or burden number for the author.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** block 0 (branch from main 2a578ea)
+- **Next:** block 1 (find where `line_flows` stops short in year T, fix, test, report)
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/123-fl-horizon origin/brief/123-fl-horizon`
-- **State:** ready; not started
+- **State:** in progress, block 0 pushed
 <!-- progress:end -->
