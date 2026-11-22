@@ -103,13 +103,13 @@ def per_path(raw, env, again):
     c1, lost = U.declaration_curve(U.declaration_runs(raw.rate, raw.g[:b.G + 1], _row(env, 'I-D14h'), al), al)
     zlo, zhi = U.tolerant_zone(al, c1)
     old = raw.arm['arm'] == 'legacy'                                                              # M13, M15 and M1's migration read the legacy c: withheld under the household arm (121c)
-    cew = U.welfare(raw.rate, raw.g[:b.G], b.V0, b.weights, _row(env, 'I-H5a'), b.w_min, raw.c, **env.lam)[0] if old else None
+    cew = U.welfare(raw.rate, raw.g[:b.G], b.V0, b.weights, _row(env, 'I-H5a'), b.w_min, raw.c, **env.lam)[0] if old else {}
     pw, hA, hB = b.weights * (b.wealth >= b.w_min), *_assets(env, max(n for _, n in HOLD), P)
     one = lambda v: np.full(P, v)
     return {'decl': {'M7c': {k: c1[i] for i, (k, _) in enumerate(ALPHA)}, 'M7d': {k: lost[i] for i, (k, _) in enumerate(ALPHA)}, 'zone': {'lo': zlo, 'hi': zhi}},
-            'welfare': {k: {s: one(U.wmean(cew[u][m], pw[m]) if pw[m].any() else np.nan) for s, u in SYS} for k, m in bd._groups(b.band).items()} if old else None,
+            'welfare': {k: {s: one(U.wmean(cew[u][m], pw[m]) if pw[m].any() else np.nan) for s, u in SYS} for k, m in bd._groups(b.band).items()} if old else {},
             'lock': {g: {h: one(U.lockin(hA, hB, _row(env, 'I-T7a') / 100, e, n, _row(env, 'I-H5a'))[0]) for h, n in HOLD} for g, e in GAIN},
-            'env': _envelope(raw, env) if old else None, 'mig': _migration(raw, env, again) if old else None, 's1': _s1(raw, env, again)}
+            'env': _envelope(raw, env) if old else {}, 'mig': _migration(raw, env, again) if old else {}, 's1': _s1(raw, env, again)}
 
 
 def _tri(x):
@@ -127,7 +127,7 @@ def cells(e):
             'OD1': {('single', (('alpha_grid', a),), l): _tri(d[l][a]) for l in ('M7c', 'M7d') for a, _ in ALPHA},
             'OW2': {('single', (('embedded_gain_band', g), ('holding_period', h)), None): k[g][h] for g, _ in GAIN for h, _ in HOLD},
             'OS1': {('single', (('quantity', q),), None): _tri(x) for q, x in s1.items()}}
-    if w is not None:                                                                              # the household arm withholds OW1, OW3 and OM1 (`arm.WITHHELD`)
+    if w:                                                                              # the household arm withholds OW1, OW3 and OM1 (`arm.WITHHELD`)
         out['OW1'] = {('single', (('tax_system', s), ('wealth_band', b)), None): w[b][s] for b in w for s, _ in SYS}
         out['OW3'] = {**{(h, ev(b), 'M15a'): v['M15a'][h][b] for h in HZ for b in v['M15a'][h]}, **{('transition', ev(b), 'M15b'): x for b, x in v['M15b'].items()}}
         out['OM1'] = {(h, (), l): m[l][h] for l in m for h in HZ}

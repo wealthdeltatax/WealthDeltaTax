@@ -1,0 +1,6 @@
+point,account_residual_max,unpaid_max,unpaid_B_max,shortfall_lines,ledger_tie_max,ledger_dL_max,i1,error
+min_mid,,,,,,,FAILED,"I1 fails: the book's family value is not the class total, or its pension is not the pension balance"
+median_mid,1.5006662579253316e-11,0.0,0.0,0,1.5916157281026244e-12,4.547473508864641e-13,held (raises in the hook otherwise),
+max_mid,1.3358203432289883e-11,0.0,0.0,0,1.318767317570746e-11,1.3642420526593924e-12,held (raises in the hook otherwise),
+median_low,1.432454155292362e-11,0.0,0.0,0,1.6768808563938364e-12,3.694822225952521e-13,held (raises in the hook otherwise),
+median_high,,,,,,,FAILED,"I1 fails: the book's family value is not the class total, or its pension is not the pension balance"

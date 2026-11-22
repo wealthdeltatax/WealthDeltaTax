@@ -41,8 +41,25 @@ The number of paths per grid point, and whether OT1 and OF1 fit (the agent state
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** blocks 0 to 3. Block 1: `run_grid.py`, smoke test, 121c defect fix in `out_support.py` (outside Touches). Block 2: grid at 1,000 paths; three points complete, `min_mid` and `median_high` fail I1 (reported with inputs). Block 3: `ranges.py`, `ranges.csv`, `docs/model-v3/household-arm-run.md` (grid, checks, ranges, odd list, Next).
+- **Next:** the author reads the note; OT1 and OF1 not run (sweeps, not exercised under the household arm; stop rule); decide per-path GDP growth (the household arm is identical on every path); a brief for the I1 class-floor failures.
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/124-first-run origin/brief/124-first-run`
-- **State:** ready; not started
+- **State:** done, not merged: NEEDS THE AUTHOR (`out_support.py` fix is outside Touches)
 <!-- progress:end -->
+
+**Change report**
+```
+Change report
+- Task: brief 124c, the first household-arm run as ranges over grid points
+- Files changed: docs/model-v3/household-arm-run/ (run_grid.py, ranges.py, grid_results.csv, checks.csv, ranges.csv); docs/model-v3/household-arm-run.md (the note); tests/model_v3/test_run_grid.py (two-path smoke); model_v3/runner/out_support.py (8 lines: withheld groups return {} not None; a 121c defect that made level 1 raise under the household arm; OUTSIDE Touches)
+- What is different now: the household arm runs at level 1 and the first outputs are shown as ranges at labelled grid points, none central
+- New or changed interfaces: `python -I docs/model-v3/household-arm-run/run_grid.py [--paths N]`, `ranges.py`
+- Acceptance criteria: test_legacy_digest and all suites pass: met (10 of 10 suites; model_v3 312 passed); no model file changed: NOT met (out_support.py, the fix above); five grid points run with labels, none central: partly (all five run; two fail I1 before outputs exist); checks reported per point and hold or fail with inputs: met (three hold; two failures reported with point, ratio, line, year); note shows ranges and legacy only as context: met
+- Deviations from the brief: out_support.py edited (needed to run at all); OT1 and OF1 not run (stop rule); 1,000 paths chosen, though the household arm is identical on every path
+- Risks / follow-ups: no spread across paths (constant gdp_g passed to core_run); I1 fails at min_mid (D5, year 78) and median_high (D10a, years 70 and 97); household M2 and the debt path are far below the legacy ones; P4 sign change
+- Instruction friction: none
+- Verification: `python pipeline/run_suites.py` 10 of 10 suites passed; run_grid.py run at 1,000 paths; check_agent_docs run; not run: OT1, OF1
+- Overview sections likely needing an update: the household-arm status
+- Commit / branch: brief/124-first-run
+```
+
