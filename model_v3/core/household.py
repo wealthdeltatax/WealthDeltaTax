@@ -25,6 +25,24 @@ def _ratio(a, b):
     return np.where(b > 0, a / np.where(b > 0, b, 1.0), np.inf)
 
 
+def apply_payment(q, T, source_weights=None, lien=0.0):
+    """The payment half of the step, pure: the WDT payment T on the positions q (class -> value, 'debt' a liability). The classes other than pension and debt pay T - lien
+    pro rata to `source_weights` (default: their value in q); `lien`, the part of T deferred, is added to debt. Pension is never reduced. A payment above the non-pension wealth
+    is capped at it, never raised: the excess is returned as `unpaid` (0 within 1e-12), so the account closes on T - unpaid. Returns (q1, share, unpaid); q is not changed."""
+    T, pool = np.asarray(T, float), [k for k in q if k not in FIXED]
+    if source_weights is not None and set(source_weights) - set(pool):
+        raise ValueError('the payment cannot fall on pension, debt or a class not in pos')
+    w = {k: (np.asarray(q[k], float) if source_weights is None else np.asarray(source_weights.get(k, 0.0), float)) for k in pool}
+    tot = sum(w.values())
+    share = {k: np.where(tot > 0, w[k] / np.where(tot > 0, tot, 1.0), 0.0) for k in pool}                  # no payment, no weights: a cell with no non-pension wealth is not an error (110c)
+    cash = T - lien
+    unpaid = np.where((cash > 0) & (cash > sum(q[k] for k in pool) + 1e-12), cash - np.maximum(sum(q[k] for k in pool), 0.0), 0.0)
+    q1 = {k: (q[k] - (cash - unpaid) * share[k] if k in pool else q[k]) for k in q}
+    if 'debt' in q1 or np.any(lien):
+        q1['debt'] = q1.get('debt', 0.0) + lien
+    return q1, share, unpaid
+
+
 def household_step(cell, pos, flows, rets, defl, convention, T_WDT=0.0, source_weights=None, sink='financial', fin=None, TR=0.0, O=0.0):
     """pos: class -> opening value. flows: Y_L, Y_P, I_D, T_C, C and the pension flows pen_in (contributions plus retained fund income, an aggregate scenario input) and pen_out
     (withdrawal); for legacy, 'c' (the consumption share). rets: 'g' class -> real holding gain rate, 'y' class -> yield rate (used by B only); for legacy 'r'.
@@ -57,17 +75,11 @@ def household_step(cell, pos, flows, rets, defl, convention, T_WDT=0.0, source_w
         q['pension'] = q.get('pension', 0.0) + f('pen_in') - yl.get('pension', 0.0) - f('pen_out')
         q[sink] = q[sink] + S - f('pen_in') + f('pen_out') - sum(yl[k] for k in assets if k != 'pension') + np.asarray(O, float)
         q['debt'] = D - ero
-    pay_pool = [k for k in assets if k not in FIXED]
-    w = {k: (q[k] if source_weights is None else np.asarray(source_weights.get(k, 0.0), float)) for k in pay_pool}
-    if source_weights is not None and set(source_weights) - set(pay_pool):
-        raise ValueError('the payment cannot fall on pension, debt or a class not in pos')
-    tot = sum(w.values())
-    share = {k: np.where(tot > 0, w[k] / np.where(tot > 0, tot, 1.0), 0.0) for k in pay_pool}                  # no payment, no weights: a cell with no non-pension wealth is not an error (110c)
-    for k in pay_pool:
-        q[k] = q[k] - T * share[k]
-    nonpen, fin_w = sum(q[k] for k in pay_pool) + T, sum(q[k] for k in (fin or (sink,))) + T * sum(share[k] for k in (fin or (sink,)))
-    if np.any((T > 0) & (T > nonpen + 1e-12)):
+    q, share, unpaid = apply_payment(q, T, source_weights)
+    if np.any(unpaid > 0):
         raise ValueError('the payment exceeds non-pension wealth; pension is never sold')
+    pay_pool = [k for k in assets if k not in FIXED]
+    nonpen, fin_w = sum(q[k] for k in pay_pool) + T, sum(q[k] for k in (fin or (sink,))) + T * sum(share[k] for k in (fin or (sink,)))
     dnw = sum(q[k] for k in assets) - q['debt'] - nw0
     acct = dict(cell=cell, dNW=dnw, S=S, CG=CG, CG_wedge=wedge, TR=0.0 * dnw, O=np.asarray(O, float) * (convention != 'legacy'), T_WDT=T,
                 pay_over_fin=_ratio(T, fin_w), pay_over_nonpension=_ratio(T, nonpen), pay_exceeds_fin=T > fin_w, shares=share)

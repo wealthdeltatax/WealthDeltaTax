@@ -217,6 +217,18 @@ def _refund_cash(book, fl, r, rest):
     _credit(book, fl, r, -val)
 
 
+def _cap(book, Lp, hold):
+    """A payment Lp (credited pounds) capped at what the line holds on its route; the excess beyond 1e-9 is recorded in unpaid_B, never raised. Returns the payment."""
+    pay = np.where(Lp > hold + 1e-9, np.maximum(hold, 0.0), Lp)
+    book.unpaid_B = book.unpaid_B + (Lp - pay)
+    return pay
+
+
+def shortfall_lines(book):
+    """How many lines have a payment shortfall (unpaid_B > 0): a tax the line could not pay from its non-pension wealth. Zero when the model is right."""
+    return int(np.count_nonzero(book.unpaid_B > 0.0))
+
+
 def _route_tax(book, fl, r, Lr):
     """Settle route r's share Lr of the year's tax (+) or refund (-)."""
     x = book.R[r]
@@ -234,7 +246,7 @@ def _route_tax(book, fl, r, Lr):
         book.inc_total = book.inc_total + pay
         book.paid = book.paid + pay
         fl.income = fl.income + pay
-        short = Lp - pay
+        short = _cap(book, Lp - pay, x['f'] * x['V'])
         _move(book, fl, r, _div(short, x['V']))
         book.E_cash = book.E_cash + short
         _credit(book, fl, r, short)
@@ -244,11 +256,13 @@ def _route_tax(book, fl, r, Lr):
         book.refunded = book.refunded + ret
         _refund_cash(book, fl, r, Ln - ret)
     elif r in ('A', 'B'):
+        Lp = _cap(book, Lp, x['f'] * x['V'])
         _move(book, fl, r, _div(Lp, x['V']))
         book.E_cash = book.E_cash + Lp
         _credit(book, fl, r, Lp)
         _refund_cash(book, fl, r, Ln)
     elif r in _INK:
+        Lp = _cap(book, Lp, x['f'] * x['dd'])
         u_pay = _div(Lp, x['dd'])
         val = _move(book, fl, r, u_pay)
         book.uo[r] = book.uo[r] + u_pay

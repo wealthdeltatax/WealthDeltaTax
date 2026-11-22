@@ -78,3 +78,24 @@ def test_a_cell_with_negative_non_pension_wealth_steps_when_nothing_is_paid():  
     q, a = hh.household_step('x', pos, dict(Y_L=10.0, C=12.0), dict(g={}), DEFL, 'A')
     assert close([q['financial'], a['dNW'], a['pay_over_nonpension']], [-10.0, -2.0, np.inf]) and np.isfinite(sum(q.values()))
 
+
+
+def test_apply_payment_is_pure_never_reduces_pension_and_shares_pro_rata():                 # 116c
+    q = {'financial': np.array([6.0, 2.0]), 'housing': np.array([4.0, 6.0]), 'pension': np.array([9.0, 9.0]), 'debt': np.array([1.0, 0.0])}
+    keep = {k: v.copy() for k, v in q.items()}
+    q1, share, unpaid = hh.apply_payment(q, np.array([2.0, 2.0]))
+    assert all(np.array_equal(q[k], keep[k]) for k in q) and np.array_equal(q1['pension'], q['pension']) and np.array_equal(q1['debt'], q['debt']) and not unpaid.any()
+    assert np.allclose(share['financial'], [0.6, 0.25]) and np.allclose(q1['financial'], [6 - 1.2, 2 - 0.5]) and np.allclose(q1['housing'], [4 - 0.8, 6 - 1.5])
+    w = hh.apply_payment(q, 2.0, {'financial': 1.0, 'housing': 3.0})[1]                    # source weights replace the pro rata
+    assert np.allclose(w['financial'], 0.25) and np.allclose(w['housing'], 0.75)
+    with pytest.raises(ValueError):
+        hh.apply_payment(q, 1.0, {'pension': 1.0})
+
+
+def test_apply_payment_adds_the_lien_to_debt_and_caps_a_payment_above_non_pension_wealth():
+    q = {'financial': np.array([3.0]), 'pension': np.array([20.0]), 'debt': np.array([1.0])}
+    q1, _, unpaid = hh.apply_payment(q, 2.0, lien=0.5)
+    assert q1['debt'][0] == 1.5 and q1['financial'][0] == 3.0 - 1.5 and not unpaid.any()      # 0.5 deferred, 1.5 paid
+    q1, _, unpaid = hh.apply_payment(q, 5.0)                                                  # above the 3.0 held: capped, reported, not raised, pension untouched
+    assert q1['financial'][0] == 0.0 and unpaid[0] == 2.0 and q1['pension'][0] == 20.0
+    assert hh.apply_payment(q, 3.0 + 1e-13)[2][0] == 0.0                                      # within 1e-12 of the holding is not a shortfall

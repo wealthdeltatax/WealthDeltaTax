@@ -58,3 +58,21 @@ def test_rebase_sets_the_pension_basis_and_the_pension_alone_is_assessed_without
     b.pen = np.array([30.0, 0.0])
     L = K.assess(b, FLAT, 1.0).L
     assert L[0] == pytest.approx(2.0) and L[1] == 0.0        # 0.1 x 20 on the line whose pension grew; none on the other
+
+
+@pytest.mark.parametrize('route', ['A', 'B', 'C'])
+def test_a_payment_above_what_the_line_holds_is_capped_and_reported_never_raised(route):
+    b = K.Book(2, {route: 100.0})
+    b.pen = np.array([300.0, 20.0])                                        # line 0: the pension grew by 3x its units, tax 150 > 100 held; line 1: 10 < 100 held
+    K.assess(b, lambda x: np.full(np.shape(x), 0.5), 1.0)
+    f = b.R[route]['f']
+    assert f[0] == pytest.approx(0.0) and f[1] == pytest.approx(0.9) and (f >= 0).all()            # the first pays all it holds, not more
+    assert b.unpaid_B[0] == pytest.approx(50.0) and b.unpaid_B[1] == 0.0 and K.shortfall_lines(b) == 1
+    assert b.pen[0] == 300.0 and b.check()['units'] < 1e-9                 # the pension is not sold
+
+
+def test_no_shortfall_without_a_pension_over_several_years():
+    b = K.Book(3, {'A': 100.0, 'C': 60.0, 'D': 40.0}, has_cv=True)
+    for g in (0.3, -0.2, 0.5, 0.1):
+        K.step_year(b, lambda x: np.full(np.shape(x), 0.9), 1.0, g, 0.02)
+    assert K.shortfall_lines(b) == 0 and not b.unpaid_B.any()
