@@ -40,11 +40,11 @@ Whether the digest hashes the pack manifest (agent reports).
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
+- **Done:** block 0 (progress block pushed).
+- **Next:** block 1: `decile_composition` in `build_gbr.py`, `GBR/decile_composition.csv`, manifest, NOTICE, pack version 3, second build byte-identical, `test_legacy_digest`.
 - **Decisions:**
 - **Gotchas:**
-- **Resume:** (exact branch name and fetch line, last block pushed, first action)
+- **Resume:** branch `brief/115-decile-composition`; `git fetch origin && git checkout brief/115-decile-composition`; first action: read `docs/model-v3/kernel-wiring/decile_composition.py` and `build_gbr.py` `cells()`.
 - **Not run:**
-- **State:** ready; not started
+- **State:** in progress, block 0 done
 <!-- progress:end -->
