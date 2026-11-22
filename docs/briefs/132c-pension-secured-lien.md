@@ -39,8 +39,9 @@ The deferral rate (read from the Route B lien; the agent states the value and it
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0
-- **Next:** block 1 (`core/pension_lien.py`, hook calls, account `PL`, tests)
+- **Done:** blocks 0, 1 (`core/pension_lien.py`; hook: lien accrues at `book.r_def` (kernel default 0.0, no register row), `_pay` carries the unpaid tax as `PL`, `settle` at death and horizon called from `revenue.run_lines`, `account()` reports `PL`, `lien_new`, `settled_*`; I1 now reads family value = non-pension classes minus `PL`; budgets: `arm.py` 280, `pension_lien.py` 80; `tests/model_v3/conftest.py` LAYER row for the new module (named here, one line); the 127c test of the net-financial debt replaced as the brief changes that finding; all suites pass, digest, account and ledger CSVs and the three passing points byte-identical)
+- **Stopped (stop rule):** the tax a line cannot pay at `median_high` (and part of `min_mid`) is not a class-payment shortfall: the kernel itself caps collection at the line's route units and records the excess in its `unpaid_B`, then holds family value 0 (no negative units can be created from zero units). A lien there must be netted from the family value: a kernel change. See the report. The class-payment case (`min_mid` D4, `lien_new` > 0) is carried by the lien.
+- **Next:** author's ruling on the kernel-cap case; then block 2 (ledger receivable, `revenue.py`) and block 3
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/132-pension-lien origin/brief/132-pension-lien`
-- **State:** in progress
+- **State:** stopped after block 1, awaiting ruling
 <!-- progress:end -->

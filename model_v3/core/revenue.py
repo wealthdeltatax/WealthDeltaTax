@@ -104,6 +104,8 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
                         dv += v
                 if hook is not None:
                     hook.reconcile(book)                                                    # a death's payments are made in the year they occur (120c), not at the next year's opening
+                if hh:
+                    hook.settle(book)                                                       # the pension-secured lien is settled at a death (132c)
             if t == T and hh:                               # the household arm settles Route D and B at the horizon, in its last year (120c); the legacy arm and its hook do not
                 for kind, fl in K.settle_terminal(book):
                     if kind == 'terminal_D':
@@ -111,6 +113,7 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
                     else:
                         lv += _value(fl, n)
                 hook.reconcile(book)
+                hook.settle(book)                                                           # and at the horizon (132c)
             W1 = W0 * (1.0 + gr) * (1.0 - c) if hook is None else hook.grown(W0, gr)   # wealth after growth and flow, before tax (read after the year: the household hook sets it in the step)
             pay1 = W1 >= wmin * il
             rate1 = np.asarray(rate_fn(W1 / il), float)                                    # the kernel reads the rate at the new wealth

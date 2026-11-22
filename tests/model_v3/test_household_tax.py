@@ -113,16 +113,16 @@ def test_a_death_in_the_last_but_one_year_and_the_horizon_leave_the_books_and_cl
     assert [t for t, g in h.rec if g > 1e-6] == [4, 5] and max(h.pre_gaps) < 1e-9
 
 
-def test_a_tax_on_a_line_in_debt_is_followed_by_the_book_and_recorded_as_unpaid():
-    """127c: the classes of a line with negative non-pension wealth cannot pay the tax the kernel took: the book follows the kernel (its total falls by the tax), the unpaid amount is the alarm in the hook and in unpaid_B; nothing raises."""
+def test_a_tax_the_classes_cannot_pay_becomes_a_lien_on_the_pension_not_a_debt_or_an_alarm():
+    """132c (replaces the 127c finding that the book took it as net financial debt and raised unpaid_B): the unpaid part is carried as PL, the kernel's family value stays net of it, no alarm."""
     h = arm.HouseholdHook(ST, GAIN, 0.0157)
     book = book_for(ST)
     K.step_year(book, RATE, 1.0, np.zeros(14), 0.0, hook=h, t=1)
     h.q = {**h.q, 'property': np.full(14, 0.1), 'net_financial': np.full(14, -0.3), 'physical': np.zeros(14)}
-    h.T, h.unpaid, b0, n0 = 0.0, 0.0, book.unpaid_B.copy(), sum(h.q[k] for k in arm.CLASSES[:3])
+    h.T, h.new, h.PL, b0, n0 = 0.0, 0.0, np.zeros(14), book.unpaid_B.copy(), sum(h.q[k] for k in arm.CLASSES[:3])
     q1 = h._pay(h.q, np.full(14, 0.01))
-    assert np.allclose(h.unpaid, 0.01) and np.allclose(h.T, 0.0) and np.allclose(book.unpaid_B - b0, 0.01)
-    assert np.allclose(sum(q1[k] for k in arm.CLASSES[:3]), n0 - 0.01) and K.shortfall_lines(book) == 14
+    assert np.allclose(h.new, 0.01) and np.allclose(h.PL, 0.01) and np.allclose(h.T, 0.0) and (book.unpaid_B == b0).all()
+    assert np.allclose(sum(q1[k] for k in arm.CLASSES[:3]), n0)                       # the classes are untouched: the lien, not a debt in net financial
 
 
 def test_a_line_with_no_units_stays_at_the_floor_and_the_flow_that_cannot_enter_is_the_alarm():

@@ -12,7 +12,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from model_v3.core import household as hh
+from model_v3.core import household as hh, pension_lien as pl
 
 CLASSES = ('property', 'net_financial', 'physical', 'pension')
 PROPERTY_GAIN = 0.016455                                                                            # F-20: the JST housing holding gain, all years (cell_baseline.py); a scenario value, not a register row
@@ -106,6 +106,7 @@ class HouseholdHook:
 
     def _start(self, book):
         t = lambda v: np.tile(np.asarray(v, float), book.n // len(self.st['income']))
+        self.PL = np.zeros(book.n)                                                                       # the pension-secured lien per line (132c): the kernel's family value is net of it
         self.q, self.book, self.rcv = {**{k: t(v) for k, v in self.st['pos'].items()}, 'debt': np.zeros(book.n)}, book, {k: np.zeros(book.n) for k in CLASSES[:3]}
         self.inc, self.sav, self.acc = t(self.st['income']), t(self.st['sav']), t(self.st['acc'])
         if self.c is None:
@@ -125,17 +126,19 @@ class HouseholdHook:
             return g, -self.c
         gn = returns(self.q, self.gn)
         self.q1, self.acct = self._year(self.q, inc, self.sav, self.acc, gn)
-        self.nw0, self.T, self.unpaid = sum(self.q[k] for k in CLASSES), 0.0, 0.0
-        N1 = self._n(self.q1)
+        PL0, self.PL = self.PL, pl.accrue(self.PL, book.r_def)                                      # the lien accrues at the kernel's deferral rate (132c)
+        self.nw0, self.T, self.unpaid, self.new, self.accr, self.set_c, self.set_p = sum(self.q[k] for k in CLASSES) - PL0, 0.0, 0 * PL0, 0.0, self.PL - PL0, 0.0, 0.0
+        N1, N0 = self._n(self.q1), N0 - PL0
         dead = np.abs(N0) <= 1e-12                                                                 # the class floor (127c): a line whose units are all 0 cannot carry any flow (units grow multiplicatively), so it stays at 0; a line with negative wealth keeps its units
+        N1, self.PL = N1 - self.PL, np.where(dead, 0.0, self.PL)
         self.fl = np.where(dead, -N1, 0.0)                                                          # what the floor added (+) or removed (-) in the year; an alarm, never tuned away
         for k in CLASSES[:3]:
             self.q1[k] = np.where(dead, 0.0, self.q1[k])
         book.unpaid_B = book.unpaid_B + np.abs(self.fl)                                             # recorded as the model's shortfall alarm (shortfall_lines counts it)
         N0 = np.where(dead, 1.0, N0)
         g_n = sum(np.asarray(gn[k]) * self.q[k] for k in CLASSES[:3]) / N0
-        book.pen, self.W_after = self.q1['pension'], sum(self.q1[k] for k in CLASSES)
-        return g_n, self._n(self.q1) / (N0 * (1.0 + g_n)) - 1.0                                     # growth then the flow reach the household's closing non-pension total exactly (I1)
+        book.pen, self.W_after = self.q1['pension'], sum(self.q1[k] for k in CLASSES) - self.PL
+        return g_n, (self._n(self.q1) - self.PL) / (N0 * (1.0 + g_n)) - 1.0                                     # growth then the flow reach the household's closing non-pension total exactly (I1)
 
     def _year(self, q, inc, sav, acc, gn):
         """The household's year before any tax (convention A): the closing balances and the account of balances `q` with income `inc`, saving ratio `sav`, pension accrual `acc` and the holding gains `gn`."""
@@ -144,8 +147,8 @@ class HouseholdHook:
     def _pay(self, q, T):
         """The payment T (a line's value moved to the state, negative a refund) on the classes q, pro rata to the positive non-pension balances; pension is never sold. Adds to the year's T and unpaid."""
         q1, _, un = hh.apply_payment(q, T, {k: np.maximum(q[k], 0.0) for k in CLASSES[:3]})
-        self.T, self.unpaid = self.T + T - un, self.unpaid + un
-        q1['net_financial'], self.book.unpaid_B = q1['net_financial'] - un, self.book.unpaid_B + un     # the kernel already took the whole tax from the line: the book follows it, and what the classes could not pay is the alarm (127c)
+        self.T, self.new = self.T + T - un, self.new + un
+        self.PL = pl.add(self.PL, un)                                                              # the kernel took the whole tax from the line's units (net of the lien): what the classes cannot pay is carried as a lien on the pension (132c)
         for k in CLASSES[:3]:
             self.rcv[k] = self.rcv[k] + q[k] - q1[k]                                              # the state's receipt by class: the value the line paid out of each
         return q1
@@ -160,7 +163,7 @@ class HouseholdHook:
         return {k: float(self.gn[k]) for k in CLASSES[:3]}
 
     def _check(self, book):
-        N = self._n(self.q)
+        N = self._n(self.q) - (0.0 if self.c is not None else self.PL)                          # the family value is net of the lien
         if np.any(np.abs(book.family_true() - N) > 1e-9 * np.maximum(1.0, np.abs(N))) or (self.c is None and np.any(book.pen != self.q['pension'])):
             raise ValueError("I1 fails: the book's family value is not the class total, or its pension is not the pension balance")
 
@@ -168,8 +171,27 @@ class HouseholdHook:
         """Value the kernel moved outside `post` (a death's tax, settlements, the heir's tax; the horizon's: call it after settle_terminal) is paid from the classes, in the year's account. Pension passes to the heir unchanged."""
         if self.c is not None:
             return
-        gap = self._n(self.q) - book.family_true()
+        gap = self._n(self.q) - self.PL - book.family_true()
         self.q = self._pay(self.q, np.where(np.abs(gap) > 1e-12 * np.maximum(1.0, np.abs(self._n(self.q))), gap, 0.0))
+        self._check(book)
+
+    def settle(self, book):
+        """Settle the lien at a death or the horizon (132c; revenue.run_lines calls it after `reconcile`): from the positive non-pension classes, then a one-off draw on the pension (the only time it is drawn); the kernel's family
+        value, net of the lien, rises by the draw, so the route units are rescaled to it (as `_start` does). What the pension cannot cover stays in the lien and in unpaid_B (an alarm)."""
+        if not np.any(self.PL):
+            return                                                                                  # no lien, nothing moves (the account and the ledger of a line that never needed it are unchanged, bit for bit)
+        q3 = {k: self.q[k] for k in CLASSES[:3]}
+        q1, pen1, paid, d, rest = pl.settle(q3, self.PL, self.q['pension'])
+        self.set_c, self.set_p = self.set_c + (self.PL - rest - d), self.set_p + d
+        self.q, self.PL, self.unpaid = {**self.q, **q1, 'pension': pen1}, rest, self.unpaid + rest
+        book.unpaid_B = book.unpaid_B + rest
+        for k in CLASSES[:3]:
+            self.rcv[k] = self.rcv[k] + paid[k]                                                    # the state's receipt by class, the draw in the classes' mix
+        fam = book.family_true()
+        f = np.where(fam != 0, (self._n(self.q) - self.PL) / np.where(fam != 0, fam, 1.0), 1.0)
+        for x in book.R.values():
+            x.update({k: x[k] * f for k in ('V', 'dd', 'Wp', 'ppu')})
+        book.pen = book.penp = pen1.copy()
         self._check(book)
 
     def post(self, book, fl):
@@ -181,10 +203,10 @@ class HouseholdHook:
 
     def account(self):
         """The last year's account by line: dNW (pension included), S, CG, T_WDT, unpaid (a model alarm), the payment over net financial and over non-pension wealth, and the residual dNW - (S + CG - T_WDT)."""
-        q0, dnw = self.q1, sum(self.q[k] for k in CLASSES) - self.nw0
+        q0, dnw = self.q1, sum(self.q[k] for k in CLASSES) - self.PL - self.nw0
         fin, nonpen = q0['net_financial'], sum(q0[k] for k in CLASSES[:3])
         return dict(dNW=dnw, S=self.acct['S'], CG=self.acct['CG'], T_WDT=self.T, unpaid=self.unpaid, pay_over_fin=np.where(self.T == 0, 0.0, hh._ratio(self.T, fin)), pay_over_nonpension=np.where(self.T == 0, 0.0, hh._ratio(self.T, nonpen)),
-                    residual=dnw - (self.acct['S'] + self.acct['CG'] - self.T + self.fl - self.unpaid), floor=self.fl)
+                    residual=dnw - (self.acct['S'] + self.acct['CG'] - self.T + self.fl - self.new - self.accr), floor=self.fl, PL=self.PL, lien_new=self.new, settled_classes=self.set_c, settled_pension=self.set_p)
 
     def system(self, kind, rate, G, payer):
         """A comparator tax on the account (126c, M13): terminal wealth (pension included) and the lifetime tax, both (L,), of the lines over G years under `kind` ('none'; 'stock_wealth_tax' on the opening net worth, pension included;
