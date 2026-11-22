@@ -37,11 +37,11 @@ None the agent must resolve; a moment whose analogue is unclear is marked `defin
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0; block 1: `household-arm-validation/make_map.py`, `moments_map.csv` (33 rows: held yes 5, partly 4, no 24; validation moments 10; only BF-14 is both held and a validation moment; computable 5, definition differs 4, not held 24).
-- **Next:** block 2: `validate.py` and `comparison.csv` for BF-11, BF-13, BF-14, BF-15, GB-01 (cells baseline `model_v3/core/cells.py` with `cell-baseline/inputs_used.json`: saving min, median, max at the mid regime, untaxed), toy-case tests of the helpers.
-- **Decisions:** AB-04 is `not held` (its observed 1.4tn to 2.3tn is the paper's, only 2020-22 financial wealth is held); BF-12, EER-01 and TZ-01 are `definition differs` (no analogue: per-adult deciles, top 1%, above 50m).
-- **Gotchas:** the validation moments (transitions, passive/active share) are almost all not held, so the brief's intersection is one moment; the stage split of wealth in the cell baseline is by person share, so BF-14's model number is the person share.
-- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/125-validate-099r origin/brief/125-validate-099r`; last block pushed: 1.
-- **Not run:** blocks 2 and 3.
-- **State:** in progress; block 1 pushed
+- **Done:** block 0; block 1 (`moments_map.csv`: 33 rows; held yes 5, partly 4, no 24; validation moments 10; only BF-14 is both held and a validation moment; computable 5, definition differs 3, not held 25); block 2 (`validate.py`, `comparison.csv` 9 rows, `tests/model_v3/test_validate_125.py`; budget and rule tests pass).
+- **Next:** block 3: the note `docs/model-v3/household-arm-validation.md`, suites in the background, check_agent_docs, change report, push.
+- **Decisions:** AB-04 `not held` (its 1.4tn to 2.3tn is the paper's); BF-12, EER-01, TZ-01 `definition differs` (no analogue). BF-11, BF-13, BF-14 labelled `definition differs` with numbers shown; GB-01 and BF-15 compared with the held annual DGD8 (2019, 2020, 2022, 2024, 2025).
+- **Gotchas:** the saving axis is built from the same ONS series as the observed ratio, so `inside` is by construction; the retired wealth share is the person share (stage split by person share).
+- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/125-validate-099r origin/brief/125-validate-099r`; last block pushed: 2.
+- **Not run:** block 3, suites.
+- **State:** in progress; block 2 pushed
 <!-- progress:end -->
