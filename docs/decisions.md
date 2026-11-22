@@ -252,3 +252,6 @@ Author: saving by cell is one uniform ratio (the ONS non-pension saving ratio, m
 ## 2026-11-21: 110c income gap
 Block 1 found cell income (I-D9 band means times households) 19.5% below ONS B.6g, while the saving ratio is a national-accounts ratio of B.6g. Author: scale every cell's income by one factor to the B.6g total, keeping band proportions and the retired split; label the run aggregate-constrained; keep the unscaled run as a sensitivity.
 
+## 2026-11-22: pension accrual on income
+110c (untaxed cell baseline, merged) found wealth over GDP at year 100 of 0.85, 2.04 and 9.9 across the three return regimes (median saving), and that the path is set by the pension accrual label (I-D1k, a share of opening net worth: 1.12% mid-point, 2.7 times today's ONS D.8). Legacy untaxed is 0.61 at year 100. Author: base the accrual on income (D.8 over B.6g), central the observed 2024 value, range the 1998-2025 min and max, no mid-point label; scale cell income to B.6g and rerun (brief 111c). The branch `brief/110-cell-baseline-run` (a parallel earlier attempt, blocks 0 to 2) is superseded by the merged run and is not to be merged.
+
