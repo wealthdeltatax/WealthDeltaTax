@@ -41,11 +41,11 @@ Whether the route-value fallback should weight by route value or by units (agent
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
+- **Done:** block 0 (this block).
+- **Next:** block 1, pension in the book (`Book.pen`, `Book.penp`, `assess`, `rebase`, route fallback).
 - **Decisions:**
 - **Gotchas:**
-- **Resume:** (exact branch name and fetch line, last block pushed, first action)
-- **Not run:**
-- **State:** ready; not started
+- **Resume:** branch `brief/116-work`; `git fetch origin && git checkout brief/116-work`; last block pushed: 0; first action: read kernel-wiring-design 2.5, 3.3, 3.4, W4 row, then `Book` and `assess` in kernel.py.
+- **Not run:** everything.
+- **State:** in progress (block 0)
 <!-- progress:end -->
