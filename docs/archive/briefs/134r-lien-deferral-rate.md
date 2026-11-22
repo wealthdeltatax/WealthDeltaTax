@@ -1,6 +1,6 @@
 # 134: Evidence and a register row for the lien deferral rate
 
-- **Status:** ready
+- **Status:** research complete; awaiting author ruling
 - **Author/date:** K. Ogata with the guru, 2026-11-22
 - **Depends on:** 132c (merged)
 - **Read:** `docs/model-v3/household-arm-lien.md` ("The rule as built"); `docs/model-v3/inputs.md` ("Rows and judgement rows", D11 discount schedule); `docs/agents/reference/research/reference-workflow.md`; archived `docs/archive/briefs/080r-declared-alpha-evidence.md` (note form).
@@ -34,7 +34,22 @@ None.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **State:** ready; not started
+- **Done:** `docs/research/134r-lien-deferral-rate.md` written with 11 UK official sources, the HMRC IHT and CGT comparators, HMT's 2% real risk-free benchmark and 3% STPR, nominal student-loan and mortgage comparators, and a proposed I-D15a row (0 / 2 / 3% real, all (J)).
+- **Next:** author rules on pricing principle (2% risk-free financing benchmark or 3% STPR), whether 0% remains the policy floor, and whether the same rate applies to Route B and the household pension lien.
+- **Corrections to conversational answer:** 4% is not retained as the proposed high; no primary source supported it. The earlier lifetime-mortgage figure is omitted because it was not verified. CGT statutory instalment/deferment provisions are distinguished from ordinary UK residential-property CGT, normally payable within 60 days.
+- **Not run:** no code or model run, as required by scope.
+- **State:** note pushed; brief awaits author ruling
 <!-- progress:end -->
+
+```
+Change report
+- Task: 134r, evidence and a register row for the lien deferral rate
+- Files changed: `docs/research/134r-lien-deferral-rate.md` (new); `docs/briefs/134r-lien-deferral-rate.md` (progress block)
+- What is different now: sourced UK comparators and a provisional row proposal are recorded; the note distinguishes a contractual lien charge, the state's real risk-free financing benchmark and social time preference
+- New or changed interfaces: none
+- Acceptance criteria: candidate quantities, rates, dates/bases and source links recorded; proposed row complete with (J) flags; no code or model changes
+- Deviations from the brief: no friction-log entry; the research workflow itself did not fail. The brief's request to append friction applies only when an instruction, workflow or tool failed.
+- Risks / follow-ups: I-D15a is a placeholder pending register namespace check and author approval; 0 / 2 / 3% is judgemental; the 2% benchmark is not a directly observed price for a pension-secured WDT lien
+- Verification: primary GOV.UK/HMT/BoE/DMO pages read on 2026-11-22; no model suites run because this is a documentation-only research task
+- Commit / branch: `brief/134`
+```

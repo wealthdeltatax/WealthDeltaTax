@@ -264,7 +264,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "3", name: "Agent 3", note: "Out of tokens" },
     { id: "4", name: "Agent 4", note: "Out of tokens" },
     { id: "5", name: "Agent 5", note: "Out of tokens" },
-    { id: "6", name: "Agent 6", note: "Free: takes the chain in importance order: 133c, 136c, 135c, 134r, 131r" },
+    { id: "6", name: "Agent 6", note: "Free: takes the chain in importance order: 133c, 136c, 135c, 131r" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
   ];
@@ -274,7 +274,6 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
         { id: "133c", lane: "6", at: 0, len: 1, st: "ready", t: "Carry the tax the kernel cannot collect as a lien (median_high)", needs: [], why: "132c did not carry median_high: the kernel caps at route units. Author picks the design (kernel-held lien or callback) before release.", files: "model_v3/core/kernel.py, pension_lien.py, arm.py" },
     { id: "136c", lane: "6", at: 1, len: 1, st: "ready", t: "Why the household arm sits an order below legacy: flow and revenue decomposition", needs: [], why: "Household M2 and the debt path are far below legacy; decompose base size, tax rate, deaths, income and composition before any number is trusted; report defects, fix none.", files: "docs/model-v3/household-vs-legacy/" },
     { id: "135c", lane: "6", at: 2, len: 1, st: "ready", t: "Per-path loose ends: OW1 withheld, two I1 alarms diagnosed, ledger tie gap", needs: [{ id: "133c" }], why: "128c merged; close the four open items without changing economics.", files: "model_v3/runner/arm.py, run_grid.py" },
-    { id: "134r", lane: "6", at: 3, len: 1, st: "ready", t: "Evidence and register row for the lien deferral rate", needs: [], why: "r_def is 0.0 with no register row; propose low, central, high from HMRC, gilt and Green Book evidence; no rate chosen for revenue.", files: "docs/research/134r-lien-deferral-rate.md" },
     { id: "131r", lane: "6", at: 4, len: 1, st: "ready", t: "Pension valuation basis (IFS against ONS SCAPE) as a labelled scenario on the starting stock", needs: [], why: "Published IFS uplifts only; side computation, no model change; how much of the BF-11 and BF-13 gaps is a basis artefact.", files: "docs/research/131r-pension-basis-sensitivity.md" },
     { id: "089c", lane: "G", at: 0, len: 1, st: "hold", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [{ id: "088c" }, { id: "090c" }], why: "Parked: measured against the legacy 3.5%, which is abandoned (094r to 096r). Rule on feasibility after the replacement exists.", files: "runner/sweeps.py, out_sweeps.py" },
     { id: "057c", lane: "G", at: 1, len: 1, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "085c" }, { id: "086c" }, { id: "087c" }, { id: "088c" }, { id: "089c" }], why: "run.py, smoke tests, accept.sh, convergence test." },
