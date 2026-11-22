@@ -39,8 +39,8 @@ The deferral rate (read from the Route B lien; the agent states the value and it
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** block 0
+- **Next:** block 1 (`core/pension_lien.py`, hook calls, account `PL`, tests)
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/132-pension-lien origin/brief/132-pension-lien`
-- **State:** ready; not started
+- **State:** in progress
 <!-- progress:end -->
