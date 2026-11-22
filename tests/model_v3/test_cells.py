@@ -44,3 +44,17 @@ def test_a_run_is_deterministic():
     a = [ce.run_cell(c, 100, 0.01, 0.0112, 0.0157, RETS) for c in CELLS]
     b = [ce.run_cell(c, 100, 0.01, 0.0112, 0.0157, RETS) for c in CELLS]
     assert all(np.array_equal(x[1][k], y[1][k]) for ra, rb in zip(a, b) for x, y in zip(ra, rb) for k in ce.CLASSES)
+
+
+def test_scaling_fixes_the_income_total_and_keeps_the_proportions():   # 111c
+    sc, k = ce.scaled(CELLS, 1.8014e12)
+    assert sum(c['households'] * c['income'] for c in sc) * ce.UNIT == pytest.approx(1.8014e12, rel=1e-12) and k > 1
+    assert all(a['income'] / b['income'] == pytest.approx(k) and a['pos'] == b['pos'] and a['households'] == b['households'] for a, b in zip(sc, CELLS))
+    assert sc[1]['income'] / sc[0]['income'] == pytest.approx(0.44)
+
+
+def test_the_accrual_in_year_one_is_the_share_times_the_income_total():   # 111c
+    sc, _ = ce.scaled(CELLS, 1.8014e12)
+    accrual = sum(c['households'] * (ce.run_cell(c, 1, 0.0101, 0.0483, 0.0157, RETS)[0][2]['S'] - 0.0101 * c['income']) for c in sc) * ce.UNIT
+    assert accrual == pytest.approx(0.0483 * 1.8014e12, rel=1e-9)
+
