@@ -260,7 +260,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 (function () {
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the V3 build as it lands" },
-    { id: "2", name: "Agent 2", note: "Free (126c merged)" },
+    { id: "2", name: "Agent 2", note: "Free (126c merged); 132c (pension lien) queued" },
     { id: "3", name: "Agent 3", note: "Waiting (no brief out)" },
     { id: "4", name: "Agent 4", note: "Waiting; 057c is held (after 089c)" },
     { id: "5", name: "Agent 5", note: "Waiting (129r done by an external agent)" },
@@ -277,6 +277,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "126c", lane: "2", at: 0, len: 1, st: "done", t: "Comparators on the account: M3, M12, M13, M15, M9 return", needs: [], why: "Each comparator reads the account base (S, CG, C, untaxed path); no legacy c under the household arm.", files: "burden.py, support.py, arm.py, outputs.yml" },
     { id: "127c", lane: "6", at: 1, len: 1, st: "done", t: "I1 at the class floor: exhausted lines report through alarms", needs: [{ id: "124c" }], why: "min_mid and median_high raise I1; fix the floor only, no economics change; passing points byte-identical.", files: "model_v3/runner/arm.py, core/household.py" },
     { id: "128c", lane: "6", at: 2, len: 1, st: "ready", t: "Per-path market returns in the household arm (market-return risk only, labelled)", needs: [{ id: "127c" }], why: "Author ruling: JST-based path returns drive net financial and pension around scenario rates; GDP growth stays constant; zero deviation byte-identical.", files: "model_v3/runner/arm.py" },
+    { id: "132c", lane: "2", at: 0, len: 1, st: "ready", t: "Pension-secured lien for tax a line cannot pay from non-pension wealth", needs: [], why: "Author ruling: unpaid WDT becomes a lien on the pension, settled at death and horizon (classes first, then a one-off pension draw); ledger receivable.", files: "model_v3/core/pension_lien.py, arm.py, revenue.py" },
     { id: "129r", lane: "5", at: 0, len: 1, st: "done", t: "WAS longitudinal access and feasibility audit (no licence)", needs: [], why: "Author approved the audit only: what is reachable without UKDS, what a licence adds, evidence class per parameter family.", files: "docs/research/129r-was-access-audit.md" },
     { id: "131r", lane: "5", at: 1, len: 1, st: "ready", t: "Pension valuation basis (IFS against ONS SCAPE) as a labelled scenario on the starting stock", needs: [], why: "Published IFS uplifts only; side computation, no model change; how much of the BF-11 and BF-13 gaps is a basis artefact.", files: "docs/research/131r-pension-basis-sensitivity.md" },
     { id: "089c", lane: "3", at: 1, len: 1, st: "hold", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [{ id: "088c" }, { id: "090c" }], why: "Parked: measured against the legacy 3.5%, which is abandoned (094r to 096r). Rule on feasibility after the replacement exists.", files: "runner/sweeps.py, out_sweeps.py" },
