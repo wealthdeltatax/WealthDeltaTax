@@ -1,5 +1,7 @@
 """
 cell_baseline.py -- brief 110c: the untaxed baseline of the ten cells under convention A (and B, and the legacy rule), 100 years.
+Brief 111c reruns it with the pension accrual as a share of income (I-D1k, D.8 over B.6g) and every cell's income scaled by one factor to the B.6g total of 2024 (the run is labelled
+aggregate-constrained; the unscaled run is kept as a sensitivity).
 A one-off measurement outside model_v3: it imports model_v3.core.cells and the runner's context, and edits neither. Nothing is tuned.
 
 Run from the repository root:   python -I docs/model-v3/cell-baseline/cell_baseline.py
@@ -81,7 +83,7 @@ def tab(head, rows):
     return '\n'.join(out + ['| ' + ' | '.join(str(c) for c in r) + ' |' for r in rows])
 
 
-def tables(res, runs, pack, reg, sav, etb, g):
+def tables(res, runs, pack, reg, sav, etb, g, x):
     """tables.md: the units reconciliation, the runs, the account terms, the sensitivities and the checks."""
     P = lambda v, d=1: f'{v:.{d}f}'
     wd = lambda var: next(r['value'] for r in pack.tables['wealth_distribution'] if r['variable'] == var and r['band'] == 'all')
@@ -90,10 +92,10 @@ def tables(res, runs, pack, reg, sav, etb, g):
     pers = sum(r['persons'] for r in pack.tables['cell_weights'])
     inc = sum(x['households'] * x['income'] for x in base) * ce.UNIT
     W0 = float(res['A_mid_median']['W'][0])
-    b6g = {y: float(r['value']) for r in rows_of('derived_ons_flows.csv', '101r') if r['item'] == 'B6g_gdhi' for y in [r['year']]}
     d8 = {r['year']: float(r['value']) for r in rows_of('derived_ons_flows.csv', '101r') if r['item'] == 'D8_pension_adj'}
-    acc1 = reg['I-D1k'].central / 100 * W0
-    u = ['### Units and reconciliation (nothing rescaled)\n',
+    acc1 = reg['I-D1k'].central / 100 * inc
+    inc_raw = sum(c['households'] * c['income'] for c in x['raw']) * ce.UNIT
+    u = ['### Units and reconciliation (wealth and households as the pack has them; income scaled to B.6g 2024)\n',
          'Money is carried in thousands of pounds per household inside the module (so the identity check is not at the mercy of rounding) and reported in pounds. Weights are households.\n',
          tab(['quantity', 'cells', 'reference', 'gap'], [
              ['households (millions)', P(n.sum() / 1e6, 3), f'{wd("households") / 1e3:.3f} (pack, all)', f'{P(100 * (n.sum() / (wd("households") * 1e3) - 1), 2)}%'],
@@ -101,11 +103,11 @@ def tables(res, runs, pack, reg, sav, etb, g):
               f'{P(100 * (pers / (n.sum() * reg["I-D4h"].central) - 1), 1)}% against central, {P(100 * (pers / (n.sum() * reg["I-D4h"].low) - 1), 1)}% against low'],
              ['wealth (pounds, billions)', P(W0 / 1e9, 1), f'{wd("wealth_total"):.0f} (pack, all)', f'{P(100 * (W0 / 1e9 / wd("wealth_total") - 1), 2)}%'],
              ['wealth over GDP at the start', P(W0 / 1e9 / wd('gdp'), 2), f'{wd("gdp"):.0f} billion GDP (pack, 2020 to 2022 mean)', 'by construction the pack total'],
-             ['pension accrual in year 1 (pounds, billions), I-D1k mid-point label times wealth', P(acc1 / 1e9, 0), f'{d8["2020"] / 1e3:.0f} (ONS D.8 2020), {d8["2021"] / 1e3:.0f} (2021), {d8["2022"] / 1e3:.0f} (2022)', f'{P(acc1 / 1e6 / d8["2021"], 1)} times the 2021 value'],
-             ['non-pension saving in year 1 at the median ratio (pounds, billions)', P(sav['median'] * inc / 1e9, 0), f'{next(float(r["value"]) for r in rows_of("derived_ons_flows.csv", "101r") if r["item"] == "nonpension_saving_GBPm" and r["year"] == "2021") / 1e3:.0f} (ONS non-pension saving 2021)', 'not comparable in level (a ratio of income)'],
-             ['income (pounds, billions, per household table, FYE 2024 level, gross)', P(inc / 1e9, 0), f'{b6g["2020"] / 1e3:.0f} (ONS B.6g 2020), {b6g["2021"] / 1e3:.0f} (2021), {b6g["2022"] / 1e3:.0f} (2022); disposable, a different concept',
-              f'{P(100 * (inc / 1e6 / b6g["2021"] - 1), 0)}% against 2021']]),
-         '\nThe wealth total matches the pack by construction (band wealth over band households); the income gap is a concept and price-year gap (gross against disposable, FYE 2024 income against 2020 to 2022 wealth), reported and not forced.\n']
+             ['pension accrual in year 1 (pounds, billions), I-D1k observed 2024 share times cell income', P(acc1 / 1e9, 1), f'{d8["2024"] / 1e3:.1f} (ONS D.8 2024); share of B.6g {reg["I-D1k"].central / 100:.4f} times {x["b6g"] / 1e9:.1f}', f'{P(100 * (acc1 / 1e6 / d8["2024"] - 1), 2)}%'],
+             ['non-pension saving in year 1 at the median ratio (pounds, billions)', P(sav['median'] * inc / 1e9, 0), f'{next(float(r["value"]) for r in rows_of("derived_ons_flows.csv", "101r") if r["item"] == "nonpension_saving_GBPm" and r["year"] == "2024") / 1e3:.0f} (ONS non-pension saving 2024)', 'a ratio of income, not matched in level'],
+             ['income, scaled (pounds, billions): every cell times one factor', P(inc / 1e9, 1), f'{x["b6g"] / 1e9:.1f} (ONS B.6g, calendar 2024, no price adjustment)', f'{P(100 * (inc / x["b6g"] - 1), 4)}% (by construction)'],
+             ['income before scaling (pounds, billions, per household table, FYE 2024, gross)', P(inc_raw / 1e9, 1), f'factor {x["k"]:.4f} to reach B.6g 2024', f'{P(100 * (inc_raw / x["b6g"] - 1), 1)}% before scaling']]),
+         '\nWealth matches the pack by construction. The main runs are aggregate-constrained: income is scaled by the one factor above (band proportions and the retired split kept; B.6g is disposable income and the per-household table is gross, so the factor is a concept-and-level adjustment, not a correction). The run `S_unscaled` keeps the unscaled income as a sensitivity.\n']
     yrs = (0, 10, 50, 100)
     names = [k for k in runs if k.startswith('A_')]
     r1 = [[k, P(runs[k]['sav'] * 100, 2), *[P(res[k]['wgdp'][t], 2) for t in yrs], *[P(100 * res[k]['ratio'][max(t, 1) - 1], 1) for t in yrs], f'{res[k]["resid"]:.1e}'] for k in names + ['legacy']]
@@ -117,8 +119,9 @@ def tables(res, runs, pack, reg, sav, etb, g):
           tab(['run', 'year', 'S/W %', 'CG/W %', 'dNW/W %', 'GDP growth %'], [[kk, t, *[P(100 * x, 2) for x in acct(kk, t)], P(100 * sum(acct(kk, t)), 2), P(100 * g, 2)] for kk in ('A_low_median', 'A_mid_median', 'A_high_median', 'legacy') for t in (1, 10, 50, 100)])]
     bn = list(ce.BANDS)
     t3 = ['### Share of wealth by band\n', tab(['run', 'year', *bn], [[kk, t, *[P(100 * res[kk]['bands'][b][t], 1) for b in bn]] for kk in ('A_mid_median', 'legacy') for t in yrs])]
-    t4 = ['### Sensitivities (return mid-point label, saving median)\n', tab(['run', 'W/GDP y10', 'y50', 'y100'], [[kk, *[P(res[kk]['wgdp'][t], 2) for t in (10, 50, 100)]] for kk in ('S_accrual_low', 'A_mid_median', 'S_accrual_high', 'A_mid_median', 'S_retired_0.6', 'S_retired_0.8')]),
-          f'\nRows in order: accrual low, accrual mid (the main run), accrual high, then retired fraction {P(etb, 3)} (the ETB value, the main run), 0.6, 0.8.\n']
+    sens = [('accrual low (3.01% of income)', 'S_accrual_low'), ('accrual observed 2024 (4.83%, the main run)', 'A_mid_median'), ('accrual high (9.74%)', 'S_accrual_high'), ('income not scaled', 'S_unscaled'),
+            (f'retired fraction {P(etb, 3)} (the main run)', 'A_mid_median'), ('retired fraction 0.6', 'S_retired_0.6'), ('retired fraction 0.8', 'S_retired_0.8')]
+    t4 = ['### Sensitivities (return mid-point label, saving median)\n', tab(['variant', 'W/GDP y10', 'y50', 'y100'], [[n, *[P(res[kk]['wgdp'][t], 2) for t in (10, 50, 100)]] for n, kk in sens])]
     a, b = res['A_mid_median'], res['B_mid_median']
     t5 = ['### Convention B check (return mid, saving median)\n',
           f'Year 1 aggregate dNW: A {a["flows"][0][0] + a["flows"][1][0]:.6e} (per-household money units, summed), B {b["flows"][0][0] + b["flows"][1][0]:.6e}; relative difference {abs((a["flows"][0][0] + a["flows"][1][0]) / (b["flows"][0][0] + b["flows"][1][0]) - 1):.2e}. '
@@ -141,17 +144,20 @@ def main():
     regimes = {k: reg['I-D1h'].__getattribute__(a) / 100 for k, a in (('low', 'low'), ('mid', 'central'), ('high', 'high'))}
     rets = {k: dict(g=dict(property=0.016455, net_financial=regimes[k] - yreg[k], physical=reg['I-D1j'].central / 100, pension=regimes[k] - yreg[k]),
                     y=dict(property=0.03758, net_financial=yreg[k], physical=0.0, pension=yreg[k])) for k in regimes}
-    acc = {k: getattr(reg['I-D1k'], a) / 100 for k, a in (('low', 'low'), ('mid', 'central'), ('high', 'high'))}
+    acc = {k: getattr(reg['I-D1k'], a) / 100 for k, a in (('low', 'low'), ('obs', 'central'), ('high', 'high'))}
+    b6g = 1e6 * next(float(r['value']) for r in rows_of('derived_ons_flows.csv', '101r') if r['item'] == 'B6g_gdhi' and r['year'] == '2024')          # pounds, calendar 2024, no price adjustment
+    raw = ce.cell_table(pack, reg, etb)
+    base, kfac = ce.scaled(raw, b6g)
     runs = {}
-    base = ce.cell_table(pack, reg, etb)
     for rg in regimes:
         for sv in sav:
-            runs[f'A_{rg}_{sv}'] = dict(cells=base, sav=sav[sv], acc=acc['mid'], rets=rets[rg], conv='A', note=f'return {rg}, saving {sv}, accrual mid, retired {etb:.3f}')
+            runs[f'A_{rg}_{sv}'] = dict(cells=base, sav=sav[sv], acc=acc['obs'], rets=rets[rg], conv='A', note=f'return {rg}, saving {sv}, accrual observed, retired {etb:.3f}, aggregate-constrained')
     for a in ('low', 'high'):
         runs[f'S_accrual_{a}'] = dict(cells=base, sav=sav['median'], acc=acc[a], rets=rets['mid'], conv='A', note=f'return mid, saving median, accrual {a}')
+    runs['S_unscaled'] = dict(cells=raw, sav=sav['median'], acc=acc['obs'], rets=rets['mid'], conv='A', note='return mid, saving median, accrual observed, income not scaled')
     for f in (0.6, 0.8):
-        runs[f'S_retired_{f}'] = dict(cells=ce.cell_table(pack, reg, f), sav=sav['median'], acc=acc['mid'], rets=rets['mid'], conv='A', note=f'return mid, saving median, accrual mid, retired {f}')
-    runs['B_mid_median'] = dict(cells=base, sav=sav['median'], acc=acc['mid'], rets=rets['mid'], conv='B', note='convention B check of A_mid_median')
+        runs[f'S_retired_{f}'] = dict(cells=ce.scaled(ce.cell_table(pack, reg, f), b6g)[0], sav=sav['median'], acc=acc['obs'], rets=rets['mid'], conv='A', note=f'return mid, saving median, accrual observed, retired {f}')
+    runs['B_mid_median'] = dict(cells=base, sav=sav['median'], acc=acc['obs'], rets=rets['mid'], conv='B', note='convention B check of A_mid_median')
     runs['legacy'] = dict(cells=base, sav=0.0, acc=0.0, rets=dict(r=reg['I-D1a'].central / 100), conv='legacy', c=reg['I-D14c'].central / 100, note='legacy rule: W(1+r)(1-c), r I-D1a, c I-D14c')
     res, cw, aw = {}, csv.writer(open(HERE / 'cell_paths.csv', 'w', newline='')), csv.writer(open(HERE / 'aggregates.csv', 'w', newline=''))
     cw.writerow(['run', 'cell', 'year', 'households', *CLASSES, 'dNW', 'S', 'CG', 'CG_wedge', 'O'])
@@ -167,8 +173,8 @@ def main():
         for t in range(YEARS + 1):
             aw.writerow([name, t, round(a['W'][t]), round(a['wgdp'][t], 5), round(a['ratio'][min(max(t, 1), YEARS) - 1], 5), *[round(a['bands'][b][t], 5) for b in ce.BANDS]])
         print(f'{name}: W/GDP index y10 {a["wgdp"][10]:.3f} y50 {a["wgdp"][50]:.3f} y100 {a["wgdp"][100]:.3f}; residual {a["resid"]:.2e}')
-    json.dump(dict(sav=sav, etb=etb, yreg=yreg, y_all=y_all, regimes=regimes, acc=acc, g=g), open(HERE / 'inputs_used.json', 'w'), indent=1)
-    tables(res, runs, pack, reg, sav, etb, g)
+    json.dump(dict(sav=sav, etb=etb, yreg=yreg, y_all=y_all, regimes=regimes, acc=acc, g=g, b6g_2024=b6g, income_scale=kfac), open(HERE / 'inputs_used.json', 'w'), indent=1)
+    tables(res, runs, pack, reg, sav, etb, g, dict(b6g=b6g, k=kfac, raw=raw))
     return res
 
 

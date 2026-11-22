@@ -45,10 +45,11 @@ Whether D.8 over B.6g (which counts employer contributions and benefit accrual) 
 <!-- progress:start -->
 - **Done:** block 0 (skeleton); block 1: I-D1k on the income basis (D8_share_of_B6g: 3.01 / 4.83 / 9.74, central the observed 2024 value 0.048267, median 7.30 reference), registry regenerated, display unit updated; count 297 and judgement 112 unchanged; data 5 and hooks 1 failures as on main.
 - **Done (block 2):** `cells.py` takes the accrual as a share of cell income and has `scaled(cells, total)`; 2 tests (scaling keeps proportions; year-1 accrual equals share times total); budget rows hold (59 and 60 lines).
-- **Next:** block 3, the rerun (script, CSVs).
+- **Done (block 3):** 16 runs rerun (9 regime by saving, accrual low and high, income unscaled, retired 0.6 and 0.8, B, legacy), income scaled by 1.3733 to B.6g 2024 (1,801.4bn, calendar 2024, no price adjustment); year-1 accrual 87.0bn against share times B.6g 87.0bn and ONS D.8 2024 86.9bn (0.07%, the rounding of 4.83 against 4.8267); identity residual below 1e-10 in every run; CSVs rerun byte-identical.
+- **Next:** block 4, the findings (note, change report, merge).
 - **Decisions:** the row quotes: STATUS.md and docs/decisions.md still describe the old basis (guru-owned, not edited); cell-baseline.md 110c text and cell_baseline.py still use it until blocks 3 and 4.
 - **Gotchas:** none.
-- **Resume:** branch `brief/111-accrual-income`; `git fetch origin brief/111-accrual-income && git checkout brief/111-accrual-income`; last block pushed 2; first action: block 3.
+- **Resume:** branch `brief/111-accrual-income`; `git fetch origin brief/111-accrual-income && git checkout brief/111-accrual-income`; last block pushed 3; first action: block 4.
 - **Not run:**
-- **State:** in progress; block 2 pushed
+- **State:** in progress; block 3 pushed
 <!-- progress:end -->
