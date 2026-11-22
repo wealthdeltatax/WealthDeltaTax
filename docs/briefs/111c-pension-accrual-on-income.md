@@ -43,13 +43,27 @@ Whether D.8 over B.6g (which counts employer contributions and benefit accrual) 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (skeleton); block 1: I-D1k on the income basis (D8_share_of_B6g: 3.01 / 4.83 / 9.74, central the observed 2024 value 0.048267, median 7.30 reference), registry regenerated, display unit updated; count 297 and judgement 112 unchanged; data 5 and hooks 1 failures as on main.
-- **Done (block 2):** `cells.py` takes the accrual as a share of cell income and has `scaled(cells, total)`; 2 tests (scaling keeps proportions; year-1 accrual equals share times total); budget rows hold (59 and 60 lines).
-- **Done (block 3):** 16 runs rerun (9 regime by saving, accrual low and high, income unscaled, retired 0.6 and 0.8, B, legacy), income scaled by 1.3733 to B.6g 2024 (1,801.4bn, calendar 2024, no price adjustment); year-1 accrual 87.0bn against share times B.6g 87.0bn and ONS D.8 2024 86.9bn (0.07%, the rounding of 4.83 against 4.8267); identity residual below 1e-10 in every run; CSVs rerun byte-identical.
-- **Next:** block 4, the findings (note, change report, merge).
-- **Decisions:** the row quotes: STATUS.md and docs/decisions.md still describe the old basis (guru-owned, not edited); cell-baseline.md 110c text and cell_baseline.py still use it until blocks 3 and 4.
-- **Gotchas:** none.
-- **Resume:** branch `brief/111-accrual-income`; `git fetch origin brief/111-accrual-income && git checkout brief/111-accrual-income`; last block pushed 3; first action: block 4.
-- **Not run:**
-- **State:** in progress; block 3 pushed
+- **Done:** blocks 0 to 4 (skeleton; I-D1k on the income basis, 3.01 / 4.83 / 9.74 with the observed 2024 value central; `cells.py` accrual on income and `scaled`; 16 runs aggregate-constrained to B.6g 2024; findings in `docs/model-v3/cell-baseline.md`); v3 252 passed; data 5 and hooks 1 failures as on main; check_agent_docs exit 0; CSVs rerun byte-identical.
+- **Next:** the author rules on whether D.8 over B.6g is the right base for a pension never drawn; then withdrawal, the saving gradient and validation are separate briefs.
+- **Decisions:** B.6g 2024 is calendar 2024, no price adjustment, factor 1.3733; the old I-D1k basis is kept in a dated note in inputs.md; STATUS.md and docs/decisions.md still describe the withdrawn basis (guru-owned, not edited).
+- **Gotchas:** the first patch of the script aborted without writing, so a run used the old script with the new register value; discarded, rerun from a checkout of the CSVs.
+- **Resume:** none.
+- **Not run:** none.
+- **State:** done; merged
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 111c, accrual on income and rerun of the untaxed baseline
+- Files changed: docs/model-v3/inputs.md (I-D1k only, dated note); registry/inputs.json (generated); registry/inputs-display.yml (display unit text); model_v3/core/cells.py (accrual share of income, scaled()); tests/model_v3/test_cells.py (2 tests); docs/model-v3/cell-baseline.md; docs/model-v3/cell-baseline/ (script, CSVs, tables, inputs_used.json); this brief's notes
+- What is different now: I-D1k is D.8 over B.6g (3.01 / 4.83 / 9.74, central the observed 2024 value 0.048267, median 7.30 reference); the accrual follows income; income is scaled by 1.3733 to B.6g 2024; wealth over GDP at year 100 is 0.75 / 1.29 / 4.42 across return regimes (110c: 0.85 / 2.04 / 9.9); the realised saving ratio is a constant 5.8% of income; no cell's net worth goes negative.
+- New or changed interfaces: cells.run_cell accrual is a share of cell income; cells.scaled(cells, total) -> (cells, factor)
+- Acceptance criteria: I-D1k on the income basis with exact figures, registry regenerated, count 297 and judgement 112 unchanged (met); identity residual below 1e-10 in every year of every run and legacy equals grow_and_consume (met, tested); year-1 accrual 87.0bn equals 4.83% of B.6g 2024 within rounding and is within 0.07% of ONS D.8 2024 (met); every run reported and no input tuned (met); suites: v3 252 passed, data 5 and hooks 1 failed as on main, existing digests unchanged (met); diff limited to Touches (met)
+- Deviations from the brief: none
+- Risks / follow-ups: D.8 over B.6g counts employer contributions and benefit accrual and a never-drawn pension receives the whole flow (the open question, for the author); the scale factor 1.37 reflects gross per-household income against disposable B.6g; flat saving ratio shifts wealth share to the low bands (D1-3 2.1% to 10.8% by year 100), an artefact of no saving gradient; STATUS.md and docs/decisions.md quote the withdrawn basis
+- Instruction friction: none
+- Verification: pipeline/build_inputs.py 297 inputs; pytest tests/model_v3 252 passed (background); run_suites data hooks 5 and 1 failures, pre-existing; check_agent_docs exit 0; script rerun md5-identical
+- Overview sections likely needing an update: STATUS.md and docs/decisions.md lines on the I-D1k basis and the 110c numbers (guru)
+- Commit / branch: brief/111-accrual-income, merged to main
+```

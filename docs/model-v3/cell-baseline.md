@@ -1,4 +1,6 @@
-# Untaxed cell baseline (brief 110c)
+# Untaxed cell baseline (brief 110c, rerun by 111c)
+
+**Status (2026-11-22).** The sections from "What came out" to "Answers to the open questions" are the first run (110c, the accrual as a share of opening net worth, withdrawn). The current run, with the accrual on income and income scaled to B.6g 2024, is the last section, "Rerun with the accrual on income", and its tables replace the 110c tables; the CSVs hold the current run only.
 
 Ten cells (five pack bands by retired or not) run for 100 years with no WDT, using `household_step` under convention A, against the legacy 3.5% rule on the same cells. A first look at the baseline the new arm produces. **Nothing is tuned**: every input is a register row, a held table or a labelled scenario value, and the results are reported as they come. Script: `docs/model-v3/cell-baseline/cell_baseline.py` (rerun from the repository root; deterministic). Paths: `cell_paths.csv` (run, cell, year, positions by class, `dNW`, `S`, `CG`, `CG_wedge`, `O`), `aggregates.csv` (wealth, wealth over GDP, saving ratio, band shares) and `inputs_used.json`. Module: `model_v3/core/cells.py` (layer 2, standalone: the kernel and runner do not import it).
 
@@ -37,9 +39,33 @@ Pension is accumulated and never drawn (no withdrawal flow), so the retired cell
 - **Retired fraction:** from the held ETB, 0.4386 (the brief's fallback 0.6, range 0.4 to 0.8, is shown as a sensitivity and changes nothing material).
 - **Aggregate wealth over GDP comparable with the pack's:** yes. Cells are weighted by households, so total wealth is the pack's 13,569 billion pounds (0.01% from rounding) and wealth over GDP starts at 6.14. The persons in `cell_weights` (50.204 million) equal households times the low bound of I-D4h (1.86 adults), and are 3.6% below the central 1.93; persons are not used as weights.
 
-## Tables
+## Rerun with the accrual on income (brief 111c)
 
-### Units and reconciliation (nothing rescaled)
+The pension accrual is now a share of the cell's income, D.8 over B.6g (I-D1k: 3.01% low, **4.83% central, the observed 2024 value (0.048267), not a mid-point**, 9.74% high; 1998 to 2025 median 7.30% as reference). Every cell's income is scaled by one factor (1.3733) so that households times income equal B.6g for calendar 2024 (1,801.4 billion pounds, no price adjustment): the main runs are **aggregate-constrained**, and `S_unscaled` keeps the unscaled income as a sensitivity. Everything else is as in 110c (ETB retired fraction 0.4386, return regimes, saving ratio, convention A, no tax). Sixteen runs; all identity residuals are below 1e-10, and the legacy arm still equals `grow_and_consume`.
+
+### What changed against 110c
+
+- **Wealth over GDP at year 100, median saving:** 0.75 (low return), **1.29** (mid-point return) and 4.42 (high), against 0.85, 2.04 and 9.9 in 110c. Year 10 and 50 at the mid-point return: 1.03 and 1.16 (110c: 1.08 and 1.45). The spread across return regimes is narrower and the central path is nearer flat, because the accrual no longer grows with wealth.
+- **The accrual now matches today's flow.** Year-1 accrual is 87.0 billion pounds, the share times B.6g (4.83% of 1,801.4) and within 0.07% of ONS D.8 for 2024 (86.9; the difference is the rounding of 4.83 against 4.8267). In 110c the mid-point label gave 152, 2.7 times the 2021 value.
+- **The realised saving ratio is constant at 5.8% of income** (4.83 accrual plus the median 1.01 non-pension) for all 100 years, since both are shares of income; at the minimum and maximum saving ratios it is 2.2% and 18.4%. In wealth terms saving is 0.77% of wealth in year 1 (0.64 accrual, 0.13 non-pension), falling to 0.60% by year 100 as wealth outgrows income.
+- **Negative positions are fewer.** With the accrual on income no cell's net worth goes negative in any run (110c: the poorest cell at year 34 at the minimum saving ratio). Net financial wealth still goes negative at the minimum saving ratio, from year 1 in D1-3 and year 7 to 8 in D4-5 (table below); the design has no borrowing constraint.
+- **Legacy, untaxed, is unchanged:** 0.95, 0.78 and 0.61 at years 10, 50 and 100.
+
+### What now sets the path
+
+- **The return regime, as before.** At the mid-point return wealth grows 1.90% a year (saving 0.77% plus holding gain 1.13%) against GDP per head 1.57% in year 1, easing to 1.76% by year 100; the ratio rises but slowly. At the low regime the holding gain on pension and net financial wealth is negative (-1.2%) and the ratio falls (0.75); at the high regime the gain is 3.1% and it rises to 4.4. No run is flat; the closest is the mid-point return at the minimum saving ratio (0.99, 0.95, 0.94), because there saving is only 2.2% of income and the gain is below GDP growth.
+- **The accrual still moves it, less than before.** At the mid-point return and median saving: accrual 3.01% gives 1.11 at year 100, 4.83% gives 1.29, 9.74% gives 1.77. The accrual is 83% of the saving ratio at the median (4.83 of 5.8).
+- **Income scaling raises it.** Unscaled income gives 1.14 against 1.29: the factor 1.37 lifts the whole saving flow, since both parts are shares of income. The retired fraction (0.439, 0.6, 0.8) changes nothing to two decimals once income is scaled to the total: the factor absorbs it.
+- **Composition moves for a reason that is partly an artefact.** Saving is a flat share of income and does not depend on wealth, so the low-wealth bands gain wealth share: D1-3 from 2.1% to 10.8% of wealth and D10 from 40.7% to 28.0% by year 100 in the central run. This is the missing saving gradient (out of scope), not a finding about distribution.
+- **Convention B** agrees with A in the first year and differs in composition afterwards (3.63 against 1.29 at year 100), as in 110c.
+
+### Limits (the open question for the author)
+
+D.8 over B.6g counts employer contributions and benefit accrual in funded and unfunded schemes, and it is a ratio of national totals applied equally to every cell's income. A household pension that is never drawn here receives the full flow while nothing leaves it (no withdrawal, no decumulation, so the retired cells keep accruing), and the pension class grows from accrual and gain alone. Whether D.8 over B.6g is the right base for a pension that is never drawn is for the author to rule. Also unchanged from 110c: no transitions, mortality or inheritance; fixed weights; debt netted inside the 102r classes (the erosion wedge is 0); no saving gradient; wealth at the 2020 to 2022 level against income at 2024; B.6g is disposable income and the per-household table is gross.
+
+### Tables
+
+#### Units and reconciliation (wealth and households as the pack has them; income scaled to B.6g 2024)
 
 Money is carried in thousands of pounds per household inside the module (so the identity check is not at the mercy of rounding) and reported in pounds. Weights are households.
 
@@ -49,96 +75,91 @@ Money is carried in thousands of pounds per household inside the module (so the 
 | persons 16+ (millions, cell_weights) | 50.204 | 52.093 (households times I-D4h 1.93); 50.203 at 1.86 | -3.6% against central, 0.0% against low |
 | wealth (pounds, billions) | 13568.9 | 13568 (pack, all) | 0.01% |
 | wealth over GDP at the start | 6.14 | 2211 billion GDP (pack, 2020 to 2022 mean) | by construction the pack total |
-| pension accrual in year 1 (pounds, billions), I-D1k mid-point label times wealth | 152 | 42 (ONS D.8 2020), 55 (2021), 84 (2022) | 2.7 times the 2021 value |
-| non-pension saving in year 1 at the median ratio (pounds, billions) | 13 | 137 (ONS non-pension saving 2021) | not comparable in level (a ratio of income) |
-| income (pounds, billions, per household table, FYE 2024 level, gross) | 1312 | 1404 (ONS B.6g 2020), 1468 (2021), 1554 (2022); disposable, a different concept | -11% against 2021 |
+| pension accrual in year 1 (pounds, billions), I-D1k observed 2024 share times cell income | 87.0 | 86.9 (ONS D.8 2024); share of B.6g 0.0483 times 1801.4 | 0.07% |
+| non-pension saving in year 1 at the median ratio (pounds, billions) | 18 | 92 (ONS non-pension saving 2024) | a ratio of income, not matched in level |
+| income, scaled (pounds, billions): every cell times one factor | 1801.4 | 1801.4 (ONS B.6g, calendar 2024, no price adjustment) | 0.0000% (by construction) |
+| income before scaling (pounds, billions, per household table, FYE 2024, gross) | 1311.8 | factor 1.3733 to reach B.6g 2024 | -27.2% before scaling |
 
-The wealth total matches the pack by construction (band wealth over band households); the income gap is a concept and price-year gap (gross against disposable, FYE 2024 income against 2020 to 2022 wealth), reported and not forced.
+Wealth matches the pack by construction. The main runs are aggregate-constrained: income is scaled by the one factor above (band proportions and the retired split kept; B.6g is disposable income and the per-household table is gross, so the factor is a concept-and-level adjustment, not a correction). The run `S_unscaled` keeps the unscaled income as a sensitivity.
 
 
-### Runs: wealth over GDP (index, start = 1.00) and the realised saving ratio (saving including the pension accrual, over cell income, percent; year 0 shows year 1)
+#### Runs: wealth over GDP (index, start = 1.00) and the realised saving ratio (saving including the pension accrual, over cell income, percent; year 0 shows year 1)
 
 | run | saving % | W/GDP y0 | W/GDP y10 | W/GDP y50 | W/GDP y100 | ratio y0 | ratio y10 | ratio y50 | ratio y100 | identity residual |
 |---|---|---|---|---|---|---|---|---|---|---|
-| A_low_min | -2.61 | 1.00 | 0.94 | 0.78 | 0.68 | 9.0 | 8.4 | 6.4 | 5.3 | 1.2e-12 |
-| A_low_median | 1.01 | 1.00 | 0.97 | 0.89 | 0.85 | 12.6 | 12.3 | 11.4 | 10.8 | 1.5e-12 |
-| A_low_max | 13.54 | 1.00 | 1.08 | 1.30 | 1.43 | 25.1 | 26.0 | 28.6 | 30.1 | 1.6e-12 |
-| A_mid_min | -2.61 | 1.00 | 1.04 | 1.25 | 1.60 | 9.0 | 9.4 | 11.9 | 15.9 | 3.5e-12 |
-| A_mid_median | 1.01 | 1.00 | 1.08 | 1.45 | 2.04 | 12.6 | 13.4 | 17.7 | 24.5 | 3.8e-12 |
-| A_mid_max | 13.54 | 1.00 | 1.20 | 2.12 | 3.57 | 25.1 | 27.2 | 37.8 | 54.5 | 4.2e-12 |
-| A_high_min | -2.61 | 1.00 | 1.17 | 2.55 | 8.29 | 9.0 | 10.7 | 26.3 | 91.1 | 2.3e-11 |
-| A_high_median | 1.01 | 1.00 | 1.21 | 2.90 | 9.89 | 12.6 | 14.7 | 33.8 | 112.7 | 2.3e-11 |
-| A_high_max | 13.54 | 1.00 | 1.34 | 4.10 | 15.45 | 25.1 | 28.6 | 59.8 | 187.9 | 2.2e-11 |
-| legacy | 0.00 | 1.00 | 0.95 | 0.78 | 0.61 | -37.9 | -36.3 | -29.8 | -23.3 | 1.4e-12 |
+| A_low_min | -2.61 | 1.00 | 0.89 | 0.67 | 0.58 | 2.2 | 2.2 | 2.2 | 2.2 | 1.1e-12 |
+| A_low_median | 1.01 | 1.00 | 0.94 | 0.80 | 0.75 | 5.8 | 5.8 | 5.8 | 5.8 | 1.3e-12 |
+| A_low_max | 13.54 | 1.00 | 1.08 | 1.24 | 1.30 | 18.4 | 18.4 | 18.4 | 18.4 | 1.2e-12 |
+| A_mid_min | -2.61 | 1.00 | 0.99 | 0.95 | 0.94 | 2.2 | 2.2 | 2.2 | 2.2 | 1.6e-12 |
+| A_mid_median | 1.01 | 1.00 | 1.03 | 1.16 | 1.29 | 5.8 | 5.8 | 5.8 | 5.8 | 1.9e-12 |
+| A_mid_max | 13.54 | 1.00 | 1.19 | 1.86 | 2.51 | 18.4 | 18.4 | 18.4 | 18.4 | 2.3e-12 |
+| A_high_min | -2.61 | 1.00 | 1.10 | 1.73 | 3.34 | 2.2 | 2.2 | 2.2 | 2.2 | 6.3e-12 |
+| A_high_median | 1.01 | 1.00 | 1.15 | 2.08 | 4.42 | 5.8 | 5.8 | 5.8 | 5.8 | 7.7e-12 |
+| A_high_max | 13.54 | 1.00 | 1.33 | 3.29 | 8.19 | 18.4 | 18.4 | 18.4 | 18.4 | 9.3e-12 |
+| legacy | 0.00 | 1.00 | 0.95 | 0.78 | 0.61 | -27.6 | -26.4 | -21.7 | -17.0 | 1.4e-12 |
 
-### Account terms: saving plus gain over opening wealth, against GDP growth 1.57%
+#### Account terms: saving plus gain over opening wealth, against GDP growth 1.57%
 
 | run | year | S/W % | CG/W % | dNW/W % | GDP growth % |
 |---|---|---|---|---|---|
-| A_low_median | 1 | 1.22 | 0.06 | 1.27 | 1.57 |
-| A_low_median | 10 | 1.22 | 0.08 | 1.30 | 1.57 |
-| A_low_median | 50 | 1.23 | 0.18 | 1.41 | 1.57 |
-| A_low_median | 100 | 1.23 | 0.27 | 1.51 | 1.57 |
-| A_mid_median | 1 | 1.22 | 1.13 | 2.34 | 1.57 |
-| A_mid_median | 10 | 1.21 | 1.13 | 2.34 | 1.57 |
-| A_mid_median | 50 | 1.19 | 1.11 | 2.30 | 1.57 |
-| A_mid_median | 100 | 1.17 | 1.08 | 2.25 | 1.57 |
-| A_high_median | 1 | 1.22 | 2.20 | 3.42 | 1.57 |
-| A_high_median | 10 | 1.20 | 2.37 | 3.57 | 1.57 |
-| A_high_median | 50 | 1.15 | 2.84 | 3.99 | 1.57 |
-| A_high_median | 100 | 1.13 | 3.03 | 4.16 | 1.57 |
+| A_low_median | 1 | 0.77 | 0.06 | 0.83 | 1.57 |
+| A_low_median | 10 | 0.82 | 0.13 | 0.95 | 1.57 |
+| A_low_median | 50 | 0.97 | 0.35 | 1.32 | 1.57 |
+| A_low_median | 100 | 1.04 | 0.48 | 1.52 | 1.57 |
+| A_mid_median | 1 | 0.77 | 1.13 | 1.90 | 1.57 |
+| A_mid_median | 10 | 0.75 | 1.14 | 1.89 | 1.57 |
+| A_mid_median | 50 | 0.67 | 1.16 | 1.83 | 1.57 |
+| A_mid_median | 100 | 0.60 | 1.16 | 1.76 | 1.57 |
+| A_high_median | 1 | 0.77 | 2.20 | 2.97 | 1.57 |
+| A_high_median | 10 | 0.68 | 2.34 | 3.02 | 1.57 |
+| A_high_median | 50 | 0.38 | 2.73 | 3.11 | 1.57 |
+| A_high_median | 100 | 0.18 | 2.94 | 3.12 | 1.57 |
 | legacy | 1 | -3.67 | 4.74 | 1.07 | 1.57 |
 | legacy | 10 | -3.67 | 4.74 | 1.07 | 1.57 |
 | legacy | 50 | -3.67 | 4.74 | 1.07 | 1.57 |
 | legacy | 100 | -3.67 | 4.74 | 1.07 | 1.57 |
 
-### Share of wealth by band
+#### Share of wealth by band
 
 | run | year | D1-3 | D4-5 | D6-7 | D8-9 | D10 |
 |---|---|---|---|---|---|---|
 | A_mid_median | 0 | 2.1 | 7.7 | 16.8 | 32.7 | 40.7 |
-| A_mid_median | 10 | 2.2 | 7.7 | 16.9 | 32.7 | 40.5 |
-| A_mid_median | 50 | 2.5 | 7.9 | 17.1 | 32.7 | 39.8 |
-| A_mid_median | 100 | 2.8 | 8.0 | 17.4 | 32.7 | 39.1 |
+| A_mid_median | 10 | 3.5 | 8.4 | 17.2 | 32.2 | 38.7 |
+| A_mid_median | 50 | 7.7 | 10.6 | 18.4 | 30.6 | 32.7 |
+| A_mid_median | 100 | 10.8 | 12.3 | 19.4 | 29.5 | 28.0 |
 | legacy | 0 | 2.1 | 7.7 | 16.8 | 32.7 | 40.7 |
 | legacy | 10 | 2.1 | 7.7 | 16.8 | 32.7 | 40.7 |
 | legacy | 50 | 2.1 | 7.7 | 16.8 | 32.7 | 40.7 |
 | legacy | 100 | 2.1 | 7.7 | 16.8 | 32.7 | 40.7 |
 
-### Sensitivities (return mid-point label, saving median)
+#### Sensitivities (return mid-point label, saving median)
 
-| run | W/GDP y10 | y50 | y100 |
+| variant | W/GDP y10 | y50 | y100 |
 |---|---|---|---|
-| S_accrual_low | 1.01 | 1.05 | 1.11 |
-| A_mid_median | 1.08 | 1.45 | 2.04 |
-| S_accrual_high | 1.16 | 2.02 | 3.89 |
-| A_mid_median | 1.08 | 1.45 | 2.04 |
-| S_retired_0.6 | 1.08 | 1.45 | 2.05 |
-| S_retired_0.8 | 1.08 | 1.45 | 2.06 |
+| accrual low (3.01% of income) | 1.01 | 1.05 | 1.11 |
+| accrual observed 2024 (4.83%, the main run) | 1.03 | 1.16 | 1.29 |
+| accrual high (9.74%) | 1.09 | 1.43 | 1.77 |
+| income not scaled | 1.01 | 1.07 | 1.14 |
+| retired fraction 0.439 (the main run) | 1.03 | 1.16 | 1.29 |
+| retired fraction 0.6 | 1.03 | 1.16 | 1.29 |
+| retired fraction 0.8 | 1.03 | 1.16 | 1.29 |
 
-Rows in order: accrual low, accrual mid (the main run), accrual high, then retired fraction 0.439 (the ETB value, the main run), 0.6, 0.8.
+#### Convention B check (return mid, saving median)
 
-
-### Convention B check (return mid, saving median)
-
-Year 1 aggregate dNW: A 3.181900e+08 (per-household money units, summed), B 3.181900e+08; relative difference 0.00e+00. Identity residual A 3.8e-12, B 3.0e-11. The paths then differ (W/GDP y100 2.04 in A, 4.99 in B) because B credits the yield to the class that earns it and A leaves it in net financial wealth: the two conventions are equal in the first year, not in composition afterwards.
+Year 1 aggregate dNW: A 2.581533e+08 (per-household money units, summed), B 2.581533e+08; relative difference 0.00e+00. Identity residual A 1.9e-12, B 2.8e-11. The paths then differ (W/GDP y100 1.29 in A, 3.63 in B) because B credits the yield to the class that earns it and A leaves it in net financial wealth: the two conventions are equal in the first year, not in composition afterwards.
 
 
-### Negative positions (first year)
+#### Negative positions (first year)
 
 | run | net worth below zero | net financial wealth below zero |
 |---|---|---|
-| A_low_min | D1-3|not retired y34, D1-3|retired y74 | D1-3|not retired y1, D1-3|retired y1, D4-5|not retired y9, D4-5|retired y18, D6-7|not retired y19, D6-7|retired y34, D8-9|not retired y34, D8-9|retired y55, D10|not retired y70, D10|retired y96 |
+| A_low_min | none | D1-3|not retired y1, D1-3|retired y1, D4-5|not retired y7, D4-5|retired y14, D6-7|not retired y15, D6-7|retired y27, D8-9|not retired y28, D8-9|retired y47, D10|not retired y60, D10|retired y86 |
 | A_low_median | none | none |
 | A_low_max | none | none |
-| A_mid_min | D1-3|not retired y34, D1-3|retired y80 | D1-3|not retired y1, D1-3|retired y1, D4-5|not retired y10, D4-5|retired y22, D6-7|not retired y23, D6-7|retired y48, D8-9|not retired y49, D8-9|retired y96 |
+| A_mid_min | none | D1-3|not retired y1, D1-3|retired y1, D4-5|not retired y8, D4-5|retired y16, D6-7|not retired y17, D6-7|retired y36, D8-9|not retired y37, D8-9|retired y75 |
 | A_mid_median | none | none |
 | A_mid_max | none | none |
-| A_high_min | D1-3|not retired y36 | D1-3|not retired y1, D1-3|retired y1, D4-5|not retired y11, D4-5|retired y28, D6-7|not retired y31 |
+| A_high_min | none | D1-3|not retired y1, D1-3|retired y1, D4-5|not retired y8, D4-5|retired y20, D6-7|not retired y21, D6-7|retired y63, D8-9|not retired y67 |
 | A_high_median | none | none |
 | A_high_max | none | none |
 | legacy | none | none |
-
-## Rerun with the accrual on income (brief 111c)
-
-_Pending: blocks 1 to 4 of 111c fill this section (the row on the income basis, the module, the rerun, the findings)._
