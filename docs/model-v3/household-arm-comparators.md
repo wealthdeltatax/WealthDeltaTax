@@ -1,0 +1,20 @@
+# The comparators on the account (brief 126c)
+
+For the author's review. Each output the household arm had withheld as `legacy_only` is listed with its base on the account, its test, and whether it returned. **No revenue or burden number is given here.** The legacy arm does not move (`test_legacy_digest` bit equal); no legacy `c` is read under the household arm (the tests set it to nan and the outputs stay finite).
+
+| Id | Metric | Status | Base on the account | Test |
+|---|---|---|---|---|
+| O3 | M3 | returned (block 1) | the run's own flows: positive net change in wealth, saving included, as under legacy | `test_the_burden_on_the_household_path_is_the_toy_rate_by_hand_and_the_legacy_path_is_bit_equal` |
+| OH1b, OH1c | M3 today, M12 | returned (block 1) | `burden.free_path` on the hook's untaxed path: T = 0 through the same household step, pension included (`HouseholdHook.free`) | `test_the_household_free_path_is_the_account_with_no_tax_by_hand_and_by_the_kernel`, `test_m3_and_m12_come_back...` |
+| OT1 | M3 head | returned (block 1) | as O3; the manifest has no `arms_by` | `test_the_tornado_keeps_the_m3_head...` |
+| OW1 | M13 | returned (block 2) | WDT: the line's terminal wealth (units plus pension) after the tax paid from the non-pension classes. Stock tax: the opening net worth of the year, pension included (ONS basis). Tax on gains: the positive holding gain CG. Consumption tax: C. Each paid from the non-pension classes (what they cannot cover is not paid), over the first generation (G = 30), no deaths, at the rate that raises the WDT line's revenue (the same revenue basis) | `test_each_comparator_on_the_toy_account_equals_the_hand_calculation`, `test_the_comparators_raise_the_same_revenue_as_the_wdt_line_on_the_account` |
+| OW3 | M15a, M15b | returned (block 3) | the kernel rerun over every line and path with the household hook (`out_support._record`): the refunds due and the cap's cumulative `lost_refund` are the kernel's, so the envelope binds when a refund due exceeds the slack (tax paid less refunds) exactly as under legacy; the hook supplies growth and consumption and the WDT is paid from the non-pension classes | `test_the_envelope_on_the_account_equals_the_refund_the_cap_holds_back_by_hand` (a line falling 20% a year, 5% rate: 0.15, 0.12, 0.096, 0.0768) |
+| OM1 | M1, X, M9 | returned (block 3) | M1 and the payers from the run as for O1. X = leavers x (income x I-M6l + spend x I-T3q), the leavers' income I-D9d as before and **the spend the account's consumption C** = (1 - saving) x income of the payer lines (payer-weighted mean, year 1), in place of the legacy share c of mean wealth | `test_the_migration_spend_is_the_accounts_consumption_by_hand_and_the_legacy_one_is_the_share_of_wealth` |
+
+Still withheld: none. The manifest `arms` entries of every id are gone (OW3 and OM1 now too; author sign-off per the brief) and the version is `stage-A16-comparators-2026-11-22`; the validator keeps the mechanism (V7, tested on a manifest that restricts two ids).
+
+## What to know when reading the returned ids
+- **The account ignores g.** The household arm's kernel runs follow the scenario returns, not the per-path market series, so every path of one schedule gives the same result (per-path regimes are out of scope; 128c). The percentile bands of OW3, OM1 and OW1 are therefore degenerate across paths until then.
+- **M15a and M15b are 0 in all 20 cells of the smoke run** (central schedule, two paths, saving median): no refund due exceeds the slack in the household account under the scenario's returns, so the envelope never binds. This is a scenario result, not a gap: the hand case above (a falling line) shows the mechanism binds.
+- **M9's spend base differs from legacy by construction.** Consumption on the account ((1 - saving) of income) is a different quantity from c times wealth, so X under the household arm is not comparable with the legacy X and is never shown beside it.
+- The comparators and the WDT run over the first generation (G = 30), no deaths, as legacy.

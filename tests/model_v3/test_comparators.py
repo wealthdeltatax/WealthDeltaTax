@@ -6,7 +6,7 @@ from types import SimpleNamespace
 import numpy as np
 
 from model_v3.core import burden as bd, kernel as K
-from model_v3.runner import arm as ab, runner as R
+from model_v3.runner import arm as ab, out_support as osup, runner as R
 from test_runner import ROOT, ctx, lv, out, tier1  # noqa: F401  (the fixtures)
 
 INP = json.loads((ROOT / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text())
@@ -88,4 +88,47 @@ def test_the_household_arm_produces_m13_without_reading_the_legacy_c(ctx):
     ev = {'S': R.evaluate(c2, th, dict(tau_0=0.04, tau_m=0.7, k_ln=1, ratio=0.5), np.full((100, 2), 0.01), np.full((100, 2), 0.0157))}
     smp = R.samples(ev, c2.ids, c2.once, R.statics(c2, th))
     assert smp['OW1'] and all(np.isfinite(v).all() for k, v in smp['OW1'].items() if ('wealth_band', 'overall') in k[2]) and {k[2] for k in smp['OW1']} >= {(('tax_system', 'wdt'), ('wealth_band', 'overall'))}     # a band with no payer is nan
-    assert all(np.isfinite(v).any() for v in smp['O1'].values()) and not smp.get('OW3') and not smp.get('OM1')     # M13 produced, M15 and M9 still withheld, the headline finite with the legacy c = nan
+    assert all(np.isfinite(v).any() for v in smp['O1'].values())                                          # M13 produced, the headline finite with the legacy c = nan
+
+
+# ── block 3: M15 (the envelope) and M9 (the migration's spend) on the account ───────────────────────────────────────────────
+
+def _envelope_case(gain, years=4):
+    """One taxed line of 15 non-pension wealth (+1 pension), no income, no saving, a flat 5% rate on the change, 0 paid before: the kernel rerun under the household hook (`out_support._record`)."""
+    toy = dict(pos=dict(property=np.array([10.0]), net_financial=np.array([5.0]), physical=np.array([0.0]), pension=np.array([1.0])), income=np.array([0.0]), sav=np.array([0.0]), acc=np.array([0.0]))
+    g = dict(property=gain, net_financial=gain, physical=0.0, pension=0.0)
+    base = SimpleNamespace(V0={r: np.array([v]) for r, v in dict(A=15.0, B=0.0, C=0.0, D=0.0).items()}, labels=['x'], G=30)
+    raw = SimpleNamespace(base=base, g=np.zeros((years, 1)), gdp_g=np.zeros((years, 1)), rate=lambda w: 0.05 * np.ones_like(np.asarray(w, float)), c=np.nan, arm=dict(arm='household'))
+    env = SimpleNamespace(lam=dict(lam_C=0.0, lam_D=0.0), arm=lambda b: SimpleNamespace(make=lambda: ab.HouseholdHook(toy, g, 0.0)))
+    return osup._record(raw, env).reshape(years)
+
+
+def test_the_envelope_on_the_account_equals_the_refund_the_cap_holds_back_by_hand():
+    # wealth 15 falls 20% a year (the pension is outside the base): refunds due are 5% of 3.0, 2.4, 1.92, 1.536 and nothing was paid, so the cap holds back all of each
+    assert np.allclose(_envelope_case(-0.2), [0.15, 0.12, 0.096, 0.0768], rtol=1e-12, atol=0)
+    assert not _envelope_case(0.1).any()                                                              # a rising line is owed no refund: the envelope never binds
+    assert np.isnan(_envelope_case(-0.2)).sum() == 0                                                  # the legacy c (nan here) is not read
+
+
+def test_the_migration_spend_is_the_accounts_consumption_by_hand_and_the_legacy_one_is_the_share_of_wealth():
+    toy = dict(TOY, income=np.array([0.1]), sav=np.array([0.1]))
+    assert np.allclose(ab.HouseholdHook(toy, GAIN, 0.0).consumption(), [0.09])                      # C = (1 - saving) x income = 0.09 million a year
+    base = SimpleNamespace(wealth=np.array([2.0]), weights=np.array([1.0]), w_min=0.0)
+    ones = np.ones((3, 1))
+    raw = lambda arm: SimpleNamespace(base=base, r=dict(M1=0.5 * ones, gdp=100.0 * ones), arm=dict(arm=arm), c=0.035 if arm == 'legacy' else np.nan, ok=np.array([True]), lo=dict.fromkeys(('transition', 'short', 'long'), np.array([1])), hi=dict.fromkeys(('transition', 'short', 'long'), np.array([3])))
+    env = SimpleNamespace(ctx=None, theta={'I-D5c': 10.0, 'I-D9d': 50000.0, 'I-M6l': 20.0, 'I-T3q': 20.0}, arm=lambda b: SimpleNamespace(make=lambda: ab.HouseholdHook(toy, GAIN, 0.0)))
+    again = lambda o, full: SimpleNamespace(run=dict(payers=1000.0 * ones, gdp_index=ones))
+    # 10% of 1000 thousand payers = 100,000 leavers; each loses 20% of 50,000 income plus 20% of the spend; X is a percent of 100bn GDP
+    acct = osup._migration(raw('household'), env, again)
+    assert np.allclose(acct['X']['long'], 100.0 * 1e5 * (50000 * 0.2 + 90000 * 0.2) / 1e9 / 100.0) and np.allclose(acct['M9']['long'], 0.5 - acct['X']['long'])
+    old = osup._migration(raw('legacy'), env, again)                                                  # legacy: the spend is 3.5% of the payers' mean wealth of 2.0 million = 70,000
+    assert np.allclose(old['X']['long'], 100.0 * 1e5 * (50000 * 0.2 + 70000 * 0.2) / 1e9 / 100.0)
+
+
+def test_the_household_arm_produces_m15_and_m9_without_reading_the_legacy_c(ctx):
+    c2 = replace(ctx, arm=dict(arm='household', inputs=INP, saving='median'))
+    th = {**c2.centre, 'I-D14c': np.nan}
+    ev = {'S': R.evaluate(c2, th, dict(tau_0=0.04, tau_m=0.7, k_ln=1, ratio=0.5), np.full((100, 2), 0.01), np.full((100, 2), 0.0157))}
+    smp = R.samples(ev, c2.ids, c2.once, R.statics(c2, th))
+    assert smp['OW3'] and smp['OM1'] and {k[3] for k in smp['OM1']} == {'M1', 'X', 'M9'} and {k[3] for k in smp['OW3']} == {'M15a', 'M15b'}
+    assert all(np.isfinite(v).any() for k, v in smp['OM1'].items() if k[3] == 'X') and all(np.isfinite(np.asarray(v, float)).any() for k, v in smp['OW3'].items() if k[3] == 'M15b' and ('wealth_band', 'overall') in k[2])

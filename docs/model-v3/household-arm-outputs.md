@@ -44,14 +44,14 @@ Smoke run: 29 ids produced, 6 withheld, 5 not produced by a single evaluation (s
 | DH1c | none | produced | pack and retired taxes |
 | OW1 | M13 | produced (126c) | the WDT line on the account (terminal wealth = units plus pension) against the stock tax (opening net worth, pension included), the tax on gains (CG) and the consumption tax (C), each paid from the non-pension classes (`HouseholdHook.system`), all at the WDT's lifetime tax per adult; no legacy c |
 | OW2 | M14 | produced | no c |
-| OW3 | M15a, M15b | **withheld `legacy_only`** | found by the site scan, not named in 121c: `_record` reruns the kernel with the legacy c; same later brief or its own |
+| OW3 | M15a, M15b | produced (126c) | the kernel rerun on the account (`out_support._record` with the household hook: growth and consumption from the account, the WDT paid from the non-pension classes); refunds due and the cap's `lost_refund` are the kernel's. The account ignores g, so the paths of one schedule are identical. |
 | OB1 | B1 | produced | |
 | OD1 | M7 | produced | no c |
-| OM1 | M9 | **withheld `legacy_only`** | found by the site scan: the migration spend is c times mean wealth; same later brief or its own |
+| OM1 | M1, X, M9 | produced (126c) | M1 and the payers as for O1; X = leavers x (income x rate_income + spend x I-T3q), the leavers' spend the account's consumption C = (1 - saving) x income (`HouseholdHook.consumption`, payer-weighted mean) instead of c times wealth |
 | OF1 | F1 | not run here | feasibility map (a sweep); not exercised under the household arm |
 | OT1 | T1 | produced with its M3 head (126c) | the M3 head returned; the manifest has no `arms_by` |
 
-The set withheld is `arm.WITHHELD` (OW3, OM1 since 126c block 2; O3, OH1b, OH1c, OW1 and OT1's M3 head returned); the module-to-id table of `architecture.md` 2.10 and the manifest are unchanged and still agree (`test_w7`).
+The set withheld is `arm.WITHHELD`: empty since 126c (O3, OH1b, OH1c, OW1, OW3, OM1 and OT1's M3 head returned; the manifest restricts no id, version `stage-A16-comparators-2026-11-22`); the module-to-id table of `architecture.md` 2.10 and the manifest are unchanged and still agree (`test_w7`).
 
 ## Manifest amendment (applied by 122c; as proposed by 121c, plus the OT1 head)
 

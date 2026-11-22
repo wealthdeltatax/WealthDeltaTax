@@ -50,11 +50,13 @@ def _assets(env, n, P):
 def _record(raw, env):
     """The kernel over every line and path with per-year capture: (T, P, L) assessed tax and cumulative lost refund (line_flows' fold, one death phase)."""
     b, (T, P), L, lam = raw.base, raw.g.shape, len(raw.base.labels), env.lam
+    old = raw.arm['arm'] == 'legacy'
+    hook = None if old else env.arm(b).make()                                                    # the household arm reruns the kernel on its account (126c): the hook sets growth and consumption, g is ignored
     book = K.Book(L * P, {r: np.tile(v, P) for r, v in b.V0.items()}, alpha0={'C': 1.0, 'D': 1.0}, has_cv=lam['lam_C'] > 0 and bool(np.any(b.V0['C'] > 0)))
     ix, Ls, lost = np.cumprod(1.0 + raw.gdp_g, axis=0), [], []
     for t in range(1, T + 1):
         il, gt = np.repeat(ix[t - 1], L), np.repeat(raw.g[t - 1], L)
-        Ls.append(dict(K.step_year(book, raw.rate, il, gt, raw.c, 1.0, 1.0, lam['lam_C'], lam['lam_D']))['tax'].L)
+        Ls.append(dict(K.step_year(book, raw.rate, il, gt, raw.c if old else 0.0, 1.0, 1.0, lam['lam_C'], lam['lam_D'], hook=hook, t=t))['tax'].L)
         lost.append(book.lost_refund.copy())
         if t < T and t % b.G == 0:
             K.step_death(book, raw.rate, il)
@@ -78,8 +80,9 @@ def _migration(raw, env, again):
     """{line: {horizon: (P,)}} for M1, X and M9, windowed like M1 (ratio of sums over the horizon's years)."""
     b, run, r = raw.base, again({}, True).run, raw.r
     pw = b.weights * (b.wealth >= b.w_min)
+    spend = raw.c * (pw * b.wealth).sum() / pw.sum() if raw.arm['arm'] == 'legacy' else (pw * env.arm(b).make().consumption()).sum() / pw.sum()    # a leaver's spend: the legacy share of wealth, or the account's consumption C (126c)
     m = U.migration_effect(r['M1'], run['payers'], r['gdp'], run['gdp_index'], _row(env, 'I-D5c') / 100, _row(env, 'I-D9d'), _row(env, 'I-M6l') / 100,
-                           spend=raw.c * (pw * b.wealth).sum() / pw.sum() * 1e6, rate_spend=_row(env, 'I-T3q') / 100)
+                           spend=spend * 1e6, rate_spend=_row(env, 'I-T3q') / 100)
     return {k: {h: np.where(raw.ok | (h != 'short'), rv.window_mean(v, r['gdp'], raw.lo[h], raw.hi[h]), np.nan) for h in HZ} for k, v in m.items()}
 
 
@@ -102,14 +105,14 @@ def per_path(raw, env, again):
     b, P, al = raw.base, raw.g.shape[1], [a for _, a in ALPHA]
     c1, lost = U.declaration_curve(U.declaration_runs(raw.rate, raw.g[:b.G + 1], _row(env, 'I-D14h'), al), al)
     zlo, zhi = U.tolerant_zone(al, c1)
-    old = raw.arm['arm'] == 'legacy'                                                              # M15 and M1's migration read the legacy c: withheld under the household arm (121c)
+    old = raw.arm['arm'] == 'legacy'
     cew = U.welfare(raw.rate, raw.g[:b.G], b.V0, b.weights, _row(env, 'I-H5a'), b.w_min, raw.c if old else 0.0, hook=None if old else env.arm(b).make(), **env.lam)[0]   # M13: the household arm's comparators sit on its account (126c)
     pw, hA, hB = b.weights * (b.wealth >= b.w_min), *_assets(env, max(n for _, n in HOLD), P)
     one = lambda v: np.full(P, v)
     return {'decl': {'M7c': {k: c1[i] for i, (k, _) in enumerate(ALPHA)}, 'M7d': {k: lost[i] for i, (k, _) in enumerate(ALPHA)}, 'zone': {'lo': zlo, 'hi': zhi}},
             'welfare': {k: {s: one(U.wmean(cew[u][m], pw[m]) if pw[m].any() else np.nan) for s, u in SYS} for k, m in bd._groups(b.band).items()},
             'lock': {g: {h: one(U.lockin(hA, hB, _row(env, 'I-T7a') / 100, e, n, _row(env, 'I-H5a'))[0]) for h, n in HOLD} for g, e in GAIN},
-            'env': _envelope(raw, env) if old else {}, 'mig': _migration(raw, env, again) if old else {}, 's1': _s1(raw, env, again)}
+            'env': _envelope(raw, env), 'mig': _migration(raw, env, again), 's1': _s1(raw, env, again)}
 
 
 def _tri(x):
@@ -128,7 +131,7 @@ def cells(e):
             'OW2': {('single', (('embedded_gain_band', g), ('holding_period', h)), None): k[g][h] for g, _ in GAIN for h, _ in HOLD},
             'OS1': {('single', (('quantity', q),), None): _tri(x) for q, x in s1.items()}}
     out['OW1'] = {('single', (('tax_system', s), ('wealth_band', b)), None): w[b][s] for b in w for s, _ in SYS}
-    if v:                                                                              # the household arm withholds OW3 and OM1 (`arm.WITHHELD`)
+    if v:
         out['OW3'] = {**{(h, ev(b), 'M15a'): v['M15a'][h][b] for h in HZ for b in v['M15a'][h]}, **{('transition', ev(b), 'M15b'): x for b, x in v['M15b'].items()}}
         out['OM1'] = {(h, (), l): m[l][h] for l in m for h in HZ}
     return out

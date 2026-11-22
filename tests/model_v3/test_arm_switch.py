@@ -54,17 +54,15 @@ def test_the_household_arm_runs_through_core_run_and_keeps_the_identities(ctx, m
     assert not np.allclose(legacy.run['tax'], raw.run['tax']) and legacy.arm != raw.arm            # a household-arm result is never a legacy result
 
 
-def test_the_household_arm_withholds_the_legacy_c_outputs_and_produces_the_rest(ctx, out):
+def test_the_household_arm_produces_every_id_and_withholds_none_since_126c(ctx, out):
     c2 = replace(ctx, arm=dict(arm='household', inputs=INP, saving='median'))
     ev = {'S': R.evaluate(c2, c2.centre, SPEC, *PATHS)}
     s = R.samples(ev, c2.ids, c2.once, R.statics(c2, c2.centre))
     held = ab.withheld(R.core_run(c2, c2.centre, SPEC, *PATHS).arm)
-    assert set(ab.WITHHELD) == {'OW3', 'OM1'} and not ab.WITHHELD_BY and held == {**dict.fromkeys(ab.WITHHELD, 'legacy_only'), **ab.WITHHELD_BY}
-    assert not any(s.get(i) for i in ab.WITHHELD) and np.isfinite(ev['S']['M3']).any()                         # no value under a withheld id; M3 is produced (126c)
-    assert all(s[i] for i in s if i not in held)                                                       # every id produced is non-empty
-    assert ab.withheld(dict(arm='legacy')) == {} and set(s) | set(held) >= {'O1', 'O2', 'O4a', 'O7', 'OW2', 'OS1'}
-    o, _ = assemble.assemble(out, {}, None, 'provisional', {i: held[i] for i in ab.WITHHELD})
-    assert all(o[i] == dict(summary=o[i]['summary'], cells=[], withheld='legacy_only') for i in ab.WITHHELD) and set(o) == set(ab.WITHHELD)
+    assert ab.WITHHELD == {} and not ab.WITHHELD_BY and held == {} and np.isfinite(ev['S']['M3']).any()         # every id is produced (M3, M12, M13, M15 and M9 came back in 126c)
+    assert all(s[i] for i in s) and ab.withheld(dict(arm='legacy')) == {} and set(s) >= {'O1', 'O2', 'O4a', 'O7', 'OW2', 'OS1', 'OW1', 'OW3', 'OM1'}
+    o, _ = assemble.assemble(out, {}, None, 'provisional', dict.fromkeys(('OW3', 'OM1'), 'legacy_only'))                  # the assembler keeps the mechanism for an id an arm cannot produce
+    assert all(o[i] == dict(summary=o[i]['summary'], cells=[], withheld='legacy_only') for i in ('OW3', 'OM1')) and set(o) == {'OW3', 'OM1'}
     with pytest.raises(assemble.AssembleError, match='withheld'):
         assemble.assemble(out, {'O3': {('S', 'single', (), None): np.ones(3)}}, None, 'provisional', {'O3': 'legacy_only'})
 
@@ -80,10 +78,7 @@ def test_the_tornado_keeps_the_m3_head_and_a_household_file_with_the_returned_id
     o, _ = assemble.assemble(out, smp, None, 'final', held)
     run = writer.run_block(out, MANIFEST, INPUTS, LEVERS, {**INFO, 'status': 'final', 'pack_sha256': 'x' * 64, 'pack_country': 'UK', 'arm': dict(arm='household', central=False)})
     path = writer.write_outputs(tmp_path, writer.document(o, {}, run), MANIFEST, INPUTS)               # the validator runs inside with --final and raises on any error
-    assert path.exists() and 'withheld_by' not in o['OT1'] and o['O3']['cells'] and not o['OW3']['cells'] and o['OW1']['cells']
-    legacy = writer.document(o, {}, {**run, 'arm': 'legacy'})
-    with pytest.raises(writer.WriterError, match='V7'):
-        writer.write_outputs(tmp_path, legacy, MANIFEST, INPUTS)
+    assert path.exists() and 'withheld_by' not in o['OT1'] and o['O3']['cells'] and o['OW3']['cells'] and o['OM1']['cells'] and o['OW1']['cells']    # nothing is withheld: the manifest restricts no id (V7 on a restricted id is tested in tests/data)
 
 
 @pytest.mark.parametrize('saving', ['min', 'median'])

@@ -16,7 +16,7 @@ from model_v3.core import household as hh
 
 CLASSES = ('property', 'net_financial', 'physical', 'pension')
 PROPERTY_GAIN = 0.016455                                                                            # F-20: the JST housing holding gain, all years (cell_baseline.py); a scenario value, not a register row
-WITHHELD = dict(OW3='M15a, M15b', OM1='M1 migration, X, M9')   # outputs that read the legacy c (the sites `free_path`, `system_run`, the kernel rerun, the migration spend)
+WITHHELD = {}                                                                                       # outputs that read the legacy c and have no base on the account: none since 126c (M3, M12, M13, M15 and M9 are on it)
 
 
 WITHHELD_BY = {}                                                                                     # an output kept without some by-values: none since 126c (the tornado's M3 head returned)
@@ -189,6 +189,9 @@ class HouseholdHook:
             q, _, un = hh.apply_payment(q1, rate * base * payer, {k: np.maximum(q1[k], 0.0) for k in CLASSES[:3]})
             paid = paid + rate * base * payer - un
         return sum(q[k] for k in CLASSES), paid + 0.0 * q['property']
+
+    def consumption(self):                                                                          # the account's year-1 consumption C by line (millions of pounds per adult): the base of M9's leavers' spend (126c)
+        return (1.0 - self.st['sav']) * self.st['income']
 
     def grown(self, W0, g):
         return self.W_after

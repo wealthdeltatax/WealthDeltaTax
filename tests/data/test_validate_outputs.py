@@ -361,7 +361,18 @@ def test_added_run_fields_are_known_fields_and_absent_list_changes_nothing(vo, m
 
 # ── arms and withheld entries (brief 122c) ───────────────────────────────────
 
-LEGACY_ONLY = ("OW3", "OM1")                                          # 126c: O3, OH1b, OH1c, OW1 and the tornado's M3 head returned to the household arm
+LEGACY_ONLY = ("OW3", "OM1")                                          # 126c: every id has returned to the household arm, so the manifest restricts none; V7 is tested on a manifest that restricts these two
+
+
+@pytest.fixture()
+def held(manifest):
+    """The manifest with `arms: [legacy]` put back on OW3 and OM1: the mechanism the validator keeps for an id an arm cannot produce."""
+    return held_of(manifest)
+
+
+@pytest.fixture()
+def run_held(vo, held):
+    return lambda doc, mode="default", inputs_path=INPUTS_JSON: vo.validate(doc, held, MANIFEST, inputs_path, mode)
 
 
 def household(doc, arm="household"):
@@ -372,26 +383,43 @@ def household(doc, arm="household"):
     return doc
 
 
-def test_the_manifest_restricts_exactly_the_two_ids_to_the_legacy_arm(vo, manifest):
-    assert {i for i, e in vo.load_entries(manifest).items() if e.arms} == set(LEGACY_ONLY)
-    assert all(e.arms == ["legacy"] for i, e in vo.load_entries(manifest).items() if e.arms)
+def test_the_manifest_restricts_no_id_to_the_legacy_arm_since_126c(vo, manifest):
+    assert {i for i, e in vo.load_entries(manifest).items() if e.arms or e.arms_by} == set()
+    assert {i for i, e in vo.load_entries(held_of(manifest)).items() if e.arms} == set(LEGACY_ONLY)
+
+
+def held_of(manifest):
+    m = copy.deepcopy(manifest)
+    for e in m["outputs"]:
+        if e["id"] in LEGACY_ONLY:
+            e["arms"] = ["legacy"]
+    return m
 
 
 @pytest.mark.parametrize("arm", ["household", {"arm": "household", "central": False}])
-def test_a_household_file_with_the_two_ids_withheld_passes_final(run, doc, arm):
-    f = run(household(doc, arm), "final")
+def test_a_household_file_with_every_id_present_passes_final(run, doc, arm):
+    d = finalise(doc)
+    d["run"]["arm"] = arm
+    f = run(d, "final")
+    assert errors(f) == [] and hits(f, "V12") == [] and not hits(f, "V7")
+
+
+@pytest.mark.parametrize("arm", ["household", {"arm": "household", "central": False}])
+def test_a_household_file_with_the_restricted_ids_withheld_passes_final(run_held, doc, arm):
+    f = run_held(household(doc, arm), "final")
     assert errors(f) == [] and hits(f, "V12") == []
 
 
 @pytest.mark.parametrize("arm", ["legacy", {"arm": "legacy"}, None])
-def test_the_same_file_under_a_legacy_or_missing_arm_fails_v7(run, doc, arm):
+def test_the_same_file_under_a_legacy_or_missing_arm_fails_v7(run_held, doc, arm):
     d = household(doc)
     d["run"].pop("arm") if arm is None else d["run"].update(arm=arm)
-    f = run(d, "final")
+    f = run_held(d, "final")
     assert {x.where for x in hits(f, "V7", "error")} == {*LEGACY_ONLY}
 
 
-def test_a_value_under_a_withheld_id_fails_v7_under_the_household_arm(run, doc):
+def test_a_value_under_a_withheld_id_fails_v7_under_the_household_arm(run_held, doc):
+    run = run_held
     d = household(doc)
     d["outputs"]["OW3"] = {"summary": d["outputs"]["OW3"]["summary"], "cells": [dict(horizon="single", p10=1.0, mean=2.0, p90=3.0)], "withheld": "legacy_only"}
     assert [x.where for x in hits(run(d, "final"), "V7", "error")] == ["OW3"]
@@ -399,13 +427,13 @@ def test_a_value_under_a_withheld_id_fails_v7_under_the_household_arm(run, doc):
     assert [x.where for x in hits(run(d, "final"), "V7", "error")] == ["OW3", "OM1"]
 
 
-def test_the_tornado_m3_head_is_a_household_value_since_126c(run, doc):
-    d = household(doc)
+def test_the_tornado_m3_head_is_a_household_value_since_126c(run_held, doc):
+    run, d = run_held, household(doc)
     assert any(c["by"]["headline"] == "M3" for c in d["outputs"]["OT1"]["cells"]) and errors(run(d, "final")) == []
 
 
-def test_withheld_is_refused_on_an_id_the_arm_produces_and_a_wrong_label_is_refused(run, doc):
-    d = household(doc)
+def test_withheld_is_refused_on_an_id_the_arm_produces_and_a_wrong_label_is_refused(run_held, doc):
+    run, d = run_held, household(doc)
     d["outputs"]["O2"] = {"summary": d["outputs"]["O2"]["summary"], "cells": [], "withheld": "legacy_only"}
     d["outputs"]["OM1"]["withheld"] = "other"
     assert [x.where for x in hits(run(d, "final"), "V7", "error")] == ["O2", "OM1"]
