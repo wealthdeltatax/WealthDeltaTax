@@ -147,11 +147,11 @@ def solve_rate(kind, target, g, w0, weights, w_min, c=0.0, hi=1.0, iters=80):
     return 0.5 * (lo + hi)
 
 
-def wdt_run(rate_fn, g, V0, c=0.0, **book_kw):
+def wdt_run(rate_fn, g, V0, c=0.0, hook=None, **book_kw):
     """Terminal wealth and net tax paid, (L, P), of each line under the kernel over g (N, P). V0 maps routes to (L,) arrays; book_kw reaches
     run_lines (index_rate, lam_C, b_mode, ...). Lines and paths are folded into the line axis, line l and path p at l * P + p."""
     L, P = len(next(iter(V0.values()))), g.shape[1]
-    book = K.run_lines(rate_fn, np.tile(g, (1, L)), {r: np.repeat(np.asarray(v, float), P) for r, v in V0.items()}, consumption=c, n=L * P, **book_kw)
+    book = K.run_lines(rate_fn, np.tile(g, (1, L)), {r: np.repeat(np.asarray(v, float), P) for r, v in V0.items()}, consumption=c, n=L * P, hook=hook, **book_kw)
     return book.family_true().reshape(L, P), (book.paid - book.refunded).reshape(L, P)
 
 

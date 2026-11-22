@@ -6,7 +6,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]; sys.path.insert(0, str(REPO))
 MODEL, TESTS = REPO / 'model_v3', REPO / 'tests' / 'model_v3'
 LAYER = {'core/pack': 0, 'core/returns': 1, 'core/base': 1, 'core/schedule': 1, 'core/kernel': 1, 'core/household': 1, 'core/cells': 2, 'core/revenue': 2,
-         'core/burden': 3, 'core/support': 3, 'runner/out_revenue': 3.5, 'runner/out_burden': 3.5, 'runner/out_support': 3.5, 'runner/out_sweeps': 3.5, 'runner/groups': 3.7, 'runner/runner': 4, 'runner/sweeps': 4, 'runner/pool': 4,
+         'core/burden': 3, 'core/support': 3, 'runner/out_revenue': 3.5, 'runner/out_burden': 3.5, 'runner/out_support': 3.5, 'runner/out_sweeps': 3.5, 'runner/arm': 3.6, 'runner/groups': 3.7, 'runner/runner': 4, 'runner/sweeps': 4, 'runner/pool': 4,
          'out/assemble': 5, 'out/writer': 5}   # architecture.md 5.1
 
 files = lambda root: sorted(Path(root).rglob('*.py'))

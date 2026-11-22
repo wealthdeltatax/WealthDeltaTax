@@ -83,7 +83,7 @@ def _ratio(num, den):
     return np.where(den > 0, 100 * num / np.where(den > 0, den, 1.0), np.nan)
 
 
-def line_flows(base, rate_fn, g, gdp_g, c, G=G, n_phase=6, index='gdp_pc', routes=None, lam_C=0.0, lam_D=0.0, death_verify=False, **book_kw):
+def line_flows(base, rate_fn, g, gdp_g, c, G=G, n_phase=6, index='gdp_pc', routes=None, lam_C=0.0, lam_D=0.0, death_verify=False, hook=None, **book_kw):
     """The kernel over every path and death phase, every line kept. g and gdp_g are (T, P) real returns and GDP-per-head growth, c the consumption
     share. Returns net (tax paid, refunds negative, death and heir assessments), death (the part of net a death triggers), w0 (start-of-year wealth), delta (the real change in net wealth before
     tax: the assessed quantity), wt (N,), band (N,), payer0 (N,), idx (T, P) the threshold index, adults_k and w_min."""
@@ -103,7 +103,7 @@ def line_flows(base, rate_fn, g, gdp_g, c, G=G, n_phase=6, index='gdp_pc', route
             il, gt = np.repeat(ix[t - 1], L), np.repeat(g[t - 1], L)
             w0[t - 1, sl] = tl(book.family_true())
             tax, dd, dx = np.zeros(n), np.zeros(n), np.zeros(n)
-            for kind, fl in K.step_year(book, rate_fn, il, gt, c, 1.0, 1.0, lam_C, lam_D, False):
+            for kind, fl in K.step_year(book, rate_fn, il, gt, c, 1.0, 1.0, lam_C, lam_D, False, hook, t):
                 if kind == 'tax':
                     tax, dd = tax + _val(fl, n), dd + fl.delta
             if t < T and t >= ph and (t - ph) % G == 0:
@@ -170,9 +170,9 @@ def m3(fl, rates, G=G, inlife=False):
     return np.where(den > 0, 100 * num / np.where(den > 0, den, 1.0), np.nan)
 
 
-def free_path(base, g, c, G=G):
+def free_path(base, g, c, G=G, hook=None):
     """Wealth of each line with no wealth tax, years 0 to G: (G + 1, L, P). g is (T, P)."""
-    f = (1.0 + np.asarray(g, float)[:G]) * (1.0 - c)
+    f = (1.0 + np.asarray(g, float)[:G]) * (1.0 - c) if hook is None else hook.free(np.asarray(g, float)[:G])
     return np.concatenate([np.ones((1, 1, f.shape[1])), np.cumprod(f, axis=0)[:, None, :]]) * base.wealth[None, :, None]
 
 
@@ -183,11 +183,11 @@ def _pooled(base, W, G, rates, per_line):
     return {k: _ratio(tax[gm].sum(0), gain[gm].sum(0)) for k, gm in _groups(base.band).items()}
 
 
-def m3_today(base, g, c, reg, rates, G=G):
+def m3_today(base, g, c, reg, rates, G=G, hook=None):
     """OH1b, M3 on today's system: today's liabilities as a rate over wealth by band (register) on the untaxed wealth path, by band, percent, per path."""
     r = {k: sum(_reg(reg, i) for i in v) / 100.0 for k, v in IDS['today'].items()}
     rl = np.array([r.get(BANDS.get(b, ''), 0.0) for b in base.band])[None, :, None]
-    return _pooled(base, free_path(base, g, c, G), G, rates, lambda W: rl * W)
+    return _pooled(base, free_path(base, g, c, G, hook), G, rates, lambda W: rl * W)
 
 
 def _band_wealth(pack):
@@ -195,10 +195,10 @@ def _band_wealth(pack):
     return {p: sum(_cell(pack, 'wealth_distribution', variable='wealth_total', band=f'D{i}')['value'] for i in r) for p, r in rng.items()}
 
 
-def m12(base, g, c, reg, pack, rates, G=G):
+def m12(base, g, c, reg, pack, rates, G=G, hook=None):
     """OH1c (M12): {band: {'deferral_uplift', 'exempt_law'}} as a percent of the present value of accrued gains, per path. Accrued gains are the positive
     real changes in untaxed wealth; the stock not realised in the life is forgiven at death; the wrapper share of wealth never accrues a charge."""
-    W, d, bw = free_path(base, g, c, G), discount(rates, G), _band_wealth(pack)
+    W, d, bw = free_path(base, g, c, G, hook), discount(rates, G), _band_wealth(pack)
     wrap = _reg(reg, IDS['wrap']) / 100.0
     pen = {r['band']: r['value'] / 100.0 for r in pk.lookup(pack, 'wealth_distribution', variable='pension_share')}
     cell = lambda p: _cell(pack, 'wealth_distribution', variable='gain_bearing_wealth', band=p)['value'] / bw[p]

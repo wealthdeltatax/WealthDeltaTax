@@ -39,11 +39,11 @@ Where the 5-line saving in `runner.py` comes from (agent reports).
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0; block 1: `kernel.py` (574 lines): `grow_and_consume(..., share=None)` (signed flow share, c = -x), `step_year(..., hook=None, t=0)` calls `hook.pre(book, t, g) -> (g_N, x)` and `hook.post(book, fl)` after settlement, `run_lines(..., hook=None)`; `tests/model_v3/test_arm.py` (3 tests, inline stand-in hook); `test_legacy_digest` passes.
-- **Next:** block 2: `runner/arm.py` `LegacyHook(c)`; thread `hook=None` through `core/revenue.run_lines`, `core/burden.line_flows`, `core/support.wdt_run`; sites 2 to 5 (`revenue.py:83,241`, `burden.py:175`, `support.py`); `runner.py` builds the hook and stays 360 lines (find 5 lines).
-- **Decisions:** the hook's `pre` takes `(book, t, g)` (the design says `(book, t)`: the legacy hook needs g, which step_year holds); `step_year` gets `t=0` for it. The modules named `runner/revenue.py`, `burden.py`, `support.py` in the brief are `core/` files.
-- **Gotchas:** `out_support.py:57` also calls `K.step_year(..., raw.c, ...)` directly (legacy `c`, signature unchanged, left alone).
-- **Resume:** branch `brief/114-hook-plumbing`; `git fetch origin && git checkout brief/114-hook-plumbing`; first action: write `model_v3/runner/arm.py`.
+- **Done:** blocks 0 and 1; block 2: `runner/arm.py` (33 lines, `LegacyHook(c)`: `pre`, `post`, `grown`, `gain`, `free`); `hook=None` threaded through `core/revenue.run_lines` and `identity` (sites 2, 3), `core/burden.line_flows`, `free_path`, `m3_today`, `m12` (site 4), `core/support.wdt_run`; `runner.core_run` builds `LegacyHook(c)` and passes it to `line_flows` and `run_lines`; LAYER row `runner/arm` 3.6; `test_arm.py` 4 tests (60 lines). v3 suite 255 passed; `test_legacy_digest` passes (bit equal).
+- **Next:** block 3: budget rows in `architecture.md` 6.1 (`arm.py` 140 / tests 210, `kernel.py` 660, totals), a short section, change report, merge.
+- **Decisions:** `pre(book, t, g)` not `(book, t)`; `runner.py` saving: the `headlines` docstring from two lines to one (360 again); `support.system_run` (site 5) stays legacy by design 3.6, so it takes no hook; `out_support.py:57` and `:105` still pass `raw.c` (legacy, not in Touches, left for W5); `arm` layer 3.6 (numpy only; below the runner, above core).
+- **Gotchas:** the brief names `runner/revenue.py`, `burden.py`, `support.py`; they are `core/`.
+- **Resume:** branch `brief/114-hook-plumbing`; `git fetch origin && git checkout brief/114-hook-plumbing`; first action: edit `docs/model-v3/architecture.md` budgets.
 - **Not run:**
-- **State:** in progress, block 1 done
+- **State:** in progress, block 2 done
 <!-- progress:end -->

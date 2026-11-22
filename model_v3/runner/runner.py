@@ -42,6 +42,7 @@ from model_v3.core import pack as pk
 from model_v3.core import returns as rt
 from model_v3.core import revenue as rv
 from model_v3.core import schedule as sc
+from model_v3.runner.arm import LegacyHook
 from model_v3.runner.groups import GROUPS
 
 T = 100
@@ -199,10 +200,10 @@ def core_run(ctx, theta, spec, g, gdp_g, full=False, tweak=None):
     P = g.shape[1]
     b = (tweak or (lambda x: x))(shaped(ctx, theta, spec['ratio']))
     rate = sc.rate_function(spec['k_ln'], spec['tau_0'], spec['tau_m'], b.w_min, 'logistic_ln')
-    c, lam = theta['I-D14c'] / 100, env_of(ctx, theta).lam
-    fl = bd.line_flows(b, rate, g, gdp_g, c, **lam)
+    lam, hk = env_of(ctx, theta).lam, LegacyHook(c := theta['I-D14c'] / 100)
+    fl = bd.line_flows(b, rate, g, gdp_g, c, hook=hk, **lam)
     if full:
-        run = rv.run_lines(b, rate, g, gdp_g, c, **lam)
+        run = rv.run_lines(b, rate, g, gdp_g, c, hook=hk, **lam)
     else:
         net, z = np.einsum('tnp,n->tp', fl['net'], fl['wt']) * fl['adults_k'], np.zeros((T, P))
         run = dict(tax=net, refund=z, death_tax=z, heir=z, death_B=z, death_D=z, payers=z, entries=z, exits=z, fall_through=z, gdp_index=np.cumprod(1.0 + gdp_g, axis=0),
@@ -217,8 +218,7 @@ def core_run(ctx, theta, spec, g, gdp_g, full=False, tweak=None):
 
 
 def headlines(raw, ctx, theta):
-    """Per-path results of the headline ids: {'M1', 'M1a'..'M1d': {horizon: (P,)}, 'M2': {horizon: {band}}, 'M4a': {horizon: {decile}}, 'M3': (P,),
-    'neg': {horizon: bool}, 'P3h': {horizon: (P,)}, 'P1', 'P7b', 'fill', 'unfilled', 'long_T'}."""
+    """Per-path results of the headline ids: M1 to M1d, M2 (by band), M4a (by decile), neg and P3h (each by horizon), M3, P1, P7b, fill, unfilled, long_T."""
     r, lo, hi, ok, fl = raw.r, raw.lo, raw.hi, raw.ok, raw.fl
     gate = lambda k, v: np.where(ok, v, np.nan) if k == 'short' else v
     win = lambda x, k: gate(k, rv.window_mean(x, r['gdp'], lo[k], hi[k]))

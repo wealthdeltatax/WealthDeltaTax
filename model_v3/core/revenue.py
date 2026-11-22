@@ -50,9 +50,9 @@ def _value(fl, n):
     return sum(fl.value.values()) + fl.income if fl.value else fl.income + np.zeros(n)
 
 
-def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6, index='gdp_pc', routes=None, death_verify=False, **book_kw):
+def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6, index='gdp_pc', routes=None, death_verify=False, hook=None, **book_kw):
     """The kernel over every path and phase. g and gdp_g are (T, P) real returns and GDP-per-head growth; c is the consumption share of
-    wealth; routes overrides the base's V0 by route (a dict of arrays). Returns billions-of-pounds flows (T, P): tax and refund (the year's
+    wealth (read when `hook` is None; otherwise the hook of runner/arm.py carries the year, kernel.step_year); routes overrides the base's V0 by route (a dict of arrays). Returns billions-of-pounds flows (T, P): tax and refund (the year's
     assessments, split by sign per line; assessed is the tax assessed on gains before the routes settle it), death_tax (the assessments a death triggers: Route C verified, Route D auctioned), heir, death_B (a deferred balance
     settled), death_D, and the payer record: payers, entries, exits
     (thousands of adults), fall_through (refunds to those who left the base), wbase (start-of-year wealth of the lines taxed this year, those at or
@@ -80,11 +80,12 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
             il = np.repeat(idx[t - 1], L)
             W0 = book.family_true()
             pay = W0 >= wmin * il
-            W1 = W0 * (1.0 + np.repeat(g[t - 1], L)) * (1.0 - c)                          # wealth after growth and consumption, before tax
+            gr = np.repeat(g[t - 1], L)
+            W1 = W0 * (1.0 + gr) * (1.0 - c) if hook is None else hook.grown(W0, gr)   # wealth after growth and consumption, before tax
             pay1 = W1 >= wmin * il
             rate1 = np.asarray(rate_fn(W1 / il), float)                                    # the kernel reads the rate at the new wealth
             pt, xv, hv, lv, dv, ass = (np.zeros(n) for _ in range(6))
-            for kind, fl in K.step_year(book, rate_fn, il, np.repeat(g[t - 1], L), c, 1.0, 1.0, lam_C, lam_D, False):
+            for kind, fl in K.step_year(book, rate_fn, il, gr, c, 1.0, 1.0, lam_C, lam_D, False, hook, t):
                 if kind == 'tax':
                     pt += _value(fl, n)
                     ass = np.where(fl.L > 0, fl.L, 0.0)                                   # assessed, before routes: Route D accrues, C pays in kind
@@ -233,12 +234,12 @@ def revenue(run, gdp0, levy, rec, g, E_pct, c, a_window=5, ms=3.0, ml=3.0, horiz
     return out
 
 
-def identity(run, g, c):
+def identity(run, g, c, hook=None):
     """I3, the epsilon check, per path. `assessed` (tax assessed on gains, summed over the years, billions) against sum of eps x g x omega, with g the accrued
     gain rate (1 + r)(1 - c) - 1 where positive, omega the start-of-year wealth of the lines taxed and eps its wealth-weighted marginal rate at the new
     wealth: the gap `assessed` is an accounting error (zero up to rounding). `total` is the gap of eps x g x omega + refunds against M1a, which carries what the
     routes defer (Route D) and the death flows no gain rate explains; both are relative to |M1a|. Returns those, eps, g and omega averaged over the years."""
-    gacc = np.maximum((1.0 + g) * (1.0 - c) - 1.0, 0.0)
+    gacc = np.maximum((1.0 + g) * (1.0 - c) - 1.0, 0.0) if hook is None else hook.gain(g)
     eps = run['wtau'] / np.where(run['wbase'] > 0, run['wbase'], np.nan)
     pred = np.nansum(eps * gacc * run['wbase'], axis=0)
     m1a = sum(run[k].sum(axis=0) for k in ('tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D'))
