@@ -57,13 +57,14 @@ STAT_FIELDS = {
     "point": ("point",),
 }
 CELL_FIELDS = {"schedule", "horizon", "by", "line", "series"}
-ENTRY_FIELDS = {"summary", "cells"}
+ENTRY_FIELDS = {"summary", "cells", "withheld", "withheld_by"}
 TOP_FIELDS = {"schema", "run", "outputs", "level2"}
 RUN_REQUIRED = (
     "manifest_version", "manifest_sha256", "country_pack", "run_date",
     "status", "model_version", "inputs_sha256", "paths", "base_year",
 )
-RUN_FIELDS = set(RUN_REQUIRED) | {"fixture"}
+RUN_FIELDS = set(RUN_REQUIRED) | {"fixture", "arm"}
+ARMS = ("legacy", "household")   # run.arm: the name, or an object whose `arm` is the name (model_v3 runner/arm.py label); absent means legacy
 LEVEL2_FIELDS = {"tornado", "p10", "p90"}
 HOOKS_ID_RE = re.compile(r"^O[A-Z]?[0-9]+[a-z]?$")   # hooks.md section 4.1
 
@@ -106,6 +107,8 @@ class Entry:
     series: bool
     kind: str
     line_horizons: dict[str, list[str]] = field(default_factory=dict)   # line -> its own horizons; absent line: `horizons`
+    arms: list[str] | None = None    # the arms that produce the output; None: all (122c)
+    arms_by: dict[str, dict[str, list[str]]] = field(default_factory=dict)   # dimension -> value -> the arms that produce that part
 
 
 def sha256_file(path: Path) -> str | None:
@@ -140,6 +143,8 @@ def load_entries(manifest: dict) -> dict[str, Entry]:
                 series=e.get("series") is True,
                 kind=e.get("kind", ""),
                 line_horizons={str(k): [str(h) for h in v] for k, v in (e.get("line_horizons") or {}).items()},
+                arms=[str(a) for a in e["arms"]] if e.get("arms") else None,
+                arms_by={str(d): {str(v): [str(a) for a in x] for v, x in m.items()} for d, m in (e.get("arms_by") or {}).items()},
             )
     return entries
 
@@ -270,6 +275,8 @@ class Validator:
                      f"{run['pack_country']!r} must equal run.country_pack {run['country_pack']!r}")
         for k in sorted(set(run) - RUN_FIELDS - set(added)):
             self.add("V12", "warning", "run", f"unknown field {k!r}")
+        if "arm" in run and self.run_arm() not in ARMS:
+            self.add("V8", "error", "run.arm", f"must be one of {ARMS} (or an object naming one in `arm`), found {run['arm']!r}")
         status = run.get("status")
         if "status" in run and status not in ("provisional", "final"):
             self.add("V8", "error", "run.status", f"must be 'provisional' or 'final', found {status!r}")
@@ -324,6 +331,12 @@ class Validator:
         else:
             self.add_strict("V9", "run.inputs_sha256", msg)
 
+    def run_arm(self):
+        """The run's arm name: run.arm as a string or the `arm` of its label object; absent means legacy."""
+        run = self.data.get("run")
+        a = run.get("arm", "legacy") if isinstance(run, dict) else "legacy"
+        return a.get("arm") if isinstance(a, dict) else a
+
     # per output ----------------------------------------------------------
     def check_output(self, oid: str, entry) -> None:
         ent = self.entries.get(oid)
@@ -341,6 +354,19 @@ class Validator:
         if not isinstance(cells, list):
             self.add("V3", "error", oid, "cells missing or not an array")
             return
+        held = ent.arms is not None and "household" not in ent.arms and self.run_arm() == "household"   # an output this arm cannot produce (122c)
+        if "withheld" in entry or held:
+            if not held:
+                self.add("V7", "error", oid, f"withheld under arm {self.run_arm()!r}, but the manifest lets this arm produce it")
+            elif entry.get("withheld") != "legacy_only":
+                self.add("V7", "error", oid, "the household arm cannot produce this id: the entry must carry withheld: legacy_only")
+            elif cells:
+                self.add("V7", "error", oid, "a withheld entry holds cells; a legacy_only id is never a value")
+            return
+        part = {(d, v) for d, m in ent.arms_by.items() for v, arms in m.items() if "household" not in arms} if self.run_arm() == "household" else set()
+        claim = {(d, v) for d, m in (entry.get("withheld_by") or {}).items() if isinstance(m, dict) for v in m if m[v] == "legacy_only"}
+        if claim != part:
+            self.add("V7", "error", oid, f"withheld_by {sorted(claim)} but the arm {self.run_arm()!r} withholds {sorted(part)} (manifest arms_by)")
         seen: dict[tuple, int] = {}
         for i, cell in enumerate(cells):
             where = f"{oid} cells[{i}]"
@@ -351,7 +377,10 @@ class Validator:
                 self.add("V4", "error", where, f"same key as cells[{seen[key]}]")
             else:
                 seen[key] = i
-        self.check_coverage(ent, set(seen))
+        for key in seen:
+            if any((d, v) in part for d, v in key[2]):
+                self.add("V7", "error", oid, f"cells[{seen[key]}] holds a withheld by-value")
+        self.check_coverage(ent, set(seen), part)
 
     def cell_key(self, ent: Entry, cell: dict) -> tuple:
         by = cell.get("by") if isinstance(cell.get("by"), dict) else {}
@@ -501,12 +530,12 @@ class Validator:
             keys.add((s, h, tuple(zip(names, combo)), ln))
         return keys
 
-    def check_coverage(self, ent: Entry, actual: set[tuple]) -> None:
+    def check_coverage(self, ent: Entry, actual: set[tuple], part: frozenset | set = frozenset()) -> None:
         names = sorted(k for k, v in ent.by.items() if v is not None)
         # Project the actual keys onto the declared dimensions; a dimension with
         # no declared vocabulary (list form of by) is not part of coverage.
         projected = {(s, h, tuple((k, v) for k, v in by if k in names), ln) for s, h, by, ln in actual}
-        missing = sorted(self.expected_keys(ent) - projected, key=str)
+        missing = sorted({k for k in self.expected_keys(ent) if not any(p in k[2] for p in part)} - projected, key=str)
         if missing:
             sample = "; ".join(self.describe_key(k) for k in missing[:3])
             more = f" (+{len(missing) - 3} more)" if len(missing) > 3 else ""

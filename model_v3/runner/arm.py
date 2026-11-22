@@ -19,9 +19,12 @@ PROPERTY_GAIN = 0.016455                                                        
 WITHHELD = dict(O3='M3', OH1b='M3', OH1c='M12', OW1='M13', OW3='M15a, M15b', OM1='M1 migration, X, M9')   # outputs that read the legacy c (the sites `free_path`, `system_run`, the kernel rerun, the migration spend)
 
 
+WITHHELD_BY = dict(OT1=dict(headline=dict(M3='legacy_only')))                                       # an output kept without those by-values (the tornado's M3 head)
+
+
 def withheld(label):
-    """{output id: 'legacy_only'} for a run label: the household arm withholds the outputs that read the legacy c (never a number); the legacy arm withholds none."""
-    return {} if label['arm'] == 'legacy' else dict.fromkeys(WITHHELD, 'legacy_only')
+    """{output id: 'legacy_only' (the whole id) or {dimension: {value: 'legacy_only'}} (part of it)} for a run label: the household arm withholds what reads the legacy c (never a number); the legacy arm withholds none."""
+    return {} if label['arm'] == 'legacy' else {**dict.fromkeys(WITHHELD, 'legacy_only'), **WITHHELD_BY}
 
 
 TAKES_D10 = ('D10a', 'D10b', 'RL3', 'RL2', 'RL1')                  # the tail lines take D10's class mix (labelled an assumption, design 2.2)

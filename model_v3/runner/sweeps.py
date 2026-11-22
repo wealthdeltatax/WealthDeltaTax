@@ -89,7 +89,7 @@ def tornado(ev, specs, rows, read):
     for s, spec in specs.items():
         cen = ev(spec)
         run = {i: {side: ev(spec, {i: getattr(r, side)}) for side in ('low', 'high')} for i, r in rows.items() if i in read}
-        for name in HEADS:
+        for name in (h for h in HEADS if h in cen or h != 'M3'):          # the household arm holds no M3 (withheld, arm.WITHHELD_BY): the head is left out
             for hz in (('single',) if name == 'M3' else ('transition', 'short', 'long')):
                 grp = []
                 for i in rows:

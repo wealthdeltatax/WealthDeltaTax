@@ -1,6 +1,6 @@
 # The household arm: what a run produces and withholds (brief 121c)
 
-Status: for the author's sign-off. No revenue, fund or burden number is in this note; it lists outputs, labels and gaps only. Brief 121c, 2026-11-22.
+Status: the manifest amendment below was signed off and applied by brief 122c (2026-11-22): `outputs.yml` carries `arms: [legacy]` on the six withheld ids and `arms_by: {headline: {M3: [legacy]}}` on OT1, and the validator accepts a withheld entry under the household arm only. Written for the author's sign-off by 121c. No revenue, fund or burden number is in this note; it lists outputs, labels and gaps only. Brief 121c, 2026-11-22.
 
 ## Labels
 
@@ -49,15 +49,15 @@ Smoke run: 29 ids produced, 6 withheld, 5 not produced by a single evaluation (s
 | OD1 | M7 | produced | no c |
 | OM1 | M9 | **withheld `legacy_only`** | found by the site scan: the migration spend is c times mean wealth; same later brief or its own |
 | OF1 | F1 | not run here | feasibility map (a sweep); not exercised under the household arm |
-| OT1 | T1 | not run here, with a gap | the tornado's M3 head (`sweeps.py`, outside Touches) reads `e['M3']`, which the household arm no longer holds; it would raise at level 2. Needs a withheld M3 head or a household-arm tornado |
+| OT1 | T1 | produced without its M3 head (122c) | `sweeps.tornado` leaves the M3 head out when the evaluation holds no M3; `assemble` writes `withheld_by: {headline: {M3: legacy_only}}`; the other heads run. Not exercised on the model under the household arm |
 
 The set withheld is `arm.WITHHELD` (O3, OH1b, OH1c, OW1, OW3, OM1); the module-to-id table of `architecture.md` 2.10 and the manifest are unchanged and still agree (`test_w7`).
 
-## Proposed manifest amendment (for sign-off; `outputs.yml` is not edited)
+## Manifest amendment (applied by 122c; as proposed by 121c, plus the OT1 head)
 
 ```diff
 -  - {id: O3,   metric: M3,  title: "Taxpayer burden, gain-weighted lifetime rate", summary: p10_mean_p90, ...
 +  - {id: O3,   metric: M3,  arms: [legacy], title: "Taxpayer burden, gain-weighted lifetime rate", summary: p10_mean_p90, ...
 ```
 
-The same `arms: [legacy]` on OH1b, OH1c, OW1, OW3 and OM1. In `pipeline/validate_outputs.py`: add `withheld` to `ENTRY_FIELDS`; V7 then reads an entry with `arms: [legacy]` and `withheld: legacy_only` as covered when the run's `arm` is `household` (cells must be empty), and as an error otherwise; add `arm` to the run block's known fields. Until then a final household-arm file fails V7 on the six withheld ids, so only provisional files are written under it.
+The same `arms: [legacy]` on OH1b, OH1c, OW1, OW3 and OM1. In `pipeline/validate_outputs.py`: add `withheld` to `ENTRY_FIELDS`; V7 then reads an entry with `arms: [legacy]` and `withheld: legacy_only` as covered when the run's `arm` is `household` (cells must be empty), and as an error otherwise; add `arm` to the run block's known fields. The validator also takes `withheld_by` on OT1 (the M3 head). A final household-arm file with the six ids withheld and OT1's M3 head labelled passes `--final`; the same file labelled legacy fails V7.

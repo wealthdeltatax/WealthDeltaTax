@@ -101,12 +101,15 @@ def _series(entry: dict, samples: dict, cell_key: tuple, final: bool):
     return [{"t": t, **pts[t]} for t in sorted(pts)] or None
 
 
-def assemble_output(manifest: dict, entry: dict, samples: dict, final: bool) -> dict:
+def assemble_output(manifest: dict, entry: dict, samples: dict, final: bool, held: dict | None = None) -> dict:
     """One output entry, `{"summary", "cells"}`; cells follow the manifest product."""
     oid, summary = entry["id"], entry["summary"]
     every = {_norm(k): v for k, v in samples.items()}
     got = {k: v for k, v in every.items() if not any(p[0] == "t" for p in k[2])}
-    wanted = [_norm(k) for k in _expected(manifest, entry)]
+    gone = lambda k: any(dict(k[2]).get(d) == v for d, vs in (held or {}).items() for v in vs)   # a by-value the arm withholds (121c, 122c)
+    wanted = [k for k in (_norm(k) for k in _expected(manifest, entry)) if not gone(k)]
+    if any(gone(k) for k in got):
+        raise AssembleError(f"{oid}: samples for a withheld by-value")
     extra = sorted(set(got) - set(wanted), key=str)
     if extra:
         raise AssembleError(f"{oid}: {len(extra)} sample key(s) outside the manifest, e.g. {extra[0]}")
@@ -130,7 +133,7 @@ def assemble_output(manifest: dict, entry: dict, samples: dict, final: bool) -> 
             if series is not None:
                 cell["series"] = series
         cells.append(cell)
-    return {"summary": summary, "cells": cells}
+    return {"summary": summary, "cells": cells, **({"withheld_by": {d: {v: "legacy_only" for v in vs} for d, vs in held.items()}} if held else {})}
 
 
 def assemble_level2(level2: dict, ids: dict, final: bool) -> dict:
@@ -160,7 +163,9 @@ def assemble(manifest: dict, samples: dict, level2: dict | None = None, status: 
         raise AssembleError(f"output id(s) not in the manifest: {', '.join(unknown)}")
     outputs = {}
     for oid, entry in ids.items():
-        if oid in (withheld or {}):
+        if isinstance(withheld, dict) and isinstance(withheld.get(oid), dict):
+            outputs[oid] = assemble_output(manifest, entry, samples.get(oid, {}), final, {d: list(v) for d, v in withheld[oid].items()})
+        elif oid in (withheld or {}):
             if samples.get(oid):
                 raise AssembleError(f"{oid}: withheld ({withheld[oid]}) but samples were given")
             outputs[oid] = {"summary": entry["summary"], "cells": [], "withheld": withheld[oid]}

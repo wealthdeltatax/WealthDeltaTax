@@ -36,8 +36,27 @@ The comparators on the account (M3, M12, M13, M15, M9), the `fl` horizon fix (12
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
-- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/122-manifest-arms origin/brief/122-manifest-arms`
-- **State:** ready; not started
+- **Done:** blocks 0 to 2. Block 1: `arms: [legacy]` on six ids, version `stage-A14-arms-2026-11-22`, validator `withheld`/`arm` rules, fixture regenerated. Block 2: OT1 `arms_by` (M3 head), validator `withheld_by`, `sweeps.tornado` leaves out the M3 head when absent, `assemble` writes `withheld_by`, `arm.WITHHELD_BY`; a household-arm file passes `--final`, the same file labelled legacy fails V7 (test). Suites: data 94, gate 17, hooks 87, model_v3 309 all pass; fixture current; check_agent_docs exit 0.
+- **Next:** author review; then 123c (`fl` horizon fix) and the comparators brief.
+- **Decisions:** `run.arm` is a name or the label object (its `arm`); absent means legacy; OT1's M3 head is declared in the manifest by `arms_by` (a second manifest edit beyond the six ids, needed so the validator knows which part is withheld).
+- **Gotchas:** none open.
+- **Resume:** none.
+- **Not run:** the tornado on the model under the household arm (tested with an evaluator holding no M3).
+- **State:** done; not merged
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 122c, manifest arms, the validator and the tornado head under the household arm
+- Files changed: docs/model-v3/outputs.yml (arms on O3, OH1b, OH1c, OW1, OW3, OM1; arms_by on OT1; version); pipeline/validate_outputs.py; model_v3/runner/sweeps.py (M3 head left out when absent); model_v3/runner/arm.py (WITHHELD_BY); model_v3/out/assemble.py (withheld_by); tests/data/fixtures/outputs.fixture.json (regenerated: version and manifest hash only); tests/data/test_validate_outputs.py (7 tests); tests/model_v3/test_arm_switch.py (assertions updated, 1 test); docs/model-v3/household-arm-outputs.md; this brief
+- What is different now: a household-arm file with the six ids withheld and OT1's M3 head labelled is valid under --final; the same file labelled legacy or without an arm fails V7; a value under a withheld id fails V7; run.arm is a known run field and must name an arm
+- New or changed interfaces: manifest keys arms and arms_by; entry fields withheld and withheld_by; run field arm; arm.WITHHELD_BY; assemble(withheld={id: str | {dim: {value: label}}})
+- Acceptance criteria: test_legacy_digest and all four suites pass (met); each validator behaviour has a failing-input test (met); final household file passes, the legacy-labelled one fails V7 (met, test); OT1 does not raise and carries the withheld M3 head (met on an evaluator without M3; not on the full model)
+- Deviations from the brief: outputs.yml also got arms_by on OT1 (the brief said the six ids and nothing else); without it the validator cannot know which OT1 part is withheld. Say if you want it expressed differently
+- Risks / follow-ups: the household arm's OT1 on the full model is untested (the tornado runs many evaluations); STATUS.md quotes the old manifest version (guru-owned)
+- Instruction friction: none
+- Verification: data 94, gate 17, hooks 87, model_v3 309 passed (background); make_fixture --check exit 0; check_agent_docs exit 0
+- Overview sections likely needing an update: STATUS.md manifest version line (guru)
+- Commit / branch: brief/122-manifest-arms, not merged
+```

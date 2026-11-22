@@ -8,7 +8,10 @@ import pytest
 from model_v3.core import kernel as K
 from model_v3.out import assemble
 from model_v3.runner import arm as ab, runner as R
-from test_runner import ROOT, ctx, lv, out, tier1  # noqa: F401  (the fixtures)
+from model_v3.out import writer
+from model_v3.runner import sweeps as S
+from test_out import INFO, INPUTS, LEVERS, MANIFEST, fixture, synthetic
+from test_runner import ROOT, ctx, fake, lv, out, tier1  # noqa: F401  (the fixtures)
 
 SPEC = dict(tau_0=0.04, tau_m=0.7, k_ln=1, ratio=0.5)
 INP = json.loads((ROOT / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text())
@@ -56,11 +59,29 @@ def test_the_household_arm_withholds_the_legacy_c_outputs_and_produces_the_rest(
     ev = {'S': R.evaluate(c2, c2.centre, SPEC, *PATHS)}
     s = R.samples(ev, c2.ids, c2.once, R.statics(c2, c2.centre))
     held = ab.withheld(R.core_run(c2, c2.centre, SPEC, *PATHS).arm)
-    assert set(held) == set(ab.WITHHELD) == {'O3', 'OH1b', 'OH1c', 'OW1', 'OW3', 'OM1'} and set(held.values()) == {'legacy_only'}
-    assert not any(s.get(i) for i in held) and 'M3' not in ev['S']                                     # no value under a withheld id
+    assert set(ab.WITHHELD) == {'O3', 'OH1b', 'OH1c', 'OW1', 'OW3', 'OM1'} and held == {**dict.fromkeys(ab.WITHHELD, 'legacy_only'), **ab.WITHHELD_BY}
+    assert not any(s.get(i) for i in ab.WITHHELD) and 'M3' not in ev['S']                                     # no value under a withheld id
     assert all(s[i] for i in s if i not in held)                                                       # every id produced is non-empty
     assert ab.withheld(dict(arm='legacy')) == {} and set(s) | set(held) >= {'O1', 'O2', 'O4a', 'O7', 'OW2', 'OS1'}
-    o, _ = assemble.assemble(out, {}, None, 'provisional', held)
-    assert all(o[i] == dict(summary=o[i]['summary'], cells=[], withheld='legacy_only') for i in held) and set(o) == set(held)
+    o, _ = assemble.assemble(out, {}, None, 'provisional', {i: held[i] for i in ab.WITHHELD})
+    assert all(o[i] == dict(summary=o[i]['summary'], cells=[], withheld='legacy_only') for i in ab.WITHHELD) and set(o) == set(ab.WITHHELD)
     with pytest.raises(assemble.AssembleError, match='withheld'):
-        assemble.assemble(out, {'O3': {('S', 'single', (), None): np.ones(3)}}, None, 'provisional', held)
+        assemble.assemble(out, {'O3': {('S', 'single', (), None): np.ones(3)}}, None, 'provisional', {'O3': 'legacy_only'})
+
+
+def test_the_tornado_leaves_out_the_withheld_m3_head_and_a_household_file_passes_final(out, tmp_path):
+    ev = lambda *a, **k: {x: v for x, v in fake()(*a, **k).items() if x != 'M3'}                      # a household-arm evaluation holds no M3
+    rows = {'a': type('Row', (), dict(low=0.0, high=1.0))(), 'b': type('Row', (), dict(low=0.0, high=1.0))()}
+    t = S.tornado(ev, {'S': dict(SPEC)}, rows, {'a'})
+    assert t and {r['headline'] for r in t} == {'M1', 'M2', 'M4a'} and 'M3' in {r['headline'] for r in S.tornado(fake(), {'S': dict(SPEC)}, rows, {'a'})}
+    held = ab.withheld(dict(arm='household'))
+    drop = [i for i in held if isinstance(held[i], str)]
+    smp = synthetic(skip=drop)
+    smp['OT1'] = {k: v for k, v in smp['OT1'].items() if dict(k[2])['headline'] != 'M3'}
+    o, _ = assemble.assemble(out, smp, None, 'final', held)
+    run = writer.run_block(out, MANIFEST, INPUTS, LEVERS, {**INFO, 'status': 'final', 'pack_sha256': 'x' * 64, 'pack_country': 'UK', 'arm': dict(arm='household', central=False)})
+    path = writer.write_outputs(tmp_path, writer.document(o, {}, run), MANIFEST, INPUTS)               # the validator runs inside with --final and raises on any error
+    assert path.exists() and o['OT1']['withheld_by'] == dict(headline=dict(M3='legacy_only')) and not o['O3']['cells']
+    legacy = writer.document(o, {}, {**run, 'arm': 'legacy'})
+    with pytest.raises(writer.WriterError, match='V7'):
+        writer.write_outputs(tmp_path, legacy, MANIFEST, INPUTS)
