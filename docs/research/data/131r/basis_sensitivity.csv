@@ -1,0 +1,17 @@
+level,band,wealth_ons_gbp_bn,pension_ons_gbp_bn,pension_share_ons_pct,contents_adjusted_wealth_ons_gbp_bn,uplift_gbp_bn,uplift_low_gbp_bn,uplift_high_gbp_bn,uplift_pct_of_adjusted_wealth,pension_ifs_gbp_bn,pension_multiplier,wealth_ifs_gbp_bn,pension_share_ifs_pct,class,mapping
+decile,D1,13.897,5.584,40.18,-3.765,0.0,0.0,0.0,,5.584,1.0,13.897,40.18,unset,no published value: counted 0
+decile,D2,78.424,21.472,27.38,38.704,8.708,7.934,9.483,22.5,30.181,1.406,87.132,34.64,proxy,"Figure 4 decile-edge mean (chart, +-2 points)"
+decile,D3,195.622,83.159,42.51,137.302,61.786,59.04,64.532,45.0,144.945,1.743,257.408,56.31,proxy,"Figure 4 decile-edge mean (chart, +-2 points)"
+decile,D4,392.482,141.843,36.14,321.629,151.166,144.733,157.598,47.0,293.009,2.066,543.648,53.9,proxy,"Figure 4 decile-edge mean (chart, +-2 points)"
+decile,D5,651.95,237.636,36.45,568.826,236.063,224.686,247.439,41.5,473.699,1.993,888.013,53.34,proxy,"Figure 4 decile-edge mean (chart, +-2 points)"
+decile,D6,955.204,312.734,32.74,855.266,312.172,295.067,329.277,36.5,624.906,1.998,1267.376,49.31,proxy,"Figure 4 decile-edge mean (chart, +-2 points)"
+decile,D7,1322.966,427.053,32.28,1207.173,434.582,410.439,458.726,36.0,861.636,2.018,1757.548,49.02,proxy,"Figure 4 decile-edge mean (chart, +-2 points)"
+decile,D8,1805.596,608.666,33.71,1667.197,596.023,562.679,629.367,35.75,1204.689,1.979,2401.619,50.16,proxy,"Figure 4 decile-edge mean (chart, +-2 points)"
+decile,D9,2628.545,959.419,36.5,2462.75,837.335,788.08,886.59,34.0,1796.754,1.873,3465.88,51.84,proxy,"Figure 4 decile-edge mean (chart, +-2 points)"
+decile,D10,5523.204,2010.446,36.4,5274.246,1974.187,1738.274,2210.659,37.43,3984.633,1.982,7497.391,53.15,proxy,closed by the published aggregate (22.3 over 16.3 trillion)
+band,D1-3,287.943,110.282,38.3,172.241,70.494,66.974,74.015,40.93,180.777,1.639,358.437,50.43,"proxy (decile 1 unset, counted as 0)","Figure 4 decile-edge mean (chart, +-2 points)"
+band,D4-5,1044.432,379.129,36.3,890.456,387.229,369.42,405.038,43.49,766.357,2.021,1431.661,53.53,proxy,"Figure 4 decile-edge mean (chart, +-2 points)"
+band,D6-7,2278.17,740.405,32.5,2062.439,746.754,705.506,788.003,36.21,1487.16,2.009,3024.924,49.16,proxy,"Figure 4 decile-edge mean (chart, +-2 points)"
+band,D8-9,4434.141,1569.686,35.4,4129.947,1433.358,1350.759,1515.957,34.71,3003.044,1.913,5867.499,51.18,proxy,"Figure 4 decile-edge mean (chart, +-2 points)"
+band,D10,5523.204,2010.446,36.4,5274.246,1974.187,1738.274,2210.659,37.43,3984.633,1.982,7497.391,53.15,proxy,closed by the published aggregate (22.3 over 16.3 trillion)
+all,all,13567.89,4809.948,35.45,12529.328,4612.023,4521.287,4703.317,36.81,9421.971,1.959,18179.913,51.83,"proxy (decile 1 unset, counted as 0)","Figure 4 decile-edge mean (chart, +-2 points)"

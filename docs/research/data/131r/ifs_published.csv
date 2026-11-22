@@ -1,0 +1,57 @@
+id,measure,value,unit,period,basis,population,pdf_page,printed_page,locator,flag,precision
+IFS-01,mean household pension wealth,450000,gbp_2026,2020-22,IFS,GB households,3,2,"executive summary, key finding 1",text,"stated to the nearest 10,000"
+IFS-02,mean household pension wealth,230000,gbp_2026,2020-22,ONS,GB households,3,2,"executive summary, key finding 1",text,"stated to the nearest 10,000"
+IFS-03,pension share of household wealth,54,pct,2020-22,IFS,GB households,3,2,"executive summary, key finding 1",text,whole percent
+IFS-04,pension share of household wealth,38,pct,2020-22,ONS,GB households,3,2,"executive summary, key finding 1",text,whole percent
+IFS-05,mean total household wealth (excl. business wealth),830000,gbp_2026,2020-22,IFS,GB households,17,16,"section 3, opening paragraph",text,"nearest 10,000; ""37% higher"""
+IFS-06,mean total household wealth (excl. business wealth),600000,gbp_2026,2020-22,ONS,GB households,17,16,"section 3, opening paragraph",text,"nearest 10,000"
+IFS-07,"mean total wealth, IFS over ONS",37,pct,2020-22,IFS vs ONS,GB households,17,16,"section 3, opening paragraph",text,whole percent
+IFS-08,aggregate household wealth (excl. business wealth),16.3,gbp_tn_2026,2020-22,ONS,GB households,17,16,"section 3, opening paragraph",text,one decimal
+IFS-09,aggregate household wealth (excl. business wealth),22.3,gbp_tn_2026,2020-22,IFS,GB households,17,16,"section 3, opening paragraph",text,one decimal
+IFS-10,"real 15-year index-linked gilt yield, average",-1.9,pct_pa,Apr 2020 to Mar 2022,IFS discount rate,market,17,16,"section 3, after the aggregate figures",text,one decimal
+IFS-11,"real SCAPE rate used by ONS, fixed",2.4,pct_pa,2020-22,ONS discount rate,method,18,17,"section 3, start of page",text,one decimal
+IFS-12,mean total household wealth,530000,gbp_2026,2006-08,ONS,GB households,18,17,Figure 1 discussion,text,"nearest 10,000"
+IFS-13,mean total household wealth,720000,gbp_2026,2018-20,ONS,GB households,18,17,Figure 1 discussion,text,"nearest 10,000"
+IFS-14,mean total household wealth,550000,gbp_2026,2006-08,IFS,GB households,18,17,Figure 1 discussion,text,"nearest 10,000"
+IFS-15,mean total household wealth,750000,gbp_2026,2018-20,IFS,GB households,18,17,Figure 1 discussion,text,"nearest 10,000"
+IFS-16,"total wealth at the 90th percentile, IFS minus ONS",490000,gbp_2026,2020-22,IFS minus ONS,GB households,21,20,Figure 4 discussion,text,"nearest 10,000"
+IFS-17,"total wealth at the 50th percentile, IFS minus ONS",130000,gbp_2026,2020-22,IFS minus ONS,GB households,21,20,Figure 4 discussion,text,"""only around""; nearest 10,000"
+IFS-18,"total wealth at the 30th percentile, IFS over ONS",49,pct,2020-22,IFS vs ONS,GB households,22,21,Figure 4 discussion (page break from p21),text,whole percent
+IFS-19,"total wealth at the 90th percentile, IFS over ONS",34,pct,2020-22,IFS vs ONS,GB households,22,21,Figure 4 discussion (page break from p21),text,whole percent
+IFS-20,top 10% share of household wealth,42,pct,2020-22,IFS and ONS (identical),GB households,22,21,after Figure 4,text,"whole percent; no business wealth, no top-tail adjustment"
+IFS-21,top 10% share of household wealth,45,pct,2006-08,IFS,GB households,4,3,"executive summary, key finding 2",text,whole percent
+IFS-22,top 10% share of household wealth,42,pct,2018-20,IFS,GB households,4,3,"executive summary, key finding 2",text,whole percent
+IFS-23,top 10% share of household wealth,46,pct,2006-08,ONS,GB households,4,3,"executive summary, key finding 2",text,whole percent
+IFS-24,top 10% share of household wealth,45,pct,2018-20,ONS,GB households,4,3,"executive summary, key finding 2",text,whole percent
+IFS-25,Gini coefficient of household wealth,0.6,ratio,2020-22,IFS and ONS (identical),GB households,23,22,Figure B2 discussion,text,"""around 60%"""
+IFS-26,"pension share of wealth, age 65+",31,pct,2020-22,ONS,GB individuals aged 65+,26,25,Figure 7 discussion,text,whole percent
+IFS-27,"pension share of wealth, age 65+",38,pct,2020-22,IFS,GB individuals aged 65+,26,25,Figure 7 discussion,text,whole percent
+IFS-28,"pension share of wealth, age 40-64",59,pct,2020-22,IFS,GB individuals aged 40-64,26,25,Figure 7 discussion (ONS about 40),text,whole percent
+IFS-29,"pension share of wealth, age 20-39",73,pct,2020-22,IFS,GB individuals aged 20-39,26,25,Figure 7 discussion (ONS about 40),text,whole percent
+IFS-30,"share of aggregate individual wealth, age 20-39",18,pct,2020-22,IFS,GB individuals aged 20-39,27,26,Figure 8 discussion,text,whole percent
+IFS-31,"share of aggregate individual wealth, age 20-39",11,pct,2020-22,ONS,GB individuals aged 20-39,27,26,Figure 8 discussion,text,whole percent
+IFS-32,"share of aggregate individual wealth, age 65+",29,pct,2020-22,IFS,GB individuals aged 65+,27,26,Figure 8 discussion,text,whole percent
+IFS-33,"share of aggregate individual wealth, age 65+",36,pct,2020-22,ONS,GB individuals aged 65+,27,26,Figure 8 discussion,text,whole percent
+IFS-34,"median individual wealth, age 30-39, IFS over ONS",50,pct,2020-22,IFS vs ONS,GB individuals in their 30s,26,25,Figure 8 discussion,text,"""50% higher"""
+IFS-35,"median individual wealth, age 70+, IFS over ONS (upper bound)",10,pct,2020-22,IFS vs ONS,GB individuals aged 70+,26,25,Figure 8 discussion,text,"""less than 10%"": an upper bound"
+IFS-36,home contents reduced by 75% in both measures,75,pct,2020-22,IFS and ONS,method,17,16,footnote 20,text,"method note; business wealth excluded in both (main text, p16)"
+IFS-37,business wealth excluded in both measures,,note,2020-22,IFS and ONS,method,17,16,"section 3, opening paragraph",text,method note
+IFS-38,gap expected to narrow in 2022-24 as gilt yields rose,,note,2022-24,IFS vs ONS,method,20,19,after Figure 2,text,qualitative
+IFS-C01,"total wealth at the 10th percentile, IFS over ONS",4,pct,2020-22,IFS vs ONS,GB households,22,21,"Figure 4, percentage-difference line, right axis",read from chart,"+-2 percentage points; p30 and p90 agree with the text (49, 34)"
+IFS-C02,"total wealth at the 20th percentile, IFS over ONS",41,pct,2020-22,IFS vs ONS,GB households,22,21,"Figure 4, percentage-difference line, right axis",read from chart,"+-2 percentage points; p30 and p90 agree with the text (49, 34)"
+IFS-C03,"total wealth at the 30th percentile, IFS over ONS",49,pct,2020-22,IFS vs ONS,GB households,22,21,"Figure 4, percentage-difference line, right axis",read from chart,"+-2 percentage points; p30 and p90 agree with the text (49, 34)"
+IFS-C04,"total wealth at the 40th percentile, IFS over ONS",45,pct,2020-22,IFS vs ONS,GB households,22,21,"Figure 4, percentage-difference line, right axis",read from chart,"+-2 percentage points; p30 and p90 agree with the text (49, 34)"
+IFS-C05,"total wealth at the 50th percentile, IFS over ONS",38,pct,2020-22,IFS vs ONS,GB households,22,21,"Figure 4, percentage-difference line, right axis",read from chart,"+-2 percentage points; p30 and p90 agree with the text (49, 34)"
+IFS-C06,"total wealth at the 60th percentile, IFS over ONS",35,pct,2020-22,IFS vs ONS,GB households,22,21,"Figure 4, percentage-difference line, right axis",read from chart,"+-2 percentage points; p30 and p90 agree with the text (49, 34)"
+IFS-C07,"total wealth at the 70th percentile, IFS over ONS",37,pct,2020-22,IFS vs ONS,GB households,22,21,"Figure 4, percentage-difference line, right axis",read from chart,"+-2 percentage points; p30 and p90 agree with the text (49, 34)"
+IFS-C08,"total wealth at the 80th percentile, IFS over ONS",34.5,pct,2020-22,IFS vs ONS,GB households,22,21,"Figure 4, percentage-difference line, right axis",read from chart,"+-2 percentage points; p30 and p90 agree with the text (49, 34)"
+IFS-C09,"total wealth at the 90th percentile, IFS over ONS",33.5,pct,2020-22,IFS vs ONS,GB households,22,21,"Figure 4, percentage-difference line, right axis",read from chart,"+-2 percentage points; p30 and p90 agree with the text (49, 34)"
+IFS-C10,"total wealth at the 50th percentile, IFS bar",470000,gbp_2026,2020-22,IFS,GB households,22,21,"Figure 4, bar, left axis",read from chart,"+-20,000; IFS minus ONS bar agrees with the text (130,000)"
+IFS-C11,"total wealth at the 50th percentile, ONS bar",340000,gbp_2026,2020-22,ONS,GB households,22,21,"Figure 4, bar, left axis",read from chart,"+-20,000"
+IFS-C12,"total wealth at the 90th percentile, IFS bar",1940000,gbp_2026,2020-22,IFS,GB households,22,21,"Figure 4, bar, left axis",read from chart,"+-30,000; IFS minus ONS bar agrees with the text (490,000)"
+IFS-C13,"total wealth at the 90th percentile, ONS bar",1450000,gbp_2026,2020-22,ONS,GB households,22,21,"Figure 4, bar, left axis",read from chart,"+-30,000"
+IFS-C14,"pension wealth ratio IFS over ONS, up to age 34",470,pct_ratio,2020-22,IFS vs ONS,"GB individuals, up to age 34",42,41,"Figure B3, Apr 2020 - Mar 2022 line",read from chart,+-10 percentage points (a ratio: 100 = no change)
+IFS-C15,"pension wealth ratio IFS over ONS, age 35-49",265,pct_ratio,2020-22,IFS vs ONS,"GB individuals, age 35-49",42,41,"Figure B3, Apr 2020 - Mar 2022 line",read from chart,+-10 percentage points (a ratio: 100 = no change)
+IFS-C16,"pension wealth ratio IFS over ONS, age 50-59",182,pct_ratio,2020-22,IFS vs ONS,"GB individuals, age 50-59",42,41,"Figure B3, Apr 2020 - Mar 2022 line",read from chart,+-10 percentage points (a ratio: 100 = no change)
+IFS-C17,"pension wealth ratio IFS over ONS, age 60-69",147,pct_ratio,2020-22,IFS vs ONS,"GB individuals, age 60-69",42,41,"Figure B3, Apr 2020 - Mar 2022 line",read from chart,+-10 percentage points (a ratio: 100 = no change)
+IFS-C18,"pension wealth ratio IFS over ONS, age 70+",131,pct_ratio,2020-22,IFS vs ONS,"GB individuals, age 70+",42,41,"Figure B3, Apr 2020 - Mar 2022 line",read from chart,+-10 percentage points (a ratio: 100 = no change)

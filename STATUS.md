@@ -13,11 +13,12 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent 3 (code) | out of tokens | free when refreshed |
 | Agent 4 (code) | out of tokens | 057c is held |
 | Agent 5 (research) | out of tokens | nothing queued (134r done) |
-| Agent 6 | free | 133c, 136c, 135c, 131r in that order |
+| Agent 6 | free | 133c, 136c, 135c in that order |
 
 Six agents only. Agents 2 to 6 change skill with the brief. Ready now: 085c to 088c, resumed on the 092c interface (merged 2026-11-20; the four stops had one cause: the 084c interface gave a group no `ctx`, `theta`, pack, rng or payer record; rulings are in each brief). Parked: 089c (OF1, CK1) until the author rules on the feasibility rule after the 083c and 090c reports. Waiting: 057c. Held: 044c and 009c, both after 057c.
 
 ## Recently done
+- 2026-11-23: 131r merged (`docs/research/131r-pension-basis-sensitivity.md`). ONS stays central; IFS basis (x1.96 on the opening pension stock) a labelled scenario only. It overshoots wealth/GDP (8.22 vs 7.5) and does not move the top-decile gap (0.41 vs 0.50). Row I-D1m bundled with the lien-rate row in one later register brief.
 - 2026-11-22: 134r merged (`docs/research/134r-lien-deferral-rate.md`). Author ruled r_def: central 2% real (risk-free benchmark), high 3%, low 0% (policy floor), one rate for both liens; register row is a later small brief (gate hash changes); kernel default stays 0.0 until then.
 - 2026-11-22: 132c merged (`516777a`, pension-secured lien, `docs/model-v3/household-arm-lien.md`): `min_mid` class-payment tax now carried (unpaid 0; D4 lien peak 0.386, 80% of pension settled at death); `median_high` NOT carried (kernel cap, brief 133c, draft: author picks design) and the 127c floor alarm stands. Deferral rate is 0.0, no register row (brief 134r). Heir's share: uncapped for now, author to rule. 128c now unblocked.
 - 2026-11-22: 074c retired by the author (legacy-arm gap diagnosis, superseded). Brief 136c (household vs legacy decomposition) written: gross receipts are similar across arms, M2 (burden share of wealth) and P6 (fund path) are far lower under the household arm; the cause is not yet known.

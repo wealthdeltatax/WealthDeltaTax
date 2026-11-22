@@ -39,8 +39,29 @@ How to map the report's percentiles to the pack's bands (the agent states the ru
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** blocks 0 to 3. Note `docs/research/131r-pension-basis-sensitivity.md` (answer, mapping rule and error, band table, gaps explained, arm inputs to review, unset list, proposed register row, sources); data in `docs/research/data/131r/` (`ifs_published.csv` 56 rows; `basis_sensitivity.csv`; `basis_checks.csv` 15 checks, 14 pass; `basis_headline.csv`; two scripts). `python -I pipeline/check_agent_docs.py` exit 0.
+- **Next:** guru review and merge decision; the author's choice of valuation convention (nothing adopted).
+- **Decisions:** the IFS uplift is a pension revaluation (2020-22 differs only in the discount rate); applied to contents-adjusted wealth; deciles 2 to 9 from Figure 4 decile edges (chart, +-2 points); decile 1 unset; decile 10 closed by the published aggregate; quantile-matched, not household-matched.
+- **Gotchas:** check C6 misses its rounding tolerance by 0.47 points (54.97% against a published 54%), reported, not loosened; the report's own figures agree within rounding (C12). The price factor (1.301) is implied, not checked against CPI. Figures 4 and B3 are read by eye.
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/131-pension-basis origin/brief/131-pension-basis`
-- **State:** ready; not started
+- **State:** work complete; checker passed; pushed on `brief/131-pension-basis`; not merged (see the report)
 <!-- progress:end -->
+
+
+### Change report
+- **Task:** 131r, the pension valuation basis (IFS against ONS SCAPE) as a labelled scenario on the starting stock.
+- **Files changed:** `docs/research/131r-pension-basis-sensitivity.md` (the note); `docs/research/data/131r/` (`ifs_published.csv`, `basis_sensitivity.csv`, `basis_checks.csv`, `basis_headline.csv`, `extract_ifs_published.py`, `basis_sensitivity.py`); this brief's progress block and report; `docs/agents/friction-log.md` (one entry).
+- **What is different now:** the published IFS figures are in a page-checked table; a side table shows the pack's pension stock under the IFS basis by decile and band (4,810 to 9,422 £bn, multiplier 1.96); the 125c gaps are stated against it.
+- **New or changed interfaces:** none. A candidate register row `I-D1m` is proposed in the note, not added.
+- **Acceptance criteria:**
+  1. Every figure in `ifs_published.csv` has a page or figure reference and a flag: **met** (56 rows: 38 `text`, each found on its PDF page by the script, and 18 `read from chart` with a stated precision; the report has no data table, so no row is flagged `table`).
+  2. The ONS column reproduces the pack's stock exactly: **met** (largest band difference 0.0 £bn against the model's own `cell_table`). The IFS-basis total reproduces the published mean within the stated error: **met for mean pension wealth** (£454,100 against £450,000, tolerance £5,000) and **mean total wealth** (£826,200 against £830,000, tolerance £5,000). **Not met** for the pension share of wealth: 54.97% against 54%, outside the rounding tolerance of 0.5 by 0.47 points (C6); explained in the note (published figures agree within rounding, C12).
+  3. The note says how much of each 125c gap the basis explains: **met**. BF-11: +2.09 against a gap of 1.36 (overshoots by 0.72); BF-13: +0.005 of 0.093 (about 6%, at most 17%); BF-14: not computable and the basis moves the published 65+ share away from the observed value.
+  4. Each band carries an evidence class and uncovered parts are `unset`: **met** (all `proxy`; decile 1, the top tail and any stage or age split `unset`).
+  5. No file outside `docs/research/` changes, and the checker passes: **partly met**. Only `docs/research/`, this brief and `docs/agents/friction-log.md` (always allowed) changed; `python -I pipeline/check_agent_docs.py` exit 0.
+- **Deviations from the brief:** a `text` flag added beside `table` and `read from chart`; a second and third CSV (`basis_checks.csv`, `basis_headline.csv`) beside the two named; the side computation imports `model_v3.core.cells` read-only to check the ONS column against the model's own stock.
+- **Risks / follow-ups:** the IFS-basis result overshoots the Resolution Foundation level and leaves the top-decile gap, so the basis alone does not reconcile the validation rows; Figures 4 and B3 are read by eye; decile 10 is a closure; the price factor is not checked against CPI; the choice of convention and any adoption (I-D1k, I-D1l, I-D1h, tail lines, stage weights) are the author's.
+- **Instruction friction:** one entry added to `docs/agents/friction-log.md` (flag vocabulary).
+- **Verification:** `extract_ifs_published.py` (every text needle on its page) and `basis_sensitivity.py` (14 of 15 checks pass, C6 misses) run; every table and headline number in the note matches the CSVs by script; `python -I pipeline/check_agent_docs.py` exit 0.
+- **Overview sections likely needing an update:** none; `STATUS.md` and `docs/lane-plan.html` after the guru's review.
+- **Commit / branch:** `e9a37a6` (note), `brief/131-pension-basis`. NEEDS THE AUTHOR: not merged, because an acceptance criterion is partly unmet (check C6 misses its rounding tolerance by 0.47 points, explained in the note) and the choice of valuation convention is the author's.

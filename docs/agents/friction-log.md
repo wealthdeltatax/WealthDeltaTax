@@ -20,3 +20,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Instruction: brief 104r `Resume` text and wdt-research skill (branch naming).
 - Happened: the branch is `brief/104`, not `104r`; the clone tracks main only; main moved during the brief, so the rebase needed `git push --force-with-lease` after a non-fast-forward rejection.
 - Cost: one failed push and a lookup. A parallel 102r run was superseded mid-brief.
+
+### 2026-11-23 · 131r · research
+- **Instruction:** 131r Decisions and Block 1: flag each published figure `table` or `read from chart`.
+- **Happened:** the IFS report has no data table of uplifts; its figures are in running text and charts, so a third value `text` was needed (acceptance criterion 1 names only the two).
+- **Cost:** a wording guess; none otherwise.
+- **Suggest:** research briefs that extract from a report name the flags `table`, `text` and `read from chart`.
