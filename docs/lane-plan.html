@@ -281,6 +281,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "089c", lane: "3", at: 1, len: 1, st: "hold", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [{ id: "088c" }, { id: "090c" }], why: "Parked: measured against the legacy 3.5%, which is abandoned (094r to 096r). Rule on feasibility after the replacement exists.", files: "runner/sweeps.py, out_sweeps.py" },
     { id: "057c", lane: "4", at: 2, len: 1, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "085c" }, { id: "086c" }, { id: "087c" }, { id: "088c" }, { id: "089c" }], why: "run.py, smoke tests, accept.sh, convergence test." },
     { id: "009c", lane: "G", at: 3, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" }
+    { id: "130c", lane: "G", at: 3, len: 2, st: "hold", t: "Readable (markitdown) copies of every research file", needs: [], why: "Mirror tree docs/research/readable/, to_markdown.py --readable, fallbacks for ODS and RTF; low priority, like 044c.", files: "docs/research/readable/, pipeline/to_markdown.py" },
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
 

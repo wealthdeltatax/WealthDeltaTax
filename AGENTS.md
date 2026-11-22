@@ -46,7 +46,7 @@ When a brief is finished, its agent merges its own branch into `main`; the autho
 ## Reading
 - Router first, then your role guide, then only the files the task names. Do not open `docs/archive/` or `docs/model-lessons/`.
 - `OVERVIEW.md` is a map and can be out of date; the files are the truth. Read by section.
-- A PDF that is long or table-heavy: convert it with `python -I pipeline/to_markdown.py file.pdf` (reading aid; details in `docs/agents/research.md`).
+- A PDF, Office file, ODS or RTF you need to read: convert it first with `python -I pipeline/to_markdown.py file` and read the Markdown (details and the ODS/RTF route in `docs/agents/research.md`). Do not Read the raw binary.
 - `source/` is canonical. Never rewrite a paper to make a check pass.
 
 ## Finishing

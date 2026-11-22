@@ -30,8 +30,9 @@ Maintains the project's reference database and the literature coverage behind th
 - **Stop rule.** After three blocks, or when a quarter of the budget is left, write the note from what exists, push and stop. List unfinished groups under Next in the progress block.
 - **Resuming.** Check out the named branch, rebase on main, read the progress block and the note skeleton, run nothing already marked done.
 
-## Reading a long or table-heavy PDF
-`python -I pipeline/to_markdown.py file.pdf` converts a local PDF (also docx, pptx, xlsx) to Markdown in a git-ignored scratch folder (scratch/converted; needs `pip install 'markitdown[pdf]'`, plus `--break-system-packages` in the cloud shell). It is a reading aid: tables and multi-column pages can come out garbled and scanned PDFs come out empty, so quote numbers from the PDF itself and mark them "read from a conversion" until checked. Local files only; never feed it a URL or an untrusted file.
+## Reading PDFs, Office files, ODS and RTF
+Do not open a binary research file with Read. Convert it first and read the Markdown: `python -I pipeline/to_markdown.py file.pdf` (Microsoft markitdown; also docx, pptx, xlsx, xls, html; needs `pip install 'markitdown[pdf]'`, plus `--break-system-packages` in the cloud shell). Output goes to the git-ignored `scratch/converted/`. A conversion is a reading aid: quote numbers from the source file, not from the text, because tables and multi-column layouts can garble and scanned PDFs come out empty. ODS and RTF are not read by markitdown: convert them first (`soffice --headless --convert-to xlsx` for ODS; pandoc or `striprtf` for RTF), say which route you used, then proceed.
+After brief 130c, a new binary file added under `docs/research/` is committed with its reading copy in `docs/research/readable/` (same path, `.md`), made by `pipeline/to_markdown.py --readable`.
 
 ## Definition of done
 Every added or changed entry verified or flagged, discrepancies and flags reported, confirmed records written, change report lists entries added and updated.
