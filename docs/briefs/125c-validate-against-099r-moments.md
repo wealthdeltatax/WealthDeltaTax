@@ -37,8 +37,11 @@ None the agent must resolve; a moment whose analogue is unclear is marked `defin
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
-- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/125-validate-099r origin/brief/125-validate-099r`
-- **State:** ready; not started
+- **Done:** block 0: this progress block.
+- **Next:** block 1 (moments_map.csv): read `docs/research/099r-held-research-moments.md`, `data/099r/moments.csv`.
+- **Decisions:** none yet.
+- **Gotchas:** none yet.
+- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/125-validate-099r origin/brief/125-validate-099r`; last block pushed: 0.
+- **Not run:** everything.
+- **State:** in progress; block 0 pushed
 <!-- progress:end -->
