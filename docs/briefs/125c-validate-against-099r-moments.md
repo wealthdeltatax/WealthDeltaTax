@@ -37,11 +37,25 @@ None the agent must resolve; a moment whose analogue is unclear is marked `defin
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0; block 1 (`moments_map.csv`: 33 rows; held yes 5, partly 4, no 24; validation moments 10; only BF-14 is both held and a validation moment; computable 5, definition differs 3, not held 25); block 2 (`validate.py`, `comparison.csv` 9 rows, `tests/model_v3/test_validate_125.py`; budget and rule tests pass).
-- **Next:** block 3: the note `docs/model-v3/household-arm-validation.md`, suites in the background, check_agent_docs, change report, push.
-- **Decisions:** AB-04 `not held` (its 1.4tn to 2.3tn is the paper's); BF-12, EER-01, TZ-01 `definition differs` (no analogue). BF-11, BF-13, BF-14 labelled `definition differs` with numbers shown; GB-01 and BF-15 compared with the held annual DGD8 (2019, 2020, 2022, 2024, 2025).
-- **Gotchas:** the saving axis is built from the same ONS series as the observed ratio, so `inside` is by construction; the retired wealth share is the person share (stage split by person share).
-- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/125-validate-099r origin/brief/125-validate-099r`; last block pushed: 2.
-- **Not run:** block 3, suites.
-- **State:** in progress; block 2 pushed
+- **Done:** blocks 0 to 3: `moments_map.csv` (33 rows), `validate.py`, `comparison.csv` (9 rows), `tests/model_v3/test_validate_125.py`, the note `docs/model-v3/household-arm-validation.md`.
+- **Next:** none for this brief; see the note's Next (wealth by stage and a top-tail row in the pack).
+- **Resume:** not needed.
+- **State:** done; merged
 <!-- progress:end -->
+
+**Change report**
+```
+Change report
+- Task: brief 125c, the household arm against the held 099r moments
+- Files changed: docs/model-v3/household-arm-validation/ (make_map.py, moments_map.csv, validate.py, comparison.csv); docs/model-v3/household-arm-validation.md (the note); tests/model_v3/test_validate_125.py (helpers on a toy case, observed series)
+- What is different now: a comparison of the untaxed cells at three saving values against the held moments, with a status for every 099r row
+- New or changed interfaces: `python -I docs/model-v3/household-arm-validation/make_map.py` and `validate.py`
+- Acceptance criteria: test_legacy_digest and all suites pass: met (10 of 10; model_v3 314 passed); no model file changed: met; every row of moments.csv in moments_map.csv with a status: met (33 rows); every comparison row names its observed source and the definitional differences: met; no parameter, register row or label changed, suggestions only in the note: met
+- Deviations from the brief: none. Only one validation moment (BF-14) is also held, so the comparison is mostly consistency checks, said in the note; AB-04 is `not held` (its observed value is the paper's)
+- Risks / follow-ups: the saving axis comes from the same ONS series as the observed ratio, so `inside` is by construction; BF-14's model number is the person share; needs wealth by stage and a top-tail row in the pack
+- Instruction friction: none
+- Verification: `python pipeline/run_suites.py` 10 of 10 passed; validate.py and make_map.py run; check_agent_docs run
+- Overview sections likely needing an update: household-arm validation status
+- Commit / branch: brief/125-validate-099r; brief 125 merged, ready to retire
+```
+
