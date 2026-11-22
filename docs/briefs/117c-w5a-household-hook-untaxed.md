@@ -42,11 +42,11 @@ Whether the hook should carry paths in the line axis as `revenue.py:64` folds th
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (this block; nothing else read yet).
-- **Next:** block 1, the line-state function in `runner/arm.py` with tests.
-- **Decisions:**
-- **Gotchas:**
-- **Resume:** `git fetch origin && git checkout brief/117-w5a-household-hook`; last block pushed: 0; first action: read the design note sections 2.3, 2.4, 3.2, 3.6, section 4 W5 row, then `household.py`, `cells.py`, `arm.py`.
-- **Not run:** everything.
-- **State:** in progress, block 0 pushed
+- **Done:** block 0; block 1: `arm.line_state(base, comp, reg, sav, scale=1.0)` (class balances = line wealth x the decile share, D10 mix for D10a, D10b and the tiers; income I-D9 per adult, D1-3 the low bound of I-D9a; `sav`, `acc` I-D1k central) and `arm.returns(pos, g)` (the debt rule: a negative property or net financial balance earns 0). 3 tests in the new `tests/model_v3/test_household_hook.py`. `arm.py` 56 of 140. `pytest tests/model_v3 -q`: 275 passed (legacy digest unchanged).
+- **Next:** block 2, `HouseholdHook` (`pre`, `post`, a legacy mode, I1 each year).
+- **Decisions:** (1) `pre` returns `x = N1 / (N0 (1 + g_N)) - 1` (not `S/N`) so that growth then the flow reproduce the household step's closing non-pension total exactly; I1 then holds by construction and `post` checks it. (2) A new book (each phase) restarts the hook's state: its route values are rescaled to the non-pension total `N` and `book.pen = book.penp = pension`, so every line holds route units. (3) Unpaid-for taxed run: `post` raises if any WDT value moves (the taxed household arm is W5b).
+- **Gotchas:** (1) `run_lines` takes `W0 = book.family_true()`, which excludes `book.pen`; under the household hook the base is total net wealth, so block 3 edits that line (and moves the `W1`/`pay1`/`rate1` lines after the `step_year` loop so the hook's `W_after` exists; for legacy `grown` is pure, so bit equal). (2) `identity` needs the pre-tax gain rate by line weight, so block 3 adds a recorded `wgain` (numerator) to the run, hook case only.
+- **Resume:** `git fetch origin && git checkout brief/117-w5a-household-hook`; last block pushed: 1; first action: write `HouseholdHook` in `runner/arm.py`, tests in `test_household_hook.py`.
+- **Not run:** blocks 2 and 3, `check_agent_docs.py`, data/hooks suites.
+- **State:** in progress, block 1 pushed
 <!-- progress:end -->
