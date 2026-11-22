@@ -71,3 +71,10 @@ def test_bad_arguments_are_refused():
     for kw in (dict(convention='C'), dict(convention='A', TR=1.0), dict(convention='A', sink='pension')):
         with pytest.raises(ValueError):
             hh.household_step('x', POS, FLOWS, dict(g=G), DEFL, **kw)
+
+
+def test_a_cell_with_negative_non_pension_wealth_steps_when_nothing_is_paid():   # 110c
+    pos = dict(property=5.0, financial=-8.0, physical=1.0, pension=50.0, debt=0.0)
+    q, a = hh.household_step('x', pos, dict(Y_L=10.0, C=12.0), dict(g={}), DEFL, 'A')
+    assert close([q['financial'], a['dNW'], a['pay_over_nonpension']], [-10.0, -2.0, np.inf]) and np.isfinite(sum(q.values()))
+

@@ -55,11 +55,27 @@ Retired fraction source; whether the per-household and per-person conversions ma
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:** (exact branch name and fetch line, last block pushed, first action)
-- **Not run:**
-- **State:** ready; not started
+- **Done:** `model_v3/core/cells.py` (layer 2), `tests/model_v3/test_cells.py`, run script and CSVs in `docs/model-v3/cell-baseline/`, findings in `docs/model-v3/cell-baseline.md`; 15 runs (9 regime by saving, 2 accrual and 2 retired-fraction sensitivities, B, legacy); v3 250 passed; check_agent_docs exit 0; script reruns byte-identical.
+- **Next:** the validation brief against the 099r moments; the author decides what to do about the accrual mid-point label (2.7 times ONS D.8 on today's wealth).
+- **Decisions:** weights are households (pack counts split by the person shares of cell_weights); money carried in thousands of pounds inside the module; retired fraction 0.4386 from the held ETB Tables 3a and 4a; gain = total return minus the regime's JST portfolio yield for pension and net financial.
+- **Gotchas:** `household_step` tripped on a cell with negative non-pension wealth even when nothing is paid (NaN shares, a payment-exceeds error); fixed in `household.py` with a test (named below). Its identity check is absolute 1e-9, so per-household pounds in the millions failed on rounding.
+- **Resume:** none.
+- **Not run:** none.
+- **State:** done; merged
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 110c, untaxed cell baseline run
+- Files changed: model_v3/core/cells.py (new); tests/model_v3/test_cells.py (new, 4 tests); docs/model-v3/cell-baseline.md; docs/model-v3/cell-baseline/ (cell_baseline.py, cell_paths.csv, aggregates.csv, tables.md, inputs_used.json); tests/model_v3/conftest.py (LAYER row core/cells: 2); docs/model-v3/architecture.md (budget row 80/60, totals, 2.12); NAMED, outside Touches: model_v3/core/household.py (no-payment case: shares no longer NaN and the payment check applies only when T > 0) and tests/model_v3/test_household.py (one test)
+- What is different now: ten cells run 100 years untaxed under convention A, B and legacy; the findings note reports wealth over GDP, saving, shares, account terms and negative positions for 15 runs.
+- New or changed interfaces: cells.cell_table(pack, reg, retired), cells.run_cell(cell, years, sav, accrual, growth, rets, convention, c); household_step accepts a cell with negative non-pension wealth when T_WDT is 0
+- Acceptance criteria: ten cells, 100 years, identity residual below 3e-11 in every year of every run (met, tested); legacy arm equals grow_and_consume (met, rtol 1e-12, tested); units reconciliation with gaps reported not forced: households 0.00%, wealth 0.01%, persons -3.6% against I-D4h central (0.0% at low), income -11% against B.6g 2021, accrual 2.7 times D.8 2021 (met); findings state all runs, nothing tuned (met); existing digests and suites unchanged: v3 250 passed, data 5 failed and hooks 1 failed as on main (met); diff limited to Touches plus the two named files (partly met)
+- Deviations from the brief: retired fraction from the held ETB (0.4386), not the 0.6 fallback, with 0.6 and 0.8 as sensitivity; gain on pension and net financial is the register's total return minus the JST regime yield (so the yield is not counted twice); sensitivities on accrual added because it drives the result
+- Risks / follow-ups: the mid-point label of I-D1k gives 2.7 times today's ONS D.8, and with the median saving ratio the accrual is 1.12 of the 1.22 points of saving, so the baseline path is mostly a statement about that label and about the return regime (0.85 low, 2.04 mid, 9.9 high at year 100); minimum saving ratio makes net financial wealth negative in every band eventually (no borrowing constraint); B and A paths differ in composition after year 1; household_step's identity check is absolute, so callers must keep money near unit scale
+- Instruction friction: none
+- Verification: pytest tests/model_v3: 250 passed in the background; run_suites data hooks: 5 and 1 failures, the pre-existing ones; check_agent_docs exit 0; script rerun byte-identical (md5)
+- Overview sections likely needing an update: none
+- Commit / branch: brief/110-cell-baseline, merged to main
+```

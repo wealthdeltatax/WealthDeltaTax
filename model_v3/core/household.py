@@ -62,11 +62,11 @@ def household_step(cell, pos, flows, rets, defl, convention, T_WDT=0.0, source_w
     if source_weights is not None and set(source_weights) - set(pay_pool):
         raise ValueError('the payment cannot fall on pension, debt or a class not in pos')
     tot = sum(w.values())
-    share = {k: _ratio(w[k], tot) * (tot > 0) for k in pay_pool}
+    share = {k: np.where(tot > 0, w[k] / np.where(tot > 0, tot, 1.0), 0.0) for k in pay_pool}                  # no payment, no weights: a cell with no non-pension wealth is not an error (110c)
     for k in pay_pool:
         q[k] = q[k] - T * share[k]
     nonpen, fin_w = sum(q[k] for k in pay_pool) + T, sum(q[k] for k in (fin or (sink,))) + T * sum(share[k] for k in (fin or (sink,)))
-    if np.any(T > nonpen + 1e-12):
+    if np.any((T > 0) & (T > nonpen + 1e-12)):
         raise ValueError('the payment exceeds non-pension wealth; pension is never sold')
     dnw = sum(q[k] for k in assets) - q['debt'] - nw0
     acct = dict(cell=cell, dNW=dnw, S=S, CG=CG, CG_wedge=wedge, TR=0.0 * dnw, O=np.asarray(O, float) * (convention != 'legacy'), T_WDT=T,
