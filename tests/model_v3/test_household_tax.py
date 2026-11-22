@@ -75,3 +75,39 @@ def test_deaths_and_the_horizon_settle_and_the_account_closes(mode):
         assert np.abs(a['residual']).max() < 1e-9 and (a['unpaid'] == 0).all() and K.shortfall_lines(book) == 0 and np.abs(book.family_true() - sum(h.q[k] for k in arm.CLASSES[:3])).max() < 1e-9
         last = a
     assert (book.LB == 0).all() and (book.A_D == 0).all() and (h.q['pension'] == book.pen).all()
+
+
+class Spy(arm.HouseholdHook):
+    """Records the gap between the books' family value and the class total at every reconcile (the year it is called in) and at the entry of every year."""
+
+    def __init__(self, *a, **k):
+        super().__init__(*a, **k)
+        self.pre_gaps, self.rec, self.t = [], [], 0
+
+    def pre(self, book, t, g):
+        self.t = t
+        if book is self.book:
+            self.pre_gaps.append(np.abs(self._n(self.q) - book.family_true()).max())
+        return super().pre(book, t, g)
+
+    def reconcile(self, book):
+        self.rec.append((self.t, np.abs(self._n(self.q) - book.family_true()).max()))
+        super().reconcile(book)
+
+
+@pytest.mark.parametrize('years, G, n_phase', [(9, 4, 1), (13, 6, 6)])
+def test_deaths_and_the_horizon_are_paid_in_the_year_in_the_production_path(monkeypatch, years, G, n_phase):
+    books, orig = [], K.Book
+    monkeypatch.setattr(K, 'Book', lambda *a, **k: books.append(orig(*a, **k)) or books[-1])
+    h = Spy(ST, GAIN, 0.0157)
+    out = rv.run_lines(BASE, RATE, np.zeros((years, 2)), np.full((years, 2), 0.0157), 0.0, G=G, n_phase=n_phase, hook=h)
+    assert len(books) == n_phase and max(h.pre_gaps) < 1e-9                                  # nothing is left for the next year's opening to catch up
+    assert any(t < years and gap > 1e-6 for t, gap in h.rec) and h.rec[-1][0] == years and h.rec[-1][1] > 1e-6    # a death's value is moved and paid in its year; the horizon's in the last year
+    assert all(K.shortfall_lines(b) == 0 and (b.unpaid_B == 0).all() and (b.LB == 0).all() and (b.A_D == 0).all() for b in books)
+    assert out['death_D'].sum() > 0 and np.isfinite(out['death_D']).all() and (h.rec[-1][0] == years)
+
+
+def test_a_death_in_the_last_but_one_year_and_the_horizon_leave_the_books_and_classes_equal():
+    books, h = [], Spy(ST, GAIN, 0.0157)
+    rv.run_lines(BASE, RATE, np.zeros((5, 1)), np.full((5, 1), 0.0157), 0.0, G=4, n_phase=1, hook=h)
+    assert [t for t, g in h.rec if g > 1e-6] == [4, 5] and max(h.pre_gaps) < 1e-9

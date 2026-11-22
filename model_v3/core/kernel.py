@@ -158,6 +158,7 @@ class Book:
         self.state_cash = z()
         self.lost_refund, self.unpaid_D, self.unpaid_B = z(), z(), z()
         self.paid, self.refunded = z(), z()
+        self.ledger = None                 # household arm (120c): per line, the state's stake by class, kept by revenue.run_lines; None (the legacy arm) leaves the stake as units
         self.pen, self.penp = z(), z()     # the pension: a class balance in the assessed base, never a unit (it is not sold), and its value at the last assessment
         self.vD = z()                      # share of Route D already auctioned at the true price (hazard lam_D)
 
@@ -166,7 +167,7 @@ class Book:
         return sum(x['f'] * x['V'] for x in self.R.values())
 
     def state_true(self):
-        return sum(x['s'] * x['V'] for x in self.R.values()) + self.state_cash
+        return sum(x['s'] * x['V'] for x in self.R.values()) + self.state_cash if self.ledger is None else sum(self.ledger.values())
 
     def declared(self):
         return {r: x['f'] * x['dd'] for r, x in self.R.items()}
@@ -209,7 +210,11 @@ def _credit(book, fl, r, c):
 def _refund_cash(book, fl, r, rest):
     """Refund `rest` (>= 0) to the family in units at the true price: capped by the pooled cash envelope and the state's stake."""
     x = book.R[r]
-    val = np.minimum(np.minimum(rest, book.E_cash), x['s'] * x['V'])
+    stake = x['s'] * x['V']
+    if book.ledger is not None:                                                    # the ledger's value of the route's stake: the route's share of the state's units value (120c)
+        tot = sum(y['s'] * y['V'] for y in book.R.values())
+        stake = np.where(tot > 0, sum(book.ledger.values()) * stake / np.where(tot > 0, tot, 1.0), 0.0)
+    val = np.minimum(np.minimum(rest, book.E_cash), stake)
     book.lost_refund = book.lost_refund + (rest - val)
     u = _div(val, x['V'])
     _move(book, fl, r, -u)

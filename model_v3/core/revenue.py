@@ -45,6 +45,9 @@ def gdp_growth(pack, years):
     return out
 
 
+_CLASSES = ('property', 'net_financial', 'physical')                                  # the ledger's household classes (the safe asset is added in revenue()); the pension is not one
+
+
 def _value(fl, n):
     """True value moved family -> state by one operation, per line (units at the true price plus income cash)."""
     return sum(fl.value.values()) + fl.income if fl.value else fl.income + np.zeros(n)
@@ -66,7 +69,8 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
     yy = np.cumprod(1.0 + gdp_g, axis=0)
     idx = yy if index == 'gdp_pc' else np.ones_like(yy)
     V0 = {r: np.tile(v, P) for r, v in (routes or base.V0).items()}
-    keys = ('assessed', 'tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D', 'payers', 'entries', 'exits', 'fall_through', 'wbase', 'wtau') + (('wgain',) if hook is not None else ())
+    hh = hook is not None and hook.household                                           # the household arm keeps the public ledger (120c)
+    keys = ('assessed', 'tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D', 'payers', 'entries', 'exits', 'fall_through', 'wbase', 'wtau') + (('wgain',) if hook is not None else ()) + (tuple('rc_' + k for k in _CLASSES) if hh else ())
     out = {k: np.zeros((T, P)) for k in keys}
     agg = lambda x, ww=w: (ww[None, :] * x.reshape(P, L)).sum(axis=1) * A
     cnt = lambda m: (base.adults_k[None, :] * m.reshape(P, L)).sum(axis=1) / n_phase
@@ -75,6 +79,7 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
     for i in range(n_phase):
         ph = int(np.ceil((i + 1) * G / n_phase))
         book = K.Book(n, V0, alpha0={'C': 1.0, 'D': 1.0}, has_cv=has_cv, **book_kw)
+        book.ledger = {k: np.zeros(n) for k in _CLASSES} if hh else None                 # per line, the state's stake by class: state_true and the refund cap read it
         prev = np.ones(n, bool) & (np.tile(base.wealth, P) >= wmin)
         for t in range(1, T + 1):
             il = np.repeat(idx[t - 1], L)
@@ -97,6 +102,15 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
                         lv += v
                     elif kind == 'death_D':
                         dv += v
+                if hook is not None:
+                    hook.reconcile(book)                                                    # a death's payments are made in the year they occur (120c), not at the next year's opening
+            if t == T and hh:                               # the household arm settles Route D and B at the horizon, in its last year (120c); the legacy arm and its hook do not
+                for kind, fl in K.settle_terminal(book):
+                    if kind == 'terminal_D':
+                        dv += _value(fl, n)
+                    else:
+                        lv += _value(fl, n)
+                hook.reconcile(book)
             W1 = W0 * (1.0 + gr) * (1.0 - c) if hook is None else hook.grown(W0, gr)   # wealth after growth and flow, before tax (read after the year: the household hook sets it in the step)
             pay1 = W1 >= wmin * il
             rate1 = np.asarray(rate_fn(W1 / il), float)                                    # the kernel reads the rate at the new wealth
@@ -117,17 +131,27 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
             out['wtau'][tt] += agg(np.where(pay1, W0 * rate1, 0.0))
             if hook is not None:                                                           # the pre-tax gain the rate applies to, by line (the identity's I3 reads it under the household hook)
                 out['wgain'][tt] += agg(np.where(pay1 & (W0 > 0), rate1 * np.maximum(W1 - W0, 0.0), 0.0))
+            if hh:
+                rc, rk = hook.receipts(), hook.class_returns()
+                for k in _CLASSES:
+                    book.ledger[k] = book.ledger[k] * (1.0 + rk[k]) + rc[k]
+                    out['rc_' + k][tt] += agg(rc[k])
             prev = pay
-    return {**out, 'gdp_index': yy, 'adults_k': A}
+    led = dict(rc={k: out.pop('rc_' + k) for k in _CLASSES}, rk={k: np.full((T, P), r) for k, r in hook.class_returns().items()}) if hh else None
+    return {**out, 'gdp_index': yy, 'adults_k': A, **({'ledger': led} if hh else {})}
 
 
-def fund(net, E, r, ms=3.0, ml=3.0, a_window=5, safe=None, safe_share=0.0, unfilled_after=90):
+def fund(net, E, r, ms=3.0, ml=3.0, a_window=5, safe=None, safe_share=0.0, unfilled_after=90, led=None):
     """The reserves, paths across (T, P): net receipts into the fund, expenditure E, asset return r (fractions). Returns S, R, A, the target of the
     short reserve `srr`, the fill year (1-based, 0 = never, or later than `unfilled_after`: unfilled), the short fill year, and the first year of each
-    failure event (0 = none): unmet (R* above what is available), ring (the short reserve breached), insolvent (S_pre below zero)."""
-    net, r = np.asarray(net, float), np.asarray(r, float)
+    failure event (0 = none): unmet (R* above what is available), ring (the short reserve breached), insolvent (S_pre below zero).
+    `led` (120c, the public ledger of the household arm): {'rc': receipts by class, 'rk': returns by class}, each (T, P); the balance is the class balances, the return their weighted return (`r` is not read),
+    the payout comes out of the classes pro rata, and S, rr and the class balances, returns and payouts are read from it."""
+    net = np.asarray(net, float)
     T, P = net.shape
-    if safe_share > 0.0:
+    if led is None:
+        r = np.asarray(r, float)
+    if led is None and safe_share > 0.0:
         if safe is None:
             raise ValueError('safe returns are needed when safe_share > 0')
         r = (1.0 - safe_share) * r + safe_share * np.asarray(safe, float)
@@ -140,13 +164,18 @@ def fund(net, E, r, ms=3.0, ml=3.0, a_window=5, safe=None, safe_share=0.0, unfil
     R, Z = np.zeros((T, P)), np.zeros((T, P))
     fill, srr_fill = np.zeros(P, int), np.zeros(P, int)
     ev = {k: np.zeros(P, int) for k in ('unmet', 'ring', 'insolvent')}
+    if led is not None:
+        Lk, cl, ret, pay, r = {k: np.zeros(P) for k in led['rc']}, {}, {}, {}, np.zeros((T, P))
+        for d in (cl, ret, pay):
+            d.update({k: np.zeros((T, P)) for k in Lk})
     for t in range(T):
         tsrr, ttot = ms * A[t], (ms + ml) * A[t]
-        pre = Sp * (1.0 + r[t]) + net[t]
+        gro = Sp * (1.0 + r[t]) if led is None else sum(Lk[k] * (1.0 + led['rk'][k][t]) for k in Lk)
+        pre = gro + net[t]
         srr_fill = np.where((srr_fill == 0) & (A[t] > 0) & (pre >= tsrr), t + 1, srr_fill)
         done = fill > 0
         newly = ~done & (A[t] > 0) & (pre >= ttot)
-        Z[t] = np.where(done, net[t] - np.maximum(0.0, ttot - Sp * (1.0 + r[t])), 0.0)
+        Z[t] = np.where(done, net[t] - np.maximum(0.0, ttot - gro), 0.0)
         lo_t = np.maximum(fill, t - w + 1)                                       # post-fill years are fill .. t (0-based)
         cz = np.cumsum(np.vstack([np.zeros((1, P)), Z[:t + 1]]), axis=0)
         k = np.maximum(t + 1 - lo_t, 1)
@@ -155,11 +184,19 @@ def fund(net, E, r, ms=3.0, ml=3.0, a_window=5, safe=None, safe_share=0.0, unfil
         for name, m in (('unmet', rstar > avail + 1e-12), ('ring', pre < tsrr - 1e-12), ('insolvent', pre < -1e-12)):
             ev[name] = np.where(done & (ev[name] == 0) & m, t + 1, ev[name])
         R[t] = np.where(done, np.minimum(rstar, avail), 0.0)
-        Sp = pre - R[t]
+        if led is None:
+            Sp = pre - R[t]
+        else:
+            r[t] = np.where(Sp > 0, sum(Lk[k] * led['rk'][k][t] for k in Lk) / np.where(Sp > 0, Sp, 1.0), 0.0)
+            for k in Lk:
+                ret[k][t], lp = Lk[k] * led['rk'][k][t], Lk[k] * (1.0 + led['rk'][k][t]) + led['rc'][k][t]
+                pay[k][t] = np.where(pre > 0, R[t] * lp / np.where(pre > 0, pre, 1.0), 0.0)
+                Lk[k], cl[k][t] = lp - pay[k][t], lp - pay[k][t]
+            Sp = sum(Lk.values())
         S[t] = Sp
         fill = np.where(newly, t + 1, fill)
     unfilled = (fill == 0) | (fill > unfilled_after)
-    return {'S': S, 'R': R, 'A': A, 'rr': r, 'srr': ms * A, 'fill': fill, 'srr_fill': srr_fill, 'unfilled': unfilled, **{k + '_year': v for k, v in ev.items()}}
+    return {'S': S, 'R': R, 'A': A, 'rr': r, 'srr': ms * A, 'fill': fill, 'srr_fill': srr_fill, 'unfilled': unfilled, **{k + '_year': v for k, v in ev.items()}, **({} if led is None else {'L': cl, 'ret': ret, 'pay': pay, 'rc': led['rc']})}
 
 
 def taxes(pack, lines, parts):
@@ -208,7 +245,12 @@ def revenue(run, gdp0, levy, rec, g, E_pct, c, a_window=5, ms=3.0, ml=3.0, horiz
     gdp = run['gdp_index'] * gdp0
     wdt = run['tax'] + run['refund'] + run['death_tax'] + run['heir'] + run['death_B'] + run['death_D']
     lev = levy / 100.0 * gdp
-    f = fund(wdt + lev, E_pct / 100.0 * gdp, g, ms, ml, a_window, safe, safe_share, unfilled_after)
+    led = run.get('ledger')
+    if led is not None:                                                                  # the public ledger (120c): the levy enters as cash, safe_share of it in the safe asset and the rest as net financial
+        if safe_share > 0.0 and safe is None:
+            raise ValueError('safe returns are needed when safe_share > 0')
+        led = dict(rc={**led['rc'], 'net_financial': led['rc']['net_financial'] + (1.0 - safe_share) * lev, 'safe': safe_share * lev}, rk={**led['rk'], 'safe': np.zeros((T, P)) if safe is None else np.asarray(safe, float)})
+    f = fund(wdt + lev, E_pct / 100.0 * gdp, g, ms, ml, a_window, safe, safe_share, unfilled_after, led)
     S, Sp = f['S'], np.vstack([np.zeros((1, P)), f['S'][:-1]])
     m1a, m1b, m1c = 100 * wdt / gdp, np.full((T, P), float(levy)), 100 * (Sp * f['rr'] - (S - Sp)) / gdp
     relief = m1a + m1b + m1c

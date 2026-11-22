@@ -44,8 +44,23 @@ How the hook hands class receipts to `revenue.py` without an upward import (agen
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** blocks 0 to 3. Block 1: `revenue.run_lines` calls `hook.reconcile` after each death step and, under the household arm, settles the terminal D and B and reconciles in the last year. Block 2: `hook.receipts()` and `class_returns()` (carried in `run['ledger']`, read by `revenue()`; no runner change), `fund(led=)`, `Book.ledger`, `state_true`, the refund cap's stake; `tests/model_v3/test_ledger.py` (11 tests). Block 3: `docs/model-v3/household-arm-account/ledger_table.py` and `ledger_table.csv` (3 saving values x years 1, 10, 30, 100; 12 rows), `docs/model-v3/public-ledger.md`. Suites 10 of 10 passed (305 in model_v3, `test_legacy_digest` unchanged); `check_agent_docs` exit 0.
+- **Next:** review, then squash-merge (the author's). W7 (the arm switch and withheld outputs) reads the ledger; a safe-asset return is still to be wired.
+- **Decisions:** the identity table runs the production path (`run_lines` with six phases, then `revenue.revenue`) at the account script's centre grid point and income scale (it imports `account_table.setup`, `SPEC`, `SHOW`); the safe asset earns the net financial class return in the table (no safe return is wired; at the centre `safe_share` is 0 so it holds nothing); `res_pay` compares the households' weighted payments with the WDT receipts (the levy excluded).
+- **Gotchas:** a death never falls in the last simulation year by design (`run_lines` deaths need `t < T`; year T is the terminal settlement), so "a death in the last year" is the terminal settlement plus a death in the last-but-one year (`test_a_death_in_the_last_but_one_year...`, `test_deaths_and_the_horizon_are_paid_in_the_year_in_the_production_path`, `CASES` in `test_ledger.py`).
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout brief/120-w6-public-ledger`
-- **State:** ready; not started
+- **State:** done; not merged (squash-merge is the author's after review)
+
+Change report
+- Task: brief 120c (W6), the public ledger by class, death and terminal payments reconciled in the year; block 3 (identity table, note, report)
+- Files changed (whole brief): `model_v3/core/revenue.py`, `kernel.py` (`state_true`, the refund cap stake, the ledger), `model_v3/runner/arm.py` (`reconcile`, `receipts`, `class_returns`), `tests/model_v3/test_ledger.py` (new), `test_household_tax.py`, `docs/model-v3/household-arm-account/ledger_table.py` and `.csv` (new), `docs/model-v3/public-ledger.md` (new), `docs/model-v3/architecture.md` (budget rows), this brief
+- What is different now: under the household arm the state's holdings are a ledger by class (property, net financial, physical, safe) and household payments tie to its receipts per path and year; deaths and the horizon are paid in their year. The default arm is legacy and unchanged.
+- New or changed interfaces: `hook.receipts()`, `hook.class_returns()`, `hook.reconcile(book)` called inside `run_lines`; `run['ledger']` (`rc` by class); `fund(..., led=)`; `Book.ledger`; `revenue()` reads `run['ledger']` and the safe returns `safe`.
+- Acceptance criteria: `test_legacy_digest` passes unchanged and all suites pass: met (10 of 10 suites; data, cards and hooks now pass as well). Payments equal ledger receipts and `dL = receipts + return - payout` to 1e-9, six phases and refunds covered: met (`test_ledger.py`; in the table both residuals are at most 1.4e-12). Death and terminal payments paid in their year: met (`test_household_tax.py`, nothing left for the next year's `pre`). `unpaid_B` zero in the production path: met (asserted on the production books in `test_ledger.py` and `test_household_tax.py`; 0 in the table's three runs, 0 shortfall lines). Pension in the base, never a class: met (`'pension' not in` the ledger). R4 and budgets: met (`test_rules`, `test_budget` pass). Diff within Touches: met.
+- Deviations from the brief: a death in the last simulation year does not exist (deaths need `t < T`; year T is the terminal settlement), so that case is the terminal settlement and a death in the last-but-one year; `arm.py` is 171 lines against the 180 of its budget row in `architecture.md` (the 160 in the progress block was the brief's figure; the row was raised, as the brief allowed by "name any raise"); `runner.py` untouched.
+- Risks / follow-ups: the table's safe-asset return is a stand-in (net financial return) and `safe_share` is 0 at the centre, so the safe class is empty there; production `core_run` passes no `safe` series, so W7 must supply one before the arm is switched on.
+- Instruction friction: none
+- Verification: `python pipeline/run_suites.py` (10 of 10 passed, run in the background to a file); `python -I docs/model-v3/household-arm-account/ledger_table.py` (summary lines: max |res_pay| 1.8e-12, max |res_dL| 1.4e-12, unpaid_B 0, shortfall lines 0); `python -I pipeline/check_agent_docs.py` exit 0.
+- Overview sections likely needing an update: none
+- Commit / branch: `brief/120-w6-public-ledger`; not merged
 <!-- progress:end -->

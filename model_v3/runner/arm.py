@@ -2,13 +2,10 @@
 arm.py -- the hooks that carry the household's year through the kernel's five sites (model v3, brief 114c, kernel-wiring-design 3.2 and 3.6)
 ============================================================================================================================================
 Layer 3.6: numpy and core/household.py; the runner builds a hook and passes it down through revenue.run_lines, burden.line_flows and support.wdt_run in the place of `c`.
-A hook has `pre(book, t, g) -> (g_N, x)` (the growth rate and the signed flow share of the year: legacy returns g and -c), `post(book, fl)` (after
-settlement) and one method for each site that read `c`: `grown` (revenue.run_lines, wealth after growth and flow), `gain` (revenue.identity, the accrued gain
-rate) and `free` (burden.free_path, the untaxed growth factor). `LegacyHook(c)` does exactly what `c` did, operation for operation (bit equal);
-the comparators' `support.system_run` stay legacy in this wiring (design 3.6, site 5).
-Brief 119c: `d10_pension` and `line_state`'s `cap` hold the tail lines' pension at the D10 mean (a labelled scenario ceiling, I-D1l).
-Brief 117c (W5a): `line_state` builds the household arm's state of the 14 lines (class balances, income, saving and accrual shares) from the pack's decile composition and the register
-(convention A; no file read here, every number arrives as an argument), `returns` applies the debt rule, and `HouseholdHook` runs the household year with no WDT (T = 0).
+A hook has `pre(book, t, g) -> (g_N, x)`, `post(book, fl)`, `reconcile(book)` (value a death or the horizon moved, paid in the year, 120c), the flag `household` (the arm settles Route D and B in the last
+year and keeps the public ledger, `receipts`, `class_returns`) and the site methods `grown`, `gain` and `free` (the places that read `c`). `LegacyHook(c)` does exactly what `c` did (bit equal); the comparators' `support.system_run` stay legacy (design 3.6).
+`line_state` (117c, 119c: the tail pension ceiling `cap`) builds the 14 lines' class balances, income, saving and accrual from the pack and register, `returns` applies the debt rule,
+and `HouseholdHook` runs the household year (convention A), paying the WDT from the non-pension classes.
 """
 
 import numpy as np
@@ -22,14 +19,19 @@ TAKES_D10 = ('D10a', 'D10b', 'RL3', 'RL2', 'RL1')                  # the tail li
 class LegacyHook:
     """The legacy arm: every class grows at g, then a share c is consumed, W(1 + g)(1 - c)."""
 
+    household = False                                                                              # the legacy arm settles nothing at the horizon and keeps no ledger (revenue.run_lines)
+
     def __init__(self, c):
         self.c = c
+
+    def reconcile(self, book):
+        pass                                                                                       # the legacy rule pays no value from classes
 
     def pre(self, book, t, g):
         return g, -self.c
 
     def post(self, book, fl):
-        """Nothing after settlement."""
+        pass                                                                                       # nothing after settlement
 
     def grown(self, W0, g):
         return W0 * (1.0 + g) * (1.0 - self.c)
@@ -83,13 +85,14 @@ class HouseholdHook:
 
     def __init__(self, state, gain, growth=0.0, c=None):
         self.st, self.gn, self.gr, self.c, self.book, self.W_after = state, gain, growth, c, None, None
+        self.household = c is None                                                                # revenue.run_lines settles the horizon, reconciles it in the last year and keeps the ledger (120c)
 
     def _n(self, q):
         return sum(q[k] for k in (CLASSES if self.c is not None else CLASSES[:3]))              # the legacy arm sells every class; here pension is a balance beside the units
 
     def _start(self, book):
         t = lambda v: np.tile(np.asarray(v, float), book.n // len(self.st['income']))
-        self.q, self.book = {**{k: t(v) for k, v in self.st['pos'].items()}, 'debt': np.zeros(book.n)}, book
+        self.q, self.book, self.rcv = {**{k: t(v) for k, v in self.st['pos'].items()}, 'debt': np.zeros(book.n)}, book, {k: np.zeros(book.n) for k in CLASSES[:3]}
         self.inc, self.sav, self.acc = t(self.st['income']), t(self.st['sav']), t(self.st['acc'])
         if self.c is None:
             if np.any(self._n(self.q) <= 0):
@@ -100,10 +103,7 @@ class HouseholdHook:
             book.pen = book.penp = self.q['pension'].copy()
 
     def pre(self, book, t, g):
-        if book is not self.book:
-            self._start(book)
-        elif self.c is None:
-            self.reconcile(book)                                                                     # value a death or reset moved after the last post is paid from the classes first
+        self._start(book) if book is not self.book else self.reconcile(book)                       # value a reset moved after the last post is paid from the classes first (a death's, in the year)
         inc, N0, defl = self.inc * (1.0 + self.gr) ** (t - 1), self._n(self.q), dict(cpi=0.0, hfce=0.0)
         if self.c is not None:
             self.q1, _ = hh.household_step('arm', self.q, dict(c=self.c), dict(r=g), defl, 'legacy', sink='net_financial')
@@ -120,7 +120,18 @@ class HouseholdHook:
         """The payment T (a line's value moved to the state, negative a refund) on the classes q, pro rata to the positive non-pension balances; pension is never sold. Adds to the year's T and unpaid."""
         q1, _, un = hh.apply_payment(q, T, {k: np.maximum(q[k], 0.0) for k in CLASSES[:3]})
         self.T, self.unpaid = self.T + T - un, self.unpaid + un
+        for k in CLASSES[:3]:
+            self.rcv[k] = self.rcv[k] + q[k] - q1[k]                                              # the state's receipt by class: the value the line paid out of each
         return q1
+
+    def receipts(self):
+        """The true value the state received since the last call, by non-pension class, per line (millions of pounds per adult; a refund is negative): the public ledger's receipts (120c)."""
+        out, self.rcv = self.rcv, {k: np.zeros_like(v) for k, v in self.rcv.items()}
+        return out
+
+    def class_returns(self):
+        """The household's holding gain by non-pension class (scenario rates, I-D1h to I-D1j): the ledger's returns."""
+        return {k: float(self.gn[k]) for k in CLASSES[:3]}
 
     def _check(self, book):
         N = self._n(self.q)
@@ -129,6 +140,8 @@ class HouseholdHook:
 
     def reconcile(self, book):
         """Value the kernel moved outside `post` (a death's tax, settlements, the heir's tax; the horizon's: call it after settle_terminal) is paid from the classes, in the year's account. Pension passes to the heir unchanged."""
+        if self.c is not None:
+            return
         gap = self._n(self.q) - book.family_true()
         self.q = self._pay(self.q, np.where(np.abs(gap) > 1e-12 * np.maximum(1.0, np.abs(self._n(self.q))), gap, 0.0))
         self._check(book)
