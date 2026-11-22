@@ -162,7 +162,7 @@ Rewritten, from `metrics.md` and not from v2 text: `threshold_outcomes`, `thresh
 ## 5. Rules
 
 ### 5.1 R4: import rules and layers
-Layers, lowest first: **L0** `core/pack.py`; **L1** `core/returns.py`, `core/base.py`, `core/schedule.py`, `core/kernel.py`; **L2** `core/revenue.py`; **L3** `core/burden.py`, `core/support.py`; **L3.5** `runner/out_revenue.py`, `out_burden.py`, `out_support.py`, `out_sweeps.py` (the output groups: each reads `core` and takes the runner's `Raw` as an argument, and imports no other group); **L3.7** `runner/groups.py`; **L4** `runner/`; **L5** `out/`, with `interface.py` importable from L4 and L5 only. A module imports only from strictly lower layers (and the standard library and numpy); no two modules of one layer import each other; `kernel.py` and `schedule.py` import no project module; `out/` imports no `core` and no `runner`; nothing imports `out`. The test (stage V3-1) builds the import graph with `ast` from this table and fails on any other edge, and fails on an import inside a function (no lazy imports to hide layering).
+Layers, lowest first: **L0** `core/pack.py`; **L1** `core/returns.py`, `core/base.py`, `core/schedule.py`, `core/kernel.py`; **L2** `core/revenue.py`; **L3** `core/burden.py`, `core/support.py`; **L3.5** `runner/out_revenue.py`, `out_burden.py`, `out_support.py`, `out_sweeps.py` (the output groups: each reads `core` and takes the runner's `Raw` as an argument, and imports no other group); **L3.6** `runner/arm.py` (numpy only: the hooks the runner builds and passes down, 114c); **L3.7** `runner/groups.py`; **L4** `runner/`; **L5** `out/`, with `interface.py` importable from L4 and L5 only. A module imports only from strictly lower layers (and the standard library and numpy); no two modules of one layer import each other; `kernel.py` and `schedule.py` import no project module; `out/` imports no `core` and no `runner`; nothing imports `out`. The test (stage V3-1) builds the import graph with `ast` from this table and fails on any other edge, and fails on an import inside a function (no lazy imports to hide layering).
 
 ### 5.2 R8: no side effects, no orphans
 No module-level statement except definitions, constants and the `if __name__` guard. No module reads a file, sets an environment variable, changes the working directory or writes at import. The test imports every module in a subprocess with `python -B -I`, compares `os.environ`, the working directory and a listing of the tree before and after, and fails on a difference. No code is kept that nothing calls: the test lists every top-level function and fails on one no module and no test references.
@@ -188,13 +188,14 @@ core/pack.py                   355    265
 core/returns.py                260    220
 core/base.py                   380    220
 core/schedule.py               170    120
-core/kernel.py                 620    450
+core/kernel.py                 660    450
 core/revenue.py                520    350
 core/burden.py                 430    250
 core/support.py                520    300
 core/household.py             120    150
 core/cells.py                  80     60
 runner/runner.py               360    150
+runner/arm.py                  140    210
 runner/sweeps.py               280    100
 runner/groups.py                40     60
 runner/out_revenue.py          150     80
@@ -213,16 +214,18 @@ tests/model_v3/test_pack_base.py 0     58
 
 | Group | Code lines | Test lines |
 |---|---:|---:|
-| Core (ten files; `household.py` added by 108c, `cells.py` by 110c) | 3,455 | 2,443 |
-| Runner (`runner.py`, `sweeps.py`, `groups.py`, four `out_*.py` groups; 084c) | 1,280 | 630 |
-| **Core plus runner** | **4,735** | **3,073** |
+| Core (ten files; `household.py` added by 108c, `cells.py` by 110c; `kernel.py` raised to 660 by 114c) | 3,495 | 2,443 |
+| Runner (`runner.py`, `sweeps.py`, `groups.py`, four `out_*.py` groups; 084c; `arm.py` by 114c) | 1,420 | 840 |
+| **Core plus runner** | **4,915** | **3,283** |
 | Output layer (`out/`) | 700 | 300 |
 | `interface.py` and `run.py` | 170 | 80 |
 | Rules, budget and smoke tests | 0 | 150 |
 | Acceptance script and convergence test (040g Q1) | 0 | 90 |
-| **Total** | **5,605** | **3,693** |
+| **Total** | **5,785** | **3,903** |
 
-Core plus runner 4,735 is a ceiling, not a target; `runner/pool.py` (70) is outside it and counted only if triggered. The data tooling `pack/build_gbr.py` has its own budget of 200 lines (067c) and no test beyond a hash check of its output. Output layer 700 is 15% of core plus runner; R9 asks for smaller.
+Core plus runner 4,915 is a ceiling, not a target; `runner/pool.py` (70) is outside it and counted only if triggered. The data tooling `pack/build_gbr.py` has its own budget of 200 lines (067c) and no test beyond a hash check of its output. Output layer 700 is 14% of core plus runner; R9 asks for smaller.
+
+**The household hook (114c, kernel-wiring-design 3.2).** `kernel.step_year(hook=None)` is the legacy kernel; a hook object (`pre(book, t, g) -> (g_N, x)`, `post(book, fl)`, plus `grown`, `gain`, `free` for the sites that read `c`) is built by the runner and passed through `revenue.run_lines`, `burden.line_flows` and `support.wdt_run`; `runner/arm.py` holds `LegacyHook(c)`, which equals the `c` rule bit for bit. `kernel.py` goes from 620 to 660 lines for the signed flow share and the hook calls (the kernel stays at L1 and imports no hook).
 
 ### 6.2 Tests each module needs before the next is built (R7)
 Names are the test ids a build brief and `acceptance.md` cite.
