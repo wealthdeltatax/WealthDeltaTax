@@ -1,8 +1,8 @@
 # 128: Per-path market returns in the household arm (scenario-labelled)
 
-- **Status:** ready (start after 127c is merged: both touch `arm.py`)
+- **Status:** ready (start after 132c is merged: both touch `arm.py` and the ledger)
 - **Author/date:** K. Ogata with the guru, 2026-11-22
-- **Depends on:** 127c (merged)
+- **Depends on:** 127c (merged), 132c (merged)
 - **Read (block 0: the first two only):** (1) `docs/model-v3/household-arm-run.md` (Odd item 1 and Next); (2) `docs/agents/code.md`. Later, by block: `model_v3/runner/arm.py` (`household_inputs`, `returns`, `HouseholdHook`, `build`); `model_v3/runner/runner.py` (`paths`, `core_run`, where `g` and the constant `gdp_g` are made); `model_v3/core/returns.py` (`ar1_paths`, the regime means); `docs/model-v3/household-arm-run/run_grid.py`.
 
 ## Goal
