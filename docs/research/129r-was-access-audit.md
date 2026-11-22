@@ -24,7 +24,7 @@ IFS: Round 8 changed Round 7 (2018-20) private pension wealth by -£2.3tn (annui
 
 - It says Round 7 tables were published in July 2026 and "microdata planned for Autumn 2026". The ONS blog confirms July 2026 for the 2018-20 data and "by the end of this year" for the full back series, and **says nothing about microdata or autumn**. Treat the microdata date as unverified.
 - Round 9 (11,708 households interviewed; Round 8 response 41%) is taken from an ONS guide the guru did not open: **not checked**.
-- The "IFS 2026" label for the pension valuation report: the IFS pages found carry a March 2025 file path; the publication date is **not confirmed**.
+- The "IFS 2026" label is right: the report in `data/129r` is dated April 2026 (Delestre and O'Brien) and its replication package 9 April 2026. The March 2025 IFS file found in search is an earlier report ("£2 trillion poorer").
 - Mobility is by wealth decile but the **groups are income groups**, and it is a four-year interval across the pandemic period.
 
 Note: the RF mobility figures were already in the 099r held moments (BF-04 and AB-02 hold two-year and four-year mobility, partly as text); the audit adds the source assessment, not new data. The transcript's claim that P2 is 'much better supported than the previous research inventory suggested' overstates it.
@@ -50,6 +50,10 @@ Whether public microdata could support the desired band x life-stage matrix at a
 4. ELSA waves 1 to 11 financial and pension derived variables (UKDS end-user licence).
 5. WAS top-tail records or an authorised supplement (separate ONS discussion).
 6. ONS bespoke transition or wealth-by-stage tables (the cheapest route to BF-14 and wealth by stage).
+
+## The IFS replication package (`github.com/laurenceob/was-pension-wealth`)
+
+Stata code (needs Stata 17+, `ssc` packages `missings`, `fastgini`) that revalues WAS private pensions in waves 1 to 8 under four discount rates (real gilt, real AA corporate, real SCAPE, constant real). It **needs the WAS microdata** (UKDS 7215, safeguarded), which the raw data are not included for, and the repo carries **no licence file**, so reuse terms are unstated. Not runnable here. Reusable without microdata: its `rawdata/` inputs (gilt and corporate yields, CPI/CPIH/RPI series, ONS mortality `qx` tables 2008 to 2022) and the method (annuity factor from survival probabilities and forward rates), which a Python aggregate sensitivity could reimplement. Published results usable now: mean household pension wealth about £450,000 (IFS) against £230,000 (ONS) in 2020-22; at the 90th percentile of total wealth the IFS basis is about £490,000 higher and at the median about £130,000 higher; the percentage uplift is about 49% at the 30th and 34% at the 90th percentile; the top 10% share of household wealth falls from 45% (2006-08) to 42% (2018-20) on the IFS basis against 46% to 45% officially.
 
 ## Guru notes
 
