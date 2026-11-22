@@ -46,11 +46,11 @@ Left to the note.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (skeleton of `docs/model-v3/kernel-wiring-design.md`, all sections pending)
-- **Next:** read the two block-0 Read items, then block 1 (the book as it is)
+- **Done:** blocks 0 and 1 (section 1 of `docs/model-v3/kernel-wiring-design.md`: the book, the sites, the dependencies)
+- **Next:** block 2 (mapping a payer line to a cell: read `base.py` 100-149, `cells.py`, 104r section 2.4 and 096r section 3), then blocks 3 and 4
 - **Decisions:**
 - **Gotchas:**
-- **Resume:** branch `brief/112-kernel-wiring-design`; `git fetch origin brief/112-kernel-wiring-design`; last block pushed: 0; first action: block 1
+- **Resume:** branch `brief/112-kernel-wiring-design`; `git fetch origin brief/112-kernel-wiring-design`; last block pushed: 1; first action: block 2
 - **Not run:**
-- **State:** in progress, block 0 pushed
+- **State:** in progress, block 1 pushed
 <!-- progress:end -->
