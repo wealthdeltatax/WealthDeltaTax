@@ -4,7 +4,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from model_v3.core import base as bs, pack as pk
+from model_v3.core import base as bs, cells as ce, kernel as K, pack as pk
 from model_v3.runner import arm
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -33,3 +33,53 @@ def test_the_debt_rule_gives_a_negative_property_or_net_financial_balance_no_ret
     g = arm.returns(ST['pos'], GAIN)
     assert g['net_financial'][0] == 0.0 and g['property'][0] == 0.0 and (g['physical'] == 0.0).all()
     assert (g['net_financial'][ST['pos']['net_financial'] >= 0] == GAIN['net_financial']).all() and (g['pension'] == GAIN['pension']).all() and (g['property'][5:] == GAIN['property']).all()
+
+
+CELLS = ce.scaled(ce.cell_table(PACK, REG, 0.44), 1.8014e12)[0]
+CST = dict(pos={k: np.array([c['pos'][k] for c in CELLS]) for k in arm.CLASSES}, income=np.array([c['income'] for c in CELLS]), sav=np.full(10, 0.0101), acc=np.full(10, 0.0483))
+RETS = dict(g=GAIN, y=dict(property=0.03758, net_financial=0.0426, physical=0.0, pension=0.0426))
+ZERO = lambda w: np.zeros_like(w)
+
+
+def drive(hook, st, years, paths=1, rate=ZERO):
+    """The kernel's year with no tax under `hook` on lines carrying `st`: yields (t, book) with the classes' total in the book's routes."""
+    n, tot = paths * len(st['income']), np.tile(sum(st['pos'].values()), paths)
+    book = K.Book(n, {'A': 0.6 * tot, 'B': 0.4 * tot})
+    for t in range(1, years + 1):
+        K.step_year(book, rate, 1.0, np.zeros(n), 0.0, hook=hook, t=t)
+        yield t, book
+
+
+def test_the_untaxed_hook_reproduces_run_cell_year_by_year_and_i1_holds_in_every_year():
+    rows = [ce.run_cell(c, 40, 0.0101, 0.0483, 0.0157, RETS) for c in CELLS]
+    h = arm.HouseholdHook(CST, GAIN, 0.0157)
+    for t, book in drive(h, CST, 40):
+        assert all(np.abs(h.q[k] - [r[t - 1][1][k] for r in rows]).max() < 1e-9 for k in arm.CLASSES)                       # the account of every cell, class by class
+        assert np.abs(book.family_true() + book.pen - sum(h.q[k] for k in arm.CLASSES)).max() < 1e-9 and np.abs(book.family_true() - sum(h.q[k] for k in arm.CLASSES[:3])).max() < 1e-9
+
+
+def test_every_line_gets_route_units_and_a_line_without_non_pension_wealth_raises():
+    h = arm.HouseholdHook(ST, GAIN)
+    for _, book in drive(h, ST, 1):
+        assert all((x['f'] > 0).all() and (x['V'] > 0).all() for x in book.R.values()) and (book.pen > 0).all()
+    bad = dict(ST, pos={**ST['pos'], 'property': -1.0 - ST['pos']['net_financial'] - ST['pos']['physical']})       # N = -1, pension positive
+    with pytest.raises(ValueError, match='no route units'):
+        next(drive(arm.HouseholdHook(bad, GAIN), bad, 1))
+
+
+def test_a_negative_net_financial_balance_earns_nothing_and_tax_is_refused_until_w5b():
+    lo = dict(CST, sav=np.full(10, -0.026), acc=np.full(10, 0.0041))
+    plain = [ce.run_cell(c, 3, -0.026, 0.0041, 0.0157, RETS) for c in CELLS]
+    h = arm.HouseholdHook(lo, GAIN, 0.0157)
+    for t, _ in drive(h, lo, 3):
+        pass
+    assert (h.q['net_financial'][0] < 0) and abs(h.q['net_financial'][0] - plain[0][2][1]['net_financial']) > 1e-6        # D1-3 net financial: gain on a negative balance dropped
+    with pytest.raises(ValueError, match='W5b'):
+        list(drive(arm.HouseholdHook(lo, GAIN, 0.0157), lo, 1, rate=lambda w: 0.05 + 0.0 * w))
+
+
+def test_the_state_folds_with_paths_as_the_book_does_and_each_path_equals_a_single_run():
+    one, three = arm.HouseholdHook(ST, GAIN, 0.0157), arm.HouseholdHook(ST, GAIN, 0.0157)
+    list(drive(one, ST, 8))
+    list(drive(three, ST, 8, paths=3))
+    assert all(np.array_equal(three.q[k].reshape(3, 14), np.tile(one.q[k], (3, 1))) for k in arm.CLASSES)

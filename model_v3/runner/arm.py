@@ -54,3 +54,49 @@ def line_state(base, comp, reg, sav, scale=1.0):
 def returns(pos, g):
     """The year's holding gains by class `g` (class -> rate) with the debt rule: a negative property or net financial balance earns 0% real (a labelled assumption; the debt rate range is unset)."""
     return {k: (np.where(pos[k] < 0, 0.0, v) if k in ('property', 'net_financial') else np.asarray(v, float)) for k, v in g.items()}
+
+
+class HouseholdHook:
+    """The household arm, untaxed (W5a): each year's growth and flow of every line from household_step (convention A, T_WDT = 0) on class balances. `state` is line_state's dict (arrays per line, tiled over
+    the book's paths), `gain` the scenario holding gain by class, `growth` income growth a year. `c` given: the legacy rule on the classes (every class grows at g, a share c is consumed) while the book runs
+    the legacy path, bit for bit as LegacyHook. A new book (each phase) restarts from the opening balances: its route values are rescaled to the non-pension total N and `pen` set, so every line holds units."""
+
+    def __init__(self, state, gain, growth=0.0, c=None):
+        self.st, self.gn, self.gr, self.c, self.book, self.W_after = state, gain, growth, c, None, None
+
+    def _n(self, q):
+        return sum(q[k] for k in (CLASSES if self.c is not None else CLASSES[:3]))              # the legacy arm sells every class; here pension is a balance beside the units
+
+    def _start(self, book):
+        t = lambda v: np.tile(np.asarray(v, float), book.n // len(self.st['income']))
+        self.q, self.book = {**{k: t(v) for k, v in self.st['pos'].items()}, 'debt': np.zeros(book.n)}, book
+        self.inc, self.sav, self.acc = t(self.st['income']), t(self.st['sav']), t(self.st['acc'])
+        if self.c is None:
+            if np.any(self._n(self.q) <= 0):
+                raise ValueError('a line has no non-pension wealth, so no route units: the household arm cannot start')
+            f = self._n(self.q) / book.family_true()
+            for x in book.R.values():
+                x.update({k: x[k] * f for k in ('V', 'dd', 'Wp', 'ppu')})
+            book.pen = book.penp = self.q['pension'].copy()
+
+    def pre(self, book, t, g):
+        if book is not self.book:
+            self._start(book)
+        inc, N0, defl = self.inc * (1.0 + self.gr) ** (t - 1), self._n(self.q), dict(cpi=0.0, hfce=0.0)
+        if self.c is not None:
+            self.q1, _ = hh.household_step('arm', self.q, dict(c=self.c), dict(r=g), defl, 'legacy', sink='net_financial')
+            self.W_after = sum(self.q1[k] for k in CLASSES)
+            return g, -self.c
+        gn = returns(self.q, self.gn)
+        self.q1, _ = hh.household_step('arm', self.q, dict(Y_L=inc * (1.0 + self.acc), C=(1.0 - self.sav) * inc, pen_in=self.acc * inc), dict(g=gn), defl, 'A', sink='net_financial', source_weights=dict(property=1.0))
+        g_n = sum(np.asarray(gn[k]) * self.q[k] for k in CLASSES[:3]) / N0
+        book.pen, self.W_after = self.q1['pension'], sum(self.q1[k] for k in CLASSES)
+        return g_n, self._n(self.q1) / (N0 * (1.0 + g_n)) - 1.0                                     # growth then the flow reach the household's closing non-pension total exactly (I1)
+
+    def post(self, book, fl):
+        if np.any(np.abs(sum(fl.value.values()) if fl.value else 0.0) > 1e-12):
+            raise ValueError('the untaxed household arm moves no value to the state: the rate must be zero (the taxed arm is W5b)')
+        self.q, N = self.q1, self._n(self.q1)
+        if np.any(np.abs(book.family_true() - N) > 1e-9 * np.maximum(1.0, np.abs(N))):
+            raise ValueError('I1 fails: the book\'s family value is not the class total')
+
