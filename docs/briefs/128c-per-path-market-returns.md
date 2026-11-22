@@ -23,7 +23,7 @@ Give the household arm real spread across paths, grounded in the process the leg
 **Stop rule.** After three blocks, or a quarter of the budget left, push what exists and list the rest under Next. Print summary lines only; suites in the background, never piped; run the grid in the background.
 
 ## Touches
-`model_v3/runner/arm.py` (budget 225; name any raise), `model_v3/runner/runner.py` only to pass `g` to the builder (net zero lines), `model_v3/core/household.py` only if the step needs arrays (budget 120), tests (`test_arm_switch.py`, `test_ledger.py`, `test_run_grid.py`), `docs/model-v3/household-arm-run/` (`run_grid.py`, CSVs), `docs/model-v3/household-arm-paths.md` (new), `docs/model-v3/architecture.md` (budget rows). Name any further file before editing it. Not the kernel, `revenue.py`, `burden.py`, the register, the pack, the manifest or the digest fixture.
+`model_v3/runner/arm.py` (budget 245, now FULL: any addition needs a raise or a move into `core/household.py`; name it), `model_v3/runner/runner.py` only to pass `g` to the builder (net zero lines), `model_v3/core/household.py` only if the step needs arrays (budget 120), tests (`test_arm_switch.py`, `test_ledger.py`, `test_run_grid.py`), `docs/model-v3/household-arm-run/` (`run_grid.py`, CSVs), `docs/model-v3/household-arm-paths.md` (new), `docs/model-v3/architecture.md` (budget rows). Name any further file before editing it. Not the kernel, `revenue.py`, `burden.py`, the register, the pack, the manifest or the digest fixture.
 
 ## Acceptance criteria
 - `test_legacy_digest` unchanged; all suites pass; the zero-deviation run byte-identical to the fixed-rate run.

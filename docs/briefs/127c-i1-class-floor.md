@@ -21,7 +21,7 @@ Two grid points of 124c raise I1 before any output exists: `min_mid` (threshold 
 **Stop rule.** If the diagnosis shows the failure is economics (a line whose non-pension wealth is genuinely exhausted by tax on pension gains) rather than bookkeeping, make the alarm report it, do not change any rule, and say so plainly. Suites in the background, never piped.
 
 ## Touches
-`model_v3/runner/arm.py` (budget 225), `model_v3/core/household.py` (budget 120), tests (`test_household_tax.py`, `test_run_grid.py`), `docs/model-v3/household-arm-i1-floor.md` (new), `docs/model-v3/household-arm-run/` (rerun of the two points, labelled), `docs/model-v3/architecture.md` (budget rows only). Name any further file before editing it. Not the kernel (stop and report), `revenue.py`, the register, the pack, the manifest or the digest fixture.
+`model_v3/runner/arm.py` (budget 245, now FULL: any addition needs a raise or a move into `core/household.py`; name it), `model_v3/core/household.py` (budget 120), tests (`test_household_tax.py`, `test_run_grid.py`), `docs/model-v3/household-arm-i1-floor.md` (new), `docs/model-v3/household-arm-run/` (rerun of the two points, labelled), `docs/model-v3/architecture.md` (budget rows only). Name any further file before editing it. Not the kernel (stop and report), `revenue.py`, the register, the pack, the manifest or the digest fixture.
 
 ## Acceptance criteria
 - `test_legacy_digest` unchanged; all suites pass; the three passing grid points and the account CSVs byte-identical.
