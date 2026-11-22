@@ -22,3 +22,15 @@ def test_the_script_runs_a_smoke_grid_with_labels_and_holding_checks(tmp_path):
     c = chk[0]
     assert len(chk) == 1 and float(c['account_residual_max']) < 1e-9 and float(c['unpaid_max']) == 0 and float(c['unpaid_B_max']) == 0 and int(c['shortfall_lines']) == 0
     assert float(c['ledger_tie_max']) < 1e-9 and float(c['ledger_dL_max']) < 1e-9
+
+
+def test_the_script_runs_per_path_market_returns_with_spread_and_the_label(tmp_path):
+    spec = importlib.util.spec_from_file_location('run_grid_paths', SCRIPT)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    mod.main(['--paths', '6', '--out', str(tmp_path), '--points', 'median_mid', '--no-legacy', '--market-paths'])
+    res = list(csv.DictReader((tmp_path / 'grid_results_paths.csv').open()))
+    c = list(csv.DictReader((tmp_path / 'checks_paths.csv').open()))[0]
+    assert all('market-return risk only' in r['label'] for r in res) and not (tmp_path / 'grid_results.csv').exists()
+    assert int(c['spread_cells']) > 0 and int(c['flat_cells']) > 0 and float(c['account_residual_max']) < 1e-9 and float(c['ledger_tie_max']) < 1e-9
+    assert any(float(r['c']) > float(r['b']) for r in res if r['id'] == 'O1' and r['summary'] == 'p10_mean_p90')          # the revenue headline has P90 above P10

@@ -200,7 +200,7 @@ def core_run(ctx, theta, spec, g, gdp_g, full=False, tweak=None):
     P = g.shape[1]
     b = (tweak or (lambda x: x))(shaped(ctx, theta, spec['ratio']))
     rate = sc.rate_function(spec['k_ln'], spec['tau_0'], spec['tau_m'], b.w_min, 'logistic_ln')
-    lam, ar = env_of(ctx, theta).lam, ab.build(ctx.arm, ctx, theta, b)
+    lam, ar = env_of(ctx, theta).lam, ab.build(ctx.arm, ctx, theta, b, g)
     fl = bd.line_flows(b, rate, g, gdp_g, c := ar.c, hook=ar.make(), **lam)
     if full or ar.name != 'legacy':                                   # the household arm needs the ledger: revenue.run_lines
         run = rv.run_lines(b, rate, g, gdp_g, c, hook=ar.make(), **lam)

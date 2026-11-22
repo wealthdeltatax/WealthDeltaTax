@@ -24,6 +24,8 @@ WITHHELD_BY = {}                                                                
 
 def withheld(label):
     """{output id: 'legacy_only' (the whole id) or {dimension: {value: 'legacy_only'}} (part of it)} for a run label: the household arm withholds what reads the legacy c (never a number); the legacy arm withholds none."""
+    if label['arm'] != 'legacy' and (label.get('scenario') or {}).get('market_paths'):                  # the comparators run on fixed scenario rates: not like for like with the WDT on paths (128c)
+        return {**dict.fromkeys(WITHHELD, 'legacy_only'), **WITHHELD_BY, 'OW1': 'legacy_only'}
     return {} if label['arm'] == 'legacy' else {**dict.fromkeys(WITHHELD, 'legacy_only'), **WITHHELD_BY}
 
 
@@ -97,15 +99,23 @@ class HouseholdHook:
     the book's paths), `gain` the scenario holding gain by class, `growth` income growth a year. `c` given: the legacy rule on the classes (every class grows at g, a share c is consumed) while the book runs
     the legacy path, bit for bit as LegacyHook. A new book (each phase) restarts from the opening balances: its route values are rescaled to the non-pension total N and `pen` set, so every line holds units."""
 
-    def __init__(self, state, gain, growth=0.0, c=None):
-        self.st, self.gn, self.gr, self.c, self.book, self.W_after = state, gain, growth, c, None, None
+    def __init__(self, state, gain, growth=0.0, c=None, mu=None):
+        self.st, self.gn, self.gr, self.c, self.book, self.W_after, self.mu, self.dv, self.gh = state, gain, growth, c, None, None, mu, None, []   # `mu` the market process's mean (fraction): given, net financial and pension deviate with the path's market return (128c)
         self.household = c is None                                                                # revenue.run_lines settles the horizon, reconciles it in the last year and keeps the ledger (120c)
+
+    def _gn(self, g):
+        """The year's class gains: the scenario rates; with `mu` (128c) net financial and pension add the path's deviation g - mu (loading 1), so the mean return is the scenario rate. Property and physical stay fixed."""
+        if self.mu is None:
+            return self.gn
+        dev = np.asarray(g, float) - self.mu
+        return {**self.gn, 'net_financial': self.gn['net_financial'] + dev, 'pension': self.gn['pension'] + dev}
 
     def _n(self, q):
         return sum(q[k] for k in (CLASSES if self.c is not None else CLASSES[:3]))              # the legacy arm sells every class; here pension is a balance beside the units
 
     def _start(self, book):
         t = lambda v: np.tile(np.asarray(v, float), book.n // len(self.st['income']))
+        self.gh = []
         self.PL = np.zeros(book.n)                                                                       # the pension-secured lien per line (132c): the kernel's family value is net of it
         self.q, self.book, self.rcv = {**{k: t(v) for k, v in self.st['pos'].items()}, 'debt': np.zeros(book.n)}, book, {k: np.zeros(book.n) for k in CLASSES[:3]}
         self.inc, self.sav, self.acc = t(self.st['income']), t(self.st['sav']), t(self.st['acc'])
@@ -124,7 +134,9 @@ class HouseholdHook:
             self.q1, _ = hh.household_step('arm', self.q, dict(c=self.c), dict(r=g), defl, 'legacy', sink='net_financial')
             self.W_after = sum(self.q1[k] for k in CLASSES)
             return g, -self.c
-        gn = returns(self.q, self.gn)
+        gn = returns(self.q, self._gn(g))
+        self.dv = None if self.mu is None else np.asarray(g, float) - self.mu
+        self.gh.append(self.dv)
         self.q1, self.acct = self._year(self.q, inc, self.sav, self.acc, gn)
         PL0, self.PL = self.PL, pl.accrue(self.PL, book.r_def)                                      # the lien accrues at the kernel's deferral rate (132c)
         self.nw0, self.T, self.unpaid, self.new, self.accr, self.set_c, self.set_p = sum(self.q[k] for k in CLASSES) - PL0, 0.0, 0 * PL0, 0.0, self.PL - PL0, 0.0, 0.0
@@ -151,7 +163,9 @@ class HouseholdHook:
 
     def _pay(self, q, T):
         """The payment T (a line's value moved to the state, negative a refund) on the classes q, pro rata to the positive non-pension balances; pension is never sold. Adds to the year's T and unpaid."""
-        q1, _, un = hh.apply_payment(q, T, {k: np.maximum(q[k], 0.0) for k in CLASSES[:3]})
+        w = {k: np.maximum(q[k], 0.0) for k in CLASSES[:3]}
+        w['net_financial'] = np.where((sum(w.values()) <= 0.0) & (np.asarray(T) < 0), 1.0, w['net_financial'])      # a refund on a line with no positive non-pension balance goes to net financial (128c): a fall in the pension's value can refund a line the floor holds at 0; it raised I1 before
+        q1, _, un = hh.apply_payment(q, T, w)
         self.T, self.new = self.T + T - un, self.new + un
         self.PL = pl.add(self.PL, un)                                                              # the kernel took the whole tax from the line's units (net of the lien): what the classes cannot pay is carried as a lien on the pension (132c)
         for k in CLASSES[:3]:
@@ -164,8 +178,16 @@ class HouseholdHook:
         return out
 
     def class_returns(self):
-        """The household's holding gain by non-pension class (scenario rates, I-D1h to I-D1j): the ledger's returns."""
-        return {k: float(self.gn[k]) for k in CLASSES[:3]}
+        """The household's holding gain by non-pension class (scenario rates, I-D1h to I-D1j) in the year just run: the ledger's returns. With `mu`, net financial carries the path's deviation, per line and path (n,)."""
+        r = {k: float(self.gn[k]) for k in CLASSES[:3]}
+        return r if self.dv is None else {**r, 'net_financial': r['net_financial'] + self.dv}
+
+    def class_paths(self, T, P):
+        """The ledger's class returns by year and path, (T, P) each (128c): the scenario rate, plus the recorded deviation of the path (every line of a path carries the same one) for net financial."""
+        out = {k: np.full((T, P), r) for k, r in {k: float(self.gn[k]) for k in CLASSES[:3]}.items()}
+        if self.mu is not None:
+            out['net_financial'] = out['net_financial'] + np.array(self.gh)[:, ::len(self.st['income'])]
+        return out
 
     def _check(self, book):
         N = self._n(self.q) - (0.0 if self.c is not None else self.PL)                          # the family value is net of the lien
@@ -238,11 +260,13 @@ class HouseholdHook:
     def free(self, g):
         """The untaxed path of site 4 (M3, M12): each line's yearly growth factor of total wealth, pension included, (G, L, P), from the opening balances with T = 0 through the same household step (126c); the scenario rates are the same on every path."""
         q, out = {**{k: np.asarray(v, float) for k, v in self.st['pos'].items()}, 'debt': np.zeros(len(self.st['income']))}, []
+        if self.mu is not None:                                                                  # per-path market returns (128c): each path carries its own state, (L, P)
+            q = {k: np.repeat(v[:, None], g.shape[1], 1) for k, v in q.items()}
         for t in range(len(g)):
-            q1, _ = self._year(q, self.st['income'] * (1.0 + self.gr) ** t, self.st['sav'], self.st['acc'], returns(q, self.gn))
+            q1, _ = self._year(q, (self.st['income'] * (1.0 + self.gr) ** t)[:, None] if self.mu is not None else self.st['income'] * (1.0 + self.gr) ** t, *((self.st[k][:, None] if self.mu is not None else self.st[k]) for k in ('sav', 'acc')), returns(q, self._gn(g[t])))
             w0, w1 = (sum(x[k] for k in CLASSES) for x in (q, q1))
             out, q = out + [np.where(w0 != 0, w1 / np.where(w0 != 0, w0, 1.0), 1.0)], q1
-        return np.broadcast_to(np.array(out)[:, :, None], (*np.shape(out), g.shape[1]))
+        return np.array(out) if self.mu is not None else np.broadcast_to(np.array(out)[:, :, None], (*np.shape(out), g.shape[1]))
 
 
 def household_inputs(ctx, base, inp, sav, regime='mid'):
@@ -265,8 +289,8 @@ class Arm:
     label: dict
 
 
-def build(arm, ctx, theta, base):
-    """The arm of a run (brief 121c): `arm` is 'legacy' or 'household' or a dict {'arm', 'inputs', 'saving', 'regime'} (`inputs` the stored inputs of `household_inputs`; saving 'min', 'median' or 'max', regime 'mid' by default).
+def build(arm, ctx, theta, base, g=None):
+    """The arm of a run (brief 121c): `arm` is 'legacy' or 'household' or a dict {'arm', 'inputs', 'saving', 'regime'} (`inputs` the stored inputs of `household_inputs`; saving 'min', 'median' or 'max', regime 'mid' by default; `paths`: true gives per-path market returns, 128c, scenario-labelled: market-return risk only). `g` the run's market paths (T, P), read for the safe asset.
     The household arm is scenario-labelled and never called central; its safe asset earns the net financial class return, a stand-in (no register row), stated in the label."""
     a, c = {'arm': arm} if isinstance(arm, str) else dict(arm), theta['I-D14c'] / 100
     if a['arm'] == 'legacy':
@@ -277,4 +301,7 @@ def build(arm, ctx, theta, base):
     st, gain, growth = household_inputs(ctx, base, a['inputs'], a['inputs']['sav'][name], regime)
     label = dict(arm='household', scenario=dict(saving=name, saving_ratio=a['inputs']['sav'][name], regime=regime, class_returns={k: gain[k] for k in CLASSES[:3]}, pension_accrual=ctx.reg['I-D1k'].central / 100,
                  tail_pension_cap=ctx.reg['I-D1l'].central, income_scale=a['inputs']['income_scale']), safe_return='the net financial class return (a stand-in: no register row)', central=False)
-    return Arm('household', c, lambda: HouseholdHook(st, gain, growth), lambda T, P: np.full((T, P), gain['net_financial']), label)
+    mu = theta['I-D1a'] / 100 if a.get('paths') else None
+    label['scenario']['market_paths'] = None if mu is None else 'market-return risk only: net financial and pension deviate with the path\'s market return (loading 1); property, physical, saving, income and GDP growth are scenario constants'
+    safe = (lambda T, P: np.full((T, P), gain['net_financial'])) if mu is None or g is None else (lambda T, P: gain['net_financial'] + np.asarray(g, float)[:T] - mu)
+    return Arm('household', c, lambda: HouseholdHook(st, gain, growth, mu=mu), safe, label)

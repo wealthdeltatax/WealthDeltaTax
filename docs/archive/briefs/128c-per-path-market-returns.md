@@ -39,8 +39,26 @@ The exact generating mean to deviate from (the agent reads `returns.py` and stat
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
-- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/128-per-path-returns origin/brief/128-per-path-returns`
-- **State:** ready; not started (after 127c)
+- **Done:** block 0; block 1: `HouseholdHook(..., mu)` (`_gn`, per-path `class_returns`, `class_paths`, per-path `free`), `arm.build(..., g)` with the `paths` flag and the per-path safe series, `withheld` adds OW1 under per-path returns, three tests in `test_arm_switch.py` (zero deviation byte equal; I1, account and ledger ties with spread; untaxed path), arm budget 310 (architecture.md rows). 10 of 10 suites pass, `test_legacy_digest` unchanged.
+- **Done (block 2):** `run_grid.py --market-paths` (label suffix, spread/flat cells, `unpaid_B` by path-phase, per-path I1 detail, first ledger-tie gap; files `*_paths.csv`), smoke test in `test_run_grid.py`; `_pay` routes a refund on a line with no positive non-pension balance to net financial (was an I1 raise; a settlement-rule point for the author).
+- **Done (block 3):** grid at 1,000 paths (3 of 5 points held; `min_mid` and `median_high` raise I1 and are alarms), note `docs/model-v3/household-arm-paths.md`, `ranges.py --market-paths`.
+- **Next (superseded):** block 3 (rerun the five grid points at 1,000 paths in the background; `docs/model-v3/household-arm-paths.md`).
+- **Decisions:** the deviation is `g - mu`, `mu = I-D1a / 100` (the AR(1) generator's mean: `ar1_paths(mean, sd, phi)` is `(mean + sd x) / 100`), loading 1, added to net financial and pension; property and physical fixed; `paths: true` in the arm dict switches it on (default off, so every existing run is unchanged). OW1 (M13) is withheld under per-path returns: the comparators (`system`) run on fixed scenario rates, not like for like with the WDT on paths.
+- **Gotchas:** `revenue.py` line 146 (outside the brief's Touches, one line, net zero): `rk` now comes from `hook.class_paths(T, P)` because the ledger needs the class return by year and path; with `mu` None it is the same `np.full((T, P), r)` (byte equal). `Env` got no new field in this branch (126c's `build` is already there).
+- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/128-per-path-returns origin/brief/128-per-path-returns`; last block pushed: 3.
+- **Not run:** none of the blocks. Open: unexplained ledger tie gap (167 bn, `min_mid`, 20 paths, years 62/85, path 18).
+- **State:** NEEDS THE AUTHOR (revenue.py line 146 and the `_pay` refund routing are outside Touches; two I1 alarms; OW1 values present in the output)
+
+Change report
+- Task: brief 128c, per-path market returns in the household arm (market-return risk only)
+- Files changed: `model_v3/runner/arm.py` (hook with `mu`, per-path class returns, label, refund routing in `_pay`); `model_v3/runner/runner.py` (passes `g`); `model_v3/core/revenue.py` line 146 (ledger class returns by path); `docs/model-v3/household-arm-run/run_grid.py`, `ranges.py` (per-path checks, `--market-paths`); CSVs `*_paths.csv`; tests `test_arm_switch.py`, `test_run_grid.py`; `docs/model-v3/architecture.md` (arm budget 310); `docs/model-v3/household-arm-paths.md` (new)
+- What is different now: `paths: true` gives the household arm spread across paths from the legacy market paths; default off, so every existing run is unchanged.
+- New or changed interfaces: arm dict key `paths`; `run_grid.py --market-paths`; `ranges.py --market-paths`.
+- Acceptance criteria: `test_legacy_digest` unchanged, 10 of 10 suites pass, zero deviation byte-identical (met). I1, account and ledger ties hold at 3 of 5 points; `min_mid` and `median_high` raise I1 on one path each, reported as alarms (partly met). Spread cells have P10 <= mean <= P90; flat cells listed (met). Label states market-return risk only (met).
+- Deviations from the brief: `revenue.py` line 146 and the `_pay` refund routing are outside Touches/"settlement rules unchanged"; OW1 values remain in the run output.
+- Risks / follow-ups: class floor against family value (I1); `unpaid_B` under per-path returns; OW1 not withheld in the writer; the unexplained 20-path tie gap at `min_mid`.
+- Instruction friction: none
+- Verification: quick set and 10 of 10 suites pass; grid run at 1,000 paths; per-path smoke test added.
+- Overview sections likely needing an update: household arm run status
+- Commit / branch: see `git log`, `brief/128-per-path-returns`
 <!-- progress:end -->

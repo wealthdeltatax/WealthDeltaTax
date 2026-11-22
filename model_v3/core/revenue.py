@@ -143,7 +143,7 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
                 for k, v in hook.lien().items():
                     out['pl_' + k][tt] += agg(np.zeros(n) + v)
             prev = pay
-    led = dict(rc={k: out.pop('rc_' + k) for k in _CLASSES}, rec={k: out.pop('pl_' + k) for k in _REC}, rk={k: np.full((T, P), r) for k, r in hook.class_returns().items()}) if hh else None
+    led = dict(rc={k: out.pop('rc_' + k) for k in _CLASSES}, rec={k: out.pop('pl_' + k) for k in _REC}, rk=hook.class_paths(T, P)) if hh else None
     return {**out, 'gdp_index': yy, 'adults_k': A, **({'ledger': led} if hh else {})}
 
 

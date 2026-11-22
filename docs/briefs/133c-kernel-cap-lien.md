@@ -1,16 +1,17 @@
 # 133: Carry the tax the kernel cannot collect as a lien (the median_high case)
 
-- **Status:** draft (needs the author's choice of design in Decisions before release)
+- **Status:** ready
 - **Author/date:** K. Ogata with the guru, 2026-11-22
 - **Depends on:** 132c (merged)
 - **Read (block 0: the first two only):** (1) `docs/model-v3/household-arm-lien.md` ("Not carried"); (2) `docs/agents/code.md`. Later: `model_v3/core/kernel.py` (`_cap` line 225, the route payments 250 to 280, `settle_B` 454, `step_year`); `model_v3/core/pension_lien.py`; `model_v3/runner/arm.py` (`pre`, `_pay`, `settle`); `docs/model-v3/household-arm-i1-floor.md`.
 
 ## Goal
+With per-path returns (128c, merged) the same excess appears on ordinary paths, not only at `median_high` (`unpaid_B` on 2,776 path-phases at `median_mid`, 446 at `max_mid`, 6 at `median_low`); rerun the per-path grid at the end (`run_grid.py --market-paths`, 200 paths is enough) and report the counts before and after.
 At `median_high` the tax on pension gains takes all the non-pension wealth of nine lines (D1 to D10b, years 70 to 97). The kernel caps each payment at the line's route units and records the excess in `unpaid_B`, so the household hook never sees an unpaid amount and 132c's lien cannot arise (3,000 shortfall lines, unchanged). Carry that excess as a lien so the account closes without a shortfall alarm.
 
 ## Decisions (author, 2026-11-22; the design choice is open)
 - Same rule as 132c: the unpaid tax is deferred, accrues at `r_def`, is a receivable of the public ledger, and is settled at death and at the horizon (classes, then the one-off pension draw). Nothing is tuned.
-- **Choice for the author:** (a) the kernel keeps the excess in a book-level lien `PL` netted from the family value (the lien lives in the kernel, the hook reads it); or (b) `_cap` returns the excess to a callback the hook supplies, so the lien stays in `pension_lien.py` and the kernel has one new call. The guru leans to (b): one lien implementation, a smaller kernel change. The agent states the rule it used if the author has not chosen.
+- **Author chose (b), 2026-11-22:** `_cap` hands the excess to a callback the hook supplies, so the lien stays in `pension_lien.py` and the kernel has one new call; default off. (The options were: (a) the kernel keeps the excess in a book-level lien `PL` netted from the family value (the lien lives in the kernel, the hook reads it); or (b) `_cap` returns the excess to a callback the hook supplies, so the lien stays in `pension_lien.py` and the kernel has one new call. The author took (b).)
 
 ## Blocks (one push each)
 - **Block 0:** progress block pushed.

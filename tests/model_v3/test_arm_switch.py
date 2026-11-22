@@ -90,3 +90,54 @@ def test_the_burden_flows_equal_the_revenue_receipts_in_every_year_including_the
     wdt = sum(run[k] for k in ('tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D'))
     assert fl['net'].shape[:2] == (100, 6 * len(raw.base.labels)) and wdt[-1].min() > 0
     assert np.abs(net - wdt).max() < 1e-6 * np.abs(wdt).max()
+
+
+def test_zero_deviation_per_path_returns_equal_the_fixed_rate_arm_byte_for_byte(ctx):
+    mu = ctx.centre['I-D1a'] / 100
+    g, gdp = np.full((100, 2), mu), PATHS[1]
+    fixed = R.core_run(replace(ctx, arm=dict(arm='household', inputs=INP, saving='median')), ctx.centre, SPEC, g, gdp)
+    paths = R.core_run(replace(ctx, arm=dict(arm='household', inputs=INP, saving='median', paths=True)), ctx.centre, SPEC, g, gdp)
+    for k in ('tax', 'refund', 'death_tax', 'heir', 'wgain'):
+        assert np.array_equal(fixed.run[k], paths.run[k])
+    for k in fixed.run['ledger']['rk']:
+        assert np.array_equal(fixed.run['ledger']['rk'][k], paths.run['ledger']['rk'][k]) and np.array_equal(fixed.run['ledger']['rc'][k], paths.run['ledger']['rc'][k])
+    assert np.array_equal(fixed.r['fund']['L']['net_financial'], paths.r['fund']['L']['net_financial'])
+
+
+def test_per_path_market_returns_keep_i1_the_account_and_the_ledger_ties_and_give_spread(ctx, monkeypatch):
+    seen = []
+
+    class Spy(ab.HouseholdHook):
+        def post(self, book, fl):
+            super().post(book, fl)
+            a = self.account()
+            seen.append((np.abs(a['residual']).max(), np.abs(a['unpaid']).max()))
+
+    monkeypatch.setattr(ab, 'HouseholdHook', Spy)
+    th = ctx.centre
+    from model_v3.core import returns as rt
+    g = rt.ar1_paths(np.random.default_rng(1), th['I-D1a'], th['I-D1b'], th['I-D1b2'], 100, 3)
+    c2 = replace(ctx, arm=dict(arm='household', inputs=INP, saving='median', paths=True))
+    raw = R.core_run(c2, th, SPEC, g, np.full((100, 3), 0.0157))                                 # I1 is checked inside the hook every year: a failure raises
+    assert max(r for r, _ in seen) < 1e-9 and len(seen) > 1000 and raw.arm['scenario']['market_paths'].startswith('market-return risk only') and raw.arm['central'] is False
+    wdt = sum(raw.run[k] for k in ('tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D'))
+    assert np.abs(sum(raw.run['ledger']['rc'].values()) - wdt).max() < 1e-9
+    f = raw.r['fund']
+    for k in f['L']:
+        dL = np.diff(np.vstack([np.zeros((1, 3)), f['L'][k]]), axis=0)
+        assert np.abs(dL - (f['rc'][k] + f['ret'][k] - f['pay'][k])).max() < 1e-9
+    rk = raw.run['ledger']['rk']
+    assert rk['net_financial'][:, 0].std() > 0 and np.ptp(rk['net_financial'], axis=1).min() > 0
+    assert rk['property'].std() == 0.0 and not np.allclose(raw.run['tax'][:, 0], raw.run['tax'][:, 1])   # the market classes move with the path, property is fixed, the receipts differ by path
+    assert 'OW1' in ab.withheld(raw.arm) and ab.withheld(dict(arm='household')) == {}
+
+
+def test_untaxed_path_under_per_path_returns_is_the_fixed_path_at_the_mean_and_varies_with_the_path(ctx):
+    base = R.shaped(ctx, ctx.centre, 0.5)
+    c2 = dict(arm='household', inputs=INP, saving='median', paths=True)
+    fixed, hook = (ab.build(a, ctx, ctx.centre, base).make() for a in (dict(c2, paths=False), c2))
+    mu = ctx.centre['I-D1a'] / 100
+    assert np.allclose(hook.free(np.full((30, 2), mu)), fixed.free(np.full((30, 2), mu)), rtol=0, atol=1e-12)
+    g = np.stack([np.full(30, mu - 0.05), np.full(30, mu + 0.05)], axis=1)
+    f = hook.free(g)
+    assert f.shape == (30, len(base.wealth), 2) and (f[:, :, 1] > f[:, :, 0]).any()
