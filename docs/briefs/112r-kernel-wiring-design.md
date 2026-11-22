@@ -46,11 +46,11 @@ Left to the note.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** blocks 0 to 2 (sections 1 and 2 of `docs/model-v3/kernel-wiring-design.md`; `kernel-wiring/decile_composition.py` and CSV)
-- **Next:** block 3 (the replacement: routes against classes, lien and `_move`, public ledger, legacy switch and test), block 4 (build order, rulings, summary, change report)
+- **Done:** blocks 0 to 3 (sections 1 to 3 of `docs/model-v3/kernel-wiring-design.md`)
+- **Next:** block 4 (build order, rulings table, section 5 answers, summary, change report), then check_agent_docs and the final push
 - **Decisions:**
 - **Gotchas:**
-- **Resume:** branch `brief/112-kernel-wiring-design`; `git fetch origin brief/112-kernel-wiring-design`; last block pushed: 2; first action: block 3
+- **Resume:** branch `brief/112-kernel-wiring-design`; `git fetch origin brief/112-kernel-wiring-design`; last block pushed: 3; first action: block 4
 - **Not run:**
-- **State:** in progress, block 2 pushed
+- **State:** in progress, block 3 pushed
 <!-- progress:end -->

@@ -1,6 +1,6 @@
 # Kernel wiring design: `household_step` inside the payer-line book
 
-Brief `docs/briefs/112r-kernel-wiring-design.md`. Design only: no code, test, register or pack change. Status: in progress (blocks 1 and 2 written; sections 3 to 5 and the summary pending).
+Brief `docs/briefs/112r-kernel-wiring-design.md`. Design only: no code, test, register or pack change. Status: in progress (blocks 1 to 3 written; sections 4 and 5 and the summary pending).
 
 ## Summary
 *pending (written last)*
@@ -120,7 +120,63 @@ The aggregate non-pension saving ratio is held (101r: 4.90% in 2024 on the ONS g
 | returns on pension, net financial, physical | scenario ranges I-D1h to j | 3.44 / 5.20 / 6.96; physical 0 |
 
 ## 3. The replacement (block 3)
-*pending*
+
+### 3.1 The principle: classes are the household's state, routes are how the tax settles
+A route is a **tax-settlement channel** (A sale, B payment from the asset, C self-declared in kind, D deferred auction; shares I-D13a to d, one mix for every line). A class is an **asset type** (property, net financial, physical, pension). The two are crossed, not identified: **every route's units are a slice of the line's non-pension wealth and carry its class mix**, so a sale of route units is a pro rata sale across the non-pension classes (the author's settlement ruling) and the route shares only decide how the assessed tax is declared and settled. Pension is a **separate balance outside the units** (section 2.5, P1). Two invariants make this testable:
+- **I1 (family value).** For every line and year, `sum_r f_r V_r = N`, the line's non-pension class total, and `N + PA - D = NW`.
+- **I2 (class split).** The family's class positions after any sale are the pre-sale positions times `(1 - x / N)`, with `x` the true value moved: the pro rata rule of `household_step` (`household.py:62-70`).
+
+### 3.2 Where `household_step` is called, and the one change to the kernel
+**Per line and year, in this order** (the kernel's order, with the account inserted; `step_year`, `kernel.py:450-475`):
+1. **Pre-tax household step** (`household_step`, `T_WDT = 0`): from the opening class positions and the line's flows (`Y_L`, `Y_P`, `C`, pension accrual `pen_in`), give closing pre-tax positions, the account `S`, `CG` and the line's **non-pension return** `g_N = sum_k g_k P_k / N` and **signed flow share** `x = S_nonpension / N` (negative for consumption, positive for saving).
+2. **Growth and flow in the book.** `grow_and_consume` (`kernel.py:324`) takes `g_N` (it already accepts a per-line `g`, `_arr(g, n)`) and a **signed** share: `f <- f (1 + x)`. A negative `x` sells units to the market exactly as now (`sold`); a positive `x` buys units (`sold` negative, `tot` up). Legacy passes `x = -c`, so `cu = f x c` and `f - cu` are the same operations in the same order (bit equal).
+3. Declaration, verification, **assessment** (`assess`, `275`) on `W_new = sum_r f dd + PA - LB`, `W_prev` likewise; the delta is the pre-tax `dNW` (decision D17 retained). Pension enters the total, **not the route allocation**: `w[r]` weights use route deltas only, and a fallback to route value shares is needed when every route delta is non-positive while the total delta is positive (otherwise tax is lost to `_div`).
+4. **Settlement by the routes** (`_route_tax`, `219`; `_move`, `191`): unchanged. The value moved `x_true = fl.value` (true price, not credited `L`: C pays at `dd`) is the line's payment.
+5. **Payment half of the household step.** A new pure function `apply_payment(q, T, source_weights)` (extracted from `household.py:62-70`, which `household_step` then calls; its tests do not change) reduces the non-pension classes pro rata by `x_true`, adds the lien to debt, and closes the account `dNW = S + CG + TR + O - T_WDT`.
+6. **Reconcile.** I1 is checked; the book's `V_r` for every route is rescaled so that `sum_r f V_r = N` (a no-op when the class returns enter `g_N` exactly, a check otherwise).
+
+**Where the call lives.** The kernel is layer L1, imports numpy only (`kernel.py:11-13`) and may not import `household`. The existing strategy-hook pattern (`alpha_C(t, gen, yrs)` callables, `run_lines`, `kernel.py:524`) carries the household: `step_year(..., hook=None)` calls `hook.pre(book, t)` for `(g_N, x)` and `hook.post(book, fl)` after settlement; **the hook object is built by the runner (L4) from `household.py` (L1) and the pack** and is passed down through `revenue.run_lines`, `burden.line_flows` and `support.wdt_run` in the place of `c`. No new layer and no upward import. `hook=None` is the legacy kernel.
+
+### 3.3 Routes against classes: what reconciles
+| Book term | Meaning under the new arm | Check |
+|---|---|---|
+| `f_r`, `s_r` units; `V_r` | slices of the line's (family) and the state's non-pension wealth; one price `V` per route, common to all routes because all carry the same mix | I1 each year |
+| `tot_r`, `sold_r` | units ever issued; units sold to (or, negative, bought from) the market: consumption and saving are both `sold` flows | `f + s + sold = tot` (existing `check()`, `kernel.py:178`) |
+| `dd_r` | declared value per unit (C: `alpha_C V`; D: `alpha_D V` with auction share `vD`); pension is declared at the true value | unchanged |
+| `LB`, `A_D` | liabilities to the state: appear as `debt` in the account (the lien is `D` up, 094r B3 case 3); do not reduce class positions until settled by sale | settle at death and horizon |
+| `PA` | new per-line field `pen` (and `penp` at the last assessment) | in `W_new`, `W_prev`; never in `f`, `s` |
+
+### 3.4 The lien, `_move` and the settlement shortfall
+- **`_move`** (`kernel.py:191`) keeps its meaning (family to state at the true price); the class consequence is I2. Route C moves `u_pay = L / dd` units, so a declared price below the true price (`alpha_C < 1`) moves **more** true value than `L`; the account's `T_WDT` is the true value moved, and the gap to the credited tax is the existing kernel difference, reported.
+- **Lien (Route B `lien` mode, Route D accrual).** `LB` and `A_D` accrue at `r_def` and the auction; they are liabilities (debt) and are settled by pro rata sale at death and at the horizon (`settle_B`, `settle_D`). The household account shows them as `D`; `I_D` on them is the kernel's `r_def` accrual, not a separate rate.
+- **Shortfall.** `household_step` raises when `T > non-pension wealth` (`household.py:66`). The book never raises: the A and B sale routes already cap a sale at holdings (`_div`), so the rule must be stated: **a payment above non-pension wealth is capped at it and the excess is reported as `unpaid_B`** (the field exists, `kernel.py:152`) and counted in the liquidity diagnostic. Ruling Q4.
+- **Refunds.** The cap is `min(rest, E_cash, s x V)` (`kernel.py:208-216`); under the ledger (3.5) the third term reads the ledger's class value of that route's stake.
+
+### 3.5 The public ledger, and what it replaces
+Today the state's stake is `s x V` per route (`kernel.py:167`, read by no module) and `core/revenue.py:208` runs the fund as a second recursion on cash `wdt + lev` at the return path `g`. One ledger replaces both:
+- **Shape.** `L[k]` per class k (property, net financial, physical, plus the safe asset), per path and year, at market value; `L_t+1 = L_t (1 + g_k) + receipts_k - payout_k`. The pension is not a ledger class.
+- **Receipts by class.** A payment of true value `x` from a line enters the ledger in the line's **non-pension class mix at the time of payment** (the unit slice it moves, 3.1); cash receipts (the corporate levy `lev`) enter under the fund rule `safe_share` (I-D14f). The ledger's class returns are the same `g_k` as the household's, scenario ranges for the classes with no held return (I-D1h to j).
+- **Reads.** `fund()` (`revenue.py:121`) keeps its reserve rules, but its balance `S` and return are **read from the ledger** (`rr = sum_k L_k g_k / L`), and `core/revenue.py:208` stops passing the bare path `g`. `burden.free_path` and `support.py` do not read the fund. `state_true` becomes the ledger value.
+- **Tying test (new).** Per path and year: `sum_lines weight x T_WDT_line = ledger receipts` (household minus public is zero, the 104r reconciliation), and `dL = receipts + return - payout` to 1e-9. The legacy two-recursion agreement (stake and fund equal only with one return and no payout, 104r section 4) is no longer needed.
+- **What it does not do.** No price response to a sale; the market counterparty is outside the modelled sectors (104r limits).
+
+### 3.6 The five sites under the hook
+| # | Site | Legacy hook (`c`) | Household hook |
+|---|---|---|---|
+| 1 | `kernel.grow_and_consume` | unchanged code path | per-line `g_N` and signed `x` from the pre-tax household step (3.2) |
+| 2 | `revenue.run_lines:83` `W1` | `W0 (1+g)(1-c)` in the same operation order | read the book's post-flow family value: the `growth` `Flows` gets a field `W_after` set by the hook |
+| 3 | `revenue.identity:241` `gacc` | `max((1+g)(1-c)-1, 0)` | `run` records the wealth-weighted pre-tax gain rate by year (from `fl.delta / W0`) and `identity` reads it; the I3 gap is unchanged in meaning |
+| 4 | `burden.free_path:175` | `(1+g)(1-c)` cumulative | the hook's untaxed path (`T = 0` through the same step) |
+| 5 | `support.system_run:131-132` | `grown (1-c) - tax` | **stays legacy in the first wiring**: the comparators (stock tax, tax on gains, consumption tax) are alternative taxes and need their own bases on the account (CG, C) |
+**Consequence of 5.** M13 (`support.py`, `out_support.py:30`) compares the WDT with the comparators: with the WDT on the new arm and the comparators on legacy the comparison is **not like for like**, and `m3_today` and `m12` (site 4) differ in the same way. Proposal: **under the household arm the outputs that read sites 4 and 5 are withheld and labelled `legacy_only`** until their own brief (section 4); the manifest question is ruling Q5.
+
+### 3.7 The legacy switch and the test that proves the digests do not move
+- **Switch.** One register-level choice, `arm in {legacy, household}`, read in `runner.core_run` (`runner.py:202`): `legacy` builds the legacy hook (`c = I-D14c / 100`, behaviour as today), `household` builds the household hook. Default `legacy` until the author rules otherwise. The arm is written into the run record and the output labels (a household-arm result is never a legacy result, decision of 2026-11-19).
+- **No stored digest exists** (section 1.4), so the first code brief **captures one on `origin/main` before it changes anything**: for fixed seeds, the `runner.digest` of the `Samples` for a small schedule grid and `P = 20` paths, and the SHA-256 of the output groups, committed as `tests/model_v3/fixtures/legacy_digest.json`.
+- **Proving test.** (a) `test_legacy_digest`: with `arm = legacy`, the digest equals the fixture exactly (bit equal); (b) `test_hook_none_equals_c`: `step_year(hook=None)` and the legacy hook give the same `Book` on a grid of `c` and `g` to 0.0 (not a tolerance); (c) the existing suites pass unchanged under `legacy`. A change to any of sites 1 to 5 that moves (a) fails the brief.
+
+### 3.8 What breaks, what does not, which tests move
+**Does not break:** the route mechanics, the refund cap, the death step, the declared-value logic, `Flows` fields, `check()` (I1 is extra), `household_step` and its tests, and every legacy output. **Moves under the household arm (stated, not hidden):** every revenue, burden and support output (growth is no longer `(1+g)(1-c)`), the fund balance and the I3 identity; `delta` includes saving and pension accrual. **Cannot be compared with legacy** without the arm label. Tests by file: `test_kernel` (signed flow, `hook=None` bit equality, I1), `test_revenue` (ledger tie, `W_after`, `gacc`), `test_burden` (free path), `test_support` (comparators stay legacy), `test_out_*` (withheld outputs, arm label), `test_runner` (arm switch), `test_groups` and `conftest` LAYER rows for any new module.
 
 ## 4. Build order and rulings (block 4)
 *pending*
