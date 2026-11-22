@@ -1,5 +1,5 @@
 """
-account_table.py -- brief 118c (W5b): the per-line account of the taxed household arm at the centre grid point of the stored digest.
+account_table.py -- brief 118c (W5b), rerun by 119c with the tail pension ceiling (I-D1l; the one change, plus a pension_share column): the per-line account of the taxed household arm at the centre grid point of the stored digest.
 One path, 100 years, the 14 lines, three saving values (the min, median and max of the ONS non-pension saving ratio, none called central); deaths at 30, 60 and 90 (one phase),
 the horizon settled. Schedule: tau_0 0.04, tau_m 0.7, k_ln 1, ratio 0.5 (logistic in ln W, the digest's 'centre'); register central inputs; mid return regime; pension accrual as observed;
 incomes scaled to the B.6g factor (inputs_used.json); wealth scale and behavioural loss as the runner shapes the base. Units: millions of pounds per adult, real pounds of the pack's CPI basis.
@@ -23,7 +23,7 @@ from model_v3.runner import arm, runner as R  # noqa: E402
 
 YEARS, G, SHOW = 100, 30, (1, 10, 30, 100)
 SPEC = dict(tau_0=0.04, tau_m=0.7, k_ln=1, ratio=0.5)
-COLS = ('line', 'saving_value', 'saving', 'year', 'status', 'dNW', 'S', 'CG', 'T_WDT', 'unpaid_B', 'pay_over_net_financial', 'pay_over_nonpension', 'identity_residual')
+COLS = ('line', 'saving_value', 'saving', 'year', 'status', 'dNW', 'S', 'CG', 'T_WDT', 'unpaid_B', 'pay_over_net_financial', 'pay_over_nonpension', 'identity_residual', 'pension_share')
 
 
 def setup():
@@ -40,7 +40,7 @@ def one(ctx, inp, name, sav):
     rate = sc.rate_function(SPEC['k_ln'], SPEC['tau_0'], SPEC['tau_m'], base.w_min, 'logistic_ln')
     y, g_i, lc, ld = inp['yreg']['mid'], inp['g'], ctx.centre['I-D14a'] / 100, ctx.centre['I-D14b'] / 100
     gain = dict(property=0.016455, net_financial=inp['regimes']['mid'] - y, physical=0.0, pension=inp['regimes']['mid'] - y)
-    full = arm.line_state(base, ctx.pack.tables['decile_composition'], ctx.reg, sav, scale=inp['income_scale'])
+    full = arm.line_state(base, ctx.pack.tables['decile_composition'], ctx.reg, sav, scale=inp['income_scale'], cap=ctx.reg['I-D1l'].central)
     rows, stopped, neg = [], {}, 0
     for i, lab in enumerate(base.labels):
         sl = lambda v: np.asarray(v)[i:i + 1]
@@ -60,7 +60,7 @@ def one(ctx, inp, name, sav):
             neg += sum(hook.q[k][0] for k in arm.CLASSES) < 0
             if t in SHOW or short:
                 rows.append(dict(line=lab, saving_value=name, saving=sav, year=t, status='shortfall' if short else 'ok', dNW=a['dNW'][0], S=a['S'][0], CG=a['CG'][0], T_WDT=a['T_WDT'][0], unpaid_B=book.unpaid_B[0],
-                                 pay_over_net_financial=a['pay_over_fin'][0], pay_over_nonpension=a['pay_over_nonpension'][0], identity_residual=a['residual'][0]))
+                                 pay_over_net_financial=a['pay_over_fin'][0], pay_over_nonpension=a['pay_over_nonpension'][0], identity_residual=a['residual'][0], pension_share=hook.q['pension'][0] / sum(hook.q[k][0] for k in arm.CLASSES)))
             if short:
                 stopped[lab] = t
                 rows += [dict(line=lab, saving_value=name, saving=sav, year=u, status=f'stopped after the shortfall of year {t}') for u in SHOW if u > t]

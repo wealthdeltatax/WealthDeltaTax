@@ -1,5 +1,5 @@
 {
- "count": 297,
+ "count": 298,
  "inputs": [
   {
    "central": 5.94,
@@ -502,6 +502,27 @@
    "nulls": {},
    "sources": [],
    "unit": "% of B.6g per year"
+  },
+  {
+   "central": 0.386,
+   "coverage": "UK households, D10; WAS Round 8",
+   "high": null,
+   "id": "I-D1l",
+   "input": "Scenario ceiling, pension wealth held by a tail line (D10a, D10b, RL3, RL2, RL1), an absolute amount per adult, real, `pension_cap` (household arm; the D10 mean pension per adult)",
+   "judgement": true,
+   "low": null,
+   "nulls": {
+    "high": {
+     "raw": "not found",
+     "reason": "not found"
+    },
+    "low": {
+     "raw": "not found",
+     "reason": "not found"
+    }
+   },
+   "sources": [],
+   "unit": "£m per adult"
   },
   {
    "central": 12,

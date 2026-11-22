@@ -2,6 +2,12 @@
 
 One entry per finished brief or settled question, at most 8 lines each. Newest first. Maintained by the guru.
 
+## 2026-11-22: tail pension ceiling (119c), a labelled scenario
+- Author: the tail lines (D10a, D10b, RL3, RL2, RL1) hold pension of at most the D10 mean pension per adult, an absolute amount, real: 0.386 £m (WAS Round 8, D10 pension share 36.4% of D10 wealth times D10 mean wealth per adult 1.06 £m). Register row I-D1l, one value, mid-point label, no low or high.
+- Why: no held distribution of pension wealth and no unit-record licence; with D10's class shares RL1 held 37% pension that is never sold, so the richest lines could not pay by year 69.
+- Wealth the ceiling displaces goes to property, net financial and physical pro rata to D10's mix. D10a (0.24) is below the ceiling and unchanged; D10b to RL1 are capped.
+- It is a scenario, not a measurement: replace the one value with the p90 or p99 of private pension wealth, or a lifetime-allowance-based figure, from an ONS pension-wealth-by-percentile table when one is held. The settlement rule (pension never sold) is unchanged.
+
 ## 2026-11-21: 100r JST cash yield and holding-gain split (data design)
 - The JST file carries the split: equity and housing identities hold to 5e-6 percentage points; bonds use `bond_rate` as a yield proxy with `bond_tr - bond_rate` as the gain (not an observed coupon split); bills have zero nominal gain by convention.
 - Portfolio weights are recovered from `capital_tr`, `risky_tr`, `safe_tr`: equity 28.6%, housing 41.2%, bonds 15.1%, bills 15.1% on average over 117 years. They are market-stock weights, not household weights.

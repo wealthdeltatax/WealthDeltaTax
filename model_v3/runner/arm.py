@@ -6,6 +6,7 @@ A hook has `pre(book, t, g) -> (g_N, x)` (the growth rate and the signed flow sh
 settlement) and one method for each site that read `c`: `grown` (revenue.run_lines, wealth after growth and flow), `gain` (revenue.identity, the accrued gain
 rate) and `free` (burden.free_path, the untaxed growth factor). `LegacyHook(c)` does exactly what `c` did, operation for operation (bit equal);
 the comparators' `support.system_run` stay legacy in this wiring (design 3.6, site 5).
+Brief 119c: `d10_pension` and `line_state`'s `cap` hold the tail lines' pension at the D10 mean (a labelled scenario ceiling, I-D1l).
 Brief 117c (W5a): `line_state` builds the household arm's state of the 14 lines (class balances, income, saving and accrual shares) from the pack's decile composition and the register
 (convention A; no file read here, every number arrives as an argument), `returns` applies the debt rule, and `HouseholdHook` runs the household year with no WDT (T = 0).
 """
@@ -40,7 +41,18 @@ class LegacyHook:
         return (1.0 + g) * (1.0 - self.c)
 
 
-def line_state(base, comp, reg, sav, scale=1.0):
+def d10_pension(base, comp, wd):
+    """The D10 mean pension per adult (millions of pounds, real), observed: D10's pension share of its class total (`comp`, normalised) times the survey's D10 wealth (`wd`, the pack's wealth_distribution rows, scaled to the printed total as build_base does) over D10's adults."""
+    w = {r['band']: r['value'] for r in wd if r['variable'] == 'wealth_total'}
+    return comp_share(comp, 'D10', 'pension') * w['D10'] * w['all'] / sum(w[f'D{i}'] for i in range(1, 11)) / base.adults_k[9:].sum()
+
+
+def comp_share(comp, d, k):
+    mix = {(r['decile'], r['class']): r['value'] for r in comp}
+    return mix[d, k] / sum(mix[d, c] for c in CLASSES)
+
+
+def line_state(base, comp, reg, sav, scale=1.0, cap=None):
     """The household arm's state of the base's lines, arrays of one entry per line (millions of pounds per adult; income a year): `pos` class -> balance (wealth times the line's decile
     share of the pack's `decile_composition` rows `comp`, normalised to sum to 1; debt netted inside the classes, so D1 keeps its negative shares), `income` (the band mean I-D9 per adult, D1 to D3 the low bound of
     I-D9a, tail lines the D10 mean, times `scale`, the B.6g factor, off at 1.0), `sav` (the non-pension saving ratio of income, a scenario value) and `acc` (the pension accrual share of income, I-D1k)."""
@@ -49,7 +61,14 @@ def line_state(base, comp, reg, sav, scale=1.0):
     tot = {d: sum(mix[d, k] for k in CLASSES) for d in set(dec)}                                          # the printed shares are rounded: normalised so the classes sum to the wealth
     inc = np.where(np.isnan(base.income), reg['I-D9a'].low / reg['I-D4h'].central / 1e6, base.income)
     n = len(base.labels)
-    return dict(pos={k: base.wealth * np.array([mix[d, k] / tot[d] for d in dec]) for k in CLASSES}, income=inc * scale, sav=np.full(n, float(sav)), acc=np.full(n, reg['I-D1k'].central / 100))
+    pos = {k: base.wealth * np.array([mix[d, k] / tot[d] for d in dec]) for k in CLASSES}
+    if cap is not None:                                                                                    # brief 119c: the tail lines' pension is at most `cap` (I-D1l); the displaced wealth goes to the other three classes, pro rata to D10's mix
+        tail = np.array([x in TAKES_D10 for x in base.labels])
+        pen = np.where(tail, np.minimum(pos['pension'], cap), pos['pension'])
+        out = pos['pension'] - pen
+        rest = {k: mix['D10', k] / sum(mix['D10', j] for j in CLASSES[:3]) for k in CLASSES[:3]}
+        pos = {**{k: pos[k] + out * rest[k] for k in CLASSES[:3]}, 'pension': pen}
+    return dict(pos=pos, income=inc * scale, sav=np.full(n, float(sav)), acc=np.full(n, reg['I-D1k'].central / 100))
 
 
 def returns(pos, g):

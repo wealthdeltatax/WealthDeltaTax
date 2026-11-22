@@ -1,6 +1,6 @@
 {
  "schema": "wdt-outputs/1",
- "run": {"manifest_version": "stage-A13-comparator-vocabularies-2026-11-20", "manifest_sha256": "61b8dde24cf904d11b026bf98d1a1fed3255703bedd2c8daf9f5040b99d2d25b", "country_pack": "UK", "run_date": "2026-01-01", "status": "provisional", "model_version": "fixture", "inputs_sha256": "e554ed93685bdeefcaa2f34e2c57e6a23386f3b351a5487d106a77c05d7adc8e", "paths": 0, "base_year": 2025, "fixture": true, "pack_sha256": "56eea9d6c3a1c74993f772679c132a732038ad54d9390dfad1ec4d5437e0bf25", "pack_country": "UK", "levers_sha256": "97cc0e18248aed74f3d146d8ff77877280d3ee8fd3ab3d2e35b8825cd1a7d426"},
+ "run": {"manifest_version": "stage-A13-comparator-vocabularies-2026-11-20", "manifest_sha256": "61b8dde24cf904d11b026bf98d1a1fed3255703bedd2c8daf9f5040b99d2d25b", "country_pack": "UK", "run_date": "2026-01-01", "status": "provisional", "model_version": "fixture", "inputs_sha256": "11b3f4dfb105d5fdd2ed51b85be2ebc6f62db82740cd1efc853bb979336b7c5e", "paths": 0, "base_year": 2025, "fixture": true, "pack_sha256": "56eea9d6c3a1c74993f772679c132a732038ad54d9390dfad1ec4d5437e0bf25", "pack_country": "UK", "levers_sha256": "97cc0e18248aed74f3d146d8ff77877280d3ee8fd3ab3d2e35b8825cd1a7d426"},
  "outputs": {
   "O1": {"summary": "p10_mean_p90", "cells": [
    {"schedule": "S_low", "horizon": "transition", "line": "M1", "by": {}, "p10": 1.7, "mean": 3.4, "p90": 5.1},

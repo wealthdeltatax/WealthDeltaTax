@@ -1,32 +1,47 @@
-# The taxed household arm: the account of each line (brief 118c, W5b)
+# The taxed household arm: the account of each line (briefs 118c and 119c, W5b)
 
 For the author's review. One row per line and saving value for years 1 and 30; years 10 and 100 are in `household-arm-account/account_table.csv` (14 lines, three saving values, years 1, 10, 30 and 100). **No revenue, fund or burden number appears here or in the CSV.**
 
 ## What was run
 
-`python -I docs/model-v3/household-arm-account/account_table.py`: the taxed household hook (`runner/arm.py`, convention A, default arm still legacy) on the 14 lines, one path, 100 years, each line run alone (the kernel treats lines independently). Schedule: the digest's centre grid point, tau_0 0.04, tau_m 0.7, k_ln 1, threshold ratio 0.5 (logistic in ln W); register central inputs, mid return regime (0.052 total, yield 0.0426115 so net financial and pension gain 0.0094, property 0.016455, physical 0), income growth 0.0157, pension accrual 0.0483 of income (as observed), incomes scaled to the B.6g factor 1.3733 (`cell-baseline/inputs_used.json`), wealth scale and behavioural loss as the runner shapes the base; Route C verified with lam_C and Route D with lam_D from the register. Routes: the base's A, B, C, D split, sale mode for Route B. Deaths at years 30, 60 and 90; the horizon (year 100) settled. Saving values (the ONS non-pension saving ratio, 1998 to 2025): min -0.0261, median 0.0101, max 0.1354; none is called central.
+`python -I docs/model-v3/household-arm-account/account_table.py`: the taxed household hook (`runner/arm.py`, convention A, default arm still legacy) on the 14 lines, one path, 100 years, each line run alone (the kernel treats lines independently). Schedule: the digest's centre grid point, tau_0 0.04, tau_m 0.7, k_ln 1, threshold ratio 0.5 (logistic in ln W); register central inputs (the tail lines' pension capped at I-D1l, 119c), mid return regime (0.052 total, yield 0.0426115 so net financial and pension gain 0.0094, property 0.016455, physical 0), income growth 0.0157, pension accrual 0.0483 of income (as observed), incomes scaled to the B.6g factor 1.3733 (`cell-baseline/inputs_used.json`), wealth scale and behavioural loss as the runner shapes the base; Route C verified with lam_C and Route D with lam_D from the register. Routes: the base's A, B, C, D split, sale mode for Route B. Deaths at years 30, 60 and 90; the horizon (year 100) settled. Saving values (the ONS non-pension saving ratio, 1998 to 2025): min -0.0261, median 0.0101, max 0.1354; none is called central.
 
 Units: millions of pounds per adult, real pounds of the pack's CPI basis. Ratios are fractions (1 = 100%).
 
 ## Columns
 
 - `dNW`: closing minus opening net worth of the year (pension included). `S`: saving, labour income plus pension accrual minus consumption. `CG`: holding gains (property, net financial, physical, pension; a negative property or net financial balance earns nothing). `T_WDT`: value moved to the state in the year, taken pro rata from the positive non-pension class balances; pension is never sold. A death year (30, 60, 90) includes the death tax, the settlement of Routes B and D and the heir's tax on the receipt; year 100 includes the horizon settlement.
-- `identity_residual`: dNW - (S + CG - T_WDT), checked to 1e-9 in every line and year of the run (largest in the CSV 5e-12; the three richest lines carry values of 1e4, so their absolute residuals are larger than the others).
+- `identity_residual`: dNW - (S + CG - T_WDT), checked to 1e-9 in every line and year of the run (largest in the CSV 1.1e-11; the three richest lines carry values of 1e4, so their absolute residuals are larger than the others).
+- `pension_share` (added by 119c): the pension balance over total wealth at the end of the year.
 - `unpaid_B`: the kernel's cumulative payment shortfall, the amount a line was assessed and could not pay from its non-pension wealth. A model alarm, expected zero.
 - `pay_over_net_financial`, `pay_over_nonpension`: the year's payment over the net financial balance and over the non-pension total, both after growth and saving, before the payment (0 where nothing is paid).
 
-## Shortfall count
+## Shortfall count (rerun with the tail pension ceiling, brief 119c)
 
-`shortfall_lines` is **not empty** in this run: three lines, RL3, RL2 and RL1, have a payment shortfall in year 69 under all three saving values (unpaid_B in year 69, median saving: RL3 1.64, RL2 13.3, RL1 107.7 millions per adult). The payment of that year equals the whole non-pension wealth of the line (ratio 1 within 1e-12). The model is expected to give zero, so this is reported as a model error, with its inputs above. The hook cannot carry a line with no non-pension wealth (no route units: the next year's growth and flow shares are undefined), so those lines stop in year 69; their year 100 rows are blank, with the status. In every other line and year `unpaid_B` is 0 and I1 holds to 1e-9. The test runs of the hook (`tests/model_v3/test_household_tax.py`: 12 years with no deaths, 9 years with deaths every 4 years in Route B sale and lien modes, the horizon, a schedule of tau_0 0.05 and tau_m 0.5) have `shortfall_lines` empty.
+`shortfall_lines` is **empty** in all three saving values: no line has a payment shortfall in any year (`unpaid_B` is 0 in every row; the largest payment over non-pension wealth is 0.6025, in a death year). The year-100 rows are present for all 14 lines in each saving value (168 rows, 14 lines times three saving values times years 1, 10, 30 and 100). The account identity holds to 1.1e-11 in every row, and no line has negative total wealth. The 118c run had stopped RL3, RL2 and RL1 in year 69.
 
-What the table shows about the cause, stated as observations: the kernel assesses the tax on the delta of total wealth with the pension balance in it, while the payment can only come from non-pension wealth. In RL1 (median saving), pension is 37% of wealth at year 5 (1.5e4 beside 2.5e4 non-pension) and keeps growing (accrual plus its gain), while the non-pension total is 2.7e4 at year 30, 1.0e4 after the first death (year 35), 5.8e2 at year 65 and nothing at year 69. The payment takes 1.0% of non-pension wealth in year 1 for the three richest lines and 62% of it in the first death year. The saving value changes none of this (the stop year is 69 in all three).
+What changed: the tail lines' opening pension is at most **0.386 £m per adult, real** (register row I-D1l), the D10 mean pension per adult (WAS Round 8, April 2020 to March 2022: D10 pension share 36.4% of D10 wealth, times D10 mean wealth per adult of 1.06 £m). **This is a labelled scenario, not a measurement.** It is a ceiling because no distribution of pension wealth is held (and no unit-record licence); the replacement would be the p90 or p99 of private pension wealth, or a lifetime-allowance-based figure, from an ONS pension-wealth-by-percentile table, a one-value change in I-D1l. The wealth the ceiling displaces went to property, net financial and physical pro rata to D10's mix. The ceiling applies to the opening balance only: accrual (4.83% of income) and the pension's gain continue on top of it, so a line's pension can grow past 0.386 later (D10a, whose proportional pension 0.24 is below the ceiling, goes from 0.37 of its wealth at year 1 to 0.64 at year 100).
+
+Pension share of wealth by tail line, median saving (the shares at opening before the ceiling were 0.364 in every tail line):
+
+| line | opening before | year 1 | year 30 | year 100 |
+|---|---:|---:|---:|---:|
+| D10a | 0.364 | 0.366 | 0.46 | 0.64 |
+| D10b | 0.364 | 0.098 | 0.17 | 0.39 |
+| RL3 | 0.364 | 0.00033 | 0.0011 | 0.027 |
+| RL2 | 0.364 | 0.000073 | 0.00024 | 0.0069 |
+| RL1 | 0.364 | 0.000010 | 0.000033 | 0.00098 |
+
+D10a is not affected by the ceiling (its proportional pension is below it), and every row of D1 to D10a is bit for bit that of 118c; D10b to RL1 are capped. The saving value moves the shares of D10a (year 100: 0.41 at max saving, 0.77 at min) and D10b (0.34 to 0.40), and the richest three lines not at all to two digits; all are in the CSV column `pension_share`.
+
+Year 100, median saving, the three lines that were blank in 118c (millions of pounds per adult): RL3 dNW -36.97, S 0.0139, CG 1.536, T_WDT 38.52, payment over non-pension wealth 0.366; RL2 dNW -168.9, CG 6.387, T_WDT 175.3, 0.398; RL1 dNW -1237, CG 45.61, T_WDT 1283, 0.407 (the year-100 rows include the horizon settlement). All three rows have `unpaid_B` 0 and an identity residual of zero to the printed digits. **No revenue, fund or burden number is computed or written here.**
 
 ## Other things that look odd
 
 - No line has negative total wealth in any year of any run; the negative class shares of D1 (property and net financial) make no payment (D1 pays nothing in the years shown).
-- In the death year (30) the three richest lines pay 2.27 times their net financial balance (but 0.62 of non-pension wealth, so property and physical assets are sold). D10b pays 1.28 times its net financial balance in year 30 (0.35 of non-pension).
+- In the death year (30) the three richest lines pay 2.2 times their net financial balance (but 0.60 of non-pension wealth, so property and physical assets are sold; min saving, 2.21 to 2.22). D10b pays 1.32 times its net financial balance in year 30 (0.35 of non-pension; min saving).
 - A death year's dNW is negative and large for D6 to RL1 (D5 is barely positive) (it contains the heir's tax on the whole receipt, pension included, assessed from zero), so the death year is not a year of ordinary saving and gain.
-- Payment over non-pension wealth never exceeds 1; the four rows above 1 in the script's own check are the shortfall rows equal to 1 within 1e-12.
+- Payment over non-pension wealth never exceeds 0.6025 (no row above 1; the script's own check counts none).
 - Route D's accrued liability is settled by the kernel (`settle_D`) in death years and at the horizon; the hook sees it as value moved and pays it the same way.
 
 ## The death step and the pension
@@ -57,14 +72,14 @@ The death step needs no separate path for the pension. The pension balance is he
 | D9 | min (-0.0261) | 30 | -0.02288 | 0.001776 | 0.007732 | 0.03239 | 1.703 | 0.09591 | death year |
 | D10a | min (-0.0261) | 1 | 0.00694 | 0.001129 | 0.006667 | 0.0008564 | 0.007685 | 0.002307 |  |
 | D10a | min (-0.0261) | 30 | -0.04069 | 0.001774 | 0.009777 | 0.05224 | 0.6323 | 0.1157 | death year |
-| D10b | min (-0.0261) | 1 | 0.03002 | 0.001129 | 0.04554 | 0.01664 | 0.02165 | 0.006545 |  |
-| D10b | min (-0.0261) | 30 | -1.007 | 0.001774 | 0.0591 | 1.068 | 1.359 | 0.3525 | death year |
-| RL3 | min (-0.0261) | 1 | 5.686 | 0.001129 | 13.53 | 7.845 | 0.03428 | 0.01038 |  |
-| RL3 | min (-0.0261) | 30 | -484.1 | 0.001774 | 16.04 | 500.1 | 2.265 | 0.6159 | death year |
-| RL2 | min (-0.0261) | 1 | 25.7 | 0.001129 | 61.3 | 35.6 | 0.03434 | 0.01039 |  |
-| RL2 | min (-0.0261) | 30 | -2197 | 0.001774 | 72.66 | 2270 | 2.27 | 0.6172 | death year |
-| RL1 | min (-0.0261) | 1 | 187.7 | 0.001129 | 447.9 | 260.2 | 0.03435 | 0.0104 |  |
-| RL1 | min (-0.0261) | 30 | -1.606e+04 | 0.001774 | 530.9 | 1.659e+04 | 2.271 | 0.6176 | death year |
+| D10b | min (-0.0261) | 1 | 0.03229 | 0.001129 | 0.04908 | 0.01791 | 0.01641 | 0.004965 |  |
+| D10b | min (-0.0261) | 30 | -1.497 | 0.001774 | 0.06596 | 1.564 | 1.315 | 0.3462 | death year |
+| RL3 | min (-0.0261) | 1 | 6.29 | 0.001129 | 14.97 | 8.678 | 0.02413 | 0.007304 |  |
+| RL3 | min (-0.0261) | 30 | -823.3 | 0.001774 | 18.62 | 841.9 | 2.21 | 0.6008 | death year |
+| RL2 | min (-0.0261) | 1 | 28.43 | 0.001129 | 67.81 | 39.38 | 0.02416 | 0.007314 |  |
+| RL2 | min (-0.0261) | 30 | -3738 | 0.001774 | 84.32 | 3823 | 2.215 | 0.6022 | death year |
+| RL1 | min (-0.0261) | 1 | 207.6 | 0.001129 | 495.5 | 287.9 | 0.02417 | 0.007316 |  |
+| RL1 | min (-0.0261) | 30 | -2.733e+04 | 0.001774 | 616 | 2.795e+04 | 2.216 | 0.6025 | death year |
 | D1 | median (0.0101) | 1 | 0.001679 | 0.001669 | 1.006e-05 | 0 | 0 | 0 |  |
 | D1 | median (0.0101) | 30 | 0.003249 | 0.002623 | 0.0006256 | 0 | 0 | 0 | death year |
 | D2 | median (0.0101) | 1 | 0.001716 | 0.001669 | 4.683e-05 | 0 | 0 | 0 |  |
@@ -85,14 +100,14 @@ The death step needs no separate path for the pension. The pension balance is he
 | D9 | median (0.0101) | 30 | -0.03 | 0.004665 | 0.008334 | 0.043 | 0.4547 | 0.1054 | death year |
 | D10a | median (0.0101) | 1 | 0.008572 | 0.002965 | 0.006667 | 0.001061 | 0.009364 | 0.002844 |  |
 | D10a | median (0.0101) | 30 | -0.04968 | 0.004659 | 0.01036 | 0.06469 | 0.4124 | 0.1244 | death year |
-| D10b | median (0.0101) | 1 | 0.0312 | 0.002965 | 0.04554 | 0.0173 | 0.02245 | 0.006799 |  |
-| D10b | median (0.0101) | 30 | -1.028 | 0.004659 | 0.05945 | 1.092 | 1.282 | 0.3547 | death year |
-| RL3 | median (0.0101) | 1 | 5.687 | 0.002965 | 13.53 | 7.846 | 0.03429 | 0.01038 |  |
-| RL3 | median (0.0101) | 30 | -484.1 | 0.004659 | 16.04 | 500.1 | 2.265 | 0.6159 | death year |
-| RL2 | median (0.0101) | 1 | 25.7 | 0.002965 | 61.3 | 35.6 | 0.03434 | 0.01039 |  |
-| RL2 | median (0.0101) | 30 | -2197 | 0.004659 | 72.66 | 2270 | 2.27 | 0.6172 | death year |
-| RL1 | median (0.0101) | 1 | 187.7 | 0.002965 | 447.9 | 260.2 | 0.03435 | 0.0104 |  |
-| RL1 | median (0.0101) | 30 | -1.606e+04 | 0.004659 | 530.9 | 1.659e+04 | 2.271 | 0.6176 | death year |
+| D10b | median (0.0101) | 1 | 0.03347 | 0.002965 | 0.04908 | 0.01857 | 0.01699 | 0.005145 |  |
+| D10b | median (0.0101) | 30 | -1.519 | 0.004659 | 0.06629 | 1.59 | 1.265 | 0.3481 | death year |
+| RL3 | median (0.0101) | 1 | 6.291 | 0.002965 | 14.97 | 8.679 | 0.02413 | 0.007305 |  |
+| RL3 | median (0.0101) | 30 | -823.3 | 0.004659 | 18.62 | 842 | 2.21 | 0.6008 | death year |
+| RL2 | median (0.0101) | 1 | 28.43 | 0.002965 | 67.81 | 39.38 | 0.02416 | 0.007314 |  |
+| RL2 | median (0.0101) | 30 | -3738 | 0.004659 | 84.32 | 3823 | 2.215 | 0.6022 | death year |
+| RL1 | median (0.0101) | 1 | 207.6 | 0.002965 | 495.5 | 287.9 | 0.02417 | 0.007316 |  |
+| RL1 | median (0.0101) | 30 | -2.733e+04 | 0.004659 | 616 | 2.795e+04 | 2.216 | 0.6025 | death year |
 | D1 | max (0.1354) | 1 | 0.005265 | 0.005255 | 1.006e-05 | 0 | 0 | 0 |  |
 | D1 | max (0.1354) | 30 | 0.01027 | 0.008256 | 0.00201 | 0 | 0 | 0 | death year |
 | D2 | max (0.1354) | 1 | 0.005301 | 0.005255 | 4.683e-05 | 0 | 0 | 0 |  |
@@ -113,11 +128,11 @@ The death step needs no separate path for the pension. The pension balance is he
 | D9 | max (0.1354) | 30 | -0.06174 | 0.01468 | 0.01039 | 0.08682 | 0.2484 | 0.134 | death year |
 | D10a | max (0.1354) | 1 | 0.01422 | 0.009333 | 0.006667 | 0.001777 | 0.01486 | 0.004685 |  |
 | D10a | max (0.1354) | 30 | -0.08676 | 0.01466 | 0.01235 | 0.1138 | 0.279 | 0.1509 | death year |
-| D10b | max (0.1354) | 1 | 0.03529 | 0.009333 | 0.04554 | 0.01959 | 0.0252 | 0.007677 |  |
-| D10b | max (0.1354) | 30 | -1.102 | 0.01466 | 0.06068 | 1.178 | 1.091 | 0.3621 | death year |
-| RL3 | max (0.1354) | 1 | 5.69 | 0.009333 | 13.53 | 7.85 | 0.0343 | 0.01038 |  |
-| RL3 | max (0.1354) | 30 | -484.2 | 0.01466 | 16.04 | 500.2 | 2.263 | 0.6159 | death year |
-| RL2 | max (0.1354) | 1 | 25.71 | 0.009333 | 61.3 | 35.6 | 0.03434 | 0.0104 |  |
-| RL2 | max (0.1354) | 30 | -2197 | 0.01466 | 72.66 | 2270 | 2.27 | 0.6172 | death year |
-| RL1 | max (0.1354) | 1 | 187.7 | 0.009333 | 447.9 | 260.2 | 0.03435 | 0.0104 |  |
-| RL1 | max (0.1354) | 30 | -1.606e+04 | 0.01466 | 530.9 | 1.659e+04 | 2.271 | 0.6176 | death year |
+| D10b | max (0.1354) | 1 | 0.03755 | 0.009333 | 0.04908 | 0.02086 | 0.01897 | 0.005767 |  |
+| D10b | max (0.1354) | 30 | -1.599 | 0.01466 | 0.06747 | 1.681 | 1.129 | 0.3545 | death year |
+| RL3 | max (0.1354) | 1 | 6.293 | 0.009333 | 14.97 | 8.683 | 0.02414 | 0.007308 |  |
+| RL3 | max (0.1354) | 30 | -823.4 | 0.01466 | 18.62 | 842 | 2.209 | 0.6009 | death year |
+| RL2 | max (0.1354) | 1 | 28.44 | 0.009333 | 67.81 | 39.39 | 0.02416 | 0.007315 |  |
+| RL2 | max (0.1354) | 30 | -3738 | 0.01466 | 84.32 | 3823 | 2.214 | 0.6022 | death year |
+| RL1 | max (0.1354) | 1 | 207.6 | 0.009333 | 495.5 | 287.9 | 0.02417 | 0.007316 |  |
+| RL1 | max (0.1354) | 30 | -2.733e+04 | 0.01466 | 616 | 2.795e+04 | 2.216 | 0.6025 | death year |

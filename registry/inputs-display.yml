@@ -52,6 +52,7 @@ inputs:
   I-D1i: {unit: pct_per_year, decimals: 2, display_unit: "% a year", scale: 1}
   I-D1j: {unit: pct_per_year, decimals: 2, display_unit: "% a year", scale: 1}
   I-D1k: {unit: pct_per_year, decimals: 2, display_unit: "% of household income a year", scale: 1}
+  I-D1l: {unit: gbp_m, decimals: 3, display_unit: "£m per adult, real", scale: 1}
   I-D5a: {unit: pct, decimals: 0, display_unit: "% of base", scale: 1}
   I-D5b: {unit: pct, decimals: 1, display_unit: "% of base", scale: 1}
   I-D5c: {unit: pct, decimals: 0, display_unit: "% of affected group", scale: 1}

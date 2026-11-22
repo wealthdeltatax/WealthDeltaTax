@@ -23,14 +23,14 @@ def parse(build_inputs, text):
 
 def test_real_register_has_274_entries(build_inputs):
     rows, _ = parse(build_inputs, INPUTS_MD.read_text(encoding="utf-8"))
-    assert len(rows) == 297
-    assert len({r["id"] for r in rows}) == 297
+    assert len(rows) == 298
+    assert len({r["id"] for r in rows}) == 298
 
 
 def test_committed_json_matches_the_register(build_inputs):
     rows, _ = parse(build_inputs, INPUTS_MD.read_text(encoding="utf-8"))
     on_disk = json.loads(INPUTS_JSON.read_text(encoding="utf-8"))
-    assert on_disk["count"] == 297 == len(on_disk["inputs"])
+    assert on_disk["count"] == 298 == len(on_disk["inputs"])
     assert INPUTS_JSON.read_text(encoding="utf-8") == build_inputs.render(rows)
 
 
@@ -80,7 +80,7 @@ def test_judgement_flag_and_sources(build_inputs):
 def test_real_register_nulls_are_counted(build_inputs):
     rows, _ = parse(build_inputs, INPUTS_MD.read_text(encoding="utf-8"))
     reasons = [v["reason"] for r in rows for v in r["nulls"].values()]
-    assert reasons.count("not found") == 9
+    assert reasons.count("not found") == 11
     assert set(reasons) <= {"not found", "bracket", "text"}
 
 

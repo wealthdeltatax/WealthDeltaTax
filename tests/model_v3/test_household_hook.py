@@ -121,3 +121,22 @@ def test_convention_b_gives_the_same_first_year_account_so_nothing_is_counted_tw
     list(drive(h, CST, 1))
     b = [ce.run_cell(c, 1, 0.0101, 0.0483, 0.0157, RETS, 'B')[0][2]['dNW'] for c in CELLS]
     assert np.abs(sum(h.q[k] for k in arm.CLASSES) - sum(CST['pos'][k] for k in arm.CLASSES) - b).max() < 1e-9
+
+
+def test_the_tail_pension_is_capped_at_the_d10_mean_and_wealth_per_line_is_unchanged():
+    cap = arm.d10_pension(BASE, COMP, PACK.tables['wealth_distribution'])
+    st = arm.line_state(BASE, COMP, REG, 0.0101, cap=cap)
+    tail = [i for i, x in enumerate(BASE.labels) if x in arm.TAKES_D10]
+    assert cap == pytest.approx(0.3859, rel=1e-3) and np.allclose(st['pos']['pension'][tail], np.minimum(ST['pos']['pension'][tail], cap), rtol=1e-12, atol=0)
+    assert np.allclose(st['pos']['pension'][[11, 12, 13]], cap) and st['pos']['pension'][9] == ST['pos']['pension'][9] < cap < ST['pos']['pension'][10]
+    assert np.allclose(sum(st['pos'].values()), BASE.wealth, rtol=1e-12, atol=0) and np.allclose(sum(v[tail] for v in st['pos'].values()), BASE.wealth[tail], rtol=1e-12, atol=0)
+    assert all(np.array_equal(st['pos'][k][:9], ST['pos'][k][:9]) for k in arm.CLASSES) and arm.line_state(BASE, COMP, REG, 0.0101, cap=None)['pos']['pension'].tolist() == ST['pos']['pension'].tolist()
+    mix = [st['pos'][k][13] - ST['pos'][k][13] for k in arm.CLASSES[:3]]
+    d10 = np.array([arm.comp_share(COMP, 'D10', k) for k in arm.CLASSES[:3]])
+    assert np.allclose(np.array(mix) / sum(mix), d10 / d10.sum(), rtol=1e-9) and sum(mix) == pytest.approx(ST['pos']['pension'][13] - cap, rel=1e-12)
+
+
+def test_the_register_value_of_the_cap_is_the_d10_mean_pension_so_replacing_it_is_one_value():
+    row = REG['I-D1l']
+    assert row.central == 0.386 and row.central == pytest.approx(arm.d10_pension(BASE, COMP, PACK.tables['wealth_distribution']), abs=5e-4)
+    assert arm.line_state(BASE, COMP, REG, 0.0101, cap=row.central)['pos']['pension'][13] == 0.386
