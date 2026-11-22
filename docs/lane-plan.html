@@ -260,32 +260,25 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 (function () {
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the V3 build as it lands" },
-    { id: "2", name: "Agent 2", note: "Code: free (133c waits for your design choice)" },
-    { id: "3", name: "Agent 3", note: "Waiting (no brief out)" },
-    { id: "4", name: "Agent 4", note: "Waiting; 057c is held (after 089c)" },
+    { id: "2", name: "Agent 2", note: "Free; 133c (kernel-cap lien) waits for your design choice" },
+    { id: "3", name: "Agent 3", note: "Free" },
+    { id: "4", name: "Agent 4", note: "Waiting; 057c is held" },
     { id: "5", name: "Agent 5", note: "Research: 134r (lien deferral rate)" },
-    { id: "6", name: "Agent 6", note: "Research: 131r (pension basis) now; 128c (per-path returns) after 132c merges" },
+    { id: "6", name: "Agent 6", note: "128c is on its branch for review; then 131r (pension basis)" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
   ];
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
     { id: "044c", lane: "G", at: 3, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }], why: "Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
-    { id: "092c", lane: "3", at: 0, len: 1, st: "built", t: "Group interface: Env, seeded rng, full again, static cells", needs: [], why: "The four output-group briefs stopped on what a group can read; one interface change in runner.py and groups.py, no number changes.", files: "runner/runner.py, runner/groups.py" },
-    { id: "124c", lane: "5", at: 0, len: 1, st: "done", t: "First household-arm run: five scenario grid points, ranges, checks", needs: [], why: "No central value; legacy arm only as labelled context; no tuning.", files: "docs/model-v3/household-arm-run/" },
-    { id: "125c", lane: "6", at: 0, len: 1, st: "done", t: "Household arm against the held 099r moments", needs: [], why: "A comparison, not a calibration: observed, model range over saving, gap, label.", files: "docs/model-v3/household-arm-validation/" },
-    { id: "126c", lane: "2", at: 0, len: 1, st: "done", t: "Comparators on the account: M3, M12, M13, M15, M9 return", needs: [], why: "Each comparator reads the account base (S, CG, C, untaxed path); no legacy c under the household arm.", files: "burden.py, support.py, arm.py, outputs.yml" },
-    { id: "127c", lane: "6", at: 1, len: 1, st: "done", t: "I1 at the class floor: exhausted lines report through alarms", needs: [{ id: "124c" }], why: "min_mid and median_high raise I1; fix the floor only, no economics change; passing points byte-identical.", files: "model_v3/runner/arm.py, core/household.py" },
-    { id: "128c", lane: "6", at: 3, len: 1, st: "ready", t: "Per-path market returns in the household arm (market-return risk only, labelled)", needs: [{ id: "132c" }], why: "Author ruling: JST-based path returns drive net financial and pension around scenario rates; GDP growth stays constant; zero deviation byte-identical.", files: "model_v3/runner/arm.py" },
-    { id: "133c", lane: "2", at: 1, len: 1, st: "hold", t: "Carry the tax the kernel cannot collect as a lien (median_high)", needs: [], why: "132c did not carry median_high: the kernel caps at route units. Author picks the design (kernel-held lien or callback) before release.", files: "model_v3/core/kernel.py, pension_lien.py, arm.py" },
-    { id: "134r", lane: "5", at: 1, len: 1, st: "ready", t: "Evidence and register row for the lien deferral rate", needs: [], why: "r_def is 0.0 with no register row; propose low, central, high from HMRC, gilt and Green Book evidence; no rate chosen for revenue.", files: "docs/research/134r-lien-deferral-rate.md" },
-    { id: "132c", lane: "2", at: 0, len: 1, st: "built", t: "Pension-secured lien for tax a line cannot pay from non-pension wealth", needs: [], why: "Author ruling: unpaid WDT becomes a lien on the pension, settled at death and horizon (classes first, then a one-off pension draw); ledger receivable.", files: "model_v3/core/pension_lien.py, arm.py, revenue.py" },
-    { id: "129r", lane: "5", at: 0, len: 1, st: "done", t: "WAS longitudinal access and feasibility audit (no licence)", needs: [], why: "Author approved the audit only: what is reachable without UKDS, what a licence adds, evidence class per parameter family.", files: "docs/research/129r-was-access-audit.md" },
-    { id: "131r", lane: "6", at: 1, len: 1, st: "ready", t: "Pension valuation basis (IFS against ONS SCAPE) as a labelled scenario on the starting stock", needs: [], why: "Published IFS uplifts only; side computation, no model change; how much of the BF-11 and BF-13 gaps is a basis artefact.", files: "docs/research/131r-pension-basis-sensitivity.md" },
-    { id: "089c", lane: "3", at: 1, len: 1, st: "hold", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [{ id: "088c" }, { id: "090c" }], why: "Parked: measured against the legacy 3.5%, which is abandoned (094r to 096r). Rule on feasibility after the replacement exists.", files: "runner/sweeps.py, out_sweeps.py" },
-    { id: "057c", lane: "4", at: 2, len: 1, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "085c" }, { id: "086c" }, { id: "087c" }, { id: "088c" }, { id: "089c" }], why: "run.py, smoke tests, accept.sh, convergence test." },
-    { id: "009c", lane: "G", at: 3, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" }
-    { id: "130c", lane: "G", at: 3, len: 2, st: "hold", t: "Readable (markitdown) copies of every research file", needs: [], why: "Mirror tree docs/research/readable/, to_markdown.py --readable, fallbacks for ODS and RTF; low priority, like 044c.", files: "docs/research/readable/, pipeline/to_markdown.py" },
+    { id: "128c", lane: "6", at: 0, len: 1, st: "review", t: "Per-path market returns in the household arm (market-return risk only, labelled)", needs: [], why: "Author ruling: JST-based path returns drive net financial and pension around scenario rates; GDP growth stays constant; zero deviation byte-identical.", files: "model_v3/runner/arm.py" },
+    { id: "133c", lane: "2", at: 0, len: 1, st: "author", t: "Carry the tax the kernel cannot collect as a lien (median_high)", needs: [], why: "132c did not carry median_high: the kernel caps at route units. Author picks the design (kernel-held lien or callback) before release.", files: "model_v3/core/kernel.py, pension_lien.py, arm.py" },
+    { id: "134r", lane: "5", at: 0, len: 1, st: "ready", t: "Evidence and register row for the lien deferral rate", needs: [], why: "r_def is 0.0 with no register row; propose low, central, high from HMRC, gilt and Green Book evidence; no rate chosen for revenue.", files: "docs/research/134r-lien-deferral-rate.md" },
+    { id: "131r", lane: "6", at: 1, len: 1, st: "ready", t: "Pension valuation basis (IFS against ONS SCAPE) as a labelled scenario on the starting stock", needs: [{ id: "128c", soft: true }], why: "Published IFS uplifts only; side computation, no model change; how much of the BF-11 and BF-13 gaps is a basis artefact.", files: "docs/research/131r-pension-basis-sensitivity.md" },
+    { id: "089c", lane: "G", at: 0, len: 1, st: "hold", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [{ id: "088c" }, { id: "090c" }], why: "Parked: measured against the legacy 3.5%, which is abandoned (094r to 096r). Rule on feasibility after the replacement exists.", files: "runner/sweeps.py, out_sweeps.py" },
+    { id: "057c", lane: "G", at: 1, len: 1, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "085c" }, { id: "086c" }, { id: "087c" }, { id: "088c" }, { id: "089c" }], why: "run.py, smoke tests, accept.sh, convergence test." },
+    { id: "009c", lane: "G", at: 2, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" },
+    { id: "130c", lane: "G", at: 4, len: 2, st: "hold", t: "Readable (markitdown) copies of every research file", needs: [], why: "Mirror tree docs/research/readable/, to_markdown.py --readable, fallbacks for ODS and RTF; low priority, like 044c.", files: "docs/research/readable/, pipeline/to_markdown.py" },
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
 
@@ -340,7 +333,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 
   var chart = document.getElementById('chart'), pathsG = document.getElementById('paths'), svg = document.getElementById('links');
   var edges = [];
-  B.forEach(function (b) { b.needs.forEach(function (n) { edges.push({ from: n.id, to: b.id, soft: !!n.soft }); }); });
+  B.forEach(function (b) { b.needs.forEach(function (n) { if (byId[n.id]) edges.push({ from: n.id, to: b.id, soft: !!n.soft }); }); });
   var selected = null;
 
   function related(id) {
