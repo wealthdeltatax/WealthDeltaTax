@@ -45,6 +45,7 @@ def gdp_growth(pack, years):
     return out
 
 
+_REC = ('bal', 'new', 'accr', 'settled', 'wo')                                          # the pension-secured lien, a receivable of the public ledger (132c): balance and the year's flows
 _CLASSES = ('property', 'net_financial', 'physical')                                  # the ledger's household classes (the safe asset is added in revenue()); the pension is not one
 
 
@@ -70,7 +71,7 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
     idx = yy if index == 'gdp_pc' else np.ones_like(yy)
     V0 = {r: np.tile(v, P) for r, v in (routes or base.V0).items()}
     hh = hook is not None and hook.household                                           # the household arm keeps the public ledger (120c)
-    keys = ('assessed', 'tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D', 'payers', 'entries', 'exits', 'fall_through', 'wbase', 'wtau') + (('wgain',) if hook is not None else ()) + (tuple('rc_' + k for k in _CLASSES) if hh else ())
+    keys = ('assessed', 'tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D', 'payers', 'entries', 'exits', 'fall_through', 'wbase', 'wtau') + (('wgain',) if hook is not None else ()) + (tuple('rc_' + k for k in _CLASSES) + tuple('pl_' + k for k in _REC) if hh else ())
     out = {k: np.zeros((T, P)) for k in keys}
     agg = lambda x, ww=w: (ww[None, :] * x.reshape(P, L)).sum(axis=1) * A
     cnt = lambda m: (base.adults_k[None, :] * m.reshape(P, L)).sum(axis=1) / n_phase
@@ -139,8 +140,10 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
                 for k in _CLASSES:
                     book.ledger[k] = book.ledger[k] * (1.0 + rk[k]) + rc[k]
                     out['rc_' + k][tt] += agg(rc[k])
+                for k, v in hook.lien().items():
+                    out['pl_' + k][tt] += agg(np.zeros(n) + v)
             prev = pay
-    led = dict(rc={k: out.pop('rc_' + k) for k in _CLASSES}, rk={k: np.full((T, P), r) for k, r in hook.class_returns().items()}) if hh else None
+    led = dict(rc={k: out.pop('rc_' + k) for k in _CLASSES}, rec={k: out.pop('pl_' + k) for k in _REC}, rk={k: np.full((T, P), r) for k, r in hook.class_returns().items()}) if hh else None
     return {**out, 'gdp_index': yy, 'adults_k': A, **({'ledger': led} if hh else {})}
 
 
@@ -199,7 +202,7 @@ def fund(net, E, r, ms=3.0, ml=3.0, a_window=5, safe=None, safe_share=0.0, unfil
         S[t] = Sp
         fill = np.where(newly, t + 1, fill)
     unfilled = (fill == 0) | (fill > unfilled_after)
-    return {'S': S, 'R': R, 'A': A, 'rr': r, 'srr': ms * A, 'fill': fill, 'srr_fill': srr_fill, 'unfilled': unfilled, **{k + '_year': v for k, v in ev.items()}, **({} if led is None else {'L': cl, 'ret': ret, 'pay': pay, 'rc': led['rc']})}
+    return {'S': S, 'R': R, 'A': A, 'rr': r, 'srr': ms * A, 'fill': fill, 'srr_fill': srr_fill, 'unfilled': unfilled, **{k + '_year': v for k, v in ev.items()}, **({} if led is None else {'L': cl, 'ret': ret, 'pay': pay, 'rc': led['rc'], **({'rec': led['rec']} if 'rec' in led else {})})}
 
 
 def taxes(pack, lines, parts):
@@ -247,12 +250,14 @@ def revenue(run, gdp0, levy, rec, g, E_pct, c, a_window=5, ms=3.0, ml=3.0, horiz
     T, P = g.shape
     gdp = run['gdp_index'] * gdp0
     wdt = run['tax'] + run['refund'] + run['death_tax'] + run['heir'] + run['death_B'] + run['death_D']
-    lev = levy / 100.0 * gdp
     led = run.get('ledger')
+    if led is not None:
+        wdt = wdt - led['rec']['new'] + led['rec']['settled']                          # cash: the lien is not a receipt of the year, its settlement is (132c); both zero without a lien, so nothing moves
+    lev = levy / 100.0 * gdp
     if led is not None:                                                                  # the public ledger (120c): the levy enters as cash, safe_share of it in the safe asset and the rest as net financial
         if safe_share > 0.0 and safe is None:
             raise ValueError('safe returns are needed when safe_share > 0')
-        led = dict(rc={**led['rc'], 'net_financial': led['rc']['net_financial'] + (1.0 - safe_share) * lev, 'safe': safe_share * lev}, rk={**led['rk'], 'safe': np.zeros((T, P)) if safe is None else np.asarray(safe, float)})
+        led = dict(rec=led['rec'], rc={**led['rc'], 'net_financial': led['rc']['net_financial'] + (1.0 - safe_share) * lev, 'safe': safe_share * lev}, rk={**led['rk'], 'safe': np.zeros((T, P)) if safe is None else np.asarray(safe, float)})
     f = fund(wdt + lev, E_pct / 100.0 * gdp, g, ms, ml, a_window, safe, safe_share, unfilled_after, led)
     S, Sp = f['S'], np.vstack([np.zeros((1, P)), f['S'][:-1]])
     m1a, m1b, m1c = 100 * wdt / gdp, np.full((T, P), float(levy)), 100 * (Sp * f['rr'] - (S - Sp)) / gdp

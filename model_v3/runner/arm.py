@@ -130,7 +130,8 @@ class HouseholdHook:
         self.nw0, self.T, self.unpaid, self.new, self.accr, self.set_c, self.set_p = sum(self.q[k] for k in CLASSES) - PL0, 0.0, 0 * PL0, 0.0, self.PL - PL0, 0.0, 0.0
         N1, N0 = self._n(self.q1), N0 - PL0
         dead = np.abs(N0) <= 1e-12                                                                 # the class floor (127c): a line whose units are all 0 cannot carry any flow (units grow multiplicatively), so it stays at 0; a line with negative wealth keeps its units
-        N1, self.PL = N1 - self.PL, np.where(dead, 0.0, self.PL)
+        self.wo = np.where(dead, self.PL, 0.0)                                                      # a lien on a line with no units left is written off: the ledger reports it (132c)
+        N1, self.PL = N1 - self.PL, self.PL - self.wo
         self.fl = np.where(dead, -N1, 0.0)                                                          # what the floor added (+) or removed (-) in the year; an alarm, never tuned away
         for k in CLASSES[:3]:
             self.q1[k] = np.where(dead, 0.0, self.q1[k])
@@ -139,6 +140,10 @@ class HouseholdHook:
         g_n = sum(np.asarray(gn[k]) * self.q[k] for k in CLASSES[:3]) / N0
         book.pen, self.W_after = self.q1['pension'], sum(self.q1[k] for k in CLASSES) - self.PL
         return g_n, (self._n(self.q1) - self.PL) / (N0 * (1.0 + g_n)) - 1.0                                     # growth then the flow reach the household's closing non-pension total exactly (I1)
+
+    def lien(self):
+        """The public ledger's receivable (132c), by line: the lien balance at the close and the year's new, accrued, settled and written-off amounts (billions after weighting; the balance moves by new + accr - settled - wo)."""
+        return dict(bal=self.PL, new=self.new, accr=self.accr, settled=self.set_c + self.set_p, wo=self.wo)
 
     def _year(self, q, inc, sav, acc, gn):
         """The household's year before any tax (convention A): the closing balances and the account of balances `q` with income `inc`, saving ratio `sav`, pension accrual `acc` and the holding gains `gn`."""

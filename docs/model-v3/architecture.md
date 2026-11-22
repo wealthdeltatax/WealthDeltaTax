@@ -193,7 +193,7 @@ core/revenue.py                520    350
 core/burden.py                 430    250
 core/support.py                520    300
 core/household.py             120    150
-core/pension_lien.py            80     80
+core/pension_lien.py            80     95
 core/cells.py                  80     60
 runner/runner.py               360    150
 runner/arm.py                  280    330
@@ -215,14 +215,14 @@ tests/model_v3/test_pack_base.py 0     58
 
 | Group | Code lines | Test lines |
 |---|---:|---:|
-| Core (ten files; `household.py` added by 108c, `cells.py` by 110c; `kernel.py` raised to 660 by 114c; `pack.py` to 360 and its tests to 280 by 115c; `pension_lien.py` added by 132c) | 3,580 | 2,538 |
+| Core (ten files; `household.py` added by 108c, `cells.py` by 110c; `kernel.py` raised to 660 by 114c; `pack.py` to 360 and its tests to 280 by 115c; `pension_lien.py` added by 132c, its tests raised to 95 by the ledger test of block 2) | 3,580 | 2,553 |
 | Runner (`runner.py`, `sweeps.py`, `groups.py`, four `out_*.py` groups; 084c; `arm.py` by 114c, its tests raised to 330 by 118c, itself to 160 by 119c, 180 by 120c, 215 by 121c, 245 by 126c and 255 by 127c and 280 by 132c) | 1,550 | 960 |
 | **Core plus runner** | **5,140** | **3,498** |
 | Output layer (`out/`) | 700 | 300 |
 | `interface.py` and `run.py` | 170 | 80 |
 | Rules, budget and smoke tests | 0 | 150 |
 | Acceptance script and convergence test (040g Q1) | 0 | 90 |
-| **Total** | **6,010** | **4,118** |
+| **Total** | **6,010** | **4,133** |
 
 Core plus runner 5,140 (132c: `pension_lien.py` 80 and `arm.py` 280 for the lien calls and `settle`; 127c: `arm.py` 255 for the class floor; earlier raise: 5,025, raised from 4,995 by 121c: `arm.py` 225 for the withheld table; 126c: `arm.py` 245 for the household untaxed path `free` and the comparators' account `system`) is a ceiling, not a target; `runner/pool.py` (70) is outside it and counted only if triggered. The data tooling `pack/build_gbr.py` has its own budget of 200 lines (067c) and no test beyond a hash check of its output. Output layer 700 is 14% of core plus runner; R9 asks for smaller.
 
