@@ -50,12 +50,12 @@ Whether the digest hashes the pack manifest (agent reports).
 
 Change report
 - Task: brief 115c (W3), decile class composition in the pack
-- Files changed: `model_v3/pack/build_gbr.py` (dataset, source, manifest, NOTICE; 219 to 232 lines, outside the 200 budget test); `model_v3/pack/GBR/decile_composition.csv` (new), `manifest.json`, `NOTICE.md`; `model_v3/core/pack.py` (schema, cross-check, the percent rule); `tests/model_v3/test_pack.py`; `tests/model_v3/fixtures/pack_ZZZ/` (`decile_composition.csv`, manifest); `docs/model-v3/architecture.md` (budget rows); this brief
+- Files changed: `model_v3/pack/build_gbr.py` (dataset, source, manifest, NOTICE; 219 to 228 lines, outside the 200 budget test); `model_v3/pack/GBR/decile_composition.csv` (new), `manifest.json`, `NOTICE.md`; `model_v3/core/pack.py` (schema, cross-check, the percent rule); `tests/model_v3/test_pack.py`; `tests/model_v3/fixtures/pack_ZZZ/` (`decile_composition.csv`, manifest); `docs/model-v3/architecture.md` (budget rows); this brief
 - What is different now: the pack carries the class mix of each wealth decile (pack_version 3). Nothing reads it yet; no result moved (`test_legacy_digest` passes unchanged: the digest does not hash the manifest or the pack hash).
 - New or changed interfaces: dataset `decile_composition` (`decile band class value unit basis year`); `pk.SCHEMA` has it; `pct_of_decile` values may be negative.
 - Acceptance criteria: ten decile rows by four classes, byte-identical on a second build, as held, tail labelled: met. Decile rows reproduce the band rows to 0.06 pp: met (0.048 at most, net-wealth weights); classes sum to 100 per decile within rounding: met (at most 0.01 off). `test_legacy_digest` unchanged: met. Existing suites: model_v3 261 passed; data (5), cards (1), hooks (1) fail as on main. Diff limited to Touches: met.
 - Deviations from the brief: (1) the reproduction is weighted by decile net wealth, not persons or households (the only weights that reproduce it, see Gotchas); (2) the pack loader needed the dataset in block 1 to load the pack at all, so schema and cross-check landed in block 1; (3) budgets raised: `core/pack.py` 355 to 360 (357 lines), `test_pack.py` 265 to 280 (274 lines), totals updated.
-- Risks / follow-ups: `build_gbr.py` is 232 lines against the 200 of 067c (no test enforces it); W5 must give a negative net financial or property balance 0% real (author's decision, not in this brief).
+- Risks / follow-ups: `build_gbr.py` is 228 lines against the 200 of 067c (no test enforces it); W5 must give a negative net financial or property balance 0% real (author's decision, not in this brief).
 - Instruction friction: none
 - Verification: `build_gbr.py` twice, `diff -r` of `GBR/` and `cmp` of `levers.json` identical; `test_legacy_digest`; `python pipeline/run_suites.py` (7 of 10, failures as on main); `python -I pipeline/check_agent_docs.py` exit 0.
 - Overview sections likely needing an update: none
