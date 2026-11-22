@@ -42,11 +42,11 @@ Whether the hook should carry paths in the line axis as `revenue.py:64` folds th
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
+- **Done:** block 0 (this block; nothing else read yet).
+- **Next:** block 1, the line-state function in `runner/arm.py` with tests.
 - **Decisions:**
 - **Gotchas:**
-- **Resume:** (exact branch name and fetch line, last block pushed, first action)
-- **Not run:**
-- **State:** ready; not started
+- **Resume:** `git fetch origin && git checkout brief/117-w5a-household-hook`; last block pushed: 0; first action: read the design note sections 2.3, 2.4, 3.2, 3.6, section 4 W5 row, then `household.py`, `cells.py`, `arm.py`.
+- **Not run:** everything.
+- **State:** in progress, block 0 pushed
 <!-- progress:end -->
