@@ -46,11 +46,11 @@ Left to the note.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
+- **Done:** block 0 (skeleton of `docs/model-v3/kernel-wiring-design.md`, all sections pending)
+- **Next:** read the two block-0 Read items, then block 1 (the book as it is)
 - **Decisions:**
 - **Gotchas:**
-- **Resume:** (exact branch name and fetch line, last block pushed, first action)
+- **Resume:** branch `brief/112-kernel-wiring-design`; `git fetch origin brief/112-kernel-wiring-design`; last block pushed: 0; first action: block 1
 - **Not run:**
-- **State:** ready; not started
+- **State:** in progress, block 0 pushed
 <!-- progress:end -->
