@@ -1,0 +1,34 @@
+id,source,held_as_data,validation_moment,status,analogue,computed_where,definitions_that_differ,needs
+BF-01,Before-the-fall.pdf,no,yes,not held,,,"Total change includes DC pension and passive gains on them; DB pensions and pensions in payment excluded (p22 note). Active is a residual: saving, debt change a",RF active and passive decomposition tables
+BF-02,Before-the-fall.pdf,no,yes,not held,,,"As BF-01 (DB pensions excluded, so true passive share likely higher, p21 fn19)",the same decomposition
+BF-03,Before-the-fall.pdf,no,yes,not held,,,Asset-price return on opening holdings only; excludes DB pensions and pensions in payment,median passive return by wealth quintile
+BF-04,Before-the-fall.pdf,no,yes,not held,,,Total net wealth including pensions; age-adjusted,linked WAS microdata (UKDS)
+BF-05,Before-the-fall.pdf,no,yes,not held,,,Total net wealth including pension accrual,linked WAS microdata (UKDS)
+BF-06,Before-the-fall.pdf,no,yes,not held,,,Total net wealth,linked WAS microdata (UKDS)
+BF-07,Before-the-fall.pdf,no,yes,not held,,,Total net wealth,linked WAS microdata (UKDS)
+BF-08,Before-the-fall.pdf,no,no,not held,,,Pension wealth included (valuation not stated here),WAS composition by age and income
+BF-09,Before-the-fall.pdf,no,no,not held,,,"Liquid assets only (current accounts, savings, ISAs, NS&I, cash); no pension, no housing, no debt",WAS liquid-asset tables by income quintile
+BF-10,Before-the-fall.pdf,no,no,not held,,,Liquid savings only,the same
+BF-11,Before-the-fall.pdf,yes,no,computable,Aggregate net wealth over GDP and the class shares at year 0 (the pack: WAS Table 2.1 basis),validate.py wealth_gdp,"RF values pensions at market annuity rates, the pack at ONS SCAPE; price bases may differ; year 0 is the pack, so it is a consistency check, not a test of the run",
+BF-12,Before-the-fall.pdf,partly,no,definition differs,Mean wealth per household by pack band (not per adult family by wealth decile),not computed,per-adult family deciles against household bands; RF pension valuation,microdata or a per-adult conversion of the pack bands
+BF-13,Before-the-fall.pdf,yes,no,computable,"Wealth share of the top band (D10, the top 10% of households) at year 0 and year 100 untaxed",validate.py top_share,"the observed top 10% hold about half (families, RF basis); D10 is households, pack basis. The 18% to 23% top-1% share is not computable: no split inside D10",a split of D10
+BF-14,Before-the-fall.pdf,partly,yes,computable,Retired cells share of wealth at year 0 (the stage split of wealth is by person share),validate.py retired_share,"observed is people aged 60 and over (an age proxy; retired not identified); the model stage split is by person share, so its number is the person share, not a wealth measure",wealth by stage and age
+BF-15,Before-the-fall.pdf,yes,no,computable,"Realised household saving ratio, total, year 1 (S over income, pension accrual included)",validate.py saving_ratio,the RF 25% is a seasonally adjusted quarterly adjusted ratio (not held); the held annual DGD8 is 16.5% in 2020 and 5.7% in 2019; the model non-pension ratio is an input drawn from the same ONS series,the quarterly series
+AB-01,Advani-Bangham-Leslie-2021,no,yes,not held,,,"Financial wealth only (net of other financial liabilities); pensions, property and debt secured on property are not in it",Bangham and Leslie 2020 decomposition
+AB-02,Advani-Bangham-Leslie-2021,no,yes,not held,,,"Total net wealth including pensions, business and physical wealth",linked WAS microdata (UKDS)
+AB-03,Advani-Bangham-Leslie-2021,no,no,not held,,,Disposable income only; wealth basis the paper's WAS total,WAS microdata or the paper tables
+AB-04,Advani-Bangham-Leslie-2021,partly,no,not held,,,"Financial wealth, net of financial liabilities; pensions excluded","WAS financial wealth for 2006-08 and 2016-18 on one price basis (only 2020-22 is held); the observed 1.4tn to 2.3tn is the paper figure, not held data"
+AB-05,Advani-Bangham-Leslie-2021,no,no,not held,,,Financial wealth only,WAS financial wealth by asset type and decile
+AT-01,Advani-Tarrant-2021,no,no,not held,,,Not stated,"none (an illustration, not data)"
+AT-02,Advani-Tarrant-2021,no,no,not held,,,"Pension saving shifted, total unchanged",none (a US study)
+AT-03,Advani-Tarrant-2021,no,no,not held,,,"Taxable wealth response, not a household saving rate","none (other countries, taxable wealth response)"
+SM-01,Summers-2023 OxREP,no,no,not held,,,"Realised gains only; accrued and unrealised gains are omitted (PDF 4, 6)",HMRC SPI tables
+SM-02,Summers-2023,no,no,not held,,,Realised gains; income tax and CGT,HMRC SPI tables
+TZ-01,Tippet-Zucman-2026,partly,no,definition differs,Wealth above fixed pound thresholds from 50m,not computable,"above the top band; Rich List net worth, resident entries; totals differ by population (not reconciled)",a tail row in the pack
+TZ-02,Tippet-Zucman-2026,no,no,not held,,,"Not stated; includes price changes, saving, transfers, entries and exits together",the Rich List series with entries and exits
+ZM-01,Zucman-2024 G20 report,no,no,not held,,,"Total return including capital gains; consumption is an assumed 0.1% of wealth, not measured",none (global billionaires)
+TD-01,Tax by Design,no,no,not held,,,Private pension wealth includes DC fund value and accrued DB entitlements; non-housing; gross financial wealth,ELSA (not held)
+TD-02,Tax by Design,no,no,not held,,,Assets at death; no pensions,HMRC probate estate tables
+GB-01,IFS Green Budget 2025,yes,no,computable,"Realised household saving ratio, total, year 1",validate.py saving_ratio,"held annual DGD8 5.0% (2022) and 9.6% (2025) against the report 4.0% and 10.8% (vintage, quarter); the non-pension ratio is an input from the same series",
+GB-02,IFS Green Budget 2025,no,no,not held,,,Same total ratio as GB-01,"a forecast, not an observation"
+EER-01,EER 2025,yes,no,definition differs,Top-1% share of wealth,not computable,the model has no split inside D10; the paper excludes unfunded DB; survey against national-accounts aggregates,"a split of D10 (Pareto tail), or a top-1% row in the pack"
