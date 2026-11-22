@@ -492,16 +492,16 @@
    "unit": "% per year"
   },
   {
-   "central": 1.12,
+   "central": 4.83,
    "coverage": "UK households, all; 1998-2025",
-   "high": 1.84,
+   "high": 9.74,
    "id": "I-D1k",
-   "input": "Scenario range, pension accrual, aggregate, ONS basis: pension adjustment D.8 over opening household net worth, `pen_in` (household step; no rate on the SCAPE stock)",
+   "input": "Scenario range, pension accrual, aggregate, ONS basis: pension adjustment D.8 over household gross disposable income B.6g, `pen_in` (household step; applied to cell income; no rate on the SCAPE stock)",
    "judgement": true,
-   "low": 0.41,
+   "low": 3.01,
    "nulls": {},
    "sources": [],
-   "unit": "% of opening net worth per year"
+   "unit": "% of B.6g per year"
   },
   {
    "central": 12,

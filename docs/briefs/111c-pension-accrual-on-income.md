@@ -43,11 +43,11 @@ Whether D.8 over B.6g (which counts employer contributions and benefit accrual) 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (skeleton).
-- **Next:** block 1, the row I-D1k on the income basis.
-- **Decisions:**
-- **Gotchas:**
-- **Resume:** branch `brief/111-accrual-income`; `git fetch origin brief/111-accrual-income && git checkout brief/111-accrual-income`; last block pushed 0; first action: block 1.
+- **Done:** block 0 (skeleton); block 1: I-D1k on the income basis (D8_share_of_B6g: 3.01 / 4.83 / 9.74, central the observed 2024 value 0.048267, median 7.30 reference), registry regenerated, display unit updated; count 297 and judgement 112 unchanged; data 5 and hooks 1 failures as on main.
+- **Next:** block 2, the module (cells.py accrual on income, income scaled to B.6g 2024).
+- **Decisions:** the row quotes: STATUS.md and docs/decisions.md still describe the old basis (guru-owned, not edited); cell-baseline.md 110c text and cell_baseline.py still use it until blocks 3 and 4.
+- **Gotchas:** none.
+- **Resume:** branch `brief/111-accrual-income`; `git fetch origin brief/111-accrual-income && git checkout brief/111-accrual-income`; last block pushed 1; first action: block 2.
 - **Not run:**
-- **State:** in progress; block 0 pushed
+- **State:** in progress; block 1 pushed
 <!-- progress:end -->
