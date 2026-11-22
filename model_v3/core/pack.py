@@ -53,6 +53,8 @@ SCHEMA = {   # dataset -> [(column, kind, missing allowed, check)]; country-pack
     'cell_weights': [('band', T, 0, None), ('stage', T, 0, ('enum', {'not retired', 'retired'})), ('persons', I, 0, ('gt', 0)), ('max_rounding', I, 0, ('gt', -1)), ('basis', T, 0, None)],
     'band_composition': [('band', T, 0, None), ('class', T, 0, ('enum', {'property', 'net_financial', 'physical', 'pension'})), ('value', F, 0, None),
                          ('unit', T, 0, ('enum', {'pct_of_band'})), ('basis', T, 0, BASIS), ('year', T, 0, None)],
+    'decile_composition': [('decile', T, 0, None), ('band', T, 0, None), ('class', T, 0, ('enum', {'property', 'net_financial', 'physical', 'pension'})), ('value', F, 0, None),
+                           ('unit', T, 0, ('enum', {'pct_of_decile'})), ('basis', T, 0, None), ('year', T, 0, None)],
 }
 
 
@@ -122,7 +124,7 @@ def _read(path, ds):
             if chk and _bad(v, chk):
                 raise PackError(f'{name}:{r}:{col}: {_bad(v, chk)}')
             row[col] = v
-        if row.get('unit', '').startswith('pct') and not 0 <= row['value'] <= 100:
+        if row.get('unit', '').startswith('pct') and row['unit'] != 'pct_of_decile' and not 0 <= row['value'] <= 100:       # a decile's shares of net wealth can be negative (D1)
             raise PackError(f'{name}:{r}:value: {row["value"]} is a percent outside [0, 100]')
         out.append(row)
     return out
@@ -161,11 +163,11 @@ def _x_wealth(n, rows):
     if bad: raise PackError(f'{n}:{bad[0]}:value: {bad[1]} must be greater than 0')
 
 
-def _x_composition(n, rows):
-    _unique(n, rows, ('band', 'class', 'basis', 'year'))
+def _x_composition(n, rows, by='band'):
+    _unique(n, rows, (by, 'class', 'basis', 'year'))
     tot, first = defaultdict(float), {}
     for r, row in enumerate(rows, 2):
-        k = (row['band'], row['basis'], row['year'])
+        k = (row[by], row['basis'], row['year'])
         tot[k], first[k] = tot[k] + row['value'], first.get(k, r)
     bad = next((k for k, v in tot.items() if abs(v - 100) > 0.5), None)
     if bad: raise PackError(f'{n}:{first[bad]}:value: classes of {bad[0]} sum to {tot[bad]:.3f}, not 100 within 0.5')
@@ -213,7 +215,8 @@ def _no_total(n):
 
 CROSS = {'returns': _x_returns, 'wealth_distribution': _x_wealth, 'wealth_tail': _x_tail, 'receipts': lambda n, rows: _unique(n, rows, ('line', 'fiscal_year', 'basis')),
          'household_incidence': _x_household, 'tax_rules': _x_rules, 'public_expenditure': lambda n, rows: rows and not any(x['function'] == 'total' for x in rows) and _no_total(n),
-         'cell_weights': lambda n, rows: _unique(n, rows, ('band', 'stage')), 'band_composition': _x_composition}
+         'cell_weights': lambda n, rows: _unique(n, rows, ('band', 'stage')), 'band_composition': _x_composition,
+         'decile_composition': lambda n, rows: _x_composition(n, rows, 'decile')}
 
 
 def _pack_hash(m, shas):

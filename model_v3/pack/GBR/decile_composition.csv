@@ -1,0 +1,41 @@
+decile,band,class,value,unit,basis,year
+D1,D1-3,property,-4.72,pct_of_decile,household,2020-22
+D1,D1-3,net_financial,-104.92,pct_of_decile,household,2020-22
+D1,D1-3,physical,169.46,pct_of_decile,household,2020-22
+D1,D1-3,pension,40.18,pct_of_decile,household,2020-22
+D2,D1-3,property,0.88,pct_of_decile,household,2020-22
+D2,D1-3,net_financial,4.21,pct_of_decile,household,2020-22
+D2,D1-3,physical,67.53,pct_of_decile,household,2020-22
+D2,D1-3,pension,27.38,pct_of_decile,household,2020-22
+D3,D1-3,property,11.97,pct_of_decile,household,2020-22
+D3,D1-3,net_financial,5.77,pct_of_decile,household,2020-22
+D3,D1-3,physical,39.75,pct_of_decile,household,2020-22
+D3,D1-3,pension,42.51,pct_of_decile,household,2020-22
+D4,D4-5,property,34.11,pct_of_decile,household,2020-22
+D4,D4-5,net_financial,5.68,pct_of_decile,household,2020-22
+D4,D4-5,physical,24.07,pct_of_decile,household,2020-22
+D4,D4-5,pension,36.14,pct_of_decile,household,2020-22
+D5,D4-5,property,39.47,pct_of_decile,household,2020-22
+D5,D4-5,net_financial,7.08,pct_of_decile,household,2020-22
+D5,D4-5,physical,17.00,pct_of_decile,household,2020-22
+D5,D4-5,pension,36.45,pct_of_decile,household,2020-22
+D6,D6-7,property,44.92,pct_of_decile,household,2020-22
+D6,D6-7,net_financial,8.39,pct_of_decile,household,2020-22
+D6,D6-7,physical,13.95,pct_of_decile,household,2020-22
+D6,D6-7,pension,32.74,pct_of_decile,household,2020-22
+D7,D6-7,property,46.02,pct_of_decile,household,2020-22
+D7,D6-7,net_financial,10.04,pct_of_decile,household,2020-22
+D7,D6-7,physical,11.67,pct_of_decile,household,2020-22
+D7,D6-7,pension,32.28,pct_of_decile,household,2020-22
+D8,D8-9,property,44.34,pct_of_decile,household,2020-22
+D8,D8-9,net_financial,11.73,pct_of_decile,household,2020-22
+D8,D8-9,physical,10.22,pct_of_decile,household,2020-22
+D8,D8-9,pension,33.71,pct_of_decile,household,2020-22
+D9,D8-9,property,41.60,pct_of_decile,household,2020-22
+D9,D8-9,net_financial,13.48,pct_of_decile,household,2020-22
+D9,D8-9,physical,8.41,pct_of_decile,household,2020-22
+D9,D8-9,pension,36.50,pct_of_decile,household,2020-22
+D10,D10,property,38.28,pct_of_decile,household; D10b and the Rich List tiers take this mix (assumption: the survey misses business wealth),2020-22
+D10,D10,net_financial,19.32,pct_of_decile,household; D10b and the Rich List tiers take this mix (assumption: the survey misses business wealth),2020-22
+D10,D10,physical,6.01,pct_of_decile,household; D10b and the Rich List tiers take this mix (assumption: the survey misses business wealth),2020-22
+D10,D10,pension,36.40,pct_of_decile,household; D10b and the Rich List tiers take this mix (assumption: the survey misses business wealth),2020-22

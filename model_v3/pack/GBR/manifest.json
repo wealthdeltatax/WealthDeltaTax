@@ -2,7 +2,7 @@
  "country": "GBR",
  "currency": "GBP",
  "base_year": "2025-26",
- "pack_version": 2,
+ "pack_version": 3,
  "built": "2026-11-21",
  "notes": "Pack values are as published; the model expresses them in 2025-26 prices (base_year, stage C1).",
  "files": [
@@ -94,6 +94,16 @@
    "source": "ONS WAS Round 8, totalwealthtables.xlsx Table 2.2, via 102r band_composition_by_pack_band.csv",
    "licence": "cite-only",
    "retrieved": "2026-11-21",
+   "vintage": "WAS Round 8"
+  },
+  {
+   "name": "decile_composition.csv",
+   "dataset": "decile_composition",
+   "sha256": "375ff3fdb537554a853452373baff7d9d5a620139c0fa94885e3d05f0b13ffb9",
+   "rows": 40,
+   "source": "ONS WAS Round 8, totalwealthtables.xlsx Table 2.2, via docs/model-v3/kernel-wiring/decile_composition.csv (112r)",
+   "licence": "cite-only",
+   "retrieved": "2026-11-22",
    "vintage": "WAS Round 8"
   }
  ]

@@ -40,11 +40,11 @@ Whether the digest hashes the pack manifest (agent reports).
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (progress block pushed).
-- **Next:** block 1: `decile_composition` in `build_gbr.py`, `GBR/decile_composition.csv`, manifest, NOTICE, pack version 3, second build byte-identical, `test_legacy_digest`.
-- **Decisions:**
-- **Gotchas:**
-- **Resume:** branch `brief/115-decile-composition`; `git fetch origin && git checkout brief/115-decile-composition`; first action: read `docs/model-v3/kernel-wiring/decile_composition.py` and `build_gbr.py` `cells()`.
-- **Not run:**
-- **State:** in progress, block 0 done
+- **Done:** block 0; block 1: `decile_composition` in `build_gbr.py` (40 rows: decile, band, class, value, unit `pct_of_decile`, basis, year; read from the held `docs/model-v3/kernel-wiring/decile_composition.csv`, values to two decimals; the D10 rows' basis states the tail assumption), `GBR/decile_composition.csv`, manifest entry, NOTICE paragraph, `pack_version` 3; two builds byte-identical (GBR folder and `levers.json`). The loader accepts the dataset (needed to load the pack: schema, `_x_composition(by='decile')`, `pct_of_decile` exempt from the 0 to 100 rule because D1's shares are negative); `core/pack.py` budget 355 to 360 (357 lines). `test_legacy_digest` passes unchanged: the digest does not hash the manifest or the pack hash.
+- **Next:** block 2: `pack_ZZZ` rows; `test_pack.py` tests; update the three pins the new file moves (`test_p1_fixture_loads_every_dataset`, `test_p7_the_uk_pack_hash_is_pinned`, `test_the_uk_pack_carries_the_cell_inputs_and_they_close`).
+- **Decisions:** the held file is the source (as 109c); two-decimal strings; `pct_of_decile` unit.
+- **Gotchas:** the repo was shallow; `git fetch --unshallow` before the build. The band shares are value-weighted sums of Table 2.2 decile rows, so the reproduction test must weight by decile net wealth, not persons or households (to be confirmed by the test).
+- **Resume:** branch `brief/115-decile-composition`; `git fetch origin && git checkout brief/115-decile-composition`; first action: edit `tests/model_v3/fixtures/pack_ZZZ` and `test_pack.py`.
+- **Not run:** the three pack tests fail on this branch until block 2 (pins).
+- **State:** in progress, block 1 done
 <!-- progress:end -->

@@ -21,12 +21,13 @@ OUT = ROOT / 'model_v3' / 'pack' / 'GBR'
 WEALTH, REVENUE, ETB = 'Rates Data/totalwealthtables.xlsx', 'Rates Data/Revenue composition spreadsheet.xlsx', 'Research/etbreferencetablesfye202324final.xlsx'
 HOUSING = 'Research/Housing affordability in England and Wales 2025.pdf'
 CELLS, COMP = 'docs/research/data/104r/cell_weights.csv', 'docs/research/data/102r/band_composition_by_pack_band.csv'   # 109c: held derived files (derive_bands_stages.py, 104r)
+DECILES = 'docs/model-v3/kernel-wiring/decile_composition.csv'   # 115c: the held derived file (decile_composition.py, WAS Round 8 Table 2.2)
 JSTX, REF_YEAR = 'Rates Data/JSTdatasetR6.xlsx', 2019   # REF_YEAR: v2's exp_ref_year
 SCHEMA = {'returns': 'year eq_tr housing_tr bond_tr capital_tr cpi gdp_pc', 'wealth_distribution': 'variable band value unit basis year',
           'wealth_tail': 'series year value unit low high basis', 'receipts': 'line fiscal_year pct_gdp gbp_bn basis',
           'household_incidence': 'variable group tax value unit fiscal_year basis', 'tax_rules': 'rule tax_year subject lower upper rate amount flag',
           'public_expenditure': 'function fiscal_year pct_gdp gbp_bn basis', 'cell_weights': 'band stage persons max_rounding basis',
-          'band_composition': 'band class value unit basis year'}
+          'band_composition': 'band class value unit basis year', 'decile_composition': 'decile band class value unit basis year'}
 KEY = {'wealth_distribution': 'variable band', 'wealth_tail': 'series year', 'receipts': 'line', 'household_incidence': 'variable group tax'}
 SKIP = {'derived from the return series, checked by the model not stored': ['I-D1c', 'I-D1d', 'I-D1e'] + [f'I-H6{c}' for c in 'abcdefghi'],
         'needs W_min, a register input, so no pack row': [f'I-H2a{i}' for i in range(1, 8)],
@@ -111,6 +112,10 @@ def cells():
         if r['round'] == 'April 2020 to March 2022':
             ROWS['band_composition'] += [[r['pack_band'], c, txt(round(float(r['share_' + k + '_pct']), 1)), 'pct_of_band', 'household', '2020-22'] for c, k in
                                          (('property', 'property'), ('net_financial', 'financial'), ('physical', 'physical'), ('pension', 'pension'))]
+    tail = '; D10b and the Rich List tiers take this mix (assumption: the survey misses business wealth)'       # 115c: ten deciles, shares of decile net wealth as held, negatives included
+    for r in csv.DictReader(open(ROOT / DECILES, newline='', encoding='utf-8')):
+        ROWS['decile_composition'] += [[r['decile'], r['band'], c, f"{float(r[c + '_pct']):.2f}", 'pct_of_decile', 'household' + (tail if r['decile'] == 'D10' else ''), '2020-22']
+                                       for c in ('property', 'net_financial', 'physical', 'pension')]
 
 
 def tail():
@@ -160,7 +165,7 @@ def write(name, rows):
 BUILT = '2026-11-21'
 NOTES = 'Pack values are as published; the model expresses them in 2025-26 prices (base_year, stage C1).'
 FROM = {'returns': ['model_v2/jst_r6.json'], 'public_expenditure': ['model_v2/jst_r6.json'], 'wealth_distribution': [WEALTH, REVENUE, HOUSING], 'wealth_tail': ['model_v2/wid_out/wid_long.csv'], 'receipts': [REVENUE],
-        'household_incidence': [ETB], 'cell_weights': [CELLS], 'band_composition': [COMP]}   # dataset -> the repo file it is read from; a dataset with no source file carries the build date
+        'household_incidence': [ETB], 'cell_weights': [CELLS], 'band_composition': [COMP], 'decile_composition': [DECILES]}   # dataset -> the repo file it is read from; a dataset with no source file carries the build date
 
 
 def added(path):
@@ -184,13 +189,14 @@ def main():
            'household_incidence': ('ONS effects of taxes and benefits FYE 2024, Tables 2b, 2c, 16', 'ogl-v3', 'ETB FYE 2024'), 'tax_rules': ('none held', 'unverified', 'none'),
            'public_expenditure': ('JST Macrohistory R6, model_v2/jst_r6.json (expenditure over gdp, 2019)', 'cite-only', 'JST R6'),
            'cell_weights': ('ONS WAS Round 8 economic status by wealth band, via 102r and 104r cell_weights.csv (persons 16+, a person-based proxy)', 'cite-only', 'WAS Round 8'),
-           'band_composition': ('ONS WAS Round 8, totalwealthtables.xlsx Table 2.2, via 102r band_composition_by_pack_band.csv', 'cite-only', 'WAS Round 8')}
+           'band_composition': ('ONS WAS Round 8, totalwealthtables.xlsx Table 2.2, via 102r band_composition_by_pack_band.csv', 'cite-only', 'WAS Round 8'),
+           'decile_composition': ('ONS WAS Round 8, totalwealthtables.xlsx Table 2.2, via docs/model-v3/kernel-wiring/decile_composition.csv (112r)', 'cite-only', 'WAS Round 8')}
     files = []
     for ds in SCHEMA:
         write(ds + '.csv', ROWS[ds])
         files.append({'name': ds + '.csv', 'dataset': ds, 'sha256': hashlib.sha256((OUT / (ds + '.csv')).read_bytes()).hexdigest(), 'rows': len(ROWS[ds]),
                       'source': src[ds][0], 'licence': src[ds][1], 'retrieved': retrieved(ds), 'vintage': src[ds][2]})
-    (OUT / 'manifest.json').write_text(json.dumps({'country': 'GBR', 'currency': 'GBP', 'base_year': '2025-26', 'pack_version': 2, 'built': BUILT,
+    (OUT / 'manifest.json').write_text(json.dumps({'country': 'GBR', 'currency': 'GBP', 'base_year': '2025-26', 'pack_version': 3, 'built': BUILT,
                                                                        'notes': NOTES, 'files': files}, indent=1) + '\n', encoding='utf-8')
     (OUT / 'NOTICE.md').write_text('# GBR pack notice\n\nContains public sector information licensed under the Open Government Licence v3.0 (ONS). JST Macrohistory R6 is CC BY-NC-SA 4.0 '
                                    '(Jorda, Schularick and Taylor): cite only, non-commercial. IFS and WID rows are cite only. The pack stays a private input of the repo.\n\n'
@@ -207,7 +213,10 @@ def main():
                                    'JST general government expenditure and TME differ in definition and in calendar against fiscal year. gbp_bn is left empty: the JST description calls the unit millions but the GBR values are billions.\n\n'
                                    'cell_weights.csv and band_composition.csv (brief 109c, pack_version 2) are read from the held derived files `docs/research/data/104r/cell_weights.csv` and `docs/research/data/102r/band_composition_by_pack_band.csv`. '
                                    'cell_weights are persons aged 16+ placed by household wealth band and economic stage (retired, or not retired = working, unemployed and inactive not retired): a person-based proxy, not households; max_rounding is the 102r bound in persons. '
-                                   'band_composition holds the shares of band net wealth, April 2020 to March 2022, one decimal as printed (they sum to 100 within 0.5); there is no debt row because the survey nets debt inside property and net financial wealth.\n', encoding='utf-8')
+                                   'band_composition holds the shares of band net wealth, April 2020 to March 2022, one decimal as printed (they sum to 100 within 0.5); there is no debt row because the survey nets debt inside property and net financial wealth.\n\n'
+                                   'decile_composition.csv (brief 115c, pack_version 3) is read from the held derived file `docs/model-v3/kernel-wiring/decile_composition.csv` (112r): the shares of each decile\'s net wealth by class, WAS Round 8 Table 2.2, April 2020 to March 2022, two decimals as held, '
+                                   'negative shares included (D1 holds net debt in property and net financial wealth: property -4.72, net financial -104.92, physical 169.46, pension 40.18). Each decile sums to 100 within rounding. '
+                                   'D10b and the Rich List tiers take the D10 mix: an assumption, stated in the `basis` of the D10 rows (the survey misses business wealth).\n', encoding='utf-8')
     p = ROOT / 'model_v3' / 'levers.json'
     text, lev = p.read_text(encoding='utf-8'), json.loads(p.read_text(encoding='utf-8'))
     lev['pack_mappings'].update(x1_pointers=dict(sorted(POINTERS.items())), x1_skipped={i: why for why, ids in SKIP.items() for i in ids})
