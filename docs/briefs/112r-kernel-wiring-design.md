@@ -46,11 +46,26 @@ Left to the note.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** blocks 0 to 3 (sections 1 to 3 of `docs/model-v3/kernel-wiring-design.md`)
-- **Next:** block 4 (build order, rulings table, section 5 answers, summary, change report), then check_agent_docs and the final push
-- **Decisions:**
-- **Gotchas:**
+- **Done:** blocks 0 to 4 (all sections of `docs/model-v3/kernel-wiring-design.md`; `kernel-wiring/decile_composition.py` and CSV)
+- **Next:** the author rules on section 4.1 (Q1 to Q10); the guru writes W1 to W7 as briefs
+- **Decisions:** routes are settlement channels crossed with classes (every route's units carry the line's non-pension mix); pension a balance beside the units; household step through a hook built by the runner (kernel stays numpy-only); one public ledger by class; legacy default and bit-equal to a digest captured first
+- **Gotchas:** no stored digest exists in tests or docs, so W1 must capture one before any change; `runner.py` is at its 360-line budget; assessment loses tax if every route delta is non-positive while the pension delta is positive (fallback in W4); M3, M12, M13 are not like for like under the household arm
 - **Resume:** branch `brief/112-kernel-wiring-design`; `git fetch origin brief/112-kernel-wiring-design`; last block pushed: 3; first action: block 4
-- **Not run:**
-- **State:** in progress, block 3 pushed
+- **Not run:** no code, suites or model runs (docs only); line numbers are those of `origin/main` 16c4493 and were spot-checked, not machine-verified
+- **State:** complete; design only
 <!-- progress:end -->
+
+```
+Change report
+- Task: 112r design: wiring the household step into the kernel's payer lines
+- Files changed: docs/model-v3/kernel-wiring-design.md (the design note); docs/model-v3/kernel-wiring/decile_composition.py and .csv (decile composition from WAS R8 Table 2.2, sizes the within-band gradient); this brief's progress block
+- What is different now: the author has a sectioned design (book as it is, mapping, replacement, build order W1 to W7, ten rulings) for wiring household_step into the kernel; no code, test, register or pack changed
+- New or changed interfaces: none (proposed: hook object, signed flow share, apply_payment, arm switch)
+- Acceptance criteria: every section answered with file and line references: met (line numbers spot-checked against origin/main 16c4493); build order with three or fewer deliverables per brief and a named review point: met; rulings table recommendation first: met (Q1 to Q10); diff limited to Touches: met
+- Deviations from the brief: none
+- Risks / follow-ups: no stored legacy digest exists (W1 captures it); runner.py has no line headroom (Q7); M3, M12, M13 withheld under the household arm (Q5); the return ranges for pension, net financial and physical stay author-set
+- Instruction friction: none
+- Verification: python -I pipeline/check_agent_docs.py passes; decile_composition.py runs (10 deciles; largest within-band gap 7.07 pp). Not run: any suite or model
+- Overview sections likely needing an update: model-v3 household-flow plan (phase 3 now has a build order W1 to W7)
+- Commit / branch: brief/112-kernel-wiring-design
+```
