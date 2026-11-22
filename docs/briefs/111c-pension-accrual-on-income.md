@@ -43,11 +43,11 @@ Whether D.8 over B.6g (which counts employer contributions and benefit accrual) 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
+- **Done:** block 0 (skeleton).
+- **Next:** block 1, the row I-D1k on the income basis.
 - **Decisions:**
 - **Gotchas:**
-- **Resume:** (exact branch name and fetch line, last block pushed, first action)
+- **Resume:** branch `brief/111-accrual-income`; `git fetch origin brief/111-accrual-income && git checkout brief/111-accrual-income`; last block pushed 0; first action: block 1.
 - **Not run:**
-- **State:** ready; not started
+- **State:** in progress; block 0 pushed
 <!-- progress:end -->

@@ -138,3 +138,7 @@ Year 1 aggregate dNW: A 3.181900e+08 (per-household money units, summed), B 3.18
 | A_high_median | none | none |
 | A_high_max | none | none |
 | legacy | none | none |
+
+## Rerun with the accrual on income (brief 111c)
+
+_Pending: blocks 1 to 4 of 111c fill this section (the row on the income basis, the module, the rerun, the findings)._
