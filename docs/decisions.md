@@ -267,3 +267,5 @@ Author: the decile class mix is confirmed as held (WAS Table 2.2 shares of net w
 ## 2026-11-22: W4 merged; W5 split
 W4 (116c) found the design note wrong on one point: the sale routes did not cap payments at holdings (`_div` only guards a zero divisor); W4 added the cap and `unpaid_B` reporting (no legacy run triggers it: max 0.0 over 90 books). W5 is split into W5a (117c, the household hook with T = 0, equivalence with the cell baseline) and W5b (the taxed hook, the `out_*` call sites and the per-line account table for the author's review).
 
+
+2026-11-22 Author: tail-line pension. The 118c account table showed RL1 to RL3 unable to pay in year 69 because they held D10's pension share (37%) of very large wealth. Ruling: tail lines hold pension as an absolute amount per adult, capped at the D10 mean pension (WAS Round 8). Labelled scenario, to be challenged with better data (p90/p99 of private pension wealth or a lifetime-allowance figure); displaced wealth goes to the other three classes pro rata. Brief 119c. Settlement rule unchanged.

@@ -41,11 +41,26 @@ Whether the death step needs a separate path for the pension (the balance passes
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:** (exact branch name and fetch line, last block pushed, first action)
-- **Not run:**
-- **State:** ready; not started
+- **Done:** blocks 0 to 3. Block 1 and 2: `HouseholdHook.post` pays the value moved to the state (`fl.value`) from the non-pension classes (`apply_payment`, pro rata to the positive balances, pension never sold), rechecks I1; `reconcile(book)` pays value the kernel moves outside `post` (death tax, settle_D/settle_B, heir tax, horizon). Block 3: `household-arm-account/account_table.py`, `account_table.csv`, note `household-arm-account.md`.
+- **Next:** NEEDS THE AUTHOR: the account table shows a payment shortfall (a model error) in the three richest lines at year 69 (see the report). Not merged.
+- **Decisions:** payment weights are max(balance, 0); settlement value is the gap between the class total and the book's family value (`reconcile`); no separate pension path at death (balance in `book.pen`, passes unchanged); the table runs each line alone and stops a line at its first shortfall (the hook cannot carry a line with no non-pension wealth); incomes scaled by the B.6g factor 1.3733 as in 111c.
+- **Gotchas:** `arm.py` 139 of 140 lines; arm test budget 210 to 330 (`test_household_tax.py`, architecture.md rows and totals). `revenue.run_lines` does not call `reconcile` after `settle_terminal` (outside Touches).
+- **Resume:** `git fetch origin && git checkout brief/118-w5b-taxed-hook`; last block pushed: 3; waiting on the author's ruling on the shortfall.
+- **Not run:** `check_gate.py --all` (fails on main already).
+- **State:** blocks done, branch pushed, not merged, NEEDS THE AUTHOR
 <!-- progress:end -->
+
+```
+Change report
+- Task: brief 118c (W5b), the household hook with the WDT payment, and the per-line account table
+- Files changed: model_v3/runner/arm.py (post pays the value moved to the state; reconcile; account; 139/140 lines); tests/model_v3/test_household_tax.py (new, 77 lines); tests/model_v3/test_household_hook.py (the W5b refusal test dropped); docs/model-v3/household-arm-account/account_table.py and account_table.csv (new); docs/model-v3/household-arm-account.md (new note); docs/model-v3/architecture.md (arm tests budget 330, totals, a paragraph); this brief
+- What is different now: the household arm can run with the tax on: each line's payment is taken pro rata from its positive non-pension classes, pension is never sold, I1 and the account identity hold to 1e-9 in every tested year, deaths and the horizon settle through `reconcile`. The default arm is still legacy.
+- New or changed interfaces: HouseholdHook.reconcile(book), HouseholdHook.account(); the post of a household hook no longer refuses a taxed year
+- Acceptance criteria: test_legacy_digest passes unchanged (met; inside the model_v3 suite); all suites pass except the failures already on main (met: data 5, cards 1, hooks 1); I1 and the account identity hold to 1e-9 with tax on (met, largest residual 5e-12 in the table, 12 taxed years, deaths and horizon in tests); I3 identity over several years (met, six taxed years); deaths and horizon close (met in the tests); unpaid_B zero in every test (met in the tests; NOT met in the table run: see below); table covers 14 lines x 3 saving values x years 1, 10, 30, 100 with residuals and no revenue/fund number (met, except 9 year-100 rows blank by the stop below); arm.py <= 140 (139); no upward import (met); diff within Touches (met; one further file named: tests/model_v3/test_household_tax.py)
+- Deviations from the brief: the table runs each line alone and stops a line at its first shortfall (the hook cannot carry a line with no non-pension wealth), so RL3, RL2 and RL1 have no year-100 rows; incomes in the table carry the B.6g factor 1.3733 (the 111c labelled run); arm test budget raised to 330
+- Risks / follow-ups: MODEL ERROR for the author: at the centre grid point the three richest lines (RL3, RL2, RL1) cannot pay their tax from non-pension wealth in year 69 under all three saving values (unpaid_B 1.6, 13.3 and 107.7 millions per adult at the median saving); the kernel taxes the delta of wealth with the pension in it, the payment comes only from non-pension wealth, and the death years take 62% of it. The pension rule (design 3.8) or the schedule decides what to do; nothing was changed. The hook stops there (no route units). revenue.run_lines does not call reconcile after settle_terminal. The 087c grow() V0-scaling deviation is still unconfirmed.
+- Instruction friction: none
+- Verification: test_legacy_digest, budget, rules, arm and hook tests pass; `run_suites.py` 7 of 10 suites pass (model_v3 289 passed; data, cards, hooks fail as on main); check_agent_docs exit 0; account script run on screen shows summary lines only
+- Overview sections likely needing an update: model v3 status (W5b done except the shortfall ruling), architecture 6.1
+- Commit / branch: see git log, brief/118-w5b-taxed-hook
+```

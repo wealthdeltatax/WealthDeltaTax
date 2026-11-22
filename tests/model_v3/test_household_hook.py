@@ -67,15 +67,13 @@ def test_every_line_gets_route_units_and_a_line_without_non_pension_wealth_raise
         next(drive(arm.HouseholdHook(bad, GAIN), bad, 1))
 
 
-def test_a_negative_net_financial_balance_earns_nothing_and_tax_is_refused_until_w5b():
+def test_a_negative_net_financial_balance_earns_nothing():
     lo = dict(CST, sav=np.full(10, -0.026), acc=np.full(10, 0.0041))
     plain = [ce.run_cell(c, 3, -0.026, 0.0041, 0.0157, RETS) for c in CELLS]
     h = arm.HouseholdHook(lo, GAIN, 0.0157)
     for t, _ in drive(h, lo, 3):
         pass
     assert (h.q['net_financial'][0] < 0) and abs(h.q['net_financial'][0] - plain[0][2][1]['net_financial']) > 1e-6        # D1-3 net financial: gain on a negative balance dropped
-    with pytest.raises(ValueError, match='W5b'):
-        list(drive(arm.HouseholdHook(lo, GAIN, 0.0157), lo, 1, rate=lambda w: 0.05 + 0.0 * w))
 
 
 def test_the_state_folds_with_paths_as_the_book_does_and_each_path_equals_a_single_run():

@@ -58,7 +58,7 @@ def returns(pos, g):
 
 
 class HouseholdHook:
-    """The household arm, untaxed (W5a): each year's growth and flow of every line from household_step (convention A, T_WDT = 0) on class balances. `state` is line_state's dict (arrays per line, tiled over
+    """The household arm (W5a untaxed, W5b taxed): each year's growth and flow of every line from household_step (convention A) on class balances, then the WDT the kernel moves to the state paid from the non-pension classes (`post`). `state` is line_state's dict (arrays per line, tiled over
     the book's paths), `gain` the scenario holding gain by class, `growth` income growth a year. `c` given: the legacy rule on the classes (every class grows at g, a share c is consumed) while the book runs
     the legacy path, bit for bit as LegacyHook. A new book (each phase) restarts from the opening balances: its route values are rescaled to the non-pension total N and `pen` set, so every line holds units."""
 
@@ -83,23 +83,50 @@ class HouseholdHook:
     def pre(self, book, t, g):
         if book is not self.book:
             self._start(book)
+        elif self.c is None:
+            self.reconcile(book)                                                                     # value a death or reset moved after the last post is paid from the classes first
         inc, N0, defl = self.inc * (1.0 + self.gr) ** (t - 1), self._n(self.q), dict(cpi=0.0, hfce=0.0)
         if self.c is not None:
             self.q1, _ = hh.household_step('arm', self.q, dict(c=self.c), dict(r=g), defl, 'legacy', sink='net_financial')
             self.W_after = sum(self.q1[k] for k in CLASSES)
             return g, -self.c
         gn = returns(self.q, self.gn)
-        self.q1, _ = hh.household_step('arm', self.q, dict(Y_L=inc * (1.0 + self.acc), C=(1.0 - self.sav) * inc, pen_in=self.acc * inc), dict(g=gn), defl, 'A', sink='net_financial', source_weights=dict(property=1.0))
+        self.q1, self.acct = hh.household_step('arm', self.q, dict(Y_L=inc * (1.0 + self.acc), C=(1.0 - self.sav) * inc, pen_in=self.acc * inc), dict(g=gn), defl, 'A', sink='net_financial', source_weights=dict(property=1.0))
+        self.nw0, self.T, self.unpaid = sum(self.q[k] for k in CLASSES), 0.0, 0.0
         g_n = sum(np.asarray(gn[k]) * self.q[k] for k in CLASSES[:3]) / N0
         book.pen, self.W_after = self.q1['pension'], sum(self.q1[k] for k in CLASSES)
         return g_n, self._n(self.q1) / (N0 * (1.0 + g_n)) - 1.0                                     # growth then the flow reach the household's closing non-pension total exactly (I1)
 
+    def _pay(self, q, T):
+        """The payment T (a line's value moved to the state, negative a refund) on the classes q, pro rata to the positive non-pension balances; pension is never sold. Adds to the year's T and unpaid."""
+        q1, _, un = hh.apply_payment(q, T, {k: np.maximum(q[k], 0.0) for k in CLASSES[:3]})
+        self.T, self.unpaid = self.T + T - un, self.unpaid + un
+        return q1
+
+    def _check(self, book):
+        N = self._n(self.q)
+        if np.any(np.abs(book.family_true() - N) > 1e-9 * np.maximum(1.0, np.abs(N))) or (self.c is None and np.any(book.pen != self.q['pension'])):
+            raise ValueError("I1 fails: the book's family value is not the class total, or its pension is not the pension balance")
+
+    def reconcile(self, book):
+        """Value the kernel moved outside `post` (a death's tax, settlements, the heir's tax; the horizon's: call it after settle_terminal) is paid from the classes, in the year's account. Pension passes to the heir unchanged."""
+        gap = self._n(self.q) - book.family_true()
+        self.q = self._pay(self.q, np.where(np.abs(gap) > 1e-12 * np.maximum(1.0, np.abs(self._n(self.q))), gap, 0.0))
+        self._check(book)
+
     def post(self, book, fl):
-        if np.any(np.abs(sum(fl.value.values()) if fl.value else 0.0) > 1e-12):
-            raise ValueError('the untaxed household arm moves no value to the state: the rate must be zero (the taxed arm is W5b)')
-        self.q, N = self.q1, self._n(self.q1)
-        if np.any(np.abs(book.family_true() - N) > 1e-9 * np.maximum(1.0, np.abs(N))):
-            raise ValueError('I1 fails: the book\'s family value is not the class total')
+        T = sum(fl.value.values()) if fl.value else 0.0
+        if self.c is not None and np.any(np.abs(T) > 1e-12):
+            raise ValueError('the legacy rule on classes moves no value to the state: the rate must be zero')
+        self.q = self.q1 if self.c is not None else self._pay(self.q1, T)
+        self._check(book)
+
+    def account(self):
+        """The last year's account by line: dNW (pension included), S, CG, T_WDT, unpaid (a model alarm), the payment over net financial and over non-pension wealth, and the residual dNW - (S + CG - T_WDT)."""
+        q0, dnw = self.q1, sum(self.q[k] for k in CLASSES) - self.nw0
+        fin, nonpen = q0['net_financial'], sum(q0[k] for k in CLASSES[:3])
+        return dict(dNW=dnw, S=self.acct['S'], CG=self.acct['CG'], T_WDT=self.T, unpaid=self.unpaid, pay_over_fin=np.where(self.T == 0, 0.0, hh._ratio(self.T, fin)), pay_over_nonpension=np.where(self.T == 0, 0.0, hh._ratio(self.T, nonpen)),
+                    residual=dnw - (self.acct['S'] + self.acct['CG'] - self.T))
 
     def grown(self, W0, g):
         return self.W_after
