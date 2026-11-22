@@ -44,8 +44,27 @@ Which scenario grid point the smoke run uses (the agent states it, with the regi
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
-- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout brief/121-w7-arm-switch`
-- **State:** ready; not started
+- **Done:** blocks 0 to 3. Block 1: `arm.build`, `Ctx.arm`, `Raw.arm`, `household_inputs` (account script calls it, CSV byte-identical). Block 2: `arm.WITHHELD` / `arm.withheld`; household arm withholds O3, OH1b, OH1c, OW1 and the site-scan finds OW3, OM1; `assemble(withheld=)`; `writer` accepts the run field `arm`. Block 3: smoke run at the account's grid point (counts only) and `docs/model-v3/household-arm-outputs.md` with the manifest-amendment diff. model_v3 308 passed; `test_legacy_digest` unchanged; check_agent_docs exit 0.
+- **Next:** the author signs off the note and the manifest amendment (`arms: [legacy]`, validator `withheld` and `arm`); then the briefs for the `burden.py` horizon-settlement fix in `fl`, the comparators on the account (M3, M12, M13, M15, M9), and OT1's M3 head under the household arm.
+- **Decisions:** the withheld id is absent from Samples and written by `assemble` as `{summary, cells: [], withheld}`; M3 is absent from `headlines` under the household arm; `OW3` and `OM1` are withheld too (they read the legacy c).
+- **Gotchas:** a final household-arm file fails V7 on the withheld ids until the validator gains the amendment; OT1 (`sweeps.py`) would raise on `e['M3']` at level 2 under the household arm.
+- **Resume:** none.
+- **Not run:** level 1 or level 2 under the household arm beyond the 2-path smoke; O1e, OF1, OT1 under it.
+- **State:** done; not merged (author sign-off of the note first)
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 121c (W7), the arm switch, labels and withheld outputs
+- Files changed: model_v3/runner/arm.py (build, Arm, household_inputs, WITHHELD, withheld); model_v3/runner/runner.py (Ctx.arm, core_run, headlines M3 and samples O3 guarded; 360 lines); model_v3/runner/out_burden.py (static returns {} under the household arm); model_v3/runner/out_support.py (welfare, envelope, migration skipped; OW1, OW3, OM1 omitted); model_v3/out/assemble.py (withheld); model_v3/out/writer.py (run field arm); docs/model-v3/household-arm-account/account_table.py (calls the builder); tests/model_v3/test_arm_switch.py (3 tests); docs/model-v3/architecture.md (arm.py budget 225, sums +10); docs/model-v3/household-arm-outputs.md (new); this brief
+- What is different now: a run can choose the household arm; its label is in the run record; six outputs are withheld as legacy_only and never hold a value; the legacy arm is bit equal
+- New or changed interfaces: Ctx.arm; arm.build(arm, ctx, theta, base) -> Arm; arm.WITHHELD; arm.withheld(label); assemble(..., withheld=); run field arm
+- Acceptance criteria: test_legacy_digest unchanged after every block (met); arm in the run record and the writer's run block (met; the validator warns V12 on the unknown run field); household run through core_run with I1, account identity, ledger ties, unpaid_B 0 (met, test); M3, M12, M13 and OW3, OM1 withheld, no value under them, test_w7 still passes (met); runner.py 360, R4 layering passes, diff within Touches except as named below (met with the named files)
+- Deviations from the brief: model_v3/out/writer.py and architecture.md sums were touched (out/ for labels, budget rows: both in Touches); OW3 and OM1 were withheld beyond the four named ids because they read the legacy c
+- Risks / follow-ups: a final household-arm file fails V7 until the validator takes the manifest amendment (note, for sign-off); OT1's M3 head in sweeps.py (outside Touches) raises under the household arm at level 2; O1e, OF1, OT1 not exercised under it; fl misses the horizon settlement of year T (about 639bn at the centre), affecting M2 and M4a (and likely M2b, M2c, M2d); fix is in burden.py
+- Instruction friction: the Resume line's checkout failed (no local branch of that name); it was created from the remote ref
+- Verification: model_v3 308 passed (background); test_legacy_digest and test_out within it; smoke run counts: 29 produced, 6 withheld, 5 not produced by one evaluation, 0 values under withheld ids; check_agent_docs exit 0
+- Overview sections likely needing an update: kernel-wiring-design W7 row; STATUS.md (guru)
+- Commit / branch: brief/121-w7-arm-switch, not merged
+```

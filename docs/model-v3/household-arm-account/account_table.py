@@ -38,9 +38,8 @@ def one(ctx, inp, name, sav):
     so a line that exhausts it stops in the year its tax first exceeds what it holds (that year's row is kept, later years are blank with the status)."""
     theta, base = ctx.centre, R.shaped(ctx, ctx.centre, SPEC['ratio'])
     rate = sc.rate_function(SPEC['k_ln'], SPEC['tau_0'], SPEC['tau_m'], base.w_min, 'logistic_ln')
-    y, g_i, lc, ld = inp['yreg']['mid'], inp['g'], ctx.centre['I-D14a'] / 100, ctx.centre['I-D14b'] / 100
-    gain = dict(property=0.016455, net_financial=inp['regimes']['mid'] - y, physical=0.0, pension=inp['regimes']['mid'] - y)
-    full = arm.line_state(base, ctx.pack.tables['decile_composition'], ctx.reg, sav, scale=inp['income_scale'], cap=ctx.reg['I-D1l'].central)
+    lc, ld = ctx.centre['I-D14a'] / 100, ctx.centre['I-D14b'] / 100
+    full, gain, g_i = arm.household_inputs(ctx, base, inp, sav)                                        # 121c: the one builder (runner/arm.py), regime 'mid'
     rows, stopped, neg = [], {}, 0
     for i, lab in enumerate(base.labels):
         sl = lambda v: np.asarray(v)[i:i + 1]

@@ -149,8 +149,9 @@ def assemble_level2(level2: dict, ids: dict, final: bool) -> dict:
     return doc
 
 
-def assemble(manifest: dict, samples: dict, level2: dict | None = None, status: str = "provisional") -> tuple:
-    """(outputs, level2) objects for the file. An output id not in the manifest raises; so does any gap when status is final."""
+def assemble(manifest: dict, samples: dict, level2: dict | None = None, status: str = "provisional", withheld: dict | None = None) -> tuple:
+    """(outputs, level2) objects for the file. An output id not in the manifest raises; so does any gap when status is final.
+    `withheld` {id: 'legacy_only'}: that id is written as `{"summary", "cells": [], "withheld": label}`, never a value; samples for it raise (121c)."""
     if status not in ("provisional", "final"):
         raise AssembleError(f"status must be provisional or final, found {status!r}")
     final, ids = status == "final", entries(manifest)
@@ -159,7 +160,11 @@ def assemble(manifest: dict, samples: dict, level2: dict | None = None, status: 
         raise AssembleError(f"output id(s) not in the manifest: {', '.join(unknown)}")
     outputs = {}
     for oid, entry in ids.items():
-        if oid in samples:
+        if oid in (withheld or {}):
+            if samples.get(oid):
+                raise AssembleError(f"{oid}: withheld ({withheld[oid]}) but samples were given")
+            outputs[oid] = {"summary": entry["summary"], "cells": [], "withheld": withheld[oid]}
+        elif oid in samples:
             outputs[oid] = assemble_output(manifest, entry, samples[oid], final)
         elif final:
             raise AssembleError(f"{oid}: no samples for a manifest id in a final run")

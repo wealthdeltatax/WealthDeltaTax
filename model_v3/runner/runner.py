@@ -42,7 +42,7 @@ from model_v3.core import pack as pk
 from model_v3.core import returns as rt
 from model_v3.core import revenue as rv
 from model_v3.core import schedule as sc
-from model_v3.runner.arm import LegacyHook
+from model_v3.runner import arm as ab
 from model_v3.runner.groups import GROUPS
 
 T = 100
@@ -71,6 +71,7 @@ class Ctx:
     exp: float
     gdp_g: float
     cache: dict
+    arm: object = 'legacy'  # 'legacy' or 'household' (arm.build: a dict names the scenario): read by core_run
 
 
 @dataclass(frozen=True)
@@ -174,9 +175,8 @@ def env_of(ctx, theta, seq=None, key=()):
 
 @dataclass(frozen=True)
 class Raw:
-    """The core results of one schedule on one block of paths, as the output groups read them: the shaped base and rate, the burden run's line flows, the
-    receipts (`run`), revenue.py's result `r`, the per-horizon window bounds `lo` and `hi` (1-based years, one per path), `ok` (the reserve fills), the
-    retired taxes' incidence `inc` (taxes by deciles), the paths and the consumption share and horizon length."""
+    """The core results of one schedule on one block of paths, as the output groups read them: the shaped base and rate, the burden run's line flows, the receipts (`run`), revenue.py's result `r`, the
+    per-horizon window bounds `lo` and `hi` (1-based years), `ok` (the reserve fills), the retired taxes' incidence `inc`, the paths, the consumption share, the horizon and the arm's run record `arm`."""
     spec: dict
     base: object
     rate: object
@@ -191,30 +191,30 @@ class Raw:
     gdp_g: np.ndarray
     c: float
     h: int
+    arm: dict = None
 
 
 def core_run(ctx, theta, spec, g, gdp_g, full=False, tweak=None):
-    """One schedule (`spec`: tau_0, tau_m, k_ln, ratio) on the paths g (T, P): the core modules run once, kept raw. `full` takes the receipts from
-    revenue.run_lines instead of the burden run (the same numbers, a test). `tweak` maps the shaped base to another (default none)."""
+    """One schedule (`spec`) on the paths g (T, P): the core modules run once, kept raw, under the arm `ctx.arm`. `full` takes the receipts from revenue.run_lines (the same numbers, a test); `tweak` maps the base."""
     g, gdp_g = np.asarray(g, float), np.asarray(gdp_g, float)
     P = g.shape[1]
     b = (tweak or (lambda x: x))(shaped(ctx, theta, spec['ratio']))
     rate = sc.rate_function(spec['k_ln'], spec['tau_0'], spec['tau_m'], b.w_min, 'logistic_ln')
-    lam, hk = env_of(ctx, theta).lam, LegacyHook(c := theta['I-D14c'] / 100)
-    fl = bd.line_flows(b, rate, g, gdp_g, c, hook=hk, **lam)
-    if full:
-        run = rv.run_lines(b, rate, g, gdp_g, c, hook=hk, **lam)
+    lam, ar = env_of(ctx, theta).lam, ab.build(ctx.arm, ctx, theta, b)
+    fl = bd.line_flows(b, rate, g, gdp_g, c := ar.c, hook=ar.make(), **lam)
+    if full or ar.name != 'legacy':                                   # the household arm needs the ledger: revenue.run_lines
+        run = rv.run_lines(b, rate, g, gdp_g, c, hook=ar.make(), **lam)
     else:
         net, z = np.einsum('tnp,n->tp', fl['net'], fl['wt']) * fl['adults_k'], np.zeros((T, P))
         run = dict(tax=net, refund=z, death_tax=z, heir=z, death_B=z, death_D=z, payers=z, entries=z, exits=z, fall_through=z, gdp_index=np.cumprod(1.0 + gdp_g, axis=0),
                    adults_k=fl['adults_k'])
     h, ms = int(theta['I-D14e']), theta['I-D8a']
-    r = rv.revenue(run, ctx.gdp0, theta['I-D7a'], ctx.rec, g, ctx.exp, c, int(theta['I-D14d']), ms, ms, h, None, theta['I-D14f'] / 100)
+    r = rv.revenue(run, ctx.gdp0, theta['I-D7a'], ctx.rec, g, ctx.exp, c, int(theta['I-D14d']), ms, ms, h, ar.safe(T, P), theta['I-D14f'] / 100)
     fill, ok, one = r['fill'], ~r['unfilled'], np.ones(P, int)
     lo = {'transition': one, 'short': fill + 1, 'long': 51 * one}
     hi = {'transition': np.where(ok, fill, T), 'short': fill + h, 'long': T * one}
     inc = bd.incidence(patched(ctx, theta), list(ctx.rec), ctx.mp['parts'], ctx.mp['payer_taxes'])
-    return Raw(spec, b, rate, fl, run, r, lo, hi, ok, inc, g, gdp_g, c, h)
+    return Raw(spec, b, rate, fl, run, r, lo, hi, ok, inc, g, gdp_g, c, h, ar.label)
 
 
 def headlines(raw, ctx, theta):
@@ -226,7 +226,7 @@ def headlines(raw, ctx, theta):
     out = {x: {k: win(r[x], k) for k in HORIZONS} for x in ('M1', 'M1a', 'M1b', 'M1c', 'M1d')}
     out['M2'] = {k: {b_: gate(k, v) for b_, v in bd.m2(fl, lo[k], hi[k]).items()} for k in HORIZONS}
     out['M4a'] = {k: {d: gate(k, v) for d, v in bd.m4(r['P5'], hi[k], raw.inc, ctx.bill, ctx.income)['M4a'].items()} for k in HORIZONS}
-    out['M3'] = bd.m3(fl, (theta['I-D11a'], theta['I-D11b'], theta['I-D11c']))
+    if raw.arm['arm'] == 'legacy': out['M3'] = bd.m3(fl, (theta['I-D11a'], theta['I-D11b'], theta['I-D11c']))   # M3 reads the legacy c (withheld under the household arm, 121c)
     out['neg'] = {k: np.where(np.isfinite(out['M1'][k]), out['M1'][k] < 0, False) for k in HORIZONS}
     out['P3h'] = {k: (ex * (t <= hi[k][None, :])).sum(axis=0) for k in HORIZONS}
     return {**out, 'P1': r['P1'], 'P7b': r['P7b'], 'fill': r['fill'], 'unfilled': r['unfilled'], 'long_T': r['long_year_T']}
@@ -298,7 +298,7 @@ def samples(by_schedule, ids, once=frozenset(), static=None):
             for d, v in e['M4a'][hz].items():
                 out['O4a'][s, hz, (('income_decile', d),), None] = v
             out['O1f'][s, hz, (), None] = np.asarray(e['neg'][hz], float)
-        out['O3'][s, 'single', (), None] = e['M3']
+        if 'M3' in e: out['O3'][s, 'single', (), None] = e['M3']
         for m in GROUPS:
             for oid, cells in m.cells(e[m.NAME]).items():
                 if oid not in ids or oid not in m.IDS:

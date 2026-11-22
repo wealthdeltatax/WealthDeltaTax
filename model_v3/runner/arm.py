@@ -8,11 +8,22 @@ year and keeps the public ledger, `receipts`, `class_returns`) and the site meth
 and `HouseholdHook` runs the household year (convention A), paying the WDT from the non-pension classes.
 """
 
+from dataclasses import dataclass
+
 import numpy as np
 
 from model_v3.core import household as hh
 
 CLASSES = ('property', 'net_financial', 'physical', 'pension')
+PROPERTY_GAIN = 0.016455                                                                            # F-20: the JST housing holding gain, all years (cell_baseline.py); a scenario value, not a register row
+WITHHELD = dict(O3='M3', OH1b='M3', OH1c='M12', OW1='M13', OW3='M15a, M15b', OM1='M1 migration, X, M9')   # outputs that read the legacy c (the sites `free_path`, `system_run`, the kernel rerun, the migration spend)
+
+
+def withheld(label):
+    """{output id: 'legacy_only'} for a run label: the household arm withholds the outputs that read the legacy c (never a number); the legacy arm withholds none."""
+    return {} if label['arm'] == 'legacy' else dict.fromkeys(WITHHELD, 'legacy_only')
+
+
 TAKES_D10 = ('D10a', 'D10b', 'RL3', 'RL2', 'RL1')                  # the tail lines take D10's class mix (labelled an assumption, design 2.2)
 
 
@@ -169,3 +180,38 @@ class HouseholdHook:
 
     def free(self, g):
         raise ValueError('the untaxed path of site 4 (M3, M12) stays legacy under the household arm: withheld until the comparator brief')
+
+
+def household_inputs(ctx, base, inp, sav, regime='mid'):
+    """(state, gain, growth) of the household hook at one scenario grid point (121c; the 118c account script's setup, now one builder): `inp` the stored inputs (cell-baseline/inputs_used.json: the
+    three saving values `sav`, the market `regimes` and their yields `yreg`, the B.6g `income_scale`, the income growth `g`), `sav` the non-pension saving ratio, `regime` the market regime; the class gains are the
+    housing gain (PROPERTY_GAIN), the regime's real return less its yield for net financial and pension, and I-D1j for physical; the tail pension cap is I-D1l and the accrual I-D1k (both central)."""
+    y, r = inp['yreg'][regime], inp['regimes'][regime]
+    st = line_state(base, ctx.pack.tables['decile_composition'], ctx.reg, sav, scale=inp['income_scale'], cap=ctx.reg['I-D1l'].central)
+    return st, dict(property=PROPERTY_GAIN, net_financial=r - y, physical=ctx.reg['I-D1j'].central / 100, pension=r - y), inp['g']
+
+
+@dataclass(frozen=True)
+class Arm:
+    """What `core_run` needs of an arm: `name`, the legacy consumption share `c` (the sites that still read it), `make()` a fresh hook (the household hook keeps the year's state, one per kernel run), `safe(T, P)` the
+    safe-asset return series of the public ledger (None under legacy) and `label`, the run record: the arm and, for the household arm, the scenario grid point it used."""
+    name: str
+    c: float
+    make: object
+    safe: object
+    label: dict
+
+
+def build(arm, ctx, theta, base):
+    """The arm of a run (brief 121c): `arm` is 'legacy' or 'household' or a dict {'arm', 'inputs', 'saving', 'regime'} (`inputs` the stored inputs of `household_inputs`; saving 'min', 'median' or 'max', regime 'mid' by default).
+    The household arm is scenario-labelled and never called central; its safe asset earns the net financial class return, a stand-in (no register row), stated in the label."""
+    a, c = {'arm': arm} if isinstance(arm, str) else dict(arm), theta['I-D14c'] / 100
+    if a['arm'] == 'legacy':
+        return Arm('legacy', c, lambda: LegacyHook(c), lambda T, P: None, dict(arm='legacy'))
+    if a['arm'] != 'household':
+        raise ValueError(f"arm must be 'legacy' or 'household', not {a['arm']!r}")
+    name, regime = a.get('saving', 'median'), a.get('regime', 'mid')
+    st, gain, growth = household_inputs(ctx, base, a['inputs'], a['inputs']['sav'][name], regime)
+    label = dict(arm='household', scenario=dict(saving=name, saving_ratio=a['inputs']['sav'][name], regime=regime, class_returns={k: gain[k] for k in CLASSES[:3]}, pension_accrual=ctx.reg['I-D1k'].central / 100,
+                 tail_pension_cap=ctx.reg['I-D1l'].central, income_scale=a['inputs']['income_scale']), safe_return='the net financial class return (a stand-in: no register row)', central=False)
+    return Arm('household', c, lambda: HouseholdHook(st, gain, growth), lambda T, P: np.full((T, P), gain['net_financial']), label)

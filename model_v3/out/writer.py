@@ -16,7 +16,7 @@ REPO = Path(__file__).resolve().parents[2]
 VALIDATOR = REPO / "pipeline" / "validate_outputs.py"
 SCHEMA = "wdt-outputs/1"
 REQUIRED = ("status", "run_date", "model_version", "paths", "base_year")   # supplied by the run script, never invented
-OPTIONAL = ("pack_country", "pack_sha256", "seed", "level2_draws", "level2_paths", "unfilled_paths", "fixture")
+OPTIONAL = ("pack_country", "pack_sha256", "seed", "level2_draws", "level2_paths", "unfilled_paths", "fixture", "arm")   # arm: the run label of runner/arm.py (121c)
 
 
 class WriterError(ValueError):
