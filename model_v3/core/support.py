@@ -117,12 +117,16 @@ def wmean(x, w):
     return (w * x).sum(0) / w.sum()
 
 
-def system_run(kind, rate, g, w0, w_min, c=0.0):
+def system_run(kind, rate, g, w0, w_min, c=0.0, hook=None):
     """Terminal wealth and lifetime tax, both (L, P), of payer lines with start wealth w0 (L,) under one system. g is (N, P). Each year wealth
     grows, a share c is consumed, then the tax is paid: 'none'; 'stock_wealth_tax' on start-of-year wealth; 'income_tax_gains' on the gain of
-    the year when positive (losses unrelieved); 'consumption_tax' on the value consumed. Lines under w_min pay nothing."""
+    the year when positive (losses unrelieved); 'consumption_tax' on the value consumed. Lines under w_min pay nothing. `hook` (the household arm, 126c): the same systems on the household's account
+    (`hook.system`: S, CG and C of each year, the tax paid from the non-pension classes); `c` is then not read and every path is the same."""
     if kind not in ('none',) + SYSTEMS:
         raise ValueError(f'unknown system {kind!r}')
+    if hook is not None:
+        w, paid = hook.system(kind, rate, len(g), np.asarray(w0) >= w_min)
+        return np.repeat(w[:, None], g.shape[1], axis=1), np.repeat(paid[:, None], g.shape[1], axis=1)
     w = np.repeat(np.asarray(w0, float)[:, None], g.shape[1], axis=1)
     payer, paid = (np.asarray(w0) >= w_min)[:, None], np.zeros_like(w)
     for gt in g:
@@ -134,10 +138,10 @@ def system_run(kind, rate, g, w0, w_min, c=0.0):
     return w, paid
 
 
-def solve_rate(kind, target, g, w0, weights, w_min, c=0.0, hi=1.0, iters=80):
+def solve_rate(kind, target, g, w0, weights, w_min, c=0.0, hi=1.0, iters=80, hook=None):
     """The rate at which the mean lifetime tax per adult (weighted over lines, averaged over paths) equals target; bisection, since tax rises
     with the rate. Raises when even a rate of `hi` does not raise the target."""
-    rev = lambda r: float((np.asarray(weights)[:, None] * system_run(kind, r, g, w0, w_min, c)[1]).sum(0).mean())
+    rev = lambda r: float((np.asarray(weights)[:, None] * system_run(kind, r, g, w0, w_min, c, hook)[1]).sum(0).mean())
     if rev(hi) < target:
         raise ValueError(f'{kind}: a rate of {hi} raises {rev(hi):.6g}, less than the target {target:.6g}')
     lo = 0.0
@@ -151,22 +155,24 @@ def wdt_run(rate_fn, g, V0, c=0.0, hook=None, **book_kw):
     """Terminal wealth and net tax paid, (L, P), of each line under the kernel over g (N, P). V0 maps routes to (L,) arrays; book_kw reaches
     run_lines (index_rate, lam_C, b_mode, ...). Lines and paths are folded into the line axis, line l and path p at l * P + p."""
     L, P = len(next(iter(V0.values()))), g.shape[1]
-    book = K.run_lines(rate_fn, np.tile(g, (1, L)), {r: np.repeat(np.asarray(v, float), P) for r, v in V0.items()}, consumption=c, n=L * P, hook=hook, **book_kw)
-    return book.family_true().reshape(L, P), (book.paid - book.refunded).reshape(L, P)
+    Pk = 1 if getattr(hook, 'household', False) else P                                              # the household arm ignores g: one path, repeated (the hook folds lines first)
+    book = K.run_lines(rate_fn, np.tile(g[:, :Pk], (1, L)), {r: np.repeat(np.asarray(v, float), Pk) for r, v in V0.items()}, consumption=c, n=L * Pk, hook=hook, **book_kw)
+    w, tax = (x.reshape(L, Pk) for x in (book.family_true() + book.pen, book.paid - book.refunded))   # the pension is a balance beside the units: terminal wealth is both
+    return np.repeat(w, P // Pk, axis=1), np.repeat(tax, P // Pk, axis=1)
 
 
-def welfare(rate_fn, g, V0, weights, gamma, w_min, c=0.0, **book_kw):
+def welfare(rate_fn, g, V0, weights, gamma, w_min, c=0.0, hook=None, **book_kw):
     """M13 per line, basis points: {'wdt', 'income_tax_gains', 'stock_wealth_tax', 'consumption_tax'} -> (L,), and the solved comparator rates.
     weights (L,) are shares of adults; lines under w_min get none. The comparators raise the same mean lifetime tax per adult as the kernel."""
     w0 = np.sum([np.asarray(v, float) for v in V0.values()], axis=0)
     pw = np.asarray(weights, float) * (w0 >= w_min)
-    w_wdt, tax_wdt = wdt_run(rate_fn, g, V0, c, **book_kw)
+    w_wdt, tax_wdt = wdt_run(rate_fn, g, V0, c, hook, **book_kw)
     target = float((pw[:, None] * tax_wdt).sum(0).mean())
-    w_none, _ = system_run('none', 0.0, g, w0, w_min, c)
+    w_none, _ = system_run('none', 0.0, g, w0, w_min, c, hook)
     out, rates = {'wdt': cew_bp(w_wdt, w_none, gamma)}, {}
     for kind in SYSTEMS:
-        rates[kind] = solve_rate(kind, target, g, w0, pw, w_min, c)
-        out[kind] = cew_bp(system_run(kind, rates[kind], g, w0, w_min, c)[0], w_none, gamma)
+        rates[kind] = solve_rate(kind, target, g, w0, pw, w_min, c, hook=hook)
+        out[kind] = cew_bp(system_run(kind, rates[kind], g, w0, w_min, c, hook)[0], w_none, gamma)
     return out, rates
 
 

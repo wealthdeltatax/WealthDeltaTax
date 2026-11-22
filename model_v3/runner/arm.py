@@ -16,7 +16,7 @@ from model_v3.core import household as hh
 
 CLASSES = ('property', 'net_financial', 'physical', 'pension')
 PROPERTY_GAIN = 0.016455                                                                            # F-20: the JST housing holding gain, all years (cell_baseline.py); a scenario value, not a register row
-WITHHELD = dict(OW1='M13', OW3='M15a, M15b', OM1='M1 migration, X, M9')   # outputs that read the legacy c (the sites `free_path`, `system_run`, the kernel rerun, the migration spend)
+WITHHELD = dict(OW3='M15a, M15b', OM1='M1 migration, X, M9')   # outputs that read the legacy c (the sites `free_path`, `system_run`, the kernel rerun, the migration spend)
 
 
 WITHHELD_BY = {}                                                                                     # an output kept without some by-values: none since 126c (the tornado's M3 head returned)
@@ -177,6 +177,18 @@ class HouseholdHook:
         fin, nonpen = q0['net_financial'], sum(q0[k] for k in CLASSES[:3])
         return dict(dNW=dnw, S=self.acct['S'], CG=self.acct['CG'], T_WDT=self.T, unpaid=self.unpaid, pay_over_fin=np.where(self.T == 0, 0.0, hh._ratio(self.T, fin)), pay_over_nonpension=np.where(self.T == 0, 0.0, hh._ratio(self.T, nonpen)),
                     residual=dnw - (self.acct['S'] + self.acct['CG'] - self.T))
+
+    def system(self, kind, rate, G, payer):
+        """A comparator tax on the account (126c, M13): terminal wealth (pension included) and the lifetime tax, both (L,), of the lines over G years under `kind` ('none'; 'stock_wealth_tax' on the opening net worth, pension included;
+        'income_tax_gains' on the positive holding gain CG; 'consumption_tax' on the year's consumption C), paid from the non-pension classes like the WDT (what they cannot cover is not paid); lines outside `payer` pay nothing. Keeps no state."""
+        q, paid, s = {**{k: np.asarray(v, float) for k, v in self.st['pos'].items()}, 'debt': np.zeros(len(self.st['income']))}, 0.0, self.st
+        for t in range(G):
+            inc = s['income'] * (1.0 + self.gr) ** t
+            q1, a = self._year(q, inc, s['sav'], s['acc'], returns(q, self.gn))
+            base = {'none': 0.0, 'stock_wealth_tax': sum(q[k] for k in CLASSES), 'income_tax_gains': np.maximum(a['CG'], 0.0), 'consumption_tax': (1.0 - s['sav']) * inc}[kind]
+            q, _, un = hh.apply_payment(q1, rate * base * payer, {k: np.maximum(q1[k], 0.0) for k in CLASSES[:3]})
+            paid = paid + rate * base * payer - un
+        return sum(q[k] for k in CLASSES), paid + 0.0 * q['property']
 
     def grown(self, W0, g):
         return self.W_after

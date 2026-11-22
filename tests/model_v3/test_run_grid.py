@@ -18,7 +18,7 @@ def test_the_script_runs_a_smoke_grid_with_labels_and_holding_checks(tmp_path):
     assert {r['grid'] for r in res} == {'median_mid', 'legacy'} and all('central' not in r['label'].replace('not central', '') for r in res)
     assert all(r['label'].startswith('household') for r in res if r['grid'] == 'median_mid') and all(r['label'].startswith('legacy') for r in res if r['grid'] == 'legacy')
     ids = {r['id'] for r in res if r['grid'] == 'median_mid'}
-    assert not ids & {'OW1', 'OW3', 'OM1'} and {'O1', 'O2', 'O2d', 'OP1', 'O3'} <= ids and 'O3' in {r['id'] for r in res if r['grid'] == 'legacy'}
+    assert not ids & {'OW3', 'OM1'} and {'O1', 'O2', 'O2d', 'OP1', 'O3', 'OW1'} <= ids and 'O3' in {r['id'] for r in res if r['grid'] == 'legacy'}
     c = chk[0]
     assert len(chk) == 1 and float(c['account_residual_max']) < 1e-9 and float(c['unpaid_max']) == 0 and float(c['unpaid_B_max']) == 0 and int(c['shortfall_lines']) == 0
     assert float(c['ledger_tie_max']) < 1e-9 and float(c['ledger_dL_max']) < 1e-9

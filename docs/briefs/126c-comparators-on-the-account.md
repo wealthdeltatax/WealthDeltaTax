@@ -42,11 +42,11 @@ Whether M15 and M9 have a base on the account (the agent states it per id).
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** blocks 0, 1. M3, OH1b, OH1c and OT1's M3 head are back under the household arm: `HouseholdHook.free` (T = 0 through the same year, per line), `burden.free_path` takes a per-line path, `out_burden.static` builds the arm's hook through `Env.arm(base)`, `runner.headlines` computes M3 for both arms; `arm.WITHHELD` is OW1, OW3, OM1; `WITHHELD_BY` empty; manifest `arms` and `arms_by` removed for the returned ids (version `stage-A15-comparators-2026-11-22`), fixture regenerated, data and run_grid tests follow.
-- **Next:** block 2 (M13 and the comparators on the account's CG and C); first action: read `support.system_run`, `_record`, the comparators, `out_support.py` OW1.
-- **Decisions:** M3's denominator is the run's own positive net change in wealth (saving included), as under legacy (net of consumption there); not CG only. `Env` gains a field `arm(base)` because layer 3.5 cannot import `arm.py`. `arm.py` budget 235.
-- **Gotchas:** `runner.py` stays 360 (Env docstring shortened by a line). Data and model_v3 suites cannot run in one pytest session (two conftests): `run_suites.py`.
-- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/126-comparators origin/brief/126-comparators`; last block pushed: 1.
-- **Not run:** blocks 2 and 3; full suites after block 1 (data 94 and model_v3 passed except the two fixed tests; rerun at the end).
-- **State:** in progress; block 1 pushed
+- **Done:** blocks 0, 1, 2. Block 1: M3, OH1b, OH1c and OT1's M3 head on the household arm (`HouseholdHook.free`, per-line `free_path`, `Env.arm(base)`). Block 2: OW1 (M13) on the account: `support.system_run`, `solve_rate`, `welfare` and `wdt_run` take a `hook`; `HouseholdHook.system(kind, rate, G, payer)` runs the stock tax (opening net worth, pension included), the tax on gains (CG) and the consumption tax (C) on the account, paid from the non-pension classes (what they cannot cover is not paid); the WDT line's terminal wealth is units plus pension; the household arm runs the kernel on one path (it ignores g); `arm.WITHHELD` is OW3 and OM1; manifest `arms` removed for OW1.
+- **Next:** block 3 (M15 and M9: state per id whether the account gives a base; manifest, validator and fixtures, the note `household-arm-comparators.md`, change report).
+- **Decisions:** M3's denominator is the run's positive net change in wealth, saving included, as under legacy. `Env` has a field `arm(base)` (layer 3.5 cannot import arm.py). The comparators and the WDT are over the first generation (G = 30), no deaths, as legacy. `arm.py` budget 245 (now 242).
+- **Gotchas:** data and model_v3 suites cannot run in one pytest session: `run_suites.py`. Pushing needed `--force-with-lease` once (the branch was rebased onto main after block 0).
+- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/126-comparators origin/brief/126-comparators`; last block pushed: 2.
+- **Not run:** block 3.
+- **State:** in progress; block 2 pushed
 <!-- progress:end -->

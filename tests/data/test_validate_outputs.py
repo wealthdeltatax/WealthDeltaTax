@@ -361,24 +361,24 @@ def test_added_run_fields_are_known_fields_and_absent_list_changes_nothing(vo, m
 
 # ── arms and withheld entries (brief 122c) ───────────────────────────────────
 
-LEGACY_ONLY = ("OW1", "OW3", "OM1")                                   # 126c: O3, OH1b, OH1c and the tornado's M3 head returned to the household arm
+LEGACY_ONLY = ("OW3", "OM1")                                          # 126c: O3, OH1b, OH1c, OW1 and the tornado's M3 head returned to the household arm
 
 
 def household(doc, arm="household"):
-    """The fixture as a final household-arm file: the three legacy-only ids withheld (summary, no cells, the label), run.arm set."""
+    """The fixture as a final household-arm file: the two legacy-only ids withheld (summary, no cells, the label), run.arm set."""
     finalise(doc)["run"]["arm"] = arm
     for oid in LEGACY_ONLY:
         doc["outputs"][oid] = {"summary": doc["outputs"][oid]["summary"], "cells": [], "withheld": "legacy_only"}
     return doc
 
 
-def test_the_manifest_restricts_exactly_the_three_ids_to_the_legacy_arm(vo, manifest):
+def test_the_manifest_restricts_exactly_the_two_ids_to_the_legacy_arm(vo, manifest):
     assert {i for i, e in vo.load_entries(manifest).items() if e.arms} == set(LEGACY_ONLY)
     assert all(e.arms == ["legacy"] for i, e in vo.load_entries(manifest).items() if e.arms)
 
 
 @pytest.mark.parametrize("arm", ["household", {"arm": "household", "central": False}])
-def test_a_household_file_with_the_three_ids_withheld_passes_final(run, doc, arm):
+def test_a_household_file_with_the_two_ids_withheld_passes_final(run, doc, arm):
     f = run(household(doc, arm), "final")
     assert errors(f) == [] and hits(f, "V12") == []
 
@@ -395,8 +395,8 @@ def test_a_value_under_a_withheld_id_fails_v7_under_the_household_arm(run, doc):
     d = household(doc)
     d["outputs"]["OW3"] = {"summary": d["outputs"]["OW3"]["summary"], "cells": [dict(horizon="single", p10=1.0, mean=2.0, p90=3.0)], "withheld": "legacy_only"}
     assert [x.where for x in hits(run(d, "final"), "V7", "error")] == ["OW3"]
-    d["outputs"]["OW1"].pop("withheld")                                    # a household file may not hold an id the arm cannot produce without the label
-    assert [x.where for x in hits(run(d, "final"), "V7", "error")] == ["OW1", "OW3"]
+    d["outputs"]["OM1"].pop("withheld")                                    # a household file may not hold an id the arm cannot produce without the label
+    assert [x.where for x in hits(run(d, "final"), "V7", "error")] == ["OW3", "OM1"]
 
 
 def test_the_tornado_m3_head_is_a_household_value_since_126c(run, doc):
@@ -407,8 +407,8 @@ def test_the_tornado_m3_head_is_a_household_value_since_126c(run, doc):
 def test_withheld_is_refused_on_an_id_the_arm_produces_and_a_wrong_label_is_refused(run, doc):
     d = household(doc)
     d["outputs"]["O2"] = {"summary": d["outputs"]["O2"]["summary"], "cells": [], "withheld": "legacy_only"}
-    d["outputs"]["OW1"]["withheld"] = "other"
-    assert [x.where for x in hits(run(d, "final"), "V7", "error")] == ["O2", "OW1"]
+    d["outputs"]["OM1"]["withheld"] = "other"
+    assert [x.where for x in hits(run(d, "final"), "V7", "error")] == ["O2", "OM1"]
 
 
 def test_v8_run_arm_must_name_an_arm(run, doc):

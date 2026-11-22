@@ -42,7 +42,7 @@ Smoke run: 29 ids produced, 6 withheld, 5 not produced by a single evaluation (s
 | OH1c | M12 | produced (126c) | `m12` on the same untaxed path |
 | DH1a, DH1b | none | not run here | pack facts (`static`, once); the smoke context holds no `once` list; unchanged by the arm |
 | DH1c | none | produced | pack and retired taxes |
-| OW1 | M13 | **withheld `legacy_only`** | `support.system_run` comparators take the legacy c; same later brief |
+| OW1 | M13 | produced (126c) | the WDT line on the account (terminal wealth = units plus pension) against the stock tax (opening net worth, pension included), the tax on gains (CG) and the consumption tax (C), each paid from the non-pension classes (`HouseholdHook.system`), all at the WDT's lifetime tax per adult; no legacy c |
 | OW2 | M14 | produced | no c |
 | OW3 | M15a, M15b | **withheld `legacy_only`** | found by the site scan, not named in 121c: `_record` reruns the kernel with the legacy c; same later brief or its own |
 | OB1 | B1 | produced | |
@@ -51,7 +51,7 @@ Smoke run: 29 ids produced, 6 withheld, 5 not produced by a single evaluation (s
 | OF1 | F1 | not run here | feasibility map (a sweep); not exercised under the household arm |
 | OT1 | T1 | produced with its M3 head (126c) | the M3 head returned; the manifest has no `arms_by` |
 
-The set withheld is `arm.WITHHELD` (OW1, OW3, OM1 since 126c block 1; O3, OH1b, OH1c and OT1's M3 head returned); the module-to-id table of `architecture.md` 2.10 and the manifest are unchanged and still agree (`test_w7`).
+The set withheld is `arm.WITHHELD` (OW3, OM1 since 126c block 2; O3, OH1b, OH1c, OW1 and OT1's M3 head returned); the module-to-id table of `architecture.md` 2.10 and the manifest are unchanged and still agree (`test_w7`).
 
 ## Manifest amendment (applied by 122c; as proposed by 121c, plus the OT1 head)
 

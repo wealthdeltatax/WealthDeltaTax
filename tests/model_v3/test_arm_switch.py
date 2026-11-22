@@ -59,7 +59,7 @@ def test_the_household_arm_withholds_the_legacy_c_outputs_and_produces_the_rest(
     ev = {'S': R.evaluate(c2, c2.centre, SPEC, *PATHS)}
     s = R.samples(ev, c2.ids, c2.once, R.statics(c2, c2.centre))
     held = ab.withheld(R.core_run(c2, c2.centre, SPEC, *PATHS).arm)
-    assert set(ab.WITHHELD) == {'OW1', 'OW3', 'OM1'} and not ab.WITHHELD_BY and held == {**dict.fromkeys(ab.WITHHELD, 'legacy_only'), **ab.WITHHELD_BY}
+    assert set(ab.WITHHELD) == {'OW3', 'OM1'} and not ab.WITHHELD_BY and held == {**dict.fromkeys(ab.WITHHELD, 'legacy_only'), **ab.WITHHELD_BY}
     assert not any(s.get(i) for i in ab.WITHHELD) and np.isfinite(ev['S']['M3']).any()                         # no value under a withheld id; M3 is produced (126c)
     assert all(s[i] for i in s if i not in held)                                                       # every id produced is non-empty
     assert ab.withheld(dict(arm='legacy')) == {} and set(s) | set(held) >= {'O1', 'O2', 'O4a', 'O7', 'OW2', 'OS1'}
@@ -80,7 +80,7 @@ def test_the_tornado_keeps_the_m3_head_and_a_household_file_with_the_returned_id
     o, _ = assemble.assemble(out, smp, None, 'final', held)
     run = writer.run_block(out, MANIFEST, INPUTS, LEVERS, {**INFO, 'status': 'final', 'pack_sha256': 'x' * 64, 'pack_country': 'UK', 'arm': dict(arm='household', central=False)})
     path = writer.write_outputs(tmp_path, writer.document(o, {}, run), MANIFEST, INPUTS)               # the validator runs inside with --final and raises on any error
-    assert path.exists() and 'withheld_by' not in o['OT1'] and o['O3']['cells'] and not o['OW1']['cells']
+    assert path.exists() and 'withheld_by' not in o['OT1'] and o['O3']['cells'] and not o['OW3']['cells'] and o['OW1']['cells']
     legacy = writer.document(o, {}, {**run, 'arm': 'legacy'})
     with pytest.raises(writer.WriterError, match='V7'):
         writer.write_outputs(tmp_path, legacy, MANIFEST, INPUTS)
