@@ -17,7 +17,7 @@ Schedule tau_0 0.04, tau_m 0.7, k_ln 1, ratio 0.5 (the digest's `centre`, as in 
 
 - **Fixed class returns.** The household arm uses the scenario's class returns, constant over years and paths. The run's market path `g` is not read by the household arm; only GDP growth moves with the path. This is the account script's rule, reused.
 - **Stand-in safe return.** The public ledger's safe asset earns the net financial class return (0.9389% at this grid point) until a register row exists. The label says so.
-- **`fl` horizon-settlement gap.** The burden run's line flows (`fl`) miss the horizon settlement of year T (about £639bn at the centre); every other year equals `run_lines`. M1 and the ledger include it. Fix is in `burden.py` (outside this brief's Touches).
+- **`fl` horizon settlement (fixed by 123c).** The burden run's line flows (`fl`) used to miss the horizon settlement of year T (about £639bn at the centre). `burden.line_flows` now settles Route D and B in year T under the household arm, as `run_lines` does, and counts it with the death flows; `fl` and `run_lines` agree in every year (test). M2 in life leaves death flows out, so the settlement is not in it by construction; M2b, M2c and M2d count it.
 
 ## One row per manifest id
 
@@ -27,10 +27,10 @@ Smoke run: 29 ids produced, 6 withheld, 5 not produced by a single evaluation (s
 |---|---|---|---|
 | O1, O1a, O1b, O1c, O1d, O1f | M1, M1a to M1c, M1e, M1g | produced, household label | M1 includes the horizon settlement |
 | O1e | M1f | not run here | break-even return, from `sweeps.breakeven_return` (a sweep, not one evaluation); not exercised under the household arm in 121c |
-| O2 | M2 | produced, with a known gap | the horizon settlement of year T (about £639bn at the centre) is in M1 and the ledger but not in `fl`; fix is in `burden.py` |
-| O2b, O2c, O2d | M2b, M2c, M2d | produced, same gap suspected | they read the same `fl`; not separately measured |
+| O2 | M2 | produced | in life: the horizon settlement counts with the death flows and is left out of M2 by construction; `fl` now equals the receipts in every year |
+| O2b, O2c, O2d | M2b, M2c, M2d | produced | count the horizon settlement (fixed by 123c) in windows that include year T |
 | O3 | M3 | **withheld `legacy_only`** | `burden.m3` reads `free_path` with the legacy c; returns with the comparators-on-the-account brief (not yet written) |
-| O4a | M4a | produced, with a known gap | the horizon settlement of year T is in M1 and the ledger but not in `fl`; fix is in `burden.py` |
+| O4a | M4a | produced | M4a reads the retirement years and the pack's deciles, not `fl`; the 121c note was wrong to list it with the gap |
 | O4b, OL1 | M4b, M4c | produced | read `P5` and the income deciles, not `fl` |
 | O5, O6 | M5, M6 | produced | register rows only |
 | O7 | M7 | produced | no c |

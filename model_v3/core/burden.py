@@ -109,6 +109,10 @@ def line_flows(base, rate_fn, g, gdp_g, c, G=G, n_phase=6, index='gdp_pc', route
             if t < T and t >= ph and (t - ph) % G == 0:
                 for kind, fl in K.step_death(book, rate_fn, il, death_verify):
                     dx = dx + _val(fl, n) if kind in DEATH else dx
+            if t == T and hook is not None and hook.household:      # the household arm settles Route D and B at the horizon in its last year, as revenue.run_lines does (123c); a death-like flow
+                for _, fl in K.settle_terminal(book):
+                    dx = dx + _val(fl, n)
+                hook.reconcile(book)
             net[t - 1, sl], dl[t - 1, sl], dth[t - 1, sl] = tl(tax + dx), tl(dd), tl(dx)
     return {'net': net, 'w0': w0, 'delta': dl, 'death': dth, 'wt': np.tile(base.weights / n_phase, n_phase), 'band': base.band * n_phase,
             'payer0': np.tile(base.wealth >= base.w_min, n_phase), 'idx': ix, 'adults_k': base.adults_k.sum(), 'w_min': base.w_min,
