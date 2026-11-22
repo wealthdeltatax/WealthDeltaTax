@@ -42,8 +42,11 @@ Whether M15 and M9 have a base on the account (the agent states it per id).
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
-- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/126-comparators origin/brief/126-comparators`
-- **State:** ready; not started
+- **Done:** block 0: this progress block.
+- **Next:** block 1 (M3 and M12): read `kernel-wiring-design.md` 3.6, then `burden.py` (`free_path`, `m3`, `m3_today`, `m12`), `arm.py`, `out_burden.py`.
+- **Decisions:** none yet.
+- **Gotchas:** none yet.
+- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/126-comparators origin/brief/126-comparators`; last block pushed: 0.
+- **Not run:** everything.
+- **State:** in progress; block 0 pushed
 <!-- progress:end -->
