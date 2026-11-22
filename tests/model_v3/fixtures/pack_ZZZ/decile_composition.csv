@@ -1,0 +1,13 @@
+decile,band,class,value,unit,basis,year
+D1,B1,property,-10,pct_of_decile,household,2020
+D1,B1,net_financial,-40,pct_of_decile,household,2020
+D1,B1,physical,100,pct_of_decile,household,2020
+D1,B1,pension,50,pct_of_decile,household,2020
+D2,B1,property,30,pct_of_decile,household,2020
+D2,B1,net_financial,10,pct_of_decile,household,2020
+D2,B1,physical,20,pct_of_decile,household,2020
+D2,B1,pension,40,pct_of_decile,household,2020
+D3,B2,property,40,pct_of_decile,household,2020
+D3,B2,net_financial,20,pct_of_decile,household,2020
+D3,B2,physical,5.2,pct_of_decile,household,2020
+D3,B2,pension,34.8,pct_of_decile,household,2020

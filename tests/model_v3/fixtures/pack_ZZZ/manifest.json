@@ -94,6 +94,16 @@
    "licence": "unverified",
    "retrieved": "2026-11-21",
    "vintage": "fixture"
+  },
+  {
+   "name": "decile_composition.csv",
+   "dataset": "decile_composition",
+   "sha256": "8d0016c765b53d212a4af6176cf3a43dbd1e3164818c8b252672b64ac9ee963e",
+   "rows": 12,
+   "source": "invented",
+   "licence": "unverified",
+   "retrieved": "2026-11-22",
+   "vintage": "fixture"
   }
  ]
 }

@@ -40,11 +40,24 @@ Whether the digest hashes the pack manifest (agent reports).
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0; block 1: `decile_composition` in `build_gbr.py` (40 rows: decile, band, class, value, unit `pct_of_decile`, basis, year; read from the held `docs/model-v3/kernel-wiring/decile_composition.csv`, values to two decimals; the D10 rows' basis states the tail assumption), `GBR/decile_composition.csv`, manifest entry, NOTICE paragraph, `pack_version` 3; two builds byte-identical (GBR folder and `levers.json`). The loader accepts the dataset (needed to load the pack: schema, `_x_composition(by='decile')`, `pct_of_decile` exempt from the 0 to 100 rule because D1's shares are negative); `core/pack.py` budget 355 to 360 (357 lines). `test_legacy_digest` passes unchanged: the digest does not hash the manifest or the pack hash.
-- **Next:** block 2: `pack_ZZZ` rows; `test_pack.py` tests; update the three pins the new file moves (`test_p1_fixture_loads_every_dataset`, `test_p7_the_uk_pack_hash_is_pinned`, `test_the_uk_pack_carries_the_cell_inputs_and_they_close`).
-- **Decisions:** the held file is the source (as 109c); two-decimal strings; `pct_of_decile` unit.
-- **Gotchas:** the repo was shallow; `git fetch --unshallow` before the build. The band shares are value-weighted sums of Table 2.2 decile rows, so the reproduction test must weight by decile net wealth, not persons or households (to be confirmed by the test).
-- **Resume:** branch `brief/115-decile-composition`; `git fetch origin && git checkout brief/115-decile-composition`; first action: edit `tests/model_v3/fixtures/pack_ZZZ` and `test_pack.py`.
-- **Not run:** the three pack tests fail on this branch until block 2 (pins).
-- **State:** in progress, block 1 done
+- **Done:** blocks 0 to 3. `decile_composition` (40 rows, ten deciles by four classes, two decimals as held, negatives included, D10's `basis` states the tail assumption) built by `build_gbr.py` from the held `docs/model-v3/kernel-wiring/decile_composition.csv`, in `GBR/` with manifest entry, NOTICE paragraph and `pack_version` 3; two builds byte-identical. Loader: schema, `_x_composition(by='decile')`, `pct_of_decile` exempt from the 0 to 100 rule. ZZZ fixture: 12 rows. Tests: two ZZZ error rows, one UK test (40 rows, each decile sums to 100 within 0.05, D1 as published, tail label, band reproduction). Pins updated: `PINNED` (ZZZ hash), `GBR_SHA`, `p.version == 3`; nothing else.
+- **Next:** W4 (pension in the book) and W5 read this table.
+- **Decisions:** the held CSV is the source (as 109c); unit `pct_of_decile`; the tail assumption is in the D10 rows' `basis`, no D10b rows; band reproduction is weighted by the decile's net wealth (`wealth_distribution` `wealth_total`), the max difference is 0.048 pp, under 0.06.
+- **Gotchas:** persons or households as weights (the brief's wording) cannot reproduce the band rows: the band share is value-weighted (the sum of the decile rows of Table 2.2 over the band total), households per decile are equal by construction. The repo was shallow; `git fetch --unshallow` before the build.
+- **Resume:** none; merged.
+- **Not run:** nothing.
+- **State:** done; merged
+
+Change report
+- Task: brief 115c (W3), decile class composition in the pack
+- Files changed: `model_v3/pack/build_gbr.py` (dataset, source, manifest, NOTICE; 219 to 232 lines, outside the 200 budget test); `model_v3/pack/GBR/decile_composition.csv` (new), `manifest.json`, `NOTICE.md`; `model_v3/core/pack.py` (schema, cross-check, the percent rule); `tests/model_v3/test_pack.py`; `tests/model_v3/fixtures/pack_ZZZ/` (`decile_composition.csv`, manifest); `docs/model-v3/architecture.md` (budget rows); this brief
+- What is different now: the pack carries the class mix of each wealth decile (pack_version 3). Nothing reads it yet; no result moved (`test_legacy_digest` passes unchanged: the digest does not hash the manifest or the pack hash).
+- New or changed interfaces: dataset `decile_composition` (`decile band class value unit basis year`); `pk.SCHEMA` has it; `pct_of_decile` values may be negative.
+- Acceptance criteria: ten decile rows by four classes, byte-identical on a second build, as held, tail labelled: met. Decile rows reproduce the band rows to 0.06 pp: met (0.048 at most, net-wealth weights); classes sum to 100 per decile within rounding: met (at most 0.01 off). `test_legacy_digest` unchanged: met. Existing suites: model_v3 261 passed; data (5), cards (1), hooks (1) fail as on main. Diff limited to Touches: met.
+- Deviations from the brief: (1) the reproduction is weighted by decile net wealth, not persons or households (the only weights that reproduce it, see Gotchas); (2) the pack loader needed the dataset in block 1 to load the pack at all, so schema and cross-check landed in block 1; (3) budgets raised: `core/pack.py` 355 to 360 (357 lines), `test_pack.py` 265 to 280 (274 lines), totals updated.
+- Risks / follow-ups: `build_gbr.py` is 232 lines against the 200 of 067c (no test enforces it); W5 must give a negative net financial or property balance 0% real (author's decision, not in this brief).
+- Instruction friction: none
+- Verification: `build_gbr.py` twice, `diff -r` of `GBR/` and `cmp` of `levers.json` identical; `test_legacy_digest`; `python pipeline/run_suites.py` (7 of 10, failures as on main); `python -I pipeline/check_agent_docs.py` exit 0.
+- Overview sections likely needing an update: none
+- Commit / branch: `brief/115-decile-composition`; brief 115 merged, ready to retire
 <!-- progress:end -->
