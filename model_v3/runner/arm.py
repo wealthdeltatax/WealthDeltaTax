@@ -33,7 +33,7 @@ class LegacyHook:
     def grown(self, W0, g):
         return W0 * (1.0 + g) * (1.0 - self.c)
 
-    def gain(self, g):
+    def gain(self, g, run=None):
         return np.maximum((1.0 + g) * (1.0 - self.c) - 1.0, 0.0)
 
     def free(self, g):
@@ -42,13 +42,14 @@ class LegacyHook:
 
 def line_state(base, comp, reg, sav, scale=1.0):
     """The household arm's state of the base's lines, arrays of one entry per line (millions of pounds per adult; income a year): `pos` class -> balance (wealth times the line's decile
-    share of the pack's `decile_composition` rows `comp`, debt netted inside the classes, so D1 keeps its negative shares), `income` (the band mean I-D9 per adult, D1 to D3 the low bound of
+    share of the pack's `decile_composition` rows `comp`, normalised to sum to 1; debt netted inside the classes, so D1 keeps its negative shares), `income` (the band mean I-D9 per adult, D1 to D3 the low bound of
     I-D9a, tail lines the D10 mean, times `scale`, the B.6g factor, off at 1.0), `sav` (the non-pension saving ratio of income, a scenario value) and `acc` (the pension accrual share of income, I-D1k)."""
-    mix = {(r['decile'], r['class']): r['value'] / 100 for r in comp}
+    mix = {(r['decile'], r['class']): r['value'] for r in comp}
     dec = ['D10' if x in TAKES_D10 else x for x in base.labels]
+    tot = {d: sum(mix[d, k] for k in CLASSES) for d in set(dec)}                                          # the printed shares are rounded: normalised so the classes sum to the wealth
     inc = np.where(np.isnan(base.income), reg['I-D9a'].low / reg['I-D4h'].central / 1e6, base.income)
     n = len(base.labels)
-    return dict(pos={k: base.wealth * np.array([mix[d, k] for d in dec]) for k in CLASSES}, income=inc * scale, sav=np.full(n, float(sav)), acc=np.full(n, reg['I-D1k'].central / 100))
+    return dict(pos={k: base.wealth * np.array([mix[d, k] / tot[d] for d in dec]) for k in CLASSES}, income=inc * scale, sav=np.full(n, float(sav)), acc=np.full(n, reg['I-D1k'].central / 100))
 
 
 def returns(pos, g):
@@ -100,3 +101,12 @@ class HouseholdHook:
         if np.any(np.abs(book.family_true() - N) > 1e-9 * np.maximum(1.0, np.abs(N))):
             raise ValueError('I1 fails: the book\'s family value is not the class total')
 
+    def grown(self, W0, g):
+        return self.W_after
+
+    def gain(self, g, run):
+        """The accrued gain rate I3 reads: the run's recorded gain the rate applies to over its rate-weighted wealth, so that eps x gain x wbase is the sum over lines of rate x pre-tax change."""
+        return run['wgain'] / np.where(run['wtau'] > 0, run['wtau'], np.nan)
+
+    def free(self, g):
+        raise ValueError('the untaxed path of site 4 (M3, M12) stays legacy under the household arm: withheld until the comparator brief')

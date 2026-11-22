@@ -42,11 +42,35 @@ Whether the hook should carry paths in the line axis as `revenue.py:64` folds th
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0; block 2: `HouseholdHook(state, gain, growth, c=None)` in `runner/arm.py` (`pre`, `post`, `grown`/`gain`/`free` still to add in block 3), 4 more tests (reproduces `cells.run_cell` to 1e-9 on the ten cells for 40 years with I1 each year; every line gets route units, a line with N <= 0 raises; the debt rule differs from `run_cell` where a balance is negative; a taxed run is refused until W5b; paths fold as the book does); `arm.py` 102 of 140, `pytest tests/model_v3 -q` 279 passed; block 1: `arm.line_state(base, comp, reg, sav, scale=1.0)` (class balances = line wealth x the decile share, D10 mix for D10a, D10b and the tiers; income I-D9 per adult, D1-3 the low bound of I-D9a; `sav`, `acc` I-D1k central) and `arm.returns(pos, g)` (the debt rule: a negative property or net financial balance earns 0). 3 tests in the new `tests/model_v3/test_household_hook.py`. `arm.py` 56 of 140. `pytest tests/model_v3 -q`: 275 passed (legacy digest unchanged).
-- **Next:** block 3: `grown`, `gain`, `free` on the hook; `revenue.py` sites 2 and 3; legacy-mode and 111c-wealth equivalence tests; budget rows; change report.
-- **Decisions:** (1) `pre` returns `x = N1 / (N0 (1 + g_N)) - 1` (not `S/N`) so that growth then the flow reproduce the household step's closing non-pension total exactly; I1 then holds by construction and `post` checks it. (2) A new book (each phase) restarts the hook's state: its route values are rescaled to the non-pension total `N` and `book.pen = book.penp = pension`, so every line holds route units. (3) Unpaid-for taxed run: `post` raises if any WDT value moves (the taxed household arm is W5b).
-- **Gotchas:** (1) `run_lines` takes `W0 = book.family_true()`, which excludes `book.pen`; under the household hook the base is total net wealth, so block 3 edits that line (and moves the `W1`/`pay1`/`rate1` lines after the `step_year` loop so the hook's `W_after` exists; for legacy `grown` is pure, so bit equal). (2) `identity` needs the pre-tax gain rate by line weight, so block 3 adds a recorded `wgain` (numerator) to the run, hook case only.
-- **Resume:** `git fetch origin && git checkout brief/117-w5a-household-hook`; last block pushed: 2; first action: revenue.py `run_lines` (W0 includes `book.pen`; W1 after the loop; `wgain`) and `identity`.
-- **Not run:** blocks 2 and 3, `check_agent_docs.py`, data/hooks suites.
-- **State:** in progress, block 2 pushed
+- **Done:** blocks 0 to 3. `arm.line_state`, `arm.returns`, `arm.HouseholdHook(state, gain, growth, c=None)` (`pre`, `post`, `grown`, `gain`, `free`); `revenue.run_lines` sites 2 and 3; 11 tests in `tests/model_v3/test_household_hook.py` (125 lines); `arm.py` 112 of 140. `pytest tests/model_v3 -q`: 283 passed, the legacy digest and the 084c and 092c pins unchanged.
+- **Next:** none for W5a. W5b (the taxed arm: payment through `apply_payment`, I1 after payment) is the next brief.
+- **Decisions:** (1) `pre` returns `x = N1 / (N0 (1 + g_N)) - 1`, not `S/N`, so growth then flow hit the household step's closing non-pension total exactly (I1 by construction; `post` checks it every year to 1e-9 relative). (2) A new book (each phase) restarts the hook's state; its route values are rescaled to N and `pen = penp = pension`, so every line holds route units. (3) `line_state` normalises each decile's printed class shares to sum to 1 (they sum to 100 +- 0.01), else the classes would not sum to the line's wealth. (4) `post` raises if value moves to the state: the taxed arm is W5b. (5) `free` raises: site 4 stays legacy (M3, M12 withheld). (6) Legacy mode (`c` given): the book runs the LegacyHook path (bit for bit), the classes follow the legacy rule including the pension, I1 checked on all classes.
+- **Gotchas:** (1) `run_lines` now takes `W0 = family_true() + book.pen` (pen is zero in the legacy arm, so no change there) and reads `W1`, `pay1`, `rate1` after the `step_year` loop (pure for legacy, bit equal) so that the hook's `W_after` exists; it records `wgain` only when a hook is given. (2) `hook.gain` now takes `(g, run)`; `LegacyHook.gain(g, run=None)`. (3) `household.py` needed no edit: `household_step` is already array-valued; the hook folds paths by tiling the line arrays `n // L` times (path-major, as the book does; tested). (4) The I3 identity is tested for one taxed year only, with a test subclass that leaves the payment out; later years need W5b.
+- **Resume:** done.
+- **Not run:** nothing skipped.
+- **State:** done
 <!-- progress:end -->
+
+### Equivalence results
+| Check | Result |
+|---|---|
+| Hook (T = 0) against `cells.run_cell`, ten cells, 40 years, all four classes | max gap 9.9e-14 (thousand pounds per household); the brief asks 1e-9 |
+| Aggregate wealth at years 1, 10, 50, 100 against the stored 111c `aggregates.csv` (A_mid_median) | max relative gap 1.1e-14; the brief asks 1e-9 |
+| I1 (book units equal N, book pension equals the pension balance), every year | holds to 1e-9 relative (checked in `post`) |
+| Legacy mode against `LegacyHook`, 20 years of random path returns | `np.array_equal` on every route array, `paid` and the family value |
+| Convention B first-year dNW against the hook, ten cells | max gap below 1e-9 (no double count) |
+| Debt rule | a negative net financial or property balance earns 0 real; D1-3 at minimum saving differ from `run_cell`, which still credits the gain (the rule is W5a's, labelled) |
+| Sites 2 and 3, one taxed year | `wbase` is units plus pension; the I3 gap `identity(...)['assessed']` is below 1e-9 |
+
+Change report
+- Task: brief 117c, W5a, the household hook, untaxed
+- Files changed: `model_v3/runner/arm.py`; `model_v3/core/revenue.py` (sites 2 and 3); `tests/model_v3/test_household_hook.py` (new); `docs/model-v3/architecture.md` (one note); this brief
+- What is different now: the kernel can run the household arm with no tax, for all 14 lines, with a legacy mode that reproduces the legacy path.
+- New or changed interfaces: `arm.line_state`, `arm.returns`, `arm.HouseholdHook`; `hook.gain(g, run)`
+- Acceptance criteria: all met and measured (table above); budgets met (`arm.py` 112 <= 140, tests 60 + 125 <= 210); `git diff --stat` within Touches
+- Deviations from the brief: `line_state` normalises the printed shares; `household.py` not edited (already vectorised)
+- Risks / follow-ups: W5b must add payment and re-test I3 over several years; death steps under the hook are untested while untaxed
+- Instruction friction: none
+- Verification: full `pipeline/run_suites.py` (model_v3 283 passed; data 5, cards 1, hooks 1 failed, all three also fail on main); `check_agent_docs.py` clean
+- Overview sections likely needing an update: none
+- Commit / branch: `brief/117-w5a-household-hook`; merged, ready to retire

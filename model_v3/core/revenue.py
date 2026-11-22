@@ -66,7 +66,7 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
     yy = np.cumprod(1.0 + gdp_g, axis=0)
     idx = yy if index == 'gdp_pc' else np.ones_like(yy)
     V0 = {r: np.tile(v, P) for r, v in (routes or base.V0).items()}
-    keys = ('assessed', 'tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D', 'payers', 'entries', 'exits', 'fall_through', 'wbase', 'wtau')
+    keys = ('assessed', 'tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D', 'payers', 'entries', 'exits', 'fall_through', 'wbase', 'wtau') + (('wgain',) if hook is not None else ())
     out = {k: np.zeros((T, P)) for k in keys}
     agg = lambda x, ww=w: (ww[None, :] * x.reshape(P, L)).sum(axis=1) * A
     cnt = lambda m: (base.adults_k[None, :] * m.reshape(P, L)).sum(axis=1) / n_phase
@@ -78,12 +78,9 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
         prev = np.ones(n, bool) & (np.tile(base.wealth, P) >= wmin)
         for t in range(1, T + 1):
             il = np.repeat(idx[t - 1], L)
-            W0 = book.family_true()
+            W0 = book.family_true() + book.pen                                          # the assessed base: units plus the pension balance (zero in the legacy arm)
             pay = W0 >= wmin * il
             gr = np.repeat(g[t - 1], L)
-            W1 = W0 * (1.0 + gr) * (1.0 - c) if hook is None else hook.grown(W0, gr)   # wealth after growth and consumption, before tax
-            pay1 = W1 >= wmin * il
-            rate1 = np.asarray(rate_fn(W1 / il), float)                                    # the kernel reads the rate at the new wealth
             pt, xv, hv, lv, dv, ass = (np.zeros(n) for _ in range(6))
             for kind, fl in K.step_year(book, rate_fn, il, gr, c, 1.0, 1.0, lam_C, lam_D, False, hook, t):
                 if kind == 'tax':
@@ -100,6 +97,9 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
                         lv += v
                     elif kind == 'death_D':
                         dv += v
+            W1 = W0 * (1.0 + gr) * (1.0 - c) if hook is None else hook.grown(W0, gr)   # wealth after growth and flow, before tax (read after the year: the household hook sets it in the step)
+            pay1 = W1 >= wmin * il
+            rate1 = np.asarray(rate_fn(W1 / il), float)                                    # the kernel reads the rate at the new wealth
             pt = np.where(np.abs(pt) < 1e-12, 0.0, pt)
             tt = t - 1
             out['assessed'][tt] += agg(ass)
@@ -115,6 +115,8 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
             out['fall_through'][tt] += agg(np.where((pt < 0) & prev & ~pay, -pt, 0.0))
             out['wbase'][tt] += agg(np.where(pay1, W0, 0.0))
             out['wtau'][tt] += agg(np.where(pay1, W0 * rate1, 0.0))
+            if hook is not None:                                                           # the pre-tax gain the rate applies to, by line (the identity's I3 reads it under the household hook)
+                out['wgain'][tt] += agg(np.where(pay1 & (W0 > 0), rate1 * np.maximum(W1 - W0, 0.0), 0.0))
             prev = pay
     return {**out, 'gdp_index': yy, 'adults_k': A}
 
@@ -239,7 +241,7 @@ def identity(run, g, c, hook=None):
     gain rate (1 + r)(1 - c) - 1 where positive, omega the start-of-year wealth of the lines taxed and eps its wealth-weighted marginal rate at the new
     wealth: the gap `assessed` is an accounting error (zero up to rounding). `total` is the gap of eps x g x omega + refunds against M1a, which carries what the
     routes defer (Route D) and the death flows no gain rate explains; both are relative to |M1a|. Returns those, eps, g and omega averaged over the years."""
-    gacc = np.maximum((1.0 + g) * (1.0 - c) - 1.0, 0.0) if hook is None else hook.gain(g)
+    gacc = np.maximum((1.0 + g) * (1.0 - c) - 1.0, 0.0) if hook is None else hook.gain(g, run)
     eps = run['wtau'] / np.where(run['wbase'] > 0, run['wbase'], np.nan)
     pred = np.nansum(eps * gacc * run['wbase'], axis=0)
     m1a = sum(run[k].sum(axis=0) for k in ('tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D'))

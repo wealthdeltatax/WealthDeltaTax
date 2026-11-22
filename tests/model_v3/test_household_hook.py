@@ -4,7 +4,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from model_v3.core import base as bs, cells as ce, kernel as K, pack as pk
+from model_v3.core import base as bs, cells as ce, kernel as K, pack as pk, revenue as rv, schedule as S
 from model_v3.runner import arm
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -17,13 +17,13 @@ GAIN = dict(property=0.016455, net_financial=0.0094, physical=0.0, pension=0.009
 
 def test_class_balances_sum_to_line_wealth_and_d1_keeps_its_negative_shares():
     assert all(a.shape == (14,) for a in (*ST['pos'].values(), ST['income'], ST['sav'], ST['acc']))
-    assert np.allclose(sum(ST['pos'].values()), BASE.wealth, rtol=2e-4, atol=0)
-    assert ST['pos']['property'][0] == pytest.approx(-0.0472 * BASE.wealth[0]) and ST['pos']['net_financial'][0] == pytest.approx(-1.0492 * BASE.wealth[0])
+    assert np.allclose(sum(ST['pos'].values()), BASE.wealth, rtol=1e-12, atol=0)
+    assert ST['pos']['property'][0] == pytest.approx(-0.0472 * BASE.wealth[0], rel=1e-3) and ST['pos']['net_financial'][0] == pytest.approx(-1.0492 * BASE.wealth[0], rel=1e-3)
 
 
 def test_tail_lines_carry_the_d10_mix_and_the_incomes_are_the_band_means():
     sh = {k: v / BASE.wealth for k, v in ST['pos'].items()}
-    assert all(np.allclose(sh[k][9:], sh[k][9]) for k in sh) and sh['pension'][9] == pytest.approx(0.364) and sh['pension'][3] == pytest.approx(0.3614)
+    assert all(np.allclose(sh[k][9:], sh[k][9]) for k in sh) and sh['pension'][9] == pytest.approx(0.364, rel=1e-3) and sh['pension'][3] == pytest.approx(0.3614, rel=1e-3)
     per = REG['I-D4h'].central * 1e6
     assert ST['income'][0] == pytest.approx(REG['I-D9a'].low / per) and ST['income'][3] == pytest.approx(REG['I-D9a'].central / per) and ST['income'][13] == pytest.approx(REG['I-D9d'].central / per)
     assert np.allclose(arm.line_state(BASE, COMP, REG, 0.0101, scale=1.3733)['income'], 1.3733 * ST['income']) and ST['acc'][0] == REG['I-D1k'].central / 100 and (ST['sav'] == 0.0101).all()
@@ -41,12 +41,12 @@ RETS = dict(g=GAIN, y=dict(property=0.03758, net_financial=0.0426, physical=0.0,
 ZERO = lambda w: np.zeros_like(w)
 
 
-def drive(hook, st, years, paths=1, rate=ZERO):
+def drive(hook, st, years, paths=1, rate=ZERO, g=None):
     """The kernel's year with no tax under `hook` on lines carrying `st`: yields (t, book) with the classes' total in the book's routes."""
     n, tot = paths * len(st['income']), np.tile(sum(st['pos'].values()), paths)
     book = K.Book(n, {'A': 0.6 * tot, 'B': 0.4 * tot})
     for t in range(1, years + 1):
-        K.step_year(book, rate, 1.0, np.zeros(n), 0.0, hook=hook, t=t)
+        K.step_year(book, rate, 1.0, np.zeros(n) if g is None else g[t - 1], 0.0, hook=hook, t=t)
         yield t, book
 
 
@@ -83,3 +83,43 @@ def test_the_state_folds_with_paths_as_the_book_does_and_each_path_equals_a_sing
     list(drive(one, ST, 8))
     list(drive(three, ST, 8, paths=3))
     assert all(np.array_equal(three.q[k].reshape(3, 14), np.tile(one.q[k], (3, 1))) for k in arm.CLASSES)
+
+
+def test_the_untaxed_hook_reproduces_the_stored_111c_baseline_wealth():
+    cells = ce.scaled(ce.cell_table(PACK, REG, 0.4385526696023258), 1801414000000.0)[0]               # the constants of docs/model-v3/cell-baseline/inputs_used.json (mid return, median saving, accrual observed)
+    st = dict(pos={k: np.array([c['pos'][k] for c in cells]) for k in arm.CLASSES}, income=np.array([c['income'] for c in cells]), sav=np.full(10, 0.0100626), acc=np.full(10, 0.0483))
+    n, h = np.array([c['households'] for c in cells]), arm.HouseholdHook(st, dict(GAIN, net_financial=0.052 - 0.0426115, pension=0.052 - 0.0426115), 0.01570385404020596)
+    stored = {1: 13827087740420, 10: 16372370305364, 50: 34185897638460, 100: 83136904645147}
+    for t, _ in drive(h, st, 100):
+        if t in stored:
+            assert (n * sum(h.q[k] for k in arm.CLASSES)).sum() * ce.UNIT == pytest.approx(stored[t], rel=1e-9)
+
+
+def test_the_legacy_mode_reproduces_the_legacy_hook_path_to_zero_and_keeps_the_classes_at_the_book():
+    g, c, rate = np.random.default_rng(4).uniform(-0.2, 0.3, (20, 14)), 0.035, ZERO
+    a, b = (list(drive(hk, ST, 20, rate=rate, g=g))[-1][1] for hk in (arm.LegacyHook(c), arm.HouseholdHook(ST, GAIN, c=c)))
+    assert all(np.array_equal(a.R[r][k], b.R[r][k]) for r in a.R for k in a.R[r]) and np.array_equal(a.paid, b.paid) and np.array_equal(a.family_true(), b.family_true())
+
+
+class Free(arm.HouseholdHook):
+    """A taxed year with the payment half left out (W5b): the classes roll forward untaxed, so only the first year of a run is consistent."""
+    def post(self, book, fl):
+        self.q = self.q1
+
+
+def test_sites_2_and_3_read_the_hook_wealth_and_the_recorded_gain_and_i3_closes():
+    rate, g, gg = S.rate_function(k=0.01, tau_0=0.15, tau_m=0.70, W_min=BASE.w_min), np.zeros((1, 3)), np.full((1, 3), 0.0157)
+    h = Free(ST, GAIN, 0.0157)
+    run = rv.run_lines(BASE, rate, g, gg, 0.0, hook=h, n_phase=1)
+    w0, w1 = np.tile(BASE.wealth, 3), h.W_after
+    assert np.allclose(run['wbase'][0], run['adults_k'] * (np.tile(BASE.weights, 3) * np.where(w1 >= BASE.w_min, w0, 0.0)).reshape(3, 14).sum(1), rtol=1e-12)    # the base is units plus pension
+    assert run['assessed'].min() > 0 and rv.identity(run, g, 0.0, h)['assessed'].max() < 1e-9
+    zero = rv.run_lines(BASE, ZERO, np.zeros((6, 3)), np.full((6, 3), 0.0157), 0.0, hook=arm.HouseholdHook(ST, GAIN, 0.0157))        # six untaxed years in six phases: I1 is checked in every year
+    assert zero['tax'].max() == 0.0
+
+
+def test_convention_b_gives_the_same_first_year_account_so_nothing_is_counted_twice():
+    h = arm.HouseholdHook(CST, GAIN, 0.0157)
+    list(drive(h, CST, 1))
+    b = [ce.run_cell(c, 1, 0.0101, 0.0483, 0.0157, RETS, 'B')[0][2]['dNW'] for c in CELLS]
+    assert np.abs(sum(h.q[k] for k in arm.CLASSES) - sum(CST['pos'][k] for k in arm.CLASSES) - b).max() < 1e-9
