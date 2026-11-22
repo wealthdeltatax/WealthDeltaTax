@@ -177,7 +177,8 @@ def m3(fl, rates, G=G, inlife=False):
 def free_path(base, g, c, G=G, hook=None):
     """Wealth of each line with no wealth tax, years 0 to G: (G + 1, L, P). g is (T, P)."""
     f = (1.0 + np.asarray(g, float)[:G]) * (1.0 - c) if hook is None else hook.free(np.asarray(g, float)[:G])
-    return np.concatenate([np.ones((1, 1, f.shape[1])), np.cumprod(f, axis=0)[:, None, :]]) * base.wealth[None, :, None]
+    f = f if f.ndim == 3 else f[:, None, :]                                                        # a hook's path is per line (G, L, P); the legacy one is common to the lines
+    return np.concatenate([np.ones((1,) + f.shape[1:]), np.cumprod(f, axis=0)]) * base.wealth[None, :, None]
 
 
 def _pooled(base, W, G, rates, per_line):

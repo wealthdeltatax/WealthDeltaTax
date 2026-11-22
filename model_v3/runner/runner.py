@@ -155,14 +155,14 @@ def patched(ctx, theta):
 
 @dataclass(frozen=True)
 class Env:
-    """What a group reads besides `Raw`: `ctx`, this evaluation's inputs `theta` (a level 2 draw's), the `pack`, the lambdas `lam` (fractions) and `rng(name)`: a
-    Generator from the run stream's SeedSequence entropy and spawn key plus `key` (chunk or draw) and a hash of the name. It spawns and draws nothing."""
+    """What a group reads besides `Raw`: `ctx`, `theta` (a draw's inputs), the `pack`, the lambdas `lam`, `arm(base)` (the run's arm for a base) and `rng(name)`: a Generator from the run stream's SeedSequence plus `key` and a hash of the name; it draws nothing."""
     ctx: object
     theta: dict
     pack: object
     lam: dict
     seq: object
     key: tuple
+    arm: object = None                                                                      # base -> the run's `arm.Arm` (the layer-3.5 groups cannot import arm.py), 126c
 
     def rng(self, name):
         h = int.from_bytes(hashlib.sha256(name.encode()).digest()[:4], 'big')
@@ -170,7 +170,7 @@ class Env:
 
 
 def env_of(ctx, theta, seq=None, key=()):
-    return Env(ctx, theta, ctx.pack, dict(lam_C=theta['I-D14a'] / 100, lam_D=theta['I-D14b'] / 100), np.random.SeedSequence(0) if seq is None else seq, tuple(key))
+    return Env(ctx, theta, ctx.pack, dict(lam_C=theta['I-D14a'] / 100, lam_D=theta['I-D14b'] / 100), np.random.SeedSequence(0) if seq is None else seq, tuple(key), lambda b: ab.build(ctx.arm, ctx, theta, b))
 
 
 @dataclass(frozen=True)
@@ -226,7 +226,7 @@ def headlines(raw, ctx, theta):
     out = {x: {k: win(r[x], k) for k in HORIZONS} for x in ('M1', 'M1a', 'M1b', 'M1c', 'M1d')}
     out['M2'] = {k: {b_: gate(k, v) for b_, v in bd.m2(fl, lo[k], hi[k]).items()} for k in HORIZONS}
     out['M4a'] = {k: {d: gate(k, v) for d, v in bd.m4(r['P5'], hi[k], raw.inc, ctx.bill, ctx.income)['M4a'].items()} for k in HORIZONS}
-    if raw.arm['arm'] == 'legacy': out['M3'] = bd.m3(fl, (theta['I-D11a'], theta['I-D11b'], theta['I-D11c']))   # M3 reads the legacy c (withheld under the household arm, 121c)
+    out['M3'] = bd.m3(fl, (theta['I-D11a'], theta['I-D11b'], theta['I-D11c']))
     out['neg'] = {k: np.where(np.isfinite(out['M1'][k]), out['M1'][k] < 0, False) for k in HORIZONS}
     out['P3h'] = {k: (ex * (t <= hi[k][None, :])).sum(axis=0) for k in HORIZONS}
     return {**out, 'P1': r['P1'], 'P7b': r['P7b'], 'fill': r['fill'], 'unfilled': r['unfilled'], 'long_T': r['long_year_T']}

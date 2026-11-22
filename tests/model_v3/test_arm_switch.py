@@ -59,8 +59,8 @@ def test_the_household_arm_withholds_the_legacy_c_outputs_and_produces_the_rest(
     ev = {'S': R.evaluate(c2, c2.centre, SPEC, *PATHS)}
     s = R.samples(ev, c2.ids, c2.once, R.statics(c2, c2.centre))
     held = ab.withheld(R.core_run(c2, c2.centre, SPEC, *PATHS).arm)
-    assert set(ab.WITHHELD) == {'O3', 'OH1b', 'OH1c', 'OW1', 'OW3', 'OM1'} and held == {**dict.fromkeys(ab.WITHHELD, 'legacy_only'), **ab.WITHHELD_BY}
-    assert not any(s.get(i) for i in ab.WITHHELD) and 'M3' not in ev['S']                                     # no value under a withheld id
+    assert set(ab.WITHHELD) == {'OW1', 'OW3', 'OM1'} and not ab.WITHHELD_BY and held == {**dict.fromkeys(ab.WITHHELD, 'legacy_only'), **ab.WITHHELD_BY}
+    assert not any(s.get(i) for i in ab.WITHHELD) and np.isfinite(ev['S']['M3']).any()                         # no value under a withheld id; M3 is produced (126c)
     assert all(s[i] for i in s if i not in held)                                                       # every id produced is non-empty
     assert ab.withheld(dict(arm='legacy')) == {} and set(s) | set(held) >= {'O1', 'O2', 'O4a', 'O7', 'OW2', 'OS1'}
     o, _ = assemble.assemble(out, {}, None, 'provisional', {i: held[i] for i in ab.WITHHELD})
@@ -69,7 +69,7 @@ def test_the_household_arm_withholds_the_legacy_c_outputs_and_produces_the_rest(
         assemble.assemble(out, {'O3': {('S', 'single', (), None): np.ones(3)}}, None, 'provisional', {'O3': 'legacy_only'})
 
 
-def test_the_tornado_leaves_out_the_withheld_m3_head_and_a_household_file_passes_final(out, tmp_path):
+def test_the_tornado_keeps_the_m3_head_and_a_household_file_with_the_returned_ids_passes_final(out, tmp_path):
     ev = lambda *a, **k: {x: v for x, v in fake()(*a, **k).items() if x != 'M3'}                      # a household-arm evaluation holds no M3
     rows = {'a': type('Row', (), dict(low=0.0, high=1.0))(), 'b': type('Row', (), dict(low=0.0, high=1.0))()}
     t = S.tornado(ev, {'S': dict(SPEC)}, rows, {'a'})
@@ -77,11 +77,10 @@ def test_the_tornado_leaves_out_the_withheld_m3_head_and_a_household_file_passes
     held = ab.withheld(dict(arm='household'))
     drop = [i for i in held if isinstance(held[i], str)]
     smp = synthetic(skip=drop)
-    smp['OT1'] = {k: v for k, v in smp['OT1'].items() if dict(k[2])['headline'] != 'M3'}
     o, _ = assemble.assemble(out, smp, None, 'final', held)
     run = writer.run_block(out, MANIFEST, INPUTS, LEVERS, {**INFO, 'status': 'final', 'pack_sha256': 'x' * 64, 'pack_country': 'UK', 'arm': dict(arm='household', central=False)})
     path = writer.write_outputs(tmp_path, writer.document(o, {}, run), MANIFEST, INPUTS)               # the validator runs inside with --final and raises on any error
-    assert path.exists() and o['OT1']['withheld_by'] == dict(headline=dict(M3='legacy_only')) and not o['O3']['cells']
+    assert path.exists() and 'withheld_by' not in o['OT1'] and o['O3']['cells'] and not o['OW1']['cells']
     legacy = writer.document(o, {}, {**run, 'arm': 'legacy'})
     with pytest.raises(writer.WriterError, match='V7'):
         writer.write_outputs(tmp_path, legacy, MANIFEST, INPUTS)

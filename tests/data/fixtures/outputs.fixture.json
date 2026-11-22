@@ -1,6 +1,6 @@
 {
  "schema": "wdt-outputs/1",
- "run": {"manifest_version": "stage-A14-arms-2026-11-22", "manifest_sha256": "bb312a2f4b7a8c3cc4e333de98671e4aebeba961bc7610e4b83ff3c9916d9572", "country_pack": "UK", "run_date": "2026-01-01", "status": "provisional", "model_version": "fixture", "inputs_sha256": "11b3f4dfb105d5fdd2ed51b85be2ebc6f62db82740cd1efc853bb979336b7c5e", "paths": 0, "base_year": 2025, "fixture": true, "pack_sha256": "56eea9d6c3a1c74993f772679c132a732038ad54d9390dfad1ec4d5437e0bf25", "pack_country": "UK", "levers_sha256": "97cc0e18248aed74f3d146d8ff77877280d3ee8fd3ab3d2e35b8825cd1a7d426"},
+ "run": {"manifest_version": "stage-A15-comparators-2026-11-22", "manifest_sha256": "e6e9bbe5c95c3f36b613e9bddbc6a3c044b8f64c67742c438e833f8902e79cb9", "country_pack": "UK", "run_date": "2026-01-01", "status": "provisional", "model_version": "fixture", "inputs_sha256": "11b3f4dfb105d5fdd2ed51b85be2ebc6f62db82740cd1efc853bb979336b7c5e", "paths": 0, "base_year": 2025, "fixture": true, "pack_sha256": "56eea9d6c3a1c74993f772679c132a732038ad54d9390dfad1ec4d5437e0bf25", "pack_country": "UK", "levers_sha256": "97cc0e18248aed74f3d146d8ff77877280d3ee8fd3ab3d2e35b8825cd1a7d426"},
  "outputs": {
   "O1": {"summary": "p10_mean_p90", "cells": [
    {"schedule": "S_low", "horizon": "transition", "line": "M1", "by": {}, "p10": 1.7, "mean": 3.4, "p90": 5.1},

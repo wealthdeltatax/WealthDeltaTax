@@ -42,11 +42,11 @@ Whether M15 and M9 have a base on the account (the agent states it per id).
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0: this progress block.
-- **Next:** block 1 (M3 and M12): read `kernel-wiring-design.md` 3.6, then `burden.py` (`free_path`, `m3`, `m3_today`, `m12`), `arm.py`, `out_burden.py`.
-- **Decisions:** none yet.
-- **Gotchas:** none yet.
-- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/126-comparators origin/brief/126-comparators`; last block pushed: 0.
-- **Not run:** everything.
-- **State:** in progress; block 0 pushed
+- **Done:** blocks 0, 1. M3, OH1b, OH1c and OT1's M3 head are back under the household arm: `HouseholdHook.free` (T = 0 through the same year, per line), `burden.free_path` takes a per-line path, `out_burden.static` builds the arm's hook through `Env.arm(base)`, `runner.headlines` computes M3 for both arms; `arm.WITHHELD` is OW1, OW3, OM1; `WITHHELD_BY` empty; manifest `arms` and `arms_by` removed for the returned ids (version `stage-A15-comparators-2026-11-22`), fixture regenerated, data and run_grid tests follow.
+- **Next:** block 2 (M13 and the comparators on the account's CG and C); first action: read `support.system_run`, `_record`, the comparators, `out_support.py` OW1.
+- **Decisions:** M3's denominator is the run's own positive net change in wealth (saving included), as under legacy (net of consumption there); not CG only. `Env` gains a field `arm(base)` because layer 3.5 cannot import `arm.py`. `arm.py` budget 235.
+- **Gotchas:** `runner.py` stays 360 (Env docstring shortened by a line). Data and model_v3 suites cannot run in one pytest session (two conftests): `run_suites.py`.
+- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/126-comparators origin/brief/126-comparators`; last block pushed: 1.
+- **Not run:** blocks 2 and 3; full suites after block 1 (data 94 and model_v3 passed except the two fixed tests; rerun at the end).
+- **State:** in progress; block 1 pushed
 <!-- progress:end -->

@@ -29,7 +29,7 @@ Smoke run: 29 ids produced, 6 withheld, 5 not produced by a single evaluation (s
 | O1e | M1f | not run here | break-even return, from `sweeps.breakeven_return` (a sweep, not one evaluation); not exercised under the household arm in 121c |
 | O2 | M2 | produced | in life: the horizon settlement counts with the death flows and is left out of M2 by construction; `fl` now equals the receipts in every year |
 | O2b, O2c, O2d | M2b, M2c, M2d | produced | count the horizon settlement (fixed by 123c) in windows that include year T |
-| O3 | M3 | **withheld `legacy_only`** | `burden.m3` reads `free_path` with the legacy c; returns with the comparators-on-the-account brief (not yet written) |
+| O3 | M3 | produced (126c) | `burden.m3` reads the run's own flows (the net change in wealth, saving included, as under legacy); no `free_path` |
 | O4a | M4a | produced | M4a reads the retirement years and the pack's deciles, not `fl`; the 121c note was wrong to list it with the gap |
 | O4b, OL1 | M4b, M4c | produced | read `P5` and the income deciles, not `fl` |
 | O5, O6 | M5, M6 | produced | register rows only |
@@ -37,9 +37,9 @@ Smoke run: 29 ids produced, 6 withheld, 5 not produced by a single evaluation (s
 | O8 | M8 | produced | no c |
 | OP1, OP3, OP4, OP5, OP6, OR1 | P1, P3, P4, P5, P6, P7 | produced | from the ledger and the safe series (the stand-in) |
 | OS1 | S1 | produced | reruns the core under the household arm |
-| OH1b | M3 (today) | **withheld `legacy_only`** | `burden.m3_today` and `free_path` with the legacy c; same later brief as O3 |
+| OH1b | M3 (today) | produced (126c) | `m3_today` on the household hook's untaxed path (`HouseholdHook.free`, T = 0 through the same year), the static base at ratio 0.5 |
 | OH1b2 | M11 | produced | register row I-T1d |
-| OH1c | M12 | **withheld `legacy_only`** | `burden.m12` and `free_path` with the legacy c; same later brief |
+| OH1c | M12 | produced (126c) | `m12` on the same untaxed path |
 | DH1a, DH1b | none | not run here | pack facts (`static`, once); the smoke context holds no `once` list; unchanged by the arm |
 | DH1c | none | produced | pack and retired taxes |
 | OW1 | M13 | **withheld `legacy_only`** | `support.system_run` comparators take the legacy c; same later brief |
@@ -49,9 +49,9 @@ Smoke run: 29 ids produced, 6 withheld, 5 not produced by a single evaluation (s
 | OD1 | M7 | produced | no c |
 | OM1 | M9 | **withheld `legacy_only`** | found by the site scan: the migration spend is c times mean wealth; same later brief or its own |
 | OF1 | F1 | not run here | feasibility map (a sweep); not exercised under the household arm |
-| OT1 | T1 | produced without its M3 head (122c) | `sweeps.tornado` leaves the M3 head out when the evaluation holds no M3; `assemble` writes `withheld_by: {headline: {M3: legacy_only}}`; the other heads run. Not exercised on the model under the household arm |
+| OT1 | T1 | produced with its M3 head (126c) | the M3 head returned; the manifest has no `arms_by` |
 
-The set withheld is `arm.WITHHELD` (O3, OH1b, OH1c, OW1, OW3, OM1); the module-to-id table of `architecture.md` 2.10 and the manifest are unchanged and still agree (`test_w7`).
+The set withheld is `arm.WITHHELD` (OW1, OW3, OM1 since 126c block 1; O3, OH1b, OH1c and OT1's M3 head returned); the module-to-id table of `architecture.md` 2.10 and the manifest are unchanged and still agree (`test_w7`).
 
 ## Manifest amendment (applied by 122c; as proposed by 121c, plus the OT1 head)
 

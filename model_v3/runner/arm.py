@@ -16,10 +16,10 @@ from model_v3.core import household as hh
 
 CLASSES = ('property', 'net_financial', 'physical', 'pension')
 PROPERTY_GAIN = 0.016455                                                                            # F-20: the JST housing holding gain, all years (cell_baseline.py); a scenario value, not a register row
-WITHHELD = dict(O3='M3', OH1b='M3', OH1c='M12', OW1='M13', OW3='M15a, M15b', OM1='M1 migration, X, M9')   # outputs that read the legacy c (the sites `free_path`, `system_run`, the kernel rerun, the migration spend)
+WITHHELD = dict(OW1='M13', OW3='M15a, M15b', OM1='M1 migration, X, M9')   # outputs that read the legacy c (the sites `free_path`, `system_run`, the kernel rerun, the migration spend)
 
 
-WITHHELD_BY = dict(OT1=dict(headline=dict(M3='legacy_only')))                                       # an output kept without those by-values (the tornado's M3 head)
+WITHHELD_BY = {}                                                                                     # an output kept without some by-values: none since 126c (the tornado's M3 head returned)
 
 
 def withheld(label):
@@ -124,11 +124,15 @@ class HouseholdHook:
             self.W_after = sum(self.q1[k] for k in CLASSES)
             return g, -self.c
         gn = returns(self.q, self.gn)
-        self.q1, self.acct = hh.household_step('arm', self.q, dict(Y_L=inc * (1.0 + self.acc), C=(1.0 - self.sav) * inc, pen_in=self.acc * inc), dict(g=gn), defl, 'A', sink='net_financial', source_weights=dict(property=1.0))
+        self.q1, self.acct = self._year(self.q, inc, self.sav, self.acc, gn)
         self.nw0, self.T, self.unpaid = sum(self.q[k] for k in CLASSES), 0.0, 0.0
         g_n = sum(np.asarray(gn[k]) * self.q[k] for k in CLASSES[:3]) / N0
         book.pen, self.W_after = self.q1['pension'], sum(self.q1[k] for k in CLASSES)
         return g_n, self._n(self.q1) / (N0 * (1.0 + g_n)) - 1.0                                     # growth then the flow reach the household's closing non-pension total exactly (I1)
+
+    def _year(self, q, inc, sav, acc, gn):
+        """The household's year before any tax (convention A): the closing balances and the account of balances `q` with income `inc`, saving ratio `sav`, pension accrual `acc` and the holding gains `gn`."""
+        return hh.household_step('arm', q, dict(Y_L=inc * (1.0 + acc), C=(1.0 - sav) * inc, pen_in=acc * inc), dict(g=gn), dict(cpi=0.0, hfce=0.0), 'A', sink='net_financial', source_weights=dict(property=1.0))
 
     def _pay(self, q, T):
         """The payment T (a line's value moved to the state, negative a refund) on the classes q, pro rata to the positive non-pension balances; pension is never sold. Adds to the year's T and unpaid."""
@@ -182,7 +186,13 @@ class HouseholdHook:
         return run['wgain'] / np.where(run['wtau'] > 0, run['wtau'], np.nan)
 
     def free(self, g):
-        raise ValueError('the untaxed path of site 4 (M3, M12) stays legacy under the household arm: withheld until the comparator brief')
+        """The untaxed path of site 4 (M3, M12): each line's yearly growth factor of total wealth, pension included, (G, L, P), from the opening balances with T = 0 through the same household step (126c); the scenario rates are the same on every path."""
+        q, out = {**{k: np.asarray(v, float) for k, v in self.st['pos'].items()}, 'debt': np.zeros(len(self.st['income']))}, []
+        for t in range(len(g)):
+            q1, _ = self._year(q, self.st['income'] * (1.0 + self.gr) ** t, self.st['sav'], self.st['acc'], returns(q, self.gn))
+            w0, w1 = (sum(x[k] for k in CLASSES) for x in (q, q1))
+            out, q = out + [np.where(w0 != 0, w1 / np.where(w0 != 0, w0, 1.0), 1.0)], q1
+        return np.broadcast_to(np.array(out)[:, :, None], (*np.shape(out), g.shape[1]))
 
 
 def household_inputs(ctx, base, inp, sav, regime='mid'):
