@@ -39,11 +39,11 @@ Where the 5-line saving in `runner.py` comes from (agent reports).
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
+- **Done:** block 0 (progress block pushed).
+- **Next:** block 1: kernel `step_year(hook=None)` and a signed flow share in `grow_and_consume`; tests; `test_legacy_digest`.
 - **Decisions:**
 - **Gotchas:**
-- **Resume:** (exact branch name and fetch line, last block pushed, first action)
+- **Resume:** branch `brief/114-hook-plumbing`; `git fetch origin && git checkout brief/114-hook-plumbing`; first action: read `kernel.py` `step_year` and `grow_and_consume`.
 - **Not run:**
-- **State:** ready; not started
+- **State:** in progress, block 0 done
 <!-- progress:end -->
