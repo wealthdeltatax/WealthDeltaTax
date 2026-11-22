@@ -264,3 +264,6 @@ Author: Q4 payment above non-pension wealth is capped and the excess reported (`
 ## 2026-11-22: decile mix and the debt return
 Author: the decile class mix is confirmed as held (WAS Table 2.2 shares of net wealth, net of debt, negative shares included; D1 net financial -104.92%). Negative net positions earn 0% real in the household step (a labelled assumption: debt interest roughly equal to inflation); the debt-rate range stays unset. D10b and the tiers carry the D10 mix, labelled. W1 (113c) and W2 (114c) merged; W3 is 115c.
 
+## 2026-11-22: W4 merged; W5 split
+W4 (116c) found the design note wrong on one point: the sale routes did not cap payments at holdings (`_div` only guards a zero divisor); W4 added the cap and `unpaid_B` reporting (no legacy run triggers it: max 0.0 over 90 books). W5 is split into W5a (117c, the household hook with T = 0, equivalence with the cell baseline) and W5b (the taxed hook, the `out_*` call sites and the per-line account table for the author's review).
+
