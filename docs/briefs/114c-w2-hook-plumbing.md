@@ -39,11 +39,11 @@ Where the 5-line saving in `runner.py` comes from (agent reports).
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (progress block pushed).
-- **Next:** block 1: kernel `step_year(hook=None)` and a signed flow share in `grow_and_consume`; tests; `test_legacy_digest`.
-- **Decisions:**
-- **Gotchas:**
-- **Resume:** branch `brief/114-hook-plumbing`; `git fetch origin && git checkout brief/114-hook-plumbing`; first action: read `kernel.py` `step_year` and `grow_and_consume`.
+- **Done:** block 0; block 1: `kernel.py` (574 lines): `grow_and_consume(..., share=None)` (signed flow share, c = -x), `step_year(..., hook=None, t=0)` calls `hook.pre(book, t, g) -> (g_N, x)` and `hook.post(book, fl)` after settlement, `run_lines(..., hook=None)`; `tests/model_v3/test_arm.py` (3 tests, inline stand-in hook); `test_legacy_digest` passes.
+- **Next:** block 2: `runner/arm.py` `LegacyHook(c)`; thread `hook=None` through `core/revenue.run_lines`, `core/burden.line_flows`, `core/support.wdt_run`; sites 2 to 5 (`revenue.py:83,241`, `burden.py:175`, `support.py`); `runner.py` builds the hook and stays 360 lines (find 5 lines).
+- **Decisions:** the hook's `pre` takes `(book, t, g)` (the design says `(book, t)`: the legacy hook needs g, which step_year holds); `step_year` gets `t=0` for it. The modules named `runner/revenue.py`, `burden.py`, `support.py` in the brief are `core/` files.
+- **Gotchas:** `out_support.py:57` also calls `K.step_year(..., raw.c, ...)` directly (legacy `c`, signature unchanged, left alone).
+- **Resume:** branch `brief/114-hook-plumbing`; `git fetch origin && git checkout brief/114-hook-plumbing`; first action: write `model_v3/runner/arm.py`.
 - **Not run:**
-- **State:** in progress, block 0 done
+- **State:** in progress, block 1 done
 <!-- progress:end -->

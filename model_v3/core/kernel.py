@@ -321,12 +321,13 @@ def rebase(book):
 # YEARLY OPERATIONS
 # ─────────────────────────────────────────────────────────────
 
-def grow_and_consume(book, g, consumption):
-    """Growth of every route at g (scalar or per line), then consumption (units sold). Returns Flows with
+def grow_and_consume(book, g, consumption, share=None):
+    """Growth of every route at g (scalar or per line), then consumption (units sold). `share`, when given, is the signed flow share x of the family's
+    units in place of `consumption` (c = -x): a negative x sells units as consumption does, a positive x buys units (sold falls). Returns Flows with
     growth_family / growth_state / consumed (true values)."""
     fl = Flows(book.n)
     g = _arr(g, book.n)
-    c = _arr(consumption, book.n)
+    c = _arr(consumption, book.n) if share is None else -_arr(share, book.n)
     for r in book.routes:
         x = book.R[r]
         Vn = x['V'] * (1.0 + g)
@@ -447,15 +448,19 @@ def settle_B(book):
 # A FULL YEAR AND A DEATH
 # ─────────────────────────────────────────────────────────────
 
-def step_year(book, rate_fn, idx, g, consumption, alpha_C=1.0, alpha_D=1.0, lam_C=0.0, lam_D=0.0, reset_D=False):
+def step_year(book, rate_fn, idx, g, consumption, alpha_C=1.0, alpha_D=1.0, lam_C=0.0, lam_D=0.0, reset_D=False, hook=None, t=0):
     """
     One holding year. Returns a list of (kind, Flows): 'growth' (growth_family / growth_state / consumed),
     'verify', 'tax', 'reset_D'. idx is the index factor (1 + index_rate)^t for W_min and k.
+    `hook` (None: the legacy kernel, growth g and consumption share `consumption`) is an object with pre(book, t, g) -> (g_N, x), the growth rate
+    and the signed flow share the year uses, and post(book, fl), called with the year's assessment after settlement (kernel-wiring-design 3.2).
     """
-    ops = []
+    ops, share = [], None
+    if hook is not None:
+        g, share = hook.pre(book, t, g)
     book.LB = book.LB * (1.0 + book.r_def)                     # deferred balance accrues (lien)
     book.inc_left = book.inc_allow * idx                       # this year's income available to the WDT (income)
-    ops.append(('growth', grow_and_consume(book, g, consumption)))
+    ops.append(('growth', grow_and_consume(book, g, consumption, share)))
     D_excl = declare(book, alpha_C, alpha_D, lam_D, reset_D)
     if 'Cv' in book.R:
         ops.append(('verify', verify_C(book, lam_C)))
@@ -467,6 +472,8 @@ def step_year(book, rate_fn, idx, g, consumption, alpha_C=1.0, alpha_D=1.0, lam_
     fl = assess(book, rate_fn, idx, Wn, Wp)
     ops.append(('tax', fl))
     rebase(book)
+    if hook is not None:
+        hook.post(book, fl)
     if reset_D:
         ops.append(('reset_D', settle_D(book)))
         if 'D' in book.R:                                      # a reset sells units: re-base Route D
@@ -522,12 +529,12 @@ def settle_terminal(book):
 # ─────────────────────────────────────────────────────────────
 
 def run_lines(rate_fn, g_mat, V0, G=None, consumption=0.0, index_rate=0.0, alpha_C=1.0, alpha_D=1.0,
-              lam_C=0.0, lam_D=0.0, death_verify=False, reset_years=(), n=None, collect=False, **book_kw):
+              lam_C=0.0, lam_D=0.0, death_verify=False, reset_years=(), n=None, collect=False, hook=None, **book_kw):
     """
     Run n lines over T years with deaths at G, 2G, ... < T. g_mat is the (T, n) growth matrix: row t - 1 is
     year t for every line. A (T,) or (T, 1) series is shared by all lines. alpha_C / alpha_D are numbers (or
     length-n arrays), or callables f(t, gen, yrs_to_death) -> number / array (the strategy hook). reset_years:
-    years in which Route D is voluntarily reset. Returns the Book (and the list of (t, kind, Flows) if collect).
+    years in which Route D is voluntarily reset. hook: see step_year (None, the legacy kernel). Returns the Book (and the list of (t, kind, Flows) if collect).
     """
     g_mat = np.asarray(g_mat, dtype=float)
     if g_mat.ndim == 1:
@@ -552,7 +559,7 @@ def run_lines(rate_fn, g_mat, V0, G=None, consumption=0.0, index_rate=0.0, alpha
             to_death = T - t
         aC = alpha_C(t, gen, to_death) if callable(alpha_C) else alpha_C
         aD = alpha_D(t, gen, to_death) if callable(alpha_D) else alpha_D
-        ops = step_year(book, rate_fn, idx, g_mat[t - 1], consumption, aC, aD, lam_C, lam_D, t in reset_years)
+        ops = step_year(book, rate_fn, idx, g_mat[t - 1], consumption, aC, aD, lam_C, lam_D, t in reset_years, hook, t)
         if collect:
             log += [(t, k, f) for k, f in ops]
         if G and t % G == 0 and t < T:
