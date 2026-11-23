@@ -41,8 +41,8 @@ Whether the 129r PDFs and data dictionaries should leave git once converted (the
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (branch from main cee5b03)
-- **Next:** block 1 (survey, `--readable`, tests)
+- **Done:** block 0; block 1: `pipeline/to_markdown.py --readable` (mirror path plus `.md`, header, row cap `--rows` 300 with a visible note, `--all`, `--force`, `--index`, `status.json`; ODS via soffice to xlsx, RTF via pandoc), `tests/data/test_to_markdown.py` (6 tests pass), `docs/research/readable/INDEX.md` survey (38 binaries: 5 pdf, 7 xlsx, 8 ods, 18 rtf; the 18 RTF are 201 MB of source).
+- **Next:** block 2 (PDFs, xlsx; docx none present)
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/130-readable-research origin/brief/130-readable-research`
-- **State:** in progress, block 0 pushed
+- **State:** in progress, block 1 pushed
 <!-- progress:end -->
