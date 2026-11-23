@@ -37,8 +37,8 @@ Pension withdrawal, the saving gradient, per-path regimes, any headline number, 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
-- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/139-register-rows origin/brief/139-register-rows`
-- **State:** ready; not started (after 138c)
+- **Done:** block 0 (progress block pushed)
+- **Next:** block 1 (the four rows in `inputs.md` and `registry/inputs.json`, gate hash re-blessed, legacy digest check); block 2 waits for 135c (and 138c)
+- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/139-register-scenario-rows origin/brief/139-register-scenario-rows`
+- **State:** in progress; branch `brief/139-register-scenario-rows`
 <!-- progress:end -->
