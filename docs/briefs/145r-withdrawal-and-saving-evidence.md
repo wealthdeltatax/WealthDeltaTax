@@ -34,8 +34,8 @@ Any code, any register row, per-path GDP and the top tail (146r), any headline n
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (note skeletons)
-- **Next:** block 1 withdrawal; block 2 saving; block 3 change report
+- **Done:** block 0 (note skeletons); block 1 withdrawal (`145r-pension-withdrawal-range.md`, `withdrawal_range.py`)
+- **Next:** block 2 saving; block 3 change report
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/145-withdrawal-and-saving-evidence origin/brief/145-withdrawal-and-saving-evidence`
 - **State:** in progress
 <!-- progress:end -->
