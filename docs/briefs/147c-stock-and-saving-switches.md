@@ -35,10 +35,10 @@ Tail behaviour, withdrawal, GDP paths (148c), the register rows, any headline nu
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** block 0 (branch, progress block)
+- **Next:** block 1 (`top_tail`); read 146r and 145r first
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/147-stock-saving-switches origin/brief/147-stock-saving-switches`
-- **State:** ready; not started (after 139c, 145r, 146r)
+- **State:** block 0 pushed; 139c is on main (`switches.py` 102 of 200 lines, `arm.py` 330 of 330)
 <!-- progress:end -->
 
 ## Author rulings, 2026-11-24 (after blocks 0 to 3)
