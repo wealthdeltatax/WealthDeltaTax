@@ -36,8 +36,32 @@ Files: `household-arm-run/lien_checks.csv`, `lien_lines.csv`, `lien_alarms.csv`,
 
 The three passing grid points `median_mid`, `max_mid` and `median_low`, and the legacy context, at 1,000 paths: `grid_results.csv` and the checks rows byte-identical (md5) to a run of the same script on `origin/main` before this brief. The 14-line account and ledger CSVs regenerated with an empty `git diff`. `test_legacy_digest` and all four suites pass (`model_v3` 333 after the receivable test).
 
+## Lien rate before and after (139c)
+
+The arm now reads the register row I-D1m (the real deferral rate: 0% low, 2% central, 3% high) and the household default is the central, 2%. "6 phases, 0%" is `origin/main` before 139c; "10 phases, 0%" is this branch with `lien_rate='low'`; "10 phases, 2%" is this branch at its default. 20 paths, central returns path (`paths` off), schedule S, `scenario_before_after.py`; the CSVs are `scenario_rows_{before,lien0,central}.csv`. Money in millions of pounds per adult, real; M1a in % of GDP (mean over the paths). No headline number is read.
+
+| point | run | shortfall line-phases | `unpaid` max | `unpaid_B` max | largest lien balance | settled from the pension | ledger tie max |
+|---|---|---|---|---|---|---|---|
+| `min_mid` | 6 phases, 0% | 80 | 0 | 0.13 | 0.381 | 8.84 | 6.25e-13 |
+| `min_mid` | 10 phases, 0% | 160 | 0 | 0.13 | 0.475 | 18.8 | 4.83e-13 |
+| `min_mid` | 10 phases, 2% (register central) | 160 | 0 | 0.13 | 0.624 | 22.3 | 4.83e-13 |
+| `median_mid` | 6 phases, 0% | 0 | 0 | 0 | 0 | 0 | 1.59e-12 |
+| `median_mid` | 10 phases, 0% | 0 | 0 | 0 | 0 | 0 | 1.19e-12 |
+| `median_mid` | 10 phases, 2% (register central) | 0 | 0 | 0 | 0 | 0 | 1.19e-12 |
+| `max_mid` | 6 phases, 0% | 0 | 0 | 0 | 0 | 0 | 1.32e-11 |
+| `max_mid` | 10 phases, 0% | 0 | 0 | 0 | 0 | 0 | 5.46e-12 |
+| `max_mid` | 10 phases, 2% (register central) | 0 | 0 | 0 | 0 | 0 | 5.46e-12 |
+| `median_low` | 6 phases, 0% | 0 | 0 | 0 | 0 | 0 | 1.68e-12 |
+| `median_low` | 10 phases, 0% | 0 | 0 | 0 | 0 | 0 | 1.02e-12 |
+| `median_low` | 10 phases, 2% (register central) | 0 | 0 | 0 | 0 | 0 | 1.02e-12 |
+| `median_high` | 6 phases, 0% | 0 | 0 | 0 | 0.243 | 70.6 | 2.27e-12 |
+| `median_high` | 10 phases, 0% | 0 | 0 | 0 | 0.252 | 134 | 1.36e-12 |
+| `median_high` | 10 phases, 2% (register central) | 0 | 0 | 0 | 0.259 | 156 | 1.36e-12 |
+
+Reading: the lien rate moves only the lien balance and the amount settled from the pension (`min_mid` 18.8 to 22.3, `median_high` 134 to 156); it moves no shortfall count, no `unpaid`, no ledger tie and, on the accrual basis M1a is read on, no M1a. The 80 to 160 shortfall line-phases at `min_mid` are the 10-phase count over the same 20 paths (200 path-phases against 120), not new lines; they are the 137c floor alarm, still open. Every tie holds to 1e-11 and I1 holds in all 15 runs.
+
 ## For the author
 
 1. The floor alarm (zero-unit lines that cannot take the year's saving) is now the only shortfall; it needs its own ruling.
 2. Whether the settlement draw should be limited to what the heir would receive (see the draw rule).
-3. Whether the deferral rate should be a register row (it is 0.0 now).
+3. Settled in 139c: the deferral rate is the register row I-D1m (central 2%).

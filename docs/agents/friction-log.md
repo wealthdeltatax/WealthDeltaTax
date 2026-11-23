@@ -57,3 +57,5 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - **Suggest:** the guide says to `git fetch --depth=50 origin main` before a rebase in a shallow session clone.
 
 - 057c round 3: the ruling "OW1 under the household arm is withheld" suggests a manifest `arms: [legacy]` entry, but 126c pins that no id is restricted to the legacy arm (8 tests fail). Done in the validator (`MAY_WITHHOLD`) instead; the brief should say which of the two is meant.
+
+- 140c (market): the `check` command compares to stored 128c rows that 135c/138c regenerated, so it reports DIFFERENT at the short horizon on an unchanged model; the brief's acceptance names only the 124c reproduction, so I used that and noted the rest.

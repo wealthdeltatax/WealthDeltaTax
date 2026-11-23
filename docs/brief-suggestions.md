@@ -104,3 +104,9 @@ Entry format, newest at the bottom:
 - Status: open
 
 - 057c: O1e on the household arm: short-window M1 is constant in the generator mean (1.1236 at 0 to 15 percent, all three schedules), so no break-even exists. Check whether the household arm reads `RET['mean']` in M1 before the O1e output is specified for it.
+### architecture.md budget total is 200 short of its rows (switches.py)
+- Found by: code / 139c, 2026-11-23
+- Where: `docs/model-v3/architecture.md` line 226 (the `**Total**` row of the line-budget table); `tests/model_v3/test_budget.py::test_block_sums_equal_the_stated_totals`
+- Problem: the test fails on a clean `origin/main` (7d60b86): the rows sum to 6,260 lines against a stated total of 6,060. The new `model_v3/runner/switches.py` row (budget 200, added in the 2026-11-23 housekeeping commit) was not added to the total. The model_v3 suite shows 1 failed, 349 passed.
+- Suggested lane: g (the table is the guru's; a one-number edit)
+- Status: open

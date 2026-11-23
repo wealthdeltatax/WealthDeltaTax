@@ -16,7 +16,6 @@ from model_v3.core import household as hh, pension_lien as pl
 from model_v3.runner import switches as sw
 
 CLASSES = ('property', 'net_financial', 'physical', 'pension')
-PROPERTY_GAIN = 0.016455                                                                            # F-20: the JST housing holding gain, all years (cell_baseline.py); a scenario value, not a register row
 WITHHELD = {}                                                                                       # outputs that read the legacy c and have no base on the account: none since 126c (M3, M12, M13, M15 and M9 are on it)
 
 WITHHELD_BY = {}                                                                                     # an output kept without some by-values: none since 126c (the tornado's M3 head returned)
@@ -295,10 +294,10 @@ class HouseholdHook:
 def household_inputs(ctx, base, inp, sav, regime='mid'):
     """(state, gain, growth) of the household hook at one scenario grid point (121c; the 118c account script's setup, now one builder): `inp` the stored inputs (cell-baseline/inputs_used.json: the
     three saving values `sav`, the market `regimes` and their yields `yreg`, the B.6g `income_scale`, the income growth `g`), `sav` the non-pension saving ratio, `regime` the market regime; the class gains are the
-    housing gain (PROPERTY_GAIN), the regime's real return less its yield for net financial and pension, and I-D1j for physical; the tail pension cap is I-D1l and the accrual I-D1k (both central)."""
+    housing gain (I-D1o central, F-20), the regime's real return less its yield for net financial and pension, and I-D1j for physical; the tail pension cap is I-D1l and the accrual I-D1k (both central)."""
     y, r = inp['yreg'][regime], inp['regimes'][regime]
     st = line_state(base, ctx.pack.tables['decile_composition'], ctx.reg, sav, scale=inp['income_scale'], cap=ctx.reg['I-D1l'].central)
-    return st, dict(property=PROPERTY_GAIN, net_financial=r - y, physical=ctx.reg['I-D1j'].central / 100, pension=r - y), inp['g']
+    return st, dict(property=sw.housing_gain(ctx), net_financial=r - y, physical=ctx.reg['I-D1j'].central / 100, pension=r - y), inp['g']
 
 
 @dataclass(frozen=True)
@@ -324,6 +323,7 @@ def build(arm, ctx, theta, base, g=None):
     st, gain, growth = household_inputs(ctx, base, a['inputs'], a['inputs']['sav'][name], regime)
     label = dict(arm='household', scenario=dict(saving=name, saving_ratio=a['inputs']['sav'][name], regime=regime, class_returns={k: gain[k] for k in CLASSES[:3]}, pension_accrual=ctx.reg['I-D1k'].central / 100,
                  tail_pension_cap=ctx.reg['I-D1l'].central, income_scale=a['inputs']['income_scale']), safe_return='the net financial class return (a stand-in: no register row)', central=False)
+    st, label = sw.scenario(a, ctx, st, label)                                                       # 139c: the register-read scenario values, stated in the label
     mu = theta['I-D1a'] / 100 if a.get('paths') else None
     label['scenario']['market_paths'] = None if mu is None else 'market-return risk only: net financial and pension deviate with the path\'s market return (loading 1); property, physical, saving, income and GDP growth are scenario constants'
     safe, label = sw.fund(a, (lambda T, P: np.full((T, P), gain['net_financial'])) if mu is None or g is None else (lambda T, P: gain['net_financial'] + np.asarray(g, float)[:T] - mu), label, g)      # fund_return (138c): safe stand-in or the market return

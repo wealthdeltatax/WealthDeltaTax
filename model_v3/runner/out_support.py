@@ -52,7 +52,7 @@ def _record(raw, env):
     b, (T, P), L, lam = raw.base, raw.g.shape, len(raw.base.labels), env.lam
     old = raw.arm['arm'] == 'legacy'
     hook = None if old else env.arm(b).make()                                                    # the household arm reruns the kernel on its account (126c): the hook sets growth and consumption, g is ignored
-    book = K.Book(L * P, {r: np.tile(v, P) for r, v in b.V0.items()}, alpha0={'C': 1.0, 'D': 1.0}, has_cv=lam['lam_C'] > 0 and bool(np.any(b.V0['C'] > 0)))
+    book = K.Book(L * P, {r: np.tile(v, P) for r, v in b.V0.items()}, alpha0={'C': 1.0, 'D': 1.0}, has_cv=lam['lam_C'] > 0 and bool(np.any(b.V0['C'] > 0)), r_def=lam.get('r_def', 0.0))
     ix, Ls, lost = np.cumprod(1.0 + raw.gdp_g, axis=0), [], []
     for t in range(1, T + 1):
         il, gt = np.repeat(ix[t - 1], L), np.repeat(raw.g[t - 1], L)

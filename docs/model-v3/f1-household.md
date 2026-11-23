@@ -1,6 +1,6 @@
 # F1 and CK1 under the household arm (brief 140c)
 
-Status: the `safe` fund case is run (blocks 1 and 2). The `market` fund case is **not run**: brief 138c (the fund's return as a labelled axis) is not merged, and `f1_household.py --fund market` stops with that message. This note recommends nothing about the feasibility rule; the author rules. Every number is a scenario value at a labelled grid point and fund setting, never a forecast, with no central value.
+Status: both fund cases are run (`safe`: blocks 1 and 2; `market`: block 3, after 138c merged, section "The `market` fund case" below). This note recommends nothing about the feasibility rule; the author rules. Every number is a scenario value at a labelled grid point and fund setting, never a forecast, with no central value.
 
 ## Reproduce
 
@@ -9,6 +9,7 @@ From the repository root, with `python -I`:
 - `python -I docs/model-v3/f1-household/f1_household.py check`: the reproduction checks (`checks.md`, about 30 seconds).
 - `python -I docs/model-v3/f1-household/f1_household.py f1`: block 1, writes `f1_safe_tables.md` (stdout) and `f1_safe_*.csv` (about 11 minutes).
 - `python -I docs/model-v3/f1-household/f1_household.py ck1`: block 2, writes `ck1_safe_tables.md` (stdout) and `ck1_safe.csv` (about 5 minutes).
+- The same two commands with `--fund market` write `f1_market_*.csv`, `f1_market_tables.md`, `ck1_market.csv` and `ck1_market_tables.md` (about 12 and 8 minutes); `check --fund market` writes `checks_market.md`.
 
 `f1` uses seed 20261118 and 200 paths (the same paths for every cell); `ck1` is one fixed path per amplitude. A second full run of `f1` and of `ck1` printed byte-identical text and CSVs (checked with `cmp`).
 
@@ -83,11 +84,40 @@ Fixed path g(t) = 4.74 + A sin(2 pi t / 10), one path per amplitude A in 0, 1, 2
 - **P3 over all 100 years** is 34 to 118 at A 0 and in many rows jumps by a few hundred at one amplitude (`median_mid`, tm70_k1_r050: 44 at A 3, 280 at A 4; `median_mid`, tm70_k05_r050 has no jump up to A 12: 53 to 76). 083c's item 5 shows the same kind of step (tm70_k1_r050, mu 4.74: 84 at A 2, 338 at A 4). I did not trace the step.
 - **P1** (fill year) is 6 or 7 and every row fills. **P7b** (minimum cover) is 0.93 to 1.43 over the years after the fill to the end of the short window and 0.81 to 1.43 over all years after the fill. Transition adds no years after the fill, so P7b has the two windows only.
 
+## The `market` fund case (block 3)
+
+The fund earns the path's market return, like the legacy arm (`fund_return: market`, 138c): a labelled axis, no central value, and the high case for the fund. Same seed, 200 paths, 5 scenario points and 27 schedule points; all 135 cells ran except one (`max_mid` `tm90_k2_r025`, the arm's I1 alarm, `f1_market_failed.csv`). The 135c tolerance change lets `median_high` run all 27 now; the `safe` tables above were run before it and still carry their 12 failed cells (not rerun here).
+
+**Reproduction.** The 124c check holds for `safe` on this checkout (M1 and M1d short and long equal the stored values to 12 digits). Under `market` it differs as it should (M1 short 1.409 against 1.563; `checks_market.md`), since the stored file is a `safe` run. The 128c-paths rows differ from the stored file, which 135c and 138c regenerated after 140c: `safe` gives the same values as in 140c (M1 short -0.1449, M1d short 5.8659), the regenerated file has -0.0650 and 5.8952. I did not trace that difference; F1 and CK1 are not read against it.
+
+**F1** (best F1 anywhere in a cell, percent of paths; `f1_market_tables.md`, `f1_market_summary.csv`; `safe` from above):
+
+| point | fund | best F1 at tol 0, m 0 | best F1 at tol 1, m 25% | feasible cells (of 12 tol x m) |
+|---|---|---|---|---|
+| min_mid | safe | 9.5 | 67.5 | 0 |
+| min_mid | market | 12.0 | 75.0 | 1 |
+| median_mid | safe | 9.0 | 65.5 | 0 |
+| median_mid | market | 13.5 | 73.5 | 0 |
+| max_mid | safe | 19.0 | 60.0 | 0 |
+| max_mid | market | 26.0 | 65.5 | 0 |
+| median_low | safe | 5.5 | 52.5 | 0 |
+| median_low | market | 14.0 | 81.0 | 2 |
+| median_high | safe | 22.0 | 65.5 | 0 |
+| median_high | market | 24.5 | 66.5 | 0 |
+
+- **Feasible cells exist at `market`: 3 of 60** (F1 at least 75%, M2 short at most 2.0, M4a short at least 0). All are at tol 1, m 25%: `min_mid` `tm50_k05_r100` (F1 75.0, at the threshold; the standard error on 200 paths is 3.1 points), and `median_low` `tm50_k05_r100` (81.0) and `tm70_k05_r100` (78.0). None is at tol 0, 0.05 or 0.25, or at margin 0 or 10%. At `safe` there were none.
+- **At the 055c rule (tol 0, m 0)** the best F1 is 12.0 to 26.0% across the five points (`safe` 5.5 to 22.0%; 083c 11.5%): higher, far below 75%.
+- **The constant path still fails** in the same way: first shortfall in year 13 in all 15 rows, inside the short window, P3 to the end of the short window 0.23 to 6.90 (`f1_market_constant_path.csv`); the fill year is 6 at every row. The fund's return does not remove the five-year settlement cycle; 149c shows the cycle depends on the death-phase count (6 phases here).
+- **Fund size** at `median_mid` is 36 to 121% of GDP in year 10 and 813 to 2,496% in year 100 across the 27 schedules (`safe`: 41 to 92% in year 100), so the fund's return, not the schedule, sets the long-run fund.
+- **M2 and M4a** do not bind at the feasible cells (M2 short 0.42 to 0.55, M4a short 7.4 to 8.3).
+
+**CK1** (`ck1_market_tables.md`, `ck1_market.csv`): P3 is positive at A 0 in all 20 rows (0.23 to 6.90 to the end of the short window), so again there is no amplitude up to which P3 is zero, in any window. P3 is zero at isolated larger amplitudes in 30 of 200 cells (`safe`: 21). The fill year is 6 in all rows (`safe`: 6 or 7); P7b over the short window is 1.11 to 1.53 (`safe` 0.93 to 1.43).
+
 ## What this note does not do
 
-It does not pick a tolerance, a margin or a different rule, and it does not name a feasible schedule: none is feasible on the numbers above. It does not run the `market` fund case (138c), the 1,000-path and level 2 versions, or OF1 and CK1 themselves (089c). The five scenario points are not a range around a central value; the grid has none.
+It does not pick a tolerance, a margin or a different rule, and it does not name a feasible schedule: none is feasible at `safe`, and the three feasible cells at `market` are scenario values at one tolerance and margin with the 200-path sampling error. It does not run the 1,000-path and level 2 versions, the 10-phase setting ruled in 149c, or OF1 and CK1 themselves (089c). The five scenario points are not a range around a central value; the grid has none.
 
 ## Where this needs the author's ruling
 
 - The feasibility rule (the diagnosis above is the input): which of tolerance, margin or a different test, and whether F1 should see the six-phase cycle at all.
-- Whether the `market` fund case should be run before the ruling (138c first).
+- Whether the feasibility rule is read at `safe`, `market` or both: the fund's return decides whether any cell passes (0 of 60, then 3 of 60).

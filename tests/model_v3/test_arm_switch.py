@@ -84,11 +84,11 @@ def test_the_tornado_keeps_the_m3_head_and_a_household_file_with_the_returned_id
 @pytest.mark.parametrize('saving', ['min', 'median'])
 def test_the_burden_flows_equal_the_revenue_receipts_in_every_year_including_the_horizon(ctx, saving):
     c2 = replace(ctx, arm=dict(arm='household', inputs=INP, saving=saving))
-    raw = R.core_run(c2, c2.centre, SPEC, *PATHS)                                                  # six phases, two paths, 100 years
+    raw = R.core_run(c2, c2.centre, SPEC, *PATHS)                                                  # ten phases (139c; the household arm), two paths, 100 years
     fl, run = raw.fl, raw.run
     net = np.einsum('tnp,n->tp', fl['net'], fl['wt']) * fl['adults_k']
     wdt = sum(run[k] for k in ('tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D'))
-    assert fl['net'].shape[:2] == (100, 6 * len(raw.base.labels)) and wdt[-1].min() > 0
+    assert fl['net'].shape[:2] == (100, 10 * len(raw.base.labels)) and wdt[-1].min() > 0
     assert np.abs(net - wdt).max() < 1e-6 * np.abs(wdt).max()
 
 

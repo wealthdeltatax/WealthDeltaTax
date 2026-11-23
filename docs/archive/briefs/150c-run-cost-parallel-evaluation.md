@@ -33,8 +33,8 @@ The manifest change that marks O1e as one-point (057c), the feasibility rule, th
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** blocks 0 to 3 (`docs/model-v3/run-cost.md`; `runner/pool.py`; `workers` on `feasibility`, `tornado`, `breakeven_return`; `tests/model_v3/test_pool.py`)
+- **Next:** the author's review; `run.py` takes the `workers` switch in 057c (diff in `run-cost.md`); level 1 chunks in a pool is a follow-up brief
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/150-run-cost origin/brief/150-run-cost`
-- **State:** ready; not started (after 057c block 3 for the merge)
+- **State:** ready for review
 <!-- progress:end -->

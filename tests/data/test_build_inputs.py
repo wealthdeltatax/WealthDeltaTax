@@ -23,14 +23,14 @@ def parse(build_inputs, text):
 
 def test_real_register_has_274_entries(build_inputs):
     rows, _ = parse(build_inputs, INPUTS_MD.read_text(encoding="utf-8"))
-    assert len(rows) == 298
-    assert len({r["id"] for r in rows}) == 298
+    assert len(rows) == 302
+    assert len({r["id"] for r in rows}) == 302
 
 
 def test_committed_json_matches_the_register(build_inputs):
     rows, _ = parse(build_inputs, INPUTS_MD.read_text(encoding="utf-8"))
     on_disk = json.loads(INPUTS_JSON.read_text(encoding="utf-8"))
-    assert on_disk["count"] == 298 == len(on_disk["inputs"])
+    assert on_disk["count"] == 302 == len(on_disk["inputs"])
     assert INPUTS_JSON.read_text(encoding="utf-8") == build_inputs.render(rows)
 
 
