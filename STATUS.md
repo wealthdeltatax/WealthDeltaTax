@@ -11,17 +11,17 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent 1 (guru prime: writes and hands out briefs) | reviewing the household-arm build as it lands | briefs for the household-vs-legacy diagnosis, withdrawal and saving-gradient scenarios |
 | Agent 2 (code) | free | 057c blocks 1 and 2 (run script, acceptance) |
 | Agent 3 | free | 130c (readable research mirror; reports 129r sizes) |
-| Agent 4 | free | evidence blocks 0 and 1 of 141c, 142c, 144c (research notes only; code blocks wait for Agent 6's chain) |
+| Agent 4 | free | 145r and 146r (evidence: withdrawal, saving, GDP growth, top tail; research only) |
 | Agent 5 | free | 140c (F1 and CK1 under the household arm) |
-| Agent 6 | free | 137c, 135c, 138c, 139c, 141c, 142c, 143c, 144c in that order |
+| Agent 6 | free | 137c, 135c, 138c, 139c, 147c, 148c in that order |
 
 Six agents only. Agents 2 to 6 change skill with the brief. Ready now: 085c to 088c, resumed on the 092c interface (merged 2026-11-20; the four stops had one cause: the 084c interface gave a group no `ctx`, `theta`, pack, rng or payer record; rulings are in each brief). Parked: 089c (OF1, CK1) until the author rules on the feasibility rule after the 083c and 090c reports. Waiting: 057c. Held: 044c and 009c, both after 057c.
 
 ## Recently done
-- 2026-11-23: all six agents free. Agent 4 takes the evidence-only blocks of 141c, 142c and 144c so the code blocks start with the evidence in hand.
-- 2026-11-23: briefs 143c (per-path GDP growth, default off) and 144c (top-tail stock sensitivity, AST 14.4% to 16.5%, no fitting) written, after 142c. `docs/housekeeping/delete_brief_branches.sh` lists every remote brief branch for the author to delete.
-- 2026-11-23: author rulings: per-path GDP growth scenario (brief later, after 142c); labelled top-tail sensitivity (stock only, default off; brief later); M15a/b and M9 X printed with a labelled caveat in the first run; 130c released (Agent 3); 044c and 009c stay parked.
-- 2026-11-23: author rulings: heir's share uncapped in the base case (floor a sensitivity); briefs 141c (pension withdrawal and heir floor, default off) and 142c (saving gradient, flat/mild/steep, no fitting) written, after 139c; 129r large files stay in git for now.
+- 2026-11-23: briefs restructured. Research split out for Agent 4: 145r (withdrawal range, saving shapes) and 146r (GDP growth process, top-tail mapping). The four small code briefs 141c to 144c replaced by two larger ones for Agent 6: 147c (top-tail stock and saving gradient) and 148c (pension withdrawal, heir floor, per-path GDP), each after 139c and its evidence.
+- 2026-11-23: per-path GDP growth and top-tail stock sensitivity (AST 14.4% to 16.5%, no fitting) are now in 147c and 148c. `docs/housekeeping/delete_brief_branches.sh` lists every remote brief branch for the author to delete.
+- 2026-11-23: author rulings: per-path GDP growth scenario (now 148c); labelled top-tail sensitivity (stock only, default off; now 147c); M15a/b and M9 X printed with a labelled caveat in the first run; 130c released (Agent 3); 044c and 009c stay parked.
+- 2026-11-23: author rulings: heir's share uncapped in the base case (floor a sensitivity); pension withdrawal and heir floor (now 148c) and the saving gradient (flat/mild/steep, no fitting; now 147c); 129r large files stay in git for now.
 - 2026-11-23: first-official-run plan. Author ruled: household arm, ranges across the labelled grid points; null cells a stated marker (`no_payer_at_launch`); OF1 and CK1 pending until the feasibility diagnostic (140c) and the author's ruling, then 089c. 057c released provisionally (blocks 1 and 2 now; `--final` after 137c, 135c, 138c, 139c). 139c enters the four scenario rows (lien rate, pension basis, housing gain, fund return).
 - 2026-11-23: 136c merged (`docs/model-v3/household-vs-legacy.md`). The household arm is not low for a reason of its own: M2 gap is the legacy arm's volatility plus a denominator defect (non-pension `w0`); P6 gap is the fund's return (market mean vs safe stand-in). Author ruled: M2 on total wealth; fund return a labelled safe/market axis. Brief 138c after 137c and 135c.
 - 2026-11-23: 133c merged (kernel-cap lien via callback, default off; I1, account and ledger ties hold; 340 tests). Kernel-cap `unpaid_B` is 0 at `min_mid` and `median_high`; remaining shortfall is the 127c floor alarm, fixed in brief 137c (zero-unit lines restart from saving). Next for Agent 6: 136c, 137c, 135c.
