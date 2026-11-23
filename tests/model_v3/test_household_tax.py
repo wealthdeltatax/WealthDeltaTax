@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 PACK, REG = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')
 BASE = bs.build_base(PACK, REG, 1.0)
 ST = arm.line_state(BASE, PACK.tables['decile_composition'], REG, 0.0101)
+NEG = arm.line_state(BASE, PACK.tables['decile_composition'], REG, -0.3)                           # a negative saving: a zero-unit line cannot restart (137c)
 GAIN = dict(property=0.016455, net_financial=0.0094, physical=0.0, pension=0.0094)
 RATE = S.rate_function(k=0.01, tau_0=0.05, tau_m=0.50, W_min=BASE.w_min)
 
@@ -126,9 +127,9 @@ def test_a_tax_the_classes_cannot_pay_becomes_a_lien_on_the_pension_not_a_debt_o
 
 
 def test_a_line_with_no_units_stays_at_the_floor_and_the_flow_that_cannot_enter_is_the_alarm():
-    """127c: a line whose units are all 0 (the tax took everything) cannot carry the year's flow; it stays at 0, I1 holds, the floor amount is recorded (and in unpaid_B)."""
-    h = arm.HouseholdHook(ST, GAIN, 0.0157)
-    book = book_for(ST)
+    """127c: a line whose units are all 0 (the tax took everything) cannot carry the year's flow; it stays at 0, I1 holds, the floor amount is recorded (and in unpaid_B). Since 137c this holds for a negative saving (NEG): a positive one restarts the line."""
+    h = arm.HouseholdHook(NEG, GAIN, 0.0157)
+    book = book_for(NEG)
     K.step_year(book, RATE, 1.0, np.zeros(14), 0.0, hook=h, t=1)
     for k in arm.CLASSES[:3]:
         h.q[k] = h.q[k] * 0.0
@@ -145,3 +146,69 @@ def test_a_line_that_never_reaches_the_floor_records_no_floor():
     h = arm.HouseholdHook(ST, GAIN, 0.0157)
     for t, kind, book, a in run(h, 12):
         assert (a['floor'] == 0).all() and K.shortfall_lines(book) == 0
+
+
+def _dead_year(st, paths=1):
+    """Year 1 as normal, then every line's units and non-pension classes are gone (as a tax that took all of them leaves it: f = 0, last assessment's declared value 0, price kept); year 2 is run. Returns (hook, book, account, unpaid_B before)."""
+    h, book = arm.HouseholdHook(st, GAIN, 0.0157), book_for(st, paths)
+    K.step_year(book, RATE, 1.0, np.zeros(14 * paths), 0.0, hook=h, t=1)
+    for k in arm.CLASSES[:3]:
+        h.q[k] = h.q[k] * 0.0
+    for x in book.R.values():
+        x['sold'], x['f'], x['Wp'] = x['sold'] + x['f'], x['f'] * 0.0, x['Wp'] * 0.0
+    b0 = book.unpaid_B.copy()
+    K.step_year(book, RATE, 1.0, np.zeros(14 * paths), 0.0, hook=h, t=2)
+    return h, book, h.account(), b0
+
+
+def test_a_line_with_no_units_and_a_positive_saving_restarts_from_it_and_the_floor_does_not_fire():
+    """137c: units = saving / price; the closing class total equals the family value, I1 holds (post checks it), the units identity holds, no floor entry and no shortfall."""
+    h, book, a, b0 = _dead_year(ST)
+    assert (a['floor'] == 0).all() and (book.unpaid_B == b0).all() and K.shortfall_lines(book) == 0 and np.abs(a['residual']).max() < 1e-9
+    assert (book.family_true() > 0).all() and np.abs(book.family_true() - sum(h.q[k] for k in arm.CLASSES[:3])).max() < 1e-9
+    assert all((x['f'] >= 0).all() for x in book.R.values()) and book.check()['units'] < 1e-12                  # a route can be emptied by the year's own tax; the family value above is what restarted
+
+
+def test_a_dead_line_with_no_saving_stays_at_zero_and_one_with_a_negative_saving_is_still_the_alarm():
+    z = {**ST, 'income': ST['income'] * 0.0, 'acc': ST['acc'] * 0.0}
+    h, book, a, b0 = _dead_year(z)
+    assert np.abs(book.family_true()).max() < 1e-12 and (a['floor'] == 0).all() and all((x['f'] == 0).all() for x in book.R.values()) and np.abs(a['residual']).max() < 1e-9
+    h, book, a, b0 = _dead_year(NEG)
+    assert np.abs(book.family_true()).max() < 1e-12 and (a['floor'] > 0).all() and (book.unpaid_B > b0).all() and np.abs(a['residual']).max() < 1e-9
+
+
+@pytest.mark.parametrize('mult', [0.0, -1.0])
+def test_a_dead_line_whose_route_price_was_zeroed_or_turned_negative_restarts_at_the_opening_mix(mult):
+    """137c: a rescale at N <= 0 leaves a route price at 0 or below (f may still be 1); the restart restores it to the line's opening route mix, so the family value is the closing class total again and I1 holds."""
+    h = arm.HouseholdHook(ST, GAIN, 0.0157)
+    book = book_for(ST)
+    K.step_year(book, RATE, 1.0, np.zeros(14), 0.0, hook=h, t=1)
+    for k in arm.CLASSES[:3]:
+        h.q[k] = h.q[k] * 0.0
+    for x in book.R.values():
+        x.update({k: x[k] * mult for k in ('V', 'dd', 'Wp', 'ppu')})
+        x['Wp'] = x['Wp'] * 0.0
+        if mult < 0:                                                                                  # a negative price comes with the units gone (family value 0, I1)
+            x['sold'], x['f'] = x['sold'] + x['f'], x['f'] * 0.0
+    K.step_year(book, RATE, 1.0, np.zeros(14), 0.0, hook=h, t=2)
+    a = h.account()
+    assert (a['floor'] == 0).all() and np.abs(a['residual']).max() < 1e-9 and book.check()['units'] < 1e-12
+    assert (book.family_true() > 0).all() and np.abs(book.family_true() - sum(h.q[k] for k in arm.CLASSES[:3])).max() < 1e-9
+    assert all(x['V'].min() > 0 for x in book.R.values()) and np.allclose(book.R['A']['V'] / sum(x['V'] for x in book.R.values()), h.mix['A'])
+
+
+def test_a_restart_with_the_verified_tranche_keeps_i1_over_the_following_years():
+    """137c: the production book has route C and its verified tranche Cv (priced at C's). A restart restores both prices, so units that later move from C to Cv keep the family value equal to the class total (post raises otherwise)."""
+    st = {**ST, 'pos': {**ST['pos'], 'pension': ST['pos']['pension'] * 1e-3}}                          # a small pension: the year's tax stays inside the units (the I1 pension check is absolute, 1e-12)
+    tot, h = sum(st['pos'].values()), arm.HouseholdHook(st, GAIN, 0.0157)
+    book = K.Book(14, {'A': 0.5 * tot, 'B': 0.25 * tot, 'C': 0.08 * tot, 'D': 0.17 * tot}, has_cv=True)
+    step = lambda t: K.step_year(book, RATE, 1.0, np.zeros(14), 0.0, lam_C=0.3, hook=h, t=t)
+    step(1)
+    for k in arm.CLASSES[:3]:
+        h.q[k] = h.q[k] * 0.0
+    for x in book.R.values():
+        x.update({k: x[k] * 0.0 for k in ('V', 'dd', 'Wp', 'ppu')})
+    for t in range(2, 6):
+        step(t)
+        assert (h.account()['floor'] == 0).all() and np.abs(book.family_true() - sum(h.q[k] for k in arm.CLASSES[:3])).max() < 1e-9
+    assert (book.R['Cv']['f'] > 0).any() and book.check()['units'] < 1e-12

@@ -125,6 +125,7 @@ class HouseholdHook:
             f = self._n(self.q) / book.family_true()
             for x in book.R.values():
                 x.update({k: x[k] * f for k in ('V', 'dd', 'Wp', 'ppu')})
+            self.mix = {r: x['V'] / sum(y['V'] for k, y in book.R.items() if k != 'Cv') for r, x in book.R.items() if r != 'Cv'}      # the line's opening route mix, kept for a restart (137c)
             book.pen = book.penp = self.q['pension'].copy()
             book.cap_cb = self.carry                                                                    # the tax a route cannot pay is carried as a lien, not lost to unpaid_B (133c)
 
@@ -145,14 +146,29 @@ class HouseholdHook:
         dead = np.abs(N0) <= 1e-12                                                                 # the class floor (127c): a line whose units are all 0 cannot carry any flow (units grow multiplicatively), so it stays at 0; a line with negative wealth keeps its units
         self.wo = np.where(dead, self.PL - self.PK, 0.0)                                                      # a lien on a line with no units left is written off: the ledger reports it (132c)
         N1, self.PL = N1 - (self.PL - self.PK), self.PL - self.wo
-        self.fl = np.where(dead, -N1, 0.0)                                                          # what the floor added (+) or removed (-) in the year; an alarm, never tuned away
+        back = self._restart(book, dead & (N1 > 1e-12))                                              # 137c: a dead line whose year's saving is positive restarts from it (units = saving / price), so the floor does not fire
+        self.fl = np.where(dead & ~back, -N1, 0.0)                                                  # what the floor added (+) or removed (-) in the year; an alarm, never tuned away
         for k in CLASSES[:3]:
-            self.q1[k] = np.where(dead, 0.0, self.q1[k])
+            self.q1[k] = np.where(dead & ~back, 0.0, self.q1[k])
         book.unpaid_B = book.unpaid_B + np.abs(self.fl)                                             # recorded as the model's shortfall alarm (shortfall_lines counts it)
         N0 = np.where(dead, 1.0, N0)
         g_n = sum(np.asarray(gn[k]) * self.q[k] for k in CLASSES[:3]) / N0
         book.pen, self.W_after = self.q1['pension'] - self.PK, sum(self.q1[k] for k in CLASSES) - self.PL
         return g_n, (self._n(self.q1) - (self.PL - self.PK)) / (N0 * (1.0 + g_n)) - 1.0                                     # growth then the flow reach the household's closing non-pension total exactly (I1)
+
+    def _restart(self, book, want):
+        """The class floor's restart (137c; a labelled bookkeeping rule, no register input): the lines in `want` (no units, positive saving) get units again at the year's price, one number on every route so that the family value is 1,
+        which `pre` takes as the opening value (N0 = 1) and its flow brings to the closing total. A route price that a rescale at N <= 0 left at 0 or below is first restored to the opening route mix (`self.mix`; Cv at C's). The units are bought (`sold` falls), so f + s + sold = tot holds. Returns `want`."""
+        rt, cv = {r: x for r, x in book.R.items() if r != 'Cv'}, book.R.get('Cv')
+        bad = want & (sum(x['V'] for x in rt.values()) <= 0.0)
+        for r, x in rt.items():
+            x['V'] = np.where(bad, self.mix[r], x['V'])
+        p, kept = sum(x['V'] for x in rt.values()), 0.0 if cv is None else cv['f'] * np.where(bad, rt['C']['V'], cv['V'])      # Cv's units (the verified tranche of C) keep their value
+        cv is None or cv.update(V=np.where(bad, rt['C']['V'], cv['V']))
+        for x in rt.values():
+            u = np.where(want, (1.0 - kept) / np.where(want, p, 1.0) - x['f'], 0.0)
+            x['f'], x['sold'] = x['f'] + u, x['sold'] - u
+        return want
 
     def lien(self):
         """The public ledger's receivable (132c), by line: the lien balance at the close and the year's new, accrued, settled and written-off amounts (billions after weighting; the balance moves by new + accr - settled - wo); `xnew` is the part of `new` the kernel never moved (the cap's excess, 133c), which is not in the year's value paid."""

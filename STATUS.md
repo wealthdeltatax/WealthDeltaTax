@@ -13,11 +13,12 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent 3 | free | nothing queued (130c done) |
 | Agent 4 | free | 146r (evidence: GDP growth process, top-tail mapping) |
 | Agent 5 | free | 140c (F1 and CK1 under the household arm) |
-| Agent 6 | free | 137c, 135c, 138c, 139c, 147c, 148c in that order |
+| Agent 6 | free | 135c, 138c, 139c, 147c, 148c in that order |
 
 Six agents only. Agents 2 to 6 change skill with the brief. Ready now: 085c to 088c, resumed on the 092c interface (merged 2026-11-20; the four stops had one cause: the 084c interface gave a group no `ctx`, `theta`, pack, rng or payer record; rulings are in each brief). Parked: 089c (OF1, CK1) until the author rules on the feasibility rule after the 083c and 090c reports. Waiting: 057c. Held: 044c and 009c, both after 057c.
 
 ## Recently done
+- 2026-11-23: 137c merged (zero-unit lines restart from positive saving; floor alarm 0 at `median_high`, shortfall 0 at the market-path points; 350 model tests). `min_mid` D4 and D5 (1,740 line-years, negative saving on zero units) left as a labelled alarm by author ruling. Next for Agent 6: 135c, 138c, 139c.
 - 2026-11-23: 145r merged (withdrawal range, saving shapes; author accepted both as proposed, see decisions). 130c merged by its agent (38 reading copies under `docs/research/readable/`, 26.7 MB added). 137c, 140c, 057c in progress.
 - 2026-11-23: briefs restructured. Research split out for Agent 4: 145r (withdrawal range, saving shapes) and 146r (GDP growth process, top-tail mapping). The four small code briefs 141c to 144c replaced by two larger ones for Agent 6: 147c (top-tail stock and saving gradient) and 148c (pension withdrawal, heir floor, per-path GDP), each after 139c and its evidence.
 - 2026-11-23: per-path GDP growth and top-tail stock sensitivity (AST 14.4% to 16.5%, no fitting) are now in 147c and 148c. `docs/housekeeping/delete_brief_branches.sh` lists every remote brief branch for the author to delete.
