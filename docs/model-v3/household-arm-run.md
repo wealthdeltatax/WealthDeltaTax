@@ -80,6 +80,30 @@ Short horizon, overall: household 0.22 to 0.47, legacy 2.44. M2b and M2c (cash-f
 6. **M1 transition is zero** (1e-15) at every point and arm; M1b is the same 2.82 everywhere.
 7. **Debt floor.** The class rule floors a negative property or net financial balance at 0% real, a labelled assumption of the arm; it is the likeliest place for the I1 failures to come from, but this is a guess.
 
+## Every household output is at 10 death phases (149c)
+
+From 139c the household arm runs 10 death phases (`switches.N_PHASE`); the legacy arm keeps 6 and its digest test is unchanged. So every household figure in this note and in the tables built on it moves with that, apart from the lump. Before (`origin/main`: 6 phases, no accrual) and after (this branch at the register central), the five grid points: 20 paths, central returns path (`paths` off), schedule S, `scenario_before_after.py`; the CSVs are `scenario_rows_{before,lien0,central}.csv`. Money in millions of pounds per adult, real; M1a in % of GDP (mean over the paths). No headline number is read.
+
+| point | run | M1a transition | M1a short | M1a long | shortfall line-phases | `unpaid` max | ledger tie max |
+|---|---|---|---|---|---|---|---|
+| `min_mid` | 6 phases, 0% | 2.61 | 2.91 | 1.01 | 80 | 0 | 6.25e-13 |
+| `min_mid` | 10 phases, 0% | 2.91 | 2.69 | 1.06 | 160 | 0 | 4.83e-13 |
+| `min_mid` | 10 phases, 2% (register central) | 2.91 | 2.69 | 1.06 | 160 | 0 | 4.83e-13 |
+| `median_mid` | 6 phases, 0% | 2.81 | 3.19 | 1.73 | 0 | 0 | 1.59e-12 |
+| `median_mid` | 10 phases, 0% | 3.11 | 2.96 | 1.82 | 0 | 0 | 1.19e-12 |
+| `median_mid` | 10 phases, 2% (register central) | 3.11 | 2.96 | 1.82 | 0 | 0 | 1.19e-12 |
+| `max_mid` | 6 phases, 0% | 3.56 | 4.48 | 6.66 | 0 | 0 | 1.32e-11 |
+| `max_mid` | 10 phases, 0% | 3.87 | 4.18 | 7.07 | 0 | 0 | 5.46e-12 |
+| `max_mid` | 10 phases, 2% (register central) | 3.87 | 4.18 | 7.07 | 0 | 0 | 5.46e-12 |
+| `median_low` | 6 phases, 0% | 2.06 | 2.43 | 0.881 | 0 | 0 | 1.68e-12 |
+| `median_low` | 10 phases, 0% | 2.37 | 2.23 | 0.943 | 0 | 0 | 1.02e-12 |
+| `median_low` | 10 phases, 2% (register central) | 2.37 | 2.23 | 0.943 | 0 | 0 | 1.02e-12 |
+| `median_high` | 6 phases, 0% | 3.67 | 4.45 | 7.84 | 0 | 0 | 2.27e-12 |
+| `median_high` | 10 phases, 0% | 3.97 | 4.17 | 7.95 | 0 | 0 | 1.36e-12 |
+| `median_high` | 10 phases, 2% (register central) | 3.97 | 4.17 | 7.95 | 0 | 0 | 1.36e-12 |
+
+Reading: M1a moves between horizons (`median_mid`: transition 2.81 to 3.11, short 3.19 to 2.96, long 1.73 to 1.82); the cause (the finer death timing) is not tested here. `unpaid` is 0 and the ledger ties hold to 1e-11 at all five points, before and after. Shortfall lines appear at `min_mid` only (the 137c alarm).
+
 ## Needs the author
 
 - **A defect fixed outside Touches.** Level 1 under the household arm raised because `out_support.per_path` returned `None` for the withheld groups and `runner.cat` cannot concatenate `None`; it now returns `{}` (8 lines in `model_v3/runner/out_support.py`, a 121c defect). The brief names the runner as not touched, so by the auto-merge rule **this branch is not merged: NEEDS THE AUTHOR** (accept the fix, or have it made in its own brief).
