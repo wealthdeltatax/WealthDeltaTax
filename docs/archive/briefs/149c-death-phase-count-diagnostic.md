@@ -32,8 +32,17 @@ Choosing the feasibility rule, changing `n_phase`, the `market` fund case (140c 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** block 0; block 1 (`docs/model-v3/death-phases/death_phases.py years`, `years_safe_tables.md`, CSVs; 6-phase rows equal 140c on 20 values; 36 s for four counts x four rows). M1a amplitude over years 10-40 at `median_mid` tm70: 11.10 (6), 6.69 (10), 4.61 (15), 1.02 (30) phases; first shortfall year 13, 63, 9, 61; at `median_low` the shortfall stays at 30 phases (first year 22), so the cycle is not the only cause there
+- **Done (cont.):** block 2 (`death_phases.py f1`: `f1_tables.md`, `f1_phases_N/`; run times 81 s, 179 s, 339 s for 6, 15, 30 phases; rebased onto main f917908 first). Best F1 at (tol 0, m 0): 9.0, 12.5, 25.5; at (1, 25%): 65.5, 63.5, 75.0 (one feasible cell at 30 phases); constant-path first shortfall (tm50, tm70, tm90): 13/13/13, 33/9/9, 61/61/61; I1 alarm cells 1, 3, 5 of 27. 6-phase cells equal 140c's (312 of 312) except that tm90_k2_r025 no longer runs. Block 3 legacy table also generated (`years_legacy_*`).
+- **Done (cont.):** block 3: note `docs/model-v3/death-phases.md`; second runs of `years`, `legacy`, `f1` identical (only wall-clock times differ).
+- **Next:** none; stop.
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/149-death-phases origin/brief/149-death-phases`
-- **State:** ready; not started
+- **State:** done, branch pushed, not merged (see change report)
 <!-- progress:end -->
+
+## Change report
+- **Files:** new `docs/model-v3/death-phases.md` (note), `docs/model-v3/death-phases/` (`death_phases.py`, checks, tables, CSVs, `f1_phases_6/15/30/`). No model, register or manifest file changed; the phase count is overridden at run time only.
+- **Answer:** the five-year cycle in M1a depends on the count (period 30/n years, amplitude roughly 1/n up to 15 phases; 11.10, 6.69, 4.61, 1.02 at 6, 10, 15, 30 at `median_mid` tm70). At 30 phases the short-window failure on a constant path disappears at `median_mid`, but F1 stays low (best 25.5% at tol 0, m 0; one feasible cell at the threshold, tol 1, m 25%), relief still decays below M1d later, and `median_low` still fails in year 22. The 15-phase case over-retires on the lump. Legacy arm: year-13 first shortfall moves to 32 or 33 at 30 phases. No rule or count recommended.
+- **Checks:** 6-phase rows equal 140c (20 constant-path values; 312 of 312 shared F1 cells) and legacy equals 083c. Second runs identical.
+- **Deviation:** `tm90_k2_r025` ran in 140c and now raises I1 at 6 phases (arm changed since 140c's base; not traced). The brief did not say what to do with I1 cells; recorded per cell, left out.
+- **Merge:** not merged. The acceptance criteria are met, but the one I1 cell that no longer runs at 6 phases (a change in `arm.py` since 140c) is an open question for the author, so the branch is left pushed. NEEDS THE AUTHOR.

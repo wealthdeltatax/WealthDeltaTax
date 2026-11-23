@@ -9,6 +9,7 @@
 One household evaluation at 20 paths takes 4.9 s (legacy 1.8 s); O1e (break-even return) costs three schedules x (1 + N2) roots x about 13 evaluations, about 7,800 evaluations per point at N2 200, over five points, before the tornado. Make the first official run feasible: the author ruled **break-even at one point (`median_mid`), the other points get the cheap outputs**, and the evaluations run in parallel. This brief measures and then parallelises; it does not change what any output means.
 
 ## Decisions (author, 2026-11-23)
+- The household arm will run at **10 death phases** (139c wiring, ruled after 149c); time one evaluation and the smoke at 6, 10 and 30 phases in block 1 so the projection uses 10 (149c: 10 phases cost about 1.7 times the 6-phase run).
 - O1e only at `median_mid`; the other four points carry the outputs that do not need the root search, and the file says so (a stated marker, not a number): the manifest change is 057c's, this brief only makes the run cheap.
 - Outputs must be unchanged by parallelism: same seeds, same results to the last digit, serial and parallel byte-identical.
 - No change to model economics, the register or any kernel code.

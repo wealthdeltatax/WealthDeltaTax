@@ -1,0 +1,6 @@
+point,schedule,alarm
+median_mid,tm50_k2_r025,I1 fails
+median_mid,tm70_k1_r025,I1 fails
+median_mid,tm70_k1_r050,I1 fails
+median_mid,tm70_k2_r025,I1 fails
+median_mid,tm90_k2_r025,I1 fails

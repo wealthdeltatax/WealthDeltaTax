@@ -14,6 +14,9 @@ Enter, as register rows, the four scenario constants that are still named consta
 - Row ids: the next free letters in the I-D1 group (`I-D1m` to `I-D1p`); `I-D15a` in 134r was a placeholder and is not used. Check the group before choosing.
 - A register edit changes the gate hash: re-bless it as the checker prescribes, in this brief only, and say so in the change report.
 
+## Added by author ruling, 2026-11-23 (149c): the household arm's death-phase count
+In block 2 (wiring), the household arm runs with **10 death phases** (`n_phase=10`), set in `switches.py` as a labelled numerical-approximation constant (not a register row: it is an approximation, not an input), passed through the hook or the runner call for the household arm only. The legacy arm keeps 6, `test_legacy_digest` and every legacy output stay byte-identical. Say in `household-arm-run.md` that every household output after this change is at 10 phases and show a before and after at the five grid points (the lump in M1a, the ledger ties, `unpaid`, shortfall lines). If it cannot be done without a change in `core/`, stop and report.
+
 ## Blocks (one push each; `docs/agents/code.md`)
 - **Block 0:** progress block pushed.
 - **Block 1: rows.** The four rows in `docs/model-v3/inputs.md` and `registry/inputs.json` (low, central, high, unit, evidence class, label, challenge note, as in the 134r and 131r proposals), the gate hash re-blessed. Check the legacy digest is unchanged. Push.
