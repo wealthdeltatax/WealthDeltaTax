@@ -27,6 +27,12 @@ Also (guru, updated 2026-11-21): the author abandoned I-D14c's 3.5% as the centr
 ## Blocks (added 2026-11-23; one push each)
 - **Block 0:** progress block. **Block 1:** `run.py` (arm field, scenario-range assembly, null marker, pending marker for OF1 and CK1), validator change, tests. **Block 2:** `accept.sh`, `test_smoke.py` and the five seeded breakages. **Block 3:** `test_converge.py`, the `--final` refusal rules. Stop after block 2 if 137c, 135c, 138c or 139c are not merged; `--final` waits for them.
 
+## Author rulings, 2026-11-23 (second round, after the 057c review)
+- **OR1 and DH1c:** DH1c is a pack fact (one value per path): report a single value. OR1 (P7a, P7b) is a share over paths: the point is the share, the range is P10 to P90 across paths. Record the reading in the manifest notes (stage-A17 amendment, part of this brief).
+- **Pack label:** map the pack code GBR to the manifest label UK in validator V8 by a stated mapping table; the run records both the pack code and the label.
+- **Run scope:** the break-even return (O1e) is run at `median_mid` only; the other four points carry the outputs that need no root search, and the file marks O1e at those points with a stated marker (`not_run_this_point`), accepted by the validator for O1e only. The parallel evaluation and timing work is brief 150c.
+- **Feasibility collapse** (one household point passes, S_low, S_central and S_high coincide): not ruled here. 149c (death-phase count) and 089c follow; the first official run keeps OF1 and CK1 pending.
+
 ## Independence from Agent 6's chain (guru check, 2026-11-23)
 057c does not edit `model_v3/runner/arm.py`, `model_v3/core/`, `docs/model-v3/household-arm-run/` (`run_grid.py`, `ranges.py`), the register or the manifest; those belong to 137c, 135c, 138c and 139c. If a block needs a change there, stop and report; do not edit.
 - **Safe to build now (structure):** `run.py` with the arm field and the stated null and pending markers; the `validate_outputs.py` change; `accept.sh`; `test_smoke.py`; the five seeded breakages.

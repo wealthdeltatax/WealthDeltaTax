@@ -31,3 +31,8 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Instruction: brief 145r `Resume` line (branch name).
 - Happened: it names `brief/145-withdrawal-saving-evidence`, which does not exist; the pushed branch is `brief/145-withdrawal-and-saving-evidence`.
 - Cost: a lookup; corrected in the brief.
+### 2026-11-23 · 140c · code
+- **Instruction:** 140c Block 1 (run F1 at five scenario points on 128c paths); `docs/model-v3/household-arm-paths.md` (two of five points raise I1).
+- **Happened:** the brief does not say what to do when the arm raises I1 on a path; the first run stopped at `min_mid`, schedule point 7 (`ValueError: I1 fails: the book's family value is not the class total...`).
+- **Cost:** about 6 minutes and a rerun; the script now records each failed cell (12 of 135) and carries on, as the stop rule (no model change) implies.
+- **Suggest:** briefs that run the household arm on per-path returns say "record an I1 alarm per cell, do not work around it".

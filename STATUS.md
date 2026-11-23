@@ -9,17 +9,18 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
-| Agent 2 | 057c blocks 1 and 2 (run script, acceptance; verification running) | block 3 and `--final` after 135c, 138c, 139c |
-| Agent 3 | 135c (per-path loose ends) | free after 135c |
-| Agent 4 | 146r (GDP growth process done; top-tail mapping next) | free after 146r |
-| Agent 5 | 140c (F1 and CK1 under the household arm, `safe` fund: blocks 1 and 2 done) | `market` fund case and note after 138c |
+| Agent 2 | 057c (blocks 0 to 2 pushed; applying the second-round rulings) | block 3 and `--final` after 135c, 138c, 139c; then 150c |
+| Agent 3 | 135c (per-path loose ends) | 150c (run cost) after 057c merges |
+| Agent 4 | free | nothing queued |
+| Agent 5 | 149c (death-phase count diagnostic) | `market` case of 140c after 138c |
 | Agent 6 | 139c blocks 0 and 1 (register rows, gate hash; no `arm.py`) | after 135c merges: 138c, 139c wiring, 147c, 148c |
 
 Six agents only. Agents change skill with the brief. Parked: 089c (OF1, CK1) until 140c reports and you rule on the feasibility rule; 044c and 009c until the first official run is out. **Budget rule:** `model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 
-**In-flight findings** (not yet reviewed): 057c reports one household evaluation takes about 4.9 s at 20 paths (legacy 1.8 s) and a full five-point run with the O1e root search is hours to days: a runtime and `pool.py` question for the author before `--final`. 140c: under the household arm and `safe` fund no (point, tol, m) cell reaches the 75% feasibility share (best F1 67.5%), 12 of 135 cells did not run on the arm's own I1 alarm, and CK1's P3 is positive at amplitude 0 in all 20 rows.
+**Findings under review (2026-11-23):** 057c: one household evaluation 4.9 s at 20 paths, a full run hours to days (ruled: O1e at `median_mid` only; parallel evaluation is 150c). 140c: no schedule feasible under the household arm, even on a constant path; the cause is the six-phase death timing (M1a lumpy every fifth year), to be tested in 149c before you rule on the feasibility rule.
 
 ## Recently done
+- 2026-11-23: 146r and 140c (`safe` case) merged; author rulings recorded (GDP axis: `indep` and `hist` correlations, full-sample SD, income follows the path; top tail: downward sensitivity, D10b only, offset to D10a, plus an I-D4e 0% variant; 057c: OR1 and DH1c reading, GBR to UK mapping, O1e at `median_mid` only). Briefs 149c (death-phase count diagnostic) and 150c (run cost) written; 147c and 148c updated with the rulings.
 - 2026-11-23: 137c merged (zero-unit lines restart from positive saving; floor alarm 0 at `median_high`, shortfall 0 at the market-path points; 350 model tests). `min_mid` D4 and D5 (1,740 line-years, negative saving on zero units) left as a labelled alarm by author ruling. Next for Agent 6: 135c, 138c, 139c.
 - 2026-11-23: 145r merged (withdrawal range, saving shapes; author accepted both as proposed, see decisions). 130c merged by its agent (38 reading copies under `docs/research/readable/`, 26.7 MB added). 137c, 140c, 057c in progress.
 - 2026-11-23: briefs restructured. Research split out for Agent 4: 145r (withdrawal range, saving shapes) and 146r (GDP growth process, top-tail mapping). The four small code briefs 141c to 144c replaced by two larger ones for Agent 6: 147c (top-tail stock and saving gradient) and 148c (pension withdrawal, heir floor, per-path GDP), each after 139c and its evidence.

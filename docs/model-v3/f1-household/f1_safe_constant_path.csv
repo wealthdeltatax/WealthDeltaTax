@@ -1,0 +1,16 @@
+point,schedule,fill_year,end_short_window,taxes_retired_100,first_year_relief_below_M1d,inside_short_window,P3_100y,P3_to_end_short_window
+min_mid,tm50_k1_r050,7,17,5,13,yes,65.66,2.38
+min_mid,tm70_k1_r050,7,17,5,13,yes,68.24,2.20
+min_mid,tm90_k1_r050,7,17,5,13,yes,70.79,2.08
+median_mid,tm50_k1_r050,7,17,5,13,yes,43.08,2.03
+median_mid,tm70_k1_r050,7,17,5,13,yes,43.04,1.84
+median_mid,tm90_k1_r050,7,17,5,13,yes,43.30,1.71
+max_mid,tm50_k1_r050,7,17,6,13,yes,102.60,0.43
+max_mid,tm70_k1_r050,7,17,6,13,yes,106.72,6.90
+max_mid,tm90_k1_r050,7,17,6,13,yes,105.54,6.73
+median_low,tm50_k1_r050,7,17,5,13,yes,97.93,3.91
+median_low,tm70_k1_r050,7,17,5,13,yes,99.00,3.63
+median_low,tm90_k1_r050,7,17,5,13,yes,100.92,3.46
+median_high,tm50_k1_r050,7,17,6,13,yes,58.36,0.29
+median_high,tm70_k1_r050,7,17,6,13,yes,64.33,6.62
+median_high,tm90_k1_r050,7,17,6,13,yes,65.20,6.39
