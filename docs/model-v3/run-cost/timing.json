@@ -1,0 +1,102 @@
+{
+ "cpu_count": 2,
+ "spec": {
+  "tau_0": 0.04,
+  "tau_m": 0.5,
+  "k_ln": 0.5,
+  "ratio": 1.0
+ },
+ "arms": {
+  "household": {
+   "eval_20": 8.911676286999977,
+   "split_20": {
+    "total": 8.46322373999999,
+    "core_run": 6.598570191000135,
+    "core_run_calls": 5,
+    "headlines": 0.010664985000062188,
+    "revenue_incl_again": 3.7577872680000155,
+    "burden_incl_again": 0.06668285599994306,
+    "support_incl_again": 3.245318984999926,
+    "sweeps_incl_again": 1.411999960510002e-06,
+    "groups_own": {
+     "revenue": 3.7577872680000155,
+     "burden": 0.06668285599994306,
+     "support": 3.245318984999926,
+     "sweeps": 1.411999960510002e-06
+    }
+   },
+   "o1e_root_20_error": null,
+   "o1e_root_20": 16.43132299900003,
+   "o1e_root_20_evals": 2,
+   "eval_200": 18.450138046000006,
+   "split_200": {
+    "total": 19.196825744999956,
+    "core_run": 16.524615662000087,
+    "core_run_calls": 5,
+    "headlines": 0.09247893999997814,
+    "revenue_incl_again": 10.303692444000035,
+    "burden_incl_again": 0.58493687400005,
+    "support_incl_again": 5.112736211000083,
+    "sweeps_incl_again": 1.764999979059212e-06,
+    "groups_own": {
+     "revenue": 10.303692444000035,
+     "burden": 0.58493687400005,
+     "support": 5.112736211000083,
+     "sweeps": 1.764999979059212e-06
+    }
+   },
+   "o1e_root_200_error": null,
+   "o1e_root_200": 36.806245042,
+   "o1e_root_200_evals": 2,
+   "level1_n1000": 74.09863736400007,
+   "statics": 0.02296916299997065,
+   "eval_1000": 76.4
+  },
+  "legacy": {
+   "eval_20": 2.941083083999956,
+   "split_20": {
+    "total": 3.290944723999928,
+    "core_run": 3.0261267849998603,
+    "core_run_calls": 5,
+    "headlines": 0.011580186999935904,
+    "revenue_incl_again": 2.3815439089999018,
+    "burden_incl_again": 0.06624256100008097,
+    "support_incl_again": 0.520767461999867,
+    "sweeps_incl_again": 1.7699999261822086e-06,
+    "groups_own": {
+     "revenue": 2.3815439089999018,
+     "burden": 0.06624256100008097,
+     "support": 0.520767461999867,
+     "sweeps": 1.7699999261822086e-06
+    }
+   },
+   "o1e_root_20_error": "income_tax_gains: a rate of 1.0 raises 0.463275, less than the target 0.529324",
+   "o1e_root_20": 5.386216991999959,
+   "o1e_root_20_evals": 2,
+   "eval_200": 8.220798169999966,
+   "split_200": {
+    "total": 8.487473824000062,
+    "core_run": 7.362472499999512,
+    "core_run_calls": 5,
+    "headlines": 0.0978786929999842,
+    "revenue_incl_again": 5.675241276999941,
+    "burden_incl_again": 0.6076884630001587,
+    "support_incl_again": 1.2706464779998896,
+    "sweeps_incl_again": 1.8200000795332016e-06,
+    "groups_own": {
+     "revenue": 5.675241276999941,
+     "burden": 0.6076884630001587,
+     "support": 1.2706464779998896,
+     "sweeps": 1.8200000795332016e-06
+    }
+   },
+   "o1e_root_200_error": "income_tax_gains: a rate of 1.0 raises 0.470702, less than the target 0.567113",
+   "o1e_root_200": 14.560948109000037,
+   "o1e_root_200_evals": 2,
+   "level1_n1000": 35.586161058000016,
+   "statics": 0.009462669999948048,
+   "eval_1000": 36.5
+  }
+ },
+ "smoke_seconds": 783
+}

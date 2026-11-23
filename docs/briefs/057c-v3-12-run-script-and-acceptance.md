@@ -79,3 +79,6 @@ None; thresholds are fixed in `acceptance.md`.
 - **Not run:**
 - **State:** draft; not started
 <!-- progress:end -->
+
+
+**150c merged (2026-11-23):** add a `--workers` switch to `run.py` (serial default, 0 one per core) passing `workers=` to `feasibility`, `tornado` and `breakeven_return`; the exact diff is in the last section of `docs/model-v3/run-cost.md`. Serial and parallel results must stay byte-identical.

@@ -11,7 +11,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
 | Agent 2 | 057c (blocks 0 to 2 reviewed; applying the null-cell rule and the four run fields; rebase on main) | block 3 and `--final` after 139c |
 | Agent 3 | free | nothing queued (138c done) |
-| Agent 4 | 150c (run cost: timing now, pool after 057c merges) | free |
+| Agent 4 | free (150c merged) | free |
 | Agent 5 | free | 140c `market` case (now unblocked); 089c (OF1 as a map, CK1) after 139c and 150c |
 | Agent 6 | 139c blocks 0 and 1 (register rows, gate hash) | 139c wiring (now unblocked, with the 10-phase setting); then 147c, 148c |
 
@@ -21,6 +21,7 @@ Six agents only. Agents change skill with the brief. Parked: 089c (OF1, CK1) unt
 
 ## Recently done
 - 2026-11-23: 138c merged: M2 on total wealth; `fund_return` axis (`safe` default, `market`); I1 tolerance 1e-7 (`median_high` now runs at 200 paths); lien the pension cannot cover written off in the ledger. P6 at year 100 is 22 to 78 (`safe`) against 646 to 896 (`market`): the whole gap to the legacy arm is the fund's return. 139c wiring and the 140c `market` case are unblocked.
+- 2026-11-23: 150c merged (`docs/model-v3/run-cost.md`, `runner/pool.py`): serial and parallel byte-identical; full run at one-point O1e about 32 to 160 h serial, 18 to 89 h on 2 workers, about 5 to 16 h on 16 cores (estimate); O1e roots are over 90% of it. 057c adds `--workers`. Level 1 chunks in a pool is a possible follow-up (not briefed).
 - 2026-11-23: 149c merged (`docs/model-v3/death-phases.md`). The phase count explains the lumps but only part of the F1 failure (best F1 9.0% at 6 phases, 25.5% at 30; one cell of 22 at 75%). Author ruled: household arm at 10 phases (139c wiring, legacy stays 6); OF1 a map, not a gate, schedules named by best F1, 'none passes' where true; 089c released (after 139c and 150c). `docs/model-v3/computational-architecture-hypothesis.md` added to main by the author: three routes to a faster model, an input to 150c (not a decision).
 - 2026-11-23: 057c O1e ruled: the safe fund ignores the generator mean (M1 flat), so O1e runs at `median_mid` with `fund_return=market` (labelled), marker `not_defined_under_safe_fund` under safe. 057c does not wait for 147c or 148c; it waits for the 139c wiring.
 - 2026-11-23: 057c blocks 0 to 2 reviewed (not merged; branch continues): smoke run completes (7.7 min) and validates; seeded breakages fail as they should. Author ruled the null-cell rule: no payer at launch gives the marker for the group and its derived outputs; OW1 withheld marker; O1e diagnosed. Block 3 and `--final` wait for 138c and 139c.
