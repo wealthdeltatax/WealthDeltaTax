@@ -323,7 +323,7 @@ def build(arm, ctx, theta, base, g=None):
     st, gain, growth = household_inputs(ctx, base, a['inputs'], a['inputs']['sav'][name], regime)
     label = dict(arm='household', scenario=dict(saving=name, saving_ratio=a['inputs']['sav'][name], regime=regime, class_returns={k: gain[k] for k in CLASSES[:3]}, pension_accrual=ctx.reg['I-D1k'].central / 100,
                  tail_pension_cap=ctx.reg['I-D1l'].central, income_scale=a['inputs']['income_scale']), safe_return='the net financial class return (a stand-in: no register row)', central=False)
-    st, label = sw.scenario(a, ctx, st, label)                                                       # 139c: the register-read scenario values, stated in the label
+    st, label = sw.scenario(a, ctx, st, label, base)                                                       # 139c: the register-read scenario values, stated in the label
     mu = theta['I-D1a'] / 100 if a.get('paths') else None
     label['scenario']['market_paths'] = None if mu is None else 'market-return risk only: net financial and pension deviate with the path\'s market return (loading 1); property, physical, saving, income and GDP growth are scenario constants'
     safe, label = sw.fund(a, (lambda T, P: np.full((T, P), gain['net_financial'])) if mu is None or g is None else (lambda T, P: gain['net_financial'] + np.asarray(g, float)[:T] - mu), label, g)      # fund_return (138c): safe stand-in or the market return
