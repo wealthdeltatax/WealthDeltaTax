@@ -261,7 +261,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the V3 build as it lands" },
     { id: "2", name: "Agent 2", note: "057c: apply the second-round rulings, finish the smoke run (blocks 1 and 2)" },
-    { id: "3", name: "Agent 3", note: "135c now; then 138c (same files, same agent)" },
+    { id: "3", name: "Agent 3", note: "138c (with the I1 tolerance and lien write-off rulings)" },
     { id: "4", name: "Agent 4", note: "150c: run cost (timing now, pool after 057c merges)" },
     { id: "5", name: "Agent 5", note: "149c: death-phase count diagnostic; then 140c market case after 138c" },
     { id: "6", name: "Agent 6", note: "139c blocks 0 and 1 now (register rows); wiring after 138c; then 147c, 148c" },
@@ -271,8 +271,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
     { id: "044c", lane: "G", at: 3, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }], why: "Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
-    { id: "135c", lane: "3", at: 0, len: 1, st: "under", t: "Per-path loose ends: OW1 withheld, two I1 alarms diagnosed, ledger tie gap", needs: [], why: "128c merged; close the four open items without changing economics.", files: "model_v3/runner/arm.py, run_grid.py" },
-    { id: "138c", lane: "3", at: 1, len: 1, st: "ready", t: "M2 on total wealth; the fund return as a safe-or-market scenario axis", needs: [{ id: "135c" }], why: "136c: household M2 is overstated by a non-pension denominator; the fund return alone makes the P6 gap. Fix the first, make the second a labelled axis.", files: "model_v3/runner/arm.py, revenue.py, household-vs-legacy.md" },
+    { id: "138c", lane: "3", at: 0, len: 1, st: "ready", t: "M2 on total wealth; the fund return as a safe-or-market scenario axis", needs: [], why: "Plus (ruled after 135c) the I1 check at 1e-7 and the lien write-off. 136c: household M2 is overstated by a non-pension denominator; the fund return alone makes the P6 gap. Fix the first, make the second a labelled axis.", files: "model_v3/runner/arm.py, revenue.py, household-vs-legacy.md" },
     { id: "139c", lane: "6", at: 0, len: 2, st: "under", t: "Register rows: lien rate, pension basis, housing gain, fund return", needs: [{ id: "138c" }], why: "The last register edit before the first official run; changes the gate hash.", files: "inputs.md, registry/inputs.json, arm.py" },
     { id: "147c", lane: "6", at: 2, len: 1, st: "ready", t: "Switches: top-tail stock and saving gradient", needs: [{ id: "139c" }], why: "Two default-off switches on the starting position; report concentration against 0.50, no fitting.", files: "arm.py, household-arm-validation.md" },
     { id: "148c", lane: "6", at: 3, len: 1, st: "ready", t: "Switches: pension withdrawal, heir floor, per-path GDP", needs: [{ id: "147c" }], why: "Three default-off flow switches; labelled ranges, no central value.", files: "arm.py, pension_lien.py" },

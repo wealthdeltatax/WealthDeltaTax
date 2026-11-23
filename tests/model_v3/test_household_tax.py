@@ -197,6 +197,22 @@ def test_a_dead_line_whose_route_price_was_zeroed_or_turned_negative_restarts_at
     assert all(x['V'].min() > 0 for x in book.R.values()) and np.allclose(book.R['A']['V'] / sum(x['V'] for x in book.R.values()), h.mix['A'])
 
 
+def test_a_dead_line_with_huge_units_restarts_exactly_and_i1_holds():
+    """135c: a rescale at a near-zero family value can leave the units at 1e18; f + u then lost the restart in rounding (family 0.5 for 1). A wiped line's restart sets f to the target and sold to the identity's remainder."""
+    h = arm.HouseholdHook(ST, GAIN, 0.0157)
+    book = book_for(ST)
+    K.step_year(book, RATE, 1.0, np.zeros(14), 0.0, hook=h, t=1)
+    for k in arm.CLASSES[:3]:
+        h.q[k] = h.q[k] * 0.0
+    for x in book.R.values():
+        x.update({k: x[k] * 0.0 for k in ('V', 'dd', 'Wp', 'ppu')})
+        x['sold'], x['f'] = x['sold'] + x['f'] - 2.5e18, x['f'] * 0.0 + 2.5e18 * (1.0 if x is book.R['A'] else -1.0)
+        x['f'] = x['f'] if x is book.R['A'] else x['f'] * 0.0
+    K.step_year(book, RATE, 1.0, np.zeros(14), 0.0, hook=h, t=2)
+    a = h.account()
+    assert (a['floor'] == 0).all() and np.abs(book.family_true() - sum(h.q[k] for k in arm.CLASSES[:3])).max() < 1e-9 and (book.family_true() > 0).all()
+
+
 def test_a_restart_with_the_verified_tranche_keeps_i1_over_the_following_years():
     """137c: the production book has route C and its verified tranche Cv (priced at C's). A restart restores both prices, so units that later move from C to Cv keep the family value equal to the class total (post raises otherwise)."""
     st = {**ST, 'pos': {**ST['pos'], 'pension': ST['pos']['pension'] * 1e-3}}                          # a small pension: the year's tax stays inside the units (the I1 pension check is absolute, 1e-12)

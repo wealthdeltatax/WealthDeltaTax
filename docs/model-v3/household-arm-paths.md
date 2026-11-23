@@ -8,7 +8,7 @@ Net financial and pension add `g - mu` (loading 1; `mu = I-D1a / 100`, the gener
 
 Setup is as in `household-arm-run.md` (five points, 1,000 paths, chunk 100, seed 1). Files: `household-arm-run/grid_results_paths.csv`, `checks_paths.csv`, `ranges_paths.csv` (`ranges.py --market-paths`).
 
-## Checks
+## Checks (128c, 1,000 paths, before the lien; superseded above)
 
 | Point | Account residual | `unpaid` | `unpaid_B` worst | `unpaid_B` path-phases | Shortfall lines | Ledger tie | Spread / flat cells | I1 |
 |---|---:|---:|---:|---:|---:|---:|---|---|
@@ -50,11 +50,42 @@ By family, cells with spread at any held point: O1 25 of 45, O2 115 of 120, O4 4
 - Flat cells by point: 132 (`median_mid`), 165 (`max_mid`), 134 (`median_low`) of the `p10_mean_p90` cells; 134 have no spread at any held point (`ranges_paths.csv`, `path_spread`).
 - Empty at every household point: OW3 and (by `ranges_paths.csv`) 7 all-nan cells. The 124c reserve-not-filling cells (O2, D4-5 short/transition) are still `nan` at some points.
 
+## Rerun at 200 paths with the lien in place (brief 135c)
+
+`run_grid.py --market-paths --paths 200` (chunk 100, seed 1), 133c lien and 137c floor and the restart fix in place; files `grid_results_paths.csv`, `checks_paths.csv`, `ranges_paths.csv` replaced. This replaces the 1,000-path tables below (128c, before the lien). Held-point checks:
+
+| Point | Account residual | `unpaid` | `unpaid_B` worst | `unpaid_B` path-phases | Shortfall lines | Ledger tie | `ledger_dL` | Spread / flat cells | I1 |
+|---|---:|---:|---:|---:|---:|---:|---:|---|---|
+| `min_mid` | 2.5e-11 | 0 | 3.02 | 2,638 | 7,321 | 3.6e-10 | 2.6e-11 | 278 / 129 | holds at 200 paths (raises at 1,000, see Diagnosis) |
+| `median_mid` | 2.6e-11 | 0 | 0 | 0 | 0 | 5.9e-12 | 5.5e-12 | 274 / 133 | holds |
+| `max_mid` | 2.5e-11 | 0 | 0 | 0 | 0 | 2.5e-11 | 2.9e-11 | 245 / 162 | holds |
+| `median_low` | 2.5e-11 | 0 | 0 | 0 | 0 | 4.3e-12 | 1.3e-12 | 273 / 134 | holds |
+| `median_high` | | | | | | | | **ALARM** (I1 fails within 200 paths; 1.0e-9 to 5.0e-8 residuals, Diagnosis) |
+
+With the lien carrying the tax the cap could not collect, `unpaid_B` is gone at `median_mid`, `max_mid` and `median_low` (it was 2,776, 446 and 6 path-phases); it remains at `min_mid` (worst 3.02 billions after weighting, on 2,638 path-phases): the pension cannot cover the lien there (133c's draw limit, the author's question). Alarms that remain: `median_high` I1 (tolerance-size), `min_mid` I1 at 1,000 paths (tolerance-size) and `min_mid` `unpaid_B`. No headline number. OW1 is the marker `withheld (legacy_only)` in every household row and `ranges_paths.csv` (test on the written CSV); the fixed-rate CSVs are not rewritten: a fresh run of `median_mid`, `max_mid` and `median_low` equals every cell they hold (1,308 cells, 0 differ; 150 later ids are new to a fresh run).
+
+## Diagnosis of the loose ends (brief 135c)
+
+Run on main with the 133c lien and 137c floor: `run_grid.py --market-paths`, point at 1,000 paths, chunk 100, seed 1, every failing check logged (not raised). Balances in millions of pounds per adult; PL and PK the lien and its part netted from the pension.
+
+**The two alarms.** Both still raise, at other lines than 128c reported (the lien and the floor moved them). Each is a residual of 1e-9 or more against the check's 1e-9 tolerance, on a line whose non-pension balances are zero or near zero and whose pension is 8 to 57.
+
+| Point | Path, line, year | Family value | Class total | Diff | PL - PK | Pension | Rule | Cause |
+|---|---|---|---|---|---|---|---|---|
+| `min_mid` | 66, 10, 96 | -0.005821972896 | -0.005821971311 | 1.6e-9 | 1.07e-10 | 19.06 | `_check` (post), kernel cap (`Lp > hold + 1e-9`) | tolerance |
+| `median_high` | 34, 9, 81 | 0 | -1.02e-9 | 1.0e-9 | 1.02e-9 | 13.74 | same | tolerance |
+
+Not a bookkeeping error and not economics: relative to the balances the gap is 1e-10 to 1e-9, the size of the kernel cap's own 1e-9 tolerance (what the cap leaves unpaid is the lien's unit part, PL - PK, which sits in the class total and not in the family value of a line the floor holds at 0). A further 10 events at `median_high` (1,000 paths) are the same kind: 1.0e-9 to 7.1e-9, and one of 5.0e-8 (path 60, line 10, year 96, PL - PK 5.03e-8, pension 57.5). Reported, not tuned. The cap is 133c's; a kernel change is stop-and-report. **Needs the author:** to loosen the check to the cap's tolerance (absolute 1e-7) or to have the cap hand over the whole excess.
+
+**A third case found and fixed (bookkeeping).** `median_high`, path 69, line 7, year 96 (1,000-path run): family 0.000917 against class total 0.00204 (diff 1.1e-3, PL 0, pension 0.589). The line's lien (2.86) was settled at year 95, which rescaled the route units by N/family with N = 0, leaving prices at 0 and unit fractions at about 1e18 (A: -2.5e18). The 137c restart then added the target to that f (f + u) and lost it in rounding: family 0.5 for 1. Fix in `HouseholdHook._restart`: for a wiped line (`bad`) f is the target and `sold` is the identity's remainder (`tot - s - f`); other lines keep their arithmetic. Test: `test_a_dead_line_with_huge_units_restarts_exactly_and_i1_holds` (fails without the fix).
+
+**The ledger tie gap (167 bn, 20 paths, `min_mid`, years 62 and 85, path 18): not reproducible.** Tried: `run_grid.py --market-paths --paths 20 --points min_mid --no-legacy` (chunk 20, seed 1) on main with the lien as a ledger receivable (132c, 133c): ledger tie max 1.8e-12, dL max 1.0e-12, I1 held, no tie gap. The 128c gap predates the lien receivable. Not diagnosed beyond that.
+
 ## Odd, listed without a verdict
 
-1. **OW1 is not withheld in the run output.** `arm.withheld()` lists OW1 as `legacy_only` under per-path returns (the comparators run on fixed scenario rates, not like for like), and a test checks it, but `grid_results_paths.csv` holds OW1 values at the household points (for example -540 at `median_mid`, mean). Nothing in `run_grid.py` applies `withheld()`. Read OW1 under per-path returns as **not valid**. The 124c note said OW1 was withheld by design; that mechanism is not visible in this path.
+1. **(Fixed in 135c: marker, test on the CSV.) OW1 is not withheld in the run output.** `arm.withheld()` lists OW1 as `legacy_only` under per-path returns (the comparators run on fixed scenario rates, not like for like), and a test checks it, but `grid_results_paths.csv` holds OW1 values at the household points (for example -540 at `median_mid`, mean). Nothing in `run_grid.py` applies `withheld()`. Read OW1 under per-path returns as **not valid**. The 124c note said OW1 was withheld by design; that mechanism is not visible in this path.
 2. **I1 raised under per-path returns**, once at each of two points, and a pre-fix raise at `median_mid` (a refund on a line with no positive non-pension balance). The latter is fixed in `_pay` (a refund on a line whose non-pension classes are non-positive goes to net financial). That is a settlement-rule change; the brief says "settlement rules unchanged". Flagged for the author.
-3. **Unexplained ledger tie gap** in a 20-path smoke run at `min_mid` (167 bn, years 62 and 85, path 18). At 1,000 paths `min_mid` fails I1 before any tie is reported, so this is not reproduced at the grid. Not diagnosed.
+3. **(135c: not reproducible, see Diagnosis.) Unexplained ledger tie gap** in a 20-path smoke run at `min_mid` (167 bn, years 62 and 85, path 18). At 1,000 paths `min_mid` fails I1 before any tie is reported, so this is not reproduced at the grid. Not diagnosed.
 4. **`unpaid_B` appears under per-path returns** (2,776 path-phases at `median_mid`); under fixed rates it was 0. This is the first sign of the lien not covering a bad path.
 5. **M1 transition** is zero (1e-15) at every point, as in 124c.
 6. **The mean over paths is not the fixed-rate value** (M1 net long at `median_mid`: -2.77 here). The fixed-rate arm is the zero-deviation case, not the mean case.

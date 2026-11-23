@@ -34,3 +34,4 @@ def test_the_script_runs_per_path_market_returns_with_spread_and_the_label(tmp_p
     assert all('market-return risk only' in r['label'] for r in res) and not (tmp_path / 'grid_results.csv').exists()
     assert int(c['spread_cells']) > 0 and int(c['flat_cells']) > 0 and float(c['account_residual_max']) < 1e-9 and float(c['ledger_tie_max']) < 1e-9
     assert any(float(r['c']) > float(r['b']) for r in res if r['id'] == 'O1' and r['summary'] == 'p10_mean_p90')          # the revenue headline has P90 above P10
+    assert {r['a'] for r in res if r['id'] == 'OW1'} == {mod.WITHHELD} and all(r['a'] != mod.WITHHELD for r in res if r['id'] == 'O1')       # 135c: OW1 is a marker under per-path returns, never a value

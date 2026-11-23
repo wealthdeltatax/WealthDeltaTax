@@ -35,8 +35,24 @@ The deferral rate (134r), per-path GDP, heterogeneity, saving gradient, withdraw
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** blocks 0 to 3 (branch from main f706c83); all pushed
+- **Next:** author decision on the 1e-9 to 5e-8 I1 residuals (kernel cap tolerance, 133c)
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/135-per-path-alarms origin/brief/135-per-path-alarms`
-- **State:** ready; not started (after 133c)
+- **State:** complete, not merged: NEEDS THE AUTHOR
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 135c, close the per-path loose ends (OW1, the two I1 alarms, the ledger tie gap)
+- Files changed: model_v3/runner/arm.py (330 lines, the architecture.md budget; `_restart` sets a wiped line's units exactly); docs/model-v3/household-arm-run/run_grid.py and ranges.py (OW1 marker under --market-paths); the three *_paths.csv (200-path rerun); docs/model-v3/household-arm-paths.md (diagnosis, rerun); architecture.md (refund routing rule); decisions.md; tests (test_household_tax.py, test_run_grid.py)
+- What is different now: OW1 is the marker `withheld (legacy_only)` under per-path returns, never a value. A third I1 case (median_high path 69, line 7, year 96, diff 1.1e-3) was bookkeeping (units near 1e18 after a settlement rescale lost the 137c restart in rounding) and is fixed. The refund routing is written as a settlement rule.
+- New or changed interfaces: none (the written rows of a per-path run carry the marker in a, b, c and summary `withheld`)
+- Acceptance criteria: test_legacy_digest unchanged and all 10 suites pass (met); fixed-rate held points equal in every shared cell (1,308 cells, 0 differ) and their CSVs not rewritten (met); OW1 marker with a test on the written CSV (met); each alarm diagnosed (met: both named alarms and 10 more are 1.0e-9 to 5.0e-8 residuals at the kernel cap's 1e-9 tolerance, family 0 against class total -(PL-PK), pension 8 to 57: tolerance, not fixed; one bookkeeping case fixed with a failing-then-passing test); tie gap (met: not reproducible, 20 paths min_mid seed 1, tie 1.8e-12)
+- Deviations from the brief: held points compared by cell against a fresh run, since the committed fixed-rate CSV predates 150 later ids. The tolerance residuals are left, not tuned. median_high still raises I1 at 200 paths and min_mid at 1,000, so median_high has no rows in the rerun.
+- Risks / follow-ups: the cap (133c, kernel) leaves up to 5e-8 of unit part on a line the floor holds at 0; the author decides between loosening the check to the cap's tolerance and a cap that hands over the whole excess. min_mid unpaid_B 3.02 on 2,638 path-phases (pension cannot cover the lien).
+- Instruction friction: none
+- Verification: python pipeline/run_suites.py 10 of 10 passed; new tests fail without the fix; run_grid --market-paths --paths 200; 20-path min_mid tie check
+- Overview sections likely needing an update: household arm per-path note; decisions
+- Commit / branch: brief/135-per-path-alarms; NEEDS THE AUTHOR, not merged
+```

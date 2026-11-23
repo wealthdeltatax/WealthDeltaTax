@@ -31,6 +31,9 @@ CHECKS = ('point', 'account_residual_max', 'unpaid_max', 'unpaid_B_max', 'unpaid
 COLS = ('grid', 'label', 'id', 'schedule', 'horizon', 'by', 'line', 'unit', 'summary', 'a', 'b', 'c', 'n_nan')
 
 
+WITHHELD = 'withheld (legacy_only)'                                              # the marker a per-path household run writes for an output it cannot produce (135c)
+
+
 def label(arm_ctx):
     a = arm_ctx.arm
     return 'legacy (context, c = I-D14c)' if a == 'legacy' else f"household, saving {a['saving']}, regime {a['regime']} (a scenario, not central)" + (', market-return risk only (128c)' if a.get('paths') else '')
@@ -44,10 +47,14 @@ def point_ctx(ctx, inp, name, paths=False):
 def rows(name, ctx, samples, manifest):
     """One row per cell of every produced id: mean, P10, P90 over the paths (p10_mean_p90), else the stored values."""
     ent = {e['id']: e for k in ('outputs', 'checks') for e in manifest.get(k) or []}
+    hold = ab.withheld(dict(arm='household', scenario=dict(market_paths=True))) if isinstance(ctx.arm, dict) and ctx.arm.get('paths') else {}      # 135c: what a per-path household run cannot produce is marked, never written as a value
     for oid in sorted(samples):
         for key, v in sorted(samples[oid].items(), key=lambda kv: repr(kv[0])):
             s, h, by, ln = key
             x, e = np.asarray(v, float), ent[oid]
+            if hold.get(oid) == 'legacy_only':
+                yield dict(grid=name, label=label(ctx), id=oid, schedule=s, horizon=h, by=';'.join(f'{k}={w}' for k, w in by), line=ln, unit=e.get('unit', ''), summary='withheld', a=WITHHELD, b=WITHHELD, c=WITHHELD, n_nan=0)
+                continue
             if e['summary'] == 'p10_mean_p90' and np.isfinite(x).any():
                 a, b, c = np.nanmean(x), *np.nanpercentile(x, [10, 90])
             elif e['summary'] == 'p10_mean_p90':
