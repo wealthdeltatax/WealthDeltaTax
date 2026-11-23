@@ -260,23 +260,22 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 (function () {
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the V3 build as it lands" },
-    { id: "2", name: "Agent 2", note: "057c: O1e at median_mid with the market fund, rebase; block 3 and --final after the 139c wiring" },
+    { id: "2", name: "Agent 2", note: "057c: O1e at median_mid with the market fund, rebase; block 3 and --final now unblocked" },
     { id: "3", name: "Agent 3", note: "Free" },
     { id: "4", name: "Agent 4", note: "Free (150c merged)" },
-    { id: "5", name: "Agent 5", note: "Free: 140c market case (unblocked), then 089c (OF1, CK1) after the 139c wiring" },
-    { id: "6", name: "Agent 6", note: "139c wiring now unblocked (register rows done, 10 phases); then 147c, 148c" },
+    { id: "5", name: "Agent 5", note: "Free: 140c market case (unblocked), then 089c (OF1, CK1) now unblocked" },
+    { id: "6", name: "Agent 6", note: "Free (139c merged); next 147c, 148c" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
   ];
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
     { id: "044c", lane: "G", at: 3, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }], why: "Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
-    { id: "139c", lane: "6", at: 0, len: 2, st: "under", t: "Register rows: lien rate, pension basis, housing gain, fund return", needs: [], why: "The last register edit before the first official run; changes the gate hash.", files: "inputs.md, registry/inputs.json, arm.py" },
-    { id: "147c", lane: "6", at: 2, len: 1, st: "ready", t: "Switches: top-tail stock and saving gradient", needs: [{ id: "139c" }], why: "Two default-off switches on the starting position; report concentration against 0.50, no fitting.", files: "arm.py, household-arm-validation.md" },
+    { id: "147c", lane: "6", at: 2, len: 1, st: "ready", t: "Switches: top-tail stock and saving gradient", needs: [], why: "Two default-off switches on the starting position; report concentration against 0.50, no fitting.", files: "arm.py, household-arm-validation.md" },
     { id: "148c", lane: "6", at: 3, len: 1, st: "ready", t: "Switches: pension withdrawal, heir floor, per-path GDP", needs: [{ id: "147c" }], why: "Three default-off flow switches; labelled ranges, no central value.", files: "arm.py, pension_lien.py" }, 
     { id: "140c", lane: "5", at: 2, len: 1, st: "ready", t: "F1 and CK1, market fund case (safe case merged)", needs: [], why: "Rerun the household F1 and CK1 with the fund at the market return once 138c has the switch; add the tables to the note.", files: "f1-household.md" },
-    { id: "089c", lane: "5", at: 3, len: 1, st: "ready", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [{ id: "139c" }], why: "Ruled 2026-11-23: OF1 a map, not a gate; household arm at 10 phases (F1 at 10 first). Parked: measured against the legacy 3.5%, which is abandoned (094r to 096r). Rule on feasibility after the replacement exists.", files: "runner/sweeps.py, out_sweeps.py" },
-    { id: "057c", lane: "2", at: 0, len: 2, st: "under", t: "Model v3 V3-12: run script and acceptance", needs: [], why: "Household arm, ranges across grid points; blocks 0 to 2 done; O1e ruled (market fund); --final after the 139c wiring; does not wait for 147c or 148c. run.py, smoke tests, accept.sh, convergence test." },
+    { id: "089c", lane: "5", at: 3, len: 1, st: "ready", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [], why: "Ruled 2026-11-23: OF1 a map, not a gate; household arm at 10 phases (F1 at 10 first). Parked: measured against the legacy 3.5%, which is abandoned (094r to 096r). Rule on feasibility after the replacement exists.", files: "runner/sweeps.py, out_sweeps.py" },
+    { id: "057c", lane: "2", at: 0, len: 2, st: "under", t: "Model v3 V3-12: run script and acceptance", needs: [], why: "Household arm, ranges across grid points; blocks 0 to 2 done; O1e ruled (market fund); --final next; does not wait for 147c or 148c. run.py, smoke tests, accept.sh, convergence test." },
     { id: "009c", lane: "G", at: 2, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" },
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });

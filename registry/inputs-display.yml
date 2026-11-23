@@ -53,6 +53,10 @@ inputs:
   I-D1j: {unit: pct_per_year, decimals: 2, display_unit: "% a year", scale: 1}
   I-D1k: {unit: pct_per_year, decimals: 2, display_unit: "% of household income a year", scale: 1}
   I-D1l: {unit: gbp_m, decimals: 3, display_unit: "£m per adult, real", scale: 1}
+  I-D1m: {unit: pct_per_year, decimals: 2, display_unit: "% real a year", scale: 1}
+  I-D1n: {unit: ratio, decimals: 2, display_unit: "ratio of IFS basis to ONS basis", scale: 1}
+  I-D1o: {unit: pct_per_year, decimals: 2, display_unit: "% real a year", scale: 1}
+  I-D1p: {unit: text, decimals: 0, display_unit: "setting", scale: 1, note: "a setting (safe or market), not a quantity; the switch of brief 138c; no numeric display"}
   I-D5a: {unit: pct, decimals: 0, display_unit: "% of base", scale: 1}
   I-D5b: {unit: pct, decimals: 1, display_unit: "% of base", scale: 1}
   I-D5c: {unit: pct, decimals: 0, display_unit: "% of affected group", scale: 1}

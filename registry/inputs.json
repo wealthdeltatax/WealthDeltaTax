@@ -1,5 +1,5 @@
 {
- "count": 298,
+ "count": 302,
  "inputs": [
   {
    "central": 5.94,
@@ -523,6 +523,67 @@
    },
    "sources": [],
    "unit": "£m per adult"
+  },
+  {
+   "central": 2.0,
+   "coverage": "UK public-sector discounting, statutory tax deferral and household borrowing comparators; no WDT-like lien market",
+   "high": 3.0,
+   "id": "I-D1m",
+   "input": "Scenario range, real annual interest rate on deferred WDT lien balances, `r_def` (household arm: the pension-secured lien and the Route B lien; one rate for both)",
+   "judgement": true,
+   "low": 0.0,
+   "nulls": {},
+   "sources": [],
+   "unit": "% real per year"
+  },
+  {
+   "central": 1.96,
+   "coverage": "UK households by pack band, April 2020 to March 2022",
+   "high": 2.02,
+   "id": "I-D1n",
+   "input": "Scenario switch, pension valuation basis: multiplier on the opening pension stock, IFS gilt-discounted basis over the ONS SCAPE basis (the pack), 2020-22; household arm, off by default",
+   "judgement": true,
+   "low": 1.0,
+   "nulls": {},
+   "sources": [],
+   "unit": "ratio of IFS-basis to ONS-basis pension stock"
+  },
+  {
+   "central": 1.6455,
+   "coverage": "UK 1896-2019 (1940-46 absent)",
+   "high": 3.2454,
+   "id": "I-D1o",
+   "input": "Scenario range, real holding gain on property (housing), `PROPERTY_GAIN` (household arm; the yield 3.758% is inside saving and is not this row)",
+   "judgement": true,
+   "low": -0.0995,
+   "nulls": {},
+   "sources": [],
+   "unit": "% per year"
+  },
+  {
+   "central": null,
+   "coverage": "n/a",
+   "high": null,
+   "id": "I-D1p",
+   "input": "Scenario axis, the fund's return setting, `fund_return` (household arm; the switch of brief 138c, `model_v3/runner/switches.py`)",
+   "judgement": true,
+   "low": null,
+   "nulls": {
+    "central": {
+     "raw": "none (scenario axis)",
+     "reason": "text"
+    },
+    "high": {
+     "raw": "market",
+     "reason": "text"
+    },
+    "low": {
+     "raw": "safe",
+     "reason": "text"
+    }
+   },
+   "sources": [],
+   "unit": "setting"
   },
   {
    "central": 12,

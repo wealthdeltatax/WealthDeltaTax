@@ -38,7 +38,7 @@ depends: [FIRST, WIDER, FALS]
 
 `order.md` section 3: D1, H1 to H3
 
-- **D1** (15 rows): I-D1a, I-D1b, I-D1c, I-D1d, I-D1a2, I-D1b2, I-D1a0, I-D1f, I-D1g, I-D1e, I-D1h, I-D1i, I-D1j, I-D1k, I-D1l
+- **D1** (19 rows): I-D1a, I-D1b, I-D1c, I-D1d, I-D1a2, I-D1b2, I-D1a0, I-D1f, I-D1g, I-D1e, I-D1h, I-D1i, I-D1j, I-D1k, I-D1l, I-D1m, I-D1n, I-D1o, I-D1p
 - **H1** (20 rows): I-H1a, I-H1f, I-H1b, I-H1g, I-H1c, I-H1h, I-H1d, I-H1i, I-H1e, I-H1j, I-H1k, I-H1l, I-H1m, I-H1n, I-H1o, I-H1p, I-H1q, I-H1r, I-H1s, I-H1t
 - **H2** (11 rows): I-H2b, I-H2a1, I-H2a2, I-H2a3, I-H2a4, I-H2a5, I-H2a6, I-H2a7, I-H2a8, I-H2a9, I-H2a10
 - **H3** (20 rows): I-H3a, I-H3b, I-H3c, I-H3d, I-H3e, I-H3f, I-H3g, I-H3h, I-H3i, I-H3j, I-H3k, I-H3l, I-H3m, I-H3n, I-H3o, I-H3p, I-H3q, I-H3r, I-H3s, I-H3t
