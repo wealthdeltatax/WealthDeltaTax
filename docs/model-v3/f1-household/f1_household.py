@@ -8,7 +8,7 @@ A one-off measurement, not part of model_v3 (its layer and budget rules do not a
 The household arm runs at five labelled scenario points (none central): saving min, median and max at the `mid` regime, and the `low` and `high` regimes at median saving (the 124c grid). Each point runs the 27 schedule
 points of the lever grid, on the same paths. Every number is a scenario value at a labelled grid point and fund setting, never a forecast.
 
-Fund settings: `safe` (the fund earns the net financial class return, a stand-in with no register row, deviating with the path's market return; the current arm). `market` needs brief 138c and stops with a message until it is merged.
+Fund settings: `safe` (the fund earns the net financial class return, a stand-in with no register row, deviating with the path's market return; the current arm). `market` (138c: the fund earns the path's market return, like the legacy arm; a labelled axis, no central value).
 
 Run from the repository root (python -I):
     python -I docs/model-v3/f1-household/f1_household.py check [--fund safe]            the reproduction checks against 124c and 128c (about 30 s)
@@ -79,10 +79,11 @@ def setup():
 
 def point_ctx(ctx, inp, point, fund='safe', paths=True):
     """The context at one scenario grid point of the household arm. `paths` True: per-path market returns (128c); False: the fixed scenario rates of 124c (used by the reproduction check)."""
-    if fund != 'safe':
-        raise SystemExit(f"fund '{fund}' needs brief 138c (the fund's return), which is not merged in this checkout: nothing was run. Use --fund safe.")
     sav, regime = POINTS[point]
-    return replace(ctx, arm=dict(arm='household', inputs=inp, saving=sav, regime=regime, paths=paths))
+    arm = dict(arm='household', inputs=inp, saving=sav, regime=regime, paths=paths)
+    if fund != 'safe':
+        arm['fund_return'] = fund      # 138c: the fund earns the path's market return (needs per-path returns)
+    return replace(ctx, arm=arm)
 
 
 def core(ctx, spec, g):
