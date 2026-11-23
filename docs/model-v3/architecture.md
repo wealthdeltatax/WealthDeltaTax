@@ -197,6 +197,7 @@ core/pension_lien.py            80     95
 core/cells.py                  80     60
 runner/runner.py               360    150
 runner/arm.py                  330    330
+runner/switches.py             200      0
 runner/sweeps.py               280    100
 runner/groups.py                40     60
 runner/out_revenue.py          150     80

@@ -21,7 +21,7 @@ Two things 136c found. (1) M2 and M2d divide by `w0`, the kernel's family value,
 **Stop rule.** A kernel change is stop-and-report. After three blocks or a quarter of the budget left, push and list the rest. Suites in the background, never piped.
 
 ## Touches
-`model_v3/runner/arm.py` (budget 310; name any raise), `model_v3/core/revenue.py` only for the denominator, `docs/model-v3/household-arm-run/` (`run_grid.py`, rerun CSVs), `docs/model-v3/household-vs-legacy.md`, `docs/model-v3/household-vs-legacy/`, tests. Not the register, the pack, the manifest, the digest fixture or the kernel.
+`model_v3/runner/arm.py` is at 329 of its 330 lines (137c; the old 'budget 310' is stale): new scenario-switch code goes in the new `model_v3/runner/switches.py` (budget 200, a new file; `arm.py` gains call sites only, or shrinks); any growth of `arm.py` past 330 is stop-and-report, `model_v3/core/revenue.py` only for the denominator, `docs/model-v3/household-arm-run/` (`run_grid.py`, rerun CSVs), `docs/model-v3/household-vs-legacy.md`, `docs/model-v3/household-vs-legacy/`, tests. Not the register, the pack, the manifest, the digest fixture or the kernel.
 
 ## Acceptance criteria
 - `test_legacy_digest` unchanged; all suites pass; the legacy arm and `fund_return = safe` outputs byte-identical apart from M2 and M2d.

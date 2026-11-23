@@ -22,7 +22,7 @@ Enter, as register rows, the four scenario constants that are still named consta
 **Stop rule.** A kernel change is stop-and-report. After three blocks or a quarter of the budget left, push and list the rest. Suites in the background, never piped.
 
 ## Touches
-`docs/model-v3/inputs.md`, `registry/inputs.json` (and the gate hash file the checker names), `model_v3/runner/arm.py` (budget 310; name any raise), `docs/model-v3/household-arm-lien.md`, tests. Not the kernel, the pack, the manifest or the digest fixture.
+`docs/model-v3/inputs.md`, `registry/inputs.json` (and the gate hash file the checker names), `model_v3/runner/arm.py` is at 329 of its 330 lines (137c; the old 'budget 310' is stale): new scenario-switch code goes in the new `model_v3/runner/switches.py` (budget 200, a new file; `arm.py` gains call sites only, or shrinks); any growth of `arm.py` past 330 is stop-and-report, `docs/model-v3/household-arm-lien.md`, tests. Not the kernel, the pack, the manifest or the digest fixture.
 
 ## Acceptance criteria
 - Four rows exist, each with low, central, high, class and label; the gate checker passes with the new hash.

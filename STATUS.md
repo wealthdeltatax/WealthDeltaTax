@@ -1,21 +1,23 @@
 # Status board
 
-Maintained by the guru. Last updated 2026-11-21 (100r merged and retired; 092c merged; 085c to 088c resumed). Plan view: `docs/lane-plan.html`.
+Maintained by the guru. Last updated 2026-11-23 (137c, 136c, 133c, 131r, 134r, 145r and 130c merged; five agents working). Plan view: `docs/lane-plan.html`.
 
 ## Where the project is
-The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: three headline outputs (government revenue, taxpayer burden, non-payer savings) as sampled P10, mean and P90, and the papers become one whitepaper plus appendices written from its results. The design is retired (011g, 040g) and the build briefs are mostly landed: scaffold, pack, schedule and kernel, base, revenue (052c), burden and savings (053c), support metrics (054c) and the output layer are on `main`. The manifest no longer carries M7e (081g). 055c (range runner) is merged but finds no feasible schedule (F1 4 to 11% against 75%); 083c measures why before the author rules (089c waits on it). The runner builds only 8 of the manifest outputs: 084c fixes a group interface, then 085c to 088c add the other outputs in parallel; 057c follows. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
+The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: government revenue, taxpayer burden and non-payer savings, reported as ranges across labelled scenario axes, never a central forecast. The v3 build is merged (scaffold, pack, schedule and kernel, base, revenue, burden, support, sweeps, output layer, runner groups). The **household arm** (Scenario B: income, saving and class-return account; 14 payer lines; pension inside the assessed base, never sold in life; pension-secured lien; per-path market returns) is built and merged through 137c; the legacy 3.5% arm is a comparator only. The diagnosis (136c) found the household arm is not low for a reason of its own: the M2 gap is the legacy arm's volatility plus one denominator defect, and the P6 gap is the fund's return. Remaining before the first official run: 135c (per-path loose ends), 138c (M2 on total wealth, fund return as a safe or market axis), 139c (register rows: lien rate 2% real central, pension basis multiplier, housing gain, fund return), then 057c `--final`. OF1 and CK1 stay pending until the feasibility diagnostic (140c) and your ruling (089c). Scenario switches queued: top-tail stock and saving gradient (147c), pension withdrawal, heir floor and per-path GDP (148c); evidence for the last (146r) is in progress. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s site/web).
 
 ## Agents
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (guru prime: writes and hands out briefs) | reviewing the household-arm build as it lands | briefs for the household-vs-legacy diagnosis, withdrawal and saving-gradient scenarios |
-| Agent 2 (code) | free | 057c blocks 1 and 2 (run script, acceptance) |
-| Agent 3 | free | nothing queued (130c done) |
-| Agent 4 | free | 146r (evidence: GDP growth process, top-tail mapping) |
-| Agent 5 | free | 140c (F1 and CK1 under the household arm) |
-| Agent 6 | free | 135c, 138c, 139c, 147c, 148c in that order |
+| Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
+| Agent 2 | 057c blocks 1 and 2 (run script, acceptance; verification running) | block 3 and `--final` after 135c, 138c, 139c |
+| Agent 3 | free | nothing queued |
+| Agent 4 | 146r (GDP growth process done; top-tail mapping next) | free after 146r |
+| Agent 5 | 140c (F1 and CK1 under the household arm, `safe` fund: blocks 1 and 2 done) | `market` fund case and note after 138c |
+| Agent 6 | 135c (block 0 pushed) | 138c, 139c, 147c, 148c in that order |
 
-Six agents only. Agents 2 to 6 change skill with the brief. Ready now: 085c to 088c, resumed on the 092c interface (merged 2026-11-20; the four stops had one cause: the 084c interface gave a group no `ctx`, `theta`, pack, rng or payer record; rulings are in each brief). Parked: 089c (OF1, CK1) until the author rules on the feasibility rule after the 083c and 090c reports. Waiting: 057c. Held: 044c and 009c, both after 057c.
+Six agents only. Agents change skill with the brief. Parked: 089c (OF1, CK1) until 140c reports and you rule on the feasibility rule; 044c and 009c until the first official run is out. **Budget rule:** `model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
+
+**In-flight findings** (not yet reviewed): 057c reports one household evaluation takes about 4.9 s at 20 paths (legacy 1.8 s) and a full five-point run with the O1e root search is hours to days: a runtime and `pool.py` question for the author before `--final`. 140c: under the household arm and `safe` fund no (point, tol, m) cell reaches the 75% feasibility share (best F1 67.5%), 12 of 135 cells did not run on the arm's own I1 alarm, and CK1's P3 is positive at amplitude 0 in all 20 rows.
 
 ## Recently done
 - 2026-11-23: 137c merged (zero-unit lines restart from positive saving; floor alarm 0 at `median_high`, shortfall 0 at the market-path points; 350 model tests). `min_mid` D4 and D5 (1,740 line-years, negative saving on zero units) left as a labelled alarm by author ruling. Next for Agent 6: 135c, 138c, 139c.
@@ -132,10 +134,12 @@ Six agents only. Agents 2 to 6 change skill with the brief. Ready now: 085c to 0
 See `OVERVIEW.md` section 6. Priority list carried over from `docs/todo.md`: citation button, CLOSE updates, PDF title page, WFR refactor, WP Appendix B forward links, internal bibliography to Zenodo v2.
 
 ## Waiting on the author
-- **Feasibility rule:** parked until the household flow model replaces 3.5% (see decisions 2026-11-20); you decided to abandon 3.5% as the central value. Review 096r when it reports. **Data acquisition (your action, optional; the full register is `docs/research/095r-source-acquisition-and-verification.md`):** public and quick: download the Bank of England NMG survey files (2011 to 2026) and Stata code; ONS quarterly sector accounts and UK Economic Accounts spreadsheets (S.14 D41, D42, D44, D45); HMRC Personal Incomes Table 3.7, CGT, IHT and property rental tables. Registration or licence: UK Data Service WAS study 7215 (safeguarded, EUL; try first for the passive/active panel work; secure study 6709 only if needed), ELSA Wave 11 (study 5050), ONS SRS enquiry for matched LCF-WAS. A PDF: Bozio and others 2013 (IFS WP 13/30, `ifs.org.uk/wps/wp201330.pdf`); no session could fetch it.
+- **Feasibility rule:** after 140c reports (the household-arm diagnostic) you rule on the rule; 089c follows. You decided to abandon 3.5% as the central value. **Data acquisition (your action, optional; the full register is `docs/research/095r-source-acquisition-and-verification.md`):** public and quick: download the Bank of England NMG survey files (2011 to 2026) and Stata code; ONS quarterly sector accounts and UK Economic Accounts spreadsheets (S.14 D41, D42, D44, D45); HMRC Personal Incomes Table 3.7, CGT, IHT and property rental tables. Registration or licence: UK Data Service WAS study 7215 (safeguarded, EUL; try first for the passive/active panel work; secure study 6709 only if needed), ELSA Wave 11 (study 5050), ONS SRS enquiry for matched LCF-WAS. A PDF: Bozio and others 2013 (IFS WP 13/30, `ifs.org.uk/wps/wp201330.pdf`); no session could fetch it.
 - **G3 judgement rows:** the 107 `(J)` rows in `docs/model-v3/judgement-decisions.md` (register 291 rows) need decisions before the gate; no hurry until the model is built.
 - **Register mismatches:** I-D4a wealth to GDP 5.94 against the pack's 6.14; I-D4b implies 1.77 adults per household against I-D4h's 1.93 (16 and over). Both in `docs/brief-suggestions.md`; an ONS mid-2021 population-by-age upload would separate 16 and 17-year-olds.
 - **M5 and M8 with death:** in life only for the first run (author, 2026-11-20); a with-death line (M5d row, a second line on O5 and O8) after the first provisional run.
-- **PR #1 (kobrains):** close or keep.
+- **Old branches and PRs:** PR #1 (`docs/agent-system-improvement-plan`, kobrains) and PR #2 (`hypothesis/empirical-household-flow-parameter-map`) are open; `docs/scaffold-audit` and `chore/markitdown-pdf-reader` are old branches. Close, merge or delete as you wish.
+- **Branch deletion:** after the 105-branch sweep only 130, 137 and 145 (merged) and the four in-flight branches remain; `docs/housekeeping/` has the script and PowerShell steps for the three.
+- **Runtime before `--final`:** see the 057c finding above (hours to days for a full five-point run).
 - **Optional:** rename the web role and skill to `wdt-site`.
 - **Parked:** the stock-wealth floor hypothesis waits for the straightforward model v3 (`docs/model-v3/stock-floor-hypothesis.md` section 13); the tolerance for the OD1 understater plateau is held for model stage C.
