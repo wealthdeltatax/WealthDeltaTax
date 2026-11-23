@@ -1,7 +1,6 @@
-"""run.py -- the run script (V3-12; architecture.md 6.5, acceptance.md 2).  python -m model_v3.run --out DIR [--paths N] [--seed S] [--smoke] [--arm household|legacy] [--final]
-Chooses the named schedules by the manifest's rule on the first household point, runs every scenario-grid point (level 1, tornado, O1e), merges the points into ranges (`scenario_range`: lowest p10 to
-highest p90, centre slot `no_central` where the points differ), marks what has no number, writes and validates outputs.json. Author rulings 2026-11-23: household arm first, legacy a labelled comparator only
-(`--arm legacy`: a legacy result, not a calibrated forecast); O2, O2d, OW3 at D4_5 with no payer are `no_payer_at_launch`; OF1 and CK1 are a labelled pending marker until 140c and 089c. Sets no environment variable.
+"""run.py -- the run script (V3-12; architecture.md 6.5, acceptance.md 2).  python -I -c "import sys; sys.path.insert(0, '.'); from model_v3 import run; run.main(['--out', DIR])"  (--paths N, --seed S, --smoke, --arm legacy, --final refused)
+Named schedules by the manifest's rule on the first household point; every scenario-grid point (level 1, tornado; O1e at the first point only); `scenario_range`: lowest p10 to highest p90, centre `no_central` where points differ.
+Author rulings 2026-11-23: household arm first, legacy a labelled comparator; markers `no_payer_at_launch` (O2, O2d, OW3 at D4_5), `not_run_this_point` (O1e); OF1 and CK1 pending until 140c, 089c. Sets no environment variable.
 """
 from __future__ import annotations
 
@@ -21,14 +20,12 @@ MANIFEST, INPUTS, LEVERS = ROOT / 'docs/model-v3/outputs.yml', ROOT / 'registry/
 HH_INPUTS, PACKS = ROOT / 'docs/model-v3/cell-baseline/inputs_used.json', ROOT / 'model_v3/pack'   # the pack folder is found, never named (R11)
 SEED, SMOKE = 20261118, (50, 3, 20)
 POINTS = {'median_mid': ('median', 'mid'), 'max_mid': ('max', 'mid'), 'median_low': ('median', 'low'), 'min_mid': ('min', 'mid'), 'median_high': ('median', 'high')}   # saving, regime; the arm's grid points
-NO_PAYER, NO_CENTRAL, NO_PAYER_BAND, NO_PAYER_IDS = 'no_payer_at_launch', 'no_central', 'D4_5', ('O2', 'O2d', 'OW3')
+NO_PAYER, NO_CENTRAL, NOT_RUN, NO_PAYER_BAND, NO_PAYER_IDS = 'no_payer_at_launch', 'no_central', 'not_run_this_point', 'D4_5', ('O2', 'O2d', 'OW3')
 PENDING = {'OF1': 'feasibility_rule_pending_140c_089c', 'CK1': 'feasibility_rule_pending_140c_089c'}
 FORMS = {'p10_mean_p90': ('p10', 'mean', 'p90'), 'point_and_range': ('lo', 'point', 'hi')}
 
-
 def ckey(c):
     return (c.get('schedule'), c['horizon'], c.get('line'), tuple(sorted(c['by'].items())))
-
 
 def scenario_range(docs):
     """The range rule, in one place: per cell the lowest low and highest high over the points; the centre slot is NO_CENTRAL where the points differ. A null at any point stays null."""
@@ -46,33 +43,33 @@ def scenario_range(docs):
                 c.update({lo_f: min(x[lo_f] for x in cs), hi_f: max(x[hi_f] for x in cs), c_f: NO_CENTRAL})
     return out
 
-
 def mark_no_payer(outs):
     for oid in NO_PAYER_IDS:
         for c in outs.get(oid, {}).get('cells', []):
             if c['by'].get('wealth_band') == NO_PAYER_BAND and any(c[f] is None for f in FORMS['p10_mean_p90']):
                 c.update(p10=NO_PAYER, mean=NO_PAYER, p90=NO_PAYER)
 
+def reduce(oid, form, line, v):   # per-path arrays -> what assemble expects (author, 2026-11-23): one value for `point`; for OR1 the share over paths, P10 and P90 across paths (P7a in pct)
+    v = np.asarray(v, float) * (100 if line == 'P7a' else 1)
+    if form == 'point':
+        u = np.unique(v)
+        if u.size != 1: raise ValueError(f'{oid}: a value-only output must be one value on every path, found {u.size}')
+        return u
+    if oid == 'OT1': return np.array([v[0], v[1:].min(), v[1:].max()])   # a tornado swing is written lo to hi (V6); the signed effects are in the tornado itself
+    v = v[np.isfinite(v)]
+    if not v.size: raise ValueError(f'{oid} {line}: no path has a value')
+    return np.array([v.mean(), *np.percentile(v, (10, 90))])
 
-def one(v):   # a value-only output (summary `point`) arrives as the same value on every path: one entry, or an error when the paths differ
-    u = np.unique(np.asarray(v, float))
-    if u.size != 1:
-        raise ValueError(f'a value-only output must be one value on every path, found {u.size}')
-    return u
-
-
-def run_point(ctx, inp, pt, named, man, n1, n2p, draws, seed, tol):
+def run_point(ctx, inp, pt, named, man, n1, n2p, draws, seed, tol, be):
     """(output docs, level 1 info) of one grid point: level 1 at the named schedules, the tornado (OT1) and the break-even return (O1e), assembled provisionally."""
     cp = ctx if pt is None else replace(ctx, arm=dict(arm='household', inputs=inp, saving=POINTS[pt][0], regime=POINTS[pt][1]))
-    st = rt.streams(seed)
-    smp, info = R.level1(cp, named, st['level1_paths'], n=n1)
+    st = rt.streams(seed); smp, info = R.level1(cp, named, st['level1_paths'], n=n1)
     ev = R.make_ev(cp, st['tornado_crn'].standard_normal((R.T, n2p)))
     smp.update(osw.ot1(S.tornado(ev, named, {i: cp.reg[i] for i in cp.tier1}, R.reads(cp))))
-    smp.update(osw.o1e(S.breakeven_return(ev, named, R.RET['mean'], draws=draws, tol=tol)))
-    pt = {o for o, e in asm.entries(man).items() if e['summary'] == 'point'}
-    smp.update({o: {k: one(v) for k, v in smp[o].items()} for o in pt if o in smp})
+    if be: smp.update(osw.o1e(S.breakeven_return(ev, named, R.RET['mean'], draws=draws, tol=tol)))   # break-even only at the first point (author, 2026-11-23; 150c does the speed)
+    ents = asm.entries(man)
+    smp.update({o: {k: reduce(o, ents[o]['summary'], k[3], v) for k, v in smp[o].items()} for o in smp if ents[o]['summary'] == 'point' or o in ('OR1', 'OT1')})
     return asm.assemble(man, smp, None, 'provisional')[0], info
-
 
 def main(argv=None):
     p = argparse.ArgumentParser()
@@ -97,23 +94,21 @@ def main(argv=None):
     docs, failed, info = [], [], None
     for pt in pts:
         try:
-            d, i = run_point(ctx, inp, pt, named, man, n1, n2p, draws, a.seed, 1.0 if a.smoke else 1e-2)
+            d, i = run_point(ctx, inp, pt, named, man, n1, n2p, draws, a.seed, 1.0 if a.smoke else 1e-2, pt in (None, pts[0]))
         except ValueError as exc:   # a point that fails its own checks (I1) is reported and left out, never repaired
-            failed.append(f'{pt}: {str(exc)[:80]}')
-            continue
-        docs.append(d); info = info or i
-        print(f'{pt or "legacy"}: {len(d)} outputs', flush=True)
+            failed.append(f'{pt}: {str(exc)[:80]}'); continue
+        docs.append(d); info = info or i; print(f'{pt or "legacy"}: {len(d)} outputs', flush=True)
     if not docs: sys.exit('every grid point failed: ' + '; '.join(failed))
     outs = scenario_range(docs) if len(docs) > 1 else docs[0]
     mark_no_payer(outs)
+    for c in outs['O1e']['cells'] if len(pts) > 1 else []: c['point'] = NOT_RUN   # O1e ran at the first point only: no centre across the points
     outs.update({oid: {'summary': asm.entries(man)[oid]['summary'], 'cells': [], 'pending': lab} for oid, lab in PENDING.items()})
     label = dict(arm='legacy', legacy_consumption=ctx.centre['I-D14c'], central=False, note='legacy result, not a calibrated forecast') if a.arm == 'legacy' else \
         dict(arm='household', central=False, points=[x for x in pts if not any(f.startswith(f'{x}:') for f in failed)], failed=failed, note='range across labelled scenario-grid points; no central value')
-    run = wr.run_block(man, MANIFEST, INPUTS, LEVERS, dict(status='provisional', run_date=datetime.date.today().isoformat(), model_version='model_v3', paths=n1, base_year=ctx.pack.base_year,
-                       pack_country=man['country_pack'], pack_sha256=ctx.pack.sha256, seed=a.seed, level2_draws=n2, level2_paths=n2p, unfilled_paths=info['unfilled_paths']['S_central'], arm=label))
+    run = wr.run_block(man, MANIFEST, INPUTS, LEVERS, dict(status='provisional', run_date=datetime.date.today().isoformat(), model_version='model_v3', paths=n1, base_year=int(str(ctx.pack.base_year)[:4]),
+                       pack_country=ctx.pack.country, pack_sha256=ctx.pack.sha256, seed=a.seed, level2_draws=n2, level2_paths=n2p, unfilled_paths=info['unfilled_paths']['S_central'], arm=label))
     path = wr.write_outputs(a.out, wr.document(outs, {}, run), MANIFEST, INPUTS)
     print(f'wrote {path}: {json.dumps({k: run[k] for k in ("status", "paths", "seed", "level2_draws", "unfilled_paths")})}; arm {label["arm"]}, points {label.get("points", "legacy")}, failed {len(failed)}')
-
 
 if __name__ == '__main__':
     main()

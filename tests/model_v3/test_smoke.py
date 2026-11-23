@@ -61,15 +61,15 @@ def test_range_rule_has_no_centre_and_marks_no_payer():
 def test_validator_accepts_markers_only_where_ruled(good, tmp_path):
     d = json.loads(good[1].read_text())
     o2 = next(c for c in d['outputs']['O2']['cells'] if c['by'] == {'wealth_band': 'D4_5'})
-    o2.update(p10='no_payer_at_launch', mean='no_payer_at_launch', p90='no_payer_at_launch')
+    o2.update(p10='no_payer_at_launch', mean='no_payer_at_launch', p90='no_payer_at_launch'); d['outputs']['O1e']['cells'][0]['point'] = 'not_run_this_point'; d['run']['pack_country'] = 'GBR'   # O1e not run at the other points; the pack code maps to the label
     f = tmp_path / 'a.json'; f.write_text(json.dumps(d))
     assert validate(f).returncode == 0
-    for mut in (lambda x: x['outputs']['O1']['cells'][0].update(p10='no_payer_at_launch'), lambda x: x['outputs']['OF1'].update(pending='')):   # a marker outside its cells, an unlabelled pending
+    for mut in (lambda x: x['outputs']['O1']['cells'][0].update(p10='no_payer_at_launch'), lambda x: x['outputs']['OF1'].update(pending=''), lambda x: x['outputs']['O1']['cells'][0].update(mean='not_run_this_point')):   # a marker outside its cells, an unlabelled pending
         bad = copy.deepcopy(d); mut(bad); f.write_text(json.dumps(bad)); assert validate(f).returncode != 0
     assert d['outputs']['OF1']['pending'] and d['outputs']['CK1']['pending'] and not d['outputs']['OF1']['cells']
 
 def test_seeded_breakages_fail_acceptance_steps_5_and_6(good, tmp_path):
-    d = json.loads(good[1].read_text()); d['run'].update(paths=10000, level2_draws=200)   # the smoke file made large enough: the baseline for step 5
+    d = json.loads(good[1].read_text().replace('null', '1.0')); d['run'].update(paths=10000, level2_draws=200)   # the smoke file with its nulls filled and made large enough: the baseline for step 5
     f = tmp_path / 'ok.json'; f.write_text(json.dumps(d)); assert accept('--check', str(f)) == 0
     seeds = [lambda x: x['run'].update(seed=1), lambda x: x['outputs'].pop('O1'), lambda x: x['outputs']['O1']['cells'][0].update(mean=None)]   # a changed seed, a missing id, a null cell
     for i, brk in enumerate(seeds):

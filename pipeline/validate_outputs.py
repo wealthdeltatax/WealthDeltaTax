@@ -59,6 +59,8 @@ STAT_FIELDS = {
 CELL_FIELDS = {"schedule", "horizon", "by", "line", "series"}
 ENTRY_FIELDS = {"summary", "cells", "withheld", "withheld_by", "pending"}
 NO_PAYER, NO_PAYER_IDS, NO_PAYER_BAND = "no_payer_at_launch", ("O2", "O2d", "OW3"), "D4_5"   # a band with no payer at launch (author, 2026-11-23)
+NOT_RUN = "not_run_this_point"                                                              # O1e ran at one scenario point only (author, 2026-11-23); accepted for O1e, in the centre slot
+PACK_LABELS = {"GBR": "UK"}                                                                   # stated mapping: pack code to manifest label (author, 2026-11-23)
 NO_CENTRAL = "no_central"                                                                    # the centre slot of a range across scenario points
 CENTRE_SLOT = {"p10_mean_p90": "mean", "point_and_range": "point", "point": "point"}
 PENDING_IDS = ("OF1", "CK1")                                                                  # labelled pending until the author rules on the feasibility rule (140c, 089c)
@@ -274,7 +276,7 @@ class Validator:
                 self.add("V8", "error" if self.strict() else "warning", "run",
                          f"missing field {k!r} (manifest run_fields_added)")
         if "pack_country" in added and "pack_country" in run and "country_pack" in run \
-                and run["pack_country"] != run["country_pack"]:
+                and PACK_LABELS.get(run["pack_country"], run["pack_country"]) != run["country_pack"]:
             self.add("V8", "error", "run.pack_country",
                      f"{run['pack_country']!r} must equal run.country_pack {run['country_pack']!r}")
         for k in sorted(set(run) - RUN_FIELDS - set(added)):
@@ -472,6 +474,8 @@ class Validator:
                     self.add("V5", "error", where, f"{f} is null (allowed only in a provisional file)")
             elif v == NO_PAYER and oid in NO_PAYER_IDS and by.get("wealth_band") == NO_PAYER_BAND:
                 continue   # stated marker (author, 2026-11-23): the band has no payer at launch; accepted for these cells only
+            elif v == NOT_RUN and oid == "O1e" and f == CENTRE_SLOT[summary]:
+                continue
             elif v == NO_CENTRAL and f == CENTRE_SLOT[summary] and self.run_arm() == "household":
                 continue   # stated marker (author, 2026-11-23): a range across labelled scenario points has no central value
             elif not is_number(v):

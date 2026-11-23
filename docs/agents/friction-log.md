@@ -49,3 +49,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - **Happened:** `pipeline/validate_outputs.py` (markers, `pending` entry field) is outside Touches, so the merge rule fails; `model_v3/out/assemble.py` was left untouched by marking in `run.py` instead.
 - **Cost:** merge blocked (`NEEDS THE AUTHOR`) until Touches names the validator.
 - **Suggest:** add `pipeline/validate_outputs.py` to 057c's Touches (and `tests/data` if its pins move).
+
+### 2026-11-23 · 057c · code
+- **Instruction:** `AGENTS.md` Auto-merge: "`git fetch`, rebase the branch on `origin/main`".
+- **Happened:** the session clone is shallow (depth 1) and `origin/main` was force-updated, so branch and main shared no history; `git rebase` and `git cherry-pick` replayed or conflicted on the whole tree (about 20 add/add conflicts in files I never touched).
+- **Cost:** about 15 minutes; fixed by `git fetch --depth=50 origin main`, then rebasing (which then worked), or applying only my own diff with `git diff A B | git apply --3way`.
+- **Suggest:** the guide says to `git fetch --depth=50 origin main` before a rebase in a shallow session clone.
