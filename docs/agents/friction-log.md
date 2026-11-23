@@ -26,3 +26,8 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - **Happened:** the IFS report has no data table of uplifts; its figures are in running text and charts, so a third value `text` was needed (acceptance criterion 1 names only the two).
 - **Cost:** a wording guess; none otherwise.
 - **Suggest:** research briefs that extract from a report name the flags `table`, `text` and `read from chart`.
+
+### 2026-11-23 · 145r · research
+- Instruction: brief 145r `Resume` line (branch name).
+- Happened: it names `brief/145-withdrawal-saving-evidence`, which does not exist; the pushed branch is `brief/145-withdrawal-and-saving-evidence`.
+- Cost: a lookup; corrected in the brief.

@@ -33,9 +33,21 @@ New: `docs/research/145r-*.md`, `docs/research/data/145r/`. Not `model_v3/`, the
 Any code, any register row, per-path GDP and the top tail (146r), any headline number.
 
 ## Implementation notes
+Change report
+- Task: brief 145r, evidence for two scenario axes (pension withdrawal by stage; saving gradient shapes)
+- Files changed: `docs/research/145r-pension-withdrawal-range.md`, `docs/research/145r-saving-gradient-shapes.md` (notes); `docs/research/data/145r/` (`withdrawal_range.py` and `.csv`, `saving_shapes.py`, `saving_shapes.csv`, `saving_evidence.csv`); this brief's progress block; `docs/agents/friction-log.md`.
+- What is different now: the held sources contain no pension withdrawal rate and no UK saving rate by wealth band. The nearest statements are proposed as labelled scenarios: a withdrawal range for the retired stage by wealth half (bottom half low 0.0 / mid 0.7 / high 2.9, top half 0.8 / 2.4 / 4.1 % of the pension balance a year; class `proxy`, floor `scenario`) from IFS BN236 on financial wealth; and three saving shapes over the 14 lines (flat, mild, steep) with additive offsets that keep aggregate saving equal to flat's at each flat value.
+- New or changed interfaces: none.
+- Acceptance criteria: every figure has a page and flag, each rate or ratio an evidence class and a challenge note, unset parts listed (met; BN236 and RF figures asserted on their PDF pages by the scripts); withdrawal by the model's stages (met for the retired stage; the not retired stage and any age profile are stated `unset`); saving shapes for the 14 lines scaled to flat (met, aggregate equality checked to 1e-12 at min, median and max); nothing outside docs changes and `check_agent_docs.py` exits 0 (met).
+- Deviations from the brief: none. The saving scaling is additive, not multiplicative, because the flat value can be negative; stated in the note as an author choice.
+- Risks / follow-ups: the withdrawal range is a proxy from a different asset and period (financial wealth, ELSA 2002-2015); the saving magnitudes have no UK by-wealth evidence; the Norwegian rows are read from the register, source not held. Data requests: ELSA waves after 2014-15 and pension variables (UKDS), any post-2015 drawdown series, WAS longitudinal microdata. For 147c and 148c: map ELSA halves to D1-5 and D6-10 and the retired stage as the note states.
+- Instruction friction: one entry added to the friction log.
+- Verification: `withdrawal_range.py` ok (24 rows), `saving_shapes.py` ok (42 and 9 rows; a deliberately wrong RF figure was rejected), `check_agent_docs.py` rc 0. No model run.
+- Overview sections likely needing an update: none.
+- Commit / branch: brief/145-withdrawal-and-saving-evidence; brief 145 merged, ready to retire (if merged below).
 <!-- progress:start -->
 - **Done:** block 0 (note skeletons); block 1 withdrawal (`145r-pension-withdrawal-range.md`, `withdrawal_range.py`); block 2 saving (`145r-saving-gradient-shapes.md`, `saving_shapes.py`)
-- **Next:** block 3 change report
+- **Next:** none; guru reviews
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/145-withdrawal-and-saving-evidence origin/brief/145-withdrawal-and-saving-evidence`
-- **State:** in progress
+- **State:** done
 <!-- progress:end -->
