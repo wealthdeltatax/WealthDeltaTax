@@ -37,8 +37,8 @@ The deferral rate, pension withdrawal, per-path return regimes beyond 128c, the 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** block 0 (branch from main f917908)
+- **Next:** block 1a (I1 tolerance, lien limited recourse), then block 1
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/138-m2-fund-return origin/brief/138-m2-fund-return`
-- **State:** ready; not started (after 137c and 135c)
+- **State:** in progress, block 0 pushed
 <!-- progress:end -->
