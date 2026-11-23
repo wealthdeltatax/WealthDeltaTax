@@ -125,6 +125,7 @@ class HouseholdHook:
             f = self._n(self.q) / book.family_true()
             for x in book.R.values():
                 x.update({k: x[k] * f for k in ('V', 'dd', 'Wp', 'ppu')})
+            self.mix = {r: x['V'] / sum(y['V'] for k, y in book.R.items() if k != 'Cv') for r, x in book.R.items() if r != 'Cv'}      # the line's opening route mix, kept for a restart (137c)
             book.pen = book.penp = self.q['pension'].copy()
             book.cap_cb = self.carry                                                                    # the tax a route cannot pay is carried as a lien, not lost to unpaid_B (133c)
 
@@ -155,17 +156,19 @@ class HouseholdHook:
         book.pen, self.W_after = self.q1['pension'] - self.PK, sum(self.q1[k] for k in CLASSES) - self.PL
         return g_n, (self._n(self.q1) - (self.PL - self.PK)) / (N0 * (1.0 + g_n)) - 1.0                                     # growth then the flow reach the household's closing non-pension total exactly (I1)
 
-    @staticmethod
-    def _restart(book, want):
-        """The class floor's restart (137c; a labelled bookkeeping rule, no register input): the lines in `want` (no units, positive saving) get units again at the year's price, the same number on every route so that the family value is 1,
-        which `pre` takes as the line's opening value (N0 = 1) and its flow then brings to the closing total. The units are bought: `sold` falls by them, so f + s + sold = tot holds. A line whose routes have no price stays dead. Returns the mask restarted."""
-        rt = [x for r, x in book.R.items() if r != 'Cv']
-        price = sum(x['V'] for x in rt)
-        ok = want & (price > 0.0)
-        for x in rt:
-            u = np.where(ok, 1.0 / np.where(price > 0.0, price, 1.0) - x['f'], 0.0)
+    def _restart(self, book, want):
+        """The class floor's restart (137c; a labelled bookkeeping rule, no register input): the lines in `want` (no units, positive saving) get units again at the year's price, one number on every route so that the family value is 1,
+        which `pre` takes as the opening value (N0 = 1) and its flow brings to the closing total. A route price that a rescale at N <= 0 left at 0 or below is first restored to the opening route mix (`self.mix`; Cv at C's). The units are bought (`sold` falls), so f + s + sold = tot holds. Returns `want`."""
+        rt, cv = {r: x for r, x in book.R.items() if r != 'Cv'}, book.R.get('Cv')
+        bad = want & (sum(x['V'] for x in rt.values()) <= 0.0)
+        for r, x in rt.items():
+            x['V'] = np.where(bad, self.mix[r], x['V'])
+        p, kept = sum(x['V'] for x in rt.values()), 0.0 if cv is None else cv['f'] * np.where(bad, rt['C']['V'], cv['V'])      # Cv's units (the verified tranche of C) keep their value
+        cv is None or cv.update(V=np.where(bad, rt['C']['V'], cv['V']))
+        for x in rt.values():
+            u = np.where(want, (1.0 - kept) / np.where(want, p, 1.0) - x['f'], 0.0)
             x['f'], x['sold'] = x['f'] + u, x['sold'] - u
-        return ok
+        return want
 
     def lien(self):
         """The public ledger's receivable (132c), by line: the lien balance at the close and the year's new, accrued, settled and written-off amounts (billions after weighting; the balance moves by new + accr - settled - wo); `xnew` is the part of `new` the kernel never moved (the cap's excess, 133c), which is not in the year's value paid."""

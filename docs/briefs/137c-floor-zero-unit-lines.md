@@ -34,9 +34,23 @@ The deferral rate, per-path loose ends (135c), pension withdrawal, any change to
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (progress block pushed); block 1 (diagnosis: 28,380 floor line-years, 26,640 restartable at `median_high`, 1,740 not at `min_mid`: negative saving on zero units; table in `household-arm-i1-floor.md`)
-- **Done (cont.):** block 2 (restart in `HouseholdHook._restart`, `arm.py` 326 lines; two tests; all ten suites pass, `test_legacy_digest` included); held-point byte check pending
-- **Next:** block 3 (rerun: `min_mid` and `median_high` at 20 paths, the other three at 200; note and change report; `min_mid` stays a listed alarm for the author)
+- **Done:** blocks 0 to 3. Diagnosis (28,380 floor line-years: 26,640 restartable at `median_high`, 1,740 at `min_mid` not); restart in `HouseholdHook._restart`; reruns and note in `docs/model-v3/household-arm-i1-floor.md`.
+- **Next:** the author rules on the `min_mid` case (negative saving on zero units, D4 year 61 and D5 year 78); then the guru reviews. Not merged.
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/137-floor-zero-units origin/brief/137-floor-zero-units`
-- **State:** in progress; branch `brief/137-floor-zero-units`
+- **State:** finished, branch `brief/137-floor-zero-units` pushed; `NEEDS THE AUTHOR`
 <!-- progress:end -->
+
+```
+Change report
+- Task: 137c, the class floor: a line whose units are all zero cannot take the year's saving
+- Files changed: model_v3/runner/arm.py (`_restart`, `self.mix`, the floor in `pre`; 313 to 329 lines); tests/model_v3/test_household_tax.py (four tests added; one changed, see below); docs/model-v3/household-arm-i1-floor.md (diagnosis table and results); docs/model-v3/household-arm-lien.md (one-sentence update); docs/model-v3/household-arm-run/floor_line_years_137.csv (block 1), floor_restart/ (reruns), floor_diag.py (the diagnostic); this brief's notes.
+- What is different now: a line with no units and a positive saving restarts from it in the hook, so the floor alarm is 0 at `median_high` (20 paths; 26,640 line-years before) and at `median_mid`, `max_mid`, `median_low` with market paths (200 paths; `unpaid_B` path-phases 375, 26 and 0 before, 0 after). `min_mid` keeps its 1,740 line-years (D4 from year 61, D5 from year 78), listed with balances in the note.
+- New or changed interfaces: none (a hook method and an attribute; no register input, no kernel change).
+- Acceptance criteria: (1) `test_legacy_digest` unchanged and passing; all ten suites pass (`model_v3` 350); the three held points and the legacy context at 1,000 paths byte-identical (md5) to `origin/main`; the 14-line account and ledger CSVs regenerate with an empty git diff: met. (2) Floor alarm 0 at `median_high`; at `min_mid` each remaining case is listed with balances and cause: met as written, but the case is not restartable, which the brief's stop rule makes a stop-and-report: the author rules. (3) I1, the account identity (max 2.6e-11) and the ledger ties (max 2.5e-11) hold at all five points: met.
+- Deviations from the brief: (a) a second mechanism: at `median_mid` with market paths 740 floor line-years remained because the route price was 0 or negative after a settlement rescale; the restart restores it to the line's opening route mix (Cv at C's). This is beyond "units = saving / price"; the route mix is my choice, flagged for review. (b) The existing 127c test now runs on a negative saving because its positive-saving dead line is exactly what the brief says restarts; its assertions are unchanged. (c) `floor_diag.py` is a new script under `household-arm-run/`, which the brief's Touches names only for CSVs. (d) The brief's `arm.py` budget of 310 was stale: the file was 313 and the architecture table says 330; I stayed at 329, no raise.
+- Risks / follow-ups: the restored route mix gives a restarted line the opening A, B, C, D split whatever its history; if the author wants another split, it is one line in `_restart`. Float round-off: the I1 pension check is absolute (1e-12), so a pension of order 1e4 with a large cap lien can trip it (seen in a test setup with a 16,000 pension, not in the runs); not fixed here.
+- Instruction friction: none.
+- Verification: run: test_household_tax (17), all ten suites via `run_suites.py` (model_v3 350 passed), `test_legacy_digest` (2), `min_mid` and `median_high` at 20 paths (`lien_rerun.py`), the three other points at 200 market paths (`run_grid.py`), the held points at 1,000 paths on both trees, the account and ledger scripts. Not run: the site build (no change under `pipeline/`, `site/` or `registry/`).
+- Overview sections likely needing an update: none by file; the note in `household-arm-lien.md` and the 127c floor entry in the decisions list.
+- Commit / branch: see the branch tip, `brief/137-floor-zero-units`. NOT merged: NEEDS THE AUTHOR (the `min_mid` case is not restartable; items (a) and (c) are outside the brief as written).
+```
