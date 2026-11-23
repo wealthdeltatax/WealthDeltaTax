@@ -20,6 +20,7 @@ Six agents only. Agents change skill with the brief. Parked: 089c (OF1, CK1) unt
 **Findings under review (2026-11-23):** 057c: one household evaluation 4.9 s at 20 paths, a full run hours to days (ruled: O1e at `median_mid` only; parallel evaluation is 150c). 140c: no schedule feasible under the household arm, even on a constant path; the cause is the six-phase death timing (M1a lumpy every fifth year), to be tested in 149c before you rule on the feasibility rule.
 
 ## Recently done
+- 2026-11-23: speed-up plan ruled (provisional brief 151c after 044c: headline-only evaluation for the tornado and O1e roots, byte-identical; 152c to 154c follow from its measurement; Rust and Julia on hold). Estimated 3 to 5x on the roots and the tornado, not yet measured.
 - 2026-11-23: 138c merged: M2 on total wealth; `fund_return` axis (`safe` default, `market`); I1 tolerance 1e-7 (`median_high` now runs at 200 paths); lien the pension cannot cover written off in the ledger. P6 at year 100 is 22 to 78 (`safe`) against 646 to 896 (`market`): the whole gap to the legacy arm is the fund's return. 139c wiring and the 140c `market` case are unblocked.
 - 2026-11-23: medium-term order ruled: first official run, then 009c and 044c, then the speed-up work (baseline `quick` file taken first).
 - 2026-11-23: O1e scope ruled: central root only in the first official run, `--o1e-draws` to scale later; new `quick` run size for a fast baseline and speed-up turnarounds (both in 057c). Actions workflow with sharding comes after the baseline.
