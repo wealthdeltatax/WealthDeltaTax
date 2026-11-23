@@ -27,6 +27,7 @@ from __future__ import annotations
 import numpy as np
 
 from model_v3.core import returns as rt
+from model_v3.runner.pool import pmap
 
 HEADS = ('M1', 'M2', 'M4a', 'M3')
 CLOSED = 1e-9
@@ -49,12 +50,12 @@ def _mean(x):
     return float(np.nanmean(x)) if np.isfinite(x).any() else float('nan')
 
 
-def feasibility(ev, specs):
+def feasibility(ev, specs, workers=1):
     """The feasibility map: for each spec, per horizon (transition, short) F1 (percent of paths), M2 and M4a (means over paths). Returns the points
     (dicts with the spec, its labels and those numbers) and OF1 as {key: array} with one entry per path (F1 is the 0 or 1 of each path)."""
     pts, of1 = [], {}
-    for sp in specs:
-        e, (sg, wm) = ev(sp), labels(sp)
+    for sp, e in zip(specs, pmap(ev, specs, workers)):   # `workers` > 1 evaluates the points in processes (pool.py); the same results
+        (sg, wm) = labels(sp)
         pt = dict(spec=sp, schedule_grid=sg, w_min=wm, F1={}, M2={}, M4a={})
         for hz in ('transition', 'short'):
             closed = (e['P3h'][hz] <= CLOSED).astype(float)
@@ -82,13 +83,15 @@ def headline(e, name, hz):
     return _mean(e[name][hz] if name == 'M1' else e[name][hz]['overall'])
 
 
-def tornado(ev, specs, rows, read):
+def tornado(ev, specs, rows, read, workers=1):
     """OT1 rows: dicts schedule, input, headline, horizon, low, high (swings against central), sorted within each (schedule, headline, horizon) by the larger
     absolute swing, descending. `rows` maps each input id to its register Row, `read` is the set of ids the evaluator reads; the others get 0.0 without a run."""
-    out = []
+    out, ins = [], [i for i in rows if i in read]
+    units = [(s, i, side) for s in specs for i, side in [(None, None)] + [(i, k) for i in ins for k in ('low', 'high')]]   # each is one evaluation, independent of the rest
+    done = dict(zip(units, pmap(lambda u: ev(specs[u[0]]) if u[1] is None else ev(specs[u[0]], {u[1]: getattr(rows[u[1]], u[2])}), units, workers)))
     for s, spec in specs.items():
-        cen = ev(spec)
-        run = {i: {side: ev(spec, {i: getattr(r, side)}) for side in ('low', 'high')} for i, r in rows.items() if i in read}
+        cen = done[s, None, None]
+        run = {i: {side: done[s, i, side] for side in ('low', 'high')} for i in ins}
         for name in (h for h in HEADS if h in cen or h != 'M3'):          # the household arm holds no M3 (withheld, arm.WITHHELD_BY): the head is left out
             for hz in (('single',) if name == 'M3' else ('transition', 'short', 'long')):
                 grp = []
@@ -113,15 +116,14 @@ def breakeven(f, lo, hi, tol=1e-3, maxit=60):
     return 0.5 * (lo + hi)
 
 
-def breakeven_return(ev, specs, mean_id, lo=0.0, hi=15.0, draws=None, tol=1e-2):
+def breakeven_return(ev, specs, mean_id, lo=0.0, hi=15.0, draws=None, tol=1e-2, workers=1):
     """O1e: for each schedule the generator mean (percent a year) at which the short-window M1 is zero, other inputs central; with `draws` ({id: array}) one more
     root per draw, in the same order, for the range. Returns {schedule: (point, [roots over draws])}."""
-    out = {}
-    for s, spec in specs.items():
-        root = lambda over, spec=spec: breakeven(lambda m: _mean(ev(spec, {**over, mean_id: m})['M1']['short']), lo, hi, tol)
-        n = len(next(iter(draws.values()))) if draws else 0
-        out[s] = (root({}), [root({i: float(v[j]) for i, v in draws.items() if i != mean_id}) for j in range(n)])
-    return out
+    n = len(next(iter(draws.values()))) if draws else 0
+    units = [(s, j) for s in specs for j in [None] + list(range(n))]   # one root each (a serial bisection); the roots are independent
+    over = lambda j: {} if j is None else {i: float(v[j]) for i, v in draws.items() if i != mean_id}
+    roots = dict(zip(units, pmap(lambda u: breakeven(lambda m: _mean(ev(specs[u[0]], {**over(u[1]), mean_id: m})['M1']['short']), lo, hi, tol), units, workers)))
+    return {s: (roots[s, None], [roots[s, j] for j in range(n)]) for s in specs}
 
 
 def stress(ev, spec, mu, amps, T, period=10):
