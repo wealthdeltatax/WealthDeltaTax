@@ -10,7 +10,7 @@ Run from the repository root (python -I):
     python -I docs/model-v3/death-phases/death_phases.py years [--phases 6,10,15,30]    block 1: year-by-year tables on a constant path, CSV next to the script
     python -I docs/model-v3/death-phases/death_phases.py legacy [--phases 6,10,15,30]    block 3: block 1's table for the legacy arm (083c's), CSV next to the script
     python -I docs/model-v3/death-phases/death_phases.py checkf1                  after `f1`: the 6-phase cells equal 140c's cell by cell
-    python -I docs/model-v3/death-phases/death_phases.py f1 [--phases 6,15,30] [--seed 20261118] [--n 200]    block 2: 140c's `f1` at `median_mid` per phase count (about 10 minutes); per-count files in f1_phases_N/
+    python -I docs/model-v3/death-phases/death_phases.py f1 [--phases 6,15,30] [--seed 20261118] [--n 200] [--out DIR]    block 2: 140c's `f1` at `median_mid` per phase count (about 10 minutes); per-count files in f1_phases_N/
 Progress goes to stderr; two runs with the same arguments print identical text.
 """
 from __future__ import annotations
@@ -219,6 +219,10 @@ if __name__ == '__main__':
     ap.add_argument('--phases', default=None)
     ap.add_argument('--seed', type=int, default=20261118)
     ap.add_argument('--n', type=int, default=200)
+    ap.add_argument('--out', default=None, help='folder for the outputs of `f1` (default: next to the script)')
     a = ap.parse_args()
+    if a.out:
+        OUT = Path(a.out)
+        OUT.mkdir(parents=True, exist_ok=True)
     a.phases = a.phases or ('6,15,30' if a.block == 'f1' else ','.join(str(n) for n in PHASES))
     sys.exit({'check': run_check, 'years': run_years, 'f1': run_f1, 'legacy': lambda x: run_years(x, True), 'checkf1': run_checkf1}[a.block](a))
