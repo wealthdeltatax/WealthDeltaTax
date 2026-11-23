@@ -33,7 +33,8 @@ Choosing a rule, changing `CLOSED` or levers, the OF1 and CK1 outputs themselves
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** block 0; block 1 (F1 under the household arm: script `docs/model-v3/f1-household/f1_household.py`, tables `f1_safe_tables.md`, CSVs; 5 scenario points x 27 schedule points, 200 paths, seed 20261118; 12 of 135 cells did not run: the arm's own I1 alarm, 128c, recorded not worked around; no (point, tol, m) cell feasible, best F1 67.5%)
-- **Next:** block 2 (CK1: `f1_household.py ck1`, output already generated, to be checked and pushed); block 3 waits on 138c (not merged: `market` fund case) plus the note `docs/model-v3/f1-household.md`
+- **Done (cont.):** block 2 (CK1: `f1_household.py ck1`, `ck1_safe_tables.md`, `ck1_safe.csv`; 5 scenario points x 4 schedules x 10 amplitudes, none failed; P3 is positive at A 0 in all 20 rows, so P3 is zero up to no amplitude; zero P3 appears only at isolated larger amplitudes in 12 of 20 rows)
+- **Next:** block 3: the `market` fund case waits on 138c (not merged; the script stops with a message for `--fund market`); the note `docs/model-v3/f1-household.md` for the `safe` case can be written now
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/140-f1-household origin/brief/140-f1-household`
-- **State:** in progress, block 1 done; second-run identity check pending
+- **State:** in progress, blocks 1 and 2 done; second-run identity check pending
 <!-- progress:end -->
