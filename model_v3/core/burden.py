@@ -101,7 +101,7 @@ def line_flows(base, rate_fn, g, gdp_g, c, G=G, n_phase=6, index='gdp_pc', route
         book = K.Book(n, V0, alpha0={'C': 1.0, 'D': 1.0}, has_cv=has_cv, **book_kw)
         for t in range(1, T + 1):
             il, gt = np.repeat(ix[t - 1], L), np.repeat(g[t - 1], L)
-            w0[t - 1, sl] = tl(book.family_true())
+            w0[t - 1, sl] = tl(book.family_true() if hook is None or not hook.household else hook.total(book))      # M2's base is total wealth in both arms (138c)
             tax, dd, dx = np.zeros(n), np.zeros(n), np.zeros(n)
             for kind, fl in K.step_year(book, rate_fn, il, gt, c, 1.0, 1.0, lam_C, lam_D, False, hook, t):
                 if kind == 'tax':

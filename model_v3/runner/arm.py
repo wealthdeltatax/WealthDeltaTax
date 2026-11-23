@@ -110,6 +110,7 @@ class HouseholdHook:
         dev = np.asarray(g, float) - self.mu
         return {**self.gn, 'net_financial': self.gn['net_financial'] + dev, 'pension': self.gn['pension'] + dev}
 
+    def total(self, book): return book.family_true() + (book.pen if book is self.book else 0.0)     # total wealth, pension included, at the year's start (138c): the base M2 and M2d divide by; a new phase's book holds it all in its units
     def _n(self, q):
         return sum(q[k] for k in (CLASSES if self.c is not None else CLASSES[:3]))              # the legacy arm sells every class; here pension is a balance beside the units
 
