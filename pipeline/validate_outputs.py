@@ -57,7 +57,11 @@ STAT_FIELDS = {
     "point": ("point",),
 }
 CELL_FIELDS = {"schedule", "horizon", "by", "line", "series"}
-ENTRY_FIELDS = {"summary", "cells", "withheld", "withheld_by"}
+ENTRY_FIELDS = {"summary", "cells", "withheld", "withheld_by", "pending"}
+NO_PAYER, NO_PAYER_IDS, NO_PAYER_BAND = "no_payer_at_launch", ("O2", "O2d", "OW3"), "D4_5"   # a band with no payer at launch (author, 2026-11-23)
+NO_CENTRAL = "no_central"                                                                    # the centre slot of a range across scenario points
+CENTRE_SLOT = {"p10_mean_p90": "mean", "point_and_range": "point", "point": "point"}
+PENDING_IDS = ("OF1", "CK1")                                                                  # labelled pending until the author rules on the feasibility rule (140c, 089c)
 TOP_FIELDS = {"schema", "run", "outputs", "level2"}
 RUN_REQUIRED = (
     "manifest_version", "manifest_sha256", "country_pack", "run_date",
@@ -354,6 +358,12 @@ class Validator:
         if not isinstance(cells, list):
             self.add("V3", "error", oid, "cells missing or not an array")
             return
+        if "pending" in entry:   # a labelled pending marker, never a value: only OF1 and CK1, no cells
+            if oid not in PENDING_IDS:
+                self.add("V7", "error", oid, f"pending is accepted only for {', '.join(PENDING_IDS)}")
+            elif not (isinstance(entry["pending"], str) and entry["pending"]) or cells:
+                self.add("V7", "error", oid, "a pending entry needs a label and no cells")
+            return
         held = ent.arms is not None and "household" not in ent.arms and self.run_arm() == "household"   # an output this arm cannot produce (122c)
         if "withheld" in entry or held:
             if not held:
@@ -441,16 +451,17 @@ class Validator:
         elif "line" in cell:
             self.add("V3", "error", where, "output declares no lines: remove 'line'")
             ok = False
-        self.check_stats(ent.summary, cell, where)
+        self.check_stats(ent.summary, cell, where, ent.id)
         self.check_series(ent, cell, where)
         return self.cell_key(ent, cell) if ok else None
 
     # V5, V6 --------------------------------------------------------------
-    def check_stats(self, summary: str, obj: dict, where: str) -> None:
+    def check_stats(self, summary: str, obj: dict, where: str, oid: str | None = None) -> None:
         fields = STAT_FIELDS.get(summary)
         if fields is None:
             return   # unknown summary already a V2 error
         vals = {}
+        by = obj.get("by") if isinstance(obj.get("by"), dict) else {}
         for f in fields:
             if f not in obj:
                 self.add("V5", "error", where, f"missing numeric field {f!r}")
@@ -459,6 +470,10 @@ class Validator:
             if v is None:
                 if not self.provisional():
                     self.add("V5", "error", where, f"{f} is null (allowed only in a provisional file)")
+            elif v == NO_PAYER and oid in NO_PAYER_IDS and by.get("wealth_band") == NO_PAYER_BAND:
+                continue   # stated marker (author, 2026-11-23): the band has no payer at launch; accepted for these cells only
+            elif v == NO_CENTRAL and f == CENTRE_SLOT[summary] and self.run_arm() == "household":
+                continue   # stated marker (author, 2026-11-23): a range across labelled scenario points has no central value
             elif not is_number(v):
                 self.add("V5", "error", where, f"{f} is not a finite number: {v!r}")
             else:

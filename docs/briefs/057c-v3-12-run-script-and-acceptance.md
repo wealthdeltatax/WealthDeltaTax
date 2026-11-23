@@ -71,11 +71,24 @@ None; thresholds are fixed in `acceptance.md`.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** draft; not started
+- **Done:** blocks 0, 1 and 2 written and pushed. Block 3 and `--final` not started (135c, 138c, 139c still `ready`; 137c merged and archived).
+- **Next:** the author or guru rules on the four entries in `docs/brief-suggestions.md` (OR1 and DH1c cells, run cost, feasibility collapse, pack label); then `run.py` can finish a smoke run and `test_smoke.py` goes green.
+- **Decisions:** range of a cell = lowest p10 (lo) to highest p90 (hi) over the points, centre slot `no_central` only where the points differ; `--smoke` runs the first grid point only; smoke uses a coarse break-even tolerance (1.0); `accept.sh` step 1 adds `-x`; `-I -c` invocation; `run.py` writes `pack_country` = the manifest `country_pack` label.
+- **Gotchas:** see Implementation notes below and `docs/brief-suggestions.md`.
+- **Resume:** `git status`; run `python -I -m pytest tests/model_v3/test_smoke.py -q -k "range_rule or renamed or broken"` (fast, pass); the smoke fixture (7.5 min) currently stops at OR1 and DH1c.
+- **Not run:** `accept.sh` end to end; step 2 (`test_converge.py`, block 3); any `--final`; a smoke run to completion.
+- **State:** NEEDS THE AUTHOR (not merged)
 <!-- progress:end -->
+
+Change report
+- Task: brief 057c, V3-12 run script and acceptance (blocks 0 to 2)
+- Files changed: `model_v3/run.py` (new, 119 lines: arm field, `scenario_range`, markers, `--arm legacy`, `--final` refused); `pipeline/validate_outputs.py` (markers `no_payer_at_launch` and `no_central`, `pending` entry field for OF1 and CK1); `tests/model_v3/accept.sh` (new, 30 lines); `tests/model_v3/test_smoke.py` (new, 79 lines); `docs/agents/friction-log.md`; `docs/brief-suggestions.md`; this brief.
+- What is different now: `python -I -c "import sys; sys.path.insert(0, '.'); from model_v3 import run; run.main(['--out', DIR])"` is the run command; `bash tests/model_v3/accept.sh` is the acceptance command (never passes `--final`).
+- New or changed interfaces: the two markers and `pending` in the output file (author answers 2026-11-23: ranges reuse the stat fields with centre `no_central`; named schedules by the current rule).
+- Acceptance criteria: seeded breakages: MET and measured (changed seed, missing id, null cell, non-identical rerun each exit 1 through `--check` and `--compare`; a seeded failing unit test makes the full `accept.sh` exit 1 in 1.1 s). Renamed-module copy and broken-import copy fail the smoke run: MET (2 tests pass). Range rule and marker tests: MET (`-k range_rule` passes). `test_rules.py`: all pass; `test_budget.py::test_block_sums_equal_the_stated_totals` fails on pristine `origin/main` too (6260 against 6060 stated; not from this brief); `tests/hooks` 88 passed and `tests/data` 102 passed with the validator edit (run as separate pytest calls). NOT MET: a smoke run to completion (stops at `OR1` and `DH1c`, see suggestions); `test_smoke_passes` and the two fixture-based tests are therefore red; `accept.sh` end to end (step 2 needs block 3); block 3 and `--final` (dependencies unmerged).
+- Deviations from the brief: validator edit is outside Touches (friction log); `-I -c` instead of `-I -m`; `--smoke` runs one point; `accept.sh` `-x`; `pack_country` is the manifest label; envelope (lowest p10 to highest p90) instead of a range of means.
+- Risks / follow-ups: four entries in `docs/brief-suggestions.md`: OR1 and DH1c cell shape; run cost (4.9 s per household evaluation, smoke 7.5 min, full run hours to days); one feasible household point so S_low, S_central and S_high coincide; GBR against UK.
+- Instruction friction: two entries added (the `-m` command, the Touches gap).
+- Verification: as in the criteria; not run: full `pytest tests/model_v3`, `accept.sh`, any run at the starting sizes.
+- Overview sections likely needing an update: none yet.
+- Commit / branch: `brief/057-run-script-acceptance` (not merged: criteria unmet, diff outside Touches).

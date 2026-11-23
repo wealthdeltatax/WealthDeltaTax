@@ -38,3 +38,14 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - **Suggest:** briefs that run the household arm on per-path returns say "record an I1 alarm per cell, do not work around it".
 
 - 149c: the brief did not say what to do when the arm raises its I1 alarm in a cell (1, 3 and 5 cells at 6, 15, 30 phases) or when a 140c cell stops running (`tm90_k2_r025`). I recorded the cells per cell, left them out of the tables and merged nothing. A rebase onto main also needed an explicit `--force-with-lease=<branch>:<sha>` because the shallow clone has no remote ref.
+### 2026-11-23 · 057c · code
+- **Instruction:** `acceptance.md` section 1 and `architecture.md` 6.4 give `python -I -m model_v3.run ...` as the run and smoke command.
+- **Happened:** `-I` ignores the current directory, so `No module named 'model_v3'`; the command cannot work as written (the code guide's import-check rule says the same for imports).
+- **Cost:** about 10 minutes (a smoke run started and failed unseen); fixed by `python -I -c "import sys; sys.path.insert(0, '.'); from model_v3 import run; run.main([...])"` in `accept.sh` and `test_smoke.py`.
+- **Suggest:** the guru amends the two command lines in `acceptance.md` and `architecture.md` 6.4 to the `-I -c` form.
+
+### 2026-11-23 · 057c · code
+- **Instruction:** brief 057c Touches lists `run.py`, the two test files, `accept.sh`, `decisions.md` and the brief; block 1 also names "validator change", and the null marker needs `assemble` handling.
+- **Happened:** `pipeline/validate_outputs.py` (markers, `pending` entry field) is outside Touches, so the merge rule fails; `model_v3/out/assemble.py` was left untouched by marking in `run.py` instead.
+- **Cost:** merge blocked (`NEEDS THE AUTHOR`) until Touches names the validator.
+- **Suggest:** add `pipeline/validate_outputs.py` to 057c's Touches (and `tests/data` if its pins move).
