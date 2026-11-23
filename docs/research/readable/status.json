@@ -1,0 +1,148 @@
+{
+ "data/097r/quarterlysectoraccounts2026q2.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 93973,
+  "bytes": 343932,
+  "cut": [
+   [
+    "KEI",
+    1022
+   ],
+   [
+    "HH_1",
+    744
+   ],
+   [
+    "HH_2",
+    1039
+   ],
+   [
+    "HH_3",
+    1039
+   ],
+   [
+    "HH_Alt",
+    431
+   ],
+   [
+    "PNFC_1",
+    1039
+   ],
+   [
+    "PNFC_2",
+    576
+   ],
+   [
+    "REV_1",
+    466
+   ],
+   [
+    "REV_2",
+    464
+   ]
+  ]
+ },
+ "data/098r/gb1/gb_ppp_machine_readable.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 367080,
+  "bytes": 1839050,
+  "cut": [
+   [
+    "Cross_border_migration",
+    636
+   ],
+   [
+    "International_migration",
+    636
+   ],
+   [
+    "Total_migration",
+    636
+   ]
+  ]
+ },
+ "data/098r/meanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferenceperson.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 1758,
+  "bytes": 8144,
+  "cut": []
+ },
+ "data/098r/periodcohortqx2024basedgb.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 154422,
+  "bytes": 712126,
+  "cut": []
+ },
+ "data/098r/personalfinancialandpropertydebtbyageandregion.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 4488,
+  "bytes": 19773,
+  "cut": []
+ },
+ "data/129r/1-s2.0-S0014292125001266-main.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 14263,
+  "bytes": 92138,
+  "cut": []
+ },
+ "data/129r/7215_was_userguide_round_7.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 18736,
+  "bytes": 127193,
+  "cut": []
+ },
+ "data/129r/BN236.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 10231,
+  "bytes": 63998,
+  "cut": []
+ },
+ "data/129r/Before-the-fall.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 21915,
+  "bytes": 137908,
+  "cut": []
+ },
+ "data/129r/IFS Report - How is wealth distributed across British households.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 18155,
+  "bytes": 111964,
+  "cut": []
+ },
+ "data/129r/meanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferenceperson.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 1758,
+  "bytes": 8144,
+  "cut": []
+ },
+ "data/129r/totalwealthtables.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 29222,
+  "bytes": 115858,
+  "cut": []
+ }
+}
