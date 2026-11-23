@@ -32,8 +32,8 @@ The manifest change that marks O1e as one-point (057c), the feasibility rule, th
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0
-- **Next:** block 1 (timing, `run-cost.md`)
+- **Done:** blocks 0, 1 (timing, `docs/model-v3/run-cost.md`)
+- **Next:** block 2 (pool, switch, worker count, byte-identical test), then block 3
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/150-run-cost origin/brief/150-run-cost`
 - **State:** in progress
 <!-- progress:end -->
