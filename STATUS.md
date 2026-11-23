@@ -10,10 +10,10 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
 | Agent 2 | 057c blocks 1 and 2 (run script, acceptance; verification running) | block 3 and `--final` after 135c, 138c, 139c |
-| Agent 3 | free | nothing queued |
+| Agent 3 | 135c (per-path loose ends) | free after 135c |
 | Agent 4 | 146r (GDP growth process done; top-tail mapping next) | free after 146r |
 | Agent 5 | 140c (F1 and CK1 under the household arm, `safe` fund: blocks 1 and 2 done) | `market` fund case and note after 138c |
-| Agent 6 | 135c (block 0 pushed) | 138c, 139c, 147c, 148c in that order |
+| Agent 6 | 139c blocks 0 and 1 (register rows, gate hash; no `arm.py`) | after 135c merges: 138c, 139c wiring, 147c, 148c |
 
 Six agents only. Agents change skill with the brief. Parked: 089c (OF1, CK1) until 140c reports and you rule on the feasibility rule; 044c and 009c until the first official run is out. **Budget rule:** `model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 

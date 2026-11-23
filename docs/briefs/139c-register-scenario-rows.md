@@ -1,6 +1,6 @@
 # 139: Register rows for the household-arm scenario constants (lien rate, pension basis, housing gain, fund return)
 
-- **Status:** ready (after 137c, 135c, 138c: the fund-return switch must exist first; the rows are the last register edit before the first official run)
+- **Status:** ready (after 137c, 135c, 138c: the fund-return switch must exist first; the rows are the last register edit before the first official run; 2026-11-23: blocks 0 and 1 (the rows and the gate hash: `inputs.md`, `registry/inputs.json`, no `arm.py`) may start now while 135c is under way; block 2 (wiring) waits for 135c and 138c; the fund-return row's name and values follow 138c's switch, so enter it as a placeholder and say so)
 - **Author/date:** K. Ogata with the guru, 2026-11-23
 - **Depends on:** 134r, 131r (merged), 138c
 - **Read (block 0: the first two only):** (1) `docs/research/134r-lien-deferral-rate.md` section 7 and `docs/research/131r-pension-basis-sensitivity.md` section 7 (the proposed rows); (2) `docs/agents/code.md`. Later: `docs/model-v3/inputs.md` (the I-D1h to I-D1l rows as the pattern); `registry/inputs.json`; `model_v3/runner/arm.py` (`PROPERTY_GAIN`, the lien rate, the fund switch); `pipeline/check_gate.py` (the gate hash).
