@@ -1,0 +1,13 @@
+point,schedule,alarm
+min_mid,tm50_k2_r025,I1 fails
+min_mid,tm50_k2_r050,I1 fails
+max_mid,tm70_k2_r100,I1 fails
+max_mid,tm90_k1_r050,I1 fails
+median_high,tm50_k05_r050,I1 fails
+median_high,tm50_k1_r050,I1 fails
+median_high,tm50_k2_r100,I1 fails
+median_high,tm70_k2_r025,I1 fails
+median_high,tm90_k05_r100,I1 fails
+median_high,tm90_k1_r050,I1 fails
+median_high,tm90_k1_r100,I1 fails
+median_high,tm90_k2_r100,I1 fails
