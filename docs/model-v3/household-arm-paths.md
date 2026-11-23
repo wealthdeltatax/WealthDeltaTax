@@ -50,6 +50,23 @@ By family, cells with spread at any held point: O1 25 of 45, O2 115 of 120, O4 4
 - Flat cells by point: 132 (`median_mid`), 165 (`max_mid`), 134 (`median_low`) of the `p10_mean_p90` cells; 134 have no spread at any held point (`ranges_paths.csv`, `path_spread`).
 - Empty at every household point: OW3 and (by `ranges_paths.csv`) 7 all-nan cells. The 124c reserve-not-filling cells (O2, D4-5 short/transition) are still `nan` at some points.
 
+## Diagnosis of the loose ends (brief 135c)
+
+Run on main with the 133c lien and 137c floor: `run_grid.py --market-paths`, point at 1,000 paths, chunk 100, seed 1, every failing check logged (not raised). Balances in millions of pounds per adult; PL and PK the lien and its part netted from the pension.
+
+**The two alarms.** Both still raise, at other lines than 128c reported (the lien and the floor moved them). Each is a residual of 1e-9 or more against the check's 1e-9 tolerance, on a line whose non-pension balances are zero or near zero and whose pension is 8 to 57.
+
+| Point | Path, line, year | Family value | Class total | Diff | PL - PK | Pension | Rule | Cause |
+|---|---|---|---|---|---|---|---|---|
+| `min_mid` | 66, 10, 96 | -0.005821972896 | -0.005821971311 | 1.6e-9 | 1.07e-10 | 19.06 | `_check` (post), kernel cap (`Lp > hold + 1e-9`) | tolerance |
+| `median_high` | 34, 9, 81 | 0 | -1.02e-9 | 1.0e-9 | 1.02e-9 | 13.74 | same | tolerance |
+
+Not a bookkeeping error and not economics: relative to the balances the gap is 1e-10 to 1e-9, the size of the kernel cap's own 1e-9 tolerance (what the cap leaves unpaid is the lien's unit part, PL - PK, which sits in the class total and not in the family value of a line the floor holds at 0). A further 10 events at `median_high` (1,000 paths) are the same kind: 1.0e-9 to 7.1e-9, and one of 5.0e-8 (path 60, line 10, year 96, PL - PK 5.03e-8, pension 57.5). Reported, not tuned. The cap is 133c's; a kernel change is stop-and-report. **Needs the author:** to loosen the check to the cap's tolerance (absolute 1e-7) or to have the cap hand over the whole excess.
+
+**A third case found and fixed (bookkeeping).** `median_high`, path 69, line 7, year 96 (1,000-path run): family 0.000917 against class total 0.00204 (diff 1.1e-3, PL 0, pension 0.589). The line's lien (2.86) was settled at year 95, which rescaled the route units by N/family with N = 0, leaving prices at 0 and unit fractions at about 1e18 (A: -2.5e18). The 137c restart then added the target to that f (f + u) and lost it in rounding: family 0.5 for 1. Fix in `HouseholdHook._restart`: for a wiped line (`bad`) f is the target and `sold` is the identity's remainder (`tot - s - f`); other lines keep their arithmetic. Test: `test_a_dead_line_with_huge_units_restarts_exactly_and_i1_holds` (fails without the fix).
+
+**The ledger tie gap (167 bn, 20 paths, `min_mid`, years 62 and 85, path 18): not reproducible.** Tried: `run_grid.py --market-paths --paths 20 --points min_mid --no-legacy` (chunk 20, seed 1) on main with the lien as a ledger receivable (132c, 133c): ledger tie max 1.8e-12, dL max 1.0e-12, I1 held, no tie gap. The 128c gap predates the lien receivable. Not diagnosed beyond that.
+
 ## Odd, listed without a verdict
 
 1. **OW1 is not withheld in the run output.** `arm.withheld()` lists OW1 as `legacy_only` under per-path returns (the comparators run on fixed scenario rates, not like for like), and a test checks it, but `grid_results_paths.csv` holds OW1 values at the household points (for example -540 at `median_mid`, mean). Nothing in `run_grid.py` applies `withheld()`. Read OW1 under per-path returns as **not valid**. The 124c note said OW1 was withheld by design; that mechanism is not visible in this path.
