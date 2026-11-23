@@ -32,8 +32,8 @@ Choosing the feasibility rule, changing `n_phase`, the `market` fund case (140c 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** block 0 (branch and progress block pushed)
+- **Next:** block 1 (year-by-year, constant path, 6/10/15/30 phases)
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/149-death-phases origin/brief/149-death-phases`
-- **State:** ready; not started
+- **State:** in progress, block 0 done
 <!-- progress:end -->
