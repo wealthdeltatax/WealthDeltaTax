@@ -53,6 +53,8 @@ def fake_run_field(name: str, manifest: dict) -> str:
     """Value for a run field the manifest adds: pack_country follows country_pack, hashes are fake."""
     if name == "pack_country":
         return manifest["country_pack"]
+    if name in ("seed", "level2_draws", "level2_paths", "unfilled_paths"):
+        return {"seed": 20261118, "level2_draws": 200, "level2_paths": 1000, "unfilled_paths": 0}[name]
     return hashlib.sha256(f"fixture-{name}".encode()).hexdigest()
 
 

@@ -20,7 +20,8 @@ MANIFEST, INPUTS, LEVERS = ROOT / 'docs/model-v3/outputs.yml', ROOT / 'registry/
 HH_INPUTS, PACKS = ROOT / 'docs/model-v3/cell-baseline/inputs_used.json', ROOT / 'model_v3/pack'   # the pack folder is found, never named (R11)
 SEED, SMOKE = 20261118, (50, 3, 20)
 POINTS = {'median_mid': ('median', 'mid'), 'max_mid': ('max', 'mid'), 'median_low': ('median', 'low'), 'min_mid': ('min', 'mid'), 'median_high': ('median', 'high')}   # saving, regime; the arm's grid points
-NO_PAYER, NO_CENTRAL, NOT_RUN, NO_PAYER_BAND, NO_PAYER_IDS = 'no_payer_at_launch', 'no_central', 'not_run_this_point', 'D4_5', ('O2', 'O2d', 'OW3')
+NO_PAYER, NO_CENTRAL, NOT_RUN, NO_PAYER_IDS = 'no_payer_at_launch', 'no_central', 'not_run_this_point', ('O2', 'O2b', 'O2c', 'O2d', 'OH1b', 'OH1c', 'OW3')
+HELD = {'OW1': 'legacy_only'}   # household arm: a labelled marker, never a number (author, 2026-11-23; 121c, 135c)
 PENDING = {'OF1': 'feasibility_rule_pending_140c_089c', 'CK1': 'feasibility_rule_pending_140c_089c'}
 FORMS = {'p10_mean_p90': ('p10', 'mean', 'p90'), 'point_and_range': ('lo', 'point', 'hi')}
 
@@ -46,7 +47,7 @@ def scenario_range(docs):
 def mark_no_payer(outs):
     for oid in NO_PAYER_IDS:
         for c in outs.get(oid, {}).get('cells', []):
-            if c['by'].get('wealth_band') == NO_PAYER_BAND and any(c[f] is None for f in FORMS['p10_mean_p90']):
+            if c['by'].get('wealth_band') not in (None, 'overall') and any(c[f] is None for f in FORMS['p10_mean_p90']):   # a band with no payer under the schedule, and what derives from it
                 c.update(p10=NO_PAYER, mean=NO_PAYER, p90=NO_PAYER)
 
 def reduce(oid, form, line, v):   # per-path arrays -> what assemble expects (author, 2026-11-23): one value for `point`; for OR1 the share over paths, P10 and P90 across paths (P7a in pct)
@@ -69,7 +70,8 @@ def run_point(ctx, inp, pt, named, man, n1, n2p, draws, seed, tol, be):
     if be: smp.update(osw.o1e(S.breakeven_return(ev, named, R.RET['mean'], draws=draws, tol=tol)))   # break-even only at the first point (author, 2026-11-23; 150c does the speed)
     ents = asm.entries(man)
     smp.update({o: {k: reduce(o, ents[o]['summary'], k[3], v) for k, v in smp[o].items()} for o in smp if ents[o]['summary'] == 'point' or o in ('OR1', 'OT1')})
-    return asm.assemble(man, smp, None, 'provisional')[0], info
+    hold = HELD if pt else {}; [smp.pop(o, None) for o in hold]   # household arm: nothing is computed for a held id
+    return asm.assemble(man, smp, None, 'provisional', hold)[0], info
 
 def main(argv=None):
     p = argparse.ArgumentParser()

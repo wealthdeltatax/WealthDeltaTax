@@ -58,18 +58,19 @@ STAT_FIELDS = {
 }
 CELL_FIELDS = {"schedule", "horizon", "by", "line", "series"}
 ENTRY_FIELDS = {"summary", "cells", "withheld", "withheld_by", "pending"}
-NO_PAYER, NO_PAYER_IDS, NO_PAYER_BAND = "no_payer_at_launch", ("O2", "O2d", "OW3"), "D4_5"   # a band with no payer at launch (author, 2026-11-23)
+NO_PAYER, NO_PAYER_IDS = "no_payer_at_launch", ("O2", "O2b", "O2c", "O2d", "OH1b", "OH1c", "OW3")   # a wealth band with no payer at launch under the schedule, and what derives from it (author, 2026-11-23)
 NOT_RUN = "not_run_this_point"                                                              # O1e ran at one scenario point only (author, 2026-11-23); accepted for O1e, in the centre slot
 PACK_LABELS = {"GBR": "UK"}                                                                   # stated mapping: pack code to manifest label (author, 2026-11-23)
 NO_CENTRAL = "no_central"                                                                    # the centre slot of a range across scenario points
 CENTRE_SLOT = {"p10_mean_p90": "mean", "point_and_range": "point", "point": "point"}
+MAY_WITHHOLD = ("OW1",)                                                                       # household arm: the labelled marker `withheld: legacy_only` is accepted, not required (author, 2026-11-23; 121c, 135c)
 PENDING_IDS = ("OF1", "CK1")                                                                  # labelled pending until the author rules on the feasibility rule (140c, 089c)
 TOP_FIELDS = {"schema", "run", "outputs", "level2"}
 RUN_REQUIRED = (
     "manifest_version", "manifest_sha256", "country_pack", "run_date",
     "status", "model_version", "inputs_sha256", "paths", "base_year",
 )
-RUN_FIELDS = set(RUN_REQUIRED) | {"fixture", "arm"}
+RUN_FIELDS = set(RUN_REQUIRED) | {"fixture", "arm", "seed", "level2_draws", "level2_paths", "unfilled_paths"}
 ARMS = ("legacy", "household")   # run.arm: the name, or an object whose `arm` is the name (model_v3 runner/arm.py label); absent means legacy
 LEVEL2_FIELDS = {"tornado", "p10", "p90"}
 HOOKS_ID_RE = re.compile(r"^O[A-Z]?[0-9]+[a-z]?$")   # hooks.md section 4.1
@@ -368,7 +369,7 @@ class Validator:
             return
         held = ent.arms is not None and "household" not in ent.arms and self.run_arm() == "household"   # an output this arm cannot produce (122c)
         if "withheld" in entry or held:
-            if not held:
+            if not (held or (oid in MAY_WITHHOLD and self.run_arm() == "household")):
                 self.add("V7", "error", oid, f"withheld under arm {self.run_arm()!r}, but the manifest lets this arm produce it")
             elif entry.get("withheld") != "legacy_only":
                 self.add("V7", "error", oid, "the household arm cannot produce this id: the entry must carry withheld: legacy_only")
@@ -472,8 +473,8 @@ class Validator:
             if v is None:
                 if not self.provisional():
                     self.add("V5", "error", where, f"{f} is null (allowed only in a provisional file)")
-            elif v == NO_PAYER and oid in NO_PAYER_IDS and by.get("wealth_band") == NO_PAYER_BAND:
-                continue   # stated marker (author, 2026-11-23): the band has no payer at launch; accepted for these cells only
+            elif v == NO_PAYER and oid in NO_PAYER_IDS and by.get("wealth_band") not in (None, "overall"):
+                continue   # stated marker (author, 2026-11-23): the band has no payer at launch; accepted for these ids and a named band only
             elif v == NOT_RUN and oid == "O1e" and f == CENTRE_SLOT[summary]:
                 continue
             elif v == NO_CENTRAL and f == CENTRE_SLOT[summary] and self.run_arm() == "household":

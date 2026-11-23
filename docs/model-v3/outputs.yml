@@ -7,7 +7,7 @@ country_pack: UK
 horizons: [transition, short, long]   # every headline and line is reported for all three; long is a steady-state property, not a forecast
 schedules: [S_low, S_central, S_high]   # named policy schedules, swept not sampled; headline outputs are reported for each (metrics.md, range design)
 feasibility: {m2_cap_pct_per_year: 2.0, m4a_floor_pct: 0, closure_share_pct: 75}   # A5 (architecture 8.1): constants of the named-schedule choice rule, set by the author 2026-11-18
-run_fields_added: [pack_sha256, pack_country, levers_sha256]   # A6: written by the run next to inputs_sha256; G2 reads them (validator edit is for the resolver work)
+run_fields_added: [pack_sha256, pack_country, levers_sha256, seed, level2_draws, level2_paths, unfilled_paths]   # A6: written by the run next to inputs_sha256; G2 reads them (validator edit is for the resolver work)
 uncertainty: {level1: return_risk_p10_mean_p90, level2: tornado_and_parameter_p10_p90}   # reported apart
 unit_tags:   # how a hook renders a value (hooks.md section 4.6; the three added tags are to be added there)
   pct: "number then %"

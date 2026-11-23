@@ -55,3 +55,5 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - **Happened:** the session clone is shallow (depth 1) and `origin/main` was force-updated, so branch and main shared no history; `git rebase` and `git cherry-pick` replayed or conflicted on the whole tree (about 20 add/add conflicts in files I never touched).
 - **Cost:** about 15 minutes; fixed by `git fetch --depth=50 origin main`, then rebasing (which then worked), or applying only my own diff with `git diff A B | git apply --3way`.
 - **Suggest:** the guide says to `git fetch --depth=50 origin main` before a rebase in a shallow session clone.
+
+- 057c round 3: the ruling "OW1 under the household arm is withheld" suggests a manifest `arms: [legacy]` entry, but 126c pins that no id is restricted to the legacy arm (8 tests fail). Done in the validator (`MAY_WITHHOLD`) instead; the brief should say which of the two is meant.

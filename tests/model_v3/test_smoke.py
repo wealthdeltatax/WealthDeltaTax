@@ -53,9 +53,9 @@ def test_range_rule_has_no_centre_and_marks_no_payer():
     out = run.scenario_range(docs)
     assert out['O2']['cells'][0]['p10'] == 0 and out['O2']['cells'][0]['p90'] == 9 and out['O2']['cells'][0]['mean'] == run.NO_CENTRAL   # envelope of the points
     assert out['O1e']['cells'][0]['point'] == 1                                  # points agree: kept, not marked
-    out['O2']['cells'][0].update(p10=None, mean=None, p90=None)
-    run.mark_no_payer(out)
-    assert {out['O2']['cells'][0][k] for k in ('p10', 'mean', 'p90')} == {run.NO_PAYER}
+    for oid in ('O2', 'OW3'): out[oid] = copy.deepcopy(out['O2']); out[oid]['cells'][0].update(p10=None, mean=None, p90=None)
+    out['O1e']['cells'][0].update(point=None); run.mark_no_payer(out)
+    assert all({out[o]['cells'][0][k] for k in ('p10', 'mean', 'p90')} == {run.NO_PAYER} for o in ('O2', 'OW3')) and out['O1e']['cells'][0]['point'] is None   # ruled ids marked; O1e never
     assert docs[0]['O2']['cells'][0]['mean'] == 2                                # the inputs are not edited
 
 def test_validator_accepts_markers_only_where_ruled(good, tmp_path):

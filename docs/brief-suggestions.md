@@ -102,3 +102,5 @@ Entry format, newest at the bottom:
 - Problem: `run.py` writes `seed`, `level2_draws`, `level2_paths` and `unfilled_paths` (step 5 asserts on them) and V12 warns `unknown field` for each; also OT1 cells carry the swing as lo to hi (signed effects are not in the file) and 12 OP6 cells have no series (V10 warnings).
 - Suggested lane: g (add the four fields to `run_fields_added`), then c
 - Status: open
+
+- 057c: O1e on the household arm: short-window M1 is constant in the generator mean (1.1236 at 0 to 15 percent, all three schedules), so no break-even exists. Check whether the household arm reads `RET['mean']` in M1 before the O1e output is specified for it.
