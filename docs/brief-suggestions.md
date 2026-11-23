@@ -95,3 +95,10 @@ Entry format, newest at the bottom:
 - Problem: under the household arm on a constant 4.74% path, M1a is about 1.0 of GDP in four years of five and 11 to 12 in the fifth (years 10, 15, 20 ...), the fund pays each lump out over two years, and relief runs 7.3, 7.3, 3.8, 3.8 against M1d 4.74. Relief first falls below M1d in year 13 in all 15 (point, schedule) rows and P3 to the end of the short window is 0.29 to 6.90, so F1 at tol 0 cannot reach 75% even with no volatility. Over years 10 to 14 relief sums to 29.85 against 23.70 for M1d. Not tested here: whether more phases or a longer payout window remove it, and whether the legacy arm's year-13 shortfall in 083c has the same cause.
 - Suggested lane: c (diagnose by varying `n_phase` and the payout window on the constant path, no rule change), then g
 - Status: open
+
+### architecture.md budget total is 200 short of its rows (switches.py)
+- Found by: code / 139c, 2026-11-23
+- Where: `docs/model-v3/architecture.md` line 226 (the `**Total**` row of the line-budget table); `tests/model_v3/test_budget.py::test_block_sums_equal_the_stated_totals`
+- Problem: the test fails on a clean `origin/main` (7d60b86): the rows sum to 6,260 lines against a stated total of 6,060. The new `model_v3/runner/switches.py` row (budget 200, added in the 2026-11-23 housekeeping commit) was not added to the total. The model_v3 suite shows 1 failed, 349 passed.
+- Suggested lane: g (the table is the guru's; a one-number edit)
+- Status: open
