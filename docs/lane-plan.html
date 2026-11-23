@@ -264,7 +264,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "3", name: "Agent 3", note: "Out of tokens" },
     { id: "4", name: "Agent 4", note: "Out of tokens" },
     { id: "5", name: "Agent 5", note: "Free: 140c (feasibility diagnostic)" },
-    { id: "6", name: "Agent 6", note: "Free: takes the chain in importance order: 137c, 135c, 138c, 139c" },
+    { id: "6", name: "Agent 6", note: "Free: takes the chain in importance order: 137c, 135c, 138c, 139c, 141c, 142c" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
   ];
@@ -276,6 +276,8 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "138c", lane: "6", at: 2, len: 1, st: "ready", t: "M2 on total wealth; the fund return as a safe-or-market scenario axis", needs: [{ id: "135c" }], why: "136c: household M2 is overstated by a non-pension denominator; the fund return alone makes the P6 gap. Fix the first, make the second a labelled axis.", files: "model_v3/runner/arm.py, revenue.py, household-vs-legacy.md" },
     { id: "140c", lane: "5", at: 0, len: 1, st: "ready", t: "F1 and CK1 under the household arm: diagnostic only", needs: [], why: "083c measured feasibility under the legacy 3.5%; measure it under the household arm (safe, then market fund) so you can rule on the rule.", files: "docs/model-v3/f1-household/" },
     { id: "139c", lane: "6", at: 3, len: 1, st: "ready", t: "Register rows: lien rate, pension basis, housing gain, fund return", needs: [{ id: "138c" }], why: "The last register edit before the first official run; changes the gate hash.", files: "inputs.md, registry/inputs.json, arm.py" },
+    { id: "141c", lane: "6", at: 4, len: 1, st: "ready", t: "Pension withdrawal scenario and the heir-protection floor", needs: [{ id: "139c" }], why: "Both off by default: labelled withdrawal range (IFS/ELSA, held sources) and a heir floor sensitivity on the lien settlement.", files: "arm.py, pension_lien.py, 141c-withdrawal-range.md" },
+    { id: "142c", lane: "6", at: 5, len: 1, st: "ready", t: "Saving gradient scenario (flat, mild, steep)", needs: [{ id: "141c" }], why: "One saving ratio collapses concentration (0.41 to 0.20-0.34 against 0.50); report what labelled gradients give, no fitting.", files: "arm.py, household-arm-validation.md" },
     { id: "089c", lane: "G", at: 0, len: 1, st: "hold", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [{ id: "140c" }], why: "After the diagnostic and your ruling. Parked: measured against the legacy 3.5%, which is abandoned (094r to 096r). Rule on feasibility after the replacement exists.", files: "runner/sweeps.py, out_sweeps.py" },
     { id: "057c", lane: "2", at: 0, len: 2, st: "ready", t: "Model v3 V3-12: run script and acceptance", needs: [], why: "Household arm, ranges across grid points; blocks 1 and 2 now, --final after 137c, 135c, 138c, 139c. run.py, smoke tests, accept.sh, convergence test." },
     { id: "009c", lane: "G", at: 2, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" },
