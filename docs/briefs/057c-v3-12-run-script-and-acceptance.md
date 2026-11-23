@@ -1,6 +1,6 @@
 # 057: Model v3 V3-12: run script, smoke test and acceptance wiring
 
-- **Status:** ready (provisional scope, 2026-11-23: after 137c, 135c, 138c and 139c for a `--final` file; blocks 1 and 2 may start now)
+- **Status:** in progress on branch `brief/057-run-script-acceptance` (blocks 0 to 2 and three rounds of rulings done; block 3 and `--final` wait for 138c and 139c; rebase on main first)
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** 055 (merged), 056; for a complete `--final` file also 084c to 088c and the ruling in 089c (a provisional smoke run may start after 084c)
 - **Read:** `docs/model-v3/architecture.md` 6.4, 6.5 and 3.1; `docs/model-v3/acceptance.md` in full (sections 1, 2, 5); `pipeline/check_gate.py`; `docs/restructure/order.md` G1.
@@ -31,6 +31,7 @@ Also (guru, updated 2026-11-21): the author abandoned I-D14c's 3.5% as the centr
 - **OR1 and DH1c:** DH1c is a pack fact (one value per path): report a single value. OR1 (P7a, P7b) is a share over paths: the point is the share, the range is P10 to P90 across paths. Record the reading in the manifest notes (stage-A17 amendment, part of this brief).
 - **Pack label:** map the pack code GBR to the manifest label UK in validator V8 by a stated mapping table; the run records both the pack code and the label.
 - **Run scope:** the break-even return (O1e) is run at `median_mid` only; the other four points carry the outputs that need no root search, and the file marks O1e at those points with a stated marker (`not_run_this_point`), accepted by the validator for O1e only. The parallel evaluation and timing work is brief 150c.
+- **Null cells, general rule (third round, 2026-11-23):** any cell of a group with no payer at launch under the schedule, and any output derived from that group (O2, O2b, O2c, O2d, OH1b, OH1c, OW3), is written `no_payer_at_launch`; the validator accepts the marker for those ids only and any other non-finite cell stays an error. This covers D6_7 as well as D4_5. OW1 under the household arm gets the `withheld (legacy_only)` marker, as already ruled (121c, 135c). O1e at the one point it runs is not marked: if it is still non-finite at the real tolerance, diagnose and report (a coarse smoke tolerance may be the cause). The four unknown run fields (`seed`, `level2_draws`, `level2_paths`, `unfilled_paths`) are added to the manifest's `run_fields_added` and the validator's list (part of this brief); the 12 OP6 cells without a series are reported, not changed.
 - **Feasibility collapse** (one household point passes, S_low, S_central and S_high coincide): not ruled here. 149c (death-phase count) and 089c follow; the first official run keeps OF1 and CK1 pending.
 
 ## Independence from Agent 6's chain (guru check, 2026-11-23)
