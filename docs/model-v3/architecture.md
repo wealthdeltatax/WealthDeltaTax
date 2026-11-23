@@ -162,7 +162,7 @@ Rewritten, from `metrics.md` and not from v2 text: `threshold_outcomes`, `thresh
 ## 5. Rules
 
 ### 5.1 R4: import rules and layers
-Layers, lowest first: **L0** `core/pack.py`; **L1** `core/returns.py`, `core/base.py`, `core/schedule.py`, `core/kernel.py`; **L2** `core/revenue.py`; **L3** `core/burden.py`, `core/support.py`; **L3.5** `runner/out_revenue.py`, `out_burden.py`, `out_support.py`, `out_sweeps.py` (the output groups: each reads `core` and takes the runner's `Raw` as an argument, and imports no other group); **L3.6** `runner/arm.py` (numpy only: the hooks the runner builds and passes down, 114c); **L3.7** `runner/groups.py`; **L4** `runner/`; **L5** `out/`, with `interface.py` importable from L4 and L5 only. A module imports only from strictly lower layers (and the standard library and numpy); no two modules of one layer import each other; `kernel.py` and `schedule.py` import no project module; `out/` imports no `core` and no `runner`; nothing imports `out`. The test (stage V3-1) builds the import graph with `ast` from this table and fails on any other edge, and fails on an import inside a function (no lazy imports to hide layering).
+Layers, lowest first: **L0** `core/pack.py`; **L1** `core/returns.py`, `core/base.py`, `core/schedule.py`, `core/kernel.py`; **L2** `core/revenue.py`; **L3** `core/burden.py`, `core/support.py`; **L3.5** `runner/out_revenue.py`, `out_burden.py`, `out_support.py`, `out_sweeps.py` (the output groups: each reads `core` and takes the runner's `Raw` as an argument, and imports no other group); **L3.55** `runner/switches.py` (numpy only: the labelled scenario switches `arm.build` calls, 138c); **L3.6** `runner/arm.py` (numpy only: the hooks the runner builds and passes down, 114c); **L3.7** `runner/groups.py`; **L4** `runner/`; **L5** `out/`, with `interface.py` importable from L4 and L5 only. A module imports only from strictly lower layers (and the standard library and numpy); no two modules of one layer import each other; `kernel.py` and `schedule.py` import no project module; `out/` imports no `core` and no `runner`; nothing imports `out`. The test (stage V3-1) builds the import graph with `ast` from this table and fails on any other edge, and fails on an import inside a function (no lazy imports to hide layering).
 
 ### 5.2 R8: no side effects, no orphans
 No module-level statement except definitions, constants and the `if __name__` guard. No module reads a file, sets an environment variable, changes the working directory or writes at import. The test imports every module in a subprocess with `python -B -I`, compares `os.environ`, the working directory and a listing of the tree before and after, and fails on a difference. No code is kept that nothing calls: the test lists every top-level function and fails on one no module and no test references.
@@ -197,7 +197,7 @@ core/pension_lien.py            80     95
 core/cells.py                  80     60
 runner/runner.py               360    150
 runner/arm.py                  330    330
-runner/switches.py             200      0
+runner/switches.py             200     60
 runner/sweeps.py               280    100
 runner/groups.py                40     60
 runner/out_revenue.py          150     80
@@ -223,7 +223,7 @@ tests/model_v3/test_pack_base.py 0     58
 | `interface.py` and `run.py` | 170 | 80 |
 | Rules, budget and smoke tests | 0 | 150 |
 | Acceptance script and convergence test (040g Q1) | 0 | 90 |
-| **Total** | **6,060** | **4,133** |
+| **Total** | **6,260** | **4,193** |
 
 Core plus runner 5,190 (133c: `arm.py` 330 for the cap callback `carry` and the kernel-pension netting; 128c: `arm.py` 310 for per-path market returns; 132c: `pension_lien.py` 80 and `arm.py` 280 for the lien calls and `settle`; 127c: `arm.py` 255 for the class floor; earlier raise: 5,025, raised from 4,995 by 121c: `arm.py` 225 for the withheld table; 126c: `arm.py` 245 for the household untaxed path `free` and the comparators' account `system`) is a ceiling, not a target; `runner/pool.py` (70) is outside it and counted only if triggered. The data tooling `pack/build_gbr.py` has its own budget of 200 lines (067c) and no test beyond a hash check of its output. Output layer 700 is 14% of core plus runner; R9 asks for smaller.
 

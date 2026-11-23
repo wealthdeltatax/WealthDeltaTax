@@ -1,0 +1,64 @@
+case,fund_return,output,horizon,band,term,value
+legacy (common ground),legacy,M2,long,overall,value,0.09907075937430268
+legacy (common ground),legacy,M2,short,overall,value,0.2931670079345543
+legacy (common ground),legacy,M2d,long,overall,value,14.813806597064762
+legacy (common ground),legacy,M1,long,all,value,-1.228665856680288
+legacy (common ground),legacy,M1c,long,all,value,0.010345128457118656
+legacy (common ground),legacy,M1c,long,all,return_rate_pct,4.740000000000002
+legacy (common ground),legacy,P6,year 10,all,value,50.49238086157357
+legacy (common ground),legacy,P6,year 50,all,value,158.82432635411874
+legacy (common ground),legacy,P6,year 100,all,value,729.2035136421913
+household median_mid,safe,M2,long,overall,value,0.14966562657909996
+household median_mid,safe,M2,short,overall,value,0.32546792132491276
+household median_mid,safe,M2d,long,overall,value,6.817410001909644
+household median_mid,safe,M1,long,all,value,-0.3015723769260532
+household median_mid,safe,M1c,long,all,value,-0.10947536747399668
+household median_mid,safe,M1c,long,all,return_rate_pct,1.11380189277464
+household median_mid,safe,P6,year 10,all,value,45.47133684051859
+household median_mid,safe,P6,year 50,all,value,39.30572914372168
+household median_mid,safe,P6,year 100,all,value,34.684042865104736
+household median_mid,market,M2,long,overall,value,0.14966562657909996
+household median_mid,market,M2,short,overall,value,0.33038052443134647
+household median_mid,market,M2d,long,overall,value,6.817410001909644
+household median_mid,market,M1,long,all,value,-0.30157237692608363
+household median_mid,market,M1c,long,all,value,-0.10947536747402711
+household median_mid,market,M1c,long,all,return_rate_pct,4.740000000000001
+household median_mid,market,P6,year 10,all,value,49.82977954004969
+household median_mid,market,P6,year 50,all,value,161.20988378703439
+household median_mid,market,P6,year 100,all,value,744.8093883880041
+household max_mid,safe,M2,long,overall,value,0.2478109713200535
+household max_mid,safe,M2,short,overall,value,0.35377387697090734
+household max_mid,safe,M2d,long,overall,value,6.132647243285735
+household max_mid,safe,M1,long,all,value,0.4895738149082854
+household max_mid,safe,M1c,long,all,value,-0.8807682099811848
+household max_mid,safe,M1c,long,all,return_rate_pct,1.0413187842476115
+household max_mid,safe,P6,year 10,all,value,51.77617168396804
+household max_mid,safe,P6,year 50,all,value,59.059074593984064
+household max_mid,safe,P6,year 100,all,value,77.93488421917407
+household max_mid,market,M2,long,overall,value,0.2478109713200535
+household max_mid,market,M2,short,overall,value,0.35819108204434946
+household max_mid,market,M2d,long,overall,value,6.132647243285735
+household max_mid,market,M1,long,all,value,0.8684818881290935
+household max_mid,market,M1c,long,all,value,-0.5018601367603769
+household max_mid,market,M1c,long,all,return_rate_pct,4.740000000000001
+household max_mid,market,P6,year 10,all,value,56.49804534039648
+household max_mid,market,P6,year 50,all,value,192.7108970106541
+household max_mid,market,P6,year 100,all,value,895.6247147483398
+household median_low,safe,M2,long,overall,value,0.1117430006739829
+household median_low,safe,M2,short,overall,value,0.1907387319018562
+household median_low,safe,M2d,long,overall,value,10.616109674488676
+household median_low,safe,M1,long,all,value,-1.4313215013408893
+household median_low,safe,M1c,long,all,value,-0.39261566235020184
+household median_low,safe,M1c,long,all,return_rate_pct,-0.5024504618030332
+household median_low,safe,P6,year 10,all,value,37.72464143536599
+household median_low,safe,P6,year 50,all,value,27.47707280181226
+household median_low,safe,P6,year 100,all,value,22.400978961027047
+household median_low,market,M2,long,overall,value,0.1117430006739829
+household median_low,market,M2,short,overall,value,0.1899370360803512
+household median_low,market,M2d,long,overall,value,10.616109674488676
+household median_low,market,M1,long,all,value,-1.0975943532307346
+household median_low,market,M1c,long,all,value,-0.05888851424004755
+household median_low,market,M1c,long,all,return_rate_pct,4.740000000000001
+household median_low,market,P6,year 10,all,value,43.731817537924755
+household median_low,market,P6,year 50,all,value,139.77751755060163
+household median_low,market,P6,year 100,all,value,645.6319303943469

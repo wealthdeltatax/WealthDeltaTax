@@ -13,11 +13,11 @@ from dataclasses import dataclass
 import numpy as np
 
 from model_v3.core import household as hh, pension_lien as pl
+from model_v3.runner import switches as sw
 
 CLASSES = ('property', 'net_financial', 'physical', 'pension')
 PROPERTY_GAIN = 0.016455                                                                            # F-20: the JST housing holding gain, all years (cell_baseline.py); a scenario value, not a register row
 WITHHELD = {}                                                                                       # outputs that read the legacy c and have no base on the account: none since 126c (M3, M12, M13, M15 and M9 are on it)
-
 
 WITHHELD_BY = {}                                                                                     # an output kept without some by-values: none since 126c (the tornado's M3 head returned)
 
@@ -110,6 +110,7 @@ class HouseholdHook:
         dev = np.asarray(g, float) - self.mu
         return {**self.gn, 'net_financial': self.gn['net_financial'] + dev, 'pension': self.gn['pension'] + dev}
 
+    def total(self, book): return book.family_true() + (book.pen if book is self.book else 0.0)     # total wealth, pension included, at the year's start (138c): the base M2 and M2d divide by; a new phase's book holds it all in its units
     def _n(self, q):
         return sum(q[k] for k in (CLASSES if self.c is not None else CLASSES[:3]))              # the legacy arm sells every class; here pension is a balance beside the units
 
@@ -213,7 +214,7 @@ class HouseholdHook:
 
     def _check(self, book):
         N = self._n(self.q) - (0.0 if self.c is not None else self.PL - self.PK)                  # the family value is net of the lien's unit part
-        if np.any(np.abs(book.family_true() - N) > 1e-9 * np.maximum(1.0, np.abs(N))) or (self.c is None and np.any(np.abs(book.pen - (self.q['pension'] - self.PK)) > 1e-12)):
+        if np.any(np.abs(book.family_true() - N) > np.maximum(1e-7, 1e-9 * np.abs(N))) or (self.c is None and np.any(np.abs(book.pen - (self.q['pension'] - self.PK)) > 1e-12)):
             raise ValueError("I1 fails: the book's family value is not the class total, or its pension is not the pension balance")
 
     def reconcile(self, book):
@@ -226,15 +227,14 @@ class HouseholdHook:
 
     def settle(self, book):
         """Settle the lien at a death or the horizon (132c; revenue.run_lines calls it after `reconcile`): from the positive non-pension classes, then a one-off draw on the pension (the only time it is drawn); the kernel's family
-        value, net of the lien, rises by the draw, so the route units are rescaled to it (as `_start` does). What the pension cannot cover stays in the lien and in unpaid_B (an alarm)."""
+        value, net of the lien, rises by the draw, so the route units are rescaled to it (as `_start` does). What the pension cannot cover is written off (limited recourse, 138c)."""
         if not np.any(self.PL):
             return                                                                                  # no lien, nothing moves (the account and the ledger of a line that never needed it are unchanged, bit for bit)
         q3 = {k: self.q[k] for k in CLASSES[:3]}
         q1, pen1, paid, d, rest = pl.settle(q3, self.PL, self.q['pension'])
         self.set_c, self.set_p = self.set_c + (self.PL - rest - d), self.set_p + d
-        self.PK = np.minimum(self.PK, rest)                                                         # what stays unpaid is netted from the pension first (133c)
-        self.q, self.PL, self.unpaid = {**self.q, **q1, 'pension': pen1}, rest, self.unpaid + rest
-        book.unpaid_B = book.unpaid_B + rest
+        self.wo, self.PK = self.wo + rest, 0.0 * rest                                              # limited recourse (138c): the state collects up to the pension; what it cannot cover is written off in the ledger (a labelled cost), not left as unpaid_B
+        self.q, self.PL = {**self.q, **q1, 'pension': pen1}, 0.0 * rest
         for k in CLASSES[:3]:
             self.rcv[k] = self.rcv[k] + paid[k]                                                    # the state's receipt by class, the draw in the classes' mix
         fam = book.family_true()
@@ -326,5 +326,5 @@ def build(arm, ctx, theta, base, g=None):
                  tail_pension_cap=ctx.reg['I-D1l'].central, income_scale=a['inputs']['income_scale']), safe_return='the net financial class return (a stand-in: no register row)', central=False)
     mu = theta['I-D1a'] / 100 if a.get('paths') else None
     label['scenario']['market_paths'] = None if mu is None else 'market-return risk only: net financial and pension deviate with the path\'s market return (loading 1); property, physical, saving, income and GDP growth are scenario constants'
-    safe = (lambda T, P: np.full((T, P), gain['net_financial'])) if mu is None or g is None else (lambda T, P: gain['net_financial'] + np.asarray(g, float)[:T] - mu)
-    return Arm('household', c, lambda: HouseholdHook(st, gain, growth, mu=mu), safe, label)
+    safe, label = sw.fund(a, (lambda T, P: np.full((T, P), gain['net_financial'])) if mu is None or g is None else (lambda T, P: gain['net_financial'] + np.asarray(g, float)[:T] - mu), label, g)      # fund_return (138c): safe stand-in or the market return
+    return Arm('household', c, lambda: sw.hook(a, HouseholdHook)(st, gain, growth, mu=mu), safe, label)

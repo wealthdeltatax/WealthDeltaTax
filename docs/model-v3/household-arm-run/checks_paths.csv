@@ -1,6 +1,6 @@
 point,account_residual_max,unpaid_max,unpaid_B_max,unpaid_B_path_phases,shortfall_lines,spread_cells,flat_cells,ledger_tie_max,ledger_tie_first,ledger_dL_max,i1,error
-min_mid,2.5210056264768355e-11,0.0,3.0215235683318222,2638,7321,278,129,3.55896645487519e-10,,2.6147972675971687e-12,held (raises in the hook otherwise),
+min_mid,2.5210056264768355e-11,0.0,0.25328362580254965,2634,7315,278,129,3.55896645487519e-10,,2.6147972675971687e-12,held (raises in the hook otherwise),
 median_mid,2.5551116777933203e-11,0.0,0.0,0,0,274,133,5.9117155615240335e-12,,5.4569682106375694e-12,held (raises in the hook otherwise),
 max_mid,2.4783730623312294e-11,0.0,0.0,0,0,245,162,2.546585164964199e-11,,2.9103830456733704e-11,held (raises in the hook otherwise),
 median_low,2.4556356947869062e-11,0.0,0.0,0,0,273,134,4.263256414560601e-12,,1.2505552149377763e-12,held (raises in the hook otherwise),
-median_high,,,,,,,,,,,FAILED,"I1 fails: the book's family value is not the class total, or its pension is not the pension balance First: path 34 (of the chunk), line 8, year 81, family value 0, class total 1.28519e-09, balances property 0, net_financial 1.28519e-09, physical 0, pension 11.5916"
+median_high,1.6263097535329507e-09,0.0,0.0,0,0,251,156,1.5506884665228426e-10,,2.9103830456733704e-11,held (raises in the hook otherwise),

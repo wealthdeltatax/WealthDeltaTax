@@ -9,17 +9,18 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
-| Agent 2 | 057c (blocks 0 to 2 reviewed; applying the null-cell rule and the four run fields; rebase on main) | block 3 and `--final` after 138c and 139c |
-| Agent 3 | 138c (M2 on total wealth, fund-return axis; plus the I1 tolerance 1e-7 and the lien write-off rulings as block 1a) | free |
+| Agent 2 | 057c (blocks 0 to 2 reviewed; applying the null-cell rule and the four run fields; rebase on main) | block 3 and `--final` after 139c |
+| Agent 3 | free | nothing queued (138c done) |
 | Agent 4 | 150c (run cost: timing now, pool after 057c merges) | free |
-| Agent 5 | free | 140c `market` case after 138c; 089c (OF1 as a map, CK1) after 139c and 150c |
-| Agent 6 | 139c blocks 0 and 1 (register rows, gate hash) | 139c wiring after 138c; then 147c, 148c |
+| Agent 5 | free | 140c `market` case (now unblocked); 089c (OF1 as a map, CK1) after 139c and 150c |
+| Agent 6 | 139c blocks 0 and 1 (register rows, gate hash) | 139c wiring (now unblocked, with the 10-phase setting); then 147c, 148c |
 
 Six agents only. Agents change skill with the brief. Parked: 089c (OF1, CK1) until 140c reports and you rule on the feasibility rule; 044c and 009c until the first official run is out. **Budget rule:** `model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 
 **Findings under review (2026-11-23):** 057c: one household evaluation 4.9 s at 20 paths, a full run hours to days (ruled: O1e at `median_mid` only; parallel evaluation is 150c). 140c: no schedule feasible under the household arm, even on a constant path; the cause is the six-phase death timing (M1a lumpy every fifth year), to be tested in 149c before you rule on the feasibility rule.
 
 ## Recently done
+- 2026-11-23: 138c merged: M2 on total wealth; `fund_return` axis (`safe` default, `market`); I1 tolerance 1e-7 (`median_high` now runs at 200 paths); lien the pension cannot cover written off in the ledger. P6 at year 100 is 22 to 78 (`safe`) against 646 to 896 (`market`): the whole gap to the legacy arm is the fund's return. 139c wiring and the 140c `market` case are unblocked.
 - 2026-11-23: 149c merged (`docs/model-v3/death-phases.md`). The phase count explains the lumps but only part of the F1 failure (best F1 9.0% at 6 phases, 25.5% at 30; one cell of 22 at 75%). Author ruled: household arm at 10 phases (139c wiring, legacy stays 6); OF1 a map, not a gate, schedules named by best F1, 'none passes' where true; 089c released (after 139c and 150c). `docs/model-v3/computational-architecture-hypothesis.md` added to main by the author: three routes to a faster model, an input to 150c (not a decision).
 - 2026-11-23: 057c blocks 0 to 2 reviewed (not merged; branch continues): smoke run completes (7.7 min) and validates; seeded breakages fail as they should. Author ruled the null-cell rule: no payer at launch gives the marker for the group and its derived outputs; OW1 withheld marker; O1e diagnosed. Block 3 and `--final` wait for 138c and 139c.
 - 2026-11-23: 135c merged (OW1 marker under per-path returns; refund routing recorded; third I1 case, a rounding bug, fixed; 167bn tie gap not reproducible). Author ruled: I1 check loosened to 1e-7 absolute (median_high then gets rows); lien the pension cannot cover is a labelled write-off in the ledger (min_mid unpaid_B 3.02bn, 2,638 path-phases). Both added to 138c as block 1a (no new brief). Per-path rerun at 200 paths: four of five points complete; median_high awaits the tolerance fix.

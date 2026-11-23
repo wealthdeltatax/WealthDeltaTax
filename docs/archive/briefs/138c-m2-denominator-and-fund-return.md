@@ -37,8 +37,24 @@ The deferral rate, pension withdrawal, per-path return regimes beyond 128c, the 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** blocks 0, 1a, 1, 2, 3 (branch from main f917908); all pushed
+- **Next:** author review
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/138-m2-fund-return origin/brief/138-m2-fund-return`
-- **State:** ready; not started (after 137c and 135c)
+- **State:** complete
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 138c, M2 denominator, the fund's return axis, I1 tolerance and the lien's limited recourse
+- Files changed: model_v3/runner/arm.py (330 lines, the budget: HouseholdHook.total, tolerance 1e-7, settle writes off the lien remainder, calls to switches); model_v3/runner/switches.py (new, fund_return); model_v3/core/burden.py (outside Touches, named: one line, line_flows w0 = hook.total(book) for the household arm; legacy unchanged); docs/model-v3/architecture.md (outside Touches, named: stated total 6,060 -> 6,260 which was failing on main, switches test budget, layer L3.55); tests/model_v3 (conftest layer, test_switches, test_m2_total, test_pension_lien, test_household_tax); run_grid.py (--fund-return); household-vs-legacy/fund_axis.py and .csv; the grid CSVs; household-arm-paths.md; household-vs-legacy.md
+- What is different now: M2, M2d (and M2c, O5, O8, OS1 computed from them) divide by total wealth in the household arm: D5 median_mid phase 0 w0 is 0.1286 in year 2 (was 0.0808). fund_return axis: safe (default, byte-identical) or market (every class of the fund and the levy's safe share earn the path's market return; labelled). A lien the pension cannot cover is written off in the ledger at settlement, not left in unpaid_B. The I1 check allows 1e-7.
+- New or changed interfaces: arm dict key fund_return; run_grid --fund-return; label scenario.fund_return when market
+- Acceptance criteria: test_legacy_digest unchanged, 10 of 10 suites pass (met, last full run before the final note edits); safe equal to the run without the key (test); market ledger rate equals the path return (test); grid checks hold at the held points in both settings (met); median_high runs at 200 paths with I1 holding (met); min_mid unpaid_B 3.02 -> 0.25 (the rest is the class floor's alarm, not the lien: reported)
+- Deviations from the brief: burden.py and architecture.md edited (named above). The write-off at min_mid is 357.7 bn on one path-phase in the first 100 paths. fixed-rate CSVs changed in the M2-derived ids only (192 cells), as the brief requires for M2.
+- Risks / follow-ups: M1c and M1 net do not depend on the fund setting at median_mid (payout - inflow while the fund covers its payout); the author may want the register to say which setting a figure uses. M2c now multiplies the liquid share by total wealth. The floor's unpaid_B at min_mid remains.
+- Instruction friction: the brief's arm.py budget (310) is stale; the budget table says 330.
+- Verification: python pipeline/run_suites.py 10 of 10; run_grid 1,000 paths both settings; fund_axis.py
+- Overview sections likely needing an update: household arm, fund return axis; decisions
+- Commit / branch: brief/138-m2-fund-return; not merged (the arm.py and burden.py changes and the write-off are for the author)
+```

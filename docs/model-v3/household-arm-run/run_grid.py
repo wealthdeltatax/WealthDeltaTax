@@ -36,12 +36,12 @@ WITHHELD = 'withheld (legacy_only)'                                             
 
 def label(arm_ctx):
     a = arm_ctx.arm
-    return 'legacy (context, c = I-D14c)' if a == 'legacy' else f"household, saving {a['saving']}, regime {a['regime']} (a scenario, not central)" + (', market-return risk only (128c)' if a.get('paths') else '')
+    return 'legacy (context, c = I-D14c)' if a == 'legacy' else f"household, saving {a['saving']}, regime {a['regime']} (a scenario, not central)" + (', market-return risk only (128c)' if a.get('paths') else '') + (', fund earns the market return (138c scenario axis)' if a.get('fund_return') == 'market' else '')
 
 
-def point_ctx(ctx, inp, name, paths=False):
+def point_ctx(ctx, inp, name, paths=False, fund='safe'):
     sav, regime = POINTS[name]
-    return replace(ctx, arm=dict(arm='household', inputs=inp, saving=sav, regime=regime, paths=paths))
+    return replace(ctx, arm=dict(arm='household', inputs=inp, saving=sav, regime=regime, paths=paths, **({} if fund == 'safe' else dict(fund_return=fund))))
 
 
 def rows(name, ctx, samples, manifest):
@@ -129,6 +129,7 @@ def main(argv=None):
     p.add_argument('--out', default=str(HERE))
     p.add_argument('--points', default=','.join(POINTS))
     p.add_argument('--no-legacy', action='store_true')
+    p.add_argument('--fund-return', choices=('safe', 'market'), default='safe', help='what the fund earns (138c): the files get the suffix _fund_market for market')
     p.add_argument('--market-paths', action='store_true', help='per-path market returns (128c): files get the suffix _paths')
     a = p.parse_args(argv)
     if not 1 <= a.paths <= 2000:
@@ -137,12 +138,12 @@ def main(argv=None):
     manifest = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
     out, allrows, checks = Path(a.out), [], []
     for name in [x for x in a.points.split(',') if x] + ([] if a.no_legacy else ['legacy']):
-        c = ctx if name == 'legacy' else point_ctx(ctx, inp, name, a.market_paths)
+        c = ctx if name == 'legacy' else point_ctx(ctx, inp, name, a.market_paths, a.fund_return)
         r, chk = run_point(c, inp, name, manifest, a.paths, min(CHUNK, a.paths))
         allrows += r
         checks += [chk] if chk else []
         print(f"{name}: {len(r)} cells" + (f", FAILED: {chk['error'][:90]}" if chk and chk.get('error') else '') + (f", ledger tie gap: {chk['ledger_tie_first'][:70]}" if chk and chk.get('ledger_tie_first') else '') + (f", account residual {chk['account_residual_max']:.1e}, unpaid {chk['unpaid_max']:.1e}, unpaid_B {chk['unpaid_B_max']:.1e}, shortfall lines {chk['shortfall_lines']}, ledger tie {chk['ledger_tie_max']:.1e}" if chk and not chk.get('error') else ''), flush=True)
-    sfx = '_paths' if a.market_paths else ''
+    sfx = ('_paths' if a.market_paths else '') + ('_fund_market' if a.fund_return == 'market' else '')
     for f, cols, data in ((f'grid_results{sfx}.csv', COLS, allrows), (f'checks{sfx}.csv', CHECKS, checks)):
         with open(out / f, 'w', newline='') as fh:
             w = csv.DictWriter(fh, cols)
