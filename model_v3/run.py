@@ -1,6 +1,6 @@
-"""run.py -- the run script (V3-12; architecture.md 6.5, acceptance.md 2).  python -I -c "import sys; sys.path.insert(0, '.'); from model_v3 import run; run.main(['--out', DIR])"  (--paths N, --seed S, --smoke, --arm legacy, --final refused)
-Named schedules by the manifest's rule on the first household point; every scenario-grid point (level 1, tornado; O1e at the first point only); `scenario_range`: lowest p10 to highest p90, centre `no_central` where points differ.
-Author rulings 2026-11-23: household arm first, legacy a labelled comparator; markers `no_payer_at_launch` (O2, O2d, OW3 at D4_5), `not_run_this_point` (O1e); OF1 and CK1 pending until 140c, 089c. Sets no environment variable.
+"""run.py -- the run script (V3-12; architecture.md 6.5, acceptance.md 2).  python -I -c "import sys; sys.path.insert(0, '.'); from model_v3 import run; run.main(['--out', DIR])"
+--size smoke|quick|final (explicit --paths, --o1e-draws, --workers, --point override), --seed S, --arm legacy; --final is refused.  Named schedules by the manifest's rule; `scenario_range`: lowest p10 to highest p90, centre `no_central`.
+Author rulings 2026-11-23: household arm first; O1e at the first point only, fund_return=market (the safe fund ignores the mean), range over draws `not_run_this_run` at 0 draws; markers `no_payer_at_launch`; OF1, CK1 pending. Sets no environment variable.
 """
 from __future__ import annotations
 
@@ -18,9 +18,10 @@ from model_v3.runner import out_sweeps as osw, runner as R, sweeps as S
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST, INPUTS, LEVERS = ROOT / 'docs/model-v3/outputs.yml', ROOT / 'registry/inputs.json', ROOT / 'model_v3/levers.json'
 HH_INPUTS, PACKS = ROOT / 'docs/model-v3/cell-baseline/inputs_used.json', ROOT / 'model_v3/pack'   # the pack folder is found, never named (R11)
-SEED, SMOKE = 20261118, (50, 3, 20)
+SEED = 20261118
+SIZES = dict(smoke=(50, 20, 3, 1.0, 1), quick=(1000, 50, 0, 1e-2, 5), final=(R.N1, R.N2P, 0, 1e-2, 5))   # paths, tornado paths, O1e draws, break-even tolerance, grid points
 POINTS = {'median_mid': ('median', 'mid'), 'max_mid': ('max', 'mid'), 'median_low': ('median', 'low'), 'min_mid': ('min', 'mid'), 'median_high': ('median', 'high')}   # saving, regime; the arm's grid points
-NO_PAYER, NO_CENTRAL, NOT_RUN, NO_PAYER_IDS = 'no_payer_at_launch', 'no_central', 'not_run_this_point', ('O2', 'O2b', 'O2c', 'O2d', 'OH1b', 'OH1c', 'OW3')
+NO_PAYER, NO_CENTRAL, NOT_RUN_RUN, NO_PAYER_IDS = 'no_payer_at_launch', 'no_central', 'not_run_this_run', ('O2', 'O2b', 'O2c', 'O2d', 'OH1b', 'OH1c', 'OW3')
 HELD = {'OW1': 'legacy_only'}   # household arm: a labelled marker, never a number (author, 2026-11-23; 121c, 135c)
 PENDING = {'OF1': 'feasibility_rule_pending_140c_089c', 'CK1': 'feasibility_rule_pending_140c_089c'}
 FORMS = {'p10_mean_p90': ('p10', 'mean', 'p90'), 'point_and_range': ('lo', 'point', 'hi')}
@@ -35,9 +36,9 @@ def scenario_range(docs):
         if o['summary'] not in FORMS:
             continue
         lo_f, c_f, hi_f = FORMS[o['summary']]
-        at = [{ckey(c): c for c in d[oid]['cells']} for d in docs]
+        at = [{ckey(c): c for c in d[oid]['cells']} for d in docs if oid in d]
         for c in o['cells']:
-            cs = [a[ckey(c)] for a in at if ckey(c) in a]
+            cs = [a[ckey(c)] for a in at if ckey(c) in a]   # an output not computed at a point (O1e) is not in its doc
             if any(x[f] is None for x in cs for f in (lo_f, c_f, hi_f)):
                 c.update({lo_f: None, c_f: None, hi_f: None})
             elif len({(x[lo_f], x[c_f], x[hi_f]) for x in cs}) > 1:
@@ -61,13 +62,15 @@ def reduce(oid, form, line, v):   # per-path arrays -> what assemble expects (au
     if not v.size: raise ValueError(f'{oid} {line}: no path has a value')
     return np.array([v.mean(), *np.percentile(v, (10, 90))])
 
-def run_point(ctx, inp, pt, named, man, n1, n2p, draws, seed, tol, be):
-    """(output docs, level 1 info) of one grid point: level 1 at the named schedules, the tornado (OT1) and the break-even return (O1e), assembled provisionally."""
+def run_point(ctx, inp, pt, named, man, n1, n2p, draws, seed, tol, be, w=1):
+    """(output docs, level 1 info) of one grid point: level 1, the tornado (OT1) and, if `be`, O1e under the market fund, assembled provisionally."""
     cp = ctx if pt is None else replace(ctx, arm=dict(arm='household', inputs=inp, saving=POINTS[pt][0], regime=POINTS[pt][1]))
     st = rt.streams(seed); smp, info = R.level1(cp, named, st['level1_paths'], n=n1)
-    ev = R.make_ev(cp, st['tornado_crn'].standard_normal((R.T, n2p)))
-    smp.update(osw.ot1(S.tornado(ev, named, {i: cp.reg[i] for i in cp.tier1}, R.reads(cp))))
-    if be: smp.update(osw.o1e(S.breakeven_return(ev, named, R.RET['mean'], draws=draws, tol=tol)))   # break-even only at the first point (author, 2026-11-23; 150c does the speed)
+    eps = st['tornado_crn'].standard_normal((R.T, n2p)); ev = R.make_ev(cp, eps)
+    smp.update(osw.ot1(S.tornado(ev, named, {i: cp.reg[i] for i in cp.tier1}, R.reads(cp), workers=w)))
+    if be:   # first point only; the safe fund ignores the generator mean, so the household arm's O1e is read under the market fund (author, 2026-11-23)
+        evm = ev if pt is None else R.make_ev(replace(cp, arm={**cp.arm, 'fund_return': 'market'}), eps)
+        smp.update(osw.o1e(S.breakeven_return(evm, named, R.RET['mean'], draws=draws, tol=tol, workers=w)))
     ents = asm.entries(man)
     smp.update({o: {k: reduce(o, ents[o]['summary'], k[3], v) for k, v in smp[o].items()} for o in smp if ents[o]['summary'] == 'point' or o in ('OR1', 'OT1')})
     hold = HELD if pt else {}; [smp.pop(o, None) for o in hold]   # household arm: nothing is computed for a held id
@@ -75,38 +78,39 @@ def run_point(ctx, inp, pt, named, man, n1, n2p, draws, seed, tol, be):
 
 def main(argv=None):
     p = argparse.ArgumentParser()
-    p.add_argument('--paths', type=int); p.add_argument('--seed', type=int, default=SEED); p.add_argument('--out', required=True)
-    p.add_argument('--smoke', action='store_true'); p.add_argument('--final', action='store_true'); p.add_argument('--arm', choices=('household', 'legacy'), default='household')
+    p.add_argument('--size', choices=SIZES, default='final'); p.add_argument('--paths', type=int); p.add_argument('--o1e-draws', type=int); p.add_argument('--workers', type=int, default=1)
+    p.add_argument('--point', action='append', choices=list(POINTS)); p.add_argument('--seed', type=int, default=SEED); p.add_argument('--out', required=True); p.add_argument('--final', action='store_true')
+    p.add_argument('--arm', choices=('household', 'legacy'), default='household')
     a = p.parse_args(argv)
-    n1, n2, n2p = (SMOKE if a.smoke else (R.N1, R.N2, R.N2P))
-    n1 = a.paths or n1
-    if a.final: sys.exit('--final is refused: it waits for 137c, 135c, 138c and 139c and the every-test rule (brief 057 block 3)')
+    n1, n2p, n2, tol, npts = SIZES[a.size]
+    n1, n2 = a.paths or n1, n2 if a.o1e_draws is None else a.o1e_draws
+    if a.final: sys.exit('--final is refused: it waits for the every-test rule (brief 057 block 3)')
     man, lv = yaml.safe_load(MANIFEST.read_text(encoding='utf-8')), json.loads(LEVERS.read_text(encoding='utf-8'))
     tier1 = next(o for o in man['outputs'] if o['id'] == 'OT1')['by']['input']
     once = [e['id'] for e in asm.entries(man).values() if e.get('once_not_per_schedule')]
     ctx = R.context(pk.load_pack(next(d for d in sorted(PACKS.iterdir()) if (d / 'manifest.json').is_file())), pk.load_register(INPUTS), lv, tier1, list(asm.entries(man)), once)
     inp = json.loads(HH_INPUTS.read_text(encoding='utf-8'))
-    pts = [None] if a.arm == 'legacy' else list(POINTS)[:1 if a.smoke else None]   # smoke tests the structure on the first grid point; the range merge has its own test
+    pts = [None] if a.arm == 'legacy' else (a.point or list(POINTS)[:npts])   # the range merge has its own test
     c0 = ctx if pts[0] is None else replace(ctx, arm=dict(arm='household', inputs=inp, saving=POINTS[pts[0]][0], regime=POINTS[pts[0]][1]))
     st = rt.streams(a.seed)
-    fmap, _ = S.feasibility(R.make_ev(c0, st['tornado_crn'].standard_normal((R.T, n2p))), S.grid(lv))
+    fmap, _ = S.feasibility(R.make_ev(c0, st['tornado_crn'].standard_normal((R.T, n2p))), S.grid(lv), workers=a.workers)
     named = S.choose(fmap, man['feasibility'])
     if named is None: sys.exit('no feasible schedule point under the manifest rule: nothing is chosen in its place')
-    draws = R.draw_theta(st['level2_draws'], ctx, ctx.tier1, n2)
-    docs, failed, info = [], [], None
+    draws = R.draw_theta(st['level2_draws'], ctx, ctx.tier1, n2) if n2 else None; docs, failed, info = [], [], None
     for pt in pts:
         try:
-            d, i = run_point(ctx, inp, pt, named, man, n1, n2p, draws, a.seed, 1.0 if a.smoke else 1e-2, pt in (None, pts[0]))
+            d, i = run_point(ctx, inp, pt, named, man, n1, n2p, draws, a.seed, tol, pt == pts[0], a.workers)
         except ValueError as exc:   # a point that fails its own checks (I1) is reported and left out, never repaired
             failed.append(f'{pt}: {str(exc)[:80]}'); continue
         docs.append(d); info = info or i; print(f'{pt or "legacy"}: {len(d)} outputs', flush=True)
     if not docs: sys.exit('every grid point failed: ' + '; '.join(failed))
     outs = scenario_range(docs) if len(docs) > 1 else docs[0]
     mark_no_payer(outs)
-    for c in outs['O1e']['cells'] if len(pts) > 1 else []: c['point'] = NOT_RUN   # O1e ran at the first point only: no centre across the points
+    for c in outs['O1e']['cells'] if not n2 else []: c.update(lo=NOT_RUN_RUN, hi=NOT_RUN_RUN)   # the range over input draws was not run
     outs.update({oid: {'summary': asm.entries(man)[oid]['summary'], 'cells': [], 'pending': lab} for oid, lab in PENDING.items()})
     label = dict(arm='legacy', legacy_consumption=ctx.centre['I-D14c'], central=False, note='legacy result, not a calibrated forecast') if a.arm == 'legacy' else \
-        dict(arm='household', central=False, points=[x for x in pts if not any(f.startswith(f'{x}:') for f in failed)], failed=failed, note='range across labelled scenario-grid points; no central value')
+        dict(arm='household', central=False, points=[x for x in pts if not any(f.startswith(f'{x}:') for f in failed)], failed=failed, note='range across labelled scenario-grid points; no central value',
+             o1e=dict(point=pts[0], fund_return='market', draws=n2, note='O1e at the first point only, fund_return=market (the safe fund ignores the generator mean)'), size=a.size, workers=a.workers)
     run = wr.run_block(man, MANIFEST, INPUTS, LEVERS, dict(status='provisional', run_date=datetime.date.today().isoformat(), model_version='model_v3', paths=n1, base_year=int(str(ctx.pack.base_year)[:4]),
                        pack_country=ctx.pack.country, pack_sha256=ctx.pack.sha256, seed=a.seed, level2_draws=n2, level2_paths=n2p, unfilled_paths=info['unfilled_paths']['S_central'], arm=label))
     path = wr.write_outputs(a.out, wr.document(outs, {}, run), MANIFEST, INPUTS)

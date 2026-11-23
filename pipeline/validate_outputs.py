@@ -61,6 +61,7 @@ ENTRY_FIELDS = {"summary", "cells", "withheld", "withheld_by", "pending"}
 NO_PAYER, NO_PAYER_IDS = "no_payer_at_launch", ("O2", "O2b", "O2c", "O2d", "OH1b", "OH1c", "OW3")   # a wealth band with no payer at launch under the schedule, and what derives from it (author, 2026-11-23)
 NOT_RUN = "not_run_this_point"                                                              # O1e ran at one scenario point only (author, 2026-11-23); accepted for O1e, in the centre slot
 PACK_LABELS = {"GBR": "UK"}                                                                   # stated mapping: pack code to manifest label (author, 2026-11-23)
+NOT_DEFINED, NOT_RUN_RUN = "not_defined_under_safe_fund", "not_run_this_run"                  # O1e only
 NO_CENTRAL = "no_central"                                                                    # the centre slot of a range across scenario points
 CENTRE_SLOT = {"p10_mean_p90": "mean", "point_and_range": "point", "point": "point"}
 MAY_WITHHOLD = ("OW1",)                                                                       # household arm: the labelled marker `withheld: legacy_only` is accepted, not required (author, 2026-11-23; 121c, 135c)
@@ -477,6 +478,8 @@ class Validator:
                 continue   # stated marker (author, 2026-11-23): the band has no payer at launch; accepted for these ids and a named band only
             elif v == NOT_RUN and oid == "O1e" and f == CENTRE_SLOT[summary]:
                 continue
+            elif oid == "O1e" and (v == NOT_DEFINED or (v == NOT_RUN_RUN and f != CENTRE_SLOT[summary])):
+                continue   # stated markers (author, 2026-11-23): the safe fund ignores the generator mean; the range over input draws was not run (--o1e-draws 0)
             elif v == NO_CENTRAL and f == CENTRE_SLOT[summary] and self.run_arm() == "household":
                 continue   # stated marker (author, 2026-11-23): a range across labelled scenario points has no central value
             elif not is_number(v):

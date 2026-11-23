@@ -1,4 +1,4 @@
-"""V3-12 smoke and acceptance wiring (architecture.md 6.4, acceptance.md 2, 057c): N1 50, N2 3, N2P 20 on the first grid point (minutes). Pins shapes and identities, never a household-arm value."""
+"""V3-12 smoke and acceptance wiring (architecture.md 6.4, acceptance.md 2, 057c): --size smoke (N1 50, 3 draws, N2P 20) on the first grid point (minutes). Pins shapes and identities, never a household-arm value."""
 import copy, json, shutil, subprocess, sys
 from pathlib import Path
 import pytest
@@ -6,7 +6,7 @@ REPO = Path(__file__).resolve().parents[2]
 RUN = "import sys; sys.path.insert(0, '.'); from model_v3 import run; run.main(sys.argv[1:])"
 NEEDED = ('docs/model-v3/outputs.yml', 'docs/model-v3/cell-baseline/inputs_used.json', 'registry/inputs.json', 'pipeline/validate_outputs.py')
 
-def smoke(root, out): return subprocess.run([sys.executable, '-I', '-c', RUN, '--smoke', '--out', str(out)], cwd=root, capture_output=True, text=True)
+def smoke(root, out): return subprocess.run([sys.executable, '-I', '-c', RUN, '--size', 'smoke', '--out', str(out)], cwd=root, capture_output=True, text=True)
 
 def validate(path, *flags): return subprocess.run([sys.executable, '-I', str(REPO / 'pipeline/validate_outputs.py'), str(path), *flags], capture_output=True, text=True)
 
@@ -49,7 +49,7 @@ def cell(lo, mid, hi, form='p10_mean_p90'):
 def test_range_rule_has_no_centre_and_marks_no_payer():
     from model_v3 import run
     mk = lambda o2: {'O2': {'summary': 'p10_mean_p90', 'cells': [o2]}, 'O1e': {'summary': 'point_and_range', 'cells': [cell(0, 1, 4, 'point_and_range')]}}
-    docs = [mk(cell(1, 2, 3)), mk(cell(0, 5, 9))]
+    docs = [mk(cell(1, 2, 3)), {'O2': mk(cell(0, 5, 9))['O2']}]   # O1e is computed at the first point only
     out = run.scenario_range(docs)
     assert out['O2']['cells'][0]['p10'] == 0 and out['O2']['cells'][0]['p90'] == 9 and out['O2']['cells'][0]['mean'] == run.NO_CENTRAL   # envelope of the points
     assert out['O1e']['cells'][0]['point'] == 1                                  # points agree: kept, not marked
@@ -61,7 +61,7 @@ def test_range_rule_has_no_centre_and_marks_no_payer():
 def test_validator_accepts_markers_only_where_ruled(good, tmp_path):
     d = json.loads(good[1].read_text())
     o2 = next(c for c in d['outputs']['O2']['cells'] if c['by'] == {'wealth_band': 'D4_5'})
-    o2.update(p10='no_payer_at_launch', mean='no_payer_at_launch', p90='no_payer_at_launch'); d['outputs']['O1e']['cells'][0]['point'] = 'not_run_this_point'; d['run']['pack_country'] = 'GBR'   # O1e not run at the other points; the pack code maps to the label
+    o2.update(p10='no_payer_at_launch', mean='no_payer_at_launch', p90='no_payer_at_launch'); d['outputs']['O1e']['cells'][0].update(point='not_run_this_point', lo='not_run_this_run', hi='not_run_this_run'); d['run']['pack_country'] = 'GBR'   # O1e not run at the other points; the pack code maps to the label
     f = tmp_path / 'a.json'; f.write_text(json.dumps(d))
     assert validate(f).returncode == 0
     for mut in (lambda x: x['outputs']['O1']['cells'][0].update(p10='no_payer_at_launch'), lambda x: x['outputs']['OF1'].update(pending=''), lambda x: x['outputs']['O1']['cells'][0].update(mean='not_run_this_point')):   # a marker outside its cells, an unlabelled pending
@@ -69,7 +69,7 @@ def test_validator_accepts_markers_only_where_ruled(good, tmp_path):
     assert d['outputs']['OF1']['pending'] and d['outputs']['CK1']['pending'] and not d['outputs']['OF1']['cells']
 
 def test_seeded_breakages_fail_acceptance_steps_5_and_6(good, tmp_path):
-    d = json.loads(good[1].read_text().replace('null', '1.0')); d['run'].update(paths=10000, level2_draws=200)   # the smoke file with its nulls filled and made large enough: the baseline for step 5
+    d = json.loads(good[1].read_text().replace('null', '1.0')); d['run'].update(paths=1000, level2_paths=50)   # the smoke file with its nulls filled and made large enough: the baseline for step 5
     f = tmp_path / 'ok.json'; f.write_text(json.dumps(d)); assert accept('--check', str(f)) == 0
     seeds = [lambda x: x['run'].update(seed=1), lambda x: x['outputs'].pop('O1'), lambda x: x['outputs']['O1']['cells'][0].update(mean=None)]   # a changed seed, a missing id, a null cell
     for i, brk in enumerate(seeds):
