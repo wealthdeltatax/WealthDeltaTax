@@ -1,6 +1,6 @@
 # 057: Model v3 V3-12: run script, smoke test and acceptance wiring
 
-- **Status:** ready
+- **Status:** ready (provisional scope, 2026-11-23: after 137c, 135c, 138c and 139c for a `--final` file; blocks 1 and 2 may start now)
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** 055 (merged), 056; for a complete `--final` file also 084c to 088c and the ruling in 089c (a provisional smoke run may start after 084c)
 - **Read:** `docs/model-v3/architecture.md` 6.4, 6.5 and 3.1; `docs/model-v3/acceptance.md` in full (sections 1, 2, 5); `pipeline/check_gate.py`; `docs/restructure/order.md` G1.
@@ -16,6 +16,15 @@ Also (guru, 2026-11-20): `run.py` passes `once` (the manifest's `once_not_per_sc
 Also (guru, 2026-11-20): a band with no payer at launch (D4_5, wealth under w_min) gives nan in O2, O2d and OW3; `assemble` treats non-finite as an error in a final run, so 057c decides how the final file marks those cells (a stated null, not a number) before `--final`.
 
 Also (guru, updated 2026-11-21): the author abandoned I-D14c's 3.5% as the central assumption (094r). The household step now exists (108c, not wired) with a `legacy` mode that reproduces the 3.5% rule; the planned wiring brief makes it a switchable arm. Until the new arm is wired and validated, the run uses the legacy arm, so `run.py` writes a run field (for example `legacy_consumption: 3.5`) and every report or page that prints a result from this run labels it a **legacy result, not a calibrated forecast**. Choose the field name with the A6 run fields. When the arm selector exists, the run field records the arm; this brief stays held until the wiring, validation and comparison briefs have run, and then also reads the arm.
+
+## Author rulings, 2026-11-23
+- The first official run uses the **household arm**. The run field records `arm: household`; each output is a **range across the labelled scenario-grid points** (reuse `docs/model-v3/household-arm-run/ranges.py`; read it first), never a central value; legacy is a labelled comparator run only (`legacy result, not a calibrated forecast`).
+- Cells with no payer at launch (D4_5 under w_min: O2, O2d, OW3) are written as a **stated null marker** (`no_payer_at_launch`), not a number and not zero; `pipeline/validate_outputs.py` accepts the marker only for these cells; `assemble` treats it as covered, other non-finite values stay errors.
+- OF1 and CK1 are a **labelled pending marker** in the first run until the author rules on the feasibility rule after the diagnostic (140c), then 089c.
+- Register rows (139c) and the fund and floor fixes (137c, 138c) land before `--final`, because they change numbers and the gate hash.
+
+## Blocks (added 2026-11-23; one push each)
+- **Block 0:** progress block. **Block 1:** `run.py` (arm field, scenario-range assembly, null marker, pending marker for OF1 and CK1), validator change, tests. **Block 2:** `accept.sh`, `test_smoke.py` and the five seeded breakages. **Block 3:** `test_converge.py`, the `--final` refusal rules. Stop after block 2 if 137c, 135c, 138c or 139c are not merged; `--final` waits for them.
 
 ## Decisions (author, 2026-11-18)
 `architecture.md` approved (sections 8.1 and 9 as written); `acceptance.md` approved with Q1 to Q6 as proposed. v3 imports nothing from `model_v1/` or `model_v2/`. No file outside this brief's Touches is changed.
