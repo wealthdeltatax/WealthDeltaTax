@@ -98,6 +98,28 @@ Ranked reasons (household `median_mid` against legacy stoch, gap -1,132 points o
 3. Volatility: legacy stoch 1,167 against const 729 (x1.6) because the model draws the arithmetic mean return with spread, so the mean of the compounded fund exceeds the compounding of the mean (Jensen); this is a property of the legacy comparator.
 The household P6 is flat or falling after year 25 (`median_mid` 44, 39, 35; `median_low` 35, 28, 22): the fund pays out about what it receives and earns about nothing.
 
+## Update (brief 138c): M2 on total wealth, and the fund's return as a labelled axis
+
+`fund_axis.py` (`fund_axis.csv`) runs the household arm at the three held points on the 136c common-ground path (constant market return 4.74%, GDP growth 0.0157, schedule S) under both settings of the `fund_return` axis: `safe` (the net financial class return, the default and the low case) and `market` (the fund earns the path's market return, like the legacy arm; the high case). Every value is a scenario value at a labelled point and fund setting; there is no central value, none is a headline, and a range here is across the two fund settings, not an uncertainty interval.
+
+| Common ground | Legacy const | Household `median_mid` safe / market | `max_mid` safe / market | `median_low` safe / market |
+|---|---:|---:|---:|---:|
+| M2 long, overall (% a year) | 0.10 | 0.15 / 0.15 | 0.25 / 0.25 | 0.11 / 0.11 |
+| M2 short, overall | 0.29 | 0.33 / 0.33 | 0.35 / 0.36 | 0.19 / 0.19 |
+| M2d long, overall | 14.8 | 6.8 / 6.8 | 6.1 / 6.1 | 10.6 / 10.6 |
+| M1 net long (% of GDP) | -1.23 | -0.30 / -0.30 | +0.49 / +0.87 | -1.43 / -1.10 |
+| M1c long | +0.01 | -0.11 / -0.11 | -0.88 / -0.50 | -0.39 / -0.06 |
+| Fund return rate, long | 4.74% | 1.11% / 4.74% | 1.04% / 4.74% | -0.50% / 4.74% |
+| P6, year 10 (% of GDP) | 50 | 46 / 50 | 52 / 57 | 38 / 44 |
+| P6, year 50 | 159 | 39 / 161 | 59 / 193 | 28 / 140 |
+| P6, year 100 | 729 | 35 / 745 | 78 / 896 | 22 / 646 |
+
+- **M2 and M2d** are the model's own outputs and divide by total wealth (`w0` = the family value plus the pension). The like-for-like long M2 of 136c (0.14 / 0.25 / 0.10, an approximation as R_pay x K) is reproduced to 0.01 (0.15 / 0.25 / 0.11). The fund setting does not enter them. M2d falls from 10.2 / 8.7 / 12.2 (on the non-pension family value, the 136c table) to 6.8 / 6.1 / 10.6; that is a change of the denominator, the same flows.
+- **P6** is a range across the two fund settings, and the whole P6 gap to the legacy arm is the fund's return: at year 100 the household fund is 22 to 78 under `safe` and 646 to 896 under `market` (legacy const 729, on the same path; the legacy stoch value of 1,167 is a property of its volatility, not repeated here).
+- **M1c and M1 net** are the same at `median_mid` under both settings, not because the return is irrelevant but because M1c = (return - growth of the fund) = payout - inflow while the fund meets its payout, and the payout is the retired taxes' relief, the same in both settings. They differ where the fund does not cover its payout (`max_mid`, `median_low`): M1c -0.88 / -0.50 and -0.39 / -0.06 under `safe` / `market`, M1 net +0.49 / +0.87 and -1.43 / -1.10. The household arm's M1c sign difference to the legacy arm (about 0) is therefore a `safe` result at two of the three points.
+- **Grid rerun** (`run_grid.py`, 1,000 paths, chunk 100, seed 1; `grid_results.csv` and `checks.csv` for `safe`, `grid_results_fund_market.csv` and `checks_fund_market.csv` for `market`): every check holds at the three held points under both settings (account residual 1.5e-11 to 1.9e-11, `unpaid` and `unpaid_B` 0, shortfall lines 0, ledger tie 1.2e-11 or less). Against the committed `safe` CSV no cell differs except O2, O2c, O2d (M2, M2c, M2d) and O5, O8, OS1 (computed from M2), 192 cells; 150 cells are new to a fresh run (ids added since 124c). `market` differs from `safe` in the fund-dependent outputs (M1, M1b to M1d, P6, the burden and support cells computed from them), not in M2 as such.
+- Other readers of `w0` (listed under Defect 1): `m2c`, which now multiplies the liquid share by total wealth.
+
 ## What each arm assumes (the difference, in one list)
 
 - **Wealth growth.** Legacy: every class earns the market return, 3.5% consumed, the same in every line and path. Household: saving S (income x ratio, B.6g scaled) and class-specific holding gains (scenario rates), the pension accrues and is never drawn in life.
@@ -118,5 +140,5 @@ The M1a long and M2d gaps are only partly resolved (the base split by line, the 
 
 ## Next
 
-- The author rules on Defect 1 (M2 denominator).
+- Defect 1 is fixed (138c); the fund's return is a labelled axis (`fund_return`, default `safe`).
 - If wanted: a run of the household arm with per-path market returns (128c) against the legacy arm on the same paths, which would answer the volatility reasons above directly; the same for the saving split of the base.

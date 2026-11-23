@@ -77,21 +77,21 @@ median_mid,"household, saving median, regime mid (a scenario, not central)",O1d,
 median_mid,"household, saving median, regime mid (a scenario, not central)",O1f,S,long,,,pct,p10_mean_p90,1.0,1.0,1.0,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O1f,S,short,,,pct,p10_mean_p90,0.0,0.0,0.0,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O1f,S,transition,,,pct,p10_mean_p90,0.0,0.0,0.0,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,long,wealth_band=D10,,pct_per_year,p10_mean_p90,0.37689664088353475,0.3768966408835347,0.3768966408835347,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,long,wealth_band=D4_5,,pct_per_year,p10_mean_p90,0.2722011287549307,0.27220112875493074,0.27220112875493074,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,long,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.30914604186955646,0.30914604186955646,0.30914604186955646,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,long,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.35550405561531384,0.35550405561531384,0.35550405561531384,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,long,wealth_band=overall,,pct_per_year,p10_mean_p90,0.34437223688352686,0.3443722368835267,0.3443722368835267,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,short,wealth_band=D10,,pct_per_year,p10_mean_p90,0.4861339728330141,0.48613397283301424,0.48613397283301424,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,long,wealth_band=D10,,pct_per_year,p10_mean_p90,0.1987951755460403,0.1987951755460403,0.1987951755460403,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,long,wealth_band=D4_5,,pct_per_year,p10_mean_p90,0.08751533153014181,0.08751533153014182,0.08751533153014182,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,long,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.11495333520829189,0.11495333520829192,0.11495333520829192,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,long,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.1419268929273414,0.1419268929273414,0.1419268929273414,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,long,wealth_band=overall,,pct_per_year,p10_mean_p90,0.14966562657909993,0.14966562657909996,0.14966562657909996,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,short,wealth_band=D10,,pct_per_year,p10_mean_p90,0.42403469850714787,0.42403469850714787,0.42403469850714787,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,short,wealth_band=D4_5,,pct_per_year,p10_mean_p90,nan,nan,nan,1000
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,short,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.18043747573662475,0.18043747573662478,0.18043747573662478,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,short,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.25124383559417435,0.2512438355941743,0.2512438355941743,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,short,wealth_band=overall,,pct_per_year,p10_mean_p90,0.3978713819171453,0.39787138191714516,0.39787138191714516,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D10,,pct_per_year,p10_mean_p90,0.506822333588275,0.506822333588275,0.506822333588275,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,short,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.10940651215912987,0.10940651215912985,0.10940651215912985,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,short,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.15102529792068156,0.15102529792068153,0.15102529792068153,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,short,wealth_band=overall,,pct_per_year,p10_mean_p90,0.32546792132491326,0.32546792132491326,0.32546792132491326,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D10,,pct_per_year,p10_mean_p90,0.4606239959874052,0.46062399598740505,0.46062399598740505,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D4_5,,pct_per_year,p10_mean_p90,nan,nan,nan,1000
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.15771119493938948,0.15771119493938957,0.15771119493938957,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.22898203391133298,0.2289820339113329,0.2289820339113329,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,transition,wealth_band=overall,,pct_per_year,p10_mean_p90,0.41743946753275174,0.4174394675327517,0.4174394675327517,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.10794303657929505,0.10794303657929509,0.10794303657929509,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.15216684725695837,0.15216684725695837,0.15216684725695837,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2,S,transition,wealth_band=overall,,pct_per_year,p10_mean_p90,0.3642388310954318,0.36423883109543176,0.36423883109543176,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2b,S,long,cutoff_pct_of_income=10;wealth_band=D10,,pct,p10_mean_p90,9.170250027051308,9.17025002705131,9.17025002705131,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2b,S,long,cutoff_pct_of_income=10;wealth_band=D4_5,,pct,p10_mean_p90,2.380952380952365,2.3809523809523645,2.3809523809523645,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2b,S,long,cutoff_pct_of_income=10;wealth_band=D6_7,,pct,p10_mean_p90,3.1666666666666425,3.166666666666642,3.166666666666642,0
@@ -137,21 +137,21 @@ median_mid,"household, saving median, regime mid (a scenario, not central)",O2b,
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2b,S,transition,cutoff_pct_of_income=5;wealth_band=D6_7,,pct,p10_mean_p90,2.380952380952381,2.3809523809523814,2.3809523809523814,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2b,S,transition,cutoff_pct_of_income=5;wealth_band=D8_9,,pct,p10_mean_p90,2.380952380952381,2.3809523809523814,2.3809523809523814,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2b,S,transition,cutoff_pct_of_income=5;wealth_band=overall,,pct,p10_mean_p90,4.333333333333357,4.333333333333356,4.333333333333356,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D10,,pct,p10_mean_p90,0.30013437601441945,0.30013437601441945,0.30013437601441945,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D4_5,,pct,p10_mean_p90,0.5102040816326497,0.5102040816326496,0.5102040816326496,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D10,,pct,p10_mean_p90,0.06695781469790775,0.06695781469790776,0.06695781469790776,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D4_5,,pct,p10_mean_p90,0.0,0.0,0.0,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D8_9,,pct,p10_mean_p90,0.0,0.0,0.0,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=overall,,pct,p10_mean_p90,0.1868009160940272,0.1868009160940272,0.1868009160940272,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D10,,pct,p10_mean_p90,3.200000000000008,3.200000000000007,3.200000000000007,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D4_5,,pct,p10_mean_p90,4.76190476190473,4.761904761904729,4.761904761904729,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,4.166666666666635,4.166666666666635,4.166666666666635,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D8_9,,pct,p10_mean_p90,3.833333333333302,3.8333333333333037,3.8333333333333037,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,4.099616858237574,4.0996168582375745,4.0996168582375745,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D10,,pct,p10_mean_p90,3.0001343760144246,3.0001343760144255,3.0001343760144255,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D4_5,,pct,p10_mean_p90,3.0612244897958982,3.061224489795898,3.061224489795898,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,2.9999999999999782,2.999999999999977,2.999999999999977,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,2.9999999999999782,2.999999999999977,2.999999999999977,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,3.017260686208993,3.0172606862089926,3.0172606862089926,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=overall,,pct,p10_mean_p90,0.009620375674986803,0.009620375674986803,0.009620375674986803,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D10,,pct,p10_mean_p90,2.700134376014425,2.7001343760144247,2.7001343760144247,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D4_5,,pct,p10_mean_p90,2.040816326530599,2.0408163265305985,2.0408163265305985,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,2.9999999999999782,2.999999999999977,2.999999999999977,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D8_9,,pct,p10_mean_p90,2.9999999999999782,2.999999999999977,2.999999999999977,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,2.6868009160940503,2.6868009160940494,2.6868009160940494,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D10,,pct,p10_mean_p90,0.30013437601441945,0.30013437601441945,0.30013437601441945,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D4_5,,pct,p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,0.04312275517448581,0.0431227551744858,0.0431227551744858,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=100;wealth_band=D10,,pct,p10_mean_p90,0.3333333333333325,0.3333333333333325,0.3333333333333325,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=100;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=100;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
@@ -162,11 +162,11 @@ median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,3.333333333333336,3.333333333333337,3.333333333333337,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=25;wealth_band=D8_9,,pct,p10_mean_p90,3.333333333333336,3.333333333333337,3.333333333333337,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,3.3333333333333433,3.333333333333343,3.333333333333343,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D10,,pct,p10_mean_p90,3.3333333333333233,3.3333333333333246,3.3333333333333246,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D10,,pct,p10_mean_p90,0.3333333333333325,0.3333333333333325,0.3333333333333325,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,1.666666666666668,1.6666666666666685,1.6666666666666685,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,3.333333333333336,3.333333333333337,3.333333333333337,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,2.666666666666674,2.666666666666675,2.666666666666675,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,0.06666666666666689,0.06666666666666687,0.06666666666666687,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=100;wealth_band=D10,,pct,p10_mean_p90,0.23809523809523764,0.23809523809523758,0.23809523809523758,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=100;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=100;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
@@ -174,29 +174,30 @@ median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=100;wealth_band=overall,,pct,p10_mean_p90,0.047619047619047776,0.04761904761904776,0.04761904761904776,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=D10,,pct,p10_mean_p90,2.380952380952375,2.3809523809523756,2.3809523809523756,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,2.380952380952381,2.3809523809523814,2.3809523809523814,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,1.1904761904761905,1.1904761904761907,1.1904761904761907,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=D8_9,,pct,p10_mean_p90,2.380952380952381,2.3809523809523814,2.3809523809523814,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,2.380952380952388,2.380952380952388,2.380952380952388,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D10,,pct,p10_mean_p90,2.380952380952375,2.3809523809523756,2.3809523809523756,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,1.9047619047619113,1.9047619047619107,1.9047619047619107,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D10,,pct,p10_mean_p90,0.23809523809523764,0.23809523809523758,0.23809523809523758,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,1.1904761904761905,1.1904761904761907,1.1904761904761907,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,1.1904761904761905,1.1904761904761907,1.1904761904761907,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,1.428571428571433,1.4285714285714328,1.4285714285714328,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D10,,pct_per_year,p10_mean_p90,17.474545307668908,17.47454530766891,17.47454530766891,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D4_5,,pct_per_year,p10_mean_p90,2.6613942159717654,2.6613942159717654,2.6613942159717654,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D6_7,,pct_per_year,p10_mean_p90,3.987681733909667,3.987681733909666,3.987681733909666,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D8_9,,pct_per_year,p10_mean_p90,5.778959373992153,5.778959373992155,5.778959373992155,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,long,wealth_band=overall,,pct_per_year,p10_mean_p90,10.239415015145237,10.239415015145239,10.239415015145239,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D10,,pct_per_year,p10_mean_p90,28.62841283923131,28.628412839231306,28.628412839231306,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,0.047619047619047776,0.04761904761904776,0.04761904761904776,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D10,,pct_per_year,p10_mean_p90,13.333751255576006,13.333751255576008,13.333751255576008,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D4_5,,pct_per_year,p10_mean_p90,0.8814190903639728,0.8814190903639727,0.8814190903639727,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D6_7,,pct_per_year,p10_mean_p90,1.5326189329877982,1.5326189329877977,1.5326189329877977,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D8_9,,pct_per_year,p10_mean_p90,2.397591365974866,2.397591365974866,2.397591365974866,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,long,wealth_band=overall,,pct_per_year,p10_mean_p90,6.817410001909626,6.817410001909628,6.817410001909628,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D10,,pct_per_year,p10_mean_p90,26.616170383369592,26.6161703833696,26.6161703833696,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D4_5,,pct_per_year,p10_mean_p90,nan,nan,nan,1000
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D6_7,,pct_per_year,p10_mean_p90,2.8041133625042316,2.8041133625042307,2.8041133625042307,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D8_9,,pct_per_year,p10_mean_p90,5.120784998897817,5.120784998897817,5.120784998897817,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,short,wealth_band=overall,,pct_per_year,p10_mean_p90,22.73482405088119,22.734824050881198,22.734824050881198,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D10,,pct_per_year,p10_mean_p90,24.7936249434091,24.7936249434091,24.7936249434091,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D6_7,,pct_per_year,p10_mean_p90,1.7152835458284243,1.715283545828425,1.715283545828425,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D8_9,,pct_per_year,p10_mean_p90,3.1069942619358053,3.1069942619358057,3.1069942619358057,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,short,wealth_band=overall,,pct_per_year,p10_mean_p90,20.781979222503196,20.781979222503196,20.781979222503196,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D10,,pct_per_year,p10_mean_p90,23.160362868022165,23.160362868022176,23.160362868022176,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D4_5,,pct_per_year,p10_mean_p90,nan,nan,nan,1000
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D6_7,,pct_per_year,p10_mean_p90,2.1568861743058565,2.1568861743058565,2.1568861743058565,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D8_9,,pct_per_year,p10_mean_p90,4.139999771939707,4.139999771939706,4.139999771939706,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=overall,,pct_per_year,p10_mean_p90,19.90377965604957,19.903779656049572,19.903779656049572,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D6_7,,pct_per_year,p10_mean_p90,1.409870309666687,1.409870309666687,1.409870309666687,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D8_9,,pct_per_year,p10_mean_p90,2.6120484598843805,2.6120484598843805,2.6120484598843805,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=overall,,pct_per_year,p10_mean_p90,18.340924103038816,18.340924103038816,18.340924103038816,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O3,S,single,,,pct,p10_mean_p90,34.27358098320547,34.27358098320546,34.27358098320546,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O4a,S,long,income_decile=D1,,pct,p10_mean_p90,27.74772186292465,27.74772186292464,27.74772186292464,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O4a,S,long,income_decile=D10,,pct,p10_mean_p90,7.129725927184213,7.129725927184213,7.129725927184213,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O4a,S,long,income_decile=D2,,pct,p10_mean_p90,27.911050385602433,27.911050385602422,27.911050385602422,0
@@ -264,35 +265,35 @@ median_mid,"household, saving median, regime mid (a scenario, not central)",O4b,
 median_mid,"household, saving median, regime mid (a scenario, not central)",O4b,S,transition,income_decile=D9,,pct,p10_mean_p90,0.0,0.0,0.0,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O4b,S,transition,income_decile=overall,,pct,p10_mean_p90,0.0,0.0,0.0,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=green,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5838121647901386,1.5838121647901386,1.5838121647901386,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.2394399279066124,1.239439927906612,1.239439927906612,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4341465382110388,1.4341465382110388,1.4341465382110388,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=once,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.0000000000000002,1.0000000000000002,1.0000000000000002,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.6556277631164737,0.6556277631164735,0.6556277631164735,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.8503343734209002,0.8503343734209002,0.8503343734209002,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=uk_minimum,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4556277631164736,1.4556277631164733,1.4556277631164733,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6503343734209002,1.6503343734209002,1.6503343734209002,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=union,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.989882094237064,1.989882094237064,1.989882094237064,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6455098573535378,1.6455098573535374,1.6455098573535374,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8402164676579642,1.8402164676579642,1.8402164676579642,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=zucman,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4556277631164736,1.4556277631164733,1.4556277631164733,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,long,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6503343734209002,1.6503343734209002,1.6503343734209002,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=green,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5838121647901386,1.5838121647901386,1.5838121647901386,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.1859407828729935,1.1859407828729935,1.1859407828729935,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.2583442434652257,1.2583442434652254,1.2583442434652254,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=once,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.0000000000000002,1.0000000000000002,1.0000000000000002,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.6021286180828549,0.6021286180828551,0.6021286180828551,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.674532078675087,0.674532078675087,0.674532078675087,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=uk_minimum,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4021286180828552,1.402128618082855,1.402128618082855,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4745320786750864,1.4745320786750868,1.4745320786750868,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=union,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.989882094237064,1.989882094237064,1.989882094237064,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5920107123199192,1.592010712319919,1.592010712319919,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6644141729121502,1.6644141729121509,1.6644141729121509,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=zucman,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4021286180828552,1.402128618082855,1.402128618082855,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,short,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4745320786750864,1.4745320786750868,1.4745320786750868,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=green,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5838121647901386,1.5838121647901386,1.5838121647901386,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.1663726972573867,1.166372697257387,1.166372697257387,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.2195733336947074,1.219573333694707,1.219573333694707,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=once,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.0000000000000002,1.0000000000000002,1.0000000000000002,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.5825605324672484,0.5825605324672485,0.5825605324672485,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.6357611689045685,0.6357611689045685,0.6357611689045685,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=uk_minimum,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.3825605324672485,1.3825605324672483,1.3825605324672483,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4357611689045686,1.4357611689045684,1.4357611689045684,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=union,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.989882094237064,1.989882094237064,1.989882094237064,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5724426267043126,1.5724426267043123,1.5724426267043123,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6256432631416329,1.6256432631416322,1.6256432631416322,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=zucman,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.3825605324672485,1.3825605324672483,1.3825605324672483,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O5,S,transition,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4357611689045686,1.4357611689045684,1.4357611689045684,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O6,S,long,wealth_band=D10,estates,pct_per_year,p10_mean_p90,0.11200000000000004,0.112,0.112,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O6,S,long,wealth_band=D10,gains,pct_per_year,p10_mean_p90,0.238,0.238,0.238,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O6,S,long,wealth_band=D10,total,pct_per_year,p10_mean_p90,0.3499999999999999,0.35,0.35,0
@@ -340,9 +341,9 @@ median_mid,"household, saving median, regime mid (a scenario, not central)",O6,S
 median_mid,"household, saving median, regime mid (a scenario, not central)",O6,S,transition,wealth_band=overall,total,pct_per_year,p10_mean_p90,0.20299999999999996,0.20299999999999999,0.20299999999999999,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O7,S,single,,,pp,point_and_range,1.0,0.7958317944050787,1.24074521200346,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O8,S,short,reform=gains,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,37.00453483993241,37.00453483993241,37.00453483993241,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O8,S,short,reform=gains,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,36.60666345801527,36.60666345801527,36.60666345801527,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O8,S,short,reform=gains,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,36.6790669186075,36.6790669186075,36.6790669186075,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",O8,S,short,reform=property,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,37.168575956983425,37.16857595698342,37.16857595698342,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",O8,S,short,reform=property,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,36.77070457506627,36.770704575066276,36.770704575066276,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",O8,S,short,reform=property,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,36.84310803565849,36.8431080356585,36.8431080356585,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OB1,S,long,w_min=r025,B1a,"{'B1a': 'pct', 'B1b': 'pct_per_year', 'B1c': 'pct_per_year', 'B1d': 'pct_gdp'}",p10_mean_p90,99.20000000000003,99.2,99.2,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OB1,S,long,w_min=r025,B1b,"{'B1a': 'pct', 'B1b': 'pct_per_year', 'B1c': 'pct_per_year', 'B1d': 'pct_gdp'}",p10_mean_p90,0.20202020202020196,0.20202020202020193,0.20202020202020193,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OB1,S,long,w_min=r025,B1c,"{'B1a': 'pct', 'B1b': 'pct_per_year', 'B1c': 'pct_per_year', 'B1d': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
@@ -408,6 +409,15 @@ median_mid,"household, saving median, regime mid (a scenario, not central)",OL1,
 median_mid,"household, saving median, regime mid (a scenario, not central)",OL1,S,transition,reference_worker=p50,,gbp_month,p10_mean_p90,0.0,0.0,0.0,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OL1,S,transition,reference_worker=p75,,gbp_month,p10_mean_p90,0.0,0.0,0.0,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OL1,S,transition,reference_worker=p90,,gbp_month,p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OM1,S,long,,M1,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,-0.30157237692605326,-0.30157237692605326,-0.30157237692605326,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OM1,S,long,,M9,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,-4.176104587442735,-4.176104587442733,-4.176104587442733,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OM1,S,long,,X,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,3.8745322105166817,3.8745322105166804,3.8745322105166804,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OM1,S,short,,M1,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,1.5628085708648098,1.5628085708648098,1.5628085708648098,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OM1,S,short,,M9,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,-1.2340937776032535,-1.2340937776032537,-1.2340937776032537,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OM1,S,short,,X,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,2.796902348468064,2.7969023484680635,2.7969023484680635,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OM1,S,transition,,M1,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,1.2049258348266875e-15,1.2049258348266873e-15,1.2049258348266873e-15,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OM1,S,transition,,M9,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,-2.796902348468064,-2.7969023484680626,-2.7969023484680626,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OM1,S,transition,,X,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,2.796902348468064,2.796902348468064,2.796902348468064,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OP1,S,single,,,years,p10_mean_p90,7.0,7.0,7.0,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OP3,S,single,,,pct_gdp,p10_mean_p90,43.04272330507752,43.04272330507753,43.04272330507753,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OP4,S,single,,,ratio,p10_mean_p90,-0.19296821283695195,-0.1929682128369519,-0.1929682128369519,0
@@ -424,8 +434,28 @@ median_mid,"household, saving median, regime mid (a scenario, not central)",OP6,
 median_mid,"household, saving median, regime mid (a scenario, not central)",OR1,S,single,,P7a,"{'P7a': 'pct', 'P7b': 'ratio'}",point_and_range,0.0,0.0,0.0,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OR1,S,single,,P7b,"{'P7a': 'pct', 'P7b': 'ratio'}",point_and_range,1.1482481121018562,1.1482481121018562,1.1482481121018562,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OS1,S,single,quantity=m1,,pp,point_and_range,-2.3089703034406055,-2.3089703034406055,-2.3089703034406055,0
-median_mid,"household, saving median, regime mid (a scenario, not central)",OS1,S,single,quantity=m2,,pp,point_and_range,0.0061627620189125265,0.0061627620189125265,0.0061627620189125265,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OS1,S,single,quantity=m2,,pp,point_and_range,0.005095696332884647,0.005095696332884647,0.005095696332884647,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OS1,S,single,quantity=payer_count,,pp,point_and_range,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=D10,,bp,p10_mean_p90,-655.87779057265,-655.8777905726499,-655.8777905726499,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=D4_5,,bp,p10_mean_p90,nan,nan,nan,1000
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=D6_7,,bp,p10_mean_p90,-1568.697269311554,-1568.6972693115542,-1568.6972693115542,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=D8_9,,bp,p10_mean_p90,-1053.3758875492135,-1053.3758875492138,-1053.3758875492138,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=overall,,bp,p10_mean_p90,-1180.0048208588366,-1180.0048208588366,-1180.0048208588366,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=D10,,bp,p10_mean_p90,-881.5251591246691,-881.5251591246696,-881.5251591246696,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=D4_5,,bp,p10_mean_p90,nan,nan,nan,1000
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=D6_7,,bp,p10_mean_p90,-773.6341470489334,-773.6341470489338,-773.6341470489338,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=D8_9,,bp,p10_mean_p90,-837.0302427888748,-837.030242788875,-837.030242788875,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=overall,,bp,p10_mean_p90,-820.5707877600574,-820.5707877600574,-820.5707877600574,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=D10,,bp,p10_mean_p90,-890.0255830306652,-890.0255830306653,-890.0255830306653,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=D4_5,,bp,p10_mean_p90,nan,nan,nan,1000
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=D6_7,,bp,p10_mean_p90,-803.9751914076279,-803.9751914076281,-803.9751914076281,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=D8_9,,bp,p10_mean_p90,-854.2766173989077,-854.276617398908,-854.276617398908,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=overall,,bp,p10_mean_p90,-841.3058401287473,-841.3058401287476,-841.3058401287476,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=D10,,bp,p10_mean_p90,-802.8490431755415,-802.8490431755416,-802.8490431755416,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=D4_5,,bp,p10_mean_p90,nan,nan,nan,1000
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=D6_7,,bp,p10_mean_p90,-410.268289487737,-410.26828948773687,-410.26828948773687,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=D8_9,,bp,p10_mean_p90,-581.3547790502371,-581.3547790502371,-581.3547790502371,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=overall,,bp,p10_mean_p90,-557.2190360502981,-557.219036050298,-557.219036050298,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OW2,S,single,embedded_gain_band=pct25;holding_period=y10,,bp,p10_mean_p90,-33.08156146534748,-42.5706201820621,-22.773909783483475,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OW2,S,single,embedded_gain_band=pct25;holding_period=y20,,bp,p10_mean_p90,-30.36442009781958,-44.348627837610735,-18.46533313151373,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OW2,S,single,embedded_gain_band=pct25;holding_period=y5,,bp,p10_mean_p90,-31.47506813676746,-44.16550179167015,-22.967172085284105,0
@@ -435,6 +465,26 @@ median_mid,"household, saving median, regime mid (a scenario, not central)",OW2,
 median_mid,"household, saving median, regime mid (a scenario, not central)",OW2,S,single,embedded_gain_band=pct75;holding_period=y10,,bp,p10_mean_p90,-95.16728356406966,-121.65243626106773,-64.09253354920648,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OW2,S,single,embedded_gain_band=pct75;holding_period=y20,,bp,p10_mean_p90,-86.3532991877953,-123.25059840775519,-52.021640572444355,0
 median_mid,"household, saving median, regime mid (a scenario, not central)",OW2,S,single,embedded_gain_band=pct75;holding_period=y5,,bp,p10_mean_p90,-90.45421834537201,-127.17043057782723,-66.21728395789437,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=D10,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=D4_5,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,nan,nan,nan,1000
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=D6_7,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=D8_9,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=overall,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=D10,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=D4_5,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,nan,nan,nan,1000
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=D6_7,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=D8_9,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=overall,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D10,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D10,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D4_5,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,nan,nan,nan,1000
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D4_5,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D6_7,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D6_7,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D8_9,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D8_9,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=overall,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_mid,"household, saving median, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=overall,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",DH1c,S,long,income_decile=D1,,pct,point_and_range,47.351990188426804,47.351990188426804,47.351990188426804,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",DH1c,S,long,income_decile=D10,,pct,point_and_range,38.272786247161854,38.272786247161854,38.272786247161854,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",DH1c,S,long,income_decile=D2,,pct,point_and_range,30.141465597356554,30.141465597356554,30.141465597356554,0
@@ -513,21 +563,21 @@ max_mid,"household, saving max, regime mid (a scenario, not central)",O1d,S,tran
 max_mid,"household, saving max, regime mid (a scenario, not central)",O1f,S,long,,,pct,p10_mean_p90,0.0,0.0,0.0,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O1f,S,short,,,pct,p10_mean_p90,0.0,0.0,0.0,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O1f,S,transition,,,pct,p10_mean_p90,1.0,1.0,1.0,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,long,wealth_band=D10,,pct_per_year,p10_mean_p90,0.45697918487924744,0.4569791848792473,0.4569791848792473,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,long,wealth_band=D4_5,,pct_per_year,p10_mean_p90,0.298364472135641,0.29836447213564093,0.29836447213564093,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,long,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.36483102879317836,0.3648310287931784,0.3648310287931784,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,long,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.4276702319253245,0.4276702319253246,0.4276702319253246,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,long,wealth_band=overall,,pct_per_year,p10_mean_p90,0.37669320943094947,0.37669320943094947,0.37669320943094947,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,short,wealth_band=D10,,pct_per_year,p10_mean_p90,0.5514591669740678,0.5514591669740676,0.5514591669740676,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,short,wealth_band=D4_5,,pct_per_year,p10_mean_p90,0.27774161073261494,0.27774161073261505,0.27774161073261505,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,short,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.34709825951103007,0.3470982595110299,0.3470982595110299,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,short,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.43473680139119936,0.43473680139119936,0.43473680139119936,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,short,wealth_band=overall,,pct_per_year,p10_mean_p90,0.4681990621493269,0.46819906214932694,0.46819906214932694,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D10,,pct_per_year,p10_mean_p90,0.5650170202101703,0.5650170202101703,0.5650170202101703,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D4_5,,pct_per_year,p10_mean_p90,0.2844648097329606,0.2844648097329607,0.2844648097329607,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.3341397097389568,0.33413970973895685,0.33413970973895685,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.4194709670869727,0.4194709670869726,0.4194709670869726,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,transition,wealth_band=overall,,pct_per_year,p10_mean_p90,0.4899051918050794,0.48990519180507924,0.48990519180507924,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,long,wealth_band=D10,,pct_per_year,p10_mean_p90,0.2935132032811297,0.2935132032811297,0.2935132032811297,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,long,wealth_band=D4_5,,pct_per_year,p10_mean_p90,0.2036882164758994,0.20368821647589933,0.20368821647589933,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,long,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.24573607704101977,0.24573607704101977,0.24573607704101977,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,long,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.2740982579968488,0.2740982579968488,0.2740982579968488,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,long,wealth_band=overall,,pct_per_year,p10_mean_p90,0.24781097132005445,0.2478109713200544,0.2478109713200544,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,short,wealth_band=D10,,pct_per_year,p10_mean_p90,0.453350415942758,0.453350415942758,0.453350415942758,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,short,wealth_band=D4_5,,pct_per_year,p10_mean_p90,0.18812731202499086,0.1881273120249908,0.1881273120249908,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,short,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.2397760986023556,0.2397760986023556,0.2397760986023556,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,short,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.28564192477143685,0.2856419247714369,0.2856419247714369,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,short,wealth_band=overall,,pct_per_year,p10_mean_p90,0.3537738769709076,0.35377387697090756,0.35377387697090756,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D10,,pct_per_year,p10_mean_p90,0.4888828818018583,0.4888828818018582,0.4888828818018582,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D4_5,,pct_per_year,p10_mean_p90,0.1868717056180051,0.18687170561800512,0.18687170561800512,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.23719666423739788,0.2371966642373978,0.2371966642373978,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,transition,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.2858292924905399,0.2858292924905399,0.2858292924905399,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2,S,transition,wealth_band=overall,,pct_per_year,p10_mean_p90,0.3944816719901188,0.3944816719901188,0.3944816719901188,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2b,S,long,cutoff_pct_of_income=10;wealth_band=D10,,pct,p10_mean_p90,14.366756250676476,14.366756250676477,14.366756250676477,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2b,S,long,cutoff_pct_of_income=10;wealth_band=D4_5,,pct,p10_mean_p90,4.99999999999996,4.999999999999961,4.999999999999961,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2b,S,long,cutoff_pct_of_income=10;wealth_band=D6_7,,pct,p10_mean_p90,4.99999999999996,4.999999999999961,4.999999999999961,0
@@ -573,16 +623,16 @@ max_mid,"household, saving max, regime mid (a scenario, not central)",O2b,S,tran
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2b,S,transition,cutoff_pct_of_income=5;wealth_band=D6_7,,pct,p10_mean_p90,2.380952380952381,2.3809523809523814,2.3809523809523814,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2b,S,transition,cutoff_pct_of_income=5;wealth_band=D8_9,,pct,p10_mean_p90,2.380952380952381,2.3809523809523814,2.3809523809523814,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2b,S,transition,cutoff_pct_of_income=5;wealth_band=overall,,pct,p10_mean_p90,4.429824561403534,4.429824561403533,4.429824561403533,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D10,,pct,p10_mean_p90,0.30013437601441945,0.30013437601441945,0.30013437601441945,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D4_5,,pct,p10_mean_p90,2.9999999999999782,2.999999999999977,2.999999999999977,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D6_7,,pct,p10_mean_p90,2.9999999999999782,2.999999999999977,2.999999999999977,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D8_9,,pct,p10_mean_p90,2.833333333333312,2.8333333333333117,2.8333333333333117,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=overall,,pct,p10_mean_p90,2.566685863240179,2.566685863240179,2.566685863240179,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D10,,pct,p10_mean_p90,4.1000000000000085,4.1000000000000085,4.1000000000000085,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D10,,pct,p10_mean_p90,0.10026875202883795,0.10026875202883796,0.10026875202883796,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D4_5,,pct,p10_mean_p90,2.666666666666646,2.6666666666666465,2.6666666666666465,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D8_9,,pct,p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=overall,,pct,p10_mean_p90,0.7762288693374592,0.7762288693374594,0.7762288693374594,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D10,,pct,p10_mean_p90,3.1666890626690765,3.1666890626690765,3.1666890626690765,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D4_5,,pct,p10_mean_p90,4.99999999999996,4.999999999999961,4.999999999999961,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,4.99999999999996,4.999999999999961,4.999999999999961,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D8_9,,pct,p10_mean_p90,4.99999999999996,4.999999999999961,4.999999999999961,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,4.871428571428599,4.8714285714286,4.8714285714286,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,3.833333333333302,3.8333333333333037,3.8333333333333037,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D8_9,,pct,p10_mean_p90,2.9999999999999782,2.999999999999977,2.999999999999977,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,3.8333365327622753,3.833336532762275,3.833336532762275,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D10,,pct,p10_mean_p90,3.0001343760144246,3.0001343760144255,3.0001343760144255,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D4_5,,pct,p10_mean_p90,2.9999999999999782,2.999999999999977,2.999999999999977,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,2.9999999999999782,2.999999999999977,2.999999999999977,0
@@ -598,11 +648,11 @@ max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,shor
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,3.333333333333336,3.333333333333337,3.333333333333337,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=25;wealth_band=D8_9,,pct,p10_mean_p90,3.333333333333336,3.333333333333337,3.333333333333337,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,3.3333333333333433,3.3333333333333433,3.3333333333333433,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D10,,pct,p10_mean_p90,3.3333333333333233,3.3333333333333246,3.3333333333333246,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D4_5,,pct,p10_mean_p90,3.3333333333333353,3.3333333333333344,3.3333333333333344,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,3.333333333333336,3.333333333333337,3.333333333333337,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,3.333333333333336,3.333333333333337,3.333333333333337,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,3.3333333333333433,3.3333333333333433,3.3333333333333433,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D10,,pct,p10_mean_p90,0.3333333333333325,0.3333333333333325,0.3333333333333325,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D4_5,,pct,p10_mean_p90,1.1111111111111112,1.1111111111111114,1.1111111111111114,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,0.833333333333334,0.8333333333333343,0.8333333333333343,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,1.666666666666668,1.6666666666666685,1.6666666666666685,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,1.0769230769230804,1.0769230769230804,1.0769230769230804,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=100;wealth_band=D10,,pct,p10_mean_p90,0.23809523809523764,0.23809523809523758,0.23809523809523758,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=100;wealth_band=D4_5,,pct,p10_mean_p90,0.0,0.0,0.0,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=100;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
@@ -613,26 +663,27 @@ max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,tran
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,2.380952380952381,2.3809523809523814,2.3809523809523814,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=D8_9,,pct,p10_mean_p90,2.380952380952381,2.3809523809523814,2.3809523809523814,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,2.631578947368429,2.6315789473684292,2.6315789473684292,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D10,,pct,p10_mean_p90,2.380952380952375,2.3809523809523756,2.3809523809523756,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D4_5,,pct,p10_mean_p90,5.555555555555555,5.555555555555556,5.555555555555556,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,1.1904761904761905,1.1904761904761907,1.1904761904761907,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,2.380952380952381,2.3809523809523814,2.3809523809523814,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,2.1929824561403577,2.1929824561403577,2.1929824561403577,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D10,,pct_per_year,p10_mean_p90,14.663547692008997,14.663547692009002,14.663547692009002,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D4_5,,pct_per_year,p10_mean_p90,5.535059743433591,5.535059743433589,5.535059743433589,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D6_7,,pct_per_year,p10_mean_p90,7.040024649360514,7.040024649360512,7.040024649360512,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D8_9,,pct_per_year,p10_mean_p90,8.60281663570251,8.602816635702506,8.602816635702506,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,long,wealth_band=overall,,pct_per_year,p10_mean_p90,8.733736710670346,8.73373671067035,8.73373671067035,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D10,,pct_per_year,p10_mean_p90,26.16491495153615,26.164914951536137,26.164914951536137,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D4_5,,pct_per_year,p10_mean_p90,2.0034644245444744,2.0034644245444735,2.0034644245444735,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D6_7,,pct_per_year,p10_mean_p90,3.193449298507517,3.193449298507518,3.193449298507518,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D8_9,,pct_per_year,p10_mean_p90,5.244072248631901,5.244072248631901,5.244072248631901,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,short,wealth_band=overall,,pct_per_year,p10_mean_p90,17.76568930496493,17.765689304964933,17.765689304964933,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D10,,pct_per_year,p10_mean_p90,22.745100313813754,22.745100313813758,22.745100313813758,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D4_5,,pct_per_year,p10_mean_p90,1.8726369526152693,1.872636952615269,1.872636952615269,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D6_7,,pct_per_year,p10_mean_p90,2.0026228212508914,2.002622821250891,2.002622821250891,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D8_9,,pct_per_year,p10_mean_p90,3.653881030659768,3.653881030659769,3.653881030659769,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=overall,,pct_per_year,p10_mean_p90,16.352930416556408,16.352930416556408,16.352930416556408,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D10,,pct,p10_mean_p90,0.23809523809523764,0.23809523809523758,0.23809523809523758,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D4_5,,pct,p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,0.04385964912280716,0.04385964912280716,0.04385964912280716,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D10,,pct_per_year,p10_mean_p90,10.965739741781741,10.965739741781745,10.965739741781745,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D4_5,,pct_per_year,p10_mean_p90,3.8260182001615495,3.826018200161549,3.826018200161549,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D6_7,,pct_per_year,p10_mean_p90,4.81981792122972,4.8198179212297205,4.8198179212297205,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,long,wealth_band=D8_9,,pct_per_year,p10_mean_p90,5.638039165018683,5.638039165018684,5.638039165018684,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,long,wealth_band=overall,,pct_per_year,p10_mean_p90,6.1326472432857475,6.132647243285748,6.132647243285748,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D10,,pct_per_year,p10_mean_p90,24.1776095013874,24.17760950138741,24.17760950138741,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D4_5,,pct_per_year,p10_mean_p90,1.3592862842561089,1.3592862842561093,1.3592862842561093,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D6_7,,pct_per_year,p10_mean_p90,2.2171510401125007,2.2171510401125003,2.2171510401125003,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,short,wealth_band=D8_9,,pct_per_year,p10_mean_p90,3.4692529393973164,3.469252939397317,3.469252939397317,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,short,wealth_band=overall,,pct_per_year,p10_mean_p90,15.993088155843372,15.993088155843376,15.993088155843376,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D10,,pct_per_year,p10_mean_p90,21.176264814365194,21.17626481436519,21.17626481436519,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D4_5,,pct_per_year,p10_mean_p90,1.226131953297554,1.226131953297554,1.226131953297554,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D6_7,,pct_per_year,p10_mean_p90,1.3760163639928713,1.3760163639928706,1.3760163639928706,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=D8_9,,pct_per_year,p10_mean_p90,2.385396361385206,2.3853963613852063,2.3853963613852063,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O2d,S,transition,wealth_band=overall,,pct_per_year,p10_mean_p90,14.94921448576014,14.949214485760141,14.949214485760141,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O3,S,single,,,pct,p10_mean_p90,25.78207974296424,25.78207974296423,25.78207974296423,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O4a,S,long,income_decile=D1,,pct,p10_mean_p90,36.21509999347023,36.21509999347023,36.21509999347023,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O4a,S,long,income_decile=D10,,pct,p10_mean_p90,17.605765052478553,17.605765052478556,17.605765052478556,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O4a,S,long,income_decile=D2,,pct,p10_mean_p90,41.21323056208523,41.21323056208522,41.21323056208522,0
@@ -700,35 +751,35 @@ max_mid,"household, saving max, regime mid (a scenario, not central)",O4b,S,tran
 max_mid,"household, saving max, regime mid (a scenario, not central)",O4b,S,transition,income_decile=D9,,pct,p10_mean_p90,0.0,0.0,0.0,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O4b,S,transition,income_decile=overall,,pct,p10_mean_p90,0.0,0.0,0.0,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=green,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5838121647901386,1.5838121647901386,1.5838121647901386,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.207118955359189,1.2071189553591892,1.2071189553591892,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.3360011934700844,1.3360011934700842,1.3360011934700842,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=once,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.0000000000000002,1.0000000000000002,1.0000000000000002,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.6233067905690507,0.6233067905690508,0.6233067905690508,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.7521890286799456,0.7521890286799459,0.7521890286799459,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=uk_minimum,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4233067905690506,1.4233067905690506,1.4233067905690506,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5521890286799453,1.5521890286799456,1.5521890286799456,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=union,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.989882094237064,1.989882094237064,1.989882094237064,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.613188884806114,1.6131888848061147,1.6131888848061147,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.74207112291701,1.7420711229170096,1.7420711229170096,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=zucman,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4233067905690506,1.4233067905690506,1.4233067905690506,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,long,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5521890286799453,1.5521890286799456,1.5521890286799456,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=green,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5838121647901386,1.5838121647901386,1.5838121647901386,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.1156131026408114,1.1156131026408116,1.1156131026408116,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.2300382878192309,1.230038287819231,1.230038287819231,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=once,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.0000000000000002,1.0000000000000002,1.0000000000000002,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.5318009378506733,0.5318009378506733,0.5318009378506733,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.6462261230290929,0.6462261230290927,0.6462261230290927,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=uk_minimum,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.3318009378506732,1.331800937850673,1.331800937850673,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4462261230290925,1.4462261230290925,1.4462261230290925,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=union,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.989882094237064,1.989882094237064,1.989882094237064,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5216830320877368,1.5216830320877373,1.5216830320877373,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6361082172661563,1.6361082172661565,1.6361082172661565,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=zucman,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.3318009378506732,1.331800937850673,1.331800937850673,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,short,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4462261230290925,1.4462261230290925,1.4462261230290925,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=green,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5838121647901386,1.5838121647901386,1.5838121647901386,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.09390697298506,1.0939069729850595,1.0939069729850595,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.1893304928000197,1.18933049280002,1.18933049280002,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=once,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.0000000000000002,1.0000000000000002,1.0000000000000002,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.5100948081949211,0.510094808194921,0.510094808194921,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.6055183280098816,0.6055183280098815,0.6055183280098815,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=uk_minimum,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.3100948081949206,1.3100948081949209,1.3100948081949209,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4055183280098817,1.4055183280098813,1.4055183280098813,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=union,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.989882094237064,1.989882094237064,1.989882094237064,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4999769024319851,1.499976902431985,1.499976902431985,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5954004222469458,1.5954004222469453,1.5954004222469453,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=zucman,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.3100948081949206,1.3100948081949209,1.3100948081949209,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O5,S,transition,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4055183280098817,1.4055183280098813,1.4055183280098813,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O6,S,long,wealth_band=D10,estates,pct_per_year,p10_mean_p90,0.11200000000000004,0.112,0.112,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O6,S,long,wealth_band=D10,gains,pct_per_year,p10_mean_p90,0.238,0.238,0.238,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O6,S,long,wealth_band=D10,total,pct_per_year,p10_mean_p90,0.3499999999999999,0.35,0.35,0
@@ -776,9 +827,9 @@ max_mid,"household, saving max, regime mid (a scenario, not central)",O6,S,trans
 max_mid,"household, saving max, regime mid (a scenario, not central)",O6,S,transition,wealth_band=overall,total,pct_per_year,p10_mean_p90,0.20299999999999996,0.20299999999999999,0.20299999999999999,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O7,S,single,,,pp,point_and_range,1.0,0.7958317944050787,1.24074521200346,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O8,S,short,reform=gains,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.137773096433319,1.137773096433319,1.137773096433319,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O8,S,short,reform=gains,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.6695740342839921,0.6695740342839921,0.6695740342839921,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O8,S,short,reform=gains,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.7839992194624117,0.7839992194624115,0.7839992194624115,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",O8,S,short,reform=property,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.1428168450035092,1.1428168450035097,1.1428168450035097,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",O8,S,short,reform=property,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.6746177828541828,0.6746177828541827,0.6746177828541827,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",O8,S,short,reform=property,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.7890429680326021,0.7890429680326021,0.7890429680326021,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OB1,S,long,w_min=r025,B1a,"{'B1a': 'pct', 'B1b': 'pct_per_year', 'B1c': 'pct_per_year', 'B1d': 'pct_gdp'}",p10_mean_p90,100.0,100.0,100.0,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OB1,S,long,w_min=r025,B1b,"{'B1a': 'pct', 'B1b': 'pct_per_year', 'B1c': 'pct_per_year', 'B1d': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OB1,S,long,w_min=r025,B1c,"{'B1a': 'pct', 'B1b': 'pct_per_year', 'B1c': 'pct_per_year', 'B1d': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
@@ -844,6 +895,15 @@ max_mid,"household, saving max, regime mid (a scenario, not central)",OL1,S,tran
 max_mid,"household, saving max, regime mid (a scenario, not central)",OL1,S,transition,reference_worker=p50,,gbp_month,p10_mean_p90,0.0,0.0,0.0,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OL1,S,transition,reference_worker=p75,,gbp_month,p10_mean_p90,0.0,0.0,0.0,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OL1,S,transition,reference_worker=p90,,gbp_month,p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OM1,S,long,,M1,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,0.4895738149082856,0.4895738149082855,0.4895738149082855,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OM1,S,long,,M9,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,-4.932604652402147,-4.932604652402147,-4.932604652402147,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OM1,S,long,,X,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,5.422178467310432,5.422178467310432,5.422178467310432,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OM1,S,short,,M1,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,0.0480514497614107,0.048051449761410694,0.048051449761410694,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OM1,S,short,,M9,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,-3.376880490039326,-3.3768804900393254,-3.3768804900393254,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OM1,S,short,,X,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,3.424931939800736,3.424931939800737,3.424931939800737,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OM1,S,transition,,M1,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,-1.6009117840701893e-15,-1.6009117840701899e-15,-1.6009117840701899e-15,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OM1,S,transition,,M9,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,-2.8587770768423675,-2.8587770768423675,-2.8587770768423675,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OM1,S,transition,,X,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,2.8587770768423657,2.8587770768423657,2.8587770768423657,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OP1,S,single,,,years,p10_mean_p90,7.0,7.0,7.0,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OP3,S,single,,,pct_gdp,p10_mean_p90,106.71662132629831,106.71662132629831,106.71662132629831,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OP4,S,single,,,ratio,p10_mean_p90,10.188533693346624,10.188533693346624,10.188533693346624,0
@@ -860,8 +920,28 @@ max_mid,"household, saving max, regime mid (a scenario, not central)",OP6,S,sing
 max_mid,"household, saving max, regime mid (a scenario, not central)",OR1,S,single,,P7a,"{'P7a': 'pct', 'P7b': 'ratio'}",point_and_range,0.0,0.0,0.0,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OR1,S,single,,P7b,"{'P7a': 'pct', 'P7b': 'ratio'}",point_and_range,1.0133148680480937,1.0133148680480937,1.0133148680480937,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OS1,S,single,quantity=m1,,pp,point_and_range,0.16542336287206133,0.16542336287206127,0.16542336287206127,0
-max_mid,"household, saving max, regime mid (a scenario, not central)",OS1,S,single,quantity=m2,,pp,point_and_range,0.0076064334983343964,0.007606433498334397,0.007606433498334397,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OS1,S,single,quantity=m2,,pp,point_and_range,0.006186090625657393,0.006186090625657392,0.006186090625657392,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OS1,S,single,quantity=payer_count,,pp,point_and_range,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=D10,,bp,p10_mean_p90,-892.9113243716196,-892.9113243716196,-892.9113243716196,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=D4_5,,bp,p10_mean_p90,nan,nan,nan,1000
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=D6_7,,bp,p10_mean_p90,-1659.5771552304182,-1659.5771552304184,-1659.5771552304184,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=D8_9,,bp,p10_mean_p90,-1281.4215958235404,-1281.4215958235409,-1281.4215958235409,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=overall,,bp,p10_mean_p90,-1354.9817652959073,-1354.9817652959075,-1354.9817652959075,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=D10,,bp,p10_mean_p90,-1174.8752613964066,-1174.875261396407,-1174.875261396407,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=D4_5,,bp,p10_mean_p90,nan,nan,nan,1000
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=D6_7,,bp,p10_mean_p90,-930.3868598080074,-930.3868598080073,-930.3868598080073,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=D8_9,,bp,p10_mean_p90,-1053.2906154103205,-1053.2906154103205,-1053.2906154103205,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=overall,,bp,p10_mean_p90,-1028.4460423666128,-1028.4460423666123,-1028.4460423666123,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=D10,,bp,p10_mean_p90,-1171.956293767849,-1171.9562937678488,-1171.9562937678488,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=D4_5,,bp,p10_mean_p90,nan,nan,nan,1000
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=D6_7,,bp,p10_mean_p90,-976.30222459072,-976.3022245907204,-976.3022245907204,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=D8_9,,bp,p10_mean_p90,-1075.3004372157736,-1075.3004372157736,-1075.3004372157736,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=overall,,bp,p10_mean_p90,-1055.0323234761674,-1055.0323234761672,-1055.0323234761672,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=D10,,bp,p10_mean_p90,-1127.623678036813,-1127.6236780368133,-1127.6236780368133,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=D4_5,,bp,p10_mean_p90,nan,nan,nan,1000
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=D6_7,,bp,p10_mean_p90,-740.1362567967911,-740.1362567967911,-740.1362567967911,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=D8_9,,bp,p10_mean_p90,-939.0227005933989,-939.0227005933987,-939.0227005933987,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=overall,,bp,p10_mean_p90,-897.1883185634383,-897.1883185634384,-897.1883185634384,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OW2,S,single,embedded_gain_band=pct25;holding_period=y10,,bp,p10_mean_p90,-33.08156146534748,-42.5706201820621,-22.773909783483475,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OW2,S,single,embedded_gain_band=pct25;holding_period=y20,,bp,p10_mean_p90,-30.36442009781958,-44.348627837610735,-18.46533313151373,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OW2,S,single,embedded_gain_band=pct25;holding_period=y5,,bp,p10_mean_p90,-31.47506813676746,-44.16550179167015,-22.967172085284105,0
@@ -871,6 +951,26 @@ max_mid,"household, saving max, regime mid (a scenario, not central)",OW2,S,sing
 max_mid,"household, saving max, regime mid (a scenario, not central)",OW2,S,single,embedded_gain_band=pct75;holding_period=y10,,bp,p10_mean_p90,-95.16728356406966,-121.65243626106773,-64.09253354920648,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OW2,S,single,embedded_gain_band=pct75;holding_period=y20,,bp,p10_mean_p90,-86.3532991877953,-123.25059840775519,-52.021640572444355,0
 max_mid,"household, saving max, regime mid (a scenario, not central)",OW2,S,single,embedded_gain_band=pct75;holding_period=y5,,bp,p10_mean_p90,-90.45421834537201,-127.17043057782723,-66.21728395789437,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=D10,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=D4_5,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,nan,nan,nan,1000
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=D6_7,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=D8_9,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=overall,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=D10,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=D4_5,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,nan,nan,nan,1000
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=D6_7,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=D8_9,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=overall,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D10,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D10,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D4_5,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,nan,nan,nan,1000
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D4_5,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D6_7,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D6_7,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D8_9,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D8_9,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=overall,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+max_mid,"household, saving max, regime mid (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=overall,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
 median_low,"household, saving median, regime low (a scenario, not central)",DH1c,S,long,income_decile=D1,,pct,point_and_range,47.351990188426804,47.351990188426804,47.351990188426804,0
 median_low,"household, saving median, regime low (a scenario, not central)",DH1c,S,long,income_decile=D10,,pct,point_and_range,38.272786247161854,38.272786247161854,38.272786247161854,0
 median_low,"household, saving median, regime low (a scenario, not central)",DH1c,S,long,income_decile=D2,,pct,point_and_range,30.141465597356554,30.141465597356554,30.141465597356554,0
@@ -949,21 +1049,21 @@ median_low,"household, saving median, regime low (a scenario, not central)",O1d,
 median_low,"household, saving median, regime low (a scenario, not central)",O1f,S,long,,,pct,p10_mean_p90,1.0,1.0,1.0,0
 median_low,"household, saving median, regime low (a scenario, not central)",O1f,S,short,,,pct,p10_mean_p90,0.0,0.0,0.0,0
 median_low,"household, saving median, regime low (a scenario, not central)",O1f,S,transition,,,pct,p10_mean_p90,1.0,1.0,1.0,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2,S,long,wealth_band=D10,,pct_per_year,p10_mean_p90,0.1971209736557959,0.19712097365579584,0.19712097365579584,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2,S,long,wealth_band=D10,,pct_per_year,p10_mean_p90,0.16297167505953397,0.16297167505953394,0.16297167505953394,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2,S,long,wealth_band=D4_5,,pct_per_year,p10_mean_p90,nan,nan,nan,1000
-median_low,"household, saving median, regime low (a scenario, not central)",O2,S,long,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.10608352690577293,0.1060835269057729,0.1060835269057729,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2,S,long,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.12349482941999558,0.12349482941999558,0.12349482941999558,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2,S,long,wealth_band=overall,,pct_per_year,p10_mean_p90,0.15266427876519664,0.15266427876519664,0.15266427876519664,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2,S,short,wealth_band=D10,,pct_per_year,p10_mean_p90,0.27462776776907866,0.2746277677690786,0.2746277677690786,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2,S,long,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.059793987969200456,0.05979398796920047,0.05979398796920047,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2,S,long,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.07720192611351982,0.07720192611351982,0.07720192611351982,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2,S,long,wealth_band=overall,,pct_per_year,p10_mean_p90,0.111743000673983,0.11174300067398296,0.11174300067398296,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2,S,short,wealth_band=D10,,pct_per_year,p10_mean_p90,0.2559089561318722,0.25590895613187226,0.25590895613187226,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2,S,short,wealth_band=D4_5,,pct_per_year,p10_mean_p90,nan,nan,nan,1000
-median_low,"household, saving median, regime low (a scenario, not central)",O2,S,short,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.10106526939300091,0.10106526939300087,0.10106526939300087,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2,S,short,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.11263725279349442,0.11263725279349435,0.11263725279349435,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2,S,short,wealth_band=overall,,pct_per_year,p10_mean_p90,0.21630999650237467,0.21630999650237465,0.21630999650237465,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2,S,transition,wealth_band=D10,,pct_per_year,p10_mean_p90,0.24494987777857705,0.24494987777857705,0.24494987777857705,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2,S,short,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.06562508038731084,0.06562508038731085,0.06562508038731085,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2,S,short,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.07305260780926523,0.07305260780926522,0.07305260780926522,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2,S,short,wealth_band=overall,,pct_per_year,p10_mean_p90,0.19073873190185625,0.1907387319018563,0.1907387319018563,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2,S,transition,wealth_band=D10,,pct_per_year,p10_mean_p90,0.23099074130939534,0.23099074130939526,0.23099074130939526,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2,S,transition,wealth_band=D4_5,,pct_per_year,p10_mean_p90,nan,nan,nan,1000
-median_low,"household, saving median, regime low (a scenario, not central)",O2,S,transition,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.09544195019489782,0.09544195019489783,0.09544195019489783,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2,S,transition,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.1027820904322989,0.10278209043229887,0.10278209043229887,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2,S,transition,wealth_band=overall,,pct_per_year,p10_mean_p90,0.19562087849701595,0.19562087849701595,0.19562087849701595,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2,S,transition,wealth_band=D6_7,,pct_per_year,p10_mean_p90,0.0667429715583275,0.0667429715583275,0.0667429715583275,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2,S,transition,wealth_band=D8_9,,pct_per_year,p10_mean_p90,0.06994501876384195,0.06994501876384193,0.06994501876384193,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2,S,transition,wealth_band=overall,,pct_per_year,p10_mean_p90,0.1756941367514688,0.17569413675146883,0.17569413675146883,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2b,S,long,cutoff_pct_of_income=10;wealth_band=D10,,pct,p10_mean_p90,3.639425045987032,3.639425045987032,3.639425045987032,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2b,S,long,cutoff_pct_of_income=10;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
 median_low,"household, saving median, regime low (a scenario, not central)",O2b,S,long,cutoff_pct_of_income=10;wealth_band=D6_7,,pct,p10_mean_p90,2.9999999999999782,2.999999999999977,2.999999999999977,0
@@ -1009,21 +1109,21 @@ median_low,"household, saving median, regime low (a scenario, not central)",O2b,
 median_low,"household, saving median, regime low (a scenario, not central)",O2b,S,transition,cutoff_pct_of_income=5;wealth_band=D6_7,,pct,p10_mean_p90,2.380952380952381,2.3809523809523814,2.3809523809523814,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2b,S,transition,cutoff_pct_of_income=5;wealth_band=D8_9,,pct,p10_mean_p90,2.380952380952381,2.3809523809523814,2.3809523809523814,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2b,S,transition,cutoff_pct_of_income=5;wealth_band=overall,,pct,p10_mean_p90,4.333333333333357,4.333333333333356,4.333333333333356,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D10,,pct,p10_mean_p90,0.2668234386834891,0.2668234386834892,0.2668234386834892,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D10,,pct,p10_mean_p90,0.06695781469790775,0.06695781469790776,0.06695781469790776,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=D8_9,,pct,p10_mean_p90,0.0,0.0,0.0,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=overall,,pct,p10_mean_p90,0.05336468773669731,0.0533646877366973,0.0533646877366973,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D10,,pct,p10_mean_p90,3.1333781253381465,3.1333781253381456,3.1333781253381456,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=100;wealth_band=overall,,pct,p10_mean_p90,0.013391562939581415,0.013391562939581417,0.013391562939581417,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D10,,pct,p10_mean_p90,2.700134376014425,2.7001343760144247,2.7001343760144247,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,2.9999999999999782,2.999999999999977,2.999999999999977,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,1.8333333333333188,1.8333333333333193,1.8333333333333193,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=D8_9,,pct,p10_mean_p90,2.9999999999999782,2.999999999999977,2.999999999999977,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,3.026675625067606,3.0266756250676066,3.0266756250676066,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,2.473360208536199,2.4733602085361985,2.4733602085361985,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D10,,pct,p10_mean_p90,0.30013437601441945,0.30013437601441945,0.30013437601441945,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,1.333333333333323,1.3333333333333233,1.3333333333333233,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,1.333333333333323,1.3333333333333233,1.3333333333333233,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,1.1266935418695412,1.1266935418695414,1.1266935418695414,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,long,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,0.06002687520288329,0.06002687520288328,0.06002687520288328,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=100;wealth_band=D10,,pct,p10_mean_p90,0.3333333333333325,0.3333333333333325,0.3333333333333325,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=100;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=100;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
@@ -1031,14 +1131,14 @@ median_low,"household, saving median, regime low (a scenario, not central)",O2c,
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=100;wealth_band=overall,,pct,p10_mean_p90,0.06666666666666689,0.06666666666666687,0.06666666666666687,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=25;wealth_band=D10,,pct,p10_mean_p90,3.3333333333333233,3.3333333333333246,3.3333333333333246,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=25;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,3.333333333333336,3.333333333333337,3.333333333333337,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,1.666666666666668,1.6666666666666685,1.6666666666666685,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=25;wealth_band=D8_9,,pct,p10_mean_p90,3.333333333333336,3.333333333333337,3.333333333333337,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,3.3333333333333433,3.333333333333343,3.333333333333343,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,2.666666666666674,2.666666666666675,2.666666666666675,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D10,,pct,p10_mean_p90,0.3333333333333325,0.3333333333333325,0.3333333333333325,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,1.666666666666668,1.6666666666666685,1.6666666666666685,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,0.7333333333333358,0.7333333333333357,0.7333333333333357,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,short,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,0.06666666666666689,0.06666666666666687,0.06666666666666687,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=100;wealth_band=D10,,pct,p10_mean_p90,0.23809523809523764,0.23809523809523758,0.23809523809523758,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=100;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=100;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
@@ -1046,29 +1146,30 @@ median_low,"household, saving median, regime low (a scenario, not central)",O2c,
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=100;wealth_band=overall,,pct,p10_mean_p90,0.047619047619047776,0.04761904761904776,0.04761904761904776,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=D10,,pct,p10_mean_p90,2.380952380952375,2.3809523809523756,2.3809523809523756,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,2.380952380952381,2.3809523809523814,2.3809523809523814,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=D6_7,,pct,p10_mean_p90,1.1904761904761905,1.1904761904761907,1.1904761904761907,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=D8_9,,pct,p10_mean_p90,2.380952380952381,2.3809523809523814,2.3809523809523814,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,2.380952380952388,2.380952380952388,2.380952380952388,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=25;wealth_band=overall,,pct,p10_mean_p90,1.9047619047619113,1.9047619047619107,1.9047619047619107,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D10,,pct,p10_mean_p90,0.23809523809523764,0.23809523809523758,0.23809523809523758,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D4_5,,pct,p10_mean_p90,nan,nan,nan,1000
 median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D6_7,,pct,p10_mean_p90,0.0,0.0,0.0,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,1.1904761904761905,1.1904761904761907,1.1904761904761907,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,0.5238095238095254,0.5238095238095253,0.5238095238095253,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,long,wealth_band=D10,,pct_per_year,p10_mean_p90,18.980417092696705,18.980417092696698,18.980417092696698,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=D8_9,,pct,p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2c,S,transition,cutoff_pct_of_liquid_assets=50;wealth_band=overall,,pct,p10_mean_p90,0.047619047619047776,0.04761904761904776,0.04761904761904776,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,long,wealth_band=D10,,pct_per_year,p10_mean_p90,17.383491475029675,17.383491475029675,17.383491475029675,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,long,wealth_band=D4_5,,pct_per_year,p10_mean_p90,nan,nan,nan,1000
-median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,long,wealth_band=D6_7,,pct_per_year,p10_mean_p90,2.947085701665622,2.947085701665622,2.947085701665622,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,long,wealth_band=D8_9,,pct_per_year,p10_mean_p90,4.373320458033264,4.373320458033266,4.373320458033266,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,long,wealth_band=overall,,pct_per_year,p10_mean_p90,12.161536391881452,12.161536391881455,12.161536391881455,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,short,wealth_band=D10,,pct_per_year,p10_mean_p90,32.69228447712617,32.692284477126165,32.692284477126165,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,long,wealth_band=D6_7,,pct_per_year,p10_mean_p90,1.6901390740356406,1.6901390740356401,1.6901390740356401,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,long,wealth_band=D8_9,,pct_per_year,p10_mean_p90,2.782407954193031,2.782407954193031,2.782407954193031,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,long,wealth_band=overall,,pct_per_year,p10_mean_p90,10.61610967448871,10.616109674488708,10.616109674488708,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,short,wealth_band=D10,,pct_per_year,p10_mean_p90,30.908894890655464,30.908894890655468,30.908894890655468,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,short,wealth_band=D4_5,,pct_per_year,p10_mean_p90,nan,nan,nan,1000
-median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,short,wealth_band=D6_7,,pct_per_year,p10_mean_p90,2.925431236888699,2.925431236888699,2.925431236888699,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,short,wealth_band=D8_9,,pct_per_year,p10_mean_p90,5.55419249607371,5.55419249607371,5.55419249607371,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,short,wealth_band=overall,,pct_per_year,p10_mean_p90,26.669500203305986,26.669500203305994,26.669500203305994,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,transition,wealth_band=D10,,pct_per_year,p10_mean_p90,31.160883452408548,31.160883452408545,31.160883452408545,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,short,wealth_band=D6_7,,pct_per_year,p10_mean_p90,1.915717081508867,1.9157170815088678,1.9157170815088678,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,short,wealth_band=D8_9,,pct_per_year,p10_mean_p90,3.623657297009851,3.6236572970098515,3.6236572970098515,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,short,wealth_band=overall,,pct_per_year,p10_mean_p90,24.909170483008783,24.90917048300879,24.90917048300879,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,transition,wealth_band=D10,,pct_per_year,p10_mean_p90,29.304748899600323,29.304748899600323,29.304748899600323,0
 median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,transition,wealth_band=D4_5,,pct_per_year,p10_mean_p90,nan,nan,nan,1000
-median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,transition,wealth_band=D6_7,,pct_per_year,p10_mean_p90,2.469623748173528,2.469623748173528,2.469623748173528,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,transition,wealth_band=D8_9,,pct_per_year,p10_mean_p90,5.183529166962617,5.183529166962618,5.183529166962618,0
-median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,transition,wealth_band=overall,,pct_per_year,p10_mean_p90,25.382912349824093,25.382912349824093,25.382912349824093,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,transition,wealth_band=D6_7,,pct_per_year,p10_mean_p90,1.6514290424383065,1.651429042438307,1.651429042438307,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,transition,wealth_band=D8_9,,pct_per_year,p10_mean_p90,3.3520889074647453,3.352088907464745,3.352088907464745,0
+median_low,"household, saving median, regime low (a scenario, not central)",O2d,S,transition,wealth_band=overall,,pct_per_year,p10_mean_p90,23.59240322767391,23.592403227673906,23.592403227673906,0
+median_low,"household, saving median, regime low (a scenario, not central)",O3,S,single,,,pct,p10_mean_p90,52.139441248481255,52.13944124848123,52.13944124848123,0
 median_low,"household, saving median, regime low (a scenario, not central)",O4a,S,long,income_decile=D1,,pct,p10_mean_p90,27.74772186292465,27.74772186292464,27.74772186292464,0
 median_low,"household, saving median, regime low (a scenario, not central)",O4a,S,long,income_decile=D10,,pct,p10_mean_p90,7.129725927184213,7.129725927184213,7.129725927184213,0
 median_low,"household, saving median, regime low (a scenario, not central)",O4a,S,long,income_decile=D2,,pct,p10_mean_p90,27.911050385602433,27.911050385602422,27.911050385602422,0
@@ -1136,35 +1237,35 @@ median_low,"household, saving median, regime low (a scenario, not central)",O4b,
 median_low,"household, saving median, regime low (a scenario, not central)",O4b,S,transition,income_decile=D9,,pct,p10_mean_p90,0.0,0.0,0.0,0
 median_low,"household, saving median, regime low (a scenario, not central)",O4b,S,transition,income_decile=overall,,pct,p10_mean_p90,0.0,0.0,0.0,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=green,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5838121647901386,1.5838121647901386,1.5838121647901386,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.431147886024942,1.431147886024942,1.431147886024942,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.472069164116156,1.4720691641161556,1.4720691641161556,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=once,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.0000000000000002,1.0000000000000002,1.0000000000000002,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.8473357212348035,0.8473357212348036,0.8473357212348036,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.8882569993260175,0.8882569993260172,0.8882569993260172,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=uk_minimum,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6473357212348032,1.6473357212348034,1.6473357212348034,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6882569993260177,1.688256999326017,1.688256999326017,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=union,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.989882094237064,1.989882094237064,1.989882094237064,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.837217815471867,1.8372178154718675,1.8372178154718675,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8781390935630813,1.878139093563081,1.878139093563081,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=zucman,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6473357212348032,1.6473357212348034,1.6473357212348034,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,long,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6882569993260177,1.688256999326017,1.688256999326017,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=green,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5838121647901386,1.5838121647901386,1.5838121647901386,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.367502168287764,1.367502168287764,1.367502168287764,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.3930734328882828,1.3930734328882823,1.3930734328882823,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=once,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.0000000000000002,1.0000000000000002,1.0000000000000002,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.7836900034976254,0.7836900034976255,0.7836900034976255,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.809261268098144,0.8092612680981439,0.8092612680981439,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=uk_minimum,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5836900034976256,1.5836900034976253,1.5836900034976253,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6092612680981444,1.6092612680981437,1.6092612680981437,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=union,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.989882094237064,1.989882094237064,1.989882094237064,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.7735720977346896,1.7735720977346894,1.7735720977346894,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.7991433623352078,1.7991433623352078,1.7991433623352078,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=zucman,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5836900034976256,1.5836900034976253,1.5836900034976253,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,short,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6092612680981444,1.6092612680981437,1.6092612680981437,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=green,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.5838121647901386,1.5838121647901386,1.5838121647901386,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.3881912862931227,1.3881912862931227,1.3881912862931227,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=green,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.4081180280386696,1.4081180280386698,1.4081180280386698,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=once,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.0000000000000002,1.0000000000000002,1.0000000000000002,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.8043791215029844,0.8043791215029843,0.8043791215029843,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=once,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,0.8243058632485313,0.8243058632485314,0.8243058632485314,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=uk_minimum,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6043791215029837,1.6043791215029841,1.6043791215029841,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=uk_minimum,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6243058632485308,1.6243058632485312,1.6243058632485312,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=union,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.989882094237064,1.989882094237064,1.989882094237064,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.7942612157400477,1.7942612157400482,1.7942612157400482,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=union,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8141879574855944,1.8141879574855952,1.8141879574855952,0
 median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=zucman,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.8000000000000005,1.8,1.8,0
-median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6043791215029837,1.6043791215029841,1.6043791215029841,0
+median_low,"household, saving median, regime low (a scenario, not central)",O5,S,transition,comparator=zucman,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,1.6243058632485308,1.6243058632485312,1.6243058632485312,0
 median_low,"household, saving median, regime low (a scenario, not central)",O6,S,long,wealth_band=D10,estates,pct_per_year,p10_mean_p90,0.11200000000000004,0.112,0.112,0
 median_low,"household, saving median, regime low (a scenario, not central)",O6,S,long,wealth_band=D10,gains,pct_per_year,p10_mean_p90,0.238,0.238,0.238,0
 median_low,"household, saving median, regime low (a scenario, not central)",O6,S,long,wealth_band=D10,total,pct_per_year,p10_mean_p90,0.3499999999999999,0.35,0.35,0
@@ -1212,9 +1313,9 @@ median_low,"household, saving median, regime low (a scenario, not central)",O6,S
 median_low,"household, saving median, regime low (a scenario, not central)",O6,S,transition,wealth_band=overall,total,pct_per_year,p10_mean_p90,0.20299999999999996,0.20299999999999999,0.20299999999999999,0
 median_low,"household, saving median, regime low (a scenario, not central)",O7,S,single,,,pp,point_and_range,1.0,0.7958317944050787,1.24074521200346,0
 median_low,"household, saving median, regime low (a scenario, not central)",O8,S,short,reform=gains,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,10.804218943486124,10.804218943486122,10.804218943486122,0
-median_low,"household, saving median, regime low (a scenario, not central)",O8,S,short,reform=gains,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,10.587908946983749,10.587908946983747,10.587908946983747,0
+median_low,"household, saving median, regime low (a scenario, not central)",O8,S,short,reform=gains,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,10.613480211584266,10.613480211584266,10.613480211584266,0
 median_low,"household, saving median, regime low (a scenario, not central)",O8,S,short,reform=property,burden,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,10.852114050181,10.852114050181,10.852114050181,0
-median_low,"household, saving median, regime low (a scenario, not central)",O8,S,short,reform=property,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,10.635804053678623,10.635804053678624,10.635804053678624,0
+median_low,"household, saving median, regime low (a scenario, not central)",O8,S,short,reform=property,diff,"{'burden': 'pct_per_year', 'diff': 'pp'}",p10_mean_p90,10.661375318279145,10.661375318279143,10.661375318279143,0
 median_low,"household, saving median, regime low (a scenario, not central)",OB1,S,long,w_min=r025,B1a,"{'B1a': 'pct', 'B1b': 'pct_per_year', 'B1c': 'pct_per_year', 'B1d': 'pct_gdp'}",p10_mean_p90,70.0,70.0,70.0,0
 median_low,"household, saving median, regime low (a scenario, not central)",OB1,S,long,w_min=r025,B1b,"{'B1a': 'pct', 'B1b': 'pct_per_year', 'B1c': 'pct_per_year', 'B1d': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
 median_low,"household, saving median, regime low (a scenario, not central)",OB1,S,long,w_min=r025,B1c,"{'B1a': 'pct', 'B1b': 'pct_per_year', 'B1c': 'pct_per_year', 'B1d': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
@@ -1280,6 +1381,15 @@ median_low,"household, saving median, regime low (a scenario, not central)",OL1,
 median_low,"household, saving median, regime low (a scenario, not central)",OL1,S,transition,reference_worker=p50,,gbp_month,p10_mean_p90,0.0,0.0,0.0,0
 median_low,"household, saving median, regime low (a scenario, not central)",OL1,S,transition,reference_worker=p75,,gbp_month,p10_mean_p90,0.0,0.0,0.0,0
 median_low,"household, saving median, regime low (a scenario, not central)",OL1,S,transition,reference_worker=p90,,gbp_month,p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OM1,S,long,,M1,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,-1.4313215013408895,-1.4313215013408895,-1.4313215013408895,0
+median_low,"household, saving median, regime low (a scenario, not central)",OM1,S,long,,M9,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,-4.228223849808954,-4.228223849808953,-4.228223849808953,0
+median_low,"household, saving median, regime low (a scenario, not central)",OM1,S,long,,X,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,2.7969023484680657,2.796902348468065,2.796902348468065,0
+median_low,"household, saving median, regime low (a scenario, not central)",OM1,S,short,,M1,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,0.4562934256414203,0.4562934256414203,0.4562934256414203,0
+median_low,"household, saving median, regime low (a scenario, not central)",OM1,S,short,,M9,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,-2.3406089228266427,-2.340608922826643,-2.340608922826643,0
+median_low,"household, saving median, regime low (a scenario, not central)",OM1,S,short,,X,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,2.796902348468064,2.7969023484680635,2.7969023484680635,0
+median_low,"household, saving median, regime low (a scenario, not central)",OM1,S,transition,,M1,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,-2.2424551973426422e-15,-2.2424551973426426e-15,-2.2424551973426426e-15,0
+median_low,"household, saving median, regime low (a scenario, not central)",OM1,S,transition,,M9,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,-2.7969023484680666,-2.796902348468066,-2.796902348468066,0
+median_low,"household, saving median, regime low (a scenario, not central)",OM1,S,transition,,X,"{'M1': 'pct_gdp', 'X': 'pct_gdp', 'M9': 'pct_gdp'}",p10_mean_p90,2.796902348468064,2.796902348468064,2.796902348468064,0
 median_low,"household, saving median, regime low (a scenario, not central)",OP1,S,single,,,years,p10_mean_p90,7.0,7.0,7.0,0
 median_low,"household, saving median, regime low (a scenario, not central)",OP3,S,single,,,pct_gdp,p10_mean_p90,99.0043206385085,99.00432063850852,99.00432063850852,0
 median_low,"household, saving median, regime low (a scenario, not central)",OP4,S,single,,,ratio,p10_mean_p90,-3.1368444533884174,-3.1368444533884174,-3.1368444533884174,0
@@ -1296,8 +1406,28 @@ median_low,"household, saving median, regime low (a scenario, not central)",OP6,
 median_low,"household, saving median, regime low (a scenario, not central)",OR1,S,single,,P7a,"{'P7a': 'pct', 'P7b': 'ratio'}",point_and_range,0.0,0.0,0.0,0
 median_low,"household, saving median, regime low (a scenario, not central)",OR1,S,single,,P7b,"{'P7a': 'pct', 'P7b': 'ratio'}",point_and_range,0.9444702176263745,0.9444702176263745,0.9444702176263745,0
 median_low,"household, saving median, regime low (a scenario, not central)",OS1,S,single,quantity=m1,,pp,point_and_range,0.32429090623343926,0.32429090623343926,0.32429090623343926,0
-median_low,"household, saving median, regime low (a scenario, not central)",OS1,S,single,quantity=m2,,pp,point_and_range,0.0034730433361139517,0.0034730433361139512,0.0034730433361139512,0
+median_low,"household, saving median, regime low (a scenario, not central)",OS1,S,single,quantity=m2,,pp,point_and_range,0.0038731902526978608,0.003873190252697861,0.003873190252697861,0
 median_low,"household, saving median, regime low (a scenario, not central)",OS1,S,single,quantity=payer_count,,pp,point_and_range,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=D10,,bp,p10_mean_p90,-389.63894777035165,-389.63894777035176,-389.63894777035176,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=D4_5,,bp,p10_mean_p90,nan,nan,nan,1000
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=D6_7,,bp,p10_mean_p90,-907.151576486042,-907.1515764860421,-907.1515764860421,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=D8_9,,bp,p10_mean_p90,-615.4189944634016,-615.4189944634014,-615.4189944634014,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=consumption_tax;wealth_band=overall,,bp,p10_mean_p90,-686.9560179338476,-686.9560179338476,-686.9560179338476,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=D10,,bp,p10_mean_p90,-294.07424438467285,-294.07424438467274,-294.07424438467274,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=D4_5,,bp,p10_mean_p90,nan,nan,nan,1000
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=D6_7,,bp,p10_mean_p90,-312.29014318537025,-312.29014318537025,-312.29014318537025,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=D8_9,,bp,p10_mean_p90,-343.72095828291157,-343.72095828291145,-343.72095828291145,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=income_tax_cgt;wealth_band=overall,,bp,p10_mean_p90,-321.2192894642473,-321.2192894642472,-321.2192894642472,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=D10,,bp,p10_mean_p90,-515.3887364650537,-515.3887364650537,-515.3887364650537,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=D4_5,,bp,p10_mean_p90,nan,nan,nan,1000
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=D6_7,,bp,p10_mean_p90,-468.81918358300396,-468.81918358300413,-468.81918358300413,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=D8_9,,bp,p10_mean_p90,-498.63850480078867,-498.63850480078855,-498.63850480078855,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=stock_wealth_tax;wealth_band=overall,,bp,p10_mean_p90,-490.0608226465275,-490.0608226465277,-490.0608226465277,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=D10,,bp,p10_mean_p90,-361.15254889013585,-361.15254889013573,-361.15254889013573,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=D4_5,,bp,p10_mean_p90,nan,nan,nan,1000
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=D6_7,,bp,p10_mean_p90,-265.5704606789678,-265.5704606789677,-265.5704606789677,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=D8_9,,bp,p10_mean_p90,-319.3892465880021,-319.38924658800215,-319.38924658800215,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW1,S,single,tax_system=wdt;wealth_band=overall,,bp,p10_mean_p90,-306.2143926848149,-306.21439268481504,-306.21439268481504,0
 median_low,"household, saving median, regime low (a scenario, not central)",OW2,S,single,embedded_gain_band=pct25;holding_period=y10,,bp,p10_mean_p90,-33.08156146534748,-42.5706201820621,-22.773909783483475,0
 median_low,"household, saving median, regime low (a scenario, not central)",OW2,S,single,embedded_gain_band=pct25;holding_period=y20,,bp,p10_mean_p90,-30.36442009781958,-44.348627837610735,-18.46533313151373,0
 median_low,"household, saving median, regime low (a scenario, not central)",OW2,S,single,embedded_gain_band=pct25;holding_period=y5,,bp,p10_mean_p90,-31.47506813676746,-44.16550179167015,-22.967172085284105,0
@@ -1307,6 +1437,26 @@ median_low,"household, saving median, regime low (a scenario, not central)",OW2,
 median_low,"household, saving median, regime low (a scenario, not central)",OW2,S,single,embedded_gain_band=pct75;holding_period=y10,,bp,p10_mean_p90,-95.16728356406966,-121.65243626106773,-64.09253354920648,0
 median_low,"household, saving median, regime low (a scenario, not central)",OW2,S,single,embedded_gain_band=pct75;holding_period=y20,,bp,p10_mean_p90,-86.3532991877953,-123.25059840775519,-52.021640572444355,0
 median_low,"household, saving median, regime low (a scenario, not central)",OW2,S,single,embedded_gain_band=pct75;holding_period=y5,,bp,p10_mean_p90,-90.45421834537201,-127.17043057782723,-66.21728395789437,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=D10,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=D4_5,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,nan,nan,nan,1000
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=D6_7,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=D8_9,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,long,entry_year=value_per_cohort;wealth_band=overall,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=D10,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=D4_5,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,nan,nan,nan,1000
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=D6_7,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=D8_9,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,short,entry_year=value_per_cohort;wealth_band=overall,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D10,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D10,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D4_5,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,nan,nan,nan,1000
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D4_5,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D6_7,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D6_7,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D8_9,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=D8_9,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=overall,M15a,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
+median_low,"household, saving median, regime low (a scenario, not central)",OW3,S,transition,entry_year=value_per_cohort;wealth_band=overall,M15b,"{'M15a': 'pct', 'M15b': 'pct_gdp'}",p10_mean_p90,0.0,0.0,0.0,0
 legacy,"legacy (context, c = I-D14c)",DH1c,S,long,income_decile=D1,,pct,point_and_range,47.351990188426804,47.351990188426804,47.351990188426804,0
 legacy,"legacy (context, c = I-D14c)",DH1c,S,long,income_decile=D10,,pct,point_and_range,38.272786247161854,38.272786247161854,38.272786247161854,0
 legacy,"legacy (context, c = I-D14c)",DH1c,S,long,income_decile=D2,,pct,point_and_range,30.141465597356554,30.141465597356554,30.141465597356554,0
