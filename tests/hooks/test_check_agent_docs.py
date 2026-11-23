@@ -77,3 +77,12 @@ def test_cli_exit_status_and_real_repo_is_clean(tmp_path):
     bad = run(t)
     assert bad.returncode == 1 and "AGENTS.md:1 broken link gone.md" in bad.stdout
     assert run(ROOT).returncode == 0
+
+
+def test_a_binary_research_file_without_a_reading_copy_is_a_warning_not_an_error(tmp_path, capsys):
+    tree(tmp_path, {"docs/research/data/x/a.pdf": "pdf", "docs/research/data/x/b.csv": "text", "docs/research/data/x/c.rtf": "rtf", "docs/research/readable/data/x/c.rtf.md": "copy"})
+    assert cad.main(["--root", str(tmp_path)]) == 0
+    err = capsys.readouterr().err
+    assert "warning: no reading copy for docs/research/data/x/a.pdf" in err and "b.csv" not in err and "c.rtf" not in err
+    (tmp_path / "docs/research/readable/data/x/a.pdf.md").write_text("copy")
+    assert cad.main(["--root", str(tmp_path)]) == 0 and capsys.readouterr().err == ""

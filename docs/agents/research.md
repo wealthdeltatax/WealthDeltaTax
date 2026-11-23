@@ -32,7 +32,7 @@ Maintains the project's reference database and the literature coverage behind th
 
 ## Reading PDFs, Office files, ODS and RTF
 Do not open a binary research file with Read. Convert it first and read the Markdown: `python -I pipeline/to_markdown.py file.pdf` (Microsoft markitdown; also docx, pptx, xlsx, xls, html; needs `pip install 'markitdown[pdf]'`, plus `--break-system-packages` in the cloud shell). Output goes to the git-ignored scratch folder (scratch/converted). A conversion is a reading aid: quote numbers from the source file, not from the text, because tables and multi-column layouts can garble and scanned PDFs come out empty. ODS and RTF are not read by markitdown: convert them first (`soffice --headless --convert-to xlsx` for ODS; pandoc or `striprtf` for RTF), say which route you used, then proceed.
-After brief 130c, a new binary file added under `docs/research/` is committed with its reading copy under a readable folder inside docs/research (same relative path, .md), made by `pipeline/to_markdown.py --readable`.
+Every binary file under `docs/research/` has a committed reading copy at `docs/research/readable/<same path>.md` (index and status in `docs/research/readable/INDEX.md`): read that, not the binary. A new binary file is committed with its copy: `python -I pipeline/to_markdown.py --readable <file>` (spreadsheets are capped at 300 rows a table, with a visible note; `--rows` changes it). `pipeline/check_agent_docs.py` warns when a copy is missing. A copy is generated, never hand-edited.
 
 ## Definition of done
 Every added or changed entry verified or flagged, discrepancies and flags reported, confirmed records written, change report lists entries added and updated.

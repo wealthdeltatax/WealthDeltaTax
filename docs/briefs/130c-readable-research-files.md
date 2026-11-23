@@ -41,9 +41,25 @@ Whether the 129r PDFs and data dictionaries should leave git once converted (the
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0; block 1: `pipeline/to_markdown.py --readable` (mirror path plus `.md`, header, row cap `--rows` 300 with a visible note, `--all`, `--force`, `--index`, `status.json`; ODS via soffice to xlsx, RTF via pandoc), `tests/data/test_to_markdown.py` (6 tests pass), `docs/research/readable/INDEX.md` survey (38 binaries: 5 pdf, 7 xlsx, 8 ods, 18 rtf; the 18 RTF are 201 MB of source).
-- **Block 2 done:** 5 PDFs and 7 xlsx (3.6 MB of copies; the two large workbooks capped at 300 rows a table with notes). **Block 3 done:** 8 ODS (soffice) and 18 RTF (pandoc, 22.9 MB, largest 4.1 MB; not split: each reads by offset or grep); all 38 ok, 0 poor, 0 failed; total copies 26.7 MB, under the 30 MB stop.
-- **Next:** block 4 (index, the warning check, the two guide lines, change report)
-- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/130-readable-research origin/brief/130-readable-research`
-- **State:** in progress, block 3 pushed
+- **Done:** blocks 0 to 4. All 38 binaries under `docs/research/` (5 pdf, 7 xlsx, 8 ods, 18 rtf; no docx or xls present) have a committed reading copy at `docs/research/readable/<path>.md` plus `INDEX.md` and `status.json`: 38 ok, 0 poor, 0 failed. Copies total 26.7 MB (under the 30 MB stop); sources untouched. `to_markdown.py --readable` (mirror path, header, 300-row cap with a visible note, ODS via soffice, RTF via pandoc, `--all`, `--index`); `check_agent_docs.py` warns on a missing copy; one line each in `docs/agents/research.md` and `code.md`. Suites: data 102, hooks 88, gate 17 pass; check_agent_docs exit 0.
+- **129r sizes (for the author's question):** `docs/research/data/129r` is 201 MB in git, of which the 18 RTF data dictionaries are 194 MB (largest 35.8 MB); their copies are 22.9 MB (largest 4.1 MB) and the whole 129r folder's copies are 23 MB. Whether the sources should leave git is the author's decision.
+- **Next:** none for this brief.
+- **Resume:** none.
+- **State:** done; merged
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 130c, readable copies of every research file
+- Files changed: pipeline/to_markdown.py (--readable, --all, --force, --rows, --index, routes, status record); pipeline/check_agent_docs.py (one warning); tests/data/test_to_markdown.py (new, 6 tests); tests/hooks/test_check_agent_docs.py (1 test); docs/agents/research.md and docs/agents/code.md (one rule each); docs/research/readable/ (38 copies, INDEX.md, status.json); this brief
+- What is different now: every binary under docs/research has a generated Markdown reading copy with a header (source, route, tool, date, quote-from-source warning); spreadsheets are capped at 300 rows a table with a visible note (cut tables are listed in the header); a new binary is committed with its copy and a missing one is warned
+- New or changed interfaces: to_markdown.py --readable [--all] [--force] [--rows N] [--index] [--root DIR]; readable/status.json
+- Acceptance criteria: every binary has a copy or an index row (met: 38 ok); headers present, caps visible, none hand-edited (met); added size reported, under 30 MB (met: 26.7 MB); --readable works on a new file, tests and check_agent_docs pass, the new check only warns (met); no source file moved or changed (met)
+- Deviations from the brief: none; the RTF copies are not split (largest 4.1 MB, read by offset or grep)
+- Risks / follow-ups: the cap drops rows from long sheets in the copy (quarterlysectoraccounts2026q2 and gb_ppp_machine_readable: tables of 636 to 1,039 rows), so numbers from those sheets come from the source; the copies add 26.7 MB to git; 129r sources are 201 MB (author to decide whether they leave git)
+- Instruction friction: none
+- Verification: data 102, hooks 88, gate 17 passed; check_agent_docs exit 0; summary lines only (no converted text printed)
+- Overview sections likely needing an update: none
+- Commit / branch: brief/130-readable-research, merged to main
+```
