@@ -2,7 +2,7 @@
 
 - **Status:** ready (code; after 139c and the evidence in 145r and 146r; touches `arm.py`)
 - **Author/date:** K. Ogata with the guru, 2026-11-23
-- **Depends on:** 119c, 124c, 125c (merged), 139c, 145r (saving shapes), 146r (top-tail mapping)
+- **Depends on:** 119c, 124c, 125c (merged), 139c, 145r (merged, accepted), 146r (top-tail mapping)
 - **Read (block 0: the first two only):** (1) `docs/research/146r-top-tail-mapping.md` and `docs/research/145r-saving-gradient-shapes.md`; (2) `docs/agents/code.md`. Later: `docs/model-v3/household-arm-validation.md` (BF-13); `docs/model-v3/household-arm-account.md`; `model_v3/runner/arm.py` (opening stock, `pension_cap`, `sav`); `docs/model-v3/household-arm-run/run_grid.py`.
 
 ## Goal

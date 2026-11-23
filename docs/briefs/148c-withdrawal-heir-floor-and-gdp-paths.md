@@ -2,7 +2,7 @@
 
 - **Status:** ready (code; after 147c and the evidence in 145r and 146r; touches `arm.py`, `pension_lien.py`)
 - **Author/date:** K. Ogata with the guru, 2026-11-23
-- **Depends on:** 132c, 133c, 128c (merged), 139c, 147c, 145r (withdrawal range), 146r (GDP process)
+- **Depends on:** 132c, 133c, 128c (merged), 139c, 147c, 145r (merged, accepted), 146r (GDP process)
 - **Read (block 0: the first two only):** (1) `docs/research/145r-pension-withdrawal-range.md` and `docs/research/146r-gdp-growth-process.md`; (2) `docs/agents/code.md`. Later: `docs/model-v3/household-arm-lien.md`; `docs/model-v3/household-arm-paths.md`; `model_v3/core/pension_lien.py`; `model_v3/runner/arm.py`; `model_v3/core/revenue.py` (`gdp_growth`).
 
 ## Goal
