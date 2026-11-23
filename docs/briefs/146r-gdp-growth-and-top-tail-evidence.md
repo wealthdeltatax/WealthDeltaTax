@@ -32,8 +32,8 @@ Any code, any register row, withdrawal and saving (145r), tail behaviour, any he
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (note skeletons)
-- **Next:** block 1 GDP growth; block 2 top tail; block 3 change report
+- **Done:** block 0 (note skeletons); block 1 GDP growth (`146r-gdp-growth-process.md`, `gdp_process.py`)
+- **Next:** block 2 top tail; block 3 change report
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/146-gdp-growth-and-top-tail-evidence origin/brief/146-gdp-growth-and-top-tail-evidence`
 - **State:** in progress
 <!-- progress:end -->
