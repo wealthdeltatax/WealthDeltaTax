@@ -32,8 +32,8 @@ Choosing the feasibility rule, changing `n_phase`, the `market` fund case (140c 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (branch and progress block pushed)
-- **Next:** block 1 (year-by-year, constant path, 6/10/15/30 phases)
+- **Done:** block 0; block 1 (`docs/model-v3/death-phases/death_phases.py years`, `years_safe_tables.md`, CSVs; 6-phase rows equal 140c on 20 values; 36 s for four counts x four rows). M1a amplitude over years 10-40 at `median_mid` tm70: 11.10 (6), 6.69 (10), 4.61 (15), 1.02 (30) phases; first shortfall year 13, 63, 9, 61; at `median_low` the shortfall stays at 30 phases (first year 22), so the cycle is not the only cause there
+- **Next:** block 2 (F1 at `median_mid` with 6, 15, 30 phases: add an `f1` subcommand; state run times first)
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/149-death-phases origin/brief/149-death-phases`
-- **State:** in progress, block 0 done
+- **State:** in progress, blocks 0 and 1 done
 <!-- progress:end -->
