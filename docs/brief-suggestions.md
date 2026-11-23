@@ -88,3 +88,10 @@ Entry format, newest at the bottom:
 - Problem: adding O2d to the manifest changed every later fixture number (CK1 P1 4.6 to 2.8, O3 1.00 to 1.30), failing five pinned hooks tests. Every manifest addition will repeat this.
 - Suggested lane: c (derive each fake number from a hash of the output id, cell key and field, so only new cells appear; re-pin once)
 - Status: done 2026-11-20 (091g `e64fd95`: numbers keyed by cell)
+
+### F1 and CK1 fail on a constant path because deaths settle in a five-year cycle (six phases)
+- Found by: code / 140c, 2026-11-23
+- Where: `model_v3/core/revenue.py` (`run_lines`: `n_phase` 6, `G` 30; the fund's payout); read in `docs/model-v3/f1-household.md`
+- Problem: under the household arm on a constant 4.74% path, M1a is about 1.0 of GDP in four years of five and 11 to 12 in the fifth (years 10, 15, 20 ...), the fund pays each lump out over two years, and relief runs 7.3, 7.3, 3.8, 3.8 against M1d 4.74. Relief first falls below M1d in year 13 in all 15 (point, schedule) rows and P3 to the end of the short window is 0.29 to 6.90, so F1 at tol 0 cannot reach 75% even with no volatility. Over years 10 to 14 relief sums to 29.85 against 23.70 for M1d. Not tested here: whether more phases or a longer payout window remove it, and whether the legacy arm's year-13 shortfall in 083c has the same cause.
+- Suggested lane: c (diagnose by varying `n_phase` and the payout window on the constant path, no rule change), then g
+- Status: open
