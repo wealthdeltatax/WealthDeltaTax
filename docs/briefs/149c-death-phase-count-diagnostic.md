@@ -33,7 +33,8 @@ Choosing the feasibility rule, changing `n_phase`, the `market` fund case (140c 
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** block 0; block 1 (`docs/model-v3/death-phases/death_phases.py years`, `years_safe_tables.md`, CSVs; 6-phase rows equal 140c on 20 values; 36 s for four counts x four rows). M1a amplitude over years 10-40 at `median_mid` tm70: 11.10 (6), 6.69 (10), 4.61 (15), 1.02 (30) phases; first shortfall year 13, 63, 9, 61; at `median_low` the shortfall stays at 30 phases (first year 22), so the cycle is not the only cause there
-- **Next:** block 2 (F1 at `median_mid` with 6, 15, 30 phases: add an `f1` subcommand; state run times first)
+- **Done (cont.):** block 2 (`death_phases.py f1`: `f1_tables.md`, `f1_phases_N/`; run times 81 s, 179 s, 339 s for 6, 15, 30 phases; rebased onto main f917908 first). Best F1 at (tol 0, m 0): 9.0, 12.5, 25.5; at (1, 25%): 65.5, 63.5, 75.0 (one feasible cell at 30 phases); constant-path first shortfall (tm50, tm70, tm90): 13/13/13, 33/9/9, 61/61/61; I1 alarm cells 1, 3, 5 of 27. 6-phase cells equal 140c's (312 of 312) except that tm90_k2_r025 no longer runs. Block 3 legacy table also generated (`years_legacy_*`).
+- **Next:** block 3 note `docs/model-v3/death-phases.md`, second-run identity check, change report
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/149-death-phases origin/brief/149-death-phases`
-- **State:** in progress, blocks 0 and 1 done
+- **State:** in progress, blocks 0 to 2 done
 <!-- progress:end -->

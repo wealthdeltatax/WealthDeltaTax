@@ -23,4 +23,17 @@
 | median_low | tm50_k1_r050 | P3 to end of short window | 3.91 | 3.91 | equal |
 | median_low | tm50_k1_r050 | P3 100 y | 97.93 | 97.93 | equal |
 
+### Reproduction check: legacy arm, 6 phases, against 083c (`docs/model-v3/f1-diagnostic/report.md`, item 4 and the F1 tables), constant path
+
+| arm | schedule | quantity | this script | 083c report |  |
+|---|---|---|---|---|---|
+| legacy | tm70_k1_r050 | fill year | 6 | 6 | equal |
+| legacy | tm70_k1_r050 | first year relief < M1d | 13 | 13 | equal |
+| legacy | tm70_k1_r050 | P3 100 y | 83.74 | 83.74 | equal |
+| legacy | tm70_k1_r050 | P3 to end of short window | 2.66 | 2.66 | equal |
+| legacy | tm50_k1_r050 | fill year | 6 | 6 | equal |
+| legacy | tm50_k1_r050 | first year relief < M1d | 13 | 13 | equal |
+| legacy | tm50_k1_r050 | P3 100 y | 81.45 | 81.45 | equal |
+| legacy | tm50_k1_r050 | P3 to end of short window | 2.79 | 2.79 | equal |
+
 All equal.
