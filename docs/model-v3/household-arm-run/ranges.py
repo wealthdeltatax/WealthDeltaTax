@@ -11,7 +11,7 @@ HELD = ('median_mid', 'max_mid', 'median_low')   # min_mid and median_high fail 
 
 
 def num(x):
-    return float('nan') if x in ('', 'nan') else float(x)
+    return float('nan') if x in ('', 'nan') or x.startswith('withheld') else float(x)      # a withheld cell (135c) is not a number
 
 
 SUF = '_paths' if '--market-paths' in sys.argv else ''   # 128c: reads grid_results_paths.csv and writes ranges_paths.csv
@@ -34,8 +34,9 @@ def main():
         spread = any(num(r['c']) - num(r['b']) > 1e-12 for r in hh.values() if r['summary'] == 'p10_mean_p90' and r['b'] and r['c'] not in ('', 'nan'))
         flat += (not spread) and any(r['summary'] == 'p10_mean_p90' for r in hh.values())
         L = g.get('legacy')
+        mark = next((r['a'] for r in hh.values() if r['a'].startswith('withheld')), '')       # 135c: a withheld id keeps its marker, no min or max
         out.append(dict(id=k[0], horizon=k[1], by=k[2], line=k[3], unit=next(iter(hh.values()))['unit'] if hh else '', n_points=len(ok),
-                        min=ok[lo] if ok else '', max=ok[hi] if ok else '', min_at=lo, max_at=hi, path_spread=spread,
+                        min=ok[lo] if ok else mark, max=ok[hi] if ok else mark, min_at=lo, max_at=hi, path_spread=spread,
                         legacy_a=L['a'] if L else '', legacy_p10=L['b'] if L else '', legacy_p90=L['c'] if L else ''))
     with open(HERE / f'ranges{SUF}.csv', 'w', newline='', encoding='utf-8') as fh:
         w = csv.DictWriter(fh, list(out[0])); w.writeheader(); w.writerows(out)

@@ -167,7 +167,8 @@ class HouseholdHook:
         cv is None or cv.update(V=np.where(bad, rt['C']['V'], cv['V']))
         for x in rt.values():
             u = np.where(want, (1.0 - kept) / np.where(want, p, 1.0) - x['f'], 0.0)
-            x['f'], x['sold'] = x['f'] + u, x['sold'] - u
+            tg = (1.0 - kept) / np.where(want, p, 1.0)
+            x['f'], x['sold'] = np.where(bad, tg, x['f'] + u), np.where(bad, x['tot'] - x['s'] - tg, x['sold'] - u)      # a wiped line's units can be huge (a rescale at a near-zero value) and f + u then loses the restart in rounding: its f is the target and its sold the identity's remainder (135c)
         return want
 
     def lien(self):
