@@ -13,11 +13,11 @@ from dataclasses import dataclass
 import numpy as np
 
 from model_v3.core import household as hh, pension_lien as pl
+from model_v3.runner import switches as sw
 
 CLASSES = ('property', 'net_financial', 'physical', 'pension')
 PROPERTY_GAIN = 0.016455                                                                            # F-20: the JST housing holding gain, all years (cell_baseline.py); a scenario value, not a register row
 WITHHELD = {}                                                                                       # outputs that read the legacy c and have no base on the account: none since 126c (M3, M12, M13, M15 and M9 are on it)
-
 
 WITHHELD_BY = {}                                                                                     # an output kept without some by-values: none since 126c (the tornado's M3 head returned)
 
@@ -326,5 +326,5 @@ def build(arm, ctx, theta, base, g=None):
                  tail_pension_cap=ctx.reg['I-D1l'].central, income_scale=a['inputs']['income_scale']), safe_return='the net financial class return (a stand-in: no register row)', central=False)
     mu = theta['I-D1a'] / 100 if a.get('paths') else None
     label['scenario']['market_paths'] = None if mu is None else 'market-return risk only: net financial and pension deviate with the path\'s market return (loading 1); property, physical, saving, income and GDP growth are scenario constants'
-    safe = (lambda T, P: np.full((T, P), gain['net_financial'])) if mu is None or g is None else (lambda T, P: gain['net_financial'] + np.asarray(g, float)[:T] - mu)
-    return Arm('household', c, lambda: HouseholdHook(st, gain, growth, mu=mu), safe, label)
+    safe, label = sw.fund(a, (lambda T, P: np.full((T, P), gain['net_financial'])) if mu is None or g is None else (lambda T, P: gain['net_financial'] + np.asarray(g, float)[:T] - mu), label, g)      # fund_return (138c): safe stand-in or the market return
+    return Arm('household', c, lambda: sw.hook(a, HouseholdHook)(st, gain, growth, mu=mu), safe, label)
