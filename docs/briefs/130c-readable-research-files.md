@@ -42,7 +42,8 @@ Whether the 129r PDFs and data dictionaries should leave git once converted (the
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** block 0; block 1: `pipeline/to_markdown.py --readable` (mirror path plus `.md`, header, row cap `--rows` 300 with a visible note, `--all`, `--force`, `--index`, `status.json`; ODS via soffice to xlsx, RTF via pandoc), `tests/data/test_to_markdown.py` (6 tests pass), `docs/research/readable/INDEX.md` survey (38 binaries: 5 pdf, 7 xlsx, 8 ods, 18 rtf; the 18 RTF are 201 MB of source).
-- **Next:** block 2 (PDFs, xlsx; docx none present)
+- **Block 2 done:** 5 PDFs and 7 xlsx (3.6 MB of copies; the two large workbooks capped at 300 rows a table with notes). **Block 3 done:** 8 ODS (soffice) and 18 RTF (pandoc, 22.9 MB, largest 4.1 MB; not split: each reads by offset or grep); all 38 ok, 0 poor, 0 failed; total copies 26.7 MB, under the 30 MB stop.
+- **Next:** block 4 (index, the warning check, the two guide lines, change report)
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/130-readable-research origin/brief/130-readable-research`
-- **State:** in progress, block 1 pushed
+- **State:** in progress, block 3 pushed
 <!-- progress:end -->
