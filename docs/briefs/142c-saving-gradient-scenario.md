@@ -1,6 +1,6 @@
 # 142: Saving gradient: saving that rises with wealth, as a labelled scenario axis
 
-- **Status:** ready (after 141c: both touch `arm.py` and the grid)
+- **Status:** ready (after 141c: both touch `arm.py` and the grid; 2026-11-23: evidence blocks 0 and 1 (research notes only, no `arm.py`) may start now on Agent 4; the code blocks wait for the chain; the code agent resumes from the progress block)
 - **Author/date:** K. Ogata with the guru, 2026-11-23
 - **Depends on:** 124c, 125c, 128c (merged), 141c
 - **Read (block 0: the first two only):** (1) `docs/model-v3/household-arm-validation.md` (BF-13 and the concentration gap: 0.41 to 0.20-0.34 against 0.50); (2) `docs/agents/code.md`. Later: `docs/research/129r-was-access-audit.md` and `docs/research/data/129r/feasibility_map.csv` (saving by wealth band, RF/ONS, `proxy`, scenario only); `docs/model-v3/household-arm-account.md`; `model_v3/runner/arm.py` (saving ratio, `sav`); the saving inputs in `docs/model-v3/inputs.md` (I-D1j).

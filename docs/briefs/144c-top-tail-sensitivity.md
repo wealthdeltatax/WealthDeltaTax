@@ -1,6 +1,6 @@
 # 144: Top-tail stock sensitivity: scale the top lines' opening wealth to the published range
 
-- **Status:** ready (after 142c; independent of 143c, but both touch `arm.py` so they run in sequence)
+- **Status:** ready (after 142c; independent of 143c, but both touch `arm.py` so they run in sequence; 2026-11-23: evidence blocks 0 and 1 (research notes only, no `arm.py`) may start now on Agent 4; the code blocks wait for the chain; the code agent resumes from the progress block)
 - **Author/date:** K. Ogata with the guru, 2026-11-23
 - **Depends on:** 119c (merged), 129r (merged), 142c
 - **Read (block 0: the first two only):** (1) `docs/research/129r-was-access-audit.md` (the P5 top tail row: Advani, Summers and Tarrant 2025, top 1% share 14.4% to 16.5% across aggregates and sources) and `docs/model-v3/household-arm-validation.md` (BF-13 top-decile share 0.41 against 0.50); (2) `docs/agents/code.md`. Later: `docs/model-v3/inputs.md` rows I-D1l and the tail lines (D10a, D10b, RL3, RL2, RL1); `docs/model-v3/household-arm-account.md` (tail pension shares); `model_v3/runner/arm.py` (opening stock, `pension_cap`); the Rich List input in the pack.

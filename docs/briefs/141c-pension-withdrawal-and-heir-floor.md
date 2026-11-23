@@ -1,6 +1,6 @@
 # 141: Pension withdrawal scenario and the heir-protection floor (both off by default)
 
-- **Status:** ready (after 139c: touches `arm.py` and `pension_lien.py`)
+- **Status:** ready (after 139c: touches `arm.py` and `pension_lien.py`; 2026-11-23: evidence blocks 0 and 1 (research notes only, no `arm.py`) may start now on Agent 4; the code blocks wait for the chain; the code agent resumes from the progress block)
 - **Author/date:** K. Ogata with the guru, 2026-11-23
 - **Depends on:** 132c, 133c, 137c, 135c, 138c, 139c
 - **Read (block 0: the first two only):** (1) `docs/research/129r-was-access-audit.md` (IFS/ELSA drawdown row) and `docs/research/data/129r/feasibility_map.csv`; (2) `docs/agents/code.md`. Later: the drawdown source named there (open the PDF in `docs/research/data/129r/` through `pipeline/to_markdown.py`, only the pages you cite); `docs/model-v3/household-arm-lien.md`; `model_v3/core/pension_lien.py`; `model_v3/runner/arm.py`; `docs/decisions.md` (the 2026-11-22 pension rulings).
