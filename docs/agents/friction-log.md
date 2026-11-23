@@ -38,3 +38,5 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - **Suggest:** briefs that run the household arm on per-path returns say "record an I1 alarm per cell, do not work around it".
 
 - 149c: the brief did not say what to do when the arm raises its I1 alarm in a cell (1, 3 and 5 cells at 6, 15, 30 phases) or when a 140c cell stops running (`tm90_k2_r025`). I recorded the cells per cell, left them out of the tables and merged nothing. A rebase onto main also needed an explicit `--force-with-lease=<branch>:<sha>` because the shallow clone has no remote ref.
+
+- 140c (market): the `check` command compares to stored 128c rows that 135c/138c regenerated, so it reports DIFFERENT at the short horizon on an unchanged model; the brief's acceptance names only the 124c reproduction, so I used that and noted the rest.
