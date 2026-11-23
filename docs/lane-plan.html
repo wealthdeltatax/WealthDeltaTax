@@ -264,7 +264,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "3", name: "Agent 3", note: "Free: 130c (readable research mirror)" },
     { id: "4", name: "Agent 4", note: "Out of tokens" },
     { id: "5", name: "Agent 5", note: "Free: 140c (feasibility diagnostic)" },
-    { id: "6", name: "Agent 6", note: "Free: takes the chain in importance order: 137c, 135c, 138c, 139c, 141c, 142c" },
+    { id: "6", name: "Agent 6", note: "Free: takes the chain in importance order: 137c, 135c, 138c, 139c, 141c, 142c, 143c, 144c" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
   ];
@@ -278,6 +278,8 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "139c", lane: "6", at: 3, len: 1, st: "ready", t: "Register rows: lien rate, pension basis, housing gain, fund return", needs: [{ id: "138c" }], why: "The last register edit before the first official run; changes the gate hash.", files: "inputs.md, registry/inputs.json, arm.py" },
     { id: "141c", lane: "6", at: 4, len: 1, st: "ready", t: "Pension withdrawal scenario and the heir-protection floor", needs: [{ id: "139c" }], why: "Both off by default: labelled withdrawal range (IFS/ELSA, held sources) and a heir floor sensitivity on the lien settlement.", files: "arm.py, pension_lien.py, 141c-withdrawal-range.md" },
     { id: "142c", lane: "6", at: 5, len: 1, st: "ready", t: "Saving gradient scenario (flat, mild, steep)", needs: [{ id: "141c" }], why: "One saving ratio collapses concentration (0.41 to 0.20-0.34 against 0.50); report what labelled gradients give, no fitting.", files: "arm.py, household-arm-validation.md" },
+    { id: "143c", lane: "6", at: 6, len: 1, st: "ready", t: "Per-path GDP growth scenario (growth risk only)", needs: [{ id: "142c" }], why: "GDP growth is fixed on every path; add a labelled per-path axis with the JST machinery of 128c, off by default.", files: "arm.py, household-arm-paths.md" },
+    { id: "144c", lane: "6", at: 7, len: 1, st: "ready", t: "Top-tail stock sensitivity (AST top-1% range)", needs: [{ id: "142c" }], why: "No top-1% row; scale the tail lines' opening stock to 14.4% and 16.5%, stock only, no fitting to 0.50.", files: "arm.py, 144c-top-tail-mapping.md" },
     { id: "089c", lane: "G", at: 0, len: 1, st: "hold", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [{ id: "140c" }], why: "After the diagnostic and your ruling. Parked: measured against the legacy 3.5%, which is abandoned (094r to 096r). Rule on feasibility after the replacement exists.", files: "runner/sweeps.py, out_sweeps.py" },
     { id: "057c", lane: "2", at: 0, len: 2, st: "ready", t: "Model v3 V3-12: run script and acceptance", needs: [], why: "Household arm, ranges across grid points; blocks 1 and 2 now, --final after 137c, 135c, 138c, 139c. run.py, smoke tests, accept.sh, convergence test." },
     { id: "009c", lane: "G", at: 2, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" },
