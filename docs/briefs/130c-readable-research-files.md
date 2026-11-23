@@ -1,6 +1,6 @@
 # 130: Readable copies of every research file (markitdown)
 
-- **Status:** parked, low priority (the guru releases it; like 044c, no deadline; run it in a quiet stretch, one session per stage)
+- **Status:** ready (released 2026-11-23: all agents free; low priority, no code dependency; report the 129r file sizes in the note)
 - **Author/date:** K. Ogata with the guru, 2026-11-22
 - **Depends on:** nothing; best run when no research brief is writing under `docs/research/`
 - **Read (block 0: the first two only):** (1) `pipeline/to_markdown.py` and `docs/agents/research.md` ("Reading PDFs, Office files, ODS and RTF"); (2) `docs/agents/code.md`. Later: the file-type survey in block 1.

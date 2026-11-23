@@ -261,7 +261,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the V3 build as it lands" },
     { id: "2", name: "Agent 2", note: "Free: 057c blocks 1 and 2 (run script, acceptance)" },
-    { id: "3", name: "Agent 3", note: "Out of tokens" },
+    { id: "3", name: "Agent 3", note: "Free: 130c (readable research mirror)" },
     { id: "4", name: "Agent 4", note: "Out of tokens" },
     { id: "5", name: "Agent 5", note: "Free: 140c (feasibility diagnostic)" },
     { id: "6", name: "Agent 6", note: "Free: takes the chain in importance order: 137c, 135c, 138c, 139c, 141c, 142c" },
@@ -281,7 +281,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "089c", lane: "G", at: 0, len: 1, st: "hold", t: "Feasibility map and stress test outputs (OF1, CK1)", needs: [{ id: "140c" }], why: "After the diagnostic and your ruling. Parked: measured against the legacy 3.5%, which is abandoned (094r to 096r). Rule on feasibility after the replacement exists.", files: "runner/sweeps.py, out_sweeps.py" },
     { id: "057c", lane: "2", at: 0, len: 2, st: "ready", t: "Model v3 V3-12: run script and acceptance", needs: [], why: "Household arm, ranges across grid points; blocks 1 and 2 now, --final after 137c, 135c, 138c, 139c. run.py, smoke tests, accept.sh, convergence test." },
     { id: "009c", lane: "G", at: 2, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" },
-    { id: "130c", lane: "G", at: 4, len: 2, st: "hold", t: "Readable (markitdown) copies of every research file", needs: [], why: "Mirror tree docs/research/readable/, to_markdown.py --readable, fallbacks for ODS and RTF; low priority, like 044c.", files: "docs/research/readable/, pipeline/to_markdown.py" },
+    { id: "130c", lane: "3", at: 0, len: 2, st: "ready", t: "Readable (markitdown) copies of every research file", needs: [], why: "Mirror tree docs/research/readable/, to_markdown.py --readable, fallbacks for ODS and RTF; low priority, like 044c.", files: "docs/research/readable/, pipeline/to_markdown.py" },
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
 

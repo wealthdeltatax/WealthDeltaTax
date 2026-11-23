@@ -21,6 +21,7 @@ Also (guru, updated 2026-11-21): the author abandoned I-D14c's 3.5% as the centr
 - The first official run uses the **household arm**. The run field records `arm: household`; each output is a **range across the labelled scenario-grid points** (reuse `docs/model-v3/household-arm-run/ranges.py`; read it first), never a central value; legacy is a labelled comparator run only (`legacy result, not a calibrated forecast`).
 - Cells with no payer at launch (D4_5 under w_min: O2, O2d, OW3) are written as a **stated null marker** (`no_payer_at_launch`), not a number and not zero; `pipeline/validate_outputs.py` accepts the marker only for these cells; `assemble` treats it as covered, other non-finite values stay errors.
 - OF1 and CK1 are a **labelled pending marker** in the first run until the author rules on the feasibility rule after the diagnostic (140c), then 089c.
+- M15a/b and M9 X are **printed with a labelled caveat** in the first run (M15a/b: not binding in this scenario set; M9 X: not comparable across arms), not withheld or dropped.
 - Register rows (139c) and the fund and floor fixes (137c, 138c) land before `--final`, because they change numbers and the gate hash.
 
 ## Blocks (added 2026-11-23; one push each)
