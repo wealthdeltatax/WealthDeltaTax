@@ -83,8 +83,8 @@ def test_the_public_ledger_carries_the_lien_as_a_receivable_in_all_six_phases_an
     o = rv.revenue(run, 2000.0, 0.3, {'x': 1.0}, np.zeros((T, P)), 40.0, 0.0, safe=np.full((T, P), 0.005), safe_share=0.3)
     assert rec['new'].sum() > 0 and rec['settled'][-1, 0] > 0 and (rec['settled'][:T - 1, 0] > 0).sum() >= 2 and np.abs(rec['wo']).max() == 0 and rec['bal'][-1, 0] < 1e-9     # settled at deaths and in the terminal year
     assert np.abs(np.diff(np.vstack([np.zeros((1, P)), rec['bal']]), axis=0) - (rec['new'] + rec['accr'] - rec['settled'] - rec['wo'])).max() < 1e-9                 # the receivable's own recursion
-    assert np.abs(sum(run['ledger']['rc'].values()) + rec['new'] - rec['settled'] - wdt).max() < 1e-9                                    # receipts exclude the lien and include its settlement
+    assert np.abs(sum(run['ledger']['rc'].values()) + rec['new'] - rec['xnew'] - rec['settled'] - wdt).max() < 1e-9                                    # receipts exclude the lien and include its settlement
     f = o['fund']
     for k, L in f['L'].items():
         assert np.abs(np.diff(np.vstack([np.zeros((1, P)), L]), axis=0) - (f['rc'][k] + f['ret'][k] - f['pay'][k])).max() < 1e-9      # dL = receipts + return - payout with the receivable apart
-    assert np.abs(sum(f['rc'].values()) - (wdt - rec['new'] + rec['settled'] + 0.003 * run['gdp_index'] * 2000.0)).max() < 1e-9 and f['rec'] is rec
+    assert np.abs(sum(f['rc'].values()) - (wdt - (rec['new'] - rec['xnew']) + rec['settled'] + 0.003 * run['gdp_index'] * 2000.0)).max() < 1e-9 and f['rec'] is rec

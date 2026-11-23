@@ -25,9 +25,12 @@ Files: `household-arm-run/lien_checks.csv`, `lien_lines.csv`, `lien_alarms.csv`,
 - **D5:** an unpaid tax of 0.0250 in year 95, in the year of a death; it is created and settled in the same year from the pension (0.0250), so no balance is carried at a year end.
 - The figures are for the instance (phase and path) with the largest balance; D4 carries a lien in 40 of the 120 phase-path instances and D5 in 20.
 
-**Not carried.**
-- `min_mid`: the floor alarm of 127c still fires on D4 in year 61 (0.0012) and D5 in year 78 (0.0012), the same amounts as before. The lien took the tax that the classes could not pay (`unpaid` is now 0); it does not remove this alarm, which is the saving that cannot enter a line whose units are all zero.
-- `median_high`: no lien arises, and every figure is as in 127c. The tax on pension gains takes the non-pension wealth of nine lines (D10a in year 70 up to D1 in year 97). The kernel itself caps what it collects at the line's route units and records the rest in its `unpaid_B`; no class payment fails, so the hook never sees an unpaid amount to carry. To carry it a lien would have to be netted from the family value in the kernel, which the brief does not touch. Stop rule: reported, not built. The floor alarms listed in `lien_alarms.csv` stand.
+**Not carried (updated by 133c).**
+- The kernel-cap case is now carried. `Book.cap_cb` (default None, today's behaviour: the excess goes to the kernel's `unpaid_B`) hands the excess to the household hook, which adds it to the lien `PL` and to `PK`, the part the kernel never moved. The kernel's pension is the hook's pension net of `PK`, the units are untouched, so I1 holds; settlement takes the total from the classes and then the pension (the hook's gross pension balance is the draw base). The ledger reads the part of `new` that the kernel never moved (`xnew`) for its cash line.
+- `median_high` (20 paths), before 133c and after: lien on 0 lines before and 11 after (D1 to D10b; D2 carries it for one year); `unpaid_B` that comes from the kernel's cap, 0 path-phases after (the counts before were 3,000 shortfall lines at 132c); `shortfall_lines` 3,000 before and 2,560 after, all of it the floor alarm below. `min_mid`: the kernel-cap excess on D4, D5 and D6 is carried too (80 shortfall lines, all floor alarm). I1, the account identity (1.9e-11) and the ledger ties (2.3e-12) hold at both points; `unpaid` is 0. Every lien is settled from the pension (the classes of these lines are empty by construction); none is left unpaid.
+- **Still failing, reported separately (127c, not removed here):** the floor alarm. A line whose units are all zero cannot take the year's saving, so the floor records it. After 133c it is the only source of `unpaid_B` and of the shortfall lines: `min_mid` D4 (year 61) and D5 (year 78); `median_high` D10a from year 70 to D1 in year 97, the same amounts as in 127c. The 133c rerun logged it as 1,740 line-years at `min_mid` and 26,640 at `median_high` (20 paths over the phases). The cause is that the kernel cannot create units from a zero balance, which this brief does not change.
+- Per-path returns (`run_grid.py --market-paths --paths 200`, `cap_lien/checks_paths_200.csv`), `unpaid_B` path-phases before (the brief's counts) and after: `median_mid` 2,776 to 375, `max_mid` 446 to 26, `median_low` 6 to 0. I1, the account identity (2.6e-11) and the ledger ties (2.9e-11 at most) hold at all three; `unpaid` is 0. I did not split the remaining path-phases into floor and kernel cap at these three points (done only for `min_mid` and `median_high` above).
+- Files: `household-arm-run/cap_lien/` (`lien_checks.csv`, `lien_alarms.csv`, `lien_lines.csv`, from `lien_rerun.py --paths 20`). No headline number is read.
 
 ## Unchanged
 
@@ -35,6 +38,6 @@ The three passing grid points `median_mid`, `max_mid` and `median_low`, and the 
 
 ## For the author
 
-1. The kernel-cap case: a brief for the kernel (a lien netted from the family value, or a cap that records the excess as a lien) is needed before `median_high` can run to a clean account.
+1. The floor alarm (zero-unit lines that cannot take the year's saving) is now the only shortfall; it needs its own ruling.
 2. Whether the settlement draw should be limited to what the heir would receive (see the draw rule).
 3. Whether the deferral rate should be a register row (it is 0.0 now).

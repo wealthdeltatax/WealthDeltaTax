@@ -116,7 +116,7 @@ class HouseholdHook:
     def _start(self, book):
         t = lambda v: np.tile(np.asarray(v, float), book.n // len(self.st['income']))
         self.gh = []
-        self.PL = np.zeros(book.n)                                                                       # the pension-secured lien per line (132c): the kernel's family value is net of it
+        self.PL, self.PK = np.zeros(book.n), np.zeros(book.n)                                           # the pension-secured lien per line (132c) and its part the kernel's cap left unpaid (133c, netted from the kernel's pension, not its units)
         self.q, self.book, self.rcv = {**{k: t(v) for k, v in self.st['pos'].items()}, 'debt': np.zeros(book.n)}, book, {k: np.zeros(book.n) for k in CLASSES[:3]}
         self.inc, self.sav, self.acc = t(self.st['income']), t(self.st['sav']), t(self.st['acc'])
         if self.c is None:
@@ -126,6 +126,7 @@ class HouseholdHook:
             for x in book.R.values():
                 x.update({k: x[k] * f for k in ('V', 'dd', 'Wp', 'ppu')})
             book.pen = book.penp = self.q['pension'].copy()
+            book.cap_cb = self.carry                                                                    # the tax a route cannot pay is carried as a lien, not lost to unpaid_B (133c)
 
     def pre(self, book, t, g):
         self._start(book) if book is not self.book else self.reconcile(book)                       # value a reset moved after the last post is paid from the classes first (a death's, in the year)
@@ -138,24 +139,24 @@ class HouseholdHook:
         self.dv = None if self.mu is None else np.asarray(g, float) - self.mu
         self.gh.append(self.dv)
         self.q1, self.acct = self._year(self.q, inc, self.sav, self.acc, gn)
-        PL0, self.PL = self.PL, pl.accrue(self.PL, book.r_def)                                      # the lien accrues at the kernel's deferral rate (132c)
+        PL0, PK0, self.PL, self.PK = self.PL, self.PK, pl.accrue(self.PL, book.r_def), pl.accrue(self.PK, book.r_def)    # the lien accrues at the kernel's deferral rate (132c); U = PL - PK is the part netted from the units
         self.nw0, self.T, self.unpaid, self.new, self.accr, self.set_c, self.set_p = sum(self.q[k] for k in CLASSES) - PL0, 0.0, 0 * PL0, 0.0, self.PL - PL0, 0.0, 0.0
-        N1, N0 = self._n(self.q1), N0 - PL0
+        N1, N0, self.ex = self._n(self.q1), N0 - (PL0 - PK0), 0 * PL0
         dead = np.abs(N0) <= 1e-12                                                                 # the class floor (127c): a line whose units are all 0 cannot carry any flow (units grow multiplicatively), so it stays at 0; a line with negative wealth keeps its units
-        self.wo = np.where(dead, self.PL, 0.0)                                                      # a lien on a line with no units left is written off: the ledger reports it (132c)
-        N1, self.PL = N1 - self.PL, self.PL - self.wo
+        self.wo = np.where(dead, self.PL - self.PK, 0.0)                                                      # a lien on a line with no units left is written off: the ledger reports it (132c)
+        N1, self.PL = N1 - (self.PL - self.PK), self.PL - self.wo
         self.fl = np.where(dead, -N1, 0.0)                                                          # what the floor added (+) or removed (-) in the year; an alarm, never tuned away
         for k in CLASSES[:3]:
             self.q1[k] = np.where(dead, 0.0, self.q1[k])
         book.unpaid_B = book.unpaid_B + np.abs(self.fl)                                             # recorded as the model's shortfall alarm (shortfall_lines counts it)
         N0 = np.where(dead, 1.0, N0)
         g_n = sum(np.asarray(gn[k]) * self.q[k] for k in CLASSES[:3]) / N0
-        book.pen, self.W_after = self.q1['pension'], sum(self.q1[k] for k in CLASSES) - self.PL
-        return g_n, (self._n(self.q1) - self.PL) / (N0 * (1.0 + g_n)) - 1.0                                     # growth then the flow reach the household's closing non-pension total exactly (I1)
+        book.pen, self.W_after = self.q1['pension'] - self.PK, sum(self.q1[k] for k in CLASSES) - self.PL
+        return g_n, (self._n(self.q1) - (self.PL - self.PK)) / (N0 * (1.0 + g_n)) - 1.0                                     # growth then the flow reach the household's closing non-pension total exactly (I1)
 
     def lien(self):
-        """The public ledger's receivable (132c), by line: the lien balance at the close and the year's new, accrued, settled and written-off amounts (billions after weighting; the balance moves by new + accr - settled - wo)."""
-        return dict(bal=self.PL, new=self.new, accr=self.accr, settled=self.set_c + self.set_p, wo=self.wo)
+        """The public ledger's receivable (132c), by line: the lien balance at the close and the year's new, accrued, settled and written-off amounts (billions after weighting; the balance moves by new + accr - settled - wo); `xnew` is the part of `new` the kernel never moved (the cap's excess, 133c), which is not in the year's value paid."""
+        return dict(bal=self.PL, new=self.new, accr=self.accr, settled=self.set_c + self.set_p, wo=self.wo, xnew=self.ex)
 
     def _year(self, q, inc, sav, acc, gn):
         """The household's year before any tax (convention A): the closing balances and the account of balances `q` with income `inc`, saving ratio `sav`, pension accrual `acc` and the holding gains `gn`."""
@@ -189,16 +190,20 @@ class HouseholdHook:
             out['net_financial'] = out['net_financial'] + np.array(self.gh)[:, ::len(self.st['income'])]
         return out
 
+    def carry(self, book, ex):
+        """The kernel's cap callback (133c): the tax a route could not pay (`ex`, per line) is carried as a lien on the pension. It is netted from the kernel's pension, which the kernel reads at once and takes as the new basis at the end of the assessment; the units do not move."""
+        self.PL, self.PK, self.new, self.ex, book.pen = self.PL + ex, self.PK + ex, self.new + ex, self.ex + ex, book.pen - ex
+
     def _check(self, book):
-        N = self._n(self.q) - (0.0 if self.c is not None else self.PL)                          # the family value is net of the lien
-        if np.any(np.abs(book.family_true() - N) > 1e-9 * np.maximum(1.0, np.abs(N))) or (self.c is None and np.any(book.pen != self.q['pension'])):
+        N = self._n(self.q) - (0.0 if self.c is not None else self.PL - self.PK)                  # the family value is net of the lien's unit part
+        if np.any(np.abs(book.family_true() - N) > 1e-9 * np.maximum(1.0, np.abs(N))) or (self.c is None and np.any(np.abs(book.pen - (self.q['pension'] - self.PK)) > 1e-12)):
             raise ValueError("I1 fails: the book's family value is not the class total, or its pension is not the pension balance")
 
     def reconcile(self, book):
         """Value the kernel moved outside `post` (a death's tax, settlements, the heir's tax; the horizon's: call it after settle_terminal) is paid from the classes, in the year's account. Pension passes to the heir unchanged."""
         if self.c is not None:
             return
-        gap = self._n(self.q) - self.PL - book.family_true()
+        gap = self._n(self.q) - (self.PL - self.PK) - book.family_true()
         self.q = self._pay(self.q, np.where(np.abs(gap) > 1e-12 * np.maximum(1.0, np.abs(self._n(self.q))), gap, 0.0))
         self._check(book)
 
@@ -210,15 +215,16 @@ class HouseholdHook:
         q3 = {k: self.q[k] for k in CLASSES[:3]}
         q1, pen1, paid, d, rest = pl.settle(q3, self.PL, self.q['pension'])
         self.set_c, self.set_p = self.set_c + (self.PL - rest - d), self.set_p + d
+        self.PK = np.minimum(self.PK, rest)                                                         # what stays unpaid is netted from the pension first (133c)
         self.q, self.PL, self.unpaid = {**self.q, **q1, 'pension': pen1}, rest, self.unpaid + rest
         book.unpaid_B = book.unpaid_B + rest
         for k in CLASSES[:3]:
             self.rcv[k] = self.rcv[k] + paid[k]                                                    # the state's receipt by class, the draw in the classes' mix
         fam = book.family_true()
-        f = np.where(fam != 0, (self._n(self.q) - self.PL) / np.where(fam != 0, fam, 1.0), 1.0)
+        f = np.where(fam != 0, (self._n(self.q) - (self.PL - self.PK)) / np.where(fam != 0, fam, 1.0), 1.0)
         for x in book.R.values():
             x.update({k: x[k] * f for k in ('V', 'dd', 'Wp', 'ppu')})
-        book.pen = book.penp = pen1.copy()
+        book.pen = book.penp = pen1 - self.PK
         self._check(book)
 
     def post(self, book, fl):

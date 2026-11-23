@@ -45,7 +45,7 @@ def gdp_growth(pack, years):
     return out
 
 
-_REC = ('bal', 'new', 'accr', 'settled', 'wo')                                          # the pension-secured lien, a receivable of the public ledger (132c): balance and the year's flows
+_REC = ('bal', 'new', 'accr', 'settled', 'wo', 'xnew')                                          # the pension-secured lien, a receivable of the public ledger (132c): balance and the year's flows
 _CLASSES = ('property', 'net_financial', 'physical')                                  # the ledger's household classes (the safe asset is added in revenue()); the pension is not one
 
 
@@ -252,7 +252,7 @@ def revenue(run, gdp0, levy, rec, g, E_pct, c, a_window=5, ms=3.0, ml=3.0, horiz
     wdt = run['tax'] + run['refund'] + run['death_tax'] + run['heir'] + run['death_B'] + run['death_D']
     led = run.get('ledger')
     if led is not None:
-        wdt = wdt - led['rec']['new'] + led['rec']['settled']                          # cash: the lien is not a receipt of the year, its settlement is (132c); both zero without a lien, so nothing moves
+        wdt = wdt - (led['rec']['new'] - led['rec']['xnew']) + led['rec']['settled']      # cash: the lien is not a receipt of the year, its settlement is (132c); the cap's excess (133c) was never in the value paid; all zero without a lien, so nothing moves
     lev = levy / 100.0 * gdp
     if led is not None:                                                                  # the public ledger (120c): the levy enters as cash, safe_share of it in the safe asset and the rest as net financial
         if safe_share > 0.0 and safe is None:

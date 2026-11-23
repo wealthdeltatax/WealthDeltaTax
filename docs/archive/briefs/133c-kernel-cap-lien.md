@@ -35,8 +35,8 @@ The design choice above; where the kernel's own pension is read from for the set
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
-- **Resume:** none
-- **State:** draft; not started
+- **Done:** blocks 0, 1, 2 (kernel `cap_cb`, hook carry, ledger `xnew`; `median_high` and `min_mid` rerun at 20 paths in `household-arm-run/cap_lien/`; note updated; kernel-cap `unpaid_B` is 0 after; the remaining shortfall is the 127c floor alarm)
+- **Next:** none; the author rules on the floor alarm
+- **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/133-kernel-cap-lien origin/brief/133-kernel-cap-lien`
+- **State:** done, awaiting review (do not merge)
 <!-- progress:end -->

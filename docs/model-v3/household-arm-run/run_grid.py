@@ -97,6 +97,8 @@ def run_point(ctx, inp, name, manifest, n=PATHS, chunk=CHUNK, seed=SEED):
             g = rt.ar1_paths(rt.streams(seed)['level1_paths'], ctx.centre[R.RET['mean']], ctx.centre[R.RET['sd']], ctx.centre[R.RET['phi']], R.T, min(chunk, n))
             raw = R.core_run(ctx, ctx.centre, A.SPEC, g, np.full(g.shape, ctx.gdp_g))
             wdt = sum(raw.run[k] for k in ('tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D'))
+            rec = raw.run['ledger']['rec']
+            wdt = wdt - (rec['new'] - rec['xnew']) + rec['settled']                                      # cash: a lien is no receipt of its year, its settlement is; the cap's excess (133c) was never in the value paid (zero arrays without a lien: no change)
             f, dl = raw.r['fund'], 0.0
             for k in f['L']:
                 d = np.diff(np.vstack([np.zeros((1, g.shape[1])), f['L'][k]]), axis=0)

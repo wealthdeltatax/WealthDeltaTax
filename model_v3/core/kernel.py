@@ -161,6 +161,7 @@ class Book:
         self.ledger = None                 # household arm (120c): per line, the state's stake by class, kept by revenue.run_lines; None (the legacy arm) leaves the stake as units
         self.pen, self.penp = z(), z()     # the pension: a class balance in the assessed base, never a unit (it is not sold), and its value at the last assessment
         self.vD = z()                      # share of Route D already auctioned at the true price (hazard lam_D)
+        self.cap_cb = None                 # household arm (133c): a callback (book, excess) that carries the tax a route cannot pay as a lien; None (the default) records it in unpaid_B
 
     # ── readouts ─────────────────────────────────────────────
     def family_true(self):
@@ -223,9 +224,12 @@ def _refund_cash(book, fl, r, rest):
 
 
 def _cap(book, Lp, hold):
-    """A payment Lp (credited pounds) capped at what the line holds on its route; the excess beyond 1e-9 is recorded in unpaid_B, never raised. Returns the payment."""
+    """A payment Lp (credited pounds) capped at what the line holds on its route; the excess beyond 1e-9 is recorded in unpaid_B, never raised, or, when the hook supplies `book.cap_cb`, handed to it (133c). Returns the payment."""
     pay = np.where(Lp > hold + 1e-9, np.maximum(hold, 0.0), Lp)
-    book.unpaid_B = book.unpaid_B + (Lp - pay)
+    if book.cap_cb is None:
+        book.unpaid_B = book.unpaid_B + (Lp - pay)
+    else:
+        book.cap_cb(book, Lp - pay)
     return pay
 
 
