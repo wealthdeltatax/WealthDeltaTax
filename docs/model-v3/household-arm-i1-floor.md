@@ -42,3 +42,21 @@ Where the alarm first fires (millions of pounds per adult; full list in the CSV)
 **Per case, plainly.** `min_mid` is economics at its root (minimum-saving dissaving and tax exhaust the line) with a bookkeeping gap at the floor, now closed. `median_high` is economics (tax on pension gains takes the whole non-pension wealth of nine lines in the second half of the century) plus the re-entry gap, now closed. In both, the alarm is a finding about the scenario, not a number to tune: the author rules on it.
 
 Not done here: pension withdrawal, a running pension cap, any change to the settlement rule (out of scope). No headline number is stated.
+
+## 137c block 1: every floor line-year at the five grid points (20 paths)
+
+Method: a logging subclass of `HouseholdHook` (as `lien_rerun.py`) records each (phase, path, line, year) where `pre` sets the floor entry `fl` to a non-zero value, at the five points of `run_grid.py` at 20 paths. Per line and year the rows are collapsed over the phases and paths in `household-arm-run/floor_line_years_137.csv` (227 rows; the paths do not differ, so each row is the same value in every path-phase it counts). Saving here is the year's non-pension flow on the zero-unit line (the closing non-pension total, `N1 = -fl`), millions of pounds per adult; units are the kernel's family value of the line before the year. **No headline number.**
+
+| Point | Floor line-years | Lines | Units | Saving sign | Case |
+|---|---|---|---|---|---|
+| `min_mid` | 1,740 | D4 (from year 61), D5 (from year 78) | 0 (to 1e-13) | negative, -0.0012 to -0.0044 | **Not restartable**: negative saving on zero units |
+| `median_high` | 26,640 | D1 (97), D3 (96), D4 (91), D5 (90), D6 (86), D7 (85), D8 (77), D9 (71), D10a (70), D10b (83) | 0 (to 3e-13) | positive, +0.0013 to +0.0024 | **Restartable**: positive saving on zero units |
+| `median_mid`, `max_mid`, `median_low` | 0 | none | | | held points, no floor |
+
+Totals: 28,380 floor line-years, 26,640 restartable (all at `median_high`), 1,740 another case (all at `min_mid`). Counts equal the 133c rerun (1,740 and 26,640).
+
+Balances at the floor (millions of pounds per adult, the whole range over the line-years of each case):
+- `median_high` (restartable): non-pension classes at 0 to rounding (property and physical below 2e-13, net financial at most 1.3e-4 on D1 only); pension 1.31 (D1) to 10.5 (D10b); the pension lien up to 0.13 (D10b).
+- `min_mid` D4: property 0.0696, net financial -0.0881, physical 0.0185 (they sum to 0); pension 0.26 to 0.65; saving -0.0012 to -0.0044. D5: property 0.116, net financial -0.130, physical 0.014 (sum 0); pension 0.43 to 0.69; same saving range. The classes hold debt against assets with no net wealth, and minimum-saving dissaving takes the line below zero. A zero-unit line cannot hold negative units, so a restart from saving does not apply.
+
+So the table gives the stop rule's second case: the 1,740 `min_mid` line-years are not restartable by the preferred design (units = saving / price needs positive saving). Block 2 restarts the 26,640 and leaves the 1,740 as a listed alarm with the balances above; the author rules on them (see the change report).

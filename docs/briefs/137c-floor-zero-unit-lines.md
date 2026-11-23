@@ -34,8 +34,8 @@ The deferral rate, per-path loose ends (135c), pension withdrawal, any change to
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (progress block pushed)
-- **Next:** block 1 (diagnose: floor line-year table in `household-arm-i1-floor.md`)
+- **Done:** block 0 (progress block pushed); block 1 (diagnosis: 28,380 floor line-years, 26,640 restartable at `median_high`, 1,740 not at `min_mid`: negative saving on zero units; table in `household-arm-i1-floor.md`)
+- **Next:** block 2 (restart in the hook, test; `min_mid` stays a listed alarm for the author)
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/137-floor-zero-units origin/brief/137-floor-zero-units`
 - **State:** in progress; branch `brief/137-floor-zero-units`
 <!-- progress:end -->
