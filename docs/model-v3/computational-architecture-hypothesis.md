@@ -1,6 +1,6 @@
 # Computational architecture hypothesis: three routes to a faster WDT model
 
-**Status:** hypothesis for investigation; no implementation choice authorised  
+**Status:** hypothesis for investigation; no implementation choice authorised. Update 2026-11-23: 150c baseline is in (`run-cost.md`); profile shows call overhead and repeated evaluations, not arithmetic. Scenario A goes first through briefs 151c to 154c; B (Rust) and C (Julia) are on hold until those are measured (author, 2026-11-23).  
 **Date:** 2026-11-23  
 **Owner:** guru  
 **Context:** model v3, especially the household arm and the two-level stochastic runner
