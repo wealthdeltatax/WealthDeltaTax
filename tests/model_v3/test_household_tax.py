@@ -228,3 +228,16 @@ def test_a_restart_with_the_verified_tranche_keeps_i1_over_the_following_years()
         step(t)
         assert (h.account()['floor'] == 0).all() and np.abs(book.family_true() - sum(h.q[k] for k in arm.CLASSES[:3])).max() < 1e-9
     assert (book.R['Cv']['f'] > 0).any() and book.check()['units'] < 1e-12
+
+
+def test_the_i1_check_accepts_the_kernel_caps_residual_and_rejects_a_larger_one():
+    """138c: a gap of up to 1e-7 (the cap's own tolerance, the lien's unit part on a line the floor holds at 0) passes; 1e-6 raises."""
+    import pytest
+    h = arm.HouseholdHook(ST, GAIN, 0.0157)
+    book = book_for(ST)
+    K.step_year(book, RATE, 1.0, np.zeros(14), 0.0, hook=h, t=1)
+    h.q = {**h.q, 'net_financial': h.q['net_financial'] + 5e-8}
+    h._check(book)
+    h.q = {**h.q, 'net_financial': h.q['net_financial'] + 1e-6}
+    with pytest.raises(ValueError):
+        h._check(book)

@@ -50,6 +50,19 @@ By family, cells with spread at any held point: O1 25 of 45, O2 115 of 120, O4 4
 - Flat cells by point: 132 (`median_mid`), 165 (`max_mid`), 134 (`median_low`) of the `p10_mean_p90` cells; 134 have no spread at any held point (`ranges_paths.csv`, `path_spread`).
 - Empty at every household point: OW3 and (by `ranges_paths.csv`) 7 all-nan cells. The 124c reserve-not-filling cells (O2, D4-5 short/transition) are still `nan` at some points.
 
+## I1 tolerance and the lien's limited recourse (brief 138c, block 1a)
+
+**I1 tolerance.** The hook's check (`HouseholdHook._check`, also run at `post`) now allows an absolute 1e-7 (never tighter than the earlier 1e-9 relative), the kernel cap's own tolerance on the lien's unit part (the 135c residuals of 1.0e-9 to 5.0e-8 on lines the floor holds at 0). No change in `core/`. A test: a gap of 5e-8 passes, 1e-6 raises. `median_high` now runs at 200 paths (checks below, its account residual is 1.6e-9, the residuals' size).
+
+**Limited recourse.** `settle` collects up to the pension; the remainder `rest` is no longer kept in the lien and in `unpaid_B` but written off in the public ledger's write-off column (`wo`, as the floor's does): the lien never exceeds the pension after a settlement, `PL` and `PK` are 0 and the ledger balance ties (opening - settled - written off = closing; tests). Where it does not fire, nothing moves. At `min_mid` (200 paths, first chunk of 100 paths for the ledger): one path-phase writes off 357.7 bn (after weighting) in total; `median_mid` and `median_high` none.
+
+| Point (200 paths) | `unpaid_B` worst | `unpaid_B` path-phases | Shortfall lines | Account residual | Ledger tie | `ledger_dL` | Spread / flat | I1 |
+|---|---:|---:|---:|---:|---:|---:|---|---|
+| `min_mid` | 0.253 | 2,634 | 7,315 | 2.5e-11 | 3.6e-10 | 2.6e-12 | 278 / 129 | holds |
+| `median_high` | 0 | 0 | 0 | 1.6e-9 | 1.6e-10 | 2.9e-11 | 251 / 156 | holds |
+
+`min_mid` `unpaid_B` fell from 3.02 to 0.253; the rest is another cause, the class floor's alarm (`fl`, added to `unpaid_B` in `pre`), not the lien. Not changed here. The other three points are unchanged by it (`median_mid`, `max_mid` and `median_low` write nothing off). The heir floor (148c) is a separate later switch.
+
 ## Rerun at 200 paths with the lien in place (brief 135c)
 
 `run_grid.py --market-paths --paths 200` (chunk 100, seed 1), 133c lien and 137c floor and the restart fix in place; files `grid_results_paths.csv`, `checks_paths.csv`, `ranges_paths.csv` replaced. This replaces the 1,000-path tables below (128c, before the lien). Held-point checks:

@@ -213,7 +213,7 @@ class HouseholdHook:
 
     def _check(self, book):
         N = self._n(self.q) - (0.0 if self.c is not None else self.PL - self.PK)                  # the family value is net of the lien's unit part
-        if np.any(np.abs(book.family_true() - N) > 1e-9 * np.maximum(1.0, np.abs(N))) or (self.c is None and np.any(np.abs(book.pen - (self.q['pension'] - self.PK)) > 1e-12)):
+        if np.any(np.abs(book.family_true() - N) > np.maximum(1e-7, 1e-9 * np.abs(N))) or (self.c is None and np.any(np.abs(book.pen - (self.q['pension'] - self.PK)) > 1e-12)):
             raise ValueError("I1 fails: the book's family value is not the class total, or its pension is not the pension balance")
 
     def reconcile(self, book):
@@ -226,15 +226,14 @@ class HouseholdHook:
 
     def settle(self, book):
         """Settle the lien at a death or the horizon (132c; revenue.run_lines calls it after `reconcile`): from the positive non-pension classes, then a one-off draw on the pension (the only time it is drawn); the kernel's family
-        value, net of the lien, rises by the draw, so the route units are rescaled to it (as `_start` does). What the pension cannot cover stays in the lien and in unpaid_B (an alarm)."""
+        value, net of the lien, rises by the draw, so the route units are rescaled to it (as `_start` does). What the pension cannot cover is written off (limited recourse, 138c)."""
         if not np.any(self.PL):
             return                                                                                  # no lien, nothing moves (the account and the ledger of a line that never needed it are unchanged, bit for bit)
         q3 = {k: self.q[k] for k in CLASSES[:3]}
         q1, pen1, paid, d, rest = pl.settle(q3, self.PL, self.q['pension'])
         self.set_c, self.set_p = self.set_c + (self.PL - rest - d), self.set_p + d
-        self.PK = np.minimum(self.PK, rest)                                                         # what stays unpaid is netted from the pension first (133c)
-        self.q, self.PL, self.unpaid = {**self.q, **q1, 'pension': pen1}, rest, self.unpaid + rest
-        book.unpaid_B = book.unpaid_B + rest
+        self.wo, self.PK = self.wo + rest, 0.0 * rest                                              # limited recourse (138c): the state collects up to the pension; what it cannot cover is written off in the ledger (a labelled cost), not left as unpaid_B
+        self.q, self.PL = {**self.q, **q1, 'pension': pen1}, 0.0 * rest
         for k in CLASSES[:3]:
             self.rcv[k] = self.rcv[k] + paid[k]                                                    # the state's receipt by class, the draw in the classes' mix
         fam = book.family_true()

@@ -45,19 +45,22 @@ def test_hook_settlement_pays_classes_then_pension_keeps_i1_and_the_receipts_tie
     assert np.allclose(sum(sum(v) for v in h.rcv.values()), 0.5 * 14) and np.allclose(h.set_p, 0.2) and np.allclose(h.set_c, 0.3)
 
 
-def test_hook_settlement_that_the_pension_cannot_cover_is_an_alarm_and_the_lien_stays():
+def test_hook_settlement_that_the_pension_cannot_cover_is_written_off_in_the_ledger_not_left_unpaid():
+    """138c, limited recourse: the state collects up to the pension; the remainder is the ledger's write-off, so the lien never exceeds the pension and unpaid_B does not move."""
     h = arm.HouseholdHook(ST, GAIN, 0.0157)
     book = book_for(ST)
     K.step_year(book, RATE, 1.0, np.zeros(14), 0.0, hook=h, t=1)
     h.q = {**h.q, 'property': np.full(14, 0.2), 'net_financial': np.full(14, 0.1), 'physical': np.zeros(14), 'pension': np.full(14, 0.1)}
-    h.PL = np.full(14, 0.5)
+    h.PL, h.wo, h.set_c, h.set_p = np.full(14, 0.5), np.zeros(14), 0.0, 0.0
     f = (0.3 - 0.5) / book.family_true()
     for x in book.R.values():
         x.update({k: x[k] * f for k in ('V', 'dd', 'Wp', 'ppu')})
     book.pen = book.penp = h.q['pension'].copy()
     u0 = book.unpaid_B.copy()
     h.settle(book)
-    assert np.allclose(h.PL, 0.1) and np.allclose(book.unpaid_B - u0, 0.1) and np.allclose(h.q['pension'], 0.0) and np.allclose(h.unpaid, 0.1)
+    L = h.lien()
+    assert np.allclose(h.PL, 0.0) and np.allclose(h.wo, 0.1) and np.allclose(book.unpaid_B, u0) and np.allclose(h.q['pension'], 0.0) and np.allclose(h.unpaid, 0.0)
+    assert np.allclose(0.5 - L['settled'] - L['wo'], L['bal'])                                      # the write-off ties the ledger's balance: opening - settled - written off = closing
 
 
 def test_no_lien_in_a_line_that_never_needs_it_and_the_pension_is_reduced_only_at_settlement():

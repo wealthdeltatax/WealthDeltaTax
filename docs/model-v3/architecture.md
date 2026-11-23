@@ -223,7 +223,7 @@ tests/model_v3/test_pack_base.py 0     58
 | `interface.py` and `run.py` | 170 | 80 |
 | Rules, budget and smoke tests | 0 | 150 |
 | Acceptance script and convergence test (040g Q1) | 0 | 90 |
-| **Total** | **6,060** | **4,133** |
+| **Total** | **6,260** | **4,133** |
 
 Core plus runner 5,190 (133c: `arm.py` 330 for the cap callback `carry` and the kernel-pension netting; 128c: `arm.py` 310 for per-path market returns; 132c: `pension_lien.py` 80 and `arm.py` 280 for the lien calls and `settle`; 127c: `arm.py` 255 for the class floor; earlier raise: 5,025, raised from 4,995 by 121c: `arm.py` 225 for the withheld table; 126c: `arm.py` 245 for the household untaxed path `free` and the comparators' account `system`) is a ceiling, not a target; `runner/pool.py` (70) is outside it and counted only if triggered. The data tooling `pack/build_gbr.py` has its own budget of 200 lines (067c) and no test beyond a hash check of its output. Output layer 700 is 14% of core plus runner; R9 asks for smaller.
 
