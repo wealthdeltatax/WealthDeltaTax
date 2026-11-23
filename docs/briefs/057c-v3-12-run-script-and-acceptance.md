@@ -27,6 +27,12 @@ Also (guru, updated 2026-11-21): the author abandoned I-D14c's 3.5% as the centr
 ## Blocks (added 2026-11-23; one push each)
 - **Block 0:** progress block. **Block 1:** `run.py` (arm field, scenario-range assembly, null marker, pending marker for OF1 and CK1), validator change, tests. **Block 2:** `accept.sh`, `test_smoke.py` and the five seeded breakages. **Block 3:** `test_converge.py`, the `--final` refusal rules. Stop after block 2 if 137c, 135c, 138c or 139c are not merged; `--final` waits for them.
 
+## Independence from Agent 6's chain (guru check, 2026-11-23)
+057c does not edit `model_v3/runner/arm.py`, `model_v3/core/`, `docs/model-v3/household-arm-run/` (`run_grid.py`, `ranges.py`), the register or the manifest; those belong to 137c, 135c, 138c and 139c. If a block needs a change there, stop and report; do not edit.
+- **Safe to build now (structure):** `run.py` with the arm field and the stated null and pending markers; the `validate_outputs.py` change; `accept.sh`; `test_smoke.py`; the five seeded breakages.
+- **Depends on the chain (content):** (a) the scenario-range assembly reads the five grid points; today `min_mid` and `median_high` have no rows (I1 floor, 137c and 135c fix that) and the grid logic lives in `docs/model-v3/household-arm-run/` scripts, which 135c and 138c edit: write `run.py` against `runner.arm` and `runner` (not by importing the docs scripts), and keep the range rule (min to max, no central) in one small function in `model_v3/`; (b) M2 and M2d change under 138c (total-wealth denominator) and the fund switch arrives there; (c) 139c edits `registry/inputs.json` and the gate hash, so `check_gate.py` and `accept.sh` step 6 may fail until it merges; (d) `test_converge.py` and any `--final` file are meaningful only after all four.
+- **Merge order:** Agent 6's briefs merge first when they land; Agent 2 rebases and re-runs `accept.sh` before each push. A smoke test that pins a number from the household arm is a defect: pin shapes and identities, not values, until 139c has merged.
+
 ## Decisions (author, 2026-11-18)
 `architecture.md` approved (sections 8.1 and 9 as written); `acceptance.md` approved with Q1 to Q6 as proposed. v3 imports nothing from `model_v1/` or `model_v2/`. No file outside this brief's Touches is changed.
 
