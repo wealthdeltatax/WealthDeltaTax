@@ -41,8 +41,8 @@ Whether the 129r PDFs and data dictionaries should leave git once converted (the
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** block 0 (branch from main cee5b03)
+- **Next:** block 1 (survey, `--readable`, tests)
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/130-readable-research origin/brief/130-readable-research`
-- **State:** parked; not started
+- **State:** in progress, block 0 pushed
 <!-- progress:end -->
