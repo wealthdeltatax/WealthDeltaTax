@@ -1,0 +1,10 @@
+row_id,item,value,unit,page,flag,note_or_challenge
+S-P01,"Resolution Foundation, Before the Fall (2025), WAS, GB: typical family, lowest income quintile, rise in liquid savings 2019-20 to 2021-22",80,GBP,7 and 29,text,"by income quintile, liquid savings only, pandemic window; not a saving rate, not by wealth"
+S-P02,"Resolution Foundation, Before the Fall (2025), WAS, GB: typical family, highest income quintile, same",4200,GBP,7 and 32,text,"p.29 gives 4,100 for higher-income families"
+S-P03,"Resolution Foundation, Before the Fall (2025), WAS, GB: second income quintile, same, against the two years before",more than 300 against 100,GBP,32,text,text says a threefold increase; the chart label 310 is not used
+S-P04,"Resolution Foundation, Before the Fall (2025), WAS, GB: share of families that increased liquid savings, bottom and top income quintile",55; 64,%,38,text,flatter than pandemic-era surveys (23; 45)
+S-P05,"Resolution Foundation, Before the Fall (2025), WAS, GB: active share of the growth in average family wealth, since 2010-12; latest period (includes the pandemic)",47; 40,%,21,text,"aggregate, includes debt repayment; excludes DB and pensions in payment (note 19)"
+S-P06,"Resolution Foundation, Before the Fall (2025), WAS, GB: adjusted household saving ratio, peak Q2 2020",25,%,30,text,aggregate; excludes pension equity adjustments
+S-R01,"Register I-W3a (Fagereng and others, Norway 2005-2015): net active saving by wealth, flat from about the 20th percentile, near zero around the 15th",6 to 8,% of disposable income,"source pp. 2, 24-25 (as the register states)",read from register row; source not held here,foreign; the only banded shape held; the saving ratio of the model is a share of income
+S-R02,Register I-W3b (same source): gross saving rate of the top 1%,35,%,"source pp. 2, 25",read from register row; source not held here,"context only by author ruling: includes capital gains, not a saving parameter; not used"
+S-R03,Register I-W3c: UK share of the change in family financial wealth that is net saving (Bangham and Leslie 2020),7 to 24,%,source p. 18,read from register row; source not held here,"aggregate, not by wealth band"
