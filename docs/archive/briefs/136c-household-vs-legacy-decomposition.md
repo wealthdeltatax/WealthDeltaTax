@@ -38,8 +38,8 @@ Whether the P6 quoted values (22 to 78 against 1,170) are the same quantity in t
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** blocks 0, 1, 2, 3 (note `docs/model-v3/household-vs-legacy.md`; one defect candidate: the M2 denominator `w0` excludes the pension from year 2 under the household arm)
+- **Next:** none; the author rules on the defect
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/136-household-vs-legacy origin/brief/136-household-vs-legacy`
-- **State:** ready; not started
+- **State:** done, awaiting review (do not merge)
 <!-- progress:end -->

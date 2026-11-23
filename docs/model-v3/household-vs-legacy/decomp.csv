@@ -1,0 +1,1321 @@
+case,output,horizon,band,term,value
+common:legacy,M1a,short,all,value,3.110654009941069
+common:legacy,M1a,short,all,base_pct_gdp,507.44560488594016
+common:legacy,M1a,short,all,rate_pct,0.6130024538571496
+common:legacy,M1c,short,all,value,-0.4385067203969885
+common:legacy,M1c,short,all,return_on_fund_pct_gdp,2.1263064277524135
+common:legacy,M1c,short,all,fund_growth_pct_gdp,2.5648131481494025
+common:legacy,M1c,short,all,fund_level_pct_gdp,44.858785395620544
+common:legacy,M1c,short,all,return_rate_pct,4.74
+common:legacy,M1,short,all,value,1.2488250710909397
+common:legacy,M1b,short,all,value,2.82
+common:legacy,M1d,short,all,value,4.243322218453141
+common:legacy,M2,short,overall,value,0.2931670079345543
+common:legacy,M2,short,overall,R_pay_pct,0.15358958993242403
+common:legacy,M2,short,overall,K,1.90876873923253
+common:legacy,M2,short,overall,payer_wealth_share_of_group,0.8575260692076867
+common:legacy,M2,short,D4_5,value,nan
+common:legacy,M2,short,D4_5,R_pay_pct,nan
+common:legacy,M2,short,D4_5,K,nan
+common:legacy,M2,short,D4_5,payer_wealth_share_of_group,0.0
+common:legacy,M2,short,D6_7,value,0.04540972863559481
+common:legacy,M2,short,D6_7,R_pay_pct,0.044750289728333996
+common:legacy,M2,short,D6_7,K,1.0147359695605118
+common:legacy,M2,short,D6_7,payer_wealth_share_of_group,0.8082570052021996
+common:legacy,M2,short,D8_9,value,0.0795076057439615
+common:legacy,M2,short,D8_9,R_pay_pct,0.07756250422500421
+common:legacy,M2,short,D8_9,K,1.0250778586688571
+common:legacy,M2,short,D8_9,payer_wealth_share_of_group,1.0
+common:legacy,M2,short,D10,value,0.3592538944913042
+common:legacy,M2,short,D10,R_pay_pct,0.24739149656684084
+common:legacy,M2,short,D10,K,1.4521675137457284
+common:legacy,M2,short,D10,payer_wealth_share_of_group,1.0
+common:legacy,M2d,short,overall,value,24.36715335387728
+common:legacy,M2d,short,overall,R_pay_pct,0.7138468050971616
+common:legacy,M2d,short,overall,K,34.134989720323354
+common:legacy,M2d,short,overall,payer_wealth_share_of_group,0.85873110235986
+common:legacy,M2d,short,D4_5,value,nan
+common:legacy,M2d,short,D4_5,R_pay_pct,nan
+common:legacy,M2d,short,D4_5,K,nan
+common:legacy,M2d,short,D4_5,payer_wealth_share_of_group,0.0
+common:legacy,M2d,short,D6_7,value,3.449432272606479
+common:legacy,M2d,short,D6_7,R_pay_pct,0.18834813903066483
+common:legacy,M2d,short,D6_7,K,18.31412983615877
+common:legacy,M2d,short,D6_7,payer_wealth_share_of_group,0.8155923294420513
+common:legacy,M2d,short,D8_9,value,6.14773531384226
+common:legacy,M2d,short,D8_9,R_pay_pct,0.3392276780734537
+common:legacy,M2d,short,D8_9,K,18.122740894129155
+common:legacy,M2d,short,D8_9,payer_wealth_share_of_group,1.0
+common:legacy,M2d,short,D10,value,29.516496637201165
+common:legacy,M2d,short,D10,R_pay_pct,1.1740948134416438
+common:legacy,M2d,short,D10,K,25.13978964840068
+common:legacy,M2d,short,D10,payer_wealth_share_of_group,1.0
+common:legacy,M1a,long,all,value,0.6809890148625936
+common:legacy,M1a,long,all,base_pct_gdp,275.560285713942
+common:legacy,M1a,long,all,rate_pct,0.2471288680436068
+common:legacy,M1c,long,all,value,0.010345128457118656
+common:legacy,M1c,long,all,return_on_fund_pct_gdp,18.761272945653165
+common:legacy,M1c,long,all,fund_growth_pct_gdp,18.750927817196047
+common:legacy,M1c,long,all,fund_level_pct_gdp,395.80744611082616
+common:legacy,M1c,long,all,return_rate_pct,4.740000000000002
+common:legacy,M1,long,all,value,-1.228665856680288
+common:legacy,M1b,long,all,value,2.82
+common:legacy,M1d,long,all,value,4.74
+common:legacy,M2,long,overall,value,0.09907075937430268
+common:legacy,M2,long,overall,R_pay_pct,0.06879629443382765
+common:legacy,M2,long,overall,K,1.4400595292177372
+common:legacy,M2,long,overall,payer_wealth_share_of_group,0.6564764940442964
+common:legacy,M2,long,D4_5,value,nan
+common:legacy,M2,long,D4_5,R_pay_pct,nan
+common:legacy,M2,long,D4_5,K,nan
+common:legacy,M2,long,D4_5,payer_wealth_share_of_group,0.0
+common:legacy,M2,long,D6_7,value,0.03635747944381724
+common:legacy,M2,long,D6_7,R_pay_pct,0.036337073839873016
+common:legacy,M2,long,D6_7,K,1.0005615643140156
+common:legacy,M2,long,D6_7,payer_wealth_share_of_group,0.06698821834928706
+common:legacy,M2,long,D8_9,value,0.049378205762280455
+common:legacy,M2,long,D8_9,R_pay_pct,0.04803428152942323
+common:legacy,M2,long,D8_9,K,1.0279784393576077
+common:legacy,M2,long,D8_9,payer_wealth_share_of_group,0.9883319732913741
+common:legacy,M2,long,D10,value,0.12886569349132418
+common:legacy,M2,long,D10,R_pay_pct,0.09364043698637955
+common:legacy,M2,long,D10,K,1.3761756954430735
+common:legacy,M2,long,D10,payer_wealth_share_of_group,1.0
+common:legacy,M2d,long,overall,value,14.813806597064762
+common:legacy,M2d,long,overall,R_pay_pct,0.3751192036147997
+common:legacy,M2d,long,overall,K,39.49093102755859
+common:legacy,M2d,long,overall,payer_wealth_share_of_group,0.6588008975871495
+common:legacy,M2d,long,D4_5,value,nan
+common:legacy,M2d,long,D4_5,R_pay_pct,nan
+common:legacy,M2d,long,D4_5,K,nan
+common:legacy,M2d,long,D4_5,payer_wealth_share_of_group,0.0
+common:legacy,M2d,long,D6_7,value,2.7926981340177437
+common:legacy,M2d,long,D6_7,R_pay_pct,0.297455056687149
+common:legacy,M2d,long,D6_7,K,9.3886389598513
+common:legacy,M2d,long,D6_7,payer_wealth_share_of_group,0.0782815268686787
+common:legacy,M2d,long,D8_9,value,4.88671810637759
+common:legacy,M2d,long,D8_9,R_pay_pct,0.23119256915835368
+common:legacy,M2d,long,D8_9,K,21.13700333954275
+common:legacy,M2d,long,D8_9,payer_wealth_share_of_group,0.9883319732913741
+common:legacy,M2d,long,D10,value,19.93782903015947
+common:legacy,M2d,long,D10,R_pay_pct,0.5412226093381212
+common:legacy,M2d,long,D10,K,36.8384998818547
+common:legacy,M2d,long,D10,payer_wealth_share_of_group,1.0
+common:legacy,P6,year 10,all,value,50.49238086157357
+common:legacy,P6,year 10,all,cum_inflow_pct_gdp,58.26485407834585
+common:legacy,P6,year 10,all,cum_return_pct_gdp,10.164577758466997
+common:legacy,P6,year 10,all,cum_payout_pct_gdp,17.937050975239295
+common:legacy,P6,year 25,all,value,76.72617749841922
+common:legacy,P6,year 25,all,cum_inflow_pct_gdp,122.26267879874507
+common:legacy,P6,year 25,all,cum_return_pct_gdp,43.87702779604753
+common:legacy,P6,year 25,all,cum_payout_pct_gdp,89.41352909637348
+common:legacy,P6,year 50,all,value,158.82432635411874
+common:legacy,P6,year 50,all,cum_inflow_pct_gdp,178.73042799437425
+common:legacy,P6,year 50,all,cum_return_pct_gdp,136.469272203182
+common:legacy,P6,year 50,all,cum_payout_pct_gdp,156.3753738434378
+common:legacy,P6,year 100,all,value,729.2035136421913
+common:legacy,P6,year 100,all,cum_inflow_pct_gdp,204.5493242990224
+common:legacy,P6,year 100,all,cum_return_pct_gdp,719.3086117487771
+common:legacy,P6,year 100,all,cum_payout_pct_gdp,194.65442240560947
+common:household:median_mid,M1a,short,all,value,3.190346514557428
+common:household:median_mid,M1a,short,all,reported_124c,3.1903465145574263
+common:household:median_mid,M1a,short,all,base_pct_gdp,362.65677257213736
+common:household:median_mid,M1a,short,all,rate_pct,0.8797151344865137
+common:household:median_mid,M1a,short,all,base_total_pct_gdp,565.7142607094409
+common:household:median_mid,M1c,short,all,value,-0.036070154740359704
+common:household:median_mid,M1c,short,all,reported_124c,-0.036070154740359586
+common:household:median_mid,M1c,short,all,return_on_fund_pct_gdp,0.44749622635230596
+common:household:median_mid,M1c,short,all,fund_growth_pct_gdp,0.4835663810926656
+common:household:median_mid,M1c,short,all,fund_level_pct_gdp,39.70426884017489
+common:household:median_mid,M1c,short,all,return_rate_pct,1.1258584393930886
+common:household:median_mid,M1,short,all,value,1.5628085708648098
+common:household:median_mid,M1,short,all,reported_124c,1.5628085708648098
+common:household:median_mid,M1b,short,all,value,2.8200000000000003
+common:household:median_mid,M1b,short,all,reported_124c,2.8199999999999994
+common:household:median_mid,M1d,short,all,value,4.411467788952258
+common:household:median_mid,M1d,short,all,reported_124c,4.411467788952257
+common:household:median_mid,M2,short,overall,value,0.3978713819171447
+common:household:median_mid,M2,short,overall,reported_124c,0.3978713819171453
+common:household:median_mid,M2,short,overall,R_pay_pct,0.3289585321416779
+common:household:median_mid,M2,short,overall,K,1.2094879537758485
+common:household:median_mid,M2,short,overall,payer_wealth_share_of_group,0.8926907936245937
+common:household:median_mid,M2,short,overall,R_pay_total_pct,0.2186665683093449
+common:household:median_mid,M2,short,D4_5,value,nan
+common:household:median_mid,M2,short,D4_5,reported_124c,nan
+common:household:median_mid,M2,short,D4_5,R_pay_pct,nan
+common:household:median_mid,M2,short,D4_5,K,nan
+common:household:median_mid,M2,short,D4_5,payer_wealth_share_of_group,0.0
+common:household:median_mid,M2,short,D4_5,R_pay_total_pct,nan
+common:household:median_mid,M2,short,D6_7,value,0.18043747573662483
+common:household:median_mid,M2,short,D6_7,reported_124c,0.18043747573662475
+common:household:median_mid,M2,short,D6_7,R_pay_pct,0.17999490360294512
+common:household:median_mid,M2,short,D6_7,K,1.0024588036928868
+common:household:median_mid,M2,short,D6_7,payer_wealth_share_of_group,1.0
+common:household:median_mid,M2,short,D6_7,R_pay_total_pct,0.10902288721030788
+common:household:median_mid,M2,short,D8_9,value,0.2512438355941744
+common:household:median_mid,M2,short,D8_9,reported_124c,0.25124383559417435
+common:household:median_mid,M2,short,D8_9,R_pay_pct,0.24940570136522808
+common:household:median_mid,M2,short,D8_9,K,1.007370056974979
+common:household:median_mid,M2,short,D8_9,payer_wealth_share_of_group,1.0
+common:household:median_mid,M2,short,D8_9,R_pay_total_pct,0.15016586436337526
+common:household:median_mid,M2,short,D10,value,0.48613397283301435
+common:household:median_mid,M2,short,D10,reported_124c,0.4861339728330141
+common:household:median_mid,M2,short,D10,R_pay_pct,0.4360407059365819
+common:household:median_mid,M2,short,D10,K,1.114882088333556
+common:household:median_mid,M2,short,D10,payer_wealth_share_of_group,1.0
+common:household:median_mid,M2,short,D10,R_pay_total_pct,0.32363103759442446
+common:household:median_mid,M2d,short,overall,value,22.734824050881187
+common:household:median_mid,M2d,short,overall,reported_124c,22.73482405088119
+common:household:median_mid,M2d,short,overall,R_pay_pct,0.9854645536497637
+common:household:median_mid,M2d,short,overall,K,23.070159110929517
+common:household:median_mid,M2d,short,overall,payer_wealth_share_of_group,0.8926907936245937
+common:household:median_mid,M2d,short,overall,R_pay_total_pct,0.6550617512005626
+common:household:median_mid,M2d,short,D4_5,value,nan
+common:household:median_mid,M2d,short,D4_5,reported_124c,nan
+common:household:median_mid,M2d,short,D4_5,R_pay_pct,nan
+common:household:median_mid,M2d,short,D4_5,K,nan
+common:household:median_mid,M2d,short,D4_5,payer_wealth_share_of_group,0.0
+common:household:median_mid,M2d,short,D4_5,R_pay_total_pct,nan
+common:household:median_mid,M2d,short,D6_7,value,2.8041133625042307
+common:household:median_mid,M2d,short,D6_7,reported_124c,2.8041133625042316
+common:household:median_mid,M2d,short,D6_7,R_pay_pct,0.35265450413074195
+common:household:median_mid,M2d,short,D6_7,K,7.951446329648021
+common:household:median_mid,M2d,short,D6_7,payer_wealth_share_of_group,1.0
+common:household:median_mid,M2d,short,D6_7,R_pay_total_pct,0.21360278240357825
+common:household:median_mid,M2d,short,D8_9,value,5.120784998897822
+common:household:median_mid,M2d,short,D8_9,reported_124c,5.120784998897817
+common:household:median_mid,M2d,short,D8_9,R_pay_pct,0.5432635464512766
+common:household:median_mid,M2d,short,D8_9,K,9.42596835798753
+common:household:median_mid,M2d,short,D8_9,payer_wealth_share_of_group,1.0
+common:household:median_mid,M2d,short,D8_9,R_pay_total_pct,0.327096131256855
+common:household:median_mid,M2d,short,D10,value,28.628412839231338
+common:household:median_mid,M2d,short,D10,reported_124c,28.62841283923131
+common:household:median_mid,M2d,short,D10,R_pay_pct,1.5092396331931142
+common:household:median_mid,M2d,short,D10,K,18.96876560196203
+common:household:median_mid,M2d,short,D10,payer_wealth_share_of_group,1.0
+common:household:median_mid,M2d,short,D10,R_pay_total_pct,1.1201632825077454
+common:household:median_mid,M1a,long,all,value,1.727902990547944
+common:household:median_mid,M1a,long,all,reported_124c,1.727902990547945
+common:household:median_mid,M1a,long,all,base_pct_gdp,225.67108652602508
+common:household:median_mid,M1a,long,all,rate_pct,0.7656731826603214
+common:household:median_mid,M1a,long,all,base_total_pct_gdp,598.276834546886
+common:household:median_mid,M1c,long,all,value,-0.10947536747399668
+common:household:median_mid,M1c,long,all,reported_124c,-0.10947536747399672
+common:household:median_mid,M1c,long,all,return_on_fund_pct_gdp,0.3661943497033954
+common:household:median_mid,M1c,long,all,fund_growth_pct_gdp,0.47566971717739215
+common:household:median_mid,M1c,long,all,fund_level_pct_gdp,32.92989790320024
+common:household:median_mid,M1c,long,all,return_rate_pct,1.11380189277464
+common:household:median_mid,M1,long,all,value,-0.3015723769260532
+common:household:median_mid,M1,long,all,reported_124c,-0.30157237692605326
+common:household:median_mid,M1b,long,all,value,2.82
+common:household:median_mid,M1b,long,all,reported_124c,2.8200000000000003
+common:household:median_mid,M1d,long,all,value,4.74
+common:household:median_mid,M1d,long,all,reported_124c,4.74
+common:household:median_mid,M2,long,overall,value,0.34437223688352603
+common:household:median_mid,M2,long,overall,reported_124c,0.34437223688352686
+common:household:median_mid,M2,long,overall,R_pay_pct,0.338064825111201
+common:household:median_mid,M2,long,overall,K,1.0186574032665194
+common:household:median_mid,M2,long,overall,payer_wealth_share_of_group,0.930518202022458
+common:household:median_mid,M2,long,overall,R_pay_total_pct,0.1362879472954215
+common:household:median_mid,M2,long,D4_5,value,0.27220112875493074
+common:household:median_mid,M2,long,D4_5,reported_124c,0.2722011287549307
+common:household:median_mid,M2,long,D4_5,R_pay_pct,0.26902126334585585
+common:household:median_mid,M2,long,D4_5,K,1.0118201266677824
+common:household:median_mid,M2,long,D4_5,payer_wealth_share_of_group,0.9882761623122343
+common:household:median_mid,M2,long,D4_5,R_pay_total_pct,0.087370493055212
+common:household:median_mid,M2,long,D6_7,value,0.30914604186955585
+common:household:median_mid,M2,long,D6_7,reported_124c,0.30914604186955646
+common:household:median_mid,M2,long,D6_7,R_pay_pct,0.3063258817515529
+common:household:median_mid,M2,long,D6_7,K,1.009206404962837
+common:household:median_mid,M2,long,D6_7,payer_wealth_share_of_group,1.0
+common:household:median_mid,M2,long,D6_7,R_pay_total_pct,0.11480972662079073
+common:household:median_mid,M2,long,D8_9,value,0.3555040556153141
+common:household:median_mid,M2,long,D8_9,reported_124c,0.35550405561531384
+common:household:median_mid,M2,long,D8_9,R_pay_pct,0.3532272351283376
+common:household:median_mid,M2,long,D8_9,K,1.0064457670885691
+common:household:median_mid,M2,long,D8_9,payer_wealth_share_of_group,1.0
+common:household:median_mid,M2,long,D8_9,R_pay_total_pct,0.1416733135175512
+common:household:median_mid,M2,long,D10,value,0.37689664088353386
+common:household:median_mid,M2,long,D10,reported_124c,0.37689664088353475
+common:household:median_mid,M2,long,D10,R_pay_pct,0.375180029761926
+common:household:median_mid,M2,long,D10,K,1.0045754330866095
+common:household:median_mid,M2,long,D10,payer_wealth_share_of_group,1.0
+common:household:median_mid,M2,long,D10,R_pay_total_pct,0.18205220396302088
+common:household:median_mid,M2d,long,overall,value,10.239415015145225
+common:household:median_mid,M2d,long,overall,reported_124c,10.239415015145237
+common:household:median_mid,M2d,long,overall,R_pay_pct,0.8228460023631458
+common:household:median_mid,M2d,long,overall,K,12.443902000785652
+common:household:median_mid,M2d,long,overall,payer_wealth_share_of_group,0.930518202022458
+common:household:median_mid,M2d,long,overall,R_pay_total_pct,0.3317233390531793
+common:household:median_mid,M2d,long,D4_5,value,2.66139421597177
+common:household:median_mid,M2d,long,D4_5,reported_124c,2.6613942159717654
+common:household:median_mid,M2d,long,D4_5,R_pay_pct,0.4942911384684529
+common:household:median_mid,M2d,long,D4_5,K,5.384264472590029
+common:household:median_mid,M2d,long,D4_5,payer_wealth_share_of_group,0.9882761623122343
+common:household:median_mid,M2d,long,D4_5,R_pay_total_pct,0.1605317733761808
+common:household:median_mid,M2d,long,D6_7,value,3.9876817339096706
+common:household:median_mid,M2d,long,D6_7,reported_124c,3.987681733909667
+common:household:median_mid,M2d,long,D6_7,R_pay_pct,0.618940729534926
+common:household:median_mid,M2d,long,D6_7,K,6.442752179043101
+common:household:median_mid,M2d,long,D6_7,payer_wealth_share_of_group,1.0
+common:household:median_mid,M2d,long,D6_7,R_pay_total_pct,0.23197653278938904
+common:household:median_mid,M2d,long,D8_9,value,5.778959373992158
+common:household:median_mid,M2d,long,D8_9,reported_124c,5.778959373992153
+common:household:median_mid,M2d,long,D8_9,R_pay_pct,0.7781930414695863
+common:household:median_mid,M2d,long,D8_9,K,7.426125737489023
+common:household:median_mid,M2d,long,D8_9,payer_wealth_share_of_group,1.0
+common:household:median_mid,M2d,long,D8_9,R_pay_total_pct,0.31211972287822237
+common:household:median_mid,M2d,long,D10,value,17.47454530766896
+common:household:median_mid,M2d,long,D10,reported_124c,17.474545307668908
+common:household:median_mid,M2d,long,D10,R_pay_pct,1.1710404016041303
+common:household:median_mid,M2d,long,D10,K,14.922239475027288
+common:household:median_mid,M2d,long,D10,payer_wealth_share_of_group,1.0
+common:household:median_mid,M2d,long,D10,R_pay_total_pct,0.5682351648008958
+common:household:median_mid,P6,year 10,all,value,45.47133684051859
+common:household:median_mid,P6,year 10,all,reported_124c,45.47133684051858
+common:household:median_mid,P6,year 10,all,cum_inflow_pct_gdp,58.34593846834982
+common:household:median_mid,P6,year 10,all,cum_return_pct_gdp,2.31497670357522
+common:household:median_mid,P6,year 10,all,cum_payout_pct_gdp,15.18957833140646
+common:household:median_mid,P6,year 25,all,value,43.66105577593444
+common:household:median_mid,P6,year 25,all,reported_124c,43.66105577593442
+common:household:median_mid,P6,year 25,all,cum_inflow_pct_gdp,126.31117600450575
+common:household:median_mid,P6,year 25,all,cum_return_pct_gdp,7.805905797546988
+common:household:median_mid,P6,year 25,all,cum_payout_pct_gdp,90.45602602611834
+common:household:median_mid,P6,year 50,all,value,39.30572914372168
+common:household:median_mid,P6,year 50,all,reported_124c,39.305729143721685
+common:household:median_mid,P6,year 50,all,cum_inflow_pct_gdp,193.6025805533336
+common:household:median_mid,P6,year 50,all,cum_return_pct_gdp,14.031843316622362
+common:household:median_mid,P6,year 50,all,cum_payout_pct_gdp,168.32869472623437
+common:household:median_mid,P6,year 100,all,value,34.684042865104736
+common:household:median_mid,P6,year 100,all,reported_124c,34.68404286510474
+common:household:median_mid,P6,year 100,all,cum_inflow_pct_gdp,248.01772170262603
+common:household:median_mid,P6,year 100,all,cum_return_pct_gdp,19.25588515825273
+common:household:median_mid,P6,year 100,all,cum_payout_pct_gdp,232.58956399577417
+common:household:max_mid,M1a,short,all,value,4.477787620183887
+common:household:max_mid,M1a,short,all,reported_124c,4.4777876201838875
+common:household:max_mid,M1a,short,all,base_pct_gdp,480.6609060013741
+common:household:max_mid,M1a,short,all,rate_pct,0.9315897266192656
+common:household:max_mid,M1a,short,all,base_total_pct_gdp,683.7183941386777
+common:household:max_mid,M1c,short,all,value,-0.10092755360215601
+common:household:max_mid,M1c,short,all,reported_124c,-0.10092755360215609
+common:household:max_mid,M1c,short,all,return_on_fund_pct_gdp,0.5128724457400965
+common:household:max_mid,M1c,short,all,fund_growth_pct_gdp,0.6137999993422525
+common:household:max_mid,M1c,short,all,fund_level_pct_gdp,45.35192366574689
+common:household:max_mid,M1c,short,all,return_rate_pct,1.1300291324768827
+common:household:max_mid,M1,short,all,value,0.04805144976141065
+common:household:max_mid,M1,short,all,reported_124c,0.0480514497614107
+common:household:max_mid,M1b,short,all,value,2.8200000000000003
+common:household:max_mid,M1b,short,all,reported_124c,2.8199999999999994
+common:household:max_mid,M1d,short,all,value,7.14880861682032
+common:household:max_mid,M1d,short,all,reported_124c,7.148808616820319
+common:household:max_mid,M2,short,overall,value,0.46819906214932705
+common:household:max_mid,M2,short,overall,reported_124c,0.4681990621493269
+common:household:max_mid,M2,short,overall,R_pay_pct,0.4431748171807525
+common:household:max_mid,M2,short,overall,K,1.0564658550045007
+common:household:max_mid,M2,short,overall,payer_wealth_share_of_group,0.9035543300777811
+common:household:max_mid,M2,short,overall,R_pay_total_pct,0.311628845913429
+common:household:max_mid,M2,short,D4_5,value,0.2777416107326149
+common:household:max_mid,M2,short,D4_5,reported_124c,0.27774161073261494
+common:household:max_mid,M2,short,D4_5,R_pay_pct,0.2775276504509659
+common:household:max_mid,M2,short,D4_5,K,1.0007709512234233
+common:household:max_mid,M2,short,D4_5,payer_wealth_share_of_group,0.8117836631365803
+common:household:max_mid,M2,short,D4_5,R_pay_total_pct,0.18808547233061326
+common:household:max_mid,M2,short,D6_7,value,0.34709825951103007
+common:household:max_mid,M2,short,D6_7,reported_124c,0.34709825951103007
+common:household:max_mid,M2,short,D6_7,R_pay_pct,0.34697252581726873
+common:household:max_mid,M2,short,D6_7,K,1.0003623736302036
+common:household:max_mid,M2,short,D6_7,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2,short,D6_7,R_pay_total_pct,0.2396897459114428
+common:household:max_mid,M2,short,D8_9,value,0.43473680139119963
+common:household:max_mid,M2,short,D8_9,reported_124c,0.43473680139119936
+common:household:max_mid,M2,short,D8_9,R_pay_pct,0.43377405428312144
+common:household:max_mid,M2,short,D8_9,K,1.0022194667905375
+common:household:max_mid,M2,short,D8_9,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2,short,D8_9,R_pay_total_pct,0.28542737146620534
+common:household:max_mid,M2,short,D10,value,0.5514591669740679
+common:household:max_mid,M2,short,D10,reported_124c,0.5514591669740678
+common:household:max_mid,M2,short,D10,R_pay_pct,0.5381400334387685
+common:household:max_mid,M2,short,D10,K,1.0247503116432146
+common:household:max_mid,M2,short,D10,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2,short,D10,R_pay_total_pct,0.40742355378086587
+common:household:max_mid,M2d,short,overall,value,17.76568930496496
+common:household:max_mid,M2d,short,overall,reported_124c,17.76568930496493
+common:household:max_mid,M2d,short,overall,R_pay_pct,1.0310279034787773
+common:household:max_mid,M2d,short,overall,K,17.23104607064657
+common:household:max_mid,M2d,short,overall,payer_wealth_share_of_group,0.9035543300777811
+common:household:max_mid,M2d,short,overall,R_pay_total_pct,0.7249916358279662
+common:household:max_mid,M2d,short,D4_5,value,2.003464424544474
+common:household:max_mid,M2d,short,D4_5,reported_124c,2.0034644245444744
+common:household:max_mid,M2d,short,D4_5,R_pay_pct,0.4297716608761412
+common:household:max_mid,M2d,short,D4_5,K,4.66169505094908
+common:household:max_mid,M2d,short,D4_5,payer_wealth_share_of_group,0.8117836631365803
+common:household:max_mid,M2d,short,D4_5,R_pay_total_pct,0.2912639720721559
+common:household:max_mid,M2d,short,D6_7,value,3.193449298507522
+common:household:max_mid,M2d,short,D6_7,reported_124c,3.193449298507517
+common:household:max_mid,M2d,short,D6_7,R_pay_pct,0.5755366524181944
+common:household:max_mid,M2d,short,D6_7,K,5.548646267948039
+common:household:max_mid,M2d,short,D6_7,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2d,short,D6_7,R_pay_total_pct,0.3975825856987021
+common:household:max_mid,M2d,short,D8_9,value,5.244072248631892
+common:household:max_mid,M2d,short,D8_9,reported_124c,5.244072248631901
+common:household:max_mid,M2d,short,D8_9,R_pay_pct,0.7833217501323863
+common:household:max_mid,M2d,short,D8_9,K,6.694659311765071
+common:household:max_mid,M2d,short,D8_9,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2d,short,D8_9,R_pay_total_pct,0.5154330139042032
+common:household:max_mid,M2d,short,D10,value,26.16491495153615
+common:household:max_mid,M2d,short,D10,reported_124c,26.16491495153615
+common:household:max_mid,M2d,short,D10,R_pay_pct,1.5937406317674554
+common:household:max_mid,M2d,short,D10,K,16.417298040848284
+common:household:max_mid,M2d,short,D10,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2d,short,D10,R_pay_total_pct,1.2066143227635227
+common:household:max_mid,M1a,long,all,value,6.66034202488947
+common:household:max_mid,M1a,long,all,reported_124c,6.660342024889473
+common:household:max_mid,M1a,long,all,base_pct_gdp,741.7380234480296
+common:household:max_mid,M1a,long,all,rate_pct,0.8979372520136325
+common:household:max_mid,M1a,long,all,base_total_pct_gdp,1114.3437714688903
+common:household:max_mid,M1c,long,all,value,-0.8807682099811848
+common:household:max_mid,M1c,long,all,reported_124c,-0.8807682099811847
+common:household:max_mid,M1c,long,all,return_on_fund_pct_gdp,0.5716161736548121
+common:household:max_mid,M1c,long,all,fund_growth_pct_gdp,1.4523843836359973
+common:household:max_mid,M1c,long,all,fund_level_pct_gdp,55.12687544704667
+common:household:max_mid,M1c,long,all,return_rate_pct,1.0413187842476115
+common:household:max_mid,M1,long,all,value,0.4895738149082854
+common:household:max_mid,M1,long,all,reported_124c,0.4895738149082856
+common:household:max_mid,M1b,long,all,value,2.82
+common:household:max_mid,M1b,long,all,reported_124c,2.8200000000000003
+common:household:max_mid,M1d,long,all,value,8.110000000000001
+common:household:max_mid,M1d,long,all,reported_124c,8.110000000000001
+common:household:max_mid,M2,long,overall,value,0.37669320943094964
+common:household:max_mid,M2,long,overall,reported_124c,0.37669320943094947
+common:household:max_mid,M2,long,overall,R_pay_pct,0.35882279023728647
+common:household:max_mid,M2,long,overall,K,1.0498029101826158
+common:household:max_mid,M2,long,overall,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2,long,overall,R_pay_total_pct,0.23884236984416268
+common:household:max_mid,M2,long,D4_5,value,0.29836447213564077
+common:household:max_mid,M2,long,D4_5,reported_124c,0.298364472135641
+common:household:max_mid,M2,long,D4_5,R_pay_pct,0.29822648092645065
+common:household:max_mid,M2,long,D4_5,K,1.0004627060908926
+common:household:max_mid,M2,long,D4_5,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2,long,D4_5,R_pay_total_pct,0.20366062790101525
+common:household:max_mid,M2,long,D6_7,value,0.36483102879317897
+common:household:max_mid,M2,long,D6_7,reported_124c,0.36483102879317836
+common:household:max_mid,M2,long,D6_7,R_pay_pct,0.3647306659483852
+common:household:max_mid,M2,long,D6_7,K,1.0002751697462366
+common:household:max_mid,M2,long,D6_7,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2,long,D6_7,R_pay_total_pct,0.24571215992889112
+common:household:max_mid,M2,long,D8_9,value,0.4276702319253245
+common:household:max_mid,M2,long,D8_9,reported_124c,0.4276702319253245
+common:household:max_mid,M2,long,D8_9,R_pay_pct,0.4272722772487119
+common:household:max_mid,M2,long,D8_9,K,1.0009313842666674
+common:household:max_mid,M2,long,D8_9,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2,long,D8_9,R_pay_total_pct,0.27402456939891945
+common:household:max_mid,M2,long,D10,value,0.45697918487924793
+common:household:max_mid,M2,long,D10,reported_124c,0.45697918487924744
+common:household:max_mid,M2,long,D10,R_pay_pct,0.4567547872551115
+common:household:max_mid,M2,long,D10,K,1.0004912868576266
+common:household:max_mid,M2,long,D10,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2,long,D10,R_pay_total_pct,0.29045769865656634
+common:household:max_mid,M2d,long,overall,value,8.733736710670337
+common:household:max_mid,M2d,long,overall,reported_124c,8.733736710670346
+common:household:max_mid,M2d,long,overall,R_pay_pct,0.8979372520136325
+common:household:max_mid,M2d,long,overall,K,9.726444349073226
+common:household:max_mid,M2d,long,overall,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2d,long,overall,R_pay_total_pct,0.5976918609335459
+common:household:max_mid,M2d,long,D4_5,value,5.535059743433591
+common:household:max_mid,M2d,long,D4_5,reported_124c,5.535059743433591
+common:household:max_mid,M2d,long,D4_5,R_pay_pct,0.7030165238716899
+common:household:max_mid,M2d,long,D4_5,K,7.873299638749052
+common:household:max_mid,M2d,long,D4_5,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2d,long,D4_5,R_pay_total_pct,0.48009414265196676
+common:household:max_mid,M2d,long,D6_7,value,7.040024649360517
+common:household:max_mid,M2d,long,D6_7,reported_124c,7.040024649360514
+common:household:max_mid,M2d,long,D6_7,R_pay_pct,0.8825236928614448
+common:household:max_mid,M2d,long,D6_7,K,7.977150875728152
+common:household:max_mid,M2d,long,D6_7,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2d,long,D6_7,R_pay_total_pct,0.5945395411092029
+common:household:max_mid,M2d,long,D8_9,value,8.602816635702517
+common:household:max_mid,M2d,long,D8_9,reported_124c,8.60281663570251
+common:household:max_mid,M2d,long,D8_9,R_pay_pct,1.0600117543200709
+common:household:max_mid,M2d,long,D8_9,K,8.11577475498908
+common:household:max_mid,M2d,long,D8_9,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2d,long,D8_9,R_pay_total_pct,0.679822398976451
+common:household:max_mid,M2d,long,D10,value,14.663547692009
+common:household:max_mid,M2d,long,D10,reported_124c,14.663547692008997
+common:household:max_mid,M2d,long,D10,R_pay_pct,1.3113608592761672
+common:household:max_mid,M2d,long,D10,K,11.181931798774938
+common:household:max_mid,M2d,long,D10,payer_wealth_share_of_group,1.0
+common:household:max_mid,M2d,long,D10,R_pay_total_pct,0.83391541352562
+common:household:max_mid,P6,year 10,all,value,51.77617168396804
+common:household:max_mid,P6,year 10,all,reported_124c,51.776171683968045
+common:household:max_mid,P6,year 10,all,cum_inflow_pct_gdp,67.06776915103093
+common:household:max_mid,P6,year 10,all,cum_return_pct_gdp,2.652205646969586
+common:household:max_mid,P6,year 10,all,cum_payout_pct_gdp,17.9438031140325
+common:household:max_mid,P6,year 25,all,value,54.28028929850218
+common:household:max_mid,P6,year 25,all,reported_124c,54.28028929850219
+common:household:max_mid,P6,year 25,all,cum_inflow_pct_gdp,156.13879625364726
+common:household:max_mid,P6,year 25,all,cum_return_pct_gdp,9.021746878059382
+common:household:max_mid,P6,year 25,all,cum_payout_pct_gdp,110.8802538332044
+common:household:max_mid,P6,year 50,all,value,59.059074593984064
+common:household:max_mid,P6,year 50,all,reported_124c,59.05907459398407
+common:household:max_mid,P6,year 50,all,cum_inflow_pct_gdp,276.5518935957365
+common:household:max_mid,P6,year 50,all,cum_return_pct_gdp,17.298864106833225
+common:household:max_mid,P6,year 50,all,cum_payout_pct_gdp,234.79168310858574
+common:household:max_mid,P6,year 100,all,value,77.93488421917407
+common:household:max_mid,P6,year 100,all,reported_124c,77.93488421917405
+common:household:max_mid,P6,year 100,all,cum_inflow_pct_gdp,458.72496514690147
+common:household:max_mid,P6,year 100,all,cum_return_pct_gdp,27.945167422760196
+common:household:max_mid,P6,year 100,all,cum_payout_pct_gdp,408.73524835048784
+common:household:median_low,M1a,short,all,value,2.432645953423175
+common:household:median_low,M1a,short,all,reported_124c,2.4326459534231755
+common:household:median_low,M1a,short,all,base_pct_gdp,351.80495510989357
+common:household:median_low,M1a,short,all,rate_pct,0.6914757504377071
+common:household:median_low,M1a,short,all,base_total_pct_gdp,515.5435996348325
+common:household:median_low,M1c,short,all,value,-0.3848847388294969
+common:household:median_low,M1c,short,all,reported_124c,-0.38488473882949675
+common:household:median_low,M1c,short,all,return_on_fund_pct_gdp,-0.0870010252651441
+common:household:median_low,M1c,short,all,fund_growth_pct_gdp,0.297883713564353
+common:household:median_low,M1c,short,all,fund_level_pct_gdp,32.39250418904472
+common:household:median_low,M1c,short,all,return_rate_pct,-0.2775045097103583
+common:household:median_low,M1,short,all,value,0.45629342564142034
+common:household:median_low,M1,short,all,reported_124c,0.4562934256414203
+common:household:median_low,M1b,short,all,value,2.8200000000000003
+common:household:median_low,M1b,short,all,reported_124c,2.8199999999999994
+common:household:median_low,M1d,short,all,value,4.411467788952258
+common:household:median_low,M1d,short,all,reported_124c,4.411467788952257
+common:household:median_low,M2,short,overall,value,0.21630999650237442
+common:household:median_low,M2,short,overall,reported_124c,0.21630999650237467
+common:household:median_low,M2,short,overall,R_pay_pct,0.15693889983659032
+common:household:median_low,M2,short,overall,K,1.3783070782808031
+common:household:median_low,M2,short,overall,payer_wealth_share_of_group,0.8926014542259827
+common:household:median_low,M2,short,overall,R_pay_total_pct,0.11084164319554288
+common:household:median_low,M2,short,D4_5,value,nan
+common:household:median_low,M2,short,D4_5,reported_124c,nan
+common:household:median_low,M2,short,D4_5,R_pay_pct,nan
+common:household:median_low,M2,short,D4_5,K,nan
+common:household:median_low,M2,short,D4_5,payer_wealth_share_of_group,0.0
+common:household:median_low,M2,short,D4_5,R_pay_total_pct,nan
+common:household:median_low,M2,short,D6_7,value,0.10106526939300085
+common:household:median_low,M2,short,D6_7,reported_124c,0.10106526939300091
+common:household:median_low,M2,short,D6_7,R_pay_pct,0.10105363106982139
+common:household:median_low,M2,short,D6_7,K,1.000115169767343
+common:household:median_low,M2,short,D6_7,payer_wealth_share_of_group,1.0
+common:household:median_low,M2,short,D6_7,R_pay_total_pct,0.0655643834714706
+common:household:median_low,M2,short,D8_9,value,0.11263725279349432
+common:household:median_low,M2,short,D8_9,reported_124c,0.11263725279349442
+common:household:median_low,M2,short,D8_9,R_pay_pct,0.11259323440557223
+common:household:median_low,M2,short,D8_9,K,1.0003909505589255
+common:household:median_low,M2,short,D8_9,payer_wealth_share_of_group,1.0
+common:household:median_low,M2,short,D8_9,R_pay_total_pct,0.07297275758306124
+common:household:median_low,M2,short,D10,value,0.27462776776907877
+common:household:median_low,M2,short,D10,reported_124c,0.27462776776907866
+common:household:median_low,M2,short,D10,R_pay_pct,0.207137614198831
+common:household:median_low,M2,short,D10,K,1.3258227813006676
+common:household:median_low,M2,short,D10,payer_wealth_share_of_group,1.0
+common:household:median_low,M2,short,D10,R_pay_total_pct,0.16120978868434888
+common:household:median_low,M2d,short,overall,value,26.669500203306008
+common:household:median_low,M2d,short,overall,reported_124c,26.669500203305986
+common:household:median_low,M2d,short,overall,R_pay_pct,0.7746746850612278
+common:household:median_low,M2d,short,overall,K,34.42670932405405
+common:household:median_low,M2d,short,overall,payer_wealth_share_of_group,0.8926014542259827
+common:household:median_low,M2d,short,overall,R_pay_total_pct,0.5471314959107192
+common:household:median_low,M2d,short,D4_5,value,nan
+common:household:median_low,M2d,short,D4_5,reported_124c,nan
+common:household:median_low,M2d,short,D4_5,R_pay_pct,nan
+common:household:median_low,M2d,short,D4_5,K,nan
+common:household:median_low,M2d,short,D4_5,payer_wealth_share_of_group,0.0
+common:household:median_low,M2d,short,D4_5,R_pay_total_pct,nan
+common:household:median_low,M2d,short,D6_7,value,2.9254312368887003
+common:household:median_low,M2d,short,D6_7,reported_124c,2.925431236888699
+common:household:median_low,M2d,short,D6_7,R_pay_pct,0.25399330491276434
+common:household:median_low,M2d,short,D6_7,K,11.51774940640053
+common:household:median_low,M2d,short,D6_7,payer_wealth_share_of_group,1.0
+common:household:median_low,M2d,short,D6_7,R_pay_total_pct,0.16479283590493224
+common:household:median_low,M2d,short,D8_9,value,5.554192496073714
+common:household:median_low,M2d,short,D8_9,reported_124c,5.55419249607371
+common:household:median_low,M2d,short,D8_9,R_pay_pct,0.37088472034816883
+common:household:median_low,M2d,short,D8_9,K,14.975522558221606
+common:household:median_low,M2d,short,D8_9,payer_wealth_share_of_group,1.0
+common:household:median_low,M2d,short,D8_9,R_pay_total_pct,0.24037395259238564
+common:household:median_low,M2d,short,D10,value,32.69228447712618
+common:household:median_low,M2d,short,D10,reported_124c,32.69228447712617
+common:household:median_low,M2d,short,D10,R_pay_pct,1.2361315669653778
+common:household:median_low,M2d,short,D10,K,26.447253149099332
+common:household:median_low,M2d,short,D10,payer_wealth_share_of_group,1.0
+common:household:median_low,M2d,short,D10,R_pay_total_pct,0.9620488749342091
+common:household:median_low,M1a,long,all,value,0.8812941610093129
+common:household:median_low,M1a,long,all,reported_124c,0.8812941610093129
+common:household:median_low,M1a,long,all,base_pct_gdp,216.7815392579058
+common:household:median_low,M1a,long,all,rate_pct,0.40653561369948293
+common:household:median_low,M1a,long,all,base_total_pct_gdp,377.53269463642476
+common:household:median_low,M1c,long,all,value,-0.39261566235020184
+common:household:median_low,M1c,long,all,reported_124c,-0.39261566235020207
+common:household:median_low,M1c,long,all,return_on_fund_pct_gdp,-0.11281156929995359
+common:household:median_low,M1c,long,all,fund_growth_pct_gdp,0.2798040930502482
+common:household:median_low,M1c,long,all,fund_level_pct_gdp,21.854779427885585
+common:household:median_low,M1c,long,all,return_rate_pct,-0.5024504618030332
+common:household:median_low,M1,long,all,value,-1.4313215013408893
+common:household:median_low,M1,long,all,reported_124c,-1.4313215013408895
+common:household:median_low,M1b,long,all,value,2.82
+common:household:median_low,M1b,long,all,reported_124c,2.8200000000000003
+common:household:median_low,M1d,long,all,value,4.74
+common:household:median_low,M1d,long,all,reported_124c,4.74
+common:household:median_low,M2,long,overall,value,0.15266427876519678
+common:household:median_low,M2,long,overall,reported_124c,0.15266427876519664
+common:household:median_low,M2,long,overall,R_pay_pct,0.13545701308413602
+common:household:median_low,M2,long,overall,K,1.1270311908499921
+common:household:median_low,M2,long,overall,payer_wealth_share_of_group,0.8323241511547403
+common:household:median_low,M2,long,overall,R_pay_total_pct,0.08629524196629423
+common:household:median_low,M2,long,D4_5,value,nan
+common:household:median_low,M2,long,D4_5,reported_124c,nan
+common:household:median_low,M2,long,D4_5,R_pay_pct,nan
+common:household:median_low,M2,long,D4_5,K,nan
+common:household:median_low,M2,long,D4_5,payer_wealth_share_of_group,0.0
+common:household:median_low,M2,long,D4_5,R_pay_total_pct,nan
+common:household:median_low,M2,long,D6_7,value,0.10608352690577301
+common:household:median_low,M2,long,D6_7,reported_124c,0.10608352690577293
+common:household:median_low,M2,long,D6_7,R_pay_pct,0.10607423452529324
+common:household:median_low,M2,long,D6_7,K,1.0000876026164256
+common:household:median_low,M2,long,D6_7,payer_wealth_share_of_group,1.0
+common:household:median_low,M2,long,D6_7,R_pay_total_pct,0.05957087394473408
+common:household:median_low,M2,long,D8_9,value,0.12349482941999543
+common:household:median_low,M2,long,D8_9,reported_124c,0.12349482941999558
+common:household:median_low,M2,long,D8_9,R_pay_pct,0.12344473225122485
+common:household:median_low,M2,long,D8_9,K,1.0004058267036346
+common:household:median_low,M2,long,D8_9,payer_wealth_share_of_group,1.0
+common:household:median_low,M2,long,D8_9,R_pay_total_pct,0.07699063177794044
+common:household:median_low,M2,long,D10,value,0.19712097365579576
+common:household:median_low,M2,long,D10,reported_124c,0.1971209736557959
+common:household:median_low,M2,long,D10,R_pay_pct,0.16972694752990922
+common:household:median_low,M2,long,D10,K,1.161400570295764
+common:household:median_low,M2,long,D10,payer_wealth_share_of_group,1.0
+common:household:median_low,M2,long,D10,R_pay_total_pct,0.12273005420964336
+common:household:median_low,M2d,long,overall,value,12.161536391881462
+common:household:median_low,M2d,long,overall,reported_124c,12.161536391881452
+common:household:median_low,M2d,long,overall,R_pay_pct,0.4884342393951544
+common:household:median_low,M2d,long,overall,K,24.899025111223832
+common:household:median_low,M2d,long,overall,payer_wealth_share_of_group,0.8323241511547403
+common:household:median_low,M2d,long,overall,R_pay_total_pct,0.31116551231679307
+common:household:median_low,M2d,long,D4_5,value,nan
+common:household:median_low,M2d,long,D4_5,reported_124c,nan
+common:household:median_low,M2d,long,D4_5,R_pay_pct,nan
+common:household:median_low,M2d,long,D4_5,K,nan
+common:household:median_low,M2d,long,D4_5,payer_wealth_share_of_group,0.0
+common:household:median_low,M2d,long,D4_5,R_pay_total_pct,nan
+common:household:median_low,M2d,long,D6_7,value,2.9470857016656207
+common:household:median_low,M2d,long,D6_7,reported_124c,2.947085701665622
+common:household:median_low,M2d,long,D6_7,R_pay_pct,0.28654185688601586
+common:household:median_low,M2d,long,D6_7,K,10.285009435246135
+common:household:median_low,M2d,long,D6_7,payer_wealth_share_of_group,1.0
+common:household:median_low,M2d,long,D6_7,R_pay_total_pct,0.16092078262772358
+common:household:median_low,M2d,long,D8_9,value,4.373320458033265
+common:household:median_low,M2d,long,D8_9,reported_124c,4.373320458033264
+common:household:median_low,M2d,long,D8_9,R_pay_pct,0.37609873295562724
+common:household:median_low,M2d,long,D8_9,K,11.62811803077581
+common:household:median_low,M2d,long,D8_9,payer_wealth_share_of_group,1.0
+common:household:median_low,M2d,long,D8_9,R_pay_total_pct,0.23456715027910266
+common:household:median_low,M2d,long,D10,value,18.980417092696733
+common:household:median_low,M2d,long,D10,reported_124c,18.980417092696705
+common:household:median_low,M2d,long,D10,R_pay_pct,0.7575089856541868
+common:household:median_low,M2d,long,D10,K,25.056359003194125
+common:household:median_low,M2d,long,D10,payer_wealth_share_of_group,1.0
+common:household:median_low,M2d,long,D10,R_pay_total_pct,0.5477569721640538
+common:household:median_low,P6,year 10,all,value,37.72464143536599
+common:household:median_low,P6,year 10,all,reported_124c,37.724641435365996
+common:household:median_low,P6,year 10,all,cum_inflow_pct_gdp,51.00045038285171
+common:household:median_low,P6,year 10,all,cum_return_pct_gdp,-0.7716546811544925
+common:household:median_low,P6,year 10,all,cum_payout_pct_gdp,12.504154266331275
+common:household:median_low,P6,year 25,all,value,34.63208560971905
+common:household:median_low,P6,year 25,all,reported_124c,34.632085609719056
+common:household:median_low,P6,year 25,all,cum_inflow_pct_gdp,109.42768076640647
+common:household:median_low,P6,year 25,all,cum_return_pct_gdp,-1.5439779050528282
+common:household:median_low,P6,year 25,all,cum_payout_pct_gdp,73.2516172516347
+common:household:median_low,P6,year 50,all,value,27.47707280181226
+common:household:median_low,P6,year 50,all,reported_124c,27.477072801812263
+common:household:median_low,P6,year 50,all,cum_inflow_pct_gdp,165.37974234511992
+common:household:median_low,P6,year 50,all,cum_return_pct_gdp,-2.463627487980821
+common:household:median_low,P6,year 50,all,cum_payout_pct_gdp,135.43904205532692
+common:household:median_low,P6,year 100,all,value,22.400978961027047
+common:household:median_low,P6,year 100,all,reported_124c,22.40097896102704
+common:household:median_low,P6,year 100,all,cum_inflow_pct_gdp,205.43492708110585
+common:household:median_low,P6,year 100,all,cum_return_pct_gdp,-5.079067077284106
+common:household:median_low,P6,year 100,all,cum_payout_pct_gdp,177.95488104279477
+stoch:legacy,M1a,short,all,value,3.6621777494924963
+stoch:legacy,M1a,short,all,reported_124c,3.6621777494924963
+stoch:legacy,M1a,short,all,base_pct_gdp,498.7140875296211
+stoch:legacy,M1a,short,all,rate_pct,0.6693463232466901
+stoch:legacy,M1c,short,all,value,-0.30740913636361294
+stoch:legacy,M1c,short,all,reported_124c,-0.307409136363613
+stoch:legacy,M1c,short,all,return_on_fund_pct_gdp,3.0422244962696667
+stoch:legacy,M1c,short,all,fund_growth_pct_gdp,3.3496336326332794
+stoch:legacy,M1c,short,all,fund_level_pct_gdp,60.34668588274084
+stoch:legacy,M1c,short,all,return_rate_pct,4.751810800005398
+stoch:legacy,M1,short,all,value,0.280761855416647
+stoch:legacy,M1,short,all,reported_124c,0.280761855416647
+stoch:legacy,M1b,short,all,value,2.8199999999999994
+stoch:legacy,M1b,short,all,reported_124c,2.8199999999999994
+stoch:legacy,M1d,short,all,value,5.894006757712237
+stoch:legacy,M1d,short,all,reported_124c,5.894006757712237
+stoch:legacy,M2,short,overall,value,2.4417372268767163
+stoch:legacy,M2,short,overall,reported_124c,2.4417372268767163
+stoch:legacy,M2,short,overall,R_pay_pct,0.9195815425836835
+stoch:legacy,M2,short,overall,K,2.7576497508423072
+stoch:legacy,M2,short,overall,payer_wealth_share_of_group,0.46504016368843
+stoch:legacy,M2,short,D4_5,value,0.4036834279655087
+stoch:legacy,M2,short,D4_5,reported_124c,0.4036834279655087
+stoch:legacy,M2,short,D4_5,R_pay_pct,0.3121887734671203
+stoch:legacy,M2,short,D4_5,K,1.3331840478815136
+stoch:legacy,M2,short,D4_5,payer_wealth_share_of_group,0.10206917214772807
+stoch:legacy,M2,short,D6_7,value,0.44592830764685565
+stoch:legacy,M2,short,D6_7,reported_124c,0.44592830764685565
+stoch:legacy,M2,short,D6_7,R_pay_pct,0.31399885773792613
+stoch:legacy,M2,short,D6_7,K,1.4421472362327197
+stoch:legacy,M2,short,D6_7,payer_wealth_share_of_group,0.3994410090349261
+stoch:legacy,M2,short,D8_9,value,0.7266191013856045
+stoch:legacy,M2,short,D8_9,reported_124c,0.7266191013856044
+stoch:legacy,M2,short,D8_9,R_pay_pct,0.49404904174681946
+stoch:legacy,M2,short,D8_9,K,1.4988742740052605
+stoch:legacy,M2,short,D8_9,payer_wealth_share_of_group,0.532501573753181
+stoch:legacy,M2,short,D10,value,3.005427174378267
+stoch:legacy,M2,short,D10,reported_124c,3.0054271743782675
+stoch:legacy,M2,short,D10,R_pay_pct,1.462635695906932
+stoch:legacy,M2,short,D10,K,2.141356766584732
+stoch:legacy,M2,short,D10,payer_wealth_share_of_group,0.5459719345049543
+stoch:legacy,M2d,short,overall,value,18.402698356218846
+stoch:legacy,M2d,short,overall,reported_124c,18.402698356218846
+stoch:legacy,M2d,short,overall,R_pay_pct,1.9929095855725822
+stoch:legacy,M2d,short,overall,K,9.906450368732976
+stoch:legacy,M2d,short,overall,payer_wealth_share_of_group,0.4796969074165164
+stoch:legacy,M2d,short,D4_5,value,1.5664509109296296
+stoch:legacy,M2d,short,D4_5,reported_124c,1.5664509109296296
+stoch:legacy,M2d,short,D4_5,R_pay_pct,0.4293701753945258
+stoch:legacy,M2d,short,D4_5,K,3.3027873968343244
+stoch:legacy,M2d,short,D4_5,payer_wealth_share_of_group,0.10674305042560676
+stoch:legacy,M2d,short,D6_7,value,2.5912087649278974
+stoch:legacy,M2d,short,D6_7,reported_124c,2.5912087649278974
+stoch:legacy,M2d,short,D6_7,R_pay_pct,0.5604510800485937
+stoch:legacy,M2d,short,D6_7,K,4.716675549196629
+stoch:legacy,M2d,short,D6_7,payer_wealth_share_of_group,0.41507224871942605
+stoch:legacy,M2d,short,D8_9,value,4.668830988110076
+stoch:legacy,M2d,short,D8_9,reported_124c,4.668830988110076
+stoch:legacy,M2d,short,D8_9,R_pay_pct,0.9991498200893434
+stoch:legacy,M2d,short,D8_9,K,5.028745453714162
+stoch:legacy,M2d,short,D8_9,payer_wealth_share_of_group,0.547997837749073
+stoch:legacy,M2d,short,D10,value,22.349764690270952
+stoch:legacy,M2d,short,D10,reported_124c,22.349764690270952
+stoch:legacy,M2d,short,D10,R_pay_pct,3.219353560004368
+stoch:legacy,M2d,short,D10,K,7.490970335090589
+stoch:legacy,M2d,short,D10,payer_wealth_share_of_group,0.5625894741919899
+stoch:legacy,M1a,long,all,value,1.1765621844698886
+stoch:legacy,M1a,long,all,reported_124c,1.1765621844698886
+stoch:legacy,M1a,long,all,base_pct_gdp,277.40890336649716
+stoch:legacy,M1a,long,all,rate_pct,0.27450576970755597
+stoch:legacy,M1c,long,all,value,0.037250529138684305
+stoch:legacy,M1c,long,all,reported_124c,0.037250529138684305
+stoch:legacy,M1c,long,all,return_on_fund_pct_gdp,30.361528573077432
+stoch:legacy,M1c,long,all,fund_growth_pct_gdp,30.32427804393875
+stoch:legacy,M1c,long,all,fund_level_pct_gdp,610.6182728252118
+stoch:legacy,M1c,long,all,return_rate_pct,4.673668583787685
+stoch:legacy,M1,long,all,value,-3.260620561214997
+stoch:legacy,M1,long,all,reported_124c,-3.260620561214997
+stoch:legacy,M1b,long,all,value,2.8200000000000003
+stoch:legacy,M1b,long,all,reported_124c,2.8200000000000003
+stoch:legacy,M1d,long,all,value,7.29443327482357
+stoch:legacy,M1d,long,all,reported_124c,7.29443327482357
+stoch:legacy,M2,long,overall,value,1.2680191884447827
+stoch:legacy,M2,long,overall,reported_124c,1.2680191884447827
+stoch:legacy,M2,long,overall,R_pay_pct,0.5395559662007455
+stoch:legacy,M2,long,overall,K,2.3863593260288054
+stoch:legacy,M2,long,overall,payer_wealth_share_of_group,0.30033801671665755
+stoch:legacy,M2,long,D4_5,value,0.48320960571470434
+stoch:legacy,M2,long,D4_5,reported_124c,0.48320960571470434
+stoch:legacy,M2,long,D4_5,R_pay_pct,0.3289727657485816
+stoch:legacy,M2,long,D4_5,K,1.4743318589478625
+stoch:legacy,M2,long,D4_5,payer_wealth_share_of_group,0.0880011412461155
+stoch:legacy,M2,long,D6_7,value,0.5149105881444903
+stoch:legacy,M2,long,D6_7,reported_124c,0.5149105881444903
+stoch:legacy,M2,long,D6_7,R_pay_pct,0.3459903496646225
+stoch:legacy,M2,long,D6_7,K,1.4779909905434012
+stoch:legacy,M2,long,D6_7,payer_wealth_share_of_group,0.18951034027473565
+stoch:legacy,M2,long,D8_9,value,0.6322977812207754
+stoch:legacy,M2,long,D8_9,reported_124c,0.6322977812207754
+stoch:legacy,M2,long,D8_9,R_pay_pct,0.40383736481806076
+stoch:legacy,M2,long,D8_9,K,1.5511109452445349
+stoch:legacy,M2,long,D8_9,payer_wealth_share_of_group,0.3295874631870623
+stoch:legacy,M2,long,D10,value,1.5037270400588632
+stoch:legacy,M2,long,D10,reported_124c,1.5037270400588632
+stoch:legacy,M2,long,D10,R_pay_pct,0.6753744500417672
+stoch:legacy,M2,long,D10,K,2.318565288898216
+stoch:legacy,M2,long,D10,payer_wealth_share_of_group,0.4492494846317963
+stoch:legacy,M2d,long,overall,value,13.789481517874574
+stoch:legacy,M2d,long,overall,reported_124c,13.789481517874574
+stoch:legacy,M2d,long,overall,R_pay_pct,1.2505463333652878
+stoch:legacy,M2d,long,overall,K,11.167747791975119
+stoch:legacy,M2d,long,overall,payer_wealth_share_of_group,0.31329319037409953
+stoch:legacy,M2d,long,D4_5,value,2.164275518433681
+stoch:legacy,M2d,long,D4_5,reported_124c,2.164275518433681
+stoch:legacy,M2d,long,D4_5,R_pay_pct,0.6655527629323654
+stoch:legacy,M2d,long,D4_5,K,3.50200299631938
+stoch:legacy,M2d,long,D4_5,payer_wealth_share_of_group,0.09323491924171677
+stoch:legacy,M2d,long,D6_7,value,2.692442331123624
+stoch:legacy,M2d,long,D6_7,reported_124c,2.692442331123624
+stoch:legacy,M2d,long,D6_7,R_pay_pct,0.7805423752100609
+stoch:legacy,M2d,long,D6_7,K,3.7611178627973008
+stoch:legacy,M2d,long,D6_7,payer_wealth_share_of_group,0.20042499005616285
+stoch:legacy,M2d,long,D8_9,value,4.057980807436304
+stoch:legacy,M2d,long,D8_9,reported_124c,4.057980807436304
+stoch:legacy,M2d,long,D8_9,R_pay_pct,0.9454965180258549
+stoch:legacy,M2d,long,D8_9,K,4.589581207868367
+stoch:legacy,M2d,long,D8_9,payer_wealth_share_of_group,0.34444753298909087
+stoch:legacy,M2d,long,D10,value,17.193709309927343
+stoch:legacy,M2d,long,D10,reported_124c,17.193709309927343
+stoch:legacy,M2d,long,D10,R_pay_pct,1.6185240692797322
+stoch:legacy,M2d,long,D10,K,11.010195788412036
+stoch:legacy,M2d,long,D10,payer_wealth_share_of_group,0.4651091041228091
+stoch:legacy,P6,year 10,all,value,64.42981117453499
+stoch:legacy,P6,year 10,all,reported_124c,64.42981117453499
+stoch:legacy,P6,year 10,all,cum_inflow_pct_gdp,68.3996903863648
+stoch:legacy,P6,year 10,all,cum_return_pct_gdp,14.714777530772878
+stoch:legacy,P6,year 10,all,cum_payout_pct_gdp,18.68465674260267
+stoch:legacy,P6,year 25,all,value,102.54648211028056
+stoch:legacy,P6,year 25,all,reported_124c,102.54648211028056
+stoch:legacy,P6,year 25,all,cum_inflow_pct_gdp,136.9502576894478
+stoch:legacy,P6,year 25,all,cum_return_pct_gdp,62.22648727582149
+stoch:legacy,P6,year 25,all,cum_payout_pct_gdp,96.63026285498869
+stoch:legacy,P6,year 50,all,value,230.41993685308867
+stoch:legacy,P6,year 50,all,reported_124c,230.41993685308867
+stoch:legacy,P6,year 50,all,cum_inflow_pct_gdp,200.46985388858994
+stoch:legacy,P6,year 50,all,cum_return_pct_gdp,202.89011240390437
+stoch:legacy,P6,year 50,all,cum_payout_pct_gdp,172.9400294394057
+stoch:legacy,P6,year 100,all,value,1167.150601449831
+stoch:legacy,P6,year 100,all,reported_124c,1167.150601449831
+stoch:legacy,P6,year 100,all,cum_inflow_pct_gdp,231.8702195464116
+stoch:legacy,P6,year 100,all,cum_return_pct_gdp,1155.8231560828924
+stoch:legacy,P6,year 100,all,cum_payout_pct_gdp,220.5427741794731
+common:household:median_mid / common:legacy,M1a,short,all,ratio_value,1.025619212024763
+common:household:median_mid / common:legacy,M1a,short,all,ratio_base_pct_gdp,0.7146712259999821
+common:household:median_mid / common:legacy,M1a,short,all,ratio_rate_pct,1.4350923539557596
+common:household:median_mid / common:legacy,M1a,short,all,ratio_interaction,1.0
+common:household:median_mid / common:legacy,M2,short,overall,ratio_value,1.3571492396783076
+common:household:median_mid / common:legacy,M2,short,overall,ratio_R_pay_pct,2.1418022685418476
+common:household:median_mid / common:legacy,M2,short,overall,ratio_K,0.633648240835165
+common:household:median_mid / common:legacy,M2,short,overall,ratio_interaction,1.0000000000000002
+common:household:median_mid / common:legacy,M2,short,D4_5,ratio_value,nan
+common:household:median_mid / common:legacy,M2,short,D4_5,ratio_R_pay_pct,nan
+common:household:median_mid / common:legacy,M2,short,D4_5,ratio_K,nan
+common:household:median_mid / common:legacy,M2,short,D4_5,ratio_interaction,nan
+common:household:median_mid / common:legacy,M2,short,D6_7,ratio_value,3.9735422597347863
+common:household:median_mid / common:legacy,M2,short,D6_7,ratio_R_pay_pct,4.022206441469806
+common:household:median_mid / common:legacy,M2,short,D6_7,ratio_K,0.9879011228182417
+common:household:median_mid / common:legacy,M2,short,D6_7,ratio_interaction,1.0000000000000002
+common:household:median_mid / common:legacy,M2,short,D8_9,ratio_value,3.159997502669813
+common:household:median_mid / common:legacy,M2,short,D8_9,ratio_R_pay_pct,3.2155447256024248
+common:household:median_mid / common:legacy,M2,short,D8_9,ratio_K,0.982725408080833
+common:household:median_mid / common:legacy,M2,short,D8_9,ratio_interaction,1.0
+common:household:median_mid / common:legacy,M2,short,D10,ratio_value,1.3531766260220217
+common:household:median_mid / common:legacy,M2,short,D10,ratio_R_pay_pct,1.762553329389684
+common:household:median_mid / common:legacy,M2,short,D10,ratio_K,0.7677365577872096
+common:household:median_mid / common:legacy,M2,short,D10,ratio_interaction,0.9999999999999999
+common:household:median_mid / common:legacy,M2d,short,overall,ratio_value,0.9330110793292004
+common:household:median_mid / common:legacy,M2d,short,overall,ratio_R_pay_pct,1.3804986540713484
+common:household:median_mid / common:legacy,M2d,short,overall,ratio_K,0.6758507707179405
+common:household:median_mid / common:legacy,M2d,short,overall,ratio_interaction,1.0
+common:household:median_mid / common:legacy,M2d,short,D4_5,ratio_value,nan
+common:household:median_mid / common:legacy,M2d,short,D4_5,ratio_R_pay_pct,nan
+common:household:median_mid / common:legacy,M2d,short,D4_5,ratio_K,nan
+common:household:median_mid / common:legacy,M2d,short,D4_5,ratio_interaction,nan
+common:household:median_mid / common:legacy,M2d,short,D6_7,ratio_value,0.8129202549570197
+common:household:median_mid / common:legacy,M2d,short,D6_7,ratio_R_pay_pct,1.8723545979571719
+common:household:median_mid / common:legacy,M2d,short,D6_7,ratio_K,0.43417003159762285
+common:household:median_mid / common:legacy,M2d,short,D6_7,ratio_interaction,1.0
+common:household:median_mid / common:legacy,M2d,short,D8_9,ratio_value,0.8329546959134442
+common:household:median_mid / common:legacy,M2d,short,D8_9,ratio_R_pay_pct,1.6014717594289065
+common:household:median_mid / common:legacy,M2d,short,D8_9,ratio_K,0.5201182543552816
+common:household:median_mid / common:legacy,M2d,short,D8_9,ratio_interaction,0.9999999999999999
+common:household:median_mid / common:legacy,M2d,short,D10,ratio_value,0.9699122897650893
+common:household:median_mid / common:legacy,M2d,short,D10,ratio_R_pay_pct,1.285449536029424
+common:household:median_mid / common:legacy,M2d,short,D10,ratio_K,0.7545315958190115
+common:household:median_mid / common:legacy,M2d,short,D10,ratio_interaction,1.0
+common:household:median_mid / common:legacy,M1a,long,all,ratio_value,2.537343412061634
+common:household:median_mid / common:legacy,M1a,long,all,ratio_base_pct_gdp,0.8189535946420571
+common:household:median_mid / common:legacy,M1a,long,all,ratio_rate_pct,3.0982749555799187
+common:household:median_mid / common:legacy,M1a,long,all,ratio_interaction,1.0
+common:household:median_mid / common:legacy,M2,long,overall,ratio_value,3.4760229865851873
+common:household:median_mid / common:legacy,M2,long,overall,ratio_R_pay_pct,4.91399759090763
+common:household:median_mid / common:legacy,M2,long,overall,ratio_K,0.7073717319310195
+common:household:median_mid / common:legacy,M2,long,overall,ratio_interaction,0.9999999999999999
+common:household:median_mid / common:legacy,M2,long,D4_5,ratio_value,nan
+common:household:median_mid / common:legacy,M2,long,D4_5,ratio_R_pay_pct,nan
+common:household:median_mid / common:legacy,M2,long,D4_5,ratio_K,nan
+common:household:median_mid / common:legacy,M2,long,D4_5,ratio_interaction,nan
+common:household:median_mid / common:legacy,M2,long,D6_7,ratio_value,8.502955831888055
+common:household:median_mid / common:legacy,M2,long,D6_7,ratio_R_pay_pct,8.430119692670976
+common:household:median_mid / common:legacy,M2,long,D6_7,ratio_K,1.008639988739472
+common:household:median_mid / common:legacy,M2,long,D6_7,ratio_interaction,1.0000000000000002
+common:household:median_mid / common:legacy,M2,long,D8_9,ratio_value,7.199614690878062
+common:household:median_mid / common:legacy,M2,long,D8_9,ratio_R_pay_pct,7.353648766703619
+common:household:median_mid / common:legacy,M2,long,D8_9,ratio_K,0.9790533814284135
+common:household:median_mid / common:legacy,M2,long,D8_9,ratio_interaction,1.0000000000000002
+common:household:median_mid / common:legacy,M2,long,D10,ratio_value,2.9247244217787745
+common:household:median_mid / common:legacy,M2,long,D10,ratio_R_pay_pct,4.006602722459505
+common:household:median_mid / common:legacy,M2,long,D10,ratio_K,0.7299761479679209
+common:household:median_mid / common:legacy,M2,long,D10,ratio_interaction,1.0000000000000002
+common:household:median_mid / common:legacy,M2d,long,overall,ratio_value,0.6912075534436964
+common:household:median_mid / common:legacy,M2d,long,overall,ratio_R_pay_pct,2.19355872595663
+common:household:median_mid / common:legacy,M2d,long,overall,ratio_K,0.31510784063565694
+common:household:median_mid / common:legacy,M2d,long,overall,ratio_interaction,1.0
+common:household:median_mid / common:legacy,M2d,long,D4_5,ratio_value,nan
+common:household:median_mid / common:legacy,M2d,long,D4_5,ratio_R_pay_pct,nan
+common:household:median_mid / common:legacy,M2d,long,D4_5,ratio_K,nan
+common:household:median_mid / common:legacy,M2d,long,D4_5,ratio_interaction,nan
+common:household:median_mid / common:legacy,M2d,long,D6_7,ratio_value,1.4278957275531787
+common:household:median_mid / common:legacy,M2d,long,D6_7,ratio_R_pay_pct,2.0807873849187994
+common:household:median_mid / common:legacy,M2d,long,D6_7,ratio_K,0.6862285584304909
+common:household:median_mid / common:legacy,M2d,long,D6_7,ratio_interaction,1.0
+common:household:median_mid / common:legacy,M2d,long,D8_9,ratio_value,1.182584967700534
+common:household:median_mid / common:legacy,M2d,long,D8_9,ratio_R_pay_pct,3.365995041720258
+common:household:median_mid / common:legacy,M2d,long,D8_9,ratio_K,0.35133295000225273
+common:household:median_mid / common:legacy,M2d,long,D8_9,ratio_interaction,1.0
+common:household:median_mid / common:legacy,M2d,long,D10,ratio_value,0.8764517581746558
+common:household:median_mid / common:legacy,M2d,long,D10,ratio_R_pay_pct,2.163694534188499
+common:household:median_mid / common:legacy,M2d,long,D10,ratio_K,0.40507185479551616
+common:household:median_mid / common:legacy,M2d,long,D10,ratio_interaction,1.0000000000000002
+common:household:median_mid / stoch:legacy,M1a,short,all,ratio_value,0.87116102297316
+common:household:median_mid / stoch:legacy,M1a,short,all,ratio_base_pct_gdp,0.727183734408941
+common:household:median_mid / stoch:legacy,M1a,short,all,ratio_rate_pct,1.31428993322832
+common:household:median_mid / stoch:legacy,M1a,short,all,ratio_interaction,0.911513486437242
+common:household:median_mid / stoch:legacy,M2,short,overall,ratio_value,0.16294602774520148
+common:household:median_mid / stoch:legacy,M2,short,overall,ratio_R_pay_pct,0.3577263319329206
+common:household:median_mid / stoch:legacy,M2,short,overall,ratio_K,0.43859375303423426
+common:household:median_mid / stoch:legacy,M2,short,overall,ratio_interaction,1.0385572140491088
+common:household:median_mid / stoch:legacy,M2,short,D4_5,ratio_value,nan
+common:household:median_mid / stoch:legacy,M2,short,D4_5,ratio_R_pay_pct,nan
+common:household:median_mid / stoch:legacy,M2,short,D4_5,ratio_K,nan
+common:household:median_mid / stoch:legacy,M2,short,D4_5,ratio_interaction,nan
+common:household:median_mid / stoch:legacy,M2,short,D6_7,ratio_value,0.40463337411519257
+common:household:median_mid / stoch:legacy,M2,short,D6_7,ratio_R_pay_pct,0.5732342623780333
+common:household:median_mid / stoch:legacy,M2,short,D6_7,ratio_K,0.6951154351698384
+common:household:median_mid / stoch:legacy,M2,short,D6_7,ratio_interaction,1.0154829310042215
+common:household:median_mid / stoch:legacy,M2,short,D8_9,ratio_value,0.3457710306749059
+common:household:median_mid / stoch:legacy,M2,short,D8_9,ratio_R_pay_pct,0.504819724947546
+common:household:median_mid / stoch:legacy,M2,short,D8_9,ratio_K,0.6720844265897672
+common:household:median_mid / stoch:legacy,M2,short,D8_9,ratio_interaction,1.0191273493349557
+common:household:median_mid / stoch:legacy,M2,short,D10,ratio_value,0.1617520387708549
+common:household:median_mid / stoch:legacy,M2,short,D10,ratio_R_pay_pct,0.2981198306296001
+common:household:median_mid / stoch:legacy,M2,short,D10,ratio_K,0.5206428493051584
+common:household:median_mid / stoch:legacy,M2,short,D10,ratio_interaction,1.0421230203744996
+common:household:median_mid / stoch:legacy,M2d,short,overall,ratio_value,1.2354070914387607
+common:household:median_mid / stoch:legacy,M2d,short,overall,ratio_R_pay_pct,0.4944853297831021
+common:household:median_mid / stoch:legacy,M2d,short,overall,ratio_K,2.328801765740857
+common:household:median_mid / stoch:legacy,M2d,short,overall,ratio_interaction,1.0728133188237219
+common:household:median_mid / stoch:legacy,M2d,short,D4_5,ratio_value,nan
+common:household:median_mid / stoch:legacy,M2d,short,D4_5,ratio_R_pay_pct,nan
+common:household:median_mid / stoch:legacy,M2d,short,D4_5,ratio_K,nan
+common:household:median_mid / stoch:legacy,M2d,short,D4_5,ratio_interaction,nan
+common:household:median_mid / stoch:legacy,M2d,short,D6_7,ratio_value,1.082164200915806
+common:household:median_mid / stoch:legacy,M2d,short,D6_7,ratio_R_pay_pct,0.6292333384390395
+common:household:median_mid / stoch:legacy,M2d,short,D6_7,ratio_K,1.6858158350540682
+common:household:median_mid / stoch:legacy,M2d,short,D6_7,ratio_interaction,1.020167090187965
+common:household:median_mid / stoch:legacy,M2d,short,D8_9,ratio_value,1.0968023927057369
+common:household:median_mid / stoch:legacy,M2d,short,D8_9,ratio_R_pay_pct,0.5437258112128752
+common:household:median_mid / stoch:legacy,M2d,short,D8_9,ratio_K,1.8744174754412435
+common:household:median_mid / stoch:legacy,M2d,short,D8_9,ratio_interaction,1.0761730566279277
+common:household:median_mid / stoch:legacy,M2d,short,D10,ratio_value,1.280926812249327
+common:household:median_mid / stoch:legacy,M2d,short,D10,ratio_R_pay_pct,0.4688020762749235
+common:household:median_mid / stoch:legacy,M2d,short,D10,ratio_K,2.5322174235699517
+common:household:median_mid / stoch:legacy,M2d,short,D10,ratio_interaction,1.0790306900483362
+common:household:median_mid / stoch:legacy,M1a,long,all,ratio_value,1.468603201220909
+common:household:median_mid / stoch:legacy,M1a,long,all,ratio_base_pct_gdp,0.8134961920377913
+common:household:median_mid / stoch:legacy,M1a,long,all,ratio_rate_pct,2.7892790139749315
+common:household:median_mid / stoch:legacy,M1a,long,all,ratio_interaction,0.647227537545409
+common:household:median_mid / stoch:legacy,M2,long,overall,ratio_value,0.27158282778504034
+common:household:median_mid / stoch:legacy,M2,long,overall,ratio_R_pay_pct,0.6265611841745842
+common:household:median_mid / stoch:legacy,M2,long,overall,ratio_K,0.4268667304859282
+common:household:median_mid / stoch:legacy,M2,long,overall,ratio_interaction,1.0154218671066275
+common:household:median_mid / stoch:legacy,M2,long,D4_5,ratio_value,0.5633189521394639
+common:household:median_mid / stoch:legacy,M2,long,D4_5,ratio_R_pay_pct,0.8177615029429401
+common:household:median_mid / stoch:legacy,M2,long,D4_5,ratio_K,0.6862906207492895
+common:household:median_mid / stoch:legacy,M2,long,D4_5,ratio_interaction,1.0037363155311272
+common:household:median_mid / stoch:legacy,M2,long,D6_7,ratio_value,0.6003878129280295
+common:household:median_mid / stoch:legacy,M2,long,D6_7,ratio_R_pay_pct,0.8853596120483782
+common:household:median_mid / stoch:legacy,M2,long,D6_7,ratio_K,0.682823110167803
+common:household:median_mid / stoch:legacy,M2,long,D6_7,ratio_interaction,0.9931250811175323
+common:household:median_mid / stoch:legacy,M2,long,D8_9,ratio_value,0.5622415041990872
+common:household:median_mid / stoch:legacy,M2,long,D8_9,ratio_R_pay_pct,0.8746769514194795
+common:household:median_mid / stoch:legacy,M2,long,D8_9,ratio_K,0.6488547902870362
+common:household:median_mid / stoch:legacy,M2,long,D8_9,ratio_interaction,0.9906670168265062
+common:household:median_mid / stoch:legacy,M2,long,D10,ratio_value,0.2506416595852265
+common:household:median_mid / stoch:legacy,M2,long,D10,ratio_R_pay_pct,0.5555140999762779
+common:household:median_mid / stoch:legacy,M2,long,D10,ratio_K,0.43327459351553754
+common:household:median_mid / stoch:legacy,M2,long,D10,ratio_interaction,1.0413457463757965
+common:household:median_mid / stoch:legacy,M2d,long,overall,ratio_value,0.7425525754447267
+common:household:median_mid / stoch:legacy,M2d,long,overall,ratio_R_pay_pct,0.6579892167200416
+common:household:median_mid / stoch:legacy,M2d,long,overall,ratio_K,1.1142714030243008
+common:household:median_mid / stoch:legacy,M2d,long,overall,ratio_interaction,1.012785436138383
+common:household:median_mid / stoch:legacy,M2d,long,D4_5,ratio_value,1.229692889516147
+common:household:median_mid / stoch:legacy,M2d,long,D4_5,ratio_R_pay_pct,0.7426776147553663
+common:household:median_mid / stoch:legacy,M2d,long,D4_5,ratio_K,1.5374814008579987
+common:household:median_mid / stoch:legacy,M2d,long,D4_5,ratio_interaction,1.076927475335764
+common:household:median_mid / stoch:legacy,M2d,long,D6_7,ratio_value,1.4810648636049006
+common:household:median_mid / stoch:legacy,M2d,long,D6_7,ratio_R_pay_pct,0.7929623671851969
+common:household:median_mid / stoch:legacy,M2d,long,D6_7,ratio_K,1.7129886416937108
+common:household:median_mid / stoch:legacy,M2d,long,D6_7,ratio_interaction,1.0903527389006866
+common:household:median_mid / stoch:legacy,M2d,long,D8_9,ratio_value,1.424097266158119
+common:household:median_mid / stoch:legacy,M2d,long,D8_9,ratio_R_pay_pct,0.8230522552260805
+common:household:median_mid / stoch:legacy,M2d,long,D8_9,ratio_K,1.61803994768797
+common:household:median_mid / stoch:legacy,M2d,long,D8_9,ratio_interaction,1.0693577069867775
+common:household:median_mid / stoch:legacy,M2d,long,D10,ratio_value,1.0163336481197498
+common:household:median_mid / stoch:legacy,M2d,long,D10,ratio_R_pay_pct,0.7235236249067714
+common:household:median_mid / stoch:legacy,M2d,long,D10,ratio_K,1.3553110009844316
+common:household:median_mid / stoch:legacy,M2d,long,D10,ratio_interaction,1.0364410942284636
+common:household:max_mid / common:legacy,M1a,short,all,ratio_value,1.439500377050522
+common:household:max_mid / common:legacy,M1a,short,all,ratio_base_pct_gdp,0.9472166107526214
+common:household:max_mid / common:legacy,M1a,short,all,ratio_rate_pct,1.5197161459264856
+common:household:max_mid / common:legacy,M1a,short,all,ratio_interaction,1.0
+common:household:max_mid / common:legacy,M2,short,overall,ratio_value,1.597038716763949
+common:household:max_mid / common:legacy,M2,short,overall,ratio_R_pay_pct,2.8854482740382306
+common:household:max_mid / common:legacy,M2,short,overall,ratio_K,0.5534802793497552
+common:household:max_mid / common:legacy,M2,short,overall,ratio_interaction,1.0000000000000002
+common:household:max_mid / common:legacy,M2,short,D4_5,ratio_value,nan
+common:household:max_mid / common:legacy,M2,short,D4_5,ratio_R_pay_pct,nan
+common:household:max_mid / common:legacy,M2,short,D4_5,ratio_K,nan
+common:household:max_mid / common:legacy,M2,short,D4_5,ratio_interaction,nan
+common:household:max_mid / common:legacy,M2,short,D6_7,ratio_value,7.6436981664531265
+common:household:max_mid / common:legacy,M2,short,D6_7,ratio_R_pay_pct,7.753525796673901
+common:household:max_mid / common:legacy,M2,short,D6_7,ratio_K,0.9858351370588219
+common:household:max_mid / common:legacy,M2,short,D6_7,ratio_interaction,1.0000000000000002
+common:household:max_mid / common:legacy,M2,short,D8_9,ratio_value,5.467864329749577
+common:household:max_mid / common:legacy,M2,short,D8_9,ratio_R_pay_pct,5.592574126085056
+common:household:max_mid / common:legacy,M2,short,D8_9,ratio_K,0.9777008237130368
+common:household:max_mid / common:legacy,M2,short,D8_9,ratio_interaction,1.0
+common:household:max_mid / common:legacy,M2,short,D10,ratio_value,1.5350123559688122
+common:household:max_mid / common:legacy,M2,short,D10,ratio_R_pay_pct,2.1752567930053024
+common:household:max_mid / common:legacy,M2,short,D10,ratio_K,0.7056694919444716
+common:household:max_mid / common:legacy,M2,short,D10,ratio_interaction,1.0
+common:household:max_mid / common:legacy,M2d,short,overall,ratio_value,0.7290834939542947
+common:household:max_mid / common:legacy,M2d,short,overall,ratio_R_pay_pct,1.4443265643507983
+common:household:max_mid / common:legacy,M2d,short,overall,ratio_K,0.5047913068621057
+common:household:max_mid / common:legacy,M2d,short,overall,ratio_interaction,1.0
+common:household:max_mid / common:legacy,M2d,short,D4_5,ratio_value,nan
+common:household:max_mid / common:legacy,M2d,short,D4_5,ratio_R_pay_pct,nan
+common:household:max_mid / common:legacy,M2d,short,D4_5,ratio_K,nan
+common:household:max_mid / common:legacy,M2d,short,D4_5,ratio_interaction,nan
+common:household:max_mid / common:legacy,M2d,short,D6_7,ratio_value,0.9257898245656727
+common:household:max_mid / common:legacy,M2d,short,D6_7,ratio_R_pay_pct,3.0557066046959545
+common:household:max_mid / common:legacy,M2d,short,D6_7,ratio_K,0.30297078362920565
+common:household:max_mid / common:legacy,M2d,short,D6_7,ratio_interaction,1.0
+common:household:max_mid / common:legacy,M2d,short,D8_9,ratio_value,0.853008787939247
+common:household:max_mid / common:legacy,M2d,short,D8_9,ratio_R_pay_pct,2.3091327764911087
+common:household:max_mid / common:legacy,M2d,short,D8_9,ratio_K,0.3694065567054374
+common:household:max_mid / common:legacy,M2d,short,D8_9,ratio_interaction,1.0
+common:household:max_mid / common:legacy,M2d,short,D10,ratio_value,0.8864505592631599
+common:household:max_mid / common:legacy,M2d,short,D10,ratio_R_pay_pct,1.3574207240518308
+common:household:max_mid / common:legacy,M2d,short,D10,ratio_K,0.6530403901725846
+common:household:max_mid / common:legacy,M2d,short,D10,ratio_interaction,0.9999999999999999
+common:household:max_mid / common:legacy,M1a,long,all,ratio_value,9.780395688516883
+common:household:max_mid / common:legacy,M1a,long,all,ratio_base_pct_gdp,2.6917450079073615
+common:household:max_mid / common:legacy,M1a,long,all,ratio_rate_pct,3.633477784777407
+common:household:max_mid / common:legacy,M1a,long,all,ratio_interaction,0.9999999999999998
+common:household:max_mid / common:legacy,M2,long,overall,ratio_value,3.8022642786833996
+common:household:max_mid / common:legacy,M2,long,overall,ratio_R_pay_pct,5.2157284515145435
+common:household:max_mid / common:legacy,M2,long,overall,ratio_K,0.7289996620854176
+common:household:max_mid / common:legacy,M2,long,overall,ratio_interaction,0.9999999999999998
+common:household:max_mid / common:legacy,M2,long,D4_5,ratio_value,nan
+common:household:max_mid / common:legacy,M2,long,D4_5,ratio_R_pay_pct,nan
+common:household:max_mid / common:legacy,M2,long,D4_5,ratio_K,nan
+common:household:max_mid / common:legacy,M2,long,D4_5,ratio_interaction,nan
+common:household:max_mid / common:legacy,M2,long,D6_7,ratio_value,10.034552294994702
+common:household:max_mid / common:legacy,M2,long,D6_7,ratio_R_pay_pct,10.037425345685453
+common:household:max_mid / common:legacy,M2,long,D6_7,ratio_K,0.999713766170925
+common:household:max_mid / common:legacy,M2,long,D6_7,ratio_interaction,1.0
+common:household:max_mid / common:legacy,M2,long,D8_9,ratio_value,8.661113244661832
+common:household:max_mid / common:legacy,M2,long,D8_9,ratio_R_pay_pct,8.895152870913407
+common:household:max_mid / common:legacy,M2,long,D8_9,ratio_K,0.9736890832964918
+common:household:max_mid / common:legacy,M2,long,D8_9,ratio_interaction,1.0
+common:household:max_mid / common:legacy,M2,long,D10,ratio_value,3.546166341858967
+common:household:max_mid / common:legacy,M2,long,D10,ratio_R_pay_pct,4.877751556430142
+common:household:max_mid / common:legacy,M2,long,D10,ratio_K,0.7270083973801822
+common:household:max_mid / common:legacy,M2,long,D10,ratio_interaction,1.0
+common:household:max_mid / common:legacy,M2d,long,overall,ratio_value,0.5895673507983328
+common:household:max_mid / common:legacy,M2d,long,overall,ratio_R_pay_pct,2.3937384259743237
+common:household:max_mid / common:legacy,M2d,long,overall,ratio_K,0.2462956455061965
+common:household:max_mid / common:legacy,M2d,long,overall,ratio_interaction,0.9999999999999998
+common:household:max_mid / common:legacy,M2d,long,D4_5,ratio_value,nan
+common:household:max_mid / common:legacy,M2d,long,D4_5,ratio_R_pay_pct,nan
+common:household:max_mid / common:legacy,M2d,long,D4_5,ratio_K,nan
+common:household:max_mid / common:legacy,M2d,long,D4_5,ratio_interaction,nan
+common:household:max_mid / common:legacy,M2d,long,D6_7,ratio_value,2.520868461795516
+common:household:max_mid / common:legacy,M2d,long,D6_7,ratio_R_pay_pct,2.966914406130426
+common:household:max_mid / common:legacy,M2d,long,D6_7,ratio_K,0.8496599890400405
+common:household:max_mid / common:legacy,M2d,long,D6_7,ratio_interaction,1.0000000000000002
+common:household:max_mid / common:legacy,M2d,long,D8_9,ratio_value,1.7604487200673795
+common:household:max_mid / common:legacy,M2d,long,D8_9,ratio_R_pay_pct,4.584973289491945
+common:household:max_mid / common:legacy,M2d,long,D8_9,ratio_K,0.38396051817838456
+common:household:max_mid / common:legacy,M2d,long,D8_9,ratio_interaction,1.0
+common:household:max_mid / common:legacy,M2d,long,D10,ratio_value,0.7354636088928141
+common:household:max_mid / common:legacy,M2d,long,D10,ratio_R_pay_pct,2.422960232352217
+common:household:max_mid / common:legacy,M2d,long,D10,ratio_K,0.3035392818555771
+common:household:max_mid / common:legacy,M2d,long,D10,ratio_interaction,1.0
+common:household:max_mid / stoch:legacy,M1a,short,all,ratio_value,1.2227117104854939
+common:household:max_mid / stoch:legacy,M1a,short,all,ratio_base_pct_gdp,0.9638005382649738
+common:household:max_mid / stoch:legacy,M1a,short,all,ratio_rate_pct,1.39179030983625
+common:household:max_mid / stoch:legacy,M1a,short,all,ratio_interaction,0.9115134864372424
+common:household:max_mid / stoch:legacy,M2,short,overall,ratio_value,0.19174834089260764
+common:household:max_mid / stoch:legacy,M2,short,overall,ratio_R_pay_pct,0.4819309617019883
+common:household:max_mid / stoch:legacy,M2,short,overall,ratio_K,0.38310371165947005
+common:household:max_mid / stoch:legacy,M2,short,overall,ratio_interaction,1.038557214049109
+common:household:max_mid / stoch:legacy,M2,short,D4_5,ratio_value,0.688018361646358
+common:household:max_mid / stoch:legacy,M2,short,D4_5,ratio_R_pay_pct,0.8889738326230846
+common:household:max_mid / stoch:legacy,M2,short,D4_5,ratio_K,0.7506622606336245
+common:household:max_mid / stoch:legacy,M2,short,D4_5,ratio_interaction,1.0310185256096802
+common:household:max_mid / stoch:legacy,M2,short,D6_7,ratio_value,0.7783723382412131
+common:household:max_mid / stoch:legacy,M2,short,D6_7,ratio_R_pay_pct,1.1050120637918484
+common:household:max_mid / stoch:legacy,M2,short,D6_7,ratio_K,0.6936617486044088
+common:household:max_mid / stoch:legacy,M2,short,D6_7,ratio_interaction,1.015482931004221
+common:household:max_mid / stoch:legacy,M2,short,D8_9,ratio_value,0.5983008161527702
+common:household:max_mid / stoch:legacy,M2,short,D8_9,ratio_R_pay_pct,0.8779979670629813
+common:household:max_mid / stoch:legacy,M2,short,D8_9,ratio_K,0.6686481209077181
+common:household:max_mid / stoch:legacy,M2,short,D8_9,ratio_interaction,1.0191273493349557
+common:household:max_mid / stoch:legacy,M2,short,D10,ratio_value,0.18348778226115173
+common:household:max_mid / stoch:legacy,M2,short,D10,ratio_R_pay_pct,0.36792485985724943
+common:household:max_mid / stoch:legacy,M2,short,D10,ratio_K,0.4785518824486204
+common:household:max_mid / stoch:legacy,M2,short,D10,ratio_interaction,1.0421230203744996
+common:household:max_mid / stoch:legacy,M2d,short,overall,ratio_value,0.9653850191464655
+common:household:max_mid / stoch:legacy,M2d,short,overall,ratio_R_pay_pct,0.5173480578059204
+common:household:max_mid / stoch:legacy,M2d,short,overall,ratio_K,1.7393764092365207
+common:household:max_mid / stoch:legacy,M2d,short,overall,ratio_interaction,1.072813318823722
+common:household:max_mid / stoch:legacy,M2d,short,D4_5,ratio_value,1.2789832164963875
+common:household:max_mid / stoch:legacy,M2d,short,D4_5,ratio_R_pay_pct,1.0009350567520123
+common:household:max_mid / stoch:legacy,M2d,short,D4_5,ratio_K,1.4114426667054774
+common:household:max_mid / stoch:legacy,M2d,short,D4_5,ratio_interaction,0.9053066355127486
+common:household:max_mid / stoch:legacy,M2d,short,D6_7,ratio_value,1.2324168325342872
+common:household:max_mid / stoch:legacy,M2d,short,D6_7,ratio_R_pay_pct,1.026916840571157
+common:household:max_mid / stoch:legacy,M2d,short,D6_7,ratio_K,1.176389219498703
+common:household:max_mid / stoch:legacy,M2d,short,D6_7,ratio_interaction,1.0201670901879651
+common:household:max_mid / stoch:legacy,M2d,short,D8_9,ratio_value,1.1232088422105575
+common:household:max_mid / stoch:legacy,M2d,short,D8_9,ratio_R_pay_pct,0.7839882812192691
+common:household:max_mid / stoch:legacy,M2d,short,D8_9,ratio_K,1.331278223044773
+common:household:max_mid / stoch:legacy,M2d,short,D8_9,ratio_interaction,1.0761730566279277
+common:household:max_mid / stoch:legacy,M2d,short,D10,ratio_value,1.1707020326225612
+common:household:max_mid / stoch:legacy,M2d,short,D10,ratio_R_pay_pct,0.4950498918687555
+common:household:max_mid / stoch:legacy,M2d,short,D10,ratio_K,2.1916116746509244
+common:household:max_mid / stoch:legacy,M2d,short,D10,ratio_interaction,1.0790306900483362
+common:household:max_mid / stoch:legacy,M1a,long,all,ratio_value,5.6608499854942655
+common:household:max_mid / stoch:legacy,M1a,long,all,ratio_base_pct_gdp,2.6738075614973567
+common:household:max_mid / stoch:legacy,M1a,long,all,ratio_rate_pct,3.271105204711171
+common:household:max_mid / stoch:legacy,M1a,long,all,ratio_interaction,0.647227537545409
+common:household:max_mid / stoch:legacy,M2,long,overall,ratio_value,0.2970721680426315
+common:household:max_mid / stoch:legacy,M2,long,overall,ratio_R_pay_pct,0.665033495531368
+common:household:max_mid / stoch:legacy,M2,long,overall,ratio_K,0.43991820457718606
+common:household:max_mid / stoch:legacy,M2,long,overall,ratio_interaction,1.0154218671066277
+common:household:max_mid / stoch:legacy,M2,long,D4_5,ratio_value,0.6174638678681411
+common:household:max_mid / stoch:legacy,M2,long,D4_5,ratio_R_pay_pct,0.9065385101038155
+common:household:max_mid / stoch:legacy,M2,long,D4_5,ratio_K,0.6785871851164226
+common:household:max_mid / stoch:legacy,M2,long,D4_5,ratio_interaction,1.0037363155311272
+common:household:max_mid / stoch:legacy,M2,long,D6_7,ratio_value,0.7085327767445381
+common:household:max_mid / stoch:legacy,M2,long,D6_7,ratio_R_pay_pct,1.0541642745294144
+common:household:max_mid / stoch:legacy,M2,long,D6_7,ratio_K,0.676780289018185
+common:household:max_mid / stoch:legacy,M2,long,D6_7,ratio_interaction,0.9931250811175323
+common:household:max_mid / stoch:legacy,M2,long,D8_9,ratio_value,0.6763747155645918
+common:household:max_mid / stoch:legacy,M2,long,D8_9,ratio_R_pay_pct,1.0580305699082828
+common:household:max_mid / stoch:legacy,M2,long,D8_9,ratio_K,0.6452996720417501
+common:household:max_mid / stoch:legacy,M2,long,D8_9,ratio_interaction,0.9906670168265058
+common:household:max_mid / stoch:legacy,M2,long,D10,ratio_value,0.3038976973250142
+common:household:max_mid / stoch:legacy,M2,long,D10,ratio_R_pay_pct,0.6762985884746815
+common:household:max_mid / stoch:legacy,M2,long,D10,ratio_K,0.4315130963308179
+common:household:max_mid / stoch:legacy,M2,long,D10,ratio_interaction,1.0413457463757962
+common:household:max_mid / stoch:legacy,M2d,long,overall,ratio_value,0.6333622260814706
+common:household:max_mid / stoch:legacy,M2d,long,overall,ratio_R_pay_pct,0.71803597200372
+common:household:max_mid / stoch:legacy,M2d,long,overall,ratio_K,0.8709405450633851
+common:household:max_mid / stoch:legacy,M2d,long,overall,ratio_interaction,1.012785436138383
+common:household:max_mid / stoch:legacy,M2d,long,D4_5,ratio_value,2.5574653949047104
+common:household:max_mid / stoch:legacy,M2d,long,D4_5,ratio_R_pay_pct,1.0562896933584387
+common:household:max_mid / stoch:legacy,M2d,long,D4_5,ratio_K,2.248227556351015
+common:household:max_mid / stoch:legacy,M2d,long,D4_5,ratio_interaction,1.0769274753357638
+common:household:max_mid / stoch:legacy,M2d,long,D6_7,ratio_value,2.6147355388007654
+common:household:max_mid / stoch:legacy,M2d,long,D6_7,ratio_R_pay_pct,1.1306544281134494
+common:household:max_mid / stoch:legacy,M2d,long,D6_7,ratio_K,2.12095211230504
+common:household:max_mid / stoch:legacy,M2d,long,D6_7,ratio_interaction,1.0903527389006866
+common:household:max_mid / stoch:legacy,M2d,long,D8_9,ratio_value,2.119974697745672
+common:household:max_mid / stoch:legacy,M2d,long,D8_9,ratio_R_pay_pct,1.1211165076877465
+common:household:max_mid / stoch:legacy,M2d,long,D8_9,ratio_K,1.7683039884064835
+common:household:max_mid / stoch:legacy,M2d,long,D8_9,ratio_interaction,1.0693577069867775
+common:household:max_mid / stoch:legacy,M2d,long,D10,ratio_value,0.8528437597547684
+common:household:max_mid / stoch:legacy,M2d,long,D10,ratio_R_pay_pct,0.8102201778560777
+common:household:max_mid / stoch:legacy,M2d,long,D10,ratio_K,1.0155979070366443
+common:household:max_mid / stoch:legacy,M2d,long,D10,ratio_interaction,1.0364410942284634
+common:household:median_low / common:legacy,M1a,short,all,ratio_value,0.7820368146534115
+common:household:median_low / common:legacy,M1a,short,all,ratio_base_pct_gdp,0.6932860423315119
+common:household:median_low / common:legacy,M1a,short,all,ratio_rate_pct,1.1280146532640871
+common:household:median_low / common:legacy,M1a,short,all,ratio_interaction,0.9999999999999997
+common:household:median_low / common:legacy,M2,short,overall,ratio_value,0.7378388108073293
+common:household:median_low / common:legacy,M2,short,overall,ratio_R_pay_pct,1.0218068809587937
+common:household:median_low / common:legacy,M2,short,overall,ratio_K,0.7220922314742996
+common:household:median_low / common:legacy,M2,short,overall,ratio_interaction,1.0
+common:household:median_low / common:legacy,M2,short,D4_5,ratio_value,nan
+common:household:median_low / common:legacy,M2,short,D4_5,ratio_R_pay_pct,nan
+common:household:median_low / common:legacy,M2,short,D4_5,ratio_K,nan
+common:household:median_low / common:legacy,M2,short,D4_5,ratio_interaction,nan
+common:household:median_low / common:legacy,M2,short,D6_7,ratio_value,2.2256303314215353
+common:household:median_low / common:legacy,M2,short,D6_7,ratio_R_pay_pct,2.2581670796611286
+common:household:median_low / common:legacy,M2,short,D6_7,ratio_K,0.9855915230840775
+common:household:median_low / common:legacy,M2,short,D6_7,ratio_interaction,1.0
+common:household:median_low / common:legacy,M2,short,D8_9,ratio_value,1.4166852559517424
+common:household:median_low / common:legacy,M2,short,D8_9,ratio_R_pay_pct,1.4516451670893187
+common:household:median_low / common:legacy,M2,short,D8_9,ratio_K,0.9759170409338569
+common:household:median_low / common:legacy,M2,short,D8_9,ratio_interaction,1.0000000000000002
+common:household:median_low / common:legacy,M2,short,D10,ratio_value,0.7644392224556001
+common:household:median_low / common:legacy,M2,short,D10,ratio_R_pay_pct,0.8372867179081317
+common:household:median_low / common:legacy,M2,short,D10,ratio_K,0.9129957589264847
+common:household:median_low / common:legacy,M2,short,D10,ratio_interaction,1.0
+common:household:median_low / common:legacy,M2d,short,overall,ratio_value,1.0944856715920974
+common:household:median_low / common:legacy,M2d,short,overall,ratio_R_pay_pct,1.0852113920378015
+common:household:median_low / common:legacy,M2d,short,overall,ratio_K,1.0085460580513084
+common:household:median_low / common:legacy,M2d,short,overall,ratio_interaction,0.9999999999999998
+common:household:median_low / common:legacy,M2d,short,D4_5,ratio_value,nan
+common:household:median_low / common:legacy,M2d,short,D4_5,ratio_R_pay_pct,nan
+common:household:median_low / common:legacy,M2d,short,D4_5,ratio_K,nan
+common:household:median_low / common:legacy,M2d,short,D4_5,ratio_interaction,nan
+common:household:median_low / common:legacy,M2d,short,D6_7,ratio_value,0.8480906438201119
+common:household:median_low / common:legacy,M2d,short,D6_7,ratio_R_pay_pct,1.3485310033852358
+common:household:median_low / common:legacy,M2d,short,D6_7,ratio_K,0.6288996261051012
+common:household:median_low / common:legacy,M2d,short,D6_7,ratio_interaction,1.0000000000000002
+common:household:median_low / common:legacy,M2d,short,D8_9,ratio_value,0.9034534202485714
+common:household:median_low / common:legacy,M2d,short,D8_9,ratio_R_pay_pct,1.093320929631987
+common:household:median_low / common:legacy,M2d,short,D8_9,ratio_K,0.8263387224761852
+common:household:median_low / common:legacy,M2d,short,D8_9,ratio_interaction,1.0000000000000002
+common:household:median_low / common:legacy,M2d,short,D10,ratio_value,1.1075936578436076
+common:household:median_low / common:legacy,M2d,short,D10,ratio_R_pay_pct,1.052837941888087
+common:household:median_low / common:legacy,M2d,short,D10,ratio_K,1.0520077343122014
+common:household:median_low / common:legacy,M2d,short,D10,ratio_interaction,1.0
+common:household:median_low / common:legacy,M1a,long,all,ratio_value,1.2941385863428883
+common:household:median_low / common:legacy,M1a,long,all,ratio_base_pct_gdp,0.7866936946165959
+common:household:median_low / common:legacy,M1a,long,all,ratio_rate_pct,1.6450349039261096
+common:household:median_low / common:legacy,M1a,long,all,ratio_interaction,1.0000000000000002
+common:household:median_low / common:legacy,M2,long,overall,ratio_value,1.5409620328881357
+common:household:median_low / common:legacy,M2,long,overall,ratio_R_pay_pct,1.9689579823870689
+common:household:median_low / common:legacy,M2,long,overall,ratio_K,0.7826281955595357
+common:household:median_low / common:legacy,M2,long,overall,ratio_interaction,1.0
+common:household:median_low / common:legacy,M2,long,D4_5,ratio_value,nan
+common:household:median_low / common:legacy,M2,long,D4_5,ratio_R_pay_pct,nan
+common:household:median_low / common:legacy,M2,long,D4_5,ratio_K,nan
+common:household:median_low / common:legacy,M2,long,D4_5,ratio_interaction,nan
+common:household:median_low / common:legacy,M2,long,D6_7,ratio_value,2.91779101655555
+common:household:median_low / common:legacy,M2,long,D6_7,ratio_R_pay_pct,2.919173816602067
+common:household:median_low / common:legacy,M2,long,D6_7,ratio_K,0.9995263043130036
+common:household:median_low / common:legacy,M2,long,D6_7,ratio_interaction,1.0
+common:household:median_low / common:legacy,M2,long,D8_9,ratio_value,2.50099872025589
+common:household:median_low / common:legacy,M2,long,D8_9,ratio_R_pay_pct,2.5699298151385737
+common:household:median_low / common:legacy,M2,long,D8_9,ratio_K,0.9731778298081782
+common:household:median_low / common:legacy,M2,long,D8_9,ratio_interaction,1.0000000000000002
+common:household:median_low / common:legacy,M2,long,D10,ratio_value,1.5296621491356568
+common:household:median_low / common:legacy,M2,long,D10,ratio_R_pay_pct,1.8125390375377766
+common:household:median_low / common:legacy,M2,long,D10,ratio_K,0.8439333539616389
+common:household:median_low / common:legacy,M2,long,D10,ratio_interaction,1.0
+common:household:median_low / common:legacy,M2d,long,overall,ratio_value,0.8209595766081605
+common:household:median_low / common:legacy,M2d,long,overall,ratio_R_pay_pct,1.3020774054977866
+common:household:median_low / common:legacy,M2d,long,overall,ratio_K,0.6304998252345113
+common:household:median_low / common:legacy,M2d,long,overall,ratio_interaction,1.0000000000000002
+common:household:median_low / common:legacy,M2d,long,D4_5,ratio_value,nan
+common:household:median_low / common:legacy,M2d,long,D4_5,ratio_R_pay_pct,nan
+common:household:median_low / common:legacy,M2d,long,D4_5,ratio_K,nan
+common:household:median_low / common:legacy,M2d,long,D4_5,ratio_interaction,nan
+common:household:median_low / common:legacy,M2d,long,D6_7,ratio_value,1.055282583451211
+common:household:median_low / common:legacy,M2d,long,D6_7,ratio_R_pay_pct,0.9633114329180452
+common:household:median_low / common:legacy,M2d,long,D6_7,ratio_K,1.0954739530647617
+common:household:median_low / common:legacy,M2d,long,D6_7,ratio_interaction,1.0
+common:household:median_low / common:legacy,M2d,long,D8_9,ratio_value,0.8949401956142514
+common:household:median_low / common:legacy,M2d,long,D8_9,ratio_R_pay_pct,1.6267769086385346
+common:household:median_low / common:legacy,M2d,long,D8_9,ratio_K,0.5501308697350736
+common:household:median_low / common:legacy,M2d,long,D8_9,ratio_interaction,0.9999999999999999
+common:household:median_low / common:legacy,M2d,long,D10,ratio_value,0.9519801310356065
+common:household:median_low / common:legacy,M2d,long,D10,ratio_R_pay_pct,1.399625537781153
+common:household:median_low / common:legacy,M2d,long,D10,ratio_K,0.6801677343961546
+common:household:median_low / common:legacy,M2d,long,D10,ratio_interaction,1.0000000000000002
+common:household:median_low / stoch:legacy,M1a,short,all,ratio_value,0.6642621193797299
+common:household:median_low / stoch:legacy,M1a,short,all,ratio_base_pct_gdp,0.7054241376107069
+common:household:median_low / stoch:legacy,M1a,short,all,ratio_rate_pct,1.0330612515859914
+common:household:median_low / stoch:legacy,M1a,short,all,ratio_interaction,0.9115134864372421
+common:household:median_low / stoch:legacy,M2,short,overall,ratio_value,0.08858856478142066
+common:household:median_low / stoch:legacy,M2,short,overall,ratio_R_pay_pct,0.17066338608281562
+common:household:median_low / stoch:legacy,M2,short,overall,ratio_K,0.49981223244895684
+common:household:median_low / stoch:legacy,M2,short,overall,ratio_interaction,1.0385572140491088
+common:household:median_low / stoch:legacy,M2,short,D4_5,ratio_value,nan
+common:household:median_low / stoch:legacy,M2,short,D4_5,ratio_R_pay_pct,nan
+common:household:median_low / stoch:legacy,M2,short,D4_5,ratio_K,nan
+common:household:median_low / stoch:legacy,M2,short,D4_5,ratio_interaction,nan
+common:household:median_low / stoch:legacy,M2,short,D6_7,ratio_value,0.226640174350711
+common:household:median_low / stoch:legacy,M2,short,D6_7,ratio_R_pay_pct,0.3218280212795045
+common:household:median_low / stoch:legacy,M2,short,D6_7,ratio_K,0.6934903348564572
+common:household:median_low / stoch:legacy,M2,short,D6_7,ratio_interaction,1.015482931004221
+common:household:median_low / stoch:legacy,M2,short,D8_9,ratio_value,0.15501554057511574
+common:household:median_low / stoch:legacy,M2,short,D8_9,ratio_R_pay_pct,0.2278989025208388
+common:household:median_low / stoch:legacy,M2,short,D8_9,ratio_K,0.667428194551436
+common:household:median_low / stoch:legacy,M2,short,D8_9,ratio_interaction,1.019127349334956
+common:household:median_low / stoch:legacy,M2,short,D10,ratio_value,0.09137728244101974
+common:household:median_low / stoch:legacy,M2,short,D10,ratio_R_pay_pct,0.14161941676829637
+common:household:median_low / stoch:legacy,M2,short,D10,ratio_K,0.6191508122279098
+common:household:median_low / stoch:legacy,M2,short,D10,ratio_interaction,1.0421230203744998
+common:household:median_low / stoch:legacy,M2d,short,overall,ratio_value,1.449216831524794
+common:household:median_low / stoch:legacy,M2d,short,overall,ratio_R_pay_pct,0.38871541923897984
+common:household:median_low / stoch:legacy,M2d,short,overall,ratio_K,3.4751811236760064
+common:household:median_low / stoch:legacy,M2d,short,overall,ratio_interaction,1.0728133188237217
+common:household:median_low / stoch:legacy,M2d,short,D4_5,ratio_value,nan
+common:household:median_low / stoch:legacy,M2d,short,D4_5,ratio_R_pay_pct,nan
+common:household:median_low / stoch:legacy,M2d,short,D4_5,ratio_K,nan
+common:household:median_low / stoch:legacy,M2d,short,D4_5,ratio_interaction,nan
+common:household:median_low / stoch:legacy,M2d,short,D6_7,ratio_value,1.128983228400782
+common:household:median_low / stoch:legacy,M2d,short,D6_7,ratio_R_pay_pct,0.4531944249099171
+common:household:median_low / stoch:legacy,M2d,short,D6_7,ratio_K,2.4419210705222874
+common:household:median_low / stoch:legacy,M2d,short,D6_7,ratio_interaction,1.0201670901879654
+common:household:median_low / stoch:legacy,M2d,short,D8_9,ratio_value,1.1896323748318054
+common:household:median_low / stoch:legacy,M2d,short,D8_9,ratio_R_pay_pct,0.37120030739234333
+common:household:median_low / stoch:legacy,M2d,short,D8_9,ratio_K,2.977983812475712
+common:household:median_low / stoch:legacy,M2d,short,D8_9,ratio_interaction,1.076173056627928
+common:household:median_low / stoch:legacy,M2d,short,D10,ratio_value,1.462757435265411
+common:household:median_low / stoch:legacy,M2d,short,D10,ratio_R_pay_pct,0.3839688757154404
+common:household:median_low / stoch:legacy,M2d,short,D10,ratio_K,3.5305510455982207
+common:household:median_low / stoch:legacy,M2d,short,D10,ratio_interaction,1.079030690048336
+common:household:median_low / stoch:legacy,M1a,long,all,ratio_value,0.7490417188670639
+common:household:median_low / stoch:legacy,M1a,long,all,ratio_base_pct_gdp,0.7814512678834469
+common:household:median_low / stoch:legacy,M1a,long,all,ratio_rate_pct,1.480972928665888
+common:household:median_low / stoch:legacy,M1a,long,all,ratio_interaction,0.647227537545409
+common:household:median_low / stoch:legacy,M2,long,overall,ratio_value,0.12039587425521417
+common:household:median_low / stoch:legacy,M2,long,overall,ratio_R_pay_pct,0.2510527573959553
+common:household:median_low / stoch:legacy,M2,long,overall,ratio_K,0.47228059016808266
+common:household:median_low / stoch:legacy,M2,long,overall,ratio_interaction,1.0154218671066277
+common:household:median_low / stoch:legacy,M2,long,D4_5,ratio_value,nan
+common:household:median_low / stoch:legacy,M2,long,D4_5,ratio_R_pay_pct,nan
+common:household:median_low / stoch:legacy,M2,long,D4_5,ratio_K,nan
+common:household:median_low / stoch:legacy,M2,long,D4_5,ratio_interaction,nan
+common:household:median_low / stoch:legacy,M2,long,D6_7,ratio_value,0.206023199655014
+common:household:median_low / stoch:legacy,M2,long,D6_7,ratio_R_pay_pct,0.3065814830619229
+common:household:median_low / stoch:legacy,M2,long,D6_7,ratio_K,0.6766533822027774
+common:household:median_low / stoch:legacy,M2,long,D6_7,ratio_interaction,0.9931250811175323
+common:household:median_low / stoch:legacy,M2,long,D8_9,ratio_value,0.19531118578585605
+common:household:median_low / stoch:legacy,M2,long,D8_9,ratio_R_pay_pct,0.3056793229295162
+common:household:median_low / stoch:legacy,M2,long,D8_9,ratio_K,0.6449608454963995
+common:household:median_low / stoch:legacy,M2,long,D8_9,ratio_interaction,0.9906670168265059
+common:household:median_low / stoch:legacy,M2,long,D10,ratio_value,0.13108826828576514
+common:household:median_low / stoch:legacy,M2,long,D10,ratio_R_pay_pct,0.2513079189172951
+common:household:median_low / stoch:legacy,M2,long,D10,ratio_K,0.5009134639670476
+common:household:median_low / stoch:legacy,M2,long,D10,ratio_interaction,1.0413457463757965
+common:household:median_low / stoch:legacy,M2d,long,overall,ratio_value,0.8819429777774536
+common:household:median_low / stoch:legacy,M2d,long,overall,ratio_R_pay_pct,0.39057668345702273
+common:household:median_low / stoch:legacy,M2d,long,overall,ratio_K,2.2295475842600676
+common:household:median_low / stoch:legacy,M2d,long,overall,ratio_interaction,1.012785436138383
+common:household:median_low / stoch:legacy,M2d,long,D4_5,ratio_value,nan
+common:household:median_low / stoch:legacy,M2d,long,D4_5,ratio_R_pay_pct,nan
+common:household:median_low / stoch:legacy,M2d,long,D4_5,ratio_K,nan
+common:household:median_low / stoch:legacy,M2d,long,D4_5,ratio_interaction,nan
+common:household:median_low / stoch:legacy,M2d,long,D6_7,ratio_value,1.0945770936663768
+common:household:median_low / stoch:legacy,M2d,long,D6_7,ratio_R_pay_pct,0.3671060867245052
+common:household:median_low / stoch:legacy,M2d,long,D6_7,ratio_K,2.7345618537986316
+common:household:median_low / stoch:legacy,M2d,long,D6_7,ratio_interaction,1.0903527389006868
+common:household:median_low / stoch:legacy,M2d,long,D8_9,ratio_value,1.0777085120804655
+common:household:median_low / stoch:legacy,M2d,long,D8_9,ratio_R_pay_pct,0.39777907774943566
+common:household:median_low / stoch:legacy,M2d,long,D8_9,ratio_K,2.533590213163805
+common:household:median_low / stoch:legacy,M2d,long,D8_9,ratio_interaction,1.0693577069867777
+common:household:median_low / stoch:legacy,M2d,long,D10,ratio_value,1.1039163656057496
+common:household:median_low / stoch:legacy,M2d,long,D10,ratio_R_pay_pct,0.46802454163767226
+common:household:median_low / stoch:legacy,M2d,long,D10,ratio_K,2.275741456801825
+common:household:median_low / stoch:legacy,M2d,long,D10,ratio_interaction,1.0364410942284639
