@@ -34,8 +34,8 @@ The deferral rate, per-path loose ends (135c), pension withdrawal, any change to
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** block 0 (progress block pushed)
+- **Next:** block 1 (diagnose: floor line-year table in `household-arm-i1-floor.md`)
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/137-floor-zero-units origin/brief/137-floor-zero-units`
-- **State:** ready; not started
+- **State:** in progress; branch `brief/137-floor-zero-units`
 <!-- progress:end -->
