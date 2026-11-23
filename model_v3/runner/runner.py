@@ -42,7 +42,7 @@ from model_v3.core import pack as pk
 from model_v3.core import returns as rt
 from model_v3.core import revenue as rv
 from model_v3.core import schedule as sc
-from model_v3.runner import arm as ab
+from model_v3.runner import arm as ab, switches as sw
 from model_v3.runner.groups import GROUPS
 
 T = 100
@@ -170,7 +170,7 @@ class Env:
 
 
 def env_of(ctx, theta, seq=None, key=()):
-    return Env(ctx, theta, ctx.pack, dict(lam_C=theta['I-D14a'] / 100, lam_D=theta['I-D14b'] / 100), np.random.SeedSequence(0) if seq is None else seq, tuple(key), lambda b: ab.build(ctx.arm, ctx, theta, b))
+    return Env(ctx, theta, ctx.pack, dict(lam_C=theta['I-D14a'] / 100, lam_D=theta['I-D14b'] / 100, **sw.lien_kw(ctx)), np.random.SeedSequence(0) if seq is None else seq, tuple(key), lambda b: ab.build(ctx.arm, ctx, theta, b))
 
 
 @dataclass(frozen=True)
@@ -200,7 +200,7 @@ def core_run(ctx, theta, spec, g, gdp_g, full=False, tweak=None):
     P = g.shape[1]
     b = (tweak or (lambda x: x))(shaped(ctx, theta, spec['ratio']))
     rate = sc.rate_function(spec['k_ln'], spec['tau_0'], spec['tau_m'], b.w_min, 'logistic_ln')
-    lam, ar = env_of(ctx, theta).lam, ab.build(ctx.arm, ctx, theta, b, g)
+    lam, ar = {**env_of(ctx, theta).lam, **sw.phase_kw(ctx.arm)}, ab.build(ctx.arm, ctx, theta, b, g)
     fl = bd.line_flows(b, rate, g, gdp_g, c := ar.c, hook=ar.make(), **lam)
     if full or ar.name != 'legacy':                                   # the household arm needs the ledger: revenue.run_lines
         run = rv.run_lines(b, rate, g, gdp_g, c, hook=ar.make(), **lam)

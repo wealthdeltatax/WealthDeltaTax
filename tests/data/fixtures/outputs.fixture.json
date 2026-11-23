@@ -1,6 +1,6 @@
 {
  "schema": "wdt-outputs/1",
- "run": {"manifest_version": "stage-A16-comparators-2026-11-22", "manifest_sha256": "b849f8952e259396accdd0ed432a73312ea79fd50d7fb26533cabc3f78917572", "country_pack": "UK", "run_date": "2026-01-01", "status": "provisional", "model_version": "fixture", "inputs_sha256": "de7a7329326b7fb63f0c17c5d719ac6ac9316aff365c535bc24f0bce1ad2823f", "paths": 0, "base_year": 2025, "fixture": true, "pack_sha256": "56eea9d6c3a1c74993f772679c132a732038ad54d9390dfad1ec4d5437e0bf25", "pack_country": "UK", "levers_sha256": "97cc0e18248aed74f3d146d8ff77877280d3ee8fd3ab3d2e35b8825cd1a7d426"},
+ "run": {"manifest_version": "stage-A16-comparators-2026-11-22", "manifest_sha256": "b849f8952e259396accdd0ed432a73312ea79fd50d7fb26533cabc3f78917572", "country_pack": "UK", "run_date": "2026-01-01", "status": "provisional", "model_version": "fixture", "inputs_sha256": "bb613cfcd6678207d7cf1658d09f9971446ee1ee42639ea7fe71035fac0c5e22", "paths": 0, "base_year": 2025, "fixture": true, "pack_sha256": "56eea9d6c3a1c74993f772679c132a732038ad54d9390dfad1ec4d5437e0bf25", "pack_country": "UK", "levers_sha256": "97cc0e18248aed74f3d146d8ff77877280d3ee8fd3ab3d2e35b8825cd1a7d426"},
  "outputs": {
   "O1": {"summary": "p10_mean_p90", "cells": [
    {"schedule": "S_low", "horizon": "transition", "line": "M1", "by": {}, "p10": 1.7, "mean": 3.4, "p90": 5.1},

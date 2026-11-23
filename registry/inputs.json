@@ -549,13 +549,13 @@
    "unit": "ratio of IFS-basis to ONS-basis pension stock"
   },
   {
-   "central": 1.65,
+   "central": 1.6455,
    "coverage": "UK 1896-2019 (1940-46 absent)",
-   "high": 3.25,
+   "high": 3.2454,
    "id": "I-D1o",
    "input": "Scenario range, real holding gain on property (housing), `PROPERTY_GAIN` (household arm; the yield 3.758% is inside saving and is not this row)",
    "judgement": true,
-   "low": -0.1,
+   "low": -0.0995,
    "nulls": {},
    "sources": [],
    "unit": "% per year"
@@ -565,7 +565,7 @@
    "coverage": "n/a",
    "high": null,
    "id": "I-D1p",
-   "input": "Scenario axis (placeholder), the fund's return setting, `fund_return` (household arm; entered ahead of brief 138c's switch, whose name and values it must follow)",
+   "input": "Scenario axis, the fund's return setting, `fund_return` (household arm; the switch of brief 138c, `model_v3/runner/switches.py`)",
    "judgement": true,
    "low": null,
    "nulls": {
