@@ -53,6 +53,9 @@ def hook(a, cls):
 
 
 TAIL = {'off': None, 'ast_low': (14.4, False), 'ast_high': (16.5, False), 'ast_low_e0': (14.4, True), 'ast_high_e0': (16.5, True)}   # top_tail (147c): the published top-1% share in percent (Advani, Summers and Tarrant 2025, pp. 1, 12) and whether I-D4e is taken as 0
+SHAPES = ('flat', 'mild', 'steep')
+PCT = np.array([5, 15, 25, 35, 45, 55, 65, 75, 85, 94.5, 99.5, 100, 100, 100.0])                 # the lines' adult-percentile midpoints (145r): D1 to D9, D10a, D10b, the three named-list tiers
+STEP = 0.07                                                                                       # the shapes' size, a scenario value (145r): the 7 point step and the 7 point rise
 POINTS = ('low', 'central', 'high')
 BASIS = {'ons': 'low', 'ifs': 'central', 'ifs_high': 'high'}
 N_PHASE = 10                                                  # the household arm's death phases (149c): a numerical approximation, the legacy arm keeps 6
@@ -100,7 +103,9 @@ def scenario(a, ctx, st, label, base):
     m = pension_multiplier(a, ctx)
     st = st if m == 1.0 else {**st, 'pos': {**st['pos'], 'pension': st['pos']['pension'] * m}}
     st, tt = top_tail(a, ctx, st, base)
-    new = dict(**(tt or {}), lien_rate=lien_rate(a, ctx), lien_rate_point=a.get('lien_rate', 'central'), pension_basis=a.get('pension_basis', 'ons'), pension_multiplier=m, housing_gain=housing_gain(ctx), death_phases=N_PHASE)
+    st = saving_shape(a, {**st, 'adults': base.adults_k})
+    st = {k: v for k, v in st.items() if k != 'adults'}
+    new = dict(**(tt or {}), **({} if a.get('saving_shape', 'flat') == 'flat' else dict(saving_shape=a['saving_shape'], saving_step=STEP)), lien_rate=lien_rate(a, ctx), lien_rate_point=a.get('lien_rate', 'central'), pension_basis=a.get('pension_basis', 'ons'), pension_multiplier=m, housing_gain=housing_gain(ctx), death_phases=N_PHASE)
     return st, {**label, 'scenario': {**label['scenario'], **new}}
 
 
@@ -134,3 +139,16 @@ def top_tail(a, ctx, st, base):
     if min(new[k][ib] for k in np_) < 0:
         raise ValueError(f"top_tail {v}: a class of D10b would go negative")
     return {**st, 'pos': new}, dict(top_tail=v, top1_share_target=share, wealth_moved_bn=to_a, wealth_removed_bn=drop, total_bn=T1)
+
+
+def saving_shape(a, st):
+    """The state with the saving ratio by line under the `saving_shape` setting (147c; 145r): `flat` (default) unchanged; `mild` a step of 7 points (D1 and D2 save less than every other line); `steep` that step plus a rise of 7 points from the 25th adult percentile to the top. Offsets are additive and
+    income-weighted to a mean of zero, so aggregate saving equals `flat`'s exactly at any flat value. Labelled scenarios (no source gives saving by wealth), not fitted."""
+    v = a.get('saving_shape', 'flat')
+    if v not in SHAPES:
+        raise ValueError(f"saving_shape must be one of {SHAPES}, not {v!r}")
+    if v == 'flat':
+        return st
+    h = (PCT > 20).astype(float) + (np.clip((PCT - 25) / 75, 0, 1) if v == 'steep' else 0.0)
+    w = st['income'] * st['adults']
+    return {**st, 'sav': st['sav'] + STEP * (h - float((w * h).sum() / w.sum()))}
