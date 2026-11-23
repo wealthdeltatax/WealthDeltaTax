@@ -32,8 +32,8 @@ Choosing a rule, changing `CLOSED` or levers, the OF1 and CK1 outputs themselves
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** block 0 (branch and progress block pushed)
+- **Next:** block 1 (F1 under the household arm; read f1_gap.py and runner/sweeps.py)
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/140-f1-household origin/brief/140-f1-household`
-- **State:** ready; not started
+- **State:** in progress, block 0 done
 <!-- progress:end -->
