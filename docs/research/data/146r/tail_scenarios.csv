@@ -1,0 +1,13 @@
+setting,top1_target_pct,lines_scaled,offset,wealth_moved_gbp_bn,top1_share_pct,top10_share_pct,total_gbp_bn,total_vs_pack,D10a_per_adult_gbp_m,D10b_per_adult_gbp_m,min_nonpension_top_line_gbp_m,D10a_pension_gbp_m,D10b_pension_gbp_m
+ast_low,14.4,all_top1_lines,to_D10a,1069.2,14.4,43.53,14246.4,1.0,0.885,2.951,2.565,0.2392,0.386
+ast_low,14.4,all_top1_lines,pro_rata_D1_to_D10a,1069.2,14.4,38.1,14246.4,1.0,0.72,2.951,2.565,0.2392,0.386
+ast_low,14.4,all_top1_lines,none_total_falls,1249.0,14.4,38.1,12997.4,0.9123,0.657,2.692,2.306,0.2392,0.386
+ast_low,14.4,D10b_only_list_fixed,to_D10a,1069.2,14.4,43.53,14246.4,1.0,0.885,2.435,2.049,0.2392,0.386
+ast_low,14.4,D10b_only_list_fixed,pro_rata_D1_to_D10a,1069.2,14.4,38.1,14246.4,1.0,0.72,2.435,2.049,0.2392,0.386
+ast_low,14.4,D10b_only_list_fixed,none_total_falls,1249.0,14.4,38.1,12997.4,0.9123,0.657,2.089,1.703,0.2392,0.386
+ast_high,16.5,all_top1_lines,to_D10a,770.0,16.5,43.53,14246.4,1.0,0.821,3.381,2.995,0.2392,0.386
+ast_high,16.5,all_top1_lines,pro_rata_D1_to_D10a,770.0,16.5,39.62,14246.4,1.0,0.703,3.381,2.995,0.2392,0.386
+ast_high,16.5,all_top1_lines,none_total_falls,922.1,16.5,39.62,13324.3,0.9353,0.657,3.162,2.776,0.2392,0.386
+ast_high,16.5,D10b_only_list_fixed,to_D10a,770.0,16.5,43.53,14246.4,1.0,0.821,3.009,2.623,0.2392,0.386
+ast_high,16.5,D10b_only_list_fixed,pro_rata_D1_to_D10a,770.0,16.5,39.62,14246.4,1.0,0.703,3.009,2.623,0.2392,0.386
+ast_high,16.5,D10b_only_list_fixed,none_total_falls,922.1,16.5,39.62,13324.3,0.9353,0.657,2.717,2.331,0.2392,0.386

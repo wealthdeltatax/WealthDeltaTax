@@ -1,0 +1,8 @@
+row_id,item,value,unit,page,flag,note_or_challenge
+T-P01,"top 1% wealth share, 2016-18, income capitalisation, survey aggregates",14.4,%,"1, 12, Fig. 3 (p. 13)",text and figure,"individuals aged 20+; capitalised income, not the WAS distribution; no Pareto adjustment"
+T-P02,"same, National Accounts aggregates (after reranking)",16.5,%,"1, 12, Fig. 3",text and figure,NA aggregate total £9.9tn against survey £14.2tn (p. 2)
+T-P03,over 2006 to 2016-18 the top 1% share is higher with NA than survey aggregates by,2.1 to 3.3 points (12 to 18%),points,12,text,the 2016-18 gap is 2.1
+T-P04,"aggregate net wealth, 2016-18, survey and National Accounts",14.2; 9.9,GBP trillion,2,text,"different wealth definitions (pension, housing)"
+T-P05,wealth definition and population,"market value of assets net of debts incl. pension entitlements; excludes consumer durables, vehicles, unfunded DB (main results); individuals aged 20 or older",,2,text,"the pack lines are adults of households, wealth per adult equal inside a household"
+T-P06,"preferred series (Pareto-adjusted survey distribution), top 1% share",not held,,5 (stated); Appendix F.3,unset,data request: the appendix is not in the held 18-page PDF
+T-P07,including unfunded DB pensions lowers the top 1% share,size not held,,8; Appendix F.2,unset,direction only
