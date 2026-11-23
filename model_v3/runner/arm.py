@@ -145,14 +145,27 @@ class HouseholdHook:
         dead = np.abs(N0) <= 1e-12                                                                 # the class floor (127c): a line whose units are all 0 cannot carry any flow (units grow multiplicatively), so it stays at 0; a line with negative wealth keeps its units
         self.wo = np.where(dead, self.PL - self.PK, 0.0)                                                      # a lien on a line with no units left is written off: the ledger reports it (132c)
         N1, self.PL = N1 - (self.PL - self.PK), self.PL - self.wo
-        self.fl = np.where(dead, -N1, 0.0)                                                          # what the floor added (+) or removed (-) in the year; an alarm, never tuned away
+        back = self._restart(book, dead & (N1 > 1e-12))                                              # 137c: a dead line whose year's saving is positive restarts from it (units = saving / price), so the floor does not fire
+        self.fl = np.where(dead & ~back, -N1, 0.0)                                                  # what the floor added (+) or removed (-) in the year; an alarm, never tuned away
         for k in CLASSES[:3]:
-            self.q1[k] = np.where(dead, 0.0, self.q1[k])
+            self.q1[k] = np.where(dead & ~back, 0.0, self.q1[k])
         book.unpaid_B = book.unpaid_B + np.abs(self.fl)                                             # recorded as the model's shortfall alarm (shortfall_lines counts it)
         N0 = np.where(dead, 1.0, N0)
         g_n = sum(np.asarray(gn[k]) * self.q[k] for k in CLASSES[:3]) / N0
         book.pen, self.W_after = self.q1['pension'] - self.PK, sum(self.q1[k] for k in CLASSES) - self.PL
         return g_n, (self._n(self.q1) - (self.PL - self.PK)) / (N0 * (1.0 + g_n)) - 1.0                                     # growth then the flow reach the household's closing non-pension total exactly (I1)
+
+    @staticmethod
+    def _restart(book, want):
+        """The class floor's restart (137c; a labelled bookkeeping rule, no register input): the lines in `want` (no units, positive saving) get units again at the year's price, the same number on every route so that the family value is 1,
+        which `pre` takes as the line's opening value (N0 = 1) and its flow then brings to the closing total. The units are bought: `sold` falls by them, so f + s + sold = tot holds. A line whose routes have no price stays dead. Returns the mask restarted."""
+        rt = [x for r, x in book.R.items() if r != 'Cv']
+        price = sum(x['V'] for x in rt)
+        ok = want & (price > 0.0)
+        for x in rt:
+            u = np.where(ok, 1.0 / np.where(price > 0.0, price, 1.0) - x['f'], 0.0)
+            x['f'], x['sold'] = x['f'] + u, x['sold'] - u
+        return ok
 
     def lien(self):
         """The public ledger's receivable (132c), by line: the lien balance at the close and the year's new, accrued, settled and written-off amounts (billions after weighting; the balance moves by new + accr - settled - wo); `xnew` is the part of `new` the kernel never moved (the cap's excess, 133c), which is not in the year's value paid."""

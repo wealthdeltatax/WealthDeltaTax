@@ -145,3 +145,33 @@ def test_a_line_that_never_reaches_the_floor_records_no_floor():
     h = arm.HouseholdHook(ST, GAIN, 0.0157)
     for t, kind, book, a in run(h, 12):
         assert (a['floor'] == 0).all() and K.shortfall_lines(book) == 0
+
+
+def _dead_year(st, paths=1):
+    """Year 1 as normal, then every line's units and non-pension classes are gone (as a tax that took all of them leaves it: f = 0, last assessment's declared value 0, price kept); year 2 is run. Returns (hook, book, account, unpaid_B before)."""
+    h, book = arm.HouseholdHook(st, GAIN, 0.0157), book_for(st, paths)
+    K.step_year(book, RATE, 1.0, np.zeros(14 * paths), 0.0, hook=h, t=1)
+    for k in arm.CLASSES[:3]:
+        h.q[k] = h.q[k] * 0.0
+    for x in book.R.values():
+        x['sold'], x['f'], x['Wp'] = x['sold'] + x['f'], x['f'] * 0.0, x['Wp'] * 0.0
+    b0 = book.unpaid_B.copy()
+    K.step_year(book, RATE, 1.0, np.zeros(14 * paths), 0.0, hook=h, t=2)
+    return h, book, h.account(), b0
+
+
+def test_a_line_with_no_units_and_a_positive_saving_restarts_from_it_and_the_floor_does_not_fire():
+    """137c: units = saving / price; the closing class total equals the family value, I1 holds (post checks it), the units identity holds, no floor entry and no shortfall."""
+    h, book, a, b0 = _dead_year(ST)
+    assert (a['floor'] == 0).all() and (book.unpaid_B == b0).all() and K.shortfall_lines(book) == 0 and np.abs(a['residual']).max() < 1e-9
+    assert (book.family_true() > 0).all() and np.abs(book.family_true() - sum(h.q[k] for k in arm.CLASSES[:3])).max() < 1e-9
+    assert all((x['f'] >= 0).all() for x in book.R.values()) and book.check()['units'] < 1e-12                  # a route can be emptied by the year's own tax; the family value above is what restarted
+
+
+def test_a_dead_line_with_no_saving_stays_at_zero_and_one_with_a_negative_saving_is_still_the_alarm():
+    z = {**ST, 'income': ST['income'] * 0.0, 'acc': ST['acc'] * 0.0}
+    h, book, a, b0 = _dead_year(z)
+    assert np.abs(book.family_true()).max() < 1e-12 and (a['floor'] == 0).all() and all((x['f'] == 0).all() for x in book.R.values()) and np.abs(a['residual']).max() < 1e-9
+    neg = arm.line_state(BASE, PACK.tables['decile_composition'], REG, -0.3)
+    h, book, a, b0 = _dead_year(neg)
+    assert np.abs(book.family_true()).max() < 1e-12 and (a['floor'] > 0).all() and (book.unpaid_B > b0).all() and np.abs(a['residual']).max() < 1e-9
