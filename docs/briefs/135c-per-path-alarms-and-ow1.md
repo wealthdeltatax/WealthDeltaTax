@@ -35,8 +35,8 @@ The deferral rate (134r), per-path GDP, heterogeneity, saving gradient, withdraw
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** block 0 (branch from main f706c83)
+- **Next:** block 1 (diagnose)
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/135-per-path-alarms origin/brief/135-per-path-alarms`
-- **State:** ready; not started (after 133c)
+- **State:** in progress, block 0 pushed
 <!-- progress:end -->
