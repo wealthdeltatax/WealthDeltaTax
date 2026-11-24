@@ -376,3 +376,5 @@ W4 (116c) found the design note wrong on one point: the sale routes did not cap 
 2026-11-24 Author: a rehearsal of the whole move on a scratch worktree (Agent 2, no new brief): apply the full map, then run the suites, the tripwire and the path checker there, and report the real breakages grouped by the stage that owns them (160c to 164c), with an `--apply` mode in `path_refs.py` if none is committed. It runs alongside 160c and 161c and its report is merged to `main` as `docs/restructure/rehearsal-report.md` for the stage agents.
 
 2026-11-24 Author: the rehearsal is skipped (Agent 2 ran out of tokens and pushed nothing; the stage agents run the path-rewrite proof, the tripwire and the suites at every stage anyway). 160c and 161c start now on Agents 4 and 5. If a stage needs an `--apply` mode for the map and `path_refs.py` has none, that stage writes it. Agent 2 is out of tokens and not assigned.
+
+2026-11-24 Author: the rehearsal is back on, as brief 165c for Agent 6 (model side first, two pushes, three deliverables: an `--apply` mode if missing, `rehearsal-report.md`, `rehearsal-fixes.patch`). It runs alongside 160c and 161c; 162c waits for it as well.

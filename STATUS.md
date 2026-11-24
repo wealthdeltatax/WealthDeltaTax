@@ -13,7 +13,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent 3 | free | 164c (project, skills, final sweep) |
 | Agent 4 | 160c (datasets, PDFs, research) | |
 | Agent 5 | 161c (website, web tests, legacy papers) | |
-| Agent 6 | free (147c merged) | 162c and 163c (model move, specs and results) |
+| Agent 6 | 165c (rehearse the whole move on a scratch copy) | 162c and 163c (model move, specs and results) |
 
 Six agents only. Agents change skill with the brief. Next housekeeping (author, 2026-11-24): the reorganisation, seven briefs (009c, 044c, 160c to 164c), 009c starts now (057c is paused), the 044c inventory after 009c. **Budget rule:** `model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 
