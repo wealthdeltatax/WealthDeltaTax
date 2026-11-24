@@ -159,7 +159,7 @@ def solve_rate(kind, target, g, w0, weights, w_min, c=0.0, hi=1.0, iters=80, hoo
     rev = lambda r: float((np.asarray(weights)[:, None] * system_run(kind, r, g, w0, w_min, c, hook)[1]).sum(0).mean())
     if rev(hi) < target:
         if _CAP is not None:   # inside `capping`: the comparator stays at the capped rate and the shortfall is recorded (author, 2026-11-24), never repaired
-            _CAP[kind] = (rev(hi), target); return hi
+            _CAP.setdefault(kind, (rev(hi), target)); return hi   # the first record stands (level 1 runs first)
         raise ValueError(f'{kind}: a rate of {hi} raises {rev(hi):.6g}, less than the target {target:.6g}')
     lo = 0.0
     for _ in range(iters):
