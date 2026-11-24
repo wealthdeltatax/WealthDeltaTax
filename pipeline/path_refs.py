@@ -7,6 +7,8 @@
     python pipeline/path_refs.py --local     files tools need that git does not track (hazard 5)
     python pipeline/path_refs.py --check     after a stage: exit 1 if a tracked text file still names an old path of an already moved area (static tier 1)
     python pipeline/path_refs.py --new OLD   the new path of one old path
+    python pipeline/path_refs.py --apply ROOT  apply the whole map to the checkout at ROOT (165c rehearsal; a scratch copy, never this repository): git mv every file (R3 renames included), git rm the R4 duplicates,
+                                             rewrite the path in every `file` and unambiguous `folder` reference line of file-layout-references.csv, leave the four pinned lines alone; prints what it could not rewrite
 
 The map is a rule table (RULES, first match wins) plus the R3 rename pass. Flag S: settled (the author's rules, or the R1 checkpoint rulings of 2026-11-24 that closed the 13 review cases); D is kept for a rule
 added later that still needs a ruling (none now). Archived briefs and decisions.md are never searched for references (they keep the old paths).
@@ -369,14 +371,15 @@ def kind(token, rows):
     return 'other'
 
 
-def refs(rows):
-    """(file, line, token, kind) for every old-path token in a tracked text file outside NEVER_SEARCH."""
+def refs(rows, base=None):
+    """(file, line, token, kind) for every old-path token in a tracked text file outside NEVER_SEARCH; `base` is the checkout to read (default: this repository)."""
+    base = Path(base) if base else ROOT
     out = []
     for f in sorted(rows):
         if not is_text(f) or f.startswith(NEVER_SEARCH):
             continue
         try:
-            lines = (ROOT / f).read_text(encoding='utf-8').splitlines()
+            lines = (base / f).read_text(encoding='utf-8').splitlines()
         except (UnicodeDecodeError, OSError):
             continue
         for i, line in enumerate(lines, 1):
@@ -428,11 +431,106 @@ def pinned_allowed(f, i, t):
     return False
 
 
+def _folder_news(rows):
+    """old folder -> new folder, where every kept file under the folder moves by one common folder rule (file names are ignored, so a renamed file does not spoil its folder); split folders are left out."""
+    out, bad = {}, set()
+    for r in rows.values():
+        if r['duplicate_of'] or not r['new']:
+            continue
+        od, nd = Path(r['old']).parent.as_posix(), Path(r['new']).parent.as_posix()
+        o = [] if od == '.' else od.split('/')
+        for k in range(1, len(o) + 1):
+            f, tail = '/'.join(o[:k]), '/'.join(o[k:])
+            if tail and not (nd + '/').endswith('/' + tail + '/') and nd != tail:
+                bad.add(f)
+                continue
+            nf = nd[:-len(tail) - 1] if tail else nd
+            if out.setdefault(f, nf) != nf:
+                bad.add(f)
+    return {f: n for f, n in out.items() if f not in bad}
+
+
+def apply_map(root):
+    """165c: apply the map to the checkout at `root`. Moves and removals follow file-layout-map.csv (a tracked file the csv does not list gets its row from RULES and is reported as `not_in_csv`).
+    References are found afresh in the checkout, because the committed references csv goes stale as soon as an active file (STATUS, a brief) is edited; `csv_drift` counts how many lines differ from it.
+    Returns a summary dict; `unresolved` lists the reference lines it did not rewrite."""
+    root = Path(root).resolve()
+    if root == ROOT:
+        raise SystemExit('path_refs --apply: refusing to move files in this repository; pass a scratch checkout')
+    gi = lambda *a: subprocess.run(['git', '-C', str(root), *a], capture_output=True, text=True, check=True)
+    rows = {r['old']: r for r in csv.DictReader(MAP_CSV.open(encoding='utf-8'))}
+    files = [f for f in gi('ls-files', '-z').stdout.split('\0') if f and (root / f).is_file()]
+    not_in_csv = []
+    for f in files:
+        if f not in rows:
+            new, flag, rule = new_of(f)
+            rows[f] = dict(old=f, new=new or '', flag=flag, rule=rule, rename='', duplicate_of='')
+            not_in_csv.append(f)
+    rows = {k: v for k, v in rows.items() if k in set(files)}
+    found = refs(rows, root)                      # before anything moves: the line numbers refer to the old tree
+    old_csv = {(r['file'], int(r['line']), r['old_path_named']) for r in csv.DictReader(REFS_CSV.open(encoding='utf-8'))}
+    drift = len(old_csv ^ {(f, i, t) for f, i, t, _ in found})
+    moved = removed = 0
+    for old, r in sorted(rows.items()):
+        if r['duplicate_of']:
+            gi('rm', '-q', '--', old)
+            removed += 1
+        elif r['new'] and r['new'] != old:
+            (root / r['new']).parent.mkdir(parents=True, exist_ok=True)
+            gi('mv', '--', old, r['new'])
+            moved += 1
+    folders = _folder_news(rows)
+    def target(tok):
+        stem = tok.rstrip('.:/')
+        suffix = tok[len(stem):]
+        if stem in rows:
+            r = rows[stem]
+            new = rows[r['duplicate_of']]['new'] if r['duplicate_of'] else r['new']
+            return (new + suffix) if new else None
+        if stem in folders:
+            return folders[stem] + suffix
+        return None
+    by_file = collections.defaultdict(lambda: collections.defaultdict(list))
+    for f, i, t, k in found:
+        by_file[f][i].append((t, k))
+    edited = lines_changed = 0
+    unresolved = []
+    for f, per_line in sorted(by_file.items()):
+        r = rows[f]
+        if r['duplicate_of']:
+            continue
+        path = root / (r['new'] or f)
+        lines = path.read_bytes().decode('utf-8').splitlines(keepends=True)
+        changed = False
+        for i, toks in per_line.items():
+            line = lines[i - 1]
+            for tok, k in sorted(set(toks), key=lambda x: -len(x[0])):
+                if pinned_allowed(f, i, tok):
+                    continue
+                new = target(tok) if k != 'other' else None
+                if new is None:
+                    unresolved.append((f, i, tok, 'kind other' if k == 'other' else 'split folder, no single new path'))
+                    continue
+                line2 = re.sub(r'(?<![\w/.-])' + re.escape(tok) + r'(?![\w-])', lambda m: new, line)
+                if line2 == line:
+                    unresolved.append((f, i, tok, 'token already rewritten or not found on the line'))
+                line = line2
+            if line != lines[i - 1]:
+                lines[i - 1] = line
+                lines_changed += 1
+                changed = True
+        if changed:
+            path.write_bytes(''.join(lines).encode('utf-8'))
+            edited += 1
+    return dict(moved=moved, removed=removed, files_edited=edited, lines_changed=lines_changed, unresolved=unresolved, not_in_csv=not_in_csv, csv_drift=drift)
+
+
 def main():
     ap = argparse.ArgumentParser()
     for flag in ('map', 'refs', 'depth', 'dups', 'local', 'check'):
         ap.add_argument('--' + flag, action='store_true')
     ap.add_argument('--new')
+    ap.add_argument('--apply', metavar='ROOT')
     a = ap.parse_args()
     rows, seen = build_map()
     if a.new:
@@ -462,6 +560,11 @@ def main():
                 print(f'renamed    {k}  ->  {r["new"]}')
     if a.local:
         print('\n'.join(local_only()))
+    if a.apply:
+        res = apply_map(a.apply)
+        print(f"moved {res['moved']}, removed {res['removed']} duplicates, {res['files_edited']} files edited, {res['lines_changed']} lines rewritten, {len(res['unresolved'])} reference tokens not rewritten; {len(res['not_in_csv'])} tracked files not in the map csv {res['not_in_csv']}; references csv differs from a fresh scan on {res['csv_drift']} (file, line, token) entries")
+        for f, i, t, why in res['unresolved']:
+            print(f'  unresolved {f}:{i}: {t}  ({why})')
     if a.check:
         left = [(f, i, t) for f, i, t, k in refs(rows) if k != 'other' and not pinned_allowed(f, i, t)]
         for f, i, t in left[:50]:

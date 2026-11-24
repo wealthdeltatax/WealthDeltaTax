@@ -39,11 +39,11 @@ Rules that apply: one block, one push per part; suites in the background, never 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** not started
+- **Done:** block 0: `path_refs.py --apply <root>` written and run on a full-history scratch clone of `3efb03b` (1082 moved, 7 duplicates removed, 321 files edited, 1666 reference lines rewritten, 4 pinned lines left alone). First suite run on the applied copy: every model suite fails at collection (depth shifts and constructed paths), as expected.
+- **Next:** triage the model side (tripwire, `tests/model/{data,gate,tools,model_v3}`): fix in the scratch copy with a constructed-path pass plus hand fixes, label hunks by stage, write `rehearsal-report.md`, push (push 1). Then project side, website, `--check`, proof (push 2).
+- **Decisions:** `--apply` finds references afresh in the checkout instead of reading line numbers from `file-layout-references.csv`: that csv already differs from a fresh scan on 183 (file, line, token) entries because STATUS.md and active briefs changed after it was written; the map csv lacks `docs/briefs/165c-...md` (derived from RULES, reported).
+- **Gotchas:** a shallow clone fails the tripwire pack check; the scratch clone is full (810 commits). Scratch copy lives in the session scratchpad, not in the repository.
+- **Resume:** `python pipeline/path_refs.py --apply <scratch clone at 3efb03b>`, then per-suite `python -m pytest -q -p no:cacheprovider tests/model/<suite>` in the scratch copy.
+- **Not run:** Quarto build, `layout`, full `quick` comparison (out of scope per brief).
+- **State:** block 0 done, model-side triage in progress, nothing pushed yet except this block.
 <!-- progress:end -->
