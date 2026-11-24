@@ -88,3 +88,61 @@ def test_through_core_run_off_is_byte_identical_and_on_keeps_the_identities(ctx,
     on = run_(pension_withdrawal='high', heir_floor=50)
     assert on.arm['scenario']['pension_withdrawal']['setting'] == 'high' and on.arm['scenario']['heir_floor']['pct'] == 50 and 'pension_withdrawal' not in base.arm['scenario']
     assert max(seen) < 1e-9 and not np.array_equal(base.run['tax'], on.run['tax'])
+
+
+def test_gdp_paths_off_returns_the_array_and_bad_settings_raise():
+    g = np.full((5, 3), 0.0157)
+    assert fsw.gdp('legacy', {}, g, g, None) is g and fsw.gdp(dict(arm='household'), {}, g, g, None) is g and fsw.gdp(dict(gdp_paths='off'), {}, g, g, None) is g
+    with pytest.raises(ValueError, match='gdp_paths'):
+        fsw.gdp_paths(dict(gdp_paths='x'))
+    assert issubclass(fsw.hook(dict(gdp_paths='indep'), arm.HouseholdHook), arm.HouseholdHook)                 # built without a path (the comparators' arm): the fixed income growth
+
+
+@pytest.mark.parametrize('v', ['indep', 'hist'])
+def test_the_gdp_process_has_the_stated_moments_and_correlation(v):
+    from model_v3.runner import runner as R
+    T, P, th = 100, 40000, dict(zip(fsw.MARKET, (4.74, 8.22, 0.30)))
+    g = R.paths(np.random.default_rng(3).standard_normal((T, P)), *th.values())
+    base = np.full((T, P), 0.0157039)
+    out = fsw.gdp(dict(gdp_paths=v), th, g, base, lambda name: np.random.default_rng(4))
+    d = out - base
+    assert abs(out.mean() - 0.0157039) < 4e-4 and abs(d.std() - fsw.SD) < 5e-4 and abs(np.corrcoef(d[1:].ravel(), d[:-1].ravel())[0, 1] - fsw.PHI) < 0.01      # mean, marginal SD, lag-1
+    assert abs(np.corrcoef(d.ravel(), g.ravel())[0, 1] - 0.9996 * fsw.RHO[v]) < 0.01                                                                        # 146r: same-year correlation = innovation correlation x 0.9996
+    assert np.array_equal(out, fsw.gdp(dict(gdp_paths=v), th, g, base, lambda name: np.random.default_rng(4)))                                               # the same seed, the same paths
+
+
+@pytest.mark.parametrize('v', ['indep', 'hist'])
+def test_gdp_paths_through_core_run_keep_the_identities_and_income_follows_the_path(ctx, monkeypatch, v):
+    from dataclasses import replace
+    from test_arm_switch import INP, SPEC
+    from model_v3.runner import runner as R
+    seen, orig = [], arm.HouseholdHook.post
+
+    def spy(self, book, fl):
+        orig(self, book, fl)
+        seen.append((np.abs(self.account()['residual']).max(), np.abs(self.account()['S']).max()))
+
+    monkeypatch.setattr(arm.HouseholdHook, 'post', spy)
+    g = R.paths(np.random.default_rng(5).standard_normal((100, 6)), 4.74, 8.22, 0.30)
+    c2 = replace(ctx, arm=dict(arm='household', inputs=INP, saving='median', gdp_paths=v))
+    ev = R.evaluate(c2, c2.centre, SPEC, g, np.full(g.shape, ctx.gdp_g), seq=None, key=())
+    raw = R.core_run(c2, c2.centre, SPEC, g, fsw.gdp(c2.arm, c2.centre, g, np.full(g.shape, ctx.gdp_g), lambda n: np.random.default_rng(1)))
+    assert raw.arm['scenario']['gdp_paths']['setting'] == v and raw.gdp_g.std(axis=1).min() > 0 and max(r for r, _ in seen) < 1e-9
+    wdt = sum(raw.run[k] for k in ('tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D'))
+    assert np.abs(sum(raw.run['ledger']['rc'].values()) - wdt).max() < 1e-9 and np.isfinite(ev['M1']['short']).any()
+    assert not np.allclose(raw.run['gdp_index'][:, 0], raw.run['gdp_index'][:, 1]) and raw.run['gdp_index'][-1].std() > 0                          # the GDP index differs by path
+    from model_v3.runner import arm as ab
+    assert ab.withheld(raw.arm)['OW1'] == 'legacy_only'
+
+
+def test_the_household_income_follows_each_paths_gdp_index():
+    gdp = np.array([[0.10, -0.05], [0.20, 0.0], [0.0, 0.0]])                                                   # (T, P): two paths, three years
+    st = {**ST, 'income': np.array([1.0, 2.0]), 'sav': np.array([0.5, 0.5])}
+    h = fsw.hook(dict(gdp_paths='indep'), arm.HouseholdHook, gdp, arm.returns)(st, GAIN, 0.0)
+    book = K.Book(4, {'A': np.full(4, 0.05)})                                                                 # lines of a path side by side: [l0 p0, l1 p0, l0 p1, l1 p1]
+    for t in (1, 2, 3):
+        K.step_year(book, lambda w: 0.0 * w, 1.0, np.zeros(4), 0.0, hook=h, t=t)
+        idx = np.array([1.0, 1.1, 1.32][t - 1]), np.array([1.0, 0.95, 0.95][t - 1])
+        want = 0.5 * np.array([1.0, 2.0, 1.0, 2.0]) * np.repeat([idx[0], idx[1]], 2)
+        assert np.allclose(h.account()['S'], want, atol=1e-12) and np.abs(h.account()['residual']).max() < 1e-9
+    assert np.isclose(h.gr, 0.0)                                                                              # the scalar growth is restored after each year

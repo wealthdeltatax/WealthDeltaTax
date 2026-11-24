@@ -34,8 +34,8 @@ The deferral rate, the saving gradient and top tail (147c), the register rows, a
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** blocks 0, 1 (`model_v3/runner/flow_switches.py`: `pension_withdrawal` and `heir_floor`; `pension_lien.settle(keep)`; `tests/model_v3/test_flow_switches.py`)
-- **Next:** block 2 (`gdp_paths` in `flow_switches.py`; the GDP array is made in `runner.evaluate`), then block 3
+- **Done:** blocks 0, 1, 2 (`gdp_paths` in `flow_switches.py`; `runner.evaluate` makes the array; `arm.build` takes `gdp_g`; `arm.withheld` withholds the M13 comparators under it)
+- **Next:** block 3 (rerun at five points, notes in `household-arm-lien.md` and `household-arm-paths.md`, `run_grid.py`, change report); then stop
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/148-flow-switches origin/brief/148-flow-switches`
 - **State:** in progress; `arm.py` at 330; `runner.py` edits in block 2 must not add lines
 <!-- progress:end -->
