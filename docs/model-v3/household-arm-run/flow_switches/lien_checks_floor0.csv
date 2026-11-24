@@ -1,0 +1,3 @@
+account_residual_max,error,flat_cells,i1,ledger_dL_max,ledger_tie_first,ledger_tie_max,lien_bal_max,lien_instances,lien_lines,paths,point,shortfall_lines,spread_cells,unpaid_B_max,unpaid_B_path_phases,unpaid_max,wo_sum,written_off_instances,written_off_total
+1.574562702444382e-11,,407,"held, no raise",4.831690603168681e-13,,4.831690603168681e-13,0.0,260,3,20,min_mid,160,0,0.12980619790701756,140,0.0,0.0,40,2.2749494641127432
+1.864464138634503e-11,,411,"held, no raise",2.1600499167107046e-12,,1.3642420526593924e-12,271.73341825335626,2840,11,20,median_high,0,0,0.0,0,0.0,0.0,0,0.0
