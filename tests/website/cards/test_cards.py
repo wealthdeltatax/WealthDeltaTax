@@ -1,4 +1,4 @@
-"""Tests for pipeline/page_cards.py. Run: pytest tests/website/cards"""
+"""Tests for website/build/page_cards.py. Run: pytest tests/website/cards"""
 import filecmp
 import pathlib
 import re

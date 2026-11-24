@@ -58,3 +58,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: in a depth-50 clone the tripwire reports `FAIL: ['pack']` (`rebuild_is_byte_identical: false`, tree hash equal) because `build_gbr.py` reads `retrieved` dates from `git log --follow`.
 - Cost: one failed run and a history fetch (`git fetch --depth=5000 origin main brief/044-inventory` gave the full 809 commits); the rerun passed.
 - Suggest: say in the tripwire docstring and the stage briefs that it needs a full-history clone.
+
+### 2026-11-24 · 161c · code
+- Instruction: 161c Design ("web tests ... gate") against `file-layout-map.md` case 7 and 10 (`check_gate.py`, `tests/gate` go to `model/`); and `path_rewrite_proof.py`, which applies the map to generic words.
+- Happened: the brief and the map disagree on the gate (followed the map, stage 162c owns it); the proof reports `source:`, `site` and the nav label `Tools` as "changed" (map applied to plain words), so 46 files show red although only intended edits remain.
+- Cost: a manual review of the diff to tell intended depth and path edits from proof noise.
+- Suggest: make the proof apply the map to path-like tokens only (a slash or an extension), and say in each stage brief where the gate lives.

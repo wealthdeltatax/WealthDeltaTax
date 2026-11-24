@@ -9,7 +9,7 @@ docs/restructure/site/nav.md sections 3, 5, 6 and 9).
   is_draft(info), menu_text    the "draft" mark for a spoke whose status is not accepted
   reachability(rows, routes)   click depth from the hub; fails past 2 clicks or when unreachable
 
-Nothing here is wired into the build or into site/_quarto.yml: the live navbar stays until
+Nothing here is wired into the build or into website/site/_quarto.yml: the live navbar stays until
 cutover (B16) and preprocess.py reads this module at B15.  Write the fragment with:
     python website/build/pages/nav.py --write _build/navbar.generated.yml
 Run the reachability check with:

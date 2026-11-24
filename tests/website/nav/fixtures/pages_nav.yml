@@ -1,5 +1,5 @@
 # Fixture registry for tests/website/nav: four menu spokes, one appendix, a standalone, a pending page,
-# a calculator and the utility pages. Same shape as registry/pages.yml.
+# a calculator and the utility pages. Same shape as website/registry/pages.yml.
 - id: H
   type: hub
   title: Hub

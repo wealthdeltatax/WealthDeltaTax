@@ -22,7 +22,7 @@ Examples
   python website/build/wdt_crosslinks.py remap --map renumber.yml --apply
 
 Default paths (relative to wdt-site/): source/ (else /source), registry/anchors.yml,
-registry/internal.json; output registry/crosslinks.json. Each can be overridden by flag.
+registry/internal.json; output website/registry/crosslinks.json. Each can be overridden by flag.
 
 Drift tracking: scan/check compare the section index with a baseline (default: the
 previous --out file). Titles that changed under an existing number, or numbers that
@@ -511,7 +511,7 @@ def cmd_anchors(ctx, a):
 
 
 def cmd_contents(ctx, a):
-    """Emit contents.yml-shaped data from the markdown headings, for diffing against registry/contents.yml."""
+    """Emit contents.yml-shaped data from the markdown headings, for diffing against website/registry/contents.yml."""
     out = Path(a.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     lines = []
