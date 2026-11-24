@@ -264,15 +264,14 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "3", name: "Agent 3", note: "Free" },
     { id: "4", name: "Agent 4", note: "Free (150c merged)" },
     { id: "5", name: "Agent 5", note: "Free (089c merged)" },
-    { id: "6", name: "Agent 6", note: "147c block 4 (zero-wealth floor); then 148c" },
+    { id: "6", name: "Agent 6", note: "Free (147c merged); next 148c" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
   ];
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
     { id: "044c", lane: "G", at: 3, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }, { id: "009c" }], why: "Runs after 009c, then speed-up work follows. Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
-    { id: "147c", lane: "6", at: 2, len: 1, st: "under", t: "Switches: top-tail stock and saving gradient", needs: [], why: "Two default-off switches on the starting position; report concentration against 0.50, no fitting.", files: "arm.py, household-arm-validation.md" },
-    { id: "148c", lane: "6", at: 3, len: 1, st: "ready", t: "Switches: pension withdrawal, heir floor, per-path GDP", needs: [{ id: "147c" }], why: "Three default-off flow switches; labelled ranges, no central value.", files: "arm.py, pension_lien.py" }, 
+    { id: "148c", lane: "6", at: 3, len: 1, st: "ready", t: "Switches: pension withdrawal, heir floor, per-path GDP", needs: [], why: "Three default-off flow switches; labelled ranges, no central value.", files: "arm.py, pension_lien.py" }, 
     { id: "140c", lane: "5", at: 2, len: 1, st: "ready", t: "F1 and CK1, market fund case (safe case merged)", needs: [], why: "Rerun the household F1 and CK1 with the fund at the market return once 138c has the switch; add the tables to the note.", files: "f1-household.md" },
     { id: "151c", lane: "2", at: 6, len: 1, st: "hold", t: "Headline-only evaluation for the tornado and the O1e roots (speed-up, byte-identical)", needs: [{ id: "044c" }], why: "The tornado and the O1e roots read only headlines but run all groups and 5 core runs; skipping them is the largest speed-up, with no change to a number. 152c to 154c follow from its measurement.", files: "runner.py, sweeps.py, run.py" },
     { id: "057c", lane: "2", at: 0, len: 2, st: "under", t: "Model v3 V3-12: run script and acceptance", needs: [], why: "Household arm, ranges across grid points; blocks 0 to 2 done; O1e ruled (market fund); --final next; does not wait for 147c or 148c. run.py, smoke tests, accept.sh, convergence test." },

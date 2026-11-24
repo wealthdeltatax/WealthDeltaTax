@@ -13,7 +13,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent 3 | free | nothing queued (138c done) |
 | Agent 4 | free (150c merged) | free |
 | Agent 5 | free (089c merged) | |
-| Agent 6 | 147c (blocks 0 to 3 reviewed; block 4: the zero-wealth floor) | 148c |
+| Agent 6 | free (147c merged) | 148c |
 
 Six agents only. Agents change skill with the brief. Parked: 044c and 009c until the first official run is out. **Budget rule:** `model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 
@@ -22,6 +22,7 @@ Six agents only. Agents change skill with the brief. Parked: 044c and 009c until
 ## Recently done
 - 2026-11-23: speed-up plan ruled (provisional brief 151c after 044c: headline-only evaluation for the tornado and O1e roots, byte-identical; 152c to 154c follow from its measurement; Rust and Julia on hold). Estimated 3 to 5x on the roots and the tornado, not yet measured.
 - 2026-11-23: 138c merged: M2 on total wealth; `fund_return` axis (`safe` default, `market`); I1 tolerance 1e-7 (`median_high` now runs at 200 paths); lien the pension cannot cover written off in the ledger. P6 at year 100 is 22 to 78 (`safe`) against 646 to 896 (`market`): the whole gap to the legacy arm is the fund's return. 139c wiring and the 140c `market` case are unblocked.
+- 2026-11-24: 147c merged (`top_tail`, `saving_shape` with the zero-wealth floor, `switches.py` 195 of 200 lines): all 75 cells run; concentration stays below the observed 0.50 (best 0.366 at year 100, gap +0.134); the floored cells raise shortfall line-phases (20 at `median_mid` steep, 1,080 at `median_high` steep), cause not investigated. Default off; not in the first official run.
 - 2026-11-24: 089c merged (`docs/model-v3/feasibility-map.md`): at the strict rule no schedule is feasible at any point or fund (best F1 15.5 to 36.5% `safe`, 31.5 to 45.5% `market` against 75%); 14 of 120 (fund, point, rule) cells are feasible, all under a relaxed rule (tolerance up to 1%, margin 10 to 25%). CK1 P3 positive at amplitude 0 in 11 of 40 rows. No rule picked; the feasibility rule is the author's open ruling.
 - 2026-11-24: 147c blocks 0 to 3 reviewed, not merged: `top_tail` and `saving_shape` switches in, 30 of 50 non-flat cells stop in M13 (D1, D2 go negative). Ruled: floor dissaving at zero wealth in `switches.py` (block 4). No setting lifts top-decile share to 0.50 (best 0.388 at year 100); reported as a finding, no more switches.
 - 2026-11-24: 057c rounds 4 and 5 reviewed, not merged: `quick` 44 min, a final-size grid point without O1e 94 min (serial). Ruled: failed grid points stay as `target_not_met`; O1e no root is `no_sign_change_0_15`; acceptance runs a reduced C3 (full C3 a later manual run).
