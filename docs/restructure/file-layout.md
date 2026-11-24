@@ -1,6 +1,6 @@
 # File layout: a vertical tree (design, not yet applied)
 
-> Superseded in part on 2026-11-24 by `docs/briefs/044c-file-layout-move.md`: the model keeps the import name `model_v3` under `model/`, research is one area of four subfolders, `registry/` and `pipeline/` are split by owner, and the stages are L1 to L6. Where this note differs, the brief wins.
+> Superseded on 2026-11-24 by `docs/briefs/044c-file-layout-move.md`: the tree is now by type of thing (data, literature, research, model, model-specs, results, papers, website, tests, project), file names are unique and descriptive, and the stages are L1 to L7. Where this note differs, the brief wins.
 
 Status: design approved in part by the author, 2026-11-18; **the move runs after the model v3 build** (author's answer on timing). Nothing in this document is applied. Until then every brief uses today's paths.
 
