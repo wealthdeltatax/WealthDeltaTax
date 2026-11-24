@@ -51,8 +51,8 @@ Sequential start, one parallel pair, sequential finish. Each stage is its own br
 
 | step | brief | agent | depends on | does |
 |---|---|---|---|---|
-| R0 | 009c | 3 | 057c, 148c | retire `model_v1`, `model_v2`, `audit_d0`; keep the three data files v3 reads |
-| R1 | 044c (this brief) | 3 | 009c | inventory only (below); the author and guru review it |
+| R0 | 009c | 3 | 057c | retire `model_v1`, `model_v2`, `audit_d0`; keep the three data files v3 reads |
+| R1 | 044c (this brief) | 3 | 009c, 148c | inventory only (below); the author and guru review it |
 | R2 | 160c | 4 | 044c R1 | `data/`, `literature/`, `research/`: datasets, PDFs, notes; duplicates removed |
 | R3 | 161c | 5 | 044c R1 | `website/`, `tests/website/`, `papers/legacy/` |
 | R4 | 162c | 6 | 160c, 161c | `model/`, model-side `data/` and registry, `tests/model/`, `model/tools`, `model/studies` |

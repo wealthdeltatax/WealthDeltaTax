@@ -11,11 +11,11 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
 | Agent 2 | 057c (rounds 4 and 5 reviewed; applying the sixth-round rulings) | block 3 (reduced C3), first `accept.sh` end to end, then `--final` |
 | Agent 3 | free | nothing queued (138c done) |
-| Agent 4 | free (150c merged) | free |
+| Agent 4 | 148c (flow switches; moved from Agent 6 on 2026-11-24) | 160c (datasets, PDFs, research) |
 | Agent 5 | free (089c merged) | |
-| Agent 6 | free (147c merged) | 148c |
+| Agent 6 | free (147c merged) | 162c and 163c (model move, specs and results) |
 
-Six agents only. Agents change skill with the brief. Next housekeeping (author, 2026-11-24): the reorganisation, seven briefs (009c, 044c, 160c to 164c), starting when 057c and 148c have merged and no other branch is open. **Budget rule:** `model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
+Six agents only. Agents change skill with the brief. Next housekeeping (author, 2026-11-24): the reorganisation, seven briefs (009c, 044c, 160c to 164c), 009c starts as soon as 057c merges (it may overlap 148c), the 044c inventory after both 009c and 148c have merged. **Budget rule:** `model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 
 **Findings under review (2026-11-23):** 057c: one household evaluation 4.9 s at 20 paths, a full run hours to days (ruled: O1e at `median_mid` only; parallel evaluation is 150c). 140c: no schedule feasible under the household arm, even on a constant path; the cause is the six-phase death timing (M1a lumpy every fifth year), to be tested in 149c before you rule on the feasibility rule.
 
