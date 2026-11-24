@@ -1,6 +1,6 @@
 # 044: Reorganise the repository into a vertical tree
 
-- **Status:** parked (starts after the model v3 build; the guru releases it)
+- **Status:** ready once 057c, 148c and 009c have merged (author, 2026-11-24); Agent 3, alone on the repository (no other branch open while it moves files); the `quick` reference file and the 150c timing scripts move with every path rewritten
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** the v3 build briefs (040g D2) merged; the author's decision on `docs/restructure/file-layout.md` section 3
 - **Read:** `docs/restructure/file-layout.md` (the whole design); `.github/workflows/deploy.yml`; `site/_quarto.yml`; `docs/agents/code.md`.

@@ -260,22 +260,21 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 (function () {
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the V3 build as it lands" },
-    { id: "2", name: "Agent 2", note: "057c: O1e at median_mid with the market fund, rebase; block 3 and --final now unblocked" },
-    { id: "3", name: "Agent 3", note: "Free" },
+    { id: "2", name: "Agent 2", note: "057c: sixth-round rulings, reduced C3, rebase on main (089c touched the validator); then accept.sh and --final" },
+    { id: "3", name: "Agent 3", note: "Free; takes 009c then 044c once 057c and 148c have merged" },
     { id: "4", name: "Agent 4", note: "Free (150c merged)" },
     { id: "5", name: "Agent 5", note: "Free (089c merged)" },
-    { id: "6", name: "Agent 6", note: "Free (147c merged); next 148c" },
+    { id: "6", name: "Agent 6", note: "148c underway (new file flow_switches.py)" },
     { id: "E", name: "You · decisions", note: "quick calls, merges" },
     { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
   ];
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
-    { id: "044c", lane: "G", at: 3, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }, { id: "009c" }], why: "Runs after 009c, then speed-up work follows. Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
-    { id: "148c", lane: "6", at: 3, len: 1, st: "ready", t: "Switches: pension withdrawal, heir floor, per-path GDP", needs: [], why: "Three default-off flow switches; labelled ranges, no central value.", files: "arm.py, pension_lien.py" }, 
-    { id: "140c", lane: "5", at: 2, len: 1, st: "ready", t: "F1 and CK1, market fund case (safe case merged)", needs: [], why: "Rerun the household F1 and CK1 with the fund at the market return once 138c has the switch; add the tables to the note.", files: "f1-household.md" },
+    { id: "044c", lane: "3", at: 3, len: 3, st: "hold", t: "Reorganise the repository into a vertical tree", needs: [{ id: "057c" }, { id: "148c" }, { id: "009c" }], why: "Runs after 009c, then speed-up work follows. Moves model, research, web and docs files into four areas with every path reference rewritten, in five stages; runs after the v3 build. Design in docs/restructure/file-layout.md.", files: "whole repository" },
+    { id: "148c", lane: "6", at: 3, len: 1, st: "under", t: "Switches: pension withdrawal, heir floor, per-path GDP", needs: [], why: "Three default-off flow switches; labelled ranges, no central value.", files: "arm.py, pension_lien.py" }, 
     { id: "151c", lane: "2", at: 6, len: 1, st: "hold", t: "Headline-only evaluation for the tornado and the O1e roots (speed-up, byte-identical)", needs: [{ id: "044c" }], why: "The tornado and the O1e roots read only headlines but run all groups and 5 core runs; skipping them is the largest speed-up, with no change to a number. 152c to 154c follow from its measurement.", files: "runner.py, sweeps.py, run.py" },
     { id: "057c", lane: "2", at: 0, len: 2, st: "under", t: "Model v3 V3-12: run script and acceptance", needs: [], why: "Household arm, ranges across grid points; blocks 0 to 2 done; O1e ruled (market fund); --final next; does not wait for 147c or 148c. run.py, smoke tests, accept.sh, convergence test." },
-    { id: "009c", lane: "G", at: 2, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" },
+    { id: "009c", lane: "3", at: 2, len: 1, st: "hold", t: "Retire the legacy models and data", needs: [{ id: "057c" }, { id: "148c" }], why: "You chose to keep the data dumps and shared copies for now. After v3: one copy of jst_r6.json and wdt_md.py, legacy reference docs, wid_out and audit_d0, and when each model folder goes.", files: "model_v1/, model_v2/" },
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
 

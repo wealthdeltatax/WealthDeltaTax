@@ -1,6 +1,6 @@
 # 009: Retire the legacy models: shared files, data dumps and reference docs
 
-- **Status:** parked (author, 2026-11-15: keep everything for now; model v3 comes later)
+- **Status:** ready once 057c and 148c have merged (author, 2026-11-24); Agent 3; then 044c. The 2026-11-15 decisions below still hold (data dumps and shared copies kept unless the author says otherwise)
 - **Author/date:** K. Ogata with the guru, 2026-11-15
 - **Depends on:** 011g (model v3 design), 010s
 - **Read:** `docs/model-audit/synthesis.md`, directory listings of `model_v1/` and `model_v2/`.
