@@ -16,7 +16,7 @@ Acceptance command: `bash tests/model_v3/accept.sh`
 |---|---|---|
 | 1 | `python -I -m pytest tests/model_v3 -q -m "not converge"` | all stage tests of section 3, the rules tests (R4, R8, R9, R11) and the smoke test pass |
 | 2 | `python -I -m pytest tests/model_v3/test_converge.py -q -m converge` | the convergence test of section 5 passes |
-| 3 | `python -I -m model_v3.run --out "$TMP"` (provisional, starting sample sizes or larger) | exits 0 and the file validates |
+| 3 | `python -I -c "import sys; sys.path.insert(0, '.'); from model_v3 import run; run.main(['--out', TMP])"` (provisional, starting sample sizes or larger) | exits 0 and the file validates |
 | 4 | `python pipeline/validate_outputs.py "$TMP/outputs.json"` | zero errors in provisional mode |
 | 5 | assertions on `$TMP/outputs.json` | every manifest id has an entry (R1); no cell is `null`; `run.fixture` is false; `run.seed` is 20261118; `run.paths` at least 10,000; `run.level2_draws` at least 200; `run.unfilled_paths` at most 5% of paths (Q3); `run.status` is `provisional` |
 | 6 | run the same step 3 again into `$TMP2` and compare | the two files are byte-identical (R5) |
@@ -30,7 +30,7 @@ It never passes `--final`. The final run is the author's act (G2); acceptance pr
 
 **Sample size.** Starting values `N1 = 10,000`, `N2 = 200`, `N2P = 1,000`. The convergence test may raise them, never lower them. The value in force is the default in `run.py` and is recorded in `run`; `--final` is refused below it. Raising a size is a change to `run.py` and a line in `decisions.md` (R6).
 
-**Smoke test.** `python -I -m model_v3.run --smoke --out <tmpdir>` with `N1 = 50`, `N2 = 3`, `N2P = 20` exits 0, writes `outputs.json` with `run.status` `provisional` and `run.paths` 50, and `validate_outputs.py` passes it. A second test renames one module file (in a copy of the tree) and a third breaks one import; each must make the smoke test exit non-zero (R5, "fail loudly").
+**Smoke test.** `python -I -c "import sys; sys.path.insert(0, '.'); from model_v3 import run; run.main(['--smoke', '--out', DIR])"` with `N1 = 50`, `N2 = 3`, `N2P = 20` exits 0, writes `outputs.json` with `run.status` `provisional` and `run.paths` 50, and `validate_outputs.py` passes it. A second test renames one module file (in a copy of the tree) and a third breaks one import; each must make the smoke test exit non-zero (R5, "fail loudly").
 
 **Run script.** `python -m model_v3.run [--paths N] [--seed S] [--out DIR] [--smoke] [--final]` as `architecture.md` 6.5. Tested by the smoke test and by acceptance step 3.
 
