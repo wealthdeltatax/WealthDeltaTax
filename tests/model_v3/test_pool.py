@@ -7,7 +7,7 @@ import pytest
 import yaml
 
 from model_v3.core import pack as pk
-from model_v3.runner import pool, runner as R, sweeps as S
+from model_v3.runner import out_sweeps, pool, runner as R, sweeps as S
 
 ROOT = Path(__file__).parents[2]
 SPEC = dict(tau_0=0.04, tau_m=0.9, k_ln=1.0, ratio=0.5)
@@ -34,7 +34,8 @@ def noisy(spec, over=None, g=None):
     r = np.random.default_rng(int(1e6 * (sum(o.values()) + spec['tau_m'] + 7 * spec['k_ln']))).standard_normal(8)
     v = lambda x: x + 0.01 * r
     return dict(M1={h: v(o.get('m', 0.0) - 3.55 + o.get('a', 0.0)) for h in R.HORIZONS}, M2={h: {'overall': v(1.0)} for h in R.HORIZONS}, M4a={h: {'overall': v(2.0)} for h in R.HORIZONS},
-                M3=v(3.0), P3h={h: np.where(r > 0, 0.0, 1.0) for h in R.HORIZONS})
+                M3=v(3.0), P3h={h: np.where(r > 0, 0.0, 1.0) for h in R.HORIZONS},
+                sweeps={'of1': {(m, h): dict(p3=np.where(r > 0, 0.0, 1.0 + m), M2=v(1.0), M4a=v(2.0)) for m in out_sweeps.MARGINS for h in ('transition', 'short')}})
 
 
 def test_pmap_keeps_the_order_and_the_serial_default():

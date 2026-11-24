@@ -57,6 +57,8 @@ STAT_FIELDS = {
     "point": ("point",),
 }
 CELL_FIELDS = {"schedule", "horizon", "by", "line", "series"}
+# Stated markers a numeric field may carry instead of a number, per output id (089c): OF1 where no schedule passes the 75% threshold, CK1 and OF1 where a point was not run.
+MARKERS = {"OF1": {"none_passes_75", "not_run_this_point"}, "CK1": {"not_run_this_point"}}
 ENTRY_FIELDS = {"summary", "cells", "withheld", "withheld_by"}
 TOP_FIELDS = {"schema", "run", "outputs", "level2"}
 RUN_REQUIRED = (
@@ -441,12 +443,12 @@ class Validator:
         elif "line" in cell:
             self.add("V3", "error", where, "output declares no lines: remove 'line'")
             ok = False
-        self.check_stats(ent.summary, cell, where)
+        self.check_stats(ent.summary, cell, where, ent.id)
         self.check_series(ent, cell, where)
         return self.cell_key(ent, cell) if ok else None
 
     # V5, V6 --------------------------------------------------------------
-    def check_stats(self, summary: str, obj: dict, where: str) -> None:
+    def check_stats(self, summary: str, obj: dict, where: str, oid: str | None = None) -> None:
         fields = STAT_FIELDS.get(summary)
         if fields is None:
             return   # unknown summary already a V2 error
@@ -459,6 +461,8 @@ class Validator:
             if v is None:
                 if not self.provisional():
                     self.add("V5", "error", where, f"{f} is null (allowed only in a provisional file)")
+            elif isinstance(v, str) and v in MARKERS.get(oid, ()):
+                continue   # a stated marker (MARKERS), not a number: nothing to compare
             elif not is_number(v):
                 self.add("V5", "error", where, f"{f} is not a finite number: {v!r}")
             else:
