@@ -1,17 +1,14 @@
 """run.py -- the run script (V3-12; architecture.md 6.5, acceptance.md 2).  python -I -c "import sys; sys.path.insert(0, '.'); from model_v3 import run; run.main(['--out', DIR])"
 --size smoke|quick|final (explicit --paths, --o1e-draws, --workers, --point override), --seed S, --arm legacy; --final is refused.  Named schedules by the manifest's rule; `scenario_range`: lowest p10 to highest p90, centre `no_central`.
-Author rulings 2026-11-23: household arm first; O1e at the first point only, fund_return=market (the safe fund ignores the mean), range over draws `not_run_this_run` at 0 draws; markers `no_payer_at_launch`; OF1, CK1 pending. Sets no environment variable.
-"""
+Author rulings 2026-11-23: household arm first; O1e at the first point only, fund_return=market (the safe fund ignores the mean), range over draws `not_run_this_run` at 0 draws; markers `no_payer_at_launch`; OF1, CK1 pending. Sets no environment variable."""
 from __future__ import annotations
 
 import argparse, copy, datetime, json, sys
 from dataclasses import replace
 from pathlib import Path
-
 import numpy as np
 import yaml
-
-from model_v3.core import pack as pk, returns as rt
+from model_v3.core import pack as pk, returns as rt, support as U
 from model_v3.out import assemble as asm, writer as wr
 from model_v3.runner import out_sweeps as osw, runner as R, sweeps as S
 
@@ -21,7 +18,7 @@ HH_INPUTS, PACKS = ROOT / 'docs/model-v3/cell-baseline/inputs_used.json', ROOT /
 SEED = 20261118
 SIZES = dict(smoke=(50, 20, 3, 1.0, 1), quick=(1000, 50, 0, 1e-2, 5), final=(R.N1, R.N2P, 0, 1e-2, 5))   # paths, tornado paths, O1e draws, break-even tolerance, grid points
 POINTS = {'median_mid': ('median', 'mid'), 'max_mid': ('max', 'mid'), 'median_low': ('median', 'low'), 'min_mid': ('min', 'mid'), 'median_high': ('median', 'high')}   # saving, regime; the arm's grid points
-NO_PAYER, NO_CENTRAL, NOT_RUN_RUN, NO_PAYER_IDS = 'no_payer_at_launch', 'no_central', 'not_run_this_run', ('O2', 'O2b', 'O2c', 'O2d', 'OH1b', 'OH1c', 'OW3')
+NO_SIGN, NO_PAYER, NO_CENTRAL, NOT_RUN_RUN, NO_PAYER_IDS = 'no_sign_change_0_15',  'no_payer_at_launch', 'no_central', 'not_run_this_run', ('O2', 'O2b', 'O2c', 'O2d', 'OH1b', 'OH1c', 'OW3')
 HELD = {'OW1': 'legacy_only'}   # household arm: a labelled marker, never a number (author, 2026-11-23; 121c, 135c)
 PENDING = {'OF1': 'feasibility_rule_pending_140c_089c', 'CK1': 'feasibility_rule_pending_140c_089c'}
 FORMS = {'p10_mean_p90': ('p10', 'mean', 'p90'), 'point_and_range': ('lo', 'point', 'hi')}
@@ -65,16 +62,19 @@ def reduce(oid, form, line, v):   # per-path arrays -> what assemble expects (au
 def run_point(ctx, inp, pt, named, man, n1, n2p, draws, seed, tol, be, w=1):
     """(output docs, level 1 info) of one grid point: level 1, the tornado (OT1) and, if `be`, O1e under the market fund, assembled provisionally."""
     cp = ctx if pt is None else replace(ctx, arm=dict(arm='household', inputs=inp, saving=POINTS[pt][0], regime=POINTS[pt][1]))
-    st = rt.streams(seed); smp, info = R.level1(cp, named, st['level1_paths'], n=n1)
+    st, cap = rt.streams(seed), {}
+    with U.capping(cap): smp, info = R.level1(cp, named, st['level1_paths'], n=n1)   # a comparator that cannot raise the target stays at the cap, recorded in `cap`
+    ends = {}
     eps = st['tornado_crn'].standard_normal((R.T, n2p)); ev = R.make_ev(cp, eps)
     smp.update(osw.ot1(S.tornado(ev, named, {i: cp.reg[i] for i in cp.tier1}, R.reads(cp), workers=w)))
     if be:   # first point only; the safe fund ignores the generator mean, so the household arm's O1e is read under the market fund (author, 2026-11-23)
         evm = ev if pt is None else R.make_ev(replace(cp, arm={**cp.arm, 'fund_return': 'market'}), eps)
-        smp.update(osw.o1e(S.breakeven_return(evm, named, R.RET['mean'], draws=draws, tol=tol, workers=w)))
+        roots = S.breakeven_return(evm, named, R.RET['mean'], draws=draws, tol=tol, workers=w); smp.update(osw.o1e(roots))
+        ends = {s: [S._mean(evm(named[s], {R.RET['mean']: m})['M1']['short']) for m in (0.0, 15.0)] for s, (r0, _) in roots.items() if not np.isfinite(r0)}   # no root: the end values show the sign
     ents = asm.entries(man)
     smp.update({o: {k: reduce(o, ents[o]['summary'], k[3], v) for k, v in smp[o].items()} for o in smp if ents[o]['summary'] == 'point' or o in ('OR1', 'OT1')})
     hold = HELD if pt else {}; [smp.pop(o, None) for o in hold]   # household arm: nothing is computed for a held id
-    return asm.assemble(man, smp, None, 'provisional', hold)[0], info
+    return asm.assemble(man, smp, None, 'provisional', hold)[0], info, dict(cap=cap, ends=ends)
 
 def main(argv=None):
     p = argparse.ArgumentParser()
@@ -96,21 +96,21 @@ def main(argv=None):
     fmap, _ = S.feasibility(R.make_ev(c0, st['tornado_crn'].standard_normal((R.T, n2p))), S.grid(lv), workers=a.workers)
     named = S.choose(fmap, man['feasibility'])
     if named is None: sys.exit('no feasible schedule point under the manifest rule: nothing is chosen in its place')
-    draws = R.draw_theta(st['level2_draws'], ctx, ctx.tier1, n2) if n2 else None; docs, failed, info = [], [], None
+    draws = R.draw_theta(st['level2_draws'], ctx, ctx.tier1, n2) if n2 else None; docs, failed, info, tg, ends = [], [], None, [], {}
     for pt in pts:
         try:
-            d, i = run_point(ctx, inp, pt, named, man, n1, n2p, draws, a.seed, tol, pt == pts[0], a.workers)
+            d, i, x = run_point(ctx, inp, pt, named, man, n1, n2p, draws, a.seed, tol, pt == pts[0], a.workers)
         except ValueError as exc:   # a point that fails its own checks (I1) is reported and left out, never repaired
             failed.append(f'{pt}: {str(exc)[:80]}'); continue
-        docs.append(d); info = info or i; print(f'{pt or "legacy"}: {len(d)} outputs', flush=True)
+        docs.append(d); info = info or i; ends = ends or x['ends']; tg.append(dict(point=pt, status='target_not_met' if x['cap'] else 'met', shortfalls={k: dict(reached=v[0], target=v[1]) for k, v in x['cap'].items()}))
+        print(f'{pt or "legacy"}: {len(d)} outputs', flush=True)
     if not docs: sys.exit('every grid point failed: ' + '; '.join(failed))
-    outs = scenario_range(docs) if len(docs) > 1 else docs[0]
-    mark_no_payer(outs)
-    for c in outs['O1e']['cells'] if not n2 else []: c.update(lo=NOT_RUN_RUN, hi=NOT_RUN_RUN)   # the range over input draws was not run
+    outs = scenario_range(docs) if len(docs) > 1 else docs[0]; mark_no_payer(outs)
+    for c in outs['O1e']['cells']: c.update(point=NO_SIGN if c['point'] is None else c['point'], **({} if n2 else dict(lo=NOT_RUN_RUN, hi=NOT_RUN_RUN)))   # no root in 0 to 15; no range over draws at 0 draws
     outs.update({oid: {'summary': asm.entries(man)[oid]['summary'], 'cells': [], 'pending': lab} for oid, lab in PENDING.items()})
     label = dict(arm='legacy', legacy_consumption=ctx.centre['I-D14c'], central=False, note='legacy result, not a calibrated forecast') if a.arm == 'legacy' else \
-        dict(arm='household', central=False, points=[x for x in pts if not any(f.startswith(f'{x}:') for f in failed)], failed=failed, note='range across labelled scenario-grid points; no central value',
-             o1e=dict(point=pts[0], fund_return='market', draws=n2, note='O1e at the first point only, fund_return=market (the safe fund ignores the generator mean)'), size=a.size, workers=a.workers)
+        dict(arm='household', central=False, points=[x for x in pts if not any(f.startswith(f'{x}:') for f in failed)], failed=failed, targets=tg, met=f"{sum(t['status'] == 'met' for t in tg)} of {len(tg)} points met their target", note='range across all labelled scenario-grid points; no central value',
+             o1e=dict(point=pts[0], fund_return='market', draws=n2, ends_0_15=ends, note='O1e at the first point only, fund_return=market (the safe fund ignores the generator mean)'), size=a.size, workers=a.workers)
     run = wr.run_block(man, MANIFEST, INPUTS, LEVERS, dict(status='provisional', run_date=datetime.date.today().isoformat(), model_version='model_v3', paths=n1, base_year=int(str(ctx.pack.base_year)[:4]),
                        pack_country=ctx.pack.country, pack_sha256=ctx.pack.sha256, seed=a.seed, level2_draws=n2, level2_paths=n2p, unfilled_paths=info['unfilled_paths']['S_central'], arm=label))
     path = wr.write_outputs(a.out, wr.document(outs, {}, run), MANIFEST, INPUTS)

@@ -61,7 +61,7 @@ ENTRY_FIELDS = {"summary", "cells", "withheld", "withheld_by", "pending"}
 NO_PAYER, NO_PAYER_IDS = "no_payer_at_launch", ("O2", "O2b", "O2c", "O2d", "OH1b", "OH1c", "OW3")   # a wealth band with no payer at launch under the schedule, and what derives from it (author, 2026-11-23)
 NOT_RUN = "not_run_this_point"                                                              # O1e ran at one scenario point only (author, 2026-11-23); accepted for O1e, in the centre slot
 PACK_LABELS = {"GBR": "UK"}                                                                   # stated mapping: pack code to manifest label (author, 2026-11-23)
-NOT_DEFINED, NOT_RUN_RUN = "not_defined_under_safe_fund", "not_run_this_run"                  # O1e only
+NOT_DEFINED, NOT_RUN_RUN, NO_SIGN = "not_defined_under_safe_fund", "not_run_this_run", "no_sign_change_0_15"                  # O1e only
 NO_CENTRAL = "no_central"                                                                    # the centre slot of a range across scenario points
 CENTRE_SLOT = {"p10_mean_p90": "mean", "point_and_range": "point", "point": "point"}
 MAY_WITHHOLD = ("OW1",)                                                                       # household arm: the labelled marker `withheld: legacy_only` is accepted, not required (author, 2026-11-23; 121c, 135c)
@@ -285,6 +285,11 @@ class Validator:
             self.add("V12", "warning", "run", f"unknown field {k!r}")
         if "arm" in run and self.run_arm() not in ARMS:
             self.add("V8", "error", "run.arm", f"must be one of {ARMS} (or an object naming one in `arm`), found {run['arm']!r}")
+        for t in (run["arm"].get("targets", []) if isinstance(run.get("arm"), dict) else []):   # a grid point that missed its closure target is labelled, with the figure reached beside the target (author, 2026-11-24)
+            sf = t.get("shortfalls") if isinstance(t, dict) else None
+            if not isinstance(t, dict) or t.get("status") not in ("met", "target_not_met") or (t["status"] == "target_not_met") != bool(sf) or not all(
+                    isinstance(v, dict) and all(isinstance(v.get(f), (int, float)) for f in ("reached", "target")) for v in (sf or {}).values()):
+                self.add("V8", "error", "run.arm.targets", f"an entry needs status met, or target_not_met with the reached and target figures: {t!r}")
         status = run.get("status")
         if "status" in run and status not in ("provisional", "final"):
             self.add("V8", "error", "run.status", f"must be 'provisional' or 'final', found {status!r}")
@@ -478,7 +483,7 @@ class Validator:
                 continue   # stated marker (author, 2026-11-23): the band has no payer at launch; accepted for these ids and a named band only
             elif v == NOT_RUN and oid == "O1e" and f == CENTRE_SLOT[summary]:
                 continue
-            elif oid == "O1e" and (v == NOT_DEFINED or (v == NOT_RUN_RUN and f != CENTRE_SLOT[summary])):
+            elif oid == "O1e" and (v in (NOT_DEFINED, NO_SIGN) or (v == NOT_RUN_RUN and f != CENTRE_SLOT[summary])):
                 continue   # stated markers (author, 2026-11-23): the safe fund ignores the generator mean; the range over input draws was not run (--o1e-draws 0)
             elif v == NO_CENTRAL and f == CENTRE_SLOT[summary] and self.run_arm() == "household":
                 continue   # stated marker (author, 2026-11-23): a range across labelled scenario points has no central value

@@ -61,11 +61,12 @@ def test_range_rule_has_no_centre_and_marks_no_payer():
 def test_validator_accepts_markers_only_where_ruled(good, tmp_path):
     d = json.loads(good[1].read_text())
     o2 = next(c for c in d['outputs']['O2']['cells'] if c['by'] == {'wealth_band': 'D4_5'})
-    o2.update(p10='no_payer_at_launch', mean='no_payer_at_launch', p90='no_payer_at_launch'); d['outputs']['O1e']['cells'][0].update(point='not_run_this_point', lo='not_run_this_run', hi='not_run_this_run'); d['run']['pack_country'] = 'GBR'   # O1e not run at the other points; the pack code maps to the label
+    o2.update(p10='no_payer_at_launch', mean='no_payer_at_launch', p90='no_payer_at_launch'); d['outputs']['O1e']['cells'][0].update(point='no_sign_change_0_15', lo='not_run_this_run', hi='not_run_this_run'); d['run']['pack_country'] = 'GBR'   # O1e not run at the other points; the pack code maps to the label
     f = tmp_path / 'a.json'; f.write_text(json.dumps(d))
     assert validate(f).returncode == 0
     for mut in (lambda x: x['outputs']['O1']['cells'][0].update(p10='no_payer_at_launch'), lambda x: x['outputs']['OF1'].update(pending=''), lambda x: x['outputs']['O1']['cells'][0].update(mean='not_run_this_point')):   # a marker outside its cells, an unlabelled pending
         bad = copy.deepcopy(d); mut(bad); f.write_text(json.dumps(bad)); assert validate(f).returncode != 0
+    d['run']['arm']['targets'] = [dict(point='median_mid', status='met', shortfalls={}), dict(point='max_mid', status='target_not_met', shortfalls={'income_tax_gains': dict(reached=0.1, target=0.17)})]; f.write_text(json.dumps(d)); assert validate(f).returncode == 0; d['run']['arm']['targets'][1]['shortfalls'] = {}; f.write_text(json.dumps(d)); assert validate(f).returncode != 0   # target_not_met needs the figures
     assert d['outputs']['OF1']['pending'] and d['outputs']['CK1']['pending'] and not d['outputs']['OF1']['cells']
 
 def test_seeded_breakages_fail_acceptance_steps_5_and_6(good, tmp_path):
