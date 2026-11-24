@@ -31,7 +31,49 @@ def fund(a, safe, label, g=None):
     return (lambda T, P: np.asarray(g, float)[:T]), {**label, 'safe_return': MARKET_LABEL, 'scenario': {**label['scenario'], 'fund_return': 'market'}}
 
 
+HORIZON = 100                                                                                     # years the floor holds a line's wealth at or above zero
+
+
+def floor_saving(cls, state, gain, growth):
+    """(state, report): the shaped saving ratio limited line by line so that wealth never goes below zero (no borrowing; the author's ruling of 2026-11-24 on 147c). A line's offset is the shape's; its factor `lam` in [0, 1] is the largest (bisection) for which the line's untaxed path
+    through the arm's own yearly step (`free`, the scenario rates) keeps total wealth at or above zero for `HORIZON` years; lines whose offset is not negative, or that hold wealth already, keep lam = 1. Aggregate saving then equals `flat`'s only where no line is floored. The report: lines floored and
+    the dissaving the floor removes, which raises aggregate saving above `flat`'s (points of the income-weighted mean ratio)."""
+    s0, sh = np.asarray(state['sav0'], float), np.asarray(state['sav'], float)
+    d, probe, g = sh - s0, cls(state, gain, growth), np.zeros((HORIZON, 1))
+
+    def holds(lam):                                                                               # per line: wealth stays at or above zero on the untaxed path (or the offset is not negative)
+        probe.st = {**state, 'sav': s0 + lam * d}
+        f = probe.free(g)[:, :, 0]
+        return (np.cumprod(np.where(np.isfinite(f), f, 1.0), 0).min(0) >= 0) | (d >= 0)
+
+    lo, hi, bad = np.zeros(len(d)), np.ones(len(d)), ~holds(np.ones(len(d)))
+    for _ in range(40):
+        mid = np.where(bad, 0.5 * (lo + hi), 1.0)
+        good = holds(mid)
+        lo, hi = np.where(bad & good, mid, lo), np.where(bad & ~good, mid, hi)
+    lam = np.where(bad, lo, 1.0)
+    w = state['income'] * state['adults']
+    return {**state, 'sav': s0 + lam * d}, dict(lines_floored=int(bad.sum()), saving_added_pts=float(100 * (w * ((s0 + lam * d) - sh)).sum() / w.sum()), lam=lam)
+
+
+def floored(a, cls):
+    """`cls` itself under `flat`; under a saving shape a subclass whose state carries the floored saving ratio (`floor_saving`, computed once per arm) and keeps its report in `floor_report`."""
+    if a.get('saving_shape', 'flat') == 'flat':
+        return cls
+
+    class Floored(cls):
+        def __init__(self, state, gain, growth=0.0, c=None, mu=None):
+            memo = a.setdefault('_floor', {})
+            if 'st' not in memo:
+                memo['st'], memo['report'] = floor_saving(cls, state, gain, growth)
+            super().__init__(memo['st'], gain, growth, c, mu)
+            self.floor_report = memo['report']
+
+    return Floored
+
+
 def hook(a, cls):
+    cls = floored(a, cls)
     """The hook class of the arm: `cls` itself under `safe`; under `market` a subclass that keeps each year's market return `g` (per line) of its book and gives it as the ledger's class returns (the household's own balances keep the scenario class returns)."""
     if fund_return(a) == 'safe':
         return cls
@@ -103,9 +145,8 @@ def scenario(a, ctx, st, label, base):
     m = pension_multiplier(a, ctx)
     st = st if m == 1.0 else {**st, 'pos': {**st['pos'], 'pension': st['pos']['pension'] * m}}
     st, tt = top_tail(a, ctx, st, base)
-    st = saving_shape(a, {**st, 'adults': base.adults_k})
-    st = {k: v for k, v in st.items() if k != 'adults'}
-    new = dict(**(tt or {}), **({} if a.get('saving_shape', 'flat') == 'flat' else dict(saving_shape=a['saving_shape'], saving_step=STEP)), lien_rate=lien_rate(a, ctx), lien_rate_point=a.get('lien_rate', 'central'), pension_basis=a.get('pension_basis', 'ons'), pension_multiplier=m, housing_gain=housing_gain(ctx), death_phases=N_PHASE)
+    st = st if a.get('saving_shape', 'flat') == 'flat' else saving_shape(a, {**st, 'adults': base.adults_k})
+    new = dict(**(tt or {}), **({} if a.get('saving_shape', 'flat') == 'flat' else dict(saving_shape=a['saving_shape'], saving_step=STEP, saving_floor='wealth stays at or above zero on the untaxed path (no borrowing): a line offset is limited to what the line holds; aggregate saving equals flat only where no line is floored')), lien_rate=lien_rate(a, ctx), lien_rate_point=a.get('lien_rate', 'central'), pension_basis=a.get('pension_basis', 'ons'), pension_multiplier=m, housing_gain=housing_gain(ctx), death_phases=N_PHASE)
     return st, {**label, 'scenario': {**label['scenario'], **new}}
 
 
@@ -151,4 +192,4 @@ def saving_shape(a, st):
         return st
     h = (PCT > 20).astype(float) + (np.clip((PCT - 25) / 75, 0, 1) if v == 'steep' else 0.0)
     w = st['income'] * st['adults']
-    return {**st, 'sav': st['sav'] + STEP * (h - float((w * h).sum() / w.sum()))}
+    return {**st, 'sav0': st['sav'], 'sav': st['sav'] + STEP * (h - float((w * h).sum() / w.sum()))}

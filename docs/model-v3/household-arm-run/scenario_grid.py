@@ -1,6 +1,7 @@
 """
 scenario_grid.py -- brief 147c block 3: one grid point, every `top_tail` setting crossed with every `saving_shape`, 20 paths. A row a cell:
  - untaxed concentration by year (0, 1, 10, 30, 100): the top-decile share (D10a, D10b and the named-list tiers) and the top-1% share (D10b and the tiers) of the arm's own household wealth, pension included, run with no tax through the arm's own step (the `none` comparator);
+ - the saving floor (147c block 4): lines floored and the dissaving it removes, in points of the mean saving ratio;
  - from the run (run_grid checks): shortfall lines, `unpaid`, ledger tie, I1, the largest lien balance, and O1a (M1a) and O2 (M2, overall and the D10 band) by horizon (schedule S); a cell that stops reports its error and no run values (the concentration is still read).
 Run from the repository root, one point a call:  python -I docs/model-v3/household-arm-run/scenario_grid.py --point median_mid --out FILE.csv [--paths 20]
 Each cell is a labelled scenario; nothing is fitted and no headline number is read.
@@ -46,7 +47,7 @@ def concentration(ctx, c):
         inc = s['income'] * (1.0 + h.gr) ** t
         q1, _ = h._year(q, inc, s['sav'], s['acc'], ab.returns(q, h.gn))
         q, _, _ = ab.hh.apply_payment(q1, 0.0 * q1['property'], {k: np.maximum(q1[k], 0.0) for k in ab.CLASSES[:3]})
-    return out
+    return out, getattr(h, 'floor_report', None)
 
 
 def main(argv=None):
@@ -64,8 +65,10 @@ def main(argv=None):
             c = replace(c, arm={**c.arm, 'top_tail': tail, 'saving_shape': shape})
             row = dict(point=a.point, top_tail=tail, saving_shape=shape)
             try:
-                for t, (d, p) in concentration(ctx, c).items():
+                conc, rep = concentration(ctx, c)
+                for t, (d, p) in conc.items():
                     row[f'top10_y{t}'], row[f'top1_y{t}'] = d, p
+                row['lines_floored'], row['saving_added_pts'] = (rep['lines_floored'], rep['saving_added_pts']) if rep else (0, 0.0)
             except Exception as e:                                             # a setting that cannot be built
                 row['error'] = f'concentration: {e}'
             Log.bal = 0.0
