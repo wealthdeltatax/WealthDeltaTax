@@ -3,7 +3,7 @@
 How edits to large files are made, tested and recorded. Decided by the user: (1) edits to
 large files go through a Python patch with a matching test; (2) the JST file is too big to
 read, so tests use a small extract made by a script; (3) every patch, test and fixture lives
-in `model_v1/test/` and runs from there.
+in the legacy model's test folder (model_v1, removed from the tree: tag `legacy-models-2026-11`) and runs from there.
 
 Contents: 1 When this applies · 2 Layout · 3 One-time setup · 4 The workflow · 5 Writing
 anchors · 6 Writing the test · 7 The JST sample · 8 The log · 9 What you can and can't run

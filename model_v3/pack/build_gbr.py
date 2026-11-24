@@ -2,7 +2,7 @@
 
     python3 -B -I model_v3/pack/build_gbr.py
 
-Writes the nine CSV files, manifest.json and NOTICE.md, copies model_v2/jst_r6.json unchanged to GBR/source/, and rewrites the x1_pointers and
+Writes the nine CSV files, manifest.json and NOTICE.md, copies data/jst/jst_r6.json unchanged to GBR/source/, and rewrites the x1_pointers and
 x1_skipped parts of levers.json's pack_mappings. Numbers are computed from the held sheets and rounded to the precision the register prints them at
 (percent shares one decimal, receipts two, pounds whole) so X1 can compare them exactly; a value no sheet gives is left out, never filled. A re-run gives
 byte-identical files. No test beyond the hash check of test_pack.py.
@@ -120,7 +120,7 @@ def cells():
 
 def tail():
     want = {'shweal_p99p100_992_j': ('wid_top1', 'I-W7a'), 'shweal_p90p100_992_j': ('wid_top10', 'I-W7b')}
-    with open(ROOT / 'model_v2/wid_out/wid_long.csv', newline='', encoding='utf-8') as fh:
+    with open(ROOT / 'data/wid/wid_long.csv', newline='', encoding='utf-8') as fh:
         for r in csv.DictReader(fh):
             if r['country'] == 'GB' and r['series_key'] in want and r['year'] in ('2000', '2010', '2024'):
                 name, rid = want[r['series_key']]
@@ -181,7 +181,7 @@ def retrieved(ds):
 
 def main():
     (OUT / 'source').mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(ROOT / 'model_v2' / 'jst_r6.json', OUT / 'source' / 'jst_r6.json')
+    shutil.copyfile(ROOT / 'data/jst/jst_r6.json', OUT / 'source' / 'jst_r6.json')
     for f in (returns, wealth, tail, receipts, incidence, cells):
         f()
     src = {'returns': ('JST Macrohistory R6, model_v2/jst_r6.json (series incl. rgdpmad, real GDP per head)', 'cite-only', 'JST R6'), 'wealth_distribution': ('ONS WAS Round 8, totalwealthtables.xlsx Tables 2.1, 2.2; ONS Housing affordability 2025 (median price); IFS Revenue composition, Total revenues (GDP)', 'cite-only', 'WAS Round 8'),

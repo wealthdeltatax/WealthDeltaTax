@@ -15,7 +15,7 @@ By path; where a task crosses a line, name one change owner and the other role a
 
 | Path | Owner | Note |
 |---|---|---|
-| `model_v1/`, `model_v3/`, `tests/`, `pipeline/` data and model scripts | code | tests: others propose, code implements |
+| `model_v3/`, `tests/`, `pipeline/` data and model scripts | code | tests: others propose, code implements |
 | `site/`, `pipeline/` site-build scripts, `.github/workflows/` | web | no change to paper claims |
 | `source/` | writing | substantive argument changes need the author |
 | `registry/references.bib`, reference records, `docs/research/` | research | author-controlled fields need confirmation |
@@ -36,12 +36,12 @@ By path; where a task crosses a line, name one change owner and the other role a
 When a brief is finished, its agent merges its own branch into `main`; the author does not need to approve.
 - **Merge when all hold:** every acceptance criterion is met and measured; every check the brief names has run and passed; the change report is written and committed; the diff stays inside the brief's `Touches` (plus `docs/agents/friction-log.md`); no open question for the author remains.
 - **How:** `git fetch`, rebase the branch on `origin/main`, re-run the brief's fast checks if the rebase brought in changes, then `git push origin HEAD:main`. Fast-forward only; never force. Then say "brief NNN merged, ready to retire" in the change report.
-- **Before merging a change that affects the site** (anything under `pipeline/`, `site/`, `registry/`, `model_v1/`, `model_v3/`, `.github/`): the local build named in the brief must pass first, because the push deploys at once. After the push, watch the Action; if it fails, revert the merge commit on `main` immediately and report.
+- **Before merging a change that affects the site** (anything under `pipeline/`, `site/`, `registry/`, `model_v3/`, `.github/`): the local build named in the brief must pass first, because the push deploys at once. After the push, watch the Action; if it fails, revert the merge commit on `main` immediately and report.
 - **Do not merge, leave the branch pushed and say `NEEDS THE AUTHOR`, when:** a criterion is unmet or a check was not run; the brief says the author reviews; the diff touches `source/` (paper text) or deletes tracked files the brief does not name; a rebase conflict needs a judgement call.
 - The guru reviews after the merge (criteria with numbers, status, decisions entry) and may revert.
 
 ## Generated files (never edit by hand)
-`_build/`, `_site/`, `registry/anchors.yml`, `registry/crosslinks.json`, `model_v1/OUTPUTS/`. Change the source and regenerate.
+`_build/`, `_site/`, `registry/anchors.yml`, `registry/crosslinks.json`. Change the source and regenerate.
 
 ## Reading
 - Router first, then your role guide, then only the files the task names. Do not open `docs/archive/` or `docs/model-lessons/`.

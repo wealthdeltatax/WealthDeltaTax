@@ -22,7 +22,6 @@ SCRIPT_DIR = Path(__file__).resolve().parent   # wdt-site/pipeline/
 ROOT_DIR   = SCRIPT_DIR.parent                 # wdt-site/
 
 SITE_DIR        = ROOT_DIR / "site"
-MODEL_DIR       = ROOT_DIR / "model_v1"
 SOURCE_DIR      = ROOT_DIR / "source"
 BUILD_DIR       = ROOT_DIR / "_build"
 DIAGRAMS_DIR    = SITE_DIR / "diagrams"
