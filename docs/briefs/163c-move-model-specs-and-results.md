@@ -14,14 +14,14 @@ Rules, target tree and hazards: `docs/briefs/044c-file-layout-move.md` (R1 to R5
 - Specifications (architecture, acceptance, metrics, the outputs manifest `outputs.yml`, input-register docs, country-pack spec, drivers, design notes, `what-we-know`) to `model-specs/`.
 - Reports and csv of each study (death-phases, feasibility-map, household-arm-run, -validation, -lien, -paths, f1-diagnostic, f1-household, cell-baseline, tornado, returns, run-cost, wealth-ratio-diagnostic, of1-ck1, and the others) to `results/<study>/`, each file renamed under R3 so no name repeats (phase, fund and variant in the name: `f1-phases06-safe-grid.csv`). Every reader (manifest, tests, drivers in `model/studies/`, docs) rewritten.
 - Rule of thumb for the call on each file: a document that says what the model is meant to do is a spec; a file that reports what a run produced is a result; the script that makes it is a study driver (already moved).
-- Check: all suites; the output manifest unchanged but for paths; a `quick` run byte-identical again.
+- Check: the 044c tiers; the output manifest unchanged but for paths. At the end, one full `quick` run in the background (44 minutes) compared byte for byte with the pre-move reference; it blocks closing the programme, not this merge.
 
 ## Touches
 `docs/model-v3/` (all), `model/studies/` (paths), tests and docs that read them.
 
 ## Acceptance criteria
 - `model-specs/` holds only specifications and `results/` only run outputs; no name repeated in either.
-- Suites and `check_agent_docs.py` pass; manifest unchanged but for paths; `quick` byte-identical.
+- Suites and `check_agent_docs.py` pass; manifest unchanged but for paths; tripwire and path-rewrite proof clean; the `quick` comparison reported when it finishes.
 
 ## Out of scope
 Changing any number or text except paths and R3 names; project documents and skills (164c).

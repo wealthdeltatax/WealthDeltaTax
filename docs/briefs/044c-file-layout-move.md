@@ -61,8 +61,16 @@ Sequential start, one parallel pair, sequential finish. Each stage is its own br
 
 R2 and R3 run in parallel on different trees. Each rewrites only the references to the paths it moved; the shared files (`AGENTS.md`, `.gitignore`, STATUS, OVERVIEW) are left to R6 except for lines that would break the other stage's checks. The second of the two to merge rebases on `main`. R4 to R6 run one after another because they share the manifest, the tests and the `quick` byte check. `151c` and the rest of the speed-up work follow R6.
 
-## R1: inventory (this brief's own work; no moves)
-`project/restructure/file-layout-map.md` (written to `docs/restructure/file-layout-map.md` before the move) and `pipeline/path_refs.py`: for every tracked file or folder its old path, new path and, under R3, new name; the duplicate report (byte-identical, same name different); every file that references an old path (file, line); the depth-based path list (hazard 1); the local-only list (hazard 4); the files the rules cannot settle, each with the default above. **Checkpoint: the guru and author review the table before 160c and 161c start.**
+## How each stage proves it broke nothing (author concern, 2026-11-24)
+No stage runs the 44-minute `quick` run or the 17-minute smoke run. Three cheap tiers instead; R1 builds the tools and takes the pre-move baseline once, before any move.
+1. **Static, seconds, every commit.** The reference script (no old path left), the duplicate-name script, `check_agent_docs.py`, `python -m compileall`, an import of every module, and `pytest --collect-only` for each suite (an import or path error shows at collection).
+2. **Path-rewrite proof, seconds.** `project/restructure/path_rewrite_proof.py`: for every file changed since the pre-move commit it applies the old-to-new path map (and the R3 renames) to the old content and compares with the new content; any other difference is reported as a non-path change. Pure renames must show as 100% similar (`git diff -M100%`). This is the check that nothing but paths changed.
+3. **Tripwire, under 3 minutes.** `project/restructure/move_tripwire.py` records, before the move (R1, baseline file `move-tripwire-baseline.json`), the hashes of: the `inputs.json` bytes, the legacy digest test result, a rebuild of the GBR pack compared with the committed pack, and a household evaluation at 20 paths for `median_mid` and `min_mid` under both fund settings (the headline arrays M1a, M2 and P6 and the list of output ids; seeded, deterministic). After each stage it recomputes and compares; any difference stops the stage. It must run in under 3 minutes on one process.
+4. **Suites, in the background.** The test suites (about 10 minutes in all: model 7 to 9, the rest under 2) run in the background while the agent writes the report; a stage is not pushed as green until they finish, but the agent is not waiting on an hour-long run.
+5. **The full `quick` byte comparison, once.** After R5 (specs and results) and at the end of R6, run in the background or overnight by the author or an agent with nothing else to do; it confirms the tiers above and blocks only the closing of the programme, not the individual stage merges.
+
+## R1: inventory and checks (this brief's own work; no moves)
+Three deliverables, written to `docs/restructure` and `pipeline` before the move: (1) `file-layout-map.md` and `pipeline/path_refs.py`; (2) the checks above, `path_rewrite_proof.py` and `move_tripwire.py`, with the baseline file, taken at the merged state of 009c; (3) the review table. The map holds: for every tracked file or folder its old path, new path and, under R3, new name; the duplicate report (byte-identical, same name different); every file that references an old path (file, line); the depth-based path list (hazard 1); the local-only list (hazard 4); the files the rules cannot settle, each with the default above. **Checkpoint: the guru and author review the table before 160c and 161c start.**
 
 ## Touches
 R1 writes the map and the script only; nothing moves. The stage briefs name their own Touches.
@@ -71,11 +79,11 @@ R1 writes the map and the script only; nothing moves. The stage briefs name thei
 - Root holds only README.md, AGENTS.md, CNAME, robots.txt, .gitignore, .gitattributes and the folders `.github`, `.claude`, `data`, `literature`, `research`, `model`, `model-specs`, `results`, `papers`, `website`, `tests`, `project`.
 - No file name appears twice outside the R3 exceptions (a script lists any); no byte-identical duplicate remains; one dataset type, one PDF type, one notes type, one results type per branch.
 - The reference script finds no old path outside archived briefs and decisions; the depth-based path list is empty or every entry verified.
-- After each stage the test suites, the gate checker and `check_agent_docs.py` pass (R5 excepted, listed); after R4 and R5 the `quick` output is byte-identical to the pre-move reference; moves are `git mv`.
+- After each stage the static checks, the path-rewrite proof, the tripwire, the test suites, the gate checker and `check_agent_docs.py` pass (R5 excepted, listed); the full `quick` output is byte-identical once, after R5, and again at R6; moves are `git mv`.
 - The change reports list the local-only files to move by hand, every skill line changed and every red check.
 
 ## Checks to run
-The reference script and the duplicate script, the suites (one `pytest` run per suite folder, in the background), the local Quarto build, `check_gate.py --all`, the legacy digest, the `quick` byte comparison.
+The tiers above: reference and duplicate scripts, `compileall`, collection, `path_rewrite_proof.py`, `move_tripwire.py`, the suites (one `pytest` run per suite folder, in the background), the local Quarto build, `check_gate.py --all`.
 
 ## Out of scope
 Changing file contents except paths and the R3 renames; history rewriting and LFS; the Actions workflow (after R6); rewriting any paper; the speed-up briefs.
