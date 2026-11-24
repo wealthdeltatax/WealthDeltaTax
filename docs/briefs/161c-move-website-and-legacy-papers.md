@@ -33,11 +33,11 @@ None; the agent flags any call the rules cannot settle.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** not started
+- **Done:** block 0: branch from `origin/main` (1b1f43b); scope read from `file-layout-map.csv`: 218 rows land in my trees (53 site, 27 web build scripts, 8 web registry files, 56 web tests, 33 papers, 40 notes, 1 architecture note).
+- **Next:** block 1 `git mv` per map; block 2 reference and depth rewrites; block 3 checks; block 4 report.
+- **Decisions:** (1) `check_gate.py` and `tests/gate` go to `model/` in the map (162c), so they stay put here; I only repair the web paths they read. (2) The 40 `docs/restructure` notes and `wdt-site-architecture.md` are not in this brief's Touches; left for 164c, flagged. (3) `registry/references.bib`, `internal.json` go to `literature/` (160c), so `bib_to_json.py` reads them from there only after 160c merges.
+- **Gotchas:** clone is shallow; the tripwire needs full history.
+- **Resume:** `git checkout brief/161-move-website-and-legacy-papers`; `python pipeline/path_refs.py --check`.
+- **Not run:** everything (nothing moved yet).
+- **State:** block 0 done
 <!-- progress:end -->
