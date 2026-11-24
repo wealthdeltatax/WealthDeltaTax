@@ -9,7 +9,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
-| Agent 2 | free | 057c resumes after 162c |
+| Agent 2 | rehearsal of the whole move on a scratch worktree (report for the stage agents) | 057c resumes after 162c |
 | Agent 3 | free | 164c (project, skills, final sweep) |
 | Agent 4 | 160c (datasets, PDFs, research) | |
 | Agent 5 | 161c (website, web tests, legacy papers) | |
