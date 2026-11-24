@@ -93,11 +93,24 @@ None for R1. At its checkpoint: the call on every file the rules cannot settle a
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** parked; not started
+- **Done:** R1 (inventory and checks; nothing moved). `pipeline/path_refs.py` (rule table, dedupe, reference, depth and local-only finders, `--check`); `docs/restructure/file-layout-map.md` with the review table, `file-layout-map.csv` (1096 files), `file-layout-references.csv`, `file-layout-depth.csv`; `path_rewrite_proof.py`; `move_tripwire.py` with `move-tripwire-baseline.json` (taken at 817dccc, 79 s, holds on a rerun).
+- **Next:** the checkpoint: the guru and the author settle the review table (13 cases, 712 files are defaults) and the pinned-file question (case 13). Then 160c (R2).
+- **Decisions:** none taken beyond the guru defaults of this brief; each is flagged D in the map.
+- **Gotchas:** the proof was exercised on a scratch worktree where all 1096 files were moved by the map and the paths rewritten (613 files rewritten, no name collision, classification works); that worktree is deleted, the repo is untouched. Rewriting a path inside `registry/inputs.json`, `legacy_digest.json`, `pack/GBR/manifest.json` or `registry/internal.json` changes pinned bytes (case 13). The pack's `jst_r6.json` is a byte copy of `data/jst/jst_r6.json` but its manifest names it (case 9). `path_refs.py --check` lists every old path today; it is meant to run empty after R6 (archived briefs and decisions excepted). Longest new path 132 characters, so Windows is safe.
+- **Resume:** `python pipeline/path_refs.py --map` regenerates the four map files; a stage runs `path_rewrite_proof.py --base <pre-stage commit> --head HEAD` and `move_tripwire.py`.
+- **Not run:** the full `quick` byte comparison (057c is not merged); the local Quarto build (no move yet).
+- **State:** R1 done on `brief/044-inventory`; awaiting the checkpoint.
 <!-- progress:end -->
+
+Change report
+- Task: 044c R1, inventory and checks (no file moved, no content changed)
+- Files changed (all new): `pipeline/path_refs.py` (map, reference, depth and local-only finders, reference check); `docs/restructure/file-layout-map.md` (review table, rule table, duplicates, renames, pinned files, depth, local-only, Windows length); `file-layout-map.csv`, `file-layout-references.csv`, `file-layout-depth.csv` (per-file, per-line data); `path_rewrite_proof.py`; `move_tripwire.py`; `move-tripwire-baseline.json`; this brief's notes
+- What is different now: the whole move is specified file by file: 1096 files (384 settled, 712 default), 78 R3 renames, 8 R4 duplicates; 2,471 lines in 330 files name an old path; 472 lines build a path from their own location; 13 local-only files listed with their new homes
+- New or changed interfaces: `python pipeline/path_refs.py --map|--refs|--depth|--dups|--local|--check|--new OLD`; `python docs/restructure/path_rewrite_proof.py --base C [--head H] [--allow F] [--show N]`; `python docs/restructure/move_tripwire.py [--baseline] [--only a,b]`
+- Acceptance criteria: map covers every tracked file, no unmapped file, no repeated new name outside the exemptions: met. Reference, depth and local-only lists: met. Proof script: met, exercised on a full simulated move (not in the repo). Tripwire under 3 minutes with baseline at the merged 009c state: met (79 s; legacy digest, inputs.json bytes, pack rebuild byte-identical, household evaluation at 20 paths for median and min, safe and market). Review table for the checkpoint: met (13 cases)
+- Deviations from the brief: the proof's folder rewriting only applies where every file of a folder moves by one rule; split folders (`docs/model-v3`, `pipeline`, `registry`) are rewritten per file, so a line naming such a folder is reported as `changed` for the stage to settle by hand
+- Risks / follow-ups: case 13 (pinned files naming old paths) needs the author; the default homes (712 files) stay open until the checkpoint; the tag `legacy-models-2026-11` is still to be pushed by the author (proxy 403)
+- Instruction friction: none new in this task (the pytest-per-directory `conftest.py` clash was logged earlier)
+- Verification: `check_agent_docs.py` clean; `compileall` clean; all 10 suites pass on the branch (model_v3 408 passed in 6:32; layout 40 skipped as before); tripwire PASS twice; proof run at HEAD (nothing moved) shows 1079 pending, 0 changed
+- Overview sections likely needing an update: none until a stage moves files (the guru updates the layout section at R6)
+- Commit / branch: see the pushed head of `brief/044-inventory`; not merged (R1 needs the author and guru review at the checkpoint)

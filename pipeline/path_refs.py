@@ -1,0 +1,446 @@
+"""path_refs.py -- the file-layout map and the old-path finder (brief 044c, R1; no file is moved).
+
+    python pipeline/path_refs.py --map       write docs/restructure/file-layout-map.csv (every tracked file: old, new, flag, rule, rename, duplicate_of)
+    python pipeline/path_refs.py --refs      every line of a tracked text file that names an old path (file:line, token, new path), counts per file
+    python pipeline/path_refs.py --depth     every line that builds a path from its own location (hazard 1): __file__, parents[, os.path, .., includes, .bat, YAML
+    python pipeline/path_refs.py --dups      byte-identical copies and same-name files that differ (R3, R4)
+    python pipeline/path_refs.py --local     files tools need that git does not track (hazard 5)
+    python pipeline/path_refs.py --check     after a stage: exit 1 if a tracked text file still names an old path of an already moved area (static tier 1)
+    python pipeline/path_refs.py --new OLD   the new path of one old path
+
+The map is a rule table (RULES, first match wins) plus the R3 rename pass. Flag S: settled by the author's rules; D: a default (the guru's list or the
+agent's own call) that stays open at the L1 checkpoint. Archived briefs and decisions.md are never searched for references (they keep the old paths).
+"""
+from __future__ import annotations
+
+import argparse, collections, csv, hashlib, re, subprocess, sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+MAP_CSV = ROOT / 'docs/restructure/file-layout-map.csv'
+
+# stage that moves each old area (for --check): 160c data/literature/research, 161c website/papers, 162c model, 163c specs/results, 164c project
+RESEARCH_SLUGS = {'099r': 'held-research-moments', '100r': 'jst-cash-yield-and-gain-split', '101r': 'parameter-map-flows-and-returns', '102r': 'parameter-map-stocks-and-cells',
+                  '103r': 'parameter-map-assembly', '104r': 'parameter-map-design', '131r': 'pension-basis-sensitivity', '145r': 'saving-shapes-and-withdrawal-range',
+                  '146r': 'gdp-process-and-top-tail'}
+SPEC_FILES = {'acceptance.md', 'architecture.md', 'computational-architecture-hypothesis.md', 'country-pack.md', 'drivers.md', 'household-arm-comparators.md', 'household-arm-i1-floor.md',
+              'household-arm-outputs.md', 'household-arm-paths.md', 'household-flow-plan.md', 'i1-gap.md', 'inputs.md', 'judgement-decisions.md', 'kernel-wiring-design.md', 'metrics.md',
+              'outputs.yml', 'port-inventory.md', 'public-ledger.md', 'returns-gap.md', 'returns-method.md', 'source-map.md', 'stage-c-decisions.md', 'stock-floor-hypothesis.md', 'what-we-know.md'}
+RESULT_REPORTS = {'cell-baseline.md': 'cell-baseline', 'death-phases.md': 'death-phases', 'f1-household.md': 'f1-household', 'feasibility-map.md': 'feasibility-map',
+                  'household-arm-account.md': 'household-arm-account', 'household-arm-lien.md': 'household-arm-lien', 'household-arm-run.md': 'household-arm-run',
+                  'household-arm-validation.md': 'household-arm-validation', 'household-vs-legacy.md': 'household-vs-legacy', 'run-cost.md': 'run-cost', 'tornado.md': 'tornado'}
+SPEC_DIRS = ('added', 'inputs-added')
+WEB_PIPELINE = ('bib_to_json.py', 'build.bat', 'build_and_render.bat', 'build_anchors.py', 'build_glossary.py', 'check_wdt_format.py', 'config.py', 'diagrams.py', 'hook_format.py', 'hooks.py',
+                'link_map.py', 'page_cards.py', 'pdf.py', 'preprocess.py', 'scrape_contents.py', 'tools.py', 'to_markdown.py', 'transforms.py', 'wdt_crosslinks.py', 'zenodo_upload.py')
+MODEL_PIPELINE = ('build_inputs.py', 'build_metrics.py', 'validate_outputs.py', 'run_suites.py', 'check_gate.py')
+INPUT_REGISTER = ('inputs.json', 'inputs-display.yml', 'metrics.json')
+TEXT_EXT = {'.py', '.md', '.yml', '.yaml', '.json', '.toml', '.bat', '.sh', '.qmd', '.txt', '.csv', '.html', '.bib', '.cfg', '.ini', '.js', '.css', '.scss'}
+EXEMPT = {'conftest.py', '__init__.py', 'SKILL.md', 'README.md'}   # R3 exceptions; the country pack's files and tests/**/fixtures mirror each other on purpose
+NEVER_SEARCH = ('docs/archive/briefs/', 'docs/decisions.md', 'docs/restructure/file-layout-map.')   # old paths stay in history
+
+
+def S(pattern, new, flag='S'):
+    return (re.compile(pattern), new, flag)
+
+
+def _results(m):
+    name = m.group(1)
+    return f'results/{RESULT_REPORTS[name]}/{name}'
+
+
+def _model_v3_doc(m):
+    name = m.group(1)
+    if name in SPEC_FILES:
+        return f'model-specs/{name}'
+    if name in RESULT_REPORTS:
+        return _results(m)
+    return None
+
+
+def _study_file(m):
+    study, rest = m.group(1), m.group(2)
+    if study in SPEC_DIRS:
+        return f'model-specs/{study}/{rest}'
+    if rest.endswith('.py'):
+        return f'model/studies/{study}/{rest}'
+    return f'results/{study}/{rest}'
+
+
+def _research_data(m):
+    study, rest = m.group(1), m.group(2)
+    if rest.lower().endswith('.pdf'):
+        return f'literature/{Path(rest).name}'
+    if study in ('097r', '098r', '129r'):
+        if rest.endswith('.py'):
+            return f'model/studies/{study}/{rest}'
+        return f'data/uk-wealth-tables/{study}/{rest}'
+    if rest.endswith('.py'):
+        return f'model/studies/{study}-{RESEARCH_SLUGS[study]}/{rest}'
+    return f'results/{study}-{RESEARCH_SLUGS[study]}/{rest}'
+
+
+def _pipeline(m):
+    rest = m.group(1)
+    name = rest.split('/')[0]
+    if rest.startswith('pages/'):
+        return f'website/build/{rest}'
+    if name in MODEL_PIPELINE:
+        return f'model/tools/{rest}'
+    if name in WEB_PIPELINE:
+        return f'website/build/{rest}'
+    if name in ('check_agent_docs.py', 'build_skills.py', 'path_refs.py'):
+        return f'project/housekeeping/{rest}'
+    return None
+
+
+def _registry(m):
+    name = m.group(1)
+    return f'data/input-register/{name}' if name in INPUT_REGISTER else f'website/registry/{name}'
+
+
+def _test(m):
+    suite, rest = m.group(1), m.group(2)
+    home = {'data': 'model', 'gate': 'model', 'model_v3': 'model'}.get(suite, 'website')
+    return f'tests/{home}/{suite}/{rest}'
+
+
+# (regex on the old path, new path or callable(match) -> path or None, flag); first match wins
+RULES = [
+    S(r'^(README\.md|AGENTS\.md|CNAME|robots\.txt|\.gitignore|\.gitattributes)$', r'\1'),
+    S(r'^(\.github/.*|\.claude/.*)$', r'\1'),
+    S(r'^(STATUS|OVERVIEW|START_HERE)\.md$', r'project/\1.md'),
+    S(r'^docs/(decisions\.md|todo\.md|lane-plan\.html|brief-suggestions\.md)$', r'project/\1'),
+    S(r'^docs/navigation_suggestions\.md$', 'website/notes/navigation_suggestions.md', 'D'),
+    S(r'^docs/briefs/(.*)$', r'project/briefs/open/\1'),
+    S(r'^docs/archive/briefs/(.*)$', r'project/briefs/done/\1'),
+    S(r'^docs/archive/friction-log-archive\.md$', 'project/agents/friction-log-archive.md', 'D'),
+    S(r'^docs/archive/wdt-librarian\.skill$', 'project/skills/wdt-librarian.skill', 'D'),
+    S(r'^docs/agents/(.*)$', r'project/agents/\1'),
+    S(r'^docs/housekeeping/(.*)$', r'project/housekeeping/\1'),
+    S(r'^docs/restructure/(file-layout\.md|file-layout-map\.md|file-layout-map\.csv|path_rewrite_proof\.py|move_tripwire\.py|move-tripwire-baseline\.json)$', r'project/restructure/\1'),
+    S(r'^docs/restructure/(.*)$', r'website/notes/\1', 'D'),
+    S(r'^docs/audit/(.*)$', r'research/scaffold-audit/\1'),
+    S(r'^docs/model-audit/(.*)$', r'research/model-audit/\1'),
+    S(r'^docs/model-lessons/(.*)$', r'research/model-lessons/\1'),
+    S(r'^docs/hypotheses/(.*)$', r'research/hypotheses/\1'),
+    S(r'^docs/research/readable/(.*)$', r'literature/readable/\1', 'D'),
+    S(r'^docs/research/data/([0-9]{3}r)/(.*)$', _research_data, 'D'),
+    S(r'^docs/research/([0-9]{3}r-[^/]*\.md)$', r'research/notes/\1'),
+    S(r'^docs/(EVAL_PLAN\.md|VAL_[^/]*\.md)$', r'research/legacy-model-plans/\1', 'D'),
+    S(r'^docs/wdt-jel-codes\.md$', 'research/wdt-jel-codes.md', 'D'),
+    S(r'^docs/wdt-site-architecture\.md$', 'website/wdt-site-architecture.md', 'D'),
+    S(r'^docs/model-v3/([^/]+)$', _model_v3_doc, 'D'),
+    S(r'^docs/model-v3/([^/]+)/(.*)$', _study_file, 'D'),
+    S(r'^Research/(.*\.pdf)$', r'literature/\1', 'D'),
+    S(r'^Research/(.*\.xlsx)$', r'data/uk-source-workbooks/\1', 'D'),
+    S(r'^Rates Data/(.*)$', r'data/rates/\1'),
+    S(r'^Tools/(.*\.skill)$', r'project/skills/\1'),
+    S(r'^source/(.*)$', r'papers/legacy/\1'),
+    S(r'^site/(.*)$', r'website/site/\1'),
+    S(r'^pipeline/(.*)$', _pipeline, 'D'),
+    S(r'^registry/([^/]+)$', _registry, 'D'),
+    S(r'^data/(jst/.*|wid/.*)$', r'data/\1'),
+    S(r'^model_v3/pack/GBR/(.*)$', r'data/country-pack-GBR/\1', 'D'),
+    S(r'^model_v3/(.*)$', r'model/model_v3/\1'),
+    S(r'^tests/([^/]+)/(.*)$', _test, 'D'),
+]
+
+
+def git(*args):
+    return subprocess.run(['git', '-C', str(ROOT), *args], capture_output=True, text=True, check=True).stdout
+
+
+def tracked():
+    return [p for p in git('ls-files', '-z').split('\0') if p]
+
+
+def new_of(old):
+    """(new path, flag, note) for one old path; (None, '?', 'no rule') when no rule covers it."""
+    for rx, new, flag in RULES:
+        m = rx.match(old)
+        if not m:
+            continue
+        out = new(m) if callable(new) else m.expand(new)
+        if out is None:
+            continue
+        return out, flag, rx.pattern[:60]
+    return None, '?', 'no rule'
+
+
+def kebab(s):
+    return re.sub(r'[^A-Za-z0-9]+', '-', s).strip('-').lower()
+
+
+def build_map():
+    """rows: old, new, flag, rule, rename, duplicate_of. R4 first (byte-identical copies keep the copy in the type's own branch), then R3 on the survivors."""
+    files = [f for f in tracked() if (ROOT / f).is_file()]
+    rows = {}
+    for f in files:
+        new, flag, rule = new_of(f)
+        rows[f] = dict(old=f, new=new or '', flag=flag, rule=rule, rename='', duplicate_of='')
+    by_hash = collections.defaultdict(list)
+    for f in files:
+        if (ROOT / f).stat().st_size:
+            by_hash[hashlib.sha256((ROOT / f).read_bytes()).hexdigest()].append(f)
+    for group in by_hash.values():
+        if len(group) < 2 or Path(group[0]).name in EXEMPT:
+            continue
+        keep = sorted(group, key=lambda p: (rows[p]['new'].startswith(('model/', 'results/', 'research/')), len(rows[p]['new']), p))[0]   # the copy already in a dataset or literature branch wins
+        for f in group:
+            if f != keep:
+                rows[f]['duplicate_of'] = keep
+    live = [r for r in rows.values() if r['new'] and not r['duplicate_of']]
+    names = collections.defaultdict(list)
+    for r in live:
+        names[Path(r['new']).name].append(r)
+    mirror = lambda r: '/fixtures/' in r['new'] or r['new'].startswith('data/country-pack-GBR/')   # R3 exception: a loader's fixed names and the fixtures that mirror them
+    renamed_first = ('project/briefs/done/', 'results/', 'model/studies/', 'project/agents/')   # the copy that is a brief, a study output, a study script or an agent guide gives way
+    for name, group in names.items():
+        every = group
+        group = [r for r in group if not mirror(r)]
+        if name in EXEMPT:
+            continue
+        gives_way = [r for r in group if r['new'].startswith(renamed_first) or r['old'].startswith('docs/research/data/')]   # a copy inside a study folder, a brief, a script or an agent guide
+        if len(group) != len(every):      # a pack file or fixture of the same name: the loader's fixed name and its mirror stay, a study copy gives way
+            todo = gives_way
+        elif len(group) < 2:
+            continue
+        else:
+            todo = gives_way if gives_way and len(gives_way) < len(group) else group
+        if not todo:
+            continue
+        for depth_ in (1, 2, 3):
+            for r in todo:
+                parent = Path(r['new']).parent
+                tail = [kebab(p) for p in parent.parts[1:]][-depth_:] or [kebab(parent.parts[0])]
+                stem, suf = Path(name).stem, Path(name).suffix
+                r['rename'] = f'{stem}-brief{suf}' if r['new'].startswith('project/briefs/done/') else f"{'-'.join(tail)}-{kebab(stem)}{suf}"
+            if len({str(Path(r['new']).parent / r['rename']) for r in todo}) == len(todo):
+                break
+        for r in todo:
+            r['new'] = str(Path(r['new']).parent / r['rename'])
+    seen = collections.Counter(Path(r['new']).name for r in rows.values() if r['new'] and not r['duplicate_of'] and Path(r['new']).name not in EXEMPT and not mirror(r))
+    return rows, seen
+
+
+def write_map(rows):
+    MAP_CSV.parent.mkdir(parents=True, exist_ok=True)
+    with MAP_CSV.open('w', newline='', encoding='utf-8') as fh:
+        w = csv.DictWriter(fh, fieldnames=['old', 'new', 'flag', 'rule', 'rename', 'duplicate_of'])
+        w.writeheader()
+        for k in sorted(rows):
+            w.writerow(rows[k])
+
+
+MAP_MD = ROOT / 'docs/restructure/file-layout-map.md'
+DEPTH_CSV = ROOT / 'docs/restructure/file-layout-depth.csv'
+REFS_CSV = ROOT / 'docs/restructure/file-layout-references.csv'
+
+DECIDE = [
+    ('1', 'Loose plans and notes', '`docs/navigation_suggestions.md` to `website/notes/`; `docs/EVAL_PLAN.md`, `VAL_*.md` to `research/legacy-model-plans/`; `docs/wdt-jel-codes.md` to `research/`; `docs/wdt-site-architecture.md` to `website/`',
+     'the guru defaults of 044c; `project/notes/` was named for "the loose plans" and is the alternative for the first and fourth'),
+    ('2', 'Site design notes in `docs/restructure/`', 'every file except `file-layout.md` (and the new map files) to `website/notes/` (ids-map, ledger, ledger-sections, map, order, shortcodes, site, template, pages/, site/)',
+     'they describe the site build, so they follow the site; `project/restructure/` is the alternative'),
+    ('3', 'Research study outputs in `docs/research/data/`', 'folders 097r, 098r, 129r (source tables) to `data/uk-wealth-tables/`; the others (099r to 104r, 131r, 145r, 146r): csv to `results/<NNNr>-<slug>/`, scripts to `model/studies/`',
+     'R2 makes datasets one branch and model outputs another; the derived tables of the parameter map are outputs, not source datasets. Open: whether they belong in `data/` (they feed the input register)'),
+    ('4', 'Readable copies', '`docs/research/readable/` (40 files incl. `data/097r`, `098r`, `129r` copies of workbooks) to `literature/readable/`', 'the target tree puts `readable/` in `literature/`; the workbook copies are of datasets, not papers'),
+    ('5', 'Workbooks in `Research/`', '`etbreferencetablesfye202324final.xlsx`, `medianpricepaidforadministrativegeographiesexisting.xlsx` to `data/uk-source-workbooks/`', 'they are datasets, not PDFs (R2)'),
+    ('6', 'Split of `docs/model-v3/`', '24 spec files to `model-specs/`; 11 reports with their folders to `results/<study>/`; 12 study folders as listed in the CSV; scripts to `model/studies/<study>/`; `added/` and `inputs-added/` to `model-specs/`',
+     'borderline: `i1-gap.md`, `kernel-wiring-design.md`, `returns-gap.md`, `returns-method.md` (kept as specs); `cell-baseline/inputs_used.json` is read by `run.py` as an input (kept in `results/cell-baseline/`)'),
+    ('7', 'Split of `pipeline/`', 'web and build scripts to `website/build/`; `build_inputs`, `build_metrics`, `validate_outputs`, `run_suites`, `check_gate` to `model/tools/`; `check_agent_docs`, `build_skills`, `path_refs` to `project/housekeeping/`',
+     'the target tree has no folder for project tools; `run_suites.py` and `check_gate.py` serve both sides'),
+    ('8', 'Split of `registry/`', '`inputs.json`, `inputs-display.yml`, `metrics.json` to `data/input-register/`; everything else (pages, glossary, crosslinks, references.bib, internal.json, ...) to `website/registry/`',
+     '`references.bib` and `internal.json` are the research database; `literature/` is "the PDFs only", so they stay with the registry unless the author says otherwise'),
+    ('9', 'Country pack', '`model_v3/pack/GBR/*` to `data/country-pack-GBR/` (target tree); `build_gbr.py` stays in `model/model_v3/pack/`', 'the loader reads the pack by fixed file names under a path the code passes: 162c rewrites the path; the pack\'s `source/jst_r6.json` is byte-identical to `data/jst/jst_r6.json` (R4) but the manifest names it'),
+    ('10', 'Test suites', '`data`, `gate`, `model_v3` to `tests/model/`; `cards`, `glossary`, `layout`, `nav`, `pages`, `retired`, `hooks` to `tests/website/`', 'the target tree has two folders; `hooks` tests the agent-doc and format hooks and could be `tests/project/`'),
+    ('11', 'Agent guide names', '`docs/agents/research.md` is renamed `agents-research.md` (it collides with the site page `research.md`); `code.md`, `guru.md`, `web.md`, `writing.md` keep their names', 'R3 would also call `code.md` generic; renaming all five (`agent-code.md`, ...) touches the skills and every brief that names them'),
+    ('12', 'Generic names that are unique', 'listed in the section "Generic names that remain" below', 'R3 names `check.py`, `tables.md`, `report.md`; a module renamed changes every import (`config`, `tools`, `hooks`, `pdf`, `transforms`, `common`): the stage that owns the file decides'),
+    ('13', 'Pinned files that name an old path', 'see the section "Files whose bytes are pinned" below', 'moves keep bytes; rewriting a path inside them changes a hash or a digest. Needs the author: keep the stale citation, or re-pin on the author\'s word'),
+]
+GENERIC = {'report', 'tables', 'check', 'checks', 'common', 'config', 'tools', 'hooks', 'pdf', 'transforms', 'utils', 'run', 'summary', 'results', 'main', 'helpers', 'notes', 'index', 'data', 'validate', 'build', 'test', 'ranges', 'gap'}
+PINNED = ['registry/inputs.json', 'tests/model_v3/fixtures/legacy_digest.json', 'model_v3/pack/GBR/manifest.json', 'registry/internal.json', 'registry/metrics.json']
+
+
+def write_all(rows):
+    write_map(rows)
+    found = refs(rows)
+    with REFS_CSV.open('w', newline='', encoding='utf-8') as fh:
+        w = csv.writer(fh)
+        w.writerow(['file', 'line', 'old_path_named', 'kind', 'new_path_of_that_file'])
+        for f, i, t, k in found:
+            w.writerow([f, i, t, k, rows[t.rstrip('.:/')]['new'] if k == 'file' else ''])
+    dep = depth(rows)
+    with DEPTH_CSV.open('w', newline='', encoding='utf-8') as fh:
+        w = csv.writer(fh)
+        w.writerow(['file', 'line', 'text', 'new_file', 'change_needed'])
+        w.writerows(dep)
+    live = [r for r in rows.values() if not r['duplicate_of']]
+    area = collections.Counter(r['old'].split('/')[0] for r in rows.values())
+    target = collections.Counter(r['new'].split('/')[0] for r in live)
+    by_rule = collections.OrderedDict()
+    for r in rows.values():
+        d = by_rule.setdefault(r['rule'], dict(n=0, flag=r['flag'], old=r['old'], new=r['new']))
+        d['n'] += 1
+    longest = sorted(live, key=lambda r: -len(r['new']))[:5]
+    generic = sorted({Path(r['new']).name for r in live if kebab(Path(r['new']).stem) in GENERIC and Path(r['new']).name not in EXEMPT})
+    pin = collections.defaultdict(list)
+    for f, i, t, k in found:
+        if f in PINNED:
+            pin[f].append(f'line {i}: `{t}`')
+    out = ['# File layout map (044c R1: inventory, nothing moved)', '',
+           f'Written by `pipeline/path_refs.py --map` from the tracked files at `{git("rev-parse", "--short", "HEAD").strip()}` (the merged state of 009c). The rule table is `RULES` in that script; ',
+           'the per-file table is `file-layout-map.csv` (old, new, flag, rule, rename, duplicate_of); the references and the depth-based paths are `file-layout-references.csv` and `file-layout-depth.csv`. ',
+           'Flag **S** = settled by the author\'s rules, **D** = a default that stays open at the L1 checkpoint (the review table below). After each stage `python pipeline/path_refs.py --check` must report no old path of the moved areas.', '',
+           f'**{len(rows)} tracked files**: {sum(1 for r in rows.values() if r["flag"] == "S")} settled, {sum(1 for r in rows.values() if r["flag"] == "D")} default, 0 without a rule; {sum(1 for r in rows.values() if r["rename"])} renamed under R3; '
+           f'{sum(1 for r in rows.values() if r["duplicate_of"])} byte-identical copies removed under R4; {len(found)} lines name an old path, in {len({f for f, _, _, _ in found})} files; {len(dep)} lines build a path from their own location.', '',
+           '## Review table (the checkpoint: the guru and the author decide before 160c and 161c start)', '', '| # | Case | Default in this map | Why / what is open |', '|---|---|---|---|']
+    out += [f'| {a} | {b} | {c} | {d} |' for a, b, c, d in DECIDE]
+    out += ['', '## Old area to new area', '', '| old area | files | | new area | files |', '|---|---|---|---|---|']
+    ol, nl = sorted(area.items(), key=lambda x: -x[1]), sorted(target.items(), key=lambda x: -x[1])
+    for k in range(max(len(ol), len(nl))):
+        a = ol[k] if k < len(ol) else ('', '')
+        b = nl[k] if k < len(nl) else ('', '')
+        out.append(f'| `{a[0]}` | {a[1]} | | `{b[0]}` | {b[1]} |')
+    out += ['', '## The rules, with one example each', '', '| rule (regex on the old path) | files | flag | example old | example new |', '|---|---|---|---|---|']
+    for rule, d in by_rule.items():
+        out.append(f'| `{rule.replace("|", "/")}` | {d["n"]} | {d["flag"]} | `{d["old"]}` | `{d["new"]}` |')
+    dups = [r for r in rows.values() if r['duplicate_of']]
+    out += ['', '## Duplicates (R4)', '', 'Byte-identical, checked by SHA-256; the copy in the type\'s own branch stays, the other is removed by the stage that owns it (a pack copy that a manifest names is open: review case 9).', '',
+            '| removed copy | kept copy |', '|---|---|'] + [f'| `{r["old"]}` | `{r["duplicate_of"]}` -> `{rows[r["duplicate_of"]]["new"]}` |' for r in sorted(dups, key=lambda r: r['old'])]
+    ren = [r for r in rows.values() if r['rename']]
+    out += ['', '## Same-name files that differ, renamed (R3)', '', f'{len(ren)} files, all in the CSV (column `rename`). The rule: the copy that is a brief, a study output, a study script or an agent guide gives way; a study output gets its folder as a prefix (`f1_phases_6/f1_safe_grid.csv` becomes `f1-phases-6-f1-safe-grid.csv`), an archived brief the suffix `-brief`. The names are mechanical: the stage that moves them may choose better ones, and rewrites every reader (code, manifest, test, doc) in the same commit.', '']
+    groups = collections.Counter(Path(r['old']).parent.as_posix() for r in ren)
+    out += ['| old folder | files renamed |', '|---|---|'] + [f'| `{k}` | {v} |' for k, v in groups.most_common()]
+    out += ['', '## Generic names that remain (R3, unique but generic)', '', ', '.join(f'`{g}`' for g in generic) or 'none', '',
+            '## Files whose bytes are pinned and that name an old path (hazard 2)', '', 'Moves keep bytes. A path rewritten inside one of these changes its hash or digest; none is rewritten by this map.', '']
+    for f in PINNED:
+        out.append(f'- `{f}`: ' + ('; '.join(pin[f]) if pin[f] else 'no old path named'))
+    out += ['', '## Depth-based paths (hazard 1)', '', f'{len(dep)} lines in `file-layout-depth.csv` (`__file__`, `parents[`, `.parent`, `os.path`, `..`, includes, `.bat`, YAML), each with the shift its file\'s move needs (`depth +1` means one folder deeper). '
+            'Scripts that write their output beside themselves (`HERE / name`) change too: their output folder moves from the script\'s folder to `results/<study>/`, which no shift expresses; the 162c and 163c briefs list them from this file.', '']
+    dcount = collections.Counter(f.split('/')[0] for f, *_ in dep)
+    out += ['| area | lines |', '|---|---|'] + [f'| `{k}` | {v} |' for k, v in dcount.most_common()]
+    out += ['', '## Local-only files (hazard 5)', '', 'Git does not move these; the change report of the stage lists each with its old and new path for the author to move by hand.', ''] + [f'- {l}' for l in local_only()]
+    out += ['', '## Windows path length (hazard 4)', '', 'Longest new relative paths (the checkout adds about 60 characters; the limit is 260):', ''] + [f'- {len(r["new"])}: `{r["new"]}`' for r in longest]
+    out += ['', f'`Rates Data/` (a space) becomes `data/rates/`; `Research/` and `docs/research/` differ in case and in place, so Windows and Linux agree after the move.', '',
+            '## References by old area', '', '| old area named | lines |', '|---|---|']
+    refarea = collections.Counter(t.split('/')[0] for _, _, t, _ in found)
+    out += [f'| `{k}` | {v} |' for k, v in refarea.most_common()]
+    out += ['', 'Per file: `python pipeline/path_refs.py --refs`; per line: `file-layout-references.csv`. Kinds: `file` (an exact tracked path), `folder`, `other` (a glob, a placeholder or a path that no longer exists: not rewritten, listed).']
+    MAP_MD.write_text('\n'.join(out) + '\n', encoding='utf-8')
+    return len(out)
+
+
+# --- reference finder -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+OLD_TOP = ('docs', 'model_v3', 'pipeline', 'registry', 'site', 'source', 'tests', 'Research', 'Rates Data', 'Tools')
+OLD_ROOT_FILES = ('STATUS.md', 'OVERVIEW.md', 'START_HERE.md')
+TOKEN = re.compile(r'(?<![\w/.-])((?:%s)/[^\s`\'"()<>\]\[,;|*]+|(?:%s))' % ('|'.join(re.escape(t) for t in OLD_TOP), '|'.join(re.escape(t) for t in OLD_ROOT_FILES)))
+
+
+def is_text(path):
+    return Path(path).suffix.lower() in TEXT_EXT or Path(path).name in ('.gitignore', '.gitattributes', 'CNAME')
+
+
+def kind(token, rows):
+    """file: an exact tracked path; folder: a folder that holds tracked files; other: a glob, a placeholder or a path that no longer exists."""
+    t = token.rstrip('.:/')
+    if t in rows:
+        return 'file'
+    if any(k.startswith(t + '/') for k in rows):
+        return 'folder'
+    return 'other'
+
+
+def refs(rows):
+    """(file, line, token, kind) for every old-path token in a tracked text file outside NEVER_SEARCH."""
+    out = []
+    for f in sorted(rows):
+        if not is_text(f) or f.startswith(NEVER_SEARCH):
+            continue
+        try:
+            lines = (ROOT / f).read_text(encoding='utf-8').splitlines()
+        except (UnicodeDecodeError, OSError):
+            continue
+        for i, line in enumerate(lines, 1):
+            for m in TOKEN.finditer(line):
+                out.append((f, i, m.group(1), kind(m.group(1), rows)))
+    return out
+
+
+DEPTH = re.compile(r'__file__|parents\[|\.parent\b|os\.path\.(?:join|dirname|abspath|relpath)|(?<![\w.])\.\./|\bPath\(\s*["\']\.\.|%~dp0|\{\{<\s*include|\bdirname\b|cd\s+\.\.|ROOT\s*/')
+
+
+def depth(rows):
+    """(file, line, text, new file, change) for every line that builds a path from its own location; `change` is the parents[] shift the move needs (new folder depth minus old)."""
+    out = []
+    for f in sorted(rows):
+        if Path(f).suffix.lower() not in {'.py', '.bat', '.sh', '.yml', '.yaml', '.qmd', '.toml'} or f.startswith(NEVER_SEARCH):
+            continue
+        new = rows[f]['new'] or f
+        delta = len(Path(new).parts) - len(Path(f).parts)
+        for i, line in enumerate((ROOT / f).read_text(encoding='utf-8', errors='replace').splitlines(), 1):
+            if DEPTH.search(line):
+                note = f'depth {delta:+d}' if delta else 'same depth'
+                m = re.search(r'parents\[(\d+)\]', line)
+                if m and delta:
+                    note += f': parents[{m.group(1)}] -> parents[{int(m.group(1)) + delta}] if it reaches the repository root'
+                out.append((f, i, line.strip()[:160], new, note))
+    return out
+
+
+LOCAL_NAMED = [('docs/research/data/097r/boe-nmg-*.xlsx', 'data/uk-wealth-tables/097r/boe-nmg-*.xlsx'), ('docs/research/data/097r/nbs.xlsx', 'data/uk-wealth-tables/097r/nbs.xlsx'),
+               ('docs/research/data/097r/ukea2026q2.xlsx', 'data/uk-wealth-tables/097r/ukea2026q2.xlsx'), ('.quarto/', 'website/.quarto/ (rebuilt by quarto; the build is run from website/ or the root, see 161c)'),
+               ('_build/ and _site/', 'rebuilt by the build; not moved'), ('scratch/', 'wherever the converter writes (pipeline/to_markdown.py); decided in 160c'),
+               ('pdfs/', 'literature/ (the build copies PDFs from it; 161c)'), ('print/', 'website/print/ (generated PDFs; 161c)'), ('anchors.yml', 'generated next to the page registry: website/registry/anchors.yml (161c)'),
+               ('registry/references.json', 'website/registry/references.json (generated)'), ('site/pages/glossary.md', 'website/site/pages/glossary.md (generated)'),
+               ('source/.obsidian/', 'papers/legacy/.obsidian/ (editor state; move by hand or ignore)'), ('check*.txt, pipeline/check*.txt', 'generated reports; ignore patterns rewritten')]
+
+
+def local_only():
+    """The ignored or untracked paths the tools and the author's disk may hold (hazard 5): the named ones with their new homes, then whatever this checkout actually has."""
+    here = [l for l in git('ls-files', '--others', '--ignored', '--exclude-standard', '--directory').splitlines() if l and '__pycache__' not in l and '.pytest_cache' not in l]
+    return [f'{a}  ->  {b}' for a, b in LOCAL_NAMED] + [f'(present in this checkout) {h}' for h in here]
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    for flag in ('map', 'refs', 'depth', 'dups', 'local', 'check'):
+        ap.add_argument('--' + flag, action='store_true')
+    ap.add_argument('--new')
+    a = ap.parse_args()
+    rows, seen = build_map()
+    if a.new:
+        print(new_of(a.new)[0])
+    if a.map:
+        write_all(rows)
+        miss = [k for k, r in rows.items() if not r['new'] and not r['duplicate_of']]
+        print(f'{len(rows)} files; {sum(1 for r in rows.values() if r["flag"] == "S")} settled, {sum(1 for r in rows.values() if r["flag"] == "D")} default, {len(miss)} without a rule; '
+              f'{sum(1 for r in rows.values() if r["rename"])} renamed (R3), {sum(1 for r in rows.values() if r["duplicate_of"])} duplicates (R4)')
+        for k in miss[:20]:
+            print('  no rule:', k)
+    if a.refs:
+        found = refs(rows)
+        by = collections.Counter(f for f, _, _, _ in found)
+        for f, n in by.most_common():
+            print(f'{n:5d}  {f}')
+        print(len(found), 'references in', len(by), 'files;', dict(collections.Counter(k for _, _, _, k in found)))
+    if a.depth:
+        for f, i, l, new, note in depth(rows):
+            print(f'{f}:{i}: {l}   [{note}]')
+    if a.dups:
+        for k, r in sorted(rows.items()):
+            if r['duplicate_of']:
+                print(f'identical  {k}  ==  {r["duplicate_of"]}')
+        for k, r in sorted(rows.items()):
+            if r['rename']:
+                print(f'renamed    {k}  ->  {r["new"]}')
+    if a.local:
+        print('\n'.join(local_only()))
+    if a.check:
+        left = [(f, i, t) for f, i, t, k in refs(rows) if k != 'other']
+        for f, i, t in left[:50]:
+            print(f'{f}:{i}: {t}')
+        sys.exit(1 if left else 0)
+
+
+if __name__ == '__main__':
+    main()

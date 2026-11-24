@@ -1,0 +1,473 @@
+file,line,text,new_file,change_needed
+docs/agents/reference/code/patch-kit/extract_jst_sample.py,63,"tried = [root / 'RATES' / name, root / name, root.parent / name]",project/agents/reference/code/patch-kit/extract_jst_sample.py,same depth
+docs/agents/reference/code/patch-kit/extract_jst_sample.py,145,root = Path(a.root).resolve() if a.root else find_root(Path(__file__).resolve().parent),project/agents/reference/code/patch-kit/extract_jst_sample.py,same depth
+docs/agents/reference/code/patch-kit/extract_jst_sample.py,165,"out.parent.mkdir(parents=True, exist_ok=True)",project/agents/reference/code/patch-kit/extract_jst_sample.py,same depth
+docs/agents/reference/code/patch-kit/patch_template.py,19,"sys.path.insert(0, str(Path(__file__).resolve().parent))",project/agents/reference/code/patch-kit/patch_template.py,same depth
+docs/agents/reference/code/patch-kit/patch_template.py,22,NAME = Path(__file__).stem,project/agents/reference/code/patch-kit/patch_template.py,same depth
+docs/agents/reference/code/patch-kit/test_patch_template.py,18,HERE = Path(__file__).resolve().parent,project/agents/reference/code/patch-kit/test_patch_template.py,same depth
+docs/agents/reference/code/patch-kit/wdt_patchlib.py,65,here = Path(start or __file__).resolve(),project/agents/reference/code/patch-kit/wdt_patchlib.py,same depth
+docs/agents/reference/code/patch-kit/wdt_patchlib.py,66,here = here if here.is_dir() else here.parent,project/agents/reference/code/patch-kit/wdt_patchlib.py,same depth
+docs/agents/reference/code/patch-kit/wdt_patchlib.py,109,if p.suffix == '.py' and (p.name.endswith('_core.py') or p.name.startswith('wdt_')) and p.parent not in dirs:,project/agents/reference/code/patch-kit/wdt_patchlib.py,same depth
+docs/agents/reference/code/patch-kit/wdt_patchlib.py,110,dirs.append(p.parent),project/agents/reference/code/patch-kit/wdt_patchlib.py,same depth
+docs/agents/reference/code/patch-kit/wdt_patchlib.py,301,"dst.parent.mkdir(parents=True, exist_ok=True)",project/agents/reference/code/patch-kit/wdt_patchlib.py,same depth
+docs/agents/reference/code/patch-kit/wdt_patchlib.py,324,"return subprocess.run([sys.executable, str(script), *map(str, args[1:])], cwd=script.parent, env=env,",project/agents/reference/code/patch-kit/wdt_patchlib.py,same depth
+docs/model-v3/cell-baseline/cell_baseline.py,22,ROOT = Path(__file__).resolve().parents[3],model/studies/cell-baseline/cell_baseline.py,same depth
+docs/model-v3/cell-baseline/cell_baseline.py,24,HERE = Path(__file__).resolve().parent,model/studies/cell-baseline/cell_baseline.py,same depth
+docs/model-v3/cell-baseline/cell_baseline.py,29,"YEARS, D = 100, ROOT / 'docs' / 'research' / 'data'",model/studies/cell-baseline/cell_baseline.py,same depth
+docs/model-v3/cell-baseline/cell_baseline.py,38,lv = json.loads((ROOT / 'model_v3' / 'levers.json').read_text()),model/studies/cell-baseline/cell_baseline.py,same depth
+docs/model-v3/cell-baseline/cell_baseline.py,39,out = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),model/studies/cell-baseline/cell_baseline.py,same depth
+docs/model-v3/cell-baseline/cell_baseline.py,41,"pack, reg = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')",model/studies/cell-baseline/cell_baseline.py,same depth
+docs/model-v3/cell-baseline/cell_baseline.py,47,"wb = openpyxl.load_workbook(ROOT / 'Research' / 'etbreferencetablesfye202324final.xlsx', read_only=True, data_only=True)",model/studies/cell-baseline/cell_baseline.py,same depth
+docs/model-v3/death-phases/death_phases.py,26,HERE = Path(__file__).resolve().parent,model/studies/death-phases/death_phases.py,same depth
+docs/model-v3/death-phases/death_phases.py,27,ROOT = HERE.parents[2],model/studies/death-phases/death_phases.py,same depth
+docs/model-v3/death-phases/death_phases.py,29,"sys.path.insert(0, str(ROOT / 'docs' / 'model-v3' / 'f1-household'))",model/studies/death-phases/death_phases.py,same depth
+docs/model-v3/death-phases/death_phases.py,78,"stored = {(r['point'], r['schedule']): r for r in csv.DictReader(open(ROOT / 'docs' / 'model-v3' / 'f1-household' / 'f1_safe_constant_path.csv'))}",model/studies/death-phases/death_phases.py,same depth
+docs/model-v3/death-phases/death_phases.py,112,old = {key(r): r for r in csv.DictReader(open(ROOT / 'docs' / 'model-v3' / 'f1-household' / 'f1_safe_grid.csv')) if r['point'] == 'median_mid'},model/studies/death-phases/death_phases.py,same depth
+docs/model-v3/f1-diagnostic/f1_gap.py,20,ROOT = Path(__file__).resolve().parents[3],model/studies/f1-diagnostic/f1_gap.py,same depth
+docs/model-v3/f1-diagnostic/f1_gap.py,52,lv = json.loads((ROOT / 'model_v3' / 'levers.json').read_text()),model/studies/f1-diagnostic/f1_gap.py,same depth
+docs/model-v3/f1-diagnostic/f1_gap.py,53,out = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),model/studies/f1-diagnostic/f1_gap.py,same depth
+docs/model-v3/f1-diagnostic/f1_gap.py,55,"ctx = R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs",model/studies/f1-diagnostic/f1_gap.py,same depth
+docs/model-v3/f1-household/f1_household.py,31,HERE = Path(__file__).resolve().parent,model/studies/f1-household/f1_household.py,same depth
+docs/model-v3/f1-household/f1_household.py,32,ROOT = HERE.parents[2],model/studies/f1-household/f1_household.py,same depth
+docs/model-v3/f1-household/f1_household.py,72,lv = json.loads((ROOT / 'model_v3' / 'levers.json').read_text()),model/studies/f1-household/f1_household.py,same depth
+docs/model-v3/f1-household/f1_household.py,73,out = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),model/studies/f1-household/f1_household.py,same depth
+docs/model-v3/f1-household/f1_household.py,75,"ctx = R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs",model/studies/f1-household/f1_household.py,same depth
+docs/model-v3/f1-household/f1_household.py,76,inp = json.loads((ROOT / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text()),model/studies/f1-household/f1_household.py,same depth
+docs/model-v3/f1-household/f1_household.py,138,for r in csv.DictReader(open(ROOT / 'docs' / 'model-v3' / 'household-arm-run' / fname)):,model/studies/f1-household/f1_household.py,same depth
+docs/model-v3/household-arm-account/account_table.py,17,ROOT = Path(__file__).resolve().parents[3],model/studies/household-arm-account/account_table.py,same depth
+docs/model-v3/household-arm-account/account_table.py,19,HERE = Path(__file__).resolve().parent,model/studies/household-arm-account/account_table.py,same depth
+docs/model-v3/household-arm-account/account_table.py,30,"lv, out = json.loads((ROOT / 'model_v3' / 'levers.json').read_text()), yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())",model/studies/household-arm-account/account_table.py,same depth
+docs/model-v3/household-arm-account/account_table.py,32,"ctx = R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs",model/studies/household-arm-account/account_table.py,same depth
+docs/model-v3/household-arm-account/account_table.py,33,"return ctx, json.loads((ROOT / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text())",model/studies/household-arm-account/account_table.py,same depth
+docs/model-v3/household-arm-account/ledger_table.py,18,HERE = Path(__file__).resolve().parent,model/studies/household-arm-account/ledger_table.py,same depth
+docs/model-v3/household-arm-account/ledger_table.py,19,ROOT = HERE.parents[2],model/studies/household-arm-account/ledger_table.py,same depth
+docs/model-v3/household-arm-run/floor_diag.py,15,HERE = ROOT / 'docs' / 'model-v3' / 'household-arm-run',model/studies/household-arm-run/floor_diag.py,same depth
+docs/model-v3/household-arm-run/floor_diag.py,59,manifest = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),model/studies/household-arm-run/floor_diag.py,same depth
+docs/model-v3/household-arm-run/flow_ties.py,18,HERE = Path(__file__).resolve().parent,model/studies/household-arm-run/flow_ties.py,same depth
+docs/model-v3/household-arm-run/flow_ties.py,41,manifest = yaml.safe_load((G.ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),model/studies/household-arm-run/flow_ties.py,same depth
+docs/model-v3/household-arm-run/gdp_spread.py,15,HERE = Path(__file__).resolve().parent,model/studies/household-arm-run/gdp_spread.py,same depth
+docs/model-v3/household-arm-run/lien_rerun.py,17,HERE = Path(__file__).resolve().parent,model/studies/household-arm-run/lien_rerun.py,same depth
+docs/model-v3/household-arm-run/lien_rerun.py,18,ROOT = HERE.parents[2],model/studies/household-arm-run/lien_rerun.py,same depth
+docs/model-v3/household-arm-run/lien_rerun.py,72,manifest = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),model/studies/household-arm-run/lien_rerun.py,same depth
+docs/model-v3/household-arm-run/ranges.py,9,HERE = Path(__file__).resolve().parent,model/studies/household-arm-run/ranges.py,same depth
+docs/model-v3/household-arm-run/run_grid.py,20,HERE = Path(__file__).resolve().parent,model/studies/household-arm-run/run_grid.py,same depth
+docs/model-v3/household-arm-run/run_grid.py,21,ROOT = HERE.parents[2],model/studies/household-arm-run/run_grid.py,same depth
+docs/model-v3/household-arm-run/run_grid.py,22,"sys.path[:0] = [str(ROOT), str(ROOT / 'docs' / 'model-v3' / 'household-arm-account')]",model/studies/household-arm-run/run_grid.py,same depth
+docs/model-v3/household-arm-run/run_grid.py,151,manifest = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),model/studies/household-arm-run/run_grid.py,same depth
+docs/model-v3/household-arm-run/scenario_before_after.py,17,"sys.path[:0] = [str(ROOT), str(ROOT / 'docs' / 'model-v3' / 'household-arm-run')]",model/studies/household-arm-run/scenario_before_after.py,same depth
+docs/model-v3/household-arm-run/scenario_before_after.py,43,manifest = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),model/studies/household-arm-run/scenario_before_after.py,same depth
+docs/model-v3/household-arm-run/scenario_grid.py,19,"sys.path[:0] = [str(ROOT), str(ROOT / 'docs' / 'model-v3' / 'household-arm-run')]",model/studies/household-arm-run/scenario_grid.py,same depth
+docs/model-v3/household-arm-run/scenario_grid.py,60,manifest = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),model/studies/household-arm-run/scenario_grid.py,same depth
+docs/model-v3/household-arm-validation/make_map.py,6,HERE = Path(__file__).resolve().parent,model/studies/household-arm-validation/make_map.py,same depth
+docs/model-v3/household-arm-validation/make_map.py,7,SRC = HERE.parents[2] / 'docs' / 'research' / 'data' / '099r' / 'moments.csv',model/studies/household-arm-validation/make_map.py,same depth
+docs/model-v3/household-arm-validation/validate.py,13,ROOT = Path(__file__).resolve().parents[3],model/studies/household-arm-validation/validate.py,same depth
+docs/model-v3/household-arm-validation/validate.py,14,HERE = Path(__file__).resolve().parent,model/studies/household-arm-validation/validate.py,same depth
+docs/model-v3/household-arm-validation/validate.py,20,OBS_RATIO = HERE.parents[1] / 'research' / 'data' / '097r' / 'qsa_household_annual_2026q2.csv',model/studies/household-arm-validation/validate.py,same depth
+docs/model-v3/household-arm-validation/validate.py,52,inp = json.loads((ROOT / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text()),model/studies/household-arm-validation/validate.py,same depth
+docs/model-v3/household-arm-validation/validate.py,53,"pack, reg = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')",model/studies/household-arm-validation/validate.py,same depth
+docs/model-v3/household-vs-legacy/decomp.py,23,HERE = Path(__file__).resolve().parent,model/studies/household-vs-legacy/decomp.py,same depth
+docs/model-v3/household-vs-legacy/decomp.py,24,ROOT = HERE.parents[2],model/studies/household-vs-legacy/decomp.py,same depth
+docs/model-v3/household-vs-legacy/decomp.py,25,"sys.path[:0] = [str(ROOT), str(HERE), str(ROOT / 'docs' / 'model-v3' / 'household-arm-account'), str(ROOT / 'docs' / 'model-v3' / 'household-arm-run')]",model/studies/household-vs-legacy/decomp.py,same depth
+docs/model-v3/household-vs-legacy/decomp.py,109,path = ROOT / 'docs' / 'model-v3' / 'household-arm-run' / 'grid_results.csv',model/studies/household-vs-legacy/decomp.py,same depth
+docs/model-v3/household-vs-legacy/flows.py,18,HERE = Path(__file__).resolve().parent,model/studies/household-vs-legacy/flows.py,same depth
+docs/model-v3/household-vs-legacy/flows.py,19,ROOT = HERE.parents[2],model/studies/household-vs-legacy/flows.py,same depth
+docs/model-v3/household-vs-legacy/flows.py,20,"sys.path[:0] = [str(ROOT), str(ROOT / 'docs' / 'model-v3' / 'household-arm-account'), str(ROOT / 'docs' / 'model-v3' / 'household-arm-run')]",model/studies/household-vs-legacy/flows.py,same depth
+docs/model-v3/household-vs-legacy/fund_axis.py,14,HERE = Path(__file__).resolve().parent,model/studies/household-vs-legacy/fund_axis.py,same depth
+docs/model-v3/household-vs-legacy/fund_axis.py,15,"sys.path[:0] = [str(HERE.parents[2]), str(HERE), str(HERE.parents[2] / 'docs' / 'model-v3' / 'household-arm-account'), str(HERE.parents[2] / 'docs' / 'model-v3'",model/studies/household-vs-legacy/fund_axis.py,same depth
+docs/model-v3/kernel-wiring/decile_composition.py,7,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/kernel-wiring/decile_composition.py,same depth
+docs/model-v3/kernel-wiring/decile_composition.py,8,"ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))",model/studies/kernel-wiring/decile_composition.py,same depth
+docs/model-v3/kernel-wiring/decile_composition.py,9,"ws = list(openpyxl.load_workbook(os.path.join(ROOT, 'Rates Data', 'totalwealthtables.xlsx'), data_only=True, read_only=True)['Table 2.2'].iter_rows(values_only=",model/studies/kernel-wiring/decile_composition.py,same depth
+docs/model-v3/kernel-wiring/decile_composition.py,18,"with open(os.path.join(HERE, 'decile_composition.csv'), 'w', newline='') as f:",model/studies/kernel-wiring/decile_composition.py,same depth
+docs/model-v3/of1-ck1/of1_ck1.py,13,HERE = Path(__file__).resolve().parent,model/studies/of1-ck1/of1_ck1.py,same depth
+docs/model-v3/of1-ck1/of1_ck1.py,14,"spec = importlib.util.spec_from_file_location('f1h', HERE.parent / 'f1-household' / 'f1_household.py')",model/studies/of1-ck1/of1_ck1.py,same depth
+docs/model-v3/returns/check.py,4,"HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, "".."", "".."", ""..""))",model/studies/returns/returns-check.py,same depth
+docs/model-v3/returns/check.py,5,"ws = openpyxl.load_workbook(os.path.join(ROOT, ""Rates Data"", ""JSTdatasetR6.xlsx""), read_only=True, data_only=True)[""Sheet1""]",model/studies/returns/returns-check.py,same depth
+docs/model-v3/returns/check.py,18,"main = json.load(open(os.path.join(HERE, ""level2_out.json"")))",model/studies/returns/returns-check.py,same depth
+docs/model-v3/returns/check.py,23,"phi = json.load(open(os.path.join(HERE, ""convergence_out.json"")))[""params""][""phi""]; se = sd * math.sqrt(1 - phi * phi)",model/studies/returns/returns-check.py,same depth
+docs/model-v3/returns/common.py,4,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/returns/common.py,same depth
+docs/model-v3/returns/common.py,5,"ROOT = os.path.abspath(os.path.join(HERE, "".."", "".."", ""..""))",model/studies/returns/common.py,same depth
+docs/model-v3/returns/common.py,7,"d = json.load(open(os.path.join(ROOT, ""data"", ""jst"", ""jst_r6.json"")))[""countries""][""GBR""]",model/studies/returns/common.py,same depth
+docs/model-v3/returns/gap.py,3,"import sys, os, json; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))",model/studies/returns/gap.py,same depth
+docs/model-v3/returns/gap.py,42,"json.dump(out, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), ""gap_results.json""), ""w""), indent=1)",model/studies/returns/gap.py,same depth
+docs/model-v3/returns/generators.py,2,"import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))",model/studies/returns/generators.py,same depth
+docs/model-v3/returns/run_composition.py,2,"import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))",model/studies/returns/run_composition.py,same depth
+docs/model-v3/returns/run_composition.py,25,"wb = openpyxl.load_workbook(os.path.join(ROOT, ""Rates Data"", ""totalwealthtables.xlsx""), data_only=True); ws = wb[""Table 2.2""]",model/studies/returns/run_composition.py,same depth
+docs/model-v3/returns/run_convergence.py,2,"import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))",model/studies/returns/run_convergence.py,same depth
+docs/model-v3/returns/run_generators.py,2,"import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))",model/studies/returns/run_generators.py,same depth
+docs/model-v3/returns/run_level2.py,2,"import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))",model/studies/returns/run_level2.py,same depth
+docs/model-v3/returns/tables.py,2,"import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))",model/studies/returns/tables.py,same depth
+docs/model-v3/returns/tables.py,4,"H = os.path.dirname(os.path.abspath(__file__)); L = lambda f: json.load(open(os.path.join(H, f)))",model/studies/returns/tables.py,same depth
+docs/model-v3/returns/tables.py,42,"with open(os.path.join(H, ""tables.md""), ""w"") as fh:",model/studies/returns/tables.py,same depth
+docs/model-v3/returns/tables.py,44,"print(open(os.path.join(H, ""tables.md"")).read())",model/studies/returns/tables.py,same depth
+docs/model-v3/run-cost/speedup.py,11,HERE = Path(__file__).resolve().parent,model/studies/run-cost/speedup.py,same depth
+docs/model-v3/run-cost/timing.py,13,ROOT = Path(__file__).resolve().parents[3],model/studies/run-cost/timing.py,same depth
+docs/model-v3/run-cost/timing.py,20,"MANIFEST, INPUTS, LEVERS = ROOT / 'docs/model-v3/outputs.yml', ROOT / 'registry/inputs.json', ROOT / 'model_v3/levers.json'",model/studies/run-cost/timing.py,same depth
+docs/model-v3/run-cost/timing.py,21,"HH_INPUTS, PACKS = ROOT / 'docs/model-v3/cell-baseline/inputs_used.json', ROOT / 'model_v3/pack'",model/studies/run-cost/timing.py,same depth
+docs/model-v3/tornado/tornado.py,5,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/tornado/tornado.py,same depth
+docs/model-v3/tornado/tornado.py,6,"REG = os.path.join(HERE, "".."", ""inputs.md"")",model/studies/tornado/tornado.py,same depth
+docs/model-v3/tornado/tornado.py,127,"with open(os.path.join(HERE, ""tornado_results.csv""), ""w"", newline="""") as fh:",model/studies/tornado/tornado.py,same depth
+docs/model-v3/tornado/tornado.py,142,"import json; json.dump(dict(backout=backout, P0={k: v for k, v in P0.items()}, A=A, M1c=M1c, M2c=M2c, M4c=M4c), open(os.path.join(HERE, ""tornado_central.json""),",model/studies/tornado/tornado.py,same depth
+docs/model-v3/tornado/tornado.py,159,"with open(os.path.join(HERE, ""tornado_tables.md""), ""w"") as fh:",model/studies/tornado/tornado.py,same depth
+docs/model-v3/tornado/tornado_v2.py,8,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/tornado/tornado_v2.py,same depth
+docs/model-v3/tornado/tornado_v2.py,9,"REG = os.path.join(HERE, "".."", ""inputs.md"")",model/studies/tornado/tornado_v2.py,same depth
+docs/model-v3/tornado/tornado_v2.py,142,"with open(os.path.join(HERE, f""tornado_v2_results_{mode}.csv""), ""w"", newline="""") as fh:",model/studies/tornado/tornado_v2.py,same depth
+docs/model-v3/tornado/tornado_v2.py,157,"import json; json.dump(dict(backout=backout, P0={k: v for k, v in P0.items()}, A=A, M1c=M1c, M2c=M2c, M4c=M4c), open(os.path.join(HERE, f""tornado_v2_central_{mo",model/studies/tornado/tornado_v2.py,same depth
+docs/model-v3/tornado/tornado_v2.py,174,"with open(os.path.join(HERE, f""tornado_v2_tables_{mode}.md""), ""w"") as fh:",model/studies/tornado/tornado_v2.py,same depth
+docs/model-v3/tornado/tornado_v2.py,194,"json.dump(res, open(os.path.join(HERE, ""tornado_v2_breakeven.json""), ""w""), indent=1)",model/studies/tornado/tornado_v2.py,same depth
+docs/model-v3/wealth-ratio-diagnostic/wealth_ratio.py,21,ROOT = Path(__file__).resolve().parents[3],model/studies/wealth-ratio-diagnostic/wealth_ratio.py,same depth
+docs/model-v3/wealth-ratio-diagnostic/wealth_ratio.py,45,lv = json.loads((ROOT / 'model_v3' / 'levers.json').read_text()),model/studies/wealth-ratio-diagnostic/wealth_ratio.py,same depth
+docs/model-v3/wealth-ratio-diagnostic/wealth_ratio.py,46,out = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),model/studies/wealth-ratio-diagnostic/wealth_ratio.py,same depth
+docs/model-v3/wealth-ratio-diagnostic/wealth_ratio.py,48,"return R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1, [o['id'] for o in out['output",model/studies/wealth-ratio-diagnostic/wealth_ratio.py,same depth
+docs/research/data/097r/extract_binaries.py,8,HERE = Path(__file__).resolve().parent,model/studies/097r/extract_binaries.py,depth -1
+docs/research/data/097r/extract_ukea_nbs.py,9,HERE = Path(__file__).resolve().parent,model/studies/097r/extract_ukea_nbs.py,depth -1
+docs/research/data/098r/extract_098r.py,11,HERE = Path(__file__).resolve().parent,model/studies/098r/extract_098r.py,depth -1
+docs/research/data/098r/extract_098r.py,12,ROOT = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE.parents[3],model/studies/098r/extract_098r.py,depth -1: parents[3] -> parents[2] if it reaches the repository root
+docs/research/data/098r/extract_098r.py,101,tw = ROOT / 'Rates Data/totalwealthtables.xlsx',model/studies/098r/extract_098r.py,depth -1
+docs/research/data/098r/extract_098r.py,102,fw = ROOT / 'Rates Data/financialwealthtables.xlsx',model/studies/098r/extract_098r.py,depth -1
+docs/research/data/098r/extract_098r.py,256,p = ROOT / 'Research/etbreferencetablesfye202324final.xlsx',model/studies/098r/extract_098r.py,depth -1
+docs/research/data/101r/build_flows_tables.py,9,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/101r-parameter-map-flows-and-returns/build_flows_tables.py,depth -1
+docs/research/data/101r/build_flows_tables.py,11,"for r in csv.DictReader(open(os.path.join(HERE, ""derived_ons_flows.csv""))):",model/studies/101r-parameter-map-flows-and-returns/build_flows_tables.py,depth -1
+docs/research/data/101r/build_flows_tables.py,14,"for r in csv.DictReader(open(os.path.join(HERE, ""jst_split_stats.csv""))):",model/studies/101r-parameter-map-flows-and-returns/build_flows_tables.py,depth -1
+docs/research/data/101r/build_flows_tables.py,17,"for r in csv.DictReader(open(os.path.join(HERE, ""hmrc_37_coverage_vs_ons.csv""))):",model/studies/101r-parameter-map-flows-and-returns/build_flows_tables.py,depth -1
+docs/research/data/101r/build_flows_tables.py,256,"with open(os.path.join(HERE, ""flows_register.csv""), ""w"", newline="""") as f:",model/studies/101r-parameter-map-flows-and-returns/build_flows_tables.py,depth -1
+docs/research/data/101r/build_flows_tables.py,277,"with open(os.path.join(HERE, ""flows_crosswalk.csv""), ""w"", newline="""") as f:",model/studies/101r-parameter-map-flows-and-returns/build_flows_tables.py,depth -1
+docs/research/data/101r/derive_hmrc_37.py,13,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/101r-parameter-map-flows-and-returns/derive_hmrc_37.py,depth -1
+docs/research/data/101r/derive_hmrc_37.py,14,"rows = list(csv.reader(open(os.path.join(HERE, "".."", ""097r"", ""hmrc_csv"", ""Collated_Tables_3_1_to_3_11_2324__Table_3_7.csv""))))",model/studies/101r-parameter-map-flows-and-returns/derive_hmrc_37.py,depth -1
+docs/research/data/101r/derive_hmrc_37.py,41,"with open(os.path.join(HERE, ""hmrc_37_income_composition.csv""), ""w"", newline="""") as fh:",model/studies/101r-parameter-map-flows-and-returns/derive_hmrc_37.py,depth -1
+docs/research/data/101r/derive_hmrc_37.py,49,"for r in csv.DictReader(open(os.path.join(HERE, ""derived_ons_flows.csv""))):",model/studies/101r-parameter-map-flows-and-returns/derive_hmrc_37.py,depth -1
+docs/research/data/101r/derive_hmrc_37.py,60,"with open(os.path.join(HERE, ""hmrc_37_coverage_vs_ons.csv""), ""w"", newline="""") as fh:",model/studies/101r-parameter-map-flows-and-returns/derive_hmrc_37.py,depth -1
+docs/research/data/101r/derive_jst_split.py,13,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/101r-parameter-map-flows-and-returns/derive_jst_split.py,depth -1
+docs/research/data/101r/derive_jst_split.py,15,"for r in csv.DictReader(open(os.path.join(HERE, "".."", ""100r"", ""returns_decomposition.csv"")))]",model/studies/101r-parameter-map-flows-and-returns/derive_jst_split.py,depth -1
+docs/research/data/101r/derive_jst_split.py,63,"for r in csv.DictReader(open(os.path.join(HERE, ""derived_ons_flows.csv""))):",model/studies/101r-parameter-map-flows-and-returns/derive_jst_split.py,depth -1
+docs/research/data/101r/derive_jst_split.py,76,"with open(os.path.join(HERE, ""jst_split_stats.csv""), ""w"", newline="""") as f:",model/studies/101r-parameter-map-flows-and-returns/derive_jst_split.py,depth -1
+docs/research/data/101r/derive_ons_flows.py,13,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/101r-parameter-map-flows-and-returns/derive_ons_flows.py,depth -1
+docs/research/data/101r/derive_ons_flows.py,14,"SRC = os.path.join(HERE, "".."", ""097r"")",model/studies/101r-parameter-map-flows-and-returns/derive_ons_flows.py,depth -1
+docs/research/data/101r/derive_ons_flows.py,19,"with open(os.path.join(SRC, name), newline="""") as f:",model/studies/101r-parameter-map-flows-and-returns/derive_ons_flows.py,depth -1
+docs/research/data/101r/derive_ons_flows.py,219,"with open(os.path.join(HERE, ""derived_ons_flows.csv""), ""w"", newline="""") as f:",model/studies/101r-parameter-map-flows-and-returns/derive_ons_flows.py,depth -1
+docs/research/data/101r/derive_ons_flows.py,223,"with open(os.path.join(HERE, ""derived_ons_checks.csv""), ""w"", newline="""") as f:",model/studies/101r-parameter-map-flows-and-returns/derive_ons_flows.py,depth -1
+docs/research/data/102r/build_stocks_tables.py,8,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
+docs/research/data/102r/build_stocks_tables.py,9,"ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
+docs/research/data/102r/build_stocks_tables.py,10,"D098, D099 = (os.path.join(ROOT, 'docs', 'research', 'data', x) for x in ('098r', '099r'))",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
+docs/research/data/102r/build_stocks_tables.py,11,"PACK = os.path.join(ROOT, 'model_v3', 'pack', 'GBR')",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
+docs/research/data/102r/build_stocks_tables.py,22,"return rd(os.path.join(HERE, n))",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
+docs/research/data/102r/build_stocks_tables.py,41,"for x in rd(os.path.join(PACK, 'wealth_distribution.csv')):",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
+docs/research/data/102r/build_stocks_tables.py,90,"tail = {(x['series'], x['year']): x['value'] for x in rd(os.path.join(PACK, 'wealth_tail.csv'))}",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
+docs/research/data/102r/build_stocks_tables.py,94,"moments = {x['id']: x for x in rd(os.path.join(D099, 'moments.csv'))}",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
+docs/research/data/102r/build_stocks_tables.py,198,"with open(os.path.join(HERE, name), 'w', newline='') as fh:",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
+docs/research/data/102r/derive_bands_stages.py,8,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
+docs/research/data/102r/derive_bands_stages.py,9,"ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
+docs/research/data/102r/derive_bands_stages.py,10,"D098 = os.path.join(ROOT, 'docs', 'research', 'data', '098r')",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
+docs/research/data/102r/derive_bands_stages.py,11,"XL = os.path.join(ROOT, 'Rates Data', 'totalwealthtables.xlsx')",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
+docs/research/data/102r/derive_bands_stages.py,12,"PACK = os.path.join(ROOT, 'model_v3', 'pack', 'GBR', 'wealth_distribution.csv')",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
+docs/research/data/102r/derive_bands_stages.py,20,"with open(os.path.join(HERE, name), 'w', newline='') as fh:",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
+docs/research/data/102r/derive_bands_stages.py,100,"hh = rd(os.path.join(D098, 'was_households_by_wealth_band.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
+docs/research/data/102r/derive_bands_stages.py,101,"old_map = rd(os.path.join(D098, 'was_band_edge_mapping.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
+docs/research/data/102r/derive_bands_stages.py,129,"act = rd(os.path.join(D098, 'was_persons_activity_by_wealth_band.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
+docs/research/data/102r/derive_bands_stages.py,130,"age = rd(os.path.join(D098, 'was_persons_age_by_wealth_band.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
+docs/research/data/102r/derive_bands_stages.py,131,"old_stage = rd(os.path.join(D098, 'was_stage_by_wdt_band_derived.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
+docs/research/data/102r/derive_debt_demography.py,5,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
+docs/research/data/102r/derive_debt_demography.py,6,"ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
+docs/research/data/102r/derive_debt_demography.py,7,"D098 = os.path.join(ROOT, 'docs', 'research', 'data', '098r'); D097 = os.path.join(ROOT, 'docs', 'research', 'data', '097r')",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
+docs/research/data/102r/derive_debt_demography.py,12,"with open(os.path.join(HERE, n), 'w', newline='') as fh:",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
+docs/research/data/102r/derive_debt_demography.py,18,"debt = rd(os.path.join(D098, 'ons_was_debt_by_age_region.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
+docs/research/data/102r/derive_debt_demography.py,45,"w = rd(os.path.join(D098, 'ons_was_wealth_by_age_of_hrp.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
+docs/research/data/102r/derive_debt_demography.py,73,"for r in rd(os.path.join(D097, f)):",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
+docs/research/data/102r/derive_debt_demography.py,90,"pop = rd(os.path.join(D098, 'ons_population_gb_principal_2024based.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
+docs/research/data/102r/derive_debt_demography.py,91,"qx = rd(os.path.join(D098, 'ons_qx_gb_2024based.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,5,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,6,"ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,7,"D098 = os.path.join(ROOT, 'docs', 'research', 'data', '098r'); D097 = os.path.join(ROOT, 'docs', 'research', 'data', '097r')",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,12,"with open(os.path.join(HERE, n), 'w', newline='') as fh:",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,19,"uk = {(r['series_id'], r['period']): float(r['value']) for r in rd(os.path.join(D097, 'ons_ukea_household_annual.csv'))}",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,20,"nb = {(r['series_id'], r['period']): float(r['value']) for r in rd(os.path.join(D097, 'ons_nbs_household_stocks_annual.csv'))}",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,43,"for r in rd(os.path.join(D098, 'ons_population_gb_principal_2024based.csv')):",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,47,"qx = {(r['sex'], int(r['exact_age'])): float(r['qx']) / 1e5 for r in rd(os.path.join(D098, 'ons_qx_gb_2024based.csv')) if r['basis'] == 'period' and r['year_or_",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,58,"for r in rd(os.path.join(D098, 'was_band_reconciliation.csv')): tw[r['wdt_band']] = r",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,59,"comp = [r for r in rd(os.path.join(HERE, 'band_composition_by_pack_band.csv')) if r['round'] == R8]",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,62,"pack = {(r['variable'], r['band']): float(r['value']) for r in rd(os.path.join(ROOT, 'model_v3', 'pack', 'GBR', 'wealth_distribution.csv'))}",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,63,"ap = rd(os.path.join(HERE, 'adults_per_household_all_rounds.csv')); ap8 = [r for r in ap if r['round'] == R8][0]",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,64,"hh = {(r['wealth_band']): float(r['value']) for r in rd(os.path.join(D098, 'was_households_by_wealth_band.csv')) if r['round'] == R8 and r['measure'] == 'Weight",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,99,"mom = {r['id']: r for r in rd(os.path.join(ROOT, 'docs', 'research', 'data', '099r', 'moments.csv'))}",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,108,"stg = [r for r in rd(os.path.join(HERE, 'stage_weights_by_pack_band.csv')) if r['round'] == R8]",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,109,"wts = {r['pack_band_approx']: r for r in rd(os.path.join(HERE, 'person_household_weights_by_band.csv')) if r['round'] == R8}",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,110,"rec = {r['pack_band']: r for r in rd(os.path.join(HERE, 'band_reconciliation_exact.csv')) if r['round'] == R8}",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/102r/derive_transfers_audit_coverage.py,111,"bounds = {(r['pack_band_approx'], r['stage']): int(r['max_rounding_persons']) for r in rd(os.path.join(HERE, 'stage_rounding_bounds_r8.csv'))}",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
+docs/research/data/131r/basis_sensitivity.py,20,ROOT = Path(__file__).resolve().parents[4],model/studies/131r-pension-basis-sensitivity/basis_sensitivity.py,depth -1: parents[4] -> parents[3] if it reaches the repository root
+docs/research/data/131r/basis_sensitivity.py,22,PACK = ROOT / 'model_v3/pack/GBR',model/studies/131r-pension-basis-sensitivity/basis_sensitivity.py,depth -1
+docs/research/data/131r/basis_sensitivity.py,23,HERE = Path(__file__).parent,model/studies/131r-pension-basis-sensitivity/basis_sensitivity.py,depth -1
+docs/research/data/131r/basis_sensitivity.py,32,EX = {r['pack_band']: r for r in rd(ROOT / 'docs/research/data/102r/band_composition_by_pack_band.csv') if r['round'] == 'April 2020 to March 2022'},model/studies/131r-pension-basis-sensitivity/basis_sensitivity.py,depth -1
+docs/research/data/131r/basis_sensitivity.py,101,"_pack, _reg = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')",model/studies/131r-pension-basis-sensitivity/basis_sensitivity.py,depth -1
+docs/research/data/131r/extract_ifs_published.py,12,ROOT = Path(__file__).resolve().parents[4],model/studies/131r-pension-basis-sensitivity/extract_ifs_published.py,depth -1: parents[4] -> parents[3] if it reaches the repository root
+docs/research/data/131r/extract_ifs_published.py,13,PDF = ROOT / 'docs/research/data/129r/IFS Report - How is wealth distributed across British households.pdf',model/studies/131r-pension-basis-sensitivity/extract_ifs_published.py,depth -1
+docs/research/data/131r/extract_ifs_published.py,14,OUT = Path(__file__).with_name('ifs_published.csv'),model/studies/131r-pension-basis-sensitivity/extract_ifs_published.py,depth -1
+model_v3/out/writer.py,15,REPO = Path(__file__).resolve().parents[2],model/model_v3/out/writer.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+model_v3/out/writer.py,64,"path.parent.mkdir(parents=True, exist_ok=True)",model/model_v3/out/writer.py,depth +1
+model_v3/pack/build_gbr.py,19,ROOT = Path(__file__).resolve().parents[2],model/model_v3/pack/build_gbr.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+model_v3/pack/build_gbr.py,20,OUT = ROOT / 'model_v3' / 'pack' / 'GBR',model/model_v3/pack/build_gbr.py,depth +1
+model_v3/pack/build_gbr.py,40,"BOOKS[path] = BOOKS.get(path) or openpyxl.load_workbook(ROOT / path, read_only=True, data_only=True)",model/model_v3/pack/build_gbr.py,depth +1
+model_v3/pack/build_gbr.py,96,"pdf = subprocess.run(['pdftotext', '-layout', str(ROOT / HOUSING), '-'], capture_output=True, text=True, check=True).stdout",model/model_v3/pack/build_gbr.py,depth +1
+model_v3/pack/build_gbr.py,109,"for r in csv.DictReader(open(ROOT / CELLS, newline='', encoding='utf-8')):",model/model_v3/pack/build_gbr.py,depth +1
+model_v3/pack/build_gbr.py,111,"for r in csv.DictReader(open(ROOT / COMP, newline='', encoding='utf-8')):",model/model_v3/pack/build_gbr.py,depth +1
+model_v3/pack/build_gbr.py,116,"for r in csv.DictReader(open(ROOT / DECILES, newline='', encoding='utf-8')):",model/model_v3/pack/build_gbr.py,depth +1
+model_v3/pack/build_gbr.py,123,"with open(ROOT / 'data/wid/wid_long.csv', newline='', encoding='utf-8') as fh:",model/model_v3/pack/build_gbr.py,depth +1
+model_v3/pack/build_gbr.py,184,"shutil.copyfile(ROOT / 'data/jst/jst_r6.json', OUT / 'source' / 'jst_r6.json')",model/model_v3/pack/build_gbr.py,depth +1
+model_v3/pack/build_gbr.py,220,p = ROOT / 'model_v3' / 'levers.json',model/model_v3/pack/build_gbr.py,depth +1
+pipeline/bib_to_json.py,70,SCRIPT_DIR   = Path(__file__).resolve().parent        # pipeline/,website/build/bib_to_json.py,depth +1
+pipeline/bib_to_json.py,71,ROOT_DIR     = SCRIPT_DIR.parent                      # wdt-site/,website/build/bib_to_json.py,depth +1
+pipeline/bib_to_json.py,440,"output_path.parent.mkdir(parents=True, exist_ok=True)",website/build/bib_to_json.py,depth +1
+pipeline/build.bat,2,"cd /d ""%~dp0..""",website/build/build.bat,depth +1
+pipeline/build_anchors.py,23,ROOT_DIR     = Path(__file__).resolve().parent.parent,website/build/build_anchors.py,depth +1
+pipeline/build_and_render.bat,2,"cd /d ""%~dp0..""",website/build/build_and_render.bat,depth +1
+pipeline/build_glossary.py,574,"errors = validate_registry(rows, pages, root=Path(registry_path).resolve().parent.parent)",website/build/build_glossary.py,depth +1
+pipeline/build_inputs.py,30,ROOT = Path(__file__).resolve().parent.parent,model/tools/build_inputs.py,depth +1
+pipeline/build_inputs.py,31,"DEFAULT_SRC = ROOT / ""docs"" / ""model-v3"" / ""inputs.md""",model/tools/build_inputs.py,depth +1
+pipeline/build_inputs.py,32,"DEFAULT_OUT = ROOT / ""registry"" / ""inputs.json""",model/tools/build_inputs.py,depth +1
+pipeline/build_inputs.py,137,"args.out.parent.mkdir(parents=True, exist_ok=True)",model/tools/build_inputs.py,depth +1
+pipeline/build_metrics.py,41,ROOT = Path(__file__).resolve().parent.parent,model/tools/build_metrics.py,depth +1
+pipeline/build_metrics.py,42,"DEFAULT_SRC = ROOT / ""docs"" / ""model-v3"" / ""metrics.md""",model/tools/build_metrics.py,depth +1
+pipeline/build_metrics.py,43,"DEFAULT_MANIFEST = ROOT / ""docs"" / ""model-v3"" / ""outputs.yml""",model/tools/build_metrics.py,depth +1
+pipeline/build_metrics.py,44,"DEFAULT_OUT = ROOT / ""registry"" / ""metrics.json""",model/tools/build_metrics.py,depth +1
+pipeline/build_metrics.py,297,"args.out.parent.mkdir(parents=True, exist_ok=True)",model/tools/build_metrics.py,depth +1
+pipeline/build_skills.py,19,ROOT = Path(__file__).resolve().parent.parent,project/housekeeping/build_skills.py,depth +1
+pipeline/build_skills.py,27,"return {f""{stub.parent.name}/SKILL.md"": stub.read_bytes()}",project/housekeeping/build_skills.py,depth +1
+pipeline/build_skills.py,61,"target = out / f""{stub.parent.name}.skill""",project/housekeeping/build_skills.py,depth +1
+pipeline/check_agent_docs.py,56,"return any((base / tok).exists() for base in (root, src.parent))",project/housekeeping/check_agent_docs.py,depth +1
+pipeline/check_agent_docs.py,68,"if not (src.parent / target.split(""#"")[0]).exists():",project/housekeeping/check_agent_docs.py,depth +1
+pipeline/check_agent_docs.py,97,"ap.add_argument(""--root"", type=Path, default=Path(__file__).resolve().parent.parent)",project/housekeeping/check_agent_docs.py,depth +1
+pipeline/check_gate.py,61,root: Path = Path(__file__).resolve().parent.parent,model/tools/check_gate.py,depth +1
+pipeline/check_wdt_format.py,104,"add(n, f""figure path '{path_}' should be ../figures/{sc.lower()}_fig_{stem}_<slug>.png"")",website/build/check_wdt_format.py,depth +1
+pipeline/config.py,21,SCRIPT_DIR = Path(__file__).resolve().parent   # wdt-site/pipeline/,website/build/config.py,depth +1
+pipeline/config.py,22,ROOT_DIR   = SCRIPT_DIR.parent                 # wdt-site/,website/build/config.py,depth +1
+pipeline/hooks.py,13,ROOT = Path(__file__).resolve().parent.parent,website/build/hooks.py,depth +1
+pipeline/hooks.py,19,"spec = importlib.util.spec_from_file_location(name, Path(__file__).resolve().parent / f""{name}.py"")",website/build/hooks.py,depth +1
+pipeline/hooks.py,27,"PATHS = dict(manifest=ROOT / ""docs/model-v3/outputs.yml"", inputs=ROOT / ""registry/inputs.json"",",website/build/hooks.py,depth +1
+pipeline/hooks.py,28,"display=ROOT / ""registry/inputs-display.yml"", lit=ROOT / ""registry/lit-figures.yml"",",website/build/hooks.py,depth +1
+pipeline/hooks.py,29,"bib=ROOT / ""registry/references.bib"")",website/build/hooks.py,depth +1
+pipeline/hooks.py,359,"out = Path(a.out or ROOT / ""_build/hooks-report.json"")",website/build/hooks.py,depth +1
+pipeline/hooks.py,360,"out.parent.mkdir(parents=True, exist_ok=True)",website/build/hooks.py,depth +1
+pipeline/link_map.py,966,"dest_qmd.parent.mkdir(parents=True, exist_ok=True)",website/build/link_map.py,depth +1
+pipeline/page_cards.py,17,ROOT = pathlib.Path(__file__).resolve().parent.parent,website/build/page_cards.py,depth +1
+pipeline/page_cards.py,18,LEDGER_SECTIONS = ROOT / 'docs/restructure/ledger-sections.md',website/build/page_cards.py,depth +1
+pipeline/page_cards.py,19,LEDGER = ROOT / 'docs/restructure/ledger.md',website/build/page_cards.py,depth +1
+pipeline/page_cards.py,20,ORDER = ROOT / 'docs/restructure/order.md',website/build/page_cards.py,depth +1
+pipeline/page_cards.py,21,OUTPUTS = ROOT / 'docs/model-v3/outputs.yml',website/build/page_cards.py,depth +1
+pipeline/page_cards.py,22,INPUTS = ROOT / 'docs/model-v3/inputs.md',website/build/page_cards.py,depth +1
+pipeline/page_cards.py,23,DEFAULT_OUT = ROOT / 'docs/restructure/pages',website/build/page_cards.py,depth +1
+pipeline/pages/nav.py,29,"sys.path.insert(0, str(Path(__file__).resolve().parents[1]))",website/build/pages/nav.py,depth +1: parents[1] -> parents[2] if it reaches the repository root
+pipeline/pages/nav.py,30,"sys.path.insert(0, str(Path(__file__).resolve().parent))",website/build/pages/nav.py,depth +1
+pipeline/pages/nav.py,174,"path.parent.mkdir(parents=True, exist_ok=True)",website/build/pages/nav.py,depth +1
+pipeline/pages/retired.py,38,"sys.path.insert(0, str(Path(__file__).resolve().parents[1]))",website/build/pages/retired.py,depth +1: parents[1] -> parents[2] if it reaches the repository root
+pipeline/pages/retired.py,305,"out.parent.mkdir(parents=True, exist_ok=True)",website/build/pages/retired.py,depth +1
+pipeline/pages/routing.py,23,"sys.path.insert(0, str(Path(__file__).resolve().parents[1]))",website/build/pages/routing.py,depth +1: parents[1] -> parents[2] if it reaches the repository root
+pipeline/pdf.py,313,#    Source files reference figures as ../figures/<name>.png (relative to the,website/build/pdf.py,depth +1
+pipeline/pdf.py,315,"#    transforms.py may not handle the ../ prefix. After fix_image_paths runs,",website/build/pdf.py,depth +1
+pipeline/pdf.py,330,#      ![Figure N.Na: Caption text. **(CODE §ref)**](../figures/file.png){width=100%},website/build/pdf.py,depth +1
+pipeline/pdf.py,357,"Handles ../figures/, ./figures/, ../../figures/, bare figures/, etc.",website/build/pdf.py,depth +1
+pipeline/pdf.py,371,original_path = m.group(2)   # ../figures/file.png,website/build/pdf.py,depth +1
+pipeline/pdf.py,469,3. _fix_image_paths_pdf     (PDF safety net — normalises ../figures/ etc.),website/build/pdf.py,depth +1
+pipeline/pdf.py,535,"f""--resource-path=.;{staging_file.parent};{figures_root}"",",website/build/pdf.py,depth +1
+pipeline/preprocess.py,122,"destination.parent.mkdir(parents=True, exist_ok=True)",website/build/preprocess.py,depth +1
+pipeline/preprocess.py,154,"destination.parent.mkdir(parents=True, exist_ok=True)",website/build/preprocess.py,depth +1
+pipeline/run_suites.py,20,ROOT = Path(__file__).resolve().parent.parent,model/tools/run_suites.py,depth +1
+pipeline/scrape_contents.py,86,ROOT_DIR     = Path(__file__).resolve().parent.parent,website/build/scrape_contents.py,depth +1
+pipeline/to_markdown.py,35,ROOT = Path(__file__).resolve().parents[1],website/build/to_markdown.py,depth +1: parents[1] -> parents[2] if it reaches the repository root
+pipeline/to_markdown.py,169,"dst.parent.mkdir(parents=True, exist_ok=True)",website/build/to_markdown.py,depth +1
+pipeline/to_markdown.py,181,"path.parent.mkdir(parents=True, exist_ok=True)",website/build/to_markdown.py,depth +1
+pipeline/to_markdown.py,208,"out.parent.mkdir(parents=True, exist_ok=True)",website/build/to_markdown.py,depth +1
+pipeline/tools.py,170,pipeline_dir = Path(__file__).resolve().parent,website/build/tools.py,depth +1
+pipeline/tools.py,171,root_dir     = pipeline_dir.parent,website/build/tools.py,depth +1
+pipeline/transforms.py,57,#   ../figures/rates_fig_03.png,website/build/transforms.py,depth +1
+pipeline/transforms.py,588,"dest_path.parent.mkdir(parents=True, exist_ok=True)",website/build/transforms.py,depth +1
+pipeline/validate_outputs.py,45,ROOT = Path(__file__).resolve().parent.parent,model/tools/validate_outputs.py,depth +1
+pipeline/validate_outputs.py,46,"DEFAULT_MANIFEST = ROOT / ""docs"" / ""model-v3"" / ""outputs.yml""",model/tools/validate_outputs.py,depth +1
+pipeline/validate_outputs.py,47,"DEFAULT_INPUTS = ROOT / ""registry"" / ""inputs.json""",model/tools/validate_outputs.py,depth +1
+pipeline/wdt_crosslinks.py,44,ROOT = Path(__file__).resolve().parent.parent,website/build/wdt_crosslinks.py,depth +1
+pipeline/wdt_crosslinks.py,45,"DEFAULT_OUT = ROOT / ""registry"" / ""crosslinks.json""",website/build/wdt_crosslinks.py,depth +1
+pipeline/wdt_crosslinks.py,405,"out.parent.mkdir(parents=True, exist_ok=True)",website/build/wdt_crosslinks.py,depth +1
+pipeline/wdt_crosslinks.py,499,"out.parent.mkdir(parents=True, exist_ok=True)",website/build/wdt_crosslinks.py,depth +1
+pipeline/wdt_crosslinks.py,516,"out.parent.mkdir(parents=True, exist_ok=True)",website/build/wdt_crosslinks.py,depth +1
+pipeline/wdt_crosslinks.py,542,"g = sub.add_parser(""anchors""); common(g); g.add_argument(""--out"", default=str(ROOT / ""registry"" / ""anchors.generated.yml""))",website/build/wdt_crosslinks.py,depth +1
+pipeline/wdt_crosslinks.py,543,"k = sub.add_parser(""contents""); common(k); k.add_argument(""--out"", default=str(ROOT / ""registry"" / ""contents.generated.yml""))",website/build/wdt_crosslinks.py,depth +1
+pipeline/wdt_crosslinks.py,552,"source = first_existing(a.source, ROOT / ""source"", ""/source"")",website/build/wdt_crosslinks.py,depth +1
+pipeline/wdt_crosslinks.py,555,"apath = first_existing(a.anchors, ROOT / ""registry"" / ""anchors.yml"", ROOT / ""registry"" / ""anchors.yml"", ROOT / ""anchors.yml"")",website/build/wdt_crosslinks.py,depth +1
+pipeline/wdt_crosslinks.py,556,"ipath = first_existing(a.internal, ROOT / ""registry"" / ""internal.json"", ROOT / ""registry"" / ""internal.json"", ROOT / ""internal.json"")",website/build/wdt_crosslinks.py,depth +1
+pipeline/zenodo_upload.py,64,SCRIPT_DIR = Path(__file__).resolve().parent   # pipeline/,website/build/zenodo_upload.py,depth +1
+pipeline/zenodo_upload.py,316,"logging.FileHandler(SCRIPT_DIR.parent / ""print"" / ""zenodo_upload.log"", mode=""a"", encoding=""utf-8""),",website/build/zenodo_upload.py,depth +1
+pipeline/zenodo_upload.py,321,"DOIS_FILE = SCRIPT_DIR.parent / ""print"" / ""zenodo_dois.json""",website/build/zenodo_upload.py,depth +1
+tests/cards/test_cards.py,9,ROOT = pathlib.Path(__file__).resolve().parent.parent.parent,tests/website/cards/test_cards.py,depth +1
+tests/cards/test_cards.py,10,"sys.path.insert(0, str(ROOT / 'pipeline'))",tests/website/cards/test_cards.py,depth +1
+tests/data/conftest.py,14,ROOT = Path(__file__).resolve().parents[2],tests/model/data/conftest.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/data/conftest.py,15,"PIPELINE = ROOT / ""pipeline""",tests/model/data/conftest.py,depth +1
+tests/data/conftest.py,16,"FIXTURE = Path(__file__).resolve().parent / ""fixtures"" / ""outputs.fixture.json""",tests/model/data/conftest.py,depth +1
+tests/data/conftest.py,17,"MANIFEST = ROOT / ""docs"" / ""model-v3"" / ""outputs.yml""",tests/model/data/conftest.py,depth +1
+tests/data/conftest.py,18,"INPUTS_JSON = ROOT / ""registry"" / ""inputs.json""",tests/model/data/conftest.py,depth +1
+tests/data/conftest.py,19,"METRICS_JSON = ROOT / ""registry"" / ""metrics.json""",tests/model/data/conftest.py,depth +1
+tests/data/conftest.py,20,"INPUTS_MD = ROOT / ""docs"" / ""model-v3"" / ""inputs.md""",tests/model/data/conftest.py,depth +1
+tests/data/conftest.py,21,"METRICS_MD = ROOT / ""docs"" / ""model-v3"" / ""metrics.md""",tests/model/data/conftest.py,depth +1
+tests/data/conftest.py,49,"return load_module(""make_fixture"", Path(__file__).resolve().parent / ""make_fixture.py"")",tests/model/data/conftest.py,depth +1
+tests/data/make_fixture.py,28,ROOT = Path(__file__).resolve().parents[2],tests/model/data/make_fixture.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/data/make_fixture.py,29,"MANIFEST = ROOT / ""docs"" / ""model-v3"" / ""outputs.yml""",tests/model/data/make_fixture.py,depth +1
+tests/data/make_fixture.py,30,"INPUTS = ROOT / ""registry"" / ""inputs.json""",tests/model/data/make_fixture.py,depth +1
+tests/data/make_fixture.py,31,"OUT = Path(__file__).resolve().parent / ""fixtures"" / ""outputs.fixture.json""",tests/model/data/make_fixture.py,depth +1
+tests/data/make_fixture.py,144,"OUT.parent.mkdir(parents=True, exist_ok=True)",tests/model/data/make_fixture.py,depth +1
+tests/data/test_to_markdown.py,12,ROOT = Path(__file__).resolve().parents[2],tests/model/data/test_to_markdown.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/data/test_to_markdown.py,13,"spec = importlib.util.spec_from_file_location(""to_markdown"", ROOT / ""pipeline"" / ""to_markdown.py"")",tests/model/data/test_to_markdown.py,depth +1
+tests/data/test_to_markdown.py,85,"subprocess.run([shutil.which(""soffice"") or ""libreoffice"", ""--headless"", ""--convert-to"", ""ods"", ""--outdir"", str(x.parent), str(x)], check=True, capture_output=Tr",tests/model/data/test_to_markdown.py,depth +1
+tests/gate/conftest.py,10,"sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'pipeline'))",tests/model/gate/conftest.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/gate/conftest.py,26,"p.parent.mkdir(parents=True, exist_ok=True)",tests/model/gate/conftest.py,depth +1
+tests/gate/test_gate.py,9,REPO = Path(__file__).resolve().parents[2],tests/model/gate/test_gate.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/glossary/conftest.py,5,ROOT = Path(__file__).resolve().parents[2],tests/website/glossary/conftest.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/glossary/conftest.py,6,"sys.path.insert(0, str(ROOT / ""pipeline""))",tests/website/glossary/conftest.py,depth +1
+tests/glossary/conftest.py,7,"FIXTURES = Path(__file__).resolve().parent / ""fixtures""",tests/website/glossary/conftest.py,depth +1
+tests/glossary/test_glossary.py,13,"SCRIPT = ROOT / ""pipeline"" / ""build_glossary.py""",tests/website/glossary/test_glossary.py,depth +1
+tests/glossary/test_glossary.py,14,TEST_ROOT = FIXTURES.parent,tests/website/glossary/test_glossary.py,depth +1
+tests/glossary/test_glossary.py,33,"done = cli(""--registry"", ROOT / ""registry/glossary.yml"", ""--pages"", ROOT / ""registry/pages.yml"",",tests/website/glossary/test_glossary.py,depth +1
+tests/glossary/test_glossary.py,39,"rows = bg.load_registry(ROOT / ""registry/glossary.yml"")",tests/website/glossary/test_glossary.py,depth +1
+tests/glossary/test_glossary.py,40,"ids = {r[""id""] for r in yaml.safe_load((ROOT / ""registry/pages.yml"").read_text(encoding=""utf-8""))}",tests/website/glossary/test_glossary.py,depth +1
+tests/glossary/test_glossary.py,44,"assert (ROOT / r[""source""].split("","")[0]).is_file(), r[""term""]",tests/website/glossary/test_glossary.py,depth +1
+tests/glossary/test_glossary.py,50,"rows = bg.load_registry(ROOT / ""registry/glossary.yml"")",tests/website/glossary/test_glossary.py,depth +1
+tests/glossary/test_glossary.py,52,"text = "" "".join((ROOT / r[""source""].split("","")[0]).read_text(encoding=""utf-8"").split())",tests/website/glossary/test_glossary.py,depth +1
+tests/glossary/test_glossary.py,124,"assert cli(""--registry"", ROOT / ""registry/glossary.yml"", ""--pages"", ROOT / ""registry/pages.yml"",",tests/website/glossary/test_glossary.py,depth +1
+tests/glossary/test_glossary.py,127,"rows = {r[""term""]: r for r in bg.load_registry(ROOT / ""registry/glossary.yml"")}",tests/website/glossary/test_glossary.py,depth +1
+tests/hooks/conftest.py,6,ROOT = Path(__file__).resolve().parents[2],tests/website/hooks/conftest.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/hooks/conftest.py,7,"PIPELINE = ROOT / ""pipeline""",tests/website/hooks/conftest.py,depth +1
+tests/hooks/conftest.py,8,"FX = Path(__file__).resolve().parent / ""fixtures""",tests/website/hooks/conftest.py,depth +1
+tests/hooks/conftest.py,9,"DATA = ROOT / ""tests"" / ""data"" / ""fixtures"" / ""outputs.fixture.json""",tests/website/hooks/conftest.py,depth +1
+tests/hooks/test_build_skills.py,8,ROOT = Path(__file__).resolve().parents[2],tests/website/hooks/test_build_skills.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/hooks/test_build_skills.py,9,"SCRIPT = str(ROOT / ""pipeline"" / ""build_skills.py"")",tests/website/hooks/test_build_skills.py,depth +1
+tests/hooks/test_build_skills.py,16,p.parent.mkdir(parents=True),tests/website/hooks/test_build_skills.py,depth +1
+tests/hooks/test_check_agent_docs.py,7,ROOT = Path(__file__).resolve().parents[2],tests/website/hooks/test_check_agent_docs.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/hooks/test_check_agent_docs.py,8,"SCRIPT = ROOT / ""pipeline"" / ""check_agent_docs.py""",tests/website/hooks/test_check_agent_docs.py,depth +1
+tests/hooks/test_check_agent_docs.py,27,"p.parent.mkdir(parents=True, exist_ok=True)",tests/website/hooks/test_check_agent_docs.py,depth +1
+tests/hooks/test_run_suites.py,6,ROOT = Path(__file__).resolve().parents[2],tests/website/hooks/test_run_suites.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/hooks/test_run_suites.py,7,"SCRIPT = str(ROOT / ""pipeline"" / ""run_suites.py"")",tests/website/hooks/test_run_suites.py,depth +1
+tests/layout/conftest.py,21,ROOT = Path(__file__).resolve().parents[2],tests/website/layout/conftest.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/layout/conftest.py,22,"SITE = ROOT / ""site""",tests/website/layout/conftest.py,depth +1
+tests/layout/conftest.py,23,"FIXTURES = Path(__file__).resolve().parent / ""fixtures""",tests/website/layout/conftest.py,depth +1
+tests/layout/fixtures/index.qmd,17,{{< include includes/hub-contents.html >}},tests/website/layout/fixtures/index.qmd,depth +1
+tests/layout/fixtures/index.qmd,45,{{< include includes/routing-slot.html >}},tests/website/layout/fixtures/index.qmd,depth +1
+tests/layout/fixtures/index.qmd,53,{{< include includes/hub-numbers.html >}},tests/website/layout/fixtures/index.qmd,depth +1
+tests/layout/fixtures/parent.qmd,12,{{< include includes/banner-parent.html >}},tests/website/layout/fixtures/parent.qmd,depth +1
+tests/layout/fixtures/parent.qmd,20,{{< include includes/spoke-nav.html >}},tests/website/layout/fixtures/parent.qmd,depth +1
+tests/layout/fixtures/parent.qmd,42,{{< include includes/spoke-data.html >}},tests/website/layout/fixtures/parent.qmd,depth +1
+tests/layout/fixtures/parent.qmd,46,{{< include includes/spoke-read-next.html >}},tests/website/layout/fixtures/parent.qmd,depth +1
+tests/layout/fixtures/spoke-draft.qmd,17,{{< include includes/spoke-nav.html >}},tests/website/layout/fixtures/spoke-draft.qmd,depth +1
+tests/layout/fixtures/spoke-draft.qmd,39,{{< include includes/spoke-data.html >}},tests/website/layout/fixtures/spoke-draft.qmd,depth +1
+tests/layout/fixtures/spoke-draft.qmd,43,{{< include includes/spoke-read-next.html >}},tests/website/layout/fixtures/spoke-draft.qmd,depth +1
+tests/layout/fixtures/spoke.qmd,16,{{< include includes/spoke-nav.html >}},tests/website/layout/fixtures/spoke.qmd,depth +1
+tests/layout/fixtures/spoke.qmd,38,{{< include includes/spoke-data.html >}},tests/website/layout/fixtures/spoke.qmd,depth +1
+tests/layout/fixtures/spoke.qmd,42,{{< include includes/spoke-read-next.html >}},tests/website/layout/fixtures/spoke.qmd,depth +1
+tests/layout/fixtures/standalone-scope.qmd,12,{{< include includes/banner-standalone-scope.html >}},tests/website/layout/fixtures/standalone-scope.qmd,depth +1
+tests/layout/fixtures/standalone-scope.qmd,20,{{< include includes/spoke-nav.html >}},tests/website/layout/fixtures/standalone-scope.qmd,depth +1
+tests/layout/fixtures/standalone-scope.qmd,42,{{< include includes/spoke-data.html >}},tests/website/layout/fixtures/standalone-scope.qmd,depth +1
+tests/layout/fixtures/standalone-scope.qmd,46,{{< include includes/spoke-read-next.html >}},tests/website/layout/fixtures/standalone-scope.qmd,depth +1
+tests/layout/fixtures/standalone.qmd,12,{{< include includes/banner-standalone.html >}},tests/website/layout/fixtures/standalone.qmd,depth +1
+tests/layout/fixtures/standalone.qmd,20,{{< include includes/spoke-nav.html >}},tests/website/layout/fixtures/standalone.qmd,depth +1
+tests/layout/fixtures/standalone.qmd,42,{{< include includes/spoke-data.html >}},tests/website/layout/fixtures/standalone.qmd,depth +1
+tests/layout/fixtures/standalone.qmd,46,{{< include includes/spoke-read-next.html >}},tests/website/layout/fixtures/standalone.qmd,depth +1
+tests/model_v3/conftest.py,6,"REPO = Path(__file__).resolve().parents[2]; sys.path.insert(0, str(REPO))",tests/model/model_v3/conftest.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/conftest.py,17,"(tmp / 'model_v3' / name).parent.mkdir(parents=True, exist_ok=True)",tests/model/model_v3/conftest.py,depth +1
+tests/model_v3/conftest.py,50,"root, pkg = sys.argv[1:3]; sys.path.insert(0, os.path.dirname(root))",tests/model/model_v3/conftest.py,depth +1
+tests/model_v3/conftest.py,61,"r = subprocess.run([sys.executable, '-B', '-I', '-c', PROBE, str(root), root.name, *mods], capture_output=True, text=True, cwd=root.parent)",tests/model/model_v3/conftest.py,depth +1
+tests/model_v3/conftest.py,95,"pairs.append((f, nlines(root.parent / f), tst))",tests/model/model_v3/conftest.py,depth +1
+tests/model_v3/test_arm_switch.py,17,INP = json.loads((ROOT / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text()),tests/model/model_v3/test_arm_switch.py,depth +1
+tests/model_v3/test_base.py,14,ROOT = Path(__file__).parents[2],tests/model/model_v3/test_base.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_base.py,15,RATIOS = json.loads((ROOT / 'model_v3' / 'levers.json').read_text())['axes']['threshold_ratio'],tests/model/model_v3/test_base.py,depth +1
+tests/model_v3/test_base.py,20,"pack, reg = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')",tests/model/model_v3/test_base.py,depth +1
+tests/model_v3/test_base.py,141,"assert not re.search(r'\b(0\.18|0\.51|700|1000)\b', (ROOT / 'model_v3' / 'core' / 'base.py').read_text())",tests/model/model_v3/test_base.py,depth +1
+tests/model_v3/test_burden.py,10,ROOT = Path(__file__).parents[2],tests/model/model_v3/test_burden.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_burden.py,21,return pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'),tests/model/model_v3/test_burden.py,depth +1
+tests/model_v3/test_burden.py,26,return pk.load_register(ROOT / 'registry' / 'inputs.json'),tests/model/model_v3/test_burden.py,depth +1
+tests/model_v3/test_cells.py,9,ROOT = Path(__file__).resolve().parents[2],tests/model/model_v3/test_cells.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_cells.py,10,"PACK, REG = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')",tests/model/model_v3/test_cells.py,depth +1
+tests/model_v3/test_comparators.py,12,INP = json.loads((ROOT / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text()),tests/model/model_v3/test_comparators.py,depth +1
+tests/model_v3/test_household_hook.py,10,ROOT = Path(__file__).resolve().parents[2],tests/model/model_v3/test_household_hook.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_household_hook.py,11,"PACK, REG = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')",tests/model/model_v3/test_household_hook.py,depth +1
+tests/model_v3/test_household_tax.py,10,ROOT = Path(__file__).resolve().parents[2],tests/model/model_v3/test_household_tax.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_household_tax.py,11,"PACK, REG = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')",tests/model/model_v3/test_household_tax.py,depth +1
+tests/model_v3/test_household_vs_legacy.py,9,ROOT = Path(__file__).resolve().parents[2],tests/model/model_v3/test_household_vs_legacy.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_household_vs_legacy.py,10,HVL = ROOT / 'docs' / 'model-v3' / 'household-vs-legacy',tests/model/model_v3/test_household_vs_legacy.py,depth +1
+tests/model_v3/test_household_vs_legacy.py,19,"sys.path[:0] = [str(ROOT), str(ROOT / 'docs' / 'model-v3' / 'household-arm-account'), str(ROOT / 'docs' / 'model-v3' / 'household-arm-run')]",tests/model/model_v3/test_household_vs_legacy.py,depth +1
+tests/model_v3/test_kernel.py,11,"sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))",tests/model/model_v3/test_kernel.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_kernel.py,259,tree = ast.parse(pathlib.Path(K.__file__).read_text()),tests/model/model_v3/test_kernel.py,depth +1
+tests/model_v3/test_ledger.py,10,ROOT = Path(__file__).resolve().parents[2],tests/model/model_v3/test_ledger.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_ledger.py,11,"PACK, REG = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')",tests/model/model_v3/test_ledger.py,depth +1
+tests/model_v3/test_legacy_digest.py,11,ROOT = Path(__file__).parents[2],tests/model/model_v3/test_legacy_digest.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_legacy_digest.py,16,FIX = ROOT / 'tests' / 'model_v3' / 'fixtures' / 'legacy_digest.json',tests/model/model_v3/test_legacy_digest.py,depth +1
+tests/model_v3/test_legacy_digest.py,26,"lv, out = json.loads((ROOT / 'model_v3' / 'levers.json').read_text()), yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())",tests/model/model_v3/test_legacy_digest.py,depth +1
+tests/model_v3/test_legacy_digest.py,28,"ctx = R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1,",tests/model/model_v3/test_legacy_digest.py,depth +1
+tests/model_v3/test_legacy_digest.py,47,"r = subprocess.run([sys.executable, str(Path(__file__)), '--print', '7'], cwd=ROOT, capture_output=True, text=True)",tests/model/model_v3/test_legacy_digest.py,depth +1
+tests/model_v3/test_legacy_digest.py,56,FIX.parent.mkdir(exist_ok=True),tests/model/model_v3/test_legacy_digest.py,depth +1
+tests/model_v3/test_m2_total.py,7,ROOT = Path(__file__).resolve().parents[2],tests/model/model_v3/test_m2_total.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_m2_total.py,8,SCRIPT = ROOT / 'docs' / 'model-v3' / 'household-arm-run' / 'run_grid.py',tests/model/model_v3/test_m2_total.py,depth +1
+tests/model_v3/test_out.py,9,"REPO = Path(__file__).resolve().parents[2]; sys.path.insert(0, str(REPO))",tests/model/model_v3/test_out.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_out_sweeps.py,33,pack = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'),tests/model/model_v3/test_out_sweeps.py,depth +1
+tests/model_v3/test_pack.py,9,FIX = Path(__file__).parent / 'fixtures' / 'pack_ZZZ',tests/model/model_v3/test_pack.py,depth +1
+tests/model_v3/test_pack.py,11,ROOT = Path(__file__).parents[2],tests/model/model_v3/test_pack.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_pack.py,12,GBR = ROOT / 'model_v3' / 'pack' / 'GBR',tests/model/model_v3/test_pack.py,depth +1
+tests/model_v3/test_pack.py,182,r = pk.load_register(Path(__file__).parents[2] / 'registry' / 'inputs.json'),tests/model/model_v3/test_pack.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_pack.py,213,t = ast.parse((Path(__file__).parents[2] / 'model_v3' / 'core' / 'pack.py').read_text()),tests/model/model_v3/test_pack.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_pack.py,220,mp = json.loads((ROOT / 'model_v3' / 'levers.json').read_text())['pack_mappings'],tests/model/model_v3/test_pack.py,depth +1
+tests/model_v3/test_pack.py,221,"p, reg = pk.load_pack(GBR), pk.load_register(ROOT / 'registry' / 'inputs.json')",tests/model/model_v3/test_pack.py,depth +1
+tests/model_v3/test_pack.py,230,text = (ROOT / 'docs' / 'model-v3' / 'inputs.md').read_text(encoding='utf-8'),tests/model/model_v3/test_pack.py,depth +1
+tests/model_v3/test_pack.py,232,reg = pk.load_register(ROOT / 'registry' / 'inputs.json'),tests/model/model_v3/test_pack.py,depth +1
+tests/model_v3/test_pack.py,233,"assert len(reg) == len(md) == int(re.search(r'register has (\d+) rows', text)[1]) == json.loads((ROOT / 'registry' / 'inputs.json').read_text())['count']",tests/model/model_v3/test_pack.py,depth +1
+tests/model_v3/test_pack_base.py,9,ROOT = Path(__file__).parents[2],tests/model/model_v3/test_pack_base.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_pack_base.py,10,GBR = ROOT / 'model_v3' / 'pack' / 'GBR',tests/model/model_v3/test_pack_base.py,depth +1
+tests/model_v3/test_pack_base.py,31,"t21 = [r for r in openpyxl.load_workbook(ROOT / 'Rates Data' / 'totalwealthtables.xlsx', read_only=True, data_only=True)['Table 2.1'].iter_rows(values_only=True",tests/model/model_v3/test_pack_base.py,depth +1
+tests/model_v3/test_pack_base.py,32,"rev = [r for r in openpyxl.load_workbook(ROOT / 'Rates Data' / 'Revenue composition spreadsheet.xlsx', read_only=True, data_only=True)['Total revenues'].iter_ro",tests/model/model_v3/test_pack_base.py,depth +1
+tests/model_v3/test_pack_macro.py,9,ROOT = Path(__file__).parents[2],tests/model/model_v3/test_pack_macro.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_pack_macro.py,10,GBR = ROOT / 'model_v3' / 'pack' / 'GBR',tests/model/model_v3/test_pack_macro.py,depth +1
+tests/model_v3/test_pack_macro.py,14,"rows = list(openpyxl.load_workbook(ROOT / 'Rates Data' / 'JSTdatasetR6.xlsx', read_only=True, data_only=True)['Sheet1'].iter_rows(values_only=True))",tests/model/model_v3/test_pack_macro.py,depth +1
+tests/model_v3/test_pension_book.py,8,"sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))",tests/model/model_v3/test_pension_book.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_pension_lien.py,75,root = Path(__file__).resolve().parents[2],tests/model/model_v3/test_pension_lien.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_pool.py,12,ROOT = Path(__file__).parents[2],tests/model/model_v3/test_pool.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_pool.py,62,"fe = lambda w: S.feasibility(noisy, S.grid(json.loads((ROOT / 'model_v3' / 'levers.json').read_text()))[:5], workers=w)",tests/model/model_v3/test_pool.py,depth +1
+tests/model_v3/test_pool.py,69,"lv, out = json.loads((ROOT / 'model_v3' / 'levers.json').read_text()), yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())",tests/model/model_v3/test_pool.py,depth +1
+tests/model_v3/test_pool.py,71,"ctx = R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs",tests/model/model_v3/test_pool.py,depth +1
+tests/model_v3/test_returns.py,11,ROOT = Path(__file__).parents[2],tests/model/model_v3/test_returns.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_returns.py,18,reg = pk.load_register(ROOT / 'registry' / 'inputs.json'),tests/model/model_v3/test_returns.py,depth +1
+tests/model_v3/test_returns.py,19,"years, r = rt.real_series(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'))",tests/model/model_v3/test_returns.py,depth +1
+tests/model_v3/test_revenue.py,15,ROOT = Path(__file__).parents[2],tests/model/model_v3/test_revenue.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_revenue.py,17,FIXTURE = ROOT / 'tests' / 'model_v3' / 'fixtures' / 'v2_logistic_ln_ref.json',tests/model/model_v3/test_revenue.py,depth +1
+tests/model_v3/test_revenue.py,21,mp = json.loads((ROOT / 'model_v3' / 'levers.json').read_text())['pack_mappings'],tests/model/model_v3/test_revenue.py,depth +1
+tests/model_v3/test_revenue.py,31,"return make_env(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'))",tests/model/model_v3/test_revenue.py,depth +1
+tests/model_v3/test_run_grid.py,7,ROOT = Path(__file__).resolve().parents[2],tests/model/model_v3/test_run_grid.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_run_grid.py,8,SCRIPT = ROOT / 'docs' / 'model-v3' / 'household-arm-run' / 'run_grid.py',tests/model/model_v3/test_run_grid.py,depth +1
+tests/model_v3/test_runner.py,12,ROOT = Path(__file__).parents[2],tests/model/model_v3/test_runner.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_runner.py,19,return json.loads((ROOT / 'model_v3' / 'levers.json').read_text()),tests/model/model_v3/test_runner.py,depth +1
+tests/model_v3/test_runner.py,24,return yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),tests/model/model_v3/test_runner.py,depth +1
+tests/model_v3/test_runner.py,34,"return R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1, [o['id'] for o in out['output",tests/model/model_v3/test_runner.py,depth +1
+tests/model_v3/test_saving_shape.py,14,ROOT = Path(__file__).resolve().parents[2],tests/model/model_v3/test_saving_shape.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_saving_shape.py,15,SCRIPT = ROOT / 'docs' / 'model-v3' / 'household-arm-run' / 'run_grid.py',tests/model/model_v3/test_saving_shape.py,depth +1
+tests/model_v3/test_saving_shape.py,16,TABLE = ROOT / 'docs' / 'research' / 'data' / '145r' / 'saving_shapes.csv',tests/model/model_v3/test_saving_shape.py,depth +1
+tests/model_v3/test_saving_shape.py,89,man = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),tests/model/model_v3/test_saving_shape.py,depth +1
+tests/model_v3/test_saving_shape.py,108,man = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),tests/model/model_v3/test_saving_shape.py,depth +1
+tests/model_v3/test_scenario_rows.py,12,ROOT = Path(__file__).resolve().parents[2],tests/model/model_v3/test_scenario_rows.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_scenario_rows.py,13,SCRIPT = ROOT / 'docs' / 'model-v3' / 'household-arm-run' / 'run_grid.py',tests/model/model_v3/test_scenario_rows.py,depth +1
+tests/model_v3/test_schedule.py,10,"sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))",tests/model/model_v3/test_schedule.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_schedule.py,67,src = pathlib.Path(S.__file__).read_text().lower(),tests/model/model_v3/test_schedule.py,depth +1
+tests/model_v3/test_schedule.py,73,tree = ast.parse(pathlib.Path(S.__file__).read_text()),tests/model/model_v3/test_schedule.py,depth +1
+tests/model_v3/test_support.py,156,tree = ast.parse(pathlib.Path(U.__file__).read_text()),tests/model/model_v3/test_support.py,depth +1
+tests/model_v3/test_support.py,159,"assert mods <= {'numpy', '__future__', 'model_v3.core'} and 'burden' not in pathlib.Path(U.__file__).read_text().split('""""""')[2]",tests/model/model_v3/test_support.py,depth +1
+tests/model_v3/test_switches.py,11,ROOT = Path(__file__).resolve().parents[2],tests/model/model_v3/test_switches.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_switches.py,12,SCRIPT = ROOT / 'docs' / 'model-v3' / 'household-arm-run' / 'run_grid.py',tests/model/model_v3/test_switches.py,depth +1
+tests/model_v3/test_top_tail.py,13,ROOT = Path(__file__).resolve().parents[2],tests/model/model_v3/test_top_tail.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_top_tail.py,14,SCRIPT = ROOT / 'docs' / 'model-v3' / 'household-arm-run' / 'run_grid.py',tests/model/model_v3/test_top_tail.py,depth +1
+tests/model_v3/test_top_tail.py,86,man = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),tests/model/model_v3/test_top_tail.py,depth +1
+tests/model_v3/test_v2_reference.py,9,FIXTURE = Path(__file__).parent / 'fixtures' / 'v2_logistic_ln_ref.json',tests/model/model_v3/test_v2_reference.py,depth +1
+tests/model_v3/test_validate_125.py,5,ROOT = Path(__file__).resolve().parents[2],tests/model/model_v3/test_validate_125.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/model_v3/test_validate_125.py,6,"spec = importlib.util.spec_from_file_location('validate_125', ROOT / 'docs' / 'model-v3' / 'household-arm-validation' / 'validate.py')",tests/model/model_v3/test_validate_125.py,depth +1
+tests/nav/conftest.py,9,ROOT = Path(__file__).resolve().parents[2],tests/website/nav/conftest.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/nav/conftest.py,10,"sys.path.insert(0, str(ROOT / ""pipeline""))",tests/website/nav/conftest.py,depth +1
+tests/nav/conftest.py,11,"FIXTURES = Path(__file__).resolve().parent / ""fixtures""",tests/website/nav/conftest.py,depth +1
+tests/pages/conftest.py,5,ROOT = Path(__file__).resolve().parents[2],tests/website/pages/conftest.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/pages/conftest.py,6,"sys.path.insert(0, str(ROOT / ""pipeline""))",tests/website/pages/conftest.py,depth +1
+tests/pages/conftest.py,7,"FIXTURES = Path(__file__).resolve().parent / ""fixtures""",tests/website/pages/conftest.py,depth +1
+tests/pages/test_registry.py,47,"papers = yaml.safe_load((ROOT / ""registry"" / ""papers.yml"").read_text(encoding=""utf-8""))",tests/website/pages/test_registry.py,depth +1
+tests/pages/test_registry.py,60,"assert (ROOT / r[""source""]).exists(), f""{r['id']}: {r['source']}""",tests/website/pages/test_registry.py,depth +1
+tests/pages/test_spoke_grammar.py,73,"src = ROOT / ""source""",tests/website/pages/test_spoke_grammar.py,depth +1
+tests/pages/test_spoke_grammar.py,78,"assert not T.is_spoke_source(ROOT / ""site"" / ""pages"" / ""faq.md"", src)",tests/website/pages/test_spoke_grammar.py,depth +1
+tests/retired/conftest.py,7,ROOT = Path(__file__).resolve().parents[2],tests/website/retired/conftest.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/retired/conftest.py,8,"sys.path.insert(0, str(ROOT / ""pipeline""))",tests/website/retired/conftest.py,depth +1
+tests/retired/test_retired.py,129,"src |= _shingles((ROOT / r[""source""]).read_text(encoding=""utf-8""))",tests/website/retired/test_retired.py,depth +1
