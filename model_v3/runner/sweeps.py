@@ -27,10 +27,10 @@ from __future__ import annotations
 import numpy as np
 
 from model_v3.core import returns as rt
+from model_v3.runner.out_sweeps import CLOSED, MARGINS, TOLS, of1
 from model_v3.runner.pool import pmap
 
 HEADS = ('M1', 'M2', 'M4a', 'M3')
-CLOSED = 1e-9
 
 
 def labels(spec):
@@ -51,19 +51,50 @@ def _mean(x):
 
 
 def feasibility(ev, specs, workers=1):
-    """The feasibility map: for each spec, per horizon (transition, short) F1 (percent of paths), M2 and M4a (means over paths). Returns the points
-    (dicts with the spec, its labels and those numbers) and OF1 as {key: array} with one entry per path (F1 is the 0 or 1 of each path)."""
-    pts, of1 = [], {}
+    """The feasibility map: for each spec and each rule (tolerance, margin) of out_sweeps (TOLS x MARGINS), per horizon (transition, short) F1 (percent of paths), M2 and M4a (means
+    over paths). Returns the points (dicts with the spec, its labels, `F1`, `M2` and `M4a` by horizon under the strict rule (tolerance 0, margin 0, `CLOSED`), `map` = {(tol, margin): {horizon:
+    (F1, M2, M4a)}} for every rule and `paths` = {(tol, margin, horizon): {line: per-path array}}), and OF1 as {key: per-path array} (`out_sweeps.of1`)."""
+    pts = []
     for sp, e in zip(specs, pmap(ev, specs, workers)):   # `workers` > 1 evaluates the points in processes (pool.py); the same results
-        (sg, wm) = labels(sp)
-        pt = dict(spec=sp, schedule_grid=sg, w_min=wm, F1={}, M2={}, M4a={})
+        (sg, wm), raw = labels(sp), e['sweeps']['of1']
+        pt = dict(spec=sp, schedule_grid=sg, w_min=wm, F1={}, M2={}, M4a={}, map={}, paths={})
+        for tol in TOLS:
+            for m in MARGINS:
+                for hz in ('transition', 'short'):
+                    k = raw[m, hz]
+                    closed = (k['p3'] <= (CLOSED if tol == 0 else tol)).astype(float) * 100
+                    pt['paths'][tol, m, hz] = dict(F1=closed, M2=k['M2'], M4a=k['M4a'])
+                    pt['map'].setdefault((tol, m), {})[hz] = (closed.mean(), _mean(k['M2']), _mean(k['M4a']))
         for hz in ('transition', 'short'):
-            closed = (e['P3h'][hz] <= CLOSED).astype(float)
-            pt['F1'][hz], pt['M2'][hz], pt['M4a'][hz] = 100 * closed.mean(), _mean(e['M2'][hz]['overall']), _mean(e['M4a'][hz]['overall'])
-            by = (('schedule_grid', sg), ('w_min', wm))
-            of1[None, hz, by, 'F1'], of1[None, hz, by, 'M2'], of1[None, hz, by, 'M4a'] = closed * 100, e['M2'][hz]['overall'], e['M4a'][hz]['overall']
+            pt['F1'][hz], pt['M2'][hz], pt['M4a'][hz] = pt['map'][0.0, 0.0][hz]
         pts.append(pt)
-    return pts, of1
+    return pts, of1(pts)['OF1']
+
+
+def under(pts, tol, margin):
+    """The points as `choose` reads them, with F1, M2 and M4a of the rule (tol, margin)."""
+    v = lambda p, i: {hz: p['map'][tol, margin][hz][i] for hz in ('transition', 'short')}
+    return [dict(p, F1=v(p, 0), M2=v(p, 1), M4a=v(p, 2)) for p in pts]
+
+
+NONE_PASSES = 'none_passes_75'
+
+
+def map_summary(pts, rule):
+    """OF1's summary per rule (tol, margin): the best F1 at the short window (any point, and among the points inside the M2 cap and the M4a floor) and where, the number of feasible
+    points (F1 at least `closure_share_pct`, M2 and M4a inside) and the named schedules `choose` finds under that rule. `feasible` is the marker `none_passes_75` when there is none:
+    nothing is relaxed silently, a relaxed rule's result is labelled with its rule (tolerance, margin), never offered as the strict result."""
+    out = {}
+    for tol in TOLS:
+        for m in MARGINS:
+            q = under(pts, tol, m)
+            ok = [p for p in q if p['M2']['short'] <= rule['m2_cap_pct_per_year'] and p['M4a']['short'] >= rule['m4a_floor_pct']]
+            best = lambda ps: (max(ps, key=lambda p: (p['F1']['short'], -p['M2']['short'])) if ps else None)
+            feas = [p for p in ok if p['F1']['short'] >= rule['closure_share_pct']]
+            b, bo = best(q), best(ok)
+            out[tol, m] = dict(best_any=(b['F1']['short'], b['schedule_grid'], b['w_min']), best_inside=bo and (bo['F1']['short'], bo['schedule_grid'], bo['w_min']),
+                               feasible=len(feas) or NONE_PASSES, named=choose(q, rule))
+    return out
 
 
 def choose(points, rule):
@@ -127,12 +158,13 @@ def breakeven_return(ev, specs, mean_id, lo=0.0, hi=15.0, draws=None, tol=1e-2, 
 
 
 def stress(ev, spec, mu, amps, T, period=10):
-    """CK1: the fixed path g(t) = mu + A sin(2 pi t / period) (percent), one path per amplitude A: {A: {'P1', 'P3', 'P7b'}} and the largest A on the grid up to
-    which P3 is zero on every smaller amplitude too (None if even the first is not zero)."""
+    """CK1: the fixed path g(t) = mu + A sin(2 pi t / period) (percent), one path per amplitude A: {A: {'P1', 'P3', 'P3_long', 'P7b'}} (P3 from year 1 to the end of the short window,
+    transition plus short, as 089c rules; P3_long over all years) and the largest A on the grid up to which P3 is zero on every smaller amplitude too (None if even the first is not
+    zero: a finding, carried as it is, never dropped)."""
     t, out, top = np.arange(1, T + 1), {}, None
     for a in amps:
         e = ev(spec, g=((mu + a * np.sin(2 * np.pi * t / period)) / 100.0)[:, None])
-        out[a] = {'P1': float(e['P1'][0]), 'P3': float(e['P3h']['long'][0]), 'P7b': float(e['P7b'][0])}
+        out[a] = {'P1': float(e['P1'][0]), 'P3': float(e['P3h']['short'][0]), 'P3_long': float(e['P3h']['long'][0]), 'P7b': float(e['P7b'][0])}
     for a in amps:
         if out[a]['P3'] > CLOSED:
             break

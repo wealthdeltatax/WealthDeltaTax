@@ -442,3 +442,14 @@ def test_withheld_is_refused_on_an_id_the_arm_produces_and_a_wrong_label_is_refu
 def test_v8_run_arm_must_name_an_arm(run, doc):
     doc["run"]["arm"] = "hybrid"
     assert [x.where for x in hits(run(doc, "fixture"), "V8", "error")] == ["run.arm"]
+
+
+def test_a_stated_marker_is_accepted_only_for_its_own_output(run, doc, vo):
+    c = cell(doc, "OF1") if "OF1" in doc["outputs"] else None
+    assert c is not None
+    stat = next(k for k in ("mean", "point") if k in c)
+    c[stat] = "none_passes_75"
+    assert not [f for f in hits(run(doc), "V5", "error") if "OF1" in f.where and stat in f.message]
+    other = next(o for o in doc["outputs"] if o != "OF1" and doc["outputs"][o]["cells"] and stat in doc["outputs"][o]["cells"][0])
+    doc["outputs"][other]["cells"][0][stat] = "none_passes_75"
+    assert [f for f in hits(run(doc), "V5", "error") if other in f.where]

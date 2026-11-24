@@ -1,0 +1,4 @@
+point,schedule,fill_year,end_short_window,taxes_retired_100,first_year_relief_below_M1d,inside_short_window,P3_100y,P3_to_end_short_window
+median_mid,tm50_k1_r050,7,17,5,63,no,12.78,0.00
+median_mid,tm70_k1_r050,7,17,5,63,no,15.02,0.00
+median_mid,tm90_k1_r050,7,17,5,61,no,16.94,0.00
