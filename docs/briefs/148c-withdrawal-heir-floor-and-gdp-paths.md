@@ -34,10 +34,10 @@ The deferral rate, the saving gradient and top tail (147c), the register rows, a
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** block 0
+- **Next:** block 1 (withdrawal and heir floor in `flow_switches.py`, `pension_lien.py`); read 145r and 146r first
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/148-flow-switches origin/brief/148-flow-switches`
-- **State:** ready; not started (after 147c, 145r, 146r)
+- **State:** block 0 pushed; 147c is on main
 <!-- progress:end -->
 
 **Budget note (guru, 2026-11-24):** `switches.py` is now 195 of its 200 lines (147c merged), so none of this brief's code goes there. The three switches go in a new file `model_v3/runner/flow_switches.py` (numpy only, budget 200, same layer as `switches.py`); `arm.py` gains call sites only and stays at 330 or fewer (growth is stop-and-report). Add its row to the `docs/model-v3/architecture.md` budget table and update the stated totals so `test_budget.py` passes (rows 200 and about 60 for its tests, or the true figure). Constants (the 145r and 146r numbers) are named and labelled in that file.
