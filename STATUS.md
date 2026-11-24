@@ -9,7 +9,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
-| Agent 2 | 057c (blocks 0 to 2 reviewed; applying the null-cell rule and the four run fields; rebase on main) | block 3 and `--final` (139c merged: rebase, then 10 phases and the rows are on main) |
+| Agent 2 | 057c (rounds 4 and 5 reviewed; applying the sixth-round rulings) | block 3 (reduced C3), first `accept.sh` end to end, then `--final` |
 | Agent 3 | free | nothing queued (138c done) |
 | Agent 4 | free (150c merged) | free |
 | Agent 5 | free | 140c `market` case (now unblocked); 089c (OF1 as a map, CK1) now unblocked (139c, 150c merged) |
@@ -22,6 +22,7 @@ Six agents only. Agents change skill with the brief. Parked: 089c (OF1, CK1) unt
 ## Recently done
 - 2026-11-23: speed-up plan ruled (provisional brief 151c after 044c: headline-only evaluation for the tornado and O1e roots, byte-identical; 152c to 154c follow from its measurement; Rust and Julia on hold). Estimated 3 to 5x on the roots and the tornado, not yet measured.
 - 2026-11-23: 138c merged: M2 on total wealth; `fund_return` axis (`safe` default, `market`); I1 tolerance 1e-7 (`median_high` now runs at 200 paths); lien the pension cannot cover written off in the ledger. P6 at year 100 is 22 to 78 (`safe`) against 646 to 896 (`market`): the whole gap to the legacy arm is the fund's return. 139c wiring and the 140c `market` case are unblocked.
+- 2026-11-24: 057c rounds 4 and 5 reviewed, not merged: `quick` 44 min, a final-size grid point without O1e 94 min (serial). Ruled: failed grid points stay as `target_not_met`; O1e no root is `no_sign_change_0_15`; acceptance runs a reduced C3 (full C3 a later manual run).
 - 2026-11-23: medium-term order ruled: first official run, then 009c and 044c, then the speed-up work (baseline `quick` file taken first).
 - 2026-11-23: O1e scope ruled: central root only in the first official run, `--o1e-draws` to scale later; new `quick` run size for a fast baseline and speed-up turnarounds (both in 057c). Actions workflow with sharding comes after the baseline.
 - 2026-11-23: 139c merged and 140c archived. Register 302 rows (I-D1m lien rate 0/2/3% real, I-D1n pension basis 1.00/1.96/2.02, I-D1o housing gain -0.10/1.65/3.25%, I-D1p fund return placeholder); household arm now reads them and runs 10 death phases (`switches.py`, 102 of 200 lines; arm.py stays 330); legacy digest unchanged; 369 model tests pass. At 20 paths the lien rate moves no shortfall, `unpaid`, tie or M1a, only settled-from-pension and the lien balance; 10 phases moves M1a by 0.2 to 0.4 points. I-D1p is not yet read by the switch and must follow `fund_return` (open).
