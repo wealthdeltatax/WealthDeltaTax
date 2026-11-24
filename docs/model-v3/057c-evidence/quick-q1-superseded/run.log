@@ -1,0 +1,3 @@
+median_mid: 39 outputs
+min_mid: 38 outputs
+wrote /tmp/claude-0/-home-claude/446c4dda-9b37-5452-ba04-b47f63bec9a3/scratchpad/q1/outputs.json: {"status": "provisional", "paths": 1000, "seed": 20261118, "level2_draws": 0, "unfilled_paths": 0}; arm household, points ['median_mid', 'min_mid'], failed 3

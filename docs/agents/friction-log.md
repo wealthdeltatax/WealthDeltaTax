@@ -59,3 +59,8 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - 057c round 3: the ruling "OW1 under the household arm is withheld" suggests a manifest `arms: [legacy]` entry, but 126c pins that no id is restricted to the legacy arm (8 tests fail). Done in the validator (`MAY_WITHHOLD`) instead; the brief should say which of the two is meant.
 
 - 140c (market): the `check` command compares to stored 128c rows that 135c/138c regenerated, so it reports DIFFERENT at the short horizon on an unchanged model; the brief's acceptance names only the 124c reproduction, so I used that and noted the rest.
+
+### 2026-11-24 · 057c · code
+- Instruction: `docs/agents/code.md` (running tests): none says that `pytest tests/data tests/hooks tests/model_v3` in one call fails (`ImportError: cannot import name 'INPUTS_JSON' from 'conftest'`).
+- Happened: one call over several test directories clashes on the three `conftest.py` files; also `git fetch -q origin main <branch>` in a shallow clone leaves no `origin/<branch>` ref (use `git ls-remote`).
+- Cost: about 10 minutes; fixed by one pytest call per directory.
