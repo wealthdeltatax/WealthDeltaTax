@@ -4,11 +4,15 @@ Status: run on `main` after 139c and 150c (10 death phases is the runner's defau
 
 ## Reproduce
 
-From the repository root, `python -I docs/model-v3/of1-ck1/of1_ck1.py` (about 25 minutes with `--workers 2`; `--points`, `--funds`, `--n`, `--out` select a part). It writes `of1_grid.csv` (fund, point, schedule-grid point, w_min, tolerance, margin, horizon, F1, M2, M4a), `of1_summary.csv` (per rule: best F1 anywhere and inside the M2 cap and M4a floor, feasible points or the marker `none_passes_75`, the named schedules `choose` finds under that rule), `ck1.csv` and `failed.csv`. The cells are produced by the model's functions: `sweeps.feasibility` (per-path shortfalls from `out_sweeps.per_path`), `out_sweeps.of1` and `ck1` (Samples form), `sweeps.map_summary`, `sweeps.stress`. The driver evaluates with `runner.core_run`, `headlines` and `out_sweeps.per_path` only (not the other output groups); a check on one point gave per-path arrays identical to the full `runner.evaluate`. The strict rule (tolerance 0, margin 0) equals the old F1, M2 and M4a (`tests/model_v3/test_of1.py`); `phase10_median_mid/` holds the earlier block 1 run, whose `median_mid` best F1 at tol 0, m 0 (21.5 and 31.5%) equals the numbers here. A second run (not repeated for the full set, see below) is checked with `cmp`.
+From the repository root, `python -I docs/model-v3/of1-ck1/of1_ck1.py` (about 25 minutes with `--workers 2`; `--points`, `--funds`, `--n`, `--out` select a part). It writes `of1_grid.csv` (fund, point, schedule-grid point, w_min, tolerance, margin, horizon, F1, M2, M4a), `of1_summary.csv` (per rule: best F1 anywhere and inside the M2 cap and M4a floor, feasible points or the marker `none_passes_75`, the named schedules `choose` finds under that rule), `ck1.csv` and `failed.csv`. The cells are produced by the model's functions: `sweeps.feasibility` (per-path shortfalls from `out_sweeps.per_path`), `out_sweeps.of1` and `ck1` (Samples form), `sweeps.map_summary`, `sweeps.stress`. The driver evaluates with `runner.core_run`, `headlines` and `out_sweeps.per_path` only (not the other output groups); a check on one point gave per-path arrays identical to the full `runner.evaluate`. The strict rule (tolerance 0, margin 0) equals the old F1, M2 and M4a (`tests/model_v3/test_of1.py`); `phase10_median_mid/` holds the earlier block 1 run, whose `median_mid` best F1 at tol 0, m 0 (21.5 and 31.5%) equals the numbers here. A second full run printed byte-identical CSVs (checked with `cmp`).
 
 ## The rule axes
 
 Tolerance: the largest total shortfall P3 (summed over years 1 to the end of the window, percent of GDP; 0 is the strict closure) a path may have and still count as closed: 0, 0.05, 0.25, 1 (083c's). Margin: a tax is retired when relief divided by (1 + margin) covers its receipts, 0, 10, 25%; the shortfall is measured against the true relief. Both are labelled scenario constants (`out_sweeps.TOLS`, `MARGINS`), not register rows. Feasible: F1 at least 75%, M2 short at most 2.0 and M4a short at least 0.
+
+## Strict rule first
+
+At the strict rule (tolerance 0, margin 0) no schedule point is feasible at any of the five scenario points at either fund: best F1 15.5 to 36.5% at `safe` and 31.5 to 45.5% at `market`, against 75% required; every strict cell carries `none_passes_75`. Everything below is a relaxation, labelled with its rule.
 
 ## OF1: best F1 at the short window (percent of paths; * marks a rule with at least one feasible point)
 
@@ -95,4 +99,4 @@ P3 at A 0 is zero in 29 of 40 rows and positive in the others (up to 28.34); a r
 - The tolerance is a total shortfall in GDP-points over the window (as 083c); if the author wants a per-year or share-of-relief tolerance, the axis changes.
 - CK1's schedules are 140c's four stand-ins; the manifest's CK1 has no schedule axis, so the file's schedule key is None until the author names the schedule the check runs on.
 - The marker `none_passes_75` is accepted by the validator for OF1 (and `not_run_this_point` for OF1 and CK1); `of1_summary.csv` carries it, the OF1 cells themselves are numeric. How 057c's run places the summary in the file is for 057c.
-- Not run: 1,000 paths, level 2, the second full-set run for byte identity (the run takes about 25 minutes; the first block 1 rerun was identical), schedule points beyond the 27.
+- Not run: 1,000 paths, level 2, schedule points beyond the 27.
