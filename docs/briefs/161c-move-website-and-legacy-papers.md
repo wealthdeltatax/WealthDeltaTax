@@ -1,6 +1,6 @@
 # 161: Move the website and the legacy papers (reorganisation R3)
 
-- **Status:** draft; released when 044c R1 is reviewed; Agent 5; runs in parallel with 160c
+- **Status:** ready (044c R1 merged and settled); Agent 5; runs in parallel with 160c; the authority is `docs/restructure/file-layout-map.md` and its csv
 - **Author/date:** K. Ogata with the guru, 2026-11-24
 - **Depends on:** 044c R1 merged and reviewed; no other branch touching these paths
 - **Read:** `docs/briefs/044c-file-layout-move.md` (rules, tree, hazards); `docs/restructure/file-layout-map.md` (the reviewed table from R1); `.github/workflows/deploy.yml`; `site/_quarto.yml`
