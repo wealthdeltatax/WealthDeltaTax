@@ -60,7 +60,7 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Suggest: say in the tripwire docstring and the stage briefs that it needs a full-history clone.
 
 ### 2026-11-24 · 161c · code
-- Instruction: 161c Design ("web tests ... gate") against `file-layout-map.md` case 7 and 10 (`check_gate.py`, `tests/gate` go to `model/`); and `path_rewrite_proof.py`, which applies the map to generic words.
+- Instruction: 161c Design ("web tests ... gate") against `file-layout-map.md` case 7 and 10 (`check_gate.py`, `tests/gate` belong to the model move (162c)); and `path_rewrite_proof.py`, which applies the map to generic words.
 - Happened: the brief and the map disagree on the gate (followed the map, stage 162c owns it); the proof reports `source:`, `site` and the nav label `Tools` as "changed" (map applied to plain words), so 46 files show red although only intended edits remain.
 - Cost: a manual review of the diff to tell intended depth and path edits from proof noise.
 - Suggest: make the proof apply the map to path-like tokens only (a slash or an extension), and say in each stage brief where the gate lives.
