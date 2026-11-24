@@ -1,4 +1,4 @@
-> **Reading copy** of `docs/research/data/098r/gb1/gb_ppp_machine_readable.xlsx` (1.4 MB, 12 sheets). Route: markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
+> **Reading copy** of `data/uk-wealth-tables/098r/gb1/gb_ppp_machine_readable.xlsx` (1.4 MB, 12 sheets). Route: markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
 > Generated, not edited. Quote numbers from the source file, not from this text.
 > Row cap: 300 data rows a table; cut: Cross_border_migration (636 rows); International_migration (636 rows); Total_migration (636 rows).
 

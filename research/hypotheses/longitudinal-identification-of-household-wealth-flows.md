@@ -2,7 +2,7 @@
 
 **Status:** New hypothesis and proposed research direction; subject to author review  
 **Date:** 2026-11-22  
-**Depends on:** `docs/hypotheses/empirical-household-flow-parameter-map.md`; 124c household-arm first run; 125c validation against 099r moments  
+**Depends on:** `research/hypotheses/empirical-household-flow-parameter-map.md`; 124c household-arm first run; 125c validation against 099r moments  
 **Scope:** Empirical source identification and measurement design. No model parameters, tax schedules, fiscal assumptions or code are changed by this document.
 
 ## 1. Hypothesis

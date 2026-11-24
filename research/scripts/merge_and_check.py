@@ -8,13 +8,13 @@ dictionary_map.csv (094r B2 terms -> register rows). Fails (exit 1) on:
 Prints one summary line. Run from the repository root with python -I.
 """
 import csv, re, sys, os
-R = 'docs/research/data/'
-OUT = R + '103r/'
-fl = list(csv.DictReader(open(R + '101r/flows_register.csv')))
-st = list(csv.DictReader(open(R + '102r/stocks_register.csv')))
-fx = list(csv.DictReader(open(R + '101r/flows_crosswalk.csv')))
-sx = list(csv.DictReader(open(R + '102r/stocks_crosswalk.csv')))
-aud = list(csv.DictReader(open(R + '102r/existing_row_audit.csv')))
+DIRS = {'101r': 'research/tables/101r-parameter-map-flows-and-returns/', '102r': 'research/tables/102r-parameter-map-stocks-and-cells/', '103r': 'research/tables/103r-parameter-map-assembly/'}   # 160c: the tables moved here (docs/restructure map)
+OUT = DIRS['103r']
+fl = list(csv.DictReader(open(DIRS['101r'] + 'flows_register.csv')))
+st = list(csv.DictReader(open(DIRS['102r'] + 'stocks_register.csv')))
+fx = list(csv.DictReader(open(DIRS['101r'] + 'flows_crosswalk.csv')))
+sx = list(csv.DictReader(open(DIRS['102r'] + 'stocks_crosswalk.csv')))
+aud = list(csv.DictReader(open(DIRS['102r'] + 'existing_row_audit.csv')))
 
 # Short unique names for the 102r rows (their register holds a long definition, not a name).
 S_NAME = {
@@ -94,7 +94,7 @@ for r in st:
         relation_to_existing_row=r['relation_to_existing_row'], open_question_or_data_request=r['open_question_or_data_request']))
 for rid, var, loc, c, why, rl in D_ROWS:
     rows.append(dict(row_id=rid, side='103r dictionary row', group='dictionary', variable=var, definition=var, accounting_location=loc, target_cell_dimension='none',
-        classification=c, source_reference='docs/research/094r-kernel-map-and-household-accounts.md B2', calculation_and_script='none', value_or_range='',
+        classification=c, source_reference='research/notes/094r-kernel-map-and-household-accounts.md B2', calculation_and_script='none', value_or_range='',
         caveats=why, intended_use='none', proposed_ruling=rl, relation_to_existing_row='none', open_question_or_data_request=''))
 for r in rows:
     r['class_norm'] = cls(r['classification'])

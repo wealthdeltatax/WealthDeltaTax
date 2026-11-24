@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 """101r block 1: household-account flows from held ONS series (097r).
 
-Run: python -I docs/research/data/101r/derive_ons_flows.py
-Reads  docs/research/data/097r/{ons_ukea_household_annual,ons_nbs_household_stocks_annual,
+Run: python -I research/scripts/derive_ons_flows.py
+Reads  data/uk-wealth-tables/097r/{ons_ukea_household_annual,ons_nbs_household_stocks_annual,
        ons_nbs_financial_annual,qsa_household_annual_2026q2}.csv
-Writes docs/research/data/101r/derived_ons_flows.csv  (long: year,item,value,unit,formula,inputs)
-       docs/research/data/101r/derived_ons_checks.csv (identity/tolerance checks)
+Writes research/tables/101r-parameter-map-flows-and-returns/derived_ons_flows.csv  (long: year,item,value,unit,formula,inputs)
+       research/tables/101r-parameter-map-flows-and-returns/derived_ons_checks.csv (identity/tolerance checks)
 Arithmetic only. No parameter is chosen here. Exits 1 if a hard check fails.
 """
 import csv, os, sys
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-SRC = os.path.join(HERE, "..", "097r")
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))   # the repository root (this script is in research/scripts/)
+HERE = os.path.join(ROOT, 'research', 'tables', '101r-parameter-map-flows-and-returns')   # the 101r tables (was the folder of this script)
+SRC = os.path.join(ROOT, "data", "uk-wealth-tables", "097r")
 
 
 def load(name, ids_by_file=None):

@@ -1,4 +1,4 @@
-> **Reading copy** of `docs/research/data/097r/table_12_1_final.ods` (0.0 MB, 5 sheets). Route: soffice (ods to xlsx), then markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
+> **Reading copy** of `data/uk-wealth-tables/097r/table_12_1_final.ods` (0.0 MB, 5 sheets). Route: soffice (ods to xlsx), then markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
 > Generated, not edited. Quote numbers from the source file, not from this text.
 
 ## Cover_sheet

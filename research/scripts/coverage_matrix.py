@@ -1,7 +1,7 @@
 """104r block 1: cell coverage matrix (deliverable C), from the 103r register and the 102r cell inputs.
 
 Reads committed CSVs only. Writes, next to this script:
-  cell_weights.csv        persons by pack band and stage (102r, WAS Round 8) with the stated rounding bound
+  104r-parameter-map-design-cell-weights.csv   persons by pack band and stage (102r, WAS Round 8) with the stated rounding bound
   resolution_by_row.csv   each 103r register row: variable group, finest resolution supported, evidence class, evidence form
   coverage_matrix.csv     variable group x cell (5 pack bands x {not retired, retired}): evidence class and form per cell
   resolution_pivot.csv    103r rows counted by resolution and evidence class
@@ -10,10 +10,10 @@ Fails (exit 1) if a cell or a register row is missing from the matrix, or a cell
 externally specified path, scenario and none. Nothing here is a value for any cell. Run from the repository root with python -I.
 """
 import csv, sys, collections
-R = 'docs/research/data/'
-O = R + '104r/'
-reg = list(csv.DictReader(open(R + '103r/parameter_register.csv')))
-cells_in = list(csv.DictReader(open(R + '102r/cell_coverage_inputs.csv')))
+DIRS = {'102r': 'research/tables/102r-parameter-map-stocks-and-cells/', '103r': 'research/tables/103r-parameter-map-assembly/', '104r': 'research/tables/104r-parameter-map-design/'}   # 160c: the tables moved here (docs/restructure map)
+O = DIRS['104r']
+reg = list(csv.DictReader(open(DIRS['103r'] + 'parameter_register.csv')))
+cells_in = list(csv.DictReader(open(DIRS['102r'] + 'cell_coverage_inputs.csv')))
 BANDS = ['D1-3', 'D4-5', 'D6-7', 'D8-9', 'D10']
 STAGES = ['not retired', 'retired']
 errs = []
@@ -31,7 +31,7 @@ for b in BANDS:
                    of_which='working %d; unemployed %d; inactive not retired %d' % (w[b]['working'][0], w[b]['unemployed'][0], w[b]['inactive_not_retired'][0]),
                    band_share_mismatch_pp=w[b]['retired'][3]))
     wr.append(dict(pack_band=b, stage='retired', persons=rt, max_rounding=rt_r, share_of_band_adults_pct=round(100 * rt / tot, 1), of_which='', band_share_mismatch_pp=w[b]['retired'][3]))
-with open(O + 'cell_weights.csv', 'w', newline='') as f:
+with open(O + '104r-parameter-map-design-cell-weights.csv', 'w', newline='') as f:
     x = csv.DictWriter(f, list(wr[0])); x.writeheader(); x.writerows(wr)
 
 # ---- variable groups: which 103r rows carry each, and the evidence class and form at each resolution

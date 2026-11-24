@@ -1,4 +1,4 @@
-> **Reading copy** of `docs/research/data/097r/quarterlysectoraccounts2026q2.xlsx` (0.6 MB, 19 sheets). Route: markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
+> **Reading copy** of `data/uk-wealth-tables/097r/quarterlysectoraccounts2026q2.xlsx` (0.6 MB, 19 sheets). Route: markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
 > Generated, not edited. Quote numbers from the source file, not from this text.
 > Row cap: 300 data rows a table; cut: KEI (1022 rows); HH_1 (744 rows); HH_2 (1039 rows); HH_3 (1039 rows); HH_Alt (431 rows); PNFC_1 (1039 rows); PNFC_2 (576 rows); REV_1 (466 rows); REV_2 (464 rows).
 

@@ -18,9 +18,9 @@ No household-level records were extracted. No saving, consumption, drawdown, or 
 
 | File | Status | What is known / what remains |
 |---|---|---|
-| `Rates Data/totalwealthtables.xlsx` | ~~Held; binary not parseable here~~ **extracted, section 9** | The pack builder reads Table 2.2 for wealth decile totals and components. The brief also points to Table 2.11 for age. I could not inspect sheet names, ranges, or Table 2.11 cells in this run, so no workbook spot-checks are claimed. |
-| `Rates Data/financialwealthtables.xlsx` | ~~Held; binary not parseable here~~ **extracted, section 9** | The workbook is present in the repository, but no sheet/range/round inventory or cell values could be verified. |
-| `Research/etbreferencetablesfye202324final.xlsx` | ~~Held; binary not parseable here~~ **extracted, section 9** | The existing pack build uses ONS Effects of Taxes and Benefits tables 2b, 2c and 16 for income-decile incidence. It is not a wealth-ranked source. |
+| `data/rates/totalwealthtables.xlsx` | ~~Held; binary not parseable here~~ **extracted, section 9** | The pack builder reads Table 2.2 for wealth decile totals and components. The brief also points to Table 2.11 for age. I could not inspect sheet names, ranges, or Table 2.11 cells in this run, so no workbook spot-checks are claimed. |
+| `data/rates/financialwealthtables.xlsx` | ~~Held; binary not parseable here~~ **extracted, section 9** | The workbook is present in the repository, but no sheet/range/round inventory or cell values could be verified. |
+| `data/uk-source-workbooks/etbreferencetablesfye202324final.xlsx` | ~~Held; binary not parseable here~~ **extracted, section 9** | The existing pack build uses ONS Effects of Taxes and Benefits tables 2b, 2c and 16 for income-decile incidence. It is not a wealth-ranked source. |
 | ONS Ad hoc 2813, wealth components by age of household reference person | ~~Published; XLSX reachable, not parsed~~ **extracted, section 9** | A specific ONS table exists for mean, median, aggregate and percentage of wealth by component and age of household reference person, Great Britain, April 2020 to March 2022. |
 | ONS Ad hoc 3222, personal debt by age and region | ~~Published; XLSX reachable, not parsed~~ **extracted, section 9** | A specific ONS table exists for personal financial and property debt by age and region, Great Britain, April 2020 to March 2022. It is by age/region, not by total-wealth decile. |
 
@@ -28,7 +28,7 @@ No household-level records were extracted. No saving, consumption, drawdown, or 
 
 ### What the held pack already establishes
 
-`model_v3/pack/GBR/wealth_distribution.csv` is readable. It contains Round 8 household wealth totals by decile, household counts, and selected component shares. The pack builder documents that the totals and components are derived from `Rates Data/totalwealthtables.xlsx`, Table 2.2, and the all-household total from Table 2.1.
+`model_v3/pack/GBR/wealth_distribution.csv` is readable. It contains Round 8 household wealth totals by decile, household counts, and selected component shares. The pack builder documents that the totals and components are derived from `data/rates/totalwealthtables.xlsx`, Table 2.2, and the all-household total from Table 2.1.
 
 The WDT band mapping is a grouping of **wealth deciles**, not a separate set of published WAS bands:
 
@@ -228,9 +228,9 @@ The following are published and/or already held but remain unparsed in this run.
 
 | File / dataset | Exact source | Why needed |
 |---|---|---|
-| `Rates Data/totalwealthtables.xlsx` | Held in repository | Table 2.11 and decile wealth/component values; workbook spot-checks |
-| `Rates Data/financialwealthtables.xlsx` | Held in repository | Financial-wealth tables and any age/decile breakdown |
-| `Research/etbreferencetablesfye202324final.xlsx` | Held in repository | Confirm table-level definitions for ETB income-decile evidence |
+| `data/rates/totalwealthtables.xlsx` | Held in repository | Table 2.11 and decile wealth/component values; workbook spot-checks |
+| `data/rates/financialwealthtables.xlsx` | Held in repository | Financial-wealth tables and any age/decile breakdown |
+| `data/uk-source-workbooks/etbreferencetablesfye202324final.xlsx` | Held in repository | Confirm table-level definitions for ETB income-decile evidence |
 | ONS Ad hoc 2813 XLSX (`meanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferenceperson.xlsx`) | https://www.ons.gov.uk/file?uri=%2Fpeoplepopulationandcommunity%2Fpersonalandhouseholdfinances%2Fincomeandwealth%2Fadhocs%2F2813meanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferencepersonhrpingreatbritainapril2020tomarch2022%2Fmeanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferenceperson.xlsx | Wealth components by age of household reference person, Round 8 |
 | ONS Ad hoc 3222 XLSX (`personalfinancialandpropertydebtbyageandregion.xlsx`) | https://www.ons.gov.uk/file?uri=%2Fpeoplepopulationandcommunity%2Fpersonalandhouseholdfinances%2Fincomeandwealth%2Fadhocs%2F3222personalfinancialandpropertydebtbyageandregiongreatbritainapril2020tomarch2022%2Fpersonalfinancialandpropertydebtbyageandregion.xlsx | Personal financial/property debt by age and region, Round 8 |
 | ONS 2024-based Great Britain population projection ZIP (`gb1.zip`) | https://www.ons.gov.uk/file?uri=%2Fpeoplepopulationandcommunity%2Fpopulationandmigration%2Fpopulationprojections%2Fdatasets%2Fzippedpopulationprojectionsdatafilesgreatbritain%2F2024based%2Fgb1.zip | Single-year age/sex population projections |
@@ -269,7 +269,7 @@ No parameter, wealth-band saving rate, consumption rate, depletion rate or fisca
 
 ## 9. Close-out: what the held workbooks and ONS uploads give (2026-11-21, guru)
 
-`extract_098r.py` (committed, reproducible: `python -I docs/research/data/098r/extract_098r.py`) reads the held WAS and ETB workbooks and the ONS files in this folder and writes the CSVs below. Values are as published; the only computed columns are named `derived_`. Rounds: July 2006 to June 2008 up to April 2020 to March 2022 (nine rounds; the July 2014 to June 2016 and April 2014 to March 2016 rounds overlap by design). Geography is Great Britain for WAS and ONS, UK for ETB.
+`extract_098r.py` (committed, reproducible: `python -I research/scripts/extract_098r.py`) reads the held WAS and ETB workbooks and the ONS files in this folder and writes the CSVs below. Values are as published; the only computed columns are named `derived_`. Rounds: July 2006 to June 2008 up to April 2020 to March 2022 (nine rounds; the July 2014 to June 2016 and April 2014 to March 2016 rounds overlap by design). Geography is Great Britain for WAS and ONS, UK for ETB.
 
 | Output | Source (sheet, range) | Content and weights |
 |---|---|---|

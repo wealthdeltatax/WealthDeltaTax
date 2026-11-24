@@ -1,12 +1,12 @@
 """097r follow-up: extract household (S.14) series from the ONS UK Economic Accounts workbook and the ONS
 National Balance Sheet CSV, as tidy text. Run: python -I extract_ukea_nbs.py [UKEA_XLSX]
-UKEA_XLSX defaults to /home/claude/held-097r/ukea2026q2.xlsx (11.7 MB, kept out of git); nbs.csv is read from this folder.
+UKEA_XLSX defaults to /home/claude/held-097r/ukea2026q2.xlsx (11.7 MB, kept out of git); nbs.csv is read from data/uk-wealth-tables/097r/.
 Needs openpyxl. Annual rows only (the first table on each UKEA sheet); 1997 onward. Nothing is derived or inferred."""
 import csv, re, sys, warnings
 from pathlib import Path
 import openpyxl
 warnings.filterwarnings('ignore')
-HERE = Path(__file__).resolve().parent
+HERE = Path(__file__).resolve().parents[2] / 'data' / 'uk-wealth-tables' / '097r'   # the 097r tables (was the folder of this script)
 UKEA = Path(sys.argv[1]) if len(sys.argv) > 1 else Path('/home/claude/held-097r/ukea2026q2.xlsx')
 RETR = '2026-11-21'
 LINK_UKEA = 'https://www.ons.gov.uk/economy/grossdomesticproductgdp/datasets/unitedkingdomeconomicaccounts'

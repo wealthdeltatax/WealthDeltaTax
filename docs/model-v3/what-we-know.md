@@ -31,4 +31,4 @@ A range model of the Wealth Delta Tax. It follows 14 representative groups of ad
 Every output is a range over named scenarios with no central case. A low and a high are not a confidence interval. Cells marked pending (OF1, CK1), withheld or not applicable are marked in the file on purpose.
 
 ## Where the detail is
-`docs/model-v3/household-vs-legacy.md`, `household-arm-validation.md`, `household-arm-paths.md`, `household-arm-lien.md`, `f1-household.md`, `docs/research/131r-*`, `134r-*`, `145r-*`, `146r-*`, `docs/decisions.md`.
+`docs/model-v3/household-vs-legacy.md`, `household-arm-validation.md`, `household-arm-paths.md`, `household-arm-lien.md`, `f1-household.md`, `research/notes/131r-*`, `134r-*`, `145r-*`, `146r-*`, `docs/decisions.md`.

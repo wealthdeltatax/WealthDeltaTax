@@ -32,7 +32,7 @@ Status: done (block 1 of brief 146r).
 
 ## 3. Held evidence for a growth process (page or table, flag)
 
-Rows in `docs/research/data/146r/gdp_process.csv` (G-D-*). Source: the pack's `returns.csv`, columns `gdp_pc` (JST R6 `rgdpmad`, real GDP per head; `NOTICE.md`), `capital_tr` and `cpi`, years usable in `returns.real_series`. Flag `table` for the series, `derived` for every statistic below (computed by `gdp_process.py` from the pack; no published page).
+Rows in `research/tables/146r-gdp-process-and-top-tail/gdp_process.csv` (G-D-*). Source: the pack's `returns.csv`, columns `gdp_pc` (JST R6 `rgdpmad`, real GDP per head; `NOTICE.md`), `capital_tr` and `cpi`, years usable in `returns.real_series`. Flag `table` for the series, `derived` for every statistic below (computed by `gdp_process.py` from the pack; no published page).
 
 | Window | Years | Mean | SD | Lag-1 | Correlation with the market real return (95% interval) |
 |---|---|---|---|---|---|
@@ -87,5 +87,5 @@ Challenge: the illustration treats growth deviations as stationary with a fixed 
 
 ## 6. Reproduction
 
-`python -I docs/research/data/146r/gdp_process.py` from the repo root. It reads the pack read-only, checks that the mean growth equals the model constant and that 117 usable years exist, writes `gdp_process.csv` (17 rows) and `gdp_illustration.csv` (8 rows) and prints one `ok:` line; it exits 1 on a failed check. Check: `python -I pipeline/check_agent_docs.py`.
+`python -I research/scripts/gdp_process.py` from the repo root. It reads the pack read-only, checks that the mean growth equals the model constant and that 117 usable years exist, writes `gdp_process.csv` (17 rows) and `gdp_illustration.csv` (8 rows) and prints one `ok:` line; it exits 1 on a failed check. Check: `python -I pipeline/check_agent_docs.py`.
 

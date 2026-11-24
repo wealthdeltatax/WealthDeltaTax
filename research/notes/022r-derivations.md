@@ -1,6 +1,6 @@
 # 022r: derivations
 
-Method for the computed rows in `docs/model-v3/inputs-added/wealth.md`. Data held in the repo (`Rates Data/totalwealthtables.xlsx`, `model_v2/wid_out/wid_long.csv`). Run with `python3 -I`. Accessed 2026-11-17.
+Method for the computed rows in `docs/model-v3/inputs-added/wealth.md`. Data held in the repo (`data/rates/totalwealthtables.xlsx`, `model_v2/wid_out/wid_long.csv`). Run with `python3 -I`. Accessed 2026-11-17.
 
 ## 1. Shares of households and wealth up to £1m (I-W6a1 to I-W6d2)
 - Household shares: Table 2.5, April 2020 to March 2022, weighted frequencies over 26.991m households: at least £85k 72.7%, £200k 59.2%, £300k 49.3%, £500k 34.2%, £1m 14.1%. Log-linear interpolation between these points for £150k, £250k and £500k.

@@ -1,22 +1,22 @@
 # Change report: 001c stage D (v2 complication and tests)
 
-The brief's `Touches` is `docs/model-audit/` only, so this report lives here, as for stages A and C.
+The brief's `Touches` is `research/model-audit/` only, so this report lives here, as for stages A and C.
 
 ```
 Change report
 - Task: 001c stage D, audit of model v2 complication and tests. No model code changed.
-- Files changed: docs/model-audit/v2-complication.md (new, the checkpoint note); docs/model-audit/stage-D-report.md (new, this report)
+- Files changed: research/model-audit/v2-complication.md (new, the checkpoint note); research/model-audit/stage-D-report.md (new, this report)
 - What is different now: the repo has a measured account of what v2 added over v1, which additions the papers name, the three largest sources of complexity with line counts, and what is and is not tested
 - New or changed interfaces: none
 - Acceptance criteria:
   - Stage D checkpoint exists with three named sources of complexity, each with a line count: met (output layer 5,150; valgen_core 3,353; eval_core 2,718)
-  - git diff --stat only under docs/model-audit/: met (4 new files on the branch vs main)
+  - git diff --stat only under research/model-audit/: met (4 new files on the branch vs main)
   - Each claim cites a file and function: met; estimates and unchecked items are marked and listed in section 6 of the note
   - Every error carries a number or reproducible check: not applicable (errors are not in stage D); size and test facts carry numbers
 - Deviations from the brief:
   (1) I ran test/test_hlc_drift.py (the only v2 test, 0.2 s, read-only, no --write). The brief names no test commands, so this is within "run them if under 5 minutes". Result: exit 0 with one WARN (placeholder HLC).
   (2) My first draft of the note had wrong figures (an output-layer difference, an arithmetic claim, three estimated valgen rows, a "cannot skip validators" claim). I re-measured and corrected them before committing; remaining estimates are listed in section 6.
-  (3) Change report is in docs/model-audit/ because of the Touches limit.
+  (3) Change report is in research/model-audit/ because of the Touches limit.
 - Risks / follow-ups:
   - Stage B (v1 errors) is not on this branch: the branch has A, C, D only. Stage E needs B.
   - The papers' embedded model figure names match nothing v2 produces (stage C); stage D adds that the v2 design choices (gain ladder, fresh-entrant heir rule, strategy verdicts BRG/HSC/SPT/SST) appear in no paper.

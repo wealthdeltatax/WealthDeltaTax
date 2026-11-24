@@ -1,6 +1,6 @@
 # Bozio, Emmerson, O'Dea and Tetlow (2013), IFS WP 13/30: what it gives the household-flow model
 
-Read 2026-11-21 from the held PDF (`Research/Bozio, Emmerson, O’Dea and Tetlow (2013.pdf`), text extracted with pdftotext; section and table numbers are the paper's. Not read: appendices B and C and the US sections in detail. The table figures below were copied from the extracted text and should be checked against the PDF pages before any is entered in a register. Closes request 5 of 095r. No parameter is proposed.
+Read 2026-11-21 from the held PDF (`literature/Bozio, Emmerson, O’Dea and Tetlow (2013.pdf`), text extracted with pdftotext; section and table numbers are the paper's. Not read: appendices B and C and the US sections in detail. The table figures below were copied from the extracted text and should be checked against the PDF pages before any is entered in a register. Closes request 5 of 095r. No parameter is proposed.
 
 ## What the paper measures
 - **Question:** do households with higher *lifetime* income save a larger share of income? Two UK routes, plus a US comparison (HRS).

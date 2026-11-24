@@ -21,7 +21,7 @@ This is a decomposition of the JST market-portfolio return. It is **not** a meas
 
 ## 1. Source variables and definitions
 
-The source is `model_v2/jst_r6.json`, copied unchanged to `model_v3/pack/GBR/source/jst_r6.json`, with the original workbook `Rates Data/JSTdatasetR6.xlsx` held in the repository. The pack builder reads the JSON for `returns.csv` and asserts the workbook/JSON match for the GDP-per-head and expenditure series. The R6 JSON stores decimal rates (e.g. 0.05 = 5%); `returns.csv` multiplies return columns by 100 and stores percentage points.
+The source is `model_v2/jst_r6.json`, copied unchanged to `model_v3/pack/GBR/source/jst_r6.json`, with the original workbook `data/rates/JSTdatasetR6.xlsx` held in the repository. The pack builder reads the JSON for `returns.csv` and asserts the workbook/JSON match for the GDP-per-head and expenditure series. The R6 JSON stores decimal rates (e.g. 0.05 = 5%); `returns.csv` multiplies return columns by 100 and stores percentage points.
 
 | JST variable | Meaning used here | Units / treatment |
 |---|---|---|
@@ -141,7 +141,7 @@ Proposed file: `returns_decomposition.csv`, one row per year, 1896–2019 where 
 | Aggregate | `portfolio_y_nominal`, `portfolio_g_nominal`, `portfolio_y_real`, `portfolio_g_real` | Weighted yield and holding-gain contributions |
 | Audit | `eq_identity_residual_nominal`, `housing_identity_residual_nominal`, `portfolio_identity_residual_nominal`, `portfolio_identity_residual_real`, `pack_capital_tr_residual` | Decimal residuals; must be within tolerance |
 
-The committed reconstruction in `docs/research/data/100r/returns_decomposition.csv` uses this schema plus audit columns. No manifest row, pack file, or builder logic has been added.
+The committed reconstruction in `research/tables/100r-jst-cash-yield-and-gain-split/returns_decomposition.csv` uses this schema plus audit columns. No manifest row, pack file, or builder logic has been added.
 
 ## 6. What this split is not
 
@@ -150,7 +150,7 @@ It is the market-return decomposition of a JST aggregate asset portfolio. It doe
 ## Sources and provenance
 
 - Held source data: `model_v2/jst_r6.json` (SHA `1c16b0ccf7e10d6b97ee192caace93c4b82c2d2b`); copied unchanged to `model_v3/pack/GBR/source/jst_r6.json`.
-- Held source workbook: `Rates Data/JSTdatasetR6.xlsx`; builder asserts selected source values against the JSON.
+- Held source workbook: `data/rates/JSTdatasetR6.xlsx`; builder asserts selected source values against the JSON.
 - Pack total-return table: `model_v3/pack/GBR/returns.csv`; built by `model_v3/pack/build_gbr.py`.
 - Pack real conversion: `model_v3/core/returns.py`.
 - JST Macrohistory Database R6 codebook, pp. 6–7 (variable labels and formulas for `eq_tr`, `housing_tr`, `bond_tr`, `bill_rate`, `bond_rate`, component returns and composite returns): https://www.macrohistory.net/app/download/9834516169/JST_documentationR6.pdf?t=1676279836 (accessed 2026-11-21).

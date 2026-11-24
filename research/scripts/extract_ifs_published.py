@@ -1,7 +1,7 @@
 """131r block 1: the published figures of the IFS report (Delestre and O'Brien, April 2026) as ifs_published.csv.
 
-Run: python -I docs/research/data/131r/extract_ifs_published.py
-Reads the held PDF docs/research/data/129r/IFS Report - How is wealth distributed across British households.pdf with pdftotext (page breaks kept).
+Run: python -I research/scripts/extract_ifs_published.py
+Reads the held PDF literature/IFS Report - How is wealth distributed across British households.pdf with pdftotext (page breaks kept).
 Every row flagged `text` carries a needle: a phrase that must appear, whitespace-normalised, on the stated PDF page, or the script stops.
 Rows flagged `read from chart` are read by eye from the rendered figure (110 dpi) and carry a stated precision; they have no needle.
 Printed page = PDF page index minus 1 (the cover is unnumbered). Money is in 2026 prices as the report states (footnote 19); 2020-22 is April 2020 to March 2022 (WAS Round 8).
@@ -9,9 +9,9 @@ Printed page = PDF page index minus 1 (the cover is unnumbered). Money is in 202
 import csv, re, subprocess, sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[4]
-PDF = ROOT / 'docs/research/data/129r/IFS Report - How is wealth distributed across British households.pdf'
-OUT = Path(__file__).with_name('ifs_published.csv')
+ROOT = Path(__file__).resolve().parents[2]
+PDF = ROOT / 'literature/IFS Report - How is wealth distributed across British households.pdf'
+OUT = ROOT / 'research/tables/131r-pension-basis-sensitivity/ifs_published.csv'
 txt = subprocess.run(['pdftotext', '-layout', str(PDF), '-'], capture_output=True, text=True, check=True).stdout.split('\f')
 norm = lambda s: re.sub(r'\s+', ' ', s)
 pages = {i + 1: norm(p) for i, p in enumerate(txt)}

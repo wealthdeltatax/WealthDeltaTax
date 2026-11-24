@@ -1,14 +1,15 @@
 """146r block 2: the pack's own top-1% and top-decile shares, the Advani-Summers-Tarrant (AST 2025) range, and the stock scalings for ast_low (14.4%) and ast_high (16.5%).
 Read only: the pack and register through model_v3.core.pack / base.build_base (ratio 0.44) and runner.arm.line_state (class balances, I-D1l cap). Nothing is run in the model.
-AST figures are asserted on their PDF pages (docs/research/data/129r/1-s2.0-S0014292125001266-main.pdf; journal page = PDF page). Writes tail_current.csv, tail_ast_evidence.csv, tail_scenarios.csv.
-Prints one line; exits 1 on any failed check. Run from the repo root: python -I docs/research/data/146r/top_tail_mapping.py"""
+AST figures are asserted on their PDF pages (literature/literature-1-s2-0-s0014292125001266-main.pdf; journal page = PDF page). Writes tail_current.csv, tail_ast_evidence.csv, tail_scenarios.csv.
+Prints one line; exits 1 on any failed check. Run from the repo root: python -I research/scripts/top_tail_mapping.py"""
 import csv, re, subprocess, sys
 from pathlib import Path
 import numpy as np
 sys.path.insert(0, '.')
 from model_v3.core import pack as pk, base as bs
 from model_v3.runner import arm
-D = Path('docs/research/data/146r'); PDF = 'docs/research/data/129r/1-s2.0-S0014292125001266-main.pdf'
+D = Path('research/tables/146r-gdp-process-and-top-tail')
+PDF = 'literature/literature-1-s2-0-s0014292125001266-main.pdf'
 P, R = pk.load_pack(Path('model_v3/pack/GBR')), pk.load_register(Path('registry/inputs.json'))
 b = bs.build_base(P, R, 0.44)
 fails = []

@@ -21,4 +21,4 @@ The five role skills are stubs: `.claude/skills/<role>/SKILL.md` (10 lines, no r
 
 Reference files in `reference/` are long on purpose and are read only when the guide names them.
 
-Do not open `OVERVIEW.md` in full, `docs/archive/`, `docs/model-lessons/` or finished briefs unless the task says so.
+Do not open `OVERVIEW.md` in full, `docs/archive/`, `research/model-lessons/` or finished briefs unless the task says so.

@@ -1,4 +1,4 @@
-> **Reading copy** of `docs/research/data/097r/Collated_Tables_3_1_to_3_11_2324.ods` (0.2 MB, 29 sheets). Route: soffice (ods to xlsx), then markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
+> **Reading copy** of `data/uk-wealth-tables/097r/Collated_Tables_3_1_to_3_11_2324.ods` (0.2 MB, 29 sheets). Route: soffice (ods to xlsx), then markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
 > Generated, not edited. Quote numbers from the source file, not from this text.
 > Row cap: 300 data rows a table; cut: Table_3_11 (481 rows).
 

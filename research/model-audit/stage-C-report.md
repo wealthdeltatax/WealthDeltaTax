@@ -1,21 +1,21 @@
 # Change report: 001c stage C (v2 inventory and mechanism)
 
-The brief's `Touches` is `docs/model-audit/` only, so this report lives here, as for stage A.
+The brief's `Touches` is `research/model-audit/` only, so this report lives here, as for stage A.
 
 ```
 Change report
 - Task: 001c stage C, audit of model v2 (inventory and mechanism). No model code changed.
-- Files changed: docs/model-audit/v2-inventory.md (new, the checkpoint note); docs/model-audit/stage-C-report.md (new, this report)
+- Files changed: research/model-audit/v2-inventory.md (new, the checkpoint note); research/model-audit/stage-C-report.md (new, this report)
 - What is different now: the repo has a verified account of what model_v2 contains, how it depends on itself, what it outputs, how it differs from v1 and from the papers
 - New or changed interfaces: none
 - Acceptance criteria:
   - Stage C checkpoint exists and meets its check: met. All 29 `*.py` files in model_v2 (excluding audit_d0/Research) appear in v2-inventory.md (grep loop, 0 missing)
-  - `git diff --stat` only under docs/model-audit/: met (2 new files)
+  - `git diff --stat` only under research/model-audit/: met (2 new files)
   - Each claim about the code cites a file and function: met; claims resting only on WDT_Code_Reference.md or docstrings are marked [doc]
   - Every error carries a number or reproducible check: not applicable at stage C (v2 errors are not in scope). Facts that look like faults carry numbers: eval_core import failure (line 62), v1/v2 run_pair table
 - Deviations from the brief:
   (1) Import tests of `wid_checks.py` and `wid_summarise.py` executed their module-level code (no main guard) and rewrote CSV/JSON under model_v2/wid_out/summary and summary2, twice (my second run did not exclude them). `git status` was clean afterwards, so the files were byte-identical to the tracked ones; nothing changed in the repo. This breaks the brief's "model folders are read, never run" in letter. I did not import them again.
-  (2) Change report is in docs/model-audit/, not the brief, because of the Touches limit.
+  (2) Change report is in research/model-audit/, not the brief, because of the Touches limit.
 - Risks / follow-ups:
   - v2 `simulate` uses a different basis convention from v1 (post-surrender basis); same inputs give different net_pct and tw_gap (+0.0132 vs +0.0093 at alpha 1.5). BASIS_CHANGE.md is cited in code but not tracked. Stage B/E should decide whether the v1 convention is a register item.
   - The papers' embedded figure names (19) match none of v2's output names. The papers' RATES numbers (73 UK start years, SRR year 3, logistic 15% to 70%) are not what v2's baseline (gain ladder, JST windows, T = 100) computes. This does not say a published figure depends on a v1 error, so I did not stop under the brief's open question; the author may want to read it as one.

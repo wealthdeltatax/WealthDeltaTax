@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
 """101r block 2a: JST cash-yield / holding-gain split statistics, reproduced from 100r output.
 
-Run: python -I docs/research/data/101r/derive_jst_split.py
-Reads  docs/research/data/100r/returns_decomposition.csv (117 UK years 1896-2019, 1940-46 absent)
-       docs/research/data/101r/derived_ons_flows.csv (for the ONS housing-services cross-check)
-Writes docs/research/data/101r/jst_split_stats.csv
+Run: python -I research/scripts/derive_jst_split.py
+Reads  research/tables/100r-jst-cash-yield-and-gain-split/returns_decomposition.csv (117 UK years 1896-2019, 1940-46 absent)
+       research/tables/101r-parameter-map-flows-and-returns/derived_ons_flows.csv (for the ONS housing-services cross-check)
+Writes research/tables/101r-parameter-map-flows-and-returns/jst_split_stats.csv
 Arithmetic means of annual real/nominal components. Geometric (I-D1a2) does not split additively.
 Tolerance vs 100r headline table: 0.0006 pp (the note reports 3 decimals).
 """
 import csv, os, statistics as st, sys
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))   # the repository root (this script is in research/scripts/)
+HERE = os.path.join(ROOT, 'research', 'tables', '101r-parameter-map-flows-and-returns')   # the 101r tables (was the folder of this script)
 rows = [{k: float(v) for k, v in r.items()}
-        for r in csv.DictReader(open(os.path.join(HERE, "..", "100r", "returns_decomposition.csv")))]
+        for r in csv.DictReader(open(os.path.join(ROOT, "research", "tables", "100r-jst-cash-yield-and-gain-split", "returns_decomposition.csv")))]
 for r in rows:
     r["year"] = int(round(r["year"]))
 assert len(rows) == 117, len(rows)

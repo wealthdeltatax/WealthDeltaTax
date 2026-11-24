@@ -1,10 +1,10 @@
 """104r block 4: rulings table for every 103r register row, with the author's 2026-11-21 rulings applied.
 Reads 103r/parameter_register.csv and 104r/resolution_by_row.csv; writes rulings_table.csv and rulings_table.md (a markdown table the note includes).
-Exits 1 if a register row is missing, or the four brief categories do not account for every row.  Run from the repo root: python -I docs/research/data/104r/rulings_table.py"""
+Exits 1 if a register row is missing, or the four brief categories do not account for every row.  Run from the repo root: python -I research/scripts/rulings_table.py"""
 import csv, sys, collections
-R = 'docs/research/data/'
-reg = list(csv.DictReader(open(R + '103r/parameter_register.csv')))
-res = {r['row_id']: r for r in csv.DictReader(open(R + '104r/resolution_by_row.csv'))}
+DIRS = {'103r': 'research/tables/103r-parameter-map-assembly/', '104r': 'research/tables/104r-parameter-map-design/'}   # 160c: the tables moved here (docs/restructure map)
+reg = list(csv.DictReader(open(DIRS['103r'] + 'parameter_register.csv')))
+res = {r['row_id']: r for r in csv.DictReader(open(DIRS['104r'] + 'resolution_by_row.csv'))}
 READY, SCEN, UNSET, DATA = 'ready for implementation', 'implement with a scenario range', 'remain unset', 'further data required'
 BASE = {'ready': READY, 'scenario range': SCEN, 'unset': UNSET, 'further data': DATA, 'audit (no ruling)': 'report only (audit, no register edit)',
         'validation or proxy only': 'validation or proxy only', 'legacy comparator': 'legacy comparator only', 'not applicable (endogenous)': 'not applicable (model output)'}
@@ -54,9 +54,9 @@ for x in reg:
     cnt[cat] += 1
     rows.append([rid, x['variable'][:70], x['class_norm'], rr['finest_resolution_supported'], x['ruling_class'], ruling, cons])
 if len(rows) != len(reg) or len({r[0] for r in rows}) != len(reg): print('FAILED: rows'); sys.exit(1)
-with open(R + '104r/rulings_table.csv', 'w', newline='') as f:
+with open(DIRS['104r'] + 'rulings_table.csv', 'w', newline='') as f:
     w = csv.writer(f); w.writerow(['row_id', 'variable', 'evidence_class', 'finest_resolution', 'ruling_103r', 'ruling_104r', 'consequence_for_first_implementation']); w.writerows(rows)
 md = '| Row | Variable | Class | Finest resolution | 103r | 104r ruling | Consequence for the first implementation |\n|---|---|---|---|---|---|---|\n'
 for r in rows: md += '| ' + ' | '.join(c.replace('|', '/') for c in r) + ' |\n'
-open(R + '104r/rulings_table.md', 'w').write(md)
+open(DIRS['104r'] + 'rulings_table.md', 'w').write(md)
 print('ok: %d rows; ' % len(rows) + '; '.join(f'{k} {v}' for k, v in sorted(cnt.items())))

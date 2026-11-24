@@ -1,12 +1,12 @@
 """145r block 1: pension withdrawal evidence and the proposed labelled range, from held sources only.
-Reads docs/research/data/129r/BN236.pdf (IFS BN236, Crawford 2018; checked by pdftotext, every figure asserted on its page) and the ONS WAS R8 xlsx (Table_1).
-Writes withdrawal_range.csv. Prints one line; exits 1 on any failed check. Run from the repo root: python -I docs/research/data/145r/withdrawal_range.py
+Reads literature/BN236.pdf (IFS BN236, Crawford 2018; checked by pdftotext, every figure asserted on its page) and the ONS WAS R8 xlsx (Table_1).
+Writes withdrawal_range.csv. Prints one line; exits 1 on any failed check. Run from the repo root: python -I research/scripts/withdrawal_range.py
 Printed page = PDF page - 1 (asserted on the pages used). Rates are scenario inputs for the author, not forecasts; there is no central value."""
 import csv, re, subprocess, sys
 import openpyxl
-D = 'docs/research/data/'
-PDF = D + '129r/BN236.pdf'
-XL = D + '129r/meanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferenceperson.xlsx'
+OUT = 'research/tables/145r-saving-shapes-and-withdrawal-range/'
+PDF = 'literature/BN236.pdf'
+XL = 'data/uk-wealth-tables/098r/meanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferenceperson.xlsx'   # was the 129r copy, byte-identical, removed (044c R4)
 def page(p):
     t = subprocess.run(['pdftotext', '-f', str(p), '-l', str(p), '-layout', PDF, '-'], capture_output=True, text=True).stdout
     return re.sub(r'\s+', '', t)          # the extraction splits words ("surv ey"); numbers are matched with spaces removed
@@ -75,7 +75,7 @@ add('W-U02', 'unset', 'top 1% and the tail', '', '', '', '', '', 'unset', 'no ra
 add('W-U03', 'unset', 'gross withdrawal from a pension, by type (DB in payment, DC drawdown, annuity)', '', '', '', '', '', 'unset', 'ELSA here is the net change in financial wealth; no split by pension type is held (129r)')
 add('W-U04', 'unset', 'behaviour after pension freedoms (2015)', '', '', '', '', '', 'unset', 'the ELSA window ends 2014-15; later waves are not held (data request, UKDS end-user licence)')
 add('W-U05', 'unset', 'a rate by age inside the retired stage', '', '', '', '', '', 'unset', 'the model stage is economic status, not age; the source finds little age gradient (W-P08)')
-with open(D + '145r/withdrawal_range.csv', 'w', newline='') as f:
+with open(OUT + 'withdrawal_range.csv', 'w', newline='') as f:
     w = csv.writer(f); w.writerow(HDR); w.writerows(rows)
 if fails:
     print('FAILED:', *fails, sep='\n'); sys.exit(1)

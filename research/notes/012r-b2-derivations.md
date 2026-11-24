@@ -3,7 +3,7 @@
 Accessed 2026-11-16. Method notes for the derived rows in `docs/model-v3/inputs.md` (I-D5b, I-D6a to n, I-D10b). Nothing here is a published incidence.
 
 ## D6 allocation method (`d6_incidence.py`)
-- Households per income decile are equal. Wealth by income decile comes from WAS Round 8 Table 2.6 quartiles (`Rates Data/totalwealthtables.xlsx`). Within each income decile the wealth distribution is a two-piece lognormal: lower half scaled by the 25th to 50th percentile gap, upper half by the 50th to 75th gap. A single lognormal over-stated the tail (bottom-decile upper quartile is £376,600, so the single fit put 22% of inheritance tax in decile 1).
+- Households per income decile are equal. Wealth by income decile comes from WAS Round 8 Table 2.6 quartiles (`data/rates/totalwealthtables.xlsx`). Within each income decile the wealth distribution is a two-piece lognormal: lower half scaled by the 25th to 50th percentile gap, upper half by the 50th to 75th gap. A single lognormal over-stated the tail (bottom-decile upper quartile is £376,600, so the single fit put 22% of inheritance tax in decile 1).
 - Income deciles are the B1 judgement set (£16,000 to £155,000, anchored to S9).
 - Council tax: bill proportional to income to the power b; b = 1 + ln(4.8/1.5) / ln(18,000/120,000) = 0.39 from the Resolution Foundation shares (S19). Variants b minus and plus 0.15.
 - Business rates and corporation tax: split between owners (wealth above £100,000), workers (income) and consumers (income to the power 0.7). Workers' share 40% from S22 (Germany).

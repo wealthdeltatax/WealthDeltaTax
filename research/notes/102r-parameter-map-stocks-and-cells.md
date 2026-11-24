@@ -1,6 +1,6 @@
 # 102r: parameter map, evidence side B: stocks, stage weights, debt, transfers and mobility
 
-Written 2026-11-21. Brief `docs/briefs/102r-parameter-map-stocks-and-cells.md`; companions 101r (flows and returns) and 103r (assembly). The crosswalk and register are data files: `docs/research/data/102r/stocks_crosswalk.csv` (13 sources) and `stocks_register.csv` (33 rows), built by `build_stocks_tables.py` from the committed derivation outputs. Nothing here edits the register, pack, code or manifest, no model was run, and no value was chosen with regard to WDT revenue, fund fill or closure.
+Written 2026-11-21. Brief `docs/briefs/102r-parameter-map-stocks-and-cells.md`; companions 101r (flows and returns) and 103r (assembly). The crosswalk and register are data files: `research/tables/102r-parameter-map-stocks-and-cells/stocks_crosswalk.csv` (13 sources) and `stocks_register.csv` (33 rows), built by `build_stocks_tables.py` from the committed derivation outputs. Nothing here edits the register, pack, code or manifest, no model was run, and no value was chosen with regard to WDT revenue, fund fill or closure.
 
 ## Answer in brief
 - **Stocks and structure are far better held than flows, but only at the level of the whole band.** Opening composition by pack band is **observed** (WAS Round 8, Table 2.2, sums to the total within tolerance). Cell sizes by band and stage are **derived** from the WAS tables but only as a **proxy** for the pack deciles, because the WAS stage table is by fixed GBP wealth bands and those bands miss the pack deciles by up to 4.9 percentage points of households.
@@ -11,7 +11,7 @@ Written 2026-11-21. Brief `docs/briefs/102r-parameter-map-stocks-and-cells.md`; 
 - **One note for 096r.** 096r listed the property and pension shares of D4-5 as unset because the pack has no such rows. They are derivable from the held Table 2.2 (37.5% and 36.3%, row S05).
 
 ## 1. Runtime check
-This session has a local checkout and a shell. Each derivation script ran once from the branch as checked out: `derive_bands_stages.py`, `derive_debt_demography.py`, `derive_transfers_audit_coverage.py` and `build_stocks_tables.py` all exit 0 with every stated tolerance met. The held workbooks in `Rates Data/` were read in place. The held files were checked **internally** (sums and tolerances), not against the live published pages, and the crosswalk says so per row.
+This session has a local checkout and a shell. Each derivation script ran once from the branch as checked out: `derive_bands_stages.py`, `derive_debt_demography.py`, `derive_transfers_audit_coverage.py` and `build_stocks_tables.py` all exit 0 with every stated tolerance met. The held workbooks in `data/rates/` were read in place. The held files were checked **internally** (sums and tolerances), not against the live published pages, and the crosswalk says so per row.
 
 ## 2. Source crosswalk
 Thirteen rows in `stocks_crosswalk.csv`, with the columns of 101r (exact file, table or series; publisher and link; period; population, unit, frequency, price basis; definitions and coverage; dimensions; revisions and sampling limits; whether the held file was checked against the published source).
@@ -85,7 +85,7 @@ From `existing_row_audit.csv`; "supports" means the held files reproduce the reg
 ## 6. Reproducibility
 | Script | Reads | Writes | Tolerance |
 |---|---|---|---|
-| `derive_bands_stages.py` | `Rates Data/totalwealthtables.xlsx`, 098r CSVs, pack | band reconciliation, composition, stage weights, weights | 1.0pp against the 098r rounded shares; Table 2.1 against Table 2.2 sums as stated in `check_table21_vs_table22.csv` |
+| `derive_bands_stages.py` | `data/rates/totalwealthtables.xlsx`, 098r CSVs, pack | band reconciliation, composition, stage weights, weights | 1.0pp against the 098r rounded shares; Table 2.1 against Table 2.2 sums as stated in `check_table21_vs_table22.csv` |
 | `derive_debt_demography.py` | 098r ONS extracts | debt by age, demography, deaths, survival | mean times N within 2.4% of totals; deaths within 5 |
 | `derive_transfers_audit_coverage.py` | 097r sector accounts, workbook, pack, 099r | transfers, audit, coverage | as printed in each CSV |
 | `build_stocks_tables.py` | the outputs above | `stocks_crosswalk.csv`, `stocks_register.csv` | share 0.05pp, pounds 0.5bn, counts exact; fails on an unset row carrying a number |
@@ -107,4 +107,4 @@ From `existing_row_audit.csv`; "supports" means the held files reproduce the reg
 3. **Register disagreements.** I-D4a (GDP), I-D4b central and I-D4h low disagree with the held files. Proposed resolution: the author or guru decides whether to edit the register; this note does not.
 
 ## Sources
-Repository: the brief, `docs/research/data/102r/` scripts and outputs, `docs/research/098r-was-tables-and-population.md`, `docs/research/097r-open-series-collection.md`, `docs/research/099r-held-research-moments.md`, `docs/research/096r-cohort-cell-design.md`, `docs/model-v3/inputs.md`, `model_v3/pack/GBR/`. External sources are cited by exact file and table in `stocks_crosswalk.csv`: ONS Household total wealth in Great Britain (April 2020 to March 2022) and its tables, ONS ad hoc 2813, 3222 and 3459, ONS 2024-based population projections, ONS national balance sheet and quarterly sector accounts, ONS Effects of taxes and benefits FYE 2024, and, through 099r, the Resolution Foundation (Before the fall, 2025) and Advani, Bangham and Leslie (2021).
+Repository: the brief, `research/scripts/` scripts, `research/tables/102r-parameter-map-stocks-and-cells/` outputs, `research/notes/098r-was-tables-and-population.md`, `research/notes/097r-open-series-collection.md`, `research/notes/099r-held-research-moments.md`, `research/notes/096r-cohort-cell-design.md`, `docs/model-v3/inputs.md`, `model_v3/pack/GBR/`. External sources are cited by exact file and table in `stocks_crosswalk.csv`: ONS Household total wealth in Great Britain (April 2020 to March 2022) and its tables, ONS ad hoc 2813, 3222 and 3459, ONS 2024-based population projections, ONS national balance sheet and quarterly sector accounts, ONS Effects of taxes and benefits FYE 2024, and, through 099r, the Resolution Foundation (Before the fall, 2025) and Advani, Bangham and Leslie (2021).

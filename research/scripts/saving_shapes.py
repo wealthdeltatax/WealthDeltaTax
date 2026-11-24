@@ -2,14 +2,14 @@
 Reads the pack and register read-only (model_v3.core.pack, base.build_base at ratio 0.44, the test ratio) for each line's adults and income; the flat values from
 docs/model-v3/household-arm-account/account_table.csv (min, median, max of the ONS non-pension saving ratio). Nothing is run in the model; no concentration is computed.
 Writes saving_shapes.csv (one row per line and shape) and saving_evidence.csv (figures with page and flag). Prints one line; exits 1 on a failed check.
-Run from the repo root: python -I docs/research/data/145r/saving_shapes.py
+Run from the repo root: python -I research/scripts/saving_shapes.py
 Scaling: s_i = s + delta_i, delta_i = A * (h_i - hbar), hbar the income-weighted mean of h, so sum(w_i * s_i) = s for every s (w_i = line income share). Additive, because the flat value can be negative."""
 import csv, sys, collections
 from pathlib import Path
 import numpy as np
 sys.path.insert(0, '.')
 from model_v3.core import pack as pk, base as bs
-D = Path('docs/research/data')
+D = Path('research/tables/145r-saving-shapes-and-withdrawal-range')
 pack, reg = pk.load_pack(Path('model_v3/pack/GBR')), pk.load_register(Path('registry/inputs.json'))
 b = bs.build_base(pack, reg, 0.44)
 inc = np.where(np.isnan(b.income), reg['I-D9a'].low / reg['I-D4h'].central / 1e6, b.income)   # as runner/arm.py line_state does
@@ -36,7 +36,7 @@ for name, (A, h) in SHAPES.items():
         if abs(agg - s) > 1e-12: fails.append(f'{name} {k}: aggregate {agg} != flat {s}')
 import re, subprocess
 def rfpage(p):
-    t = subprocess.run(['pdftotext', '-f', str(p), '-l', str(p), '-layout', 'docs/research/data/129r/Before-the-fall.pdf', '-'], capture_output=True, text=True).stdout
+    t = subprocess.run(['pdftotext', '-f', str(p), '-l', str(p), '-layout', 'literature/Before-the-fall.pdf', '-'], capture_output=True, text=True).stdout
     return re.sub(r'\s+', '', t)
 for p, strs in {7: ['just\u00a3\u200b80', '\u00a34,200'], 29: ['\u00a380compared', '\u00a34,100'], 32: ['morethan\u00a3300', '\u00a34,200'], 38: ['55percent', '64percent', '23percent', '45percent'], 21: ['53percent', '47percent', '40percent'], 30: ['25percentinQ22020']}.items():
     t = rfpage(p)
@@ -44,7 +44,7 @@ for p, strs in {7: ['just\u00a3\u200b80', '\u00a34,200'], 29: ['\u00a380compared
         x2 = re.sub(r'\s+', '', x).replace('\u200b', '').replace('\u00a0', '')
         if x2 not in t.replace('\u00a0', '').replace('\u200b', ''): fails.append(f'RF p{p}: {x!r} not found')
 cols = list(rows[0])
-with open(D / '145r/saving_shapes.csv', 'w', newline='') as f:
+with open(D / 'saving_shapes.csv', 'w', newline='') as f:
     wr = csv.DictWriter(f, cols); wr.writeheader(); wr.writerows(rows)
 RF = 'Resolution Foundation, Before the Fall (2025), WAS, GB'
 ev = [
@@ -58,7 +58,7 @@ ev = [
  ('S-R02', 'Register I-W3b (same source): gross saving rate of the top 1%', '35', '%', 'source pp. 2, 25', 'read from register row; source not held here', 'context only by author ruling: includes capital gains, not a saving parameter; not used'),
  ('S-R03', 'Register I-W3c: UK share of the change in family financial wealth that is net saving (Bangham and Leslie 2020)', '7 to 24', '%', 'source p. 18', 'read from register row; source not held here', 'aggregate, not by wealth band'),
 ]
-with open(D / '145r/saving_evidence.csv', 'w', newline='') as f:
+with open(D / 'saving_evidence.csv', 'w', newline='') as f:
     wr = csv.writer(f); wr.writerow(['row_id', 'item', 'value', 'unit', 'page', 'flag', 'note_or_challenge']); wr.writerows(ev)
 if fails: print('FAILED:', *fails, sep='\n'); sys.exit(1)
 dl = {n: [r['delta_pp'] for r in rows if r['shape'] == n] for n in SHAPES}

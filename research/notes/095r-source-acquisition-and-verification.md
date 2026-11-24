@@ -1,7 +1,7 @@
 # 095r addendum: Source acquisition and verification register for UK household flows
 
 - **Date checked:** 2026-11-21
-- **Parent:** `docs/research/095r-uk-household-flow-evidence-map.md`
+- **Parent:** `research/notes/095r-uk-household-flow-evidence-map.md`
 - **Purpose:** resolve the nine acquisition and verification requests in 095r section 5 and section 8. This is a source register and verification note, not a calibrated model input.
 - **Scope:** public sources were located and their published descriptions/figures checked. Controlled microdata were not accessed. Binary XLSX/ODS/PDF files are linked at their official repositories; this repository note does not contain copies of those binaries.
 - **Decision:** no consumption/depletion parameter is inferred or changed.

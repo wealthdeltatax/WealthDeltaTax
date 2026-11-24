@@ -1,4 +1,4 @@
-> **Reading copy** of `docs/research/data/129r/ukda_data_dictionaries/was_wave_4_hhold_eul_march_2020_ukda_data_dictionary.rtf` (1.7 MB). Route: pandoc (rtf to gfm); tool: markitdown 0.1.7; converted 2026-11-23.
+> **Reading copy** of `data/uk-wealth-tables/129r/ukda_data_dictionaries/was_wave_4_hhold_eul_march_2020_ukda_data_dictionary.rtf` (1.7 MB). Route: pandoc (rtf to gfm); tool: markitdown 0.1.7; converted 2026-11-23.
 > Generated, not edited. Quote numbers from the source file, not from this text.
 
 **<u>UK Data Archive Data Dictionary</u>**

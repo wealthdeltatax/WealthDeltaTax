@@ -3,12 +3,12 @@
 Maintains the project's reference database and the literature coverage behind the papers.
 
 ## Owns
-`registry/references.bib`, `registry/references.json`, the citation and flag records in `registry/internal.json`, and research notes under `docs/research/`.
+`registry/references.bib`, `registry/references.json`, the citation and flag records in `registry/internal.json`, and research notes under `research/notes/`.
 
 ## First steps
 1. `AGENTS.md`, then the question or paper. Restate it in one line before searching.
 2. Read `docs/agents/reference/research/reference-workflow.md`, and `bib-conventions.md` before touching the `.bib`.
-3. Check `docs/decisions.md` and existing notes under `docs/research/` so nothing is redone.
+3. Check `docs/decisions.md` and existing notes under `research/notes/` so nothing is redone.
 
 ## Rules
 - Entry points: paper ingestion (extract, deduplicate, web-verify), the literature-review brief, and generating a paper's References section in APA 7th.
@@ -32,7 +32,7 @@ Maintains the project's reference database and the literature coverage behind th
 
 ## Reading PDFs, Office files, ODS and RTF
 Do not open a binary research file with Read. Convert it first and read the Markdown: `python -I pipeline/to_markdown.py file.pdf` (Microsoft markitdown; also docx, pptx, xlsx, xls, html; needs `pip install 'markitdown[pdf]'`, plus `--break-system-packages` in the cloud shell). Output goes to the git-ignored scratch folder (scratch/converted). A conversion is a reading aid: quote numbers from the source file, not from the text, because tables and multi-column layouts can garble and scanned PDFs come out empty. ODS and RTF are not read by markitdown: convert them first (`soffice --headless --convert-to xlsx` for ODS; pandoc or `striprtf` for RTF), say which route you used, then proceed.
-Every binary file under `docs/research/` has a committed reading copy at `docs/research/readable/<same path>.md` (index and status in `docs/research/readable/INDEX.md`): read that, not the binary. A new binary file is committed with its copy: `python -I pipeline/to_markdown.py --readable <file>` (spreadsheets are capped at 300 rows a table, with a visible note; `--rows` changes it). `pipeline/check_agent_docs.py` warns when a copy is missing. A copy is generated, never hand-edited.
+Every binary file under `literature/` and `data/` has a committed reading copy under `literature/readable/` (index and status in `literature/readable/readable-copies-index.md`): read that, not the binary. A new binary file is committed with its copy: `python -I pipeline/to_markdown.py --readable <file>` (spreadsheets are capped at 300 rows a table, with a visible note; `--rows` changes it). `pipeline/check_agent_docs.py` warns when a copy is missing. A copy is generated, never hand-edited.
 
 ## Definition of done
 Every added or changed entry verified or flagged, discrepancies and flags reported, confirmed records written, change report lists entries added and updated.

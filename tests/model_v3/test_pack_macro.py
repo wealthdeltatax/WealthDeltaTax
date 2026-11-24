@@ -11,7 +11,7 @@ GBR = ROOT / 'model_v3' / 'pack' / 'GBR'
 
 
 def jst():
-    rows = list(openpyxl.load_workbook(ROOT / 'Rates Data' / 'JSTdatasetR6.xlsx', read_only=True, data_only=True)['Sheet1'].iter_rows(values_only=True))
+    rows = list(openpyxl.load_workbook(ROOT / 'data/rates' / 'JSTdatasetR6.xlsx', read_only=True, data_only=True)['Sheet1'].iter_rows(values_only=True))
     return {r[0]: dict(zip(rows[0], r)) for r in rows[1:] if r[2] == 'GBR'}
 
 

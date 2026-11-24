@@ -1,6 +1,6 @@
 # Model v3: inventory of v2 for the port by exception (brief 037c)
 
-Status: read-only inventory for stage C; verdicts are recommendations for 039g and the author, not decisions. Date 2026-11-18. Paths: the four files are in `model_v2/`; `valgen_core.py` is `model_v2/VAL/valgen_core.py`, `rates_core.py` is `model_v2/RATES/rates_core.py`. Repo at `67b3ccb` (main), branch `brief/037-v2-port-inventory`. No file in `model_v2/` was edited, moved or formatted; every command below was run with bytecode writing off. Sources: `docs/briefs/011g-model-v3-design.md`, `docs/model-audit/synthesis.md` sections 4, 5 and 10, `docs/model-v3/outputs.yml` and `metrics.md`, the four v2 files, `model_v2/test/`, and the papers named per item.
+Status: read-only inventory for stage C; verdicts are recommendations for 039g and the author, not decisions. Date 2026-11-18. Paths: the four files are in `model_v2/`; `valgen_core.py` is `model_v2/VAL/valgen_core.py`, `rates_core.py` is `model_v2/RATES/rates_core.py`. Repo at `67b3ccb` (main), branch `brief/037-v2-port-inventory`. No file in `model_v2/` was edited, moved or formatted; every command below was run with bytecode writing off. Sources: `docs/briefs/011g-model-v3-design.md`, `research/model-audit/synthesis.md` sections 4, 5 and 10, `docs/model-v3/outputs.yml` and `metrics.md`, the four v2 files, `model_v2/test/`, and the papers named per item.
 
 ## 0. What this says
 
@@ -100,7 +100,7 @@ Kernel functions under 30 lines (line, length), all of which go with the kernel:
 
 - **Where.** `wdt_core.decompose_tw_advantage` 1002-1068; the definitions are at 1046-1056 and it returns `identity_error`. The identity: tw_adv = W_sell_delta - refund_delta - settle_delta. No function outside `wdt_core` calls it and nothing asserts it.
 - **Measured (read-only call).** At alpha = 1.5, g = 10.45%, N = 30: residual -1.4e-14 with the default logistic and 7.1e-15 with `with_rate_scenario` (ladder). Over a 70-point grid (alpha 0.5 to 5, g -3% to 20%, N 10 and 30) the worst |identity_error| is 5.68e-14.
-- **Gap.** `settle_delta` is exactly 0 at all 70 points, so v2 never exercises the third term. The v1 case in the audit had +3.9188 (`docs/model-audit/v1-errors.md` 47 and `v1-inventory.md` 125: same point, settle_delta +3.9188 in v1). A v3 test needs a case where it is non-zero.
+- **Gap.** `settle_delta` is exactly 0 at all 70 points, so v2 never exercises the third term. The v1 case in the audit had +3.9188 (`research/model-audit/v1-errors.md` 47 and `v1-inventory.md` 125: same point, settle_delta +3.9188 in v1). A v3 test needs a case where it is non-zero.
 - **Tests, existing.** None. **Missing:** the identity as an assertion on the kernel path at the 70-point grid, plus one case with settle_delta != 0, tolerance 1e-12.
 - **Papers require.** VAL section 5.2 (Fig 5.2b caption) and VAL.A section C.11.
 - **Verdict.** Rewrite as a test on the kernel path (section 1), not a core function.

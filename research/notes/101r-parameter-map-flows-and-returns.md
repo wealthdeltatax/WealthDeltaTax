@@ -1,6 +1,6 @@
 # 101r: parameter map, side A: income, saving, consumption, returns and pension flows
 
-Accessed 2026-11-21. Brief `docs/briefs/101r-parameter-map-flows-and-returns.md`. Evidence side A for the household account of `094r` (B1, B2); companions 102r (stocks, cells, debt) and 103r (assembly). Data and scripts: `docs/research/data/101r/`. No register, code, pack or manifest edit comes from this note, and no model was run.
+Accessed 2026-11-21. Brief `docs/briefs/101r-parameter-map-flows-and-returns.md`. Evidence side A for the household account of `094r` (B1, B2); companions 102r (stocks, cells, debt) and 103r (assembly). Data and scripts: `research/tables/101r-parameter-map-flows-and-returns/` and `research/scripts/`. No register, code, pack or manifest edit comes from this note, and no model was run.
 
 ## Status of this note
 Built in blocks, one push each (blocks 1 and 2 by Agent 3; the rest here). This file holds, in order: basis (2), crosswalk (3), register view (4), existing-row audit (5), flow-side constraints (6), data requests (7), reproduction list (8), and the summary (1).
@@ -23,24 +23,24 @@ Built in blocks, one push each (blocks 1 and 2 by Agent 3; the rest here). This 
 - **3.5% (I-D14c)** is a legacy comparator. It is row F-25, classed *scenario (legacy comparator)*, intended use *neither*.
 - Sources with different definitions are reported side by side and not averaged or spliced (for example UKEA against QSA vintages, DGD8 against CSJ8, ONS B.2g yield against the JST housing yield).
 - Accounting locations are those of 094r B1 (`dNW = S + CG + TR + O - T_WDT`) and B2; `Y_L`, `Y_P`, `T_C`, `C`, `K`, `CG`, `O` as defined there.
-- Classification: *observed*, *derived*, *proxy*, *scenario*, *unset*. Every value reproduces from a script in `docs/research/data/101r/` (section 8); tolerances are in the check files.
+- Classification: *observed*, *derived*, *proxy*, *scenario*, *unset*. Every value reproduces from a script in `research/scripts/` (section 8); tolerances are in the check files.
 
 ## 3. Source crosswalk (flows)
-Full columns (period, unit and price basis, definitions, dimensions, revisions, whether the held file was checked against the published source) are in `docs/research/data/101r/flows_crosswalk.csv`. One line per source here.
+Full columns (period, unit and price basis, definitions, dimensions, revisions, whether the held file was checked against the published source) are in `research/tables/101r-parameter-map-flows-and-returns/flows_crosswalk.csv`. One line per source here.
 
 | Id | Held file or table | Publisher | Period | Checked against published | Register rows |
 |---|---|---|---|---|---|
-| X-01 | docs/research/data/097r/ons_ukea_household_annual.csv (UKEA tables 6.2.3 to 6.2.7, 6.1.9, 6.1.10; series ids per row) | ONS | 1997-2025 annual (financial 1998-2025) | Identities pass internally (derive_ons_flows.py, 392 checks); not re-fetched, the workspac | F-01 to F-14, F-21 to F-24 |
-| X-02 | docs/research/data/097r/qsa_household_annual_2026q2.csv (sheets HH_1 to HH_3, HH_Alt) | ONS | 1948-2025 annual (varies by series) | Workbook held (quarterlysectoraccounts2026q2.xlsx); the CSV was extracted by 097r; QSA1 ch | F-05, F-07 to F-10 |
-| X-03 | docs/research/data/097r/ons_nbs_household_stocks_annual.csv (E45V, E46V, E44N, E462, E3VW) | ONS National balance sheet | 1997-2025 end-year | Identity E45V=AN.1+AN.2+BF.90 passes (ID8); not re-fetched | F-16, F-23, F-24 |
-| X-04 | docs/research/data/097r/ons_nbs_financial_annual.csv (NYOH, NITF, NIWJ) | ONS | 1997-2025 | Used in ID8; not re-fetched | F-21, F-23 |
-| X-05 | docs/research/data/097r/ons_household_consumption_annual.csv (ABPB) | ONS UKEA | 1997-2025 | Equals ABPB in X-01 | F-06 |
-| X-06 | docs/research/data/097r/hmrc_csv/Collated_Tables_3_1_to_3_11_2324__Table_3_7.csv | HMRC Personal Incomes Statistics | Tax year 2023-24 | Column sums reproduce 'All ranges' within 1.5% (derive_hmrc_37.py) | F-14, F-15 |
-| X-07 | docs/research/data/097r/hmrc_html_summary_extracts.csv; property_rental_income_statistics_tables_2026.ods | HMRC rental income | 2023-24, 2024-25 | No | context only; no register row |
-| X-08 | docs/research/data/097r/nmg_variable_inventory_2011_2026.csv | Bank of England NMG household survey | 2011-2026 (waves) | Inventory only | F-36 |
-| X-09 | docs/research/data/100r/returns_decomposition.csv | Jorda-Schularick-Taylor R6 via 100r | UK 1896-2019, 117 years (1940-46 absent) | Reproduced to 0.0004pp (derive_jst_split.py) | F-16 to F-20, F-26, F-27 |
-| X-10 | docs/research/095r-bozio-2013-reading.md | Bozio | 1978-2009 (LCFS), ELSA linked records | No | F-33 |
-| X-11 | docs/research/data/099r/moments.csv (BF-02, AB-01, AB-05, GB-01) | Resolution Foundation Before the fall; Advani-Bangham-Leslie | 2008-2022 | Rows as recorded by 099r | F-28, F-31, F-32, F-34 |
+| X-01 | data/uk-wealth-tables/097r/ons_ukea_household_annual.csv (UKEA tables 6.2.3 to 6.2.7, 6.1.9, 6.1.10; series ids per row) | ONS | 1997-2025 annual (financial 1998-2025) | Identities pass internally (derive_ons_flows.py, 392 checks); not re-fetched, the workspac | F-01 to F-14, F-21 to F-24 |
+| X-02 | data/uk-wealth-tables/097r/qsa_household_annual_2026q2.csv (sheets HH_1 to HH_3, HH_Alt) | ONS | 1948-2025 annual (varies by series) | Workbook held (quarterlysectoraccounts2026q2.xlsx); the CSV was extracted by 097r; QSA1 ch | F-05, F-07 to F-10 |
+| X-03 | data/uk-wealth-tables/097r/ons_nbs_household_stocks_annual.csv (E45V, E46V, E44N, E462, E3VW) | ONS National balance sheet | 1997-2025 end-year | Identity E45V=AN.1+AN.2+BF.90 passes (ID8); not re-fetched | F-16, F-23, F-24 |
+| X-04 | data/uk-wealth-tables/097r/ons_nbs_financial_annual.csv (NYOH, NITF, NIWJ) | ONS | 1997-2025 | Used in ID8; not re-fetched | F-21, F-23 |
+| X-05 | data/uk-wealth-tables/097r/ons_household_consumption_annual.csv (ABPB) | ONS UKEA | 1997-2025 | Equals ABPB in X-01 | F-06 |
+| X-06 | data/uk-wealth-tables/097r/hmrc_csv/Collated_Tables_3_1_to_3_11_2324__Table_3_7.csv | HMRC Personal Incomes Statistics | Tax year 2023-24 | Column sums reproduce 'All ranges' within 1.5% (derive_hmrc_37.py) | F-14, F-15 |
+| X-07 | data/uk-wealth-tables/097r/hmrc_html_summary_extracts.csv; property_rental_income_statistics_tables_2026.ods | HMRC rental income | 2023-24, 2024-25 | No | context only; no register row |
+| X-08 | data/uk-wealth-tables/097r/nmg_variable_inventory_2011_2026.csv | Bank of England NMG household survey | 2011-2026 (waves) | Inventory only | F-36 |
+| X-09 | research/tables/100r-jst-cash-yield-and-gain-split/returns_decomposition.csv | Jorda-Schularick-Taylor R6 via 100r | UK 1896-2019, 117 years (1940-46 absent) | Reproduced to 0.0004pp (derive_jst_split.py) | F-16 to F-20, F-26, F-27 |
+| X-10 | research/notes/095r-bozio-2013-reading.md | Bozio | 1978-2009 (LCFS), ELSA linked records | No | F-33 |
+| X-11 | research/tables/099r-held-research-moments/moments.csv (BF-02, AB-01, AB-05, GB-01) | Resolution Foundation Before the fall; Advani-Bangham-Leslie | 2008-2022 | Rows as recorded by 099r | F-28, F-31, F-32, F-34 |
 | X-12 | docs/model-v3/inputs.md rows I-W3a to I-W3d, I-W1c | Fagereng et al.; Bangham and Leslie 2020 (source PDFs not he | Norway 2005-15; GB 2008-22 | No | F-28 to F-32 |
 
 Reading the crosswalk:
@@ -50,7 +50,7 @@ Reading the crosswalk:
 - X-10 to X-12 are secondary or foreign sources and are used for direction or validation only; X-12's figures are not verifiable from held files because the source PDFs are not held.
 
 ## 4. Parameter register (flows)
-One row per parameter in `docs/research/data/101r/flows_register.csv` (14 columns: definition, accounting location, target cell dimension, classification, exact source reference, calculation and script, value or range, caveats, intended use, proposed ruling, relation to an existing register row, data request). This table is the short view; an unset row has no number.
+One row per parameter in `research/tables/101r-parameter-map-flows-and-returns/flows_register.csv` (14 columns: definition, accounting location, target cell dimension, classification, exact source reference, calculation and script, value or range, caveats, intended use, proposed ruling, relation to an existing register row, data request). This table is the short view; an unset row has no number.
 
 | Id | Variable | Class | Value or range (only where supported) | Use | Ruling |
 |---|---|---|---|---|---|
@@ -151,8 +151,8 @@ What the constraints do and do not give:
 
 ## 8. Reproduction
 Run from the repository root with `python -I`; each script reads held files and writes its CSV next to itself.
-- `docs/research/data/101r/derive_ons_flows.py` -> `derived_ons_flows.csv`, `derived_ons_checks.csv` (392 checks; hard tolerance in each row).
-- `docs/research/data/101r/derive_jst_split.py` -> `jst_split_stats.csv` (JST split reproduced to 0.0004pp; arithmetic mean 4.742%).
-- `docs/research/data/101r/derive_hmrc_37.py` -> `hmrc_37_income_composition.csv`, `hmrc_37_coverage_vs_ons.csv`.
-- `docs/research/data/101r/build_flows_tables.py` -> `flows_register.csv`, `flows_crosswalk.csv` (reads the derived CSVs; carries the register text).
+- `research/scripts/derive_ons_flows.py` -> `derived_ons_flows.csv`, `derived_ons_checks.csv` (392 checks; hard tolerance in each row).
+- `research/scripts/derive_jst_split.py` -> `jst_split_stats.csv` (JST split reproduced to 0.0004pp; arithmetic mean 4.742%).
+- `research/scripts/derive_hmrc_37.py` -> `hmrc_37_income_composition.csv`, `hmrc_37_coverage_vs_ons.csv`.
+- `research/scripts/build_flows_tables.py` -> `flows_register.csv`, `flows_crosswalk.csv` (reads the derived CSVs; carries the register text).
 All four were run once on 2026-11-21 from the branch checkout; the derived outputs were unchanged and 0 hard checks failed.

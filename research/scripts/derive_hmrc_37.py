@@ -2,16 +2,17 @@
 """101r block 2b: HMRC Personal Incomes Table 3.7 (2023-24) property, interest, dividend income by total-income range,
 compared with ONS household-account aggregates. By TOTAL INCOME of UK taxpayers (SPI), not by wealth band.
 
-Run: python -I docs/research/data/101r/derive_hmrc_37.py
-Reads  docs/research/data/097r/hmrc_csv/Collated_Tables_3_1_to_3_11_2324__Table_3_7.csv
-       docs/research/data/101r/derived_ons_flows.csv
-Writes docs/research/data/101r/hmrc_37_income_composition.csv and hmrc_37_coverage_vs_ons.csv
+Run: python -I research/scripts/derive_hmrc_37.py
+Reads  data/uk-wealth-tables/097r/hmrc_csv/Collated_Tables_3_1_to_3_11_2324__Table_3_7.csv
+       research/tables/101r-parameter-map-flows-and-returns/derived_ons_flows.csv
+Writes research/tables/101r-parameter-map-flows-and-returns/hmrc_37_income_composition.csv and hmrc_37_coverage_vs_ons.csv
 Coverage ratios are descriptive; tax-year 2023-24 is set against calendar 2023 and 2024 and not merged with either.
 """
 import csv, os, sys
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-rows = list(csv.reader(open(os.path.join(HERE, "..", "097r", "hmrc_csv", "Collated_Tables_3_1_to_3_11_2324__Table_3_7.csv"))))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))   # the repository root (this script is in research/scripts/)
+HERE = os.path.join(ROOT, 'research', 'tables', '101r-parameter-map-flows-and-returns')   # the 101r tables (was the folder of this script)
+rows = list(csv.reader(open(os.path.join(ROOT, "data", "uk-wealth-tables", "097r", "hmrc_csv", "Collated_Tables_3_1_to_3_11_2324__Table_3_7.csv"))))
 hdr = rows[4]
 body = [r for r in rows[5:] if r and r[0] and r[0] not in ("End of worksheet",)]
 allr = [r for r in body if r[0] == "All ranges"][0]

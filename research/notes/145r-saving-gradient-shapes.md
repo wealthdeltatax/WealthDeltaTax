@@ -13,7 +13,7 @@ Status: done (block 2 of brief 145r).
 
 ## 2. What the held sources say about saving by wealth (page, flag)
 
-Rows are in `docs/research/data/145r/saving_evidence.csv`. The Resolution Foundation (RF) figures are asserted on their PDF pages by `saving_shapes.py` (RF printed page = PDF page).
+Rows are in `research/tables/145r-saving-shapes-and-withdrawal-range/saving_evidence.csv`. The Resolution Foundation (RF) figures are asserted on their PDF pages by `saving_shapes.py` (RF printed page = PDF page).
 
 | Figure | Value | Page | Flag | Limit |
 |---|---|---|---|---|
@@ -74,5 +74,5 @@ Income per adult is the pack band mean (I-D9a to I-D9d); D1 to D3 take the lower
 
 ## 5. Reproduction
 
-`python -I docs/research/data/145r/saving_shapes.py` from the repo root (needs `pdftotext`; reads the pack and register read-only through `model_v3.core.pack` and `base.build_base` at ratio 0.44). It asserts the RF figures on their PDF pages, builds the shapes, checks that aggregate saving equals `flat`'s at the three flat values for every shape, writes `saving_shapes.csv` (42 rows) and `saving_evidence.csv` (9 rows) and prints one `ok:` line; it exits 1 on any failed check. Check: `python -I pipeline/check_agent_docs.py`.
+`python -I research/scripts/saving_shapes.py` from the repo root (needs `pdftotext`; reads the pack and register read-only through `model_v3.core.pack` and `base.build_base` at ratio 0.44). It asserts the RF figures on their PDF pages, builds the shapes, checks that aggregate saving equals `flat`'s at the three flat values for every shape, writes `saving_shapes.csv` (42 rows) and `saving_evidence.csv` (9 rows) and prints one `ok:` line; it exits 1 on any failed check. Check: `python -I pipeline/check_agent_docs.py`.
 

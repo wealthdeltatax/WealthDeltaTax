@@ -1,14 +1,14 @@
 """102r block A1: band reconciliation, composition by pack band, stage weights and person/household weights.
-Reads only held files (Rates Data/totalwealthtables.xlsx, docs/research/data/098r/*.csv, the pack wealth_distribution.csv).
-Run from anywhere: python -I docs/research/data/102r/derive_bands_stages.py
+Reads only held files (data/rates/totalwealthtables.xlsx, data/uk-wealth-tables/098r/*.csv, the pack wealth_distribution.csv).
+Run from anywhere: python -I research/scripts/derive_bands_stages.py
 Writes CSVs next to this script. Every output has a `tolerance_note` or check column; the script exits non-zero if a stated tolerance fails."""
 import csv, os, sys
 import openpyxl
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))
-D098 = os.path.join(ROOT, 'docs', 'research', 'data', '098r')
-XL = os.path.join(ROOT, 'Rates Data', 'totalwealthtables.xlsx')
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))   # the repository root (this script is in research/scripts/)
+HERE = os.path.join(ROOT, 'research', 'tables', '102r-parameter-map-stocks-and-cells')   # the 102r tables (was the folder of this script)
+D098 = os.path.join(ROOT, 'data', 'uk-wealth-tables', '098r')
+XL = os.path.join(ROOT, 'data/rates', 'totalwealthtables.xlsx')
 PACK = os.path.join(ROOT, 'model_v3', 'pack', 'GBR', 'wealth_distribution.csv')
 FAIL = []
 

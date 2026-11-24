@@ -1,6 +1,6 @@
 # Model v3: metric register (brief 011g, stage A)
 
-One definition per metric. Code and papers cite the ID. Status: **stage A passed, author confirmed all four items on 2026-11-16; the added metrics of briefs 014g to 016g were integrated on 2026-11-17** (sections after the path metrics). One open check remains: the Green Book schedule text for M3 (012r). Decisions behind this file: `docs/model-audit/synthesis.md` section 3.
+One definition per metric. Code and papers cite the ID. Status: **stage A passed, author confirmed all four items on 2026-11-16; the added metrics of briefs 014g to 016g were integrated on 2026-11-17** (sections after the path metrics). One open check remains: the Green Book schedule text for M3 (012r). Decisions behind this file: `research/model-audit/synthesis.md` section 3.
 
 Horizons (author, 2026-11-16: report short and long term effects). Every headline is reported for three windows, so the time profile is visible:
 - **Transition:** launch to the long-reserve fill (v2 median 7 years on UK windows), while taxes are retired in steps.

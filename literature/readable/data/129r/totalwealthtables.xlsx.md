@@ -1,4 +1,4 @@
-> **Reading copy** of `docs/research/data/129r/totalwealthtables.xlsx` (0.1 MB, 17 sheets). Route: markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
+> **Reading copy** of `data/rates/totalwealthtables.xlsx` (0.1 MB, 17 sheets). Route: markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
 > Generated, not edited. Quote numbers from the source file, not from this text.
 
 ## Cover Sheet

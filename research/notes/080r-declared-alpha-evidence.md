@@ -13,7 +13,7 @@ Accessed 2026-11-20. Brief `docs/briefs/080r-declared-alpha-evidence.md`; data g
 
 ## 1. Sources
 
-How read: **held** means checked in a PDF in `Research/` (`Fiscal Studies - 2021 - Advani - Behavioural responses to a wealth tax.pdf`, S13, printed page given). **Fetched** means read through the web fetch tool, which returns a summary; page numbers are the tool's, not checked by me. The shell cannot reach the sites, so primary PDFs could not be opened. Licences were not seen for any source: cite only, reproduce nothing.
+How read: **held** means checked in a PDF in `literature/` (`Fiscal Studies - 2021 - Advani - Behavioural responses to a wealth tax.pdf`, S13, printed page given). **Fetched** means read through the web fetch tool, which returns a summary; page numbers are the tool's, not checked by me. The shell cannot reach the sites, so primary PDFs could not be opened. Licences were not seen for any source: cite only, reproduce nothing.
 
 ### 1.1 Declared against true value, direct
 
@@ -108,4 +108,4 @@ Rows 4 and 5 measure a **rule** (statutory valuation), not misdeclaration. They 
 - Bergolo and others (Uruguay): https://docs.iza.org/dp12286.pdf
 - Kastoryano (Netherlands): https://docs.iza.org/dp17722.pdf
 - Durán-Cabré and others: https://ieb.ub.edu/wp-content/uploads/2019/05/2019-IEB-WorkingPaper-04.pdf and https://ieb.ub.edu/publication/2015-15-wealth-tax-enforcement-the-role-of-tax-and-institutional-design/
-- Held: `Research/Fiscal Studies - 2021 - Advani - Behavioural responses to a wealth tax.pdf`
+- Held: `literature/Fiscal Studies - 2021 - Advani - Behavioural responses to a wealth tax.pdf`

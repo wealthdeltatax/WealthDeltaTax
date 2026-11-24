@@ -130,7 +130,7 @@ Stated against the papers: `site/pages/Project-Map.md` sections VAL, RATES, SWEE
 
 ### 5.3 RATES: `rates_core1` (paper 8)
 
-Fund model (SSM, `run_ssm`, `_post_fill_step`) runs the cohort marginal revenue series year by year (N = 1 to 71) through the reserve rules, using `p['returns']`, the 1947 to 2019 UK return series (per `docs/model-lessons/mechanics.md`, uniform across the population, so it is the revenue floor; not re-derived here); the taxpayer cohort model (TCM, `run_tcm`, `_tcm_coverage_windows`) splits 10 wealth brackets by 4 growth tiers (`[[brackets]]`, `[[tiers]]`). `run_start_year_sweep` rotates the series over 73 start years. `main` writes `rates_output.json`.
+Fund model (SSM, `run_ssm`, `_post_fill_step`) runs the cohort marginal revenue series year by year (N = 1 to 71) through the reserve rules, using `p['returns']`, the 1947 to 2019 UK return series (per `research/model-lessons/mechanics.md`, uniform across the population, so it is the revenue floor; not re-derived here); the taxpayer cohort model (TCM, `run_tcm`, `_tcm_coverage_windows`) splits 10 wealth brackets by 4 growth tiers (`[[brackets]]`, `[[tiers]]`). `run_start_year_sweep` rotates the series over 73 start years. `main` writes `rates_output.json`.
 Checks [run] against RATES claims in the Project Map: `run_start_year_sweep` returned 73 rows in 9.5 s; `srr_fill_year` takes the single value 3 across all 73 start years; `lrr_fill_year` has min 7, median 13, max 29; 0 rows have an LRR failure year; `wdt_core._ssm_lrr_fill_year` gives 19 for the 2000 scenario. These agree with RATES §2 (SRR year 3 invariant, 100% success, LRR breakeven 7 to 29, median 13, 2000 breakeven 19).
 
 ### 5.4 SWEEPS: `wdt_analytics` and `sweeps_core` (paper 9)

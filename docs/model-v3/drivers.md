@@ -1,6 +1,6 @@
 # Model v3: driver table (brief 011g, stage A2, passed 2026-11-16)
 
-Purpose: say what moves the three headlines before the input register (012r) is written, so research effort goes to the inputs that matter. Pen and paper only: no code was run for this file. Numbers come from `docs/model-audit/synthesis.md` (v2 scratch runs, which rank and size but are not results) and are marked where they are not.
+Purpose: say what moves the three headlines before the input register (012r) is written, so research effort goes to the inputs that matter. Pen and paper only: no code was run for this file. Numbers come from `research/model-audit/synthesis.md` (v2 scratch runs, which rank and size but are not results) and are marked where they are not.
 
 ## 1. The revenue identity
 For the individual tax, year t, as a share of GDP:

@@ -1,4 +1,4 @@
-> **Reading copy** of `docs/research/data/129r/Before-the-fall.pdf` (1.5 MB, 61 pages). Route: markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
+> **Reading copy** of `literature/Before-the-fall.pdf` (1.5 MB, 61 pages). Route: markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
 > Generated, not edited. Quote numbers from the source file, not from this text.
 
 Before the fall

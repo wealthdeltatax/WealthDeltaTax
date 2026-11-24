@@ -1,4 +1,4 @@
-> **Reading copy** of `docs/research/data/129r/7215_was_userguide_round_7.pdf` (1.8 MB, 51 pages). Route: markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
+> **Reading copy** of `literature/7215_was_userguide_round_7.pdf` (1.8 MB, 51 pages). Route: markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
 > Generated, not edited. Quote numbers from the source file, not from this text.
 
 UK Data Archive Study Number 7215 - Wealth and Assets Survey

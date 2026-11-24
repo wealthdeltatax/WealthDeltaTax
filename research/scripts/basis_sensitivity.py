@@ -1,8 +1,8 @@
 """131r block 2: the pension valuation basis (IFS gilt discounting against ONS SCAPE) as a side table on the pack's starting stock.
 
-Run: python -I docs/research/data/131r/basis_sensitivity.py
-Reads (read-only): model_v3/pack/GBR/{wealth_distribution,decile_composition,band_composition}.csv, docs/research/data/102r/band_composition_by_pack_band.csv (exact 2020-22 sums, a rounding diagnostic),
-docs/research/data/131r/ifs_published.csv (block 1). Writes basis_sensitivity.csv (by decile, band and all) and basis_checks.csv. No pack, register or model file is written.
+Run: python -I research/scripts/basis_sensitivity.py
+Reads (read-only): model_v3/pack/GBR/{wealth_distribution,decile_composition,band_composition}.csv, research/tables/102r-parameter-map-stocks-and-cells/band_composition_by_pack_band.csv (exact 2020-22 sums, a rounding diagnostic),
+research/tables/131r-pension-basis-sensitivity/ifs_published.csv (block 1). Writes basis_sensitivity.csv (by decile, band and all) and basis_checks.csv. No pack, register or model file is written.
 
 Method (all money in the pack's nominal 2020-22 pounds; the report's 2026 prices enter only as ratios, so no price index is needed):
  1. ONS column = the pack: band pension stock = band wealth_total x band_composition pension share (as model_v3/core/cells.py builds it).
@@ -17,10 +17,10 @@ Method (all money in the pack's nominal 2020-22 pounds; the report's 2026 prices
 import csv, math, sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[4]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))                                                                # python -I does not add the folder; the model is imported read-only for check C1
 PACK = ROOT / 'model_v3/pack/GBR'
-HERE = Path(__file__).parent
+HERE = ROOT / 'research/tables/131r-pension-basis-sensitivity'   # the 131r tables (was the folder of this script)
 rd = lambda p: list(csv.DictReader(open(p, encoding='utf-8')))
 
 wd = rd(PACK / 'wealth_distribution.csv')
@@ -29,7 +29,7 @@ HH = {r['band']: float(r['value']) for r in wd if r['variable'] == 'households'}
 GDP = next(float(r['value']) for r in wd if r['variable'] == 'gdp')
 DC = {(r['decile'], r['class']): float(r['value']) for r in rd(PACK / 'decile_composition.csv')}
 BC = {(r['band'], r['class']): float(r['value']) for r in rd(PACK / 'band_composition.csv')}
-EX = {r['pack_band']: r for r in rd(ROOT / 'docs/research/data/102r/band_composition_by_pack_band.csv') if r['round'] == 'April 2020 to March 2022'}
+EX = {r['pack_band']: r for r in rd(ROOT / 'research/tables/102r-parameter-map-stocks-and-cells/band_composition_by_pack_band.csv') if r['round'] == 'April 2020 to March 2022'}
 IFS = {r['id']: r for r in rd(HERE / 'ifs_published.csv')}
 v = lambda i: float(IFS[i]['value'])
 

@@ -1,4 +1,4 @@
-"""Brief 125c block 1: write moments_map.csv, one row per row of docs/research/data/099r/moments.csv. Run from the repository root: python -I docs/model-v3/household-arm-validation/make_map.py
+"""Brief 125c block 1: write moments_map.csv, one row per row of research/tables/099r-held-research-moments/moments.csv. Run from the repository root: python -I docs/model-v3/household-arm-validation/make_map.py
 Status codes: computable (validate.py computes an analogue), definition differs (held, but the model has no analogue of that definition), not held (no data held; `needs` says what would resolve it)."""
 import csv
 from pathlib import Path

@@ -161,7 +161,7 @@ Nothing in these data is a universal depletion rate, a consumption rate by wealt
 
 ## 8. Follow-up after author upload (2026-11-21)
 
-The requested source files have now been committed under `docs/research/data/097r/` on the working branch. The upload is confirmed by the branch diff. The files present are:
+The requested source files have now been committed under `data/uk-wealth-tables/097r/` on the working branch. The upload is confirmed by the branch diff. The files present are:
 
 | Uploaded file | Source block | Inspection outcome in this environment |
 |---|---|---|
@@ -218,7 +218,7 @@ To complete the remaining work, the binary files need to be opened in a local ch
 
 ## 9. Binary extraction completed by the guru (2026-11-21)
 
-The agent's runtime could not decode the uploaded workbooks; the files are valid and open with openpyxl, pandas and odfpy. `docs/research/data/097r/extract_binaries.py` (committed, reproducible) now writes text from them. Sections 1 to 8 above are unchanged; where they say "not parseable" or "uploaded, not inspected", this section supersedes them.
+The agent's runtime could not decode the uploaded workbooks; the files are valid and open with openpyxl, pandas and odfpy. `research/scripts/extract_binaries.py` (committed, reproducible) now writes text from them. Sections 1 to 8 above are unchanged; where they say "not parseable" or "uploaded, not inspected", this section supersedes them.
 
 **What is now extracted**
 | Output | From | Content |
@@ -250,7 +250,7 @@ The agent's runtime could not decode the uploaded workbooks; the files are valid
 
 ## 10. UKEA and NBS household series extracted (2026-11-21, guru follow-up)
 
-`docs/research/data/097r/extract_ukea_nbs.py` (committed, reproducible) writes two tidy CSVs in the brief's column schema plus `esa_code`, `side` and `table`. All values are current-price £m, not seasonally adjusted, 1997 to 2025.
+`research/scripts/extract_ukea_nbs.py` (committed, reproducible) writes two tidy CSVs in the brief's column schema plus `esa_code`, `side` and `table`. All values are current-price £m, not seasonally adjusted, 1997 to 2025.
 
 | Output | From | Content |
 |---|---|---|

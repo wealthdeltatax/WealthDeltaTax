@@ -1,6 +1,6 @@
 # 093r: what I-D14c (3.5%) is, and what UK data bound for net depletion of existing wealth
 
-Accessed 2026-11-20. Brief `docs/briefs/093r-consumption-depletion-evidence.md`; hypothesis `docs/hypotheses/household-consumption-and-wealth-replenishment.md` (tests A and C). Nothing here edits the register, the model or the manifest, and no value is chosen for its fiscal effect.
+Accessed 2026-11-20. Brief `docs/briefs/093r-consumption-depletion-evidence.md`; hypothesis `research/hypotheses/household-consumption-and-wealth-replenishment.md` (tests A and C). Nothing here edits the register, the model or the manifest, and no value is chosen for its fiscal effect.
 
 **Question, restated.** (A) What is I-D14c, where did it come from, and does any source support it? (C) What do UK data bound for net depletion of existing household wealth by band (D4-5, D6-7, D8-9, D10), keeping saving, revaluation and transfers apart?
 

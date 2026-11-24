@@ -1,10 +1,10 @@
 """102r block B: capital transfers and deaths, audit of the existing register rows, cell coverage inputs.
-Run after derive_bands_stages.py and derive_debt_demography.py:  python -I docs/research/data/102r/derive_transfers_audit_coverage.py
+Run after derive_bands_stages.py and derive_debt_demography.py:  python -I research/scripts/derive_transfers_audit_coverage.py
 Reads held files and this folder's outputs; exits non-zero when a stated tolerance fails."""
 import csv, os, sys, collections
-HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))
-D098 = os.path.join(ROOT, 'docs', 'research', 'data', '098r'); D097 = os.path.join(ROOT, 'docs', 'research', 'data', '097r')
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))   # the repository root (this script is in research/scripts/)
+HERE = os.path.join(ROOT, 'research', 'tables', '102r-parameter-map-stocks-and-cells')   # the 102r tables (was the folder of this script)
+D098 = os.path.join(ROOT, 'data', 'uk-wealth-tables', '098r'); D097 = os.path.join(ROOT, 'data', 'uk-wealth-tables', '097r')
 FAIL = []
 def rd(p):
     with open(p, newline='') as fh: return list(csv.DictReader(fh))
@@ -96,7 +96,7 @@ A('I-W5e', 'pension share of total wealth R8', 35.4, round(pen_all / tot_all * 1
 A('I-W5c/d vs pack tail', 'WID top 1% (2024, adults) 21.3 and top 10% 57.1 in wealth_tail.csv against register I-W5c 14.4 to 23.0 and I-W5d 52.4 (2016-18)', '14.4-23.0 / 52.4-52.5', '21.3 / 57.1', '',
   'definitions differ', 'WID is a distributional-national-accounts series (adults, 2024); the register rows are WAS or national-accounts aggregate shares for 2016-18; not averaged')
 # mobility moments from 099r
-mom = {r['id']: r for r in rd(os.path.join(ROOT, 'docs', 'research', 'data', '099r', 'moments.csv'))}
+mom = {r['id']: r for r in rd(os.path.join(ROOT, 'research', 'tables', '099r-held-research-moments', 'moments.csv'))}
 for mid in ('AB-02', 'BF-04', 'BF-06', 'AB-04'): check(f'099r id {mid}', mid in mom)
 A('I-W4a/b', 'top decile stay and entrants from the ninth decile', '80 / 90', '80 / 90 (AB-02)', 0, 'supports',
   '099r AB-02: the paper dates the base 2014-16 on PDF 4 and 2016-18 on PDF 23; the register says 2014-16 and 2016-18 starting groups; two-year window; family wealth deciles')

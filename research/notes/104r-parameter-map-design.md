@@ -1,6 +1,6 @@
 # 104r: parameter map, design side: cell coverage, accounting conventions, public side
 
-Accessed 2026-11-21. Brief `docs/briefs/104r-parameter-map-design.md`. Closes deliverables C and D of the parameter map from the 103r register (`docs/research/data/103r/parameter_register.csv`). Proposals with a recommendation each; the author rules. No code, register, pack or manifest edit; no model run; no replacement for 3.5%.
+Accessed 2026-11-21. Brief `docs/briefs/104r-parameter-map-design.md`. Closes deliverables C and D of the parameter map from the 103r register (`research/tables/103r-parameter-map-assembly/parameter_register.csv`). Proposals with a recommendation each; the author rules. No code, register, pack or manifest edit; no model run; no replacement for 3.5%.
 
 Status: done.
 
@@ -15,7 +15,7 @@ Status: done.
 
 
 ## 2. Cell coverage matrix (item 1)
-Script `docs/research/data/104r/coverage_matrix.py` reads the 103r register and the 102r cell inputs and writes `cell_weights.csv`, `coverage_matrix.csv` (15 variable groups x 5 pack bands x 2 stages = 150 entries), `resolution_by_row.csv` (every 103r row with the finest resolution it supports) and `resolution_pivot.csv`. It fails if a cell or a register row is missing. The matrix classifies evidence; it holds no value for any cell.
+Script `research/scripts/coverage_matrix.py` reads the 103r register and the 102r cell inputs and writes `104r-parameter-map-design-cell-weights.csv`, `coverage_matrix.csv` (15 variable groups x 5 pack bands x 2 stages = 150 entries), `resolution_by_row.csv` (every 103r row with the finest resolution it supports) and `resolution_pivot.csv`. It fails if a cell or a register row is missing. The matrix classifies evidence; it holds no value for any cell.
 
 **Definitions.** Pack bands are the five used by 102r and the schedule: D1-3 (below the assessed threshold, one remainder line), D4-5, D6-7, D8-9, D10. Stage is the author's proxy, the person's economic status in the held WAS table (four groups: working, unemployed, inactive not retired, retired); two stages are used here, **retired** and **not retired** (the other three together), and the three non-retired groups are shown separately in the weight table. The household reference person's status is a data request (SUP-1), not a blocker.
 
@@ -79,7 +79,7 @@ Reading the pivot: **25 of the 73 rows are observed, derived or proxy at the agg
 - **Consequence for the model.** A cell model can be specified now as a **weighting and balance-sheet structure** with an aggregate flow account allocated by scenario. Treating its band by stage cells as separate behavioural units would give them flow parameters the data do not hold. The four illustrative cells of 096r (a working saver, a low-saving working cell, a retired cell, a high-wealth cell) remain illustrations.
 
 ## 3. Accounting conventions (item 2)
-Script `docs/research/data/104r/conventions_worked.py` (committed, reads the 103r worked cell and the 102r composition) writes the four tables used here and fails if an identity does not close. The author's rulings of 2026-11-21 are applied as ruled: pension accrual is one labelled aggregate scenario on the ONS basis; classes with no held return get a labelled scenario range per class; `O` is a reported residual; WAS is the stock base and national accounts are validation only; two deflators are kept; F-03 is labelled `T_C`; F-21 is a `CG` term; I-W3b is context only; physical wealth is a separate asset class inside the base. Nothing below is chosen for its effect on WDT revenue or closure.
+Script `research/scripts/conventions_worked.py` (committed, reads the 103r worked cell and the 102r composition) writes the four tables used here and fails if an identity does not close. The author's rulings of 2026-11-21 are applied as ruled: pension accrual is one labelled aggregate scenario on the ONS basis; classes with no held return get a labelled scenario range per class; `O` is a reported residual; WAS is the stock base and national accounts are validation only; two deflators are kept; F-03 is labelled `T_C`; F-21 is a `CG` term; I-W3b is context only; physical wealth is a separate asset class inside the base. Nothing below is chosen for its effect on WDT revenue or closure.
 
 **The account (094r B1, with the label fixes).** `dNW = S + CG + TR + O - T_WDT` in real pounds of the pack's CPI basis. Assets: housing `H`, equities `E`, bonds and cash `B`/`M`, **physical wealth `K` (contents and vehicles)**, pension asset `PA`. Liabilities `D`. `S = Y_L + Y_P - I_D - T_C - C` with `T_C` taxes net of benefits (so F-03 benefits sit in `T_C`, not `TR`) and `Y_P` including retained cash income and imputed rent. `CG` is holding gain on every asset and the real revaluation of nominal positions (so F-21, the real erosion of liabilities, is `CG`, not `O`), excluding cash income already in `S`.
 
@@ -205,7 +205,7 @@ Gap list only. Nothing here is code; each line names what would have to exist or
 **5.2 Pack inputs that do not exist.**
 | Input | Source | Status |
 |---|---|---|
-| Cell weights (five bands by two stages) | `cell_weights.csv` | built (102r and block 1); stage weights are a proxy (S06) |
+| Cell weights (five bands by two stages) | `104r-parameter-map-design-cell-weights.csv` | built (102r and block 1); stage weights are a proxy (S06) |
 | Composition by class including physical | `band_composition_by_pack_band.csv` | held at band; joint band by stage needs microdata |
 | Yield and holding gain by class | JST split (F-20) | held for property class; others scenario |
 | Scenario ranges: pension, physical, net financial return | register rows to add (F-12) | for the author to set; never a central value |
@@ -341,4 +341,4 @@ Two limits. First, the cells have fixed membership within a generation step (S26
 
 ## 8. Reproduction
 
-From the repo root, with `python -I`: `docs/research/data/104r/coverage_matrix.py` (section 2), `conventions_worked.py` (section 3; writes four CSVs), `public_side_identity.py` (section 4), `rulings_table.py` (section 6; writes `rulings_table.csv` and `.md`). Each prints one `ok:` line and exits 1 on failure. Inputs: `docs/research/data/103r/parameter_register.csv`, `worked_cell_d45.csv`, `cross_side_checks.csv`; `102r/band_composition_by_pack_band.csv`, `cell_coverage_inputs.csv`; `099r/moments.csv`. Check: `python -I pipeline/check_agent_docs.py`.
+From the repo root, with `python -I`: `research/scripts/coverage_matrix.py` (section 2), `conventions_worked.py` (section 3; writes four CSVs), `public_side_identity.py` (section 4), `rulings_table.py` (section 6; writes `rulings_table.csv` and `.md`). Each prints one `ok:` line and exits 1 on failure. Inputs: `research/tables/103r-parameter-map-assembly/parameter_register.csv`, `worked_cell_d45.csv`, `cross_side_checks.csv`; `102r/band_composition_by_pack_band.csv`, `cell_coverage_inputs.csv`; `099r/moments.csv`. Check: `python -I pipeline/check_agent_docs.py`.

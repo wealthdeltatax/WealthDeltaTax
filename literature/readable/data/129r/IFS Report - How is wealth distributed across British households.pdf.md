@@ -1,4 +1,4 @@
-> **Reading copy** of `docs/research/data/129r/IFS Report - How is wealth distributed across British households.pdf` (0.6 MB, 45 pages). Route: markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
+> **Reading copy** of `literature/IFS Report - How is wealth distributed across British households.pdf` (0.6 MB, 45 pages). Route: markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
 > Generated, not edited. Quote numbers from the source file, not from this text.
 
 lnstitute for Fiscal Studies

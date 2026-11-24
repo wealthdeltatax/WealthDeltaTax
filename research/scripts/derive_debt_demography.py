@@ -1,10 +1,10 @@
 """102r block A2: debt by age (ONS 3222), wealth composition by age of reference person (ONS 2813), national balance sheet
 comparison with WAS Round 8, and demographic hazards (ONS 2024-based GB projections, mortality).
-Run: python -I docs/research/data/102r/derive_debt_demography.py   (reads held files only; exits non-zero on a failed tolerance)"""
+Run: python -I research/scripts/derive_debt_demography.py   (reads held files only; exits non-zero on a failed tolerance)"""
 import csv, os, sys, collections
-HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))
-D098 = os.path.join(ROOT, 'docs', 'research', 'data', '098r'); D097 = os.path.join(ROOT, 'docs', 'research', 'data', '097r')
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))   # the repository root (this script is in research/scripts/)
+HERE = os.path.join(ROOT, 'research', 'tables', '102r-parameter-map-stocks-and-cells')   # the 102r tables (was the folder of this script)
+D098 = os.path.join(ROOT, 'data', 'uk-wealth-tables', '098r'); D097 = os.path.join(ROOT, 'data', 'uk-wealth-tables', '097r')
 FAIL = []
 def rd(p):
     with open(p, newline='') as fh: return list(csv.DictReader(fh))

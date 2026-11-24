@@ -1,6 +1,6 @@
 # 012r stage B1: derivations
 
-Method and code behind the computed rows in `docs/model-v3/inputs.md` (I-D4b, I-D4c, I-D9a to I-D9h, I-D1a to I-D1e). Inputs come from the held ONS Round 8 tables (`Rates Data/totalwealthtables.xlsx`, `financialwealthtables.xlsx`) and `model_v2/jst_r6.json`. Run each with `python3 -I`; `income_by_wealth.py` imports `wmin_share.py`, so keep them in one folder under the names given. Accessed 2026-11-16.
+Method and code behind the computed rows in `docs/model-v3/inputs.md` (I-D4b, I-D4c, I-D9a to I-D9h, I-D1a to I-D1e). Inputs come from the held ONS Round 8 tables (`data/rates/totalwealthtables.xlsx`, `financialwealthtables.xlsx`) and `model_v2/jst_r6.json`. Run each with `python3 -I`; `income_by_wealth.py` imports `wmin_share.py`, so keep them in one folder under the names given. Accessed 2026-11-16.
 
 ## 1. Share of adults and of wealth at or above W_min (`wmin_share.py`)
 - W_min is half the median house price: £300,000 (England, year to September 2025, ONS) gives £150,000; v2's £112,500 is shown for comparison.
@@ -12,7 +12,7 @@ Method and code behind the computed rows in `docs/model-v3/inputs.md` (I-D4b, I-
 
 ```python
 # Share of households / adults / wealth at or above W_min, WAS Round 8 (Apr 2020-Mar 2022), GB.
-# Inputs copied from Rates Data/totalwealthtables.xlsx Tables 2.2, 2.5, 2.9 (R8 column).
+# Inputs copied from data/rates/totalwealthtables.xlsx Tables 2.2, 2.5, 2.9 (R8 column).
 import math, bisect
 from statistics import NormalDist
 N = NormalDist()
@@ -166,7 +166,7 @@ Net financial wealth over total wealth for decile pairs, Table 2.2, Rounds 6, 7,
 
 ```python
 # Net financial wealth / total wealth by total-wealth decile band, WAS Rounds 6 (2016-18), 7 (2018-20), 8 (2020-22).
-# Source: Rates Data/totalwealthtables.xlsx Table 2.2 (total wealth block and net financial wealth block).
+# Source: data/rates/totalwealthtables.xlsx Table 2.2 (total wealth block and net financial wealth block).
 import openpyxl
 wb=openpyxl.load_workbook("/home/claude/wealthdeltatax/Rates Data/totalwealthtables.xlsx",read_only=True,data_only=True)
 rows=[[c for c in r if c is not None] for r in wb['Table 2.2'].iter_rows(values_only=True)]

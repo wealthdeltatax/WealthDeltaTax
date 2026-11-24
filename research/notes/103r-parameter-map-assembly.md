@@ -1,6 +1,6 @@
 # 103r: parameter map, assembly: one register, cross-side checks, unresolved data and proposed rulings
 
-Accessed 2026-11-21. Brief `docs/briefs/103r-parameter-map-assembly.md`. Closes deliverables A, B and E of the parameter map: merges 101r (flows) and 102r (stocks, cells, transitions, debt). Data and script: `docs/research/data/103r/`. No register, code, pack or manifest edit; no model run.
+Accessed 2026-11-21. Brief `docs/briefs/103r-parameter-map-assembly.md`. Closes deliverables A, B and E of the parameter map: merges 101r (flows) and 102r (stocks, cells, transitions, debt). Data and script: `research/tables/103r-parameter-map-assembly/` and `research/scripts/merge_and_check.py`. No register, code, pack or manifest edit; no model run.
 
 Status: complete (all sections written).
 
@@ -16,7 +16,7 @@ Status: complete (all sections written).
 
 
 ## 2. Merged register and crosswalk
-Files in `docs/research/data/103r/`, built by `merge_and_check.py` from the committed 101r and 102r CSVs (no source file is re-read):
+Files in `research/tables/103r-parameter-map-assembly/`, built by `merge_and_check.py` from the committed 101r and 102r CSVs (no source file is re-read):
 - `parameter_register.csv`: 73 rows = 36 flows (F-01 to F-36) + 33 stocks (S01 to S33) + 4 dictionary rows (D01 to D04). Columns: the common 14 of 101r and 102r, plus `class_norm`, `ruling_class`, `pension_basis` and `dictionary_terms`. 102r's rows carried a long definition in place of a name; the script gives each a short unique name (33 names, one per row).
 - `source_crosswalk.csv`: 25 sources (12 from 101r with prefix A-, 13 from 102r with prefix B-), same columns. A source used by both sides appears twice, once per side's reference (the ONS household series A-X01 to A-X05 and the NBS series B-X08), and the two rows are not merged because their exact references differ.
 - `dictionary_map.csv`: each 094r B2 term and the register rows that carry it.
@@ -189,7 +189,7 @@ Partition of the 26 rows by verdict: **supports or reproduces** 11 (I-D1a, I-D4a
 
 ## 7. Reproduction
 From the repository root with `python -I`, in this order (each reads committed files only):
-1. `docs/research/data/103r/merge_and_check.py` -> `parameter_register.csv` (73 rows), `source_crosswalk.csv` (25), `dictionary_map.csv`, `unresolved_data.csv`, `register_differences.csv`. Exits 1 on any structural failure (repeated name, unclassified row, unset row with a value, dictionary term without a row, named existing row without an entry, pension row without a basis, request or unset row left uncovered). Last run: 0 failures.
-2. `docs/research/data/103r/cross_side_checks.py` -> `cross_side_checks.csv` (14 checks), `worked_cell_d45.csv`. Exits 1 if a hard check (C01, C04, C05, C07) fails. Last run: 0 hard failures.
+1. `research/scripts/merge_and_check.py` -> `parameter_register.csv` (73 rows), `source_crosswalk.csv` (25), `dictionary_map.csv`, `unresolved_data.csv`, `register_differences.csv`. Exits 1 on any structural failure (repeated name, unclassified row, unset row with a value, dictionary term without a row, named existing row without an entry, pension row without a basis, request or unset row left uncovered). Last run: 0 failures.
+2. `research/scripts/cross_side_checks.py` -> `cross_side_checks.csv` (14 checks), `worked_cell_d45.csv`. Exits 1 if a hard check (C01, C04, C05, C07) fails. Last run: 0 hard failures.
 The 101r and 102r scripts that produce the inputs are listed in their notes; they were not re-run here except as their CSVs are read.
 

@@ -1,10 +1,11 @@
 """104r block 2: worked cases for the recommended accounting conventions.
-Reads: docs/research/data/103r/worked_cell_d45.csv, 102r/band_composition_by_pack_band.csv.
+Reads: research/tables/103r-parameter-map-assembly/worked_cell_d45.csv, 102r/band_composition_by_pack_band.csv.
 Writes next to this script: worked_d45_conventions.csv, worked_household_year.csv, worked_transfer_and_fund.csv, liquidity_by_band.csv.
 Everything labelled illustrative is one invented household in thousand pounds, not data and not a band. Exits 1 if an identity fails.
-Run from the repository root: python -I docs/research/data/104r/conventions_worked.py"""
+Run from the repository root: python -I research/scripts/conventions_worked.py"""
 import csv, sys
-R = 'docs/research/data/'; O = R + '104r/'
+DIRS = {'102r': 'research/tables/102r-parameter-map-stocks-and-cells/', '103r': 'research/tables/103r-parameter-map-assembly/', '104r': 'research/tables/104r-parameter-map-design/'}   # 160c: the tables moved here (docs/restructure map)
+O = DIRS['104r']
 bad = []
 def chk(name, a, b, tol=1e-9):
     if abs(a - b) > tol: bad.append(f'{name}: {a} vs {b}')
@@ -13,7 +14,7 @@ def out(name, header, rows):
         w = csv.writer(f); w.writerow(header); w.writerows(rows)
 
 # ---------- 1. D4-5 per 100 of cell wealth, property class, three treatments ----------
-d45 = {r['asset_class']: r for r in csv.DictReader(open(R + '103r/worked_cell_d45.csv'))}
+d45 = {r['asset_class']: r for r in csv.DictReader(open(DIRS['103r'] + 'worked_cell_d45.csv'))}
 p = d45['property']; wt = float(p['weight_pct_of_cell_wealth']); y = float(p['pounds_cash_yield_per_100']); g = float(p['pounds_holding_gain_per_100'])
 chk('yield = weight x 3.758%', y, round(wt * 0.03758, 3), 0.0006); chk('gain = weight x 1.6455%', g, round(wt * 0.016455, 3), 0.0006)
 rows = [
@@ -73,7 +74,7 @@ out('worked_transfer_and_fund.csv', ['event', 'unit', 'dNW_thousand_gbp', 'accou
 
 # ---------- 4. liquidity by pack band (observed composition, WAS Round 8) ----------
 R8 = 'April 2020 to March 2022'
-comp = [r for r in csv.DictReader(open(R + '102r/band_composition_by_pack_band.csv')) if r['round'] == R8]
+comp = [r for r in csv.DictReader(open(DIRS['102r'] + 'band_composition_by_pack_band.csv')) if r['round'] == R8]
 rows = []
 for r in comp:
     tot = float(r['total_gbp_bn']); fin = float(r['net_financial_gbp_bn']); pen = float(r['private_pension_gbp_bn']); prop = float(r['net_property_gbp_bn']); phy = float(r['physical_gbp_bn'])

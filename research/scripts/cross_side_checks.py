@@ -6,17 +6,17 @@ a difference and its class (definitional, coverage, timing, measurement). Tolera
 none was chosen with regard to WDT revenue. Run from the repository root with python -I.
 """
 import csv, re, sys
-R = 'docs/research/data/'
-O = R + '103r/'
+DIRS = {'101r': 'research/tables/101r-parameter-map-flows-and-returns/', '102r': 'research/tables/102r-parameter-map-stocks-and-cells/', '103r': 'research/tables/103r-parameter-map-assembly/'}   # 160c: the tables moved here (docs/restructure map)
+O = DIRS['103r']
 def rd(p): return list(csv.DictReader(open(p)))
 reg = {r['row_id']: r for r in rd(O + 'parameter_register.csv')}
 der = {}
-for r in rd(R + '101r/derived_ons_flows.csv'): der[(r['item'], int(r['year']))] = float(r['value'])
-jst = {(r['period_or_check'], r['item']): r for r in rd(R + '101r/jst_split_stats.csv')}
-nbs = rd(R + '102r/nbs_vs_was_r8.csv')
-ct = rd(R + '102r/capital_transfers_s14.csv')
-debt = {r['debt_type']: float(r['gb_total_gbp_bn']) for r in rd(R + '102r/debt_gb_totals.csv')}
-comp = {r['pack_band']: r for r in rd(R + '102r/band_composition_by_pack_band.csv') if r['round'].startswith('April 2020')}
+for r in rd(DIRS['101r'] + 'derived_ons_flows.csv'): der[(r['item'], int(r['year']))] = float(r['value'])
+jst = {(r['period_or_check'], r['item']): r for r in rd(DIRS['101r'] + 'jst_split_stats.csv')}
+nbs = rd(DIRS['102r'] + 'nbs_vs_was_r8.csv')
+ct = rd(DIRS['102r'] + 'capital_transfers_s14.csv')
+debt = {r['debt_type']: float(r['gb_total_gbp_bn']) for r in rd(DIRS['102r'] + 'debt_gb_totals.csv')}
+comp = {r['pack_band']: r for r in rd(DIRS['102r'] + 'band_composition_by_pack_band.csv') if r['round'].startswith('April 2020')}
 cpi = {int(r['year']): float(r['cpi']) for r in rd('model_v3/pack/GBR/returns.csv') if r['cpi']}
 inputs = open('docs/model-v3/inputs.md').read()
 out, fails = [], []

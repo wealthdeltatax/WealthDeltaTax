@@ -2,8 +2,8 @@
 
 - Task: Record the external analytical observation on household financial resilience and the WDT's wider philosophy.
 - Files changed:
-  - `docs/model-audit/external-observation-household-resilience.md`: new external observation distinguishing income, wealth and resilience; analysing the WDT's possible transmission channels and limitations; setting out empirical hypotheses and a research programme.
-  - `docs/model-audit/change-report-household-resilience.md`: this hand-off report.
+  - `research/model-audit/external-observation-household-resilience.md`: new external observation distinguishing income, wealth and resilience; analysing the WDT's possible transmission channels and limitations; setting out empirical hypotheses and a research programme.
+  - `research/model-audit/change-report-household-resilience.md`: this hand-off report.
 - What is different now: The repository records household resilience as a potential social and fiscal objective for evaluating the WDT, while explicitly distinguishing public fiscal resilience from direct household shock insurance. The note does not change the model, tax parameters or policy commitments.
 - New or changed interfaces: none.
 - Acceptance criteria:

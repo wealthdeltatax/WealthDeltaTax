@@ -44,7 +44,7 @@ def inputs():
     s = [float(r['value']) / 100 for r in rows_of('derived_ons_flows.csv', '101r') if r['item'] == 'ratio_nonpension_part_pct']
     sav = dict(min=min(s), median=st.median(s), max=max(s))
     # retired fraction: ETB FYE 2024 Tables 3a (non-retired) and 4a (retired), household-weighted mean gross income over the five quintiles
-    wb = openpyxl.load_workbook(ROOT / 'Research' / 'etbreferencetablesfye202324final.xlsx', read_only=True, data_only=True)
+    wb = openpyxl.load_workbook(ROOT / 'data' / 'uk-source-workbooks' / 'etbreferencetablesfye202324final.xlsx', read_only=True, data_only=True)
 
     def mean_gross(t):
         rows = [list(r) for r in wb[t].iter_rows(values_only=True)]

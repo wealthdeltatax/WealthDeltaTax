@@ -33,7 +33,7 @@ How 21.9% arises: the tail construction (073c) adds the missing-wealth share at 
 
 ## 3. The AST range (page, flag)
 
-`docs/research/data/129r/1-s2.0-S0014292125001266-main.pdf`, *Measuring top wealth shares in the UK*, European Economic Review 178 (2025) 105076; journal page = PDF page. Each figure is asserted on its page by the script. Rows in `tail_ast_evidence.csv`.
+`literature/literature-1-s2-0-s0014292125001266-main.pdf`, *Measuring top wealth shares in the UK*, European Economic Review 178 (2025) 105076; journal page = PDF page. Each figure is asserted on its page by the script. Rows in `tail_ast_evidence.csv`.
 
 | Figure | Value | Page | Flag | Limit |
 |---|---|---|---|---|
@@ -87,5 +87,5 @@ Why D10b only: the Rich List total is an observed figure (I-D4f), and D10b is th
 
 ## 6. Reproduction
 
-`python -I docs/research/data/146r/top_tail_mapping.py` from the repo root (needs `pdftotext`; reads the pack, the register and `runner/arm.line_state` read only). It asserts the AST figures on their pages, computes the pack's top-1% and top-decile shares (21.905%, 43.531%), builds the 12 scenario rows and checks that the total is held, the Rich List tiers and D10b stay positive, and the non-pension wealth of every reduced top line stays non-negative. It writes `tail_current.csv` (9 rows), `tail_ast_evidence.csv` (7) and `tail_scenarios.csv` (12) and prints one `ok:` line; it exits 1 on any failed check. Check: `python -I pipeline/check_agent_docs.py`.
+`python -I research/scripts/top_tail_mapping.py` from the repo root (needs `pdftotext`; reads the pack, the register and `runner/arm.line_state` read only). It asserts the AST figures on their pages, computes the pack's top-1% and top-decile shares (21.905%, 43.531%), builds the 12 scenario rows and checks that the total is held, the Rich List tiers and D10b stay positive, and the non-pension wealth of every reduced top line stays non-negative. It writes `tail_current.csv` (9 rows), `tail_ast_evidence.csv` (7) and `tail_scenarios.csv` (12) and prints one `ok:` line; it exits 1 on any failed check. Check: `python -I pipeline/check_agent_docs.py`.
 

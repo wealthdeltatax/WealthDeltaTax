@@ -1,15 +1,15 @@
 """098r: extract published WAS, ONS and ETB tables as tidy text. Run from anywhere: python -I extract_098r.py [REPO_ROOT]
 REPO_ROOT defaults to the repository containing this file. Reads (needs openpyxl):
-  Rates Data/totalwealthtables.xlsx, Rates Data/financialwealthtables.xlsx, Research/etbreferencetablesfye202324final.xlsx
-  and, from this folder, the ONS workbooks 2813, 3222, periodcohortqx2024basedgb.xlsx and gb1/gb_ppp_machine_readable.xlsx.
-Writes CSVs next to this script. Percentages are as published (rounded to whole numbers); nothing is smoothed or inferred
+  data/rates/totalwealthtables.xlsx, data/rates/financialwealthtables.xlsx, data/uk-source-workbooks/etbreferencetablesfye202324final.xlsx
+  and, from data/uk-wealth-tables/098r/, the ONS workbooks 2813, 3222, periodcohortqx2024basedgb.xlsx and gb1/gb_ppp_machine_readable.xlsx.
+Writes CSVs into data/uk-wealth-tables/098r/. Percentages are as published (rounded to whole numbers); nothing is smoothed or inferred
 except the columns whose names start with `derived_`, which are weighted total x rounded percentage and carry that rounding."""
 import csv, re, sys, warnings
 from pathlib import Path
 import openpyxl
 warnings.filterwarnings('ignore')
-HERE = Path(__file__).resolve().parent
-ROOT = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE.parents[3]
+HERE = Path(__file__).resolve().parents[2] / 'data' / 'uk-wealth-tables' / '098r'   # the 098r tables (was the folder of this script)
+ROOT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parents[2]
 RETR = '2026-11-21'
 SUP = {'[u]', '[x]', '[c]', '[w]', '..', '-', '[z]', ''}
 
@@ -98,8 +98,8 @@ PHEAD = ['table', 'round', 'group_kind', 'parent_group', 'group', 'level', 'weal
 
 
 def was():
-    tw = ROOT / 'Rates Data/totalwealthtables.xlsx'
-    fw = ROOT / 'Rates Data/financialwealthtables.xlsx'
+    tw = ROOT / 'data/rates/totalwealthtables.xlsx'
+    fw = ROOT / 'data/rates/financialwealthtables.xlsx'
     age = banded_persons(tw, 'Table 2.11', 'age', 'household total wealth')
     act = banded_persons(tw, 'Table 2.13', 'activity', 'household total wealth')
     write('was_persons_age_by_wealth_band.csv', PHEAD, age)
@@ -253,7 +253,7 @@ def ons_qx():
 
 # ---------- ETB: retired and non-retired individuals by equivalised disposable income decile ----------
 def etb():
-    p = ROOT / 'Research/etbreferencetablesfye202324final.xlsx'
+    p = ROOT / 'data/uk-source-workbooks/etbreferencetablesfye202324final.xlsx'
     out = []
     for sh, grp in (('Table 4b', 'retired individuals'), ('Table 3b', 'non-retired individuals')):
         rows = sheet(p, sh)

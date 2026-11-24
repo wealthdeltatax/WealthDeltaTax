@@ -1,6 +1,6 @@
 # Model v1: errors (brief 001c, stage B)
 
-Audit of `model_v1/` against `docs/model-lessons/drift-register.md`. Read-only: no model file was edited, no model `main` or `run_all` was run, nothing was written outside `docs/model-audit/`. Date 2026-11-15, repo at `0b4ead9` (main). Stage A note: `v1-inventory.md`.
+Audit of `model_v1/` against `research/model-lessons/drift-register.md`. Read-only: no model file was edited, no model `main` or `run_all` was run, nothing was written outside `research/model-audit/`. Date 2026-11-15, repo at `0b4ead9` (main). Stage A note: `v1-inventory.md`.
 
 **NEEDS THE AUTHOR (brief rule: "if the audit finds that the papers' published figures depend on a v1 error, stop and ask").** Item B1: the two C.1 denominators move a published boundary. The tolerant-zone upper bound is **α = 1.85** in the SWEEPS code path and **α = 1.80** in the VAL code path, at the same parameters (section 2, B1). Paper 5a defines C.1 with TW(α); `val_core` (paper 5 tables) divides by TW(1); `wdt_analytics.c1` (paper 9 figures) divides by TW(α). Decision wanted: which denominator is canonical. Stage C is not started.
 

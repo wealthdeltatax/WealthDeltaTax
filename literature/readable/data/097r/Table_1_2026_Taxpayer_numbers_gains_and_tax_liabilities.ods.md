@@ -1,4 +1,4 @@
-> **Reading copy** of `docs/research/data/097r/Table_1_2026_Taxpayer_numbers_gains_and_tax_liabilities.ods` (0.0 MB, 2 sheets). Route: soffice (ods to xlsx), then markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
+> **Reading copy** of `data/uk-wealth-tables/097r/Table_1_2026_Taxpayer_numbers_gains_and_tax_liabilities.ods` (0.0 MB, 2 sheets). Route: soffice (ods to xlsx), then markitdown; tool: markitdown 0.1.7; converted 2026-11-23.
 > Generated, not edited. Quote numbers from the source file, not from this text.
 
 ## Table_1

@@ -1,11 +1,11 @@
 """097r: extract what the author-uploaded binaries contain, as text. Run: python -I extract_binaries.py [NMG_DIR]
-Reads quarterlysectoraccounts2026q2.xlsx and the HMRC .ods files from this folder; the two Bank of England NMG
+Reads quarterlysectoraccounts2026q2.xlsx and the HMRC .ods files from data/uk-wealth-tables/097r/; the two Bank of England NMG
 workbooks (80 MB and 7 MB, kept out of git) from NMG_DIR (default /home/claude/held-097r). Needs openpyxl, pandas, odfpy."""
 import csv, re, sys, warnings
 from pathlib import Path
 import openpyxl, pandas as pd
 warnings.filterwarnings('ignore')
-HERE = Path(__file__).resolve().parent
+HERE = Path(__file__).resolve().parents[2] / 'data' / 'uk-wealth-tables' / '097r'   # the 097r tables (was the folder of this script)
 NMG = Path(sys.argv[1]) if len(sys.argv) > 1 else Path('/home/claude/held-097r')
 RETR = '2026-11-21'
 
