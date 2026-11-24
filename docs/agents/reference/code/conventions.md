@@ -1,6 +1,6 @@
 # WDT model conventions
 
-Target conventions for `model_v1/`. Decided by the user: layer order, cores never
+Target conventions for the legacy model (model_v1, removed from the tree: tag `legacy-models-2026-11`; kept as history). Decided by the user: layer order, cores never
 import each other, `wdt_analytics` is dissolved, JSON names are consistent, LDW is paper
 21, VAL/SWEEPS numbering is updated. Items marked **(proposal)** or **(open)** are my
 reading or an unsettled gap; confirm before enforcing. Where to move things:

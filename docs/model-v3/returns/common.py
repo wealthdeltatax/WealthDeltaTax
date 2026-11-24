@@ -1,10 +1,10 @@
-"""Shared loader for brief 036r. Reads model_v2/jst_r6.json (UK). Run scripts with python3 -I."""
+"""Shared loader for brief 036r. Reads data/jst/jst_r6.json (UK). Run scripts with python3 -I."""
 import json, os
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 def load():
-    d = json.load(open(os.path.join(ROOT, "model_v2", "jst_r6.json")))["countries"]["GBR"]
+    d = json.load(open(os.path.join(ROOT, "data", "jst", "jst_r6.json")))["countries"]["GBR"]
     yrs = d["years"]; S = d["series"]
     ser = lambda v: {y: x for y, x in zip(yrs, S[v]) if x is not None}
     return {v: ser(v) for v in ("capital_tr", "risky_tr", "safe_tr", "eq_tr", "housing_tr", "bond_tr", "bill_rate", "cpi")}

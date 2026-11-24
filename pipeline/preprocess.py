@@ -31,7 +31,6 @@ from transforms import process_file, strip_latex, convert_crossrefs
 from link_map import generate_link_map_html
 from tools import generate_tool_pages, _strip_html_shell
 
-_TOOL_RUNTIME_SUFFIXES = {".py", ".toml"}
 
 # Sentinel used in avoidance.md (and any future page) to mark where a
 # calculator fragment should be injected at build time.
@@ -155,41 +154,7 @@ def main() -> None:
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(p, destination)
 
-    # ── Copy model_v1/ runtime assets into _build/model/ (published URL stays /model/) ────────────────────
-    # HTML tool pages are NOT copied here — they are generated as .qmd files
-    # by tools.generate_tool_pages() (step 12 below).
-    # This loop copies only runtime files (.py, .toml) that Pyodide loads
-    # client-side, plus any other non-HTML files in model_v1/.
-    MODEL_DIR = cfg.ROOT_DIR / "model_v1"
-    if MODEL_DIR.exists():
-        for p in [f for f in MODEL_DIR.rglob("*") if f.is_file()]:
-            rel = p.relative_to(MODEL_DIR)
-            if rel.parts[0] == "OUTPUTS":
-                continue  # handled separately below
-            if p.suffix == ".html":
-                continue  # calc pages come from site/tools/ via tools.py
-            destination = build / "model" / rel
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(p, destination)
-            if p.suffix in _TOOL_RUNTIME_SUFFIXES:
-                print(f"  ✓ model_v1/{p.name} → _build/model/{p.name} (runtime)")
-    else:
-        print("  ! model_v1/ not found — skipping model asset copy")
-
-    # ── Copy image outputs into _build/figures/ ───────────────────────────
-    OUTPUTS_DIR = MODEL_DIR / "OUTPUTS"
-    if OUTPUTS_DIR.exists():
-        figures_dest = build / "figures"
-        figures_dest.mkdir(exist_ok=True)
-        for img in OUTPUTS_DIR.rglob("*"):
-            if img.is_file():
-                shutil.copy2(img, figures_dest / img.name)
-        print(
-            f"  ✓ Copied image outputs → _build/figures/ "
-            f"({sum(1 for _ in OUTPUTS_DIR.rglob('*') if _.is_file())} files)"
-        )
-    else:
-        print("  ! model_v1/OUTPUTS/ not found — skipping figure copy")
+    # The legacy model assets and figures (model_v1/) are removed from the tree (tag legacy-models-2026-11); nothing is copied into _build/model/ or _build/figures/ any more.
 
     # ── Auto-generated pages ──────────────────────────────────────────────
     generate_corpus_qmd(build / "corpus.qmd", site_cfg.link_map, site_cfg.paper_meta)

@@ -57,14 +57,8 @@ The site takes Markdown source files for 33 WDT papers (`registry/papers.yml` ha
 │   │   ├── apa.csl, svg-pan-zoom.min.js, geocities.html
 │   ├── diagrams/                (5 .mmd sources AND cached .png renders)
 │   └── tools/                   (taxpayer_calc.html, revenue_calc.html, ldw_calc.html)
-├── model_v1/                    (legacy v1 model, see "model_v1/" below; published under /model/)
-│   ├── WDT_Params.toml, jst_r6.json
-│   ├── wdt_core.py, rates_core1.py, ldw_core.py, val_core.py, sweeps_core.py, wfr_core.py
-│   ├── wdt_analytics.py, wdt_fmt.py, wdt_md.py, wdt_style.py   (helpers)
-│   ├── numbered output scripts (5_3 ... 19_3) and run_all.bat
-│   ├── test/, WDT_Model_Reference.md
-│   └── OUTPUTS/                 (GENERATED but tracked, 95 files; copied flat to _build/figures/)
-├── model_v2/, Rates Data/, Research/, Tools/   (not part of the site build; see OVERVIEW.md)
+├── (model_v1/ and model_v2/: removed from the tree, see tag `legacy-models-2026-11`; the site no longer publishes /model/)
+├── Rates Data/, Research/, Tools/   (not part of the site build; see OVERVIEW.md)
 ├── docs/                        (this file, agent guides, briefs, navigation_suggestions.md, archive/ ...)
 ├── .github/workflows/deploy.yml
 ├── .gitignore                   (_build/, _site/, .quarto/, __pycache__/, anchors.yml, pdfs/, print/, source/.obsidian/, check*.txt)
@@ -94,8 +88,7 @@ Run order, full: `pipeline/build_and_render.bat` runs `scrape_contents.py --writ
 3. `config.load(paper_meta=...)` builds the `SiteConfig`.
 4. Delete and recreate `_build/`.
 5. Copy `site/` into `_build/` (rules below), including the `WDT_CALC_INJECT` replacement in `.md` pages.
-6. Copy `model_v1/` runtime files (everything except `.html` and `OUTPUTS/`) to `_build/model/` (the published URL stays `/model/`).
-7. Copy `model_v1/OUTPUTS/**` flat into `_build/figures/`.
+6. (removed, brief 009c) The copy of the legacy `model_v1/` runtime files to `_build/model/` and of its `OUTPUTS/` figures to `_build/figures/`; the folder is gone (tag `legacy-models-2026-11`).
 8. `generate_corpus_qmd`, `generate_references_qmd`, `generate_flowcharts_qmd`, `generate_link_map_html` (writes `link-map.qmd`), `generate_tool_pages` (the calculator pages, step 12 in the code comments).
 9. `copy_machine_readable_assets` (includes `site-index.json`).
 10. `process_file()` on every paper.
@@ -236,8 +229,8 @@ Any fragment injected into a page outside `/model/` must use absolute fetch path
 
 ---
 
-## `model_v1/`
-Legacy v1 model (renamed from `model/` in brief 010; `model_new_2/` became `model_v2/`), being audited and replaced (briefs 001c, 011g); the site only consumes parts of it.
+## `model_v1/` (removed)
+The legacy v1 and v2 models were removed from the tree by brief 009c (tag `legacy-models-2026-11`; restore with `git checkout legacy-models-2026-11 -- model_v2`). The text of this section describes the removed v1 model and the site's old consumption of it; the calculators and figures that read it have no model assets until the papers are rewritten (R5).
 - **Runtime files loaded by Pyodide:** `WDT_Params.toml`, `wdt_core.py`, `ldw_core.py`, and `rates_model.py`. **`rates_model.py` no longer exists:** the rates code is now `rates_core1.py` (it holds `run_tcm` and `run_ssm`). See Issue 16.
 - **Output scripts** (`5_3` to `19_3`, `run_all.bat`) run locally and write to `model_v1/OUTPUTS/`, which is tracked in git (95 files) and copied flat into `_build/figures/`.
 - Everything except `.html` and `OUTPUTS/` is copied to `_build/model/` (including `test/`, `jst_r6.json`, `*.md`). Only four named files are in `_quarto.yml` `resources:`.
@@ -305,7 +298,7 @@ Found by reading code and content. Confirm on the live site before treating as f
 ## Adding a new calculator: checklist
 1. Create `site/tools/{name}_calc.html` as a clean body fragment; fetch runtime files by absolute `/model/` path.
 2. Add an entry to `TOOLS` in `pipeline/tools.py`.
-3. Put any `.py`/`.toml` runtime files in `model_v1/` and list them in `_quarto.yml` `resources:` as `model/<file>` (the published path).
+3. Put any `.py`/`.toml` runtime files in a model folder (none exists since `model_v1/` was removed; brief 009c) and list them in `_quarto.yml` `resources:` as `model/<file>` (the published path).
 4. Add the page to the Tools menu and to `calculator_index.md`.
 5. Add any CSS to `tools.css` (and a dark override in `dark.css` if it uses hardcoded light colours).
 

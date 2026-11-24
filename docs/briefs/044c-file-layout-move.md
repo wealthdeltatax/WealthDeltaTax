@@ -1,8 +1,8 @@
 # 044: Reorganise the repository into a vertical tree
 
-- **Status:** umbrella and R1 (inventory) of the reorganisation, combined with 009c on 2026-11-24 and split into briefs 009c, 160c to 164c; ready once 009c has merged; Agent 3
+- **Status:** umbrella and R1 (inventory) of the reorganisation, combined with 009c on 2026-11-24 and split into briefs 009c, 160c to 164c; ready now; Agent 2
 - **Author/date:** K. Ogata with the guru, 2026-11-18
-- **Depends on:** 009c merged (which needs 057c and 148c) and no other branch open at R1; the author's answers of 2026-11-24 (below). `docs/restructure/file-layout.md` is the 2026-11-18 design; where this brief differs, this brief wins
+- **Depends on:** nothing open (009c merged); the author's answers of 2026-11-24 (below). `docs/restructure/file-layout.md` is the 2026-11-18 design; where this brief differs, this brief wins
 - **Read:** `docs/restructure/file-layout.md` (the whole design); `.github/workflows/deploy.yml`; `site/_quarto.yml`; `docs/agents/code.md`.
 
 ## Goal
@@ -51,8 +51,8 @@ Sequential start, one parallel pair, sequential finish. Each stage is its own br
 
 | step | brief | agent | depends on | does |
 |---|---|---|---|---|
-| R0 | 009c | 3 | none (057c paused) | retire `model_v1`, `model_v2`, `audit_d0`; keep the three data files v3 reads |
-| R1 | 044c (this brief) | 3 | 009c | inventory only (below); the author and guru review it |
+| R0 | 009c (merged) | 2 | none | retire `model_v1`, `model_v2`, `audit_d0`; keep the three data files v3 reads |
+| R1 | 044c (this brief) | 2 | none (009c merged) | inventory only (below); the author and guru review it |
 | R2 | 160c | 4 | 044c R1 | `data/`, `literature/`, `research/`: datasets, PDFs, notes; duplicates removed |
 | R3 | 161c | 5 | 044c R1 | `website/`, `tests/website/`, `papers/legacy/` |
 | R4 | 162c | 6 | 160c, 161c | `model/`, model-side `data/` and registry, `tests/model/`, `model/tools`, `model/studies` |
