@@ -40,3 +40,10 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - 149c: the brief did not say what to do when the arm raises its I1 alarm in a cell (1, 3 and 5 cells at 6, 15, 30 phases) or when a 140c cell stops running (`tm90_k2_r025`). I recorded the cells per cell, left them out of the tables and merged nothing. A rebase onto main also needed an explicit `--force-with-lease=<branch>:<sha>` because the shallow clone has no remote ref.
 
 - 140c (market): the `check` command compares to stored 128c rows that 135c/138c regenerated, so it reports DIFFERENT at the short horizon on an unchanged model; the brief's acceptance names only the 124c reproduction, so I used that and noted the rest.
+
+### 2026-11-24 · 148c block 3 · code
+- Instruction: `docs/briefs/148c-...md` Block 3 ("five grid points ... ledger tie") and `run_grid.py` checks.
+- Happened: the brief names no grid points for the floor and withdrawal runs, and `run_grid.py`'s ledger check reads only the first chunk's main-spec run, which carries no lien at `min_mid`: the first floor 50 rerun printed write-off 0 and a tie identical to floor 0.
+- Cost: about 40 minutes and two reruns; I chose `min_mid` and `median_high` (the 127c lien points) and added `flow_ties.py`, which checks the tie on every `core_run`.
+- Suggest: briefs that rerun lien switches name the points and say the tie is checked on every core run, not only the main one.
+

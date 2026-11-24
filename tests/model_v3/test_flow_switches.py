@@ -56,10 +56,8 @@ def test_withdrawal_composes_with_the_lien_and_raises_the_capacity_to_pay():
     assert (run(dict(pension_withdrawal='high'), 1, rates=(0.5,), wd=[0.03, 0.03])[0].PL == 0).all()  # and a small tax is paid in full
 
 
-def test_the_untaxed_path_runs_with_the_withdrawal_on_before_any_run():
-    """`free` (the statics: M3, M12) calls `_year` on its own state before a run has set `self.q`; it must not need it (found in the block 3 smoke run)."""
-    g = np.full((3, 1), 0.01)
-    f = {k: fsw.hook(dict(pension_withdrawal='mid') if k else {}, arm.HouseholdHook)(dict(ST, wd=np.array([0.02, 0.0])) if k else ST, GAIN, 0.0).free(g) for k in (0, 1)}
+def test_the_untaxed_path_runs_with_the_withdrawal_on_before_any_run():             # `free` (M3, M12) calls `_year` before a run has set `self.q`; it must not need it (found in the block 3 smoke run)
+    f = {k: fsw.hook(dict(pension_withdrawal='mid') if k else {}, arm.HouseholdHook)(dict(ST, wd=np.array([0.02, 0.0])) if k else ST, GAIN, 0.0).free(np.full((3, 1), 0.01)) for k in (0, 1)}
     assert f[1].shape == f[0].shape and np.isfinite(f[1]).all() and np.allclose(f[1][:, 1], f[0][:, 1], atol=1e-12)           # line 1 does not draw: unchanged; line 0 draws a transfer inside total wealth
 
 
@@ -78,7 +76,6 @@ def test_the_heir_floor_leaves_a_share_of_the_pension_and_writes_the_rest_off():
 
 
 def test_through_core_run_off_is_byte_identical_and_on_keeps_the_identities(ctx, monkeypatch):
-    import json
     from dataclasses import replace
     from test_arm_switch import INP, PATHS, SPEC
     from model_v3.runner import runner as R
@@ -138,8 +135,7 @@ def test_gdp_paths_through_core_run_keep_the_identities_and_income_follows_the_p
     wdt = sum(raw.run[k] for k in ('tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D'))
     assert np.abs(sum(raw.run['ledger']['rc'].values()) - wdt).max() < 1e-9 and np.isfinite(ev['M1']['short']).any()
     assert not np.allclose(raw.run['gdp_index'][:, 0], raw.run['gdp_index'][:, 1]) and raw.run['gdp_index'][-1].std() > 0                          # the GDP index differs by path
-    from model_v3.runner import arm as ab
-    assert ab.withheld(raw.arm)['OW1'] == 'legacy_only'
+    assert arm.withheld(raw.arm)['OW1'] == 'legacy_only'
 
 
 def test_the_household_income_follows_each_paths_gdp_index():
@@ -149,7 +145,6 @@ def test_the_household_income_follows_each_paths_gdp_index():
     book = K.Book(4, {'A': np.full(4, 0.05)})                                                                 # lines of a path side by side: [l0 p0, l1 p0, l0 p1, l1 p1]
     for t in (1, 2, 3):
         K.step_year(book, lambda w: 0.0 * w, 1.0, np.zeros(4), 0.0, hook=h, t=t)
-        idx = np.array([1.0, 1.1, 1.32][t - 1]), np.array([1.0, 0.95, 0.95][t - 1])
-        want = 0.5 * np.array([1.0, 2.0, 1.0, 2.0]) * np.repeat([idx[0], idx[1]], 2)
+        want = 0.5 * np.array([1.0, 2.0, 1.0, 2.0]) * np.repeat([[1.0, 1.1, 1.32][t - 1], [1.0, 0.95, 0.95][t - 1]], 2)
         assert np.allclose(h.account()['S'], want, atol=1e-12) and np.abs(h.account()['residual']).max() < 1e-9
     assert np.isclose(h.gr, 0.0)                                                                              # the scalar growth is restored after each year
