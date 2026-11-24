@@ -35,10 +35,10 @@ Tail behaviour, withdrawal, GDP paths (148c), the register rows, any headline nu
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0; block 2 (`saving_shape`, 7 tests); block 1 (`top_tail` in `switches.py`, 8 tests in `test_top_tail.py`; the share target is of the arm's own opening stock, see the note)
-- **Next:** block 3 (rerun and note); cells that stop in M13 are reported as failures, no rule changed
+- **Done:** blocks 0 to 3 (`top_tail`, `saving_shape`, the grid rerun and the note in `household-arm-validation.md`)
+- **Next:** the author's ruling on the 30 cells that stop in M13 (below); not merged
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/147-stock-saving-switches origin/brief/147-stock-saving-switches`
-- **State:** blocks 0 to 2 pushed; 139c is on main (`switches.py` 102 of 200 lines, `arm.py` 330 of 330)
+- **State:** all pushed; `NEEDS THE AUTHOR`
 <!-- progress:end -->
 
 ## Author rulings, 2026-11-24 (after blocks 0 to 3)
