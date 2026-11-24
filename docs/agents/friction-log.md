@@ -52,3 +52,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Instruction: 009c Design 1 ("push the tag"); `docs/agents/code.md` does not say tag pushes are blocked.
 - Happened: `git push origin legacy-models-2026-11` fails with `RPC failed; HTTP 403` from the session proxy (branch pushes work).
 - Cost: the tag acceptance criterion cannot be met from the session; the author pushes it.
+
+### 2026-11-24 · 044c R1 round 2 · code
+- Instruction: `docs/restructure/move_tripwire.py` docstring and 044c "How each stage proves it broke nothing"; the shallow-clone warning is only in `docs/agents/code.md` for "pack work".
+- Happened: in a depth-50 clone the tripwire reports `FAIL: ['pack']` (`rebuild_is_byte_identical: false`, tree hash equal) because `build_gbr.py` reads `retrieved` dates from `git log --follow`.
+- Cost: one failed run and a history fetch (`git fetch --depth=5000 origin main brief/044-inventory` gave the full 809 commits); the rerun passed.
+- Suggest: say in the tripwire docstring and the stage briefs that it needs a full-history clone.

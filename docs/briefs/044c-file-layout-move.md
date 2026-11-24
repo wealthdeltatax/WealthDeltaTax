@@ -101,13 +101,13 @@ The R3 name exceptions gain: `index.md` and `index.qmd` (Quarto), the pack's `js
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** R1 (inventory and checks; nothing moved). `pipeline/path_refs.py` (rule table, dedupe, reference, depth and local-only finders, `--check`); `docs/restructure/file-layout-map.md` with the review table, `file-layout-map.csv` (1096 files), `file-layout-references.csv`, `file-layout-depth.csv`; `path_rewrite_proof.py`; `move_tripwire.py` with `move-tripwire-baseline.json` (taken at 817dccc, 79 s, holds on a rerun).
-- **Next:** the checkpoint: the guru and the author settle the review table (13 cases, 712 files are defaults) and the pinned-file question (case 13). Then 160c (R2).
-- **Decisions:** none taken beyond the guru defaults of this brief; each is flagged D in the map.
-- **Gotchas:** the proof was exercised on a scratch worktree where all 1096 files were moved by the map and the paths rewritten (613 files rewritten, no name collision, classification works); that worktree is deleted, the repo is untouched. Rewriting a path inside `registry/inputs.json`, `legacy_digest.json`, `pack/GBR/manifest.json` or `registry/internal.json` changes pinned bytes (case 13). The pack's `jst_r6.json` is a byte copy of `data/jst/jst_r6.json` but its manifest names it (case 9). `path_refs.py --check` lists every old path today; it is meant to run empty after R6 (archived briefs and decisions excepted). Longest new path 132 characters, so Windows is safe.
-- **Resume:** `python pipeline/path_refs.py --map` regenerates the four map files; a stage runs `path_rewrite_proof.py --base <pre-stage commit> --head HEAD` and `move_tripwire.py`.
-- **Not run:** the full `quick` byte comparison (057c is not merged); the local Quarto build (no move yet).
-- **State:** R1 done on `brief/044-inventory`; awaiting the checkpoint.
+- **Done:** R1 round 2: `RULES` in `pipeline/path_refs.py` follows the checkpoint rulings; the four map files are regenerated (1104 files, all flag S, 77 renames, 7 duplicates); the review table shows all 13 cases settled with the ruling stated. Earlier: R1 (inventory, `path_rewrite_proof.py`, `move_tripwire.py`, baseline taken at 817dccc).
+- **Next:** the guru merges R1; then 160c and 161c (parallel) read the regenerated map as their authority.
+- **Decisions:** the 097r, 098r extractor scripts go to `research/scripts/` with the other research scripts (the ruling names only 099r to 146r; flagged in case 3). The four `docs/restructure/` map files and `path_refs.py` go to `project/restructure/` and `project/tools/` (the two new CSVs were missing from the restructure rule and fell to `website/notes/`; fixed). `--check` allow-lists the four pinned lines by file, line and token, and matches the file at its old or new path.
+- **Gotchas:** the tripwire needs a full-history clone (shallow gives `FAIL pack`; logged in the friction log). `path_refs.py --check` still exits 1 because nothing has moved; it prints no pinned line. The hooks suite splits into `tests/website/hooks/` (5 tests, conftest, fixtures), `tests/project/tools/` (build_skills, check_agent_docs) and `tests/model/tools/` (run_suites); `run_suites.py` and the hooks conftest find suites and fixtures by path, so 162c and 164c rewrite them.
+- **Resume:** `python pipeline/path_refs.py --map`; a stage runs `python docs/restructure/path_rewrite_proof.py --base <pre-stage commit> --head HEAD` and `python docs/restructure/move_tripwire.py`.
+- **Not run:** the full `quick` byte comparison (057c not merged); the local Quarto build and the test suites (nothing moved, no code changed).
+- **State:** R1 round 2 done, awaiting merge (`brief/044-inventory`, pushed once).
 <!-- progress:end -->
 
 Change report
@@ -122,3 +122,16 @@ Change report
 - Verification: `check_agent_docs.py` clean; `compileall` clean; all 10 suites pass on the branch (model_v3 408 passed in 6:32; layout 40 skipped as before); tripwire PASS twice; proof run at HEAD (nothing moved) shows 1079 pending, 0 changed
 - Overview sections likely needing an update: none until a stage moves files (the guru updates the layout section at R6)
 - Commit / branch: see the pushed head of `brief/044-inventory`; not merged (R1 needs the author and guru review at the checkpoint)
+
+Change report (R1 round 2)
+- Task: 044c R1 round 2, regenerate the file-layout map to the author's checkpoint rulings (nothing moved)
+- Files changed: `pipeline/path_refs.py` (RULES, exempt names, pinned-line allow-list, search exclusions); `docs/restructure/file-layout-map.md`, `file-layout-map.csv`, `file-layout-references.csv`, `file-layout-depth.csv` (regenerated); this brief's progress block; `docs/agents/friction-log.md` (one entry)
+- What is different now: all 13 review cases settled. Research tables and scripts go to `research/tables/<NNNr-slug>/` and `research/scripts/`; `references.bib`, `internal.json`, `references.json` to `literature/`; `check_agent_docs`, `build_skills`, `path_refs` to `project/tools/`; guides to `project/agents/agent-*.md`; tests to `tests/model`, `tests/website`, `tests/project` (hooks suite split); `INDEX.md` to `readable-copies-index.md`; `index.md`, `index.qmd` and the pack's `jst_r6.json` exempt (the pack copy is no longer a duplicate: 7 duplicates, was 8). 1104 files, 77 renames, 2599 old-path lines in 333 files
+- New or changed interfaces: `path_refs.py --check` skips exactly the four pinned lines (`PINNED_ALLOWED`); the four generated map files are no longer searched for old paths (they held 5,600 of the earlier 8,208 hits)
+- Acceptance criteria: map covers every tracked file, no name collision outside the exemptions, four pinned lines allow-listed and no other pinned line named: met. Proof on a scratch worktree with the new map: PASS (477 moved, 620 path-only, 7 removed, 0 changed, 0 added, 0 name collisions); worktree deleted. Tripwire equals `move-tripwire-baseline.json` (80 s); baseline not retaken
+- Deviations from the brief: two small additions the rulings did not name: `file-layout-references.csv` and `file-layout-depth.csv` go to `project/restructure/`; the 097r and 098r extractor scripts go to `research/scripts/`
+- Risks / follow-ups: `run_suites.py` and the hooks conftest depend on the old suite paths (162c, 164c); `path_refs.py --check` exits 1 until the stages have moved the files; the tripwire needs full git history
+- Instruction friction: one entry in `docs/agents/friction-log.md` (tripwire fails in a shallow clone)
+- Verification: `check_agent_docs.py` clean; `path_refs.py --map` and `--check` run; proof PASS; tripwire PASS after deepening the clone; suites not run (no code or test changed)
+- Overview sections likely needing an update: none until a stage moves files
+- Commit / branch: `brief/044-inventory`, pushed once; not merged (the guru merges R1)
