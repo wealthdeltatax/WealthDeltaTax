@@ -230,8 +230,8 @@ git pull<button type="button" class="cp">Copy</button></pre>
     <p>A tree with local changes: <code>git status</code> first. Agents work on a branch named <code>brief/NNN-slug</code> (the brief's number, no letter) and merge their own finished brief into <code>main</code> by the auto-merge rule in <code>AGENTS.md</code>.</p>
 
     <h4>2. Check the papers</h4>
-<pre>python pipeline/check_wdt_format.py source/&lt;paper&gt;.md
-python pipeline/wdt_crosslinks.py check<button type="button" class="cp">Copy</button></pre>
+<pre>python website/build/check_wdt_format.py source/&lt;paper&gt;.md
+python website/build/wdt_crosslinks.py check<button type="button" class="cp">Copy</button></pre>
     <p>The crosslink check is expected to report errors until the paper rewrite lands (retired brief 007w).</p>
 
     <h4>3. Build the site</h4>

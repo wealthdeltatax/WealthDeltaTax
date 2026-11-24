@@ -21,21 +21,21 @@ Entry format, newest at the bottom:
 
 ### Revenue calculator fetches a file that no longer exists
 - Found by: brief 010s, 2026-11-15
-- Where: `site/tools/revenue_calc.html`, `site/_quarto.yml` (resources)
+- Where: `website/site/tools/revenue_calc.html`, `website/site/_quarto.yml` (resources)
 - Problem: both name `model/rates_model.py` (now `rates_core1.py`, and not published), so the calculator probably fails. Needs the author's decision (fix, replace or remove); architecture doc Issue 16.
 - Suggested lane: s
 - Status: parked (author, 2026-11-16): a new revenue calculator comes after model v3.
 
 ### Hardcoded Zenodo sandbox token
 - Found by: brief 004s, 2026-11-15
-- Where: `pipeline/zenodo_upload.py`; git history
+- Where: `website/build/zenodo_upload.py`; git history
 - Problem: a sandbox token is in the source (Issue 7). The author revokes it; then read it from an environment variable.
 - Suggested lane: s
 - Status: wontfix for now (author, 2026-11-16): Zenodo sandbox is a non-critical test environment.
 
 ### Site build leaves tracked files modified
 - Found by: brief 003s, 2026-11-15
-- Where: `registry/contents.yml`, `site/pages/glossary.md`, `registry/references.json`
+- Where: `website/registry/contents.yml`, `site/pages/glossary.md`, `registry/references.json`
 - Problem: the build rewrites them (561 + 244 changed lines in the first two) so it is not `git status` clean. Needs the author's decision on whether they stay tracked.
 - Suggested lane: s
 - Status: done 2026-11-16: `references.json` and `glossary.md` untracked and ignored; `contents.yml` stays tracked (hand-written titles; the build only syncs it).
@@ -49,7 +49,7 @@ Entry format, newest at the bottom:
 
 ### RATES 0.35% burden uses terminal wealth, M2 in metrics.md uses start-of-year wealth
 - Found by: research / brief 012r stage B4, 2026-11-17
-- Where: `source/8_Rates_and_Revenue.md` (burden table, "Revenue-weighted average 0.35%"), `source/8a_Rates_and_Revenue_Appendix.md` B.3.3, `docs/model-v3/metrics.md` M2
+- Where: `papers/legacy/8_Rates_and_Revenue.md` (burden table, "Revenue-weighted average 0.35%"), `papers/legacy/8a_Rates_and_Revenue_Appendix.md` B.3.3, `docs/model-v3/metrics.md` M2
 - Problem: the paper's 0.35% is tax over post-settlement terminal wealth (N = 30), weighted by terminal wealth. M2 is the tax-weighted mean of T_i/W_i with W_i start-of-year wealth. From the printed tables the same tax gives 0.39% on terminal wealth, about 1.2% on a crude path average and 4.1% on starting wealth (`docs/research/012r-b4-derivations.md`). The claim "structurally below the 1 to 2% of stock levies" holds only on the terminal denominator. The author has to choose M2's denominator, then writing may need to state it in RATES.
 - Suggested lane: g
 - Status: closed 2026-11-16 (author: start-of-year, `metrics.md` M2 denominator, `stage-c-decisions.md`), reconfirmed 2026-11-20; writing states the denominator in RATES when the papers are rewritten.
@@ -84,7 +84,7 @@ Entry format, newest at the bottom:
 
 ### Fixture fake numbers are positional, so inserting an output shifts pinned test values
 - Found by: guru / 079g, 2026-11-20
-- Where: `tests/data/make_fixture.py`; pins in `tests/hooks/test_hooks.py` and `tests/hooks/test_cli.py`
+- Where: `tests/data/make_fixture.py`; pins in `tests/website/hooks/test_hooks.py` and `tests/website/hooks/test_cli.py`
 - Problem: adding O2d to the manifest changed every later fixture number (CK1 P1 4.6 to 2.8, O3 1.00 to 1.30), failing five pinned hooks tests. Every manifest addition will repeat this.
 - Suggested lane: c (derive each fake number from a hash of the output id, cell key and field, so only new cells appear; re-pin once)
 - Status: done 2026-11-20 (091g `e64fd95`: numbers keyed by cell)

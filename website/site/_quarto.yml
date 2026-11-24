@@ -31,7 +31,7 @@ website:
     type: textbox
 
   # The live navbar below is replaced at cutover (brief B16) by the fragment generated from
-  # registry/pages.yml by pipeline/pages/nav.py (`python pipeline/pages/nav.py --write <file>`):
+  # website/registry/pages.yml by website/build/pages/nav.py (`python website/build/pages/nav.py --write <file>`):
   # five items (Questions, Data, Papers, Resources, About), no docked sidebar, and the search
   # block above moves with it (`search.location: navbar`). Until then nothing here changes.
   navbar:

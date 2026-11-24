@@ -1,8 +1,8 @@
 # Where each section of the 30 retired numbered papers went (brief 063s; site.md B10).
 #
-# Converted once from docs/restructure/ledger-sections.md by `python pipeline/pages/retired.py --convert`;
+# Converted once from docs/restructure/ledger-sections.md by `python website/build/pages/retired.py --convert`;
 # frozen: a later --convert refuses to overwrite this file. Edit by hand from here on.
-# Feeds the retired papers page (`python pipeline/pages/retired.py --out site/pages/retired.md`).
+# Feeds the retired papers page (`python website/build/pages/retired.py --out site/pages/retired.md`).
 #
 # Per paper: id (the pages.yml row), shortcode and title (as the paper had them), url (the old address),
 # successor (up to three page ids, descending by kept and merged words; frozen), sections.

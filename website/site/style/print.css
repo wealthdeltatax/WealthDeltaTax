@@ -1,7 +1,7 @@
 /* ============================================================
    WDT Print — style/print.css
    Print stylesheet for the restructured page types (see
-   site/includes/LAYOUT.md). A page prints alone: no navigation, no
+   website/site/includes/LAYOUT.md). A page prints alone: no navigation, no
    search, no jump bar, no Read next block, no footer menus; every
    details element is open so each Data block table prints; a print
    header and footer repeat on every sheet.

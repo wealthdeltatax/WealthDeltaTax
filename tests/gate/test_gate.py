@@ -122,14 +122,14 @@ def test_g4_input_not_in_register(cfg):
 
 def test_g5_pieces(cfg):
     assert cg.check_g5(cfg)[0]
-    (cfg.root / 'pipeline/hooks.py').unlink()
+    (cfg.root / 'website/build/hooks.py').unlink()
     ok, why = cg.check_g5(cfg)
     assert not ok and 'B3 not merged' in why
-    (cfg.root / 'pipeline/hooks.py').write_text('')
-    (cfg.root / 'tests/hooks/test_hooks.py').write_text('def test_bad():\n    assert False\n')
+    (cfg.root / 'website/build/hooks.py').write_text('')
+    (cfg.root / 'tests/website/hooks/test_hooks.py').write_text('def test_bad():\n    assert False\n')
     ok, why = cg.check_g5(cfg)
     assert not ok and 'pytest' in why
-    (cfg.root / 'tests/hooks/test_hooks.py').write_text('def test_ok():\n    pass\n')
+    (cfg.root / 'tests/website/hooks/test_hooks.py').write_text('def test_ok():\n    pass\n')
     assert cg.check_g5(replace(cfg, fixture_build=None))[0] is False
 
 

@@ -387,7 +387,7 @@ def build_glossary(papers_dir: str, contents_path: str, out_path: str):
 
 
 # ---------------------------------------------------------------------------
-# 6. Registry mode (brief 064s): registry/glossary.yml -> page + lookup file
+# 6. Registry mode (brief 064s): website/registry/glossary.yml -> page + lookup file
 # ---------------------------------------------------------------------------
 
 REG_FIELDS = ("term", "definition", "owner", "aliases", "source", "status")
@@ -612,8 +612,8 @@ def main():
     parser.add_argument("--papers",   help="Directory containing .md paper files")
     parser.add_argument("--contents", help="Path to contents.yml")
     parser.add_argument("--out",      default="glossary_auto.md", help="Output path")
-    parser.add_argument("--registry", help="Registry mode: path to registry/glossary.yml")
-    parser.add_argument("--pages",    help="Registry mode: path to registry/pages.yml")
+    parser.add_argument("--registry", help="Registry mode: path to website/registry/glossary.yml")
+    parser.add_argument("--pages",    help="Registry mode: path to website/registry/pages.yml")
     parser.add_argument("--lookup",   help="Registry mode: path of the lookup JSON to write")
     args = parser.parse_args()
     if args.registry:

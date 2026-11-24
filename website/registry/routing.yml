@@ -1,7 +1,7 @@
 # Reader routing (brief 061s; docs/restructure/site/nav.md section 4, site.md R7).
 #
 # The hub's routing cards and every spoke's Read next lines are generated from this file;
-# `pipeline/pages/routing.py` checks it against registry/pages.yml and the spokes' front matter.
+# `website/build/pages/routing.py` checks it against website/registry/pages.yml and the spokes' front matter.
 #
 #   id       unique, lowercase; used as an anchor
 #   reader   the label shown; the map's wording (docs/restructure/map.md section 3), verbatim

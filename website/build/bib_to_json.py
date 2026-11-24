@@ -3,7 +3,7 @@ bib_to_json.py — generate registry/references.json from registry/references.bi
                + registry/internal.json.
 
 Called automatically by preprocess.py at the top of every build.
-Can also be run standalone:  python pipeline/bib_to_json.py
+Can also be run standalone:  python website/build/bib_to_json.py
 
 Inputs:
     registry/references.bib     — canonical external bibliographic data
@@ -396,7 +396,7 @@ def merge(
         "meta": {
             "version":              "0.1",
             "date":                 today,
-            "generated_by":         "pipeline/bib_to_json.py",
+            "generated_by":         "website/build/bib_to_json.py",
             "source_bib":           "registry/references.bib",
             "source_internal":      "registry/internal.json",
             "total_external_refs":  len(ext_refs),

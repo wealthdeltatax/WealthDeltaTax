@@ -1,5 +1,5 @@
 """
-pipeline/link_map.py
+website/build/link_map.py
 
 Generates _build/link-map.qmd — the interactive WDT paper cross-reference
 graph, embedded within the Quarto site frame (navbar always present).
@@ -466,7 +466,7 @@ _BODY_TEMPLATE = r"""
 </div><!-- /#lm-wrap -->
 
 <script>
-// ── Injected at build time by pipeline/link_map.py ────────────────────────
+// ── Injected at build time by website/build/link_map.py ────────────────────────
 const LM_PAPER_DATA  = __PAPER_DATA__;
 const LM_GROUP_ORDER = __GROUP_ORDER__;
 

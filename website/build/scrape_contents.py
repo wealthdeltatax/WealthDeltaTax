@@ -1,7 +1,7 @@
 """
 scrape_contents.py — WDT pipeline utility
 ==========================================
-Scans source/*.md and keeps registry/contents.yml representative of the
+Scans source/*.md and keeps website/registry/contents.yml representative of the
 headings actually in the papers.
 
 contents.yml feeds build_anchors.py, which feeds every (PAPER §N) link target,
@@ -444,8 +444,8 @@ def apply_plans(results, plans, contents, dry_run):
     elif new_yaml != old_yaml:
         CONTENTS_YML.write_text(new_yaml, encoding="utf-8")
         print(f"\n✓  Written: {CONTENTS_YML}")
-        print("   Next: python pipeline/build_anchors.py, then "
-              "python pipeline/wdt_crosslinks.py check --baseline <base.json>")
+        print("   Next: python website/build/build_anchors.py, then "
+              "python website/build/wdt_crosslinks.py check --baseline <base.json>")
     else:
         blocked = [c for c, pl in plans.items() if pl.blocked]
         note = f" (except blocked: {', '.join(blocked)})" if blocked else ""
@@ -459,7 +459,7 @@ def write_suggest_map(path, plans):
     print(f"\nSuggested renumber map ({len(lines)} line(s)) -> {path}")
     if lines:
         print("   Title-match only. Review, then: "
-              "python pipeline/wdt_crosslinks.py remap --map <file>   (dry run first)")
+              "python website/build/wdt_crosslinks.py remap --map <file>   (dry run first)")
 
 # ---------------------------------------------------------------------------
 # Main
@@ -467,7 +467,7 @@ def write_suggest_map(path, plans):
 
 def main():
     ap = argparse.ArgumentParser(
-        description="Sync registry/contents.yml to the headings in source/*.md")
+        description="Sync website/registry/contents.yml to the headings in source/*.md")
     ap.add_argument("shortcodes", nargs="*", metavar="SHORTCODE",
                     help="Limit to these shortcodes. Default: all.")
     mode = ap.add_mutually_exclusive_group()

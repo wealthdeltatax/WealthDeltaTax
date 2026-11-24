@@ -2,7 +2,7 @@
 
 One place for the class, anchor and slot names that B6 (checker), B7 (navigation) and B15 (integration) rely on. Do not rename without updating all three.
 
-Styles: `site/style/spoke.css` (screen) and `site/style/print.css` (print). Neither is in the global `format.html.css` yet; a page that uses them lists them in its own `css:`. Partials are static HTML. An empty slot is an empty element: the builder fills it, CSS hides it while empty.
+Styles: `website/site/style/spoke.css` (screen) and `website/site/style/print.css` (print). Neither is in the global `format.html.css` yet; a page that uses them lists them in its own `css:`. Partials are static HTML. An empty slot is an empty element: the builder fills it, CSS hides it while empty.
 
 ## Placement
 
@@ -42,4 +42,4 @@ breadcrumb (`data-steps`), status-chip, prerequisites, more-detail, run-record, 
 
 - Fixtures set `toc: false`; hub pages must too, since the hub has its own contents list.
 - Print: chrome hidden, `details` forced open, fixed header/footer on every sheet.
-- Tests: `tests/layout/` (needs Quarto on PATH or `QUARTO_BIN`).
+- Tests: `tests/website/layout/` (needs Quarto on PATH or `QUARTO_BIN`).

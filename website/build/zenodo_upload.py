@@ -8,11 +8,11 @@ After a successful publish the script writes the real DOI back into the
 source file's zenodo_doi: frontmatter field so the site pipeline picks it up.
 
 Usage:
-    python pipeline/zenodo_upload.py --sandbox                    # test run (safe)
-    python pipeline/zenodo_upload.py --sandbox --dry-run          # validate only
-    python pipeline/zenodo_upload.py --publish                    # live — permanent
-    python pipeline/zenodo_upload.py --publish --only WP CORP CORP.A
-    python pipeline/zenodo_upload.py --publish --update-metadata   # cross-link pass
+    python website/build/zenodo_upload.py --sandbox                    # test run (safe)
+    python website/build/zenodo_upload.py --sandbox --dry-run          # validate only
+    python website/build/zenodo_upload.py --publish                    # live — permanent
+    python website/build/zenodo_upload.py --publish --only WP CORP CORP.A
+    python website/build/zenodo_upload.py --publish --update-metadata   # cross-link pass
 
 Typical workflow:
     1. python zenodo_upload.py --sandbox --dry-run    # check all PDFs/metadata found
@@ -970,7 +970,7 @@ def main() -> None:
 
     # ── Load papers registry ──────────────────────────────────────────────
     if not cfg.REGISTRY_YML.exists():
-        log.error(f"registry/papers.yml not found at {cfg.REGISTRY_YML}")
+        log.error(f"website/registry/papers.yml not found at {cfg.REGISTRY_YML}")
         sys.exit(1)
 
     with cfg.REGISTRY_YML.open(encoding="utf-8") as fh:

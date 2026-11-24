@@ -4,7 +4,7 @@
 #   term        display form; unique ignoring case and surrounding spaces.
 #   definition  one paragraph, plain markdown. A number from the model is a hook ({{o:ID}} or {{i:ID}}),
 #               never a typed figure (a digit sequence followed by % or pp fails validation).
-#   owner       id of the page that defines the term, from registry/pages.yml; type spoke, hub,
+#   owner       id of the page that defines the term, from website/registry/pages.yml; type spoke, hub,
 #               appendix or standalone.
 #   aliases     other accepted spellings (list, may be empty); no alias equals a term or another alias.
 #   source      file in this repository (path, then ", " and the section) the definition was copied from.
@@ -13,7 +13,7 @@
 #
 # Seeded rows are copied in the source document's own words; none is reworded. Owners follow the
 # element of the metric in docs/model-v3/outputs.yml or the ledger (docs/restructure/ledger-sections.md).
-# Built by: python pipeline/build_glossary.py --registry registry/glossary.yml --pages registry/pages.yml ...
+# Built by: python website/build/build_glossary.py --registry website/registry/glossary.yml --pages website/registry/pages.yml ...
 
 - term: Level 1 uncertainty
   definition: "For fixed parameters, the sampled P10, mean and P90 over return paths (R5)."

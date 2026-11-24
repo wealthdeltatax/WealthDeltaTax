@@ -90,7 +90,7 @@ v2 has no tracked outputs, so the map is by code. VAL: 25 table builders, 25 cha
 
 ## 5. Mechanism
 
-Stated against `site/pages/Project-Map.md` sections VAL and RATES.
+Stated against `website/site/pages/Project-Map.md` sections VAL and RATES.
 
 ### 5.1 Base: `wdt_core`, `wdt_kernel`, `wdt_jst`
 

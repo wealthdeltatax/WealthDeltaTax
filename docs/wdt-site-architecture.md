@@ -5,7 +5,7 @@
 **Root directory:** the repository root (`wealthdeltatax`; it was `wdt-site/` before the repo was reorganised)
 **Last synced:** 15 Nov 2026 (brief 004), against the repo files only. The live site was not fetched. Items under "Issues and recommended fixes" come from reading code and should be confirmed on the live site before acting. Issue statuses were re-checked against the files on this date unless marked "not rechecked".
 
-The site takes Markdown source files for 33 WDT papers (`registry/papers.yml` has 33 entries), preprocesses them into Quarto-ready `.qmd` files, and publishes the result as a static HTML site via GitHub Pages. The build is a chain of Python steps followed by a Quarto render. Two further Python pipelines (PDF build, Zenodo upload) share code with it but are not part of the site build.
+The site takes Markdown source files for 33 WDT papers (`website/registry/papers.yml` has 33 entries), preprocesses them into Quarto-ready `.qmd` files, and publishes the result as a static HTML site via GitHub Pages. The build is a chain of Python steps followed by a Quarto render. Two further Python pipelines (PDF build, Zenodo upload) share code with it but are not part of the site build.
 
 ---
 
@@ -17,7 +17,7 @@ The site takes Markdown source files for 33 WDT papers (`registry/papers.yml` ha
 ├── pipeline/
 │   ├── build.bat                (full pipeline minus quarto render)
 │   ├── build_and_render.bat     (full pipeline + quarto render)
-│   ├── scrape_contents.py       (headings from source .md -> registry/contents.yml)
+│   ├── scrape_contents.py       (headings from source .md -> website/registry/contents.yml)
 │   ├── build_glossary.py        (per-paper Glossary sections -> site/pages/glossary.md)
 │   ├── build_anchors.py         (contents.yml -> registry/anchors.yml)
 │   ├── bib_to_json.py           (references.bib + internal.json -> references.json; run by preprocess.py)
@@ -29,7 +29,7 @@ The site takes Markdown source files for 33 WDT papers (`registry/papers.yml` ha
 │   ├── tools.py                 (TOOLS registry, calculator .qmd wrappers)
 │   ├── pdf.py                   (standalone PDF build; not part of the site)
 │   ├── zenodo_upload.py         (bulk Zenodo upload; not part of the site)
-│   ├── wdt_crosslinks.py        (crosslink check, writes registry/crosslinks.json; writing role)
+│   ├── wdt_crosslinks.py        (crosslink check, writes website/registry/crosslinks.json; writing role)
 │   ├── check_wdt_format.py      (paper format checker; writing role)
 │   └── pages/
 │       ├── __init__.py
@@ -73,13 +73,13 @@ The site takes Markdown source files for 33 WDT papers (`registry/papers.yml` ha
 
 ```
 registry/references.bib + internal.json --(bib_to_json)--> registry/references.json
-source/*.md --(scrape_contents --write)--> registry/contents.yml
+source/*.md --(scrape_contents --write)--> website/registry/contents.yml
 contents.yml + source/*.md --(build_glossary)--> site/pages/glossary.md
 contents.yml --(build_anchors)--> registry/anchors.yml
 everything --(preprocess.py)--> _build/ --(quarto render _build)--> _build/_site/
 ```
 
-Run order, full: `pipeline/build_and_render.bat` runs `scrape_contents.py --write`, `build_glossary.py`, `build_anchors.py`, `preprocess.py`, then `quarto render _build`. `pipeline/build.bat` is the same without the render. CI runs the same sequence on Linux.
+Run order, full: `website/build/build_and_render.bat` runs `scrape_contents.py --write`, `build_glossary.py`, `build_anchors.py`, `preprocess.py`, then `quarto render _build`. `website/build/build.bat` is the same without the render. CI runs the same sequence on Linux.
 
 ### Actual order inside `preprocess.py main()`
 
@@ -110,7 +110,7 @@ Run order, full: `pipeline/build_and_render.bat` runs `scrape_contents.py --writ
 ## `pipeline/`
 
 ### `scrape_contents.py`
-Reads headings from `source/*.md` and merges new entries into `registry/contents.yml` (never overwrites existing keys). Modes: `--report` (default), `--write`, `--dry-run`. Shortcode comes from each file's front matter. Skips headings with `{.unnumbered}`/`{.unlisted}` and prose-only titles (abstract, glossary, internal bibliography, revision history, keywords, author disclosure). Appendix h1 with no letter prefix is flagged as an edge case, never written.
+Reads headings from `source/*.md` and merges new entries into `website/registry/contents.yml` (never overwrites existing keys). Modes: `--report` (default), `--write`, `--dry-run`. Shortcode comes from each file's front matter. Skips headings with `{.unnumbered}`/`{.unlisted}` and prose-only titles (abstract, glossary, internal bibliography, revision history, keywords, author disclosure). Appendix h1 with no letter prefix is flagged as an edge case, never written.
 
 ### `build_glossary.py`
 Extracts `**Term:** definition` pairs from each paper's `# Glossary` section only, deduplicates (longer definition wins), finds every section that mentions each term (exact, lower, sentence-case, acronym base, naive plural), and writes `site/pages/glossary.md` with raw-HTML letter anchors and a jump bar. Papers map to shortcodes by fuzzy match on the front-matter `title:`, not on `shortcode:`. Never edit `glossary.md`; edit the per-paper Glossary sections.
@@ -146,7 +146,7 @@ Known defects: Issue 6.
 `TOOLS` has three entries: `taxpayer_calc.html` to `model/taxpayer.qmd`, `revenue_calc.html` to `model/revenue.qmd`, `ldw_calc.html` to `model/ldw.qmd`. `_wrap_as_qmd` writes front matter (`toc: false`) plus a `{=html}` block with `quarto-disable-processing=true`.
 
 ### `pdf.py` (separate pipeline)
-Per paper: strip LaTeX (keeping `\newpage`, `\tableofcontents`), fix image paths, extract Pattern-B figure captions, convert crossrefs, convert internal bibliography, inject front matter, strip Quarto blocks (rescuing figure divs), inject disclosure as plain italic, append `# References`. Renders with `pandoc --pdf-engine=lualatex --citeproc -f markdown-implicit_figures` using `print/template.tex`, `print/tabularx.lua`, `registry/references.bib`, `site/style/apa.csl`. Output `print/YYMMDD/The Wealth Delta Tax - {Group} - {Short Title}.pdf`. `SECTION_ORDER` here is a third copy of the paper grouping (see Group lists below). Windows-style `--resource-path` separator (`;`). Not run in CI.
+Per paper: strip LaTeX (keeping `\newpage`, `\tableofcontents`), fix image paths, extract Pattern-B figure captions, convert crossrefs, convert internal bibliography, inject front matter, strip Quarto blocks (rescuing figure divs), inject disclosure as plain italic, append `# References`. Renders with `pandoc --pdf-engine=lualatex --citeproc -f markdown-implicit_figures` using `print/template.tex`, `print/tabularx.lua`, `registry/references.bib`, `website/site/style/apa.csl`. Output `print/YYMMDD/The Wealth Delta Tax - {Group} - {Short Title}.pdf`. `SECTION_ORDER` here is a third copy of the paper grouping (see Group lists below). Windows-style `--resource-path` separator (`;`). Not run in CI.
 
 ### `zenodo_upload.py` (separate pipeline)
 Bulk upload of PDFs to Zenodo using `extract_paper_meta()`, abstracts from the `# Abstract` section, JEL subjects, plain-text references from `references.bib`, related identifiers (site URL + sibling DOIs). Modes: `--sandbox` or `--publish`, `--dry-run`, `--only`, `--update-metadata`. Writes `print/zenodo_dois.json` and writes `zenodo_doi:` back into each source file's front matter, which the site then uses for the Download PDF button, Cite panel and the DOI column on the Papers page. **Contains a hardcoded sandbox token default; see Issue 7.**
@@ -171,7 +171,7 @@ Copies `references.json`, `anchors.yml`, `contents.yml` (as `wdt-contents.yml`),
 | `anchors.yml` | `build_anchors.py` | Never edit; gitignored; regenerate after a fresh clone |
 | `papers.yml` | Hand | 33 entries; `source` is the exact filename (filename must stay lowercase for Linux CI) |
 | `internal.json` | Hand | Paper records, citations, flags. Currently **31 paper records: `FAL` and `POL.A` are missing** (Issue 6) |
-| `crosslinks.json` | `pipeline/wdt_crosslinks.py` | Never edit; writing-role output, not read by the site build |
+| `crosslinks.json` | `website/build/wdt_crosslinks.py` | Never edit; writing-role output, not read by the site build |
 | `references.bib` | Hand | External bibliography; also Quarto's `bibliography:` and the PDF/Zenodo pipelines |
 | `references.json` | `bib_to_json.py` | Never edit |
 
@@ -211,7 +211,7 @@ Copies `references.json`, `anchors.yml`, `contents.yml` (as `wdt-contents.yml`),
 - `dark.css`: **new.** Overrides under `body.quarto-dark` for every component; palette documented at the top.
 - `apa.csl`; `svg-pan-zoom.min.js` (probably unused since the PNG migration).
 
-### `site/style/geocities.html`
+### `website/site/style/geocities.html`
 Loaded globally by `include-in-header`. **Auto-initialises on DOMContentLoaded:** inserts a scrolling slogan banner after the navbar and a footer strip (`[Netscape badge] [webring] [counter]`) before the footer; also adds a click handler so a whole inline citation is clickable. Public API `WDTGeocities.inject(keys, target)`, `injectAll`, `html(key)` with keys `banner`, `counter`, `webring`, `netscape`, `contact`. `WEBRING_PAGES` (14 entries) and `BANNER_SLOGANS` are hand-maintained. Page-level `inject([...])` calls now duplicate the auto-init (Issue 6). This file **is** copied into `_build/style/` by the normal asset copy.
 
 ### `site/diagrams/`
@@ -238,7 +238,7 @@ The legacy v1 and v2 models were removed from the tree by brief 009c (tag `legac
 ---
 
 ## `.github/workflows/deploy.yml`
-Runs only on push to `main` and manual dispatch (never on branches). Python 3.11, Quarto, `pip install pyyaml bibtexparser==1.4.3`, install `mmdc` with a no-sandbox Puppeteer config, then `scrape_contents --write`, `build_glossary`, `build_anchors`, `preprocess`, `quarto render _build`, copy `_build/figures/.` into `_build/_site/figures/`, upload `_build/_site/`, deploy with `deploy-pages`. The old "Inspect build output" debug step was removed in brief 003. `pdf.py` and `zenodo_upload.py` are not run in CI. Note: `scrape_contents --write`, `build_glossary` and `preprocess` rewrite tracked files (`registry/contents.yml`, `site/pages/glossary.md`, `registry/references.json`), so a local build leaves `git status` dirty while the papers change.
+Runs only on push to `main` and manual dispatch (never on branches). Python 3.11, Quarto, `pip install pyyaml bibtexparser==1.4.3`, install `mmdc` with a no-sandbox Puppeteer config, then `scrape_contents --write`, `build_glossary`, `build_anchors`, `preprocess`, `quarto render _build`, copy `_build/figures/.` into `_build/_site/figures/`, upload `_build/_site/`, deploy with `deploy-pages`. The old "Inspect build output" debug step was removed in brief 003. `pdf.py` and `zenodo_upload.py` are not run in CI. Note: `scrape_contents --write`, `build_glossary` and `preprocess` rewrite tracked files (`website/registry/contents.yml`, `site/pages/glossary.md`, `registry/references.json`), so a local build leaves `git status` dirty while the papers change.
 
 ---
 
@@ -279,17 +279,17 @@ Found by reading code and content. Confirm on the live site before treating as f
 | 13 | Low | Probable dead CSS after the page rewrites: hero/diagram-placeholder/anchor-sentence/flow/reasons/skeptic-box, argument-spine/domain-header/paper-list/open-questions, `.wdt-faq-*`, `.avoid-intro`/`.strategy-*`/`.mechanic`/`.verdict-box`, `.wdt-marquee`, `.wdt-diagram-tabset`, `.wdt-tool-panel/inner/header`, `svg-pan-zoom.min.js` | `grep` the built HTML before deleting |
 | 14 | Low | `_ABBREV_TO_CANONICAL["BEHAVB"] = "BEHAVE.B"` is a typo; `internal_bibliography.md` description says `[BEHAVE.A]` (should be `BEHAV.A`) | Fix both |
 | 15 | Low | `build_and_render.bat` hardcodes `C:\Users\kyleo\...\Quarto\bin`; `zenodo_upload.py` opens its log in `print/` which must already exist (it is not in a fresh clone) | Parametrise or document; `mkdir` the directory |
-| 16 | High | **`rates_model.py` is gone** (now `model/rates_core1.py`), but `site/_quarto.yml` `resources:` lists `model/rates_model.py`, and `revenue_calc.html` fetches it and runs `from rates_model import run_tcm, run_ssm`. The National Revenue calculator therefore probably fails; confirm on the live site | Decide with the author: point the calculator and `resources:` at `rates_core1.py` (check its imports run under Pyodide) or restore a shim; outside brief 004 |
+| 16 | High | **`rates_model.py` is gone** (now `model/rates_core1.py`), but `website/site/_quarto.yml` `resources:` lists `model/rates_model.py`, and `revenue_calc.html` fetches it and runs `from rates_model import run_tcm, run_ssm`. The National Revenue calculator therefore probably fails; confirm on the live site | Decide with the author: point the calculator and `resources:` at `rates_core1.py` (check its imports run under Pyodide) or restore a shim; outside brief 004 |
 
 ---
 
 ## Adding a new paper: checklist
 1. Add the source `.md` with front matter (`shortcode`, `title`, `status`, `keywords`, optional `jel`, `zenodo_doi`) and a `### Revision History` table with at least one row.
-2. Add the entry to `registry/papers.yml`.
-3. `python pipeline/scrape_contents.py --dry-run`, then `--write`.
-4. `python pipeline/build_anchors.py`.
+2. Add the entry to `website/registry/papers.yml`.
+3. `python website/build/scrape_contents.py --dry-run`, then `--write`.
+4. `python website/build/build_anchors.py`.
 5. Add the paper record to `registry/internal.json` (`internal_papers`). **Required for the Link Map node.**
-6. Add to the sidebar in `site/_quarto.yml`; add to the Papers menu if it is a main paper.
+6. Add to the sidebar in `website/site/_quarto.yml`; add to the Papers menu if it is a main paper.
 7. Add to `SECTION_ORDER` (and relevant `READING_PATHS`) in `pages/corpus.py`.
 8. Add to `_GROUPS` in `link_map.py` and `SECTION_ORDER` in `pdf.py`.
 9. Update `research.md`, `Project-Map.md`, `internal_bibliography.md`, and the paper-count strings.
@@ -297,7 +297,7 @@ Found by reading code and content. Confirm on the live site before treating as f
 
 ## Adding a new calculator: checklist
 1. Create `site/tools/{name}_calc.html` as a clean body fragment; fetch runtime files by absolute `/model/` path.
-2. Add an entry to `TOOLS` in `pipeline/tools.py`.
+2. Add an entry to `TOOLS` in `website/build/tools.py`.
 3. Put any `.py`/`.toml` runtime files in a model folder (none exists since `model_v1/` was removed; brief 009c) and list them in `_quarto.yml` `resources:` as `model/<file>` (the published path).
 4. Add the page to the Tools menu and to `calculator_index.md`.
 5. Add any CSS to `tools.css` (and a dark override in `dark.css` if it uses hardcoded light colours).

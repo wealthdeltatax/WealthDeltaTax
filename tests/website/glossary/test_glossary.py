@@ -1,4 +1,4 @@
-"""registry/glossary.yml and the registry mode of pipeline/build_glossary.py (brief 064s)."""
+"""website/registry/glossary.yml and the registry mode of website/build/build_glossary.py (brief 064s)."""
 import json
 import re
 import subprocess
@@ -30,14 +30,14 @@ def cli(*args):
 # ── the real registry ─────────────────────────────────────────────────────────
 
 def test_real_registry_validates_in_registry_mode(tmp_path):
-    done = cli("--registry", ROOT / "registry/glossary.yml", "--pages", ROOT / "registry/pages.yml",
+    done = cli("--registry", ROOT / "website/registry/glossary.yml", "--pages", ROOT / "website/registry/pages.yml",
                "--out", tmp_path / "g.md", "--lookup", tmp_path / "g.json")
     assert done.returncode == 0, done.stderr
 
 
 def test_real_registry_rows_are_seeded_with_existing_source_and_owner():
-    rows = bg.load_registry(ROOT / "registry/glossary.yml")
-    ids = {r["id"] for r in yaml.safe_load((ROOT / "registry/pages.yml").read_text(encoding="utf-8"))}
+    rows = bg.load_registry(ROOT / "website/registry/glossary.yml")
+    ids = {r["id"] for r in yaml.safe_load((ROOT / "website/registry/pages.yml").read_text(encoding="utf-8"))}
     assert len(rows) >= 8
     for r in rows:
         assert r["status"] == "seeded"
@@ -47,7 +47,7 @@ def test_real_registry_rows_are_seeded_with_existing_source_and_owner():
 
 def test_real_seed_definitions_are_verbatim_from_their_source():
     """Copy only: the definition text occurs in the cited file (the S_ rows use two copied sentences)."""
-    rows = bg.load_registry(ROOT / "registry/glossary.yml")
+    rows = bg.load_registry(ROOT / "website/registry/glossary.yml")
     for r in rows:
         text = " ".join((ROOT / r["source"].split(",")[0]).read_text(encoding="utf-8").split())
         text = re.sub(r"\s*\(author[^)]*\)", "", text)       # the source's dated author notes are not part of a definition
@@ -121,10 +121,10 @@ def test_lookup_shape_order_slugs_aliases(tmp_path):
 
 def test_lookup_of_real_registry_has_every_alias(tmp_path):
     out, look = tmp_path / "g.md", tmp_path / "g.json"
-    assert cli("--registry", ROOT / "registry/glossary.yml", "--pages", ROOT / "registry/pages.yml",
+    assert cli("--registry", ROOT / "website/registry/glossary.yml", "--pages", ROOT / "website/registry/pages.yml",
                "--out", out, "--lookup", look).returncode == 0
     data = json.loads(look.read_text(encoding="utf-8"))
-    rows = {r["term"]: r for r in bg.load_registry(ROOT / "registry/glossary.yml")}
+    rows = {r["term"]: r for r in bg.load_registry(ROOT / "website/registry/glossary.yml")}
     names = [t["term"].lower() for t in data["terms"]]
     assert names == sorted(names)
     for t in data["terms"]:
@@ -168,7 +168,7 @@ def test_used_in_only_with_contents(tmp_path):
 
 def test_legacy_mode_output_identical_to_unchanged_script(tmp_path):
     """Run the committed script and the version at HEAD~ of the brief's base on the same inputs."""
-    base = subprocess.run(["git", "show", "origin/main:pipeline/build_glossary.py"], cwd=ROOT,
+    base = subprocess.run(["git", "show", "origin/main:website/build/build_glossary.py"], cwd=ROOT,
                           capture_output=True, text=True)
     if base.returncode != 0:
         pytest.skip("origin/main not available")

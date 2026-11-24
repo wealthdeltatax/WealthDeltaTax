@@ -3,13 +3,13 @@
   type: legacy
   title: Old valuation paper
   url: /val.html
-  source: source/5_Valuing_Wealth.md
+  source: papers/legacy/5_Valuing_Wealth.md
   status: legacy
 - id: old-wp
   type: legacy
   title: Old white paper
   url: /wp.html
-  source: source/1_Wealth_Delta_Tax_Whitepaper.md
+  source: papers/legacy/1_Wealth_Delta_Tax_Whitepaper.md
   status: legacy
 - id: H
   type: hub

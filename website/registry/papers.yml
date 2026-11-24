@@ -1,5 +1,5 @@
 # Legacy source for the 33 papers (zenodo_upload.py, pdf.py, scrape_contents.py read it) until cutover.
-# The site build reads registry/pages.yml; tests/pages keeps the two in step. Do not add papers here: add a row to pages.yml.
+# The site build reads website/registry/pages.yml; tests/website/pages keeps the two in step. Do not add papers here: add a row to pages.yml.
 
 - source: 1_Wealth_Delta_Tax_Whitepaper.md
   output: wp.qmd

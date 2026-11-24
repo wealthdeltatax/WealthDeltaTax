@@ -14,7 +14,7 @@ Drafts, edits and formatting of the written work in `source/`, and the paper sec
 ## Rules
 - Draft already compressed and free of AI tells (both rule sets in one pass). Do not draft verbosely and plan to compress later.
 - Formatting an existing paper: determine main paper or appendix, report issues by category and severity, then fix in one pass or type by type as the author directs.
-- Run `python pipeline/check_wdt_format.py source/<paper>.md` and fix every finding, or confirm it is intentional.
+- Run `python website/build/check_wdt_format.py source/<paper>.md` and fix every finding, or confirm it is intentional.
 - After any section is added, removed, renumbered or retitled, follow the post-update crosslink workflow in the style guide. Never edit a section number inside a cross-reference by hand; renumbering goes through `remap` after the author reviews the dry run.
 - Never invent `zenodo_doi` values, facts, quotes or citations. Mark anything unverified. Remind the author of any `TBD` DOI.
 - Change only what was asked; list larger structural suggestions instead of applying them.

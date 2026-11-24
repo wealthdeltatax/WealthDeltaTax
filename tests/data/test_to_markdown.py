@@ -1,4 +1,4 @@
-"""Brief 130c: the reading copies of pipeline/to_markdown.py on small fixtures built in a temporary repo root."""
+"""Brief 130c: the reading copies of website/build/to_markdown.py on small fixtures built in a temporary repo root."""
 import importlib.util
 import json
 import shutil

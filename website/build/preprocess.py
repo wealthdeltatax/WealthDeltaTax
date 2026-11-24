@@ -52,13 +52,13 @@ def main() -> None:
     registry_path = cfg.PAGES_YML
     print(f"  Looking for pages.yml at: {registry_path.resolve()}")
     if not registry_path.exists():
-        print("ERROR: registry/pages.yml not found.")
+        print("ERROR: website/registry/pages.yml not found.")
         return
 
     pages = cfg.load_pages(registry_path)
     errors = cfg.validate_pages(pages)
     if errors:
-        print("ERROR: registry/pages.yml is invalid:")
+        print("ERROR: website/registry/pages.yml is invalid:")
         for e in errors:
             print(f"  ! {e}")
         raise SystemExit(1)

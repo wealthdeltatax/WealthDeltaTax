@@ -1,4 +1,4 @@
-"""registry/routing.yml and pipeline/pages/routing.py (brief 061s): the checks of nav.md 4.2."""
+"""website/registry/routing.yml and website/build/pages/routing.py (brief 061s): the checks of nav.md 4.2."""
 import pytest
 
 import config as cfg

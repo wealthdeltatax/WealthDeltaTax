@@ -2,13 +2,13 @@
 pages/routing.py: reader routing data, its checks, and the data the hub cards and the
 spoke Read next lines are drawn from (brief 061s; docs/restructure/site/nav.md section 4).
 
-Reads registry/routing.yml and registry/pages.yml, and, where a spoke file exists, the
+Reads website/registry/routing.yml and website/registry/pages.yml, and, where a spoke file exists, the
 front matter of source/spokes/<ID>.md (question, status, depends, Short answer).
 Writes nothing and emits no markup: output is plain data (dicts and Finding records);
 markup belongs to the page-type brief (B8).
 
 Not wired into preprocess.py (B15).  Run the checks with:
-    python pipeline/pages/routing.py
+    python website/build/pages/routing.py
 """
 
 from __future__ import annotations

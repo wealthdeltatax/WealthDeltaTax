@@ -14,7 +14,7 @@ Status: done (block 1 of brief 145r).
 
 ## 2. Sources read and not read
 
-Read (opened through `pipeline/to_markdown.py` or `pdftotext`; every BN236 figure is asserted on its PDF page by `withdrawal_range.py`):
+Read (opened through `website/build/to_markdown.py` or `pdftotext`; every BN236 figure is asserted on its PDF page by `withdrawal_range.py`):
 - IFS BN236, *The use of financial wealth in retirement* (Crawford, June 2018), `docs/research/data/129r/BN236.pdf`. Printed page = PDF page - 1 (checked on three pages). Pages cited are printed pages.
 - ONS WAS Round 8 (April 2020 to March 2022), Table_1 of `meanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferenceperson.xlsx`: mean private pension wealth by age of the household reference person.
 - Keyword search (drawdown, withdraw, decumulation) of the converted IFS "How is wealth distributed across British households" report and Resolution Foundation "Before the Fall": no withdrawal rate. The seven hits in the IFS report concern valuation and tax treatment of pensions in payment, not behaviour.

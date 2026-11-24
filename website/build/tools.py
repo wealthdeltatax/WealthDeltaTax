@@ -1,12 +1,12 @@
 """
-pipeline/tools.py — WDT interactive tool page generator.
+website/build/tools.py — WDT interactive tool page generator.
 
 Reads calculator fragment HTML files from site/tools/, wraps each one in a
 Quarto .qmd page (front matter + {=html} pass-through block), and writes the
 result to _build/model/.
 
 Called by preprocess.py as part of the main build.  Can also be run standalone
-for debugging: python pipeline/tools.py
+for debugging: python website/build/tools.py
 
 Calculator fragments (site/tools/*_calc.html) are pure HTML body content:
   - No <!DOCTYPE>, <html>, <head>, or <body> shell
@@ -36,8 +36,8 @@ from pathlib import Path
 # To add a new calculator:
 #   1. Create site/tools/{name}_calc.html as a clean body fragment
 #   2. Add an entry to TOOLS below
-#   3. Add the output page to the navbar/sidebar in site/_quarto.yml
-#   4. Link to it from site/pages/calculator_index.md
+#   3. Add the output page to the navbar/sidebar in website/site/_quarto.yml
+#   4. Link to it from website/site/pages/calculator_index.md
 
 TOOLS: list[dict] = [
     {
@@ -166,7 +166,7 @@ def generate_tool_pages(
 
 if __name__ == "__main__":
     import sys
-    # Resolve paths relative to this file (pipeline/tools.py → repo root)
+    # Resolve paths relative to this file (website/build/tools.py → repo root)
     pipeline_dir = Path(__file__).resolve().parent
     root_dir     = pipeline_dir.parent
     tools_src    = root_dir / "site" / "tools"

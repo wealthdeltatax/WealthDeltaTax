@@ -9,7 +9,7 @@ mmdc.  If the PNG is absent, mmdc renders it, saves it back into
 site/diagrams/ (so it can be committed), then copies it to _build/diagrams/.
 
 To regenerate a diagram locally: delete its PNG from site/diagrams/ and run
-`python pipeline/diagrams.py` (or the full build).  Commit the new PNG to
+`python website/build/diagrams.py` (or the full build).  Commit the new PNG to
 deploy the update via CI.
 
 To add a diagram: add a .mmd to site/diagrams/ and an entry to DIAGRAMS.
@@ -91,7 +91,7 @@ def render_pngs(build: Path) -> None:
     and copies it to _build/diagrams/.
 
     To force a regeneration locally, delete the PNG from site/diagrams/
-    and run `python pipeline/diagrams.py` (or the full build).  Commit
+    and run `python website/build/diagrams.py` (or the full build).  Commit
     the updated PNG to deploy it.
 
     CI note: on a fresh clone no PNGs are committed yet, so mmdc runs for

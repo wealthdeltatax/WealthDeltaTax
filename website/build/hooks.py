@@ -1,8 +1,8 @@
 """Hook resolver: {{o:}} {{i:}} {{ref:}} {{lit:}} -> numbers or placeholders (hooks.md 4; brief 060c).
 
-    python pipeline/hooks.py resolve <spoke.md> [--data F] [--fixture] [--out F]
-    python pipeline/hooks.py validate <data.json> [--fixture]
-    python pipeline/hooks.py report <spoke.md ...> [--data F] [--fixture] [--out _build/hooks-report.json]
+    python website/build/hooks.py resolve <spoke.md> [--data F] [--fixture] [--out F]
+    python website/build/hooks.py validate <data.json> [--fixture]
+    python website/build/hooks.py report <spoke.md ...> [--data F] [--fixture] [--out _build/hooks-report.json]
 
 WDT_MODE=draft|release (default draft). Loads validate_outputs.py and hook_format.py by path; runs under python -I.
 """
@@ -25,7 +25,7 @@ def _load(name):
 
 vo, hf = _load("validate_outputs"), _load("hook_format")
 PATHS = dict(manifest=ROOT / "docs/model-v3/outputs.yml", inputs=ROOT / "registry/inputs.json",
-             display=ROOT / "registry/inputs-display.yml", lit=ROOT / "registry/lit-figures.yml",
+             display=ROOT / "registry/inputs-display.yml", lit=ROOT / "website/registry/lit-figures.yml",
              bib=ROOT / "registry/references.bib")
 STATS = {"p10_mean_p90": ("p10", "mean", "p90", "range"), "point_and_range": ("point", "lo", "hi", "range"),
          "point": ("point",)}

@@ -1,5 +1,5 @@
 {
-  "meta_note": "Hand-maintained. Contains internal_papers, citations, and flags only. external_references are generated from references.bib by pipeline/bib_to_json.py — do not add external_references here.",
+  "meta_note": "Hand-maintained. Contains internal_papers, citations, and flags only. external_references are generated from references.bib by website/build/bib_to_json.py — do not add external_references here.",
   "alt_author_overrides": {
     "AdvaniEtAl2020": [
       "Wealth Tax Commission (2020) — institutional-author form used in RATES References section; refers to same report"

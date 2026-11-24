@@ -1,14 +1,14 @@
 """
 pages/retired.py: the retired papers page and its data (brief 063s; site.md B10).
 
-  python pipeline/pages/retired.py --convert            one-off: ledger-sections.md -> registry/retired.yml
-  python pipeline/pages/retired.py --out FILE           write the generated page (site/pages/retired.md)
+  python website/build/pages/retired.py --convert            one-off: ledger-sections.md -> website/registry/retired.yml
+  python website/build/pages/retired.py --out FILE           write the generated page (site/pages/retired.md)
 
 --convert reads docs/restructure/ledger-sections.md by paper heading and table row and writes
-registry/retired.yml, then the file is frozen: a later --convert refuses to overwrite a file whose
+website/registry/retired.yml, then the file is frozen: a later --convert refuses to overwrite a file whose
 `frozen` key is true.  After the first run the file is edited by hand.
 
---out reads registry/retired.yml and registry/pages.yml and writes the page: an explanatory
+--out reads website/registry/retired.yml and website/registry/pages.yml and writes the page: an explanatory
 paragraph, then one table per paper (old shortcode, title, old address, successor links) with
 that paper's section rows in a collapsible block.  Only section numbers and titles from the
 ledger appear; no text of any legacy paper is copied.  Not wired into the build (B15).
@@ -178,9 +178,9 @@ def convert(pages: list[dict[str, Any]], ledger: dict[str, list[dict[str, Any]]]
 _HEADER = """\
 # Where each section of the 30 retired numbered papers went (brief 063s; site.md B10).
 #
-# Converted once from docs/restructure/ledger-sections.md by `python pipeline/pages/retired.py --convert`;
+# Converted once from docs/restructure/ledger-sections.md by `python website/build/pages/retired.py --convert`;
 # frozen: a later --convert refuses to overwrite this file. Edit by hand from here on.
-# Feeds the retired papers page (`python pipeline/pages/retired.py --out site/pages/retired.md`).
+# Feeds the retired papers page (`python website/build/pages/retired.py --out site/pages/retired.md`).
 #
 # Per paper: id (the pages.yml row), shortcode and title (as the paper had them), url (the old address),
 # successor (up to three page ids, descending by kept and merged words; frozen), sections.
@@ -311,7 +311,7 @@ def write_page(out: Path, retired: Path = RETIRED_YML) -> Path:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Convert the ledger once, or write the retired papers page.")
-    ap.add_argument("--convert", action="store_true", help="write registry/retired.yml from the ledger (refuses if frozen)")
+    ap.add_argument("--convert", action="store_true", help="write website/registry/retired.yml from the ledger (refuses if frozen)")
     ap.add_argument("--out", metavar="FILE", help="write the generated page to FILE")
     args = ap.parse_args(argv)
     if not (args.convert or args.out):

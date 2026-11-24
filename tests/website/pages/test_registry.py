@@ -1,4 +1,4 @@
-"""registry/pages.yml and the loader (brief 029s)."""
+"""website/registry/pages.yml and the loader (brief 029s)."""
 import copy
 from collections import Counter
 

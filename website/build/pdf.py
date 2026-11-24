@@ -11,8 +11,8 @@ but applies a PDF-specific LaTeX strip that preserves \\newpage and
 sees the file.
 
 Usage:
-    python pipeline/pdf.py              # all papers
-    python pipeline/pdf.py WP MF        # specific shortcodes only
+    python website/build/pdf.py              # all papers
+    python website/build/pdf.py WP MF        # specific shortcodes only
 """
 
 from __future__ import annotations

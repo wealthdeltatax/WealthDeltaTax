@@ -3,7 +3,7 @@
    Layout and banners for the restructured page types: hub, spoke,
    parent-reached spoke, standalone paper, data-layer page, utility
    page. Pairs with site/includes/*.html; class names and anchors are
-   documented in site/includes/LAYOUT.md and are a contract with the
+   documented in website/site/includes/LAYOUT.md and are a contract with the
    navigation (B7), checker (B6) and integration (B15) briefs.
 
    Mobile first: the base rules are the phone layout; wider layouts

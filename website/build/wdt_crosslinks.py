@@ -10,16 +10,16 @@ and (c) internal.json.
   scan   write crosslinks.json (links, section index, inbound index, issues)
   check  print issues; exit 1 if any error (CI-friendly)
   query  who links to / from a section:  --to WFR§4.2   --from MF§3
-  contents  emit contents.yml-shaped data from the headings (diff against registry/contents.yml)
+  contents  emit contents.yml-shaped data from the headings (diff against website/registry/contents.yml)
   anchors   emit anchors from the headings (cross-check for build_anchors.py)
   remap  rewrite links after renumbering, from a map file (dry run unless --apply)
 
 Examples
-  python pipeline/wdt_crosslinks.py scan             # -> registry/crosslinks.json
-  python pipeline/wdt_crosslinks.py check
-  python pipeline/wdt_crosslinks.py query --to CLOSE§5
-  python pipeline/wdt_crosslinks.py remap --map renumber.yml          # preview
-  python pipeline/wdt_crosslinks.py remap --map renumber.yml --apply
+  python website/build/wdt_crosslinks.py scan             # -> website/registry/crosslinks.json
+  python website/build/wdt_crosslinks.py check
+  python website/build/wdt_crosslinks.py query --to CLOSE§5
+  python website/build/wdt_crosslinks.py remap --map renumber.yml          # preview
+  python website/build/wdt_crosslinks.py remap --map renumber.yml --apply
 
 Default paths (relative to wdt-site/): source/ (else /source), registry/anchors.yml,
 registry/internal.json; output registry/crosslinks.json. Each can be overridden by flag.
@@ -27,7 +27,7 @@ registry/internal.json; output registry/crosslinks.json. Each can be overridden 
 Drift tracking: scan/check compare the section index with a baseline (default: the
 previous --out file). Titles that changed under an existing number, or numbers that
 vanished, are reported against every link pointing at them. To compare against the
-last commit:  git show HEAD:registry/crosslinks.json > /tmp/base.json ; ... --baseline /tmp/base.json
+last commit:  git show HEAD:website/registry/crosslinks.json > /tmp/base.json ; ... --baseline /tmp/base.json
 """
 from __future__ import annotations
 
