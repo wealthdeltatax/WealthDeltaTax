@@ -13,7 +13,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent 3 | free | nothing queued (138c done) |
 | Agent 4 | free (150c merged) | free |
 | Agent 5 | free | 140c `market` case (now unblocked); 089c (OF1 as a map, CK1) now unblocked (139c, 150c merged) |
-| Agent 6 | free (139c merged) | 147c, 148c |
+| Agent 6 | 147c (blocks 0 to 3 reviewed; block 4: the zero-wealth floor) | 148c |
 
 Six agents only. Agents change skill with the brief. Parked: 089c (OF1, CK1) until 140c reports and you rule on the feasibility rule; 044c and 009c until the first official run is out. **Budget rule:** `model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 
@@ -22,6 +22,7 @@ Six agents only. Agents change skill with the brief. Parked: 089c (OF1, CK1) unt
 ## Recently done
 - 2026-11-23: speed-up plan ruled (provisional brief 151c after 044c: headline-only evaluation for the tornado and O1e roots, byte-identical; 152c to 154c follow from its measurement; Rust and Julia on hold). Estimated 3 to 5x on the roots and the tornado, not yet measured.
 - 2026-11-23: 138c merged: M2 on total wealth; `fund_return` axis (`safe` default, `market`); I1 tolerance 1e-7 (`median_high` now runs at 200 paths); lien the pension cannot cover written off in the ledger. P6 at year 100 is 22 to 78 (`safe`) against 646 to 896 (`market`): the whole gap to the legacy arm is the fund's return. 139c wiring and the 140c `market` case are unblocked.
+- 2026-11-24: 147c blocks 0 to 3 reviewed, not merged: `top_tail` and `saving_shape` switches in, 30 of 50 non-flat cells stop in M13 (D1, D2 go negative). Ruled: floor dissaving at zero wealth in `switches.py` (block 4). No setting lifts top-decile share to 0.50 (best 0.388 at year 100); reported as a finding, no more switches.
 - 2026-11-24: 057c rounds 4 and 5 reviewed, not merged: `quick` 44 min, a final-size grid point without O1e 94 min (serial). Ruled: failed grid points stay as `target_not_met`; O1e no root is `no_sign_change_0_15`; acceptance runs a reduced C3 (full C3 a later manual run).
 - 2026-11-23: medium-term order ruled: first official run, then 009c and 044c, then the speed-up work (baseline `quick` file taken first).
 - 2026-11-23: O1e scope ruled: central root only in the first official run, `--o1e-draws` to scale later; new `quick` run size for a fast baseline and speed-up turnarounds (both in 057c). Actions workflow with sharding comes after the baseline.

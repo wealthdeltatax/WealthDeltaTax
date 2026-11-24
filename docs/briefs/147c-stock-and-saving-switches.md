@@ -40,3 +40,9 @@ Tail behaviour, withdrawal, GDP paths (148c), the register rows, any headline nu
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/147-stock-saving-switches origin/brief/147-stock-saving-switches`
 - **State:** ready; not started (after 139c, 145r, 146r)
 <!-- progress:end -->
+
+## Author rulings, 2026-11-24 (after blocks 0 to 3)
+- **Floor at zero wealth.** Under `mild` and `steep`, a line's dissaving cannot take its wealth below zero (no borrowing): the switch limits the offset to what the line holds, as a stated constraint of the switch in the run label. The aggregate-preserving property then holds only where no line is floored, and the file and the note say so. The fix is in `switches.py` only (budget 200, 154 used); `arm.py` stays at 330; no kernel change (M13 is not touched). If the floor cannot be written inside `switches.py`, stop and report. **Block 4:** write it, add the test (a floored cell completes; flat unchanged; floored and unfloored agree where no line hits zero), rerun the 75-cell grid so all 75 cells run, replace the tables and the stop paragraph in `household-arm-validation.md`, say how many cells floor and how much saving is dropped, push, stop.
+- **Top-1% target:** the departure is accepted and labelled: targets are shares of the arm's own opening stock after the launch loss (21.63% off, total 12,697bn), so the moved amounts differ from 146r's 1,069bn and 770bn.
+- **Concentration:** reported as a finding, no more switches: no tested setting reaches the observed 0.50 (best year 100: 0.388, gap +0.112). The cause is not investigated here.
+- The 137c `min_mid` item stays open.
