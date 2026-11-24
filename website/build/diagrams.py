@@ -3,16 +3,16 @@ diagrams.py — Mermaid diagram rendering and flowcharts.qmd generation.
 
 Populates _build/diagrams/ with PNGs, then generates flowcharts.qmd.
 
-Cache-aware rendering: if a PNG already exists in site/diagrams/ alongside
+Cache-aware rendering: if a PNG already exists in website/site/diagrams/ alongside
 its .mmd source, it is copied directly to _build/diagrams/ without invoking
 mmdc.  If the PNG is absent, mmdc renders it, saves it back into
-site/diagrams/ (so it can be committed), then copies it to _build/diagrams/.
+website/site/diagrams/ (so it can be committed), then copies it to _build/diagrams/.
 
-To regenerate a diagram locally: delete its PNG from site/diagrams/ and run
+To regenerate a diagram locally: delete its PNG from website/site/diagrams/ and run
 `python website/build/diagrams.py` (or the full build).  Commit the new PNG to
 deploy the update via CI.
 
-To add a diagram: add a .mmd to site/diagrams/ and an entry to DIAGRAMS.
+To add a diagram: add a .mmd to website/site/diagrams/ and an entry to DIAGRAMS.
 """
 
 from __future__ import annotations
@@ -85,18 +85,18 @@ def render_pngs(build: Path) -> None:
     Populate _build/diagrams/ with PNGs for each diagram in DIAGRAMS.
 
     Cache-aware: if a PNG already exists alongside its .mmd source in
-    site/diagrams/, it is copied directly to _build/diagrams/ without
+    website/site/diagrams/, it is copied directly to _build/diagrams/ without
     invoking mmdc.  If the PNG is absent, mmdc renders it, saves it back
-    into site/diagrams/ (so it can be committed and reused next time),
+    into website/site/diagrams/ (so it can be committed and reused next time),
     and copies it to _build/diagrams/.
 
-    To force a regeneration locally, delete the PNG from site/diagrams/
+    To force a regeneration locally, delete the PNG from website/site/diagrams/
     and run `python website/build/diagrams.py` (or the full build).  Commit
     the updated PNG to deploy it.
 
     CI note: on a fresh clone no PNGs are committed yet, so mmdc runs for
     every missing diagram.  Once the locally-generated PNGs are committed
-    to site/diagrams/, CI switches to the fast copy path.
+    to website/site/diagrams/, CI switches to the fast copy path.
 
     PUPPETEER_CONFIG env var: in GitHub Actions this points at a JSON file
     that disables the Chrome sandbox (required on Linux runners).  mmdc does
@@ -116,23 +116,23 @@ def render_pngs(build: Path) -> None:
             continue
 
         png_name   = Path(filename).with_suffix(".png").name
-        cached_png = DIAGRAMS_DIR / png_name   # site/diagrams/<name>.png
+        cached_png = DIAGRAMS_DIR / png_name   # website/site/diagrams/<name>.png
         build_png  = out_dir / png_name         # _build/diagrams/<name>.png
 
-        # ── Fast path: PNG already exists in site/diagrams/ ──────────────
+        # ── Fast path: PNG already exists in website/site/diagrams/ ──────────────
         if cached_png.exists() and cached_png.stat().st_size > 0:
             shutil.copy2(cached_png, build_png)
             size = build_png.stat().st_size
             print(f"  ✓ {png_name} (cached, {size:,} bytes)")
             continue
 
-        # ── Slow path: render via mmdc, save back to site/diagrams/ ──────
+        # ── Slow path: render via mmdc, save back to website/site/diagrams/ ──────
         print(f"  … rendering {filename} via mmdc (no cached PNG found)")
 
         cmd = [
             "mmdc",
             "-i", str(src),
-            "-o", str(cached_png),   # write directly to site/diagrams/
+            "-o", str(cached_png),   # write directly to website/site/diagrams/
             "--width", "3600",
             "--backgroundColor", "white",
         ]

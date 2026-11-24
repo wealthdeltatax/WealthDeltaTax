@@ -136,7 +136,7 @@ def convert_crossrefs(
 
 
 # ── 3b. Spoke ids and cross-references (brief 029s) ───────────────────────────
-# Applies only to new hub and spoke source files (source/hub.md, source/spokes/*.md).
+# Applies only to new hub and spoke source files (papers/hub.md, papers/spokes/*.md).
 # Legacy papers never pass through these functions; process_file() does not call them.
 # Grammar (docs/restructure/site/ids.md rule 5, widened by site.md R1): fully bracketed,
 #   (H3)  (FISC)  (FISC §2)  (ADD §3)  (DL2)  (DL1-O1)
@@ -158,7 +158,7 @@ _ATTR_TAIL_RE = re.compile(r"\{([^}]*)\}\s*$")
 
 
 def is_spoke_source(path: Path, source_dir: Path) -> bool:
-    """True for source/hub.md and source/spokes/*.md, the only files the 3b functions may touch."""
+    """True for hub.md and spokes/*.md under the source root, the only files the 3b functions may touch."""
     try:
         rel = Path(path).resolve().relative_to(Path(source_dir).resolve())
     except ValueError:

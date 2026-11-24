@@ -1,14 +1,14 @@
 """
 website/build/tools.py — WDT interactive tool page generator.
 
-Reads calculator fragment HTML files from site/tools/, wraps each one in a
+Reads calculator fragment HTML files from website/site/tools/, wraps each one in a
 Quarto .qmd page (front matter + {=html} pass-through block), and writes the
 result to _build/model/.
 
 Called by preprocess.py as part of the main build.  Can also be run standalone
 for debugging: python website/build/tools.py
 
-Calculator fragments (site/tools/*_calc.html) are pure HTML body content:
+Calculator fragments (website/site/tools/*_calc.html) are pure HTML body content:
   - No <!DOCTYPE>, <html>, <head>, or <body> shell
   - No .wdt-tool-header (Quarto provides navbar and footer)
   - No .wdt-tool-panel / .wdt-tool-inner (Quarto provides the content area)
@@ -28,13 +28,13 @@ from pathlib import Path
 
 # ── Tool registry ─────────────────────────────────────────────────────────────
 # Each entry defines one calculator page.
-#   source  — filename in site/tools/ (relative, no directory prefix)
+#   source  — filename in website/site/tools/ (relative, no directory prefix)
 #   output  — filename stem for _build/model/*.qmd (Quarto renders to *.html)
 #   title   — Quarto page title (also used as the <h1> via Quarto's title block)
 #   description — Quarto page description (used in <meta> and OG tags)
 #
 # To add a new calculator:
-#   1. Create site/tools/{name}_calc.html as a clean body fragment
+#   1. Create website/site/tools/{name}_calc.html as a clean body fragment
 #   2. Add an entry to TOOLS below
 #   3. Add the output page to the navbar/sidebar in website/site/_quarto.yml
 #   4. Link to it from website/site/pages/calculator_index.md
@@ -141,7 +141,7 @@ def generate_tool_pages(
     Generate a .qmd page in build_model_dir for each entry in TOOLS.
 
     Args:
-        tools_src_dir:   Path to site/tools/ — where *_calc.html files live.
+        tools_src_dir:   Path to website/site/tools/ — where *_calc.html files live.
         build_model_dir: Path to _build/model/ — where *.qmd files are written.
                          Created if it does not exist.
     """
@@ -173,7 +173,7 @@ if __name__ == "__main__":
     build_model  = root_dir / "_build" / "model"
 
     if not tools_src.exists():
-        print(f"ERROR: site/tools/ not found at {tools_src}")
+        print(f"ERROR: website/site/tools/ not found at {tools_src}")
         sys.exit(1)
 
     generate_tool_pages(tools_src, build_model)

@@ -1,9 +1,9 @@
 # writing: how to work
 
-Drafts, edits, formats and compresses the papers in `source/`. The author's voice and the house style are fixed; Claude applies them.
+Drafts, edits, formats and compresses the papers in `papers/legacy/`. The author's voice and the house style are fixed; Claude applies them.
 
 ## Owns
-Drafts, edits and formatting of the written work in `source/`, and the paper sections of `docs/` when the guru asks. JEL front-matter blocks for the papers: `docs/wdt-jel-codes.md`.
+Drafts, edits and formatting of the written work in `papers/legacy/`, and the paper sections of `docs/` when the guru asks. JEL front-matter blocks for the papers: `docs/wdt-jel-codes.md`.
 
 ## First steps
 1. `AGENTS.md`, then the request. Confirm which paper (whitepaper or a named companion) and whether it is new or a revision.

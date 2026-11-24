@@ -3,7 +3,7 @@ pages/routing.py: reader routing data, its checks, and the data the hub cards an
 spoke Read next lines are drawn from (brief 061s; docs/restructure/site/nav.md section 4).
 
 Reads website/registry/routing.yml and website/registry/pages.yml, and, where a spoke file exists, the
-front matter of source/spokes/<ID>.md (question, status, depends, Short answer).
+front matter of papers/spokes/<ID>.md (question, status, depends, Short answer).
 Writes nothing and emits no markup: output is plain data (dicts and Finding records);
 markup belongs to the page-type brief (B8).
 
@@ -27,7 +27,7 @@ import yaml
 import config as cfg
 
 ROUTING_YML = cfg.ROOT_DIR / "website" / "registry" / "routing.yml"
-SPOKES_DIR = cfg.ROOT_DIR / "papers" / "legacy" / "spokes"
+SPOKES_DIR = cfg.ROOT_DIR / "papers" / "spokes"
 
 DATA_TOKEN = "data"
 MAX_PROMPT_WORDS = 20

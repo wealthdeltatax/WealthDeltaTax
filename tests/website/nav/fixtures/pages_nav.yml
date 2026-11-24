@@ -1,10 +1,10 @@
-# Fixture registry for tests/nav: four menu spokes, one appendix, a standalone, a pending page,
+# Fixture registry for tests/website/nav: four menu spokes, one appendix, a standalone, a pending page,
 # a calculator and the utility pages. Same shape as registry/pages.yml.
 - id: H
   type: hub
   title: Hub
   url: /index.html
-  source: source/hub.md
+  source: papers/hub.md
   status: draft
 - id: FAIR
   type: spoke

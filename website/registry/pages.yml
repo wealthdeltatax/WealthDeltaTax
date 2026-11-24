@@ -254,7 +254,7 @@
   type: hub
   title: The Wealth Delta Tax
   url: /index.html
-  source: source/hub.md
+  source: papers/hub.md
   status: draft
   aliases: [wp.html]
 
@@ -264,105 +264,105 @@
 - id: FAIR
   type: spoke
   url: /fair.html
-  source: source/spokes/FAIR.md
+  source: papers/spokes/FAIR.md
   label: Fairness
   order: 1
 
 - id: LIT
   type: spoke
   url: /lit.html
-  source: source/spokes/LIT.md
+  source: papers/spokes/LIT.md
   label: Prior work
   order: 2
 
 - id: MECH
   type: spoke
   url: /mech.html
-  source: source/spokes/MECH.md
+  source: papers/spokes/MECH.md
   label: How it works
   order: 3
 
 - id: VAL
   type: spoke
   url: /val.html
-  source: source/spokes/VAL.md
+  source: papers/spokes/VAL.md
   label: Valuation
   order: 4
 
 - id: FISC
   type: spoke
   url: /fisc.html
-  source: source/spokes/FISC.md
+  source: papers/spokes/FISC.md
   label: Rates and revenue
   order: 5
 
 - id: PAY
   type: spoke
   url: /pay.html
-  source: source/spokes/PAY.md
+  source: papers/spokes/PAY.md
   label: Who pays
   order: 6
 
 - id: FUND
   type: spoke
   url: /fund.html
-  source: source/spokes/FUND.md
+  source: papers/spokes/FUND.md
   label: The fund
   order: 7
 
 - id: CORP
   type: spoke
   url: /corp.html
-  source: source/spokes/CORP.md
+  source: papers/spokes/CORP.md
   label: Companies
   order: 8
 
 - id: GOV
   type: spoke
   url: /gov.html
-  source: source/spokes/GOV.md
+  source: papers/spokes/GOV.md
   label: Law and governance
   order: 9
 
 - id: POL
   type: spoke
   url: /pol.html
-  source: source/spokes/POL.md
+  source: papers/spokes/POL.md
   label: Politics and adoption
   order: 10
 
 - id: FIRST
   type: spoke
   url: /first.html
-  source: source/spokes/FIRST.md
+  source: papers/spokes/FIRST.md
   label: Direct effects
   order: 11
 
 - id: WIDER
   type: spoke
   url: /wider.html
-  source: source/spokes/WIDER.md
+  source: papers/spokes/WIDER.md
   label: Wider effects
   order: 12
 
 - id: UNCER
   type: spoke
   url: /uncer.html
-  source: source/spokes/UNCER.md
+  source: papers/spokes/UNCER.md
   label: Uncertainties
   order: 13
 
 - id: LIMIT
   type: spoke
   url: /limit.html
-  source: source/spokes/LIMIT.md
+  source: papers/spokes/LIMIT.md
   label: Limitations
   order: 14
 
 - id: FALS
   type: spoke
   url: /fals.html
-  source: source/spokes/FALS.md
+  source: papers/spokes/FALS.md
   label: Falsification
   order: 15
 
@@ -372,43 +372,43 @@
 - id: DECL
   type: appendix
   url: /decl.html
-  source: source/spokes/DECL.md
+  source: papers/spokes/DECL.md
   parent: VAL
 
 - id: BEHAV
   type: appendix
   url: /behav.html
-  source: source/spokes/BEHAV.md
+  source: papers/spokes/BEHAV.md
   parent: PAY
 
 - id: WELF
   type: appendix
   url: /welf.html
-  source: source/spokes/WELF.md
+  source: papers/spokes/WELF.md
   parent: PAY
 
 - id: ATTR
   type: appendix
   url: /attr.html
-  source: source/spokes/ATTR.md
+  source: papers/spokes/ATTR.md
   parent: CORP
 
 - id: ADOPT
   type: appendix
   url: /adopt.html
-  source: source/spokes/ADOPT.md
+  source: papers/spokes/ADOPT.md
   parent: POL
 
 - id: PILOT
   type: appendix
   url: /pilot.html
-  source: source/spokes/PILOT.md
+  source: papers/spokes/PILOT.md
   parent: POL
 
 - id: HYPO
   type: appendix
   url: /hypo.html
-  source: source/spokes/HYPO.md
+  source: papers/spokes/HYPO.md
   parent: FALS
 
 

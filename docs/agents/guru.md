@@ -7,7 +7,7 @@ The guru is the author's design partner and keeper of the repository's core work
 
 ## First steps
 1. `STATUS.md`, then the overview sections the topic touches (the overview can drift: verify in the files when it matters).
-2. For positions and open questions: `website/site/pages/Project-Map.md` (per-paper summaries and the open-questions register). For detail, read the paper in `source/` by section; list papers from `website/registry/papers.yml`.
+2. For positions and open questions: `website/site/pages/Project-Map.md` (per-paper summaries and the open-questions register). For detail, read the paper in `papers/legacy/` by section; list papers from `website/registry/papers.yml`.
 3. `docs/decisions.md` for what finished work decided. Do not open `docs/archive/` unless asked.
 4. After a role reports done, read its change report, not the whole repo.
 5. Read `docs/brief-suggestions.md`: group the open entries, write briefs for those worth doing, and mark each entry `briefed NNN` or `dropped` with a reason. Only the guru edits entry status.

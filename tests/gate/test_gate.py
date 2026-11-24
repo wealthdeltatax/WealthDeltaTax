@@ -32,7 +32,7 @@ def test_26_units():
 
 
 def test_page_without_outputs_escalates_when_it_cites_one(cfg):
-    (cfg.root / 'source/fair.md').write_text('---\nid: FAIR\noutputs: [O1]\n---\n', encoding='utf-8')
+    (cfg.root / 'papers/legacy/fair.md').write_text('---\nid: FAIR\noutputs: [O1]\n---\n', encoding='utf-8')
     assert cg.needs_of(cfg, 'FAIR', None) == cg.ALL5
 
 
@@ -109,13 +109,13 @@ def test_g4_null_and_missing_cells(cfg):
 
 
 def test_g4_r1_both_ways(cfg):
-    (cfg.root / 'source/fisc.md').write_text('---\nid: FISC\noutputs: [O1, OB1]\n---\n', encoding='utf-8')
+    (cfg.root / 'papers/legacy/fisc.md').write_text('---\nid: FISC\noutputs: [O1, OB1]\n---\n', encoding='utf-8')
     ok, why = cg.check_g4(cfg, 'FISC')
     assert not ok and 'O2 but front matter' in why and 'OB1 but the manifest' in why
 
 
 def test_g4_input_not_in_register(cfg):
-    (cfg.root / 'source/val.md').write_text('---\nid: VAL\ninputs: ["{{i:I-NOPE}}"]\n---\n', encoding='utf-8')
+    (cfg.root / 'papers/legacy/val.md').write_text('---\nid: VAL\ninputs: ["{{i:I-NOPE}}"]\n---\n', encoding='utf-8')
     ok, why = cg.check_g4(cfg, 'VAL')
     assert not ok and 'I-NOPE' in why
 

@@ -35,7 +35,7 @@ from tools import generate_tool_pages, _strip_html_shell
 # Sentinel used in avoidance.md (and any future page) to mark where a
 # calculator fragment should be injected at build time.
 # Format: <!-- WDT_CALC_INJECT: {filename} -->
-# Filename is resolved relative to site/tools/.
+# Filename is resolved relative to website/site/tools/.
 import re as _re
 _CALC_INJECT_RE = _re.compile(r'<!--\s*WDT_CALC_INJECT:\s*(\S+?)\s*-->')
 
@@ -128,7 +128,7 @@ def main() -> None:
                 # Inject calculator fragments at sentinel comments.
                 # <!-- WDT_CALC_INJECT: filename --> is replaced with a
                 # {=html} pass-through block containing the named fragment
-                # from site/tools/, shell-stripped by tools._strip_html_shell.
+                # from website/site/tools/, shell-stripped by tools._strip_html_shell.
                 tools_src = cfg.ROOT_DIR / "website" / "site" / "tools"
                 def _inject_calc(m: "_re.Match") -> str:
                     calc_name = m.group(1)
@@ -169,7 +169,7 @@ def main() -> None:
     if cfg.DIAGRAMS_DIR.exists():
         generate_flowcharts_qmd(build)
     else:
-        print("  ! site/diagrams/ not found — skipping flowcharts.qmd")
+        print("  ! website/site/diagrams/ not found — skipping flowcharts.qmd")
 
     generate_link_map_html(build / "link-map.html", site_cfg.refs_data, site_cfg.link_map)
 
@@ -178,7 +178,7 @@ def main() -> None:
     if tools_src.exists():
         generate_tool_pages(tools_src, build / "model")
     else:
-        print("  ! site/tools/ not found — skipping calculator page generation")
+        print("  ! website/site/tools/ not found — skipping calculator page generation")
 
     # ── Machine-readable static endpoints + site-index.json ──────────────
     copy_machine_readable_assets(

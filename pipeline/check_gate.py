@@ -51,9 +51,9 @@ BRIEF_FILES = {
     'B4': ['pipeline/data_block.py', 'pipeline/figure_data.py'],
     'B5': ['pipeline/figures'],
     'B6': ['pipeline/check_spokes.py', 'pipeline/check_spokes_lists.py'],
-    'B15': ['docs/wdt-site-architecture.md', 'site/pages/draft.qmd'],
+    'B15': ['docs/wdt-site-architecture.md', 'website/site/pages/draft.qmd'],
 }
-G5_TEST_DIRS = ['tests/data', 'tests/hooks', 'tests/data_block', 'tests/figures', 'tests/spokes']
+G5_TEST_DIRS = ['tests/data', 'tests/hooks', 'tests/website/hooks', 'tests/data_block', 'tests/figures', 'tests/spokes']
 
 
 @dataclass(frozen=True)
@@ -252,7 +252,7 @@ def page_front_matter(cfg: Config, page: str):
         for r in rows if isinstance(rows, list) else rows.values():
             if isinstance(r, dict) and str(r.get('id', '')).upper() == page and r.get('source'):
                 cands.append(cfg.root / r['source'])
-    cands += [cfg.root / 'source' / f'{page.lower()}.md', cfg.root / 'source' / f'{page}.md']
+    cands += [cfg.root / 'papers' / 'legacy' / f'{page.lower()}.md', cfg.root / 'papers' / 'legacy' / f'{page}.md']
     for c in cands:
         if c.is_file():
             m = re.match(r'---\s*\n(.*?)\n---\s*(\n|$)', c.read_text(encoding='utf-8'), re.S)
@@ -321,7 +321,7 @@ def check_g4(cfg: Config, page: str) -> Result:
     fm = page_front_matter(cfg, page)
     problems = []
     if fm is None:
-        problems.append('no page source file (website/registry/pages.yml row or source/<id>.md)')
+        problems.append('no page source file (website/registry/pages.yml row or papers/legacy/<id>.md)')
         fm = {}
     fm_out = {hook_id(x) for x in fm.get('outputs') or []}
     el_out = {o['id'] for o in outs}

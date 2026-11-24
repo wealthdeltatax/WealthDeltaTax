@@ -1,5 +1,5 @@
 """
-pipeline/to_markdown.py: convert a local PDF (or Office file) to Markdown for reading.
+website/build/to_markdown.py: convert a local PDF (or Office file) to Markdown for reading.
 
 For agents that need to read a binary file the Read tool handles badly (long, table-heavy, many pages).
 Uses Microsoft's markitdown (MIT). Local files only: no URLs, no plugins, no cloud OCR.
