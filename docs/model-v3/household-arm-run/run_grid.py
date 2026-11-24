@@ -23,7 +23,7 @@ sys.path[:0] = [str(ROOT), str(ROOT / 'docs' / 'model-v3' / 'household-arm-accou
 
 import account_table as A                                                      # noqa: E402  (setup and SPEC: the same builder and grid point)
 from model_v3.core import kernel as K, returns as rt                           # noqa: E402
-from model_v3.runner import arm as ab, runner as R                             # noqa: E402
+from model_v3.runner import arm as ab, flow_switches as fsw, runner as R       # noqa: E402
 
 POINTS = {'min_mid': ('min', 'mid'), 'median_mid': ('median', 'mid'), 'max_mid': ('max', 'mid'), 'median_low': ('median', 'low'), 'median_high': ('median', 'high')}
 SEED, PATHS, CHUNK = 1, 1000, 100
@@ -34,14 +34,18 @@ COLS = ('grid', 'label', 'id', 'schedule', 'horizon', 'by', 'line', 'unit', 'sum
 WITHHELD = 'withheld (legacy_only)'                                              # the marker a per-path household run writes for an output it cannot produce (135c)
 
 
+FLOW = ('pension_withdrawal', 'heir_floor', 'gdp_paths')                         # the 148c flow switches: an arm key is written only when set, so a run without them is as before
+FLOW_COLS = ('wo_sum', 'lien_bal_max')                                           # extra check columns, written only when a flow switch is on
+
+
 def label(arm_ctx):
     a = arm_ctx.arm
-    return 'legacy (context, c = I-D14c)' if a == 'legacy' else f"household, saving {a['saving']}, regime {a['regime']} (a scenario, not central)" + (', market-return risk only (128c)' if a.get('paths') else '') + (', fund earns the market return (138c scenario axis)' if a.get('fund_return') == 'market' else '')
+    return 'legacy (context, c = I-D14c)' if a == 'legacy' else f"household, saving {a['saving']}, regime {a['regime']} (a scenario, not central)" + (', market-return risk only (128c)' if a.get('paths') else '') + (', fund earns the market return (138c scenario axis)' if a.get('fund_return') == 'market' else '') + ''.join(f', {k} {a[k]} (148c scenario axis)' for k in FLOW if k in a)
 
 
-def point_ctx(ctx, inp, name, paths=False, fund='safe'):
+def point_ctx(ctx, inp, name, paths=False, fund='safe', flow=None):
     sav, regime = POINTS[name]
-    return replace(ctx, arm=dict(arm='household', inputs=inp, saving=sav, regime=regime, paths=paths, **({} if fund == 'safe' else dict(fund_return=fund))))
+    return replace(ctx, arm=dict(arm='household', inputs=inp, saving=sav, regime=regime, paths=paths, **({} if fund == 'safe' else dict(fund_return=fund)), **(flow or {})))
 
 
 def rows(name, ctx, samples, manifest):
@@ -102,7 +106,10 @@ def run_point(ctx, inp, name, manifest, n=PATHS, chunk=CHUNK, seed=SEED):
         chk = None
         if hh:
             g = rt.ar1_paths(rt.streams(seed)['level1_paths'], ctx.centre[R.RET['mean']], ctx.centre[R.RET['sd']], ctx.centre[R.RET['phi']], R.T, min(chunk, n))
-            raw = R.core_run(ctx, ctx.centre, A.SPEC, g, np.full(g.shape, ctx.gdp_g))
+            gdp = np.full(g.shape, ctx.gdp_g)
+            if ctx.arm.get('gdp_paths', 'off') != 'off':                                                 # 148c: the first chunk's GDP path, from the same stream key as `runner.evaluate` (chunk 0)
+                gdp = fsw.gdp(ctx.arm, ctx.centre, g, gdp, R.env_of(ctx, ctx.centre, rt.streams(seed)['level1_paths'].bit_generator.seed_seq, (0,)).rng)
+            raw = R.core_run(ctx, ctx.centre, A.SPEC, g, gdp)
             wdt = sum(raw.run[k] for k in ('tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D'))
             rec = raw.run['ledger']['rec']
             wdt = wdt - (rec['new'] - rec['xnew']) + rec['settled']                                      # cash: a lien is no receipt of its year, its settlement is; the cap's excess (133c) was never in the value paid (zero arrays without a lien: no change)
@@ -115,6 +122,8 @@ def run_point(ctx, inp, name, manifest, n=PATHS, chunk=CHUNK, seed=SEED):
             first = '' if tie.max() < 1e-9 else (lambda i: f"first chunk: year {i[0] + 1}, path {i[1]}, gap {tie[tuple(i)]:.4g}, tax {raw.run['tax'][tuple(i)]:.4g}, refund {raw.run['refund'][tuple(i)]:.4g}, receipts " + ', '.join(f"{k} {v[tuple(i)]:.4g}" for k, v in raw.run['ledger']['rc'].items()))(np.argwhere(tie > 1e-9)[0])
             chk = dict(point=name, account_residual_max=max(r for r, _ in seen), unpaid_max=max(u for _, u in seen), unpaid_B_max=max(float(x.max()) for x in pp), unpaid_B_path_phases=int(sum((x > 0).sum() for x in pp)),
                        spread_cells=None, flat_cells=None, shortfall_lines=int(sum(K.shortfall_lines(b) for b in books)), ledger_tie_max=float(np.abs(sum(raw.run['ledger']['rc'].values()) - wdt).max()), ledger_dL_max=dl, i1='held (raises in the hook otherwise)', error='', ledger_tie_first=first)
+            if any(k in ctx.arm for k in FLOW):                                                          # 148c: the receivable's write-offs (summed over years and paths, billions) and its largest balance
+                chk.update(wo_sum=float(np.sum(rec['wo'])), lien_bal_max=float(np.max(rec['bal'])))
     finally:
         ab.HouseholdHook, K.Book = hook, orig
     out = list(rows(name, ctx, samples, manifest))
@@ -131,20 +140,24 @@ def main(argv=None):
     p.add_argument('--no-legacy', action='store_true')
     p.add_argument('--fund-return', choices=('safe', 'market'), default='safe', help='what the fund earns (138c): the files get the suffix _fund_market for market')
     p.add_argument('--market-paths', action='store_true', help='per-path market returns (128c): files get the suffix _paths')
+    p.add_argument('--pension-withdrawal', choices=fsw.WITHDRAWAL[1:], help='148c: the pension draw into net financial wealth (145r range); files get the suffix _wd_<setting>')
+    p.add_argument('--heir-floor', type=int, choices=fsw.FLOORS[1:], help='148c: percent of the pension the lien settlement cannot take; files get the suffix _floor<N>')
+    p.add_argument('--gdp-paths', choices=fsw.GDP[1:], help='148c: per-path GDP growth, "growth risk only" (indep) or correlated with the market (hist); files get the suffix _gdp_<setting>')
     a = p.parse_args(argv)
+    flow = {k: v for k, v in (('pension_withdrawal', a.pension_withdrawal), ('heir_floor', a.heir_floor), ('gdp_paths', a.gdp_paths)) if v}
     if not 1 <= a.paths <= 2000:
         sys.exit('paths must be 1 to 2000 (brief 124c)')
     ctx, inp = A.setup()
     manifest = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
     out, allrows, checks = Path(a.out), [], []
     for name in [x for x in a.points.split(',') if x] + ([] if a.no_legacy else ['legacy']):
-        c = ctx if name == 'legacy' else point_ctx(ctx, inp, name, a.market_paths, a.fund_return)
+        c = ctx if name == 'legacy' else point_ctx(ctx, inp, name, a.market_paths, a.fund_return, flow)
         r, chk = run_point(c, inp, name, manifest, a.paths, min(CHUNK, a.paths))
         allrows += r
         checks += [chk] if chk else []
         print(f"{name}: {len(r)} cells" + (f", FAILED: {chk['error'][:90]}" if chk and chk.get('error') else '') + (f", ledger tie gap: {chk['ledger_tie_first'][:70]}" if chk and chk.get('ledger_tie_first') else '') + (f", account residual {chk['account_residual_max']:.1e}, unpaid {chk['unpaid_max']:.1e}, unpaid_B {chk['unpaid_B_max']:.1e}, shortfall lines {chk['shortfall_lines']}, ledger tie {chk['ledger_tie_max']:.1e}" if chk and not chk.get('error') else ''), flush=True)
-    sfx = ('_paths' if a.market_paths else '') + ('_fund_market' if a.fund_return == 'market' else '')
-    for f, cols, data in ((f'grid_results{sfx}.csv', COLS, allrows), (f'checks{sfx}.csv', CHECKS, checks)):
+    sfx = ('_paths' if a.market_paths else '') + ('_fund_market' if a.fund_return == 'market' else '') + (f"_wd_{a.pension_withdrawal}" if a.pension_withdrawal else '') + (f'_floor{a.heir_floor}' if a.heir_floor else '') + (f'_gdp_{a.gdp_paths}' if a.gdp_paths else '')
+    for f, cols, data in ((f'grid_results{sfx}.csv', COLS, allrows), (f'checks{sfx}.csv', CHECKS + (FLOW_COLS if flow else ()), checks)):
         with open(out / f, 'w', newline='') as fh:
             w = csv.DictWriter(fh, cols)
             w.writeheader()

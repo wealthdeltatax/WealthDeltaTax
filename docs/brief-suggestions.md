@@ -102,3 +102,11 @@ Entry format, newest at the bottom:
 - Problem: the test fails on a clean `origin/main` (7d60b86): the rows sum to 6,260 lines against a stated total of 6,060. The new `model_v3/runner/switches.py` row (budget 200, added in the 2026-11-23 housekeeping commit) was not added to the total. The model_v3 suite shows 1 failed, 349 passed.
 - Suggested lane: g (the table is the guru's; a one-number edit)
 - Status: open
+
+### Account residual and I1 under `gdp_paths` with market paths
+- Found by: code / 148c, 2026-11-24
+- Where: `household-arm-paths.md` section "Per-path GDP growth"; `model_v3/runner/arm.py` (`pre`, `settle`, the lien carry), `flow_switches.py`; reproduce with `run_grid.py --paths 200 --points min_mid --no-legacy --market-paths --gdp-paths indep`
+- Problem: the `ratio 0.25` rerun gives account residual 3.5e-4 at year 99 on one lien-carrying line (2.1e-11 with no GDP path, 2.4e-11 at 1% of the deviation); `median_high` with market paths and `indep` raises I1 (path 89, line 7, year 95, family value 0.00161 against class total 0.00167). Not root-caused. Brief 148c's criterion "I1, the account identity and the ledger ties hold at all five points" is not met for these two runs.
+- Suggested lane: c (diagnosis first; a kernel change is stop-and-report, so the guru decides what follows)
+- Status: open
+

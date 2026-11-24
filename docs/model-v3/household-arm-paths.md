@@ -103,6 +103,46 @@ Not a bookkeeping error and not economics: relative to the balances the gap is 1
 5. **M1 transition** is zero (1e-15) at every point, as in 124c.
 6. **The mean over paths is not the fixed-rate value** (M1 net long at `median_mid`: -2.77 here). The fixed-rate arm is the zero-deviation case, not the mean case.
 
+## Per-path GDP growth, `gdp_paths` (brief 148c)
+
+A scenario switch, off by default (off is byte-identical). **A scenario, not a forecast; no central value; no headline number.** Code: `model_v3/runner/flow_switches.py`; evidence 146r (one country's history, derived). Run: `household-arm-run/run_grid.py --paths 200 --no-legacy [--market-paths] --gdp-paths indep|hist --out household-arm-run/gdp_paths`; summary: `gdp_spread.py` (writes `gdp_spread.csv`); files in `household-arm-run/gdp_paths/`. Five grid points, 200 paths (two chunks of 100).
+
+**Rule.** Real GDP growth per head is the pack constant plus a zero-mean AR(1) deviation (marginal SD 2.68 points, lag-1 0.28; the mean is not moved). Its innovation is correlated with the market return's by 0 (`indep`, "growth risk only") or 0.37 (`hist`, "growth and market risk, correlated"). With no market paths (`alone`) the market return is still drawn, so `hist` correlates GDP with it but the household's classes stay at their fixed returns.
+
+**What scales with the GDP path.** The GDP index (so M1 and P6, which are shares of GDP), the contribution threshold W_min (indexed to GDP per head), and the household's income (so its saving and the accrual in pounds). **What does not:** property, physical and the fund's safe stand-in (as in 128c), and the quantities that read fixed scenario rates per line and not per path, which `arm.withheld` withholds (as under market paths).
+
+**P6 (fund as % of GDP), schedule S, year 50: P10 / mean / P90 across 200 paths.** The point value with the switch off is in the first column (no spread without paths).
+
+| Point | alone, off | alone, `indep` | alone, `hist` | market paths, off | market paths, `indep` | market paths, `hist` |
+|---|---|---|---|---|---|---|
+| `min_mid` | 34.3 | 25.4 / 36.4 / 47.3 | 25.3 / 36.3 / 46.9 | 24.1 / 42.3 / 66.9 | 22.4 / 44.9 / 74.5 | 24.2 / 42.9 / 67.2 |
+| `median_low` | 24.8 | 21.0 / 25.9 / 30.8 | 21.2 / 25.8 / 30.5 | 21.4 / 28.0 / 37.1 | 20.0 / 29.6 / 41.3 | 20.9 / 28.5 / 38.0 |
+| `median_mid` | 35.7 | 26.9 / 37.9 / 49.2 | 26.4 / 37.9 / 48.8 | 26.0 / 44.9 / 70.7 | 24.1 / 47.6 / 78.0 | 25.8 / 45.4 / 71.3 |
+| `max_mid` | 51.8 | 41.8 / 54.4 / 66.8 | 41.5 / 54.3 / 67.8 | 35.5 / 69.4 / 111.7 | 33.1 / 73.3 / 120.6 | 34.7 / 69.3 / 110.3 |
+| `median_high` | 78.3 | 58.5 / 82.8 / 107.1 | 57.5 / 82.7 / 106.8 | 42.6 / 91.6 / 154.7 | **I1 failed** (below) | 41.5 / 91.9 / 154.8 |
+
+**M1 (net fiscal effect, % of GDP), long horizon, schedule S: P10 / mean / P90.**
+
+| Point | alone, off | alone, `indep` | alone, `hist` | market paths, off | market paths, `indep` | market paths, `hist` |
+|---|---|---|---|---|---|---|
+| `min_mid` | -0.97 | -1.52 / -1.08 / -0.26 | -1.61 / -1.09 / -0.31 | -4.89 / -3.16 / -1.07 | -4.84 / -3.13 / -0.89 | -4.78 / -3.12 / -1.04 |
+| `median_low` | -1.44 | -4.89 / -2.11 / -0.86 | -4.79 / -2.06 / -0.88 | -5.18 / -2.82 / -0.98 | -5.13 / -2.92 / -0.92 | -5.08 / -2.79 / -0.83 |
+| `median_mid` | -0.28 | -3.07 / -0.69 / 0.52 | -3.15 / -0.67 / 0.46 | -4.59 / -2.61 / -0.32 | -4.62 / -2.36 / -0.02 | -4.47 / -2.50 / -0.33 |
+| `max_mid` | 0.50 | -0.85 / 1.10 / 2.80 | -0.60 / 1.11 / 2.59 | -2.89 / 2.06 / 8.44 | -3.06 / 2.57 / 11.77 | -2.78 / 1.94 / 9.33 |
+| `median_high` | 1.91 | 0.25 / 2.38 / 4.46 | 0.64 / 2.43 / 4.30 | -2.96 / 0.90 / 4.77 | **I1 failed** | -2.87 / 1.04 / 5.79 |
+
+Reading, without a verdict:
+- A GDP path alone puts P10 and P90 of P6 at year 50 about 20 to 30% below and above the mean (for example `median_mid` 26.9 to 49.2 around 37.9), and the means sit within 1 to 5 points of the fixed-growth values (the fund is nonlinear in GDP, so a mean need not equal the point value). The spread grows with the horizon (`median_high` `indep`, year 100: 122.0 to 251.5). The 0 and 0.37 correlations give nearly the same spread when the household's classes do not take the market return.
+- With market paths the spread is already wide, and GDP risk widens it a little under `indep` (`max_mid` year 50: 33.1 to 120.6, against 35.5 to 111.7 with no GDP path); `hist` gives a narrower spread than `indep` at the top points (34.7 to 110.3).
+- **M15a/b.** With no market paths and no GDP path the envelope never binds (0 nonzero cells). A GDP path alone makes it bind in a small corner: 2 of the 20 cells at `min_mid` only (long horizon; mean 0.25% and 0.10% under `indep`, 0.75% and 0.30% under `hist`; P10 and P90 are 0, so a minority of paths), none at the other four points. Market paths make it bind widely whether or not the GDP path is on (80 of 100 cells nonzero with no GDP path, 66 of 80 under `indep`, whose fifth point failed; at `min_mid`, long horizon, mean about 10 to 31%, P90 90 to 100%), so GDP risk adds little to it.
+
+**Checks (account residual max / ledger tie, per point; shortfall lines are the 127c floor alarm, unchanged).** Alone (off, `indep`, `hist`; 15 runs): all hold I1 and the account identity (1.5e-11 to 1.2e-8), with a worst tie of 1.3e-8 at `median_high` `indep` (1.4e-12 off the GDP path; 4.7e-10 under `hist`). Market paths (15 runs): all but one hold I1; the residuals and ties are in `checks_paths*.csv`.
+
+**Where the criteria are not met (reported, not tuned away).**
+1. **`median_high`, market paths, `indep`: I1 fails** ("a book's family value is not the class total"): path 89 of the first chunk, line 7, year 95, family value 0.0016 against class total 0.0017, on a line whose non-pension wealth is nearly drained (net financial 0.0017 against a pension of 5.6). It is the family of the 124c and 128c alarms (a line with its non-pension classes exhausted) that those notes left undiagnosed; with the GDP path off and the same market paths the run holds I1 (account residual 2.9e-9, already loose), so the GDP path moves a path onto it. The run has no grid rows.
+2. **`min_mid`, market paths, `indep`: account residual 3.5e-4** (0.00035; most other runs are at 2.6e-11 or below) and ledger tie 8.4e-9 on the first chunk. It arises in one core run only, the `ratio 0.25` sensitivity rerun (full receipts), at year 99 on one line that carries a lien (PL 0.0024) with negative net financial wealth. It is a real residual that scales with the GDP deviation: with the same core run and market paths, the worst residual over all lines and years is 2.1e-11 with no GDP path, 2.4e-11 with the deviation at 1% of its SD, and 3.5e-4 at full SD. The main run and the other four reruns hold (2e-11). Not root-caused here; no rule or tolerance was changed.
+3. The alone `median_high` ties (1.3e-8 `indep`, 4.7e-10 `hist`) and account residuals (1.1e-8, 1.2e-8) are about 1e-11 of the receipts, above the 1e-9 flag the grid prints; reported as printed.
+
 ## Needs the author
 
 - Two things outside the brief's Touches: `model_v3/core/revenue.py` line 146 (one line, byte equal when `mu` is None) and the refund routing in `_pay`. By the auto-merge rule this branch is **not merged: NEEDS THE AUTHOR**.

@@ -1,0 +1,3 @@
+point,paths,core_runs,runs_with_lien,tie_max,wo_sum,lien_bal_max,new_sum,settled_sum,error
+min_mid,20,5,1,1.6484591469634324e-12,0.0,1.308368011289584,22.916066805448253,33.36735698668731,
+median_high,20,5,0,7.048583938740194e-12,0.0,0.0,0.0,0.0,

@@ -9,13 +9,13 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
-| Agent 2 | 057c (rounds 4 and 5 reviewed; applying the sixth-round rulings) | block 3 (reduced C3), first `accept.sh` end to end, then `--final` |
+| Agent 2 | 057c paused (author, 2026-11-24, for the repository tidy) | resumes after 162c; rebases onto the moved tree |
 | Agent 3 | free | nothing queued (138c done) |
-| Agent 4 | 148c (flow switches; moved from Agent 6 on 2026-11-24) | 160c (datasets, PDFs, research) |
+| Agent 4 | free (148c merged) | 160c (datasets, PDFs, research) |
 | Agent 5 | free (089c merged) | |
 | Agent 6 | free (147c merged) | 162c and 163c (model move, specs and results) |
 
-Six agents only. Agents change skill with the brief. Next housekeeping (author, 2026-11-24): the reorganisation, seven briefs (009c, 044c, 160c to 164c), 009c starts as soon as 057c merges (it may overlap 148c), the 044c inventory after both 009c and 148c have merged. **Budget rule:** `model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
+Six agents only. Agents change skill with the brief. Next housekeeping (author, 2026-11-24): the reorganisation, seven briefs (009c, 044c, 160c to 164c), 009c starts now (057c is paused), the 044c inventory after 009c. **Budget rule:** `model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 
 **Findings under review (2026-11-23):** 057c: one household evaluation 4.9 s at 20 paths, a full run hours to days (ruled: O1e at `median_mid` only; parallel evaluation is 150c). 140c: no schedule feasible under the household arm, even on a constant path; the cause is the six-phase death timing (M1a lumpy every fifth year), to be tested in 149c before you rule on the feasibility rule.
 
@@ -26,6 +26,7 @@ Six agents only. Agents change skill with the brief. Next housekeeping (author, 
 - 2026-11-24: 089c merged (`docs/model-v3/feasibility-map.md`): at the strict rule no schedule is feasible at any point or fund (best F1 15.5 to 36.5% `safe`, 31.5 to 45.5% `market` against 75%); 14 of 120 (fund, point, rule) cells are feasible, all under a relaxed rule (tolerance up to 1%, margin 10 to 25%). CK1 P3 positive at amplitude 0 in 11 of 40 rows. No rule picked; the feasibility rule is the author's open ruling.
 - 2026-11-24: 147c blocks 0 to 3 reviewed, not merged: `top_tail` and `saving_shape` switches in, 30 of 50 non-flat cells stop in M13 (D1, D2 go negative). Ruled: floor dissaving at zero wealth in `switches.py` (block 4). No setting lifts top-decile share to 0.50 (best 0.388 at year 100); reported as a finding, no more switches.
 - 2026-11-24: 057c rounds 4 and 5 reviewed, not merged: `quick` 44 min, a final-size grid point without O1e 94 min (serial). Ruled: failed grid points stay as `target_not_met`; O1e no root is `no_sign_change_0_15`; acceptance runs a reduced C3 (full C3 a later manual run).
+- 2026-11-24: 148c merged (`flow_switches.py`: `pension_withdrawal`, `heir_floor`, `gdp_paths`, all default off, not in the first official run); two `gdp_paths` runs with market paths fail I1 or the account identity (labelled, open in brief-suggestions). 057c paused for the repository tidy; 009c starts now; 057c resumes after 162c and rebases.
 - 2026-11-24: 009c and 044c combined and split into seven briefs (009c retire; 044c umbrella and inventory; 160c data, literature, research; 161c website and legacy papers, parallel with 160c; 162c model code and inputs; 163c specs and results; 164c project, skills, final sweep). 009c keeps `jst_r6.json`, `wid_long.csv`, `wid_download.py` (the v3 pack builder reads them); tag `legacy-models-2026-11`. 151c follows 164c.
 - 2026-11-24: 044c rewritten with the author's four rulings (model keeps `model_v3` under `model/`; one research area; registry and pipeline split by owner; skill sources rewritten, account skill edits proposed after) and eight named hazards (depth-based paths, gate hash, Windows case rename, local-only files, docs checks, skills, run commands, large files); stages L1 to L6. Rewritten again the same day: tree by type of thing (data, literature, research, model, model-specs, results, papers, website, tests, project), unique descriptive file names (53 repeats found), duplicates removed, legacy papers to `papers/legacy/` (a red legacy site accepted); stages L1 to L7.
 - 2026-11-24: lane plan refreshed (140c, 147c, 089c, 150c, 139c off; 148c underway). 009c and 044c are released to Agent 3 once 057c and 148c have merged, with the repository otherwise quiet (044c moves every path).

@@ -1,0 +1,6 @@
+point,account_residual_max,unpaid_max,unpaid_B_max,unpaid_B_path_phases,shortfall_lines,spread_cells,flat_cells,ledger_tie_max,ledger_tie_first,ledger_dL_max,i1,error,wo_sum,lien_bal_max
+min_mid,2.637534635141492e-11,0.0,0.4552418495202699,4390,10981,268,139,4.241087481204886e-10,,3.637978807091713e-12,held (raises in the hook otherwise),,598.4691586755058,3147.165130540246
+median_mid,1.0800447342029784e-10,0.0,0.0,0,0,267,140,3.467448550509289e-12,,3.637978807091713e-12,held (raises in the hook otherwise),,0.0,3302.1637091902694
+max_mid,2.6943780540023e-11,0.0,0.0,0,0,244,163,3.637978807091713e-11,,2.1827872842550278e-11,held (raises in the hook otherwise),,0.0,0.0
+median_low,2.5124791136477143e-11,0.0,0.0,0,0,268,139,5.229594535194337e-12,,1.2505552149377763e-12,held (raises in the hook otherwise),,0.0,0.0
+median_high,8.939321061163241e-09,0.0,0.0,0,0,244,163,3.67435859516263e-10,,3.637978807091713e-11,held (raises in the hook otherwise),,0.0,29644.703439866167

@@ -13,7 +13,7 @@ from dataclasses import dataclass
 import numpy as np
 
 from model_v3.core import household as hh, pension_lien as pl
-from model_v3.runner import switches as sw
+from model_v3.runner import flow_switches as fsw, switches as sw
 
 CLASSES = ('property', 'net_financial', 'physical', 'pension')
 WITHHELD = {}                                                                                       # outputs that read the legacy c and have no base on the account: none since 126c (M3, M12, M13, M15 and M9 are on it)
@@ -23,7 +23,7 @@ WITHHELD_BY = {}                                                                
 
 def withheld(label):
     """{output id: 'legacy_only' (the whole id) or {dimension: {value: 'legacy_only'}} (part of it)} for a run label: the household arm withholds what reads the legacy c (never a number); the legacy arm withholds none."""
-    if label['arm'] != 'legacy' and (label.get('scenario') or {}).get('market_paths'):                  # the comparators run on fixed scenario rates: not like for like with the WDT on paths (128c)
+    if label['arm'] != 'legacy' and ((label.get('scenario') or {}).get('market_paths') or (label.get('scenario') or {}).get('gdp_paths')):                  # the comparators run on fixed scenario rates: not like for like with the WDT on paths (128c)
         return {**dict.fromkeys(WITHHELD, 'legacy_only'), **WITHHELD_BY, 'OW1': 'legacy_only'}
     return {} if label['arm'] == 'legacy' else {**dict.fromkeys(WITHHELD, 'legacy_only'), **WITHHELD_BY}
 
@@ -230,7 +230,7 @@ class HouseholdHook:
         if not np.any(self.PL):
             return                                                                                  # no lien, nothing moves (the account and the ledger of a line that never needed it are unchanged, bit for bit)
         q3 = {k: self.q[k] for k in CLASSES[:3]}
-        q1, pen1, paid, d, rest = pl.settle(q3, self.PL, self.q['pension'])
+        q1, pen1, paid, d, rest = pl.settle(q3, self.PL, self.q['pension'], getattr(self, 'keep', 0.0))
         self.set_c, self.set_p = self.set_c + (self.PL - rest - d), self.set_p + d
         self.wo, self.PK = self.wo + rest, 0.0 * rest                                              # limited recourse (138c): the state collects up to the pension; what it cannot cover is written off in the ledger (a labelled cost), not left as unpaid_B
         self.q, self.PL = {**self.q, **q1, 'pension': pen1}, 0.0 * rest
@@ -311,7 +311,7 @@ class Arm:
     label: dict
 
 
-def build(arm, ctx, theta, base, g=None):
+def build(arm, ctx, theta, base, g=None, gdp_g=None):
     """The arm of a run (brief 121c): `arm` is 'legacy' or 'household' or a dict {'arm', 'inputs', 'saving', 'regime'} (`inputs` the stored inputs of `household_inputs`; saving 'min', 'median' or 'max', regime 'mid' by default; `paths`: true gives per-path market returns, 128c, scenario-labelled: market-return risk only). `g` the run's market paths (T, P), read for the safe asset.
     The household arm is scenario-labelled and never called central; its safe asset earns the net financial class return, a stand-in (no register row), stated in the label."""
     a, c = {'arm': arm} if isinstance(arm, str) else dict(arm), theta['I-D14c'] / 100
@@ -323,8 +323,8 @@ def build(arm, ctx, theta, base, g=None):
     st, gain, growth = household_inputs(ctx, base, a['inputs'], a['inputs']['sav'][name], regime)
     label = dict(arm='household', scenario=dict(saving=name, saving_ratio=a['inputs']['sav'][name], regime=regime, class_returns={k: gain[k] for k in CLASSES[:3]}, pension_accrual=ctx.reg['I-D1k'].central / 100,
                  tail_pension_cap=ctx.reg['I-D1l'].central, income_scale=a['inputs']['income_scale']), safe_return='the net financial class return (a stand-in: no register row)', central=False)
-    st, label = sw.scenario(a, ctx, st, label, base)                                                       # 139c: the register-read scenario values, stated in the label
+    st, label = fsw.scenario(a, ctx, *sw.scenario(a, ctx, st, label, base), base)                         # 148c: the flow switches (off: unchanged); 139c: the register-read scenario values, stated in the label
     mu = theta['I-D1a'] / 100 if a.get('paths') else None
     label['scenario']['market_paths'] = None if mu is None else 'market-return risk only: net financial and pension deviate with the path\'s market return (loading 1); property, physical, saving, income and GDP growth are scenario constants'
     safe, label = sw.fund(a, (lambda T, P: np.full((T, P), gain['net_financial'])) if mu is None or g is None else (lambda T, P: gain['net_financial'] + np.asarray(g, float)[:T] - mu), label, g)      # fund_return (138c): safe stand-in or the market return
-    return Arm('household', c, lambda: sw.hook(a, HouseholdHook)(st, gain, growth, mu=mu), safe, label)
+    return Arm('household', c, lambda: fsw.hook(a, sw.hook(a, HouseholdHook), gdp_g, returns)(st, gain, growth, mu=mu), safe, label)

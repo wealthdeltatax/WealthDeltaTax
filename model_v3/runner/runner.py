@@ -42,7 +42,7 @@ from model_v3.core import pack as pk
 from model_v3.core import returns as rt
 from model_v3.core import revenue as rv
 from model_v3.core import schedule as sc
-from model_v3.runner import arm as ab, switches as sw
+from model_v3.runner import arm as ab, flow_switches as fsw, switches as sw
 from model_v3.runner.groups import GROUPS
 
 T = 100
@@ -200,7 +200,7 @@ def core_run(ctx, theta, spec, g, gdp_g, full=False, tweak=None):
     P = g.shape[1]
     b = (tweak or (lambda x: x))(shaped(ctx, theta, spec['ratio']))
     rate = sc.rate_function(spec['k_ln'], spec['tau_0'], spec['tau_m'], b.w_min, 'logistic_ln')
-    lam, ar = {**env_of(ctx, theta).lam, **sw.phase_kw(ctx.arm)}, ab.build(ctx.arm, ctx, theta, b, g)
+    lam, ar = {**env_of(ctx, theta).lam, **sw.phase_kw(ctx.arm)}, ab.build(ctx.arm, ctx, theta, b, g, gdp_g)
     fl = bd.line_flows(b, rate, g, gdp_g, c := ar.c, hook=ar.make(), **lam)
     if full or ar.name != 'legacy':                                   # the household arm needs the ledger: revenue.run_lines
         run = rv.run_lines(b, rate, g, gdp_g, c, hook=ar.make(), **lam)
@@ -235,9 +235,9 @@ def headlines(raw, ctx, theta):
 def evaluate(ctx, theta, spec, g, gdp_g, full=False, seq=None, key=()):
     """core_run, the headline results, then `{group.NAME: group.per_path(raw, env, again)}`. `seq` and `key` (run stream, chunk or draw) only feed `env.rng`.
     `again(override=None, full=False, tweak=None)` is the core run with the spec changed (`full`: receipts from revenue.run_lines; `tweak`: a base map), run once per (spec, full, tweak)."""
-    raw = core_run(ctx, theta, spec, g, gdp_g, full)
-    seen = {(tuple(sorted(spec.items())), full, None): raw}
     env = env_of(ctx, theta, seq, key)
+    raw = core_run(ctx, theta, spec, g, gdp_g := fsw.gdp(ctx.arm, theta, g, gdp_g, env.rng), full)           # 148c: the per-path GDP growth when `gdp_paths` is on; else the array as given
+    seen = {(tuple(sorted(spec.items())), full, None): raw}
 
     def again(over=None, full=False, tweak=None):
         sp = {**spec, **(over or {})}

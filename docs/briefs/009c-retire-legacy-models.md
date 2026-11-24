@@ -1,8 +1,8 @@
 # 009: Retire the legacy models (step R0 of the reorganisation)
 
-- **Status:** ready as soon as 057c has merged (it may run while 148c is open: 148c touches `model_v3` switches, 009c touches `model_v1`, `model_v2`, `build_gbr.py`, `pipeline` config and active docs; whoever merges second rebases); Agent 3; runs before 044c L1 (rewritten 2026-11-24)
+- **Status:** ready now (057c is paused and 148c has merged; 009c touches none of their files); Agent 3; runs before 044c L1 (rewritten 2026-11-24)
 - **Author/date:** K. Ogata with the guru, 2026-11-24
-- **Depends on:** 057c merged; the author's ruling of 2026-11-24 (remove from the tree, keep in git history; one parallel pair later)
+- **Depends on:** nothing open (148c merged; 057c paused and independent); the author's ruling of 2026-11-24 (remove from the tree, keep in git history; one parallel pair later)
 - **Read:** `docs/briefs/044c-file-layout-move.md` (rules R4, R5); `model_v3/pack/build_gbr.py` (it reads `model_v2/jst_r6.json` and `model_v2/wid_out/wid_long.csv`); `pipeline/config.py` and `pipeline/preprocess.py` (they read `model_v1`).
 
 ## Goal

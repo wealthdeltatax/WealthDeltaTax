@@ -34,10 +34,33 @@ The deferral rate, the saving gradient and top tail (147c), the register rows, a
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** blocks 0, 1, 2 (`gdp_paths` in `flow_switches.py`); block 3 (reruns, notes in `household-arm-lien.md` and `household-arm-paths.md`, `run_grid.py`, `lien_rerun.py`, `flow_ties.py`, `gdp_spread.py`); one bug fixed in `flow_switches.py` (withdrawal on the untaxed path) with a test
+- **Next:** NEEDS THE AUTHOR: two `gdp_paths` runs with market paths miss the I1 / account-identity criterion (`brief-suggestions.md`, "Account residual and I1 under `gdp_paths`"); not merged
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/148-flow-switches origin/brief/148-flow-switches`
-- **State:** ready; not started (after 147c, 145r, 146r)
+- **State:** finished except the open criterion; branch pushed, not merged; `arm.py` at 330
 <!-- progress:end -->
 
 **Budget note (guru, 2026-11-24):** `switches.py` is now 195 of its 200 lines (147c merged), so none of this brief's code goes there. The three switches go in a new file `model_v3/runner/flow_switches.py` (numpy only, budget 200, same layer as `switches.py`); `arm.py` gains call sites only and stays at 330 or fewer (growth is stop-and-report). Add its row to the `docs/model-v3/architecture.md` budget table and update the stated totals so `test_budget.py` passes (rows 200 and about 60 for its tests, or the true figure). Constants (the 145r and 146r numbers) are named and labelled in that file.
+
+### Change report (block 3, 2026-11-24)
+```
+Change report
+- Task: brief 148c, block 3 (rerun and notes), continuing the other agent's blocks 0 to 2
+- Files changed: model_v3/runner/flow_switches.py (one-line fix: withdrawal hook on the untaxed path); tests/model_v3/test_flow_switches.py (regression test, trimmed to its 150-line budget);
+  docs/model-v3/household-arm-run/run_grid.py, lien_rerun.py (flow flags, write-off columns), flow_ties.py and gdp_spread.py (new); household-arm-run/flow_switches/ and gdp_paths/ (data);
+  docs/model-v3/household-arm-lien.md and household-arm-paths.md (new sections); docs/agents/friction-log.md and docs/brief-suggestions.md (one entry each); this brief's progress block
+- What is different now: the three switches have been run. Floor 0/25/50 and withdrawal low/mid/high at `min_mid` and `median_high` (20 paths) and `gdp_paths` off/indep/hist at five points, 200 paths, alone and with market paths. No headline number
+- New or changed interfaces: run_grid.py --pension-withdrawal / --heir-floor / --gdp-paths; lien_rerun.py --points / --pension-withdrawal / --heir-floor (0 allowed); flow_ties.py; gdp_spread.py. Defaults unchanged
+- Acceptance criteria:
+  - Switches off, suites pass, outputs byte-identical, test_legacy_digest unchanged: met. tests/model_v3 gave 406 passed, 2 failed (my test file was 155 lines against a budget of 150); after the trim the flow, budget and rules tests give 36 passed. The full suite was NOT rerun after the trim; no other suite was run
+  - I1, account identity and ledger ties at all five points with the switches on: MET for the withdrawal and floor rows (twelve rows; worst tie 4.3e-10, equal to the unswitched run); NOT MET for gdp_paths in two of thirty runs: (a) median_high, market paths, indep: I1 raises (path 89, line 7, year 95); (b) min_mid, market paths, indep: account residual 3.5e-4 and tie 8.4e-9, in the ratio 0.25 rerun at year 99, scaling with the GDP deviation. Not root-caused; no rule or tolerance changed. Alone, the median_high ties and residuals are 1.3e-8 and 1.2e-8 (about 1e-11 of the receipts), above the 1e-9 the grid flags
+  - Floor write-offs reported: met (min_mid D4: 0.106 at floor 0, 0.249 at 25, 0.391 at 50; no effect at median_high)
+  - Notes say which quantities scale with the GDP path and show the spread, no headline: met
+- Deviations from the brief: grid points chosen by me (min_mid and median_high, the 127c lien points; the brief names none); added flow_ties.py and a fix in flow_switches.py (block 1 bug found by the smoke run); the 20-path floor/withdrawal runs use schedule S only
+- Risks / follow-ups: NEEDS THE AUTHOR (brief-suggestions.md, "Account residual and I1 under gdp_paths"). Not merged
+- Instruction friction: one entry added to friction-log.md (brief names no points; the grid's tie reads only the main run)
+- Verification: model_v3 suite (see above); smoke and grid runs as in the notes; the new test fails without the fix and passes with it. Not run: the full suite after the trim, other suites, the local site build (nothing site-facing changed)
+- Overview sections likely needing an update: none
+- Commit / branch: see git log, brief/148-flow-switches (pushed, not merged)
+```
+

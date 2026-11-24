@@ -51,8 +51,8 @@ Sequential start, one parallel pair, sequential finish. Each stage is its own br
 
 | step | brief | agent | depends on | does |
 |---|---|---|---|---|
-| R0 | 009c | 3 | 057c | retire `model_v1`, `model_v2`, `audit_d0`; keep the three data files v3 reads |
-| R1 | 044c (this brief) | 3 | 009c, 148c | inventory only (below); the author and guru review it |
+| R0 | 009c | 3 | none (057c paused) | retire `model_v1`, `model_v2`, `audit_d0`; keep the three data files v3 reads |
+| R1 | 044c (this brief) | 3 | 009c | inventory only (below); the author and guru review it |
 | R2 | 160c | 4 | 044c R1 | `data/`, `literature/`, `research/`: datasets, PDFs, notes; duplicates removed |
 | R3 | 161c | 5 | 044c R1 | `website/`, `tests/website/`, `papers/legacy/` |
 | R4 | 162c | 6 | 160c, 161c | `model/`, model-side `data/` and registry, `tests/model/`, `model/tools`, `model/studies` |
@@ -67,7 +67,7 @@ No stage runs the 44-minute `quick` run or the 17-minute smoke run. Three cheap 
 2. **Path-rewrite proof, seconds.** `project/restructure/path_rewrite_proof.py`: for every file changed since the pre-move commit it applies the old-to-new path map (and the R3 renames) to the old content and compares with the new content; any other difference is reported as a non-path change. Pure renames must show as 100% similar (`git diff -M100%`). This is the check that nothing but paths changed.
 3. **Tripwire, under 3 minutes.** `project/restructure/move_tripwire.py` records, before the move (R1, baseline file `move-tripwire-baseline.json`), the hashes of: the `inputs.json` bytes, the legacy digest test result, a rebuild of the GBR pack compared with the committed pack, and a household evaluation at 20 paths for `median_mid` and `min_mid` under both fund settings (the headline arrays M1a, M2 and P6 and the list of output ids; seeded, deterministic). After each stage it recomputes and compares; any difference stops the stage. It must run in under 3 minutes on one process.
 4. **Suites, in the background.** The test suites (about 10 minutes in all: model 7 to 9, the rest under 2) run in the background while the agent writes the report; a stage is not pushed as green until they finish, but the agent is not waiting on an hour-long run.
-5. **The full `quick` byte comparison, once.** After R5 (specs and results) and at the end of R6, run in the background or overnight by the author or an agent with nothing else to do; it confirms the tiers above and blocks only the closing of the programme, not the individual stage merges.
+5. **The full `quick` byte comparison, once, only if 057c has merged** (it is paused; otherwise skipped and said so, the tiers above carry the move). After R5 (specs and results) and at the end of R6, run in the background or overnight by the author or an agent with nothing else to do; it confirms the tiers above and blocks only the closing of the programme, not the individual stage merges.
 
 ## R1: inventory and checks (this brief's own work; no moves)
 Three deliverables, written to `docs/restructure` and `pipeline` before the move: (1) `file-layout-map.md` and `pipeline/path_refs.py`; (2) the checks above, `path_rewrite_proof.py` and `move_tripwire.py`, with the baseline file, taken at the merged state of 009c; (3) the review table. The map holds: for every tracked file or folder its old path, new path and, under R3, new name; the duplicate report (byte-identical, same name different); every file that references an old path (file, line); the depth-based path list (hazard 1); the local-only list (hazard 4); the files the rules cannot settle, each with the default above. **Checkpoint: the guru and author review the table before 160c and 161c start.**
