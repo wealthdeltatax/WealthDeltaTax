@@ -539,7 +539,7 @@
   type: site
   title: Glossary
   url: /glossary.html
-  source: site/pages/glossary.md
+  source: website/site/pages/glossary.md
   status: accepted
 
 - id: RET

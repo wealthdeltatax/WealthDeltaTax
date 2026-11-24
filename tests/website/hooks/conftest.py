@@ -3,14 +3,15 @@ import copy, importlib.util, json, sys
 from pathlib import Path
 import pytest
 
-ROOT = Path(__file__).resolve().parents[2]
-PIPELINE = ROOT / "pipeline"
+ROOT = Path(__file__).resolve().parents[3]
+PIPELINE = ROOT / "website" / "build"
+MODEL_TOOLS = ROOT / "pipeline"   # validate_outputs.py stays here until 162c moves it
 FX = Path(__file__).resolve().parent / "fixtures"
 DATA = ROOT / "tests" / "data" / "fixtures" / "outputs.fixture.json"
 
 
-def load(name):
-    spec = importlib.util.spec_from_file_location(name, PIPELINE / f"{name}.py")
+def load(name, base=PIPELINE):
+    spec = importlib.util.spec_from_file_location(name, base / f"{name}.py")
     mod = importlib.util.module_from_spec(spec)
     sys.modules[name] = mod
     spec.loader.exec_module(mod)
@@ -19,7 +20,7 @@ def load(name):
 
 @pytest.fixture(scope="session")
 def hooks():
-    load("validate_outputs"); load("hook_format")
+    load("validate_outputs", MODEL_TOOLS); load("hook_format")
     return load("hooks")
 
 

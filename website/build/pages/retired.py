@@ -42,8 +42,8 @@ import yaml
 import config as cfg
 
 LEDGER_MD = cfg.ROOT_DIR / "docs" / "restructure" / "ledger-sections.md"
-RETIRED_YML = cfg.ROOT_DIR / "registry" / "retired.yml"
-SOURCE_DIR = cfg.ROOT_DIR / "source"
+RETIRED_YML = cfg.ROOT_DIR / "website" / "registry" / "retired.yml"
+SOURCE_DIR = cfg.ROOT_DIR / "papers" / "legacy"
 
 DATA_TARGETS = {"UK data pack", "input register", "parameter register", "method note for O7"}
 DATA_PAGE_IDS = ("DL0", "data")                    # the data-layer page, once pages.yml has a row for it

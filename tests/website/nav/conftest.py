@@ -1,4 +1,4 @@
-"""Put pipeline/ on sys.path (its modules import each other by bare name)."""
+"""Put website/build/ on sys.path (its modules import each other by bare name)."""
 import copy
 import sys
 from pathlib import Path
@@ -6,8 +6,8 @@ from pathlib import Path
 import pytest
 import yaml
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "pipeline"))
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT / "website" / "build"))
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
 
 import config as cfg  # noqa: E402

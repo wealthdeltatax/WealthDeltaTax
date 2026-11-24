@@ -41,8 +41,8 @@ from pathlib import Path
 
 # --------------------------------------------------------------------------- paths
 # Script lives in wdt-site/pipeline/, so the site root is one level up.
-ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_OUT = ROOT / "registry" / "crosslinks.json"
+ROOT = Path(__file__).resolve().parent.parent.parent
+DEFAULT_OUT = ROOT / "website" / "registry" / "crosslinks.json"
 
 
 def first_existing(*cands):
@@ -539,8 +539,8 @@ def main():
     s = sub.add_parser("scan"); common(s); s.add_argument("--out", default=str(DEFAULT_OUT))
     c = sub.add_parser("check"); common(c)
     c.add_argument("--min-severity", default="warn", choices=list(SEV)); c.add_argument("--paper")
-    g = sub.add_parser("anchors"); common(g); g.add_argument("--out", default=str(ROOT / "registry" / "anchors.generated.yml"))
-    k = sub.add_parser("contents"); common(k); k.add_argument("--out", default=str(ROOT / "registry" / "contents.generated.yml"))
+    g = sub.add_parser("anchors"); common(g); g.add_argument("--out", default=str(ROOT / "website" / "registry" / "anchors.generated.yml"))
+    k = sub.add_parser("contents"); common(k); k.add_argument("--out", default=str(ROOT / "website" / "registry" / "contents.generated.yml"))
     q = sub.add_parser("query"); common(q)
     q.add_argument("--to"); q.add_argument("--from", dest="frm"); q.add_argument("--history", action="store_true")
     r = sub.add_parser("remap"); common(r)
@@ -549,10 +549,10 @@ def main():
     r.add_argument("--include-history", action="store_true")
     a = ap.parse_args()
 
-    source = first_existing(a.source, ROOT / "source", "/source")
+    source = first_existing(a.source, ROOT / "papers" / "legacy", "/source")
     if not source:
         sys.exit("source folder not found; pass --source")
-    apath = first_existing(a.anchors, ROOT / "registry" / "anchors.yml", ROOT / "registry" / "anchors.yml", ROOT / "anchors.yml")
+    apath = first_existing(a.anchors, ROOT / "website" / "registry" / "anchors.yml", ROOT / "website" / "registry" / "anchors.yml", ROOT / "anchors.yml")
     ipath = first_existing(a.internal, ROOT / "registry" / "internal.json", ROOT / "registry" / "internal.json", ROOT / "internal.json")
     anchors = load_kv(apath)
     print(f"source={source}  anchors={apath}  internal={ipath}", file=sys.stderr)

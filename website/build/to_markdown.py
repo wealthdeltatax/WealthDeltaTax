@@ -32,7 +32,7 @@ from pathlib import Path
 
 sys.path.insert(0, '.')  # python -I drops the cwd
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUT = Path('scratch/converted')
 RESEARCH = Path('docs/research')
 READABLE = RESEARCH / 'readable'

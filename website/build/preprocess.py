@@ -129,7 +129,7 @@ def main() -> None:
                 # <!-- WDT_CALC_INJECT: filename --> is replaced with a
                 # {=html} pass-through block containing the named fragment
                 # from site/tools/, shell-stripped by tools._strip_html_shell.
-                tools_src = cfg.ROOT_DIR / "site" / "tools"
+                tools_src = cfg.ROOT_DIR / "website" / "site" / "tools"
                 def _inject_calc(m: "_re.Match") -> str:
                     calc_name = m.group(1)
                     calc_path = tools_src / calc_name
@@ -174,7 +174,7 @@ def main() -> None:
     generate_link_map_html(build / "link-map.html", site_cfg.refs_data, site_cfg.link_map)
 
     # ── Step 12: Calculator .qmd pages ────────────────────────────────────
-    tools_src = cfg.ROOT_DIR / "site" / "tools"
+    tools_src = cfg.ROOT_DIR / "website" / "site" / "tools"
     if tools_src.exists():
         generate_tool_pages(tools_src, build / "model")
     else:

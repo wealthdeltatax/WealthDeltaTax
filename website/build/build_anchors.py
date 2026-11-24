@@ -20,9 +20,9 @@ import re
 import yaml
 from pathlib import Path
 
-ROOT_DIR     = Path(__file__).resolve().parent.parent
-CONTENTS_YML = ROOT_DIR / 'registry' / 'contents.yml'
-ANCHORS_YML  = ROOT_DIR / 'registry' / 'anchors.yml'
+ROOT_DIR     = Path(__file__).resolve().parent.parent.parent
+CONTENTS_YML = ROOT_DIR / 'website' / 'registry' / 'contents.yml'
+ANCHORS_YML  = ROOT_DIR / 'website' / 'registry' / 'anchors.yml'
 
 
 def slugify(text: str) -> str:

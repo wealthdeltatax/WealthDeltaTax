@@ -10,7 +10,7 @@ import yaml
 import build_glossary as bg
 from conftest import FIXTURES, ROOT
 
-SCRIPT = ROOT / "pipeline" / "build_glossary.py"
+SCRIPT = ROOT / "website" / "build" / "build_glossary.py"
 TEST_ROOT = FIXTURES.parent
 
 

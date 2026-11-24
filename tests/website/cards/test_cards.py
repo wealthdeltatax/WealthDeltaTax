@@ -6,8 +6,8 @@ import sys
 
 import pytest
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(ROOT / 'pipeline'))
+ROOT = pathlib.Path(__file__).resolve().parent.parent.parent.parent
+sys.path.insert(0, str(ROOT / 'website' / 'build'))
 import page_cards as pc  # noqa: E402
 
 

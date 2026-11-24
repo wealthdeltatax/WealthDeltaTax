@@ -125,7 +125,7 @@ def test_no_twelve_word_overlap_with_legacy_source(page_text, pages, retired):
     titles = {p["title"] for p in retired} | {s["title"] for p in retired for s in p["sections"]}
     src = set()
     for r in pages:
-        if r["type"] == "legacy" and r["source"] and r["source"].startswith("source/"):
+        if r["type"] == "legacy" and r["source"] and r["source"].startswith("papers/legacy/"):
             src |= _shingles((ROOT / r["source"]).read_text(encoding="utf-8"))
     for line in page_text.splitlines():
         if _shingles(line) & src:

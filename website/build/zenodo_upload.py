@@ -93,7 +93,7 @@ SHARED = {
 
 # ── PDF output directory ──────────────────────────────────────────────────────
 # pdf.py writes to print/YYMMDD/. We find the most recent dated subfolder.
-PRINT_DIR = cfg.ROOT_DIR / "print"
+PRINT_DIR = cfg.ROOT_DIR / "website" / "print"
 
 
 def _normalise(s: str) -> str:

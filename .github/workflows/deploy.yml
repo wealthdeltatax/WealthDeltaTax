@@ -44,9 +44,9 @@ jobs:
       - name: Build glossary
         run: |
           python website/build/build_glossary.py \
-            --papers source \
+            --papers papers/legacy \
             --contents website/registry/contents.yml \
-            --out site/pages/glossary.md
+            --out website/site/pages/glossary.md
 
       - name: Build anchors
         run: python website/build/build_anchors.py

@@ -571,7 +571,7 @@ def build_registry(registry_path, pages_path, out_path, lookup_path=None,
     rows = load_registry(registry_path)
     with open(pages_path, "r", encoding="utf-8") as f:
         pages = yaml.safe_load(f)
-    errors = validate_registry(rows, pages, root=Path(registry_path).resolve().parent.parent)
+    errors = validate_registry(rows, pages, root=Path(registry_path).resolve().parent.parent.parent)
     if errors:
         for e in errors:
             print(f"error: {e}", file=sys.stderr)

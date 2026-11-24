@@ -14,7 +14,7 @@ import sys
 
 import yaml
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
+ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
 LEDGER_SECTIONS = ROOT / 'docs/restructure/ledger-sections.md'
 LEDGER = ROOT / 'docs/restructure/ledger.md'
 ORDER = ROOT / 'docs/restructure/order.md'

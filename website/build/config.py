@@ -17,20 +17,20 @@ from typing import Any
 import yaml
 
 # ── Path constants ────────────────────────────────────────────────────────────
-# Resolved relative to this file's location (pipeline/).
+# Resolved relative to this file's location (website/build/).
 SCRIPT_DIR = Path(__file__).resolve().parent   # wdt-site/pipeline/
-ROOT_DIR   = SCRIPT_DIR.parent                 # wdt-site/
+ROOT_DIR   = SCRIPT_DIR.parent.parent          # repository root
 
-SITE_DIR        = ROOT_DIR / "site"
-SOURCE_DIR      = ROOT_DIR / "source"
+SITE_DIR        = ROOT_DIR / "website" / "site"
+SOURCE_DIR      = ROOT_DIR / "papers" / "legacy"
 BUILD_DIR       = ROOT_DIR / "_build"
 DIAGRAMS_DIR    = SITE_DIR / "diagrams"
 
-CONTENTS_YML    = ROOT_DIR / "registry" / "contents.yml"
-ANCHORS_YML     = ROOT_DIR / "registry" / "anchors.yml"
+CONTENTS_YML    = ROOT_DIR / "website" / "registry" / "contents.yml"
+ANCHORS_YML     = ROOT_DIR / "website" / "registry" / "anchors.yml"
 REFERENCES_JSON = ROOT_DIR / "registry" / "references.json"
-REGISTRY_YML    = ROOT_DIR / "registry" / "papers.yml"   # legacy source for the 33 papers (zenodo, pdf, scrape); retires at cutover
-PAGES_YML       = ROOT_DIR / "registry" / "pages.yml"    # the page list the site build reads
+REGISTRY_YML    = ROOT_DIR / "website" / "registry" / "papers.yml"   # legacy source for the 33 papers (zenodo, pdf, scrape); retires at cutover
+PAGES_YML       = ROOT_DIR / "website" / "registry" / "pages.yml"    # the page list the site build reads
 
 # ── Site-wide constants ───────────────────────────────────────────────────────
 SITE_URL     = "https://wealthdeltatax.org"
@@ -419,7 +419,7 @@ def find_url_collisions(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def paper_registry(rows: list[dict[str, Any]]) -> list[dict[str, str]]:
     """
     Source-to-output entries for the per-paper pipeline, in the shape papers.yml has:
-    [{"source": "<file in source/>", "output": "<stem>.qmd"}].
+    [{"source": "<file in papers/legacy/>", "output": "<stem>.qmd"}].
     Only live paper rows (legacy and standalone papers) are built; a held row
     that collides with a live URL is never in the list.
     """
@@ -428,9 +428,9 @@ def paper_registry(rows: list[dict[str, Any]]) -> list[dict[str, str]]:
     for r in rows:
         if (r["type"] in PAPER_TYPES and r["status"] in LIVE_STATUSES
                 and r["id"] not in held
-                and r["source"] and r["source"].startswith("source/")):
+                and r["source"] and r["source"].startswith("papers/legacy/")):
             entries.append({
-                "source": r["source"][len("source/"):],
+                "source": r["source"][len("papers/legacy/"):],
                 "output": Path(r["url"]).stem + ".qmd",
             })
     return entries

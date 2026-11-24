@@ -10,7 +10,7 @@ import argparse, importlib.util, json, os, re, sys
 from pathlib import Path
 import yaml
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 
 
 def _load(name):

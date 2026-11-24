@@ -68,7 +68,7 @@ from bibtexparser.customization import convert_to_unicode
 # ── Paths ─────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR   = Path(__file__).resolve().parent        # pipeline/
-ROOT_DIR     = SCRIPT_DIR.parent                      # wdt-site/
+ROOT_DIR     = SCRIPT_DIR.parent.parent                      # wdt-site/
 REGISTRY_DIR = ROOT_DIR / "registry"
 
 BIB_PATH      = REGISTRY_DIR / "references.bib"

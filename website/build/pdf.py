@@ -44,11 +44,11 @@ from transforms import (
     inject_front_matter,
 )
 
-PRINT_DIR    = ROOT_DIR / "print"
+PRINT_DIR    = ROOT_DIR / "website" / "print"
 TEMPLATE     = PRINT_DIR / "template.tex"
 LUA_FILTER   = PRINT_DIR / "tabularx.lua"
 BIB_PATH     = ROOT_DIR / "registry" / "references.bib"
-CSL_PATH     = ROOT_DIR / "site" / "style" / "apa.csl"
+CSL_PATH     = ROOT_DIR / "website" / "site" / "style" / "apa.csl"
 # fix_image_paths() rewrites all image srcs to figures/<filename>.
 # Pandoc's --resource-path resolves that as <dir>/figures/<filename>, so
 # FIGURES_ROOT must be the *parent* of the figures/ directory, not figures/ itself.
@@ -554,7 +554,7 @@ def build_pdfs(shortcode_filter: list[str] | None = None) -> None:
     """
 
     # Load papers registry
-    papers_yml = ROOT_DIR / "registry" / "papers.yml"
+    papers_yml = ROOT_DIR / "website" / "registry" / "papers.yml"
     with open(papers_yml, encoding="utf-8") as f:
         papers: list[dict] = yaml.safe_load(f)
 

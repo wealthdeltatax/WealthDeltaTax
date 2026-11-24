@@ -2,7 +2,7 @@
 
 Builds a temporary Quarto project from the real site config, the new includes
 and styles, the fixture pages and the real 404 page, serves the output over
-HTTP and drives Chromium with Playwright. Nothing in site/ is written.
+HTTP and drives Chromium with Playwright. Nothing in website/site/ is written.
 
 Quarto is not on the sandbox PATH by default. Put it on PATH or set QUARTO_BIN
 to the executable. Without Quarto the module is skipped, not failed.
@@ -18,8 +18,8 @@ from pathlib import Path
 import pytest
 import yaml
 
-ROOT = Path(__file__).resolve().parents[2]
-SITE = ROOT / "site"
+ROOT = Path(__file__).resolve().parents[3]
+SITE = ROOT / "website" / "site"
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
 
 

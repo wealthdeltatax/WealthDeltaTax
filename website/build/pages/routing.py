@@ -26,8 +26,8 @@ import yaml
 
 import config as cfg
 
-ROUTING_YML = cfg.ROOT_DIR / "registry" / "routing.yml"
-SPOKES_DIR = cfg.ROOT_DIR / "source" / "spokes"
+ROUTING_YML = cfg.ROOT_DIR / "website" / "registry" / "routing.yml"
+SPOKES_DIR = cfg.ROOT_DIR / "papers" / "legacy" / "spokes"
 
 DATA_TOKEN = "data"
 MAX_PROMPT_WORDS = 20

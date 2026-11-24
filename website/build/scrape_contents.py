@@ -83,9 +83,9 @@ except ImportError:
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
-ROOT_DIR     = Path(__file__).resolve().parent.parent
-SOURCE_DIR   = ROOT_DIR / "source"
-REGISTRY_DIR = ROOT_DIR / "registry"
+ROOT_DIR     = Path(__file__).resolve().parent.parent.parent
+SOURCE_DIR   = ROOT_DIR / "papers" / "legacy"
+REGISTRY_DIR = ROOT_DIR / "website" / "registry"
 PAPERS_YML   = REGISTRY_DIR / "papers.yml"
 CONTENTS_YML = REGISTRY_DIR / "contents.yml"
 

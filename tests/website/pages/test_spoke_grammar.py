@@ -70,12 +70,12 @@ def test_code_is_skipped():
 
 
 def test_only_spoke_files_are_eligible():
-    src = ROOT / "source"
+    src = ROOT / "papers" / "legacy"
     assert T.is_spoke_source(src / "hub.md", src)
     assert T.is_spoke_source(src / "spokes" / "FISC.md", src)
     assert not T.is_spoke_source(src / "5_Valuing_Wealth.md", src)
     assert not T.is_spoke_source(src / "spokes" / "x" / "y.md", src)
-    assert not T.is_spoke_source(ROOT / "site" / "pages" / "faq.md", src)
+    assert not T.is_spoke_source(ROOT / "website" / "site" / "pages" / "faq.md", src)
 
 
 def test_legacy_crossref_conversion_unchanged():

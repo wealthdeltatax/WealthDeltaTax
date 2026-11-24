@@ -168,8 +168,8 @@ if __name__ == "__main__":
     import sys
     # Resolve paths relative to this file (website/build/tools.py → repo root)
     pipeline_dir = Path(__file__).resolve().parent
-    root_dir     = pipeline_dir.parent
-    tools_src    = root_dir / "site" / "tools"
+    root_dir     = pipeline_dir.parent.parent
+    tools_src    = root_dir / "website" / "site" / "tools"
     build_model  = root_dir / "_build" / "model"
 
     if not tools_src.exists():
