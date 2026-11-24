@@ -10,7 +10,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
 | Agent 2 | out of tokens (rehearsal skipped) | 057c resumes after 162c |
-| Agent 3 | free | 164c (project, skills, final sweep) |
+| Agent 3 | 166c (can the fund's reserves cover the gap years? diagnostic, no model change) | 164c (project, skills, final sweep) |
 | Agent 4 | 160c (datasets, PDFs, research) | |
 | Agent 5 | 161c (website, web tests, legacy papers) | |
 | Agent 6 | 165c (rehearse the whole move on a scratch copy) | 162c and 163c (model move, specs and results) |
