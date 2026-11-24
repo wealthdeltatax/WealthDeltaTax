@@ -118,88 +118,94 @@ docs/model-v3/wealth-ratio-diagnostic/wealth_ratio.py,21,ROOT = Path(__file__).r
 docs/model-v3/wealth-ratio-diagnostic/wealth_ratio.py,45,lv = json.loads((ROOT / 'model_v3' / 'levers.json').read_text()),model/studies/wealth-ratio-diagnostic/wealth_ratio.py,same depth
 docs/model-v3/wealth-ratio-diagnostic/wealth_ratio.py,46,out = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text()),model/studies/wealth-ratio-diagnostic/wealth_ratio.py,same depth
 docs/model-v3/wealth-ratio-diagnostic/wealth_ratio.py,48,"return R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1, [o['id'] for o in out['output",model/studies/wealth-ratio-diagnostic/wealth_ratio.py,same depth
-docs/research/data/097r/extract_binaries.py,8,HERE = Path(__file__).resolve().parent,model/studies/097r/extract_binaries.py,depth -1
-docs/research/data/097r/extract_ukea_nbs.py,9,HERE = Path(__file__).resolve().parent,model/studies/097r/extract_ukea_nbs.py,depth -1
-docs/research/data/098r/extract_098r.py,11,HERE = Path(__file__).resolve().parent,model/studies/098r/extract_098r.py,depth -1
-docs/research/data/098r/extract_098r.py,12,ROOT = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE.parents[3],model/studies/098r/extract_098r.py,depth -1: parents[3] -> parents[2] if it reaches the repository root
-docs/research/data/098r/extract_098r.py,101,tw = ROOT / 'Rates Data/totalwealthtables.xlsx',model/studies/098r/extract_098r.py,depth -1
-docs/research/data/098r/extract_098r.py,102,fw = ROOT / 'Rates Data/financialwealthtables.xlsx',model/studies/098r/extract_098r.py,depth -1
-docs/research/data/098r/extract_098r.py,256,p = ROOT / 'Research/etbreferencetablesfye202324final.xlsx',model/studies/098r/extract_098r.py,depth -1
-docs/research/data/101r/build_flows_tables.py,9,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/101r-parameter-map-flows-and-returns/build_flows_tables.py,depth -1
-docs/research/data/101r/build_flows_tables.py,11,"for r in csv.DictReader(open(os.path.join(HERE, ""derived_ons_flows.csv""))):",model/studies/101r-parameter-map-flows-and-returns/build_flows_tables.py,depth -1
-docs/research/data/101r/build_flows_tables.py,14,"for r in csv.DictReader(open(os.path.join(HERE, ""jst_split_stats.csv""))):",model/studies/101r-parameter-map-flows-and-returns/build_flows_tables.py,depth -1
-docs/research/data/101r/build_flows_tables.py,17,"for r in csv.DictReader(open(os.path.join(HERE, ""hmrc_37_coverage_vs_ons.csv""))):",model/studies/101r-parameter-map-flows-and-returns/build_flows_tables.py,depth -1
-docs/research/data/101r/build_flows_tables.py,256,"with open(os.path.join(HERE, ""flows_register.csv""), ""w"", newline="""") as f:",model/studies/101r-parameter-map-flows-and-returns/build_flows_tables.py,depth -1
-docs/research/data/101r/build_flows_tables.py,277,"with open(os.path.join(HERE, ""flows_crosswalk.csv""), ""w"", newline="""") as f:",model/studies/101r-parameter-map-flows-and-returns/build_flows_tables.py,depth -1
-docs/research/data/101r/derive_hmrc_37.py,13,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/101r-parameter-map-flows-and-returns/derive_hmrc_37.py,depth -1
-docs/research/data/101r/derive_hmrc_37.py,14,"rows = list(csv.reader(open(os.path.join(HERE, "".."", ""097r"", ""hmrc_csv"", ""Collated_Tables_3_1_to_3_11_2324__Table_3_7.csv""))))",model/studies/101r-parameter-map-flows-and-returns/derive_hmrc_37.py,depth -1
-docs/research/data/101r/derive_hmrc_37.py,41,"with open(os.path.join(HERE, ""hmrc_37_income_composition.csv""), ""w"", newline="""") as fh:",model/studies/101r-parameter-map-flows-and-returns/derive_hmrc_37.py,depth -1
-docs/research/data/101r/derive_hmrc_37.py,49,"for r in csv.DictReader(open(os.path.join(HERE, ""derived_ons_flows.csv""))):",model/studies/101r-parameter-map-flows-and-returns/derive_hmrc_37.py,depth -1
-docs/research/data/101r/derive_hmrc_37.py,60,"with open(os.path.join(HERE, ""hmrc_37_coverage_vs_ons.csv""), ""w"", newline="""") as fh:",model/studies/101r-parameter-map-flows-and-returns/derive_hmrc_37.py,depth -1
-docs/research/data/101r/derive_jst_split.py,13,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/101r-parameter-map-flows-and-returns/derive_jst_split.py,depth -1
-docs/research/data/101r/derive_jst_split.py,15,"for r in csv.DictReader(open(os.path.join(HERE, "".."", ""100r"", ""returns_decomposition.csv"")))]",model/studies/101r-parameter-map-flows-and-returns/derive_jst_split.py,depth -1
-docs/research/data/101r/derive_jst_split.py,63,"for r in csv.DictReader(open(os.path.join(HERE, ""derived_ons_flows.csv""))):",model/studies/101r-parameter-map-flows-and-returns/derive_jst_split.py,depth -1
-docs/research/data/101r/derive_jst_split.py,76,"with open(os.path.join(HERE, ""jst_split_stats.csv""), ""w"", newline="""") as f:",model/studies/101r-parameter-map-flows-and-returns/derive_jst_split.py,depth -1
-docs/research/data/101r/derive_ons_flows.py,13,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/101r-parameter-map-flows-and-returns/derive_ons_flows.py,depth -1
-docs/research/data/101r/derive_ons_flows.py,14,"SRC = os.path.join(HERE, "".."", ""097r"")",model/studies/101r-parameter-map-flows-and-returns/derive_ons_flows.py,depth -1
-docs/research/data/101r/derive_ons_flows.py,19,"with open(os.path.join(SRC, name), newline="""") as f:",model/studies/101r-parameter-map-flows-and-returns/derive_ons_flows.py,depth -1
-docs/research/data/101r/derive_ons_flows.py,219,"with open(os.path.join(HERE, ""derived_ons_flows.csv""), ""w"", newline="""") as f:",model/studies/101r-parameter-map-flows-and-returns/derive_ons_flows.py,depth -1
-docs/research/data/101r/derive_ons_flows.py,223,"with open(os.path.join(HERE, ""derived_ons_checks.csv""), ""w"", newline="""") as f:",model/studies/101r-parameter-map-flows-and-returns/derive_ons_flows.py,depth -1
-docs/research/data/102r/build_stocks_tables.py,8,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
-docs/research/data/102r/build_stocks_tables.py,9,"ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
-docs/research/data/102r/build_stocks_tables.py,10,"D098, D099 = (os.path.join(ROOT, 'docs', 'research', 'data', x) for x in ('098r', '099r'))",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
-docs/research/data/102r/build_stocks_tables.py,11,"PACK = os.path.join(ROOT, 'model_v3', 'pack', 'GBR')",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
-docs/research/data/102r/build_stocks_tables.py,22,"return rd(os.path.join(HERE, n))",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
-docs/research/data/102r/build_stocks_tables.py,41,"for x in rd(os.path.join(PACK, 'wealth_distribution.csv')):",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
-docs/research/data/102r/build_stocks_tables.py,90,"tail = {(x['series'], x['year']): x['value'] for x in rd(os.path.join(PACK, 'wealth_tail.csv'))}",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
-docs/research/data/102r/build_stocks_tables.py,94,"moments = {x['id']: x for x in rd(os.path.join(D099, 'moments.csv'))}",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
-docs/research/data/102r/build_stocks_tables.py,198,"with open(os.path.join(HERE, name), 'w', newline='') as fh:",model/studies/102r-parameter-map-stocks-and-cells/build_stocks_tables.py,depth -1
-docs/research/data/102r/derive_bands_stages.py,8,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
-docs/research/data/102r/derive_bands_stages.py,9,"ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
-docs/research/data/102r/derive_bands_stages.py,10,"D098 = os.path.join(ROOT, 'docs', 'research', 'data', '098r')",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
-docs/research/data/102r/derive_bands_stages.py,11,"XL = os.path.join(ROOT, 'Rates Data', 'totalwealthtables.xlsx')",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
-docs/research/data/102r/derive_bands_stages.py,12,"PACK = os.path.join(ROOT, 'model_v3', 'pack', 'GBR', 'wealth_distribution.csv')",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
-docs/research/data/102r/derive_bands_stages.py,20,"with open(os.path.join(HERE, name), 'w', newline='') as fh:",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
-docs/research/data/102r/derive_bands_stages.py,100,"hh = rd(os.path.join(D098, 'was_households_by_wealth_band.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
-docs/research/data/102r/derive_bands_stages.py,101,"old_map = rd(os.path.join(D098, 'was_band_edge_mapping.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
-docs/research/data/102r/derive_bands_stages.py,129,"act = rd(os.path.join(D098, 'was_persons_activity_by_wealth_band.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
-docs/research/data/102r/derive_bands_stages.py,130,"age = rd(os.path.join(D098, 'was_persons_age_by_wealth_band.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
-docs/research/data/102r/derive_bands_stages.py,131,"old_stage = rd(os.path.join(D098, 'was_stage_by_wdt_band_derived.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_bands_stages.py,depth -1
-docs/research/data/102r/derive_debt_demography.py,5,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
-docs/research/data/102r/derive_debt_demography.py,6,"ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
-docs/research/data/102r/derive_debt_demography.py,7,"D098 = os.path.join(ROOT, 'docs', 'research', 'data', '098r'); D097 = os.path.join(ROOT, 'docs', 'research', 'data', '097r')",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
-docs/research/data/102r/derive_debt_demography.py,12,"with open(os.path.join(HERE, n), 'w', newline='') as fh:",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
-docs/research/data/102r/derive_debt_demography.py,18,"debt = rd(os.path.join(D098, 'ons_was_debt_by_age_region.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
-docs/research/data/102r/derive_debt_demography.py,45,"w = rd(os.path.join(D098, 'ons_was_wealth_by_age_of_hrp.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
-docs/research/data/102r/derive_debt_demography.py,73,"for r in rd(os.path.join(D097, f)):",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
-docs/research/data/102r/derive_debt_demography.py,90,"pop = rd(os.path.join(D098, 'ons_population_gb_principal_2024based.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
-docs/research/data/102r/derive_debt_demography.py,91,"qx = rd(os.path.join(D098, 'ons_qx_gb_2024based.csv'))",model/studies/102r-parameter-map-stocks-and-cells/derive_debt_demography.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,5,HERE = os.path.dirname(os.path.abspath(__file__)),model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,6,"ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,7,"D098 = os.path.join(ROOT, 'docs', 'research', 'data', '098r'); D097 = os.path.join(ROOT, 'docs', 'research', 'data', '097r')",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,12,"with open(os.path.join(HERE, n), 'w', newline='') as fh:",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,19,"uk = {(r['series_id'], r['period']): float(r['value']) for r in rd(os.path.join(D097, 'ons_ukea_household_annual.csv'))}",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,20,"nb = {(r['series_id'], r['period']): float(r['value']) for r in rd(os.path.join(D097, 'ons_nbs_household_stocks_annual.csv'))}",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,43,"for r in rd(os.path.join(D098, 'ons_population_gb_principal_2024based.csv')):",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,47,"qx = {(r['sex'], int(r['exact_age'])): float(r['qx']) / 1e5 for r in rd(os.path.join(D098, 'ons_qx_gb_2024based.csv')) if r['basis'] == 'period' and r['year_or_",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,58,"for r in rd(os.path.join(D098, 'was_band_reconciliation.csv')): tw[r['wdt_band']] = r",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,59,"comp = [r for r in rd(os.path.join(HERE, 'band_composition_by_pack_band.csv')) if r['round'] == R8]",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,62,"pack = {(r['variable'], r['band']): float(r['value']) for r in rd(os.path.join(ROOT, 'model_v3', 'pack', 'GBR', 'wealth_distribution.csv'))}",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,63,"ap = rd(os.path.join(HERE, 'adults_per_household_all_rounds.csv')); ap8 = [r for r in ap if r['round'] == R8][0]",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,64,"hh = {(r['wealth_band']): float(r['value']) for r in rd(os.path.join(D098, 'was_households_by_wealth_band.csv')) if r['round'] == R8 and r['measure'] == 'Weight",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,99,"mom = {r['id']: r for r in rd(os.path.join(ROOT, 'docs', 'research', 'data', '099r', 'moments.csv'))}",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,108,"stg = [r for r in rd(os.path.join(HERE, 'stage_weights_by_pack_band.csv')) if r['round'] == R8]",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,109,"wts = {r['pack_band_approx']: r for r in rd(os.path.join(HERE, 'person_household_weights_by_band.csv')) if r['round'] == R8}",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,110,"rec = {r['pack_band']: r for r in rd(os.path.join(HERE, 'band_reconciliation_exact.csv')) if r['round'] == R8}",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/102r/derive_transfers_audit_coverage.py,111,"bounds = {(r['pack_band_approx'], r['stage']): int(r['max_rounding_persons']) for r in rd(os.path.join(HERE, 'stage_rounding_bounds_r8.csv'))}",model/studies/102r-parameter-map-stocks-and-cells/derive_transfers_audit_coverage.py,depth -1
-docs/research/data/131r/basis_sensitivity.py,20,ROOT = Path(__file__).resolve().parents[4],model/studies/131r-pension-basis-sensitivity/basis_sensitivity.py,depth -1: parents[4] -> parents[3] if it reaches the repository root
-docs/research/data/131r/basis_sensitivity.py,22,PACK = ROOT / 'model_v3/pack/GBR',model/studies/131r-pension-basis-sensitivity/basis_sensitivity.py,depth -1
-docs/research/data/131r/basis_sensitivity.py,23,HERE = Path(__file__).parent,model/studies/131r-pension-basis-sensitivity/basis_sensitivity.py,depth -1
-docs/research/data/131r/basis_sensitivity.py,32,EX = {r['pack_band']: r for r in rd(ROOT / 'docs/research/data/102r/band_composition_by_pack_band.csv') if r['round'] == 'April 2020 to March 2022'},model/studies/131r-pension-basis-sensitivity/basis_sensitivity.py,depth -1
-docs/research/data/131r/basis_sensitivity.py,101,"_pack, _reg = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')",model/studies/131r-pension-basis-sensitivity/basis_sensitivity.py,depth -1
-docs/research/data/131r/extract_ifs_published.py,12,ROOT = Path(__file__).resolve().parents[4],model/studies/131r-pension-basis-sensitivity/extract_ifs_published.py,depth -1: parents[4] -> parents[3] if it reaches the repository root
-docs/research/data/131r/extract_ifs_published.py,13,PDF = ROOT / 'docs/research/data/129r/IFS Report - How is wealth distributed across British households.pdf',model/studies/131r-pension-basis-sensitivity/extract_ifs_published.py,depth -1
-docs/research/data/131r/extract_ifs_published.py,14,OUT = Path(__file__).with_name('ifs_published.csv'),model/studies/131r-pension-basis-sensitivity/extract_ifs_published.py,depth -1
+docs/research/data/097r/extract_binaries.py,8,HERE = Path(__file__).resolve().parent,research/scripts/extract_binaries.py,depth -2
+docs/research/data/097r/extract_ukea_nbs.py,9,HERE = Path(__file__).resolve().parent,research/scripts/extract_ukea_nbs.py,depth -2
+docs/research/data/098r/extract_098r.py,11,HERE = Path(__file__).resolve().parent,research/scripts/extract_098r.py,depth -2
+docs/research/data/098r/extract_098r.py,12,ROOT = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE.parents[3],research/scripts/extract_098r.py,depth -2: parents[3] -> parents[1] if it reaches the repository root
+docs/research/data/098r/extract_098r.py,101,tw = ROOT / 'Rates Data/totalwealthtables.xlsx',research/scripts/extract_098r.py,depth -2
+docs/research/data/098r/extract_098r.py,102,fw = ROOT / 'Rates Data/financialwealthtables.xlsx',research/scripts/extract_098r.py,depth -2
+docs/research/data/098r/extract_098r.py,256,p = ROOT / 'Research/etbreferencetablesfye202324final.xlsx',research/scripts/extract_098r.py,depth -2
+docs/research/data/101r/build_flows_tables.py,9,HERE = os.path.dirname(os.path.abspath(__file__)),research/scripts/build_flows_tables.py,depth -2
+docs/research/data/101r/build_flows_tables.py,11,"for r in csv.DictReader(open(os.path.join(HERE, ""derived_ons_flows.csv""))):",research/scripts/build_flows_tables.py,depth -2
+docs/research/data/101r/build_flows_tables.py,14,"for r in csv.DictReader(open(os.path.join(HERE, ""jst_split_stats.csv""))):",research/scripts/build_flows_tables.py,depth -2
+docs/research/data/101r/build_flows_tables.py,17,"for r in csv.DictReader(open(os.path.join(HERE, ""hmrc_37_coverage_vs_ons.csv""))):",research/scripts/build_flows_tables.py,depth -2
+docs/research/data/101r/build_flows_tables.py,256,"with open(os.path.join(HERE, ""flows_register.csv""), ""w"", newline="""") as f:",research/scripts/build_flows_tables.py,depth -2
+docs/research/data/101r/build_flows_tables.py,277,"with open(os.path.join(HERE, ""flows_crosswalk.csv""), ""w"", newline="""") as f:",research/scripts/build_flows_tables.py,depth -2
+docs/research/data/101r/derive_hmrc_37.py,13,HERE = os.path.dirname(os.path.abspath(__file__)),research/scripts/derive_hmrc_37.py,depth -2
+docs/research/data/101r/derive_hmrc_37.py,14,"rows = list(csv.reader(open(os.path.join(HERE, "".."", ""097r"", ""hmrc_csv"", ""Collated_Tables_3_1_to_3_11_2324__Table_3_7.csv""))))",research/scripts/derive_hmrc_37.py,depth -2
+docs/research/data/101r/derive_hmrc_37.py,41,"with open(os.path.join(HERE, ""hmrc_37_income_composition.csv""), ""w"", newline="""") as fh:",research/scripts/derive_hmrc_37.py,depth -2
+docs/research/data/101r/derive_hmrc_37.py,49,"for r in csv.DictReader(open(os.path.join(HERE, ""derived_ons_flows.csv""))):",research/scripts/derive_hmrc_37.py,depth -2
+docs/research/data/101r/derive_hmrc_37.py,60,"with open(os.path.join(HERE, ""hmrc_37_coverage_vs_ons.csv""), ""w"", newline="""") as fh:",research/scripts/derive_hmrc_37.py,depth -2
+docs/research/data/101r/derive_jst_split.py,13,HERE = os.path.dirname(os.path.abspath(__file__)),research/scripts/derive_jst_split.py,depth -2
+docs/research/data/101r/derive_jst_split.py,15,"for r in csv.DictReader(open(os.path.join(HERE, "".."", ""100r"", ""returns_decomposition.csv"")))]",research/scripts/derive_jst_split.py,depth -2
+docs/research/data/101r/derive_jst_split.py,63,"for r in csv.DictReader(open(os.path.join(HERE, ""derived_ons_flows.csv""))):",research/scripts/derive_jst_split.py,depth -2
+docs/research/data/101r/derive_jst_split.py,76,"with open(os.path.join(HERE, ""jst_split_stats.csv""), ""w"", newline="""") as f:",research/scripts/derive_jst_split.py,depth -2
+docs/research/data/101r/derive_ons_flows.py,13,HERE = os.path.dirname(os.path.abspath(__file__)),research/scripts/derive_ons_flows.py,depth -2
+docs/research/data/101r/derive_ons_flows.py,14,"SRC = os.path.join(HERE, "".."", ""097r"")",research/scripts/derive_ons_flows.py,depth -2
+docs/research/data/101r/derive_ons_flows.py,19,"with open(os.path.join(SRC, name), newline="""") as f:",research/scripts/derive_ons_flows.py,depth -2
+docs/research/data/101r/derive_ons_flows.py,219,"with open(os.path.join(HERE, ""derived_ons_flows.csv""), ""w"", newline="""") as f:",research/scripts/derive_ons_flows.py,depth -2
+docs/research/data/101r/derive_ons_flows.py,223,"with open(os.path.join(HERE, ""derived_ons_checks.csv""), ""w"", newline="""") as f:",research/scripts/derive_ons_flows.py,depth -2
+docs/research/data/102r/build_stocks_tables.py,8,HERE = os.path.dirname(os.path.abspath(__file__)),research/scripts/build_stocks_tables.py,depth -2
+docs/research/data/102r/build_stocks_tables.py,9,"ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))",research/scripts/build_stocks_tables.py,depth -2
+docs/research/data/102r/build_stocks_tables.py,10,"D098, D099 = (os.path.join(ROOT, 'docs', 'research', 'data', x) for x in ('098r', '099r'))",research/scripts/build_stocks_tables.py,depth -2
+docs/research/data/102r/build_stocks_tables.py,11,"PACK = os.path.join(ROOT, 'model_v3', 'pack', 'GBR')",research/scripts/build_stocks_tables.py,depth -2
+docs/research/data/102r/build_stocks_tables.py,22,"return rd(os.path.join(HERE, n))",research/scripts/build_stocks_tables.py,depth -2
+docs/research/data/102r/build_stocks_tables.py,41,"for x in rd(os.path.join(PACK, 'wealth_distribution.csv')):",research/scripts/build_stocks_tables.py,depth -2
+docs/research/data/102r/build_stocks_tables.py,90,"tail = {(x['series'], x['year']): x['value'] for x in rd(os.path.join(PACK, 'wealth_tail.csv'))}",research/scripts/build_stocks_tables.py,depth -2
+docs/research/data/102r/build_stocks_tables.py,94,"moments = {x['id']: x for x in rd(os.path.join(D099, 'moments.csv'))}",research/scripts/build_stocks_tables.py,depth -2
+docs/research/data/102r/build_stocks_tables.py,198,"with open(os.path.join(HERE, name), 'w', newline='') as fh:",research/scripts/build_stocks_tables.py,depth -2
+docs/research/data/102r/derive_bands_stages.py,8,HERE = os.path.dirname(os.path.abspath(__file__)),research/scripts/derive_bands_stages.py,depth -2
+docs/research/data/102r/derive_bands_stages.py,9,"ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))",research/scripts/derive_bands_stages.py,depth -2
+docs/research/data/102r/derive_bands_stages.py,10,"D098 = os.path.join(ROOT, 'docs', 'research', 'data', '098r')",research/scripts/derive_bands_stages.py,depth -2
+docs/research/data/102r/derive_bands_stages.py,11,"XL = os.path.join(ROOT, 'Rates Data', 'totalwealthtables.xlsx')",research/scripts/derive_bands_stages.py,depth -2
+docs/research/data/102r/derive_bands_stages.py,12,"PACK = os.path.join(ROOT, 'model_v3', 'pack', 'GBR', 'wealth_distribution.csv')",research/scripts/derive_bands_stages.py,depth -2
+docs/research/data/102r/derive_bands_stages.py,20,"with open(os.path.join(HERE, name), 'w', newline='') as fh:",research/scripts/derive_bands_stages.py,depth -2
+docs/research/data/102r/derive_bands_stages.py,100,"hh = rd(os.path.join(D098, 'was_households_by_wealth_band.csv'))",research/scripts/derive_bands_stages.py,depth -2
+docs/research/data/102r/derive_bands_stages.py,101,"old_map = rd(os.path.join(D098, 'was_band_edge_mapping.csv'))",research/scripts/derive_bands_stages.py,depth -2
+docs/research/data/102r/derive_bands_stages.py,129,"act = rd(os.path.join(D098, 'was_persons_activity_by_wealth_band.csv'))",research/scripts/derive_bands_stages.py,depth -2
+docs/research/data/102r/derive_bands_stages.py,130,"age = rd(os.path.join(D098, 'was_persons_age_by_wealth_band.csv'))",research/scripts/derive_bands_stages.py,depth -2
+docs/research/data/102r/derive_bands_stages.py,131,"old_stage = rd(os.path.join(D098, 'was_stage_by_wdt_band_derived.csv'))",research/scripts/derive_bands_stages.py,depth -2
+docs/research/data/102r/derive_debt_demography.py,5,HERE = os.path.dirname(os.path.abspath(__file__)),research/scripts/derive_debt_demography.py,depth -2
+docs/research/data/102r/derive_debt_demography.py,6,"ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))",research/scripts/derive_debt_demography.py,depth -2
+docs/research/data/102r/derive_debt_demography.py,7,"D098 = os.path.join(ROOT, 'docs', 'research', 'data', '098r'); D097 = os.path.join(ROOT, 'docs', 'research', 'data', '097r')",research/scripts/derive_debt_demography.py,depth -2
+docs/research/data/102r/derive_debt_demography.py,12,"with open(os.path.join(HERE, n), 'w', newline='') as fh:",research/scripts/derive_debt_demography.py,depth -2
+docs/research/data/102r/derive_debt_demography.py,18,"debt = rd(os.path.join(D098, 'ons_was_debt_by_age_region.csv'))",research/scripts/derive_debt_demography.py,depth -2
+docs/research/data/102r/derive_debt_demography.py,45,"w = rd(os.path.join(D098, 'ons_was_wealth_by_age_of_hrp.csv'))",research/scripts/derive_debt_demography.py,depth -2
+docs/research/data/102r/derive_debt_demography.py,73,"for r in rd(os.path.join(D097, f)):",research/scripts/derive_debt_demography.py,depth -2
+docs/research/data/102r/derive_debt_demography.py,90,"pop = rd(os.path.join(D098, 'ons_population_gb_principal_2024based.csv'))",research/scripts/derive_debt_demography.py,depth -2
+docs/research/data/102r/derive_debt_demography.py,91,"qx = rd(os.path.join(D098, 'ons_qx_gb_2024based.csv'))",research/scripts/derive_debt_demography.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,5,HERE = os.path.dirname(os.path.abspath(__file__)),research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,6,"ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,7,"D098 = os.path.join(ROOT, 'docs', 'research', 'data', '098r'); D097 = os.path.join(ROOT, 'docs', 'research', 'data', '097r')",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,12,"with open(os.path.join(HERE, n), 'w', newline='') as fh:",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,19,"uk = {(r['series_id'], r['period']): float(r['value']) for r in rd(os.path.join(D097, 'ons_ukea_household_annual.csv'))}",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,20,"nb = {(r['series_id'], r['period']): float(r['value']) for r in rd(os.path.join(D097, 'ons_nbs_household_stocks_annual.csv'))}",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,43,"for r in rd(os.path.join(D098, 'ons_population_gb_principal_2024based.csv')):",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,47,"qx = {(r['sex'], int(r['exact_age'])): float(r['qx']) / 1e5 for r in rd(os.path.join(D098, 'ons_qx_gb_2024based.csv')) if r['basis'] == 'period' and r['year_or_",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,58,"for r in rd(os.path.join(D098, 'was_band_reconciliation.csv')): tw[r['wdt_band']] = r",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,59,"comp = [r for r in rd(os.path.join(HERE, 'band_composition_by_pack_band.csv')) if r['round'] == R8]",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,62,"pack = {(r['variable'], r['band']): float(r['value']) for r in rd(os.path.join(ROOT, 'model_v3', 'pack', 'GBR', 'wealth_distribution.csv'))}",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,63,"ap = rd(os.path.join(HERE, 'adults_per_household_all_rounds.csv')); ap8 = [r for r in ap if r['round'] == R8][0]",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,64,"hh = {(r['wealth_band']): float(r['value']) for r in rd(os.path.join(D098, 'was_households_by_wealth_band.csv')) if r['round'] == R8 and r['measure'] == 'Weight",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,99,"mom = {r['id']: r for r in rd(os.path.join(ROOT, 'docs', 'research', 'data', '099r', 'moments.csv'))}",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,108,"stg = [r for r in rd(os.path.join(HERE, 'stage_weights_by_pack_band.csv')) if r['round'] == R8]",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,109,"wts = {r['pack_band_approx']: r for r in rd(os.path.join(HERE, 'person_household_weights_by_band.csv')) if r['round'] == R8}",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,110,"rec = {r['pack_band']: r for r in rd(os.path.join(HERE, 'band_reconciliation_exact.csv')) if r['round'] == R8}",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/102r/derive_transfers_audit_coverage.py,111,"bounds = {(r['pack_band_approx'], r['stage']): int(r['max_rounding_persons']) for r in rd(os.path.join(HERE, 'stage_rounding_bounds_r8.csv'))}",research/scripts/derive_transfers_audit_coverage.py,depth -2
+docs/research/data/131r/basis_sensitivity.py,20,ROOT = Path(__file__).resolve().parents[4],research/scripts/basis_sensitivity.py,depth -2: parents[4] -> parents[2] if it reaches the repository root
+docs/research/data/131r/basis_sensitivity.py,22,PACK = ROOT / 'model_v3/pack/GBR',research/scripts/basis_sensitivity.py,depth -2
+docs/research/data/131r/basis_sensitivity.py,23,HERE = Path(__file__).parent,research/scripts/basis_sensitivity.py,depth -2
+docs/research/data/131r/basis_sensitivity.py,32,EX = {r['pack_band']: r for r in rd(ROOT / 'docs/research/data/102r/band_composition_by_pack_band.csv') if r['round'] == 'April 2020 to March 2022'},research/scripts/basis_sensitivity.py,depth -2
+docs/research/data/131r/basis_sensitivity.py,101,"_pack, _reg = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')",research/scripts/basis_sensitivity.py,depth -2
+docs/research/data/131r/extract_ifs_published.py,12,ROOT = Path(__file__).resolve().parents[4],research/scripts/extract_ifs_published.py,depth -2: parents[4] -> parents[2] if it reaches the repository root
+docs/research/data/131r/extract_ifs_published.py,13,PDF = ROOT / 'docs/research/data/129r/IFS Report - How is wealth distributed across British households.pdf',research/scripts/extract_ifs_published.py,depth -2
+docs/research/data/131r/extract_ifs_published.py,14,OUT = Path(__file__).with_name('ifs_published.csv'),research/scripts/extract_ifs_published.py,depth -2
+docs/restructure/move_tripwire.py,32,BASELINE = Path(__file__).with_name('move-tripwire-baseline.json'),project/restructure/move_tripwire.py,same depth
+docs/restructure/move_tripwire.py,40,if (ROOT / c).exists():,project/restructure/move_tripwire.py,same depth
+docs/restructure/move_tripwire.py,41,return ROOT / c,project/restructure/move_tripwire.py,same depth
+docs/restructure/move_tripwire.py,81,"p.parent.mkdir(parents=True, exist_ok=True); p.write_bytes(b)",project/restructure/move_tripwire.py,same depth
+docs/restructure/move_tripwire.py,89,"for sp in (ROOT, ROOT / 'model'):",project/restructure/move_tripwire.py,same depth
+docs/restructure/path_rewrite_proof.py,77,"ap.add_argument('--map', default=str(ROOT / 'docs/restructure/file-layout-map.csv'))",project/restructure/path_rewrite_proof.py,same depth
 model_v3/out/writer.py,15,REPO = Path(__file__).resolve().parents[2],model/model_v3/out/writer.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
 model_v3/out/writer.py,64,"path.parent.mkdir(parents=True, exist_ok=True)",model/model_v3/out/writer.py,depth +1
 model_v3/pack/build_gbr.py,19,ROOT = Path(__file__).resolve().parents[2],model/model_v3/pack/build_gbr.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
@@ -228,12 +234,12 @@ pipeline/build_metrics.py,42,"DEFAULT_SRC = ROOT / ""docs"" / ""model-v3"" / ""m
 pipeline/build_metrics.py,43,"DEFAULT_MANIFEST = ROOT / ""docs"" / ""model-v3"" / ""outputs.yml""",model/tools/build_metrics.py,depth +1
 pipeline/build_metrics.py,44,"DEFAULT_OUT = ROOT / ""registry"" / ""metrics.json""",model/tools/build_metrics.py,depth +1
 pipeline/build_metrics.py,297,"args.out.parent.mkdir(parents=True, exist_ok=True)",model/tools/build_metrics.py,depth +1
-pipeline/build_skills.py,19,ROOT = Path(__file__).resolve().parent.parent,project/housekeeping/build_skills.py,depth +1
-pipeline/build_skills.py,27,"return {f""{stub.parent.name}/SKILL.md"": stub.read_bytes()}",project/housekeeping/build_skills.py,depth +1
-pipeline/build_skills.py,61,"target = out / f""{stub.parent.name}.skill""",project/housekeeping/build_skills.py,depth +1
-pipeline/check_agent_docs.py,56,"return any((base / tok).exists() for base in (root, src.parent))",project/housekeeping/check_agent_docs.py,depth +1
-pipeline/check_agent_docs.py,68,"if not (src.parent / target.split(""#"")[0]).exists():",project/housekeeping/check_agent_docs.py,depth +1
-pipeline/check_agent_docs.py,97,"ap.add_argument(""--root"", type=Path, default=Path(__file__).resolve().parent.parent)",project/housekeeping/check_agent_docs.py,depth +1
+pipeline/build_skills.py,19,ROOT = Path(__file__).resolve().parent.parent,project/tools/build_skills.py,depth +1
+pipeline/build_skills.py,27,"return {f""{stub.parent.name}/SKILL.md"": stub.read_bytes()}",project/tools/build_skills.py,depth +1
+pipeline/build_skills.py,61,"target = out / f""{stub.parent.name}.skill""",project/tools/build_skills.py,depth +1
+pipeline/check_agent_docs.py,56,"return any((base / tok).exists() for base in (root, src.parent))",project/tools/check_agent_docs.py,depth +1
+pipeline/check_agent_docs.py,68,"if not (src.parent / target.split(""#"")[0]).exists():",project/tools/check_agent_docs.py,depth +1
+pipeline/check_agent_docs.py,97,"ap.add_argument(""--root"", type=Path, default=Path(__file__).resolve().parent.parent)",project/tools/check_agent_docs.py,depth +1
 pipeline/check_gate.py,61,root: Path = Path(__file__).resolve().parent.parent,model/tools/check_gate.py,depth +1
 pipeline/check_wdt_format.py,104,"add(n, f""figure path '{path_}' should be ../figures/{sc.lower()}_fig_{stem}_<slug>.png"")",website/build/check_wdt_format.py,depth +1
 pipeline/config.py,21,SCRIPT_DIR = Path(__file__).resolve().parent   # wdt-site/pipeline/,website/build/config.py,depth +1
@@ -259,6 +265,26 @@ pipeline/pages/nav.py,174,"path.parent.mkdir(parents=True, exist_ok=True)",websi
 pipeline/pages/retired.py,38,"sys.path.insert(0, str(Path(__file__).resolve().parents[1]))",website/build/pages/retired.py,depth +1: parents[1] -> parents[2] if it reaches the repository root
 pipeline/pages/retired.py,305,"out.parent.mkdir(parents=True, exist_ok=True)",website/build/pages/retired.py,depth +1
 pipeline/pages/routing.py,23,"sys.path.insert(0, str(Path(__file__).resolve().parents[1]))",website/build/pages/routing.py,depth +1: parents[1] -> parents[2] if it reaches the repository root
+pipeline/path_refs.py,5,"python pipeline/path_refs.py --depth     every line that builds a path from its own location (hazard 1): __file__, parents[, os.path, .., includes, .bat, YAML",project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,19,ROOT = Path(__file__).resolve().parents[1],project/tools/path_refs.py,depth +1: parents[1] -> parents[2] if it reaches the repository root
+pipeline/path_refs.py,20,MAP_CSV = ROOT / 'docs/restructure/file-layout-map.csv',project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,189,files = [f for f in tracked() if (ROOT / f).is_file()],project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,196,if (ROOT / f).stat().st_size:,project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,197,by_hash[hashlib.sha256((ROOT / f).read_bytes()).hexdigest()].append(f),project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,228,parent = Path(r['new']).parent,project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,232,if len({str(Path(r['new']).parent / r['rename']) for r in todo}) == len(todo):,project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,235,r['new'] = str(Path(r['new']).parent / r['rename']),project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,241,"MAP_CSV.parent.mkdir(parents=True, exist_ok=True)",project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,249,MAP_MD = ROOT / 'docs/restructure/file-layout-map.md',project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,250,DEPTH_CSV = ROOT / 'docs/restructure/file-layout-depth.csv',project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,251,REFS_CSV = ROOT / 'docs/restructure/file-layout-references.csv',project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,331,groups = collections.Counter(Path(r['old']).parent.as_posix() for r in ren),project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,337,"out += ['', '## Depth-based paths (hazard 1)', '', f'{len(dep)} lines in `file-layout-depth.csv` (`__file__`, `parents[`, `.parent`, `os.path`, `..`, includes, ",project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,379,lines = (ROOT / f).read_text(encoding='utf-8').splitlines(),project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,388,"DEPTH = re.compile(r'__file__|parents\[|\.parent\b|os\.path\.(?:join|dirname|abspath|relpath)|(?<![\w.])\.\./|\bPath\(\s*[""\']\.\.|%~dp0|\{\{<\s*include|\bdirna",project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,392,"""""""(file, line, text, new file, change) for every line that builds a path from its own location; `change` is the parents[] shift the move needs (new folder dept",project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,399,"for i, line in enumerate((ROOT / f).read_text(encoding='utf-8', errors='replace').splitlines(), 1):",project/tools/path_refs.py,depth +1
+pipeline/path_refs.py,404,note += f': parents[{m.group(1)}] -> parents[{int(m.group(1)) + delta}] if it reaches the repository root',project/tools/path_refs.py,depth +1
 pipeline/pdf.py,313,#    Source files reference figures as ../figures/<name>.png (relative to the,website/build/pdf.py,depth +1
 pipeline/pdf.py,315,"#    transforms.py may not handle the ../ prefix. After fix_image_paths runs,",website/build/pdf.py,depth +1
 pipeline/pdf.py,330,#      ![Figure N.Na: Caption text. **(CODE §ref)**](../figures/file.png){width=100%},website/build/pdf.py,depth +1
@@ -333,14 +359,14 @@ tests/hooks/conftest.py,6,ROOT = Path(__file__).resolve().parents[2],tests/websi
 tests/hooks/conftest.py,7,"PIPELINE = ROOT / ""pipeline""",tests/website/hooks/conftest.py,depth +1
 tests/hooks/conftest.py,8,"FX = Path(__file__).resolve().parent / ""fixtures""",tests/website/hooks/conftest.py,depth +1
 tests/hooks/conftest.py,9,"DATA = ROOT / ""tests"" / ""data"" / ""fixtures"" / ""outputs.fixture.json""",tests/website/hooks/conftest.py,depth +1
-tests/hooks/test_build_skills.py,8,ROOT = Path(__file__).resolve().parents[2],tests/website/hooks/test_build_skills.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
-tests/hooks/test_build_skills.py,9,"SCRIPT = str(ROOT / ""pipeline"" / ""build_skills.py"")",tests/website/hooks/test_build_skills.py,depth +1
-tests/hooks/test_build_skills.py,16,p.parent.mkdir(parents=True),tests/website/hooks/test_build_skills.py,depth +1
-tests/hooks/test_check_agent_docs.py,7,ROOT = Path(__file__).resolve().parents[2],tests/website/hooks/test_check_agent_docs.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
-tests/hooks/test_check_agent_docs.py,8,"SCRIPT = ROOT / ""pipeline"" / ""check_agent_docs.py""",tests/website/hooks/test_check_agent_docs.py,depth +1
-tests/hooks/test_check_agent_docs.py,27,"p.parent.mkdir(parents=True, exist_ok=True)",tests/website/hooks/test_check_agent_docs.py,depth +1
-tests/hooks/test_run_suites.py,6,ROOT = Path(__file__).resolve().parents[2],tests/website/hooks/test_run_suites.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
-tests/hooks/test_run_suites.py,7,"SCRIPT = str(ROOT / ""pipeline"" / ""run_suites.py"")",tests/website/hooks/test_run_suites.py,depth +1
+tests/hooks/test_build_skills.py,8,ROOT = Path(__file__).resolve().parents[2],tests/project/tools/test_build_skills.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/hooks/test_build_skills.py,9,"SCRIPT = str(ROOT / ""pipeline"" / ""build_skills.py"")",tests/project/tools/test_build_skills.py,depth +1
+tests/hooks/test_build_skills.py,16,p.parent.mkdir(parents=True),tests/project/tools/test_build_skills.py,depth +1
+tests/hooks/test_check_agent_docs.py,7,ROOT = Path(__file__).resolve().parents[2],tests/project/tools/test_check_agent_docs.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/hooks/test_check_agent_docs.py,8,"SCRIPT = ROOT / ""pipeline"" / ""check_agent_docs.py""",tests/project/tools/test_check_agent_docs.py,depth +1
+tests/hooks/test_check_agent_docs.py,27,"p.parent.mkdir(parents=True, exist_ok=True)",tests/project/tools/test_check_agent_docs.py,depth +1
+tests/hooks/test_run_suites.py,6,ROOT = Path(__file__).resolve().parents[2],tests/model/tools/test_run_suites.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
+tests/hooks/test_run_suites.py,7,"SCRIPT = str(ROOT / ""pipeline"" / ""run_suites.py"")",tests/model/tools/test_run_suites.py,depth +1
 tests/layout/conftest.py,21,ROOT = Path(__file__).resolve().parents[2],tests/website/layout/conftest.py,depth +1: parents[2] -> parents[3] if it reaches the repository root
 tests/layout/conftest.py,22,"SITE = ROOT / ""site""",tests/website/layout/conftest.py,depth +1
 tests/layout/conftest.py,23,"FIXTURES = Path(__file__).resolve().parent / ""fixtures""",tests/website/layout/conftest.py,depth +1
