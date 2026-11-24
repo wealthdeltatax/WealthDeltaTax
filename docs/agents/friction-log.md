@@ -47,3 +47,8 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Cost: about 40 minutes and two reruns; I chose `min_mid` and `median_high` (the 127c lien points) and added `flow_ties.py`, which checks the tie on every `core_run`.
 - Suggest: briefs that rerun lien switches name the points and say the tie is checked on every core run, not only the main one.
 
+
+### 2026-11-24 · 009c · code
+- Instruction: 009c Design 1 ("push the tag"); `docs/agents/code.md` does not say tag pushes are blocked.
+- Happened: `git push origin legacy-models-2026-11` fails with `RPC failed; HTTP 403` from the session proxy (branch pushes work).
+- Cost: the tag acceptance criterion cannot be met from the session; the author pushes it.

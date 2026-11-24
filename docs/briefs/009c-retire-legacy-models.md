@@ -34,11 +34,24 @@ None; the agent flags any call the rules cannot settle.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** not started
+- **Done:** all design steps 2 to 5 on `brief/009-retire-legacy-models`; local tag `legacy-models-2026-11` on `16b26e4`; ten suites pass as at the baseline.
+- **Next:** the author pushes the tag (`git push origin legacy-models-2026-11`; the session proxy refused it with HTTP 403) and asks for the merge.
+- **Decisions:** the pack, its `source` strings and `levers.json` untouched (a re-run of `build_gbr.py` gives no diff); `wid_download.py` and `WID_Data_Guide.md` moved byte-identical (their internal `wid_out` and removed-script mentions are unchanged: content change, out of scope).
+- **Gotchas:** `build_gbr.py` needs a full clone (done with `git fetch --unshallow`); `site/_quarto.yml` `resources:` still lists `model/*` files (outside Touches).
+- **Resume:** `git checkout brief/009-retire-legacy-models`; `python pipeline/run_suites.py`.
+- **Not run:** the site build and render (no Quarto here), the `layout` suite (skipped, needs a build).
+- **State:** NEEDS THE AUTHOR (tag not on the remote)
 <!-- progress:end -->
+
+Change report
+- Task: brief 009c, retire the legacy models (step R0)
+- Files changed: removed `model_v1/` and `model_v2/` (307 files, 134.9 MB; `audit_d0` was inside `model_v2/`); moved with identical content `data/jst/jst_r6.json` (the three copies, in `model_v1`, `model_v2` and the pack, had the same hash), `data/wid/wid_long.csv` (52.9 MB), `wid_download.py`, `WID_Data_Guide.md`; `model_v3/pack/build_gbr.py` (two read paths and the docstring; the `source` and `FROM` strings that become manifest text are unchanged); `docs/model-v3/returns/common.py` (path); `pipeline/config.py` (`MODEL_DIR` removed), `pipeline/preprocess.py` (the two dead copy blocks and `_TOOL_RUNTIME_SUFFIXES` removed), `pipeline/transforms.py` (a comment); `OVERVIEW.md`, `README.md`, `START_HERE.md`, `AGENTS.md`, `docs/agents/code.md`, `docs/agents/reference/code/conventions.md` and `patch-and-test.md` (a one-line "removed, see tag" each), `docs/wdt-site-architecture.md`; `docs/decisions.md` (one entry). `.gitignore` needed no change.
+- What is different now: the tree has no `model_v1`, `model_v2` or `audit_d0`; `data/` holds the two kept inputs; the site build copies no model assets or figures.
+- Acceptance criteria: tree without the three folders: MET; the four kept files exist: MET; `build_gbr.py` reproduces the pack byte for byte (run in a full clone; `git status` shows only `build_gbr.py` changed): MET; all ten suites pass (data 103, gate 17, cards 8, model_v3 408, hooks 88, glossary 27, layout 40 skipped, nav 59, pages 28, retired 13), identical to the baseline run on `16b26e4`, so the legacy digest and the `inputs.json` hash pass; `check_agent_docs.py` passes (exit 0). NOT MET: the tag on the remote: `git push origin legacy-models-2026-11` was refused (HTTP 403 from the session proxy, a policy denial, not retried or routed around); the tag exists locally on `16b26e4`.
+- Red checks (R5), expected: not measured, because no Quarto render ran here; known by reading: the site's old calculators fetch `/model/*` (`taxpayer`, `revenue`, `ldw`) and `site/_quarto.yml` lists `model/wdt_core.py`, `model/rates_model.py` (already gone), `model/ldw_core.py` and `model/WDT_Params.toml` under `resources:`; the old papers' figures (`figures/*.png`) lose their source (`model_v1/OUTPUTS`, 95 files). The `layout` suite is skipped without a build.
+- Restore: `git checkout legacy-models-2026-11 -- model_v2` (and `-- model_v1`), or by commit `git checkout 16b26e4 -- model_v1 model_v2`.
+- Deviations: none from the design; the tag is local until the author pushes it. `docs/decisions.md` records the commit hash for that reason.
+- Instruction friction: one entry in `docs/agents/friction-log.md` (tag push refused).
+- Verification: as above; not run: the site build and render.
+- Overview sections likely needing an update: OVERVIEW.md section 2 (repository map; edited here for the removed folders only), 044c's map.
+- Commit / branch: `brief/009-retire-legacy-models`; not merged (the tag criterion is unmet and the author asks for merges).
