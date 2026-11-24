@@ -39,6 +39,87 @@ Gap: 0 inside the model range, else observed minus the nearest end.
 - Linked WAS microdata (UKDS, out of scope here) are the only source for the transition matrix, the share with falling wealth and the passive share by band, which are the moments that bear on a saving-by-wealth gradient and per-path regimes.
 - The pension valuation basis of the pack against Resolution Foundation (BF-11) is a research question, not a model one.
 
+## Concentration under the stock and saving switches (147c)
+
+Two labelled scenario switches (147c, `switches.py`): `top_tail` scales D10b's opening stock to a published top-1% share (14.4% `ast_low`, 16.5% `ast_high`; the `_e0` settings first take the missing wealth I-D4e off the top) and `saving_shape` gives the saving ratio by line a step (`mild`, 7 points: D1 and D2 save less) or a step plus a rise (`steep`, 7 more points up the percentiles). Each is a scenario with no fitted value; nothing here is calibrated, and no headline number is read. The targets are shares of the arm's own opening stock after the launch loss (author's ruling, 2026-11-24): year 0 is 0.430 for the top decile and 0.216 for the top 1% with both switches off, so the moved amounts differ from 146r's. Shares are of household wealth, pension included, untaxed (the `none` run through the arm's step). The top-decile share is unchanged by `top_tail` (D10a takes what D10b gives); `_e0` lowers it to 0.402. 20 paths, the five grid points (`scenario_grid.py`, `scenario_grid.csv`).
+
+**The floor at zero wealth (author's ruling, 2026-11-24).** Under `mild` and `steep` a line's dissaving cannot take its wealth below zero (no borrowing): the offset of a line is limited to the largest for which its untaxed path keeps total wealth at or above zero over 100 years (`floor_saving`, `switches.py`; stated in the run label as `saving_floor`). Aggregate saving then equals `flat`'s only where no line is floored. 30 of the 50 non-flat cells floor (the 30 that stopped in M13 before the floor), one or two lines each:
+
+| point | saving shape | lines floored | saving added (points of the mean ratio) |
+|---|---|---|---|
+| median_high | steep | 1 | 0.11 |
+| median_low | mild | 2 | 0.24 |
+| median_low | steep | 2 | 0.68 |
+| median_mid | steep | 2 | 0.27 |
+| min_mid | mild | 2 | 0.34 |
+| min_mid | steep | 2 | 0.79 |
+
+Where it floors, the floor removes dissaving, so aggregate saving rises above `flat`'s by the amount shown. The other 20 non-flat cells and all 25 flat cells are not floored and equal their unfloored values.
+
+**Against 0.50 (BF-13, top 10%), range over saving min, median, max at the mid regime.** The observed 0.50 is on a different definition (per-adult families), so the label stays `definition differs`; the gap is shown, not claimed. Year 0 is the stock: top-1% rows at year 0 equal the setting by construction, not a test.
+
+| top-1% setting | saving shape | top 10%, year 0 | top 10%, year 100 | gap to 0.50, year 100 | top 1%, year 0 | top 1%, year 100 |
+|---|---|---|---|---|---|---|
+| off | flat | 0.430 | 0.207 to 0.339 | +0.161 | 0.216 | 0.069 to 0.166 |
+| off | mild | 0.430 | 0.212 to 0.342 | +0.158 | 0.216 | 0.069 to 0.162 |
+| off | steep | 0.430 | 0.230 to 0.366 | +0.134 | 0.216 | 0.071 to 0.158 |
+| ast_low | flat | 0.430 | 0.207 to 0.338 | +0.162 | 0.144 | 0.048 to 0.110 |
+| ast_low | mild | 0.430 | 0.212 to 0.342 | +0.158 | 0.144 | 0.049 to 0.108 |
+| ast_low | steep | 0.430 | 0.230 to 0.366 | +0.134 | 0.144 | 0.051 to 0.107 |
+| ast_high | flat | 0.430 | 0.207 to 0.338 | +0.162 | 0.165 | 0.054 to 0.126 |
+| ast_high | mild | 0.430 | 0.212 to 0.342 | +0.158 | 0.165 | 0.055 to 0.124 |
+| ast_high | steep | 0.430 | 0.230 to 0.366 | +0.134 | 0.165 | 0.057 to 0.122 |
+| ast_low_e0 | flat | 0.402 | 0.196 to 0.314 | +0.186 | 0.144 | 0.047 to 0.109 |
+| ast_low_e0 | mild | 0.402 | 0.202 to 0.318 | +0.182 | 0.144 | 0.048 to 0.107 |
+| ast_low_e0 | steep | 0.402 | 0.220 to 0.345 | +0.155 | 0.144 | 0.050 to 0.106 |
+| ast_high_e0 | flat | 0.402 | 0.196 to 0.314 | +0.186 | 0.165 | 0.053 to 0.125 |
+| ast_high_e0 | mild | 0.402 | 0.202 to 0.318 | +0.182 | 0.165 | 0.053 to 0.122 |
+| ast_high_e0 | steep | 0.402 | 0.220 to 0.345 | +0.155 | 0.165 | 0.055 to 0.120 |
+
+Reading: with both switches off the year-100 untaxed top-decile share is 0.207 to 0.339 (gap +0.161); `mild` gives 0.212 to 0.342 and `steep` 0.230 to 0.366 (gap +0.134). No setting reaches the observed 0.50; the cause is not investigated here (author's ruling). `top_tail` moves the top-1% share (year 100, flat saving: 0.048 to 0.110 under `ast_low`, 0.069 to 0.166 off) and the top-decile share not at all, the `_e0` settings aside (0.196 to 0.314 flat).
+
+**By year, at `median_mid`.**
+
+| top-1% setting | saving shape | top 10%: yr 1 | 10 | 30 | 100 | top 1%: yr 1 | 10 | 30 | 100 |
+|---|---|---|---|---|---|---|---|---|---|
+| off | flat | 0.427 | 0.406 | 0.367 | 0.291 | 0.215 | 0.201 | 0.176 | 0.128 |
+| off | mild | 0.427 | 0.407 | 0.370 | 0.296 | 0.215 | 0.201 | 0.176 | 0.126 |
+| off | steep | 0.428 | 0.412 | 0.383 | 0.322 | 0.215 | 0.201 | 0.175 | 0.127 |
+| ast_low | flat | 0.427 | 0.406 | 0.367 | 0.291 | 0.143 | 0.134 | 0.117 | 0.086 |
+| ast_low | mild | 0.427 | 0.407 | 0.370 | 0.296 | 0.143 | 0.134 | 0.118 | 0.085 |
+| ast_low | steep | 0.428 | 0.412 | 0.383 | 0.322 | 0.143 | 0.134 | 0.118 | 0.087 |
+| ast_high | flat | 0.427 | 0.406 | 0.367 | 0.291 | 0.164 | 0.153 | 0.134 | 0.098 |
+| ast_high | mild | 0.427 | 0.407 | 0.370 | 0.296 | 0.164 | 0.153 | 0.134 | 0.097 |
+| ast_high | steep | 0.428 | 0.412 | 0.383 | 0.322 | 0.164 | 0.153 | 0.135 | 0.098 |
+| ast_low_e0 | flat | 0.399 | 0.379 | 0.342 | 0.271 | 0.143 | 0.133 | 0.116 | 0.084 |
+| ast_low_e0 | mild | 0.399 | 0.380 | 0.346 | 0.276 | 0.143 | 0.133 | 0.117 | 0.084 |
+| ast_low_e0 | steep | 0.400 | 0.385 | 0.359 | 0.304 | 0.143 | 0.134 | 0.117 | 0.085 |
+| ast_high_e0 | flat | 0.399 | 0.379 | 0.342 | 0.271 | 0.164 | 0.153 | 0.133 | 0.096 |
+| ast_high_e0 | mild | 0.399 | 0.380 | 0.346 | 0.276 | 0.164 | 0.153 | 0.133 | 0.095 |
+| ast_high_e0 | steep | 0.400 | 0.385 | 0.359 | 0.304 | 0.164 | 0.153 | 0.134 | 0.097 |
+
+**What the run reports** (20 paths, schedule S; ranges over the five points; M2 is the long horizon). All 75 cells run:
+
+| top-1% setting | saving shape | cells run of 5 | M1a long | M2 long, overall | M2 long, D10 | shortfall line-phases (max) | largest lien balance | I1 and ties |
+|---|---|---|---|---|---|---|---|---|
+| off | flat | 5 | 0.94 to 7.95 | 0.11 to 0.40 | 0.16 to 0.53 | 160 | 0.6 | held; tie max 5e-12 |
+| off | mild | 5 | 1.03 to 9.18 | 0.11 to 0.43 | 0.16 to 0.53 | 0 | 0.3 | held; tie max 6e-12 |
+| off | steep | 5 | 1.20 to 10.41 | 0.12 to 0.47 | 0.17 to 0.56 | 1080 | 0.4 | held; tie max 8e-12 |
+| ast_low | flat | 5 | 0.95 to 8.37 | 0.10 to 0.41 | 0.14 to 0.53 | 160 | 0.6 | held; tie max 5e-12 |
+| ast_low | mild | 5 | 1.04 to 9.55 | 0.10 to 0.44 | 0.14 to 0.54 | 0 | 0.2 | held; tie max 6e-12 |
+| ast_low | steep | 5 | 1.22 to 10.60 | 0.12 to 0.48 | 0.15 to 0.57 | 1080 | 0.4 | held; tie max 7e-12 |
+| ast_high | flat | 5 | 0.95 to 8.29 | 0.10 to 0.41 | 0.14 to 0.53 | 160 | 0.6 | held; tie max 4e-12 |
+| ast_high | mild | 5 | 1.03 to 9.48 | 0.11 to 0.44 | 0.15 to 0.54 | 0 | 0.2 | held; tie max 4e-12 |
+| ast_high | steep | 5 | 1.22 to 10.57 | 0.12 to 0.48 | 0.16 to 0.57 | 1080 | 0.4 | held; tie max 9e-12 |
+| ast_low_e0 | flat | 5 | 0.86 to 7.94 | 0.10 to 0.40 | 0.13 to 0.51 | 160 | 0.6 | held; tie max 4e-12 |
+| ast_low_e0 | mild | 5 | 0.95 to 9.16 | 0.10 to 0.43 | 0.14 to 0.52 | 0 | 0.2 | held; tie max 6e-12 |
+| ast_low_e0 | steep | 5 | 1.13 to 10.32 | 0.11 to 0.47 | 0.15 to 0.56 | 1080 | 0.4 | held; tie max 8e-12 |
+| ast_high_e0 | flat | 5 | 0.86 to 7.83 | 0.10 to 0.40 | 0.14 to 0.51 | 160 | 0.6 | held; tie max 4e-12 |
+| ast_high_e0 | mild | 5 | 0.95 to 9.06 | 0.10 to 0.43 | 0.14 to 0.52 | 0 | 0.2 | held; tie max 4e-12 |
+| ast_high_e0 | steep | 5 | 1.12 to 10.27 | 0.11 to 0.47 | 0.15 to 0.56 | 1080 | 0.4 | held; tie max 7e-12 |
+
+I1, the account identity (max 5e-11) and the ledger ties (max 9e-12) hold at all 75 cells and `unpaid` is 0. The shortfall line-phases (a zero-unit line that cannot take the year's flow, the 137c alarm) are 160 at `min_mid` flat as before; the floor adds 20 at `median_mid` and 1,080 at `median_high` under `steep` (five `top_tail` settings each). They are reported; the cause is not investigated here (the 137c item stays open).
+
 ## Suggestions (not applied)
 
 None of these changes a parameter here: a held-moments table for the model could carry a `pack basis` column so definitional gaps are visible at source; the saving axis could be compared with a total-ratio series, not the non-pension part, if a validation of the saving level is wanted.

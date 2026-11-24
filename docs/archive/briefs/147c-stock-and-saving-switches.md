@@ -35,8 +35,16 @@ Tail behaviour, withdrawal, GDP paths (148c), the register rows, any headline nu
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0
+- **Done:** blocks 0 to 4 (`top_tail`, `saving_shape` with the zero-wealth floor, the 75-cell grid, the note)
+- **Next:** guru review; the 137c `min_mid` item and the new shortfall counts (below) stay with the author
 - **Resume:** `git fetch origin '+refs/heads/*:refs/remotes/origin/*' && git checkout -B brief/147-stock-saving-switches origin/brief/147-stock-saving-switches`
-- **State:** ready; not started (after 139c, 145r, 146r)
+- **State:** all pushed
 <!-- progress:end -->
+
+## Author rulings, 2026-11-24 (after blocks 0 to 3)
+- **Floor at zero wealth.** Under `mild` and `steep`, a line's dissaving cannot take its wealth below zero (no borrowing): the switch limits the offset to what the line holds, as a stated constraint of the switch in the run label. The aggregate-preserving property then holds only where no line is floored, and the file and the note say so. The fix is in `switches.py` only (budget 200, 154 used); `arm.py` stays at 330; no kernel change (M13 is not touched). If the floor cannot be written inside `switches.py`, stop and report. **Block 4:** write it, add the test (a floored cell completes; flat unchanged; floored and unfloored agree where no line hits zero), rerun the 75-cell grid so all 75 cells run, replace the tables and the stop paragraph in `household-arm-validation.md`, say how many cells floor and how much saving is dropped, push, stop.
+- **Top-1% target:** the departure is accepted and labelled: targets are shares of the arm's own opening stock after the launch loss (21.63% off, total 12,697bn), so the moved amounts differ from 146r's 1,069bn and 770bn.
+- **Concentration:** reported as a finding, no more switches: no tested setting reaches the observed 0.50 (best year 100: 0.388, gap +0.112). The cause is not investigated here.
+- The 137c `min_mid` item stays open.
+
+**Change report (147c, blocks 0 to 4).** `model_v3/runner/switches.py` (195 of 200 lines) gains `top_tail`, `saving_shape` and, from the 2026-11-24 ruling, the zero-wealth floor (`floor_saving`, `floored`): each line's shape offset is limited (bisection on a factor in [0, 1]) to what keeps its untaxed total wealth at or above zero over 100 years, using the arm's own `free` step; the floored state is computed once per arm; the label states `saving_floor`. `arm.py` stays at 330 (the `scenario` call gains `base`); no kernel change, M13 untouched. Both switches off leave state and label unchanged. Tests: `test_top_tail.py` (8) and `test_saving_shape.py` (15; floored cell completes, flat unchanged, floored and unfloored agree where no line hits zero); the full `model_v3` suite with the legacy digest ran after block 1, the shape tests, rules and budget tests after block 4. **Grid:** `scenario_grid.py` and `scenario_grid.csv`: all 75 cells run, I1 holds at all 75, account identity max 5e-11, ledger ties max 9e-12, `unpaid` 0. **Floor:** 30 of the 50 non-flat cells floor, one or two lines each; saving added 0.11 to 0.79 points of the mean ratio (table in `household-arm-validation.md`). **Concentration:** no setting reaches 0.50; best year 100 now 0.366 (gap +0.134) against 0.388 before the floor; flat and off 0.207 to 0.339. **Findings for the author:** the floored cells raise shortfall line-phases (the 137c alarm) to 20 at `median_mid` steep and 1,080 at `median_high` steep, five `top_tail` settings each; `min_mid` flat stays at 160. No headline number. **Outside Touches:** none. **Not merged yet:** see the merge note below.

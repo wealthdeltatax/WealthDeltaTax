@@ -57,6 +57,8 @@ STAT_FIELDS = {
     "point": ("point",),
 }
 CELL_FIELDS = {"schedule", "horizon", "by", "line", "series"}
+# Stated markers a numeric field may carry instead of a number, per output id (089c): OF1 where no schedule passes the 75% threshold, CK1 and OF1 where a point was not run.
+MARKERS = {"OF1": {"none_passes_75", "not_run_this_point"}, "CK1": {"not_run_this_point"}}
 ENTRY_FIELDS = {"summary", "cells", "withheld", "withheld_by", "pending"}
 NO_PAYER, NO_PAYER_IDS = "no_payer_at_launch", ("O2", "O2b", "O2c", "O2d", "OH1b", "OH1c", "OW3")   # a wealth band with no payer at launch under the schedule, and what derives from it (author, 2026-11-23)
 NOT_RUN = "not_run_this_point"                                                              # O1e ran at one scenario point only (author, 2026-11-23); accepted for O1e, in the centre slot
@@ -487,6 +489,8 @@ class Validator:
                 continue   # stated markers (author, 2026-11-23): the safe fund ignores the generator mean; the range over input draws was not run (--o1e-draws 0)
             elif v == NO_CENTRAL and f == CENTRE_SLOT[summary] and self.run_arm() == "household":
                 continue   # stated marker (author, 2026-11-23): a range across labelled scenario points has no central value
+            elif isinstance(v, str) and v in MARKERS.get(oid, ()):
+                continue   # a stated marker (MARKERS), not a number: nothing to compare
             elif not is_number(v):
                 self.add("V5", "error", where, f"{f} is not a finite number: {v!r}")
             else:

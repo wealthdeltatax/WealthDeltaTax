@@ -1,0 +1,6 @@
+fund,point,output,schedule,alarm
+safe,max_mid,OF1,tm90_k2_r050,I1 fails
+safe,median_high,OF1,tm90_k2_r025,I1 fails
+market,max_mid,OF1,tm50_k2_r025,I1 fails
+market,max_mid,OF1,tm70_k2_r025,I1 fails
+market,median_high,OF1,tm90_k2_r025,I1 fails

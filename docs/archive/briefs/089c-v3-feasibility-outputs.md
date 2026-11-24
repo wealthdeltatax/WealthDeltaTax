@@ -42,11 +42,18 @@ None (the ruling is above); the agent flags any rule or constant it has to choos
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** parked; not started
+- **Done:** blocks 1 to 3. OF1 gains the tolerance and margin axes (`out_sweeps.TOLS`, `MARGINS`, `of1`, `per_path`; `sweeps.feasibility`, `under`, `map_summary`); CK1 reports P3 from year 1 to the end of the short window plus all years and keeps amplitude 0 (`out_sweeps.ck1`, `sweeps.stress`); validator accepts the markers; manifest entries; tests; report `docs/model-v3/feasibility-map.md`; driver and outputs `docs/model-v3/of1-ck1/`.
+- **Next:** none; stop.
+- **Decisions:** tolerance = total shortfall P3 in GDP-points over the window (083c's four values); margin as 140c; CK1 run on 140c's four stand-in schedules; summary markers live in `of1_summary.csv` and the validator, the OF1 cells stay numeric.
+- **Gotchas:** the full `runner.evaluate` costs about 10 times `core_run` + `headlines` + `per_path`; the driver uses the light form (identical per-path arrays, checked). 057c's real run pays the full cost.
+- **Resume:** none.
+- **Not run:** 1,000 paths, level 2.
+- **State:** done, merged
 <!-- progress:end -->
+
+### Change report
+- Files: `model_v3/runner/out_sweeps.py` (87 lines, budget 150), `model_v3/runner/sweeps.py` (budget 280, within), `pipeline/validate_outputs.py` (markers), `docs/model-v3/outputs.yml` (OF1 tolerance and margin axes; CK1 amplitude A0), `tests/data/fixtures/outputs.fixture.json` (regenerated), tests (`test_of1.py` new; `test_pool.py`, `test_out_sweeps.py`, `test_validate_outputs.py`), `docs/model-v3/feasibility-map.md`, `docs/model-v3/of1-ck1/`.
+- Result: strict rule (tolerance 0, margin 0): no feasible point at any of five points at either fund (best F1 15.5 to 36.5% `safe`, 31.5 to 45.5% `market`). Relaxed rules: feasible points exist for 3 of 60 rules at `safe` (tolerance 1, margin 25%) and 11 of 60 at `market`. CK1: P3 is zero up to a positive amplitude at most rows, `none` at others; positive at A 0 in 11 of 40 rows.
+- Acceptance: shaped and validate (fixture and suites); markers present; nothing relaxed unlabelled; legacy digest unchanged (suite); all suites pass (715 passed, 40 skipped); report leads with the strict rule; second run byte-identical.
+- Flags (rules and constants I had to choose): tolerance units; CK1's schedules; named schedules under a relaxed rule are `choose` under that rule. Five OF1 cells raised I1 and are left out (`failed.csv`).
+- Merge: criteria met, diff inside `Touches` plus tests, fixture and the driver.
