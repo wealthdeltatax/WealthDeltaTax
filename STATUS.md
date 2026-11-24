@@ -9,8 +9,8 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
-| Agent 2 | 057c paused (author, 2026-11-24, for the repository tidy) | resumes after 162c; rebases onto the moved tree |
-| Agent 3 | free | nothing queued (138c done) |
+| Agent 2 | 009c (retire the legacy models), then 044c R1 (inventory and checks) | 057c resumes after 162c |
+| Agent 3 | free | 164c (project, skills, final sweep) |
 | Agent 4 | free (148c merged) | 160c (datasets, PDFs, research) |
 | Agent 5 | free (089c merged) | |
 | Agent 6 | free (147c merged) | 162c and 163c (model move, specs and results) |
