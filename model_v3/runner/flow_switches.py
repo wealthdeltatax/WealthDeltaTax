@@ -129,7 +129,7 @@ def hook(a, cls, gdp_g=None, returns=None):
             d = self._rates(q['pension']) * np.maximum(q['pension'], 0.0)
             if np.any(d):
                 q1 = {**q1, 'pension': q1['pension'] - d, 'net_financial': q1['net_financial'] + d}
-            if q is self.q:
+            if q is getattr(self, 'q', None):                                                       # the untaxed path (`free`, the statics) runs `_year` on its own state, before any run has set `self.q`
                 self.drawn = d
             return q1, acct
 

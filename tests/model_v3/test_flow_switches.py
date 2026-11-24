@@ -56,6 +56,13 @@ def test_withdrawal_composes_with_the_lien_and_raises_the_capacity_to_pay():
     assert (run(dict(pension_withdrawal='high'), 1, rates=(0.5,), wd=[0.03, 0.03])[0].PL == 0).all()  # and a small tax is paid in full
 
 
+def test_the_untaxed_path_runs_with_the_withdrawal_on_before_any_run():
+    """`free` (the statics: M3, M12) calls `_year` on its own state before a run has set `self.q`; it must not need it (found in the block 3 smoke run)."""
+    g = np.full((3, 1), 0.01)
+    f = {k: fsw.hook(dict(pension_withdrawal='mid') if k else {}, arm.HouseholdHook)(dict(ST, wd=np.array([0.02, 0.0])) if k else ST, GAIN, 0.0).free(g) for k in (0, 1)}
+    assert f[1].shape == f[0].shape and np.isfinite(f[1]).all() and np.allclose(f[1][:, 1], f[0][:, 1], atol=1e-12)           # line 1 does not draw: unchanged; line 0 draws a transfer inside total wealth
+
+
 def test_the_heir_floor_leaves_a_share_of_the_pension_and_writes_the_rest_off():
     kw = dict(years=1, rates=(200.0,), pension=0.1)                                                            # a lien far above the pension: the draw takes the pension, the rest is written off (138c)
     h0, b0 = run({}, **kw)
