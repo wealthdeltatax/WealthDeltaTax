@@ -53,7 +53,7 @@ BRIEF_FILES = {
     'B6': ['pipeline/check_spokes.py', 'pipeline/check_spokes_lists.py'],
     'B15': ['docs/wdt-site-architecture.md', 'website/site/pages/draft.qmd'],
 }
-G5_TEST_DIRS = ['tests/data', 'tests/hooks', 'tests/website/hooks', 'tests/data_block', 'tests/figures', 'tests/spokes']
+G5_TEST_DIRS = ['tests/data', 'tests/website/hooks', 'tests/data_block', 'tests/figures', 'tests/spokes']
 
 
 @dataclass(frozen=True)

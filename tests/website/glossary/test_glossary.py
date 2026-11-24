@@ -11,7 +11,7 @@ import build_glossary as bg
 from conftest import FIXTURES, ROOT
 
 SCRIPT = ROOT / "website" / "build" / "build_glossary.py"
-TEST_ROOT = FIXTURES.parent
+TEST_ROOT = FIXTURES.parent.parent   # tests/website: the registry-mode root is three levels above a fixture registry
 
 
 def pages(name="pages.yml"):

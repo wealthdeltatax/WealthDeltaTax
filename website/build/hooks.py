@@ -13,17 +13,17 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent.parent
 
 
-def _load(name):
+def _load(name, base=Path(__file__).resolve().parent):
     if name in sys.modules:
         return sys.modules[name]
-    spec = importlib.util.spec_from_file_location(name, Path(__file__).resolve().parent / f"{name}.py")
+    spec = importlib.util.spec_from_file_location(name, base / f"{name}.py")
     mod = importlib.util.module_from_spec(spec)
     sys.modules[name] = mod
     spec.loader.exec_module(mod)
     return mod
 
 
-vo, hf = _load("validate_outputs"), _load("hook_format")
+vo, hf = _load("validate_outputs", ROOT / "pipeline"), _load("hook_format")   # validate_outputs.py is model-side; stays in pipeline/ until 162c moves it
 PATHS = dict(manifest=ROOT / "docs/model-v3/outputs.yml", inputs=ROOT / "registry/inputs.json",
              display=ROOT / "registry/inputs-display.yml", lit=ROOT / "website/registry/lit-figures.yml",
              bib=ROOT / "registry/references.bib")
