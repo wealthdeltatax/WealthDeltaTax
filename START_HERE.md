@@ -1,6 +1,6 @@
 # Start here
 
-Wealth Delta Tax: paper series in `papers/legacy/`, site build in `website/build/`, model in `model_v3/` (the legacy models are removed: tag `legacy-models-2026-11`). Rules for agents: `AGENTS.md`. Who does what: `docs/agents/README.md`.
+Wealth Delta Tax: paper series in `papers/legacy/`, site build in `website/build/`, model in `model/model_v3/` (the legacy models are removed: tag `legacy-models-2026-11`). Rules for agents: `AGENTS.md`. Who does what: `docs/agents/README.md`.
 
 ## Read by job (nothing else)
 - Design, positions, consistency, "does X fit": `docs/agents/guru.md`

@@ -22,8 +22,8 @@ Read: `docs/restructure/template.md` (sections 4, 6, 6a), `docs/model-v3/outputs
 | Piece | Status | Writer | Reader |
 |---|---|---|---|
 | `docs/model-v3/outputs.yml` (manifest) | exists | author, guru | resolver, validator, spoke checker |
-| `docs/model-v3/inputs.md` | exists | research lane | `pipeline/build_inputs.py` |
-| `registry/inputs.json` | new, generated, never edited | `build_inputs.py` | resolver, and the v3 run (so the run and the page read one file) |
+| `docs/model-v3/inputs.md` | exists | research lane | `model/tools/build_inputs.py` |
+| `data/input-register/inputs.json` | new, generated, never edited | `build_inputs.py` | resolver, and the v3 run (so the run and the page read one file) |
 | Output data file | new, written by the v3 run script (built later) | model | resolver, Data block generator |
 | `registry/lit-figures.yml` | new, hand-maintained (Q9) | research lane | resolver |
 | `registry/references.bib`, `internal.json` | exist | research lane | resolver (`lit`), bibliography |
@@ -35,7 +35,7 @@ The existing rule holds: nothing in `source/` is touched, and all output goes to
 
 Order inside the site build, after the preprocess steps that read the registry and before Quarto renders:
 
-1. `build_inputs.py`: parse the register tables to `registry/inputs.json`.
+1. `build_inputs.py`: parse the register tables to `data/input-register/inputs.json`.
 2. Load the manifest, `inputs.json`, `lit-figures.yml`, `references.json`, and the output data file if one exists.
 3. Validate the output data file against the manifest (section 3.3). In draft mode a missing file is allowed and every `o` hook is unresolved; in release mode it is an error.
 4. For each spoke file: read front matter, expand hooks (section 4), expand figure blocks (section 5), append the Data block (section 7), write `_build/<spoke>.qmd`.
@@ -97,7 +97,7 @@ The validator runs at build and as a command (`python pipeline/hooks.py validate
 | V6 | ordering rules of section 3.3 | error or warning as stated |
 | V7 | coverage: for each output present, the cells equal the full product of schedules, horizons and `by` vocabularies the manifest declares | error when `run.status` is `final`, warning when `provisional` |
 | V8 | `run.manifest_version` equals the manifest `version`; `run.manifest_sha256` equals the hash of the manifest file | error |
-| V9 | `run.inputs_sha256` equals the hash of `registry/inputs.json` | error when `final`, warning when `provisional` |
+| V9 | `run.inputs_sha256` equals the hash of `data/input-register/inputs.json` | error when `final`, warning when `provisional` |
 | V10 | `series` points have strictly increasing integer `t` from 1, and the cell's reported years appear among them | error |
 | V11 | every `t` named in a `by.year` vocabulary has a cell | error when `final` |
 | V12 | unknown top-level or cell fields | warning (so the model can add diagnostics) |
@@ -143,7 +143,7 @@ In order; the first failing step stops the hook with its code.
 
 `ID` is a register id as in `inputs.md` (for example `I-D4b`). Q7 explains why the template's `W_min` cannot be used as it stands.
 
-1. `ID` exists in `registry/inputs.json` (H20).
+1. `ID` exists in `data/input-register/inputs.json` (H20).
 2. `STAT`: `central` (default), `low`, `high`, `range` (renders "low to high"). Anything else is H21.
 3. A display specification exists for the row, unit and decimals (Q8) (H22).
 4. The chosen value parses as a number (H23). Rows whose Low, Central or High is text, such as a judgement flag, are not hookable until the research lane gives them numbers.
@@ -290,7 +290,7 @@ Written by the model run into `run`; the builder never invents it.
 | `run_date` | ISO date | yes |
 | `status` | `provisional` or `final` | yes |
 | `model_version` | free text, set by the model; git commit of the model code | no |
-| `inputs_sha256` | hash of `registry/inputs.json` used | no |
+| `inputs_sha256` | hash of `data/input-register/inputs.json` used | no |
 | `paths` | number of return paths sampled | no |
 | `base_year` | the year money is real in | yes (Q16) |
 
@@ -355,7 +355,7 @@ Each has a proposed answer. Until answered, the proposed rule is the working rul
 5. **Level 2 hooks.** Template section 4 has no `STAT` for tornado results, and the brief's three forms include level 2. *Proposed:* level 2 is not hookable in this version; a tornado is shown only as a figure of kind `bar` whose table is built from `level2`. The guru adds `l2lo` and `l2hi` as stats if S12 needs them in prose.
 6. **`point_and_range` meaning.** For O7 (tolerant zone) and OS1 (capitalisation, three quantities) the register does not say whether `lo` and `hi` are the level-1 spread or a policy range such as the alpha band. *Proposed:* the metric register states it per output in one sentence, the validator accepts any `lo <= hi`, and OS1's three quantities become a `by` key `quantity: [m1, m2, payer_count]`.
 7. **Input naming.** The template's `inputs: [W_min]` and `{{i:W_min}}` name a quantity, but the register's ids are `I-D4a` and so on and no row holds the value of W_min (I-D4b is the share of adults at or above it, with £150,000 in the label). *Proposed:* hooks use register ids; the research lane adds a row for W_min; the template example changes to `{{i:I-D?}}` once that row exists.
-8. **Input display.** Register rows have free-text units (for example "ratio, nominal GDP of wave midpoint year") and Low, Central, High columns, not a display unit or decimals. *Proposed:* a sidecar `registry/inputs-display.yml` mapping id to unit tag and decimals, written by the research lane, so the 89 register rows are not edited; `build_inputs.py` merges it. `STAT` for inputs is `low`, `central`, `high` or `range`.
+8. **Input display.** Register rows have free-text units (for example "ratio, nominal GDP of wave midpoint year") and Low, Central, High columns, not a display unit or decimals. *Proposed:* a sidecar `data/input-register/inputs-display.yml` mapping id to unit tag and decimals, written by the research lane, so the 89 register rows are not edited; `build_inputs.py` merges it. `STAT` for inputs is `low`, `central`, `high` or `range`.
 9. **Literature figures.** `{{lit:KEY}}` is "keyed to the reference database" but the database holds citations, not figures. *Proposed:* `registry/lit-figures.yml` with entries `key: <bibkey>:<slug>`, `value`, `unit`, `decimals`, `locator`, `verified`. The research lane owns it. Register sources S1 to S43 that are cited rather than used as inputs are candidates.
 10. **Data file name and policy.** *Proposed:* `model_v3/OUTPUTS/outputs.json`, tracked and generated like `model_v1/OUTPUTS/` (never edited by hand), copied to `_build/data/` at build. A provisional file is committed so draft builds are repeatable; a final file is committed by the author's decision (Q12).
 11. **Severity of reverse R1 in draft.** The template makes it an error. During draft the spokes are incomplete by design. *Proposed:* warning in draft, error in release.
@@ -385,7 +385,7 @@ Each has a proposed answer. Until answered, the proposed rule is the working rul
 5. **Register and metrics.** The M7 row of `metrics.md` has an unescaped `|` (`|C.1|`); units are unstated for M5, M6, M8, S1, P1, P3 to P6; P2 is cited by no output; the rows I-H2a1 to I-H2a10 cite SN1 and SN3, which are in no source table. These go to the next guru pass.
 
 ## Guru rulings, 2026-11-18 (from the change report of brief 032r)
-1. **Input display tags accepted.** `registry/inputs-display.yml` (274 rows, `scale: 1`, `decimals` the most decimal places among the numeric Low, Central, High cells) is the display source for `{{i:}}`. Its extra unit tags join section 4.6 as **input-only tags** (they are not manifest tags and `outputs.yml` `unit_tags` is unchanged): `pp_per_year` (`0.2 pp per year`), `usd_bn` (`US$12 bn`), `gbp` (`£150,000`), `gbp_m` (`£2 m`), `gbp_k` (`£150 k`), `coefficient` (plain number), `correlation` (plain number, two decimals), `text` (printed as written, never numeric: four rows, so a spoke that hooks one gets a typed-figure error). 17 rows have no numeric cell and 4 more only some: a hook on a missing cell is an error (H code of the resolver), not a blank.
+1. **Input display tags accepted.** `data/input-register/inputs-display.yml` (274 rows, `scale: 1`, `decimals` the most decimal places among the numeric Low, Central, High cells) is the display source for `{{i:}}`. Its extra unit tags join section 4.6 as **input-only tags** (they are not manifest tags and `outputs.yml` `unit_tags` is unchanged): `pp_per_year` (`0.2 pp per year`), `usd_bn` (`US$12 bn`), `gbp` (`£150,000`), `gbp_m` (`£2 m`), `gbp_k` (`£150 k`), `coefficient` (plain number), `correlation` (plain number, two decimals), `text` (printed as written, never numeric: four rows, so a spoke that hooks one gets a typed-figure error). 17 rows have no numeric cell and 4 more only some: a hook on a missing cell is an error (H code of the resolver), not a blank.
 2. **Literature figures.** `registry/lit-figures.yml` holds six entries, all `ONS2025ETB` (held PDF). Figures from sources that are not held (S4, S5, S6, S13, S16, S17, S18, S22, S25, S30, S37, S38; S24 has the wrong bib title) cannot be hooked until the source is held and has a bib key; the references rework is the author's later job. Until then a spoke that needs one of those figures cites the register row (`{{i:}}`), which carries the source id, rather than quoting the figure.
 3. **Maintenance.** `inputs-display.yml` is regenerated or extended whenever a register row is added; the check script (274 ids both ways) belongs to the next research brief that touches the file, not to the file itself.
 

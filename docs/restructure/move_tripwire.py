@@ -20,13 +20,13 @@ from pathlib import Path
 
 ROOT = Path(subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True).stdout.strip() or '.')
 CANDIDATES = {
-    'inputs': ['registry/inputs.json', 'data/input-register/inputs.json'],
-    'fixture': ['tests/model_v3/fixtures/legacy_digest.json', 'tests/model/model_v3/fixtures/legacy_digest.json'],
-    'digest_test': ['tests/model_v3/test_legacy_digest.py', 'tests/model/model_v3/test_legacy_digest.py'],
+    'inputs': ['data/input-register/inputs.json', 'data/input-register/inputs.json'],
+    'fixture': ['tests/model/model_v3/fixtures/legacy_digest.json', 'tests/model/model_v3/fixtures/legacy_digest.json'],
+    'digest_test': ['tests/model/model_v3/test_legacy_digest.py', 'tests/model/model_v3/test_legacy_digest.py'],
     'outputs': ['docs/model-v3/outputs.yml', 'model-specs/outputs.yml'],
-    'levers': ['model_v3/levers.json', 'model/model_v3/levers.json'],
-    'pack': ['model_v3/pack/GBR', 'data/country-packs/GBR'],
-    'builder': ['model_v3/pack/build_gbr.py', 'model/model_v3/pack/build_gbr.py'],
+    'levers': ['model/model_v3/levers.json', 'model/model_v3/levers.json'],
+    'pack': ['data/country-packs/GBR', 'data/country-packs/GBR'],
+    'builder': ['model/model_v3/pack/build_gbr.py', 'model/model_v3/pack/build_gbr.py'],
     'cell_inputs': ['docs/model-v3/cell-baseline/inputs_used.json', 'results/cell-baseline/inputs_used.json'],
 }
 BASELINE = Path(__file__).with_name('move-tripwire-baseline.json')

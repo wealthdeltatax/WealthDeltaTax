@@ -1,11 +1,11 @@
 """131r block 2: the pension valuation basis (IFS gilt discounting against ONS SCAPE) as a side table on the pack's starting stock.
 
 Run: python -I research/scripts/basis_sensitivity.py
-Reads (read-only): model_v3/pack/GBR/{wealth_distribution,decile_composition,band_composition}.csv, research/tables/102r-parameter-map-stocks-and-cells/band_composition_by_pack_band.csv (exact 2020-22 sums, a rounding diagnostic),
+Reads (read-only): data/country-packs/GBR/{wealth_distribution,decile_composition,band_composition}.csv, research/tables/102r-parameter-map-stocks-and-cells/band_composition_by_pack_band.csv (exact 2020-22 sums, a rounding diagnostic),
 research/tables/131r-pension-basis-sensitivity/ifs_published.csv (block 1). Writes basis_sensitivity.csv (by decile, band and all) and basis_checks.csv. No pack, register or model file is written.
 
 Method (all money in the pack's nominal 2020-22 pounds; the report's 2026 prices enter only as ratios, so no price index is needed):
- 1. ONS column = the pack: band pension stock = band wealth_total x band_composition pension share (as model_v3/core/cells.py builds it).
+ 1. ONS column = the pack: band pension stock = band wealth_total x band_composition pension share (as model/model_v3/core/cells.py builds it).
  2. IFS compares total wealth after cutting home contents (physical wealth) by 75% in both measures (its footnote 20) and excluding business wealth. So the uplift in percent is on W_adj = W - 0.75 x physical.
     In 2020-22 the only difference between the two measures is the pension discount rate (report p17), so the uplift in pounds is a pension revaluation: pension_IFS = pension_ONS + uplift.
  3. Deciles 2 to 9: the percent uplift is read from Figure 4 at the decile edges (p10 ... p90, which are the chart's points); a decile takes the mean of its two edges (trapezoid), +-2 points (chart reading).
@@ -19,7 +19,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))                                                                # python -I does not add the folder; the model is imported read-only for check C1
-PACK = ROOT / 'model_v3/pack/GBR'
+PACK = ROOT / 'data/country-packs/GBR'
 HERE = ROOT / 'research/tables/131r-pension-basis-sensitivity'   # the 131r tables (was the folder of this script)
 rd = lambda p: list(csv.DictReader(open(p, encoding='utf-8')))
 
@@ -101,7 +101,7 @@ from model_v3.core import cells as ce, pack as pk
 _pack, _reg = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')
 _cells = ce.cell_table(_pack, _reg, 0.44)
 _model = {b: sum(c['households'] * c['pos']['pension'] for c in _cells if c['band'] == b) * ce.UNIT / 1e9 for b in BANDS}   # households x pension per household, thousands of pounds -> GBP bn
-chk('C1a ONS column equals the model cell-table pension stock, largest band difference (GBP bn)', max(abs(_model[b] - BPEN[b]) for b in BANDS), 0.0, 1e-6, 'model_v3/core/cells.py cell_table(pack, register, 0.44); the retired fraction does not enter the stock')
+chk('C1a ONS column equals the model cell-table pension stock, largest band difference (GBP bn)', max(abs(_model[b] - BPEN[b]) for b in BANDS), 0.0, 1e-6, 'model/model_v3/core/cells.py cell_table(pack, register, 0.44); the retired fraction does not enter the stock')
 chk('C1b ONS column total equals the model cell-table pension total (GBP bn)', P_ONS, sum(_model.values()), 1e-2, 'the CSV rounds to 3 decimals')
 # C2: the pack's one-decimal band shares against the exact held sums (a rounding diagnostic, GBP bn)
 exact = sum(float(EX[b]['private_pension_gbp_bn']) for b in BANDS)

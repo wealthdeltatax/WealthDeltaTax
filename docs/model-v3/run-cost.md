@@ -1,6 +1,6 @@
 # Run cost of model_v3 (brief 150c)
 
-Timings: `docs/model-v3/run-cost/timing.py` (wall seconds, best of 2, spec tau_m 0.5, k_ln 0.5, ratio 1.0, grid point median_mid, 2 cores, 7 GB, one process). Raw JSON: `run-cost/timing.json`. Block 1 only measures; nothing in the model changed.
+Timings: `model/studies/run-cost/timing.py` (wall seconds, best of 2, spec tau_m 0.5, k_ln 0.5, ratio 1.0, grid point median_mid, 2 cores, 7 GB, one process). Raw JSON: `run-cost/timing.json`. Block 1 only measures; nothing in the model changed.
 
 ## One evaluation
 
@@ -79,9 +79,9 @@ Memory: 2 GB per process at 1,000 paths. Two workers on this machine fit (4 GB o
 
 ## Parallel evaluation (blocks 2 and 3)
 
-`model_v3/runner/pool.py`: `pmap(f, items, workers)`, an ordered map over forked processes; `workers` 1 is the plain loop (default), 0 one per core, N is N. `S.feasibility`, `S.tornado` and `S.breakeven_return` take `workers=` and make their independent units go through it: one evaluation per spec (map), one per (schedule, input, side) (tornado), one root per (schedule, draw) (O1e). Units are handed out one at a time. No model, register, kernel or `arm.py` code changed; level 1 is not parallelised.
+`model/model_v3/runner/pool.py`: `pmap(f, items, workers)`, an ordered map over forked processes; `workers` 1 is the plain loop (default), 0 one per core, N is N. `S.feasibility`, `S.tornado` and `S.breakeven_return` take `workers=` and make their independent units go through it: one evaluation per spec (map), one per (schedule, input, side) (tornado), one root per (schedule, draw) (O1e). Units are handed out one at a time. No model, register, kernel or `arm.py` code changed; level 1 is not parallelised.
 
-**Same results.** `tests/model_v3/test_pool.py` compares serial with 2 and 3 workers to the last byte (floats by hex, arrays by buffer) for the map, the tornado and the roots on a noisy evaluator, and for the tornado on the model. `speedup.py` repeats the check on the household arm below: every row says identical.
+**Same results.** `tests/model/model_v3/test_pool.py` compares serial with 2 and 3 workers to the last byte (floats by hex, arrays by buffer) for the map, the tornado and the roots on a noisy evaluator, and for the tornado on the model. `speedup.py` repeats the check on the household arm below: every row says identical.
 
 ### Speed-up, this machine (2 cores), household, 20 paths, `speedup.py`
 

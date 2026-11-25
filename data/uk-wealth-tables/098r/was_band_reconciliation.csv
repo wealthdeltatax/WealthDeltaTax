@@ -1,6 +1,6 @@
 wdt_band,wealth_deciles,aggregate_wealth_gbp_bn,households_thousands,derived_mean_gbp_per_household,net_property_share_pct,net_financial_share_pct,private_pension_share_pct,source,round,notes
-D1-3,1-3,287.943,8097.3,35556,,,,model_v3/pack/GBR/wealth_distribution.csv,2020-22,"Below-threshold remainder; aggregate and mean derived by summing the three existing decile rows; no stage breakdown"
-D4-5,4-5,1044.432,5398.2,193478,,6.6,,model_v3/pack/GBR/wealth_distribution.csv,2020-22,"Property and pension shares are absent from the current pack; do not infer them"
-D6-7,6-7,2278.170,5398.2,422024,45.6,9.3,32.5,model_v3/pack/GBR/wealth_distribution.csv,2020-22,"Existing pack component shares; no age or retirement-status weights"
-D8-9,8-9,4434.141,5398.2,821411,42.7,12.8,35.4,model_v3/pack/GBR/wealth_distribution.csv,2020-22,"Existing pack component shares; no age or retirement-status weights"
-D10,10,5523.204,2699.1,2046313,38.3,19.3,36.4,model_v3/pack/GBR/wealth_distribution.csv,2020-22,"Top wealth decile; no age or retirement-status weights"
+D1-3,1-3,287.943,8097.3,35556,,,,data/country-packs/GBR/wealth_distribution.csv,2020-22,"Below-threshold remainder; aggregate and mean derived by summing the three existing decile rows; no stage breakdown"
+D4-5,4-5,1044.432,5398.2,193478,,6.6,,data/country-packs/GBR/wealth_distribution.csv,2020-22,"Property and pension shares are absent from the current pack; do not infer them"
+D6-7,6-7,2278.170,5398.2,422024,45.6,9.3,32.5,data/country-packs/GBR/wealth_distribution.csv,2020-22,"Existing pack component shares; no age or retirement-status weights"
+D8-9,8-9,4434.141,5398.2,821411,42.7,12.8,35.4,data/country-packs/GBR/wealth_distribution.csv,2020-22,"Existing pack component shares; no age or retirement-status weights"
+D10,10,5523.204,2699.1,2046313,38.3,19.3,36.4,data/country-packs/GBR/wealth_distribution.csv,2020-22,"Top wealth decile; no age or retirement-status weights"

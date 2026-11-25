@@ -3,21 +3,21 @@
 Closed entries (fixed or dropped) moved from `docs/agents/friction-log.md` by the guru. Oldest first.
 
 ### 2026-11-20 · 084c · code
-- Instruction: brief 084c Touches and architecture.md 5.1 (R4 layers): a new runner module needs a row in the LAYER table of `tests/model_v3/conftest.py`
-- Happened: the brief adds `model_v3/runner/groups.py` and four `out_*.py` files that `runner.py` imports; R4 fails any edge with a module not in LAYER, and conftest.py was not in Touches
+- Instruction: brief 084c Touches and architecture.md 5.1 (R4 layers): a new runner module needs a row in the LAYER table of `tests/model/model_v3/conftest.py`
+- Happened: the brief adds `model/model_v3/runner/groups.py` and four `out_*.py` files that `runner.py` imports; R4 fails any edge with a module not in LAYER, and conftest.py was not in Touches
 - Cost: stopped to ask; the author said to add the rows (out_* 3.5, groups 3.7), so conftest.py changed outside Touches
 - Suggest: briefs that add a module name the LAYER row, and 5.1 lists the new modules
 - Status: fixed (code.md: module and test_groups rule)
 
 ### 2026-11-20 · brief 083c · code
 - Instruction: brief 083c "Read:" and Design (how to build the runner context); `runner.context` needs the tier 1 list and `payer_taxes`.
-- Happened: neither is named in the brief; `payer_taxes` has no home in `levers.json` (055c gotcha 6), so I copied the fixture from `tests/model_v3/test_runner.py`.
+- Happened: neither is named in the brief; `payer_taxes` has no home in `levers.json` (055c gotcha 6), so I copied the fixture from `tests/model/model_v3/test_runner.py`.
 - Cost: a few minutes reading the tests to find the call.
 - Suggest: a brief for a one-off script should name the test fixture that builds the context (084c has since moved `payer_taxes` into `levers.json`).
 - Status: fixed (guru.md: name the context fixture)
 
 ### 2026-11-20 · 085c · code
-- Instruction: brief 085c Touches; `tests/model_v3/test_groups.py` (084c, 092c) asserts every group is empty: `all(m.cells({}) == m.per_path(None, None, None) == {} ...)`
+- Instruction: brief 085c Touches; `tests/model/model_v3/test_groups.py` (084c, 092c) asserts every group is empty: `all(m.cells({}) == m.per_path(None, None, None) == {} ...)`
 - Happened: filling `out_revenue.py` made that assertion fail (`KeyError: 'M1e'`); test_groups.py is not in Touches
 - Cost: edited it outside Touches (the clause now covers groups with no IDS), so the merge rule "diff inside Touches" is not met
 - Suggest: briefs 086c to 088c name test_groups.py in Touches, or the test stops asserting emptiness of the filled groups

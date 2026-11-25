@@ -1,6 +1,6 @@
 # The household arm against the held 099r moments (brief 125c)
 
-Status: first comparison. A comparison, not a calibration: no parameter, register row, label or file of the model was changed. The model side is the **untaxed** cell baseline (`model_v3/core/cells.py`, convention A, 100 years) at the three saving values (min, median, max of the ONS non-pension ratio) and the mid regime; every model number is a scenario value, not a forecast, and none is called central. The author reads this and decides what is next.
+Status: first comparison. A comparison, not a calibration: no parameter, register row, label or file of the model was changed. The model side is the **untaxed** cell baseline (`model/model_v3/core/cells.py`, convention A, 100 years) at the three saving values (min, median, max of the ONS non-pension ratio) and the mid regime; every model number is a scenario value, not a forecast, and none is called central. The author reads this and decides what is next.
 
 ## What the held data allow
 

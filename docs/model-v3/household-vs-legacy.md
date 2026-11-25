@@ -1,6 +1,6 @@
 # Why the household arm differs from the legacy arm (brief 136c)
 
-Status: diagnosis. No model file, register row, parameter or rule was changed. Every number is a **scenario value at a labelled grid point on a labelled market path, not a forecast and not a central case**; no figure here is a headline. The legacy arm (`I-D14c`, 3.5%) is a comparator only; the note says what each arm assumes and does not say which is right. Files: `household-vs-legacy/flows.py` and `flows.csv` (per line), `decomp.py` and `decomp.csv` (outputs as base x rate), tests `tests/model_v3/test_household_vs_legacy.py`.
+Status: diagnosis. No model file, register row, parameter or rule was changed. Every number is a **scenario value at a labelled grid point on a labelled market path, not a forecast and not a central case**; no figure here is a headline. The legacy arm (`I-D14c`, 3.5%) is a comparator only; the note says what each arm assumes and does not say which is right. Files: `household-vs-legacy/flows.py` and `flows.csv` (per line), `decomp.py` and `decomp.csv` (outputs as base x rate), tests `tests/model/model_v3/test_household_vs_legacy.py`.
 
 ## Setup, and the answer to the open question
 

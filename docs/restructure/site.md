@@ -32,7 +32,7 @@ spoke .md --> spoke checker (source mode, then build mode)
 - **Resolution.** Manifest membership, `element:` membership (rule R1 forward), summary-form check of STAT, schedule and horizon discipline, then format by unit tag. A hook that cannot resolve renders `[[...]]` in draft and fails in release.
 - **Builds.** `WDT_MODE=draft|release` (default draft). The deploy workflow stays on draft until the data gate opens. A draft page carries a banner and a placeholder count; `_build/hooks-report.json` lists every unresolved hook.
 - **Data block.** Generated at the foot of every spoke: Outputs cited, Figures, Reference tables, Run, Inputs, Literature figures, Reading note (60 words, front matter `reading_note`), Replicate. Reference tables are HTML (`F-CODE-N`) and CSV; summary rows are visible and each table is in a closed `details` (open in print).
-- **Other inputs.** `registry/lit-figures.yml` (key, value, unit, locator, `verified`) feeds `{{lit:}}`; `registry/inputs-display.yml` gives unit tag and decimals per register row.
+- **Other inputs.** `registry/lit-figures.yml` (key, value, unit, locator, `verified`) feeds `{{lit:}}`; `data/input-register/inputs-display.yml` gives unit tag and decimals per register row.
 
 ## 4. Figures (figures.md)
 
@@ -101,7 +101,7 @@ Numbers are assigned when each is written (next unused, 027 onward). Lane letter
 | Brief | Lane | Goal | Touches | Depends on |
 |---|---|---|---|---|
 | B1 | s | Page registry and ids: `pages.yml` with the 33 legacy, new, pending and calculator rows; `config.py` and `preprocess.py` read it; explicit section ids; shortcode cross-reference grammar | `registry/pages.yml`, `registry/papers.yml`, `pipeline/config.py`, `pipeline/preprocess.py`, `pipeline/transforms.py`, `tests/pages/` | A |
-| B2 | c | Data interface: parse the register to `inputs.json` and metrics to `metrics.json`; the output data file validator (V1 to V12) and a fixture data file | `pipeline/build_inputs.py`, `pipeline/build_metrics.py`, `pipeline/validate_outputs.py`, `registry/inputs.json`, `registry/metrics.json`, `tests/data/` | A |
+| B2 | c | Data interface: parse the register to `inputs.json` and metrics to `metrics.json`; the output data file validator (V1 to V12) and a fixture data file | `model/tools/build_inputs.py`, `model/tools/build_metrics.py`, `model/tools/validate_outputs.py`, `data/input-register/inputs.json`, `data/input-register/metrics.json`, `tests/model/data/` | A |
 | B3 | c | Hook resolver: parse, resolve, format, error codes H01 to H42, `WDT_MODE`, `hooks-report.json` | `pipeline/hooks.py`, `pipeline/hook_format.py`, `tests/hooks/` | B2 |
 | B4 | c | Data block generator, `FigureData`, reference tables and CSV | `pipeline/data_block.py`, `pipeline/figure_data.py`, `tests/data_block/` | B3 |
 | B5 | c | Figure renderer: six kinds, palette, access, print, self-check, fixtures FX-* and T-* | `pipeline/figures/`, `registry/figure-style.yml`, `tests/figures/` | B4 |
@@ -111,13 +111,13 @@ Numbers are assigned when each is written (next unused, 027 onward). Lane letter
 | B9 | s | Data-layer pages DL0 to DL6 (generated parts) and one page per manifest output | `pipeline/pages/data_layer.py`, `site/pages/data.md`, `tests/datalayer/` | B1, B2 |
 | B10 | s | Retired papers page: `retired.yml` from `ledger-sections.md`, generator, frozen `successor` | `registry/retired.yml`, `pipeline/pages/retired.py`, `tests/retired/` | B1 |
 | B11 | s | Calculators relabel ("Based on the retired model"); no model change | `site/pages/calculator_index.md`, `site/tools/taxpayer_calc.html`, `site/tools/revenue_calc.html`, `site/tools/ldw_calc.html` | A |
-| B12 | r | Sidecars: `lit-figures.yml` (candidates from register sources) and `inputs-display.yml` for all 260 rows | `registry/lit-figures.yml`, `registry/inputs-display.yml` | A |
+| B12 | r | Sidecars: `lit-figures.yml` (candidates from register sources) and `inputs-display.yml` for all 260 rows | `registry/lit-figures.yml`, `data/input-register/inputs-display.yml` | A |
 | B13 | s | References page and `site-index.json` v2: "Cited in" from `{{lit:}}` keys, new schema | `pipeline/pages/references.py`, `pipeline/pages/site_index.py`, `tests/index/` | B1, B3 |
 | B14 | s | Glossary registry and generator (Q7) | `registry/glossary.yml`, `pipeline/build_glossary.py`, `tests/glossary/` | B1 |
 | B15 | s | Integration: wire hooks, data block, figures, checker and draft and release into the build; `/draft/` index; workflow draft steps; architecture doc | `pipeline/preprocess.py`, `.github/workflows/deploy.yml`, `docs/wdt-site-architecture.md`, `site/pages/draft.qmd` | B3, B4, B5, B6, B7, B8, B9 |
 | B16 | s | Cutover (M6), written last: publish switch, retire legacy files, archive the 30 sources, switch navbar and home (author reviews; touches `source/`) | `source/`, `docs/archive/papers/`, `.github/workflows/deploy.yml`, `pipeline/scrape_contents.py`, `pipeline/build_anchors.py`, `pipeline/wdt_crosslinks.py`, `pipeline/check_wdt_format.py`, `pipeline/link_map.py`, `pipeline/pages/corpus.py`, `site/pages/index.md` | B15, gate, author |
 
-**8.0 Additions (order.md 6.5).** B17 (gate checker, lane c, `pipeline/check_gate.py`) and B18 (page cards, lane c, `pipeline/page_cards.py`) join the table; both touch files no other brief touches. The first parallel set was written on 2026-11-17 as briefs 029s (B1), 030c (B2), 031s (B11), 032r (B12), 033c (B17) and 034c (B18).
+**8.0 Additions (order.md 6.5).** B17 (gate checker, lane c, `model/tools/check_gate.py`) and B18 (page cards, lane c, `pipeline/page_cards.py`) join the table; both touch files no other brief touches. The first parallel set was written on 2026-11-17 as briefs 029s (B1), 030c (B2), 031s (B11), 032r (B12), 033c (B17) and 034c (B18).
 
 **8.1 Order.** B1, B2, B11 and B12 start together after A. B3 follows B2; B7, B8, B10 and B14 follow B1; B9 follows B1 and B2. B4 then B5 follow B3; B6 and B13 follow B3 (and B1). B15 waits for the seven briefs it names; B16 is written and run last.
 

@@ -155,7 +155,7 @@ RULES = [
     S(r'^pipeline/(.*)$', _pipeline),
     S(r'^registry/([^/]+)$', _registry),
     S(r'^data/(jst/.*|wid/.*)$', r'data/\1'),
-    S(r'^model_v3/pack/GBR/(.*)$', r'data/country-packs/GBR/\1'),
+    S(r'^data/country-packs/GBR/(.*)$', r'data/country-packs/GBR/\1'),
     S(r'^model_v3/(.*)$', r'model/model_v3/\1'),
     S(r'^tests/([^/]+)/(.*)$', _test),
 ]
@@ -267,19 +267,23 @@ DECIDE = [
      '**Settled, changed from the default** (ruling 4a): the project tools go to `project/tools/`, not `project/housekeeping/`. `bib_to_json.py` goes with the website build scripts and reads the bibliography from `literature/` (ruling 2).'),
     ('8', 'Split of `registry/`', '`inputs.json`, `inputs-display.yml`, `metrics.json` to `data/input-register/`; `references.bib`, `internal.json` and the generated `references.json` to `literature/` (flat, unique names); everything else (pages, glossary, crosslinks, ...) to `website/registry/`',
      '**Settled, changed from the default** (ruling 2): the bibliography is literature.'),
-    ('9', 'Country pack', '`model_v3/pack/GBR/*` to `data/country-packs/GBR/`; `build_gbr.py` stays in `model/model_v3/pack/`; the pack\'s own `source/jst_r6.json` stays beside the manifest that names it', '**Settled** (ruling 4d): the pack copy of `jst_r6.json` is an exempt loader file, not removed as a duplicate of `data/jst/jst_r6.json`; the loader path is rewritten in 162c.'),
+    ('9', 'Country pack', '`data/country-packs/GBR/*` to `data/country-packs/GBR/`; `build_gbr.py` stays in `model/model_v3/pack/`; the pack\'s own `source/jst_r6.json` stays beside the manifest that names it', '**Settled** (ruling 4d): the pack copy of `jst_r6.json` is an exempt loader file, not removed as a duplicate of `data/jst/jst_r6.json`; the loader path is rewritten in 162c.'),
     ('10', 'Test suites', '`data`, `gate`, `model_v3` to `tests/model/`; `cards`, `glossary`, `layout`, `nav`, `pages`, `retired` to `tests/website/`; the `hooks` suite split by what each test file tests: `test_build_skills.py`, `test_check_agent_docs.py` to `tests/project/tools/`; `test_run_suites.py` to `tests/model/tools/`; the other five test files, `conftest.py` and the fixtures to `tests/website/hooks/`',
-     '**Settled, changed from the default** (ruling 4c): tests follow the code they test (`tests/model`, `tests/website`, `tests/project`). `pipeline/run_suites.py` and the hooks `conftest.py` find suites and fixtures by path: 162c and 164c rewrite them (see the depth list).'),
+     '**Settled, changed from the default** (ruling 4c): tests follow the code they test (`tests/model`, `tests/website`, `tests/project`). `model/tools/run_suites.py` and the hooks `conftest.py` find suites and fixtures by path: 162c and 164c rewrite them (see the depth list).'),
     ('11', 'Agent guide names', '`docs/agents/code.md`, `guru.md`, `research.md`, `web.md`, `writing.md` become `project/agents/agent-code.md`, `agent-guru.md`, `agent-research.md`, `agent-web.md`, `agent-writing.md`', '**Settled, changed from the default** (ruling 4b): all five are renamed; R6 (164c) rewrites the skills and every active reader.'),
     ('12', 'Generic names that are unique', 'listed in the section "Generic names that remain" below', '**Settled** as the map default: the stage that owns the file may rename it, with every reader rewritten. `index.md` and `index.qmd` (Quarto) are exempt names.'),
-    ('13', 'Pinned files that name an old path', 'the four stale citations of the section "Files whose bytes are pinned" below keep their bytes: `registry/inputs.json` line 568, `legacy_digest.json` line 3, the pack `manifest.json` line 104, `internal.json` line 2 (then under `literature/`)',
+    ('13', 'Pinned files that name an old path', 'the four stale citations of the section "Files whose bytes are pinned" below keep their bytes: `data/input-register/inputs.json` line 568, `legacy_digest.json` line 3, the pack `manifest.json` line 104, `internal.json` line 2 (then under `literature/`)',
      '**Settled** (ruling 3): `path_refs.py --check` allow-lists exactly these four lines; they are refreshed at the next real re-pin of the register. Rewriting any other line of a pinned file is stop-and-report.'),
 ]
 GENERIC = {'report', 'tables', 'check', 'checks', 'common', 'config', 'tools', 'hooks', 'pdf', 'transforms', 'utils', 'run', 'summary', 'results', 'main', 'helpers', 'notes', 'index', 'data', 'validate', 'build', 'test', 'ranges', 'gap'}
-PINNED = ['registry/inputs.json', 'tests/model_v3/fixtures/legacy_digest.json', 'model_v3/pack/GBR/manifest.json', 'registry/internal.json', 'registry/metrics.json']
+PINNED = ['data/input-register/inputs.json', 'tests/model/model_v3/fixtures/legacy_digest.json', 'data/country-packs/GBR/manifest.json', 'registry/internal.json', 'data/input-register/metrics.json']
 # R1 ruling 3: the four stale citations that keep their bytes until the next real re-pin of the register; (old path of the file, line, token). `--check` allows exactly these.
-PINNED_ALLOWED = [('registry/inputs.json', 568, 'model_v3/runner/switches.py'), ('tests/model_v3/fixtures/legacy_digest.json', 3, 'tests/model_v3/test_legacy_digest.py'),
-                  ('model_v3/pack/GBR/manifest.json', 104, 'docs/model-v3/kernel-wiring/decile_composition.csv'), ('registry/internal.json', 2, 'website/build/bib_to_json.py')]
+PINNED_ALLOWED = [('data/input-register/inputs.json', 568, 'model/model_v3/runner/switches.py'), ('tests/model/model_v3/fixtures/legacy_digest.json', 3, 'tests/model/model_v3/test_legacy_digest.py'),
+                  ('data/country-packs/GBR/manifest.json', 104, 'docs/model-v3/kernel-wiring/decile_composition.csv'), ('registry/internal.json', 2, 'website/build/bib_to_json.py'),
+                  # 162c rulings (2026-11-25): bytes hashed in the pack tree, in `inputs_sha256` source text and in `manifest_sha256` keep their old text
+                  ('data/country-packs/GBR/NOTICE.md', 13, 'docs/model-v3/kernel-wiring/decile_composition.csv'), ('model/model_v3/pack/build_gbr.py', 24, 'docs/model-v3/kernel-wiring/decile_composition.csv'),
+                  ('model/model_v3/pack/build_gbr.py', 193, 'docs/model-v3/kernel-wiring/decile_composition.csv'), ('model/model_v3/pack/build_gbr.py', 217, 'docs/model-v3/kernel-wiring/decile_composition.csv'),
+                  ('docs/model-v3/inputs.md', 145, 'docs/model-v3/household-vs-legacy.md'), ('docs/model-v3/outputs.yml', 3, 'docs/restructure/shortcodes.md')]
 
 
 def write_all(rows):

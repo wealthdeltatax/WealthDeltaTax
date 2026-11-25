@@ -28,7 +28,7 @@ No household-level records were extracted. No saving, consumption, drawdown, or 
 
 ### What the held pack already establishes
 
-`model_v3/pack/GBR/wealth_distribution.csv` is readable. It contains Round 8 household wealth totals by decile, household counts, and selected component shares. The pack builder documents that the totals and components are derived from `data/rates/totalwealthtables.xlsx`, Table 2.2, and the all-household total from Table 2.1.
+`data/country-packs/GBR/wealth_distribution.csv` is readable. It contains Round 8 household wealth totals by decile, household counts, and selected component shares. The pack builder documents that the totals and components are derived from `data/rates/totalwealthtables.xlsx`, Table 2.2, and the all-household total from Table 2.1.
 
 The WDT band mapping is a grouping of **wealth deciles**, not a separate set of published WAS bands:
 

@@ -6,7 +6,7 @@
 
 **With the tax on, wealth to GDP at year 100 is 1.00 at a consumption rate of 2.67, 2.65, 2.65% (tm50, tm70, tm90); at the central 3.5% it is 0.47 to 0.47.**
 
-Reproduce: `python -I docs/model-v3/wealth-ratio-diagnostic/wealth_ratio.py` from the repository root (seed 20261118; two runs print identical text). Central inputs; schedules tau_m 0.5, 0.7, 0.9 at k 0.5, ratio 0.5. Constant path at the arithmetic mean 4.74% unless a table says random paths; constant GDP growth 1.570%. The report recommends nothing about the feasibility rule, I-D14c or CK1.
+Reproduce: `python -I model/studies/wealth-ratio-diagnostic/wealth_ratio.py` from the repository root (seed 20261118; two runs print identical text). Central inputs; schedules tau_m 0.5, 0.7, 0.9 at k 0.5, ratio 0.5. Constant path at the arithmetic mean 4.74% unless a table says random paths; constant GDP growth 1.570%. The report recommends nothing about the feasibility rule, I-D14c or CK1.
 
 **Early check (stop condition).** Consumption 3.5% and the tax off: wealth to GDP at year 100 is 0.62; the hypothesis's own illustration is about two thirds. It holds, so the kernel's compounding is what the hypothesis assumes.
 

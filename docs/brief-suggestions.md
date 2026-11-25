@@ -56,21 +56,21 @@ Entry format, newest at the bottom:
 
 ### Validator and fixture ignore `line_horizons`, so a final model file cannot pass V7 (OW3)
 - Found by: code / brief 056c, 2026-11-18
-- Where: `pipeline/validate_outputs.py` (`load_entries`, V7 coverage), `tests/data/make_fixture.py`, `docs/restructure/site/hooks.md` 3.4; also the `run` fields `pack_sha256`, `pack_country`, `levers_sha256` (A6), which V8 reports as unknown (V12 warning)
+- Where: `model/tools/validate_outputs.py` (`load_entries`, V7 coverage), `tests/model/data/make_fixture.py`, `docs/restructure/site/hooks.md` 3.4; also the `run` fields `pack_sha256`, `pack_country`, `levers_sha256` (A6), which V8 reports as unknown (V12 warning)
 - Problem: `outputs.yml` gives OW3 line M15b the horizon `transition` only (A3), and the output layer writes only those cells. The validator expects the full product, so a `--final` check of a complete file fails with `V7 error OW3: 30 cell(s) missing`; the fixture still holds 90 OW3 cells. Provisional files pass (V7 is a warning). Needs the validator to read `line_horizons`, the fixture to follow, and A6 fields accepted.
 - Suggested lane: c
 - Status: taken (brief 058c)
 
 ### Register I-D4a (wealth to GDP 5.94) disagrees with the pack GDP
 - Found by: guru review of 067c, 2026-11-19
-- Where: `docs/model-v3/inputs.md` I-D4a; `model_v3/pack/GBR/wealth_distribution.csv` (`wealth_total` all 13,568, `gdp` 2,211.48)
+- Where: `docs/model-v3/inputs.md` I-D4a; `data/country-packs/GBR/wealth_distribution.csv` (`wealth_total` all 13,568, `gdp` 2,211.48)
 - Problem: the pack gives 13,568 / 2,211.48 = 6.14; the register central is 5.94 on calendar-2021 GDP of 2,284 (OECD via FRED, not held). The base reads the pack, so the register row and the pack disagree on the same ratio. Decide whether the register row is recomputed from the pack (a `(J)` row, author decides) or the pack GDP is replaced
 - Suggested lane: r
 - Status: open
 
 ### Pack rebuild needs a full git history
 - Found by: guru review of 067c, 2026-11-19
-- Where: `model_v3/pack/build_gbr.py` `added()`
+- Where: `model/model_v3/pack/build_gbr.py` `added()`
 - Problem: the manifest `retrieved` dates come from `git log --follow` of each source file (066c). In a shallow clone the builder writes 2026-11-17 for every file and the committed manifest (2026-09-30 and 2026-11-15) is not reproduced, so the byte-identical rebuild check fails there. It passes in a full clone
 - Suggested lane: c
 - Status: open
@@ -84,28 +84,28 @@ Entry format, newest at the bottom:
 
 ### Fixture fake numbers are positional, so inserting an output shifts pinned test values
 - Found by: guru / 079g, 2026-11-20
-- Where: `tests/data/make_fixture.py`; pins in `tests/website/hooks/test_hooks.py` and `tests/website/hooks/test_cli.py`
+- Where: `tests/model/data/make_fixture.py`; pins in `tests/website/hooks/test_hooks.py` and `tests/website/hooks/test_cli.py`
 - Problem: adding O2d to the manifest changed every later fixture number (CK1 P1 4.6 to 2.8, O3 1.00 to 1.30), failing five pinned hooks tests. Every manifest addition will repeat this.
 - Suggested lane: c (derive each fake number from a hash of the output id, cell key and field, so only new cells appear; re-pin once)
 - Status: done 2026-11-20 (091g `e64fd95`: numbers keyed by cell)
 
 ### F1 and CK1 fail on a constant path because deaths settle in a five-year cycle (six phases)
 - Found by: code / 140c, 2026-11-23
-- Where: `model_v3/core/revenue.py` (`run_lines`: `n_phase` 6, `G` 30; the fund's payout); read in `docs/model-v3/f1-household.md`
+- Where: `model/model_v3/core/revenue.py` (`run_lines`: `n_phase` 6, `G` 30; the fund's payout); read in `docs/model-v3/f1-household.md`
 - Problem: under the household arm on a constant 4.74% path, M1a is about 1.0 of GDP in four years of five and 11 to 12 in the fifth (years 10, 15, 20 ...), the fund pays each lump out over two years, and relief runs 7.3, 7.3, 3.8, 3.8 against M1d 4.74. Relief first falls below M1d in year 13 in all 15 (point, schedule) rows and P3 to the end of the short window is 0.29 to 6.90, so F1 at tol 0 cannot reach 75% even with no volatility. Over years 10 to 14 relief sums to 29.85 against 23.70 for M1d. Not tested here: whether more phases or a longer payout window remove it, and whether the legacy arm's year-13 shortfall in 083c has the same cause.
 - Suggested lane: c (diagnose by varying `n_phase` and the payout window on the constant path, no rule change), then g
 - Status: open
 
 ### architecture.md budget total is 200 short of its rows (switches.py)
 - Found by: code / 139c, 2026-11-23
-- Where: `docs/model-v3/architecture.md` line 226 (the `**Total**` row of the line-budget table); `tests/model_v3/test_budget.py::test_block_sums_equal_the_stated_totals`
-- Problem: the test fails on a clean `origin/main` (7d60b86): the rows sum to 6,260 lines against a stated total of 6,060. The new `model_v3/runner/switches.py` row (budget 200, added in the 2026-11-23 housekeeping commit) was not added to the total. The model_v3 suite shows 1 failed, 349 passed.
+- Where: `docs/model-v3/architecture.md` line 226 (the `**Total**` row of the line-budget table); `tests/model/model_v3/test_budget.py::test_block_sums_equal_the_stated_totals`
+- Problem: the test fails on a clean `origin/main` (7d60b86): the rows sum to 6,260 lines against a stated total of 6,060. The new `model/model_v3/runner/switches.py` row (budget 200, added in the 2026-11-23 housekeeping commit) was not added to the total. The model_v3 suite shows 1 failed, 349 passed.
 - Suggested lane: g (the table is the guru's; a one-number edit)
 - Status: open
 
 ### Account residual and I1 under `gdp_paths` with market paths
 - Found by: code / 148c, 2026-11-24
-- Where: `household-arm-paths.md` section "Per-path GDP growth"; `model_v3/runner/arm.py` (`pre`, `settle`, the lien carry), `flow_switches.py`; reproduce with `run_grid.py --paths 200 --points min_mid --no-legacy --market-paths --gdp-paths indep`
+- Where: `household-arm-paths.md` section "Per-path GDP growth"; `model/model_v3/runner/arm.py` (`pre`, `settle`, the lien carry), `flow_switches.py`; reproduce with `run_grid.py --paths 200 --points min_mid --no-legacy --market-paths --gdp-paths indep`
 - Problem: the `ratio 0.25` rerun gives account residual 3.5e-4 at year 99 on one lien-carrying line (2.1e-11 with no GDP path, 2.4e-11 at 1% of the deviation); `median_high` with market paths and `indep` raises I1 (path 89, line 7, year 95, family value 0.00161 against class total 0.00167). Not root-caused. Brief 148c's criterion "I1, the account identity and the ledger ties hold at all five points" is not met for these two runs.
 - Suggested lane: c (diagnosis first; a kernel change is stop-and-report, so the guru decides what follows)
 - Status: open

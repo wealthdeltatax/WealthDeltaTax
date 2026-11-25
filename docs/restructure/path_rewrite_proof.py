@@ -17,7 +17,7 @@ Files at --head that the map does not know are listed as `added`.
 Exit code 0 only if nothing is `changed` or `added` that the stage did not declare
 with --allow (a text file of paths, one per line, new paths of declared edits).
 """
-import argparse, csv, difflib, re, subprocess, sys
+import argparse, csv, difflib, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True).stdout.strip() or '.')
@@ -35,39 +35,14 @@ def read_map(path):
         return list(csv.DictReader(fh))
 
 
-def folder_rules(rows):
-    """folder -> new folder, where every file under the folder moves by one rule."""
-    out, bad = {}, set()
-    for r in rows:
-        if r['duplicate_of']:
-            continue
-        o, n = r['old'].split('/'), r['new'].split('/')
-        if len(o) < 2 or o[-1] != n[-1] and r['rename']:
-            # a renamed file keeps its folder rule only through its parent
-            pass
-        for k in range(1, len(o)):
-            f = '/'.join(o[:k])
-            tail = '/'.join(o[k:])
-            if r['rename']:
-                continue
-            if not r['new'].endswith('/' + tail):
-                bad.add(f)
-                continue
-            nf = r['new'][:-len(tail) - 1]
-            if out.setdefault(f, nf) != nf:
-                bad.add(f)
-    return {f: n for f, n in out.items() if f not in bad}
-
-
 def rewriter(rows):
-    pairs = {r['old']: r['new'] for r in rows if not r['duplicate_of']}
-    for r in rows:
-        if r['duplicate_of']:
-            pairs.setdefault(r['old'], next((x['new'] for x in rows if x['old'] == r['duplicate_of']), r['old']))
-    pairs.update(folder_rules(rows))
-    keys = sorted(pairs, key=len, reverse=True)
-    rx = re.compile('(?<![\\w./-])(' + '|'.join(re.escape(k) for k in keys) + ')(?![\\w-])')
-    return lambda t: rx.sub(lambda m: pairs[m.group(1)], t)
+    """The one rewrite rule of the programme: pipeline/path_refs.py (project/tools/ after 164c), shared with --apply."""
+    for d in ('pipeline', 'project/tools'):
+        if (ROOT / d / 'path_refs.py').is_file():
+            sys.path.insert(0, str(ROOT / d))
+            break
+    import path_refs
+    return path_refs.Rewriter({r['old']: r for r in rows}).text
 
 
 def main():

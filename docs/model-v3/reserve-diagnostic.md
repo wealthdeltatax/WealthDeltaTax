@@ -176,7 +176,7 @@ Reading the costs: the gains in F1 come with (a) fewer retired taxes (M1d falls 
 
 ## Reproduce
 
-From the repository root: `python -I docs/model-v3/reserve-diagnostic/reserve_diagnostic.py check | a | d` (about 3 minutes for all). Outputs are the CSVs in `docs/model-v3/reserve-diagnostic/`.
+From the repository root: `python -I model/studies/reserve-diagnostic/reserve_diagnostic.py check | a | d` (about 3 minutes for all). Outputs are the CSVs in `docs/model-v3/reserve-diagnostic/`.
 
 ## Question for the author
 

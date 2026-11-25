@@ -10,7 +10,7 @@ import numpy as np
 sys.path.insert(0, '.')
 from model_v3.core import pack as pk, base as bs
 D = Path('research/tables/145r-saving-shapes-and-withdrawal-range')
-pack, reg = pk.load_pack(Path('model_v3/pack/GBR')), pk.load_register(Path('registry/inputs.json'))
+pack, reg = pk.load_pack(Path('data/country-packs/GBR')), pk.load_register(Path('data/input-register/inputs.json'))
 b = bs.build_base(pack, reg, 0.44)
 inc = np.where(np.isnan(b.income), reg['I-D9a'].low / reg['I-D4h'].central / 1e6, b.income)   # as runner/arm.py line_state does
 ad = np.asarray(b.adults_k, float); w = inc * ad / (inc * ad).sum()

@@ -18,10 +18,10 @@ The runner uses 10,000 Level 1 paths, 200 Level 2 parameter draws and 1,000 path
 The 23 November status board records an early cost measurement: one household evaluation took about 4.9 seconds at 20 paths; a complete run was estimated at hours to days. Brief 150c is already investigating run cost and parallel evaluation. Its measured results must be treated as the baseline when available. These early figures are a warning, not yet a complete profile or proof that a language rewrite is warranted.
 
 The current code has useful boundaries:
-- `model_v3/core/kernel.py` owns route settlement mechanics and is vectorised over a line axis.
-- `model_v3/core/household.py` contains a pure household-step function.
-- `model_v3/runner/arm.py` wires household state into the kernel and is already at its 330-line budget.
-- `model_v3/runner/runner.py` owns orchestration, sampling, path generation and output collection.
+- `model/model_v3/core/kernel.py` owns route settlement mechanics and is vectorised over a line axis.
+- `model/model_v3/core/household.py` contains a pure household-step function.
+- `model/model_v3/runner/arm.py` wires household state into the kernel and is already at its 330-line budget.
+- `model/model_v3/runner/runner.py` owns orchestration, sampling, path generation and output collection.
 
 The distinction matters: the best implementation may be a faster computational core with the Python research pipeline left intact.
 
