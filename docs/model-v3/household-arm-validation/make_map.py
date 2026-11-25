@@ -4,7 +4,7 @@ import csv
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-SRC = HERE.parents[2] / 'docs' / 'research' / 'data' / '099r' / 'moments.csv'
+SRC = HERE.parents[2] / 'research' / 'tables' / '099r-held-research-moments' / 'moments.csv'
 COLS = ('id', 'source', 'held_as_data', 'validation_moment', 'status', 'analogue', 'computed_where', 'definitions_that_differ', 'needs')
 
 # id -> (status, analogue, computed where, definitions that differ, needs)

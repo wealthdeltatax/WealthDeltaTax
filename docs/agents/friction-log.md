@@ -58,3 +58,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: in a depth-50 clone the tripwire reports `FAIL: ['pack']` (`rebuild_is_byte_identical: false`, tree hash equal) because `build_gbr.py` reads `retrieved` dates from `git log --follow`.
 - Cost: one failed run and a history fetch (`git fetch --depth=5000 origin main brief/044-inventory` gave the full 809 commits); the rerun passed.
 - Suggest: say in the tripwire docstring and the stage briefs that it needs a full-history clone.
+
+### 2026-11-24 · 160c · code
+- Instruction: 044c "How each stage proves it broke nothing" and the map's pinned list; `python pipeline/path_refs.py --check` after a stage.
+- Happened: (1) `--check` builds its map from the current tree, so once files have moved every old path is "not a tracked file" and nothing is reported; the stage had to use its own scan from the committed map. (2) The pinned list names four lines, but `model_v3/pack/GBR/NOTICE.md` (hashed in the tripwire's pack tree) and the NOTICE text inside `build_gbr.py` also quote moved paths; only the path constants that open files could change. (3) `pipeline/to_markdown.py`, `pipeline/check_agent_docs.py` and their two tests assume sources and reading copies share one root (`docs/research`); after the split that is a logic change, so they were left. (4) A Python `read_text`/`write_text` path rewrite turns CRLF into LF; six CRLF tables showed as changed in the proof until redone on bytes. (5) The proof run on a subset map lists every other file as "added" (795 lines).
+- Cost: extra analysis and one extra commit.
+- Suggest: add NOTICE.md and the build_gbr.py text to the pinned list or re-baseline the tripwire; a brief to re-root the converter and the reading-copy warning; make `--check` read old paths from the committed map; give the proof a `--stage` filter and a bytes warning.

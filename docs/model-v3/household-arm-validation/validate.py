@@ -17,7 +17,7 @@ sys.path.insert(0, str(ROOT))
 from model_v3.core import cells as ce, pack as pk  # noqa: E402
 
 YEARS = 100
-OBS_RATIO = HERE.parents[1] / 'research' / 'data' / '097r' / 'qsa_household_annual_2026q2.csv'
+OBS_RATIO = ROOT / 'data' / 'uk-wealth-tables' / '097r' / 'qsa_household_annual_2026q2.csv'
 COLS = ('id', 'measure', 'population_and_definition_of_observed', 'observed', 'observed_source', 'model_min', 'model_max', 'axis', 'gap', 'label', 'definitions_that_differ')
 
 

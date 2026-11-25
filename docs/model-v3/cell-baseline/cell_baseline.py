@@ -26,12 +26,13 @@ HERE = Path(__file__).resolve().parent
 from model_v3.core import cells as ce, pack as pk  # noqa: E402
 from model_v3.runner import runner as R  # noqa: E402
 
-YEARS, D = 100, ROOT / 'docs' / 'research' / 'data'
+YEARS, D = 100, ROOT / 'research' / 'tables'
+SLUG = {'101r': '101r-parameter-map-flows-and-returns'}
 CLASSES = ce.CLASSES
 
 
 def rows_of(name, folder):
-    return list(csv.DictReader(open(D / folder / name, newline='', encoding='utf-8')))
+    return list(csv.DictReader(open(D / SLUG[folder] / name, newline='', encoding='utf-8')))
 
 
 def inputs():
