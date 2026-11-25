@@ -55,7 +55,7 @@ def test_rule2_root_relative_and_file_relative_both_resolve(tmp_path):
 
 
 def test_rule2_allow_list_and_non_paths_are_skipped(tmp_path):
-    line = "`_build/` `_site/a.html` `registry/anchors.yml` `docs/briefs/NNNx-slug.md` `a/<role>/b.md` `src/*.py` `origin/main` `brief/NNN-slug` `https://e.org/a.md` `pipeline/x`\n"
+    line = "`_build/` `_site/a.html` `website/registry/anchors.yml` `docs/briefs/NNNx-slug.md` `a/<role>/b.md` `src/*.py` `origin/main` `brief/NNN-slug` `https://e.org/a.md` `pipeline/x`\n"
     assert cad.check(tree(tmp_path, {"docs/agents/guru.md": line})) == []
 
 
