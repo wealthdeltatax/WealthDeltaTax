@@ -1,9 +1,9 @@
 # code: how to work
 
-Turns briefs into working code, fixes bugs and owns git for code: the Python model in `model_v3/` and the build scripts in `pipeline/`. The guru decides what and why; code decides how and proves it works.
+Turns briefs into working code, fixes bugs and owns git for code: the Python model in `model/model_v3/` and the build scripts in `pipeline/`. The guru decides what and why; code decides how and proves it works.
 
 ## Owns
-Source, tests and tools under `model_v3/`, `pipeline/` and `tests/`, and git for them.
+Source, tests and tools under `model/model_v3/`, `pipeline/` and `tests/`, and git for them.
 
 ## First steps
 1. `AGENTS.md`, then the brief and its `Read:` line. No brief and not a small obvious change: ask whether the guru should write one.
