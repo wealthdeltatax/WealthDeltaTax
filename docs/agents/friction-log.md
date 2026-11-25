@@ -69,3 +69,8 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: the brief and the map disagree on the gate (followed the map, stage 162c owns it); the proof reports `source:`, `site` and the nav label `Tools` as "changed" (map applied to plain words), so 46 files show red although only intended edits remain.
 - Cost: a manual review of the diff to tell intended depth and path edits from proof noise.
 - Suggest: make the proof apply the map to path-like tokens only (a slash or an extension), and say in each stage brief where the gate lives.
+### 2026-11-25 · 165c · code
+- Instruction: 165c "Fix in the scratch copy what can be fixed" and "do not change a check to make it pass"; 044c says the proof and the apply step share one rule, but they were two implementations.
+- Happened: the proof reported 198 changed files on a correct apply (its regular expression rewrote prose words and ignored folders holding a renamed file); and after `git mv` the used tree keeps empty old folders that make `exists()` checks pass.
+- Cost: about two hours chasing differences that were the proof's, and one project test that passed in the used copy and failed in a clean one.
+- Suggest: the stage briefs say "run the stage's final checks in a fresh checkout (`git clean -fdx`)"; the proof uses `path_refs.Rewriter`.

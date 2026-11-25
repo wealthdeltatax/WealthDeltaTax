@@ -25,7 +25,7 @@ CANDIDATES = {
     'digest_test': ['tests/model_v3/test_legacy_digest.py', 'tests/model/model_v3/test_legacy_digest.py'],
     'outputs': ['docs/model-v3/outputs.yml', 'model-specs/outputs.yml'],
     'levers': ['model_v3/levers.json', 'model/model_v3/levers.json'],
-    'pack': ['model_v3/pack/GBR', 'data/country-pack-GBR'],
+    'pack': ['model_v3/pack/GBR', 'data/country-packs/GBR'],
     'builder': ['model_v3/pack/build_gbr.py', 'model/model_v3/pack/build_gbr.py'],
     'cell_inputs': ['docs/model-v3/cell-baseline/inputs_used.json', 'results/cell-baseline/inputs_used.json'],
 }

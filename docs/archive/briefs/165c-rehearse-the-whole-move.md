@@ -1,6 +1,6 @@
 # 165: Rehearse the whole file move on a scratch copy
 
-- **Status:** ready; Agent 6; runs alongside 160c and 161c (it changes nothing in the real repository); feeds 162c to 164c
+- **Status:** done, merged 2026-11-25
 - **Author/date:** K. Ogata with the guru, 2026-11-24
 - **Depends on:** 044c R1 round 2 merged (it is: the map and the checks are on `main`)
 - **Read:** `docs/briefs/044c-file-layout-move.md` (rules, programme, verification tiers); `docs/restructure/file-layout-map.md` and its csv files; `pipeline/path_refs.py` (`--map`, `--check`); `docs/restructure/path_rewrite_proof.py`; `docs/restructure/move_tripwire.py`; `docs/agents/friction-log.md` (the shallow-clone tripwire entry)
@@ -39,11 +39,25 @@ Rules that apply: one block, one push per part; suites in the background, never 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** not started
+- **Done:** `path_refs.py --apply <root>` (shared `Rewriter`), full rehearsal on a full-history scratch clone of `3efb03b`, `rehearsal-report.md`, `rehearsal-fixes.patch` (138 files, labelled by stage, applies cleanly). On the fixed copy: tripwire PASS; `tests/model` data 103, gate 17, tools 5, model_v3 408 passed; `tests/website` 201 passed, 41 skipped; proof on the apply alone: 0 changed. `tests/project`: 1 failure in a clean tree (the prose sweep, 164c).
+- **Next:** NEEDS THE AUTHOR / guru: five map decisions in the report (pack folder name, pinned list, shared `Rewriter` in the proof, readable-copies place, 165c row). No auto-merge. Then merge 165c and start 160c.
+- **Decisions:** `--apply` scans the checkout afresh (the references csv is stale by 199 entries); the proof was not changed (a check); its proposed change is described in the report.
+- **Gotchas:** full-history clone for the tripwire; one pytest per suite; leftover empty old folders hide failures (use `git clean -fdx`); never pipe the rehearsal script into `head`.
+- **Resume:** apply, then the patch, in a fresh clone.
+- **Not run:** Quarto build, `layout` (40 skipped as in the baseline), full `quick` comparison.
+- **State:** scratch copy and worktree deleted; branch pushed.
 <!-- progress:end -->
+
+
+Change report
+- Task: 165c rehearse the whole move
+- Files changed: `pipeline/path_refs.py` (`--apply`, `Rewriter`, `:N` suffixes, `_folder_news` ignores renamed file names); `docs/restructure/rehearsal-report.md`, `rehearsal-fixes.patch` (new); brief progress, friction log, brief suggestions
+- What is different now: the stage agents have a tested apply, a grouped list of failures with fixes, and a patch
+- New or changed interfaces: `python pipeline/path_refs.py --apply <scratch root>` (refuses this repo)
+- Acceptance criteria: report names every failing suite per stage (met); model side complete, tripwire and four suites pass with the patch (met); patch applies cleanly (met); scratch deleted, git status shows the three files plus the brief and logs (met, with the logs as extra)
+- Deviations from the brief: friction log, brief suggestions and the brief's own block are also edited (the rules ask for them); the proof was not changed
+- Risks / follow-ups: five map decisions (report end); the prose sweep (164c); 50 constructed chains not individually triaged
+- Instruction friction: one entry added
+- Verification: tripwire, tests/model x4, tests/website, proof, check; not run: Quarto, layout, quick
+- Overview sections likely needing an update: none
+- Commit / branch: see push, `brief/165c-rehearse-the-whole-move`

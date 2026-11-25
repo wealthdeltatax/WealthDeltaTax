@@ -377,7 +377,7 @@ docs/brief-suggestions.md,59,pipeline/validate_outputs.py,file,model/tools/valid
 docs/brief-suggestions.md,59,tests/data/make_fixture.py,file,tests/model/data/make_fixture.py
 docs/brief-suggestions.md,59,docs/restructure/site/hooks.md,file,website/notes/site/hooks.md
 docs/brief-suggestions.md,66,docs/model-v3/inputs.md,file,model-specs/inputs.md
-docs/brief-suggestions.md,66,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-pack-GBR/wealth_distribution.csv
+docs/brief-suggestions.md,66,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-packs/GBR/wealth_distribution.csv
 docs/brief-suggestions.md,73,model_v3/pack/build_gbr.py,file,model/model_v3/pack/build_gbr.py
 docs/brief-suggestions.md,80,docs/model-v3/inputs.md,file,model-specs/inputs.md
 docs/brief-suggestions.md,87,tests/data/make_fixture.py,file,tests/model/data/make_fixture.py
@@ -852,7 +852,7 @@ docs/model-v3/inputs.md,138,docs/research/data/100r/returns_decomposition.csv,fi
 docs/model-v3/inputs.md,139,docs/research/data/102r/band_composition_by_pack_band.csv,file,research/tables/102r-parameter-map-stocks-and-cells/band_composition_by_pack_band.csv
 docs/model-v3/inputs.md,140,docs/research/data/101r/derived_ons_flows.csv,file,research/tables/101r-parameter-map-flows-and-returns/derived_ons_flows.csv
 docs/model-v3/inputs.md,141,docs/research/data/102r/band_composition_by_pack_band.csv,file,research/tables/102r-parameter-map-stocks-and-cells/band_composition_by_pack_band.csv
-docs/model-v3/inputs.md,141,model_v3/pack/GBR/decile_composition.csv,file,data/country-pack-GBR/decile_composition.csv
+docs/model-v3/inputs.md,141,model_v3/pack/GBR/decile_composition.csv,file,data/country-packs/GBR/decile_composition.csv
 docs/model-v3/inputs.md,142,docs/research/134r-lien-deferral-rate.md,file,research/notes/134r-lien-deferral-rate.md
 docs/model-v3/inputs.md,143,docs/research/131r-pension-basis-sensitivity.md,file,research/notes/131r-pension-basis-sensitivity.md
 docs/model-v3/inputs.md,144,docs/research/data/100r/returns_decomposition.csv,file,research/tables/100r-jst-cash-yield-and-gain-split/returns_decomposition.csv
@@ -1171,7 +1171,7 @@ docs/research/094r-kernel-map-and-household-accounts.md,16,model_v3/levers.json,
 docs/research/094r-kernel-map-and-household-accounts.md,18,tests/model_v3/,folder,
 docs/research/094r-kernel-map-and-household-accounts.md,19,model_v3/pack/build_gbr.py:70-77,other,
 docs/research/094r-kernel-map-and-household-accounts.md,24,model_v3/core/returns.py:9-13,other,
-docs/research/094r-kernel-map-and-household-accounts.md,24,model_v3/pack/GBR/source/jst_r6.json,file,data/country-pack-GBR/source/jst_r6.json
+docs/research/094r-kernel-map-and-household-accounts.md,24,model_v3/pack/GBR/source/jst_r6.json,file,data/country-packs/GBR/source/jst_r6.json
 docs/research/094r-kernel-map-and-household-accounts.md,30,tests/model_v3/test_kernel.py:32,other,
 docs/research/094r-kernel-map-and-household-accounts.md,32,docs/VAL_generational_model_plan.md:73,other,
 docs/research/094r-kernel-map-and-household-accounts.md,38,docs/VAL_generational_model_plan.md:76,other,
@@ -1183,7 +1183,7 @@ docs/research/094r-kernel-map-and-household-accounts.md,76,docs/model-v3/tornado
 docs/research/094r-kernel-map-and-household-accounts.md,77,tests/model_v3/test_groups.py:11,other,
 docs/research/094r-kernel-map-and-household-accounts.md,78,model_v3/out/,folder,
 docs/research/094r-kernel-map-and-household-accounts.md,78,docs/briefs/057c-v3-12-run-script-and-acceptance.md,file,project/briefs/open/057c-v3-12-run-script-and-acceptance.md
-docs/research/094r-kernel-map-and-household-accounts.md,83,model_v3/pack/GBR/household_incidence.csv,file,data/country-pack-GBR/household_incidence.csv
+docs/research/094r-kernel-map-and-household-accounts.md,83,model_v3/pack/GBR/household_incidence.csv,file,data/country-packs/GBR/household_incidence.csv
 docs/research/094r-kernel-map-and-household-accounts.md,86,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/094r-kernel-map-and-household-accounts.md,88,source/jst_r6.json,other,
 docs/research/095r-bozio-2013-reading.md,3,Research/Bozio,other,
@@ -1207,7 +1207,7 @@ docs/research/096r-cohort-cell-design.md,149,docs/model-v3/architecture.md,file,
 docs/research/096r-cohort-cell-design.md,149,docs/model-v3/inputs.md,file,model-specs/inputs.md
 docs/research/096r-cohort-cell-design.md,149,model_v3/core/kernel.py,file,model/model_v3/core/kernel.py
 docs/research/096r-cohort-cell-design.md,149,model_v3/runner/runner.py,file,model/model_v3/runner/runner.py
-docs/research/096r-cohort-cell-design.md,149,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-pack-GBR/wealth_distribution.csv
+docs/research/096r-cohort-cell-design.md,149,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-packs/GBR/wealth_distribution.csv
 docs/research/096r-cohort-cell-design.md,149,source/jst_r6.json,other,
 docs/research/096r-cohort-cell-design.md,149,tests/model_v3/,folder,
 docs/research/097r-open-series-collection.md,164,docs/research/data/097r/,folder,
@@ -1216,7 +1216,7 @@ docs/research/097r-open-series-collection.md,253,docs/research/data/097r/extract
 docs/research/098r-was-tables-and-population.md,21,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/098r-was-tables-and-population.md,22,Rates Data/financialwealthtables.xlsx,file,data/rates/financialwealthtables.xlsx
 docs/research/098r-was-tables-and-population.md,23,Research/etbreferencetablesfye202324final.xlsx,file,data/uk-source-workbooks/etbreferencetablesfye202324final.xlsx
-docs/research/098r-was-tables-and-population.md,31,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-pack-GBR/wealth_distribution.csv
+docs/research/098r-was-tables-and-population.md,31,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-packs/GBR/wealth_distribution.csv
 docs/research/098r-was-tables-and-population.md,31,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/098r-was-tables-and-population.md,231,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/098r-was-tables-and-population.md,232,Rates Data/financialwealthtables.xlsx,file,data/rates/financialwealthtables.xlsx
@@ -1233,15 +1233,15 @@ docs/research/099r-held-research-moments.md,73,Rates Data/totalwealthtables.xlsx
 docs/research/099r-held-research-moments.md,80,docs/model-v3/inputs.md,file,model-specs/inputs.md
 docs/research/099r-held-research-moments.md,87,docs/model-v3/inputs.md,file,model-specs/inputs.md
 docs/research/099r-held-research-moments.md,134,docs/research/095r-bozio-2013-reading.md,file,research/notes/095r-bozio-2013-reading.md
-docs/research/100r-jst-cash-yield-and-gain-split.md,24,model_v3/pack/GBR/source/jst_r6.json,file,data/country-pack-GBR/source/jst_r6.json
+docs/research/100r-jst-cash-yield-and-gain-split.md,24,model_v3/pack/GBR/source/jst_r6.json,file,data/country-packs/GBR/source/jst_r6.json
 docs/research/100r-jst-cash-yield-and-gain-split.md,24,Rates Data/JSTdatasetR6.xlsx,file,data/rates/JSTdatasetR6.xlsx
-docs/research/100r-jst-cash-yield-and-gain-split.md,90,model_v3/pack/GBR/returns.csv,file,data/country-pack-GBR/returns.csv
+docs/research/100r-jst-cash-yield-and-gain-split.md,90,model_v3/pack/GBR/returns.csv,file,data/country-packs/GBR/returns.csv
 docs/research/100r-jst-cash-yield-and-gain-split.md,92,source/pack,other,
 docs/research/100r-jst-cash-yield-and-gain-split.md,125,model_v3/core/returns.py:real_series,other,
 docs/research/100r-jst-cash-yield-and-gain-split.md,144,docs/research/data/100r/returns_decomposition.csv,file,research/tables/100r-jst-cash-yield-and-gain-split/returns_decomposition.csv
-docs/research/100r-jst-cash-yield-and-gain-split.md,152,model_v3/pack/GBR/source/jst_r6.json,file,data/country-pack-GBR/source/jst_r6.json
+docs/research/100r-jst-cash-yield-and-gain-split.md,152,model_v3/pack/GBR/source/jst_r6.json,file,data/country-packs/GBR/source/jst_r6.json
 docs/research/100r-jst-cash-yield-and-gain-split.md,153,Rates Data/JSTdatasetR6.xlsx,file,data/rates/JSTdatasetR6.xlsx
-docs/research/100r-jst-cash-yield-and-gain-split.md,154,model_v3/pack/GBR/returns.csv,file,data/country-pack-GBR/returns.csv
+docs/research/100r-jst-cash-yield-and-gain-split.md,154,model_v3/pack/GBR/returns.csv,file,data/country-packs/GBR/returns.csv
 docs/research/100r-jst-cash-yield-and-gain-split.md,154,model_v3/pack/build_gbr.py,file,model/model_v3/pack/build_gbr.py
 docs/research/100r-jst-cash-yield-and-gain-split.md,155,model_v3/core/returns.py,file,model/model_v3/core/returns.py
 docs/research/100r-jst-cash-yield-and-gain-split.md,168,pipeline/check_agent_docs.py,file,project/tools/check_agent_docs.py
@@ -1335,11 +1335,11 @@ docs/research/data/098r/extract_098r.py,3,Research/etbreferencetablesfye202324fi
 docs/research/data/098r/extract_098r.py,101,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/data/098r/extract_098r.py,102,Rates Data/financialwealthtables.xlsx,file,data/rates/financialwealthtables.xlsx
 docs/research/data/098r/extract_098r.py,256,Research/etbreferencetablesfye202324final.xlsx,file,data/uk-source-workbooks/etbreferencetablesfye202324final.xlsx
-docs/research/data/098r/was_band_reconciliation.csv,2,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-pack-GBR/wealth_distribution.csv
-docs/research/data/098r/was_band_reconciliation.csv,3,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-pack-GBR/wealth_distribution.csv
-docs/research/data/098r/was_band_reconciliation.csv,4,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-pack-GBR/wealth_distribution.csv
-docs/research/data/098r/was_band_reconciliation.csv,5,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-pack-GBR/wealth_distribution.csv
-docs/research/data/098r/was_band_reconciliation.csv,6,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-pack-GBR/wealth_distribution.csv
+docs/research/data/098r/was_band_reconciliation.csv,2,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-packs/GBR/wealth_distribution.csv
+docs/research/data/098r/was_band_reconciliation.csv,3,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-packs/GBR/wealth_distribution.csv
+docs/research/data/098r/was_band_reconciliation.csv,4,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-packs/GBR/wealth_distribution.csv
+docs/research/data/098r/was_band_reconciliation.csv,5,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-packs/GBR/wealth_distribution.csv
+docs/research/data/098r/was_band_reconciliation.csv,6,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-packs/GBR/wealth_distribution.csv
 docs/research/data/099r/moments.csv,12,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/data/099r/moments.csv,14,docs/model-v3/inputs.md,file,model-specs/inputs.md
 docs/research/data/099r/moments.csv,20,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
@@ -1399,15 +1399,15 @@ docs/research/data/102r/build_stocks_tables.py,121,docs/research/data/098r/ons_q
 docs/research/data/102r/build_stocks_tables.py,122,docs/research/data/097r/ons_nbs_household_stocks_annual.csv,file,data/uk-wealth-tables/097r/ons_nbs_household_stocks_annual.csv
 docs/research/data/102r/build_stocks_tables.py,124,docs/research/data/097r/qsa_household_annual_2026q2.csv,file,data/uk-wealth-tables/097r/qsa_household_annual_2026q2.csv
 docs/research/data/102r/build_stocks_tables.py,125,docs/research/data/098r/etb_income_by_decile_retired_nonretired.csv,file,data/uk-wealth-tables/098r/etb_income_by_decile_retired_nonretired.csv
-docs/research/data/102r/build_stocks_tables.py,126,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-pack-GBR/wealth_distribution.csv
+docs/research/data/102r/build_stocks_tables.py,126,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-packs/GBR/wealth_distribution.csv
 docs/research/data/102r/build_stocks_tables.py,126,tests/model_v3/test_pack.py,file,tests/model/model_v3/test_pack.py
 docs/research/data/102r/build_stocks_tables.py,127,docs/research/data/099r/moments.csv,file,research/tables/099r-held-research-moments/moments.csv
-docs/research/data/102r/build_stocks_tables.py,138,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-pack-GBR/wealth_distribution.csv
+docs/research/data/102r/build_stocks_tables.py,138,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-packs/GBR/wealth_distribution.csv
 docs/research/data/102r/build_stocks_tables.py,138,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/data/102r/build_stocks_tables.py,139,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/data/102r/build_stocks_tables.py,141,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/data/102r/build_stocks_tables.py,144,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
-docs/research/data/102r/build_stocks_tables.py,156,model_v3/pack/GBR/wealth_tail.csv,file,data/country-pack-GBR/wealth_tail.csv
+docs/research/data/102r/build_stocks_tables.py,156,model_v3/pack/GBR/wealth_tail.csv,file,data/country-packs/GBR/wealth_tail.csv
 docs/research/data/102r/build_stocks_tables.py,162,model_v3/core/kernel.py,file,model/model_v3/core/kernel.py
 docs/research/data/102r/derive_bands_stages.py,2,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/data/102r/derive_bands_stages.py,2,docs/research/data/098r/,folder,
@@ -1424,30 +1424,30 @@ docs/research/data/102r/stocks_crosswalk.csv,8,docs/research/data/098r/ons_qx_gb
 docs/research/data/102r/stocks_crosswalk.csv,9,docs/research/data/097r/ons_nbs_household_stocks_annual.csv,file,data/uk-wealth-tables/097r/ons_nbs_household_stocks_annual.csv
 docs/research/data/102r/stocks_crosswalk.csv,10,docs/research/data/097r/qsa_household_annual_2026q2.csv,file,data/uk-wealth-tables/097r/qsa_household_annual_2026q2.csv
 docs/research/data/102r/stocks_crosswalk.csv,11,docs/research/data/098r/etb_income_by_decile_retired_nonretired.csv,file,data/uk-wealth-tables/098r/etb_income_by_decile_retired_nonretired.csv
-docs/research/data/102r/stocks_crosswalk.csv,12,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-pack-GBR/wealth_distribution.csv
+docs/research/data/102r/stocks_crosswalk.csv,12,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-packs/GBR/wealth_distribution.csv
 docs/research/data/102r/stocks_crosswalk.csv,12,tests/model_v3/test_pack.py,file,tests/model/model_v3/test_pack.py
 docs/research/data/102r/stocks_crosswalk.csv,13,docs/research/data/099r/moments.csv,file,research/tables/099r-held-research-moments/moments.csv
-docs/research/data/102r/stocks_register.csv,2,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-pack-GBR/wealth_distribution.csv
+docs/research/data/102r/stocks_register.csv,2,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-packs/GBR/wealth_distribution.csv
 docs/research/data/102r/stocks_register.csv,2,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/data/102r/stocks_register.csv,3,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/data/102r/stocks_register.csv,4,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/data/102r/stocks_register.csv,6,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
-docs/research/data/102r/stocks_register.csv,15,model_v3/pack/GBR/wealth_tail.csv,file,data/country-pack-GBR/wealth_tail.csv
+docs/research/data/102r/stocks_register.csv,15,model_v3/pack/GBR/wealth_tail.csv,file,data/country-packs/GBR/wealth_tail.csv
 docs/research/data/102r/stocks_register.csv,20,model_v3/core/kernel.py,file,model/model_v3/core/kernel.py
 docs/research/data/103r/cross_side_checks.py,9,docs/research/data/,folder,
-docs/research/data/103r/cross_side_checks.py,20,model_v3/pack/GBR/returns.csv,file,data/country-pack-GBR/returns.csv
+docs/research/data/103r/cross_side_checks.py,20,model_v3/pack/GBR/returns.csv,file,data/country-packs/GBR/returns.csv
 docs/research/data/103r/cross_side_checks.py,21,docs/model-v3/inputs.md,file,model-specs/inputs.md
 docs/research/data/103r/merge_and_check.py,11,docs/research/data/,folder,
 docs/research/data/103r/merge_and_check.py,97,docs/research/094r-kernel-map-and-household-accounts.md,file,research/notes/094r-kernel-map-and-household-accounts.md
 docs/research/data/103r/parameter_register.csv,19,docs/research/data/100r/returns_decomposition.csv,file,research/tables/100r-jst-cash-yield-and-gain-split/returns_decomposition.csv
 docs/research/data/103r/parameter_register.csv,20,docs/research/data/100r/returns_decomposition.csv,file,research/tables/100r-jst-cash-yield-and-gain-split/returns_decomposition.csv
 docs/research/data/103r/parameter_register.csv,27,docs/model-v3/inputs.md,file,model-specs/inputs.md
-docs/research/data/103r/parameter_register.csv,38,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-pack-GBR/wealth_distribution.csv
+docs/research/data/103r/parameter_register.csv,38,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-packs/GBR/wealth_distribution.csv
 docs/research/data/103r/parameter_register.csv,38,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/data/103r/parameter_register.csv,39,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/data/103r/parameter_register.csv,40,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
 docs/research/data/103r/parameter_register.csv,42,Rates Data/totalwealthtables.xlsx,file,data/rates/totalwealthtables.xlsx
-docs/research/data/103r/parameter_register.csv,51,model_v3/pack/GBR/wealth_tail.csv,file,data/country-pack-GBR/wealth_tail.csv
+docs/research/data/103r/parameter_register.csv,51,model_v3/pack/GBR/wealth_tail.csv,file,data/country-packs/GBR/wealth_tail.csv
 docs/research/data/103r/parameter_register.csv,56,model_v3/core/kernel.py,file,model/model_v3/core/kernel.py
 docs/research/data/103r/parameter_register.csv,71,docs/research/094r-kernel-map-and-household-accounts.md,file,research/notes/094r-kernel-map-and-household-accounts.md
 docs/research/data/103r/parameter_register.csv,72,docs/research/094r-kernel-map-and-household-accounts.md,file,research/notes/094r-kernel-map-and-household-accounts.md
@@ -1487,7 +1487,7 @@ docs/research/data/103r/source_crosswalk.csv,20,docs/research/data/098r/ons_qx_g
 docs/research/data/103r/source_crosswalk.csv,21,docs/research/data/097r/ons_nbs_household_stocks_annual.csv,file,data/uk-wealth-tables/097r/ons_nbs_household_stocks_annual.csv
 docs/research/data/103r/source_crosswalk.csv,22,docs/research/data/097r/qsa_household_annual_2026q2.csv,file,data/uk-wealth-tables/097r/qsa_household_annual_2026q2.csv
 docs/research/data/103r/source_crosswalk.csv,23,docs/research/data/098r/etb_income_by_decile_retired_nonretired.csv,file,data/uk-wealth-tables/098r/etb_income_by_decile_retired_nonretired.csv
-docs/research/data/103r/source_crosswalk.csv,24,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-pack-GBR/wealth_distribution.csv
+docs/research/data/103r/source_crosswalk.csv,24,model_v3/pack/GBR/wealth_distribution.csv,file,data/country-packs/GBR/wealth_distribution.csv
 docs/research/data/103r/source_crosswalk.csv,24,tests/model_v3/test_pack.py,file,tests/model/model_v3/test_pack.py
 docs/research/data/103r/source_crosswalk.csv,25,docs/research/data/099r/moments.csv,file,research/tables/099r-held-research-moments/moments.csv
 docs/research/data/104r/conventions_worked.py,2,docs/research/data/103r/worked_cell_d45.csv,file,research/tables/103r-parameter-map-assembly/worked_cell_d45.csv
@@ -2169,14 +2169,14 @@ pipeline/path_refs.py,271,docs/agents/code.md,file,project/agents/agent-code.md
 pipeline/path_refs.py,273,registry/inputs.json,file,data/input-register/inputs.json
 pipeline/path_refs.py,277,registry/inputs.json,file,data/input-register/inputs.json
 pipeline/path_refs.py,277,tests/model_v3/fixtures/legacy_digest.json,file,tests/model/model_v3/fixtures/legacy_digest.json
-pipeline/path_refs.py,277,model_v3/pack/GBR/manifest.json,file,data/country-pack-GBR/manifest.json
+pipeline/path_refs.py,277,model_v3/pack/GBR/manifest.json,file,data/country-packs/GBR/manifest.json
 pipeline/path_refs.py,277,registry/internal.json,file,literature/internal.json
 pipeline/path_refs.py,277,registry/metrics.json,file,data/input-register/metrics.json
 pipeline/path_refs.py,279,registry/inputs.json,file,data/input-register/inputs.json
 pipeline/path_refs.py,279,model_v3/runner/switches.py,file,model/model_v3/runner/switches.py
 pipeline/path_refs.py,279,tests/model_v3/fixtures/legacy_digest.json,file,tests/model/model_v3/fixtures/legacy_digest.json
 pipeline/path_refs.py,279,tests/model_v3/test_legacy_digest.py,file,tests/model/model_v3/test_legacy_digest.py
-pipeline/path_refs.py,280,model_v3/pack/GBR/manifest.json,file,data/country-pack-GBR/manifest.json
+pipeline/path_refs.py,280,model_v3/pack/GBR/manifest.json,file,data/country-packs/GBR/manifest.json
 pipeline/path_refs.py,280,docs/model-v3/kernel-wiring/decile_composition.csv,file,results/kernel-wiring/kernel-wiring-decile-composition.csv
 pipeline/path_refs.py,280,registry/internal.json,file,literature/internal.json
 pipeline/path_refs.py,280,pipeline/bib_to_json.py,file,website/build/bib_to_json.py

@@ -21,7 +21,7 @@ Earlier rulings still hold: the model keeps its import name (`model/model_v3`, n
 ```
 README.md  AGENTS.md  CNAME  robots.txt  .gitignore  .gitattributes   files tools need at root
 .github/  .claude/                                                    stay (paths inside rewritten)
-data/        every dataset: uk-wealth-tables (097r, 098r, 129r sources), rates (was Rates Data), jst (one jst_r6.json), wid, country-pack-GBR, input-register (inputs.json)
+data/        every dataset: uk-wealth-tables (097r, 098r, 129r sources), rates (was Rates Data), jst (one jst_r6.json), wid, country-packs/GBR, input-register (inputs.json)
 literature/  the PDFs only, and readable/ (converted reading copies of them)
 research/    notes (the NNNr notes and derivations), hypotheses, model-audit, model-lessons, scaffold audit
 model/       code only: model_v3/ (v1, v2 until 009c retires them), tools/ (build_inputs, build_metrics, validate_outputs, run scripts), studies/ (the driver scripts that make results)

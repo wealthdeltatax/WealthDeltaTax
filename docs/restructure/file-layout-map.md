@@ -18,7 +18,7 @@ Flag **S** = settled: by the author's rules, or by the R1 checkpoint rulings (20
 | 6 | Split of `docs/model-v3/` | 24 spec files to `model-specs/`; 11 reports with their folders to `results/<study>/`; 12 study folders as listed in the CSV; scripts to `model/studies/<study>/`; `added/` and `inputs-added/` to `model-specs/` | **Settled** as the map default, including the borderline specs (`i1-gap.md`, `kernel-wiring-design.md`, `returns-gap.md`, `returns-method.md`) and `cell-baseline/inputs_used.json` staying in `results/cell-baseline/`. |
 | 7 | Split of `pipeline/` | web and build scripts to `website/build/`; `build_inputs`, `build_metrics`, `validate_outputs`, `run_suites`, `check_gate` to `model/tools/`; `check_agent_docs`, `build_skills`, `path_refs` to `project/tools/` | **Settled, changed from the default** (ruling 4a): the project tools go to `project/tools/`, not `project/housekeeping/`. `bib_to_json.py` goes with the website build scripts and reads the bibliography from `literature/` (ruling 2). |
 | 8 | Split of `registry/` | `inputs.json`, `inputs-display.yml`, `metrics.json` to `data/input-register/`; `references.bib`, `internal.json` and the generated `references.json` to `literature/` (flat, unique names); everything else (pages, glossary, crosslinks, ...) to `website/registry/` | **Settled, changed from the default** (ruling 2): the bibliography is literature. |
-| 9 | Country pack | `model_v3/pack/GBR/*` to `data/country-pack-GBR/`; `build_gbr.py` stays in `model/model_v3/pack/`; the pack's own `source/jst_r6.json` stays beside the manifest that names it | **Settled** (ruling 4d): the pack copy of `jst_r6.json` is an exempt loader file, not removed as a duplicate of `data/jst/jst_r6.json`; the loader path is rewritten in 162c. |
+| 9 | Country pack | `model_v3/pack/GBR/*` to `data/country-packs/GBR/`; `build_gbr.py` stays in `model/model_v3/pack/`; the pack's own `source/jst_r6.json` stays beside the manifest that names it | **Settled** (ruling 4d): the pack copy of `jst_r6.json` is an exempt loader file, not removed as a duplicate of `data/jst/jst_r6.json`; the loader path is rewritten in 162c. |
 | 10 | Test suites | `data`, `gate`, `model_v3` to `tests/model/`; `cards`, `glossary`, `layout`, `nav`, `pages`, `retired` to `tests/website/`; the `hooks` suite split by what each test file tests: `test_build_skills.py`, `test_check_agent_docs.py` to `tests/project/tools/`; `test_run_suites.py` to `tests/model/tools/`; the other five test files, `conftest.py` and the fixtures to `tests/website/hooks/` | **Settled, changed from the default** (ruling 4c): tests follow the code they test (`tests/model`, `tests/website`, `tests/project`). `pipeline/run_suites.py` and the hooks `conftest.py` find suites and fixtures by path: 162c and 164c rewrite them (see the depth list). |
 | 11 | Agent guide names | `docs/agents/code.md`, `guru.md`, `research.md`, `web.md`, `writing.md` become `project/agents/agent-code.md`, `agent-guru.md`, `agent-research.md`, `agent-web.md`, `agent-writing.md` | **Settled, changed from the default** (ruling 4b): all five are renamed; R6 (164c) rewrites the skills and every active reader. |
 | 12 | Generic names that are unique | listed in the section "Generic names that remain" below | **Settled** as the map default: the stage that owns the file may rename it, with every reader rewritten. `index.md` and `index.qmd` (Quarto) are exempt names. |
@@ -88,7 +88,7 @@ Flag **S** = settled: by the author's rules, or by the R1 checkpoint rulings (20
 | `^docs/wdt-jel-codes\.md$` | 1 | S | `docs/wdt-jel-codes.md` | `research/wdt-jel-codes.md` |
 | `^docs/wdt-site-architecture\.md$` | 1 | S | `docs/wdt-site-architecture.md` | `website/wdt-site-architecture.md` |
 | `^model_v3/(.*)$` | 32 | S | `model_v3/__init__.py` | `model/model_v3/__init__.py` |
-| `^model_v3/pack/GBR/(.*)$` | 13 | S | `model_v3/pack/GBR/NOTICE.md` | `data/country-pack-GBR/NOTICE.md` |
+| `^model_v3/pack/GBR/(.*)$` | 13 | S | `model_v3/pack/GBR/NOTICE.md` | `data/country-packs/GBR/NOTICE.md` |
 | `^pipeline/(.*)$` | 35 | S | `pipeline/bib_to_json.py` | `website/build/bib_to_json.py` |
 | `^registry/([^/]+)$` | 13 | S | `registry/contents.yml` | `website/registry/contents.yml` |
 | `^site/(.*)$` | 53 | S | `site/_quarto.yml` | `website/site/_quarto.yml` |
@@ -147,7 +147,7 @@ Moves keep bytes. A path rewritten inside one of these changes its hash or diges
 
 - `registry/inputs.json` (new home `data/input-register/inputs.json`): line 568: `model_v3/runner/switches.py` **allowed**
 - `tests/model_v3/fixtures/legacy_digest.json` (new home `tests/model/model_v3/fixtures/legacy_digest.json`): line 3: `tests/model_v3/test_legacy_digest.py` **allowed**
-- `model_v3/pack/GBR/manifest.json` (new home `data/country-pack-GBR/manifest.json`): line 104: `docs/model-v3/kernel-wiring/decile_composition.csv` **allowed**
+- `model_v3/pack/GBR/manifest.json` (new home `data/country-packs/GBR/manifest.json`): line 104: `docs/model-v3/kernel-wiring/decile_composition.csv` **allowed**
 - `registry/internal.json` (new home `literature/internal.json`): line 2: `pipeline/bib_to_json.py` **allowed**
 - `registry/metrics.json` (new home `data/input-register/metrics.json`): no old path named
 
