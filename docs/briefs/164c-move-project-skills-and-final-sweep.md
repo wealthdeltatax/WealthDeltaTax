@@ -39,11 +39,11 @@ None; the agent flags any call the rules cannot settle.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** not started
+- **Done:** claimed on 2026-11-25 (author asked for 164c; 162c and 163c merged on main cd57023). Branch cut from `main` at cd57023.
+- **Next:** scratch copy; apply the 164c rows (`project/`, `.claude`), then the converter re-root, proof allow file, prose sweep by hand, skills rebuild, checks.
+- **Decisions:** none yet.
+- **Gotchas:** `path_refs.py --apply` refuses this repository; tripwire needs full history.
+- **Resume:** `git checkout brief/164-move-project-skills-and-final-sweep`.
+- **Not run:** everything.
+- **State:** block 0 done
 <!-- progress:end -->
