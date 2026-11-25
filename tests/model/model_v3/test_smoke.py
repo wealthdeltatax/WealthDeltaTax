@@ -69,6 +69,16 @@ def test_validator_accepts_markers_only_where_ruled(good, tmp_path):
     d['run']['arm']['targets'] = [dict(point='median_mid', status='met', shortfalls={}), dict(point='max_mid', status='target_not_met', shortfalls={'income_tax_gains': dict(reached=0.1, target=0.17)})]; f.write_text(json.dumps(d)); assert validate(f).returncode == 0; d['run']['arm']['targets'][1]['shortfalls'] = {}; f.write_text(json.dumps(d)); assert validate(f).returncode != 0   # target_not_met needs the figures
     assert d['outputs']['OF1']['pending'] and d['outputs']['CK1']['pending'] and not d['outputs']['OF1']['cells']
 
+def test_o8_marker_is_accepted_in_o8_only(good, tmp_path):
+    from model_v3 import run
+    out = {'O8': {'summary': 'p10_mean_p90', 'cells': [dict(cell(None, None, None), by={'reform': 'property'}), cell(1, 2, 3)]}}; run.mark_no_payer(out)
+    assert {out['O8']['cells'][0][k] for k in ('p10', 'mean', 'p90')} == {'target_not_met'} and out['O8']['cells'][1]['mean'] == 2   # a null cell is marked, a finite one is not
+    d = json.loads(good[1].read_text()); c = d['outputs']['O8']['cells'][0]; f = tmp_path / 'o8.json'
+    c.update(p10='target_not_met', mean='target_not_met', p90='target_not_met'); d['run']['pack_country'] = 'GBR'; f.write_text(json.dumps(d))
+    assert validate(f).returncode == 0
+    d['outputs']['O1']['cells'][0].update(mean='target_not_met'); f.write_text(json.dumps(d))
+    assert validate(f).returncode != 0                                           # the marker is O8's only
+
 def test_seeded_breakages_fail_acceptance_steps_5_and_6(good, tmp_path):
     d = json.loads(good[1].read_text().replace('null', '1.0')); d['run'].update(paths=1000, level2_paths=50)   # the smoke file with its nulls filled and made large enough: the baseline for step 5
     f = tmp_path / 'ok.json'; f.write_text(json.dumps(d)); assert accept('--check', str(f)) == 0

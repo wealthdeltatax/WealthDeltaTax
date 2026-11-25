@@ -63,6 +63,7 @@ ENTRY_FIELDS = {"summary", "cells", "withheld", "withheld_by", "pending"}
 NO_PAYER, NO_PAYER_IDS = "no_payer_at_launch", ("O2", "O2b", "O2c", "O2d", "OH1b", "OH1c", "OW3")   # a wealth band with no payer at launch under the schedule, and what derives from it (author, 2026-11-23)
 NOT_RUN = "not_run_this_point"                                                              # O1e ran at one scenario point only (author, 2026-11-23); accepted for O1e, in the centre slot
 PACK_LABELS = {"GBR": "UK"}                                                                   # stated mapping: pack code to manifest label (author, 2026-11-23)
+TARGET_NOT_MET = "target_not_met"   # O8 only (author, 2026-11-25)
 NOT_DEFINED, NOT_RUN_RUN, NO_SIGN = "not_defined_under_safe_fund", "not_run_this_run", "no_sign_change_0_15"                  # O1e only
 NO_CENTRAL = "no_central"                                                                    # the centre slot of a range across scenario points
 CENTRE_SLOT = {"p10_mean_p90": "mean", "point_and_range": "point", "point": "point"}
@@ -487,6 +488,8 @@ class Validator:
                 continue
             elif oid == "O1e" and (v in (NOT_DEFINED, NO_SIGN) or (v == NOT_RUN_RUN and f != CENTRE_SLOT[summary])):
                 continue   # stated markers (author, 2026-11-23): the safe fund ignores the generator mean; the range over input draws was not run (--o1e-draws 0)
+            elif v == TARGET_NOT_MET and oid == "O8" and f in ("p10", "mean", "p90"):
+                continue   # stated marker (author, 2026-11-25): the reform-in-place comparator could not raise its target; O8 only, whatever the cause (a missing base share of the reform, or a closure target that is out of reach)
             elif v == NO_CENTRAL and f == CENTRE_SLOT[summary] and self.run_arm() == "household":
                 continue   # stated marker (author, 2026-11-23): a range across labelled scenario points has no central value
             elif isinstance(v, str) and v in MARKERS.get(oid, ()):

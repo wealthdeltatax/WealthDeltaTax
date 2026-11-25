@@ -15,10 +15,10 @@ from model_v3.runner import out_sweeps as osw, runner as R, sweeps as S
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST, INPUTS, LEVERS = ROOT / 'model-specs/outputs.yml', ROOT / 'data/input-register/inputs.json', ROOT / 'model/model_v3/levers.json'
 HH_INPUTS, PACKS = ROOT / 'results/cell-baseline/inputs_used.json', ROOT / 'data/country-packs'   # the pack folder is found, never named (R11)
-SEED = 20261118
+SEED, TNM = 20261118, 'target_not_met'   # TNM: O8 only (author, 2026-11-25), the reform-in-place comparator cannot raise its target at the capped rate
 SIZES = dict(smoke=(50, 20, 3, 1.0, 1), quick=(1000, 50, 0, 1e-2, 5), final=(R.N1, R.N2P, 0, 1e-2, 5))   # paths, tornado paths, O1e draws, break-even tolerance, grid points
 POINTS = {'median_mid': ('median', 'mid'), 'max_mid': ('max', 'mid'), 'median_low': ('median', 'low'), 'min_mid': ('min', 'mid'), 'median_high': ('median', 'high')}   # saving, regime; the arm's grid points
-NO_SIGN, NO_PAYER, NO_CENTRAL, NOT_RUN_RUN, NO_PAYER_IDS = 'no_sign_change_0_15',  'no_payer_at_launch', 'no_central', 'not_run_this_run', ('O2', 'O2b', 'O2c', 'O2d', 'OH1b', 'OH1c', 'OW3')
+NO_SIGN, NO_PAYER, NO_CENTRAL, NOT_RUN_RUN, NO_PAYER_IDS = 'no_sign_change_0_15',  'no_payer_at_launch', 'no_central', 'not_run_this_run', ('O2', 'O2b', 'O2c', 'O2d', 'OH1b', 'OH1c', 'OW3', 'O8')
 HELD = {'OW1': 'legacy_only'}   # household arm: a labelled marker, never a number (author, 2026-11-23; 121c, 135c)
 PENDING = {'OF1': 'feasibility_rule_pending_140c_089c', 'CK1': 'feasibility_rule_pending_140c_089c'}
 FORMS = {'p10_mean_p90': ('p10', 'mean', 'p90'), 'point_and_range': ('lo', 'point', 'hi')}
@@ -45,8 +45,8 @@ def scenario_range(docs):
 def mark_no_payer(outs):
     for oid in NO_PAYER_IDS:
         for c in outs.get(oid, {}).get('cells', []):
-            if c['by'].get('wealth_band') not in (None, 'overall') and any(c[f] is None for f in FORMS['p10_mean_p90']):   # a band with no payer under the schedule, and what derives from it
-                c.update(p10=NO_PAYER, mean=NO_PAYER, p90=NO_PAYER)
+            if (oid == 'O8' or c['by'].get('wealth_band') not in (None, 'overall')) and any(c[f] is None for f in FORMS['p10_mean_p90']):   # a band with no payer under the schedule and what derives from it; O8: the target was not met
+                m = TNM if oid == 'O8' else NO_PAYER; c.update(p10=m, mean=m, p90=m)
 
 def reduce(oid, form, line, v):   # per-path arrays -> what assemble expects (author, 2026-11-23): one value for `point`; for OR1 the share over paths, P10 and P90 across paths (P7a in pct)
     v = np.asarray(v, float) * (100 if line == 'P7a' else 1)
