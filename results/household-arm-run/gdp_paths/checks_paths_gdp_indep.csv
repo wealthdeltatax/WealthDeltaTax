@@ -1,0 +1,6 @@
+point,account_residual_max,unpaid_max,unpaid_B_max,unpaid_B_path_phases,shortfall_lines,spread_cells,flat_cells,ledger_tie_max,ledger_tie_first,ledger_dL_max,i1,error,wo_sum,lien_bal_max
+min_mid,0.00034901201935672277,0.0,0.3849092036178309,4566,12452,268,139,8.428642672697606e-09,"first chunk: year 85, path 59, gap 8.429e-09, tax 0, refund -106, receipts property -64.93, net_financial -37.88, physical -3.159",2.2737367544323206e-12,held (raises in the hook otherwise),,3267.5158724047164,4895.0985045572315
+median_mid,1.0046285192633064e-09,0.0,0.0,0,0,270,137,1.0913936421275139e-11,,6.821210263296962e-12,held (raises in the hook otherwise),,0.0,3951.0407276360324
+max_mid,2.5124791136477143e-11,0.0,0.0,0,0,244,163,1.4551915228366852e-11,,2.1827872842550278e-11,held (raises in the hook otherwise),,0.0,71.81082482018148
+median_low,2.5352164811920375e-11,0.0,0.0,0,0,269,138,5.5706550483591855e-12,,9.094947017729282e-13,held (raises in the hook otherwise),,0.0,0.0
+median_high,,,,,,,,,,,FAILED,"I1 fails: the book's family value is not the class total, or its pension is not the pension balance First: path 89 (of the chunk), line 7, year 95, family value 0.00160609, class total 0.00166815, balances property 0, net_financial 0.00166815, physical 0, pension 5.55778",,

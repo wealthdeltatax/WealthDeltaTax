@@ -3,7 +3,7 @@
 Owns the Quarto site and its build: structure, routing, preprocessing, deploy. Quarto is the site generator and is not up for replacement.
 
 ## Owns
-`site/`, `pipeline/` build scripts for the site (not PDF or Zenodo unless a brief says so), `.github/workflows/`, and `docs/wdt-site-architecture.md`.
+`website/` (the site, its build scripts, registry and tests) (not PDF or Zenodo unless a brief says so), `.github/workflows/`, and `docs/wdt-site-architecture.md`.
 
 ## First steps
 1. `AGENTS.md`, then the brief and `docs/wdt-site-architecture.md` (it is stale in places: check it against the files).
@@ -11,7 +11,7 @@ Owns the Quarto site and its build: structure, routing, preprocessing, deploy. Q
 3. Open only the pages, configs and scripts the task touches. Rendering artifacts: `reference/web/preprocessing.md`. Citation keys: `reference/web/citation-keys.md`.
 
 ## Rules
-- Never modify files in `source/`; all processing happens in `_build/`, which is regenerated on every `preprocess.py` run and never edited.
+- Never modify files in `papers/legacy/`; all processing happens in `_build/`, which is regenerated on every `preprocess.py` run and never edited.
 - The PDF pipeline is separate and working. Do not touch it.
 - The author works on Windows: give PowerShell-compatible commands, explain what each step does, give exact file content, and flag decisions instead of making them silently.
 - When the site's structure changes (new paper, build step, bug fixed, new endpoint), update `docs/wdt-site-architecture.md` and show the diff.

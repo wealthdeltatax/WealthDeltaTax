@@ -1,0 +1,86 @@
+# Glossary registry (brief 064s; site.md Q7, ids.md Q11): one hand-kept row per term.
+#
+# Fields (all required; no others):
+#   term        display form; unique ignoring case and surrounding spaces.
+#   definition  one paragraph, plain markdown. A number from the model is a hook ({{o:ID}} or {{i:ID}}),
+#               never a typed figure (a digit sequence followed by % or pp fails validation).
+#   owner       id of the page that defines the term, from website/registry/pages.yml; type spoke, hub,
+#               appendix or standalone.
+#   aliases     other accepted spellings (list, may be empty); no alias equals a term or another alias.
+#   source      file in this repository (path, then ", " and the section) the definition was copied from.
+#               Required for status seeded; the path must exist.
+#   status      seeded (copied from a design document, cited in source) | written (authored after the data gate).
+#
+# Seeded rows are copied in the source document's own words; none is reworded. Owners follow the
+# element of the metric in model-specs/outputs.yml or the ledger (docs/restructure/ledger-sections.md).
+# Built by: python website/build/build_glossary.py --registry website/registry/glossary.yml --pages website/registry/pages.yml ...
+
+- term: Level 1 uncertainty
+  definition: "For fixed parameters, the sampled P10, mean and P90 over return paths (R5)."
+  owner: UNCER
+  aliases: [return risk, level 1]
+  source: model-specs/metrics.md, Range design (level 1, return risk)
+  status: seeded
+
+- term: Level 2 uncertainty
+  definition: "A tornado (one input at a time, low and high) and the P10 to P90 of the level-1 mean over parameter draws."
+  owner: UNCER
+  aliases: [parameter ignorance, level 2]
+  source: model-specs/metrics.md, Range design (level 2, parameter ignorance)
+  status: seeded
+
+- term: S_low
+  definition: "Each headline is reported for each of three named schedules, S_low, S_central and S_high. S_low and S_high are the edges of the feasible region."
+  owner: FISC
+  aliases: []
+  source: model-specs/metrics.md, Range design (named schedules)
+  status: seeded
+
+- term: S_central
+  definition: "Each headline is reported for each of three named schedules, S_low, S_central and S_high. S_central is the feasible-map point with the highest closure share under the burden cap."
+  owner: FISC
+  aliases: []
+  source: model-specs/metrics.md, Range design (named schedules)
+  status: seeded
+
+- term: S_high
+  definition: "Each headline is reported for each of three named schedules, S_low, S_central and S_high. S_low and S_high are the edges of the feasible region."
+  owner: FISC
+  aliases: []
+  source: model-specs/metrics.md, Range design (named schedules)
+  status: seeded
+
+- term: Closure share
+  definition: "For one schedule and threshold, the share of level-1 return paths in which P3 equals zero."
+  owner: FISC
+  aliases: [F1]
+  source: model-specs/metrics.md, F1 (Supporting metrics)
+  status: seeded
+
+- term: Break-even mean return
+  definition: "The arithmetic mean real return at which M1 is zero, at the named schedule, with every other input at its central value."
+  owner: FISC
+  aliases: [M1f, break-even return]
+  source: model-specs/metrics.md, M1f (Headline metrics)
+  status: seeded
+
+- term: Retired taxes
+  definition: "Receipts the state forgoes for each retired tax k. Six taxes are retired (author's decision): corporation tax, council tax, business rates, capital gains tax, inheritance tax, stamp duties."
+  owner: FISC
+  aliases: [retired tax, M1e]
+  source: model-specs/metrics.md, M1e (Revenue lines)
+  status: seeded
+
+- term: Taxpayer burden
+  definition: "Revenue-weighted mean of each payer's burden: M2 = sum_i T_i (T_i / W_i) / sum_i T_i, where T_i is payer i's net WDT in year t and W_i the payer's net wealth at the start of the year."
+  owner: PAY
+  aliases: [M2]
+  source: model-specs/metrics.md, M2 (Headline metrics)
+  status: seeded
+
+- term: Non-payer savings
+  definition: "For the non-payers: (tax they pay today minus tax they pay after the change) divided by the tax they pay today."
+  owner: PAY
+  aliases: [M4a]
+  source: model-specs/metrics.md, M4a (Headline metrics)
+  status: seeded

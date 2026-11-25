@@ -9,7 +9,7 @@ Status: design only, drafted 2026-11-17, waiting for the author on the questions
 > **Q5a and Q5b (author, 2026-11-17, asked directly, later than the note above).** Q5a: the three standalone papers (ADD, INST, SCOPE) move to the new spoke shape now, not kept in the old one. Q5b: the 30 retired numbered source files move to `docs/archive/papers/`, not deleted. Sections 3, 5, 6 and 7 are updated for these two; the other nine answers stand as proposed. If the earlier note and this one disagree on Q5a or Q5b, this one is the author's answer.
 
 
-Inputs read: `registry/papers.yml`, `registry/contents.yml`, `pipeline/` (file names and module docstrings), `site/_quarto.yml`, `site/pages/`, `docs/restructure/map.md` (sections 4 and 7), `ledger.md` (sections 1, 7, 8), `ledger-sections.md` (redirect weights only), `template.md`, `docs/model-v3/outputs.yml`, brief 007w. Nothing in the live site was fetched; current URLs are taken from `papers.yml` (`<output>.html` at the site root) and `_quarto.yml`.
+Inputs read: `registry/papers.yml`, `registry/contents.yml`, `pipeline/` (file names and module docstrings), `site/_quarto.yml`, `site/pages/`, `docs/restructure/map.md` (sections 4 and 7), `ledger.md` (sections 1, 7, 8), `ledger-sections.md` (redirect weights only), `template.md`, `model-specs/outputs.yml`, brief 007w. Nothing in the live site was fetched; current URLs are taken from `papers.yml` (`<output>.html` at the site root) and `_quarto.yml`.
 
 ## 1. The scheme (rules this file fixes)
 

@@ -134,7 +134,7 @@ Report a brief summary: `.bib` entries added, entries updated, discrepancies fou
 
 2. **Section architecture.** Proposed top-level sections for the new LR, each with a one-sentence rationale. Grounded in `references.bib` coverage — sections map to strands the database actually contains references for.
 
-3. **Literature strand map.** For each section: key anchor citations (from `references.bib`), a note on what has changed since the original LR, and the forward-link target — which WDT companion paper and section picks up that strand. Forward-link targets are derived from `site/pages/Project-Map.md`. Read it before producing the brief.
+3. **Literature strand map.** For each section: key anchor citations (from `references.bib`), a note on what has changed since the original LR, and the forward-link target — which WDT companion paper and section picks up that strand. Forward-link targets are derived from `website/site/pages/Project-Map.md`. Read it before producing the brief.
 
 4. **New coverage additions.** References added via Pass B that are not in the original LR, organised by strand.
 
@@ -142,7 +142,7 @@ Report a brief summary: `.bib` entries added, entries updated, discrepancies fou
 
 **Update briefs:** Produce a dated diff addendum, not a full reissue. The addendum covers: new references added since the last brief (by strand), web-check corrections affecting cited works, forward-link target changes.
 
-**Output:** `LR_Brief_YYMMDD.md` (or `LR_Brief_YYMMDD_update.md` for addenda). Write to `docs/research/`.
+**Output:** `LR_Brief_YYMMDD.md` (or `LR_Brief_YYMMDD_update.md` for addenda). Write to `research/notes/`.
 
 ---
 

@@ -1,6 +1,6 @@
 # Start here
 
-Wealth Delta Tax: paper series in `source/`, build in `pipeline/`, model in `model_v1/`. Rules for agents: `AGENTS.md`. Who does what: `docs/agents/README.md`.
+Wealth Delta Tax: paper series in `papers/legacy/`, site build in `website/build/`, model in `model/model_v3/` (the legacy models are removed: tag `legacy-models-2026-11`). Rules for agents: `AGENTS.md`. Who does what: `docs/agents/README.md`.
 
 ## Read by job (nothing else)
 - Design, positions, consistency, "does X fit": `docs/agents/guru.md`
@@ -9,7 +9,7 @@ Wealth Delta Tax: paper series in `source/`, build in `pipeline/`, model in `mod
 - References, bibliography, literature: `docs/agents/research.md`
 - Site build, Quarto, deploy, rendering: `docs/agents/web.md`
 
-Do not open `OVERVIEW.md` in full (sections only), `docs/archive/`, `docs/model-lessons/` or finished briefs.
+Do not open `OVERVIEW.md` in full (sections only), `docs/archive/`, `research/model-lessons/` or finished briefs.
 
 ## After a task
 End with the change report (`docs/agents/change-report.md`). If a session may end, `docs/agents/handover.md`.

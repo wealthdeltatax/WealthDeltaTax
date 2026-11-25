@@ -1,0 +1,20 @@
+- term: Harbour lamp
+  definition: "A lamp that is lit at dusk and put out at dawn."
+  owner: FISC
+  aliases: [lighthouse lamp, lamp]
+  source: glossary/fixtures/not_there.md, Section A
+  status: seeded
+
+- term: Lamp keeper
+  definition: "The person who trims the wick. The share is {{o:O1e}} of nights, in {{i:I-X1}} cases."
+  owner: PAY
+  aliases: []
+  source: glossary/fixtures/source_doc.md, Section A
+  status: seeded
+
+- term: Zero tide
+  definition: "A written definition."
+  owner: H
+  aliases: [slack water]
+  status: written
+  source: ""

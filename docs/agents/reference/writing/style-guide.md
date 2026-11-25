@@ -272,7 +272,7 @@ All five appear in every main paper. A subsection with nothing to report says `N
 - **Structural and irreducible limits of the design.** What the paper does not and cannot establish, and the named compromises: trade-offs the project accepts and states. A named compromise is not a pending item; say so (MF §9.4.9: "none is a pending design item"). Say which paper holds the framework for predicting what this paper does not quantify (CLOSE §9.4 points to BEHAV).
 - **Governing Council calibration parameters.** One paragraph per parameter: what it is, the process that sets it (e.g. the Tier 1 process), the trade-off the value balances, the evidence that will inform it, and the closing phrase that the value awaits that evidence. Cross-reference where the principles are specified, e.g. `(GOV.B §E.3)`.
 
-**Routing to SCOPE.** Every item names where it goes next. Items outside the project's scope are classified in SCOPE, and the paper says so with a cross-reference, as LR.A does: "This gap is classified in (SCOPE §3.1)." SCOPE's four categories are modelling tasks left to future researchers (§2), questions requiring legal or jurisdictional expertise (§3), questions requiring international coordination (§4), and questions sequentially deferred to post-Phase One (§5). Do not guess the SCOPE section from the topic: ask the author, or check `registry/contents.yml`. SCOPE records the classification and the resolution path; it does not resolve the question or add positions, so the paper still states the item and what closing it would require. If the paper adds, drops or reclassifies an item that SCOPE records, SCOPE needs a matching update, and the author makes it in SCOPE. SCOPE reuses subsection titles under §3 and §4 (and §6 and §8), so until `build_anchors.py` suffixes duplicate anchors, a link to (SCOPE §4.1) lands on §3.1's anchor in the rendered site; tell the author when a paper cites one of these.
+**Routing to SCOPE.** Every item names where it goes next. Items outside the project's scope are classified in SCOPE, and the paper says so with a cross-reference, as LR.A does: "This gap is classified in (SCOPE §3.1)." SCOPE's four categories are modelling tasks left to future researchers (§2), questions requiring legal or jurisdictional expertise (§3), questions requiring international coordination (§4), and questions sequentially deferred to post-Phase One (§5). Do not guess the SCOPE section from the topic: ask the author, or check `website/registry/contents.yml`. SCOPE records the classification and the resolution path; it does not resolve the question or add positions, so the paper still states the item and what closing it would require. If the paper adds, drops or reclassifies an item that SCOPE records, SCOPE needs a matching update, and the author makes it in SCOPE. SCOPE reuses subsection titles under §3 and §4 (and §6 and §8), so until `build_anchors.py` suffixes duplicate anchors, a link to (SCOPE §4.1) lands on §3.1's anchor in the rendered site; tell the author when a paper cites one of these.
 
 **Closure.** Items are never silently dropped between revisions. When a later paper closes an item, the subsection stays and states the closure in the present tense with a cross-reference to the closing paper and what it established (WP §9.1: three gaps "closed by (WFR)", each with its section). The Revision History row records the change. Do not use italic closure notices and do not write "has since been".
 
@@ -454,7 +454,7 @@ All prose drafted for a WDT paper follows the two rule sets in `prose-rules.md` 
 Before Reader Testing, and again before the author publishes, run the checker on the paper's markdown file:
 
 ```bash
-python pipeline/check_wdt_format.py source/<paper>.md
+python website/build/check_wdt_format.py source/<paper>.md
 ```
 
 It reports, with line numbers: missing or misordered front-matter fields, malformed `zenodo_doi` and `jel` lines; bare `§` references, ranges written with dashes or "through", lower-case letters inside section numbers and extra words inside reference brackets; stray `{.appendix}`; figure labels that do not match their section, wrong or missing letters, wrong filenames, missing `{width=100%}`, captions not ending in `Source: (…)`; and em dashes in prose. Fix every finding, or confirm with the author that a finding is intentional. The checker is mechanical and does not read the prose, so also check by eye that each caption matches its image and that each cross-reference points to a section that exists. Remind the author of any `zenodo_doi` still set to `TBD`.
@@ -465,37 +465,37 @@ The checker does not inspect the Limitations section. Check by eye that a main p
 
 ### Post-update crosslink workflow (wdt_crosslinks.py)
 
-`pipeline/wdt_crosslinks.py` treats the headings in `source/*.md` as the source of truth. It extracts every `(X §N)`, bare `§N`, `[X]` and "Section N" reference, then validates each against the headings, `registry/anchors.yml` and `registry/internal.json`. It checks numbers, never wording: `(MF §5)` passes if MF has a §5, whatever the sentence says about it. `check_wdt_format.py` checks reference syntax; `wdt_crosslinks.py` checks resolution. Run both.
+`website/build/wdt_crosslinks.py` treats the headings in `source/*.md` as the source of truth. It extracts every `(X §N)`, bare `§N`, `[X]` and "Section N" reference, then validates each against the headings, `registry/anchors.yml` and `registry/internal.json`. It checks numbers, never wording: `(MF §5)` passes if MF has a §5, whatever the sentence says about it. `check_wdt_format.py` checks reference syntax; `wdt_crosslinks.py` checks resolution. Run both.
 
 **Severities.** Error: `section_not_found`, `duplicate_section_number`. Warn: `anchor_stale`, `not_in_anchors`, `target_retitled`, `prose_reference`. Info: `paper_not_in_source`, `registry_outbound_missing`. Revision History rows are skipped by the tool, so check their references by eye.
 
-**Commands.** Read-only: `scan` (writes `registry/crosslinks.json`), `check`, `query --to X§N` / `--from X§N`, `anchors` (writes `anchors.generated.yml`), `contents`. Writing: `remap --map renumber.yml` rewrites link text only, and only with `--apply`. It never touches headings or `anchors.yml`. The registry files are fed by two other scripts: `pipeline/scrape_contents.py` syncs `registry/contents.yml` to the headings (it replaces titles, removes stale keys and adds new ones; `--additive` is the legacy add-only mode), and `pipeline/build_anchors.py` regenerates `anchors.yml` from `contents.yml`. `wdt_crosslinks.py contents` and `anchors` only emit comparison files.
+**Commands.** Read-only: `scan` (writes `website/registry/crosslinks.json`), `check`, `query --to X§N` / `--from X§N`, `anchors` (writes `anchors.generated.yml`), `contents`. Writing: `remap --map renumber.yml` rewrites link text only, and only with `--apply`. It never touches headings or `anchors.yml`. The registry files are fed by two other scripts: `website/build/scrape_contents.py` syncs `website/registry/contents.yml` to the headings (it replaces titles, removes stale keys and adds new ones; `--additive` is the legacy add-only mode), and `website/build/build_anchors.py` regenerates `anchors.yml` from `contents.yml`. `wdt_crosslinks.py contents` and `anchors` only emit comparison files.
 
 **Roles.**
 - The author edits headings and decides every renumbering. Claude works in the repo, so it can run the scripts itself.
 - Claude never changes a section number inside a cross-reference by hand. Numbers change only through a `remap`, applied after the author has reviewed the dry run.
 - Claude drafts `renumber.yml` (one `OLD: NEW` per line, e.g. `CLOSE§5: CLOSE§6`), reviews dry-run output, triages `check` output, rewrites sentences whose target changed, drafts Revision History rows, and proposes `internal.json` updates.
-- Run with explicit paths when needed: `python pipeline/wdt_crosslinks.py check --source source --anchors registry/anchors.yml --internal registry/internal.json`. If only part of `source/` is present, links to absent papers are unverified, not passed; say so.
+- Run with explicit paths when needed: `python website/build/wdt_crosslinks.py check --source source --anchors registry/anchors.yml --internal registry/internal.json`. If only part of `source/` is present, links to absent papers are unverified, not passed; say so.
 - When the author says a paper was updated, ask which sections were added, removed, renumbered or retitled, and run `check`. Do not infer either.
 
 **Sequence after a paper update.** Give the author these steps in order, adapted to what changed.
 
-1. Before editing, commit clean so `registry/crosslinks.json` in HEAD is the baseline.
+1. Before editing, commit clean so `website/registry/crosslinks.json` in HEAD is the baseline.
 2. After editing, run the format checker on the edited file and fix every finding.
 3. Run the crosslink check against the committed baseline, unfiltered:
    ```
-   git show HEAD:registry/crosslinks.json > /tmp/base.json
-   python pipeline/wdt_crosslinks.py check --baseline /tmp/base.json --min-severity info
+   git show HEAD:website/registry/crosslinks.json > /tmp/base.json
+   python website/build/wdt_crosslinks.py check --baseline /tmp/base.json --min-severity info
    ```
    Do not add `--paper X` when reviewing an update to X. The filter applies to the source paper of each link, so it hides broken links in other papers that point at X. Drift is only reported against `--baseline`; `scan` overwrites the previous file, so a second scan shows none.
 4. Fix errors first. `section_not_found` means a section was renumbered or removed, or the reference has a typo. If numbers moved, write `renumber.yml` (`scrape_contents.py --suggest-map renumber.suggested.yml` drafts one by matching unchanged titles under changed numbers; run it before step 6, because `--write` removes the evidence, and it misses sections that were renumbered and retitled together), run `remap --map renumber.yml` as a dry run, paste the output to Claude, and apply only after review. `remap` cascades by prefix by default (`WP§3` also rewrites `WP§3.x`; the longest matching key wins), `--no-cascade` limits it to exact keys, and it is single-pass, so swaps such as `X§5: X§6` with `X§6: X§5` are safe. It skips prose references, paper-only links and Revision History unless `--include-history`.
 5. Review meaning. For every section whose content changed, even if its number did not, run `query --to X§N` and send Claude the output. Each result includes the sentence around the link. Claude judges whether the claim still fits the target and rewrites it where it does not. Also run `query --to SCOPE§N` for each SCOPE section the paper cites, and check that SCOPE still classifies the item the way the paper says. Flagged `target_retitled` links and descriptive labels ("the cognitive moral hazard of the current system (MF §5)") are the main targets.
 6. Sync the registry. `scrape_contents.py` rebuilds each paper's `sections` from its headings in document order:
    ```
-   python pipeline/scrape_contents.py MF               # report: + added, ~ retitled, > renumbered, - removed
-   python pipeline/scrape_contents.py MF --dry-run     # YAML diff
-   python pipeline/scrape_contents.py MF --write
-   python pipeline/build_anchors.py
+   python website/build/scrape_contents.py MF               # report: + added, ~ retitled, > renumbered, - removed
+   python website/build/scrape_contents.py MF --dry-run     # YAML diff
+   python website/build/scrape_contents.py MF --write
+   python website/build/build_anchors.py
    ```
    Omit the shortcode to sync every paper. Read the report before `--write`; it exits 1 if any paper is blocked. Rules to explain to the author:
    - Math headings (`$...$`) keep their existing `contents.yml` title, because anchors are built from the title text and math headings need a hand-written plain-text title (e.g. `tau 0 = 10%`). A new math heading is added with its raw LaTeX and flagged; write the plain title by hand before running `build_anchors.py`.

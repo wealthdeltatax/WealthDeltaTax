@@ -1,0 +1,6 @@
+point,account_residual_max,unpaid_max,unpaid_B_max,unpaid_B_path_phases,shortfall_lines,spread_cells,flat_cells,ledger_tie_max,ledger_tie_first,ledger_dL_max,i1,error,wo_sum,lien_bal_max
+min_mid,2.3931079340400174e-11,0.0,0.2983744700760804,1468,1612,167,256,8.816414265311323e-11,,6.821210263296962e-13,held (raises in the hook otherwise),,0.0,1.3536010230589277
+median_mid,2.2453150450019166e-11,0.0,0.0,0,0,221,202,4.092726157978177e-12,,6.821210263296962e-13,held (raises in the hook otherwise),,0.0,0.0
+max_mid,2.3021584638627246e-11,0.0,0.0,0,0,187,236,1.9099388737231493e-11,,1.8189894035458565e-12,held (raises in the hook otherwise),,0.0,0.0
+median_low,2.4556356947869062e-11,0.0,0.0,0,0,248,175,4.263256414560601e-12,,9.094947017729282e-13,held (raises in the hook otherwise),,0.0,0.0
+median_high,1.1027158741683252e-08,0.0,0.0,0,0,196,227,1.2551311101560714e-08,"first chunk: year 95, path 71, gap 1.255e-08, tax 180.8, refund 0, receipts property 42.99, net_financial 133, physical 4.816",4.547473508864641e-12,held (raises in the hook otherwise),,0.0,1010.0572327307171

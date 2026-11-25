@@ -1,6 +1,6 @@
 # Id map: planning ids to shortcodes
 
-Author decision, 2026-11-17: the shortcodes of `shortcodes.md` are the page ids. The S numbers (S1 to S12, with `-A` and `-B`) were planning labels; they appear in `map.md`, `ledger.md`, `template.md` and the three stage D designs (`site/ids.md`, `hooks.md`, `checker.md`) and are read through this table. The manifest `docs/model-v3/outputs.yml` already uses shortcodes.
+Author decision, 2026-11-17: the shortcodes of `shortcodes.md` are the page ids. The S numbers (S1 to S12, with `-A` and `-B`) were planning labels; they appear in `map.md`, `ledger.md`, `template.md` and the three stage D designs (`site/ids.md`, `hooks.md`, `checker.md`) and are read through this table. The manifest `model-specs/outputs.yml` already uses shortcodes.
 
 | Planning id | Shortcode | Page |
 |---|---|---|
