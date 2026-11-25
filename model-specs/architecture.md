@@ -258,7 +258,7 @@ The check is two tests in stage V3-7, run at v2-like inputs: the `logistic_ln_re
 - **I3, the epsilon check.** The computed M1a, the computed epsilon and omega satisfy M1a ~ epsilon x g x omega - refunds within 5% of M1a on the same windows (a check of accounting, not of the policy; the tolerance is 5% because the refund term is not closed-form).
 
 ### 6.4 Smoke and acceptance
-- **Smoke test** (`tests/model/model_v3/test_smoke.py`, R5): `python -I -c "import sys; sys.path.insert(0, '.'); from model_v3 import run; run.main(['--smoke', '--out', DIR])"` (`-I` ignores the current directory, so the command puts it on the path) with `N1 = 50`, `N2 = 3`, `N2P = 20`; it exits 0, writes `outputs.json` with `run.status` `provisional` and `run.paths` 50, and `model/tools/validate_outputs.py` passes it in provisional mode. Renaming any module file or breaking one import makes it fail.
+- **Smoke test** (`tests/model/model_v3/test_smoke.py`, R5): `python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--smoke', '--out', DIR])"` (`-I` ignores the current directory, so the command puts it on the path) with `N1 = 50`, `N2 = 3`, `N2P = 20`; it exits 0, writes `outputs.json` with `run.status` `provisional` and `run.paths` 50, and `model/tools/validate_outputs.py` passes it in provisional mode. Renaming any module file or breaking one import makes it fail.
 - **Acceptance run** (named in `acceptance.md`, 040g): one command that runs every test, the smoke test, the convergence test and the full run, and exits 0 only if all pass. The architecture fixes only that it is one command.
 
 ### 6.5 Run script and run time
