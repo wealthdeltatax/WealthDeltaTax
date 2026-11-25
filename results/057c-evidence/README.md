@@ -12,3 +12,6 @@ Files produced while building brief 057c, kept so the work can resume without re
 | `scripts/o1e.py`, `keys.py`, `tc.py`, `time_ev.py` | Throw-away probes: M1 against the generator mean under the safe and market funds; the sample keys of O1, O2, O3, O4a; a tiny-size run of the convergence helpers; the timing of one evaluation. | | Reusable as written; paths are relative to the repository root |
 
 Not preserved because stale and reproducible: the round-2 smoke baselines (`real_ok.json`, `real_seed.json`).
+
+## quick-q4 (2026-11-26): the only current file
+`quick-q4/outputs.json` and `run.log`: `--size quick` on `e62cf0e` (merged main with the file move; O8 marker and C1/C2 change in), serial, 3,887 s. Validator PASS (0 errors, 12 warnings: OP6 series); `accept.sh --check` (step 5) ok. Points: median_mid and min_mid met their target; max_mid, median_low and median_high `target_not_met`. O8: 10 of 12 cells carry the marker `target_not_met` (author, 2026-11-25). Every other file in this folder predates the merge of 089c and 147c and the move: stale, kept as history.
