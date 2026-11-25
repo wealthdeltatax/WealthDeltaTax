@@ -41,11 +41,25 @@ None; the agent flags any call the rules cannot settle.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** claimed on 2026-11-25 (author asked for 162c; 167c, which would replace 162c to 164c, has no branch yet). Branch cut from `main` at 2386501.
-- **Next:** work in a scratch copy of this clone (`path_refs.py --apply` refuses this repository): apply only the 162c rows (`model/`, `data/country-packs/`, `data/input-register/`, `tests/model/`), then the 162c hunks of the rehearsal patch as a guide, pinned lines, proof `Rewriter`, checks.
-- **Decisions:** 163c and 164c rows stay put (their map rows are held to identity in the apply, so their old paths are not rewritten here).
-- **Gotchas:** if Agent 6 starts 167c, one of the two must stop: both move the same tree.
+- **Done:** all of 162c on the branch (rebased on `main` fb2770b): `model/model_v3`, `model/tools`, `model/studies`, `data/country-packs/GBR`, `data/input-register`, `tests/model`; imports, depth lines, constructed paths, pinned lines, proof `Rewriter`, prose citations of `model_v3/`.
+- **Next:** author review and merge; then 163c (specs and results) and 164c.
+- **Decisions:** 163c and 164c rows stay put (held to identity): study drivers read and write their data at `docs/model-v3/<study>` through a `DATA` constant until 163c; `check_gate` default `model_v3/OUTPUTS/outputs.json` (generated, untracked, not in the map) left as is.
+- **Gotchas:** `git clean -fdx` before the final run (done); 163c must rewrite the `DATA` chains and the `docs/model-v3/inputs.md`, `metrics.md`, `outputs.yml` readers.
 - **Resume:** `git checkout brief/162-move-model-code-and-inputs`.
-- **Not run:** everything.
-- **State:** block 0 done
+- **Not run:** `quick` (out of scope), `tests/website` and `tests/project` suites (collect-only passes, 791 tests), Quarto build.
+- **State:** all blocks done, pushed
+
+Change report
+- Task: brief 162c, move the model code and its inputs (R4)
+- Files changed: 159 renames and about 75 edited files: model code, tools and 38 study drivers under `model/`; pack under `data/country-packs/GBR/`; register under `data/input-register/`; tests under `tests/model/`; `path_refs.py` (rules, `PINNED_ALLOWED`), `path_rewrite_proof.py` (shared rewriter), `move_tripwire.py` (paths), `website/build/hooks.py` (register paths), `AGENTS.md`, `START_HERE.md`, `docs/agents/code.md` (`model/model_v3`).
+- What is different now: the model is code only under `model/`; its data sit under `data/`; its tests under `tests/model/`. Import name `model_v3` kept; the import root is `model/`. No model file renamed except under R3; no number changed.
+- New or changed interfaces: run `pytest tests/model/<suite>`; tools at `model/tools/*.py`; `run_suites.py` and `G5_TEST_DIRS` find both test layouts; study drivers at `model/studies/<study>/`.
+- Acceptance criteria: tripwire PASS (inputs, legacy digest, pack rebuild byte-identical, 4 evaluation cases): met. Digest and gate hash unchanged: met (tripwire). Model suites: data 103, gate 17, tools 5, model_v3 408 passed, after `git clean -fdx`: met. `check_agent_docs.py` clean: met. Path-rewrite proof (stage map, base `origin/main`, 163c/164c rows held to identity): 504 moved, 40 path-only, 0 removed, 72 changed (the declared depth, import root and DATA edits, all path terms), before and after the Rewriter change identical; the proof still prints FAIL without an `--allow` list because it lists those 72 and the 499 files of earlier stages as "added": partly met, see risks. Depth list: every `parents[k]`, `.parent` chain, `HERE` and `DIR` of the moved files checked, compileall and collect-only pass; list of unresolved depth lines is empty.
+- Deviations from the brief: pinned-line list is longer than the brief's (see below); the `--check` output is cut at 50 lines (hid the rest), not changed.
+- Pinned lines kept with their old text (all allow-listed in `PINNED_ALLOWED`): `data/country-packs/GBR/NOTICE.md:13`, `model/model_v3/pack/build_gbr.py:24,193,217` (NOTICE and manifest strings), pack `manifest.json:104`, `docs/model-v3/inputs.md:145`, `docs/model-v3/outputs.yml:3` (shortcodes comment), plus the existing `inputs.json:568`, `legacy_digest.json:3`, `registry/internal.json:2`. The allow-list sufficed.
+- Risks / follow-ups: (1) the proof has no `--allow` file for the 72 declared edits, so it does not print PASS by itself; (2) `check_gate` default `model_v3/OUTPUTS/outputs.json` is a generated untracked path, left; (3) `file-layout-map.md` still says "four" pinned lines; (4) the prose sweep of `pipeline/`, `tests/` and others stays with 164c; (5) 163c must move the `DATA` constants with the data.
+- Instruction friction: `path_refs.py --check` truncates its output at 50 lines; the brief did not say where the proof's before and after counts come from (used a stage map).
+- Verification: as in the criteria; not run: `quick`, `tests/website`, `tests/project`, Quarto build.
+- Overview sections likely needing an update: the repository layout section (model and data paths).
+- Commit / branch: branch `brief/162-move-model-code-and-inputs`.
 <!-- progress:end -->

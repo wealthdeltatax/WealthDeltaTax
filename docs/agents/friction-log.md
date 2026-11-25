@@ -74,3 +74,5 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: the proof reported 198 changed files on a correct apply (its regular expression rewrote prose words and ignored folders holding a renamed file); and after `git mv` the used tree keeps empty old folders that make `exists()` checks pass.
 - Cost: about two hours chasing differences that were the proof's, and one project test that passed in the used copy and failed in a clean one.
 - Suggest: the stage briefs say "run the stage's final checks in a fresh checkout (`git clean -fdx`)"; the proof uses `path_refs.Rewriter`.
+
+- 2026-11-25, 162c: `path_refs.py --check` prints only the first 50 findings (`left[:50]`), so pinned lines past 50 stay invisible; the proof's before and after counts need a stage map (rows of other stages held to identity), which the brief does not name.
