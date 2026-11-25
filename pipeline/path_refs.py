@@ -510,9 +510,10 @@ class Rewriter:
         return ''.join(self.line(l) for l in text.splitlines(keepends=True))
 
 
-def apply_map(root):
+def apply_map(root, only=()):
     """165c: apply the map to the checkout at `root`. Moves and removals follow file-layout-map.csv (a tracked file the csv does not list gets its row from RULES and is reported as `not_in_csv`).
     References are found afresh in the checkout, because the committed references csv goes stale as soon as an active file (STATUS, a brief) is edited; `csv_drift` counts how many lines differ from it.
+    `only`: path prefixes; only the files whose old path starts with one of them move (a stage of the real move, 163c: ('docs/model-v3/',)), every other file stays where it is and the references are rewritten for the moved ones only.
     Returns a summary dict; `unresolved` lists the reference lines it did not rewrite."""
     root = Path(root).resolve()
     if root == ROOT:
@@ -527,6 +528,8 @@ def apply_map(root):
             rows[f] = dict(old=f, new=new or '', flag=flag, rule=rule, rename='', duplicate_of='')
             not_in_csv.append(f)
     rows = {k: v for k, v in rows.items() if k in set(files)}
+    if only:
+        rows = {k: (v if k.startswith(tuple(only)) else dict(v, new=k, rename='', duplicate_of='')) for k, v in rows.items()}
     found = refs(rows, root)                      # before anything moves: the line numbers refer to the old tree
     old_csv = {(r['file'], int(r['line']), r['old_path_named']) for r in csv.DictReader(REFS_CSV.open(encoding='utf-8'))}
     drift = len(old_csv ^ {(f, i, t) for f, i, t, _ in found})
@@ -574,6 +577,7 @@ def main():
         ap.add_argument('--' + flag, action='store_true')
     ap.add_argument('--new')
     ap.add_argument('--apply', metavar='ROOT')
+    ap.add_argument('--only', action='append', default=[], metavar='PREFIX', help='with --apply: move only the files whose old path starts with PREFIX (one stage of the move; repeatable)')
     a = ap.parse_args()
     rows, seen = build_map()
     if a.new:
@@ -604,7 +608,7 @@ def main():
     if a.local:
         print('\n'.join(local_only()))
     if a.apply:
-        res = apply_map(a.apply)
+        res = apply_map(a.apply, a.only)
         print(f"moved {res['moved']}, removed {res['removed']} duplicates, {res['files_edited']} files edited, {res['lines_changed']} lines rewritten, {len(res['unresolved'])} reference tokens not rewritten; {len(res['not_in_csv'])} tracked files not in the map csv {res['not_in_csv']}; references csv differs from a fresh scan on {res['csv_drift']} (file, line, token) entries")
         for f, i, t, why in res['unresolved']:
             print(f'  unresolved {f}:{i}: {t}  ({why})')
