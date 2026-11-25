@@ -16,8 +16,8 @@ from pathlib import Path
 
 import openpyxl
 
-ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / 'model_v3' / 'pack' / 'GBR'
+ROOT = Path(__file__).resolve().parents[3]
+OUT = ROOT / 'data' / 'country-packs' / 'GBR'
 WEALTH, REVENUE, ETB = 'data/rates/totalwealthtables.xlsx', 'data/rates/Revenue composition spreadsheet.xlsx', 'data/uk-source-workbooks/etbreferencetablesfye202324final.xlsx'
 HOUSING = 'literature/Housing affordability in England and Wales 2025.pdf'
 CELLS, COMP = 'research/tables/104r-parameter-map-design/104r-parameter-map-design-cell-weights.csv', 'research/tables/102r-parameter-map-stocks-and-cells/band_composition_by_pack_band.csv'   # 109c: held derived files (derive_bands_stages.py, 104r)
@@ -217,7 +217,7 @@ def main():
                                    'decile_composition.csv (brief 115c, pack_version 3) is read from the held derived file `docs/model-v3/kernel-wiring/decile_composition.csv` (112r): the shares of each decile\'s net wealth by class, WAS Round 8 Table 2.2, April 2020 to March 2022, two decimals as held, '
                                    'negative shares included (D1 holds net debt in property and net financial wealth: property -4.72, net financial -104.92, physical 169.46, pension 40.18). Each decile sums to 100 within rounding. '
                                    'D10b and the Rich List tiers take the D10 mix: an assumption, stated in the `basis` of the D10 rows (the survey misses business wealth).\n', encoding='utf-8')
-    p = ROOT / 'model_v3' / 'levers.json'
+    p = ROOT / 'model' / 'model_v3' / 'levers.json'
     text, lev = p.read_text(encoding='utf-8'), json.loads(p.read_text(encoding='utf-8'))
     lev['pack_mappings'].update(x1_pointers=dict(sorted(POINTERS.items())), x1_skipped={i: why for why, ids in SKIP.items() for i in ids})
     cut = text.index(',\n  "pack_mappings"')

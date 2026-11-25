@@ -6,8 +6,8 @@ import pytest
 
 from model_v3.core import pack as pk
 
-ROOT = Path(__file__).parents[2]
-GBR = ROOT / 'model_v3' / 'pack' / 'GBR'
+ROOT = Path(__file__).parents[3]
+GBR = ROOT / 'data' / 'country-packs' / 'GBR'
 
 
 def edit(z, name, old, new):

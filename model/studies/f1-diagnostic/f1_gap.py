@@ -18,7 +18,7 @@ import numpy as np
 import yaml
 
 ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / 'model'))
 
 import json  # noqa: E402
 
@@ -49,10 +49,10 @@ def tab(head, rows):
 
 
 def build_ctx():
-    lv = json.loads((ROOT / 'model_v3' / 'levers.json').read_text())
+    lv = json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text())
     out = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
     tier1 = next(o for o in out['outputs'] if o['id'] == 'OT1')['by']['input']
-    ctx = R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs']])
+    ctx = R.context(pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs']])
     return lv, ctx
 
 

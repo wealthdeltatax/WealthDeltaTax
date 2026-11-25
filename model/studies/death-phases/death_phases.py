@@ -25,8 +25,8 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT / 'docs' / 'model-v3' / 'f1-household'))
+sys.path.insert(0, str(ROOT / 'model'))
+sys.path.insert(0, str(ROOT / 'model' / 'studies' / 'f1-household'))
 
 import f1_household as F  # noqa: E402  (140c's script: setup, point_ctx, core, lab, tab, write_csv)
 

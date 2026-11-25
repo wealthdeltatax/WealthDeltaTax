@@ -31,7 +31,7 @@ import yaml
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 OUT = HERE                                     # where the CSVs go (--out)
-sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / 'model'))
 
 from model_v3.core import burden as bd, pack as pk, returns as rt, revenue as rv  # noqa: E402
 from model_v3.runner import runner as R, sweeps as S  # noqa: E402
@@ -69,10 +69,10 @@ def lab(sp):
 
 
 def setup():
-    lv = json.loads((ROOT / 'model_v3' / 'levers.json').read_text())
+    lv = json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text())
     out = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
     tier1 = next(o for o in out['outputs'] if o['id'] == 'OT1')['by']['input']
-    ctx = R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs']])
+    ctx = R.context(pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs']])
     inp = json.loads((ROOT / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text())
     return lv, ctx, inp
 

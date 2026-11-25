@@ -9,7 +9,7 @@ import yaml
 from model_v3.core import pack as pk
 from model_v3.runner import out_sweeps, pool, runner as R, sweeps as S
 
-ROOT = Path(__file__).parents[2]
+ROOT = Path(__file__).parents[3]
 SPEC = dict(tau_0=0.04, tau_m=0.9, k_ln=1.0, ratio=0.5)
 ROW = lambda lo, c, hi: pk.Row('x', lo, c, hi, '%', False)
 
@@ -59,16 +59,16 @@ def test_roots_tornado_and_map_are_byte_identical_serial_and_parallel():
     draws = {'z': np.array([1.0, 2.0, 3.0, 4.0]), 'a': np.array([0.5, 1.0, 1.5, 2.0])}
     be = lambda w: S.breakeven_return(noisy, sp, 'm', draws=draws, tol=1e-3, workers=w)
     to = lambda w: S.tornado(noisy, sp, rows, {'a', 'b'}, workers=w)
-    fe = lambda w: S.feasibility(noisy, S.grid(json.loads((ROOT / 'model_v3' / 'levers.json').read_text()))[:5], workers=w)
+    fe = lambda w: S.feasibility(noisy, S.grid(json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text()))[:5], workers=w)
     for f in (be, to, fe):
         assert same(f(1), f(2)) and same(f(2), f(3))
     assert all(len(r[1]) == 4 for r in be(2).values()) and any(np.isfinite(r[0]) for r in be(2).values())
 
 
 def test_the_model_tornado_is_byte_identical_serial_and_parallel():
-    lv, out = json.loads((ROOT / 'model_v3' / 'levers.json').read_text()), yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    lv, out = json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text()), yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
     tier1 = next(o for o in out['outputs'] if o['id'] == 'OT1')['by']['input']
-    ctx = R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs']])
+    ctx = R.context(pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs']])
     ev, rows = R.make_ev(ctx, np.random.default_rng(5).standard_normal((100, 3))), {i: ctx.reg[i] for i in ('I-D1a',)}
     one, two = (S.tornado(ev, {'S': SPEC}, rows, {'I-D1a'}, workers=w) for w in (1, 2))
     assert same(one, two) and any(r['low'] != 0.0 for r in one)

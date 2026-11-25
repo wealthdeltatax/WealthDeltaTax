@@ -10,8 +10,8 @@ import yaml
 
 from model_v3.runner import arm as ab, runner as R, switches as sw
 
-ROOT = Path(__file__).resolve().parents[2]
-SCRIPT = ROOT / 'docs' / 'model-v3' / 'household-arm-run' / 'run_grid.py'
+ROOT = Path(__file__).resolve().parents[3]
+SCRIPT = ROOT / 'model' / 'studies' / 'household-arm-run' / 'run_grid.py'
 SHARE = {'ast_low': 0.144, 'ast_high': 0.165, 'ast_low_e0': 0.144, 'ast_high_e0': 0.165}
 
 

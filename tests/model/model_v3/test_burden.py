@@ -7,7 +7,7 @@ import pytest
 
 from model_v3.core import base as bs, burden as bd, pack as pk, revenue as rv, schedule as sc
 
-ROOT = Path(__file__).parents[2]
+ROOT = Path(__file__).parents[3]
 BANDS = ['D4-5', 'D10']
 
 
@@ -18,12 +18,12 @@ def flows(net, w0, wt, band, death=None, **kw):
 
 @pytest.fixture(scope='module')
 def pack():
-    return pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR')
+    return pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR')
 
 
 @pytest.fixture(scope='module')
 def reg():
-    return pk.load_register(ROOT / 'registry' / 'inputs.json')
+    return pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json')
 
 
 # ---- D1: M2 revenue-weighted --------------------------------------------------------------------------------------------------------------------------

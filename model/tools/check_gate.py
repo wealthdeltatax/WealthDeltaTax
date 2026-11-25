@@ -58,7 +58,7 @@ G5_TEST_DIRS = ['tests/model/data', 'tests/website/hooks', 'tests/data_block', '
 
 @dataclass(frozen=True)
 class Config:
-    root: Path = Path(__file__).resolve().parent.parent
+    root: Path = Path(__file__).resolve().parent.parent.parent
     manifest: str = 'docs/model-v3/outputs.yml'
     register_md: str = 'docs/model-v3/inputs.md'
     decisions_md: str = 'docs/model-v3/judgement-decisions.md'

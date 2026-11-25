@@ -17,7 +17,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-sys.path[:0] = [str(ROOT), str(HERE)]
+sys.path[:0] = [str(ROOT / 'model'), str(HERE)]
 
 import account_table as A                                                      # noqa: E402  (the 118c/119c account: setup, SPEC, the same grid point)
 from model_v3.core import kernel as K, revenue as rv, schedule as sc          # noqa: E402

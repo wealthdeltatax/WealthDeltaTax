@@ -7,8 +7,8 @@ import pytest
 from model_v3.core import base as bs, kernel as K, pack as pk, revenue as rv, schedule as S
 from model_v3.runner import arm
 
-ROOT = Path(__file__).resolve().parents[2]
-PACK, REG = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')
+ROOT = Path(__file__).resolve().parents[3]
+PACK, REG = pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json')
 BASE = bs.build_base(PACK, REG, 1.0)
 ST = arm.line_state(BASE, PACK.tables['decile_composition'], REG, 0.0101)
 GAIN = dict(property=0.016455, net_financial=0.0094, physical=0.0, pension=0.0094)

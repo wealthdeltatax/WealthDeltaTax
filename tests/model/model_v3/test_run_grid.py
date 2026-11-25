@@ -4,8 +4,8 @@ import importlib.util
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
-SCRIPT = ROOT / 'docs' / 'model-v3' / 'household-arm-run' / 'run_grid.py'
+ROOT = Path(__file__).resolve().parents[3]
+SCRIPT = ROOT / 'model' / 'studies' / 'household-arm-run' / 'run_grid.py'
 
 
 def test_the_script_runs_a_smoke_grid_with_labels_and_holding_checks(tmp_path):

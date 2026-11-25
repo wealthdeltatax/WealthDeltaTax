@@ -42,9 +42,9 @@ from pathlib import Path
 
 import yaml
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_MANIFEST = ROOT / "docs" / "model-v3" / "outputs.yml"
-DEFAULT_INPUTS = ROOT / "registry" / "inputs.json"
+DEFAULT_INPUTS = ROOT / "data" / "input-register" / "inputs.json"
 
 SCHEMA = "wdt-outputs/1"
 ALL_WINDOWS = ["transition", "short", "long"]

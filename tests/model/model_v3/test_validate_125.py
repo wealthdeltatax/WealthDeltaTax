@@ -2,8 +2,8 @@
 import importlib.util
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
-spec = importlib.util.spec_from_file_location('validate_125', ROOT / 'docs' / 'model-v3' / 'household-arm-validation' / 'validate.py')
+ROOT = Path(__file__).resolve().parents[3]
+spec = importlib.util.spec_from_file_location('validate_125', ROOT / 'model' / 'studies' / 'household-arm-validation' / 'validate.py')
 v = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(v)
 

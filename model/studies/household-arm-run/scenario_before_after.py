@@ -14,7 +14,7 @@ import numpy as np
 import yaml
 
 ROOT = Path.cwd()                                                              # the repository root
-sys.path[:0] = [str(ROOT), str(ROOT / 'docs' / 'model-v3' / 'household-arm-run')]
+sys.path[:0] = [str(ROOT / 'model'), str(ROOT / 'model' / 'studies' / 'household-arm-run')]
 
 import run_grid as G                                                           # noqa: E402
 from model_v3.runner import arm as ab                                          # noqa: E402

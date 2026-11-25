@@ -19,7 +19,7 @@ import yaml
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-sys.path[:0] = [str(ROOT), str(ROOT / 'docs' / 'model-v3' / 'household-arm-account')]
+sys.path[:0] = [str(ROOT / 'model'), str(ROOT / 'model' / 'studies' / 'household-arm-account')]
 
 import account_table as A                                                      # noqa: E402  (setup and SPEC: the same builder and grid point)
 from model_v3.core import kernel as K, returns as rt                           # noqa: E402

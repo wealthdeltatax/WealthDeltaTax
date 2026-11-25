@@ -11,8 +11,8 @@ import yaml
 
 from model_v3.runner import arm as ab, runner as R, switches as sw
 
-ROOT = Path(__file__).resolve().parents[2]
-SCRIPT = ROOT / 'docs' / 'model-v3' / 'household-arm-run' / 'run_grid.py'
+ROOT = Path(__file__).resolve().parents[3]
+SCRIPT = ROOT / 'model' / 'studies' / 'household-arm-run' / 'run_grid.py'
 TABLE = ROOT / 'research' / 'tables' / '145r-saving-shapes-and-withdrawal-range' / 'saving_shapes.csv'
 
 

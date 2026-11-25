@@ -6,7 +6,7 @@ from pathlib import Path
 
 import check_gate as cg
 
-REPO = Path(__file__).resolve().parents[2]
+REPO = Path(__file__).resolve().parents[3]
 
 
 def run(cfg, argv):

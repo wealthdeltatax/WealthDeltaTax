@@ -17,27 +17,38 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 NAMED = ("data", "gate", "cards", "model_v3", "hooks")
 SHOW_FAILED = 5
+
+
+def suite_dir(root: Path, name: str) -> Path | None:
+    tests = root / "tests"
+    for c in [tests / name, *sorted(tests.glob(f"*/{name}"))]:
+        if c.is_dir():
+            return c
+    return None
 
 
 def discover(root: Path) -> list[str]:
     tests = root / "tests"
     if not tests.is_dir():
         return []
-    named = [n for n in NAMED if (tests / n).is_dir()]
-    extra = sorted(d.name for d in tests.iterdir() if d.is_dir() and d.name not in NAMED and (d / "conftest.py").is_file())
+    dirs = [d for d in tests.iterdir() if d.is_dir()]
+    dirs += [s for g in dirs if not (g / "conftest.py").is_file() for s in g.iterdir() if s.is_dir()]   # tests/<group>/<suite>
+    named = [n for n in NAMED if suite_dir(root, n)]
+    extra = sorted({d.name for d in dirs if d.name not in NAMED and (d / "conftest.py").is_file()})
     return named + extra
 
 
 def run_suite(root: Path, name: str) -> dict:
-    cmd = [sys.executable, "-m", "pytest", f"tests/{name}", "-q"]
+    rel = suite_dir(root, name).relative_to(root).as_posix()
+    cmd = [sys.executable, "-m", "pytest", rel, "-q"]
     proc = subprocess.run(cmd, cwd=root, capture_output=True, text=True)
     lines = [ln for ln in proc.stdout.splitlines() if ln.strip()]
     failed = [ln.split(" ")[1] for ln in lines if ln.startswith(("FAILED ", "ERROR ")) and len(ln.split(" ")) > 1]
     return {
-        "name": name, "cmd": " ".join(["python", "-m", "pytest", f"tests/{name}", "-q"]),
+        "name": name, "cmd": " ".join(["python", "-m", "pytest", rel, "-q"]),
         "code": proc.returncode, "last": lines[-1] if lines else "(no output)", "failed": failed,
     }
 

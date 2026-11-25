@@ -27,9 +27,9 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_SRC = ROOT / "docs" / "model-v3" / "inputs.md"
-DEFAULT_OUT = ROOT / "registry" / "inputs.json"
+DEFAULT_OUT = ROOT / "data" / "input-register" / "inputs.json"
 
 SCHEMA = "wdt-inputs/1"
 N_CELLS = 12

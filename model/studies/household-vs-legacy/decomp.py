@@ -22,7 +22,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-sys.path[:0] = [str(ROOT), str(HERE), str(ROOT / 'docs' / 'model-v3' / 'household-arm-account'), str(ROOT / 'docs' / 'model-v3' / 'household-arm-run')]
+sys.path[:0] = [str(ROOT / 'model'), str(HERE), str(ROOT / 'model' / 'studies' / 'household-arm-account'), str(ROOT / 'model' / 'studies' / 'household-arm-run')]
 
 import account_table as A                                                      # noqa: E402
 import flows as F                                                              # noqa: E402

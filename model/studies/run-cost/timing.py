@@ -11,7 +11,7 @@ import numpy as np
 import yaml
 
 ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / 'model'))
 from model_v3.core import pack as pk, returns as rt                      # noqa: E402
 from model_v3.out import assemble as asm                                  # noqa: E402
 from model_v3.runner import runner as R, sweeps as S                      # noqa: E402

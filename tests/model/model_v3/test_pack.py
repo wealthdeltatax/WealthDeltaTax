@@ -8,8 +8,8 @@ from model_v3.core import pack as pk
 
 FIX = Path(__file__).parent / 'fixtures' / 'pack_ZZZ'
 PINNED = 'f7cbb8948ca28eaede41e157c8c3af4f1b049be2c5288ef310bceab25c24d54d'   # P7: the fixture's pack_sha256
-ROOT = Path(__file__).parents[2]
-GBR = ROOT / 'model_v3' / 'pack' / 'GBR'
+ROOT = Path(__file__).parents[3]
+GBR = ROOT / 'data' / 'country-packs' / 'GBR'
 GBR_SHA = '5ac89a2db2dacb60d75d4cb37974fd481aaaf23cf59ad2aa8aa881f46ee3d72c'   # the UK pack_sha256, pinned: a rebuilt pack that changes a byte fails here
 KNOWN_UNORDERED = {'I-T3d', 'I-T3e', 'I-T3g', 'I-T3m', 'I-T3p'}   # register rows with low > central or central > high (finding of 048c, for the author)
 PARTS = {'stamp_all': ['stamp_a', 'stamp_b'], 'income_tax': ['pay_a', 'pay_b']}
@@ -179,7 +179,7 @@ def test_register_loader(tmp_path):
 
 
 def test_real_register_loads_with_flags():
-    r = pk.load_register(Path(__file__).parents[2] / 'registry' / 'inputs.json')
+    r = pk.load_register(Path(__file__).parents[3] / 'data' / 'input-register' / 'inputs.json')
     assert r['I-D4a'].central == 5.94 and r['I-D4a'].low <= r['I-D4a'].high and any(x.judgement for x in r.values())
 
 
@@ -210,15 +210,15 @@ def test_data_facts_dh1a_and_dh1b(zzz):
 
 
 def test_only_numpy_and_the_standard_library_are_imported():
-    t = ast.parse((Path(__file__).parents[2] / 'model_v3' / 'core' / 'pack.py').read_text())
+    t = ast.parse((Path(__file__).parents[3] / 'model' / 'model_v3' / 'core' / 'pack.py').read_text())
     roots = {n.module.split('.')[0] if isinstance(n, ast.ImportFrom) else a.name.split('.')[0]
              for n in ast.walk(t) if isinstance(n, (ast.Import, ast.ImportFrom)) for a in getattr(n, 'names', [])}
     assert roots <= set(sys.stdlib_module_names) | {'numpy'}
 
 
 def test_p8_the_uk_pack_agrees_with_the_register_and_the_retirement_target():
-    mp = json.loads((ROOT / 'model_v3' / 'levers.json').read_text())['pack_mappings']
-    p, reg = pk.load_pack(GBR), pk.load_register(ROOT / 'registry' / 'inputs.json')
+    mp = json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text())['pack_mappings']
+    p, reg = pk.load_pack(GBR), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json')
     assert pk.check_x1(p, reg, mp['x1_pointers']) == len(mp['x1_pointers']) > 0
     assert set(mp['x1_skipped']) <= set(reg) and not set(mp['x1_skipped']) & set(mp['x1_pointers'])
     pk.check_parts(p, mp['parts'])
@@ -229,8 +229,8 @@ def test_p8_the_uk_pack_agrees_with_the_register_and_the_retirement_target():
 def test_p9_the_register_agrees_with_inputs_md():
     text = (ROOT / 'docs' / 'model-v3' / 'inputs.md').read_text(encoding='utf-8')
     md = {m[1]: '(J)' in line for line in text.splitlines() if (m := re.match(r'\| (I-\w+) \|', line))}
-    reg = pk.load_register(ROOT / 'registry' / 'inputs.json')
-    assert len(reg) == len(md) == int(re.search(r'register has (\d+) rows', text)[1]) == json.loads((ROOT / 'registry' / 'inputs.json').read_text())['count']
+    reg = pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json')
+    assert len(reg) == len(md) == int(re.search(r'register has (\d+) rows', text)[1]) == json.loads((ROOT / 'data' / 'input-register' / 'inputs.json').read_text())['count']
     assert {i: r.judgement for i, r in reg.items()} == md
     bad = {i for i, r in reg.items() if r.low is not None and r.high is not None and not r.low <= r.central <= r.high}
     assert bad == KNOWN_UNORDERED

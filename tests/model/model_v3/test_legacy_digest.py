@@ -8,12 +8,12 @@ from pathlib import Path
 
 import yaml
 
-ROOT = Path(__file__).parents[2]
-sys.path.insert(0, str(ROOT))
+ROOT = Path(__file__).parents[3]
+sys.path.insert(0, str(ROOT / 'model'))
 from model_v3.core import pack as pk, returns as rt                      # noqa: E402
 from model_v3.runner import groups as G, runner as R                     # noqa: E402
 
-FIX = ROOT / 'tests' / 'model_v3' / 'fixtures' / 'legacy_digest.json'
+FIX = ROOT / 'tests' / 'model' / 'model_v3' / 'fixtures' / 'legacy_digest.json'
 SEEDS, N, CHUNK = (7, 11), 20, 10
 POINTS = {'low_corner': (0.5, 0.5, 0.25), 'centre': (0.7, 1, 0.5), 'high_corner': (0.9, 2, 1.0), 'tm50_k2_r100': (0.5, 2, 1.0), 'tm90_k05_r025': (0.9, 0.5, 0.25)}
 SPECS = {n: dict(tau_0=0.04, tau_m=t, k_ln=k, ratio=r) for n, (t, k, r) in POINTS.items()}       # the named schedules wait for 089c: five fixed grid points stand in
@@ -23,9 +23,9 @@ CALL = "python tests/model/model_v3/test_legacy_digest.py --print (compute(): R.
 
 def compute(seeds=SEEDS):
     """{seed: {'samples': digest, 'groups': {group: digest of its ids}}} on the legacy arm (the only arm there is), the context built as test_runner's, with once."""
-    lv, out = json.loads((ROOT / 'model_v3' / 'levers.json').read_text()), yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    lv, out = json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text()), yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
     tier1 = next(o for o in out['outputs'] if o['id'] == 'OT1')['by']['input']
-    ctx = R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1,
+    ctx = R.context(pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json'), lv, tier1,
                     [o['id'] for o in out['outputs']], [o['id'] for o in out['outputs'] if o.get('once_not_per_schedule')])
     res = {}
     for seed in seeds:

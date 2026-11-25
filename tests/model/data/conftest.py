@@ -11,12 +11,12 @@ from pathlib import Path
 import pytest
 import yaml
 
-ROOT = Path(__file__).resolve().parents[2]
-PIPELINE = ROOT / "pipeline"
+ROOT = Path(__file__).resolve().parents[3]
+PIPELINE = ROOT / "model" / "tools"
 FIXTURE = Path(__file__).resolve().parent / "fixtures" / "outputs.fixture.json"
 MANIFEST = ROOT / "docs" / "model-v3" / "outputs.yml"
-INPUTS_JSON = ROOT / "registry" / "inputs.json"
-METRICS_JSON = ROOT / "registry" / "metrics.json"
+INPUTS_JSON = ROOT / "data" / "input-register" / "inputs.json"
+METRICS_JSON = ROOT / "data" / "input-register" / "metrics.json"
 INPUTS_MD = ROOT / "docs" / "model-v3" / "inputs.md"
 METRICS_MD = ROOT / "docs" / "model-v3" / "metrics.md"
 

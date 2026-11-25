@@ -6,8 +6,8 @@ import pytest
 
 from model_v3.core import cells as ce, kernel as kn, pack as pk
 
-ROOT = Path(__file__).resolve().parents[2]
-PACK, REG = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')
+ROOT = Path(__file__).resolve().parents[3]
+PACK, REG = pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json')
 RETS = dict(g=dict(property=0.016455, net_financial=0.0094, physical=0.0, pension=0.0094), y=dict(property=0.03758, net_financial=0.0426, physical=0.0, pension=0.0426))
 CELLS = ce.cell_table(PACK, REG, 0.44)
 

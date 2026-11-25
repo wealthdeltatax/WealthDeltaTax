@@ -12,7 +12,7 @@ from pathlib import Path
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
-sys.path[:0] = [str(HERE.parents[2]), str(HERE), str(HERE.parents[2] / 'docs' / 'model-v3' / 'household-arm-account'), str(HERE.parents[2] / 'docs' / 'model-v3' / 'household-arm-run')]
+sys.path[:0] = [str(HERE.parents[2]), str(HERE), str(HERE.parents[2] / 'model' / 'studies' / 'household-arm-account'), str(HERE.parents[2] / 'model' / 'studies' / 'household-arm-run')]
 
 import account_table as A                                                      # noqa: E402
 import decomp as D                                                             # noqa: E402

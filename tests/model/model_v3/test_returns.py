@@ -8,15 +8,15 @@ import pytest
 from model_v3.core import pack as pk
 from model_v3.core import returns as rt
 
-ROOT = Path(__file__).parents[2]
+ROOT = Path(__file__).parents[3]
 PIN = {'n': 117, 'arithmetic': 4.742, 'geometric': 4.420, 'sd': 8.219, 'lag1': 0.303}   # R1, re-derived on the pack series (sample ends 2019): n is unchanged
 IDS = {'mean': 'I-D1a', 'sd': 'I-D1b', 'phi': 'I-D1b2'}
 
 
 @pytest.fixture(scope='module')
 def data():
-    reg = pk.load_register(ROOT / 'registry' / 'inputs.json')
-    years, r = rt.real_series(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'))
+    reg = pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json')
+    years, r = rt.real_series(pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'))
     return years, r, rt.sample_stats(r), {k: reg[i] for k, i in IDS.items()}
 
 

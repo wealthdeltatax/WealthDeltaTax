@@ -9,7 +9,7 @@ import pytest
 
 pytest.importorskip("markitdown")
 openpyxl = pytest.importorskip("openpyxl")
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 spec = importlib.util.spec_from_file_location("to_markdown", ROOT / "website" / "build" / "to_markdown.py")
 tm = importlib.util.module_from_spec(spec)
 sys.modules["to_markdown"] = tm

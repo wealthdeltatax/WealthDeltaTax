@@ -3,8 +3,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
-SCRIPT = str(ROOT / "pipeline" / "run_suites.py")
+ROOT = Path(__file__).resolve().parents[3]
+SCRIPT = str(ROOT / "model" / "tools" / "run_suites.py")
 
 
 def suite(root, name, body, conftest=True):
@@ -38,14 +38,14 @@ def test_failing_suite_is_reported_and_the_others_still_run(tmp_path):
     assert r.returncode == 1
     assert "2 passed" in next(l for l in r.stdout.splitlines() if l.startswith("data"))
     assert "1 passed" in next(l for l in r.stdout.splitlines() if l.startswith("zeta"))   # ran after gate failed
-    assert "FAILED suite gate: tests/model/gate/test_x.py::test_boom, tests/model/gate/test_x.py::test_other" in r.stdout
+    assert "FAILED suite gate: tests/gate/test_x.py::test_boom, tests/gate/test_x.py::test_other" in r.stdout
     assert "3 of 4 suites passed; failed: gate" in r.stdout
 
 
 def test_each_row_records_the_exact_command_and_exit_status(tmp_path):
     r = run(tree(tmp_path), "data", "gate")
     rows = {l.split()[0]: l for l in r.stdout.splitlines() if l.split()[:1] in (["data"], ["gate"])}
-    assert "  0  " in rows["data"] and "(python -m pytest tests/model/data -q)" in rows["data"]
+    assert "  0  " in rows["data"] and "(python -m pytest tests/data -q)" in rows["data"]
     assert "  1  " in rows["gate"] and "zeta" not in r.stdout
 
 

@@ -16,7 +16,7 @@ import yaml
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-sys.path[:0] = [str(ROOT), str(HERE)]
+sys.path[:0] = [str(ROOT / 'model'), str(HERE)]
 
 import run_grid as G                                                           # noqa: E402  (the same builder, points and checks)
 from model_v3.runner import arm as ab                                          # noqa: E402

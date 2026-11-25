@@ -9,14 +9,14 @@ import yaml
 from model_v3.core import base as bs, pack as pk, returns as rt, schedule as sc
 from model_v3.runner import runner as R, sweeps as S
 
-ROOT = Path(__file__).parents[2]
+ROOT = Path(__file__).parents[3]
 SPEC = dict(tau_0=0.04, tau_m=0.9, k_ln=1.0, ratio=0.5)
 ROW = lambda lo, c, hi: pk.Row('x', lo, c, hi, '%', False)
 
 
 @pytest.fixture(scope='module')
 def lv():
-    return json.loads((ROOT / 'model_v3' / 'levers.json').read_text())
+    return json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text())
 
 
 @pytest.fixture(scope='module')
@@ -31,7 +31,7 @@ def tier1(out):
 
 @pytest.fixture(scope='module')
 def ctx(lv, tier1, out):
-    return R.context(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs']])
+    return R.context(pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs']])
 
 
 def level1(ctx, seed, n=40):

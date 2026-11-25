@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'pipeline'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / 'model' / 'tools'))
 import check_gate as cg  # noqa: E402
 
 MANIFEST = """version: "fx-1"

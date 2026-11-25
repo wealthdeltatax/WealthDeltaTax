@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / 'model'))
 
 from model_v3.core import cells as ce, pack as pk  # noqa: E402
 
@@ -50,7 +50,7 @@ def observed_ratio(year):
 
 def setup():
     inp = json.loads((ROOT / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text())
-    pack, reg = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')
+    pack, reg = pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json')
     cells, _ = ce.scaled(ce.cell_table(pack, reg, inp['etb']), inp['b6g_2024'] / 1.0)
     r, y = inp['regimes']['mid'], inp['yreg']['mid']
     rets = dict(g=dict(property=0.016455, net_financial=r - y, physical=reg['I-D1j'].central / 100, pension=r - y), y=dict(property=0.03758, net_financial=y, pension=y))

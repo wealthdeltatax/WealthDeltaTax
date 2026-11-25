@@ -20,7 +20,7 @@ import openpyxl
 import yaml
 
 ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / 'model'))
 HERE = Path(__file__).resolve().parent
 
 from model_v3.core import cells as ce, pack as pk  # noqa: E402
@@ -36,10 +36,10 @@ def rows_of(name, folder):
 
 
 def inputs():
-    lv = json.loads((ROOT / 'model_v3' / 'levers.json').read_text())
+    lv = json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text())
     out = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
     tier1 = next(o for o in out['outputs'] if o['id'] == 'OT1')['by']['input']
-    pack, reg = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')
+    pack, reg = pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json')
     ctx = R.context(pack, reg, lv, tier1, [o['id'] for o in out['outputs']])
     # saving ratio: the ONS non-pension part of the saving ratio, 1998 to 2025 (101r derived series), percent
     s = [float(r['value']) / 100 for r in rows_of('derived_ons_flows.csv', '101r') if r['item'] == 'ratio_nonpension_part_pct']

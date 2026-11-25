@@ -8,7 +8,7 @@ import numpy as np
 
 from model_v3.core import kernel as K, pension_lien as pl
 from model_v3.runner import arm
-from tests.model_v3.test_household_tax import GAIN, RATE, ST, book_for, run
+from tests.model.model_v3.test_household_tax import GAIN, RATE, ST, book_for, run
 
 Q = lambda p, n, f: {'property': np.array(p, float), 'net_financial': np.array(n, float), 'physical': np.array(f, float)}
 
@@ -72,8 +72,8 @@ def test_no_lien_in_a_line_that_never_needs_it_and_the_pension_is_reduced_only_a
 
 def test_the_public_ledger_carries_the_lien_as_a_receivable_in_all_six_phases_and_the_terminal_year():
     from model_v3.core import base as bs, pack as pk, revenue as rv, schedule as sc
-    root = Path(__file__).resolve().parents[2]
-    pack, reg = pk.load_pack(root / 'model_v3' / 'pack' / 'GBR'), pk.load_register(root / 'registry' / 'inputs.json')
+    root = Path(__file__).resolve().parents[3]
+    pack, reg = pk.load_pack(root / 'data' / 'country-packs' / 'GBR'), pk.load_register(root / 'data' / 'input-register' / 'inputs.json')
     inp = json.loads((root / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text())
     b0, y = bs.build_base(pack, reg, 0.25), inp['yreg']['mid']
     k = np.where(b0.wealth >= b0.w_min, 1.0 - reg['I-D5a'].central / 100.0, 1.0)                                                                  # the runner's shaped base: the behavioural loss at launch

@@ -25,9 +25,9 @@ from pathlib import Path
 
 import yaml
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 MANIFEST = ROOT / "docs" / "model-v3" / "outputs.yml"
-INPUTS = ROOT / "registry" / "inputs.json"
+INPUTS = ROOT / "data" / "input-register" / "inputs.json"
 OUT = Path(__file__).resolve().parent / "fixtures" / "outputs.fixture.json"
 
 ALL_WINDOWS = ["transition", "short", "long"]

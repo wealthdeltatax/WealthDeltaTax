@@ -38,10 +38,10 @@ from pathlib import Path
 
 import yaml
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_SRC = ROOT / "docs" / "model-v3" / "metrics.md"
 DEFAULT_MANIFEST = ROOT / "docs" / "model-v3" / "outputs.yml"
-DEFAULT_OUT = ROOT / "registry" / "metrics.json"
+DEFAULT_OUT = ROOT / "data" / "input-register" / "metrics.json"
 
 SCHEMA = "wdt-metrics/1"
 ID_RE = re.compile(r"^[A-Z]+[0-9]+[a-z]?$")

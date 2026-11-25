@@ -12,13 +12,13 @@ from model_v3.core import returns as rt
 from model_v3.core import revenue as rv
 from model_v3.core import schedule as sc
 
-ROOT = Path(__file__).parents[2]
+ROOT = Path(__file__).parents[3]
 V2_WDT = 7.34   # v2's post-fill 10-year individual WDT take, percent of GDP: the MEAN over the 117 UK windows, 7.3416 in the fixture (the median is 6.594; guru ruling 2026-11-19)
-FIXTURE = ROOT / 'tests' / 'model_v3' / 'fixtures' / 'v2_logistic_ln_ref.json'
+FIXTURE = ROOT / 'tests' / 'model' / 'model_v3' / 'fixtures' / 'v2_logistic_ln_ref.json'
 
 
 def make_env(pack, reg):
-    mp = json.loads((ROOT / 'model_v3' / 'levers.json').read_text())['pack_mappings']
+    mp = json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text())['pack_mappings']
     b = bs.build_base(pack, reg, 0.5)
     row = lambda i: reg[i].central
     return dict(pack=pack, reg=reg, b=b, rate=sc.rate_function(1.0, 0.04, 0.9, b.w_min, 'logistic_ln'), rec=rv.taxes(pack, mp['x2']['lines'], mp['parts']),
@@ -28,7 +28,7 @@ def make_env(pack, reg):
 
 @pytest.fixture(scope='module')
 def env():
-    return make_env(pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json'))
+    return make_env(pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json'))
 
 
 @pytest.fixture(scope='module')

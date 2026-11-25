@@ -30,7 +30,7 @@ def test_ot1_has_a_low_and_a_high_for_each_input_and_headline_and_the_unread_are
 
 
 def test_dh1a_and_dh1b_equal_the_pack_and_the_group_adds_no_per_path_cell(ctx, out):
-    pack = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR')
+    pack = pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR')
     man = {o['id']: o for o in out['outputs']}
     c1 = replace(ctx, once=frozenset(i for i, o in man.items() if o.get('once_not_per_schedule')))
     s = W.static(R.env_of(c1, c1.centre))

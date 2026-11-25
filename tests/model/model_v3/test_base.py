@@ -11,13 +11,13 @@ import pytest
 from model_v3.core import base as bs
 from model_v3.core import pack as pk
 
-ROOT = Path(__file__).parents[2]
-RATIOS = json.loads((ROOT / 'model_v3' / 'levers.json').read_text())['axes']['threshold_ratio']
+ROOT = Path(__file__).parents[3]
+RATIOS = json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text())['axes']['threshold_ratio']
 
 
 @pytest.fixture(scope='module')
 def env():
-    pack, reg = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')
+    pack, reg = pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json')
     return pack, reg, bs.build_base(pack, reg, RATIOS[1])
 
 
@@ -138,4 +138,4 @@ def test_b6_a_tail_that_does_not_hold_fails(kw, match):
 
 
 def test_b6_base_py_keeps_no_v2_constant():
-    assert not re.search(r'\b(0\.18|0\.51|700|1000)\b', (ROOT / 'model_v3' / 'core' / 'base.py').read_text())
+    assert not re.search(r'\b(0\.18|0\.51|700|1000)\b', (ROOT / 'model' / 'model_v3' / 'core' / 'base.py').read_text())
