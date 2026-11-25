@@ -17,6 +17,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'model'))
 HERE = Path(__file__).resolve().parent
+DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-account'   # outputs and stored tables stay here until 163c
 
 from model_v3.core import kernel as K, pack as pk, schedule as sc  # noqa: E402
 from model_v3.runner import arm, runner as R  # noqa: E402
@@ -74,7 +75,7 @@ def main():
         r, stopped, neg = one(ctx, inp, name, sav)
         rows += r
         summary[name] = (stopped, neg)
-    with open(HERE / 'account_table.csv', 'w', newline='') as f:
+    with open(DATA / 'account_table.csv', 'w', newline='') as f:
         w = csv.DictWriter(f, COLS)
         w.writeheader()
         w.writerows(rows)

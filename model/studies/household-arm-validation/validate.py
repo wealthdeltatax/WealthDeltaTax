@@ -12,6 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 HERE = Path(__file__).resolve().parent
+DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-validation'   # outputs and stored tables stay here until 163c
 sys.path.insert(0, str(ROOT / 'model'))
 
 from model_v3.core import cells as ce, pack as pk  # noqa: E402
@@ -104,7 +105,7 @@ def main():
     o = observed_ratio(2020)
     add('BF-15', 'Household saving ratio, total, year 1 against 2020', 'UK households and NPISH, annual (the RF 25% quarterly peak is not held)', o, 'ONS QSA HH_3 DGD8 2020', lo, hi, 'saving min to max', gap(o, lo, hi), label(o, lo, hi, False),
         'the held value is annual; the RF figure is a seasonally adjusted quarter, not held')
-    with open(HERE / 'comparison.csv', 'w', newline='', encoding='utf-8') as fh:
+    with open(DATA / 'comparison.csv', 'w', newline='', encoding='utf-8') as fh:
         w = csv.DictWriter(fh, COLS); w.writeheader(); w.writerows([{k: (round(v, 5) if isinstance(v, float) else v) for k, v in r.items()} for r in rows])
     for r in rows:
         print(f"{r['id']:6} {r['measure'][:62]:62} observed {r['observed']:.3f}  model {r['model_min']:.3f} to {r['model_max']:.3f}  gap {r['gap']:+.3f}  {r['label']}")

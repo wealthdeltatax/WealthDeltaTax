@@ -16,6 +16,8 @@ import numpy as np
 import yaml
 
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[2]
+DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-run'   # outputs and stored tables stay here until 163c
 sys.path[:0] = [str(HERE)]
 
 import run_grid as G                                                           # noqa: E402  (the same builder, points and chunking)
@@ -28,7 +30,7 @@ COLS = ('point', 'paths', 'core_runs', 'runs_with_lien', 'tie_max', 'wo_sum', 'l
 def main(argv=None):
     p = argparse.ArgumentParser()
     p.add_argument('--paths', type=int, default=20)
-    p.add_argument('--out', default=str(HERE))
+    p.add_argument('--out', default=str(DATA))
     p.add_argument('--points', default='min_mid,median_high')
     p.add_argument('--market-paths', action='store_true')
     p.add_argument('--pension-withdrawal', choices=('low', 'mid', 'high'))

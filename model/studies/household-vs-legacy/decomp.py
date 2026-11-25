@@ -22,6 +22,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
+DATA = ROOT / 'docs' / 'model-v3' / 'household-vs-legacy'   # outputs and stored tables stay here until 163c
 sys.path[:0] = [str(ROOT / 'model'), str(HERE), str(ROOT / 'model' / 'studies' / 'household-arm-account'), str(ROOT / 'model' / 'studies' / 'household-arm-run')]
 
 import account_table as A                                                      # noqa: E402
@@ -125,7 +126,7 @@ def reported(grid):
 def main(argv=None):
     p = argparse.ArgumentParser()
     p.add_argument('--paths', type=int, default=G.PATHS)
-    p.add_argument('--out', default=str(HERE))
+    p.add_argument('--out', default=str(DATA))
     a = p.parse_args(argv)
     ctx, inp = A.setup()
     mu = ctx.centre[R.RET['mean']] / 100.0

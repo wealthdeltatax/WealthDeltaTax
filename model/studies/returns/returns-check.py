@@ -2,6 +2,7 @@
 Run: python3 -I check.py"""
 import os, math, random, json, openpyxl
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
+DATA = os.path.join(ROOT, 'docs', 'model-v3', 'returns')   # outputs stay here until 163c
 ws = openpyxl.load_workbook(os.path.join(ROOT, "data/rates", "JSTdatasetR6.xlsx"), read_only=True, data_only=True)["Sheet1"]
 it = ws.iter_rows(values_only=True); h = list(next(it)); ix = {k: i for i, k in enumerate(h)}
 cap, cpi = {}, {}
@@ -15,12 +16,12 @@ r = [(1 + cap[y]) / (cpi[y] / cpi[y - 1]) - 1 for y in ys]
 n = len(r); mean = sum(r) / n; sd = math.sqrt(sum((x - mean) ** 2 for x in r) / (n - 1))
 geo = math.exp(sum(math.log1p(x) for x in r) / n) - 1
 rho = sum((r[i] - mean) * (r[i + 1] - mean) for i in range(n - 1)) / sum((x - mean) ** 2 for x in r)
-main = json.load(open(os.path.join(HERE, "level2_out.json")))
+main = json.load(open(os.path.join(DATA, "level2_out.json")))
 assert n == 117 and (ys[0], ys[-1]) == (1896, 2019)
 assert abs(mean - main["mean"]) < 5e-4 and abs(sd - main["sd"]) < 5e-4 and abs(rho - main["rho1"]) < 5e-3   # within 0.05 point
 print(f"xlsx, pure Python: n={n} mean={100*mean:.3f}% geo={100*geo:.3f}% sd={100*sd:.3f}% rho1={rho:.3f}")
 # the recommended generator, simulated without numpy: AR(1), normal innovations, marginal sd = sample sd
-phi = json.load(open(os.path.join(HERE, "convergence_out.json")))["params"]["phi"]; se = sd * math.sqrt(1 - phi * phi)
+phi = json.load(open(os.path.join(DATA, "convergence_out.json")))["params"]["phi"]; se = sd * math.sqrt(1 - phi * phi)
 random.seed(36); P = 4000; tot = 0.0; tot2 = 0.0; cnt = 0
 for _ in range(P):
     x = random.gauss(0, sd)

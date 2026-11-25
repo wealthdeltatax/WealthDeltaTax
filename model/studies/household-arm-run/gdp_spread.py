@@ -13,6 +13,8 @@ from pathlib import Path
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[2]
+DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-run'   # outputs and stored tables stay here until 163c
 FILES = {'alone, off': 'grid_results.csv', 'alone, indep': 'grid_results_gdp_indep.csv', 'alone, hist': 'grid_results_gdp_hist.csv',
          'market paths, off': 'grid_results_paths.csv', 'market paths, indep': 'grid_results_paths_gdp_indep.csv', 'market paths, hist': 'grid_results_paths_gdp_hist.csv'}
 COLS = ('config', 'point', 'metric', 'cell', 'p10', 'mean', 'p90')
@@ -51,4 +53,4 @@ def main(d):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else HERE / 'gdp_paths')
+    main(sys.argv[1] if len(sys.argv) > 1 else DATA / 'gdp_paths')

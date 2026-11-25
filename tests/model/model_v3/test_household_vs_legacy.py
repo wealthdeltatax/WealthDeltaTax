@@ -16,7 +16,7 @@ def rows():
 
 def test_phases_averages_the_six_death_phases_of_a_line():
     spec = importlib.util.spec_from_file_location('hvl_flows', ROOT / 'model' / 'studies' / 'household-vs-legacy' / 'flows.py')
-    sys.path[:0] = [str(ROOT), str(ROOT / 'model' / 'studies' / 'household-arm-account'), str(ROOT / 'model' / 'studies' / 'household-arm-run')]
+    sys.path[:0] = [str(ROOT / 'model'), str(ROOT / 'model' / 'studies' / 'household-arm-account'), str(ROOT / 'model' / 'studies' / 'household-arm-run')]
     m = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(m)
     x = np.arange(6 * 3 * 14, dtype=float).reshape(6 * 3, 14)

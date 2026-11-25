@@ -17,6 +17,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
+DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-account'   # outputs and stored tables stay here until 163c
 sys.path[:0] = [str(ROOT / 'model'), str(HERE)]
 
 import account_table as A                                                      # noqa: E402  (the 118c/119c account: setup, SPEC, the same grid point)
@@ -71,7 +72,7 @@ def main():
             print(f'{name}: max |res_pay| {np.abs(res_pay).max():.2e}; max |res_dL| {res_dL.max():.2e}; max unpaid_B {ub:.2e}; shortfall lines {sf}; levy in receipts, year 1: {levy[0, 0]:.3f}')
     finally:
         K.Book = orig
-    with open(HERE / 'ledger_table.csv', 'w', newline='') as fh:
+    with open(DATA / 'ledger_table.csv', 'w', newline='') as fh:
         w = csv.DictWriter(fh, COLS)
         w.writeheader()
         w.writerows(rows)

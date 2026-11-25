@@ -3,7 +3,8 @@ Reads docs/model-v3/inputs.md (rows by id). Writes tornado_results.csv and torna
 Identity (drivers.md section 1): M1a = eps * g * omega (refunds netted in g, see tornado.md section 6)."""
 import csv, os, re
 HERE = os.path.dirname(os.path.abspath(__file__))
-REG = os.path.join(HERE, "..", "inputs.md")
+DATA = os.path.join(HERE, '..', '..', '..', 'docs', 'model-v3', 'tornado')   # outputs stay here until 163c
+REG = os.path.join(HERE, "..", "..", "..", "docs", "model-v3", "inputs.md")
 rows = {}
 for l in open(REG, encoding="utf-8"):
     if l.startswith("| I-"):
@@ -124,7 +125,7 @@ rec("I-D6p", "1", "M4a", m4a(P0, sh(lo_)), M4c, m4a(P0, sh(hi_)), "ONS allocatio
 for k, rid in dict(cor="I-T3f", ct="I-T3n", br="I-T3m", cgt="I-T3h", iht="I-T3i", sdlt="I-T3k", sds="I-T3l").items():
     lo_, ce_, hi_ = lch(rid)
     rec(rid, "M1d line", "M4a", m4a({**P0, k: lo_}), M4c, m4a({**P0, k: hi_}))
-with open(os.path.join(HERE, "tornado_results.csv"), "w", newline="") as fh:
+with open(os.path.join(DATA, "tornado_results.csv"), "w", newline="") as fh:
     w = csv.DictWriter(fh, fieldnames=list(out[0])); w.writeheader(); w.writerows(out)
 # ---- back-out ----
 w_c = omega(P0)
@@ -139,7 +140,7 @@ for k, v in backout.items(): print(k, round(v, 4))
 print("M1 central", round(M1c, 3), "M2 proxy", round(M2c, 3), "M4a", round(M4c, 2))
 for r in sorted([r for r in out if r["swing"] is not None and r["output"] == "M1"], key=lambda r: -r["swing"])[:12]:
     print(r["id"], round(r["low_res"], 2), round(r["central"], 2), round(r["high_res"], 2), round(r["swing"], 2))
-import json; json.dump(dict(backout=backout, P0={k: v for k, v in P0.items()}, A=A, M1c=M1c, M2c=M2c, M4c=M4c), open(os.path.join(HERE, "tornado_central.json"), "w"), indent=1)
+import json; json.dump(dict(backout=backout, P0={k: v for k, v in P0.items()}, A=A, M1c=M1c, M2c=M2c, M4c=M4c), open(os.path.join(DATA, "tornado_central.json"), "w"), indent=1)
 
 # ---- markdown tables ----
 def fmt(x, d=2): return "" if x is None else f"{x:,.{d}f}"
@@ -156,6 +157,6 @@ def table(output, ids=None, extra=None):
         lab = label(r["id"]).split(" (")[0][:70]
         lines.append(f"| {rank} | {lab} | {r['id']} | {r['tier']} | {r['low_in']} / {r['cen_in']} / {r['high_in']} | {res[0]} | {res[1]} | {res[2]} | {res[3]} | {r['note'] if r['swing'] is None else ''} |")
     return "\n".join(lines)
-with open(os.path.join(HERE, "tornado_tables.md"), "w") as fh:
+with open(os.path.join(DATA, "tornado_tables.md"), "w") as fh:
     for o in ("M1", "M2 (mean burden proxy)", "M4a"):
         fh.write(f"## {o}\n\n" + table(o) + "\n\n")

@@ -1,7 +1,7 @@
 """Builds tables.md from the JSON outputs of the other scripts. Run order: run_generators, run_level2, run_composition, run_convergence, tables, check."""
 import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import json
-H = os.path.dirname(os.path.abspath(__file__)); L = lambda f: json.load(open(os.path.join(H, f)))
+H = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', 'docs', 'model-v3', 'returns'); L = lambda f: json.load(open(os.path.join(H, f)))
 G, V, C, K = L("generators_out.json"), L("level2_out.json"), L("composition_out.json"), L("convergence_out.json")
 p = lambda x, d=2: f"{100*x:.{d}f}"
 T = {}

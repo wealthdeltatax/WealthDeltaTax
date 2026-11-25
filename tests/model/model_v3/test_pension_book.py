@@ -5,7 +5,7 @@ import sys
 import numpy as np
 import pytest
 
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[3]))
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[3] / 'model'))
 from model_v3.core import kernel as K  # noqa: E402
 
 FLAT = lambda x: np.full(np.shape(x), 0.1)

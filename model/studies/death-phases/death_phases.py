@@ -25,13 +25,14 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
+DATA = ROOT / 'docs' / 'model-v3' / 'death-phases'   # outputs and stored tables stay here until 163c
 sys.path.insert(0, str(ROOT / 'model'))
 sys.path.insert(0, str(ROOT / 'model' / 'studies' / 'f1-household'))
 
 import f1_household as F  # noqa: E402  (140c's script: setup, point_ctx, core, lab, tab, write_csv)
 
 T, CLOSED = F.T, F.CLOSED
-OUT = HERE
+OUT = DATA
 PHASES = (6, 10, 15, 30)
 YEARS = 40                                            # block 1 prints years 1 to 40
 CYCLE = (10, 40)                                      # the years over which the amplitude of M1a is read

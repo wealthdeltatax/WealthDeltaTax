@@ -12,6 +12,8 @@ from pathlib import Path
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[2]
+DATA = ROOT / 'docs' / 'model-v3' / 'household-vs-legacy'   # outputs and stored tables stay here until 163c
 sys.path[:0] = [str(HERE.parents[2]), str(HERE), str(HERE.parents[2] / 'model' / 'studies' / 'household-arm-account'), str(HERE.parents[2] / 'model' / 'studies' / 'household-arm-run')]
 
 import account_table as A                                                      # noqa: E402
@@ -26,7 +28,7 @@ KEYS = (('M2', 'long', 'overall', 'value'), ('M2', 'short', 'overall', 'value'),
 
 def main(argv=None):
     p = argparse.ArgumentParser()
-    p.add_argument('--out', default=str(HERE))
+    p.add_argument('--out', default=str(DATA))
     a = p.parse_args(argv)
     ctx, inp = A.setup()
     g, gg = np.full((R.T, 1), ctx.centre[R.RET['mean']] / 100.0), np.full((R.T, 1), ctx.gdp_g)

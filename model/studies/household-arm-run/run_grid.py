@@ -19,6 +19,7 @@ import yaml
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
+DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-run'   # outputs and stored tables stay here until 163c
 sys.path[:0] = [str(ROOT / 'model'), str(ROOT / 'model' / 'studies' / 'household-arm-account')]
 
 import account_table as A                                                      # noqa: E402  (setup and SPEC: the same builder and grid point)
@@ -135,7 +136,7 @@ def run_point(ctx, inp, name, manifest, n=PATHS, chunk=CHUNK, seed=SEED):
 def main(argv=None):
     p = argparse.ArgumentParser()
     p.add_argument('--paths', type=int, default=PATHS)
-    p.add_argument('--out', default=str(HERE))
+    p.add_argument('--out', default=str(DATA))
     p.add_argument('--points', default=','.join(POINTS))
     p.add_argument('--no-legacy', action='store_true')
     p.add_argument('--fund-return', choices=('safe', 'market'), default='safe', help='what the fund earns (138c): the files get the suffix _fund_market for market')

@@ -16,6 +16,7 @@ import yaml
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
+DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-run'   # outputs and stored tables stay here until 163c
 sys.path[:0] = [str(ROOT / 'model'), str(HERE)]
 
 import run_grid as G                                                           # noqa: E402  (the same builder, points and checks)
@@ -61,7 +62,7 @@ class Log(ab.HouseholdHook):
 def main(argv=None):
     p = argparse.ArgumentParser()
     p.add_argument('--paths', type=int, default=20)
-    p.add_argument('--out', default=str(HERE))
+    p.add_argument('--out', default=str(DATA))
     p.add_argument('--points', default='min_mid,median_high')
     p.add_argument('--pension-withdrawal', choices=('low', 'mid', 'high'), help='148c: files get the suffix _wd_<setting>')
     p.add_argument('--heir-floor', type=int, choices=(0, 25, 50), help='148c: files get the suffix _floor<N>; 0 is today\'s settlement (the same run, with the write-off columns)')

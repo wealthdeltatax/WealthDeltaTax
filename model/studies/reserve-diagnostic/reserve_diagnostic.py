@@ -35,9 +35,10 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-OUT = HERE
-sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT / 'docs' / 'model-v3' / 'f1-household'))
+DATA = ROOT / 'docs' / 'model-v3' / 'reserve-diagnostic'   # outputs and stored tables stay here until 163c
+OUT = DATA
+sys.path.insert(0, str(ROOT / 'model'))
+sys.path.insert(0, str(ROOT / 'model' / 'studies' / 'f1-household'))
 
 import f1_household as F  # noqa: E402  (140c: setup, point_ctx, closed, lab, tab, write_csv, paths_of)
 

@@ -30,7 +30,8 @@ import yaml
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-OUT = HERE                                     # where the CSVs go (--out)
+DATA = ROOT / 'docs' / 'model-v3' / 'f1-household'   # outputs and stored tables stay here until 163c
+OUT = DATA                                     # where the CSVs go (--out)
 sys.path.insert(0, str(ROOT / 'model'))
 
 from model_v3.core import burden as bd, pack as pk, returns as rt, revenue as rv  # noqa: E402

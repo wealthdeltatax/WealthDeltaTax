@@ -11,6 +11,8 @@ from pathlib import Path
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[2]
+DATA = ROOT / 'docs' / 'model-v3' / 'of1-ck1'   # outputs and stored tables stay here until 163c
 spec = importlib.util.spec_from_file_location('f1h', HERE.parent / 'f1-household' / 'f1_household.py')
 F = importlib.util.module_from_spec(spec); sys.modules['f1h'] = F; spec.loader.exec_module(F)
 from model_v3.runner import out_sweeps as O, runner as R, sweeps as S
@@ -38,7 +40,7 @@ def csv_out(path, head, rows):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--points', default=','.join(F.POINTS)); ap.add_argument('--funds', default='safe,market'); ap.add_argument('--n', type=int, default=200)
-    ap.add_argument('--seed', type=int, default=20261118); ap.add_argument('--workers', type=int, default=2); ap.add_argument('--out', default=str(HERE))
+    ap.add_argument('--seed', type=int, default=20261118); ap.add_argument('--workers', type=int, default=2); ap.add_argument('--out', default=str(DATA))
     a = ap.parse_args(); out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
     lv, ctx, inp = F.setup(); specs = S.grid(lv); g = F.paths_of(ctx, a.seed, a.n); mu = ctx.centre['I-D1a']
     grid, summ, ck, failed = [], [], [], []

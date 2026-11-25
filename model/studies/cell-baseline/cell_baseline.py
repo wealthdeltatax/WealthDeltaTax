@@ -22,6 +22,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'model'))
 HERE = Path(__file__).resolve().parent
+DATA = ROOT / 'docs' / 'model-v3' / 'cell-baseline'   # outputs and stored tables stay here until 163c
 
 from model_v3.core import cells as ce, pack as pk  # noqa: E402
 from model_v3.runner import runner as R  # noqa: E402
@@ -134,7 +135,7 @@ def tables(res, runs, pack, reg, sav, etb, g, x):
         nf = [int(np.argmax(pos[i][:, 1] < 0)) if (pos[i][:, 1] < 0).any() else None for i in range(len(base))]
         neg.append([kk, ', '.join(f'{base[i]["cell"]} y{f}' for i, f in enumerate(first) if f) or 'none', ', '.join(f'{base[i]["cell"]} y{f}' for i, f in enumerate(nf) if f) or 'none'])
     t6 = ['### Negative positions (first year)\n', tab(['run', 'net worth below zero', 'net financial wealth below zero'], neg)]
-    (HERE / 'tables.md').write_text('\n\n'.join(['\n'.join(x) if isinstance(x, list) else x for x in (u, t1, t2, t3, t4, t5, t6)]) + '\n')
+    (DATA / 'tables.md').write_text('\n\n'.join(['\n'.join(x) if isinstance(x, list) else x for x in (u, t1, t2, t3, t4, t5, t6)]) + '\n')
 
 
 def main():
@@ -160,7 +161,7 @@ def main():
         runs[f'S_retired_{f}'] = dict(cells=ce.scaled(ce.cell_table(pack, reg, f), b6g)[0], sav=sav['median'], acc=acc['obs'], rets=rets['mid'], conv='A', note=f'return mid, saving median, accrual observed, retired {f}')
     runs['B_mid_median'] = dict(cells=base, sav=sav['median'], acc=acc['obs'], rets=rets['mid'], conv='B', note='convention B check of A_mid_median')
     runs['legacy'] = dict(cells=base, sav=0.0, acc=0.0, rets=dict(r=reg['I-D1a'].central / 100), conv='legacy', c=reg['I-D14c'].central / 100, note='legacy rule: W(1+r)(1-c), r I-D1a, c I-D14c')
-    res, cw, aw = {}, csv.writer(open(HERE / 'cell_paths.csv', 'w', newline='')), csv.writer(open(HERE / 'aggregates.csv', 'w', newline=''))
+    res, cw, aw = {}, csv.writer(open(DATA / 'cell_paths.csv', 'w', newline='')), csv.writer(open(DATA / 'aggregates.csv', 'w', newline=''))
     cw.writerow(['run', 'cell', 'year', 'households', *CLASSES, 'dNW', 'S', 'CG', 'CG_wedge', 'O'])
     aw.writerow(['run', 'year', 'wealth', 'wealth_over_gdp_index', 'saving_ratio', *[f'share_{b}' for b in ce.BANDS]])
     for name, r in runs.items():
@@ -174,7 +175,7 @@ def main():
         for t in range(YEARS + 1):
             aw.writerow([name, t, round(a['W'][t]), round(a['wgdp'][t], 5), round(a['ratio'][min(max(t, 1), YEARS) - 1], 5), *[round(a['bands'][b][t], 5) for b in ce.BANDS]])
         print(f'{name}: W/GDP index y10 {a["wgdp"][10]:.3f} y50 {a["wgdp"][50]:.3f} y100 {a["wgdp"][100]:.3f}; residual {a["resid"]:.2e}')
-    json.dump(dict(sav=sav, etb=etb, yreg=yreg, y_all=y_all, regimes=regimes, acc=acc, g=g, b6g_2024=b6g, income_scale=kfac), open(HERE / 'inputs_used.json', 'w'), indent=1)
+    json.dump(dict(sav=sav, etb=etb, yreg=yreg, y_all=y_all, regimes=regimes, acc=acc, g=g, b6g_2024=b6g, income_scale=kfac), open(DATA / 'inputs_used.json', 'w'), indent=1)
     tables(res, runs, pack, reg, sav, etb, g, dict(b6g=b6g, k=kfac, raw=raw))
     return res
 

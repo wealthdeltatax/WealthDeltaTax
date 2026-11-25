@@ -4,6 +4,8 @@ import csv
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[2]
+DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-validation'   # outputs and stored tables stay here until 163c
 SRC = HERE.parents[2] / 'research' / 'tables' / '099r-held-research-moments' / 'moments.csv'
 COLS = ('id', 'source', 'held_as_data', 'validation_moment', 'status', 'analogue', 'computed_where', 'definitions_that_differ', 'needs')
 
@@ -41,7 +43,7 @@ def main():
         else:
             st, an, where, diff, need = 'not held', '', '', r['what_it_mixes'][:160], NEEDS[r['id']]
         out.append(dict(id=r['id'], source=r['source'].split(' (')[0], held_as_data=held, validation_moment=val, status=st, analogue=an, computed_where=where, definitions_that_differ=diff, needs=need))
-    with open(HERE / 'moments_map.csv', 'w', newline='', encoding='utf-8') as fh:
+    with open(DATA / 'moments_map.csv', 'w', newline='', encoding='utf-8') as fh:
         w = csv.DictWriter(fh, COLS); w.writeheader(); w.writerows(out)
     n = lambda k, v: sum(1 for o in out if o[k] == v)
     print(f"{len(out)} rows; held yes {n('held_as_data','yes')}, partly {n('held_as_data','partly')}, no {n('held_as_data','no')}; validation moments {n('validation_moment','yes')}; "

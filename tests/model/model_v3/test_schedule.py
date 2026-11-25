@@ -7,7 +7,7 @@ import sys
 import numpy as np
 import pytest
 
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[3]))
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[3] / 'model'))
 from model_v3.core import schedule as S  # noqa: E402
 
 P = dict(k=0.002, tau_0=0.04, tau_m=0.9, W_min=0.5)
