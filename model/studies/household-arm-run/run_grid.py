@@ -19,7 +19,7 @@ import yaml
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-run'   # outputs and stored tables stay here until 163c
+DATA = ROOT / 'results' / 'household-arm-run'   # outputs and stored tables stay here until 163c
 sys.path[:0] = [str(ROOT / 'model'), str(ROOT / 'model' / 'studies' / 'household-arm-account')]
 
 import account_table as A                                                      # noqa: E402  (setup and SPEC: the same builder and grid point)
@@ -149,7 +149,7 @@ def main(argv=None):
     if not 1 <= a.paths <= 2000:
         sys.exit('paths must be 1 to 2000 (brief 124c)')
     ctx, inp = A.setup()
-    manifest = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    manifest = yaml.safe_load((ROOT / 'model-specs' / 'outputs.yml').read_text())
     out, allrows, checks = Path(a.out), [], []
     for name in [x for x in a.points.split(',') if x] + ([] if a.no_legacy else ['legacy']):
         c = ctx if name == 'legacy' else point_ctx(ctx, inp, name, a.market_paths, a.fund_return, flow)

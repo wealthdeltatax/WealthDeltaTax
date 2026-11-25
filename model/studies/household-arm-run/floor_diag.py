@@ -12,7 +12,7 @@ import numpy as np
 import yaml
 
 ROOT = Path.cwd()                                                              # the repository root
-HERE = ROOT / 'docs' / 'model-v3' / 'household-arm-run'
+HERE = ROOT / 'results' / 'household-arm-run'
 sys.path[:0] = [str(ROOT / 'model'), str(ROOT / 'model' / 'studies' / 'household-arm-run')]
 
 import run_grid as G                                                           # noqa: E402
@@ -56,7 +56,7 @@ def main(argv=None):
     p.add_argument('--points', default=','.join(G.POINTS))
     a = p.parse_args(argv)
     ctx, inp = G.A.setup()
-    manifest = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    manifest = yaml.safe_load((ROOT / 'model-specs' / 'outputs.yml').read_text())
     orig = ab.HouseholdHook
     for name in a.points.split(','):
         Log.ph, Log.name = 0, name

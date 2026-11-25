@@ -9,7 +9,7 @@ Source, tests and tools under `model/model_v3/`, `pipeline/` and `tests/`, and g
 1. `AGENTS.md`, then the brief and its `Read:` line. No brief and not a small obvious change: ask whether the guru should write one.
 2. Only the overview sections your files belong to; open only the files you will change.
 3. Create your branch before changing files.
-4. Model work: `reference/code/conventions.md` first. The v1 and v2 models are removed (tag `legacy-models-2026-11`). Model v3 is built in stages V3-0 to V3-12 from `docs/model-v3/architecture.md`; build only the stage your brief names, within its line budgets (`tests/model/model_v3/test_budget.py`).
+4. Model work: `reference/code/conventions.md` first. The v1 and v2 models are removed (tag `legacy-models-2026-11`). Model v3 is built in stages V3-0 to V3-12 from `model-specs/architecture.md`; build only the stage your brief names, within its line budgets (`tests/model/model_v3/test_budget.py`).
 
 ## Rules
 - Follow the brief; its decisions are settled. Make small implementation choices yourself and report them.
@@ -28,7 +28,7 @@ Source, tests and tools under `model/model_v3/`, `pipeline/` and `tests/`, and g
 - A target number (an identity, a v2 figure) that the first measurement misses is reported with the numbers at once; do not carry on to later stages hoping it closes.
 - **Adding or filling a model module.** A new module needs a row in the LAYER table of `tests/model/model_v3/conftest.py` (R4 fails any edge to a module not in it); filling a runner group makes `tests/model/model_v3/test_groups.py` assert on it. Both files are in the brief's Touches; if they are not, stop and ask (an edit outside Touches fails the merge rule).
 - **Long builds stay inside the session.** A code brief that builds a module plus a run plus a findings note is several blocks, not one. Block 0: push the progress block and an empty findings-note skeleton before reading anything beyond the brief's first two Read items. Each later block is one deliverable (a loader, one run, the grid, the note): run its tests, update the progress block (Done, Next, Resume), commit and push (never piped). Read only what the current block needs; scripts print summary lines and write tables to CSV. After three blocks, or a quarter of the budget left, write the note from what exists, push and stop. The guru writes such briefs with the blocks named.
-- **Layer check.** Before writing a function that calls across modules, check the call against the layer table of `docs/model-v3/architecture.md` 5.1; a cross-layer import fails R4. Report a signature the brief names that breaks it instead of rewriting around it.
+- **Layer check.** Before writing a function that calls across modules, check the call against the layer table of `model-specs/architecture.md` 5.1; a cross-layer import fails R4. Report a signature the brief names that breaks it instead of rewriting around it.
 - Bugs: reproduce first, find the root cause, fix minimally, check neighbours.
 - Commit per `AGENTS.md`; do not edit the overview.
 

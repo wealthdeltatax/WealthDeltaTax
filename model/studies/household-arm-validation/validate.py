@@ -1,7 +1,7 @@
 """
 validate.py -- brief 125c block 2: what the untaxed household cells imply, against the held 099r moments. A comparison, not a calibration: no parameter is changed.
 The model side is the untaxed cell baseline (`model/model_v3/core/cells.py`, convention A, 100 years, no tax) at the three saving values (min, median, max of the ONS non-pension ratio; none central),
-mid regime, the stored inputs of `docs/model-v3/cell-baseline/inputs_used.json`, income scaled to B.6g, accrual as observed. Writes comparison.csv next to itself; prints summary lines only.
+mid regime, the stored inputs of `results/cell-baseline/inputs_used.json`, income scaled to B.6g, accrual as observed. Writes comparison.csv next to itself; prints summary lines only.
 Result per moment: observed, model min and max over the saving axis, the gap (0 inside the range, else the signed distance to the nearest end), a label (inside, outside, definition differs).
 Run from the repository root:   python -I model/studies/household-arm-validation/validate.py
 """
@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 HERE = Path(__file__).resolve().parent
-DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-validation'   # outputs and stored tables stay here until 163c
+DATA = ROOT / 'results' / 'household-arm-validation'   # outputs and stored tables stay here until 163c
 sys.path.insert(0, str(ROOT / 'model'))
 
 from model_v3.core import cells as ce, pack as pk  # noqa: E402
@@ -50,7 +50,7 @@ def observed_ratio(year):
 
 
 def setup():
-    inp = json.loads((ROOT / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text())
+    inp = json.loads((ROOT / 'results' / 'cell-baseline' / 'inputs_used.json').read_text())
     pack, reg = pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json')
     cells, _ = ce.scaled(ce.cell_table(pack, reg, inp['etb']), inp['b6g_2024'] / 1.0)
     r, y = inp['regimes']['mid'], inp['yreg']['mid']

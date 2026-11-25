@@ -280,10 +280,10 @@ PINNED = ['data/input-register/inputs.json', 'tests/model/model_v3/fixtures/lega
 # R1 ruling 3: the four stale citations that keep their bytes until the next real re-pin of the register; (old path of the file, line, token). `--check` allows exactly these.
 PINNED_ALLOWED = [('data/input-register/inputs.json', 568, 'model/model_v3/runner/switches.py'), ('tests/model/model_v3/fixtures/legacy_digest.json', 3, 'tests/model/model_v3/test_legacy_digest.py'),
                   ('data/country-packs/GBR/manifest.json', 104, 'docs/model-v3/kernel-wiring/decile_composition.csv'), ('registry/internal.json', 2, 'website/build/bib_to_json.py'),
-                  # 162c rulings (2026-11-25): bytes hashed in the pack tree, in `inputs_sha256` source text and in `manifest_sha256` keep their old text
-                  ('data/country-packs/GBR/NOTICE.md', 13, 'docs/model-v3/kernel-wiring/decile_composition.csv'), ('model/model_v3/pack/build_gbr.py', 24, 'docs/model-v3/kernel-wiring/decile_composition.csv'),
+                  # 162c rulings (2026-11-25): bytes hashed in the pack tree, in `inputs_sha256` source text and in `manifest_sha256` keep their old text (the token is the old text; the file is where it lives now)
+                  ('data/country-packs/GBR/NOTICE.md', 13, 'docs/model-v3/kernel-wiring/decile_composition.csv'),
                   ('model/model_v3/pack/build_gbr.py', 193, 'docs/model-v3/kernel-wiring/decile_composition.csv'), ('model/model_v3/pack/build_gbr.py', 217, 'docs/model-v3/kernel-wiring/decile_composition.csv'),
-                  ('docs/model-v3/inputs.md', 145, 'docs/model-v3/household-vs-legacy.md'), ('docs/model-v3/outputs.yml', 3, 'docs/restructure/shortcodes.md')]
+                  ('model-specs/inputs.md', 145, 'docs/model-v3/household-vs-legacy.md'), ('model-specs/outputs.yml', 3, 'docs/restructure/shortcodes.md')]   # 163c: the two spec files at their new place; build_gbr.py line 24 is code and now names results/
 
 
 def write_all(rows):

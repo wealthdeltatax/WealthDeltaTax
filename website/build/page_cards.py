@@ -3,7 +3,7 @@
 Usage: python website/build/page_cards.py [--out DIR]     (default DIR: docs/restructure/pages)
 
 Sources, all read-only: docs/restructure/ledger-sections.md (rows), order.md (neighbours, families,
-old papers), docs/model-v3/outputs.yml (element lists), inputs.md (register ids), template.md (front matter).
+old papers), model-specs/outputs.yml (element lists), inputs.md (register ids), template.md (front matter).
 Cards are data: no spoke prose, `question` left blank. Output is deterministic (no dates, sorted keys).
 """
 import argparse
@@ -18,8 +18,8 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
 LEDGER_SECTIONS = ROOT / 'docs/restructure/ledger-sections.md'
 LEDGER = ROOT / 'docs/restructure/ledger.md'
 ORDER = ROOT / 'docs/restructure/order.md'
-OUTPUTS = ROOT / 'docs/model-v3/outputs.yml'
-INPUTS = ROOT / 'docs/model-v3/inputs.md'
+OUTPUTS = ROOT / 'model-specs/outputs.yml'
+INPUTS = ROOT / 'model-specs/inputs.md'
 DEFAULT_OUT = ROOT / 'docs/restructure/pages'
 
 SPOKES = ['MECH', 'VAL', 'FISC', 'GOV', 'PAY', 'FUND', 'CORP', 'DECL', 'BEHAV', 'FAIR', 'LIT', 'ATTR',

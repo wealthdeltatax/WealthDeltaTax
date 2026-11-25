@@ -3,7 +3,7 @@
 - **Status:** draft; released after 162c has merged; Agent 6
 - **Author/date:** K. Ogata with the guru, 2026-11-24
 - **Depends on:** 162c merged
-- **Read:** `docs/briefs/044c-file-layout-move.md` (rules, tree, hazards); `docs/restructure/file-layout-map.md` (the reviewed table from R1); `docs/model-v3/outputs.yml` and its readers; `docs/restructure/rehearsal-report.md` (the 162c and 163c sections)
+- **Read:** `docs/briefs/044c-file-layout-move.md` (rules, tree, hazards); `docs/restructure/file-layout-map.md` (the reviewed table from R1); `model-specs/outputs.yml` and its readers; `docs/restructure/rehearsal-report.md` (the 162c and 163c sections)
 
 ## Goal
 `docs/model-v3/` (188 files) is split by type: what the model should do goes to `model-specs/`; every run report and its csv go to `results/<study>/` with unique names.
@@ -37,11 +37,25 @@ None; the agent flags any call the rules cannot settle.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** not started
+- **Done:** 198 files of `docs/model-v3/` moved by `path_refs.py --apply --only docs/model-v3/` on a scratch clone and merged back: 189 by map (170 pure renames, 15 path-only edits, 4 R4 duplicates removed) plus 8 files the map lacks (the 166c `reserve-diagnostic` csv and report) to `results/reserve-diagnostic/`; `model-specs/` 26 entries, `results/` 18 studies. 65 constructed `ROOT / 'docs' / 'model-v3' / ...` paths in `model/studies`, `model/tools`, `model/model_v3/pack/build_gbr.py` (line 24) and the tests rewritten. `docs/model-v3/` is gone.
+- **Next:** author merges; 164c (project, skills, final sweep) follows; the `quick` byte comparison (44 min) still blocks closing the programme, not this merge.
+- **Decisions:** `--only PREFIX` added to `path_refs.py --apply` and to `path_rewrite_proof.py` (a stage scope; no check weakened). `PINNED_ALLOWED` follows the two pinned spec files to `model-specs/` and drops `build_gbr.py` line 24 (code, now names `results/`). The 166c files have no map row: placed by the study rule (`results/reserve-diagnostic/`); the guru adds rows.
+- **Gotchas:** the apply rewrites the pinned tokens inside `path_refs.py` and the candidate lists of `move_tripwire.py`: both restored by hand. A shallow clone fails the tripwire pack check.
+- **Resume:** `bash` of the scratch recipe is in the suggestions entry; nothing left to do in this stage.
+- **Not run:** the `quick` byte comparison; Quarto build; `layout` (40 skipped as in the baseline).
+- **State:** done, awaiting merge.
 <!-- progress:end -->
+
+
+Change report
+- Task: 163c split `docs/model-v3/` into `model-specs/` and `results/<study>/`
+- Files changed: 194 renames and 4 removals (R4) from `docs/model-v3/`; 101 files edited (readers in `model/studies`, `model/tools`, `tests/model`, research notes, briefs, STATUS and agent docs: paths only); `pipeline/path_refs.py` (`--only`, pinned list), `docs/restructure/path_rewrite_proof.py` (`--only`); friction log, brief suggestions
+- What is different now: specifications live in `model-specs/` (26 entries), every run report and csv in `results/<study>/` (18 studies); `docs/model-v3/` no longer exists
+- New or changed interfaces: `path_refs.py --apply ROOT --only PREFIX`; `path_rewrite_proof.py --only PREFIX`
+- Acceptance criteria: only specs in `model-specs/`, only run outputs in `results/`, no repeated name in either (met: checked for duplicate file names across both); suites pass (met: model data 103, gate 17, tools 5, model_v3 408, website 201 passed 41 skipped, hooks 16); `check_agent_docs.py` clean (met); tripwire PASS (met); proof on the stage: 170 moved, 15 path-only, 4 removed, 1 changed (`model-specs/inputs.md` line 145, the declared pinned line), 8 added (the 166c files, no map row); manifest unchanged but for paths (met: tripwire evaluation hashes equal); `quick` comparison not yet run (blocks closing the programme, not this merge)
+- Deviations from the brief: scope options added to two tools; the 166c files placed by rule
+- Risks / follow-ups: `docs/lane-plan.html` line 273 and the briefs 044c/163c still name `docs/model-v3/` (they describe the move; the guru updates); the map needs rows for the 8 added files
+- Instruction friction: one entry added
+- Verification: tripwire, tests above, proof, `--check` filtered to this stage (24 remaining tokens named `model-v3`, all pinned, prose of the move, or archive file names that contain "model-v3"), a markdown link scan (91 broken links, identical to before the move)
+- Overview sections likely needing an update: the file-layout section of OVERVIEW.md (model-specs, results)
+- Commit / branch: see push, `brief/163c-move-model-specs-and-results`

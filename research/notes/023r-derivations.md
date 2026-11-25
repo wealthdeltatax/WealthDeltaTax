@@ -1,6 +1,6 @@
 # 023r derivations
 
-Method behind the computed rows in `docs/model-v3/inputs-added/tax.md`. Accessed 2026-11-17. Run with `python3 -I`.
+Method behind the computed rows in `model-specs/inputs-added/tax.md`. Accessed 2026-11-17. Run with `python3 -I`.
 
 ## Held data
 - Round 8, Table 2.2 (April 2020 to March 2022): decile aggregates of total, net property, net financial, physical and private pension wealth; column K (Round 8) and column J (Round 7). Groups D4-5, D6-7, D8-9, D10.

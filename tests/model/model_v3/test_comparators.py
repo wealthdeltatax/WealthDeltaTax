@@ -9,7 +9,7 @@ from model_v3.core import burden as bd, kernel as K
 from model_v3.runner import arm as ab, out_support as osup, runner as R
 from test_runner import ROOT, ctx, lv, out, tier1  # noqa: F401  (the fixtures)
 
-INP = json.loads((ROOT / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text())
+INP = json.loads((ROOT / 'results' / 'cell-baseline' / 'inputs_used.json').read_text())
 TOY = dict(pos=dict(property=np.array([1.0]), net_financial=np.array([0.5]), physical=np.array([0.0]), pension=np.array([0.5])), income=np.array([0.1]), sav=np.array([0.1]), acc=np.array([0.05]))
 GAIN = dict(property=0.02, net_financial=0.01, physical=0.0, pension=0.01)
 

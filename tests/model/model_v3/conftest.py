@@ -71,14 +71,14 @@ def orphan_errors(root, tests):
     return [d for d in defs if d.split(':')[1] not in refs]
 
 def country_errors(root):
-    doc = (REPO / 'docs/model-v3/country-pack.md').read_text(encoding='utf-8')
+    doc = (REPO / 'model-specs/country-pack.md').read_text(encoding='utf-8')
     pats = [re.search(rf"^{c}='(.*)'$", doc, re.M).group(1) for c in 'NTA']
     rx = [re.compile('^[^#]*(?:' + p.removeprefix('(?i)') + ')', re.I if p.startswith('(?i)') else 0) for p in pats]
     return [f'{key(root, p)}:{i}' for p in files(root) if p.name != 'build_gbr.py'
             for i, line in enumerate(p.read_text(encoding='utf-8').splitlines(), 1) if any(r.search(line) for r in rx)]
 
 def budgets():
-    doc = (REPO / 'docs/model-v3/architecture.md').read_text(encoding='utf-8')
+    doc = (REPO / 'model-specs/architecture.md').read_text(encoding='utf-8')
     rows = re.findall(r'^(\S.*?)\s+(\d+)\s+(\d+)$', doc.split('```budgets')[1].split('```')[0], re.M)
     tot = re.search(r'\*\*Total\*\* \| \*\*([\d,]+)\*\* \| \*\*([\d,]+)\*\*', doc).groups()
     return [(f, int(c), int(t)) for f, c, t in rows], tuple(int(x.replace(',', '')) for x in tot)

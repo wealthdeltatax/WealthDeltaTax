@@ -1,10 +1,10 @@
 # 022r: derivations
 
-Method for the computed rows in `docs/model-v3/inputs-added/wealth.md`. Data held in the repo (`data/rates/totalwealthtables.xlsx`, `model_v2/wid_out/wid_long.csv`). Run with `python3 -I`. Accessed 2026-11-17.
+Method for the computed rows in `model-specs/inputs-added/wealth.md`. Data held in the repo (`data/rates/totalwealthtables.xlsx`, `model_v2/wid_out/wid_long.csv`). Run with `python3 -I`. Accessed 2026-11-17.
 
 ## 1. Shares of households and wealth up to £1m (I-W6a1 to I-W6d2)
 - Household shares: Table 2.5, April 2020 to March 2022, weighted frequencies over 26.991m households: at least £85k 72.7%, £200k 59.2%, £300k 49.3%, £500k 34.2%, £1m 14.1%. Log-linear interpolation between these points for £150k, £250k and £500k.
-- Alternative: decile bounds from `docs/model-v3/inputs.md` (D4 to 5 about £104k to £293k, D6 to 7 to £567k, D8 to 9 to £1.208m, D10 above): 70%, 50%, 30%, 10% of households above £104k, £293k, £567k, £1.208m. Used as the low or high bound.
+- Alternative: decile bounds from `model-specs/inputs.md` (D4 to 5 about £104k to £293k, D6 to 7 to £567k, D8 to 9 to £1.208m, D10 above): 70%, 50%, 30%, 10% of households above £104k, £293k, £567k, £1.208m. Used as the low or high bound.
 - Wealth shares: Table 2.2 decile aggregates: £392,482m + £651,950m (D4 to 5), £955,204m + £1,322,966m (D6 to 7), £1,805,596m + £2,628,545m (D8 to 9), £5,523,204m (D10), total £13,568bn. Cumulative from the top: 40.7% above £1.208m, 73.4% above £567k, 90.2% above £293k, 97.9% above £104k. Log-linear interpolation in the threshold.
 
 ## 2. Pareto tail above £1.208m (I-W5b, I-W6e to I-W6g2)

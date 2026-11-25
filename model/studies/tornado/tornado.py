@@ -1,10 +1,10 @@
 """Brief 027r: tier 1 tornado on the revenue identity. Run: python3 -I model/studies/tornado/tornado.py
-Reads docs/model-v3/inputs.md (rows by id). Writes tornado_results.csv and tornado_tables.md next to this file.
+Reads model-specs/inputs.md (rows by id). Writes tornado_results.csv and tornado_tables.md next to this file.
 Identity (drivers.md section 1): M1a = eps * g * omega (refunds netted in g, see tornado.md section 6)."""
 import csv, os, re
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.join(HERE, '..', '..', '..', 'docs', 'model-v3', 'tornado')   # outputs stay here until 163c
-REG = os.path.join(HERE, "..", "..", "..", "docs", "model-v3", "inputs.md")
+DATA = os.path.join(HERE, '..', '..', '..', 'results', 'tornado')   # outputs stay here until 163c
+REG = os.path.join(HERE, "..", "..", "..", "model-specs", "inputs.md")
 rows = {}
 for l in open(REG, encoding="utf-8"):
     if l.startswith("| I-"):

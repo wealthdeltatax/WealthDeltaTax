@@ -225,7 +225,7 @@ Gap list only. Nothing here is code; each line names what would have to exist or
 **5.5 Tests that would move or be added.**
 - Moving: `test_burden.py`, `test_revenue.py`, `test_out_burden.py`, `test_kernel.py`, `test_support.py` (they reference I-D14c, `state_true` or `state_cash`, or consumption). Under the comparator arm none should change; under the new arm the digests change and that is stated, not hidden.
 - New: identity holds per cell and year (no residual); no-double-counting worked case (section 3, the household example gives `dNW` = 54 on both sides); consolidated household-plus-public sum is zero (the seven rows of `public_side_identity.csv`); the legacy comparator reproduces the stored digests; `O` is reported, not forced.
-- Registration (docs/agents/code.md): a LAYER row for `household` in `tests/model/model_v3/conftest.py`; a budget row in the budgets block of `docs/model-v3/architecture.md`; rows in `tests/model/model_v3/test_groups.py` for the new test file.
+- Registration (docs/agents/code.md): a LAYER row for `household` in `tests/model/model_v3/conftest.py`; a budget row in the budgets block of `model-specs/architecture.md`; rows in `tests/model/model_v3/test_groups.py` for the new test file.
 
 
 ## 6. Rulings table (item 5)

@@ -1,6 +1,6 @@
 # 012r stage B2: derivations for D6 and D10
 
-Accessed 2026-11-16. Method notes for the derived rows in `docs/model-v3/inputs.md` (I-D5b, I-D6a to n, I-D10b). Nothing here is a published incidence.
+Accessed 2026-11-16. Method notes for the derived rows in `model-specs/inputs.md` (I-D5b, I-D6a to n, I-D10b). Nothing here is a published incidence.
 
 ## D6 allocation method (`d6_incidence.py`)
 - Households per income decile are equal. Wealth by income decile comes from WAS Round 8 Table 2.6 quartiles (`data/rates/totalwealthtables.xlsx`). Within each income decile the wealth distribution is a two-piece lognormal: lower half scaled by the 25th to 50th percentile gap, upper half by the 50th to 75th gap. A single lognormal over-stated the tail (bottom-decile upper quartile is £376,600, so the single fit put 22% of inheritance tax in decile 1).

@@ -1,7 +1,7 @@
 # website/registry/lit-figures.yml: published figures the papers quote, keyed <bibkey>:<slug> (briefs 032r, 043r; hooks Q9).
 # Research lane owns it. Every entry was re-read in the held copy named in source_file on the verified date; quoted_as is
 # the figure as printed (a range printed once is entered as two entries, one per end). Held copies and the register rows they
-# serve are mapped in docs/model-v3/source-map.md; discrepancies with the register are in its section 3.
+# serve are mapped in model-specs/source-map.md; discrepancies with the register are in its section 3.
 #
 # page = page of the held PDF (the 'page N' a PDF viewer shows). printed = the page number printed on that page, where it differs
 # and was checked (PDF page + offset: AdvaniBanghamLeslie2021 +395, AdvaniTarrant2021 +508, KosterPinchbeck2018 -2, BesleyEtAl2014 -1,

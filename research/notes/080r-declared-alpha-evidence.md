@@ -1,6 +1,6 @@
 # 080r: evidence on declared value against true value (alpha)
 
-Accessed 2026-11-20. Brief `docs/briefs/080r-declared-alpha-evidence.md`; data gap M-3 in `docs/model-v3/added/supporting.md`. Nothing here edits the register, the model or the manifest.
+Accessed 2026-11-20. Brief `docs/briefs/080r-declared-alpha-evidence.md`; data gap M-3 in `model-specs/added/supporting.md`. Nothing here edits the register, the model or the manifest.
 
 **Question, restated.** Among payers, how is declared value over true value (alpha) distributed: centre, spread, shape, any bunching or understatement pattern? The old papers' "behavioural centre near 1.1" (VAL section 7.1 and 7.3) is described there as a model-implied prediction that is "not an empirical estimate"; it rests on a refund asymmetry and an assumed error band of plus or minus 10 to 20% for illiquid assets. It has no source.
 

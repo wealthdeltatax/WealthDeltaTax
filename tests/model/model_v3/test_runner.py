@@ -21,7 +21,7 @@ def lv():
 
 @pytest.fixture(scope='module')
 def out():
-    return yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    return yaml.safe_load((ROOT / 'model-specs' / 'outputs.yml').read_text())
 
 
 @pytest.fixture(scope='module')

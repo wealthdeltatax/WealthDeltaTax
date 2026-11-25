@@ -6,7 +6,7 @@ import openpyxl
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
-DATA = os.path.join(ROOT, 'docs', 'model-v3', 'kernel-wiring')   # outputs stay here until 163c
+DATA = os.path.join(ROOT, 'results', 'kernel-wiring')   # outputs stay here until 163c
 ws = list(openpyxl.load_workbook(os.path.join(ROOT, 'data/rates', 'totalwealthtables.xlsx'), data_only=True, read_only=True)['Table 2.2'].iter_rows(values_only=True))
 col = lambda r0: [float(ws[r0 - 1 + k][10]) for k in range(10)]          # R8 is the last column; rows 4, 14, 24, 34, 44 start each block of ten deciles
 tot, prop, fin, phys, pen = col(4), col(14), col(24), col(34), col(44)

@@ -22,7 +22,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'model'))
 HERE = Path(__file__).resolve().parent
-DATA = ROOT / 'docs' / 'model-v3' / 'cell-baseline'   # outputs and stored tables stay here until 163c
+DATA = ROOT / 'results' / 'cell-baseline'   # outputs and stored tables stay here until 163c
 
 from model_v3.core import cells as ce, pack as pk  # noqa: E402
 from model_v3.runner import runner as R  # noqa: E402
@@ -38,7 +38,7 @@ def rows_of(name, folder):
 
 def inputs():
     lv = json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text())
-    out = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    out = yaml.safe_load((ROOT / 'model-specs' / 'outputs.yml').read_text())
     tier1 = next(o for o in out['outputs'] if o['id'] == 'OT1')['by']['input']
     pack, reg = pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json')
     ctx = R.context(pack, reg, lv, tier1, [o['id'] for o in out['outputs']])

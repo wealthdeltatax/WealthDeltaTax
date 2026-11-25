@@ -14,11 +14,11 @@ import yaml
 ROOT = Path(__file__).resolve().parents[3]
 PIPELINE = ROOT / "model" / "tools"
 FIXTURE = Path(__file__).resolve().parent / "fixtures" / "outputs.fixture.json"
-MANIFEST = ROOT / "docs" / "model-v3" / "outputs.yml"
+MANIFEST = ROOT / "model-specs" / "outputs.yml"
 INPUTS_JSON = ROOT / "data" / "input-register" / "inputs.json"
 METRICS_JSON = ROOT / "data" / "input-register" / "metrics.json"
-INPUTS_MD = ROOT / "docs" / "model-v3" / "inputs.md"
-METRICS_MD = ROOT / "docs" / "model-v3" / "metrics.md"
+INPUTS_MD = ROOT / "model-specs" / "inputs.md"
+METRICS_MD = ROOT / "model-specs" / "metrics.md"
 
 
 def load_module(name: str, path: Path):

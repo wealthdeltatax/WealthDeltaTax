@@ -74,7 +74,7 @@ def test_the_public_ledger_carries_the_lien_as_a_receivable_in_all_six_phases_an
     from model_v3.core import base as bs, pack as pk, revenue as rv, schedule as sc
     root = Path(__file__).resolve().parents[3]
     pack, reg = pk.load_pack(root / 'data' / 'country-packs' / 'GBR'), pk.load_register(root / 'data' / 'input-register' / 'inputs.json')
-    inp = json.loads((root / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text())
+    inp = json.loads((root / 'results' / 'cell-baseline' / 'inputs_used.json').read_text())
     b0, y = bs.build_base(pack, reg, 0.25), inp['yreg']['mid']
     k = np.where(b0.wealth >= b0.w_min, 1.0 - reg['I-D5a'].central / 100.0, 1.0)                                                                  # the runner's shaped base: the behavioural loss at launch
     base = replace(b0, wealth=b0.wealth * k, wealth_bn=b0.wealth_bn * k, V0={r: v * k for r, v in b0.V0.items()})

@@ -16,7 +16,7 @@ import yaml
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-run'   # outputs and stored tables stay here until 163c
+DATA = ROOT / 'results' / 'household-arm-run'   # outputs and stored tables stay here until 163c
 sys.path[:0] = [str(ROOT / 'model'), str(HERE)]
 
 import run_grid as G                                                           # noqa: E402  (the same builder, points and checks)
@@ -70,7 +70,7 @@ def main(argv=None):
     flow = {k: v for k, v in (('pension_withdrawal', a.pension_withdrawal), ('heir_floor', a.heir_floor)) if v is not None}
     sfx = (f'_wd_{a.pension_withdrawal}' if a.pension_withdrawal else '') + (f'_floor{a.heir_floor}' if a.heir_floor is not None else '')
     ctx, inp = G.A.setup()
-    manifest = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    manifest = yaml.safe_load((ROOT / 'model-specs' / 'outputs.yml').read_text())
     chk, lines, alarms, orig = [], [], [], ab.HouseholdHook
     for name in a.points.split(','):
         Log.rec, Log.ph, Log.alarm = {}, 0, {}

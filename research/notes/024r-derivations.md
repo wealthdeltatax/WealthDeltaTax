@@ -1,6 +1,6 @@
 # 024r derivations
 
-Method behind the computed rows in `docs/model-v3/inputs-added/hh.md`. Accessed 2026-11-17. Run with `python3 -I`.
+Method behind the computed rows in `model-specs/inputs-added/hh.md`. Accessed 2026-11-17. Run with `python3 -I`.
 
 ## Quintile gross income (I-H3a to I-H3e)
 Gross income = average total tax / (total tax % of gross income), from Civitas Table 4.1 and Figure 3.3 (ONS FYE 2023 quintiles): bottom £8,829/0.379 = £23,295; 2nd £38,663; 3rd £53,192; 4th £73,698; top £141,350. Range is the rounding half-step (0.05 points) of the percentage.

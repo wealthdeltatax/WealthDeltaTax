@@ -23,7 +23,7 @@ CALL = "python tests/model/model_v3/test_legacy_digest.py --print (compute(): R.
 
 def compute(seeds=SEEDS):
     """{seed: {'samples': digest, 'groups': {group: digest of its ids}}} on the legacy arm (the only arm there is), the context built as test_runner's, with once."""
-    lv, out = json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text()), yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    lv, out = json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text()), yaml.safe_load((ROOT / 'model-specs' / 'outputs.yml').read_text())
     tier1 = next(o for o in out['outputs'] if o['id'] == 'OT1')['by']['input']
     ctx = R.context(pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json'), lv, tier1,
                     [o['id'] for o in out['outputs']], [o['id'] for o in out['outputs'] if o.get('once_not_per_schedule')])

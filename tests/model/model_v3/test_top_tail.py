@@ -83,6 +83,6 @@ def test_an_unknown_setting_or_one_that_would_raise_the_top_raises(grid):
 @pytest.mark.parametrize('v', ['ast_low', 'ast_high_e0'])
 def test_a_short_run_holds_i1_the_account_identity_and_the_ledger_ties(grid, v):
     mod, c, inp = grid
-    man = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    man = yaml.safe_load((ROOT / 'model-specs' / 'outputs.yml').read_text())
     _, k = mod.run_point(with_arm(c, top_tail=v), inp, 'median_mid', man, 4, 4)
     assert k['error'] == '' and k['i1'].startswith('held') and k['account_residual_max'] < 1e-9 and k['ledger_tie_max'] < 1e-9 and k['unpaid_max'] < 1e-9

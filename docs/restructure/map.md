@@ -7,7 +7,7 @@ Brief 013g. Planning only. No spoke prose is written until the data gate (013g) 
 ## 1. Shape
 - **Hub:** one whitepaper for a general reader. Problem first. Target 5,000 to 7,000 words (old whitepaper: 15,306).
 - **Spokes:** about 12 short pages, one per reader question, same shape each (short answer, evidence, strongest objection, Data block). Target 2,000 to 4,000 words each.
-- **Data layer:** model v3 outputs (`docs/model-v3/outputs.yml`), the input register (`inputs.md`) and the UK data pack. Spokes cite output IDs (data hooks); numbers are filled at build and never typed.
+- **Data layer:** model v3 outputs (`model-specs/outputs.yml`), the input register (`inputs.md`) and the UK data pack. Spokes cite output IDs (data hooks); numbers are filled at build and never typed.
 - **Standalone:** papers that do not need the wheel. They link in, nothing links out to them for the argument.
 - **Old papers:** retired once the new set is accepted. Their content and findings feed the ledger, nothing more. Zenodo copies are replaced later.
 

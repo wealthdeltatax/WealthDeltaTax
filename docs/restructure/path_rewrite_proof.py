@@ -51,10 +51,17 @@ def main():
     ap.add_argument('--head', default='HEAD')
     ap.add_argument('--map', default=str(ROOT / 'docs/restructure/file-layout-map.csv'))
     ap.add_argument('--allow', help='file listing new paths whose edits the stage declares')
+    ap.add_argument('--only', action='append', default=[], metavar='PREFIX', help='check one stage: only the map rows whose old path starts with PREFIX (repeatable); the rest of the map is taken as not moving')
     ap.add_argument('--show', type=int, default=0, help='print the first N differing lines of each changed file')
     a = ap.parse_args()
     rows = read_map(a.map)
-    rw = rewriter(rows)
+    base_files = set((git('ls-tree', '-r', '--name-only', a.base) or '').splitlines())
+    if a.only:
+        pre = tuple(a.only)
+        rw = rewriter([r if r['old'].startswith(pre) else dict(r, new=r['old'], rename='', duplicate_of='') for r in rows if r['old'] in base_files])
+        rows = [r for r in rows if r['old'].startswith(pre) and r['old'] in base_files]
+    else:
+        rw = rewriter(rows)
     allow = set(Path(a.allow).read_text().split()) if a.allow else set()
     head_files = set((git('ls-tree', '-r', '--name-only', a.head) or '').splitlines())
     known, tally, bad = set(), {}, []
@@ -89,7 +96,7 @@ def main():
             bad.append(n)
         for l in d[:a.show]:
             print(f'   {n}: {l[:160]}')
-    added = sorted(head_files - known - {r['old'] for r in rows} - allow)
+    added = sorted(head_files - known - {r['old'] for r in rows} - allow - (base_files if a.only else set()))
     for k in ('moved', 'path-only', 'removed', 'pending', 'changed'):
         v = tally.get(k, [])
         print(f'{k:10} {len(v)}')

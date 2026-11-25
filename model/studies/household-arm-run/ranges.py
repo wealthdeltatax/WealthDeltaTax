@@ -8,7 +8,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-run'   # outputs and stored tables stay here until 163c
+DATA = ROOT / 'results' / 'household-arm-run'   # outputs and stored tables stay here until 163c
 HELD = ('median_mid', 'max_mid', 'median_low')   # min_mid and median_high fail I1 and have no rows (checks.csv)
 
 

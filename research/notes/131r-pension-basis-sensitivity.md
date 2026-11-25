@@ -56,7 +56,7 @@ No band is `observed` or `derived`: every uplift is a `proxy` (published percent
 - The Figure 4 bar differences (about £130,000 at the median and £490,000 at p90) agree with the text by construction of my reading, to chart precision; they are not an independent test.
 
 ## 4. How much of the 125c gaps the basis explains
-Source: `basis_headline.csv`; the observed rows are BF-11, BF-13, BF-14 (`docs/model-v3/household-arm-validation.md`).
+Source: `basis_headline.csv`; the observed rows are BF-11, BF-13, BF-14 (`results/household-arm-validation/household-arm-validation.md`).
 
 | Moment | Observed | Pack (ONS SCAPE) | IFS basis (range) | Basis moves it by | Gap left |
 |---|---:|---:|---:|---:|---|
@@ -87,7 +87,7 @@ None is changed here.
 - **Price factor (1.301).** Implied, not verified against CPI.
 
 ## 7. Proposed register row (not added)
-Proposed id `I-D1m` (the next free `I-D1` letter in `docs/model-v3/inputs.md`; not added, nothing in `registry/` or `inputs.md` is touched).
+Proposed id `I-D1m` (the next free `I-D1` letter in `model-specs/inputs.md`; not added, nothing in `registry/` or `inputs.md` is touched).
 
 | Field | Proposal |
 |---|---|
@@ -100,4 +100,4 @@ Proposed id `I-D1m` (the next free `I-D1` letter in `docs/model-v3/inputs.md`; n
 | Dependants to review if adopted | I-D1k, I-D1l, I-D1h, the tail lines, the stage weights (section 5) |
 
 ## Sources read, and not read
-**Read, by `pdftotext` from the PDF itself, by page:** Delestre and O'Brien (IFS, April 2026), *How is wealth distributed across British households? Reassessing the valuation of pensions*, `literature/IFS Report - How is wealth distributed across British households.pdf`: PDF pages 3 to 4, 17 to 23 and 25 to 28 (executive summary; section 3; Figures 1 to 9), 41 and 42 (Figures B1 to B3); Figures 4 and B3 also rendered and read by eye. **Not read:** PDF pages 5 to 16 (the methodology section and Table 1), 24, 29 to 40 (including Appendix A, the outstanding issues), the replication package (it needs microdata and Stata and is out of scope), the ONS and GAD method notes, and the Resolution Foundation report (BF-11, BF-13 and BF-14 values are taken from `docs/model-v3/household-arm-validation/comparison.csv`, as held by 099r). Pack inputs: `data/country-packs/GBR/` (read-only); exact sums: `research/tables/102r-parameter-map-stocks-and-cells/band_composition_by_pack_band.csv`.
+**Read, by `pdftotext` from the PDF itself, by page:** Delestre and O'Brien (IFS, April 2026), *How is wealth distributed across British households? Reassessing the valuation of pensions*, `literature/IFS Report - How is wealth distributed across British households.pdf`: PDF pages 3 to 4, 17 to 23 and 25 to 28 (executive summary; section 3; Figures 1 to 9), 41 and 42 (Figures B1 to B3); Figures 4 and B3 also rendered and read by eye. **Not read:** PDF pages 5 to 16 (the methodology section and Table 1), 24, 29 to 40 (including Appendix A, the outstanding issues), the replication package (it needs microdata and Stata and is out of scope), the ONS and GAD method notes, and the Resolution Foundation report (BF-11, BF-13 and BF-14 values are taken from `results/household-arm-validation/comparison.csv`, as held by 099r). Pack inputs: `data/country-packs/GBR/` (read-only); exact sums: `research/tables/102r-parameter-map-stocks-and-cells/band_composition_by_pack_band.csv`.

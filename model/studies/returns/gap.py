@@ -39,7 +39,7 @@ for d in (3, 6):
 n0, mu0 = len(r), r.mean()
 sens = {f"{m}": 100 * 5 / (n0 + 1 + 5) * (m / 100 - x1.mean()) for m in (-2, 0, 2, 4.74, 6, 8)}
 out = dict(infl=infl, house_real=house, w2020=w2020, diag=diag, overlap=overlap, stats=S, sens_mean_shift_5yrs=sens, cpi=CPI, hpi=HPI, rent_yd=RENT_YD)
-json.dump(out, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "docs", "model-v3", "returns", "gap_results.json"), "w"), indent=1)
+json.dump(out, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "results", "returns", "gap_results.json"), "w"), indent=1)
 for y in HPI: print(y, "infl %.2f%% hpi %.1f%% housing real %.2f%%" % (100 * infl[y], HPI[y], 100 * house[y]))
 print("wealth 2020 est %.2f%%" % (100 * w2020), "diag", {y: (round(100 * v['est'], 1), round(100 * v['jst'], 1)) for y, v in diag.items()})
 print(overlap)

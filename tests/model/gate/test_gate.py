@@ -37,33 +37,33 @@ def test_page_without_outputs_escalates_when_it_cites_one(cfg):
 
 
 def test_g3_counts_and_reports_pending(cfg):
-    p = cfg.root / 'docs/model-v3/judgement-decisions.md'
+    p = cfg.root / 'model-specs/judgement-decisions.md'
     p.write_text(p.read_text().replace('accepted | 2026-11-20', 'pending | '), encoding='utf-8')
     ok, why = cg.check_g3(cfg)
     assert not ok and '2 flagged (J) rows, 1 pending, 1 decided' in why
 
 
 def test_g3_set_mismatch_and_bad_line(cfg):
-    p = cfg.root / 'docs/model-v3/judgement-decisions.md'
+    p = cfg.root / 'model-specs/judgement-decisions.md'
     p.write_text(p.read_text().replace('replaced by I-B | 2026-11-21', 'replaced by I-ZZ | 2026-11-21'), encoding='utf-8')
     ok, why = cg.check_g3(cfg)
     assert not ok and 'malformed' in why
-    q = cfg.root / 'docs/model-v3/inputs.md'
+    q = cfg.root / 'model-specs/inputs.md'
     q.write_text(q.read_text() + '| I-D | four | 1 | 2 | 3 | (J) new |\n', encoding='utf-8')
     ok, why = cg.check_g3(cfg)
     assert not ok and 'no line in the decisions file' in why
 
 
 def test_g1_missing_and_no_single_command(cfg):
-    (cfg.root / 'docs/model-v3/acceptance.md').write_text('# acceptance\nno command\n', encoding='utf-8')
+    (cfg.root / 'model-specs/acceptance.md').write_text('# acceptance\nno command\n', encoding='utf-8')
     ok, why = cg.check_g1(cfg)
     assert not ok and '0 acceptance commands' in why
-    (cfg.root / 'docs/model-v3/architecture.md').unlink()
+    (cfg.root / 'model-specs/architecture.md').unlink()
     assert not cg.check_g1(cfg)[0]
 
 
 def test_g1_failing_command(cfg):
-    (cfg.root / 'docs/model-v3/acceptance.md').write_text(
+    (cfg.root / 'model-specs/acceptance.md').write_text(
         f'Acceptance command: `{sys.executable} -c "raise SystemExit(3)"`\n', encoding='utf-8')
     ok, why = cg.check_g1(cfg)
     assert not ok and 'exited 3' in why

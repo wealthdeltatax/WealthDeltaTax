@@ -41,7 +41,7 @@ Full columns (period, unit and price basis, definitions, dimensions, revisions, 
 | X-09 | research/tables/100r-jst-cash-yield-and-gain-split/returns_decomposition.csv | Jorda-Schularick-Taylor R6 via 100r | UK 1896-2019, 117 years (1940-46 absent) | Reproduced to 0.0004pp (derive_jst_split.py) | F-16 to F-20, F-26, F-27 |
 | X-10 | research/notes/095r-bozio-2013-reading.md | Bozio | 1978-2009 (LCFS), ELSA linked records | No | F-33 |
 | X-11 | research/tables/099r-held-research-moments/moments.csv (BF-02, AB-01, AB-05, GB-01) | Resolution Foundation Before the fall; Advani-Bangham-Leslie | 2008-2022 | Rows as recorded by 099r | F-28, F-31, F-32, F-34 |
-| X-12 | docs/model-v3/inputs.md rows I-W3a to I-W3d, I-W1c | Fagereng et al.; Bangham and Leslie 2020 (source PDFs not he | Norway 2005-15; GB 2008-22 | No | F-28 to F-32 |
+| X-12 | model-specs/inputs.md rows I-W3a to I-W3d, I-W1c | Fagereng et al.; Bangham and Leslie 2020 (source PDFs not he | Norway 2005-15; GB 2008-22 | No | F-28 to F-32 |
 
 Reading the crosswalk:
 - X-01 to X-05 are the ONS series held by 097r; the script `derive_ons_flows.py` reproduces the saving identity and the pension and non-pension split from them (392 checks, 0 hard failures).

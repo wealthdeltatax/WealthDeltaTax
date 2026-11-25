@@ -86,7 +86,7 @@ def test_a_short_run_holds_i1_the_account_identity_and_the_ledger_ties(grid, poi
     """Only cells that complete: six of the ten non-flat cells at the five points stop in M13 (CRRA utility needs positive terminal wealth: D1 and D2 dissave to a negative balance), see the 147c note."""
     mod, ctx, inp = grid
     c = mod.point_ctx(ctx, inp, point)
-    man = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    man = yaml.safe_load((ROOT / 'model-specs' / 'outputs.yml').read_text())
     _, k = mod.run_point(replace(c, arm={**c.arm, 'saving_shape': shape}), inp, point, man, 4, 4)
     assert k['error'] == '' and k['i1'].startswith('held') and k['account_residual_max'] < 1e-9 and k['ledger_tie_max'] < 1e-9 and k['unpaid_max'] < 1e-9
 
@@ -105,6 +105,6 @@ def test_the_floor_keeps_wealth_at_or_above_zero_and_the_floored_cell_completes(
     rep = floor_report(grid, 'min', saving_shape='steep')
     assert rep['lines_floored'] >= 1 and rep['saving_added_pts'] > 0 and np.all((0 <= rep['lam']) & (rep['lam'] <= 1))
     c = mod.point_ctx(ctx, inp, 'min_mid')
-    man = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    man = yaml.safe_load((ROOT / 'model-specs' / 'outputs.yml').read_text())
     _, k = mod.run_point(replace(c, arm={**c.arm, 'saving_shape': 'steep'}), inp, 'min_mid', man, 4, 4)
     assert k['error'] == '' and k['i1'].startswith('held') and k['account_residual_max'] < 1e-9 and k['ledger_tie_max'] < 1e-9

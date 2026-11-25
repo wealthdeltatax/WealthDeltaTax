@@ -35,7 +35,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-DATA = ROOT / 'docs' / 'model-v3' / 'reserve-diagnostic'   # outputs and stored tables stay here until 163c
+DATA = ROOT / 'results' / 'reserve-diagnostic'   # outputs and stored tables stay here until 163c
 OUT = DATA
 sys.path.insert(0, str(ROOT / 'model'))
 sys.path.insert(0, str(ROOT / 'model' / 'studies' / 'f1-household'))
@@ -283,7 +283,7 @@ def run_check(a):
     """(1) 6 phases, constant path, `safe` fund: the first shortfall year and P3 to the end of the short window equal 140c's `f1_safe_constant_path.csv` for every row. (2) The fund copy at w_pay 3 equals the
     core to 1e-9 on every output, on one cell (median_mid, tm70) at 6 phases, constant path and 20 paths."""
     lv, ctx, inp = F.setup()
-    stored = {(r['point'], r['schedule']): r for r in csv.DictReader(open(ROOT / 'docs' / 'model-v3' / 'f1-household' / 'f1_safe_constant_path.csv'))}
+    stored = {(r['point'], r['schedule']): r for r in csv.DictReader(open(ROOT / 'results' / 'f1-household' / 'f1-household-f1-safe-constant-path.csv'))}
     ok, rows = True, []
     for pn in POINTS:
         cp = F.point_ctx(ctx, inp, pn, 'safe')

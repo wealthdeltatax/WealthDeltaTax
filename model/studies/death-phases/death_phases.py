@@ -25,7 +25,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-DATA = ROOT / 'docs' / 'model-v3' / 'death-phases'   # outputs and stored tables stay here until 163c
+DATA = ROOT / 'results' / 'death-phases'   # outputs and stored tables stay here until 163c
 sys.path.insert(0, str(ROOT / 'model'))
 sys.path.insert(0, str(ROOT / 'model' / 'studies' / 'f1-household'))
 
@@ -76,7 +76,7 @@ def const_run(ctx, inp, point, spec, n, arm_ctx=None):
 def run_check(a):
     """The 6-phase rows reproduce 140c's constant-path table (`f1_safe_constant_path.csv`): first year relief < M1d, P3 to the end of the short window, P3 over 100 years, fill year, end of short window."""
     lv, ctx, inp = F.setup()
-    stored = {(r['point'], r['schedule']): r for r in csv.DictReader(open(ROOT / 'docs' / 'model-v3' / 'f1-household' / 'f1_safe_constant_path.csv'))}
+    stored = {(r['point'], r['schedule']): r for r in csv.DictReader(open(ROOT / 'results' / 'f1-household' / 'f1-household-f1-safe-constant-path.csv'))}
     ok = True
     print('### Reproduction check: 6 phases against 140c (`f1_safe_constant_path.csv`), constant path, safe fund\n')
     rows = []
@@ -91,7 +91,7 @@ def run_check(a):
                 ok &= good
                 rows.append((pn, F.lab(sp), name, got, want, 'equal' if good else 'DIFFERENT'))
     print(F.tab(['point', 'schedule', 'quantity', 'this script', '140c stored', ''], rows))
-    print('\n### Reproduction check: legacy arm, 6 phases, against 083c (`docs/model-v3/f1-diagnostic/report.md`, item 4 and the F1 tables), constant path\n')
+    print('\n### Reproduction check: legacy arm, 6 phases, against 083c (`results/f1-diagnostic/f1-diagnostic-report.md`, item 4 and the F1 tables), constant path\n')
     old083 = {'tm50_k1_r050': dict(first=13, p3_100='81.45', p3_short='2.79'), 'tm70_k1_r050': dict(first=13, p3_100='83.74', p3_short='2.66')}   # report.md lines 154, 165, 205, 225
     rows = []
     for sp in SPECS:
@@ -110,7 +110,7 @@ def run_checkf1(a):
     """After `f1`: the 6-phase `median_mid` cells equal 140c's (`f1_safe_grid.csv`) cell by cell (F1, M2, M4a, taxes retired, for every tolerance and margin); cells present in only one file are listed."""
     key = lambda r: (r['schedule'], r['tol'], r['margin'])
     new = {key(r): r for r in csv.DictReader(open(OUT / 'f1_phases_6' / 'f1_safe_grid.csv'))}
-    old = {key(r): r for r in csv.DictReader(open(ROOT / 'docs' / 'model-v3' / 'f1-household' / 'f1_safe_grid.csv')) if r['point'] == 'median_mid'}
+    old = {key(r): r for r in csv.DictReader(open(ROOT / 'results' / 'f1-household' / 'f1-household-f1-safe-grid.csv')) if r['point'] == 'median_mid'}
     same = [k for k in new if k in old]
     bad = [k for k in same if any(new[k][f] != old[k][f] for f in ('F1_pct', 'M2_short', 'M4a_short', 'taxes_retired'))]
     only_old = sorted(set(k[0] for k in old if k not in new))

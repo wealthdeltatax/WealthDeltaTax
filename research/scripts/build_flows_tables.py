@@ -202,7 +202,7 @@ add("F-24", "Aggregate saving over opening net worth (gross of CFC)", "B.8g/E45V
     "Gross of CFC so an upper bound for net saving. The kernel c is not consumption: c=(y-s)/(1+r); see 093r",
     "constraint (aggregate saving over wealth)", "remain unset (as a rate)", "context for I-D14c (093r computes c); does not test it or select a replacement", "DR-04")
 add("F-25", "Legacy I-D14c: 3.5% consumption share of net worth", "v2 `c` default (valgen D16); a framing value, not an estimate",
-    "kernel c", "none", "Scenario (legacy comparator)", "docs/model-v3/inputs.md I-D14c; 093r",
+    "kernel c", "none", "Scenario (legacy comparator)", "model-specs/inputs.md I-D14c; 093r",
     "none", "3.5 as legacy comparator only (range 0.5 to 5 in the register)",
     "Not UK evidence. Never used as support for a band rate", "neither", "remain unset",
     "legacy; 093r reports an aggregate arithmetic range for c of 0.4 to 3.0%; this block adds no value", "none")
@@ -273,7 +273,7 @@ X += [
     ["X-09", "research/tables/100r-jst-cash-yield-and-gain-split/returns_decomposition.csv", "Jorda-Schularick-Taylor R6 via 100r", "UK 1896-2019, 117 years (1940-46 absent)", "Market portfolio; decimal rates", "Yield and gain split, weights recovered algebraically", "Asset class", "Ends 2019; bond yield proxy", "Reproduced to 0.0004pp (derive_jst_split.py)", "F-16 to F-20, F-26, F-27"],
     ["X-10", "research/notes/095r-bozio-2013-reading.md", "Bozio, Emmerson, O'Dea, Tetlow 2013, IFS WP 13/30", "1978-2009 (LCFS), ELSA linked records", "Households; active saving", "Saving by income or education; excludes holding gains", "Income quintile, education", "Paper not re-read here; note relied on", "No", "F-33"],
     ["X-11", "research/tables/099r-held-research-moments/moments.csv (BF-02, AB-01, AB-05, GB-01)", "Resolution Foundation Before the fall; Advani-Bangham-Leslie 2021; IFS Green Budget 2025", "2008-2022", "Families, GB", "Passive and active split on RF basis (excludes DB pensions)", "Average family", "Chart readings", "Rows as recorded by 099r", "F-28, F-31, F-32, F-34"],
-    ["X-12", "docs/model-v3/inputs.md rows I-W3a to I-W3d, I-W1c", "Fagereng et al.; Bangham and Leslie 2020 (source PDFs not held)", "Norway 2005-15; GB 2008-22", "Households", "As the register text", "Wealth rank", "Figures not verifiable from held files", "No", "F-28 to F-32"],
+    ["X-12", "model-specs/inputs.md rows I-W3a to I-W3d, I-W1c", "Fagereng et al.; Bangham and Leslie 2020 (source PDFs not held)", "Norway 2005-15; GB 2008-22", "Households", "As the register text", "Wealth rank", "Figures not verifiable from held files", "No", "F-28 to F-32"],
 ]
 with open(os.path.join(HERE, "flows_crosswalk.csv"), "w", newline="") as f:
     csv.writer(f).writerows(X)
