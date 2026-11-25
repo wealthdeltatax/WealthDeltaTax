@@ -1,6 +1,6 @@
 # 166: Can the fund's reserves cover the gap years? (diagnostic)
 
-- **Status:** ready; any free agent (lane plan shows Agent 3 until it is reassigned); must finish before 162c starts (162c moves `model_v3`)
+- **Status:** done, merged 2026-11-25
 - **Author/date:** K. Ogata with the guru, 2026-11-25
 - **Depends on:** nothing (089c, 149c, 140c are merged)
 - **Read:** `docs/model-v3/f1-household.md` (section "Is the failure structural?"); `model_v3/core/revenue.py` (module docstring, `fund`, `retire`, `revenue`); `docs/model-v3/f1-household/f1_household.py` (the harness: `setup`, `point_ctx`, `core`, the constant-path run); `docs/model-v3/death-phases/death_phases.py` (phase count switch); `docs/model-v3/inputs.md` rows I-D8a, I-D14d
@@ -49,12 +49,26 @@ Author hypothesis, 2026-11-25: raising the same revenue as the taxes it displace
 Rules that apply: one block, one push; suites in the background, never piped; any `arm.py` or core change is stop-and-report (none is expected).
 
 ## Implementation notes
+
+Change report
+- Task: brief 166c, can the fund's reserves cover the gap years (diagnostic)
+- Files changed: `docs/model-v3/reserve-diagnostic.md` (report); `docs/model-v3/reserve-diagnostic/reserve_diagnostic.py` and its CSVs (runner and outputs); this brief (progress block, notes)
+- What is different now: a labelled-scenario diagnostic of whether idle fund stock covers the retired-receipts gap years. No model behaviour changed.
+- New or changed interfaces: `reserve_diagnostic.py check | a | d`
+- Acceptance criteria: fund copy equals core at `w_pay` 3, largest difference 0 (met); 6-phase constant-path check reproduces the 140c first-shortfall year 13 and P3 (met); F1 strict and relaxed, P6, P7a, P7b per variant with 200-path SE (met); no design recommended (met)
+- Deviations from the brief: none. Two results contradict the brief's reading (stock above both reserves is about 3%, not 20%; the year-13 gap is a 6-phase result), reported in the report's second section.
+- Risks / follow-ups: author ruling on whether the fund may cover retired-tax gaps; top-up variants with a cap or floor not run.
+- Instruction friction: none
+- Verification: fund-copy check (60 runs, 72 outputs, difference 0); numbers cross-checked against the CSVs; `check_agent_docs.py` clean. No test suites: no model code touched.
+- Overview sections likely needing an update: none until the ruling
+- Commit / branch: see push, branch brief/166-reserve-gap-years
+
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** not started
+- **Done:** `reserve_diagnostic.py` (check, a, d) and `docs/model-v3/reserve-diagnostic.md`, with CSVs in `docs/model-v3/reserve-diagnostic/`. Parts A to D run at 6 and 10 phases (A) and on 200 paths plus the constant path (D), `safe` and `market`.
+- **Next:** the author's ruling on whether the fund may cover retired-tax gaps (question at the end of the report).
+- **Decisions:** none by the agent; no design recommended. F1 relaxed read as tolerance 1 GDP-point, margin 25%. Top-up need is M1d at the start of the year.
+- **Gotchas:** the household arm passes `n_phase` itself (default 10), so the 6-phase check uses a local override. The brief's "20% above both reserves" is above the short reserve alone; above both it is about 3%. The year-13 gap is 6-phase only.
+- **Resume:** `python -I docs/model-v3/reserve-diagnostic/reserve_diagnostic.py check | a | d` (about 3 minutes).
+- **Not run:** other funds, other schedules, 1,000 paths, capped or floored top-up variants, the growth hypothesis, test suites (no model code changed).
+- **State:** done, awaiting author ruling
 <!-- progress:end -->
