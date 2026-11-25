@@ -1,6 +1,6 @@
 # Model v3: country data pack (brief 038c)
 
-Design note only. No loader, schema file or data file is written here, and `registry/`, `model_v2/` and `pipeline/` are untouched. R11 (`docs/model-audit/synthesis.md` section 4): everything specific to one country lives in a data pack, so a second country is a new pack and no code change. This note fixes what the pack holds, how it is laid out, validated, hashed and licensed, and how to test that the code is clean of the UK.
+Design note only. No loader, schema file or data file is written here, and `registry/`, `model_v2/` and `pipeline/` are untouched. R11 (`research/model-audit/synthesis.md` section 4): everything specific to one country lives in a data pack, so a second country is a new pack and no code change. This note fixes what the pack holds, how it is laid out, validated, hashed and licensed, and how to test that the code is clean of the UK.
 
 ## 1. Boundary: what is in the pack and what stays in the register
 
@@ -138,7 +138,7 @@ Long form, by income group, from the household effects-of-taxes-and-benefits tab
 | `fiscal_year` | text | `FYE 2023` or `2023-24` | no | |
 | `basis` | text | `equivalised_disposable` or `original` | no | |
 
-Quintile and decile rows for the same variable and year must agree: the mean of the ten decile values equals the mean of the five quintile values within 1%. Several decile rows exist only in the held 2023-24 tables (`Research/etbreferencetablesfye202324final.xlsx`); the FYE 2023 quintiles are not held (section 4).
+Quintile and decile rows for the same variable and year must agree: the mean of the ten decile values equals the mean of the five quintile values within 1%. Several decile rows exist only in the held 2023-24 tables (`data/uk-source-workbooks/etbreferencetablesfye202324final.xlsx`); the FYE 2023 quintiles are not held (section 4).
 
 ### 3.6 tax_rules.csv
 The statutory rules the retired-tax and benchmark lines depend on, as rows, so a second country supplies its own.
@@ -156,19 +156,19 @@ The statutory rules the retired-tax and benchmark lines depend on, as rows, so a
 Exactly one of `rate`, `amount`, `flag` is non-empty per row. Band rows of one `rule` and `tax_year` must be ordered and non-overlapping.
 
 ### 3.7 public_expenditure.csv
-Spending by function, share of GDP, for the benchmarks that price a retired line against other uses. A non-empty file must hold a `function` = `total` row (the reference expenditure over GDP, brief 070c); `pct_gdp` lies strictly between 0 and 100. Columns: `function` (key), `fiscal_year`, `pct_gdp` (float, % of GDP), `gbp_bn` (float, nominal, may be missing), `basis`. UK file: one row, `total`, `fiscal_year` 2019 (the reference year, v2's `exp_ref_year`), `pct_gdp` 36.82 from JST `expenditure` over `gdp` for 2019 (`Rates Data/JSTdatasetR6.xlsx`, Sheet1, GBR row 1510); `gbp_bn` empty. Cross-check, not stored: `Rates Data/PSS_May_2024_TES_UPDATED.xlsx`, Data_for_charts, TME over nominal GDP, 39.58 for 2019-20. No register row points here.
+Spending by function, share of GDP, for the benchmarks that price a retired line against other uses. A non-empty file must hold a `function` = `total` row (the reference expenditure over GDP, brief 070c); `pct_gdp` lies strictly between 0 and 100. Columns: `function` (key), `fiscal_year`, `pct_gdp` (float, % of GDP), `gbp_bn` (float, nominal, may be missing), `basis`. UK file: one row, `total`, `fiscal_year` 2019 (the reference year, v2's `exp_ref_year`), `pct_gdp` 36.82 from JST `expenditure` over `gdp` for 2019 (`data/rates/JSTdatasetR6.xlsx`, Sheet1, GBR row 1510); `gbp_bn` empty. Cross-check, not stored: `data/rates/PSS_May_2024_TES_UPDATED.xlsx`, Data_for_charts, TME over nominal GDP, 39.58 for 2019-20. No register row points here.
 
 ## 4. The UK pack: files, repo sources and what is missing
 
 | Pack file | Rows | Source in the repo today | Missing |
 |---|---:|---|---|
-| `returns.csv` | 14 checks | `model_v2/jst_r6.json` (series `eq_tr` 1871-2020, `housing_tr` 1896-2020, `bond_tr` 1870-2020, `capital_tr` 1896-2019, `cpi`, and from 070c `rgdpmad` as `gdp_pc` 1870-2019); `Rates Data/JSTdatasetR6.xlsx` | Years 2021 to the last full year (I-D1e gap); a licence check for JST |
-| `wealth_distribution.csv` | 25 | `Rates Data/totalwealthtables.xlsx` (Tables 2.2, 2.4, 2.5), `financialwealthtables.xlsx` | A later survey wave than Round 8; the 14 W6 ladder rows and 6 other rows are `(J)` and not yet sourced |
+| `returns.csv` | 14 checks | `model_v2/jst_r6.json` (series `eq_tr` 1871-2020, `housing_tr` 1896-2020, `bond_tr` 1870-2020, `capital_tr` 1896-2019, `cpi`, and from 070c `rgdpmad` as `gdp_pc` 1870-2019); `data/rates/JSTdatasetR6.xlsx` | Years 2021 to the last full year (I-D1e gap); a licence check for JST |
+| `wealth_distribution.csv` | 25 | `data/rates/totalwealthtables.xlsx` (Tables 2.2, 2.4, 2.5), `financialwealthtables.xlsx` | A later survey wave than Round 8; the 14 W6 ladder rows and 6 other rows are `(J)` and not yet sourced |
 | `wealth_tail.csv` | 6 | `model_v2/wid_out/wid_long.csv` (I-W7a, I-W7b) | I-D4d, I-D4f, I-W5c, I-W5d are `no` in the register (Advani et al., Rich List: not copied into the repo) |
-| `receipts.csv` | 18 | `Rates Data/Revenue composition spreadsheet.xlsx` | An outturn vintage newer than the March 2023 forecast; `Rates Data/maintax_2023.xlsx` is held and not cited |
-| `household_incidence.csv` | 36 | `Research/etbreferencetablesfye202324final.xlsx` (Tables 2b, 2c, 13, 16: decile rows I-H1k to I-H1t, I-H3k to I-H3t, I-H2b, I-D6a, I-D6h, I-D6o to I-D6q) | The FYE 2023 quintile rows I-H1a to I-H1j (10 rows) have no file in the repo |
+| `receipts.csv` | 18 | `data/rates/Revenue composition spreadsheet.xlsx` | An outturn vintage newer than the March 2023 forecast; `data/rates/maintax_2023.xlsx` is held and not cited |
+| `household_incidence.csv` | 36 | `data/uk-source-workbooks/etbreferencetablesfye202324final.xlsx` (Tables 2b, 2c, 13, 16: decile rows I-H1k to I-H1t, I-H3k to I-H3t, I-H2b, I-D6a, I-D6h, I-D6o to I-D6q) | The FYE 2023 quintile rows I-H1a to I-H1j (10 rows) have no file in the repo |
 | `tax_rules.csv` | 9 | none (read from gov.uk and a Deloitte PDF, register ST1 to ST3) | all 9 rows: I-T1a, I-T1b, I-T1e, I-T7a to I-T7f |
-| `public_expenditure.csv` | 1 | `Rates Data/JSTdatasetR6.xlsx` (`expenditure` over `gdp`, 2019; cross-check `PSS_May_2024_TES_UPDATED.xlsx` Data_for_charts, 39.58 for 2019-20, not stored) | other functions; `gbp_bn` |
+| `public_expenditure.csv` | 1 | `data/rates/JSTdatasetR6.xlsx` (`expenditure` over `gdp`, 2019; cross-check `PSS_May_2024_TES_UPDATED.xlsx` Data_for_charts, 39.58 for 2019-20, not stored) | other functions; `gbp_bn` |
 
 Of the 108 pack rows, **23 have data not in the repo** (register "In repo" cell starts with `no`): I-D4d, I-D4f, I-H1a to I-H1j, I-T1a, I-T1b, I-T1e, I-T7a to I-T7f, I-W5c, I-W5d. The other 85 are held. Four held files are cited by no register source: `maintax_2023.xlsx`, `PSS_May_2024_TES_UPDATED.xlsx`, `7.1_260716_Rates_Data_Tables.xlsx`, `financialwealthtables.xlsx`; the research lane should say which row each supports or drop it.
 

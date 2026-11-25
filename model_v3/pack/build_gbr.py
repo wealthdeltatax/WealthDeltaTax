@@ -18,11 +18,11 @@ import openpyxl
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'model_v3' / 'pack' / 'GBR'
-WEALTH, REVENUE, ETB = 'Rates Data/totalwealthtables.xlsx', 'Rates Data/Revenue composition spreadsheet.xlsx', 'Research/etbreferencetablesfye202324final.xlsx'
-HOUSING = 'Research/Housing affordability in England and Wales 2025.pdf'
-CELLS, COMP = 'docs/research/data/104r/cell_weights.csv', 'docs/research/data/102r/band_composition_by_pack_band.csv'   # 109c: held derived files (derive_bands_stages.py, 104r)
+WEALTH, REVENUE, ETB = 'data/rates/totalwealthtables.xlsx', 'data/rates/Revenue composition spreadsheet.xlsx', 'data/uk-source-workbooks/etbreferencetablesfye202324final.xlsx'
+HOUSING = 'literature/Housing affordability in England and Wales 2025.pdf'
+CELLS, COMP = 'research/tables/104r-parameter-map-design/104r-parameter-map-design-cell-weights.csv', 'research/tables/102r-parameter-map-stocks-and-cells/band_composition_by_pack_band.csv'   # 109c: held derived files (derive_bands_stages.py, 104r)
 DECILES = 'docs/model-v3/kernel-wiring/decile_composition.csv'   # 115c: the held derived file (decile_composition.py, WAS Round 8 Table 2.2)
-JSTX, REF_YEAR = 'Rates Data/JSTdatasetR6.xlsx', 2019   # REF_YEAR: v2's exp_ref_year
+JSTX, REF_YEAR = 'data/rates/JSTdatasetR6.xlsx', 2019   # REF_YEAR: v2's exp_ref_year
 SCHEMA = {'returns': 'year eq_tr housing_tr bond_tr capital_tr cpi gdp_pc', 'wealth_distribution': 'variable band value unit basis year',
           'wealth_tail': 'series year value unit low high basis', 'receipts': 'line fiscal_year pct_gdp gbp_bn basis',
           'household_incidence': 'variable group tax value unit fiscal_year basis', 'tax_rules': 'rule tax_year subject lower upper rate amount flag',

@@ -26,12 +26,13 @@ HERE = Path(__file__).resolve().parent
 from model_v3.core import cells as ce, pack as pk  # noqa: E402
 from model_v3.runner import runner as R  # noqa: E402
 
-YEARS, D = 100, ROOT / 'docs' / 'research' / 'data'
+YEARS, D = 100, ROOT / 'research' / 'tables'
+SLUG = {'101r': '101r-parameter-map-flows-and-returns'}
 CLASSES = ce.CLASSES
 
 
 def rows_of(name, folder):
-    return list(csv.DictReader(open(D / folder / name, newline='', encoding='utf-8')))
+    return list(csv.DictReader(open(D / SLUG[folder] / name, newline='', encoding='utf-8')))
 
 
 def inputs():
@@ -44,7 +45,7 @@ def inputs():
     s = [float(r['value']) / 100 for r in rows_of('derived_ons_flows.csv', '101r') if r['item'] == 'ratio_nonpension_part_pct']
     sav = dict(min=min(s), median=st.median(s), max=max(s))
     # retired fraction: ETB FYE 2024 Tables 3a (non-retired) and 4a (retired), household-weighted mean gross income over the five quintiles
-    wb = openpyxl.load_workbook(ROOT / 'Research' / 'etbreferencetablesfye202324final.xlsx', read_only=True, data_only=True)
+    wb = openpyxl.load_workbook(ROOT / 'data' / 'uk-source-workbooks' / 'etbreferencetablesfye202324final.xlsx', read_only=True, data_only=True)
 
     def mean_gross(t):
         rows = [list(r) for r in wb[t].iter_rows(values_only=True)]

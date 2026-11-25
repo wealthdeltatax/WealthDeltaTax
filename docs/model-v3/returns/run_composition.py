@@ -22,7 +22,7 @@ for lab, d in [("capital_tr (JST wealth)", cap), ("risky_tr", yk), ("safe_tr", s
 common = [y for y in sorted(cap) if y in eq and y in hs and y in bd and y in bl]
 mat = np.array([[eq[y], hs[y], bd[y], bl[y]] for y in common]); out["corr_common"] = np.corrcoef(mat.T).round(3).tolist(); out["corr_labels"] = ["equity", "housing", "bonds", "bills"]; out["corr_n"] = len(common)
 # Round 8 composition by decile group (Table 2.2, column K), the shares used for the payer mix
-wb = openpyxl.load_workbook(os.path.join(ROOT, "Rates Data", "totalwealthtables.xlsx"), data_only=True); ws = wb["Table 2.2"]
+wb = openpyxl.load_workbook(os.path.join(ROOT, "data/rates", "totalwealthtables.xlsx"), data_only=True); ws = wb["Table 2.2"]
 col = lambda base: [ws.cell(base + k, 11).value for k in range(10)]
 TOT, PROP, FIN, PHY, PEN = col(4), col(14), col(24), col(34), col(44)
 G = {"D4-5": [3, 4], "D6-7": [5, 6], "D8-9": [7, 8], "D10": [9]}

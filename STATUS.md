@@ -11,7 +11,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
 | Agent 2 | out of tokens (rehearsal skipped) | 057c resumes after 162c |
 | Agent 3 | 166c (can the fund's reserves cover the gap years? diagnostic, no model change) | 164c (project, skills, final sweep) |
-| Agent 4 | 160c (datasets, PDFs, research) | |
+| Agent 4 | free (160c merged 2026-11-25) | |
 | Agent 5 | 161c (website, web tests, legacy papers) | |
 | Agent 6 | 165c (rehearse the whole move on a scratch copy) | 162c and 163c (model move, specs and results) |
 
@@ -26,6 +26,7 @@ Six agents only. Agents change skill with the brief. Next housekeeping (author, 
 - 2026-11-24: 089c merged (`docs/model-v3/feasibility-map.md`): at the strict rule no schedule is feasible at any point or fund (best F1 15.5 to 36.5% `safe`, 31.5 to 45.5% `market` against 75%); 14 of 120 (fund, point, rule) cells are feasible, all under a relaxed rule (tolerance up to 1%, margin 10 to 25%). CK1 P3 positive at amplitude 0 in 11 of 40 rows. No rule picked; the feasibility rule is the author's open ruling.
 - 2026-11-24: 147c blocks 0 to 3 reviewed, not merged: `top_tail` and `saving_shape` switches in, 30 of 50 non-flat cells stop in M13 (D1, D2 go negative). Ruled: floor dissaving at zero wealth in `switches.py` (block 4). No setting lifts top-decile share to 0.50 (best 0.388 at year 100); reported as a finding, no more switches.
 - 2026-11-24: 057c rounds 4 and 5 reviewed, not merged: `quick` 44 min, a final-size grid point without O1e 94 min (serial). Ruled: failed grid points stay as `target_not_met`; O1e no root is `no_sign_change_0_15`; acceptance runs a reduced C3 (full C3 a later manual run).
+- 2026-11-25: 160c merged (data, literature, research moved; NOTICE lines allow-listed for 162c; converter re-root in 164c). 161c next (rebase, then merge); 166c reserve diagnostic reviewed.
 - 2026-11-24: 044c R1 round 2 merged: the map (1,104 files, all settled) is the authority; 160c and 161c released in parallel (Agents 4 and 5).
 - 2026-11-24: 044c R1 reviewed (1,096 files mapped; checks built; tripwire baseline 79 s) and the checkpoint ruled (research outputs to research/, bibliography to literature/, pinned citations kept, project/tools, agent-*.md guides, tests follow code). R1 round 2: the agent regenerates the map; then 160c and 161c.
 - 2026-11-24: 009c merged: `model_v1`, `model_v2` and `audit_d0` removed (307 files); `data/jst/jst_r6.json` and `data/wid/` kept; restore from the branch `archive/legacy-models-2026-11` (tag push was refused by the proxy; optional tag command in decisions). 044c R1 next.

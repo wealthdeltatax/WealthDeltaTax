@@ -1,12 +1,12 @@
 """112r: composition of net wealth by WAS Round 8 decile (Table 2.2), to size the within-band gradient a payer line would ignore under band shares.
-Run: python -I docs/model-v3/kernel-wiring/decile_composition.py   (reads Rates Data/totalwealthtables.xlsx; writes decile_composition.csv beside this file)
+Run: python -I docs/model-v3/kernel-wiring/decile_composition.py   (reads data/rates/totalwealthtables.xlsx; writes decile_composition.csv beside this file)
 Pension is private pension wealth on the ONS SCAPE-based WAS basis. Prints one summary line."""
 import csv, os
 import openpyxl
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
-ws = list(openpyxl.load_workbook(os.path.join(ROOT, 'Rates Data', 'totalwealthtables.xlsx'), data_only=True, read_only=True)['Table 2.2'].iter_rows(values_only=True))
+ws = list(openpyxl.load_workbook(os.path.join(ROOT, 'data/rates', 'totalwealthtables.xlsx'), data_only=True, read_only=True)['Table 2.2'].iter_rows(values_only=True))
 col = lambda r0: [float(ws[r0 - 1 + k][10]) for k in range(10)]          # R8 is the last column; rows 4, 14, 24, 34, 44 start each block of ten deciles
 tot, prop, fin, phys, pen = col(4), col(14), col(24), col(34), col(44)
 BAND = {1: 'D1-3', 2: 'D1-3', 3: 'D1-3', 4: 'D4-5', 5: 'D4-5', 6: 'D6-7', 7: 'D6-7', 8: 'D8-9', 9: 'D8-9', 10: 'D10'}

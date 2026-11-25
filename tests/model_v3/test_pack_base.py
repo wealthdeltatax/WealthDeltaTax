@@ -28,8 +28,8 @@ def uk_rows(p, var):
 def test_p10_the_uk_pack_carries_the_base_fields_and_they_match_the_sheets():
     import openpyxl
     p = pk.load_pack(GBR)
-    t21 = [r for r in openpyxl.load_workbook(ROOT / 'Rates Data' / 'totalwealthtables.xlsx', read_only=True, data_only=True)['Table 2.1'].iter_rows(values_only=True)]
-    rev = [r for r in openpyxl.load_workbook(ROOT / 'Rates Data' / 'Revenue composition spreadsheet.xlsx', read_only=True, data_only=True)['Total revenues'].iter_rows(values_only=True)]
+    t21 = [r for r in openpyxl.load_workbook(ROOT / 'data/rates' / 'totalwealthtables.xlsx', read_only=True, data_only=True)['Table 2.1'].iter_rows(values_only=True)]
+    rev = [r for r in openpyxl.load_workbook(ROOT / 'data/rates' / 'Revenue composition spreadsheet.xlsx', read_only=True, data_only=True)['Total revenues'].iter_rows(values_only=True)]
     bands = [f'D{d}' for d in range(1, 11)]
     wt, hh = uk_rows(p, 'wealth_total'), uk_rows(p, 'households')
     assert set(wt) == set(hh) == set(bands) | {'all'} and not uk_rows(p, 'adults')       # no adults table is held

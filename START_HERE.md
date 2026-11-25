@@ -9,7 +9,7 @@ Wealth Delta Tax: paper series in `source/`, build in `pipeline/`, model in `mod
 - References, bibliography, literature: `docs/agents/research.md`
 - Site build, Quarto, deploy, rendering: `docs/agents/web.md`
 
-Do not open `OVERVIEW.md` in full (sections only), `docs/archive/`, `docs/model-lessons/` or finished briefs.
+Do not open `OVERVIEW.md` in full (sections only), `docs/archive/`, `research/model-lessons/` or finished briefs.
 
 ## After a task
 End with the change report (`docs/agents/change-report.md`). If a session may end, `docs/agents/handover.md`.

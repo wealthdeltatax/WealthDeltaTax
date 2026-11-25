@@ -142,7 +142,7 @@ Report a brief summary: `.bib` entries added, entries updated, discrepancies fou
 
 **Update briefs:** Produce a dated diff addendum, not a full reissue. The addendum covers: new references added since the last brief (by strand), web-check corrections affecting cited works, forward-link target changes.
 
-**Output:** `LR_Brief_YYMMDD.md` (or `LR_Brief_YYMMDD_update.md` for addenda). Write to `docs/research/`.
+**Output:** `LR_Brief_YYMMDD.md` (or `LR_Brief_YYMMDD_update.md` for addenda). Write to `research/notes/`.
 
 ---
 

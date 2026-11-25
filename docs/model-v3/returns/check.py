@@ -2,7 +2,7 @@
 Run: python3 -I check.py"""
 import os, math, random, json, openpyxl
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
-ws = openpyxl.load_workbook(os.path.join(ROOT, "Rates Data", "JSTdatasetR6.xlsx"), read_only=True, data_only=True)["Sheet1"]
+ws = openpyxl.load_workbook(os.path.join(ROOT, "data/rates", "JSTdatasetR6.xlsx"), read_only=True, data_only=True)["Sheet1"]
 it = ws.iter_rows(values_only=True); h = list(next(it)); ix = {k: i for i, k in enumerate(h)}
 cap, cpi = {}, {}
 for row in it:

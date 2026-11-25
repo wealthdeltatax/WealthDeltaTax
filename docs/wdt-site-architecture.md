@@ -58,7 +58,7 @@ The site takes Markdown source files for 33 WDT papers (`registry/papers.yml` ha
 │   ├── diagrams/                (5 .mmd sources AND cached .png renders)
 │   └── tools/                   (taxpayer_calc.html, revenue_calc.html, ldw_calc.html)
 ├── (model_v1/ and model_v2/: removed from the tree, see tag `legacy-models-2026-11`; the site no longer publishes /model/)
-├── Rates Data/, Research/, Tools/   (not part of the site build; see OVERVIEW.md)
+├── data/, literature/, Tools/   (not part of the site build; see OVERVIEW.md)
 ├── docs/                        (this file, agent guides, briefs, navigation_suggestions.md, archive/ ...)
 ├── .github/workflows/deploy.yml
 ├── .gitignore                   (_build/, _site/, .quarto/, __pycache__/, anchors.yml, pdfs/, print/, source/.obsidian/, check*.txt)
