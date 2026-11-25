@@ -1,6 +1,6 @@
 # 012r stage B3: derivations
 
-Method behind the computed rows in `docs/model-v3/inputs.md` (I-M6a to I-M6d, I-M6h, I-M6i, I-M6k, I-M8c, I-M8d). Inputs are the held ONS Round 8 table (`data/rates/totalwealthtables.xlsx`, Table 2.2 decile aggregates) and the published figures named in each section. Run with `python3 -I`. Accessed 2026-11-16.
+Method behind the computed rows in `model-specs/inputs.md` (I-M6a to I-M6d, I-M6h, I-M6i, I-M6k, I-M8c, I-M8d). Inputs are the held ONS Round 8 table (`data/rates/totalwealthtables.xlsx`, Table 2.2 decile aggregates) and the published figures named in each section. Run with `python3 -I`. Accessed 2026-11-16.
 
 ## 1. Denominators (wealth, £bn, Round 8, GB)
 - Total wealth £13,568bn (Table 2.1). Adults at or above W_min = £150,000 hold 89.7%, 92.7% or 96.4% of it (I-D4c): £12,170bn, £12,578bn, £13,080bn.

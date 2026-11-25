@@ -6,7 +6,7 @@
 
 Brief 018s, part of 013g stage D. Status: design draft for the guru; the guru merges it with the sibling files into `docs/restructure/site.md`. Design only: nothing here is built, no value is chosen, and every number in the worked example (section 10) is a placeholder, not a model result.
 
-Read: `docs/restructure/template.md` (sections 4, 6, 6a), `docs/model-v3/outputs.yml`, `metrics.md`, `inputs.md`, and the file names in `pipeline/`. Where this design needs something the manifest, template or register does not hold, it is a numbered question in section 11 with a proposed answer. The text says "proposed" wherever a rule depends on a question.
+Read: `docs/restructure/template.md` (sections 4, 6, 6a), `model-specs/outputs.yml`, `metrics.md`, `inputs.md`, and the file names in `pipeline/`. Where this design needs something the manifest, template or register does not hold, it is a numbered question in section 11 with a proposed answer. The text says "proposed" wherever a rule depends on a question.
 
 ## 1. What this file fixes
 
@@ -21,8 +21,8 @@ Read: `docs/restructure/template.md` (sections 4, 6, 6a), `docs/model-v3/outputs
 
 | Piece | Status | Writer | Reader |
 |---|---|---|---|
-| `docs/model-v3/outputs.yml` (manifest) | exists | author, guru | resolver, validator, spoke checker |
-| `docs/model-v3/inputs.md` | exists | research lane | `model/tools/build_inputs.py` |
+| `model-specs/outputs.yml` (manifest) | exists | author, guru | resolver, validator, spoke checker |
+| `model-specs/inputs.md` | exists | research lane | `model/tools/build_inputs.py` |
 | `data/input-register/inputs.json` | new, generated, never edited | `build_inputs.py` | resolver, and the v3 run (so the run and the page read one file) |
 | Output data file | new, written by the v3 run script (built later) | model | resolver, Data block generator |
 | `registry/lit-figures.yml` | new, hand-maintained (Q9) | research lane | resolver |
@@ -364,7 +364,7 @@ Each has a proposed answer. Until answered, the proposed rule is the working rul
 14. **Link targets.** The Replicate row and the Inputs row link to data-layer pages, whose addresses `nav.md` (brief 021s) fixes. *Proposed:* this design emits links through a function `data_url(kind, id)`, with placeholders `data/outputs/<ID>.html` and `data/inputs.html#<ID>` until `nav.md` settles them.
 15. **Reading note location.** Template section 2 allows an optional 60-word note but not where it lives. *Proposed:* front matter key `reading_note:`.
 16. **Number style.** Open: minus sign (hyphen or true minus), thousands separator for `gbp_bn` over 999, behaviour when a range rounds to one value (proposed: single value plus warning W2), and where the money base year is stated (proposed: the Run row). The manifest names no base year.
-17. **Proposed outputs not in the manifest.** `docs/model-v3/added/` holds proposed outputs (OH1a to OH1c, OW1 to OW3, OM1, OL1). Hooks to them are H02 until the guru merges them into `outputs.yml`.
+17. **Proposed outputs not in the manifest.** `model-specs/added/` holds proposed outputs (OH1a to OH1c, OW1 to OW3, OM1, OL1). Hooks to them are H02 until the guru merges them into `outputs.yml`.
 18. **Manifest `version`.** `stage-A2-passed` is a stage label, not a version. The Run row prints it as written. *Proposed:* keep it as an opaque string; V8 compares text.
 
 ## 12. Checks run

@@ -2,7 +2,7 @@
 
 Brief 026g, stage A. Status: draft for the author; stage B (`order.md`) starts only after the author approves this file and answers section 7. Design only: nothing here is built and no spoke or hub prose is written. This file replaces nothing: the five sibling files stay the detailed record, and where this file and a sibling disagree, this file's section 6 (settled) or section 7 (open) says which holds.
 
-Siblings: [ids](site/ids.md) (017s), [hooks](site/hooks.md) (018s), [figures](site/figures.md) (019s), [checker](site/checker.md) (020w), [nav](site/nav.md) (021s). Supporting: [shortcodes](shortcodes.md), [ids-map](ids-map.md), [template](template.md), `docs/model-v3/outputs.yml` (version `stage-A5-falsifiability-elements-2026-11-17`).
+Siblings: [ids](site/ids.md) (017s), [hooks](site/hooks.md) (018s), [figures](site/figures.md) (019s), [checker](site/checker.md) (020w), [nav](site/nav.md) (021s). Supporting: [shortcodes](shortcodes.md), [ids-map](ids-map.md), [template](template.md), `model-specs/outputs.yml` (version `stage-A5-falsifiability-elements-2026-11-17`).
 
 ## 1. The site in one page
 

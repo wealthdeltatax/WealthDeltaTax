@@ -14,7 +14,7 @@ from test_out import INFO, INPUTS, LEVERS, MANIFEST, fixture, synthetic
 from test_runner import ROOT, ctx, fake, lv, out, tier1  # noqa: F401  (the fixtures)
 
 SPEC = dict(tau_0=0.04, tau_m=0.7, k_ln=1, ratio=0.5)
-INP = json.loads((ROOT / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text())
+INP = json.loads((ROOT / 'results' / 'cell-baseline' / 'inputs_used.json').read_text())
 PATHS = (np.full((100, 2), 0.01), np.full((100, 2), 0.0157))
 
 

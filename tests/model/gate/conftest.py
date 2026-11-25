@@ -38,18 +38,18 @@ def cells_for(manifest_horizons=('short', 'long')):
 
 def make_repo(root: Path) -> Path:
     """Every gate input present and correct for a page set of HUB, MECH, FISC, VAL, FAIR."""
-    w(root, 'docs/model-v3/outputs.yml', MANIFEST)
-    w(root, 'docs/model-v3/inputs.md',
+    w(root, 'model-specs/outputs.yml', MANIFEST)
+    w(root, 'model-specs/inputs.md',
       '| ID | Input | Low | Central | High | How |\n|---|---|---|---|---|---|\n'
       '| I-A | one | 1 | 2 | 3 | **(J)** judged |\n| I-B | two | 1 | 2 | 3 | derived |\n| I-C | three | 1 | 2 | 3 | (J) judged |\n')
-    w(root, 'docs/model-v3/judgement-decisions.md',
+    w(root, 'model-specs/judgement-decisions.md',
       '| ID | Input | Low | Central | High | Decision | Date |\n|---|---|---|---|---|---|---|\n'
       '| I-A | one | 1 | 2 | 3 | accepted | 2026-11-20 |\n| I-C | three | 1 | 2 | 3 | replaced by I-B | 2026-11-21 |\n')
-    w(root, 'docs/model-v3/architecture.md', '# arch\n')
-    w(root, 'docs/model-v3/acceptance.md', f'# acceptance\n\nAcceptance command: `{sys.executable} -c "import sys; sys.exit(0)"`\n')
+    w(root, 'model-specs/architecture.md', '# arch\n')
+    w(root, 'model-specs/acceptance.md', f'# acceptance\n\nAcceptance command: `{sys.executable} -c "import sys; sys.exit(0)"`\n')
     w(root, 'docs/archive/briefs/011g-model-v3-design.md', '# 011g\n')
     w(root, 'data/input-register/inputs.json', json.dumps({'inputs': [{'id': 'I-A'}, {'id': 'I-B'}, {'id': 'I-C'}]}))
-    man = root / 'docs/model-v3/outputs.yml'
+    man = root / 'model-specs/outputs.yml'
     inp = root / 'data/input-register/inputs.json'
     outputs = {'O1': {'summary': 'p10_mean_p90', 'cells': cells_for()},
                'O2': {'summary': 'p10_mean_p90', 'cells': [dict(c, by={'wealth_band': b}) for c in cells_for() for b in ('overall', 'D10')]},

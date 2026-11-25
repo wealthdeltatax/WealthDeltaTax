@@ -3,7 +3,7 @@
 - **Status:** draft (provisional; released after 044c, and only with the `quick` byte-reference file in hand)
 - **Author/date:** K. Ogata with the guru, 2026-11-23
 - **Depends on:** 057c (the `quick` run size and its reference file), 150c (merged, the timing scripts), 044c (the file move; all paths below are pre-move and are rewritten by it)
-- **Read (block 0: the first two only):** (1) `docs/model-v3/run-cost.md` ("Cost by part", "What is left"); (2) `docs/agents/code.md`. Later: `model/model_v3/runner/runner.py` (`core_run` 197, `headlines` 220, `evaluate` 235, `make_ev` 257); `model/model_v3/runner/sweeps.py` (`headline`, `tornado` 86, `breakeven_return` about 125); `model/model_v3/runner/pool.py`; `model/studies/run-cost/timing.py`; `docs/model-v3/computational-architecture-hypothesis.md` (Scenario A).
+- **Read (block 0: the first two only):** (1) `results/run-cost/run-cost.md` ("Cost by part", "What is left"); (2) `docs/agents/code.md`. Later: `model/model_v3/runner/runner.py` (`core_run` 197, `headlines` 220, `evaluate` 235, `make_ev` 257); `model/model_v3/runner/sweeps.py` (`headline`, `tornado` 86, `breakeven_return` about 125); `model/model_v3/runner/pool.py`; `model/studies/run-cost/timing.py`; `model-specs/computational-architecture-hypothesis.md` (Scenario A).
 
 ## Goal
 Make the tornado and the O1e roots several times cheaper without changing a number. Today every evaluation they call runs `core_run` five times (one base, and the `again` runs the output groups ask for) and the support group's welfare solves, although the tornado reads only the headlines M1, M2 and M3 and an O1e root reads only `['M1']['short']`. Those two steps are over 90% of a full run. The guru's profile (2026-11-23, household arm, 400 paths) puts the work in many small array operations, so skipping whole evaluations saves more than speeding up any one of them.
@@ -22,12 +22,12 @@ Make the tornado and the O1e roots several times cheaper without changing a numb
 ## Blocks (one push each; `docs/agents/code.md`)
 - **Block 0:** progress block pushed.
 - **Block 1:** the switch and its test; `test_legacy_digest` unchanged.
-- **Block 2:** the callers use it; the `quick` run reproduces the reference file byte for byte; timing before and after (tornado, one schedule; one O1e root; the `quick` run), best of two, on this machine, in `docs/model-v3/run-cost.md` as a new section, with the profile top ten before and after.
+- **Block 2:** the callers use it; the `quick` run reproduces the reference file byte for byte; timing before and after (tornado, one schedule; one O1e root; the `quick` run), best of two, on this machine, in `results/run-cost/run-cost.md` as a new section, with the profile top ten before and after.
 - **Block 3:** the note: what the measurement says about 152c to 154c (which is now the largest share), and an updated projection of the full run.
 **Stop rule.** If any caller reads a group result, or the byte comparison fails once, stop and report the case; do not loosen the comparison. After three blocks or a quarter of the budget left, push and list the rest.
 
 ## Touches
-`model/model_v3/runner/runner.py` (the switch; the file is at its 360-line budget, so the agent either moves a function out or raises the budget row in `architecture.md` and says which), `model/model_v3/runner/sweeps.py`, `model_v3/run.py`, `tests/model/model_v3/` (a new `test_heads_only.py`; `conftest.py` LAYER row and `test_groups.py` if the layer table needs a row), `docs/model-v3/run-cost.md` (a section), `docs/model-v3/architecture.md` (budget rows only), the `quick` timing script. Name any further file before editing it. Not the kernel, `arm.py`, the register, the pack or the manifest.
+`model/model_v3/runner/runner.py` (the switch; the file is at its 360-line budget, so the agent either moves a function out or raises the budget row in `architecture.md` and says which), `model/model_v3/runner/sweeps.py`, `model_v3/run.py`, `tests/model/model_v3/` (a new `test_heads_only.py`; `conftest.py` LAYER row and `test_groups.py` if the layer table needs a row), `results/run-cost/run-cost.md` (a section), `model-specs/architecture.md` (budget rows only), the `quick` timing script. Name any further file before editing it. Not the kernel, `arm.py`, the register, the pack or the manifest.
 
 ## Acceptance criteria
 - The headline-only result is byte-identical to the full evaluator's headline keys on both arms (test).

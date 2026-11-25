@@ -1,6 +1,6 @@
 """145r block 2: three saving shapes (flat, mild, steep) over the model's 14 lines, scaled so aggregate saving equals flat's at every flat value.
 Reads the pack and register read-only (model_v3.core.pack, base.build_base at ratio 0.44, the test ratio) for each line's adults and income; the flat values from
-docs/model-v3/household-arm-account/account_table.csv (min, median, max of the ONS non-pension saving ratio). Nothing is run in the model; no concentration is computed.
+results/household-arm-account/account_table.csv (min, median, max of the ONS non-pension saving ratio). Nothing is run in the model; no concentration is computed.
 Writes saving_shapes.csv (one row per line and shape) and saving_evidence.csv (figures with page and flag). Prints one line; exits 1 on a failed check.
 Run from the repo root: python -I research/scripts/saving_shapes.py
 Scaling: s_i = s + delta_i, delta_i = A * (h_i - hbar), hbar the income-weighted mean of h, so sum(w_i * s_i) = s for every s (w_i = line income share). Additive, because the flat value can be negative."""
@@ -15,7 +15,7 @@ b = bs.build_base(pack, reg, 0.44)
 inc = np.where(np.isnan(b.income), reg['I-D9a'].low / reg['I-D4h'].central / 1e6, b.income)   # as runner/arm.py line_state does
 ad = np.asarray(b.adults_k, float); w = inc * ad / (inc * ad).sum()
 cum = np.cumsum(ad) / ad.sum() * 100; rank = cum - ad / ad.sum() * 50               # adult percentile at the middle of each line
-flat = collections.OrderedDict((r['saving_value'], float(r['saving'])) for r in csv.DictReader(open('docs/model-v3/household-arm-account/account_table.csv')))
+flat = collections.OrderedDict((r['saving_value'], float(r['saving'])) for r in csv.DictReader(open('results/household-arm-account/account_table.csv')))
 fails = []
 if len(b.labels) != 14 or abs(w.sum() - 1) > 1e-12 or abs(cum[-1] - 100) > 1e-9: fails.append('lines or weights not as expected')
 if list(flat) != ['min', 'median', 'max']: fails.append('flat values not min, median, max')

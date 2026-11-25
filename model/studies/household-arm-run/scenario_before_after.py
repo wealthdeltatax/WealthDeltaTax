@@ -40,7 +40,7 @@ def main(argv=None):
     ap.add_argument('--out', default=None)
     a = ap.parse_args(argv)
     ctx, inp = G.A.setup()
-    manifest = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    manifest = yaml.safe_load((ROOT / 'model-specs' / 'outputs.yml').read_text())
     out, orig = [], ab.HouseholdHook
     for name in G.POINTS:
         c = G.point_ctx(ctx, inp, name)

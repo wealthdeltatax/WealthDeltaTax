@@ -6,7 +6,7 @@
 
 Brief 020w, part of 013g stage D. Status: draft for the guru; the author decides the numbered questions in section 9. This file designs the checker. It builds nothing. The guru merges it into `docs/restructure/site.md` with its siblings (`ids.md`, `hooks.md`, `figures.md`, `nav.md`).
 
-Sources: `docs/restructure/template.md` (sections 1 to 8), `docs/agents/reference/writing/style-guide.md` and `prose-rules.md`, `docs/model-v3/outputs.yml` (version `stage-A3-integrated-2026-11-17`), `docs/model-v3/inputs.md`, `pipeline/check_wdt_format.py`. Where the template is silent or inconsistent, this file proposes an answer in section 9 and marks the check "(Q n)". It does not guess.
+Sources: `docs/restructure/template.md` (sections 1 to 8), `docs/agents/reference/writing/style-guide.md` and `prose-rules.md`, `model-specs/outputs.yml` (version `stage-A3-integrated-2026-11-17`), `model-specs/inputs.md`, `pipeline/check_wdt_format.py`. Where the template is silent or inconsistent, this file proposes an answer in section 9 and marks the check "(Q n)". It does not guess.
 
 ## 1. Shape of the tool
 
@@ -38,8 +38,8 @@ A check is never relaxed to make a spoke pass. A fix to the text is made only wh
 | Input | Used by |
 |---|---|
 | The spoke file (`.md`) | all |
-| `docs/model-v3/outputs.yml` | FM, HK, R1, FG, F1 to F6, DB: ids, `element:`, `summary:`, `by:`, `schedules`, `horizons`, `once_not_per_schedule`, `kind`, `version`, `country_pack`, the `checks:` list |
-| `docs/model-v3/inputs.md` (register rows) | FM11, HK9 (Q10) |
+| `model-specs/outputs.yml` | FM, HK, R1, FG, F1 to F6, DB: ids, `element:`, `summary:`, `by:`, `schedules`, `horizons`, `once_not_per_schedule`, `kind`, `version`, `country_pack`, the `checks:` list |
+| `model-specs/inputs.md` (register rows) | FM11, HK9 (Q10) |
 | `registry/references.bib` and the literature-figure table (Q11) | HK10, OB6, WR16 |
 | Spoke list: ids, file paths, `depends` graph | FM5, FM12, XR6, XR7 (a machine-readable list, from 017s) |
 | Sibling spoke files | XR7 when the target spoke is present |

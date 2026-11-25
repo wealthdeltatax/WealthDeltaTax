@@ -22,7 +22,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-DATA = ROOT / 'docs' / 'model-v3' / 'household-vs-legacy'   # outputs and stored tables stay here until 163c
+DATA = ROOT / 'results' / 'household-vs-legacy'   # outputs and stored tables stay here until 163c
 sys.path[:0] = [str(ROOT / 'model'), str(HERE), str(ROOT / 'model' / 'studies' / 'household-arm-account'), str(ROOT / 'model' / 'studies' / 'household-arm-run')]
 
 import account_table as A                                                      # noqa: E402
@@ -107,7 +107,7 @@ def mean_terms(parts):
 
 def reported(grid):
     """The 124c values (grid_results.csv, schedule S) of one grid point or `legacy`, keyed as the terms' (output, horizon, band, 'value') where a 124c row exists."""
-    path = ROOT / 'docs' / 'model-v3' / 'household-arm-run' / 'grid_results.csv'
+    path = ROOT / 'results' / 'household-arm-run' / 'household-arm-run-grid-results.csv'
     ids = {'O1': 'line', 'O2': 'by', 'O2d': 'by', 'OP6': 'by'}
     res = {}
     for r in csv.DictReader(open(path)):

@@ -1,7 +1,7 @@
 """
 build_inputs.py: parse the model v3 input register into data/input-register/inputs.json.
 
-Reads docs/model-v3/inputs.md (rows whose first cell starts with ``I-``),
+Reads model-specs/inputs.md (rows whose first cell starts with ``I-``),
 writes data/input-register/inputs.json (generated, never edited by hand).  Brief 030c,
 hooks.md sections 2 and 4.3.
 
@@ -28,7 +28,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent.parent
-DEFAULT_SRC = ROOT / "docs" / "model-v3" / "inputs.md"
+DEFAULT_SRC = ROOT / "model-specs" / "inputs.md"
 DEFAULT_OUT = ROOT / "data" / "input-register" / "inputs.json"
 
 SCHEMA = "wdt-inputs/1"

@@ -43,7 +43,7 @@ def tab(head, rows):
 
 def build_ctx():
     lv = json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text())
-    out = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    out = yaml.safe_load((ROOT / 'model-specs' / 'outputs.yml').read_text())
     tier1 = next(o for o in out['outputs'] if o['id'] == 'OT1')['by']['input']
     return R.context(pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs']])
 

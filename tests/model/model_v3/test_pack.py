@@ -227,7 +227,7 @@ def test_p8_the_uk_pack_agrees_with_the_register_and_the_retirement_target():
 
 
 def test_p9_the_register_agrees_with_inputs_md():
-    text = (ROOT / 'docs' / 'model-v3' / 'inputs.md').read_text(encoding='utf-8')
+    text = (ROOT / 'model-specs' / 'inputs.md').read_text(encoding='utf-8')
     md = {m[1]: '(J)' in line for line in text.splitlines() if (m := re.match(r'\| (I-\w+) \|', line))}
     reg = pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json')
     assert len(reg) == len(md) == int(re.search(r'register has (\d+) rows', text)[1]) == json.loads((ROOT / 'data' / 'input-register' / 'inputs.json').read_text())['count']

@@ -12,7 +12,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-DATA = ROOT / 'docs' / 'model-v3' / 'of1-ck1'   # outputs and stored tables stay here until 163c
+DATA = ROOT / 'results' / 'of1-ck1'   # outputs and stored tables stay here until 163c
 spec = importlib.util.spec_from_file_location('f1h', HERE.parent / 'f1-household' / 'f1_household.py')
 F = importlib.util.module_from_spec(spec); sys.modules['f1h'] = F; spec.loader.exec_module(F)
 from model_v3.runner import out_sweeps as O, runner as R, sweeps as S

@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[3]
-HVL = ROOT / 'docs' / 'model-v3' / 'household-vs-legacy'
+HVL = ROOT / 'results' / 'household-vs-legacy'
 
 
 def rows():

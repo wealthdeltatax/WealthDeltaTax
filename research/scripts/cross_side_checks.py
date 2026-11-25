@@ -18,7 +18,7 @@ ct = rd(DIRS['102r'] + 'capital_transfers_s14.csv')
 debt = {r['debt_type']: float(r['gb_total_gbp_bn']) for r in rd(DIRS['102r'] + 'debt_gb_totals.csv')}
 comp = {r['pack_band']: r for r in rd(DIRS['102r'] + 'band_composition_by_pack_band.csv') if r['round'].startswith('April 2020')}
 cpi = {int(r['year']): float(r['cpi']) for r in rd('data/country-packs/GBR/returns.csv') if r['cpi']}
-inputs = open('docs/model-v3/inputs.md').read()
+inputs = open('model-specs/inputs.md').read()
 out, fails = [], []
 def add(i, check, a, va, b, vb, diff, tol, res, cls, note, hard=False):
     out.append(dict(check_id=i, check=check, side_a=a, value_a=va, side_b=b, value_b=vb, difference=diff, tolerance=tol, result=res, difference_class=cls, note=note))

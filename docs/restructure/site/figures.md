@@ -2,7 +2,7 @@
 
 Status: design only, drafted 2026-11-17. The author answered Q1 to Q8 on 2026-11-17, all as proposed (section 11). Builds nothing. The guru merges this file into `docs/restructure/site.md` with its siblings (`ids.md`, `hooks.md`, spoke checker, `nav.md`).
 
-Inputs read: `docs/restructure/template.md` section 6a (figure block, drawing rules, F1 to F6), `docs/model-v3/outputs.yml` (21 entries; every `summary`, `by`, `lines`, `per`, `kind`), `docs/model-v3/added/*.md` (the proposed `problem`, `data_fact` and `check` roles and the extra manifest entries), `docs/model-v3/metrics.md` (units, horizons, conventions), and the `dataviz` skill (form choice, mark specs, palette, interaction, accessibility; its palette validator was run, section 12). Nothing in `pipeline/`, `site/` or `registry/` was opened or changed.
+Inputs read: `docs/restructure/template.md` section 6a (figure block, drawing rules, F1 to F6), `model-specs/outputs.yml` (21 entries; every `summary`, `by`, `lines`, `per`, `kind`), `model-specs/added/*.md` (the proposed `problem`, `data_fact` and `check` roles and the extra manifest entries), `model-specs/metrics.md` (units, horizons, conventions), and the `dataviz` skill (form choice, mark specs, palette, interaction, accessibility; its palette validator was run, section 12). Nothing in `pipeline/`, `site/` or `registry/` was opened or changed.
 
 ## 1. Decisions in one screen
 
@@ -163,7 +163,7 @@ The manifest's own field is also called `kind`; it names an output's role, not a
 | | DH1b | `stack` | tax mix by head |
 | `check` (proposed) | CK1 | `line` | by `amplitude` |
 
-The proposed roles (`problem`, `data_fact`, `check`) and entries come from `docs/model-v3/added/` and are not yet in `outputs.yml`; the table fixes their drawing so the manifest can adopt them. Roles that do not draw (a manifest entry with no figure) need no row.
+The proposed roles (`problem`, `data_fact`, `check`) and entries come from `model-specs/added/` and are not yet in `outputs.yml`; the table fixes their drawing so the manifest can adopt them. Roles that do not draw (a manifest entry with no figure) need no row.
 
 ## 7. Units and axis labels from the metric register
 

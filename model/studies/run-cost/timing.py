@@ -17,8 +17,8 @@ from model_v3.out import assemble as asm                                  # noqa
 from model_v3.runner import runner as R, sweeps as S                      # noqa: E402
 from model_v3.runner.groups import GROUPS                                 # noqa: E402
 
-MANIFEST, INPUTS, LEVERS = ROOT / 'docs/model-v3/outputs.yml', ROOT / 'data/input-register/inputs.json', ROOT / 'model/model_v3/levers.json'
-HH_INPUTS, PACKS = ROOT / 'docs/model-v3/cell-baseline/inputs_used.json', ROOT / 'data/country-packs'
+MANIFEST, INPUTS, LEVERS = ROOT / 'model-specs/outputs.yml', ROOT / 'data/input-register/inputs.json', ROOT / 'model/model_v3/levers.json'
+HH_INPUTS, PACKS = ROOT / 'results/cell-baseline/inputs_used.json', ROOT / 'data/country-packs'
 SPEC, SEED, REPS = dict(tau_0=0.04, tau_m=0.5, k_ln=0.5, ratio=1.0), 20261118, 2
 
 

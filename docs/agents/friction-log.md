@@ -32,7 +32,7 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: it names `brief/145-withdrawal-saving-evidence`, which does not exist; the pushed branch is `brief/145-withdrawal-and-saving-evidence`.
 - Cost: a lookup; corrected in the brief.
 ### 2026-11-23 · 140c · code
-- **Instruction:** 140c Block 1 (run F1 at five scenario points on 128c paths); `docs/model-v3/household-arm-paths.md` (two of five points raise I1).
+- **Instruction:** 140c Block 1 (run F1 at five scenario points on 128c paths); `model-specs/household-arm-paths.md` (two of five points raise I1).
 - **Happened:** the brief does not say what to do when the arm raises I1 on a path; the first run stopped at `min_mid`, schedule point 7 (`ValueError: I1 fails: the book's family value is not the class total...`).
 - **Cost:** about 6 minutes and a rerun; the script now records each failed cell (12 of 135) and carries on, as the stop rule (no model change) implies.
 - **Suggest:** briefs that run the household arm on per-path returns say "record an I1 alarm per cell, do not work around it".
@@ -76,3 +76,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Suggest: the stage briefs say "run the stage's final checks in a fresh checkout (`git clean -fdx`)"; the proof uses `path_refs.Rewriter`.
 
 - 2026-11-25, 162c: `path_refs.py --check` prints only the first 50 findings (`left[:50]`), so pinned lines past 50 stay invisible; the proof's before and after counts need a stage map (rows of other stages held to identity), which the brief does not name.
+
+### 2026-11-25 · 163c · code
+- Instruction: 163c "tripwire clean"; `docs/agents/code.md` warns about shallow clones only for "pack work".
+- Happened: the session's clone of the repository was shallow (16 commits), so the scratch copy's tripwire reported `FAIL pack` (`model_v2/jst_r6.json is not in git history`); same cause as the 044c entry. A second slip: switching the scratch copy to another commit while a suite ran in it made that run void (rerun, 10 minutes).
+- Cost: one extra tripwire run and one extra `model_v3` run.
+- Suggest: `code.md` says "run `git fetch --unshallow` first in every session that runs the tripwire"; run a stage in a scratch clone and bring it back with `git merge --squash`, never touch the clone while suites run.

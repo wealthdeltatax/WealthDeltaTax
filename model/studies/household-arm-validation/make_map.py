@@ -5,7 +5,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-validation'   # outputs and stored tables stay here until 163c
+DATA = ROOT / 'results' / 'household-arm-validation'   # outputs and stored tables stay here until 163c
 SRC = HERE.parents[2] / 'research' / 'tables' / '099r-held-research-moments' / 'moments.csv'
 COLS = ('id', 'source', 'held_as_data', 'validation_moment', 'status', 'analogue', 'computed_where', 'definitions_that_differ', 'needs')
 

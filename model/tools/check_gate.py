@@ -59,11 +59,11 @@ G5_TEST_DIRS = ['tests/model/data', 'tests/website/hooks', 'tests/data_block', '
 @dataclass(frozen=True)
 class Config:
     root: Path = Path(__file__).resolve().parent.parent.parent
-    manifest: str = 'docs/model-v3/outputs.yml'
-    register_md: str = 'docs/model-v3/inputs.md'
-    decisions_md: str = 'docs/model-v3/judgement-decisions.md'
-    architecture: str = 'docs/model-v3/architecture.md'
-    acceptance: str = 'docs/model-v3/acceptance.md'
+    manifest: str = 'model-specs/outputs.yml'
+    register_md: str = 'model-specs/inputs.md'
+    decisions_md: str = 'model-specs/judgement-decisions.md'
+    architecture: str = 'model-specs/architecture.md'
+    acceptance: str = 'model-specs/acceptance.md'
     brief_011g: str = 'docs/archive/briefs/011g-model-v3-design.md'
     outputs_json: str = 'model_v3/OUTPUTS/outputs.json'
     inputs_json: str = 'data/input-register/inputs.json'

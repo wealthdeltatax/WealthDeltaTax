@@ -2,7 +2,7 @@
 build_metrics.py: parse the model v3 metric register into data/input-register/metrics.json
 and cross-check it against the output manifest.
 
-Reads docs/model-v3/metrics.md and docs/model-v3/outputs.yml, writes
+Reads model-specs/metrics.md and model-specs/outputs.yml, writes
 data/input-register/metrics.json (generated, never edited by hand).  Brief 030c,
 hooks.md sections 2 and 4.6.
 
@@ -39,8 +39,8 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent.parent
-DEFAULT_SRC = ROOT / "docs" / "model-v3" / "metrics.md"
-DEFAULT_MANIFEST = ROOT / "docs" / "model-v3" / "outputs.yml"
+DEFAULT_SRC = ROOT / "model-specs" / "metrics.md"
+DEFAULT_MANIFEST = ROOT / "model-specs" / "outputs.yml"
 DEFAULT_OUT = ROOT / "data" / "input-register" / "metrics.json"
 
 SCHEMA = "wdt-metrics/1"

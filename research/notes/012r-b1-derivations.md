@@ -1,6 +1,6 @@
 # 012r stage B1: derivations
 
-Method and code behind the computed rows in `docs/model-v3/inputs.md` (I-D4b, I-D4c, I-D9a to I-D9h, I-D1a to I-D1e). Inputs come from the held ONS Round 8 tables (`data/rates/totalwealthtables.xlsx`, `financialwealthtables.xlsx`) and `model_v2/jst_r6.json`. Run each with `python3 -I`; `income_by_wealth.py` imports `wmin_share.py`, so keep them in one folder under the names given. Accessed 2026-11-16.
+Method and code behind the computed rows in `model-specs/inputs.md` (I-D4b, I-D4c, I-D9a to I-D9h, I-D1a to I-D1e). Inputs come from the held ONS Round 8 tables (`data/rates/totalwealthtables.xlsx`, `financialwealthtables.xlsx`) and `model_v2/jst_r6.json`. Run each with `python3 -I`; `income_by_wealth.py` imports `wmin_share.py`, so keep them in one folder under the names given. Accessed 2026-11-16.
 
 ## 1. Share of adults and of wealth at or above W_min (`wmin_share.py`)
 - W_min is half the median house price: £300,000 (England, year to September 2025, ONS) gives £150,000; v2's £112,500 is shown for comparison.

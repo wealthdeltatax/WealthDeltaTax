@@ -49,7 +49,7 @@ Entry format, newest at the bottom:
 
 ### RATES 0.35% burden uses terminal wealth, M2 in metrics.md uses start-of-year wealth
 - Found by: research / brief 012r stage B4, 2026-11-17
-- Where: `papers/legacy/8_Rates_and_Revenue.md` (burden table, "Revenue-weighted average 0.35%"), `papers/legacy/8a_Rates_and_Revenue_Appendix.md` B.3.3, `docs/model-v3/metrics.md` M2
+- Where: `papers/legacy/8_Rates_and_Revenue.md` (burden table, "Revenue-weighted average 0.35%"), `papers/legacy/8a_Rates_and_Revenue_Appendix.md` B.3.3, `model-specs/metrics.md` M2
 - Problem: the paper's 0.35% is tax over post-settlement terminal wealth (N = 30), weighted by terminal wealth. M2 is the tax-weighted mean of T_i/W_i with W_i start-of-year wealth. From the printed tables the same tax gives 0.39% on terminal wealth, about 1.2% on a crude path average and 4.1% on starting wealth (`research/notes/012r-b4-derivations.md`). The claim "structurally below the 1 to 2% of stock levies" holds only on the terminal denominator. The author has to choose M2's denominator, then writing may need to state it in RATES.
 - Suggested lane: g
 - Status: closed 2026-11-16 (author: start-of-year, `metrics.md` M2 denominator, `stage-c-decisions.md`), reconfirmed 2026-11-20; writing states the denominator in RATES when the papers are rewritten.
@@ -63,7 +63,7 @@ Entry format, newest at the bottom:
 
 ### Register I-D4a (wealth to GDP 5.94) disagrees with the pack GDP
 - Found by: guru review of 067c, 2026-11-19
-- Where: `docs/model-v3/inputs.md` I-D4a; `data/country-packs/GBR/wealth_distribution.csv` (`wealth_total` all 13,568, `gdp` 2,211.48)
+- Where: `model-specs/inputs.md` I-D4a; `data/country-packs/GBR/wealth_distribution.csv` (`wealth_total` all 13,568, `gdp` 2,211.48)
 - Problem: the pack gives 13,568 / 2,211.48 = 6.14; the register central is 5.94 on calendar-2021 GDP of 2,284 (OECD via FRED, not held). The base reads the pack, so the register row and the pack disagree on the same ratio. Decide whether the register row is recomputed from the pack (a `(J)` row, author decides) or the pack GDP is replaced
 - Suggested lane: r
 - Status: open
@@ -77,7 +77,7 @@ Entry format, newest at the bottom:
 
 ### I-D4b central assumes fewer adults per household than I-D4h
 - Found by: guru review of 069r, 2026-11-19
-- Where: `docs/model-v3/inputs.md` I-D4b (central, method of `012r-b1-derivations.md`) and I-D4h
+- Where: `model-specs/inputs.md` I-D4b (central, method of `012r-b1-derivations.md`) and I-D4h
 - Problem: I-D4b's central implies 1.77 adults per household; I-D4h's central, read from Tables 2.9 and 2.11, is 1.93 and counts people 16 and over. The two rows can drive different adult counts in `base.py`. Author to choose whether I-D4b's central is recomputed with 1.93 and whether an 18-and-over count is needed (the author could upload ONS mid-2021 population by age to separate the 16 and 17-year-olds)
 - Suggested lane: r
 - Status: open
@@ -91,14 +91,14 @@ Entry format, newest at the bottom:
 
 ### F1 and CK1 fail on a constant path because deaths settle in a five-year cycle (six phases)
 - Found by: code / 140c, 2026-11-23
-- Where: `model/model_v3/core/revenue.py` (`run_lines`: `n_phase` 6, `G` 30; the fund's payout); read in `docs/model-v3/f1-household.md`
+- Where: `model/model_v3/core/revenue.py` (`run_lines`: `n_phase` 6, `G` 30; the fund's payout); read in `results/f1-household/f1-household.md`
 - Problem: under the household arm on a constant 4.74% path, M1a is about 1.0 of GDP in four years of five and 11 to 12 in the fifth (years 10, 15, 20 ...), the fund pays each lump out over two years, and relief runs 7.3, 7.3, 3.8, 3.8 against M1d 4.74. Relief first falls below M1d in year 13 in all 15 (point, schedule) rows and P3 to the end of the short window is 0.29 to 6.90, so F1 at tol 0 cannot reach 75% even with no volatility. Over years 10 to 14 relief sums to 29.85 against 23.70 for M1d. Not tested here: whether more phases or a longer payout window remove it, and whether the legacy arm's year-13 shortfall in 083c has the same cause.
 - Suggested lane: c (diagnose by varying `n_phase` and the payout window on the constant path, no rule change), then g
 - Status: open
 
 ### architecture.md budget total is 200 short of its rows (switches.py)
 - Found by: code / 139c, 2026-11-23
-- Where: `docs/model-v3/architecture.md` line 226 (the `**Total**` row of the line-budget table); `tests/model/model_v3/test_budget.py::test_block_sums_equal_the_stated_totals`
+- Where: `model-specs/architecture.md` line 226 (the `**Total**` row of the line-budget table); `tests/model/model_v3/test_budget.py::test_block_sums_equal_the_stated_totals`
 - Problem: the test fails on a clean `origin/main` (7d60b86): the rows sum to 6,260 lines against a stated total of 6,060. The new `model/model_v3/runner/switches.py` row (budget 200, added in the 2026-11-23 housekeeping commit) was not added to the total. The model_v3 suite shows 1 failed, 349 passed.
 - Suggested lane: g (the table is the guru's; a one-number edit)
 - Status: open
@@ -116,3 +116,8 @@ Entry format, newest at the bottom:
 - 162c: the model has two import roots (repository root and `model/`); every `sys.path` insertion changes. Tests that build a throwaway tree and assert on its paths must keep those paths.
 - 164c: the prose sweep is by hand (about 94 tokens, 37 `check_agent_docs` findings: old folders whose files went to several places).
 - The map decision on the pack folder name (`data/country-packs/GBR`) comes before 160c.
+
+### From 163c (code, 2026-11-25)
+- The stage method that worked: `path_refs.py --apply <scratch clone> --only <old prefix>` (one stage of the map), a constructed-path pass for `ROOT / 'docs' / 'model-v3' / ...` chains, then the suites and `path_rewrite_proof.py --only <prefix>`; bring the result back with `git merge --squash`. 164c can use the same (`--only` for its prefixes).
+- Files added after the map was written (166c's `reserve-diagnostic` folder and report) have no map row; the guru adds rows for them, or each stage reports them as `not_in_csv`.
+- The apply rewrites the `PINNED_ALLOWED` tokens inside `path_refs.py` and the candidate lists of `move_tripwire.py` as if they were references: restore them after each stage (164c: the same two files).

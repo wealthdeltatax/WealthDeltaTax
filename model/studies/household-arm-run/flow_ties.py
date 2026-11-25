@@ -17,7 +17,7 @@ import yaml
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-run'   # outputs and stored tables stay here until 163c
+DATA = ROOT / 'results' / 'household-arm-run'   # outputs and stored tables stay here until 163c
 sys.path[:0] = [str(HERE)]
 
 import run_grid as G                                                           # noqa: E402  (the same builder, points and chunking)
@@ -40,7 +40,7 @@ def main(argv=None):
     flow = {k: v for k, v in (('pension_withdrawal', a.pension_withdrawal), ('heir_floor', a.heir_floor), ('gdp_paths', a.gdp_paths)) if v is not None}
     sfx = ('_paths' if a.market_paths else '') + (f'_wd_{a.pension_withdrawal}' if a.pension_withdrawal else '') + (f'_floor{a.heir_floor}' if a.heir_floor is not None else '') + (f'_gdp_{a.gdp_paths}' if a.gdp_paths else '')
     ctx, inp = G.A.setup()
-    manifest = yaml.safe_load((G.ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    manifest = yaml.safe_load((G.ROOT / 'model-specs' / 'outputs.yml').read_text())
     orig, out = R.core_run, []
     for name in [x for x in a.points.split(',') if x]:
         st = dict(n=0, lien=0, tie=0.0, wo=0.0, bal=0.0, new=0.0, settled=0.0)

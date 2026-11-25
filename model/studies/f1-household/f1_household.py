@@ -30,7 +30,7 @@ import yaml
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-DATA = ROOT / 'docs' / 'model-v3' / 'f1-household'   # outputs and stored tables stay here until 163c
+DATA = ROOT / 'results' / 'f1-household'   # outputs and stored tables stay here until 163c
 OUT = DATA                                     # where the CSVs go (--out)
 sys.path.insert(0, str(ROOT / 'model'))
 
@@ -71,10 +71,10 @@ def lab(sp):
 
 def setup():
     lv = json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text())
-    out = yaml.safe_load((ROOT / 'docs' / 'model-v3' / 'outputs.yml').read_text())
+    out = yaml.safe_load((ROOT / 'model-specs' / 'outputs.yml').read_text())
     tier1 = next(o for o in out['outputs'] if o['id'] == 'OT1')['by']['input']
     ctx = R.context(pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs']])
-    inp = json.loads((ROOT / 'docs' / 'model-v3' / 'cell-baseline' / 'inputs_used.json').read_text())
+    inp = json.loads((ROOT / 'results' / 'cell-baseline' / 'inputs_used.json').read_text())
     return lv, ctx, inp
 
 
@@ -136,7 +136,7 @@ def run_check(a):
     ok = True
 
     def stored(fname, oid, hz, line):
-        for r in csv.DictReader(open(ROOT / 'docs' / 'model-v3' / 'household-arm-run' / fname)):
+        for r in csv.DictReader(open(ROOT / 'results' / 'household-arm-run' / fname)):
             if r['grid'] == 'median_mid' and r['id'] == oid and r['horizon'] == hz and r['line'] == line:
                 return float(r['a'])
         raise KeyError((fname, oid, hz, line))

@@ -84,7 +84,7 @@ def test_the_state_folds_with_paths_as_the_book_does_and_each_path_equals_a_sing
 
 
 def test_the_untaxed_hook_reproduces_the_stored_111c_baseline_wealth():
-    cells = ce.scaled(ce.cell_table(PACK, REG, 0.4385526696023258), 1801414000000.0)[0]               # the constants of docs/model-v3/cell-baseline/inputs_used.json (mid return, median saving, accrual observed)
+    cells = ce.scaled(ce.cell_table(PACK, REG, 0.4385526696023258), 1801414000000.0)[0]               # the constants of results/cell-baseline/inputs_used.json (mid return, median saving, accrual observed)
     st = dict(pos={k: np.array([c['pos'][k] for c in cells]) for k in arm.CLASSES}, income=np.array([c['income'] for c in cells]), sav=np.full(10, 0.0100626), acc=np.full(10, 0.0483))
     n, h = np.array([c['households'] for c in cells]), arm.HouseholdHook(st, dict(GAIN, net_financial=0.052 - 0.0426115, pension=0.052 - 0.0426115), 0.01570385404020596)
     stored = {1: 13827087740420, 10: 16372370305364, 50: 34185897638460, 100: 83136904645147}

@@ -7,7 +7,7 @@ validate_outputs.py: validate an output data file against the output manifest.
 
 Implements rules V1 to V12 of docs/restructure/site/hooks.md section 3.4
 (brief 030c).  The data file is JSON, schema ``wdt-outputs/1``; the manifest
-is docs/model-v3/outputs.yml.  Every run prints one line per rule so a rule
+is model-specs/outputs.yml.  Every run prints one line per rule so a rule
 that silently stopped running is visible.
 
 Modes
@@ -43,7 +43,7 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent.parent
-DEFAULT_MANIFEST = ROOT / "docs" / "model-v3" / "outputs.yml"
+DEFAULT_MANIFEST = ROOT / "model-specs" / "outputs.yml"
 DEFAULT_INPUTS = ROOT / "data" / "input-register" / "inputs.json"
 
 SCHEMA = "wdt-outputs/1"

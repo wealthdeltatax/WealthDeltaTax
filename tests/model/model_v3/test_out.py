@@ -10,7 +10,7 @@ REPO = Path(__file__).resolve().parents[3]; sys.path.insert(0, str(REPO / 'model
 from model_v3 import interface
 from model_v3.out import assemble, writer
 
-MANIFEST, INPUTS, LEVERS = (REPO / p for p in ('docs/model-v3/outputs.yml', 'data/input-register/inputs.json', 'model/model_v3/levers.json'))
+MANIFEST, INPUTS, LEVERS = (REPO / p for p in ('model-specs/outputs.yml', 'data/input-register/inputs.json', 'model/model_v3/levers.json'))
 FIXTURE = REPO / 'tests/model/data/fixtures/outputs.fixture.json'
 INFO = dict(status='provisional', run_date='2026-11-18', model_version='test', paths=50, base_year=2025)
 spec = importlib.util.spec_from_file_location('validate_outputs', REPO / 'model/tools/validate_outputs.py')
@@ -119,7 +119,7 @@ def test_w6_an_id_not_in_the_manifest_raises():
         assemble.assemble(manifest, {}, {'ZZ9': level2()['O1']})
 
 def test_w7_module_to_id_table_covers_the_manifest_exactly():
-    table = (REPO / 'docs/model-v3/architecture.md').read_text(encoding='utf-8').split('### 2.10')[1].split('39 outputs')[0]
+    table = (REPO / 'model-specs/architecture.md').read_text(encoding='utf-8').split('### 2.10')[1].split('39 outputs')[0]
     ids = [i for row in re.findall(r'^\| `[^`]+` \| (.+) \|$', table, re.M) for i in row.split(', ')]
     assert len(ids) == len(set(ids)) and set(ids) == set(IDS)
 

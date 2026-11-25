@@ -1,7 +1,7 @@
 """
 make_fixture.py: write tests/model/data/fixtures/outputs.fixture.json.
 
-A fixture output data file covering every entry of docs/model-v3/outputs.yml
+A fixture output data file covering every entry of model-specs/outputs.yml
 (outputs and checks) with fake numbers, until the v3 model exists.  Brief 030c.
 The numbers are a hash of the cell key, carry no meaning, and are the same on
 every run; ``run.fixture`` is true so no release build can take it for data.
@@ -26,7 +26,7 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parents[3]
-MANIFEST = ROOT / "docs" / "model-v3" / "outputs.yml"
+MANIFEST = ROOT / "model-specs" / "outputs.yml"
 INPUTS = ROOT / "data" / "input-register" / "inputs.json"
 OUT = Path(__file__).resolve().parent / "fixtures" / "outputs.fixture.json"
 

@@ -1,9 +1,9 @@
 # data/input-register/inputs-display.yml: display spec per register row (brief 032r, hooks Q8).
 # Written by the research lane; merged by model/tools/build_inputs.py. One entry per row of
-# docs/model-v3/inputs.md (279 rows). Derived only from each row's own unit text and the
+# model-specs/inputs.md (279 rows). Derived only from each row's own unit text and the
 # precision of its Low/Central/High cells. No value is chosen or changed here.
 #
-# unit tags in docs/model-v3/outputs.yml: pct, pct_per_year, pct_gdp, gbp_bn, years, pp, ratio, bp, count, gbp_month.
+# unit tags in model-specs/outputs.yml: pct, pct_per_year, pct_gdp, gbp_bn, years, pp, ratio, bp, count, gbp_month.
 # PROPOSED new tags (not in outputs.yml; guru to accept, rename or map to existing ones):
 #   pp_per_year  percentage points a year
 #   usd_bn       US$ billions

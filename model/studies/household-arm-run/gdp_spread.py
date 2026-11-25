@@ -3,7 +3,7 @@ gdp_spread.py -- brief 148c, block 3: the spread of P6 and M1 and the binding of
 For each file (settings: `off`, `indep`, `hist`; alone and with market paths) and each grid point: P6 (the fund in % of GDP, schedule S, years 10, 25, 50, 100) and M1 (net fiscal effect, % of GDP,
 schedule S, short and long horizon) as P10, mean, P90 over the paths, and for M15a/b the largest value in any cell and the number of cells that are nonzero (does the envelope ever bind). The rows
 are the ones `run_grid.py` wrote (a = mean, b = P10, c = P90). No number is tuned and none is called central. Run from the repository root:
-python -I model/studies/household-arm-run/gdp_spread.py [DIR]          (DIR: the folder of the grid files, default docs/model-v3/household-arm-run/gdp_paths)
+python -I model/studies/household-arm-run/gdp_spread.py [DIR]          (DIR: the folder of the grid files, default results/household-arm-run/gdp_paths)
 Writes gdp_spread.csv in DIR; prints one line a file and point.
 """
 import csv
@@ -14,7 +14,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-DATA = ROOT / 'docs' / 'model-v3' / 'household-arm-run'   # outputs and stored tables stay here until 163c
+DATA = ROOT / 'results' / 'household-arm-run'   # outputs and stored tables stay here until 163c
 FILES = {'alone, off': 'grid_results.csv', 'alone, indep': 'grid_results_gdp_indep.csv', 'alone, hist': 'grid_results_gdp_hist.csv',
          'market paths, off': 'grid_results_paths.csv', 'market paths, indep': 'grid_results_paths_gdp_indep.csv', 'market paths, hist': 'grid_results_paths_gdp_hist.csv'}
 COLS = ('config', 'point', 'metric', 'cell', 'p10', 'mean', 'p90')
