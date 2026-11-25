@@ -1,5 +1,5 @@
 """146r block 1: evidence for a per-path real GDP-per-head growth process, from the pack's own JST series (read only).
-Reads model_v3/pack/GBR via model_v3.core.pack, returns.real_series (the 128c market series: real total return on wealth, usable years) and revenue.gdp_growth.
+Reads data/country-packs/GBR via model_v3.core.pack, returns.real_series (the 128c market series: real total return on wealth, usable years) and revenue.gdp_growth.
 Writes gdp_process.csv (statistics, proposed parameters, unset rows) and gdp_illustration.csv (arithmetic spread of the GDP index under the proposed AR(1); not a model run).
 Prints one line; exits 1 on a failed check. Run from the repo root: python -I research/scripts/gdp_process.py"""
 import csv, math, sys
@@ -8,7 +8,7 @@ import numpy as np
 sys.path.insert(0, '.')
 from model_v3.core import pack as pk, returns as rt, revenue as rv
 D = Path('research/tables/146r-gdp-process-and-top-tail')
-P = pk.load_pack(Path('model_v3/pack/GBR'))
+P = pk.load_pack(Path('data/country-packs/GBR'))
 yrs, r = rt.real_series(P)
 g = 100 * rv.gdp_growth(P, yrs)
 fails = []

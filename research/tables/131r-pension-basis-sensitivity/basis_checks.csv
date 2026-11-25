@@ -1,5 +1,5 @@
 check,got,expected,tolerance,passed,note
-"C1a ONS column equals the model cell-table pension stock, largest band difference (GBP bn)",0.0,0.0,1e-06,True,"model_v3/core/cells.py cell_table(pack, register, 0.44); the retired fraction does not enter the stock"
+"C1a ONS column equals the model cell-table pension stock, largest band difference (GBP bn)",0.0,0.0,1e-06,True,"model/model_v3/core/cells.py cell_table(pack, register, 0.44); the retired fraction does not enter the stock"
 C1b ONS column total equals the model cell-table pension total (GBP bn),4809.948,4809.9484,0.01,True,the CSV rounds to 3 decimals
 C2 pack stock against exact held 2020-22 sums (rounding of the 0.1 shares),4809.948,4807.704,12.01926,True,tolerance 0.25% of the stock
 "C3 ONS-basis mean pension wealth (GBP 2026) against 230,000",231836.192,230000.0,5000,True,"implied price factor 1.3009 from 16.3tn over contents-adjusted pack wealth; stated to the nearest 10,000"

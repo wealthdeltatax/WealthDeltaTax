@@ -21,7 +21,7 @@ This is a decomposition of the JST market-portfolio return. It is **not** a meas
 
 ## 1. Source variables and definitions
 
-The source is `model_v2/jst_r6.json`, copied unchanged to `model_v3/pack/GBR/source/jst_r6.json`, with the original workbook `data/rates/JSTdatasetR6.xlsx` held in the repository. The pack builder reads the JSON for `returns.csv` and asserts the workbook/JSON match for the GDP-per-head and expenditure series. The R6 JSON stores decimal rates (e.g. 0.05 = 5%); `returns.csv` multiplies return columns by 100 and stores percentage points.
+The source is `model_v2/jst_r6.json`, copied unchanged to `data/country-packs/GBR/source/jst_r6.json`, with the original workbook `data/rates/JSTdatasetR6.xlsx` held in the repository. The pack builder reads the JSON for `returns.csv` and asserts the workbook/JSON match for the GDP-per-head and expenditure series. The R6 JSON stores decimal rates (e.g. 0.05 = 5%); `returns.csv` multiplies return columns by 100 and stores percentage points.
 
 | JST variable | Meaning used here | Units / treatment |
 |---|---|---|
@@ -87,7 +87,7 @@ The underlying weights are not separate columns in the held JSON. These are alge
 
 ### Reproduction against the pack
 
-The annual reconstruction is compared with the existing `model_v3/pack/GBR/returns.csv`. Each pack total-return column is a direct copy of the matching JST series (percentage points in the CSV, decimals in the JSON):
+The annual reconstruction is compared with the existing `data/country-packs/GBR/returns.csv`. Each pack total-return column is a direct copy of the matching JST series (percentage points in the CSV, decimals in the JSON):
 
 | Pack column | Matched observations | Maximum absolute source/pack difference |
 |---|---:|---:|
@@ -122,7 +122,7 @@ y_t^{real}+g_{h,t}^{real}
 =\frac{1+r_t^{nom}}{1+\pi_t}-1.
 \]
 
-This matches `model_v3/core/returns.py:real_series`, which computes `(1 + capital_tr) / (CPI_t / CPI_(t-1)) - 1`. The CSV applies the same deflator to each class and to the weighted portfolio.
+This matches `model/model_v3/core/returns.py:real_series`, which computes `(1 + capital_tr) / (CPI_t / CPI_(t-1)) - 1`. The CSV applies the same deflator to each class and to the weighted portfolio.
 
 **Where revaluation belongs:** nominal asset-price changes belong in the holding-gain leg. For bonds, that includes price movements as yields change, captured in the residual `bond_tr − bond_rate`. For bills and cash-like nominal claims, there may be no nominal price gain, but CPI erosion appears in the real holding-gain leg. For nominal household debt, inflation reduces the real value of the liability and therefore raises the borrower's real net worth; that effect belongs in the net-worth revaluation/holding-gain account with the liability sign reversed. JST's `capital_tr` does not include a household-debt series, nor does it separately identify bank-cash holdings.
 
@@ -149,10 +149,10 @@ It is the market-return decomposition of a JST aggregate asset portfolio. It doe
 
 ## Sources and provenance
 
-- Held source data: `model_v2/jst_r6.json` (SHA `1c16b0ccf7e10d6b97ee192caace93c4b82c2d2b`); copied unchanged to `model_v3/pack/GBR/source/jst_r6.json`.
+- Held source data: `model_v2/jst_r6.json` (SHA `1c16b0ccf7e10d6b97ee192caace93c4b82c2d2b`); copied unchanged to `data/country-packs/GBR/source/jst_r6.json`.
 - Held source workbook: `data/rates/JSTdatasetR6.xlsx`; builder asserts selected source values against the JSON.
-- Pack total-return table: `model_v3/pack/GBR/returns.csv`; built by `model_v3/pack/build_gbr.py`.
-- Pack real conversion: `model_v3/core/returns.py`.
+- Pack total-return table: `data/country-packs/GBR/returns.csv`; built by `model/model_v3/pack/build_gbr.py`.
+- Pack real conversion: `model/model_v3/core/returns.py`.
 - JST Macrohistory Database R6 codebook, pp. 6–7 (variable labels and formulas for `eq_tr`, `housing_tr`, `bond_tr`, `bill_rate`, `bond_rate`, component returns and composite returns): https://www.macrohistory.net/app/download/9834516169/JST_documentationR6.pdf?t=1676279836 (accessed 2026-11-21).
 - Chen et al. (2022), *Documentation on the JST Database Update 2016–2020*, pp. 3–10 (R6 update to bill, bond, equity, housing and composite returns): https://www.macrohistory.net/app/download/9918957869/JST_RORE_Documentation_R6.pdf?t=1658254098 (accessed 2026-11-21).
 - Jordà, Knoll, Kuvshinov, Schularick and Taylor (2019), *The Rate of Return on Everything, 1870–2015*, QJE 134(3), 1225–1298; return-data documentation: https://www.macrohistory.net/app/download/9834516469/RORE_documentation.pdf?t=1614633099 (accessed 2026-11-21).

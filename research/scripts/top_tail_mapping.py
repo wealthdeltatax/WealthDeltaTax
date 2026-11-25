@@ -10,7 +10,7 @@ from model_v3.core import pack as pk, base as bs
 from model_v3.runner import arm
 D = Path('research/tables/146r-gdp-process-and-top-tail')
 PDF = 'literature/literature-1-s2-0-s0014292125001266-main.pdf'
-P, R = pk.load_pack(Path('model_v3/pack/GBR')), pk.load_register(Path('registry/inputs.json'))
+P, R = pk.load_pack(Path('data/country-packs/GBR')), pk.load_register(Path('data/input-register/inputs.json'))
 b = bs.build_base(P, R, 0.44)
 fails = []
 def page(p): return re.sub(r'\s+', '', subprocess.run(['pdftotext', '-f', str(p), '-l', str(p), '-layout', PDF, '-'], capture_output=True, text=True).stdout)

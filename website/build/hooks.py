@@ -24,8 +24,8 @@ def _load(name, base=Path(__file__).resolve().parent):
 
 
 vo, hf = _load("validate_outputs", ROOT / "pipeline"), _load("hook_format")   # validate_outputs.py is model-side; stays in pipeline/ until 162c moves it
-PATHS = dict(manifest=ROOT / "docs/model-v3/outputs.yml", inputs=ROOT / "registry/inputs.json",
-             display=ROOT / "registry/inputs-display.yml", lit=ROOT / "website/registry/lit-figures.yml",
+PATHS = dict(manifest=ROOT / "docs/model-v3/outputs.yml", inputs=ROOT / "data/input-register/inputs.json",
+             display=ROOT / "data/input-register/inputs-display.yml", lit=ROOT / "website/registry/lit-figures.yml",
              bib=ROOT / "registry/references.bib")
 STATS = {"p10_mean_p90": ("p10", "mean", "p90", "range"), "point_and_range": ("point", "lo", "hi", "range"),
          "point": ("point",)}

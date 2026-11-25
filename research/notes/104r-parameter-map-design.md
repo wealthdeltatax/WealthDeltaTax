@@ -194,7 +194,7 @@ In year 2 the household forgoes the gain (0.10) and the yield (0.15) on the 5 un
 ## 5. Interface to v3 (item 4)
 Gap list only. Nothing here is code; each line names what would have to exist or move, so the implementation brief can be sized. The legacy 3.5% stays a switchable comparator that reproduces today's digests (F-25, S19).
 
-**5.1 Function signature (proposed).** A new module `model_v3/core/household.py` holding one household step per cell and year:
+**5.1 Function signature (proposed).** A new module `model/model_v3/core/household.py` holding one household step per cell and year:
 
 `household_step(cell, pos, flows, rets, defl, convention) -> (pos1, acct)`
 
@@ -214,7 +214,7 @@ Gap list only. Nothing here is code; each line names what would have to exist or
 | Expenditure deflator | national accounts | held (C10) |
 | Consumption and saving by band | none | unset (F-24, F-29) |
 
-`model_v3/pack/build_gbr.py` and `levers.json` have no mapping for I-D14c today; the cell inputs need a mapping and a version bump of the pack, and the legacy digests must not move when the comparator arm is selected.
+`model/model_v3/pack/build_gbr.py` and `levers.json` have no mapping for I-D14c today; the cell inputs need a mapping and a version bump of the pack, and the legacy digests must not move when the comparator arm is selected.
 
 **5.3 Manifest outputs that would be added.** Per cell and year: `dNW`, `S`, `CG` (with the erosion wedge line), `TR`, `O`, `T_WDT`; the consolidated household-plus-public identity of section 4 and its residual (must be zero to rounding); the `O` reported residual against the national-accounts gap (C06, C08); liquidity by class (section 3.8).
 
@@ -225,7 +225,7 @@ Gap list only. Nothing here is code; each line names what would have to exist or
 **5.5 Tests that would move or be added.**
 - Moving: `test_burden.py`, `test_revenue.py`, `test_out_burden.py`, `test_kernel.py`, `test_support.py` (they reference I-D14c, `state_true` or `state_cash`, or consumption). Under the comparator arm none should change; under the new arm the digests change and that is stated, not hidden.
 - New: identity holds per cell and year (no residual); no-double-counting worked case (section 3, the household example gives `dNW` = 54 on both sides); consolidated household-plus-public sum is zero (the seven rows of `public_side_identity.csv`); the legacy comparator reproduces the stored digests; `O` is reported, not forced.
-- Registration (docs/agents/code.md): a LAYER row for `household` in `tests/model_v3/conftest.py`; a budget row in the budgets block of `docs/model-v3/architecture.md`; rows in `tests/model_v3/test_groups.py` for the new test file.
+- Registration (docs/agents/code.md): a LAYER row for `household` in `tests/model/model_v3/conftest.py`; a budget row in the budgets block of `docs/model-v3/architecture.md`; rows in `tests/model/model_v3/test_groups.py` for the new test file.
 
 
 ## 6. Rulings table (item 5)

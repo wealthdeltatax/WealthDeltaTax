@@ -105,7 +105,7 @@ Not a bookkeeping error and not economics: relative to the balances the gap is 1
 
 ## Per-path GDP growth, `gdp_paths` (brief 148c)
 
-A scenario switch, off by default (off is byte-identical). **A scenario, not a forecast; no central value; no headline number.** Code: `model_v3/runner/flow_switches.py`; evidence 146r (one country's history, derived). Run: `household-arm-run/run_grid.py --paths 200 --no-legacy [--market-paths] --gdp-paths indep|hist --out household-arm-run/gdp_paths`; summary: `gdp_spread.py` (writes `gdp_spread.csv`); files in `household-arm-run/gdp_paths/`. Five grid points, 200 paths (two chunks of 100).
+A scenario switch, off by default (off is byte-identical). **A scenario, not a forecast; no central value; no headline number.** Code: `model/model_v3/runner/flow_switches.py`; evidence 146r (one country's history, derived). Run: `household-arm-run/run_grid.py --paths 200 --no-legacy [--market-paths] --gdp-paths indep|hist --out household-arm-run/gdp_paths`; summary: `gdp_spread.py` (writes `gdp_spread.csv`); files in `household-arm-run/gdp_paths/`. Five grid points, 200 paths (two chunks of 100).
 
 **Rule.** Real GDP growth per head is the pack constant plus a zero-mean AR(1) deviation (marginal SD 2.68 points, lag-1 0.28; the mean is not moved). Its innovation is correlated with the market return's by 0 (`indep`, "growth risk only") or 0.37 (`hist`, "growth and market risk, correlated"). With no market paths (`alone`) the market return is still drawn, so `hist` correlates GDP with it but the household's classes stay at their fixed returns.
 
@@ -145,7 +145,7 @@ Reading, without a verdict:
 
 ## Needs the author
 
-- Two things outside the brief's Touches: `model_v3/core/revenue.py` line 146 (one line, byte equal when `mu` is None) and the refund routing in `_pay`. By the auto-merge rule this branch is **not merged: NEEDS THE AUTHOR**.
+- Two things outside the brief's Touches: `model/model_v3/core/revenue.py` line 146 (one line, byte equal when `mu` is None) and the refund routing in `_pay`. By the auto-merge rule this branch is **not merged: NEEDS THE AUTHOR**.
 - Two I1 alarms (above), `unpaid_B` counts, and the OW1 finding.
 - Per-path GDP growth stays out by decision, so GDP-only cells stay flat.
 

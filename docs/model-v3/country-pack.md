@@ -4,7 +4,7 @@ Design note only. No loader, schema file or data file is written here, and `regi
 
 ## 1. Boundary: what is in the pack and what stays in the register
 
-The register is `docs/model-v3/inputs.md` (269 rows, 12 cells each). `030c` turns it into `registry/inputs.json`, so scalar values, ranges and judgements stay there in the interim.
+The register is `docs/model-v3/inputs.md` (269 rows, 12 cells each). `030c` turns it into `data/input-register/inputs.json`, so scalar values, ranges and judgements stay there in the interim.
 
 **Rule.** A row goes to the pack if and only if (a) it is one cell of a multi-cell country dataset (a series, a table by band, decile or tax line, or a rule set) **and** (b) its How cell does not carry `(J)`. Every other row stays in the register: scalar assumptions, behavioural and model parameters, and every `(J)` row, because a judgement belongs with its range and reason, not in a data file. A pack row's register entry stays as the pointer: the register keeps the row id, the pack file and column that supply it, and the pack file is the only place the number is typed (check X1 below).
 
@@ -176,7 +176,7 @@ Of the 108 pack rows, **23 have data not in the repo** (register "In repo" cell 
 
 **Pack hash.** `pack_sha256` = sha256 of the UTF-8 text `GBR\n` + for each file in `manifest.files` sorted by `name`: `name`, a space, the file's own sha256 and a newline. The manifest header fields (country, currency, base_year, pack_version) are hashed first as canonical JSON (sorted keys, no spaces). So any change to a data byte, a file name, the currency or the base year changes the pack hash. The manifest's `built`, `retrieved` and licence text are not hashed; they are provenance, not data.
 
-**Run record.** The run writes `run.pack_sha256` and `run.pack_country` next to `run.inputs_sha256`. Gate G2 (`docs/restructure/order.md`) reads "`run.inputs_sha256` equals the hash of `registry/inputs.json`"; it should read both fields, and the guru should add the second. Rule: a run is valid only if both hashes equal those of the files now in the repo; a pack change makes every earlier run stale, the same as a register change, and the output validator (`030c`) reports it as an error in final mode.
+**Run record.** The run writes `run.pack_sha256` and `run.pack_country` next to `run.inputs_sha256`. Gate G2 (`docs/restructure/order.md`) reads "`run.inputs_sha256` equals the hash of `data/input-register/inputs.json`"; it should read both fields, and the guru should add the second. Rule: a run is valid only if both hashes equal those of the files now in the repo; a pack change makes every earlier run stale, the same as a register change, and the output validator (`030c`) reports it as an error in final mode.
 
 **Interim consistency.** While the register keeps the pack rows as pointers, the build checks that each register value for a pack row equals the value derived from the pack file, within 1e-9 (X1), and that M1d's lines equal 8.11% of GDP within 0.01 (X2). A mismatch fails the build. X1 goes away when `030c`'s register build reads pack-row values from the pack.
 

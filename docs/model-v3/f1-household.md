@@ -6,9 +6,9 @@ Status: both fund cases are run (`safe`: blocks 1 and 2; `market`: block 3, afte
 
 From the repository root, with `python -I`:
 
-- `python -I docs/model-v3/f1-household/f1_household.py check`: the reproduction checks (`checks.md`, about 30 seconds).
-- `python -I docs/model-v3/f1-household/f1_household.py f1`: block 1, writes `f1_safe_tables.md` (stdout) and `f1_safe_*.csv` (about 11 minutes).
-- `python -I docs/model-v3/f1-household/f1_household.py ck1`: block 2, writes `ck1_safe_tables.md` (stdout) and `ck1_safe.csv` (about 5 minutes).
+- `python -I model/studies/f1-household/f1_household.py check`: the reproduction checks (`checks.md`, about 30 seconds).
+- `python -I model/studies/f1-household/f1_household.py f1`: block 1, writes `f1_safe_tables.md` (stdout) and `f1_safe_*.csv` (about 11 minutes).
+- `python -I model/studies/f1-household/f1_household.py ck1`: block 2, writes `ck1_safe_tables.md` (stdout) and `ck1_safe.csv` (about 5 minutes).
 - The same two commands with `--fund market` write `f1_market_*.csv`, `f1_market_tables.md`, `ck1_market.csv` and `ck1_market_tables.md` (about 12 and 8 minutes); `check --fund market` writes `checks_market.md`.
 
 `f1` uses seed 20261118 and 200 paths (the same paths for every cell); `ck1` is one fixed path per amplitude. A second full run of `f1` and of `ck1` printed byte-identical text and CSVs (checked with `cmp`).

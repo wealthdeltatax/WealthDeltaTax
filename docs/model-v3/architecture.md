@@ -3,7 +3,7 @@
 Status: approved by the author, 2026-11-18 (sections 8.1 and 9 as written). Written 2026-11-18 by the guru from `stage-c-decisions.md` (035g, approved), `port-inventory.md` (037c), `country-pack.md` (038c), `returns-method.md` (036r), `synthesis.md` section 4 (R1 to R11) and `hooks.md` section 3 with the 030c rulings. No model code, acceptance criteria or build briefs are written here: those are 040g. Section 9 lists the defaults I chose where C1 left a number or a choice open; the author confirms or changes them before 040g starts.
 
 ## 0. What this says
-1. v3 lives in `model_v3/`. It has three layers (R4): **core** (`model_v3/core/`, eight files in dependence order), **range runner** (`model_v3/runner/`) and **output layer** (`model_v3/out/`). Data enter through one country pack (`model_v3/pack/GBR/`) and the register (`registry/inputs.json`); the one output file is `model_v3/OUTPUTS/outputs.json`.
+1. v3 lives in `model_v3/`. It has three layers (R4): **core** (`model/model_v3/core/`, eight files in dependence order), **range runner** (`model/model_v3/runner/`) and **output layer** (`model/model_v3/out/`). Data enter through one country pack (`data/country-packs/GBR/`) and the register (`data/input-register/inputs.json`); the one output file is `model_v3/OUTPUTS/outputs.json`.
 2. Code budget: core plus runner 3,900 lines, output layer 700, interface and run script 170; **4,770 in all**, against 17,730 lines scanned in `model_v2/` (R9; the output layer is 18% of core plus runner, v2's was 5,150 lines, the largest part of its bulk). Tests are budgeted apart at 3,020 lines.
 3. Port by exception: the kernel (564 lines, all of it) with five changes, the rate function `tau`, the window rule, the real-basis function and `jst_r6.json`. Everything else in v2 is rewritten from `metrics.md` or dropped (section 4).
 4. Thirteen build stages (section 7). Each is one session and one lane; each has its own files. Three can start at once (V3-0, V3-1, V3-4). The model path is one chain; the output writer and the manifest amendments run beside it.
@@ -29,12 +29,12 @@ model_v3/
   OUTPUTS/
     outputs.json         the model's output file (tracked)
     scratch/             git-ignored; smoke and trial runs
-tests/model_v3/          one test file per module, plus rules and budget tests
+tests/model/model_v3/          one test file per module, plus rules and budget tests
 ```
 
-**Where each thing is read from.** The model reads `docs/model-v3/outputs.yml` (the manifest, hashed into the run), `registry/inputs.json` (the register: low, central and high, with the `(J)` flag; hashed into the run), `model_v3/levers.json` and `model_v3/pack/<ISO>/`. `jst_r6.json` is read only through the pack: `build_gbr.py` copies the file unchanged to `pack/GBR/source/` and derives `returns.csv` from it (pack file 3.1 of 038c), and the loader reads `returns.csv`. Nothing under `model_v2/` or `model_v1/` is read by v3 code or by v3 tests.
+**Where each thing is read from.** The model reads `docs/model-v3/outputs.yml` (the manifest, hashed into the run), `data/input-register/inputs.json` (the register: low, central and high, with the `(J)` flag; hashed into the run), `model/model_v3/levers.json` and `model_v3/pack/<ISO>/`. `jst_r6.json` is read only through the pack: `build_gbr.py` copies the file unchanged to `pack/GBR/source/` and derives `returns.csv` from it (pack file 3.1 of 038c), and the loader reads `returns.csv`. Nothing under `model_v2/` or `model_v1/` is read by v3 code or by v3 tests.
 
-**Output.** `model_v3/OUTPUTS/outputs.json`, schema `wdt-outputs/1` as `pipeline/validate_outputs.py` (030c) checks it. The run script writes to `--out`, default `model_v3/OUTPUTS/`; the smoke test and trial runs write to a temporary directory or `OUTPUTS/scratch/` (R5, output location). The file is tracked; a run with `status: final` is committed only on the author's word (G2 of `order.md`).
+**Output.** `model_v3/OUTPUTS/outputs.json`, schema `wdt-outputs/1` as `model/tools/validate_outputs.py` (030c) checks it. The run script writes to `--out`, default `model_v3/OUTPUTS/`; the smoke test and trial runs write to a temporary directory or `OUTPUTS/scratch/` (R5, output location). The file is tracked; a run with `status: final` is committed only on the author's word (G2 of `order.md`).
 
 **Run record.** Written by the writer into `run` (hooks.md section 9) plus, from 038c section 5 and this document: `pack_sha256`, `pack_country`, `levers_sha256`, `seed`, `paths`, `level2_draws`, `level2_paths`, `unfilled_paths`, `model_version` (git commit), `base_year`. G2 should also read `pack_sha256` and `levers_sha256` (section 8, amendment A6).
 
@@ -45,8 +45,8 @@ tests/model_v3/          one test file per module, plus rules and budget tests
 Each entry: purpose, inputs, outputs (and the manifest ids it produces), the C1 decision it implements, budget. Budgets are `wc -l` of the file, blank lines and comments included (the convention of `port-inventory.md`).
 
 ### 2.1 `core/pack.py`: country pack and register loader (355 lines)
-- **Does.** Reads and validates a pack as 038c sections 2, 3 and 5 say: manifest first, folder name equals `country`, per-file sha256, header equals the schema, first violation raises with file, row and column, no fill, no interpolation, no clipping. Computes `pack_sha256`. Reads `registry/inputs.json` into low, central and high per row id, with `(J)` flags and unit. Runs the interim consistency checks X1 (register value of a pack row equals the pack-derived value within 1e-9) and X2 (the M1d lines sum to 8.11% of GDP within 0.01). Provides the accessors the other modules use and the two data-fact outputs.
-- **Inputs.** `model_v3/pack/<ISO>/`, `registry/inputs.json`.
+- **Does.** Reads and validates a pack as 038c sections 2, 3 and 5 say: manifest first, folder name equals `country`, per-file sha256, header equals the schema, first violation raises with file, row and column, no fill, no interpolation, no clipping. Computes `pack_sha256`. Reads `data/input-register/inputs.json` into low, central and high per row id, with `(J)` flags and unit. Runs the interim consistency checks X1 (register value of a pack row equals the pack-derived value within 1e-9) and X2 (the M1d lines sum to 8.11% of GDP within 0.01). Provides the accessors the other modules use and the two data-fact outputs.
+- **Inputs.** `model_v3/pack/<ISO>/`, `data/input-register/inputs.json`.
 - **Outputs.** Typed dicts of pack tables and register values; `DH1a` and `DH1b` (data facts read from the pack, point forms).
 - **Implements.** R3 (register with low, central, high), R11 (the only module that handles `country`, `currency` and labels), R5 (hash). C1 item 8 housekeeping (stamp-duty sub-rows never summed with their parent).
 - **Imports.** numpy, standard library only.
@@ -101,7 +101,7 @@ Each entry: purpose, inputs, outputs (and the manifest ids it produces), the C1 
 ### 2.9 `out/` (assemble.py 480, writer.py 220 lines) and the contract (interface.py 50 lines)
 - **The contract.** `interface.Samples` is a mapping `output id -> {key: ndarray}` where `key = (schedule, horizon, by, line)` and `schedule` is `None` for once-not-per-schedule outputs, `by` a sorted tuple of `(name, value)`, `line` `None` or a metric id; each array has one entry per level 1 path (or, for level 2 results, per draw). `interface.Level2` carries the tornado rows and the level 2 P10 and P90. The writer depends on this file and the manifest only, so it can be built and tested against synthetic `Samples` before any model module exists.
 - **`assemble.py`.** Reads the manifest and builds one entry per output: cells over the full product of schedules, horizons and `by` vocabularies; summary forms A (`p10_mean_p90`), B (`point_and_range`), the value-only `point`, and C (level 2); P10 and P90 by `numpy.percentile` with linear interpolation, mean arithmetic; values in the manifest's unit, never rescaled. Data-driven: no per-output code except a table from output id to the metric key.
-- **`writer.py`.** The only writer of the file. Deterministic bytes (sorted keys, fixed float format). The nan and inf rule: a non-finite value is an error in a `final` run and `null` in a `provisional` one (V5), never converted silently (the 30-line spec of `json_safe`, rewritten with a test). Writes the `run` block and the hashes. The run script calls `pipeline/validate_outputs.py` after writing and exits non-zero on any error.
+- **`writer.py`.** The only writer of the file. Deterministic bytes (sorted keys, fixed float format). The nan and inf rule: a non-finite value is an error in a `final` run and `null` in a `provisional` one (V5), never converted silently (the 30-line spec of `json_safe`, rewritten with a test). Writes the `run` block and the hashes. The run script calls `model/tools/validate_outputs.py` after writing and exits non-zero on any error.
 - **Implements.** R1 (every entry is a manifest id; an unknown id raises), R4 (third layer), R9.
 - **Imports.** `interface`, the manifest, numpy, `json`, `hashlib`. Not `core` and not `runner` (R4).
 
@@ -132,7 +132,7 @@ A pure function `household_step(cell, pos, flows, rets, defl, convention, ...)` 
 The kernel's lines are independent: state is per line and routes sum within a line. The runner therefore folds paths into the line axis (`n = lines x paths`, growth matrix `(T, n)`), in chunks of at most 1,000 paths, instead of calling the kernel path by path. A kernel test (section 6.2) shows a line gives the same result alone and inside a batch, to 1e-12. If that test fails, stage V3-10 falls back to a per-path loop and section 6.5's pool rule applies.
 
 ### 3.3 Levers
-`model_v3/levers.json` holds what is a lever and not an input (`metrics.md`, range design; `drivers.md` item 3). Proposed contents (author to confirm, section 9 item 5): axes of the schedule family, centred on v2's `logistic_ln_ref` point (`tau_0` 4%, `tau_m` 90%, `k_ln` 1, threshold at half the median house price per adult): `tau_m` in {0.5, 0.7, 0.9}, `k_ln` in {0.5, 1, 2}, `tau_0` fixed at 0.04, threshold ratio in {0.25, 0.5, 1.0}; the retirement order (ascending by receipts); the feasibility rule's cap on M2, floor on M4a and the closure share, set by the author in the manifest's amendment A5. The named schedules S_low, S_central and S_high are **computed** from the grid by the confirmed rule (section 2.8), not typed.
+`model/model_v3/levers.json` holds what is a lever and not an input (`metrics.md`, range design; `drivers.md` item 3). Proposed contents (author to confirm, section 9 item 5): axes of the schedule family, centred on v2's `logistic_ln_ref` point (`tau_0` 4%, `tau_m` 90%, `k_ln` 1, threshold at half the median house price per adult): `tau_m` in {0.5, 0.7, 0.9}, `k_ln` in {0.5, 1, 2}, `tau_0` fixed at 0.04, threshold ratio in {0.25, 0.5, 1.0}; the retirement order (ascending by receipts); the feasibility rule's cap on M2, floor on M4a and the closure share, set by the author in the manifest's amendment A5. The named schedules S_low, S_central and S_high are **computed** from the grid by the confirmed rule (section 2.8), not typed.
 
 ### 3.4 Horizons
 - **Base year** 2025-26, money in 2025-26 prices (the pack's `base_year`). Introduction is at the start of year 1; **reporting starts at the first year after introduction** (C1 item 6). Every path runs **T = 100 years**.
@@ -171,7 +171,7 @@ No module-level statement except definitions, constants and the `if __name__` gu
 The 038c scan (classes N, T and A over `model_v3/**/*.py`, comments excluded, `pack/build_gbr.py` and `tests/` excepted) must return **zero** hits outside `core/pack.py`'s own handling of `country` and the manifest labels. The test ships in stage V3-1; stage V3-2 adds a second, tiny pack (`ZZZ`) in the test fixtures that loads with no code change. A second country is a pack, not a v3 feature.
 
 ### 5.4 R9: size
-The budgets of section 6.1 are machine-readable in the fenced block there. `tests/model_v3/test_budget.py` counts lines of every file, fails when a file is over its budget, when the output layer (`out/`) is not smaller than core plus runner, or when the sums differ from the stated totals. A build brief may raise a budget only by editing this document, with a reason.
+The budgets of section 6.1 are machine-readable in the fenced block there. `tests/model/model_v3/test_budget.py` counts lines of every file, fails when a file is over its budget, when the output layer (`out/`) is not smaller than core plus runner, or when the sums differ from the stated totals. A build brief may raise a budget only by editing this document, with a reason.
 
 ### 5.5 R5, R6, R7
 - **R5.** One seed (3.1), recorded; the same inputs give the same file, byte for byte, under `python -I`. The run script and the smoke test (section 6.5) fail loudly when a file is renamed or an import breaks. The output location is a command argument, never a path inside a module.
@@ -211,9 +211,9 @@ out/writer.py                  220    120
 interface.py                    50      0
 run.py                         120     80
 rules and budget tests           0    150
-tests/model_v3/accept.sh         0     30
-tests/model_v3/test_converge.py 0     60
-tests/model_v3/test_pack_base.py 0     58
+tests/model/model_v3/accept.sh         0     30
+tests/model/model_v3/test_converge.py 0     60
+tests/model/model_v3/test_pack_base.py 0     58
 ```
 
 | Group | Code lines | Test lines |
@@ -251,14 +251,14 @@ Names are the test ids a build brief and `acceptance.md` cite.
 
 ### 6.3 The identity check against v2 (C1 item 3)
 The check is two tests in stage V3-7, run at v2-like inputs: the `logistic_ln_ref` scenario (`tau_0` 0.04, `logistic_ln`, `tau_m` 0.90, `k_ln` 1, threshold ratio 0.5, `body_split` 5), UK windows with T = 100 and stride 1 over the 117 usable windows (`loop_windows`), post-fill 10-year mean WDT take as a share of GDP. The reference number is the recorded **7.34**; v2 is not run and not imported.
-- **Statistic (guru correction, 2026-11-19, from the 078c recording).** v2's 7.34 is the **mean over the 117 windows** of the per-window post-fill take (net individual WDT: tax + death tax + heirs - refunds, no levy; years fill to fill+9; ratio of sums over GDP). The median over windows is 6.59. Wherever this section or `acceptance.md` says "post-fill 10-year WDT take" it means that mean. The I1 and I2 tests compare the v3 mean, and may also compare window by window against `tests/model_v3/fixtures/v2_logistic_ln_ref.json`. Earlier v3 numbers (3.5, 5.02, 6.66) were medians and are not comparable with 7.34.
+- **Statistic (guru correction, 2026-11-19, from the 078c recording).** v2's 7.34 is the **mean over the 117 windows** of the per-window post-fill take (net individual WDT: tax + death tax + heirs - refunds, no levy; years fill to fill+9; ratio of sums over GDP). The median over windows is 6.59. Wherever this section or `acceptance.md` says "post-fill 10-year WDT take" it means that mean. The I1 and I2 tests compare the v3 mean, and may also compare window by window against `tests/model/model_v3/fixtures/v2_logistic_ln_ref.json`. Earlier v3 numbers (3.5, 5.02, 6.66) were medians and are not comparable with 7.34.
 - **Restatement (author, 2026-11-19, after 052c).** v3 learns from v2 and does not replicate it. With v2's inputs and v2's fill year, v3's per-window take equals v2's to 1e-5 points in all 117 windows (mean 7.3416): that is the port check. The full chain with v3's own fund differs (mean 7.51 against 7.34), only through the fund's fill year in 39 windows, because v3 charges the register's constant levy (I-D7a) and v2 charges a per-year path; that difference is **reported, not a failure**. I1 and I2 below are read as follows: **I1** = the take matches v2's in every window at v2's fill year (1e-5); **I2** = at v2's fill year, the mean with the model's refund lies in 6.34 to 7.36 (not above 7.36), the difference from I1 written into the change report; the fill-year difference is recorded as a finding for the papers. The wording below is superseded where it says "7.34 within 0.02".
 - **I1, the port.** With the ratio-mirror refund written into the test as a patch on the ported `assess` (the test owns that patch; it is not in the model), v3 gives **7.34 within 0.02 points of GDP** (7.34 is rounded to two places, and v2's exact value is not recorded). This shows the kernel, schedule, base and fund agree with v2 on everything except the refund rule.
 - **I2, the rule change.** With the model's own refund (tau x loss), v3 gives a post-fill WDT take **not above 7.34 + 0.02 and not below 6.34**. The measured difference is written into the change report. The 1.0 point lower bound is my judgement of how large the refund rule can matter; the author may set another (section 9 item 6). A result outside the bound is not tuned away: it stops the build and goes to the author.
 - **I3, the epsilon check.** The computed M1a, the computed epsilon and omega satisfy M1a ~ epsilon x g x omega - refunds within 5% of M1a on the same windows (a check of accounting, not of the policy; the tolerance is 5% because the refund term is not closed-form).
 
 ### 6.4 Smoke and acceptance
-- **Smoke test** (`tests/model_v3/test_smoke.py`, R5): `python -I -c "import sys; sys.path.insert(0, '.'); from model_v3 import run; run.main(['--smoke', '--out', DIR])"` (`-I` ignores the current directory, so the command puts it on the path) with `N1 = 50`, `N2 = 3`, `N2P = 20`; it exits 0, writes `outputs.json` with `run.status` `provisional` and `run.paths` 50, and `pipeline/validate_outputs.py` passes it in provisional mode. Renaming any module file or breaking one import makes it fail.
+- **Smoke test** (`tests/model/model_v3/test_smoke.py`, R5): `python -I -c "import sys; sys.path.insert(0, '.'); from model_v3 import run; run.main(['--smoke', '--out', DIR])"` (`-I` ignores the current directory, so the command puts it on the path) with `N1 = 50`, `N2 = 3`, `N2P = 20`; it exits 0, writes `outputs.json` with `run.status` `provisional` and `run.paths` 50, and `model/tools/validate_outputs.py` passes it in provisional mode. Renaming any module file or breaking one import makes it fail.
 - **Acceptance run** (named in `acceptance.md`, 040g): one command that runs every test, the smoke test, the convergence test and the full run, and exits 0 only if all pass. The architecture fixes only that it is one command.
 
 ### 6.5 Run script and run time
@@ -272,19 +272,19 @@ Thirteen stages. "Files" are the only files a stage may change; no file appears 
 
 | Stage | Task | Lane | Files (only these) | Needs | May run with |
 |---|---|---|---|---|---|
-| V3-0 | Manifest and levers amendments A1 to A7 (section 8) and `levers.json` | guru | `docs/model-v3/outputs.yml`, `docs/model-v3/metrics.md`, `model_v3/levers.json`, regenerated `registry/metrics.json`, the fixture | author approval of section 8 | V3-1, V3-4 |
-| V3-1 | Scaffold, `interface.py`, rules, budget and import tests | c | `model_v3/__init__.py`, `model_v3/interface.py`, `tests/model_v3/conftest.py`, `test_rules.py`, `test_budget.py` | this document approved | V3-0, V3-4 |
-| V3-2 | Pack and register loader | c | `core/pack.py`, `tests/model_v3/test_pack.py`, `tests/model_v3/fixtures/pack_ZZZ/` | V3-1 | V3-4 |
-| V3-3 | UK pack from the held files | c | `model_v3/pack/GBR/` (all), `model_v3/pack/build_gbr.py` | V3-2 | V3-4, V3-11 |
-| V3-4 | Schedule and kernel (port) | c | `core/schedule.py`, `core/kernel.py`, `tests/model_v3/test_schedule.py`, `test_kernel.py` | none | V3-1 to V3-3, V3-11 |
-| V3-5 | Return generator | c | `core/returns.py`, `tests/model_v3/test_returns.py` | V3-3 | V3-6 once V3-4 is done |
-| V3-6 | Wealth and payer base | c | `core/base.py`, `tests/model_v3/test_base.py` | V3-3, V3-4 | V3-5 |
-| V3-7 | Revenue, fund and the identity check | c | `core/revenue.py`, `tests/model_v3/test_revenue.py` | V3-4, V3-5, V3-6 | V3-11 |
-| V3-8 | Burden and savings | c | `core/burden.py`, `tests/model_v3/test_burden.py` | V3-7 | V3-9, V3-11 |
-| V3-9 | Supporting metrics | c | `core/support.py`, `tests/model_v3/test_support.py` | V3-7 | V3-8, V3-11 |
-| V3-10 | Range runner | c | `runner/runner.py`, `runner/sweeps.py`, `runner/pool.py` (conditional), `tests/model_v3/test_runner.py` | V3-8, V3-9 | V3-11 |
-| V3-11 | Output layer | c | `out/assemble.py`, `out/writer.py`, `tests/model_v3/test_out.py` | V3-0, V3-1 | V3-2 to V3-10 |
-| V3-12 | Run script, smoke test, acceptance wiring | c | `model_v3/run.py`, `tests/model_v3/test_smoke.py`, `tests/model_v3/accept.sh`, `tests/model_v3/test_converge.py` | V3-10, V3-11 | none |
+| V3-0 | Manifest and levers amendments A1 to A7 (section 8) and `levers.json` | guru | `docs/model-v3/outputs.yml`, `docs/model-v3/metrics.md`, `model/model_v3/levers.json`, regenerated `data/input-register/metrics.json`, the fixture | author approval of section 8 | V3-1, V3-4 |
+| V3-1 | Scaffold, `interface.py`, rules, budget and import tests | c | `model/model_v3/__init__.py`, `model/model_v3/interface.py`, `tests/model/model_v3/conftest.py`, `test_rules.py`, `test_budget.py` | this document approved | V3-0, V3-4 |
+| V3-2 | Pack and register loader | c | `core/pack.py`, `tests/model/model_v3/test_pack.py`, `tests/model/model_v3/fixtures/pack_ZZZ/` | V3-1 | V3-4 |
+| V3-3 | UK pack from the held files | c | `data/country-packs/GBR/` (all), `model/model_v3/pack/build_gbr.py` | V3-2 | V3-4, V3-11 |
+| V3-4 | Schedule and kernel (port) | c | `core/schedule.py`, `core/kernel.py`, `tests/model/model_v3/test_schedule.py`, `test_kernel.py` | none | V3-1 to V3-3, V3-11 |
+| V3-5 | Return generator | c | `core/returns.py`, `tests/model/model_v3/test_returns.py` | V3-3 | V3-6 once V3-4 is done |
+| V3-6 | Wealth and payer base | c | `core/base.py`, `tests/model/model_v3/test_base.py` | V3-3, V3-4 | V3-5 |
+| V3-7 | Revenue, fund and the identity check | c | `core/revenue.py`, `tests/model/model_v3/test_revenue.py` | V3-4, V3-5, V3-6 | V3-11 |
+| V3-8 | Burden and savings | c | `core/burden.py`, `tests/model/model_v3/test_burden.py` | V3-7 | V3-9, V3-11 |
+| V3-9 | Supporting metrics | c | `core/support.py`, `tests/model/model_v3/test_support.py` | V3-7 | V3-8, V3-11 |
+| V3-10 | Range runner | c | `runner/runner.py`, `runner/sweeps.py`, `runner/pool.py` (conditional), `tests/model/model_v3/test_runner.py` | V3-8, V3-9 | V3-11 |
+| V3-11 | Output layer | c | `out/assemble.py`, `out/writer.py`, `tests/model/model_v3/test_out.py` | V3-0, V3-1 | V3-2 to V3-10 |
+| V3-12 | Run script, smoke test, acceptance wiring | c | `model_v3/run.py`, `tests/model/model_v3/test_smoke.py`, `tests/model/model_v3/accept.sh`, `tests/model/model_v3/test_converge.py` | V3-10, V3-11 | none |
 
 **Sequential chain:** V3-1, V3-2, V3-3, V3-5 and V3-6, V3-7, then V3-8 with V3-9, then V3-10, then V3-12. V3-4 and V3-11 sit outside the chain and meet it at V3-5 and V3-12. First wave: V3-0, V3-1, V3-4. A stage that needs another does not start until the earlier stage's tests pass and its branch is merged (R7).
 
@@ -298,7 +298,7 @@ The manifest is out of scope here. These are what stage V3-0 edits once approved
 | # | Amendment | Why |
 |---|---|---|
 | A1 | Vocabularies for the six `by` lists: `embedded_gain_band` {25pct, 50pct, 75pct of asset value}; `holding_period` {5, 10, 20} years; `w_min` {0.25, 0.5, 1.0} of median house price per adult; `alpha_grid` {0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0, 5.0}; `reference_worker` {p25, p50, p75, p90} of the income distribution; `schedule_grid` the nine cells `tm{50,70,90}_k{05,1,2}` | `hooks.md` rulings, 2026-11-18, item 4: `by` is a bare list in OW2, OB1, OD1, OL1, OF1, OT1 and CK1 |
-| A2 | `input` vocabulary of OT1 and CK1's `amplitude` {1, 3, 5, 8, 12}: `input` is the ids of the tier 1 register families D1, D4, D5, D6, D9, D10 and I-D1b/b2, resolved from `registry/inputs.json` by family prefix; `headline` {M1, M2, M4a, M3}; `schedule` as the manifest's | same; amplitude grid runs to about 12 (`metrics.md` CK1) |
+| A2 | `input` vocabulary of OT1 and CK1's `amplitude` {1, 3, 5, 8, 12}: `input` is the ids of the tier 1 register families D1, D4, D5, D6, D9, D10 and I-D1b/b2, resolved from `data/input-register/inputs.json` by family prefix; `headline` {M1, M2, M4a, M3}; `schedule` as the manifest's | same; amplitude grid runs to about 12 (`metrics.md` CK1) |
 | A3 | Line-level horizons: M15a all three, M15b transition only | ruling 4, second point |
 | A4 | Cells for O1's own net (line M1) and OM1's own net (line M9) | ruling 4, third point |
 | A5 | Feasibility rule constants (cap on M2, floor on M4a, closure share) as manifest fields | choice rule of the named schedules needs them |

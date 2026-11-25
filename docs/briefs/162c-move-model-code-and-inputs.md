@@ -3,7 +3,7 @@
 - **Status:** draft; released after 161c (merged) and 165c (merged); Agent 6
 - **Author/date:** K. Ogata with the guru, 2026-11-24
 - **Depends on:** 160c, 161c and 165c merged (done 2026-11-25); no other branch open
-- **Read:** `docs/briefs/044c-file-layout-move.md` (rules, tree, hazards); `docs/restructure/file-layout-map.md` (the reviewed table from R1); `model_v3/pack/build_gbr.py`; `tests/model_v3/`; `pipeline/validate_outputs.py`; `docs/restructure/rehearsal-report.md` (the 162c section and the trap) and `docs/restructure/rehearsal-fixes.patch` (the `# ===== stage 162c` hunks, built on the pre-160c tree: use as a guide, not a patch to apply)
+- **Read:** `docs/briefs/044c-file-layout-move.md` (rules, tree, hazards); `docs/restructure/file-layout-map.md` (the reviewed table from R1); `model/model_v3/pack/build_gbr.py`; `tests/model/model_v3/`; `model/tools/validate_outputs.py`; `docs/restructure/rehearsal-report.md` (the 162c section and the trap) and `docs/restructure/rehearsal-fixes.patch` (the `# ===== stage 162c` hunks, built on the pre-160c tree: use as a guide, not a patch to apply)
 
 ## Goal
 The model is code only under `model/`; everything it reads is under `data/`; its tests are under `tests/model/`; and the tripwire equals its pre-move baseline.
@@ -12,8 +12,8 @@ Rules, target tree and hazards: `docs/briefs/044c-file-layout-move.md` (R1 to R5
 
 ## Design
 - `model_v3` to `model/model_v3` (import name kept); the model-side pipeline scripts (`build_inputs`, `build_metrics`, `validate_outputs`, `run_suites`, shared helpers per the L1 table) to `model/tools/`; the study drivers (`docs/model-v3/**/*.py`) to `model/studies/` with unique names.
-- The country pack to `data/country-packs/GBR/` (its own file names stay); `registry/inputs.json` and the model-side registry files to `data/input-register/`; the pack builder reads `data/jst/` and `data/wid/` (009c).
-- The model tests (`tests/model_v3`, `tests/data`) to `tests/model/`.
+- The country pack to `data/country-packs/GBR/` (its own file names stay); `data/input-register/inputs.json` and the model-side registry files to `data/input-register/`; the pack builder reads `data/jst/` and `data/wid/` (009c).
+- The model tests (`tests/model/model_v3`, `tests/model/data`) to `tests/model/`.
 - Rewrite imports, config, the manifest, test paths, `accept.sh`, the run commands; check every depth-based path (hazard 1).
 - Checks: the 044c tiers (static, path-rewrite proof, tripwire against the R1 baseline, suites in the background); no `quick` run in this stage.
 
@@ -26,7 +26,7 @@ Rules, target tree and hazards: `docs/briefs/044c-file-layout-move.md` (R1 to R5
 - **Run commands** to be rewritten: see the `Resume` and `Gotchas` lines of the 165c progress block.
 
 ## Touches
-`model_v3/`, `pipeline/` (model side), `registry/` (model side), `tests/model_v3/`, `tests/data/`, `docs/model-v3/**/*.py`, the pack, readers of those paths (docs, workflows).
+`model_v3/`, `pipeline/` (model side), `registry/` (model side), `tests/model/model_v3/`, `tests/model/data/`, `docs/model-v3/**/*.py`, the pack, readers of those paths (docs, workflows).
 
 ## Acceptance criteria
 - Tripwire equal to the baseline, path-rewrite proof clean, digest and gate hash unchanged, all model suites pass.

@@ -106,7 +106,7 @@ Reading: M1a moves between horizons (`median_mid`: transition 2.81 to 3.11, shor
 
 ## Needs the author
 
-- **A defect fixed outside Touches.** Level 1 under the household arm raised because `out_support.per_path` returned `None` for the withheld groups and `runner.cat` cannot concatenate `None`; it now returns `{}` (8 lines in `model_v3/runner/out_support.py`, a 121c defect). The brief names the runner as not touched, so by the auto-merge rule **this branch is not merged: NEEDS THE AUTHOR** (accept the fix, or have it made in its own brief).
+- **A defect fixed outside Touches.** Level 1 under the household arm raised because `out_support.per_path` returned `None` for the withheld groups and `runner.cat` cannot concatenate `None`; it now returns `{}` (8 lines in `model/model_v3/runner/out_support.py`, a 121c defect). The brief names the runner as not touched, so by the auto-merge rule **this branch is not merged: NEEDS THE AUTHOR** (accept the fix, or have it made in its own brief).
 - The I1 failures at `min_mid` and `median_high`, and the no-spread finding, are for the author and guru to read.
 
 ## Next

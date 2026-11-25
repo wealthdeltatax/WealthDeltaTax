@@ -2,7 +2,7 @@
 
 No (tol, m) cell in the brief's grid reaches the 75% closure share: the best is 50.6% (tol 1.0, m 25%), at tm50_k05_r100. Not every cell is under 25%, so the early-check condition (a different mechanism, not a different tolerance) is not triggered by the brief's own test. Only a retirement margin of 100% with tol 1.0, outside the grid, reaches 75% (79.3%); see "Which single change".
 
-Reproduce: `python -I docs/model-v3/f1-diagnostic/f1_gap.py` from the repository root (about 1.5 minutes; seed 20261118). A second run prints identical text. Seed 20261118; 1000 level 1 paths of the AR(1) generator at central inputs (mean 4.74, SD 8.22, lag-1 0.3); the same paths for all 27 grid points; short window = the 10 years after the fill; margins (0.0, 0.1, 0.25) (and (0.5, 1.0) in the last table only); tolerances (0.0, 0.05, 0.25, 1.0) GDP-points.
+Reproduce: `python -I model/studies/f1-diagnostic/f1_gap.py` from the repository root (about 1.5 minutes; seed 20261118). A second run prints identical text. Seed 20261118; 1000 level 1 paths of the AR(1) generator at central inputs (mean 4.74, SD 8.22, lag-1 0.3); the same paths for all 27 grid points; short window = the 10 years after the fill; margins (0.0, 0.1, 0.25) (and (0.5, 1.0) in the last table only); tolerances (0.0, 0.05, 0.25, 1.0) GDP-points.
 
 ### Summary: (tol, m) against best F1 and the feasible-point count
 
