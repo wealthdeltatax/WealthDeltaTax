@@ -13,7 +13,7 @@ The audit is done (`docs/model-audit/synthesis.md`). Model v3 is a range model: 
 | Agent 3 | free | 164c (project, skills, final sweep) |
 | Agent 4 | free (160c merged 2026-11-25) | |
 | Agent 5 | free (161c merged 2026-11-25) | |
-| Agent 6 | 162c (model code and inputs; underway, branch pushed) | 163c (specs and results) |
+| Agent 6 | free | 163c (specs and results) |
 
 Six agents only. Agents change skill with the brief. Next housekeeping (author, 2026-11-24): the reorganisation, seven briefs (009c, 044c, 160c to 164c), 009c starts now (057c is paused), the 044c inventory after 009c. **Budget rule:** `model/model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model/model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 
@@ -26,6 +26,7 @@ Six agents only. Agents change skill with the brief. Next housekeeping (author, 
 - 2026-11-24: 089c merged (`docs/model-v3/feasibility-map.md`): at the strict rule no schedule is feasible at any point or fund (best F1 15.5 to 36.5% `safe`, 31.5 to 45.5% `market` against 75%); 14 of 120 (fund, point, rule) cells are feasible, all under a relaxed rule (tolerance up to 1%, margin 10 to 25%). CK1 P3 positive at amplitude 0 in 11 of 40 rows. No rule picked; the feasibility rule is the author's open ruling.
 - 2026-11-24: 147c blocks 0 to 3 reviewed, not merged: `top_tail` and `saving_shape` switches in, 30 of 50 non-flat cells stop in M13 (D1, D2 go negative). Ruled: floor dissaving at zero wealth in `switches.py` (block 4). No setting lifts top-decile share to 0.50 (best 0.388 at year 100); reported as a finding, no more switches.
 - 2026-11-24: 057c rounds 4 and 5 reviewed, not merged: `quick` 44 min, a final-size grid point without O1e 94 min (serial). Ruled: failed grid points stay as `target_not_met`; O1e no root is `no_sign_change_0_15`; acceptance runs a reduced C3 (full C3 a later manual run).
+- 2026-11-25: 162c merged (model code, tools, studies, country pack, input register, model tests moved; tripwire PASS; model suites 103/17/5/408; website suites pass after two path fixes). 163c is ready; 164c follows; 057c after 163c (it rebases onto the moved tree).
 - 2026-11-25: the author dropped 167c and ran 162c (stage by stage, as first planned); 162c is underway on `brief/162-move-model-code-and-inputs`; 163c then 164c follow, 057c after 162c.
 - 2026-11-25: 167c written (author: skip 162c to 164c if safe): trial on a scratch copy of current main, go or no-go; on go it does the whole remaining move in two pushes; on no-go 162c to 164c run as written. 057c and 151c now wait on 167c (or on 162c if no-go).
 - 2026-11-25: 165c merged (rehearsal report and patch; `path_refs.py --apply`). Map decisions: pack folder `data/country-packs/GBR`; pinned list extended (162c); the proof takes the shared `Rewriter` (162c); readable copies in `literature/readable/` (164c); the 165c brief is archived. 162c is ready (Agent 6); 163c then 164c follow; 057c resumes after.

@@ -5,9 +5,9 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[3]
 PIPELINE = ROOT / "website" / "build"
-MODEL_TOOLS = ROOT / "pipeline"   # validate_outputs.py stays here until 162c moves it
+MODEL_TOOLS = ROOT / "model" / "tools"   # validate_outputs.py is model-side
 FX = Path(__file__).resolve().parent / "fixtures"
-DATA = ROOT / "tests" / "data" / "fixtures" / "outputs.fixture.json"
+DATA = ROOT / "tests" / "model" / "data" / "fixtures" / "outputs.fixture.json"
 
 
 def load(name, base=PIPELINE):

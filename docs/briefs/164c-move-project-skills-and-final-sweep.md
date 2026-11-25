@@ -22,6 +22,8 @@ Rules, target tree and hazards: `docs/briefs/044c-file-layout-move.md` (R1 to R5
 - **Skills:** the five `.skill` archives are generated from stubs the rewrite changes; regenerate (`project/skills/*.skill`).
 - **Throwaway trees in project tests** keep their own paths (rehearsal rule); run `git clean -fdx` before the final run; the project test `test_cli_exit_status_and_real_repo_is_clean` passes only in a clean tree.
 
+- **Proof allow file:** `path_rewrite_proof.py` prints FAIL for the declared edits unless given an `--allow` list; add the list for 162c's 72 declared edits so the final proof prints PASS; `file-layout-map.md` still says four pinned lines (there are more, see `PINNED_ALLOWED`); `path_refs.py --check` truncates at 50 lines.
+
 ## Touches
 `docs/` remainder, `Tools/`, `.claude/`, `AGENTS.md`, `README.md`, `START_HERE.md`, `STATUS.md`, `OVERVIEW.md`, `.gitignore`, shared files; nothing in `model/`, `data/`, `results/` except path references.
 
