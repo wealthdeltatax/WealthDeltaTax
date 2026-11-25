@@ -43,7 +43,7 @@ The model cannot cover the whole economic parameter space. v3 therefore **estima
 **R3 Parameter file.** Every ranged input has a low, central and high value (or a distribution), a unit and a source. No duplicated or stale values, no unused entries, no numbers typed into presentation text (lesson 3; v1-errors B7, B8; v2's 27 unused scenarios).
 **R4 Layering.** Core computation, then range runner, then output writer. The core imports no presentation code and nothing imports across cores (lesson 2; v1-errors C3).
 **R5 Reproducibility.** A fixed seed and stated sample size; the same inputs give the same P10, mean and P90. A run script and a smoke test that fail loudly when a file is renamed or an import breaks (lesson 4; v1 `run_all`).
-**R6 Convention log.** Any change of convention (basis, denominator, rate form) is written down next to the code and in `docs/decisions.md` the day it changes (lesson 5; `BASIS_CHANGE.md` was cited and untracked).
+**R6 Convention log.** Any change of convention (basis, denominator, rate form) is written down next to the code and in `project/decisions.md` the day it changes (lesson 5; `BASIS_CHANGE.md` was cited and untracked).
 **R7 Tests travel.** Each core has tests before anything else is built on it; nothing is retired before its tests are ported or rewritten (lessons 6b, 6c).
 **R8 No side effects on import, no orphan code.** Nothing rewrites data on import; nothing unused or unported stays in the tree (lessons 6b, 8).
 **R9 Size.** A stated line budget for the core and for the output layer, set in 011g stage C and checked in each build brief. As a starting proposal: the output layer is smaller than the core (v2's was 5,150 lines, the largest single source of complexity).

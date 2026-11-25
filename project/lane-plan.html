@@ -1,0 +1,496 @@
+<title>WDT plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a schedule grid. Rows are the six agents (1 is the guru prime), columns are agent sessions (one brief takes one or more sessions).
+   Each brief keeps its own colour wherever it is placed; arrows are dependencies. */
+:root {
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --fg: #1c2230;
+  --muted: #5d6677;
+  --line: #d9dde5;
+  --grid: #e6e9ef;
+  --accent: #2a5bd7;
+  --bar-s: 55%; --bar-l: 82%; --bar-edge-s: 45%; --bar-edge-l: 42%;
+  --on-bar: #151a26;
+  --arrow: #4b5565;
+  --arrow-soft: #8b94a5;
+  --dim: 0.22;
+  --font-ui: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12151c; --panel: #1a1f29; --fg: #e8ebf2; --muted: #98a1b3; --line: #2c3342; --grid: #232a37; --accent: #7aa2ff;
+    --bar-s: 38%; --bar-l: 30%; --bar-edge-s: 55%; --bar-edge-l: 62%; --on-bar: #f1f4fb;
+    --arrow: #aab3c5; --arrow-soft: #6b7487; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12151c; --panel: #1a1f29; --fg: #e8ebf2; --muted: #98a1b3; --line: #2c3342; --grid: #232a37; --accent: #7aa2ff;
+  --bar-s: 38%; --bar-l: 30%; --bar-edge-s: 55%; --bar-edge-l: 62%; --on-bar: #f1f4fb;
+  --arrow: #aab3c5; --arrow-soft: #6b7487; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-ui); font-size: 14px; line-height: 1.45;
+  padding-block: 24px 40px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+main { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+h1 { font-size: 22px; font-weight: 600; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.sub { color: var(--muted); margin: 4px 0 0; max-width: 70ch; }
+.key { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; color: var(--muted); font-size: 12.5px; }
+.key span { display: inline-flex; align-items: center; gap: 7px; }
+.sw { width: 26px; height: 14px; border-radius: 3px; border: 1.5px solid hsl(215 var(--bar-edge-s) var(--bar-edge-l)); background: hsl(215 var(--bar-s) var(--bar-l)); }
+.sw.under { background-image: repeating-linear-gradient(135deg, rgba(0,0,0,.18) 0 4px, transparent 4px 8px); }
+.sw.author { border-style: dashed; }
+.sw.review { box-shadow: inset 0 -5px 0 var(--accent); }
+.badge-key { font-family: var(--font-mono); font-size: 10.5px; padding: 1px 5px; border-radius: 3px; background: var(--fg); color: var(--bg); }
+.line-key { width: 26px; height: 0; border-top: 2px solid var(--arrow); }
+.line-key.soft { border-top: 2px dashed var(--arrow-soft); }
+
+.chart-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow-x: auto; }
+.chart { position: relative; min-width: calc(120px + var(--slots, 14) * 112px + 14px); padding: 10px 14px 16px 0; --label-w: 120px; --slot: 112px; --row: 64px; }
+.axis { display: grid; grid-template-columns: var(--label-w) repeat(var(--slots, 14), var(--slot)); height: 28px; align-items: end; }
+.axis div { font-family: var(--font-mono); font-size: 11px; color: var(--muted); padding: 0 0 6px 8px; border-left: 1px solid var(--grid); height: 100%; display: flex; align-items: flex-end; }
+.axis div:first-child { border-left: 0; }
+.lane { position: relative; display: grid; grid-template-columns: var(--label-w) 1fr; height: var(--row); border-top: 1px solid var(--line); }
+.lane-label { padding: 8px 12px; display: flex; flex-direction: column; justify-content: center; position: sticky; left: 0; background: var(--panel); z-index: 3; }
+.lane-label b { font-size: 13px; font-weight: 600; }
+.lane-label small { color: var(--muted); font-size: 11.5px; }
+.track { position: relative; background-image: repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px var(--slot)); }
+.now { position: absolute; top: 28px; bottom: 0; left: calc(var(--label-w)); border-left: 2px solid var(--accent); z-index: 1; pointer-events: none; }
+.now::after { content: "now"; position: absolute; top: -22px; right: 4px; font-family: var(--font-mono); font-size: 10.5px; color: var(--accent); }
+
+.bar { position: absolute; top: 8px; height: calc(var(--row) - 16px); border-radius: 6px; padding: 5px 8px; overflow: hidden; cursor: pointer; text-align: left;
+  font: inherit; color: var(--on-bar); background: hsl(var(--h) var(--bar-s) var(--bar-l)); border: 1.5px solid hsl(var(--h) var(--bar-edge-s) var(--bar-edge-l));
+  display: flex; flex-direction: column; justify-content: center; gap: 1px; transition: opacity .15s, box-shadow .15s; z-index: 2; }
+.bar:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.bar .num { font-family: var(--font-mono); font-weight: 500; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+.bar .ttl { font-size: 11.5px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.bar.under { background-image: repeating-linear-gradient(135deg, rgba(0,0,0,.16) 0 5px, transparent 5px 10px); }
+.bar.author { border-style: dashed; }
+.bar.review { box-shadow: inset 0 -5px 0 var(--accent); }
+.bar.hold { opacity: .55; border-style: dotted; }
+.bar .tag { font-family: var(--font-mono); font-size: 9.5px; padding: 0 4px; border-radius: 3px; background: var(--fg); color: var(--bg); line-height: 1.5; }
+.chart.focus .bar:not(.on) { opacity: var(--dim); }
+.bar.sel { box-shadow: 0 0 0 3px var(--accent); }
+
+svg.links { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: visible; }
+svg.links path { fill: none; stroke: var(--arrow); stroke-width: 1.6; }
+svg.links path.soft { stroke: var(--arrow-soft); stroke-dasharray: 5 4; }
+svg.links path.hid { opacity: .08; }
+svg.links marker path { fill: var(--arrow); stroke: none; }
+
+.detail { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-height: 92px; display: grid; gap: 6px; }
+.detail h2 { margin: 0; font-size: 15px; font-weight: 600; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.detail h2 i { width: 14px; height: 14px; border-radius: 3px; display: inline-block; background: hsl(var(--h) var(--bar-s) var(--bar-l)); border: 1.5px solid hsl(var(--h) var(--bar-edge-s) var(--bar-edge-l)); }
+.detail p { margin: 0; color: var(--muted); max-width: 90ch; }
+.detail .meta { font-family: var(--font-mono); font-size: 12px; color: var(--fg); display: flex; flex-wrap: wrap; gap: 4px 18px; }
+
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+.card h3 { margin: 0 0 8px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.card ul { margin: 0; padding-left: 18px; display: grid; gap: 5px; }
+.card li { min-width: 0; }
+code { font-family: var(--font-mono); font-size: 12px; }
+.foot { color: var(--muted); font-size: 12px; }
+.cmd h4 { margin: 14px 0 4px; font-size: 13px; }
+.cmd p { margin: 4px 0; font-size: 13px; color: var(--muted); }
+.cmd pre { position: relative; margin: 4px 0 8px; padding: 8px 64px 8px 10px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; font-family: var(--font-mono); font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.cmd pre button { position: absolute; top: 6px; right: 6px; font: inherit; font-size: 11px; padding: 2px 8px; cursor: pointer; }
+
+
+
+.todo { display: grid; gap: 6px; }
+.todo .tg { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-top: 6px; }
+.todo .tg:first-child { margin-top: 0; }
+.todo-item, .oqb { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; text-align: left; cursor: pointer; display: grid; gap: 2px; width: 100%; }
+.todo-item:hover, .oqb:hover { border-color: var(--accent); }
+.todo-item:focus-visible, .oqb:focus-visible, dialog button:focus-visible, dialog textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+.todo-item .ti { font-weight: 500; }
+.todo-item .tm { font-size: 12px; color: var(--muted); }
+.card ul.oql { list-style: none; padding-left: 0; }
+.oqb { display: block; font-size: 13px; }
+.oqb em { color: var(--muted); font-style: normal; }
+dialog { background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px 20px; width: min(720px, calc(100vw - 24px)); max-height: calc(100vh - 32px); overflow: auto; }
+dialog::backdrop { background: rgba(10, 14, 22, .55); }
+dialog h2 { margin: 0 70px 6px 0; font-size: 18px; font-weight: 600; }
+dialog h3 { margin: 16px 0 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+dialog p { margin: 0 0 6px; max-width: 80ch; }
+dialog .when { color: var(--muted); }
+dialog .pill { background: var(--bg); border: 1px solid var(--line); border-radius: 99px; padding: 1px 9px; font-size: 12px; color: var(--fg); margin-right: 6px; }
+dialog form { position: absolute; top: 14px; right: 16px; }
+dialog button { font: inherit; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+dialog button:hover { border-color: var(--accent); }
+dialog ol.steps { margin: 0; padding-left: 0; list-style: none; counter-reset: st; display: grid; gap: 6px; }
+dialog ol.steps li { counter-increment: st; }
+dialog ol.steps label { display: grid; grid-template-columns: 20px 1fr; gap: 8px; align-items: start; cursor: pointer; }
+dialog ol.steps label span::before { content: counter(st) ". "; color: var(--muted); font-family: var(--font-mono); font-size: 12px; }
+dialog input[type=checkbox] { width: 16px; height: 16px; margin-top: 3px; accent-color: var(--accent); }
+dialog input:checked + span { color: var(--muted); text-decoration: line-through; }
+.qbox { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--bg); display: grid; gap: 10px; }
+.qbox .q p { margin: 0 0 4px; }
+.qbox textarea { width: 100%; font: inherit; color: var(--fg); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; resize: vertical; }
+.qbox .qa { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+#copyMsg { font-size: 12px; color: var(--muted); }
+
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); }
+.tabs button { font: inherit; font-weight: 500; color: var(--muted); background: none; border: 0; border-bottom: 3px solid transparent; padding: 8px 16px; cursor: pointer; margin-bottom: -1px; }
+.tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); }
+.tabs button:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.hist-note { margin: 0 0 10px; }
+.hist { position: relative; min-width: 1100px; padding: 10px 14px 14px 0; --label-w: 150px; }
+.h-axis { position: relative; height: 26px; margin-left: var(--label-w); }
+.h-axis span { position: absolute; top: 0; bottom: 0; border-left: 1px solid var(--grid); padding: 2px 0 0 6px; font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.h-row { display: grid; grid-template-columns: var(--label-w) 1fr; border-top: 1px solid var(--line); }
+.h-row .lane-label { position: sticky; left: 0; }
+.h-track { position: relative; background-image: repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px calc(var(--day))); }
+.h-bar { position: absolute; height: 26px; border-radius: 5px; padding: 0 6px; font: inherit; font-size: 11px; color: var(--on-bar); text-align: left; cursor: pointer; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  background: hsl(var(--h) var(--bar-s) var(--bar-l)); border: 1.5px solid hsl(var(--h) var(--bar-edge-s) var(--bar-edge-l)); display: flex; align-items: center; gap: 6px; }
+.h-bar b { font-family: var(--font-mono); font-weight: 500; }
+.h-bar.ms { padding: 0 4px; justify-content: center; }
+.h-bar.sup { opacity: .55; border-style: dashed; }
+.h-bar:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.h-bar.sel { box-shadow: 0 0 0 3px var(--accent); }
+
+.gantt { position: relative; min-width: calc(270px + var(--slots, 14) * 92px + 14px); padding: 6px 14px 14px 0; --gl: 270px; --gs: 92px; --gr: 36px; }
+.g-axis { display: grid; grid-template-columns: var(--gl) repeat(var(--slots, 14), var(--gs)); height: 26px; align-items: end; font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.g-axis div { padding-left: 6px; border-left: 1px solid var(--grid); }
+.g-axis div:first-child { border-left: 0; }
+.g-grp { display: grid; grid-template-columns: var(--gl) 1fr; height: 24px; align-items: center; border-top: 1px solid var(--line); background: var(--panel); }
+.g-grp b { padding-left: 8px; font-size: 12px; }
+.g-grp small { color: var(--muted); font-size: 11px; padding-left: 8px; }
+.g-row { display: grid; grid-template-columns: var(--gl) 1fr; height: var(--gr); border-top: 1px solid var(--grid); }
+.g-lab { display: flex; align-items: center; gap: 8px; padding: 0 8px; font-size: 12px; min-width: 0; }
+.g-lab b { font-family: var(--font-mono); font-weight: 500; flex: none; }
+.g-lab span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
+.g-track { position: relative; background-image: repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px var(--gs)); }
+.g-bar { position: absolute; top: 6px; height: calc(var(--gr) - 12px); border-radius: 5px; padding: 0 8px; font: inherit; font-size: 11.5px; color: var(--on-bar); text-align: left; cursor: pointer; z-index: 2;
+  background: hsl(var(--h) var(--bar-s) var(--bar-l)); border: 1.5px solid hsl(var(--h) var(--bar-edge-s) var(--bar-edge-l)); display: flex; align-items: center; gap: 6px; overflow: hidden; white-space: nowrap; transition: opacity .15s; }
+.g-bar b { font-family: var(--font-mono); font-weight: 500; }
+.g-bar.under { background-image: repeating-linear-gradient(135deg, rgba(0,0,0,.16) 0 5px, transparent 5px 10px); }
+.g-bar:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.g-bar.review { box-shadow: inset 0 -5px 0 var(--accent); }
+.g-bar.sel { box-shadow: 0 0 0 3px var(--accent); }
+.gantt.focus .g-bar:not(.on) { opacity: var(--dim); }
+.g-now { position: absolute; top: 26px; bottom: 14px; left: var(--gl); border-left: 2px solid var(--accent); z-index: 1; pointer-events: none; }
+.gantt svg.glinks { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; overflow: visible; }
+.gantt svg.glinks path { fill: none; stroke: var(--arrow); stroke-width: 1.6; }
+.gantt svg.glinks path.soft { stroke: var(--arrow-soft); stroke-dasharray: 5 4; }
+.gantt svg.glinks path.hid { opacity: .08; }
+.gantt svg.glinks marker path { fill: var(--arrow); stroke: none; }
+@media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+</style>
+
+<main>
+  <header>
+    <h1>WDT plan</h1>
+    <p class="sub">Who does what, in which order, and what waits for what. There are six agents. Agent 1 is the guru prime and writes and hands out the briefs; agents 2 to 6 take whichever skill the next brief needs. Code briefs go first. The letter after a brief number says which skill runs it: g guru, w writing, c code, r research, s site (web). Click a brief to trace its dependencies.</p>
+  </header>
+
+  <div class="key" aria-label="Key">
+    <span><i class="sw under"></i> underway</span>
+    <span><i class="sw review"></i> in review (pushed, waiting for checks and merge)</span>
+    <span><i class="sw"></i> ready</span>
+    <span><i class="sw author"></i> needs your time (rough placeholders)</span>
+    <span><i class="badge-key">moved</i> changed lane since the first plan</span>
+    <span><i class="line-key"></i> must finish first</span>
+    <span><i class="line-key soft"></i> same files, so keep in order</span>
+  </div>
+
+
+
+  <div id="view-plan" class="chart-wrap">
+    <div class="chart" id="chart" aria-label="Schedule of briefs by agent lane">
+      <div class="axis" id="axis"></div>
+      <div id="lanes"></div>
+      <div class="now"></div>
+      <svg class="links" id="links" aria-hidden="true"><defs>
+        <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z"/></marker>
+      </defs><g id="paths"></g></svg>
+    </div>
+  </div>
+
+
+  <section class="detail" id="detail" aria-live="polite"></section>
+
+  <div class="cols">
+    <section class="card"><h3>Your to-do</h3><div class="todo" id="todo"></div></section>
+    <section class="card"><h3>Open questions (<span id="oqn">0</span>)</h3><ul class="oql" id="oq"></ul><div class="qa"><button type="button" id="dlA">Download answers.md</button> <button type="button" id="cpA">Copy all answers</button> <span id="allMsg" aria-live="polite"></span></div></section>
+  </div>
+
+  <section class="card cmd" id="commands">
+    <h3>Commands and how-to (paste-ready)</h3>
+    <p>Run from the repository folder. Examples are PowerShell; each button copies one block.</p>
+
+    <h4>1. Get the latest code</h4>
+<pre>git checkout main
+git pull<button type="button" class="cp">Copy</button></pre>
+    <p>A tree with local changes: <code>git status</code> first. Agents work on a branch named <code>brief/NNN-slug</code> (the brief's number, no letter) and merge their own finished brief into <code>main</code> by the auto-merge rule in <code>AGENTS.md</code>.</p>
+
+    <h4>2. Check the papers</h4>
+<pre>python website/build/check_wdt_format.py source/&lt;paper&gt;.md
+python website/build/wdt_crosslinks.py check<button type="button" class="cp">Copy</button></pre>
+    <p>The crosslink check is expected to report errors until the paper rewrite lands (retired brief 007w).</p>
+
+    <h4>3. Build the site</h4>
+<pre>pipeline\build.bat
+pipeline\build_and_render.bat<button type="button" class="cp">Copy</button></pre>
+    <p>The first builds without rendering, the second renders. <code>main</code> deploys on every push and the Action runs only on <code>main</code>: agents build locally before merging a site change, then watch the Action and revert if it fails.</p>
+
+    <h4>4. Agents</h4>
+    <p>Open the skill named by the letter after the brief number: g wdt-guru, w wdt-write, c wdt-code, r wdt-research, s wdt-web. Start an agent with:</p>
+<pre>Read AGENTS.md, then project/agents/&lt;role&gt;.md, then the brief project/briefs/open/&lt;NNNx-slug&gt;.md. Do only that brief. Stop after one stage and write the change report.<button type="button" class="cp">Copy</button></pre>
+    <p>Paste to an agent when the usage meter is low, and to the next agent to resume (full text in <code>project/agents/handover.md</code>):</p>
+<pre>Stop work now. Commit everything as wip, push the branch, fill in the brief's progress block, then stop. Do not run checks.<button type="button" class="cp">Copy</button></pre>
+<pre>Read the brief and its progress block, `git log origin/main..HEAD`, and `git diff --stat origin/main`. Continue from Next. Do not re-explore. Run the Resume commands first.<button type="button" class="cp">Copy</button></pre>
+
+    <h4>5. Housekeeping</h4>
+<pre>git branch -r --merged origin/main
+git remote prune origin<button type="button" class="cp">Copy</button></pre>
+    <p>The first lists remote branches already merged into <code>main</code> (delete them on GitHub when you are sure); the second drops stale local tracking refs.</p>
+    <p>Reference: <code>project/START_HERE.md</code>, <code>project/STATUS.md</code>, <code>project/briefs/done/002g-repo-triage.md</code> (the ordered list), <code>project/agents/README.md</code>.</p>
+  </section>
+  <dialog id="dlg" aria-labelledby="dlgt"></dialog>
+  <p class="foot">Source: <code>project/STATUS.md</code> and the brief headers in <code>project/briefs/open/</code>. Edited by the guru when a brief starts, is pushed, merges or is retired.</p>
+</main>
+
+<script>
+(function () {
+  var LANES = [
+    { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the V3 build as it lands" },
+    { id: "2", name: "Agent 2", note: "Out of tokens; 057c resumes after 162c if refreshed" },
+    { id: "3", name: "Agent 3", note: "Free until 164c (project, skills, final sweep)" },
+    { id: "4", name: "Agent 4", note: "Free (160c merged)" },
+    { id: "5", name: "Agent 5", note: "Free (161c merged)" },
+    { id: "6", name: "Agent 6", note: "165c rehearsal now; then 162c and 163c (model move, specs and results)" },
+    { id: "E", name: "You · decisions", note: "quick calls, merges" },
+    { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
+  ];
+  // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
+  var B = [
+    { id: "164c", lane: "3", at: 0, len: 1, st: "ready", t: "Move project documents and skills, final sweep (R6)", needs: [], why: "project/, skills rebuilt, whole-programme acceptance.", files: "docs, Tools, .claude" },
+    { id: "151c", lane: "2", at: 2, len: 1, st: "hold", t: "Headline-only evaluation for the tornado and the O1e roots (speed-up, byte-identical)", needs: [{ id: "164c" }, { id: "057c" }], why: "The tornado and the O1e roots need only the headline; byte-identical to the quick reference file. After the reorganisation and 057c.", files: "runner.py, sweeps.py, run.py" },
+    { id: "057c", lane: "2", at: 0, len: 2, st: "ready", t: "Model v3 V3-12: run script and acceptance", needs: [], why: "PAUSED by the author for the repository tidy; resumes after 162c and rebases onto the moved tree; blocks 0 to 2 and the rulings are done, block 3 and --final remain." },
+  ];
+  var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
+
+  function hueOf(id) { var n = parseInt(String(id).replace(/\D/g, ''), 10) + (id.charAt(0) === 'D' ? 100 : 0); return Math.round((n * 137.508) % 360); }
+  var SLOTS = 14;
+  // Auto-pack: bars in one lane never overlap and never start before the briefs they need have ended (a `gate` lets a brief start that many sessions early).
+  (function pack() {
+    B.forEach(function (b) { b.at0 = b.at; });
+    for (var pass = 0; pass < 40; pass++) {
+      var moved = false;
+      LANES.forEach(function (L) {
+        var list = B.filter(function (b) { return b.lane === L.id && b.st !== 'built'; }).sort(function (x, y) { return x.at0 - y.at0 || x.id.localeCompare(y.id); });
+        var prevEnd = 0;
+        list.forEach(function (b) {
+          var t = Math.max(b.at, prevEnd);
+          (b.needs || []).forEach(function (n) { var d = byId[n.id]; if (d && d.st !== 'built') t = Math.max(t, d.at + d.len - (b.gate || 0)); });
+          if (t > b.at) { b.at = t; moved = true; }
+          prevEnd = b.at + b.len;
+        });
+      });
+      if (!moved) break;
+    }
+    var end = 0; B.forEach(function (b) { if (b.st !== 'built') end = Math.max(end, b.at + b.len); });
+    SLOTS = Math.max(14, end + 1);
+    document.documentElement.style.setProperty('--slots', SLOTS);
+  })();
+  var axis = document.getElementById('axis');
+  var first = document.createElement('div'); axis.appendChild(first);
+  for (var s = 0; s < SLOTS; s++) { var d = document.createElement('div'); d.textContent = s === 0 ? 'session 1' : String(s + 1); axis.appendChild(d); }
+
+  var lanesEl = document.getElementById('lanes');
+  LANES.forEach(function (L) {
+    var row = document.createElement('div'); row.className = 'lane'; row.dataset.lane = L.id;
+    row.innerHTML = '<div class="lane-label"><b>' + L.name + '</b><small>' + L.note + '</small></div><div class="track"></div>';
+    lanesEl.appendChild(row);
+  });
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  B.forEach(function (b) {
+    var track = lanesEl.querySelector('.lane[data-lane="' + b.lane + '"] .track');
+    var el = document.createElement('button'); el.type = 'button';
+    el.className = 'bar' + (b.st === 'under' ? ' under' : '') + (b.st === 'review' ? ' review' : '') + (b.st === 'author' ? ' author' : '') + (b.st === 'hold' ? ' hold' : '');
+    el.style.setProperty('--h', b.h);
+    el.style.left = 'calc(var(--slot) * ' + b.at + ' + 3px)';
+    el.style.width = 'calc(var(--slot) * ' + b.len + ' - 6px)';
+    el.dataset.id = b.id;
+    el.innerHTML = '<span class="num">' + b.id + (b.moved ? ' <span class="tag">moved</span>' : '') + (b.ph ? ' <span class="tag">idea</span>' : '') + '</span><span class="ttl">' + esc(b.t) + '</span>';
+    el.setAttribute('aria-label', 'Brief ' + b.id + ', ' + b.t);
+    if (b.st === 'built') el.style.display = 'none';   // finished briefs leave the By agent view (they stay in the Gantt and History)
+    track.appendChild(el); b.el = el;
+  });
+
+  var chart = document.getElementById('chart'), pathsG = document.getElementById('paths'), svg = document.getElementById('links');
+  var edges = [];
+  B.forEach(function (b) { b.needs.forEach(function (n) { if (byId[n.id]) edges.push({ from: n.id, to: b.id, soft: !!n.soft }); }); });
+  var selected = null;
+
+  function related(id) {
+    var set = {}; set[id] = 1;
+    (function up(x) { edges.forEach(function (e) { if (e.to === x && !e.soft !== undefined && !set[e.from]) { set[e.from] = 1; up(e.from); } }); })(id);
+    (function down(x) { edges.forEach(function (e) { if (e.from === x && !set[e.to]) { set[e.to] = 1; down(e.to); } }); })(id);
+    return set;
+  }
+
+  function draw() {
+    var cr = chart.getBoundingClientRect();
+    svg.setAttribute('viewBox', '0 0 ' + cr.width + ' ' + cr.height);
+    svg.setAttribute('width', cr.width); svg.setAttribute('height', cr.height);
+    pathsG.innerHTML = '';
+    var rel = selected ? related(selected) : null;
+    edges.forEach(function (e) {
+      if (byId[e.from].st === 'built' || byId[e.to].st === 'built') return;
+      var a = byId[e.from].el.getBoundingClientRect(), b = byId[e.to].el.getBoundingClientRect();
+      var x1 = a.right - cr.left, y1 = a.top + a.height / 2 - cr.top, x2 = b.left - cr.left, y2 = b.top + b.height / 2 - cr.top;
+      var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      var dx = Math.max(24, Math.abs(x2 - x1) / 2);
+      if (x2 < x1 + 4) { // same column or backwards: route around
+        p.setAttribute('d', 'M' + x1 + ' ' + y1 + ' C' + (x1 + 30) + ' ' + y1 + ' ' + (x2 - 30) + ' ' + y2 + ' ' + x2 + ' ' + y2);
+      } else {
+        p.setAttribute('d', 'M' + x1 + ' ' + y1 + ' C' + (x1 + dx) + ' ' + y1 + ' ' + (x2 - dx) + ' ' + y2 + ' ' + x2 + ' ' + y2);
+      }
+      p.setAttribute('class', (e.soft ? 'soft' : '') + (rel && !(rel[e.from] && rel[e.to]) ? ' hid' : ''));
+      if (!e.soft) p.setAttribute('marker-end', 'url(#ah)');
+      pathsG.appendChild(p);
+    });
+  }
+
+  var detail = document.getElementById('detail');
+  var LANE_NAME = { '1': 'Agent 1 (guru prime)', '2': 'Agent 2', '3': 'Agent 3', '4': 'Agent 4', '5': 'Agent 5', '6': 'Agent 6', E: 'You, decisions', G: 'Held' };
+  var ST = { under: 'underway', review: 'in review (branch pushed, waiting for merge)', ready: 'ready to start', author: 'needs your time (decision)', hold: 'held until its dependency is done' };
+  function show(id) {
+    var b = id && byId[id];
+    if (!b) {
+      detail.innerHTML = '<h2>Select a brief</h2><p>Click any bar to see what it is, what it waits for and what waits for it. Click empty space to clear.</p>';
+      return;
+    }
+    var needs = b.needs.map(function (n) { return n.id + (n.soft ? ' (file order)' : ''); }).join(', ') || 'nothing in this plan';
+    var unlocks = edges.filter(function (e) { return e.from === b.id; }).map(function (e) { return e.to; }).join(', ') || 'nothing in this plan';
+    detail.style.setProperty('--h', b.h);
+    detail.innerHTML = '<h2><i></i>' + b.id + ' · ' + esc(b.t) + '</h2><p>' + esc(b.why) + '</p>' +
+      '<div class="meta"><span>' + LANE_NAME[b.lane] + '</span><span>' + ST[b.st] + '</span><span>sessions ' + (b.at + 1) + (b.len > 1 ? ' to ' + (b.at + b.len) : '') + '</span><span>waits for: ' + needs + '</span><span>unblocks: ' + unlocks + '</span><span>touches: ' + esc(b.files) + '</span></div>';
+  }
+  function select(id) {
+    selected = (selected === id) ? null : id;
+    var rel = selected ? related(selected) : null;
+    B.forEach(function (b) {
+      b.el.classList.toggle('sel', b.id === selected);
+      b.el.classList.toggle('on', !!(rel && rel[b.id]));
+    });
+    chart.classList.toggle('focus', !!selected);
+    show(selected); draw();
+    if (selected && typeof TODO_BY_BAR !== 'undefined' && TODO_BY_BAR[selected]) openTodo(TODO_BY_BAR[selected]);
+  }
+  B.forEach(function (b) { b.el.addEventListener('click', function (ev) { ev.stopPropagation(); select(b.id); }); });
+  document.addEventListener('click', function (ev) { if (ev.target.closest && ev.target.closest('dialog')) return; if (selected && !detail.contains(ev.target)) select(selected); });
+  // ---- your to-do items: what each one is, step by step, and the open questions it carries
+  var TODO = [
+  ];
+  var TODO_BY_ID = {}, TODO_BY_BAR = {};
+  TODO.forEach(function (x) { TODO_BY_ID[x.id] = x; if (x.bar) TODO_BY_BAR[x.bar] = x.id; });
+  var LS = 'wdt-lane-plan-todo-v1', store = {};
+  try { store = JSON.parse(localStorage.getItem(LS) || '{}') || {}; } catch (e) { store = {}; }
+  function save() { try { localStorage.setItem(LS, JSON.stringify(store)); } catch (e) { } }
+  function rich(s) { return esc(s).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>'); }
+  var TAGS = { now: 'Do now', decision: 'Decide', verify: 'Check', later: 'Later', done: 'Done' };
+  var TAG_ORDER = ['now', 'decision', 'verify', 'later', 'done'];
+  function counts(x) { var d = 0; x.steps.forEach(function (s, i) { if (store['s:' + x.id + ':' + i]) d++; }); return d; }
+  function renderTodo() {
+    var el = document.getElementById('todo'); el.innerHTML = '';
+    TAG_ORDER.forEach(function (tag) {
+      var items = TODO.filter(function (x) { return x.tag === tag; }); if (!items.length) return;
+      var h = document.createElement('div'); h.className = 'tg'; h.textContent = TAGS[tag]; el.appendChild(h);
+      items.forEach(function (x) {
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'todo-item'; b.dataset.id = x.id;
+        var done = counts(x), meta = [];
+        if (x.steps.length) meta.push(done + '/' + x.steps.length + ' steps');
+        if (x.qs.length) meta.push(x.qs.length + (x.qs.length === 1 ? ' question' : ' questions'));
+        b.innerHTML = '<span class="ti">' + esc(x.t) + '</span><span class="tm">' + esc(meta.join(' · ') || x.when) + '</span>';
+        b.addEventListener('click', function (ev) { ev.stopPropagation(); openTodo(x.id); });
+        el.appendChild(b);
+      });
+    });
+    var oq = document.getElementById('oq'); oq.innerHTML = ''; var n = 0;
+    TODO.forEach(function (x) {
+      x.qs.forEach(function (q, i) {
+        var li = document.createElement('li'), ans = store['a:' + x.id + ':' + i];
+        li.innerHTML = '<button type="button" class="oqb" data-id="' + x.id + '"><b>' + esc(x.t.replace(/ \(.*\)$/, '')) + ':</b> ' + esc(q) + (ans ? ' <em>(answered in notes)</em>' : '') + '</button>';
+        li.firstChild.addEventListener('click', function (ev) { ev.stopPropagation(); openTodo(x.id); });
+        oq.appendChild(li); n++;
+      });
+    });
+    document.getElementById('oqn').textContent = n;
+  }
+  function allAnswersMd() {
+    var out = '# Author answers (exported from the Plan)\n\nExported ' + new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC. Questions with no answer yet are marked so; their defaults apply.\n';
+    TODO.forEach(function (x) {
+      if (!x.qs.length) return;
+      out += '\n## ' + x.t + ' (' + x.id + ')\n';
+      x.qs.forEach(function (q, i) { out += '\n' + (i + 1) + '. ' + q + '\n   Answer: ' + (store['a:' + x.id + ':' + i] || '(none yet)') + '\n'; });
+    });
+    return out;
+  }
+  (function () {
+    var m = document.getElementById('allMsg');
+    document.getElementById('cpA').addEventListener('click', function () {
+      function ok() { m.textContent = 'Copied. Paste it into the chat.'; } function fail() { m.textContent = 'Could not copy; use Download.'; }
+      try { navigator.clipboard.writeText(allAnswersMd()).then(ok, fail); } catch (e) { fail(); }
+    });
+    document.getElementById('dlA').addEventListener('click', function () {
+      var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([allAnswersMd()], { type: 'text/markdown' }));
+      a.download = 'answers.md'; document.body.appendChild(a); a.click(); a.remove();
+      m.textContent = 'Saved. Put it in docs/ (replace docs/answers.md) and tell me, or commit it.';
+    });
+  })();
+  var dlg = document.getElementById('dlg');
+  function openTodo(id) {
+    var x = TODO_BY_ID[id]; if (!x) return;
+    var h = '<form method="dialog"><button class="close" aria-label="Close">Close</button></form>' +
+      '<h2>' + esc(x.t) + '</h2><p class="when"><span class="pill">' + TAGS[x.tag] + '</span> ' + esc(x.when) + '</p><p>' + rich(x.why) + '</p>';
+    if (x.steps.length) {
+      h += '<h3>Steps</h3><ol class="steps">';
+      x.steps.forEach(function (s, i) { var k = 's:' + x.id + ':' + i; h += '<li><label><input type="checkbox" data-k="' + k + '"' + (store[k] ? ' checked' : '') + '><span>' + rich(s) + '</span></label></li>'; });
+      h += '</ol>';
+    }
+    if (x.qs.length) {
+      h += '<h3>Open questions</h3><div class="qbox">';
+      x.qs.forEach(function (q, i) { var k = 'a:' + x.id + ':' + i; h += '<div class="q"><p>' + (i + 1) + '. ' + rich(q) + '</p><textarea rows="2" data-k="' + k + '" placeholder="Your answer or note">' + esc(store[k] || '') + '</textarea></div>'; });
+      h += '<div class="qa"><button type="button" id="copyA">Copy my answers</button><span id="copyMsg" aria-live="polite"></span></div></div>';
+    }
+    dlg.innerHTML = h;
+    dlg.querySelectorAll('input[data-k]').forEach(function (c) { c.addEventListener('change', function () { if (c.checked) store[c.dataset.k] = 1; else delete store[c.dataset.k]; save(); renderTodo(); }); });
+    dlg.querySelectorAll('textarea[data-k]').forEach(function (t) { t.addEventListener('input', function () { if (t.value) store[t.dataset.k] = t.value; else delete store[t.dataset.k]; save(); }); t.addEventListener('blur', renderTodo); });
+    var cb = dlg.querySelector('#copyA');
+    if (cb) cb.addEventListener('click', function () {
+      var out = x.t + '\n'; x.qs.forEach(function (q, i) { out += '\n' + (i + 1) + '. ' + q + '\n   Answer: ' + (store['a:' + x.id + ':' + i] || '(no answer yet; default applies)') + '\n'; });
+      var m = dlg.querySelector('#copyMsg');
+      function ok() { m.textContent = 'Copied. Paste it into the chat.'; }
+      function fail() { m.textContent = 'Could not copy; select the text from the boxes instead.'; }
+      try { navigator.clipboard.writeText(out).then(ok, fail); } catch (e) { fail(); }
+    });
+    if (!dlg.open) { if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); }
+  }
+  dlg.addEventListener('click', function (ev) { if (ev.target === dlg) dlg.close(); });
+  renderTodo();
+  window.addEventListener('resize', draw);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  show(null); draw();
+  show(selected); draw();
+  window.addEventListener('resize', draw);
+})();
+</script>
+<script>
+document.querySelectorAll('#commands pre').forEach(function (pre) {
+  var b = pre.querySelector('button');
+  b.addEventListener('click', function () {
+    var t = pre.textContent.replace(/Copy$|Copied$/, '').trim();
+    function done() { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1200); }
+    try { navigator.clipboard.writeText(t).then(done, function () { window.prompt('Copy:', t); }); } catch (e) { window.prompt('Copy:', t); }
+  });
+});
+</script>

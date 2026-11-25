@@ -1,6 +1,6 @@
 # 146r: Per-path GDP growth, evidence and design for a labelled "growth risk only" axis
 
-Accessed 2026-11-23. Brief `docs/briefs/146r-gdp-growth-and-top-tail-evidence.md`. Evidence and design only; no code, register, pack or manifest change. Scenario values are labelled, never a forecast; no central value.
+Accessed 2026-11-23. Brief `project/briefs/open/146r-gdp-growth-and-top-tail-evidence.md`. Evidence and design only; no code, register, pack or manifest change. Scenario values are labelled, never a forecast; no central value.
 
 Status: done (block 1 of brief 146r).
 
@@ -87,5 +87,5 @@ Challenge: the illustration treats growth deviations as stationary with a fixed 
 
 ## 6. Reproduction
 
-`python -I research/scripts/gdp_process.py` from the repo root. It reads the pack read-only, checks that the mean growth equals the model constant and that 117 usable years exist, writes `gdp_process.csv` (17 rows) and `gdp_illustration.csv` (8 rows) and prints one `ok:` line; it exits 1 on a failed check. Check: `python -I pipeline/check_agent_docs.py`.
+`python -I research/scripts/gdp_process.py` from the repo root. It reads the pack read-only, checks that the mean growth equals the model constant and that 117 usable years exist, writes `gdp_process.csv` (17 rows) and `gdp_illustration.csv` (8 rows) and prints one `ok:` line; it exits 1 on a failed check. Check: `python -I project/tools/check_agent_docs.py`.
 

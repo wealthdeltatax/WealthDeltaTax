@@ -10,7 +10,7 @@ Fails (exit 1) if a cell or a register row is missing from the matrix, or a cell
 externally specified path, scenario and none. Nothing here is a value for any cell. Run from the repository root with python -I.
 """
 import csv, sys, collections
-DIRS = {'102r': 'research/tables/102r-parameter-map-stocks-and-cells/', '103r': 'research/tables/103r-parameter-map-assembly/', '104r': 'research/tables/104r-parameter-map-design/'}   # 160c: the tables moved here (docs/restructure map)
+DIRS = {'102r': 'research/tables/102r-parameter-map-stocks-and-cells/', '103r': 'research/tables/103r-parameter-map-assembly/', '104r': 'research/tables/104r-parameter-map-design/'}   # 160c: the tables moved here (project/restructure map)
 O = DIRS['104r']
 reg = list(csv.DictReader(open(DIRS['103r'] + 'parameter_register.csv')))
 cells_in = list(csv.DictReader(open(DIRS['102r'] + 'cell_coverage_inputs.csv')))

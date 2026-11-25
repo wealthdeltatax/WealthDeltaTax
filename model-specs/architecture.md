@@ -32,7 +32,7 @@ model_v3/
 tests/model/model_v3/          one test file per module, plus rules and budget tests
 ```
 
-**Where each thing is read from.** The model reads `model-specs/outputs.yml` (the manifest, hashed into the run), `data/input-register/inputs.json` (the register: low, central and high, with the `(J)` flag; hashed into the run), `model/model_v3/levers.json` and `model_v3/pack/<ISO>/`. `jst_r6.json` is read only through the pack: `build_gbr.py` copies the file unchanged to `pack/GBR/source/` and derives `returns.csv` from it (pack file 3.1 of 038c), and the loader reads `returns.csv`. Nothing under `model_v2/` or `model_v1/` is read by v3 code or by v3 tests.
+**Where each thing is read from.** The model reads `model-specs/outputs.yml` (the manifest, hashed into the run), `data/input-register/inputs.json` (the register: low, central and high, with the `(J)` flag; hashed into the run), `model/model_v3/levers.json` and `data/country-packs/<ISO>/`. `jst_r6.json` is read only through the pack: `build_gbr.py` copies the file unchanged to `pack/GBR/source/` and derives `returns.csv` from it (pack file 3.1 of 038c), and the loader reads `returns.csv`. Nothing under `model_v2/` or `model_v1/` is read by v3 code or by v3 tests.
 
 **Output.** `model_v3/OUTPUTS/outputs.json`, schema `wdt-outputs/1` as `model/tools/validate_outputs.py` (030c) checks it. The run script writes to `--out`, default `model_v3/OUTPUTS/`; the smoke test and trial runs write to a temporary directory or `OUTPUTS/scratch/` (R5, output location). The file is tracked; a run with `status: final` is committed only on the author's word (G2 of `order.md`).
 
@@ -46,7 +46,7 @@ Each entry: purpose, inputs, outputs (and the manifest ids it produces), the C1 
 
 ### 2.1 `core/pack.py`: country pack and register loader (355 lines)
 - **Does.** Reads and validates a pack as 038c sections 2, 3 and 5 say: manifest first, folder name equals `country`, per-file sha256, header equals the schema, first violation raises with file, row and column, no fill, no interpolation, no clipping. Computes `pack_sha256`. Reads `data/input-register/inputs.json` into low, central and high per row id, with `(J)` flags and unit. Runs the interim consistency checks X1 (register value of a pack row equals the pack-derived value within 1e-9) and X2 (the M1d lines sum to 8.11% of GDP within 0.01). Provides the accessors the other modules use and the two data-fact outputs.
-- **Inputs.** `model_v3/pack/<ISO>/`, `data/input-register/inputs.json`.
+- **Inputs.** `data/country-packs/<ISO>/`, `data/input-register/inputs.json`.
 - **Outputs.** Typed dicts of pack tables and register values; `DH1a` and `DH1b` (data facts read from the pack, point forms).
 - **Implements.** R3 (register with low, central, high), R11 (the only module that handles `country`, `currency` and labels), R5 (hash). C1 item 8 housekeeping (stamp-duty sub-rows never summed with their parent).
 - **Imports.** numpy, standard library only.
@@ -175,7 +175,7 @@ The budgets of section 6.1 are machine-readable in the fenced block there. `test
 
 ### 5.5 R5, R6, R7
 - **R5.** One seed (3.1), recorded; the same inputs give the same file, byte for byte, under `python -I`. The run script and the smoke test (section 6.5) fail loudly when a file is renamed or an import breaks. The output location is a command argument, never a path inside a module.
-- **R6.** Any change of convention is written next to the code (module docstring) and in `docs/decisions.md` the day it changes. The three C1 conventions that v3 starts with (arithmetic basis; tau x loss; envelope reset) are entered by the guru when this document is approved.
+- **R6.** Any change of convention is written next to the code (module docstring) and in `project/decisions.md` the day it changes. The three C1 conventions that v3 starts with (arithmetic basis; tau x loss; envelope reset) are entered by the guru when this document is approved.
 - **R7.** Each stage ends with its tests passing, and a stage does not start until the stages it needs have passed (section 7). Nothing is retired before its tests are ported or rewritten (section 8).
 
 ## 6. Budgets and tests
@@ -327,4 +327,4 @@ v3 never imports, runs or reads either folder, and no v3 test does. They are not
 9. **`outputs.json` tracked.** Scratch runs never write to it.
 
 ## Checks run
-See the change report in `docs/archive/briefs/039g-model-v3-architecture.md`.
+See the change report in `project/briefs/done/039g-model-v3-architecture.md`.

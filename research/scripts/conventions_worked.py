@@ -4,7 +4,7 @@ Writes next to this script: worked_d45_conventions.csv, worked_household_year.cs
 Everything labelled illustrative is one invented household in thousand pounds, not data and not a band. Exits 1 if an identity fails.
 Run from the repository root: python -I research/scripts/conventions_worked.py"""
 import csv, sys
-DIRS = {'102r': 'research/tables/102r-parameter-map-stocks-and-cells/', '103r': 'research/tables/103r-parameter-map-assembly/', '104r': 'research/tables/104r-parameter-map-design/'}   # 160c: the tables moved here (docs/restructure map)
+DIRS = {'102r': 'research/tables/102r-parameter-map-stocks-and-cells/', '103r': 'research/tables/103r-parameter-map-assembly/', '104r': 'research/tables/104r-parameter-map-design/'}   # 160c: the tables moved here (project/restructure map)
 O = DIRS['104r']
 bad = []
 def chk(name, a, b, tol=1e-9):

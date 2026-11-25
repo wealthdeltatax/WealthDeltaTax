@@ -5,7 +5,7 @@ validate_outputs.py: validate an output data file against the output manifest.
                                         [--manifest outputs.yml]
                                         [--inputs data/input-register/inputs.json]
 
-Implements rules V1 to V12 of docs/restructure/site/hooks.md section 3.4
+Implements rules V1 to V12 of website/notes/site/hooks.md section 3.4
 (brief 030c).  The data file is JSON, schema ``wdt-outputs/1``; the manifest
 is model-specs/outputs.yml.  Every run prints one line per rule so a rule
 that silently stopped running is visible.

@@ -1,6 +1,6 @@
 # 131r: pension valuation basis (IFS against ONS SCAPE) as a labelled scenario on the starting stock
 
-Brief `docs/briefs/131r-pension-basis-sensitivity.md`. A side computation from published figures only: no pack, register, model or microdata change, no recommendation of a convention. The pack stays on the ONS SCAPE basis; the IFS basis is a scenario for the author to choose.
+Brief `project/briefs/open/131r-pension-basis-sensitivity.md`. A side computation from published figures only: no pack, register, model or microdata change, no recommendation of a convention. The pack stays on the ONS SCAPE basis; the IFS basis is a scenario for the author to choose.
 
 **Status: complete (blocks 0 to 3).** Data: `research/tables/131r-pension-basis-sensitivity/` (`ifs_published.csv`, `basis_sensitivity.csv`, `basis_checks.csv`, `basis_headline.csv`, and the two scripts that make them).
 

@@ -3,7 +3,7 @@ Two years, one household paying a WDT of 5 (thousand pounds, the worked househol
 (equity-like units, price index 1.00 at payment, holding gain 2% and cash yield 3% in the second year). Not data, not a band, no rate of tax.
 Writes public_side_identity.csv; exits 1 if the identity fails.  Run from the repository root: python -I research/scripts/public_side_identity.py"""
 import csv, sys
-DIRS = {'104r': 'research/tables/104r-parameter-map-design/'}   # 160c: the tables moved here (docs/restructure map)
+DIRS = {'104r': 'research/tables/104r-parameter-map-design/'}   # 160c: the tables moved here (project/restructure map)
 O = DIRS['104r']
 bad = []
 def chk(n, a, b, tol=1e-9):

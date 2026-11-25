@@ -1,8 +1,8 @@
 """Generate one page card per unit (26) from the ledger, the output manifest and the register.
 
-Usage: python website/build/page_cards.py [--out DIR]     (default DIR: docs/restructure/pages)
+Usage: python website/build/page_cards.py [--out DIR]     (default DIR: website/notes/pages)
 
-Sources, all read-only: docs/restructure/ledger-sections.md (rows), order.md (neighbours, families,
+Sources, all read-only: website/notes/ledger-sections.md (rows), order.md (neighbours, families,
 old papers), model-specs/outputs.yml (element lists), inputs.md (register ids), template.md (front matter).
 Cards are data: no spoke prose, `question` left blank. Output is deterministic (no dates, sorted keys).
 """
@@ -15,12 +15,12 @@ import sys
 import yaml
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
-LEDGER_SECTIONS = ROOT / 'docs/restructure/ledger-sections.md'
-LEDGER = ROOT / 'docs/restructure/ledger.md'
-ORDER = ROOT / 'docs/restructure/order.md'
+LEDGER_SECTIONS = ROOT / 'website/notes/ledger-sections.md'
+LEDGER = ROOT / 'website/notes/ledger.md'
+ORDER = ROOT / 'website/notes/order.md'
 OUTPUTS = ROOT / 'model-specs/outputs.yml'
 INPUTS = ROOT / 'model-specs/inputs.md'
-DEFAULT_OUT = ROOT / 'docs/restructure/pages'
+DEFAULT_OUT = ROOT / 'website/notes/pages'
 
 SPOKES = ['MECH', 'VAL', 'FISC', 'GOV', 'PAY', 'FUND', 'CORP', 'DECL', 'BEHAV', 'FAIR', 'LIT', 'ATTR',
           'WELF', 'FIRST', 'WIDER', 'POL', 'ADOPT', 'PILOT', 'UNCER', 'LIMIT', 'FALS', 'HYPO']

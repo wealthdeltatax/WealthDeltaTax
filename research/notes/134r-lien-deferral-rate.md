@@ -1,6 +1,6 @@
 # 134r: Evidence and a register row for the lien deferral rate
 
-**Status.** Research note complete, 2026-11-22. Brief `docs/briefs/134r-lien-deferral-rate.md`. No register, code, run or manifest changes. The proposed row is for the author's decision only.
+**Status.** Research note complete, 2026-11-22. Brief `project/briefs/open/134r-lien-deferral-rate.md`. No register, code, run or manifest changes. The proposed row is for the author's decision only.
 
 ## Answer in brief
 

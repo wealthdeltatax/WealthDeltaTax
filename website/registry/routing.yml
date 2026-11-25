@@ -1,10 +1,10 @@
-# Reader routing (brief 061s; docs/restructure/site/nav.md section 4, site.md R7).
+# Reader routing (brief 061s; website/notes/site/nav.md section 4, site.md R7).
 #
 # The hub's routing cards and every spoke's Read next lines are generated from this file;
 # `website/build/pages/routing.py` checks it against website/registry/pages.yml and the spokes' front matter.
 #
 #   id       unique, lowercase; used as an anchor
-#   reader   the label shown; the map's wording (docs/restructure/map.md section 3), verbatim
+#   reader   the label shown; the map's wording (website/notes/map.md section 3), verbatim
 #   prompt   optional; one sentence in the reader's voice; at most 20 words; no digit
 #   start    1 to 5 page ids, no duplicates; a menu spoke shortcode or the token `data` (DL0);
 #            the first entry is the entry point

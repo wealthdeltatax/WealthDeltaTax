@@ -5,6 +5,6 @@ description: Builds and maintains the Wealth Delta Tax Quarto site on GitHub Pag
 
 # wdt-web
 
-Read `AGENTS.md`, then `docs/agents/web.md`, then only the files that guide names. Do not restate rules here: the guide is the source of truth.
+Read `AGENTS.md`, then `project/agents/agent-web.md`, then only the files that guide names. Do not restate rules here: the guide is the source of truth.
 
-End every task with the change report (`docs/agents/change-report.md`).
+End every task with the change report (`project/agents/change-report.md`).

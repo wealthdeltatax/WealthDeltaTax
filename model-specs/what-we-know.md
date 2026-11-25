@@ -1,6 +1,6 @@
 # What we do and do not know about the model
 
-Written 2026-11-23 by the guru for the author. Plain English; the detail is in the notes linked at the end. This is a snapshot: the status board (`STATUS.md`) is the live view.
+Written 2026-11-23 by the guru for the author. Plain English; the detail is in the notes linked at the end. This is a snapshot: the status board (`project/STATUS.md`) is the live view.
 
 ## What the model is
 A range model of the Wealth Delta Tax. It follows 14 representative groups of adults ("payer lines", the ten wealth deciles, the top tenth split in two, and three Rich List tiers) for 100 years. It reports government revenue, taxpayer burden and non-payer savings as **ranges across labelled scenarios**, never one central forecast. Two arms exist: the **household arm** (income, saving and class returns, the arm the first official run will use) and the older **legacy arm** (consumption as 3.5% of wealth, kept only as a comparator).
@@ -31,4 +31,4 @@ A range model of the Wealth Delta Tax. It follows 14 representative groups of ad
 Every output is a range over named scenarios with no central case. A low and a high are not a confidence interval. Cells marked pending (OF1, CK1), withheld or not applicable are marked in the file on purpose.
 
 ## Where the detail is
-`results/household-vs-legacy/household-vs-legacy.md`, `household-arm-validation.md`, `household-arm-paths.md`, `household-arm-lien.md`, `f1-household.md`, `research/notes/131r-*`, `134r-*`, `145r-*`, `146r-*`, `docs/decisions.md`.
+`results/household-vs-legacy/household-vs-legacy.md`, `household-arm-validation.md`, `household-arm-paths.md`, `household-arm-lien.md`, `f1-household.md`, `research/notes/131r-*`, `134r-*`, `145r-*`, `146r-*`, `project/decisions.md`.

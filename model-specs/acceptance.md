@@ -20,7 +20,7 @@ Acceptance command: `bash tests/model/model_v3/accept.sh`
 | 4 | `python model/tools/validate_outputs.py "$TMP/outputs.json"` | zero errors in provisional mode |
 | 5 | assertions on `$TMP/outputs.json` | every manifest id has an entry (R1); no cell is `null`; `run.fixture` is false; `run.seed` is 20261118; `run.paths` at least 10,000; `run.level2_draws` at least 200; `run.unfilled_paths` at most 5% of paths (Q3); `run.status` is `provisional` |
 | 6 | run the same step 3 again into `$TMP2` and compare | the two files are byte-identical (R5) |
-| 7 | grep checks of R6 (section 4) | each convention is in its module docstring and in `docs/decisions.md` |
+| 7 | grep checks of R6 (section 4) | each convention is in its module docstring and in `project/decisions.md` |
 
 It never passes `--final`. The final run is the author's act (G2); acceptance proves the model could be run final, not that it was.
 
@@ -65,7 +65,7 @@ Tests P8 and P9 (listed under `pack` in `architecture.md` 6.2) are assigned to V
 | R3 parameter file | Every register id the model reads exists with low, central, high and a unit (P9); every tier 1 input of `drivers.md` is drawn at level 2 (a set-equality test in V3-10 between the drawn ids and the tier 1 list); register rows that no module reads are counted and printed by acceptance, and fail it only if they are tier 1 or tier 2 rows | P9, V3-10, step 1 |
 | R4 layering | The `ast` import-graph test of `architecture.md` 5.1 passes; the output layer imports no `core` and no `runner`; a function-level import fails | rules tests (V3-1), rerun in step 1 |
 | R5 reproducibility | Seed recorded; same inputs give a byte-identical file (step 6, W5, N1); renaming a module or breaking an import makes the smoke test fail | smoke tests, step 6 |
-| R6 convention log | The three conventions (arithmetic basis, refund is tau times loss, envelope resets at death) are each named in the docstring of `returns.py` or `kernel.py` and have a dated entry in `docs/decisions.md` (grep, acceptance step 7) | step 7 |
+| R6 convention log | The three conventions (arithmetic basis, refund is tau times loss, envelope resets at death) are each named in the docstring of `returns.py` or `kernel.py` and have a dated entry in `project/decisions.md` (grep, acceptance step 7) | step 7 |
 | R7 tests travel | A test file exists for each core module, runner and output module; each stage's change report records its tests passing before the next stage began; nothing under `model_v2/` or `model_v1/` is imported (grep) | step 1, stage reports |
 | R8 no side effects, no orphans | The subprocess import test (`python -B -I`) finds no change in environment, working directory or tree; no top-level function without a caller or test | rules tests |
 | R9 size | `test_budget.py`: every file within its budget, `out/` smaller than core plus runner, totals 4,770 and 3,020 | rules tests |
@@ -87,7 +87,7 @@ A failure raises the size in `run.py` (never lowers it), reruns, and records the
 
 ## 6. How this closes G1
 
-G1 of `order.md` holds when `architecture.md` and this file exist, `docs/archive/briefs/011g-model-v3-design.md` exists, and the command of section 1 exits 0. The brief 011g retires when D2 is approved. A change to `outputs.yml`, `data/input-register/inputs.json` or the pack after an accepted run does not undo G1 (G2 is the check that does).
+G1 of `order.md` holds when `architecture.md` and this file exist, `project/briefs/done/011g-model-v3-design.md` exists, and the command of section 1 exits 0. The brief 011g retires when D2 is approved. A change to `outputs.yml`, `data/input-register/inputs.json` or the pack after an accepted run does not undo G1 (G2 is the check that does).
 
 ## 7. Questions for the author
 

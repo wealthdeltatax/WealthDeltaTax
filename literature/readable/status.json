@@ -1,5 +1,13 @@
 {
- "data/097r/Collated_Tables_3_1_to_3_11_2324.ods": {
+ "data/rates/totalwealthtables.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 29222,
+  "bytes": 115858,
+  "cut": []
+ },
+ "data/uk-wealth-tables/097r/Collated_Tables_3_1_to_3_11_2324.ods": {
   "status": "ok",
   "reason": "",
   "route": "soffice (ods to xlsx), then markitdown",
@@ -12,7 +20,7 @@
    ]
   ]
  },
- "data/097r/Table_1_2026_Taxpayer_numbers_gains_and_tax_liabilities.ods": {
+ "data/uk-wealth-tables/097r/Table_1_2026_Taxpayer_numbers_gains_and_tax_liabilities.ods": {
   "status": "ok",
   "reason": "",
   "route": "soffice (ods to xlsx), then markitdown",
@@ -20,7 +28,7 @@
   "bytes": 6255,
   "cut": []
  },
- "data/097r/Table_2_2026_Size_of_gain.ods": {
+ "data/uk-wealth-tables/097r/Table_2_2026_Size_of_gain.ods": {
   "status": "ok",
   "reason": "",
   "route": "soffice (ods to xlsx), then markitdown",
@@ -28,7 +36,7 @@
   "bytes": 13077,
   "cut": []
  },
- "data/097r/Table_3_2026_Size_of_gain_by_income.ods": {
+ "data/uk-wealth-tables/097r/Table_3_2026_Size_of_gain_by_income.ods": {
   "status": "ok",
   "reason": "",
   "route": "soffice (ods to xlsx), then markitdown",
@@ -36,7 +44,7 @@
   "bytes": 15724,
   "cut": []
  },
- "data/097r/property_rental_income_statistics_tables_2026.ods": {
+ "data/uk-wealth-tables/097r/property_rental_income_statistics_tables_2026.ods": {
   "status": "ok",
   "reason": "",
   "route": "soffice (ods to xlsx), then markitdown",
@@ -44,7 +52,7 @@
   "bytes": 12626,
   "cut": []
  },
- "data/097r/quarterlysectoraccounts2026q2.xlsx": {
+ "data/uk-wealth-tables/097r/quarterlysectoraccounts2026q2.xlsx": {
   "status": "ok",
   "reason": "",
   "route": "markitdown",
@@ -89,7 +97,7 @@
    ]
   ]
  },
- "data/097r/table_12_1_final.ods": {
+ "data/uk-wealth-tables/097r/table_12_1_final.ods": {
   "status": "ok",
   "reason": "",
   "route": "soffice (ods to xlsx), then markitdown",
@@ -97,7 +105,7 @@
   "bytes": 6693,
   "cut": []
  },
- "data/097r/table_12_2_final.ods": {
+ "data/uk-wealth-tables/097r/table_12_2_final.ods": {
   "status": "ok",
   "reason": "",
   "route": "soffice (ods to xlsx), then markitdown",
@@ -105,7 +113,7 @@
   "bytes": 12396,
   "cut": []
  },
- "data/097r/table_12_3_final.ods": {
+ "data/uk-wealth-tables/097r/table_12_3_final.ods": {
   "status": "ok",
   "reason": "",
   "route": "soffice (ods to xlsx), then markitdown",
@@ -113,7 +121,7 @@
   "bytes": 10099,
   "cut": []
  },
- "data/098r/gb1/gb_ppp_machine_readable.xlsx": {
+ "data/uk-wealth-tables/098r/gb1/gb_ppp_machine_readable.xlsx": {
   "status": "ok",
   "reason": "",
   "route": "markitdown",
@@ -134,7 +142,7 @@
    ]
   ]
  },
- "data/098r/meanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferenceperson.xlsx": {
+ "data/uk-wealth-tables/098r/meanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferenceperson.xlsx": {
   "status": "ok",
   "reason": "",
   "route": "markitdown",
@@ -142,7 +150,7 @@
   "bytes": 8144,
   "cut": []
  },
- "data/098r/periodcohortqx2024basedgb.xlsx": {
+ "data/uk-wealth-tables/098r/periodcohortqx2024basedgb.xlsx": {
   "status": "ok",
   "reason": "",
   "route": "markitdown",
@@ -150,7 +158,7 @@
   "bytes": 712126,
   "cut": []
  },
- "data/098r/personalfinancialandpropertydebtbyageandregion.xlsx": {
+ "data/uk-wealth-tables/098r/personalfinancialandpropertydebtbyageandregion.xlsx": {
   "status": "ok",
   "reason": "",
   "route": "markitdown",
@@ -158,63 +166,7 @@
   "bytes": 19773,
   "cut": []
  },
- "data/129r/1-s2.0-S0014292125001266-main.pdf": {
-  "status": "ok",
-  "reason": "",
-  "route": "markitdown",
-  "words": 14263,
-  "bytes": 92138,
-  "cut": []
- },
- "data/129r/7215_was_userguide_round_7.pdf": {
-  "status": "ok",
-  "reason": "",
-  "route": "markitdown",
-  "words": 18736,
-  "bytes": 127193,
-  "cut": []
- },
- "data/129r/BN236.pdf": {
-  "status": "ok",
-  "reason": "",
-  "route": "markitdown",
-  "words": 10231,
-  "bytes": 63998,
-  "cut": []
- },
- "data/129r/Before-the-fall.pdf": {
-  "status": "ok",
-  "reason": "",
-  "route": "markitdown",
-  "words": 21915,
-  "bytes": 137908,
-  "cut": []
- },
- "data/129r/IFS Report - How is wealth distributed across British households.pdf": {
-  "status": "ok",
-  "reason": "",
-  "route": "markitdown",
-  "words": 18155,
-  "bytes": 111964,
-  "cut": []
- },
- "data/129r/meanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferenceperson.xlsx": {
-  "status": "ok",
-  "reason": "",
-  "route": "markitdown",
-  "words": 1758,
-  "bytes": 8144,
-  "cut": []
- },
- "data/129r/totalwealthtables.xlsx": {
-  "status": "ok",
-  "reason": "",
-  "route": "markitdown",
-  "words": 29222,
-  "bytes": 115858,
-  "cut": []
- },
- "data/129r/ukda_data_dictionaries/was_round_5_hhold_eul_feb_20_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_round_5_hhold_eul_feb_20_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -222,7 +174,7 @@
   "bytes": 452686,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_round_5_person_eul_oct_2020_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_round_5_person_eul_oct_2020_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -230,7 +182,7 @@
   "bytes": 2923894,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_round_6_hhold_eul_april_2022_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_round_6_hhold_eul_april_2022_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -238,7 +190,7 @@
   "bytes": 893904,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_round_6_person_eul_april_2022_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_round_6_person_eul_april_2022_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -246,7 +198,7 @@
   "bytes": 4053361,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_round_7_hhold_eul_march_2022_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_round_7_hhold_eul_march_2022_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -254,7 +206,7 @@
   "bytes": 528546,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_round_7_person_eul_june_2022_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_round_7_person_eul_june_2022_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -262,7 +214,7 @@
   "bytes": 2322094,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_round_8_hhold_eul_may_2025_230525_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_round_8_hhold_eul_may_2025_230525_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -270,7 +222,7 @@
   "bytes": 511793,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_round_8_person_eul_may_2025_230525_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_round_8_person_eul_may_2025_230525_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -278,7 +230,7 @@
   "bytes": 1733733,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_wave_1_hhold_eul_final_jan_2020_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_wave_1_hhold_eul_final_jan_2020_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -286,7 +238,7 @@
   "bytes": 225789,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_wave_1_person_eul_nov_2020_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_wave_1_person_eul_nov_2020_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -294,7 +246,7 @@
   "bytes": 1250266,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_wave_2_hhold_eul_feb_2020_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_wave_2_hhold_eul_feb_2020_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -302,7 +254,7 @@
   "bytes": 253971,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_wave_2_person_eul_nov_2020_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_wave_2_person_eul_nov_2020_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -310,7 +262,7 @@
   "bytes": 1910677,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_wave_3_hh_eul_march_2020_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_wave_3_hh_eul_march_2020_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -318,7 +270,7 @@
   "bytes": 243072,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_wave_3_person_eul_oct_2020_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_wave_3_person_eul_oct_2020_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -326,7 +278,7 @@
   "bytes": 2002992,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_wave_4_hhold_eul_march_2020_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_wave_4_hhold_eul_march_2020_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -334,7 +286,7 @@
   "bytes": 203643,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_wave_4_person_eul_oct_2020_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_wave_4_person_eul_oct_2020_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -342,7 +294,7 @@
   "bytes": 1443234,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_wave_5_hhold_eul_sept_2020_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_wave_5_hhold_eul_sept_2020_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
@@ -350,12 +302,52 @@
   "bytes": 279586,
   "cut": []
  },
- "data/129r/ukda_data_dictionaries/was_wave_5_person_eul_oct_2020_ukda_data_dictionary.rtf": {
+ "data/uk-wealth-tables/129r/ukda_data_dictionaries/was_wave_5_person_eul_oct_2020_ukda_data_dictionary.rtf": {
   "status": "ok",
   "reason": "",
   "route": "pandoc (rtf to gfm)",
   "words": 289417,
   "bytes": 1666235,
+  "cut": []
+ },
+ "literature/7215_was_userguide_round_7.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 18736,
+  "bytes": 127193,
+  "cut": []
+ },
+ "literature/BN236.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 10231,
+  "bytes": 63998,
+  "cut": []
+ },
+ "literature/Before-the-fall.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 21915,
+  "bytes": 137908,
+  "cut": []
+ },
+ "literature/IFS Report - How is wealth distributed across British households.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 18155,
+  "bytes": 111964,
+  "cut": []
+ },
+ "literature/literature-1-s2-0-s0014292125001266-main.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 14263,
+  "bytes": 92138,
   "cut": []
  }
 }

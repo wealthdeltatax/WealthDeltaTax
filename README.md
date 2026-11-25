@@ -9,4 +9,4 @@ A series of papers (main papers plus appendix companions) proposing an accrual-b
 - `model_v3/` the range model; the legacy models are removed (tag `legacy-models-2026-11`)
 - `docs/` plans, briefs, decisions and agent guides
 
-Working with an agent in this repo: start at `START_HERE.md`.
+Working with an agent in this repo: start at `project/START_HERE.md`.

@@ -5,6 +5,6 @@ description: Implementation and debugging engineer for the Wealth Delta Tax Pyth
 
 # wdt-code
 
-Read `AGENTS.md`, then `docs/agents/code.md`, then only the files that guide names. Do not restate rules here: the guide is the source of truth.
+Read `AGENTS.md`, then `project/agents/agent-code.md`, then only the files that guide names. Do not restate rules here: the guide is the source of truth.
 
-End every task with the change report (`docs/agents/change-report.md`).
+End every task with the change report (`project/agents/change-report.md`).

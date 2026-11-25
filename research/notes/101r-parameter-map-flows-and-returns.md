@@ -1,6 +1,6 @@
 # 101r: parameter map, side A: income, saving, consumption, returns and pension flows
 
-Accessed 2026-11-21. Brief `docs/briefs/101r-parameter-map-flows-and-returns.md`. Evidence side A for the household account of `094r` (B1, B2); companions 102r (stocks, cells, debt) and 103r (assembly). Data and scripts: `research/tables/101r-parameter-map-flows-and-returns/` and `research/scripts/`. No register, code, pack or manifest edit comes from this note, and no model was run.
+Accessed 2026-11-21. Brief `project/briefs/open/101r-parameter-map-flows-and-returns.md`. Evidence side A for the household account of `094r` (B1, B2); companions 102r (stocks, cells, debt) and 103r (assembly). Data and scripts: `research/tables/101r-parameter-map-flows-and-returns/` and `research/scripts/`. No register, code, pack or manifest edit comes from this note, and no model was run.
 
 ## Status of this note
 Built in blocks, one push each (blocks 1 and 2 by Agent 3; the rest here). This file holds, in order: basis (2), crosswalk (3), register view (4), existing-row audit (5), flow-side constraints (6), data requests (7), reproduction list (8), and the summary (1).

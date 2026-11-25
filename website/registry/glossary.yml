@@ -12,7 +12,7 @@
 #   status      seeded (copied from a design document, cited in source) | written (authored after the data gate).
 #
 # Seeded rows are copied in the source document's own words; none is reworded. Owners follow the
-# element of the metric in model-specs/outputs.yml or the ledger (docs/restructure/ledger-sections.md).
+# element of the metric in model-specs/outputs.yml or the ledger (website/notes/ledger-sections.md).
 # Built by: python website/build/build_glossary.py --registry website/registry/glossary.yml --pages website/registry/pages.yml ...
 
 - term: Level 1 uncertainty

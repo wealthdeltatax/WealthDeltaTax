@@ -1,6 +1,6 @@
 # Kernel wiring design: `household_step` inside the payer-line book
 
-Brief `docs/briefs/112r-kernel-wiring-design.md`. Design only: no code, test, register or pack change. Status: complete (blocks 0 to 4). Design only; the author rules on section 4.1.
+Brief `project/briefs/open/112r-kernel-wiring-design.md`. Design only: no code, test, register or pack change. Status: complete (blocks 0 to 4). Design only; the author rules on section 4.1.
 
 ## Summary
 - **The book has no classes.** A payer line carries wealth split across four tax routes (A, B, C, D) by one register mix; growth is one return `g` and consumption sells `c` of the units, in five places (`kernel.py:324`, `revenue.py:83`, `revenue.py:241`, `burden.py:175`, `support.py:132`). The state's stake `s x V` is read by nothing outside the kernel and the fund is a second recursion.

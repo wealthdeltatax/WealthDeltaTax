@@ -936,7 +936,7 @@ def main() -> None:
         type=Path,
         default=cfg.ROOT_DIR / "registry" / "references.bib",
         metavar="PATH",
-        help="Path to the references.bib file (default: pipeline/references.bib).",
+        help="Path to the references.bib file (default: project/tools/references.bib).",
     )
     args = parser.parse_args()
 

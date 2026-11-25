@@ -13,7 +13,7 @@
 # S11, S12, S14, S15, S19-S21, S26-S29, S31-S36, S39-S43. No figure from memory. Ledger rows quote no published figure in the
 # text (ledger-sections.md), so none was added from the ledger.
 #
-# MISSING bib keys (proposed, not in registry/references.bib; the author reworks the reference list later, 043r decision).
+# MISSING bib keys (proposed, not in literature/references.bib; the author reworks the reference list later, 043r decision).
 # The keys below are entered as proposed so the sidecar is ready; hooks H42 will fail on them until references.bib has them:
 #   BroomeKanabar2025
 #   AdvaniBanghamLeslie2021

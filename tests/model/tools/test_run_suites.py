@@ -1,4 +1,4 @@
-"""run_suites.py: each suite in its own process, failures reported, the rest still run (brief 077c). Suite: tests/hooks."""
+"""run_suites.py: each suite in its own process, failures reported, the rest still run (brief 077c). Suite: tests/project/tools."""
 import subprocess
 import sys
 from pathlib import Path

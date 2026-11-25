@@ -1,6 +1,6 @@
 """
 pages/routing.py: reader routing data, its checks, and the data the hub cards and the
-spoke Read next lines are drawn from (brief 061s; docs/restructure/site/nav.md section 4).
+spoke Read next lines are drawn from (brief 061s; website/notes/site/nav.md section 4).
 
 Reads website/registry/routing.yml and website/registry/pages.yml, and, where a spoke file exists, the
 front matter of papers/spokes/<ID>.md (question, status, depends, Short answer).
@@ -33,7 +33,7 @@ DATA_TOKEN = "data"
 MAX_PROMPT_WORDS = 20
 MAX_START = 5
 
-# Data-layer pages of docs/restructure/site/ids.md section 2 (DL0 to DL6).  Used until
+# Data-layer pages of website/notes/site/ids.md section 2 (DL0 to DL6).  Used until
 # B9 adds registry rows for them; nav.py reads the same list.
 DATA_PAGES: list[dict[str, str]] = [
     {"id": "DL0", "title": "The data layer", "url": "/data.html"},

@@ -1,6 +1,6 @@
 """
 pages/nav.py: the new site navigation, generated from website/registry/pages.yml (brief 061s;
-docs/restructure/site/nav.md sections 3, 5, 6 and 9).
+website/notes/site/nav.md sections 3, 5, 6 and 9).
 
   navbar(rows, infos)          the five-item navbar as data (with page ids)
   navbar_fragment(rows, infos) the same as a Quarto `website:` fragment (search moved to the navbar)
