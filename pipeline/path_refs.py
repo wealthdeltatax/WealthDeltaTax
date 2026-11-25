@@ -384,7 +384,8 @@ def refs(rows, base=None):
             continue
         for i, line in enumerate(lines, 1):
             for m in TOKEN.finditer(line):
-                out.append((f, i, m.group(1), kind(m.group(1), rows)))
+                tok = re.sub(r':\d+(?::\d+)?(?=[.:,;]*$)', '', m.group(1))      # 'docs/agents/guru.md:2' names a line: the path is what moves
+                out.append((f, i, tok, kind(tok, rows)))
     return out
 
 
@@ -450,6 +451,61 @@ def _folder_news(rows):
     return {f: n for f, n in out.items() if f not in bad}
 
 
+class Rewriter:
+    """The one place that decides what an old path becomes. apply_map uses it on the checkout, path_rewrite_proof.py uses it to say what a path-only edit of the old bytes looks like.
+    A token (TOKEN, or an old path with a space) becomes: its file's new path (a removed duplicate: the kept copy's), its folder's new folder (when every file under the folder moves by one folder rule),
+    the folder in front of a `{template}` brace, or, for a path that no longer exists under a moving folder ('source/.obsidian/'), the folder's new path plus the rest. A `:12` line suffix and trailing punctuation stay."""
+
+    def __init__(self, rows):
+        rows = {k: dict(v, rename=v.get('rename') or '', duplicate_of=v.get('duplicate_of') or '') for k, v in rows.items()}
+        self.rows = rows
+        self.folders = _folder_news(rows)
+        self.files = {o: (rows[r['duplicate_of']]['new'] if r['duplicate_of'] else r['new']) for o, r in rows.items() if r['new'] or r['duplicate_of']}
+        self.spaced = {k: v for k, v in self.files.items() if ' ' in k}
+        self.spaced.update({f: n for f, n in self.folders.items() if ' ' in f})
+        self.spaced_rx = re.compile('(?<![\\w/.-])(' + '|'.join(re.escape(k) for k in sorted(self.spaced, key=len, reverse=True)) + ')') if self.spaced else None
+
+    def resolve(self, stem):
+        if stem in self.files:
+            return self.files[stem]
+        if stem in self.folders:
+            return self.folders[stem]
+        if '{' in stem:
+            head = stem[:stem.index('{')].rstrip('/')
+            if head in self.folders:
+                return self.folders[head] + stem[len(head):]
+            return None
+        parts = stem.split('/')
+        for k in range(len(parts) - 1, 0, -1):
+            f = '/'.join(parts[:k])
+            if f in self.folders:
+                return self.folders[f] + '/' + '/'.join(parts[k:])
+        return None
+
+    def line(self, text, skip=None, unresolved=None):
+        if self.spaced_rx and ' ' in text:
+            text = self.spaced_rx.sub(lambda m: self.spaced[m.group(1)], text)
+        out, last = [], 0
+        for m in TOKEN.finditer(text):
+            tok = m.group(1)
+            pm = re.fullmatch(r'(.*?)((?::\d+(?::\d+)?)?[.:,;/]*)', tok)
+            stem, rest = pm.group(1), pm.group(2)
+            if skip and skip(re.sub(r':\d+(?::\d+)?(?=[.:,;]*$)', '', tok)):
+                continue
+            new = self.resolve(stem) if stem else None
+            if new is None:
+                if unresolved is not None and stem not in self.files and stem not in self.folders:
+                    unresolved.append(tok)
+                continue
+            out.append(text[last:m.start(1)] + new + rest)
+            last = m.end(1)
+        out.append(text[last:])
+        return ''.join(out)
+
+    def text(self, text):
+        return ''.join(self.line(l) for l in text.splitlines(keepends=True))
+
+
 def apply_map(root):
     """165c: apply the map to the checkout at `root`. Moves and removals follow file-layout-map.csv (a tracked file the csv does not list gets its row from RULES and is reported as `not_in_csv`).
     References are found afresh in the checkout, because the committed references csv goes stale as soon as an active file (STATUS, a brief) is edited; `csv_drift` counts how many lines differ from it.
@@ -479,50 +535,33 @@ def apply_map(root):
             (root / r['new']).parent.mkdir(parents=True, exist_ok=True)
             gi('mv', '--', old, r['new'])
             moved += 1
-    folders = _folder_news(rows)
-    def target(tok):
-        stem = tok.rstrip('.:/')
-        suffix = tok[len(stem):]
-        if stem in rows:
-            r = rows[stem]
-            new = rows[r['duplicate_of']]['new'] if r['duplicate_of'] else r['new']
-            return (new + suffix) if new else None
-        if stem in folders:
-            return folders[stem] + suffix
-        return None
-    by_file = collections.defaultdict(lambda: collections.defaultdict(list))
-    for f, i, t, k in found:
-        by_file[f][i].append((t, k))
-    edited = lines_changed = 0
+    rw = Rewriter(rows)
+    edited = lines_changed = spaced_lines = 0
     unresolved = []
-    for f, per_line in sorted(by_file.items()):
-        r = rows[f]
-        if r['duplicate_of']:
+    for old, r in sorted(rows.items()):
+        if r['duplicate_of'] or old.startswith(NEVER_SEARCH):
             continue
-        path = root / (r['new'] or f)
-        lines = path.read_bytes().decode('utf-8').splitlines(keepends=True)
+        path = root / (r['new'] or old)
+        if not is_text(path.name) and path.name not in ('.gitignore', '.gitattributes', 'CNAME'):
+            continue
+        try:
+            lines = path.read_bytes().decode('utf-8').splitlines(keepends=True)
+        except (UnicodeDecodeError, OSError):
+            continue
         changed = False
-        for i, toks in per_line.items():
-            line = lines[i - 1]
-            for tok, k in sorted(set(toks), key=lambda x: -len(x[0])):
-                if pinned_allowed(f, i, tok):
-                    continue
-                new = target(tok) if k != 'other' else None
-                if new is None:
-                    unresolved.append((f, i, tok, 'kind other' if k == 'other' else 'split folder, no single new path'))
-                    continue
-                line2 = re.sub(r'(?<![\w/.-])' + re.escape(tok) + r'(?![\w-])', lambda m: new, line)
-                if line2 == line:
-                    unresolved.append((f, i, tok, 'token already rewritten or not found on the line'))
-                line = line2
-            if line != lines[i - 1]:
-                lines[i - 1] = line
+        for i, line in enumerate(lines, 1):
+            left = []
+            new = rw.line(line, skip=lambda tok, old=old, i=i: pinned_allowed(old, i, tok), unresolved=left)
+            for tok in left:
+                unresolved.append((old, i, tok, 'kind other'))
+            if new != line:
+                lines[i - 1] = new
                 lines_changed += 1
                 changed = True
         if changed:
             path.write_bytes(''.join(lines).encode('utf-8'))
             edited += 1
-    return dict(moved=moved, removed=removed, files_edited=edited, lines_changed=lines_changed, unresolved=unresolved, not_in_csv=not_in_csv, csv_drift=drift)
+    return dict(moved=moved, removed=removed, files_edited=edited, lines_changed=lines_changed, spaced_lines=0, unresolved=unresolved, not_in_csv=not_in_csv, csv_drift=drift)
 
 
 def main():

@@ -39,11 +39,25 @@ Rules that apply: one block, one push per part; suites in the background, never 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0: `path_refs.py --apply <root>` written and run on a full-history scratch clone of `3efb03b` (1082 moved, 7 duplicates removed, 321 files edited, 1666 reference lines rewritten, 4 pinned lines left alone). First suite run on the applied copy: every model suite fails at collection (depth shifts and constructed paths), as expected.
-- **Next:** triage the model side (tripwire, `tests/model/{data,gate,tools,model_v3}`): fix in the scratch copy with a constructed-path pass plus hand fixes, label hunks by stage, write `rehearsal-report.md`, push (push 1). Then project side, website, `--check`, proof (push 2).
-- **Decisions:** `--apply` finds references afresh in the checkout instead of reading line numbers from `file-layout-references.csv`: that csv already differs from a fresh scan on 183 (file, line, token) entries because STATUS.md and active briefs changed after it was written; the map csv lacks `docs/briefs/165c-...md` (derived from RULES, reported).
-- **Gotchas:** a shallow clone fails the tripwire pack check; the scratch clone is full (810 commits). Scratch copy lives in the session scratchpad, not in the repository.
-- **Resume:** `python pipeline/path_refs.py --apply <scratch clone at 3efb03b>`, then per-suite `python -m pytest -q -p no:cacheprovider tests/model/<suite>` in the scratch copy.
-- **Not run:** Quarto build, `layout`, full `quick` comparison (out of scope per brief).
-- **State:** block 0 done, model-side triage in progress, nothing pushed yet except this block.
+- **Done:** `path_refs.py --apply <root>` (shared `Rewriter`), full rehearsal on a full-history scratch clone of `3efb03b`, `rehearsal-report.md`, `rehearsal-fixes.patch` (138 files, labelled by stage, applies cleanly). On the fixed copy: tripwire PASS; `tests/model` data 103, gate 17, tools 5, model_v3 408 passed; `tests/website` 201 passed, 41 skipped; proof on the apply alone: 0 changed. `tests/project`: 1 failure in a clean tree (the prose sweep, 164c).
+- **Next:** NEEDS THE AUTHOR / guru: five map decisions in the report (pack folder name, pinned list, shared `Rewriter` in the proof, readable-copies place, 165c row). No auto-merge. Then merge 165c and start 160c.
+- **Decisions:** `--apply` scans the checkout afresh (the references csv is stale by 199 entries); the proof was not changed (a check); its proposed change is described in the report.
+- **Gotchas:** full-history clone for the tripwire; one pytest per suite; leftover empty old folders hide failures (use `git clean -fdx`); never pipe the rehearsal script into `head`.
+- **Resume:** apply, then the patch, in a fresh clone.
+- **Not run:** Quarto build, `layout` (40 skipped as in the baseline), full `quick` comparison.
+- **State:** scratch copy and worktree deleted; branch pushed.
 <!-- progress:end -->
+
+
+Change report
+- Task: 165c rehearse the whole move
+- Files changed: `pipeline/path_refs.py` (`--apply`, `Rewriter`, `:N` suffixes, `_folder_news` ignores renamed file names); `docs/restructure/rehearsal-report.md`, `rehearsal-fixes.patch` (new); brief progress, friction log, brief suggestions
+- What is different now: the stage agents have a tested apply, a grouped list of failures with fixes, and a patch
+- New or changed interfaces: `python pipeline/path_refs.py --apply <scratch root>` (refuses this repo)
+- Acceptance criteria: report names every failing suite per stage (met); model side complete, tripwire and four suites pass with the patch (met); patch applies cleanly (met); scratch deleted, git status shows the three files plus the brief and logs (met, with the logs as extra)
+- Deviations from the brief: friction log, brief suggestions and the brief's own block are also edited (the rules ask for them); the proof was not changed
+- Risks / follow-ups: five map decisions (report end); the prose sweep (164c); 50 constructed chains not individually triaged
+- Instruction friction: one entry added
+- Verification: tripwire, tests/model x4, tests/website, proof, check; not run: Quarto, layout, quick
+- Overview sections likely needing an update: none
+- Commit / branch: see push, `brief/165c-rehearse-the-whole-move`

@@ -110,3 +110,9 @@ Entry format, newest at the bottom:
 - Suggested lane: c (diagnosis first; a kernel change is stop-and-report, so the guru decides what follows)
 - Status: open
 
+
+### From 165c (code, 2026-11-25)
+- Each stage brief: list the hash-pinned files (pack tree, `outputs.yml`, `inputs.md` line 145 as the source of `inputs.json` line 568) as "keep the old text"; the apply tool skips only four lines.
+- 162c: the model has two import roots (repository root and `model/`); every `sys.path` insertion changes. Tests that build a throwaway tree and assert on its paths must keep those paths.
+- 164c: the prose sweep is by hand (about 94 tokens, 37 `check_agent_docs` findings: old folders whose files went to several places).
+- The map decision on the pack folder name (`data/country-packs/GBR`) comes before 160c.

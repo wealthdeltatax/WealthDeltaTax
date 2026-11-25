@@ -58,3 +58,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: in a depth-50 clone the tripwire reports `FAIL: ['pack']` (`rebuild_is_byte_identical: false`, tree hash equal) because `build_gbr.py` reads `retrieved` dates from `git log --follow`.
 - Cost: one failed run and a history fetch (`git fetch --depth=5000 origin main brief/044-inventory` gave the full 809 commits); the rerun passed.
 - Suggest: say in the tripwire docstring and the stage briefs that it needs a full-history clone.
+
+### 2026-11-25 · 165c · code
+- Instruction: 165c "Fix in the scratch copy what can be fixed" and "do not change a check to make it pass"; 044c says the proof and the apply step share one rule, but they were two implementations.
+- Happened: the proof reported 198 changed files on a correct apply (its regular expression rewrote prose words and ignored folders holding a renamed file); and after `git mv` the used tree keeps empty old folders that make `exists()` checks pass.
+- Cost: about two hours chasing differences that were the proof's, and one project test that passed in the used copy and failed in a clean one.
+- Suggest: the stage briefs say "run the stage's final checks in a fresh checkout (`git clean -fdx`)"; the proof uses `path_refs.Rewriter`.
