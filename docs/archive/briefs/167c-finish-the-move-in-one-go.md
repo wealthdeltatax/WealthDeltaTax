@@ -1,6 +1,6 @@
 # 167: Finish the file move in one go, using the apply tool and the rehearsal patch (replaces 162c to 164c if it passes)
 
-- **Status:** ready; Agent 6 (the rehearsal's traps are in its report; any free agent can take it)
+- **Status:** dropped by the author 2026-11-25 before it started (stages run one at a time)
 - **Author/date:** K. Ogata with the guru, 2026-11-25
 - **Depends on:** 160c, 161c and 165c merged (done); no other branch may touch paths while this runs
 - **Read (6):** `docs/briefs/044c-file-layout-move.md` (rules R1 to R5, tree, hazards, verification tiers); `docs/restructure/rehearsal-report.md`; `docs/restructure/file-layout-map.md`; and the three stage briefs `162c`, `163c`, `164c` (their "Design", "Rulings" and "Added from the rehearsal" sections apply here unchanged). `docs/restructure/rehearsal-fixes.patch` is applied, not read.

@@ -270,12 +270,11 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   ];
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
-    { id: "167c", lane: "6", at: 0, len: 2, st: "ready", t: "Finish the file move in one go (apply tool and rehearsal patch)", needs: [], why: "Trial on a scratch copy first (go or no-go). If it passes, replaces 162c to 164c: model code, specs and results, project and skills, final sweep. If it fails, 162c to 164c run as written.", files: "whole tree (paths only)" },
-    { id: "162c", lane: "6", at: 2, len: 1, st: "hold", t: "Move model code and inputs (R4)", needs: [{ id: "167c" }], why: "Only if the 167c trial is a no-go (167c replaces 162c to 164c if it passes). model/, country pack (data/country-packs/GBR) and input register to data/, model tests; the tripwire must equal its baseline.", files: "model_v3, pack, registry model" },
-    { id: "163c", lane: "6", at: 3, len: 1, st: "hold", t: "Split model docs into specs and results (R5)", needs: [{ id: "162c" }], why: "model-specs/ and results/ with unique names.", files: "docs/model-v3" },
-    { id: "164c", lane: "3", at: 4, len: 1, st: "hold", t: "Move project documents and skills, final sweep (R6)", needs: [{ id: "163c" }], why: "project/, skills rebuilt, whole-programme acceptance.", files: "docs, Tools, .claude" },
-    { id: "151c", lane: "2", at: 4, len: 1, st: "hold", t: "Headline-only evaluation for the tornado and the O1e roots (speed-up, byte-identical)", needs: [{ id: "164c" }, { id: "057c" }], why: "The tornado and the O1e roots need only the headline; byte-identical to the quick reference file. After the reorganisation and 057c.", files: "runner.py, sweeps.py, run.py" },
-    { id: "057c", lane: "2", at: 2, len: 2, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "167c" }], why: "PAUSED by the author for the repository tidy; resumes after 162c and rebases onto the moved tree; blocks 0 to 2 and the rulings are done, block 3 and --final remain." },
+    { id: "162c", lane: "6", at: 0, len: 1, st: "underway", t: "Move model code and inputs (R4)", needs: [], why: "model/, country pack (data/country-packs/GBR) and input register to data/, model tests; the tripwire must equal its baseline.", files: "model_v3, pack, registry model" },
+    { id: "163c", lane: "6", at: 1, len: 1, st: "hold", t: "Split model docs into specs and results (R5)", needs: [{ id: "162c" }], why: "model-specs/ and results/ with unique names.", files: "docs/model-v3" },
+    { id: "164c", lane: "3", at: 2, len: 1, st: "hold", t: "Move project documents and skills, final sweep (R6)", needs: [{ id: "163c" }], why: "project/, skills rebuilt, whole-programme acceptance.", files: "docs, Tools, .claude" },
+    { id: "151c", lane: "2", at: 5, len: 1, st: "hold", t: "Headline-only evaluation for the tornado and the O1e roots (speed-up, byte-identical)", needs: [{ id: "164c" }, { id: "057c" }], why: "The tornado and the O1e roots need only the headline; byte-identical to the quick reference file. After the reorganisation and 057c.", files: "runner.py, sweeps.py, run.py" },
+    { id: "057c", lane: "2", at: 3, len: 2, st: "hold", t: "Model v3 V3-12: run script and acceptance", needs: [{ id: "162c" }], why: "PAUSED by the author for the repository tidy; resumes after 162c and rebases onto the moved tree; blocks 0 to 2 and the rulings are done, block 3 and --final remain." },
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
 
