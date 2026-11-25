@@ -20,7 +20,7 @@ Source, tests and tools under `model_v3/`, `pipeline/` and `tests/`, and git for
 - Keep the diff tight; unrelated problems become follow-ups in the report.
 - Work through the acceptance criteria one by one. If one cannot be met, report the measured result; do not retune the test.
 - Import checks: `python -I` ignores the current directory, so `python -I -c "import x"` cannot find a sibling module. Write `python -I -c "import sys; sys.path.insert(0, '.'); import x"` from inside the folder.
-- A binary file under `literature/` or `data/` (pdf, xlsx, ods, rtf, docx) is read through its committed reading copy in `literature/readable/`; a new one is committed with its copy: `python -I pipeline/to_markdown.py --readable <file>` (see `docs/agents/research.md`).
+- A binary file under `literature/` or `data/` (pdf, xlsx, ods, rtf, docx) is read through its committed reading copy in `literature/readable/`; a new one is committed with its copy: `python -I website/build/to_markdown.py --readable <file>` (see `docs/agents/research.md`).
 - Test suites run as separate processes because their conftests clash in one pytest session: `python pipeline/run_suites.py [suite ...]` runs them (`--list` shows them). Run each the brief names, never one combined `pytest`.
 - Never edit a test to make it pass. A test that asserts an old finding may change only when the brief or the author says the finding changed; say so in the report.
 - `model_v3/pack/build_gbr.py` takes its manifest `retrieved` dates from git history, so it is not reproducible in a shallow clone. Use a full clone for pack work.

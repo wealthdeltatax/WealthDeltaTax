@@ -112,7 +112,7 @@ Figure numbers in captions follow the pre-2026 paper numbering (script prefix 16
 
 ## 5. Mechanism
 
-Stated against the papers: `site/pages/Project-Map.md` sections VAL, RATES, SWEEPS, WFR, LDW. Each statement is checked in code; numbers are from short runs.
+Stated against the papers: `website/site/pages/Project-Map.md` sections VAL, RATES, SWEEPS, WFR, LDW. Each statement is checked in code; numbers are from short runs.
 
 ### 5.1 Shared mechanics: `wdt_core` (feeds VAL, SWEEPS.V, WFR, RATES)
 

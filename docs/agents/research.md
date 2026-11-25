@@ -16,11 +16,11 @@ Maintains the project's reference database and the literature coverage behind th
 - Add nothing to `references.bib` or `internal.json` without confirmation. Never correct a discrepancy silently; show the current and verified values.
 - Present the scope template (`docs/agents/reference/research/scope-template.md`) and wait for confirmation before a coverage scan.
 - Prefer primary sources; note date and source for each claim. State conflicts and gaps. Paraphrase; do not paste long passages.
-- If a paper is not in `source/`, flag the gap instead of inferring its content.
+- If a paper is not in `papers/legacy/`, flag the gap instead of inferring its content.
 - **Runtime check first.** A brief that names held workbooks (xlsx, ods, zip, Stata) or a repo checker (`pipeline/check_agent_docs.py`) needs a local checkout and a shell. If the session has neither, say so at once, and stop and ask for the files or a checkout; do not conclude from marginals or published headlines that something is unavailable. If you must finish without it, mark that check `not run` in the change report with the reason. The guru runs the checker before merge.
 - **Fetching.** WebFetch accepts only URLs first returned by a search; a PDF or xlsx that cannot be fetched is a data request for the author to attach, listed in the note, not a finding. Say in the note which sources were read and which were not.
 - **Audits state the comparison.** An audit verdict names the numbers it compares ("supports: 5.94 against 5.94"), so the verdict can be checked against them.
-- `registry/references.json` is generated from the `.bib` and `internal.json` by `pipeline/bib_to_json.py`; regenerate it, do not hand-edit.
+- `registry/references.json` is generated from the `.bib` and `internal.json` by `website/build/bib_to_json.py`; regenerate it, do not hand-edit.
 
 ## Long data briefs: stay inside the session
 - **Skeleton first.** Block 0: create the research note with every section marked pending, update the brief's progress block, push the branch. Do this before opening any source.
@@ -31,8 +31,8 @@ Maintains the project's reference database and the literature coverage behind th
 - **Resuming.** Check out the named branch, rebase on main, read the progress block and the note skeleton, run nothing already marked done.
 
 ## Reading PDFs, Office files, ODS and RTF
-Do not open a binary research file with Read. Convert it first and read the Markdown: `python -I pipeline/to_markdown.py file.pdf` (Microsoft markitdown; also docx, pptx, xlsx, xls, html; needs `pip install 'markitdown[pdf]'`, plus `--break-system-packages` in the cloud shell). Output goes to the git-ignored scratch folder (scratch/converted). A conversion is a reading aid: quote numbers from the source file, not from the text, because tables and multi-column layouts can garble and scanned PDFs come out empty. ODS and RTF are not read by markitdown: convert them first (`soffice --headless --convert-to xlsx` for ODS; pandoc or `striprtf` for RTF), say which route you used, then proceed.
-Every binary file under `literature/` and `data/` has a committed reading copy under `literature/readable/` (index and status in `literature/readable/readable-copies-index.md`): read that, not the binary. A new binary file is committed with its copy: `python -I pipeline/to_markdown.py --readable <file>` (spreadsheets are capped at 300 rows a table, with a visible note; `--rows` changes it). `pipeline/check_agent_docs.py` warns when a copy is missing. A copy is generated, never hand-edited.
+Do not open a binary research file with Read. Convert it first and read the Markdown: `python -I website/build/to_markdown.py file.pdf` (Microsoft markitdown; also docx, pptx, xlsx, xls, html; needs `pip install 'markitdown[pdf]'`, plus `--break-system-packages` in the cloud shell). Output goes to the git-ignored scratch folder (scratch/converted). A conversion is a reading aid: quote numbers from the source file, not from the text, because tables and multi-column layouts can garble and scanned PDFs come out empty. ODS and RTF are not read by markitdown: convert them first (`soffice --headless --convert-to xlsx` for ODS; pandoc or `striprtf` for RTF), say which route you used, then proceed.
+Every binary file under `literature/` and `data/` has a committed reading copy under `literature/readable/` (index and status in `literature/readable/readable-copies-index.md`): read that, not the binary. A new binary file is committed with its copy: `python -I website/build/to_markdown.py --readable <file>` (spreadsheets are capped at 300 rows a table, with a visible note; `--rows` changes it). `pipeline/check_agent_docs.py` warns when a copy is missing. A copy is generated, never hand-edited.
 
 ## Definition of done
 Every added or changed entry verified or flagged, discrepancies and flags reported, confirmed records written, change report lists entries added and updated.

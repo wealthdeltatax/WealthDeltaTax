@@ -1,0 +1,101 @@
+# Legacy source for the 33 papers (zenodo_upload.py, pdf.py, scrape_contents.py read it) until cutover.
+# The site build reads website/registry/pages.yml; tests/website/pages keeps the two in step. Do not add papers here: add a row to pages.yml.
+
+- source: 1_Wealth_Delta_Tax_Whitepaper.md
+  output: wp.qmd
+
+- source: 2_Moral_and_Philosophical_Foundations.md
+  output: mf.qmd
+
+- source: 3a_Research_Gaps.md
+  output: lr-a.qmd
+
+- source: 3b_Intellectual_Background.md
+  output: lr-b.qmd
+
+- source: 4_UK_Jurisdiction_and_Data_Reference_Paper.md
+  output: jur.qmd
+
+- source: 5_Valuing_Wealth.md
+  output: val.qmd
+
+- source: 5a_Valuing_Wealth_Mathematical_and_Simulation_Appendix.md
+  output: val-a.qmd
+
+- source: 5b_Valuing_Wealth_Worked_Examples_Appendix.md
+  output: val-b.qmd
+
+- source: 6_Corporate_Architecture.md
+  output: corp.qmd
+
+- source: 6a_Corporate_Architecture_Appendix.md
+  output: corp-a.qmd
+
+- source: 7_Constitutional_Governance.md
+  output: gov.qmd
+
+- source: 7a_WDT_Constitutional_Governance_Intellectual_Appendix.md
+  output: gov-a.qmd
+
+- source: 7b_Constitutional_Governance_Operational_Appendix.md
+  output: gov-b.qmd
+
+- source: 8_Rates_and_Revenue.md
+  output: rates.qmd
+
+- source: 8a_Rates_and_Revenue_Appendix.md
+  output: rates-a.qmd
+
+- source: 9_Parameter_Sweeps.md
+  output: sweeps.qmd
+
+- source: 9a_Parameter_Sweeps_Appendix.md
+  output: sweeps-a.qmd
+
+- source: 10_Behavioural_Robustness_and_Administrative_Experience.md
+  output: behav.qmd
+
+- source: 10a_Behavioural_Robustness_and_Administrative_Experience_Appendix.md
+  output: behav-a.qmd
+
+- source: 11_Position_Closure.md
+  output: close.qmd
+
+- source: 12_Political_Architecture.md
+  output: pol.qmd
+
+- source: 12a_Political_Architecture_Appendix.md
+  output: pol-a.qmd
+
+- source: 13_Phase_One.md
+  output: phase1.qmd
+
+- source: 14_Environmental_Effects_and_Transmission_Channels.md
+  output: env.qmd
+
+- source: 15_First_Mover.md
+  output: fm.qmd
+
+- source: 16_Modular_Adoption.md
+  output: mod.qmd
+
+- source: 17_Scope_Boundary.md
+  output: scope.qmd
+
+- source: 18_Addendums.md
+  output: add.qmd
+
+- source: 19_Taxpayer_Welfare.md
+  output: wfr.qmd
+
+- source: 19a_Taxpayer_Welfare_Appendix.md
+  output: wfr-a.qmd
+
+- source: 20_Institutional_Selection.md
+  output: inst.qmd
+
+- source: 21_Labour_Dividend_Welfare.md
+  output: ldw.qmd
+
+- source: 22_Falsification_Hypotheses.md
+  output: fal.qmd

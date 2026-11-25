@@ -3,7 +3,7 @@
 Method behind the M2 check and the computed rows I-D7c in `docs/model-v3/inputs.md`. Run with `python3 -I`, reading the tables printed in the repo papers (nothing from outside the repo). Accessed 2026-11-17.
 
 ## 1. Tables read
-- Burden by tier and bracket, N = 30: `source/8_Rates_and_Revenue.md`, matrix under "Annual wealth burden" (same as appendix B.3.3). 4 growth tiers (Poor, Ok, Good, Great) by 10 brackets (50th to 99.99th+ percentile).
+- Burden by tier and bracket, N = 30: `papers/legacy/8_Rates_and_Revenue.md`, matrix under "Annual wealth burden" (same as appendix B.3.3). 4 growth tiers (Poor, Ok, Good, Great) by 10 brackets (50th to 99.99th+ percentile).
 - Starting wealth V_0 per bracket and terminal wealth V_N per tier and bracket: appendix B.3.1.
 - Taxpayers per cell: appendix B.3.6 (34.6m in total; tier weights 10, 30, 40, 20%).
 

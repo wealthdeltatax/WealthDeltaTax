@@ -1,0 +1,1170 @@
+# Where each section of the 30 retired numbered papers went (brief 063s; site.md B10).
+#
+# Converted once from docs/restructure/ledger-sections.md by `python website/build/pages/retired.py --convert`;
+# frozen: a later --convert refuses to overwrite this file. Edit by hand from here on.
+# Feeds the retired papers page (`python website/build/pages/retired.py --out site/pages/retired.md`).
+#
+# Per paper: id (the pages.yml row), shortcode and title (as the paper had them), url (the old address),
+# successor (up to three page ids, descending by kept and merged words; frozen), sections.
+# Per section: sec, title, words, disp (K keep, M merge, D drop, AR archive, DL data layer), target
+# (the ledger's text), page (a pages.yml id or null), reason (the ledger note when the target is `-`).
+#
+# Mapping of a ledger target to a page id:
+#   a spoke or appendix shortcode (FAIR, FISC, DECL, ...)   its own id
+#   H1, H2 (hub sections)                                    H
+#   glossary                                                 GLOSS
+#   UK data pack, input register, parameter register,
+#   method note for O7                                       the data-layer page when pages.yml has a row
+#                                                            for it (none yet): page null, target kept as text
+#   -                                                        page null; reason is the ledger note
+# Rows of the standalone papers ADD, INST and SCOPE are not here: those papers stay.
+frozen: true
+
+papers:
+  - id: "old-wp"
+    shortcode: "WP"
+    title: "The Wealth Delta Tax: The White Paper"
+    url: "/wp.html"
+    successor: ["MECH", "LIT", "FISC"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 119, disp: "AR", target: "-", page: null, reason: "front matter; the hub writes its own summary (H0)"}
+      - {sec: "rev", title: "Revision History", words: 477, disp: "AR", target: "-", page: null, reason: "front matter; the hub writes its own summary (H0)"}
+      - {sec: "abs", title: "Abstract", words: 221, disp: "AR", target: "-", page: null, reason: "front matter; the hub writes its own summary (H0)"}
+      - {sec: "gloss", title: "Glossary", words: 276, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. Introduction", words: 300, disp: "M", target: "H1", page: "H", reason: null}
+      - {sec: "1.1", title: "1.1 The Cooperative Basis of the Design", words: 363, disp: "M", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "2.1", title: "2.1 The Haig-Simons Definition and the Comprehensive Income", words: 279, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "2.2", title: "2.2 The Empirical Literature on Wealth Taxation", words: 228, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "2.3", title: "2.3 The Income versus Consumption Debate", words: 385, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "2.4", title: "2.4 The Wealth Concentration Literature", words: 141, disp: "K", target: "H1", page: "H", reason: null}
+      - {sec: "2.5", title: "2.5 The Domar-Musgrave Principle", words: 238, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "2.6", title: "2.6 Harberger Self-Assessment and the Purchase Option Tradit", words: 218, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "2.7", title: "2.7 Five Design Problems Unresolved in Prior Literature", words: 274, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "3", title: "3. The Wealth Delta Tax: Mechanism Design", words: 152, disp: "K", target: "H2", page: "H", reason: null}
+      - {sec: "3.1", title: "3.1 The Tax Base", words: 239, disp: "K", target: "MECH", page: "MECH", reason: null}
+      - {sec: "3.2", title: "3.2 The Individual as the Unit of Taxation", words: 525, disp: "K", target: "MECH", page: "MECH", reason: null}
+      - {sec: "3.3", title: "3.3 The Progressive Rate Structure", words: 129, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "3.4", title: "3.4 The Exemption Threshold", words: 86, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "3.4.1", title: "3.4.1 Voluntary Participation Below the Threshold", words: 373, disp: "K", target: "MECH", page: "MECH", reason: null}
+      - {sec: "3.5", title: "3.5 The Symmetric Loss-Refund Mechanism", words: 690, disp: "K", target: "MECH", page: "MECH", reason: null}
+      - {sec: "3.6", title: "3.6 Assessment Windows", words: 319, disp: "K", target: "MECH", page: "MECH", reason: null}
+      - {sec: "3.7", title: "3.7 Valuation Architecture", words: 357, disp: "M", target: "VAL", page: "VAL", reason: null}
+      - {sec: "3.8", title: "3.8 Valuation Incentives and the Structure of the Problem", words: 496, disp: "M", target: "DECL", page: "DECL", reason: null}
+      - {sec: "4", title: "4. The Sovereign Wealth Fund", words: 155, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "4.1", title: "4.1 Why the Fund Is Structurally Necessary", words: 225, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "4.2", title: "4.2 Governance and Shared Interests", words: 407, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "4.3", title: "4.3 Route D Auction Mechanism", words: 702, disp: "M", target: "VAL", page: "VAL", reason: null}
+      - {sec: "5", title: "5. Revenue Properties", words: 627, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "5.1", title: "5.1 Parameter Selection and the N = 30 Working Assumption", words: 732, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "6", title: "6. Replacing Existing Taxes: Scope and Sequencing", words: 550, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "7", title: "7. Implementation Pathway", words: 172, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "7.1", title: "7.1 Phase One: Infrastructure and Proof of Mechanism", words: 340, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "7.2", title: "7.2 Phase Two: Expansion and Labour Tax Relief", words: 134, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "7.3", title: "7.3 International Coordination and Capital Mobility", words: 173, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "8", title: "8. Principal Objections", words: 0, disp: "M", target: "VAL", page: "VAL", reason: null}
+      - {sec: "8.1", title: "8.1 The Valuation Problem", words: 474, disp: "M", target: "VAL", page: "VAL", reason: null}
+      - {sec: "8.2", title: "8.2 The Liquidity Problem", words: 669, disp: "K", target: "PAY", page: "PAY", reason: null}
+      - {sec: "8.3", title: "8.3 Behavioural Responses", words: 243, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "8.4", title: "8.4 The Consumption Tax Alternative", words: 52, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "8.5", title: "8.5 Constitutional Entrenchment", words: 250, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "8.6", title: "8.6 State-Finance Entanglement", words: 61, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "8.7", title: "8.7 The Complexity Objection", words: 541, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "9", title: "9. Limitations and Required Further Work", words: 0, disp: "D", target: "-", page: null, reason: "status text (gaps closed by WFR; data-access precondition covered by GOV)"}
+      - {sec: "9.1", title: "9.1 Formal modelling gaps", words: 267, disp: "D", target: "-", page: null, reason: "status text (gaps closed by WFR; data-access precondition covered by GOV)"}
+      - {sec: "9.2", title: "9.2 Phase One Empirical Unknowns", words: 221, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "9.3", title: "9.3 Fiscal Concentration Risk", words: 299, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "9.4", title: "9.4 Jurisdiction-Specific Legal and Implementation Work", words: 99, disp: "D", target: "-", page: null, reason: "status text (gaps closed by WFR; data-access precondition covered by GOV)"}
+      - {sec: "9.5", title: "9.5 Structural and Irreducible Limits of the Design", words: 284, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "10", title: "10. Conclusion", words: 516, disp: "D", target: "-", page: null, reason: "conclusion restates RATES; the hub writes its own"}
+
+  - id: "old-mf"
+    shortcode: "MF"
+    title: "The Wealth Delta Tax: The Moral and Philosophical Foundations of the WDT"
+    url: "/mf.html"
+    successor: ["FAIR", "LIMIT", "VAL"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 102, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 256, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 198, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 577, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. Introduction", words: 546, disp: "D", target: "-", page: null, reason: "introduction and conclusion; FAIR opens and closes itself"}
+      - {sec: "2", title: "2. The Individual as the Only Legitimate Moral Subject", words: 906, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "3", title: "3. Where Wealth Comes From", words: 0, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "3.1", title: "3.1 Wealth as Constituted by Collective Frameworks", words: 346, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "3.2", title: "3.2 Collective Inputs to Accumulation", words: 351, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "3.3", title: "3.3 Why the Delta", words: 549, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "4", title: "4. Wealth as Power, Not Deferred Consumption", words: 455, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "5", title: "5. Fiscal Opacity and the Conditions for Democratic Delibera", words: 296, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "6", title: "6. Democratic Flourishing as the Terminal Goal", words: 714, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "7", title: "7. The Cooperative Architecture", words: 637, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "8", title: "8. Tolerance for Imperfect Compliance", words: 295, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9", title: "9. Limitations and Required Further Work", words: 37, disp: "D", target: "-", page: null, reason: "limitations register; items are carried by UNCER and LIMIT"}
+      - {sec: "9.1", title: "9.1 Formal modelling gaps", words: 100, disp: "D", target: "-", page: null, reason: "limitations register; items are carried by UNCER and LIMIT"}
+      - {sec: "9.2", title: "9.2 Phase One empirical unknowns", words: 65, disp: "D", target: "-", page: null, reason: "limitations register; items are carried by UNCER and LIMIT"}
+      - {sec: "9.3", title: "9.3 Jurisdiction-specific legal and implementation work", words: 42, disp: "D", target: "-", page: null, reason: "limitations register; items are carried by UNCER and LIMIT"}
+      - {sec: "9.4", title: "9.4 Structural and irreducible limits of the design", words: 0, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9.4.1", title: "9.4.1 The corporate instrument", words: 46, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9.4.2", title: "9.4.2 The asymmetric treatment of corporate loss years", words: 40, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9.4.3", title: "9.4.3 The exemption threshold", words: 48, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9.4.4", title: "9.4.4 International mobility and exit", words: 57, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9.4.5", title: "9.4.5 The assumption of functional democratic institutions", words: 66, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9.4.6", title: "9.4.6 The transition period", words: 54, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9.4.7", title: "9.4.7 The institutional tiers the mechanism produces", words: 56, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9.4.8", title: "9.4.8 The Route D extreme residual", words: 266, disp: "M", target: "VAL", page: "VAL", reason: null}
+      - {sec: "9.4.9", title: "9.4.9 The governance compromises", words: 193, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9.5", title: "9.5 Governing Council calibration parameters", words: 6, disp: "D", target: "-", page: null, reason: "limitations register; items are carried by UNCER and LIMIT"}
+      - {sec: "10", title: "10. Conclusion", words: 338, disp: "D", target: "-", page: null, reason: "introduction and conclusion; FAIR opens and closes itself"}
+
+  - id: "old-lr-a"
+    shortcode: "LR.A"
+    title: "The Wealth Delta Tax: Research Gaps in the Existing Literature"
+    url: "/lr-a.html"
+    successor: ["LIT"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 108, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 91, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 204, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 191, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. Introduction", words: 210, disp: "D", target: "-", page: null, reason: "introduction; conclusion list of nine gaps is superseded by the new set"}
+      - {sec: "2", title: "2. Formal Modelling Gaps", words: 0, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "2.1", title: "2.1 The Domar-Musgrave Extension", words: 480, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "2.2", title: "2.2 The Welfare Comparison", words: 345, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "2.3", title: "2.3 Heterogeneous Returns and the Delta Base", words: 368, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "3", title: "3. Compliance and Behavioural Gaps", words: 0, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "3.1", title: "3.1 Cooperative Compliance at the Ultra-High-Net-Worth Level", words: 654, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "3.2", title: "3.2 The Cross-Base Migration Externality", words: 283, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "3.3", title: "3.3 Administrative-Layer Intervention Effects", words: 324, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "4", title: "4. Political and International Gaps", words: 0, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "4.1", title: "4.1 The Political Durability Causal Framework", words: 261, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "4.2", title: "4.2 The International Competitive Dynamic at the Political L", words: 283, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "4.3", title: "4.3 The Minimum-Tax Interaction", words: 304, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "5", title: "5. Conclusion", words: 455, disp: "D", target: "-", page: null, reason: "introduction; conclusion list of nine gaps is superseded by the new set"}
+
+  - id: "old-lr-b"
+    shortcode: "LR.B"
+    title: "The Wealth Delta Tax: Intellectual Background and Reference Guide"
+    url: "/lr-b.html"
+    successor: ["LIT", "GOV", "BEHAV"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 111, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 99, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 192, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 526, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. Introduction and How to Use This Document", words: 405, disp: "D", target: "-", page: null, reason: "how to use this document"}
+      - {sec: "2", title: "2. The Tax Base Question", words: 431, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "3", title: "3. Unrealised Gains and Prior Accrual Proposals", words: 1264, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "4", title: "4. Symmetric Loss Treatment and Risk-Sharing", words: 448, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "5", title: "5. Heterogeneous Returns and Efficiency Under a Wealth Tax", words: 610, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "6", title: "6. Welfare Comparisons", words: 409, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "7", title: "7. The Empirical Wealth Tax Record", words: 494, disp: "K", target: "LIT", page: "LIT", reason: null}
+      - {sec: "8", title: "8. The Valuation Problem", words: 430, disp: "M", target: "VAL", page: "VAL", reason: null}
+      - {sec: "9", title: "9. Self-Assessment and Deterrence", words: 415, disp: "M", target: "DECL", page: "DECL", reason: null}
+      - {sec: "10", title: "10. Cooperative Compliance and Procedural Justice", words: 391, disp: "M", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "11", title: "11. Compliance in Professionally Mediated Systems", words: 421, disp: "M", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "12", title: "12. Collective Action and Governance of Multi-Constituency I", words: 404, disp: "M", target: "GOV", page: "GOV", reason: null}
+      - {sec: "13", title: "13. Mutual and Pension Governance", words: 402, disp: "M", target: "GOV", page: "GOV", reason: null}
+      - {sec: "14", title: "14. Sovereign Wealth Fund Reference Cases", words: 329, disp: "M", target: "GOV", page: "GOV", reason: null}
+      - {sec: "15", title: "15. Precommitment and Fiscal Rules", words: 317, disp: "M", target: "GOV", page: "GOV", reason: null}
+      - {sec: "16", title: "16. Moral Philosophy and the Normative Case", words: 475, disp: "M", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "17", title: "17. Democratic Legitimacy and Wealth Concentration", words: 587, disp: "M", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "18", title: "18. Exit Taxation and International Coordination", words: 547, disp: "M", target: "BEHAV", page: "BEHAV", reason: null}
+
+  - id: "old-jur"
+    shortcode: "JUR"
+    title: "The Wealth Delta Tax: UK Jurisdiction and Data Reference Paper"
+    url: "/jur.html"
+    successor: ["GOV", "LIT"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 117, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 59, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 193, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 616, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. The UK as Reference Jurisdiction", words: 0, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "1.1", title: "1.1 Why a Reference Jurisdiction at All", words: 86, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "1.2", title: "1.2 Why the UK", words: 17, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "1.2.1", title: "1.2.1 Wealth Data", words: 124, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "1.2.2", title: "1.2.2 Administrative Capacity", words: 68, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "1.2.3", title: "1.2.3 Constitutional Flexibility", words: 48, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "1.2.4", title: "1.2.4 Political Salience", words: 61, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "1.2.5", title: "1.2.5 Researcher Familiarity", words: 52, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "1.3", title: "1.3 What Is and Is Not Being Modelled", words: 205, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "1.4", title: "1.4 The Wealth Tax Commission Comparison", words: 202, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "1.5", title: "1.5 UK Institutional Architecture and WDT Requirements", words: 33, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "1.5.1", title: "1.5.1 HMRC", words: 196, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "1.5.2", title: "1.5.2 The Valuation Office Agency", words: 310, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "1.5.3", title: "1.5.3 The Office for Budget Responsibility", words: 580, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "1.5.4", title: "1.5.4 The Tax Tribunal System", words: 216, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "2", title: "2. Data Reference", words: 28, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "2.1", title: "2.1 Population and Economy", words: 120, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "2.2", title: "2.2 Tax Revenues", words: 177, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "2.3", title: "2.3 Government Expenditure Breakdown", words: 159, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "2.4", title: "2.4 Wealth Distribution", words: 248, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "2.5", title: "2.5 HMRC Institutional Data", words: 149, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "2.6", title: "2.6 Valuation Office Agency Institutional Data", words: 155, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "2.7", title: "2.7 OBR Institutional Data", words: 88, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "2.8", title: "2.8 Tax Tribunal System Data", words: 138, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "2.9", title: "2.9 Capital Gains Tax and Inheritance Tax: Baseline Data", words: 139, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "2.10", title: "2.10 Data Gaps and Limitations", words: 253, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "2.11", title: "2.11 Model Input Data Provenance", words: 685, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "3", title: "3. Data Summary", words: 0, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "3.1", title: "3.1 UK Government Income 2024-25", words: 202, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "3.2", title: "3.2 UK Government Expenditure 2024-25", words: 192, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "3.3", title: "3.3 Fiscal Summary", words: 42, disp: "DL", target: "UK data pack", page: null, reason: null}
+      - {sec: "4", title: "4. Limitations and Further Work", words: 0, disp: "D", target: "-", page: null, reason: "limitations register"}
+      - {sec: "4.1", title: "4.1 Formal modelling gaps", words: 5, disp: "D", target: "-", page: null, reason: "limitations register"}
+      - {sec: "4.2", title: "4.2 Phase One empirical unknowns", words: 68, disp: "D", target: "-", page: null, reason: "limitations register"}
+      - {sec: "4.3", title: "4.3 Jurisdiction-specific legal and implementation work", words: 266, disp: "M", target: "GOV", page: "GOV", reason: null}
+      - {sec: "4.4", title: "4.4 Structural and irreducible limits of the design", words: 17, disp: "D", target: "-", page: null, reason: "limitations register"}
+      - {sec: "4.5", title: "4.5 Governing Council calibration parameters", words: 6, disp: "D", target: "-", page: null, reason: "limitations register"}
+
+  - id: "old-val"
+    shortcode: "VAL"
+    title: "The Wealth Delta Tax: Valuing Wealth"
+    url: "/val.html"
+    successor: ["VAL", "DECL", "GOV"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 107, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 887, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 340, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 698, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. The Valuation Problem", words: 629, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "2", title: "2. Asset Classification", words: 28, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "2.1", title: "2.1 Automatically Priced Assets", words: 41, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "2.2", title: "2.2 Fungible Assets", words: 91, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "2.3", title: "2.3 Non-Fungible Assets", words: 34, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "2.4", title: "2.4 Why Periodic Valuation and Audit Are Insufficient", words: 66, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "3", title: "3. Assessment Windows", words: 0, disp: "M", target: "MECH", page: "MECH", reason: null}
+      - {sec: "3.1", title: "3.1 Annual Reporting and Formal Assessment", words: 132, disp: "M", target: "MECH", page: "MECH", reason: null}
+      - {sec: "3.2", title: "3.2 Available Assessment Windows", words: 160, disp: "M", target: "MECH", page: "MECH", reason: null}
+      - {sec: "3.3", title: "3.3 Borrowing and Net Worth", words: 42, disp: "M", target: "MECH", page: "MECH", reason: null}
+      - {sec: "4", title: "4. The Four Valuation Routes", words: 178, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "4.1", title: "4.1 Route A: Professional Valuation of Fungible Assets", words: 65, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "4.2", title: "4.2 Route B: Professional Valuation of Non-Fungible Assets", words: 85, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "4.3", title: "4.3 Route C: Self-Declaration of Fungible Assets", words: 133, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "4.4", title: "4.4 Route D: Self-Declaration of Non-Fungible Assets", words: 163, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "5", title: "5. The Self-Balancing Mechanism: Fungible Assets", words: 307, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "5.1", title: "5.1 The Grandfathering Baseline", words: 64, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "5.2", title: "5.2 The Must-Transfer Rule", words: 765, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "5.3", title: "5.3 Delta Continuity at Realisation", words: 74, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "6", title: "6. Non-Fungible Assets and Realisation", words: 0, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "6.1", title: "6.1 Why Periodic Accrual Is Not Workable for Non-Fungible As", words: 126, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "6.2", title: "6.2 Assessment During the Holding Period", words: 88, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "6.3", title: "6.3 The Realisation Calculation", words: 112, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "6.4", title: "6.4 Voluntary Settlement", words: 529, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "6.5", title: "6.5 Inheritance and the Auction Mechanism", words: 497, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "6.6", title: "6.6 Destruction, Theft, and Forced Removal", words: 40, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "7.1", title: "7.1 Declaration Strategy and the Rational Equilibrium", words: 2037, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "7.2", title: "7.2 Understatement: Deferred Liability and Dilution", words: 625, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "7.3", title: "7.3 Overstatement: Signalling and Confidence Effects", words: 883, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "7.4", title: "7.4 Boundary Conditions and Limitations", words: 259, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "7.5", title: "7.5 Portfolio Composition as a Structural Constraint on Decl", words: 724, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "8", title: "8. The Assessment Window Premium", words: 143, disp: "M", target: "MECH", page: "MECH", reason: null}
+      - {sec: "9", title: "9. The Public Valuation Register", words: 725, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "10", title: "10. Professional Valuation", words: 0, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "10.1", title: "10.1 Purpose", words: 43, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "10.2", title: "10.2 Competitive Tender Model", words: 143, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "10.3", title: "10.3 Cost Sharing with a Fee Cap", words: 84, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "10.4", title: "10.4 The Two-Stage Review Process", words: 130, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "10.5", title: "10.5 The Valuation Code", words: 186, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "10.6", title: "10.6 Valuation Governance", words: 217, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "11", title: "11. The Route D Auction Mechanism — Three Uses of One Proces", words: 175, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "11.1", title: "11.1 Deterrent Logic", words: 130, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "11.2", title: "11.2 Voluntary Hard-Reset Auction", words: 140, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "11.3", title: "11.3 Corrective Auction: Trigger and Process", words: 446, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "11.4", title: "11.4 Inheritance Auction", words: 189, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "11.5", title: "11.5 Scope", words: 142, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "12", title: "12. Administration and Fraud Detection", words: 75, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "12.1", title: "12.1 Annual Reporting Requirements", words: 66, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "12.2", title: "12.2 The Purpose of Audit: Fraud, Not Valuation", words: 136, disp: "K", target: "VAL", page: "VAL", reason: null}
+      - {sec: "12.3", title: "12.3 Statistical Review", words: 110, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "12.4", title: "12.4 Penalties", words: 81, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "13", title: "13. The Sovereign Liquidity Facility", words: 340, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "14", title: "14. Limitations and Further Work", words: 0, disp: "D", target: "-", page: null, reason: "limitations register, v1 validation note, premium calibration, conclusion"}
+      - {sec: "14.1", title: "14.1 Formal Modelling Gaps", words: 93, disp: "D", target: "-", page: null, reason: "limitations register, v1 validation note, premium calibration, conclusion"}
+      - {sec: "14.2", title: "14.2 Phase One Empirical Unknowns", words: 389, disp: "D", target: "-", page: null, reason: "limitations register, v1 validation note, premium calibration, conclusion"}
+      - {sec: "14.3", title: "14.3 Jurisdiction-Specific Legal and Implementation Work", words: 481, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "14.4", title: "14.4 Structural and Irreducible Limits of the Design", words: 513, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "14.5", title: "14.5 Governing Council Calibration Parameters", words: 91, disp: "D", target: "-", page: null, reason: "limitations register, v1 validation note, premium calibration, conclusion"}
+      - {sec: "15", title: "15. Conclusion", words: 757, disp: "D", target: "-", page: null, reason: "limitations register, v1 validation note, premium calibration, conclusion"}
+
+  - id: "old-val-a"
+    shortcode: "VAL.A"
+    title: "The Wealth Delta Tax: Valuing Wealth — Mathematical and Simulation Appendix"
+    url: "/val-a.html"
+    successor: ["DECL", "VAL", "GOV"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 108, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 690, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "~A.", title: "A. Mathematical Model and Incentive Analysis", words: 0, disp: "DL", target: "method note for O7", page: null, reason: null}
+      - {sec: "A.1", title: "A.1 Purpose", words: 298, disp: "DL", target: "method note for O7", page: null, reason: null}
+      - {sec: "A.2", title: "A.2 Main Findings (+5)", words: 1374, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "A.3", title: "A.3 Model Assumptions and Notation (+4)", words: 955, disp: "DL", target: "method note for O7", page: null, reason: null}
+      - {sec: "A.4", title: "A.4 Multi-Period Incentive Model (+7)", words: 972, disp: "DL", target: "method note for O7", page: null, reason: null}
+      - {sec: "A.5", title: "A.5 Scope of the Arguments (+6)", words: 1625, disp: "DL", target: "method note for O7", page: null, reason: null}
+      - {sec: "A.6", title: "A.6 The Declaration Equilibrium: A Broad Tolerant Zone with", words: 1275, disp: "M", target: "DECL", page: "DECL", reason: null}
+      - {sec: "~B.", title: "B. Simulation Methodology", words: 0, disp: "DL", target: "method note for O7", page: null, reason: null}
+      - {sec: "B", title: "B.1 Purpose (+6)", words: 1198, disp: "DL", target: "method note for O7", page: null, reason: null}
+      - {sec: "~C.", title: "C. WDT Valuation Analysis: Summary Tables", words: 102, disp: "AR", target: "-", page: null, reason: "v1 result tables C.1 to C.12 (0 FAILs, v1 only); v3 regenerates them"}
+      - {sec: "C", title: "C.1 Total Tax Paid (TTP) Difference Relative to Honest Decla", words: 6568, disp: "AR", target: "-", page: null, reason: "v1 result tables C.1 to C.12 (0 FAILs, v1 only); v3 regenerates them"}
+      - {sec: "C.6", title: "C.6 Terminal Net Worth After Refunds: Refund Protection Rati", words: 199, disp: "AR", target: "-", page: null, reason: "refund protection ratio in loss years: understaters lose refund protection"}
+      - {sec: "~D.", title: "D. Mechanism Cases", words: 27, disp: "D", target: "-", page: null, reason: "five abstract cases; covered by VAL.B and A.5"}
+      - {sec: "D", title: "D.1 Case 1: Persistent Understatement, Asset Never Realises", words: 564, disp: "D", target: "-", page: null, reason: "five abstract cases; covered by VAL.B and A.5"}
+      - {sec: "~E.", title: "E. Route Specification Tables", words: 24, disp: "M", target: "VAL", page: "VAL", reason: null}
+      - {sec: "E", title: "E.1 Route A: Professional Valuation of Fungible Assets (+4)", words: 873, disp: "M", target: "VAL", page: "VAL", reason: null}
+      - {sec: "~F.", title: "F. Annual Reporting Requirements", words: 10, disp: "M", target: "GOV", page: "GOV", reason: null}
+      - {sec: "F", title: "F.1 Taxpayer Annual Return (+3)", words: 249, disp: "M", target: "GOV", page: "GOV", reason: null}
+
+  - id: "old-val-b"
+    shortcode: "VAL.B"
+    title: "The Wealth Delta Tax: Valuing Wealth — Worked Examples Appendix"
+    url: "/val-b.html"
+    successor: ["DECL"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 92, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 204, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "~Reader", title: "Reader's Guide", words: 309, disp: "D", target: "-", page: null, reason: "reader's guide and summary table"}
+      - {sec: "~J.", title: "J. The Deferred Delta", words: 37, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "J", title: "J.1 Setup (+5)", words: 687, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "~K.", title: "K. Dilution Compounds with Growth", words: 46, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "K", title: "K.1 Setup (+6)", words: 719, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "~L.", title: "L. Why Route D Defers to Realisation", words: 45, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "L", title: "L.1 Setup (+6)", words: 812, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "~M.", title: "M. Voluntary Settlement — Certainty, Not Avoidance", words: 69, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "M", title: "M.1 Setup (+5)", words: 964, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "~N.", title: "N. Forecast Exposure", words: 46, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "N", title: "N.1 Setup (+6)", words: 1373, disp: "K", target: "DECL", page: "DECL", reason: null}
+      - {sec: "~O.", title: "O. Summary of Design Properties Illustrated", words: 189, disp: "D", target: "-", page: null, reason: "reader's guide and summary table"}
+
+  - id: "old-corp"
+    shortcode: "CORP"
+    title: "The Wealth Delta Tax: Corporate Architecture"
+    url: "/corp.html"
+    successor: ["CORP", "LIMIT", "UNCER"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 112, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 116, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 286, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 462, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. Introduction", words: 286, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "2", title: "2. Why Existing Corporate Tax Systems Are Insufficient", words: 430, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "2.1", title: "2.1 Existing Administrative Analogues", words: 183, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "3", title: "3. The Individual-Centred Logic and Its Limits", words: 113, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "4", title: "4. The Listed/Private Distinction", words: 110, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "4.1", title: "4.1 Corporate Lifecycle Events", words: 589, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "5", title: "5. The Listed Company Corporate Delta Levy", words: 0, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "5.1", title: "5.1 The Mechanism in One Place", words: 701, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "5.2", title: "5.2 Annual Cycle: Measurement and Reporting", words: 383, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "5.3", title: "5.3 Tranche Outcomes During the Year", words: 548, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "5.4", title: "5.4 Year-End Settlement", words: 350, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "5.5", title: "5.5 Loss Years", words: 112, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "5.6", title: "5.6 Residual Imperfections", words: 188, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "6", title: "6. The Corporate Equity Settlement Facility", words: 0, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "6.1", title: "6.1 Purpose and Scope", words: 252, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "6.2", title: "6.2 Mechanism", words: 384, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "6.3", title: "6.3 Relationship to the SWF", words: 334, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "6.4", title: "6.4 Governing Council Calibration Parameters", words: 149, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "7", title: "7. Institutional Ownership", words: 592, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "8", title: "8. Synthetic Exposure and Derivatives", words: 496, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "9", title: "9. Limitations and Required Further Work", words: 0, disp: "D", target: "-", page: null, reason: "limitations register and conclusion"}
+      - {sec: "9.1", title: "9.1 Formal modelling gaps", words: 47, disp: "D", target: "-", page: null, reason: "limitations register and conclusion"}
+      - {sec: "9.2", title: "9.2 Phase One empirical unknowns", words: 248, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "9.3", title: "9.3 Jurisdiction-specific legal and implementation work", words: 58, disp: "D", target: "-", page: null, reason: "limitations register and conclusion"}
+      - {sec: "9.4", title: "9.4 Structural and irreducible limits of the design", words: 506, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9.5", title: "9.5 Governing Council calibration parameters", words: 371, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "10", title: "10. Conclusion", words: 275, disp: "D", target: "-", page: null, reason: "limitations register and conclusion"}
+
+  - id: "old-corp-a"
+    shortcode: "CORP.A"
+    title: "The Wealth Delta Tax: Corporate Architecture Appendix"
+    url: "/corp-a.html"
+    successor: ["CORP", "ATTR"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 97, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 45, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "~A.", title: "A. Collection Mechanics and Worked Illustrations", words: 0, disp: "AR", target: "-", page: null, reason: "collection mechanics detail; kept for the statute-drafting phase"}
+      - {sec: "A.1", title: "A.1 The Two-Deadline Structure", words: 322, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "A.2", title: "A.2 Shareholders Who Sell Before the Assessment Date**", words: 129, disp: "AR", target: "-", page: null, reason: "collection mechanics detail; kept for the statute-drafting phase"}
+      - {sec: "A.3", title: "A.3 Partial-Year Attribution", words: 92, disp: "AR", target: "-", page: null, reason: "collection mechanics detail; kept for the statute-drafting phase"}
+      - {sec: "A.4", title: "A.4 Sequencing", words: 201, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "A.5", title: "A.5 Loss Years and Private Arrangements", words: 54, disp: "AR", target: "-", page: null, reason: "collection mechanics detail; kept for the statute-drafting phase"}
+      - {sec: "A.6", title: "A.6 Worked Illustration: Standard Shareholders", words: 344, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "A.7", title: "A.7 Corporate Entities as Shareholders", words: 167, disp: "AR", target: "-", page: null, reason: "collection mechanics detail; kept for the statute-drafting phase"}
+      - {sec: "A.8", title: "A.8 No Minimum Threshold", words: 36, disp: "AR", target: "-", page: null, reason: "collection mechanics detail; kept for the statute-drafting phase"}
+      - {sec: "A.9", title: "A.9 Intermediary Chain Illustrations", words: 0, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "A.9.1", title: "A.9.1 Broker/Nominee Case", words: 500, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "A.9.2", title: "A.9.2 Pooled Fund Case", words: 198, disp: "AR", target: "-", page: null, reason: "collection mechanics detail; kept for the statute-drafting phase"}
+      - {sec: "~B.", title: "B. Corporate Rate Calibration", words: 83, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "B.1", title: "B.1 The Floor Rate ($\\tau_0$): Collection Security", words: 475, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "B.1.1", title: "B.1.1 Phase One data requirement", words: 112, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "B.2", title: "B.2 The Final Charge on Permanently Unattributable Ownership", words: 68, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "B.2.1", title: "B.2.1 The deterrence condition", words: 93, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "B.2.2", title: "B.2.2 The refund-forfeiture effect", words: 123, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "B.2.3", title: "B.2.3 The revenue-recovery ceiling", words: 83, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "B.2.4", title: "B.2.4 The legal proportionality constraint, and why it is we", words: 228, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "B.2.5", title: "B.2.5 One carve-out applies", words: 81, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "B.2.6", title: "B.2.6 The resulting calibration range", words: 107, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "B.2.7", title: "B.2.7 Phase One data requirement", words: 134, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "B.2.8", title: "B.2.8 The ramp structure", words: 341, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "B.2.9", title: "B.2.9 The joint-calibration constraint", words: 402, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "B.3", title: "B.3 Intermediary-Level Provisioning Floor", words: 354, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "B.4", title: "B.4 The Rejected Pool-Average Alternative", words: 82, disp: "M", target: "CORP", page: "CORP", reason: null}
+      - {sec: "~C.", title: "C. Ownership Structure Classification Under the Attribution", words: 935, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "~D.", title: "D. Administrative Burden", words: 0, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "D", title: "D.1 Purpose (+4)", words: 1078, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "D.6", title: "D.6 Transitional Considerations and the Parallel-Running Ris", words: 220, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "D.7", title: "D.7 Summary", words: 208, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "~E.", title: "E. Non-Corporate Instruments and the Attribution Test", words: 0, disp: "K", target: "ATTR", page: "ATTR", reason: null}
+      - {sec: "E.1", title: "E.1 Purpose", words: 204, disp: "K", target: "ATTR", page: "ATTR", reason: null}
+      - {sec: "E", title: "E.2 Charitable Vehicles (+17)", words: 5061, disp: "K", target: "ATTR", page: "ATTR", reason: null}
+      - {sec: "E.9", title: "E.9 Market Manipulation and the Bilateral-Claim Structure of", words: 1233, disp: "K", target: "ATTR", page: "ATTR", reason: null}
+      - {sec: "~F.", title: "F. $\\tau_f$: Foreign Attribution and Diplomatic Rate-Setting", words: 560, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "F.1", title: "F.1 $\\tau_c$ as an Ownership-Composition Lever", words: 401, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "~G.", title: "G. Existing $\\tau$ parameters", words: 238, disp: "DL", target: "parameter register", page: null, reason: null}
+
+  - id: "old-gov"
+    shortcode: "GOV"
+    title: "The Wealth Delta Tax: Constitutional Governance"
+    url: "/gov.html"
+    successor: ["GOV", "FUND", "UNCER"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 105, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 297, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 403, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 2553, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. Introduction", words: 457, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "1.1", title: "1.1 The Governance Problem This Paper Addresses", words: 527, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "2", title: "2. The Standard This Design Is Held To", words: 320, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "2.1", title: "2.1 The Mechanism-Shaped Test", words: 448, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "3", title: "3. Deriving the Architecture", words: 152, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "3.1", title: "3.1 The Corrected Derivation", words: 407, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "3.2", title: "3.2 Closing the Dividend Recipients' Standing", words: 851, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "4", title: "4. Designing Against Capture", words: 379, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "5", title: "5. The Structural Safeguards", words: 43, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "5.1", title: "5.1 The Anti-Collusion Guarantee", words: 303, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "5.2", title: "5.2 The Enumerated Structural Clauses", words: 1395, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "5.3", title: "5.3 Tiered Review, Rebalancing, and Transparency", words: 832, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "6", title: "6. The Executive Bodies", words: 28, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "6.1", title: "6.1 The Valuation Bodies", words: 357, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "6.2", title: "6.2 The Allocator", words: 444, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "6.3", title: "6.3 The SWF Custodian", words: 656, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "6.4", title: "6.4 The Administrator", words: 462, disp: "K", target: "GOV", page: "GOV", reason: null}
+      - {sec: "7", title: "7. Limitations and Further Work", words: 11, disp: "D", target: "-", page: null, reason: "limitations register, calibration list and conclusion"}
+      - {sec: "7.1", title: "7.1 Formal modelling gaps", words: 93, disp: "D", target: "-", page: null, reason: "limitations register, calibration list and conclusion"}
+      - {sec: "7.2", title: "7.2 Phase One empirical unknowns", words: 401, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "7.3", title: "7.3 Jurisdiction-specific legal and implementation work", words: 164, disp: "D", target: "-", page: null, reason: "limitations register, calibration list and conclusion"}
+      - {sec: "7.4", title: "7.4 Structural and irreducible limits of the design", words: 344, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "7.5", title: "7.5 Governing Council calibration parameters", words: 305, disp: "D", target: "-", page: null, reason: "limitations register, calibration list and conclusion"}
+      - {sec: "8", title: "8. Conclusion", words: 380, disp: "D", target: "-", page: null, reason: "limitations register, calibration list and conclusion"}
+
+  - id: "old-gov-a"
+    shortcode: "GOV.A"
+    title: "The Wealth Delta Tax: Constitutional Governance Intellectual Appendix"
+    url: "/gov-a.html"
+    successor: ["LIMIT"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 92, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 110, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "~A.", title: "A. Failure-Mode Taxonomy", words: 45, disp: "AR", target: "-", page: null, reason: "failure-mode taxonomy, instrument audit, rejected first derivation, explored and dropped mechanisms; design history, kept so dropped ideas are not re-proposed"}
+      - {sec: "A", title: "A.1 Oracle Failure (+2)", words: 892, disp: "AR", target: "-", page: null, reason: "failure-mode taxonomy, instrument audit, rejected first derivation, explored and dropped mechanisms; design history, kept so dropped ideas are not re-proposed"}
+      - {sec: "~B.", title: "B. WDT Instrument Audit", words: 37, disp: "AR", target: "-", page: null, reason: "failure-mode taxonomy, instrument audit, rejected first derivation, explored and dropped mechanisms; design history, kept so dropped ideas are not re-proposed"}
+      - {sec: "B", title: "B.1 Instruments That Pass Cleanly (+1)", words: 1101, disp: "AR", target: "-", page: null, reason: "failure-mode taxonomy, instrument audit, rejected first derivation, explored and dropped mechanisms; design history, kept so dropped ideas are not re-proposed"}
+      - {sec: "~C.", title: "C. The Rejected First Derivation", words: 64, disp: "AR", target: "-", page: null, reason: "failure-mode taxonomy, instrument audit, rejected first derivation, explored and dropped mechanisms; design history, kept so dropped ideas are not re-proposed"}
+      - {sec: "C", title: "C.1 The First Transaction: Delta Measurement and Tax Flow (+", words: 1316, disp: "AR", target: "-", page: null, reason: "failure-mode taxonomy, instrument audit, rejected first derivation, explored and dropped mechanisms; design history, kept so dropped ideas are not re-proposed"}
+      - {sec: "~D.", title: "D. Explored and Dropped Mechanisms", words: 80, disp: "AR", target: "-", page: null, reason: "failure-mode taxonomy, instrument audit, rejected first derivation, explored and dropped mechanisms; design history, kept so dropped ideas are not re-proposed"}
+      - {sec: "D", title: "D.1 Mechanisms That Reproduce the Resource-Defines-Truth Fai", words: 2315, disp: "AR", target: "-", page: null, reason: "failure-mode taxonomy, instrument audit, rejected first derivation, explored and dropped mechanisms; design history, kept so dropped ideas are not re-proposed"}
+      - {sec: "~E.", title: "E. Governance Decay: Four Sub-Forms", words: 78, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "E", title: "E.1 Definitional Drift (+4)", words: 1610, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+
+  - id: "old-gov-b"
+    shortcode: "GOV.B"
+    title: "The Wealth Delta Tax: Constitutional Governance Operational Appendix"
+    url: "/gov-b.html"
+    successor: ["FUND", "GOV"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 95, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 453, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "~A.", title: "A. The Chambers in Full", words: 0, disp: "AR", target: "-", page: null, reason: "operational specification of chambers, bodies, voting, rebalancing, auctions and the corporate facility mandate; kept for statute drafting, not for readers"}
+      - {sec: "A", title: "A.1 The Taxpayer Chamber (TP) (+18)", words: 3097, disp: "AR", target: "-", page: null, reason: "operational specification of chambers, bodies, voting, rebalancing, auctions and the corporate facility mandate; kept for statute drafting, not for readers"}
+      - {sec: "~B.", title: "B. The Executive Bodies in Full", words: 69, disp: "AR", target: "-", page: null, reason: "operational specification of chambers, bodies, voting, rebalancing, auctions and the corporate facility mandate; kept for statute drafting, not for readers"}
+      - {sec: "B", title: "B.1 The Valuation Bodies (VB-1, VB-2, VB-3) (+18)", words: 3085, disp: "AR", target: "-", page: null, reason: "operational specification of chambers, bodies, voting, rebalancing, auctions and the corporate facility mandate; kept for statute drafting, not for readers"}
+      - {sec: "B.3", title: "B.3 The SWF Custodian", words: 528, disp: "M", target: "FUND", page: "FUND", reason: null}
+      - {sec: "B.4.7", title: "B.4.7 The Privacy Election: Binary Disclosure and the Rate D", words: 692, disp: "M", target: "GOV", page: "GOV", reason: null}
+      - {sec: "~C.", title: "C. Voting Mechanics in Full", words: 0, disp: "AR", target: "-", page: null, reason: "operational specification of chambers, bodies, voting, rebalancing, auctions and the corporate facility mandate; kept for statute drafting, not for readers"}
+      - {sec: "C", title: "C.1 The Dual-Threshold Calculation: Worked Arithmetic (+7)", words: 3490, disp: "AR", target: "-", page: null, reason: "operational specification of chambers, bodies, voting, rebalancing, auctions and the corporate facility mandate; kept for statute drafting, not for readers"}
+      - {sec: "~D.", title: "D. The Rebalancing Mechanism in Full", words: 0, disp: "AR", target: "-", page: null, reason: "operational specification of chambers, bodies, voting, rebalancing, auctions and the corporate facility mandate; kept for statute drafting, not for readers"}
+      - {sec: "D", title: "D.1 Conservation Arithmetic: How Vote Share Moves (+3)", words: 1179, disp: "AR", target: "-", page: null, reason: "operational specification of chambers, bodies, voting, rebalancing, auctions and the corporate facility mandate; kept for statute drafting, not for readers"}
+      - {sec: "~E.", title: "E. The SWF: Operational Detail", words: 0, disp: "AR", target: "-", page: null, reason: "SWF operational detail; solvency floor, drawdown, closure bonds, unit-holder rights"}
+      - {sec: "E.1", title: "E.1 The Solvency Floor: Definition and the Automatic-Consequ", words: 270, disp: "AR", target: "-", page: null, reason: "SWF operational detail; solvency floor, drawdown, closure bonds, unit-holder rights"}
+      - {sec: "E.2", title: "E.2 Drawdown Conditions: Pre-Crisis Commitment and the Annua", words: 233, disp: "AR", target: "-", page: null, reason: "SWF operational detail; solvency floor, drawdown, closure bonds, unit-holder rights"}
+      - {sec: "E.3", title: "E.3 The Closure Bond Facility: Bond Posting Sequence and Set", words: 643, disp: "AR", target: "-", page: null, reason: "SWF operational detail; solvency floor, drawdown, closure bonds, unit-holder rights"}
+      - {sec: "E.4", title: "E.4 Unit-Holder Rights: Financial Rights, Investment Input,", words: 501, disp: "AR", target: "-", page: null, reason: "SWF operational detail; solvency floor, drawdown, closure bonds, unit-holder rights"}
+      - {sec: "E.5", title: "E.5 Stewardship Statements: Annual Cycle, Mandatory Content,", words: 315, disp: "AR", target: "-", page: null, reason: "SWF operational detail; solvency floor, drawdown, closure bonds, unit-holder rights"}
+      - {sec: "E.6", title: "E.6 Institutional Form: Candidate Mapping (UK Reference)", words: 198, disp: "M", target: "FUND", page: "FUND", reason: null}
+      - {sec: "E.7", title: "E.7 Custodian Investment Mandate: Inflationary Conditions", words: 641, disp: "AR", target: "-", page: null, reason: "SWF operational detail; solvency floor, drawdown, closure bonds, unit-holder rights"}
+      - {sec: "E.8", title: "E.8 Custodian Alignment Mechanisms", words: 419, disp: "AR", target: "-", page: null, reason: "SWF operational detail; solvency floor, drawdown, closure bonds, unit-holder rights"}
+      - {sec: "E.9", title: "E.9 The Stress Function", words: 300, disp: "M", target: "FUND", page: "FUND", reason: null}
+      - {sec: "~F.", title: "F. Per-Actor Cost Mechanisms", words: 0, disp: "AR", target: "-", page: null, reason: "operational specification of chambers, bodies, voting, rebalancing, auctions and the corporate facility mandate; kept for statute drafting, not for readers"}
+      - {sec: "F", title: "F.1 Patient Wealth (TP and FS): Vote-Share Rebalancing (+4)", words: 1532, disp: "AR", target: "-", page: null, reason: "operational specification of chambers, bodies, voting, rebalancing, auctions and the corporate facility mandate; kept for statute drafting, not for readers"}
+      - {sec: "~G.", title: "G. The Route D Auction Process in Full", words: 145, disp: "AR", target: "-", page: null, reason: "operational specification of chambers, bodies, voting, rebalancing, auctions and the corporate facility mandate; kept for statute drafting, not for readers"}
+      - {sec: "G", title: "G.1 Sealed-Estimate Protocol: Sequencing and the Non-Anchori", words: 2878, disp: "AR", target: "-", page: null, reason: "operational specification of chambers, bodies, voting, rebalancing, auctions and the corporate facility mandate; kept for statute drafting, not for readers"}
+      - {sec: "~H.", title: "H. The Corporate Equity Settlement Facility: Mandate Extensi", words: 0, disp: "AR", target: "-", page: null, reason: "operational specification of chambers, bodies, voting, rebalancing, auctions and the corporate facility mandate; kept for statute drafting, not for readers"}
+      - {sec: "H", title: "H.1 Purpose and Relationship to CORP (+4)", words: 1304, disp: "AR", target: "-", page: null, reason: "operational specification of chambers, bodies, voting, rebalancing, auctions and the corporate facility mandate; kept for statute drafting, not for readers"}
+
+  - id: "old-rates"
+    shortcode: "RATES"
+    title: "The Wealth Delta Tax: Rates and Revenue"
+    url: "/rates.html"
+    successor: ["FISC", "FUND", "PAY"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 114, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 225, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 344, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 1359, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. The Question This Paper Answers", words: 441, disp: "D", target: "-", page: null, reason: "the question the paper answers"}
+      - {sec: "2", title: "2. What Taxpayers Actually Pay", words: 1925, disp: "K", target: "PAY", page: "PAY", reason: null}
+      - {sec: "3", title: "3. The Revenue Claim", words: 465, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "3.1", title: "3.1 Direction of Conservatism", words: 469, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "4", title: "4. The Rate Function", words: 883, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "5.1", title: "5.1 The Wealth Distribution", words: 541, disp: "DL", target: "input register", page: null, reason: null}
+      - {sec: "5.2", title: "5.2 The Growth Model", words: 343, disp: "DL", target: "input register", page: null, reason: null}
+      - {sec: "6", title: "6. The Two Models and How They Connect", words: 285, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "6.1", title: "6.1 Sizing the SRR", words: 428, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "6.2", title: "6.2 Sizing the LRR", words: 272, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "6.3", title: "6.3 The Two Internal Milestones and What They Gate", words: 769, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "7.1", title: "7.1 Revenue Results and Coverage", words: 623, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "7.2", title: "7.2 Historical Starting-Year Sensitivity", words: 920, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "7.3", title: "7.3 SRR and LRR Milestones", words: 460, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "7.4", title: "7.4 Route D Deferred Revenue and Capitalisation Window Timin", words: 509, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "7.5", title: "7.5 Revenue Under the Predicted Declaration Distribution**", words: 617, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "8.1", title: "8.1 The Corporate Levy", words: 461, disp: "K", target: "CORP", page: "CORP", reason: null}
+      - {sec: "8.2", title: "8.2 The Ultra-High-Net-Worth Tail", words: 145, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "8.3", title: "8.3 Combined Pre-Behavioural Estimate", words: 244, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "9", title: "9. Limitations and Further Work", words: 0, disp: "D", target: "-", page: null, reason: "empty heading, inherited items, conclusion"}
+      - {sec: "9.1", title: "9.1 Formal modelling gaps", words: 171, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "9.2", title: "9.2 Phase One empirical unknowns", words: 185, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "9.3", title: "9.3 Jurisdiction-specific legal and implementation work", words: 30, disp: "D", target: "-", page: null, reason: "empty heading, inherited items, conclusion"}
+      - {sec: "9.4", title: "9.4 Structural and irreducible limits of the design", words: 221, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9.5", title: "9.5 Governing Council calibration parameters", words: 114, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "10", title: "10. Conclusion", words: 856, disp: "D", target: "-", page: null, reason: "empty heading, inherited items, conclusion"}
+
+  - id: "old-rates-a"
+    shortcode: "RATES.A"
+    title: "The Wealth Delta Tax: Rates and Revenue Appendix"
+    url: "/rates-a.html"
+    successor: []
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 99, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 62, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "~A.", title: "A. Model Specification", words: 0, disp: "AR", target: "-", page: null, reason: "specification of the v1 model; v1 is legacy and v3 replaces it"}
+      - {sec: "A.1", title: "A.1 Purpose", words: 206, disp: "AR", target: "-", page: null, reason: "specification of the v1 model; v1 is legacy and v3 replaces it"}
+      - {sec: "A.2", title: "A.2 Architecture", words: 398, disp: "AR", target: "-", page: null, reason: "specification of the v1 model; v1 is legacy and v3 replaces it"}
+      - {sec: "A.3", title: "A.3 Inputs", words: 478, disp: "AR", target: "-", page: null, reason: "specification of the v1 model; v1 is legacy and v3 replaces it"}
+      - {sec: "A.4", title: "A.4 SSM Mechanics", words: 601, disp: "AR", target: "-", page: null, reason: "specification of the v1 model; v1 is legacy and v3 replaces it"}
+      - {sec: "A.5", title: "A.5 TCM Mechanics", words: 291, disp: "AR", target: "-", page: null, reason: "specification of the v1 model; v1 is legacy and v3 replaces it"}
+      - {sec: "A.6", title: "A.6 Coverage Metrics", words: 781, disp: "AR", target: "-", page: null, reason: "specification of the v1 model; v1 is legacy and v3 replaces it"}
+      - {sec: "A.7", title: "A.7 Reproducibility", words: 165, disp: "AR", target: "-", page: null, reason: "specification of the v1 model; v1 is legacy and v3 replaces it"}
+      - {sec: "~B.", title: "B. Model Output", words: 12, disp: "AR", target: "-", page: null, reason: "v1 run output (2000 Balanced), start-year sweep of 73 years, 100% success; superseded, v3 regenerates"}
+      - {sec: "B.1", title: "B.1 Active Parameters", words: 121, disp: "AR", target: "-", page: null, reason: "v1 run output (2000 Balanced), start-year sweep of 73 years, 100% success; superseded, v3 regenerates"}
+      - {sec: "B.2", title: "B.2 SSM Results — Active Scenario", words: 202, disp: "AR", target: "-", page: null, reason: "v1 run output (2000 Balanced), start-year sweep of 73 years, 100% success; superseded, v3 regenerates"}
+      - {sec: "B.3", title: "B.3 TCM Results — snapshot N=19 (cap. window) / N=30 (lifeti", words: 1930, disp: "AR", target: "-", page: null, reason: "v1 run output (2000 Balanced), start-year sweep of 73 years, 100% success; superseded, v3 regenerates"}
+      - {sec: "B.4", title: "B.4 Start-Year Sweep (+2)", words: 2258, disp: "AR", target: "-", page: null, reason: "v1 run output (2000 Balanced), start-year sweep of 73 years, 100% success; superseded, v3 regenerates"}
+      - {sec: "B.5", title: "B.5 Statistical Pass — P(success) Across Economic Cycles (+3", words: 365, disp: "AR", target: "-", page: null, reason: "v1 run output (2000 Balanced), start-year sweep of 73 years, 100% success; superseded, v3 regenerates"}
+
+  - id: "old-sweeps"
+    shortcode: "SWEEPS"
+    title: "The Wealth Delta Tax: Parameter Sweeps and Governing Council Calibration"
+    url: "/sweeps.html"
+    successor: ["FISC", "FUND", "UNCER"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 108, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 186, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 216, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 481, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. Introduction", words: 383, disp: "D", target: "-", page: null, reason: "introduction, conclusion, open questions covered by the feasibility map"}
+      - {sec: "2", title: "2. What the Sweeps Are Measuring", words: 51, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "2.1", title: "2.1 The Tolerant Zone and Fiscal Coverage", words: 166, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "2.2", title: "2.2 The N-Crossing Threshold and LRR Fill Year", words: 783, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "2.3", title: "2.3 The Understater Penalty Plateau and What It Indicates", words: 562, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "2.4", title: "2.4 Reading the Two Datasets in Parallel", words: 347, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "3", title: "3. $\\tau_0$ — The Entry Rate", words: 26, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "3.1", title: "3.1 What $\\tau_0$ Controls on the Declaration Mechanism (SWE", words: 889, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "3.2", title: "3.2 What $\\tau_0$ Controls on Fiscal Outcomes (SWEEPS.R)", words: 446, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "3.3", title: "3.3 What the Council Is Calibrating When It Sets $\\tau_0$", words: 266, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "4", title: "4. $\\tau_m$ — The Ceiling Rate", words: 35, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "4.1", title: "4.1 What $\\tau_m$ Controls on the Declaration Mechanism (SWE", words: 560, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "4.2", title: "4.2 What $\\tau_m$ Controls on Fiscal Outcomes (SWEEPS.R)", words: 323, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "4.3", title: "4.3 What the Council Is Calibrating When It Sets $\\tau_m$", words: 294, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "5", title: "5. $k$ — The Steepness Parameter", words: 173, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "5.1", title: "5.1 What $k$ Controls on the Declaration Mechanism (SWEEPS.V", words: 770, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "5.2", title: "5.2 What $k$ Controls on Fiscal Outcomes (SWEEPS.R)", words: 407, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "5.3", title: "5.3 What the Council Is Calibrating When It Sets k", words: 303, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "6", title: "6. $W_{min}$ — The Exemption Threshold", words: 215, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "6.1", title: "6.1 What $W_{min}$ Controls on the Declaration Mechanism (SW", words: 500, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "6.2", title: "6.2 What $W_{min}$ Controls on Fiscal Outcomes (SWEEPS.R)", words: 377, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "6.3", title: "6.3 What the Council Is Calibrating When It Sets $W_{min}$", words: 369, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "7", title: "7. The Parameter Hierarchy and Its Two Faces", words: 0, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "7.1", title: "7.1 The Two Hierarchies", words: 738, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "7.2", title: "7.2 Chamber Positions and the Stabilising Effect of Disagree", words: 970, disp: "M", target: "GOV", page: "GOV", reason: null}
+      - {sec: "7.3", title: "7.3 Growth Rate Sensitivity", words: 608, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "7.4", title: "7.4 Cross-Parameter Coverage Fan", words: 438, disp: "M", target: "FISC", page: "FISC", reason: null}
+      - {sec: "7.5", title: "7.5 Synthetic Stress-Test: Cyclical Growth Scenarios", words: 775, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "8", title: "8. The Operational Parameters", words: 46, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "8.1", title: "8.1 The Assessment Window Premium", words: 90, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "8.2", title: "8.2 The $\\tau_{h}$ Ramp", words: 123, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "8.3", title: "8.3 The LRR Drawdown Pace", words: 1331, disp: "M", target: "FUND", page: "FUND", reason: null}
+      - {sec: "8.4", title: "8.4 Route C Rotation Pace", words: 109, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "8.5", title: "8.5 The Privacy Rate Differential", words: 114, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "8.6", title: "8.6 Corporate Facility Parameters", words: 96, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "9", title: "9. The Small Lever Set as a Design Feature", words: 514, disp: "K", target: "FISC", page: "FISC", reason: null}
+      - {sec: "10", title: "10. What Phase One Needs to Measure for Calibration", words: 466, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "11", title: "11. Limitations", words: 1211, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "12", title: "12. Conclusion", words: 627, disp: "D", target: "-", page: null, reason: "introduction, conclusion, open questions covered by the feasibility map"}
+      - {sec: "13", title: "13. Open Questions", words: 0, disp: "D", target: "-", page: null, reason: "introduction, conclusion, open questions covered by the feasibility map"}
+      - {sec: "13.1", title: "13.1 The Revenue Frontier", words: 68, disp: "D", target: "-", page: null, reason: "introduction, conclusion, open questions covered by the feasibility map"}
+      - {sec: "13.2", title: "13.2 Custodian Mandate: SRR Buffer Condition for Drawdown Ac", words: 170, disp: "D", target: "-", page: null, reason: "introduction, conclusion, open questions covered by the feasibility map"}
+
+  - id: "old-sweeps-a"
+    shortcode: "SWEEPS.A"
+    title: "The Wealth Delta Tax: Parameter Sweeps and Governing Council Calibration — Appendix"
+    url: "/sweeps-a.html"
+    successor: []
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 97, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 60, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "~A.", title: "A. Appendix Tables", words: 359, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "A.1", title: "A.1 SWEEPS.R — $\\tau_0$ Sweep", words: 446, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "A.2", title: "A.2 SWEEPS.R — $\\tau_m$ Sweep", words: 393, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "A.3", title: "A.3 SWEEPS.R — $k$ Sweep", words: 444, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "A.4", title: "A.4 SWEEPS.R — $W_{min}$ Sweep", words: 500, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "A.5", title: "A.5 SWEEPS.V — N Sweep", words: 246, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "A.6", title: "A.6 SWEEPS.V — $V_0$ Sweep", words: 245, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "A.7", title: "A.7 SWEEPS.V — $\\tau_0$ × N Joint Surface", words: 213, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "A.8", title: "A.8 SWEEPS.V — $k$ × $V_0$ Joint Surface", words: 219, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "~B.", title: "B. SWEEPS.V Figure Index", words: 314, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "B.1", title: "B.1  $\\tau_0$ Sweep — C.1 metric across $\\alpha$ and $g$ (+6", words: 1425, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "B.2", title: "B.2  $\\tau_m$ Sweep — C.1 metric across $\\alpha$ and $g$ (+4", words: 951, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "B.3", title: "B.3  $k$ Sweep — C.1 metric across $\\alpha$ and $g$ (+9)", words: 2116, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "B.4", title: "B.4  N Sweep — C.1 metric at four holding periods (+5)", words: 550, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "B.5", title: "B.5  $V_0$ Sweep — C.1 metric at four wealth levels (+8)", words: 934, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "B.6", title: "B.6  $\\tau_0$ × N Joint Surface — N-crossing for $\\alpha$ =", words: 475, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "B.7", title: "B.7  $k$ × $V_0$ Joint Surface — C.1 Bracket Penalty for $\\a", words: 207, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "B.8", title: "B.8  $W_{min}$ Sweep — C.1 metric across $\\alpha$ and $g$ (+", words: 1534, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "B.9", title: "B.9  Figure Index", words: 739, disp: "AR", target: "-", page: null, reason: "v1 heatmaps and figure index for the four parameters (C.1 metric across alpha and g)"}
+      - {sec: "~C.", title: "C. WDT Rate Parameter Sensitivity Sweep", words: 23, disp: "AR", target: "-", page: null, reason: "v1 rate-parameter sensitivity sweep (v8 model)"}
+      - {sec: "C.1", title: "C.1 Purpose (+3)", words: 367, disp: "AR", target: "-", page: null, reason: "v1 rate-parameter sensitivity sweep (v8 model)"}
+      - {sec: "C.2", title: "C.2 Floor Rate ($\\tau_0$) (+1)", words: 740, disp: "AR", target: "-", page: null, reason: "v1 rate-parameter sensitivity sweep (v8 model)"}
+      - {sec: "C.3", title: "C.3 Ceiling Rate ($\\tau_m$) (+1)", words: 789, disp: "AR", target: "-", page: null, reason: "v1 rate-parameter sensitivity sweep (v8 model)"}
+      - {sec: "C.4", title: "C.4 Steepness ($k$) (+1)", words: 679, disp: "AR", target: "-", page: null, reason: "v1 rate-parameter sensitivity sweep (v8 model)"}
+      - {sec: "C.5", title: "C.5 Entry Point ($W_{min}$) (+1)", words: 677, disp: "AR", target: "-", page: null, reason: "v1 rate-parameter sensitivity sweep (v8 model)"}
+      - {sec: "C.6", title: "C.6 SRR Capitalisation Ratio (srr_ratio) (+1)", words: 734, disp: "AR", target: "-", page: null, reason: "v1 rate-parameter sensitivity sweep (v8 model)"}
+      - {sec: "C.7", title: "C.7 LRR Floor (lrr_years) (+1)", words: 750, disp: "AR", target: "-", page: null, reason: "v1 rate-parameter sensitivity sweep (v8 model)"}
+      - {sec: "C.8", title: "C.8 Mean Growth Rate (g)", words: 229, disp: "AR", target: "-", page: null, reason: "v1 rate-parameter sensitivity sweep (v8 model)"}
+      - {sec: "C.9", title: "C.9 Synthetic Growth Scenario (+2)", words: 327, disp: "AR", target: "-", page: null, reason: "v1 rate-parameter sensitivity sweep (v8 model)"}
+      - {sec: "~D.", title: "D. Reading Notes", words: 172, disp: "D", target: "-", page: null, reason: "reading notes"}
+
+  - id: "old-behav"
+    shortcode: "BEHAV"
+    title: "The Wealth Delta Tax: Behavioural Robustness and Administrative Experience"
+    url: "/behav.html"
+    successor: ["BEHAV", "UNCER", "POL"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 119, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 219, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 255, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 487, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. Introduction", words: 371, disp: "M", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "2", title: "2. Why Behaviour Cannot Be Predicted", words: 0, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "2.1", title: "2.1 What the Evidence Shows", words: 193, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "2.2", title: "2.2 Why the Numbers Don't Travel", words: 118, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "2.3", title: "2.3 The Design Implication", words: 73, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "3", title: "3. Behavioural Robustness as a Design Objective", words: 0, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "3.1", title: "3.1 The Concept Defined", words: 75, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "3.2", title: "3.2 What Robustness Is Not", words: 117, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "3.3", title: "3.3 The Same Logic Applied Twice", words: 72, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "4", title: "4. Sources of Behavioural Friction", words: 40, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "4.1", title: "4.1 Type I — Information Friction", words: 79, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "4.2", title: "4.2 Type II — Visibility Friction", words: 81, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "4.3", title: "4.3 Type III — Legitimacy Friction", words: 71, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "4.4", title: "4.4 Type IV — Feedback Friction", words: 57, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "4.5", title: "4.5 Type V — Compliance Friction", words: 85, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "4.6", title: "4.6 The Design Implication", words: 40, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "5", title: "5. Design Principles for Behavioural Robustness", words: 14, disp: "M", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "5.1", title: "5.1 The Clarity Principle", words: 73, disp: "M", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "5.2", title: "5.2 The Reciprocity Principle", words: 74, disp: "M", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "5.3", title: "5.3 The Fairness Principle", words: 59, disp: "M", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "5.4", title: "5.4 The Responsiveness Principle", words: 59, disp: "M", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "5.5", title: "5.5 The Accessibility Principle", words: 59, disp: "M", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "5.6", title: "5.6 The Personal Adviser Corps", words: 185, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "6", title: "6. The Membrane", words: 0, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "6.1", title: "6.1 Definition", words: 130, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "6.2", title: "6.2 Membrane Health", words: 90, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "6.3", title: "6.3 The Interaction Structure of Membrane Health Dimensions", words: 944, disp: "AR", target: "-", page: null, reason: "interaction structure of membrane health dimensions (944 words, table)"}
+      - {sec: "6.4", title: "6.4 How the WDT Satisfies the Five Principles", words: 498, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "7", title: "7. The Nine Behavioural Shapes", words: 41, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "7.1", title: "7.1 Shape 1 — Full Cooperative Compliance", words: 50, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "7.2", title: "7.2 Shape 2 — Passive Non-Optimisation", words: 69, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "7.3", title: "7.3 Shape 3 — Active Optimisation Within the Rules", words: 80, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "7.4", title: "7.4 Shape 4 — Avoidance Through Restructuring", words: 88, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "7.5", title: "7.5 Shape 5 — Deferral and Timing Manipulation", words: 79, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "7.6", title: "7.6 Shape 6 — Migration of Assets Without Personal Exit", words: 70, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "7.7", title: "7.7 Shape 7 — Personal Exit", words: 130, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "7.8", title: "7.8 Shape 8 — Partial Exit", words: 83, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "7.9", title: "7.9 Shape 9 — Active Resistance and Non-Compliance", words: 114, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "7.10", title: "7.10 The Distribution as a Whole", words: 82, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "8", title: "8. The Enforcement Paradigm Shift", words: 0, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "8.1", title: "8.1 Passive Collection Rather Than Active Detection", words: 301, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "8.2", title: "8.2 The Route Distribution", words: 441, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "9", title: "9. Principal Objections", words: 0, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "9.1", title: "9.1 The Wealthy Will Leave", words: 263, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "9.2", title: "9.2 The Cross-Base Fiscal Externality", words: 422, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "9.3", title: "9.3 The Complexity Objection", words: 107, disp: "M", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "9.4", title: "9.4 The Membrane Is Undeliverable", words: 75, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9.5", title: "9.5 Robustness Is Rebranding Failure", words: 91, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "10", title: "10. Phase Sequencing", words: 0, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "10.1", title: "10.1 Phase One — Implementation", words: 126, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "10.2", title: "10.2 Phase Two — Stabilisation", words: 112, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "10.3", title: "10.3 Phase Three and Membrane Calcification", words: 71, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "10.4", title: "10.4 Sequencing as a Design Variable", words: 67, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "11", title: "11. Limitations", words: 0, disp: "D", target: "-", page: null, reason: "limitations register and conclusion"}
+      - {sec: "11.1", title: "11.1 Formal Modelling Gaps", words: 264, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "11.2", title: "11.2 Phase One Empirical Unknowns", words: 130, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "11.3", title: "11.3 Structural Limits of the Design", words: 121, disp: "D", target: "-", page: null, reason: "limitations register and conclusion"}
+      - {sec: "11.4", title: "11.4 Governing Council Calibration Parameters", words: 6, disp: "D", target: "-", page: null, reason: "limitations register and conclusion"}
+      - {sec: "12", title: "12. Conclusion", words: 583, disp: "D", target: "-", page: null, reason: "limitations register and conclusion"}
+
+  - id: "old-behav-a"
+    shortcode: "BEHAV.A"
+    title: "The Wealth Delta Tax: Behavioural Robustness — Supporting Analysis"
+    url: "/behav-a.html"
+    successor: ["BEHAV", "VAL", "LIMIT"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 85, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 57, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "~A.", title: "A. Route Distribution and Enforcement Residual", words: 52, disp: "DL", target: "input register", page: null, reason: null}
+      - {sec: "A.1", title: "A.1 Classification Logic", words: 186, disp: "DL", target: "input register", page: null, reason: null}
+      - {sec: "A.2", title: "A.2 Route A — Professional Valuation, Fungible", words: 191, disp: "DL", target: "input register", page: null, reason: null}
+      - {sec: "A.3", title: "A.3 Route C — Self-Declaration, Fungible", words: 150, disp: "DL", target: "input register", page: null, reason: null}
+      - {sec: "A.4", title: "A.4 Route B — Professional Valuation, Non-Fungible", words: 189, disp: "DL", target: "input register", page: null, reason: null}
+      - {sec: "A.5", title: "A.5 Route D — Self-Declaration, Non-Fungible", words: 233, disp: "DL", target: "input register", page: null, reason: null}
+      - {sec: "A.6", title: "A.6 Edge Cases and Classification Ambiguities", words: 320, disp: "M", target: "VAL", page: "VAL", reason: null}
+      - {sec: "A.7", title: "A.7 Why the Bias Toward Routes A and B Is Structurally Posit", words: 273, disp: "M", target: "VAL", page: "VAL", reason: null}
+      - {sec: "~B.", title: "B. Membrane Calcification and the Monitoring Architecture", words: 28, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "B.1", title: "B.1 The Nature of the Problem", words: 217, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "B.2", title: "B.2 The Monitoring Instrument", words: 135, disp: "AR", target: "-", page: null, reason: "monitoring architecture detail"}
+      - {sec: "B.3", title: "B.3 The Taxpayer Chamber as Monitor", words: 120, disp: "AR", target: "-", page: null, reason: "monitoring architecture detail"}
+      - {sec: "B.4", title: "B.4 The Internal TP Voting Structure", words: 222, disp: "AR", target: "-", page: null, reason: "monitoring architecture detail"}
+      - {sec: "B.5", title: "B.5 The Allocator as Fairness Signal", words: 143, disp: "AR", target: "-", page: null, reason: "monitoring architecture detail"}
+      - {sec: "B.6", title: "B.6 The TP/DR Coalition and the FS Constraint", words: 130, disp: "AR", target: "-", page: null, reason: "monitoring architecture detail"}
+      - {sec: "B.7", title: "B.7 The Honest Limit", words: 138, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "~C.", title: "C. The Membrane in Practice — Institutional Examples", words: 25, disp: "AR", target: "-", page: null, reason: "membrane examples from banking, water and insurance"}
+      - {sec: "C.1", title: "C.1 A Healthy Membrane — Retail Banking", words: 145, disp: "AR", target: "-", page: null, reason: "membrane examples from banking, water and insurance"}
+      - {sec: "C.2", title: "C.2 Monopoly-Induced Degradation — Water Utilities", words: 191, disp: "AR", target: "-", page: null, reason: "membrane examples from banking, water and insurance"}
+      - {sec: "C.3", title: "C.3 Interest-Aligned Degradation — Mandatory Insurance Marke", words: 214, disp: "AR", target: "-", page: null, reason: "membrane examples from banking, water and insurance"}
+      - {sec: "~D.", title: "D. The Cross-Base Fiscal Externality — Full Response", words: 64, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "D.1", title: "D.1 The Jurisdictional Transfer Caveat", words: 167, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "D.2", title: "D.2 The Rate Calibration Lever", words: 142, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "D.3", title: "D.3 The Timeline Extension Buffer", words: 147, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "D.4", title: "D.4 The Re-Entry Rule and the Externality's Temporal Shape", words: 187, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "D.5", title: "D.5 The Immigration Possibility", words: 492, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+
+  - id: "old-close"
+    shortcode: "CLOSE"
+    title: "The Wealth Delta Tax: Position Closure"
+    url: "/close.html"
+    successor: ["MECH", "FUND", "LIT"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 106, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 219, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 196, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 761, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. Intellectual Context and Prior Literature", words: 43, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "1.1", title: "1.1 Conventional Exit Tax Design", words: 142, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "1.2", title: "1.2 The Wealth Tax Migration Literature", words: 285, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "1.3", title: "1.3 Insolvency and Taxation", words: 96, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "1.4", title: "1.4 What the Literature Leaves Unresolved", words: 121, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "2", title: "2. The General Theory of Position Closure", words: 826, disp: "K", target: "MECH", page: "MECH", reason: null}
+      - {sec: "3", title: "3. What the Mechanism Owes at Closure", words: 587, disp: "K", target: "MECH", page: "MECH", reason: null}
+      - {sec: "4", title: "4. The Four Closure Event Types", words: 0, disp: "K", target: "MECH", page: "MECH", reason: null}
+      - {sec: "4.1", title: "4.1 Death", words: 1198, disp: "K", target: "MECH", page: "MECH", reason: null}
+      - {sec: "4.1.1", title: "4.1.1 The Death Auction Waiver", words: 431, disp: "K", target: "MECH", page: "MECH", reason: null}
+      - {sec: "4.2", title: "4.2 Jurisdictional Exit", words: 413, disp: "K", target: "MECH", page: "MECH", reason: null}
+      - {sec: "4.3", title: "4.3 Threshold Fall-Through", words: 425, disp: "K", target: "MECH", page: "MECH", reason: null}
+      - {sec: "4.4", title: "4.4 Bankruptcy", words: 460, disp: "K", target: "MECH", page: "MECH", reason: null}
+      - {sec: "4.5", title: "4.5 Incarceration and Criminal Forfeiture (+4)", words: 1226, disp: "AR", target: "-", page: null, reason: "incarceration and criminal forfeiture; edge-case rules for statute drafting"}
+      - {sec: "5", title: "5. The Closure Bond Facility", words: 109, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "5.1", title: "5.1 Bond Mechanics", words: 321, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "5.2", title: "5.2 Death Variant", words: 130, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "5.3", title: "5.3 Exit Variant", words: 182, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "5.4", title: "5.4 Bankruptcy Variant", words: 217, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "6", title: "6. The Re-entry Rule", words: 486, disp: "K", target: "MECH", page: "MECH", reason: null}
+      - {sec: "7", title: "7. Phase Sequencing", words: 0, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "7.1", title: "7.1 Phase One", words: 236, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "7.2", title: "7.2 Phase Two", words: 168, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "8", title: "8. Principal Objections", words: 0, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "8.1", title: "8.1 The Compulsion Objection", words: 202, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "8.2", title: "8.2 The Double Taxation Objection", words: 122, disp: "K", target: "BEHAV", page: "BEHAV", reason: null}
+      - {sec: "8.3", title: "8.3 The Re-entry Asymmetry Objection", words: 190, disp: "M", target: "MECH", page: "MECH", reason: null}
+      - {sec: "8.4", title: "8.4 The Beyond-Lifetime-Cap Objection", words: 504, disp: "M", target: "MECH", page: "MECH", reason: null}
+      - {sec: "9", title: "9. Limitations and Required Further Work", words: 0, disp: "D", target: "-", page: null, reason: "limitations register and conclusion"}
+      - {sec: "9.1", title: "9.1 Formal modelling gaps", words: 5, disp: "D", target: "-", page: null, reason: "limitations register and conclusion"}
+      - {sec: "9.2", title: "9.2 Phase One empirical unknowns", words: 157, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "9.3", title: "9.3 Jurisdiction-specific legal and implementation work", words: 206, disp: "D", target: "-", page: null, reason: "limitations register and conclusion"}
+      - {sec: "9.4", title: "9.4 Structural and irreducible limits of the design", words: 60, disp: "D", target: "-", page: null, reason: "limitations register and conclusion"}
+      - {sec: "9.5", title: "9.5 Governing Council calibration parameters", words: 223, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "10", title: "10. Conclusion", words: 362, disp: "D", target: "-", page: null, reason: "limitations register and conclusion"}
+
+  - id: "old-pol"
+    shortcode: "POL"
+    title: "The Wealth Delta Tax: Political Architecture"
+    url: "/pol.html"
+    successor: ["POL", "GOV", "FALS"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 110, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 110, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 390, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 554, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. Introduction", words: 305, disp: "D", target: "-", page: null, reason: "introduction and conclusion"}
+      - {sec: "2", title: "2. Intellectual Context and Prior Literature", words: 395, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "3", title: "3. Why Wealth Taxes Fail Politically", words: 52, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "3.1", title: "3.1 The Empirical Pattern", words: 238, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "3.2", title: "3.2 Three Structural Mechanisms", words: 124, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "3.3", title: "3.3 Mechanism One: Legitimacy Collapse", words: 406, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "3.4", title: "3.4 Mechanism Two: Organised Opposition Advantage", words: 324, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "3.5", title: "3.5 Mechanism Three: Institutional Brittleness", words: 477, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "3.6", title: "3.6 The Spiral", words: 160, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "3.7", title: "3.7 Why Revenue Is Not the Failure Mode", words: 164, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "4", title: "4. Political Durability as a Design Property", words: 665, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "5", title: "5. The WDT's Political Architecture", words: 175, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "5.1", title: "5.1 The Symmetric Loss-Refund Mechanism", words: 416, disp: "M", target: "MECH", page: "MECH", reason: null}
+      - {sec: "5.2", title: "5.2 The Sovereign Wealth Fund", words: 228, disp: "M", target: "FUND", page: "FUND", reason: null}
+      - {sec: "5.3", title: "5.3 The Labour Relief Dividend", words: 346, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "5.4", title: "5.4 The Taxpayer Chamber", words: 278, disp: "M", target: "GOV", page: "GOV", reason: null}
+      - {sec: "5.5", title: "5.5 The Dividend Recipient Chamber", words: 262, disp: "M", target: "GOV", page: "GOV", reason: null}
+      - {sec: "5.6", title: "5.6 The Enumerated Structural Clauses", words: 208, disp: "M", target: "GOV", page: "GOV", reason: null}
+      - {sec: "5.7", title: "5.7 Redundancy and the Failure Rate", words: 256, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "5.8", title: "5.8 The Cooperative Offer to the Displaced Professional Serv", words: 238, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "6", title: "6. The Credibility Bootstrapping Problem", words: 73, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "6.1", title: "6.1 The Vulnerability Window", words: 144, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "6.2", title: "6.2 The Accidental Hostage and the Deliberate Stake", words: 261, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "6.3", title: "6.3 The Thought Experiment", words: 145, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "6.4", title: "6.4 Phase One Parameters as Politically Determined", words: 289, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "6.5", title: "6.5 The SRR Milestone as Political Threshold", words: 268, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "6.6", title: "6.6 Phase One as a Political Term", words: 195, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "6.7", title: "6.7 The Calcification Ceiling and the Honest Limitation", words: 418, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "7", title: "7. The Self-Shaping Problem", words: 251, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "8", title: "8. Principal Objections", words: 0, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "8.1", title: "8.1 The Political Durability Claim Is Unfalsifiable", words: 188, disp: "M", target: "FALS", page: "FALS", reason: null}
+      - {sec: "8.2", title: "8.2 The Redundancy Argument Proves Too Much", words: 224, disp: "M", target: "FALS", page: "FALS", reason: null}
+      - {sec: "8.3", title: "8.3 The Bootstrapping Problem Is Fatal", words: 186, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "8.4", title: "8.4 The Tiered Citizenship Risk Is the Point", words: 259, disp: "M", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "8.5", title: "8.5 The Existing-Tiers Argument Is a Deflection", words: 192, disp: "M", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "8.6", title: "8.6 Democratic Flourishing as the Terminal Goal Is Circular", words: 237, disp: "M", target: "FALS", page: "FALS", reason: null}
+      - {sec: "8.7", title: "8.7 The Governance Structure Is Too Radical to Be Adopted", words: 231, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "8.8", title: "8.8 The Cross-Base Externality Makes the Emigration Risk Unm", words: 69, disp: "D", target: "-", page: null, reason: "cross-base externality; covered in BEHAV 9.2"}
+      - {sec: "9", title: "9. Limitations and Further Work", words: 0, disp: "D", target: "-", page: null, reason: "limitations register"}
+      - {sec: "9.1", title: "9.1 Formal modelling gaps", words: 117, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "9.2", title: "9.2 Phase One empirical unknowns", words: 162, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "9.3", title: "9.3 Jurisdiction-specific legal and implementation work", words: 26, disp: "D", target: "-", page: null, reason: "limitations register"}
+      - {sec: "9.4", title: "9.4 Structural and irreducible limits of the design", words: 260, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9.5", title: "9.5 Governing Council calibration parameters", words: 6, disp: "D", target: "-", page: null, reason: "limitations register"}
+      - {sec: "10", title: "10. Conclusion", words: 582, disp: "D", target: "-", page: null, reason: "introduction and conclusion"}
+
+  - id: "old-pol-a"
+    shortcode: "POL.A"
+    title: "The Wealth Delta Tax: Political Architecture Appendix"
+    url: "/pol-a.html"
+    successor: ["FAIR", "LIMIT"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 111, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 26, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "~A.", title: "A. The Tiered Citizenship Problem", words: 23, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "A.1", title: "A.1 We Already Live in a Tiered Society", words: 388, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "A.2", title: "A.2 The Tiered Citizenship Risk", words: 250, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "A.3", title: "A.3 Why the WDT Is Not Feudalism", words: 353, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "A.4", title: "A.4 Equality of Outcome Is the Wrong Goal", words: 223, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "A.5", title: "A.5 The Small Community Illustration", words: 287, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "A.6", title: "A.6 The Limits of Mechanism", words: 169, disp: "K", target: "FAIR", page: "FAIR", reason: null}
+      - {sec: "A.7", title: "A.7 A Remarkable Problem", words: 216, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+
+  - id: "old-phase1"
+    shortcode: "PHASE1"
+    title: "The Wealth Delta Tax: Phase One"
+    url: "/phase1.html"
+    successor: ["POL"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 116, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 99, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 305, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 225, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. Introduction", words: 244, disp: "D", target: "-", page: null, reason: "introduction, conclusion, limitations register"}
+      - {sec: "2", title: "2. The Boundary of Desk Research", words: 283, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "3", title: "3. The Working Assumptions Currently in Force", words: 690, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "4", title: "4. The Empirical Clusters", words: 0, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "4.1", title: "4.1 Behavioural Response to Cooperative Architecture", words: 228, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "4.2", title: "4.2 Avoidance Under Imperfect Compliance", words: 244, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "4.3", title: "4.3 Migration and the Cross-Base Externality", words: 299, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "4.4", title: "4.4 Valuation Route and Assessment Window Adoption", words: 257, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "4.5", title: "4.5 Administrative Intervention Effects", words: 332, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "4.6", title: "4.6 OBR Independence — Empirical Assessment", words: 272, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "4.7", title: "4.7 Corporate Instrument Transition", words: 212, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "5", title: "5. What Phase One Would Need to Measure", words: 39, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "5.1", title: "5.1 Measuring Behavioural Response to the Cooperative Archit", words: 261, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "5.2", title: "5.2 Measuring Avoidance Under Imperfect Compliance", words: 247, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "5.3", title: "5.3 Measuring the Cross-Base Externality", words: 281, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "5.4", title: "5.4 Measuring Valuation Route and Assessment Window Adoption", words: 204, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "5.5", title: "5.5 Measuring Administrative Intervention Effects", words: 340, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "5.6", title: "5.6 Measuring OBR Independence", words: 255, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "5.7", title: "5.7 Measuring the Corporate Instrument Transition", words: 262, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "6", title: "6. Limitations and Further Work", words: 0, disp: "D", target: "-", page: null, reason: "introduction, conclusion, limitations register"}
+      - {sec: "6.1", title: "6.1 Formal modelling gaps", words: 17, disp: "D", target: "-", page: null, reason: "introduction, conclusion, limitations register"}
+      - {sec: "6.2", title: "6.2 Phase One empirical unknowns", words: 81, disp: "D", target: "-", page: null, reason: "introduction, conclusion, limitations register"}
+      - {sec: "6.3", title: "6.3 Jurisdiction-specific legal and implementation work", words: 230, disp: "D", target: "-", page: null, reason: "introduction, conclusion, limitations register"}
+      - {sec: "6.4", title: "6.4 Structural and irreducible limits of the design", words: 44, disp: "D", target: "-", page: null, reason: "introduction, conclusion, limitations register"}
+      - {sec: "6.5", title: "6.5 Governing Council calibration parameters", words: 192, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "7", title: "7. Conclusion", words: 376, disp: "D", target: "-", page: null, reason: "introduction, conclusion, limitations register"}
+
+  - id: "old-env"
+    shortcode: "ENV"
+    title: "The Wealth Delta Tax: Environmental Effects and Transmission Channels"
+    url: "/env.html"
+    successor: ["WIDER", "PAY", "DECL"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 125, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 101, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 338, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 308, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. The Paper's Place in the Series", words: 405, disp: "D", target: "-", page: null, reason: "place in the series, limitations register, conclusion"}
+      - {sec: "2", title: "2. The Predicted Rational Equilibrium", words: 698, disp: "M", target: "DECL", page: "DECL", reason: null}
+      - {sec: "3", title: "3. Capital Allocation and Velocity", words: 890, disp: "K", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "4", title: "4. The Displacement Channel and Labour Markets", words: 0, disp: "M", target: "FUND", page: "FUND", reason: null}
+      - {sec: "4.1", title: "4.1 Staged Displacement", words: 280, disp: "M", target: "FUND", page: "FUND", reason: null}
+      - {sec: "4.2", title: "4.2 The NICs Case", words: 457, disp: "M", target: "PAY", page: "PAY", reason: null}
+      - {sec: "4.3", title: "4.3 Automation and the Labour Tax Base", words: 433, disp: "K", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "4.4", title: "4.4 What Existing Responses Address", words: 361, disp: "K", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "4.5", title: "4.5 Tax-Base Migration", words: 355, disp: "K", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "4.6", title: "4.6 Displacement Effects on Households", words: 651, disp: "M", target: "PAY", page: "PAY", reason: null}
+      - {sec: "4.7", title: "4.7 Extreme Automation as a Stress Test", words: 224, disp: "K", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "4.8", title: "4.8 What the WDT Does Not Solve", words: 204, disp: "K", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "5", title: "5. The Consumption Multiplier and Growth Feedback", words: 795, disp: "K", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "6", title: "6. Financial System Stability", words: 936, disp: "K", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "7", title: "7. Inflation Response and Countercyclical Architecture", words: 714, disp: "K", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "8", title: "8. Housing and Distributional Consequences", words: 374, disp: "K", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "9.1", title: "9.1 Formal modelling gaps", words: 88, disp: "D", target: "-", page: null, reason: "place in the series, limitations register, conclusion"}
+      - {sec: "9.2", title: "9.2 Phase One empirical unknowns (+4)", words: 604, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "9.3", title: "9.3 Jurisdiction-specific legal and implementation work", words: 24, disp: "D", target: "-", page: null, reason: "place in the series, limitations register, conclusion"}
+      - {sec: "9.4", title: "9.4 Structural and irreducible limits of the design", words: 358, disp: "M", target: "LIMIT", page: "LIMIT", reason: null}
+      - {sec: "9.5", title: "9.5 Governing Council calibration parameters", words: 31, disp: "DL", target: "parameter register", page: null, reason: null}
+      - {sec: "10", title: "10. Conclusion", words: 631, disp: "D", target: "-", page: null, reason: "place in the series, limitations register, conclusion"}
+
+  - id: "old-fm"
+    shortcode: "FM"
+    title: "The Wealth Delta Tax: First Mover"
+    url: "/fm.html"
+    successor: ["POL"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 92, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 131, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 96, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 346, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. The Binary", words: 653, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "2", title: "2. Why The Middle Option Doesn't Exist", words: 945, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "3", title: "3. What Each Strategy Delivers", words: 0, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "3.1", title: "3.1 The First Strategy: Commit and Compound", words: 546, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "3.2", title: "3.2 The Second Strategy: Suppress Before Demonstration", words: 841, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "4", title: "4. The Record", words: 493, disp: "AR", target: "-", page: null, reason: "the record as of August 2026; dated"}
+
+  - id: "old-mod"
+    shortcode: "MOD"
+    title: "The Wealth Delta Tax: Modular Adoption"
+    url: "/mod.html"
+    successor: ["POL"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 100, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 30, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 165, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 213, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. The Two Categories", words: 366, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "2", title: "2. Why Infrastructure Accrues", words: 527, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "3", title: "3. What Accretion Delivers", words: 408, disp: "K", target: "POL", page: "POL", reason: null}
+      - {sec: "4", title: "4. The Relationship to the Binary", words: 354, disp: "M", target: "POL", page: "POL", reason: null}
+
+  - id: "old-wfr"
+    shortcode: "WFR"
+    title: "The Wealth Delta Tax: Taxpayer Welfare Comparison Across Tax Systems at Revenue Equivalence"
+    url: "/wfr.html"
+    successor: ["WELF", "LIT", "UNCER"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 104, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 130, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 337, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 319, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. Introduction", words: 781, disp: "M", target: "WELF", page: "WELF", reason: null}
+      - {sec: "2", title: "2. Methodology", words: 0, disp: "M", target: "WELF", page: "WELF", reason: null}
+      - {sec: "2.1", title: "2.1 The Comparison Design", words: 388, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "2.2", title: "2.2 What the Baseline Suppresses — and Why", words: 246, disp: "M", target: "WELF", page: "WELF", reason: null}
+      - {sec: "2.3", title: "2.3 The Three-Category Epistemic Framework", words: 224, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "2.4", title: "2.4 Comparable-Treatment Exposures", words: 326, disp: "M", target: "WELF", page: "WELF", reason: null}
+      - {sec: "3", title: "3. Part I: The Controlled Baseline", words: 0, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "3.1", title: "3.1 Revenue Equivalence and the Single-Agent Baseline", words: 854, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "3.2", title: "3.2 The D-M Risk-Sharing Property: Mechanism Established, Ve", words: 641, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4", title: "4. Part II: The Mechanisms", words: 0, disp: "M", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4.1", title: "4.1 Progressive Rates: Three Complications, All Second-Order", words: 1650, disp: "M", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4.2", title: "4.2 CGT Lock-In: The Dominant Welfare Result", words: 0, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4.2.1", title: "4.2.1 The Endogenous Realisation Decision", words: 407, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4.2.2", title: "4.2.2 The Welfare Cost of Lock-In", words: 1415, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4.2.3", title: "4.2.3 The Arachi Pivot", words: 498, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4.2.4", title: "4.2.4 Category Classification", words: 247, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4.3", title: "4.3 Heterogeneous Returns: Concentration Under the Fagereng", words: 0, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4.3.1", title: "4.3.1 The Fagereng Premise and the Four-Tier Calibration", words: 224, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4.3.2", title: "4.3.2 The Concentration Result", words: 587, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4.3.3", title: "4.3.3 Within-Tier Welfare", words: 452, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4.3.4", title: "4.3.4 Distributional Incidence", words: 650, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4.3.5", title: "4.3.5 The Lifetime Contribution Envelope — Binding Result", words: 537, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4.3.6", title: "4.3.6 The Off-Diagonal Cell", words: 247, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "4.4", title: "4.4 Stock Wealth and Consumption Taxes: Equivalence and Conc", words: 380, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "4.5", title: "4.5 Robustness: Revenue Target, Historical Windows, and Rate", words: 150, disp: "AR", target: "-", page: null, reason: "v1 robustness checks (revenue target, 73 windows, rate parameters)"}
+      - {sec: "4.5.1", title: "4.5.1 Revenue Target Sensitivity", words: 513, disp: "AR", target: "-", page: null, reason: "v1 robustness checks (revenue target, 73 windows, rate parameters)"}
+      - {sec: "4.5.2", title: "4.5.2 Historical Window Robustness", words: 634, disp: "AR", target: "-", page: null, reason: "v1 robustness checks (revenue target, 73 windows, rate parameters)"}
+      - {sec: "4.5.3", title: "4.5.3 Progressive Rate Parameter Sensitivity", words: 897, disp: "AR", target: "-", page: null, reason: "v1 robustness checks (revenue target, 73 windows, rate parameters)"}
+      - {sec: "5", title: "5. Part III: Literature Positioning", words: 0, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "5.1", title: "5.1 Domar-Musgrave and Risk-Sharing", words: 236, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "5.2", title: "5.2 Progressive Taxation and Risk Asymmetry", words: 143, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "5.3", title: "5.3 CGT Lock-In: Literature and Model Contribution", words: 427, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "5.4", title: "5.4 Heterogeneous Returns and Concentration", words: 191, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "5.5", title: "5.5 The Active Dispute WFR Enters — and Does Not Adjudicate", words: 506, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "5.6", title: "5.6 Stock Wealth and Consumption Tax Equivalence", words: 217, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "5.7", title: "5.7 Literature Summary", words: 433, disp: "M", target: "LIT", page: "LIT", reason: null}
+      - {sec: "6", title: "6. Part IV: Synthesis and Conclusion", words: 0, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "6.1", title: "6.1 What the Model Establishes and What It Does Not", words: 132, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "6.1.1", title: "6.1.1 Category 1: Modelled Properties of Incumbent Systems", words: 390, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "6.1.2", title: "6.1.2 Category 2: Structural Properties of the WDT Independe", words: 340, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "6.1.3", title: "6.1.3 Category 3: What We Do Not Know", words: 360, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "6.2", title: "6.2 The Comparative Question", words: 241, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "6.3", title: "6.3 The Burden-of-Consideration Conclusion", words: 611, disp: "K", target: "WELF", page: "WELF", reason: null}
+      - {sec: "7", title: "7. Open Questions", words: 0, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "7.1", title: "7.1 Behavioural Calibration", words: 189, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "7.2", title: "7.2 General Equilibrium", words: 218, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "7.3", title: "7.3 Implementation Cost Quantification", words: 227, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "7.4", title: "7.4 Progressive WDT Advantage at Longer Horizons", words: 942, disp: "K", target: "WELF", page: "WELF", reason: null}
+
+  - id: "old-wfr-a"
+    shortcode: "WFR.A"
+    title: "The Wealth Delta Tax: Taxpayer Welfare Comparison Appendix Tables"
+    url: "/wfr-a.html"
+    successor: []
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 100, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 54, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "~A.", title: "A. Baseline Single-Agent Comparison", words: 41, disp: "AR", target: "-", page: null, reason: "v1 appendix tables for the welfare comparison; v3 regenerates any that survive"}
+      - {sec: "A", title: "A.1 Consumption-Equivalent Welfare (CEW) by System, γ, and D", words: 592, disp: "AR", target: "-", page: null, reason: "v1 appendix tables for the welfare comparison; v3 regenerates any that survive"}
+      - {sec: "~B.", title: "B. Progressive Rates and the Three D-M Complications", words: 53, disp: "AR", target: "-", page: null, reason: "v1 appendix tables for the welfare comparison; v3 regenerates any that survive"}
+      - {sec: "B", title: "B.1 Flat WDT vs Progressive WDT CEW (+2)", words: 839, disp: "AR", target: "-", page: null, reason: "v1 appendix tables for the welfare comparison; v3 regenerates any that survive"}
+      - {sec: "~C.", title: "C. CGT Lock-In Distortion", words: 32, disp: "AR", target: "-", page: null, reason: "v1 appendix tables for the welfare comparison; v3 regenerates any that survive"}
+      - {sec: "C", title: "C.1 Lock-In Welfare Cost by Embedded Gain Ratio (+2)", words: 1055, disp: "AR", target: "-", page: null, reason: "v1 appendix tables for the welfare comparison; v3 regenerates any that survive"}
+      - {sec: "~D.", title: "D. Heterogeneous Agents — Incidence and Concentration", words: 87, disp: "AR", target: "-", page: null, reason: "v1 appendix tables for the welfare comparison; v3 regenerates any that survive"}
+      - {sec: "D", title: "D.1 CEW by Tier and Tax System (+4)", words: 1077, disp: "AR", target: "-", page: null, reason: "v1 appendix tables for the welfare comparison; v3 regenerates any that survive"}
+      - {sec: "~E.", title: "E. Welfare Sweep Analysis", words: 68, disp: "AR", target: "-", page: null, reason: "v1 appendix tables for the welfare comparison; v3 regenerates any that survive"}
+      - {sec: "E", title: "E.1 Sweep A: CEW by System and Revenue Target (γ=2) (+9)", words: 986, disp: "AR", target: "-", page: null, reason: "v1 appendix tables for the welfare comparison; v3 regenerates any that survive"}
+      - {sec: "~F.", title: "F. Extended Concentration Horizon (N=73)", words: 0, disp: "AR", target: "-", page: null, reason: "v1 appendix tables for the welfare comparison; v3 regenerates any that survive"}
+      - {sec: "F", title: "F.1 — Setup and Scope (+3)", words: 462, disp: "AR", target: "-", page: null, reason: "v1 appendix tables for the welfare comparison; v3 regenerates any that survive"}
+      - {sec: "~G.", title: "G. Parameter Reference", words: 105, disp: "DL", target: "input register", page: null, reason: null}
+
+  - id: "old-ldw"
+    shortcode: "LDW"
+    title: "The Wealth Delta Tax: Labour Dividend Welfare"
+    url: "/ldw.html"
+    successor: ["WIDER", "PAY", "FIRST"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 117, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 202, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 255, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "1", title: "1. The Paper's Place in the Series and Its Character", words: 94, disp: "D", target: "-", page: null, reason: "place in the series, conclusion"}
+      - {sec: "1.1", title: "1.1 The Mature WDT as Analytical Baseline", words: 117, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "1.2", title: "1.2 Speculative Character and What That Means Here", words: 187, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "2", title: "2. What Appears on the Payslip", words: 101, disp: "K", target: "PAY", page: "PAY", reason: null}
+      - {sec: "2.1", title: "2.1 The Bilateral NICs Case", words: 488, disp: "K", target: "PAY", page: "PAY", reason: null}
+      - {sec: "2.2", title: "2.2 Income Tax Displacement", words: 463, disp: "K", target: "PAY", page: "PAY", reason: null}
+      - {sec: "3", title: "3. Employment Structure and the Occupational Constraint", words: 0, disp: "K", target: "FIRST", page: "FIRST", reason: null}
+      - {sec: "3.1", title: "3.1 What NICs Removal Does to the Employment Relationship", words: 271, disp: "K", target: "FIRST", page: "FIRST", reason: null}
+      - {sec: "3.2", title: "3.2 The Occupational Constraint and What Relaxes It", words: 287, disp: "K", target: "FIRST", page: "FIRST", reason: null}
+      - {sec: "4", title: "4. The Cost of Living Under a Mature WDT", words: 43, disp: "K", target: "PAY", page: "PAY", reason: null}
+      - {sec: "4.1", title: "4.1 VAT and Consumption Taxes", words: 182, disp: "K", target: "PAY", page: "PAY", reason: null}
+      - {sec: "4.2", title: "4.2 Housing: Renters and Owners", words: 495, disp: "M", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "4.3", title: "4.3 Public Infrastructure and the SWF as Patient Investor", words: 765, disp: "K", target: "FUND", page: "FUND", reason: null}
+      - {sec: "4.4", title: "4.4 The Full Purchasing Power Calculation", words: 341, disp: "K", target: "PAY", page: "PAY", reason: null}
+      - {sec: "4.5", title: "4.5 Demand Expansion and Economic Reallocation", words: 165, disp: "M", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "4.5.1", title: "4.5.1 Increased Household Consumption", words: 244, disp: "M", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "4.5.2", title: "4.5.2 Labour Reallocation and Occupational Choice", words: 340, disp: "M", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "4.5.3", title: "4.5.3 Entry into Marginal and Previously Unprofitable Sector", words: 243, disp: "M", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "4.5.4", title: "4.5.4 Returns to Private Capital", words: 229, disp: "M", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "4.5.5", title: "4.5.5 Distributional Ambiguity", words: 216, disp: "M", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "5", title: "5. Household Capacity", words: 452, disp: "K", target: "FIRST", page: "FIRST", reason: null}
+      - {sec: "6", title: "6. Welfare Demand and Its Upstream Conditions", words: 75, disp: "K", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "6.1", title: "6.1 The Cascade Threshold", words: 285, disp: "K", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "6.2", title: "6.2 Healthcare Demand", words: 246, disp: "K", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "6.3", title: "6.3 Pensions and Long-Run Security", words: 184, disp: "K", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "6.4", title: "6.4 A Different Relationship Between State and Citizen", words: 182, disp: "K", target: "WIDER", page: "WIDER", reason: null}
+      - {sec: "7.1", title: "7.1 What This Paper Can and Cannot Establish", words: 373, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "7.2", title: "7.2 The Infrastructure Mandate", words: 156, disp: "M", target: "FUND", page: "FUND", reason: null}
+      - {sec: "7.3", title: "7.3 Phase One Measurement Agenda", words: 266, disp: "M", target: "POL", page: "POL", reason: null}
+      - {sec: "7.4", title: "7.4 The Conservative Core", words: 149, disp: "M", target: "UNCER", page: "UNCER", reason: null}
+      - {sec: "8", title: "8. Conclusion", words: 855, disp: "D", target: "-", page: null, reason: "place in the series, conclusion"}
+
+  - id: "old-fal"
+    shortcode: "FAL"
+    title: "The Wealth Delta Tax: Falsifiable Hypotheses"
+    url: "/fal.html"
+    successor: ["FALS"]
+    sections:
+      - {sec: "pre", title: "(preamble)", words: 92, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "rev", title: "Revision History", words: 70, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "abs", title: "Abstract", words: 315, disp: "AR", target: "-", page: null, reason: "front matter"}
+      - {sec: "gloss", title: "Glossary", words: 188, disp: "DL", target: "glossary", page: "GLOSS", reason: null}
+      - {sec: "1", title: "1. Purpose and Methodological Commitment", words: 0, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "1.1", title: "1.1 What This Paper Is", words: 173, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "1.2", title: "1.2 What This Paper Does Not Claim", words: 77, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "1.3", title: "1.3 Relation to the Existing Project", words: 175, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "2", title: "2. The Research Question", words: 333, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "3", title: "3. H1: Wealthy Taxpayer Preference", words: 0, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "3.1", title: "3.1 Statement", words: 28, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "3.2", title: "3.2 The Comparison That Matters", words: 338, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "3.3", title: "3.3 The Break-Even Burden", words: 243, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "3.4", title: "3.4 The Institutional Participation Component", words: 249, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "3.5", title: "3.5 The Migration Evidence", words: 283, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "3.6", title: "3.6 Falsification Conditions", words: 161, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "4", title: "4. H2: Macroeconomic Effects", words: 0, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "4.1", title: "4.1 Structure of the Decomposition", words: 143, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "4.2", title: "4.2 H2a: Capital Allocation Efficiency", words: 544, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "4.3", title: "4.3 H2b: Labour Tax Displacement Welfare Effect", words: 508, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "4.4", title: "4.4 H2c: Automatic Stabilisation", words: 541, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "4.5", title: "4.5 H2d: Positive Feedback Loop Integrity", words: 743, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "5", title: "5. H3: Cooperative Institutional Equilibrium", words: 0, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "5.1", title: "5.1 Statement", words: 39, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "5.2", title: "5.2 What the Hypothesis Is Not", words: 203, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "5.3", title: "5.3 The Repeated-Game Structure", words: 403, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "5.4", title: "5.4 The Governance Architecture as Anti-Capture Design", words: 319, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "5.5", title: "5.5 The Bootstrapping Phase", words: 413, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "5.6", title: "5.6 Required Model", words: 277, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "5.7", title: "5.7 Falsification Conditions", words: 195, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "6", title: "6. H4: Accumulation-Point Efficiency", words: 0, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "6.1", title: "6.1 Statement", words: 38, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "6.2", title: "6.2 The Mechanism", words: 427, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "6.3", title: "6.3 The Costs WDT Introduces", words: 274, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "6.4", title: "6.4 What a Hostile Model Should Measure", words: 124, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "6.5", title: "6.5 Falsification Conditions", words: 131, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "7", title: "7. H5: Automation Base Robustness", words: 0, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "7.1", title: "7.1 Statement", words: 44, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "7.2", title: "7.2 The Mechanism", words: 261, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "7.3", title: "7.3 The Dependency on H2d", words: 173, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "7.4", title: "7.4 Required Model", words: 146, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "7.5", title: "7.5 Falsification Conditions", words: 150, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "8", title: "8. Interactions Between the Five Hypotheses", words: 534, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "9", title: "9. What Counts as a Serious Result", words: 77, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "9.1", title: "9.1 Support", words: 52, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "9.2", title: "9.2 Conditional Support", words: 151, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "9.3", title: "9.3 Falsification", words: 93, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "10", title: "10. Minimum Requirements for Hostile Modelling", words: 442, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "11", title: "11. What Would Constitute Evidence Against WDT", words: 344, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "12", title: "12. Research Challenge", words: 306, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "13", title: "13. Conclusion", words: 712, disp: "K", target: "FALS", page: "FALS", reason: null}
+      - {sec: "~A.", title: "A. Hypothesis Summary Table", words: 493, disp: "K", target: "FALS", page: "FALS", reason: null}

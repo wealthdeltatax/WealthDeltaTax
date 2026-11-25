@@ -1,6 +1,6 @@
 # WDT framework and consistency checks
 
-Interpretive lens for the guru. Use it when a question has no direct answer in `site/pages/Project-Map.md`, when papers pull in different directions, or when a new idea needs checking. It is the author's own synthesis, not quoted from a paper.
+Interpretive lens for the guru. Use it when a question has no direct answer in `website/site/pages/Project-Map.md`, when papers pull in different directions, or when a new idea needs checking. It is the author's own synthesis, not quoted from a paper.
 
 ## The author's framework
 

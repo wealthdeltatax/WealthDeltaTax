@@ -1,0 +1,77 @@
+# Fixture registry for tests/website/nav: four menu spokes, one appendix, a standalone, a pending page,
+# a calculator and the utility pages. Same shape as website/registry/pages.yml.
+- id: H
+  type: hub
+  title: Hub
+  url: /index.html
+  source: papers/hub.md
+  status: draft
+- id: FAIR
+  type: spoke
+  url: /fair.html
+  label: Fairness
+  order: 1
+- id: MECH
+  type: spoke
+  url: /mech.html
+  label: How it works
+  order: 2
+- id: VAL
+  type: spoke
+  url: /val.html
+  label: Valuation
+  order: 3
+- id: FISC
+  type: spoke
+  url: /fisc.html
+  label: Rates and revenue
+  order: 4
+- id: DECL
+  type: appendix
+  url: /decl.html
+  parent: VAL
+- id: ADD
+  type: standalone
+  title: Additions paper
+  url: /add.html
+  status: legacy
+- id: FAQ
+  type: pending
+  title: FAQ
+  url: /faq.html
+  status: legacy
+- id: TAXCALC
+  type: calculator
+  title: Taxpayer calculator
+  url: /model/taxpayer.html
+  status: legacy
+- id: CALCIDX
+  type: site
+  title: Calculators
+  url: /calculator_index.html
+  status: legacy
+- id: REFS
+  type: site
+  title: References
+  url: /references.html
+  status: accepted
+- id: GLOSS
+  type: site
+  title: Glossary
+  url: /glossary.html
+  status: accepted
+- id: RET
+  type: site
+  title: Retired papers
+  url: /retired.html
+  status: draft
+- id: ABOUT
+  type: site
+  title: About the author
+  url: /author_page.html
+  status: accepted
+- id: E404
+  type: site
+  title: Not found
+  url: /404.html
+  status: accepted

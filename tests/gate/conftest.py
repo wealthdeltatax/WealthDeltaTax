@@ -76,7 +76,7 @@ def make_repo(root: Path) -> Path:
     rows = []
     for pid, (outs, ins) in pages.items():
         fm = f'---\nid: {pid}\noutputs: {outs}\n' + (f'inputs: {ins}\n' if ins else '') + '---\nbody\n'
-        w(root, f'source/{pid.lower()}.md', fm)
+        w(root, f'papers/legacy/{pid.lower()}.md', fm)
     return root
 
 

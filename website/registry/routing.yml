@@ -1,0 +1,45 @@
+# Reader routing (brief 061s; docs/restructure/site/nav.md section 4, site.md R7).
+#
+# The hub's routing cards and every spoke's Read next lines are generated from this file;
+# `website/build/pages/routing.py` checks it against website/registry/pages.yml and the spokes' front matter.
+#
+#   id       unique, lowercase; used as an anchor
+#   reader   the label shown; the map's wording (docs/restructure/map.md section 3), verbatim
+#   prompt   optional; one sentence in the reader's voice; at most 20 words; no digit
+#   start    1 to 5 page ids, no duplicates; a menu spoke shortcode or the token `data` (DL0);
+#            the first entry is the entry point
+#   order    optional display order; default is file order
+#
+# The prompts are PLACEHOLDERS: the writing lane drafts the final ones and the author approves them
+# (nav.md decision 10). S11 reads FIRST and WIDER, S12 reads UNCER, LIMIT and FALS (ids-map.md).
+
+routes:
+  - id: economist
+    reader: "Economist"
+    prompt: "I want to check the mechanism and the numbers."
+    start: [VAL, FISC, PAY, data]
+
+  - id: lawyer
+    reader: "Tax lawyer or administrator"
+    prompt: "I want to know what is taxed, how it is valued and who runs it."
+    start: [MECH, VAL, GOV]
+
+  - id: policy
+    reader: "Policymaker or adviser"
+    prompt: "I want revenue, the fund, adoption and the wider effects."
+    start: [FISC, FUND, POL, FIRST, WIDER]
+
+  - id: business
+    reader: "Business owner or accountant"
+    prompt: "I want to know how firms are treated and how my wealth is valued."
+    start: [CORP, VAL]
+
+  - id: sceptic
+    reader: "Philosopher or sceptic"
+    prompt: "I want the case for fairness, what exists already, and how it could fail."
+    start: [FAIR, LIT, UNCER, LIMIT, FALS]
+
+  - id: researcher
+    reader: "Researcher wanting the numbers"
+    prompt: "I want the data first."
+    start: [data, FISC]
