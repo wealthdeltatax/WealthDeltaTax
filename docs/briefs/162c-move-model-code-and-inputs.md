@@ -41,11 +41,11 @@ None; the agent flags any call the rules cannot settle.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Decisions:**
-- **Gotchas:**
-- **Resume:**
-- **Not run:**
-- **State:** not started
+- **Done:** claimed on 2026-11-25 (author asked for 162c; 167c, which would replace 162c to 164c, has no branch yet). Branch cut from `main` at 2386501.
+- **Next:** work in a scratch copy of this clone (`path_refs.py --apply` refuses this repository): apply only the 162c rows (`model/`, `data/country-packs/`, `data/input-register/`, `tests/model/`), then the 162c hunks of the rehearsal patch as a guide, pinned lines, proof `Rewriter`, checks.
+- **Decisions:** 163c and 164c rows stay put (their map rows are held to identity in the apply, so their old paths are not rewritten here).
+- **Gotchas:** if Agent 6 starts 167c, one of the two must stop: both move the same tree.
+- **Resume:** `git checkout brief/162-move-model-code-and-inputs`.
+- **Not run:** everything.
+- **State:** block 0 done
 <!-- progress:end -->
