@@ -65,9 +65,33 @@ jobs:
           lscpu | grep -E 'Model name|^CPU\(s\)|Flags' | cut -c1-400
           python -c "import numpy; numpy.show_runtime()" | head -n 40
 
-      - name: Legacy digest alone (diagnostic, 168c)
+      - name: Primitive hashes (diagnostic, 168c)
         continue-on-error: true
-        run: python -m pytest tests/model/model_v3/test_legacy_digest.py -q -p no:cacheprovider
+        run: |
+          cat > /tmp/prim.py <<'PY'
+          import hashlib, numpy as np
+          rng = np.random.default_rng(7); x = rng.standard_normal(100000); y = np.abs(x) + 0.5
+          h = lambda a: hashlib.sha256(np.ascontiguousarray(a).tobytes()).hexdigest()[:16]
+          A = rng.standard_normal((300, 300)); B = rng.standard_normal((300, 300)); S = A @ A.T + 300 * np.eye(300)
+          for name, v in [('normal', x), ('exp', np.exp(x)), ('log', np.log(y)), ('pow', y ** 1.7), ('sin', np.sin(x)), ('tanh', np.tanh(x)),
+                          ('sum', np.array([x.sum(), (x * y).sum()])), ('cumsum', np.cumsum(x)), ('matmul', A @ B), ('dot', np.array([x @ y])),
+                          ('cholesky', np.linalg.cholesky(S)), ('solve', np.linalg.solve(S, B)), ('lognormal', rng.lognormal(0, 0.2, 100000)),
+                          ('sqrt', np.sqrt(y)), ('percentile', np.percentile(x, [10, 50, 90]))]:
+              print(f'{name:11s} {h(v)}')
+          PY
+          sed -i 's/^          //' /tmp/prim.py
+          python /tmp/prim.py
+
+      - name: Legacy digest alone, under determinism pins (diagnostic, 168c)
+        continue-on-error: true
+        run: |
+          T=tests/model/model_v3/test_legacy_digest.py
+          run() { echo "=== $1"; shift; env "$@" python -m pytest $T -q -p no:cacheprovider -k equals_the_fixture 2>&1 | tail -n 2; }
+          run default A=1
+          run threads1 OPENBLAS_NUM_THREADS=1
+          run haswell OPENBLAS_CORETYPE=HASWELL
+          run nosimd "NPY_DISABLE_CPU_FEATURES=AVX512F AVX512CD AVX512_SKX AVX512_CLX AVX512_CNL AVX512_ICL AVX512_SPR AVX2 FMA3 AVX F16C"
+          run glibc "GLIBC_TUNABLES=glibc.cpu.hwcaps=-AVX2,-FMA,-AVX512F"
 
       - name: Suites, one pytest per suite
         run: |
