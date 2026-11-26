@@ -36,9 +36,22 @@ If `fast` is red on the branch for any reason other than the CPU path, stop and 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** nothing yet.
-- **Next:** stage A.
+- **Done:** claimed 2026-11-26 from `main` at affacdf; stage A was done by the 170c agent (merged); stage B investigated: finding (1), see the report.
+- **Next:** the author rules on the legacy-arm premise (see the report); stage C waits for it.
+- **Not run:** stage C (the converge job on Actions).
+- **State:** stopped at stage B, NEEDS THE AUTHOR
 <!-- progress:end -->
 
 ## Change report
-(The agent fills this in.)
+- Task: 172c, stage B (why `S.choose` returns None in the converge fixture); stage A was done and merged by 170c; stage C not started.
+- Files changed: this brief only. No test, model or pin edited.
+- What is different now: nothing in the code. The cause is known and it is possibility (1), a real finding, not a fixture difference.
+- Evidence: (a) the fixture and `run.py --arm legacy` build the same thing: `named(*base)` passes the plain context `ctx` to `S.feasibility(R.make_ev(cp, tornado_crn.standard_normal((R.T, n))), S.grid(lv))` and then `S.choose(fmap, man['feasibility'])`; `run.py` line 93 to 97 does the same with `c0 = ctx` when the arm is legacy (the fixture only differs in the path count, 20, which equals `--size smoke`). (b) I reproduced the failure with a standalone script on the merged `main` (affacdf), seed `run.SEED`, rule `{m2_cap_pct_per_year: 2.0, m4a_floor_pct: 0, closure_share_pct: 75}`: 27 grid points, 0 feasible. At 20 paths the best closure share F1 is 25.0 (M2 3.94, M4a 25.07); at 50 paths 16.0 (M2 3.50, M4a 24.35). The best points miss both the F1 floor (75) and the M2 cap (2.0). A 1,000-path run was started and had not finished when I stopped. (c) So `run.py --arm legacy` would also exit with "no feasible schedule point under the manifest rule" at smoke size (20 paths) and at 50. (d) The two tests were switched to the legacy arm on 2026-11-25 by an author ruling (057c, C1 and C2) and merged on 2026-11-26; the evidence folder has no run of them on the legacy arm. `results/run-cost/run-cost.md` already records that `--arm legacy` cannot complete O1e.
+- Acceptance criteria: two green `fast` runs on different CPU families: met by the 170c report (runs 45884613916 on EPYC 7763 and 45884808194 on EPYC 9V74; the brief's ids 45884609593 are the other dispatch). Converge: legacy-arm finding reported with evidence: met. Change reports written: met. No run used `--final`: met.
+- Deviations from the brief: none; I stopped at (1) as the brief says, no fixture change.
+- Risks / follow-ups: the legacy arm has no feasible named schedule, so C1 and C2 as ruled cannot run. Options for the author: (i) name the schedule for C1 and C2 from the household arm's `S_central` and run the level 1 draws on the legacy arm with it (changes the premise of the ruling); (ii) pick another arm that varies with the level 1 paths; (iii) relax the legacy arm's feasibility rule for the test only (changes a rule); (iv) revert C1 and C2 to the household arm and accept that they test nothing (the 2026-11-25 reason). Until then `accept.sh` step 2 and the converge job fail.
+- Instruction friction: none.
+- Verification: standalone script (not committed) run with `python -I` against `model/model_v3`; `fast` not re-run (no code change).
+- Local-only files to move by hand: none.
+- Overview sections likely needing an update: none.
+- Commit / branch: `brief/172-converge-fixture`, brief edits only; NOT merged: `NEEDS THE AUTHOR`.
