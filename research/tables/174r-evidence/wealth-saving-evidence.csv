@@ -1,0 +1,25 @@
+measure,period,value,unit,flag,source,notes
+private_wealth_national_income,1870-1910,600-700,percent,published_estimate,Piketty_Zucman_2014_abstract,UK historical private wealth to national income
+private_wealth_national_income,1970,200-300,percent,published_estimate,Piketty_Zucman_2014_abstract,Approximate range
+private_wealth_national_income,2010,400-600,percent,published_estimate,Piketty_Zucman_2014_abstract,Approximate range
+household_wealth_GDP,1995,319,percent,secondary_reproduction,Measuring_the_Economy_ch10_fig10.6,ONS NBS Table 11
+household_wealth_GDP,2007,453,percent,secondary_reproduction,Measuring_the_Economy_ch10_fig10.6,ONS NBS Table 11
+household_wealth_GDP,2008,392,percent,secondary_reproduction,Measuring_the_Economy_ch10_fig10.6,ONS NBS Table 11
+household_wealth_GDP,2021,541,percent,secondary_reproduction,Measuring_the_Economy_ch10_fig10.6,ONS NBS Table 11
+household_net_worth,2025,10.8,GBP_trillion,ONS_table,ONS_NBS_preliminary_2026_section4,Current-price household sector net worth
+nonproduced_assets,2025,4.5,GBP_trillion,ONS_table,ONS_NBS_preliminary_2026_section4,Mainly land
+produced_assets,2025,2.1,GBP_trillion,ONS_table,ONS_NBS_preliminary_2026_section4,Mainly dwellings
+financial_net_worth,2025,4.3,GBP_trillion,ONS_table,ONS_NBS_preliminary_2026_section4,Net financial worth
+WAS_property_share,2020-2022,40,percent,ONS_survey,ONS_Total_Wealth_GB_2020-22,Net property wealth
+WAS_pension_share,2020-2022,35,percent,ONS_survey,ONS_Total_Wealth_GB_2020-22,Private pension wealth
+WAS_financial_share,2020-2022,14,percent,ONS_survey,ONS_Total_Wealth_GB_2020-22,Net financial wealth
+WAS_physical_share,2020-2022,10,percent,ONS_survey,ONS_Total_Wealth_GB_2020-22,Physical wealth
+aggregate_saving_ratio,1963,4.8,percent,ONS_series_DG5H,ONS_Blue_Book_2026,Household NSA annual
+aggregate_saving_ratio,1981,12.7,percent,ONS_series_DG5H,ONS_Blue_Book_2026,Household NSA annual
+aggregate_saving_ratio,1999,5.2,percent,ONS_series_DG5H,ONS_Blue_Book_2026,Household NSA annual
+aggregate_saving_ratio,2007,7.8,percent,ONS_series_DG5H,ONS_Blue_Book_2026,Household NSA annual
+aggregate_saving_ratio,2009,10.8,percent,ONS_series_DG5H,ONS_Blue_Book_2026,Household NSA annual
+aggregate_saving_ratio,2019,5.7,percent,ONS_series_DG5H,ONS_Blue_Book_2026,Household NSA annual
+aggregate_saving_ratio,2020,16.5,percent,ONS_series_DG5H,ONS_Blue_Book_2026,Household NSA annual pandemic period
+aggregate_saving_ratio,2022,5.0,percent,ONS_series_DG5H,ONS_Blue_Book_2026,Household NSA annual
+aggregate_saving_ratio,2025,9.6,percent,ONS_series_DG5H,ONS_Blue_Book_2026,Household NSA annual
