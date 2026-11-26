@@ -36,8 +36,9 @@ Ask the author before adding any source to the bibliography.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 skeleton and branch checkpoint.
-- **Next:** block 1, questions 1 and 2; then blocks 2 and 3.
+- **Done:** blocks 0 and 1 (wealth/GDP and saving evidence; note and evidence CSV pushed).
+- **Next:** block 2, growth effects of tax replacement.
+- **Resume:** `brief/174r-wealth-saving-growth-tax-trends`; read the progress block and the note before continuing.
 - **Resume:** `brief/174r-wealth-saving-growth-tax-trends`; read this progress block and the three note skeletons before continuing.
 <!-- progress:end -->
 
