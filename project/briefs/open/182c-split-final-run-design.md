@@ -33,8 +33,13 @@ Written by the agent. Guru's: the batch size, whether level 1 and tornado of one
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Resume:**
-- **State:** ready; not started
+- **Done:** design note `results/split-run/design.md`: items 1 to 7, the merge-difference paragraph, 7 open questions, the 183c stage plan. No code.
+- **Next:** author reads the open questions (1 first: final-size O1e draws are 0 in `SIZES`, not 200).
+- **Resume:** none.
+- **State:** done, pushed on `brief/182-split-run-design`; not merged.
 <!-- progress:end -->
+
+## Change report
+Design written to `results/split-run/design.md` (the only file besides this brief). Decisions: units are `plan`, one `point` unit per grid point (level 1 and tornado together), O1e batches of 25 draws of one schedule plus an `o1e-point` unit; every O1e shard generates all draws and slices; the merge reads assembled per-point documents (not raw samples: about 104 MB per point at 10,000 paths would break the 500 MB Free artifact storage) and raw hex-float roots; the unsplit run becomes plan, units, merge in one process, so there is one assembly path. Wall time of the final run on hosted runners: 1.6 to 7.4 h at 4 workers (3.0 h at the smoke-like mix) against 32 to 160 h serial; 20 concurrent jobs on Free, 6 h per job, 256 matrix jobs, 4 vCPU on public repos, all read from GitHub's documentation. Two unmeasured factors (hosted/local 1.4, 4-worker speed-up 2.5) are replaced by 183c's calibration.
+Findings, not repaired: `SIZES['final']` has 0 O1e draws; `workers` is written into the output file; `cap` records are lost in pool workers.
+Open questions: seven, in the note; the first is the final-size O1e draws.
