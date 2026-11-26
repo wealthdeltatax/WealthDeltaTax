@@ -62,6 +62,12 @@ jobs:
           python --version
           pip list --format=freeze | grep -iE '^(numpy|pyyaml|pytest|openpyxl|bibtexparser)=='
           git rev-parse HEAD
+          lscpu | grep -E 'Model name|^CPU\(s\)|Flags' | cut -c1-400
+          python -c "import numpy; numpy.show_runtime()" | head -n 40
+
+      - name: Legacy digest alone (diagnostic, 168c)
+        continue-on-error: true
+        run: python -m pytest tests/model/model_v3/test_legacy_digest.py -q -p no:cacheprovider
 
       - name: Suites, one pytest per suite
         run: |
