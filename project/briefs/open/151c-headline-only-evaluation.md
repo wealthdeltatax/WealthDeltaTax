@@ -1,8 +1,8 @@
 # 151: Headline-only evaluation for the tornado and the O1e roots
 
-- **Status:** draft (provisional; released after 044c, and only with the `quick` byte-reference file in hand)
+- **Status:** ready (re-released 2026-11-26; block 0 is pushed on `brief/151c-headline-only-evaluation`; blocks 1 onward remain)
 - **Author/date:** K. Ogata with the guru, 2026-11-23
-- **Depends on:** 057c (the `quick` run size and its reference file), 150c (merged, the timing scripts), 044c (the file move; all paths below are pre-move and are rewritten by it)
+- **Depends on:** 057c (merged), 150c (merged), 044c/164c (merged; paths in this brief are now `model/model_v3/...`, `project/...`; map in `project/restructure/file-layout-map.csv`). Not blocked by 170c or 171c, see the note below.
 - **Read (block 0: the first two only):** (1) `results/run-cost/run-cost.md` ("Cost by part", "What is left"); (2) `project/agents/agent-code.md`. Later: `model/model_v3/runner/runner.py` (`core_run` 197, `headlines` 220, `evaluate` 235, `make_ev` 257); `model/model_v3/runner/sweeps.py` (`headline`, `tornado` 86, `breakeven_return` about 125); `model/model_v3/runner/pool.py`; `model/studies/run-cost/timing.py`; `model-specs/computational-architecture-hypothesis.md` (Scenario A).
 
 ## Goal
@@ -48,3 +48,9 @@ None for the author. The agent states which of the two designs in step 1 it used
 - **Resume:** none
 - **State:** draft; not started
 <!-- progress:end -->
+
+## Re-release note (guru, 2026-11-26)
+- First: `git checkout brief/151c-headline-only-evaluation`, merge current `main`, and read its progress block. Paths in the text above are old; use the file-layout map.
+- **Numerics path.** Byte-identical now means the same code before and after, **on the same machine, with the same numerics setting**. Do not compare against `results/057c-evidence/quick-q4` (made on the AVX512 path, before 169c/170c). Make your own before and after files, both with `NPY_DISABLE_CPU_FEATURES=X86_V4` (`model/model_v3/numerics.py` sets it for `run.py`; the branch `brief/169-numerics` carries it, merge it in only after it is on main). Record the setting in the change report.
+- Pins and hashes may change under 170c and 171c while you work; that is not your concern. Do not edit any pin.
+- Long runs: use GitHub Actions (`model-checks.yml`, manual start) for anything beyond about 30 minutes; never `--final`.

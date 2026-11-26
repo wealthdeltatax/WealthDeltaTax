@@ -9,11 +9,11 @@ The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range mod
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
-| Agent 2 | free | 172c (close 169c and 170c, fix converge fixture), then 171c, then 151c |
-| Agent 3 | free (164c merged 2026-11-26) | |
-| Agent 4 | free (160c merged 2026-11-25) | |
-| Agent 5 | free (161c merged 2026-11-25) | |
-| Agent 6 | free | |
+| Agent 2 | free | 151c (headline-only evaluation) |
+| Agent 3 | free | 173c (reading copies, empty-file sweep) |
+| Agent 4 | 170c in progress | |
+| Agent 5 | held free | 172c once Agent 4 finishes 170c |
+| Agent 6 | free | 174r (SWF evidence, research only) |
 
 Six agents only. Agents change skill with the brief. Next housekeeping (author, 2026-11-24): the reorganisation, seven briefs (009c, 044c, 160c to 164c), 009c starts now (057c is paused), the 044c inventory after 009c. **Budget rule:** `model/model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model/model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 
