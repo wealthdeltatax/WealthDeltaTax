@@ -272,8 +272,10 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   var B = [
     { id: "164c", lane: "3", at: 0, len: 1, st: "built", t: "Move project documents and skills, final sweep (R6)", needs: [], why: "Merged 2026-11-26.", files: "docs, Tools, .claude" },
     { id: "168c", lane: "2", at: 0, len: 1, st: "built", t: "GitHub Actions workflow (fast, smoke, converge, accept)", needs: [], why: "Merged 2026-11-26; continues in 169c.", files: ".github/workflows" },
-    { id: "169c", lane: "2", at: 1, len: 2, st: "ready", t: "One numerics path, first Actions runs, split final design", needs: [], why: "CPU-dependent hashes fixed by forcing one numpy path; accept.sh whole; first smoke, converge, accept runs.", files: "run.py, numerics.py, pins, workflow" },
-    { id: "151c", lane: "2", at: 3, len: 1, st: "hold", t: "Headline-only evaluation for the tornado and the O1e roots (speed-up, byte-identical)", needs: [{ id: "169c" }], why: "The tornado and the O1e roots need only the headline; byte-identical to the quick reference file. After the reorganisation and 057c.", files: "runner.py, sweeps.py, run.py" },
+    { id: "169c", lane: "2", at: 1, len: 1, st: "review", t: "One numerics path, first Actions runs (stages A, B pushed; stopped at the stop rule)", needs: [], why: "Branch brief/169-numerics; continues in 170c.", files: "run.py, numerics.py, workflow" },
+    { id: "170c", lane: "2", at: 2, len: 1, st: "ready", t: "Pin the numerics path, finish 169c, read first Actions run", needs: [], why: "Regenerate pins on X86_V4-off path; fast green on every runner.", files: "pins, workflow, accept.sh" },
+    { id: "171c", lane: "2", at: 3, len: 1, st: "hold", t: "Zero tolerance for knife-edge counts (O1f, O2b, O2c)", needs: [{ id: "170c" }], why: "Counts of near-zero values depend on rounding; tolerance makes them path-independent.", files: "model, metrics.md" },
+    { id: "151c", lane: "2", at: 4, len: 1, st: "hold", t: "Headline-only evaluation for the tornado and the O1e roots (speed-up, byte-identical)", needs: [{ id: "171c" }], why: "The tornado and the O1e roots need only the headline; byte-identical to the quick reference file. After the reorganisation and 057c.", files: "runner.py, sweeps.py, run.py" },
     { id: "057c", lane: "2", at: 0, len: 2, st: "built", t: "Model v3 V3-12: run script and acceptance", needs: [], why: "Merged 2026-11-26. Long runs (converge, accept.sh, check_gate --all, --final) go to GitHub Actions." },
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
