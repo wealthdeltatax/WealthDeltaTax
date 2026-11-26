@@ -1,6 +1,6 @@
 # 044: Reorganise the repository into a vertical tree
 
-- **Status:** umbrella and R1 (inventory) of the reorganisation, combined with 009c on 2026-11-24 and split into briefs 009c, 160c to 164c; ready now; Agent 2
+- **Status:** done, retired 2026-11-26 (umbrella; the reorganisation is complete: 160c to 164c merged)
 - **Author/date:** K. Ogata with the guru, 2026-11-18
 - **Depends on:** nothing open (009c merged); the author's answers of 2026-11-24 (below). `project/restructure/file-layout.md` is the 2026-11-18 design; where this brief differs, this brief wins
 - **Read:** `project/restructure/file-layout.md` (the whole design); `.github/workflows/deploy.yml`; `site/_quarto.yml`; `project/agents/agent-code.md`.

@@ -1,6 +1,6 @@
 # 169: One numerics path, first Actions runs, split final run
 
-- **Status:** ready; Agent 2 (or any free code agent)
+- **Status:** retired 2026-11-26 (superseded by 170c and 172c; its branch work continues there)
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 168c (workflow on main), 057c, 164c
 - **Read:** `project/briefs/done/168c-github-actions-long-runs.md` (interim report: the CPU finding, F0 answer, accept.sh gotchas), `.github/workflows/model-checks.yml`, `tests/model/model_v3/accept.sh`, `model/model_v3/run.py` (120-line budget), `model/tools/validate_outputs.py`, `project/restructure/move_tripwire.py`, `project/agents/agent-code.md`

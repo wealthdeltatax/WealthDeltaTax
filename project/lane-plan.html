@@ -259,27 +259,23 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 <script>
 (function () {
   var LANES = [
-    { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the V3 build as it lands" },
-    { id: "2", name: "Agent 2", note: "Free; 151c after 164c" },
-    { id: "3", name: "Agent 3", note: "Free (164c merged)" },
-    { id: "4", name: "Agent 4", note: "Free (160c merged)" },
-    { id: "5", name: "Agent 5", note: "Free (161c merged)" },
-    { id: "6", name: "Agent 6", note: "165c rehearsal now; then 162c and 163c (model move, specs and results)" },
-    { id: "E", name: "You · decisions", note: "quick calls, merges" },
-    { id: "G", name: "Held", note: "starts after the audit or the rewrite" }
+    { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the pushes as they land" },
+    { id: "2", name: "Agent 2", note: "151c (headline-only evaluation)" },
+    { id: "3", name: "Agent 3", note: "173c (reading copies, empty-file sweep)" },
+    { id: "4", name: "Agent 4", note: "170c in progress; then free" },
+    { id: "5", name: "Agent 5", note: "Held free for 172c once 170c is done; then 171c" },
+    { id: "6", name: "Agent 6", note: "174r (SWF evidence, research only)" },
+    { id: "E", name: "You · decisions", note: "merge brief/169-numerics when fast is green; delete old remote branches; feasibility rule; retired-tax switch" },
+    { id: "G", name: "Held", note: "SWF redesign specification: after 151c" }
   ];
   // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
   var B = [
-    { id: "164c", lane: "3", at: 0, len: 1, st: "built", t: "Move project documents and skills, final sweep (R6)", needs: [], why: "Merged 2026-11-26.", files: "docs, Tools, .claude" },
-    { id: "168c", lane: "2", at: 0, len: 1, st: "built", t: "GitHub Actions workflow (fast, smoke, converge, accept)", needs: [], why: "Merged 2026-11-26; continues in 169c.", files: ".github/workflows" },
-    { id: "169c", lane: "2", at: 1, len: 1, st: "review", t: "One numerics path, first Actions runs (stages A, B pushed; stopped at the stop rule)", needs: [], why: "Branch brief/169-numerics; continues in 170c.", files: "run.py, numerics.py, workflow" },
-    { id: "170c", lane: "2", at: 2, len: 1, st: "review", t: "Pin the numerics path, finish 169c, read first Actions run", needs: [], why: "Regenerate pins on X86_V4-off path; fast green on every runner.", files: "pins, workflow, accept.sh" },
-    { id: "172c", lane: "2", at: 3, len: 1, st: "ready", t: "Close 169c and 170c; fix the converge fixture (legacy arm)", needs: [], why: "Pins pushed on the branch; accept passed on GitHub; converge fixture error to diagnose.", files: "test_converge.py" },
-    { id: "171c", lane: "2", at: 4, len: 1, st: "hold", t: "Zero tolerance for knife-edge counts (O1f, O2b, O2c)", needs: [{ id: "170c" }], why: "Counts of near-zero values depend on rounding; tolerance makes them path-independent.", files: "model, metrics.md" },
-    { id: "151c", lane: "2", at: 0, len: 1, st: "ready", t: "Headline-only evaluation for the tornado and the O1e roots (speed-up, byte-identical)", needs: [], why: "The tornado and the O1e roots need only the headline; byte-identical to the quick reference file. After the reorganisation and 057c.", files: "runner.py, sweeps.py, run.py" },
+    { id: "170c", lane: "4", at: 0, len: 2, st: "under", t: "Pin the numerics path, finish 169c, read the first Actions run", needs: [], why: "Branch brief/169-numerics carries the pins; Agent 4 working. Folds in the old 169c.", files: "pins, workflow, accept.sh" },
+    { id: "172c", lane: "5", at: 2, len: 1, st: "hold", t: "Close 169c and 170c on the branch; fix the converge fixture (legacy arm)", needs: [{ id: "170c" }], why: "Starts when Agent 4 finishes 170c. First Actions run: smoke and accept green, converge failed in the legacy-arm fixture.", files: "test_converge.py" },
+    { id: "171c", lane: "5", at: 3, len: 1, st: "hold", t: "Zero tolerance for knife-edge counts (O1f, O2b, O2c)", needs: [{ id: "172c" }], why: "Counts of near-zero values depend on rounding; the tolerance makes them path-independent.", files: "model, metrics.md" },
+    { id: "151c", lane: "2", at: 0, len: 2, st: "ready", t: "Headline-only evaluation for the tornado and the O1e roots (speed-up, byte-identical)", needs: [], why: "Block 0 pushed. Byte-identical means same machine, same numerics setting; not against quick-q4.", files: "runner, support" },
     { id: "173c", lane: "3", at: 0, len: 1, st: "ready", t: "Missing reading copies (24 files) and empty-file sweep", needs: [], why: "check_agent_docs warns on 24 sources; sweep for stub files.", files: "literature/readable" },
-    { id: "174r", lane: "1", at: 0, len: 2, st: "ready", t: "Evidence for the SWF redesign (wealth to GDP, saving, growth effect, retired-tax trends)", needs: [], why: "Research only; ranges for scenario axes.", files: "research/notes" },
-    { id: "057c", lane: "2", at: 0, len: 2, st: "built", t: "Model v3 V3-12: run script and acceptance", needs: [], why: "Merged 2026-11-26. Long runs (converge, accept.sh, check_gate --all, --final) go to GitHub Actions." },
+    { id: "174r", lane: "6", at: 0, len: 2, st: "ready", t: "Evidence for the SWF redesign (wealth to GDP, saving, growth effect, retired-tax trends)", needs: [], why: "Research only; ranges for scenario axes.", files: "research/notes" }
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
 
