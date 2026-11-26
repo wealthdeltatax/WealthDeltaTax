@@ -33,10 +33,23 @@ If a row label is ambiguous (e.g. "Stamp duties" before and after 1999-00, which
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** blocks 0 to 2. Block 1: series script and CSVs (719 rows; overlap 106 comparisons). Block 2: `retired_tax_stats.py` and `retired-tax-stats.csv` (outturn 1978-79 to 2020-21; level, trend, volatility, correlations with the JST UK house price and equity price to GDP ratios, 20 series including the sum of the six); note sections 1, 3, 5 (evidence paragraph), 6, 7, 8 rewritten; `check_agent_docs.py` exit 0.
-- **Next:** block 3 (change report, merge by the auto-merge rule).
+- **Done:** blocks 0 to 3; criteria met; merged by the auto-merge rule (see the change report).
+- **Next:** guru retires the brief.
 - **Resume:** none
 <!-- progress:end -->
 
 ## Change report
-(The agent fills this in.)
+```
+Change report
+- Task: 175r complete the retired-tax series from the held IFS workbook
+- Files changed: research/tables/174r-evidence/retired_tax_series.py (new: workbook to CSV); retired-tax-gdp-annual-full.csv (new, 719 rows); retired-tax-overlap-174r.csv (new, 106 comparisons); retired_tax_stats.py (new: level, trend, volatility, correlations); retired-tax-stats.csv (new, 20 series); research/notes/174r-retired-tax-trends.md (summary, section 3, evidence paragraph in 5, sections 6 to 8 rewritten; section 2 and 4 kept); this brief
+- What is different now: the retired-tax shares of GDP are complete for 1978-79 to 2027-28 (cash) and 1999-00 to 2027-28 (national accounts), with outturn or forecast flags, sheet, row, label and the sheet's own footnotes; the note states level, trend, volatility and the correlation with house and equity prices from them
+- New or changed interfaces: `python -I research/tables/174r-evidence/retired_tax_series.py`, then `retired_tax_stats.py`; both regenerate their CSVs byte for byte (run twice, md5 equal)
+- Acceptance criteria: full annual series for the six taxes with flags and sheet references (met; also onshore corporation tax, both stamp components, total HMRC); script regenerates the CSV (met); overlap with 174r reported (met: 106 comparisons, 13 differ by more than 0.1 point: onshore corporation tax 9 of 12 years on the cash basis and 2 of 12 on the national-accounts basis (max 0.25 and 0.16), business rates 2024-25 (1.1 against 1.33; 0.22)); indexation paragraph states the evidence without a recommendation (met); checker exits 0 (met)
+- Deviations from the brief: statistics use outturn years only, 1978-79 to 2020-21 (the sheet flags 2021-22 onwards as forecast), not "to 2025"; a sum of the six taxes is added as a series; the two stamp components exist only from 1999-00 (blank in the sheet, kept blank)
+- Risks / follow-ups: correlations use JST release 6 (ends 2020, nominal house price index, no policy-break indicators) and are descriptive; cash and national-accounts corporation tax differ by up to 0.53 points in a year and are kept apart; the 174r council tax values were Great Britain receipts, the workbook's are the sheet's UK series
+- Instruction friction: none (asked: nothing in the guide, the brief or the tools failed; the git remote reports that the repository moved to wealthdeltatax/WealthDeltaTax, a notice only)
+- Verification: both scripts run twice with equal md5; `check_agent_docs.py` exit 0; the numbers in the note's tables were compared with `retired-tax-stats.csv` by hand (rounding only); not run: Quarto build (not touched)
+- Overview sections likely needing an update: none
+- Commit / branch: brief/175r-complete-retired-tax-series; brief 175r merged, ready to retire
+```
