@@ -9,17 +9,18 @@ The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range mod
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
-| Agent 2 | free | 151c (headline-only evaluation) |
-| Agent 3 | free (173c merged 2026-11-26) | |
-| Agent 4 | free (170c merged 2026-11-26) | |
+| Agent 2 | 151c (headline-only evaluation) | 154c (level 1 through the parallel map), then 178c |
+| Agent 3 | 176c (speed-up bench and rules) | 179c (re-profile), then 177c |
+| Agent 4 | 182c (split final run: design) | 183c (build the split and the merge), then 181c (first full run) |
 | Agent 5 | free | 172c (from main), then 171c |
-| Agent 6 | free (175r done) | |
+| Agent 6 | free | 180c (compiled kernel spike) after 179c and 171c |
 
 Six agents only. Agents change skill with the brief. Next housekeeping (author, 2026-11-24): the reorganisation, seven briefs (009c, 044c, 160c to 164c), 009c starts now (057c is paused), the 044c inventory after 009c. **Budget rule:** `model/model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model/model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 
 **Findings under review (2026-11-23):** 057c: one household evaluation 4.9 s at 20 paths, a full run hours to days (ruled: O1e at `median_mid` only; parallel evaluation is 150c). 140c: no schedule feasible under the household arm, even on a constant path; the cause is the six-phase death timing (M1a lumpy every fifth year), to be tested in 149c before you rule on the feasibility rule.
 
 ## Recently done
+- 2026-11-26 night: speed-up programme briefed (author: optimise as a discipline; quick run under 10 min for the many-changes loop; full run reserved and waited for on Actions; lever 4 accepted; compiled kernel to be explored; 171c first). Ready now: 176c (bench and rules), 182c (split-run design), with 151c underway and 172c then 171c. After 151c: 154c (level 1 through `pmap`, `--workers` in the jobs); then 178c (`--parts` fast loop), 177c (budget check), 179c (re-profile with a decision table written first). Then 153c (roots; the author signs off the tolerance rule), 180c (numba spike with a pre-registered bar; it resolves against the pinned numpy), 152c parked. 183c builds the split run; 181c is the first full run, as baseline and template. Open for the author: the fast loop's contents, where 10 minutes is measured, the 153c rule, the 180c spike tolerance, and whether 181c counts as the first official run.
 - 2026-11-23: speed-up plan ruled (provisional brief 151c after 044c: headline-only evaluation for the tornado and O1e roots, byte-identical; 152c to 154c follow from its measurement; Rust and Julia on hold). Estimated 3 to 5x on the roots and the tornado, not yet measured.
 - 2026-11-23: 138c merged: M2 on total wealth; `fund_return` axis (`safe` default, `market`); I1 tolerance 1e-7 (`median_high` now runs at 200 paths); lien the pension cannot cover written off in the ledger. P6 at year 100 is 22 to 78 (`safe`) against 646 to 896 (`market`): the whole gap to the legacy arm is the fund's return. 139c wiring and the 140c `market` case are unblocked.
 - 2026-11-24: 147c merged (`top_tail`, `saving_shape` with the zero-wealth floor, `switches.py` 195 of 200 lines): all 75 cells run; concentration stays below the observed 0.50 (best 0.366 at year 100, gap +0.134); the floored cells raise shortfall line-phases (20 at `median_mid` steep, 1,080 at `median_high` steep), cause not investigated. Default off; not in the first official run.
