@@ -30,9 +30,25 @@ A PDF that converts to nothing (scanned): stop on that file, list it, continue w
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** nothing yet.
-- **Next:** stage A.
+- **Done:** stage A: 25 reading copies (the checker listed 25, not 24; all converted ok, none empty), index updated, `check_agent_docs.py` exits 0 with no "no reading copy" warning. Stage B: sweep report `project/restructure/empty-file-sweep.md`; nothing removed.
+- **Next:** author: two data requests (below). Brief can be retired.
+- **Decisions:** none removed; all small files are referenced or excluded.
+- **Gotchas:** `data/country-packs/GBR/tax_rules.csv` is header only; `public_expenditure.csv` has one row.
+- **Resume:** n/a.
+- **Not run:** the tripwire and fast suites (nothing in the model or tests changed; only reading copies, one report and the brief).
+- **State:** done
 <!-- progress:end -->
 
 ## Change report
-(The agent fills this in.)
+Change report
+- Task: brief 173c, reading copies and empty-file sweep
+- Files changed: `literature/readable/**` (25 new copies, index, status.json); `project/restructure/empty-file-sweep.md`; this brief
+- What is different now: every binary under `literature/` and `data/` has a reading copy; the sweep is on file
+- New or changed interfaces: none
+- Acceptance criteria: `check_agent_docs.py` exit 0, no "no reading copy" warning (met); sweep lists every file considered, nothing removed (met); tripwire and fast suites not run, nothing they read changed
+- Deviations from the brief: 25 files, not 24
+- Risks / follow-ups: data requests for the author: `tax_rules.csv` (header only) and `public_expenditure.csv` (one row) in the GBR pack
+- Instruction friction: none
+- Verification: converter reported 25 ok, 0 poor, 0 failed; checker rerun
+- Overview sections likely needing an update: none
+- Commit / branch: brief/173-readable-copies
