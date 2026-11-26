@@ -138,3 +138,27 @@ The 16-core line is an assumption from the 2-core efficiency, not a measurement.
 - O1e on the legacy arm raises from `solve_rate` at an end of the bracket (see above): `--arm legacy` cannot complete O1e.
 - The household evaluation is 8.9 s at 20 paths here against 4.9 s in the brief.
 - `test_budget` was failing on main: the housekeeping commit 472e88e added `runner/switches.py 200` to the budget block and not to the totals. The totals now include it (5,440 and 6,310 with `pool.py` 50 and 75 test lines); say if the reservation was meant to stay outside.
+
+## Headline-only evaluation (151c, 2026-11-27)
+
+**Change.** `make_ev(ctx, eps, seq=None, heads=False)`: with `heads=True` `evaluate` stops after `headlines(raw, ...)`, so one `core_run` and no output groups. `run.py` builds the tornado's and the O1e roots' evaluator with it; the feasibility map keeps the full one (it reads `e['sweeps']['of1']`, a group result). `tests/model/model_v3/test_heads_only.py`: every headline key equal to the last byte on both arms, 3 specs x 3 input settings.
+
+**Setting.** 2 cores, `NPY_DISABLE_CPU_FEATURES=X86_V4` for every number below (169c is not on main; the variable set by hand), household arm, median_mid, spec tau_0 0.04, tau_m 0.5, k_ln 0.5, ratio 1.0; `model/studies/run-cost/heads_only.py`, 20 paths, best of two. Raw numbers: `heads-only-timing.json`.
+
+| unit | full evaluator | headline-only | saving | result bytes |
+|---|---:|---:|---:|---|
+| tornado, one schedule (11 evaluations) | 100.7 s | 18.3 s | 5.49x | identical |
+| one O1e root (tol 1.0) | 18.9 s | 3.4 s | 5.49x | identical |
+| the `quick` run, 5 points, serial (one run each) | 4,193 s (70 min) | 2,182 s (36 min) | 1.92x | see below |
+
+The 5.49x is five `core_run` calls (the 55 `run_lines` calls of 11 evaluations become 11) with the groups gone. The guru's estimate was 3 to 5x; the unit saving is a little above it.
+
+**The `quick` comparison.** Before: main `6719d06`; after: this branch `504a248` (block 1's code); same machine, same setting, run one after the other. The two `outputs.json` (377,764 bytes each) differ in one line and in nothing else: `run_date` (`2026-11-26` before, `2026-11-27` after: the second run finished after midnight on the machine's clock). `diff` shows exactly that line; sha256 starts `4101cd34...` and `96275e68...`. By the brief's stop rule a failed byte comparison stops the block; this one is reported, not accepted: a strict comparison needs both runs on the same date (about 106 minutes for both again, or rerun the after run and read `run_date` aside, the author's choice). `accept.sh` has the same exposure: its `cmp` of two `quick` runs fails when the runs straddle midnight.
+
+**Why the `quick` run saves only 1.92x.** At quick sizes (N1 1,000, 50 tornado paths) the run is: level 1, 3 schedules x 1,000 paths, 287 s per point = 1,437 s (5 points; unchanged, 66% of the after run); the feasibility map, 27 grid points x 11.8 s (full evaluator, 50 paths) = 319 s once; the tornado 5 x 33 x 2.2 s = 363 s (before: 5 x 33 x 11.8 s = 1,947 s); the O1e roots of the first point (about 80 s). Level 1 and the map do not use the headline-only evaluator and are most of what is left.
+
+**Profile, top ten by own time, one tornado (20 paths).** Before / after (calls and seconds): `sum` 5.9M / 940k calls, 15.6 / 2.6 s; `household.apply_payment` 499k / 66k, 13.1 / 1.9 s; `household_step` 193k / 22k, 8.8 / 1.1 s; `kernel._div` 1.64M / 323k, 6.9 / 1.4 s; `kernel.assess` 119k / 23k, 6.5 / 1.3 s; `kernel._route_tax` 576k / 114k, 6.0 / 1.2 s; `arm._restart` 111k / 22k, 5.7 / 1.1 s; `kernel.add` 2.08M / 411k, 5.0 / 1.0 s; `revenue.run_lines` 55 / 11, 4.3 / 0.9 s; `arm.pre` 111k / 22k, 4.1 / 0.8 s. The same ten functions in the same order, each five times cheaper: the profile did not change shape, so what remains is the per-year household loop itself (152c) and the number of evaluations (153c).
+
+**Projection of the full run (one-point O1e, N1 10,000, N2 200, n2p 1,000), serial, this machine.** The tornado: 5 x 42 min becomes 5 x 7.6 min = 0.6 h. O1e: 25 h, 57 h or 153 h (every root with no sign change, smoke-like mix, every root brackets) becomes 4.6 h, 10.4 h or 27.8 h. Level 1: 5 x 37 min = 3.1 h, unchanged. The feasibility map (not in the old table): 27 x 76 s = 0.6 h, unchanged. Total 8.9 h, 14.7 h or 32.1 h against 31.6 h, 63.6 h or 159.6 h before (the earlier table left the map out; with it they were 32.2 h, 64.2 h and 160.2 h): 3.6x, 4.4x and 5.0x. `accept.sh` runs the full run twice: double.
+
+**What this says for 152c to 154c.** After this brief the largest shares of the full run are, in order: O1e (4.6 to 27.8 h; the root count is the lever: 153c), then level 1 (3.1 h, serial: 154c, `pmap` over chunks), then the per-year household loop under everything (152c: the burden and ledger loops shared, each evaluation is now one `core_run`). The feasibility map is a new candidate: it needs the `sweeps` group (3 core runs per grid point for the margins), so it is untouched here; a map-only evaluator that shares the three runs would take its 0.6 h down, a smaller prize than the other three.

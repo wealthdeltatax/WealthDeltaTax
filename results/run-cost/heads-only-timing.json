@@ -1,0 +1,148 @@
+{
+ "paths": 20,
+ "numerics": "X86_V4",
+ "cpu_count": 2,
+ "reps": 2,
+ "seconds": {
+  "tornado": {
+   "full": 100.65,
+   "heads": 18.33,
+   "saving": 5.49
+  },
+  "one_o1e_root": {
+   "full": 18.89,
+   "heads": 3.44,
+   "saving": 5.49
+  }
+ },
+ "identical": {
+  "tornado": true,
+  "one_o1e_root": true
+ },
+ "profile_top10": {
+  "full": [
+   {
+    "function": "~:0(<built-in method builtins.sum>)",
+    "calls": 5900983,
+    "own_s": 15.56,
+    "cum_s": 21.05
+   },
+   {
+    "function": "household.py:28(apply_payment)",
+    "calls": 499103,
+    "own_s": 13.08,
+    "cum_s": 18.19
+   },
+   {
+    "function": "household.py:46(household_step)",
+    "calls": 192940,
+    "own_s": 8.77,
+    "cum_s": 26.64
+   },
+   {
+    "function": "kernel.py:68(_div)",
+    "calls": 1635414,
+    "own_s": 6.92,
+    "cum_s": 7.48
+   },
+   {
+    "function": "kernel.py:299(assess)",
+    "calls": 119097,
+    "own_s": 6.5,
+    "cum_s": 44.22
+   },
+   {
+    "function": "kernel.py:241(_route_tax)",
+    "calls": 575806,
+    "own_s": 6.0,
+    "cum_s": 29.61
+   },
+   {
+    "function": "arm.py:159(_restart)",
+    "calls": 111430,
+    "own_s": 5.69,
+    "cum_s": 6.97
+   },
+   {
+    "function": "kernel.py:100(add)",
+    "calls": 2082586,
+    "own_s": 4.99,
+    "cum_s": 5.79
+   },
+   {
+    "function": "revenue.py:57(run_lines)",
+    "calls": 55,
+    "own_s": 4.32,
+    "cum_s": 68.3
+   },
+   {
+    "function": "arm.py:132(pre)",
+    "calls": 111430,
+    "own_s": 4.13,
+    "cum_s": 43.81
+   }
+  ],
+  "heads": [
+   {
+    "function": "~:0(<built-in method builtins.sum>)",
+    "calls": 940500,
+    "own_s": 2.63,
+    "cum_s": 3.55
+   },
+   {
+    "function": "household.py:28(apply_payment)",
+    "calls": 66363,
+    "own_s": 1.85,
+    "cum_s": 2.56
+   },
+   {
+    "function": "kernel.py:68(_div)",
+    "calls": 322740,
+    "own_s": 1.36,
+    "cum_s": 1.48
+   },
+   {
+    "function": "kernel.py:299(assess)",
+    "calls": 23452,
+    "own_s": 1.29,
+    "cum_s": 8.76
+   },
+   {
+    "function": "kernel.py:241(_route_tax)",
+    "calls": 113630,
+    "own_s": 1.19,
+    "cum_s": 5.86
+   },
+   {
+    "function": "arm.py:159(_restart)",
+    "calls": 22000,
+    "own_s": 1.13,
+    "cum_s": 1.38
+   },
+   {
+    "function": "household.py:46(household_step)",
+    "calls": 22000,
+    "own_s": 1.1,
+    "cum_s": 3.29
+   },
+   {
+    "function": "kernel.py:100(add)",
+    "calls": 410960,
+    "own_s": 0.98,
+    "cum_s": 1.14
+   },
+   {
+    "function": "revenue.py:57(run_lines)",
+    "calls": 11,
+    "own_s": 0.87,
+    "cum_s": 13.74
+   },
+   {
+    "function": "arm.py:132(pre)",
+    "calls": 22000,
+    "own_s": 0.82,
+    "cum_s": 8.69
+   }
+  ]
+ }
+}
