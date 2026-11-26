@@ -1,16 +1,22 @@
 # 174r: Trends in the six retired taxes
 
-Accessed 2026-11-26. Historical descriptive evidence; no recommendation on indexation.
+Accessed 2026-11-26; completed 2026-11-26 (brief 175r) from the held IFS workbook. Historical descriptive evidence; no recommendation on indexation.
 
-Status: block 3 complete with an explicit data limitation. Annual series transcribed where the published OBR table provides them (2007–08 to 2018–19); current endpoints from OBR/HMRC 2024–25 to 2025–26. The annual HMRC/OBR workbook series for every tax was not extracted because the OBR historical workbook download returned 403 and the local repository shell is unavailable. Missing annual series are data requests, not findings.
+Status: complete for the retired-tax series. The annual series for all six taxes, 1978–79 to 2027–28, come from `data/rates/Revenue composition spreadsheet.xlsx` (IFS, "Composition of UK revenue") and are computed by `research/tables/174r-evidence/retired_tax_series.py`; the statistics are computed by `retired_tax_stats.py`. Statistics use the sheet's outturn years only (1978–79 to 2020–21, 43 years); 2021–22 to 2027–28 are flagged forecasts (OBR EFO March 2023 and later) and are shown only as end points.
 
 ## 1. Summary
 
-- The six receipts do not behave as one coherent wealth-linked stream. Corporation tax is tied to company profits and policy rates; council tax is relatively steady and policy constrained; business rates are affected by rateable-value lags and reliefs; CGT and IHT respond to asset prices and policy thresholds; stamp/property transaction taxes respond sharply to transaction volumes, prices and policy changes.
-- The OBR's 2007–08 to 2018–19 annual tables provide exact GDP shares for onshore corporation tax (2.5% to 2.6%, with a 1.9% trough in 2008–09), council tax (1.5% to 1.6%), CGT (0.3% to 0.4%, peaking at 0.5% in 2008–09), and property transaction taxes (0.6% to 0.6%, with a 0.3% trough in 2008–10 and a 0.7% peak in 2017–18).
-- In the same period, business rates rose by 0.1 percentage points of GDP, predominantly during the financial crisis as rateable values were held constant while property prices and GDP fell. IHT receipts rose from 0.2% of GDP in 2006–07 to 0.3% in 2025–26, with asset prices and frozen thresholds contributing.
-- Current OBR outturn estimates for 2024–25 are: onshore corporation tax 3.2% GDP, council tax 1.7%, business rates 1.1%, and capital taxes (CGT, IHT, property transaction taxes and stamp taxes on shares combined) 1.4%. The 2025–26 figures in the March 2025 EFO were forecasts, not outturn; later HMRC receipts data report 2025–26 stamp taxes 0.7% GDP and IHT 0.3%.
-- There is no fair empirical basis for saying each retired tax would have followed household wealth. The historical evidence instead shows tax-specific bases, policy and timing dominate. A fixed-GDP baseline is a transparent fiscal comparator, but it is not the same thing as the tax's historical path.
+Shares of UK GDP, cash basis, mean of the first three against the mean of the last three outturn years (1978–81 against 2018–21), percentage points; the verdict rule is in section 3.2.
+
+- **Corporation tax** 1.91 to 2.56 (rose; the sheet's total, which includes offshore); largest swing of the six in level: from 3.41 in 1989–90 to 1.64 in 1981–82. Volatility (sd of annual change) 0.27 points.
+- **Capital gains tax** 0.19 to 0.46 (rose); volatility 0.08; the lowest year 0.09 (1993–94), the highest 0.53 (2020–21).
+- **Inheritance tax** 0.18 to 0.24 (about steady: +0.06); the smoothest series (volatility 0.017).
+- **Stamp duties** (property transaction taxes and share stamp taxes together, as ruled) 0.24 to 0.70 (rose); from 1999–00 the property part rose (0.33 to 0.54) and the share part fell (0.33 to 0.17).
+- **Business rates** 1.75 to 1.26 (fell); 2.11 in 1982–83, 0.96 in 2020–21 (pandemic reliefs).
+- **Council tax** 1.32 to 1.62 (rose); the series is smooth (volatility 0.10) and trends up by 0.06 points a decade.
+- **The six together** 5.60 to 6.85 (+1.25), between 4.89 (1993–94) and 7.61 (1988–89), volatility 0.38; the flagged forecast for 2027–28 is 8.70. Their sum is not constant: it moved by up to about 2.7 points between a trough and a peak.
+- **Asset prices.** The annual change in each share has a weak to moderate positive correlation with the annual change in the UK house price to GDP ratio (−0.19 to +0.30 for single taxes, +0.50 for the six together; 42 years) and with the equity price to GDP ratio (−0.34 to +0.56). With 42 observations and policy breaks in every series, none of these is stable evidence of proportionality to household wealth.
+- The evidence does not show the six taxes following household wealth one for one, and it does not show them staying at a fixed share of GDP either: each has its own base, policy history and timing. See section 5 (no recommendation).
 
 ## 2. Definitions, sources and comparability
 
@@ -28,35 +34,55 @@ Cash receipts and accrued public-finance receipts differ, especially for CGT, CT
 
 ## 3. Each tax as a share of GDP
 
-### 3.1 Annual OBR series, 2007–08 to 2018–19
+Source: `research/tables/174r-evidence/retired-tax-gdp-annual-full.csv` (719 rows: 10 series; cash basis 1978–79 to 2027–28 and national-accounts basis 1999–00 to 2027–28; the sheet, row, row label, flag and the sheet's own footnotes are in each row). Statistics: `retired-tax-stats.csv`. Values are percent of GDP, four decimals in the CSV, rounded here. The sheet gives its own caution that "Stamp duties" before 1999–00 is an aggregate (ONS series GTBC); the two components exist only from 1999–00 and are not extended backwards.
 
-| Tax | 2007–08 | 2008–09 | 2009–10 | 2010–11 | 2011–12 | 2012–13 | 2013–14 | 2014–15 | 2015–16 | 2016–17 | 2017–18 | 2018–19 |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Onshore corporation tax | 2.5 | 1.9 | 2.2 | 2.2 | 2.0 | 2.1 | 2.1 | 2.3 | 2.3 | 2.6 | 2.6 | 2.6 |
-| Council tax (GB) | 1.5 | 1.5 | 1.6 | 1.6 | 1.5 | 1.5 | 1.5 | 1.5 | 1.5 | 1.5 | 1.5 | 1.6 |
-| Capital gains tax | 0.3 | 0.5 | 0.2 | 0.2 | 0.3 | 0.2 | 0.2 | 0.3 | 0.4 | 0.4 | 0.4 | 0.4 |
-| Property transaction taxes | 0.6 | 0.3 | 0.3 | 0.4 | 0.4 | 0.4 | 0.5 | 0.6 | 0.6 | 0.6 | 0.7 | 0.6 |
+### 3.1 Level, trend and swings, cash basis, outturn 1978–79 to 2020–21
 
-Units: per cent of GDP. These are source values transcribed from OBR WP15 tables 2.3, 2.4, 2.5 and 3.4. CSV: research/tables/174r-evidence/retired-tax-gdp-annual.csv.
+| Tax | first 3 yrs | last 3 yrs | change | lowest (year) | highest (year) | trend, points per decade | volatility (sd of annual change) | verdict |
+|---|---:|---:|---:|---|---|---:|---:|---|
+| Corporation tax (total) | 1.91 | 2.56 | +0.65 | 1.64 (1981–82) | 3.41 (1989–90) | +0.07 | 0.27 | rose, large swings |
+| of which onshore | 1.81 | 2.50 | +0.69 | 1.41 (1981–82) | 3.29 (1989–90) | +0.08 | 0.27 | rose, large swings |
+| Capital gains tax | 0.19 | 0.46 | +0.28 | 0.09 (1993–94) | 0.53 (2020–21) | +0.05 | 0.08 | rose, large relative swings |
+| Inheritance tax | 0.18 | 0.24 | +0.06 | 0.15 (2009–10) | 0.26 (2020–21) | +0.01 | 0.017 | about steady |
+| Stamp duties (total) | 0.24 | 0.70 | +0.46 | 0.17 (1992–93) | 0.90 (2007–08) | +0.14 | 0.095 | rose, large swings |
+| of which property transaction taxes (from 1999–00) | 0.33 | 0.54 | +0.21 | 0.30 (1999–00) | 0.65 (2006–07) | +0.10 | 0.09 | rose |
+| of which stamp taxes on shares (from 1999–00) | 0.33 | 0.17 | −0.17 | 0.13 (2012–13) | 0.40 (2000–01) | −0.07 | 0.04 | fell |
+| Business rates | 1.75 | 1.26 | −0.49 | 0.96 (2020–21) | 2.11 (1982–83) | −0.14 | 0.12 | fell |
+| Council tax | 1.32 | 1.62 | +0.30 | 1.05 (1991–92) | 1.75 (2020–21) | +0.06 | 0.10 | rose |
+| The six together | 5.60 | 6.85 | +1.25 | 4.89 (1993–94) | 7.61 (1988–89) | +0.19 | 0.38 | rose |
+| Total HMRC (context) | 25.48 | 28.23 | +2.75 | 23.52 (1993–94) | 29.11 (2007–08) | +0.46 | 0.72 | rose |
 
-### 3.2 Business rates and inheritance tax
+"The six together" is corporation tax (total), capital gains tax, inheritance tax, stamp duties (total), business rates and council tax. The flagged forecast values for 2027–28 (OBR, March 2023 EFO and later) are: corporation tax 3.71, CGT 0.89, IHT 0.29, stamp duties 0.78, business rates 1.22, council tax 1.81, the six 8.70, total HMRC 32.22. They are forecasts, not outturn, and are not used in the statistics.
 
-OBR WP15 reports that business rates rose by 0.1 percentage points of GDP over 2007–08 to 2018–19. It attributes most of that rise to the financial crisis: rateable values were held constant while property prices and GDP fell. Subsequent revaluations and more generous reliefs only partly reversed the rise. The OBR's March 2025 EFO puts business rates at 1.1% GDP in 2024–25 and 1.1% in 2025–26 (forecast at the time).
+### 3.2 Reading rule for the verdicts
 
-HMRC's 2026 annual bulletin reports IHT receipts rising from £3.5bn (0.2% GDP) in 2006–07 to £8.5bn (0.3% GDP) in 2025–26. OBR says IHT receipts have risen as a share of GDP since 2009–10, mainly due to asset-price rises (residential property is the largest asset in most estates) and fiscal drag because the £325,000 nil-rate band has been frozen since 2009. The series is also affected by the transferable nil-rate band, residence nil-rate band, deaths and payment timing.
+"First 3" and "last 3" are the means of the first and last three outturn years. A change of 0.15 points or less is "about steady"; a larger rise or fall is "rose" or "fell". The rule is a convention of this note. Any cut-off between 0.07 and 0.16 gives the same verdicts: the smallest change after inheritance tax (+0.06) is the share stamp taxes (−0.17). The trend column is the ordinary least squares slope of the share on the year.
 
-### 3.3 Latest comparable summary
+### 3.3 Basis: cash against national accounts, 1999–00 to 2020–21
 
-| Tax / grouping | 2024–25 | 2025–26 | Basis and flag |
-|---|---:|---:|---|
-| Onshore corporation tax | 3.2% | 3.3% | OBR March 2025 table 4.1; 2024–25 outturn, 2025–26 forecast at publication |
-| Council tax | 1.7% | 1.7% | OBR March 2025 table 4.1; 2025–26 forecast |
-| Business rates | 1.1% | 1.1% | OBR March 2025 table 4.1; 2025–26 forecast |
-| Capital taxes (CGT + IHT + property transaction taxes + stamp taxes on shares) | 1.4% | 1.6% | OBR March 2025 table 4.1; not a separate CGT/IHT/stamp split |
-| Stamp taxes including SDLT, SDRT, Stamp Duty and ATED | not reported as a single GDP share in this table | 0.7% | HMRC annual bulletin figure 5, 2025–26; includes property and share stamp taxes, excludes devolved land transaction taxes after devolution |
-| Inheritance tax | not separately shown in this OBR table | 0.3% | HMRC annual bulletin figure 11, 2025–26 |
+The workbook's national-accounts sheet starts in 1999–00. Over the 22 outturn years both bases agree to within 0.001 points for CGT, IHT and the stamp components, within 0.05 points for business rates and 0.06 for council tax. They differ for corporation tax (up to 0.53 points in a year), which the two sheets define differently: the cash sheet's note says "net of enhanced and payable tax credits", the national-accounts sheet's "gross of reduced liability tax credits" and includes Pillar 2 taxes. Over 1999–2021 the total's trend is −0.26 points a decade on the national-accounts basis (first three years 3.07, last three 2.55); the cash series is longer and its trend is given in 3.1. The earlier 174r values for onshore corporation tax from OBR WP15 sit on the national-accounts basis: they differ from it by more than 0.1 point in 2 of 12 years (2017–18, 2018–19) and from the cash basis in 9 of 12. Choose the basis once per use; do not mix them.
 
-The 2025–26 OBR numbers are forecasts from March 2025, not final outturn. The HMRC 2025–26 stamp/IHT values are published cash receipts. Keep the distinction.
+### 3.4 Overlap with the earlier 174r values
+
+`retired-tax-overlap-174r.csv` compares every earlier 174r value that the workbook also holds, on both bases (106 comparisons). Capital gains tax (largest difference 0.04 points), property transaction taxes (0.05), council tax (0.07 cash, 0.05 national accounts), inheritance tax (0.04) and stamp taxes combined (0.04 cash, 0.003 national accounts) agree within 0.1 point. Onshore corporation tax is the exception (above). The OBR March 2025 value for business rates, 2024–25, is 1.1% of GDP; the workbook has 1.33 (cash) and 1.32 (national accounts) for that year, a difference of 0.22: the two come from different vintages and the OBR figure is rounded; this is reported, not resolved.
+
+### 3.5 Association with house and equity prices
+
+Pearson correlation, 42 years (financial year 20XX–YY matched to calendar year 20XX), of the annual change in the share (points) with the annual log change of the ratio of the UK house price index (JST release 6, nominal) or the equity price index (cumulated JST equity price change) to nominal GDP; levels in brackets for completeness (two trending levels correlate spuriously, so they are not evidence).
+
+| Tax | change vs house price/GDP | change vs equity price/GDP | levels: house | levels: equity |
+|---|---:|---:|---:|---:|
+| Corporation tax | +0.13 | +0.24 | (+0.15) | (+0.62) |
+| Capital gains tax | +0.21 | −0.34 | (+0.57) | (−0.06) |
+| Inheritance tax | +0.30 | +0.30 | (+0.57) | (+0.16) |
+| Stamp duties (total) | +0.16 | +0.53 | (+0.63) | (+0.38) |
+| Property transaction taxes (21 years) | +0.26 | +0.56 | (+0.51) | (−0.13) |
+| Stamp taxes on shares (21 years) | +0.01 | +0.46 | (−0.46) | (+0.81) |
+| Business rates | −0.19 | +0.10 | (−0.34) | (−0.47) |
+| Council tax | +0.23 | −0.16 | (+0.70) | (−0.36) |
+| The six together | +0.50 | +0.23 | (+0.30) | (+0.10) |
+
+The JST data end in 2020. No policy-break indicator is held, so the coefficients mix policy changes with price effects. With 42 years a correlation must exceed about 0.30 in size to differ from zero at the 5% level even if the years were independent; they are not independent, and this table holds 18 coefficients, so only the larger ones (the six together with house prices, +0.50; the stamp duties and property transaction taxes with equity prices, +0.53 and +0.56) say anything, and they say it about the sign of the co-movement, not about its size or stability.
 
 ## 4. Volatility and asset-price relationships
 
@@ -97,28 +123,33 @@ The historical evidence shows why the switch is a meaningful scenario:
 
 A minimal sensitivity can reuse the wealth/GDP drift candidates in the block-1 note: low −0.5%, central-for-illustration 0%, high +0.5% annual log drift in the wealth-linked retired-tax base relative to GDP. Over 50 years these imply multipliers of approximately 0.78, 1.00 and 1.28 relative to the fixed-GDP comparator. These are scenario-axis candidates, not empirical estimates of how the six retired taxes would have behaved.
 
-## 6. Data requests and limitations
+Measured evidence for the indexation question (section 3): over 1978–2021 the six taxes together rose from 5.6 to 6.8% of GDP and moved between 4.9 and 7.6%, so a fixed share of GDP is not what they did in total; single taxes moved in different directions (business rates and share stamp taxes fell, corporation tax, stamp duties on property, CGT and council tax rose, IHT stayed within 0.15 to 0.26). The year-to-year changes of their sum have a correlation of +0.50 with the change in the house price to GDP ratio and +0.23 with the equity price to GDP ratio. That is consistent with some link to asset prices at the level of the group, and it is not strong enough, over one country and 42 years with policy changes throughout, to say that the group tracks household wealth in proportion. This note states the evidence only; the fixed share of GDP stays the working rule and the wealth-following switch is a later design.
 
-1. **OBR historical public finances database:** OBR's public page lists a historical public finances database covering 300 years. The download link returned HTTP 403 in this session. Please attach the workbook or provide a working local checkout if the complete annual historical series are required.
-2. **HMRC annual receipts statistics table:** HMRC's current 2026 annual bulletin links an ODS table with annual cash receipts; the ODS file was not fetched or converted here. It contains annual cash series for CT, CGT, IHT and stamp taxes but not the council-tax/business-rates local-government series.
-3. **Council tax and business rates:** use OBR/ONS public-finance series or MHCLG local-government finance statistics, reconciled to the same GDP vintage. The current OBR forecast table gives the recent shares, while WP15 supplies the 2007–19 history.
-4. **IHT:** HMRC bulletin supplies the 2006–07 and 2025–26 GDP-share endpoints and explanatory commentary; annual data should be transcribed from its ODS table before a full CSV is claimed.
-5. **Asset-price correlation:** no correlation coefficients were estimated here. OBR descriptions identify the relevant mechanisms, but a quantitative correlation needs a consistent annual series for each tax, GDP, house prices and equity prices, with policy-break indicators.
 
-No annual observations have been invented to fill these gaps. The CSV includes only exact OBR annual series and source-flagged endpoints/trend summaries. A future extraction should append the missing annual series and calculate volatility/correlations reproducibly.
+## 6. Data and limitations
+
+Answered by brief 175r: the annual series for every tax (the IFS workbook already held in `data/rates/`; the OBR historical database and the HMRC ODS table are not needed for it), the business rates and inheritance tax annual series, the council tax and business rates series, and the correlations with house and equity prices. Still true:
+
+1. **Basis.** Cash and national accounts are both given and not mixed (3.3). Forecast years (2021–22 onwards in the workbook's cash sheet, flagged from the sheet's own row 2) are not in the statistics.
+2. **Scope of the series.** The workbook's corporation tax is the total including offshore; the onshore row is kept separately. Council tax and business rates are the sheet's series (its title is UK revenue; the national-accounts sheet's note says its business rates exclude Northern Irish business rates); the earlier 174r council tax values were Great Britain receipts, which may account for part of the small differences in 3.4.
+3. **Asset prices.** JST (release 6, ends 2020) gives the UK nominal house price index and equity price change; no commercial property, no land and no policy-break indicators are held, so business rates and council tax (rateable values and bands) are compared with house prices only as a rough proxy.
+4. **Short history.** One country, 43 outturn years, serial correlation in every series; the coefficients are descriptive.
+5. **Not held:** a series before 1978–79; accrued (time-shifted) corporation tax and CGT beyond the national-accounts sheet's 1999–00 start.
+
+No observation was filled in or interpolated. A sheet cell left blank (the two stamp components before 1999–00) is absent from the CSV.
 
 ## 7. Reproduction
 
-Annual values in the CSV are transcribed from OBR WP15 tables 2.3 (onshore CT), 2.4 (council tax), 2.5 (CGT), and 3.4 (property transaction taxes). Business-rates change is from WP15 paragraph 2.24. IHT and stamp-tax endpoints are from HMRC's annual bulletin, figures 5 and 11. Recent ratios are from OBR March 2025 EFO table 4.1. OBR public data page download was attempted but the historical public-finances workbook returned 403. Local command/checker were not run because there is no shell checkout.
+`python -I research/tables/174r-evidence/retired_tax_series.py` regenerates `retired-tax-gdp-annual-full.csv` and `retired-tax-overlap-174r.csv` byte for byte from the workbook; `python -I research/tables/174r-evidence/retired_tax_stats.py` then regenerates `retired-tax-stats.csv` (it reads that CSV and `data/jst/jst_r6.json`). `retired-tax-gdp-annual.csv` is the earlier partial series (OBR WP15 tables 2.3, 2.4, 2.5, 3.4; HMRC annual bulletin figures 5 and 11; OBR EFO March 2025 table 4.1), kept as the source of the overlap check. Checker: `python -I project/tools/check_agent_docs.py` (run for 175r, see its change report).
 
 ## 8. Open rulings
 
-- Whether "stamp duty" in the WDT phase-one set means property transaction taxes only, stamp duty on shares only, or both.
-- Whether to include devolved LBTT/LTT in a UK-wide stamp series from their introduction.
+- ~~Whether "stamp duty" means property transaction taxes only, stamp duty on shares only, or both~~ Ruled 2026-11-26: both, as separate columns and as a sum (this note's `stamp_duties_total`).
+- Whether to include devolved LBTT/LTT in a UK-wide stamp series from their introduction (the workbook's property transaction taxes include them, note e).
 - Whether the retired-tax wealth-linked axis should use household NBS net worth or a narrower WDT-taxable wealth stock.
-- Whether to apply one common wealth index to all six retired taxes or only to taxes whose bases historically move with household assets.
+- Whether to apply one common wealth index to all six retired taxes or only to taxes whose bases historically move with household assets (the table in 3.5 is the evidence on that, and it is weak).
 - Whether to use OBR accrued/time-shifted receipts or HMRC cash receipts as the primary historical series. They must not be silently mixed.
-- Whether to add a 1900-to-present series. Current OBR public-finance historic database is the intended source; its file was not accessible in this session.
+- Whether to add a series before 1978–79 (the OBR historical public finances database is the intended source; not needed for this note).
 
 ## References (not added to project bibliography)
 
@@ -126,4 +157,6 @@ Annual values in the CSV are transcribed from OBR WP15 tables 2.3 (onshore CT), 
 - OBR (2025), Economic and fiscal outlook, March 2025, table 4.1.
 - OBR (2026), Tax by tax, spend by spend: Onshore corporation tax; Council tax; Capital gains tax; Inheritance tax; Property transaction taxes.
 - HMRC (2026), HMRC tax receipts and National Insurance contributions for the UK (annual bulletin), figures 5 and 11 and statistics table.
-- OBR (2023), Historical public finances database, 300-year tax and spending series (download link not accessible in this session).
+- OBR (2023), Historical public finances database, 300-year tax and spending series (not used; the IFS workbook is).
+- Institute for Fiscal Studies, Composition of UK revenue (`data/rates/Revenue composition spreadsheet.xlsx`; sheets `% GDP (cash)` and `% GDP (national accounts)`); forecasts in it from OBR EFO March 2023 and later.
+- Jordà, Schularick and Taylor, Macrohistory Database, release 6 (`data/jst/jst_r6.json`; UK `hpnom`, `eq_capgain`, `gdp`).
