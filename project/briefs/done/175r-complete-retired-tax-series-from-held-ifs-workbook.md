@@ -1,6 +1,6 @@
 # 175: Complete the retired-tax series from the held IFS workbook
 
-- **Status:** ready; Agent 6 (needs a shell; research and a small script)
+- **Status:** done, retired 2026-11-26
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 174r (merged in part)
 - **Read:** `research/notes/174r-retired-tax-trends.md` and `research/tables/174r-evidence/retired-tax-gdp-annual.csv` (the partial result), `project/agents/agent-research.md`, `literature/readable/data/rates/Revenue composition spreadsheet.xlsx.md` (reading copy, to find the sheets; quote numbers from the xlsx, not the copy)
