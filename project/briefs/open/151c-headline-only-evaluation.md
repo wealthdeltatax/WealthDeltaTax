@@ -43,11 +43,12 @@ None for the author. The agent states which of the two designs in step 1 it used
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0; block 1 (2026-11-26): the switch is `make_ev(ctx, eps, seq=None, heads=False)` passing `heads` to `evaluate`, which returns `headlines(raw, ...)` right after the one `core_run`. A parameter and not a second factory: one line in `evaluate`, none in `make_ev`, `runner.py` stays at 360 lines (the evaluate docstring and one `if` were folded; no budget row changed). Callers read first: `sweeps.tornado` reads `HEADS` (M1, M2 `overall`, M4a, M3 and `h in cen`), `breakeven_return` reads `['M1']['short']`; neither reads a group result, so both go on the headline-only evaluator; `run.py` builds `ev` and `evm` with `heads=True` (no extra lines, still 120) and `S.feasibility` keeps the full one. `tests/model/model_v3/test_heads_only.py`: byte equality (floats by hex, arrays by buffer) of every headline key, both arms, 3 specs x 3 input settings (none, return mean +1, return sd x1.2) and given paths; plus the default evaluator unchanged. Suite: `tests/model/model_v3` 411 passed (incl. `test_legacy_digest` and `test_budget`).
-- **Next:** block 2: `model/studies/run-cost/heads_only.py` timings (tornado, one root; best of two, 20 paths, `NPY_DISABLE_CPU_FEATURES=X86_V4`), then the two `quick` runs (before: main's code; after: this branch) with the same setting, compared byte for byte; the section in `run-cost.md`.
-- **Decisions:** none; design: a parameter, not a second factory.
+- **Done:** block 0; block 1 (pushed `504a248`: the switch `make_ev(..., heads=True)`, a parameter not a second factory, `runner.py` still 360 lines, `run.py` 120; `test_heads_only.py` byte equality on both arms; `tests/model/model_v3` 411 passed). Block 2 measured (2026-11-27, 2 cores, `NPY_DISABLE_CPU_FEATURES=X86_V4`): tornado one schedule 100.7 s to 18.3 s (5.49x), one O1e root 18.9 s to 3.4 s (5.49x), both byte-identical; the `quick` run 4,193 s to 2,182 s (1.92x). Section "Headline-only evaluation (151c)" in `results/run-cost/run-cost.md` with the profile top ten, why `quick` is under 2x (level 1 is 66% of what is left, the map 15%) and the projection of the full run (8.9 / 14.7 / 32.2 h serial against 32.2 / 64.2 / 160.2 h); block 3's note (what is largest now: O1e, then level 1, then the household loop) is in the same section.
+- **STOP, byte comparison:** the two `quick` files differ in one line, `run_date` (`2026-11-26` before, `2026-11-27` after: the runs straddled midnight); nothing else differs (`diff`, 377,764 bytes each). Not accepted by me under the stop rule. The author decides: rerun both the same day (about 106 min), or accept the one-line difference. `accept.sh --compare` has the same midnight exposure.
+- **Next:** the author's call on the comparison; then merge. Follow-ups: 152c to 154c as in the run-cost note.
+- **Decisions:** none taken. Not touched: the feasibility map keeps the full evaluator (it reads `e['sweeps']['of1']`, a group result).
 - **Resume:** `git checkout brief/151c-headline-only-evaluation`.
-- **State:** block 1 done; blocks 2 and 3 open.
+- **State:** blocks 0 to 3 pushed; acceptance open on the byte comparison.
 <!-- progress:end -->
 
 ## Re-release note (guru, 2026-11-26)
