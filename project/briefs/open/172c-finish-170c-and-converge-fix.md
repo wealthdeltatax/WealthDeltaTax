@@ -1,0 +1,44 @@
+# 172: Finish 170c on the branch, fix the converge failure
+
+- **Status:** ready; Agent 2 or 3
+- **Author/date:** K. Ogata with the guru, 2026-11-26
+- **Depends on:** branch `brief/169-numerics` at 2781106b (169c stages A, B and 170c stages A, B pushed; no change report written)
+- **Read:** `project/briefs/open/170c-pin-numerics-path-and-first-runs.md` (on main; the branch carries the older 169c brief), `results/169c-numerics/difference-report.md`, `tests/model/model_v3/test_converge.py`, `.github/workflows/model-checks.yml`
+
+## Goal
+Close 169c and 170c on the branch with a change report, and make `test_converge.py` runnable on GitHub.
+
+## First Actions run read by the guru (run 45803742165, on main, before the pins)
+- smoke: success, 24 min (Intel).
+- accept: success, 2 h 58 min on Intel Xeon 8573C. Two `--size quick` runs, validation PASS (12 warnings, the known manifest ones), step 5 ok, step 6 byte-identical, step 7 ok. Wall time 10,695 s.
+- converge: **failed**, 1 h 23 min on AMD EPYC 9V74: 2 passed, 2 errors. Both errors are in the fixture, not in an assertion: `test_converge.py:26`, `named()`: `S.choose(fmap, man['feasibility'])['S_central']` raises `'NoneType' object is not subscriptable`, so `S.choose` returned None for the arm in the fixture (the 20-path feasibility map has no feasible cell). The failing tests are `test_c1_five_seeds_agree_on_the_legacy_arm` and `test_c2_doubling_moves_the_means_little_on_the_legacy_arm`; the household-arm tests passed.
+- fast: failed on AMD EPYC 7763, as predicted (old pins).
+- Two `fast` runs of the branch were started by the guru (workflow_dispatch on `brief/169-numerics`): ids 45884609593 and 45884613916.
+
+## Stages
+- A (170c close-out): read the two `fast` runs above (CPU line, result). If both green, and at least one ran on an AMD EPYC 7763 and one on an Intel or EPYC 9V74, that is the two-CPU check; if not, start more with `gh workflow run model-checks.yml --ref brief/169-numerics -f run_accept=false` until you have one of each (they cancel each other in the same group: wait for each to finish). Then write the 169c and 170c change reports and the progress blocks. Checkpoint: pushed.
+- B (converge): find why `S.choose` returns None for the legacy-arm fixture. Two possibilities: (1) a real finding (no feasible schedule on the 20-path CRN for the legacy arm; the 057c rulings C1 and C2 accepted the legacy arm for these tests, so a legacy arm with no feasible cell contradicts that premise) or (2) the fixture builds the arm differently from `run.py` (compare how `run.py` builds the legacy arm's feasibility map). Report which, with the evidence. Fix the fixture only if it is (2); if it is (1), stop and ask the author. Do not change the model.
+- C: run the repaired converge job on the branch (`-f run_converge=true -f run_accept=false -f run_smoke=false`); it takes about 1.5 h up to 3.5 h. Report each test result and wall time.
+
+## Touches
+`tests/model/model_v3/test_converge.py` (fixture only), the branch's briefs and progress blocks. No model arithmetic, no pins (unless a pin check fails, then stop).
+
+## Acceptance criteria
+- Two green `fast` runs on different CPU families, ids in the report.
+- Converge: either all four tests green on Actions or the legacy-arm finding reported with evidence.
+- Change reports written; no run used `--final`.
+
+## Out of scope
+171c (zero tolerance), the split final run, the SWF redesign.
+
+## Open questions
+If `fast` is red on the branch for any reason other than the CPU path, stop and report.
+
+## Implementation notes
+<!-- progress:start -->
+- **Done:** nothing yet.
+- **Next:** stage A.
+<!-- progress:end -->
+
+## Change report
+(The agent fills this in.)
