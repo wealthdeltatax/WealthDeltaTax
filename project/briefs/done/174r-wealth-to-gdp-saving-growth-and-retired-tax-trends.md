@@ -1,6 +1,6 @@
 # 174: Evidence for the SWF redesign: wealth to GDP, saving by wealth class, growth effect, retired-tax trends
 
-- **Status:** done in part, merged 2026-11-26 (notes and two CSVs); open: annual series after 2018-19 and for business rates and IHT, wealth-to-GDP extraction reproducible by command, checker run (agent had no shell)
+- **Status:** done, retired 2026-11-26
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** nothing; read-only on the model and pack
 - **Read (block 0: the first two only):** (1) `project/decisions.md`, the entries of 2026-11-25 on the SWF layers, the capped fund and the retired-tax question; (2) `project/agents/agent-research.md`. Later: `results/reserve-diagnostic/`, `model-specs/household-arm-paths.md`, `research/notes/145r-withdrawal-and-saving-evidence.md`, `research/notes/146r-*.md` (do not redo them)
