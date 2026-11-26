@@ -33,8 +33,9 @@ If a row label is ambiguous (e.g. "Stamp duties" before and after 1999-00, which
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** nothing yet.
-- **Next:** block 0.
+- **Done:** block 0 (branch `brief/175r-complete-retired-tax-series` from main; shell and the held workbook are available).
+- **Next:** block 1 (script and full CSV, overlap check against the 174r values).
+- **Resume:** none
 <!-- progress:end -->
 
 ## Change report
