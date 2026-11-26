@@ -105,3 +105,5 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: the session's clone of the repository was shallow (16 commits), so the scratch copy's tripwire reported `FAIL pack` (`model_v2/jst_r6.json is not in git history`); same cause as the 044c entry. A second slip: switching the scratch copy to another commit while a suite ran in it made that run void (rerun, 10 minutes).
 - Cost: one extra tripwire run and one extra `model_v3` run.
 - Suggest: `code.md` says "run `git fetch --unshallow` first in every session that runs the tripwire"; run a stage in a scratch clone and bring it back with `git merge --squash`, never touch the clone while suites run.
+
+- 2026-11-26, 168c: the brief says `gh workflow run --ref <branch>` starts a new workflow once pushed; GitHub returns 404 for a workflow file that is not on the default branch, so the agent cannot start the first run without a merge of the skeleton to main. Also `accept.sh` step 1 (`python -I -m pytest`) fails at collection, and the digest fixtures depend on the CPU (AVX512 path of numpy).

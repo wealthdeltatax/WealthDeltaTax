@@ -9,11 +9,11 @@ The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range mod
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
-| Agent 2 | free (057c merged 2026-11-26) | 151c after 164c |
-| Agent 3 | free (164c merged 2026-11-26) | |
-| Agent 4 | free (160c merged 2026-11-25) | |
-| Agent 5 | free (161c merged 2026-11-25) | |
-| Agent 6 | free | |
+| Agent 2 | free | 151c (headline-only evaluation) |
+| Agent 3 | free | 173c (reading copies, empty-file sweep) |
+| Agent 4 | 170c in progress | |
+| Agent 5 | held free | 172c once Agent 4 finishes 170c |
+| Agent 6 | free | 174r (SWF evidence, research only) |
 
 Six agents only. Agents change skill with the brief. Next housekeeping (author, 2026-11-24): the reorganisation, seven briefs (009c, 044c, 160c to 164c), 009c starts now (057c is paused), the 044c inventory after 009c. **Budget rule:** `model/model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model/model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 
@@ -27,6 +27,9 @@ Six agents only. Agents change skill with the brief. Next housekeeping (author, 
 - 2026-11-24: 147c blocks 0 to 3 reviewed, not merged: `top_tail` and `saving_shape` switches in, 30 of 50 non-flat cells stop in M13 (D1, D2 go negative). Ruled: floor dissaving at zero wealth in `switches.py` (block 4). No setting lifts top-decile share to 0.50 (best 0.388 at year 100); reported as a finding, no more switches.
 - 2026-11-24: 057c PAUSED (author; deliberate, not abandoned, not accepted, not mergeable). Sixth-round rulings applied (cap and `target_not_met`, `no_sign_change_0_15`, `test_converge.py` with a reduced C3); `quick` run 3,991 s with all five points (2 of 5 met their target); suites passed on the merged tree (`tests/data` 103, `tests/hooks` 88, `tests/model_v3` 395) but smoke and `quick` were not rerun after the 089c and 147c merge, so every generated file is stale. Open and unruled: 10 of 12 O8 cells null; whether C1 and C2 are vacuous on the household arm; identical S_low and S_central O1e roots; changes outside Touches (`core/support.py`, validator, manifest, fixture). `accept.sh` has never run end to end. Evidence in `docs/model-v3/057c-evidence/`; resume from the brief's Handover and Resumption procedure.
 - 2026-11-24: 057c rounds 4 and 5 reviewed, not merged: `quick` 44 min, a final-size grid point without O1e 94 min (serial). Ruled: failed grid points stay as `target_not_met`; O1e no root is `no_sign_change_0_15`; acceptance runs a reduced C3 (full C3 a later manual run).
+- 2026-11-26 evening: first Actions run read: smoke green (24 min), accept green (2 h 58 min; two quick runs byte-identical, steps 4 to 7 ok), converge failed in the legacy-arm fixture (`S.choose` returned None, 1 h 23 min). Branch `brief/169-numerics` carries the pinned numerics path (pins, workflow env, docs); not merged; two `fast` runs started on it. Next: 172c.
+- 2026-11-26: 169c stopped at its stop rule: the AVX512 switch is not last-bit only (O1f flips 3 of 600; O2b/O2c up to 0.22 relative on 10 values; the rest at most 5e-12). Author: pin one path first (170c), then add zero tolerance (171c). First Actions run on main: smoke green; converge and accept running; `fast` red on an AMD EPYC 7763 as predicted.
+- 2026-11-26: 168c stages A and B merged (workflow `model-checks.yml`: fast, smoke, converge, accept; no `--final`). Finding: numpy's AVX512 path gives last-bit differences, so every committed hash fails on about half of GitHub's runners. Author ruled: force one path everywhere and regenerate the pins (169c). Stage F0: no (`--point` writes no mergeable partials); split final run is a design stage in 169c.
 - 2026-11-26: 164c merged (project documents and skills to `project/`, final sweep, converter to `project/tools/`; the reorganisation is complete). 151c is the next brief. Account skills still need the two-line edit (propose_skills).
 - 2026-11-26: 057c merged (author's call; long runs go to GitHub Actions); O8 cell marker renamed `reform_not_defined`; retired taxes stay at a fixed GDP share, switch to come in the SWF redesign.
 - 2026-11-25: 163c merged (`docs/model-v3/` split into `model-specs/` 26 entries and `results/` 18 studies; 166c files placed under `results/reserve-diagnostic/`, map rows added). 164c (project, skills, final sweep) and 057c (rebase onto the moved tree) are both ready.
