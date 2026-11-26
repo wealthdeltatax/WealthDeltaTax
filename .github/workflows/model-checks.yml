@@ -65,8 +65,9 @@ jobs:
         run: |
           set -u
           fail=0
+          # tests/website/layout is left out: it needs Quarto and a Playwright browser (the site build), and it skips without them in the baseline too.
           for s in tests/model/data tests/model/gate tests/model/tools tests/project \
-                   tests/website/cards tests/website/glossary tests/website/hooks tests/website/layout \
+                   tests/website/cards tests/website/glossary tests/website/hooks \
                    tests/website/nav tests/website/pages tests/website/retired; do
             echo "::group::$s"
             echo "+ python -m pytest $s -q"
