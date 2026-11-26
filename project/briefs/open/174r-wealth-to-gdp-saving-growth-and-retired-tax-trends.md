@@ -43,4 +43,38 @@ Ask the author before adding any source to the bibliography.
 <!-- progress:end -->
 
 ## Change report
-(The agent fills this in.)
+## Change report
+
+Change report
+- Task: 174r, Evidence for the SWF redesign: wealth to GDP, saving by wealth class, growth effect, retired-tax trends.
+- Files changed:
+  - research/notes/174r-wealth-saving-evidence.md — historical wealth/GDP evidence, wealth composition, saving-by-class evidence boundary, scenario candidates and limitations.
+  - research/tables/174r-evidence/wealth-saving-evidence.csv — source-flagged published observations and selected aggregate saving-ratio values.
+  - research/notes/174r-growth-effect-evidence.md — six-tax and wealth-tax growth literature, evidence-type matrix, low/zero/high model sensitivity.
+  - research/notes/174r-retired-tax-trends.md — annual OBR receipts series for four taxes, latest endpoints/trend evidence for business rates and IHT, indexation comparison and data requests.
+  - research/tables/174r-evidence/retired-tax-gdp-annual.csv — exact OBR annual observations plus clearly flagged trend-only and endpoint rows.
+  - project/briefs/open/174r-wealth-to-gdp-saving-growth-and-retired-tax-trends.md — progress and this report.
+- What is different now: the SWF redesign has evidence ranges rather than a single wealth-growth forecast; the absence of UK saving rates by wealth class is explicit; the growth dividend is a scenario rather than an empirical coefficient; the fixed-GDP versus wealth-linked retired-tax comparison is framed without overriding the author's 26 November ruling.
+- New or changed interfaces: none.
+- Acceptance criteria:
+  - Every figure has a source page/table and flag: met for figures included in the notes; no unsupported annual values were imputed.
+  - Every range is labelled low, central-for-illustration and high, and as an axis candidate: met for the wealth/GDP drift and growth-effect sensitivity.
+  - Weak or conflicting evidence stated: met.
+  - Computations reproducible with a command: partly met. Arithmetic formulae and source tables are named, but the full annual tax series and wealth/GDP extraction are not locally reproduced.
+  - Open rulings listed: met.
+  - check_agent_docs.py exits 0: not run; no local checkout/shell was available.
+- Deviations from the brief:
+  - Block 3 annual receipts series is incomplete for business rates and IHT; stamp taxes are combined at the available HMRC endpoints. OBR historical public-finances workbook returned HTTP 403; HMRC ODS annual receipts table was not fetched. This is a data-access limitation, not a claim that the series do not exist.
+  - No model, register, manifest, pack, bibliography or internal reference database changes.
+- Risks / follow-ups:
+  - Author to provide the OBR historical public-finances workbook and/or HMRC ODS table, or a local checkout, to complete the missing annual tax series and run the checker.
+  - Decide whether “stamp duty” means property transaction taxes, share stamp taxes, or both.
+  - Decide whether to retain ±0.5% annual wealth/GDP drift and ±0.05 percentage-point annual GDP-growth effect per 1% GDP switched as the core sensitivity axes.
+  - No recommendation made on fixed-GDP versus wealth-linked retired-tax indexing; the existing fixed-GDP ruling is preserved.
+- Instruction friction: none. The author explicitly authorised continuing with external research and GitHub markdown/CSV writes despite the absence of a local shell; no workflow rule was silently bypassed.
+- Verification: GitHub writes succeeded on the task branch. External sources checked include ONS, OSR, OBR, HMRC, OECD, IFS, HMRC/OBR and peer-reviewed papers. Local scripts, repository tests, and project/tools/check_agent_docs.py not run.
+- Overview sections likely needing an update: none until the author accepts the remaining data limitations and the guru reviews the findings.
+- Commit / branch: branch brief/174r-wealth-saving-growth-tax-trends; latest commits listed in the branch history. Not merged.
+
+**NEEDS THE AUTHOR** — the data completeness and local checker acceptance criteria remain unmet.
+
