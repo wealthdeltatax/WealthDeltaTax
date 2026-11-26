@@ -33,8 +33,8 @@ If a row label is ambiguous (e.g. "Stamp duties" before and after 1999-00, which
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (branch `brief/175r-complete-retired-tax-series` from main; shell and the held workbook are available).
-- **Next:** block 1 (script and full CSV, overlap check against the 174r values).
+- **Done:** block 0; block 1: `retired_tax_series.py` regenerates `retired-tax-gdp-annual-full.csv` (719 rows, 10 series, cash 1978-79 to 2027-28 and national accounts 1999-00 to 2027-28, 124 forecast rows) and `retired-tax-overlap-174r.csv` (106 comparisons) byte for byte. Overlap: only onshore corporation tax differs by more than 0.1 point (9 of 12 on the cash basis, 2 of 12 on the national-accounts basis, which the 174r values match better), and business rates 2024-25 (1.1 against 1.33).
+- **Next:** block 2 (rewrite note section 3 and the summary; correlations with house price and equity indices if held in `data/`; checker).
 - **Resume:** none
 <!-- progress:end -->
 
