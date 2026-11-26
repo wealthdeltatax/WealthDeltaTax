@@ -8,7 +8,7 @@ import numpy as np
 
 from model_v3.core import kernel as K, pension_lien as pl
 from model_v3.runner import arm
-from tests.model.model_v3.test_household_tax import GAIN, RATE, ST, book_for, run
+from test_household_tax import GAIN, RATE, ST, book_for, run
 
 Q = lambda p, n, f: {'property': np.array(p, float), 'net_financial': np.array(n, float), 'physical': np.array(f, float)}
 
