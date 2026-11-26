@@ -36,8 +36,9 @@ Ask the author before adding any source to the bibliography.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** nothing yet.
-- **Next:** block 0.
+- **Done:** block 0 skeleton and branch checkpoint.
+- **Next:** block 1, questions 1 and 2; then blocks 2 and 3.
+- **Resume:** `brief/174r-wealth-saving-growth-tax-trends`; read this progress block and the three note skeletons before continuing.
 <!-- progress:end -->
 
 ## Change report
