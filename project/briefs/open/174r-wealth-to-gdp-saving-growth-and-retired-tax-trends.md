@@ -36,8 +36,8 @@ Ask the author before adding any source to the bibliography.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** blocks 0 and 1 (wealth/GDP and saving evidence; note and evidence CSV pushed).
-- **Next:** block 2, growth effects of tax replacement.
+- **Done:** blocks 0, 1 and 2 (wealth/saving evidence; tax-growth evidence review).
+- **Next:** block 3, historical retired-tax receipts and asset-price relationships.
 - **Resume:** `brief/174r-wealth-saving-growth-tax-trends`; read the progress block and the note before continuing.
 - **Resume:** `brief/174r-wealth-saving-growth-tax-trends`; read this progress block and the three note skeletons before continuing.
 <!-- progress:end -->
