@@ -43,8 +43,9 @@ None for the author. The agent states which of the two designs in step 1 it used
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0 (after 044c merges)
+- **Done:** block 0 (branch `brief/151c-headline-only-evaluation` from main `0380b57`; the reference is `results/057c-evidence/quick-q4/outputs.json`, the only current `quick` file).
+- **Next:** block 1 (callers read, the switch, `test_heads_only.py`). In parallel a baseline `quick` run on an unmodified worktree of main, to confirm q4 still matches this code and to give the "before" wall time.
+- **Decisions:** none yet. Timings: "before" and "after" of the `quick` run are one run each (about 65 min), not best of two; the tornado and one root are best of two.
 - **Resume:** none
-- **State:** draft; not started
+- **State:** started
 <!-- progress:end -->
