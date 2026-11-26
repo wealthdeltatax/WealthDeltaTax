@@ -77,7 +77,7 @@ IHT replacement by WDT could reduce death-related timing distortions, but a WDT 
 
 Evidence on conventional net wealth taxes is mixed and highly design-dependent. Zucman (2020), using Danish administrative wealth records and the 1989 reform, finds reduced-form behavioural responses among the wealthiest and a sizable long-run elasticity of taxable wealth with respect to the net-of-tax return in a calibrated life-cycle model. That establishes a behavioural margin, not an aggregate GDP-growth loss of a known size.
 
-Røed et al. (2022) exploit Norwegian wealth-tax reforms and find a positive causal relationship between the household wealth-tax level and subsequent employment growth in closely held firms. The authors discuss incentives to shift wealth into untaxed intangible and human-capital investment. This result directly cautions against assuming a wealth tax must reduce employment or investment in every design.
+Bjørneby, Markussen and Røed (2023) exploit Norwegian wealth-tax reforms and find a positive causal relationship between the household wealth-tax level and subsequent employment growth in closely held firms. The authors discuss incentives to shift wealth into untaxed intangible and human-capital investment. This result directly cautions against assuming a wealth tax must reduce employment or investment in every design.
 
 Schnellenbach's 2012 survey concludes that efficiency arguments for net wealth taxes are theoretically ambiguous and that some empirical evidence points to lower GDP growth. This is a broad survey, not a causal estimate of the WDT.
 
@@ -154,6 +154,6 @@ Unset: the revenue share actually switched in each year; the mix of the six taxe
 - Lockwood, B., Simmler, M., & Tam, E. H. F. (2026), Tax and Occupancy of Business Properties: Evidence from UK Business Rate Reliefs, American Economic Journal: Economic Policy 18(3), 372–410.
 - Matikonis, K., & Gobey, M. (2024), Small Business Property Tax Reductions and Firm Productivity, Small Business Economics 62, 307–324.
 - Zucman, G. (2020), Wealth Taxation and Wealth Accumulation: Theory and Evidence From Denmark, Quarterly Journal of Economics 135(1), 329–388.
-- Røed, K. et al. (2022), An imperfect wealth tax and employment in closely held firms, Economic Journal.
+- Bjørneby, M., Markussen, S., & Røed, K. (2023), An imperfect wealth tax and employment in closely held firms, Economica, 90(358), 557–583, doi:10.1111/ecca.12456.
 - Zhang, Y. et al. (2025), Golden Handcuffs or Silver Spurs? The Implications of Inheritance Taxes for Entrepreneurship, ADB Economics Working Paper WPS250371-2.
 - Schnellenbach, J. (2012), The Economics of Taxing Net Wealth: A Survey of the Issues, Review of Economics of the Household 12(4).
