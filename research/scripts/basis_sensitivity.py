@@ -98,7 +98,7 @@ def chk(name, got, want, tol, note=''):
     checks.append(dict(check=name, got=round(got, 4), expected=round(want, 4), tolerance=tol, passed=ok, note=note))
 # C1: the ONS column equals the pension stock the model's own cell table starts from (model_v3.core.cells.cell_table, read-only import), in GBP bn, band by band and in total
 from model_v3.core import cells as ce, pack as pk
-_pack, _reg = pk.load_pack(ROOT / 'model_v3' / 'pack' / 'GBR'), pk.load_register(ROOT / 'registry' / 'inputs.json')
+_pack, _reg = pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json')
 _cells = ce.cell_table(_pack, _reg, 0.44)
 _model = {b: sum(c['households'] * c['pos']['pension'] for c in _cells if c['band'] == b) * ce.UNIT / 1e9 for b in BANDS}   # households x pension per household, thousands of pounds -> GBP bn
 chk('C1a ONS column equals the model cell-table pension stock, largest band difference (GBP bn)', max(abs(_model[b] - BPEN[b]) for b in BANDS), 0.0, 1e-6, 'model/model_v3/core/cells.py cell_table(pack, register, 0.44); the retired fraction does not enter the stock')

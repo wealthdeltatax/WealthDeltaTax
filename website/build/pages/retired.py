@@ -41,7 +41,7 @@ import yaml
 
 import config as cfg
 
-LEDGER_MD = cfg.ROOT_DIR / "docs" / "restructure" / "ledger-sections.md"
+LEDGER_MD = cfg.ROOT_DIR / "website" / "notes" / "ledger-sections.md"
 RETIRED_YML = cfg.ROOT_DIR / "website" / "registry" / "retired.yml"
 SOURCE_DIR = cfg.ROOT_DIR / "papers" / "legacy"
 

@@ -284,7 +284,7 @@ def copy_machine_readable_assets(
         (REFERENCES_JSON, build / "references.json"),
         (ROOT_DIR / "website" / "registry" / "anchors.yml", build / "anchors.yml"),
         (ROOT_DIR / "website" / "registry" / "contents.yml", build / "wdt-contents.yml"),
-        (ROOT_DIR / "registry" / "references.bib", build / "references.bib"),
+        (ROOT_DIR / "literature" / "references.bib", build / "references.bib"),
     ]
 
     for src, dst in assets:

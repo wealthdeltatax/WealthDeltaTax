@@ -62,7 +62,7 @@ def main():
         rows = [r for r in rows if r['old'].startswith(pre) and r['old'] in base_files]
     else:
         rw = rewriter(rows)
-    allow = set(Path(a.allow).read_text().split()) if a.allow else set()
+    allow = set(Path(a.allow).read_text().splitlines()) if a.allow else set()
     head_files = set((git('ls-tree', '-r', '--name-only', a.head) or '').splitlines())
     known, tally, bad = set(), {}, []
     for r in rows:

@@ -58,7 +58,7 @@ Read `bib-conventions.md` for BibTeX format rules and entry-type mapping.
 
 ### Step 0 — Load internal.json and references.bib
 
-Both files are in `registry/` (`literature/internal.json`, `literature/references.bib`). Load both before doing anything else.
+Both files are in `literature/` (`literature/internal.json`, `literature/references.bib`). Load both before doing anything else.
 
 From `internal.json`, extract for each paper being ingested:
 - `outbound_ext_citation_ids` and `outbound_internal`

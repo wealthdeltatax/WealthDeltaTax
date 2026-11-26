@@ -934,7 +934,7 @@ def main() -> None:
     parser.add_argument(
         "--bib",
         type=Path,
-        default=cfg.ROOT_DIR / "registry" / "references.bib",
+        default=cfg.ROOT_DIR / "literature" / "references.bib",
         metavar="PATH",
         help="Path to the references.bib file (default: project/tools/references.bib).",
     )

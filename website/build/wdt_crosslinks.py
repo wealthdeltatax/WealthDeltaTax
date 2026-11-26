@@ -553,7 +553,7 @@ def main():
     if not source:
         sys.exit("source folder not found; pass --source")
     apath = first_existing(a.anchors, ROOT / "website" / "registry" / "anchors.yml", ROOT / "website" / "registry" / "anchors.yml", ROOT / "anchors.yml")
-    ipath = first_existing(a.internal, ROOT / "registry" / "internal.json", ROOT / "registry" / "internal.json", ROOT / "internal.json")
+    ipath = first_existing(a.internal, ROOT / "literature" / "internal.json", ROOT / "literature" / "internal.json", ROOT / "internal.json")
     anchors = load_kv(apath)
     print(f"source={source}  anchors={apath}  internal={ipath}", file=sys.stderr)
     if not anchors:
