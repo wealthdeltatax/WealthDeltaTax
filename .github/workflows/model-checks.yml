@@ -14,11 +14,11 @@ on:
         type: boolean
         default: false
       run_converge:
-        description: 'Run the convergence tests (about 3.5 h)'
+        description: 'Run the convergence tests (about 1.5 h on a hosted runner)'
         type: boolean
         default: false
       run_accept:
-        description: 'Run the acceptance job: two quick runs, validation, compare (about 2.5 h)'
+        description: 'Run accept.sh whole: suites, convergence, two quick runs, validation, compare (about 5 h)'
         type: boolean
         default: true
       run_final_size:
@@ -214,10 +214,10 @@ jobs:
         run: echo "wall time $(( $(date +%s) - START )) s"
 
   accept:
-    name: 'accept (two quick runs, validate, compare)'
+    name: 'accept (accept.sh, whole)'
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_accept }}
     runs-on: ubuntu-latest
-    timeout-minutes: 330
+    timeout-minutes: 350
     concurrency:
       group: model-checks-accept
       cancel-in-progress: false
@@ -242,36 +242,21 @@ jobs:
           git rev-parse HEAD
           lscpu | grep -E 'Model name|^CPU\(s\)'
 
-      - name: Run 1, size quick
+      - name: 'accept.sh, whole (steps 1 to 7; about 5 hours: smoke and fast suites, convergence, two quick runs)'
+        env:
+          TMPDIR: ${{ github.workspace }}/acceptance
+          ACCEPT_KEEP: '1'    # accept.sh keeps its two temporary run folders so the next step can upload them
         run: |
-          echo '+ run.main(["--size", "quick", "--out", "acceptance/run1"])'
-          python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--size', 'quick', '--out', 'acceptance/run1'])"
-
-      - name: Validate run 1 (accept.sh step 4)
-        run: python -I model/tools/validate_outputs.py acceptance/run1/outputs.json
-
-      - name: Step 5 on run 1
-        run: bash tests/model/model_v3/accept.sh --check acceptance/run1/outputs.json
-
-      - name: Run 2, size quick
-        run: |
-          echo '+ run.main(["--size", "quick", "--out", "acceptance/run2"])'
-          python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--size', 'quick', '--out', 'acceptance/run2'])"
-
-      - name: Step 6, the two files are byte-identical
-        run: bash tests/model/model_v3/accept.sh --compare acceptance/run1/outputs.json acceptance/run2/outputs.json
-
-      - name: Step 7, the R6 conventions
-        run: bash tests/model/model_v3/accept.sh --r6
+          mkdir -p "$TMPDIR"
+          echo '+ bash tests/model/model_v3/accept.sh'
+          bash tests/model/model_v3/accept.sh
 
       - name: Upload both output files
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: accept-outputs
-          path: |
-            acceptance/run1/outputs.json
-            acceptance/run2/outputs.json
+          path: acceptance/**/outputs.json
 
       - name: Wall time
         if: always()
