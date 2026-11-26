@@ -1,5 +1,5 @@
 {
- "commit": "817dccc37880fec1c2447588e2d221725402a375",
+ "commit": "0659560d3578f2ce3b51e038eb97017aeefbf300",
  "note": "taken at the merged 009c state (817dccc) before any move; recapture only on the author's word",
  "spec": {
   "tau_0": 0.04,
@@ -12,7 +12,7 @@
  "checks": {
   "inputs": {
    "inputs.json": "bb613cfcd6678207d7cf1658d09f9971446ee1ee42639ea7fe71035fac0c5e22",
-   "legacy_digest.json": "ce725759a3ba42106b178d5406aabc79a25dd3ca0f72ec80fc15cffaf78ba943"
+   "legacy_digest.json": "e2f66853dd65d11392aa01960787d41527c843407bdb9dc4309029a78cbc4c3d"
   },
   "legacy": {
    "digest_equals_fixture": true
@@ -26,23 +26,23 @@
    "output_ids": "22f7a4cf98999120571976bcf3e144bc1bae2f660dc619456f22e10b325d5205",
    "median_mid_safe": {
     "M1a": "ace5a12844a08e67a3ecc2df83c0f4b8e3188c0afd617af4fcfe0ff42a653de9",
-    "M2": "68d50291af18d5c3eca25541741e97312d4077747273ca81d59b2f59cd4af4dd",
+    "M2": "12fa495981eedbc1a8f40dfeb707d4efb0cae4fa910f5d387e2f224fb2e3ee8b",
     "P6": "e01cfbbba6c3eca8e9a89a06accd7bd43d7bea36c6ccd0988895cd3c2c7bcb75"
    },
    "median_mid_market": {
     "M1a": "afbdf508b6f0dc650e2890b949886ea6d31a984cc689ed126caa81b576d1e1b1",
-    "M2": "1ca7c9e4cb5c2fdad798781acf3da1d5d56d925cbbd22a3bd93dc5bbe9085b9a",
-    "P6": "2a067bab14a87732826a7945954c859f61ed5175049613766863be3a1da10b65"
+    "M2": "7a97b59ddaead702fe7d7659346b86785c4c62df5632484304e1090deb12742e",
+    "P6": "ed94d56113932616562abc8691119f4120a23831f430cd8d678364cd3445378d"
    },
    "min_mid_safe": {
     "M1a": "67455f4bc75ca2907cdb077181f3620ff263500cf8fa6454dc572bf8057ee46f",
-    "M2": "37f9b9c370078a479484ee688c74de4b142afbebffefdd4c92d5d1f7e39c7d0c",
-    "P6": "22d44366d62f8d25be8778848c56bee9aa90dba8b42e3180db638babb1d590c0"
+    "M2": "a7b787d8b6b165d6a986152e6424b2966c41e45c0802ef146e0a4623d30c4e67",
+    "P6": "b68017333114641f5ecaffdd6c82b77c380a3393f965f806998671e86871a736"
    },
    "min_mid_market": {
     "M1a": "abbcf3f6548d6ad31c8c55f6ecb2a82d30efcca80ad697a3027e54ba369ade0e",
-    "M2": "e556948ad0959116e0b6faaaeb600707386efb7f4f37c298297543f9f8ff8ab8",
-    "P6": "2ed6ab515d017c0d69454c0e8d0ad9404e96520891cc69f2ca4d814a31e23b0e"
+    "M2": "aa1ceca756d0d9da5074cb309d009392e3470bae242787d11a56523b8bab51eb",
+    "P6": "7d6390134cbd1fb6712da4b4591dfdbff74899fc417b74eaa6a525b4801628e9"
    }
   }
  }
