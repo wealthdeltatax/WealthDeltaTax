@@ -56,6 +56,8 @@ jobs:
       - name: Install pinned requirements, log the environment
         run: |
           echo "START=$(date +%s)" >> "$GITHUB_ENV"
+          sudo apt-get install -y --no-install-recommends poppler-utils   # pdftotext, read by the pack builder
+          pdftotext -v 2>&1 | head -n 1
           pip install $PIP_PINS
           python --version
           pip list --format=freeze | grep -iE '^(numpy|pyyaml|pytest|openpyxl|bibtexparser)=='
