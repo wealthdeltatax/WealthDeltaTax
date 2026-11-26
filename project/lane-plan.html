@@ -264,7 +264,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "3", name: "Agent 3", note: "Free (173c merged)" },
     { id: "4", name: "Agent 4", note: "Free (170c merged)" },
     { id: "5", name: "Agent 5", note: "172c now (from main); then 171c" },
-    { id: "6", name: "Agent 6", note: "Free (174r merged in part)" },
+    { id: "6", name: "Agent 6", note: "175r (retired-tax series from the held IFS workbook)" },
     { id: "E", name: "You · decisions", note: "delete old remote branches; feasibility rule; retired-tax switch" },
     { id: "G", name: "Held", note: "SWF redesign specification: after 151c" }
   ];
@@ -272,6 +272,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   var B = [
     { id: "172c", lane: "5", at: 0, len: 1, st: "ready", t: "Fix the converge fixture (legacy arm); read the first runs on main", needs: [], why: "Starts when Agent 4 finishes 170c. First Actions run: smoke and accept green, converge failed in the legacy-arm fixture.", files: "test_converge.py" },
     { id: "171c", lane: "5", at: 1, len: 1, st: "hold", t: "Zero tolerance for knife-edge counts (O1f, O2b, O2c)", needs: [{ id: "172c" }], why: "Counts of near-zero values depend on rounding; the tolerance makes them path-independent.", files: "model, metrics.md" },
+    { id: "175r", lane: "6", at: 0, len: 1, st: "ready", t: "Complete the retired-tax series from the held IFS workbook", needs: [], why: "The annual series for all six taxes are already in data/rates; no download needed.", files: "research/tables/174r-evidence" },
     { id: "151c", lane: "2", at: 0, len: 2, st: "ready", t: "Headline-only evaluation for the tornado and the O1e roots (speed-up, byte-identical)", needs: [], why: "Block 0 pushed. Byte-identical means same machine, same numerics setting; not against quick-q4.", files: "runner, support" }
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
