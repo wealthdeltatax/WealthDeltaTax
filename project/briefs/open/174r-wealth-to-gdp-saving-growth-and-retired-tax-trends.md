@@ -36,8 +36,9 @@ Ask the author before adding any source to the bibliography.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** blocks 0–3 (wealth/saving evidence; tax-growth evidence; retired-tax trends and partial annual series).
-- **Next:** block 4, change report and author rulings. Annual tax series remain incomplete where the source workbook was inaccessible; see block-3 note data requests.
+- **Done:** blocks 0–4 (three research notes, two evidence CSVs, change report and author handoff).
+- **Next:** author supplies/approves the missing receipts data route and guru runs local validation. No merge until the incomplete criteria are resolved.
+- **Resume:** `brief/174r-wealth-saving-growth-tax-trends`; read the change report and block-3 data requests before continuing.
 - **Resume:** `brief/174r-wealth-saving-growth-tax-trends`; read the progress block and the note before continuing.
 - **Resume:** `brief/174r-wealth-saving-growth-tax-trends`; read this progress block and the three note skeletons before continuing.
 <!-- progress:end -->
@@ -74,7 +75,7 @@ Change report
 - Instruction friction: none. The author explicitly authorised continuing with external research and GitHub markdown/CSV writes despite the absence of a local shell; no workflow rule was silently bypassed.
 - Verification: GitHub writes succeeded on the task branch. External sources checked include ONS, OSR, OBR, HMRC, OECD, IFS, HMRC/OBR and peer-reviewed papers. Local scripts, repository tests, and project/tools/check_agent_docs.py not run.
 - Overview sections likely needing an update: none until the author accepts the remaining data limitations and the guru reviews the findings.
-- Commit / branch: branch brief/174r-wealth-saving-growth-tax-trends; latest commits listed in the branch history. Not merged.
+- Commit / branch: branch brief/174r-wealth-saving-growth-tax-trends; report commit 4bd0a1fc91b906a595447d682cd0427f848867ca; branch remains ahead of main. Not merged.
 
 **NEEDS THE AUTHOR** — the data completeness and local checker acceptance criteria remain unmet.
 
