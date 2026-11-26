@@ -89,7 +89,8 @@ jobs:
                    tests/website/nav tests/website/pages tests/website/retired; do
             echo "::group::$s"
             echo "+ python -m pytest $s -q"
-            python -m pytest "$s" -q -p no:cacheprovider || fail=1
+            # test_real_repository_is_closed_today runs the real acceptance command (check_gate G1: hours now that accept.sh step 1 passes): left to the accept job, see the 170c report
+            python -m pytest "$s" -q -p no:cacheprovider --deselect tests/model/gate/test_gate.py::test_real_repository_is_closed_today || fail=1
             echo "::endgroup::"
           done
           exit $fail
@@ -103,16 +104,6 @@ jobs:
         run: |
           echo '+ python -I project/tools/check_agent_docs.py'
           python -I project/tools/check_agent_docs.py
-
-      - name: 'Gate table (report only: every gate is closed until a final run, so exit 1 is expected)'
-        continue-on-error: true
-        run: |
-          echo '+ python -I model/tools/check_gate.py --all'
-          rc=0
-          python -I model/tools/check_gate.py --all > gate-table.txt || rc=$?
-          cat gate-table.txt
-          { echo "### check_gate.py --all (exit $rc)"; echo '```'; cat gate-table.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
-          exit $rc
 
       - name: Tripwire
         run: |
