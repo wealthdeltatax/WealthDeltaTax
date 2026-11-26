@@ -42,3 +42,11 @@ If `fast` is red on the branch for any reason other than the CPU path, stop and 
 
 ## Change report
 (The agent fills this in.)
+
+## Ruling on stage B and what remains (guru, 2026-11-26)
+Stage B found, with evidence, that the legacy arm has no feasible schedule (best closure share 25.0% at 20 paths, 16.0% at 50, against the 75% floor; M2 and M4a also miss). **Author's ruling:** the legacy arm always fails the rule because of the 3.5% consumption assumption (I-D14c, abandoned as a central assumption); ignore the failure and keep the arm to learn from. The legacy arm is not changed and no rule is relaxed.
+Assumption for challenge: "ignore" is read as "C1 and C2 must not depend on the legacy arm being feasible". They test sampling noise, which does not depend on which schedule is used.
+- **B2 (code, the only change).** In `tests/model/model_v3/test_converge.py`, `named()` takes the schedule from `S.choose(...)` when it returns one (household arm, unchanged). When it returns None (the legacy arm), it uses the grid point with the highest F1 (ties: lowest M2 short) as the named schedule, and records in a module docstring line and in the test message that the legacy arm has no feasible schedule by design, with the reason. No change to `S.choose`, the rule, `run.py` or any model file. The tests keep the legacy arm, as ruled on 2026-11-25.
+- **C (as before).** Start the converge job on the branch (`gh workflow run model-checks.yml --ref <branch> -f run_converge=true -f run_smoke=false -f run_accept=false`), read every test, report wall times. If C1 or C2 still fails on an assertion (not the setup), report the numbers (the spans per output and the doubling shifts) and stop; do not loosen a tolerance.
+- **D (report only).** Does `run.py --arm legacy` exit with "no feasible schedule point under the manifest rule" (at smoke size, per your stage B)? Say what the legacy arm's `outputs.json` would then hold, and whether anything (the accept job, `accept.sh`, `check_gate.py`) calls `--arm legacy`. Report; change nothing. The author may want the legacy arm to write a labelled outcome instead of exiting, as a later brief.
+- First: `git checkout brief/172-converge-fixture`, merge current `main`, read the report above.
