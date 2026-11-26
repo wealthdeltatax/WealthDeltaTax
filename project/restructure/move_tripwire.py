@@ -15,8 +15,9 @@ Checks, on one process, about two minutes:
                sha256 of M1a, M2, revenue P6 and the list of output ids (the manifest), per case
 It does not replace the suites; it is the quick alarm that a move changed a path-dependent number.
 """
-import argparse, hashlib, json, subprocess, sys, time
+import argparse, hashlib, json, os, subprocess, sys, time
 from pathlib import Path
+os.environ.setdefault('NPY_DISABLE_CPU_FEATURES', 'X86_V4')   # 169c: the child processes (the digest test, the pack builder) run on the one numerics path; see model/model_v3/numerics.py
 
 ROOT = Path(subprocess.run(['git', 'rev-parse', '--show-toplevel'], capture_output=True, text=True).stdout.strip() or '.')
 CANDIDATES = {

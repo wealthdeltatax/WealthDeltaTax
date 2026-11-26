@@ -1,11 +1,11 @@
 """run.py -- the run script (V3-12; architecture.md 6.5, acceptance.md 2).  python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--out', DIR])"
 --size smoke|quick|final (explicit --paths, --o1e-draws, --workers, --point override), --seed S, --arm legacy; --final is refused.  Named schedules by the manifest's rule; `scenario_range`: lowest p10 to highest p90, centre `no_central`.
-Author rulings 2026-11-23: household arm first; O1e at the first point only, fund_return=market (the safe fund ignores the mean), range over draws `not_run_this_run` at 0 draws; markers `no_payer_at_launch`; OF1, CK1 pending. Sets no environment variable."""
+Author rulings 2026-11-23: household arm first; O1e at the first point only, fund_return=market (the safe fund ignores the mean), range over draws `not_run_this_run` at 0 draws; markers `no_payer_at_launch`; OF1, CK1 pending. Sets NPY_DISABLE_CPU_FEATURES (numerics.py, imported first: one numerics path on every machine, 169c)."""
 from __future__ import annotations
 
 import argparse, copy, datetime, json, sys
-from dataclasses import replace
-from pathlib import Path
+from model_v3 import numerics  # noqa: F401  first, before numpy: one numerics path (169c)
+from dataclasses import replace; from pathlib import Path
 import numpy as np
 import yaml
 from model_v3.core import pack as pk, returns as rt, support as U
