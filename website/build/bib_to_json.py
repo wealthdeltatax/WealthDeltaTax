@@ -1,17 +1,17 @@
 """
-bib_to_json.py — generate registry/references.json from registry/references.bib
-               + registry/internal.json.
+bib_to_json.py — generate literature/references.json from literature/references.bib
+               + literature/internal.json.
 
 Called automatically by preprocess.py at the top of every build.
 Can also be run standalone:  python website/build/bib_to_json.py
 
 Inputs:
-    registry/references.bib     — canonical external bibliographic data
-    registry/internal.json      — hand-maintained: internal_papers, citations, flags,
+    literature/references.bib     — canonical external bibliographic data
+    literature/internal.json      — hand-maintained: internal_papers, citations, flags,
                                   alt_author_overrides
 
 Output:
-    registry/references.json    — fully generated; safe to delete and regenerate at any time
+    literature/references.json    — fully generated; safe to delete and regenerate at any time
 
 Mapping rules
 ─────────────
@@ -69,7 +69,7 @@ from bibtexparser.customization import convert_to_unicode
 
 SCRIPT_DIR   = Path(__file__).resolve().parent        # pipeline/
 ROOT_DIR     = SCRIPT_DIR.parent.parent                      # wdt-site/
-REGISTRY_DIR = ROOT_DIR / "registry"
+REGISTRY_DIR = ROOT_DIR / "literature"
 
 BIB_PATH      = REGISTRY_DIR / "references.bib"
 INTERNAL_PATH = REGISTRY_DIR / "internal.json"
@@ -397,8 +397,8 @@ def merge(
             "version":              "0.1",
             "date":                 today,
             "generated_by":         "website/build/bib_to_json.py",
-            "source_bib":           "registry/references.bib",
-            "source_internal":      "registry/internal.json",
+            "source_bib":           "literature/references.bib",
+            "source_internal":      "literature/internal.json",
             "total_external_refs":  len(ext_refs),
             "total_internal_papers": len(internal["internal_papers"]),
             "total_citations":      len(citations),

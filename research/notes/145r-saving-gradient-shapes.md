@@ -1,6 +1,6 @@
 # 145r: Saving by wealth, three gradient shapes (flat, mild, steep)
 
-Accessed 2026-11-23. Brief `docs/briefs/145r-withdrawal-and-saving-evidence.md`. Evidence and confidence only; nothing is computed in the model and no shape is tuned to reach 0.50.
+Accessed 2026-11-23. Brief `project/briefs/open/145r-withdrawal-and-saving-evidence.md`. Evidence and confidence only; nothing is computed in the model and no shape is tuned to reach 0.50.
 
 Status: done (block 2 of brief 145r).
 
@@ -74,5 +74,5 @@ Income per adult is the pack band mean (I-D9a to I-D9d); D1 to D3 take the lower
 
 ## 5. Reproduction
 
-`python -I research/scripts/saving_shapes.py` from the repo root (needs `pdftotext`; reads the pack and register read-only through `model_v3.core.pack` and `base.build_base` at ratio 0.44). It asserts the RF figures on their PDF pages, builds the shapes, checks that aggregate saving equals `flat`'s at the three flat values for every shape, writes `saving_shapes.csv` (42 rows) and `saving_evidence.csv` (9 rows) and prints one `ok:` line; it exits 1 on any failed check. Check: `python -I pipeline/check_agent_docs.py`.
+`python -I research/scripts/saving_shapes.py` from the repo root (needs `pdftotext`; reads the pack and register read-only through `model_v3.core.pack` and `base.build_base` at ratio 0.44). It asserts the RF figures on their PDF pages, builds the shapes, checks that aggregate saving equals `flat`'s at the three flat values for every shape, writes `saving_shapes.csv` (42 rows) and `saving_evidence.csv` (9 rows) and prints one `ok:` line; it exits 1 on any failed check. Check: `python -I project/tools/check_agent_docs.py`.
 

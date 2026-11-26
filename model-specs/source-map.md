@@ -49,7 +49,7 @@ Status: research result, brief 043r, 2026-11-18; register corrections applied in
 | S42 | Green Book Discount Rate Review, Findings and Recommendations, Table 1, paras 7, 8, 55, 60 (the independent review's recommended schedule) | not held | Green Book review findings; not held | I-D11a; I-D11b; I-D11c; I-D11d | not applicable (not held) |
 | S43 | BDO press release, "Corporate tax receipts rise 4% to top £100bn in 2025-26", 24 Sept 2026, citing HMRC Corporation Tax Statistics 2026: £100.4bn incl... | not held | BDO press release; not held | I-D7d | not applicable (not held) |
 
-Bib status: `exists` = an entry with that key is in `registry/references.bib`; `proposed` = no entry yet; the author reworks the reference list later (043r decision). Where the held file is a different version from the one the register cites, the register's page numbers do not map; section 2 gives the held page for each figure.
+Bib status: `exists` = an entry with that key is in `literature/references.bib`; `proposed` = no entry yet; the author reworks the reference list later (043r decision). Where the held file is a different version from the one the register cites, the register's page numbers do not map; section 2 gives the held page for each figure.
 
 ## 1b. Every file in `literature/`, `data/uk-source-workbooks/` and `data/rates/`, once
 | File | S-id | Note |
@@ -186,5 +186,5 @@ Rows not changed although named in section 3: I-D5c (judgement page, not checked
 
 ### Dependants of the changed rows (listed, not edited; the guru decides reruns)
 - **I-D6c, I-D6j (central 24.5 to 25.2 and 30.7 to 29.5):** `model-specs/judgement-decisions.md` lines 20, 26 (rows with status pending, old central); `results/tornado/tornado.md` lines 99, 106, 143 and `results/tornado/` (`tornado_results.csv`, `tornado_tables.md`, `tornado_v2_results_held.csv`, `tornado_v2_results_recal.csv`, `tornado_v2_tables_held.md`, `tornado_v2_tables_recal.md`) carry 28.5 / 30.7 / 33.9 and 22.7 / 24.5 / 25.7 and the M4a result that uses I-D6j; `tornado.py` and `tornado_v2.py` read I-D6j (M4_SHARE) from the register, so a rerun picks up the new central; `model-specs/added/supporting.md` line 101 (price pass-through inside I-D6b and I-D6c); `model-specs/outputs.yml` OT1 (lists inputs); `tests/model/data/fixtures/outputs.fixture.json` and `model_v2/audit_d0/coverage_matrix_d6.csv` (outside the grep dirs, mention the D6 rows; not checked for values).
-- **I-M6l (measure and values changed):** `model-specs/added/supporting.md` lines 84 and 178 (describe I-M6l as a rate for taxpayers with £1m or more of income; now £3m or more, income only); `model-specs/added/welfare.md` line 26 and `model-specs/added/h1.md` line 26 (cite it as the income-tax comparator); `docs/restructure/pages/FISC.md`, `FALS.md` (row lists only).
-- Row lists only, no values: `docs/restructure/pages/PAY.md`, `FUND.md`.
+- **I-M6l (measure and values changed):** `model-specs/added/supporting.md` lines 84 and 178 (describe I-M6l as a rate for taxpayers with £1m or more of income; now £3m or more, income only); `model-specs/added/welfare.md` line 26 and `model-specs/added/h1.md` line 26 (cite it as the income-tax comparator); `website/notes/pages/FISC.md`, `FALS.md` (row lists only).
+- Row lists only, no values: `website/notes/pages/PAY.md`, `FUND.md`.

@@ -1,7 +1,7 @@
 """Output layer, assembly: Samples and Level2 to the `outputs` and `level2` objects of the output file.
 
 Reads only the manifest (a mapping loaded from outputs.yml) and the interface contract. Data-driven: no per-output code.
-Format: docs/restructure/site/hooks.md section 3 with the 030c rulings; ids and units are the manifest's, values are never rescaled.
+Format: website/notes/site/hooks.md section 3 with the 030c rulings; ids and units are the manifest's, values are never rescaled.
 
 Conventions fixed here, because interface.py says only "arrays of one entry per path":
   p10_mean_p90     the array holds the draws; P10 and P90 are numpy.percentile (linear), the mean is arithmetic.

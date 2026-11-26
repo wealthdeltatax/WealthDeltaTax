@@ -28,7 +28,7 @@ DIAGRAMS_DIR    = SITE_DIR / "diagrams"
 
 CONTENTS_YML    = ROOT_DIR / "website" / "registry" / "contents.yml"
 ANCHORS_YML     = ROOT_DIR / "website" / "registry" / "anchors.yml"
-REFERENCES_JSON = ROOT_DIR / "registry" / "references.json"
+REFERENCES_JSON = ROOT_DIR / "literature" / "references.json"
 REGISTRY_YML    = ROOT_DIR / "website" / "registry" / "papers.yml"   # legacy source for the 33 papers (zenodo, pdf, scrape); retires at cutover
 PAGES_YML       = ROOT_DIR / "website" / "registry" / "pages.yml"    # the page list the site build reads
 
@@ -304,7 +304,7 @@ def extract_paper_meta(src_path: Path) -> dict[str, Any] | None:
 
 # ── Page registry (website/registry/pages.yml) ────────────────────────────────────────
 # One row per page.  Fields: id, type, title, url, source, status, parent,
-# aliases, label, order  (docs/restructure/site/ids.md rule 7, site.md section 2).
+# aliases, label, order  (website/notes/site/ids.md rule 7, site.md section 2).
 
 PAGE_TYPES    = {"hub", "spoke", "appendix", "standalone", "legacy",
                  "pending", "calculator", "site"}

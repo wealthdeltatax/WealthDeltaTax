@@ -276,4 +276,4 @@ The next milestone should not be to eliminate all judgement. That is impossible.
 
 Primary source: `model-specs/inputs.md`, including its dated summary of input and judgement-row counts. The register is the authority for the current count and row-level classifications. This note is an analytical interpretation of that register, not a replacement for it.
 
-Related model documentation: `docs/model-v3/`, particularly the input register and V3 implementation plan.
+Related model documentation: `model-specs/`, particularly the input register and V3 implementation plan.

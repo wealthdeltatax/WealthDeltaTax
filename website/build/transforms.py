@@ -138,7 +138,7 @@ def convert_crossrefs(
 # ── 3b. Spoke ids and cross-references (brief 029s) ───────────────────────────
 # Applies only to new hub and spoke source files (papers/hub.md, papers/spokes/*.md).
 # Legacy papers never pass through these functions; process_file() does not call them.
-# Grammar (docs/restructure/site/ids.md rule 5, widened by site.md R1): fully bracketed,
+# Grammar (website/notes/site/ids.md rule 5, widened by site.md R1): fully bracketed,
 #   (H3)  (FISC)  (FISC §2)  (ADD §3)  (DL2)  (DL1-O1)
 # A spoke or standalone id is a code in pages.yml (3 to 5 capitals); H0 to H7 are the
 # hub sections; DL0 to DL6 are data pages; DL1-<output id> is one output's page.

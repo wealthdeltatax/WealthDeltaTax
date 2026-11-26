@@ -4,7 +4,7 @@ pages/retired.py: the retired papers page and its data (brief 063s; site.md B10)
   python website/build/pages/retired.py --convert            one-off: ledger-sections.md -> website/registry/retired.yml
   python website/build/pages/retired.py --out FILE           write the generated page (site/pages/retired.md)
 
---convert reads docs/restructure/ledger-sections.md by paper heading and table row and writes
+--convert reads website/notes/ledger-sections.md by paper heading and table row and writes
 website/registry/retired.yml, then the file is frozen: a later --convert refuses to overwrite a file whose
 `frozen` key is true.  After the first run the file is edited by hand.
 
@@ -41,7 +41,7 @@ import yaml
 
 import config as cfg
 
-LEDGER_MD = cfg.ROOT_DIR / "docs" / "restructure" / "ledger-sections.md"
+LEDGER_MD = cfg.ROOT_DIR / "website" / "notes" / "ledger-sections.md"
 RETIRED_YML = cfg.ROOT_DIR / "website" / "registry" / "retired.yml"
 SOURCE_DIR = cfg.ROOT_DIR / "papers" / "legacy"
 
@@ -178,7 +178,7 @@ def convert(pages: list[dict[str, Any]], ledger: dict[str, list[dict[str, Any]]]
 _HEADER = """\
 # Where each section of the 30 retired numbered papers went (brief 063s; site.md B10).
 #
-# Converted once from docs/restructure/ledger-sections.md by `python website/build/pages/retired.py --convert`;
+# Converted once from website/notes/ledger-sections.md by `python website/build/pages/retired.py --convert`;
 # frozen: a later --convert refuses to overwrite this file. Edit by hand from here on.
 # Feeds the retired papers page (`python website/build/pages/retired.py --out site/pages/retired.md`).
 #

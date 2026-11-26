@@ -1,4 +1,4 @@
-# Page registry: one row per page (brief 029s; docs/restructure/site/ids.md rule 7, site.md section 2).
+# Page registry: one row per page (brief 029s; website/notes/site/ids.md rule 7, site.md section 2).
 #
 # Fields: id, type, title, url, source, status, parent, aliases, label, order.
 #   type    hub | spoke | appendix | standalone | legacy | pending | calculator | site

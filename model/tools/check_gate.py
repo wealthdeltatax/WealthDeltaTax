@@ -48,10 +48,10 @@ HUB_SECTION = re.compile(r'^H\d$')      # manifest `element:` entries H0..H7 bel
 BRIEF_FILES = {
     'B2': ['model/tools/build_inputs.py', 'model/tools/build_metrics.py', 'model/tools/validate_outputs.py'],
     'B3': ['website/build/hooks.py', 'website/build/hook_format.py'],
-    'B4': ['pipeline/data_block.py', 'pipeline/figure_data.py'],
-    'B5': ['pipeline/figures'],
-    'B6': ['pipeline/check_spokes.py', 'pipeline/check_spokes_lists.py'],
-    'B15': ['docs/wdt-site-architecture.md', 'website/site/pages/draft.qmd'],
+    'B4': ['website/build/data_block.py', 'website/build/figure_data.py'],
+    'B5': ['website/build/figures'],
+    'B6': ['website/build/check_spokes.py', 'website/build/check_spokes_lists.py'],
+    'B15': ['website/wdt-site-architecture.md', 'website/site/pages/draft.qmd'],
 }
 G5_TEST_DIRS = ['tests/model/data', 'tests/website/hooks', 'tests/data_block', 'tests/figures', 'tests/spokes']
 
@@ -64,7 +64,7 @@ class Config:
     decisions_md: str = 'model-specs/judgement-decisions.md'
     architecture: str = 'model-specs/architecture.md'
     acceptance: str = 'model-specs/acceptance.md'
-    brief_011g: str = 'docs/archive/briefs/011g-model-v3-design.md'
+    brief_011g: str = 'project/briefs/done/011g-model-v3-design.md'
     outputs_json: str = 'model_v3/OUTPUTS/outputs.json'
     inputs_json: str = 'data/input-register/inputs.json'
     pages_yml: str = 'website/registry/pages.yml'

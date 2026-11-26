@@ -15,7 +15,7 @@ print('\n'.join(bad) or 'step 5: ok'); sys.exit(1 if bad else 0)
 PY
 }
 step7() { for p in 'arithmetic' 'refund.{0,40}tau|tau.{0,12}loss' 'envelope.{0,60}reset|reset.{0,30}death'; do   # R6: each convention in a module docstring and in decisions.md
-  { grep -q -i -E "$p" model/model_v3/core/returns.py model/model_v3/core/kernel.py && grep -q -i -E "$p" docs/decisions.md; } || { echo "R6: convention /$p/ missing"; return 1; }; done; }
+  { grep -q -i -E "$p" model/model_v3/core/returns.py model/model_v3/core/kernel.py && grep -q -i -E "$p" project/decisions.md; } || { echo "R6: convention /$p/ missing"; return 1; }; done; }
 case "${1:-}" in --check) step5 "$2"; exit;; --compare) cmp "$2" "$3"; exit;; esac
 TMP=$(mktemp -d); TMP2=$(mktemp -d); trap 'rm -rf "$TMP" "$TMP2"' EXIT
 RUN="import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--size', 'quick', '--out', sys.argv[1]])"   # python -I ignores the current directory, so -m model_v3.run cannot be found

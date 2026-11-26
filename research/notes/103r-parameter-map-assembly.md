@@ -1,6 +1,6 @@
 # 103r: parameter map, assembly: one register, cross-side checks, unresolved data and proposed rulings
 
-Accessed 2026-11-21. Brief `docs/briefs/103r-parameter-map-assembly.md`. Closes deliverables A, B and E of the parameter map: merges 101r (flows) and 102r (stocks, cells, transitions, debt). Data and script: `research/tables/103r-parameter-map-assembly/` and `research/scripts/merge_and_check.py`. No register, code, pack or manifest edit; no model run.
+Accessed 2026-11-21. Brief `project/briefs/open/103r-parameter-map-assembly.md`. Closes deliverables A, B and E of the parameter map: merges 101r (flows) and 102r (stocks, cells, transitions, debt). Data and script: `research/tables/103r-parameter-map-assembly/` and `research/scripts/merge_and_check.py`. No register, code, pack or manifest edit; no model run.
 
 Status: complete (all sections written).
 

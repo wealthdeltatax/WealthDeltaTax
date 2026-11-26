@@ -176,7 +176,7 @@ Of the 108 pack rows, **23 have data not in the repo** (register "In repo" cell 
 
 **Pack hash.** `pack_sha256` = sha256 of the UTF-8 text `GBR\n` + for each file in `manifest.files` sorted by `name`: `name`, a space, the file's own sha256 and a newline. The manifest header fields (country, currency, base_year, pack_version) are hashed first as canonical JSON (sorted keys, no spaces). So any change to a data byte, a file name, the currency or the base year changes the pack hash. The manifest's `built`, `retrieved` and licence text are not hashed; they are provenance, not data.
 
-**Run record.** The run writes `run.pack_sha256` and `run.pack_country` next to `run.inputs_sha256`. Gate G2 (`docs/restructure/order.md`) reads "`run.inputs_sha256` equals the hash of `data/input-register/inputs.json`"; it should read both fields, and the guru should add the second. Rule: a run is valid only if both hashes equal those of the files now in the repo; a pack change makes every earlier run stale, the same as a register change, and the output validator (`030c`) reports it as an error in final mode.
+**Run record.** The run writes `run.pack_sha256` and `run.pack_country` next to `run.inputs_sha256`. Gate G2 (`website/notes/order.md`) reads "`run.inputs_sha256` equals the hash of `data/input-register/inputs.json`"; it should read both fields, and the guru should add the second. Rule: a run is valid only if both hashes equal those of the files now in the repo; a pack change makes every earlier run stale, the same as a register change, and the output validator (`030c`) reports it as an error in final mode.
 
 **Interim consistency.** While the register keeps the pack rows as pointers, the build checks that each register value for a pack row equals the value derived from the pack file, within 1e-9 (X1), and that M1d's lines equal 8.11% of GDP within 0.01 (X2). A mismatch fails the build. X1 goes away when `030c`'s register build reads pack-row values from the pack.
 
@@ -227,7 +227,7 @@ The manifest's per-file `licence` field takes the **most restrictive** licence a
 - Gate G2 needs `run.pack_sha256` (section 5).
 - `synthesis.md` describes `wid_long.csv` as untracked and small; it is tracked and 52.9 MB.
 - 125 register rows say "In repo: no" (23 of them pack rows).
-- `docs/brief-suggestions.md`: the `rates_core` import break found in 001c is wider than its current entry.
+- `project/brief-suggestions.md`: the `rates_core` import break found in 001c is wider than its current entry.
 
 ## Appendix: the tally script
 `python -I tally.py model-specs/inputs.md` prints the table of section 1 and asserts: 269 rows, 12 cells each, no duplicate id, no id in two datasets, every grouped id exists, pack + register = 269. The groups below are rule (a); rule (b) is applied in the loop.

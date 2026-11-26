@@ -76,7 +76,7 @@ WDT_Params.toml ─► wdt_core ─┬─► valgen_core ─► valgen_data.json
 eval_core ─► wdt_core + wfr_core (missing)       leaves: wdt_fmt, wdt_md, wdt_style
 ```
 
-[code, AST] Cores do not import each other; no presentation script imports a core; `wdt_fmt`, `wdt_md`, `wdt_style`, `wdt_kernel`, `wdt_par` import no project module. This matches the layering in `docs/agents/reference/code/conventions.md` sections 1 and 2 (the v1 breaches are gone in v2). The one cross-layer path is data: `valgen_core` reads no RATES output; the HLC calibration travels RATES output → `test/print_hlc_calibration.py --write` → TOML → `valgen_core` [doc]. `[rates] valgen_dir` is parsed (`wdt_core._parse_rates`, line 1817) but `rates_core` never reads it (grep).
+[code, AST] Cores do not import each other; no presentation script imports a core; `wdt_fmt`, `wdt_md`, `wdt_style`, `wdt_kernel`, `wdt_par` import no project module. This matches the layering in `project/agents/reference/code/conventions.md` sections 1 and 2 (the v1 breaches are gone in v2). The one cross-layer path is data: `valgen_core` reads no RATES output; the HLC calibration travels RATES output → `test/print_hlc_calibration.py --write` → TOML → `valgen_core` [doc]. `[rates] valgen_dir` is parsed (`wdt_core._parse_rates`, line 1817) but `rates_core` never reads it (grep).
 
 ## 3. Inputs
 

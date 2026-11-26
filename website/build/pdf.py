@@ -47,7 +47,7 @@ from transforms import (
 PRINT_DIR    = ROOT_DIR / "website" / "print"
 TEMPLATE     = PRINT_DIR / "template.tex"
 LUA_FILTER   = PRINT_DIR / "tabularx.lua"
-BIB_PATH     = ROOT_DIR / "registry" / "references.bib"
+BIB_PATH     = ROOT_DIR / "literature" / "references.bib"
 CSL_PATH     = ROOT_DIR / "website" / "site" / "style" / "apa.csl"
 # fix_image_paths() rewrites all image srcs to figures/<filename>.
 # Pandoc's --resource-path resolves that as <dir>/figures/<filename>, so

@@ -1,4 +1,4 @@
-"""Shared fixtures for tests/hooks (brief 060c). Loads the pipeline scripts by path; runs on the fixture data file."""
+"""Shared fixtures for tests/project/tools (brief 060c). Loads the pipeline scripts by path; runs on the fixture data file."""
 import copy, importlib.util, json, sys
 from pathlib import Path
 import pytest

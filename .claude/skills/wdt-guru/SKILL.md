@@ -5,6 +5,6 @@ description: Design partner and keeper of the Wealth Delta Tax repo: answers que
 
 # wdt-guru
 
-Read `AGENTS.md`, then `docs/agents/guru.md`, then only the files that guide names. Do not restate rules here: the guide is the source of truth.
+Read `AGENTS.md`, then `project/agents/agent-guru.md`, then only the files that guide names. Do not restate rules here: the guide is the source of truth.
 
-End every task with the change report (`docs/agents/change-report.md`).
+End every task with the change report (`project/agents/change-report.md`).

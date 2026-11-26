@@ -47,7 +47,7 @@ def make_repo(root: Path) -> Path:
       '| I-A | one | 1 | 2 | 3 | accepted | 2026-11-20 |\n| I-C | three | 1 | 2 | 3 | replaced by I-B | 2026-11-21 |\n')
     w(root, 'model-specs/architecture.md', '# arch\n')
     w(root, 'model-specs/acceptance.md', f'# acceptance\n\nAcceptance command: `{sys.executable} -c "import sys; sys.exit(0)"`\n')
-    w(root, 'docs/archive/briefs/011g-model-v3-design.md', '# 011g\n')
+    w(root, 'project/briefs/done/011g-model-v3-design.md', '# 011g\n')
     w(root, 'data/input-register/inputs.json', json.dumps({'inputs': [{'id': 'I-A'}, {'id': 'I-B'}, {'id': 'I-C'}]}))
     man = root / 'model-specs/outputs.yml'
     inp = root / 'data/input-register/inputs.json'

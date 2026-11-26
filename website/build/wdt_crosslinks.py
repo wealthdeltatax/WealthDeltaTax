@@ -21,8 +21,8 @@ Examples
   python website/build/wdt_crosslinks.py remap --map renumber.yml          # preview
   python website/build/wdt_crosslinks.py remap --map renumber.yml --apply
 
-Default paths (relative to wdt-site/): source/ (else /source), registry/anchors.yml,
-registry/internal.json; output website/registry/crosslinks.json. Each can be overridden by flag.
+Default paths (relative to wdt-site/): source/ (else /source), literature/anchors.yml,
+literature/internal.json; output website/registry/crosslinks.json. Each can be overridden by flag.
 
 Drift tracking: scan/check compare the section index with a baseline (default: the
 previous --out file). Titles that changed under an existing number, or numbers that
@@ -531,8 +531,8 @@ def main():
 
     def common(p):
         p.add_argument("--source", help="markdown folder (default: wdt-site/source, else /source)")
-        p.add_argument("--anchors", help="default: registry/anchors.yml, then registry/anchors.yml")
-        p.add_argument("--internal", help="default: registry/internal.json, then registry/internal.json")
+        p.add_argument("--anchors", help="default: literature/anchors.yml, then literature/anchors.yml")
+        p.add_argument("--internal", help="default: literature/internal.json, then literature/internal.json")
         p.add_argument("--baseline", help="previous crosslinks.json for drift detection")
         p.add_argument("--no-prose", action="store_true", help="ignore 'Section 3.1' prose references")
 
@@ -553,7 +553,7 @@ def main():
     if not source:
         sys.exit("source folder not found; pass --source")
     apath = first_existing(a.anchors, ROOT / "website" / "registry" / "anchors.yml", ROOT / "website" / "registry" / "anchors.yml", ROOT / "anchors.yml")
-    ipath = first_existing(a.internal, ROOT / "registry" / "internal.json", ROOT / "registry" / "internal.json", ROOT / "internal.json")
+    ipath = first_existing(a.internal, ROOT / "literature" / "internal.json", ROOT / "literature" / "internal.json", ROOT / "internal.json")
     anchors = load_kv(apath)
     print(f"source={source}  anchors={apath}  internal={ipath}", file=sys.stderr)
     if not anchors:

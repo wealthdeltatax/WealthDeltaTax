@@ -165,5 +165,5 @@ It is the market-return decomposition of a JST aggregate asset portfolio. It doe
 - Safe-return identity and portfolio weighted identity checked.
 - Real decomposition checked against the pack's CPI-deflated return formula.
 - Pack `capital_tr` checked against source `capital_tr`.
-- `python -I pipeline/check_agent_docs.py`: run by the guru on the branch tip with a local checkout, 2026-11-21; exit 0. The research agent could not run it (no checkout or shell).
+- `python -I project/tools/check_agent_docs.py`: run by the guru on the branch tip with a local checkout, 2026-11-21; exit 0. The research agent could not run it (no checkout or shell).
 - Guru re-verification from the committed CSV: 117 rows, 1896 to 2019, none in 1940 to 1946; weight sums 1 to 1e-12; weighted yield recomputes to 7e-13; largest residual against the pack `capital_tr` 4.9e-7 percentage points.

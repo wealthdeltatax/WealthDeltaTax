@@ -1,6 +1,6 @@
 # 145r: Pension withdrawal by age, evidence for a labelled scenario axis
 
-Accessed 2026-11-23. Brief `docs/briefs/145r-withdrawal-and-saving-evidence.md`. Evidence and confidence only; no code, register, pack or manifest change. Scenario values are labelled as such, never a forecast, no central value.
+Accessed 2026-11-23. Brief `project/briefs/open/145r-withdrawal-and-saving-evidence.md`. Evidence and confidence only; no code, register, pack or manifest change. Scenario values are labelled as such, never a forecast, no central value.
 
 Status: done (block 1 of brief 145r).
 
@@ -14,7 +14,7 @@ Status: done (block 1 of brief 145r).
 
 ## 2. Sources read and not read
 
-Read (opened through `website/build/to_markdown.py` or `pdftotext`; every BN236 figure is asserted on its PDF page by `withdrawal_range.py`):
+Read (opened through `project/tools/to_markdown.py` or `pdftotext`; every BN236 figure is asserted on its PDF page by `withdrawal_range.py`):
 - IFS BN236, *The use of financial wealth in retirement* (Crawford, June 2018), `literature/BN236.pdf`. Printed page = PDF page - 1 (checked on three pages). Pages cited are printed pages.
 - ONS WAS Round 8 (April 2020 to March 2022), Table_1 of `meanmedianaggregateandpercentageofwealthbywealthcomponentandageofhouseholdreferenceperson.xlsx`: mean private pension wealth by age of the household reference person.
 - Keyword search (drawdown, withdraw, decumulation) of the converted IFS "How is wealth distributed across British households" report and Resolution Foundation "Before the Fall": no withdrawal rate. The seven hits in the IFS report concern valuation and tax treatment of pensions in payment, not behaviour.
@@ -73,5 +73,5 @@ Expected consequence for the model, stated and not computed: the draw leaves net
 
 ## 6. Reproduction
 
-`python -I research/scripts/withdrawal_range.py` from the repo root (needs `pdftotext` and `openpyxl`). It asserts each BN236 figure on its PDF page and the three WAS cells, writes `withdrawal_range.csv` (24 rows) and prints one `ok:` line; it exits 1 on any failed check. Check: `python -I pipeline/check_agent_docs.py`.
+`python -I research/scripts/withdrawal_range.py` from the repo root (needs `pdftotext` and `openpyxl`). It asserts each BN236 figure on its PDF page and the three WAS cells, writes `withdrawal_range.csv` (24 rows) and prints one `ok:` line; it exits 1 on any failed check. Check: `python -I project/tools/check_agent_docs.py`.
 

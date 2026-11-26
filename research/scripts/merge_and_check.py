@@ -8,7 +8,7 @@ dictionary_map.csv (094r B2 terms -> register rows). Fails (exit 1) on:
 Prints one summary line. Run from the repository root with python -I.
 """
 import csv, re, sys, os
-DIRS = {'101r': 'research/tables/101r-parameter-map-flows-and-returns/', '102r': 'research/tables/102r-parameter-map-stocks-and-cells/', '103r': 'research/tables/103r-parameter-map-assembly/'}   # 160c: the tables moved here (docs/restructure map)
+DIRS = {'101r': 'research/tables/101r-parameter-map-flows-and-returns/', '102r': 'research/tables/102r-parameter-map-stocks-and-cells/', '103r': 'research/tables/103r-parameter-map-assembly/'}   # 160c: the tables moved here (project/restructure map)
 OUT = DIRS['103r']
 fl = list(csv.DictReader(open(DIRS['101r'] + 'flows_register.csv')))
 st = list(csv.DictReader(open(DIRS['102r'] + 'stocks_register.csv')))

@@ -1,6 +1,6 @@
 # 146r: Top tail, scaling the opening stock of the top lines to the published top-1% range
 
-Accessed 2026-11-23. Brief `docs/briefs/146r-gdp-growth-and-top-tail-evidence.md`. Evidence and design only; a stock sensitivity (`ast_low`, `ast_high`); tail behaviour stays unset and unchanged. Nothing is tuned to reach 0.50.
+Accessed 2026-11-23. Brief `project/briefs/open/146r-gdp-growth-and-top-tail-evidence.md`. Evidence and design only; a stock sensitivity (`ast_low`, `ast_high`); tail behaviour stays unset and unchanged. Nothing is tuned to reach 0.50.
 
 Status: done (block 2 of brief 146r).
 
@@ -87,5 +87,5 @@ Why D10b only: the Rich List total is an observed figure (I-D4f), and D10b is th
 
 ## 6. Reproduction
 
-`python -I research/scripts/top_tail_mapping.py` from the repo root (needs `pdftotext`; reads the pack, the register and `runner/arm.line_state` read only). It asserts the AST figures on their pages, computes the pack's top-1% and top-decile shares (21.905%, 43.531%), builds the 12 scenario rows and checks that the total is held, the Rich List tiers and D10b stay positive, and the non-pension wealth of every reduced top line stays non-negative. It writes `tail_current.csv` (9 rows), `tail_ast_evidence.csv` (7) and `tail_scenarios.csv` (12) and prints one `ok:` line; it exits 1 on any failed check. Check: `python -I pipeline/check_agent_docs.py`.
+`python -I research/scripts/top_tail_mapping.py` from the repo root (needs `pdftotext`; reads the pack, the register and `runner/arm.line_state` read only). It asserts the AST figures on their pages, computes the pack's top-1% and top-decile shares (21.905%, 43.531%), builds the 12 scenario rows and checks that the total is held, the Rich List tiers and D10b stay positive, and the non-pension wealth of every reduced top line stays non-negative. It writes `tail_current.csv` (9 rows), `tail_ast_evidence.csv` (7) and `tail_scenarios.csv` (12) and prints one `ok:` line; it exits 1 on any failed check. Check: `python -I project/tools/check_agent_docs.py`.
 

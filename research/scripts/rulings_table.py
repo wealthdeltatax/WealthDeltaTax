@@ -2,7 +2,7 @@
 Reads 103r/parameter_register.csv and 104r/resolution_by_row.csv; writes rulings_table.csv and rulings_table.md (a markdown table the note includes).
 Exits 1 if a register row is missing, or the four brief categories do not account for every row.  Run from the repo root: python -I research/scripts/rulings_table.py"""
 import csv, sys, collections
-DIRS = {'103r': 'research/tables/103r-parameter-map-assembly/', '104r': 'research/tables/104r-parameter-map-design/'}   # 160c: the tables moved here (docs/restructure map)
+DIRS = {'103r': 'research/tables/103r-parameter-map-assembly/', '104r': 'research/tables/104r-parameter-map-design/'}   # 160c: the tables moved here (project/restructure map)
 reg = list(csv.DictReader(open(DIRS['103r'] + 'parameter_register.csv')))
 res = {r['row_id']: r for r in csv.DictReader(open(DIRS['104r'] + 'resolution_by_row.csv'))}
 READY, SCEN, UNSET, DATA = 'ready for implementation', 'implement with a scenario range', 'remain unset', 'further data required'

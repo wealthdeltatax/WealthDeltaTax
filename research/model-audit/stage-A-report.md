@@ -15,7 +15,7 @@ Change report
   - Every error carries a number or reproducible check: not applicable at stage A (errors are stage B). Facts that look like errors carry numbers (8 of 16 run_all entries cannot start; 6 import failures with file and line)
 - Deviations from the brief: (1) change report is in research/model-audit/, not the brief, because of the Touches limit. (2) The brief's "Read" line says `website/registry/contents.yml` lists figures and tables; it lists sections only. Outputs were mapped to papers by matching image embeds in source/*.md instead
 - Risks / follow-ups:
-  - model_v1 does not import as shipped (`rates_core` vs `rates_core1.py`); 8 of 16 run_all entries fail. Not fixed (audit only). Logged in docs/brief-suggestions.md already for wdt_analytics; the guru should widen that entry
+  - model_v1 does not import as shipped (`rates_core` vs `rates_core1.py`); 8 of 16 run_all entries fail. Not fixed (audit only). Logged in project/brief-suggestions.md already for wdt_analytics; the guru should widen that entry
   - Tracked OUTPUTS are dated 2026-09-28 to 2026-09-30, before the rename; not regenerated
   - Paper 19 embeds 3 figures (4.1e/f/g) that no code produces, and 3 with a doubled `fig_` prefix
   - My question text said "about 14,000 lines"; the correct total is 18,136

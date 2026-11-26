@@ -12,11 +12,11 @@ New data files:
 
 | File | Contents |
 |---|---|
-| `data/097r/ons_household_flows_annual.csv` | Annual ONS S.14 D.41 received/paid, D.42 received, D.45 received/paid, D.8, B.6g and saving ratio. 1997 onward where available. |
-| `data/097r/ons_household_consumption_annual.csv` | Annual S.14 individual consumption expenditure (P.31), 1997–2025. |
-| `data/097r/ons_household_saving_identity_check.csv` | Source series and derived gross-saving/saving-ratio reconciliation, 1997–2025. |
-| `data/097r/ons_nbs_financial_annual.csv` | S.14 total financial assets, financial liabilities and net financial assets, 1997–2025. |
-| `data/097r/hmrc_html_summary_extracts.csv` | Numeric summary extracts available in HMRC HTML commentary. Not a substitute for the underlying ODS tables. |
+| `data/uk-wealth-tables/097r/ons_household_flows_annual.csv` | Annual ONS S.14 D.41 received/paid, D.42 received, D.45 received/paid, D.8, B.6g and saving ratio. 1997 onward where available. |
+| `data/uk-wealth-tables/097r/ons_household_consumption_annual.csv` | Annual S.14 individual consumption expenditure (P.31), 1997–2025. |
+| `data/uk-wealth-tables/097r/ons_household_saving_identity_check.csv` | Source series and derived gross-saving/saving-ratio reconciliation, 1997–2025. |
+| `data/uk-wealth-tables/097r/ons_nbs_financial_annual.csv` | S.14 total financial assets, financial liabilities and net financial assets, 1997–2025. |
+| `data/uk-wealth-tables/097r/hmrc_html_summary_extracts.csv` | Numeric summary extracts available in HMRC HTML commentary. Not a substitute for the underlying ODS tables. |
 
 All extracted-series CSVs use the brief's required metadata: series/table, period, value, unit, price basis, seasonal adjustment, sector, sign convention, source link, retrieval date and one-line definition. The saving-identity file additionally identifies derived rows and their component source links.
 
@@ -53,7 +53,7 @@ The latest QSA edition page identifies the Q2 2026 workbook (release 30 Septembe
 | Total financial liabilities — NIWJ | **Extracted** | S.14 annual 1997–2025, £m, current prices, NSA. |
 | Net financial assets — NYOH | **Extracted** | S.14 annual 1997–2025, £m, current prices, NSA. |
 | Total household net worth | **Headline only; component series not extracted** | ONS preliminary 2025 bulletin reports household net worth at £10.8tn and an increase of £146.1bn between 2024 and 2025. This is a rounded bulletin headline, not a row in the extracted financial-stocks CSV. |
-| Non-financial assets and asset components (dwellings, land, etc.) | **Received, not yet extracted** | `data/097r/nbs.csv` (ONS National Balance Sheet, author upload 2026-11-21; 70 annual rows to 2025, S.1HN and S.14 columns incl. AN.111 dwellings and AN.211 land, current prices £m). Household series still to be pulled out into a tidy CSV. |
+| Non-financial assets and asset components (dwellings, land, etc.) | **Received, not yet extracted** | `data/uk-wealth-tables/097r/nbs.csv` (ONS National Balance Sheet, author upload 2026-11-21; 70 annual rows to 2025, S.1HN and S.14 columns incl. AN.111 dwellings and AN.211 land, current prices £m). Household series still to be pulled out into a tidy CSV. |
 | Revaluation / other-volume-change split by asset class | **Reachable but not parseable** | Not extracted. No allocation across dwellings, land, equities or other asset classes has been inferred. |
 
 Sources:
@@ -240,7 +240,7 @@ The agent's runtime could not decode the uploaded workbooks; the files are valid
 - The BoE do-file builds income deciles only (see section 8).
 
 **Still outstanding**
-1. ~~`nbs.xlsx` is empty~~ Resolved 2026-11-21: the author uploaded the CSV as `data/097r/nbs.csv`. `nbs.xlsx` stays empty and is ignored.
+1. ~~`nbs.xlsx` is empty~~ Resolved 2026-11-21: the author uploaded the CSV as `data/uk-wealth-tables/097r/nbs.csv`. `nbs.xlsx` stays empty and is ignored.
 2. The QSA workbook's revaluation and other-changes-in-volume sheets (B.9, BF.90 hold lending and financial net worth only; no revaluation sheet exists in this edition). Revaluation by asset class has to come from the balance sheet.
 3. D.42 paid, D.44 received and paid: not in the HH sheets of the QSA workbook. The UK Economic Accounts workbook (`ukea2026q2.xlsx`, 11.7 MB, uploaded 2026-11-21) is on the branch `brief/097r-open-series-collection` only, not committed to `main`; its sheets are not yet read.
 4. HMRC CSVs are raw sheet dumps; the numbers need reconciling to the commentary.

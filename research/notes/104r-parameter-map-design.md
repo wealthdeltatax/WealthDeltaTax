@@ -1,6 +1,6 @@
 # 104r: parameter map, design side: cell coverage, accounting conventions, public side
 
-Accessed 2026-11-21. Brief `docs/briefs/104r-parameter-map-design.md`. Closes deliverables C and D of the parameter map from the 103r register (`research/tables/103r-parameter-map-assembly/parameter_register.csv`). Proposals with a recommendation each; the author rules. No code, register, pack or manifest edit; no model run; no replacement for 3.5%.
+Accessed 2026-11-21. Brief `project/briefs/open/104r-parameter-map-design.md`. Closes deliverables C and D of the parameter map from the 103r register (`research/tables/103r-parameter-map-assembly/parameter_register.csv`). Proposals with a recommendation each; the author rules. No code, register, pack or manifest edit; no model run; no replacement for 3.5%.
 
 Status: done.
 
@@ -225,7 +225,7 @@ Gap list only. Nothing here is code; each line names what would have to exist or
 **5.5 Tests that would move or be added.**
 - Moving: `test_burden.py`, `test_revenue.py`, `test_out_burden.py`, `test_kernel.py`, `test_support.py` (they reference I-D14c, `state_true` or `state_cash`, or consumption). Under the comparator arm none should change; under the new arm the digests change and that is stated, not hidden.
 - New: identity holds per cell and year (no residual); no-double-counting worked case (section 3, the household example gives `dNW` = 54 on both sides); consolidated household-plus-public sum is zero (the seven rows of `public_side_identity.csv`); the legacy comparator reproduces the stored digests; `O` is reported, not forced.
-- Registration (docs/agents/code.md): a LAYER row for `household` in `tests/model/model_v3/conftest.py`; a budget row in the budgets block of `model-specs/architecture.md`; rows in `tests/model/model_v3/test_groups.py` for the new test file.
+- Registration (project/agents/agent-code.md): a LAYER row for `household` in `tests/model/model_v3/conftest.py`; a budget row in the budgets block of `model-specs/architecture.md`; rows in `tests/model/model_v3/test_groups.py` for the new test file.
 
 
 ## 6. Rulings table (item 5)
@@ -341,4 +341,4 @@ Two limits. First, the cells have fixed membership within a generation step (S26
 
 ## 8. Reproduction
 
-From the repo root, with `python -I`: `research/scripts/coverage_matrix.py` (section 2), `conventions_worked.py` (section 3; writes four CSVs), `public_side_identity.py` (section 4), `rulings_table.py` (section 6; writes `rulings_table.csv` and `.md`). Each prints one `ok:` line and exits 1 on failure. Inputs: `research/tables/103r-parameter-map-assembly/parameter_register.csv`, `worked_cell_d45.csv`, `cross_side_checks.csv`; `102r/band_composition_by_pack_band.csv`, `cell_coverage_inputs.csv`; `099r/moments.csv`. Check: `python -I pipeline/check_agent_docs.py`.
+From the repo root, with `python -I`: `research/scripts/coverage_matrix.py` (section 2), `conventions_worked.py` (section 3; writes four CSVs), `public_side_identity.py` (section 4), `rulings_table.py` (section 6; writes `rulings_table.csv` and `.md`). Each prints one `ok:` line and exits 1 on failure. Inputs: `research/tables/103r-parameter-map-assembly/parameter_register.csv`, `worked_cell_d45.csv`, `cross_side_checks.csv`; `102r/band_composition_by_pack_band.csv`, `cell_coverage_inputs.csv`; `099r/moments.csv`. Check: `python -I project/tools/check_agent_docs.py`.

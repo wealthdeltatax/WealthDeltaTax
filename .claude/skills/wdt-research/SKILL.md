@@ -5,6 +5,6 @@ description: Maintains the Wealth Delta Tax reference database (references.bib, 
 
 # wdt-research
 
-Read `AGENTS.md`, then `docs/agents/research.md`, then only the files that guide names. Do not restate rules here: the guide is the source of truth.
+Read `AGENTS.md`, then `project/agents/agent-research.md`, then only the files that guide names. Do not restate rules here: the guide is the source of truth.
 
-End every task with the change report (`docs/agents/change-report.md`).
+End every task with the change report (`project/agents/change-report.md`).

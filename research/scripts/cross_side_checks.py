@@ -6,7 +6,7 @@ a difference and its class (definitional, coverage, timing, measurement). Tolera
 none was chosen with regard to WDT revenue. Run from the repository root with python -I.
 """
 import csv, re, sys
-DIRS = {'101r': 'research/tables/101r-parameter-map-flows-and-returns/', '102r': 'research/tables/102r-parameter-map-stocks-and-cells/', '103r': 'research/tables/103r-parameter-map-assembly/'}   # 160c: the tables moved here (docs/restructure map)
+DIRS = {'101r': 'research/tables/101r-parameter-map-flows-and-returns/', '102r': 'research/tables/102r-parameter-map-stocks-and-cells/', '103r': 'research/tables/103r-parameter-map-assembly/'}   # 160c: the tables moved here (project/restructure map)
 O = DIRS['103r']
 def rd(p): return list(csv.DictReader(open(p)))
 reg = {r['row_id']: r for r in rd(O + 'parameter_register.csv')}
