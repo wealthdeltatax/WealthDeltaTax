@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Model v3 acceptance (acceptance.md section 1): exits 0 only if every step does; never passes --final (the author's act).  --check FILE runs step 5 only, --compare A B step 6 only (seeded-breakage tests), --r6 step 7 only (the Actions accept job).  The two runs are `--size quick` (author, 2026-11-23: the full-size run is not part of acceptance).
+# Model v3 acceptance (acceptance.md section 1): exits 0 only if every step does; never passes --final (the author's act).  --check FILE runs step 5 only, --compare A B step 6 only (seeded-breakage tests), --r6 step 7 only; ACCEPT_KEEP=1 keeps the two temporary run folders (the Actions accept job uploads them).  The two runs are `--size quick` (author, 2026-11-23: the full-size run is not part of acceptance).
 set -euo pipefail
 cd "$(dirname "$0")/../../.."
 step5() { python -I - "$1" <<'PY'
@@ -17,7 +17,7 @@ PY
 step7() { for p in 'arithmetic' 'refund.{0,40}tau|tau.{0,12}loss' 'envelope.{0,60}reset|reset.{0,30}death'; do   # R6: each convention in a module docstring and in decisions.md
   { grep -q -i -E "$p" model/model_v3/core/returns.py model/model_v3/core/kernel.py && grep -q -i -E "$p" project/decisions.md; } || { echo "R6: convention /$p/ missing"; return 1; }; done; }
 case "${1:-}" in --check) step5 "$2"; exit;; --compare) cmp "$2" "$3"; exit;; --r6) step7; exit;; esac
-TMP=$(mktemp -d); TMP2=$(mktemp -d); trap 'rm -rf "$TMP" "$TMP2"' EXIT
+TMP=$(mktemp -d); TMP2=$(mktemp -d); trap '[ -n "${ACCEPT_KEEP:-}" ] || rm -rf "$TMP" "$TMP2"' EXIT
 RUN="import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--size', 'quick', '--out', sys.argv[1]])"   # python -I ignores the current directory, so -m model_v3.run cannot be found
 python -I -m pytest tests/model/model_v3 -q -x -m "not converge"                          # 1
 python -I -m pytest tests/model/model_v3/test_converge.py -q -m converge                  # 2

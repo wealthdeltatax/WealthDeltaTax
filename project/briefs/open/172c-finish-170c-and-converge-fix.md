@@ -2,7 +2,7 @@
 
 - **Status:** ready; Agent 2 or 3
 - **Author/date:** K. Ogata with the guru, 2026-11-26
-- **Depends on:** branch `brief/169-numerics` at 2781106b (169c stages A, B and 170c stages A, B pushed; no change report written)
+- **Depends on:** 170c merged to main 2026-11-26 (the branch is merged; start from main; stages A below are done: both CPU families green, change reports written by the 170c agent in `project/briefs/done/170c-...md`)
 - **Read:** `project/briefs/open/170c-pin-numerics-path-and-first-runs.md` (on main; the branch carries the older 169c brief), `results/169c-numerics/difference-report.md`, `tests/model/model_v3/test_converge.py`, `.github/workflows/model-checks.yml`
 
 ## Goal
@@ -16,7 +16,7 @@ Close 169c and 170c on the branch with a change report, and make `test_converge.
 - Two `fast` runs of the branch were started by the guru (workflow_dispatch on `brief/169-numerics`): ids 45884609593 and 45884613916.
 
 ## Stages
-- A (170c close-out): read the two `fast` runs above (CPU line, result). If both green, and at least one ran on an AMD EPYC 7763 and one on an Intel or EPYC 9V74, that is the two-CPU check; if not, start more with `gh workflow run model-checks.yml --ref brief/169-numerics -f run_accept=false` until you have one of each (they cancel each other in the same group: wait for each to finish). Then write the 169c and 170c change reports and the progress blocks. Checkpoint: pushed.
+- A (done by the 170c agent; skip, read its change report): read the two `fast` runs above (CPU line, result). If both green, and at least one ran on an AMD EPYC 7763 and one on an Intel or EPYC 9V74, that is the two-CPU check; if not, start more with `gh workflow run model-checks.yml --ref brief/169-numerics -f run_accept=false` until you have one of each (they cancel each other in the same group: wait for each to finish). Then write the 169c and 170c change reports and the progress blocks. Checkpoint: pushed.
 - B (converge): find why `S.choose` returns None for the legacy-arm fixture. Two possibilities: (1) a real finding (no feasible schedule on the 20-path CRN for the legacy arm; the 057c rulings C1 and C2 accepted the legacy arm for these tests, so a legacy arm with no feasible cell contradicts that premise) or (2) the fixture builds the arm differently from `run.py` (compare how `run.py` builds the legacy arm's feasibility map). Report which, with the evidence. Fix the fixture only if it is (2); if it is (1), stop and ask the author. Do not change the model.
 - C: run the repaired converge job on the branch (`-f run_converge=true -f run_accept=false -f run_smoke=false`); it takes about 1.5 h up to 3.5 h. Report each test result and wall time.
 
