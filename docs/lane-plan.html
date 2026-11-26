@@ -260,7 +260,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 (function () {
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the V3 build as it lands" },
-    { id: "2", name: "Agent 2", note: "057c pushed; waits for author acceptance runs" },
+    { id: "2", name: "Agent 2", note: "Free; 151c after 164c" },
     { id: "3", name: "Agent 3", note: "Free until 164c (project, skills, final sweep)" },
     { id: "4", name: "Agent 4", note: "Free (160c merged)" },
     { id: "5", name: "Agent 5", note: "Free (161c merged)" },
@@ -272,7 +272,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   var B = [
     { id: "164c", lane: "3", at: 0, len: 1, st: "ready", t: "Move project documents and skills, final sweep (R6)", needs: [], why: "project/, skills rebuilt, whole-programme acceptance.", files: "docs, Tools, .claude" },
     { id: "151c", lane: "2", at: 2, len: 1, st: "hold", t: "Headline-only evaluation for the tornado and the O1e roots (speed-up, byte-identical)", needs: [{ id: "164c" }, { id: "057c" }], why: "The tornado and the O1e roots need only the headline; byte-identical to the quick reference file. After the reorganisation and 057c.", files: "runner.py, sweeps.py, run.py" },
-    { id: "057c", lane: "2", at: 0, len: 2, st: "review", t: "Model v3 V3-12: run script and acceptance", needs: [], why: "Pushed and reviewed (suites green on the moved tree). Not merged: needs the long acceptance runs (converge, accept.sh, check_gate --all) and the author asking." },
+    { id: "057c", lane: "2", at: 0, len: 2, st: "built", t: "Model v3 V3-12: run script and acceptance", needs: [], why: "Merged 2026-11-26. Long runs (converge, accept.sh, check_gate --all, --final) go to GitHub Actions." },
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
 

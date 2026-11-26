@@ -138,11 +138,28 @@ def system_run(kind, rate, g, w0, w_min, c=0.0, hook=None):
     return w, paid
 
 
+_CAP = None
+
+
+class capping:
+    """Within `with capping(store):` `solve_rate` returns the cap when even that does not raise the target and records {kind: (reached, target)} in `store`."""
+    def __init__(self, store): self.store = store
+    def __enter__(self):
+        global _CAP
+        _CAP, self.old = self.store, _CAP
+        return self.store
+    def __exit__(self, *exc):
+        global _CAP
+        _CAP = self.old
+
+
 def solve_rate(kind, target, g, w0, weights, w_min, c=0.0, hi=1.0, iters=80, hook=None):
     """The rate at which the mean lifetime tax per adult (weighted over lines, averaged over paths) equals target; bisection, since tax rises
     with the rate. Raises when even a rate of `hi` does not raise the target."""
     rev = lambda r: float((np.asarray(weights)[:, None] * system_run(kind, r, g, w0, w_min, c, hook)[1]).sum(0).mean())
     if rev(hi) < target:
+        if _CAP is not None:   # inside `capping`: the comparator stays at the capped rate and the shortfall is recorded (author, 2026-11-24), never repaired
+            _CAP.setdefault(kind, (rev(hi), target)); return hi   # the first record stands (level 1 runs first)
         raise ValueError(f'{kind}: a rate of {hi} raises {rev(hi):.6g}, less than the target {target:.6g}')
     lo = 0.0
     for _ in range(iters):

@@ -76,7 +76,7 @@ def test_the_tornado_keeps_the_m3_head_and_a_household_file_with_the_returned_id
     drop = [i for i in held if isinstance(held[i], str)]
     smp = synthetic(skip=drop)
     o, _ = assemble.assemble(out, smp, None, 'final', held)
-    run = writer.run_block(out, MANIFEST, INPUTS, LEVERS, {**INFO, 'status': 'final', 'pack_sha256': 'x' * 64, 'pack_country': 'UK', 'arm': dict(arm='household', central=False)})
+    run = writer.run_block(out, MANIFEST, INPUTS, LEVERS, {**INFO, 'status': 'final', 'pack_sha256': 'x' * 64, 'pack_country': 'UK', 'seed': 1, 'level2_draws': 0, 'level2_paths': 1, 'unfilled_paths': 0, 'arm': dict(arm='household', central=False)})
     path = writer.write_outputs(tmp_path, writer.document(o, {}, run), MANIFEST, INPUTS)               # the validator runs inside with --final and raises on any error
     assert path.exists() and 'withheld_by' not in o['OT1'] and o['O3']['cells'] and o['OW3']['cells'] and o['OM1']['cells'] and o['OW1']['cells']    # nothing is withheld: the manifest restricts no id (V7 on a restricted id is tested in tests/model/data)
 

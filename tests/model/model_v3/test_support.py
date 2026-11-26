@@ -87,6 +87,11 @@ def test_welfare_at_equal_revenue():
                         g, w0, pw, w_min) == pytest.approx(0.02, abs=1e-9)
     with pytest.raises(ValueError):
         U.solve_rate('stock_wealth_tax', 1e9, g, w0, pw, w_min)
+    cap = {}
+    with U.capping(cap):   # 057c: the comparator stays at the cap and the shortfall is recorded; outside the block it raises again
+        assert U.solve_rate('stock_wealth_tax', 1e9, g, w0, pw, w_min) == 1.0 and cap['stock_wealth_tax'][1] == 1e9 and cap['stock_wealth_tax'][0] < 1e9
+    with pytest.raises(ValueError):
+        U.solve_rate('stock_wealth_tax', 1e9, g, w0, pw, w_min)
     assert U.wmean(out['wdt'][1:], w[1:]) == pytest.approx((out['wdt'][1] * 0.3 + out['wdt'][2] * 0.2) / 0.5)
 
 

@@ -59,13 +59,23 @@ STAT_FIELDS = {
 CELL_FIELDS = {"schedule", "horizon", "by", "line", "series"}
 # Stated markers a numeric field may carry instead of a number, per output id (089c): OF1 where no schedule passes the 75% threshold, CK1 and OF1 where a point was not run.
 MARKERS = {"OF1": {"none_passes_75", "not_run_this_point"}, "CK1": {"not_run_this_point"}}
-ENTRY_FIELDS = {"summary", "cells", "withheld", "withheld_by"}
+ENTRY_FIELDS = {"summary", "cells", "withheld", "withheld_by", "pending"}
+NO_PAYER, NO_PAYER_IDS = "no_payer_at_launch", ("O2", "O2b", "O2c", "O2d", "OH1b", "OH1c", "OW3")   # a wealth band with no payer at launch under the schedule, and what derives from it (author, 2026-11-23)
+NOT_RUN = "not_run_this_point"                                                              # O1e ran at one scenario point only (author, 2026-11-23); accepted for O1e, in the centre slot
+PACK_LABELS = {"GBR": "UK"}                                                                   # stated mapping: pack code to manifest label (author, 2026-11-23)
+TARGET_NOT_MET = "target_not_met"   # run.arm.targets status (author, 2026-11-25)
+REFORM_NOT_DEFINED = "reform_not_defined"   # O8 cell marker only (author, 2026-11-26)
+NOT_DEFINED, NOT_RUN_RUN, NO_SIGN = "not_defined_under_safe_fund", "not_run_this_run", "no_sign_change_0_15"                  # O1e only
+NO_CENTRAL = "no_central"                                                                    # the centre slot of a range across scenario points
+CENTRE_SLOT = {"p10_mean_p90": "mean", "point_and_range": "point", "point": "point"}
+MAY_WITHHOLD = ("OW1",)                                                                       # household arm: the labelled marker `withheld: legacy_only` is accepted, not required (author, 2026-11-23; 121c, 135c)
+PENDING_IDS = ("OF1", "CK1")                                                                  # labelled pending until the author rules on the feasibility rule (140c, 089c)
 TOP_FIELDS = {"schema", "run", "outputs", "level2"}
 RUN_REQUIRED = (
     "manifest_version", "manifest_sha256", "country_pack", "run_date",
     "status", "model_version", "inputs_sha256", "paths", "base_year",
 )
-RUN_FIELDS = set(RUN_REQUIRED) | {"fixture", "arm"}
+RUN_FIELDS = set(RUN_REQUIRED) | {"fixture", "arm", "seed", "level2_draws", "level2_paths", "unfilled_paths"}
 ARMS = ("legacy", "household")   # run.arm: the name, or an object whose `arm` is the name (model_v3 runner/arm.py label); absent means legacy
 LEVEL2_FIELDS = {"tornado", "p10", "p90"}
 HOOKS_ID_RE = re.compile(r"^O[A-Z]?[0-9]+[a-z]?$")   # hooks.md section 4.1
@@ -272,13 +282,18 @@ class Validator:
                 self.add("V8", "error" if self.strict() else "warning", "run",
                          f"missing field {k!r} (manifest run_fields_added)")
         if "pack_country" in added and "pack_country" in run and "country_pack" in run \
-                and run["pack_country"] != run["country_pack"]:
+                and PACK_LABELS.get(run["pack_country"], run["pack_country"]) != run["country_pack"]:
             self.add("V8", "error", "run.pack_country",
                      f"{run['pack_country']!r} must equal run.country_pack {run['country_pack']!r}")
         for k in sorted(set(run) - RUN_FIELDS - set(added)):
             self.add("V12", "warning", "run", f"unknown field {k!r}")
         if "arm" in run and self.run_arm() not in ARMS:
             self.add("V8", "error", "run.arm", f"must be one of {ARMS} (or an object naming one in `arm`), found {run['arm']!r}")
+        for t in (run["arm"].get("targets", []) if isinstance(run.get("arm"), dict) else []):   # a grid point that missed its closure target is labelled, with the figure reached beside the target (author, 2026-11-24)
+            sf = t.get("shortfalls") if isinstance(t, dict) else None
+            if not isinstance(t, dict) or t.get("status") not in ("met", "target_not_met") or (t["status"] == "target_not_met") != bool(sf) or not all(
+                    isinstance(v, dict) and all(isinstance(v.get(f), (int, float)) for f in ("reached", "target")) for v in (sf or {}).values()):
+                self.add("V8", "error", "run.arm.targets", f"an entry needs status met, or target_not_met with the reached and target figures: {t!r}")
         status = run.get("status")
         if "status" in run and status not in ("provisional", "final"):
             self.add("V8", "error", "run.status", f"must be 'provisional' or 'final', found {status!r}")
@@ -356,9 +371,15 @@ class Validator:
         if not isinstance(cells, list):
             self.add("V3", "error", oid, "cells missing or not an array")
             return
+        if "pending" in entry:   # a labelled pending marker, never a value: only OF1 and CK1, no cells
+            if oid not in PENDING_IDS:
+                self.add("V7", "error", oid, f"pending is accepted only for {', '.join(PENDING_IDS)}")
+            elif not (isinstance(entry["pending"], str) and entry["pending"]) or cells:
+                self.add("V7", "error", oid, "a pending entry needs a label and no cells")
+            return
         held = ent.arms is not None and "household" not in ent.arms and self.run_arm() == "household"   # an output this arm cannot produce (122c)
         if "withheld" in entry or held:
-            if not held:
+            if not (held or (oid in MAY_WITHHOLD and self.run_arm() == "household")):
                 self.add("V7", "error", oid, f"withheld under arm {self.run_arm()!r}, but the manifest lets this arm produce it")
             elif entry.get("withheld") != "legacy_only":
                 self.add("V7", "error", oid, "the household arm cannot produce this id: the entry must carry withheld: legacy_only")
@@ -453,6 +474,7 @@ class Validator:
         if fields is None:
             return   # unknown summary already a V2 error
         vals = {}
+        by = obj.get("by") if isinstance(obj.get("by"), dict) else {}
         for f in fields:
             if f not in obj:
                 self.add("V5", "error", where, f"missing numeric field {f!r}")
@@ -461,6 +483,16 @@ class Validator:
             if v is None:
                 if not self.provisional():
                     self.add("V5", "error", where, f"{f} is null (allowed only in a provisional file)")
+            elif v == NO_PAYER and oid in NO_PAYER_IDS and by.get("wealth_band") not in (None, "overall"):
+                continue   # stated marker (author, 2026-11-23): the band has no payer at launch; accepted for these ids and a named band only
+            elif v == NOT_RUN and oid == "O1e" and f == CENTRE_SLOT[summary]:
+                continue
+            elif oid == "O1e" and (v in (NOT_DEFINED, NO_SIGN) or (v == NOT_RUN_RUN and f != CENTRE_SLOT[summary])):
+                continue   # stated markers (author, 2026-11-23): the safe fund ignores the generator mean; the range over input draws was not run (--o1e-draws 0)
+            elif v == REFORM_NOT_DEFINED and oid == "O8" and f in ("p10", "mean", "p90"):
+                continue   # stated marker (author, 2026-11-25): the reform-in-place comparator could not raise its target; O8 only, whatever the cause (a missing base share of the reform, or a closure target that is out of reach)
+            elif v == NO_CENTRAL and f == CENTRE_SLOT[summary] and self.run_arm() == "household":
+                continue   # stated marker (author, 2026-11-23): a range across labelled scenario points has no central value
             elif isinstance(v, str) and v in MARKERS.get(oid, ()):
                 continue   # a stated marker (MARKERS), not a number: nothing to compare
             elif not is_number(v):

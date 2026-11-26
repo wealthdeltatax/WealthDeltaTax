@@ -38,9 +38,32 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - **Suggest:** briefs that run the household arm on per-path returns say "record an I1 alarm per cell, do not work around it".
 
 - 149c: the brief did not say what to do when the arm raises its I1 alarm in a cell (1, 3 and 5 cells at 6, 15, 30 phases) or when a 140c cell stops running (`tm90_k2_r025`). I recorded the cells per cell, left them out of the tables and merged nothing. A rebase onto main also needed an explicit `--force-with-lease=<branch>:<sha>` because the shallow clone has no remote ref.
+### 2026-11-23 · 057c · code
+- **Instruction:** `acceptance.md` section 1 and `architecture.md` 6.4 give `python -I -m model_v3.run ...` as the run and smoke command.
+- **Happened:** `-I` ignores the current directory, so `No module named 'model_v3'`; the command cannot work as written (the code guide's import-check rule says the same for imports).
+- **Cost:** about 10 minutes (a smoke run started and failed unseen); fixed by `python -I -c "import sys; sys.path.insert(0, '.'); from model_v3 import run; run.main([...])"` in `accept.sh` and `test_smoke.py`.
+- **Suggest:** the guru amends the two command lines in `acceptance.md` and `architecture.md` 6.4 to the `-I -c` form.
+
+### 2026-11-23 · 057c · code
+- **Instruction:** brief 057c Touches lists `run.py`, the two test files, `accept.sh`, `decisions.md` and the brief; block 1 also names "validator change", and the null marker needs `assemble` handling.
+- **Happened:** `model/tools/validate_outputs.py` (markers, `pending` entry field) is outside Touches, so the merge rule fails; `model/model_v3/out/assemble.py` was left untouched by marking in `run.py` instead.
+- **Cost:** merge blocked (`NEEDS THE AUTHOR`) until Touches names the validator.
+- **Suggest:** add `model/tools/validate_outputs.py` to 057c's Touches (and `tests/data` if its pins move).
+
+### 2026-11-23 · 057c · code
+- **Instruction:** `AGENTS.md` Auto-merge: "`git fetch`, rebase the branch on `origin/main`".
+- **Happened:** the session clone is shallow (depth 1) and `origin/main` was force-updated, so branch and main shared no history; `git rebase` and `git cherry-pick` replayed or conflicted on the whole tree (about 20 add/add conflicts in files I never touched).
+- **Cost:** about 15 minutes; fixed by `git fetch --depth=50 origin main`, then rebasing (which then worked), or applying only my own diff with `git diff A B | git apply --3way`.
+- **Suggest:** the guide says to `git fetch --depth=50 origin main` before a rebase in a shallow session clone.
+
+- 057c round 3: the ruling "OW1 under the household arm is withheld" suggests a manifest `arms: [legacy]` entry, but 126c pins that no id is restricted to the legacy arm (8 tests fail). Done in the validator (`MAY_WITHHOLD`) instead; the brief should say which of the two is meant.
 
 - 140c (market): the `check` command compares to stored 128c rows that 135c/138c regenerated, so it reports DIFFERENT at the short horizon on an unchanged model; the brief's acceptance names only the 124c reproduction, so I used that and noted the rest.
 
+### 2026-11-24 · 057c · code
+- Instruction: `docs/agents/code.md` (running tests): none says that `pytest tests/data tests/hooks tests/model_v3` in one call fails (`ImportError: cannot import name 'INPUTS_JSON' from 'conftest'`).
+- Happened: one call over several test directories clashes on the three `conftest.py` files; also `git fetch -q origin main <branch>` in a shallow clone leaves no `origin/<branch>` ref (use `git ls-remote`).
+- Cost: about 10 minutes; fixed by one pytest call per directory.
 ### 2026-11-24 · 148c block 3 · code
 - Instruction: `docs/briefs/148c-...md` Block 3 ("five grid points ... ledger tie") and `run_grid.py` checks.
 - Happened: the brief names no grid points for the floor and withdrawal runs, and `run_grid.py`'s ledger check reads only the first chunk's main-spec run, which carries no lien at `min_mid`: the first floor 50 rerun printed write-off 0 and a tie identical to floor 0.
