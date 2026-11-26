@@ -9,7 +9,7 @@ The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range mod
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
-| Agent 2 | free (057c merged 2026-11-26) | 151c after 164c |
+| Agent 2 | free | 168c (GitHub Actions), then 151c |
 | Agent 3 | free (164c merged 2026-11-26) | |
 | Agent 4 | free (160c merged 2026-11-25) | |
 | Agent 5 | free (161c merged 2026-11-25) | |
