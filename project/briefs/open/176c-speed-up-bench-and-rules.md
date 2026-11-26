@@ -48,8 +48,8 @@ None for the author.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Resume:**
-- **State:** ready; not started
+- **Done:** block 0 (branch `brief/176c-speed-up-bench-and-rules` from main).
+- **Next:** block 1 (`bench.py`, test).
+- **Resume:** none
+- **State:** started
 <!-- progress:end -->
