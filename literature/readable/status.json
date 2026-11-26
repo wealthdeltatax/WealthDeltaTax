@@ -1,4 +1,57 @@
 {
+ "data/rates/7.1_260716_Rates_Data_Tables.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 2460,
+  "bytes": 11839,
+  "cut": []
+ },
+ "data/rates/JSTdatasetR6.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 35961,
+  "bytes": 192905,
+  "cut": [
+   [
+    "Sheet1",
+    2718
+   ]
+  ]
+ },
+ "data/rates/PSS_May_2024_TES_UPDATED.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 8756,
+  "bytes": 34810,
+  "cut": []
+ },
+ "data/rates/Revenue composition spreadsheet.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 35654,
+  "bytes": 142339,
+  "cut": []
+ },
+ "data/rates/financialwealthtables.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 34790,
+  "bytes": 131108,
+  "cut": []
+ },
+ "data/rates/maintax_2023.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 8423,
+  "bytes": 32734,
+  "cut": []
+ },
  "data/rates/totalwealthtables.xlsx": {
   "status": "ok",
   "reason": "",
@@ -6,6 +59,43 @@
   "words": 29222,
   "bytes": 115858,
   "cut": []
+ },
+ "data/uk-source-workbooks/etbreferencetablesfye202324final.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 54737,
+  "bytes": 208743,
+  "cut": []
+ },
+ "data/uk-source-workbooks/medianpricepaidforadministrativegeographiesexisting.xlsx": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 667442,
+  "bytes": 2928507,
+  "cut": [
+   [
+    "2a",
+    320
+   ],
+   [
+    "2b",
+    320
+   ],
+   [
+    "2c",
+    320
+   ],
+   [
+    "2d",
+    320
+   ],
+   [
+    "2e",
+    320
+   ]
+  ]
  },
  "data/uk-wealth-tables/097r/Collated_Tables_3_1_to_3_11_2324.ods": {
   "status": "ok",
@@ -310,12 +400,44 @@
   "bytes": 1666235,
   "cut": []
  },
+ "literature/1-s2.0-S0014292125001266-main.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 14379,
+  "bytes": 92888,
+  "cut": []
+ },
+ "literature/1475_5890.12286.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 7141,
+  "bytes": 108745,
+  "cut": []
+ },
  "literature/7215_was_userguide_round_7.pdf": {
   "status": "ok",
   "reason": "",
   "route": "markitdown",
   "words": 18736,
   "bytes": 127193,
+  "cut": []
+ },
+ "literature/Accretion-Based Progressive Wealth Taxation.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 19965,
+  "bytes": 125233,
+  "cut": []
+ },
+ "literature/Adam et al. (IFS).pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 211257,
+  "bytes": 1319904,
   "cut": []
  },
  "literature/BN236.pdf": {
@@ -334,6 +456,62 @@
   "bytes": 137908,
   "cut": []
  },
+ "literature/Besley_Incidence transaction_2016.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 10919,
+  "bytes": 70412,
+  "cut": []
+ },
+ "literature/Best-Kleven-LandNotches_2018.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 9752,
+  "bytes": 137369,
+  "cut": []
+ },
+ "literature/Bozio, Emmerson, O\u2019Dea and Tetlow (2013.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 22245,
+  "bytes": 147292,
+  "cut": []
+ },
+ "literature/Effects of taxes and benefits on UK household income financial year ending 2024.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 4798,
+  "bytes": 31191,
+  "cut": []
+ },
+ "literature/Final_The_IFS_Green_Budget_2025_full_report_amended 2.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 153905,
+  "bytes": 938938,
+  "cut": []
+ },
+ "literature/Fiscal Studies - 2021 - Advani - Behavioural responses to a wealth tax.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 9307,
+  "bytes": 126158,
+  "cut": []
+ },
+ "literature/Housing affordability in England and Wales 2025.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 3906,
+  "bytes": 24932,
+  "cut": []
+ },
  "literature/IFS Report - How is wealth distributed across British households.pdf": {
   "status": "ok",
   "reason": "",
@@ -342,12 +520,60 @@
   "bytes": 111964,
   "cut": []
  },
+ "literature/Koster_How-do-households_Author.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 21899,
+  "bytes": 141625,
+  "cut": []
+ },
+ "literature/R168-Revaluation-and-reform-bringing-council-tax-in-England-into-the-21st-century-updated.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 59039,
+  "bytes": 356679,
+  "cut": []
+ },
+ "literature/Summers 2023 (OxREP).pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 20327,
+  "bytes": 127079,
+  "cut": []
+ },
+ "literature/TippetZucman2026.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 7016,
+  "bytes": 84565,
+  "cut": []
+ },
  "literature/literature-1-s2-0-s0014292125001266-main.pdf": {
   "status": "ok",
   "reason": "",
   "route": "markitdown",
   "words": 14263,
   "bytes": 92138,
+  "cut": []
+ },
+ "literature/report-g20.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 20627,
+  "bytes": 140386,
+  "cut": []
+ },
+ "literature/wp-2017-241-fuest-peichl-siegloch-corporate-taxes.pdf": {
+  "status": "ok",
+  "reason": "",
+  "route": "markitdown",
+  "words": 38766,
+  "bytes": 237256,
   "cut": []
  }
 }
