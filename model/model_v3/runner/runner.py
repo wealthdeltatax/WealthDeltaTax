@@ -232,18 +232,18 @@ def headlines(raw, ctx, theta):
     return {**out, 'P1': r['P1'], 'P7b': r['P7b'], 'fill': r['fill'], 'unfilled': r['unfilled'], 'long_T': r['long_year_T']}
 
 
-def evaluate(ctx, theta, spec, g, gdp_g, full=False, seq=None, key=()):
-    """core_run, the headline results, then `{group.NAME: group.per_path(raw, env, again)}`. `seq` and `key` (run stream, chunk or draw) only feed `env.rng`.
-    `again(override=None, full=False, tweak=None)` is the core run with the spec changed (`full`: receipts from revenue.run_lines; `tweak`: a base map), run once per (spec, full, tweak)."""
+def evaluate(ctx, theta, spec, g, gdp_g, full=False, seq=None, key=(), heads=False):
+    """core_run, the headline results, then `{group.NAME: group.per_path(raw, env, again)}`; `heads` (151c) stops after the headlines. `seq` and `key` (run stream, chunk or draw) only feed `env.rng`.
+    `again(override=None, full=False, tweak=None)` is the core run with the spec changed, run once per (spec, full, tweak)."""
     env = env_of(ctx, theta, seq, key)
     raw = core_run(ctx, theta, spec, g, gdp_g := fsw.gdp(ctx.arm, theta, g, gdp_g, env.rng), full)           # 148c: the per-path GDP growth when `gdp_paths` is on; else the array as given
+    if heads: return headlines(raw, ctx, theta)
     seen = {(tuple(sorted(spec.items())), full, None): raw}
 
     def again(over=None, full=False, tweak=None):
         sp = {**spec, **(over or {})}
         k = (tuple(sorted(sp.items())), full, tweak)
-        if k not in seen:
-            seen[k] = core_run(ctx, theta, sp, g, gdp_g, full, tweak)
+        if k not in seen: seen[k] = core_run(ctx, theta, sp, g, gdp_g, full, tweak)
         return seen[k]
 
     return {**headlines(raw, ctx, theta), **{m.NAME: m.per_path(raw, env, again) for m in GROUPS}}
@@ -254,12 +254,12 @@ def statics(ctx, theta, seq=None, key=()):
     return {m.NAME: m.static(env_of(ctx, theta, seq, key)) for m in GROUPS if hasattr(m, 'static')}
 
 
-def make_ev(ctx, eps, seq=None):
-    """ev(spec, over=None, g=None, key=()): `evaluate` on the common innovations eps (T, P) with the central inputs updated by `over`, or on the paths g given."""
+def make_ev(ctx, eps, seq=None, heads=False):
+    """ev(spec, over=None, g=None, key=()): `evaluate` on the common innovations eps (T, P) with the central inputs updated by `over`, or on the paths g given; `heads`: the headline keys only (151c)."""
     def ev(spec, over=None, g=None, key=()):
         th = {**ctx.centre, **(over or {})}
         gg = paths(eps, th[RET['mean']], th[RET['sd']], th[RET['phi']]) if g is None else np.asarray(g, float)
-        return evaluate(ctx, th, spec, gg, np.full(gg.shape, ctx.gdp_g), seq=seq, key=key)
+        return evaluate(ctx, th, spec, gg, np.full(gg.shape, ctx.gdp_g), seq=seq, key=key, heads=heads)
     return ev
 
 

@@ -43,11 +43,11 @@ None for the author. The agent states which of the two designs in step 1 it used
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (branch `brief/151c-headline-only-evaluation` from main `0380b57`; the reference is `results/057c-evidence/quick-q4/outputs.json`, the only current `quick` file).
-- **Next:** block 1 (callers read, the switch, `test_heads_only.py`). In parallel a baseline `quick` run on an unmodified worktree of main, to confirm q4 still matches this code and to give the "before" wall time.
-- **Decisions:** none yet. Timings: "before" and "after" of the `quick` run are one run each (about 65 min), not best of two; the tornado and one root are best of two.
-- **Resume:** none
-- **State:** started
+- **Done:** block 0; block 1 (2026-11-26): the switch is `make_ev(ctx, eps, seq=None, heads=False)` passing `heads` to `evaluate`, which returns `headlines(raw, ...)` right after the one `core_run`. A parameter and not a second factory: one line in `evaluate`, none in `make_ev`, `runner.py` stays at 360 lines (the evaluate docstring and one `if` were folded; no budget row changed). Callers read first: `sweeps.tornado` reads `HEADS` (M1, M2 `overall`, M4a, M3 and `h in cen`), `breakeven_return` reads `['M1']['short']`; neither reads a group result, so both go on the headline-only evaluator; `run.py` builds `ev` and `evm` with `heads=True` (no extra lines, still 120) and `S.feasibility` keeps the full one. `tests/model/model_v3/test_heads_only.py`: byte equality (floats by hex, arrays by buffer) of every headline key, both arms, 3 specs x 3 input settings (none, return mean +1, return sd x1.2) and given paths; plus the default evaluator unchanged. Suite: `tests/model/model_v3` 411 passed (incl. `test_legacy_digest` and `test_budget`).
+- **Next:** block 2: `model/studies/run-cost/heads_only.py` timings (tornado, one root; best of two, 20 paths, `NPY_DISABLE_CPU_FEATURES=X86_V4`), then the two `quick` runs (before: main's code; after: this branch) with the same setting, compared byte for byte; the section in `run-cost.md`.
+- **Decisions:** none; design: a parameter, not a second factory.
+- **Resume:** `git checkout brief/151c-headline-only-evaluation`.
+- **State:** block 1 done; blocks 2 and 3 open.
 <!-- progress:end -->
 
 ## Re-release note (guru, 2026-11-26)
