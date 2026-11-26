@@ -87,7 +87,7 @@ def main():
         try:
             ot, nt = old.decode('utf-8'), new.decode('utf-8')
         except UnicodeDecodeError:
-            tally.setdefault('changed', []).append(f'{n} (binary differs)'); bad.append(n); continue
+            tally.setdefault('changed', []).append(f'{n} (binary differs)'); bad.extend([] if n in allow else [n]); continue
         if rw(ot) == nt:
             tally.setdefault('path-only', []).append(n); continue
         d = [l for l in difflib.unified_diff(rw(ot).splitlines(), nt.splitlines(), lineterm='', n=0) if l[:1] in '+-' and l[:3] not in ('+++', '---')]
