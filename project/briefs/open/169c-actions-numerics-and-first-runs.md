@@ -45,8 +45,13 @@ Stop and report if the stage A difference is above 1e-9 relative on any headline
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** nothing yet.
-- **Next:** stage A.
+- **Done:** stage A (a), (b) and (d): feature list `X86_V4`; `numerics.py` wired into `run.py`, the model conftest and the tripwire; difference report in `results/169c-numerics/`. Stage B: the `test_pension_lien.py` import fixed (step 1 collects under `-I`); step 5 passes on `results/057c-evidence/quick-q4/outputs.json`.
+- **Next:** author ruling on the stage A difference (below). Then stage A (c) pins, stage C runs. Not started: C, D.
+- **Decisions:** none by the agent. Pins NOT regenerated (stop rule).
+- **Gotchas:** the difference is not last-bit only at path level: O1f flips 3 of 600 (sign of a zero net revenue), O2b/O2c move up to 0.22 relative on 10 values. Smoke outputs are byte-identical. With the switch on and the old pins, the digest test fails by design.
+- **Resume:** `python -I results/169c-numerics/numerics_diff.py dump OLD.pkl` (with `NPY_DISABLE_CPU_FEATURES=""`), `dump NEW.pkl`, `compare OLD.pkl NEW.pkl`.
+- **Not run:** quick size on both paths (2-core machine), pins, tripwire, fast on two runners, Stage C, Stage D.
+- **State:** stopped at the stage A stop rule; awaiting the author
 <!-- progress:end -->
 
 ## Change report

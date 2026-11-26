@@ -8,7 +8,7 @@ from model_v3.core import returns as rt
 from model_v3.runner import groups as G, runner as R
 from test_runner import SPEC, ctx, level1, lv, out, tier1  # noqa: F401  (the fixtures)
 
-PIN = 'ce75c164e99d70ca1088daa095a6335aa8bdfc63b5edbf5b8b9315f41a6c46cc'     # 055c's Samples digest: seed 7, 40 paths, chunks of 20, SPEC
+PIN = 'a7763389dff203548f20190a04447fcceb0491d53c0bbe4c384e6e3dede46b64'     # 055c's Samples digest: seed 7, 40 paths, chunks of 20, SPEC; recaptured 170c on the forced numerics path (X86_V4)
 GROUP = lambda name, ids=(), cells=None, pp=lambda raw, env, again: {}, **kw: NS(NAME=name, IDS=ids, per_path=pp, cells=lambda e: cells or {}, **kw)
 PATHS = lambda n=2: (R.paths(np.zeros((100, n)), 4.7, 8.2, 0.3), np.full((100, n), 0.015))
 EV = lambda ctx, m, mp, **kw: (mp.setattr(R, 'GROUPS', (m,)), R.evaluate(ctx, ctx.centre, SPEC, *PATHS(), **kw))[1]

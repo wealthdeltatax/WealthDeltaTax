@@ -14,11 +14,11 @@ on:
         type: boolean
         default: false
       run_converge:
-        description: 'Run the convergence tests (about 3.5 h)'
+        description: 'Run the convergence tests (about 1.5 h on a hosted runner)'
         type: boolean
         default: false
       run_accept:
-        description: 'Run the acceptance job: two quick runs, validation, compare (about 2.5 h)'
+        description: 'Run accept.sh whole: suites, convergence, two quick runs, validation, compare (about 5 h)'
         type: boolean
         default: true
       run_final_size:
@@ -31,6 +31,8 @@ permissions:
 
 env:
   PYTHON_VERSION: '3.13'
+  # The one numerics path (169c, 170c): numpy's AVX512 exp, log and pow differ from the AVX2 ones, so every job forces the AVX2 path.
+  NPY_DISABLE_CPU_FEATURES: 'X86_V4'
   # Pinned to the versions the suites and the tripwire were measured with.
   PIP_PINS: 'numpy==2.5.3 pyyaml==6.0.3 pytest==9.1.1 openpyxl==3.1.5 bibtexparser==1.4.3'
 
@@ -87,7 +89,8 @@ jobs:
                    tests/website/nav tests/website/pages tests/website/retired; do
             echo "::group::$s"
             echo "+ python -m pytest $s -q"
-            python -m pytest "$s" -q -p no:cacheprovider || fail=1
+            # test_real_repository_is_closed_today runs the real acceptance command (check_gate G1: hours now that accept.sh step 1 passes): left to the accept job, see the 170c report
+            python -m pytest "$s" -q -p no:cacheprovider --deselect tests/model/gate/test_gate.py::test_real_repository_is_closed_today || fail=1
             echo "::endgroup::"
           done
           exit $fail
@@ -101,16 +104,6 @@ jobs:
         run: |
           echo '+ python -I project/tools/check_agent_docs.py'
           python -I project/tools/check_agent_docs.py
-
-      - name: 'Gate table (report only: every gate is closed until a final run, so exit 1 is expected)'
-        continue-on-error: true
-        run: |
-          echo '+ python -I model/tools/check_gate.py --all'
-          rc=0
-          python -I model/tools/check_gate.py --all > gate-table.txt || rc=$?
-          cat gate-table.txt
-          { echo "### check_gate.py --all (exit $rc)"; echo '```'; cat gate-table.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
-          exit $rc
 
       - name: Tripwire
         run: |
@@ -212,10 +205,10 @@ jobs:
         run: echo "wall time $(( $(date +%s) - START )) s"
 
   accept:
-    name: 'accept (two quick runs, validate, compare)'
+    name: 'accept (accept.sh, whole)'
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_accept }}
     runs-on: ubuntu-latest
-    timeout-minutes: 330
+    timeout-minutes: 350
     concurrency:
       group: model-checks-accept
       cancel-in-progress: false
@@ -240,36 +233,21 @@ jobs:
           git rev-parse HEAD
           lscpu | grep -E 'Model name|^CPU\(s\)'
 
-      - name: Run 1, size quick
+      - name: 'accept.sh, whole (steps 1 to 7; about 5 hours: smoke and fast suites, convergence, two quick runs)'
+        env:
+          TMPDIR: ${{ github.workspace }}/acceptance
+          ACCEPT_KEEP: '1'    # accept.sh keeps its two temporary run folders so the next step can upload them
         run: |
-          echo '+ run.main(["--size", "quick", "--out", "acceptance/run1"])'
-          python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--size', 'quick', '--out', 'acceptance/run1'])"
-
-      - name: Validate run 1 (accept.sh step 4)
-        run: python -I model/tools/validate_outputs.py acceptance/run1/outputs.json
-
-      - name: Step 5 on run 1
-        run: bash tests/model/model_v3/accept.sh --check acceptance/run1/outputs.json
-
-      - name: Run 2, size quick
-        run: |
-          echo '+ run.main(["--size", "quick", "--out", "acceptance/run2"])'
-          python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--size', 'quick', '--out', 'acceptance/run2'])"
-
-      - name: Step 6, the two files are byte-identical
-        run: bash tests/model/model_v3/accept.sh --compare acceptance/run1/outputs.json acceptance/run2/outputs.json
-
-      - name: Step 7, the R6 conventions
-        run: bash tests/model/model_v3/accept.sh --r6
+          mkdir -p "$TMPDIR"
+          echo '+ bash tests/model/model_v3/accept.sh'
+          bash tests/model/model_v3/accept.sh
 
       - name: Upload both output files
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: accept-outputs
-          path: |
-            acceptance/run1/outputs.json
-            acceptance/run2/outputs.json
+          path: acceptance/**/outputs.json
 
       - name: Wall time
         if: always()

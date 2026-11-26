@@ -24,6 +24,8 @@ Acceptance command: `bash tests/model/model_v3/accept.sh`
 
 It never passes `--final`. The final run is the author's act (G2); acceptance proves the model could be run final, not that it was.
 
+**Numerics path.** Every digest and pin in this plan (the legacy digest of section 3, the `test_groups` pin, the tripwire baseline) is held on one numpy code path: `NPY_DISABLE_CPU_FEATURES=X86_V4`, which switches off numpy's AVX512 `exp`, `log` and `pow`; the AVX512 and AVX2 results differ in the last bits and, through values that are zero in theory, in some counts (`results/169c-numerics/difference-report.md`). `run.py` (via `model_v3/numerics.py`), the model conftest, the tripwire and the Actions workflow set the variable; on the author's machine it must be set in the shell for anything else that computes a number the pins cover. The acceptance command itself needs nothing extra.
+
 ## 2. Policies
 
 **Seed.** One master seed, 20261118, recorded in `run.seed`; streams are the five of `architecture.md` 3.1, in that order, new streams appended only. The convergence test uses four further seeds, fixed in the test: 20261119, 20261120, 20261121, 20261122. No module calls a global random function (test R5 of rules).

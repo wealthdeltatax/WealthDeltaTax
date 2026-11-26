@@ -1,6 +1,6 @@
 {
- "commit": "a0b70e85121698dde1b1761673df29442fa2bc16",
- "call": "python tests/model_v3/test_legacy_digest.py --print (compute(): R.level1(ctx, SPECS, rt.streams(seed)['level1_paths'], n=20, chunk=10) for seed in (7, 11))",
+ "commit": "367e1c46b6c05a3597d0ebbdd6d2fe4f7424e4f0",
+ "call": "python tests/model/model_v3/test_legacy_digest.py --print (compute(): R.level1(ctx, SPECS, rt.streams(seed)['level1_paths'], n=20, chunk=10) for seed in (7, 11))",
  "seeds": [
   7,
   11
@@ -36,22 +36,22 @@
  },
  "digest": {
   "7": {
-   "samples": "fbd39453dc28ed01ee7455cb808143abf8126b14bd514549ebef4d1422af5be5",
+   "samples": "5721cf0ae820c11d917773e9690690b7381d21157ffa90918febfec4b8868b4d",
    "groups": {
-    "runner": "5ef383517025b8571c83967df5ef9d482432cdbbf218b57d34845e460591a88a",
-    "revenue": "bff081b5d9da9e53eb6221eab0de57e9f807f542240f63e94240acb0e0d67b19",
-    "burden": "3bca689c319afecd8e7e647a3aceb38fe0ceb5c9f8ea70bf4cbda0a9b376c589",
-    "support": "aa2802b1bbebd3febf8bda06d16238e2879ccfbe7702ec5647e4e30ca2b6bea3",
+    "runner": "aadf934ecd27e0fa0014b94890db1efc9052d05b79a9742ede58971116eed458",
+    "revenue": "e19dab8e046de38603d0b8749d92e1d925cce2cad213a1048565f54925d33491",
+    "burden": "cef004f6d0b642d86668daafde27fb2a4040fc44ca3b09eed3ebb90f97c4026f",
+    "support": "38c8600875686a65b0d38b639c536bd339fc48485e245a311cf5fec29cce8aaf",
     "sweeps": "d3b5a039d1acd09a40a045a60caf3da16c53490b03c9b62d11c59d4fa0bcda5f"
    }
   },
   "11": {
-   "samples": "2c3619d57c897c79c17714ac86c3510dd4089ad797524c82cba6a0f18b45f410",
+   "samples": "ccbbf7b46809b828b77c0c9fe2595165d7f1e944bd6365818d0b527edafce196",
    "groups": {
-    "runner": "411dfb5683cb7bd5c140896232250d524a19f667a1a1fc0955f0f692181618c0",
-    "revenue": "a8cf82a3e71742929c62b8865eefbf7512dd02f91507fb9914270eb3667d5d18",
-    "burden": "1cb77e6f9560eef293be72ee50d4fa12973219c8c9318e578f228ce14a4d086d",
-    "support": "4fc0cc11d5d0a3ab3b4843d11341ba1a164c914c48322a3d5cfe1b54025a7471",
+    "runner": "977d93ebf4dbb284405bb85c0731f023c51698791d0d500501e2689b14e120dd",
+    "revenue": "b511ae8f63c2318adfdc822979abbced6bd5bb3000ce31502c95b31658a4a63c",
+    "burden": "64ee1272ac4a251a2156b64cf1c3626013bed7975814b6d0db29e2b79bd0cc47",
+    "support": "97a0c164c679f166107ee1906d659d305584f925fee3a1d7c326f4d082839551",
     "sweeps": "d3b5a039d1acd09a40a045a60caf3da16c53490b03c9b62d11c59d4fa0bcda5f"
    }
   }
