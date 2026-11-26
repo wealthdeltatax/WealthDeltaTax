@@ -62,36 +62,20 @@ jobs:
           python --version
           pip list --format=freeze | grep -iE '^(numpy|pyyaml|pytest|openpyxl|bibtexparser)=='
           git rev-parse HEAD
-          lscpu | grep -E 'Model name|^CPU\(s\)|Flags' | cut -c1-400
-          python -c "import numpy; numpy.show_runtime()" | head -n 40
+          lscpu | grep -E 'Model name|^CPU\(s\)'
 
-      - name: Primitive hashes (diagnostic, 168c)
+      - name: 'Numerics path (informational: the digest fixtures hold only on the AVX512 path of numpy)'
         continue-on-error: true
         run: |
-          cat > /tmp/prim.py <<'PY'
+          python - <<'PY'
           import hashlib, numpy as np
-          rng = np.random.default_rng(7); x = rng.standard_normal(100000); y = np.abs(x) + 0.5
-          h = lambda a: hashlib.sha256(np.ascontiguousarray(a).tobytes()).hexdigest()[:16]
-          A = rng.standard_normal((300, 300)); B = rng.standard_normal((300, 300)); S = A @ A.T + 300 * np.eye(300)
-          for name, v in [('normal', x), ('exp', np.exp(x)), ('log', np.log(y)), ('pow', y ** 1.7), ('sin', np.sin(x)), ('tanh', np.tanh(x)),
-                          ('sum', np.array([x.sum(), (x * y).sum()])), ('cumsum', np.cumsum(x)), ('matmul', A @ B), ('dot', np.array([x @ y])),
-                          ('cholesky', np.linalg.cholesky(S)), ('solve', np.linalg.solve(S, B)), ('lognormal', rng.lognormal(0, 0.2, 100000)),
-                          ('sqrt', np.sqrt(y)), ('percentile', np.percentile(x, [10, 50, 90]))]:
-              print(f'{name:11s} {h(v)}')
+          x = np.abs(np.random.default_rng(7).standard_normal(100000)) + 0.5
+          h = lambda a: hashlib.sha256(a.tobytes()).hexdigest()[:16]
+          got = (h(np.exp(x)), h(np.log(x)), h(x ** 1.7))
+          print('avx512f in /proc/cpuinfo:', 'avx512f' in open('/proc/cpuinfo').read())
+          print('exp, log, pow hashes:', got)
+          print('AVX512 path (the fixtures):', got == ('0915e809eb9f7187', '655f3ea1be57d472', '88a3c4863ed8d314'))
           PY
-          sed -i 's/^          //' /tmp/prim.py
-          python /tmp/prim.py
-
-      - name: Legacy digest alone, under determinism pins (diagnostic, 168c)
-        continue-on-error: true
-        run: |
-          T=tests/model/model_v3/test_legacy_digest.py
-          run() { echo "=== $1"; shift; env "$@" python -m pytest $T -q -p no:cacheprovider -k equals_the_fixture 2>&1 | tail -n 2; }
-          run default A=1
-          run threads1 OPENBLAS_NUM_THREADS=1
-          run haswell OPENBLAS_CORETYPE=HASWELL
-          run nosimd "NPY_DISABLE_CPU_FEATURES=AVX512F AVX512CD AVX512_SKX AVX512_CLX AVX512_CNL AVX512_ICL AVX512_SPR AVX2 FMA3 AVX F16C"
-          run glibc "GLIBC_TUNABLES=glibc.cpu.hwcaps=-AVX2,-FMA,-AVX512F"
 
       - name: Suites, one pytest per suite
         run: |
@@ -132,6 +116,160 @@ jobs:
         run: |
           echo '+ python -I project/restructure/move_tripwire.py'
           python -I project/restructure/move_tripwire.py
+
+      - name: Wall time
+        if: always()
+        run: echo "wall time $(( $(date +%s) - START )) s"
+
+  smoke:
+    name: 'smoke (tests/model/model_v3/test_smoke.py)'
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_smoke }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    concurrency:
+      group: model-checks-smoke
+      cancel-in-progress: false
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned requirements, log the environment
+        run: |
+          echo "START=$(date +%s)" >> "$GITHUB_ENV"
+          sudo apt-get install -y --no-install-recommends poppler-utils   # pdftotext, read by the pack builder
+          pip install $PIP_PINS
+          python --version
+          pip list --format=freeze | grep -iE '^(numpy|pyyaml|pytest|openpyxl|bibtexparser)=='
+          git rev-parse HEAD
+          lscpu | grep -E 'Model name|^CPU\(s\)'
+
+      - name: Smoke tests
+        run: |
+          echo '+ python -m pytest tests/model/model_v3/test_smoke.py -q'
+          python -m pytest tests/model/model_v3/test_smoke.py -q -p no:cacheprovider --junitxml=smoke-junit.xml
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-results
+          path: smoke-junit.xml
+
+      - name: Wall time
+        if: always()
+        run: echo "wall time $(( $(date +%s) - START )) s"
+
+  converge:
+    name: 'converge (tests/model/model_v3/test_converge.py -m converge)'
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_converge }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 345
+    concurrency:
+      group: model-checks-converge
+      cancel-in-progress: false
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned requirements, log the environment
+        run: |
+          echo "START=$(date +%s)" >> "$GITHUB_ENV"
+          sudo apt-get install -y --no-install-recommends poppler-utils   # pdftotext, read by the pack builder
+          pip install $PIP_PINS
+          python --version
+          pip list --format=freeze | grep -iE '^(numpy|pyyaml|pytest|openpyxl|bibtexparser)=='
+          git rev-parse HEAD
+          lscpu | grep -E 'Model name|^CPU\(s\)'
+
+      - name: Convergence tests
+        run: |
+          echo '+ python -m pytest tests/model/model_v3/test_converge.py -q -m converge'
+          python -m pytest tests/model/model_v3/test_converge.py -q -m converge -p no:cacheprovider --junitxml=converge-junit.xml
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: converge-results
+          path: converge-junit.xml
+
+      - name: Wall time
+        if: always()
+        run: echo "wall time $(( $(date +%s) - START )) s"
+
+  accept:
+    name: 'accept (two quick runs, validate, compare)'
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_accept }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    concurrency:
+      group: model-checks-accept
+      cancel-in-progress: false
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned requirements, log the environment
+        run: |
+          echo "START=$(date +%s)" >> "$GITHUB_ENV"
+          sudo apt-get install -y --no-install-recommends poppler-utils   # pdftotext, read by the pack builder
+          pip install $PIP_PINS
+          python --version
+          pip list --format=freeze | grep -iE '^(numpy|pyyaml|pytest|openpyxl|bibtexparser)=='
+          git rev-parse HEAD
+          lscpu | grep -E 'Model name|^CPU\(s\)'
+
+      - name: Run 1, size quick
+        run: |
+          echo '+ run.main(["--size", "quick", "--out", "acceptance/run1"])'
+          python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--size', 'quick', '--out', 'acceptance/run1'])"
+
+      - name: Validate run 1 (accept.sh step 4)
+        run: python -I model/tools/validate_outputs.py acceptance/run1/outputs.json
+
+      - name: Step 5 on run 1
+        run: bash tests/model/model_v3/accept.sh --check acceptance/run1/outputs.json
+
+      - name: Run 2, size quick
+        run: |
+          echo '+ run.main(["--size", "quick", "--out", "acceptance/run2"])'
+          python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--size', 'quick', '--out', 'acceptance/run2'])"
+
+      - name: Step 6, the two files are byte-identical
+        run: bash tests/model/model_v3/accept.sh --compare acceptance/run1/outputs.json acceptance/run2/outputs.json
+
+      - name: Step 7, the R6 conventions
+        run: bash tests/model/model_v3/accept.sh --r6
+
+      - name: Upload both output files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: accept-outputs
+          path: |
+            acceptance/run1/outputs.json
+            acceptance/run2/outputs.json
 
       - name: Wall time
         if: always()
