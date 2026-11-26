@@ -52,8 +52,12 @@ Ask the author before any change outside Touches, and if GitHub minutes or runne
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** nothing yet.
-- **Next:** stage A.
+- **Done:** claimed 2026-11-26; stage A written: `.github/workflows/model-checks.yml` with the `fast` job and the four manual inputs; the fast commands pass locally (all suites, 408 model tests, agent docs, tripwire).
+- **Next:** push the branch and start `fast` by hand (`gh api` dispatch); then stage B.
+- **Decisions:** pytest runs without `-I` (a test imports `tests.model...`, which fails under `-I`: `accept.sh` step 1 breaks the same way); `check_gate.py --all` is a report-only step (exit 1 by design while every gate is closed); pins are inline in the workflow (no requirements file exists).
+- **Gotchas:** the tripwire moved to `project/restructure/`; GraphQL is blocked in this session, REST works.
+- **Resume:** `git checkout brief/168-github-actions-long-runs`.
+- **Not run:** everything on GitHub.
 <!-- progress:end -->
 
 ## Change report

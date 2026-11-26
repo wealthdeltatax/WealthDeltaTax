@@ -1,0 +1,105 @@
+name: Model checks
+
+# 168c. The fast job runs on every push to main, on pull requests and by hand. The long jobs run only by hand
+# (Actions tab, "Model checks", "Run workflow"). No job passes --final: the run script refuses it, and no input exists for it.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      run_smoke:
+        description: 'Run the smoke tests (about 30 min)'
+        type: boolean
+        default: false
+      run_converge:
+        description: 'Run the convergence tests (about 3.5 h)'
+        type: boolean
+        default: false
+      run_accept:
+        description: 'Run the acceptance job: two quick runs, validation, compare (about 2.5 h)'
+        type: boolean
+        default: true
+      run_final_size:
+        description: 'Run the final-size grid split over five jobs (hours; never passes --final)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  PYTHON_VERSION: '3.13'
+  # Pinned to the versions the suites and the tripwire were measured with.
+  PIP_PINS: 'numpy==2.5.3 pyyaml==6.0.3 pytest==9.1.1 openpyxl==3.1.5 bibtexparser==1.4.3'
+
+jobs:
+  fast:
+    name: fast (suites, checks, tripwire)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    concurrency:
+      group: model-checks-fast-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: 'Checkout (full history, which the tripwire and the pack builder read)'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned requirements, log the environment
+        run: |
+          echo "START=$(date +%s)" >> "$GITHUB_ENV"
+          pip install $PIP_PINS
+          python --version
+          pip list --format=freeze | grep -iE '^(numpy|pyyaml|pytest|openpyxl|bibtexparser)=='
+          git rev-parse HEAD
+
+      - name: Suites, one pytest per suite
+        run: |
+          set -u
+          fail=0
+          for s in tests/model/data tests/model/gate tests/model/tools tests/project \
+                   tests/website/cards tests/website/glossary tests/website/hooks tests/website/layout \
+                   tests/website/nav tests/website/pages tests/website/retired; do
+            echo "::group::$s"
+            echo "+ python -m pytest $s -q"
+            python -m pytest "$s" -q -p no:cacheprovider || fail=1
+            echo "::endgroup::"
+          done
+          exit $fail
+
+      - name: Model suite, without convergence and smoke
+        run: |
+          echo '+ python -m pytest tests/model/model_v3 -q -m "not converge" --ignore=tests/model/model_v3/test_smoke.py'
+          python -m pytest tests/model/model_v3 -q -m "not converge" --ignore=tests/model/model_v3/test_smoke.py -p no:cacheprovider
+
+      - name: Agent documents
+        run: |
+          echo '+ python -I project/tools/check_agent_docs.py'
+          python -I project/tools/check_agent_docs.py
+
+      - name: 'Gate table (report only: every gate is closed until a final run, so exit 1 is expected)'
+        continue-on-error: true
+        run: |
+          echo '+ python -I model/tools/check_gate.py --all'
+          rc=0
+          python -I model/tools/check_gate.py --all > gate-table.txt || rc=$?
+          cat gate-table.txt
+          { echo "### check_gate.py --all (exit $rc)"; echo '```'; cat gate-table.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $rc
+
+      - name: Tripwire
+        run: |
+          echo '+ python -I project/restructure/move_tripwire.py'
+          python -I project/restructure/move_tripwire.py
+
+      - name: Wall time
+        if: always()
+        run: echo "wall time $(( $(date +%s) - START )) s"
