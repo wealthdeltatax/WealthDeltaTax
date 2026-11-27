@@ -33,3 +33,7 @@ From 182c.
 - **Resume:**
 - **State:** draft
 <!-- progress:end -->
+
+## Author answers on the 182c design (2026-11-27)
+- Q1: **the `final` preset uses 200 O1e draws** (`SIZES['final']`, one number in `run.py`, changed in this brief; `quick` and `smoke` keep their draws). The workflow's final-size jobs assume 200.
+- Q2 to Q7: proposals accepted as written in `results/split-run/design.md` (guru reading, labelled for challenge): stop writing `workers` into the output file (confirm the validator does not read it); measure the `cap` loss in pool workers at smoke and report; batch size 25 draws (20 if calibration says so); no level 1 cache in the merge; no per-point level 1 sharding here; the proof job is a manual dispatch input `run_split_proof`.

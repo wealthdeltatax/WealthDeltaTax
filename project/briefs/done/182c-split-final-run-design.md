@@ -1,6 +1,6 @@
 # 182: Split final run, design of the partial files and the exact merge
 
-- **Status:** ready (design only, no code)
+- **Status:** done, merged 2026-11-27 (design in `results/split-run/design.md`; open questions answered, see decisions)
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** none. Reads `run.py` as it is on main; 154c and 178c change it later, so the design names the seams, not line numbers.
 - **Read:** `model/model_v3/run.py` (`run_point`, `main`, the O1e and `ends` lines); `model/model_v3/out/assemble.py` and `out/writer.py`; `model/model_v3/runner/rt.py` or wherever `streams` lives; `results/run-cost/run-cost.md` (projection tables); `.github/workflows/model-checks.yml` (the `run_final_size` input and the jobs' `timeout-minutes`); `results/169c-numerics/difference-report.md` (why byte-identical merges matter)
