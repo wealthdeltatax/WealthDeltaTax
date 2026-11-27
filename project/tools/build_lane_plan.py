@@ -197,8 +197,25 @@ def depth(b, by_id, seen=None):
 
 
 def lane_order(briefs, lane):
+    """The lane's briefs by status rank, then dependency depth, then id; a brief never stands before a brief of the same lane that it needs
+    (otherwise a ready brief that needs an author-status brief of its own lane would wait for it while it waits for the ready one)."""
     by_id = {b.id: b for b in briefs}
-    return sorted((b for b in briefs if lane_of(b) == lane), key=lambda b: (RANK[b.status] * 100 + depth(b, by_id), b.id))
+    mine = {b.id: b for b in briefs if lane_of(b) == lane}
+    ranked = sorted(mine.values(), key=lambda b: (RANK[b.status] * 100 + depth(b, by_id), b.id))
+    out: list[Brief] = []
+    placed: set[str] = set()
+
+    def place(b: Brief):
+        if b.id in placed:
+            return
+        placed.add(b.id)
+        for nid, _ in sorted(b.needs, key=lambda n: ranked.index(mine[n[0]]) if n[0] in mine else -1):
+            if nid in mine:
+                place(mine[nid])
+        out.append(b)
+    for b in ranked:
+        place(b)
+    return out
 
 
 def short(title: str) -> str:

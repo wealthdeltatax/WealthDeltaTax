@@ -164,3 +164,15 @@ def test_openai_agent_briefs_go_to_lane_o_and_the_table_row(tmp_path):
     table = blp.agent_table(briefs, fixed)
     assert "| OpenAI agent (notes only) | 150c (Do a thing) | 151c |" in table
     assert blp.agent_table([], fixed).endswith("| OpenAI agent (notes only) | free |  |")
+
+
+def test_a_brief_never_stands_before_a_brief_of_its_lane_that_it_needs(tmp_path):
+    # a ready brief that needs a same-lane author-status brief used to sort first, and the page then pushed both to session 80
+    root = tree(tmp_path, {"150c-x.md": brief("150c", status="author", agent="2"), "151c-y.md": brief("151c", status="ready", agent="2", needs="150c")})
+    briefs, _, errors = blp.load(root)
+    assert errors == [] and [b.id for b in blp.lane_order(briefs, "2")] == ["150c", "151c"]
+
+
+def test_the_page_orders_a_lane_by_its_needs():
+    page = (ROOT / "project" / "lane-plan.html").read_text(encoding="utf-8")
+    assert "never sorts before a brief of its own lane" in page

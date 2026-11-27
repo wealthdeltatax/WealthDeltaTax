@@ -14,7 +14,7 @@ The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range mod
 | Agent 3 | 177c (quick time budget on Actions) | 179c |
 | Agent 4 | 183a (Split run, stage A) | 183c, then 181c |
 | Agent 5 | 171c (Zero tolerance for knife-edge counts) | 186c, then 152c, 153c |
-| Agent 6 | 180c (Compiled kernel spike) | 176c, then 180b |
+| Agent 6 | 176c (Speed-up bench and the rules every speed-u…) | 180c, then 180b |
 | OpenAI agent (notes only) | 185r (Precedents for the SWF design) |  |
 <!-- agents:end -->
 

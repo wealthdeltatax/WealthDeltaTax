@@ -265,7 +265,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "3", name: "Agent 3", note: "177c (quick time budget on Actions), then 179c" },
     { id: "4", name: "Agent 4", note: "183a (Split run, stage A), then 183c, 181c" },
     { id: "5", name: "Agent 5", note: "171c (Zero tolerance for knife-edge counts), then 186c, 152c, 153c" },
-    { id: "6", name: "Agent 6", note: "180c (Compiled kernel spike), then 176c, 180b" },
+    { id: "6", name: "Agent 6", note: "176c (Speed-up bench and the rules every speed-u…), then 180c, 180b" },
     { id: "O", name: "OpenAI agent (notes only)", note: "185r (Precedents for the SWF design)" },
     { id: "E", name: "You · decisions", note: "delete old remote branches; feasibility rule; retired-tax switch; confirm the converge rerun" },
     { id: "G", name: "Held", note: "SWF redesign specification: after the speed-ups (151c, 154c)" }
@@ -302,6 +302,8 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     var RANK = { under: 0, review: 1, ready: 2, author: 3, hold: 4 };
     function depth(b, seen) { seen = seen || {}; if (seen[b.id]) return 0; seen[b.id] = 1; var m = 0; (b.needs || []).forEach(function (n) { var d = byId[n.id]; if (d && d.st !== 'built') m = Math.max(m, 1 + depth(d, seen)); }); return m; }
     B.forEach(function (b) { b.at = 0; b.at0 = RANK[b.st] * 100 + depth(b); });
+    // A brief never sorts before a brief of its own lane that it needs (else the two wait for each other and drift to session 80).
+    for (var k = 0; k < 40; k++) { var ch = false; B.forEach(function (b) { (b.needs || []).forEach(function (n) { var d = byId[n.id]; if (d && d.st !== 'built' && d.lane === b.lane && b.at0 <= d.at0) { b.at0 = d.at0 + 1; ch = true; } }); }); if (!ch) break; }
     for (var pass = 0; pass < 40; pass++) {
       var moved = false;
       LANES.forEach(function (L) {
