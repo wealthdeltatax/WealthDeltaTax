@@ -48,8 +48,28 @@ None for the author.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (branch `brief/176c-speed-up-bench-and-rules` from main).
-- **Next:** block 1 (`bench.py`, test).
+- **Done:** blocks 0 to 2: `bench.py` (run, compare, list), `tests/model/tools/test_bench.py` (7 tests), `speedup.md` (21 lines) with its link in `agent-code.md`, `results/speedup/ledger.md` seeded with the 150c baseline; measured twice.
+- **Next:** NEEDS THE AUTHOR: one acceptance criterion is unmet (small cases total 5.2 min, not under 3). See the change report.
 - **Resume:** none
-- **State:** started
+- **State:** pushed, not merged
 <!-- progress:end -->
+
+## Change report
+```
+Change report
+- Task: 176c speed-up bench and the rules every speed-up follows
+- Files changed: model/studies/run-cost/bench.py (new); tests/model/tools/test_bench.py (new, 7 tests); project/agents/reference/code/speedup.md (new, 21 lines); project/agents/agent-code.md (one line); results/speedup/ledger.md (new, seeded with 6 rows from 150c); friction log; this brief
+- What is different now: `python -I model/studies/run-cost/bench.py run --out FILE` times the named cases (best of 2, header, result hashes) and `bench.py compare A B` says per case the time ratio and `identical: yes/no`, exits 1 on a difference and refuses files from a different CPU model, numpy version or numerics setting unless `--force`
+- New or changed interfaces: bench.py run | compare | list; case names eval_hh_20, eval_leg_20, tornado_1sched_20, root_1_20, level1_1sched_1000 (small), quick_headlines (unavailable until the --parts switch of 178c, says so), quick_full (run.py --size quick, hash of outputs.json with the run date masked; default one rep)
+- Acceptance criteria:
+  - bench.py run twice, hashes identical (met: all 5 small cases identical), times within 15% (met: ratios 0.93 to 1.02; spread: eval_hh_20 13.7 and 12.8 s, eval_leg_20 3.0 and 3.0, tornado 150 and 143, root 26.6 and 24.7, level 1 130 and 129)
+  - test that compare flags a one-bit change and refuses mismatched headers (met: test_bench.py, float and array, three header keys, forced, warning on cores, command line, date mask)
+  - small cases total under 3 minutes: NOT MET. Best times of run 2 add to 312 s (5.2 min); a whole `run` including the warm-up call and the second rep takes 818 s (13.6 min). This machine is slower than in 150c (one household evaluation 12.8 s against 8.9 s; tornado of one schedule 143 s against 74 s), and with the 150c figures the five cases would add to about 176 s. Dominant cases: tornado_1sched_20 (143 s) and level1_1sched_1000 (129 s); without those two the three others total 40 s
+  - rules file within 40 lines (met: 21); check_agent_docs.py exit 0 (met)
+- Deviations from the brief: the checks `run_suites.py tools` and `project` do not exist as suites (no conftest.py): ran `python -m pytest tests/model/tools` (12 passed) and `tests/project` (22 passed) directly; quick_full not run (about an hour; not an acceptance criterion); `README` line: no README exists in run-cost
+- Risks / follow-ups: quick_full and quick_headlines are written but unrun; options for the author on the time criterion: (a) accept 5 min, (b) move tornado_1sched_20 and level1_1sched_1000 out of the default set (the default then takes 40 s per pass, 80 s with warm-up and two reps), (c) cut them to fewer paths or one rep; the ledger row for root_1_20 in 150c is the bracket-check root
+- Instruction friction: one entry added (run_suites names; time criterion from another machine)
+- Verification: bench run twice and compared (the table above); tests/model/tools 12 passed; tests/project 22 passed; check_agent_docs exit 0; the date-mask pattern matches the one `run_date` in results/057c-evidence/quick-q4/outputs.json
+- Overview sections likely needing an update: none
+- Commit / branch: brief/176c-speed-up-bench-and-rules; NEEDS THE AUTHOR (one criterion unmet), not merged
+```
