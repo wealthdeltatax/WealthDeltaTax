@@ -1,5 +1,7 @@
-# File layout: a vertical tree (design, not yet applied)
+# File layout: a vertical tree (design record; the move is applied)
 
+> **Applied** (stages L1 to L7, merged by 2026-11-26): the repository now has the tree in `README.md` and `project/OVERVIEW.md` section 2; the old-to-new path of every file is `project/restructure/file-layout-map.csv`. Everything below is the original design and is kept as a record; its target tree and open points are not the layout in use.
+>
 > Superseded on 2026-11-24 by `project/briefs/open/044c-file-layout-move.md`: the tree is now by type of thing (data, literature, research, model, model-specs, results, papers, website, tests, project), file names are unique and descriptive, and the stages are L1 to L7. Where this note differs, the brief wins.
 
 Status: design approved in part by the author, 2026-11-18; **the move runs after the model v3 build** (author's answer on timing). Nothing in this document is applied. Until then every brief uses today's paths.
