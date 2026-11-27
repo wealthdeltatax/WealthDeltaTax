@@ -1,6 +1,6 @@
 # 179: Re-profile after 151c and 154c, and decide what is left
 
-- **Status:** ready; 151c and 154c merged 2026-11-27
+- **Status:** underway; 151c and 154c merged 2026-11-27
 - **Agent:** 3
 - **Needs:** 151c, 154c, 176c
 - **Length:** 1
@@ -41,8 +41,8 @@ None for the author.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Resume:**
-- **State:** draft
+- **Done:** `model/studies/run-cost/profile_after_154c.py` (scale, prof, floor, split); scale, prof and floor measured (this 2-core, 8 GB machine, X86_V4); quick split runs started.
+- **Next:** read the two quick splits, write `results/speedup/profile-after-154c.md`, projections in `run-cost.md`, ledger note, change report.
+- **Resume:** `python -I model/studies/run-cost/profile_after_154c.py split --workers 1 --run-dir DIR --out F`
+- **State:** underway
 <!-- progress:end -->
