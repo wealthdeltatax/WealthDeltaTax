@@ -43,7 +43,7 @@
   },
   "agent1": {
     "now": "reviewing pushes, writing briefs, housekeeping",
-    "next": "review each push as it lands; write the SWF redesign specification after 151c and 154c; account skill edits"
+    "next": "review each push as it lands; write the SWF redesign specification after 151c and 154c"
   },
   "todo": [
     {

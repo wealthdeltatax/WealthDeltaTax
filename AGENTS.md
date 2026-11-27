@@ -40,6 +40,9 @@ When a brief is finished, its agent merges its own branch into `main`; the autho
 - **Do not merge, leave the branch pushed and say `NEEDS THE AUTHOR`, when:** a criterion is unmet or a check was not run; the brief says the author reviews; the diff touches `papers/legacy/` (paper text) or deletes tracked files the brief does not name; a rebase conflict needs a judgement call.
 - The guru reviews after the merge (criteria with numbers, status, decisions entry) and may revert.
 
+## Skills
+Role skills are stubs that point here. To change how a role behaves, edit the instructions the stub points to (`AGENTS.md`, `project/agents/`), never the skill, and do not propose skill edits for a rule, a routine or a path: a rule written in a stub is not read by the other agents. The stub changes only if the file it points to is renamed or moved (`project/agents/README.md` says how).
+
 ## Generated files (never edit by hand)
 `_build/`, `_site/`, `website/registry/anchors.yml`, `website/registry/crosslinks.json`. Change the source and regenerate.
 
