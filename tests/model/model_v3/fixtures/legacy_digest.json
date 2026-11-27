@@ -1,5 +1,5 @@
 {
- "commit": "cf74417df2fccd3dc25fa0e19f8cbb56782c23a2",
+ "commit": "7802bb854c562a6bd730b61bd17be4aa3969a8a7",
  "call": "python tests/model/model_v3/test_legacy_digest.py --print (compute(): R.level1(ctx, SPECS, rt.streams(seed)['level1_paths'], n=20, chunk=10) for seed in (7, 11))",
  "seeds": [
   7,
@@ -36,22 +36,22 @@
  },
  "digest": {
   "7": {
-   "samples": "f03b782260e226bba84384fbf1527d880d3301fce28ba78ce1885a7382c48480",
+   "samples": "ce784e0007ff4d3e294fd5c8cef9f58388931e643ef868001b8d6e19e2451ab1",
    "groups": {
-    "runner": "496fa9a718c90c5e45d1fd9a9ec1f724151c3d16aaef29aef0ac57635a0b5444",
-    "revenue": "bff081b5d9da9e53eb6221eab0de57e9f807f542240f63e94240acb0e0d67b19",
-    "burden": "f9cb12cbc50da522b282267c6fb8bb12cf831a1407b4645fefff30a101774765",
-    "support": "aa2802b1bbebd3febf8bda06d16238e2879ccfbe7702ec5647e4e30ca2b6bea3",
+    "runner": "5ce30708771a4fd8718fad6a47505e37dab90782f00d3d4e4abf82aed53b638c",
+    "revenue": "e19dab8e046de38603d0b8749d92e1d925cce2cad213a1048565f54925d33491",
+    "burden": "31c7bb990903eed8832b50a7de1f1d40f0114322f778cc2a8e0c43905d3b5ded",
+    "support": "38c8600875686a65b0d38b639c536bd339fc48485e245a311cf5fec29cce8aaf",
     "sweeps": "d3b5a039d1acd09a40a045a60caf3da16c53490b03c9b62d11c59d4fa0bcda5f"
    }
   },
   "11": {
-   "samples": "20355ae63f65f06729594af711acc7aee7749802070164ec646afc67fe8a5897",
+   "samples": "2fb2487b8fdb253670e186275734d538c25e487309e371d2e33eef43529b5fdd",
    "groups": {
-    "runner": "5dfb1445d0bdab37183026b089b882b2ba3c8dbbc0c34f04be3a50ff1d27752f",
-    "revenue": "a8cf82a3e71742929c62b8865eefbf7512dd02f91507fb9914270eb3667d5d18",
-    "burden": "10ed2d098d472dabf9fe879a7d034f4beb74e15b040540e8227018352b8190af",
-    "support": "4fc0cc11d5d0a3ab3b4843d11341ba1a164c914c48322a3d5cfe1b54025a7471",
+    "runner": "bb9a085d81c4fb82239915398c02b7dd9c16978c9e61f5248d54a213af777cd1",
+    "revenue": "b511ae8f63c2318adfdc822979abbced6bd5bb3000ce31502c95b31658a4a63c",
+    "burden": "9d8876dc78804415db788811c1498e482bb2f93a1a6d27e512cc29dd9ce91808",
+    "support": "97a0c164c679f166107ee1906d659d305584f925fee3a1d7c326f4d082839551",
     "sweeps": "d3b5a039d1acd09a40a045a60caf3da16c53490b03c9b62d11c59d4fa0bcda5f"
    }
   }
