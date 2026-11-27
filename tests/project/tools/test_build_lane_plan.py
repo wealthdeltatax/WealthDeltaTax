@@ -10,7 +10,7 @@ spec = importlib.util.spec_from_file_location("build_lane_plan", ROOT / "project
 blp = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(blp)
 
-PAGE = "head\n  // lanes:start\n  var LANES = [];\n  // lanes:end\n  // plan:start\n  var B = [];\n  // plan:end\ntail\n"
+PAGE = "head\n  // lanes:start\n  var LANES = [];\n  // lanes:end\n  // todo:start\n  // todo:end\n  // plan:start\n  var B = [];\n  // plan:end\ntail\n"
 STATUS = "# Status\n<!-- agents:start -->\n<!-- agents:end -->\nrest\n"
 LANES = {"lanes": [{"id": "1", "name": "Agent 1"}, {"id": "2", "name": "Agent 2"}, {"id": "3", "name": "Agent 3"}, {"id": "E", "name": "You"}, {"id": "G", "name": "Held"}],
          "notes": {"1": "guru", "E": "author", "G": "held"}, "agent1": {"now": "reviewing", "next": "more"}}
@@ -184,4 +184,5 @@ def test_asks_lines_feed_the_author_lane_note(tmp_path):
     briefs, _, errors = blp.load(root)
     fixed = json.loads((root / "project/lane-plan-lanes.json").read_text(encoding="utf-8"))
     page = "\n".join(blp.lanes_array(briefs, fixed).splitlines())
-    assert errors == [] and "150c: pick absolute or relative" in page and "151c:" not in page.split('"E"')[1].split("}")[0]
+    todo = blp.todo_array(briefs, fixed)
+    assert errors == [] and "decisions for 150c" in page and "pick absolute or relative" in todo and "151c" not in todo

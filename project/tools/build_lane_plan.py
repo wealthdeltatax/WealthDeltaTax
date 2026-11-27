@@ -249,9 +249,19 @@ def lanes_array(briefs, fixed):
     for lane in fixed['lanes']:
         note = fixed['notes'].get(lane['id']) if lane['id'] in fixed['notes'] else lane_note(briefs, lane['id'])
         if lane['id'] == 'E':   # the author's decisions: the standing items of the lanes file, then every open brief's `Asks:` line
-            note = '; '.join(x for x in [note] + [f'{b.id}: {b.asks}' for b in sorted(briefs, key=lambda b: b.id) if b.asks and not b.is_row] if x)
+            ids = [b.id for b in sorted(briefs, key=lambda b: b.id) if b.asks and not b.is_row]
+            note = '; '.join(x for x in [note, ('decisions for ' + ', '.join(ids)) if ids else ''] if x)
         out.append('    { id: %s, name: %s, note: %s }' % (js(lane['id']), js(lane['name']), js(note)))
     return '  var LANES = [\n' + ',\n'.join(out) + '\n  ];'
+
+
+def todo_array(briefs, fixed):
+    """The author's to-do box and open questions: the standing items of the lanes file (`todo`), then one decision item per open brief with an `Asks:` line."""
+    items = [dict(x, steps=x.get('steps', []), qs=x.get('qs', [])) for x in fixed.get('todo', [])]
+    for b in sorted(briefs, key=lambda b: b.id):
+        if b.asks and not b.is_row:
+            items.append(dict(id=b.id, t=f'{b.id}: {short(b.title)}', tag='decision', when=f'Needed for {b.id}', why=b.goal, steps=[], qs=[q.strip() for q in b.asks.split(';') if q.strip()], bar=b.id))
+    return ',\n'.join('    ' + js(x) for x in items)
 
 
 def agent_table(briefs, fixed):
@@ -277,6 +287,7 @@ def render(root: Path, briefs):
     fixed = json.loads((root / 'project/lane-plan-lanes.json').read_text(encoding='utf-8'))
     page = (root / 'project/lane-plan.html').read_text(encoding='utf-8')
     page = between(page, '// lanes:start', '  // lanes:end', lanes_array(briefs, fixed), 'project/lane-plan.html')
+    page = between(page, '// todo:start', '  // todo:end', todo_array(briefs, fixed), 'project/lane-plan.html')
     page = between(page, '// plan:start', '  // plan:end', b_array(briefs), 'project/lane-plan.html')
     status = (root / 'project/STATUS.md').read_text(encoding='utf-8')
     status = between(status, '<!-- agents:start -->', '<!-- agents:end -->', agent_table(briefs, fixed), 'project/STATUS.md')

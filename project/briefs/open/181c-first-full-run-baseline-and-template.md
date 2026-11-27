@@ -4,7 +4,7 @@
 - **Agent:** 4
 - **Needs:** 183c, 171c, 154c
 - **Length:** 1
-- **Asks:** start the first full run (author's act; run.py refuses --final)
+- **Asks:** start the first full run, an author act because run.py refuses --final
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 183c (split run on Actions), 171c (zero tolerance), 151c and 154c (byte-identical levers; merged first so the baseline costs hours, not days)
 - **Read:** `results/split-run/design.md`; `results/speedup/ledger.md`; `model-specs/acceptance.md`; `results/run-cost/run-cost.md` (the projection tables)
