@@ -15,7 +15,7 @@ jobs:
         include:
           - {name: new_off, ref: '', npy: 'X86_V4'}
           - {name: new_avx, ref: '', npy: ''}
-          - {name: old_off, ref: '49c2bfd', npy: 'X86_V4'}
+          - {name: old_off, ref: '49c2bfd594778cb25f4401e6b0976db342dcb6fa', npy: 'X86_V4'}
     env:
       NPY_DISABLE_CPU_FEATURES: ${{ matrix.npy }}
     steps:
