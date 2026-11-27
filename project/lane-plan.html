@@ -268,7 +268,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "E", name: "You · decisions", note: "delete old remote branches; feasibility rule; retired-tax switch" },
     { id: "G", name: "Held", note: "SWF redesign specification: after 151c" }
   ];
-  // id, lane, start session, length, status, title, needs [{id, soft}], text, files, tags
+  // id, lane, (start session: ignored, computed from status and needs), length, status, title, needs [{id, soft}], text, files, tags
   var B = [
     { id: "171c", lane: "5", at: 1, len: 1, st: "ready", t: "Zero tolerance for knife-edge counts (O1f, O2b, O2c)", needs: [{ id: "172c" }], why: "Counts of near-zero values depend on rounding; the tolerance makes them path-independent.", files: "model, metrics.md" },
     { id: "154c", lane: "2", at: 2, len: 1, st: "ready", t: "Level 1 through the parallel map; --workers in the Actions jobs (byte-identical)", needs: [{ id: "151c" }], why: "Level 1 is the serial floor; the accept job never used --workers. Same file as 151c (runner.py at budget), so after it.", files: "runner, run.py, accept.sh, workflow" },
@@ -279,7 +279,8 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "153c", lane: "5", at: 2, len: 1, st: "hold", t: "Fewer evaluations per O1e root (not byte-identical)", needs: [{ id: "171c" }, { id: "151c" }, { id: "179c" }], why: "Needs the author's sign-off on the tolerance rule: roots within 2 x 1e-2, flags identical, range moves at most 2e-2.", files: "sweeps, run.py" },
     { id: "180c", lane: "6", at: 3, len: 2, st: "hold", t: "Compiled kernel spike (numba first); measure speed and bits", needs: [{ id: "171c" }, { id: "179c" }], why: "Adoption bar written first; off by default; stops at stage A if under 2x.", files: "kernel, results/speedup" },
     { id: "152c", lane: "5", at: 4, len: 1, st: "hold", t: "One year loop for burden and ledger (parked)", needs: [{ id: "179c" }], why: "Only if the profile names it; may be dropped if the kernel is adopted.", files: "arm, burden" },
-    { id: "183c", lane: "4", at: 0, len: 2, st: "ready", t: "Build the split run and the merge; Actions matrix", needs: [{ id: "182c" }, { id: "154c" }, { id: "178c" }], why: "Stage A (new split.py and tests only, no edit to run.py or runner.py) starts now; stages B onward wait for 154c and 178c.", files: "run.py, merge, workflow" },
+    { id: "183a", lane: "4", at: 0, len: 1, st: "ready", t: "Split run, stage A: split.py (encode, decode, merge checks) and its tests", needs: [], why: "New files only: no edit to run.py, runner.py or the workflow. Brief 183c, stage A.", files: "model/model_v3/split.py, tests" },
+    { id: "183c", lane: "4", at: 0, len: 2, st: "hold", t: "Build the split final run and the exact merge (stages B onward)", needs: [{ id: "183a" }, { id: "154c" }, { id: "178c" }], why: "Edits run.py, so it waits for 154c and 178c; stage A (new files only) is the row above.", files: "run.py, merge, workflow" },
     { id: "181c", lane: "4", at: 6, len: 1, st: "hold", t: "First full run: baseline and template", needs: [{ id: "183c" }, { id: "171c" }, { id: "154c" }], why: "The comparison and the template for later full runs. Never --final.", files: "results/final-run" }
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
@@ -288,7 +289,11 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   var SLOTS = 14;
   // Auto-pack: bars in one lane never overlap and never start before the briefs they need have ended (a `gate` lets a brief start that many sessions early).
   (function pack() {
-    B.forEach(function (b) { b.at0 = b.at; });
+    // The hand-set `at` in the data is ignored: every brief starts at session 1 and is pushed back only by what it needs and by the brief before it in its lane.
+    // Order inside a lane: underway, in review, ready, needs the author, held; then by length of its dependency chain; then by id.
+    var RANK = { under: 0, review: 1, ready: 2, author: 3, hold: 4 };
+    function depth(b, seen) { seen = seen || {}; if (seen[b.id]) return 0; seen[b.id] = 1; var m = 0; (b.needs || []).forEach(function (n) { var d = byId[n.id]; if (d && d.st !== 'built') m = Math.max(m, 1 + depth(d, seen)); }); return m; }
+    B.forEach(function (b) { b.at = 0; b.at0 = RANK[b.st] * 100 + depth(b); });
     for (var pass = 0; pass < 40; pass++) {
       var moved = false;
       LANES.forEach(function (L) {
