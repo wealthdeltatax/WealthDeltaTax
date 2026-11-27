@@ -184,3 +184,19 @@ The brief's `level1_1sched_1000` is one unit at quick size (one chunk, one sched
 **Projection.** Level 1 is 3.1 h of the final-size run (5 points x 37 min), serial in the old numbers. On four cores with 16 GB the 30 units per point give up to 4x (about 0.8 h); on this machine 1.5x to 1.9x at most (about 1.6 to 2.1 h). Not measured at final size; the figure to read is the Actions one (the accept job's first `quick` step: `accept.sh` logs `nproc`, memory and W).
 
 **What remains.** On this machine memory, not cores, limits level 1 to about one worker. The next lever is the 3.0 GB per unit (the evaluation holds every group's per-path arrays at 1,000 paths); 152c shares the year loop and may cut it.
+
+
+## The feasibility map runs only the OF1 group (186c, 2026-11-27)
+The map read `e['sweeps']['of1']` and nothing else, but `evaluate` ran all four groups and their `again` core runs. `evaluate` and `make_ev` now take `only=` (group names; default all); `run.py` builds the map's evaluator with `only=('sweeps',)`. The OF1 group reads only `raw` (no `again`, so no extra `core_run`), and each group draws from its own `env.rng(name)` (`runner.py` `Env.rng`, a hash of the name), so skipping the others cannot change its stream.
+
+Measured with `model/studies/run-cost/map_only.py` (household arm, `NPY_DISABLE_CPU_FEATURES=X86_V4`, 2 cores, best of 1; the map is the whole lever grid, quick size = 50 tornado paths):
+
+| case | full evaluator | `only=('sweeps',)` | saving |
+|---|---:|---:|---:|
+| one map point, 20 paths | 8.4 s | 1.5 s | 5.5x |
+| whole map, 20 paths, workers 1 | 236.9 s | 42.9 s | 5.5x |
+| one map point, 50 paths | 12.3 s | 2.3 s | 5.4x |
+| whole quick map, workers 1 | 328.7 s | 61.5 s | 5.3x |
+| whole quick map, workers 0 (2 cores) | 174.0 s | 33.1 s | 5.3x |
+
+The guess (about 330 s to under 100 s) holds: 329 s to 62 s. The results (points and OF1) are byte-identical in every case. What remains is the base `core_run`, the headlines and the OF1 retirement (`revenue.retire` per margin), about 19% of the old time.
