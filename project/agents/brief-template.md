@@ -23,6 +23,7 @@ Example: `001c-model-audit.md`. The heading inside the file stays `# 001: Title`
 - **Agent:** 2 to 6, author, openai (the OpenAI agent: pure research or reasoning, deliverable is notes under project/inbox), or none
 - **Needs:** <ids of open briefs, ~ before a soft file-order need, e.g. 151c, ~176c; none>
 - **Length:** <sessions; default 1>
+- **Asks:** <optional: the decisions this brief needs from the author, short, separated by semicolons; shown in the "You" lane of the plan; delete the line when answered>
 - **Author/date:** <author> with the guru, <YYYY-MM-DD>
 - **Depends on:** <brief numbers, or none>
 - **Read:** <exact files and overview sections the agent needs; nothing else need be opened>

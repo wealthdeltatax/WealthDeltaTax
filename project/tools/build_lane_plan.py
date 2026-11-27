@@ -27,14 +27,14 @@ RANK = {'under': 0, 'review': 1, 'ready': 2, 'author': 3, 'hold': 4}    # the pa
 AGENTS = {'2', '3', '4', '5', '6'}
 OTHERS = {'author', 'none', 'openai'}   # openai: the OpenAI agent (notes only, no repo access beyond a branch); lane O
 ID = r'\d+[a-z]'
-HEAD = re.compile(r'^- \*\*(Status|Agent|Needs|Length|Row):\*\*\s*(.*?)\s*$')
+HEAD = re.compile(r'^- \*\*(Status|Agent|Needs|Length|Row|Asks):\*\*\s*(.*?)\s*$')
 FILES_CUT = 60
 
 
 class Brief:
-    def __init__(self, id, file, line, title, goal, touches, agent, needs, length, status, is_row=False):
+    def __init__(self, id, file, line, title, goal, touches, agent, needs, length, status, is_row=False, asks=''):
         self.id, self.file, self.line, self.title, self.goal, self.touches = id, file, line, title, goal, touches
-        self.agent, self.needs, self.length, self.status, self.is_row = agent, needs, length, status, is_row
+        self.agent, self.needs, self.length, self.status, self.is_row, self.asks = agent, needs, length, status, is_row, asks
 
 
 def parse_needs(text: str):
@@ -120,7 +120,7 @@ def parse_brief(path: Path, root: Path):
             length = int(seen['Length'])
         else:
             errors.append(f'{rel}:{line_of["Length"]} Length "{seen["Length"]}" is not a whole number of sessions')
-    out = [Brief(bid, rel, line_of['Status'], title, goal, touches, agent, needs or [], length, st)]
+    out = [Brief(bid, rel, line_of['Status'], title, goal, touches, agent, needs or [], length, st, asks=seen.get('Asks', '').strip())]
     for n, val in rows:
         f = [x.strip() for x in val.split('|')]
         m = len(f) == 6 and re.fullmatch(ID, f[0]) and re.fullmatch(r'agent (\d|author|openai|none)', f[1]) and re.fullmatch(r'needs (.*)', f[3]) and re.fullmatch(r'length ([1-9]\d*)', f[4])
@@ -248,6 +248,8 @@ def lanes_array(briefs, fixed):
     out = []
     for lane in fixed['lanes']:
         note = fixed['notes'].get(lane['id']) if lane['id'] in fixed['notes'] else lane_note(briefs, lane['id'])
+        if lane['id'] == 'E':   # the author's decisions: the standing items of the lanes file, then every open brief's `Asks:` line
+            note = '; '.join(x for x in [note] + [f'{b.id}: {b.asks}' for b in sorted(briefs, key=lambda b: b.id) if b.asks and not b.is_row] if x)
         out.append('    { id: %s, name: %s, note: %s }' % (js(lane['id']), js(lane['name']), js(note)))
     return '  var LANES = [\n' + ',\n'.join(out) + '\n  ];'
 

@@ -176,3 +176,12 @@ def test_a_brief_never_stands_before_a_brief_of_its_lane_that_it_needs(tmp_path)
 def test_the_page_orders_a_lane_by_its_needs():
     page = (ROOT / "project" / "lane-plan.html").read_text(encoding="utf-8")
     assert "never sorts before a brief of its own lane" in page
+
+
+def test_asks_lines_feed_the_author_lane_note(tmp_path):
+    text = brief("150c", status="author", agent="2").replace("- **Needs:** none", "- **Needs:** none\n- **Asks:** pick absolute or relative")
+    root = tree(tmp_path, {"150c-x.md": text, "151c-y.md": brief("151c")})
+    briefs, _, errors = blp.load(root)
+    fixed = json.loads((root / "project/lane-plan-lanes.json").read_text(encoding="utf-8"))
+    page = "\n".join(blp.lanes_array(briefs, fixed).splitlines())
+    assert errors == [] and "150c: pick absolute or relative" in page and "151c:" not in page.split('"E"')[1].split("}")[0]

@@ -4,6 +4,7 @@
 - **Agent:** 5
 - **Needs:** 171c, 151c, 179c, 180c
 - **Length:** 1
+- **Asks:** sign off the O1e root tolerance rule (within 2 x tol = 1e-2)
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 180c (the kernel spike report: if a compiled kernel makes an evaluation several times cheaper, fewer evaluations per root matter less and the brief may shrink or drop; moved behind the spike by the author, 2026-11-27), 171c (zero tolerance, so a real change is told from rounding), 151c (headline-only evaluation), 179c (profile), 176c (bench)
 - **Read:** `model/model_v3/runner/sweeps.py` (`breakeven_return`, `breakeven`); `results/run-cost/run-cost.md` ("Level 1 and O1e roots"); `model-specs/metrics.md` (O1e); `model/model_v3/run.py` (the O1e lines and the `no_sign_change_0_15` marker)

@@ -4,6 +4,7 @@
 - **Agent:** 6
 - **Needs:** none
 - **Length:** 1
+- **Asks:** false-failure rate (default 1 in 100); absolute ceiling on the limits (for example 0.5)
 - **Author/date:** K. Ogata with the guru, 2026-11-27
 - **Depends on:** none (statistics only; works on either numerics path; the pins are not touched)
 - **Read:** `tests/model/model_v3/test_converge.py` (the fixtures and C1); `model-specs/acceptance.md` rows 79 to 100; the converge log of Actions run 45956946871 (job `converge`, failed C1 on O3); `model/model_v3/runner/runner.py` `level1`

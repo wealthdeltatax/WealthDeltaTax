@@ -4,6 +4,7 @@
 - **Agent:** 5
 - **Needs:** 172c
 - **Length:** 1
+- **Asks:** zero tolerance absolute 1e-9 (recommended) or relative
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 170c
 - **Read:** `results/169c-numerics/difference-report.md`, `model-specs/metrics.md` (O1f, O2b, O2c definitions), `model/model_v3/` where O1f and the O2 shares are computed

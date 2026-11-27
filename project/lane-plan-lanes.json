@@ -39,7 +39,7 @@
   ],
   "notes": {
     "1": "writes and hands out the briefs; reviews the pushes as they land",
-    "E": "delete old remote branches; feasibility rule; retired-tax switch; confirm the converge rerun",
+    "E": "delete old remote branches; feasibility rule; retired-tax switch",
     "G": "SWF redesign specification: after the speed-ups (151c, 154c)"
   },
   "agent1": {
