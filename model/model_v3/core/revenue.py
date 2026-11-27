@@ -271,7 +271,7 @@ def revenue(run, gdp0, levy, rec, g, E_pct, c, a_window=5, ms=3.0, ml=3.0, horiz
     ones = np.ones(P, int)
     long_ = window_mean(m1, gdp, 51 * ones, T * ones)
     after = (t > fl[None, :]) & (fl[None, :] > 0)
-    below = after & (m1 < 0)
+    below = after & K.neg(m1)
     lres = (S - f['srr']) / (ml * np.where(f['A'] > 0, f['A'], np.nan))
     out = {'M1a': m1a, 'M1b': m1b, 'M1c': m1c, 'M1d': m1d, 'M1': m1, 'relief': relief, 'wdt_bn': wdt, 'gdp': gdp,
            'B1a': 100 * run['payers'] / run['adults_k'], 'B1b': run['entries'], 'B1c': run['exits'], 'B1d': 100 * run['fall_through'] / gdp,
@@ -281,7 +281,7 @@ def revenue(run, gdp0, levy, rec, g, E_pct, c, a_window=5, ms=3.0, ml=3.0, horiz
            'P6': {y: 100 * S[y - 1] / gdp[y - 1] for y in (10, 25, 50, 100) if y <= T},
            'P7a': (after & (lres <= 1e-12)).any(axis=0), 'P7b': np.where(after, lres, np.inf).min(axis=0),
            'short': short, 'long': long_, 'long_year_T': m1[-1], 'wdt_short': np.where(ok, window_mean(m1a, gdp, fl + 1, fl + horizon), np.nan),
-           'fund': f, 'negative_share': {'short': np.nanmean(short < 0) if np.isfinite(short).any() else np.nan, 'long': float(np.mean(long_ < 0))}}
+           'fund': f, 'negative_share': {'short': np.nanmean(K.neg(short)) if np.isfinite(short).any() else np.nan, 'long': float(np.mean(K.neg(long_)))}}
     out['M1e'] = {k: np.where(years[:, i][None, :] > 0, (t >= years[:, i][None, :]) * v, 0.0) for i, (k, v) in enumerate(rec.items())}
     return out
 
