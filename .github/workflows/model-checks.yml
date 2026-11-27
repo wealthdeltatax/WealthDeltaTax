@@ -21,6 +21,10 @@ on:
         description: 'Run accept.sh whole: suites, convergence, two quick runs, validation, compare (about 5 h)'
         type: boolean
         default: true
+      run_speed:
+        description: 'Run the speed job: quick against its time budget, bench small cases (about 15 min)'
+        type: boolean
+        default: false
       run_final_size:
         description: 'Run the final-size grid split over five jobs (hours; never passes --final)'
         type: boolean
@@ -208,6 +212,75 @@ jobs:
       - name: Wall time
         if: always()
         run: echo "wall time $(( $(date +%s) - START )) s"
+
+  speed:
+    # 177c. A slowdown is a failed check. Only the wall time of `quick` gates; the bench numbers are informational. On pushes to main it runs
+    # only when the push touched model/. Never passes --final.
+    name: 'speed (quick against its budget, bench small cases)'
+    if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.run_speed) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      # Seconds, measured on the hosted 4-core runner: median of three runs plus 25% (brief 177c, results/speedup/ledger.md). Set after the first runs.
+      QUICK_BUDGET_S: '99999'
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Did model/ change?
+        id: touch
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            if git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" 2>/dev/null | grep -q '^model/'; then echo "run=true" >> "$GITHUB_OUTPUT"; else echo "run=false" >> "$GITHUB_OUTPUT"; echo "no change under model/: nothing to time"; fi
+          else echo "run=true" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Set up Python
+        if: steps.touch.outputs.run == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned requirements, log the machine
+        if: steps.touch.outputs.run == 'true'
+        run: |
+          sudo apt-get install -y --no-install-recommends poppler-utils
+          pip install $PIP_PINS
+          git rev-parse HEAD
+          echo "nproc $(nproc)"; free -g | sed -n 2p; lscpu | grep -E 'Model name|^CPU\(s\)'
+          echo "CPU_LINE=$(lscpu | sed -n 's/^Model name: *//p')" >> "$GITHUB_ENV"
+          W=$(python -I -c "import os; m = int(next(l for l in open('/proc/meminfo') if l.startswith('MemTotal')).split()[1]) // 2**20; print(max(1, min(os.cpu_count() or 1, (m - 2) // 3)))")
+          echo "W=$W" >> "$GITHUB_ENV"
+
+      - name: Bench small cases (informational)
+        if: steps.touch.outputs.run == 'true'
+        run: |
+          echo "+ python -I model/studies/run-cost/bench.py run --out bench-small.json --workers $W"
+          python -I model/studies/run-cost/bench.py run --out bench-small.json --workers "$W"
+
+      - name: 'quick, timed against QUICK_BUDGET_S'
+        if: steps.touch.outputs.run == 'true'
+        run: |
+          mkdir -p quick-out
+          T0=$(date +%s)
+          python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--size', 'quick', '--out', 'quick-out', '--workers', '$W'])"
+          T=$(( $(date +%s) - T0 ))
+          echo "quick wall time $T s, budget $QUICK_BUDGET_S s, workers $W, CPU: $CPU_LINE"
+          echo "QUICK_S=$T" >> "$GITHUB_ENV"
+          if [ "$T" -gt "$QUICK_BUDGET_S" ]; then
+            echo "::error::quick took $T s, over the budget of $QUICK_BUDGET_S s (workers $W, CPU: $CPU_LINE)"
+            exit 1
+          fi
+
+      - name: Upload timings
+        if: always() && steps.touch.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: speed-results
+          path: |
+            bench-small.json
+            quick-out/outputs.json
 
   accept:
     name: 'accept (accept.sh, whole)'
