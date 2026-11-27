@@ -31,3 +31,14 @@ def test_headline_only_equals_the_headline_keys_of_the_full_evaluator_byte_for_b
 
 def test_the_default_evaluator_is_unchanged(ctx):
     assert R.make_ev(ctx, EPS)(SPECS[0]).keys() > HEADS
+
+
+@pytest.mark.parametrize('arm', ['legacy', 'household'])
+def test_the_sweeps_group_only_equals_the_full_evaluators_of1_and_headlines_byte_for_byte(ctx, arm):
+    """186c: the feasibility map runs `only=('sweeps',)`; its OF1 result and the headlines are those of the full evaluator (the groups draw from their own named streams)."""
+    cp = ctx if arm == 'legacy' else replace(ctx, arm=dict(arm='household', inputs=INP, saving='median', regime='mid'))
+    full, part = R.make_ev(cp, EPS), R.make_ev(cp, EPS, only=('sweeps',))
+    for spec in SPECS:
+        f, p = full(spec), part(spec)
+        assert set(p) == HEADS | {'sweeps'} and set(f) > set(p)                      # the other groups are not run
+        assert raw(p['sweeps']) == raw(f['sweeps']) and all(raw(p[k]) == raw(f[k]) for k in HEADS)

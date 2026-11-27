@@ -93,7 +93,7 @@ def main(argv=None):
     pts = [None] if a.arm == 'legacy' else (a.point or list(POINTS)[:npts])   # the range merge has its own test
     c0 = ctx if pts[0] is None else replace(ctx, arm=dict(arm='household', inputs=inp, saving=POINTS[pts[0]][0], regime=POINTS[pts[0]][1]))
     st = rt.streams(a.seed)
-    fmap, _ = S.feasibility(R.make_ev(c0, st['tornado_crn'].standard_normal((R.T, n2p))), S.grid(lv), workers=a.workers)
+    fmap, _ = S.feasibility(R.make_ev(c0, st['tornado_crn'].standard_normal((R.T, n2p)), only=('sweeps',)), S.grid(lv), workers=a.workers)
     named = S.choose(fmap, man['feasibility'])
     if named is None: sys.exit('no feasible schedule point under the manifest rule: nothing is chosen in its place')
     draws = R.draw_theta(st['level2_draws'], ctx, ctx.tier1, n2) if n2 else None; docs, failed, info, tg, ends = [], [], None, [], {}
