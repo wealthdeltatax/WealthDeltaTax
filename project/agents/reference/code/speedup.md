@@ -14,7 +14,7 @@ A speed-up changes how long the model takes and must not change what it says. Ev
 
 ## Accepting
 7. Report measured against the brief's estimate, case by case. If the gain is under the brief's bar, say so with the numbers and keep or revert as the brief says; do not retune the bar.
-8. A slowdown on any case is a failure, even if another case got faster. The `quick` time budget (177c) is checked on Actions.
+8. A slowdown on any case is a failure, even if another case got faster. The `quick` time budget (177c) is checked on Actions: the `speed` job (manual: "Run workflow", `run_speed`; and on pushes to `main` that touch `model/`) fails if `quick` takes longer than `QUICK_BUDGET_S` in the workflow; the bench numbers it prints do not gate.
 9. On merge, add one row to `results/speedup/ledger.md`: brief, lever, before, after, ratio, identical, machine. The ledger is append-only; on a conflict take upstream and add your row again.
 
 ## What does not count as a proof
