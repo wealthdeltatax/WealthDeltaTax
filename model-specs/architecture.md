@@ -94,7 +94,7 @@ Each entry: purpose, inputs, outputs (and the manifest ids it produces), the C1 
 - **Ids.** `O7, OD1, OW1, OW2, OW3, OM1, OS1`.
 - **Imports.** `pack`, `base`, `schedule`, `kernel`, `revenue`. It does not import `burden` (R4: no import across cores at the same layer).
 
-### 2.8 `runner/`: range runner (runner.py 360, sweeps.py 300 lines; pool.py 70 only if section 6.5 triggers)
+### 2.8 `runner/`: range runner (runner.py 368, sweeps.py 300 lines; pool.py 70 only if section 6.5 triggers)
 - **`runner.py`.** The two-level run. Level 1: for fixed parameters, `N1` paths (section 3.1), each of the three named schedules, summarised by the writer as P10, mean and P90. Level 2: `N2` parameter draws, each with `N2P` paths, giving the P10 to P90 of the level 1 mean; the D5 behaviour strength, the risk aversion and every tier 1 input of `drivers.md` are drawn here (C1 item 7a), independently, as in section 9 item 4. Seed streams. Folds paths into the kernel's line axis in chunks (section 3.2). Produces `Samples` (section 2.9).
 - **`sweeps.py`.** The schedule sweep: the feasibility map over the schedule grid (`OF1`), then the named schedules chosen by the confirmed rule (S_central is the feasible-map point with the highest closure share under the burden cap; S_low and S_high are the edges of the feasible region), then everything at those three. The tornado (`OT1`): one input at a time at low and high, every other input central, for M1, M2, M4a and M3, at each named schedule. The break-even return and the share of paths with negative M1 (`O1e`, `O1f`, C1 item 2d). The synthetic cyclical stress test (`CK1`). The bootstrap robustness run and the 30-year spread display (C1 item 4a).
 - **Ids.** `O1e, O1f, OF1, OT1, CK1`.
@@ -198,12 +198,12 @@ core/support.py                520    300
 core/household.py             120    150
 core/pension_lien.py            80     95
 core/cells.py                  80     60
-runner/runner.py               360    150
+runner/runner.py               368    150
 runner/arm.py                  330    330
 runner/switches.py             200     60
 runner/flow_switches.py        200    150
 runner/sweeps.py               280    100
-runner/pool.py                  50     75
+runner/pool.py                  50    103
 runner/groups.py                40     60
 runner/out_revenue.py          150     80
 runner/out_burden.py           150     80
@@ -228,9 +228,9 @@ tests/model/model_v3/test_pack_base.py 0     58
 | `interface.py` and `run.py` | 170 | 80 |
 | Rules, budget and smoke tests | 0 | 150 |
 | Acceptance script and convergence test (040g Q1) | 0 | 90 |
-| **Total** | **6,510** | **4,418** |
+| **Total** | **6,518** | **4,446** |
 
-Core plus runner 5,640 (148c: `flow_switches.py` 200 and its tests 150, a new file for the withdrawal, heir-floor and GDP-path switches because `switches.py` is full; 150c: `pool.py` 50 and its tests 75, the ordered process map the sweeps call, layer 3.8; and the totals now include the `switches.py` 200 row the housekeeping commit 472e88e added to the block without the totals, which had left `test_budget` failing on main; 133c: `arm.py` 330 for the cap callback `carry` and the kernel-pension netting; 128c: `arm.py` 310 for per-path market returns; 132c: `pension_lien.py` 80 and `arm.py` 280 for the lien calls and `settle`; 127c: `arm.py` 255 for the class floor; earlier raise: 5,025, raised from 4,995 by 121c: `arm.py` 225 for the withheld table; 126c: `arm.py` 245 for the household untaxed path `free` and the comparators' account `system`) is a ceiling, not a target; `runner/pool.py` was counted only if triggered; 150c triggered it (section 6.5: a full run is days serial). The data tooling `pack/build_gbr.py` has its own budget of 200 lines (067c) and no test beyond a hash check of its output. Output layer 700 is 14% of core plus runner; R9 asks for smaller.
+Core plus runner 5,648 (154c: `runner.py` 368 for level 1 through `pmap`, the cap records of a unit carried back to the caller, and `test_pool.py` 103 for its two tests; 148c: `flow_switches.py` 200 and its tests 150, a new file for the withdrawal, heir-floor and GDP-path switches because `switches.py` is full; 150c: `pool.py` 50 and its tests 75, the ordered process map the sweeps call, layer 3.8; and the totals now include the `switches.py` 200 row the housekeeping commit 472e88e added to the block without the totals, which had left `test_budget` failing on main; 133c: `arm.py` 330 for the cap callback `carry` and the kernel-pension netting; 128c: `arm.py` 310 for per-path market returns; 132c: `pension_lien.py` 80 and `arm.py` 280 for the lien calls and `settle`; 127c: `arm.py` 255 for the class floor; earlier raise: 5,025, raised from 4,995 by 121c: `arm.py` 225 for the withheld table; 126c: `arm.py` 245 for the household untaxed path `free` and the comparators' account `system`) is a ceiling, not a target; `runner/pool.py` was counted only if triggered; 150c triggered it (section 6.5: a full run is days serial). The data tooling `pack/build_gbr.py` has its own budget of 200 lines (067c) and no test beyond a hash check of its output. Output layer 700 is 14% of core plus runner; R9 asks for smaller.
 
 **The household hook (114c, kernel-wiring-design 3.2).** `kernel.step_year(hook=None)` is the legacy kernel; a hook object (`pre(book, t, g) -> (g_N, x)`, `post(book, fl)`, plus `grown`, `gain`, `free` for the sites that read `c`) is built by the runner and passed through `revenue.run_lines`, `burden.line_flows` and `support.wdt_run`; `runner/arm.py` holds `LegacyHook(c)`, which equals the `c` rule bit for bit. Brief 117c (W5a) adds `line_state`, `returns` and `HouseholdHook` (the untaxed household year, convention A, on class balances per line; imports `core/household.py`, so L3.6 is numpy and `household`): `arm.py` is 112 of 140 lines and its tests (`test_arm.py` 60, `test_household_hook.py` 125) within 210; brief 118c (W5b) lets `post` pay the value the kernel moves to the state from the non-pension classes (pro rata to the positive balances, pension never sold) and adds `reconcile` for value moved outside `post` (deaths, heir tax, horizon): `arm.py` is 139 of 140 (brief 119c raises it to 160: the tail pension cap, 158) and the taxed tests (`test_household_tax.py` 80) take the arm's test budget to 330; `revenue.run_lines` reads the assessed base as units plus `book.pen` and records `wgain` under a hook (sites 2 and 3). `kernel.py` goes from 620 to 660 lines for the signed flow share and the hook calls (the kernel stays at L1 and imports no hook).
 

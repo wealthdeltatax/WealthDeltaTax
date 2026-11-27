@@ -33,8 +33,10 @@ None for the author.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Resume:**
-- **State:** waiting for 151c
+- **Done (block 1, 2026-11-27):** `runner.level1(..., workers=1, cap=None)`: the chunks' paths are drawn in the serial order, then one unit per (chunk, schedule) goes through `pmap` (3 units per chunk: 3 at quick size, 30 per grid point at final size; the brief's "chunks" alone would give one unit at quick, since `CHUNK` = 1,000). The seed key is the chunk, never the worker. The cap store is module state, so a forked unit records into its own copy: each unit records into a local store and the records are merged into `cap` in (chunk, schedule) order, the first standing, as in the serial run (`run.py` passes `workers=w, cap=cap`; 120 lines). `accept.sh` passes `--workers W` to both `quick` runs, W = min(cores, (MemTotal GB - 2) // 3) and logs it; the workflow has no other `run.py` call (smoke and convergence run through pytest), so it is unchanged. Budget rows: `runner.py` 368 and `test_pool.py` 103 in `architecture.md` (totals 6,518 and 4,446). Tests: level 1 byte-identical at workers 1, 2, 3 (real model, 3 chunks), and a unit that meets a shortfall in a forked worker reaches the caller's store, first chunk first. `tests/model/model_v3` 413 passed (incl. `test_legacy_digest`, `test_budget`).
+- **Memory (measured):** one level 1 unit (household, 1,000 paths) peaks at 3.0 GB (the `pool.py` text says about 2 GB: not corrected here, outside Touches). On this 8 GB machine two workers at 1,000 paths were OOM-killed in 2 of 5 attempts (`BrokenProcessPool`; cgroup kill, 3.0 GB anon each), so the cap above leaves 2 GB for the parent and gives 1 worker here and 4 on a 16 GB, 4-core runner.
+- **Level 1, 3 schedules, 1,000 paths, this machine (`NPY_DISABLE_CPU_FEATURES=X86_V4`, one run each, a fresh process per worker count):** workers 1 327 s, workers 2 217 s (1.51x), workers 0 (= 2 cores) 216 s; digests identical.
+- **Next:** the `quick` before and after on one date; ledger row and `run-cost.md` section; the Actions 4-core figure is for the author (command in the report).
+- **Resume:** `git checkout brief/154c-level-1-parallel`.
+- **State:** block 1 pushed; timing and byte comparison running.
 <!-- progress:end -->
