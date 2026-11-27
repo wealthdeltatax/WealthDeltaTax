@@ -1,6 +1,6 @@
 # 185: Precedents for the SWF design (pilot for the OpenAI agent)
 
-- **Status:** ready
+- **Status:** done, closed 2026-11-27
 - **Agent:** openai
 - **Needs:** none
 - **Length:** 1
@@ -34,9 +34,11 @@ If a fund's rule cannot be found from a primary source, say so; do not fill from
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** nothing yet.
-- **Next:** read the guide, then questions 1 and 2.
+- **Done:** notes OA-20261127-01 to 04 (branch `inbox/openai`), reviewed by the guru 2026-11-27 and filed.
+- **Next:** none.
+- **Resume:** none
+- **State:** done
 <!-- progress:end -->
 
 ## Change report
-(The agent writes a short last note, `type: discussion`, saying what it did and did not cover.)
+Note OA-20261127-04 (agent). Guru review: all four questions answered across three notes; the named funds are covered; two figures spot-checked (FDIC, Alberta) and correct; defects: one empty source cell (Chile, note 01), one relevance paragraph for questions 3 and 4, no named reviews (Davis and others) cited. Main finding: no fund found with a stated maximum stock and an automatic sweep of the excess; the nearest are FDIC (target ratio, discretionary dividends, no upper limit), Botswana (liquid floor, residual to the Pula Fund) and annual-draw rules (Alaska, Norway). The cap and excess-release rule is unusual, not copied from a precedent.

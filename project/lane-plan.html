@@ -266,7 +266,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "4", name: "Agent 4", note: "183a (Split run, stage A), then 183c, 181c" },
     { id: "5", name: "Agent 5", note: "171c (Zero tolerance for knife-edge counts), then 186c, 152c, 153c" },
     { id: "6", name: "Agent 6", note: "176c (Speed-up bench and the rules every speed-u…), then 180c, 180b" },
-    { id: "O", name: "OpenAI agent (notes only)", note: "185r (Precedents for the SWF design)" },
+    { id: "O", name: "OpenAI agent (notes only)", note: "" },
     { id: "E", name: "You · decisions", note: "delete old remote branches; feasibility rule; retired-tax switch; confirm the converge rerun" },
     { id: "G", name: "Held", note: "SWF redesign specification: after the speed-ups (151c, 154c)" }
   ];
@@ -287,7 +287,6 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     { id: "181c", lane: "4", at: 0, len: 1, st: "hold", t: "First full run, as the baseline and the template", needs: [{ id: "183c" }, { id: "171c" }, { id: "154c" }], why: "Run the final-size run once, split over Actions jobs, and keep it as (1) the reference every later change is compared with, and (2) the template for how a full run is started, recorded and read.", files: "results/final-run/ (new), results/speedup/ledger.md. The wor…" },
     { id: "183a", lane: "4", at: 0, len: 1, st: "review", t: "Split run, stage A: split.py (encode, decode, merge checks) and its tests", needs: [], why: "Build what 182c designed: partial files from `run.py`, a merge module, a matrix job and a merge job in the workflow.", files: "Completed from 182c; expected: model/model_v3/run.py (partia…" },
     { id: "183c", lane: "4", at: 0, len: 2, st: "hold", t: "Build the split final run and the exact merge", needs: [{ id: "183a" }, { id: "154c" }, { id: "178c" }], why: "Build what 182c designed: partial files from `run.py`, a merge module, a matrix job and a merge job in the workflow.", files: "Completed from 182c; expected: model/model_v3/run.py (partia…" },
-    { id: "185r", lane: "O", at: 0, len: 1, st: "ready", t: "Precedents for the SWF design (pilot for the OpenAI agent)", needs: [], why: "Find how real funds and reserves are sized, capped, drawn down and protected, so the author can judge the SWF redesign against precedent.", files: "" },
     { id: "186c", lane: "5", at: 0, len: 1, st: "hold", t: "Feasibility map by an OF1-only evaluation", needs: [{ id: "154c" }], why: "The feasibility map evaluates every point of the lever grid with the full evaluator and reads only `e['sweeps']['of1']`: per path `p3`, `M2` and `M4a` for each margin and horizon.", files: "model/model_v3/runner/runner.py, model/model_v3/runner/sweep…" }
   ];
   // plan:end
