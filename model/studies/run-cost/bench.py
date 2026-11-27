@@ -9,9 +9,9 @@
 arrays by dtype, shape and buffer; the same rule as tests/model/model_v3/test_pool.py). The file starts with a header: CPU model, cores, memory, numpy version,
 NPY_DISABLE_CPU_FEATURES, git SHA (and whether the tree was dirty), worker count. `compare` prints per case the time ratio AFTER/BEFORE and `identical: yes/no` and exits 1
 if any common case is not identical; it refuses to compare files whose CPU model, numpy version or NPY_DISABLE_CPU_FEATURES differ unless `--force`, and says so.
-Cases: eval_hh_20 and eval_leg_20 (one evaluation, household and legacy arm, 20 paths); tornado_1sched_20 (one schedule: 11 evaluations); root_1_20 (one O1e root);
-level1_1sched_1000; quick_headlines (needs run.py's --parts switch, brief 178c: unavailable before it); quick_full (run.py --size quick; the hash is of outputs.json with
-the run date masked). The small cases are the first five and take under three minutes together on two cores.
+Default (small) cases: eval_hh_20 and eval_leg_20 (one evaluation, household and legacy arm, 20 paths); root_1_20 (one O1e root): about 40 s per pass on two cores.
+On request (--cases): tornado_1sched_20 (one schedule: 11 evaluations, about 2.5 min); level1_1sched_1000 (about 2 min); quick_headlines (needs run.py's --parts switch, brief 178c: unavailable before it); quick_full (run.py --size quick; the hash is of outputs.json with
+the run date masked). A change that touches the tornado or level 1 runs those two as well.
 Set NPY_DISABLE_CPU_FEATURES=X86_V4 in the shell if you want to be sure: this script sets it with setdefault before numpy is imported, as model_v3.numerics does.
 """
 from __future__ import annotations
@@ -26,8 +26,9 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[3]
 SPEC, SEED = dict(tau_0=0.04, tau_m=0.5, k_ln=0.5, ratio=1.0), 20261118      # the timing.py spec and seed
-SMALL = ['eval_hh_20', 'eval_leg_20', 'tornado_1sched_20', 'root_1_20', 'level1_1sched_1000']
-ALL = SMALL + ['quick_headlines', 'quick_full']
+SMALL = ['eval_hh_20', 'eval_leg_20', 'root_1_20']                           # the default set: about 40 s per pass, two minutes with the warm-up and two reps
+MEDIUM = ['tornado_1sched_20', 'level1_1sched_1000']                      # on request (--cases): about 143 s and 129 s per pass
+ALL = SMALL + MEDIUM + ['quick_headlines', 'quick_full']
 NUMERICS = ('cpu_model', 'numpy', 'NPY_DISABLE_CPU_FEATURES')                # a difference here can move the numbers: compare refuses
 
 
@@ -181,7 +182,7 @@ def main(argv=None):
     sub.add_parser('list')
     a = p.parse_args(argv)
     if a.cmd == 'list':
-        print('small (default):', ', '.join(SMALL)); print('on request:', 'quick_headlines, quick_full'); return 0
+        print('small (default):', ', '.join(SMALL)); print('medium, on request:', ', '.join(MEDIUM)); print('long, on request: quick_headlines, quick_full'); return 0
     if a.cmd == 'compare':
         load = lambda f: json.loads(Path(f).read_text(encoding='utf-8'))
         return compare(load(a.before), load(a.after), a.force)
