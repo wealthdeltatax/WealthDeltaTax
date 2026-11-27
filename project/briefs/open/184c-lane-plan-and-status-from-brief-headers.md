@@ -50,8 +50,10 @@ If a status word in a current brief cannot be mapped (say, a free-text status li
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** nothing yet.
-- **Next:** block 0.
+- **Done:** block 0 (this block). Read: the page's `LANES`, `B` and `pack()`, the STATUS agent table, `check_agent_docs.py`, the `fast` job. 12 open briefs today, not 14; briefs 151c, 170c, 172c and 182c are in `done/`, so a `Needs` id found in `done/` counts as met (the page already ignores them).
+- **Next:** block 1 (parser, script, tests), then block 2 (migration, wiring), block 3 (change report).
+- **Resume:** branch `brief/184-lane-plan`, from `origin/main`.
+- **State:** underway
 <!-- progress:end -->
 
 ## Change report
