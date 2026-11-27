@@ -105,6 +105,11 @@ jobs:
           echo '+ python -I project/tools/check_agent_docs.py'
           python -I project/tools/check_agent_docs.py
 
+      - name: 'Lane plan and agent table (generated from the brief headers; run build_lane_plan.py if red)'
+        run: |
+          echo '+ python -I project/tools/build_lane_plan.py --check'
+          python -I project/tools/build_lane_plan.py --check
+
       - name: Tripwire
         run: |
           echo '+ python -I project/restructure/move_tripwire.py'

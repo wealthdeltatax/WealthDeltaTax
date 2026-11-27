@@ -1,6 +1,9 @@
 # 178: `--parts` switch, the fast loop
 
-- **Status:** draft; ready after 154c merges
+- **Status:** ready; 154c merged 2026-11-27
+- **Agent:** 2
+- **Needs:** 154c
+- **Length:** 1
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 154c (both change `run.py`; do not edit it in parallel)
 - **Read:** `model/model_v3/run.py` (`SIZES`, `NOT_RUN_RUN`, `run_point`, the O1e marker line); `model-specs/acceptance.md` (validation, `--final`); `model/model_v3/out/` validator entry; `results/run-cost/run-cost.md`

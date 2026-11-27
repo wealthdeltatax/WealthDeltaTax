@@ -12,12 +12,18 @@ Save to `project/briefs/open/NNNx-short-slug.md`. Keep a brief as short as the c
 | `r` | research (`wdt-research`): references, literature |
 | `s` | site (`wdt-web`): Quarto site, build, deploy |
 
+The four lines above are read by `project/tools/build_lane_plan.py`, which generates the lane plan and the agent table in `project/STATUS.md`; `check_agent_docs.py` fails on a bad one. A brief whose stages run apart may add `- **Row:** 183a | agent 4 | ready | needs none | length 1 | text` lines (one extra plan row each). After editing a header run `python -I project/tools/build_lane_plan.py`.
+
 Example: `001c-model-audit.md`. The heading inside the file stays `# 001: Title` (no letter).
 
 ```markdown
 # NNN: <Title>
 
-- **Status:** draft | ready | built | superseded | parked
+- **Status:** underway | review | ready | author | hold  (first word; draft and parked read as hold; the rest is free text)
+- **Agent:** 2 to 6, author, openai (the OpenAI agent: pure research or reasoning, deliverable is notes under project/inbox), or none
+- **Needs:** <ids of open briefs, ~ before a soft file-order need, e.g. 151c, ~176c; none>
+- **Length:** <sessions; default 1>
+- **Asks:** <optional: the decisions this brief needs from the author, short, separated by semicolons; shown in the "You" lane of the plan; delete the line when answered>
 - **Author/date:** <author> with the guru, <YYYY-MM-DD>
 - **Depends on:** <brief numbers, or none>
 - **Read:** <exact files and overview sections the agent needs; nothing else need be opened>

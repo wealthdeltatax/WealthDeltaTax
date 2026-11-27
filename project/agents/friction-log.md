@@ -107,3 +107,9 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Suggest: `code.md` says "run `git fetch --unshallow` first in every session that runs the tripwire"; run a stage in a scratch clone and bring it back with `git merge --squash`, never touch the clone while suites run.
 
 - 2026-11-26, 168c: the brief says `gh workflow run --ref <branch>` starts a new workflow once pushed; GitHub returns 404 for a workflow file that is not on the default branch, so the agent cannot start the first run without a merge of the skeleton to main. Also `accept.sh` step 1 (`python -I -m pytest`) fails at collection, and the digest fixtures depend on the CPU (AVX512 path of numpy).
+
+### 2026-11-27 · 176c · code
+- Instruction: 176c "Checks to run: `python model/tools/run_suites.py tools` and `project` suites".
+- Happened: `run_suites.py` knows only suites that hold a `conftest.py`; `tests/model/tools` and `tests/project` have none, so both names are refused (`unknown suite(s)`). Also the acceptance line "the small cases total under 3 minutes on this 2-core machine" was set from the 150c figures (about 176 s); this session's machine runs the same cases about 1.5 to 2 times slower (see the change report).
+- Cost: a few minutes; ran `python -m pytest tests/model/tools` and `tests/project` directly (12 and 22 passed).
+- Suggest: briefs name the pytest path for suites that `run_suites.py` does not list, or `run_suites.py` lists every `tests/` folder with tests; a time criterion names the machine's measured speed (bench header) or is stated as a ratio to a bench baseline.

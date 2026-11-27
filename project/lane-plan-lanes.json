@@ -1,0 +1,74 @@
+{
+  "lanes": [
+    {
+      "id": "1",
+      "name": "Agent 1 · Guru prime"
+    },
+    {
+      "id": "2",
+      "name": "Agent 2"
+    },
+    {
+      "id": "3",
+      "name": "Agent 3"
+    },
+    {
+      "id": "4",
+      "name": "Agent 4"
+    },
+    {
+      "id": "5",
+      "name": "Agent 5"
+    },
+    {
+      "id": "6",
+      "name": "Agent 6"
+    },
+    {
+      "id": "O",
+      "name": "OpenAI agent (notes only)"
+    },
+    {
+      "id": "E",
+      "name": "You · decisions"
+    },
+    {
+      "id": "G",
+      "name": "Held"
+    }
+  ],
+  "notes": {
+    "1": "writes and hands out the briefs; reviews the pushes as they land",
+    "E": ""
+  },
+  "agent1": {
+    "now": "reviewing pushes, writing briefs, housekeeping",
+    "next": "review each push as it lands; write the SWF redesign specification after 151c and 154c"
+  },
+  "todo": [
+    {
+      "id": "branches",
+      "t": "Delete the old remote branches",
+      "tag": "now",
+      "when": "Housekeeping; the guru never deletes remote branches",
+      "why": "Merged and abandoned `brief/*` branches clutter the repository. Only you delete remote branches.",
+      "steps": [
+        "`git fetch --prune origin`",
+        "`git branch -r --merged origin/main` lists the merged ones",
+        "Delete those on GitHub (Branches page) or `git push origin --delete <name>`; keep `inbox/openai` and any branch of a brief that is not yet merged"
+      ],
+      "qs": []
+    },
+    {
+      "id": "tag",
+      "t": "Tag the legacy models",
+      "tag": "later",
+      "when": "Any time",
+      "why": "Mark the last commit with the legacy models before the clean-up as `legacy-models-2026-11`.",
+      "steps": [
+        "`git tag legacy-models-2026-11 <commit>` then `git push origin legacy-models-2026-11`"
+      ],
+      "qs": []
+    }
+  ]
+}

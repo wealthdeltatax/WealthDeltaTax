@@ -7,6 +7,7 @@ Wealth Delta Tax: paper series in `papers/legacy/`, site build in `website/build
 - Build a brief, fix model or pipeline code: `project/agents/agent-code.md`
 - Draft, edit, format or compress a paper: `project/agents/agent-writing.md`
 - References, bibliography, literature: `project/agents/agent-research.md`
+- You are the OpenAI agent (read the repository, push notes only): `project/agents/agent-openai.md`
 - Site build, Quarto, deploy, rendering: `project/agents/agent-web.md`
 
 Do not open `project/OVERVIEW.md` in full (sections only), `project/briefs/done/`, `research/model-lessons/` or finished briefs.

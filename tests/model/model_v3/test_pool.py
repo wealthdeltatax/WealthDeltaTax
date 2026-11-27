@@ -72,3 +72,32 @@ def test_the_model_tornado_is_byte_identical_serial_and_parallel():
     ev, rows = R.make_ev(ctx, np.random.default_rng(5).standard_normal((100, 3))), {i: ctx.reg[i] for i in ('I-D1a',)}
     one, two = (S.tornado(ev, {'S': SPEC}, rows, {'I-D1a'}, workers=w) for w in (1, 2))
     assert same(one, two) and any(r['low'] != 0.0 for r in one)
+
+
+def test_level_1_is_byte_identical_for_workers_1_2_and_3():
+    """Brief 154c: the chunks' paths are drawn in order and the evaluations go through pmap: the Samples and the info do not depend on the worker count."""
+    lv, out = json.loads((ROOT / 'model' / 'model_v3' / 'levers.json').read_text()), yaml.safe_load((ROOT / 'model-specs' / 'outputs.yml').read_text())
+    tier1 = next(o for o in out['outputs'] if o['id'] == 'OT1')['by']['input']
+    ctx = R.context(pk.load_pack(ROOT / 'data' / 'country-packs' / 'GBR'), pk.load_register(ROOT / 'data' / 'input-register' / 'inputs.json'), lv, tier1, [o['id'] for o in out['outputs']])
+    specs = {'S_low': dict(SPEC, tau_m=0.5), 'S_high': SPEC}
+    run = lambda w: R.level1(ctx, specs, np.random.default_rng(7), n=30, chunk=10, workers=w)
+    one = run(1)
+    assert same(one, run(2)) and same(one, run(3)) and one[1]['paths'] == 30
+
+
+def test_a_shortfall_met_in_a_unit_reaches_the_callers_store_first_chunk_first(monkeypatch):
+    """The cap store is module state: a forked unit records into its own copy, so the record must travel back and merge in chunk order (the first record stands)."""
+    from types import SimpleNamespace
+    from model_v3.core import support as U
+    ctx = SimpleNamespace(centre={R.RET['mean']: 0.05, R.RET['sd']: 0.1, R.RET['phi']: 0.0}, gdp_g=0.01, ids=(), once=())
+    def fake(ctx, th, spec, g, gdp_g, seq=None, key=()):
+        if key[0] >= 1 and U._CAP is not None: U._CAP.setdefault('gains', (key[0], g.shape[1]))
+        return dict(unfilled=np.zeros(g.shape[1]))
+    monkeypatch.setattr(R, 'evaluate', fake); monkeypatch.setattr(R, 'cat', lambda parts: {'unfilled': np.concatenate([p['unfilled'] for p in parts])})
+    monkeypatch.setattr(R, 'samples', lambda *a: {}); monkeypatch.setattr(R, 'statics', lambda *a: 0)
+    for w in (1, 2, 3):
+        store = {}
+        with U.capping(store):
+            R.level1(ctx, {'S': SPEC}, np.random.default_rng(1), n=30, chunk=10, workers=w, cap=store)
+        assert store == {'gains': (1, 10)}, (w, store)           # chunk 1 is the first that met a shortfall, whatever the worker count
+    R.level1(ctx, {'S': SPEC}, np.random.default_rng(1), n=30, chunk=10, workers=2)   # no store: nothing is recorded, nothing breaks

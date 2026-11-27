@@ -6,20 +6,26 @@ Maintained by the guru. Last updated 2026-11-23 (137c, 136c, 133c, 131r, 134r, 1
 The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range model: government revenue, taxpayer burden and non-payer savings, reported as ranges across labelled scenario axes, never a central forecast. The v3 build is merged (scaffold, pack, schedule and kernel, base, revenue, burden, support, sweeps, output layer, runner groups). The **household arm** (Scenario B: income, saving and class-return account; 14 payer lines; pension inside the assessed base, never sold in life; pension-secured lien; per-path market returns) is built and merged through 137c; the legacy 3.5% arm is a comparator only. The diagnosis (136c) found the household arm is not low for a reason of its own: the M2 gap is the legacy arm's volatility plus one denominator defect, and the P6 gap is the fund's return. Remaining before the first official run: 135c (per-path loose ends), 138c (M2 on total wealth, fund return as a safe or market axis), 139c (register rows: lien rate 2% real central, pension basis multiplier, housing gain, fund return), then 057c `--final`. OF1 and CK1 stay pending until the feasibility diagnostic (140c) and your ruling (089c). Scenario switches queued: top-tail stock and saving gradient (147c), pension withdrawal, heir floor and per-path GDP (148c); evidence for the last (146r) is in progress. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s website/site/web).
 
 ## Agents
+<!-- agents:start -->
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
-| Agent 2 | free (151c merged 2026-11-27) | 154c (level 1 through the parallel map), then 178c |
-| Agent 3 | 176c (speed-up bench and rules) | 179c (re-profile), then 177c |
-| Agent 4 | free (182c design merged) | 183c (build the split and the merge) after 154c and 178c, then 181c |
-| Agent 5 | free | 171c (zero tolerance), then 153c |
-| Agent 6 | free | 180c (compiled kernel spike) after 179c and 171c |
+| Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review each push as it lands; write the SWF redesign specification after 151c and 154c |
+| Agent 2 | 178c (--parts switch, the fast loop) |  |
+| Agent 3 | 177c (quick time budget on Actions) | 179c |
+| Agent 4 | 183c (Build the split final run and the exact me…) | 181c |
+| Agent 5 | 186c (Feasibility map by an OF1-only evaluation) | 171c, then 152c, 153c |
+| Agent 6 | 180c (Compiled kernel spike) | 187c, then 180b |
+| OpenAI agent (notes only) | free |  |
+<!-- agents:end -->
 
 Six agents only. Agents change skill with the brief. Next housekeeping (author, 2026-11-24): the reorganisation, seven briefs (009c, 044c, 160c to 164c), 009c starts now (057c is paused), the 044c inventory after 009c. **Budget rule:** `model/model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model/model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 
 **Findings under review (2026-11-23):** 057c: one household evaluation 4.9 s at 20 paths, a full run hours to days (ruled: O1e at `median_mid` only; parallel evaluation is 150c). 140c: no schedule feasible under the household arm, even on a constant path; the cause is the six-phase death timing (M1a lumpy every fifth year), to be tested in 149c before you rule on the feasibility rule.
 
 ## Recently done
+- 2026-11-27: 176c merged and retired (speed-up bench, rules file, ledger; default bench set of three fast cases, 41.5 s). 185r closed (OpenAI pilot notes filed; two sources spot-checked). Agent 6 is on 180c.
+- 2026-11-27: 185r closed (OpenAI pilot, three notes on SWF precedents; filed in `research/notes/`, index and reply written; FDIC and Alberta figures spot-checked). Finding: no fund found with a stated maximum stock and an automatic sweep of the excess, so the cap and excess-release rule has no direct precedent; FDIC, Botswana and annual-draw rules (Alaska, Norway) are the nearest. 176c is not closed: one criterion unmet, waiting on the author (bench cases total 5.2 minutes against under 3).
+- 2026-11-27: 151c merged (tornado and roots 5.49x, `quick` only 1.92x: level 1 is now 66%, the map 15%). Author approved 186c (feasibility map by an OF1-only evaluation) and moving the kernel spike 180c ahead of 153c; 180c stage A needs only 176c. The sub-10-minute `quick` target now rests on 154c, 186c and the kernel.
 - 2026-11-26 night: speed-up programme briefed (author: optimise as a discipline; quick run under 10 min for the many-changes loop; full run reserved and waited for on Actions; lever 4 accepted; compiled kernel to be explored; 171c first). Ready now: 176c (bench and rules), 182c (split-run design), with 151c underway and 172c then 171c. After 151c: 154c (level 1 through `pmap`, `--workers` in the jobs); then 178c (`--parts` fast loop), 177c (budget check), 179c (re-profile with a decision table written first). Then 153c (roots; the author signs off the tolerance rule), 180c (numba spike with a pre-registered bar; it resolves against the pinned numpy), 152c parked. 183c builds the split run; 181c is the first full run, as baseline and template. Open for the author: the fast loop's contents, where 10 minutes is measured, the 153c rule, the 180c spike tolerance, and whether 181c counts as the first official run.
 - 2026-11-23: speed-up plan ruled (provisional brief 151c after 044c: headline-only evaluation for the tornado and O1e roots, byte-identical; 152c to 154c follow from its measurement; Rust and Julia on hold). Estimated 3 to 5x on the roots and the tornado, not yet measured.
 - 2026-11-23: 138c merged: M2 on total wealth; `fund_return` axis (`safe` default, `market`); I1 tolerance 1e-7 (`median_high` now runs at 200 paths); lien the pension cannot cover written off in the ledger. P6 at year 100 is 22 to 78 (`safe`) against 646 to 896 (`market`): the whole gap to the legacy arm is the fund's return. 139c wiring and the 140c `market` case are unblocked.

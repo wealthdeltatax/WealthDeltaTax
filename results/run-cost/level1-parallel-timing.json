@@ -1,0 +1,11 @@
+{
+ "paths": 1000,
+ "chunk": 1000,
+ "numerics": "X86_V4",
+ "cpu_count": 2,
+ "reps": 1,
+ "note": "model/studies/run-cost/level1_parallel.py, one fresh process per worker count. workers 1 and 2 come from one invocation; workers 0 (= 2 cores) from `--one 0` run on its own, because the invocation's own workers 0 child was OOM-killed (3.0 GB per worker on an 8 GB machine, 2 of 5 attempts); the digests are the script's.",
+ "level1_3sched_1000": {"workers_1": 327.25, "workers_2": 217.24, "workers_0": 215.66},
+ "identical_to_workers_1": {"workers_1": true, "workers_2": true, "workers_0": true},
+ "saving_workers_2": 1.51
+}

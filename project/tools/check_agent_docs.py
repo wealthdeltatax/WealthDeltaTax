@@ -24,6 +24,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build_lane_plan  # noqa: E402  (brief 184c: the open briefs' header lines are parsed by the same code that builds the lane plan)
+
 SCAN = ("AGENTS.md", "project/START_HERE.md", "project/agents/*.md", ".claude/skills/*/SKILL.md")
 EXTS = (".md", ".py", ".toml", ".json", ".yml", ".yaml", ".html", ".bib", ".skill", ".qmd")
 LINK = re.compile(r"\[[^\]]*\]\(([^)\s]+)\)")
@@ -81,6 +84,8 @@ def check(root: Path) -> list[str]:
             for g in guides:
                 if not (root / "project" / "agents" / g).is_file():
                     out.append(f"{rel}:1 guide project/agents/{g} does not exist")
+    if (root / "project" / "briefs" / "open").is_dir():                         # rule 4 (184c): header lines of the open briefs
+        out += build_lane_plan.problems(root)
     return out
 
 

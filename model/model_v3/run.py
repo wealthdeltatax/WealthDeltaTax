@@ -64,7 +64,7 @@ def run_point(ctx, inp, pt, named, man, n1, n2p, draws, seed, tol, be, w=1):
     cp = ctx if pt is None else replace(ctx, arm=dict(arm='household', inputs=inp, saving=POINTS[pt][0], regime=POINTS[pt][1]))
     st, cap, ends = rt.streams(seed), {}, {}
     with U.capping(cap):   # a comparator that cannot raise its target stays at the cap and is recorded (the first record, level 1's, stands): the point is labelled, never repaired
-        smp, info = R.level1(cp, named, st['level1_paths'], n=n1)
+        smp, info = R.level1(cp, named, st['level1_paths'], n=n1, workers=w, cap=cap)
         eps = st['tornado_crn'].standard_normal((R.T, n2p)); ev = R.make_ev(cp, eps, heads=True)   # the tornado and the roots read headlines only (151c)
         smp.update(osw.ot1(S.tornado(ev, named, {i: cp.reg[i] for i in cp.tier1}, R.reads(cp), workers=w)))
         if be:   # first point only; the safe fund ignores the generator mean, so the household arm's O1e is read under the market fund (author, 2026-11-23)

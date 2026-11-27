@@ -1,6 +1,9 @@
 # 177: `quick` time budget on Actions
 
-- **Status:** draft; ready after 154c merges
+- **Status:** ready; 154c merged 2026-11-27
+- **Agent:** 3
+- **Needs:** 154c, 176c
+- **Length:** 1
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 154c (the budget is set from its figure), 176c (bench)
 - **Read:** `.github/workflows/model-checks.yml` (jobs, `timeout-minutes`, the `lscpu` log step); `tests/model/model_v3/accept.sh`; `results/speedup/ledger.md`
