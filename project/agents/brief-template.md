@@ -20,7 +20,7 @@ Example: `001c-model-audit.md`. The heading inside the file stays `# 001: Title`
 # NNN: <Title>
 
 - **Status:** underway | review | ready | author | hold  (first word; draft and parked read as hold; the rest is free text)
-- **Agent:** 2 to 6, author, or none
+- **Agent:** 2 to 6, author, openai (the OpenAI agent: pure research or reasoning, deliverable is notes under project/inbox), or none
 - **Needs:** <ids of open briefs, ~ before a soft file-order need, e.g. 151c, ~176c; none>
 - **Length:** <sessions; default 1>
 - **Author/date:** <author> with the guru, <YYYY-MM-DD>

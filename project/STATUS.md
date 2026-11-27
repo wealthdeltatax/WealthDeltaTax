@@ -15,6 +15,7 @@ The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range mod
 | Agent 4 | 183a (Split run, stage A) | 183c, then 181c |
 | Agent 5 | 171c (Zero tolerance for knife-edge counts) | 152c, then 153c |
 | Agent 6 | 176c (Speed-up bench and the rules every speed-u…) | 180c |
+| OpenAI agent (notes only) | 185r (Precedents for the SWF design) |  |
 <!-- agents:end -->
 
 Six agents only. Agents change skill with the brief. Next housekeeping (author, 2026-11-24): the reorganisation, seven briefs (009c, 044c, 160c to 164c), 009c starts now (057c is paused), the 044c inventory after 009c. **Budget rule:** `model/model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model/model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.

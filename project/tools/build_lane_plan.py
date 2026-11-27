@@ -6,7 +6,7 @@ Exit 2 on a malformed header, naming the file and line.
 
 Header lines of a brief in project/briefs/open/ (before its first `## `):
   - **Status:** underway | review | ready | author | hold   (draft and parked read as hold; the rest of the line is free text)
-  - **Agent:** 2 to 6, author, or none
+  - **Agent:** 2 to 6, author, openai (the OpenAI agent), or none
   - **Needs:** 151c, 154c, ~176c   (ids of open briefs or rows; ~ = soft, same files so keep in order; ids of briefs in done/ count as met; none when empty)
   - **Length:** sessions (default 1)
   - **Row:** 183a | agent 4 | ready | needs none | length 1 | Split run, stage A   (optional, repeatable: an extra plan row for a stage that runs apart)
@@ -25,6 +25,7 @@ from pathlib import Path
 STATUS_WORDS = {'underway': 'under', 'review': 'review', 'ready': 'ready', 'author': 'author', 'hold': 'hold', 'draft': 'hold', 'parked': 'hold'}
 RANK = {'under': 0, 'review': 1, 'ready': 2, 'author': 3, 'hold': 4}    # the page's pack() order inside a lane
 AGENTS = {'2', '3', '4', '5', '6'}
+OTHERS = {'author', 'none', 'openai'}   # openai: the OpenAI agent (notes only, no repo access beyond a branch); lane O
 ID = r'\d+[a-z]'
 HEAD = re.compile(r'^- \*\*(Status|Agent|Needs|Length|Row):\*\*\s*(.*?)\s*$')
 FILES_CUT = 60
@@ -108,8 +109,8 @@ def parse_brief(path: Path, root: Path):
     if st is None:
         errors.append(f'{rel}:{line_of["Status"]} unknown status word in "{seen["Status"][:40]}" (use underway, review, ready, author, hold)')
     agent = seen['Agent'].strip().lower()
-    if agent not in AGENTS | {'author', 'none'}:
-        errors.append(f'{rel}:{line_of["Agent"]} agent "{seen["Agent"]}" is not 2 to 6, author or none')
+    if agent not in AGENTS | OTHERS:
+        errors.append(f'{rel}:{line_of["Agent"]} agent "{seen["Agent"]}" is not 2 to 6, author, openai or none')
     needs = parse_needs(seen['Needs'])
     if needs is None:
         errors.append(f'{rel}:{line_of["Needs"]} Needs "{seen["Needs"]}" is not a list of ids like 151c, ~176c or none')
@@ -122,13 +123,13 @@ def parse_brief(path: Path, root: Path):
     out = [Brief(bid, rel, line_of['Status'], title, goal, touches, agent, needs or [], length, st)]
     for n, val in rows:
         f = [x.strip() for x in val.split('|')]
-        m = len(f) == 6 and re.fullmatch(ID, f[0]) and re.fullmatch(r'agent (\d|author|none)', f[1]) and re.fullmatch(r'needs (.*)', f[3]) and re.fullmatch(r'length ([1-9]\d*)', f[4])
+        m = len(f) == 6 and re.fullmatch(ID, f[0]) and re.fullmatch(r'agent (\d|author|openai|none)', f[1]) and re.fullmatch(r'needs (.*)', f[3]) and re.fullmatch(r'length ([1-9]\d*)', f[4])
         if not m:
             errors.append(f'{rel}:{n} Row line is not "id | agent N | status | needs LIST | length N | text"')
             continue
         rs, rn = status_of(f[2]), parse_needs(re.fullmatch(r'needs (.*)', f[3]).group(1))
         ra = re.fullmatch(r'agent (.*)', f[1]).group(1)
-        if rs is None or rn is None or ra not in AGENTS | {'author', 'none'}:
+        if rs is None or rn is None or ra not in AGENTS | OTHERS:
             errors.append(f'{rel}:{n} Row line has an unknown status, agent or needs')
             continue
         out.append(Brief(f[0], rel, n, f[5], goal, touches, ra, rn, int(f[4].split()[1]), rs, is_row=True))
@@ -184,7 +185,7 @@ def problems(root: Path) -> list[str]:
 
 
 def lane_of(b: Brief) -> str:
-    return {'author': 'E', 'none': 'G'}.get(b.agent, b.agent)
+    return {'author': 'E', 'none': 'G', 'openai': 'O'}.get(b.agent, b.agent)
 
 
 def depth(b, by_id, seen=None):
@@ -241,6 +242,8 @@ def agent_table(briefs, fixed):
         now = f'{order[0].id} ({short(order[0].title)})' if order else 'free'
         nxt = ', then '.join([', '.join(b.id for b in order[1:2])] + [', '.join(b.id for b in order[2:])]) if len(order) > 2 else (order[1].id if len(order) == 2 else '')
         rows.append(f'| Agent {a} | {now} | {nxt} |')
+    order = lane_order(briefs, 'O')
+    rows.append('| OpenAI agent (notes only) | %s | %s |' % (f'{order[0].id} ({short(order[0].title)})' if order else 'free', ', '.join(b.id for b in order[1:])))
     return '\n'.join(rows)
 
 

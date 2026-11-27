@@ -154,3 +154,13 @@ def test_check_agent_docs_reports_the_same_header_problems(tmp_path):
 
 def test_the_real_tree_is_clean():
     assert blp.problems(ROOT) == []
+
+
+def test_openai_agent_briefs_go_to_lane_o_and_the_table_row(tmp_path):
+    root = tree(tmp_path, {"150c-x.md": brief("150c", agent="openai"), "151c-y.md": brief("151c", agent="openai", status="hold; waits", needs="150c")})
+    briefs, _, errors = blp.load(root)
+    fixed = json.loads((root / "project/lane-plan-lanes.json").read_text(encoding="utf-8"))
+    assert errors == [] and {blp.lane_of(b) for b in briefs} == {"O"}
+    table = blp.agent_table(briefs, fixed)
+    assert "| OpenAI agent (notes only) | 150c (Do a thing) | 151c |" in table
+    assert blp.agent_table([], fixed).endswith("| OpenAI agent (notes only) | free |  |")

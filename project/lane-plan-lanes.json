@@ -25,6 +25,10 @@
       "name": "Agent 6"
     },
     {
+      "id": "O",
+      "name": "OpenAI agent (notes only)"
+    },
+    {
       "id": "E",
       "name": "You · decisions"
     },
