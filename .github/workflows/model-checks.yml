@@ -221,8 +221,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
-      # Seconds, measured on the hosted 4-core runner: median of three runs plus 25% (brief 177c, results/speedup/ledger.md). Set after the first runs.
-      QUICK_BUDGET_S: '99999'
+      # Seconds, hosted 4-core runner (brief 177c): the slowest of three runs (EPYC 7763, 1335 s) plus 25%; the median rule alone (975 s plus 25%, 1219 s) would fail that CPU family. Ledger: results/speedup/ledger.md.
+      QUICK_BUDGET_S: '1670'
     steps:
       - name: Checkout (full history)
         uses: actions/checkout@v4
