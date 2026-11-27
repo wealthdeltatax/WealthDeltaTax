@@ -9,6 +9,7 @@ r = d['run']
 nul = lambda x: x is None or (isinstance(x, dict) and any(map(nul, x.values()))) or (isinstance(x, list) and any(map(nul, x)))
 bad = [f'no entry for {e["id"]}' for k in ('outputs', 'checks') for e in m[k] if e['id'] not in d['outputs']]
 bad += ['a null cell'] * nul(d['outputs'])
+bad += [f'run.parts is {p!r}: a partial run is refused' for p in [r.get('parts')] if p is not None]
 bad += [f'run.{k} is {r.get(k)!r}' for k, ok in (('fixture', r.get('fixture') is False), ('seed', r.get('seed') == 20261118), ('paths', r['paths'] >= 1000), ('level2_paths', r.get('level2_paths', 0) >= 50),
         ('unfilled_paths', r.get('unfilled_paths', 0) <= 0.05 * r['paths']), ('status', r['status'] == 'provisional')) if not ok]
 print('\n'.join(bad) or 'step 5: ok'); sys.exit(1 if bad else 0)

@@ -88,3 +88,40 @@ def test_seeded_breakages_fail_acceptance_steps_5_and_6(good, tmp_path):
         assert accept('--check', str(g)) != 0
     g = tmp_path / 'rerun.json'; g.write_text(json.dumps(d) + ' ')               # a non-identical rerun
     assert accept('--compare', str(f), str(f)) == 0 and accept('--compare', str(f), str(g)) != 0
+
+
+def partial(d, parts):
+    """The smoke file as a run of `parts` would write it: the entries of every part left out become `not_run` (178c)."""
+    d = copy.deepcopy(d); d['run']['parts'] = list(parts)
+    for oid, e in d['outputs'].items():
+        part = 'map' if oid in ('OF1', 'CK1') else {'OT1': 'tornado', 'O1e': 'o1e'}.get(oid, 'level1')
+        if part not in parts: d['outputs'][oid] = {'summary': e['summary'], 'cells': [], 'not_run': 'not_run_this_run'}
+    return d
+
+def test_partial_file_validates_for_its_parts_and_is_refused_elsewhere(good, tmp_path):
+    base, f = json.loads(good[1].read_text()), tmp_path / 'p.json'
+    def check(d, *flags): f.write_text(json.dumps(d)); return validate(f, *flags).returncode
+    ok = partial(base, ('level1', 'map'))
+    assert sum(e.get('not_run') == 'not_run_this_run' for e in ok['outputs'].values()) == 2 and ok['outputs']['OT1']['not_run'] and ok['outputs']['O1e']['not_run']
+    assert check(ok) == 0 and check(ok, '--final') != 0                                   # validates; --final refuses any partial file
+    bad = copy.deepcopy(ok); bad['outputs']['O1'] = {'summary': bad['outputs']['O1']['summary'], 'cells': [], 'not_run': 'not_run_this_run'}
+    assert check(bad) != 0                                                                 # an id of a part that ran cannot carry the marker
+    bad = copy.deepcopy(ok); bad['outputs']['OT1'] = base['outputs']['OT1']
+    assert check(bad) != 0                                                                 # an id of a part not run cannot carry values
+    bad = copy.deepcopy(ok); bad['outputs']['OT1']['not_run'] = 'pending'
+    assert check(bad) != 0
+    for parts in (['level1'], ['level1', 'bogus', 'map'], []):                             # map is required; names are the four
+        bad = copy.deepcopy(ok); bad['run']['parts'] = parts; assert check(bad) != 0, parts
+    assert check(partial(base, ('level1', 'map', 'tornado'))) == 0 and check(partial(base, ('map', 'o1e'))) == 0
+    d = copy.deepcopy(base); d['outputs']['OT1'] = {'summary': d['outputs']['OT1']['summary'], 'cells': [], 'not_run': 'not_run_this_run'}
+    assert check(d) != 0                                                                   # not_run with no run.parts: a full run has none
+
+def test_accept_refuses_a_partial_file(good, tmp_path):
+    f = tmp_path / 'p.json'; f.write_text(json.dumps(partial(json.loads(good[1].read_text()), ('level1', 'map'))))
+    assert accept('--check', str(f)) != 0
+
+def test_parts_list_must_include_map_and_use_the_four_names(tmp_path):
+    from model_v3 import run
+    for bad in ('level1', 'level1,bogus,map', ''):
+        with pytest.raises(SystemExit) as e: run.main(['--parts', bad, '--out', str(tmp_path)])
+        assert e.value.code == 2, bad
