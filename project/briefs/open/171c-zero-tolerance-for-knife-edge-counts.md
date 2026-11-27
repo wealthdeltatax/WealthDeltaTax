@@ -1,10 +1,9 @@
 # 171: Zero tolerance for knife-edge counts
 
-- **Status:** author; helper applied and quick comparison done on Actions (run 45964292332); waiting for the author to read the movement report before the pins are regenerated (tolerance decided: absolute 1e-9)
+- **Status:** underway on `brief/171-zero-tolerance`; author approved pin regeneration 2026-11-28 (absolute 1e-9)
 - **Agent:** 5
 - **Needs:** 172c
 - **Length:** 1
-- **Asks:** zero tolerance absolute 1e-9 (recommended) or relative
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 170c
 - **Read:** `results/169c-numerics/difference-report.md`, `model-specs/metrics.md` (O1f, O2b, O2c definitions), `model/model_v3/` where O1f and the O2 shares are computed

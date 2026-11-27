@@ -1,8 +1,8 @@
 # 152: One year loop shared by burden and ledger (household arm)
 
-- **Status:** hold; parked, until 179c names it
+- **Status:** ready; released by the author 2026-11-27 (the 180c profile already names it; 179c may refine)
 - **Agent:** 5
-- **Needs:** 179c
+- **Needs:** ~179c
 - **Length:** 1
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 179c (the profile says whether it is worth it), 171c

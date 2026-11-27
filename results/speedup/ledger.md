@@ -11,3 +11,15 @@ One row per merged speed-up lever (rules: `project/agents/reference/code/speedup
 | 150c | none: the unoptimised baseline | level1_1sched_1000 (household) | 74 s | 74 s | 1.00 | n/a | as above |
 | 150c | none: the unoptimised baseline | root_1_20 (O1e root, bracket check only, 2 evaluations) | 16.4 s | 16.4 s | 1.00 | n/a | as above |
 | 154c | level 1 through `pmap` (units of chunk x schedule), `--workers` | level1_3sched_1000 (household, workers 1 to 2) | 327 s | 217 s | 1.51 | yes at workers 1, 2, 3 (test); `quick` at workers 1 byte-equal to main; smoke equal except the recorded `workers` field | 2 cores, 8 GB, `NPY_DISABLE_CPU_FEATURES=X86_V4`; not bench.py; `quick` serial 2,319 s to 2,412 s (unit path about 4% dearer) |
+| 180c | numba-compiled `household_step` and `apply_payment` (spike, off by default, not adopted) | eval_hh_20 (household, 20 paths) | 9.35 s | 8.08 s | 0.86 | yes (hash equal; one evaluation at 200 paths 26.0 s to 22.2 s, also equal) | Xeon 2.30 GHz, 2 cores, 8 GB, numpy 2.5.3, numba 0.68.1, `NPY_DISABLE_CPU_FEATURES=X86_V4`; ab harness, not bench.py; see kernel-spike.md |
+| 186c | feasibility map runs only the OF1 group (`evaluate(only=)`) | whole quick map (50 paths, household, workers 1) | 328.7 s | 61.5 s | 0.19 | yes (map points and OF1 byte-equal; test on both arms; `quick` output equal but for `run_date`, see the brief) | 2 cores, `NPY_DISABLE_CPU_FEATURES=X86_V4`, `map_only.py`, best of 1 |
+
+## Actions timing, brief 177c (hosted 4-core runner, 15 GB, `--workers 4`, `NPY_DISABLE_CPU_FEATURES=X86_V4`, branch `brief/177-quick-budget`, never `--final`)
+
+| run id | CPU | `quick` wall | eval_hh_20 | eval_leg_20 | root_1_20 |
+|---|---|---:|---:|---:|---:|
+| 46065482351 | Intel Xeon 6975P-C | 975 s | 9.90 s | 2.31 s | 19.60 s |
+| 46065485244 | AMD EPYC 9V74 | 954 s | 11.66 s | 2.67 s | 23.31 s |
+| 46065488130 | AMD EPYC 7763 | 1335 s | 17.97 s | 4.10 s | 35.95 s |
+
+Median 975 s; slowest 1335 s. Budget `QUICK_BUDGET_S` = 1670 s (slowest plus 25%; the brief's rule, median plus 25%, gives 1219 s, which the EPYC 7763 run would fail). All three are over the author's target of 10 minutes (600 s) by 1.6 to 2.2 times. The Xeon 8573C named in the brief did not come up in these three runs.
