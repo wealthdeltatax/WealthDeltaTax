@@ -6,14 +6,16 @@ Maintained by the guru. Last updated 2026-11-23 (137c, 136c, 133c, 131r, 134r, 1
 The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range model: government revenue, taxpayer burden and non-payer savings, reported as ranges across labelled scenario axes, never a central forecast. The v3 build is merged (scaffold, pack, schedule and kernel, base, revenue, burden, support, sweeps, output layer, runner groups). The **household arm** (Scenario B: income, saving and class-return account; 14 payer lines; pension inside the assessed base, never sold in life; pension-secured lien; per-path market returns) is built and merged through 137c; the legacy 3.5% arm is a comparator only. The diagnosis (136c) found the household arm is not low for a reason of its own: the M2 gap is the legacy arm's volatility plus one denominator defect, and the P6 gap is the fund's return. Remaining before the first official run: 135c (per-path loose ends), 138c (M2 on total wealth, fund return as a safe or market axis), 139c (register rows: lien rate 2% real central, pension basis multiplier, housing gain, fund return), then 057c `--final`. OF1 and CK1 stay pending until the feasibility diagnostic (140c) and your ruling (089c). Scenario switches queued: top-tail stock and saving gradient (147c), pension withdrawal, heir floor and per-path GDP (148c); evidence for the last (146r) is in progress. Brief files are named `NNNx-slug.md`; the letter is the skill to open (g guru, w writing, c code, r research, s website/site/web).
 
 ## Agents
+<!-- agents:start -->
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
-| Agent 2 | 154c (level 1 through the parallel map) | 178c (`--parts` switch) |
-| Agent 3 | 184c (lane plan and agent table from the brief headers) | 179c (re-profile) after 151c, 154c and 176c, then 177c |
-| Agent 4 | 183c stage A (`split.py` and tests, new files only) | stages B onward after 154c and 178c; then 181c |
-| Agent 5 | 171c (zero tolerance) | 153c, then 152c |
-| Agent 6 | 176c (speed-up bench and rules) | 180c (compiled kernel spike) |
+| Agent 2 | 154c (Level 1 through the parallel map, and --wo…) | 178c |
+| Agent 3 | 177c (quick time budget on Actions) | 179c |
+| Agent 4 | 183a (Split run, stage A) | 183c, then 181c |
+| Agent 5 | 171c (Zero tolerance for knife-edge counts) | 152c, then 153c |
+| Agent 6 | 176c (Speed-up bench and the rules every speed-u…) | 180c |
+<!-- agents:end -->
 
 Six agents only. Agents change skill with the brief. Next housekeeping (author, 2026-11-24): the reorganisation, seven briefs (009c, 044c, 160c to 164c), 009c starts now (057c is paused), the 044c inventory after 009c. **Budget rule:** `model/model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model/model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 

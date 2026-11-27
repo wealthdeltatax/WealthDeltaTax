@@ -1,6 +1,9 @@
 # 180: Compiled kernel spike (numba first)
 
-- **Status:** draft; ready after 179c, and after 171c if the spike's output is to be compared in counts
+- **Status:** hold; draft, ready after 179c, and after 171c if the spike's output is to be compared in counts
+- **Agent:** 6
+- **Needs:** 171c, 179c
+- **Length:** 2
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 179c (decision table row "compiled year loop"), 171c (zero tolerance), 176c
 - **Read:** `results/speedup/profile-after-154c.md`; `model/model_v3/core/kernel.py` (603 lines: read the year loop and its callers only); `model/model_v3/runner/runner.py` `core_run`; `model-specs/computational-architecture-hypothesis.md`; `model-specs/architecture.md` 5.1 (layers)

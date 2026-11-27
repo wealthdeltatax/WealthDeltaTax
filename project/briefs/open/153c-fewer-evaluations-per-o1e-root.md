@@ -1,6 +1,9 @@
 # 153: Fewer evaluations per O1e root
 
-- **Status:** draft; needs the author's sign-off on the tolerance rule below before it is released
+- **Status:** hold; draft, needs the author's sign-off on the tolerance rule below before it is released
+- **Agent:** 5
+- **Needs:** 171c, 151c, 179c
+- **Length:** 1
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 171c (zero tolerance, so a real change is told from rounding), 151c (headline-only evaluation), 179c (profile), 176c (bench)
 - **Read:** `model/model_v3/runner/sweeps.py` (`breakeven_return`, `breakeven`); `results/run-cost/run-cost.md` ("Level 1 and O1e roots"); `model-specs/metrics.md` (O1e); `model/model_v3/run.py` (the O1e lines and the `no_sign_change_0_15` marker)

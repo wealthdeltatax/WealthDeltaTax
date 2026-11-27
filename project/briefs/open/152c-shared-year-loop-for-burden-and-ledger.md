@@ -1,6 +1,9 @@
 # 152: One year loop shared by burden and ledger (household arm)
 
-- **Status:** parked until 179c names it
+- **Status:** hold; parked, until 179c names it
+- **Agent:** 5
+- **Needs:** 179c
+- **Length:** 1
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 179c (the profile says whether it is worth it), 171c
 - **Read:** `results/speedup/profile-after-154c.md` (when it exists); `model/model_v3/runner/arm.py` (329 of 330 lines: new code goes in `switches.py` or a new file); `model/model_v3/core/burden.py`; `model-specs/architecture.md` 5.1

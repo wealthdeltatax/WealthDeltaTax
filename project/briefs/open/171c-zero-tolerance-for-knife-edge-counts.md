@@ -1,6 +1,9 @@
 # 171: Zero tolerance for knife-edge counts
 
-- **Status:** draft; released after 170c (author asked for pin first, then tolerance)
+- **Status:** ready; was draft, released after 170c (author asked for pin first, then tolerance)
+- **Agent:** 5
+- **Needs:** 172c
+- **Length:** 1
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 170c
 - **Read:** `results/169c-numerics/difference-report.md`, `model-specs/metrics.md` (O1f, O2b, O2c definitions), `model/model_v3/` where O1f and the O2 shares are computed

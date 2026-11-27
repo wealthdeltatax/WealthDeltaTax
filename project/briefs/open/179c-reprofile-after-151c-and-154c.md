@@ -1,6 +1,9 @@
 # 179: Re-profile after 151c and 154c, and decide what is left
 
-- **Status:** draft; ready after 151c and 154c merge
+- **Status:** hold; draft, ready after 151c and 154c merge
+- **Agent:** 3
+- **Needs:** 151c, 154c, 176c
+- **Length:** 1
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 151c, 154c, 176c
 - **Read:** `results/run-cost/run-cost.md`; `results/speedup/ledger.md`; `model-specs/computational-architecture-hypothesis.md` (Scenarios A to C); `model/model_v3/core/kernel.py` (the year loop), `model/model_v3/runner/runner.py` (`core_run`); `model/studies/run-cost/bench.py`
