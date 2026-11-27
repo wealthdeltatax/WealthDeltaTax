@@ -13,7 +13,7 @@ The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range mod
 | Agent 2 | 178c (--parts switch, the fast loop) |  |
 | Agent 3 | 177c (quick time budget on Actions) | 179c |
 | Agent 4 | 183c (Build the split final run and the exact me…) | 181c |
-| Agent 5 | 186c (Feasibility map by an OF1-only evaluation) | 152c, then 171c, 153c |
+| Agent 5 | 152c (One year loop shared by burden and ledger) | 171c, then 153c |
 | Agent 6 | 187c (Set the C1 limits from measured seed noise) |  |
 | OpenAI agent (notes only) | free |  |
 <!-- agents:end -->
