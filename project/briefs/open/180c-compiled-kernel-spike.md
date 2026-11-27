@@ -43,8 +43,24 @@ For the author: the spike tolerance above, or another.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Resume:**
-- **State:** draft
+- **Done:** stage A only (the brief's stop rule): profile of `eval_hh_20`, compiled `household_step` and `apply_payment` in `core/kernel_jit.py` behind `WDT_KERNEL=numba`, equality test, timings, report `results/speedup/kernel-spike.md`, ledger row. Result 1.16x at 20 paths, about 1.1x at 200, bit-identical. Under 2x, so stages B and C were not run.
+- **Next:** the author chooses A (stop), B (a whole-loop port as its own brief, `arm.py` in Touches) or C (stage C assessment only); see section 4 of the report. 152c (one year loop shared by burden and ledger) attacks the same call overhead and is the cheaper first lever.
+- **Resume:** branch `brief/180c-compiled-kernel-spike`; nothing to merge before the author's answer. The full `model_v3` suite (without `test_converge.py`) was still running when this was written; see Verification.
+- **State:** needs the author
 <!-- progress:end -->
+
+### Change report
+```
+Change report
+- Task: brief 180c, compiled kernel spike (numba): stage A only, stopped under the 2x line as the brief says
+- Files changed: model/model_v3/core/kernel_jit.py (new: compiled household_step and apply_payment, installed only under WDT_KERNEL=numba); tests/model/model_v3/test_kernel_jit.py (new: bit equality, skipped without numba); tests/model/model_v3/conftest.py (LAYER row); results/speedup/kernel-spike.md (report); results/speedup/ledger.md (one row); project/agents/friction-log.md, project/brief-suggestions.md; this brief.
+- What is different now: numba is optional and off; nothing changes unless WDT_KERNEL=numba and numba is installed. Measured: 1.16x on eval_hh_20 (9.35 s to 8.08 s), about 1.1x at 200 paths, outputs bit-identical.
+- New or changed interfaces: env switch WDT_KERNEL=numba (calls kernel_jit.install()); nothing is called by default. No workflow or pin change.
+- Acceptance criteria: stage A figures with machine header: met (report sections 1 and 2). Adoption bar point by point: met for points 1 to 3 (no; yes for the prototype; yes for the prototype), point 4 not run because stage B is not reached after under 2x. Default path byte-identical: met by construction (no file the numpy path imports was changed; git diff is a LAYER row, a ledger row and new files); not shown by a quick run. All suites pass with WDT_KERNEL unset: NOT MET as a complete check: the model_v3 suite without test_converge.py was still running (91 tests passed, none failed, when I stopped waiting); test_converge.py not run; other suites not run.
+- Deviations from the brief: the switch is in kernel_jit.install() on core.household, not in kernel.py, because the hook (runner/arm.py) is outside Touches and holds 37% of the loop; the timing harness was a scratch script, not bench.py (bench.py has no way to set the switch); no workflow spike job added (nothing to run in it).
+- Risks / follow-ups: author decision A, B or C (report section 4). 152c is the cheaper lever on the same overhead. Estimates in the report (a whole-loop port of about 1,000 lines, several days) are estimates.
+- Instruction friction: two entries added to project/agents/friction-log.md (suite run time; Touches left out arm.py).
+- Verification: tests/model/model_v3/test_kernel_jit.py and test_groups.py pass (7); eval_hh_20 hash equal both ways; 200-path hash equal both ways; fork pool and cold/warm cache load timed; full model_v3 suite not completed (above).
+- Overview sections likely needing an update: none until the author decides.
+- Commit / branch: brief/180c-compiled-kernel-spike (pushed, not merged: NEEDS THE AUTHOR)
+```

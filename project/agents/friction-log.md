@@ -113,3 +113,11 @@ The guru adds `- Status: open | fixed <commit> | dropped (reason)` when triaging
 - Happened: `run_suites.py` knows only suites that hold a `conftest.py`; `tests/model/tools` and `tests/project` have none, so both names are refused (`unknown suite(s)`). Also the acceptance line "the small cases total under 3 minutes on this 2-core machine" was set from the 150c figures (about 176 s); this session's machine runs the same cases about 1.5 to 2 times slower (see the change report).
 - Cost: a few minutes; ran `python -m pytest tests/model/tools` and `tests/project` directly (12 and 22 passed).
 - Suggest: briefs name the pytest path for suites that `run_suites.py` does not list, or `run_suites.py` lists every `tests/` folder with tests; a time criterion names the machine's measured speed (bench header) or is stated as a ratio to a bench baseline.
+
+## 180c (compiled kernel spike)
+- Instruction: 180c acceptance "all suites pass with `WDT_KERNEL` unset".
+- Happened: the `model_v3` suite has no stated run time; `test_converge.py` and `test_heads_only.py` run full evaluations (minutes per test), so one process was still under 20% after 15 minutes on 2 cores, and the CPU contention spoiled a timing run I had started alongside.
+- Cost: about 40 minutes of waiting; one timing run repeated.
+- Suggest: the check lists name a fast subset (and the expected total time) for a change that touches no file the numpy path imports, and say never to time while a suite runs.
+- Instruction: 180c Touches (`kernel.py`, `kernel_jit.py`) with the goal "hot year-loop body only".
+- Happened: the year loop's cost is mostly the household hook in `runner/arm.py` (37% of `eval_hh_20`), which is not in Touches, so the switch could not be put in the loop as designed; I installed the compiled functions into `core.household` instead.
