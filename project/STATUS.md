@@ -9,11 +9,11 @@ The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range mod
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
-| Agent 2 | free (151c merged 2026-11-27) | 154c (level 1 through the parallel map), then 178c |
-| Agent 3 | 176c (speed-up bench and rules) | 179c (re-profile), then 177c |
-| Agent 4 | free (182c design merged) | 183c (build the split and the merge) after 154c and 178c, then 181c |
-| Agent 5 | free | 171c (zero tolerance), then 153c |
-| Agent 6 | free | 180c (compiled kernel spike) after 179c and 171c |
+| Agent 2 | 154c (level 1 through the parallel map) | 178c (`--parts` switch) |
+| Agent 3 | free: waiting on the runner chain | 179c (re-profile) after 151c, 154c and 176c, then 177c |
+| Agent 4 | 183c stage A (`split.py` and tests, new files only) | stages B onward after 154c and 178c; then 181c |
+| Agent 5 | 171c (zero tolerance) | 153c, then 152c |
+| Agent 6 | 176c (speed-up bench and rules) | 180c (compiled kernel spike) |
 
 Six agents only. Agents change skill with the brief. Next housekeeping (author, 2026-11-24): the reorganisation, seven briefs (009c, 044c, 160c to 164c), 009c starts now (057c is paused), the 044c inventory after 009c. **Budget rule:** `model/model_v3/runner/arm.py` is at 329 of 330 lines, so new scenario-switch code goes in the new `model/model_v3/runner/switches.py` (budget 200); briefs 135c, 138c, 139c, 147c and 148c say so.
 

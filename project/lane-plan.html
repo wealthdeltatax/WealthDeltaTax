@@ -260,11 +260,11 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
 (function () {
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the pushes as they land" },
-    { id: "2", name: "Agent 2", note: "151c (headline-only evaluation); then 154c" },
-    { id: "3", name: "Agent 3", note: "176c (speed-up bench and rules); then 179c" },
-    { id: "4", name: "Agent 4", note: "182c (split run design); then 183c" },
-    { id: "5", name: "Agent 5", note: "172c now (from main); then 171c" },
-    { id: "6", name: "Agent 6", note: "Free; 180c (kernel spike) when 179c lands" },
+    { id: "2", name: "Agent 2", note: "154c (level 1 through the parallel map), then 178c" },
+    { id: "3", name: "Agent 3", note: "Free now; 179c (re-profile) after 151c, 154c and 176c, then 177c" },
+    { id: "4", name: "Agent 4", note: "183c stage A now (new files only); the rest after 154c and 178c; then 181c" },
+    { id: "5", name: "Agent 5", note: "171c (zero tolerance), then 153c, then 152c" },
+    { id: "6", name: "Agent 6", note: "176c (bench and rules), then 180c (compiled kernel spike)" },
     { id: "E", name: "You · decisions", note: "delete old remote branches; feasibility rule; retired-tax switch" },
     { id: "G", name: "Held", note: "SWF redesign specification: after 151c" }
   ];
@@ -272,15 +272,15 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   var B = [
     { id: "171c", lane: "5", at: 1, len: 1, st: "ready", t: "Zero tolerance for knife-edge counts (O1f, O2b, O2c)", needs: [{ id: "172c" }], why: "Counts of near-zero values depend on rounding; the tolerance makes them path-independent.", files: "model, metrics.md" },
     { id: "154c", lane: "2", at: 2, len: 1, st: "ready", t: "Level 1 through the parallel map; --workers in the Actions jobs (byte-identical)", needs: [{ id: "151c" }], why: "Level 1 is the serial floor; the accept job never used --workers. Same file as 151c (runner.py at budget), so after it.", files: "runner, run.py, accept.sh, workflow" },
-    { id: "176c", lane: "3", at: 0, len: 1, st: "ready", t: "Speed-up bench and the rules every speed-up follows", needs: [], why: "One timing and byte-proof script, a rules file, a ledger. Disjoint from 151c and 171c.", files: "model/studies/run-cost, project/agents/reference/code" },
+    { id: "176c", lane: "6", at: 0, len: 1, st: "ready", t: "Speed-up bench and the rules every speed-up follows", needs: [], why: "One timing and byte-proof script, a rules file, a ledger. Disjoint from 151c and 171c.", files: "model/studies/run-cost, project/agents/reference/code" },
     { id: "179c", lane: "3", at: 2, len: 1, st: "hold", t: "Re-profile after 151c and 154c; decide what is left", needs: [{ id: "151c" }, { id: "154c" }, { id: "176c" }], why: "Measures the guesses (split of the quick run; call overhead in core_run) and picks the next lever from a table written first.", files: "results/speedup" },
     { id: "177c", lane: "3", at: 3, len: 1, st: "hold", t: "quick time budget check on Actions", needs: [{ id: "154c" }, { id: "176c" }], why: "A slowdown fails a job. Gate measured on the hosted 4-core runner (proposal; the author confirms).", files: "workflow" },
     { id: "178c", lane: "2", at: 3, len: 1, st: "hold", t: "--parts switch: the fast loop (level-1 headlines in 3 to 5 min)", needs: [{ id: "154c" }], why: "Same file as 154c (run.py). Author names what the fast loop must hold.", files: "run.py, validator" },
     { id: "153c", lane: "5", at: 2, len: 1, st: "hold", t: "Fewer evaluations per O1e root (not byte-identical)", needs: [{ id: "171c" }, { id: "151c" }, { id: "179c" }], why: "Needs the author's sign-off on the tolerance rule: roots within 2 x 1e-2, flags identical, range moves at most 2e-2.", files: "sweeps, run.py" },
     { id: "180c", lane: "6", at: 3, len: 2, st: "hold", t: "Compiled kernel spike (numba first); measure speed and bits", needs: [{ id: "171c" }, { id: "179c" }], why: "Adoption bar written first; off by default; stops at stage A if under 2x.", files: "kernel, results/speedup" },
     { id: "152c", lane: "5", at: 4, len: 1, st: "hold", t: "One year loop for burden and ledger (parked)", needs: [{ id: "179c" }], why: "Only if the profile names it; may be dropped if the kernel is adopted.", files: "arm, burden" },
-    { id: "183c", lane: "4", at: 3, len: 2, st: "hold", t: "Build the split run and the merge; Actions matrix", needs: [{ id: "182c" }, { id: "154c" }, { id: "178c" }], why: "Split equals unsplit to the byte at smoke size.", files: "run.py, merge, workflow" },
-    { id: "181c", lane: "4", at: 5, len: 1, st: "hold", t: "First full run: baseline and template", needs: [{ id: "183c" }, { id: "171c" }, { id: "154c" }], why: "The comparison and the template for later full runs. Never --final.", files: "results/final-run" }
+    { id: "183c", lane: "4", at: 0, len: 2, st: "ready", t: "Build the split run and the merge; Actions matrix", needs: [{ id: "182c" }, { id: "154c" }, { id: "178c" }], why: "Stage A (new split.py and tests only, no edit to run.py or runner.py) starts now; stages B onward wait for 154c and 178c.", files: "run.py, merge, workflow" },
+    { id: "181c", lane: "4", at: 6, len: 1, st: "hold", t: "First full run: baseline and template", needs: [{ id: "183c" }, { id: "171c" }, { id: "154c" }], why: "The comparison and the template for later full runs. Never --final.", files: "results/final-run" }
   ];
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
 

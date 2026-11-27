@@ -1,6 +1,6 @@
 # 183: Build the split final run and the exact merge
 
-- **Status:** draft; the file list is completed from the 182c design
+- **Status:** stage A ready now (new `split.py` and its tests only; do not edit `run.py`, `runner.py` or the workflow); stages B onward wait for 154c and 178c
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 182c (design), 154c and 178c (both change `run.py`; build on top of them, not beside them)
 - **Read:** `results/split-run/design.md` (the stage plan at its end); `model/model_v3/run.py`; the design's named seams; `tests/model/model_v3/test_smoke.py`
