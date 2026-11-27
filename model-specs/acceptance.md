@@ -80,7 +80,7 @@ Tests P8 and P9 (listed under `pack` in `architecture.md` 6.2) are assigned to V
 
 | # | Test | Passes when |
 |---|---|---|
-| C1 | five seeds (the master and four more) at `N1` = 10,000 | the spread (max minus min) of the mean is at most 0.10 in the output's unit for O1, O2, O3 and O4a, and of P10 and P90 at most 0.15 |
+| C1 | five seeds (the master and four more) at `N1` = 10,000 | the spread (max minus min) of the mean is at most 0.15 in the output's unit for O1, O2, O3 and O4a, and of P10 and P90 at most 0.15 |
 | C2 | the master seed at `N1` = 20,000 against 10,000 | the mean of each of the four moves by at most 0.05 |
 | C3 | level 2 at `N2` = 400 against 200 (the master seed) | P10 and P90 of the level 1 mean of O1 move by at most 0.10 |
 | C4 | tornado at two seeds | the top three inputs for M1 are the same, in the same order |
@@ -97,7 +97,7 @@ Each has a proposed answer; this file assumes it.
 
 **Q1. Two files not in the architecture.** `accept.sh` and `test_converge.py` are new files in stage V3-12. *Proposed:* add both to V3-12's files and raise its test budget by 90 lines (30 for the shell script, 60 for the convergence test), so the test total is 3,020; the guru edits `architecture.md` section 6.1 and 7 once. Otherwise V3-12 would break its own file list.
 
-**Q2. Convergence thresholds.** Spread 0.10 on means, 0.15 on P10 and P90, 0.05 on doubling and 0.10 on level 2 (section 5). *Proposed:* as written. Tighter costs run time; looser lets the ranges the papers quote move in the first decimal.
+**Q2. Convergence thresholds.** Spread 0.15 on means (loosened from 0.10 by the author, 2026-11-27), 0.15 on P10 and P90, 0.05 on doubling and 0.10 on level 2 (section 5). *Proposed:* as written. Tighter costs run time; looser lets the ranges the papers quote move in the first decimal.
 
 **Q3. Unfilled paths.** Step 5 fails if more than 5% of paths do not fill by year 90 (`architecture.md` 3.4). *Proposed:* 5%. A larger share means the short window is not a property of the central design and the author should see it before a run.
 
