@@ -13,8 +13,8 @@ The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range mod
 | Agent 2 | 154c (Level 1 through the parallel map, and --wo…) | 178c |
 | Agent 3 | 177c (quick time budget on Actions) | 179c |
 | Agent 4 | 183a (Split run, stage A) | 183c, then 181c |
-| Agent 5 | 171c (Zero tolerance for knife-edge counts) | 152c, then 153c |
-| Agent 6 | 176c (Speed-up bench and the rules every speed-u…) | 180c |
+| Agent 5 | 171c (Zero tolerance for knife-edge counts) | 186c, then 152c, 153c |
+| Agent 6 | 176c (Speed-up bench and the rules every speed-u…) | 180c, then 180b |
 | OpenAI agent (notes only) | 185r (Precedents for the SWF design) |  |
 <!-- agents:end -->
 
@@ -23,6 +23,7 @@ Six agents only. Agents change skill with the brief. Next housekeeping (author, 
 **Findings under review (2026-11-23):** 057c: one household evaluation 4.9 s at 20 paths, a full run hours to days (ruled: O1e at `median_mid` only; parallel evaluation is 150c). 140c: no schedule feasible under the household arm, even on a constant path; the cause is the six-phase death timing (M1a lumpy every fifth year), to be tested in 149c before you rule on the feasibility rule.
 
 ## Recently done
+- 2026-11-27: 151c merged (tornado and roots 5.49x, `quick` only 1.92x: level 1 is now 66%, the map 15%). Author approved 186c (feasibility map by an OF1-only evaluation) and moving the kernel spike 180c ahead of 153c; 180c stage A needs only 176c. The sub-10-minute `quick` target now rests on 154c, 186c and the kernel.
 - 2026-11-26 night: speed-up programme briefed (author: optimise as a discipline; quick run under 10 min for the many-changes loop; full run reserved and waited for on Actions; lever 4 accepted; compiled kernel to be explored; 171c first). Ready now: 176c (bench and rules), 182c (split-run design), with 151c underway and 172c then 171c. After 151c: 154c (level 1 through `pmap`, `--workers` in the jobs); then 178c (`--parts` fast loop), 177c (budget check), 179c (re-profile with a decision table written first). Then 153c (roots; the author signs off the tolerance rule), 180c (numba spike with a pre-registered bar; it resolves against the pinned numpy), 152c parked. 183c builds the split run; 181c is the first full run, as baseline and template. Open for the author: the fast loop's contents, where 10 minutes is measured, the 153c rule, the 180c spike tolerance, and whether 181c counts as the first official run.
 - 2026-11-23: speed-up plan ruled (provisional brief 151c after 044c: headline-only evaluation for the tornado and O1e roots, byte-identical; 152c to 154c follow from its measurement; Rust and Julia on hold). Estimated 3 to 5x on the roots and the tornado, not yet measured.
 - 2026-11-23: 138c merged: M2 on total wealth; `fund_return` axis (`safe` default, `market`); I1 tolerance 1e-7 (`median_high` now runs at 200 paths); lien the pension cannot cover written off in the ledger. P6 at year 100 is 22 to 78 (`safe`) against 646 to 896 (`market`): the whole gap to the legacy arm is the fund's return. 139c wiring and the 140c `market` case are unblocked.

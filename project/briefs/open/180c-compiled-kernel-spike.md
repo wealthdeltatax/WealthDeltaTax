@@ -1,11 +1,12 @@
 # 180: Compiled kernel spike (numba first)
 
-- **Status:** hold; draft, ready after 179c, and after 171c if the spike's output is to be compared in counts
+- **Status:** ready; stage A (speed) starts as soon as 176c has merged; moved ahead of 153c (author, 2026-11-27)
 - **Agent:** 6
-- **Needs:** 171c, 179c
-- **Length:** 2
+- **Needs:** 176c
+- **Length:** 1
+- **Row:** 180b | agent 6 | hold | needs 171c | length 1 | Kernel spike, stages B (bits) and C (assessment)
 - **Author/date:** K. Ogata with the guru, 2026-11-26
-- **Depends on:** 179c (decision table row "compiled year loop"), 171c (zero tolerance), 176c
+- **Depends on:** 176c (bench). Stage A does not wait for 179c: if its profile has landed, read it; if not, a 10-minute `cProfile` of `eval_hh_20` picks the function to jit, and stage A's own speed-up answers the call-overhead question (under 2x: stop). Stage B waits for 171c (zero tolerance), so a count that moves is real. The 153c brief waits for this spike's report.
 - **Read:** `results/speedup/profile-after-154c.md`; `model/model_v3/core/kernel.py` (603 lines: read the year loop and its callers only); `model/model_v3/runner/runner.py` `core_run`; `model-specs/computational-architecture-hypothesis.md`; `model-specs/architecture.md` 5.1 (layers)
 
 ## Goal
