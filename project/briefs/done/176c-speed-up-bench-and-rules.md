@@ -1,6 +1,6 @@
 # 176: Speed-up bench and the rules every speed-up follows
 
-- **Status:** author; pushed on `brief/176c-speed-up-bench-and-rules`, not merged: the small bench cases total 5.2 min against the criterion of under 3 (all other criteria met). Guru recommends option (b) of its report: move `tornado_1sched_20` and `level1_1sched_1000` out of the default set
+- **Status:** done, merged and retired 2026-11-27
 - **Agent:** 6
 - **Needs:** none
 - **Length:** 1
@@ -49,7 +49,7 @@ None for the author.
 ## Implementation notes
 <!-- progress:start -->
 - **Done:** all blocks. After the author's ruling (2026-11-27, option 2) the default case set is eval_hh_20, eval_leg_20, root_1_20; tornado_1sched_20 and level1_1sched_1000 are on request.
-- **Next:** guru retires the brief.
+- **Next:** none (retired by the guru).
 - **Resume:** none
 - **State:** merged
 <!-- progress:end -->

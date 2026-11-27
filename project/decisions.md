@@ -2,6 +2,17 @@
 
 One entry per finished brief or settled question, at most 8 lines each. Newest first. Maintained by the guru.
 
+## 2026-11-27: 176c speed-up bench and the rules every speed-up follows
+- `model/studies/run-cost/bench.py` (`run`, `compare`, `list`): best-of-2 times and result hashes per case; `compare` says `identical: yes/no`, exits 1 on a difference and refuses a different CPU model, numpy version or numerics setting unless `--force`. Rules in `project/agents/reference/code/speedup.md` (21 lines); `results/speedup/ledger.md` seeded with 6 rows from 150c.
+- Author ruling (option 2): the default set is `eval_hh_20`, `eval_leg_20`, `root_1_20` (best times 12.6 + 3.0 + 25.9 = 41.5 s; a whole `run` 131 s); `tornado_1sched_20` and `level1_1sched_1000` are on request (`--cases`). Five cases took 5.2 min against the criterion of under 3.
+- Checked on retirement: two runs identical, times within 0.93 to 1.02; 7 bench tests pass; agent-document check exit 0.
+- Unrun: `quick_full` (about an hour) and `quick_headlines` (waits for the `--parts` switch, 178c).
+
+## 2026-11-27: 185r SWF precedents (OpenAI agent pilot), closed
+- Three notes and a change report in `project/inbox/from-openai/` (OA-20261127-01 to 04): no fund in the set holds a stock cap with an automatic sweep of the excess; nearest are a reserve target with residual allocation (Botswana) and a target ratio with relief by assessment or dividend (FDIC). Alaska's 5% and Norway's 3% bound annual flows, not the stock.
+- Guru spot-check, 2026-11-27: FDIC memo (2% designated ratio for 2025, 1.35% statutory minimum, dividends above 1.5%, no upper cap; a staff recommendation to the Board) and Bank of Botswana (six months of imports, the excess goes to the Pula Fund) both match. Other figures stay unverified; Chile's PRF size unit and current US state reserve multiples were not checked.
+- Options to test for the SWF redesign (held): short reserve as a multiple of expected refunds, of a stress-year refund, or months of outflow; a long-reserve trigger smoothed over several years with an explicit route back from emergency flexibility.
+
 ## 2026-11-22: tail pension ceiling (119c), a labelled scenario
 - Author: the tail lines (D10a, D10b, RL3, RL2, RL1) hold pension of at most the D10 mean pension per adult, an absolute amount, real: 0.386 £m (WAS Round 8, D10 pension share 36.4% of D10 wealth times D10 mean wealth per adult 1.06 £m). Register row I-D1l, one value, mid-point label, no low or high.
 - Why: no held distribution of pension wealth and no unit-record licence; with D10's class shares RL1 held 37% pension that is never sold, so the richest lines could not pay by year 69.
