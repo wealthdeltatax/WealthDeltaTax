@@ -10,7 +10,7 @@ The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range mod
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
 | Agent 2 | 154c (level 1 through the parallel map) | 178c (`--parts` switch) |
-| Agent 3 | free: waiting on the runner chain | 179c (re-profile) after 151c, 154c and 176c, then 177c |
+| Agent 3 | 184c (lane plan and agent table from the brief headers) | 179c (re-profile) after 151c, 154c and 176c, then 177c |
 | Agent 4 | 183c stage A (`split.py` and tests, new files only) | stages B onward after 154c and 178c; then 181c |
 | Agent 5 | 171c (zero tolerance) | 153c, then 152c |
 | Agent 6 | 176c (speed-up bench and rules) | 180c (compiled kernel spike) |

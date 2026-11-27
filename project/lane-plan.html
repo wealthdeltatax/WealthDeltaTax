@@ -261,7 +261,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the pushes as they land" },
     { id: "2", name: "Agent 2", note: "154c (level 1 through the parallel map), then 178c" },
-    { id: "3", name: "Agent 3", note: "Free now; 179c (re-profile) after 151c, 154c and 176c, then 177c" },
+    { id: "3", name: "Agent 3", note: "184c (lane plan from the brief headers); then 179c, 177c" },
     { id: "4", name: "Agent 4", note: "183c stage A now (new files only); the rest after 154c and 178c; then 181c" },
     { id: "5", name: "Agent 5", note: "171c (zero tolerance), then 153c, then 152c" },
     { id: "6", name: "Agent 6", note: "176c (bench and rules), then 180c (compiled kernel spike)" },
@@ -271,6 +271,7 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   // id, lane, (start session: ignored, computed from status and needs), length, status, title, needs [{id, soft}], text, files, tags
   var B = [
     { id: "171c", lane: "5", at: 1, len: 1, st: "ready", t: "Zero tolerance for knife-edge counts (O1f, O2b, O2c)", needs: [{ id: "172c" }], why: "Counts of near-zero values depend on rounding; the tolerance makes them path-independent.", files: "model, metrics.md" },
+    { id: "184c", lane: "3", at: 0, len: 1, st: "ready", t: "Build the lane plan and the STATUS agent table from the brief headers", needs: [], why: "No more hand-kept plan: the briefs are the source.", files: "project/tools, brief headers" },
     { id: "154c", lane: "2", at: 2, len: 1, st: "ready", t: "Level 1 through the parallel map; --workers in the Actions jobs (byte-identical)", needs: [{ id: "151c" }], why: "Level 1 is the serial floor; the accept job never used --workers. Same file as 151c (runner.py at budget), so after it.", files: "runner, run.py, accept.sh, workflow" },
     { id: "176c", lane: "6", at: 0, len: 1, st: "ready", t: "Speed-up bench and the rules every speed-up follows", needs: [], why: "One timing and byte-proof script, a rules file, a ledger. Disjoint from 151c and 171c.", files: "model/studies/run-cost, project/agents/reference/code" },
     { id: "179c", lane: "3", at: 2, len: 1, st: "hold", t: "Re-profile after 151c and 154c; decide what is left", needs: [{ id: "151c" }, { id: "154c" }, { id: "176c" }], why: "Measures the guesses (split of the quick run; call overhead in core_run) and picks the next lever from a table written first.", files: "results/speedup" },
