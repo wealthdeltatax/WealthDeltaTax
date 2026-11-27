@@ -9,7 +9,7 @@ The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range mod
 <!-- agents:start -->
 | Agent | Now | Next |
 |---|---|---|
-| Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review 135c, 057c, 140c, 146r as they land |
+| Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review each push as it lands; write the SWF redesign specification after 151c and 154c; account skill edits |
 | Agent 2 | 154c (Level 1 through the parallel map, and --wo…) | 178c |
 | Agent 3 | 177c (quick time budget on Actions) | 179c |
 | Agent 4 | 183a (Split run, stage A) | 183c, then 181c |
