@@ -65,10 +65,10 @@ def run_point(ctx, inp, pt, named, man, n1, n2p, draws, seed, tol, be, w=1):
     st, cap, ends = rt.streams(seed), {}, {}
     with U.capping(cap):   # a comparator that cannot raise its target stays at the cap and is recorded (the first record, level 1's, stands): the point is labelled, never repaired
         smp, info = R.level1(cp, named, st['level1_paths'], n=n1)
-        eps = st['tornado_crn'].standard_normal((R.T, n2p)); ev = R.make_ev(cp, eps)
+        eps = st['tornado_crn'].standard_normal((R.T, n2p)); ev = R.make_ev(cp, eps, heads=True)   # the tornado and the roots read headlines only (151c)
         smp.update(osw.ot1(S.tornado(ev, named, {i: cp.reg[i] for i in cp.tier1}, R.reads(cp), workers=w)))
         if be:   # first point only; the safe fund ignores the generator mean, so the household arm's O1e is read under the market fund (author, 2026-11-23)
-            evm = ev if pt is None else R.make_ev(replace(cp, arm={**cp.arm, 'fund_return': 'market'}), eps)
+            evm = ev if pt is None else R.make_ev(replace(cp, arm={**cp.arm, 'fund_return': 'market'}), eps, heads=True)
             roots = S.breakeven_return(evm, named, R.RET['mean'], draws=draws, tol=tol, workers=w); smp.update(osw.o1e(roots) if draws else {'O1e': {(s, 'single', (), None): np.full(3, r) for s, (r, _) in roots.items()}})
             ends = {s: [S._mean(evm(named[s], {R.RET['mean']: m})['M1']['short']) for m in (0.0, 15.0)] for s, (r, _) in roots.items() if not np.isfinite(r)}   # no root: the end values show the sign
     ents = asm.entries(man)

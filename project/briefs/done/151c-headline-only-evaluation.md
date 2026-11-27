@@ -1,6 +1,6 @@
 # 151: Headline-only evaluation for the tornado and the O1e roots
 
-- **Status:** ready (re-released 2026-11-26; block 0 is pushed on `brief/151c-headline-only-evaluation`; blocks 1 onward remain)
+- **Status:** done, merged 2026-11-27 (byte comparison: the two quick files differ only in the `run_date` line, accepted by the guru as a midnight artefact; 5.49x on the tornado and the roots, 1.92x on quick)
 - **Author/date:** K. Ogata with the guru, 2026-11-23
 - **Depends on:** 057c (merged), 150c (merged), 044c/164c (merged; paths in this brief are now `model/model_v3/...`, `project/...`; map in `project/restructure/file-layout-map.csv`). Not blocked by 170c or 171c, see the note below.
 - **Read (block 0: the first two only):** (1) `results/run-cost/run-cost.md` ("Cost by part", "What is left"); (2) `project/agents/agent-code.md`. Later: `model/model_v3/runner/runner.py` (`core_run` 197, `headlines` 220, `evaluate` 235, `make_ev` 257); `model/model_v3/runner/sweeps.py` (`headline`, `tornado` 86, `breakeven_return` about 125); `model/model_v3/runner/pool.py`; `model/studies/run-cost/timing.py`; `model-specs/computational-architecture-hypothesis.md` (Scenario A).
@@ -43,10 +43,12 @@ None for the author. The agent states which of the two designs in step 1 it used
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** none
-- **Next:** block 0 (after 044c merges)
-- **Resume:** none
-- **State:** draft; not started
+- **Done:** block 0; block 1 (pushed `504a248`: the switch `make_ev(..., heads=True)`, a parameter not a second factory, `runner.py` still 360 lines, `run.py` 120; `test_heads_only.py` byte equality on both arms; `tests/model/model_v3` 411 passed). Block 2 measured (2026-11-27, 2 cores, `NPY_DISABLE_CPU_FEATURES=X86_V4`): tornado one schedule 100.7 s to 18.3 s (5.49x), one O1e root 18.9 s to 3.4 s (5.49x), both byte-identical; the `quick` run 4,193 s to 2,182 s (1.92x). Section "Headline-only evaluation (151c)" in `results/run-cost/run-cost.md` with the profile top ten, why `quick` is under 2x (level 1 is 66% of what is left, the map 15%) and the projection of the full run (8.9 / 14.7 / 32.2 h serial against 32.2 / 64.2 / 160.2 h); block 3's note (what is largest now: O1e, then level 1, then the household loop) is in the same section.
+- **STOP, byte comparison:** the two `quick` files differ in one line, `run_date` (`2026-11-26` before, `2026-11-27` after: the runs straddled midnight); nothing else differs (`diff`, 377,764 bytes each). Not accepted by me under the stop rule. The author decides: rerun both the same day (about 106 min), or accept the one-line difference. `accept.sh --compare` has the same midnight exposure.
+- **Next:** the author's call on the comparison; then merge. Follow-ups: 152c to 154c as in the run-cost note.
+- **Decisions:** none taken. Not touched: the feasibility map keeps the full evaluator (it reads `e['sweeps']['of1']`, a group result).
+- **Resume:** `git checkout brief/151c-headline-only-evaluation`.
+- **State:** blocks 0 to 3 pushed; acceptance open on the byte comparison.
 <!-- progress:end -->
 
 ## Re-release note (guru, 2026-11-26)
