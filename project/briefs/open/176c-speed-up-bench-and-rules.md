@@ -18,7 +18,7 @@ Optimising is a discipline (author, 2026-11-26). Give every speed-up brief one s
 ## Design
 1. **`model/studies/run-cost/bench.py`.** One command: `python -I model/studies/run-cost/bench.py run --out FILE [--cases a,b]`. Cases (named, fixed specs and seeds): `eval_hh_20` (one household evaluation, 20 paths), `eval_leg_20`, `tornado_1sched_20`, `root_1_20` (one O1e root), `level1_1sched_1000`, `quick_headlines` (once 178c lands), `quick_full`. The small cases finish in under 3 minutes in total, so a developer can run them after every change; `quick_full` runs only when asked.
 2. **Record per case:** best of 2 wall seconds; a result hash (floats by hex, arrays by buffer, as `tests/model/model_v3/test_pool.py` does); and a header with CPU model, cores, memory, numpy version, `NPY_DISABLE_CPU_FEATURES`, git SHA, worker count.
-3. **`bench.py compare A B`:** per case the time ratio and `identical: yes/no`; refuses to compare files with different numerics settings or CPU model unless `--force`, and says so.
+3. **`bench.py compare A B`:** per case the time ratio and `identical: yes/no`; output files are compared with the `run_date` line excluded (151c's two `quick` files differed only there, because the runs straddled midnight; `accept.sh --compare` has the same exposure, so the agent either excludes the line there too or pins it, and says which); refuses to compare files with different numerics settings or CPU model unless `--force`, and says so.
 4. **Rules file `project/agents/reference/code/speedup.md`** (at most 40 lines), one link added to `project/agents/agent-code.md`:
    - profile first, then pick the lever; one lever per brief;
    - before and after from `bench.py` on the same machine and numerics setting, best of two, header recorded;
