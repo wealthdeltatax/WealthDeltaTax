@@ -1,6 +1,6 @@
 # 171: Zero tolerance for knife-edge counts
 
-- **Status:** underway on `brief/171-zero-tolerance`; author approved pin regeneration 2026-11-28 (absolute 1e-9)
+- **Status:** author; done on `brief/171-zero-tolerance`, pushed, not merged; needs the author to merge
 - **Agent:** 5
 - **Needs:** 172c
 - **Length:** 1
@@ -46,4 +46,20 @@ Whether the tolerance should be absolute or relative per output (step 2 informs 
 - **Step 4, runs.** Smoke (local, 50 paths): `outputs.json` byte-identical on both numerics paths. Quick (Actions run 45964292332, hosted runner, `.github/workflows/171c-quick.yml`, temporary; `results/171c-zero-tolerance/compare_outputs.py`): new code on the forced path (`new_off`) against the AVX512 path (`new_avx`): **O1f 0 of 22, O2b 0 of 200, O2c 0 of 222 values differ**. Whole-file sha256 differ (`run_date`).
 - **Movement from the old pins** (old code at 49c2bfd, forced path, against new code, forced path; quick size, differing values of the compared cells): O1f 3 of 19, max abs 1 (a path-count flip at zero-in-theory net revenue); O2b 18 of 200, max abs 1.85 points, max rel 0.061; O2c 12 of 222, max abs 0.60 points, max rel 0.061. All other outputs: not listed by the script's id filter; run `compare_outputs.py --all` locally if wanted.
 - **Not done:** whether the runner had AVX512 is in the `lscpu` step of the quick jobs (not read); the full suites, the tripwire and `fast` on this branch after the merge of main; pin regeneration (separate commits, after the author reads this); remove the temporary workflow before merge.
+- **Done:** all steps; report below. **State:** done
+
+```
+Change report
+- Task: 171c Zero tolerance for knife-edge counts
+- Files changed: model/model_v3/core/kernel.py (`ZERO_TOL = 1e-9`, `neg`, `pos`); core/burden.py:142 (O2b/O2c payers), core/revenue.py (`P4_first_negative`, `negative_share`), runner/runner.py (O1f `neg`; imports merged to keep the 360-line budget at the 186c state); model-specs/metrics.md (rule); tests/model/model_v3/test_kernel.py (test); pins: tests/model/model_v3/fixtures/legacy_digest.json, tests/model/model_v3/test_groups.py `PIN`, project/restructure/move-tripwire-baseline.json (three commits plus a fix-up); results/171c-zero-tolerance/compare_outputs.py (per-output comparison); this brief.
+- What is different now: a value within 1e-9 of zero is zero in the counts and shares of O1f, O2b, O2c, P4_first_negative and negative_share, whatever the CPU rounds it to. O1f, O2b and O2c no longer depend on the numerics path.
+- New or changed interfaces: `kernel.neg(x)`, `kernel.pos(x)`, `kernel.ZERO_TOL`.
+- Acceptance criteria: (1) O1f, O2b, O2c identical on both paths: met (quick, Actions run 45964292332: 0 of 22, 200 and 222 values differ; smoke byte-identical). (2) quick-size movement from the old pins per output: reported (O1f 3 of 19 values, max abs 1; O2b 18 of 200, max abs 1.85 points, max rel 0.061; O2c 12 of 222, max abs 0.60 points, max rel 0.061; all other outputs not listed by the script's default, `--all` available). (3) all suites and the tripwire pass: met (`fast`, Actions run 46076773779, success; local legacy digest test passes). (4) `fast` green on Actions: met.
+- Deviations from the brief: the M2 payer mask (`burden.py:130`) is left as `net > 0` (value-weighted, a tiny net adds nothing); the movement table lists only O1f, O2b and O2c. Pin 1 was first captured without `NPY_DISABLE_CPU_FEATURES=X86_V4` (the script does not set it) and recaptured in pin 1b.
+- Risks / follow-ups: `test_legacy_digest.py --capture` run as a script uses the AVX512 path unless the variable is set; pins must be captured with it (worth a line in the file's docstring). Digest movement on the forced path: samples, runner and burden group digests change; revenue and support digests equal the old pins.
+- Instruction friction: the capture command in `test_legacy_digest.py` does not say it must run with the forced numerics path.
+- Verification: tests above; tripwire before the baseline change differed only in the `legacy_digest.json` hash; after, passes in `fast`. Not run: full suites locally (Actions `fast` covers them).
+- Overview sections likely needing an update: none
+- Commit / branch: see the branch head, `brief/171-zero-tolerance`
+```
 <!-- progress:end -->
