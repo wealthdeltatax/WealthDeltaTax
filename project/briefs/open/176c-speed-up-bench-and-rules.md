@@ -1,6 +1,9 @@
 # 176: Speed-up bench and the rules every speed-up follows
 
 - **Status:** ready
+- **Agent:** 6
+- **Needs:** none
+- **Length:** 1
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** none (runs alongside 151c and 171c; disjoint files)
 - **Read:** `results/run-cost/run-cost.md` ("One evaluation", "Level 1 and O1e roots"); `model/studies/run-cost/timing.py` and `speedup.py`; `project/agents/reference/code/conventions.md`; `tests/model/model_v3/accept.sh` (steps 5 and 6)

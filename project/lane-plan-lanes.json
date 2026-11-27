@@ -1,0 +1,21 @@
+{
+  "lanes": [
+    {"id": "1", "name": "Agent 1 · Guru prime"},
+    {"id": "2", "name": "Agent 2"},
+    {"id": "3", "name": "Agent 3"},
+    {"id": "4", "name": "Agent 4"},
+    {"id": "5", "name": "Agent 5"},
+    {"id": "6", "name": "Agent 6"},
+    {"id": "E", "name": "You · decisions"},
+    {"id": "G", "name": "Held"}
+  ],
+  "notes": {
+    "1": "writes and hands out the briefs; reviews the pushes as they land",
+    "E": "delete old remote branches; feasibility rule; retired-tax switch",
+    "G": "SWF redesign specification: after 151c"
+  },
+  "agent1": {
+    "now": "reviewing pushes, writing briefs, housekeeping",
+    "next": "review 135c, 057c, 140c, 146r as they land"
+  }
+}

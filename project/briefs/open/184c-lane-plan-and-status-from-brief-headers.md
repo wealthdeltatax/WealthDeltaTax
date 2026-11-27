@@ -1,6 +1,6 @@
 # 184: Build the lane plan and the STATUS agent table from the brief headers
 
-- **Status:** ready
+- **Status:** review (branch pushed)
 - **Agent:** 3
 - **Needs:** none
 - **Length:** 1
@@ -50,11 +50,22 @@ If a status word in a current brief cannot be mapped (say, a free-text status li
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** block 0 (this block). Read: the page's `LANES`, `B` and `pack()`, the STATUS agent table, `check_agent_docs.py`, the `fast` job. 12 open briefs today, not 14; briefs 151c, 170c, 172c and 182c are in `done/`, so a `Needs` id found in `done/` counts as met (the page already ignores them).
-- **Next:** block 1 (parser, script, tests), then block 2 (migration, wiring), block 3 (change report).
-- **Resume:** branch `brief/184-lane-plan`, from `origin/main`.
-- **State:** underway
+- **Done:** blocks 0 to 2: `build_lane_plan.py`, 14 tests, `lane-plan-lanes.json`, markers in the page and STATUS, headers migrated on the 11 other open briefs, `check_agent_docs.py` and the `fast` job wired, template and guru rules updated.
+- **Next:** block 3: merge decision (below), then retire this brief.
+- **Resume:** `python -I project/tools/build_lane_plan.py` after any header edit.
+- **State:** review (branch pushed)
 <!-- progress:end -->
 
 ## Change report
-(The agent fills this in, per `project/agents/change-report.md`.)
+Change report
+- Task: brief 184c, lane plan and STATUS agent table generated from the brief headers
+- Files changed: `project/tools/build_lane_plan.py` (new), `tests/project/tools/test_build_lane_plan.py` (new, 14 tests), `project/lane-plan-lanes.json` (new), `project/lane-plan.html` (four markers, generated arrays, footer text), `project/STATUS.md` (markers, generated table), the header lines of the 11 other open briefs (Status first word, Agent, Needs, Length; Row on 183c), `project/tools/check_agent_docs.py` (rule 4), `.github/workflows/model-checks.yml` (one step in `fast`), `project/agents/brief-template.md`, `project/agents/agent-guru.md`
+- What is different now: edit a brief header and run `python -I project/tools/build_lane_plan.py`; the page and the table follow. CI and `check_agent_docs.py` fail on a stale plan or a bad header.
+- Acceptance criteria: header edit changes only the page and table (tested); `--check` green now, red after a header edit (shown with Agent 3 to 4); a brief moved to `done/` leaves the plan and a new one joins (tested); first brief of each agent at session 1 (headless load: bars of agents 2 to 6 at slot 0, identical positions to the hand-kept page for all 13 bars; only the external-font error appeared); migration differences below.
+- Migration differences (generated against hand-kept): bar lane, length, status and position are identical for all 13 rows. Differences: (1) titles and tooltip text now come from each brief's H1 and Goal first sentence, files text from Touches cut to 60 characters (all 13 rows); (2) `Needs` ids of briefs in `done/` (151c on 153c and 154c, 172c on 171c) are kept in the headers but not drawn, so 153c, 154c, 171c and 179c lose that arrow, as before the page ignored them; (3) lane notes and the Next column are now "first brief, then the rest" in the page's own order: Agent 3 "177c, 179c" (was 179c, 177c), Agent 5 "152c, 153c" (was 153c, 152c), Agent 4 now leads with 183a; Agent 1, E and G keep fixed text; (4) the page's DOM order is by id; (5) 183a now has the parent's Goal and Touches text; (6) 153c's page needs line had 176c missing and 151c present: kept as the page had it.
+- Deviations from the brief: briefs in `done/` count as met needs (the brief said unknown ids are errors; 151c, 170c, 172c, 182c are finished). 12 open briefs, not 14. `run_suites.py project` does not exist (suites: data, gate, cards, model_v3, hooks, glossary, layout, nav, pages, retired); I ran `pytest tests/project` instead (36 passed). Unassigned (`none`) briefs go in the Held lane.
+- Risks / follow-ups: the status words of free text are now prefixed (for example "hold; draft, ready after 154c merges"); 154c still says "ready after 151c merges" with status ready, as the page shows it. Other agents editing STATUS.md's agent table by hand will conflict: take upstream and re-run the script.
+- Instruction friction: none
+- Verification: 14 new tests; `pytest tests/project` 36 passed; `check_agent_docs.py` exit 0; `--check` exit 0; headless load of the page.
+- Overview sections likely needing an update: none (OVERVIEW does not describe the plan)
+- Commit / branch: brief/184-lane-plan

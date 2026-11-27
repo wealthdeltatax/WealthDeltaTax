@@ -1,6 +1,9 @@
 # 154: Level 1 through the parallel map, and `--workers` in the Actions jobs
 
 - **Status:** ready after 151c merges
+- **Agent:** 2
+- **Needs:** 151c
+- **Length:** 1
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 151c (both change `runner.py`, which is at its 360-line budget; do not edit it in parallel). 176c helps (bench) but does not block.
 - **Read:** `results/run-cost/run-cost.md` ("Parallel evaluation", "What is left" item 2); `model/model_v3/runner/pool.py`; `model/model_v3/runner/runner.py` (the level 1 fold over chunks of 1,000 paths); `model/model_v3/run.py` (`--workers`, `run_point`); `tests/model/model_v3/test_pool.py`; `tests/model/model_v3/accept.sh` line 21
