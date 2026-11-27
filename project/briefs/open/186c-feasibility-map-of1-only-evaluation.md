@@ -1,6 +1,6 @@
 # 186: Feasibility map by an OF1-only evaluation
 
-- **Status:** ready; 154c merged 2026-11-27
+- **Status:** author; done on `brief/186-map-of1-only`, pushed, not merged; needs the author to merge
 - **Agent:** 5
 - **Needs:** 154c
 - **Length:** 1
@@ -35,8 +35,21 @@ None for the author.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Resume:**
-- **State:** hold
+- **Done:** all of it (report below). **Next:** author merges. **State:** done
 <!-- progress:end -->
+
+```
+Change report
+- Task: 186c Feasibility map by an OF1-only evaluation
+- Files changed: model/model_v3/runner/runner.py (`evaluate` and `make_ev` take `only=`, group names; default all; 368 lines, unchanged count); model/model_v3/run.py (the map's evaluator is built with `only=('sweeps',)`); tests/model/model_v3/test_heads_only.py (equality test, both arms); model/studies/run-cost/map_only.py (timing script, new); results/run-cost/run-cost.md (section); results/speedup/ledger.md (one row); this brief.
+- What is different now: the feasibility map runs only the OF1 group, so it no longer computes the revenue, burden and support per-path results. Every number is unchanged.
+- New or changed interfaces: `evaluate(..., only=None)`, `make_ev(..., only=None)`; none on the command line.
+- Acceptance criteria: (1) selected-group `of1` byte-identical to the full evaluator on both arms: met (test, 3 specs each; also the headlines). (2) `quick` output equal to a before-file made with the same numerics setting, `run_date` excluded: met (Actions run 46069300028, before = main 8da93c2, after = this branch, forced path, 270,571 characters equal). (3) all suites and the tripwire pass: met (`fast` job, Actions run 46067095370, success; local: test_heads_only, test_of1, test_runner, test_budget pass). (4) map time before and after against the guess: met, 329 s to 62 s for the whole quick map on 2 cores, workers 1 (5.3x; 174 s to 33 s at workers 0), under the 100 s target; map points and OF1 byte-equal in every case (`map_only.py`).
+- Deviations from the brief: the selector is passed where the map's evaluator is built (`run.py`), not inside `sweeps.feasibility`, which takes `ev` as an argument. The `quick_headlines` case was not timed (178c not read). Wall times of the two quick jobs on Actions (1,427 s before, 1,723 s after) are different hosted machines and not a measurement of the change.
+- Risks / follow-ups: the OF1 group's independence rests on `Env.rng(name)` being keyed by group name; a group that draws from a shared stream would break the equality test, which would show it. Whole-run saving on a quiet 2-core machine was not measured (the map is about 15% of what is left of a quick run).
+- Instruction friction: none beyond: a short sha is not accepted by `actions/checkout` as a ref (use the full sha).
+- Verification: tests above; map timings in run-cost.md; the temporary workflow `186c-quick.yml` is removed in this commit.
+- Overview sections likely needing an update: none
+- Commit / branch: see the branch head, `brief/186-map-of1-only`
+```
+
