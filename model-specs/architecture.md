@@ -211,6 +211,7 @@ runner/out_support.py          150     80
 runner/out_sweeps.py           150     80
 out/assemble.py                480    180
 out/writer.py                  220    120
+out/split.py                   140    130
 interface.py                    50      0
 run.py                         120     80
 rules and budget tests           0    150
@@ -224,11 +225,11 @@ tests/model/model_v3/test_pack_base.py 0     58
 | Core (ten files; `household.py` added by 108c, `cells.py` by 110c; `kernel.py` raised to 660 by 114c; `pack.py` to 360 and its tests to 280 by 115c; `pension_lien.py` added by 132c, its tests raised to 95 by the ledger test of block 2) | 3,580 | 2,553 |
 | Runner (`runner.py`, `sweeps.py`, `groups.py`, four `out_*.py` groups; 084c; `arm.py` by 114c, its tests raised to 330 by 118c, itself to 160 by 119c, 180 by 120c, 215 by 121c, 245 by 126c, 310 by 128c and 255 by 127c and 280 by 132c and 330 by 133c) | 1,600 | 960 |
 | **Core plus runner** | **5,640** | **3,723** |
-| Output layer (`out/`) | 700 | 300 |
+| Output layer (`out/`; `split.py` by 183c: the partial files of a split run and the checks before a merge) | 840 | 430 |
 | `interface.py` and `run.py` | 170 | 80 |
 | Rules, budget and smoke tests | 0 | 150 |
 | Acceptance script and convergence test (040g Q1) | 0 | 90 |
-| **Total** | **6,518** | **4,446** |
+| **Total** | **6,658** | **4,576** |
 
 Core plus runner 5,648 (154c: `runner.py` 368 for level 1 through `pmap`, the cap records of a unit carried back to the caller, and `test_pool.py` 103 for its two tests; 148c: `flow_switches.py` 200 and its tests 150, a new file for the withdrawal, heir-floor and GDP-path switches because `switches.py` is full; 150c: `pool.py` 50 and its tests 75, the ordered process map the sweeps call, layer 3.8; and the totals now include the `switches.py` 200 row the housekeeping commit 472e88e added to the block without the totals, which had left `test_budget` failing on main; 133c: `arm.py` 330 for the cap callback `carry` and the kernel-pension netting; 128c: `arm.py` 310 for per-path market returns; 132c: `pension_lien.py` 80 and `arm.py` 280 for the lien calls and `settle`; 127c: `arm.py` 255 for the class floor; earlier raise: 5,025, raised from 4,995 by 121c: `arm.py` 225 for the withheld table; 126c: `arm.py` 245 for the household untaxed path `free` and the comparators' account `system`) is a ceiling, not a target; `runner/pool.py` was counted only if triggered; 150c triggered it (section 6.5: a full run is days serial). The data tooling `pack/build_gbr.py` has its own budget of 200 lines (067c) and no test beyond a hash check of its output. Output layer 700 is 14% of core plus runner; R9 asks for smaller.
 
