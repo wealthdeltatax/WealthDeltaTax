@@ -1,6 +1,6 @@
 # 171: Zero tolerance for knife-edge counts
 
-- **Status:** author; underway on `brief/171-zero-tolerance` (steps 1 and 2 done and the helper applied at the sites), waiting for the author: absolute or relative tolerance. The histogram shows 1e-9 separates cleanly (nothing between 1e-12 and 1e-9)
+- **Status:** author; helper applied and quick comparison done on Actions (run 45964292332); waiting for the author to read the movement report before the pins are regenerated (tolerance decided: absolute 1e-9)
 - **Agent:** 5
 - **Needs:** 172c
 - **Length:** 1
@@ -43,5 +43,8 @@ Whether the tolerance should be absolute or relative per output (step 2 informs 
   - `model/model_v3/core/revenue.py:274` `below = after & (m1 < 0)` (P4_first_negative); `revenue.py:284` `negative_share` (`short < 0`, `long_ < 0`).
   - Not sites: `kernel.py:238` (integer diagnostic on `unpaid_B`), `revenue.py:121`/`:282` already snap at 1e-12.
 - **Step 2, histogram** (legacy-digest samples, seeds 7 and 11, 20 paths, 5 schedules; both numerics paths; script `hist171.py`): |burden net| over 42M values: 21.6M exact 0, 7.6k between 1e-21 and 1e-12 (noise), **none between 1e-12 and 1e-9**, 5.9k between 1e-9 and 1e-6 (real). |M1| over 600 per-path values: 200 below 1e-12 (zero in theory), none from 1e-12 to 1e-6. So 1e-9 separates cleanly in both quantities.
-- **Next:** author answers absolute vs relative tolerance; then helper in `model-specs/metrics.md`, sites, two-path runs, report, pins.
+- **Decision (author):** absolute 1e-9, in the quantity's own units. Helper `ZERO_TOL`, `neg()`, `pos()` in `core/kernel.py`; spec note in `model-specs/metrics.md`; test in `test_kernel.py`.
+- **Step 4, runs.** Smoke (local, 50 paths): `outputs.json` byte-identical on both numerics paths. Quick (Actions run 45964292332, hosted runner, `.github/workflows/171c-quick.yml`, temporary; `results/171c-zero-tolerance/compare_outputs.py`): new code on the forced path (`new_off`) against the AVX512 path (`new_avx`): **O1f 0 of 22, O2b 0 of 200, O2c 0 of 222 values differ**. Whole-file sha256 differ (`run_date`).
+- **Movement from the old pins** (old code at 49c2bfd, forced path, against new code, forced path; quick size, differing values of the compared cells): O1f 3 of 19, max abs 1 (a path-count flip at zero-in-theory net revenue); O2b 18 of 200, max abs 1.85 points, max rel 0.061; O2c 12 of 222, max abs 0.60 points, max rel 0.061. All other outputs: not listed by the script's id filter; run `compare_outputs.py --all` locally if wanted.
+- **Not done:** whether the runner had AVX512 is in the `lscpu` step of the quick jobs (not read); the full suites, the tripwire and `fast` on this branch after the merge of main; pin regeneration (separate commits, after the author reads this); remove the temporary workflow before merge.
 <!-- progress:end -->
