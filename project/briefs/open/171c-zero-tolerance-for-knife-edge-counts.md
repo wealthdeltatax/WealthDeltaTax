@@ -31,6 +31,13 @@ Whether the tolerance should be absolute or relative per output (step 2 informs 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** nothing yet.
-- **Next:** wait for 170c.
+- **Claimed:** branch `brief/171-zero-tolerance` (from main 49c2bfd).
+- **Step 1, compare sites** (feed a count or share):
+  - `model/model_v3/runner/runner.py:230` `M1 < 0` -> `neg` -> O1f.
+  - `model/model_v3/core/burden.py:130` `(net > 0)` payer mask in `m2` (weights; value-weighted, negligible).
+  - `burden.py:142` `(net > 0)` in `_cash` -> payer-count denominator for O2b/O2c; `burden.py:148` `r > x/100` threshold shares (not knife-edge for tiny nets: ratio far below the cut).
+  - `model/model_v3/core/revenue.py:274` `below = after & (m1 < 0)` (P4_first_negative); `revenue.py:284` `negative_share` (`short < 0`, `long_ < 0`).
+  - Not sites: `kernel.py:238` (integer diagnostic on `unpaid_B`), `revenue.py:121`/`:282` already snap at 1e-12.
+- **Step 2, histogram** (legacy-digest samples, seeds 7 and 11, 20 paths, 5 schedules; both numerics paths; script `hist171.py`): |burden net| over 42M values: 21.6M exact 0, 7.6k between 1e-21 and 1e-12 (noise), **none between 1e-12 and 1e-9**, 5.9k between 1e-9 and 1e-6 (real). |M1| over 600 per-path values: 200 below 1e-12 (zero in theory), none from 1e-12 to 1e-6. So 1e-9 separates cleanly in both quantities.
+- **Next:** author answers absolute vs relative tolerance; then helper in `model-specs/metrics.md`, sites, two-path runs, report, pins.
 <!-- progress:end -->
