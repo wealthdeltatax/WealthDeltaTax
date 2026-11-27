@@ -54,7 +54,7 @@ Read `bib-conventions.md` for BibTeX format rules and entry-type mapping.
 
 ## Entry Point 1 — Paper ingestion
 
-**Trigger:** User names a paper or pair in `source/`, or asks to check/update references.
+**Trigger:** User names a paper or pair in `papers/legacy/`, or asks to check/update references.
 
 ### Step 0 — Load internal.json and references.bib
 

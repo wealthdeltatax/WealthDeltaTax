@@ -1,6 +1,6 @@
 # Start here
 
-Wealth Delta Tax: paper series in `papers/legacy/`, site build in `website/build/`, model in `model/model_v3/` (the legacy models are removed: tag `legacy-models-2026-11`). Rules for agents: `AGENTS.md`. Who does what: `project/agents/README.md`.
+Wealth Delta Tax: paper series in `papers/legacy/`, site build in `website/build/`, model in `model/model_v3/` (the legacy models are removed: tag `legacy-models-2026-11`). Where things are: `README.md` (layout in one list) and `project/OVERVIEW.md` section 2 (directory map). Old path to new path: `project/restructure/file-layout-map.csv`. Rules for agents: `AGENTS.md`. Who does what: `project/agents/README.md`.
 
 ## Read by job (nothing else)
 - Design, positions, consistency, "does X fit": `project/agents/agent-guru.md`

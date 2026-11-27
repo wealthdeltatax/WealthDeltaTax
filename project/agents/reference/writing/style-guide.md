@@ -454,7 +454,7 @@ All prose drafted for a WDT paper follows the two rule sets in `prose-rules.md` 
 Before Reader Testing, and again before the author publishes, run the checker on the paper's markdown file:
 
 ```bash
-python website/build/check_wdt_format.py source/<paper>.md
+python website/build/check_wdt_format.py papers/legacy/<paper>.md
 ```
 
 It reports, with line numbers: missing or misordered front-matter fields, malformed `zenodo_doi` and `jel` lines; bare `§` references, ranges written with dashes or "through", lower-case letters inside section numbers and extra words inside reference brackets; stray `{.appendix}`; figure labels that do not match their section, wrong or missing letters, wrong filenames, missing `{width=100%}`, captions not ending in `Source: (…)`; and em dashes in prose. Fix every finding, or confirm with the author that a finding is intentional. The checker is mechanical and does not read the prose, so also check by eye that each caption matches its image and that each cross-reference points to a section that exists. Remind the author of any `zenodo_doi` still set to `TBD`.

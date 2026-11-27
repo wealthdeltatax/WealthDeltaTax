@@ -11,6 +11,8 @@ naming · 6 Tables · 7 Charts · 8 Cores · 9 Adding a paper · 10 Tests, patch
 
 ---
 
+> **Legacy layers.** The file names in this table (`WDT_Params.toml`, `wdt_core.py`, the `*_core` files, `OUTPUTS/{CODE}/`) belong to the legacy models, removed from the tree (tag `legacy-models-2026-11`). Model v3 follows `model-specs/architecture.md` (layers core, runner, out in `model/model_v3/`); the rules below on cores, JSON contract and presentation scripts still describe the old pattern.
+
 ## 1. Layers
 
 | # | Layer | Files | Owns | Must not |

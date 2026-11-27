@@ -3,7 +3,7 @@
 Status: approved by the author, 2026-11-18 (sections 8.1 and 9 as written). Written 2026-11-18 by the guru from `stage-c-decisions.md` (035g, approved), `port-inventory.md` (037c), `country-pack.md` (038c), `returns-method.md` (036r), `synthesis.md` section 4 (R1 to R11) and `hooks.md` section 3 with the 030c rulings. No model code, acceptance criteria or build briefs are written here: those are 040g. Section 9 lists the defaults I chose where C1 left a number or a choice open; the author confirms or changes them before 040g starts.
 
 ## 0. What this says
-1. v3 lives in `model_v3/`. It has three layers (R4): **core** (`model/model_v3/core/`, eight files in dependence order), **range runner** (`model/model_v3/runner/`) and **output layer** (`model/model_v3/out/`). Data enter through one country pack (`data/country-packs/GBR/`) and the register (`data/input-register/inputs.json`); the one output file is `model_v3/OUTPUTS/outputs.json`.
+1. v3 lives in `model/model_v3/` (moved there by the file reorganisation of 2026-11; the sections below keep the design-time names, so read `model_v3/` as `model/model_v3/` and `pack/GBR/` as `data/country-packs/GBR/`). It has three layers (R4): **core** (`model/model_v3/core/`, eight files in dependence order), **range runner** (`model/model_v3/runner/`) and **output layer** (`model/model_v3/out/`). Data enter through one country pack (`data/country-packs/GBR/`) and the register (`data/input-register/inputs.json`); the one output file is `outputs.json`, written to the run script's `--out` directory (required; the final file is not committed yet; run evidence is under `results/`).
 2. Code budget: core plus runner 3,900 lines, output layer 700, interface and run script 170; **4,770 in all**, against 17,730 lines scanned in `model_v2/` (R9; the output layer is 18% of core plus runner, v2's was 5,150 lines, the largest part of its bulk). Tests are budgeted apart at 3,020 lines.
 3. Port by exception: the kernel (564 lines, all of it) with five changes, the rate function `tau`, the window rule, the real-basis function and `jst_r6.json`. Everything else in v2 is rewritten from `metrics.md` or dropped (section 4).
 4. Thirteen build stages (section 7). Each is one session and one lane; each has its own files. Three can start at once (V3-0, V3-1, V3-4). The model path is one chain; the output writer and the manifest amendments run beside it.
@@ -12,24 +12,27 @@ Status: approved by the author, 2026-11-18 (sections 8.1 and 9 as written). Writ
 ## 1. Layout and data flow
 
 ```
-model_v3/
+model/model_v3/
   __init__.py            empty
   interface.py           the Samples type and the Results contract (section 2.9)
-  run.py                 run script: python -m model_v3.run (section 6.5)
+  run.py                 run script: python -m model_v3.run (section 6.5); imports numerics.py first
+  numerics.py            sets NPY_DISABLE_CPU_FEATURES (one numerics path; brief 169c)
   levers.json            schedule family grid, thresholds, retirement order (section 2.9, 3.3)
   pack/
-    GBR/                 country data pack of 038c (manifest.json, seven CSV files, NOTICE.md, source/jst_r6.json)
     build_gbr.py         one-off builder of the UK pack from the held spreadsheets (data tooling, not core)
   core/
     pack.py  returns.py  base.py  schedule.py  kernel.py  revenue.py  burden.py  support.py
+    cells.py  household.py  pension_lien.py            (household arm, added after this design)
   runner/
-    runner.py  sweeps.py        (pool.py only if section 6.5 says so)
+    runner.py  sweeps.py  pool.py  groups.py  arm.py  switches.py  flow_switches.py  out_*.py
   out/
     assemble.py  writer.py
-  OUTPUTS/
-    outputs.json         the model's output file (tracked)
-    scratch/             git-ignored; smoke and trial runs
-tests/model/model_v3/          one test file per module, plus rules and budget tests
+model/tools/             build_inputs, build_metrics, validate_outputs, run_suites, check_gate
+model/studies/<study>/   one folder of scripts per diagnostic; its outputs are in results/<study>/
+data/country-packs/GBR/  country data pack of 038c (manifest.json, CSV files, NOTICE.md, source/jst_r6.json)
+data/input-register/     inputs.json (the register), inputs-display.yml, metrics.json
+model-specs/outputs.yml  the output manifest
+tests/model/model_v3/    one test file per module, plus rules and budget tests
 ```
 
 **Where each thing is read from.** The model reads `model-specs/outputs.yml` (the manifest, hashed into the run), `data/input-register/inputs.json` (the register: low, central and high, with the `(J)` flag; hashed into the run), `model/model_v3/levers.json` and `data/country-packs/<ISO>/`. `jst_r6.json` is read only through the pack: `build_gbr.py` copies the file unchanged to `pack/GBR/source/` and derives `returns.csv` from it (pack file 3.1 of 038c), and the loader reads `returns.csv`. Nothing under `model_v2/` or `model_v1/` is read by v3 code or by v3 tests.
