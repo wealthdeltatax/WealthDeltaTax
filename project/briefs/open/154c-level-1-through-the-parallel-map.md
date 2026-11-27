@@ -1,6 +1,6 @@
 # 154: Level 1 through the parallel map, and `--workers` in the Actions jobs
 
-- **Status:** ready after 151c merges
+- **Status:** ready; 151c merged 2026-11-27
 - **Agent:** 2
 - **Needs:** 151c
 - **Length:** 1

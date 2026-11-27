@@ -1,6 +1,6 @@
 # 176: Speed-up bench and the rules every speed-up follows
 
-- **Status:** ready
+- **Status:** author; pushed on `brief/176c-speed-up-bench-and-rules`, not merged: the small bench cases total 5.2 min against the criterion of under 3 (all other criteria met). Guru recommends option (b) of its report: move `tornado_1sched_20` and `level1_1sched_1000` out of the default set
 - **Agent:** 6
 - **Needs:** none
 - **Length:** 1

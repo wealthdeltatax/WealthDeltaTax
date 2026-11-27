@@ -1,6 +1,6 @@
 # 171: Zero tolerance for knife-edge counts
 
-- **Status:** ready; was draft, released after 170c (author asked for pin first, then tolerance)
+- **Status:** author; underway on `brief/171-zero-tolerance` (steps 1 and 2 done and the helper applied at the sites), waiting for the author: absolute or relative tolerance. The histogram shows 1e-9 separates cleanly (nothing between 1e-12 and 1e-9)
 - **Agent:** 5
 - **Needs:** 172c
 - **Length:** 1
