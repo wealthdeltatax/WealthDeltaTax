@@ -264,6 +264,7 @@ jobs:
         run: |
           mkdir -p quick-out
           T0=$(date +%s)
+          sleep 800   # THROWAWAY: the deliberately slowed run (177c), never committed to the brief branch
           python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--size', 'quick', '--out', 'quick-out', '--workers', '$W'])"
           T=$(( $(date +%s) - T0 ))
           echo "quick wall time $T s, budget $QUICK_BUDGET_S s, workers $W, CPU: $CPU_LINE"
