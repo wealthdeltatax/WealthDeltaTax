@@ -1,6 +1,6 @@
 # 177: `quick` time budget on Actions
 
-- **Status:** hold; draft, ready after 154c merges
+- **Status:** ready; 154c merged 2026-11-27
 - **Agent:** 3
 - **Needs:** 154c, 176c
 - **Length:** 1

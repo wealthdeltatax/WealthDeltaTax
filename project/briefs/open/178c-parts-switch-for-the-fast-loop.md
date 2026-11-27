@@ -1,6 +1,6 @@
 # 178: `--parts` switch, the fast loop
 
-- **Status:** hold; draft, ready after 154c merges
+- **Status:** ready; 154c merged 2026-11-27
 - **Agent:** 2
 - **Needs:** 154c
 - **Length:** 1

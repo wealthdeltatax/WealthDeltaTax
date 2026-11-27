@@ -1,6 +1,6 @@
 # 179: Re-profile after 151c and 154c, and decide what is left
 
-- **Status:** hold; draft, ready after 151c and 154c merge
+- **Status:** ready; 151c and 154c merged 2026-11-27
 - **Agent:** 3
 - **Needs:** 151c, 154c, 176c
 - **Length:** 1

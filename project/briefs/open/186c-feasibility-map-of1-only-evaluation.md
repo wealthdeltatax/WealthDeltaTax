@@ -1,6 +1,6 @@
 # 186: Feasibility map by an OF1-only evaluation
 
-- **Status:** hold; ready after 154c merges
+- **Status:** ready; 154c merged 2026-11-27
 - **Agent:** 5
 - **Needs:** 154c
 - **Length:** 1

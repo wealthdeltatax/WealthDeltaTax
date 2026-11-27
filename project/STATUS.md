@@ -10,10 +10,10 @@ The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range mod
 | Agent | Now | Next |
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review each push as it lands; write the SWF redesign specification after 151c and 154c; account skill edits |
-| Agent 2 | 154c (Level 1 through the parallel map, and --wo…) | 178c |
+| Agent 2 | 178c (--parts switch, the fast loop) |  |
 | Agent 3 | 177c (quick time budget on Actions) | 179c |
 | Agent 4 | 183a (Split run, stage A) | 183c, then 181c |
-| Agent 5 | 171c (Zero tolerance for knife-edge counts) | 186c, then 152c, 153c |
+| Agent 5 | 186c (Feasibility map by an OF1-only evaluation) | 171c, then 152c, 153c |
 | Agent 6 | 180c (Compiled kernel spike) | 187c, then 180b |
 | OpenAI agent (notes only) | free |  |
 <!-- agents:end -->

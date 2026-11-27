@@ -42,8 +42,10 @@ from model_v3.core import pack as pk
 from model_v3.core import returns as rt
 from model_v3.core import revenue as rv
 from model_v3.core import schedule as sc
+from model_v3.core import support as U
 from model_v3.runner import arm as ab, flow_switches as fsw, switches as sw
 from model_v3.runner.groups import GROUPS
+from model_v3.runner.pool import pmap
 
 T = 100
 N1, N2, N2P, CHUNK = 10_000, 200, 1_000, 1_000
@@ -317,15 +319,21 @@ def samples(by_schedule, ids, once=frozenset(), static=None):
     return out
 
 
-def level1(ctx, specs, rng, n=N1, chunk=CHUNK, theta=None):
-    """Level 1: n paths per schedule in chunks, the same paths for every schedule. Returns (Samples, {'paths', 'unfilled_paths': {schedule: count}})."""
+def level1(ctx, specs, rng, n=N1, chunk=CHUNK, theta=None, workers=1, cap=None):
+    """Level 1: n paths per schedule in chunks, the same paths for every schedule. Returns (Samples, {'paths', 'unfilled_paths': {schedule: count}}). The chunks' paths are drawn here in order (the
+    serial stream) and the evaluations of (chunk, schedule) go through `pmap` (154c): the result does not depend on `workers`. `cap` is the caller's `support.capping` store: a shortfall met in a unit comes back with
+    it and is merged in chunk order, the first record standing as in the serial run."""
     th, seq = theta or ctx.centre, rng.bit_generator.seed_seq
-    parts = {s: [] for s in specs}
-    for a in range(0, n, chunk):
-        g = rt.ar1_paths(rng, th[RET['mean']], th[RET['sd']], th[RET['phi']], T, min(chunk, n - a))
-        for s, spec in specs.items():
-            parts[s].append(evaluate(ctx, th, spec, g, np.full(g.shape, ctx.gdp_g), seq=seq, key=(a // chunk,)))
-    ev = {s: cat(p) for s, p in parts.items()}
+    gs = [rt.ar1_paths(rng, th[RET['mean']], th[RET['sd']], th[RET['phi']], T, min(chunk, n - a)) for a in range(0, n, chunk)]
+    jobs = [(i, s) for i in range(len(gs)) for s in specs]   # one unit per (chunk, schedule), in the serial order: 3 per chunk, 30 per grid point at final size
+    def unit(j):
+        rec = {} if cap is not None else None
+        with U.capping(rec):
+            return evaluate(ctx, th, specs[j[1]], gs[j[0]], np.full(gs[j[0]].shape, ctx.gdp_g), seq=seq, key=(j[0],)), rec
+    outs = pmap(unit, jobs, workers)
+    for _, rec in outs:
+        for k, v in (rec or {}).items(): cap.setdefault(k, v)
+    ev = {s: cat([o for j, (o, _) in zip(jobs, outs) if j[1] == s]) for s in specs}
     return samples(ev, ctx.ids, ctx.once, statics(ctx, th, seq)), {'paths': n, 'unfilled_paths': {s: int(e['unfilled'].sum()) for s, e in ev.items()}}
 
 
