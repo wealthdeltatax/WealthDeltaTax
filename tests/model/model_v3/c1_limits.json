@@ -1,0 +1,43 @@
+{
+ "rule": "limit = q * sd(N1): q = 4.613, the 99th percentile of the range of 5 draws in sd units (false-failure rate 0.01); sd across 10 seeds at N1 = 10000; legacy arm, S_central, short horizon",
+ "date": "2026-11-28",
+ "q": 4.6126,
+ "false_failure_rate": 0.01,
+ "ceiling": null,
+ "seeds": [
+  20261118,
+  20261119,
+  20261120,
+  20261121,
+  20261122,
+  20261123,
+  20261124,
+  20261125,
+  20261126,
+  20261127
+ ],
+ "n": 10000,
+ "commit": "7bd523fb9f7ca1c1c569dbe61ec692f9a24c24f6",
+ "limits": {
+  "O1": {
+   "mean": 0.1636,
+   "p10": 0.2751,
+   "p90": 0.3214
+  },
+  "O2": {
+   "mean": 0.033,
+   "p10": 0.0697,
+   "p90": 0.1167
+  },
+  "O3": {
+   "mean": 0.3073,
+   "p10": 0.4559,
+   "p90": 0.3404
+  },
+  "O4a": {
+   "mean": 0.1007,
+   "p10": 0.0,
+   "p90": 0.0
+  }
+ }
+}

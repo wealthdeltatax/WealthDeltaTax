@@ -4,6 +4,7 @@ The legacy arm has no feasible named schedule by design (its 3.5% consumption as
 C3 runs REDUCED: C3_DRAWS against twice that, at C3_PATHS paths a draw (the full 400 against 200 at 1,000 paths is a later manual run, not acceptance; sixth-round ruling, 2026-11-24)."""
 import json
 from dataclasses import replace
+from pathlib import Path
 import numpy as np, pytest, yaml
 from model_v3 import run
 from model_v3.core import pack as pk, returns as rt
@@ -12,6 +13,7 @@ from model_v3.runner import runner as R, sweeps as S
 pytestmark = pytest.mark.converge
 C3_DRAWS, C3_PATHS = 40, 250
 SEEDS = (run.SEED, 20261119, 20261120, 20261121, 20261122)
+LIMITS = json.loads((Path(__file__).parent / 'c1_limits.json').read_text())['limits']   # measured seed noise, brief 187c (model/tools/c1_noise.py)
 KEY = {'O1': ('S_central', 'short', (), 'M1'), 'O2': ('S_central', 'short', (('wealth_band', 'overall'),), None), 'O3': ('S_central', 'single', (), None), 'O4a': ('S_central', 'short', (('income_decile', 'overall'),), None)}
 
 @pytest.fixture(scope='module')
@@ -47,9 +49,11 @@ def master(legacy):
     return {s: stats(*legacy, s, R.N1) for s in SEEDS}
 
 def test_c1_five_seeds_agree_on_the_legacy_arm(master):
+    bad = {}
     for o in KEY:
         a = np.array([master[s][o] for s in SEEDS]); sp = a.max(0) - a.min(0)
-        assert sp[0] <= 0.15 and sp[1] <= 0.15 and sp[2] <= 0.15, (o, sp)
+        bad.update({f'{o} {st}': (round(float(x), 4), LIMITS[o][st]) for st, x in zip(('mean', 'p10', 'p90'), sp) if not x <= LIMITS[o][st]})   # all failures, not the first; NaN fails
+    assert not bad, bad
 
 def test_c2_doubling_moves_the_means_little_on_the_legacy_arm(legacy, master):
     big = stats(*legacy, run.SEED, 2 * R.N1)
