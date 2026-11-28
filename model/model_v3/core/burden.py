@@ -114,9 +114,33 @@ def line_flows(base, rate_fn, g, gdp_g, c, G=G, n_phase=6, index='gdp_pc', route
                     dx = dx + _val(fl, n)
                 hook.reconcile(book)
             net[t - 1, sl], dl[t - 1, sl], dth[t - 1, sl] = tl(tax + dx), tl(dd), tl(dx)
+    return _flows(base, ix, n_phase, net, w0, dl, dth)
+
+
+def _flows(base, ix, n_phase, net, w0, dl, dth):
     return {'net': net, 'w0': w0, 'delta': dl, 'death': dth, 'wt': np.tile(base.weights / n_phase, n_phase), 'band': base.band * n_phase,
             'payer0': np.tile(base.wealth >= base.w_min, n_phase), 'idx': ix, 'adults_k': base.adults_k.sum(), 'w_min': base.w_min,
             'income': np.tile(base.income, n_phase), 'liq_share': np.tile(base.liquid / base.wealth, n_phase)}
+
+
+class Tap:
+    """152c: what `line_flows` keeps, recorded from the walk of `revenue.run_lines` (the household arm walks the years once). `add(kind, fl)` for each flow, `year(i, t, W0, tax)` at the year's end, `flows()` is `line_flows`' dict."""
+    def __init__(self, base, gdp_g, L, P, n_phase=6, index='gdp_pc'):
+        yy = np.cumprod(1.0 + np.asarray(gdp_g, float), axis=0)
+        self.base, self.ix, self.L, self.P, self.k, self.n = base, yy if index == 'gdp_pc' else np.ones_like(yy), L, P, n_phase, P * L
+        self.net, self.w0, self.dl, self.dth = (np.zeros((len(yy), L * n_phase, P)) for _ in range(4))
+        self.dd, self.dx = np.zeros(self.n), np.zeros(self.n)
+
+    def add(self, kind, fl):
+        if kind == 'tax': self.dd = self.dd + fl.delta
+        elif kind in DEATH or kind.startswith('terminal'): self.dx = self.dx + _val(fl, self.n)
+
+    def year(self, i, t, w0, tax):
+        sl, tl = slice(i * self.L, (i + 1) * self.L), (lambda x: x.reshape(self.P, self.L).T)
+        self.w0[t - 1, sl], self.net[t - 1, sl], self.dl[t - 1, sl], self.dth[t - 1, sl] = tl(w0), tl(tax + self.dx), tl(self.dd), tl(self.dx)
+        self.dd, self.dx = np.zeros(self.n), np.zeros(self.n)
+
+    def flows(self): return _flows(self.base, self.ix, self.k, self.net, self.w0, self.dl, self.dth)
 
 
 def _net(fl, inlife):

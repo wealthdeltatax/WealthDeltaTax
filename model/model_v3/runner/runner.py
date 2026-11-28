@@ -203,13 +203,13 @@ def core_run(ctx, theta, spec, g, gdp_g, full=False, tweak=None):
     b = (tweak or (lambda x: x))(shaped(ctx, theta, spec['ratio']))
     rate = sc.rate_function(spec['k_ln'], spec['tau_0'], spec['tau_m'], b.w_min, 'logistic_ln')
     lam, ar = {**env_of(ctx, theta).lam, **sw.phase_kw(ctx.arm)}, ab.build(ctx.arm, ctx, theta, b, g, gdp_g)
-    fl = bd.line_flows(b, rate, g, gdp_g, c := ar.c, hook=ar.make(), **lam)
-    if full or ar.name != 'legacy':                                   # the household arm needs the ledger: revenue.run_lines
-        run = rv.run_lines(b, rate, g, gdp_g, c, hook=ar.make(), **lam)
+    c, tap = ar.c, (bd.Tap(b, gdp_g, len(b.labels), P, **{k: lam[k] for k in ('n_phase', 'index') if k in lam}) if ar.name != 'legacy' else None)    # 152c: the household arm walks the years once: the ledger's walk (revenue.run_lines) feeds the burden's line flows
+    fl = None if tap else bd.line_flows(b, rate, g, gdp_g, c, hook=ar.make(), **lam)
+    if tap or full:
+        run, fl = rv.run_lines(b, rate, g, gdp_g, c, hook=ar.make(), tap=tap, **lam), (tap.flows() if tap else fl)    # (the right side reads the tap after the walk)
     else:
         net, z = np.einsum('tnp,n->tp', fl['net'], fl['wt']) * fl['adults_k'], np.zeros((T, P))
-        run = dict(tax=net, refund=z, death_tax=z, heir=z, death_B=z, death_D=z, payers=z, entries=z, exits=z, fall_through=z, gdp_index=np.cumprod(1.0 + gdp_g, axis=0),
-                   adults_k=fl['adults_k'])
+        run = dict(tax=net, refund=z, death_tax=z, heir=z, death_B=z, death_D=z, payers=z, entries=z, exits=z, fall_through=z, gdp_index=np.cumprod(1.0 + gdp_g, axis=0), adults_k=fl['adults_k'])
     h, ms = int(theta['I-D14e']), theta['I-D8a']
     r = rv.revenue(run, ctx.gdp0, theta['I-D7a'], ctx.rec, g, ctx.exp, c, int(theta['I-D14d']), ms, ms, h, ar.safe(T, P), theta['I-D14f'] / 100)
     fill, ok, one = r['fill'], ~r['unfilled'], np.ones(P, int)

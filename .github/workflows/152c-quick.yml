@@ -1,0 +1,55 @@
+name: 152c quick comparison
+# 152c: the quick output before (main at cc3c844) and after (this branch), forced numerics path; equal but for run_date. Temporary: remove before merge.
+on:
+  push:
+    branches: ['brief/152-shared-year-loop']
+permissions:
+  contents: read
+jobs:
+  quick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {name: before, ref: 'cc3c8443facde9c01c194af0f53cdcdf328d0c9b'}
+          - {name: after, ref: ''}
+    env:
+      NPY_DISABLE_CPU_FEATURES: 'X86_V4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.ref || github.sha }}
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install numpy==2.5.3 pyyaml==6.0.3 pytest==9.1.1 openpyxl==3.1.5 bibtexparser==1.4.3
+      - name: quick run (timed)
+        run: |
+          s=$(date +%s)
+          python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--size', 'quick', '--out', 'out_${{ matrix.name }}'])"
+          echo "quick wall seconds: $(( $(date +%s) - s ))"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.name }}
+          path: out_${{ matrix.name }}/outputs.json
+  compare:
+    needs: quick
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: art
+      - run: |
+          python - <<'PY'
+          import json
+          def strip(x):
+              if isinstance(x, dict): return {k: strip(v) for k, v in x.items() if k != 'run_date'}
+              if isinstance(x, list): return [strip(v) for v in x]
+              return x
+          a, b = (json.dumps(strip(json.load(open(f'art/{n}/outputs.json'))), sort_keys=True) for n in ('before', 'after'))
+          print('identical but for run_date:', a == b, len(a), len(b))
+          raise SystemExit(0 if a == b else 1)
+          PY

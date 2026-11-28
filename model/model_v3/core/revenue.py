@@ -54,8 +54,8 @@ def _value(fl, n):
     return sum(fl.value.values()) + fl.income if fl.value else fl.income + np.zeros(n)
 
 
-def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6, index='gdp_pc', routes=None, death_verify=False, hook=None, **book_kw):
-    """The kernel over every path and phase. g and gdp_g are (T, P) real returns and GDP-per-head growth; c is the consumption share of
+def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6, index='gdp_pc', routes=None, death_verify=False, hook=None, tap=None, **book_kw):
+    """The kernel over every path and phase; `tap` (152c, burden.Tap) is fed each flow and each year so the burden's line flows come from this walk. g and gdp_g are (T, P) real returns and GDP-per-head growth; c is the consumption share of
     wealth (read when `hook` is None; otherwise the hook of runner/arm.py carries the year, kernel.step_year); routes overrides the base's V0 by route (a dict of arrays). Returns billions-of-pounds flows (T, P): tax and refund (the year's
     assessments, split by sign per line; assessed is the tax assessed on gains before the routes settle it), death_tax (the assessments a death triggers: Route C verified, Route D auctioned), heir, death_B (a deferred balance
     settled), death_D, and the payer record: payers, entries, exits
@@ -89,11 +89,13 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
             gr = np.repeat(g[t - 1], L)
             pt, xv, hv, lv, dv, ass = (np.zeros(n) for _ in range(6))
             for kind, fl in K.step_year(book, rate_fn, il, gr, c, 1.0, 1.0, lam_C, lam_D, False, hook, t):
+                if tap: tap.add(kind, fl)
                 if kind == 'tax':
                     pt += _value(fl, n)
                     ass = np.where(fl.L > 0, fl.L, 0.0)                                   # assessed, before routes: Route D accrues, C pays in kind
             if t < T and t >= ph and (t - ph) % G == 0:
                 for kind, fl in K.step_death(book, rate_fn, il, death_verify):
+                    if tap: tap.add(kind, fl)
                     v = _value(fl, n)
                     if kind in ('tax_death_C', 'tax_death'):
                         xv += v
@@ -109,6 +111,7 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
                     hook.settle(book)                                                       # the pension-secured lien is settled at a death (132c)
             if t == T and hh:                               # the household arm settles Route D and B at the horizon, in its last year (120c); the legacy arm and its hook do not
                 for kind, fl in K.settle_terminal(book):
+                    if tap: tap.add(kind, fl)
                     if kind == 'terminal_D':
                         dv += _value(fl, n)
                     else:
@@ -118,6 +121,7 @@ def run_lines(base, rate_fn, g, gdp_g, c, lam_C=0.0, lam_D=0.0, G=30, n_phase=6,
             W1 = W0 * (1.0 + gr) * (1.0 - c) if hook is None else hook.grown(W0, gr)   # wealth after growth and flow, before tax (read after the year: the household hook sets it in the step)
             pay1 = W1 >= wmin * il
             rate1 = np.asarray(rate_fn(W1 / il), float)                                    # the kernel reads the rate at the new wealth
+            if tap: tap.year(i, t, W0, pt)
             pt = np.where(np.abs(pt) < 1e-12, 0.0, pt)
             tt = t - 1
             out['assessed'][tt] += agg(ass)
