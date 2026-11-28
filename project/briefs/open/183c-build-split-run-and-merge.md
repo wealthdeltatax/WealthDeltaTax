@@ -31,10 +31,10 @@ From 182c.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:** stage A. `model/model_v3/out/split.py` (hex-float encoding, header, draw slice and hash, `expected` units, `check` with its refusals) and `tests/model/model_v3/test_split.py` (17 tests, no model run). LAYER row `out/split: 5`; budget rows in `architecture.md` (code 140, tests 130; totals 6,650 and 4,548). Pushed on `brief/183-split-run`.
-- **Next:** stage B (needs 154c and 178c merged: it edits `run.py`; build on top of them). Not started.
+- **Done:** stages A (merged), B, C (proof) and D (workflow), on `brief/183-split-run-b` (pushed, c5055c5 plus this report). Actions run 46132231508 (quick split, quick unsplit, cmp, proof, fast): all green. Stage E (calibration at final size) not run: see NEEDS THE AUTHOR.
+- **Next:** author: read the report, say merge or not; then `fast` on two CPU kinds on main (stage C of 170c style), and decide stage E.
 - **Resume:** none.
-- **State:** stage A done; not merged.
+- **State:** not merged.
 <!-- progress:end -->
 
 ## Stage B hardening (guru review of stage A, 2026-11-27)
@@ -52,3 +52,25 @@ Budget: `split.py` is 133 of 140 lines; raise the row in `architecture.md` if th
 ## Change report, stage A
 `out/split.py` (133 lines) and `test_split.py` (120 lines). The test file is `test_split.py`, not the design's `test_split_run.py`: `test_budget` pairs `split.py` with `test_split.py`. The unit list and header follow the design (`COMMON` fields compared; `unit` and `workers` not; `plan_sha256` among the non-plan units; `draws_sha256` among the o1e units). `check` refuses: wrong schema or header fields, a differing common field (named, with both units), a missing or unexpected unit (a gap or an overlap in the batch ranges shows as both), two partials of one unit with different bytes, another plan, differing draws hashes. The draw test uses the real `draw_theta`: slices concatenate to the full table, and a call with `n = b - a` is shown to differ. Not touched: `run.py`, `runner.py`, the workflow.
 Checks after `git clean -fdx`: gate (real-repository test deselected, as in 170c) 16, data 97, tools 5, project 22, website suites pass (layout 40 skipped), model_v3 426 passed in 901 s, agent documents exit 0, tripwire PASS.
+
+## Change report, stages B to D
+**Built.** `run.py` is now `setup`, `plan_unit`, `point_unit`, `o1e_unit`, `merge`; `--unit plan|point:P|o1e-point|o1e:S:A:B`, `--plan-file`, `--merge DIR`, `--batch` (25), `--run-date`. A run without those flags is plan, then every unit in the canonical order, then the merge, in one process, with the partials through the file encoding: one code path. `run_point` lost the O1e block (O1e is its own unit); `S.breakeven_return` got `point=False` for a batch of draws; `SIZES['final']` has 200 O1e draws (author, 2026-11-27; `quick` and `smoke` unchanged); `workers` is no longer written into the output file (the validator does not read it). Stage B hardening of `out/split.py`, all four, each with a test: missing header fields are `SplitError`; `enc` takes numpy integers and bools and `dumps` turns a `TypeError` into `SplitError`; a batch below 1 is refused where the plan is built and where it is read; a string starting `f:` or `e:` is escaped with `e:` and round-trips. `parts` joined the compared header fields (no O1e units when `o1e` is not in `--parts`). Plan body: `named` as a list of pairs, because JSON sorts dict keys and the named schedules must keep the order the plan chose them (found by the first smoke run: the header refused it).
+**Checkpoint of stage B (refactor changed nothing).** The unsplit smoke file from the new code equals the one from `main` before the refactor, same day: identical after removing `workers` (375,538 and 375,521 bytes; the 17 bytes are `workers`).
+**Proof, local (2 cores), `-m split`, smoke, two points, batches of 2:** 4 passed in 21 min. Merge equals the unsplit file byte for byte; the O1e units run in reverse order and one point unit run again give byte-identical partials and the same merge; a changed seed, numerics setting or commit in a partial, a missing unit, and an invocation with another seed are each refused with the field named and no output written (the script exits `merge refused: ...`). **Proof on Actions** (job 140939709525, Intel Xeon Platinum 8573C): green in about 21 min.
+**Actions run 46132231508** (branch, dispatch, `run_split_quick` and `run_split_proof`; `run_accept` off): the split run at quick size, the unsplit quick run, `cmp`: **IDENTICAL**, byte for byte. The partials were made on four CPU models and the unsplit run on a fifth kind of job:
+| job | wall | CPU |
+|---|---:|---|
+| plan | 40 s | AMD EPYC 9V45 |
+| o1e-point | 49 s | AMD EPYC 9V45 |
+| point median_mid | 220 s | AMD EPYC 7763 |
+| point max_mid | 176 s | AMD EPYC 9V74 |
+| point median_low | 244 s | Intel Xeon 8573C |
+| point median_high | 208 s | AMD EPYC 7763 |
+| point min_mid | 216 s | AMD EPYC 7763 |
+| merge | 24 s | AMD EPYC 9V74 |
+| unsplit quick run (4 workers) | 1,034 s | Intel Xeon 8573C |
+| fast | 27.6 min | AMD EPYC 7763 |
+The split run's critical path was about 6 min (plan 40 s, a point 4 min, merge 24 s, plus queueing) against 17 min unsplit. `fast` is green on the AMD EPYC 7763 (no AVX512). No job passes `--final`; a test (`test_no_workflow_step_passes_the_final_flag...`) keeps it so. `run_final_size` now runs the split run at `--size final` (not run here).
+**cap loss in pool workers (author's request, measured at smoke and quick).** No difference can be shown: at smoke, `cap` is empty for the point unit, the point roots and one batch at workers 1 and 2; at quick, the tornado alone (level 1 off) at max_mid and median_high records nothing at workers 1, so nothing is lost at workers 2. The shortfall records of quick come from level 1 (serial). Not a proof of absence: a point where the tornado or a root hits a cap was not found.
+**Budgets.** `run.py` 120 to 215 lines, `split.py` 160 (tests 170), totals 6,773 and 4,616, reasons in `architecture.md`. The proof test is `test_split_proof.py` (marker `split`; excluded from accept.sh step 1, the `fast` job and `acceptance.md` row 1). Docs: `agent-code.md` and `acceptance.md` paragraphs. Checks after `git clean -fdx`: gate (real-repository test deselected) 16, data 97, tools 12, project 40, website suites pass, model_v3 447 passed (not converge, not split), agent documents 0, tripwire PASS.
+**Not done, NEEDS THE AUTHOR.** (1) Stage E, the calibration at final size (one point unit and one 25-draw batch, timed, to replace the 1.4 and 2.5 factors of the design): it is hours of runner time and the workflow has no way to run only some units; propose an input `split_units` (a list) in a follow-up, or run the whole final-size split (32 jobs) as 181c. (2) The 20-concurrent-job limit and the 4-worker speed-up are still the design's estimates. (3) The merge job needs `needs` success of every unit: a failed unit means rerunning that job from the Actions page ("Re-run failed jobs"), then the merge; not exercised here.
