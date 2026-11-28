@@ -58,7 +58,9 @@ jobs:
         run: quarto render _build
 
       - name: Copy generated figures into site
-        run: cp -r _build/figures/. _build/_site/figures/
+        run: |
+          # The legacy figures are gone from the tree (tag legacy-models-2026-11); copy only if a build step still produces some.
+          if [ -d _build/figures ]; then cp -r _build/figures/. _build/_site/figures/; fi
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
