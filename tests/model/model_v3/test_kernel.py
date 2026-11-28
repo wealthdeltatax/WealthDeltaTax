@@ -260,3 +260,9 @@ def test_kernel_has_no_project_import_and_no_ladder_or_heir_rule():
     mods = {a.name.split('.')[0] for n in ast.walk(tree) if isinstance(n, ast.Import) for a in n.names}
     mods |= {n.module.split('.')[0] for n in ast.walk(tree) if isinstance(n, ast.ImportFrom)}
     assert mods <= {'numpy', 'dataclasses', '__future__'}
+
+
+def test_zero_tolerance_helpers_treat_noise_as_zero_and_keep_real_signs():
+    x = np.array([-1e-3, -2e-9, -1e-12, 0.0, 1e-15, 1e-12, 2e-9, 1e-3, np.nan])
+    assert K.neg(x).tolist() == [True, True, False, False, False, False, False, False, False]
+    assert K.pos(x).tolist() == [False, False, False, False, False, False, True, True, False]

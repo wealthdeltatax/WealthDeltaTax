@@ -1,5 +1,5 @@
 {
- "commit": "367e1c46b6c05a3597d0ebbdd6d2fe4f7424e4f0",
+ "commit": "7802bb854c562a6bd730b61bd17be4aa3969a8a7",
  "call": "python tests/model/model_v3/test_legacy_digest.py --print (compute(): R.level1(ctx, SPECS, rt.streams(seed)['level1_paths'], n=20, chunk=10) for seed in (7, 11))",
  "seeds": [
   7,
@@ -36,21 +36,21 @@
  },
  "digest": {
   "7": {
-   "samples": "5721cf0ae820c11d917773e9690690b7381d21157ffa90918febfec4b8868b4d",
+   "samples": "ce784e0007ff4d3e294fd5c8cef9f58388931e643ef868001b8d6e19e2451ab1",
    "groups": {
-    "runner": "aadf934ecd27e0fa0014b94890db1efc9052d05b79a9742ede58971116eed458",
+    "runner": "5ce30708771a4fd8718fad6a47505e37dab90782f00d3d4e4abf82aed53b638c",
     "revenue": "e19dab8e046de38603d0b8749d92e1d925cce2cad213a1048565f54925d33491",
-    "burden": "cef004f6d0b642d86668daafde27fb2a4040fc44ca3b09eed3ebb90f97c4026f",
+    "burden": "31c7bb990903eed8832b50a7de1f1d40f0114322f778cc2a8e0c43905d3b5ded",
     "support": "38c8600875686a65b0d38b639c536bd339fc48485e245a311cf5fec29cce8aaf",
     "sweeps": "d3b5a039d1acd09a40a045a60caf3da16c53490b03c9b62d11c59d4fa0bcda5f"
    }
   },
   "11": {
-   "samples": "ccbbf7b46809b828b77c0c9fe2595165d7f1e944bd6365818d0b527edafce196",
+   "samples": "2fb2487b8fdb253670e186275734d538c25e487309e371d2e33eef43529b5fdd",
    "groups": {
-    "runner": "977d93ebf4dbb284405bb85c0731f023c51698791d0d500501e2689b14e120dd",
+    "runner": "bb9a085d81c4fb82239915398c02b7dd9c16978c9e61f5248d54a213af777cd1",
     "revenue": "b511ae8f63c2318adfdc822979abbced6bd5bb3000ce31502c95b31658a4a63c",
-    "burden": "64ee1272ac4a251a2156b64cf1c3626013bed7975814b6d0db29e2b79bd0cc47",
+    "burden": "9d8876dc78804415db788811c1498e482bb2f93a1a6d27e512cc29dd9ce91808",
     "support": "97a0c164c679f166107ee1906d659d305584f925fee3a1d7c326f4d082839551",
     "sweeps": "d3b5a039d1acd09a40a045a60caf3da16c53490b03c9b62d11c59d4fa0bcda5f"
    }

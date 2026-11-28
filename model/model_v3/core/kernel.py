@@ -54,6 +54,19 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
+ZERO_TOL = 1e-9   # |x| below it is zero in a count or share (171c): the rounding noise of a zero-in-theory value is at most 1e-12, a real value is at least 1e-9
+
+
+def neg(x):
+    """x < 0 beyond ZERO_TOL (nan is False). The one test for a share or count of negatives."""
+    return np.asarray(x) < -ZERO_TOL
+
+
+def pos(x):
+    """x > 0 beyond ZERO_TOL (nan is False). The one test for a share or count of payers."""
+    return np.asarray(x) > ZERO_TOL
+
+
 ROUTES = ('A', 'B', 'C', 'D', 'Cv')       # allocation order matters: E_cash and EC are pooled
 B_MODES = ('sale', 'lien', 'income')
 C_CAPS = ('units', 'units_and_value')

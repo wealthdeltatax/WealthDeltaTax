@@ -36,7 +36,7 @@ from dataclasses import dataclass, replace
 
 import numpy as np
 
-from model_v3.core import base as bs
+from model_v3.core import base as bs, kernel as K
 from model_v3.core import burden as bd
 from model_v3.core import pack as pk
 from model_v3.core import returns as rt
@@ -229,7 +229,7 @@ def headlines(raw, ctx, theta):
     out['M2'] = {k: {b_: gate(k, v) for b_, v in bd.m2(fl, lo[k], hi[k]).items()} for k in HORIZONS}
     out['M4a'] = {k: {d: gate(k, v) for d, v in bd.m4(r['P5'], hi[k], raw.inc, ctx.bill, ctx.income)['M4a'].items()} for k in HORIZONS}
     out['M3'] = bd.m3(fl, (theta['I-D11a'], theta['I-D11b'], theta['I-D11c']))
-    out['neg'] = {k: np.where(np.isfinite(out['M1'][k]), out['M1'][k] < 0, False) for k in HORIZONS}
+    out['neg'] = {k: np.where(np.isfinite(out['M1'][k]), K.neg(out['M1'][k]), False) for k in HORIZONS}
     out['P3h'] = {k: (ex * (t <= hi[k][None, :])).sum(axis=0) for k in HORIZONS}
     return {**out, 'P1': r['P1'], 'P7b': r['P7b'], 'fill': r['fill'], 'unfilled': r['unfilled'], 'long_T': r['long_year_T']}
 

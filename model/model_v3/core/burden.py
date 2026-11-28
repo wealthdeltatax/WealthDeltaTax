@@ -139,7 +139,7 @@ def m2d(fl, lo, hi):
 
 def _cash(fl, denom, cuts, lo, hi, inlife):
     net, wt = _net(fl, inlife), fl['wt'][None, :, None]
-    ok = _window(net.shape[0], lo, hi, net.shape[2])[:, None, :] & (net > 0) & np.isfinite(denom) & (denom > 0)
+    ok = _window(net.shape[0], lo, hi, net.shape[2])[:, None, :] & K.pos(net) & np.isfinite(denom) & (denom > 0)
     r = np.where(ok, net / np.where(ok, denom, 1.0), 0.0)
     out = {}
     for k, gm in _groups(fl['band']).items():

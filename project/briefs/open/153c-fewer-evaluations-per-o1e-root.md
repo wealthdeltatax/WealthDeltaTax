@@ -2,7 +2,7 @@
 
 - **Status:** hold; draft, needs the author's sign-off on the tolerance rule below before it is released
 - **Agent:** 5
-- **Needs:** 171c, 179c
+- **Needs:** 179c
 - **Length:** 1
 - **Asks:** sign off the O1e root tolerance rule (within 2 x tol = 1e-2)
 - **Author/date:** K. Ogata with the guru, 2026-11-26

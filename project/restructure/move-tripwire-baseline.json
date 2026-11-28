@@ -1,5 +1,5 @@
 {
- "commit": "0659560d3578f2ce3b51e038eb97017aeefbf300",
+ "commit": "df69d182dfae08cb24295f7109fedb2a881e0b9f",
  "note": "taken at the merged 009c state (817dccc) before any move; recapture only on the author's word",
  "spec": {
   "tau_0": 0.04,
@@ -12,7 +12,7 @@
  "checks": {
   "inputs": {
    "inputs.json": "bb613cfcd6678207d7cf1658d09f9971446ee1ee42639ea7fe71035fac0c5e22",
-   "legacy_digest.json": "e2f66853dd65d11392aa01960787d41527c843407bdb9dc4309029a78cbc4c3d"
+   "legacy_digest.json": "3e5b1a1017c60214e0c56db3030f931c16996156e144ef604476be7c8f7674b0"
   },
   "legacy": {
    "digest_equals_fixture": true
