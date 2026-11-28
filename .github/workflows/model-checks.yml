@@ -25,6 +25,10 @@ on:
         description: 'Run the speed job: quick against its time budget, bench small cases (about 15 min)'
         type: boolean
         default: false
+      run_noise:
+        description: 'Measure the C1 seed noise (model/tools/c1_noise.py, 10 seeds at 10,000 paths; about 1 h) and upload the report'
+        type: boolean
+        default: false
       run_final_size:
         description: 'Run the final-size grid split over five jobs (hours; never passes --final)'
         type: boolean
@@ -281,6 +285,55 @@ jobs:
           path: |
             bench-small.json
             quick-out/outputs.json
+
+  noise:
+    name: 'noise (model/tools/c1_noise.py, brief 187c)'
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_noise }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 345
+    concurrency:
+      group: model-checks-noise
+      cancel-in-progress: false
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned requirements, log the environment
+        run: |
+          echo "START=$(date +%s)" >> "$GITHUB_ENV"
+          sudo apt-get install -y --no-install-recommends poppler-utils   # pdftotext, read by the pack builder
+          pip install $PIP_PINS
+          python --version
+          pip list --format=freeze | grep -iE '^(numpy|pyyaml|pytest|openpyxl|bibtexparser)=='
+          git rev-parse HEAD
+          lscpu | grep -E 'Model name|^CPU\(s\)'
+
+      - name: C1 seed noise
+        run: |
+          echo '+ python model/tools/c1_noise.py run --out noise-out --workers 4 --write-limits noise-out/c1_limits.json --run-url <this run>'
+          python model/tools/c1_noise.py run --out noise-out --workers 4 --write-limits noise-out/c1_limits.json --run-url "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: c1-noise-results
+          path: |
+            noise-out/c1-noise.csv
+            noise-out/c1-noise.md
+            noise-out/c1_limits.json
+            noise-out/paths
+
+      - name: Wall time
+        if: always()
+        run: echo "wall time $(( $(date +%s) - START )) s"
 
   accept:
     name: 'accept (accept.sh, whole)'
