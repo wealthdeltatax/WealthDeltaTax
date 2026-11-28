@@ -33,3 +33,4 @@ Median 975 s; slowest 1335 s. Budget `QUICK_BUDGET_S` = 1670 s (slowest plus 25%
 | 179c | workers 0 (2 cores) | `quick` | 1,942 s | 1,210 s | 0.62 | not checked (measurement only) | as above |
 
 Level 1 is array-bound (9% fixed time, 1.4x the floor at 1,000 paths); tornado, map and roots are call-bound (3.5 to 4.1x the floor). See `profile-after-154c.md`.
+| 152c | one year loop for the household arm (`burden.Tap` fed by `revenue.run_lines`) | one `core_run` plus headlines, household, 1,000 paths, 2 cores, best of 2 | 18.25 s | 11.0 s | 0.60 | yes (full household evaluation hash equal on both trees, 3 schedules; flows byte-equal to `line_flows`; `quick` output equal but for `run_date`, see the brief) | 20 paths 1.97 to 1.14 s; 200 paths 4.97 to 2.79 s |
