@@ -1,0 +1,18 @@
+{
+ "workers": 1,
+ "total_s": 1941.790205807,
+ "parts_s": {
+  "map:pmap": 471.6533924350001,
+  "map:feasibility": 58.68797443299991,
+  "level1": 1465.0801106879999,
+  "tornado": 351.98050358999944,
+  "o1e_roots": 61.04807176600002
+ },
+ "calls": {
+  "map:pmap": 7,
+  "map:feasibility": 1,
+  "level1": 5,
+  "tornado": 5,
+  "o1e_roots": 1
+ }
+}

@@ -1,0 +1,181 @@
+{
+ "1000": {
+  "wall_unprofiled_note": "profiled wall includes cProfile overhead",
+  "profiled_wall_s": 117.19236965799973,
+  "step_year_calls": 10161,
+  "top20": [
+   {
+    "function": "~:0(<built-in method builtins.sum>)",
+    "calls": 536453,
+    "own_s": 13.842,
+    "cum_s": 19.45
+   },
+   {
+    "function": "household.py:28(apply_payment)",
+    "calls": 45373,
+    "own_s": 5.834,
+    "cum_s": 7.869
+   },
+   {
+    "function": "burden.py:126(m2)",
+    "calls": 18,
+    "own_s": 5.675,
+    "cum_s": 6.719
+   },
+   {
+    "function": "kernel.py:68(_div)",
+    "calls": 148674,
+    "own_s": 5.56,
+    "cum_s": 5.694
+   },
+   {
+    "function": "kernel.py:299(assess)",
+    "calls": 10827,
+    "own_s": 5.125,
+    "cum_s": 38.132
+   },
+   {
+    "function": "burden.py:140(_cash)",
+    "calls": 6,
+    "own_s": 5.125,
+    "cum_s": 5.604
+   },
+   {
+    "function": "arm.py:159(_restart)",
+    "calls": 10130,
+    "own_s": 5.075,
+    "cum_s": 5.8
+   },
+   {
+    "function": "kernel.py:241(_route_tax)",
+    "calls": 52346,
+    "own_s": 5.012,
+    "cum_s": 26.314
+   },
+   {
+    "function": "kernel.py:353(grow_and_consume)",
+    "calls": 10161,
+    "own_s": 4.458,
+    "cum_s": 4.791
+   },
+   {
+    "function": "household.py:46(household_step)",
+    "calls": 17540,
+    "own_s": 3.704,
+    "cum_s": 9.159
+   },
+   {
+    "function": "kernel.py:168(<genexpr>)",
+    "calls": 244916,
+    "own_s": 3.626,
+    "cum_s": 3.626
+   },
+   {
+    "function": "arm.py:132(pre)",
+    "calls": 10130,
+    "own_s": 3.457,
+    "cum_s": 31.795
+   },
+   {
+    "function": "kernel.py:100(add)",
+    "calls": 189326,
+    "own_s": 3.231,
+    "cum_s": 3.362
+   },
+   {
+    "function": "kernel.py:204(_credit)",
+    "calls": 94663,
+    "own_s": 3.167,
+    "cum_s": 4.483
+   },
+   {
+    "function": "schedule.py:34(tau)",
+    "calls": 15832,
+    "own_s": 2.971,
+    "cum_s": 2.995
+   },
+   {
+    "function": "arm.py:210(carry)",
+    "calls": 41852,
+    "own_s": 2.949,
+    "cum_s": 2.949
+   },
+   {
+    "function": "arm.py:182(_pay)",
+    "calls": 20423,
+    "own_s": 2.946,
+    "cum_s": 9.165
+   },
+   {
+    "function": "~:0(<built-in method numpy._npshort.sum_reduce>)",
+    "calls": 121931,
+    "own_s": 2.797,
+    "cum_s": 2.797
+   },
+   {
+    "function": "kernel.py:211(_refund_cash)",
+    "calls": 31389,
+    "own_s": 2.623,
+    "cum_s": 8.777
+   },
+   {
+    "function": "kernel.py:194(_move)",
+    "calls": 94663,
+    "own_s": 2.325,
+    "cum_s": 4.371
+   }
+  ],
+  "numpy_builtin_calls": 2054271,
+  "numpy_calls_per_step_year": 202.17212872748746,
+  "numpy_builtin_own_s": 6.54774826,
+  "all_builtin_own_s": 20.913262229,
+  "python_and_operator_own_s": 96.106263819,
+  "total_own_s": 117.019526048,
+  "wrapped_calls": 3579198,
+  "wrapped_median_size": 14000.0,
+  "wrapped_p90_size": 14000.0,
+  "wrapped_share_under_1000": 0.268119561980086,
+  "wrapped_by_function": {
+   "where": {
+    "calls": 1443245,
+    "median_size": 14000.0
+   },
+   "asarray": {
+    "calls": 1034090,
+    "median_size": 14.0
+   },
+   "maximum": {
+    "calls": 556411,
+    "median_size": 14000.0
+   },
+   "any": {
+    "calls": 159082,
+    "median_size": 14000.0
+   },
+   "minimum": {
+    "calls": 137054,
+    "median_size": 14000.0
+   },
+   "zeros": {
+    "calls": 126787,
+    "median_size": 1.0
+   },
+   "abs": {
+    "calls": 124657,
+    "median_size": 14000.0
+   },
+   "array": {
+    "calls": 31068,
+    "median_size": 1.0
+   },
+   "broadcast_to": {
+    "calls": 30983,
+    "median_size": 1.0
+   },
+   "full": {
+    "calls": 21097,
+    "median_size": 1.0
+   }
+  }
+ }
+}

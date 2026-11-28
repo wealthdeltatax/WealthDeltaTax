@@ -130,3 +130,10 @@ Entry format, newest at the bottom:
 - Files added after the map was written (166c's `reserve-diagnostic` folder and report) have no map row; the guru adds rows for them, or each stage reports them as `not_in_csv`.
 - The apply rewrites the `PINNED_ALLOWED` tokens inside `path_refs.py` and the candidate lists of `move_tripwire.py` as if they were references: restore them after each stage (164c: the same two files).
 - 180c: a spike that must beat a speed bar should name, in the brief, the profile share of the part it will compile; the brief's Touches left out `arm.py`, where 37% of the household year loop sits. 152c (shared year loop) removes one of the two loop runs per `core_run` and needs no new dependency; it may come before any compiled-kernel brief.
+
+### 179c: level 1 is array-bound; `builtins.sum` and the per-year `asarray` calls are the first targets
+- Found by: code / 179c, 2026-11-28
+- Where: `results/speedup/profile-after-154c.md` (profile table); `builtins.sum` is 536,000 calls per evaluation and 12% of own time at 1,000 paths (13.8 s of 117 s); `asarray` 1.03 million calls (median size 14), `where` 1.44 million; callers in `kernel.py`, `household.py` (`apply_payment`, `household_step`) and `burden.py` (`m2`, `_cash`)
+- Problem: level 1 (75% of `quick`) runs at 1,000-path chunks, 9% fixed time, 1.4x the floor of its numpy calls, so a compiled year loop (180c) will not help it. Python's built-in `sum` over numpy arrays or small lists is the one visible function over 10% of own time; replacing it with `np.sum` or a stacked array changes summation order, so each change needs a tolerance or byte-identity proof (171c).
+- Suggested lane: c (a brief for `builtins.sum` callers first, then 152c for the 24% that runs at 20 to 50 paths)
+- Status: open
