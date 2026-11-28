@@ -164,6 +164,8 @@ def check_g2(cfg: Config) -> Result:
     problems = []
     if run_.get('status') != 'final':
         problems.append(f'run.status is {run_.get("status")!r}, not final')
+    if 'parts' in run_:   # 178c: a partial run (--parts) is a development file, never the release data
+        problems.append(f'run.parts is {run_["parts"]!r}: a partial run is not the release run')
     if run_.get('fixture') is not False:
         problems.append(f'run.fixture is {run_.get("fixture")!r}, not false')
     manifest = cfg.root / cfg.manifest

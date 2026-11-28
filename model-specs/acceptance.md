@@ -36,6 +36,8 @@ It never passes `--final`. The final run is the author's act (G2); acceptance pr
 
 **Run script.** `python -m model_v3.run [--paths N] [--seed S] [--out DIR] [--smoke] [--final]` as `architecture.md` 6.5. Tested by the smoke test and by acceptance step 3.
 
+**Partial runs (`--parts`, 178c).** `--parts` takes a comma list from `level1,map,tornado,o1e` (default all four; `map` is required, because every part reads its named schedules). A subset is the same method on fewer parts, for the fast loop while variables change: the file carries `run.parts`, and the ids of a part not run are `{"cells": [], "not_run": "not_run_this_run"}` (`map` owns OF1 and CK1, `tornado` OT1, `o1e` O1e, `level1` every other id). The validator checks the requested parts only. A partial file is a development file: `--final`, `accept.sh` (step 5) and `check_gate.py` (G2) refuse it, and acceptance always runs the full default. A default run writes no `run.parts` and is byte-identical to the file before 178c.
+
 **Stage stop.** Each build stage ends when its tests pass, its change report is written and its branch is merged by the auto-merge rule; the next stage does not start before (R7). Each stage reports its files' line counts against the budgets of `architecture.md` 6.1 (the test `test_budget.py` does the count); a file over its budget fails the stage, and a stage more than 15% over its budget in total reports it before the next stage starts.
 
 ## 3. Each build stage: stop and criterion

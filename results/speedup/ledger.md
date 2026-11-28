@@ -23,3 +23,4 @@ One row per merged speed-up lever (rules: `project/agents/reference/code/speedup
 | 46065488130 | AMD EPYC 7763 | 1335 s | 17.97 s | 4.10 s | 35.95 s |
 
 Median 975 s; slowest 1335 s. Budget `QUICK_BUDGET_S` = 1670 s (slowest plus 25%; the brief's rule, median plus 25%, gives 1219 s, which the EPYC 7763 run would fail). All three are over the author's target of 10 minutes (600 s) by 1.6 to 2.2 times. The Xeon 8573C named in the brief did not come up in these three runs.
+| 178c | `--parts level1,map` (skips the tornado and O1e) | quick, five points, workers 1 (`quick_headlines`; bench.py not merged, wall time of `run.main`) | about 2,350 s (full `quick`, 151c/154c session figure, not re-timed) | 1,875 s | 1.25 | yes: default smoke byte-identical (`cmp`); every id a partial smoke ran equals the full smoke's | 2 cores, 8 GB, `NPY_DISABLE_CPU_FEATURES=X86_V4`; target 3 to 5 min not met; Actions figure is the author's |

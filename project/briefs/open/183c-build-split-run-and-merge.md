@@ -1,8 +1,8 @@
 # 183: Build the split final run and the exact merge
 
-- **Status:** hold; stage A merged 2026-11-27 (`split.py`, 17 tests); stage B waits for 178c (it edits `run.py`; 154c is merged)
+- **Status:** ready; stage A merged 2026-11-27, 178c merged 2026-11-28 (stage B onward)
 - **Agent:** 4
-- **Needs:** 178c
+- **Needs:** none
 - **Length:** 2
 - **Author/date:** K. Ogata with the guru, 2026-11-26
 - **Depends on:** 182c (design), 154c and 178c (both change `run.py`; build on top of them, not beside them)

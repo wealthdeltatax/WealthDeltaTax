@@ -59,7 +59,7 @@ STAT_FIELDS = {
 CELL_FIELDS = {"schedule", "horizon", "by", "line", "series"}
 # Stated markers a numeric field may carry instead of a number, per output id (089c): OF1 where no schedule passes the 75% threshold, CK1 and OF1 where a point was not run.
 MARKERS = {"OF1": {"none_passes_75", "not_run_this_point"}, "CK1": {"not_run_this_point"}}
-ENTRY_FIELDS = {"summary", "cells", "withheld", "withheld_by", "pending"}
+ENTRY_FIELDS = {"summary", "cells", "withheld", "withheld_by", "pending", "not_run"}
 NO_PAYER, NO_PAYER_IDS = "no_payer_at_launch", ("O2", "O2b", "O2c", "O2d", "OH1b", "OH1c", "OW3")   # a wealth band with no payer at launch under the schedule, and what derives from it (author, 2026-11-23)
 NOT_RUN = "not_run_this_point"                                                              # O1e ran at one scenario point only (author, 2026-11-23); accepted for O1e, in the centre slot
 PACK_LABELS = {"GBR": "UK"}                                                                   # stated mapping: pack code to manifest label (author, 2026-11-23)
@@ -75,7 +75,9 @@ RUN_REQUIRED = (
     "manifest_version", "manifest_sha256", "country_pack", "run_date",
     "status", "model_version", "inputs_sha256", "paths", "base_year",
 )
-RUN_FIELDS = set(RUN_REQUIRED) | {"fixture", "arm", "seed", "level2_draws", "level2_paths", "unfilled_paths"}
+RUN_FIELDS = set(RUN_REQUIRED) | {"fixture", "arm", "seed", "level2_draws", "level2_paths", "unfilled_paths", "parts"}
+PARTS = ("level1", "map", "tornado", "o1e")   # run.parts (178c): a partial run lists the parts it ran; a part not run leaves its ids as `not_run` entries. map = OF1, CK1; tornado = OT1; o1e = O1e; level1 = every other id
+PART_OF = {**{i: "map" for i in PENDING_IDS}, "OT1": "tornado", "O1e": "o1e"}
 ARMS = ("legacy", "household")   # run.arm: the name, or an object whose `arm` is the name (model_v3 runner/arm.py label); absent means legacy
 LEVEL2_FIELDS = {"tornado", "p10", "p90"}
 HOOKS_ID_RE = re.compile(r"^O[A-Z]?[0-9]+[a-z]?$")   # hooks.md section 4.1
@@ -287,6 +289,12 @@ class Validator:
                      f"{run['pack_country']!r} must equal run.country_pack {run['country_pack']!r}")
         for k in sorted(set(run) - RUN_FIELDS - set(added)):
             self.add("V12", "warning", "run", f"unknown field {k!r}")
+        if "parts" in run:   # 178c
+            p = run["parts"]
+            if not (isinstance(p, list) and p and all(x in PARTS for x in p) and "map" in p and len(set(p)) == len(p)):
+                self.add("V8", "error", "run.parts", f"must be a list of {', '.join(PARTS)} that includes map, found {p!r}")
+            elif self.mode == "final" or run.get("status") == "final":
+                self.add("V8", "error", "run.parts", "a partial run (run.parts) is never final: the release file is a full run")
         if "arm" in run and self.run_arm() not in ARMS:
             self.add("V8", "error", "run.arm", f"must be one of {ARMS} (or an object naming one in `arm`), found {run['arm']!r}")
         for t in (run["arm"].get("targets", []) if isinstance(run.get("arm"), dict) else []):   # a grid point that missed its closure target is labelled, with the figure reached beside the target (author, 2026-11-24)
@@ -348,6 +356,11 @@ class Validator:
         else:
             self.add_strict("V9", "run.inputs_sha256", msg)
 
+    def run_parts(self):
+        """run.parts as a tuple, or None when the file names none (a full run)."""
+        p = self.data.get("run", {}).get("parts") if isinstance(self.data.get("run"), dict) else None
+        return tuple(p) if isinstance(p, list) and all(x in PARTS for x in p) else None
+
     def run_arm(self):
         """The run's arm name: run.arm as a string or the `arm` of its label object; absent means legacy."""
         run = self.data.get("run")
@@ -370,6 +383,13 @@ class Validator:
         cells = entry.get("cells")
         if not isinstance(cells, list):
             self.add("V3", "error", oid, "cells missing or not an array")
+            return
+        parts = self.run_parts()
+        if "not_run" in entry or (parts is not None and PART_OF.get(oid, "level1") not in parts):   # 178c: an id of a part this run did not run carries the marker word, never a value
+            if parts is None or PART_OF.get(oid, "level1") in parts:
+                self.add("V7", "error", oid, "not_run is accepted only for an id of a part that run.parts leaves out")
+            elif entry.get("not_run") != NOT_RUN_RUN or cells:
+                self.add("V7", "error", oid, f"part {PART_OF.get(oid, 'level1')!r} was not run: the entry must be `not_run: {NOT_RUN_RUN}` with no cells")
             return
         if "pending" in entry:   # a labelled pending marker, never a value: only OF1 and CK1, no cells
             if oid not in PENDING_IDS:

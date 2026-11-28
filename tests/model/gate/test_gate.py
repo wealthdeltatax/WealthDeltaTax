@@ -74,7 +74,7 @@ def test_g2_each_condition(cfg):
     base = json.loads(out.read_text())
     for key, val, frag in [('status', 'provisional', 'not final'), ('fixture', True, 'not false'),
                            ('manifest_version', 'old', 'manifest_version'), ('manifest_sha256', 'ab', 'manifest_sha256'),
-                           ('inputs_sha256', 'ab', 'inputs_sha256')]:
+                           ('inputs_sha256', 'ab', 'inputs_sha256'), ('parts', ['level1', 'map'], 'run.parts')]:   # 178c: a partial run is refused
         d = json.loads(json.dumps(base))
         d['run'][key] = val
         out.write_text(json.dumps(d))
