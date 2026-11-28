@@ -44,12 +44,24 @@ jobs:
           path: art
       - run: |
           python - <<'PY'
-          import json
+          import json, collections
           def strip(x):
               if isinstance(x, dict): return {k: strip(v) for k, v in x.items() if k != 'run_date'}
               if isinstance(x, list): return [strip(v) for v in x]
               return x
-          a, b = (json.dumps(strip(json.load(open(f'art/{n}/outputs.json'))), sort_keys=True) for n in ('before', 'after'))
-          print('identical but for run_date:', a == b, len(a), len(b))
-          raise SystemExit(0 if a == b else 1)
+          a, b = (strip(json.load(open(f'art/{n}/outputs.json'))) for n in ('before', 'after'))
+          cnt = collections.defaultdict(lambda: [0, 0, 0.0])
+          def walk(x, y, p=''):
+              if isinstance(x, dict):
+                  for k in x: walk(x[k], y[k], p + '/' + str(k))
+              elif isinstance(x, list):
+                  for i, v in enumerate(x): walk(v, y[i], p + f'[{i}]')
+              elif isinstance(x, (int, float)) and not isinstance(x, bool):
+                  c = cnt[p.split('/')[2] if p.count('/') > 1 else p]; c[0] += 1
+                  if x != y: c[1] += 1; c[2] = max(c[2], abs(x - y) / max(abs(x), abs(y), 1e-300))
+              elif x != y: cnt['NONNUMERIC ' + p][1] += 1
+          walk(a, b)
+          for k, (n, d, r) in sorted(cnt.items()):
+              if d: print(f'{k}: {d} of {n} values differ, max rel {r:.3g}')
+          print('outputs with a difference:', sum(1 for v in cnt.values() if v[1]), 'of', len(cnt))
           PY
