@@ -33,3 +33,6 @@ Median 975 s; slowest 1335 s. Budget `QUICK_BUDGET_S` = 1670 s (slowest plus 25%
 | 179c | workers 0 (2 cores) | `quick` | 1,942 s | 1,210 s | 0.62 | not checked (measurement only) | as above |
 
 Level 1 is array-bound (9% fixed time, 1.4x the floor at 1,000 paths); tornado, map and roots are call-bound (3.5 to 4.1x the floor). See `profile-after-154c.md`.
+
+| 189c | `asum` (left-to-right add) instead of `builtins.sum` at 12 sites (tried, reverted, not adopted) | `core_run` 1,000 paths; full evaluation 1,000 paths | 14.9 s; 91.4 s | 17.0 s; 96.2 s | 1.14; 1.05 | yes at `eval_hh_20` and `eval_leg_20` (hash equal); not run further | 2 cores, `NPY_DISABLE_CPU_FEATURES=X86_V4`, `scale` best of 2; within the machine's 5 to 10% spread, so no gain seen; see array-passes-189c.md |
+| 189c | `_div` by `np.divide(where=)` (micro-test only, not applied) | one call, 280 and 14,000 elements | 2.9 us; 64 us | 2.3 us; 71 us | 0.78; 1.11 | yes (bytes) | micro-test, `array_pass_micro.py` |
