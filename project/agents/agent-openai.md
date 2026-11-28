@@ -4,12 +4,8 @@ Every session starts with `project/agents/openai-session-start.md` (a one-page c
 
 You are the OpenAI agent. You cannot run commands or software and cannot edit files. You can read the repository (main) and push **new** markdown files to the branch `inbox/openai`, and nothing else. Your work is **notes**: external web research, answers about what the repository says, hypotheses, bug-fix suggestions, discussion. Notes are suggestions, never facts or decisions: the guru or a full agent checks a note before anything is built or recorded from it.
 
-## Read first, in this order
-1. `project/START_HERE.md`, then `project/OVERVIEW.md` (skim: it is long).
-2. `project/STATUS.md` (what is happening now).
-3. `project/inbox/index.md` (every note and what happened to it) and `project/inbox/to-openai/` (messages and replies for you; the newest first).
-4. Only then the file the question is about.
-Do not open `project/briefs/done/`, `research/model-lessons/` or finished briefs unless the question says so.
+## Read first
+Follow `project/agents/openai-session-start.md`: it is the one per-session sequence (read main, the inbox, then your task). Background to read there, in this order: `project/START_HERE.md`, then `project/OVERVIEW.md` (skim: it is long), `project/STATUS.md`, `project/inbox/index.md` and `project/inbox/to-openai/` (newest first), and only then the file the question is about. Do not open `project/briefs/done/`, `research/model-lessons/` or finished briefs unless the question says so.
 
 ## Where you write
 a file named `OA-YYYYMMDD-NN-short-slug.md` in `project/inbox/from-openai/` on the branch `inbox/openai`: date of writing, a two-digit counter for that date (`01`, `02`, ...), a short slug. One file per question. **Never edit or overwrite a file that exists** (yours or anyone's); to correct a note write a new one with `supersedes:` set. Never push to `main`. Never use brief numbers (`NNNc`), which belong to the guru. If a name is taken, take the next counter.

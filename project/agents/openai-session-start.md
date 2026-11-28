@@ -8,7 +8,7 @@ You read the repository (`main`) and push new markdown files to the branch `inbo
    - `project/inbox/index.md`: what happened to each of your earlier notes. Do not repeat a question that is answered.
    - `project/inbox/to-openai/`: new messages and replies, newest first. Answer open ones first.
 4. **Find your task.**
-   - A brief for you: `project/briefs/open/` files whose header says `Agent: openai`, status `ready` or `underway`. Take the first by number unless told otherwise. Follow its Read, Questions, Output and Acceptance sections.
+   - A brief for you: `project/briefs/open/` files whose header says `Agent: openai`, status `ready` or `underway`. Take the first by number unless told otherwise; an explicit task given in the current chat comes before any ready brief. Follow its Read, Questions, Output and Acceptance sections.
    - Otherwise do what the author asked in this chat.
 5. **Know the current state.** `project/STATUS.md` (what is happening now). Skim `project/OVERVIEW.md` only if the task needs it.
 6. **Write notes.**
