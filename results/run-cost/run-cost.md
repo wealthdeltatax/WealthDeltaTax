@@ -231,7 +231,7 @@ Unit costs: level 1 = 30 units per point x 97.7 s (the `quick` unit time) x 5 po
 
 
 ## One year loop for the household arm (152c, 2026-11-28)
-Under the household arm `core_run` ran the kernel twice per schedule: `burden.line_flows` for the burden's line flows and `revenue.run_lines` for the ledger. The two walks are the same computation (checked: net flows agree to 1e-13 on 430 bn, and now byte-for-byte). `run_lines` takes a `burden.Tap` and feeds it each flow and year; `tap.flows()` is `line_flows`' dict, so the household arm walks the years once. The legacy arm is unchanged. The 179c estimate (help only the 24% at small sizes) assumed this removed redundant calls; it removes a whole kernel pass, which is array work as well, so level 1 gains too.
+Under the household arm `core_run` ran the kernel twice per schedule: `burden.line_flows` for the burden's line flows and `revenue.run_lines` for the ledger. The two walks are the same computation but for the ledger: `run_lines` keeps the public ledger, the burden's walk did not (kernel.py:184, 228-230), so 25 of the 27 grid schedules are byte-equal and 2 (steep: k_ln 2, ratio 0.25) differ by about 1e-7 of the net scale (tolerance rule, author 2026-11-28; `model-specs/metrics.md`). `run_lines` takes a `burden.Tap` and feeds it each flow and year; `tap.flows()` is `line_flows`' dict, so the household arm walks the years once. The legacy arm is unchanged. The 179c estimate (help only the 24% at small sizes) assumed this removed redundant calls; it removes a whole kernel pass, which is array work as well, so level 1 gains too.
 
 Measured on one `core_run` plus the headline results (`make_ev(..., heads=True)`), household arm, median_mid, 2 cores, `NPY_DISABLE_CPU_FEATURES=X86_V4`, serial, best of 2, old tree = main `cc3c844`:
 
@@ -241,4 +241,4 @@ Measured on one `core_run` plus the headline results (`make_ev(..., heads=True)`
 | 200 | 4.97 s | 2.79 s | 1.78x |
 | 1,000 | 18.25 s | 11.0 s | 1.66x |
 
-Proof: the full household evaluation (headlines and all groups) at 20 paths, three schedules, has the same hash on both trees; the flows of the shared walk equal `line_flows` to the byte (new test).
+Proof: the full household evaluation (headlines and all groups) at 20 paths, three schedules, has the same hash on both trees; the flows of the shared walk equal `line_flows` to the byte for those three, and stay within 1e-6 of the net scale on the whole 27-schedule grid (`test_shared_walk.py`). Movement of the outputs, old tree against new, `quick` size (Actions run 46136243148): 41 of 45 outputs byte-equal; O2 1 of 66 values (max rel 3.5e-4), O2b 7 of 200 (6.9e-2), O2c 6 of 222 (1.1e-2), O2d 6 of 66 (4.4e-3). Smoke: O2 6 values (4.6e-7), O2d 9 (2.0e-5), O5 15 (4.5e-8).
