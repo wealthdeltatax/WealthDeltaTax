@@ -261,25 +261,24 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
   // lanes:start
   var LANES = [
     { id: "1", name: "Agent 1 · Guru prime", note: "writes and hands out the briefs; reviews the pushes as they land" },
-    { id: "2", name: "Agent 2", note: "153c (Fewer evaluations per O1e root)" },
+    { id: "2", name: "Agent 2", note: "191c (Compute each distinct scenario spec once)" },
     { id: "3", name: "Agent 3", note: "" },
-    { id: "4", name: "Agent 4", note: "183c (Build the split final run and the exact me…), then 181c" },
+    { id: "4", name: "Agent 4", note: "181c (First full run, as the baseline and the te…)" },
     { id: "5", name: "Agent 5", note: "152c (One year loop shared by burden and ledger)" },
     { id: "6", name: "Agent 6", note: "190c (A rough size for fast refinement runs)" },
     { id: "O", name: "OpenAI agent (notes only)", note: "" },
-    { id: "E", name: "You · decisions", note: "decisions for 181c, 188g" },
+    { id: "E", name: "You · decisions", note: "decisions for 181c, 188g, 191c" },
     { id: "G", name: "Held", note: "188g (SWF redesign specification)" }
   ];
   // lanes:end
   // id, lane, (start session: ignored, computed from status and needs), length, status, title, needs [{id, soft}], text, files, tags
   // plan:start
   var B = [
-    { id: "152c", lane: "5", at: 0, len: 1, st: "ready", t: "One year loop shared by burden and ledger (household arm)", needs: [], why: "Under the household arm the burden run and the revenue and ledger run each walk the same years over the same lines.", files: "Named after 179c; at least runner/arm.py or switches.py, cor…" },
-    { id: "153c", lane: "2", at: 0, len: 1, st: "ready", t: "Fewer evaluations per O1e root", needs: [], why: "An O1e root is a bisection of [0, 15] to a tolerance of 1e-2: two end evaluations plus about 10 more, 12 in all.", files: "model/model_v3/runner/sweeps.py, model/model_v3/run.py (meth…" },
-    { id: "181c", lane: "4", at: 0, len: 1, st: "hold", t: "First full run, as the baseline and the template", needs: [{ id: "183c" }], why: "Run the final-size run once, split over Actions jobs, and keep it as (1) the reference every later change is compared with, and (2) the template for how a full run is started, recorded and read.", files: "results/final-run/ (new), results/speedup/ledger.md. The wor…" },
-    { id: "183c", lane: "4", at: 0, len: 2, st: "ready", t: "Build the split final run and the exact merge", needs: [], why: "Build what 182c designed: partial files from `run.py`, a merge module, a matrix job and a merge job in the workflow.", files: "Completed from 182c; expected: model/model_v3/run.py (partia…" },
+    { id: "152c", lane: "5", at: 0, len: 1, st: "under", t: "One year loop shared by burden and ledger (household arm)", needs: [], why: "Under the household arm the burden run and the revenue and ledger run each walk the same years over the same lines.", files: "Named after 179c; at least runner/arm.py or switches.py, cor…" },
+    { id: "181c", lane: "4", at: 0, len: 1, st: "author", t: "First full run, as the baseline and the template", needs: [], why: "Run the final-size run once, split over Actions jobs, and keep it as (1) the reference every later change is compared with, and (2) the template for how a full run is started, recorded and read.", files: "results/final-run/ (new), results/speedup/ledger.md. The wor…" },
     { id: "188g", lane: "G", at: 0, len: 2, st: "hold", t: "SWF redesign specification", needs: [], why: "Write the specification for the redesigned sovereign wealth fund (short reserve as the ring-fenced refund reserve, long reserve as stabiliser, the cap at short plus long, excess release as accelerated tax replacement, replacement time as the headline outcome), as ranges and labelled options to test, with the precedent evidence beside each choice.", files: "model-specs/ (a new specification file), project/decisions.m…" },
-    { id: "190c", lane: "6", at: 0, len: 1, st: "hold", t: "A rough size for fast refinement runs", needs: [], why: "The author refines the model by running it, reading rough numbers and checking by intuition that a change moves in the right direction.", files: "model/model_v3/run.py (stay within 120 lines; the size row a…" }
+    { id: "190c", lane: "6", at: 0, len: 1, st: "hold", t: "A rough size for fast refinement runs", needs: [], why: "The author refines the model by running it, reading rough numbers and checking by intuition that a change moves in the right direction.", files: "model/model_v3/run.py (stay within 120 lines; the size row a…" },
+    { id: "191c", lane: "2", at: 0, len: 1, st: "ready", t: "Compute each distinct scenario spec once", needs: [], why: "In the `quick` run the S_low and S_central scenario specs are identical (466 of 466 level 1 cells byte-equal), yet level 1, the tornado and the roots compute both: 153c estimates about 600 s of 1,942 s.", files: "model/model_v3/runner/ (the loops over scenario points), mod…" }
   ];
   // plan:end
   var byId = {}; B.forEach(function (b) { byId[b.id] = b; b.h = hueOf(b.id); });
@@ -408,7 +407,8 @@ git remote prune origin<button type="button" class="cp">Copy</button></pre>
     {"id": "branches", "t": "Delete the old remote branches", "tag": "now", "when": "Housekeeping; the guru never deletes remote branches", "why": "Merged and abandoned `brief/*` branches clutter the repository. Only you delete remote branches.", "steps": ["`git fetch --prune origin`", "`git branch -r --merged origin/main` lists the merged ones", "Delete those on GitHub (Branches page) or `git push origin --delete <name>`; keep `inbox/openai` and any branch of a brief that is not yet merged"], "qs": []},
     {"id": "tag", "t": "Tag the legacy models", "tag": "later", "when": "Any time", "why": "Mark the last commit with the legacy models before the clean-up as `legacy-models-2026-11`.", "steps": ["`git tag legacy-models-2026-11 <commit>` then `git push origin legacy-models-2026-11`"], "qs": []},
     {"id": "181c", "t": "181c: First full run, as the baseline and the te…", "tag": "decision", "when": "Needed for 181c", "why": "Run the final-size run once, split over Actions jobs, and keep it as (1) the reference every later change is compared with, and (2) the template for how a full run is started, recorded and read.", "steps": [], "qs": ["start the first full run, an author act because run.py refuses --final"], "bar": "181c"},
-    {"id": "188g", "t": "188g: SWF redesign specification", "tag": "decision", "when": "Needed for 188g", "why": "Write the specification for the redesigned sovereign wealth fund (short reserve as the ring-fenced refund reserve, long reserve as stabiliser, the cap at short plus long, excess release as accelerated tax replacement, replacement time as the headline outcome), as ranges and labelled options to test, with the precedent evidence beside each choice.", "steps": [], "qs": ["retired-tax switch (follow household wealth) to be specified here", "confirm the feasibility rule (F1 at least 75%, M2 short at most 2.0, M4a short at least 0)"], "bar": "188g"}
+    {"id": "188g", "t": "188g: SWF redesign specification", "tag": "decision", "when": "Needed for 188g", "why": "Write the specification for the redesigned sovereign wealth fund (short reserve as the ring-fenced refund reserve, long reserve as stabiliser, the cap at short plus long, excess release as accelerated tax replacement, replacement time as the headline outcome), as ranges and labelled options to test, with the precedent evidence beside each choice.", "steps": [], "qs": ["retired-tax switch (follow household wealth) to be specified here", "confirm the feasibility rule (F1 at least 75%, M2 short at most 2.0, M4a short at least 0)"], "bar": "188g"},
+    {"id": "191c", "t": "191c: Compute each distinct scenario spec once", "tag": "decision", "when": "Needed for 191c", "why": "In the `quick` run the S_low and S_central scenario specs are identical (466 of 466 level 1 cells byte-equal), yet level 1, the tornado and the roots compute both: 153c estimates about 600 s of 1,942 s.", "steps": [], "qs": ["is S_low equal to S_central by design? If the scenario register meant them to differ, which parameter is missing"], "bar": "191c"}
   // todo:end
   ];
   var TODO_BY_ID = {}, TODO_BY_BAR = {};

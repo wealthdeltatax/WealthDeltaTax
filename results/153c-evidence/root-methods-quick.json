@@ -1,0 +1,253 @@
+{
+ "bisect": {
+  "method": "bisect",
+  "seconds": 123.503127503,
+  "roots": [
+   {
+    "root": 11.217041015625,
+    "evals": 13
+   },
+   {
+    "root": 11.217041015625,
+    "evals": 13
+   },
+   {
+    "root": NaN,
+    "evals": 2
+   }
+  ],
+  "o1e": {
+   "cells": [
+    {
+     "by": {},
+     "hi": "not_run_this_run",
+     "horizon": "single",
+     "lo": "not_run_this_run",
+     "point": 11.2170410156,
+     "schedule": "S_low"
+    },
+    {
+     "by": {},
+     "hi": "not_run_this_run",
+     "horizon": "single",
+     "lo": "not_run_this_run",
+     "point": 11.2170410156,
+     "schedule": "S_central"
+    },
+    {
+     "by": {},
+     "hi": "not_run_this_run",
+     "horizon": "single",
+     "lo": "not_run_this_run",
+     "point": "no_sign_change_0_15",
+     "schedule": "S_high"
+    }
+   ],
+   "summary": "point_and_range"
+  },
+  "run": {
+   "arm": {
+    "arm": "household",
+    "central": false,
+    "failed": [],
+    "met": "5 of 5 points met their target",
+    "note": "range across all labelled scenario-grid points; no central value",
+    "o1e": {
+     "draws": 0,
+     "ends_0_15": {
+      "S_high": [
+       2.040705859503004,
+       4.022183734844649
+      ]
+     },
+     "fund_return": "market",
+     "note": "O1e at the first point only, fund_return=market (the safe fund ignores the generator mean)",
+     "point": "median_mid"
+    },
+    "points": [
+     "median_mid",
+     "max_mid",
+     "median_low",
+     "min_mid",
+     "median_high"
+    ],
+    "size": "quick",
+    "targets": [
+     {
+      "point": "median_mid",
+      "shortfalls": {},
+      "status": "met"
+     },
+     {
+      "point": "max_mid",
+      "shortfalls": {},
+      "status": "met"
+     },
+     {
+      "point": "median_low",
+      "shortfalls": {},
+      "status": "met"
+     },
+     {
+      "point": "min_mid",
+      "shortfalls": {},
+      "status": "met"
+     },
+     {
+      "point": "median_high",
+      "shortfalls": {},
+      "status": "met"
+     }
+    ],
+    "workers": 1
+   },
+   "base_year": 2025,
+   "country_pack": "UK",
+   "fixture": false,
+   "inputs_sha256": "bb613cfcd6678207d7cf1658d09f9971446ee1ee42639ea7fe71035fac0c5e22",
+   "level2_draws": 0,
+   "level2_paths": 50,
+   "levers_sha256": "1cfcc9c969f96c5222d5684f4dc4c2e3e18ae8f2614c41bc7d75e55dbfe99966",
+   "manifest_sha256": "6b003e930eea98e5555807a8a3bff9ada8d546cb861029f2acd89c3f2034bfee",
+   "manifest_version": "stage-A16-comparators-2026-11-22",
+   "model_version": "model_v3",
+   "pack_country": "GBR",
+   "pack_sha256": "5ac89a2db2dacb60d75d4cb37974fd481aaaf23cf59ad2aa8aa881f46ee3d72c",
+   "parts": [
+    "map",
+    "o1e"
+   ],
+   "paths": 1000,
+   "run_date": "2026-11-28",
+   "seed": 20261118,
+   "status": "provisional",
+   "unfilled_paths": 0
+  }
+ },
+ "illinois": {
+  "method": "illinois",
+  "seconds": 105.46556327299999,
+  "roots": [
+   {
+    "root": 11.21933444204475,
+    "evals": 9
+   },
+   {
+    "root": 11.21933444204475,
+    "evals": 9
+   },
+   {
+    "root": NaN,
+    "evals": 2
+   }
+  ],
+  "o1e": {
+   "cells": [
+    {
+     "by": {},
+     "hi": "not_run_this_run",
+     "horizon": "single",
+     "lo": "not_run_this_run",
+     "point": 11.219334442,
+     "schedule": "S_low"
+    },
+    {
+     "by": {},
+     "hi": "not_run_this_run",
+     "horizon": "single",
+     "lo": "not_run_this_run",
+     "point": 11.219334442,
+     "schedule": "S_central"
+    },
+    {
+     "by": {},
+     "hi": "not_run_this_run",
+     "horizon": "single",
+     "lo": "not_run_this_run",
+     "point": "no_sign_change_0_15",
+     "schedule": "S_high"
+    }
+   ],
+   "summary": "point_and_range"
+  },
+  "run": {
+   "arm": {
+    "arm": "household",
+    "central": false,
+    "failed": [],
+    "met": "5 of 5 points met their target",
+    "note": "range across all labelled scenario-grid points; no central value",
+    "o1e": {
+     "draws": 0,
+     "ends_0_15": {
+      "S_high": [
+       2.040705859503004,
+       4.022183734844649
+      ]
+     },
+     "fund_return": "market",
+     "note": "O1e at the first point only, fund_return=market (the safe fund ignores the generator mean)",
+     "point": "median_mid",
+     "root_method": "illinois"
+    },
+    "points": [
+     "median_mid",
+     "max_mid",
+     "median_low",
+     "min_mid",
+     "median_high"
+    ],
+    "size": "quick",
+    "targets": [
+     {
+      "point": "median_mid",
+      "shortfalls": {},
+      "status": "met"
+     },
+     {
+      "point": "max_mid",
+      "shortfalls": {},
+      "status": "met"
+     },
+     {
+      "point": "median_low",
+      "shortfalls": {},
+      "status": "met"
+     },
+     {
+      "point": "min_mid",
+      "shortfalls": {},
+      "status": "met"
+     },
+     {
+      "point": "median_high",
+      "shortfalls": {},
+      "status": "met"
+     }
+    ],
+    "workers": 1
+   },
+   "base_year": 2025,
+   "country_pack": "UK",
+   "fixture": false,
+   "inputs_sha256": "bb613cfcd6678207d7cf1658d09f9971446ee1ee42639ea7fe71035fac0c5e22",
+   "level2_draws": 0,
+   "level2_paths": 50,
+   "levers_sha256": "1cfcc9c969f96c5222d5684f4dc4c2e3e18ae8f2614c41bc7d75e55dbfe99966",
+   "manifest_sha256": "6b003e930eea98e5555807a8a3bff9ada8d546cb861029f2acd89c3f2034bfee",
+   "manifest_version": "stage-A16-comparators-2026-11-22",
+   "model_version": "model_v3",
+   "pack_country": "GBR",
+   "pack_sha256": "5ac89a2db2dacb60d75d4cb37974fd481aaaf23cf59ad2aa8aa881f46ee3d72c",
+   "parts": [
+    "map",
+    "o1e"
+   ],
+   "paths": 1000,
+   "run_date": "2026-11-28",
+   "seed": 20261118,
+   "status": "provisional",
+   "unfilled_paths": 0
+  }
+ }
+}

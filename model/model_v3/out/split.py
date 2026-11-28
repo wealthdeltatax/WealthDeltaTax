@@ -20,7 +20,7 @@ import numpy as np
 
 SCHEMA = 'wdt-split-partial/1'
 KINDS = ('plan', 'point', 'o1e-point', 'o1e')
-COMMON = ('size', 'seed', 'arm', 'n1', 'n2p', 'n2', 'tol', 'points', 'schedules', 'batch', 'git_sha', 'inputs', 'numerics')   # equal in every partial of a run
+COMMON = ('size', 'seed', 'arm', 'n1', 'n2p', 'n2', 'tol', 'points', 'schedules', 'batch', 'git_sha', 'inputs', 'numerics', 'parts')   # equal in every partial of a run
 HEADER = ('schema', 'kind', 'unit', 'workers', 'plan_sha256', 'draws_sha256') + COMMON   # `unit` is the identity and `workers` is not a result: neither is compared
 
 
@@ -29,9 +29,15 @@ class SplitError(ValueError):
 
 
 def enc(x):
-    """Floats (also numpy) as 'f:' + hex, through lists, tuples and dicts."""
+    """Floats (also numpy) as 'f:' + hex, through lists, tuples and dicts; numpy integers and bools as plain ones; a string that starts 'f:' or 'e:' gets 'e:' in front (dec strips it)."""
     if isinstance(x, (float, np.floating)):
         return 'f:' + float(x).hex()
+    if isinstance(x, np.bool_):
+        return bool(x)
+    if isinstance(x, np.integer):
+        return int(x)
+    if isinstance(x, str):
+        return 'e:' + x if x[:2] in ('f:', 'e:') else x
     if isinstance(x, dict):
         return {k: enc(v) for k, v in x.items()}
     return [enc(v) for v in x] if isinstance(x, (list, tuple, np.ndarray)) else x
@@ -39,7 +45,7 @@ def enc(x):
 
 def dec(x):
     if isinstance(x, str):
-        return float.fromhex(x[2:]) if x.startswith('f:') else x
+        return float.fromhex(x[2:]) if x.startswith('f:') else x[2:] if x.startswith('e:') else x
     if isinstance(x, dict):
         return {k: dec(v) for k, v in x.items()}
     return [dec(v) for v in x] if isinstance(x, list) else x
@@ -48,8 +54,8 @@ def dec(x):
 def dumps(partial: dict) -> bytes:
     try:
         return (json.dumps(partial, sort_keys=True, indent=1, allow_nan=False) + '\n').encode('utf-8')
-    except ValueError as e:
-        raise SplitError(f'a partial holds a non-finite number written as JSON (use enc): {e}') from None
+    except (ValueError, TypeError) as e:
+        raise SplitError(f'a partial holds a value JSON cannot carry (a non-finite number needs enc): {e}') from None
 
 
 def loads(raw: bytes) -> dict:
@@ -81,6 +87,8 @@ def header(kind, unit_, common: dict, workers=1, plan_sha256=None, draws_sha256=
     """The header of a partial: `common` holds exactly the COMMON fields. A unit that draws (o1e) carries the hash of the draws; every unit but `plan` that of the plan."""
     if kind not in KINDS or set(common) != set(COMMON):
         raise SplitError(f'header: kind {kind!r} or fields {sorted(set(common) ^ set(COMMON))} wrong')
+    if not isinstance(common['batch'], int) or isinstance(common['batch'], bool) or common['batch'] < 1:
+        raise SplitError(f"header: batch must be a whole number of draws, at least 1, not {common['batch']!r}")
     if (kind == 'plan') != (plan_sha256 is None) or (kind.startswith('o1e')) != (draws_sha256 is not None):
         raise SplitError(f'header: plan_sha256 and draws_sha256 are required for exactly the kinds that use them (kind {kind})')
     return dict(schema=SCHEMA, kind=kind, unit=unit_, workers=workers, plan_sha256=plan_sha256, draws_sha256=draws_sha256, **common)
@@ -93,9 +101,11 @@ def uid(h: dict) -> str:
 
 def expected(h: dict) -> list:
     """The units a run needs, from any header of it: the plan, one `point` per grid point, the `o1e-point` unit, and (n2 > 0) batches of `batch` draws of each schedule."""
-    us = [unit('plan')] + [unit('point', point=p) for p in h['points']] + [unit('o1e-point')]
+    us = [unit('plan')] + [unit('point', point=p) for p in h['points']] + [unit('o1e-point')] * ('o1e' in h['parts'])
+    if h['batch'] < 1:
+        raise SplitError(f"batch {h['batch']!r} is not at least 1")
     return [uid({'unit': u}) for u in us] + [uid({'unit': unit('o1e', schedule=s, a=a, b=min(a + h['batch'], h['n2']))})
-                                             for s in h['schedules'] for a in range(0, h['n2'], h['batch'])]
+                                             for s in h['schedules'] for a in range(0, h['n2'] * ('o1e' in h['parts']), h['batch'])]
 
 
 def check(files) -> dict:
@@ -103,11 +113,12 @@ def check(files) -> dict:
     by, raw = {}, {}
     for name, b in files:
         p = loads(b)
-        h = p.get('header') or {}
+        h = p.get('header') if isinstance(p, dict) else None
+        h = h if isinstance(h, dict) else {}
         if h.get('schema') != SCHEMA:
             raise SplitError(f"{name}: schema {h.get('schema')!r}, expected {SCHEMA!r}")
         if set(h) != set(HEADER) or h['kind'] not in KINDS:
-            raise SplitError(f"{name}: header fields {sorted(set(h) ^ set(HEADER))} wrong or kind {h['kind']!r} unknown")
+            raise SplitError(f"{name}: header fields missing or extra: {sorted(set(h) ^ set(HEADER))}; kind {h.get('kind')!r}")
         k = uid(h)
         if k in by and raw[k][1] != b:
             raise SplitError(f'unit {k}: {raw[k][0]} and {name} differ (a rerun must reproduce the first partial byte for byte)')

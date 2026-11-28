@@ -1,6 +1,6 @@
 # 152: One year loop shared by burden and ledger (household arm)
 
-- **Status:** ready; released by the author 2026-11-27 (the 180c profile already names it; 179c may refine)
+- **Status:** underway on `brief/152-shared-year-loop`; author accepted a 1e-6 relative tolerance for the household-arm burden outputs 2026-11-28
 - **Agent:** 5
 - **Needs:** ~179c
 - **Length:** 1

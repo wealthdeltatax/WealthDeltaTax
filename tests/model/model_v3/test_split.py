@@ -12,7 +12,7 @@ from model_v3.runner import runner as R
 
 ROOT = Path(__file__).parents[3]
 COMMON = dict(size='smoke', seed=1, arm='household', n1=50, n2p=20, n2=5, tol=0.01, points=['median_mid', 'max_mid'], schedules=['S_low', 'S_central', 'S_high'], batch=2,
-              git_sha='a' * 40, inputs={'manifest': 'm'}, numerics={'NPY_DISABLE_CPU_FEATURES': 'X86_V4', 'numpy': '2.5.3', 'probe': 'p'})
+              git_sha='a' * 40, inputs={'manifest': 'm'}, parts=['level1', 'map', 'tornado', 'o1e'], numerics={'NPY_DISABLE_CPU_FEATURES': 'X86_V4', 'numpy': '2.5.3', 'probe': 'p'})
 
 
 def partial(unit, plan_sha=None, draws='d1', body=None, **over):
@@ -118,3 +118,51 @@ def test_workers_and_the_unit_are_not_compared():
     files = run_files()
     p = sp.loads(files[1][1]); p['header']['workers'] = 4
     assert list(sp.check(files[:1] + [(files[1][0], sp.dumps(p))] + files[2:]))[1] == 'point:median_mid'
+
+
+def test_stage_b_a_header_with_a_missing_field_is_a_split_error_not_a_key_error():
+    files = run_files()
+    for field in ('kind', 'seed', 'unit'):
+        p = sp.loads(files[2][1]); del p['header'][field]
+        with pytest.raises(sp.SplitError, match='header fields missing'):
+            sp.check(files[:2] + [(files[2][0], sp.dumps(p))] + files[3:])
+    with pytest.raises(sp.SplitError, match='schema'):
+        sp.check([('x.json', b'[1]')])
+
+
+def test_stage_b_enc_handles_numpy_integers_and_bools_and_json_never_raises_a_type_error():
+    out = sp.loads(sp.dumps(sp.enc({'n': np.int64(3), 'b': np.bool_(True), 'i': np.int32(-2), 'f': np.float32(0.5), 'ok': True})))
+    assert out == {'n': 3, 'b': True, 'i': -2, 'f': 'f:' + float(np.float32(0.5)).hex(), 'ok': True} and type(out['b']) is bool
+    with pytest.raises(sp.SplitError, match='cannot carry'):
+        sp.dumps({'x': {1, 2}})
+
+
+@pytest.mark.parametrize('batch', [0, -3, 2.5, True, None])
+def test_stage_b_a_batch_below_one_is_refused_where_the_plan_is_built_and_where_it_is_read(batch):
+    with pytest.raises(sp.SplitError, match='batch'):
+        sp.header('plan', sp.unit('plan'), {**COMMON, 'batch': batch})
+    if isinstance(batch, int) and not isinstance(batch, bool):
+        with pytest.raises(sp.SplitError, match='batch'):
+            sp.expected({**COMMON, 'batch': batch})
+
+
+@pytest.mark.parametrize('s', ['f:0x1p+0', 'e:x', 'f:', 'e:', 'plain', 'e:f:1', '', 'f'])
+def test_stage_b_a_string_that_looks_like_a_float_or_an_escape_round_trips(s):
+    assert sp.dec(json.loads(sp.dumps(sp.enc({'s': [s]}))))['s'] == [s] and sp.dec(sp.enc(1.5)) == 1.5
+
+
+def test_stage_b_no_o1e_units_are_expected_without_the_part_and_every_unit_id_parses_back():
+    from model_v3 import run
+    assert sp.expected({**COMMON, 'parts': ['level1', 'map']}) == ['plan', 'point:median_mid', 'point:max_mid']
+    for k in sp.expected(COMMON):
+        assert sp.uid({'unit': run.parse_unit(k)}) == k
+    for bad in ('o1e:S_low:0', 'o1e:S_low:a:2', 'point', 'plan:x', 'rubbish'):
+        with pytest.raises(ValueError, match='--unit'):
+            run.parse_unit(bad)
+
+
+def test_no_workflow_step_passes_the_final_flag_and_the_split_jobs_exist():
+    import re, yaml
+    jobs = yaml.safe_load((ROOT / '.github/workflows/model-checks.yml').read_text(encoding='utf-8'))['jobs']
+    assert not [c for j in jobs.values() for st in j['steps'] for c in [st.get('run', '')] if re.search(r'--final\b', c)]
+    assert {'split-plan', 'split-points', 'split-o1e', 'split-merge', 'split-compare', 'split-proof'} <= set(jobs)

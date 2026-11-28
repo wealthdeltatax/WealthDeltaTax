@@ -1,8 +1,8 @@
 # 181: First full run, as the baseline and the template
 
-- **Status:** hold; draft, the author starts it
+- **Status:** author; ready to start (the first final-size split run is also the timing calibration; run.py refuses --final)
 - **Agent:** 4
-- **Needs:** 183c, 171c, 154c
+- **Needs:** none
 - **Length:** 1
 - **Asks:** start the first full run, an author act because run.py refuses --final
 - **Author/date:** K. Ogata with the guru, 2026-11-26
