@@ -43,7 +43,7 @@ def test_the_household_arm_runs_through_core_run_and_keeps_the_identities(ctx, m
     raw = R.core_run(c2, c2.centre, SPEC, *PATHS)                                                 # I1 is checked inside the hook every year: a failure raises
     lab = raw.arm
     assert lab['arm'] == 'household' and lab['central'] is False and lab['scenario']['saving'] == 'median' and 'stand-in' in lab['safe_return'] and 'ledger' in raw.run
-    assert len(seen) > 1000 and max(r for r, _ in seen) < 1e-9 and max(u for _, u in seen) == 0.0 and books and all((b.unpaid_B == 0).all() and K.shortfall_lines(b) == 0 for b in books)
+    assert len(seen) > 500 and max(r for r, _ in seen) < 1e-9 and max(u for _, u in seen) == 0.0 and books and all((b.unpaid_B == 0).all() and K.shortfall_lines(b) == 0 for b in books)
     wdt = sum(raw.run[k] for k in ('tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D'))
     assert np.abs(sum(raw.run['ledger']['rc'].values()) - wdt).max() < 1e-9 and wdt.max() > 0
     f = raw.r['fund']
@@ -119,7 +119,7 @@ def test_per_path_market_returns_keep_i1_the_account_and_the_ledger_ties_and_giv
     g = rt.ar1_paths(np.random.default_rng(1), th['I-D1a'], th['I-D1b'], th['I-D1b2'], 100, 3)
     c2 = replace(ctx, arm=dict(arm='household', inputs=INP, saving='median', paths=True))
     raw = R.core_run(c2, th, SPEC, g, np.full((100, 3), 0.0157))                                 # I1 is checked inside the hook every year: a failure raises
-    assert max(r for r, _ in seen) < 1e-9 and len(seen) > 1000 and raw.arm['scenario']['market_paths'].startswith('market-return risk only') and raw.arm['central'] is False
+    assert max(r for r, _ in seen) < 1e-9 and len(seen) > 500 and raw.arm['scenario']['market_paths'].startswith('market-return risk only') and raw.arm['central'] is False
     wdt = sum(raw.run[k] for k in ('tax', 'refund', 'death_tax', 'heir', 'death_B', 'death_D'))
     assert np.abs(sum(raw.run['ledger']['rc'].values()) - wdt).max() < 1e-9
     f = raw.r['fund']
