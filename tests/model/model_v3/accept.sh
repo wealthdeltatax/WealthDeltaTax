@@ -22,7 +22,7 @@ TMP=$(mktemp -d); TMP2=$(mktemp -d); trap '[ -n "${ACCEPT_KEEP:-}" ] || rm -rf "
 RUN="import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--size', 'quick', '--out', sys.argv[1], '--workers', sys.argv[2]])"   # python -I ignores the current directory, so -m model_v3.run cannot be found
 W=$(python -I -c "import os; m = int(next(l for l in open('/proc/meminfo') if l.startswith('MemTotal')).split()[1]) // 2**20; print(max(1, min(os.cpu_count() or 1, (m - 2) // 3)))")   # one worker per core, 3 GB each at most, 2 GB left for the parent (a level 1 unit peaks at 3.0 GB, 154c); the results do not depend on it
 echo "accept.sh: quick runs with --workers $W (nproc $(nproc), $(awk '/MemTotal/ {printf "%.0f", $2 / 2^20}' /proc/meminfo) GB)"
-python -I -m pytest tests/model/model_v3 -q -x -m "not converge"                          # 1
+python -I -m pytest tests/model/model_v3 -q -x -m "not converge and not split"                        # 1
 python -I -m pytest tests/model/model_v3/test_converge.py -q -m converge                  # 2
 python -I -c "$RUN" "$TMP" "$W"                                                        # 3
 python -I model/tools/validate_outputs.py "$TMP/outputs.json"                          # 4

@@ -101,8 +101,8 @@ jobs:
 
       - name: Model suite, without convergence and smoke
         run: |
-          echo '+ python -m pytest tests/model/model_v3 -q -m "not converge" --ignore=tests/model/model_v3/test_smoke.py'
-          python -m pytest tests/model/model_v3 -q -m "not converge" --ignore=tests/model/model_v3/test_smoke.py -p no:cacheprovider
+          echo '+ python -m pytest tests/model/model_v3 -q -m "not converge and not split" --ignore=tests/model/model_v3/test_smoke.py'
+          python -m pytest tests/model/model_v3 -q -m "not converge and not split" --ignore=tests/model/model_v3/test_smoke.py -p no:cacheprovider
 
       - name: Agent documents
         run: |

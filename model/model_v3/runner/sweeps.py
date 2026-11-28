@@ -147,14 +147,14 @@ def breakeven(f, lo, hi, tol=1e-3, maxit=60):
     return 0.5 * (lo + hi)
 
 
-def breakeven_return(ev, specs, mean_id, lo=0.0, hi=15.0, draws=None, tol=1e-2, workers=1):
+def breakeven_return(ev, specs, mean_id, lo=0.0, hi=15.0, draws=None, tol=1e-2, workers=1, point=True):
     """O1e: for each schedule the generator mean (percent a year) at which the short-window M1 is zero, other inputs central; with `draws` ({id: array}) one more
-    root per draw, in the same order, for the range. Returns {schedule: (point, [roots over draws])}."""
+    root per draw, in the same order, for the range. Returns {schedule: (point, [roots over draws])}. `point` False leaves the point root out (a batch of draws of a split run, 183c; the point is None)."""
     n = len(next(iter(draws.values()))) if draws else 0
-    units = [(s, j) for s in specs for j in [None] + list(range(n))]   # one root each (a serial bisection); the roots are independent
+    units = [(s, j) for s in specs for j in [None] * point + list(range(n))]   # one root each (a serial bisection); the roots are independent
     over = lambda j: {} if j is None else {i: float(v[j]) for i, v in draws.items() if i != mean_id}
     roots = dict(zip(units, pmap(lambda u: breakeven(lambda m: _mean(ev(specs[u[0]], {**over(u[1]), mean_id: m})['M1']['short']), lo, hi, tol), units, workers)))
-    return {s: (roots[s, None], [roots[s, j] for j in range(n)]) for s in specs}
+    return {s: (roots[s, None] if point else None, [roots[s, j] for j in range(n)]) for s in specs}
 
 
 def stress(ev, spec, mu, amps, T, period=10):

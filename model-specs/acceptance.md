@@ -14,7 +14,7 @@ Acceptance command: `bash tests/model/model_v3/accept.sh`
 
 | # | Step | Passes when |
 |---|---|---|
-| 1 | `python -I -m pytest tests/model/model_v3 -q -m "not converge"` | all stage tests of section 3, the rules tests (R4, R8, R9, R11) and the smoke test pass |
+| 1 | `python -I -m pytest tests/model/model_v3 -q -m "not converge and not split"` | all stage tests of section 3, the rules tests (R4, R8, R9, R11) and the smoke test pass |
 | 2 | `python -I -m pytest tests/model/model_v3/test_converge.py -q -m converge` | the convergence test of section 5 passes |
 | 3 | `python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(['--out', TMP])"` (provisional, starting sample sizes or larger) | exits 0 and the file validates |
 | 4 | `python model/tools/validate_outputs.py "$TMP/outputs.json"` | zero errors in provisional mode |
@@ -25,6 +25,8 @@ Acceptance command: `bash tests/model/model_v3/accept.sh`
 It never passes `--final`. The final run is the author's act (G2); acceptance proves the model could be run final, not that it was.
 
 **Numerics path.** Every digest and pin in this plan (the legacy digest of section 3, the `test_groups` pin, the tripwire baseline) is held on one numpy code path: `NPY_DISABLE_CPU_FEATURES=X86_V4`, which switches off numpy's AVX512 `exp`, `log` and `pow`; the AVX512 and AVX2 results differ in the last bits and, through values that are zero in theory, in some counts (`results/169c-numerics/difference-report.md`). `run.py` (via `model_v3/numerics.py`), the model conftest, the tripwire and the Actions workflow set the variable; on the author's machine it must be set in the shell for anything else that computes a number the pins cover. The acceptance command itself needs nothing extra.
+
+**Split runs (183c).** A run may be made of units that each write a partial file and a merge that writes the one `outputs.json` (`run.py --unit ...`, `--merge DIR`; design `results/split-run/design.md`). The merged file must equal the unsplit run's file byte for byte at the same size, seed, parts and run date; `tests/model/model_v3/test_split_proof.py` (`-m split`) shows it at smoke size, and the merge refuses a mismatched header. The acceptance command above does not run it.
 
 ## 2. Policies
 
