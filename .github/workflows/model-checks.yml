@@ -26,7 +26,15 @@ on:
         type: boolean
         default: false
       run_final_size:
-        description: 'Run the final-size grid split over five jobs (hours; never passes --final)'
+        description: 'Run the split run at final size: plan, one job per grid point, O1e in batches of 25 draws, merge (hours; 32 jobs; never passes --final)'
+        type: boolean
+        default: false
+      run_split_quick:
+        description: 'Run the split run at quick size and the unsplit quick run, then compare the two files byte for byte (183c; about 1 h)'
+        type: boolean
+        default: false
+      run_split_proof:
+        description: 'Run the split-equals-unsplit proof at smoke size on one runner (tests/model/model_v3/test_split_proof.py; about 1 h)'
         type: boolean
         default: false
 
@@ -326,6 +334,326 @@ jobs:
         with:
           name: accept-outputs
           path: acceptance/**/outputs.json
+
+      - name: Wall time
+        if: always()
+        run: echo "wall time $(( $(date +%s) - START )) s"
+
+  # 183c. The split run: plan, one job per grid point, O1e in batches, merge. Design: results/split-run/design.md. Each unit job writes one partial file; `merge` reads them all and
+  # writes the one outputs.json. The unsplit quick run and a `cmp` follow when run_split_quick is set. `--size final` is a size; the flag --final that the script refuses is not used.
+  split-plan:
+    name: 'split: plan (feasibility map, named schedules, the unit lists)'
+    if: ${{ github.event_name == 'workflow_dispatch' && (inputs.run_final_size || inputs.run_split_quick) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    outputs:
+      size: ${{ steps.plan.outputs.size }}
+      date: ${{ steps.plan.outputs.date }}
+      points: ${{ steps.plan.outputs.points }}
+      o1e: ${{ steps.plan.outputs.o1e }}
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned requirements, log the environment
+        run: |
+          echo "START=$(date +%s)" >> "$GITHUB_ENV"
+          pip install $PIP_PINS
+          git rev-parse HEAD
+          lscpu | grep -E 'Model name|^CPU\(s\)'
+
+      - name: Plan
+        id: plan
+        run: |
+          SIZE=${{ inputs.run_final_size && 'final' || 'quick' }}
+          echo "+ python -I -c 'run.main' --size $SIZE --unit plan --workers 4 --out partials"
+          python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(sys.argv[1:])" --size "$SIZE" --batch 25 --unit plan --workers 4 --out partials
+          python -I - "$SIZE" >> "$GITHUB_OUTPUT" <<'PY'
+          import json, sys; sys.path.insert(0, 'model')
+          from model_v3 import numerics  # noqa: F401
+          from model_v3.out import split as sp
+          from pathlib import Path
+          us = sp.expected(sp.loads(Path('partials/plan.json').read_bytes())['header'])[1:]
+          print('size=' + sys.argv[1]); print('date=' + __import__('datetime').datetime.now(__import__('datetime').timezone.utc).date().isoformat())
+          print('points=' + json.dumps([u for u in us if u.startswith('point:')])); print('o1e=' + json.dumps([u for u in us if u.startswith('o1e')]))
+          PY
+
+      - name: Upload the plan
+        uses: actions/upload-artifact@v4
+        with:
+          name: partial-plan
+          path: partials/plan*.json
+          retention-days: 14
+          overwrite: true
+
+      - name: Wall time
+        if: always()
+        run: echo "wall time $(( $(date +%s) - START )) s"
+
+  split-points:
+    name: 'split: ${{ matrix.unit }}'
+    needs: split-plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        unit: ${{ fromJSON(needs.split-plan.outputs.points) }}
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned requirements, log the environment
+        run: |
+          echo "START=$(date +%s)" >> "$GITHUB_ENV"
+          pip install $PIP_PINS
+          git rev-parse HEAD
+          lscpu | grep -E 'Model name|^CPU\(s\)'
+
+      - name: Get the plan
+        uses: actions/download-artifact@v4
+        with:
+          name: partial-plan
+          path: partials
+
+      - name: Unit
+        run: |
+          echo "+ run.py --unit ${{ matrix.unit }}"
+          python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(sys.argv[1:])" --size "${{ needs.split-plan.outputs.size }}" --batch 25 --unit "${{ matrix.unit }}" --plan-file partials/plan.json --workers 4 --out partials
+
+      - name: Upload the partial
+        if: always()
+        run: |
+          mkdir -p out; for f in partials/*; do case "$f" in */plan*.json) ;; *) cp "$f" out/ ;; esac; done
+          echo "NAME=partial-$(echo '${{ matrix.unit }}' | tr ':' '_')" >> "$GITHUB_ENV"
+
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.NAME }}
+          path: out/*.json
+          retention-days: 14
+          overwrite: true
+
+      - name: Wall time
+        if: always()
+        run: echo "wall time $(( $(date +%s) - START )) s"
+
+  split-o1e:
+    name: 'split: ${{ matrix.unit }}'
+    needs: split-plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        unit: ${{ fromJSON(needs.split-plan.outputs.o1e) }}
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned requirements, log the environment
+        run: |
+          echo "START=$(date +%s)" >> "$GITHUB_ENV"
+          pip install $PIP_PINS
+          git rev-parse HEAD
+          lscpu | grep -E 'Model name|^CPU\(s\)'
+
+      - name: Get the plan
+        uses: actions/download-artifact@v4
+        with:
+          name: partial-plan
+          path: partials
+
+      - name: Unit
+        run: |
+          echo "+ run.py --unit ${{ matrix.unit }}"
+          python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(sys.argv[1:])" --size "${{ needs.split-plan.outputs.size }}" --batch 25 --unit "${{ matrix.unit }}" --plan-file partials/plan.json --workers 4 --out partials
+
+      - name: Upload the partial
+        if: always()
+        run: |
+          mkdir -p out; for f in partials/*; do case "$f" in */plan*.json) ;; *) cp "$f" out/ ;; esac; done
+          echo "NAME=partial-$(echo '${{ matrix.unit }}' | tr ':' '_')" >> "$GITHUB_ENV"
+
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.NAME }}
+          path: out/*.json
+          retention-days: 14
+          overwrite: true
+
+      - name: Wall time
+        if: always()
+        run: echo "wall time $(( $(date +%s) - START )) s"
+
+  split-merge:
+    name: 'split: merge'
+    needs: [split-plan, split-points, split-o1e]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned requirements, log the environment
+        run: |
+          echo "START=$(date +%s)" >> "$GITHUB_ENV"
+          pip install $PIP_PINS
+          git rev-parse HEAD
+          lscpu | grep -E 'Model name|^CPU\(s\)'
+
+      - name: Get every partial
+        uses: actions/download-artifact@v4
+        with:
+          pattern: partial-*
+          merge-multiple: true
+          path: partials
+
+      - name: Merge (refuses a mismatched header, a missing unit, a duplicate that differs)
+        run: |
+          ls partials
+          python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(sys.argv[1:])" --size "${{ needs.split-plan.outputs.size }}" --batch 25 --merge partials --run-date "${{ needs.split-plan.outputs.date }}" --out merged
+
+      - name: Upload the merged file
+        uses: actions/upload-artifact@v4
+        with:
+          name: split-merged-outputs
+          path: merged/outputs.json
+          retention-days: 14
+          overwrite: true
+
+      - name: Wall time
+        if: always()
+        run: echo "wall time $(( $(date +%s) - START )) s"
+
+  split-unsplit:
+    name: 'split: the unsplit quick run, for the comparison'
+    needs: split-plan
+    if: ${{ inputs.run_split_quick && !inputs.run_final_size }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned requirements, log the environment
+        run: |
+          echo "START=$(date +%s)" >> "$GITHUB_ENV"
+          pip install $PIP_PINS
+          git rev-parse HEAD
+          lscpu | grep -E 'Model name|^CPU\(s\)'
+
+      - name: Unsplit quick run
+        run: |
+          python -I -c "import sys; sys.path.insert(0, 'model'); from model_v3 import run; run.main(sys.argv[1:])" --size quick --batch 25 --run-date "${{ needs.split-plan.outputs.date }}" --workers 4 --out unsplit
+
+      - name: Upload the unsplit file
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsplit-outputs
+          path: unsplit/outputs.json
+          retention-days: 14
+
+      - name: Wall time
+        if: always()
+        run: echo "wall time $(( $(date +%s) - START )) s"
+
+  split-compare:
+    name: 'split: merged equals unsplit (cmp)'
+    needs: [split-merge, split-unsplit]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: split-merged-outputs
+          path: merged
+      - uses: actions/download-artifact@v4
+        with:
+          name: unsplit-outputs
+          path: unsplit
+      - name: cmp
+        run: |
+          ls -l merged unsplit
+          cmp merged/outputs.json unsplit/outputs.json && echo 'IDENTICAL: the merged file equals the unsplit file byte for byte'
+
+  split-proof:
+    name: 'split proof (test_split_proof.py, smoke size, one runner)'
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_split_proof }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    concurrency:
+      group: model-checks-split-proof
+      cancel-in-progress: false
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install pinned requirements, log the environment
+        run: |
+          echo "START=$(date +%s)" >> "$GITHUB_ENV"
+          sudo apt-get install -y --no-install-recommends poppler-utils
+          pip install $PIP_PINS
+          git rev-parse HEAD
+          lscpu | grep -E 'Model name|^CPU\(s\)'
+
+      - name: Proof
+        run: |
+          echo '+ python -m pytest tests/model/model_v3/test_split_proof.py -q -m split'
+          python -m pytest tests/model/model_v3/test_split_proof.py -q -m split -p no:cacheprovider --junitxml=split-proof-junit.xml
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: split-proof-results
+          path: split-proof-junit.xml
 
       - name: Wall time
         if: always()

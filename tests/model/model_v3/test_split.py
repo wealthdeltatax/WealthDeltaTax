@@ -159,3 +159,10 @@ def test_stage_b_no_o1e_units_are_expected_without_the_part_and_every_unit_id_pa
     for bad in ('o1e:S_low:0', 'o1e:S_low:a:2', 'point', 'plan:x', 'rubbish'):
         with pytest.raises(ValueError, match='--unit'):
             run.parse_unit(bad)
+
+
+def test_no_workflow_step_passes_the_final_flag_and_the_split_jobs_exist():
+    import re, yaml
+    jobs = yaml.safe_load((ROOT / '.github/workflows/model-checks.yml').read_text(encoding='utf-8'))['jobs']
+    assert not [c for j in jobs.values() for st in j['steps'] for c in [st.get('run', '')] if re.search(r'--final\b', c)]
+    assert {'split-plan', 'split-points', 'split-o1e', 'split-merge', 'split-compare', 'split-proof'} <= set(jobs)
