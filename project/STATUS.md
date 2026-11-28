@@ -11,7 +11,7 @@ The audit is done (`research/model-audit/synthesis.md`). Model v3 is a range mod
 |---|---|---|
 | Agent 1 (guru prime) | reviewing pushes, writing briefs, housekeeping | review each push as it lands; write the SWF redesign specification after 151c and 154c |
 | Agent 2 | free |  |
-| Agent 3 | 179c (Re-profile after 151c and 154c, and decide…) |  |
+| Agent 3 | 189c (Fewer array passes in the household year l…) |  |
 | Agent 4 | 183c (Build the split final run and the exact me…) | 181c |
 | Agent 5 | 152c (One year loop shared by burden and ledger) | 153c |
 | Agent 6 | 187c (Set the C1 limits from measured seed noise) |  |

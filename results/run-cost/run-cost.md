@@ -200,3 +200,31 @@ Measured with `model/studies/run-cost/map_only.py` (household arm, `NPY_DISABLE_
 | whole quick map, workers 0 (2 cores) | 174.0 s | 33.1 s | 5.3x |
 
 The guess (about 330 s to under 100 s) holds: 329 s to 62 s. The results (points and OF1) are byte-identical in every case. What remains is the base `core_run`, the headlines and the OF1 retirement (`revenue.retire` per margin), about 19% of the old time.
+
+## Projections after 151c, 154c and 186c (179c, 2026-11-28)
+
+Basis: `results/speedup/profile-after-154c.md` (2 cores, 8 GB, `NPY_DISABLE_CPU_FEATURES=X86_V4`, household, one `quick` run per setting). This section replaces the projection tables above (150c to 154c) for planning; those stay as history.
+
+### `quick`
+
+| workers | wall | label |
+|---|---:|---|
+| serial (1) | 1,942 s (32 min) | **measured** here (level 1 1,465, tornado 352, map 59, roots 61, other 4) |
+| 2 (`--workers 0`, 2 cores) | 1,210 s (20 min) | **measured** here (level 1 1.52x, the other parts 1.94 to 1.96x) |
+| 4 | 954 to 1,335 s, median 975 s | **measured** on 4-core Actions runners (177c, three different CPUs); not measured on this machine (no 4 cores) |
+| 14 | about 530 s (9 min) | **estimated**: level 1 is 3 units per point, so 98 s per point, 488 s for five; the rest (476 s) divided by 12.6 (90% efficiency) is 38 s |
+
+Level 1 is the floor of a parallel `quick`: three units per point cannot use more than 3 workers. The author's 10-minute target (600 s) is met only at 14 workers, by estimate.
+
+### Final run (N1 10,000, N2 200, n2p 1,000; one-point O1e), hours
+
+Unit costs: level 1 = 30 units per point x 97.7 s (the `quick` unit time) x 5 points = 4.1 h serial (**estimated** from the quick measurement; 154c's note said 3.1 h from the old unit time, which 179c's `quick` run does not support). Tornado = 33 headline-only evaluations at 1,000 paths per point (1.42 s + 14.0 ms x 1,000 = 15.4 s each, fit from `scale.json`) x 5 = 0.7 h. O1e carried from the 151c section (4.6 h if no root brackets, 10.4 h smoke-like, 27.9 h if every root brackets); not re-measured here (the roots at quick size cost 61 s, which fits). Parallel divisors: 2 workers 1.52x (level 1, measured), 1.96x (other, measured); 4 workers 3.8x; 14 workers 12.6x (assumed, 30 units on 14 workers is 3 rounds, 0.41 h). Memory: 3 GB per unit at 1,000 paths, so 14 workers need 42 GB or more (a 16 GB machine holds 4).
+
+| workers | level 1 | tornado | O1e 4.6 / 10.4 / 27.9 h scenarios, total run | label |
+|---|---:|---:|---|---|
+| serial | 4.1 h | 0.7 h | 9.4 / 15.2 / 32.7 h | level 1 and tornado **estimated** from measured quick units; O1e carried (estimated) |
+| 2 | 2.7 h | 0.36 h | 5.5 / 8.6 / 17.8 h | **estimated**; speed-ups measured on `quick` |
+| 4 | 1.1 h | 0.18 h | 2.5 / 4.0 / 8.6 h | **estimated** |
+| 14 | 0.41 h | 0.06 h | 0.9 / 1.3 / 2.7 h | **estimated**, speed-up assumed |
+
+`accept.sh` runs the final run twice: double each figure. No final-size figure here is measured; the speed-ups are measured at `quick` size only.

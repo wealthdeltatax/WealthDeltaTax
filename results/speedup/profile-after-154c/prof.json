@@ -1,0 +1,360 @@
+{
+ "20": {
+  "wall_unprofiled_note": "profiled wall includes cProfile overhead",
+  "profiled_wall_s": 12.773803463999911,
+  "step_year_calls": 10161,
+  "top20": [
+   {
+    "function": "~:0(<built-in method builtins.sum>)",
+    "calls": 536453,
+    "own_s": 1.381,
+    "cum_s": 1.87
+   },
+   {
+    "function": "household.py:28(apply_payment)",
+    "calls": 45373,
+    "own_s": 1.151,
+    "cum_s": 1.601
+   },
+   {
+    "function": "household.py:46(household_step)",
+    "calls": 17540,
+    "own_s": 0.771,
+    "cum_s": 2.339
+   },
+   {
+    "function": "kernel.py:68(_div)",
+    "calls": 148674,
+    "own_s": 0.614,
+    "cum_s": 0.664
+   },
+   {
+    "function": "kernel.py:299(assess)",
+    "calls": 10827,
+    "own_s": 0.586,
+    "cum_s": 3.971
+   },
+   {
+    "function": "kernel.py:241(_route_tax)",
+    "calls": 52346,
+    "own_s": 0.532,
+    "cum_s": 2.657
+   },
+   {
+    "function": "arm.py:159(_restart)",
+    "calls": 10130,
+    "own_s": 0.511,
+    "cum_s": 0.625
+   },
+   {
+    "function": "kernel.py:100(add)",
+    "calls": 189326,
+    "own_s": 0.451,
+    "cum_s": 0.522
+   },
+   {
+    "function": "revenue.py:57(run_lines)",
+    "calls": 5,
+    "own_s": 0.386,
+    "cum_s": 6.174
+   },
+   {
+    "function": "arm.py:132(pre)",
+    "calls": 10130,
+    "own_s": 0.37,
+    "cum_s": 3.918
+   },
+   {
+    "function": "kernel.py:204(_credit)",
+    "calls": 94663,
+    "own_s": 0.291,
+    "cum_s": 0.559
+   },
+   {
+    "function": "arm.py:182(_pay)",
+    "calls": 20423,
+    "own_s": 0.262,
+    "cum_s": 1.105
+   },
+   {
+    "function": "kernel.py:353(grow_and_consume)",
+    "calls": 10161,
+    "own_s": 0.253,
+    "cum_s": 0.31
+   },
+   {
+    "function": "kernel.py:211(_refund_cash)",
+    "calls": 31389,
+    "own_s": 0.25,
+    "cum_s": 0.85
+   },
+   {
+    "function": "revenue.py:76(<lambda>)",
+    "calls": 100000,
+    "own_s": 0.219,
+    "cum_s": 0.35
+   },
+   {
+    "function": "schedule.py:34(tau)",
+    "calls": 15832,
+    "own_s": 0.196,
+    "cum_s": 0.203
+   },
+   {
+    "function": "~:0(<built-in method numpy.asarray>)",
+    "calls": 1055185,
+    "own_s": 0.192,
+    "cum_s": 0.192
+   },
+   {
+    "function": "arm.py:214(_check)",
+    "calls": 20423,
+    "own_s": 0.183,
+    "cum_s": 0.513
+   },
+   {
+    "function": "fromnumeric.py:86(_wrapreduction_any_all)",
+    "calls": 159086,
+    "own_s": 0.168,
+    "cum_s": 0.33
+   },
+   {
+    "function": "kernel.py:194(_move)",
+    "calls": 94663,
+    "own_s": 0.167,
+    "cum_s": 0.421
+   }
+  ],
+  "numpy_builtin_calls": 2054271,
+  "numpy_calls_per_step_year": 202.17212872748746,
+  "numpy_builtin_own_s": 0.680335586,
+  "all_builtin_own_s": 2.3346847840000002,
+  "python_and_operator_own_s": 10.355926945,
+  "total_own_s": 12.690611729,
+  "wrapped_calls": 3579198,
+  "wrapped_median_size": 280.0,
+  "wrapped_p90_size": 280.0,
+  "wrapped_share_under_1000": 0.9999564148169506,
+  "wrapped_by_function": {
+   "where": {
+    "calls": 1443245,
+    "median_size": 280.0
+   },
+   "asarray": {
+    "calls": 1034090,
+    "median_size": 14.0
+   },
+   "maximum": {
+    "calls": 556411,
+    "median_size": 280.0
+   },
+   "any": {
+    "calls": 159082,
+    "median_size": 280.0
+   },
+   "minimum": {
+    "calls": 137054,
+    "median_size": 280.0
+   },
+   "zeros": {
+    "calls": 126787,
+    "median_size": 1.0
+   },
+   "abs": {
+    "calls": 124657,
+    "median_size": 280.0
+   },
+   "array": {
+    "calls": 31068,
+    "median_size": 1.0
+   },
+   "broadcast_to": {
+    "calls": 30983,
+    "median_size": 1.0
+   },
+   "full": {
+    "calls": 21097,
+    "median_size": 1.0
+   }
+  }
+ },
+ "200": {
+  "wall_unprofiled_note": "profiled wall includes cProfile overhead",
+  "profiled_wall_s": 32.019880733000036,
+  "step_year_calls": 10161,
+  "top20": [
+   {
+    "function": "~:0(<built-in method builtins.sum>)",
+    "calls": 536453,
+    "own_s": 3.532,
+    "cum_s": 4.638
+   },
+   {
+    "function": "household.py:28(apply_payment)",
+    "calls": 45373,
+    "own_s": 2.249,
+    "cum_s": 3.054
+   },
+   {
+    "function": "kernel.py:299(assess)",
+    "calls": 10827,
+    "own_s": 1.465,
+    "cum_s": 9.967
+   },
+   {
+    "function": "arm.py:159(_restart)",
+    "calls": 10130,
+    "own_s": 1.46,
+    "cum_s": 1.699
+   },
+   {
+    "function": "household.py:46(household_step)",
+    "calls": 17540,
+    "own_s": 1.397,
+    "cum_s": 3.837
+   },
+   {
+    "function": "kernel.py:68(_div)",
+    "calls": 148674,
+    "own_s": 1.393,
+    "cum_s": 1.452
+   },
+   {
+    "function": "kernel.py:241(_route_tax)",
+    "calls": 52346,
+    "own_s": 1.31,
+    "cum_s": 6.596
+   },
+   {
+    "function": "kernel.py:353(grow_and_consume)",
+    "calls": 10161,
+    "own_s": 1.003,
+    "cum_s": 1.157
+   },
+   {
+    "function": "arm.py:132(pre)",
+    "calls": 10130,
+    "own_s": 0.993,
+    "cum_s": 9.139
+   },
+   {
+    "function": "kernel.py:100(add)",
+    "calls": 189326,
+    "own_s": 0.94,
+    "cum_s": 1.024
+   },
+   {
+    "function": "revenue.py:57(run_lines)",
+    "calls": 5,
+    "own_s": 0.871,
+    "cum_s": 15.383
+   },
+   {
+    "function": "schedule.py:34(tau)",
+    "calls": 15832,
+    "own_s": 0.842,
+    "cum_s": 0.852
+   },
+   {
+    "function": "burden.py:126(m2)",
+    "calls": 18,
+    "own_s": 0.83,
+    "cum_s": 1.075
+   },
+   {
+    "function": "arm.py:182(_pay)",
+    "calls": 20423,
+    "own_s": 0.811,
+    "cum_s": 2.873
+   },
+   {
+    "function": "kernel.py:204(_credit)",
+    "calls": 94663,
+    "own_s": 0.755,
+    "cum_s": 1.233
+   },
+   {
+    "function": "~:0(<built-in method numpy._npshort.sum_reduce>)",
+    "calls": 121931,
+    "own_s": 0.65,
+    "cum_s": 0.65
+   },
+   {
+    "function": "kernel.py:211(_refund_cash)",
+    "calls": 31389,
+    "own_s": 0.631,
+    "cum_s": 2.166
+   },
+   {
+    "function": "burden.py:140(_cash)",
+    "calls": 6,
+    "own_s": 0.622,
+    "cum_s": 0.734
+   },
+   {
+    "function": "kernel.py:194(_move)",
+    "calls": 94663,
+    "own_s": 0.55,
+    "cum_s": 1.097
+   },
+   {
+    "function": "arm.py:210(carry)",
+    "calls": 41852,
+    "own_s": 0.487,
+    "cum_s": 0.487
+   }
+  ],
+  "numpy_builtin_calls": 2054271,
+  "numpy_calls_per_step_year": 202.17212872748746,
+  "numpy_builtin_own_s": 1.9940190700000002,
+  "all_builtin_own_s": 5.880736742000001,
+  "python_and_operator_own_s": 26.018024648000004,
+  "total_own_s": 31.898761390000004,
+  "wrapped_calls": 3579198,
+  "wrapped_median_size": 2800.0,
+  "wrapped_p90_size": 2800.0,
+  "wrapped_share_under_1000": 0.27701317445975326,
+  "wrapped_by_function": {
+   "where": {
+    "calls": 1443245,
+    "median_size": 2800.0
+   },
+   "asarray": {
+    "calls": 1034090,
+    "median_size": 14.0
+   },
+   "maximum": {
+    "calls": 556411,
+    "median_size": 2800.0
+   },
+   "any": {
+    "calls": 159082,
+    "median_size": 2800.0
+   },
+   "minimum": {
+    "calls": 137054,
+    "median_size": 2800.0
+   },
+   "zeros": {
+    "calls": 126787,
+    "median_size": 1.0
+   },
+   "abs": {
+    "calls": 124657,
+    "median_size": 2800.0
+   },
+   "array": {
+    "calls": 31068,
+    "median_size": 1.0
+   },
+   "broadcast_to": {
+    "calls": 30983,
+    "median_size": 1.0
+   },
+   "full": {
+    "calls": 21097,
+    "median_size": 1.0
+   }
+  }
+ }
+}

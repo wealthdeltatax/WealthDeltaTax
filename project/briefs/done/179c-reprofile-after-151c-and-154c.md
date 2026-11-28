@@ -1,6 +1,6 @@
 # 179: Re-profile after 151c and 154c, and decide what is left
 
-- **Status:** ready; 151c and 154c merged 2026-11-27
+- **Status:** done, merged 2026-11-28
 - **Agent:** 3
 - **Needs:** 151c, 154c, 176c
 - **Length:** 1
@@ -41,8 +41,14 @@ None for the author.
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Resume:**
-- **State:** draft
+- **Done:** all five items measured and written up; `profile-after-154c.md`, projections in `run-cost.md`, ledger rows, suggestion entry.
+- **Next:** author reads the change report.
+- **Resume:** nothing to resume.
+- **State:** done
 <!-- progress:end -->
+
+## Change report
+- **What changed:** `model/studies/run-cost/profile_after_154c.py` (new); `results/speedup/profile-after-154c.md` and `profile-after-154c/` raw JSON (new); `run-cost.md` new projection section; `ledger.md` two rows; `project/brief-suggestions.md` one entry. No model code.
+- **Result:** `quick` is 1,942 s serial and 1,210 s on 2 cores. Level 1 is 75% of it. Level 1 is array-bound (9% fixed time, 1.4x the floor at 1,000 paths): decision-table row 3, no compile. Tornado, map and roots (24%) are call-bound (3.5 to 4.1x the floor, 100% of calls under 1,000 elements at 20 paths) with visible redundancy: row 2, 152c first. Estimates off by more than 30%: level 1 (+33%), tornado (-81%), map (-76%), roots (-80%); the last three predate 151c and 186c.
+- **Caveats:** one `quick` run per setting (32 and 20 minutes), not best of two. The floor counts visible numpy calls only (operators uncounted), so it is a lower bound. 4-worker `quick` figure is from Actions (177c); 14-worker and every final-size figure is estimated.
+- **Author questions:** none.
