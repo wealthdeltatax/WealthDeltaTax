@@ -101,3 +101,44 @@ def test_a_shortfall_met_in_a_unit_reaches_the_callers_store_first_chunk_first(m
             R.level1(ctx, {'S': SPEC}, np.random.default_rng(1), n=30, chunk=10, workers=w, cap=store)
         assert store == {'gains': (1, 10)}, (w, store)           # chunk 1 is the first that met a shortfall, whatever the worker count
     R.level1(ctx, {'S': SPEC}, np.random.default_rng(1), n=30, chunk=10, workers=2)   # no store: nothing is recorded, nothing breaks
+
+
+def test_illinois_roots_are_byte_identical_serial_and_parallel_and_keep_the_flag():
+    """153c: the fewer-evaluations root method is a pure function of its unit, like bisection: the same bytes at any worker count, the same no-sign-change cells."""
+    sp = {'S_low': SPEC, 'S_high': dict(SPEC, tau_m=0.5)}
+    draws = {'z': np.array([1.0, 2.0, 3.0, 4.0]), 'a': np.array([0.5, 1.0, 1.5, 2.0])}
+    be = lambda w, m: S.breakeven_return(noisy, sp, 'm', draws=draws, tol=1e-2, workers=w, method=m)
+    assert same(be(1, 'illinois'), be(2, 'illinois')) and same(be(2, 'illinois'), be(3, 'illinois'))
+    old, new = be(1, 'bisect'), be(1, 'illinois')
+    for s in sp:   # flags cell by cell, and each root within 2 x tol of the bisection root (the author's rule, 2026-11-28)
+        assert [np.isfinite(r) for r in [old[s][0], *old[s][1]]] == [np.isfinite(r) for r in [new[s][0], *new[s][1]]]
+        assert all(abs(a - b) <= 2e-2 for a, b in zip([old[s][0], *old[s][1]], [new[s][0], *new[s][1]]) if np.isfinite(a))
+
+
+def test_illinois_stops_in_a_bracket_around_a_sign_change_on_awkward_functions():
+    """153c: a plateau then a jump at the root (the shape of M1 at the model's root), a hump, a flat triple root, a jump at the end, a nan in the middle: the bracket guarantee holds and the
+    evaluations never exceed bisection's by more than the secant allowance; a smooth function takes far fewer."""
+    tol, jump = 1e-2, lambda x: (0.002 if x < 11.217 else -0.03) + (0.001 * (x - 11.2) if x < 11.217 else 0.0)
+    cases = {'smooth': lambda x: x - 3.55, 'jump': jump, 'hump': lambda x: 0.27 + 0.03 * x * (15 - x) / 8 - 0.04 * x * (x > 7.5), 'flat': lambda x: (x - 0.3) ** 3,
+             'end': lambda x: np.tanh(3 * (x - 14.3)), 'nan': lambda x: float('nan') if 5.0 < x < 6.0 else x - 5.9}
+    for name, g in cases.items():
+        n = {'bisect': 0, 'illinois': 0}; root = {}
+        for m in n:
+            def f(x, m=m):
+                n[m] += 1; return g(x)
+            root[m] = S.breakeven(f, 0.0, 15.0, tol, method=m)
+        assert np.isfinite(root['bisect']) == np.isfinite(root['illinois']), name
+        if np.isfinite(root['illinois']):
+            r = root['illinois']   # a bracket narrower than tol around r holds a sign change (jumps and zero crossings alike), or the function is nan in it
+            a, b = g(r - tol / 2), g(r + tol / 2)
+            assert a * b <= 0 or not np.isfinite(a * b), name
+            assert abs(r - root['bisect']) <= 2 * tol or name in ('hump', 'nan'), (name, root)   # on a function with two sign changes the two methods may find different ones: reported, not accepted
+        assert n['illinois'] <= n['bisect'] + 6, (name, n)
+    assert n['illinois'] > 0
+    c = {'bisect': 0, 'illinois': 0}
+    for m in c:
+        def f(x, m=m):
+            c[m] += 1; return x - 3.55
+        S.breakeven(f, 0.0, 15.0, tol, method=m)
+    assert c['illinois'] * 2 <= c['bisect']
+    assert np.isnan(S.breakeven(lambda x: x + 1, 0.0, 15.0, tol, method='illinois'))

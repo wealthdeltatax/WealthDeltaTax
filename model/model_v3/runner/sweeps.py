@@ -133,11 +133,37 @@ def tornado(ev, specs, rows, read, workers=1):
     return out
 
 
-def breakeven(f, lo, hi, tol=1e-3, maxit=60):
-    """The root of f on [lo, hi] by bisection, nan when f does not change sign there (never clipped)."""
+def _illinois(f, lo, hi, a, b, tol, steps=6, maxit=60):
+    """153c: the root of f on [lo, hi] (f(lo) = a and f(hi) = b of opposite sign) by Illinois secant steps, every one inside a bracket that keeps a sign change. It stops, as
+    bisection does, with a bracket narrower than tol and returns its midpoint. When the secant estimate settles (within tol/2 of the point just evaluated) it probes tol/2 beyond
+    that point, which closes the bracket if the sign changes there. Any doubt (a non-finite value, an estimate outside the bracket, a bracket not halved in two steps, `steps` secant steps
+    used) is a bisection step."""
+    last, side, n, sa, wid = None, 0, 0, np.sign(a), [hi - lo]
+    while hi - lo >= tol and n < maxit:
+        n += 1
+        x = 0.5 * (lo + hi)
+        if n <= steps and np.isfinite([a, b]).all() and a != b and not (n > 2 and hi - lo > 0.5 * wid[-2]):
+            x = hi - b * (hi - lo) / (b - a)
+            if last is not None and abs(x - last) < tol / 2:
+                x = last + (tol / 2 if x >= last else -tol / 2)
+            if not lo < x < hi:
+                x = 0.5 * (lo + hi)
+        v = f(x)
+        if sa * v > 0:
+            lo, a, b = x, v, (b / 2 if side == 1 else b); side = 1
+        else:
+            hi, b, a = x, v, (a / 2 if side == -1 else a); side = -1
+        last = x; wid.append(hi - lo)
+    return 0.5 * (lo + hi)
+
+
+def breakeven(f, lo, hi, tol=1e-3, maxit=60, method='bisect'):
+    """The root of f on [lo, hi] by bisection (`method='illinois'`: 153c, fewer evaluations, the same bracket guarantee), nan when f does not change sign there (never clipped)."""
     a, b = f(lo), f(hi)
     if not np.isfinite([a, b]).all() or a * b > 0:
         return float('nan')
+    if method == 'illinois':
+        return _illinois(f, lo, hi, a, b, tol, maxit=maxit)
     for _ in range(maxit):
         m = 0.5 * (lo + hi)
         v = f(m)
@@ -147,13 +173,13 @@ def breakeven(f, lo, hi, tol=1e-3, maxit=60):
     return 0.5 * (lo + hi)
 
 
-def breakeven_return(ev, specs, mean_id, lo=0.0, hi=15.0, draws=None, tol=1e-2, workers=1):
+def breakeven_return(ev, specs, mean_id, lo=0.0, hi=15.0, draws=None, tol=1e-2, workers=1, method='bisect'):
     """O1e: for each schedule the generator mean (percent a year) at which the short-window M1 is zero, other inputs central; with `draws` ({id: array}) one more
     root per draw, in the same order, for the range. Returns {schedule: (point, [roots over draws])}."""
     n = len(next(iter(draws.values()))) if draws else 0
     units = [(s, j) for s in specs for j in [None] + list(range(n))]   # one root each (a serial bisection); the roots are independent
     over = lambda j: {} if j is None else {i: float(v[j]) for i, v in draws.items() if i != mean_id}
-    roots = dict(zip(units, pmap(lambda u: breakeven(lambda m: _mean(ev(specs[u[0]], {**over(u[1]), mean_id: m})['M1']['short']), lo, hi, tol), units, workers)))
+    roots = dict(zip(units, pmap(lambda u: breakeven(lambda m: _mean(ev(specs[u[0]], {**over(u[1]), mean_id: m})['M1']['short']), lo, hi, tol, method=method), units, workers)))
     return {s: (roots[s, None], [roots[s, j] for j in range(n)]) for s in specs}
 
 

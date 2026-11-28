@@ -56,7 +56,7 @@ def reduce(oid, form, line, v):   # per-path arrays -> what assemble expects (au
     if not v.size: raise ValueError(f'{oid} {line}: no path has a value')
     return np.array([v.mean(), *np.percentile(v, (10, 90))])
 
-def run_point(ctx, inp, pt, named, man, n1, n2p, draws, seed, tol, be, w=1, parts=PARTS):
+def run_point(ctx, inp, pt, named, man, n1, n2p, draws, seed, tol, be, w=1, parts=PARTS, method='bisect'):
     """(output docs, level 1 info) of one grid point: level 1, the tornado (OT1) and, if `be`, O1e under the market fund, assembled provisionally."""
     cp = ctx if pt is None else replace(ctx, arm=dict(arm='household', inputs=inp, saving=POINTS[pt][0], regime=POINTS[pt][1]))
     st, cap, ends = rt.streams(seed), {}, {}
@@ -66,7 +66,7 @@ def run_point(ctx, inp, pt, named, man, n1, n2p, draws, seed, tol, be, w=1, part
         smp.update(osw.ot1(S.tornado(ev, named, {i: cp.reg[i] for i in cp.tier1}, R.reads(cp), workers=w)) if 'tornado' in parts else {})
         if be and 'o1e' in parts:   # first point only; the safe fund ignores the generator mean, so the household arm's O1e is read under the market fund (author, 2026-11-23)
             evm = ev if pt is None else R.make_ev(replace(cp, arm={**cp.arm, 'fund_return': 'market'}), eps, heads=True)
-            roots = S.breakeven_return(evm, named, R.RET['mean'], draws=draws, tol=tol, workers=w); smp.update(osw.o1e(roots) if draws else {'O1e': {(s, 'single', (), None): np.full(3, r) for s, (r, _) in roots.items()}})
+            roots = S.breakeven_return(evm, named, R.RET['mean'], draws=draws, tol=tol, workers=w, method=method); smp.update(osw.o1e(roots) if draws else {'O1e': {(s, 'single', (), None): np.full(3, r) for s, (r, _) in roots.items()}})
             ends = {s: [S._mean(evm(named[s], {R.RET['mean']: m})['M1']['short']) for m in (0.0, 15.0)] for s, (r, _) in roots.items() if not np.isfinite(r)}   # no root: the end values show the sign
     ents = asm.entries(man)
     smp.update({o: {k: reduce(o, ents[o]['summary'], k[3], v) for k, v in smp[o].items()} for o in smp if ents[o]['summary'] == 'point' or o in ('OR1', 'OT1')})
@@ -77,7 +77,7 @@ def main(argv=None):
     p = argparse.ArgumentParser()
     p.add_argument('--size', choices=SIZES, default='final'); p.add_argument('--paths', type=int); p.add_argument('--o1e-draws', type=int); p.add_argument('--workers', type=int, default=1)
     p.add_argument('--point', action='append', choices=list(POINTS)); p.add_argument('--seed', type=int, default=SEED); p.add_argument('--out', required=True); p.add_argument('--final', action='store_true')
-    p.add_argument('--arm', choices=('household', 'legacy'), default='household'); p.add_argument('--parts', default=','.join(PARTS))
+    p.add_argument('--arm', choices=('household', 'legacy'), default='household'); p.add_argument('--parts', default=','.join(PARTS)); p.add_argument('--root-method', choices=('bisect', 'illinois'), default='bisect')   # 153c
     a = p.parse_args(argv); ps = a.parts.split(','); parts = tuple(x for x in PARTS if x in ps)
     if set(ps) - set(PARTS) or 'map' not in ps: p.error(f'--parts: a comma list from {",".join(PARTS)} that includes map (every part reads its schedules), found {a.parts!r}')
     n1, n2p, n2, tol, npts = SIZES[a.size]
@@ -97,7 +97,7 @@ def main(argv=None):
     draws = R.draw_theta(st['level2_draws'], ctx, ctx.tier1, n2) if n2 and 'o1e' in parts else None; docs, failed, info, tg, ends = [], [], None, [], {}
     for pt in pts:
         try:
-            d, i, x = run_point(ctx, inp, pt, named, man, n1, n2p, draws, a.seed, tol, pt == pts[0], a.workers, parts)
+            d, i, x = run_point(ctx, inp, pt, named, man, n1, n2p, draws, a.seed, tol, pt == pts[0], a.workers, parts, a.root_method)
         except ValueError as exc:   # a point that fails its own checks (I1) is reported and left out, never repaired
             failed.append(f'{pt}: {str(exc)[:80]}'); continue
         docs.append(d); info = info or i; ends = ends or x['ends']; tg.append(dict(point=pt, status='target_not_met' if x['cap'] else 'met', shortfalls={k: dict(reached=v[0], target=v[1]) for k, v in x['cap'].items()}))
@@ -109,7 +109,7 @@ def main(argv=None):
     outs.update({oid: {'summary': asm.entries(man)[oid]['summary'], 'cells': [], 'pending': lab} for oid, lab in PENDING.items()})
     label = dict(arm='legacy', legacy_consumption=ctx.centre['I-D14c'], central=False, note='legacy result, not a calibrated forecast') if a.arm == 'legacy' else \
         dict(arm='household', central=False, points=[x for x in pts if not any(f.startswith(f'{x}:') for f in failed)], failed=failed, targets=tg, met=f"{sum(t['status'] == 'met' for t in tg)} of {len(tg)} points met their target", note='range across all labelled scenario-grid points; no central value',
-             o1e=dict(point=pts[0], fund_return='market', draws=n2, ends_0_15=ends, note='O1e at the first point only, fund_return=market (the safe fund ignores the generator mean)'), size=a.size, workers=a.workers)
+             o1e=dict(point=pts[0], fund_return='market', draws=n2, **({} if a.root_method == 'bisect' else dict(root_method=a.root_method)), ends_0_15=ends, note='O1e at the first point only, fund_return=market (the safe fund ignores the generator mean)'), size=a.size, workers=a.workers)
     run = wr.run_block(man, MANIFEST, INPUTS, LEVERS, dict(status='provisional', run_date=datetime.date.today().isoformat(), model_version='model_v3', paths=n1, base_year=int(str(ctx.pack.base_year)[:4]),
                        pack_country=ctx.pack.country, pack_sha256=ctx.pack.sha256, seed=a.seed, level2_draws=n2, level2_paths=n2p, unfilled_paths=info['unfilled_paths']['S_central'], arm=label))
     run |= {} if parts == PARTS else dict(parts=list(parts))   # a default run writes no `parts`: its file is unchanged
