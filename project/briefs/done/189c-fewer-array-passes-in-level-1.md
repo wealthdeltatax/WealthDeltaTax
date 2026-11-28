@@ -1,10 +1,9 @@
 # 189: Fewer array passes in the household year loop (level 1)
 
-- **Status:** ready
+- **Status:** done, no model change (stop note), merged 2026-11-28
 - **Agent:** 3
 - **Needs:** none
 - **Length:** 2
-- **Asks:** accept a tolerance (not byte-identity) for a change that alters summation order, if the proof shows no byte-identical form; if so, the size of the tolerance
 - **Author/date:** K. Ogata with the guru, 2026-11-28
 - **Depends on:** none (171c, 178c, 179c, 186c merged)
 - **Read:** `results/speedup/profile-after-154c.md` (sections 2 to 5) and `profile-after-154c/prof1000.json`; `project/brief-suggestions.md` entry "179c: level 1 is array-bound"; `model/model_v3/core/kernel.py`, `core/household.py` (`apply_payment`, `household_step`), `core/burden.py` (`m2`, `_cash`); `project/agents/reference/code/speedup.md`
@@ -33,8 +32,16 @@ A compiled kernel (180c, stopped), float32 or layout changes that alter results 
 
 ## Implementation notes
 <!-- progress:start -->
-- **Done:**
-- **Next:**
-- **Resume:**
-- **State:** draft
+- **Done:** baseline at 1,000 paths; step 1 (`asum`) tried and reverted; steps 2 and 3 measured in micro-tests; stop note in `results/speedup/array-passes-189c.md`.
+- **Next:** author reads the change report; 152c is the next lever.
+- **Resume:** nothing to resume.
+- **State:** done, no model change
 <!-- progress:end -->
+
+## Change report
+- **What changed:** no model code. `model/studies/run-cost/array_pass_micro.py` (new), `results/speedup/array-passes-189c.md` (new), two ledger rows, one suggestion entry.
+- **Result:** no change meets the bar. Step 1 (`builtins.sum` at 12 sites): byte-identical, but no gain seen at 1,000 paths (`core_run` 14.9 to 17.0 s, full evaluation 91.4 to 96.2 s, inside this machine's 5 to 10% spread); the 12% own time of `sum` is the numpy adds inside it. Step 2: `_div` by `divide(where=)` is byte-identical, 22% faster at 280 elements and 11% slower at 14,000. Step 3: `m2` with fewer masks is 6% faster and not byte-identical, so it would need your tolerance; not worth it (about 0.7% of `quick`).
+- **Projection:** none applied, so `quick` stays at 1,942 s serial and 1,210 s on 2 cores.
+- **Next target:** 152c (the shared year loop).
+- **Caveat:** timings are best of 2 on a 2-core machine with a 5 to 10% spread; a gain under about 7% could not be seen. No `quick` or smoke before-file was needed (no model file changed), and the 171c pins are untouched.
+- **Author questions:** none.

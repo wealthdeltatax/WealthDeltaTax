@@ -137,3 +137,10 @@ Entry format, newest at the bottom:
 - Problem: level 1 (75% of `quick`) runs at 1,000-path chunks, 9% fixed time, 1.4x the floor of its numpy calls, so a compiled year loop (180c) will not help it. Python's built-in `sum` over numpy arrays or small lists is the one visible function over 10% of own time; replacing it with `np.sum` or a stacked array changes summation order, so each change needs a tolerance or byte-identity proof (171c).
 - Suggested lane: c (a brief for `builtins.sum` callers first, then 152c for the 24% that runs at 20 to 50 paths)
 - Status: open
+
+### 189c: the single-operation rewrites of the level 1 year loop gain under noise; the lever is the number of passes
+- Found by: code / 189c, 2026-11-28
+- Where: `results/speedup/array-passes-189c.md`; `core/kernel.py` `_div`, `core/household.py` `apply_payment`, `core/burden.py` `m2`
+- Problem: `builtins.sum`'s own time is the numpy adds inside it (a left-to-right replacement gains at most about 3%); fusing `_div` is 22% faster at 20 paths and 11% slower at 1,000; `m2` with fewer masks is 6% faster but not byte-identical. None is worth a commit on its own.
+- Suggested lane: c (152c, the shared year loop, first; then a brief that skips work for lines that cannot pay, which needs the author's view on byte-identity)
+- Status: open
